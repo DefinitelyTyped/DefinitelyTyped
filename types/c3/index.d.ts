@@ -1238,15 +1238,48 @@ export interface ChartAPI {
     zoom: {
         /**
          * Zoom by giving x domain.
-         * @param domain If domain is given, the chart will be zoomed to the given domain. If no argument is given, the current zoomed domain will be returned.
+         * @param domain If given, the chart will be zoomed to the given domain.
+         * @returns `domain`, if given; otherwise the current zoom range of the chart.
          */
         (domain?: number[]): number[];
 
         /**
          * Enable and disable zooming.
-         * @param enabled If enabled is true, the feature of zooming will be enabled. If false is given, it will be disabled.
+         * @param enabled If enabled is `true`, the feature of zooming will be enabled. If `false` is given, it will be disabled.
          */
         enable(enabled: boolean): void;
+
+        /**
+         * Set or get the maximum x value of the chart for zooming.
+         * @param max The new maximum zoom value.
+         * @returns If `max` is _not_ given, will return the existing zoom value.
+         * 
+         */
+        max(): number;
+        max(max: number): void;
+
+        /**
+         * Set or get the minimum x value of the chart for zooming.
+         * @param min The new minimum zoom value.
+         * @returns If `min` is _not_ given, will return the existing zoom value.
+         * 
+         */
+        min(): number;
+        min(min: number): void;
+
+        /**
+         * Set or get both the max and min zoom values at the same time.
+         * @param range An object with max and/or min values.
+         * @returns If `range` is _not_ given, returns an object with current max and min zoom values.
+         */
+        range(): {
+            max: number;
+            min: number;
+        }
+        range(range: {
+            max?: number;
+            min?: number;
+        }): void;
     };
 
     /**
