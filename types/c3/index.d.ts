@@ -1438,7 +1438,46 @@ export interface ChartInternal {
         duration?: number;
     }) => void;
 
+    initPie: () => void;
+    updateRadius: () => void;
+    updateArc: () => void;
+    updateAngle: <T extends InternalArcD>(d: T) => T | null;
+    getSvgArc: () => {
+        (d: InternalArcD, withoutUpdate?: boolean): unknown | "M 0 0";
+        centroid: unknown;
+    }
+    getSvgArcExpanded: (rate?: number) => ((d: InternalArcD) => unknown | "M 0 0")
+    getArc: (d: InternalArcD, withoutUpdate?: boolean, force?: boolean) => unknown | "M 0 0";
+    transformForArcLabel: (d: InternalArcD) => string;
+    getArcRatio: (d: InternalArcD) => number | null;
+    convertToArcData: (d: InternalArcD) => unknown;
+    textForArcLabel: (d: InternalArcD) => unknown;
+    textForGaugeMinMax: <T extends unknown>(value: T, isMax: boolean) => T | unknown;
+    expandArg: (targetIds: ArrayOrString) => void;
+    unexpandArc: (targetIds: ArrayOrString) => void;
+    expandDuration: (id?: string) => number;
+    shouldExpand: (id?: string) => boolean;
+    shouldShowArcLabel: () => boolean;
+    meetsArcLabelThreshold: (ratio: number) => boolean;
+    getArcLabelFormat: () => unknown;
+    getGaugeLabelExtends: () => unknown;
+    getArcTitle: () => string;
+    updateTargetsForArc: (targets: unknown) => void;
+    initArc: () => void;
+    redrawArc: (duration: unknown, durationForExit: unknown, withTransform: unknown) => void;
+    initGauge: () => void;
+    getGaugeLabelHeight: () => number;
+
     [key: string]: any;
+}
+
+export interface InternalArcD {
+    data: {
+        id: string;
+    };
+    startAngle: number;
+    endAngle: number;
+    value: number;
 }
 
 export interface DataSeries {
