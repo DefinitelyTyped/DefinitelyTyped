@@ -15,9 +15,9 @@ declare class BottomBar extends UI {
      * Initializes a new instance of the `BottomBar` class.
      *
      * @param options
-     * The input- and output-stream of the ui.
+     * Provides options for the bottom-bar ui.
      */
-    constructor(options?: inquirer.StreamOptions);
+    constructor(options?: inquirer.ui.BottomBarOptions);
 
     /**
      * Renders the specified `text` to the bottom bar.

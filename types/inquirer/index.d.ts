@@ -859,6 +859,16 @@ declare namespace inquirer {
      */
     namespace ui {
         /**
+         * Provides options for the bottom-bar UI.
+         */
+        interface BottomBarOptions extends StreamOptions {
+            /**
+             * The initial text to display.
+             */
+            bottomBar?: string;
+        }
+
+        /**
          * Represents a fetched answer.
          *
          * @template T
