@@ -68,6 +68,10 @@ declare namespace algoliasearch {
      * remove an extra header for all upcoming requests
      */
     unsetExtraHeader(name: string): void;
+    /**
+     * add a header, used for flagging InstantSearch implementations
+     */
+    addAlgoliaAgent(agent: string): void;
   }
   /**
    * Interface for the index algolia object

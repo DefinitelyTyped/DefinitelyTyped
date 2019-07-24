@@ -241,6 +241,10 @@ declare namespace algoliasearch {
      * https://github.com/algolia/algoliasearch-client-js#get-logs---getlogs
      */
     getLogs(options: LogsOptions): Promise<{ logs: Log[] }>;
+    /**
+     * add a header, used for flagging InstantSearch implementations
+     */
+    addAlgoliaAgent(agent: string): void;
   }
   /**
    * Interface for the index algolia object
