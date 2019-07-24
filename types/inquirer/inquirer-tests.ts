@@ -1,3 +1,4 @@
+import "./test";
 import inquirer = require("inquirer");
 import InputPrompt = require("inquirer/lib/prompts/input");
 {
@@ -21,11 +22,11 @@ import InputPrompt = require("inquirer/lib/prompts/input");
     new inquirer.ui.Prompt(inquirer.prompt.prompts);
 }
 
-interface ChalkQuestionOptions extends inquirer.InputQuestionOptions {
+interface ChalkQuestionOptions<T extends inquirer.Answers = inquirer.Answers> extends inquirer.InputQuestionOptions<T> {
     previewColors: boolean;
 }
 
-interface ChalkQuestion extends ChalkQuestionOptions {
+interface ChalkQuestion<T extends inquirer.Answers = inquirer.Answers> extends ChalkQuestionOptions<T> {
     type: "chalk";
 }
 
@@ -37,7 +38,7 @@ inquirer.registerPrompt("chalk", ChalkPrompt);
 
 declare module "inquirer" {
     interface QuestionMap<T> {
-        chalk: ChalkQuestion;
+        chalk: ChalkQuestion<T>;
     }
 }
 
