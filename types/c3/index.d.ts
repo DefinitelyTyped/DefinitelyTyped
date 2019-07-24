@@ -911,6 +911,11 @@ export interface PointOptions {
     };
 }
 
+export interface ShowHideOptions {
+    /** Controls whether the legend will be shown or hidden along with the data. */
+    withLegend?: boolean;
+}
+
 export interface ChartAPI {
     /**
      * This API highlights specified targets and fade out the others.
@@ -930,22 +935,22 @@ export interface ChartAPI {
 
     /**
      * This API shows specified targets.
-     * You can specify multiple targets by giving an array that includes id as String. If no argument is given, all of targets will be shown.
-     * If withLegend is set true, legend will be shown together with the specified data.
+     * @param targetIds You can specify multiple data sets by giving an array of ID strings. If no argument is given, all of data will be shown.
+     * @param options Options object.
      */
-    show(targetIds?: ArrayOrString, options?: { withLegend: boolean }): void;
+    show(targetIds?: ArrayOrString, options?: ShowHideOptions): void;
     /**
      * This API hides specified targets.
-     * You can specify multiple targets by giving an array that includes id as String. If no argument is given, all of targets will be hidden.
-     * If withLegend is set true, legend will be hidden together with the specified data.
+     * @param targetIds You can specify multiple data sets by giving an array of ID strings. If no argument is given, all of data will be hidden.
+     * @param options Options object.
      */
-    hide(targetIds?: ArrayOrString, options?: { withLegend: boolean }): void;
+    hide(targetIds?: ArrayOrString, options?: ShowHideOptions): void;
     /**
      * This API toggles (shows or hides) specified targets.
-     * You can specify multiple targets by giving an array that includes id as String. If no argument is given, all of targets will be toggles.
-     * If withLegend is set true, legend will be toggled together with the specified data.
+     * @param targetIds You can specify multiple data sets by giving an array of ID strings. If no argument is given, all of data will be toggled.
+     * @param options Options object.
      */
-    toggle(targetIds?: ArrayOrString, options?: { withLegend: boolean }): void;
+    toggle(targetIds?: ArrayOrString, options?: ShowHideOptions): void;
     /**
      * Load data to the chart.
      * NOTE: unload should be used if some data needs to be unloaded simultaneously. If you call unload API soon after/before load instead of unload param, chart will not be rendered properly
