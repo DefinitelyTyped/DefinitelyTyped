@@ -9,7 +9,7 @@ declare class BottomBar extends UI {
     /**
      * Gets or sets a stream to write logs to.
      */
-    public log: ThroughStream;
+    log: ThroughStream;
 
     /**
      * Initializes a new instance of the `BottomBar` class.
