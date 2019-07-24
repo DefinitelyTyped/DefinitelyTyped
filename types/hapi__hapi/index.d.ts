@@ -171,14 +171,14 @@ export type Plugin<T> = PluginBase<T> & (PluginNameVersion | PluginPackage);
  * User extensible types user credentials.
  */
 export interface UserCredentials {
-    [key: string]: any,
+    [key: string]: any;
 }
 
 /**
  * User extensible types app credentials.
  */
 export interface AppCredentials {
-    [key: string]: any,
+    [key: string]: any;
 }
 
 /**
