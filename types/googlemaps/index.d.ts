@@ -995,13 +995,6 @@ declare namespace google.maps {
         text: string;
     }
 
-    interface MarkerShapePolyCoords extends Array<number> {
-        0: number;
-        1: number;
-        2: number;
-        3: number;
-    }
-
     interface MarkerShapeCircle {
         type: 'circle';
         /**
@@ -1027,7 +1020,7 @@ declare namespace google.maps {
          * Coords is **[x1,y1,x2,y2...xn,yn]** where each x,y pair contains the
          * coordinates of one vertex of the polygon.
          */
-        coords: MarkerShapePolyCoords;
+        coords: Array<number>;
     }
 
     /**
