@@ -454,9 +454,14 @@ declare namespace inquirer {
      * @template TChoiceMap
      * The choice-types to provide.
      */
-    type DistinctChoice<TChoiceMap = AllChoiceMap> =
+    type DistinctChoice<TChoiceMap> =
         string |
         TChoiceMap[keyof TChoiceMap];
+
+    /**
+     * Represents a set of choices.
+     */
+    type ChoiceCollection<T extends Answers = Answers> = DistinctChoice<AllChoiceMap>[];
 
     /**
      * Provides options for a question for the `InputPrompt`.
@@ -901,7 +906,7 @@ declare namespace inquirer {
             /**
              * The choices of the question.
              */
-            choices: DistinctChoice<AllChoiceMap<T>>;
+            choices: ChoiceCollection<T>;
         };
 
         /**
