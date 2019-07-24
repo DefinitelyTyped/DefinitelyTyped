@@ -284,6 +284,7 @@ declare namespace got {
         requestUrl: string;
         fromCache: boolean;
         redirectUrls?: string[];
+        retryCount: number;
     }
 
     type GotPromise<B extends Buffer | string | object> = Promise<Response<B>> & { cancel(): void };
