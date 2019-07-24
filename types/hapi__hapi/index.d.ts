@@ -202,7 +202,7 @@ export interface AuthCredentials {
     /**
      * Let user extend AuthCredentials.
      */
-    [key: string]: any,
+    [key: string]: any;
 }
 
 export type AuthMode = 'required' | 'optional' | 'try';
