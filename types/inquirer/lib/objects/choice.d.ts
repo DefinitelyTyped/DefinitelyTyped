@@ -41,6 +41,8 @@ declare class Choice<T extends inquirer.Answers = inquirer.Answers> implements
     disabled: boolean;
 
     /**
+     * The key to press for selecting the choice.
+     *
      * @inheritdoc
      */
     key?: string;
