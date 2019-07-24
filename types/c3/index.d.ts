@@ -1480,6 +1480,69 @@ export interface InternalArcD {
     value: number;
 }
 
+export interface AxisInternal <
+    T extends {d3: {scaleLinear: () => {
+        copy: () => unknown;
+        domain: () => unknown;
+    }}},
+    U extends {tickTextRotate: unknown}
+>{
+    (component: T, params?: U): void;
+    component: unknown;
+    params: U | {};
+    d3: T["d3"];
+    scale: ReturnType<T["d3"]["scaleLinear"]>;
+    range: unknown | undefined;
+    orient: string | "bottom";
+    innerTickSize: number;
+    outerTickSize: number;
+    tickPadding: number;
+    tickValues: unknown | null;
+    tickFormat: ((arg0: string) => string) | undefined;
+    tickArguments: unknown | undefined;
+    tickOffset: number;
+    tickCulling: boolean;
+    tickCentered: unknown | undefined;
+    tickTextCharSize: unknown | undefined;
+    tickTextRotate: U["tickTextRotate"];
+    tickLength: unknown;
+    axis: unknown;
+
+    axisX: <T extends unknown>(selection: {
+        attr: (arg0: string, cb: ((d: T) => string)) => unknown
+    }, x: (arg0: T) => number, tickOffset: number) => void;
+
+    axisT: <T extends unknown>(selection: {
+        attr: (arg0: string, cb: ((d: T) => string)) => unknown
+    }, y: (arg0: T) => number) => void;
+
+    scaleExtent: (domain: [number, number, ...number[]]) => [number, number];
+    generateTicks: <T extends {
+        ticks?: {
+            apply: (arg0: T, arg1: unknown) => T
+        };
+        domain: () => [number, number, ...number[]];
+        push(arg0: number): void;
+        unshift(arg0: number): void;
+    }>(scale: T) => T;
+    copyScale: () => ((arg0: [number, number]) => unknown);
+    textFormatted: (v: string) => string;
+    updateRange: () => this["range"];
+    updateTickTextCharSize: (tick: unknown) => this["tickTextCharSize"];
+    isVertical: () => boolean;
+    tspanData: <T extends number>(d: unknown, i: T, scale: unknown) => {index: T, splitted: unknown, length: number}[];
+    splitTickText: (d: string, scale: ((arg0: number) => number)) => unknown;
+    ellipsify: (splitted: string[], max: number) => string[];
+    updateTickLength: () => void;
+    lineY2: (d: unknown) => number;
+    textY: () => number;
+    textTransform: () => string;
+    textTextAnchor: () => string;
+    tspanDx: () => number;
+    tspanDy: (d: {length: number}, i: number) => string;
+    generateAxis: () => unknown;
+}
+
 export interface DataSeries {
     id?: string;
     id_org?: string;
