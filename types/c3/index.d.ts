@@ -26,6 +26,9 @@ export type ArrayOrString = string[] | string;
 export type YAxisName = "y" | "y2";
 export type AxisName = "x" | YAxisName;
 
+export type ChartType = "line" | "spline" | "step" | "area" | "area-spline" | "area-step" | "bar" | "scatter" | "stanford" | "pie" | "donut" | "gauge";
+
+
 export interface ChartConfiguration {
     /**
      * The CSS selector or the element which the chart will be set to. D3 selection object can be specified. If other chart is set already, it will be replaced with the new one (only one chart
@@ -374,12 +377,12 @@ export interface Data {
      * If this option is specified, the type will be applied to every data. This setting can be overwritten by data.types.
      * Available Values: line, spline, step, area, area-spline, area-step, bar, scatter, pie, donut, gauge
      */
-    type?: string;
+    type?: ChartType;
     /**
      * Set chart type for each data.
      * This setting overwrites data.type setting.
      */
-    types?: { [key: string]: string };
+    types?: { [key: string]: ChartType };
     /**
      * Show labels on each data points or set formatter function for data labels.
      * The formatter function receives 4 arguments such as v, id, i, j and it must return a string that will be shown as the label. The arguments are:
@@ -1055,9 +1058,9 @@ export interface ChartAPI {
     /**
      * Change the type of the chart.
      * @param type Specify the type to be transformed. The types listed in data.type can be used.
-     * @param targetIds Specify targets to be transformed. If not given, all targets will be the candidate.
+     * @param targetIds Specify target data IDs to be transformed. If not given, all targets will be the candidate.
      */
-    transform(type: string, targetIds?: ArrayOrString): void;
+    transform(type: ChartType, targetIds?: ArrayOrString): void;
     /**
      * Update groups for the targets.
      * @param groups An array of groups, each with an array of data IDs defining members of the groups.
@@ -1159,14 +1162,18 @@ export interface ChartAPI {
     color(id: string): string;
 
     /**
-     * Get and set x values for the chart.
-     * @param x If x is given, x values of every target will be updated. If no argument is given, current x values will be returned as an Object whose keys are the target ids.
+     * Get and set x values for the chart. Same as `xs` method. 
+     * @param x If given, x values of every target will be updated.
+     * @returns A map of data IDs to their x IDs after running this function.
      */
-    x(x?: PrimitiveArray): PrimitiveArray;
+    x(x?: {
+        [key: string]: PrimitiveArray;
+    }): { [key: string]: PrimitiveArray };
 
     /**
-     * Get and set x values for the chart.
-     * @param x If x is given, x values of every target will be updated. If no argument is given, current x values will be returned as an Object whose keys are the target ids.
+     * Get and set x values for the chart. Same as `x` method.
+     * @param x If given, x values of every target will be updated.
+     * @returns A map of data IDs to their x IDs after running this function.
      */
     xs(xs?: {
         [key: string]: PrimitiveArray;
@@ -1285,7 +1292,7 @@ export interface ChartInternal {
     config: InternalConfig;
     data: {
         targets: DataSeries[];
-        [key: string]: unknown;
+        xs: { [key: string]: PrimitiveArray };
     };
     cache: unknown;
     axes: unknown;
@@ -1324,6 +1331,10 @@ export interface ChartInternal {
     subxx?: (d: Record<string, unknown>) => unknown | null;
     transformMain?: (withTransition: boolean, transitions: Record<string, unknown>) => void;
     transformAll?: (withTransition: boolean, transitions: Record<string, unknown>) => void;
+    transformTo: (targetIds: ArrayOrString, type: ChartType, optionsForRedraw: {
+        withTransform?: boolean;
+        withTransitionForAxis?: boolean;
+    } | null) => void;
     updateSvgSize?: () => void;
     updateDimension?: (withoutAxis: boolean) => void;
     observeInserted?: <T extends { node: () => Node }>(selection: T) => void;
@@ -1374,7 +1385,7 @@ export interface ChartInternal {
 
     /** True if currently flowing. */
     flowing?: boolean;
-    generateFlow?: (args: {
+    generateFlow: (args: {
         targets: DataSeries[];
         flow: {
             index?: unknown;
