@@ -137,7 +137,7 @@ declare namespace inquirer {
         /**
          * Prompts the questions to the user.
          */
-        <T>(questions: QuestionCollection<T>): Promise<T> & { ui: typeof PromptUI };
+        <T>(questions: QuestionCollection<T>): Promise<T> & { ui: PromptUI };
 
         /**
          * Registers a new prompt-type.
