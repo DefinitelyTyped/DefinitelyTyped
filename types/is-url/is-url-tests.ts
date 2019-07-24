@@ -1,4 +1,4 @@
-import isUrl = require('is-url');
+import * as isUrl from 'is-url';
 
 var isValid0: boolean = isUrl('https://github.com/segmentio/is-url');
 var isValid1: boolean = isUrl('hogepiyo');

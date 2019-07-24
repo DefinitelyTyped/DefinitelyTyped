@@ -7,3 +7,4 @@
 export = isUrl
 
 declare const isUrl: (string: string) => boolean;
+// declare function isUrl(str: string): boolean;
