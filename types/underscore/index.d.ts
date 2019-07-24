@@ -5657,13 +5657,13 @@ declare module _ {
         * Wrapped type `number`.
         * @see _.after
         **/
-        after(times: number): _Chain<T, V>;
+        after<F extends Function>(fn: F): _ChainSingle<F>;
 
         /**
         * Wrapped type `number`.
         * @see _.before
         **/
-        before(times: number): _Chain<T, V>;
+        before<F extends Function>(fn: F): _ChainSingle<F>;
 
         /**
         * Wrapped type `Function`.
@@ -5721,7 +5721,7 @@ declare module _ {
         * Wrapped type `object`.
         * @see _.invert
         **/
-        invert(): _Chain<string, Dictionary<string>>;
+        invert(): _Chain<any, Dictionary<any>>;
 
         /**
         * Wrapped type `object`.
@@ -5977,7 +5977,7 @@ declare module _ {
         mixin(obj: any): _ChainSingle<undefined>;
 
         /**
-         * Wrapped type `IterateePropertyShorthand|Function|IterateeMatcherShorthand<T>`.
+        * Wrapped type `IterateePropertyShorthand|Function|IterateeMatcherShorthand<T>`.
         * @see _.iteratee
         **/
         iteratee(context?: any): _ChainSingle<Predicate<any>>;

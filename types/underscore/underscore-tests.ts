@@ -628,7 +628,7 @@ function chain_tests() {
   }
 
   var lastN = _.chain([1, 2, 3, 4]).last(3).value().length;
-  var fisrtN = _.chain([1, 2, 3, 4]).first(3).value().length;
+  var firstN = _.chain([1, 2, 3, 4]).first(3).value().length;
   var drop = _.chain([1, 2, 3, 4]).drop().value().length;
 
   var part: number[][] = _.chain([0, 1, 2, 3, 4, 5]).partition(n => n % 2 == 0).value();
@@ -663,8 +663,9 @@ function chain_tests() {
   var throttle: (s: string) => void = _.chain(alert).throttle(5).value();
   var debounce: (s: string) => void = _.chain(alert).debounce(5).value();
   var once: (s: string) => void = _.chain((s: string) => console.log(s, s)).once().value();
-  var after: (s: string) => void = _.chain((s: string) => console.log(s, s)).after(1).value();
-  var before: (s: string) => void = _.chain((s: string) => console.log(s, s)).before(2).value();
+
+  var after: (s: string) => void = _.chain(1).after((s: string) => console.log(s, s)).value();
+  var before: (s: string) => void = _.chain(2).before((s: string) => console.log(s, s)).value();
   var restArgs: Function = _.chain((a: number, b: string[]) => console.log(a, b))
     .restArgs(1)
     .value();
@@ -685,6 +686,7 @@ function chain_tests() {
     .value();
   var paired: Array<[string, number]> = _.chain({a: 1, b: 2}).pairs().value();
   var inverted: {[key: string]: string} = _.chain({a: 'b', b: 'a'}).invert().value();
+  var invertedArray: {[key: string]: number} = _.chain(['a', 'b', 'c']).invert().value();
   var functions: string[] = _.chain(_).functions().value();
   var methods: string[] = _.chain(_).methods().value();
   var extend: {[key: string]: number} = _.chain({a: 1, b: 2}).extend({c: 3}, {d: 4}).value();
