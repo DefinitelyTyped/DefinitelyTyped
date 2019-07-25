@@ -28,7 +28,7 @@ QRCode.toDataURL([
     console.log(url);
 });
 
-QRCode.toCanvas('text', { errorCorrectionLevel: 'H' }, (err, canvas) => {
+QRCode.toCanvas('text', { errorCorrectionLevel: 'H', width: 300 }, (err, canvas) => {
     if (err) throw err;
 });
 

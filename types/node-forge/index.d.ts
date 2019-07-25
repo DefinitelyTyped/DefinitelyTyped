@@ -257,6 +257,8 @@ declare module "node-forge" {
 
         function certificateFromAsn1(obj: asn1.Asn1, computeHash?: boolean): Certificate;
 
+        function certificateToAsn1(cert: Certificate): asn1.Asn1;
+
         function decryptRsaPrivateKey(pem: PEM, passphrase?: string): PrivateKey;
 
         function createCertificate(): Certificate;
@@ -566,10 +568,10 @@ declare module "node-forge" {
             content?: string | util.ByteBuffer;
             contentInfo?: { value: any[] };
 
-            addCertificate(certificate: pki.Certificate): void;
+            addCertificate(certificate: pki.Certificate | string): void;
             addSigner(options: {
                 key: string;
-                certificate: pki.Certificate;
+                certificate: pki.Certificate | string;
                 digestAlgorithm: string;
                 authenticatedAttributes: { type: string; value?: string }[];
             }): void;

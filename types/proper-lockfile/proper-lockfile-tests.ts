@@ -48,3 +48,6 @@ unlockSync('some/file'); // $ExpectType void
 unlockSync('', { lockfilePath: 'some/file-lock' }); // $ExpectType void
 checkSync('some/file'); // $ExpectType boolean
 checkSync('', { lockfilePath: 'some/file-lock' }); // $ExpectType boolean
+
+lock('', { retries: 5 });
+lock('', { retries: { retries: 5, factor: 2, minTimeout: 100, randomize: true } });

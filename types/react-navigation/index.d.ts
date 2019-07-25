@@ -1002,6 +1002,7 @@ export interface BottomTabNavigatorConfig
   extends NavigationBottomTabRouterConfig,
   TabViewConfig {
   lazy?: boolean;
+  resetOnBlur?: boolean;
   removeClippedSubviews?: boolean;
   initialLayout?: { height: number; width: number };
 }

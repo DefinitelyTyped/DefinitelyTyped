@@ -387,6 +387,14 @@ export class Router {
     defaultRoute(req: Request, res: Response, next: Next): void;
 
     /**
+     * takes an object of route params and query params, and 'renders' a URL.
+     * @param    routeName the route name
+     * @param    params    an object of route params
+     * @param    query     an object of query params
+     */
+    render(routeName: string, params: object, query?: object): string;
+
+    /**
      * toString() serialization.
      */
     toString(): string;
@@ -869,8 +877,6 @@ export interface RedirectOptions {
 
 export interface Next {
     (err?: any): void;
-
-    ifError(err?: any): void;
 }
 
 export interface RouteSpec {
@@ -1227,6 +1233,8 @@ export namespace plugins {
          */
         rejectUnknown?: boolean;
 
+        requestBodyOnGet?: boolean;
+
         reviver?: any;
 
         maxFieldsSize?: number;
@@ -1261,7 +1269,7 @@ export namespace plugins {
     interface JsonBodyParserOptions {
         mapParams?: boolean;
         overrideParams?: boolean;
-        reviver?: (key: any, value: any) => any;
+        reviver?(key: any, value: any): any;
         bodyReader?: boolean;
     }
 

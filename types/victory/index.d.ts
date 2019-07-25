@@ -8,6 +8,7 @@
 //                 Stack Builders <https://github.com/stackbuilders>
 //                 Esteban Ibarra <https://github.com/ibarrae>
 //                 Dominic Lee <https://github.com/dominictwlee>
+//                 Dave Vedder <https://github.com/veddermatic>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -1087,6 +1088,13 @@ declare module "victory" {
      * @default "y"
      */
     y?: DataGetterPropType;
+    /**
+     * Use y0 data accessor prop to determine how the component defines the baseline y0 data.
+     * This prop is useful for defining custom baselines for components like VictoryBar or VictoryArea.
+     * This prop may be given in a variety of formats.
+     * @example 'last_quarter_profit', () => 10, 1, 'employees.salary', ["employees", "salary"]
+     */
+    y0?: DataGetterPropType;
   }
 
   // Common labable interface
@@ -1176,6 +1184,11 @@ declare module "victory" {
      * @default "linear"
      */
     interpolation?: InterpolationPropType;
+    /**
+     * The labels prop defines the labels that will appear above each point.
+     * This prop should be given as an array or as a function of data.
+     */
+    labels?: string[] | number[] | Function;
     /**
      * The samples prop specifies how many individual points to plot when plotting
      * y as a function of x. Samples is ignored if x props are provided instead.
@@ -1752,7 +1765,7 @@ declare module "victory" {
    */
   export class VictoryChart extends React.Component<VictoryChartProps, any> {}
 
-  export interface VictoryGroupProps extends VictoryCommonProps, VictoryMultiLabeableProps {
+  export interface VictoryGroupProps extends VictoryCommonProps, VictoryDatableProps, VictoryMultiLabeableProps {
     /**
      * The categories prop specifies how categorical data for a chart should be ordered.
      * This prop should be given as an array of string values, or an object with
@@ -1763,6 +1776,11 @@ declare module "victory" {
      * @example ["dogs", "cats", "mice"]
      */
     categories?: CategoryPropType;
+    /**
+     * The color prop is an optional prop that defines a single color to be applied to the
+     * children of VictoryGroup. The color prop will override colors specified via colorScale.
+     */
+    color?: string;
     /**
      * The colorScale prop is an optional prop that defines the color scale the chart's bars
      * will be created on. This prop should be given as an array of CSS colors, or as a string

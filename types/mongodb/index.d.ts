@@ -225,6 +225,20 @@ export class MongoError extends Error {
      * https://github.com/mongodb/node-mongodb-native/blob/a12aa15ac3eaae3ad5c4166ea1423aec4560f155/test/functional/find_tests.js#L1111
      */
     errmsg?: string;
+    name: string;
+}
+
+
+/** http://mongodb.github.io/node-mongodb-native/3.1/api/MongoNetworkError.html */
+export class MongoNetworkError extends MongoError {
+    constructor(message: string);
+    errorLabels: string[];
+}
+
+
+/** http://mongodb.github.io/node-mongodb-native/3.1/api/MongoParseError.html */
+export class MongoParseError extends MongoError {
+    constructor(message: string);
 }
 
 
@@ -1835,7 +1849,7 @@ export class AggregationCursor<T = Default> extends Readable {
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/AggregationCursor.html#geoNear */
     geoNear(document: object): AggregationCursor<T>;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/AggregationCursor.html#group */
-    group(document: object): AggregationCursor<T>;
+    group<U = T>(document: object): AggregationCursor<U>;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/AggregationCursor.html#hasNext */
     hasNext(): Promise<boolean>;
     hasNext(callback: MongoCallback<boolean>): void;
@@ -1853,7 +1867,7 @@ export class AggregationCursor<T = Default> extends Readable {
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/AggregationCursor.html#out */
     out(destination: string): AggregationCursor<T>;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/AggregationCursor.html#project */
-    project(document: object): AggregationCursor<T>;
+    project<U = T>(document: object): AggregationCursor<U>;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/AggregationCursor.html#read */
     read(size: number): string | Buffer | void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/AggregationCursor.html#redact */
@@ -1870,7 +1884,7 @@ export class AggregationCursor<T = Default> extends Readable {
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/AggregationCursor.html#unshift */
     unshift(stream: Buffer | string): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/AggregationCursor.html#unwind */
-    unwind(field: string): AggregationCursor<T>;
+    unwind<U = T>(field: string): AggregationCursor<U>;
 }
 
 /** http://mongodb.github.io/node-mongodb-native/3.1/api/CommandCursor.html#~resultCallback */

@@ -1,3 +1,4 @@
+/// <reference types="node" />
 import { EventEmitter } from 'events';
 import { Agent as HTTPAgent, IncomingMessage } from 'http';
 import { Agent as HTTPSAgent } from 'https';

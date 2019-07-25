@@ -41,6 +41,7 @@ export namespace Plaid {
 
     interface LinkHandler {
         open: () => void;
+        exit: (options: ExitOptions) => void;
         institutions: Institution[];
     }
     type Product = "transactions" | "auth" | "identity" | "income" | "assets";
@@ -110,5 +111,8 @@ export namespace Plaid {
         request_id: string;
         timestamp: string;
         view_name: string;
+    }
+    interface ExitOptions {
+        force: boolean;
     }
 }

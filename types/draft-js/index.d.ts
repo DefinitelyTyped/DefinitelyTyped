@@ -11,8 +11,9 @@
 //                 Pablo Varela <https://github.com/pablopunk>
 //                 Claudio Procida <https://github.com/claudiopro>
 //                 Kevin Hawkinson <https://github.com/khawkinson>
+//                 Munif Tanjim <https://github.com/MunifTanjim>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 2.9
 
 import * as React from 'react';
 import * as Immutable from 'immutable';
@@ -36,6 +37,10 @@ declare namespace Draft {
             import DraftBlockRenderConfig = Draft.Model.ImmutableData.DraftBlockRenderConfig;
 
             type DraftBlockRenderMap = Immutable.Map<DraftBlockType, DraftBlockRenderConfig>;
+
+            type DraftStyleMap = {
+                [styleName: string]: React.CSSProperties
+            };
 
             type EditorCommand = DraftEditorCommand | string;
 
@@ -81,11 +86,11 @@ declare namespace Draft {
 
                 // Provide a map of inline style names corresponding to CSS style objects
                 // that will be rendered for matching ranges.
-                customStyleMap?: any;
+                customStyleMap?: DraftStyleMap;
 
                 // Provide a function that will construct CSS style objects given inline
                 // style names.
-                customStyleFn?: (style: DraftInlineStyle) => Object;
+                customStyleFn?: (style: DraftInlineStyle, block: ContentBlock) => DraftStyleMap;
 
                 // A function that accepts a synthetic key event and returns
                 // the matching DraftEditorCommand constant, or null if no command should
@@ -121,6 +126,8 @@ declare namespace Draft {
                 ariaLabel?: string;
                 ariaMultiline?: boolean;
 
+                role?: string;
+
                 webDriverTestID?: string;
 
                 /**
@@ -134,14 +141,14 @@ declare namespace Draft {
 
                 // Map a key command string provided by your key binding function to a
                 // specified behavior.
-                handleKeyCommand?(command: EditorCommand, editorState: EditorState): DraftHandleValue,
+                handleKeyCommand?(command: EditorCommand, editorState: EditorState, eventTimeStamp: number): DraftHandleValue,
 
                 // Handle intended text insertion before the insertion occurs. This may be
                 // useful in cases where the user has entered characters that you would like
                 // to trigger some special behavior. E.g. immediately converting `:)` to an
                 // emoji Unicode character, or replacing ASCII quote characters with smart
                 // quotes.
-                handleBeforeInput?(chars: string, editorState: EditorState): DraftHandleValue,
+                handleBeforeInput?(chars: string, editorState: EditorState, eventTimeStamp: number): DraftHandleValue,
 
                 handlePastedText?(text: string, html: string|undefined, editorState: EditorState): DraftHandleValue,
 
@@ -302,7 +309,7 @@ declare namespace Draft {
             /**
              * The list of default valid block types.
              */
-            type DraftBlockType = (
+            type CoreDraftBlockType = (
                 "unstyled" |
                 "paragraph" |
                 "header-one" |
@@ -317,6 +324,10 @@ declare namespace Draft {
                 "code-block" |
                 "atomic"
             );
+
+            type CustomBlockType = string;
+
+            type DraftBlockType = CoreDraftBlockType | CustomBlockType;
 
             /**
              * A type that allows us to avoid passing boolean arguments
@@ -437,7 +448,7 @@ declare namespace Draft {
             interface DraftDecorator {
                 strategy: (block: ContentBlock, callback: (start: number, end: number) => void, contentState: ContentState) => void;
                 component: Function;
-                props?: Object;
+                props?: object;
             }
 
             /**
@@ -503,10 +514,10 @@ declare namespace Draft {
             /**
              * A plain object representation of an EntityInstance.
              */
-            interface RawDraftEntity {
+            interface RawDraftEntity<T = { [key: string]: any }> {
                 type: DraftEntityType;
                 mutability: DraftEntityMutability;
-                data: { [key: string]: any };
+                data: T;
             }
 
             /**
@@ -958,6 +969,7 @@ import EditorBlock = Draft.Component.Components.DraftEditorBlock;
 import EditorState = Draft.Model.ImmutableData.EditorState;
 import EditorChangeType = Draft.Model.ImmutableData.EditorChangeType;
 
+import DraftDecorator = Draft.Model.Decorators.DraftDecorator;
 import CompositeDecorator = Draft.Model.Decorators.CompositeDraftDecorator;
 import Entity = Draft.Model.Entity.DraftEntity;
 import EntityInstance = Draft.Model.Entity.DraftEntityInstance;
@@ -1002,6 +1014,7 @@ import DraftEntityType = Draft.Model.Constants.DraftEntityType;
 import DraftRemovalDirection = Draft.Model.Constants.DraftRemovalDirection;
 import DraftHandleValue = Draft.Model.Constants.DraftHandleValue;
 import DraftInsertionType = Draft.Model.Constants.DraftInsertionType;
+import DraftStyleMap = Draft.Component.Base.DraftStyleMap;
 
 export {
     Editor,
@@ -1010,6 +1023,7 @@ export {
     EditorState,
     EditorChangeType,
 
+    DraftDecorator,
     CompositeDecorator,
     Entity,
     EntityInstance,
@@ -1054,4 +1068,5 @@ export {
     DraftRemovalDirection,
     DraftHandleValue,
     DraftInsertionType,
+    DraftStyleMap
 };

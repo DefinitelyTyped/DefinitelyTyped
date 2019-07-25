@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { TextInput, View, Text } from 'react-native';
 
-import { hook, TestScope, WithTestHook, Tester } from 'cavy';
+import { hook, TestScope, WithTestHook, Tester, useCavy } from 'cavy';
 
 type Props = WithTestHook<{
   foo: string;
@@ -20,8 +20,17 @@ class SampleComponent extends React.Component<Props> {
 
 const HookedSampleComponent = hook(SampleComponent); // $ExpectType ComponentClass<{ foo: string; }, any>
 
+const SampleFunctionComponent: React.FunctionComponent = () => {
+  const generateTestHook = useCavy();
+  return (
+    <View ref={generateTestHook(`FunctionView.Sample`)}></View>
+  );
+};
+
 function sampleSpec(spec: TestScope) {
   spec.describe('it has a name and callback', () => {
+    spec.beforeEach(() => {});
+
     spec.it('it has a name and callback', async () => {
       spec.component.reRender(); // $ExpectType void
       spec.component.clearAsync(); // $ExpectType Promise<void>
@@ -37,4 +46,5 @@ function sampleSpec(spec: TestScope) {
 
 <Tester specs={[sampleSpec]} waitTime={42}>
   <HookedSampleComponent foo="test" />
+  <SampleFunctionComponent/>
 </Tester>;

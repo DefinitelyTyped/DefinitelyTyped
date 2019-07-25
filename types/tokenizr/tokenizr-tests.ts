@@ -1,4 +1,4 @@
-import Tokenizr = require('tokenizr');
+import Tokenizr from 'tokenizr';
 
 const lexer = new Tokenizr();
 

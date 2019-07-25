@@ -217,6 +217,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "baseui",
+            "typingsPackageName": "baseui",
+            "sourceRepoURL": "https://github.com/uber-web/baseui",
+            "asOfVersion": "8.0.0"
+        },
+        {
             "libraryName": "beeper",
             "typingsPackageName": "beeper",
             "sourceRepoURL": "https://github.com/sindresorhus/beeper",
@@ -581,6 +587,12 @@
             "typingsPackageName": "crypto-random-string",
             "sourceRepoURL": "https://github.com/sindresorhus/crypto-random-string",
             "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "csv-parse",
+            "typingsPackageName": "csv-parse",
+            "sourceRepoURL": "https://github.com/adaltas/node-csv-parse",
+            "asOfVersion": "1.2.2"
         },
         {
             "libraryName": "cycled",
@@ -1057,6 +1069,12 @@
             "asOfVersion": "1.1.0"
         },
         {
+            "libraryName": "form-data",
+            "typingsPackageName": "form-data",
+            "sourceRepoURL": "https://github.com/form-data/form-data",
+            "asOfVersion": "2.5.0"
+        },
+        {
             "libraryName": "fork-ts-checker-webpack-plugin",
             "typingsPackageName": "fork-ts-checker-webpack-plugin",
             "sourceRepoURL": "https://github.com/Realytics/fork-ts-checker-webpack-plugin",
@@ -1159,6 +1177,12 @@
             "asOfVersion": "9.1.0"
         },
         {
+            "libraryName": "@google-cloud/pubsub",
+            "typingsPackageName": "google-cloud__pubsub",
+            "sourceRepoURL": "https://github.com/googleapis/nodejs-pubsub",
+            "asOfVersion": "0.26.0"
+        },
+        {
             "libraryName": "Google Cloud Storage",
             "typingsPackageName": "google-cloud__storage",
             "sourceRepoURL": "https://github.com/googleapis/nodejs-storage",
@@ -1217,6 +1241,12 @@
             "typingsPackageName": "handsontable",
             "sourceRepoURL": "https://handsontable.com/",
             "asOfVersion": "0.35.0"
+        },
+        {
+            "libraryName": "hapi-auth-jwt2",
+            "typingsPackageName": "hapi-auth-jwt2",
+            "sourceRepoURL": "https://github.com/dwyl/hapi-auth-jwt2/",
+            "asOfVersion": "8.6.1"
         },
         {
             "libraryName": "hard-rejection",
@@ -1349,6 +1379,24 @@
             "typingsPackageName": "internal-ip",
             "sourceRepoURL": "https://github.com/sindresorhus/internal-ip",
             "asOfVersion": "4.1.0"
+        },
+        {
+            "libraryName": "intl-locales-supported",
+            "typingsPackageName": "intl-locales-supported",
+            "sourceRepoURL": "https://github.com/formatjs/formatjs",
+            "asOfVersion": "1.0.6"
+        },
+        {
+            "libraryName": "intl-messageformat",
+            "typingsPackageName": "intl-messageformat",
+            "sourceRepoURL": "https://github.com/formatjs/formatjs",
+            "asOfVersion": "3.0.0"
+        },
+        {
+            "libraryName": "intl-relativeformat",
+            "typingsPackageName": "intl-relativeformat",
+            "sourceRepoURL": "https://github.com/formatjs/formatjs",
+            "asOfVersion": "3.0.1"
         },
         {
             "libraryName": "into-stream",
@@ -1847,6 +1895,12 @@
             "typingsPackageName": "log4js",
             "sourceRepoURL": "https://github.com/nomiddlename/log4js-node",
             "asOfVersion": "2.3.5"
+        },
+        {
+            "libraryName": "loglevel",
+            "typingsPackageName": "loglevel",
+            "sourceRepoURL": "https://github.com/pimterry/loglevel/",
+            "asOfVersion": "1.6.2"
         },
         {
             "libraryName": "loud-rejection",
@@ -2575,6 +2629,12 @@
             "asOfVersion": "3.0.2"
         },
         {
+            "libraryName": "react-dropzone",
+            "typingsPackageName": "react-dropzone",
+            "sourceRepoURL": "https://github.com/react-dropzone/react-dropzone",
+            "asOfVersion": "5.1.0"
+        },
+        {
             "libraryName": "react-flip-move",
             "typingsPackageName": "react-flip-move",
             "sourceRepoURL": "https://github.com/joshwcomeau/react-flip-move",
@@ -2771,6 +2831,12 @@
             "typingsPackageName": "rollup-plugin-commonjs",
             "sourceRepoURL": "https://github.com/rollup/rollup-plugin-commonjs",
             "asOfVersion": "9.3.1"
+        },
+        {
+            "libraryName": "rollup-plugin-delete",
+            "typingsPackageName": "rollup-plugin-delete",
+            "sourceRepoURL": "https://github.com/vladshcherbin/rollup-plugin-delete",
+            "asOfVersion": "1.0.0"
         },
         {
             "libraryName": "rollup-plugin-node-resolve",
@@ -2983,6 +3049,12 @@
             "asOfVersion": "5.0.0"
         },
         {
+            "libraryName": "stream-mock",
+            "typingsPackageName": "stream-mock",
+            "sourceRepoURL": "https://github.com/b4nst/stream-mock",
+            "asOfVersion": "2.0.1"
+        },
+        {
             "libraryName": "string-length",
             "typingsPackageName": "string-length",
             "sourceRepoURL": "https://github.com/sindresorhus/string-length",
@@ -2999,6 +3071,12 @@
             "typingsPackageName": "strip-ansi",
             "sourceRepoURL": "https://github.com/chalk/strip-ansi",
             "asOfVersion": "5.2.0"
+        },
+        {
+            "libraryName": "strip-bom",
+            "typingsPackageName": "strip-bom",
+            "sourceRepoURL": "https://github.com/sindresorhus/strip-bom",
+            "asOfVersion": "4.0.0"
         },
         {
             "libraryName": "strip-indent",
@@ -3047,6 +3125,12 @@
             "typingsPackageName": "svg.js",
             "sourceRepoURL": "http://www.svgjs.com/",
             "asOfVersion": "2.3.1"
+        },
+        {
+            "libraryName": "swagger-parser",
+            "typingsPackageName": "swagger-parser",
+            "sourceRepoURL": "https://apidevtools.org/swagger-parser/",
+            "asOfVersion": "7.0.0"
         },
         {
             "libraryName": "swap-case",
@@ -3160,6 +3244,12 @@
             "libraryName": "TypeScript",
             "typingsPackageName": "typescript-services",
             "sourceRepoURL": "https://github.com/Microsoft/TypeScript",
+            "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "ui-box",
+            "typingsPackageName": "ui-box",
+            "sourceRepoURL": "https://github.com/segmentio/ui-box",
             "asOfVersion": "2.0.0"
         },
         {

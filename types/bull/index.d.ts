@@ -1,4 +1,4 @@
-// Type definitions for bull 3.5
+// Type definitions for bull 3.10
 // Project: https://github.com/OptimalBits/bull
 // Definitions by: Bruno Grieder <https://github.com/bgrieder>
 //                 Cameron Crothers <https://github.com/JProgrammer>
@@ -14,6 +14,7 @@
 //                 Kjell-Morten Bratsberg Thorsen <https://github.com/kjellmorten>
 //                 Christian D. <https://github.com/pc-jedi>
 //                 Silas Rech <https://github.com/lenovouser>
+//                 DoYoung Ha <https://github.com/hados99>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -129,6 +130,11 @@ declare namespace Bull {
     data: T;
 
     /**
+     * Options of the job
+     */
+    opts: JobOptions;
+
+    /**
      * How many attempts where made to run this job
      */
     attemptsMade: number;
@@ -166,6 +172,48 @@ declare namespace Bull {
      * Report progress on a job
      */
     progress(value: any): Promise<void>;
+
+    /**
+     * Logs one row of log data.
+     *
+     * @param row String with log data to be logged.
+     */
+    log(row: string): Promise<any>;
+
+    /**
+     * Returns a promise resolving to a boolean which, if true, current job's state is completed
+     */
+    isCompleted(): Promise<boolean>;
+
+    /**
+     * Returns a promise resolving to a boolean which, if true, current job's state is failed
+     */
+    isFailed(): Promise<boolean>;
+
+    /**
+     * Returns a promise resolving to a boolean which, if true, current job's state is delayed
+     */
+    isDelayed(): Promise<boolean>;
+
+    /**
+     * Returns a promise resolving to a boolean which, if true, current job's state is active
+     */
+    isActive(): Promise<boolean>;
+
+    /**
+     * Returns a promise resolving to a boolean which, if true, current job's state is wait
+     */
+    isWaiting(): Promise<boolean>;
+
+    /**
+     * Returns a promise resolving to a boolean which, if true, current job's state is paused
+     */
+    isPaused(): Promise<boolean>;
+
+    /**
+     * Returns a promise resolving to a boolean which, if true, current job's state is stuck
+     */
+    isStuck(): Promise<boolean>;
 
     /**
      * Returns a promise resolving to the current job's status.
@@ -359,7 +407,7 @@ declare namespace Bull {
      * A boolean which, if true, removes the job when it successfully completes.
      * Default behavior is to keep the job in the completed set.
      */
-    removeOnComplete?: boolean;
+    removeOnComplete?: boolean | number;
 
     /**
      * A boolean which, if true, removes the job when it fails after all attempts
@@ -396,6 +444,11 @@ declare namespace Bull {
      * The name of the queue
      */
     name: string;
+
+    /**
+     * Queue client (used to add jobs, pause queues, etc);
+     */
+    client: Redis.Redis;
 
     /**
      * Returns a promise that resolves when Redis is connected and the queue is ready to accept jobs.
@@ -612,10 +665,21 @@ declare namespace Bull {
     removeRepeatable(name: string, repeat: (CronRepeatOptions | EveryRepeatOptions) & { jobId?: JobId }): Promise<void>;
 
     /**
+     * Removes a given repeatable job by key.
+     */
+    removeRepeatableByKey(key: string): Promise<void>;
+
+    /**
      * Returns a promise that will return an array of job instances of the given types.
      * Optional parameters for range and ordering are provided.
      */
     getJobs(types: string[], start?: number, end?: number, asc?: boolean): Promise<Array<Job<T>>>;
+
+    /**
+     * Returns a object with the logs according to the start and end arguments. The returned count
+     * value is the total amount of logs, useful for implementing pagination.
+     */
+    getJobLogs(jobId: string, start?: number, end?: number): Promise<{ logs: string[], count: number }>;
 
     /**
      * Returns a promise that resolves with the job counts for the given queue.
@@ -745,6 +809,33 @@ declare namespace Bull {
      * Array of Redis clients the queue uses
      */
     clients: Redis.Redis[];
+
+    /**
+     * Set clientName to Redis.client
+     */
+    setWorkerName(): Promise<any>;
+
+    /**
+     * Returns Redis clients array which belongs to current Queue
+     */
+    getWorkers(): Promise<Redis.Redis[]>;
+
+    /**
+     * Returns Queue name in base64 encoded format
+     */
+    base64Name(): string;
+
+    /**
+     * Returns Queue name with keyPrefix (default: 'bull')
+     */
+    clientName(): string;
+
+    /**
+     * Returns Redis clients array which belongs to current Queue from string with all redis clients
+     *
+     * @param list String with all redis clients
+     */
+    parseClientList(list: string): Redis.Redis[];
   }
 
   type EventCallback = () => void;

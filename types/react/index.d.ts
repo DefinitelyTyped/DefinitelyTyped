@@ -8,7 +8,6 @@
 //                 Patricio Zavolinsky <https://github.com/pzavolinsky>
 //                 Digiguru <https://github.com/digiguru>
 //                 Eric Anderson <https://github.com/ericanderson>
-//                 Tanguy Krotoff <https://github.com/tkrotoff>
 //                 Dovydas Navickas <https://github.com/DovydasNavickas>
 //                 Stéphane Goetz <https://github.com/onigoetz>
 //                 Josh Rutherford <https://github.com/theruther4d>
@@ -19,7 +18,6 @@
 //                 Martin Hochel <https://github.com/hotell>
 //                 Frank Li <https://github.com/franklixuefei>
 //                 Jessica Franco <https://github.com/Jessidhia>
-//                 Paul Sherman <https://github.com/pshrmn>
 //                 Saransh Kataria <https://github.com/saranshkataria>
 //                 Kanitkorn Sujautra <https://github.com/lukyth>
 //                 Sebastian Silbermann <https://github.com/eps1lon>
@@ -778,9 +776,9 @@ declare namespace React {
 
     // will show `Memo(${Component.displayName || Component.name})` in devtools by default,
     // but can be given its own specific name
-    interface MemoExoticComponent<T extends ComponentType<any>> extends NamedExoticComponent<ComponentPropsWithRef<T>> {
+    type MemoExoticComponent<T extends ComponentType<any>> = NamedExoticComponent<ComponentPropsWithRef<T>> & {
         readonly type: T;
-    }
+    };
 
     function memo<P extends object>(
         Component: SFC<P>,
@@ -791,9 +789,9 @@ declare namespace React {
         propsAreEqual?: (prevProps: Readonly<ComponentProps<T>>, nextProps: Readonly<ComponentProps<T>>) => boolean
     ): MemoExoticComponent<T>;
 
-    interface LazyExoticComponent<T extends ComponentType<any>> extends ExoticComponent<ComponentPropsWithRef<T>> {
+    type LazyExoticComponent<T extends ComponentType<any>> = ExoticComponent<ComponentPropsWithRef<T>> & {
         readonly _result: T;
-    }
+    };
 
     function lazy<T extends ComponentType<any>>(
         factory: () => Promise<{ default: T }>
@@ -1807,6 +1805,7 @@ declare namespace React {
         href?: string;
         hrefLang?: string;
         media?: string;
+        ping?: string;
         rel?: string;
         target?: string;
         type?: string;
@@ -1915,6 +1914,7 @@ declare namespace React {
         marginHeight?: number;
         marginWidth?: number;
         name?: string;
+        referrerPolicy?: string;
         sandbox?: string;
         scrolling?: string;
         seamless?: boolean;
@@ -2594,6 +2594,7 @@ declare namespace React {
         summary: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
         sup: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
         table: DetailedHTMLFactory<TableHTMLAttributes<HTMLTableElement>, HTMLTableElement>;
+        template: DetailedHTMLFactory<HTMLAttributes<HTMLTemplateElement>, HTMLTemplateElement>;
         tbody: DetailedHTMLFactory<HTMLAttributes<HTMLTableSectionElement>, HTMLTableSectionElement>;
         td: DetailedHTMLFactory<TdHTMLAttributes<HTMLTableDataCellElement>, HTMLTableDataCellElement>;
         textarea: DetailedHTMLFactory<TextareaHTMLAttributes<HTMLTextAreaElement>, HTMLTextAreaElement>;
@@ -2926,6 +2927,7 @@ declare global {
             summary: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
             sup: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
             table: React.DetailedHTMLProps<React.TableHTMLAttributes<HTMLTableElement>, HTMLTableElement>;
+            template: React.DetailedHTMLProps<React.HTMLAttributes<HTMLTemplateElement>, HTMLTemplateElement>;
             tbody: React.DetailedHTMLProps<React.HTMLAttributes<HTMLTableSectionElement>, HTMLTableSectionElement>;
             td: React.DetailedHTMLProps<React.TdHTMLAttributes<HTMLTableDataCellElement>, HTMLTableDataCellElement>;
             textarea: React.DetailedHTMLProps<React.TextareaHTMLAttributes<HTMLTextAreaElement>, HTMLTextAreaElement>;

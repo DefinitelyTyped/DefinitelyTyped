@@ -1,3 +1,10 @@
-import * as ol from 'openlayers';
+import XMLFeature from './XMLFeature';
 
-export default ol.format.WMSGetFeatureInfo;
+export interface Options {
+    layers?: string[];
+}
+export default class WMSGetFeatureInfo extends XMLFeature {
+    constructor(opt_options?: Options);
+    getLayers(): string[];
+    setLayers(layers: string[]): void;
+}

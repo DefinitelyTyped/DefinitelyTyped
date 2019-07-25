@@ -3,6 +3,7 @@
 // Definitions by: Dominik Bruderer <https://github.com/dobrud>
 //                 Patrick Reames <https://github.com/patrickr>
 //                 Karl-Aksel Puulmann <https://github.com/macobo>
+//                 Dmytro Gokun <https://github.com/dmytro-gokun>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -32,7 +33,7 @@ declare namespace mapboxgl {
         // Lookup
         | 'at' | 'get' | 'has' | 'length'
         // Decision
-        | '!=' | '<' | '<=' | '==' | '>' | '>=' | 'all' | 'any' | 'case' | 'match'
+        | '!' | '!=' | '<' | '<=' | '==' | '>' | '>=' | 'all' | 'any' | 'case' | 'match' | 'coalesce'
         // Ramps, scales, curves
         | 'interpolate' | 'interpolate-hcl' | 'interpolate-lab' | 'step'
         // Variable binding
@@ -199,7 +200,7 @@ declare namespace mapboxgl {
 
         setPitch(pitch: number, eventData?: EventData): this;
 
-        cameraForBounds(bounds: LngLatBoundsLike, options?: CameraForBoundsOptions): CameraOptions | undefined;
+        cameraForBounds(bounds: LngLatBoundsLike, options?: CameraForBoundsOptions): CameraForBoundsResult | undefined;
 
         fitBounds(bounds: LngLatBoundsLike, options?: mapboxgl.FitBoundsOptions, eventData?: mapboxgl.EventData): this;
 
@@ -604,10 +605,18 @@ declare namespace mapboxgl {
     }
 
     /**
-     * Fullscreen
+     * FullscreenControl
      */
     export class FullscreenControl extends Control {
-        constructor();
+        constructor(options?: FullscreenControlOptions | null);
+    }
+
+    export interface FullscreenControlOptions {
+        /**
+         * A compatible DOM element which should be made full screen.
+         * By default, the map container element will be made full screen.
+         */
+        container?: HTMLElement | null;
     }
 
     /**
@@ -766,6 +775,8 @@ declare namespace mapboxgl {
         type: 'image';
 
         constructor(options?: mapboxgl.ImageSourceOptions);
+
+        updateImage(options: ImageSourceOptions): this;
 
         setCoordinates(coordinates: number[][]): this;
     }
@@ -969,6 +980,35 @@ declare namespace mapboxgl {
         angleWithSep(x: number, y: number): number;
 
         static convert(a: PointLike): Point;
+    }
+
+    /**
+     * MercatorCoordinate
+     */
+    export class MercatorCoordinate {
+        /** The x component of the position. */
+        x: number;
+
+        /** The y component of the position. */
+        y: number;
+
+        /**
+         * The z component of the position.
+         *
+         * @default 0
+         */
+        z?: number;
+
+        constructor(x: number, y: number, z?: number);
+
+        /** Returns the altitude in meters of the coordinate. */
+        toAltitude(): number;
+
+        /** Returns the LngLat for the coordinate. */
+        toLngLat(): LngLat;
+
+        /** Project a LngLat to a MercatorCoordinate. */
+        static fromLngLat(lngLatLike: LngLatLike, altitude?: number): MercatorCoordinate;
     }
 
     /**
@@ -1181,6 +1221,13 @@ declare namespace mapboxgl {
         offset?: PointLike;
         maxZoom?: number;
     }
+
+    // The Mapbox docs say that if the result is defined, it will have zoom, center and bearing set.
+    // In practice center is always a {lat, lng} object.
+    export type CameraForBoundsResult = Required<Pick<CameraOptions, 'zoom' | 'bearing'>> & {
+        /** Map center */
+        center: {lng: number; lat: number};
+    };
 
     /**
      * FlyToOptions
