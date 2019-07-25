@@ -173,19 +173,7 @@ export interface ChartConfiguration {
 
     point?: PointOptions;
 
-    line?: {
-        /**
-         * Set if null data point will be connected or not.
-         * If true set, the region of null data will be connected without any data point. If false set, the region of null data will not be connected and get empty.
-         */
-        connectNull?: boolean;
-        /**
-         * Change step type for step chart. 'step', 'step-before' and 'step-after' can be used.
-         */
-        step?: {
-            type: string;
-        };
-    };
+    line?: LineOptions;
 
     area?: {
         /**
@@ -196,13 +184,14 @@ export interface ChartConfiguration {
 
     bar?: {
         /**
-         * Change the width of bar chart. If ratio is specified, change the width of bar chart by ratio.
+         * Change the width of bars. If ratio is specified, change the width of bar chart by ratio.
          */
         width?:
             | number
             | {
                   /**
                    * Set the width of each bar by ratio
+                   * Defaults to `0.6`.
                    */
                   ratio: number;
                   /**
@@ -221,45 +210,19 @@ export interface ChartConfiguration {
     };
 
     pie?: {
-        label?: {
-            /**
-             * Show or hide label on each pie piece.
-             */
-            show?: boolean;
-            /**
-             * Set formatter for the label on each pie piece.
-             */
-            format?(value: number, ratio: number, id: string): string;
-            /**
-             * Set threshold to show/hide labels.
-             */
-            threshold?: number;
-        };
+        label?: LabelOptionsWithThreshold;
         /**
          * Enable or disable expanding pie pieces.
          */
-        expand?: boolean;
+        expand?: ExpandOptions;
     };
 
     donut?: {
-        label?: {
-            /**
-             * Show or hide label on each donut piece.
-             */
-            show?: boolean;
-            /**
-             * Set formatter for the label on each donut piece.
-             */
-            format?(value: number, ratio: number, id: string): string;
-            /**
-             * Set threshold to show/hide labels.
-             */
-            threshold?: number;
-        };
+        label?: LabelOptionsWithThreshold;
         /**
          * Enable or disable expanding pie pieces.
          */
-        expand?: boolean;
+        expand?: ExpandOptions;
         /**
          * Set width of donut chart.
          */
@@ -271,26 +234,22 @@ export interface ChartConfiguration {
     };
 
     gauge?: {
-        label?: {
-            /**
-             * Show or hide label on gauge.
-             */
+        label?: LabelOptions;
+        labelLine?: {
             show?: boolean;
-            /**
-             * Set formatter for the label on gauge.
-             */
-            format?(value: any, ratio: number): string;
-        };
+        }
         /**
          * Enable or disable expanding gauge.
          */
-        expand?: boolean;
+        expand?: ExpandOptions;
         /**
          * Set min value of the gauge.
+         * Defaults to `0`.
          */
         min?: number;
         /**
          * Set max value of the gauge.
+         * Defaults to `100`.
          */
         max?: number;
         /**
@@ -305,8 +264,15 @@ export interface ChartConfiguration {
          * Whether this should be displayed
          * as a full circle instead of a
          * half circle.
+         * Defaults to `false`.
          */
         fullCircle?: boolean;
+        arcs: {
+            /**
+             * Defaults to `5`.
+             */
+            minWidth?: number;
+        }
     };
 
     spline?: {
@@ -314,19 +280,72 @@ export interface ChartConfiguration {
             /**
              * Set custom spline interpolation
              */
-            type?:
-                | 'linear'
-                | 'linear-closed'
-                | 'basis'
-                | 'basis-open'
-                | 'basis-closed'
-                | 'bundle'
-                | 'cardinal'
-                | 'cardinal-open'
-                | 'cardinal-closed'
-                | 'monotone';
+            type?: 'linear' | 'linear-closed' | 'basis' | 'basis-open' | 'basis-closed' | 'bundle' | 'cardinal' | 'cardinal-open' | 'cardinal-closed' | 'monotone';
         };
     };
+
+    stanford?: {
+        lines?: [];
+        regions?: [];
+        texts?: [];
+        /** Change the minimum value of the stanford color scale. */
+        scaleMin?: number;
+        /** Change the maximum value of the stanford color scale. */
+        scaleMax?: number;
+        /**
+         * Change the width of the stanford color scale.
+         * Defaults to `20`.
+         */
+        scaleWidth?: undefined;
+        /**
+         * Set formatter for stanford color scale axis tick text.
+         * This option accepts the string 'pow10', a d3.format object and any function you define.
+         * Defauls to `d3.format("d")`.
+         */
+        scaleFormat?: 'pow10' | ((arg0: number) => string);
+        /**
+         * Set the values for stanford color scale axis tick text. This option accepts a function that returns an array of numbers.
+         */
+        scaleValues?: (minValue: number, maxValue: number) => number[];
+        /**
+         * Set the color interpolator for stanford color scale. This option is a `d3.interpolate*` object or any function you define that receives a value between `0` and `1`, and returns a color as string.
+         */
+        colors?: (value: number) => string;
+        /**
+         * Set the padding for the Stanford color scale.
+         */
+        padding?: {
+            top?: number;
+            bottom?: number;
+            left?: number;
+            right?: number;
+        };
+    }
+}
+
+export interface LabelOptions {
+    /**
+     * Show or hide label on each pie piece.
+     */
+    show?: boolean;
+    /**
+     * Set formatter for the label on each pie piece.
+     */
+    format?(value: number, ratio: number, id: string): string;
+}
+
+export type ExpandOptions = boolean | {
+    /** Transition duration for expanding. */
+    duration?: number;
+};
+
+export interface LabelOptionsWithThreshold extends LabelOptions {
+    /**
+     * Set threshold to show/hide labels.
+     * Defaults to `0.05`.
+     */
+    threshold?: number;
+    ratio?: unknown;
 }
 
 export interface Data {
@@ -1000,15 +1019,18 @@ export interface ZoomOptions {
 export interface PointOptions {
     /**
      * Whether to show each point in line.
+     * Defaults to `true`.
      */
     show?: boolean;
     /**
      * The radius size of each point.
+     * Defaults to `2.5`. If it's a function, will call for each point.
      */
-    r?: number | ((d: any) => number);
+    r?: number | ((this: ChartInternal, d: DataPoint) => number);
 
     /**
-     * How sensitive is each point to mouse cursor hover
+     * How sensitive is each point to mouse cursor hover.
+     * Defaults to `10`.
      */
     sensitivity?: number;
 
@@ -1030,6 +1052,22 @@ export interface PointOptions {
          * The radius size of each point on selected.
          */
         r?: number;
+    };
+}
+
+export interface LineOptions {
+    /**
+     * Set if null data point will be connected or not.
+     * If `true` set, the region of null data will be connected without any data point.
+     * If `false` set, the region of null data will not be connected and get empty.
+     */
+    connectNull?: boolean;
+    step?: {
+        /**
+         * Change step type for step chart.
+         * Defaults to `"step"`.
+         */
+        type: "step" | "step-before" | "step-after";
     };
 }
 
