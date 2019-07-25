@@ -24,6 +24,10 @@ interface NumeralJSLocale {
 	};
 }
 
+interface NumeralJSLocales {
+	[id: string]: NumeralJSLocale
+}
+
 interface NumeralJSOptions {
 	currentLocale: string;
 	zeroFormat: string;
@@ -60,6 +64,11 @@ interface Numeral {
 	locale(key?: string): string;
 
 	/**
+	 * Object with all loaded locales
+	 */
+	locales: NumeralJSLocales;
+
+	/**
 	 * This function provides access to the loaded locale data.  If
 	 * no arguments are passed in, it will simply return the current
 	 * global locale object.
@@ -85,7 +94,7 @@ interface Numeral {
 	unformat(inputString: string): number;
 	value(): number;
 	valueOf(): number;
-	set (value: any): Numeral;
+	set(value: any): Numeral;
 	add(value: any): Numeral;
 	subtract(value: any): Numeral;
 	multiply(value: any): Numeral;
