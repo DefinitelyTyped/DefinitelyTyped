@@ -95,9 +95,10 @@ export interface ChartConfiguration {
     interaction?: {
         /**
          * Indicate if the chart should have interactions.
-         * If false is set, all of interactions (showing/hiding tooltip, selection, mouse events, etc) will be disabled.
+         * If `false` is set, all of interactions (showing/hiding tooltip, selection, mouse events, etc) will be disabled.
          */
         enabled?: boolean;
+        brighten?: boolean;
     };
 
     transition?: {
@@ -111,32 +112,32 @@ export interface ChartConfiguration {
     /**
      * Set a callback to execute when the chart is initialized.
      */
-    oninit?(): void;
+    oninit?(this: ChartInternal): void;
 
     /**
      * Set a callback which is executed when the chart is rendered. Basically, this callback will be called in each time when the chart is redrawed.
      */
-    onrendered?(): void;
+    onrendered?(this: ChartInternal): void;
 
     /**
      * Set a callback to execute when mouse enters the chart.
      */
-    onmouseover?(): void;
+    onmouseover?(this: ChartInternal): void;
 
     /**
      * Set a callback to execute when mouse leaves the chart.
      */
-    onmouseout?(): void;
+    onmouseout?(this: ChartInternal): void;
 
     /**
      * Set a callback to execute when user resizes the screen.
      */
-    onresize?(): void;
+    onresize?(this: ChartInternal): void;
 
     /**
      * Set a callback to execute when screen resize finished.
      */
-    onresized?(): void;
+    onresized?(this: ChartInternal): void;
 
     data: Data;
 
@@ -874,15 +875,15 @@ export interface ZoomOptions {
     /**
      * Set callback that is called when the chart is zooming. Specified function receives the zoomed domain.
      */
-    onzoom?(domain: ZoomDomain): void;
+    onzoom?(this: ChartAPI, domain: ZoomDomain): void;
     /**
      * Set callback that is called when zooming starts. Specified function receives the zoom event.
      */
-    onzoomstart?(event: Event): void;
+    onzoomstart?(this: ChartAPI, event: Event): void;
     /**
      * Set callback that is called when zooming ends. Specified function receives the zoomed domain.
      */
-    onzoomend?(domain: ZoomDomain): void;
+    onzoomend?(this: ChartAPI, domain: ZoomDomain): void;
     /**
      * Set the initial minimum and maximum x-axis zoom values.
      */
@@ -1338,7 +1339,13 @@ export interface ChartAPI {
         hide(): void;
     }
 
-    internal: { [key: string]: any; };
+    internal: ChartInternal;
+}
+
+export interface ChartInternal {
+    /** Access the external Chart API. */
+    api: ChartAPI;
+    [key: string]: any;
 }
 
 export interface DataSeries {
