@@ -1,6 +1,8 @@
 // Type definitions for @microsoft/typescript-etw 0.1
 // Project: https://github.com/microsoft/typescript-etw
 // Definitions by: Michael Crane <https://github.com/mrcrane>
+//                 Andrew Casey <https://github.com/amcasey>
+//                 Mine Starks <https://github.com/minestarks>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export function logEvent(msg: string): void;
