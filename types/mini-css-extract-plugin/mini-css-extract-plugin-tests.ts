@@ -72,7 +72,7 @@ configuration = {
         new MiniCssExtractPlugin({
             filename: 'styles.css',
             chunkFilename: 'style.css',
-            ignoreOrder: true
+            ignoreOrder: true,
         }),
     ],
 };
