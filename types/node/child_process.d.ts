@@ -296,7 +296,7 @@ declare module "child_process" {
 
     interface SpawnSyncOptions extends CommonOptions {
         argv0?: string; // Not specified in the docs
-        input?: string | Buffer | NodeJS.TypedArray | DataView;
+        input?: string | NodeJS.TypedArray | DataView;
         stdio?: StdioOptions;
         killSignal?: string | number;
         maxBuffer?: number;
@@ -328,7 +328,7 @@ declare module "child_process" {
     function spawnSync(command: string, args?: ReadonlyArray<string>, options?: SpawnSyncOptions): SpawnSyncReturns<Buffer>;
 
     interface ExecSyncOptions extends CommonOptions {
-        input?: string | Buffer | Uint8Array;
+        input?: string | Uint8Array;
         stdio?: StdioOptions;
         shell?: string;
         killSignal?: string | number;
@@ -347,7 +347,7 @@ declare module "child_process" {
     function execSync(command: string, options?: ExecSyncOptions): Buffer;
 
     interface ExecFileSyncOptions extends CommonOptions {
-        input?: string | Buffer | NodeJS.TypedArray | DataView;
+        input?: string | NodeJS.TypedArray | DataView;
         stdio?: StdioOptions;
         killSignal?: string | number;
         maxBuffer?: number;

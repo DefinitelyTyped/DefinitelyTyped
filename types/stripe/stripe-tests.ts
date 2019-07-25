@@ -282,6 +282,13 @@ stripe.checkout.sessions.create({
     // asynchronously called
 });
 
+stripe.checkout.sessions.retrieve('ch_test_123').then(session => {
+  session; // $ExpectType ICheckoutSession
+});
+stripe.checkout.sessions.retrieve('ch_test_123', { expand: ['payment_intent'] }).then(session => {
+  session.payment_intent; // $ExpectType string | IPaymentIntent
+});
+
 //#endregion
 
 //#region CreditNotes tests
@@ -411,8 +418,8 @@ stripe.customers.create({
     let metadata: Stripe.IOptionsMetadata;
     const num = 123;
     metadata["test"] = str;
-    metadata["test"] = num;
     metadata["test"] === str;
+    metadata["test"] = num;
     metadata["test"] === num;
     metadata.testStr = str;
     metadata.testNum = num;

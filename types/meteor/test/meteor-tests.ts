@@ -768,6 +768,43 @@ var handle = Accounts.validateLoginAttempt(function (attemptInfoObject: Accounts
 });
 handle.stop();
 
+if (Meteor.isServer) {
+    Accounts.registerLoginHandler('impersonate', (options: { targetUserId: string }) => {
+        const currentUser = Meteor.userId();
+        if (!currentUser) {
+            return { error: 'No user was logged in' };
+        }
+
+        const isSuperUser = (userId: string) => true;
+
+        if (!isSuperUser(currentUser)) {
+            const errMsg = `User ${currentUser} tried to impersonate but is not allowed`;
+            return { error: errMsg };
+        }
+        // By returning an object with userId, the session will now be logged in as that user
+        return { userId: options.targetUserId };
+    });
+}
+
+if (Meteor.isClient) {
+    Accounts.callLoginMethod({
+        methodName: 'impersonate',
+        methodArguments: [{ targetUserId: 'abc123' }],
+        userCallback: (...args: any[]) => {
+            const error = args[0];
+            if (!error) {
+                console.error(error);
+            }
+        },
+    });
+}
+
+if (Meteor.isServer) {
+    const check = Accounts._checkPassword(Meteor.users.findOne({}), 'abc123');
+    if (check.error) {
+        console.error('incorrect password');
+    }
+}
 
 // Covers https://github.com/meteor-typings/meteor/issues/8
 const publicSetting = Meteor.settings.public['somePublicSetting'];

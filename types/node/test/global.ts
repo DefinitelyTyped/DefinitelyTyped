@@ -29,6 +29,8 @@ import { Readable, Writable } from 'stream';
     });
 }
 
+const a: NodeJS.TypedArray = new Buffer(123);
+
 {
     const stdin: Readable = process.stdin;
     let writableFinished: boolean;
