@@ -15,7 +15,16 @@ export as namespace c3;
 
 export type Primitive = string | boolean | number | null;
 export type PrimitiveArray = Array<string | boolean | number | null>;
-export type FormatFunction = (v: any, id: string, i: number, j: number) => void;
+/**
+ * Formatter function for data labels.
+ * D3 formatter function can be set (e.g. `d3.format('$')`).
+ * @param v The value of the data point where the label is shown.
+ * @param id The id of the data where the label is shown.
+ * @param i The index of the data point where the label is shown.
+ * @param j The sub index of the data point where the label is shown.
+ * @returns The formatted data label.
+ */
+export type FormatFunction = (v: Primitive, id: string, i: number, j: number) => string;
 
 export interface TargetIds {
     ids: ArrayOrString;
@@ -27,7 +36,6 @@ export type YAxisName = "y" | "y2";
 export type AxisName = "x" | YAxisName;
 
 export type ChartType = "line" | "spline" | "step" | "area" | "area-spline" | "area-step" | "bar" | "scatter" | "stanford" | "pie" | "donut" | "gauge";
-
 
 export interface ChartConfiguration {
     /**
@@ -319,31 +327,41 @@ export interface ChartConfiguration {
     };
 }
 
+
 export interface Data {
     /**
-     * Load a CSV or JSON file from a URL. Note that this will not work if loading via the "file://" protocol as most browsers with block XMLHTTPRequests.
+     * Load a CSV or JSON file from a URL. Note that this will not work if loading via the `"file://"` protocol as most browsers with block `XMLHTTPRequests`.
      */
     url?: string;
     /**
-     * Parse a JSON object for data.
+     * Specify headers for the data request if `data.url` is provided.
      */
-    json?: Record<string | number, unknown>;
+    headers?: unknown;
     /**
-     * Load data from a multidimensional array, with the first element containing the data names, the following containing related data in that order.
+     * Parse a JSON object for data. Can be in the column form `{key1: [val1, val2, ...]; ...}` or in the row form `[{key1: val1; key2: val2}, ...]`. If `url` is provided this will be ignored. 
+     */
+    json?: Record<string, PrimitiveArray> | Record<string, Primitive>[];
+    /**
+     * A list of rows, where the first row is the column names and the remaining rows are data.  If `url` or `json` are provided this will be ignored.
      */
     rows?: PrimitiveArray[];
-    /*
-     * Load data from a multidimensional array, with each element containing an array consisting of a datum name and associated data values.
-     */
-    columns?: PrimitiveArray[];
     /**
-     * Used if loading JSON via data.url
+     * A list of columns, where the first element in each column is the ID and the remaining elements are data. If `url`, `json`, or `rows` are provided, this will be ignored.
+     */
+    columns?: [string, ...PrimitiveArray];
+    /**
+     * Used if loading JSON via `data.url`.
      */
     mimeType?: string;
     /**
-     * Choose which JSON object keys correspond to desired data.
+     * If `data.json` is provided and is in row form, these keys are used to pull the data from each row.
      */
-    keys?: { x?: string; value: string[] };
+    keys?: {
+        /** This is the key for the x-value in each row. */
+        x?: string;
+        /** List of remaining keys (besides the x key) to pull data for. */
+        value: string[];
+    };
     /**
      * Specify the key of x values in the data.
      * We can show the data with non-index x values by this option. This option is required when the type of x axis is timeseries. If this option is set on category axis, the values of the data
@@ -357,18 +375,27 @@ export interface Data {
     xs?: { [key: string]: string };
     /**
      * Set a format to parse string specifed as x.
-     * Default is %Y-%m-%d
+     * Default is `"%Y-%m-%d"`.
+     * @see https://github.com/d3/d3-time-format#locale_format For a list of valid format specifiers.
      */
     xFormat?: string;
-    // xLocaltime?: any;
-    // xSort?: any;
     /**
-     * Set custom data name.
+     * Set to `true` to parse dates and times as local time.
+     * **Experimental.**
+     */
+    xLocaltime?: boolean;
+    /**
+     * Set to `true` to sort x values.
+     * **Experimental.**
+     */
+    xSort?: boolean;
+    /**
+     * Set custom data display names.
      */
     names?: { [key: string]: string };
     /**
-     * Set custom data class.
-     * If this option is specified, the element g for the data has an additional class that has the prefix c3-target- (e.g. c3-target-additional-data1-class).
+     * Set custom data classes for styling.
+     * If this option is specified, the element g for the data has an additional class that has the prefix `c3-target-` (e.g. `c3-target-additional-data1-class`).
      */
     classes?: { [key: string]: string };
     /**
@@ -376,62 +403,55 @@ export interface Data {
      */
     groups?: string[][];
     /**
-     * Set y axis the data related to. y and y2 can be used.
+     * Set y axis the data related to.
      */
     axes?: { [key in YAxisName]?: string };
     /**
      * Set chart type at once.
-     * If this option is specified, the type will be applied to every data. This setting can be overwritten by data.types.
-     * Available Values: line, spline, step, area, area-spline, area-step, bar, scatter, pie, donut, gauge
+     * If this option is specified, the type will be applied to every data. This setting can be overwritten for individual data by `data.types`.
      */
     type?: ChartType;
     /**
      * Set chart type for each data.
-     * This setting overwrites data.type setting.
+     * This setting overwrites the chart-wide `data.type` setting.
      */
     types?: { [key: string]: ChartType };
     /**
      * Show labels on each data points or set formatter function for data labels.
-     * The formatter function receives 4 arguments such as v, id, i, j and it must return a string that will be shown as the label. The arguments are:
-     * - v is the value of the data point where the label is shown.
-     * - id is the id of the data where the label is shown.
-     * - i is the index of the data point where the label is shown.
-     * - j is the sub index of the data point where the label is shown.
-     * Formatter function can be defined for each data by specifying as an object and D3 formatter function can be set (e.g. d3.format('$'))
+     * Control all labels with a boolean value or `format` function, or control behavior for individual data with a `format` object.
      */
     labels?:
         | boolean
         | { format: FormatFunction }
-        | { format: { [key: string]: FormatFunction } };
+        | { format: { [key: string]: boolean | FormatFunction } };
     /**
      * Define the order of the data.
      * This option changes the order of stacking the data and pieces of pie/donut. If null specified, it will be the order the data loaded. If function specified, it will be used to sort the data
      * and it will recieve the data as argument.
-     * Available Values: desc, asc, function (data1, data2) { ... }, null
      */
-    order?: string | ((...data: string[]) => void) | null;
+    order?: "asc" | "desc" | ((...data: DataSeries[]) => number) | null;
     /**
      * Define regions for each data.
      * The values must be an array for each data and it should include an object that has start, end, style. If start is not set, the start will be the first data point. If end is not set, the
      * end will be the last data point.
      * Currently this option supports only line chart and dashed style. If this option specified, the line will be dashed only in the regions.
      */
-    regions?: { [key: string]: any };
+    regions?: { [key: string]: RegionOptions };
     /**
      * Set color converter function.
-     * This option should a function and the specified function receives color (e.g. '#ff0000') and d that has data parameters like id, value, index, etc. And it must return a string that
-     * represents color (e.g. '#00ff00').
+     * The function is called for each data ID, for each data series, and for each individual point.
      */
-    color?(color: string, d: any): string | d3.RGBColor | d3.HSLColor;
+    color?: (color: string, d: string | DataSeries | DataPoint) => string | d3.RGBColor | d3.HSLColor;
     /**
      * Set color for each data.
+     * If a function is specified, it is called once each with the data ID, the data series, and each point.
      */
     colors?: {
         [key: string]:
             | string
             | d3.RGBColor
             | d3.HSLColor
-            | ((d: any) => string | d3.RGBColor | d3.HSLColor);
+            | ((d: string | DataSeries | DataPoint) => string | d3.RGBColor | d3.HSLColor);
     };
     /**
      * Hide each data when the chart appears.
@@ -439,39 +459,91 @@ export interface Data {
      */
     hide?: boolean | string[];
     /**
+     * Specify a filter function to selectively load data.
+     * @param series The data series for which to decide whether to show or not.
+     * @param index The index of the data series in the data.
+     * @param allSeries Array of all data series, whether filtered or not.
+     * @returns `true` if the series should be shown, `false` if it should be hidden.
+     */
+    filter?: (series: DataSeries, index: number, allSeries: DataSeries[]) => boolean;
+    /**
      * Set text displayed when empty data.
+     * Defaults to `""`.
      */
     empty?: { label: { text: string } };
 
     selection?: {
+        /**
+         * Enable or disable selecting data.
+         * If this option is set `true`, we can select the data points and get/set its state of selection by API (e.g. `select`, `unselect`, `selected`).
+         * Defaults to `false`.
+         */
         enabled?: boolean;
+        /**
+         * Set grouped selection enabled.
+         * If this option set `true`, multiple data points that have same x value will be selected by one selection.
+         * Defaults to `false`.
+         */
         grouped?: boolean;
+        /**
+         * Set multiple data points selection enabled.
+         * If this option set `true`, multiple data points can have the selected state at the same time. If `false` set, only one data point can have the selected state and the others will be unselected when the new data point is selected.
+         */
         multiple?: boolean;
+        /**
+         * Enable to select data points by dragging.
+         * If this option set `true`, data points can be selected by dragging.
+         * 
+         * **Note**: If this option set `true`, scrolling on the chart will be disabled because dragging event will handle the event.
+         */
         draggable?: boolean;
-        isselectable?(d?: any): boolean;
+        /** 
+         * Prevent specific data from being selected. Only called if `selection.enabled` is `true`.
+         * @param d The data series to decide for.
+         * @returns `false` if selection should be disabled for this data.
+         */
+        isselectable?(this: Record<string, any>, d: DataSeries): boolean;
     };
     /**
      * Set a callback for click event on each data point.
-     * This callback will be called when each data point clicked and will receive d and element as the arguments.
-     * - d is the data clicked and element is the element clicked. In this callback, this will be the Chart object.
+     * @param d The data point that was clicked.
+     * @param element The element for the data point that was clicked.
      */
-    onclick?(d: any, element: any): void;
+    onclick?(this: ChartAPI, d: DataPoint, element: SVGElement): void;
     /**
      * Set a callback for mouseover event on each data point.
-     * This callback will be called when mouse cursor moves onto each data point and will receive d as the argument.
-     * - d is the data where mouse cursor moves onto. In this callback, this will be the Chart object.
+     * @param d The data point that was moused over.
      */
-    onmouseover?(d: any, element?: any): void;
+    onmouseover?(this: ChartAPI, d: DataPoint): void;
     /**
      * Set a callback for mouseout event on each data point.
-     * This callback will be called when mouse cursor moves out each data point and will receive d as the argument.
-     * - d is the data where mouse cursor moves out. In this callback, this will be the Chart object.
+     * @param d The data point that the mouse left.
      */
-    onmouseout?(d: any, element?: any): void;
+    onmouseout?(this: ChartAPI, d: DataPoint): void;
+    /**
+     * Set a callback for data selection.
+     * @param d The data point that was selected.
+     * @param element The element for the data point that was selected.
+     */
+    onselected?(this: ChartAPI, d: DataPoint, element: SVGElement): void;
+    /**
+     * Set a callback for data deselection.
+     * @param d The data point that was unselected.
+     * @param element The element for the data point that was unselected.
+     */
+    onunselected?(this: ChartAPI, d: DataPoint, element: SVGElement): void;
+    /**
+     * For Stanford charts, specify the key of the epochs data, which maps values to their color.
+     * Defaults to `"epochs"`.
+     */
+    epochs?: string;
 
-    onselected?(d: any, element?: any): void;
-
-    onunselected?(d: any, element?: any): void;
+    /**
+     * Convert data IDs with this function before creating chart.
+     * @param id The original ID string.
+     * @returns The converted ID string.
+     */
+    idConverter?(id: string): string;
 }
 
 export type Axis = {
@@ -997,10 +1069,10 @@ export interface ChartAPI {
             /** List of remaining keys (besides the x key) to pull data for. */
             value: string[];
         };
-        /** A list of rows, where the first row is the column names and the remaining rows are data.  If `data`, `url`, or `json` are provided this will be ignored.  this is ignored. */
+        /** A list of rows, where the first row is the column names and the remaining rows are data.  If `data`, `url`, or `json` are provided this will be ignored.  */
         rows?: PrimitiveArray[];
         /** A list of columns, where the first element in each column is the ID and the remaining elements are data. If `data`, `url`, `json`, or 'rows' are provided, this will be ignored. */
-        columns?: PrimitiveArray[];
+        columns?: [string, ...PrimitiveArray];
         /** Match x columns to the corresponding data columns. */
         xs?: Record<string, string>;
         /** Match loaded data IDs with display names. */
