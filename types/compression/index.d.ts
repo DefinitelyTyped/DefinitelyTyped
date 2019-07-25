@@ -21,8 +21,27 @@ declare function e(options?: e.CompressionOptions): express.RequestHandler;
 
 declare namespace e {
     /**
-     * Default filter, used for extending filter given in CompressionOptions
-     * See https://github.com/expressjs/compression#filter-1 regarding the usage
+     * The default `filter` function. This is used to construct a custom filter function that is an extension of the default function.
+     *
+     * ```js
+     * var compression = require('compression')
+     * var express = require('express')
+     *
+     * var app = express()
+     * app.use(compression({ filter: shouldCompress }))
+     *
+     * function shouldCompress (req, res) {
+     *   if (req.headers['x-no-compression']) {
+     *     // don't compress responses with this request header
+     *     return false
+     *   }
+     *
+     *   // fallback to standard filter function
+     *   return compression.filter(req, res)
+     * }
+     * ```
+     *
+     * @see {@link https://github.com/expressjs/compression#filter-1|`.filter` documentation}
      */
     export function filter(req: express.Request, res: express.Response): boolean;
 
@@ -32,8 +51,7 @@ declare namespace e {
 
     interface CompressionOptions {
         /**
-         * The default value is zlib.Z_DEFAULT_CHUNK, or 16384.
-         *
+         * @default zlib.Z_DEFAULT_CHUNK or 16384
          * @see {@link http://nodejs.org/api/zlib.html#zlib_memory_usage_tuning| Node.js documentation}
          * @see {@link https://github.com/expressjs/compression#chunksize|chunkSize documentation}
          */
@@ -59,10 +77,9 @@ declare namespace e {
          * - `8`
          * - `9` Best compression (also `zlib.Z_BEST_COMPRESSION`).
          *
-         * The default value is `zlib.Z_DEFAULT_COMPRESSION`, or `-1`.
-         *
          * **Note** in the list above, `zlib` is from `zlib = require('zlib')`.
          *
+         * @default zlib.DEFAULT_COMPRESSION or -1
          * @see {@link https://github.com/expressjs/compression#level|`level` documentation}
          */
         level?: number;
@@ -71,8 +88,7 @@ declare namespace e {
          * This specifies how much memory should be allocated for the internal compression state and is an integer in
          * the range of `1` (minimum level) and `9` (maximum level).
          *
-         * The default value is `zlib.Z_DEFAULT_MEMLEVEL`, or `8`.
-         *
+         * @default zlib.DEFAULT_MEMLEVEL or 8
          * @see {@link http://nodejs.org/api/zlib.html#zlib_memory_usage_tuning|Node.js documentation}
          * @see {@link https://github.com/expressjs/compression#memlevel|`memLevel` documentation}
          */
@@ -110,8 +126,7 @@ declare namespace e {
         threshold?: number | string;
 
         /**
-         * The default value is `zlib.Z_DEFAULT_WINDOWBITS`, or `15`.
-         *
+         * @default zlib.Z_DEFAULT_WINDOWBITS or 15.
          * @see {@link http://nodejs.org/api/zlib.html#zlib_memory_usage_tuning|Node.js documentation}
          */
         windowBits?: number;
@@ -128,6 +143,18 @@ declare namespace e {
          * @see {@link https://www.npmjs.com/package/compressible|compressible module}
          */
         filter?: CompressionFilter;
+
+        /**
+         * @default zlib.Z_NO_FLUSH
+         * @see {@link https://nodejs.org/api/zlib.html#zlib_class_options|Zlib class options}
+         */
+        flush?: number;
+
+        /**
+         * @default zlib.Z_FINISH
+         * @see {@link https://nodejs.org/api/zlib.html#zlib_class_options|Zlib class options}
+         */
+        finishFlush?: number;
     }
 }
 
