@@ -11,4 +11,4 @@ interface PackageInfo {
   version: string;
 }
 
-declare function parsePackageName(path: string): PackageInfo;
+declare const parsePackageName: (path: string) => PackageInfo;
