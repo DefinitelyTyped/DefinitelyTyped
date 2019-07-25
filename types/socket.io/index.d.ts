@@ -18,6 +18,7 @@ export = SocketIO;
 export as namespace SocketIO;
 
 import * as EngineIO from 'engine.io'
+import { Encoder, Decoder } from 'socket.io-parser'
 
 interface SocketIOStatic {
 	/**
@@ -292,6 +293,18 @@ declare namespace SocketIO {
 		compress( ...args: any[] ): Namespace;
 	}
 
+	interface Parser {
+			CONNECT: number;
+			DISCONNECT: number;
+			EVENT: number;
+			ACK: number;
+			ERROR: number;
+			BINARY_EVENT: number;
+			BINARY_ACK: number;
+			Encoder: Encoder;
+			Decoder: Decoder;
+	}
+
 	/**
 	 * Options to pass to our server when creating it
 	 */
@@ -321,6 +334,12 @@ declare namespace SocketIO {
 		 * @default '*:*'
 		 */
 		origins?: string|string[];
+
+		/**
+		 * The parser to use. Defaults to an instance of the Parser that
+		 * ships with socket.io. See socket.io-parser.
+		 */
+		parser?: Parser;
 	}
 
 	/**
