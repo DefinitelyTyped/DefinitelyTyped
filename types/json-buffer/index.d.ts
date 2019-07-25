@@ -17,10 +17,3 @@ export function stringify(o: any): string;
  * @returns - Object.
  */
 export function parse(s: string): any;
-/**
- * Converts JSON string back to an object. Converts base64 encoded buffers back to buffers
- *
- * @param s - String to convert back to object.
- * @returns - Object.
- */
-export function parse<T>(s: string): T;
