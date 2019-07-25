@@ -20,6 +20,7 @@ csstree.walk(ast, {
         node; // $ExpectType CssNode
         item; // $ExpectType ListItem<CssNode>
         list; // $ExpectType List<CssNode>
+        this.atrule; // $ExpectType Atrule | null
     },
     leave(node, item, list) {
         this.stylesheet; // $ExpectType StyleSheet

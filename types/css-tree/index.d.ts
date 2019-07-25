@@ -518,7 +518,7 @@ export function generate(ast: CssNode, options?: GenerateOptions): string;
 export interface WalkContext {
     root: CssNode;
     stylesheet: StyleSheet;
-    atrule: Atrule;
+    atrule: Atrule | null;
     atrulePrelude: AtrulePrelude;
     rule: Rule;
     selector: SelectorList;
