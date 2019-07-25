@@ -153,7 +153,7 @@ export interface ChartConfiguration {
 
     axis?: AxesOptions;
 
-    grid?: Grid;
+    grid?: GridOptions;
 
     /**
      * Show rectangles inside the chart.
@@ -725,38 +725,42 @@ export interface YTickConfigurationWithTime extends YTickConfiguration {
     }
 }
 
-export interface Grid {
-    x?: {
-        /**
-         * Show grids along x axis.
-         */
+export interface GridOptions {
+    x?: AxisGridOptions;
+    y?: AxisGridOptions;
+    focus?: {
         show?: boolean;
-        /**
-         * Show additional grid lines along x axis.
-         * This option accepts array including object that has value, text, position and class. text, position and class are optional. For position, start, middle and end (default) are available.
-         * If x axis is category axis, value can be category name. If x axis is timeseries axis, value can be date string, Date object and unixtime integer.
-         */
-        lines?: LineOptions[];
     };
-    y?: {
-        /**
-         * Show grids along y axis.
-         */
-        show?: boolean;
-        /**
-         * Show additional grid lines along y axis.
-         * This option accepts array including object that has value, text, position and class.
-         */
-        lines?: LineOptions[];
+    lines?: {
+        front?: boolean;
     };
 }
 
-export interface LineOptions {
+export interface AxisGridOptions {
+    /**
+     * Show grids along an axis.
+     */
+    show?: boolean;
+    /**
+     * Show additional grid lines along x axis.
+     * If x axis is `category` axis, value can be category name. If x axis is `timeseries` axis, value can be date string, `Date` object and unixtime integer.
+     */
+    lines?: GridLineOptions[];
+    /** Not used. */
+    type?: string;
+}
+
+export interface GridLineOptions {
+    /** Value to place the grid line at. */
     value: string | number | Date;
     text?: string;
-    axis?: AxisName;
-    position?: string;
+    position?: "start" | "end" | "middle";
+    /** Class to give the grid line for styling. */
     class?: string;
+}
+
+export interface GridLineOptionsWithAxis {
+    axis?: AxisName;
 }
 
 export interface RegionOptions {
@@ -1466,12 +1470,12 @@ export interface GridOperations {
      * Update the grid lines.
      * @param grids Grid lines will be replaced with this argument.
      */
-    (grids: LineOptions[]): LineOptions[];
+    (grids: GridLineOptionsWithAxis[]): GridLineOptionsWithAxis[];
     /**
      * Add grid lines. This API adds new grid lines instead of replacing.
      * @param grids New grid lines will be added. It's possible to give an Object if only one line will be added.
      */
-    add(grids: LineOptions[] | LineOptions): LineOptions[];
+    add(grids: GridLineOptionsWithAxis[] | GridLineOptionsWithAxis): GridLineOptionsWithAxis[];
     /**
      * Remove grid lines.
      * @param params Specifies which grid line to remove. If not given, all of x/y grid lines will be removed. If empty, none will be removed
