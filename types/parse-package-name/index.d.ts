@@ -1,4 +1,4 @@
-// Type definitions for parse-package-name 0.1.0
+// Type definitions for parse-package-name 0.1
 // Project: https://github.com/egoist/parse-package-name
 // Definitions by: Eric Wang <https://github.com/fa93hws>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -11,4 +11,4 @@ interface PackageInfo {
   version: string;
 }
 
-declare const parsePackageName: (path: string) => PackageInfo;
+declare function parsePackageName(path: string): PackageInfo;
