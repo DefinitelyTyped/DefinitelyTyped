@@ -6,6 +6,7 @@
 //                 Stijn Van Nieuwenhuyse <https://github.com/stijnvn>
 //                 Matthew Bull <https://github.com/wingsbob>
 //                 Ryan Wilson-Perkin <https://github.com/ryanwilsonperkin>
+//                 Paul Hawxby <https://github.com/phawxby>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -198,6 +199,8 @@ declare namespace got {
         hooks?: Hooks<GotFormOptions<E>, Record<string, any>>;
     }
 
+    type RequestFunction = typeof https.request;
+
     interface GotOptions<E extends string | null> extends InternalRequestOptions {
         baseUrl?: string;
         cookieJar?: CookieJar;
@@ -211,6 +214,7 @@ declare namespace got {
         throwHttpErrors?: boolean;
         agent?: http.Agent | boolean | AgentOptions;
         cache?: Cache;
+        request?: RequestFunction;
     }
 
     /**
