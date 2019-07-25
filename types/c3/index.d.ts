@@ -104,9 +104,9 @@ export interface ChartConfiguration {
     transition?: {
         /**
          * Set duration of transition (in milliseconds) for chart animation.
-         * Note: If 0 or null set, transition will be skipped. So, this makes initial rendering faster especially in case you have a lot of data.
+         * Note: If `0` or `null` set, transition will be skipped. So, this makes initial rendering faster especially in case you have a lot of data.
          */
-        duration?: number;
+        duration?: number | null;
     };
 
     /**
