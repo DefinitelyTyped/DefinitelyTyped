@@ -44,6 +44,15 @@ export class Async<OptionType> extends React.Component<Props<OptionType>, State<
   handleInputChange: (newValue: string, actionMeta: InputActionMeta) => string;
 }
 
-export function makeAsyncSelect(SelectComponent: React.ComponentType<any>): Async<any>;
+type SelectComponentProps<T> = T extends React.FunctionComponent<any>
+    ? Parameters<T>[0]
+    : T extends React.ComponentClass<any> ? ConstructorParameters<T>[0] : unknown;
+
+type AsyncComponentProps<T extends React.ComponentType<any> = React.ComponentType<any>> = SelectComponentProps<T> &
+    AsyncProps<any>;
+
+export function makeAsyncSelect<T extends React.ComponentType<any> = React.ComponentType<any>>(
+    SelectComponent: T,
+): React.ComponentClass<AsyncComponentProps<T>>;
 
 export default Async;
