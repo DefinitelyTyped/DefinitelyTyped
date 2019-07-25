@@ -6,7 +6,9 @@
 //                 KentarouTakeda <https://github.com/KentarouTakeda>
 //                 Alexey Snigirev <https://github.com/gigi>
 //                 Ezinwa Okpoechi <https://github.com/BrainMaestro>
+//                 Shigma <https://github.com/Shigma>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 ///<reference types="node" />
 
