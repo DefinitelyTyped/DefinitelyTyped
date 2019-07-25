@@ -27,6 +27,12 @@ declare namespace MiniCssExtractPlugin {
          */
         filename?: string;
         chunkFilename?: string;
+        /**
+         * For projects where CSS ordering has been mitigated through consistent 
+         * use of scoping or naming conventions, the CSS order warnings can be 
+         * disabled by setting this flag to true for the plugin.
+         */
+        ignoreOrder?: boolean;
     }
 }
 
