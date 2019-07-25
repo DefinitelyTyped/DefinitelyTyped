@@ -3,7 +3,5 @@
 // Definitions by: chobits4 <https://github.com/chobits4>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// TypeScript Version: 2.8
-
 /// <reference path="./lib.wa.es6.d.ts" />
 /// <reference path="./wx/index.d.ts" />
