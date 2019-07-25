@@ -434,3 +434,8 @@ got('example.com', {
         }
     });
 }
+
+// Test request option
+got('example.com', {
+    request: https.request
+});
