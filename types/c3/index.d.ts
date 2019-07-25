@@ -32,7 +32,7 @@ export type Domain = [number, number];
  * @param j The sub index of the data point where the label is shown.
  * @returns The formatted data label.
  */
-export type FormatFunction = (v: Primitive, id: string, i: number, j: number) => string;
+export type FormatFunction = (v: number | {valueOf(): number}, id: string, i: number, j: number) => string;
 
 export type YAxisName = "y" | "y2";
 export type AxisName = "x" | YAxisName;
@@ -100,7 +100,9 @@ export interface ChartConfiguration {
          */
         threshold?: {
             unit?: string;
-            values: unknown[]
+            values?: unknown[];
+            /** Defaults to `100`. */
+            max?: number;
         };
     };
 
@@ -269,7 +271,7 @@ export interface ChartConfiguration {
          * Defaults to `false`.
          */
         fullCircle?: boolean;
-        arcs: {
+        arcs?: {
             /**
              * Defaults to `5`.
              */
@@ -287,9 +289,38 @@ export interface ChartConfiguration {
     };
 
     stanford?: {
-        lines?: [];
-        regions?: [];
-        texts?: [];
+        /** Show lines anywhere in the chart. */
+        lines?: {
+            value_x1?: number;
+            value_y1?: number;
+            value_x2?: number;
+            value_y2?: number;
+            /** Class to apply to the line. */
+            class?: string;
+        }[];
+        /** Add regions to the chart. */
+        regions?: {
+            /** Points should be added in counter-clockwise direction  to close the polygon. */
+            points: {
+                x: number;
+                y: number;
+            }[];
+            text?: string;
+            opacity?: number;
+            /** Class to apply to the region. */
+            class?: string;
+        }[];
+        /** Show text anywhere inside the chart. */
+        texts?: {
+            /** x-position. */
+            x?: number;
+            /** y-position. */
+            y?: number;
+            /** Text content to show. */
+            content?: string;
+            /** Class to apply to the text. */
+            class?: string;
+        }[];
         /** Change the minimum value of the stanford color scale. */
         scaleMin?: number;
         /** Change the maximum value of the stanford color scale. */
@@ -343,7 +374,7 @@ export interface LabelOptions {
     /**
      * Set formatter for the label on each pie piece.
      */
-    format?(value: number, ratio: number, id: string): string;
+    format?(value: number, ratio: number, id: string): string | number;
 }
 
 export type ExpandOptions = boolean | {
@@ -380,7 +411,7 @@ export interface Data {
     /**
      * A list of columns, where the first element in each column is the ID and the remaining elements are data. If `url`, `json`, or `rows` are provided, this will be ignored.
      */
-    columns?: [string, ...PrimitiveArray];
+    columns?: [string, ...PrimitiveArray][];
     /**
      * Used if loading JSON via `data.url`.
      */
@@ -437,7 +468,7 @@ export interface Data {
     /**
      * Set y axis the data related to.
      */
-    axes?: { [key in YAxisName]?: string };
+    axes?: { [key: string]: AxisName };
     /**
      * Set chart type at once.
      * If this option is specified, the type will be applied to every data. This setting can be overwritten for individual data by `data.types`.
@@ -468,7 +499,7 @@ export interface Data {
      * end will be the last data point.
      * Currently this option supports only line chart and dashed style. If this option specified, the line will be dashed only in the regions.
      */
-    regions?: { [key: string]: RegionOptions };
+    regions?: { [key: string]: RegionOptions[] };
     /**
      * Set color converter function.
      * The function is called for each data ID, for each data series, and for each individual point.
@@ -545,13 +576,15 @@ export interface Data {
     /**
      * Set a callback for mouseover event on each data point.
      * @param d The data point that was moused over.
+     * @param element The element for that point. Not passed for some chart types, line 'line'.
      */
-    onmouseover?(this: ChartAPI, d: DataPoint): void;
+    onmouseover?(this: ChartAPI, d: DataPoint, element?: SVGElement): void;
     /**
      * Set a callback for mouseout event on each data point.
      * @param d The data point that the mouse left.
+     * @param element The element for that point. Not passed for some chart types, line 'line'.
      */
-    onmouseout?(this: ChartAPI, d: DataPoint): void;
+    onmouseout?(this: ChartAPI, d: DataPoint, element?: SVGElement): void;
     /**
      * Set a callback for data selection.
      * @param d The data point that was selected.
@@ -601,7 +634,7 @@ export interface AxisConfiguration {
      * If this option is set, the range of axis will increase/decrease according to the values. If no padding is needed in the range of axis, `0` should be set. On category axis, this option
      * will be ignored.
      */
-    padding?: SidePadding;
+    padding?: Padding;
     /**
      * Set label on axis.
      * Valid horizontal axis positions: inner-right (default), inner-center, inner-left, outer-right, outer-center, outer-left
@@ -785,7 +818,7 @@ export interface GridLineOptions {
     class?: string;
 }
 
-export interface GridLineOptionsWithAxis {
+export interface GridLineOptionsWithAxis extends GridLineOptions {
     axis?: AxisName;
 }
 
@@ -813,6 +846,10 @@ export interface RegionOptions {
      * Control the opacity of the region area.
      */
     opacity?: number;
+    /**
+     * If `'dashed'`, renders the line as dashed in this range instead of showing a region block.
+     */
+    style?: "dashed";
 }
 
 export interface LegendOptions {
@@ -1035,6 +1072,11 @@ export interface ZoomOptions {
         min?: number;
         max?: number;
     }
+    /**
+     * Change zoom extent.
+     * **Experimental.**
+     */
+    extent?: [number, number];
 }
 
 export interface PointOptions {
@@ -1155,7 +1197,7 @@ export interface ChartAPI {
         /** A list of rows, where the first row is the column names and the remaining rows are data.  If `data`, `url`, or `json` are provided this will be ignored.  */
         rows?: PrimitiveArray[];
         /** A list of columns, where the first element in each column is the ID and the remaining elements are data. If `data`, `url`, `json`, or 'rows' are provided, this will be ignored. */
-        columns?: [string, ...PrimitiveArray];
+        columns?: [string, ...PrimitiveArray][];
         /** Match x columns to the corresponding data columns. */
         xs?: Record<string, string>;
         /** Match loaded data IDs with display names. */
@@ -1185,7 +1227,7 @@ export interface ChartAPI {
     unload(args?: ArrayOrString | {
         ids?: ArrayOrString;
         /** Called after data is loaded, but not after rendering. This is because rendering will finish after some transition and there is some time lag between loading and rendering. */
-        done(): void;
+        done?: () => void;
     }): void;
     /**
      * Flow data to the chart. By this API, you can append new data points to the chart.
