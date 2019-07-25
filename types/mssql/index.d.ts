@@ -255,6 +255,7 @@ export declare class Table {
     public database?: string;
     public name?: string;
     public path?: string;
+    public temporary?: boolean;
 }
 
 interface IRequestParameters {
