@@ -2050,9 +2050,9 @@ declare namespace Stripe {
                 client_reference_id?: string;
 
                 /**
-                 * ID of customer
+                 * ID of customer [Expandable]
                  */
-                customer?: string;
+                customer?: string | customers.ICustomer;
 
                 /**
                  * Email address of customer
@@ -2075,9 +2075,9 @@ declare namespace Stripe {
                 locale?: string;
 
                 /**
-                 * ID of payment intent created
+                 * ID of payment intent created [Expandable]
                  */
-                payment_intent?: string;
+                payment_intent?: string | paymentIntents.IPaymentIntent;
 
                 /**
                  * Array of accepted payment methods
@@ -2085,9 +2085,9 @@ declare namespace Stripe {
                 payment_method_types?: string[];
 
                 /**
-                 * ID of subscription if one was created
+                 * ID of subscription if one was created [Expandable]
                  */
-                subscription?: string;
+                subscription?: string | subscriptions.ISubscription;
 
                 /**
                  * URL to redirect to upon success
@@ -7802,6 +7802,7 @@ declare namespace Stripe {
 
         class Sessions extends StripeResource {
             create(data: checkouts.sessions.ICheckoutCreationOptions, response?: IResponseFn<checkouts.sessions.ICheckoutSession>): Promise<checkouts.sessions.ICheckoutSession>;
+            retrieve(data: string, options: HeaderOptions, response?: IResponseFn<checkouts.sessions.ICheckoutSession>): Promise<checkouts.sessions.ICheckoutSession>;
             retrieve(data: string, response?: IResponseFn<checkouts.sessions.ICheckoutSession>): Promise<checkouts.sessions.ICheckoutSession>;
         }
 

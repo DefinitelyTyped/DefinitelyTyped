@@ -282,6 +282,13 @@ stripe.checkout.sessions.create({
     // asynchronously called
 });
 
+stripe.checkout.sessions.retrieve('ch_test_123').then(session => {
+  session; // $ExpectType ICheckoutSession
+});
+stripe.checkout.sessions.retrieve('ch_test_123', { expand: ['payment_intent'] }).then(session => {
+  session.payment_intent; // $ExpectType string | IPaymentIntent
+});
+
 //#endregion
 
 //#region CreditNotes tests
