@@ -90,10 +90,16 @@ export interface ChartConfiguration {
 
     color?: {
         /**
-         * Set custom color pattern.
+         * Set custom color pattern. Order matches the order of the data.
          */
         pattern?: string[];
-        threshold?: any; // Undocumented
+        /**
+         * **Experimental.**
+         */
+        threshold?: {
+            unit?: string;
+            values: unknown[]
+        };
     };
 
     interaction?: {
