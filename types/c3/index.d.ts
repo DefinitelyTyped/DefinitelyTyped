@@ -26,10 +26,6 @@ export type PrimitiveArray = Array<string | boolean | number | null>;
  */
 export type FormatFunction = (v: Primitive, id: string, i: number, j: number) => string;
 
-export interface TargetIds {
-    ids: ArrayOrString;
-}
-
 export type ArrayOrString = string[] | string;
 
 export type YAxisName = "y" | "y2";
@@ -326,7 +322,6 @@ export interface ChartConfiguration {
         };
     };
 }
-
 
 export interface Data {
     /**
@@ -911,6 +906,7 @@ export interface TooltipOptions {
 export interface SubchartOptions {
     /**
      * Show sub chart on the bottom of the chart.
+     * Defaults to `false`.
      */
     show?: boolean;
     size?: {
@@ -919,17 +915,22 @@ export interface SubchartOptions {
          */
         height: number;
     };
+    axis?: {
+        x?: {
+            show: boolean;
+        }
+    }
     /**
      * Set callback for brush event.
      * Specified function receives the current zoomed x domain.
      */
-    onbrush?(domain: any): void;
+    onbrush?(this: ChartAPI, domain: Domain): void;
 }
 
 /**
  * Zoomed domain in the form `[minimum, maximum]` where `minimum` and `maximum` are the values at the edges of the visible x-axis.
  */
-export type ZoomDomain = [number, number];
+export type Domain = [number, number];
 
 export interface ZoomOptions {
     /**
@@ -947,7 +948,7 @@ export interface ZoomOptions {
     /**
      * Set callback that is called when the chart is zooming. Specified function receives the zoomed domain.
      */
-    onzoom?(this: ChartAPI, domain: ZoomDomain): void;
+    onzoom?(this: ChartAPI, domain: Domain): void;
     /**
      * Set callback that is called when zooming starts. Specified function receives the zoom event.
      */
@@ -955,11 +956,11 @@ export interface ZoomOptions {
     /**
      * Set callback that is called when zooming ends. Specified function receives the zoomed domain.
      */
-    onzoomend?(this: ChartAPI, domain: ZoomDomain): void;
+    onzoomend?(this: ChartAPI, domain: Domain): void;
     /**
      * Set the initial minimum and maximum x-axis zoom values.
      */
-    initialRange?: ZoomDomain;
+    initialRange?: Domain;
     /**
      * Disable the default animation of zoom. This option is useful when you want to get the zoomed domain by `onzoom` or `onzoomend` handlers and override the default animation behavior.
      * @see https://github.com/c3js/c3/pull/2439 for details.
