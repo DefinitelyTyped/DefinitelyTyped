@@ -29,7 +29,7 @@
 //                 Ethan Setnik <https://github.com/esetnik>
 //                 Pavel Ivanov <https://github.com/schfkt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 
@@ -67,6 +67,7 @@ declare class Stripe {
     invoices: Stripe.resources.Invoices;
     invoiceItems: Stripe.resources.InvoiceItems;
     paymentIntents: Stripe.resources.PaymentIntents;
+    paymentMethods: Stripe.resources.PaymentMethods;
     payouts: Stripe.resources.Payouts;
     plans: Stripe.resources.Plans;
     /**
@@ -1683,27 +1684,12 @@ declare namespace Stripe {
                 /**
                  * Card brand. Can be `amex`, `diners`, `discover`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`.
                  */
-                brand: "amex" | "diners" | "discover" | "jcb" | "mastercard" | "unionpay" | "visa" | "unknown";
+                brand: paymentMethods.CardBrand
 
                 /**
                  * Check results by Card networks on Card address and CVC at time of payment.
                  */
-                checks: {
-                    /**
-                     * If a address line1 was provided, results of the check, one of `pass`, `failed`, `unavailable` or `unchecked`.
-                     */
-                    address_line1_check: "pass" | "failed" | "unavailable" | "unchecked";
-
-                    /**
-                     * If a address postal code was provided, results of the check, one of `pass`, `failed`, `unavailable` or `unchecked`.
-                     */
-                    address_postal_code_check: "pass" | "failed" | "unavailable" | "unchecked";
-
-                    /**
-                     * If a CVC was provided, results of the check, one of `pass`, `failed`, `unavailable` or `unchecked`.
-                     */
-                    cvc_check: "pass" | "failed" | "unavailable" | "unchecked";
-                }
+                checks: paymentMethods.CardChecks
 
                 /**
                  * Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of
@@ -1761,48 +1747,7 @@ declare namespace Stripe {
                 /**
                  * If this Card is part of a card wallet, this contains the details of the card wallet.
                  */
-                wallet?: {
-                    /**
-                     * The type of the card wallet, one of `amex_express_checkout`, `apple_pay`, `google_pay`, `masterpass`,
-                     * `samsung_pay`, or `visa_checkout`. An additional hash is included on the Wallet subhash with a name
-                     * matching this value. It contains additional information specific to the card wallet type.
-                     */
-                    type: "amex_express_checkout" | "apple_pay" | "google_pay" | "masterpass" | "samsung_pay" | "visa_checkout";
-
-                    /**
-                     * If this is an `amex_express_checkout` card wallet, this hash contains details about the wallet.
-                     */
-                    amex_express_checkout: {};
-
-                    /**
-                     * If this is an `apple_pay` card wallet, this hash contains details about the wallet.
-                     */
-                    apple_pay: {};
-
-                    /**
-                     * (For tokenized numbers only.) The last four digits of the device account number.
-                     */
-                    dynamic_last4?: string;
-
-                    /**
-                     * If this is a `google_pay` card wallet, this hash contains details about the wallet.
-                     */
-                    google_pay?: string;
-
-                    /**
-                     * If this is a `masterpass` card wallet, this hash contains details about the wallet.
-                     */
-                    masterpass?: {
-                        // TODO: fill in from https://stripe.com/docs/api/charges/object#charge_object-payment_method_details-card-wallet-masterpass
-                    };
-
-                    /**
-                     * If this is a `visa_checkout` card wallet, this hash contains details about the wallet.
-                     */
-                    visa_checkout: {
-                        // TODO: fill in from https://stripe.com/docs/api/charges/object#charge_object-payment_method_details-card-wallet-visa_checkout
-                    };
-                };
+                wallet?: paymentMethods.CardWallet
             };
         }
 
@@ -4900,6 +4845,258 @@ declare namespace Stripe {
              * Only return links for the given file.
              */
             file?: boolean;
+        }
+    }
+
+    namespace paymentMethods {
+        interface WalletAddress {
+            /** City/District/Suburb/Town/Village. */
+            city: string;
+            /** 2-letter country code. */
+            country: string;
+            /** Address line 1 (Street address/PO Box/Company name). */
+            line1: string;
+            /** Address line 2 (Apartment/Suite/Unit/Building). */
+            line2: string;
+            /** ZIP or postal code. */
+            postal_code: string;
+            /** State/County/Province/Region. */
+            state: string;
+        }
+
+        interface WalletData {
+            /**
+             * Owner's verified billing address. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated.
+             */
+            billing_address: WalletAddress;
+
+            /**
+             * Owner's verified email. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated.
+             */
+            email: string;
+
+            /**
+             * Owner's verified full name. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated.
+             */
+            name: string;
+
+            /**
+             * Owner's verified shipping address. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated.
+             */
+            shipping_address: WalletAddress;
+        }
+
+        interface TokenizedWallet {
+            /** (For tokenized numbers only.) The last four digits of the device account number. */
+            dynamic_last4?: string;
+        }
+
+        interface MasterpassWallet {
+            type: "masterpass";
+            masterpass: WalletData;
+        }
+
+        interface VisaCheckoutWallet {
+            type: "visa_checkout";
+            visa_checkout: WalletData;
+        }
+
+        // There are currently no child attributes for these wallet types in the documentation. See https://stripe.com/docs/api/payment_methods/object#payment_method_object-card-wallet.
+        interface AmericanExpressWallet {
+            type: "amex_express_checkout";
+            amex_express_checkout: {};
+        }
+
+        interface ApplePayWallet extends TokenizedWallet {
+            type: "apple_pay";
+            apple_pay: {};
+        }
+
+        interface GooglePayWallet extends TokenizedWallet {
+            type: "google_pay";
+            google_pay: {};
+        }
+        interface SamsungPayWallet extends TokenizedWallet {
+            type: "samsung_pay";
+            samsung_pay: {};
+        }
+
+        type CardWallet =
+            | MasterpassWallet
+            | VisaCheckoutWallet
+            | AmericanExpressWallet
+            | ApplePayWallet
+            | GooglePayWallet
+            | SamsungPayWallet;
+
+        type CardWalletType = CardWallet["type"];
+
+        type CardBrand = "amex" | "diners" | "discover" | "jcb" | "mastercard" | "unionpay" | "visa" | "unknown";
+
+        interface CardChecks {
+            /**
+             * If a address line1 was provided, results of the check, one of `pass`, `failed`, `unavailable` or `unchecked`.
+             */
+            address_line1_check: "pass" | "failed" | "unavailable" | "unchecked" | null;
+
+            /**
+             * If a address postal code was provided, results of the check, one of `pass`, `failed`, `unavailable` or `unchecked`.
+             */
+            address_postal_code_check: "pass" | "failed" | "unavailable" | "unchecked" | null;
+
+            /**
+             * If a CVC was provided, results of the check, one of `pass`, `failed`, `unavailable` or `unchecked`.
+             */
+            cvc_check: "pass" | "failed" | "unavailable" | "unchecked" | null;
+        }
+
+        interface IBasePaymentMethod extends IResourceObject {
+            object: "payment_method";
+
+            /** Billing information associated with the PaymentMethod that may be used or required by particular types of payment methods. */
+            billing_details: null | {
+                address: IAddress | null;
+                email: string | null;
+                name: string | null;
+                /** Billing phone number (including extension). */
+                phone: string | null;
+            };
+
+            /** Time at which the object was created. Measured in seconds since the Unix epoch. */
+            created: number;
+
+            /** The ID of the Customer to which this PaymentMethod is saved. This will not be set when the PaymentMethod has not been saved to a Customer. [Expandable] */
+            customer: string | customers.ICustomer | null;
+
+            /** Has the value true if the object exists in live mode or the value false if the object exists in test mode. */
+            livemode: boolean;
+
+            /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
+            metadata: IMetadata;
+        }
+
+        interface ICardPaymentMethod extends IBasePaymentMethod {
+            type: "card";
+            card: {
+                /** Card brand. Can be `amex`, `diners`, `discover`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`. */
+                brand: CardBrand;
+
+                /** Check results by Card networks on Card address and CVC at time of payment. */
+                checks: CardChecks;
+
+                /**
+                 * Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of
+                 * the international breakdown of cards you’ve collected.
+                 */
+                country: string;
+
+                /** Two-digit number representing the card’s expiration month. */
+                exp_month: number;
+
+                /** Four-digit number representing the card’s expiration year. */
+                exp_year: number;
+
+                /**
+                 * Uniquely identifies this particular card number. You can use this attribute to check whether two
+                 * customers who’ve signed up with you are using the same card number, for example.
+                 */
+                fingerprint: string;
+
+                /** Card funding type. Can be credit, debit, prepaid, or unknown. */
+                funding: "credit" | "debit" | "prepaid" | "unknown";
+
+                /** Details of the original PaymentMethod that created this object. */
+                generated_from: null | {
+                    /** The charge that created this object. */
+                    charge: string;
+
+                    /** Transaction-specific details of the payment method used in the payment. */
+                    payment_method_details: charges.IPaymentMethodDetails;
+                };
+
+                /** The last four digits of the card. */
+                last4: string;
+
+                /** Contains details on how this Card may be be used for 3D Secure authentication. */
+                three_d_secure_usage: {
+                    /** Whether 3D Secure is supported on this card. */
+                    supported: boolean;
+                };
+
+                /** If this Card is part of a card wallet, this contains the details of the card wallet. */
+                wallet: null | CardWallet;
+            };
+        }
+
+        interface ICardPresentPaymentMethod extends IBasePaymentMethod {
+            type: "card_present";
+            card_present: {};
+        }
+
+        type IPaymentMethod = ICardPaymentMethod | ICardPresentPaymentMethod;
+
+        type IPaymentMethodType = IPaymentMethod["type"];
+
+        interface IPaymentMethodCreationOptions {
+            /**
+             * The type of the PaymentMethod, one of: card and card_present. An additional hash is included on the PaymentMethod with a name matching this value.
+             * It contains additional information specific to the PaymentMethod type.
+             */
+            type: IPaymentMethodType;
+
+            /** Billing information associated with the PaymentMethod that may be used or required by particular types of payment methods. */
+            billing_details?: {
+                address?: IAddress;
+                email?: string;
+                name?: string;
+                phone?: string;
+            };
+
+            /**
+             * If this is a card PaymentMethod, this hash contains the user’s card details. For backwards compatibility, you can alternatively provide a Stripe token (e.g., for Apple Pay,
+             * Amex Express Checkout, or legacy Checkout) into the card hash with format card: {token: "tok_visa"}. When creating with a card number, you must meet the requirements for
+             * PCI compliance. We strongly recommend using Stripe.js instead of interacting with this API directly.
+             */
+            card?: {
+                exp_month: number;
+                exp_year: number;
+                number: string;
+                cvc?: string;
+            } | {
+                token: string;
+            };
+
+            /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
+            metadata?: IMetadata;
+        }
+
+        interface IPaymentMethodUpdateOptions {
+            /** Billing information associated with the PaymentMethod that may be used or required by particular types of payment methods. */
+            billing_details?: {
+                address?: IAddress;
+                email?: string;
+                name?: string;
+                phone?: string;
+            };
+            card?: {
+                exp_month?: number;
+                exp_year?: number;
+            };
+            /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
+            metadata?: IMetadata;
+        }
+
+        interface IPaymentMethodListOptions<T extends IPaymentMethodType = IPaymentMethodType> extends IListOptions {
+            /** The ID of the customer whose PaymentMethods will be retrieved. */
+            customer: string;
+
+            /** A required filter on the list, based on the object type field. */
+            type: T;
+        }
+
+        interface IPaymentMethodAttachOptions {
+            /** The ID of the customer to which to attach the PaymentMethod. */
+            customer: string;
         }
     }
 
@@ -9224,6 +9421,68 @@ declare namespace Stripe {
                 paymentIntentId: string,
                 response?: IResponseFn<paymentIntents.IPaymentIntent>,
             ): Promise<paymentIntents.IPaymentIntent>;
+        }
+
+        /** https://stripe.com/docs/api/payment_methods */
+        class PaymentMethods {
+            create(
+                data: paymentMethods.IPaymentMethodCreationOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<paymentMethods.IPaymentMethod>
+            ): Promise<paymentMethods.IPaymentMethod>;
+            create(
+                data: paymentMethods.IPaymentMethodCreationOptions,
+                response?: IResponseFn<paymentMethods.IPaymentMethod>
+            ): Promise<paymentMethods.IPaymentMethod>;
+            retrieve(
+                paymentMethodId: string,
+                options: HeaderOptions,
+                response?: IResponseFn<paymentMethods.IPaymentMethod>
+            ): Promise<paymentMethods.IPaymentMethod>;
+            retrieve(
+                paymentMethodId: string,
+                response?: IResponseFn<paymentMethods.IPaymentMethod>
+            ): Promise<paymentMethods.IPaymentMethod>;
+            update(
+                paymentMethodId: string,
+                data: paymentMethods.IPaymentMethodUpdateOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<paymentMethods.IPaymentMethod>
+            ): Promise<paymentMethods.IPaymentMethod>;
+            update(
+                paymentMethodId: string,
+                data: paymentMethods.IPaymentMethodUpdateOptions,
+                response?: IResponseFn<paymentMethods.IPaymentMethod>
+            ): Promise<paymentMethods.IPaymentMethod>;
+            list<T extends paymentMethods.IPaymentMethodType>(
+                data: paymentMethods.IPaymentMethodListOptions<T>,
+                options: HeaderOptions,
+                response?: IResponseFn<IList<paymentMethods.IPaymentMethod>>
+            ): IListPromise<Extract<paymentMethods.IPaymentMethod, { type: T }>>;
+            list<T extends paymentMethods.IPaymentMethodType>(
+                data: paymentMethods.IPaymentMethodListOptions<T>,
+                response?: IResponseFn<IList<paymentMethods.IPaymentMethod>>
+            ): IListPromise<Extract<paymentMethods.IPaymentMethod, { type: T }>>;
+            attach(
+                paymentMethodId: string,
+                data: paymentMethods.IPaymentMethodAttachOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<paymentMethods.IPaymentMethod>
+            ): Promise<paymentMethods.IPaymentMethod>;
+            attach(
+                paymentMethodId: string,
+                data: paymentMethods.IPaymentMethodAttachOptions,
+                response?: IResponseFn<paymentMethods.IPaymentMethod>
+            ): Promise<paymentMethods.IPaymentMethod>;
+            detach(
+                paymentMethodId: string,
+                options: HeaderOptions,
+                response?: IResponseFn<paymentMethods.IPaymentMethod>
+            ): Promise<paymentMethods.IPaymentMethod>;
+            detach(
+                paymentMethodId: string,
+                response?: IResponseFn<paymentMethods.IPaymentMethod>
+            ): Promise<paymentMethods.IPaymentMethod>;
         }
 
         class Payouts extends StripeResource {
