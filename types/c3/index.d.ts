@@ -896,53 +896,72 @@ export interface LegendOptions {
 export interface TooltipOptions {
     /**
      * Show or hide tooltip.
+     * Defaults to `true`.
      */
     show?: boolean;
     /**
      * Set if tooltip is grouped or not for the data points.
+     * Defaults to `true`.
      */
     grouped?: boolean;
     format?: {
         /**
-         * Set format for the title of tooltip. Specified function receives x of the data point to show.
+         * Set format for the title of tooltip.
+         * @param x Value of the data point to show.
+         * @param index Index of the data point to show.
          */
-        title?(x: any): string;
+        title?(x: Primitive, index: number): string;
         /**
-         * Set format for the name of each data in tooltip. Specified function receives name, ratio, id and index of the data point to show. ratio will be undefined if the chart is not
-         * donut/pie/gauge.
+         * Set format for the name of each data in tooltip. 
+         * @param ratio Will be `undefined` if the chart is not donut/pie/gauge.
          */
-        name?(name: string, ratio: number, id: string, index: number): string;
+        name?(name: string, ratio: number | undefined, id: string, index: number): string;
         /**
          * Set format for the value of each data in tooltip.
-         * Specified function receives name, ratio, id and index of the data point to show. ratio will be undefined if the chart is not donut/pie/gauge.
-         * If undefined returned, the row of that value will be skipped.
+         * @param ratio Will be `undefined` if the chart is not donut/pie/gauge.
+         * @returns If `undefined` returned, the row of that value will be skipped.
          */
-        value?(value: any, ratio: number, id: string, index: number): string;
+        value?(value: Primitive, ratio: number | undefined, id: string, index: number): string | undefined;
     };
+    /** Show the tooltips based on the horizontal position of the mouse. */
+    horizontal?: boolean;
     /**
      * Set custom position for the tooltip. This option can be used to modify the tooltip position by returning object that has top and left.
      */
     position?(
-        data: any,
+        this: ChartInternal,
+        data: Primitive,
         width: number,
         height: number,
-        element: any,
+        element: SVGElement,
     ): { top: number; left: number };
     /**
      * Set custom HTML for the tooltip.
-     * Specified function receives data, defaultTitleFormat, defaultValueFormat and color of the data point to show. If tooltip.grouped is true, data includes multiple data points.
+     * @param data If `tooltip.grouped` is true, data includes multiple data points.
      */
     contents?(
-        data: any,
-        defaultTitleFormat: string,
-        defaultValueFormat: string,
-        color: any,
+        this: ChartInternal,
+        data: DataPoint[],
+        defaultTitleFormat: Function,
+        defaultValueFormat: Function,
+        color: Function,
     ): string;
     /**
-     * Set tooltip values order
-     * Available Values: desc, asc, any[], function (data1, data2) { ... }, null
+     * Set tooltip values order.
      */
-    order?: string | any[] | ((data1: any, data2: any) => number) | null;
+    order?: "desc" | "asc" | any[] | ((data1: any, data2: any) => number) | null;
+    init?: {
+        show?: boolean;
+        x?: number;
+        position?: {
+            /** Defaults to `"0px"`. */
+            top?: string;
+            /** Defaults to `"50px"`. */
+            left?: string;
+        };
+    }
+    // onshow?: () => void; // Not used
+    // onhide?: () => void; // Not used
 }
 
 export interface SubchartOptions {
