@@ -17,8 +17,8 @@ export = SocketIO;
 /** @deprecated Available as a global for backwards-compatibility. */
 export as namespace SocketIO;
 
-import * as EngineIO from 'engine.io'
-import { Encoder, Decoder } from 'socket.io-parser'
+import * as EngineIO from 'engine.io';
+import { Encoder, Decoder } from 'socket.io-parser';
 
 interface SocketIOStatic {
 	/**
