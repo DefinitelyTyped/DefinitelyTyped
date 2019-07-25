@@ -136,6 +136,11 @@ export interface IResult<T> {
     rowsAffected: number[],
     output: { [key: string]: any };
 }
+
+export interface IBulkResult {
+  rowsAffected: number;
+}
+
 export interface IProcedureResult<T> extends IResult<T> {
     returnValue: any;
 }
@@ -261,6 +266,20 @@ interface IRequestParameters {
     }
 }
 
+/**
+ * Options object to be passed through to driver (currently tedious only)
+ */
+export interface IBulkOptions {
+    /** Honors constraints during bulk load, using T-SQL CHECK_CONSTRAINTS. (default: false) */
+    checkConstraints?: boolean;
+    /** Honors insert triggers during bulk load, using the T-SQL FIRE_TRIGGERS. (default: false) */
+    fireTriggers?: boolean;
+    /** Honors null value passed, ignores the default values set on table, using T-SQL KEEP_NULLS. (default: false) */
+    keepNulls?: boolean;
+    /** Places a bulk update(BU) lock on table while performing bulk load, using T-SQL TABLOCK. (default: false) */
+    tableLock?: boolean;
+}
+
 export declare class Request extends events.EventEmitter {
     public transaction: Transaction;
     public pstatement: PreparedStatement;
@@ -288,8 +307,10 @@ export declare class Request extends events.EventEmitter {
     public batch<Entity>(batch: string): Promise<IResult<Entity>>;
     public batch(batch: string, callback: (err?: Error, recordset?: IResult<any>) => void): void;
     public batch<Entity>(batch: string, callback: (err?: any, recordset?: IResult<Entity>) => void): void;
-    public bulk(table: Table): Promise<number>;
-    public bulk(table: Table, callback: (err: Error, rowCount: any) => void): void;
+    public bulk(table: Table): Promise<IBulkResult>;
+    public bulk(table: Table, options: IBulkOptions): Promise<IBulkResult>;
+    public bulk(table: Table, callback: (err: Error, result: IBulkResult) => void): void;
+    public bulk(table: Table, options: IBulkOptions, callback: (err: Error, result: IBulkResult) => void): void;
     public cancel(): void;
     public pause(): boolean;
     public resume(): boolean;
