@@ -1,11 +1,18 @@
 import socketIO = require('socket.io');
+import http = require('http');
 
 function testUsingWithNodeHTTPServer() {
-    var app = require('http').createServer(handler);
+    var app = http.createServer(handler);
     var io: socketIO.Server = socketIO(app);
     var fs = require('fs');
 
     app.listen(80);
+
+    var custom_id = 1;
+
+    io.engine.generateId = (req) => {
+        return "custom:id:" + custom_id++;
+    }
 
     function handler(req: any, res: any) {
         fs.readFile(__dirname + '/index.html',
@@ -75,7 +82,8 @@ function testSendingAndReceivingEvents() {
             console.log('I received a private message by ', from, ' saying ', msg);
         });
 
-        socket.on('disconnect', function () {
+        socket.on('disconnect', function (reason) {
+            console.log(reason)
             io.sockets.emit('user disconnected');
         });
     });
