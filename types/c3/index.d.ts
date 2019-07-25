@@ -38,6 +38,12 @@ export interface ChartConfiguration {
      * MutationObserver. On the other hand, if chart always will be binded, polyfill will not be required because MutationObserver will never be called.
      */
     bindto?: string | HTMLElement | d3.Selection<any, any, any, any> | null;
+
+    svg?: {
+        /** Class to assign to the chart's container SVG element. */
+        classname?: string;
+    }
+
     size?: {
         /**
          * The desired width of the chart element.
@@ -847,6 +853,11 @@ export interface SubchartOptions {
     onbrush?(domain: any): void;
 }
 
+/**
+ * Zoomed domain in the form `[minimum, maximum]` where `minimum` and `maximum` are the values at the edges of the visible x-axis.
+ */
+export type ZoomDomain = [number, number];
+
 export interface ZoomOptions {
     /**
      * Enable zooming.
@@ -861,13 +872,9 @@ export interface ZoomOptions {
      */
     rescale?: boolean;
     /**
-     * Change zoom extent.
-     */
-    extent?: [number, number];
-    /**
      * Set callback that is called when the chart is zooming. Specified function receives the zoomed domain.
      */
-    onzoom?(domain: any): void;
+    onzoom?(domain: ZoomDomain): void;
     /**
      * Set callback that is called when zooming starts. Specified function receives the zoom event.
      */
@@ -875,7 +882,22 @@ export interface ZoomOptions {
     /**
      * Set callback that is called when zooming ends. Specified function receives the zoomed domain.
      */
-    onzoomend?(domain: any): void;
+    onzoomend?(domain: ZoomDomain): void;
+    /**
+     * Set the initial minimum and maximum x-axis zoom values.
+     */
+    initialRange?: ZoomDomain;
+    /**
+     * Disable the default animation of zoom. This option is useful when you want to get the zoomed domain by `onzoom` or `onzoomend` handlers and override the default animation behavior.
+     * @see https://github.com/c3js/c3/pull/2439 for details.
+     */
+    disableDefaultBehavior?: boolean;
+
+    priveleged?: boolean;
+    x?: {
+        min?: number;
+        max?: number;
+    }
 }
 
 export interface PointOptions {
@@ -1364,3 +1386,4 @@ export interface GridOperations {
 }
 
 export function generate(config: ChartConfiguration): ChartAPI;
+export const version: string;
