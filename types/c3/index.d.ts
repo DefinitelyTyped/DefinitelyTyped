@@ -798,63 +798,86 @@ export interface RegionOptions {
 export interface LegendOptions {
     /**
      * Show or hide legend.
+     * Defaults to `true`.
      */
     show?: boolean;
     /**
      * Hide legend
      * If true given, all legend will be hidden. If string or array given, only the legend that has the id will be hidden.
+     * Defaults to `false`.
      */
     hide?: boolean | ArrayOrString;
     /**
      * Change the position of legend.
-     * Currently bottom, right and inset are supported.
      */
-    position?: string;
+    position?: "bottom" | "right" | "inset";
     /**
-     * Change inset legend attributes.
-     * This option accepts object that has the keys anchor, x, y and step.
-     * anchor decides the position of the legend. These anchors are available: top-left, top-right, bottom-left, bottom-right
-     * x and y set the position of the legend based on the anchor.
-     * step defines the max step the lagend has (e.g. If 2 set and legend has 3 legend item, the legend 2 columns).
+     * Change inset legend attributes. Ignored unless `legend.position` is `"inset"`.
      */
     inset?: {
-        anchor?: string;
+        /** 
+         * Decides the position of the legend. 
+         * Defaults to `"top-left"`.
+         */
+        anchor?: "top-left" | "top-right" | "bottom-left" | "bottom-right";
+        /** 
+         * Set the horizontal position of the legend based on the anchor. 
+         * Defaults to `10`.
+         */
         x?: number;
+        /** 
+         * Set the vertical position of the legend based on the anchor. 
+         * Defaults to `0`.
+         */
         y?: number;
+        /** 
+         * Defines the max step the legend has (e.g. If `step=2` and legend has 3 items, the legend has 2 columns). 
+         */
         step?: number;
     };
     /**
      * Padding between legend elements.
+     * Defaults to `0`.
      */
     padding?: number;
 
     item?: {
         /**
          * Set click event handler to the legend item.
+         * @param id The ID of the legend item.
          */
-        onclick?(id: any): void;
+        onclick?(this: ChartInternal, id: string): void;
         /**
          * Set mouseover event handler to the legend item.
+         * @param id The ID of the legend item.
          */
-        onmouseover?(id: any): void;
+        onmouseover?(this: ChartInternal, id: string): void;
         /**
          * Set mouseout event handler to the legend item.
+         * @param id The ID of the legend item.
          */
-        onmouseout?(id: any): void;
+        onmouseout?(this: ChartInternal, id: string): void;
         /**
          * Tile settings for legend color display.
          */
         tile?: {
             /**
              * Tile width.
+             * Defaults to `10`.
              */
             width?: number;
             /**
-             * Tile height
+             * Tile height.
+             * Defaults to `10`.
              */
             height?: number;
         };
     };
+
+    /**
+     * Defaults to `false`.
+     */
+    equally?: boolean;
 }
 
 export interface TooltipOptions {
