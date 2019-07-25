@@ -1,8 +1,7 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "lib": ["es6"],
-        "esModuleInterop": true,
+        "lib": ["es6", "es2017"],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
@@ -11,7 +10,11 @@
         "typeRoots": ["../"],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "jsx": "react-native"
     },
-    "files": ["index.d.ts", "react-native-dotenv-tests.ts"]
+    "files": [
+        "index.d.ts",
+        "react-native-app-intro-slider-tests.tsx"
+    ]
 }
