@@ -1,8 +1,7 @@
-import stream = require('mithril/stream');
-import { Stream } from 'mithril/stream';
+import * as Stream from 'mithril/stream';
 
 {
-	const s = stream(1);
+	const s = Stream(1);
 	const initialValue = s();
 	s(2);
 	const newValue = s();
@@ -11,64 +10,64 @@ import { Stream } from 'mithril/stream';
 }
 
 {
-	const s = stream();
+	const s = Stream();
 	console.assert(s() === undefined);
 }
 
 {
-	const s: Stream<number | undefined> = stream(1);
+	const s: Stream<number | undefined> = Stream(1);
 	s(undefined);
 	console.assert(s() === undefined);
 }
 
 {
-	const s = stream(stream(1));
+	const s = Stream(Stream(1));
 	console.assert(s()() === 1);
 }
 
 {
-	const s = stream();
-	const doubled = stream.combine(s => s() * 2, [s]);
+	const s = Stream();
+	const doubled = Stream.combine(s => s() * 2, [s]);
 	s(2);
 	console.assert(doubled() === 4);
 }
 
 {
-	const s = stream(2);
-	const doubled = stream.combine(s => s() * 2, [s]);
+	const s = Stream(2);
+	const doubled = Stream.combine(s => s() * 2, [s]);
 	console.assert(doubled() === 4);
 }
 
 {
-	const s1 = stream();
-	const s2 = stream();
-	const added = stream.combine((s1, s2) => s1() + s2(), [s1, s2]);
+	const s1 = Stream<number>();
+	const s2 = Stream<number>();
+	const added = Stream.combine((s1, s2) => s1() + s2(), [s1, s2]);
 	s1(2);
 	s2(3);
 	console.assert(added() === 5);
 }
 
 {
-	const s1 = stream(2);
-	const s2 = stream(3);
-	const added = stream.combine((s1, s2) => s1() + s2(), [s1, s2]);
+	const s1 = Stream(2);
+	const s2 = Stream(3);
+	const added = Stream.combine((s1, s2) => s1() + s2(), [s1, s2]);
 	console.assert(added() === 5);
 }
 
 {
-	const s1 = stream(2);
-	const s2 = stream();
-	const added = stream.combine((s1, s2) => s1() + s2(), [s1, s2]);
+	const s1 = Stream(2);
+	const s2 = Stream();
+	const added = Stream.combine((s1, s2) => s1() + s2(), [s1, s2]);
 	s2(3);
 	console.assert(added() === 5);
 }
 
 {
 	let count = 0;
-	const a = stream();
-	const b = stream.combine(a => a() * 2, [a]);
-	const c = stream.combine(a => a() * a(), [a]);
-	const d = stream.combine((b, c) => {
+	const a = Stream();
+	const b = Stream.combine(a => a() * 2, [a]);
+	const c = Stream.combine(a => a() * a(), [a]);
+	const d = Stream.combine((b, c) => {
 		count++;
 		return b() + c();
 	}, [b, c]);
@@ -79,10 +78,10 @@ import { Stream } from 'mithril/stream';
 
 {
 	let count = 0;
-	const a = stream(3);
-	const b = stream.combine(a => a() * 2, [a]);
-	const c = stream.combine(a => a() * a(), [a]);
-	const d = stream.combine((b, c) => {
+	const a = Stream(3);
+	const b = Stream.combine(a => a() * 2, [a]);
+	const c = Stream.combine(a => a() * a(), [a]);
+	const d = Stream.combine((b, c) => {
 		count++;
 		return b() + c();
 	}, [b, c]);
@@ -92,9 +91,9 @@ import { Stream } from 'mithril/stream';
 
 {
 	let streams: Array<Stream<any>> = [];
-	const a = stream();
-	const b = stream();
-	const c = stream.combine((a, b, changed) => {
+	const a = Stream();
+	const b = Stream();
+	const c = Stream.combine((a, b, changed) => {
 		streams = changed;
 	}, [a, b]);
 	a(3);
@@ -105,9 +104,9 @@ import { Stream } from 'mithril/stream';
 
 {
 	let streams: Array<Stream<number>> = [];
-	const a = stream(3);
-	const b = stream(5);
-	const c = stream.combine((a, b, changed) => {
+	const a = Stream(3);
+	const b = Stream(5);
+	const c = Stream.combine((a, b, changed) => {
 		streams = changed;
 	}, [a, b]);
 	a(7);
@@ -116,37 +115,52 @@ import { Stream } from 'mithril/stream';
 }
 
 {
-	const a = stream(1);
-	const b = stream.combine(a => undefined, [a]);
+	const a = Stream(1);
+	const b = Stream.combine(a => undefined, [a]);
 
 	console.assert(b() === undefined);
 }
 
 {
-	const a = stream(1);
-	const b = stream.combine(a => stream(2), [a]);
+	const a = Stream(1);
+	const b = Stream.combine(a => Stream(2), [a]);
 	console.assert(b()() === 2);
 }
 
 {
-	const a = stream(1);
-	const b = stream.combine(a => stream(), [a]);
+	const a = Stream(1);
+	const b = Stream.combine(a => Stream(), [a]);
 	console.assert(b()() === undefined);
 }
 
 {
-	const all = stream.merge([
-		stream(10),
-		stream("20"),
-		stream({value: 30}),
+	const s = Stream(2);
+	const doubled = Stream.lift(v => v * 2, s);
+	console.assert(doubled() === 4);
+}
+
+{
+	const s1 = Stream<number>();
+	const s2 = Stream<number>();
+	const added = Stream.lift((n1, n2) => n1 + n2, s1, s2);
+	s1(2);
+	s2(3);
+	console.assert(added() === 5);
+}
+
+{
+	const all = Stream.merge([
+		Stream(10),
+		Stream("20"),
+		Stream({value: 30}),
 	]);
 }
 
 {
-	const straggler = stream();
-	const all = stream.merge([
-		stream(10),
-		stream("20"),
+	const straggler = Stream();
+	const all = Stream.merge([
+		Stream(10),
+		Stream("20"),
 		straggler,
 	]);
 	console.assert(all() === undefined);
@@ -156,10 +170,10 @@ import { Stream } from 'mithril/stream';
 {
 	let value = 0;
 	const id = (value: number) => value;
-	const a = stream<number>();
-	const b = stream<number>();
+	const a = Stream<number>();
+	const b = Stream<number>();
 
-	const all = stream.merge([a.map(id), b.map(id)]).map(data => {
+	const all = Stream.merge([a.map(id), b.map(id)]).map(data => {
 		value = data[0] + data[1];
 	});
 
@@ -173,39 +187,39 @@ import { Stream } from 'mithril/stream';
 }
 
 {
-	const s = stream();
-	const doubled = stream.combine(stream => stream * 2, [s]);
+	const s = Stream();
+	const doubled = Stream.combine(stream => stream * 2, [s]);
 	s.end(true);
 	s(3);
 	console.assert(doubled() === undefined);
 }
 
 {
-	const s = stream(2);
-	const doubled = stream.combine(stream => stream * 2, [s]);
+	const s = Stream(2);
+	const doubled = Stream.combine(stream => stream * 2, [s]);
 	s.end(true);
 	s(3);
 	console.assert(doubled() === 4);
 }
 
 {
-	const s = stream(2);
+	const s = Stream(2);
 	s.end(true);
-	const doubled = stream.combine(stream => stream * 2, [s]);
+	const doubled = Stream.combine(stream => stream * 2, [s]);
 	s(3);
 	console.assert(doubled() === undefined);
 }
 
 {
-	const s = stream(2);
-	const doubled = stream.combine(stream => stream * 2, [s]);
+	const s = Stream(2);
+	const doubled = Stream.combine(stream => stream * 2, [s]);
 	doubled.end(true);
 	s(4);
 	console.assert(doubled() === 4);
 }
 
 {
-    const s = stream("a");
+    const s = Stream("a");
     const t = s.map(() => 1);
     const n = t() + 1;
     console.assert(n === 2);
@@ -214,33 +228,33 @@ import { Stream } from 'mithril/stream';
 // scan
 
 {
-	const parent = stream<number>();
-	const child = stream.scan((out, p) => out - p, 123, parent);
+	const parent = Stream<number>();
+	const child = Stream.scan((out, p) => out - p, 123, parent);
 }
 
 {
-	const parent = stream<number>();
-	const child = stream.scan((arr, p) => arr.concat(p), [] as number[], parent);
+	const parent = Stream<number>();
+	const child = Stream.scan((arr, p) => arr.concat(p), [] as number[], parent);
 	parent(7);
 }
 
 // scanMerge
 
 {
-	const parent1 = stream<number>();
-	const parent2 = stream<number>();
+	const parent1 = Stream<number>();
+	const parent2 = Stream<number>();
 
-	const child = stream.scanMerge([
+	const child = Stream.scanMerge([
 		[parent1, (out, p1) => out + p1],
 		[parent2, (out, p2) => out + p2]
 	], -10);
 }
 
 {
-	const parent1 = stream<string>();
-	const parent2 = stream<string>();
+	const parent1 = Stream<string>();
+	const parent2 = Stream<string>();
 
-	const child = stream.scanMerge([
+	const child = Stream.scanMerge([
 		[parent1, (out, p1) => out + p1],
 		[parent2, (out, p2) => out + p2 + p2]
 	], "a");
@@ -253,9 +267,9 @@ import { Stream } from 'mithril/stream';
 }
 
 {
-	const parent1 = stream<string>();
-	const parent2 = stream<number>();
-	const child = stream.scanMerge([
+	const parent1 = Stream<string>();
+	const parent2 = Stream<number>();
+	const child = Stream.scanMerge([
 		[parent1, (out, p1) => out + p1],
 		[parent2, (out, p2) => out + p2 + p2]
 	], "a");

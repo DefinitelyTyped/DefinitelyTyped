@@ -1,11 +1,8 @@
-// Type definitions for Mithril 1.1
+// Type definitions for Mithril 2.0
 // Project: https://mithril.js.org/, https://github.com/mithriljs/mithril.js
 // Definitions by: Mike Linkovich <https://github.com/spacejack>, András Parditka <https://github.com/andraaspar>, Isiah Meadows <https://github.com/isiahmeadows>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
-
-/** Manually triggers a redraw of mounted components. */
-declare function redraw(): void;
 
 /** Renders a vnode structure into a DOM element. */
 declare function render(el: Element, vnodes: Mithril.Children): void;
@@ -85,6 +82,12 @@ declare namespace Mithril {
 		title?: string;
 	}
 
+	interface RouteLinkAttrs extends Attributes {
+		href: string;
+		selector?: string | ComponentTypes<any>;
+		options?: RouteOptions;
+	}
+
 	interface Route {
 		/** Creates application routes and mounts Components and/or RouteResolvers to a DOM element. */
 		(element: Element, defaultRoute: string, routes: RouteDefs): void;
@@ -93,10 +96,9 @@ declare namespace Mithril {
 		/** Redirects to a matching route or to the default route if no matching routes can be found. */
 		set(route: string, data?: any, options?: RouteOptions): void;
 		/** Defines a router prefix which is a fragment of the URL that dictates the underlying strategy used by the router. */
-		prefix(urlFragment: string): void;
-		/** This method is meant to be used in conjunction with an <a> Vnode's oncreate/onupdate hooks. */
-        link(vnode: Vnode<any, any>): (e?: Event) => any;
-        link(options: RouteOptions): (vnode: Vnode<any, any>) => (e?: Event) => any;
+		prefix: string;
+		/** This Component renders a link <a href> that will use the current routing strategy */
+        Link: Component<RouteLinkAttrs>;
 		/** Returns the named parameter value from the current route. */
 		param(name: string): string;
 		/** Gets all route parameters. */
@@ -106,8 +108,10 @@ declare namespace Mithril {
 	interface RequestOptions<T> {
 		/** The HTTP method to use. */
 		method?: string;
-		/** The data to be interpolated into the URL and serialized into the querystring (for GET requests) or body (for other types of requests). */
-		data?: any;
+		/** The data to be interpolated into the URL and serialized into the querystring. */
+		params?: { [key: string]: any };
+		/** The data to be serialized into the request body. */
+		body?: any;
 		/** Whether the request should be asynchronous. Defaults to true. */
 		async?: boolean;
 		/** A username for HTTP authorization. */
@@ -136,11 +140,13 @@ declare namespace Mithril {
 		useBody?: boolean;
 		/** If false, redraws mounted components upon completion of the request. If true, it does not. */
 		background?: boolean;
+		/** Milliseconds a request can take before automatically being terminated. */
+		timeout?: number;
 	}
 
 	interface JsonpOptions {
 		/** The data to be interpolated into the URL and serialized into the querystring. */
-		data?: any;
+		params?: { [id: string]: any };
 		/** A constructor to be applied to each object in the response. */
 		type?: new (o: any) => any;
 		/** The name of the function that will be called as the callback. */
@@ -151,20 +157,29 @@ declare namespace Mithril {
 		background?: boolean;
 	}
 
+	interface Redraw {
+		/** Manually triggers an asynchronous redraw of mounted components. */
+		(): void;
+		/** Manually triggers a synchronous redraw of mounted components. */
+		sync(): void;
+	}
+
 	interface Static extends Hyperscript {
 		route: Route;
 		mount: typeof mount;
 		withAttr: typeof withAttr;
 		render: typeof render;
-		redraw: typeof redraw;
+		redraw: Redraw;
 		request: typeof request;
 		jsonp: typeof jsonp;
 		/** Returns an object with key/value pairs parsed from a string of the form: ?a=1&b=2 */
 		parseQueryString(queryString: string): { [p: string]: any };
 		/** Turns the key/value pairs of an object into a string of the form: a=1&b=2 */
 		buildQueryString(values: { [p: string]: any }): string;
-		/** A string containing the semver value for the current Mithril release. */
-		version: string;
+		/** Parse path name */
+		parsePathname(url: string): { path: string, params: { [p: string]: any } };
+		/** Build path name */
+		buildPathname(template: string, params?: { [p: string]: any }): string;
 	}
 
 	// Vnode children types

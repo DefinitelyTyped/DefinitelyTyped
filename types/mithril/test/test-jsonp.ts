@@ -17,7 +17,7 @@ class User {
 
 jsonp<User>({
 	url: '/user',
-	data: {test: 'abc'},
+	params: {test: 'abc'},
 	type: User,
 	callbackName: 'getuser',
 	callbackKey: 'key',
