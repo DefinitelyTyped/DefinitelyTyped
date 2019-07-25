@@ -251,6 +251,10 @@ export declare class Table {
     public columns: columns;
     public rows: rows;
     public constructor(tableName?: string);
+    public schema?: string;
+    public database?: string;
+    public name?: string;
+    public path?: string;
 }
 
 interface IRequestParameters {
