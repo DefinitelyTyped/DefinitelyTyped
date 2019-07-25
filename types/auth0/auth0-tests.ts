@@ -116,7 +116,7 @@ management
 
 // Link users
 management
-  .createUser({ connection: 'email', email: 'hi@me.co' })
+  .createUser({ connection: 'email', email: 'hi@me.co', user_id: "my_id" })
   .catch(err => console.error('Cannot create E-mail user', err))
   .then((emailUser) => {
     if (!emailUser) return;

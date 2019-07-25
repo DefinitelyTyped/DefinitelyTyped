@@ -1,0 +1,29 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "baseUrl": "../",
+        "strictFunctionTypes": false,
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "min-app-tests.ts",
+        "lib.wa.es6.d.ts",
+        "wx/index.d.ts",
+        "wx/lib.wx.api.d.ts",
+        "wx/lib.wx.app.d.ts",
+        "wx/lib.wx.cloud.d.ts",
+        "wx/lib.wx.page.d.ts"
+    ]
+}

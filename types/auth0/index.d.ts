@@ -4,6 +4,7 @@
 //                 Ian Howe <https://github.com/ianhowe76>
 //                 Alex Bjørlig <https://github.com/dauledk>
 //                 Dan Rumney <https://github.com/dancrumb>
+//                 Peter <https://github.com/pwrnrd>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -47,6 +48,10 @@ export interface UserData<A = AppMetadata, U=UserMetadata> {
   username?: string;
   email_verified?: boolean;
   verify_email?: boolean;
+  user_id?: string;
+  blocked?: boolean;
+  nickname?: string;
+  picture?: string;
   password?: string;
   phone_number?: string;
   phone_verified?: boolean;
