@@ -3,6 +3,7 @@
 // Definitions by: makepost <https://github.com/makepost>
 //                 Labat Robin <https://github.com/roblabat>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 import { EventEmitter2 } from "eventemitter2";
 import * as SocketIO from "socket.io";
