@@ -13,8 +13,16 @@ import * as d3 from 'd3';
 
 export as namespace c3;
 
+export function generate(config: ChartConfiguration): ChartAPI;
+
+export const version: string;
+
 export type Primitive = string | boolean | number | null;
 export type PrimitiveArray = Array<string | boolean | number | null>;
+export type ArrayOrString = string[] | string;
+/** Zoomed domain in the form `[minimum, maximum]` where `minimum` and `maximum` are the values at the edges of the visible x-axis. */
+export type Domain = [number, number];
+
 /**
  * Formatter function for data labels.
  * D3 formatter function can be set (e.g. `d3.format('$')`).
@@ -26,11 +34,8 @@ export type PrimitiveArray = Array<string | boolean | number | null>;
  */
 export type FormatFunction = (v: Primitive, id: string, i: number, j: number) => string;
 
-export type ArrayOrString = string[] | string;
-
 export type YAxisName = "y" | "y2";
 export type AxisName = "x" | YAxisName;
-
 export type ChartType = "line" | "spline" | "step" | "area" | "area-spline" | "area-step" | "bar" | "scatter" | "stanford" | "pie" | "donut" | "gauge";
 
 
@@ -951,7 +956,7 @@ export interface TooltipOptions {
     /**
      * Set tooltip values order.
      */
-    order?: "desc" | "asc" | any[] | ((data1: any, data2: any) => number) | null;
+    order?: "desc" | "asc" | unknown[] | ((data1: unknown, data2: unknown) => number) | null;
     init?: {
         show?: boolean;
         x?: number;
@@ -989,11 +994,6 @@ export interface SubchartOptions {
      */
     onbrush?(this: ChartAPI, domain: Domain): void;
 }
-
-/**
- * Zoomed domain in the form `[minimum, maximum]` where `minimum` and `maximum` are the values at the edges of the visible x-axis.
- */
-export type Domain = [number, number];
 
 export interface ZoomOptions {
     /**
@@ -1175,7 +1175,7 @@ export interface ChartAPI {
         /** ID of data to remove, or list of IDs of data to remove, or `true` to remove all data. */
         unload?: true | ArrayOrString;
         /** Called when loading completes. */
-        done?(): any;
+        done?(): void;
     }): void;
     /**
      * Unload data from the chart.
@@ -1185,7 +1185,7 @@ export interface ChartAPI {
     unload(args?: ArrayOrString | {
         ids?: ArrayOrString;
         /** Called after data is loaded, but not after rendering. This is because rendering will finish after some transition and there is some time lag between loading and rendering. */
-        done(): any
+        done(): void;
     }): void;
     /**
      * Flow data to the chart. By this API, you can append new data points to the chart.
@@ -1213,7 +1213,7 @@ export interface ChartAPI {
         /** If given, the duration of the transition will be specified value. If not given, `transition.duration` will be used as default. */
         duration?: number;
         /** Will be called when the flow ends. */
-        done?(): any;
+        done?(): void;
     }): void;
     /**
      * Change data point state to selected. By this API, you can select data points. To use this API, `data.selection.enabled` needs to be `true`.
@@ -1546,6 +1546,3 @@ export interface GridOperations {
         value?: number | string;
     }): void;
 }
-
-export function generate(config: ChartConfiguration): ChartAPI;
-export const version: string;
