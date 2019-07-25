@@ -9424,18 +9424,64 @@ declare namespace Stripe {
 
         /** https://stripe.com/docs/api/payment_methods */
         class PaymentMethods {
-            create(data: paymentMethods.IPaymentMethodCreationOptions, options: HeaderOptions, response?: IResponseFn<paymentMethods.IPaymentMethod>): Promise<paymentMethods.IPaymentMethod>;
-            create(data: paymentMethods.IPaymentMethodCreationOptions, response?: IResponseFn<paymentMethods.IPaymentMethod>): Promise<paymentMethods.IPaymentMethod>;
-            retrieve(paymentMethodId: string, options: HeaderOptions, response?: IResponseFn<paymentMethods.IPaymentMethod>): Promise<paymentMethods.IPaymentMethod>;
-            retrieve(paymentMethodId: string, response?: IResponseFn<paymentMethods.IPaymentMethod>): Promise<paymentMethods.IPaymentMethod>;
-            update(paymentMethodId: string, data: paymentMethods.IPaymentMethodUpdateOptions, options: HeaderOptions, response?: IResponseFn<paymentMethods.IPaymentMethod>): Promise<paymentMethods.IPaymentMethod>;
-            update(paymentMethodId: string, data: paymentMethods.IPaymentMethodUpdateOptions, response?: IResponseFn<paymentMethods.IPaymentMethod>): Promise<paymentMethods.IPaymentMethod>;
-            list<T extends paymentMethods.IPaymentMethodType>(data: paymentMethods.IPaymentMethodListOptions<T>, options: HeaderOptions, response?: IResponseFn<IList<paymentMethods.IPaymentMethod>>): IListPromise<Extract<paymentMethods.IPaymentMethod, { type: T }>>;
-            list<T extends paymentMethods.IPaymentMethodType>(data: paymentMethods.IPaymentMethodListOptions<T>, response?: IResponseFn<IList<paymentMethods.IPaymentMethod>>): IListPromise<Extract<paymentMethods.IPaymentMethod, { type: T }>>;
-            attach(paymentMethodId: string, data: paymentMethods.IPaymentMethodAttachOptions, options: HeaderOptions, response?: IResponseFn<paymentMethods.IPaymentMethod>): Promise<paymentMethods.IPaymentMethod>;
-            attach(paymentMethodId: string, data: paymentMethods.IPaymentMethodAttachOptions, response?: IResponseFn<paymentMethods.IPaymentMethod>): Promise<paymentMethods.IPaymentMethod>;
-            detach(paymentMethodId: string, options: HeaderOptions, response?: IResponseFn<paymentMethods.IPaymentMethod>): Promise<paymentMethods.IPaymentMethod>;
-            detach(paymentMethodId: string, response?: IResponseFn<paymentMethods.IPaymentMethod>): Promise<paymentMethods.IPaymentMethod>;
+            create(
+                data: paymentMethods.IPaymentMethodCreationOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<paymentMethods.IPaymentMethod>
+            ): Promise<paymentMethods.IPaymentMethod>;
+            create(
+                data: paymentMethods.IPaymentMethodCreationOptions,
+                response?: IResponseFn<paymentMethods.IPaymentMethod>
+            ): Promise<paymentMethods.IPaymentMethod>;
+            retrieve(
+                paymentMethodId: string,
+                options: HeaderOptions,
+                response?: IResponseFn<paymentMethods.IPaymentMethod>
+            ): Promise<paymentMethods.IPaymentMethod>;
+            retrieve(
+                paymentMethodId: string,
+                response?: IResponseFn<paymentMethods.IPaymentMethod>
+            ): Promise<paymentMethods.IPaymentMethod>;
+            update(
+                paymentMethodId: string,
+                data: paymentMethods.IPaymentMethodUpdateOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<paymentMethods.IPaymentMethod>
+            ): Promise<paymentMethods.IPaymentMethod>;
+            update(
+                paymentMethodId: string,
+                data: paymentMethods.IPaymentMethodUpdateOptions,
+                response?: IResponseFn<paymentMethods.IPaymentMethod>
+            ): Promise<paymentMethods.IPaymentMethod>;
+            list<T extends paymentMethods.IPaymentMethodType>(
+                data: paymentMethods.IPaymentMethodListOptions<T>,
+                options: HeaderOptions,
+                response?: IResponseFn<IList<paymentMethods.IPaymentMethod>>
+            ): IListPromise<Extract<paymentMethods.IPaymentMethod, { type: T }>>;
+            list<T extends paymentMethods.IPaymentMethodType>(
+                data: paymentMethods.IPaymentMethodListOptions<T>,
+                response?: IResponseFn<IList<paymentMethods.IPaymentMethod>>
+            ): IListPromise<Extract<paymentMethods.IPaymentMethod, { type: T }>>;
+            attach(
+                paymentMethodId: string,
+                data: paymentMethods.IPaymentMethodAttachOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<paymentMethods.IPaymentMethod>
+            ): Promise<paymentMethods.IPaymentMethod>;
+            attach(
+                paymentMethodId: string,
+                data: paymentMethods.IPaymentMethodAttachOptions,
+                response?: IResponseFn<paymentMethods.IPaymentMethod>
+            ): Promise<paymentMethods.IPaymentMethod>;
+            detach(
+                paymentMethodId: string,
+                options: HeaderOptions,
+                response?: IResponseFn<paymentMethods.IPaymentMethod>
+            ): Promise<paymentMethods.IPaymentMethod>;
+            detach(
+                paymentMethodId: string,
+                response?: IResponseFn<paymentMethods.IPaymentMethod>
+            ): Promise<paymentMethods.IPaymentMethod>;
         }
 
         class Payouts extends StripeResource {
