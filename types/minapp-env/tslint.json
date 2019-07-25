@@ -15,7 +15,7 @@
         "interface-name": true,
         "interface-over-type-literal": true,
         "jsdoc-format": true,
-        "max-line-length": true,
+        "max-line-length": false,
         "member-access": true,
         "new-parens": true,
         "no-any-union": true,
