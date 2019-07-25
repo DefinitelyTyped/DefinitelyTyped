@@ -33,7 +33,7 @@ interface Config {
     savedMaxCount?: number;
     saveParamsReferrerOncePerSession?: boolean;
     sessionTimeout?: number;
-    userNativeDeviceInfo?: boolean;
+    useNativeDeviceInfo?: boolean;
     trackingOptions?: {
         city?: boolean;
         country?: boolean;
