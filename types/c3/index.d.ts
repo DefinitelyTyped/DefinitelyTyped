@@ -33,6 +33,20 @@ export type AxisName = "x" | YAxisName;
 
 export type ChartType = "line" | "spline" | "step" | "area" | "area-spline" | "area-step" | "bar" | "scatter" | "stanford" | "pie" | "donut" | "gauge";
 
+
+export interface SidePadding {
+    /** Right padding. */
+    right?: number;
+    /** Left padding. */
+    left?: number;
+}
+export interface Padding extends SidePadding {
+    /** Top padding. */
+    top?: number;
+    /** Bottom padding. */
+    bottom?: number;
+}
+
 export interface ChartConfiguration {
     /**
      * The CSS selector or the element which the chart will be set to. D3 selection object can be specified. If other chart is set already, it will be replaced with the new one (only one chart
@@ -62,24 +76,7 @@ export interface ChartConfiguration {
         height?: number;
     };
 
-    padding?: {
-        /**
-         * The padding on the top of the chart.
-         */
-        top?: number;
-        /**
-         * The padding on the right of the chart.
-         */
-        right?: number;
-        /**
-         * The padding on the bottom of the chart.
-         */
-        bottom?: number;
-        /**
-         * The padding on the left of the chart.
-         */
-        left?: number;
-    };
+    padding?: Padding;
 
     resize?: {
         /**
@@ -314,12 +311,22 @@ export interface ChartConfiguration {
         /**
          * Set the padding for the Stanford color scale.
          */
-        padding?: {
-            top?: number;
-            bottom?: number;
-            left?: number;
-            right?: number;
-        };
+        padding?: Padding;
+    }
+
+    title?: {
+        /**
+         * Chart title text.
+         */
+        text?: string;
+        /**
+         * Spacing around the title.
+         */
+        padding?: Padding;
+        /**
+         * Position the title relative to the chart.
+         */
+        title_position?: "right" | "center" | "left";
     }
 }
 
@@ -589,12 +596,7 @@ export interface AxisConfiguration {
      * If this option is set, the range of axis will increase/decrease according to the values. If no padding is needed in the range of axis, `0` should be set. On category axis, this option
      * will be ignored.
      */
-    padding?: {
-        /** Left side padding. */
-        left?: number;
-        /** Right side padding. */
-        right?: number;
-    };
+    padding?: SidePadding;
     /**
      * Set label on axis.
      * Valid horizontal axis positions: inner-right (default), inner-center, inner-left, outer-right, outer-center, outer-left
