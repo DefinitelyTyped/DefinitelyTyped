@@ -75,15 +75,15 @@ export class MediaStream {
 
     constructor(arg: any);
 
-    static addTrack(track: MediaStreamTrack): void;
-    static removeTrack(track: MediaStreamTrack): void;
-    static getTracks(): MediaStreamTrack[];
-    static getTrackById(trackId: string): MediaStreamTrack | undefined;
-    static getAudioTracks(): MediaStreamTrack[];
-    static getVideoTracks(): MediaStreamTrack[];
-    static clone(): void;
-    static toURL(): string;
-    static release(): void;
+    addTrack(track: MediaStreamTrack): void;
+    removeTrack(track: MediaStreamTrack): void;
+    getTracks(): MediaStreamTrack[];
+    getTrackById(trackId: string): MediaStreamTrack | undefined;
+    getAudioTracks(): MediaStreamTrack[];
+    getVideoTracks(): MediaStreamTrack[];
+    clone(): void;
+    toURL(): string;
+    release(): void;
 }
 
 export interface ConfigurationParam {

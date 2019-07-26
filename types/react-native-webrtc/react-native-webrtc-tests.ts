@@ -8,7 +8,9 @@ const {
     MediaStream
 } = WebRTC;
 
-mediaDevices.getUserMedia({
+const mediaDevicesInit = new mediaDevices();
+
+mediaDevicesInit.getUserMedia({
     audio: true,
     video: {
         mandatory: {
@@ -21,13 +23,13 @@ mediaDevices.getUserMedia({
     }
 });
 
-mediaDevices.enumerateDevices();
+mediaDevicesInit.enumerateDevices();
 
 new RTCSessionDescription({ sdp: "", type: "" });
 
 new RTCIceCandidate({ candidate: "", sdpMLineIndex: 0, sdpMid: "" });
 
-new RTCPeerConnection({
+const peer = new RTCPeerConnection({
     iceServers: [
         { urls: ["stun:coturn.workserver.xyz:5349"] },
 
@@ -43,10 +45,16 @@ new RTCPeerConnection({
     iceTransportPolicy: "all"
 });
 
-MediaStream.getTracks();
+peer.onaddstream = () => {};
 
-MediaStream.release();
+const MediaStreamInit = new MediaStream({});
 
-MediaStream.getVideoTracks();
+MediaStreamInit.getTracks();
 
-MediaStream.toURL();
+MediaStreamInit.release();
+
+MediaStreamInit.getVideoTracks();
+
+MediaStreamInit.toURL();
+
+peer.addStream(MediaStreamInit);
