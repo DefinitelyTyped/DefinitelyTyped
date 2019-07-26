@@ -1,3 +1,4 @@
+import * as React from "react";
 import * as WebRTC from "react-native-webrtc";
 
 const {

@@ -3,6 +3,8 @@
 // Definitions by: Carlos Quiroga <https://github.com/KarlosQ>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
+import { Component } from "react";
+import { ViewStyle } from "react-native";
 
 export type RTCSignalingState =
     | "stable"
@@ -240,10 +242,10 @@ export class mediaDevices {
 }
 
 export interface RTCViewProps {
-    streamURL: string
-    mirror?: boolean
-    zOrder?: number
-    objectFit?: 'contain' : 'cover'
+    streamURL: string;
+    mirror?: boolean;
+    zOrder?: number;
+    objectFit?: "contain" | "cover";
     style?: ViewStyle;
 }
 
