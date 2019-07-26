@@ -234,7 +234,7 @@ export interface MediaStreamConstraints {
 export class mediaDevices {
     ondevicechange: () => void | undefined;
 
-    enumerateDevices(): Promise<any>;
+    static enumerateDevices(): Promise<any>;
 
-    getUserMedia(constraints: MediaStreamConstraints): MediaStream;
+    static getUserMedia(constraints: MediaStreamConstraints): MediaStream;
 }

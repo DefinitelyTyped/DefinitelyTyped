@@ -8,9 +8,7 @@ const {
     MediaStream
 } = WebRTC;
 
-const mediaDevicesInit = new mediaDevices();
-
-mediaDevicesInit.getUserMedia({
+mediaDevices.getUserMedia({
     audio: true,
     video: {
         mandatory: {
@@ -23,7 +21,7 @@ mediaDevicesInit.getUserMedia({
     }
 });
 
-mediaDevicesInit.enumerateDevices();
+mediaDevices.enumerateDevices();
 
 new RTCSessionDescription({ sdp: "", type: "" });
 
