@@ -281,24 +281,10 @@ let featureIdentifier = {
 	sourceLayer: 'liam-was-here'
 };
 expectType<mapboxgl.FeatureIdentifier>(featureIdentifier);
-map.addSource('source-id', new mapboxgl.GeoJSONSource({
-	data: {
-		"type": "FeatureCollection",
-		"features": [{
-			"id": 1337,
-			"type": "Feature",
-			"properties": null,
-			"geometry": {
-				"type": "Point",
-				"coordinates": [0, 0]
-			}
-		}]
-	}
-}));
-map.setFeatureState(featureIdentifier, { someState: true });
+map.setFeatureState(featureIdentifier, { someState: true, someOtherState: 123 });
 map.getFeatureState(featureIdentifier);
+map.removeFeatureState(featureIdentifier, 'someState');
 map.removeFeatureState(featureIdentifier);
-map.removeSource('source-id');
 
 /**
  * Popup
