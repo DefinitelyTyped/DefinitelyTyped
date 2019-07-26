@@ -1,5 +1,3 @@
-// TypeScript Version: 2.8
-
 Page({
     data: {
         msg: 'hello world',
@@ -24,5 +22,8 @@ Page({
                 console.log(res);
             },
         });
+        wx.showToast({
+            title: '成功！'
+        })
     },
 });
