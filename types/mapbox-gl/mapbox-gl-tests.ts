@@ -10,7 +10,7 @@ mapboxgl.accessToken = 'foo';
 /**
  * Set Base API URL
  */
-mapboxgl.baseApiUrl = 'https://example.com'
+mapboxgl.baseApiUrl = 'https://example.com';
 
 /**
  * Display a Map
@@ -263,14 +263,14 @@ map.addSource('radar', {
 	type: 'raster',
 	tiles: ['https://nowcoast.noaa.gov/arcgis/services/nowcoast/radar_meteo_imagery_nexrad_time/MapServer/WmsServer?bbox={bbox-epsg-3857}&service=WMS&request=GetMap&version=1.3.0&layers=1&styles=&format=image/png&transparent=true&height=256&width=256&crs=EPSG:3857'],
 	tileSize: 256
-})
+});
 
 map.addLayer({
 	id: 'radar',
 	type: 'raster',
 	source: 'radar',
 	paint: {}
-})
+});
 
 /**
  * Manipulate feature state
@@ -295,9 +295,9 @@ map.addSource('source-id', new mapboxgl.GeoJSONSource({
 		}]
 	}
 }));
-map.setFeatureState(featureIdentifier, { someState: true })
-map.getFeatureState(featureIdentifier)
-map.removeFeatureState(featureIdentifier)
+map.setFeatureState(featureIdentifier, { someState: true });
+map.getFeatureState(featureIdentifier);
+map.removeFeatureState(featureIdentifier);
 map.removeSource('source-id');
 
 /**
@@ -469,9 +469,9 @@ marker.remove();
 /*
  * LngLatBounds
  */
-let bool:boolean
-let bounds = new mapboxgl.LngLatBounds()
-bool = bounds.isEmpty()
+let bool:boolean;
+let bounds = new mapboxgl.LngLatBounds();
+bool = bounds.isEmpty();
 /*
  * AttributionControl
  */
@@ -590,7 +590,7 @@ let cameraForBoundsOpts: mapboxgl.CameraForBoundsOptions = {
 	maxZoom: 10,
 	padding,
 	...cameraOpts,
-}
+};
 
 expectType<mapboxgl.CameraForBoundsResult | undefined>(map.cameraForBounds(lnglatboundslike));
 expectType<mapboxgl.CameraForBoundsResult | undefined>(map.cameraForBounds(lnglatboundslike, cameraForBoundsOpts));
