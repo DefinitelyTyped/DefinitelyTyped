@@ -5,4 +5,4 @@
 // TypeScript Version: 2.8
 
 /// <reference path="./lib.wa.es6.d.ts" />
-/// <reference path="./wx/index.d.ts" />
+/// <reference path="./wx/basic.d.ts" />

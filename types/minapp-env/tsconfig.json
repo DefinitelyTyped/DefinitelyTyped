@@ -20,7 +20,7 @@
         "index.d.ts",
         "minapp-env-tests.ts",
         "lib.wa.es6.d.ts",
-        "wx/index.d.ts",
+        "wx/basic.d.ts",
         "wx/lib.wx.api.d.ts",
         "wx/lib.wx.app.d.ts",
         "wx/lib.wx.cloud.d.ts",
