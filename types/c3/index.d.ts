@@ -800,7 +800,7 @@ export interface YTickConfigurationWithTime extends YTickConfiguration {
     time?: {
         type?: unknown;
         interval?: unknown;
-    }
+    };
 }
 
 export interface GridOptions {
@@ -1005,9 +1005,9 @@ export interface TooltipOptions {
     contents?(
         this: ChartInternal,
         data: DataPoint[],
-        defaultTitleFormat: Function,
-        defaultValueFormat: Function,
-        color: Function,
+        defaultTitleFormat: (...args: unknown[]) => unknown,
+        defaultValueFormat: (...args: unknown[]) => unknown,
+        color: (...args: unknown[]) => unknown,
     ): string;
     /**
      * Set tooltip values order.
@@ -1022,7 +1022,7 @@ export interface TooltipOptions {
             /** Defaults to `"50px"`. */
             left?: string;
         };
-    }
+    };
     // onshow?: () => void; // Not used
     // onhide?: () => void; // Not used
 }
@@ -1043,7 +1043,7 @@ export interface SubchartOptions {
         x?: {
             show: boolean;
         }
-    }
+    };
     /**
      * Set callback for brush event.
      * Specified function receives the current zoomed x domain.
@@ -1090,7 +1090,7 @@ export interface ZoomOptions {
     x?: {
         min?: number;
         max?: number;
-    }
+    };
     /**
      * Change zoom extent.
      * **Experimental.**
@@ -1204,8 +1204,12 @@ export interface ChartAPI {
         data?: Data;
         /** API url to load data from. If `data` is provided this will be ignored. */
         url?: string;
-        /** An object to convert to data to load. Can be in the column form `{key1: [val1, val2, ...]; ...}` or in the row form `[{key1: val1; key2: val2}, ...]`. If `data` or `url` are provided this will be ignored. */
-        json?: Record<string, PrimitiveArray> | Record<string, Primitive>[];
+        /** 
+         * An object to convert to data to load. Can be in the column form
+         * (`{key1: [val1, val2, ...]; ...}`) or in the row form (`[{key1: val1; key2: val2}, ...]`).
+         * If `data` or `url` are provided this will be ignored.
+         */
+        json?: Record<string, PrimitiveArray> | Array<Record<string, Primitive>>;
         /** If json is provided and is in row form, these keys are used to pull the data from each row. */
         keys?: {
             /** This is the key for the x-value in each row. */
@@ -1216,7 +1220,7 @@ export interface ChartAPI {
         /** A list of rows, where the first row is the column names and the remaining rows are data.  If `data`, `url`, or `json` are provided this will be ignored.  */
         rows?: PrimitiveArray[];
         /** A list of columns, where the first element in each column is the ID and the remaining elements are data. If `data`, `url`, `json`, or 'rows' are provided, this will be ignored. */
-        columns?: [string, ...PrimitiveArray][];
+        columns?: Array<[string, ...PrimitiveArray]>;
         /** Match x columns to the corresponding data columns. */
         xs?: Record<string, string>;
         /** Match loaded data IDs with display names. */
@@ -1255,7 +1259,7 @@ export interface ChartAPI {
      */
     flow(args: {
         /** An object to convert to data to load. Can be in the column form `{key1: [val1, val2, ...]; ...}` or in the row form `[{key1: val1; key2: val2}, ...]`. */
-        json?: Record<string, PrimitiveArray> | Record<string, Primitive>[];
+        json?: Record<string, PrimitiveArray> | Array<Record<string, Primitive>>;
         /** If json is provided and is in row form, these keys are used to pull the data from each row. */
         keys?: {
             /** This is the key for the x-value in each row. */
@@ -1266,7 +1270,7 @@ export interface ChartAPI {
         /** A list of rows, where the first row is the column names and the remaining rows are data. If this is provided and `json` is provided, this is ignored. */
         rows?: [string[], ...PrimitiveArray[]];
         /** A list of columns, where the first element in each column is the ID and the remaining elements are data. If `json` or `rows` are provided, this will be ignored. */
-        columns?: [string, ...PrimitiveArray][];
+        columns?: Array<[string, ...PrimitiveArray]>;
         /** If given, the lower x edge will move to that point. If not given, the lower x edge will move by the number of given data points. */
         to?: string | number;
         /** If given, the lower x edge will move by the number of this argument. */
@@ -1305,7 +1309,7 @@ export interface ChartAPI {
      * @param groups An array of groups, each with an array of data IDs defining members of the groups.
      */
     groups(): string[][];
-    groups<T extends string[][]>(groups: T): T;
+    groups<T extends string[][]>(groups?: T): T;
 
     xgrids: GridOperations;
 
@@ -1553,7 +1557,7 @@ export interface ChartAPI {
             x?: number;
         }): void;
         hide(): void;
-    }
+    };
 
     internal: ChartInternal;
 }
@@ -1578,11 +1582,11 @@ export interface DataPoint {
 }
 
 export interface RedrawOptions {
-    [key: string]: boolean
+    [key: string]: boolean;
 }
 
 export interface UpdateAndRedrawOptions {
-    [key: string]: boolean
+    [key: string]: boolean;
 }
 
 export interface GridOperations {
