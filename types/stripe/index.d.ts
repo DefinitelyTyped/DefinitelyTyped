@@ -28,6 +28,7 @@
 //                 Dylan Aspden <https://github.com/dhaspden>
 //                 Ethan Setnik <https://github.com/esetnik>
 //                 Pavel Ivanov <https://github.com/schfkt>
+//                 Chris Zieba <https://github.com/ChrisZieba>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
