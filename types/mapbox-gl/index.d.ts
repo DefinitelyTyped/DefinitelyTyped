@@ -156,7 +156,7 @@ declare namespace mapboxgl {
 
         getFeatureState(feature: FeatureIdentifier | mapboxgl.MapboxGeoJSONFeature): { [key: string]: any };
 
-        removeFeatureState(target: FeatureIdentifier, key?: string): void;
+        removeFeatureState(target: FeatureIdentifier | mapboxgl.MapboxGeoJSONFeature, key?: string): void;
 
         getContainer(): HTMLElement;
 
