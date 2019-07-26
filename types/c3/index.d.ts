@@ -1,4 +1,4 @@
-// Type definitions for C3js 0.7.2
+// Type definitions for c3 0.7
 // Project: http://c3js.org/, https://github.com/c3js/c3
 // Definitions by: Marc Climent <https://github.com/mcliment>
 //                 Gerin Jacob <https://github.com/gerinjacob>
