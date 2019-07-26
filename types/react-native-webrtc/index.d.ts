@@ -2,7 +2,6 @@
 // Project: https://github.com/react-native-webrtc/react-native-webrtc
 // Definitions by: Carlos Quiroga <https://github.com/KarlosQ>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 1.69.2
 
 /// <reference types="react-native" />
 
@@ -34,7 +33,7 @@ export type RTCIceConnectionState =
     | "disconnected"
     | "closed";
 
-export class MediaStreamTrack extends EventTarget {
+export class MediaStreamTrack {
     private _enabled: boolean;
 
     public enabled: boolean;
@@ -63,7 +62,7 @@ export class MediaStreamTrack extends EventTarget {
     private _switchCamera(): void;
 }
 
-export class MediaStream extends EventTarget {
+export class MediaStream {
     public id: string;
     public active: boolean;
     public onactive: Function | undefined;
@@ -218,7 +217,7 @@ export interface MediaStreamConstraints {
     audio?: boolean;
 }
 
-export class mediaDevices extends EventTarget {
+export class mediaDevices {
     public ondevicechange: Function | undefined;
 
     public static enumerateDevices(): Promise<any>;
