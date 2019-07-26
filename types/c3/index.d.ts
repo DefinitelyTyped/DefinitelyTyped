@@ -19,8 +19,9 @@ export function generate(config: ChartConfiguration): ChartAPI;
 export const version: string;
 
 export type Primitive = string | boolean | number | null;
-export type PrimitiveArray = Array<string | boolean | number | null>;
-export type ArrayOrString = string[] | string;
+export type PrimitiveArray = Array<Primitive>;
+export type ArrayOrSingle<T extends any> = T | Array<T>;
+export type ArrayOrString = ArrayOrSingle<string>;
 /** Zoomed domain in the form `[minimum, maximum]` where `minimum` and `maximum` are the values at the edges of the visible x-axis. */
 export type Domain = [number, number];
 
@@ -350,7 +351,7 @@ export interface ChartConfiguration {
          * Set the padding for the Stanford color scale.
          */
         padding?: Padding;
-        
+
     }
 
     title?: {
@@ -1579,7 +1580,7 @@ export interface GridOperations {
      * Add grid lines. This API adds new grid lines instead of replacing.
      * @param grids New grid lines will be added. It's possible to give an Object if only one line will be added.
      */
-    add(grids: GridLineOptionsWithAxis[] | GridLineOptionsWithAxis): GridLineOptionsWithAxis[];
+    add(grids: ArrayOrSingle<GridLineOptionsWithAxis>): GridLineOptionsWithAxis[];
     /**
      * Remove grid lines.
      * @param params Specifies which grid line to remove. If not given, all of x/y grid lines will be removed. If empty, none will be removed
