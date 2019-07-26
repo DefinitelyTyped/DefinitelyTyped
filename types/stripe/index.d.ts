@@ -9162,6 +9162,7 @@ declare namespace Stripe {
              * @param data Filtering options
              */
             retrieveUpcoming(data: invoices.IInvoiceUpcomingOptions, options: HeaderOptions, response?: IResponseFn<invoices.IInvoice>): Promise<invoices.IInvoice>;
+            retrieveUpcoming(data: invoices.IInvoiceUpcomingOptions, response?: IResponseFn<invoices.IInvoice>): Promise<invoices.IInvoice>;
             retrieveUpcoming(id: string, data: invoices.IInvoiceUpcomingOptions, options: HeaderOptions, response?: IResponseFn<invoices.IInvoice>): Promise<invoices.IInvoice>;
             retrieveUpcoming(id: string, data: invoices.IInvoiceUpcomingOptions, response?: IResponseFn<invoices.IInvoice>): Promise<invoices.IInvoice>;
             retrieveUpcoming(id: string, options: HeaderOptions, response?: IResponseFn<invoices.IInvoice>): Promise<invoices.IInvoice>;
