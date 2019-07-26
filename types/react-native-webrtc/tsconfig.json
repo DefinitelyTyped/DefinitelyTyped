@@ -6,6 +6,7 @@
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
+        "jsx": "react-native",
         "baseUrl": "../",
         "typeRoots": ["../"],
         "types": [],
