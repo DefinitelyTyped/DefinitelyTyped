@@ -348,6 +348,7 @@ declare namespace Flexmonster {
         x?: number;
         y?: number;
         label?: string;
+        level?: number;
         measure?: MeasureObject;
         rowIndex?: number;
         rows?: object[];
