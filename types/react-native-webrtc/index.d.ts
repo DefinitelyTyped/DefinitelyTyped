@@ -16,12 +16,13 @@ export type RTCIceGatheringState = "new" | "gathering" | "complete";
 
 export type MediaStreamTrackState = "live" | "ended";
 
-export interface SourceInfo = {
+export interface SourceInfo {
     id: string;
     label: string;
     facing: string;
     kind: string;
-};
+    deviceId: string;
+}
 
 export type RTCIceConnectionState =
     | "new"
