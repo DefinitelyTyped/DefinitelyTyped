@@ -15,50 +15,50 @@ interface StopSetup {
 }
 
 export default class InCallManager {
-    public static start(setup?: StartSetup): void;
+    static start(setup?: StartSetup): void;
 
-    public static stop(setup?: StopSetup): void;
+    static stop(setup?: StopSetup): void;
 
-    public static turnScreenOff(): void;
+    static turnScreenOff(): void;
 
-    public static turnScreenOn(): void;
+    static turnScreenOn(): void;
 
-    public static getIsWiredHeadsetPluggedIn(): Promise<any>;
+    static getIsWiredHeadsetPluggedIn(): Promise<any>;
 
-    public static setFlashOn(enable?: boolean, brightness?: number): number;
+    static setFlashOn(enable?: boolean, brightness?: number): number;
 
-    public static setKeepScreenOn(enable?: boolean): void;
+    static setKeepScreenOn(enable?: boolean): void;
 
-    public static setSpeakerphoneOn(enable?: boolean): void;
+    static setSpeakerphoneOn(enable?: boolean): void;
 
-    public static setForceSpeakerphoneOn(_flag?: boolean): void;
+    static setForceSpeakerphoneOn(_flag?: boolean): void;
 
-    public static setMicrophoneMute(enable?: boolean): void;
+    static setMicrophoneMute(enable?: boolean): void;
 
-    public static startRingtone(
+    static startRingtone(
         ringtone?: string,
         vibrate_pattern?: Array<any>,
         ios_category?: string,
         seconds?: number
     ): void;
 
-    public static stopRingtone(): void;
+    static stopRingtone(): void;
 
-    public static startRingback(ringback?: string): void;
+    static startRingback(ringback?: string): void;
 
-    public static stopRingback(): void;
+    static stopRingback(): void;
 
-    public static checkRecordPermission(): Promise<string>;
+    static checkRecordPermission(): Promise<string>;
 
-    public static requestRecordPermission(): Promise<string>;
+    static requestRecordPermission(): Promise<string>;
 
-    public static checkCameraPermission(): Promise<string>;
+    static checkCameraPermission(): Promise<string>;
 
-    public static requestCameraPermission(): Promise<string>;
+    static requestCameraPermission(): Promise<string>;
 
-    public static pokeScreen(_timeout?: number): void;
+    static pokeScreen(_timeout?: number): void;
 
-    public static getAudioUri(audioType: string, fileType: string): any;
+    static getAudioUri(audioType: string, fileType: string): any;
 
-    public static chooseAudioRoute(route: any): any;
+    static chooseAudioRoute(route: any): any;
 }
