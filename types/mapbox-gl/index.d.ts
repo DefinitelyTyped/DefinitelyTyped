@@ -1,9 +1,10 @@
-// Type definitions for Mapbox GL JS v0.51.0
+// Type definitions for Mapbox GL JS v0.53.0
 // Project: https://github.com/mapbox/mapbox-gl-js
 // Definitions by: Dominik Bruderer <https://github.com/dobrud>
 //                 Patrick Reames <https://github.com/patrickr>
 //                 Karl-Aksel Puulmann <https://github.com/macobo>
 //                 Dmytro Gokun <https://github.com/dmytro-gokun>
+//                 Liam Clarke <https://github.com/LiamAttClarke>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -15,6 +16,7 @@ export as namespace mapboxgl;
 declare namespace mapboxgl {
     let accessToken: string;
     let version: string;
+    let baseApiUrl: string;
 
     export function supported(options?: { failIfMajorPerformanceCaveat?: boolean }): boolean;
 
@@ -152,6 +154,8 @@ declare namespace mapboxgl {
 
         getFeatureState(feature: { source: string, sourceLayer?: string, id: string | number } | mapboxgl.MapboxGeoJSONFeature): { [key: string]: any };
 
+        removeFeatureState(target: { id?: string | number, source: string, sourceLayer?: string }, key?: string): void;
+
         getContainer(): HTMLElement;
 
         getCanvasContainer(): HTMLElement;
@@ -254,6 +258,9 @@ declare namespace mapboxgl {
         /** Snap to north threshold in degrees. */
         bearingSnap?: number;
 
+        /** The initial bounds of the map. If bounds is specified, it overrides center and zoom constructor options. */
+        bounds?: LngLatBoundsLike;
+
         /** If true, enable the "box zoom" interaction (see BoxZoomHandler) */
         boxZoom?: boolean;
 
@@ -316,6 +323,9 @@ declare namespace mapboxgl {
 
         /** If true, map creation will fail if the implementation determines that the performance of the created WebGL context would be dramatically lower than expected. */
         failIfMajorPerformanceCaveat?: boolean;
+
+        /** A fitBounds options object to use only when setting the bounds option. */
+        fitBoundsOptions?: FitBoundsOptions;
 
         /** If false, no mouse, touch, or keyboard listeners are attached to the map, so it will not respond to input */
         interactive?: boolean;
