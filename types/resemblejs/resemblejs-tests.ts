@@ -1,4 +1,8 @@
+import * as fs from 'fs';
+import {promisify} from 'util';
+import * as resemble from 'resemblejs';
 
+const readFile = promisify(fs.readFile);
 
 resemble.outputSettings({
   errorColor: {
@@ -30,4 +34,12 @@ resemble("images/image2.png").compareTo("images/image2.png")
                      .onComplete(function(data) {
   var diffImageDataUrl: string = data.getImageDataUrl();
   var difference: number = data.misMatchPercentage;
+});
+
+readFile('foo').then(fooFile => {
+  readFile('bar').then(barFile => {
+    resemble(fooFile).compareTo(barFile).onComplete(data => {
+      var diffImageDataUrl: string = data.getImageDataUrl();
+    });
+  });
 });
