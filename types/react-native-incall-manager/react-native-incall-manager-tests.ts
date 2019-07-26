@@ -1,45 +1,43 @@
 import InCallManager from "react-native-incall-manager";
 
-const InCallManagerInit = new InCallManager();
+InCallManager.start({ media: "video" });
 
-InCallManagerInit.start({ media: "video" });
+InCallManager.start();
 
-InCallManagerInit.start();
+InCallManager.stop({ busytone: "video" });
 
-InCallManagerInit.stop({ busytone: "video" });
+InCallManager.stop();
 
-InCallManagerInit.stop();
+InCallManager.turnScreenOn();
 
-InCallManagerInit.turnScreenOn();
+InCallManager.turnScreenOff();
 
-InCallManagerInit.turnScreenOff();
+InCallManager.setKeepScreenOn(true);
 
-InCallManagerInit.setKeepScreenOn(true);
+InCallManager.setKeepScreenOn();
 
-InCallManagerInit.setKeepScreenOn();
+InCallManager.setSpeakerphoneOn();
 
-InCallManagerInit.setSpeakerphoneOn();
+InCallManager.setSpeakerphoneOn(true);
 
-InCallManagerInit.setSpeakerphoneOn(true);
+InCallManager.setMicrophoneMute();
 
-InCallManagerInit.setMicrophoneMute();
+InCallManager.setMicrophoneMute(false);
 
-InCallManagerInit.setMicrophoneMute(false);
+InCallManager.checkRecordPermission();
 
-InCallManagerInit.checkRecordPermission();
+InCallManager.requestRecordPermission();
 
-InCallManagerInit.requestRecordPermission();
+InCallManager.getAudioUri("", "");
 
-InCallManagerInit.getAudioUri("", "");
+InCallManager.startRingtone();
 
-InCallManagerInit.startRingtone();
+InCallManager.startRingtone("", [], "", 0);
 
-InCallManagerInit.startRingtone("", [], "", 0);
+InCallManager.stopRingtone();
 
-InCallManagerInit.stopRingtone();
+InCallManager.setFlashOn();
 
-InCallManagerInit.setFlashOn();
+InCallManager.setFlashOn(true, 1);
 
-InCallManagerInit.setFlashOn(true, 1);
-
-InCallManagerInit.getIsWiredHeadsetPluggedIn();
+InCallManager.getIsWiredHeadsetPluggedIn();
