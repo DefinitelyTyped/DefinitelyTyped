@@ -35,131 +35,145 @@ export type RTCIceConnectionState =
 export class MediaStreamTrack {
     private _enabled: boolean;
 
-    public enabled: boolean;
-    public id: string;
-    public kind: string;
-    public label: string;
-    public muted: boolean;
-    public readonly: boolean;
-    public readyState: MediaStreamTrackState;
-    public remote: boolean;
-    public onended: Function | undefined;
-    public onmute: Function | undefined;
-    public onunmute: Function | undefined;
-    public overconstrained: Function | undefined;
+    enabled: boolean;
+    id: string;
+    kind: string;
+    label: string;
+    muted: boolean;
+    readonly: boolean;
+    readyState: MediaStreamTrackState;
+    remote: boolean;
+    onended: () => void | undefined;
+    onmute: () => void | undefined;
+    onunmute: () => void | undefined;
+    overconstrained: () => void | undefined;
 
-    public constructor();
+    constructor();
 
-    public stop(): void;
-    public applyConstraints(): void;
-    public clone(): void;
-    public getCapabilities(): void;
-    public getConstraints(): void;
-    public getSettings(): void;
-    public release(): void;
+    static stop(): void;
+    static applyConstraints(): void;
+    static clone(): void;
+    static getCapabilities(): void;
+    static getConstraints(): void;
+    static getSettings(): void;
+    static release(): void;
 
     private _switchCamera(): void;
 }
 
 export class MediaStream {
-    public id: string;
-    public active: boolean;
-    public onactive: Function | undefined;
-    public oninactive: Function | undefined;
-    public onaddtrack: Function | undefined;
-    public onremovetrack: Function | undefined;
+    id: string;
+    active: boolean;
+    onactive: () => void | undefined;
+    oninactive: () => void | undefined;
+    onaddtrack: () => void | undefined;
+    onremovetrack: () => void | undefined;
 
-    private _tracks: Array<MediaStreamTrack>;
+    private _tracks: MediaStreamTrack[];
     private _reactTag: string;
 
-    public constructor(arg: any);
+    constructor(arg: any);
 
-    public addTrack(track: MediaStreamTrack): void;
-    public removeTrack(track: MediaStreamTrack): void;
-    public getTracks(): Array<MediaStreamTrack>;
-    public getTrackById(trackId: string): MediaStreamTrack | undefined;
-    public getAudioTracks(): Array<MediaStreamTrack>;
-    public getVideoTracks(): Array<MediaStreamTrack>;
-    public clone(): void;
-    public toURL(): string;
-    public release(): void;
+    static addTrack(track: MediaStreamTrack): void;
+    static removeTrack(track: MediaStreamTrack): void;
+    static getTracks(): MediaStreamTrack[];
+    static getTrackById(trackId: string): MediaStreamTrack | undefined;
+    static getAudioTracks(): MediaStreamTrack[];
+    static getVideoTracks(): MediaStreamTrack[];
+    static clone(): void;
+    static toURL(): string;
+    static release(): void;
 }
 
-interface ConfigurationParam {
+export interface ConfigurationParam {
     username?: string;
     credential?: string;
 }
 
-interface ConfigurationParamWithUrls extends ConfigurationParam {
-    urls: Array<string>;
+export interface ConfigurationParamWithUrls extends ConfigurationParam {
+    urls: string[];
 }
 
-interface ConfigurationParamWithUrl extends ConfigurationParam {
+export interface ConfigurationParamWithUrl extends ConfigurationParam {
     url: string;
 }
 
 export interface RTCPeerConnectionConfiguration {
-    iceServers: Array<ConfigurationParamWithUrls | ConfigurationParamWithUrl>;
+    iceServers: ConfigurationParamWithUrls[] | ConfigurationParamWithUrl[];
     iceTransportPolicy?: "all" | "public" | "relay";
 }
 
-export class RTCPeerConnection {
-    public localDescription: RTCSessionDescriptionType;
-    public remoteDescription: RTCSessionDescriptionType;
+export interface EventOnCandidate {
+    candidate: RTCIceCandidateType;
+}
 
-    public signalingState: RTCSignalingState;
+export interface EventOnConnectionStateChange {
+    target: {
+        iceConnectionState: RTCIceConnectionState;
+    };
+}
+
+export interface EventOnAddStream {
+    stream: MediaStream;
+}
+
+export class RTCPeerConnection {
+    localDescription: RTCSessionDescriptionType;
+    remoteDescription: RTCSessionDescriptionType;
+
+    signalingState: RTCSignalingState;
     private privateiceGatheringState: RTCIceGatheringState;
     private privateiceConnectionState: RTCIceConnectionState;
 
-    public onconnectionstatechange: Function | undefined;
-    public onicecandidate: Function | undefined;
-    public onicecandidateerror: Function | undefined;
-    public oniceconnectionstatechange: Function | undefined;
-    public onicegatheringstatechange: Function | undefined;
-    public onnegotiationneeded: Function | undefined;
-    public onsignalingstatechange: Function | undefined;
+    onconnectionstatechange: () => void | undefined;
+    onicecandidate: (event: EventOnCandidate) => void | undefined;
+    onicecandidateerror: (error: Error) => void | undefined;
+    oniceconnectionstatechange: (
+        event: EventOnConnectionStateChange
+    ) => void | undefined;
+    onicegatheringstatechange: () => void | undefined;
+    onnegotiationneeded: () => void | undefined;
+    onsignalingstatechange: () => void | undefined;
 
-    public onaddstream: Function | undefined;
-    public onremovestream: Function | undefined;
+    onaddstream: (event: EventOnAddStream) => void | undefined;
+    onremovestream: () => void | undefined;
 
     private _peerConnectionId: number;
-    private _localStreams: Array<MediaStream>;
-    private _remoteStreams: Array<MediaStream>;
-    private _subscriptions: Array<any>;
+    private _localStreams: MediaStream[];
+    private _remoteStreams: MediaStream[];
+    private _subscriptions: any[];
 
     private _dataChannelIds: any;
 
-    public constructor(configuration: RTCPeerConnectionConfiguration);
+    constructor(configuration: RTCPeerConnectionConfiguration);
 
-    public addStream(stream: MediaStream): void;
+    addStream(stream: MediaStream): void;
 
-    public removeStream(stream: MediaStream): void;
+    removeStream(stream: MediaStream): void;
 
-    public createOffer(): Promise<RTCSessionDescriptionType>;
+    createOffer(): Promise<RTCSessionDescriptionType>;
 
-    public createAnswer(): Promise<RTCSessionDescriptionType>;
+    createAnswer(): Promise<RTCSessionDescriptionType>;
 
-    public setConfiguration(
-        configuration: RTCPeerConnectionConfiguration
-    ): void;
+    setConfiguration(configuration: RTCPeerConnectionConfiguration): void;
 
-    public setLocalDescription(
+    setLocalDescription(
         sessionDescription: RTCSessionDescriptionType
     ): Promise<void>;
 
-    public setRemoteDescription(
+    setRemoteDescription(
         sessionDescription: RTCSessionDescriptionType
     ): Promise<void>;
 
-    public addIceCandidate(candidate: RTCIceCandidateType): Promise<void>;
+    addIceCandidate(candidate: RTCIceCandidateType): Promise<void>;
 
-    public getStats(selector?: MediaStreamTrack | null): Promise<any>;
+    getStats(selector?: MediaStreamTrack | null): Promise<any>;
 
-    public getLocalStreams(): Array<MediaStream>;
+    getLocalStreams(): MediaStream[];
 
-    public getRemoteStreams(): Array<MediaStream>;
+    getRemoteStreams(): MediaStream[];
 
-    public close(): void;
+    close(): void;
 
     private _getTrack(
         streamReactTag: string,
@@ -170,7 +184,7 @@ export class RTCPeerConnection {
 
     private _registerEvents(): void;
 
-    public createDataChannel(label: string, dataChannelDict?: any): void;
+    createDataChannel(label: string, dataChannelDict?: any): void;
 }
 
 export class RTCIceCandidateType {
@@ -180,9 +194,9 @@ export class RTCIceCandidateType {
 }
 
 export class RTCIceCandidate extends RTCIceCandidateType {
-    public constructor(info: RTCIceCandidateType);
+    constructor(info: RTCIceCandidateType);
 
-    public toJSON(): RTCIceCandidateType;
+    toJSON(): RTCIceCandidateType;
 }
 
 export class RTCSessionDescriptionType {
@@ -191,24 +205,24 @@ export class RTCSessionDescriptionType {
 }
 
 export class RTCSessionDescription extends RTCSessionDescriptionType {
-    public constructor(info: RTCSessionDescriptionType);
-    public toJSON(): RTCSessionDescriptionType;
+    constructor(info: RTCSessionDescriptionType);
+    toJSON(): RTCSessionDescriptionType;
 }
 
-interface MandatoryMedia {
+export interface MandatoryMedia {
     minWidth: number;
     minHeight: number;
     minFrameRate: number;
 }
 
-interface MediaSources {
+export interface MediaSources {
     sourceId: string;
 }
 
-interface MediaTrackConstraints {
+export interface MediaTrackConstraints {
     mandatory: MandatoryMedia;
     facingMode: "user" | "environment";
-    optional: Array<MediaSources>;
+    optional: MediaSources[];
 }
 
 export interface MediaStreamConstraints {
@@ -217,11 +231,9 @@ export interface MediaStreamConstraints {
 }
 
 export class mediaDevices {
-    public ondevicechange: Function | undefined;
+    ondevicechange: Function | undefined;
 
-    public static enumerateDevices(): Promise<any>;
+    static enumerateDevices(): Promise<any>;
 
-    public static getUserMedia(
-        constraints: MediaStreamConstraints
-    ): MediaStreamConstraints;
+    static getUserMedia(constraints: MediaStreamConstraints): MediaStream;
 }

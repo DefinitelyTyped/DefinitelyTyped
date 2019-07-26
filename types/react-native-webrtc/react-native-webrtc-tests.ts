@@ -1,6 +1,12 @@
 import * as WebRTC from "react-native-webrtc";
 
-const { mediaDevices, RTCSessionDescription } = WebRTC;
+const {
+    mediaDevices,
+    RTCPeerConnection,
+    RTCIceCandidate,
+    RTCSessionDescription,
+    MediaStream
+} = WebRTC;
 
 mediaDevices.getUserMedia({
     audio: true,
@@ -36,3 +42,11 @@ new RTCPeerConnection({
     ],
     iceTransportPolicy: "all"
 });
+
+MediaStream.getTracks();
+
+MediaStream.release();
+
+MediaStream.getVideoTracks();
+
+MediaStream.toURL();
