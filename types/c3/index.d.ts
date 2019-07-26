@@ -19,8 +19,8 @@ export function generate(config: ChartConfiguration): ChartAPI;
 export const version: string;
 
 export type Primitive = string | boolean | number | null;
-export type PrimitiveArray = Array<Primitive>;
-export type ArrayOrSingle<T extends any> = T | Array<T>;
+export type PrimitiveArray = Primitive[];
+export type ArrayOrSingle<T extends any> = T | T[];
 export type ArrayOrString = ArrayOrSingle<string>;
 /** Zoomed domain in the form `[minimum, maximum]` where `minimum` and `maximum` are the values at the edges of the visible x-axis. */
 export type Domain = [number, number];
@@ -351,8 +351,7 @@ export interface ChartConfiguration {
          * Set the padding for the Stanford color scale.
          */
         padding?: Padding;
-
-    }
+    };
 
     title?: {
         /**
@@ -367,7 +366,7 @@ export interface ChartConfiguration {
          * Position the title relative to the chart.
          */
         title_position?: "right" | "center" | "left";
-    }
+    };
 }
 
 export interface LabelOptions {
@@ -405,7 +404,7 @@ export interface Data {
      */
     headers?: unknown;
     /**
-     * Parse a JSON object for data. Can be in the column form `{key1: [val1, val2, ...]; ...}` or in the row form `[{key1: val1; key2: val2}, ...]`. If `url` is provided this will be ignored. 
+     * Parse a JSON object for data. Can be in the column form `{key1: [val1, val2, ...]; ...}` or in the row form `[{key1: val1; key2: val2}, ...]`. If `url` is provided this will be ignored.
      */
     json?: Record<string, PrimitiveArray> | Array<Record<string, Primitive>>;
     /**
@@ -415,7 +414,7 @@ export interface Data {
     /**
      * A list of columns, where the first element in each column is the ID and the remaining elements are data. If `url`, `json`, or `rows` are provided, this will be ignored.
      */
-    columns?: [string, ...PrimitiveArray][];
+    columns?: Array<[string, ...PrimitiveArray]>;
     /**
      * Used if loading JSON via `data.url`.
      */
@@ -554,17 +553,19 @@ export interface Data {
         grouped?: boolean;
         /**
          * Set multiple data points selection enabled.
-         * If this option set `true`, multiple data points can have the selected state at the same time. If `false` set, only one data point can have the selected state and the others will be unselected when the new data point is selected.
+         * If this option set `true`, multiple data points can have the selected
+         * state at the same time. If `false` set, only one data point can have
+         * the selected state and the others will be unselected when the new data point is selected.
          */
         multiple?: boolean;
         /**
          * Enable to select data points by dragging.
          * If this option set `true`, data points can be selected by dragging.
-         * 
+         *
          * **Note**: If this option set `true`, scrolling on the chart will be disabled because dragging event will handle the event.
          */
         draggable?: boolean;
-        /** 
+        /**
          * Prevent specific data from being selected. Only called if `selection.enabled` is `true`.
          * @param d The data series to decide for.
          * @returns `false` if selection should be disabled for this data.
@@ -644,12 +645,26 @@ export interface AxisConfiguration {
      * Valid horizontal axis positions: inner-right (default), inner-center, inner-left, outer-right, outer-center, outer-left
      * Valid vertical axis positions: inner-top, inner-middle, inner-bottom, outer-top, outer-middle, outer-bottom
      */
-    label?: string | {
-        /** The label text to show. */
-        text: string;
-        /** The position of the label. */
-        position: "inner-right" | "inner-center" | "inner-left" | "outer-right" | "outer-center" | "outer-left" | "inner-top" | "inner-middle" | "inner-bottom" | "outer-top" | "outer-middle" | "outer-bottom";
-    };
+    label?:
+        | string
+        | {
+              /** The label text to show. */
+              text: string;
+              /** The position of the label. */
+              position:
+                  | 'inner-right'
+                  | 'inner-center'
+                  | 'inner-left'
+                  | 'outer-right'
+                  | 'outer-center'
+                  | 'outer-left'
+                  | 'inner-top'
+                  | 'inner-middle'
+                  | 'inner-bottom'
+                  | 'outer-top'
+                  | 'outer-middle'
+                  | 'outer-bottom';
+          };
     /**
      * Set max value of the axis.
      */
@@ -876,23 +891,23 @@ export interface LegendOptions {
      * Change inset legend attributes. Ignored unless `legend.position` is `"inset"`.
      */
     inset?: {
-        /** 
-         * Decides the position of the legend. 
+        /**
+         * Decides the position of the legend.
          * Defaults to `"top-left"`.
          */
         anchor?: "top-left" | "top-right" | "bottom-left" | "bottom-right";
-        /** 
-         * Set the horizontal position of the legend based on the anchor. 
+        /**
+         * Set the horizontal position of the legend based on the anchor.
          * Defaults to `10`.
          */
         x?: number;
-        /** 
-         * Set the vertical position of the legend based on the anchor. 
+        /**
+         * Set the vertical position of the legend based on the anchor.
          * Defaults to `0`.
          */
         y?: number;
-        /** 
-         * Defines the max step the legend has (e.g. If `step=2` and legend has 3 items, the legend has 2 columns). 
+        /**
+         * Defines the max step the legend has (e.g. If `step=2` and legend has 3 items, the legend has 2 columns).
          */
         step?: number;
     };
@@ -960,7 +975,7 @@ export interface TooltipOptions {
          */
         title?(x: Primitive, index: number): string;
         /**
-         * Set format for the name of each data in tooltip. 
+         * Set format for the name of each data in tooltip.
          * @param ratio Will be `undefined` if the chart is not donut/pie/gauge.
          */
         name?(name: string, ratio: number | undefined, id: string, index: number): string;
@@ -1386,7 +1401,7 @@ export interface ChartAPI {
     color(id: string): string;
 
     /**
-     * Get and set x values for the chart. Same as `xs` method. 
+     * Get and set x values for the chart. Same as `xs` method.
      * @param x If given, x values of every target will be updated.
      * @returns A map of data IDs to their x IDs after running this function.
      */
@@ -1477,7 +1492,7 @@ export interface ChartAPI {
          * Set or get the maximum x value of the chart for zooming.
          * @param max The new maximum zoom value.
          * @returns If `max` is _not_ given, will return the existing zoom value.
-         * 
+         *
          */
         max(): number;
         max(max: number): void;
@@ -1486,7 +1501,7 @@ export interface ChartAPI {
          * Set or get the minimum x value of the chart for zooming.
          * @param min The new minimum zoom value.
          * @returns If `min` is _not_ given, will return the existing zoom value.
-         * 
+         *
          */
         min(): number;
         min(min: number): void;
