@@ -3,7 +3,10 @@
 // Definitions by: Sergey Zwezdin <https://github.com/sergeyzwezdin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+import { FormSubmitHandler, InjectedFormProps, SubmitHandler } from 'redux-form';
+
 import { AnyAction } from 'redux';
+import { Dispatch } from 'redux';
 import { Saga } from 'redux-saga';
 
 export const PROMISE: string;
@@ -12,7 +15,7 @@ export function createFormAction(
     requestAction: string,
     types?: string[],
     payloadCreator?: (i: {}) => {}
-): Promise<{}> & {
+): ((data: {}, dispatch: Dispatch) => Promise<{}>) & {
     REQUEST: string;
     SUCCESS: string;
     FAILURE: string;
