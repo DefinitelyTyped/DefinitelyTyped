@@ -1338,7 +1338,7 @@ stripe.subscriptions.create({ items: [{ plan: 'platypi-dev' }], customer: 'cus_5
             subscription: subscription.id,
         })
         .then(invoices => {
-            invoices; // $ExpectType invoices.IInvoice
+            invoices; // $ExpectType IInvoice
         });
 });
 
