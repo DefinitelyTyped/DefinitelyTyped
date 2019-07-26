@@ -7254,8 +7254,17 @@ export interface CameraRollFetchParams {
     assetType?: CameraRollAssetType;
 }
 
+export interface CameraRollFile {
+    filename?: string;
+    uri: string;
+    height: number;
+    width: number;
+    playableDuration?: number;
+    isStored?: boolean;
+}
+
 export interface CameraRollNodeInfo {
-    image: Image;
+    image: CameraRollFile;
     group_name: string;
     timestamp: number;
     location: any;
@@ -7269,7 +7278,8 @@ export interface CameraRollAssetInfo {
     edges: CameraRollEdgeInfo[];
     page_info: {
         has_next_page: boolean;
-        end_cursor: string;
+        start_cursor?: string;
+        end_cursor?: string;
     };
 }
 
@@ -7287,13 +7297,7 @@ export interface GetPhotosReturnType {
         node: {
             type: string;
             group_name: string;
-            image: {
-                uri: string;
-                height: number;
-                width: number;
-                playableDuration: number;
-                isStored?: boolean;
-            };
+            image: CameraRollFile;
             timestamp: number;
             location: {
                 latitude: number;
@@ -7371,7 +7375,7 @@ export interface CameraRollStatic {
      *
      * @param params See getPhotosParamChecker.
      */
-    getPhotos(params: GetPhotosParamType): Promise<GetPhotosReturnType>;
+    getPhotos(params: GetPhotosParamType): Promise<CameraRollAssetInfo>;
 }
 
 // https://facebook.github.io/react-native/docs/checkbox.html
