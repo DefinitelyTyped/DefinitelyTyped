@@ -1,64 +1,64 @@
-// Type definitions for react-native-incall-manager 3.2.4
+// Type definitions for react-native-incall-manager 3.2
 // Project: https://github.com/zxcpoiu/react-native-incall-manager#readme
 // Definitions by: Carlos Quiroga <https://github.com/KarlosQ>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-interface StartSetup {
+export interface StartSetup {
     media?: string;
     auto?: boolean;
     ringback?: string;
 }
 
-interface StopSetup {
+export interface StopSetup {
     busytone?: string;
 }
 
 export default class InCallManager {
-    static start(setup?: StartSetup): void;
+    start(setup?: StartSetup): void;
 
-    static stop(setup?: StopSetup): void;
+    stop(setup?: StopSetup): void;
 
-    static turnScreenOff(): void;
+    turnScreenOff(): void;
 
-    static turnScreenOn(): void;
+    turnScreenOn(): void;
 
-    static getIsWiredHeadsetPluggedIn(): Promise<any>;
+    getIsWiredHeadsetPluggedIn(): Promise<any>;
 
-    static setFlashOn(enable?: boolean, brightness?: number): number;
+    setFlashOn(enable?: boolean, brightness?: number): number;
 
-    static setKeepScreenOn(enable?: boolean): void;
+    setKeepScreenOn(enable?: boolean): void;
 
-    static setSpeakerphoneOn(enable?: boolean): void;
+    setSpeakerphoneOn(enable?: boolean): void;
 
-    static setForceSpeakerphoneOn(_flag?: boolean): void;
+    setForceSpeakerphoneOn(_flag?: boolean): void;
 
-    static setMicrophoneMute(enable?: boolean): void;
+    setMicrophoneMute(enable?: boolean): void;
 
-    static startRingtone(
+    startRingtone(
         ringtone?: string,
-        vibrate_pattern?: Array<any>,
+        vibrate_pattern?: any[],
         ios_category?: string,
         seconds?: number
     ): void;
 
-    static stopRingtone(): void;
+    stopRingtone(): void;
 
-    static startRingback(ringback?: string): void;
+    startRingback(ringback?: string): void;
 
-    static stopRingback(): void;
+    stopRingback(): void;
 
-    static checkRecordPermission(): Promise<string>;
+    checkRecordPermission(): Promise<string>;
 
-    static requestRecordPermission(): Promise<string>;
+    requestRecordPermission(): Promise<string>;
 
-    static checkCameraPermission(): Promise<string>;
+    checkCameraPermission(): Promise<string>;
 
-    static requestCameraPermission(): Promise<string>;
+    requestCameraPermission(): Promise<string>;
 
-    static pokeScreen(_timeout?: number): void;
+    pokeScreen(_timeout?: number): void;
 
-    static getAudioUri(audioType: string, fileType: string): any;
+    getAudioUri(audioType: string, fileType: string): any;
 
-    static chooseAudioRoute(route: any): any;
+    chooseAudioRoute(route: any): any;
 }
