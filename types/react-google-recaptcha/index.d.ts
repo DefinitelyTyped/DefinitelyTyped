@@ -81,9 +81,7 @@ export interface ReCAPTCHAProps {
 	 */
 	stoken?: string;
 	/**
-	 * Optional. Set the hl parameter, which allows the captcha to be used from different languages.
-	 *
-	 * @default "en"
+	 *  Optional. Forces the widget to render in a specific language. Auto-detects the user's language if unspecified.
 	 */
 	hl?: string;
 	/**
