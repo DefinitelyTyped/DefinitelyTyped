@@ -2,6 +2,7 @@
 // Project: https://github.com/react-native-webrtc/react-native-webrtc
 // Definitions by: Carlos Quiroga <https://github.com/KarlosQ>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export type RTCSignalingState =
     | "stable"
