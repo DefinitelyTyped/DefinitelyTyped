@@ -39,7 +39,6 @@ export type YAxisName = "y" | "y2";
 export type AxisName = "x" | YAxisName;
 export type ChartType = "line" | "spline" | "step" | "area" | "area-spline" | "area-step" | "bar" | "scatter" | "stanford" | "pie" | "donut" | "gauge";
 
-
 export interface SidePadding {
     /** Right padding. */
     right?: number;
@@ -66,7 +65,7 @@ export interface ChartConfiguration {
     svg?: {
         /** Class to assign to the chart's container SVG element. */
         classname?: string;
-    }
+    };
 
     size?: {
         /**
@@ -291,28 +290,28 @@ export interface ChartConfiguration {
 
     stanford?: {
         /** Show lines anywhere in the chart. */
-        lines?: {
+        lines?: Array<{
             value_x1?: number;
             value_y1?: number;
             value_x2?: number;
             value_y2?: number;
             /** Class to apply to the line. */
             class?: string;
-        }[];
+        }>;
         /** Add regions to the chart. */
-        regions?: {
+        regions?: Array<{
             /** Points should be added in counter-clockwise direction  to close the polygon. */
-            points: {
+            points: Array<{
                 x: number;
                 y: number;
-            }[];
+            }>;
             text?: string;
             opacity?: number;
             /** Class to apply to the region. */
             class?: string;
-        }[];
+        }>;
         /** Show text anywhere inside the chart. */
-        texts?: {
+        texts?: Array<{
             /** x-position. */
             x?: number;
             /** y-position. */
@@ -321,7 +320,7 @@ export interface ChartConfiguration {
             content?: string;
             /** Class to apply to the text. */
             class?: string;
-        }[];
+        }>;
         /** Change the minimum value of the stanford color scale. */
         scaleMin?: number;
         /** Change the maximum value of the stanford color scale. */
@@ -342,13 +341,16 @@ export interface ChartConfiguration {
          */
         scaleValues?: (minValue: number, maxValue: number) => number[];
         /**
-         * Set the color interpolator for stanford color scale. This option is a `d3.interpolate*` object or any function you define that receives a value between `0` and `1`, and returns a color as string.
+         * Set the color interpolator for stanford color scale. This option is a
+         * `d3.interpolate*` object or any function you definethat receives a
+         * value between `0` and `1`, and returns a color as string.
          */
         colors?: (value: number) => string;
         /**
          * Set the padding for the Stanford color scale.
          */
         padding?: Padding;
+        
     }
 
     title?: {
@@ -404,7 +406,7 @@ export interface Data {
     /**
      * Parse a JSON object for data. Can be in the column form `{key1: [val1, val2, ...]; ...}` or in the row form `[{key1: val1; key2: val2}, ...]`. If `url` is provided this will be ignored. 
      */
-    json?: Record<string, PrimitiveArray> | Record<string, Primitive>[];
+    json?: Record<string, PrimitiveArray> | Array<Record<string, Primitive>>;
     /**
      * A list of rows, where the first row is the column names and the remaining rows are data.  If `url` or `json` are provided this will be ignored.
      */
