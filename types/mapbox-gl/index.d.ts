@@ -1,5 +1,3 @@
-import { Feature } from "geojson";
-
 // Type definitions for Mapbox GL JS v0.53.0
 // Project: https://github.com/mapbox/mapbox-gl-js
 // Definitions by: Dominik Bruderer <https://github.com/dobrud>
