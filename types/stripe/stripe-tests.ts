@@ -1335,8 +1335,7 @@ stripe.subscriptions.create({ items: [{ plan: 'platypi-dev' }], customer: 'cus_5
     stripe.invoices
         .retrieveUpcoming({
             customer: 'cus_5rfJKDJkuxzh5Q',
-            subscription: subscription.id,
-            subscription_items: [{ items: [{ id: subscription.items.data[0].id, plan: 'platypi' }] }],
+            subscription: subscription.id
         })
         .then(invoices => {
             invoices; // $ExpectType invoices.IInvoice
