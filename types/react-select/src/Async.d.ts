@@ -44,8 +44,8 @@ export class Async<OptionType> extends React.Component<Props<OptionType>, State<
   handleInputChange: (newValue: string, actionMeta: InputActionMeta) => string;
 }
 
-type ClassProps<T> = T extends new (...args: infer P) => any ? P : never;
-type FunctionProps<T> = T extends (...args: infer P) => any ? P : never;
+type ClassProps<T> = T extends new (props: infer P) => any ? P : never;
+type FunctionProps<T> = T extends (props: infer P) => any ? P : never;
 
 type SelectComponentProps<T> = T extends React.FunctionComponent<any>
     ? FunctionProps<T>
