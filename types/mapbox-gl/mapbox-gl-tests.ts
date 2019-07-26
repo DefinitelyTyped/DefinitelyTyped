@@ -7,6 +7,10 @@ import mapboxgl = require('.');
  */
 mapboxgl.accessToken = 'foo';
 
+/**
+ * Set Base API URL
+ */
+mapboxgl.baseApiUrl = 'https://example.com'
 
 /**
  * Display a Map
@@ -29,11 +33,36 @@ let map = new mapboxgl.Map({
 	dragPan: true,
 });
 
+/**
+ * Initialize map with bounds
+ */
+expectType<mapboxgl.MapboxOptions>({
+	container: 'map',
+	bounds: new mapboxgl.LngLatBounds([-100, -90, 100, 90]),
+	fitBoundsOptions: {
+		padding: 0,
+		offset: new mapboxgl.Point(0, 0),
+		linear: true,
+		maxZoom: 22,
+		easing: time => time
+	}
+});
+expectType<mapboxgl.MapboxOptions>({
+	container: 'map',
+	bounds: [[-100, -90], [100, 90]],
+	fitBoundsOptions: {
+		offset: [0, 0]
+	}
+});
+expectType<mapboxgl.MapboxOptions>({
+	container: 'map',
+	bounds: [-100, -90, 100, 90]
+});
 
 /**
  * Create and style marker clusters
  */
-map.on('load', function(){
+map.on('load', function() {
 
 	// Add a new source from our GeoJSON data and set the
 	// 'cluster' option to true.
@@ -55,7 +84,7 @@ map.on('load', function(){
 		}
 	});
 
-        var layers: [number, string][] = [
+	var layers: [number, string][] = [
 		[150, '#f28cb1'],
 		[20, '#f1f075'],
 		[0, '#51bbd6']
@@ -93,9 +122,9 @@ map.on('load', function(){
 		}
 	});
 
-/**
- * Add a GeoJSON line
- */
+    /**
+    * Add a GeoJSON line
+    */
 	map.addSource("route", {
 		"type": "geojson",
 		"data": {
@@ -242,6 +271,34 @@ map.addLayer({
 	source: 'radar',
 	paint: {}
 })
+
+/**
+ * Manipulate feature state
+ */
+let featureIdentifier = {
+	id: 1337,
+	source: 'source-id',
+	sourceLayer: 'liam-was-here'
+};
+expectType<mapboxgl.FeatureIdentifier>(featureIdentifier);
+map.addSource('source-id', new mapboxgl.GeoJSONSource({
+	data: {
+		"type": "FeatureCollection",
+		"features": [{
+			"id": 1337,
+			"type": "Feature",
+			"properties": null,
+			"geometry": {
+				"type": "Point",
+				"coordinates": [0, 0]
+			}
+		}]
+	}
+}));
+map.setFeatureState(featureIdentifier, { someState: true })
+map.getFeatureState(featureIdentifier)
+map.removeFeatureState(featureIdentifier)
+map.removeSource('source-id');
 
 /**
  * Popup

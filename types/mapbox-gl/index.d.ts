@@ -1,3 +1,5 @@
+import { Feature } from "geojson";
+
 // Type definitions for Mapbox GL JS v0.53.0
 // Project: https://github.com/mapbox/mapbox-gl-js
 // Definitions by: Dominik Bruderer <https://github.com/dobrud>
@@ -150,11 +152,11 @@ declare namespace mapboxgl {
 
         getLight(): mapboxgl.Light;
 
-        setFeatureState(feature: { source: string, sourceLayer?: string, id: string | number } | mapboxgl.MapboxGeoJSONFeature, state: { [key: string]: any }): void;
+        setFeatureState(feature: FeatureIdentifier | mapboxgl.MapboxGeoJSONFeature, state: { [key: string]: any }): void;
 
-        getFeatureState(feature: { source: string, sourceLayer?: string, id: string | number } | mapboxgl.MapboxGeoJSONFeature): { [key: string]: any };
+        getFeatureState(feature: FeatureIdentifier | mapboxgl.MapboxGeoJSONFeature): { [key: string]: any };
 
-        removeFeatureState(target: { id?: string | number, source: string, sourceLayer?: string }, key?: string): void;
+        removeFeatureState(target: FeatureIdentifier, key?: string): void;
 
         getContainer(): HTMLElement;
 
@@ -462,6 +464,12 @@ declare namespace mapboxgl {
         bottom: number;
         left: number;
         right: number;
+    }
+
+    export interface FeatureIdentifier {
+        id?: string | number,
+        source: string
+        sourceLayer?: string
     }
 
     /**
