@@ -3,8 +3,6 @@
 // Definitions by: Carlos Quiroga <https://github.com/KarlosQ>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="react-native" />
-
 export type RTCSignalingState =
     | "stable"
     | "have-local-offer"
