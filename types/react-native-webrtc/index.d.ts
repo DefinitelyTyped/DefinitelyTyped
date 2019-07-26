@@ -16,7 +16,7 @@ export type RTCIceGatheringState = "new" | "gathering" | "complete";
 
 export type MediaStreamTrackState = "live" | "ended";
 
-export type SourceInfo = {
+export interface SourceInfo = {
     id: string;
     label: string;
     facing: string;
@@ -231,7 +231,7 @@ export interface MediaStreamConstraints {
 }
 
 export class mediaDevices {
-    ondevicechange: Function | undefined;
+    ondevicechange: () => void | undefined;
 
     static enumerateDevices(): Promise<any>;
 
