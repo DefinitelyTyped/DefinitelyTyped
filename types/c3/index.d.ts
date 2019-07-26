@@ -1204,7 +1204,7 @@ export interface ChartAPI {
         data?: Data;
         /** API url to load data from. If `data` is provided this will be ignored. */
         url?: string;
-        /** 
+        /**
          * An object to convert to data to load. Can be in the column form
          * (`{key1: [val1, val2, ...]; ...}`) or in the row form (`[{key1: val1; key2: val2}, ...]`).
          * If `data` or `url` are provided this will be ignored.
@@ -1328,8 +1328,7 @@ export interface ChartAPI {
          * @param grids New region or regions to be added.
          * @returns The regions on the plot, after running this function.
          */
-        add(): RegionOptions[];
-        add(regions: RegionOptions | RegionOptions[]): RegionOptions[];
+        add(regions?: ArrayOrSingle<RegionOptions>): RegionOptions[];
         /**
          * Remove regions from the chart.
          * @param args Arguments object. If not provided, removes all regions.
@@ -1389,14 +1388,16 @@ export interface ChartAPI {
      * @param category: Value to update the category to. If not provided, no change will be made.
      * @returns The value of the category after updating.
      */
-    category(i: number, category?: string): string;
+    category(i: number): string;
+    category<T extends string>(i: number, category: T): T;
 
     /**
      * Get and/or set the categories.
      * @param categories: Value of the categories to update. If provided, will overwrite all categories. If not provided, no change will be made.
      * @returns The list of categories after updating.
      */
-    categories(categories?: string[]): string[];
+    categories(): string[];
+    categories<T extends string[]>(categories: T): T;
 
     /**
      * Get the color for the specified id.
@@ -1544,6 +1545,7 @@ export interface ChartAPI {
     /**
      * Reset the chart object and remove element and events completely.
      */
+    // Not a typo - returns `null` not `void`
     destroy(): null;
 
     tooltip: {
@@ -1594,7 +1596,8 @@ export interface GridOperations {
      * Update the grid lines.
      * @param grids Grid lines will be replaced with this argument.
      */
-    (grids: GridLineOptionsWithAxis[]): GridLineOptionsWithAxis[];
+    (): GridLineOptionsWithAxis[];
+    <T extends GridLineOptionsWithAxis[]>(grids: T): T;
     /**
      * Add grid lines. This API adds new grid lines instead of replacing.
      * @param grids New grid lines will be added. It's possible to give an Object if only one line will be added.
