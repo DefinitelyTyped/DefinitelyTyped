@@ -238,3 +238,13 @@ export class mediaDevices {
 
     static getUserMedia(constraints: MediaStreamConstraints): MediaStream;
 }
+
+export interface RTCViewProps {
+    streamURL: string
+    mirror?: boolean
+    zOrder?: number
+    objectFit?: 'contain' : 'cover'
+    style?: ViewStyle;
+}
+
+export class RTCView extends Component<RTCViewProps, any> {}
