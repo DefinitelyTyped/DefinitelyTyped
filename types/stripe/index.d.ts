@@ -57,6 +57,7 @@ declare class Stripe {
 
     accounts: Stripe.resources.Accounts;
     balance: Stripe.resources.Balance;
+    balanceTransaction: Stripe.resources.BalanceTransaction;
     charges: Stripe.resources.Charges;
     checkout: Stripe.resources.Checkout;
     coupons: Stripe.resources.Coupons;
@@ -7956,13 +7957,29 @@ declare namespace Stripe {
             retrieve(options: HeaderOptions, response?: IResponseFn<balance.IBalance>): Promise<balance.IBalance>;
             retrieve(response?: IResponseFn<balance.IBalance>): Promise<balance.IBalance>;
 
+            /*
+             * @deprecated
+             */
             retrieveTransaction(id: string, options: HeaderOptions, response?: IResponseFn<balance.IBalanceTransaction>): Promise<balance.IBalanceTransaction>;
             retrieveTransaction(id: string, response?: IResponseFn<balance.IBalanceTransaction>): Promise<balance.IBalanceTransaction>;
 
+            /*
+             * @deprecated
+             */
             listTransactions(data: balance.IBalanceListOptions, options: HeaderOptions, response?: IResponseFn<balance.IBalanceTransaction>): IListPromise<balance.IBalanceTransaction>;
             listTransactions(data: balance.IBalanceListOptions, response?: IResponseFn<balance.IBalanceTransaction>): IListPromise<balance.IBalanceTransaction>;
             listTransactions(options: HeaderOptions, response?: IResponseFn<balance.IBalanceTransaction>): IListPromise<balance.IBalanceTransaction>;
             listTransactions(response?: IResponseFn<balance.IBalanceTransaction>): IListPromise<balance.IBalanceTransaction>;
+        }
+
+        class BalanceTransaction extends StripeResource {
+            retrieve(id: string, options: HeaderOptions, response?: IResponseFn<balance.IBalanceTransaction>): Promise<balance.IBalanceTransaction>;
+            retrieve(id: string, response?: IResponseFn<balance.IBalanceTransaction>): Promise<balance.IBalanceTransaction>;
+
+            list(data: balance.IBalanceListOptions, options: HeaderOptions, response?: IResponseFn<balance.IBalanceTransaction>): IListPromise<balance.IBalanceTransaction>;
+            list(data: balance.IBalanceListOptions, response?: IResponseFn<balance.IBalanceTransaction>): IListPromise<balance.IBalanceTransaction>;
+            list(options: HeaderOptions, response?: IResponseFn<balance.IBalanceTransaction>): IListPromise<balance.IBalanceTransaction>;
+            list(response?: IResponseFn<balance.IBalanceTransaction>): IListPromise<balance.IBalanceTransaction>;
         }
 
         class BitcoinReceivers extends StripeResource {
