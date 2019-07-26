@@ -31,4 +31,4 @@
 /// <reference path="misc.d.ts" />
 /// <reference path="legacy.d.ts" />
 
-export = jQuery;
+export =  jQuery;
