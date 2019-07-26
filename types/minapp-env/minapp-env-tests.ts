@@ -25,6 +25,5 @@ Page({
         wx.showToast({
             title: '成功！',
         });
-
     },
 });

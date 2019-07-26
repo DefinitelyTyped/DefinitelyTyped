@@ -6383,15 +6383,27 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
      * - 'speech': 声纹识别（暂未支持）; */
     checkAuthMode: ('fingerPrint' | 'facial' | 'speech')[];
 
+
+
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+
+
 
     complete?: CheckIsSoterEnrolledInDeviceCompleteCallback;
 
+
+
     /** 接口调用失败的回调函数 */
+
+
 
     fail?: CheckIsSoterEnrolledInDeviceFailCallback;
 
+
+
     /** 接口调用成功的回调函数 */
+
+
 
     success?: CheckIsSoterEnrolledInDeviceSuccessCallback;
   }
@@ -6403,15 +6415,27 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
   }
   interface CheckIsSupportSoterAuthenticationOption {
 
+
+
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+
+
 
     complete?: CheckIsSupportSoterAuthenticationCompleteCallback;
 
+
+
     /** 接口调用失败的回调函数 */
+
+
 
     fail?: CheckIsSupportSoterAuthenticationFailCallback;
 
+
+
     /** 接口调用成功的回调函数 */
+
+
 
     success?: CheckIsSupportSoterAuthenticationSuccessCallback;
   }
@@ -6426,29 +6450,53 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
   }
   interface CheckSessionOption {
 
+
+
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+
+
 
     complete?: CheckSessionCompleteCallback;
 
+
+
     /** 接口调用失败的回调函数 */
+
+
 
     fail?: CheckSessionFailCallback;
 
+
+
     /** 接口调用成功的回调函数 */
+
+
 
     success?: CheckSessionSuccessCallback;
   }
   interface ChooseAddressOption {
 
+
+
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+
+
 
     complete?: ChooseAddressCompleteCallback;
 
+
+
     /** 接口调用失败的回调函数 */
+
+
 
     fail?: ChooseAddressFailCallback;
 
+
+
     /** 接口调用成功的回调函数 */
+
+
 
     success?: ChooseAddressSuccessCallback;
   }
@@ -6474,13 +6522,21 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
   }
   interface ChooseImageOption {
 
+
+
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+
+
 
     complete?: ChooseImageCompleteCallback;
     /** 最多可以选择的图片张数 */
     count?: number;
 
+
+
     /** 接口调用失败的回调函数 */
+
+
 
     fail?: ChooseImageFailCallback;
     /** 所选的图片的尺寸
@@ -6496,7 +6552,11 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
      * - 'camera': 使用相机; */
     sourceType?: ('album' | 'camera')[];
 
+
+
     /** 接口调用成功的回调函数 */
+
+
 
     success?: ChooseImageSuccessCallback;
   }
@@ -6510,15 +6570,27 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
   }
   interface ChooseInvoiceOption {
 
+
+
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+
+
 
     complete?: ChooseInvoiceCompleteCallback;
 
+
+
     /** 接口调用失败的回调函数 */
+
+
 
     fail?: ChooseInvoiceFailCallback;
 
+
+
     /** 接口调用成功的回调函数 */
+
+
 
     success?: ChooseInvoiceSuccessCallback;
   }
@@ -6528,15 +6600,27 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
   }
   interface ChooseInvoiceTitleOption {
 
+
+
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+
+
 
     complete?: ChooseInvoiceTitleCompleteCallback;
 
+
+
     /** 接口调用失败的回调函数 */
+
+
 
     fail?: ChooseInvoiceTitleFailCallback;
 
+
+
     /** 接口调用成功的回调函数 */
+
+
 
     success?: ChooseInvoiceTitleSuccessCallback;
   }
@@ -6564,15 +6648,27 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
   }
   interface ChooseLocationOption {
 
+
+
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+
+
 
     complete?: ChooseLocationCompleteCallback;
 
+
+
     /** 接口调用失败的回调函数 */
+
+
 
     fail?: ChooseLocationFailCallback;
 
+
+
     /** 接口调用成功的回调函数 */
+
+
 
     success?: ChooseLocationSuccessCallback;
   }
@@ -6594,7 +6690,11 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
      * - 'front': 默认拉起前置摄像头; */
     camera?: 'back' | 'front';
 
+
+
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+
+
 
     complete?: ChooseVideoCompleteCallback;
     /** 是否压缩所选择的视频文件
@@ -6602,7 +6702,11 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
      * 最低基础库： `1.6.0` */
     compressed?: boolean;
 
+
+
     /** 接口调用失败的回调函数 */
+
+
 
     fail?: ChooseVideoFailCallback;
     /** 拍摄视频最长拍摄时间，单位秒 */
@@ -6614,7 +6718,11 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
      * - 'camera': 使用相机拍摄视频; */
     sourceType?: ('album' | 'camera')[];
 
+
+
     /** 接口调用成功的回调函数 */
+
+
 
     success?: ChooseVideoSuccessCallback;
   }
@@ -6632,17 +6740,29 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
   }
   interface ClearStorageOption {
 
+
+
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+
+
 
 
     complete?: ClearStorageCompleteCallback;
 
 
+
+
     /** 接口调用失败的回调函数 */
+
+
 
     fail?: ClearStorageFailCallback;
 
+
+
     /** 接口调用成功的回调函数 */
+
+
 
 
     success?: ClearStorageSuccessCallback;
@@ -6651,26 +6771,44 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
     /** 用于区分设备的 id */
     deviceId: string;
 
+
+
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
     complete?: CloseBLEConnectionCompleteCallback;
 
+
+
     /** 接口调用失败的回调函数 */
+
+
 
 
     fail?: CloseBLEConnectionFailCallback;
 
 
+
+
     /** 接口调用成功的回调函数 */
+
+
 
     success?: CloseBLEConnectionSuccessCallback;
   }
   interface CloseBluetoothAdapterOption {
 
+
+
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+
+
 
     complete?: CloseBluetoothAdapterCompleteCallback;
 
+
+
     /** 接口调用失败的回调函数 */
+
+
 
     fail?: CloseBluetoothAdapterFailCallback;
     /** 接口调用成功的回调函数 */
@@ -6681,19 +6819,31 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
     code?: number;
 
 
+
+
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+
+
 
 
     complete?: CloseCompleteCallback;
 
+
+
     /** 接口调用失败的回调函数 */
+
+
 
     fail?: CloseFailCallback;
     /** 一个可读的字符串，表示连接被关闭的原因。这个字符串必须是不长于 123 字节的 UTF-8 文本（不是字符）。 */
     reason?: string;
 
 
+
+
     /** 接口调用成功的回调函数 */
+
+
 
 
     success?: CloseSuccessCallback;
@@ -6876,20 +7026,32 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
     src: string;
 
 
+
+
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+
+
 
 
     complete?: CompressImageCompleteCallback;
 
 
+
+
     /** 接口调用失败的回调函数 */
+
+
 
 
     fail?: CompressImageFailCallback;
     /** 压缩质量，范围0～100，数值越小，质量越低，压缩率越高（仅对jpg有效）。 */
     quality?: number;
 
+
+
     /** 接口调用成功的回调函数 */
+
+
 
     success?: CompressImageSuccessCallback;
   }
@@ -6897,11 +7059,19 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
     /** 开发者服务器 wss 接口地址 */
     url: string;
 
+
+
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+
+
 
     complete?: ConnectSocketCompleteCallback;
 
+
+
     /** 接口调用失败的回调函数 */
+
+
 
     fail?: ConnectSocketFailCallback;
     /** HTTP Header，Header 中不能设置 Referer */
@@ -6911,7 +7081,11 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
      * 最低基础库： `1.4.0` */
     protocols?: Array<string>;
 
+
+
     /** 接口调用成功的回调函数 */
+
+
 
     success?: ConnectSocketSuccessCallback;
   }
@@ -6921,6 +7095,8 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
     /** Wi-Fi 设备 SSID */
     SSID: string;
 
+
+
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
     complete?: ConnectWifiCompleteCallback;
     /** 接口调用失败的回调函数 */
@@ -6928,6 +7104,8 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
     /** Wi-Fi 设备密码 */
     password?: string;
     /** 接口调用成功的回调函数 */
+
+
 
     success?: ConnectWifiSuccessCallback;
   }
@@ -6949,15 +7127,27 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
     /** 源文件路径，只可以是普通文件 */
     srcPath: string;
 
+
+
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+
+
 
     complete?: CopyFileCompleteCallback;
 
+
+
     /** 接口调用失败的回调函数 */
+
+
 
     fail?: CopyFileFailCallback;
 
+
+
     /** 接口调用成功的回调函数 */
+
+
 
     success?: CopyFileSuccessCallback;
   }
@@ -6990,15 +7180,27 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
     /** 用于区分设备的 id */
     deviceId: string;
 
+
+
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+
+
 
     complete?: CreateBLEConnectionCompleteCallback;
 
+
+
     /** 接口调用失败的回调函数 */
+
+
 
     fail?: CreateBLEConnectionFailCallback;
 
+
+
     /** 接口调用成功的回调函数 */
+
+
 
     success?: CreateBLEConnectionSuccessCallback;
     /** 超时时间，单位ms，不填表示不会超时 */
@@ -7049,11 +7251,19 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
     /** 下载资源的 url */
     url: string;
 
+
+
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+
+
 
     complete?: DownloadFileCompleteCallback;
 
+
+
     /** 接口调用失败的回调函数 */
+
+
 
     fail?: DownloadFileFailCallback;
     /** 指定文件下载后存储的路径
@@ -7063,7 +7273,11 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
     /** HTTP 请求的 Header，Header 中不能设置 Referer */
     header?: object;
 
+
+
     /** 接口调用成功的回调函数 */
+
+
 
     success?: DownloadFileSuccessCallback;
   }
@@ -7087,15 +7301,27 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
   }
   interface ExitFullScreenOption {
 
+
+
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+
+
 
     complete?: ExitFullScreenCompleteCallback;
 
+
+
     /** 接口调用失败的回调函数 */
+
+
 
     fail?: ExitFullScreenFailCallback;
 
+
+
     /** 接口调用成功的回调函数 */
+
+
 
     success?: ExitFullScreenSuccessCallback;
   }
@@ -7129,15 +7355,27 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
     /** 要读取的文件路径 */
     filePath: string;
 
+
+
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+
+
 
     complete?: FileSystemManagerGetFileInfoCompleteCallback;
 
+
+
     /** 接口调用失败的回调函数 */
+
+
 
     fail?: FileSystemManagerGetFileInfoFailCallback;
 
+
+
     /** 接口调用成功的回调函数 */
+
+
 
     success?: FileSystemManagerGetFileInfoSuccessCallback;
   }
@@ -7147,15 +7385,27 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
   }
   interface FileSystemManagerGetSavedFileListOption {
 
+
+
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+
+
 
     complete?: FileSystemManagerGetSavedFileListCompleteCallback;
 
+
+
     /** 接口调用失败的回调函数 */
+
+
 
     fail?: FileSystemManagerGetSavedFileListFailCallback;
 
+
+
     /** 接口调用成功的回调函数 */
+
+
 
     success?: FileSystemManagerGetSavedFileListSuccessCallback;
   }
@@ -7177,18 +7427,30 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
     filePath: string;
 
 
+
+
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+
+
 
 
     complete?: FileSystemManagerRemoveSavedFileCompleteCallback;
 
 
+
+
     /** 接口调用失败的回调函数 */
+
+
 
 
     fail?: FileSystemManagerRemoveSavedFileFailCallback;
 
+
+
     /** 接口调用成功的回调函数 */
+
+
 
 
     success?: FileSystemManagerRemoveSavedFileSuccessCallback;
@@ -7197,10 +7459,16 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
     /** 临时存储文件路径 */
     tempFilePath: string;
 
+
+
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
     complete?: FileSystemManagerSaveFileCompleteCallback;
 
+
+
     /** 接口调用失败的回调函数 */
+
+
 
     fail?: FileSystemManagerSaveFileFailCallback;
     /** 要存储的文件路径 */
@@ -7214,13 +7482,21 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
   }
   interface GetAvailableAudioSourcesOption {
 
+
+
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+
+
 
     complete?: GetAvailableAudioSourcesCompleteCallback;
     /** 接口调用失败的回调函数 */
     fail?: GetAvailableAudioSourcesFailCallback;
 
+
+
     /** 接口调用成功的回调函数 */
+
+
 
     success?: GetAvailableAudioSourcesSuccessCallback;
   }
@@ -7251,19 +7527,31 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
     serviceId: string;
 
 
+
+
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+
+
 
 
     complete?: GetBLEDeviceCharacteristicsCompleteCallback;
 
 
+
+
     /** 接口调用失败的回调函数 */
+
+
 
 
     fail?: GetBLEDeviceCharacteristicsFailCallback;
 
 
+
+
     /** 接口调用成功的回调函数 */
+
+
 
 
     success?: GetBLEDeviceCharacteristicsSuccessCallback;
@@ -7276,13 +7564,23 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
     /** 蓝牙设备 id */
     deviceId: string;
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+
+
     complete?: GetBLEDeviceServicesCompleteCallback;
+
+
 
     /** 接口调用失败的回调函数 */
 
+
+
     fail?: GetBLEDeviceServicesFailCallback;
 
+
+
     /** 接口调用成功的回调函数 */
+
+
 
     success?: GetBLEDeviceServicesSuccessCallback;
   }
@@ -7292,12 +7590,26 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
   }
   interface GetBackgroundAudioPlayerStateOption {
 
+
+
+
+
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
 
+
+
     complete?: GetBackgroundAudioPlayerStateCompleteCallback;
+
+
     /** 接口调用失败的回调函数 */
+
+
     fail?: GetBackgroundAudioPlayerStateFailCallback;
+
+
     /** 接口调用成功的回调函数 */
+
+
     success?: GetBackgroundAudioPlayerStateSuccessCallback;
   }
   interface GetBackgroundAudioPlayerStateSuccessCallbackResult {
@@ -7319,17 +7631,31 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
   }
   interface GetBatteryInfoOption {
 
+
+
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
 
+
+
     complete?: GetBatteryInfoCompleteCallback;
+
+
 
 
     /** 接口调用失败的回调函数 */
 
 
+
+
     fail?: GetBatteryInfoFailCallback;
 
+
+
+
+
     /** 接口调用成功的回调函数 */
+
+
 
     success?: GetBatteryInfoSuccessCallback;
   }
@@ -7349,14 +7675,26 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
 
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
 
+
+
+
+
     complete?: GetBeaconsCompleteCallback;
 
+
+
     /** 接口调用失败的回调函数 */
+
+
 
     fail?: GetBeaconsFailCallback;
 
 
+
+
     /** 接口调用成功的回调函数 */
+
+
 
 
     success?: GetBeaconsSuccessCallback;
@@ -7366,6 +7704,8 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
     beacons: Array<IBeaconInfo>;
   }
   interface GetBluetoothAdapterStateOption {
+
+
 
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
 
@@ -7387,12 +7727,24 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
   }
   interface GetBluetoothDevicesOption {
 
+
+
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
 
+
+
     complete?: GetBluetoothDevicesCompleteCallback;
+
+
     /** 接口调用失败的回调函数 */
+
+
     fail?: GetBluetoothDevicesFailCallback;
+
+
     /** 接口调用成功的回调函数 */
+
+
     success?: GetBluetoothDevicesSuccessCallback;
   }
   interface GetBluetoothDevicesSuccessCallbackResult {
@@ -7420,16 +7772,26 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
 
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
 
+
+
     complete?: GetCenterLocationCompleteCallback;
+
+
 
 
     /** 接口调用失败的回调函数 */
 
 
+
+
     fail?: GetCenterLocationFailCallback;
 
 
+
+
     /** 接口调用成功的回调函数 */
+
+
 
 
     success?: GetCenterLocationSuccessCallback;
@@ -7442,15 +7804,37 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
   }
   interface GetClipboardDataOption {
 
+
+
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+
+
+
+
 
     complete?: GetClipboardDataCompleteCallback;
 
+
+
+
+
     /** 接口调用失败的回调函数 */
+
+
+
+
 
     fail?: GetClipboardDataFailCallback;
 
+
+
+
+
     /** 接口调用成功的回调函数 */
+
+
+
+
 
     success?: GetClipboardDataSuccessCallback;
   }
@@ -7462,15 +7846,25 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
     /** 蓝牙设备主 service 的 uuid 列表 */
     services: Array<string>;
 
+
+
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
 
     complete?: GetConnectedBluetoothDevicesCompleteCallback;
 
+
+
     /** 接口调用失败的回调函数 */
+
+
 
     fail?: GetConnectedBluetoothDevicesFailCallback;
 
+
+
     /** 接口调用成功的回调函数 */
+
+
 
     success?: GetConnectedBluetoothDevicesSuccessCallback;
   }
@@ -7480,7 +7874,11 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
   }
   interface GetConnectedWifiOption {
 
+
+
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+
+
 
     complete?: GetConnectedWifiCompleteCallback;
 
@@ -7500,7 +7898,13 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
   }
   interface GetExtConfigOption {
 
+
+
+
+
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+
+
 
     complete?: GetExtConfigCompleteCallback;
 
@@ -7588,15 +7992,27 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
      *
      * 最低基础库： `1.6.0` */
     altitude?: string;
+
+
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+
+
 
     complete?: GetLocationCompleteCallback;
 
+
+
     /** 接口调用失败的回调函数 */
+
+
 
     fail?: GetLocationFailCallback;
 
+
+
     /** 接口调用成功的回调函数 */
+
+
 
     success?: GetLocationSuccessCallback;
     /** wgs84 返回 gps 坐标，gcj02 返回可用于 wx.openLocation 的坐标 */
@@ -7625,6 +8041,8 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
     verticalAccuracy: number;
   }
   interface GetNetworkTypeOption {
+
+
 
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
 
@@ -7657,11 +8075,33 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
   }
   interface GetRegionOption {
 
+
+
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+
+
+
+
     complete?: GetRegionCompleteCallback;
+
+
+
+
     /** 接口调用失败的回调函数 */
+
+
+
+
     fail?: GetRegionFailCallback;
+
+
+
+
     /** 接口调用成功的回调函数 */
+
+
+
+
     success?: GetRegionSuccessCallback;
   }
   interface GetRegionSuccessCallbackResult {
@@ -7673,6 +8113,8 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
   interface GetSavedFileInfoOption {
     /** 文件路径 */
     filePath: string;
+
+
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
 
     complete?: GetSavedFileInfoCompleteCallback;
@@ -7680,6 +8122,8 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
     /** 接口调用失败的回调函数 */
 
     fail?: GetSavedFileInfoFailCallback;
+
+
 
     /** 接口调用成功的回调函数 */
 
@@ -7696,16 +8140,26 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
 
 
+
+
     complete?: GetScaleCompleteCallback;
+
+
 
 
     /** 接口调用失败的回调函数 */
 
 
+
+
     fail?: GetScaleFailCallback;
 
 
+
+
     /** 接口调用成功的回调函数 */
+
+
 
 
     success?: GetScaleSuccessCallback;
@@ -7716,12 +8170,24 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
   }
   interface GetScreenBrightnessOption {
 
+
+
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+
+
     complete?: GetScreenBrightnessCompleteCallback;
+
+
     /** 接口调用失败的回调函数 */
+
+
     fail?: GetScreenBrightnessFailCallback;
 
+
+
     /** 接口调用成功的回调函数 */
+
+
     success?: GetScreenBrightnessSuccessCallback;
   }
   interface GetScreenBrightnessSuccessCallbackOption {
@@ -7731,13 +8197,23 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
   interface GetSettingOption {
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
 
+
+
     complete?: GetSettingCompleteCallback;
+
+
 
     /** 接口调用失败的回调函数 */
 
+
+
     fail?: GetSettingFailCallback;
 
+
+
     /** 接口调用成功的回调函数 */
+
+
 
     success?: GetSettingSuccessCallback;
   }
@@ -7749,9 +8225,15 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
   }
   interface GetShareInfoOption {
 
+
+
     /** shareTicket */
     shareTicket: string;
+
+
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+
+
 
     complete?: GetShareInfoCompleteCallback;
 
@@ -7927,11 +8409,19 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
   }
   interface GetUserInfoOption {
 
+
+
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+
+
 
     complete?: GetUserInfoCompleteCallback;
 
+
+
     /** 接口调用失败的回调函数 */
+
+
 
     fail?: GetUserInfoFailCallback;
     /** 显示用户信息的语言
@@ -7943,7 +8433,11 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
     lang?: 'en' | 'zh_CN' | 'zh_TW';
     /** 接口调用成功的回调函数 */
 
+
+
     success?: GetUserInfoSuccessCallback;
+
+
 
     /** 是否带上登录态信息。当 withCredentials 为 true 时，要求此前有调用过 wx.login 且登录态尚未过期，此时返回的数据会包含 encryptedData, iv 等敏感信息；当 withCredentials 为 false 时，不要求有登录态，返回的数据不包含 encryptedData, iv 等敏感信息。 */
     withCredentials?: boolean;
@@ -7964,17 +8458,39 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
   }
   interface GetWeRunDataOption {
 
+
+
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+
+
+
+
 
 
     complete?: GetWeRunDataCompleteCallback;
 
+
+
+
+
     /** 接口调用失败的回调函数 */
+
+
 
 
     fail?: GetWeRunDataFailCallback;
 
+
+
+
+
+
+
     /** 接口调用成功的回调函数 */
+
+
+
+
 
     success?: GetWeRunDataSuccessCallback;
   }
@@ -7987,13 +8503,23 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
   interface GetWifiListOption {
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
 
+
+
     complete?: GetWifiListCompleteCallback;
 
 
+
+
     /** 接口调用失败的回调函数 */
+
+
     fail?: GetWifiListFailCallback;
 
+
+
     /** 接口调用成功的回调函数 */
+
+
 
     success?: GetWifiListSuccessCallback;
   }
@@ -8019,17 +8545,27 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
 
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
 
+
+
     complete?: HideNavigationBarLoadingCompleteCallback;
 
+
+
     /** 接口调用失败的回调函数 */
+
+
 
     fail?: HideNavigationBarLoadingFailCallback;
 
     /** 接口调用成功的回调函数 */
 
+
+
     success?: HideNavigationBarLoadingSuccessCallback;
   }
   interface HideShareMenuOption {
+
+
 
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
 
@@ -8217,25 +8753,55 @@ innerAudioContext.onError((res) => {
   }
   interface LivePlayerContextPauseOption {
 
+
+
+
+
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+
+
+
+
     complete?: LivePlayerContextPauseCompleteCallback;
 
+
+
+
+
     /** 接口调用失败的回调函数 */
+
+
+
+
 
 
     fail?: LivePlayerContextPauseFailCallback;
 
 
+
+
+
+
     /** 接口调用成功的回调函数 */
+
+
+
+
 
     success?: LivePlayerContextPauseSuccessCallback;
   }
   interface LivePlayerContextRequestFullScreenOption {
 
+
+
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
 
 
+
+
     complete?: RequestFullScreenCompleteCallback;
+
+
 
     /** 设置全屏时的方向
      *
@@ -8246,9 +8812,15 @@ innerAudioContext.onError((res) => {
     direction?: 0 | 90 | -90;
     /** 接口调用失败的回调函数 */
 
+
+
     fail?: RequestFullScreenFailCallback;
 
+
+
     /** 接口调用成功的回调函数 */
+
+
 
 
     success?: RequestFullScreenSuccessCallback;
@@ -8256,7 +8828,11 @@ innerAudioContext.onError((res) => {
   interface LivePlayerContextResumeOption {
 
 
+
+
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+
+
 
 
     complete?: LivePlayerContextResumeCompleteCallback;
@@ -8264,23 +8840,41 @@ innerAudioContext.onError((res) => {
 
     /** 接口调用失败的回调函数 */
 
+
+
     fail?: LivePlayerContextResumeFailCallback;
 
+
+
     /** 接口调用成功的回调函数 */
+
+
 
     success?: LivePlayerContextResumeSuccessCallback;
   }
   interface LivePlayerContextStopOption {
 
+
+
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+
+
 
     complete?: LivePlayerContextStopCompleteCallback;
 
+
+
     /** 接口调用失败的回调函数 */
+
+
 
     fail?: LivePlayerContextStopFailCallback;
 
+
+
     /** 接口调用成功的回调函数 */
+
+
 
     success?: LivePlayerContextStopSuccessCallback;
   }
@@ -8288,13 +8882,25 @@ innerAudioContext.onError((res) => {
 
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
 
+
+
     complete?: LivePusherContextPauseCompleteCallback;
+
+
 
     /** 接口调用失败的回调函数 */
 
+
+
     fail?: LivePusherContextPauseFailCallback;
 
+
+
+
+
     /** 接口调用成功的回调函数 */
+
+
 
     success?: LivePusherContextPauseSuccessCallback;
   }
@@ -8326,16 +8932,30 @@ innerAudioContext.onError((res) => {
     success?: StartSuccessCallback;
   }
   interface LivePusherContextStopOption {
+
+
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+
+
     complete?: LivePusherContextStopCompleteCallback;
+
+
+
+
 
     /** 接口调用失败的回调函数 */
 
+
+
     fail?: LivePusherContextStopFailCallback;
     /** 接口调用成功的回调函数 */
+
+
     success?: LivePusherContextStopSuccessCallback;
   }
   interface LoadFontFaceOption {
+
+
     /** 定义的字体名称 */
     family: string;
     /** 字体资源的地址。建议格式为 TTF 和 WOFF，WOFF2 在低版本的iOS上会不兼容。 */
@@ -8358,6 +8978,8 @@ innerAudioContext.onError((res) => {
     complete?: LoginCompleteCallback;
     /** 接口调用失败的回调函数 */
     fail?: LoginFailCallback;
+
+
     /** 接口调用成功的回调函数 */
     success?: LoginSuccessCallback;
     /** 超时时间，单位ms
@@ -8377,22 +8999,34 @@ innerAudioContext.onError((res) => {
 
 
 
+
+
     complete?: MakePhoneCallCompleteCallback;
+
+
 
 
     /** 接口调用失败的回调函数 */
 
 
+
+
     fail?: MakePhoneCallFailCallback;
 
 
+
+
     /** 接口调用成功的回调函数 */
+
+
 
 
     success?: MakePhoneCallSuccessCallback;
   }
   /** 要显示在可视区域内的坐标点列表 */
   interface MapPostion {
+
+
 
     /** 纬度 */
     latitude: number;
@@ -8418,18 +9052,32 @@ innerAudioContext.onError((res) => {
     dirPath: string;
 
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+
+
     complete?: MkdirCompleteCallback;
+
+
+
+
     /** 接口调用失败的回调函数 */
+
+
     fail?: MkdirFailCallback;
+
+
     /** 是否在递归创建该目录的上级目录后再创建该目录。如果对应的上级目录已经存在，则不创建该上级目录。如 dirPath 为 a/b/c/d 且 recursive 为 true，将创建 a 目录，再在 a 目录下创建 b 目录，以此类推直至创建 a/b/c 目录下的 d 目录。
      *
      * 最低基础库： `2.3.0` */
     recursive?: boolean;
     /** 接口调用成功的回调函数 */
 
+
+
     success?: MkdirSuccessCallback;
   }
   interface MuteOption {
+
+
 
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
 
@@ -8438,9 +9086,15 @@ innerAudioContext.onError((res) => {
 
     /** 接口调用失败的回调函数 */
 
+
+
     fail?: MuteFailCallback;
 
+
+
     /** 接口调用成功的回调函数 */
+
+
     success?: MuteSuccessCallback;
   }
   interface NavigateBackMiniProgramOption {
@@ -8706,24 +9360,48 @@ innerAudioContext.onError((res) => {
   interface OpenBluetoothAdapterOption {
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
 
+
+
     complete?: OpenBluetoothAdapterCompleteCallback;
+
+
 
 
     /** 接口调用失败的回调函数 */
 
     fail?: OpenBluetoothAdapterFailCallback;
     /** 接口调用成功的回调函数 */
+
+
     success?: OpenBluetoothAdapterSuccessCallback;
   }
   interface OpenCardOption {
     /** 需要打开的卡券列表 */
     cardList: OpenCardRequestInfo;
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+
+
     complete?: OpenCardCompleteCallback;
+
+
+
+
     /** 接口调用失败的回调函数 */
+
+
+
+
     fail?: OpenCardFailCallback;
 
+
+
+
+
     /** 接口调用成功的回调函数 */
+
+
+
+
 
     success?: OpenCardSuccessCallback;
   }
@@ -8731,6 +9409,8 @@ innerAudioContext.onError((res) => {
   interface OpenCardRequestInfo {
     /** 卡券 ID */
     cardId: string;
+
+
     /** 由 [wx.addCard](https://developers.weixin.qq.com/miniprogram/dev/api/open-api/card/wx.addCard.html) 的返回对象中的加密 code 通过解密后得到，解密请参照：[code 解码接口](https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1499332673_Unm7V) */
     code: string;
   }
@@ -8738,10 +9418,18 @@ innerAudioContext.onError((res) => {
     /** 文件路径，可通过 downloadFile 获得 */
     filePath: string;
 
+
+
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
 
 
+
+
+
+
     complete?: OpenDocumentCompleteCallback;
+
+
 
 
     /** 接口调用失败的回调函数 */
@@ -8749,6 +9437,8 @@ innerAudioContext.onError((res) => {
 
 
     fail?: OpenDocumentFailCallback;
+
+
 
     /** 文件类型，指定文件类型打开文件
      *
@@ -8765,6 +9455,8 @@ innerAudioContext.onError((res) => {
     fileType?: 'doc' | 'docx' | 'xls' | 'xlsx' | 'ppt' | 'pptx' | 'pdf';
     /** 接口调用成功的回调函数 */
 
+
+
     success?: OpenDocumentSuccessCallback;
   }
   interface OpenLocationOption {
@@ -8779,15 +9471,29 @@ innerAudioContext.onError((res) => {
 
     complete?: OpenLocationCompleteCallback;
 
+
+
+
+
     /** 接口调用失败的回调函数 */
 
+
+
     fail?: OpenLocationFailCallback;
+
+
     /** 位置名 */
     name?: string;
     /** 缩放比例，范围5~18 */
     scale?: number;
 
+
+
     /** 接口调用成功的回调函数 */
+
+
+
+
 
 
     success?: OpenLocationSuccessCallback;
@@ -8795,19 +9501,33 @@ innerAudioContext.onError((res) => {
   interface OpenSettingOption {
 
 
+
+
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+
+
+
+
 
 
     complete?: OpenSettingCompleteCallback;
 
 
+
+
     /** 接口调用失败的回调函数 */
+
+
 
 
     fail?: OpenSettingFailCallback;
 
 
+
+
     /** 接口调用成功的回调函数 */
+
+
 
     success?: OpenSettingSuccessCallback;
   }
@@ -8824,6 +9544,8 @@ innerAudioContext.onError((res) => {
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
 
 
+
+
     complete?: PageScrollToCompleteCallback;
 
     /** 滚动动画的时长，单位 ms */
@@ -8831,13 +9553,29 @@ innerAudioContext.onError((res) => {
     /** 接口调用失败的回调函数 */
 
 
+
+
+
+
     fail?: PageScrollToFailCallback;
+
+
+
+
     /** 接口调用成功的回调函数 */
+
+
+
+
     success?: PageScrollToSuccessCallback;
   }
   interface PauseBGMOption {
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+
+
     complete?: PauseBGMCompleteCallback;
+
+
 
     /** 接口调用失败的回调函数 */
     fail?: PauseBGMFailCallback;
@@ -8847,9 +9585,15 @@ innerAudioContext.onError((res) => {
     success?: PauseBGMSuccessCallback;
   }
   interface PauseBackgroundAudioOption {
+
+
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
 
+
+
     complete?: PauseBackgroundAudioCompleteCallback;
+
+
 
     /** 接口调用失败的回调函数 */
 
@@ -8867,9 +9611,15 @@ innerAudioContext.onError((res) => {
 
     /** 接口调用失败的回调函数 */
 
+
+
     fail?: PauseVoiceFailCallback;
 
+
+
     /** 接口调用成功的回调函数 */
+
+
 
     success?: PauseVoiceSuccessCallback;
   }
@@ -8877,15 +9627,27 @@ innerAudioContext.onError((res) => {
     /** 加入背景混音的资源地址 */
     url: string;
 
+
+
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
 
+
+
     complete?: PlayBGMCompleteCallback;
+
+
     /** 接口调用失败的回调函数 */
+
+
 
     fail?: PlayBGMFailCallback;
 
 
+
+
     /** 接口调用成功的回调函数 */
+
+
 
     success?: PlayBGMSuccessCallback;
   }
@@ -8921,7 +9683,11 @@ innerAudioContext.onError((res) => {
     /** 需要播放的语音文件的文件路径 */
     filePath: string;
 
+
+
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+
+
 
     complete?: PlayVoiceCompleteCallback;
 
@@ -8931,9 +9697,17 @@ innerAudioContext.onError((res) => {
     duration?: number;
     /** 接口调用失败的回调函数 */
 
+
+
     fail?: PlayVoiceFailCallback;
 
+
+
+
+
     /** 接口调用成功的回调函数 */
+
+
 
     success?: PlayVoiceSuccessCallback;
   }
@@ -8950,10 +9724,16 @@ innerAudioContext.onError((res) => {
 
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
 
+
+
     complete?: PreviewImageCompleteCallback;
+
+
 
     /** 当前显示图片的链接 */
     current?: string;
+
+
     /** 接口调用失败的回调函数 */
 
     fail?: PreviewImageFailCallback;
@@ -9153,13 +9933,19 @@ innerAudioContext.onError((res) => {
   interface RedirectToOption {
     /** 需要跳转的应用内非 tabBar 的页面的路径, 路径后可以带参数。参数与路径之间使用 `?` 分隔，参数键与参数值用 `=` 相连，不同参数用 `&` 分隔；如 'path?key=value&key2=value2' */
     url: string;
+
+
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+
+
 
 
     complete?: RedirectToCompleteCallback;
 
 
     /** 接口调用失败的回调函数 */
+
+
 
     fail?: RedirectToFailCallback;
     /** 接口调用成功的回调函数 */
@@ -9226,9 +10012,15 @@ innerAudioContext.onError((res) => {
     /** 本地缓存中指定的 key */
     key: string;
 
+
+
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+
+
     complete?: RemoveStorageCompleteCallback;
     /** 接口调用失败的回调函数 */
+
+
     fail?: RemoveStorageFailCallback;
     /** 接口调用成功的回调函数 */
     success?: RemoveStorageSuccessCallback;
@@ -9260,10 +10052,14 @@ innerAudioContext.onError((res) => {
     /** 源文件路径，可以是普通文件或目录 */
     oldPath: string;
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+
+
     complete?: RenameCompleteCallback;
     /** 接口调用失败的回调函数 */
     fail?: RenameFailCallback;
     /** 接口调用成功的回调函数 */
+
+
 
     success?: RenameSuccessCallback;
   }
@@ -9271,9 +10067,13 @@ innerAudioContext.onError((res) => {
     /** 开发者服务器接口地址 */
     url: string;
 
+
+
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
 
     complete?: RequestCompleteCallback;
+
+
 
     /** 请求的参数 */
     data?: string | object | ArrayBuffer;
@@ -9285,6 +10085,10 @@ innerAudioContext.onError((res) => {
      * - '其他': 不对返回的内容进行 JSON.parse; */
     dataType?: 'json' | '其他';
     /** 接口调用失败的回调函数 */
+
+
+
+
 
     fail?: RequestFailCallback;
     /** 设置请求的 header，header 中不能设置 Referer。
@@ -9322,6 +10126,10 @@ innerAudioContext.onError((res) => {
     responseType?: 'text' | 'arraybuffer';
     /** 接口调用成功的回调函数 */
 
+
+
+
+
     success?: RequestSuccessCallback;
   }
   interface RequestPaymentOption {
@@ -9334,13 +10142,27 @@ innerAudioContext.onError((res) => {
     /** 时间戳，从 1970 年 1 月 1 日 00:00:00 至今的秒数，即当前的时间 */
     timeStamp: string;
 
+
+
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+
+
+
+
 
     complete?: RequestPaymentCompleteCallback;
 
+
+
+
+
     /** 接口调用失败的回调函数 */
 
+
+
     fail?: RequestPaymentFailCallback;
+
+
     /** 签名算法
      *
      * 可选值：
@@ -9348,6 +10170,8 @@ innerAudioContext.onError((res) => {
      * - 'HMAC-SHA256': HMAC-SHA256; */
     signType?: 'MD5' | 'HMAC-SHA256';
     /** 接口调用成功的回调函数 */
+
+
 
 
     success?: RequestPaymentSuccessCallback;
@@ -9391,7 +10215,11 @@ innerAudioContext.onError((res) => {
 
     complete?: ResumeBGMCompleteCallback;
 
+
+
     /** 接口调用失败的回调函数 */
+
+
 
     fail?: ResumeBGMFailCallback;
 
@@ -9425,6 +10253,8 @@ innerAudioContext.onError((res) => {
      * 最低基础库： `2.3.0` */
     recursive?: boolean;
     /** 接口调用成功的回调函数 */
+
+
 
     success?: RmdirSuccessCallback;
   }
@@ -9481,6 +10311,8 @@ innerAudioContext.onError((res) => {
      * 最低基础库： `1.7.0` */
     scanType?: ('barCode' | 'qrCode' | 'datamatrix' | 'pdf417')[];
     /** 接口调用成功的回调函数 */
+
+
 
 
     success?: ScanCodeSuccessCallback;
@@ -9552,39 +10384,75 @@ innerAudioContext.onError((res) => {
     position: number;
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
 
+
+
     complete?: SeekBackgroundAudioCompleteCallback;
     /** 接口调用失败的回调函数 */
 
+
+
     fail?: SeekBackgroundAudioFailCallback;
 
+
+
     /** 接口调用成功的回调函数 */
+
+
 
     success?: SeekBackgroundAudioSuccessCallback;
   }
   interface SendHCEMessageOption {
+
+
     /** 二进制数据 */
     data: ArrayBuffer;
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+
+
     complete?: SendHCEMessageCompleteCallback;
 
+
+
+
+
     /** 接口调用失败的回调函数 */
+
+
     fail?: SendHCEMessageFailCallback;
+
+
+
+
     /** 接口调用成功的回调函数 */
+
+
     success?: SendHCEMessageSuccessCallback;
   }
   interface SendOption {
     /** 需要发送的内容 */
     data: string | ArrayBuffer;
 
+
+
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+
+
 
     complete?: SendCompleteCallback;
 
+
+
     /** 接口调用失败的回调函数 */
+
+
 
     fail?: SendFailCallback;
 
+
+
     /** 接口调用成功的回调函数 */
+
+
 
     success?: SendSuccessCallback;
   }
@@ -9600,6 +10468,8 @@ innerAudioContext.onError((res) => {
 
     fail?: SendSocketMessageFailCallback;
 
+
+
     /** 接口调用成功的回调函数 */
 
     success?: SendSocketMessageSuccessCallback;
@@ -9610,9 +10480,15 @@ innerAudioContext.onError((res) => {
 
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
 
+
+
     complete?: SetBGMVolumeCompleteCallback;
 
+
+
     /** 接口调用失败的回调函数 */
+
+
 
     fail?: SetBGMVolumeFailCallback;
 
@@ -9627,6 +10503,8 @@ innerAudioContext.onError((res) => {
     backgroundColorBottom?: string;
     /** 顶部窗口的背景色，必须为十六进制颜色值，仅 iOS 支持 */
     backgroundColorTop?: string;
+
+
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
 
 
@@ -9639,6 +10517,8 @@ innerAudioContext.onError((res) => {
     fail?: SetBackgroundColorFailCallback;
 
     /** 接口调用成功的回调函数 */
+
+
 
 
     success?: SetBackgroundColorSuccessCallback;
@@ -9654,13 +10534,23 @@ innerAudioContext.onError((res) => {
 
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
 
+
+
     complete?: SetBackgroundTextStyleCompleteCallback;
+
+
 
     /** 接口调用失败的回调函数 */
 
+
+
     fail?: SetBackgroundTextStyleFailCallback;
 
+
+
     /** 接口调用成功的回调函数 */
+
+
 
     success?: SetBackgroundTextStyleSuccessCallback;
   }
@@ -9668,35 +10558,69 @@ innerAudioContext.onError((res) => {
     /** 剪贴板的内容 */
     data: string;
 
+
+
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+
+
+
+
 
     complete?: SetClipboardDataCompleteCallback;
 
+
+
+
+
     /** 接口调用失败的回调函数 */
+
+
+
+
 
     fail?: SetClipboardDataFailCallback;
 
+
+
     /** 接口调用成功的回调函数 */
+
+
 
     success?: SetClipboardDataSuccessCallback;
   }
   interface SetEnableDebugOption {
     /** 是否打开调试 */
     enableDebug: boolean;
+
+
+
+
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
     complete?: SetEnableDebugCompleteCallback;
     /** 接口调用失败的回调函数 */
     fail?: SetEnableDebugFailCallback;
 
+
+
     /** 接口调用成功的回调函数 */
+
+
     success?: SetEnableDebugSuccessCallback;
   }
   interface SetInnerAudioOption {
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
 
+
+
     complete?: SetInnerAudioOptionCompleteCallback;
 
+
+
+
+
     /** 接口调用失败的回调函数 */
+
+
 
     fail?: SetInnerAudioOptionFailCallback;
     /** 是否与其他音频混播，设置为 true 之后，不会终止其他应用或微信内的音乐 */
@@ -9706,6 +10630,8 @@ innerAudioContext.onError((res) => {
 
     /** 接口调用成功的回调函数 */
 
+
+
     success?: SetInnerAudioOptionSuccessCallback;
   }
   interface SetKeepScreenOnOption {
@@ -9713,14 +10639,30 @@ innerAudioContext.onError((res) => {
     keepScreenOn: boolean;
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
 
+
+
+
+
     complete?: SetKeepScreenOnCompleteCallback;
 
+
+
+
+
     /** 接口调用失败的回调函数 */
+
+
+
+
 
     fail?: SetKeepScreenOnFailCallback;
 
 
+
+
     /** 接口调用成功的回调函数 */
+
+
 
     success?: SetKeepScreenOnSuccessCallback;
   }
@@ -9732,6 +10674,10 @@ innerAudioContext.onError((res) => {
     /** 前景颜色值，包括按钮、标题、状态栏的颜色，仅支持 #ffffff 和 #000000 */
     frontColor: string;
 
+
+
+
+
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
 
     complete?: SetNavigationBarColorCompleteCallback;
@@ -9742,13 +10688,19 @@ innerAudioContext.onError((res) => {
 
     /** 接口调用成功的回调函数 */
 
+
+
     success?: SetNavigationBarColorSuccessCallback;
   }
   interface SetNavigationBarTitleOption {
     /** 页面标题 */
     title: string;
 
+
+
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+
+
 
     complete?: SetNavigationBarTitleCompleteCallback;
 
@@ -9762,7 +10714,11 @@ innerAudioContext.onError((res) => {
     /** 屏幕亮度值，范围 0 ~ 1。0 最暗，1 最亮 */
     value: number;
 
+
+
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+
+
     complete?: SetScreenBrightnessCompleteCallback;
     /** 接口调用失败的回调函数 */
     fail?: SetScreenBrightnessFailCallback;
@@ -9780,11 +10736,19 @@ innerAudioContext.onError((res) => {
 
     complete?: SetStorageCompleteCallback;
 
+
+
     /** 接口调用失败的回调函数 */
+
+
 
     fail?: SetStorageFailCallback;
 
+
+
     /** 接口调用成功的回调函数 */
+
+
 
     success?: SetStorageSuccessCallback;
   }
@@ -9798,7 +10762,11 @@ innerAudioContext.onError((res) => {
 
     complete?: SetTabBarBadgeCompleteCallback;
 
+
+
     /** 接口调用失败的回调函数 */
+
+
 
     fail?: SetTabBarBadgeFailCallback;
 
@@ -9827,6 +10795,8 @@ innerAudioContext.onError((res) => {
     selectedIconPath?: string;
 
 
+
+
     /** 接口调用成功的回调函数 */
 
 
@@ -9846,35 +10816,65 @@ innerAudioContext.onError((res) => {
     selectedColor: string;
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
 
+
+
+
+
     complete?: SetTabBarStyleCompleteCallback;
+
+
+
+
     /** 接口调用失败的回调函数 */
     fail?: SetTabBarStyleFailCallback;
     /** 接口调用成功的回调函数 */
+
+
     success?: SetTabBarStyleSuccessCallback;
   }
   interface SetTopBarTextOption {
     /** 置顶栏文字 */
     text: object;
 
+
+
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
 
     complete?: SetTopBarTextCompleteCallback;
     /** 接口调用失败的回调函数 */
+
+
     fail?: SetTopBarTextFailCallback;
+
+
     /** 接口调用成功的回调函数 */
+
+
     success?: SetTopBarTextSuccessCallback;
   }
   interface SetWifiListOption {
     /** 提供预设的 Wi-Fi 信息列表 */
     wifiList: WifiData;
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+
+
     complete?: SetWifiListCompleteCallback;
+
+
+
+
 
     /** 接口调用失败的回调函数 */
 
+
+
     fail?: SetWifiListFailCallback;
 
+
+
     /** 接口调用成功的回调函数 */
+
+
 
     success?: SetWifiListSuccessCallback;
   }
@@ -9890,6 +10890,8 @@ innerAudioContext.onError((res) => {
     /** 按钮的文字颜色 */
     itemColor?: string;
     /** 接口调用成功的回调函数 */
+
+
     success?: ShowActionSheetSuccessCallback;
   }
   interface ShowActionSheetSuccessCallbackResult {
@@ -9900,17 +10902,29 @@ innerAudioContext.onError((res) => {
     /** 提示的内容 */
     title: string;
 
+
+
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+
+
 
     complete?: ShowLoadingCompleteCallback;
 
+
+
+
+
     /** 接口调用失败的回调函数 */
+
+
 
     fail?: ShowLoadingFailCallback;
 
     /** 是否显示透明蒙层，防止触摸穿透 */
     mask?: boolean;
     /** 接口调用成功的回调函数 */
+
+
 
     success?: ShowLoadingSuccessCallback;
   }
@@ -9926,7 +10940,11 @@ innerAudioContext.onError((res) => {
 
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
 
+
+
     complete?: ShowModalCompleteCallback;
+
+
 
     /** 确认按钮的文字颜色，必须是 16 进制格式的颜色字符串 */
     confirmColor?: string;
@@ -9934,11 +10952,17 @@ innerAudioContext.onError((res) => {
     confirmText?: string;
     /** 接口调用失败的回调函数 */
 
+
+
     fail?: ShowModalFailCallback;
 
     /** 是否显示取消按钮 */
     showCancel?: boolean;
+
+
     /** 接口调用成功的回调函数 */
+
+
 
     success?: ShowModalSuccessCallback;
   }
@@ -9955,19 +10979,31 @@ innerAudioContext.onError((res) => {
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
 
 
+
+
     complete?: ShowNavigationBarLoadingCompleteCallback;
 
+
+
     /** 接口调用失败的回调函数 */
+
+
 
 
     fail?: ShowNavigationBarLoadingFailCallback;
 
     /** 接口调用成功的回调函数 */
 
+
+
     success?: ShowNavigationBarLoadingSuccessCallback;
   }
   interface ShowShareMenuOption {
+
+
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+
+
     complete?: ShowShareMenuCompleteCallback;
     /** 接口调用失败的回调函数 */
     fail?: ShowShareMenuFailCallback;
@@ -9985,34 +11021,62 @@ innerAudioContext.onError((res) => {
 
     complete?: ShowTabBarCompleteCallback;
 
+
+
     /** 接口调用失败的回调函数 */
+
+
 
     fail?: ShowTabBarFailCallback;
 
+
+
     /** 接口调用成功的回调函数 */
+
+
 
     success?: ShowTabBarSuccessCallback;
   }
   interface ShowTabBarRedDotOption {
+
+
     /** tabBar 的哪一项，从左边算起 */
     index: number;
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+
+
     complete?: ShowTabBarRedDotCompleteCallback;
+
+
     /** 接口调用失败的回调函数 */
+
+
     fail?: ShowTabBarRedDotFailCallback;
     /** 接口调用成功的回调函数 */
+
+
     success?: ShowTabBarRedDotSuccessCallback;
   }
   interface ShowToastOption {
     /** 提示的内容 */
     title: string;
+
+
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+
+
 
     complete?: ShowToastCompleteCallback;
 
+
+
     /** 提示的延迟时间 */
     duration?: number;
+
+
     /** 接口调用失败的回调函数 */
+
+
 
     fail?: ShowToastFailCallback;
     /** 图标
@@ -10030,6 +11094,8 @@ innerAudioContext.onError((res) => {
     mask?: boolean;
 
 
+
+
     /** 接口调用成功的回调函数 */
 
     success?: ShowToastSuccessCallback;
@@ -10043,13 +11109,23 @@ innerAudioContext.onError((res) => {
   interface SnapshotOption {
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
 
+
+
     complete?: SnapshotCompleteCallback;
+
+
 
 
     /** 接口调用失败的回调函数 */
 
+
+
     fail?: SnapshotFailCallback;
+
+
     /** 接口调用成功的回调函数 */
+
+
 
     success?: SnapshotSuccessCallback;
   }
@@ -10066,12 +11142,20 @@ innerAudioContext.onError((res) => {
 
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
 
+
+
     complete?: StartAccelerometerCompleteCallback;
+
+
 
     /** 接口调用失败的回调函数 */
 
 
+
+
     fail?: StartAccelerometerFailCallback;
+
+
     /** 监听加速度数据回调函数的执行频率
      *
      * 可选值：
@@ -10082,7 +11166,11 @@ innerAudioContext.onError((res) => {
      * 最低基础库： `2.1.0` */
     interval?: 'game' | 'ui' | 'normal';
 
+
+
     /** 接口调用成功的回调函数 */
+
+
 
     success?: StartAccelerometerSuccessCallback;
   }
@@ -10090,17 +11178,33 @@ innerAudioContext.onError((res) => {
 
     /** iBeacon 设备广播的 uuid 列表 */
     uuids: Array<string>;
+
+
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+
+
+
+
 
     complete?: StartBeaconDiscoveryCompleteCallback;
 
+
+
     /** 接口调用失败的回调函数 */
 
+
+
     fail?: StartBeaconDiscoveryFailCallback;
+
+
     /** 是否校验蓝牙开关，仅在 iOS 下有效 */
     ignoreBluetoothAvailable?: boolean;
 
+
+
     /** 接口调用成功的回调函数 */
+
+
 
     success?: StartBeaconDiscoverySuccessCallback;
   }
@@ -10112,7 +11216,11 @@ innerAudioContext.onError((res) => {
 
     complete?: StartBluetoothDevicesDiscoveryCompleteCallback;
 
+
+
     /** 接口调用失败的回调函数 */
+
+
 
     fail?: StartBluetoothDevicesDiscoveryFailCallback;
     /** 上报设备的间隔。0 表示找到新设备立即上报，其他数值根据传入的间隔上报。 */
@@ -10127,15 +11235,27 @@ innerAudioContext.onError((res) => {
     success?: StartBluetoothDevicesDiscoverySuccessCallback;
   }
   interface StartCompassOption {
+
+
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+
+
 
     complete?: StartCompassCompleteCallback;
 
+
+
     /** 接口调用失败的回调函数 */
+
+
 
     fail?: StartCompassFailCallback;
 
+
+
     /** 接口调用成功的回调函数 */
+
+
     success?: StartCompassSuccessCallback;
   }
   interface StartDeviceMotionListeningOption {
@@ -10164,11 +11284,19 @@ innerAudioContext.onError((res) => {
 
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
 
+
+
     complete?: StartGyroscopeCompleteCallback;
+
+
 
     /** 接口调用失败的回调函数 */
 
+
+
     fail?: StartGyroscopeFailCallback;
+
+
 
     /** 监听陀螺仪数据回调函数的执行频率
      *
@@ -10178,6 +11306,8 @@ innerAudioContext.onError((res) => {
      * - 'normal': 普通的回调频率，在 200ms/次 左右; */
     interval?: 'game' | 'ui' | 'normal';
     /** 接口调用成功的回调函数 */
+
+
     success?: StartGyroscopeSuccessCallback;
   }
   interface StartHCEOption {
@@ -10209,6 +11339,10 @@ innerAudioContext.onError((res) => {
     serviceType: string;
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
     complete?: StartLocalServiceDiscoveryCompleteCallback;
+
+
+
+
     /** 接口调用失败的回调函数 */
     fail?: StartLocalServiceDiscoveryFailCallback;
     /** 接口调用成功的回调函数 */
@@ -10218,13 +11352,21 @@ innerAudioContext.onError((res) => {
 
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
 
+
+
     complete?: StartPullDownRefreshCompleteCallback;
 
     /** 接口调用失败的回调函数 */
 
+
+
     fail?: StartPullDownRefreshFailCallback;
 
+
+
     /** 接口调用成功的回调函数 */
+
+
 
     success?: StartPullDownRefreshSuccessCallback;
   }
@@ -10276,12 +11418,30 @@ innerAudioContext.onError((res) => {
     resultJSONSignature: string;
   }
   interface StartWifiOption {
+
+
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+
+
+
+
     complete?: StartWifiCompleteCallback;
 
+
+
     /** 接口调用失败的回调函数 */
+
+
     fail?: StartWifiFailCallback;
+
+
+
+
     /** 接口调用成功的回调函数 */
+
+
+
+
     success?: StartWifiSuccessCallback;
   }
   interface StatFailCallbackResult {
@@ -10295,23 +11455,39 @@ innerAudioContext.onError((res) => {
   interface StatOption {
     /** 文件/目录路径 */
     path: string;
+
+
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
 
 
+
+
     complete?: StatCompleteCallback;
+
+
+
+
 
 
     /** 接口调用失败的回调函数 */
 
 
 
+
+
+
+
     fail?: StatFailCallback;
+
+
 
     /** 是否递归获取目录下的每个文件的 Stats 信息
      *
      * 最低基础库： `2.3.0` */
     recursive?: boolean;
     /** 接口调用成功的回调函数 */
+
+
 
 
 
@@ -10335,6 +11511,8 @@ innerAudioContext.onError((res) => {
     size: number;
   }
   interface StepOption {
+
+
 
     /** 动画延迟时间，单位 ms */
     delay?: number;
@@ -10361,19 +11539,43 @@ innerAudioContext.onError((res) => {
     transformOrigin?: string;
   }
   interface StopAccelerometerOption {
+
+
+
+
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+
+
+
+
 
 
     complete?: StopAccelerometerCompleteCallback;
 
 
+
+
+
+
     /** 接口调用失败的回调函数 */
+
+
+
+
 
 
     fail?: StopAccelerometerFailCallback;
 
 
+
+
+
+
     /** 接口调用成功的回调函数 */
+
+
+
+
 
 
     success?: StopAccelerometerSuccessCallback;
@@ -10395,24 +11597,48 @@ innerAudioContext.onError((res) => {
   }
   interface StopBackgroundAudioOption {
 
+
+
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+
+
 
     complete?: StopBackgroundAudioCompleteCallback;
 
+
+
     /** 接口调用失败的回调函数 */
+
+
 
     fail?: StopBackgroundAudioFailCallback;
 
+
+
     /** 接口调用成功的回调函数 */
+
+
 
     success?: StopBackgroundAudioSuccessCallback;
   }
   interface StopBeaconDiscoveryOption {
+
+
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+
+
     complete?: StopBeaconDiscoveryCompleteCallback;
+
+
     /** 接口调用失败的回调函数 */
+
+
     fail?: StopBeaconDiscoveryFailCallback;
+
+
     /** 接口调用成功的回调函数 */
+
+
     success?: StopBeaconDiscoverySuccessCallback;
   }
   interface StopBluetoothDevicesDiscoveryOption {
@@ -10421,39 +11647,69 @@ innerAudioContext.onError((res) => {
 
     complete?: StopBluetoothDevicesDiscoveryCompleteCallback;
 
+
+
     /** 接口调用失败的回调函数 */
+
+
 
     fail?: StopBluetoothDevicesDiscoveryFailCallback;
 
+
+
     /** 接口调用成功的回调函数 */
+
+
 
     success?: StopBluetoothDevicesDiscoverySuccessCallback;
   }
   interface StopCompassOption {
 
+
+
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+
+
 
     complete?: StopCompassCompleteCallback;
 
+
+
     /** 接口调用失败的回调函数 */
+
+
 
     fail?: StopCompassFailCallback;
 
+
+
     /** 接口调用成功的回调函数 */
+
+
 
     success?: StopCompassSuccessCallback;
   }
   interface StopDeviceMotionListeningOption {
 
+
+
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+
+
 
     complete?: StopDeviceMotionListeningCompleteCallback;
 
     /** 接口调用失败的回调函数 */
 
+
+
     fail?: StopDeviceMotionListeningFailCallback;
 
+
+
     /** 接口调用成功的回调函数 */
+
+
 
     success?: StopDeviceMotionListeningSuccessCallback;
   }
@@ -10461,13 +11717,21 @@ innerAudioContext.onError((res) => {
 
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
 
+
+
     complete?: StopGyroscopeCompleteCallback;
 
     /** 接口调用失败的回调函数 */
 
     fail?: StopGyroscopeFailCallback;
 
+
+
+
+
     /** 接口调用成功的回调函数 */
+
+
 
     success?: StopGyroscopeSuccessCallback;
   }
@@ -10477,7 +11741,11 @@ innerAudioContext.onError((res) => {
 
     complete?: StopHCECompleteCallback;
 
+
+
     /** 接口调用失败的回调函数 */
+
+
 
     fail?: StopHCEFailCallback;
 
@@ -10494,15 +11762,27 @@ innerAudioContext.onError((res) => {
   }
   interface StopLocalServiceDiscoveryOption {
 
+
+
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+
+
 
     complete?: StopLocalServiceDiscoveryCompleteCallback;
 
+
+
     /** 接口调用失败的回调函数 */
+
+
 
     fail?: StopLocalServiceDiscoveryFailCallback;
 
+
+
     /** 接口调用成功的回调函数 */
+
+
 
     success?: StopLocalServiceDiscoverySuccessCallback;
   }
@@ -10523,13 +11803,23 @@ innerAudioContext.onError((res) => {
   }
   interface StopRecordOption {
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+
+
     complete?: StopRecordCompleteCallback;
+
+
 
     /** 接口调用失败的回调函数 */
 
+
+
     fail?: StopRecordFailCallback;
 
+
+
     /** 接口调用成功的回调函数 */
+
+
 
     success?: StopRecordSuccessCallback;
   }
@@ -10554,12 +11844,22 @@ innerAudioContext.onError((res) => {
     success?: StopVoiceSuccessCallback;
   }
   interface StopWifiOption {
+
+
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
 
+
+
     complete?: StopWifiCompleteCallback;
+
+
     /** 接口调用失败的回调函数 */
+
+
     fail?: StopWifiFailCallback;
     /** 接口调用成功的回调函数 */
+
+
     success?: StopWifiSuccessCallback;
   }
   interface SwitchCameraOption {
@@ -20282,6 +21582,8 @@ declare namespace DB {
 
   }
 
+
+
   export class Query {
 
     where(condition: IQueryCondition): Query
@@ -20295,8 +21597,7 @@ declare namespace DB {
     field(object: object): Query
 
     // get(options?: IGetDocumentOptions): Promise<IQueryResult> | void
-
-    // // update(options?: IUpdateDocumentOptions): Promise<IUpdateResult> | void
+ // // update(options?: IUpdateDocumentOptions): Promise<IUpdateResult> | void
 
     // // remove(options?: IRemoveDocumentOptions): Promise<IRemoveResult> | void
 
@@ -20318,7 +21619,11 @@ declare namespace DB {
 
   }
 
-  export interface DatabaseCommand {
+
+
+
+
+  export interface DatabaseCommand        {
 
     eq(val: any): DatabaseQueryCommand
     neq(val: any): DatabaseQueryCommand
@@ -20338,7 +21643,7 @@ declare namespace DB {
     mul(val: number): DatabaseUpdateCommand
 
     push(...values: any[]): DatabaseUpdateCommand
-    pop(): DatabaseUpdateCommand
+      pop(): DatabaseUpdateCommand
     shift(): DatabaseUpdateCommand
     unshift(...values: any[]): DatabaseUpdateCommand
 
@@ -20353,7 +21658,7 @@ declare namespace DB {
 
   export class DatabaseLogicCommand {
 
-    public fieldName: string | InternalSymbol
+                  public fieldName: string | InternalSymbol
     public operator: LOGIC_COMMANDS_LITERAL | string
     public operands: any[]
 
