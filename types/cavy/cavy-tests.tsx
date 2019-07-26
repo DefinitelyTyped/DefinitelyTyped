@@ -8,11 +8,22 @@ type Props = WithTestHook<{
 }>;
 
 class SampleComponent extends React.Component<Props> {
+  textInputRef: React.ReactNode | null;
+
+  constructor(props: Props) {
+    super(props);
+    this.textInputRef = null;
+  }
+
+  setTextInputRef = (el?: React.ReactNode) => {
+    this.textInputRef = el;
+  }
+
   render() {
     return (
       <View ref={this.props.generateTestHook('View.Sample')}>
         <Text>{this.props.foo}</Text>
-        <TextInput ref={this.props.generateTestHook("Input.Sample")} />
+        <TextInput ref={this.props.generateTestHook("Input.Sample", this.setTextInputRef)} />
       </View>
     );
   }
@@ -22,9 +33,8 @@ const HookedSampleComponent = hook(SampleComponent); // $ExpectType ComponentCla
 
 const SampleFunctionComponent: React.FunctionComponent = () => {
   const generateTestHook = useCavy();
-  return (
-    <View ref={generateTestHook(`FunctionView.Sample`)}></View>
-  );
+  const ref = React.createRef();
+  return <View ref={generateTestHook(`FunctionView.Sample`, ref)}></View>;
 };
 
 function sampleSpec(spec: TestScope) {
