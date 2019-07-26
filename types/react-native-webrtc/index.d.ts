@@ -51,13 +51,13 @@ export class MediaStreamTrack {
 
     constructor();
 
-    static stop(): void;
-    static applyConstraints(): void;
-    static clone(): void;
-    static getCapabilities(): void;
-    static getConstraints(): void;
-    static getSettings(): void;
-    static release(): void;
+    stop(): void;
+    applyConstraints(): void;
+    clone(): void;
+    getCapabilities(): void;
+    getConstraints(): void;
+    getSettings(): void;
+    release(): void;
 
     private _switchCamera(): void;
 }
@@ -234,7 +234,7 @@ export interface MediaStreamConstraints {
 export class mediaDevices {
     ondevicechange: () => void | undefined;
 
-    static enumerateDevices(): Promise<any>;
+    enumerateDevices(): Promise<any>;
 
-    static getUserMedia(constraints: MediaStreamConstraints): MediaStream;
+    getUserMedia(constraints: MediaStreamConstraints): MediaStream;
 }
