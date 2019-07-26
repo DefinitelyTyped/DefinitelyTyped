@@ -15,50 +15,50 @@ export interface StopSetup {
 }
 
 export default class InCallManager {
-    static start(setup?: StartSetup): void;
+    start(setup?: StartSetup): void;
 
-    static stop(setup?: StopSetup): void;
+    stop(setup?: StopSetup): void;
 
-    static turnScreenOff(): void;
+    turnScreenOff(): void;
 
-    static turnScreenOn(): void;
+    turnScreenOn(): void;
 
-    static getIsWiredHeadsetPluggedIn(): Promise<any>;
+    getIsWiredHeadsetPluggedIn(): Promise<any>;
 
-    static setFlashOn(enable?: boolean, brightness?: number): number;
+    setFlashOn(enable?: boolean, brightness?: number): number;
 
-    static setKeepScreenOn(enable?: boolean): void;
+    setKeepScreenOn(enable?: boolean): void;
 
-    static setSpeakerphoneOn(enable?: boolean): void;
+    setSpeakerphoneOn(enable?: boolean): void;
 
-    static setForceSpeakerphoneOn(_flag?: boolean): void;
+    setForceSpeakerphoneOn(_flag?: boolean): void;
 
-    static setMicrophoneMute(enable?: boolean): void;
+    setMicrophoneMute(enable?: boolean): void;
 
-    static startRingtone(
+    startRingtone(
         ringtone?: string,
         vibrate_pattern?: any[],
         ios_category?: string,
         seconds?: number
     ): void;
 
-    static stopRingtone(): void;
+    stopRingtone(): void;
 
-    static startRingback(ringback?: string): void;
+    startRingback(ringback?: string): void;
 
-    static stopRingback(): void;
+    stopRingback(): void;
 
-    static checkRecordPermission(): Promise<string>;
+    checkRecordPermission(): Promise<string>;
 
-    static requestRecordPermission(): Promise<string>;
+    requestRecordPermission(): Promise<string>;
 
-    static checkCameraPermission(): Promise<string>;
+    checkCameraPermission(): Promise<string>;
 
-    static requestCameraPermission(): Promise<string>;
+    requestCameraPermission(): Promise<string>;
 
     pokeScreen(_timeout?: number): void;
 
-    static getAudioUri(audioType: string, fileType: string): any;
+    getAudioUri(audioType: string, fileType: string): any;
 
     chooseAudioRoute(route: any): any;
 }
