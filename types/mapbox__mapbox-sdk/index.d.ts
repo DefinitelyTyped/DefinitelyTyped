@@ -28,11 +28,9 @@ declare module '@mapbox/mapbox-sdk/lib/classes/mapi-request' {
     interface EventEmitter {
         response: MapiResponse;
         error: MapiError;
-        downloadProgress: ProgressEvents;
-        uploadProgress: ProgressEvents;
+        downloadProgress: ProgressEvent;
+        uploadProgress: ProgressEvent;
     }
-
-    interface ProgressEvents { }
 
     interface MapiRequest {
         /** An event emitter */
