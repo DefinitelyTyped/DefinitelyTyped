@@ -56,13 +56,13 @@ declare module '@mapbox/mapbox-sdk/lib/classes/mapi-request' {
         /**  The request's HTTP method. */
         method: string;
         /** A query object, which will be transformed into a URL query string. */
-        // query: GeocodeRequest;
+        query: any;
         /**A route parameters object, whose values will be interpolated the path.  */
-        params: Object;
+        params: any;
         /** The request's headers, */
-        headers: Object;
+        headers: any;
         /** Data to send with the request. If the request has a body, it will also be sent with the header 'Content-Type: application/json'. */
-        body: Object | string | null;
+        body: any | string | null;
         /** A file to send with the request. The browser client accepts Blobs and ArrayBuffers. */
         file: Blob | ArrayBuffer | string;
         url(accessToken?: string): string;
@@ -88,15 +88,15 @@ declare module '@mapbox/mapbox-sdk/lib/classes/mapi-response' {
 
     export interface MapiResponse {
         /**The response body, parsed as JSON. */
-        body: Object;
+        body: any;
         /**The raw response body. */
         rawBody: string;
         /**The response's status code. */
         statusCode: number;
         /**The parsed response headers. */
-        headers: Object;
+        headers: any;
         /**The parsed response links */
-        links: Object;
+        links: any;
         /**The response's originating MapiRequest. */
         request: MapiRequest;
         hasNextPage(): boolean;
@@ -117,7 +117,7 @@ declare module '@mapbox/mapbox-sdk/lib/classes/mapi-error' {
         /** The numeric status code of the HTTP response */
         statusCode?: number;
         /**  If the server sent a response body, this property exposes that response, parsed as JSON if possible. */
-        body?: Object | string;
+        body?: any | string;
         /** Whatever message could be derived from the call site and HTTP response. */
         message?: string;
     }
@@ -167,7 +167,7 @@ declare module '@mapbox/mapbox-sdk/services/datasets' {
          * Add a feature to a dataset or update an existing one.
          * @param config
          */
-        putFeature(config: { datasetId: string; featureId: string; feature: Object }): MapiRequest;
+        putFeature(config: { datasetId: string; featureId: string; feature: DataSetsFeature }): MapiRequest;
         /**
          * Get a feature in a dataset.
          * @param config
@@ -181,6 +181,8 @@ declare module '@mapbox/mapbox-sdk/services/datasets' {
         // implicit any
         deleteFeature(config: { datasetId: string; featureId: string }): any;
     }
+
+    export type DataSetsFeature = GeoJSON.Point | GeoJSON.MultiPoint | GeoJSON.LineString | GeoJSON.MultiLineString | GeoJSON.Polygon | GeoJSON.MultiPolygon | GeoJSON.GeometryCollection | GeoJSON.Feature<GeoJSON.Geometry, GeoJSON.GeoJsonProperties>;
 
     export interface Dataset {
         /** 	the username of the dataset owner */
@@ -988,7 +990,7 @@ declare module '@mapbox/mapbox-sdk/services/static' {
     }
 
     export interface GeoJsonOverlay {
-        geoJson: Object;
+        geoJson: GeoJSON.GeoJsonTypes;
     }
 
 
@@ -1077,7 +1079,7 @@ declare module '@mapbox/mapbox-sdk/services/styles' {
          * @param title
          * @param ownerId
          */
-        getEmbeddableHtml(config: { config: Object, styleId: string, scrollZoom?: boolean, title?: boolean, ownerId?: string }): MapiRequest;
+        getEmbeddableHtml(config: { config: any, styleId: string, scrollZoom?: boolean, title?: boolean, ownerId?: string }): MapiRequest;
     }
 
     interface Style {
