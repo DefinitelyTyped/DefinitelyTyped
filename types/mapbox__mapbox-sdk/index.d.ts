@@ -317,9 +317,12 @@ declare module '@mapbox/mapbox-sdk/services/directions' {
     }
 
     interface DirectionsRequestWaypoint {
-        /**Semicolon-separated list of  {longitude},{latitude} coordinate pairs to visit in order. There can be between 2 and 25 coordinates. */
+        /**
+         * Semicolon-separated list of  {longitude},{latitude} coordinate pairs to visit in order. There can be between 2 and 25 coordinates.
+         */
         coordinates: number[] | LngLatLike;
-        /**Used to indicate how requested routes consider from which side of the road to approach a waypoint.
+        /**
+         * Used to indicate how requested routes consider from which side of the road to approach a waypoint.
          * Accepts unrestricted (default) or  curb . If set to  unrestricted , the routes can approach waypoints from either side of the road.
          * If set to  curb , the route will be returned so that on arrival, the waypoint will be found on the side that corresponds with the
          * driving_side of the region in which the returned route is located. Note that the  approaches parameter influences how you arrive at a waypoint,
@@ -327,18 +330,24 @@ declare module '@mapbox/mapbox-sdk/services/directions' {
          * However, you can skip a coordinate and show its position in the list with the  ; separator.
          */
         approach?: DirectionsApproach;
-        /**Maximum distance in meters that each coordinate is allowed to move when snapped to a nearby road segment. There must be as many radiuses as there are coordinates in the request, each separated by  ; . Values can be any number greater than 0 or the string  unlimited . A  NoSegment error is returned if no routable road is found within the radius. */
+        /**
+         * Maximum distance in meters that each coordinate is allowed to move when snapped to a nearby road segment. There must be as many radiuses as there are coordinates in the request, each separated by  ; . Values can be any number greater than 0 or the string  unlimited . A  NoSegment error is returned if no routable road is found within the radius. 
+         */
         radius?: string | 'unlimited';
     }
 
     interface DirectionsResponse {
-        /**Array of Route objects ordered by descending recommendation rank. May contain at most two routes. */
+        /**
+         * Array of Route objects ordered by descending recommendation rank. May contain at most two routes. 
+         */
         routes: Route[];
-        /** Array of Waypoint objects. Each waypoints is an input coordinate snapped to the road and path network.
+        /** 
+         * Array of Waypoint objects. Each waypoints is an input coordinate snapped to the road and path network.
          * The waypoints appear in the array in the order of the input coordinates.
          */
         waypoints: Waypoint[];
-        /**String indicating the state of the response. This is a separate code than the HTTP status code.
+        /**
+         * String indicating the state of the response. This is a separate code than the HTTP status code.
          * On normal valid responses, the value will be Ok.
          */
         code: string;
@@ -346,11 +355,16 @@ declare module '@mapbox/mapbox-sdk/services/directions' {
     }
 
     interface Waypoint {
-        /**String with the name of the way the coordinate snapped to */
+        /**
+         * String with the name of the way the coordinate snapped to.
+         */
         name: string;
-        /**Array of [ longitude, latitude ] for the snapped coordinate */
+        /**
+         * Array of [ longitude, latitude ] for the snapped coordinate.
+         */
         location: number[];
-        /**Used to filter the road segment the waypoint will be placed on by direction and dictates the angle of approach.
+        /**
+         * Used to filter the road segment the waypoint will be placed on by direction and dictates the angle of approach.
          * This option should always be used in conjunction with the  radiuses parameter. The parameter takes two values per waypoint.
          * The first value is an angle clockwise from true north between 0 and 360, and the second is the range of degrees the angle can deviate by.
          * The recommended value for the range is 45° or 90°, as bearing measurements tend to be inaccurate.
@@ -360,7 +374,8 @@ declare module '@mapbox/mapbox-sdk/services/directions' {
          * However, you can skip a coordinate and show its position in the list with the  ; separator.
          */
         bearing?: number[];
-        /**Custom names for waypoints used for the arrival instruction in banners and voice instructions, each separated by  ; .
+        /**
+         * Custom names for waypoints used for the arrival instruction in banners and voice instructions, each separated by  ; .
          * Values can be any string and total number of all characters cannot exceed 500. If provided, the list of waypoint_names must be the same
          * length as the list of waypoints, but you can skip a coordinate and show its position with the  ; separator.
          */
@@ -368,55 +383,84 @@ declare module '@mapbox/mapbox-sdk/services/directions' {
     }
 
     interface Route {
-        /**Depending on the geometries parameter this is a GeoJSON LineString or a Polyline string.
+        /**
+         * Depending on the geometries parameter this is a GeoJSON LineString or a Polyline string.
          * Depending on the overview parameter this is the complete route geometry (full), a simplified geometry
          * to the zoom level at which the route can be displayed in full (simplified), or is not included (false)
          */
         geometry: GeoJSON.LineString | GeoJSON.MultiLineString;
-        /**Array of RouteLeg objects. */
+        /**
+         * Array of RouteLeg objects. 
+         */
         legs: Leg[];
-        /** String indicating which weight was used. The default is routability which is duration-based,
+        /** 
+         * String indicating which weight was used. The default is routability which is duration-based,
          * with additional penalties for less desirable maneuvers.
          */
         weight_name: string;
-        /**Float indicating the weight in units described by weight_name */
+        /** 
+         * Float indicating the weight in units described by weight_name 
+         */
         weight: number;
-        /**Float indicating the estimated travel time in seconds. */
+        /** 
+         * Float indicating the estimated travel time in seconds. 
+         */
         duration: number;
-        /**Float indicating the distance traveled in meters. */
+        /** 
+         * Float indicating the distance traveled in meters. 
+         */
         distance: number;
-        /**String of the locale used for voice instructions. Defaults to en, and can be any accepted instruction language. */
+        /** 
+         * String of the locale used for voice instructions. Defaults to en, and can be any accepted instruction language. 
+         */
         voiceLocale?: string;
     }
 
     interface Leg {
-        /**Depending on the summary parameter, either a String summarizing the route (true, default) or an empty String (false) */
+        /**
+         * Depending on the summary parameter, either a String summarizing the route (true, default) or an empty String (false) 
+         */
         summary: string;
         weight: number;
-        /**Number indicating the estimated travel time in seconds */
+        /**
+         * Number indicating the estimated travel time in seconds 
+         */
         duration: number;
-        /** Depending on the steps parameter, either an Array of RouteStep objects (true, default) or an empty array (false) */
+        /**
+         * Depending on the steps parameter, either an Array of RouteStep objects (true, default) or an empty array (false) 
+         */
         steps: Step[];
-        /** Number indicating the distance traveled in meters */
+        /**
+         * Number indicating the distance traveled in meters 
+         */
         distance: number;
-        /**An annotations object that contains additional details about each line segment along the route geometry.
+        /**
+         * An annotations object that contains additional details about each line segment along the route geometry.
          * Each entry in an annotations field corresponds to a coordinate along the route geometry.
          */
         annotation: DirectionsAnnotation[];
     }
 
     interface Step {
-        /**Array of objects representing all intersections along the step. */
+        /**
+         * Array of objects representing all intersections along the step.
+         */
         intersections: Intersection[];
-        /**The legal driving side at the location for this step. Either left or right. */
+        /**
+         * The legal driving side at the location for this step. Either left or right.
+         */
         driving_side: DirectionsSide;
         /** Depending on the geometries parameter this is a GeoJSON LineString or a
          * Polyline string representing the full route geometry from this RouteStep to the next RouteStep
          */
         geometry: GeoJSON.LineString | GeoJSON.MultiLineString;
-        /**String indicating the mode of transportation. Possible values: */
+        /**
+         * String indicating the mode of transportation. Possible values:
+         */
         mode: DirectionsMode;
-        /**One StepManeuver object */
+        /**
+         * One StepManeuver object
+         */
         maneuver: Maneuver;
         /**Any road designations associated with the road or path leading from this step’s maneuver to the next step’s maneuver.
          * Optionally included, if data is available. If multiple road designations are associated with the road, they are separated by semicolons.
@@ -426,56 +470,82 @@ declare module '@mapbox/mapbox-sdk/services/directions' {
          */
         ref?: string;
         weight: number;
-        /**Number indicating the estimated time traveled time in seconds from the maneuver to the next RouteStep. */
+        /**
+         * Number indicating the estimated time traveled time in seconds from the maneuver to the next RouteStep.
+         */
         duration: number;
-        /**String with the name of the way along which the travel proceeds */
+        /**
+         * String with the name of the way along which the travel proceeds
+         */
         name: string;
-        /** Number indicating the distance traveled in meters from the maneuver to the next RouteStep. */
+        /**
+         * Number indicating the distance traveled in meters from the maneuver to the next RouteStep.
+         */
         distance: number;
         voiceInstructions: VoiceInstruction[];
         bannerInstructions: BannerInstruction[];
-        /**String with the destinations of the way along which the travel proceeds. Optionally included, if data is available. */
+        /**
+         * String with the destinations of the way along which the travel proceeds. Optionally included, if data is available.
+         */
         destinations?: string;
-        /**String with the exit numbers or names of the way. Optionally included, if data is available. */
+        /**
+         * String with the exit numbers or names of the way. Optionally included, if data is available.
+         */
         exits?: string;
-        /** A string containing an IPA phonetic transcription indicating how to pronounce the name in the name property.
+        /**
+         * A string containing an IPA phonetic transcription indicating how to pronounce the name in the name property.
          * This property is omitted if pronunciation data is unavailable for the step.
          */
         pronunciation?: string;
     }
 
     interface Instruction {
-        /**String that contains all the text that should be displayed */
+        /**
+         * String that contains all the text that should be displayed.
+         */
         text: string;
-        /**Objects that, together, make up what should be displayed in the banner.
+        /**
+         * Objects that, together, make up what should be displayed in the banner.
          * Includes additional information intended to be used to aid in visual layout
          */
         components: Component[];
-        /**The type of maneuver. May be used in combination with the modifier (and, if it is a roundabout, the degrees) to for an icon to
+        /**
+         * The type of maneuver. May be used in combination with the modifier (and, if it is a roundabout, the degrees) to for an icon to
          * display. Possible values: 'turn', 'merge', 'depart', 'arrive', 'fork', 'off ramp', 'roundabout'
          */
         type?: string;
-        /** The modifier for the maneuver. Can be used in combination with the type (and, if it is a roundabout, the degrees)
+        /**
+         * The modifier for the maneuver. Can be used in combination with the type (and, if it is a roundabout, the degrees)
          * to for an icon to display. Possible values: 'left', 'right', 'slight left', 'slight right', 'sharp left', 'sharp right', 'straight', 'uturn'
          */
         modifier?: ManeuverModifier;
-        /**The degrees at which you will be exiting a roundabout, assuming 180 indicates going straight through the roundabout. */
+        /**
+         * The degrees at which you will be exiting a roundabout, assuming 180 indicates going straight through the roundabout.
+         */
         degrees?: number;
-        /** A string representing which side the of the street people drive on in that location. Can be 'left' or 'right'. */
+        /**
+         * A string representing which side the of the street people drive on in that location. Can be 'left' or 'right'.
+         */
         driving_side: DirectionsSide;
     }
 
     interface BannerInstruction {
-        /**float indicating in meters, how far from the upcoming maneuver
+        /**
+         * Float indicating in meters, how far from the upcoming maneuver
          * the banner instruction should begin being displayed. Only 1 banner should be displayed at a time.
          */
         distanceAlongGeometry: number;
-        /**Most important content to display to the user. Our SDK displays this text larger and at the top. */
+        /**
+         * Most important content to display to the user. Our SDK displays this text larger and at the top.
+         */
         primary: Instruction;
-        /**Additional content useful for visual guidance. Our SDK displays this text slightly smaller and below the primary. Can be null. */
+        /**
+         * Additional content useful for visual guidance. Our SDK displays this text slightly smaller and below the primary. Can be null.
+         */
         secondary?: Instruction[];
         then?: any;
-        /**Additional information that is included if we feel the driver needs a heads up about something.
+        /**
+         * Additional information that is included if we feel the driver needs a heads up about something.
          * Can include information about the next maneuver (the one after the upcoming one) if the step is short -
          * can be null, or can be lane information. If we have lane information, that trumps information about the next maneuver.
          */
@@ -483,114 +553,148 @@ declare module '@mapbox/mapbox-sdk/services/directions' {
     }
 
     interface Sub {
-        /** String that contains all the text that should be displayed */
+        /**
+         * String that contains all the text that should be displayed.
+         */
         text: string;
-        /**Objects that, together, make up what should be displayed in the banner.
+        /**
+         * Objects that, together, make up what should be displayed in the banner.
          * Includes additional information intended to be used to aid in visual layout
          */
         components: Component[];
     }
 
     interface Component {
-        /**String giving you more context about the component which may help in visual markup/display choices.
+        /**
+         * String giving you more context about the component which may help in visual markup/display choices.
          * If the type of the components is unknown it should be treated as text. Note: Introduction of new types
          * is not considered a breaking change. See the Types of Banner Components table below for more info on each type.
          */
         type: string;
-        /** The sub-string of the parent object's text that may have additional context associated with it */
+        /**
+         * The sub-string of the parent object's text that may have additional context associated with it.
+         */
         text: string;
-        /**The abbreviated form of text. If this is present, there will also be an abbr_priority value.
+        /**
+         * The abbreviated form of text. If this is present, there will also be an abbr_priority value.
          * See the Examples of Abbreviations table below for an example of using abbr and abbr_priority.
          */
         abbr?: string;
-        /**An integer indicating the order in which the abbreviation abbr should be used in place of text.
+        /**
+         * An integer indicating the order in which the abbreviation abbr should be used in place of text.
          * The highest priority is 0 and a higher integer value means it should have a lower priority. There are no gaps in
          * integer values. Multiple components can have the same abbr_priority and when this happens all components with the
          * same abbr_priority should be abbreviated at the same time. Finding no larger values of abbr_priority means that the
          * string is fully abbreviated.
          */
         abbr_priority?: number;
-        /** String pointing to a shield image to use instead of the text. */
+        /**
+         * String pointing to a shield image to use instead of the text.
+         * */
         imageBaseURL?: string;
-        /** (present if component is lane): An array indicating which directions you can go from a lane (left, right, or straight).
+        /**
+         * (present if component is lane): An array indicating which directions you can go from a lane (left, right, or straight).
          * If the value is ['left', 'straight'], the driver can go straight or left from that lane
          */
         directions?: string[];
-        /**  (present if component is lane): A boolean telling you if that lane can be used to complete the upcoming maneuver.
+        /**
+         * (present if component is lane): A boolean telling you if that lane can be used to complete the upcoming maneuver.
          * If multiple lanes are active, then they can all be used to complete the upcoming maneuver.
          */
         active: boolean;
     }
 
     interface VoiceInstruction {
-        /** float indicating in meters, how far from the upcoming maneuver the voice instruction should begin. */
+        /**
+         * Float indicating in meters, how far from the upcoming maneuver the voice instruction should begin.
+         */
         distanceAlongGeometry: number;
-        /**String containing the text of the verbal instruction. */
+        /**
+         * String containing the text of the verbal instruction.
+         */
         announcement: string;
-        /**String with SSML markup for proper text and pronunciation. Note: this property is designed for use with Amazon Polly.
+        /**
+         * String with SSML markup for proper text and pronunciation. Note: this property is designed for use with Amazon Polly.
          * The SSML tags contained here may not work with other text-to-speech engines.
          */
         ssmlAnnouncement: string;
     }
 
     interface Maneuver {
-        /**Number between 0 and 360 indicating the clockwise angle from true north to the direction of travel right after the maneuver */
+        /**
+         * Number between 0 and 360 indicating the clockwise angle from true north to the direction of travel right after the maneuver
+         */
         bearing_after: number;
-        /**Number between 0 and 360 indicating the clockwise angle from true north to the direction of travel right before the maneuver */
+        /**
+         * Number between 0 and 360 indicating the clockwise angle from true north to the direction of travel right before the maneuver
+         */
         bearing_before: number;
-        /**Array of [ longitude, latitude ] coordinates for the point of the maneuver */
+        /**
+         * Array of [ longitude, latitude ] coordinates for the point of the maneuver
+         */
         location: number[];
-        /** Optional String indicating the direction change of the maneuver */
+        /**
+         * Optional String indicating the direction change of the maneuver
+         */
         modifier?: ManeuverModifier;
-        /**String indicating the type of maneuver */
+        /**
+         * String indicating the type of maneuver
+         */
         type: ManeuverType;
-        /**A human-readable instruction of how to execute the returned maneuver */
+        /**
+         * A human-readable instruction of how to execute the returned maneuver
+         */
         instruction: string;
     }
 
     interface Intersection {
-        /**Index into the bearings/entry array. Used to extract the bearing after the turn. Namely, The clockwise angle from true north to
+        /**
+         * Index into the bearings/entry array. Used to extract the bearing after the turn. Namely, The clockwise angle from true north to
          * the direction of travel after the maneuver/passing the intersection.
          * The value is not supplied for arrive maneuvers.
          */
         out?: number;
-        /** A list of entry flags, corresponding in a 1:1 relationship to the bearings.
+        /**
+         * A list of entry flags, corresponding in a 1:1 relationship to the bearings.
          * A value of true indicates that the respective road could be entered on a valid route.
          * false indicates that the turn onto the respective road would violate a restriction.
          */
         entry: boolean[];
-        /**A list of bearing values (for example [0,90,180,270]) that are available at the intersection.
+        /**
+         * A list of bearing values (for example [0,90,180,270]) that are available at the intersection.
          * The bearings describe all available roads at the intersection.
          */
         bearings: number[];
-        /**A [longitude, latitude] pair describing the location of the turn. */
+        /**
+         * A [longitude, latitude] pair describing the location of the turn.
+         */
         location: number[];
-        /** Index into bearings/entry array. Used to calculate the bearing before the turn. Namely, the clockwise angle from true
+        /**
+         * Index into bearings/entry array. Used to calculate the bearing before the turn. Namely, the clockwise angle from true
          * north to the direction of travel before the maneuver/passing the intersection. To get the bearing in the direction of driving,
          * the bearing has to be rotated by a value of 180. The value is not supplied for departure maneuvers.
          */
         in?: number;
-        /**  An array of strings signifying the classes of the road exiting the intersection.  */
+        /**
+         * An array of strings signifying the classes of the road exiting the intersection.
+         */
         classes?: DirectionsClass[];
-        /**Array of Lane objects that represent the available turn lanes at the intersection.
+        /**
+         * Array of Lane objects that represent the available turn lanes at the intersection.
          * If no lane information is available for an intersection, the lanes property will not be present.
          */
         lanes: Lane[];
     }
 
     interface Lane {
-        /**Boolean value for whether this lane can be taken to complete the maneuver. For instance, if the lane array has four objects and the
+        /**
+         * Boolean value for whether this lane can be taken to complete the maneuver. For instance, if the lane array has four objects and the
          * first two are marked as valid, then the driver can take either of the left lanes and stay on the route.
          */
         valid: boolean;
-        /**Array of signs for each turn lane. There can be multiple signs. For example, a turning lane can have a sign with an arrow pointing left and another sign with an arrow pointing straight.
-            Example Lane object
-            {
-                "valid": true,
-                "indications": [
-                    "left"
-                ]
-              */
+        /**
+         * Array of signs for each turn lane. There can be multiple signs. For example, a turning lane can have a sign with an arrow pointing left and another sign with an arrow pointing straight.
+         */
         indications: string[];
     }
 
@@ -605,9 +709,24 @@ declare module '@mapbox/mapbox-sdk/services/geocoding' {
     /*********************************************************************************************************************
      * Geocoder Types
      *********************************************************************************************************************/
-    export type GeocodeMode = 'mapbox.places' | 'mapbox.places-permanent';
 
-    export type GeocodeQueryType =
+    export default function Geocoding(config: SdkConfig | MapiClient): GeocodeService;
+
+    interface GeocodeService {
+        forwardGeocode(request: GeocodeRequest): MapiRequest;
+        reverseGeocode(request: GeocodeRequest): MapiRequest;
+    }
+
+    interface BoundingBox {
+        minLongitude: number;
+        minLatitude: number;
+        maxLongitude: number;
+        maxLatitude: number;
+    }
+
+    type GeocodeMode = 'mapbox.places' | 'mapbox.places-permanent';
+
+    type GeocodeQueryType =
         | 'country'
         | 'region'
         | 'postcode'
@@ -618,20 +737,6 @@ declare module '@mapbox/mapbox-sdk/services/geocoding' {
         | 'address'
         | 'poi'
         | 'poi.landmark';
-
-    export default function Geocoding(config: SdkConfig | MapiClient): GeocodeService;
-
-    interface GeocodeService {
-        forwardGeocode(request: GeocodeRequest): MapiRequest;
-        reverseGeocode(request: GeocodeRequest): MapiRequest;
-    }
-
-    interface IBBox {
-        minx: number;
-        miny: number;
-        maxx: number;
-        maxy: number;
-    }
 
     interface GeocodeRequest {
         /**
@@ -661,12 +766,13 @@ declare module '@mapbox/mapbox-sdk/services/geocoding' {
         /**
          * Forward geocoding only. Limit results to a bounding box. Options are in the format  minX,minY,maxX,maxY .
          */
-        bbox?: IBBox;
+        bbox?: BoundingBox;
         /**
          * Limit the number of results returned. The default is  5 for forward geocoding and  1 for reverse geocoding.
          */
         limit?: number;
-        /** Specify the language to use for response text and, for forward geocoding, query result weighting.
+        /**
+         * Specify the language to use for response text and, for forward geocoding, query result weighting.
          * Options are IETF language tags comprised of a mandatory ISO 639-1 language code and optionally one or more
          * IETF subtags for country or script.
          */
