@@ -8,11 +8,11 @@
 declare module '@mapbox/mapbox-sdk/lib/classes/mapi-client' {
     import { MapiRequest, DirectionsApproach } from '@mapbox/mapbox-sdk/lib/classes/mapi-request';
     export default class MapiClient {
-                       constructor(config: SdkConfig);
-                       accessToken: string;
-                       origin?: string;
-                       createRequest(requestOptions: any): MapiRequest;
-                   }
+        constructor(config: SdkConfig);
+        accessToken: string;
+        origin?: string;
+        createRequest(requestOptions: any): MapiRequest;
+    }
 
     interface SdkConfig {
         accessToken: string;
@@ -1219,7 +1219,9 @@ declare module '@mapbox/mapbox-sdk/services/tokens' {
     export default function Tokens(config: SdkConfig | MapiClient): TokensService;
 
     interface TokensService {
-        /**List your access tokens. */
+        /**
+         * List your access tokens.
+         */
         listTokens(): MapiRequest;
         /**
          * Create a new access token.
@@ -1243,28 +1245,48 @@ declare module '@mapbox/mapbox-sdk/services/tokens' {
          * @param request
          */
         deleteToken(request: UpdateDeleteTokenRequest): MapiRequest;
-        /**List your available scopes. Each item is a metadata object about the scope, not just the string scope. */
+        /**
+         * List your available scopes. Each item is a metadata object about the scope, not just the string scope.
+         */
         listScopes(): MapiRequest;
     }
 
     interface Token {
-        /**the identifier for the token */
+        /**
+         * the identifier for the token
+         */
         id: string;
-        /**the type of token */
+        /**
+         * the type of token
+         */
         usage: string;
-        /**the client for the token, always 'api' */
+        /**
+         * the client for the token, always 'api'
+         */
         client: string;
-        /**if the token is a default token */
+        /**
+         * if the token is a default token
+         */
         default: boolean;
-        /**human friendly description of the token */
+        /**
+         * human friendly description of the token
+         */
         note: string;
-        /**	array of scopes granted to the token */
+        /**	
+         * array of scopes granted to the token
+         */
         scopes: string[];
-        /**date and time the token was created */
+        /**
+         * date and time the token was created
+         */
         created: string;
-        /**	date and time the token was last modified */
+        /**	
+         * date and time the token was last modified
+         */
         modified: string;
-        /**the token itself */
+        /**
+         * the token itself
+         */
         token: string;
     }
 
