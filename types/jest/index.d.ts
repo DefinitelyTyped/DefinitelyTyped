@@ -21,6 +21,7 @@
 //                 Jeroen Claassens <https://github.com/favna>
 //                 Gregor Stamać <https://github.com/gstamac>
 //                 ExE Boss <https://github.com/ExE-Boss>
+//                 Alex Bolenok <https://github.com/quassnoi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -869,18 +870,56 @@ declare namespace jest {
     interface SpyInstance<T = any, Y extends any[] = any> extends MockInstance<T, Y> {}
 
     /**
-     * Wrap module with mock definitions
+     * Wrap a function with mock definitions
+     *
+     * @example
+     *
+     *  import { myFunction } from "./library";
+     *  jest.mock("./library");
+     *
+     *  const mockMyFunction = myFunction as jest.MockedFunction<typeof myFunction>;
+     *  expect(mockMyFunction.mock.calls[0][0]).toBe(42);
+     */
+    type MockedFunction<T extends (...args: any[]) => any> = MockInstance<ReturnType<T>, ArgsType<T>> & T;
+
+    /**
+     * Wrap a class with mock definitions
+     *
+     * @example
+     *
+     *  import { MyClass } from "./libary";
+     *  jest.mock("./library");
+     *
+     *  const mockedMyClass = MyClass as jest.MockedClass<MyClass>;
+     *
+     *  expect(mockedMyClass.mock.calls[0][0]).toBe(42); // Constructor calls
+     *  expect(mockedMyClass.prototype.myMethod.mock.calls[0][0]).toBe(42); // Method calls
+     */
+
+    type MockedClass<T extends Constructable> = MockInstance<
+        InstanceType<T>,
+        T extends new (...args: infer P) => any ? P : never
+    > & {
+        prototype: T extends { prototype: any } ? Mocked<T['prototype']> : never;
+    } & T;
+
+    /**
+     * Wrap an object or a module with mock definitions
      *
      * @example
      *
      *  jest.mock("../api");
-     *  import { Api } from "../api";
+     *  import * as api from "../api";
      *
-     *  const myApi: jest.Mocked<Api> = new Api() as any;
-     *  myApi.myApiMethod.mockImplementation(() => "test");
+     *  const mockApi = api as jest.Mocked<typeof api>;
+     *  api.MyApi.prototype.myApiMethod.mockImplementation(() => "test");
      */
     type Mocked<T> = {
-        [P in keyof T]: T[P] extends (...args: any[]) => any ? MockInstance<ReturnType<T[P]>, ArgsType<T[P]>> : T[P]
+        [P in keyof T]: T[P] extends (...args: any[]) => any
+            ? MockInstance<ReturnType<T[P]>, ArgsType<T[P]>>
+            : T[P] extends Constructable
+            ? MockedClass<T[P]>
+            : T[P]
     } &
         T;
 
