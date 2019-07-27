@@ -1,6 +1,6 @@
 // Type definitions for @mapbox/mapbox-sdk 0.6.0
 // Project: https://github.com/mapbox/mapbox-sdk-js
-// Definitions by: Jeff Dye <https://github.com/jeffbdye> 
+// Definitions by: Jeff Dye <https://github.com/jeffbdye>
 //                 Mike O'Meara <https://github.com/mikeomeara1>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
@@ -156,7 +156,7 @@ declare module '@mapbox/mapbox-sdk/services/datasets' {
         deleteDataset(config: { datasetId?: string }): MapiRequest;
         /**
          * List features in a dataset.
-      
+
           * This endpoint supports pagination. Use MapiRequest#eachPage or manually specify the limit and start options.
           * @param config
           */
@@ -917,9 +917,9 @@ declare module '@mapbox/mapbox-sdk/services/optimization' {
          */
         destination?: 'any' | 'last';
         /**
-         * Specify pick-up and drop-off locations for a trip by providing a ; delimited list of number pairs that correspond with the coordinates list. 
-         * The first number of a pair indicates the index to the coordinate of the pick-up location in the coordinates list, and the second number indicates the index to the coordinate of the drop-off location in the coordinates list. 
-         * Each pair must contain exactly 2 numbers, which cannot be the same. 
+         * Specify pick-up and drop-off locations for a trip by providing a ; delimited list of number pairs that correspond with the coordinates list.
+         * The first number of a pair indicates the index to the coordinate of the pick-up location in the coordinates list, and the second number indicates the index to the coordinate of the drop-off location in the coordinates list.
+         * Each pair must contain exactly 2 numbers, which cannot be the same.
          * The returned solution will visit pick-up locations before visiting drop-off locations. The first location can only be a pick-up location, not a drop-off location.
          */
         distributions?: number[];
@@ -932,7 +932,7 @@ declare module '@mapbox/mapbox-sdk/services/optimization' {
          */
         language?: string;
         /**
-         * The type of the returned overview geometry. 
+         * The type of the returned overview geometry.
          * Can be 'full' (the most detailed geometry available), 'simplified' (default, a simplified version of the full geometry), or 'false' (no overview geometry).
          */
         overview?: 'full' | 'simplified' | 'false';
@@ -945,8 +945,8 @@ declare module '@mapbox/mapbox-sdk/services/optimization' {
          */
         steps?: boolean;
         /**
-         * Indicates whether the returned route is roundtrip, meaning the route returns to the first location ( true , default) or not ( false ). 
-         * If roundtrip=false , the  source and  destination parameters are required but not all combinations will be possible. 
+         * Indicates whether the returned route is roundtrip, meaning the route returns to the first location ( true , default) or not ( false ).
+         * If roundtrip=false , the  source and  destination parameters are required but not all combinations will be possible.
          * See the Fixing Start and End Points section below for additional notes.
          */
         roundtrip?: boolean;
