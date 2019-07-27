@@ -1,13 +1,18 @@
 import MediaFileReader from './build2/MediaFileReader';
 
+export interface jsmediatagsError {
+    type: string;
+    info: string;
+    xhr?: XMLHttpRequest;
+}
 export interface CallbackType {
-    onSuccess: (data: any) => void;
-    onError?: (error: any) => void;
+    onSuccess: (data: TagType) => void;
+    onError?: (error: jsmediatagsError) => void;
 }
 
 export interface LoadCallbackType {
     onSuccess: () => void;
-    onError?: (error: any) => void;
+    onError?: (error: jsmediatagsError) => void;
 }
 
 export type CharsetType =
@@ -92,18 +97,27 @@ export interface TagHeaderFlags {
 
 export interface TagType {
     type: string;
-    tags: {
-        [key: string]: FrameType | ShortcutType
-    };
+    tags: Tags;
 }
+
+export interface ShortcutTags {
+    title?: string;
+    artist?: string;
+    album?: string;
+    year?: string;
+    comment?: string;
+    track?: string;
+    genre?: string;
+    picture?: string;
+    lyrics?: string;
+}
+export type Tags = ShortcutTags & TagFrames;
 
 export interface FrameType {
     id: string;
     description: string;
     data: any;
 }
-
-export type ShortcutType = any;
 
 export type ShortcutNameType =
     "title" |
