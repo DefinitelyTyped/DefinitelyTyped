@@ -33,36 +33,63 @@ declare module '@mapbox/mapbox-sdk/lib/classes/mapi-request' {
     }
 
     interface MapiRequest {
-        /** An event emitter */
+        /**
+         * An event emitter.
+         */
         emitter: EventEmitter;
-        /** This request's MapiClient. */
+        /**
+         * This request's MapiClient.
+         */
         client: MapiClient;
-        /** If this request has been sent and received a response, the response is available on this property. */
+        /**
+         * If this request has been sent and received a response, the response is available on this property.
+         */
         response: MapiResponse | null;
-        /**  If this request has been sent and received an error in response, the error is available on this property. */
+        /**
+         * If this request has been sent and received an error in response, the error is available on this property.
+         */
         error: MapiError | Error | null;
-        /** If the request has been aborted (via abort), this property will be true. */
+        /**
+         * If the request has been aborted (via abort), this property will be true.
+         */
         aborted: boolean;
-        /**  If the request has been sent, this property will be true.
+        /**
+         * If the request has been sent, this property will be true.
          * You cannot send the same request twice, so if you need to create a new request
          * that is the equivalent of an existing one, use clone.
          */
         sent: boolean;
-        /** The request's path, including colon-prefixed route parameters. */
+        /**
+         * The request's path, including colon-prefixed route parameters.
+         */
         path: string;
-        /** The request's origin. */
+        /**
+         * The request's origin.
+         */
         origin: string;
-        /**  The request's HTTP method. */
+        /**
+         * The request's HTTP method.
+         */
         method: string;
-        /** A query object, which will be transformed into a URL query string. */
+        /**
+         * A query object, which will be transformed into a URL query string.
+         */
         query: any;
-        /**A route parameters object, whose values will be interpolated the path.  */
+        /**
+         * A route parameters object, whose values will be interpolated the path.
+         */
         params: any;
-        /** The request's headers, */
+        /**
+         * The request's headers.
+         */
         headers: any;
-        /** Data to send with the request. If the request has a body, it will also be sent with the header 'Content-Type: application/json'. */
+        /**
+         * Data to send with the request. If the request has a body, it will also be sent with the header 'Content-Type: application/json'.
+         */
         body: any | string | null;
-        /** A file to send with the request. The browser client accepts Blobs and ArrayBuffers. */
+        /**
+         * A file to send with the request. The browser client accepts Blobs and ArrayBuffers.
+         */
         file: Blob | ArrayBuffer | string;
         url(accessToken?: string): string;
         send(): Promise<MapiResponse>;
@@ -71,32 +98,44 @@ declare module '@mapbox/mapbox-sdk/lib/classes/mapi-request' {
         clone(): MapiRequest;
     }
 
-    export type PageCallbackFunction = {
+    type PageCallbackFunction = {
         error: MapiError;
         response: MapiResponse;
         next: () => void;
     };
 
-    export type MapboxProfile = 'driving' | 'walking' | 'cycling';
+    type MapboxProfile = 'driving' | 'walking' | 'cycling';
 
-    export type DirectionsApproach = 'unrestricted' | 'curb';
+    type DirectionsApproach = 'unrestricted' | 'curb';
 }
 
 declare module '@mapbox/mapbox-sdk/lib/classes/mapi-response' {
     import { MapiRequest } from '@mapbox/mapbox-sdk/lib/classes/mapi-request';
 
     interface MapiResponse {
-        /**The response body, parsed as JSON. */
+        /**
+         * The response body, parsed as JSON.
+         */
         body: any;
-        /**The raw response body. */
+        /**
+         * The raw response body.
+         */
         rawBody: string;
-        /**The response's status code. */
+        /**
+         * The response's status code.
+         */
         statusCode: number;
-        /**The parsed response headers. */
+        /**
+         * The parsed response headers.
+         */
         headers: any;
-        /**The parsed response links */
+        /**
+         * The parsed response links
+         */
         links: any;
-        /**The response's originating MapiRequest. */
+        /**
+         * The response's originating MapiRequest.
+         */
         request: MapiRequest;
         hasNextPage(): boolean;
         nextPage(): MapiRequest;
@@ -107,17 +146,26 @@ declare module '@mapbox/mapbox-sdk/lib/classes/mapi-error' {
     import { MapiRequest } from '@mapbox/mapbox-sdk/lib/classes/mapi-request';
 
     interface MapiError {
-        /**The errored request. */
+        /**
+         * The errored request.
+         */
         request: MapiRequest;
-        /** The type of error. Usually this is 'HttpError'.
+        /**
+         * The type of error. Usually this is 'HttpError'.
          * If the request was aborted, so the error was not sent from the server, the type will be 'RequestAbortedError'.
          */
         type: string;
-        /** The numeric status code of the HTTP response */
+        /**
+         * The numeric status code of the HTTP response
+         */
         statusCode?: number;
-        /**  If the server sent a response body, this property exposes that response, parsed as JSON if possible. */
+        /**
+         * If the server sent a response body, this property exposes that response, parsed as JSON if possible.
+         */
         body?: any | string;
-        /** Whatever message could be derived from the call site and HTTP response. */
+        /**
+         * Whatever message could be derived from the call site and HTTP response.
+         */
         message?: string;
     }
 }
@@ -132,7 +180,9 @@ declare module '@mapbox/mapbox-sdk/services/datasets' {
     export default function Datasets(config: SdkConfig | MapiClient): DatasetsService;
 
     interface DatasetsService {
-        /**List datasets in your account. */
+        /**
+         * List datasets in your account.
+         */
         listDatasets(): MapiRequest;
         /**
          *  Create a new, empty dataset.
@@ -156,10 +206,9 @@ declare module '@mapbox/mapbox-sdk/services/datasets' {
         deleteDataset(config: { datasetId?: string }): MapiRequest;
         /**
          * List features in a dataset.
-
-          * This endpoint supports pagination. Use MapiRequest#eachPage or manually specify the limit and start options.
-          * @param config
-          */
+         * This endpoint supports pagination. Use MapiRequest#eachPage or manually specify the limit and start options.
+         * @param config
+         */
         // implicit any
         listFeatures(config: { datasetId: string; limit?: number; start?: string }): any;
         /**
@@ -181,8 +230,10 @@ declare module '@mapbox/mapbox-sdk/services/datasets' {
         deleteFeature(config: { datasetId: string; featureId: string }): any;
     }
 
-    /** All GeoJSON types except for FeatureCollection. */
-    export type DataSetsFeature =
+    /**
+     * All GeoJSON types except for FeatureCollection.
+     */
+    type DataSetsFeature =
         | GeoJSON.Point
         | GeoJSON.MultiPoint
         | GeoJSON.LineString
@@ -226,16 +277,16 @@ declare module '@mapbox/mapbox-sdk/services/directions' {
         getDirections(request: DirectionsRequest): MapiRequest;
     }
 
-    export type DirectionsProfile = MapboxProfile | 'driving-traffic';
+    type DirectionsProfile = MapboxProfile | 'driving-traffic';
 
-    export type DirectionsAnnotation = 'duration' | 'distance' | 'speed' | 'congestion';
-    export type DirectionsGeometry = 'geojson' | 'polyline' | 'polyline6';
-    export type DirectionsOverview = 'full' | 'simplified';
-    export type DirectionsUnits = 'imperial' | 'metric';
-    export type DirectionsSide = 'left' | 'right';
-    export type DirectionsMode = 'driving' | 'ferry' | 'unaccessible' | 'walking' | 'cycling' | 'train';
-    export type DirectionsClass = 'toll' | 'ferry' | 'restricted' | 'motorway' | 'tunnel';
-    export type ManeuverModifier =
+    type DirectionsAnnotation = 'duration' | 'distance' | 'speed' | 'congestion';
+    type DirectionsGeometry = 'geojson' | 'polyline' | 'polyline6';
+    type DirectionsOverview = 'full' | 'simplified';
+    type DirectionsUnits = 'imperial' | 'metric';
+    type DirectionsSide = 'left' | 'right';
+    type DirectionsMode = 'driving' | 'ferry' | 'unaccessible' | 'walking' | 'cycling' | 'train';
+    type DirectionsClass = 'toll' | 'ferry' | 'restricted' | 'motorway' | 'tunnel';
+    type ManeuverModifier =
         | 'uturn'
         | 'sharp right'
         | 'right'
@@ -246,7 +297,7 @@ declare module '@mapbox/mapbox-sdk/services/directions' {
         | 'sharp left'
         | 'depart'
         | 'arrive';
-    export type ManeuverType =
+    type ManeuverType =
         | 'turn'
         | 'new name'
         | 'depart'
@@ -265,54 +316,72 @@ declare module '@mapbox/mapbox-sdk/services/directions' {
         | 'exit rotary';
 
     interface DirectionsRequest {
-        /**Routing profile; either  mapbox/driving-traffic ,  mapbox/driving ,  mapbox/walking , or  mapbox/cycling */
+        /**
+         * Routing profile; either  mapbox/driving-traffic ,  mapbox/driving ,  mapbox/walking , or  mapbox/cycling
+         */
         profile: DirectionsProfile;
         waypoints: DirectionsRequestWaypoint[];
-        /**Whether to try to return alternative routes. An alternative is classified as a route that is significantly
+        /**
+         * Whether to try to return alternative routes. An alternative is classified as a route that is significantly
          * different than the fastest route, but also still reasonably fast. Such a route does not exist in all circumstances.
          * Currently up to two alternatives can be returned. Can be  true or  false (default).
          */
         alternatives?: boolean;
-        /**Whether or not to return additional metadata along the route. Possible values are:  duration ,  distance ,  speed , and congestion .
+        /**
+         * Whether or not to return additional metadata along the route. Possible values are:  duration ,  distance ,  speed , and congestion .
          * Several annotations can be used by including them as a comma-separated list. See the RouteLeg object for more details on
          * what is included with annotations.
          */
         annotations?: DirectionsAnnotation[];
 
-        /**Whether or not to return banner objects associated with the  routeSteps .
+        /**
+         * Whether or not to return banner objects associated with the  routeSteps .
          * Should be used in conjunction with  steps . Can be  true or  false . The default is  false .
          */
         bannerInstructions?: boolean;
 
-        /** Sets the allowed direction of travel when departing intermediate waypoints. If  true , the route will continue in the same
+        /**
+         * Sets the allowed direction of travel when departing intermediate waypoints. If  true , the route will continue in the same
          * direction of travel. If  false , the route may continue in the opposite direction of travel. Defaults to  true for mapbox/driving and
          * false for  mapbox/walking and  mapbox/cycling .
          */
         continueStraight?: boolean;
-        /**Exclude certain road types from routing. Valid values depend on the profile in use.
+        /**
+         * Exclude certain road types from routing. Valid values depend on the profile in use.
          * The default is to not exclude anything from the profile selected.
          */
         exclude?: DirectionsProfile[];
-        /**Format of the returned geometry. Allowed values are:  geojson (as LineString ),
+        /**
+         * Format of the returned geometry. Allowed values are:  geojson (as LineString ),
          * polyline with precision 5,  polyline6 (a polyline with precision 6). The default value is  polyline .
          */
         geometries?: DirectionsGeometry;
-        /**Language of returned turn-by-turn text instructions. See supported languages . The default is  en for English. */
+        /**
+         * Language of returned turn-by-turn text instructions. See supported languages . The default is  en for English.
+         */
         language?: string;
-        /**Type of returned overview geometry. Can be  full (the most detailed geometry available),
+        /**
+         * Type of returned overview geometry. Can be  full (the most detailed geometry available),
          * simplified (a simplified version of the full geometry), or  false (no overview geometry). The default is  simplified .
          */
         overview?: DirectionsOverview;
 
-        /**Emit instructions at roundabout exits. Can be  true or  false . The default is  false . */
+        /**
+         * Emit instructions at roundabout exits. Can be  true or  false . The default is  false .
+         */
         roundaboutExits?: boolean;
-        /**Whether to return steps and turn-by-turn instructions. Can be  true or  false . The default is  false . */
+        /**
+         * Whether to return steps and turn-by-turn instructions. Can be  true or  false . The default is  false .
+         */
         steps?: boolean;
-        /**Whether or not to return SSML marked-up text for voice guidance along the route. Should be used in conjunction with steps .
+        /**
+         * Whether or not to return SSML marked-up text for voice guidance along the route. Should be used in conjunction with steps .
          * Can be  true or  false . The default is  false .
          */
         voiceInstructions?: boolean;
-        /**Which type of units to return in the text for voice instructions. Can be  imperial or  metric . Default is  imperial . */
+        /**
+         * Which type of units to return in the text for voice instructions. Can be  imperial or  metric . Default is  imperial .
+         */
         voiceUnits?: DirectionsUnits;
     }
 
@@ -331,7 +400,10 @@ declare module '@mapbox/mapbox-sdk/services/directions' {
          */
         approach?: DirectionsApproach;
         /**
-         * Maximum distance in meters that each coordinate is allowed to move when snapped to a nearby road segment. There must be as many radiuses as there are coordinates in the request, each separated by  ; . Values can be any number greater than 0 or the string  unlimited . A  NoSegment error is returned if no routable road is found within the radius.
+         * Maximum distance in meters that each coordinate is allowed to move when snapped to a nearby road segment.
+         * There must be as many radiuses as there are coordinates in the request, each separated by ';'.
+         * Values can be any number greater than 0 or the string 'unlimited'.
+         * A  NoSegment error is returned if no routable road is found within the radius.
          */
         radius?: string | 'unlimited';
     }
@@ -450,7 +522,8 @@ declare module '@mapbox/mapbox-sdk/services/directions' {
          * The legal driving side at the location for this step. Either left or right.
          */
         driving_side: DirectionsSide;
-        /** Depending on the geometries parameter this is a GeoJSON LineString or a
+        /**
+         * Depending on the geometries parameter this is a GeoJSON LineString or a
          * Polyline string representing the full route geometry from this RouteStep to the next RouteStep
          */
         geometry: GeoJSON.LineString | GeoJSON.MultiLineString;
@@ -462,7 +535,8 @@ declare module '@mapbox/mapbox-sdk/services/directions' {
          * One StepManeuver object
          */
         maneuver: Maneuver;
-        /**Any road designations associated with the road or path leading from this step’s maneuver to the next step’s maneuver.
+        /**
+         * Any road designations associated with the road or path leading from this step’s maneuver to the next step’s maneuver.
          * Optionally included, if data is available. If multiple road designations are associated with the road, they are separated by semicolons.
          * A road designation typically consists of an alphabetic network code (identifying the road type or numbering system), a space or hyphen,
          * and a route number. You should not assume that the network code is globally unique: for example, a network code of “NH” may appear on a
@@ -590,7 +664,7 @@ declare module '@mapbox/mapbox-sdk/services/directions' {
         abbr_priority?: number;
         /**
          * String pointing to a shield image to use instead of the text.
-         * */
+         */
         imageBaseURL?: string;
         /**
          * (present if component is lane): An array indicating which directions you can go from a lane (left, right, or straight).
@@ -697,7 +771,6 @@ declare module '@mapbox/mapbox-sdk/services/directions' {
          */
         indications: string[];
     }
-
 }
 
 declare module '@mapbox/mapbox-sdk/services/geocoding' {
