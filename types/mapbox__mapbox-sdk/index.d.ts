@@ -634,25 +634,42 @@ declare module '@mapbox/mapbox-sdk/services/geocoding' {
     }
 
     interface GeocodeRequest {
-        // A location. This will be a place name for forward geocoding or a coordinate pair (longitude, latitude) for reverse geocoding.
+        /** 
+         * A location. This will be a place name for forward geocoding or a coordinate pair (longitude, latitude) for reverse geocoding.
+         */
         query: string | LngLatLike;
-        // 	Either  mapbox.places for ephemeral geocoding, or  mapbox.places-permanent for storing results and batch geocoding.
+        /** 
+         * Either  mapbox.places for ephemeral geocoding, or  mapbox.places-permanent for storing results and batch geocoding.
+         */
         mode: GeocodeMode;
-        // Limit results to one or more countries. Options are ISO 3166 alpha 2 country codes
+        /**
+         * Limit results to one or more countries. Options are ISO 3166 alpha 2 country codes
+         */ 
         countries?: string[];
-        // Bias local results based on a provided location. Options are  longitude,latitude coordinates.
+        /**
+         * Bias local results based on a provided location. Options are  longitude,latitude coordinates.
+         */ 
         proximity?: number[];
-        // Filter results by one or more feature types
+        /**
+         * Filter results by one or more feature types
+         */ 
         types?: GeocodeQueryType[];
-        //Forward geocoding only. Return autocomplete results or not. Options are  true or  false and the default is  true .
+        /**
+         * Forward geocoding only. Return autocomplete results or not. Options are  true or  false and the default is  true .
+         */ 
         autocomplete?: boolean;
-        // Forward geocoding only. Limit results to a bounding box. Options are in the format  minX,minY,maxX,maxY .
+        /**
+         * Forward geocoding only. Limit results to a bounding box. Options are in the format  minX,minY,maxX,maxY .
+         */ 
         bbox?: IBBox;
-        // Limit the number of results returned. The default is  5 for forward geocoding and  1 for reverse geocoding.
+        /**
+         * Limit the number of results returned. The default is  5 for forward geocoding and  1 for reverse geocoding.
+         */ 
         limit?: number;
-        // Specify the language to use for response text and, for forward geocoding, query result weighting.
-        // Options are IETF language tags comprised of a mandatory ISO 639-1 language code and optionally one or more
-        // IETF subtags for country or script.
+        /** Specify the language to use for response text and, for forward geocoding, query result weighting.
+         * Options are IETF language tags comprised of a mandatory ISO 639-1 language code and optionally one or more
+         * IETF subtags for country or script.
+         */
         language?: string[];
     }
 
@@ -683,7 +700,7 @@ declare module '@mapbox/mapbox-sdk/services/geocoding' {
         id: string;
         /**
          * "Feature" , a GeoJSON type from the GeoJSON specification.
-         * */
+         */
         type: string;
         /**
          * An array of feature types describing the feature. Options are  country ,  region ,  postcode ,  district ,  place , locality ,  neighborhood ,
