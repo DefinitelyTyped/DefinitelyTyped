@@ -331,17 +331,17 @@ declare module '@mapbox/mapbox-sdk/services/directions' {
          */
         approach?: DirectionsApproach;
         /**
-         * Maximum distance in meters that each coordinate is allowed to move when snapped to a nearby road segment. There must be as many radiuses as there are coordinates in the request, each separated by  ; . Values can be any number greater than 0 or the string  unlimited . A  NoSegment error is returned if no routable road is found within the radius. 
+         * Maximum distance in meters that each coordinate is allowed to move when snapped to a nearby road segment. There must be as many radiuses as there are coordinates in the request, each separated by  ; . Values can be any number greater than 0 or the string  unlimited . A  NoSegment error is returned if no routable road is found within the radius.
          */
         radius?: string | 'unlimited';
     }
 
     interface DirectionsResponse {
         /**
-         * Array of Route objects ordered by descending recommendation rank. May contain at most two routes. 
+         * Array of Route objects ordered by descending recommendation rank. May contain at most two routes.
          */
         routes: Route[];
-        /** 
+        /**
          * Array of Waypoint objects. Each waypoints is an input coordinate snapped to the road and path network.
          * The waypoints appear in the array in the order of the input coordinates.
          */
@@ -390,48 +390,48 @@ declare module '@mapbox/mapbox-sdk/services/directions' {
          */
         geometry: GeoJSON.LineString | GeoJSON.MultiLineString;
         /**
-         * Array of RouteLeg objects. 
+         * Array of RouteLeg objects.
          */
         legs: Leg[];
-        /** 
+        /**
          * String indicating which weight was used. The default is routability which is duration-based,
          * with additional penalties for less desirable maneuvers.
          */
         weight_name: string;
-        /** 
-         * Float indicating the weight in units described by weight_name 
+        /**
+         * Float indicating the weight in units described by weight_name
          */
         weight: number;
-        /** 
-         * Float indicating the estimated travel time in seconds. 
+        /**
+         * Float indicating the estimated travel time in seconds.
          */
         duration: number;
-        /** 
-         * Float indicating the distance traveled in meters. 
+        /**
+         * Float indicating the distance traveled in meters.
          */
         distance: number;
-        /** 
-         * String of the locale used for voice instructions. Defaults to en, and can be any accepted instruction language. 
+        /**
+         * String of the locale used for voice instructions. Defaults to en, and can be any accepted instruction language.
          */
         voiceLocale?: string;
     }
 
     interface Leg {
         /**
-         * Depending on the summary parameter, either a String summarizing the route (true, default) or an empty String (false) 
+         * Depending on the summary parameter, either a String summarizing the route (true, default) or an empty String (false)
          */
         summary: string;
         weight: number;
         /**
-         * Number indicating the estimated travel time in seconds 
+         * Number indicating the estimated travel time in seconds
          */
         duration: number;
         /**
-         * Depending on the steps parameter, either an Array of RouteStep objects (true, default) or an empty array (false) 
+         * Depending on the steps parameter, either an Array of RouteStep objects (true, default) or an empty array (false)
          */
         steps: Step[];
         /**
-         * Number indicating the distance traveled in meters 
+         * Number indicating the distance traveled in meters
          */
         distance: number;
         /**
