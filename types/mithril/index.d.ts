@@ -22,11 +22,6 @@ declare function jsonp<T>(options: Mithril.JsonpOptions & { url: string }): Prom
 /** Makes a JSON-P request and returns a promise. */
 declare function jsonp<T>(url: string, options?: Mithril.JsonpOptions): Promise<T>; // tslint:disable-line:no-unnecessary-generics
 
-/** Creates an event handler which takes the value of the specified DOM element property and calls a function with it as the argument. */
-declare function withAttr(name: string, callback: (value: any) => any): (e: { currentTarget: any, [p: string]: any }) => void;
-/** Creates an event handler which takes the value of the specified DOM element property and calls a function with it as the argument. */
-declare function withAttr<T>(name: string, callback: (this: T, value: any) => any, thisArg: T): (e: { currentTarget: any, [p: string]: any }) => void;
-
 declare namespace Mithril {
 	interface Lifecycle<Attrs, State> {
 		/** The oninit hook is called before a vnode is touched by the virtual DOM engine. */
@@ -167,7 +162,6 @@ declare namespace Mithril {
 	interface Static extends Hyperscript {
 		route: Route;
 		mount: typeof mount;
-		withAttr: typeof withAttr;
 		render: typeof render;
 		redraw: Redraw;
 		request: typeof request;
