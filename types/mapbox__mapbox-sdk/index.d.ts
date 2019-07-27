@@ -244,23 +244,41 @@ declare module '@mapbox/mapbox-sdk/services/datasets' {
         | GeoJSON.Feature<GeoJSON.Geometry, GeoJSON.GeoJsonProperties>;
 
     interface Dataset {
-        /** 	the username of the dataset owner */
+        /**
+         * The username of the dataset owner 
+         */
         owner: string;
-        /**id for an existing dataset */
+        /**
+         * Id for an existing dataset 
+         */
         id: string;
-        /*date and time the dataset was created */
+        /*
+         * Date and time the dataset was created 
+         */
         created: string;
-        /* 	date and time the dataset was last modified */
+        /* 	
+         * Date and time the dataset was last modified 
+         */
         modified: string;
-        /**the extent of features in the dataset as an array of west, south, east, north coordinates */
+        /**
+         * The extent of features in the dataset as an array of west, south, east, north coordinates 
+         */
         bounds: number[];
-        /**	the number of features in the dataset */
+        /**	
+         * The number of features in the dataset 
+         */
         features: number;
-        /**	the size of the dataset in bytes */
+        /**	
+         * The size of the dataset in bytes 
+         */
         size: number;
-        /**the name of the dataset */
+        /**
+         * The name of the dataset 
+         */
         name: string;
-        /**	the description of the dataset */
+        /**	
+         * The description of the dataset 
+         */
         description: string;
     }
 }
