@@ -985,23 +985,29 @@ declare module '@mapbox/mapbox-sdk/services/static' {
     }
 
     interface PathOverlay {
-        /**An array of coordinates describing the path. */
+        /**
+         * An array of coordinates describing the path.
+         */
         coordinates: LngLatBoundsLike[];
         strokeWidth?: number;
         strokeColor?: string;
-        /**Must be paired with strokeColor. */
+        /**
+         * Must be paired with strokeColor.
+         */
         strokeOpacity?: number;
-        /** Must be paired with strokeColor. */
+        /**
+         * Must be paired with strokeColor.
+         */
         fillColor?: string;
-        /** Must be paired with strokeColor. */
+        /**
+         * Must be paired with strokeColor.
+         */
         fillOpacity?: number;
     }
 
     interface GeoJsonOverlay {
         geoJson: GeoJSON.GeoJsonTypes;
     }
-
-
 }
 
 declare module '@mapbox/mapbox-sdk/services/styles' {
