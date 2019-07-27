@@ -234,15 +234,15 @@ const FRAME_BUDGET = 100;
 			state.term = vnode.attrs.term || ""; // populated from the `history.state` property if the user presses the back button
 		},
 		view() {
-			return m("form", [
-				m("input[placeholder='Search']", {
-                    oninput: (e: {currentTarget: HTMLInputElement}) => {
+			return m('form', [
+                m("input[placeholder='Search']", {
+                    oninput: (e: { currentTarget: HTMLInputElement }) => {
                         state.term = e.currentTarget.value;
                     },
-                    value: state.term
+                    value: state.term,
                 }),
-				m("button", { onclick: state.search }, "Search")
-			]);
+                m('button', { onclick: state.search }, 'Search'),
+            ]);
 		}
 	};
 
@@ -565,14 +565,14 @@ const FRAME_BUDGET = 100;
 	const Editor = {
 		view() {
 			return [
-				m("textarea.input", {
-                    oninput: (e: {currentTarget: HTMLTextAreaElement}) => {
+                m('textarea.input', {
+                    oninput: (e: { currentTarget: HTMLTextAreaElement }) => {
                         state.update(e.currentTarget.value);
                     },
-					value: state.text
-				}),
-				m(".preview", m.trust(marked(state.text))),
-			];
+                    value: state.text,
+                }),
+                m('.preview', m.trust(marked(state.text))),
+            ];
 		}
 	};
 
