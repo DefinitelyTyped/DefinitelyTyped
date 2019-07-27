@@ -8,7 +8,7 @@
 declare module '@mapbox/mapbox-sdk/lib/classes/mapi-client' {
     import { MapiRequest, DirectionsApproach } from '@mapbox/mapbox-sdk/lib/classes/mapi-request';
     export default class MapiClient {
-        constructor(config: SdkConfig)
+        constructor(config: SdkConfig);
         accessToken: string;
         origin?: string;
         createRequest(requestOptions: any): MapiRequest;
@@ -32,9 +32,7 @@ declare module '@mapbox/mapbox-sdk/lib/classes/mapi-request' {
         uploadProgress: ProgressEvents;
     }
 
-    export interface ProgressEvents {
-
-    }
+    export interface ProgressEvents {}
 
     export interface MapiRequest {
         /** An event emitter */
@@ -76,16 +74,14 @@ declare module '@mapbox/mapbox-sdk/lib/classes/mapi-request' {
     }
 
     export type PageCallbackFunction = {
-        error: MapiError,
-        response: MapiResponse,
-        next: () => void
-    }
+        error: MapiError;
+        response: MapiResponse;
+        next: () => void;
+    };
 
-    export type MapboxProfile = "driving" |
-        "walking" |
-        "cycling";
+    export type MapboxProfile = 'driving' | 'walking' | 'cycling';
 
-    export type DirectionsApproach = "unrestricted" | "curb";
+    export type DirectionsApproach = 'unrestricted' | 'curb';
 }
 
 declare module '@mapbox/mapbox-sdk/lib/classes/mapi-response' {
@@ -133,8 +129,8 @@ declare module '@mapbox/mapbox-sdk/services/datasets' {
     import MapiClient, { SdkConfig } from '@mapbox/mapbox-sdk/lib/classes/mapi-client';
 
     /*********************************************************************************************************************
-    * Datasets Types
-    *********************************************************************************************************************/
+     * Datasets Types
+     *********************************************************************************************************************/
     export default function Datasets(config: SdkConfig | MapiClient): DatasetsService;
 
     export interface DatasetsService {
@@ -144,7 +140,7 @@ declare module '@mapbox/mapbox-sdk/services/datasets' {
          *  Create a new, empty dataset.
          * @param config Object
          */
-        createDataset(config: { name?: string, description?: string }): MapiRequest;
+        createDataset(config: { name?: string; description?: string }): MapiRequest;
         /**
          * Get metadata about a dataset.
          * @param config
@@ -154,7 +150,7 @@ declare module '@mapbox/mapbox-sdk/services/datasets' {
          * Update user-defined properties of a dataset's metadata.
          * @param config
          */
-        updateMetadata(config: { datasetId?: string, name?: string, description?: string }): MapiRequest;
+        updateMetadata(config: { datasetId?: string; name?: string; description?: string }): MapiRequest;
         /**
          * Delete a dataset, including all features it contains.
          * @param config
@@ -167,25 +163,24 @@ declare module '@mapbox/mapbox-sdk/services/datasets' {
           * @param config
           */
         // implicit any
-        listFeatures(config: { datasetId: string, limit?: number, start?: string }): any;
+        listFeatures(config: { datasetId: string; limit?: number; start?: string }): any;
         /**
          * Add a feature to a dataset or update an existing one.
          * @param config
          */
-        putFeature(config: { datasetId: string, featureId: string, feature: Object }): MapiRequest;
+        putFeature(config: { datasetId: string; featureId: string; feature: Object }): MapiRequest;
         /**
          * Get a feature in a dataset.
          * @param config
          */
         // implicit any
-        getFeature(config: { datasetId: string, featureId: string }): any;
+        getFeature(config: { datasetId: string; featureId: string }): any;
         /**
          * Delete a feature in a dataset.
          * @param config
          */
         // implicit any
-        deleteFeature(config: { datasetId: string, featureId: string }): any;
-
+        deleteFeature(config: { datasetId: string; featureId: string }): any;
     }
 
     export interface Dataset {
@@ -222,42 +217,43 @@ declare module '@mapbox/mapbox-sdk/services/directions' {
         getDirections(request: DirectionsRequest): MapiRequest;
     }
 
-    export type DirectionsProfile = MapboxProfile | "driving-traffic";
+    export type DirectionsProfile = MapboxProfile | 'driving-traffic';
 
-    export type DirectionsAnnotation = "duration" | "distance" | "speed" | "congestion";
-    export type DirectionsGeometry = "geojson" | "polyline" | "polyline6";
-    export type DirectionsOverview = "full" | "simplified";
-    export type DirectionsUnits = "imperial" | "metric";
-    export type DirectionsSide = "left" | "right";
-    export type DirectionsMode = "driving" | "ferry" | "unaccessible" | "walking" | "cycling" | "train";
-    export type DirectionsClass = "toll" | "ferry" | "restricted" | "motorway" | "tunnel";
+    export type DirectionsAnnotation = 'duration' | 'distance' | 'speed' | 'congestion';
+    export type DirectionsGeometry = 'geojson' | 'polyline' | 'polyline6';
+    export type DirectionsOverview = 'full' | 'simplified';
+    export type DirectionsUnits = 'imperial' | 'metric';
+    export type DirectionsSide = 'left' | 'right';
+    export type DirectionsMode = 'driving' | 'ferry' | 'unaccessible' | 'walking' | 'cycling' | 'train';
+    export type DirectionsClass = 'toll' | 'ferry' | 'restricted' | 'motorway' | 'tunnel';
     export type ManeuverModifier =
-        "uturn" |
-        "sharp right" |
-        "right" |
-        "slight right" |
-        "straight" |
-        "slight left" |
-        "left" |
-        "sharp left" |
-        "depart" |
-        "arrive";
-    export type ManeuverType = "turn" |
-        "new name" |
-        "depart" |
-        "arrive" |
-        "merge" |
-        "on ramp" |
-        "off ramp" |
-        "fork" |
-        "end of road" |
-        "continue" |
-        "roundabout" |
-        "rotary" |
-        "roundabout turn" |
-        "notification" |
-        "exit roundabout" |
-        "exit rotary";
+        | 'uturn'
+        | 'sharp right'
+        | 'right'
+        | 'slight right'
+        | 'straight'
+        | 'slight left'
+        | 'left'
+        | 'sharp left'
+        | 'depart'
+        | 'arrive';
+    export type ManeuverType =
+        | 'turn'
+        | 'new name'
+        | 'depart'
+        | 'arrive'
+        | 'merge'
+        | 'on ramp'
+        | 'off ramp'
+        | 'fork'
+        | 'end of road'
+        | 'continue'
+        | 'roundabout'
+        | 'rotary'
+        | 'roundabout turn'
+        | 'notification'
+        | 'exit roundabout'
+        | 'exit rotary';
 
     export interface DirectionsRequest {
         /**Routing profile; either  mapbox/driving-traffic ,  mapbox/driving ,  mapbox/walking , or  mapbox/cycling */
@@ -309,22 +305,21 @@ declare module '@mapbox/mapbox-sdk/services/directions' {
         voiceInstructions?: boolean;
         /**Which type of units to return in the text for voice instructions. Can be  imperial or  metric . Default is  imperial . */
         voiceUnits?: DirectionsUnits;
-
     }
 
     export interface DirectionsRequestWaypoint {
         /**Semicolon-separated list of  {longitude},{latitude} coordinate pairs to visit in order. There can be between 2 and 25 coordinates. */
         coordinates: number[] | LngLatLike;
         /**Used to indicate how requested routes consider from which side of the road to approach a waypoint.
-       * Accepts unrestricted (default) or  curb . If set to  unrestricted , the routes can approach waypoints from either side of the road.
-       * If set to  curb , the route will be returned so that on arrival, the waypoint will be found on the side that corresponds with the
-       * driving_side of the region in which the returned route is located. Note that the  approaches parameter influences how you arrive at a waypoint,
-       * while  bearings influences how you start from a waypoint. If provided, the list of approaches must be the same length as the list of waypoints.
-       * However, you can skip a coordinate and show its position in the list with the  ; separator.
-       */
+         * Accepts unrestricted (default) or  curb . If set to  unrestricted , the routes can approach waypoints from either side of the road.
+         * If set to  curb , the route will be returned so that on arrival, the waypoint will be found on the side that corresponds with the
+         * driving_side of the region in which the returned route is located. Note that the  approaches parameter influences how you arrive at a waypoint,
+         * while  bearings influences how you start from a waypoint. If provided, the list of approaches must be the same length as the list of waypoints.
+         * However, you can skip a coordinate and show its position in the list with the  ; separator.
+         */
         approach?: DirectionsApproach;
         /**Maximum distance in meters that each coordinate is allowed to move when snapped to a nearby road segment. There must be as many radiuses as there are coordinates in the request, each separated by  ; . Values can be any number greater than 0 or the string  unlimited . A  NoSegment error is returned if no routable road is found within the radius. */
-        radius?: string | "unlimited";
+        radius?: string | 'unlimited';
     }
 
     export interface DirectionsResponse {
@@ -357,9 +352,9 @@ declare module '@mapbox/mapbox-sdk/services/directions' {
          */
         bearing?: number[];
         /**Custom names for waypoints used for the arrival instruction in banners and voice instructions, each separated by  ; .
-        * Values can be any string and total number of all characters cannot exceed 500. If provided, the list of waypoint_names must be the same
-        * length as the list of waypoints, but you can skip a coordinate and show its position with the  ; separator.
-        */
+         * Values can be any string and total number of all characters cannot exceed 500. If provided, the list of waypoint_names must be the same
+         * length as the list of waypoints, but you can skip a coordinate and show its position with the  ; separator.
+         */
         waypointName?: string;
     }
 
@@ -438,8 +433,6 @@ declare module '@mapbox/mapbox-sdk/services/directions' {
          * This property is omitted if pronunciation data is unavailable for the step.
          */
         pronunciation?: string;
-
-
     }
 
     export interface Instruction {
@@ -601,21 +594,21 @@ declare module '@mapbox/mapbox-sdk/services/geocoding' {
     import MapiClient, { SdkConfig } from '@mapbox/mapbox-sdk/lib/classes/mapi-client';
 
     /*********************************************************************************************************************
-    * Geocoder Types
-    *********************************************************************************************************************/
-    export type GeocodeMode = "mapbox.places" | "mapbox.places-permanent";
+     * Geocoder Types
+     *********************************************************************************************************************/
+    export type GeocodeMode = 'mapbox.places' | 'mapbox.places-permanent';
 
-
-    export type GeocodeQueryType = "country" |
-        "region" |
-        "postcode" |
-        "district" |
-        "place" |
-        "locality" |
-        "neighborhood" |
-        "address" |
-        "poi" |
-        "poi.landmark";
+    export type GeocodeQueryType =
+        | 'country'
+        | 'region'
+        | 'postcode'
+        | 'district'
+        | 'place'
+        | 'locality'
+        | 'neighborhood'
+        | 'address'
+        | 'poi'
+        | 'poi.landmark';
 
     export function Geocoding(config: SdkConfig | MapiClient): GeocodeService;
 
@@ -636,7 +629,7 @@ declare module '@mapbox/mapbox-sdk/services/geocoding' {
         query: string | LngLatLike;
         // 	Either  mapbox.places for ephemeral geocoding, or  mapbox.places-permanent for storing results and batch geocoding.
         mode: GeocodeMode;
-        // Limit results to one or more countries. Options are ISO 3166 alpha 2 country codes 
+        // Limit results to one or more countries. Options are ISO 3166 alpha 2 country codes
         countries?: string[];
         //Bias local results based on a provided location. Options are  longitude,latitude coordinates.
         proximity?: number[];
@@ -648,9 +641,9 @@ declare module '@mapbox/mapbox-sdk/services/geocoding' {
         bbox?: IBBox;
         //Limit the number of results returned. The default is  5 for forward geocoding and  1 for reverse geocoding.
         limit?: number;
-        // Specify the language to use for response text and, for forward geocoding, query result weighting. 
-        // Options are IETF language tags comprised of a mandatory ISO 639-1 language code and optionally one or more 
-        // IETF subtags for country or script. 
+        // Specify the language to use for response text and, for forward geocoding, query result weighting.
+        // Options are IETF language tags comprised of a mandatory ISO 639-1 language code and optionally one or more
+        // IETF subtags for country or script.
         language?: string[];
     }
 
@@ -707,7 +700,7 @@ declare module '@mapbox/mapbox-sdk/services/geocoding' {
         /**
          * A string of the IETF language tag of the query's primary language.
          * Can be used to identity text and place_name properties on this object
-         * in the format text_{language}, place_name_{language} and language_{language} 
+         * in the format text_{language}, place_name_{language} and language_{language}
          */
         language: string;
         /**An array bounding box in the form [ minX,minY,maxX,maxY ] . */
@@ -754,24 +747,23 @@ declare module '@mapbox/mapbox-sdk/services/map-matching' {
         DirectionsAnnotation,
         DirectionsGeometry,
         DirectionsOverview,
-        Leg
+        Leg,
     } from '@mapbox/mapbox-sdk/services/directions';
     import { MapiRequest, DirectionsApproach } from '@mapbox/mapbox-sdk/lib/classes/mapi-request';
     import MapiClient, { SdkConfig } from '@mapbox/mapbox-sdk/lib/classes/mapi-client';
 
     /*********************************************************************************************************************
-    * Map Matching Types
-    *********************************************************************************************************************/
+     * Map Matching Types
+     *********************************************************************************************************************/
     export function MapMatching(config: SdkConfig | MapiClient): MapMatchingService;
 
-
     export interface MapMatchingService {
-        getMatching(request: MapMatchingRequest): MapiRequest
+        getMatching(request: MapMatchingRequest): MapiRequest;
     }
 
     export interface MapMatchingRequest {
         /**An ordered array of MapMatchingPoints, between 2 and 100 (inclusive). */
-        points: MapMatchingPoint[],
+        points: MapMatchingPoint[];
         /** A directions profile ID. (optional, default driving) */
         profile?: DirectionsProfile;
         /**Specify additional metadata that should be returned. */
@@ -844,17 +836,14 @@ declare module '@mapbox/mapbox-sdk/services/map-matching' {
 }
 
 declare module '@mapbox/mapbox-sdk/services/matrix' {
-    import {
-        DirectionsProfile,
-        DirectionsAnnotation
-    } from '@mapbox/mapbox-sdk/services/directions';
+    import { DirectionsProfile, DirectionsAnnotation } from '@mapbox/mapbox-sdk/services/directions';
     import { Point } from '@mapbox/mapbox-sdk/services/map-matching';
     import { MapiRequest } from '@mapbox/mapbox-sdk/lib/classes/mapi-request';
     import MapiClient, { SdkConfig } from '@mapbox/mapbox-sdk/lib/classes/mapi-client';
 
     /*********************************************************************************************************************
-    * Matrix Types
-    *********************************************************************************************************************/
+     * Matrix Types
+     *********************************************************************************************************************/
     export function Matrix(config: SdkConfig | MapiClient): MatrixService;
 
     export interface MatrixService {
@@ -862,7 +851,7 @@ declare module '@mapbox/mapbox-sdk/services/matrix' {
          * Get a duration and/or distance matrix showing travel times and distances between coordinates.
          * @param request
          */
-        getMatrix(request: MatrixRequest): MapiRequest
+        getMatrix(request: MatrixRequest): MapiRequest;
     }
 
     export interface MatrixRequest {
@@ -893,8 +882,8 @@ declare module '@mapbox/mapbox-sdk/services/optimization' {
     import MapiClient, { SdkConfig } from '@mapbox/mapbox-sdk/lib/classes/mapi-client';
 
     /*********************************************************************************************************************
-    * Optimization Types
-    *********************************************************************************************************************/
+     * Optimization Types
+     *********************************************************************************************************************/
     export function Optimization(config: any): OptimizationService; // SdkConfig | MapiClient
 
     export interface OptimizationService {
@@ -907,19 +896,19 @@ declare module '@mapbox/mapbox-sdk/services/optimization' {
         /**A semicolon-separated list of  {longitude},{latitude} coordinates. There must be between 2 and 12 coordinates. The first coordinate is the start and end point of the trip. */
         waypoints: OptimizationWaypoint[];
         /**Return additional metadata along the route. You can include several annotations as a comma-separated list. Possible values are: */
-        annotations?: "duration" | "speed" | "distance";
+        annotations?: 'duration' | 'speed' | 'distance';
         /**Specify the destination coordinate of the returned route. Accepts  any (default) or  last . */
-        destination?: "any" | "last";
+        destination?: 'any' | 'last';
         /** Specify pick-up and drop-off locations for a trip by providing a  ; delimited list of number pairs that correspond with the coordinates list. The first number of a pair indicates the index to the coordinate of the pick-up location in the coordinates list, and the second number indicates the index to the coordinate of the drop-off location in the coordinates list. Each pair must contain exactly 2 numbers, which cannot be the same. The returned solution will visit pick-up locations before visiting drop-off locations. The first location can only be a pick-up location, not a drop-off location. */
         distributions?: number[];
         /**The format of the returned geometry. Allowed values are:  geojson (as LineString ),  polyline (default, a polyline with precision 5),  polyline6 (a polyline with precision 6). */
-        geometries?: "geojson" | "polyline" | "polyline6";
+        geometries?: 'geojson' | 'polyline' | 'polyline6';
         /**The language of returned turn-by-turn text instructions. See supported languages . The default is  en (English). */
         language?: string;
         /**The type of the returned overview geometry. Can be  full (the most detailed geometry available),  simplified (default, a simplified version of the full geometry), or  false (no overview geometry). */
-        overview?: "full" | "simplified" | "false";
+        overview?: 'full' | 'simplified' | 'false';
         /**The coordinate at which to start the returned route. Accepts  any (default) or  first . */
-        source?: "any" | "first";
+        source?: 'any' | 'first';
         /** Whether to return steps and turn-by-turn instructions ( true ) or not ( false , default). */
         steps?: boolean;
         /** Indicates whether the returned route is roundtrip, meaning the route returns to the first location ( true , default) or not ( false ). If  roundtrip=false , the  source and  destination parameters are required but not all combinations will be possible. See the Fixing Start and End Points section below for additional notes. */
@@ -935,7 +924,7 @@ declare module '@mapbox/mapbox-sdk/services/optimization' {
         and the second is the range of degrees the angle can deviate by. */
         bearing?: number[];
         /**Maximum distance in meters that the coordinate is allowed to move when snapped to a nearby road segment. */
-        radius?: number | "unlimited";
+        radius?: number | 'unlimited';
     }
 }
 
@@ -945,8 +934,8 @@ declare module '@mapbox/mapbox-sdk/services/static' {
     import MapiClient, { SdkConfig } from '@mapbox/mapbox-sdk/lib/classes/mapi-client';
 
     /*********************************************************************************************************************
-    * Static Map Types
-    *********************************************************************************************************************/
+     * Static Map Types
+     *********************************************************************************************************************/
     export function StaticMap(config: SdkConfig | MapiClient): StaticMapService;
 
     export interface StaticMapService {
@@ -954,7 +943,7 @@ declare module '@mapbox/mapbox-sdk/services/static' {
          * Get a static map image..
          * @param request
          */
-        getStaticImage(request: StaticMapRequest): MapiRequest
+        getStaticImage(request: StaticMapRequest): MapiRequest;
     }
 
     export interface StaticMapRequest {
@@ -962,12 +951,14 @@ declare module '@mapbox/mapbox-sdk/services/static' {
         styleId: string;
         width: number;
         height: number;
-        position: {
-            coordinates: LngLatLike | "auto";
-            zoom: number;
-            bearing?: number;
-            pitch?: number;
-        } | "auto";
+        position:
+            | {
+                  coordinates: LngLatLike | 'auto';
+                  zoom: number;
+                  bearing?: number;
+                  pitch?: number;
+              }
+            | 'auto';
         overlays?: CustomMarkerOverlay[] | PathOverlay[] | GeoJsonOverlay[];
         highRes?: boolean;
         insertOverlayBeforeLayer?: string;
@@ -976,7 +967,7 @@ declare module '@mapbox/mapbox-sdk/services/static' {
     }
 
     export interface CustomMarkerOverlay {
-        marker: CustomMarker
+        marker: CustomMarker;
     }
 
     export interface CustomMarker {
@@ -1127,8 +1118,8 @@ declare module '@mapbox/mapbox-sdk/services/tilequery' {
     import MapiClient, { SdkConfig } from '@mapbox/mapbox-sdk/lib/classes/mapi-client';
 
     /*********************************************************************************************************************
-    * Tile Query (Places) Types
-    *********************************************************************************************************************/
+     * Tile Query (Places) Types
+     *********************************************************************************************************************/
     export function TileQuery(config: SdkConfig | MapiClient): TileQueryService;
 
     export interface TileQueryService {
@@ -1136,7 +1127,7 @@ declare module '@mapbox/mapbox-sdk/services/tilequery' {
          * Get a static map image..
          * @param request
          */
-        listFeatures(request: TileQueryRequest): MapiRequest
+        listFeatures(request: TileQueryRequest): MapiRequest;
     }
 
     export interface TileQueryRequest {
@@ -1155,7 +1146,7 @@ declare module '@mapbox/mapbox-sdk/services/tilequery' {
         layers?: string[];
     }
 
-    export type GeometryType = "polygon" | "linestring" | "point";
+    export type GeometryType = 'polygon' | 'linestring' | 'point';
 
 
 }
@@ -1165,8 +1156,8 @@ declare module '@mapbox/mapbox-sdk/services/tilesets' {
     import MapiClient, { SdkConfig } from '@mapbox/mapbox-sdk/lib/classes/mapi-client';
 
     /*********************************************************************************************************************
-    * Tileset Types
-    *********************************************************************************************************************/
+     * Tileset Types
+     *********************************************************************************************************************/
     export function Tilesets(config: SdkConfig | MapiClient): TilesetsService;
 
     export interface TilesetsService {
@@ -1193,8 +1184,8 @@ declare module '@mapbox/mapbox-sdk/services/tokens' {
     import MapiClient, { SdkConfig } from '@mapbox/mapbox-sdk/lib/classes/mapi-client';
 
     /*********************************************************************************************************************
-    * Token Types
-    *********************************************************************************************************************/
+     * Token Types
+     *********************************************************************************************************************/
     export function Tokens(config: SdkConfig | MapiClient): TokensService;
 
     export interface TokensService {
@@ -1279,8 +1270,8 @@ declare module '@mapbox/mapbox-sdk/services/uploads' {
     import MapiClient, { SdkConfig } from '@mapbox/mapbox-sdk/lib/classes/mapi-client';
 
     /*********************************************************************************************************************
-    * Uploads Types
-    *********************************************************************************************************************/
+     * Uploads Types
+     *********************************************************************************************************************/
     export function Uploads(config: SdkConfig | MapiClient): UploadsService;
 
     export interface UploadsService {
@@ -1295,7 +1286,7 @@ declare module '@mapbox/mapbox-sdk/services/uploads' {
          * Create an upload.
          * @param config
          */
-        createUpload(config: { mapId: string, url: string, tilesetName?: string }): MapiRequest;
+        createUpload(config: { mapId: string; url: string; tilesetName?: string }): MapiRequest;
         /**
          * Get an upload's status.
          * @param config
@@ -1308,7 +1299,6 @@ declare module '@mapbox/mapbox-sdk/services/uploads' {
          */
         // implicit any
         deleteUpload(config: { uploadId: string }): any;
-
     }
 
     export interface S3Credentials {
