@@ -1114,32 +1114,40 @@ declare module '@mapbox/mapbox-sdk/services/styles' {
     interface Style {
         version: number;
         name: string;
-        /**Information about the style that is used in Mapbox Studio. */
+        /**
+         * Information about the style that is used in Mapbox Studio.
+         */
         metadata: string;
-        sources: Sources;
+        sources: any;
         sprite: string;
         glyphs: string;
         layers: string[];
-        /**Date and time the style was created. */
+        /**
+         * Date and time the style was created.
+         */
         created: string;
-        /**	The ID of the style. */
+        /**
+         * The ID of the style.
+         */
         id: string;
-        /**Date and time the style was last modified. */
+        /**
+         * Date and time the style was last modified.
+         */
         modified: string;
-        /**The username of the style owner. */
+        /**
+         * The username of the style owner.
+         */
         owner: string;
-        /**	Access control for the style, either  public or  private . Private styles require an access token belonging to the owner,
+        /**
+         * Access control for the style, either  public or  private . Private styles require an access token belonging to the owner,
          * while public styles may be requested with an access token belonging to any user.
          */
         visibility: string;
-        /**Whether the style is a draft or has been published. */
+        /**
+         * Whether the style is a draft or has been published.
+         */
         draft: boolean;
     }
-
-    interface Sources {
-    }
-
-
 }
 
 declare module '@mapbox/mapbox-sdk/services/tilequery' {
