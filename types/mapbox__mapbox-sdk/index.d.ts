@@ -8,11 +8,11 @@
 declare module '@mapbox/mapbox-sdk/lib/classes/mapi-client' {
     import { MapiRequest, DirectionsApproach } from '@mapbox/mapbox-sdk/lib/classes/mapi-request';
     export default class MapiClient {
-                       constructor(config: SdkConfig);
-                       accessToken: string;
-                       origin?: string;
-                       createRequest(requestOptions: any): MapiRequest;
-                   }
+        constructor(config: SdkConfig);
+        accessToken: string;
+        origin?: string;
+        createRequest(requestOptions: any): MapiRequest;
+    }
 
     interface SdkConfig {
         accessToken: string;
@@ -32,7 +32,7 @@ declare module '@mapbox/mapbox-sdk/lib/classes/mapi-request' {
         uploadProgress: ProgressEvents;
     }
 
-    interface ProgressEvents {}
+    interface ProgressEvents { }
 
     interface MapiRequest {
         /** An event emitter */
@@ -621,7 +621,7 @@ declare module '@mapbox/mapbox-sdk/services/geocoding' {
         | 'poi'
         | 'poi.landmark';
 
-    export function Geocoding(config: SdkConfig | MapiClient): GeocodeService;
+    export default function Geocoding(config: SdkConfig | MapiClient): GeocodeService;
 
     interface GeocodeService {
         forwardGeocode(request: GeocodeRequest): MapiRequest;
@@ -766,7 +766,7 @@ declare module '@mapbox/mapbox-sdk/services/map-matching' {
     /*********************************************************************************************************************
      * Map Matching Types
      *********************************************************************************************************************/
-    export function MapMatching(config: SdkConfig | MapiClient): MapMatchingService;
+    export default function MapMatching(config: SdkConfig | MapiClient): MapMatchingService;
 
     interface MapMatchingService {
         getMatching(request: MapMatchingRequest): MapiRequest;
@@ -855,7 +855,7 @@ declare module '@mapbox/mapbox-sdk/services/matrix' {
     /*********************************************************************************************************************
      * Matrix Types
      *********************************************************************************************************************/
-    export function Matrix(config: SdkConfig | MapiClient): MatrixService;
+    export default function Matrix(config: SdkConfig | MapiClient): MatrixService;
 
     interface MatrixService {
         /**
@@ -947,7 +947,7 @@ declare module '@mapbox/mapbox-sdk/services/static' {
     /*********************************************************************************************************************
      * Static Map Types
      *********************************************************************************************************************/
-    export function StaticMap(config: SdkConfig | MapiClient): StaticMapService;
+    export default function StaticMap(config: SdkConfig | MapiClient): StaticMapService;
 
     interface StaticMapService {
         /**
@@ -963,13 +963,13 @@ declare module '@mapbox/mapbox-sdk/services/static' {
         width: number;
         height: number;
         position:
-            | {
-                  coordinates: LngLatLike | 'auto';
-                  zoom: number;
-                  bearing?: number;
-                  pitch?: number;
-              }
-            | 'auto';
+        | {
+            coordinates: LngLatLike | 'auto';
+            zoom: number;
+            bearing?: number;
+            pitch?: number;
+        }
+        | 'auto';
         overlays?: CustomMarkerOverlay[] | PathOverlay[] | GeoJsonOverlay[];
         highRes?: boolean;
         insertOverlayBeforeLayer?: string;
@@ -1013,7 +1013,7 @@ declare module '@mapbox/mapbox-sdk/services/styles' {
     /*********************************************************************************************************************
     * Style Types
     *********************************************************************************************************************/
-    export function Styles(config: SdkConfig | MapiClient): StylesService;
+    export default function Styles(config: SdkConfig | MapiClient): StylesService;
 
     interface StylesService {
         /**
@@ -1152,7 +1152,7 @@ declare module '@mapbox/mapbox-sdk/services/tilequery' {
     /*********************************************************************************************************************
      * Tile Query (Places) Types
      *********************************************************************************************************************/
-    export function TileQuery(config: SdkConfig | MapiClient): TileQueryService;
+    export default function TileQuery(config: SdkConfig | MapiClient): TileQueryService;
 
     interface TileQueryService {
         /**
@@ -1190,7 +1190,7 @@ declare module '@mapbox/mapbox-sdk/services/tilesets' {
     /*********************************************************************************************************************
      * Tileset Types
      *********************************************************************************************************************/
-    export function Tilesets(config: SdkConfig | MapiClient): TilesetsService;
+    export default function Tilesets(config: SdkConfig | MapiClient): TilesetsService;
 
     interface TilesetsService {
         listTilesets(config: { ownerId: string }): MapiRequest;
@@ -1218,7 +1218,7 @@ declare module '@mapbox/mapbox-sdk/services/tokens' {
     /*********************************************************************************************************************
      * Token Types
      *********************************************************************************************************************/
-    export function Tokens(config: SdkConfig | MapiClient): TokensService;
+    export default function Tokens(config: SdkConfig | MapiClient): TokensService;
 
     interface TokensService {
         /**List your access tokens. */
@@ -1304,7 +1304,7 @@ declare module '@mapbox/mapbox-sdk/services/uploads' {
     /*********************************************************************************************************************
      * Uploads Types
      *********************************************************************************************************************/
-    export function Uploads(config: SdkConfig | MapiClient): UploadsService;
+    export default function Uploads(config: SdkConfig | MapiClient): UploadsService;
 
     interface UploadsService {
         /**
@@ -1313,8 +1313,8 @@ declare module '@mapbox/mapbox-sdk/services/uploads' {
          */
         listUploads(config: { reverse?: boolean }): MapiRequest;
         /**
-         * Create S3 credentials. 
-         * */
+         * Create S3 credentials.
+         */
         createUploadCredentials(): MapiRequest;
         /**
          * Create an upload.
