@@ -245,39 +245,39 @@ declare module '@mapbox/mapbox-sdk/services/datasets' {
 
     interface Dataset {
         /**
-         * The username of the dataset owner 
+         * The username of the dataset owner
          */
         owner: string;
         /**
-         * Id for an existing dataset 
+         * Id for an existing dataset
          */
         id: string;
         /*
-         * Date and time the dataset was created 
+         * Date and time the dataset was created
          */
         created: string;
-        /* 	
-         * Date and time the dataset was last modified 
+        /*
+         * Date and time the dataset was last modified
          */
         modified: string;
         /**
-         * The extent of features in the dataset as an array of west, south, east, north coordinates 
+         * The extent of features in the dataset as an array of west, south, east, north coordinates
          */
         bounds: number[];
-        /**	
-         * The number of features in the dataset 
+        /**
+         * The number of features in the dataset
          */
         features: number;
-        /**	
-         * The size of the dataset in bytes 
+        /**
+         * The size of the dataset in bytes
          */
         size: number;
         /**
-         * The name of the dataset 
+         * The name of the dataset
          */
         name: string;
-        /**	
-         * The description of the dataset 
+        /**
+         * The description of the dataset
          */
         description: string;
     }
