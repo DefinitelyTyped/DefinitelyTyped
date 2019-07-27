@@ -16,7 +16,7 @@ export default class ID3v2FrameReader {
         end: number,
         data: MediaFileReader,
         id3header: TagHeader,
-        tags?: Array<string>
+        tags?: string[]
       ): TagFrames;
 
     static _getFrameHeaderSize(id3header: TagHeader): number;

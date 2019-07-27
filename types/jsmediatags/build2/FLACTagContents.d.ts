@@ -13,13 +13,13 @@ export default class FLACTagContents {
 
     static createStreamBlock(): MetadataBlock;
 
-    static createCommentBlock(...data: Array<Array<string>>): MetadataBlock;
+    static createCommentBlock(...data: string[][]): MetadataBlock;
 
     static createPictureBlock(): void;
 }
 
 export class MetadataBlock {
-    _data: Array<number>;
+    _data: number[];
     _final: boolean;
     _type: number;
 

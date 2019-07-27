@@ -1,22 +1,21 @@
-import { CallbackType, LoadCallbackType } from './types';
-import MediaFileReader from './build2/MediaFileReader';
-import MediaTagReader from './build2/MediaTagReader';
-
 // Type definitions for jsmediatags 3.9
 // Project: https://github.com/aadsm/jsmediatags#readme
 // Definitions by: Gunnar Már Óttarsson <https://github.com/gunnim>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+import { CallbackType, LoadCallbackType } from './types';
+import MediaFileReader from './build2/MediaFileReader';
+import MediaTagReader from './build2/MediaTagReader';
+
 // tslint:disable-next-line:export-just-namespace
 export = jsmediatags;
 export as namespace jsmediatags;
 declare namespace jsmediatags {
-
     function read(location: any, callbacks: CallbackType): void;
 
     class Reader {
         _file: any;
-        _tagsToRead: Array<string>;
+        _tagsToRead: string[];
         _fileReader: typeof MediaFileReader;
         _tagReader: typeof MediaTagReader;
 
@@ -24,7 +23,7 @@ declare namespace jsmediatags {
 
         setFileReader(fileReader: typeof MediaFileReader): Reader;
 
-        setTagsToRead(tagsToRead: Array<string>): Reader;
+        setTagsToRead(tagsToRead: string[]): Reader;
         setTagReader(tagReader: typeof MediaTagReader): Reader;
 
         read(callbacks: CallbackType): void;
@@ -38,12 +37,14 @@ declare namespace jsmediatags {
             callbacks: LoadCallbackType
         ): void;
     }
-    class Config {
-        static addFileReader(fileReader: typeof MediaFileReader): typeof Config;
-        static addTagReader(tagReader: typeof MediaTagReader): typeof Config;
-        static removeTagReader(tagReader: typeof MediaTagReader): typeof Config;
-        static EXPERIMENTAL_avoidHeadRequests(): void;
-        static setDisallowedXhrHeaders(disallowedXhrHeaders: Array<string>): void;
-        static setXhrTimeoutInSec(timeoutInSec: number): void;
-    }
+    const Config: Config;
+}
+
+interface Config {
+    addFileReader(fileReader: typeof MediaFileReader): Config;
+    addTagReader(tagReader: typeof MediaTagReader): Config;
+    removeTagReader(tagReader: typeof MediaTagReader): Config;
+    EXPERIMENTAL_avoidHeadRequests(): void;
+    setDisallowedXhrHeaders(disallowedXhrHeaders: string[]): void;
+    setXhrTimeoutInSec(timeoutInSec: number): void;
 }

@@ -12,7 +12,7 @@ import MediaTagReader from './MediaTagReader';
 export default class MP4TagReader extends MediaTagReader {
     static getTagIdentifierByteRange(): ByteRange;
 
-    static canReadTagFormat(tagIdentifier: Array<number>): boolean;
+    static canReadTagFormat(tagIdentifier: number[]): boolean;
 
     _loadData(mediaFileReader: MediaFileReader, callbacks: LoadCallbackType): void;
 
@@ -27,19 +27,19 @@ export default class MP4TagReader extends MediaTagReader {
 
     _canReadAtom(atomName: string): boolean;
 
-    _parseData(data: MediaFileReader, tagsToRead?: Array<string>): TagType;
+    _parseData(data: MediaFileReader, tagsToRead?: string[]): TagType;
 
     _readAtom(
         tags: any,
         data: MediaFileReader,
         offset: number,
         length: number,
-        tagsToRead?: Array<string>,
+        tagsToRead?: string[],
         parentAtomFullName?: string,
         indent?: string
       ): void;
 
     _readMetadataAtom(data: MediaFileReader, offset: number): TagFrame;
 
-    getShortcuts(): {[key: string]: string|Array<string>};
+    getShortcuts(): {[key: string]: string|string[]};
 }

@@ -11,7 +11,7 @@ type ContentRangeType = {
 export default class XhrFileReader extends MediaFileReader {
     static _config: {
       avoidHeadRequests: boolean,
-      disallowedXhrHeaders: Array<string>,
+      disallowedXhrHeaders: string[],
       timeoutInSec: number
     };
     _url: string;

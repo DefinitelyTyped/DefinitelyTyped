@@ -4,7 +4,7 @@ import {
 
 export class Atom {
     _name: string;
-    _data: Array<number>;
+    _data: number[];
     _atoms: Array<Atom>;
 
     constructor(name: string, data?: ByteArray, atoms?: Array<Atom>);

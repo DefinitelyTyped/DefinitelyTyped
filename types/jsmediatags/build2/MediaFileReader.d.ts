@@ -1,5 +1,5 @@
 import { CallbackType, CharsetType, LoadCallbackType } from '../types';
-import { DecodedString} from './StringUtils';
+import { DecodedString } from './StringUtils';
 
 export default class MediaFileReader {
     _isInitialized: boolean;
@@ -14,7 +14,7 @@ export default class MediaFileReader {
     loadRange(range: [number, number], callbacks: LoadCallbackType): void;
     getSize(): number;
     getByteAt(offset: number): number;
-    getBytesAt(offset: number, length: number): Array<number>;
+    getBytesAt(offset: number, length: number): number[];
     isBitSetAt(offset: number, bit: number): boolean;
     getSByteAt(offset: number): number;
     getShortAt(offset: number, isBigEndian: boolean): number;

@@ -12,7 +12,7 @@ export default class FLACTagReader extends MediaTagReader {
 
     static getTagIdentifierByteRange(): ByteRange;
 
-    static canReadTagFormat(tagIdentifier: Array<number>): boolean;
+    static canReadTagFormat(tagIdentifier: number[]): boolean;
 
     _loadData(mediaFileReader: MediaFileReader, callbacks: LoadCallbackType): void;
 
@@ -30,5 +30,5 @@ export default class FLACTagReader extends MediaTagReader {
         callbacks: LoadCallbackType
     ): void;
 
-    _parseData(data: MediaFileReader, tags?: Array<string>): TagType;
+    _parseData(data: MediaFileReader, tags?: string[]): TagType;
 }

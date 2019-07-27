@@ -8,26 +8,26 @@ import MediaFileReader from './MediaFileReader';
 
 export default class MediaTagReader {
     _mediaFileReader: MediaFileReader;
-    _tags?: Array<string>;
+    _tags?: string[];
 
     constructor(mediaFileReader: MediaFileReader);
 
     static getTagIdentifierByteRange(): ByteRange;
 
-    static canReadTagFormat(tagIdentifier: Array<number>): boolean;
+    static canReadTagFormat(tagIdentifier: number[]): boolean;
 
-    setTagsToRead(tags: Array<string>): MediaTagReader;
+    setTagsToRead(tags: string[]): MediaTagReader;
 
     read(callbacks: CallbackType): void;
 
-    getShortcuts(): {[key: string]: (string|Array<string>)};
+    getShortcuts(): {[key: string]: (string|string[])};
 
     _loadData(
         mediaFileReader: MediaFileReader,
         callbacks: LoadCallbackType
       ): void;
 
-    _parseData(mediaFileReader: MediaFileReader, tags?: Array<string>): TagType;
+    _parseData(mediaFileReader: MediaFileReader, tags?: string[]): TagType;
 
-    _expandShortcutTags(tagsWithShortcuts?: Array<string>): Array<string> | null;
+    _expandShortcutTags(tagsWithShortcuts?: string[]): string[] | null;
 }

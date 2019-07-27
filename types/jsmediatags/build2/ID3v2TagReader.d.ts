@@ -15,13 +15,13 @@ import MediaFileReader from './MediaFileReader';
 export default class ID3v2TagReader extends MediaTagReader {
     static getTagIdentifierByteRange(): ByteRange;
 
-    static canReadTagFormat(tagIdentifier: Array<number>): boolean;
+    static canReadTagFormat(tagIdentifier: number[]): boolean;
 
     _loadData(mediaFileReader: MediaFileReader, callbacks: LoadCallbackType): void;
 
-    _parseData(data: MediaFileReader, tags?: Array<string>): TagType;
+    _parseData(data: MediaFileReader, tags?: string[]): TagType;
 
-    _getFrameData(frames: TagFrames, ids: Array<string>): any | void;
+    _getFrameData(frames: TagFrames, ids: string[]): any | void;
 
-    getShortcuts(): {[key: string]: string|Array<string>};
+    getShortcuts(): {[key: string]: string|string[]};
 }
