@@ -1,4 +1,4 @@
-// Type definitions for @mapbox/mapbox-sdk 0.6.0
+// Type definitions for @mapbox/mapbox-sdk 0.6
 // Project: https://github.com/mapbox/mapbox-sdk-js
 // Definitions by: Jeff Dye <https://github.com/jeffbdye>
 //                 Mike O'Meara <https://github.com/mikeomeara1>
@@ -44,11 +44,11 @@ declare module '@mapbox/mapbox-sdk/lib/classes/mapi-request' {
         /**
          * If this request has been sent and received a response, the response is available on this property.
          */
-        response: MapiResponse | null;
+        response?: MapiResponse;
         /**
          * If this request has been sent and received an error in response, the error is available on this property.
          */
-        error: MapiError | Error | null;
+        error?: MapiError | Error;
         /**
          * If the request has been aborted (via abort), this property will be true.
          */
@@ -86,7 +86,7 @@ declare module '@mapbox/mapbox-sdk/lib/classes/mapi-request' {
         /**
          * Data to send with the request. If the request has a body, it will also be sent with the header 'Content-Type: application/json'.
          */
-        body: any | string | null;
+        body?: any;
         /**
          * A file to send with the request. The browser client accepts Blobs and ArrayBuffers.
          */
@@ -98,11 +98,11 @@ declare module '@mapbox/mapbox-sdk/lib/classes/mapi-request' {
         clone(): MapiRequest;
     }
 
-    type PageCallbackFunction = {
+    interface PageCallbackFunction {
         error: MapiError;
         response: MapiResponse;
         next: () => void;
-    };
+    }
 
     type MapboxProfile = 'driving' | 'walking' | 'cycling';
 
@@ -162,7 +162,7 @@ declare module '@mapbox/mapbox-sdk/lib/classes/mapi-error' {
         /**
          * If the server sent a response body, this property exposes that response, parsed as JSON if possible.
          */
-        body?: any | string;
+        body?: any;
         /**
          * Whatever message could be derived from the call site and HTTP response.
          */
