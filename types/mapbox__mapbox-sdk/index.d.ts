@@ -900,39 +900,69 @@ declare module '@mapbox/mapbox-sdk/services/optimization' {
     }
 
     interface OptimizationRequest {
-        /**A Mapbox Directions routing profile ID. */
+        /** 
+         * A Mapbox Directions routing profile ID.
+         */
         profile: MapboxProfile;
-        /**A semicolon-separated list of  {longitude},{latitude} coordinates. There must be between 2 and 12 coordinates. The first coordinate is the start and end point of the trip. */
+        /** 
+         * A semicolon-separated list of {longitude},{latitude} coordinates. There must be between 2 and 12 coordinates. The first coordinate is the start and end point of the trip.
+         */
         waypoints: OptimizationWaypoint[];
-        /**Return additional metadata along the route. You can include several annotations as a comma-separated list. Possible values are: */
+        /** 
+         * Return additional metadata along the route. You can include several annotations as a comma-separated list. Possible values are:
+         */
         annotations?: 'duration' | 'speed' | 'distance';
-        /**Specify the destination coordinate of the returned route. Accepts  any (default) or  last . */
+        /** 
+         * Specify the destination coordinate of the returned route. Accepts  any (default) or  last .
+         */
         destination?: 'any' | 'last';
-        /** Specify pick-up and drop-off locations for a trip by providing a  ; delimited list of number pairs that correspond with the coordinates list. The first number of a pair indicates the index to the coordinate of the pick-up location in the coordinates list, and the second number indicates the index to the coordinate of the drop-off location in the coordinates list. Each pair must contain exactly 2 numbers, which cannot be the same. The returned solution will visit pick-up locations before visiting drop-off locations. The first location can only be a pick-up location, not a drop-off location. */
+        /** 
+         * Specify pick-up and drop-off locations for a trip by providing a ; delimited list of number pairs that correspond with the coordinates list. 
+         * The first number of a pair indicates the index to the coordinate of the pick-up location in the coordinates list, and the second number indicates the index to the coordinate of the drop-off location in the coordinates list. Each pair must contain exactly 2 numbers, which cannot be the same. 
+         * The returned solution will visit pick-up locations before visiting drop-off locations. The first location can only be a pick-up location, not a drop-off location.
+         */
         distributions?: number[];
-        /**The format of the returned geometry. Allowed values are:  geojson (as LineString ),  polyline (default, a polyline with precision 5),  polyline6 (a polyline with precision 6). */
+        /** 
+         * The format of the returned geometry. Allowed values are:  geojson (as LineString ),  polyline (default, a polyline with precision 5),  polyline6 (a polyline with precision 6).
+         */
         geometries?: 'geojson' | 'polyline' | 'polyline6';
-        /**The language of returned turn-by-turn text instructions. See supported languages . The default is  en (English). */
+        /** 
+         * The language of returned turn-by-turn text instructions. See supported languages . The default is  en (English).
+         */
         language?: string;
-        /**The type of the returned overview geometry. Can be  full (the most detailed geometry available),  simplified (default, a simplified version of the full geometry), or  false (no overview geometry). */
+        /** 
+         * The type of the returned overview geometry. Can be  full (the most detailed geometry available),  simplified (default, a simplified version of the full geometry), or  false (no overview geometry).
+         */
         overview?: 'full' | 'simplified' | 'false';
-        /**The coordinate at which to start the returned route. Accepts  any (default) or  first . */
+        /** 
+         * The coordinate at which to start the returned route. Accepts  any (default) or  first .
+         */
         source?: 'any' | 'first';
-        /** Whether to return steps and turn-by-turn instructions ( true ) or not ( false , default). */
+        /**
+         * Whether to return steps and turn-by-turn instructions ( true ) or not ( false , default).
+         */
         steps?: boolean;
-        /** Indicates whether the returned route is roundtrip, meaning the route returns to the first location ( true , default) or not ( false ). If  roundtrip=false , the  source and  destination parameters are required but not all combinations will be possible. See the Fixing Start and End Points section below for additional notes. */
+        /**
+         * Indicates whether the returned route is roundtrip, meaning the route returns to the first location ( true , default) or not ( false ). If  roundtrip=false , the  source and  destination parameters are required but not all combinations will be possible. See the Fixing Start and End Points section below for additional notes.
+         */
         roundtrip?: boolean;
     }
 
     interface OptimizationWaypoint {
         coordinates: number;
-        /** Used to indicate how requested routes consider from which side of the road to approach the waypoint. */
+        /**
+         * Used to indicate how requested routes consider from which side of the road to approach the waypoint.
+         */
         approach?: DirectionsApproach;
-        /**Used to filter the road segment the waypoint will be placed on by direction and dictates the angle of approach.
-         This option should always be used in conjunction with a `radius`. The first value is an angle clockwise from true north between 0 and 360,
-        and the second is the range of degrees the angle can deviate by. */
+        /**
+         * Used to filter the road segment the waypoint will be placed on by direction and dictates the angle of approach.
+         * This option should always be used in conjunction with a `radius`. The first value is an angle clockwise from true north between 0 and 360,
+         * and the second is the range of degrees the angle can deviate by.
+         */
         bearing?: number[];
-        /**Maximum distance in meters that the coordinate is allowed to move when snapped to a nearby road segment. */
+        /**
+         * Maximum distance in meters that the coordinate is allowed to move when snapped to a nearby road segment.
+         */
         radius?: number | 'unlimited';
     }
 }
