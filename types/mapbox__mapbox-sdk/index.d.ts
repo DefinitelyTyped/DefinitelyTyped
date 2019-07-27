@@ -1312,7 +1312,9 @@ declare module '@mapbox/mapbox-sdk/services/uploads' {
          * @param config
          */
         listUploads(config: { reverse?: boolean }): MapiRequest;
-        /**Create S3 credentials. */
+        /**
+         * Create S3 credentials. 
+         * */
         createUploadCredentials(): MapiRequest;
         /**
          * Create an upload.
