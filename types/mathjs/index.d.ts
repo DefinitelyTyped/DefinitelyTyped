@@ -2600,7 +2600,6 @@ declare namespace math {
          */
         import(object: ImportObject | ImportObject[], options: ImportOptions): void;
 
-
         /*************************************************************************
          * Factory and Dependencies
          ************************************************************************/
