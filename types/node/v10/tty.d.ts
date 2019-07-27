@@ -9,6 +9,7 @@ declare module "tty" {
         isTTY: boolean;
     }
     class WriteStream extends net.Socket {
+        constructor(fd: number);
         columns: number;
         rows: number;
         isTTY: boolean;

@@ -15,6 +15,7 @@ declare module "tty" {
      */
     type Direction = -1 | 0 | 1;
     class WriteStream extends net.Socket {
+        constructor(fd: number);
         addListener(event: string, listener: (...args: any[]) => void): this;
         addListener(event: "resize", listener: () => void): this;
 
