@@ -3,6 +3,24 @@
 // Definitions by: Gunnar Már Óttarsson <https://github.com/gunnim>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference path="./build2/ArrayFileReader.d.ts" />
+/// <reference path="./build2/BlobFileReader.d.ts" />
+/// <reference path="./build2/ByteArrayUtils.d.ts" />
+/// <reference path="./build2/ChunkedFileData.d.ts" />
+/// <reference path="./build2/FLACTagContents.d.ts" />
+/// <reference path="./build2/FLACTagReader.d.ts" />
+/// <reference path="./build2/ID3v1TagReader.d.ts" />
+/// <reference path="./build2/ID3v2FrameReader.d.ts" />
+/// <reference path="./build2/ID3v2TagContents.d.ts" />
+/// <reference path="./build2/ID3v2TagReader.d.ts" />
+/// <reference path="./build2/MediaFileReader.d.ts" />
+/// <reference path="./build2/MediaTagReader.d.ts" />
+/// <reference path="./build2/MP4TagContents.d.ts" />
+/// <reference path="./build2/MP4TagReader.d.ts" />
+/// <reference path="./build2/NodeFileReader.d.ts" />
+/// <reference path="./build2/StringUtils.d.ts" />
+/// <reference path="./build2/XhrFileReader.d.ts" />
+
 import { CallbackType, LoadCallbackType } from './types';
 import MediaFileReader from './build2/MediaFileReader';
 import MediaTagReader from './build2/MediaTagReader';
