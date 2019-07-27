@@ -4520,6 +4520,7 @@ export interface SectionListScrollParams {
 }
 
 export class SectionList<ItemT> extends React.Component<SectionListProps<ItemT>> {
+    
     /**
      * Scrolls to the item at the specified sectionIndex and itemIndex (within the section)
      * positioned in the viewable area such that viewPosition 0 places it at the top
@@ -4537,6 +4538,7 @@ export class SectionList<ItemT> extends React.Component<SectionListProps<ItemT>>
      * Displays the scroll indicators momentarily.
      */
     flashScrollIndicators(): void;
+    
 }
 
 /**
