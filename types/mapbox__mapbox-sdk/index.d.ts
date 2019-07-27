@@ -8,11 +8,11 @@
 declare module '@mapbox/mapbox-sdk/lib/classes/mapi-client' {
     import { MapiRequest, DirectionsApproach } from '@mapbox/mapbox-sdk/lib/classes/mapi-request';
     export default class MapiClient {
-        constructor(config: SdkConfig);
-        accessToken: string;
-        origin?: string;
-        createRequest(requestOptions: any): MapiRequest;
-    }
+                       constructor(config: SdkConfig);
+                       accessToken: string;
+                       origin?: string;
+                       createRequest(requestOptions: any): MapiRequest;
+                   }
 
     export interface SdkConfig {
         accessToken: string;
