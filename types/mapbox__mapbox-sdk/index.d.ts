@@ -182,7 +182,16 @@ declare module '@mapbox/mapbox-sdk/services/datasets' {
         deleteFeature(config: { datasetId: string; featureId: string }): any;
     }
 
-    export type DataSetsFeature = GeoJSON.Point | GeoJSON.MultiPoint | GeoJSON.LineString | GeoJSON.MultiLineString | GeoJSON.Polygon | GeoJSON.MultiPolygon | GeoJSON.GeometryCollection | GeoJSON.Feature<GeoJSON.Geometry, GeoJSON.GeoJsonProperties>;
+    /** All GeoJSON types except for FeatureCollection. */
+    export type DataSetsFeature =
+        | GeoJSON.Point
+        | GeoJSON.MultiPoint
+        | GeoJSON.LineString
+        | GeoJSON.MultiLineString
+        | GeoJSON.Polygon
+        | GeoJSON.MultiPolygon
+        | GeoJSON.GeometryCollection
+        | GeoJSON.Feature<GeoJSON.Geometry, GeoJSON.GeoJsonProperties>;
 
     export interface Dataset {
         /** 	the username of the dataset owner */
@@ -1007,17 +1016,17 @@ declare module '@mapbox/mapbox-sdk/services/styles' {
 
     export interface StylesService {
         /**
-        * Get a style.
-        * @param styleId
-        * @param ownerId
-        */
-        getStyle(config: { styleId: string, ownerId?: string }): MapiRequest;
+         * Get a style.
+         * @param styleId
+         * @param ownerId
+         */
+        getStyle(config: { styleId: string; ownerId?: string }): MapiRequest;
         /**
          * Create a style.
          * @param style
          * @param ownerId
          */
-        createStyle(config: { style: Style, ownerId?: string }): MapiRequest;
+        createStyle(config: { style: Style; ownerId?: string }): MapiRequest;
         /**
          * Update a style.
          * @param styleId
@@ -1026,19 +1035,24 @@ declare module '@mapbox/mapbox-sdk/services/styles' {
          * @param ownerId
          */
         // implicit any
-        updateStyle(config: { styleId: string, style: Style, lastKnownModification?: string | number | Date, ownerId?: string }): void;
+        updateStyle(config: {
+            styleId: string;
+            style: Style;
+            lastKnownModification?: string | number | Date;
+            ownerId?: string;
+        }): void;
         /**
          * Delete a style.
          * @param style
          * @param ownerId
          */
-        deleteStyle(config: { style: Style, ownerId?: string }): MapiRequest;
+        deleteStyle(config: { style: Style; ownerId?: string }): MapiRequest;
         /**
          * List styles in your account.
          * @param start
          * @param ownerId
          */
-        listStyles(config: { start?: string, ownerId?: string }): MapiRequest;
+        listStyles(config: { start?: string; ownerId?: string }): MapiRequest;
         /**
          * Add an icon to a style, or update an existing one.
          * @param styleId
@@ -1046,7 +1060,12 @@ declare module '@mapbox/mapbox-sdk/services/styles' {
          * @param file
          * @param ownerId
          */
-        putStyleIcon(config: { styleId: string, iconId: string, file: Blob | ArrayBuffer | string, ownerId?: string }): MapiRequest;
+        putStyleIcon(config: {
+            styleId: string;
+            iconId: string;
+            file: Blob | ArrayBuffer | string;
+            ownerId?: string;
+        }): MapiRequest;
         /**
          * Remove an icon from a style.
          * @param styleId
@@ -1054,7 +1073,7 @@ declare module '@mapbox/mapbox-sdk/services/styles' {
          * @param ownerId
          */
         // implicit any
-        deleteStyleIcon(config: { styleId: string, iconId: string, ownerId?: string }): void;
+        deleteStyleIcon(config: { styleId: string; iconId: string; ownerId?: string }): void;
         /**
          * Get a style sprite's image or JSON document.
          * @param styleId
@@ -1062,7 +1081,12 @@ declare module '@mapbox/mapbox-sdk/services/styles' {
          * @param highRes
          * @param ownerId
          */
-        getStyleSprite(config: { styleId: string, format?: "json" | "png", highRes?: boolean, ownerId?: string }): MapiRequest;
+        getStyleSprite(config: {
+            styleId: string;
+            format?: 'json' | 'png';
+            highRes?: boolean;
+            ownerId?: string;
+        }): MapiRequest;
         /**
          * Get a font glyph range.
          * @param fonts
@@ -1070,7 +1094,7 @@ declare module '@mapbox/mapbox-sdk/services/styles' {
          * @param end
          * @param ownerId
          */
-        getFontGlyphRange(config: { fonts: string[], start: number, end: number, ownerId?: string }): MapiRequest;
+        getFontGlyphRange(config: { fonts: string[]; start: number; end: number; ownerId?: string }): MapiRequest;
         /**
          * Get embeddable HTML displaying a map.
          * @param config
@@ -1079,7 +1103,13 @@ declare module '@mapbox/mapbox-sdk/services/styles' {
          * @param title
          * @param ownerId
          */
-        getEmbeddableHtml(config: { config: any, styleId: string, scrollZoom?: boolean, title?: boolean, ownerId?: string }): MapiRequest;
+        getEmbeddableHtml(config: {
+            config: any;
+            styleId: string;
+            scrollZoom?: boolean;
+            title?: boolean;
+            ownerId?: string;
+        }): MapiRequest;
     }
 
     interface Style {
