@@ -3,6 +3,7 @@
 // Definitions by: Jeff Dye <https://github.com/jeffbdye> 
 //                 Mike O'Meara <https://github.com/mikeomeara1>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 declare module '@mapbox/mapbox-sdk/lib/classes/mapi-client' {
     import { MapiRequest, DirectionsApproach } from '@mapbox/mapbox-sdk/lib/classes/mapi-request';
