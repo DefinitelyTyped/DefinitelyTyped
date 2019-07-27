@@ -1161,24 +1161,34 @@ declare module '@mapbox/mapbox-sdk/services/tilequery' {
     }
 
     interface TileQueryRequest {
-        /**The maps being queried. If you need to composite multiple layers, provide multiple map IDs. */
+        /**
+         * The maps being queried. If you need to composite multiple layers, provide multiple map IDs.
+         */
         mapIds: string[];
-        /**The longitude and latitude to be queried. */
+        /**
+         * The longitude and latitude to be queried.
+         */
         coordinates: mapboxgl.LngLatLike;
-        /**The approximate distance in meters to query for features. (optional, default 0) */
+        /**
+         * The approximate distance in meters to query for features. (optional, default 0)
+         */
         radius: number;
-        /**The number of features to return, between 1 and 50. (optional, default 5) */
+        /**
+         * The number of features to return, between 1 and 50. (optional, default 5)
+         */
         limit: number;
-        /**Whether or not to deduplicate results. (optional, default true) */
+        /**
+         * Whether or not to deduplicate results. (optional, default true)
+         */
         dedupe: boolean;
-        /** Queries for a specific geometry type. */
+        /**
+         * Queries for a specific geometry type.
+         */
         geometry: GeometryType;
         layers?: string[];
     }
 
-    export type GeometryType = 'polygon' | 'linestring' | 'point';
-
-
+    type GeometryType = 'polygon' | 'linestring' | 'point';
 }
 
 declare module '@mapbox/mapbox-sdk/services/tilesets' {
@@ -1238,7 +1248,9 @@ declare module '@mapbox/mapbox-sdk/services/tokens' {
          * @param request
          */
         updateToken(request: UpdateDeleteTokenRequest): MapiRequest;
-        /**Get data about the client's access token. */
+        /**
+         * Get data about the client's access token.
+         */
         getToken(): MapiRequest;
         /**
          * Delete an access token.
@@ -1272,7 +1284,7 @@ declare module '@mapbox/mapbox-sdk/services/tokens' {
          * human friendly description of the token
          */
         note: string;
-        /**	
+        /**
          * array of scopes granted to the token
          */
         scopes: string[];
@@ -1280,7 +1292,7 @@ declare module '@mapbox/mapbox-sdk/services/tokens' {
          * date and time the token was created
          */
         created: string;
-        /**	
+        /**
          * date and time the token was last modified
          */
         modified: string;
