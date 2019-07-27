@@ -640,15 +640,15 @@ declare module '@mapbox/mapbox-sdk/services/geocoding' {
         mode: GeocodeMode;
         // Limit results to one or more countries. Options are ISO 3166 alpha 2 country codes
         countries?: string[];
-        //Bias local results based on a provided location. Options are  longitude,latitude coordinates.
+        // Bias local results based on a provided location. Options are  longitude,latitude coordinates.
         proximity?: number[];
-        //Filter results by one or more feature types
+        // Filter results by one or more feature types
         types?: GeocodeQueryType[];
         //Forward geocoding only. Return autocomplete results or not. Options are  true or  false and the default is  true .
         autocomplete?: boolean;
-        //Forward geocoding only. Limit results to a bounding box. Options are in the format  minX,minY,maxX,maxY .
+        // Forward geocoding only. Limit results to a bounding box. Options are in the format  minX,minY,maxX,maxY .
         bbox?: IBBox;
-        //Limit the number of results returned. The default is  5 for forward geocoding and  1 for reverse geocoding.
+        // Limit the number of results returned. The default is  5 for forward geocoding and  1 for reverse geocoding.
         limit?: number;
         // Specify the language to use for response text and, for forward geocoding, query result weighting.
         // Options are IETF language tags comprised of a mandatory ISO 639-1 language code and optionally one or more
@@ -657,51 +657,71 @@ declare module '@mapbox/mapbox-sdk/services/geocoding' {
     }
 
     interface GeocodeResponse {
-        /**	"Feature Collection" , a GeoJSON type from the GeoJSON specification . */
+        /**
+         * "Feature Collection" , a GeoJSON type from the GeoJSON specification.
+         */
         type: string;
-        /**	An array of space and punctuation-separated strings from the original query. */
+        /**
+         * An array of space and punctuation-separated strings from the original query.
+         */
         query: string[];
-        /**An array of feature objects. */
+        /**
+         * An array of feature objects.
+         */
         features: GeocodeFeature[];
-        /**A string attributing the results of the Mapbox Geocoding API to Mapbox and links to Mapbox's terms of service and data sources. */
+        /**
+         * A string attributing the results of the Mapbox Geocoding API to Mapbox and links to Mapbox's terms of service and data sources.
+         */
         attribution: string;
     }
 
     interface GeocodeFeature {
-        /** A string feature id in the form  {type}.{id} where  {type} is the lowest hierarchy feature in the  place_type field.
+        /**
+         * A string feature id in the form  {type}.{id} where  {type} is the lowest hierarchy feature in the  place_type field.
          * The  {id} suffix of the feature id is unstable and may change within versions.
          */
         id: string;
-        /**"Feature" , a GeoJSON type from the GeoJSON specification . */
+        /**
+         * "Feature" , a GeoJSON type from the GeoJSON specification.
+         * */
         type: string;
-        /**An array of feature types describing the feature. Options are  country ,  region ,  postcode ,  district ,  place , locality ,  neighborhood ,
+        /**
+         * An array of feature types describing the feature. Options are  country ,  region ,  postcode ,  district ,  place , locality ,  neighborhood ,
          * address ,  poi , and  poi.landmark . Most features have only one type, but if the feature has multiple types,
          * all applicable types will be listed in the array. (For example, Vatican City is a  country , region , and  place .)
          */
         place_type: string[];
-        /**	A numerical score from 0 (least relevant) to 0.99 (most relevant) measuring how well each returned feature matches the query.
+        /**
+         * A numerical score from 0 (least relevant) to 0.99 (most relevant) measuring how well each returned feature matches the query.
          * You can use the  relevance property to remove results that don't fully match the query.
          */
         relevance: number;
-        /**A string of the house number for the returned  address feature. Note that unlike the
+        /**
+         * A string of the house number for the returned  address feature. Note that unlike the
          * address property for  poi features, this property is outside the  properties object.
          */
         address?: string;
         /**
-         * 	An object describing the feature. The property object is unstable and only Carmen GeoJSON properties are guaranteed.
+         * An object describing the feature. The property object is unstable and only Carmen GeoJSON properties are guaranteed.
          * Your implementation should check for the presence of these values in a response before it attempts to use them.
          */
         properties: GeocodeProperties;
-        /**	A string representing the feature in the requested language, if specified. */
+        /**
+         * A string representing the feature in the requested language, if specified.
+         */
         text: string;
-        /**A string representing the feature in the requested language, if specified, and its full result hierarchy. */
+        /**
+         * A string representing the feature in the requested language, if specified, and its full result hierarchy.
+         */
         place_name: string;
-        /**A string analogous to the  text field that more closely matches the query than results in the specified language.
+        /**
+         * A string analogous to the  text field that more closely matches the query than results in the specified language.
          * For example, querying "Köln, Germany" with language set to English might return a feature with the
          * text "Cologne" and the  matching_text "Köln".
          */
         matching_text: string;
-        /**A string analogous to the  place_name field that more closely matches the query than results in the specified language.
+        /**
+         * A string analogous to the  place_name field that more closely matches the query than results in the specified language.
          * For example, querying "Köln, Germany" with language set to English might return a feature with the place_name "Cologne, Germany"
          * and a  matching_place_name of "Köln, North Rhine-Westphalia, Germany".
          */
@@ -712,39 +732,64 @@ declare module '@mapbox/mapbox-sdk/services/geocoding' {
          * in the format text_{language}, place_name_{language} and language_{language}
          */
         language: string;
-        /**An array bounding box in the form [ minX,minY,maxX,maxY ] . */
+        /**
+         * An array bounding box in the form [ minX,minY,maxX,maxY ] .
+         */
         bbox?: number[];
-        /**	An array in the form [ longitude,latitude ] at the center of the specified  bbox . */
+        /**
+         * An array in the form [ longitude,latitude ] at the center of the specified  bbox .
+         */
         center: number[];
-        /** An object describing the spatial geometry of the returned feature.*/
+        /**
+         * An object describing the spatial geometry of the returned feature
+         */
         geometry: Geometry;
-        /** An array representing the hierarchy of encompassing parent features. Each parent feature may include any of the above properties.*/
+        /**
+         * An array representing the hierarchy of encompassing parent features. Each parent feature may include any of the above properties
+         */
         context: GeocodeFeature[];
     }
 
     interface Geometry {
-        /**" Point" , a GeoJSON type from the GeoJSON specification . */
+        /**
+         * Point, a GeoJSON type from the GeoJSON specification .
+         */
         type: string;
-        /** An array in the format [ longitude,latitude ] at the center of the specified  bbox . */
+        /**
+         * An array in the format [ longitude,latitude ] at the center of the specified  bbox .
+         */
         coordinates: number[];
-        /** A boolean value indicating if an  address is interpolated along a road network. This field is only present when the feature is interpolated. */
+        /**
+         * A boolean value indicating if an  address is interpolated along a road network. This field is only present when the feature is interpolated.
+         */
         interpolated: boolean;
     }
 
     interface GeocodeProperties extends GeocodeFeature {
-        /** The Wikidata identifier for the returned feature.*/
+        /**
+         * The Wikidata identifier for the returned feature.
+         */
         wikidata?: string;
-        /**A string of comma-separated categories for the returned  poi feature. */
+        /**
+         * A string of comma-separated categories for the returned  poi feature.
+         */
         category?: string;
-        /**A formatted string of the telephone number for the returned  poi feature. */
+        /**
+         * A formatted string of the telephone number for the returned  poi feature.
+         */
         tel?: string;
-        /**	The name of a suggested Maki icon to visualize a  poi feature based on its  category . */
+        /**
+         * The name of a suggested Maki icon to visualize a  poi feature based on its  category .
+         */
         maki?: string;
-        /**A boolean value indicating whether a  poi feature is a landmark. Landmarks are
+        /**
+         * A boolean value indicating whether a  poi feature is a landmark. Landmarks are
          * particularly notable or long-lived features like schools, parks, museums and places of worship.
          */
         landmark?: boolean;
-        /**The ISO 3166-1 country and ISO 3166-2 region code for the returned feature. */
+        /**
+         * The ISO 3166-1 country and ISO 3166-2 region code for the returned feature.
+         */
         short_coide: string;
     }
 }
@@ -771,68 +816,107 @@ declare module '@mapbox/mapbox-sdk/services/map-matching' {
     }
 
     interface MapMatchingRequest {
-        /**An ordered array of MapMatchingPoints, between 2 and 100 (inclusive). */
+        /**
+         * An ordered array of MapMatchingPoints, between 2 and 100 (inclusive).
+         */
         points: MapMatchingPoint[];
-        /** A directions profile ID. (optional, default driving) */
+        /**
+         * A directions profile ID. (optional, default driving)
+         */
         profile?: DirectionsProfile;
-        /**Specify additional metadata that should be returned. */
+        /**
+         * Specify additional metadata that should be returned.
+         */
         annotations?: DirectionsAnnotation;
-        /**Format of the returned geometry. (optional, default "polyline") */
+        /**
+         * Format of the returned geometry. (optional, default "polyline")
+         */
         geometries?: DirectionsGeometry;
-        /**Language of returned turn-by-turn text instructions. See supported languages. (optional, default "en") */
+        /**
+         * Language of returned turn-by-turn text instructions. See supported languages. (optional, default "en")
+         */
         language?: string;
-        /** Type of returned overview geometry. (optional, default "simplified")*/
+        /**
+         * Type of returned overview geometry. (optional, default "simplified"
+         */
         overview?: DirectionsOverview;
-        /**Whether to return steps and turn-by-turn instructions. (optional, default false) */
+        /**
+         * Whether to return steps and turn-by-turn instructions. (optional, default false)
+         */
         steps?: boolean;
-        /** Whether or not to transparently remove clusters and re-sample traces for improved map matching results. (optional, default false) */
+        /**
+         * Whether or not to transparently remove clusters and re-sample traces for improved map matching results. (optional, default false)
+         */
         tidy?: boolean;
     }
 
     interface Point {
         coordinates: LngLatLike;
-        /**Used to indicate how requested routes consider from which side of the road to approach a waypoint. */
+        /**
+         * Used to indicate how requested routes consider from which side of the road to approach a waypoint.
+         */
         approach?: DirectionsApproach;
     }
 
     interface MapMatchingPoint extends Point {
-        /**A number in meters indicating the assumed precision of the used tracking device. */
+        /**
+         * A number in meters indicating the assumed precision of the used tracking device.
+         */
         radius?: number;
-        /**Whether this coordinate is waypoint or not. The first and last coordinates will always be waypoints. */
+        /**
+         * Whether this coordinate is waypoint or not. The first and last coordinates will always be waypoints.
+         */
         isWaypoint?: boolean;
-        /**Custom name for the waypoint used for the arrival instruction in banners and voice instructions. Will be ignored unless isWaypoint is true. */
+        /**
+         * Custom name for the waypoint used for the arrival instruction in banners and voice instructions.
+         * Will be ignored unless isWaypoint is true.
+         */
         waypointName?: boolean;
-        /**Datetime corresponding to the coordinate. */
+        /**
+         * Datetime corresponding to the coordinate.
+         */
         timestamp?: string | number | Date;
     }
 
     interface MapMatchingResponse {
-        /**an array of Match objects */
+        /**
+         * An array of Match objects.
+         */
         matchings: Matching[];
-        /**an array of Tracepoint objects representing the location an input point was matched with.
+        /**
+         * An array of Tracepoint objects representing the location an input point was matched with.
          * Array of Waypoint objects representing all input points of the trace in the order they were matched.
          * If a trace point is omitted by map matching because it is an outlier, the entry will be null.
          */
         tracepoints: Tracepoint[];
-        /**&a string depicting the state of the response; see below for options */
+        /**
+         * A string depicting the state of the response; see below for options
+         */
         code: string;
     }
 
     interface Tracepoint {
-        /** Number of probable alternative matchings for this trace point. A value of zero indicates that this point was matched unambiguously.
+        /**
+         * Number of probable alternative matchings for this trace point. A value of zero indicates that this point was matched unambiguously.
          * Split the trace at these points for incremental map matching.
          */
         alternatives_count: number;
-        /**Index of the waypoint inside the matched route. */
+        /**
+         * Index of the waypoint inside the matched route.
+         */
         waypoint_index: number;
         location: number[];
         name: string;
-        /**Index to the match object in matchings the sub-trace was matched to. */
+        /**
+         * Index to the match object in matchings the sub-trace was matched to.
+         */
         matchings_index: number;
     }
 
     interface Matching {
-        /**a number between 0 (low) and 1 (high) indicating level of confidence in the returned match */
+        /**
+         * a number between 0 (low) and 1 (high) indicating level of confidence in the returned match
+         */
         confidence: number;
         geometry: string;
         legs: Leg[];
@@ -841,7 +925,6 @@ declare module '@mapbox/mapbox-sdk/services/map-matching' {
         weight_name: string;
         weight: number;
     }
-
 }
 
 declare module '@mapbox/mapbox-sdk/services/matrix' {
@@ -893,7 +976,7 @@ declare module '@mapbox/mapbox-sdk/services/optimization' {
     /*********************************************************************************************************************
      * Optimization Types
      *********************************************************************************************************************/
-    export function Optimization(config: SdkConfig | MapiClient): OptimizationService; // SdkConfig | MapiClient
+    export default function Optimization(config: SdkConfig | MapiClient): OptimizationService; // SdkConfig | MapiClient
 
     interface OptimizationService {
         getContours(config: OptimizationRequest): MapiRequest;
@@ -918,7 +1001,8 @@ declare module '@mapbox/mapbox-sdk/services/optimization' {
         destination?: 'any' | 'last';
         /**
          * Specify pick-up and drop-off locations for a trip by providing a ; delimited list of number pairs that correspond with the coordinates list.
-         * The first number of a pair indicates the index to the coordinate of the pick-up location in the coordinates list, and the second number indicates the index to the coordinate of the drop-off location in the coordinates list.
+         * The first number of a pair indicates the index to the coordinate of the pick-up location in the coordinates list,
+         * and the second number indicates the index to the coordinate of the drop-off location in the coordinates list.
          * Each pair must contain exactly 2 numbers, which cannot be the same.
          * The returned solution will visit pick-up locations before visiting drop-off locations. The first location can only be a pick-up location, not a drop-off location.
          */
