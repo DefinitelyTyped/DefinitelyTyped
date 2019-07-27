@@ -4196,13 +4196,24 @@ export interface SectionListScrollParams {
     viewPosition?: number;
 }
 
-export interface SectionListStatic<SectionT> extends React.ComponentClass<SectionListProps<SectionT>> {
+export class SectionList<ItemT> extends React.Component<SectionListProps<ItemT>> {
     /**
      * Scrolls to the item at the specified sectionIndex and itemIndex (within the section)
      * positioned in the viewable area such that viewPosition 0 places it at the top
      * (and may be covered by a sticky header), 1 at the bottom, and 0.5 centered in the middle.
      */
-    scrollToLocation?(params: SectionListScrollParams): void;
+    scrollToLocation(params: SectionListScrollParams): void;
+
+    /**
+     * Tells the list an interaction has occurred,
+     * which should trigger viewability calculations, e.g. if waitForInteractions is true and the user has not scrolled. This is typically called by taps on items or by navigation actions.
+     */
+    recordInteraction(): void;
+
+    /**
+     * Displays the scroll indicators momentarily.
+     */
+    flashScrollIndicators(): void;
 }
 
 /**
@@ -8651,8 +8662,14 @@ export interface KeyboardStatic extends NativeEventEmitter {
 export const ART: ARTStatic;
 export type ART = ARTStatic;
 
-export const SectionList: SectionListStatic<any>;
-export type SectionList<ItemT> = SectionListStatic<ItemT>;
+export const ImagePickerIOS: ImagePickerIOSStatic;
+export type ImagePickerIOS = ImagePickerIOSStatic;
+
+export const LayoutAnimation: LayoutAnimationStatic;
+export type LayoutAnimation = LayoutAnimationStatic;
+
+export const Systrace: SystraceStatic;
+export type Systrace = SystraceStatic;
 
 //////////// APIS //////////////
 export const ActionSheetIOS: ActionSheetIOSStatic;
