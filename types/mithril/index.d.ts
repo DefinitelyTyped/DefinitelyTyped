@@ -142,6 +142,8 @@ declare namespace Mithril {
 	interface JsonpOptions {
 		/** The data to be interpolated into the URL and serialized into the querystring. */
 		params?: { [id: string]: any };
+		/** The data to be serialized into the request body. */
+		body?: any;
 		/** A constructor to be applied to each object in the response. */
 		type?: new (o: any) => any;
 		/** The name of the function that will be called as the callback. */
