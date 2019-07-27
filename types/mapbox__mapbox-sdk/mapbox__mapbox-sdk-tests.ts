@@ -1,16 +1,17 @@
-import Directions, { DirectionsService, DirectionsResponse } from '@mapbox/mapbox-sdk/services/directions';
 import MapiClient, { SdkConfig } from '@mapbox/mapbox-sdk/lib/classes/mapi-client';
 import { MapiRequest } from '@mapbox/mapbox-sdk/lib/classes/mapi-request';
 import { MapiResponse } from '@mapbox/mapbox-sdk/lib/classes/mapi-response';
+import Directions, { DirectionsService, DirectionsResponse } from '@mapbox/mapbox-sdk/services/directions';
+import Styles, { StylesService } from '@mapbox/mapbox-sdk/services/styles';
 
 const config: SdkConfig = {
     accessToken: 'access-token',
 };
 const client = new MapiClient(config);
 
-const ds: DirectionsService = Directions(client);
+const directionsService: DirectionsService = Directions(client);
 
-const mapiRequest: MapiRequest = ds.getDirections({
+const mapiRequest: MapiRequest = directionsService.getDirections({
     profile: 'walking',
     waypoints: [
         {
@@ -22,7 +23,14 @@ const mapiRequest: MapiRequest = ds.getDirections({
     ],
 });
 
-const response = mapiRequest.send().then((response: MapiResponse) => {
+mapiRequest.send().then((response: MapiResponse) => {
     const body = response.body as DirectionsResponse;
     const route = body.routes;
+});
+
+const stylesService: StylesService = Styles(config);
+stylesService.putStyleIcon({
+    styleId: 'style-id',
+    iconId: 'icon-id',
+    file: 'path-to-file.file'
 });
