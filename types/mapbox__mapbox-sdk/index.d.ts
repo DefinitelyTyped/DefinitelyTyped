@@ -14,7 +14,7 @@ declare module '@mapbox/mapbox-sdk/lib/classes/mapi-client' {
                        createRequest(requestOptions: any): MapiRequest;
                    }
 
-    export interface SdkConfig {
+    interface SdkConfig {
         accessToken: string;
         origin?: string;
     }
@@ -25,16 +25,16 @@ declare module '@mapbox/mapbox-sdk/lib/classes/mapi-request' {
     import MapiClient from '@mapbox/mapbox-sdk/lib/classes/mapi-client';
     import { MapiError } from '@mapbox/mapbox-sdk/lib/classes/mapi-error';
 
-    export interface EventEmitter {
+    interface EventEmitter {
         response: MapiResponse;
         error: MapiError;
         downloadProgress: ProgressEvents;
         uploadProgress: ProgressEvents;
     }
 
-    export interface ProgressEvents {}
+    interface ProgressEvents {}
 
-    export interface MapiRequest {
+    interface MapiRequest {
         /** An event emitter */
         emitter: EventEmitter;
         /** This request's MapiClient. */
@@ -87,7 +87,7 @@ declare module '@mapbox/mapbox-sdk/lib/classes/mapi-request' {
 declare module '@mapbox/mapbox-sdk/lib/classes/mapi-response' {
     import { MapiRequest } from '@mapbox/mapbox-sdk/lib/classes/mapi-request';
 
-    export interface MapiResponse {
+    interface MapiResponse {
         /**The response body, parsed as JSON. */
         body: any;
         /**The raw response body. */
@@ -108,7 +108,7 @@ declare module '@mapbox/mapbox-sdk/lib/classes/mapi-response' {
 declare module '@mapbox/mapbox-sdk/lib/classes/mapi-error' {
     import { MapiRequest } from '@mapbox/mapbox-sdk/lib/classes/mapi-request';
 
-    export interface MapiError {
+    interface MapiError {
         /**The errored request. */
         request: MapiRequest;
         /** The type of error. Usually this is 'HttpError'.
@@ -133,7 +133,7 @@ declare module '@mapbox/mapbox-sdk/services/datasets' {
      *********************************************************************************************************************/
     export default function Datasets(config: SdkConfig | MapiClient): DatasetsService;
 
-    export interface DatasetsService {
+    interface DatasetsService {
         /**List datasets in your account. */
         listDatasets(): MapiRequest;
         /**
@@ -194,7 +194,7 @@ declare module '@mapbox/mapbox-sdk/services/datasets' {
         | GeoJSON.GeometryCollection
         | GeoJSON.Feature<GeoJSON.Geometry, GeoJSON.GeoJsonProperties>;
 
-    export interface Dataset {
+    interface Dataset {
         /** 	the username of the dataset owner */
         owner: string;
         /**id for an existing dataset */
@@ -224,7 +224,7 @@ declare module '@mapbox/mapbox-sdk/services/directions' {
 
     export default function Directions(config: SdkConfig | MapiClient): DirectionsService;
 
-    export interface DirectionsService {
+    interface DirectionsService {
         getDirections(request: DirectionsRequest): MapiRequest;
     }
 
@@ -266,7 +266,7 @@ declare module '@mapbox/mapbox-sdk/services/directions' {
         | 'exit roundabout'
         | 'exit rotary';
 
-    export interface DirectionsRequest {
+    interface DirectionsRequest {
         /**Routing profile; either  mapbox/driving-traffic ,  mapbox/driving ,  mapbox/walking , or  mapbox/cycling */
         profile: DirectionsProfile;
         waypoints: DirectionsRequestWaypoint[];
@@ -318,7 +318,7 @@ declare module '@mapbox/mapbox-sdk/services/directions' {
         voiceUnits?: DirectionsUnits;
     }
 
-    export interface DirectionsRequestWaypoint {
+    interface DirectionsRequestWaypoint {
         /**Semicolon-separated list of  {longitude},{latitude} coordinate pairs to visit in order. There can be between 2 and 25 coordinates. */
         coordinates: number[] | LngLatLike;
         /**Used to indicate how requested routes consider from which side of the road to approach a waypoint.
@@ -333,7 +333,7 @@ declare module '@mapbox/mapbox-sdk/services/directions' {
         radius?: string | 'unlimited';
     }
 
-    export interface DirectionsResponse {
+    interface DirectionsResponse {
         /**Array of Route objects ordered by descending recommendation rank. May contain at most two routes. */
         routes: Route[];
         /** Array of Waypoint objects. Each waypoints is an input coordinate snapped to the road and path network.
@@ -347,7 +347,7 @@ declare module '@mapbox/mapbox-sdk/services/directions' {
         uuid: string;
     }
 
-    export interface Waypoint {
+    interface Waypoint {
         /**String with the name of the way the coordinate snapped to */
         name: string;
         /**Array of [ longitude, latitude ] for the snapped coordinate */
@@ -369,7 +369,7 @@ declare module '@mapbox/mapbox-sdk/services/directions' {
         waypointName?: string;
     }
 
-    export interface Route {
+    interface Route {
         /**Depending on the geometries parameter this is a GeoJSON LineString or a Polyline string.
          * Depending on the overview parameter this is the complete route geometry (full), a simplified geometry
          * to the zoom level at which the route can be displayed in full (simplified), or is not included (false)
@@ -391,7 +391,7 @@ declare module '@mapbox/mapbox-sdk/services/directions' {
         voiceLocale?: string;
     }
 
-    export interface Leg {
+    interface Leg {
         /**Depending on the summary parameter, either a String summarizing the route (true, default) or an empty String (false) */
         summary: string;
         weight: number;
@@ -407,7 +407,7 @@ declare module '@mapbox/mapbox-sdk/services/directions' {
         annotation: DirectionsAnnotation[];
     }
 
-    export interface Step {
+    interface Step {
         /**Array of objects representing all intersections along the step. */
         intersections: Intersection[];
         /**The legal driving side at the location for this step. Either left or right. */
@@ -446,7 +446,7 @@ declare module '@mapbox/mapbox-sdk/services/directions' {
         pronunciation?: string;
     }
 
-    export interface Instruction {
+    interface Instruction {
         /**String that contains all the text that should be displayed */
         text: string;
         /**Objects that, together, make up what should be displayed in the banner.
@@ -467,7 +467,7 @@ declare module '@mapbox/mapbox-sdk/services/directions' {
         driving_side: DirectionsSide;
     }
 
-    export interface BannerInstruction {
+    interface BannerInstruction {
         /**float indicating in meters, how far from the upcoming maneuver
          * the banner instruction should begin being displayed. Only 1 banner should be displayed at a time.
          */
@@ -484,7 +484,7 @@ declare module '@mapbox/mapbox-sdk/services/directions' {
         sub?: Sub;
     }
 
-    export interface Sub {
+    interface Sub {
         /** String that contains all the text that should be displayed */
         text: string;
         /**Objects that, together, make up what should be displayed in the banner.
@@ -493,7 +493,7 @@ declare module '@mapbox/mapbox-sdk/services/directions' {
         components: Component[];
     }
 
-    export interface Component {
+    interface Component {
         /**String giving you more context about the component which may help in visual markup/display choices.
          * If the type of the components is unknown it should be treated as text. Note: Introduction of new types
          * is not considered a breaking change. See the Types of Banner Components table below for more info on each type.
@@ -524,7 +524,7 @@ declare module '@mapbox/mapbox-sdk/services/directions' {
         active: boolean;
     }
 
-    export interface VoiceInstruction {
+    interface VoiceInstruction {
         /** float indicating in meters, how far from the upcoming maneuver the voice instruction should begin. */
         distanceAlongGeometry: number;
         /**String containing the text of the verbal instruction. */
@@ -535,7 +535,7 @@ declare module '@mapbox/mapbox-sdk/services/directions' {
         ssmlAnnouncement: string;
     }
 
-    export interface Maneuver {
+    interface Maneuver {
         /**Number between 0 and 360 indicating the clockwise angle from true north to the direction of travel right after the maneuver */
         bearing_after: number;
         /**Number between 0 and 360 indicating the clockwise angle from true north to the direction of travel right before the maneuver */
@@ -550,7 +550,7 @@ declare module '@mapbox/mapbox-sdk/services/directions' {
         instruction: string;
     }
 
-    export interface Intersection {
+    interface Intersection {
         /**Index into the bearings/entry array. Used to extract the bearing after the turn. Namely, The clockwise angle from true north to
          * the direction of travel after the maneuver/passing the intersection.
          * The value is not supplied for arrive maneuvers.
@@ -580,7 +580,7 @@ declare module '@mapbox/mapbox-sdk/services/directions' {
         lanes: Lane[];
     }
 
-    export interface Lane {
+    interface Lane {
         /**Boolean value for whether this lane can be taken to complete the maneuver. For instance, if the lane array has four objects and the
          * first two are marked as valid, then the driver can take either of the left lanes and stay on the route.
          */
@@ -623,19 +623,19 @@ declare module '@mapbox/mapbox-sdk/services/geocoding' {
 
     export function Geocoding(config: SdkConfig | MapiClient): GeocodeService;
 
-    export interface GeocodeService {
+    interface GeocodeService {
         forwardGeocode(request: GeocodeRequest): MapiRequest;
         reverseGeocode(request: GeocodeRequest): MapiRequest;
     }
 
-    export interface IBBox {
+    interface IBBox {
         minx: number;
         miny: number;
         maxx: number;
         maxy: number;
     }
 
-    export interface GeocodeRequest {
+    interface GeocodeRequest {
         // A location. This will be a place name for forward geocoding or a coordinate pair (longitude, latitude) for reverse geocoding.
         query: string | LngLatLike;
         // 	Either  mapbox.places for ephemeral geocoding, or  mapbox.places-permanent for storing results and batch geocoding.
@@ -658,7 +658,7 @@ declare module '@mapbox/mapbox-sdk/services/geocoding' {
         language?: string[];
     }
 
-    export interface GeocodeResponse {
+    interface GeocodeResponse {
         /**	"Feature Collection" , a GeoJSON type from the GeoJSON specification . */
         type: string;
         /**	An array of space and punctuation-separated strings from the original query. */
@@ -669,7 +669,7 @@ declare module '@mapbox/mapbox-sdk/services/geocoding' {
         attribution: string;
     }
 
-    export interface GeocodeFeature {
+    interface GeocodeFeature {
         /** A string feature id in the form  {type}.{id} where  {type} is the lowest hierarchy feature in the  place_type field.
          * The  {id} suffix of the feature id is unstable and may change within versions.
          */
@@ -724,7 +724,7 @@ declare module '@mapbox/mapbox-sdk/services/geocoding' {
         context: GeocodeFeature[];
     }
 
-    export interface Geometry {
+    interface Geometry {
         /**" Point" , a GeoJSON type from the GeoJSON specification . */
         type: string;
         /** An array in the format [ longitude,latitude ] at the center of the specified  bbox . */
@@ -733,7 +733,7 @@ declare module '@mapbox/mapbox-sdk/services/geocoding' {
         interpolated: boolean;
     }
 
-    export interface GeocodeProperties extends GeocodeFeature {
+    interface GeocodeProperties extends GeocodeFeature {
         /** The Wikidata identifier for the returned feature.*/
         wikidata?: string;
         /**A string of comma-separated categories for the returned  poi feature. */
@@ -768,11 +768,11 @@ declare module '@mapbox/mapbox-sdk/services/map-matching' {
      *********************************************************************************************************************/
     export function MapMatching(config: SdkConfig | MapiClient): MapMatchingService;
 
-    export interface MapMatchingService {
+    interface MapMatchingService {
         getMatching(request: MapMatchingRequest): MapiRequest;
     }
 
-    export interface MapMatchingRequest {
+    interface MapMatchingRequest {
         /**An ordered array of MapMatchingPoints, between 2 and 100 (inclusive). */
         points: MapMatchingPoint[];
         /** A directions profile ID. (optional, default driving) */
@@ -791,13 +791,13 @@ declare module '@mapbox/mapbox-sdk/services/map-matching' {
         tidy?: boolean;
     }
 
-    export interface Point {
+    interface Point {
         coordinates: LngLatLike;
         /**Used to indicate how requested routes consider from which side of the road to approach a waypoint. */
         approach?: DirectionsApproach;
     }
 
-    export interface MapMatchingPoint extends Point {
+    interface MapMatchingPoint extends Point {
         /**A number in meters indicating the assumed precision of the used tracking device. */
         radius?: number;
         /**Whether this coordinate is waypoint or not. The first and last coordinates will always be waypoints. */
@@ -808,7 +808,7 @@ declare module '@mapbox/mapbox-sdk/services/map-matching' {
         timestamp?: string | number | Date;
     }
 
-    export interface MapMatchingResponse {
+    interface MapMatchingResponse {
         /**an array of Match objects */
         matchings: Matching[];
         /**an array of Tracepoint objects representing the location an input point was matched with.
@@ -820,7 +820,7 @@ declare module '@mapbox/mapbox-sdk/services/map-matching' {
         code: string;
     }
 
-    export interface Tracepoint {
+    interface Tracepoint {
         /** Number of probable alternative matchings for this trace point. A value of zero indicates that this point was matched unambiguously.
          * Split the trace at these points for incremental map matching.
          */
@@ -833,7 +833,7 @@ declare module '@mapbox/mapbox-sdk/services/map-matching' {
         matchings_index: number;
     }
 
-    export interface Matching {
+    interface Matching {
         /**a number between 0 (low) and 1 (high) indicating level of confidence in the returned match */
         confidence: number;
         geometry: string;
@@ -857,7 +857,7 @@ declare module '@mapbox/mapbox-sdk/services/matrix' {
      *********************************************************************************************************************/
     export function Matrix(config: SdkConfig | MapiClient): MatrixService;
 
-    export interface MatrixService {
+    interface MatrixService {
         /**
          * Get a duration and/or distance matrix showing travel times and distances between coordinates.
          * @param request
@@ -865,7 +865,7 @@ declare module '@mapbox/mapbox-sdk/services/matrix' {
         getMatrix(request: MatrixRequest): MapiRequest;
     }
 
-    export interface MatrixRequest {
+    interface MatrixRequest {
         points: Point[];
         profile?: DirectionsProfile;
         sources?: number[];
@@ -873,7 +873,7 @@ declare module '@mapbox/mapbox-sdk/services/matrix' {
         annotations?: DirectionsAnnotation;
     }
 
-    export interface MatrixResponse {
+    interface MatrixResponse {
         code: string;
         durations?: number[][];
         distances?: number[][];
@@ -881,7 +881,7 @@ declare module '@mapbox/mapbox-sdk/services/matrix' {
         sources: Destination[];
     }
 
-    export interface Destination {
+    interface Destination {
         location: number[];
         name: string;
     }
@@ -897,11 +897,11 @@ declare module '@mapbox/mapbox-sdk/services/optimization' {
      *********************************************************************************************************************/
     export function Optimization(config: any): OptimizationService; // SdkConfig | MapiClient
 
-    export interface OptimizationService {
+    interface OptimizationService {
         getContours(config: OptimizationRequest): MapiRequest;
     }
 
-    export interface OptimizationRequest {
+    interface OptimizationRequest {
         /**A Mapbox Directions routing profile ID. */
         profile: MapboxProfile;
         /**A semicolon-separated list of  {longitude},{latitude} coordinates. There must be between 2 and 12 coordinates. The first coordinate is the start and end point of the trip. */
@@ -926,7 +926,7 @@ declare module '@mapbox/mapbox-sdk/services/optimization' {
         roundtrip?: boolean;
     }
 
-    export interface OptimizationWaypoint {
+    interface OptimizationWaypoint {
         coordinates: number;
         /** Used to indicate how requested routes consider from which side of the road to approach the waypoint. */
         approach?: DirectionsApproach;
@@ -949,7 +949,7 @@ declare module '@mapbox/mapbox-sdk/services/static' {
      *********************************************************************************************************************/
     export function StaticMap(config: SdkConfig | MapiClient): StaticMapService;
 
-    export interface StaticMapService {
+    interface StaticMapService {
         /**
          * Get a static map image..
          * @param request
@@ -957,7 +957,7 @@ declare module '@mapbox/mapbox-sdk/services/static' {
         getStaticImage(request: StaticMapRequest): MapiRequest;
     }
 
-    export interface StaticMapRequest {
+    interface StaticMapRequest {
         ownerId: string;
         styleId: string;
         width: number;
@@ -977,16 +977,16 @@ declare module '@mapbox/mapbox-sdk/services/static' {
         logo?: boolean;
     }
 
-    export interface CustomMarkerOverlay {
+    interface CustomMarkerOverlay {
         marker: CustomMarker;
     }
 
-    export interface CustomMarker {
+    interface CustomMarker {
         coordinates: LngLatLike;
         url: string;
     }
 
-    export interface PathOverlay {
+    interface PathOverlay {
         /**An array of coordinates describing the path. */
         coordinates: LngLatBoundsLike[];
         strokeWidth?: number;
@@ -999,7 +999,7 @@ declare module '@mapbox/mapbox-sdk/services/static' {
         fillOpacity?: number;
     }
 
-    export interface GeoJsonOverlay {
+    interface GeoJsonOverlay {
         geoJson: GeoJSON.GeoJsonTypes;
     }
 
@@ -1015,7 +1015,7 @@ declare module '@mapbox/mapbox-sdk/services/styles' {
     *********************************************************************************************************************/
     export function Styles(config: SdkConfig | MapiClient): StylesService;
 
-    export interface StylesService {
+    interface StylesService {
         /**
          * Get a style.
          * @param styleId
@@ -1154,7 +1154,7 @@ declare module '@mapbox/mapbox-sdk/services/tilequery' {
      *********************************************************************************************************************/
     export function TileQuery(config: SdkConfig | MapiClient): TileQueryService;
 
-    export interface TileQueryService {
+    interface TileQueryService {
         /**
          * Get a static map image..
          * @param request
@@ -1162,7 +1162,7 @@ declare module '@mapbox/mapbox-sdk/services/tilequery' {
         listFeatures(request: TileQueryRequest): MapiRequest;
     }
 
-    export interface TileQueryRequest {
+    interface TileQueryRequest {
         /**The maps being queried. If you need to composite multiple layers, provide multiple map IDs. */
         mapIds: string[];
         /**The longitude and latitude to be queried. */
@@ -1192,11 +1192,11 @@ declare module '@mapbox/mapbox-sdk/services/tilesets' {
      *********************************************************************************************************************/
     export function Tilesets(config: SdkConfig | MapiClient): TilesetsService;
 
-    export interface TilesetsService {
+    interface TilesetsService {
         listTilesets(config: { ownerId: string }): MapiRequest;
     }
 
-    export interface Tileset {
+    interface Tileset {
         type: string;
         center: number[];
         created: string;
@@ -1220,7 +1220,7 @@ declare module '@mapbox/mapbox-sdk/services/tokens' {
      *********************************************************************************************************************/
     export function Tokens(config: SdkConfig | MapiClient): TokensService;
 
-    export interface TokensService {
+    interface TokensService {
         /**List your access tokens. */
         listTokens(): MapiRequest;
         /**
@@ -1249,7 +1249,7 @@ declare module '@mapbox/mapbox-sdk/services/tokens' {
         listScopes(): MapiRequest;
     }
 
-    export interface Token {
+    interface Token {
         /**the identifier for the token */
         id: string;
         /**the type of token */
@@ -1270,27 +1270,27 @@ declare module '@mapbox/mapbox-sdk/services/tokens' {
         token: string;
     }
 
-    export interface CreateTokenRequest {
+    interface CreateTokenRequest {
         note?: string;
         scopes?: string[];
         resources?: string[];
     }
 
-    export interface TemporaryTokenRequest {
+    interface TemporaryTokenRequest {
         expires: string;
         scopes: string[];
     }
 
-    export interface UpdateDeleteTokenRequest extends CreateTokenRequest {
+    interface UpdateDeleteTokenRequest extends CreateTokenRequest {
         tokenId: string;
     }
 
-    export interface TokenDetail {
+    interface TokenDetail {
         code: string;
         token: Token;
     }
 
-    export interface Scope {
+    interface Scope {
         id: string;
         public: boolean;
         description: string;
@@ -1306,7 +1306,7 @@ declare module '@mapbox/mapbox-sdk/services/uploads' {
      *********************************************************************************************************************/
     export function Uploads(config: SdkConfig | MapiClient): UploadsService;
 
-    export interface UploadsService {
+    interface UploadsService {
         /**
          * List the statuses of all recent uploads.
          * @param config
@@ -1333,7 +1333,7 @@ declare module '@mapbox/mapbox-sdk/services/uploads' {
         deleteUpload(config: { uploadId: string }): any;
     }
 
-    export interface S3Credentials {
+    interface S3Credentials {
         accessKeyId: string;
         bucket: string;
         key: string;
@@ -1342,7 +1342,7 @@ declare module '@mapbox/mapbox-sdk/services/uploads' {
         url: string;
     }
 
-    export interface UploadResponse {
+    interface UploadResponse {
         complete: boolean;
         tileset: string;
         error?: any;
