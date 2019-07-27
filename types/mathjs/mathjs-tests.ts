@@ -482,3 +482,36 @@ Factory Test
 	const negativeSquare = createNegativeSquare({ multiply, unaryMinus });
 	negativeSquare(3);
 }
+
+// file: custom_loading.js
+
+import {
+  fractionDependencies,
+  addDependencies,
+  divideDependencies,
+  formatDependencies
+} from 'mathjs'
+
+
+{
+	const config = {
+	// optionally, you can specify configuration
+	}
+
+	// Create just the functions we need
+	const { fraction, add, divide, format } = create({
+	fractionDependencies,
+	addDependencies,
+	divideDependencies,
+	formatDependencies
+	}, config)
+
+	// Use the created functions
+	const a = fraction(1, 3)
+	const b = fraction(3, 7)
+	const c = add(a, b)
+	const d = divide(a, b)
+	console.log('c =', format(c)) // outputs "c = 16/21"
+	console.log('d =', format(d)) // outputs "d = 7/9"
+
+}
