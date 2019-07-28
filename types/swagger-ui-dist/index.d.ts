@@ -20,15 +20,19 @@ interface Url {
 
 interface SwaggerUIBundle {
   (a: {
-    deepLinking: boolean;
-    dom_id: string;
-    presets: any[];
-    plugins: any;
-    urls: Url[];
-    layout: string;
+    configUrl?: string;
+    deepLinking?: boolean;
+    dom_id?: string;
+    domNode?: string;
+    presets?: any[];
+    plugins?: any;
+    spec?: any;
+    url?: Url;
+    urls?: Url[];
+    layout?: string;
   }): any;
-  presets: any;
-  plugins: any;
+  presets?: any;
+  plugins?: any;
   [k: string]: any;
 
   getConfigs(): SwaggerConfigs;
