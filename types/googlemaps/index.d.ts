@@ -14,6 +14,7 @@
 //                  Colin Doig <https://github.com/captain-igloo>
 //                  Dmitry Demensky <https://github.com/demensky>
 //                  Vladimir Dashukevich <https://github.com/life777>
+//                  Raschid JF Rafaelly <https://github.com/RaschidJFR>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // TypeScript Version: 2.7
@@ -193,7 +194,7 @@ declare namespace google.maps {
          * in the v3.22 Map Controls}.
          */
         panControlOptions?: PanControlOptions;
-        /** 
+        /**
          * Defines a boundary that restricts the area of the map accessible to users.
          * When set, a user can only pan and zoom while the camera view stays inside the
          * limits of the boundary.
@@ -1695,7 +1696,7 @@ declare namespace google.maps {
 
     interface GeocoderGeometry {
         bounds: LatLngBounds;
-        location: LatLng;
+        location: LatLngLiteral;
         location_type: GeocoderLocationType;
         viewport: LatLngBounds;
     }

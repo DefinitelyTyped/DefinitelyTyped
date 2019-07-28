@@ -874,3 +874,15 @@ const directionsWaypointLocationPlace: google.maps.DirectionsWaypoint = {
 const directionsWaypointStopover: google.maps.DirectionsWaypoint = {
     stopover: true
 };
+
+/****** google.maps.GeocoderResult ********/
+
+var xmlHttp = new XMLHttpRequest();
+xmlHttp.open( "GET", 'https://maps.googleapis.com/maps/api/geocode/json?key=myAPIKey&address=cdmx,mexico', false );
+xmlHttp.send( null );
+var response = JSON.parse(xmlHttp.responseText);
+var results: google.maps.GeocoderResult[] = response.results;
+results[0].geometry.bounds;         // $ExpectType LatLngBounds
+results[0].geometry.location;       // $ExpectType LatLngLiteral
+results[0].geometry.location_type;  // $ExpectType GeocoderLocationType
+results[0].geometry.viewport;       // $ExpectType LatLngBounds
