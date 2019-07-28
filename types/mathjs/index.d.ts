@@ -35,7 +35,7 @@ declare namespace math {
 
     type MathJsFunctionName = keyof MathJsStatic;
 
-    interface MathJsStatic {
+    interface MathJsStatic extends FactoryDependencies {
         e: number;
         pi: number;
         i: number;
@@ -2599,16 +2599,18 @@ declare namespace math {
          * @param options An object with import options.
          */
         import(object: ImportObject | ImportObject[], options: ImportOptions): void;
+    }
 
-        /*************************************************************************
-         * Factory and Dependencies
-         ************************************************************************/
+    /*************************************************************************
+     * Factory and Dependencies
+     ************************************************************************/
+    interface FactoryDependencies {
 
-        create: (factories: FactoryFunctionMap, config: ConfigOptions) => MathJsStatic;
+        create: (factories: FactoryFunctionMap, config: ConfigOptions) => Partial<MathJsStatic>;
         factory: <T>(
             name: string,
             dependencies: MathJsFunctionName[],
-            create: (injected: MathJsStatic) => T,
+            create: (injected: Partial<MathJsStatic>) => T,
             meta?: any,
         ) => FactoryFunction<T>;
         all: FactoryFunctionMap;
