@@ -31,7 +31,7 @@ request<any>({
 request<Result>({
 	method: "GET",
 	url: "/item",
-	body: 5,
+	body: "5",
 	serialize: (data: number) => "id=" + data.toString()
 }).then(result => {
 	console.log(result);

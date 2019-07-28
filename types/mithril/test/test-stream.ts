@@ -26,7 +26,7 @@ import * as Stream from 'mithril/stream';
 }
 
 {
-	const s = Stream();
+	const s = Stream<number>();
 	const doubled = Stream.combine(s => s() * 2, [s]);
 	s(2);
 	console.assert(doubled() === 4);
@@ -140,6 +140,13 @@ import * as Stream from 'mithril/stream';
 }
 
 {
+	const a = Stream(1);
+	const b = Stream("x");
+	const concated = Stream.lift((num, str) => str + num, a, b);
+	console.assert(concated() === "x1");
+}
+
+{
 	const s1 = Stream<number>();
 	const s2 = Stream<number>();
 	const added = Stream.lift((n1, n2) => n1 + n2, s1, s2);
@@ -219,10 +226,10 @@ import * as Stream from 'mithril/stream';
 }
 
 {
-    const s = Stream("a");
-    const t = s.map(() => 1);
-    const n = t() + 1;
-    console.assert(n === 2);
+	const s = Stream("a");
+	const t = s.map(() => 1);
+	const n = t() + 1;
+	console.assert(n === 2);
 }
 
 // scan

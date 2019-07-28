@@ -2,7 +2,7 @@
 // Project: https://mithril.js.org/, https://github.com/mithriljs/mithril.js
 // Definitions by: Mike Linkovich <https://github.com/spacejack>, András Parditka <https://github.com/andraaspar>, Isiah Meadows <https://github.com/isiahmeadows>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.2
 
 /** Renders a vnode structure into a DOM element. */
 declare function render(el: Element, vnodes: Mithril.Children): void;
@@ -106,7 +106,8 @@ declare namespace Mithril {
 		/** The data to be interpolated into the URL and serialized into the querystring. */
 		params?: { [key: string]: any };
 		/** The data to be serialized into the request body. */
-		body?: any;
+		body?: (XMLHttpRequest["send"] extends (x: infer R) => any ? R : never)
+			| (object & { [id: string]: any });
 		/** Whether the request should be asynchronous. Defaults to true. */
 		async?: boolean;
 		/** A username for HTTP authorization. */
@@ -161,6 +162,14 @@ declare namespace Mithril {
 		sync(): void;
 	}
 
+	type Params = object & ParamsRec;
+
+	interface ParamsRec {
+		// Ideally, it'd be this:
+		// `[key: string | number]: Params | !symbol & !object`
+		[key: string]: string | number | boolean | null | undefined | Params;
+	}
+
 	interface Static extends Hyperscript {
 		route: Route;
 		mount: typeof mount;
@@ -169,13 +178,13 @@ declare namespace Mithril {
 		request: typeof request;
 		jsonp: typeof jsonp;
 		/** Returns an object with key/value pairs parsed from a string of the form: ?a=1&b=2 */
-		parseQueryString(queryString: string): { [p: string]: any };
+		parseQueryString(queryString: string): Params;
 		/** Turns the key/value pairs of an object into a string of the form: a=1&b=2 */
-		buildQueryString(values: { [p: string]: any }): string;
+		buildQueryString(values: Params): string;
 		/** Parse path name */
-		parsePathname(url: string): { path: string, params: { [p: string]: any } };
+		parsePathname(url: string): { path: string, params: Params };
 		/** Build path name */
-		buildPathname(template: string, params?: { [p: string]: any }): string;
+		buildPathname(template: string, params?: Params): string;
 	}
 
 	// Vnode children types

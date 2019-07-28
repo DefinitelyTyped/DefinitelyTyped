@@ -1,6 +1,6 @@
 // tslint:disable:rulename strict-export-declare-modifiers
 /** Creates an empty stream. */
-declare function Stream<T = any>(): Stream<T>; // tslint:disable-line no-unnecessary-generics
+declare function Stream<T>(): Stream<T>; // tslint:disable-line no-unnecessary-generics
 /** Creates a stream with an initial value. */
 declare function Stream<T>(value: T): Stream<T>; // tslint:disable-line unified-signatures
 
@@ -12,7 +12,7 @@ declare interface Stream<T> {
 	/** Creates a dependent stream whose value is set to the result of the callback function. */
 	map<U>(f: (current: T) => U): Stream<U>;
 	/** This method is functionally identical to stream. It exists to conform to Fantasy Land's Applicative specification. */
-	of(val?: T): Stream<T>;
+	of(val: T): Stream<T>;
 	/** Apply. */
 	ap<U>(f: Stream<(value: T) => U>): Stream<U>;
 	/** A co-dependent stream that unregisters dependent streams when set to true. */
@@ -27,13 +27,7 @@ declare namespace Stream {
 	/** Creates a computed stream that reactively updates if any of its upstreams are updated. */
 	export function combine<T>(combiner: (...streams: any[]) => T, streams: Array<Stream<any>>): Stream<T>;
 	/** Combines the values of one or more streams into a single stream that is updated whenever one or more of the sources are updated */
-	export function lift<A, Z>(fn: (a: A) => Z, s: Stream<A>): Stream<Z>;
-	export function lift<A, B, Z>(fn: (a: A, b: B) => Z, sa: Stream<A>, sb: Stream<B>): Stream<Z>;
-	export function lift<A, B, C, Z>(fn: (a: A, b: B, c: C) => Z, sa: Stream<A>, sb: Stream<B>, sc: Stream<C>): Stream<Z>;
-	export function lift<A, B, C, D, Z>(fn: (a: A, b: B, c: C, d: D) => Z, sa: Stream<A>, sb: Stream<B>, sc: Stream<C>, sd: Stream<D>): Stream<Z>;
-	export function lift<A, B, C, D, E, Z>(fn: (a: A, b: B, c: C, d: D, e: E) => Z, sa: Stream<A>, sb: Stream<B>, sc: Stream<C>, sd: Stream<D>, se: Stream<E>): Stream<Z>;
-	export function lift<A, B, C, D, E, F, Z>(fn: (a: A, b: B, c: C, d: D, e: E, f: F) => Z, sa: Stream<A>, sb: Stream<B>, sc: Stream<C>, sd: Stream<D>, se: Stream<E>, sf: Stream<F>): Stream<Z>;
-	export function lift<T>(fn: (...values: any[]) => T, ...streams: Array<Stream<any>>): Stream<T>;
+	export function lift<S extends any[], T>(fn: (...values: S) => T, ...streams: {[I in keyof S]: Stream<S[I]>}): Stream<T>;
 	/** Creates a stream whose value is the array of values from an array of streams. */
 	export function merge(streams: Array<Stream<any>>): Stream<any[]>;
 	/** Creates a new stream with the results of calling the function on every incoming stream with and accumulator and the incoming value. */
