@@ -13,14 +13,14 @@ interface IStrategyOptions {
     usernameField?: string;
     passwordField?: string;
     session?: boolean;
-    passReqToCallback?: false;
+    passReqToCallback?: boolean;
 }
 
 interface IStrategyOptionsWithRequest {
     usernameField?: string;
     passwordField?: string;
     session?: boolean;
-    passReqToCallback: true;
+    passReqToCallback: boolean;
 }
 
 interface IVerifyOptions {
