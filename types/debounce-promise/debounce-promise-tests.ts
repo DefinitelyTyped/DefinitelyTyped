@@ -14,9 +14,15 @@ const foo = debounce(async () => f2, 10, {
     leading: true,
     accumulate: true,
 });
-foo().then((f: typeof f2) => f('2'));
+foo().then(f => f('2'));
 const bar = debounce(async () => [1, 2, 3], 100);
 bar().then(ar => ar.concat());
+
+const baz = debounce(async () => f2, 10, {
+    leading: true,
+    accumulate: false,
+});
+baz().then(f => f('2'));
 
 // on accumulate mode, arguments will be collected in one param
 const two = debounce((args: Array<[string, number, { d: boolean }]>) => [4], 10, {
