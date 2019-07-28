@@ -28,6 +28,7 @@
 //                 Dylan Aspden <https://github.com/dhaspden>
 //                 Ethan Setnik <https://github.com/esetnik>
 //                 Pavel Ivanov <https://github.com/schfkt>
+//                 Raschid JF Rafaelly <https://github.com/RaschidJFR>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -5106,7 +5107,7 @@ declare namespace Stripe {
             /**
              * Per unit price for units relevant to the tier.
              */
-            amount: number;
+            unit_amount: number;
 
             /**
              * Up to and including to this quantity will be contained in the tier.
