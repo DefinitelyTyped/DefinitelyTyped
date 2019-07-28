@@ -1,6 +1,6 @@
-import { LoadCallbackType } from 'jsmediatags/types';
-import MediaFileReader from 'jsmediatags/build2/MediaFileReader';
-import ChunkedFileData from 'jsmediatags/build2/ChunkedFileData';
+import { LoadCallbackType } from '../types';
+import MediaFileReader from './MediaFileReader';
+import ChunkedFileData from './ChunkedFileData';
 
 export default class NodeFileReader extends MediaFileReader {
     _path: string;

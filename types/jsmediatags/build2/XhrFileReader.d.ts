@@ -1,6 +1,6 @@
-import { CallbackType, LoadCallbackType } from 'jsmediatags/types';
-import MediaFileReader from 'jsmediatags/build2/MediaFileReader';
-import ChunkedFileData from 'jsmediatags/build2/ChunkedFileData';
+import { CallbackType, LoadCallbackType } from '../types';
+import MediaFileReader from './MediaFileReader';
+import ChunkedFileData from './ChunkedFileData';
 
 export interface ContentRangeType {
     firstBytePosition?: number;

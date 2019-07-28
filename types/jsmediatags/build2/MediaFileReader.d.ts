@@ -1,9 +1,5 @@
-import {
-    CallbackType,
-    CharsetType,
-    LoadCallbackType,
-} from 'jsmediatags/types';
-import { DecodedString } from 'jsmediatags/build2/StringUtils';
+import { CallbackType, CharsetType, LoadCallbackType } from '../types';
+import { DecodedString } from './StringUtils';
 
 export default class MediaFileReader {
     _isInitialized: boolean;

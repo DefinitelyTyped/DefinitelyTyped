@@ -9,8 +9,8 @@ import {
     ByteRange,
     TagType,
 } from '../types';
-import MediaTagReader from 'jsmediatags/build2/MediaTagReader';
-import MediaFileReader from 'jsmediatags/build2/MediaFileReader';
+import MediaTagReader from './MediaTagReader';
+import MediaFileReader from './MediaFileReader';
 
 export default class ID3v2TagReader extends MediaTagReader {
     static getTagIdentifierByteRange(): ByteRange;

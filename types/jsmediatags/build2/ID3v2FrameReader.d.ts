@@ -5,8 +5,8 @@ import {
     TagFrames,
     TagFrameHeader,
     TagFrameFlags
-} from 'jsmediatags/types';
-import MediaFileReader from 'jsmediatags/build2/MediaFileReader';
+} from '../types';
+import MediaFileReader from './MediaFileReader';
 
 // tslint:disable-next-line:interface-name
 interface ID3v2FrameReader {

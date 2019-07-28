@@ -1,6 +1,6 @@
 import {
     ByteArray
-} from 'jsmediatags/types';
+} from '../types';
 
 export default class FLACTagContents {
     blocks: MetadataBlock[];

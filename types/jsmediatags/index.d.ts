@@ -3,9 +3,9 @@
 // Definitions by: Gunnar Már Óttarsson <https://github.com/gunnim>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { CallbackType, LoadCallbackType } from 'jsmediatags/types';
-import MediaFileReader from 'jsmediatags/build2/MediaFileReader';
-import MediaTagReader from 'jsmediatags/build2/MediaTagReader';
+import { CallbackType, LoadCallbackType } from './types';
+import MediaFileReader from './build2/MediaFileReader';
+import MediaTagReader from './build2/MediaTagReader';
 
 // tslint:disable-next-line:export-just-namespace
 export = jsmediatags;
