@@ -8,10 +8,11 @@ import {
 } from '../types';
 import MediaFileReader from './MediaFileReader';
 
-export default class ID3v2FrameReader {
-    static getFrameReaderFunction(frameId: string): FrameReaderSignature | null;
+// tslint:disable-next-line:interface-name
+interface ID3v2FrameReader {
+    getFrameReaderFunction(frameId: string): FrameReaderSignature | null;
 
-    static readFrames(
+    readFrames(
         offset: number,
         end: number,
         data: MediaFileReader,
@@ -19,21 +20,24 @@ export default class ID3v2FrameReader {
         tags?: string[]
       ): TagFrames;
 
-    static _getFrameHeaderSize(id3header: TagHeader): number;
+    _getFrameHeaderSize(id3header: TagHeader): number;
 
-    static _readFrameHeader(
+    _readFrameHeader(
         data: MediaFileReader,
         offset: number,
         id3header: TagHeader
       ): TagFrameHeader;
 
-    static _readFrameFlags(data: MediaFileReader, offset: number): TagFrameFlags;
+    _readFrameFlags(data: MediaFileReader, offset: number): TagFrameFlags;
 
-    static _getFrameDescription(frameId: string): string;
+    _getFrameDescription(frameId: string): string;
 
-    static getUnsyncFileReader(
+    getUnsyncFileReader(
         data: MediaFileReader,
         offset: number,
         size: number
       ): MediaFileReader;
 }
+
+declare const ID3v2FrameReader: ID3v2FrameReader;
+export default ID3v2FrameReader;

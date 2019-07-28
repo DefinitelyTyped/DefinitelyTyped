@@ -2,11 +2,11 @@ import { CallbackType, LoadCallbackType } from '../types';
 import MediaFileReader from './MediaFileReader';
 import ChunkedFileData from './ChunkedFileData';
 
-type ContentRangeType = {
-    firstBytePosition?: number,
-    lastBytePosition?: number,
-    instanceLength?: number,
-};
+export interface ContentRangeType {
+    firstBytePosition?: number;
+    lastBytePosition?: number;
+    instanceLength?: number;
+}
 
 export default class XhrFileReader extends MediaFileReader {
     static _config: {

@@ -4,7 +4,7 @@ import {
 
 export function bin(string: string): ByteArray;
 
-export function pad(array: [], size: number): [];
+export function pad(array: any[], size: number): any[];
 
 export function getSynchsafeInteger32(number: number): ByteArray;
 

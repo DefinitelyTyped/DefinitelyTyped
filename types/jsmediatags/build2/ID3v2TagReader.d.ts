@@ -21,7 +21,7 @@ export default class ID3v2TagReader extends MediaTagReader {
 
     _parseData(data: MediaFileReader, tags?: string[]): TagType;
 
-    _getFrameData(frames: TagFrames, ids: string[]): any | void;
+    _getFrameData(frames: TagFrames, ids: string[]): any;
 
     getShortcuts(): {[key: string]: string|string[]};
 }

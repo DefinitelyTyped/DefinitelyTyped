@@ -9,7 +9,7 @@ export default class ID3v2TagContents {
     _major: number;
     _revision: number;
     _contents: ByteArray;
-    _frames: { [key: string]: Array<ByteArray> };
+    _frames: { [key: string]: ByteArray[] };
     _extendedHeader: {
         UPDATE: number,
         CRC: number,
@@ -55,7 +55,7 @@ export default class ID3v2TagContents {
 
     _getData(offset: number, length: number): ByteArray;
 
-    _setData(offset: number, data: ByteArray);
+    _setData(offset: number, data: ByteArray): void;
 
-    _addData(offset: number, data: ByteArray);
+    _addData(offset: number, data: ByteArray): void;
 }

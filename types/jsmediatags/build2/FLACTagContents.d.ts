@@ -3,9 +3,9 @@ import {
 } from '../types';
 
 export default class FLACTagContents {
-    blocks: Array<MetadataBlock>;
+    blocks: MetadataBlock[];
 
-    constructor(blocks?: Array<MetadataBlock>);
+    constructor(blocks?: MetadataBlock[]);
 
     toArray(): ByteArray;
 
