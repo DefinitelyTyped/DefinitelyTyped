@@ -225,11 +225,21 @@ import * as Stream from 'mithril/stream';
 	console.assert(doubled() === 4);
 }
 
+// map
+
 {
 	const s = Stream("a");
 	const t = s.map(() => 1);
 	const n = t() + 1;
 	console.assert(n === 2);
+}
+
+{
+	const s = Stream(2);
+	const t = s.map(n => n % 2 === 0 ? n : Stream.SKIP);
+	s(3);
+	const evenNum: number = t();
+	console.assert(evenNum === 2);
 }
 
 // scan

@@ -10,7 +10,7 @@ declare interface Stream<T> {
 	/** Sets the value of the stream. */
 	(value: T): this;
 	/** Creates a dependent stream whose value is set to the result of the callback function. */
-	map<U>(f: (current: T) => U): Stream<U>;
+	map<U>(f: (current: T) => U | typeof Stream.SKIP): Stream<U>;
 	/** This method is functionally identical to stream. It exists to conform to Fantasy Land's Applicative specification. */
 	of(val: T): Stream<T>;
 	/** Apply. */
@@ -37,7 +37,7 @@ declare namespace Stream {
 	/** Takes an array of pairs of streams and scan functions and merges all those streams using the given functions into a single stream. */
 	export function scanMerge<U>(pairs: Array<[Stream<any>, (acc: U, value: any) => U]>, acc: U): Stream<U>;
 	/** A special value that can be returned to stream callbacks to skip execution of downstreams. */
-	export const SKIP: any;
+	export const SKIP: unique symbol;
 }
 
 export = Stream;
