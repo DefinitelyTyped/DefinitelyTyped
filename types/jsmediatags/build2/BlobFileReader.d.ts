@@ -1,8 +1,8 @@
 import {
     LoadCallbackType
-} from '../types';
-import MediaFileReader from './MediaFileReader';
-import ChunkedFileData from './ChunkedFileData';
+} from 'jsmediatags/types';
+import MediaFileReader from 'jsmediatags/build2/MediaFileReader';
+import ChunkedFileData from 'jsmediatags/build2/ChunkedFileData';
 
 export default class BlobFileReader extends MediaFileReader {
     _blob: Blob;

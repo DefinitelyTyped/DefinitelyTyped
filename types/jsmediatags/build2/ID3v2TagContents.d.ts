@@ -2,7 +2,7 @@ import {
     ByteArray,
     TagHeaderFlags,
     TagFrameFlags
-} from '../types';
+} from 'jsmediatags/types';
 
 export default class ID3v2TagContents {
     _size: number;

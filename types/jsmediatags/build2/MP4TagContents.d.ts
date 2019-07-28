@@ -1,6 +1,6 @@
 import {
     ByteArray
-} from '../types';
+} from 'jsmediatags/types';
 
 export class Atom {
     _name: string;

@@ -1,7 +1,7 @@
 import {
     ChunkType,
     DataType
-} from '../types';
+} from 'jsmediatags/types';
 
 export default class ChunkedFileData {
     static NOT_FOUND: number;

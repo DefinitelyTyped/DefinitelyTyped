@@ -3,8 +3,8 @@ import {
     LoadCallbackType,
     ByteRange,
     TagType
-} from '../types';
-import MediaFileReader from './MediaFileReader';
+} from 'jsmediatags/types';
+import MediaFileReader from 'jsmediatags/build2/MediaFileReader';
 
 export default class MediaTagReader {
     _mediaFileReader: MediaFileReader;

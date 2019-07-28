@@ -1,4 +1,4 @@
-import MediaFileReader from '../build2/MediaFileReader';
+import MediaFileReader from 'jsmediatags/build2/MediaFileReader';
 
 export interface jsmediatagsError {
     type: string;

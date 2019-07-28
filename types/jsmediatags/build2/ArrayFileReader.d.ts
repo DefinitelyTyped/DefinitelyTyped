@@ -2,8 +2,8 @@ import {
     Byte,
     ByteArray,
     LoadCallbackType
-} from '../types';
-import MediaFileReader from './MediaFileReader';
+} from 'jsmediatags/types';
+import MediaFileReader from 'jsmediatags/build2/MediaFileReader';
 
 export default class ArrayFileReader extends MediaFileReader {
     _array: ByteArray;
