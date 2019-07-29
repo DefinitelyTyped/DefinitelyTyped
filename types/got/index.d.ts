@@ -289,6 +289,10 @@ declare namespace got {
         fromCache: boolean;
         redirectUrls?: string[];
         retryCount: number;
+
+        // got's Response is always a "response obtained from http.ClientRequest", therefore these two properties are never undefined
+        statusCode: number;
+        statusMessage: string;
     }
 
     type GotPromise<B extends Buffer | string | object> = Promise<Response<B>> & { cancel(): void };
