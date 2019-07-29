@@ -13,17 +13,26 @@ export as namespace SwaggerUIDist;
 export function getAbsoluteFSPath(): string;
 export function absolutePath(): string;
 
+interface Url {
+  url: string;
+  name: string;
+}
+
 interface SwaggerUIBundle {
   (a: {
-    deepLinking: boolean;
-    dom_id: string;
-    presets: any[];
-    plugins: any;
-    urls: Array<[string, string]>;
-    layout: string;
+    configUrl?: string;
+    deepLinking?: boolean;
+    dom_id?: string;
+    domNode?: string;
+    presets?: any[];
+    plugins?: any;
+    spec?: any;
+    url?: string;
+    urls?: Url[];
+    layout?: string;
   }): any;
-  presets: any;
-  plugins: any;
+  presets?: any;
+  plugins?: any;
   [k: string]: any;
 
   getConfigs(): SwaggerConfigs;
@@ -36,7 +45,7 @@ interface SwaggerConfigs {
   [k: string]: any;
 }
 
-interface SwaggerRequest {
+export interface SwaggerRequest {
   url: string;
   credentials: string;
   [k: string]: any;
