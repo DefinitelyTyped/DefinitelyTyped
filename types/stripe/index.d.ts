@@ -9237,6 +9237,19 @@ declare namespace Stripe {
             list(data: invoices.IInvoiceListOptions, options: HeaderOptions, response?: IResponseFn<IList<invoices.IInvoice>>): IListPromise<invoices.IInvoice>;
             list(data: invoices.IInvoiceListOptions, response?: IResponseFn<IList<invoices.IInvoice>>): IListPromise<invoices.IInvoice>;
             list(response?: IResponseFn<IList<invoices.IInvoice>>): IListPromise<invoices.IInvoice>;
+
+            /**
+             * Stripe will automatically send invoices to customers according to your subscriptions settings.
+             * However, if you’d like to manually send an invoice to your customer out of the normal schedule, you can do so.
+             * When sending invoices that have already been paid, there will be no reference to the payment in the email.
+             *
+             * Requests made in test-mode result in no emails being sent, despite sending an invoice.sent event.
+             *
+             * @returns Returns the invoice object
+             *
+             * @param invoice The ID of the invoice to send
+             */
+            sendInvoice(invoice: string): Promise<invoices.IInvoice>;
         }
 
         class InvoiceItems extends StripeResource {
