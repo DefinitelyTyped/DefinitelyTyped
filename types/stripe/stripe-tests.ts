@@ -1329,6 +1329,19 @@ stripe.invoices.retrieveUpcoming(
 stripe.invoices.retrieveUpcoming("cus_5rfJKDJkuxzh5Q").then((upcoming) => {
     // asynchronously called
 });
+stripe.subscriptions.create({ items: [{ plan: 'platypi-dev' }], customer: 'cus_5rfJKDJkuxzh5Q' }).then(subscription => {
+    // asynchronously called
+
+    stripe.invoices
+        .retrieveUpcoming({
+            customer: 'cus_5rfJKDJkuxzh5Q',
+            subscription: subscription.id,
+        })
+        .then(invoices => {
+            invoices; // $ExpectType IInvoice
+        });
+});
+
 stripe.invoices.listUpcomingLineItems({ limit: 5 }).then((lines) => {
     lines; // $ExpectType IList<IInvoiceLineItem>
 });
