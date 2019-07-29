@@ -68,13 +68,17 @@ describe("linkifyjs/html", () => {
         }
     });
 
-    linkifyHtml("", {
+    linkifyHtml('', {
         format(value, type) {
             if (type === 'url') {
                 return <span>{value}</span>;
             }
-            return <span>{value} ({type})</span>;
-        }
+            return (
+                <span>
+                    {value} ({type})
+                </span>
+            );
+        },
     });
 
     linkifyHtml("", {
