@@ -2,7 +2,6 @@
 // Project: https://github.com/SoapBox/linkifyjs#readme
 // Definitions by: Sean Zhu <https://github.com/szhu>
 //                 Ovidiu Bute <https://github.com/ovidiubute>
-//                 Sarah Vessels <https://github.com/cheshire137>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
