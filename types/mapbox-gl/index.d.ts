@@ -1,4 +1,4 @@
-// Type definitions for Mapbox GL JS v0.53.0
+// Type definitions for Mapbox GL JS v0.54.0
 // Project: https://github.com/mapbox/mapbox-gl-js
 // Definitions by: Dominik Bruderer <https://github.com/dobrud>
 //                 Patrick Reames <https://github.com/patrickr>
@@ -658,6 +658,10 @@ declare namespace mapboxgl {
         setHTML(html: string): this;
 
         setDOMContent(htmlNode: Node): this;
+
+        getMaxWidth(): string;
+
+        setMaxWidth(maxWidth: string): this;
     }
 
     export interface PopupOptions {
@@ -670,6 +674,8 @@ declare namespace mapboxgl {
         offset?: number | PointLike | { [key: string]: PointLike; };
 
         className?: string;
+
+        maxWidth?: string;
     }
 
     export interface Style {
