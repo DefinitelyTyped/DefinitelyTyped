@@ -835,7 +835,7 @@ export interface AuthorizeOptions {
     mode?: "login" | "signUp";
     accessType?: string;
     approvalPrompt?: string;
-    appState?: any;                         
+    appState?: any;
 }
 
 export interface CheckSessionOptions extends AuthorizeOptions {
