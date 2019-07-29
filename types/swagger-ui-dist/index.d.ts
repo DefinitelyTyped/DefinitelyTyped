@@ -27,7 +27,7 @@ interface SwaggerUIBundle {
     presets?: any[];
     plugins?: any;
     spec?: any;
-    url?: Url;
+    url?: string;
     urls?: Url[];
     layout?: string;
   }): any;
