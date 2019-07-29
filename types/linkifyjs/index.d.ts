@@ -2,6 +2,7 @@
 // Project: https://github.com/SoapBox/linkifyjs#readme
 // Definitions by: Sean Zhu <https://github.com/szhu>
 //                 Ovidiu Bute <https://github.com/ovidiubute>
+//                 Sarah Vessels <https://github.com/cheshire137>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -10,6 +11,8 @@ import * as React from "react";
 export type PossiblyFuncOfHrefAndType<T> =
     | T
     | ((href: string, type: string) => T);
+
+export type ElementOrString = string | Element;
 
 // There's always a possibility that values at a string key can always be
 // undefined; i.e., if the key does not exist.
@@ -94,7 +97,7 @@ export interface LinkifyOptions {
      * NOTE: According to the linkifyjs implementation, `format` can be just a
      * string, but this is not mentioned in the docs, so we exclude it.
      */
-    format?: PossiblyByType<(value: string, type: string) => string>;
+    format?: PossiblyByType<(value: string, type: string) => ElementOrString>;
     //
 
     /**
