@@ -1,5 +1,6 @@
 {
     "compilerOptions": {
+        "jsx": "preserve",
         "module": "commonjs",
         "lib": [
             "es6"
@@ -21,6 +22,6 @@
     },
     "files": [
         "index.d.ts",
-        "theme-ui-tests.ts"
+        "theme-ui-tests.tsx"
     ]
 }
