@@ -922,7 +922,15 @@ declare namespace echarts {
                  * "auto"
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.itemStyle.color
                  */
-                color?: string;
+                color?: string | {
+                    type: 'linear',
+                    x: zrender.X,
+                    y: zrender.Y,
+                    x2: zrender.X2,
+                    y2: zrender.Y2,
+                    colorStops: zrender.ColorStops,
+                    globalCoord: zrender.GlobalCoords
+                };
 
                 /**
                  * The bodrder color of bar.
