@@ -66,13 +66,13 @@ declare namespace ShopifyBuy {
 
         fetch(id: string): Promise<Cart>;
 
-        addLineItems(checkoutId: string | number, lineItems: LineItem[]): Promise<Cart>;
+        addLineItems(checkoutId: string, lineItems: LineItem[]): Promise<Cart>;
 
         /**
          * Remove all line items from cart
          */
         clearLineItems(
-            checkoutId: string | number,
+            checkoutId: string,
             lineItems: LineItem[]
         ): Promise<Cart>;
 
@@ -84,8 +84,8 @@ declare namespace ShopifyBuy {
         /**
          * Remove a line item from cart based on line item id
          */
-        removeLineItem(
-            checkoutId: string | number,
+        removeLineItems(
+            checkoutId: string,
             lineItemIds: string[]
         ): Promise<Cart>;
 
@@ -93,7 +93,7 @@ declare namespace ShopifyBuy {
          * Update a line item quantity based on line item id
          */
         updateLineItem(
-            checkoutId:  string | number,
+            checkoutId:  string,
             lineItems: AttributeInput[]
         ): Promise<Cart>;
     }
