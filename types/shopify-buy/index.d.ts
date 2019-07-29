@@ -3,6 +3,7 @@
 // Definitions by: Martin Köhn <https://github.com/openminder>
 //                 Stephen Traiforos <https://github.com/straiforos>
 //                 Rosana Ruiz <https://github.com/totemika>
+//                 Juan Manuel Incaurgarat <https://github.com/kilinkis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.7
 
@@ -66,13 +67,13 @@ declare namespace ShopifyBuy {
 
         fetch(id: string): Promise<Cart>;
 
-        addLineItems(checkoutId: string, lineItems: LineItem[]): Promise<Cart>;
+        addLineItems(checkoutId: string | number, lineItems: LineItem[]): Promise<Cart>;
 
         /**
          * Remove all line items from cart
          */
         clearLineItems(
-            checkoutId: string,
+            checkoutId: string | number,
             lineItems: LineItem[]
         ): Promise<Cart>;
 
@@ -85,7 +86,7 @@ declare namespace ShopifyBuy {
          * Remove a line item from cart based on line item id
          */
         removeLineItems(
-            checkoutId: string,
+            checkoutId: string | number,
             lineItemIds: string[]
         ): Promise<Cart>;
 
@@ -93,7 +94,7 @@ declare namespace ShopifyBuy {
          * Update a line item quantity based on line item id
          */
         updateLineItem(
-            checkoutId:  string,
+            checkoutId:  string | number,
             lineItems: AttributeInput[]
         ): Promise<Cart>;
     }
