@@ -4,7 +4,6 @@ import * as url from "url";
 import * as util from "util";
 import * as http from "http";
 import * as https from "https";
-import * as vm from "vm";
 import * as console2 from "console";
 import * as timers from "timers";
 import * as dns from "dns";

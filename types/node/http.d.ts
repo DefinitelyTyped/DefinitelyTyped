@@ -158,6 +158,16 @@ declare module "http" {
         writeHead(statusCode: number, headers?: OutgoingHttpHeaders): this;
     }
 
+    interface InformationEvent {
+        statusCode: number;
+        statusMessage: string;
+        httpVersion: string;
+        httpVersionMajor: number;
+        httpVersionMinor: number;
+        headers: IncomingHttpHeaders;
+        rawHeaders: string[];
+    }
+
     // https://github.com/nodejs/node/blob/master/lib/_http_client.js#L77
     class ClientRequest extends OutgoingMessage {
         connection: Socket;
@@ -172,6 +182,21 @@ declare module "http" {
         setTimeout(timeout: number, callback?: () => void): this;
         setNoDelay(noDelay?: boolean): void;
         setSocketKeepAlive(enable?: boolean, initialDelay?: number): void;
+
+        addListener(event: 'information', listener: (info: InformationEvent) => void): this;
+        addListener(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        on(event: 'information', listener: (info: InformationEvent) => void): this;
+        on(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        once(event: 'information', listener: (info: InformationEvent) => void): this;
+        once(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        prependListener(event: 'information', listener: (info: InformationEvent) => void): this;
+        prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        prependOnceListener(event: 'information', listener: (info: InformationEvent) => void): this;
+        prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
     }
 
     class IncomingMessage extends stream.Readable {
