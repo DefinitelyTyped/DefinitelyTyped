@@ -1412,8 +1412,7 @@ declare namespace R {
          * Returns a new function much like the supplied one, except that the first two arguments'
          * order is reversed.
          */
-        flip<T, U, TResult>(fn: (arg0: T, arg1: U) => TResult): (arg1: U, arg0?: T) => TResult;
-        flip<T, U, TResult>(fn: (arg0: T, arg1: U, ...args: any[]) => TResult): (arg1: U, arg0?: T, ...args: any[]) => TResult;
+        flip<F extends (...args: any) => any, P extends Parameters<F>>(fn: F): Curry.Curry<(...args: Tools.Concat<[P[1], P[0]], Tools.Drop<P, '2'>>) => ReturnType<F>>;
 
         /**
          * Iterate over an input list, calling a provided function fn for each element in the list.
