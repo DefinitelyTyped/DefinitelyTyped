@@ -69,6 +69,15 @@ describe("linkifyjs/html", () => {
     });
 
     linkifyHtml("", {
+        format(value, type) {
+            if (type === 'url') {
+                return <span>{value}</span>;
+            }
+            return <span>{value} ({type})</span>;
+        }
+    });
+
+    linkifyHtml("", {
         format: {
             url(value) {
                 return value.length > 50 ? value.slice(0, 50) + "…" : value;

@@ -12,11 +12,11 @@ export type PossiblyFuncOfHrefAndType<T> =
     | T
     | ((href: string, type: string) => T);
 
-export type ElementOrString = string | Element;
-
 // There's always a possibility that values at a string key can always be
 // undefined; i.e., if the key does not exist.
-export type PossiblyByType<T> = T | { [type: string]: T | undefined };
+export type PossiblyByType<T> = T | { [type: string]: T | React.ReactElement | undefined };
+
+export type FormatFunc = (value: string, type: string) => string | React.ReactElement;
 
 export type EventHandler = (e: HTMLElement) => void;
 
@@ -97,7 +97,7 @@ export interface LinkifyOptions {
      * NOTE: According to the linkifyjs implementation, `format` can be just a
      * string, but this is not mentioned in the docs, so we exclude it.
      */
-    format?: PossiblyByType<(value: string, type: string) => ElementOrString>;
+    format?: PossiblyByType<FormatFunc>;
     //
 
     /**
