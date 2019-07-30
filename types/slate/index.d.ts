@@ -35,7 +35,6 @@ export interface ObjectAndType {
 }
 
 export interface Rules {
-    rules?: Array<({ match: ObjectAndType | ObjectAndType[] } & Rules)>;
     data?: {
         [key: string]: (v: any) => boolean;
     };
@@ -59,6 +58,7 @@ export interface Rules {
 }
 
 export interface SchemaProperties {
+    rules?: Array<({ match: ObjectAndType | ObjectAndType[] } & Rules)>;
     document?: Rules;
     blocks?: RulesByNodeType;
     inlines?: RulesByNodeType;
