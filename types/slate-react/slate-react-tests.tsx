@@ -1,6 +1,7 @@
 import { Editor, Plugin, EditorProps, OnChangeFn, RenderBlockProps, RenderInlineProps } from 'slate-react';
-import { Value, Editor as Controller, Point, Range, Inline, Mark, Document, Decoration } from 'slate';
+import { Value, Editor as Controller, Point, Range, Inline, Mark, Document, Decoration, Operation } from 'slate';
 import * as React from "react";
+import { List } from "immutable";
 
 class MyPlugin implements Plugin {
     renderBlock(props: RenderBlockProps, editor: Controller, next: () => void) {
@@ -25,8 +26,9 @@ class MyPlugin implements Plugin {
             }
         }
     }
-    onChange: OnChangeFn = ({ operations, value }) => {
-        console.log(operations, value);
+
+    onChange = (change: { operations: List<Operation>, value: Value }) => {
+        console.log(change.operations, change.value);
     }
 }
 
@@ -76,7 +78,7 @@ editor
 .addMark("bold")
 .addMarkAtRange(range, "italic")
 .addMarkByKey("a", 0, 1, "bold")
-.addMarkByPath(Immutable.List([0]), 0, 1, "bold")
+.addMarkByPath(List([0]), 0, 1, "bold")
 .blur()
 .delete()
 .deleteAtRange(range)
@@ -106,17 +108,17 @@ editor
 .insertFragment(doc)
 .insertFragmentAtRange(range, doc)
 .insertFragmentByKey("a", 0, doc)
-.insertFragmentByPath(Immutable.List([0]), 0, doc)
+.insertFragmentByPath(List([0]), 0, doc)
 .insertInline(inline)
 .insertInlineAtRange(range, inline)
 .insertNodeByKey("a", 0, inline)
-.insertNodeByPath(Immutable.List([0]), 0, inline)
+.insertNodeByPath(List([0]), 0, inline)
 .insertText("A bit of rich text, followed by...")
 .insertTextAtRange(range, "More text")
 .insertTextByKey("a", 0, "text")
-.insertTextByPath(Immutable.List([0]), 0, "text")
+.insertTextByPath(List([0]), 0, "text")
 .mergeNodeByKey("b")
-.mergeNodeByPath(Immutable.List([0]))
+.mergeNodeByPath(List([0]))
 .moveAnchorBackward()
 .moveAnchorToEndOfNode(inline)
 .moveAnchorForward()
@@ -195,7 +197,7 @@ editor
 .moveFocusToStartOfText()
 .moveForward()
 .moveNodeByKey("b", "c", 2)
-.moveNodeByPath(Immutable.List([1]), Immutable.List([2]), 1)
+.moveNodeByPath(List([1]), List([2]), 1)
 .moveStartBackward()
 .moveStartForward()
 .moveStartTo("a", 0)
@@ -255,14 +257,14 @@ editor
 .removeMark("bold")
 .removeMarkAtRange(range, "bold")
 .removeMarkByKey("a", 0, 1, "bold")
-.removeMarkByPath(Immutable.List([0]), 0, 1, "bold")
+.removeMarkByPath(List([0]), 0, 1, "bold")
 .removeNodeByKey("b")
-.removeNodeByPath(Immutable.List([0]))
+.removeNodeByPath(List([0]))
 .removeTextByKey("a", 0, 1)
-.removeTextByPath(Immutable.List([0]), 0, 1)
+.removeTextByPath(List([0]), 0, 1)
 .replaceMark("bold", "italic")
 .replaceNodeByKey("a", inline)
-.replaceNodeByPath(Immutable.List([0]), inline)
+.replaceNodeByPath(List([0]), inline)
 .select(range)
 .setBlocks("paragraph")
 .setBlocksAtRange(range, "paragraph")
@@ -270,14 +272,14 @@ editor
 .setInlinesAtRange(range, "paragraph")
 .setMarkByKey("a", 0, 1, mark, { type: "bold" })
 .setNodeByKey("a", "paragraph")
-.setNodeByPath(Immutable.List([0]), "paragraph")
+.setNodeByPath(List([0]), "paragraph")
 .snapshotSelection()
 .splitBlock(0)
 .splitBlockAtRange(range, 0)
 .splitInline(0)
 .splitInlineAtRange(range, 0)
 .splitNodeByKey("a", 0)
-.splitNodeByPath(Immutable.List([0]), 0)
+.splitNodeByPath(List([0]), 0)
 .toggleMark("bold")
 .toggleMarkAtRange(range, "bold")
 .undo()
@@ -290,17 +292,17 @@ editor
 .unwrapInlineByKey("a", "paragraph")
 .unwrapInlineByPath("a", "paragraph")
 .unwrapNodeByKey("a")
-.unwrapNodeByPath(Immutable.List([0]))
+.unwrapNodeByPath(List([0]))
 .wrapBlock("paragraph")
 .wrapBlockAtRange(range, "paragraph")
 .wrapBlockByKey("a", "paragraph")
-.wrapBlockByPath(Immutable.List([0]), "paragraph")
+.wrapBlockByPath(List([0]), "paragraph")
 .wrapInline("paragraph")
 .wrapInlineAtRange(range, "paragraph")
 .wrapInlineByKey("a", "paragraph")
-.wrapInlineByPath(Immutable.List([0]), "paragraph")
+.wrapInlineByPath(List([0]), "paragraph")
 .wrapNodeByKey("a", inline)
-.wrapNodeByPath(Immutable.List([0]), inline)
+.wrapNodeByPath(List([0]), inline)
 .wrapText("a", "b")
 .wrapTextAtRange(range, "a");
 
