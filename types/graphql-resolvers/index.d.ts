@@ -8,30 +8,30 @@ import { IFieldResolver } from "graphql-tools";
 
 export const skip: undefined;
 
-export interface TArgs {
+export interface TArgsDefault {
     [argument: string]: any;
 }
 
-export function combineResolvers<TSource = any, TContext = any>(
+export function combineResolvers<TSource = any, TContext = any, TArgs = TArgsDefault>(
     ...resolvers: Array<IFieldResolver<TSource, TContext, TArgs>>
 ): IFieldResolver<TSource, TContext, TArgs>;
 
-export function pipeResolvers<TSource = any, TContext = any>(
+export function pipeResolvers<TSource = any, TContext = any, TArgs = TArgsDefault>(
     ...resolvers: Array<IFieldResolver<TSource, TContext, TArgs>>
 ): IFieldResolver<TSource, TContext, TArgs>;
 
-export function allResolvers<TSource = any, TContext = any>(
+export function allResolvers<TSource = any, TContext = any, TArgs = TArgsDefault>(
     resolvers: Array<IFieldResolver<TSource, TContext, TArgs>>
 ): IFieldResolver<TSource, TContext, TArgs>;
 
-export function resolveDependee(
+export function resolveDependee<TArgs = TArgsDefault>(
     dependeeName: string
 ): IFieldResolver<any, any, TArgs>;
 
-export function resolveDependees(
+export function resolveDependees<TArgs = TArgsDefault>(
     dependeeNames: string[]
 ): IFieldResolver<any, any, TArgs>;
 
-export function isDependee<TSource = any, TContext = any>(
+export function isDependee<TSource = any, TContext = any, TArgs = TArgsDefault>(
     resolver: IFieldResolver<TSource, TContext, TArgs>
 ): IFieldResolver<TSource, TContext, TArgs>;
