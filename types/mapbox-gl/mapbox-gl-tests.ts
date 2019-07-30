@@ -289,10 +289,24 @@ map.removeFeatureState(featureIdentifier);
 /**
  * Popup
  */
-var popup = new mapboxgl.Popup({closeOnClick: false, closeButton: true, anchor: 'top-right', offset: {'top': [0,0], 'bottom': [25,-50]}, className: 'custom-class' })
+const popupOptions = {
+	closeOnClick: false,
+	closeButton: true,
+	anchor: 'top-right' as mapboxgl.Anchor,
+	offset: {
+		'top': [0,0] as [number, number],
+		'bottom': [25,-50] as [number, number]
+	},
+	className: 'custom-class',
+	maxWidth: '400px'
+};
+expectType<mapboxgl.PopupOptions>(popupOptions);
+const popup = new mapboxgl.Popup(popupOptions)
 	.setLngLat([-50, 50])
 	.setHTML('<h1>Hello World!</h1>')
+	.setMaxWidth('none')
 	.addTo(map);
+popup.getMaxWidth();
 
 /**
  * Add an image
