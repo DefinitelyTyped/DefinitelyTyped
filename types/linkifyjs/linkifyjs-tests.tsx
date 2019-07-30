@@ -60,6 +60,7 @@ describe("linkifyjs/html", () => {
     /* format */
 
     linkifyHtml("", {
+        // Returns strings
         format(value, type) {
             if (type === "url" && value.length > 50) {
                 value = value.slice(0, 50) + "…";
@@ -68,16 +69,23 @@ describe("linkifyjs/html", () => {
         }
     });
 
-    linkifyHtml('', {
+    linkifyHtml("", {
+        // Returns elements
         format(value, type) {
-            if (type === 'url') {
-                return <span>{value}</span>;
+            if (type === "email") {
+                return <code>{value}</code>;
             }
-            return (
-                <span>
-                    {value} ({type})
-                </span>
-            );
+            return <span>{value}</span>;
+        },
+    });
+
+    linkifyHtml("", {
+        // Returns strings or elements
+        format(value, type) {
+            if (type === "email") {
+                return value;
+            }
+            return <span>{value}</span>;
         },
     });
 
