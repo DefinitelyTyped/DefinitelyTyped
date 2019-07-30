@@ -21,6 +21,6 @@
     },
     "files": [
         "index.d.ts",
-        "input-moment-test.tsx"
+        "input-moment-tests.tsx"
     ]
 }
