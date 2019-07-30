@@ -17,7 +17,7 @@ class Example extends Component {
     }
 
     singleButton() {
-        return (<Dialog.Button label="Click" onPress={() => null} />);
+        return (<Dialog.Button label="Click" onPress={() => null}/>);
     }
 
     render() {
