@@ -173,7 +173,7 @@ declare module "net" {
         listen(handle: any, backlog?: number, listeningListener?: () => void): this;
         listen(handle: any, listeningListener?: () => void): this;
         close(callback?: (err?: Error) => void): this;
-        address(): AddressInfo | string | null;
+        address(): AddressInfo | null;
         getConnections(cb: (error: Error | null, count: number) => void): void;
         ref(): this;
         unref(): this;
