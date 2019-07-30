@@ -516,6 +516,7 @@ declare namespace ComponentFramework {
 			/**
 			 * Contains a set of geographic coordinates along with associated accuracy as well as a set of other optional attributes such as altitude and speed.
 			 */
+
 			coords: {
 				latitude: number;
 				longitude: number;
@@ -1321,6 +1322,7 @@ declare namespace ComponentFramework {
 		 */
 		interface NumberProperty extends Property {
 			raw: number | null;
+
 			attributes?: PropertyHelper.FieldPropertyMetadata.NumberMetadata;
 		}
 
@@ -1350,6 +1352,7 @@ declare namespace ComponentFramework {
 		 */
 		interface DateTimeProperty extends Property {
 			raw: Date | null;
+
 			attributes?: PropertyHelper.FieldPropertyMetadata.DateTimeMetadata;
 		}
 
@@ -1358,6 +1361,7 @@ declare namespace ComponentFramework {
 		 */
 		interface StringProperty extends Property {
 			raw: string | null;
+
 			attributes?: PropertyHelper.FieldPropertyMetadata.StringMetadata;
 		}
 
@@ -1374,6 +1378,7 @@ declare namespace ComponentFramework {
 		 */
 		interface OptionSetProperty extends Property {
 			raw: number | null;
+
 			attributes?: PropertyHelper.FieldPropertyMetadata.OptionSetMetadata;
 		}
 
@@ -1382,6 +1387,7 @@ declare namespace ComponentFramework {
 		 */
 		interface MultiSelectOptionSetProperty extends Property {
 			raw: number[] | null;
+
 			attributes?: PropertyHelper.FieldPropertyMetadata.OptionSetMetadata;
 		}
 
