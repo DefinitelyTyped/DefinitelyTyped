@@ -9,6 +9,7 @@ import * as Devices from "puppeteer/DeviceDescriptors";
   const page = await browser.newPage();
   const snap = await page.accessibility.snapshot({
     interestingOnly: true,
+    root: undefined,
   });
   for (const child of snap.children) {
     console.log(child.name);
@@ -121,6 +122,7 @@ puppeteer.launch().then(async browser => {
 
   await page.emulateMedia("screen");
   await page.emulate(Devices['test']);
+  await page.emulate(puppeteer.devices['test']);
   await page.pdf({ path: "page.pdf" });
 
   await page.setRequestInterception(true);
@@ -642,4 +644,22 @@ puppeteer.launch().then(async browser => {
       });
       await browserFetcher.remove(rev);
     }
+});
+
+(async () => {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+  const url = page.workers()[0].url();
+  if (page.target().type() === 'shared_worker') {
+      const a: number = await (await page.target().worker())!.evaluate(() => 1);
+  }
+});
+
+(async () => {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+  const fileChooser = await page.waitForFileChooser({ timeout: 999 });
+  await fileChooser.cancel();
+  const isMultiple: boolean = fileChooser.isMultiple();
+  await fileChooser.accept(['/foo/bar']);
 });

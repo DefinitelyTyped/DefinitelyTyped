@@ -1,4 +1,6 @@
 import {
+  createSqlTag,
+  IdentifierNormalizerType,
   CheckIntegrityConstraintViolationError,
   createBenchmarkingInterceptor,
   createBigintTypeParser,
@@ -22,7 +24,8 @@ import {
   SlonikError,
   sql,
   TypeParserType,
-  UniqueIntegrityConstraintViolationError
+  UniqueIntegrityConstraintViolationError,
+  SqlTaggedTemplateType
 } from 'slonik';
 import { ArrayTokenSymbol, TupleListTokenSymbol } from 'slonik/symbols';
 
@@ -325,6 +328,33 @@ createTimestampWithTimeZoneTypeParser();
       SELECT ${sql.raw('$1', [1])}
   `;
 })();
+
+//
+// createSQLTag
+// ----------------------------------------------------------------------
+(() => {
+  let sql: SqlTaggedTemplateType;
+
+  sql = createSqlTag();
+
+  sql`
+      SELECT 1;
+  `;
+
+  let normalizeIdentifier: IdentifierNormalizerType;
+
+  normalizeIdentifier = (input: string) =>
+      input
+          .split('')
+          .reverse()
+          .join('');
+
+  sql = createSqlTag({
+      normalizeIdentifier,
+  });
+
+  sql = createSqlTag({});
+});
 
 //
 // ERRORS

@@ -18,6 +18,7 @@ loadGoogleMapsApi({ v: 3 }); // $ExpectError
 loadGoogleMapsApi({ timeout: '1000' }); // $ExpectError
 
 loadGoogleMapsApi({
+    apiUrl: 'https://localhost/',
     channel: 'customer',
     client: '12345',
     key: 'abcde',

@@ -15,6 +15,7 @@ import {
   button,
   knob,
   radios,
+  optionsKnob as options,
 } from '@storybook/addon-knobs';
 
 enum SomeEnum {
@@ -74,7 +75,7 @@ stories.add('with all knobs', () => {
 
   return (
     <div style={style}>
-      I'm {name} and I was born on "{dob}"
+      I'm {name} and I was born on "{new Date(dob)}"
       <p>My favorite number is {favoriteNumber}.</p>
       <p>My most comfortable room temperature is {comfortTemp} degrees Fahrenheit.</p>
       <p>My favorite radio station is: {radioStation}</p>
@@ -132,3 +133,19 @@ select<any>('label', { option: 'Option' }, null, groupId);
 files('label', 'image/*', []);
 date('label', new Date(), groupId);
 button('label', () => undefined, groupId);
+
+// optionsKnob
+type Tool = 'hammer' | 'saw' | 'drill';
+const visibleToolOptions: { [key: string]: Tool } = { hammer: 'hammer', saw: 'saw', drill: 'drill' };
+
+// test selecting one option
+const defaultVisibleTool = 'hammer';
+const singleSelection: Tool = options<Tool>('visibleTools', visibleToolOptions, defaultVisibleTool, {
+  display: 'check',
+});
+
+// test selecting multiple options
+const defaultVisibleTools: Tool[] = ['hammer'];
+const multiSelection: Tool[] = options<Tool>('visibleTools', visibleToolOptions, defaultVisibleTools, {
+  display: 'check',
+});

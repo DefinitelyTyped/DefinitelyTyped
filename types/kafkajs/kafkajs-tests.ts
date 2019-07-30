@@ -2,30 +2,42 @@ import * as fs from "fs";
 
 import {
     Kafka,
+    AssignerProtocol,
     PartitionAssigners,
     logLevel,
     CompressionTypes,
-    CompressionCodecs
+    CompressionCodecs,
+    ResourceTypes,
+    PartitionAssigner,
+    LoggerMessage
 } from "kafkajs";
 
+const { MemberMetadata, MemberAssignment } = AssignerProtocol;
 const { roundRobin } = PartitionAssigners;
 
 // COMMON
 const host = "localhost";
 const topic = "topic-test";
 
+const logger = (loggerMessage: LoggerMessage): void => {
+    console.log(`[${loggerMessage.namespace}] ${loggerMessage.log.message}`);
+};
+
 const kafka = new Kafka({
     logLevel: logLevel.INFO,
     brokers: [`${host}:9094`, `${host}:9097`, `${host}:9100`],
     clientId: "example-consumer",
     ssl: {
+        servername: "localhost",
+        rejectUnauthorized: false,
         ca: [fs.readFileSync("./testHelpers/certs/cert-signed", "utf-8")]
     },
     sasl: {
         mechanism: "plain",
         username: "test",
         password: "testtest"
-    }
+    },
+    logCreator: () => logger
 });
 
 // CONSUMER
@@ -35,20 +47,13 @@ const runConsumer = async () => {
     await consumer.connect();
     await consumer.subscribe({ topic });
     await consumer.run({
-        eachBatch: async ({ commitOffsetsIfNecessary }) => {
-            commitOffsetsIfNecessary({
-                topics: [{
-                    topic: 'topic-name',
-                    partitions: [
-                        { partition: 0, offset: '500' }
-                    ]
-                }]
-            });
-        },
+        // eachBatch: async ({ batch }) => {
+        //   console.log(batch)
+        // },
         eachMessage: async ({ topic, partition, message }) => {
             const prefix = `${topic}[${partition} | ${message.offset}] / ${
                 message.timestamp
-                }`;
+            }`;
             console.log(`- ${prefix} ${message.key}#${message.value}`);
         }
     });
@@ -91,17 +96,10 @@ runProducer().catch(e => console.error(`[example/producer] ${e.message}`, e));
 const admin = kafka.admin({ retry: { retries: 10 } });
 
 const runAdmin = async () => {
-    await admin.connect();
-    await admin.fetchTopicMetadata({
-        topic: 'string',
-        partitions: []
-    });
-    await admin.createTopics({
-        topics: [{ topic, numPartitions: 10, replicationFactor: 1 }],
-        timeout: 30000,
-        waitForLeaders: true
-    });
-    await admin.disconnect();
+  await admin.connect();
+  const { topics } = await admin.getTopicMetadata({});
+  await admin.createTopics({ topics: [{ topic, numPartitions: 10, replicationFactor: 1}], timeout: 30000, waitForLeaders: true });
+  await admin.disconnect();
 };
 
 runAdmin().catch(e => console.error(`[example/admin] ${e.message}`, e));
@@ -115,10 +113,39 @@ async () => {
     });
 };
 
+// import SnappyCodec from "kafkajs-snappy";
 const SnappyCodec: any = undefined;
 CompressionCodecs[CompressionTypes.Snappy] = SnappyCodec;
 
+const myCustomAssignmentArray = [0];
+const assignment: { [key: number]: { [key: string]: number[] } } = {
+    0: { a: [0] }
+};
+const MyPartitionAssigner: PartitionAssigner = ({ cluster: any }) => ({
+    name: "MyPartitionAssigner",
+    version: 1,
+    async assign({ members, topics }) {
+        // perform assignment
+        return myCustomAssignmentArray.map(memberId => ({
+            memberId,
+            memberAssignment: MemberAssignment.encode({
+                version: this.version,
+                assignment: assignment[memberId]
+            })
+        }));
+    },
+    protocol({ topics }) {
+        return {
+            name: this.name,
+            metadata: MemberMetadata.encode({
+                version: this.version,
+                topics
+            })
+        };
+    }
+});
+
 kafka.consumer({
     groupId: "my-group",
-    partitionAssigners: [roundRobin]
+    partitionAssigners: [MyPartitionAssigner, roundRobin]
 });

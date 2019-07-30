@@ -6,6 +6,19 @@ Also see the [definitelytyped.org](http://definitelytyped.org) website, although
 
 *You can also read this README in [Spanish](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md), [Korean](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ko.md), [Russian](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ru.md), and [Chinese](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.cn.md)!*
 
+## Table of Contents
+
+* [Current status](#current-status)
+* [How can I contribute?](#how-can-i-contribute)
+    * [Test](#test)
+    * [Make a pull request](#make-a-pull-request)
+        * [Edit an existing package](#edit-an-existing-package)
+        * [Create a new package](#create-a-new-package)
+        * [Common mistakes](#common-mistakes)
+        * [Removing a package](#removing-a-package)
+        * [Lint](#lint)
+* [FAQ](#faq)
+
 ## Current status
 
 This section tracks the health of the repository and publishing process.
@@ -81,7 +94,7 @@ Add to your `tsconfig.json`:
 
 (You can also use `src/types`.)
 Create `types/foo/index.d.ts` containing declarations for the module "foo".
-You should now be able import from `"foo"` in your code and it will route to the new type definition.
+You should now be able to import from `"foo"` in your code and it will route to the new type definition.
 Then build *and* run the code to make sure your type definition actually corresponds to what happens at runtime.
 Once you've tested your definitions with real code, make a [PR](#make-a-pull-request)
 then follow the instructions to [edit an existing package](#edit-an-existing-package) or
@@ -146,7 +159,7 @@ For a good example package, see [base64-js](https://github.com/DefinitelyTyped/D
 #### Common mistakes
 
 * First, follow advice from the [handbook](http://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html).
-* Formatting: Either use all tabs, or always use 4 spaces.
+* Formatting: Use 4 spaces. For new code, this is enforced by Prettier.
 * `function sum(nums: number[]): number`: Use `ReadonlyArray` if a function does not write to its parameters.
 * `interface Foo { new(): Foo; }`:
     This defines a type of objects that are new-able. You probably want `declare class Foo { constructor(); }`.

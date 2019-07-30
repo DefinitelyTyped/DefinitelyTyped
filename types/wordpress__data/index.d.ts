@@ -1,11 +1,11 @@
-// Type definitions for @wordpress/data 4.5
+// Type definitions for @wordpress/data 4.6
 // Project: https://github.com/WordPress/gutenberg/tree/master/packages/data/README.md
 // Definitions by: Derek Sifford <https://github.com/dsifford>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.4
+// TypeScript Version: 3.5
 
-import { ComponentType, Consumer, Provider, useContext } from "react";
-import { AnyAction as Action, combineReducers, Reducer } from "redux";
+import { ComponentType, Consumer, Provider, useContext } from '@wordpress/element';
+import { AnyAction as Action, combineReducers, Reducer } from 'redux';
 
 /**
  * Re-exports
@@ -15,14 +15,8 @@ export { Action, combineReducers };
 //
 // Core functionality
 //
-export type SelectorMap = Record<
-    string,
-    <T = unknown>(...args: readonly any[]) => T
->;
-export type DispatcherMap = Record<
-    string,
-    <T = unknown>(...args: readonly any[]) => T
->;
+export type SelectorMap = Record<string, <T = unknown>(...args: readonly any[]) => T>;
+export type DispatcherMap = Record<string, <T = void>(...args: readonly any[]) => T>;
 export type Subscriber = (callback: () => void) => void;
 
 export function dispatch(key: string): DispatcherMap;
@@ -40,9 +34,7 @@ export interface GenericStoreConfig {
 export interface StoreConfig<S> {
     reducer: Reducer<S>;
     actions?: {
-        [k: string]: (
-            ...args: readonly any[]
-        ) => Action | IterableIterator<any>;
+        [k: string]: (...args: readonly any[]) => Action | IterableIterator<any>;
     };
     selectors?: {
         [k: string]: (state: S, ...args: readonly any[]) => any;
@@ -61,14 +53,8 @@ export interface Store<S, A extends Action = Action> {
     dispatch(action: A): A;
 }
 
-export function registerGenericStore(
-    key: string,
-    config: GenericStoreConfig
-): void;
-export function registerStore<T = {}>(
-    key: string,
-    config: StoreConfig<T>
-): void;
+export function registerGenericStore(key: string, config: GenericStoreConfig): void;
+export function registerStore<T = {}>(key: string, config: StoreConfig<T>): void;
 
 //
 // Registry
@@ -81,10 +67,7 @@ export interface DataRegistry {
     subscribe: typeof subscribe;
 }
 
-export function createRegistry(
-    storeConfigs?: object,
-    parent?: DataRegistry
-): DataRegistry;
+export function createRegistry(storeConfigs?: object, parent?: DataRegistry): DataRegistry;
 
 export const RegistryConsumer: Consumer<DataRegistry>;
 export const RegistryProvider: Provider<DataRegistry>;
@@ -93,41 +76,31 @@ export const RegistryProvider: Provider<DataRegistry>;
 // React Hooks
 //
 export function useRegistry(): DataRegistry;
-export function useSelect<T>(
-    mapSelect: (s: typeof select) => T,
-    deps?: readonly any[]
-): T;
+export function useSelect<T>(mapSelect: (s: typeof select) => T, deps?: readonly any[]): T;
+export function useDispatch(storeName: string): DispatcherMap;
+export function useDispatch(): typeof dispatch;
 
 //
 // React HOCs
 //
 export function withDispatch<DP, P = {}, IP = {}>(
-    mapDispatchToProps: (
-        disp: typeof dispatch,
-        ownProps: P & IP,
-        registry: { select: typeof select }
-    ) => DP
+    mapDispatchToProps: (disp: typeof dispatch, ownProps: P & IP, registry: { select: typeof select }) => DP
 ): (component: ComponentType<P & IP & DP>) => ComponentType<P>;
 
 export function withSelect<SP, P = {}, IP = {}>(
     mapSelectToProps: (sel: typeof select, ownProps: P & IP) => SP
 ): (component: ComponentType<P & IP & SP>) => ComponentType<P>;
 
-export function withRegistry<P = {}>(
-    component: ComponentType<P>
-): ComponentType<P & { registry: DataRegistry }>;
+export function withRegistry<P = {}>(component: ComponentType<P>): ComponentType<P & { registry: DataRegistry }>;
 
 //
 // Plugins
 //
-export type Plugin<T extends Record<string, any>> = (
-    registry: DataRegistry,
-    options: T
-) => Partial<DataRegistry>;
+export type Plugin<T extends Record<string, any>> = (registry: DataRegistry, options: T) => Partial<DataRegistry>;
 
 export const plugins: {
     persistence: Plugin<{
-        storage?: Pick<Storage, "getItem" | "setItem"> & Partial<Storage>;
+        storage?: Pick<Storage, 'getItem' | 'setItem'> & Partial<Storage>;
         storageKey?: string;
     }>;
 };

@@ -16,16 +16,20 @@ csstree.walk(ast, {});
 
 csstree.walk(ast, {
     enter(node, item, list) {
-        this.stylesheet; // $ExpectType StyleSheet
+        this.root; // $ExpectType CssNode
+        this.stylesheet; // $ExpectType StyleSheet | null
         node; // $ExpectType CssNode
         item; // $ExpectType ListItem<CssNode>
         list; // $ExpectType List<CssNode>
+        this.atrule; // $ExpectType Atrule | null
     },
     leave(node, item, list) {
-        this.stylesheet; // $ExpectType StyleSheet
+        this.root; // $ExpectType CssNode
+        this.stylesheet; // $ExpectType StyleSheet | null
         node; // $ExpectType CssNode
         item; // $ExpectType ListItem<CssNode>
         list; // $ExpectType List<CssNode>
+        this.atrule; // $ExpectType Atrule | null
     },
     visit: 'ClassSelector',
     reverse: false,

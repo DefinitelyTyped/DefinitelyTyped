@@ -42,12 +42,16 @@ export interface ReporterConfig {
     logSpans?: boolean;
     agentHost?: string;
     agentPort?: number;
+    collectorEndpoint?: string;
+    username?: string;
+    password?: string;
     flushIntervalMs?: number;
 }
 
 export interface SamplerConfig {
     type: string;
     param: number;
+    hostPort?: string;
     host?: string;
     port?: number;
     refreshIntervalMs?: number;

@@ -43,11 +43,12 @@ declare namespace proxy {
             userReq: Request,
             userRes: Response
         ) => Buffer | string | Promise<Buffer | string>;
+        filter?: (req: Request, res: Response) => boolean;
+        skipToNextHandlerFilter?: (proxyRes: Response) => boolean;
+        proxyReqBodyDecorator?: (bodyContent: any, srcReq: Request) => any;
         preserveHostHdr?: boolean;
         parseReqBody?: boolean;
-        filter?: (req: Request, res: Response) => boolean;
         memoizeHost?: boolean;
-        skipToNextHandlerFilter?: (proxyRes: Response) => boolean;
         https?: boolean;
         reqAsBuffer?: boolean;
         reqBodyEncoding?: string | null;

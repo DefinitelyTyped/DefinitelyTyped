@@ -406,7 +406,7 @@ declare class BaseNode<
     createRange(properties: RangeProperties | Range): Range;
     createSelection(properties: SelectionProperties | Selection): Selection;
     filterDescendants(iterator: (node: Node) => boolean): Immutable.List<Node>;
-    findDescendants(iterator: (node: Node) => boolean): Node | null;
+    findDescendant(iterator: (node: Node) => boolean): Node | null;
     getActiveMarksAtRange(range: Range): Immutable.Set<Mark>;
     getAncestors(path: Path): Immutable.List<Node> | null;
     getBlocks(): Immutable.List<Block>;
@@ -1131,9 +1131,11 @@ export interface Plugin {
     schema?: SchemaProperties;
 }
 
+export interface Plugins extends Array<Plugin | Plugins> {}
+
 export interface EditorProperties {
-    onChange?: (change: { operations: Immutable.List<Operation>, value: Value }) => void;
-    plugins?: Plugin[];
+    onChange?: (change: { operations: Immutable.List<Operation>; value: Value }) => void;
+    plugins?: Plugins;
     readOnly?: boolean;
     value?: Value;
 }

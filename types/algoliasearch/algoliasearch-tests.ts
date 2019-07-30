@@ -22,6 +22,8 @@ let _algoliaResponse: Response = {
   query: '',
   params: '',
   index: '',
+  exhaustiveFacetsCount: true,
+  exhaustiveNbHits: false,
 };
 
 let _clientOptions: ClientOptions = {
@@ -146,7 +148,7 @@ let _algoliaQueryParameters: QueryParameters = {
   numericAttributesForFiltering: [''],
   numericFilters: [''],
   tagFilters: [''],
-  facetFilters: [''],
+  facetFilters: ['',['']],
   analytics: false,
   clickAnalytics: true,
   analyticsTags: [''],

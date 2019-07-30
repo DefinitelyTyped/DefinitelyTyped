@@ -1,4 +1,5 @@
 
+import Http = require('http');
 import Wreck = require('@hapi/wreck');
 
 Wreck.get('https://google.com/', {}).then((response) => {
@@ -18,6 +19,11 @@ var wreck = Wreck.defaults({
 var wreckWithTimeout = wreck.defaults({
     timeout: 5
 });
+
+// regression test for wreck with custom agent
+var wreckWithAgent = Wreck.defaults({
+    agent: new Http.Agent(),
+})
 
 // all attributes are optional
 var options = {

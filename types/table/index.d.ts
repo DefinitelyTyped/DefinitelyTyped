@@ -8,10 +8,11 @@ export type BorderType = 'honeywell' | 'norc' | 'ramac' | 'void';
 
 export interface ColumnConfig {
     alignment?: 'left' | 'center' | 'right';
-    width?: number;
-    truncate?: number;
     paddingLeft?: number;
     paddingRight?: number;
+    truncate?: number;
+    width?: number;
+    wrapWord?: boolean;
 }
 
 export interface JoinStruct {

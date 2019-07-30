@@ -1,15 +1,10 @@
 // Type definitions for swagger-ui-dist 3.x
 // Project: https://github.com/swagger-api/swagger-ui#readme
 // Definitions by: Haowen <https://github.com/haowen737>
+//                 Bryce <https://github.com/brycematheson1234>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/* =================== USAGE ===================
-
-    import * as SwaggerUIDist from "swagger-ui-dist"
-    const swaggerUiAssetPath = SwaggerUIDist.getAbsoluteFSPath()
-
- =============================================== */
-
+export {};
 export as namespace SwaggerUIDist;
 
 /**
@@ -18,5 +13,42 @@ export as namespace SwaggerUIDist;
 export function getAbsoluteFSPath(): string;
 export function absolutePath(): string;
 
-export const SwaggerUIBundle: any;
+interface Url {
+  url: string;
+  name: string;
+}
+
+interface SwaggerUIBundle {
+  (a: {
+    configUrl?: string;
+    deepLinking?: boolean;
+    dom_id?: string;
+    domNode?: string;
+    presets?: any[];
+    plugins?: any;
+    spec?: any;
+    url?: string;
+    urls?: Url[];
+    layout?: string;
+  }): any;
+  presets?: any;
+  plugins?: any;
+  [k: string]: any;
+
+  getConfigs(): SwaggerConfigs;
+}
+
+export const SwaggerUIBundle: SwaggerUIBundle;
+
+interface SwaggerConfigs {
+  requestInterceptor: ((request: SwaggerRequest) => SwaggerRequest);
+  [k: string]: any;
+}
+
+export interface SwaggerRequest {
+  url: string;
+  credentials: string;
+  [k: string]: any;
+}
+
 export const SwaggerUIStandalonePreset: any;

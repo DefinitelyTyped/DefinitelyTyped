@@ -129,6 +129,10 @@ declare namespace ValidatorJS {
     // country code.
     isISO31661Alpha2(str: string): boolean;
 
+    // check if the string is a valid ISO 3166-1 alpha-3 (https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3) officially assigned
+    // country code.
+    isISO31661Alpha3(str: string): boolean;
+
     // check if the string is a ISRC (https://en.wikipedia.org/wiki/International_Standard_Recording_Code).
     isISRC(str: string): boolean;
 

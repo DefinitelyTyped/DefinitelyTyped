@@ -1,4 +1,4 @@
-// Type definitions for Underscore 1.8
+// Type definitions for Underscore 1.9
 // Project: http://underscorejs.org/
 // Definitions by: Boris Yankov <https://github.com/borisyankov>,
 //                 Josh Baldwin <https://github.com/jbaldwin>,
@@ -8,7 +8,7 @@
 //                 Florian Keller <https://github.com/ffflorian>
 //                 Regev Brody <https://github.com/regevbr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 declare var _: _.UnderscoreStatic;
 export = _;
@@ -104,15 +104,17 @@ declare module _ {
         cancel(): void;
     }
 
+    type TypeOfDictionary<T> = T extends _.Dictionary<infer V> ? V : never;
+
     interface UnderscoreStatic {
         /**
         * Underscore OOP Wrapper, all Underscore functions that take an object
         * as the first parameter can be invoked through this function.
         * @param key First argument to Underscore object functions.
         **/
-        <T>(value: _.Dictionary<T>): Underscore<T>;
-        <T>(value: _.List<T>): Underscore<T>;
-        <T>(value: Array<T>): Underscore<T>;
+        <T>(value: _.List<T>): Underscore<T, _.List<T>>;
+        <T>(value: Array<T>): Underscore<T, Array<T>>;
+        <T extends TypeOfDictionary<V>, V extends _.Dictionary<any> = _.Dictionary<T>>(value: V): Underscore<T, V>;
         <T>(value: T): Underscore<T>;
 
         /* *************
@@ -3716,13 +3718,6 @@ declare module _ {
         pick<T, K extends keyof T>(obj: T, predicate: ObjectIterator<T[K], boolean>): Pick<T, K>;
 
         /**
-        * @see _.pick
-        **/
-        pick(
-            object: any,
-            fn: (value: any, key: any, object: any) => any): any;
-
-        /**
         * Return a copy of the object, filtered to omit the blacklisted keys (or array of keys).
         * @param object Object to strip unwanted key/value pairs.
         * @param keys The key/value pairs to remove on `object`.
@@ -3765,7 +3760,7 @@ declare module _ {
         * @param prototype The prototype that the returned object will inherit from.
         * @param props Additional props added to the returned object.
         **/
-        create(prototype: any, props?: Object): any;
+        create(prototype: any, props?: object): any;
 
         /**
         * Create a shallow-copied clone of the object.
@@ -3813,14 +3808,14 @@ declare module _ {
         * @param key Property of the object.
         * @return Function which accept an object an returns the value of key in that object.
         **/
-        property(key: string | string[]): (object: Object) => any;
+        property(key: string | number | Array<string | number>): (object: object) => any;
 
         /**
         * Returns a function that will itself return the value of a object key property.
         * @param key The object to get the property value from.
         * @return Function which accept a key property in `object` and returns its value.
         **/
-        propertyOf(object: Object): (key: string | string[]) => any;
+        propertyOf(object: object): (key: string | number | Array<string | number>) => any;
 
         /**
         * Performs an optimized deep comparison between the two objects,
@@ -4044,7 +4039,7 @@ declare module _ {
         **/
         iteratee(value: string): Function;
         iteratee(value: Function, context?: any): Function;
-        iteratee(value: Object): Function;
+        iteratee(value: object): Function;
 
         /**
         * Generate a globally-unique id for client-side models or DOM elements that need one.
@@ -4115,12 +4110,12 @@ declare module _ {
         * @param obj Object to chain.
         * @return Wrapped `obj`.
         **/
-        chain<T>(obj: T[]): _Chain<T>;
-        chain<T>(obj: _.Dictionary<T>): _Chain<T>;
+        chain<T>(obj: T[]): _Chain<T, T[]>;
+        chain<T extends TypeOfDictionary<V>, V extends _.Dictionary<any> = _.Dictionary<T>>(obj: V): _Chain<T, V>;
         chain<T extends {}>(obj: T): _Chain<T>;
     }
 
-    interface Underscore<T> {
+    interface Underscore<T, V = T> {
 
         /* *************
         * Collections *
@@ -4789,9 +4784,9 @@ declare module _ {
         * Wrapped type `object`.
         * @see _.pick
         **/
-        pick(...keys: any[]): any;
-        pick(keys: any[]): any;
-        pick(fn: (value: any, key: any, object: any) => any): any;
+        pick<K extends keyof V>(...keys: K[]): Pick<V, K>;
+        pick<K extends keyof V>(keys: K[]): Pick<V, K>;
+        pick<K extends keyof V>(predicate: ObjectIterator<V[K], boolean>): Pick<V, K>;
 
         /**
         * Wrapped type `object`.
@@ -4811,7 +4806,7 @@ declare module _ {
         * Wrapped type `any`.
         * @see _.create
         **/
-        create(props?: Object): any;
+        create(props?: object): any;
 
         /**
         * Wrapped type `any[]`.
@@ -4847,7 +4842,7 @@ declare module _ {
         * Wrapped type `string`.
         * @see _.property
         **/
-        property(): (object: Object) => any;
+        property(): (object: object) => any;
 
         /**
         * Wrapped type `object`.
@@ -5058,7 +5053,7 @@ declare module _ {
         * Wrapped type `any`.
         * @see _.chain
         **/
-        chain(): _Chain<T>;
+        chain(): _Chain<T, V>;
 
         /**
         * Wrapped type `any`.
@@ -5068,7 +5063,7 @@ declare module _ {
         value<TResult>(): TResult;
     }
 
-    interface _Chain<T> {
+    interface _Chain<T, V = T> {
 
         /* *************
         * Collections *
@@ -5105,7 +5100,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.map
         **/
-        map<TResult>(iterator: _.ListIterator<T, TResult>, context?: any): _Chain<TResult>;
+        map<TResult>(iterator: _.ListIterator<T, TResult>, context?: any):  _Chain<TResult, TResult[]>;
 
         /**
         * Wrapped type `any[]`.
@@ -5117,7 +5112,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.map
         **/
-        map<TResult>(iterator: _.ObjectIterator<T, TResult>, context?: any): _Chain<TResult>;
+        map<TResult>(iterator: _.ObjectIterator<T, TResult>, context?: any): _Chain<TResult, TResult[]>;
 
         /**
         * @see _.map
@@ -5467,7 +5462,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.without
         **/
-        without(...values: T[]): _Chain<T>;
+        without(...values: T[]): _Chain<T, T[]>;
 
         /**
         * Wrapped type `any[]`.
@@ -5479,7 +5474,7 @@ declare module _ {
         * Wrapped type `any[][]`.
         * @see _.union
         **/
-        union(...arrays: _.List<T>[]): _Chain<T>;
+        union(...arrays: _.List<T>[]): _Chain<T, T[]>;
 
         /**
         * Wrapped type `any[][]`.
@@ -5755,9 +5750,9 @@ declare module _ {
         * Wrapped type `object`.
         * @see _.pick
         **/
-        pick(...keys: any[]): _Chain<T>;
-        pick(keys: any[]): _Chain<T>;
-        pick(fn: (value: any, key: any, object: any) => any): _Chain<T>;
+        pick<K extends keyof V>(...keys: K[]): _Chain<TypeOfDictionary<Pick<V, K>>, Pick<V, K>>;
+        pick<K extends keyof V>(keys: K[]): _Chain<TypeOfDictionary<Pick<V, K>>, Pick<V, K>>;
+        pick<K extends keyof V>(predicate: ObjectIterator<V[K], boolean>): _Chain<TypeOfDictionary<Pick<V, K>>, Pick<V, K>>;
 
         /**
         * Wrapped type `object`.
@@ -5777,7 +5772,7 @@ declare module _ {
          * Wrapped type `any`.
          * @see _.create
          **/
-        create(props?: Object): _Chain<T>;
+        create(props?: object): _Chain<T>;
 
         /**
         * Wrapped type `any[]`.
@@ -6111,7 +6106,7 @@ declare module _ {
         * Wrapped type `any`.
         * @see _.value
         **/
-        value<TResult>(): T[];
+        value(): V;
     }
     interface _ChainSingle<T> {
         value(): T;

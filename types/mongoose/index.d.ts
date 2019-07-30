@@ -25,8 +25,10 @@
 //                 Vlad Melnik <https://github.com/vladmel1234>
 //                 Jarom Loveridge <https://github.com/jloveridge>
 //                 Grimmer Kang <https://github.com/grimmer0125>
+//                 Richard Davison <https://github.com/richarddd>
+//                 Brian Chen <https://github.com/ToucheSir>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference types="mongodb" />
 /// <reference types="node" />
@@ -64,6 +66,16 @@ declare module "mongoose" {
   import mongodb = require('mongodb');
   import stream = require('stream');
   import mongoose = require('mongoose');
+
+  /**
+   * Allows for nested objects and arrays to be partial
+   */
+  export type DeepPartial<T> = {
+    [P in keyof T]?:
+    T[P] extends (infer U)[] ? DeepPartial<U>[] :
+    T[P] extends object ? DeepPartial<T[P]> :
+    T[P];
+  };
 
   /**
    * Gets and optionally overwrites the function used to pluralize collection names
@@ -403,7 +415,7 @@ declare module "mongoose" {
     static STATES: ConnectionStates;
   }
 
-  enum ConnectionStates {
+  export enum ConnectionStates {
     disconnected = 0,
     connected = 1,
     connecting = 2,
@@ -1144,6 +1156,9 @@ declare module "mongoose" {
     /** ObjectId only - Adds an auto-generated ObjectId default if turnOn is true. */
     auto?: boolean | any;
 
+    /** Map only - Specifies the type of the map's attributes */
+    of?: any;
+
     [other: string]: any;
   }
 
@@ -1653,7 +1668,22 @@ declare module "mongoose" {
        */
       markModified(path: string): void;
     }
+
+    /**
+     * section types/map.js
+     * https://mongoosejs.com/docs/schematypes.html#maps
+     */
+    class Map<V> extends global.Map<string, V> {
+      /** Returns this Map object as a POJO. */
+      toObject(options: { flattenMaps: true } & object): Record<string, V>;
+      /** Returns a native js Map. */
+      toObject(options?: any): GlobalMap<string, V>;
+    }
   }
+
+  // Because the mongoose Map type shares a name with the default global interface,
+  // this type alias has to exist outside of the namespace
+  interface GlobalMap<K, V> extends Map<K, V> {}
 
   /*
    * section query.js
@@ -2520,6 +2550,15 @@ declare module "mongoose" {
         /** Sub-schema schematype constructor */
         constructor(schema: Schema, key: string, options?: any);
       }
+
+      /**
+       * section schema/map.js
+       * https://mongoosejs.com/docs/schematypes.html#maps
+       */
+      class Map extends SchemaType {
+        /** Sub-schema schematype constructor */
+        constructor(key: string, options?: any);
+      }
     }
   }
 
@@ -2813,7 +2852,7 @@ declare module "mongoose" {
      *   Model#ensureIndexes. If an error occurred it is passed with the event.
      *   The fields, options, and index name are also passed.
      */
-    new(doc?: any): T;
+    new(doc?: DeepPartial<T>): T;
 
     /**
      * Requires a replica set running MongoDB >= 3.6.0. Watches the underlying collection for changes using MongoDB change streams.
@@ -2920,15 +2959,17 @@ declare module "mongoose" {
      * Adds a discriminator type.
      * @param name discriminator model name
      * @param schema discriminator model schema
+     * @param value the string stored in the `discriminatorKey` property
      */
-    discriminator<U extends Document>(name: string, schema: Schema): Model<U>;
+    discriminator<U extends Document>(name: string, schema: Schema, value?: string): Model<U>;
 
     /**
      * Adds a discriminator type.
      * @param name discriminator model name
      * @param schema discriminator model schema
+     * @param value the string stored in the `discriminatorKey` property
      */
-    discriminator<U extends Document, M extends Model<U>>(name: string, schema: Schema): M;
+    discriminator<U extends Document, M extends Model<U>>(name: string, schema: Schema, value?: string): M;
 
     /** Creates a Query for a distinct operation. Passing a callback immediately executes the query. */
     distinct(field: string, callback?: (err: any, res: any[]) => void): Query<any[]> & QueryHelpers;
@@ -2971,6 +3012,12 @@ declare module "mongoose" {
      * @param cb Optional callback
      */
     createIndexes(cb?: (err: any) => void): Promise<void>;
+
+    /**
+     * Returns true if at least one document exists in the database that matches
+     * the given `filter`, and false otherwise.
+     */
+    exists(filter: any, callback?: (err: any, res: boolean) => void): Promise<boolean>;
 
     /**
      * Finds documents.
@@ -3324,8 +3371,8 @@ declare module "mongoose" {
     select?: any;
     /** optional query conditions to match */
     match?: any;
-    /** optional name of the model to use for population */
-    model?: string;
+    /** optional model to use for population */
+    model?: string | Model<any>;
     /** optional query options like sort, limit, etc */
     options?: any;
     /** deep populate */

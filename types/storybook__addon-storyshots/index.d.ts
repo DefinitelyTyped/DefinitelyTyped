@@ -22,9 +22,15 @@ export type RenderTree = (
     options?: SnapshotOptions
 ) => undefined | void | Promise<void>;
 
-export interface SnapshotOptions {
+export interface SnapshotOptionsObject {
     createNodeMock?: (element: any) => any;
 }
+
+export interface SnapshotOptionsFn {
+    (story: StoryObject): SnapshotOptionsObject;
+}
+
+export type SnapshotOptions = SnapshotOptionsObject | SnapshotOptionsFn;
 
 export interface StoryContext {
     kind: string;

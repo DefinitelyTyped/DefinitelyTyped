@@ -19,7 +19,7 @@ declare namespace CompressionPlugin {
     type Algorithm<O> = (source: string, options: O, callback: AlgorithmCallback) => void;
 
     // NOTE: These are the async compression algorithms on the zlib object.
-    type ZlibAlgorithm = 'deflate' | 'deflateRaw' | 'gzip';
+    type ZlibAlgorithm = 'deflate' | 'deflateRaw' | 'gzip' | 'brotliCompress';
     type Pattern = string | RegExp | ReadonlyArray<RegExp> | ReadonlyArray<string>;
 
     interface BaseOptions {

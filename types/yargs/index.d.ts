@@ -753,7 +753,7 @@ declare namespace yargs {
     type AsyncCompletionFunction = (current: string, argv: any, done: (completion: ReadonlyArray<string>) => void) => void;
     type PromiseCompletionFunction = (current: string, argv: any) => Promise<string[]>;
     type MiddlewareFunction<T = {}> = (args: Arguments<T>) => void;
-    type Choices = ReadonlyArray<string | true | undefined>;
+    type Choices = ReadonlyArray<string | number | true | undefined>;
     type PositionalOptionsType = "boolean" | "number" | "string";
 }
 

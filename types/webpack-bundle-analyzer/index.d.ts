@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import * as webpack from 'webpack';
+import { Plugin, Compiler, Stats } from 'webpack';
 
 export namespace BundleAnalyzerPlugin {
     type ExcludeAssetsPatternFn = (assetName: string) => boolean;
@@ -69,7 +69,7 @@ export namespace BundleAnalyzerPlugin {
          * Options for stats.toJson() method.
          * For example you can exclude sources of your modules from stats file with "source: false" option.
          */
-        statsOptions?: null | webpack.Stats.ToJsonOptionsObject;
+        statsOptions?: null | Stats.ToJsonOptionsObject;
 
         /**
          * Default: `null`.
@@ -89,6 +89,8 @@ export namespace BundleAnalyzerPlugin {
     }
 }
 
-export class BundleAnalyzerPlugin extends webpack.Plugin {
+export class BundleAnalyzerPlugin extends Plugin {
     constructor(options?: BundleAnalyzerPlugin.Options);
+
+    apply(compiler: Compiler): void;
 }
