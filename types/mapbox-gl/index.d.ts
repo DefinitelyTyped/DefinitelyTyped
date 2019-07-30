@@ -496,6 +496,10 @@ declare namespace mapboxgl {
         enable(): void;
 
         disable(): void;
+
+        setZoomRate(zoomRate: number): void;
+
+        setWheelZoomRate(wheelZoomRate: number): void;
     }
 
     /**
