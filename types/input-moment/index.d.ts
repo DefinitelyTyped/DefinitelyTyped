@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
 
-import React from "react";
-import moment from "moment";
+import React from 'react';
+import moment from 'moment';
 
 export type OnChangeListener = (m: moment.Moment) => void;
 export type OnSaveListener = () => void;
