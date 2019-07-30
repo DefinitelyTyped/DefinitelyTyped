@@ -12,7 +12,10 @@
 
 import * as React from 'react';
 
-declare class Autosuggest<T = any> extends React.Component<Autosuggest.AutosuggestProps<T>, Autosuggest.AutosuggestState<T>> {
+declare class Autosuggest<T = any> extends React.Component<
+    Autosuggest.AutosuggestProps<T>,
+    Autosuggest.AutosuggestState<T>
+> {
     /**
      * Autosuggest exposes these class properties to the parent component.
      * They can be accessed through `ref`.
