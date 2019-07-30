@@ -1696,17 +1696,7 @@ declare namespace braintree {
         message: string;
     }
 
-    export interface ErrorCollectionsObject {
-        [key: string]: ValidationErrorsCollection;
-    }
-
-    export interface ValidationErrorsObject {
-        [key: string]: ValidationError[];
-    }
-
     export interface ValidationErrorsCollection {
-        validationErrors: ValidationErrorsObject;
-        errorCollections: ErrorCollectionsObject;
         deepErrors(): ValidationError[];
         for(name: string): ValidationErrorsCollection;
         forIndex(index: number): ValidationErrorsCollection;
