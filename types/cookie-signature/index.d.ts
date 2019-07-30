@@ -10,4 +10,4 @@ export function sign(value: string, secret: string): string;
  * Unsign and decode the given `val` with `secret`,
  * returning `false` if the signature is invalid.
  */
-export function unsign(value: string, secret: string): string | boolean;
+export function unsign(value: string, secret: string): string | false;
