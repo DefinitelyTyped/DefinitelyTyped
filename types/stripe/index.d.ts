@@ -9249,7 +9249,8 @@ declare namespace Stripe {
              *
              * @param invoice The ID of the invoice to send
              */
-            sendInvoice(invoice: string): Promise<invoices.IInvoice>;
+            sendInvoice(id: string, options: HeaderOptions, response?: IResponseFn<invoices.IInvoice>): Promise<invoices.IInvoice>;
+            sendInvoice(id: string, response?: IResponseFn<invoices.IInvoice>): Promise<invoices.IInvoice>;
         }
 
         class InvoiceItems extends StripeResource {
