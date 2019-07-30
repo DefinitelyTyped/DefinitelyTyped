@@ -66,7 +66,7 @@ export interface StaticContext {
   statusCode?: number;
 }
 
-export interface RouteComponentProps<Params extends { [K in keyof Params]?: string } = {}, C extends StaticContext = StaticContext, S = H.LocationState> {
+export interface RouteComponentProps<Params extends { [K in keyof Params]?: any } = {}, C extends StaticContext = StaticContext, S = H.LocationState> {
   history: H.History;
   location: H.Location<S>;
   match: match<Params>;
@@ -74,7 +74,7 @@ export interface RouteComponentProps<Params extends { [K in keyof Params]?: stri
 }
 
 export interface RouteChildrenProps<
-  Params extends { [K in keyof Params]?: string } = {},
+  Params extends { [K in keyof Params]?: any } = {},
   S = H.LocationState
 > {
   history: H.History;
