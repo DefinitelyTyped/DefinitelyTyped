@@ -50626,9 +50626,9 @@ declare namespace Excel {
             rowIndex?: number;
             /**
              *
-             * Represents if ALL the cells would be saved as an array formula
-            Returns true if ALL cells would be saved as an array, or false if ALL cells would NOT be saved as an array formula.
-            Returns null if there are cells both which would be saved as an array formula and would not be
+             * Represents if ALL the cells would be saved as an array formula.
+             * Returns true if ALL cells would be saved as an array, or false if ALL cells would NOT be saved as an array formula.
+             * Returns null if there is a mixture of cells that would and would not be saved as an array formula.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -56730,9 +56730,9 @@ declare namespace Excel {
             rowIndex?: boolean;
             /**
              *
-             * Represents if ALL the cells would be saved as an array formula
-            Returns true if ALL cells would be saved as an array, or false if ALL cells would NOT be saved as an array formula.
-            Returns null if there are cells both which would be saved as an array formula and would not be
+             * Represents if ALL the cells would be saved as an array formula.
+             * Returns true if ALL cells would be saved as an array, or false if ALL cells would NOT be saved as an array formula.
+             * Returns null if there is a mixture of cells that would and would not be saved as an array formula.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -64057,9 +64057,9 @@ declare namespace Excel {
             rowIndex?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: Represents if ALL the cells would be saved as an array formula
-            Returns true if ALL cells would be saved as an array, or false if ALL cells would NOT be saved as an array formula.
-            Returns null if there are cells both which would be saved as an array formula and would not be
+             * For EACH ITEM in the collection: Represents if ALL the cells would be saved as an array formula.
+             * Returns true if ALL cells would be saved as an array, or false if ALL cells would NOT be saved as an array formula.
+             * Returns null if there is a mixture of cells that would and would not be saved as an array formula.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
