@@ -17,7 +17,7 @@ export type PossiblyByType<T> = T | { [type: string]: T | React.ReactElement | u
 
 // NOTE: According to the linkifyjs implementation, `format` can be just a
 // string, so we include it (even though this is not mentioned in the docs).
-export type FormatFunc = (value: string, type: string) => string | React.ReactElement;
+export type FormatFunc = (value: string, type: string) => React.ReactNode;
 
 export type EventHandler = (e: HTMLElement) => void;
 

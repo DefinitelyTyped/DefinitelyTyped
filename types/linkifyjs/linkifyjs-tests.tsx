@@ -60,12 +60,12 @@ describe("linkifyjs/html", () => {
     /* format */
 
     linkifyHtml("", {
-        // Returns strings
+        // Returns strings or numbers
         format(value, type) {
             if (type === "url" && value.length > 50) {
                 value = value.slice(0, 50) + "…";
             }
-            return value;
+            return 100;
         }
     });
 
@@ -86,6 +86,26 @@ describe("linkifyjs/html", () => {
                 return value;
             }
             return <span>{value}</span>;
+        },
+    });
+
+    linkifyHtml("", {
+        // Returns null or undefined
+        format(value, type) {
+            if (type === "email") {
+                return null;
+            }
+            return undefined;
+        },
+    });
+
+    linkifyHtml("", {
+        // Returns an array
+        format(value, type) {
+            if (type === "email") {
+                return ["type", type];
+            }
+            return ["value", value];
         },
     });
 
