@@ -50,7 +50,7 @@ declare namespace braintree {
 
     interface ValidatedResponse<T> {
         success: boolean;
-        errors: () => string[];
+        errors: ValidationErrorsCollection;
         message: string;
         params: Record<string, any>;
         address: T extends Address ? Address : never;
@@ -1685,4 +1685,21 @@ declare namespace braintree {
     export interface TooManyRequestsError extends Error {}
     export interface UnexpectedError extends Error {}
     export interface UpgradeRequired extends Error {}
+
+    /**
+     * Validation errors
+     */
+
+    export interface ValidationError {
+        attribute: string;
+        code: string;
+        message: string;
+    }
+
+    export interface ValidationErrorsCollection {
+        deepErrors(): ValidationError[];
+        for(name: string): ValidationErrorsCollection;
+        forIndex(index: number): ValidationErrorsCollection;
+        on(name: string): ValidationError;
+    }
 }
