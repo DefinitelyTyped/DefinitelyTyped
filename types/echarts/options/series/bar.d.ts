@@ -924,12 +924,25 @@ declare namespace echarts {
                  */
                 color?: string | {
                     type: 'linear',
-                    x: zrender.X,
-                    y: zrender.Y,
-                    x2: zrender.X2,
-                    y2: zrender.Y2,
-                    colorStops: zrender.ColorStops,
-                    globalCoord: zrender.GlobalCoords
+                    x: number,
+                    y: number,
+                    x2: number,
+                    y2: number,
+                    colorStops: {
+                        offset: number,
+                        color: string
+                    }[],
+                    global: boolean
+                } | {
+                    type: 'radial',
+                    x: number,
+                    y: number,
+                    r: number,
+                    colorStops: {
+                        offset: number,
+                        color: string
+                    }[],
+                    global: boolean
                 };
 
                 /**
