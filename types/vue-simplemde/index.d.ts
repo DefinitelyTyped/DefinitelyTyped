@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { VueConstructor } from 'vue';
-import { Options as SimpleMdeOptions } from '../simplemde';
+import { Options as SimpleMdeOptions } from 'simplemde';
 
 export default VueSimpleMde;
 export const VueSimpleMde: VueSimpleMdeConstructor;
