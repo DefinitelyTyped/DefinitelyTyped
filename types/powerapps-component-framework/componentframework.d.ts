@@ -516,7 +516,15 @@ declare namespace ComponentFramework {
 			/**
 			 * Contains a set of geographic coordinates along with associated accuracy as well as a set of other optional attributes such as altitude and speed.
 			 */
-			coords: Dictionary;
+			coords: {
+				latitude: number;
+				longitude: number;
+				accuracy: number;
+				altitude: number;
+				heading: number;
+				speed: number;
+				altitudeAccuracy: number;
+			};
 
 			/**
 			 * Represents the time when the object was acquired and is represented as DOMTimeStamp.
@@ -1312,7 +1320,7 @@ declare namespace ComponentFramework {
 		 * Property Interface for context.parameters.[property_key], when property manifest type is Whole.None|FP|Decimal
 		 */
 		interface NumberProperty extends Property {
-			raw: number;
+			raw: number | null;
 			attributes?: PropertyHelper.FieldPropertyMetadata.NumberMetadata;
 		}
 
@@ -1341,7 +1349,7 @@ declare namespace ComponentFramework {
 		 * Property Interface for context.parameters.[property_key], when property manifest type starts from DateTime
 		 */
 		interface DateTimeProperty extends Property {
-			raw: Date;
+			raw: Date | null;
 			attributes?: PropertyHelper.FieldPropertyMetadata.DateTimeMetadata;
 		}
 
@@ -1349,7 +1357,7 @@ declare namespace ComponentFramework {
 		 * Property Interface for context.parameters.[property_key], when property manifest type starts from SingleLine
 		 */
 		interface StringProperty extends Property {
-			raw: string;
+			raw: string | null;
 			attributes?: PropertyHelper.FieldPropertyMetadata.StringMetadata;
 		}
 
@@ -1365,7 +1373,7 @@ declare namespace ComponentFramework {
 		 * Property Interface for context.parameters.[property_key], when property manifest type is OptionSet
 		 */
 		interface OptionSetProperty extends Property {
-			raw: number;
+			raw: number | null;
 			attributes?: PropertyHelper.FieldPropertyMetadata.OptionSetMetadata;
 		}
 
@@ -1373,7 +1381,7 @@ declare namespace ComponentFramework {
 		 * Property Interface for context.parameters.[property_key], when property manifest type is MultiSelectOptionSet
 		 */
 		interface MultiSelectOptionSetProperty extends Property {
-			raw: number[];
+			raw: number[] | null;
 			attributes?: PropertyHelper.FieldPropertyMetadata.OptionSetMetadata;
 		}
 

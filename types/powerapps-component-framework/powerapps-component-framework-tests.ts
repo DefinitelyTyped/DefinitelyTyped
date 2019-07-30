@@ -28,7 +28,17 @@ const deviceTest: ComponentFramework.Device = {
 	captureImage: () => Promise.resolve(tmpFile),
 	captureVideo: () => Promise.resolve(tmpFile),
 	getBarcodeValue: () => Promise.resolve(''),
-	getCurrentPosition: () => Promise.resolve({coords: {}, timestamp: new Date(0)}),
+	getCurrentPosition: () => Promise.resolve({
+		coords: {
+			latitude: 0,
+			longitude: 0,
+			accuracy: 0,
+			altitude: 0,
+			heading: 0,
+			speed: 0,
+			altitudeAccuracy: 0
+		},
+		timestamp: new Date(0)}),
 	pickFile: () => Promise.resolve([tmpFile])
 };
 
