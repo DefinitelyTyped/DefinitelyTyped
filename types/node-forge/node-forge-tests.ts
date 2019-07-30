@@ -364,3 +364,19 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
     console.log('created TLS client and server, doing handshake...');
     client.handshake();
 }
+
+{
+    const { privateKey } = forge.pki.ed25519.generateKeyPair();
+    const toSign = Buffer.from('test', 'utf8');
+    forge.pki.ed25519.sign({
+        message: toSign,
+        privateKey
+    });
+    
+    const toSign2 = 'foo';
+    forge.pki.ed25519.sign({
+        message: toSign2,
+        encoding: 'utf8',
+        privateKey
+    });
+}
