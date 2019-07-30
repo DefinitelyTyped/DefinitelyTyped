@@ -44,7 +44,7 @@ export interface ResizableProps {
     onResizeStart?: (e: React.SyntheticEvent, data: ResizeCallbackData) => any;
     onResize?: (e: React.SyntheticEvent, data: ResizeCallbackData) => any;
     draggableOpts?: any;
-    resizeHandles?: any;
+    resizeHandles?: string[];
 }
 
 export class Resizable extends React.Component<
