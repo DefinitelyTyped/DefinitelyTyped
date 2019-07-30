@@ -125,7 +125,6 @@ declare module "readline" {
         removeHistoryDuplicates?: boolean;
     }
 
-
     function createInterface(input: NodeJS.ReadableStream, output?: NodeJS.WritableStream, completer?: Completer | AsyncCompleter, terminal?: boolean): Interface;
     function createInterface(options: ReadLineOptions): Interface;
     function emitKeypressEvents(stream: NodeJS.ReadableStream, interface?: Interface): void;

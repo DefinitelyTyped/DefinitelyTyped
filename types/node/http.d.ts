@@ -146,6 +146,7 @@ declare module "http" {
     class ServerResponse extends OutgoingMessage {
         statusCode: number;
         statusMessage: string;
+        writableFinished: boolean;
 
         constructor(req: IncomingMessage);
 
