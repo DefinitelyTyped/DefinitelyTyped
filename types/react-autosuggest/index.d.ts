@@ -13,11 +13,11 @@
 import * as React from 'react';
 
 declare class Autosuggest<T = any> extends React.Component<Autosuggest.AutosuggestProps<T>, Autosuggest.AutosuggestState<T>> {
-  /**
-   * Autosuggest exposes these class properties to the parent component.
-   * They can be accessed through `ref`.
-   */
-  input: HTMLInputElement | null;
+    /**
+     * Autosuggest exposes these class properties to the parent component.
+     * They can be accessed through `ref`.
+     */
+    input: HTMLInputElement | null;
 }
 
 export = Autosuggest;
@@ -209,9 +209,9 @@ declare namespace Autosuggest {
     interface AutosuggestState<TSuggestion> {
         isFocused: boolean;
         isCollapsed: boolean;
-        highlightedSectionIndex: number;
-        highlightedSuggestionIndex: number;
-        highlightedSuggestion: TSuggestion;
-        valueBeforeUpDown: TSuggestion;
+        highlightedSectionIndex: number | null;
+        highlightedSuggestionIndex: number | null;
+        highlightedSuggestion: TSuggestion | null;
+        valueBeforeUpDown: TSuggestion | null;
     }
 }
