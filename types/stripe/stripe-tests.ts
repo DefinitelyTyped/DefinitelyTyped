@@ -1654,6 +1654,7 @@ stripe.plans.del("gold-plan").then((confirmation) => {
 
 stripe.plans.list({ active: true, product: 'prod_someproduct' }, (err, plans) => {
     // asynchronously called
+    plans.data[0].tiers[0].unit_amount;    // $ExpectType number
 });
 stripe.plans.list({ active: true, product: 'prod_someproduct' }).then((plans) => {
     // asynchronously called
