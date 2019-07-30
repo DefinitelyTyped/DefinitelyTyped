@@ -5107,7 +5107,7 @@ declare namespace Stripe {
             /**
              * Per unit price for units relevant to the tier.
              */
-            amount: number;
+            unit_amount: number;
 
             /**
              * Up to and including to this quantity will be contained in the tier.
