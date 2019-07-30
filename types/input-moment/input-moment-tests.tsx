@@ -1,6 +1,6 @@
-import React from 'react';
+import React = require('react');
 import InputMoment from 'input-moment';
-import moment from 'moment';
+import moment = require('moment');
 
 const momentI = moment();
 
