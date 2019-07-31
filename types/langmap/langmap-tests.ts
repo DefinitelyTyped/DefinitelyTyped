@@ -1,3 +1,5 @@
+// tslint:disable:no-duplicate-imports
+
 import langmap1 from 'langmap';
 import * as langmap2 from 'langmap';
 
