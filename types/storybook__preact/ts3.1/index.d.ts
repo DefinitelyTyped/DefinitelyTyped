@@ -1,10 +1,3 @@
-// Type definitions for @storybook/preact 5.0
-// Project: https://github.com/storybookjs/storybook, https://github.com/storybookjs/storybook/tree/master/app/preact
-// Definitions by: Keisuke Kan <https://github.com/9renpoto>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.3
-// Created with the help of storybook__react types
-
 /// <reference types="webpack-env" />
 
 import * as Preact from 'preact';
@@ -15,7 +8,7 @@ export type RenderFunction = () => Renderable | Renderable[];
 export interface DecoratorParameters {
     [key: string]: any;
 }
-export type StoryDecorator = (story: RenderFunction, context: { kind: string, story: string }) => Renderable | null;
+export type StoryDecorator = (story: RenderFunction, context: { kind: string; story: string }) => Renderable | null;
 
 export interface Story {
     readonly kind: string;
