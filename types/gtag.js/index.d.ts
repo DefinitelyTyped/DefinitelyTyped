@@ -23,7 +23,6 @@ declare namespace Gtag {
   }
 
   type EventNames = 'add_payment_info'
-    | 'add_payment_info'
     | 'add_to_cart'
     | 'add_to_wishlist'
     | 'begin_checkout'
@@ -67,7 +66,7 @@ declare namespace Gtag {
     transaction_id?: string;
     value?: number;
     event_label?: string;
-    event_category: string;
+    event_category?: string;
   }
 
   type Currency = string | number;
