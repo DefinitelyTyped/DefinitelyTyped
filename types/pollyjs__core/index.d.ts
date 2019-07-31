@@ -1,6 +1,7 @@
-// Type definitions for @pollyjs/core 2.3
+// Type definitions for @pollyjs/core 2.6
 // Project: https://github.com/netflix/pollyjs/tree/master/packages/@pollyjs/core
 // Definitions by: feinoujc <https://github.com/feinoujc>
+//                 Borui Gu <https://github.com/BoruiGu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -29,10 +30,12 @@ export interface PollyConfig {
 	logging?: boolean;
 
 	recordIfMissing?: boolean;
+	/** @deprecated use expiryStrategy */
 	recordIfExpired?: boolean;
 	recordFailedRequests?: boolean;
+	expiryStrategy?: 'warn' | 'error' | 'record';
 
-	expiresIn?: string | null;
+    expiresIn?: string | null;
 	timing?: ((ms: number) => Promise<void>) | (() => Promise<void>);
 
 	matchRequestsBy?: {
