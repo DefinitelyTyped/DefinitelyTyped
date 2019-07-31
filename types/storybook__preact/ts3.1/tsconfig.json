@@ -11,6 +11,7 @@
         "strictFunctionTypes": true,
         "baseUrl": "../",
         "jsx": "preserve",
+        "jsxFactory": "preact.h",
         "typeRoots": [
             "../"
         ],

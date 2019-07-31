@@ -9,7 +9,7 @@
 
 import * as Preact from 'preact';
 
-export type Renderable = Preact.AnyComponent | JSX.Element;
+export type Renderable = Preact.AnyComponent | JSX.Element | preact.JSX.Element;
 export type RenderFunction = () => Renderable | Renderable[];
 
 export interface DecoratorParameters {

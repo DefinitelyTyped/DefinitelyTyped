@@ -2,5 +2,9 @@
   "private": true,
   "dependencies": {
     "preact": "^8.4.2"
+  },
+  "types": "index",
+  "typesVersions": {
+    ">=3.1.0-0": { "*": ["ts3.1/*"] }
   }
 }
