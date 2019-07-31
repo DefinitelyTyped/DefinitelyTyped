@@ -2,10 +2,10 @@
 // Project: https://github.com/ortexx/express-form-data#readme
 // Definitions by: nomnes <https://github.com/NomNes>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
+// TypeScript Version: 2.2
 
-// INFO: without 'single-declare-module' and 'declare-current-package' it not working correctly
-
+// INFO: without disabling 'no-single-declare-module' and 'no-declare-current-package' it not working correctly
+// tslint:disable-next-line no-single-declare-module no-declare-current-package
 declare module "express-form-data" {
     import { NextHandleFunction } from 'connect';
     import { FormOptions } from 'multiparty';
