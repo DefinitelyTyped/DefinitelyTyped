@@ -146,6 +146,7 @@ webAuth.signupAndAuthorize({
     email: 'me@example.com',
     password: '123456',
     scope: 'openid',
+    username: "blabla",
     user_metadata: {
         foo: 'bar'
     }
