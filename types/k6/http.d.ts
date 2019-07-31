@@ -221,6 +221,9 @@ export interface Params {
     /** Authentication method. */
     auth?: AuthMethod;
 
+    /** Request body compression. */
+    compression?: string;
+
     /** Request scoped cookies. */
     cookies?: { [name: string]: ParamsCookieValue };
 
