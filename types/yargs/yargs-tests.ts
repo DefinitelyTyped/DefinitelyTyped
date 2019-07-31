@@ -387,6 +387,35 @@ function Argv$commandModule() {
     const commandArgs3: yargs.Arguments = builder2(yargs).argv;
 }
 
+function Argv$completion_hide() {
+    // no func
+    yargs.completion('completion', false).argv;
+
+    // sync func
+    yargs.completion('complation', false, (current, argv) => {
+        // 'current' is the current command being completed.
+        // 'argv' is the parsed arguments so far.
+        // simply return an array of completions.
+        return ['foo', 'bar'];
+    }).argv;
+
+    // async func
+    yargs.completion('complation', false, (current: string, argv: any, done: (completion: string[]) => void) => {
+        setTimeout(() => {
+            done(['apple', 'banana']);
+        }, 500);
+    }).argv;
+
+    // promise func
+    yargs.completion('complation', false, (current: string, argv: any) => {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve(['apple', 'banana']);
+            }, 10);
+        });
+    }).argv;
+}
+
 function Argv$completion_sync() {
     const argv = yargs
         .completion('completion', (current, argv) => {

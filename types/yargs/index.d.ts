@@ -158,9 +158,9 @@ declare namespace yargs {
         completion(cmd: string, func?: AsyncCompletionFunction): Argv<T>;
         completion(cmd: string, func?: SyncCompletionFunction): Argv<T>;
         completion(cmd: string, func?: PromiseCompletionFunction): Argv<T>;
-        completion(cmd: string, description?: string, func?: AsyncCompletionFunction): Argv<T>;
-        completion(cmd: string, description?: string, func?: SyncCompletionFunction): Argv<T>;
-        completion(cmd: string, description?: string, func?: PromiseCompletionFunction): Argv<T>;
+        completion(cmd: string, description?: string | false, func?: AsyncCompletionFunction): Argv<T>;
+        completion(cmd: string, description?: string | false, func?: SyncCompletionFunction): Argv<T>;
+        completion(cmd: string, description?: string | false, func?: PromiseCompletionFunction): Argv<T>;
 
         /**
          * Tells the parser that if the option specified by `key` is passed in, it should be interpreted as a path to a JSON config file.
