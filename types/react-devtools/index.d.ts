@@ -5,6 +5,6 @@
 // TypeScript Version: 3.4.5
 
 declare module 'react-devtools' {
-    var main: any
-    export = main
+    var main: any;
+    export = main;
 }
