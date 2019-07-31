@@ -233,14 +233,14 @@ export interface Params {
     /** Maximum redirects to follow. */
     redirects?: number;
 
+    /** Response type. */
+    responseType?: ResponseType;
+
     /** Response time metric tags. */
     tags?: { [name: string]: string };
 
     /** Request timeout. */
     timeout?: number;
-
-    /** Response type. */
-    responseType?: ResponseType;
 }
 
 /**
