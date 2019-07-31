@@ -25,13 +25,9 @@ export function allResolvers<TSource = any, TContext = any, TArgs = TArgsDefault
     resolvers: Array<IFieldResolver<TSource, TContext, TArgs>>
 ): IFieldResolver<TSource, TContext, TArgs>;
 
-export function resolveDependee(
-    dependeeName: string
-): IFieldResolver<any, any, any>;
+export function resolveDependee(dependeeName: string): IFieldResolver<any, any, any>;
 
-export function resolveDependees(
-    dependeeNames: string[]
-): IFieldResolver<any, any, any>;
+export function resolveDependees(dependeeNames: string[]): IFieldResolver<any, any, any>;
 
 export function isDependee<TSource = any, TContext = any, TArgs = TArgsDefault>(
     resolver: IFieldResolver<TSource, TContext, TArgs>
