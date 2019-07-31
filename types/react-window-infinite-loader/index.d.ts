@@ -1,4 +1,4 @@
-// Type definitions for react-window-infinite-loader 1.0.3
+// Type definitions for react-window-infinite-loader 1.0
 // Project: https://github.com/bvaughn/react-window-infinite-loader/
 // Definitions by: Nivesh Ravindran <https://github.com/Nibblesh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
