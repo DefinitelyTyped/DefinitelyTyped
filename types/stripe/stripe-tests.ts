@@ -1407,6 +1407,10 @@ stripe.invoices.retrieve("in_15fvyXEe31JkLCeQH7QbgZZb", { expand: ["subscription
   invoice.subscription;
 });
 
+stripe.invoices.sendInvoice('in_15fvyXEe31JkLCeQH7QbgZZb').then(invoice => {
+    // asynchronously called
+});
+
 //#endregion
 
 //#region Invoice Items tests
