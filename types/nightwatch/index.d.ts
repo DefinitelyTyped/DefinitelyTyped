@@ -186,6 +186,10 @@ export interface NightwatchDesiredCapabilities {
         driver?: string;
         server?: string;
     };
+    /**
+     * This is a list of all the Chrome-specific desired capabilities.
+     */
+    chromeOptions?: ChromeOptions;
 }
 
 export interface NightwatchScreenshotOptions {
