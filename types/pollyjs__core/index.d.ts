@@ -35,7 +35,7 @@ export interface PollyConfig {
 	recordFailedRequests?: boolean;
 	expiryStrategy?: 'warn' | 'error' | 'record';
 
-    expiresIn?: string | null;
+	expiresIn?: string | null;
 	timing?: ((ms: number) => Promise<void>) | (() => Promise<void>);
 
 	matchRequestsBy?: {
