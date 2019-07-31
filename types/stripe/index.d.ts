@@ -5105,14 +5105,18 @@ declare namespace Stripe {
     namespace plans {
         interface ITier {
             /**
-             * Per unit price for units relevant to the tier.
+             * A flat fee for the tier to be added into the total amount
              */
-            unit_amount: number;
+            flat_amount: number;
 
             /**
              * Up to and including to this quantity will be contained in the tier.
              */
             up_to: number;
+            /**
+             * Per unit price for units relevant to the tier.
+             */
+            unit_amount: number;
         }
 
         interface ITransformUsage {
