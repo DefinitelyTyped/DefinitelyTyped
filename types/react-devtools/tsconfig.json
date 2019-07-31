@@ -1,21 +1,23 @@
 {
     "compilerOptions": {
-        "baseUrl": "types",
         "module": "commonjs",
-        "lib": ["es6","dom"],
+        "lib": [
+            "es6"
+        ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
         "strictFunctionTypes": true,
         "baseUrl": "../",
-        "jsx": "react",
-        "typeRoots": ["types"],
+        "typeRoots": [
+            "../"
+        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "react-devtools-tests.tsx"
+        "react-devtools-tests.ts"
     ]
 }
