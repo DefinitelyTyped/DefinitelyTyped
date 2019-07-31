@@ -22,6 +22,7 @@ export interface ActionSheetCustomProps {
     title?: React.ReactNode;
     message?: string;
     tintColor?: string;
+    buttonUnderlayColor?: string;
     cancelButtonIndex?: number;
     destructiveButtonIndex?: number;
     styles?: object;

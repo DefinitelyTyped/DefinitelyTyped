@@ -33,6 +33,7 @@ class CustomSheetExample extends React.Component {
                 title={<Text style={{ color: '#000', fontSize: 18 }}>Which one do you like?</Text>}
                 message="Test"
                 tintColor="white"
+                buttonUnderlayColor="rebeccapurple"
                 cancelButtonIndex={0}
                 destructiveButtonIndex={1}
                 styles={{}}
