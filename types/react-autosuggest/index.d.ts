@@ -20,7 +20,7 @@ declare class Autosuggest<T = any> extends React.Component<
      * Autosuggest exposes these class properties to the parent component.
      * They can be accessed through `ref`.
      */
-    input: HTMLInputElement | null;
+    input: HTMLInputElement | undefined;
 }
 
 export = Autosuggest;
