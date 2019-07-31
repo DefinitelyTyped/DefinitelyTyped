@@ -8,43 +8,41 @@ import MediaFileReader from './build2/MediaFileReader';
 import MediaTagReader from './build2/MediaTagReader';
 
 // tslint:disable-next-line:export-just-namespace
-export = jsmediatags;
+// export = jsmediatags;
 export as namespace jsmediatags;
-declare namespace jsmediatags {
-    function read(location: any, callbacks: CallbackType): void;
+export function read(location: any, callbacks: CallbackType): void;
 
-    class Reader {
-        _file: any;
-        _tagsToRead: string[];
-        _fileReader: typeof MediaFileReader;
-        _tagReader: typeof MediaTagReader;
+export class Reader {
+  _file: any;
+  _tagsToRead: string[];
+  _fileReader: typeof MediaFileReader;
+  _tagReader: typeof MediaTagReader;
 
-        constructor(file: any);
+  constructor(file: any);
 
-        setFileReader(fileReader: typeof MediaFileReader): Reader;
+  setFileReader(fileReader: typeof MediaFileReader): Reader;
 
-        setTagsToRead(tagsToRead: string[]): Reader;
-        setTagReader(tagReader: typeof MediaTagReader): Reader;
+  setTagsToRead(tagsToRead: string[]): Reader;
+  setTagReader(tagReader: typeof MediaTagReader): Reader;
 
-        read(callbacks: CallbackType): void;
-        _getFileReader(): typeof MediaFileReader;
-        _findFileReader(): typeof MediaFileReader;
-        _getTagReader(fileReader: MediaFileReader, callbacks: CallbackType): void;
-        _findTagReader(fileReader: MediaFileReader, callbacks: CallbackType): void;
-        _loadTagIdentifierRanges(
-            fileReader: MediaFileReader,
-            tagReaders: Array<typeof MediaTagReader>,
-            callbacks: LoadCallbackType
-        ): void;
-    }
-    const Config: Config;
+  read(callbacks: CallbackType): void;
+  _getFileReader(): typeof MediaFileReader;
+  _findFileReader(): typeof MediaFileReader;
+  _getTagReader(fileReader: MediaFileReader, callbacks: CallbackType): void;
+  _findTagReader(fileReader: MediaFileReader, callbacks: CallbackType): void;
+  _loadTagIdentifierRanges(
+    fileReader: MediaFileReader,
+    tagReaders: Array<typeof MediaTagReader>,
+    callbacks: LoadCallbackType
+  ): void;
 }
+export const Config: Config;
 
-interface Config {
-    addFileReader(fileReader: typeof MediaFileReader): Config;
-    addTagReader(tagReader: typeof MediaTagReader): Config;
-    removeTagReader(tagReader: typeof MediaTagReader): Config;
-    EXPERIMENTAL_avoidHeadRequests(): void;
-    setDisallowedXhrHeaders(disallowedXhrHeaders: string[]): void;
-    setXhrTimeoutInSec(timeoutInSec: number): void;
+export interface Config {
+  addFileReader(fileReader: typeof MediaFileReader): Config;
+  addTagReader(tagReader: typeof MediaTagReader): Config;
+  removeTagReader(tagReader: typeof MediaTagReader): Config;
+  EXPERIMENTAL_avoidHeadRequests(): void;
+  setDisallowedXhrHeaders(disallowedXhrHeaders: string[]): void;
+  setXhrTimeoutInSec(timeoutInSec: number): void;
 }
