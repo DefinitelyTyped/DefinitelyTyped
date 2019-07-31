@@ -10,7 +10,8 @@
         "strictNullChecks": true,
         "strictFunctionTypes": true,
         "baseUrl": "../",
-        "jsx": "preserve",
+        "jsx": "react",
+        "jsxFactory": "preact.h",
         "typeRoots": [
             "../"
         ],
