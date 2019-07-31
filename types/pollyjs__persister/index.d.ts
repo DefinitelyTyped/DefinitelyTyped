@@ -7,6 +7,6 @@
 export default class Persister {
     static readonly name: string;
     static readonly type: string;
-    options: any;
+    readonly options: any;
     persist(): Promise<void>;
 }
