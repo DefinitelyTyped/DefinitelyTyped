@@ -1,6 +1,6 @@
 // Type definitions for vmap 2.2
 // Project: https://github.com/dailymotion/vmap-js#readme
-// Definitions by: John G. Gainfort, Jr. <https://github.com/me>
+// Definitions by: John G. Gainfort, Jr. <https://github.com/jgainfort>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.7
 
