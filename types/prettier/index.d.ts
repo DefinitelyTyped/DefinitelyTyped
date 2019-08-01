@@ -274,7 +274,7 @@ export interface SupportLanguage {
     extensions?: string[];
     filenames?: string[];
     linguistLanguageId?: number;
-    vscodeLanguageIds: string[];
+    vscodeLanguageIds?: string[];
 }
 
 export interface SupportOptionDefault {
