@@ -1,15 +1,1 @@
-{
-    "defaultSeverity": "error",
-    "extends": [
-      "tslint:latest",
-      "tslint-config-prettier"
-    ],
-    "jsRules": {},
-    "rules": {
-      "semicolon": [true, "always"],
-      "quotemark": [true, "single", "avoid-escape", "avoid-template"],
-      "indent": [true, "spaces", 2],
-      "no-console": false
-    },
-    "rulesDirectory": []
-}
+{ "extends": "dtslint/dt.json" }

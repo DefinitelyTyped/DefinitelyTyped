@@ -1,5 +1,3 @@
-const emojiSupport = require('detect-emoji-support');
+import { emojiSupport } from 'detect-emoji-support';
 
-if (emojiSupport()) {
-    console.log('☕');
-}
+if (emojiSupport()) {}
