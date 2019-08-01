@@ -1,27 +1,19 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "lib": [
-            "dom",
-            "es6"
-        ],
+        "lib": ["es6", "dom"],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
+        "noEmit": true,
         "jsx": "preserve",
-        "typeRoots": [
-            "../"
-        ],
+        "baseUrl": ".",
         "paths": {
             "@storybook/preact": [
                 "storybook__preact"
             ]
         },
-        "types": [],
-        "noEmit": true,
-        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
