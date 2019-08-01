@@ -1,6 +1,8 @@
 {
   "private": true,
   "dependencies": {
-    "vue": ">=2.0.0"
+    "vue": ">=2.6.10",
+    "vue2-datepicker": ">=2.12.0",
+    "vue-class-component": ">=7.1.0"
   }
 }
