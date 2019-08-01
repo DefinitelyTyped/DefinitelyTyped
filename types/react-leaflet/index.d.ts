@@ -469,3 +469,4 @@ export interface ContextProps {
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 
 export function withLeaflet<T extends ContextProps>(WrappedComponent: React.ComponentType<T>): React.ComponentType<Omit<T, 'leaflet'>>;
+export function useLeaflet(): LeafletContext;

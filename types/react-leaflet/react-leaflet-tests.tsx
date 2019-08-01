@@ -30,7 +30,8 @@ import {
     ZoomControl,
     LeafletProvider,
     withLeaflet,
-    Viewport
+    Viewport,
+    useLeaflet,
 } from 'react-leaflet';
 const { BaseLayer, Overlay } = LayersControl;
 
@@ -813,3 +814,6 @@ class CustomPolygon extends Path<PolygonProps, L.Polygon> {
     }
 }
 const leafletComponent = withLeaflet<PolygonProps>(CustomPolygon);
+
+// $ExpectType LeafletContext
+useLeaflet();
