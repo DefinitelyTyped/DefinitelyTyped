@@ -2,7 +2,7 @@
 // Project: https://github.com/storybookjs/storybook, https://github.com/storybookjs/storybook/tree/master/app/preact
 // Definitions by: Keisuke Kan <https://github.com/9renpoto>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.3
+// TypeScript Version: 3.0
 // Created with the help of storybook__react types
 
 /// <reference types="webpack-env" />
