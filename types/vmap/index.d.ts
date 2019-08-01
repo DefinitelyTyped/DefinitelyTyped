@@ -94,15 +94,15 @@ declare namespace VMAP {
         /**
          * Object containing all this extension children and their name as the key
          */
-        children: Object;
+        children: any;
         /**
          * Object containing all this extension attributes and their name as the key
          */
-        attribute: Object;
+        attribute: any;
         /**
          * Object parsed from CDATA or as a fallback all of the text nodes of this extension concatenated
          */
-        value: Object;
+        value: any;
     }
 }
 
