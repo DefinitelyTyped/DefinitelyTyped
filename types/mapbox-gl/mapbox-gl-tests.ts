@@ -883,3 +883,9 @@ expectType<mapboxgl.Expression>([
 	['concat', ['get', 'area'], 'foobar', { 'font-scale': 0.8 }]
 ]);
 expectType<mapboxgl.Expression>(['coalesce', ['get', 'property'], ['get', 'property']]);
+
+/*
+ *	ScrollZoomHandler
+ */
+expectType<void>(new mapboxgl.Map().scrollZoom.setZoomRate(1));
+expectType<void>(new mapboxgl.Map().scrollZoom.setWheelZoomRate(1));
