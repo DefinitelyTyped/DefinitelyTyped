@@ -109,6 +109,13 @@ backend.use('reply', (context, callback) => {
         context.request,
         context.reply,
     );
+    // Usage note: It's only necessary to write `context.reply['data']` in
+    // TypeScript <= 2.1.
+    //
+    // In TypeScript 2.2+, `context.reply.data` is OK, as 2.2 added support for
+    // dotted property access for types with string index signatures.
+    console.log(context.reply && context.reply['data'] &&
+        context.reply['data'].someProperty);
     callback();
 });
 backend.use('readSnapshots', (context, callback) => {

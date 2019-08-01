@@ -64,6 +64,10 @@ export namespace Schema {
     type Contextual<T extends Context, TAdditional = {}, TEditAdditional = {}> = T extends 'edit'
         ? { raw: string; rendered: string } & TAdditional & TEditAdditional
         : { rendered: string } & TAdditional;
+    type Decontextualize<T> = {
+        [k in keyof T]: T[k] extends Contextual<any> ? string : T[k];
+    };
+
     type OpenOrClosed = 'open' | 'closed';
     type PostFormat =
         | 'aside'
@@ -117,6 +121,7 @@ export namespace Schema {
         template: string;
         title: Contextual<T>;
         type: string;
+        [k: string]: unknown;
     }
 
     interface BasePostRevision<T extends Context> extends BaseResponse {
@@ -446,6 +451,12 @@ export namespace Schema {
         T extends 'embed' ? Pick<BasePost<T>, EmbedKeys.Post> :
         T extends 'view'  ? Pick<BasePost<T>, ViewKeys.Post> :
         BasePost<T>;
+
+    // prettier-ignore
+    type PostOrPage<T extends Context = 'view'> =
+        T extends 'embed' ? Pick<BasePost<T>, EmbedKeys.Post> & Partial<Pick<BasePage<T>, EmbedKeys.Page>> :
+        T extends 'view'  ? Pick<BasePost<T>, ViewKeys.Post> & Partial<Pick<BasePage<T>, ViewKeys.Page>> :
+        BasePost<T> & Partial<BasePage<T>>;
 
     // prettier-ignore
     type PostRevision<T extends Context = 'view'> =

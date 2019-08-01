@@ -34,6 +34,7 @@ interface HTMLBodyElement extends HTMLElement { }
 interface HTMLBRElement extends HTMLElement { }
 interface HTMLButtonElement extends HTMLElement { }
 interface HTMLCanvasElement extends HTMLElement { }
+interface HTMLDataElement extends HTMLElement { }
 interface HTMLDataListElement extends HTMLElement { }
 interface HTMLDialogElement extends HTMLElement { }
 interface HTMLDivElement extends HTMLElement { }
