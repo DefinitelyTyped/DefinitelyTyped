@@ -17,7 +17,7 @@ import {
     Document,
     Editor as CoreEditor,
     Mark,
-    Node,
+    Node as SlateNode,
     Block,
     Inline,
     Operation,
@@ -29,28 +29,51 @@ import {
     Path,
     RangeProperties,
     NodeProperties,
-    Range,
     Controller,
     Plugin as CorePlugin,
-    RangeType
-} from "slate";
-import * as Immutable from "immutable";
-import * as React from "react";
+    Range as SlateRange,
+    Selection as SlateSelection,
+    RangeType,
+    Annotation,
+    Decoration,
+    PointProperties,
+    PointJSON,
+    Point,
+    RangeTypeJSON,
+    RangeTypeProperties,
+} from 'slate';
+import * as Immutable from 'immutable';
+import * as React from 'react';
 
 // Values prefixed with "data-..." (Used for spellchecking according to docs)
 export interface RenderAttributes {
     [key: string]: any;
 }
 
-export interface RenderMarkProps {
+export interface RenderProps {
     attributes: RenderAttributes;
-    children: React.ReactNode;
     editor: Editor;
-    mark: Mark;
     marks: Immutable.Set<Mark>;
-    node: Node;
+    annotations: Immutable.List<Annotation> | ReadonlyArray<Annotation>;
+    decorations: Immutable.List<Decoration> | ReadonlyArray<Annotation>;
+    node: SlateNode;
     offset: number;
     text: string;
+}
+
+export interface RenderMarkProps extends RenderProps {
+    mark: Mark;
+    children: React.ReactNode;
+}
+
+export interface RenderAnnotationProps extends RenderProps {
+    annotation: Annotation;
+    children: React.ReactNode;
+}
+
+export interface RenderDecorationProps extends RenderProps {
+    decoration: Decoration;
+    children: React.ReactNode;
 }
 
 export interface RenderNodeProps {
@@ -60,7 +83,7 @@ export interface RenderNodeProps {
     isFocused: boolean;
     isSelected: boolean;
     key: string;
-    parent: Node;
+    parent: SlateNode;
     readOnly: boolean;
 }
 
@@ -76,20 +99,24 @@ export interface RenderInlineProps extends RenderNodeProps {
     node: Inline;
 }
 
-export type EventHook = (
-    event: Event,
-    editor: CoreEditor,
-    next: () => any
-) => any;
+export type EventHook = (event: Event, editor: CoreEditor, next: () => any) => any;
 
 export interface Plugin extends CorePlugin {
-    decorateNode?: (node: Node, editor: CoreEditor, next: () => any) => any;
-    renderEditor?: (props: EditorProps, editor: CoreEditor, next: () => any) => any;
-    renderMark?: (props: RenderMarkProps, editor: CoreEditor, next: () => any) => any;
+    decorateNode?: (node: SlateNode, editor: CoreEditor, next: () => any) => any;
+    renderAnnotation?: (props: RenderAnnotationProps, editor: CoreEditor, next: () => any) => any;
     renderBlock?: (props: RenderBlockProps, editor: CoreEditor, next: () => any) => any;
+    renderDecoration?: (props: RenderDecorationProps, editor: CoreEditor, next: () => any) => any;
     renderDocument?: (props: RenderDocumentProps, editor: CoreEditor, next: () => any) => any;
+    renderEditor?: (props: EditorProps, editor: CoreEditor, next: () => any) => any;
     renderInline?: (props: RenderInlineProps, editor: CoreEditor, next: () => any) => any;
-    shouldNodeComponentUpdate?: (previousProps: RenderNodeProps, props: RenderNodeProps, editor: CoreEditor, next: () => any) => any;
+    renderMark?: (props: RenderMarkProps, editor: CoreEditor, next: () => any) => any;
+
+    shouldNodeComponentUpdate?: (
+        previousProps: RenderNodeProps,
+        props: RenderNodeProps,
+        editor: CoreEditor,
+        next: () => any
+    ) => any;
 
     onBeforeInput?: EventHook;
     onBlur?: EventHook;
@@ -144,7 +171,7 @@ export interface EditorState {
 }
 
 export class Editor extends React.Component<EditorProps, EditorState> implements Controller {
-     controller: CoreEditor;
+    controller: CoreEditor;
 
     readonly plugins: Plugin[];
     readonly operations: Immutable.List<Operation>;
@@ -430,21 +457,31 @@ export class Editor extends React.Component<EditorProps, EditorState> implements
     applyOperation: CoreEditor['applyOperation'];
     run: CoreEditor['run'];
     removeAnnotation: CoreEditor['removeAnnotation'];
+
+    findDOMNode: (path: Immutable.List<number> | number[]) => React.ReactNode | null;
+    findDOMPoint: (point: PointProperties | PointJSON | Point) => { node: Node; offset: number } | null;
+    findDOMRange: (range: RangeTypeProperties | RangeTypeJSON | RangeType) => Range | null;
+    findNode: (element: Element) => SlateNode | null;
+    findEventRange: (event: Event | React.SyntheticEvent) => SlateRange | null;
+    findPath: (element: Element) => Immutable.List<number> | null;
+    findPoint: (nativeNode: Element, nativeOffset: number) => Point | null;
+    findRange: (domRange: Range | Selection) => SlateRange | null;
+    findSelection: (domSelection: Selection) => SlateSelection | null;
 }
 
-export type SlateType =
-    | "fragment"
-    | "html"
-    | "node"
-    | "rich"
-    | "text"
-    | "files";
+export type SlateType = 'fragment' | 'html' | 'node' | 'rich' | 'text' | 'files';
 
+// Utilities
 export function cloneFragment(event: Event | React.SyntheticEvent, editor: CoreEditor, callback?: () => void): void;
-export function findDOMNode(node: Node, win?: Window): Element;
-export function findDOMRange(range: Range, win?: Window): Range;
-export function findNode(element: Element, editor: CoreEditor): Node;
-export function findRange(selection: RangeType, editor: CoreEditor): Range;
-export function getEventRange(event: Event | React.SyntheticEvent, editor: CoreEditor): Range;
-export function getEventTransfer(event: Event | React.SyntheticEvent): { type: SlateType; node: Node };
+export function getEventTransfer(event: Event | React.SyntheticEvent): { type: SlateType; node: SlateNode };
 export function setEventTransfer(event: Event | React.SyntheticEvent, type: SlateType, data: any): void;
+
+// Deprecated
+export function findDOMNode(node: SlateNode | string, win?: Window): Element;
+export function findDOMPoint(point: Point, win?: Window): { node: Node; offset: number } | null;
+export function findDOMRange(range: RangeTypeProperties | RangeTypeJSON | RangeType, win?: Window): Range | null;
+export function findNode(element: Element, editor: CoreEditor): SlateNode;
+export function findPath(element: Element, editor: CoreEditor): Immutable.List<number> | null;
+export function findPoint(nativeNode: Element, nativeOffset: number, editor: CoreEditor): Point | null;
+export function findRange(domRange: Range | Selection, editor: CoreEditor): SlateRange | null;
+export function getEventRange(event: Event | React.SyntheticEvent, editor: CoreEditor): SlateRange | null;

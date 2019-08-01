@@ -58,7 +58,7 @@ export interface Rules {
 }
 
 export interface SchemaProperties {
-    rules?: Array<({ match: ObjectAndType | ObjectAndType[] } & Rules)>;
+    rules?: Array<{ match: ObjectAndType | ObjectAndType[] } & Rules>;
     document?: Rules;
     blocks?: RulesByNodeType;
     inlines?: RulesByNodeType;
