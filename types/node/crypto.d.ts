@@ -122,6 +122,7 @@ declare module "crypto" {
         private constructor();
         update(data: BinaryLike): Hash;
         update(data: string, input_encoding: Utf8AsciiLatin1Encoding): Hash;
+        update(data: Buffer, input_encoding: Utf8AsciiBinaryEncoding): Hash;
         digest(): Buffer;
         digest(encoding: HexBase64Latin1Encoding): string;
     }
@@ -129,6 +130,7 @@ declare module "crypto" {
         private constructor();
         update(data: BinaryLike): Hmac;
         update(data: string, input_encoding: Utf8AsciiLatin1Encoding): Hmac;
+        update(data: Buffer, input_encoding: Utf8AsciiBinaryEncoding): Hash;
         digest(): Buffer;
         digest(encoding: HexBase64Latin1Encoding): string;
     }
