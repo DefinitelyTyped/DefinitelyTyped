@@ -1268,7 +1268,7 @@ declare namespace ComponentFramework {
 		/**
 		 * The entity logical name. Read-only.
 		 */
-		entityType?: string;
+		etn?: string;
 
 		/**
 		 * The name of the entity reference. Read-only.

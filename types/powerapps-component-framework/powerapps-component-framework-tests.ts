@@ -123,8 +123,10 @@ const stringMetadataTest: ComponentFramework.PropertyHelper.FieldPropertyMetadat
 	Behavior: DateTimeFieldBehavior.TimeZoneIndependent,
 };
 
+
 const EntityReferenceTest: ComponentFramework.EntityReference = {
     id: { guid: '' },
-    entityType: '',
-    name: ''
+    etn: '',
+    name: '',
 };
+
