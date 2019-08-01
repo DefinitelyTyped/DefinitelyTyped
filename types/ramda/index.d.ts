@@ -607,10 +607,11 @@ declare namespace R {
         <T>(fn: (value: T) => boolean, obj: Dictionary<T>): Dictionary<T>;
     }
 
-    interface FilterOnceApplied<T> {
-        (list: ReadonlyArray<T>): T[];
-        (obj: Dictionary<T>): Dictionary<T>;
-    }
+    type FilterOnceApplied<T> =
+        <K extends ReadonlyArray<T> | Dictionary<T>>(source: K) =>
+            K extends ReadonlyArray<infer U> ? U[] :
+            K extends Dictionary<infer U> ? Dictionary<U> :
+            never;
 
     type Evolve<O extends Evolvable<E>, E extends Evolver> = {
         [P in keyof O]: P extends keyof E ? EvolveValue<O[P], E[P]> : O[P];
@@ -1405,7 +1406,7 @@ declare namespace R {
          * Returns a new list by pulling every item out of it (and all its sub-arrays) and putting
          * them in a new array, depth-first.
          */
-        flatten<T>(x: ReadonlyArray<T> | ReadonlyArray<T[]> | ReadonlyArray<ReadonlyArray<T>>): T[];
+        flatten<T>(x: ReadonlyArray<T[]> | ReadonlyArray<ReadonlyArray<T>> | ReadonlyArray<T>): T[];
 
         /**
          * Returns a new function much like the supplied one, except that the first two arguments'
@@ -2816,9 +2817,9 @@ declare namespace R {
          */
         take<T>(n: number, xs: ReadonlyArray<T>): T[];
         take(n: number, xs: string): string;
-        take<T>(n: number): {
+        take(n: number): {
             (xs: string): string;
-            (xs: ReadonlyArray<T>): T[];
+            <T>(xs: ReadonlyArray<T>): T[];
         };
 
         /**

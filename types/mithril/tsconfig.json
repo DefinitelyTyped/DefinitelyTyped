@@ -35,7 +35,6 @@
         "render.d.ts",
         "request.d.ts",
         "route.d.ts",
-        "withAttr.d.ts",
         "stream/index.d.ts"
     ],
     "atom": {

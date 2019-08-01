@@ -86,6 +86,7 @@ let emailOpts: Joi.EmailOptions = {};
 emailOpts = { allowUnicode: bool };
 emailOpts = { tlds: { allow: strArr } };
 emailOpts = { minDomainSegments: num };
+emailOpts = { tlds: false };
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 

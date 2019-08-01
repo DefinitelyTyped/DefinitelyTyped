@@ -827,6 +827,18 @@ R.times(i, 5);
 };
 
 () => {
+    const compact = R.filter(Boolean);
+    const objA: R.Dictionary<number> = compact({ a: 0, b: 1 }); // => { b: 1 }
+    const listA: number[] = compact([0, 1]); // => [1]
+
+    const omitEmptyString = R.filter((val: string) => val !== '');
+    const objB: R.Dictionary<string> = omitEmptyString({ a: '', b: 'foo' }); // => { b: 'foo' }
+    const listB: string[] = omitEmptyString(['', 'foo']); // => ['foo']
+
+    const objC = omitEmptyString({ some: 42 }); // $ExpectError
+};
+
+() => {
     function lastTwo(val: number, idx: number, list: number[]) {
         return list.length - idx <= 2;
     }
@@ -925,8 +937,8 @@ interface Obj {
 };
 
 () => {
-    R.flatten([1, 2, [3, 4], 5, [6, [7, 8, [9, [10, 11], 12]]]]);
-    // => [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+    R.flatten([[1, 2], [3, 4], [5, 6]]); // => [1, 2, 3, 4, 5, 6]
+    R.flatten([1, 2, 3, 4, 5, 6]);       // => [1, 2, 3, 4, 5, 6]
 };
 
 () => {
@@ -1426,6 +1438,8 @@ type Pair = KeyValuePair<string, number>;
         "Eugene Wright", "Gerry Mulligan", "Jack Six", "Alan Dawson", "Darius Brubeck", "Chris Brubeck",
         "Dan Brubeck", "Bobby Militello", "Michael Moore", "Randy Jones"];
     const takeFive = R.take(5);
+
+    // $ExpectType string[]
     takeFive(members); // => ["Paul Desmond","Bob Bates","Joe Dodge","Ron Crotty","Lloyd Davis"]
 };
 

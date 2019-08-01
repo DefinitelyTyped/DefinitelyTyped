@@ -289,44 +289,22 @@ imageOverlay.setZIndex(1);
 imageOverlayBounds = imageOverlay.getBounds();
 html = imageOverlay.getElement();
 
-// svgOverlay
-let svgOverlayOptions: L.SVGOverlayOptions;
-  svgOverlayOptions = {
-    opacity: 100,
-    alt: 'alt',
-    interactive: true,
-    attribution: 'attribution',
-    errorOverlayUrl: 'http://www.test.com/error.png',
-    zIndex: 1,
-    crossOrigin: true,
-    className: 'className',
-    bubblingMouseEvents: false,
-    pane: 'pane'
-  };
+// SVGOverlay
+let svgOverlayOptions: L.ImageOverlayOptions;
+svgOverlayOptions = {
+	interactive: true,
+	opacity: 100
+};
 
 const svgOverlayBounds = latLngBounds;
-const svgElement = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-svgElement.setAttribute('xmlns', "http://www.w3.org/2000/svg");
-svgElement.setAttribute('viewBox', "0 0 200 200");
-svgElement.innerHTML = '<rect width="2000" height="2000"/><rect x="75" y="23" width="50" height="50" style="fill:red"/><rect x="75" y="123" width="50" height="50" style="fill:#0013ff"/>';
-let svgElementBounds: L.LatLngBoundsExpression = latLngBounds;
-let svgOverLay: L.SVGOverlay;
-svgOverLay = L.svgOverlay(svgElement, svgElementBounds);
-svgOverLay = L.svgOverlay(svgElement, svgElementBounds, svgOverlayOptions);
-svgOverLay = L.svgOverlay(svgElement, svgElementBounds, {
-  opacity: 100,
-  alt: 'alt',
-  className: 'className',
-});
+const svgElement = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+const svgString = '<svg viewBox="0 0 120 120" version="1.1" xmlns="http://www.w3.org/2000/svg"><circle cx="60" cy="60" r="50"/></svg>';
 
-svgOverLay.setOpacity(100);
-svgOverLay.bringToFront();
-svgOverLay.bringToBack();
-svgOverLay.setUrl('https://dev.w3.org/SVG/tools/svgweb/samples/svg-files/android.svg');
-svgOverLay.setBounds(svgElementBounds);
-svgOverLay.setZIndex(1);
-svgElementBounds = svgOverLay.getBounds();
-html = imageOverlay.getElement();
+let svgOverlay: L.SVGOverlay;
+svgOverlay = L.svgOverlay(svgString, svgOverlayBounds);
+svgOverlay = L.svgOverlay(svgElement, svgOverlayBounds, {
+	interactive: false
+});
 
 // videoOverlay
 let videoOverlayOptions: L.VideoOverlayOptions;

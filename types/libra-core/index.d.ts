@@ -37,6 +37,8 @@ export class AccountState {
 }
 
 export class Account {
+    readonly keyPair: KeyPair;
+
     static fromSecretKeyBytes(secretKeyBytes: Uint8Array): Account;
 
     static fromSecretKey(secretKeyHex: string): Account;

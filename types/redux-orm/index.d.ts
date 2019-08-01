@@ -21,15 +21,7 @@ import Model, {
     UpdateProps,
     UpsertProps
 } from './Model';
-import QuerySet, {
-    LookupPredicate,
-    LookupProps,
-    LookupResult,
-    LookupSpec,
-    MutableQuerySet,
-    SortIteratee,
-    SortOrder
-} from './QuerySet';
+import QuerySet, { MutableQuerySet } from './QuerySet';
 import { OrmSession } from './Session';
 import { createDatabase, TableOpts, TableState } from './db';
 import { attr, Attribute, FieldSpecMap, fk, ForeignKey, many, ManyToMany, OneToOne, oneToOne } from './fields';
@@ -37,10 +29,6 @@ import { createReducer, createSelector, defaultUpdater, ORMReducer, ORMSelector 
 
 export {
     FieldSpecMap,
-    LookupResult,
-    LookupSpec,
-    LookupPredicate,
-    LookupProps,
     TableOpts,
     RefPropOrSimple,
     ModelFieldMap,
@@ -49,9 +37,7 @@ export {
     CreateProps,
     UpdateProps,
     ModelField,
-    SortIteratee,
     OrmSession as Session,
-    SortOrder,
     MutableQuerySet,
     createDatabase,
     createSelector,

@@ -837,6 +837,30 @@ describe("jasmine.any", () => {
     });
 });
 
+describe('custom asymmetry', function() {
+    const tester = {
+        asymmetricMatch: (actual: string) => {
+            const secondValue = actual.split(',')[1];
+            return secondValue === 'bar';
+        },
+    };
+
+    it('dives in deep', function() {
+        expect('foo,bar,baz,quux').toEqual(tester);
+        expect(123).not.toEqual(tester);
+    });
+
+    describe('when used with a spy', function() {
+        it('is useful for comparing arguments', function() {
+            const callback = jasmine.createSpy('callback');
+
+            callback('foo,bar,baz');
+
+            expect(callback).toHaveBeenCalledWith(tester);
+        });
+    });
+});
+
 describe("jasmine.objectContaining", () => {
     interface fooType {
         a: number;

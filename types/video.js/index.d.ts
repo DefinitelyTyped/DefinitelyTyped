@@ -4307,7 +4307,7 @@ declare namespace videojs {
 		 *
 		 * @return The current playback rate when getting or 1.0
 		 */
-		playbackRate(rate?: number): void;
+		playbackRate(rate: number): void;
 
 		playbackRate(): number;
 

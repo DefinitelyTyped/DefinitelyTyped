@@ -1,4 +1,4 @@
-import m = require('mithril');
+import * as m from 'mithril';
 
 import { Comp, Component } from 'mithril';
 

@@ -343,6 +343,16 @@ declare global {
              */
             clearText(): Promise<Actions<R>>;
             /**
+             * Taps the backspace key on the built-in keyboard.
+             * @example await element(by.id('textField')).tapBackspaceKey();
+             */
+            tapBackspaceKey(): Promise<Actions<R>>;
+            /**
+             * Taps the return key on the built-in keyboard.
+             * @example await element(by.id('textField')).tapReturnKey();
+             */
+            tapReturnKey(): Promise<Actions<R>>;
+            /**
              *
              * @param pixels
              * @param direction
