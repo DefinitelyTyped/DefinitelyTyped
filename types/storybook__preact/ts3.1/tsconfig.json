@@ -11,6 +11,7 @@
         "jsxFactory": "preact.h",
         "baseUrl": "../",
         "typeRoots": ["../"],
+        "types": [],
         "paths": {
             "@storybook/preact": [
                 "storybook__preact"
