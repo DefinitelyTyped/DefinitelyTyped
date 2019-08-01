@@ -9,7 +9,7 @@
         "noEmit": true,
         "jsx": "preserve",
         "jsxFactory": "preact.h",
-        "baseUrl": ".",
+        "baseUrl": "../",
         "paths": {
             "@storybook/preact": [
                 "storybook__preact"

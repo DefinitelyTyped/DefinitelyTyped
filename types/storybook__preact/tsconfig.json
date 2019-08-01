@@ -8,7 +8,7 @@
         "strictFunctionTypes": true,
         "noEmit": true,
         "jsx": "preserve",
-        "baseUrl": ".",
+        "baseUrl": "../",
         "paths": {
             "@storybook/preact": [
                 "storybook__preact"
