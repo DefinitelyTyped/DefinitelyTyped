@@ -4,7 +4,6 @@
 //                 Deividas Bakanas <https://github.com/DeividasBakanas>
 //                 Eli Mydlarz <https://github.com/elimydlarz>
 //                 Joe Pramono <https://github.com/djoepramono>
-
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
