@@ -273,7 +273,7 @@ export interface SupportLanguage {
     aliases?: string[];
     extensions?: string[];
     filenames?: string[];
-    linguistLanguageId: number;
+    linguistLanguageId?: number;
     vscodeLanguageIds: string[];
 }
 
