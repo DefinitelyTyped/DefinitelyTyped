@@ -268,8 +268,8 @@ export interface SupportLanguage {
     group?: string;
     tmScope: string;
     aceMode: string;
-    codemirrorMode: string;
-    codemirrorMimeType: string;
+    codemirrorMode?: string;
+    codemirrorMimeType?: string;
     aliases?: string[];
     extensions: string[];
     filenames?: string[];
