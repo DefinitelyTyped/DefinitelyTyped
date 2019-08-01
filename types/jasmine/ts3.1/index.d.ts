@@ -10,6 +10,7 @@
 //                 Domas Trijonis <https://github.com/fdim>
 //                 Peter Safranek <https://github.com/pe8ter>
 //                 Moshe Kolodny <https://github.com/kolodny>
+//                 Stephen Farrar <https://github.com/stephenfarrar>
 // For ddescribe / iit use : https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/karma-jasmine/karma-jasmine.d.ts
 
 type ImplementationCallback = (() => Promise<any>) | ((done: DoneFn) => void);
@@ -182,10 +183,10 @@ declare function waitsFor(latchMethod: () => boolean, failureMessage?: string, t
 declare function waits(timeout?: number): void;
 
 declare namespace jasmine {
-    type ExpectedRecursive<T> = T | ObjectContaining<T> | {
+    type ExpectedRecursive<T> = T | ObjectContaining<T> | AsymmetricMatcher | {
         [K in keyof T]: ExpectedRecursive<T[K]> | Any;
     };
-    type Expected<T> = T | ObjectContaining<T> | Any | Spy | {
+    type Expected<T> = T | ObjectContaining<T> | AsymmetricMatcher | Any | Spy | {
         [K in keyof T]: ExpectedRecursive<T[K]>;
     };
     type SpyObjMethodNames<T = undefined> =
@@ -238,17 +239,19 @@ declare namespace jasmine {
         jasmineToString(): string;
     }
 
+    interface AsymmetricMatcher {
+      asymmetricMatch(other: any): boolean;
+      jasmineToString?(): string;
+  }
+
     // taken from TypeScript lib.core.es6.d.ts, applicable to CustomMatchers.contains()
     interface ArrayLike<T> {
         length: number;
         [n: number]: T;
     }
 
-    interface ArrayContaining<T> {
+    interface ArrayContaining<T> extends AsymmetricMatcher {
         new?(sample: ArrayLike<T>): ArrayLike<T>;
-
-        asymmetricMatch(other: any): boolean;
-        jasmineToString?(): string;
     }
 
     interface ObjectContaining<T> {

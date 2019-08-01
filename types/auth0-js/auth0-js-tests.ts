@@ -146,6 +146,7 @@ webAuth.signupAndAuthorize({
     email: 'me@example.com',
     password: '123456',
     scope: 'openid',
+    username: "blabla",
     user_metadata: {
         foo: 'bar'
     }
@@ -248,7 +249,10 @@ authentication.getUserCountry((err, data) => {});
 authentication.getSSOData();
 authentication.getSSOData(true, (err, data) => {});
 
-authentication.dbConnection.signup({connection: 'bla', email: 'blabla', password: '123456'}, () => {});
+authentication.dbConnection.signup(
+    { connection: 'bla', email: 'blabla', password: '123456', username: 'blabla' },
+    () => {}
+);
 authentication.dbConnection.changePassword({connection: 'bla', email: 'blabla'}, () => {});
 
 authentication.passwordless.start({ connection: 'bla', send: 'blabla' }, () => {});

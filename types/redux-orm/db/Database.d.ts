@@ -1,7 +1,7 @@
 import { IndexedModelClasses, OrmState } from '../ORM';
 import { CREATE, DELETE, EXCLUDE, FAILURE, FILTER, ORDER_BY, SUCCESS, UPDATE } from '../constants';
 import { ModelTableOpts, Table } from './Table';
-import { SerializableMap } from '../Model';
+import { Serializable } from '../Model';
 import { BatchToken } from '../Session';
 
 /**
@@ -36,7 +36,7 @@ export interface QuerySpec {
 /**
  * Query result.
  */
-export interface QueryResult<Row extends SerializableMap = {}> {
+export interface QueryResult<Row extends Record<string, Serializable> = {}> {
     rows: ReadonlyArray<Row>;
 }
 

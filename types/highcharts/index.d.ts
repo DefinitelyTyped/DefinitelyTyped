@@ -5918,7 +5918,11 @@ declare namespace Highcharts {
          * @default undefined
          */
         description?: string;
-
+        /**
+         * The dash style for the series. See series.dashStyle for possible values. Defaults to Solid.
+         * @since 4.1
+         */
+        dashStyle?: string; // Solid ShortDash ShortDot ShortDashDot ShortDashDotDot Dot Dash LongDash DashDot LongDashDot LongDashDotDot
         /**
          * An id for the series. This can be used after render time to get a pointer to the series object through
          * chart.get().

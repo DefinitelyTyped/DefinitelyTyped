@@ -21,6 +21,11 @@ got('todomvc.com')
 
 got('todomvc.com').cancel();
 
+got('todomvc.com').then((response) => {
+    response.statusCode; // $ExpectType number
+    response.statusMessage; // $ExpectType string
+});
+
 got('todomvc.com', { json: true }).then((response) => {
     response.body; // $ExpectType any
 });
@@ -434,3 +439,8 @@ got('example.com', {
         }
     });
 }
+
+// Test request option
+got('example.com', {
+    request: https.request
+});

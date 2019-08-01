@@ -211,6 +211,10 @@ declare namespace algoliasearch {
      * Get 1000 last events
      */
     getLogs(options: LogsOptions): Promise<{ logs: Log[] }>;
+    /**
+     * add a header, used for flagging InstantSearch implementations
+     */
+    addAlgoliaAgent(agent: string): void;
   }
   /**
    * Interface for the index algolia object
