@@ -124,6 +124,8 @@ const test = () => (
         <Box color="grays.0" />
         // background color
         <Box bg="tomato" />
+        // opacity
+        <Box opacity={0.5} />
         // responsive width
         <Box width={[1, 1 / 2, 1 / 4]} />
         <Box width={{ sm: 1, md: 1 / 2, lg: 1 / 4 }} />

@@ -14,6 +14,7 @@
 //                 Pedro Duarte <https://github.com/peduarte>
 //                 Dhalton Huber <https://github.com/Dhalton>
 //                 Elliot Bonneville <https://github.com/elliotbonneville>
+//                 Jack Caldwell <https://github.com/jackcaldwell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -273,7 +274,7 @@ export interface BackgroundColorProps<TLength = TLengthStyledSystem> {
 
 export const backgroundColor: styleFn;
 
-export interface ColorProps extends TextColorProps, BackgroundColorProps {}
+export interface ColorProps extends TextColorProps, BackgroundColorProps, OpacityProps {}
 
 export const color: styleFn;
 
