@@ -5,7 +5,8 @@ import SwipeableViews,
     OnSwitchingCallback,
     OnSwitchingCallbackTypeDescriptor,
     OnTransitionEndCallback,
-    SpringConfig
+    SpringConfig,
+    ActionCallback
 } from 'react-swipeable-views';
 
 const onChangeIndex: OnChangeIndexCallback = (indexNew: number, indexLatest: number) => {
@@ -18,6 +19,10 @@ const onSwitching: OnSwitchingCallback = (index: number, type: OnSwitchingCallba
 
 const onTransitionEnd: OnTransitionEndCallback = () => {
     console.log("Transition end.");
+};
+
+const action: ActionCallback = actions => {
+    console.log('Receiving actions: ', Object.keys(actions).join(', '));
 };
 
 const style: React.CSSProperties = {
@@ -45,7 +50,8 @@ React.createElement(SwipeableViews, {
     onTransitionEnd,
     axis: "x-reverse",
     springConfig,
-    disableLazyLoading: false
+    disableLazyLoading: false,
+    action,
 });
 
 React.createElement(SwipeableViews, {});

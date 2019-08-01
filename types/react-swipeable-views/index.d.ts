@@ -1,7 +1,10 @@
-// Type definitions for react-swipeable-views 0.13
+// Type definitions for react-swipeable-views 0.13.3
 // Project: https://github.com/oliviertassinari/react-swipeable-views
 // Definitions by: Michael Ledin <https://github.com/mxl>
 //                 Deividas Bakanas <https://github.com/DeividasBakanas>
+//                 Eli Mydlarz <https://github.com/elimydlarz>
+//                 Joe Pramono <https://github.com/djoepramono>
+
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -13,9 +16,17 @@ export type OnTransitionEndCallback = () => void;
 
 export type OnSwitchingCallback = (index: number, type: OnSwitchingCallbackTypeDescriptor) => void;
 
+export type ActionCallback = (actions: Actions) => void;
+
+export type UpdateHeightAction = () => void;
+
 export type OnSwitchingCallbackTypeDescriptor = "move" | "end";
 
 export type AxisType = "x" | "x-reverse" | "y" | "y-reverse";
+
+export interface Actions {
+    updateHeight: UpdateHeightAction;
+}
 
 export interface SpringConfig {
     duration: string;
@@ -23,7 +34,7 @@ export interface SpringConfig {
     delay: string;
 }
 
-export interface SwipeableViewsProps extends React.HTMLProps<HTMLDivElement> {
+export interface SwipeableViewsProps extends Omit<React.HTMLProps<HTMLDivElement>, 'action'> {
     animateHeight?: boolean;
     animateTransitions?: boolean;
     axis?: AxisType;
@@ -46,6 +57,7 @@ export interface SwipeableViewsProps extends React.HTMLProps<HTMLDivElement> {
     springConfig?: SpringConfig;
     slideClassName?: string;
     threshold?: number;
+    action?: ActionCallback;
 }
 
 export interface SwipeableViewsState {
