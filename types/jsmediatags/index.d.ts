@@ -7,8 +7,6 @@ import { CallbackType, LoadCallbackType } from './types';
 import MediaFileReader from './build2/MediaFileReader';
 import MediaTagReader from './build2/MediaTagReader';
 
-// tslint:disable-next-line:export-just-namespace
-// export = jsmediatags;
 export as namespace jsmediatags;
 export function read(location: any, callbacks: CallbackType): void;
 
