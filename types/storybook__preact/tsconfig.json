@@ -13,7 +13,8 @@
             "@storybook/preact": [
                 "storybook__preact"
             ]
-        }
+        },
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
