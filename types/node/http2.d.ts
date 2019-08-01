@@ -583,7 +583,7 @@ declare module "http2" {
     }
 
     export class Http2ServerRequest extends stream.Readable {
-        private constructor();
+        constructor(stream: ServerHttp2Stream, headers: IncomingHttpHeaders, options: stream.ReadableOptions, rawHeaders: string[]);
 
         readonly aborted: boolean;
         readonly authority: string;
@@ -651,7 +651,7 @@ declare module "http2" {
     }
 
     export class Http2ServerResponse extends stream.Stream {
-        private constructor();
+        constructor(stream: ServerHttp2Stream);
 
         addTrailers(trailers: OutgoingHttpHeaders): void;
         readonly connection: net.Socket | tls.TLSSocket;
