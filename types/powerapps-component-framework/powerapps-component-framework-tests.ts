@@ -122,3 +122,9 @@ const stringMetadataTest: ComponentFramework.PropertyHelper.FieldPropertyMetadat
 	Format: '',
 	Behavior: DateTimeFieldBehavior.TimeZoneIndependent,
 };
+
+const EntityReferenceTest: ComponentFramework.EntityReference = {
+    id: { guid: '' },
+    entityType: '',
+    name: ''
+};
