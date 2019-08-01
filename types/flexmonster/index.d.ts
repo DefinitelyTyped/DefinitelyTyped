@@ -379,6 +379,7 @@ declare namespace Flexmonster {
         sortName?: string;
         sortOrder?: string[];
         uniqueName?: string;
+        levels?: Level[];
     }
 
     interface Filter {
@@ -604,5 +605,11 @@ declare namespace Flexmonster {
         dataHeight: number;
         dataWidth: number;
         errorMessage: string;
+    }
+
+    interface Level {
+        caption: string;
+        uniqueName: string;
+        isLast: boolean;
     }
 }
