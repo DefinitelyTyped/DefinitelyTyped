@@ -1,4 +1,5 @@
 import express = require('express');
+import os = require('os');
 import {
     parse,
     format,
@@ -8,7 +9,12 @@ import {
 
 const app = express();
 
-app.use(parse());
+const options = {
+    uploadDir: os.tmpdir(),
+    autoClean: true,
+};
+
+app.use(parse(options));
 app.use(format());
 app.use(stream());
 app.use(union());
