@@ -129,4 +129,3 @@ const EntityReferenceTest: ComponentFramework.EntityReference = {
     etn: '',
     name: '',
 };
-
