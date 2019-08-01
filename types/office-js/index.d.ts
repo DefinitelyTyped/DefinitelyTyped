@@ -62487,7 +62487,7 @@ declare namespace Word {
         readonly revisionNumber: string;
         /**
          *
-         * Gets the security of the document. Read only.
+         * Gets security settings of the document. Read only. Some are access restrictions on the file on disk. Others are Document Protection settings. Some possible values are 0 = File on disk is read/write; 1 = Protect Document: File is encrypted and requires a password to open; 2 = Protect Document: Always Open as Read-Only; 3 = Protect Document: Both #1 and #2; 4 = File on disk is read only; 5 = Both #1 and #4; 6 = Both #2 and #4; 7 = All of #1, #2, and #4; 8 = Protect Document: Restrict Edit to read-only; 9 = Both #1 and #8; 10 = Both #2 and #8; 11 = All of #1, #2, and #8; 12 = Both #4 and #8; 13 = All of #1, #4, and #8; 14 = All of #2, #4, and #8; 15 = All of #1, #2, #4, and #8.
          *
          * [Api set: WordApi 1.3]
          */
@@ -68505,7 +68505,7 @@ declare namespace Word {
             revisionNumber?: string;
             /**
              *
-             * Gets the security of the document. Read only.
+             * Gets security settings of the document. Read only. Some are access restrictions on the file on disk. Others are Document Protection settings. Some possible values are 0 = File on disk is read/write; 1 = Protect Document: File is encrypted and requires a password to open; 2 = Protect Document: Always Open as Read-Only; 3 = Protect Document: Both #1 and #2; 4 = File on disk is read only; 5 = Both #1 and #4; 6 = Both #2 and #4; 7 = All of #1, #2, and #4; 8 = Protect Document: Restrict Edit to read-only; 9 = Both #1 and #8; 10 = Both #2 and #8; 11 = All of #1, #2, and #8; 12 = Both #4 and #8; 13 = All of #1, #4, and #8; 14 = All of #2, #4, and #8; 15 = All of #1, #2, #4, and #8.
              *
              * [Api set: WordApi 1.3]
              */
@@ -69951,7 +69951,7 @@ declare namespace Word {
             revisionNumber?: boolean;
             /**
              *
-             * Gets the security of the document. Read only.
+             * Gets security settings of the document. Read only. Some are access restrictions on the file on disk. Others are Document Protection settings. Some possible values are 0 = File on disk is read/write; 1 = Protect Document: File is encrypted and requires a password to open; 2 = Protect Document: Always Open as Read-Only; 3 = Protect Document: Both #1 and #2; 4 = File on disk is read only; 5 = Both #1 and #4; 6 = Both #2 and #4; 7 = All of #1, #2, and #4; 8 = Protect Document: Restrict Edit to read-only; 9 = Both #1 and #8; 10 = Both #2 and #8; 11 = All of #1, #2, and #8; 12 = Both #4 and #8; 13 = All of #1, #4, and #8; 14 = All of #2, #4, and #8; 15 = All of #1, #2, #4, and #8.
              *
              * [Api set: WordApi 1.3]
              */
@@ -71861,6 +71861,7 @@ declare namespace OneNote {
         /**
          *
          * Gets the active notebook if one exists. If no notebook is active, throws ItemNotFound.
+            [Deprecated] use await OneNoteNavigation.getActiveNotebook instead. see OneNoteNavigation.ts
          *
          * [Api set: OneNoteApi 1.1]
          */
@@ -71868,6 +71869,7 @@ declare namespace OneNote {
         /**
          *
          * Gets the active notebook if one exists. If no notebook is active, returns null.
+            [Deprecated] use await OneNoteNavigation.getActiveNotebook instead. see OneNoteNavigation.ts
          *
          * [Api set: OneNoteApi 1.1]
          */
@@ -71875,6 +71877,7 @@ declare namespace OneNote {
         /**
          *
          * Gets the active outline if one exists, If no outline is active, throws ItemNotFound.
+            [Deprecated] use await OneNoteNavigation.getActiveOutline instead. see OneNoteNavigation.ts
          *
          * [Api set: OneNoteApi 1.1]
          */
@@ -71882,6 +71885,7 @@ declare namespace OneNote {
         /**
          *
          * Gets the active outline if one exists, otherwise returns null.
+            [Deprecated] use await OneNoteNavigation.getActiveOutline instead. see OneNoteNavigation.ts
          *
          * [Api set: OneNoteApi 1.1]
          */
@@ -71889,6 +71893,7 @@ declare namespace OneNote {
         /**
          *
          * Gets the active page if one exists. If no page is active, throws ItemNotFound.
+            [Deprecated] use await OneNoteNavigation.getActivePage instead. see OneNoteNavigation.ts
          *
          * [Api set: OneNoteApi 1.1]
          */
@@ -71896,6 +71901,7 @@ declare namespace OneNote {
         /**
          *
          * Gets the active page if one exists. If no page is active, returns null.
+            [Deprecated] use await OneNoteNavigation.getActivePage instead. see OneNoteNavigation.ts
          *
          * [Api set: OneNoteApi 1.1]
          */
@@ -71903,6 +71909,7 @@ declare namespace OneNote {
         /**
          *
          * Gets the active Paragraph if one exists, If no Paragraph is active, throws ItemNotFound.
+            [Deprecated] use await OneNoteNavigation.getActiveParagraph instead. see OneNoteNavigation.ts
          *
          * [Api set: OneNoteApi 1.1]
          */
@@ -71910,6 +71917,7 @@ declare namespace OneNote {
         /**
          *
          * Gets the active Paragraph if one exists, otherwise returns null.
+            [Deprecated] use await OneNoteNavigation.getActiveParagraph instead. see OneNoteNavigation.ts
          *
          * [Api set: OneNoteApi 1.1]
          */
@@ -71917,6 +71925,7 @@ declare namespace OneNote {
         /**
          *
          * Gets the active section if one exists. If no section is active, throws ItemNotFound.
+            [Deprecated] use await OneNoteNavigation.getActiveSection instead. see OneNoteNavigation.ts
          *
          * [Api set: OneNoteApi 1.1]
          */
@@ -71924,6 +71933,7 @@ declare namespace OneNote {
         /**
          *
          * Gets the active section if one exists. If no section is active, returns null.
+            [Deprecated] use await OneNoteNavigation.getActiveSection instead. see OneNoteNavigation.ts
          *
          * [Api set: OneNoteApi 1.1]
          */
@@ -71934,6 +71944,7 @@ declare namespace OneNote {
         /**
          *
          * Opens the specified page in the application instance.
+            [Deprecated] use await OneNoteNavigation.navigateToPage instead. see OneNoteNavigation.ts
          *
          * [Api set: OneNoteApi 1.1]
          *
@@ -71943,6 +71954,7 @@ declare namespace OneNote {
         /**
          *
          * Gets the specified page, and opens it in the application instance.
+            [Deprecated] use await OneNoteNavigation.navigateToPageWithClientUrl instead. see OneNoteNavigation.ts
          *
          * [Api set: OneNoteApi 1.1]
          *
@@ -75427,6 +75439,7 @@ declare namespace OneNote {
     }
     enum ErrorCodes {
         generalException = "GeneralException",
+        operationAborted = "OperationAborted",
     }
     module Interfaces {
         /**
@@ -79079,6 +79092,16 @@ declare namespace Visio {
          * @param OverlayId An Overlay Id. Removes the specific overlay id from the shape.
          */
         removeOverlay(OverlayId: number): void;
+        /**
+         *
+         * Shows particular overlay on the Shape.
+         *
+         * [Api set:  1.1]
+         *
+         * @param overlayId overlay id in context
+         * @param show to show or hide
+         */
+        showOverlay(overlayId: number, show: boolean): void;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          *
