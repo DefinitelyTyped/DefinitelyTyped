@@ -9,6 +9,7 @@
         "noEmit": true,
         "jsx": "preserve",
         "baseUrl": "../",
+        "typeRoots": ["../"],
         "paths": {
             "@storybook/preact": [
                 "storybook__preact"

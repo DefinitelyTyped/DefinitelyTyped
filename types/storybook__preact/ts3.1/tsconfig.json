@@ -10,6 +10,7 @@
         "jsx": "preserve",
         "jsxFactory": "preact.h",
         "baseUrl": "../",
+        "typeRoots": ["../"],
         "paths": {
             "@storybook/preact": [
                 "storybook__preact"
