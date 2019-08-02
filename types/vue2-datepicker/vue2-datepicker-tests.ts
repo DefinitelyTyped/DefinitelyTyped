@@ -2,7 +2,7 @@ import Vue, {ComponentOptions} from 'vue';
 import DatePicker from 'vue2-datepicker';
 
 // excerpt from vue-class-component/src/declarations.ts
-export declare type VueClass<V> = {
+type VueClass<V> = {
     new(...args: any[]): V & Vue;
 } & typeof Vue;
 
