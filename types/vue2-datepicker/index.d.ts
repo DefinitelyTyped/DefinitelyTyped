@@ -1,4 +1,4 @@
-// Type definitions for vue2-datepicker 2.12.0
+// Type definitions for vue2-datepicker 2.12
 // Project: https://github.com/mengxiong10/vue2-datepicker
 // Definitions by: ChristianStornowski <https://github.com/ChristianStornowski>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -31,9 +31,9 @@ declare namespace Datepicker {
     interface ValueType {
         date: Date;
         timestamp: number;
-        format: string
+        format: string;
     }
-    
+
     interface TimeSelectOptions {
         hours: number[];
         minutes: number[];
@@ -68,7 +68,7 @@ declare const Datepicker: Component<any, any, any, {
     inputAttr?: string;
     confirmText?: string;
     rangeSeparator?: string;
-    dateFormat?:string
+    dateFormat?: string;
 }>;
 
 export default Datepicker;
