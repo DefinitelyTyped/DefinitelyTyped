@@ -738,6 +738,7 @@ export interface DbSignUpOptions {
     email: string;
     password: string;
     connection: string;
+    username?: string;
     scope?: string;
     user_metadata?: any;
 }
@@ -835,6 +836,7 @@ export interface AuthorizeOptions {
     mode?: "login" | "signUp";
     accessType?: string;
     approvalPrompt?: string;
+    appState?: any;
 }
 
 export interface CheckSessionOptions extends AuthorizeOptions {

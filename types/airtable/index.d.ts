@@ -1,6 +1,7 @@
 // Type definitions for airtable 0.5
 // Project: https://github.com/airtable/airtable.js
 // Definitions by: Brandon Valosek <https://github.com/bvalosek>
+//                 Max Chehab <https://github.com/maxchehab>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -8,12 +9,26 @@ export = Airtable;
 
 declare global {
     class Airtable {
+        constructor(options?: Airtable.AirtableOptions);
         base(appId: string): Airtable.Base;
     }
 
     namespace Airtable {
         interface FieldSet {
-            [ key: string ]: undefined | string | ReadonlyArray<Attachment>;
+            [key: string]:
+                | undefined
+                | string
+                | ReadonlyArray<string>
+                | ReadonlyArray<Attachment>;
+        }
+
+        interface AirtableOptions {
+            apiKey?: string;
+            endpointUrl?: string;
+            apiVersion?: string;
+            allowUnauthorizedSsl?: boolean;
+            noRetryIfRateLimited?: boolean;
+            requestTimeout?: number;
         }
 
         interface Base {
@@ -22,6 +37,12 @@ declare global {
 
         interface Table<TFields extends FieldSet> {
             select(opt?: SelectOptions): Query<TFields>;
+            find(id: string): Promise<Response<TFields>>;
+            create(record: TFields, opts?: { typecast: boolean }): Promise<Response<TFields>>;
+            create(records: TFields[], opts?: { typecast: boolean }): Promise<Array<Response<TFields>>>;
+            update(...args: any[]): Promise<any>;
+            replace(...args: any[]): Promise<any>;
+            destroy(...args: any[]): Promise<any>;
         }
 
         interface SelectOptions {

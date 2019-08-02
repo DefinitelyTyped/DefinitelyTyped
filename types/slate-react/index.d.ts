@@ -1,4 +1,4 @@
-// Type definitions for slate-react 0.21
+// Type definitions for slate-react 0.22
 // Project: https://github.com/ianstormtaylor/slate
 // Definitions by: Andy Kent <https://github.com/andykent>
 //                 Jamie Talbot <https://github.com/majelbstoat>
@@ -30,7 +30,8 @@ import {
     RangeProperties,
     NodeProperties,
     Range,
-    Controller
+    Controller,
+    Plugin as CorePlugin
 } from "slate";
 import * as Immutable from "immutable";
 import * as React from "react";
@@ -43,7 +44,7 @@ export interface RenderAttributes {
 export interface RenderMarkProps {
     attributes: RenderAttributes;
     children: React.ReactNode;
-    editor: CoreEditor;
+    editor: Editor;
     mark: Mark;
     marks: Immutable.Set<Mark>;
     node: Node;
@@ -52,15 +53,26 @@ export interface RenderMarkProps {
 }
 
 export interface RenderNodeProps {
-  attributes: RenderAttributes;
-  children: React.ReactNode;
-  editor: CoreEditor;
-  isFocused: boolean;
-  isSelected: boolean;
-  key: string;
-  node: Block | Inline;
-  parent: Node;
-  readOnly: boolean;
+    attributes: RenderAttributes;
+    children: React.ReactNode;
+    editor: Editor;
+    isFocused: boolean;
+    isSelected: boolean;
+    key: string;
+    parent: Node;
+    readOnly: boolean;
+}
+
+export interface RenderBlockProps extends RenderNodeProps {
+    node: Block;
+}
+
+export interface RenderDocumentProps extends RenderNodeProps {
+    node: Document;
+}
+
+export interface RenderInlineProps extends RenderNodeProps {
+    node: Inline;
 }
 
 export type EventHook = (
@@ -69,11 +81,13 @@ export type EventHook = (
     next: () => any
 ) => any;
 
-export interface Plugin {
+export interface Plugin extends CorePlugin {
     decorateNode?: (node: Node, editor: CoreEditor, next: () => any) => any;
     renderEditor?: (props: EditorProps, editor: CoreEditor, next: () => any) => any;
     renderMark?: (props: RenderMarkProps, editor: CoreEditor, next: () => any) => any;
-    renderNode?: (props: RenderNodeProps, editor: CoreEditor, next: () => any) => any;
+    renderBlock?: (props: RenderBlockProps, editor: CoreEditor, next: () => any) => any;
+    renderDocument?: (props: RenderDocumentProps, editor: CoreEditor, next: () => any) => any;
+    renderInline?: (props: RenderInlineProps, editor: CoreEditor, next: () => any) => any;
     shouldNodeComponentUpdate?: (previousProps: RenderNodeProps, props: RenderNodeProps, editor: CoreEditor, next: () => any) => any;
 
     onBeforeInput?: EventHook;
@@ -97,14 +111,23 @@ export interface Plugin {
     onSelect?: EventHook;
 }
 
+export type PluginOrPlugins = Plugin | Plugins;
+export interface Plugins extends Array<PluginOrPlugins> {}
+
+export interface OnChangeParam {
+    operations: Immutable.List<Operation>;
+    value: Value;
+}
+export type OnChangeFn = (change: OnChangeParam) => any;
+
 export interface BasicEditorProps {
     value: Value;
     autoCorrect?: boolean;
     autoFocus?: boolean;
     className?: string;
-    onChange?: (change: { operations: Immutable.List<Operation>, value: Value }) => any;
+    onChange?: OnChangeFn;
     placeholder?: any;
-    plugins?: Plugin[];
+    plugins?: Plugins;
     readOnly?: boolean;
     role?: string;
     schema?: SchemaProperties;

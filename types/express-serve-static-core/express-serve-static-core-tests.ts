@@ -1,3 +1,7 @@
 import * as express from 'express-serve-static-core';
 
-// null test file - everything should be tested from express.d.ts and serve-static.d.ts
+const app: express.Application = {} as any;
+app.listen(3000);
+app.listen(3000, (err: any) => {
+    // no-op error callback
+});

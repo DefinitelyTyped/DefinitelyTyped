@@ -44,6 +44,8 @@ var connection: sql.ConnectionPool = new sql.ConnectionPool(config, function (er
             }
         });
 
+        requestQuery.query`SELECT * FROM TABLE`.then(res => { });
+
         getArticlesQuery = "SELECT 1 as value FROM TABLE";
 
         requestQuery.query<Entity>(getArticlesQuery, function (err, result) {
@@ -172,6 +174,7 @@ function test_promise_returns() {
     request.batch<Entity>('create procedure #temporary as select * from table;select 1 as value').then((recordset) => { });
     request.bulk(new sql.Table("table_name")).then(() => { });
     request.query('SELECT 1').then((recordset) => { });
+    request.query`SELECT ${1} as value`.then(res => { });
     request.query<Entity>('SELECT 1 as value').then(res => { });
     request.execute('procedure_name').then((recordset) => { });
 }

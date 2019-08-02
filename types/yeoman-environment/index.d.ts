@@ -2,7 +2,7 @@
 // Project: https://github.com/yeoman/environment, http://yeoman.io
 // Definitions by: c4605 <https://github.com/bolasblack>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.3
 
 import { EventEmitter } from "events";
 import { Store as MemFsStore } from "mem-fs";
@@ -102,9 +102,9 @@ declare namespace Environment {
     }
 
     namespace Adapter {
-        type Question<T> = inquirer.Question<T>;
+        type Question<T> = inquirer.DistinctQuestion<T>;
 
-        type Questions<T> = inquirer.Questions<T>;
+        type Questions<T> = inquirer.QuestionCollection<T>;
 
         type Answers = inquirer.Answers;
     }

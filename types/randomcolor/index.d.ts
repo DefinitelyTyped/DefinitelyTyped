@@ -3,7 +3,7 @@
 // Definitions by: Mathias Feitzinger <https://github.com/feitzi>, Brady Liles <https://github.com/BradyLiles>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function randomColor(options?: RandomColorOptions): string;
+declare function randomColor(options?: RandomColorOptions): string | string[];
 
 interface RandomColorOptions {
 	hue?: number | string;

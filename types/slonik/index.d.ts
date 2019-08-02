@@ -1,4 +1,4 @@
-// Type definitions for slonik 16.16
+// Type definitions for slonik 18.2
 // Project: https://github.com/gajus/slonik#readme
 // Definitions by: Sebastian Sebald <https://github.com/sebald>
 //                 Misha Kaletsky <https://github.com/mmkal>
@@ -292,6 +292,14 @@ export interface TaggedTemplateLiteralInvocationType<Result = QueryResultRowType
 
 export const sql: SqlTaggedTemplateType;
 
+export type IdentifierNormalizerType = (identifierName: string) => string;
+
+export interface SqlTagConfigurationType {
+    normalizeIdentifier?: IdentifierNormalizerType;
+}
+
+export function createSqlTag(configuration?: SqlTagConfigurationType): SqlTaggedTemplateType;
+
 export interface SqlTaggedTemplateType {
     // tslint:disable-next-line no-unnecessary-generics (the sql<Foo>`select foo` is cleaner in this case than casting with 'as')
     <T = QueryResultRowType>(template: TemplateStringsArray, ...vals: ValueExpressionType[]): SqlSqlTokenType<T>;
@@ -489,9 +497,24 @@ export interface ClientUserConfigurationType extends ClientConfigurationType {}
 // ERRORS
 // ----------------------------------------------------------------------
 export class SlonikError extends Error {}
+export class InvalidInputError extends SlonikError {}
+export class UnexpectedStateError extends SlonikError {}
+export class ConnectionError extends SlonikError {}
+export class QueryCancelledError extends SlonikError {
+  originalError: Error;
+  constructor(error: Error);
+}
+export class BackendTerminatedError extends SlonikError {
+  originalError: Error;
+  constructor(error: Error)
+}
 export class NotFoundError extends SlonikError {}
 export class DataIntegrityError extends SlonikError {}
-export class IntegrityConstraintViolationError extends SlonikError {}
+export class IntegrityConstraintViolationError extends SlonikError {
+  constraint: string;
+  originalError: Error;
+  constructor(error: Error, constraint: string);
+}
 export class NotNullIntegrityConstraintViolationError extends IntegrityConstraintViolationError {}
 export class ForeignKeyIntegrityConstraintViolationError extends IntegrityConstraintViolationError {}
 export class UniqueIntegrityConstraintViolationError extends IntegrityConstraintViolationError {}

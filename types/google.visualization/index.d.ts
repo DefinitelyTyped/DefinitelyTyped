@@ -1209,6 +1209,88 @@ declare namespace google {
         }
 
         //#endregion
+        //#region calendar
+
+        // https://developers.google.com/chart/interactive/docs/gallery/calendar
+        export class Calendar extends ChartBase {
+            draw(data: DataTable | DataView, options?: CalendarOptions): void;
+            getBoundingBox(id: string): Object;
+            getSelection(): any[];
+            setSelection(): void;
+            clearChart(): void;
+        }
+
+        // https://developers.google.com/chart/interactive/docs/gallery/calendar#Configuration_Options
+        export interface CalendarOptions {
+            calendar: {
+                cellColor: Object;
+                cellSize: number;
+                dayOfWeekLabel: Object;
+                dayOfWeekRightSpace: number;
+                daysOfWeek: string;
+                focusedCellColor: Object;
+                monthLabel: Object;
+                monthOutlineColor: Object;
+                underMonthSpace: number;
+                underYearSpace: number;
+                unusedMonthOutlineColor: Object;
+            };
+            colorAxis?: {
+                colors: string[];
+                maxValue: number;
+                minValue: number;
+                values: number[];
+            };
+            forceIFrame?: boolean;
+            height?: number;
+            noDataPattern?: Object;
+            tooltip: {
+                isHtml: boolean;
+            };
+            width?: number;
+        }
+
+        //#endregion
+        //#region Map
+
+        // https://developers.google.com/chart/interactive/docs/gallery/map
+        export class Map extends CoreChartBase {
+            draw(data: DataTable | DataView, options?: MapOptions): void;
+            getAction(actionID: string): void;
+            getImageURI(): string;
+            getSelection(): any[];
+            getHAxisValue(position: number, axisIndex?: number): number;
+            getVAxisValue(position: number, axisIndex?: number): number;
+            getXLocation(position: number, axisIndex?: number): number;
+            getYLocation(position: number, axisIndex?: number): number;
+            removeAction(actionID: number): void;
+            setAction(action: number): void;
+            setSelection(): void;
+            clearChart(): void;
+        }
+
+        // https://developers.google.com/chart/interactive/docs/gallery/map#Configuration_Options
+        export interface MapOptions {
+            enableScrollWheel?: boolean;
+            icons?: Object;
+            lineColor?: string;
+            lineWidth?: number;
+            maps: {
+                mapTypeId: {
+                    name?: string;
+                    styles?: any[];
+                }
+            };
+            mapType?: string;
+            mapTypeIds?: any[];
+            showInfoWindow?: boolean;
+            showLine?: boolean;
+            showTooltip?: boolean;
+            useMapTypeControl?: boolean;
+            zoomLevel?: number;
+        }
+
+        //#endregion         
         //#region Events
 
         namespace events {

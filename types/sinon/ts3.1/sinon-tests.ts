@@ -82,6 +82,7 @@ function testSandbox() {
     const stubInstance = sb.createStubInstance(cls);
     const privateFooStubbedInstance = sb.createStubInstance(PrivateFoo);
     stubInstance.foo.calledWith('foo', 1);
+    stubInstance.foo.calledWith('foo');
     privateFooStubbedInstance.foo.calledWith();
     const clsFoo: sinon.SinonStub<[string, number], number> = stubInstance.foo;
     const privateFooFoo: sinon.SinonStub<[], void> = privateFooStubbedInstance.foo;
@@ -490,6 +491,7 @@ function testStub() {
         foo(arg: string): number { return 1; }
         promiseFunc() { return Promise.resolve('foo'); }
         promiseLikeFunc() { return Promise.resolve('foo') as PromiseLike<string>; }
+        unresolvableReturnFunc(): any { return Promise.resolve(); }
         fooDeep(arg: { s: string }): void { return undefined; }
     };
     const instance = new obj();
@@ -500,6 +502,11 @@ function testStub() {
 
     const promiseStub = sinon.stub(instance, 'promiseFunc');
     promiseStub.resolves('test');
+    promiseStub.resolves(123); // $ExpectError
+
+    const promiseUnresolvableReturn =
+        sinon.stub(instance, 'unresolvableReturnFunc');
+    promiseUnresolvableReturn.resolves(['anything', 123, true]);
 
     const promiseLikeStub = sinon.stub(instance, 'promiseLikeFunc');
     promiseLikeStub.resolves('test');

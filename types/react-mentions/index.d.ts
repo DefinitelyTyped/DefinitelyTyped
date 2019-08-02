@@ -6,6 +6,9 @@
 // TypeScript Version: 2.8
 import * as React from "react";
 
+type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
+export {};
+
 /**
  * MentionsInput is the main component rendering the textarea control. It takes one or multiple Mention components as its children.
  */
@@ -19,7 +22,7 @@ export const Mention: React.SFC<MentionProps>;
 /**
  * The properties for the @see MentionsInput component.
  */
-export interface MentionsInputProps {
+export interface MentionsInputProps extends Omit<React.TextareaHTMLAttributes<HTMLTextAreaElement>, 'onChange' | 'onBlur' | 'onKeyDown' | 'onSelect'> {
     /**
      * If set to `true` a regular text input element will be rendered
      * instead of a textarea
@@ -37,6 +40,7 @@ export interface MentionsInputProps {
     onKeyDown?: (event: React.KeyboardEvent<HTMLTextAreaElement> | React.KeyboardEvent<HTMLInputElement>) => void;
     children: React.ReactElement<MentionProps> | Array<React.ReactElement<MentionProps>>;
     className?: string;
+    classNames?: any;
     style?: any;
     suggestionsPortalHost?: Element;
     inputRef?: React.RefObject<HTMLTextAreaElement> | React.RefObject<HTMLInputElement>;

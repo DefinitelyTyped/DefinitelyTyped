@@ -92,6 +92,12 @@ declare namespace AdazzleReactDataGrid {
          * If you want to define your own, consider extending ReactDataGrid.Row.
          */
         rowRenderer?: React.ReactElement | React.ComponentClass<any> | React.StatelessComponent<any>
+
+        /**
+         * A react component to customize how the grouping header row is rendered
+         */
+        rowGroupRenderer?: React.ComponentType
+
         /**
          * A component to display when there are no rows to render.
          */

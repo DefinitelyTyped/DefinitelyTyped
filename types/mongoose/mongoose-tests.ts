@@ -41,6 +41,8 @@ mongoose.createConnection(connectUri).then((conn)=> {
   return conn.collections;
 }, () => {
 
+var connections: mongoose.Connection[] = mongoose.connections;
+
 });
 mongoose.createConnection(connectUri).openUri('');
 mongoose.createConnection(connectUri, {
@@ -67,6 +69,7 @@ new mongoose.mongo.MongoError('error').stack;
 mongoose.SchemaTypes.String;
 mongoose.SchemaTypes.ObjectId;
 mongoose.SchemaTypes.Decimal128;
+mongoose.SchemaTypes.Map;
 mongoose.Types.ObjectId;
 mongoose.Types.Decimal128;
 mongoose.version.toLowerCase();
@@ -315,25 +318,29 @@ virtualtype.set(cb).set(cb);
  * http://mongoosejs.com/docs/api.html#schema-js
  */
 var schema: mongoose.Schema = new mongoose.Schema({
-  name:    String,
-  binary:  Buffer,
-  living:  Boolean,
+  name: String,
+  binary: Buffer,
+  living: Boolean,
   updated: { type: Date, default: Date.now },
-  age:     { type: Number, min: 18, max: 65 },
-  mixed:   mongoose.Schema.Types.Mixed,
+  age: { type: Number, min: 18, max: 65 },
+  mixed: mongoose.Schema.Types.Mixed,
   _someId: mongoose.Schema.Types.ObjectId,
-  someDecimal:mongoose.Schema.Types.Decimal128,
-  array:      [],
-  ofString:   [String],
-  ofNumber:   [Number],
-  ofDates:    [Date],
-  ofBuffer:   [Buffer],
-  ofBoolean:  [Boolean],
-  ofMixed:    [mongoose.Schema.Types.Mixed],
+  someDecimal: mongoose.Schema.Types.Decimal128,
+  array: [],
+  ofString: [String],
+  ofNumber: [Number],
+  ofDates: [Date],
+  ofBuffer: [Buffer],
+  ofBoolean: [Boolean],
+  ofMixed: [mongoose.Schema.Types.Mixed],
   ofObjectId: [mongoose.Schema.Types.ObjectId],
+  map: {
+    type: Map,
+    of: String,
+  },
   nested: {
-    stuff: { type: String, lowercase: true, trim: true }
-  }
+    stuff: { type: String, lowercase: true, trim: true },
+  },
 });
 schema.add({
   mixedArray: {
@@ -799,10 +806,28 @@ ImageModel.findOne({}, function(err, doc) {
     doc.id;
   }
 });
+
+/* Testing deep partials */
+interface NestedDoc extends mongoose.Document {
+  name: string;
+  image: ImageDoc;
+}
+var NestedDocSchema = new mongoose.Schema({
+  name: String,
+  image: ImageModel
+});
+const NestedModel = mongoose.model<NestedDoc>('Nested', NestedDocSchema);
+const nested = new NestedModel({
+  name: "name",
+  image: {
+    name: "name"
+  }
+})
+
 /* Using flatten maps example */
 interface Submission extends mongoose.Document {
   name: string;
-  fields: string[];
+  fields: Record<string,string>;
 }
 var SubmissionSchema = new mongoose.Schema({
   name: String,
@@ -978,6 +1003,17 @@ embeddedDocument.markModified('path');
 /* inherited properties */
 embeddedDocument.execPopulate();
 
+/**
+ * section types/map.js
+ * https://mongoosejs.com/docs/schematypes.html#maps
+ */
+var map: mongoose.Types.Map<string> = new mongoose.Types.Map<string>();
+map.get('key');
+map.set('key', 'value');
+map.delete('key');
+map.toObject().delete;
+map.toObject({ flattenMaps: true }).key;
+
 /*
  * section query.js
  * http://mongoosejs.com/docs/api.html#query-js
@@ -1083,6 +1119,7 @@ query.find().lt('age', 21);
 query.find().where('age').lte(21);
 query.find().lte('age', 21);
 query.maxDistance('path', 21).maxDistance(21);
+query.maxTimeMS(1000);
 query.maxscan(100).maxScan(100);
 query.maxScan(100).maxScan(100);
 query.merge(query).merge({});
@@ -1198,6 +1235,12 @@ query.
   sort('-occupation').
   select('name occupation').
   exec(cb).then(cb).catch(cb);
+/**
+ * https://mongoosejs.com/docs/api.html#query_Query-lean
+ */
+query.lean() // true
+query.lean(false)
+query.lean({})
 
 /*
  * section schema/array.js
@@ -1988,6 +2031,8 @@ const x = new extended({
   username: 'hi',     // required in baseSchema
   email: 'beddiw',    // required in extededSchema
 });
+// Setting a different value for `discriminatorKey`
+const extended2: mongoose.Model<extended> = base.discriminator<extended>('extendedS', schema, 'extended');
 
 new mongoose.Schema({}, {
   timestamps: {
@@ -2017,8 +2062,8 @@ const addFieldsAgg: mongoose.Aggregate<any> = aggregatePrototypeGraphLookup.addF
 
 MyModel.findById('foo').then((doc: mongoose.Document) => {
   const a: boolean = doc.isDirectSelected('bar');
-  const b: boolean = doc.isDeleted();
-  doc.isDeleted(true);
+  const b: boolean = doc.$isDeleted();
+  doc.$isDeleted(true);
 });
 
 MyModel.translateAliases({});

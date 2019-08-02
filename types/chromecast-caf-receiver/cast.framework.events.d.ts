@@ -4,8 +4,11 @@ import {
     Track,
     MediaStatus
 } from "./cast.framework.messages";
+import * as category from "./cast.framework.events.category";
 
-export as namespace events
+export import category = category;
+
+export as namespace events;
 export type EventType =
     | "ALL"
     | "ABORT"
@@ -146,11 +149,7 @@ export class SegmentDownloadedEvent extends Event {
  * Event data for all events that represent requests made to the receiver.
  */
 export class RequestEvent extends Event {
-    constructor(
-        type: EventType,
-        requestData?: RequestData,
-        senderId?: string
-    );
+    constructor(type: EventType, requestData?: RequestData, senderId?: string);
 
     /**
      * The data that was sent with the request.

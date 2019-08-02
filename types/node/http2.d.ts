@@ -71,6 +71,7 @@ declare module "http2" {
          * indicating that no additional data should be received and the readable side of the Http2Stream will be closed.
          */
         readonly endAfterHeaders: boolean;
+        readonly id?: number;
         readonly pending: boolean;
         readonly rstCode: number;
         readonly sentHeaders: OutgoingHttpHeaders;
@@ -655,8 +656,8 @@ declare module "http2" {
         addTrailers(trailers: OutgoingHttpHeaders): void;
         readonly connection: net.Socket | tls.TLSSocket;
         end(callback?: () => void): void;
-        end(data: string | Buffer | Uint8Array, callback?: () => void): void;
-        end(data: string | Buffer | Uint8Array, encoding: string, callback?: () => void): void;
+        end(data: string | Uint8Array, callback?: () => void): void;
+        end(data: string | Uint8Array, encoding: string, callback?: () => void): void;
         readonly finished: boolean;
         getHeader(name: string): string;
         getHeaderNames(): string[];
@@ -671,8 +672,8 @@ declare module "http2" {
         statusCode: number;
         statusMessage: '';
         readonly stream: ServerHttp2Stream;
-        write(chunk: string | Buffer | Uint8Array, callback?: (err: Error) => void): boolean;
-        write(chunk: string | Buffer | Uint8Array, encoding: string, callback?: (err: Error) => void): boolean;
+        write(chunk: string | Uint8Array, callback?: (err: Error) => void): boolean;
+        write(chunk: string | Uint8Array, encoding: string, callback?: (err: Error) => void): boolean;
         writeContinue(): void;
         writeHead(statusCode: number, headers?: OutgoingHttpHeaders): this;
         writeHead(statusCode: number, statusMessage: string, headers?: OutgoingHttpHeaders): this;
@@ -942,7 +943,7 @@ declare module "http2" {
 
     export function getDefaultSettings(): Settings;
     export function getPackedSettings(settings: Settings): Buffer;
-    export function getUnpackedSettings(buf: Buffer | Uint8Array): Settings;
+    export function getUnpackedSettings(buf: Uint8Array): Settings;
 
     export function createServer(onRequestHandler?: (request: Http2ServerRequest, response: Http2ServerResponse) => void): Http2Server;
     export function createServer(options: ServerOptions, onRequestHandler?: (request: Http2ServerRequest, response: Http2ServerResponse) => void): Http2Server;

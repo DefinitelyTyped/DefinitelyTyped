@@ -10,6 +10,7 @@
 //                 Domas Trijonis <https://github.com/fdim>
 //                 Peter Safranek <https://github.com/pe8ter>
 //                 Moshe Kolodny <https://github.com/kolodny>
+//                 Stephen Farrar <https://github.com/stephenfarrar>
 // For ddescribe / iit use : https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/karma-jasmine/karma-jasmine.d.ts
 
 type ImplementationCallback = (() => Promise<any>) | ((done: DoneFn) => void);
@@ -150,20 +151,18 @@ interface DoneFn extends Function {
     fail: (message?: Error | string) => void;
 }
 
-type Methods<T> = {
-    [K in {
-        [K in keyof T]: T[K] extends Function ? K : never
-    }[keyof T]]: T[K]
-};
-
 /**
  * Install a spy onto an existing object.
  * @param object The object upon which to install the `Spy`.
  * @param method The name of the method to replace with a `Spy`.
  */
 declare function spyOn<T, K extends keyof T = keyof T>(
-    object: T, method: T[K] extends InferableFunction ? K : never,
-): jasmine.Spy<T[K] extends InferableFunction ? T[K] : never>;
+    object: T, method: T[K] extends Function ? K : never,
+): jasmine.Spy<
+    T[K] extends InferableFunction ? T[K] :
+    T[K] extends {new (...args: infer A): infer V} ? (...args: A) => V :
+    T[K] extends Function ? InferableFunction : never
+>;
 
 /**
  * Install a spy on a property installed with `Object.defineProperty` onto an existing object.
@@ -184,11 +183,22 @@ declare function waitsFor(latchMethod: () => boolean, failureMessage?: string, t
 declare function waits(timeout?: number): void;
 
 declare namespace jasmine {
-    type Expected<T> = T | ObjectContaining<T> | Any | Spy;
+    type ExpectedRecursive<T> = T | ObjectContaining<T> | AsymmetricMatcher | {
+        [K in keyof T]: ExpectedRecursive<T[K]> | Any;
+    };
+    type Expected<T> = T | ObjectContaining<T> | AsymmetricMatcher | Any | Spy | {
+        [K in keyof T]: ExpectedRecursive<T[K]>;
+    };
     type SpyObjMethodNames<T = undefined> =
         T extends undefined ?
             (ReadonlyArray<string> | {[methodName: string]: any}) :
             (ReadonlyArray<keyof T> | {[P in keyof T]?: ReturnType<T[P] extends InferableFunction ? T[P] : any>});
+
+    type AnyMethods<T> = {
+        [K in {
+            [K in keyof T]: T[K] extends Function ? K : never
+        }[keyof T]]: InferableFunction
+    };
 
     function clock(): Clock;
 
@@ -229,24 +239,26 @@ declare namespace jasmine {
         jasmineToString(): string;
     }
 
+    interface AsymmetricMatcher {
+      asymmetricMatch(other: any): boolean;
+      jasmineToString?(): string;
+  }
+
     // taken from TypeScript lib.core.es6.d.ts, applicable to CustomMatchers.contains()
     interface ArrayLike<T> {
         length: number;
         [n: number]: T;
     }
 
-    interface ArrayContaining<T> {
-        new (sample: ArrayLike<T>): ArrayLike<T>;
-
-        asymmetricMatch(other: any): boolean;
-        jasmineToString(): string;
+    interface ArrayContaining<T> extends AsymmetricMatcher {
+        new?(sample: ArrayLike<T>): ArrayLike<T>;
     }
 
     interface ObjectContaining<T> {
-        new (sample: Partial<T>): Partial<T>;
+        new?(sample: Partial<T>): Partial<T>;
 
         jasmineMatches(other: any, mismatchKeys: any[], mismatchValues: any[]): boolean;
-        jasmineToString(): string;
+        jasmineToString?(): string;
     }
 
     interface Block {
