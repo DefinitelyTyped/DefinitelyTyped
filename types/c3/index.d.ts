@@ -8,7 +8,7 @@
 //                 Nate Mara <https://github.com/natemara>
 //                 Ian Sanders <https://github.com/iansan5653>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
+// TypeScript Version: 3.0
 
 import * as d3 from 'd3';
 
