@@ -2,8 +2,5 @@
     "private": true,
     "dependencies": {
         "redux": "^4.0.4"
-    },
-    "typesVersions": {
-        ">=3.1.0-0": { "*": ["ts3.1/*"] }
     }
 }
