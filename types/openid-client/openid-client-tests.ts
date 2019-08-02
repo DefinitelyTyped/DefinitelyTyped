@@ -1,5 +1,9 @@
 import { IncomingMessage } from 'http';
-import { Issuer, generators, custom } from 'openid-client';
+import {
+  custom,
+  generators,
+  Issuer,
+} from 'openid-client';
 
 async (req: IncomingMessage) => {
     // Custom HTTP options on the `Issuer` _c'tor_ (e.g. used for `Issuer.discover()`):
@@ -90,6 +94,7 @@ async (req: IncomingMessage) => {
     //
 
     const introspectResponse = await client.introspect('token');
+    const active: boolean = introspectResponse.active;
     console.log(introspectResponse['some claim name']);
 
     client.introspect('token', 'tokenTypeHint');
