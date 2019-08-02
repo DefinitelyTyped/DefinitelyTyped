@@ -2,7 +2,7 @@
 // Project: https://github.com/mengxiong10/vue2-datepicker
 // Definitions by: ChristianStornowski <https://github.com/ChristianStornowski>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5.0
+// TypeScript Version: 3.5
 
 import { Component } from "vue/types/options";
 
