@@ -8,6 +8,7 @@ export interface AttributeOpts {
 
 export class Attribute extends Field {
     constructor(opts?: AttributeOpts);
+    ['type']: 'attr';
 }
 
 export interface AttributeWithDefault extends Attribute {
@@ -18,10 +19,7 @@ export interface RelationalFieldOpts {
     to: string;
     relatedName?: string;
     through?: string;
-    throughFields?: {
-        to: string;
-        from: string;
-    };
+    throughFields?: [string, string];
     as?: string;
 }
 
@@ -30,14 +28,18 @@ export class RelationalField extends Field {
     constructor(opts: RelationalFieldOpts);
 }
 
-export class OneToOne extends RelationalField {}
+export class OneToOne extends RelationalField {
+    ['type']: 'oneToOne';
+}
 
 export class ForeignKey extends RelationalField {
     readonly index: true;
+    ['type']: 'fk';
 }
 
 export class ManyToMany extends RelationalField {
     readonly index: false;
+    ['type']: 'many';
 }
 
 export interface AttrCreator {
