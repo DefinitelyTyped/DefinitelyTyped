@@ -92,7 +92,7 @@ export interface EndSessionUrlParameters {
 
 export interface IntrospectionResponse {
     active: boolean;
-    scope?: string[];
+    scope?: string;
     client_id?: string;
     username?: string;
     token_type?: string;
