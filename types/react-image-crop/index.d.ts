@@ -4,6 +4,7 @@
 //                 Elias Chaaya <https://github.com/chaaya>
 //                 Søren Englund <https://github.com/englund0110>
 //                 Jonathan Guo <https://github.com/JonathanGuo>
+//                 Lewis Monteith <https://github.com/lemonJS>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
