@@ -49,6 +49,8 @@ declare namespace ReactCrop {
         locked?: boolean;
         renderComponent?: ReactNode;
         renderSelectionAddon?: (state: any) => ReactNode;
+        ruleOfThirds?: boolean;
+        circularCrop?: boolean;
     }
 
     function makeAspectCrop(crop: Crop, imageWidth: number, imageHeight: number): Crop;
