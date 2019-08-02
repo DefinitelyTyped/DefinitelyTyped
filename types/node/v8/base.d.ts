@@ -5678,19 +5678,40 @@ declare module "util" {
     export function callbackify<T1, T2, T3, T4, T5, T6>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, arg6: T6) => Promise<void>): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, arg6: T6, callback: (err: NodeJS.ErrnoException) => void) => void;
     export function callbackify<T1, T2, T3, T4, T5, T6, TResult>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, arg6: T6) => Promise<TResult>): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, arg6: T6, callback: (err: NodeJS.ErrnoException | null, result: TResult) => void) => void;
 
+    type Errback = (err?: Error | null) => void;
+    type Callback<TResult> = (err: Error | null | undefined, result: TResult) => void;
+
     export function promisify<TCustom extends Function>(fn: CustomPromisify<TCustom>): TCustom;
-    export function promisify<TResult>(fn: (callback: (err: Error | null, result: TResult) => void) => void): () => Promise<TResult>;
-    export function promisify(fn: (callback: (err?: Error | null) => void) => void): () => Promise<void>;
-    export function promisify<T1, TResult>(fn: (arg1: T1, callback: (err: Error | null, result: TResult) => void) => void): (arg1: T1) => Promise<TResult>;
-    export function promisify<T1>(fn: (arg1: T1, callback: (err?: Error | null) => void) => void): (arg1: T1) => Promise<void>;
-    export function promisify<T1, T2, TResult>(fn: (arg1: T1, arg2: T2, callback: (err: Error | null, result: TResult) => void) => void): (arg1: T1, arg2: T2) => Promise<TResult>;
-    export function promisify<T1, T2>(fn: (arg1: T1, arg2: T2, callback: (err?: Error | null) => void) => void): (arg1: T1, arg2: T2) => Promise<void>;
-    export function promisify<T1, T2, T3, TResult>(fn: (arg1: T1, arg2: T2, arg3: T3, callback: (err: Error | null, result: TResult) => void) => void): (arg1: T1, arg2: T2, arg3: T3) => Promise<TResult>;
-    export function promisify<T1, T2, T3>(fn: (arg1: T1, arg2: T2, arg3: T3, callback: (err?: Error | null) => void) => void): (arg1: T1, arg2: T2, arg3: T3) => Promise<void>;
-    export function promisify<T1, T2, T3, T4, TResult>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, callback: (err: Error | null, result: TResult) => void) => void): (arg1: T1, arg2: T2, arg3: T3, arg4: T4) => Promise<TResult>;
-    export function promisify<T1, T2, T3, T4>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, callback: (err?: Error | null) => void) => void): (arg1: T1, arg2: T2, arg3: T3, arg4: T4) => Promise<void>;
-    export function promisify<T1, T2, T3, T4, T5, TResult>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, callback: (err: Error | null, result: TResult) => void) => void): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5) => Promise<TResult>;
-    export function promisify<T1, T2, T3, T4, T5>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, callback: (err?: Error | null) => void) => void): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5) => Promise<void>;
+    export function promisify<TResult>(fn: (callback: Callback<TResult>) => void): () => Promise<TResult>;
+    export function promisify(fn: (callback: Errback) => void): () => Promise<void>;
+    export function promisify<T1, TResult>(
+        fn: (arg1: T1, callback: Callback<TResult>) => void
+    ): (arg1: T1) => Promise<TResult>;
+    export function promisify<T1>(fn: (arg1: T1, callback: Errback) => void): (arg1: T1) => Promise<void>;
+    export function promisify<T1, T2, TResult>(
+        fn: (arg1: T1, arg2: T2, callback: Callback<TResult>) => void
+    ): (arg1: T1, arg2: T2) => Promise<TResult>;
+    export function promisify<T1, T2>(
+        fn: (arg1: T1, arg2: T2, callback: Errback) => void
+    ): (arg1: T1, arg2: T2) => Promise<void>;
+    export function promisify<T1, T2, T3, TResult>(
+        fn: (arg1: T1, arg2: T2, arg3: T3, callback: Callback<TResult>) => void
+    ): (arg1: T1, arg2: T2, arg3: T3) => Promise<TResult>;
+    export function promisify<T1, T2, T3>(
+        fn: (arg1: T1, arg2: T2, arg3: T3, callback: Errback) => void
+    ): (arg1: T1, arg2: T2, arg3: T3) => Promise<void>;
+    export function promisify<T1, T2, T3, T4, TResult>(
+        fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, callback: Callback<TResult>) => void
+    ): (arg1: T1, arg2: T2, arg3: T3, arg4: T4) => Promise<TResult>;
+    export function promisify<T1, T2, T3, T4>(
+        fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, callback: Errback) => void
+    ): (arg1: T1, arg2: T2, arg3: T3, arg4: T4) => Promise<void>;
+    export function promisify<T1, T2, T3, T4, T5, TResult>(
+        fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, callback: Callback<TResult>) => void
+    ): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5) => Promise<TResult>;
+    export function promisify<T1, T2, T3, T4, T5>(
+        fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, callback: Errback) => void
+    ): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5) => Promise<void>;
     export function promisify(fn: Function): Function;
 
     export class TextDecoder {
