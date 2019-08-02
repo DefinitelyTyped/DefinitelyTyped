@@ -4,7 +4,7 @@ import { sparkline } from '@fnando/sparkline';
 import * as sparkline2 from '@fnando/sparkline';
 import sparkline3 from '@fnando/sparkline';
 
-const svg = document.createElement('svg') as any as SVGElement;
+const svg = document.createElement('svg') as any as SVGSVGElement;
 
 // number entries
 sparkline(svg, [1, 2, 3]);

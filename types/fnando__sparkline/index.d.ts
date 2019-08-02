@@ -49,7 +49,7 @@ type SparklineNonNativeOptions<TEntry> = SparklineOptions | SparklineOptionsFetc
  * @param entries You can either provide an array of numbers or an array of objects that respond to .value. If you have a different data structure, see options.fetch.
  * @param options This optional argument allows you to further customize the sparkline.
  */
-export function sparkline<TEntry extends SparklineNativeEntry>(svg: SVGElement, entries: TEntry[], options?: SparklineNativeOptions<TEntry>): string;
-export function sparkline<TEntry>(svg: SVGElement, entries: TEntry[], options: SparklineNonNativeOptions<TEntry>): string;
+export function sparkline<TEntry extends SparklineNativeEntry>(svg: SVGSVGElement, entries: TEntry[], options?: SparklineNativeOptions<TEntry>): string;
+export function sparkline<TEntry>(svg: SVGSVGElement, entries: TEntry[], options: SparklineNonNativeOptions<TEntry>): string;
 
 export default sparkline;
