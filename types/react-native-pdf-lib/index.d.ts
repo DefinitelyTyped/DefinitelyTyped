@@ -3,9 +3,11 @@
 // Definitions by: Kevin Brown <https://github.com/thekevinbrown>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export default class PDFLib {
-    static getDocumentsDirectory(): string;
-}
+declare let PDFLib: {
+    getDocumentsDirectory(): string;
+};
+
+export default PDFLib;
 
 export class PDFDocument {
     static create(path: string): PDFDocument;
