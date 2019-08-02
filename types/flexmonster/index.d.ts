@@ -610,6 +610,5 @@ declare namespace Flexmonster {
     interface Level {
         caption: string;
         uniqueName: string;
-        isLast: boolean;
     }
 }
