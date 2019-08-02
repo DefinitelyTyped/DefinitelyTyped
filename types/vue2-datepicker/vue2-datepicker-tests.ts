@@ -1,4 +1,4 @@
-import Vue, {ComponentOptions} from 'vue';
+import Vue, { ComponentOptions } from 'vue';
 import DatePicker from 'vue2-datepicker';
 
 // excerpt from vue-class-component/src/declarations.ts
