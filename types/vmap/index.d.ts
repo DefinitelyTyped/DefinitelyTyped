@@ -126,5 +126,4 @@ declare class VMAP {
     constructor(xml: Document);
 }
 
-export as namespace VMAP;
 export = VMAP;

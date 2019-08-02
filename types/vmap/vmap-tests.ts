@@ -1,4 +1,17 @@
-import VMAP from 'vmap';
+import VMAP, { VMAPAdBreak, VMAPAdSource, VMAPExtension, VMAPTrackingEvent } from 'vmap';
+
+interface ExtendedVMAPAdBreak extends VMAPAdBreak {
+    foo: 'foo';
+}
+interface ExtendedVMAPAdSource extends VMAPAdSource {
+    bar: 'bar';
+}
+interface ExtendedVMAPExtension extends VMAPExtension {
+    baz: 'baz';
+}
+interface ExtendedVMAPTrackingEvent extends VMAPTrackingEvent {
+    foobarbaz: 'foobarbaz';
+}
 
 const domParser = new DOMParser();
 const vmapXML = domParser.parseFromString('', 'text/xml');
