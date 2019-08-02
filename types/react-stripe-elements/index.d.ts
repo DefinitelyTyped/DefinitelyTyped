@@ -43,7 +43,7 @@ export namespace ReactStripeElements {
 
     interface StripeProps {
         createSource(sourceData?: SourceOptions): Promise<SourceResponse>;
-        createToken(options?: TokenOptions & { type: TokenType }): Promise<PatchedTokenResponse>;
+        createToken(options?: TokenOptions & { type?: TokenType }): Promise<PatchedTokenResponse>;
         paymentRequest: stripe.Stripe['paymentRequest'];
         createPaymentMethod(
             paymentMethodType: stripe.paymentMethod.paymentMethodType,
