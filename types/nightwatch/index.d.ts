@@ -7,7 +7,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-interface ChromePerfLoggingPrefs {
+export interface ChromePerfLoggingPrefs {
     /**
      * Default: true. Whether or not to collect events from Network domain.
      */
@@ -22,7 +22,7 @@ interface ChromePerfLoggingPrefs {
      */
     traceCategories?: string;
     /**
-     * Default: 1000. The requested number of milliseconds between DevTools trace buffer usage events. For example, if 1000, 
+     * Default: 1000. The requested number of milliseconds between DevTools trace buffer usage events. For example, if 1000,
      * then once per second, DevTools will report how full the trace buffer is. If a report indicates the buffer usage is 100%,
      * a warning will be issued.
      */
@@ -31,12 +31,12 @@ interface ChromePerfLoggingPrefs {
 
 export interface ChromeOptions {
     /**
-     * 	List of command-line arguments to use when starting Chrome. Arguments with an associated value should be separated by a '=' sign 
+     * 	List of command-line arguments to use when starting Chrome. Arguments with an associated value should be separated by a '=' sign
      * (e.g., ['start-maximized', 'user-data-dir=/tmp/temp_profile']).
      */
     args?: string[];
     /**
-     * Path to the Chrome executable to use (on Mac OS X, this should be the actual binary, not just the app. e.g., 
+     * Path to the Chrome executable to use (on Mac OS X, this should be the actual binary, not just the app. e.g.,
      * '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome')
      */
     binary?: string;
@@ -50,13 +50,13 @@ export interface ChromeOptions {
      */
     localState?: Record<string, string>;
     /**
-     * A dictionary with each entry consisting of the name of the preference and its value. These preferences are only applied 
+     * A dictionary with each entry consisting of the name of the preference and its value. These preferences are only applied
      * to the user profile in use.
      */
     prefs?: Record<string, string>;
     /**
-     * Default: false. If false, Chrome will be quit when ChromeDriver is killed, regardless of whether the session is quit. 
-     * If true, Chrome will only be quit if the session is quit (or closed). Note, if true, and the session is not quit, 
+     * Default: false. If false, Chrome will be quit when ChromeDriver is killed, regardless of whether the session is quit.
+     * If true, Chrome will only be quit if the session is quit (or closed). Note, if true, and the session is not quit,
      * ChromeDriver cannot clean up the temporary user data directory that the running Chrome instance is using.
      */
     detach?: boolean;
@@ -65,7 +65,7 @@ export interface ChromeOptions {
      */
     debuggerAddress?: string;
     /**
-     * List of Chrome command line switches to exclude that ChromeDriver by default passes when starting Chrome. 
+     * List of Chrome command line switches to exclude that ChromeDriver by default passes when starting Chrome.
      * Do not prefix switches with --.
      */
     excludeSwitches?: string[];
