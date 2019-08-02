@@ -2,6 +2,7 @@
 // Project: https://github.com/panva/node-openid-client
 // Definitions by: ulrichb <https://github.com/ulrichb>
 //                 Brandon Shelton <https://github.com/YangusKhan>
+//                 Richard Honor <https://github.com/RMHonor>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -89,6 +90,22 @@ export interface EndSessionUrlParameters {
     readonly state?: string;
 }
 
+export interface IntrospectionResponse {
+    active: boolean;
+    scope?: string[];
+    client_id?: string;
+    username?: string;
+    token_type?: string;
+    exp?: number;
+    iat?: number;
+    nbf?: number;
+    sub?: string;
+    aud?: string;
+    iss?: string;
+    jti?: string;
+    [key: string]: any;
+}
+
 export class Client {
     static [custom.http_options]: CustomHttpOptionsProvider;
 
@@ -127,7 +144,7 @@ export class Client {
         token: string,
         tokenTypeHint?: string,
         extras?: { readonly introspectBody?: object }
-    ): Promise<{ readonly [name: string]: {} | null | undefined }>;
+    ): Promise<IntrospectionResponse>;
 }
 
 export class TokenSet {
