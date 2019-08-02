@@ -91,19 +91,19 @@ export interface EndSessionUrlParameters {
 }
 
 export interface IntrospectionResponse {
-    active: boolean;
-    scope?: string;
-    client_id?: string;
-    username?: string;
-    token_type?: string;
-    exp?: number;
-    iat?: number;
-    nbf?: number;
-    sub?: string;
-    aud?: string;
-    iss?: string;
-    jti?: string;
-    [key: string]: any;
+    readonly active: boolean;
+    readonly scope?: string;
+    readonly client_id?: string;
+    readonly username?: string;
+    readonly token_type?: string;
+    readonly exp?: number;
+    readonly iat?: number;
+    readonly nbf?: number;
+    readonly sub?: string;
+    readonly aud?: string;
+    readonly iss?: string;
+    readonly jti?: string;
+    readonly [key: string]: unknown;
 }
 
 export class Client {
