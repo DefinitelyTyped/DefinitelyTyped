@@ -1,4 +1,4 @@
-// Type definitions for react-stripe-elements 1.2
+// Type definitions for react-stripe-elements 1.3
 // Project: https://github.com/stripe/react-stripe-elements#readme
 // Definitions by: dan-j <https://github.com/dan-j>
 //                 Santiago Doldan <https://github.com/santiagodoldan>
@@ -39,9 +39,19 @@ export namespace ReactStripeElements {
 	interface StripeProps {
 		createSource(sourceData?: SourceOptions): Promise<SourceResponse>;
 		createToken(options?: TokenOptions): Promise<PatchedTokenResponse>;
-        paymentRequest: stripe.Stripe['paymentRequest'];
-        handleCardPayment: stripe.Stripe['handleCardPayment'];
-        handleCardSetup: stripe.Stripe['handleCardSetup'];
+		paymentRequest: stripe.Stripe['paymentRequest'];
+		createPaymentMethod(
+			paymentMethodType: stripe.paymentMethod.paymentMethodType,
+			data?: stripe.CreatePaymentMethodOptions,
+		): Promise<stripe.PaymentMethodResponse>;
+		handleCardPayment(
+			clientSecret: string,
+			options?: stripe.HandleCardPaymentOptions
+		): Promise<stripe.PaymentIntentResponse>;
+		handleCardSetup(
+			clientSecret: string,
+			data?: stripe.HandleCardSetupOptions
+		): Promise<stripe.PaymentIntentResponse>;
 	}
 
 	interface InjectOptions {

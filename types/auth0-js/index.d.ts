@@ -738,6 +738,7 @@ export interface DbSignUpOptions {
     email: string;
     password: string;
     connection: string;
+    username?: string;
     scope?: string;
     user_metadata?: any;
 }
@@ -747,6 +748,8 @@ export interface ParseHashOptions {
     state?: string;
     nonce?: string;
     _idTokenVerification?: boolean;
+    /** indicates that you want to allow IdP-Initiated flows. See {@link https://auth0.com/docs/protocols/saml/idp-initiated-sso#lock-auth0-js} */
+    __enableIdPInitiatedLogin?: boolean;
 }
 
 export interface RenewAuthOptions {
@@ -835,6 +838,7 @@ export interface AuthorizeOptions {
     mode?: "login" | "signUp";
     accessType?: string;
     approvalPrompt?: string;
+    appState?: any;
 }
 
 export interface CheckSessionOptions extends AuthorizeOptions {

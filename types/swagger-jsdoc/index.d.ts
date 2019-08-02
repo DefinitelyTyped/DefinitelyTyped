@@ -3,16 +3,16 @@
 // Definitions by: Daniel Grove <https://github.com/drGrove>
 //                 Neil Bryson Cargamento <https://github.com/neilbryson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 2.2
 
 /* =================== USAGE ===================
 
     import * as express from 'express';
-    import swaggerJSDoc, { Options }  from 'swagger-jsdoc';
+    import * as swaggerJSDoc  from 'swagger-jsdoc';
 
     const app = express();
 
-    const options: Options = {
+    const options: swaggerJSDoc.Options = {
         swaggerDefinition: {
           info: {
             title: 'Hello World',
@@ -38,30 +38,38 @@
 
  =============================================== */
 
-export interface ApiInformation {
-    description?: string;
-    title: string;
-    version: string;
+/**
+ * Returns validated Swagger specification in JSON format.
+ */
+declare function swaggerJSDoc(options?: swaggerJSDoc.Options): object;
+
+declare namespace swaggerJSDoc {
+    interface ApiInformation {
+        description?: string;
+        title: string;
+        version: string;
+    }
+
+    interface ServerInformation {
+        url: string;
+        [key: string]: any;
+    }
+
+    interface SwaggerDefinition {
+        basePath?: string;
+        host?: string;
+        info: ApiInformation;
+        openapi?: string;
+        servers?: ReadonlyArray<ServerInformation>;
+        [key: string]: any;
+    }
+
+    interface Options {
+        apis?: ReadonlyArray<string>;
+        definition?: SwaggerDefinition;
+        swaggerDefinition?: SwaggerDefinition;
+        [key: string]: any;
+    }
 }
 
-export interface ServerInformation {
-    url: string;
-    [key: string]: any;
-}
-
-export interface SwaggerDefinition {
-    basePath?: string;
-    host?: string;
-    info: ApiInformation;
-    openapi?: string;
-    servers?: ReadonlyArray<ServerInformation>;
-    [key: string]: any;
-}
-
-export interface Options {
-    apis?: ReadonlyArray<string>;
-    swaggerDefinition: SwaggerDefinition;
-    [key: string]: any;
-}
-
-export default function swaggerJSDoc(options?: Options): any;
+export = swaggerJSDoc;

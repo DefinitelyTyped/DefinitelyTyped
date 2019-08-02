@@ -847,6 +847,7 @@ describe('custom asymmetry', function() {
 
     it('dives in deep', function() {
         expect('foo,bar,baz,quux').toEqual(tester);
+        expect(123).not.toEqual(tester);
     });
 
     describe('when used with a spy', function() {

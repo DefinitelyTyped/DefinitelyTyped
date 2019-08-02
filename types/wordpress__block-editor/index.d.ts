@@ -81,6 +81,7 @@ export interface EditorInserterItem {
      * Hueristic that combines frequency and recency.
      */
     frecency: number;
+    hasChildBlocksWithInserterSupport: boolean;
 }
 
 export interface EditorSelection {
