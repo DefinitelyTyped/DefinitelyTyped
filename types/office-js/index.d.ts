@@ -9206,7 +9206,7 @@ declare namespace Office {
         /**
          * Gets a string that represents the name of the host application.
          *
-         * A string that can be one of the following values: Outlook, Mac Outlook, OutlookIOS, or OutlookWebApp.
+         * A string that can be one of the following values: Outlook, OutlookWebApp, OutlookIOS, or OutlookAndroid.
          *
          * [Api set: Mailbox 1.0]
          *
@@ -14613,7 +14613,7 @@ declare namespace Office {
          * Contains the following members:
          * 
          *  - hostName (string): A string that represents the name of the host application. 
-         * It be one of the following values: Outlook, Mac Outlook, OutlookIOS, or OutlookWebApp.
+         * It be one of the following values: Outlook, OutlookWebApp, OutlookIOS, or OutlookAndroid.
          * 
          *  - hostVersion (string): A string that represents the version of either the host application or the Exchange Server. 
          * If the mail add-in is running in Outlook on desktop clients or iOS, the hostVersion property returns the version of the 
