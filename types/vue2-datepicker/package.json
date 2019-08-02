@@ -1,7 +1,9 @@
 {
   "private": true,
   "dependencies": {
-    "vue": ">=2.6.10",
+    "vue": ">=2.6.10"
+  },
+  "devDependencies": {
     "vue2-datepicker": ">=2.12.0",
     "vue-class-component": ">=7.1.0"
   }
