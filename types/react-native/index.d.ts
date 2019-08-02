@@ -9498,5 +9498,5 @@ declare global {
      */
     const __DEV__: boolean;
 
-    const HermesInternal: null | any;
+    const HermesInternal: null | {};
 }

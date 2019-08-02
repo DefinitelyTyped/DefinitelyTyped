@@ -7,4 +7,3 @@ declare module 'react-native/Libraries/NewAppScreen' {
   export const DebugInstructions: any
   export const ReloadInstructions: any
 }
-
