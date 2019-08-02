@@ -2,6 +2,7 @@
 // Project: https://github.com/hardchor/electron-redux/tree/master/packages/electron-redux
 // Definitions by: Haley Hitch <haley@dxdt.life>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.1
 
 import { Action, AnyAction, Middleware, Reducer, Store } from 'redux';
 
