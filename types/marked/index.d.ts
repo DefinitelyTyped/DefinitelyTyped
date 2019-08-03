@@ -95,7 +95,7 @@ declare namespace marked {
         html(html: string): string;
         heading(text: string, level: number, raw: string, slugger: Slugger): string;
         hr(): string;
-        list(body: string, ordered: boolean, start: number): string;
+        list(body: string, ordered: boolean, start: number | ''): string;
         listitem(text: string): string;
         paragraph(text: string): string;
         table(header: string, body: string): string;
@@ -109,8 +109,8 @@ declare namespace marked {
         codespan(code: string): string;
         br(): string;
         del(text: string): string;
-        link(href: string, title: string, text: string): string;
-        image(href: string, title: string, text: string): string;
+        link(href: string, title: string | null, text: string): string;
+        image(href: string, title: string | null, text: string): string;
         text(text: string): string;
     }
 
