@@ -110,7 +110,7 @@ export class Quill implements EventEmitter {
     getContents(index?: number, length?: number): Delta;
     getLength(): number;
     getText(index?: number, length?: number): string;
-    insertEmbed(index: number, type: string, value: any, source?: Sources): Delta;
+    insertEmbed<T = any>(index: number, type: string, value: T, source?: Sources): Delta;
     insertText(index: number, text: string, source?: Sources): Delta;
     insertText(index: number, text: string, format: string, value: any, source?: Sources): Delta;
     insertText(index: number, text: string, formats: StringMap, source?: Sources): Delta;
