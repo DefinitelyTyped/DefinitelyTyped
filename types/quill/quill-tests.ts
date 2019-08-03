@@ -127,6 +127,7 @@ function test_formatLine3() {
 function test_insertEmbed() {
     const quillEditor = new Quill('#editor');
     quillEditor.insertEmbed(10, 'image', 'http://com/images/cloud.png');
+    quillEditor.insertEmbed<string>(11, 'image', 'http://com/images/cloud.png');
 }
 
 function test_updateContents() {
