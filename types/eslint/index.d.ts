@@ -379,16 +379,28 @@ export namespace Linter {
     interface RuleLevelAndOptions extends Array<any> {
         0: RuleLevel;
     }
-
-    interface Config {
+    interface HasRules {
         rules?: {
             [name: string]: RuleLevel | RuleLevelAndOptions
         };
+    }
+
+    interface RuleOverride extends HasRules {
+        excludedFiles?: string[];
+        files?: string[];
+    }
+
+    interface Config extends HasRules {
         parser?: string;
         parserOptions?: ParserOptions;
         settings?: { [name: string]: any };
         env?: { [name: string]: boolean };
         globals?: { [name: string]: boolean };
+        extends?: string | string[];
+        overrides?: RuleOverride[];
+        processor?: string;
+        plugins?: string[];
+        root?: boolean;
     }
 
     interface ParserOptions {
