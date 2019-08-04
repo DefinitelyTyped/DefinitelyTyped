@@ -18,6 +18,10 @@ declare global {
             [key: string]:
                 | undefined
                 | string
+                | number
+                | boolean
+                | Collaborator
+                | ReadonlyArray<Collaborator>
                 | ReadonlyArray<string>
                 | ReadonlyArray<Attachment>;
         }
@@ -78,6 +82,12 @@ declare global {
             url: string;
             width: number;
             height: number;
+        }
+
+        interface Collaborator {
+          id: string;
+          email: string;
+          name: string;
         }
     }
 }
