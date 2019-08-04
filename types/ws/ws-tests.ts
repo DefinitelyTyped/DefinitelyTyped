@@ -100,11 +100,14 @@ import * as https from 'https';
                 strategy: 0,
                 dictionary: new Buffer('test'),
                 info: false
+            },
+            zlibInflateOptions: {
+                chunkSize: 0
             }
         },
         verifyClient: (info: any, cb: any) => {
-            cb(true, 123, 'message', { Upgrade: "websocket" });
-        }
+            cb(true, 123, 'message', { Upgrade: 'websocket' });
+        },
     });
 }
 
