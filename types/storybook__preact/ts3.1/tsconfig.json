@@ -9,8 +9,8 @@
         "noEmit": true,
         "jsx": "preserve",
         "jsxFactory": "preact.h",
-        "baseUrl": "../",
-        "typeRoots": ["../"],
+        "baseUrl": "../../",
+        "typeRoots": ["../../"],
         "types": [],
         "paths": {
             "@storybook/preact": [
