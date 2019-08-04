@@ -102,10 +102,15 @@ interface RetrieveRequest {
     unpackaged?: Package;
 }
 
+interface RetrieveMessage {
+    fileName: string;
+    problem: string;
+}
+
 interface RetrieveResult {
     fileProperties: FileProperties[];
     id: string;
-    messages: object[];
+    messages: RetrieveMessage[];
     zipFile: string
 }
 
