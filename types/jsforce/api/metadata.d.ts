@@ -27,11 +27,11 @@ interface DeployResult {
 }
 
 interface MetadataObject {
-    childXmlNames: string[];
-    directoryName: string;
-    inFolder: boolean;
-    metaFile: boolean;
-    suffix: string;
+    childXmlNames?: string[];
+    directoryName?: string;
+    inFolder?: boolean;
+    metaFile?: boolean;
+    suffix?: string;
     xmlName: string;
 }
 
