@@ -45,8 +45,21 @@ declare global {
             destroy(...args: any[]): Promise<any>;
         }
 
+        interface SortParameter {
+          field: string;
+          direction?: 'asc' | 'desc';
+        }
+
         interface SelectOptions {
+            fields?: string[];
+            filterByFormula?: string;
+            maxRecords?: number;
+            pageSize?: number;
+            sort?: SortParameter[];
             view?: string;
+            cellFormat?: 'json' | 'string';
+            timeZone?: string;
+            userLocale?: string;
         }
 
         interface Query<TFields extends object> {

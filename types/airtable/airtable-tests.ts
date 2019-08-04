@@ -12,7 +12,27 @@ const base = airtable.base('app id');
 const table = base('table name') as Airtable.Table<Row>;
 
 async () => {
-    const query = table.select();
+    const query = table.select({
+        fields: [
+            'field1',
+        ],
+        filterByFormula: `NOT({Example Text} = '')`,
+        maxRecords: 100,
+        pageSize: 10,
+        sort: [
+            {
+                field: 'field1',
+            },
+            {
+                field: 'attachments',
+                direction: 'asc',
+            },
+        ],
+        view: 'test-view',
+        cellFormat: 'json',
+        timeZone: 'test-tz',
+        userLocale: 'test-locale',
+    });
     {
         const rows = await query.all();
         for (const row of rows) {
