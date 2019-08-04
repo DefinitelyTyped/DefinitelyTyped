@@ -292,6 +292,7 @@ export namespace Rule {
         fixable?: 'code' | 'whitespace';
         schema?: JSONSchema4 | JSONSchema4[];
         deprecated?: boolean;
+        type?: 'problem' | 'suggestion' | 'layout';
     }
 
     interface RuleContext {
@@ -319,7 +320,9 @@ export namespace Rule {
 
     type ReportDescriptor = ReportDescriptorMessage & ReportDescriptorLocation & ReportDescriptorOptions;
     type ReportDescriptorMessage = { message: string } | { messageId: string };
-    type ReportDescriptorLocation = { node: ESTree.Node } | { loc: AST.SourceLocation | { line: number, column: number } };
+    type ReportDescriptorLocation =
+        | { node: ESTree.Node }
+        | { loc: AST.SourceLocation | { line: number; column: number } };
     interface ReportDescriptorOptions {
         data?: { [key: string]: string };
 
