@@ -1123,6 +1123,7 @@ const environment = {
         },
         useFakeTimers() {},
         useRealTimers() {},
+        getTimerCount() {},
     },
     testFilePath: '',
     moduleMocker: {},
