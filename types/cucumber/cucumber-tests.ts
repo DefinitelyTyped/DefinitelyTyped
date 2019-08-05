@@ -12,7 +12,7 @@ class CustomWorld {
 }
 
 function StepSampleWithoutDefineSupportCode() {
-    setWorldConstructor(CustomWorld)
+    setWorldConstructor(CustomWorld);
 
     setWorldConstructor(function({attach, parameters}) {
         this.attach = attach;
@@ -150,13 +150,13 @@ function StepSampleWithoutDefineSupportCode() {
         assert.deepEqual(actual, expected);
     });
 
-    Given('Common world constructor', function () {
-        assert.equal(typeof this.attach, 'function')
-    })
+    Given('Common world constructor', function() {
+        assert.equal(typeof this.attach, 'function');
+    });
 
-    Given<CustomWorld>('Common world constructor', function () {
-        assert.equal(typeof this.myCustomFunction, 'function')
-    })
+    Given<CustomWorld>('Common world constructor', function() {
+        assert.equal(typeof this.myCustomFunction, 'function');
+    });
 
     defineParameterType({
         regexp: /particular/,

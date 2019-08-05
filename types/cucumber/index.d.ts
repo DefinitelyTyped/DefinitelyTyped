@@ -22,18 +22,18 @@ export enum Status {
     UNDEFINED = "undefined"
 }
 
-type SimpleAttachment = (attachedObject: string, mimeType?: string) => void;
-type StreamingAttachment = (stream: NodeJS.ReadableStream, mimeType: string, callback?: HookCode) => void;
-type BufferAttachment = (stream: Buffer, mimeType: string, callback?: HookCode) => void;
-type AttachmentFunction = SimpleAttachment | StreamingAttachment | BufferAttachment;
-type WorldParameters = {
+export type SimpleAttachment = (attachedObject: string, mimeType?: string) => void;
+export type StreamingAttachment = (stream: NodeJS.ReadableStream, mimeType: string, callback?: HookCode) => void;
+export type BufferAttachment = (stream: Buffer, mimeType: string, callback?: HookCode) => void;
+export type AttachmentFunction = SimpleAttachment | StreamingAttachment | BufferAttachment;
+export interface WorldParameters {
     [key: string]: any;
 }
 
 export interface World {
     [key: string]: any;
-    parameters: WorldParameters
-    attach: AttachmentFunction
+    parameters: WorldParameters;
+    attach: AttachmentFunction;
 }
 
 export interface CallbackStepDefinition {
