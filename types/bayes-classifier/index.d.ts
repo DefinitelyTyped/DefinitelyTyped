@@ -4,12 +4,12 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
 
-export interface Classifications {
+interface Classifications {
     label: string;
     value: number;
 }
 
-export default class bayes_classifier {
+declare class BayesClassifier {
     constructor();
 
     addDocument(doc: string, label: string): void;
@@ -24,3 +24,5 @@ export default class bayes_classifier {
 
     train(): void;
 }
+
+export = BayesClassifier;
