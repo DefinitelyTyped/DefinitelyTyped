@@ -1,10 +1,10 @@
-// Type definitions for ecore 0.12.0
+// Type definitions for ecore 0.12
 // Project: https://github.com/emfjson/ecore.js
 // Definitions by: Mike Tugushev <https://github.com/michael-whi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export namespace Ecore {
-    let create: (eClass: EClass) => EObject;
+    function create(eClass: EClass): EObject;
 
     let EClass: EClass;
     let Edit: Edit;
@@ -59,69 +59,67 @@ export namespace Ecore {
         isTypeOf: (type: string | EObject) => any;
         isKindOf: (type: string | EObject) => any;
         eResource: () => Resource;
-        eContent: () => Array<EObject>;
+        eContent: () => EObject[];
         eURI: () => string;
         fragment: () => string;
         eClass: EClass;
-        eContents: () => Array<EObject>;
+        eContents: () => EObject[];
         eContainer: EObject;
         _id: string;
         getEStructuralFeature: (feature: string | EObject) => any;
     }
     interface EList extends EObject {
         add: (eObject: EObject) => EList;
-        addAll: (arguments: Array<EObject> | EObject) => EList;
+        addAll: (args: EObject[] | EObject) => EList;
         remove: (eObject: EObject) => EList;
         size: () => number;
         at: (position: number) => EObject;
-        array: () => Array<EObject>;
+        array: () => EObject[];
         first: () => EObject;
-        find: (iterator: (value: any, key: any, list: EList) => boolean, context?: any) => Array<EObject>;
+        find: (iterator: (value: any, key: any, list: EList) => boolean, context?: any) => EObject[];
         last: () => EObject;
-        rest: (position: number) => Array<EObject>;
+        rest: (position: number) => EObject[];
         each: (iterator: (value: any, key: any, list: EList) => void, context?: any) => void;
-        filter: (iterator: (value: any, key: any, list: EList) => boolean, context?: any) => Array<EObject>;
-        map: (iterator: (value: any, key: any, list: EList) => any, context?: any) => Array<any>;
-        reject: (iterator: (value: any, key: any, list: EList) => boolean, context?: any) => Array<EObject>;
+        filter: (iterator: (value: any, key: any, list: EList) => boolean, context?: any) => EObject[];
+        map: (iterator: (value: any, key: any, list: EList) => any, context?: any) => any[];
+        reject: (iterator: (value: any, key: any, list: EList) => boolean, context?: any) => EObject[];
         contains: (eObject: EObject) => boolean;
         indexOf: (eObject: EObject) => number;
     }
-    interface EString extends EObject {}
-    interface EInt extends EObject {}
-    interface EBoolean extends EObject {}
-    interface EDouble extends EObject {}
-    interface EDate extends EObject {}
-    interface EIntegerObject extends EObject {}
-    interface EFloatObject extends EObject {}
-    interface ELongObject extends EObject {}
-    interface EMap extends EObject {}
-    interface EDiagnosticChain extends EObject {}
-    interface JSObject extends EObject {}
-    interface EModelElement extends EObject {}
-    interface EAnnotation extends EModelElement {}
-    interface ENamedElement extends EModelElement {}
-    interface EPackage extends ENamedElement {}
-    interface EClassifier extends ENamedElement {}
-    interface EClass extends EClassifier {}
-    interface EDataType extends EClassifier {}
-    interface ETypedElement extends ENamedElement {}
-    interface EStructuralFeature extends ETypedElement {}
-    interface EAttribute extends EStructuralFeature {}
-    interface EReference extends EStructuralFeature {}
-    interface EOperation extends ETypedElement {}
-    interface EParameter extends ETypedElement {}
-    interface EEnum extends EDataType {}
-    interface EEnumLiteral extends ENamedElement {}
-    interface EGenericType extends EObject {}
-    interface ETypeParameter extends ENamedElement {}
+    type EString = EObject;
+    type EInt = EObject;
+    type EBoolean = EObject;
+    type EDouble = EObject;
+    type EDate = EObject;
+    type EIntegerObject = EObject;
+    type EFloatObject = EObject;
+    type ELongObject = EObject;
+    type EMap = EObject;
+    type EDiagnosticChain = EObject;
+    type JSObject = EObject;
+    type EModelElement = EObject;
+    type EAnnotation = EModelElement;
+    type ENamedElement = EModelElement;
+    type EClassifier = ENamedElement;
+    type EClass = EClassifier;
+    type EDataType = EClassifier;
+    type ETypedElement = ENamedElement;
+    type EStructuralFeature = ETypedElement;
+    type EAttribute = EStructuralFeature;
+    type EReference = EStructuralFeature;
+    type EOperation = ETypedElement;
+    type EParameter = ETypedElement;
+    type EEnum = EDataType;
+    type EEnumLiteral = ENamedElement;
+    type EGenericType = EObject;
+    type ETypeParameter = ENamedElement;
     interface Resource extends EObject {
         add: (value: EObject) => void;
         addAll: (values: EObject[]) => EObject;
         clear: () => EList;
         each: (iterator: (value: any, key: any, list: EList) => void, context?: any) => void;
-        save: (callback: Function, options: object) => void;
-        parse: (data: EObject, loader: Function) => any;
-        getEObject: (fragment: String) => null | EObject;
+        save: (callback: () => void, options: any) => void;
+        parse: (data: EObject, loader: () => void) => any;
         remove: () => void;
         rev: string;
         load: (res: any) => void;
@@ -132,22 +130,21 @@ export namespace Ecore {
         register: (ePackage: EPackage) => void;
         ePackages: () => EPackage[];
         elements: (type: EObject) => EObject[];
-        Registry: Ecore.EPackageRegistry;
+        Registry: EPackageRegistry;
     }
     interface EPackageRegistry extends EObject {
         register: (ePackage: EPackage) => void;
         ePackages: () => EPackage[];
     }
     interface ResourceSet extends EObject {
-        create: (uri: object) => Resource;
+        create: (uri: any) => Resource;
         getEObject: (uri: string) => EObject;
-        //uriConverter:; //needs additional research
-        parse: (data: EObject) => void; //returns nothing ?!
+        parse: (data: EObject) => void;
         elements: (type?: string | EClass) => EObject[];
-        toJSON: () => object;
+        toJSON: () => any;
     }
     namespace ResourceSet {
-        function create(): Ecore.ResourceSet;
+        function create(): ResourceSet;
     }
 }
 

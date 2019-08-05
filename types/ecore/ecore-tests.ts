@@ -3,13 +3,13 @@ import { Ecore } from 'ecore';
 
 // Resources contain model elements and are identified by a URI.
 
-let resourceSet: Ecore.ResourceSet = Ecore.ResourceSet.create();
-let resource: Ecore.Resource = resourceSet.create({ uri: 'model.json' });
+const resourceSet: Ecore.ResourceSet = Ecore.ResourceSet.create();
+const resource: Ecore.Resource = resourceSet.create({ uri: 'model.json' });
 
 // EClass are used to define domain elements, they are identified
 // by name and a set of structural features (attributes and references).
 
-let User: Ecore.EObject = Ecore.EClass.create({
+const User: Ecore.EObject = Ecore.EClass.create({
     name: 'User',
     eStructuralFeatures: [
         // EAttributes are used to define domain elements
@@ -27,7 +27,7 @@ let User: Ecore.EObject = Ecore.EClass.create({
             upperBound: -1,
             containment: false,
 
-            eType: function() {
+            eType() {
                 return User;
             },
         }),
@@ -37,7 +37,7 @@ let User: Ecore.EObject = Ecore.EClass.create({
 // EPackages represent namespaces for a set of EClasses.
 // It's properties name, nsURI and nsPrefix must be set.
 
-let SamplePackage: Ecore.EObject = Ecore.EPackage.create({
+const SamplePackage: Ecore.EObject = Ecore.EPackage.create({
     name: 'sample',
     nsURI: 'http://www.example.org/sample',
     nsPrefix: 'sample',
