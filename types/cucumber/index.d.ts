@@ -9,7 +9,7 @@
 //                 Don Jayamanne <https://github.com/DonJayamanne>
 //                 Alberto Silva <https://github.com/albertossilva>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 3.2
 
 /// <reference types="node" />
 

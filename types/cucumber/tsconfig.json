@@ -11,8 +11,7 @@
         "strictFunctionTypes": false,
         "baseUrl": "../",
         "typeRoots": [
-            "../",
-            "../../node"
+            "../"
         ],
         "types": [],
         "noEmit": true,
