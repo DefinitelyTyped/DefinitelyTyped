@@ -9,7 +9,7 @@ let resource: Ecore.Resource = resourceSet.create({ uri: 'model.json' });
 // EClass are used to define domain elements, they are identified
 // by name and a set of structural features (attributes and references).
 
-let User:  Ecore.EObject = Ecore.EClass.create({
+let User: Ecore.EObject = Ecore.EClass.create({
     name: 'User',
     eStructuralFeatures: [
         // EAttributes are used to define domain elements
