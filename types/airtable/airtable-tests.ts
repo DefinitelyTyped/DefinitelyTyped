@@ -3,6 +3,10 @@ import * as Airtable from 'airtable';
 interface Row extends Airtable.FieldSet {
   field1: string;
   attachments: Airtable.Attachment[];
+  booleanField: boolean;
+  numberField: number;
+  singleCollaborator: Airtable.Collaborator;
+  multiCollaborators: Airtable.Collaborator[];
 }
 
 const airtable = new Airtable();
@@ -38,6 +42,8 @@ async () => {
         for (const row of rows) {
             row.id; // $ExpectType string
             row.fields.field1; // $ExpectType string
+            row.fields.booleanField; // $ExpectType boolean
+            row.fields.numberField; // $ExpectType number
             for (const attachment of row.fields.attachments) {
                 attachment.id; // $ExpectType string
                 attachment.filename; // $ExpectType string
@@ -57,6 +63,14 @@ async () => {
                   attachment.thumbnails.small.width; // $ExpectType number
                   attachment.thumbnails.small.url; // $ExpectType string
                 }
+            }
+            row.fields.singleCollaborator.id; // $ExpectType string
+            row.fields.singleCollaborator.email; // $ExpectType string
+            row.fields.singleCollaborator.name; // $ExpectType string
+            for (const collaborator of row.fields.multiCollaborators) {
+                collaborator.id; // $ExpectType string
+                collaborator.email; // $ExpectType string
+                collaborator.name; // $ExpectType string
             }
         }
     }
