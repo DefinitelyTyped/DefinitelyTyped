@@ -11,10 +11,10 @@
  * by any software that reads GeoJSON.
  *
  * @alias geojson
- * @param {Object} geom GeoJSON geometry
- * @param {Object} limits an object with min_zoom and max_zoom properties
+ * @param geom GeoJSON geometry
+ * @param limits an object with min_zoom and max_zoom properties
  * specifying the minimum and maximum level to be tiled.
- * @returns {Object} FeatureCollection of cells formatted as GeoJSON Features
+ * @returns FeatureCollection of cells formatted as GeoJSON Features
  */
 export function geojson(geom: GeoJSON.Geometry, limits: Limits): GeoJSON.FeatureCollection;
 
@@ -23,23 +23,22 @@ export function geojson(geom: GeoJSON.Geometry, limits: Limits): GeoJSON.Feature
  * as an array of cell identifiers.
  *
  * @alias tiles
- * @param {Object} geom GeoJSON geometry
- * @param {Object} limits an object with min_zoom and max_zoom properties
+ * @param geom GeoJSON geometry
+ * @param limits an object with min_zoom and max_zoom properties
  * specifying the minimum and maximum level to be tiled.
- * @returns {Array<Array<number>} An array of tiles given as [x, y, z] arrays
+ * @returns An array of tiles given as [x, y, z] arrays
  */
 export function tiles(geom: GeoJSON.Geometry, limits: Limits): number[][];
-
 
 /**
  * Given a geometry, create cells and return them as
  * [quadkey](http://msdn.microsoft.com/en-us/library/bb259689.aspx) indexes.
  *
  * @alias indexes
- * @param {Object} geom GeoJSON geometry
- * @param {Object} limits an object with min_zoom and max_zoom properties
+ * @param geom GeoJSON geometry
+ * @param limits an object with min_zoom and max_zoom properties
  * specifying the minimum and maximum level to be tiled.
- * @returns {Array<String>} An array of tiles given as quadkeys.
+ * @returns An array of tiles given as quadkeys.
  */
 export function indexes(geom: GeoJSON.Geometry, limits: Limits): string[];
 
