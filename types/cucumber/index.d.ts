@@ -11,6 +11,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
+/// <reference types="node" />
+
 export enum Status {
     AMBIGUOUS = "ambiguous",
     FAILED = "failed",
@@ -21,7 +23,7 @@ export enum Status {
 }
 
 type SimpleAttachment = (attachedObject: string, mimeType?: string) => void;
-type StreamingAttachment = (stream: global::NodeJS.ReadableStream, mimeType: string, callback?: HookCode) => void;
+type StreamingAttachment = (stream: NodeJS.ReadableStream, mimeType: string, callback?: HookCode) => void;
 type BufferAttachment = (stream: Buffer, mimeType: string, callback?: HookCode) => void;
 type AttachmentFunction = SimpleAttachment | StreamingAttachment | BufferAttachment;
 type WorldParameters = {
