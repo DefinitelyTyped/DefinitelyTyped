@@ -1,13 +1,25 @@
 import { Ecore } from 'ecore';
 
 
+
+
+
+
 // Main test
 
 // Resources contain model elements and are identified by a URI.
 
 
+
+
+
+
 let resourceSet: Ecore.ResourceSet = Ecore.ResourceSet.create();
 let resource: Ecore.Resource = resourceSet.create({ uri: 'model.json' });
+
+
+
+
 
 
 // EClass are used to define domain elements, they are identified
@@ -42,6 +54,10 @@ let User = Ecore.EClass.create({
 // It's properties name, nsURI and nsPrefix must be set.
 
 
+
+
+
+
 let SamplePackage: Ecore.EObject = Ecore.EPackage.create({
     name: 'sample',
     nsURI: 'http://www.example.org/sample',
@@ -58,12 +74,24 @@ resource.add(SamplePackage);
 
 // EList find
 
+
+
+
+
 resource.eClass.get('AllStructuralFeatures').find((eObj: Ecore.EObject) => eObj.get('name') === '');
 
 // Resource
 
+
+
+
+
 resource.getEObject('test');
 resource.parse(User, () => {});
+
+
+
+
 
 resource.to();
 
