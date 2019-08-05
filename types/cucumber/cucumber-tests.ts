@@ -1,5 +1,5 @@
 import * as assert from "power-assert";
-import { setDefinitionFunctionWrapper, setWorldConstructor, defineParameterType, After, AfterAll, Before, BeforeAll, Given, When, Then } from "cucumber";
+import { setDefinitionFunctionWrapper, setWorldConstructor, defineParameterType, After, AfterAll, Before, BeforeAll, Given, When, Then, World } from "cucumber";
 import cucumber = require("cucumber");
 
 type Callback = cucumber.CallbackStepDefinition;
@@ -7,15 +7,13 @@ type Table = cucumber.TableDefinition;
 type HookScenarioResult = cucumber.HookScenarioResult;
 const Status = cucumber.Status;
 
-// You can optionally declare your own world properties
-declare module "cucumber" {
-    interface World {
-        visit(url: string, callback: CallbackStepDefinition): void;
-        toInt(value: string): number;
-    }
+class CustomWorld {
+    myCustomFunction() {}
 }
 
 function StepSampleWithoutDefineSupportCode() {
+    setWorldConstructor(CustomWorld)
+
     setWorldConstructor(function({attach, parameters}) {
         this.attach = attach;
         this.parameters = parameters;
@@ -151,6 +149,14 @@ function StepSampleWithoutDefineSupportCode() {
         const actual: Array<{ [colName: string]: string }> = table.hashes();
         assert.deepEqual(actual, expected);
     });
+
+    Given('Common world constructor', function () {
+        assert.equal(typeof this.attach, 'function')
+    })
+
+    Given<CustomWorld>('Common world constructor', function () {
+        assert.equal(typeof this.myCustomFunction, 'function')
+    })
 
     defineParameterType({
         regexp: /particular/,

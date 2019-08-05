@@ -11,6 +11,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
+/// <reference path="../node/index.d.ts" />
+
 export enum Status {
     AMBIGUOUS = "ambiguous",
     FAILED = "failed",
@@ -20,8 +22,18 @@ export enum Status {
     UNDEFINED = "undefined"
 }
 
+type SimpleAttachment = (attachedObject: string, mimeType?: string) => void;
+type StreamingAttachment = (stream: NodeJS.ReadableStream, mimeType: string, callback?: HookCode) => void;
+type BufferAttachment = (stream: Buffer, mimeType: string, callback?: HookCode) => void;
+type AttachmentFunction = SimpleAttachment | StreamingAttachment | BufferAttachment;
+type WorldParameters = {
+    [key: string]: any;
+}
+
 export interface World {
     [key: string]: any;
+    parameters: WorldParameters
+    attach: AttachmentFunction
 }
 
 export interface CallbackStepDefinition {
@@ -43,7 +55,7 @@ export interface TableDefinition {
     hashes(): Array<{ [colName: string]: string }>;
 }
 
-export type StepDefinitionCode<T extends World = World> = (this: T, ...stepArgs: any[]) => any;
+export type StepDefinitionCode<T = World> = (this: T, ...stepArgs: any[]) => any;
 
 export interface StepDefinitionOptions {
     timeout?: number;
@@ -51,38 +63,38 @@ export interface StepDefinitionOptions {
 }
 
 export interface StepDefinitions {
-    Given<T extends World = World>(pattern: RegExp | string, options: StepDefinitionOptions, code: StepDefinitionCode<T>): void;
-    Given<T extends World = World>(pattern: RegExp | string, code: StepDefinitionCode<T>): void;
-    When<T extends World = World>(pattern: RegExp | string, options: StepDefinitionOptions, code: StepDefinitionCode<T>): void;
-    When<T extends World = World>(pattern: RegExp | string, code: StepDefinitionCode<T>): void;
-    Then<T extends World = World>(pattern: RegExp | string, options: StepDefinitionOptions, code: StepDefinitionCode<T>): void;
-    Then<T extends World = World>(pattern: RegExp | string, code: StepDefinitionCode<T>): void;
+    Given<T = World>(pattern: RegExp | string, options: StepDefinitionOptions, code: StepDefinitionCode<T>): void;
+    Given<T = World>(pattern: RegExp | string, code: StepDefinitionCode<T>): void;
+    When<T = World>(pattern: RegExp | string, options: StepDefinitionOptions, code: StepDefinitionCode<T>): void;
+    When<T = World>(pattern: RegExp | string, code: StepDefinitionCode<T>): void;
+    Then<T = World>(pattern: RegExp | string, options: StepDefinitionOptions, code: StepDefinitionCode<T>): void;
+    Then<T = World>(pattern: RegExp | string, code: StepDefinitionCode<T>): void;
     setDefaultTimeout(time: number): void;
 }
 
-export function After<T extends World = World>(code: HookCode<T>): void;
-export function After<T extends World = World>(options: HookOptions | string, code: HookCode<T>): void;
+export function After<T = World>(code: HookCode<T>): void;
+export function After<T = World>(options: HookOptions | string, code: HookCode<T>): void;
 export function AfterAll(code: GlobalHookCode): void;
 export function AfterAll(options: HookOptions | string, code: GlobalHookCode): void;
-export function Before<T extends World = World>(code: HookCode<T>): void;
-export function Before<T extends World = World>(options: HookOptions | string, code: HookCode<T>): void;
+export function Before<T = World>(code: HookCode<T>): void;
+export function Before<T = World>(options: HookOptions | string, code: HookCode<T>): void;
 export function BeforeAll(code: GlobalHookCode): void;
 export function BeforeAll(options: HookOptions | string, code: GlobalHookCode): void;
 
 export function defineParameterType(transform: Transform): void;
-export function defineStep<T extends World = World>(pattern: RegExp | string, code: StepDefinitionCode<T>): void;
-export function defineStep<T extends World = World>(pattern: RegExp | string, options: StepDefinitionOptions, code: StepDefinitionCode<T>): void;
+export function defineStep<T = World>(pattern: RegExp | string, code: StepDefinitionCode<T>): void;
+export function defineStep<T = World>(pattern: RegExp | string, options: StepDefinitionOptions, code: StepDefinitionCode<T>): void;
 
-export function Given<T extends World = World>(pattern: RegExp | string, code: StepDefinitionCode<T>): void;
-export function Given<T extends World = World>(pattern: RegExp | string, options: StepDefinitionOptions, code: StepDefinitionCode<T>): void;
+export function Given<T = World>(pattern: RegExp | string, code: StepDefinitionCode<T>): void;
+export function Given<T = World>(pattern: RegExp | string, options: StepDefinitionOptions, code: StepDefinitionCode<T>): void;
 export function setDefaultTimeout(time: number): void;
 export function setDefinitionFunctionWrapper(fn: ((fn: () => void) => (...args: any[]) => any) | ((fn: () => void, options?: {[key: string]: any}) => (...args: any[]) => any)): void;
 // tslint:disable-next-line ban-types
-export function setWorldConstructor(world: ((this: World, init: {attach: Function, parameters: {[key: string]: any}}) => void) | {}): void;
-export function Then<T extends World = World>(pattern: RegExp | string, options: StepDefinitionOptions, code: StepDefinitionCode<T>): void;
-export function Then<T extends World = World>(pattern: RegExp | string, code: StepDefinitionCode<T>): void;
-export function When<T extends World = World>(pattern: RegExp | string, options: StepDefinitionOptions, code: StepDefinitionCode<T>): void;
-export function When<T extends World = World>(pattern: RegExp | string, code: StepDefinitionCode<T>): void;
+export function setWorldConstructor<T = World>(world: ((this: T, init: {attach: AttachmentFunction, parameters: WorldParameters}) => void) | { new (): T }): void;
+export function Then<T = World>(pattern: RegExp | string, options: StepDefinitionOptions, code: StepDefinitionCode<T>): void;
+export function Then<T = World>(pattern: RegExp | string, code: StepDefinitionCode<T>): void;
+export function When<T = World>(pattern: RegExp | string, options: StepDefinitionOptions, code: StepDefinitionCode<T>): void;
+export function When<T = World>(pattern: RegExp | string, code: StepDefinitionCode<T>): void;
 
 export interface HookScenarioResult {
     sourceLocation: SourceLocation;
@@ -135,7 +147,7 @@ export namespace pickle {
     }
 }
 
-export type HookCode<T extends World = World> = (this: T, scenario: HookScenarioResult, callback?: CallbackStepDefinition) => void;
+export type HookCode<T = World> = (this: T, scenario: HookScenarioResult, callback?: CallbackStepDefinition) => void;
 export type GlobalHookCode = (callback?: CallbackStepDefinition) => void;
 
 export interface Transform {
@@ -153,12 +165,12 @@ export interface HookOptions {
 }
 
 export interface Hooks {
-    Before<T extends World = World>(code: HookCode<T>): void;
-    Before<T extends World = World>(options: HookOptions | string, code: HookCode<T>): void;
+    Before<T = World>(code: HookCode<T>): void;
+    Before<T = World>(options: HookOptions | string, code: HookCode<T>): void;
     BeforeAll(code: GlobalHookCode): void;
     BeforeAll(options: HookOptions | string, code: GlobalHookCode): void;
-    After<T extends World = World>(code: HookCode<T>): void;
-    After<T extends World = World>(options: HookOptions | string, code: HookCode<T>): void;
+    After<T = World>(code: HookCode<T>): void;
+    After<T = World>(options: HookOptions | string, code: HookCode<T>): void;
     AfterAll(code: GlobalHookCode): void;
     AfterAll(options: HookOptions | string, code: GlobalHookCode): void;
     setDefaultTimeout(time: number): void;
