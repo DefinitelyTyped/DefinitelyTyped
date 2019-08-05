@@ -1,10 +1,12 @@
-// Type definitions for qunit-dom 0.6
+// Type definitions for qunit-dom 0.9
 // Project: https://github.com/simplabs/qunit-dom#readme
 // Definitions by: Don Denton <https://github.com/happycollision>
+//                 Lucas Hill <https://github.com/lucashill>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 3.0
 
 /// <reference types="qunit" />
+/// <reference lib="dom" />
 
 declare namespace QUnitDom {
     interface Options {
@@ -97,9 +99,10 @@ declare namespace QUnitDom {
          * but not necessarily in the viewport.
          *
          *
+         * @param options
          * @param message
          */
-        isVisible(message?: string): void;
+        isVisible(options?: Options, message?: string): void;
 
         /**
          * Assert that the `HTMLElement` or an `HTMLElement` matching the
@@ -129,7 +132,7 @@ declare namespace QUnitDom {
          * @param value
          * @param message
          */
-        hasAttribute(name: string, value: string | RegExp | object, message?: string): void;
+        hasAttribute(name: string, value?: string | RegExp | object, message?: string): void;
 
         /**
          * Assert that the `HTMLElement` or an `HTMLElement` matching the
@@ -253,7 +256,7 @@ declare namespace QUnitDom {
          * @param expected
          * @param message
          */
-        hasValue(expected: string | RegExp | object, message?: string): void;
+        hasValue(expected?: string | RegExp | object, message?: string): void;
 
         /**
          * Assert that the `value` property of an `HTMLInputElement` is not empty.
@@ -272,10 +275,47 @@ declare namespace QUnitDom {
          */
         hasNoValue(message?: string): void;
         lacksValue: Matchers['hasNoValue'];
+
+        /**
+         * Assert that the target selector selects only Elements that are also selected by compareSelector.
+         *
+         *
+         * @param compareSelector
+         * @param message
+         */
+        matchesSelector(compareSelector: string, message?: string): void;
+
+        /**
+         * Assert that the target selector selects only Elements that are not also selected by compareSelector.
+         *
+         *
+         * @param compareSelector
+         * @param message
+         */
+        doesNotMatchSelector(compareSelector: string, message?: string): void;
+
+        /**
+         * Assert that the [HTMLElement][] has the expected style declarations using window.getComputedStyle.
+         *
+         *
+         * @param expected
+         * @param message
+         */
+        hasStyle(expected: object, message?: string): void;
+
+        /**
+         * Assert that the pseudo element for selector of the [HTMLElement][] has the expected style declarations using window.getComputedStyle.
+         *
+         *
+         * @param selector
+         * @param expected
+         * @param message
+         */
+        hasPseudoElementStyle(selector: string, expected: object, message?: string): void;
     }
 }
 
 // Extend QUnit's interface for Assert
 interface Assert {
-    dom(selector?: string): QUnitDom.Matchers;
+    dom(target?: string | HTMLElement, rootElement?: HTMLElement): QUnitDom.Matchers;
 }
