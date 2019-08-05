@@ -11,15 +11,18 @@
 
 declare global {
     namespace Express {
+        interface AuthInfo {}
+        interface User {}
+
         interface Request {
-            authInfo?: any;
-            user?: any;
+            authInfo?: AuthInfo;
+            user?: User;
 
             // These declarations are merged into express's Request type
-            login(user: any, done: (err: any) => void): void;
-            login(user: any, options: any, done: (err: any) => void): void;
-            logIn(user: any, done: (err: any) => void): void;
-            logIn(user: any, options: any, done: (err: any) => void): void;
+            login(user: User, done: (err: any) => void): void;
+            login(user: User, options: any, done: (err: any) => void): void;
+            logIn(user: User, done: (err: any) => void): void;
+            logIn(user: User, options: any, done: (err: any) => void): void;
 
             logout(): void;
             logOut(): void;

@@ -3,6 +3,7 @@
     "rules": {
         "no-unnecessary-generics": false,
         "no-void-expression": false,
+        "no-empty-interface": false,
         "npm-naming": false
     }
 }
