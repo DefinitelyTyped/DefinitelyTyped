@@ -3,8 +3,7 @@
 // Definitions by: Mendy Berger <https://github.com/MendyBerger>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare global {
-    function gematriya(num: number, options?: { limit?: number, punctuate?: boolean, geresh?: boolean }): string;
-    function gematriya(str: string, options?: { order?: boolean }): number;
-}
+declare function gematriya(num: number, options?: { limit?: number, punctuate?: boolean, geresh?: boolean }): string;
+declare function gematriya(str: string, options?: { order?: boolean }): number;
 export = gematriya;
+export as namespace gematriya;
