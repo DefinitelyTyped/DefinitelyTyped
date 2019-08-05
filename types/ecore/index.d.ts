@@ -81,64 +81,34 @@ export namespace Ecore {
         contains: (eObject: EObject) => boolean;
         indexOf: (eObject: EObject) => number;
     }
-    interface EString extends EObject {
-    }
-    interface EInt extends EObject {
-    }
-    interface EBoolean extends EObject {
-    }
-    interface EDouble extends EObject {
-    }
-    interface EDate extends EObject {
-    }
-    interface EIntegerObject extends EObject {
-    }
-    interface EFloatObject extends EObject {
-    }
-    interface ELongObject extends EObject {
-    }
-    interface EMap extends EObject {
-    }
-    interface EDiagnosticChain extends EObject {
-    }
-    interface JSObject extends EObject {
-    }
-    interface EModelElement extends EObject {
-    }
-    interface EAnnotation extends EModelElement {
-    }
-    interface ENamedElement extends EModelElement {
-    }
-    interface EPackage extends ENamedElement {
-
-    }
-    interface EClassifier extends ENamedElement {
-    }
-    interface EClass extends EClassifier {
-
-    }
-    interface EDataType extends EClassifier {
-    }
-    interface ETypedElement extends ENamedElement {
-    }
-    interface EStructuralFeature extends ETypedElement {
-    }
-    interface EAttribute extends EStructuralFeature {
-    }
-    interface EReference extends EStructuralFeature {
-    }
-    interface EOperation extends ETypedElement {
-    }
-    interface EParameter extends ETypedElement {
-    }
-    interface EEnum extends EDataType {
-    }
-    interface EEnumLiteral extends ENamedElement {
-    }
-    interface EGenericType extends EObject {
-    }
-    interface ETypeParameter extends ENamedElement {
-    }
+    interface EString extends EObject {}
+    interface EInt extends EObject {}
+    interface EBoolean extends EObject {}
+    interface EDouble extends EObject {}
+    interface EDate extends EObject {}
+    interface EIntegerObject extends EObject {}
+    interface EFloatObject extends EObject {}
+    interface ELongObject extends EObject {}
+    interface EMap extends EObject {}
+    interface EDiagnosticChain extends EObject {}
+    interface JSObject extends EObject {}
+    interface EModelElement extends EObject {}
+    interface EAnnotation extends EModelElement {}
+    interface ENamedElement extends EModelElement {}
+    interface EPackage extends ENamedElement {}
+    interface EClassifier extends ENamedElement {}
+    interface EClass extends EClassifier {}
+    interface EDataType extends EClassifier {}
+    interface ETypedElement extends ENamedElement {}
+    interface EStructuralFeature extends ETypedElement {}
+    interface EAttribute extends EStructuralFeature {}
+    interface EReference extends EStructuralFeature {}
+    interface EOperation extends ETypedElement {}
+    interface EParameter extends ETypedElement {}
+    interface EEnum extends EDataType {}
+    interface EEnumLiteral extends ENamedElement {}
+    interface EGenericType extends EObject {}
+    interface ETypeParameter extends ENamedElement {}
     interface Resource extends EObject {
         add: (value: EObject) => void;
         addAll: (values: EObject[]) => EObject;
@@ -147,16 +117,16 @@ export namespace Ecore {
         save: (callback: Function, options: object) => void;
         parse: (data: EObject, loader: Function) => any;
         getEObject: (fragment: String) => null | EObject;
-        remove: () =>void;
+        remove: () => void;
         rev: string;
         load: (res: any) => void;
         to: () => any;
     }
     interface EPackage extends EObject {
-        getEPackage: (nsURI: string)=> EPackage;
-        register: (ePackage: EPackage)=> void;
-        ePackages: ()=>EPackage[];
-        elements: (type:EObject)=>EObject[];
+        getEPackage: (nsURI: string) => EPackage;
+        register: (ePackage: EPackage) => void;
+        ePackages: () => EPackage[];
+        elements: (type: EObject) => EObject[];
         Registry: Ecore.EPackageRegistry;
     }
     interface EPackageRegistry extends EObject {
@@ -167,7 +137,7 @@ export namespace Ecore {
         create: (uri: object) => Resource;
         getEObject: (uri: string) => EObject;
         //uriConverter:; //needs additional research
-        parse:(data:EObject) => void; //returns nothing ?!
+        parse: (data: EObject) => void; //returns nothing ?!
         elements: (type?: string | EClass) => EObject[];
         toJSON: () => object;
     }
@@ -176,4 +146,4 @@ export namespace Ecore {
     }
 }
 
-export default Ecore
+export default Ecore;
