@@ -1,0 +1,10 @@
+{
+    "extends": "dtslint/dt.json" ,
+    "rules": {
+        "dt-header": false,
+        "npm-naming": false,
+        "no-any-union": false,
+        "interface-over-type-literal": false,
+        "semicolon": false
+    }
+}
