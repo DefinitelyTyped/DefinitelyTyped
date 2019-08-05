@@ -266,15 +266,15 @@ export interface SupportLanguage {
     since?: string;
     parsers: BuiltInParserName[] | string[];
     group?: string;
-    tmScope: string;
-    aceMode: string;
-    codemirrorMode: string;
-    codemirrorMimeType: string;
+    tmScope?: string;
+    aceMode?: string;
+    codemirrorMode?: string;
+    codemirrorMimeType?: string;
     aliases?: string[];
-    extensions: string[];
+    extensions?: string[];
     filenames?: string[];
-    linguistLanguageId: number;
-    vscodeLanguageIds: string[];
+    linguistLanguageId?: number;
+    vscodeLanguageIds?: string[];
 }
 
 export interface SupportOptionDefault {

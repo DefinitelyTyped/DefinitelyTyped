@@ -1263,12 +1263,12 @@ declare namespace ComponentFramework {
 		/**
 		 * The record id. Read-only.
 		 */
-		id: string;
+		id: { guid: string; };
 
 		/**
 		 * The entity logical name. Read-only.
 		 */
-		entityType?: string;
+		etn?: string;
 
 		/**
 		 * The name of the entity reference. Read-only.

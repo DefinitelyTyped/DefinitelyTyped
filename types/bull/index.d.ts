@@ -406,15 +406,17 @@ declare namespace Bull {
 
     /**
      * A boolean which, if true, removes the job when it successfully completes.
-     * Default behavior is to keep the job in the completed set.
+     * When a number, it specifies the amount of jobs to keep.
+     * Default behavior is to keep the job in the failed set.
      */
     removeOnComplete?: boolean | number;
 
     /**
-     * A boolean which, if true, removes the job when it fails after all attempts
+     * A boolean which, if true, removes the job when it fails after all attempts.
+     * When a number, it specifies the amount of jobs to keep.
      * Default behavior is to keep the job in the completed set.
      */
-    removeOnFail?: boolean;
+    removeOnFail?: boolean | number;
 
     /**
      * Limits the amount of stack trace lines that will be recorded in the stacktrace.

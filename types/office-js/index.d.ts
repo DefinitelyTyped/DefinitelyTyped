@@ -9206,7 +9206,7 @@ declare namespace Office {
         /**
          * Gets a string that represents the name of the host application.
          *
-         * A string that can be one of the following values: Outlook, Mac Outlook, OutlookIOS, or OutlookWebApp.
+         * A string that can be one of the following values: "Outlook", "OutlookWebApp", "OutlookIOS", or "OutlookAndroid".
          *
          * [Api set: Mailbox 1.0]
          *
@@ -9221,7 +9221,7 @@ declare namespace Office {
          * Gets a string that represents the version of either the host application or the Exchange Server.
          *
          * If the mail add-in is running in Outlook client on the desktop or iOS, the hostVersion property returns the version of the host 
-         * application, Outlook. In Outlook on the web, the property returns the version of the Exchange Server. An example is the string 15.0.468.0.
+         * application, Outlook. In Outlook on the web, the property returns the version of the Exchange Server. An example is the string "15.0.468.0".
          *
          * [Api set: Mailbox 1.0]
          *
@@ -9235,18 +9235,18 @@ declare namespace Office {
         /**
          * Gets a string that represents the current view of Outlook on the web.
          *
-         * The returned string can be one of the following values: OneColumn, TwoColumns, or ThreeColumns.
+         * The returned string can be one of the following values: "OneColumn", "TwoColumns", or "ThreeColumns".
          *
          * If the host application is not Outlook on the web, then accessing this property results in undefined.
          *
          * Outlook on the web has three views that correspond to the width of the screen and the window, and the number of columns that can be displayed:
          *
-         * - OneColumn, which is displayed when the screen is narrow. Outlook on the web uses this single-column layout on the entire screen of a 
+         * - "OneColumn", which is displayed when the screen is narrow. Outlook on the web uses this single-column layout on the entire screen of a 
          * smartphone.
          *
-         * - TwoColumns, which is displayed when the screen is wider. Outlook on the web uses this view on most tablets.
+         * - "TwoColumns", which is displayed when the screen is wider. Outlook on the web uses this view on most tablets.
          *
-         * - ThreeColumns, which is displayed when the screen is wide. For example, Outlook on the web uses this view in a full screen window on a 
+         * - "ThreeColumns", which is displayed when the screen is wide. For example, Outlook on the web uses this view in a full screen window on a 
          * desktop computer.
          *
          * [Api set: Mailbox 1.0]
@@ -14613,7 +14613,7 @@ declare namespace Office {
          * Contains the following members:
          * 
          *  - hostName (string): A string that represents the name of the host application. 
-         * It be one of the following values: Outlook, Mac Outlook, OutlookIOS, or OutlookWebApp.
+         * It be one of the following values: "Outlook", "OutlookWebApp", "OutlookIOS", or "OutlookAndroid".
          * 
          *  - hostVersion (string): A string that represents the version of either the host application or the Exchange Server. 
          * If the mail add-in is running in Outlook on desktop clients or iOS, the hostVersion property returns the version of the 
@@ -14621,8 +14621,8 @@ declare namespace Office {
          * 
          *  - OWAView (MailboxEnums.OWAView or string): An enum (or string literal) that represents the current view of Outlook on the web. 
          * If the host application is not Outlook on the web, then accessing this property results in undefined. 
-         * Outlook on the web has three views (OneColumn - displayed when the screen is narrow, TwoColumns - displayed when the screen is wider, 
-         * and ThreeColumns - displayed when the screen is wide) that correspond to the width of the screen and the window, and the number of columns 
+         * Outlook on the web has three views ("OneColumn" - displayed when the screen is narrow, "TwoColumns" - displayed when the screen is wider, 
+         * and "ThreeColumns" - displayed when the screen is wide) that correspond to the width of the screen and the window, and the number of columns 
          * that can be displayed.
          *
          *  More information is under {@link Office.Diagnostics}. 

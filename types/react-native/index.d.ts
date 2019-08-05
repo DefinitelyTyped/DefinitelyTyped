@@ -40,6 +40,7 @@
 /// <reference path="legacy-properties.d.ts" />
 /// <reference path="BatchedBridge.d.ts" />
 /// <reference path="Devtools.d.ts" />
+/// <reference path="LaunchScreen.d.ts" />
 
 import * as PropTypes from "prop-types";
 import * as React from "react";
@@ -9496,4 +9497,6 @@ declare global {
      * <code> if (__DEV__) console.log('Running in dev mode')</code>
      */
     const __DEV__: boolean;
+
+    const HermesInternal: null | {};
 }
