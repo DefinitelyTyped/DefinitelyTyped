@@ -59,7 +59,9 @@ resource.eClass.get('AllStructuralFeatures').find((eObj: Ecore.EObject) => eObj.
 
 resource.getEObject('test');
 
+
 resource.parse(User, () => {});
+
 
 
 resource.to();
