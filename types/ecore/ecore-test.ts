@@ -27,7 +27,7 @@ let User = Ecore.EClass.create({
             upperBound: -1,
             containment: false,
 
-            eType: function() {
+            eType: function () {
                 return User;
             },
         }),
@@ -59,10 +59,7 @@ resource.eClass.get('AllStructuralFeatures').find((eObj: Ecore.EObject) => eObj.
 
 resource.getEObject('test');
 
-
-resource.parse(User, () => {});
-
-
+resource.parse(User, () => { });
 
 resource.to();
 
