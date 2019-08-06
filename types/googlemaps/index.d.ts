@@ -69,7 +69,7 @@ declare namespace google.maps {
         setStreetView(panorama: StreetViewPanorama): void;
         setTilt(tilt: number): void;
         setZoom(zoom: number): void;
-        controls: MVCArray<Node>[];
+        controls: Array<MVCArray<Node>>;
         data: Data;
         mapTypes: MapTypeRegistry;
         overlayMapTypes: MVCArray<MapType>;
@@ -193,7 +193,7 @@ declare namespace google.maps {
          * in the v3.22 Map Controls}.
          */
         panControlOptions?: PanControlOptions;
-        /** 
+        /**
          * Defines a boundary that restricts the area of the map accessible to users.
          * When set, a user can only pan and zoom while the camera view stays inside the
          * limits of the boundary.
@@ -266,19 +266,13 @@ declare namespace google.maps {
      * google.maps.MapTypeId.SATELLITE.
      */
     enum MapTypeId {
-        /**
-       This map type displays a transparent layer of major streets on satellite
-       images.
-     */
+        /** This map type displays a transparent layer of major streets on satellite images. */
         HYBRID,
         /** This map type displays a normal street map. */
         ROADMAP,
         /** This map type displays satellite images. */
         SATELLITE,
-        /**
-       This map type displays maps with physical features such as terrain and
-       vegetation.
-     */
+        /** This map type displays maps with physical features such as terrain and vegetation. */
         TERRAIN
     }
 
@@ -286,7 +280,7 @@ declare namespace google.maps {
     /** Options for the rendering of the map type control. */
     interface MapTypeControlOptions {
         /** IDs of map types to show in the control. */
-        mapTypeIds?: (MapTypeId | string)[];
+        mapTypeIds?: Array<MapTypeId | string>;
         /**
          * Position id. Used to specify the position of the control on the map.
          * The default position is TOP_RIGHT.
@@ -423,10 +417,7 @@ declare namespace google.maps {
         RIGHT_BOTTOM,
         /** Elements are positioned in the center of the right side. */
         RIGHT_CENTER,
-        /**
-       Elements are positioned on the right, below top-right elements, and flow
-       downwards.
-     */
+        /** Elements are positioned on the right, below top-right elements, and flow downwards. */
         RIGHT_TOP,
         /**    Elements are positioned in the center of the top row. */
         TOP_CENTER,
@@ -442,7 +433,7 @@ declare namespace google.maps {
     class Data extends MVCObject {
         constructor(options?: Data.DataOptions);
         add(feature: Data.Feature | Data.FeatureOptions): Data.Feature;
-        addGeoJson(geoJson: Object, options?: Data.GeoJsonOptions): Data.Feature[];
+        addGeoJson(geoJson: object, options?: Data.GeoJsonOptions): Data.Feature[];
         contains(feature: Data.Feature): boolean;
         forEach(callback: (feature: Data.Feature) => void): void;
         getControlPosition(): ControlPosition;
@@ -464,17 +455,17 @@ declare namespace google.maps {
         setDrawingMode(drawingMode: DrawingMode | null): void;
         setMap(map: Map | null): void;
         setStyle(style: Data.StylingFunction | Data.StyleOptions): void;
-        toGeoJson(callback: (feature: Object) => void): void;
+        toGeoJson(callback: (feature: object) => void): void;
     }
 
-    module Data {
+    namespace Data {
         interface DataOptions {
             controlPosition?: ControlPosition;
             controls?: DrawingMode[] | null;
             drawingMode?: DrawingMode | null;
-            featureFactory?: (geometry: Data.Geometry) => Data.Feature;
+            featureFactory?: (geometry: Geometry) => Feature;
             map?: Map;
-            style?: Data.StylingFunction | Data.StyleOptions;
+            style?: StylingFunction | StyleOptions;
         }
 
         interface GeoJsonOptions {
@@ -488,7 +479,8 @@ declare namespace google.maps {
             editable?: boolean;
             fillColor?: string;
             fillOpacity?: number;
-            icon?: string | Icon | Symbol;
+            // tslint:disable-next-line:no-unnecessary-qualifier
+            icon?: string | Icon | google.maps.Symbol;
             shape?: MarkerShape;
             strokeColor?: string;
             strokeOpacity?: number;
@@ -498,24 +490,24 @@ declare namespace google.maps {
             zIndex?: number;
         }
 
-        type StylingFunction = (feature: Data.Feature) => Data.StyleOptions;
+        type StylingFunction = (feature: Feature) => StyleOptions;
 
         class Feature {
-            constructor(options?: Data.FeatureOptions);
+            constructor(options?: FeatureOptions);
             forEachProperty(callback: (value: any, name: string) => void): void;
-            getGeometry(): Data.Geometry;
+            getGeometry(): Geometry;
             getId(): number | string;
             getProperty(name: string): any;
             removeProperty(name: string): void;
-            setGeometry(newGeometry: Data.Geometry | LatLng | LatLngLiteral): void;
+            setGeometry(newGeometry: Geometry | LatLng | LatLngLiteral): void;
             setProperty(name: string, newValue: any): void;
-            toGeoJson(callback: (feature: Object) => void): void;
+            toGeoJson(callback: (feature: object) => void): void;
         }
 
         interface FeatureOptions {
-            geometry?: Data.Geometry | LatLng | LatLngLiteral;
+            geometry?: Geometry | LatLng | LatLngLiteral;
             id?: number | string;
-            properties?: Object;
+            properties?: object;
         }
 
         class Geometry {
@@ -523,87 +515,88 @@ declare namespace google.maps {
             forEachLatLng(callback: (latLng: LatLng) => void): void;
         }
 
-        class Point extends Data.Geometry {
+        class Point extends Geometry {
             constructor(latLng: LatLng | LatLngLiteral);
             get(): LatLng;
         }
 
-        class MultiPoint extends Data.Geometry {
-            constructor(elements: (LatLng | LatLngLiteral)[]);
+        class MultiPoint extends Geometry {
+            constructor(elements: Array<LatLng | LatLngLiteral>);
             getArray(): LatLng[];
             getAt(n: number): LatLng;
             getLength(): number;
         }
 
-        class LineString extends Data.Geometry {
-            constructor(elements: (LatLng | LatLngLiteral)[]);
+        class LineString extends Geometry {
+            constructor(elements: Array<LatLng | LatLngLiteral>);
             getArray(): LatLng[];
             getAt(n: number): LatLng;
             getLength(): number;
         }
 
-        class MultiLineString extends Data.Geometry {
-            constructor(elements: (Data.LineString | (LatLng | LatLngLiteral)[])[]);
-            getArray(): Data.LineString[];
-            getAt(n: number): Data.LineString;
+        class MultiLineString extends Geometry {
+            constructor(elements: Array<LineString | Array<LatLng | LatLngLiteral>>);
+            getArray(): LineString[];
+            getAt(n: number): LineString;
             getLength(): number;
         }
 
-        class LinearRing extends Data.Geometry {
-            constructor(elements: (LatLng | LatLngLiteral)[]);
+        class LinearRing extends Geometry {
+            constructor(elements: Array<LatLng | LatLngLiteral>);
             getArray(): LatLng[];
             getAt(n: number): LatLng;
             getLength(): number;
         }
 
-        class Polygon extends Data.Geometry {
-            constructor(elements: (Data.LinearRing | (LatLng | LatLngLiteral)[])[]);
-            getArray(): Data.LinearRing[];
-            getAt(n: number): Data.LinearRing;
+        class Polygon extends Geometry {
+            constructor(elements: Array<LinearRing | Array<LatLng | LatLngLiteral>>);
+            getArray(): LinearRing[];
+            getAt(n: number): LinearRing;
             getLength(): number;
         }
 
-        class MultiPolygon extends Data.Geometry {
-            constructor(elements: (Data.Polygon | (LinearRing | (LatLng | LatLngLiteral)[])[])[]);
-            getArray(): Data.Polygon[];
-            getAt(n: number): Data.Polygon;
+        class MultiPolygon extends Geometry {
+            constructor(elements: Array<Polygon | Array<LinearRing | Array<LatLng | LatLngLiteral>>>);
+            getArray(): Polygon[];
+            getAt(n: number): Polygon;
             getLength(): number;
         }
 
-        class GeometryCollection extends Data.Geometry {
-            constructor(elements: (Data.Geometry[] | LatLng[] | LatLngLiteral)[]);
-            getArray(): Data.Geometry[];
-            getAt(n: number): Data.Geometry;
+        class GeometryCollection extends Geometry {
+            constructor(elements: Array<Geometry[] | LatLng[] | LatLngLiteral>);
+            getArray(): Geometry[];
+            getAt(n: number): Geometry;
             getLength(): number;
         }
 
+        // tslint:disable-next-line:no-unnecessary-qualifier
         interface MouseEvent extends google.maps.MouseEvent {
-            feature: Data.Feature;
+            feature: Feature;
         }
 
         interface AddFeatureEvent {
-            feature: Data.Feature;
+            feature: Feature;
         }
 
         interface RemoveFeatureEvent {
-            feature: Data.Feature;
+            feature: Feature;
         }
 
         interface SetGeometryEvent {
-            feature: Data.Feature;
-            newGeometry: Data.Geometry;
-            oldGeometry: Data.Geometry;
+            feature: Feature;
+            newGeometry: Geometry;
+            oldGeometry: Geometry;
         }
 
         interface SetPropertyEvent {
-            feature: Data.Feature;
+            feature: Feature;
             name: string;
             newValue: any;
             oldValue: any;
         }
 
         interface RemovePropertyEvent {
-            feature: Data.Feature;
+            feature: Feature;
             name: string;
             oldValue: any;
         }
@@ -781,7 +774,8 @@ declare namespace google.maps {
          * though it were an {@link Icon} with the `string` as {@link Icon#url url}.
          * @see {@link https://developers.google.com/maps/documentation/javascript/reference/marker#MarkerOptions.icon Maps JavaScript API}
          */
-        icon?: string | Icon | Symbol;
+        // tslint:disable-next-line:no-unnecessary-qualifier
+        icon?: string | Icon | google.maps.Symbol;
         /**
          * Adds a label to the marker. The label can either be a `string`, or a
          * {@link MarkerLabel} object.
@@ -1239,7 +1233,6 @@ declare namespace google.maps {
          * plain-text string, or a string containing HTML. The InfoWindow will be
          * sized according to the content. To set an explicit size for the content,
          * set content to be a HTML element with that size.
-         * @type {(string|Node)}
          */
         content?: string | Node;
         /**
@@ -1343,7 +1336,8 @@ declare namespace google.maps {
 
     interface IconSequence {
         fixedRotation?: boolean;
-        icon?: Symbol;
+        // tslint:disable-next-line:no-unnecessary-qualifier
+        icon?: google.maps.Symbol;
         offset?: string;
         repeat?: string;
     }
@@ -1878,7 +1872,10 @@ declare namespace google.maps {
         LESS_WALKING
     }
 
-    interface TransitFare {}
+    interface TransitFare {
+        currency: string;
+        value: number;
+    }
 
     interface DrivingOptions {
         departureTime: Date;
@@ -2422,7 +2419,7 @@ declare namespace google.maps {
         infoWindowHtml?: string;
         latLng?: LatLng;
         pixelOffset?: Size;
-        row?: Object; // Object<FusionTablesCell>
+        row?: object; // Object<FusionTablesCell>
     }
 
     interface FusionTablesCell {
@@ -2516,7 +2513,7 @@ declare namespace google.maps {
     /***** Street View *****/
     class StreetViewPanorama extends MVCObject {
         constructor(container: Element, opts?: StreetViewPanoramaOptions);
-        controls: MVCArray<Node>[];
+        controls: Array<MVCArray<Node>>;
         getLinks(): StreetViewLink[];
         getLocation(): StreetViewLocation;
         getMotionTracking(): boolean;
@@ -2531,7 +2528,7 @@ declare namespace google.maps {
             provider: (input: string) => StreetViewPanoramaData,
             opts?: PanoProviderOptions
         ): void;
-        setLinks(links: Array<StreetViewLink>): void;
+        setLinks(links: StreetViewLink[]): void;
         setMotionTracking(motionTracking: boolean): void;
         setOptions(options: StreetViewPanoramaOptions): void;
         setPano(pano: string): void;
@@ -2675,7 +2672,8 @@ declare namespace google.maps {
 
     interface PanoProviderOptions {
         /**
-         * If set, the renderer will use technologies (like webgl) that only work when cors headers are appropiately set on the provided images. It is the developer's task to serve the images correctly in combination with this flag, which might otherwise lead to SecurityErrors.
+         * If set, the renderer will use technologies (like webgl) that only work when cors headers are appropiately set on the provided images.
+         * It is the developer's task to serve the images correctly in combination with this flag, which might otherwise lead to SecurityErrors.
          */
         cors?: boolean;
     }
@@ -2689,26 +2687,26 @@ declare namespace google.maps {
         remove(): void;
     }
 
-    class event {
+    namespace event {
         /**
          * Cross browser event handler registration. This listener is removed by
          * calling removeListener(handle) for the handle that is returned by this
          * function.
          */
-        static addDomListener(
-            instance: Object,
+        function addDomListener(
+            instance: object,
             eventName: string,
-            handler: Function,
+            handler: (event: Event) => void,
             capture?: boolean
         ): MapsEventListener;
         /**
          * Wrapper around addDomListener that removes the listener after the first
          * event.
          */
-        static addDomListenerOnce(
-            instance: Object,
+        function addDomListenerOnce(
+            instance: object,
             eventName: string,
-            handler: Function,
+            handler: (event: Event) => void,
             capture?: boolean
         ): MapsEventListener;
         /**
@@ -2716,38 +2714,38 @@ declare namespace google.maps {
          * object instance. Returns an identifier for this listener that can be used
          * with removeListener().
          */
-        static addListener(
-            instance: Object,
+        function addListener(
+            instance: object,
             eventName: string,
-            handler: Function
+            handler: (...args: any[]) => void
         ): MapsEventListener;
         /**
          * Like addListener, but the handler removes itself after handling the first
          * event.
          */
-        static addListenerOnce(
-            instance: Object,
+        function addListenerOnce(
+            instance: object,
             eventName: string,
-            handler: Function
+            handler: (...args: any[]) => void
         ): MapsEventListener;
         /**
          * Removes all listeners for all events for the given instance.
          */
-        static clearInstanceListeners(instance: Object): void;
+        function clearInstanceListeners(instance: object): void;
         /**
          * Removes all listeners for the given event for the given instance.
          */
-        static clearListeners(instance: Object, eventName: string): void;
+        function clearListeners(instance: object, eventName: string): void;
         /**
          * Removes the given listener, which should have been returned by
          * addListener above. Equivalent to calling listener.remove().
          */
-        static removeListener(listener: MapsEventListener): void;
+        function removeListener(listener: MapsEventListener): void;
         /**
          * Triggers the given event. All arguments after eventName are passed as
          * arguments to the listeners.
          */
-        static trigger(instance: any, eventName: string, ...args: any[]): void;
+        function trigger(instance: any, eventName: string, ...args: any[]): void;
     }
 
     /**
@@ -2867,12 +2865,12 @@ declare namespace google.maps {
         readonly lng: number;
     }
 
-    type LatLngBoundsLiteral = {
+    interface LatLngBoundsLiteral {
         east: number;
         north: number;
         south: number;
         west: number;
-    };
+    }
 
     /**
      * A LatLngBounds instance represents a rectangle in geographical coordinates,
@@ -3019,45 +3017,45 @@ declare namespace google.maps {
     }
 
     /***** Geometry Library *****/
-    module geometry {
-        class encoding {
-            static decodePath(encodedPath: string): LatLng[];
-            static encodePath(path: LatLng[] | MVCArray<LatLng>): string;
+    namespace geometry {
+        namespace encoding {
+            function decodePath(encodedPath: string): LatLng[];
+            function encodePath(path: LatLng[] | MVCArray<LatLng>): string;
         }
 
         /**
          * Utility functions for computing geodesic angles, distances and areas.
          * The default radius is Earth's radius of 6378137 meters.
          */
-        class spherical {
+        namespace spherical {
             /**
              * Returns the area of a closed path.
              * The computed area uses the same units as the radius.
              * The radius defaults to the Earth's radius in meters,
              * in which case the area is in square meters.
              */
-            static computeArea(path: LatLng[] | MVCArray<LatLng>, radius?: number): number;
+            function computeArea(path: LatLng[] | MVCArray<LatLng>, radius?: number): number;
             /**
              * Returns the distance, in meters, between two LatLngs.
              * You can optionally specify a custom radius.
              * The radius defaults to the radius of the Earth.
              */
-            static computeDistanceBetween(from: LatLng, to: LatLng, radius?: number): number;
+            function computeDistanceBetween(from: LatLng, to: LatLng, radius?: number): number;
             /**
              * Returns the heading from one LatLng to another LatLng.
              * Headings are expressed in degrees clockwise from North within the range
              * [-180,180).
              */
-            static computeHeading(from: LatLng, to: LatLng): number;
+            function computeHeading(from: LatLng, to: LatLng): number;
             /**
              * Returns the length of the given path.
              */
-            static computeLength(path: LatLng[] | MVCArray<LatLng>, radius?: number): number;
+            function computeLength(path: LatLng[] | MVCArray<LatLng>, radius?: number): number;
             /**
              * Returns the LatLng resulting from moving a distance from an origin in
              * the specified heading (expressed in degrees clockwise from north).
              */
-            static computeOffset(
+            function computeOffset(
                 from: LatLng,
                 distance: number,
                 heading: number,
@@ -3069,7 +3067,7 @@ declare namespace google.maps {
              * degrees clockwise from North. This function returns null when no
              * solution is available.
              */
-            static computeOffsetOrigin(
+            function computeOffsetOrigin(
                 to: LatLng,
                 distance: number,
                 heading: number,
@@ -3081,17 +3079,17 @@ declare namespace google.maps {
              * same units as the radius. The radius defaults to the Earth's radius in
              * meters, in which case the area is in square meters.
              */
-            static computeSignedArea(loop: LatLng[] | MVCArray<LatLng>, radius?: number): number;
+            function computeSignedArea(loop: LatLng[] | MVCArray<LatLng>, radius?: number): number;
             /**
              * Returns the LatLng which lies the given fraction of the way between the
              * origin LatLng and the destination LatLng.
              */
-            static interpolate(from: LatLng, to: LatLng, fraction: number): LatLng;
+            function interpolate(from: LatLng, to: LatLng, fraction: number): LatLng;
         }
 
-        class poly {
-            static containsLocation(point: LatLng, polygon: Polygon): boolean;
-            static isLocationOnEdge(
+        namespace poly {
+            function containsLocation(point: LatLng, polygon: Polygon): boolean;
+            function isLocationOnEdge(
                 point: LatLng,
                 poly: Polygon | Polyline,
                 tolerance?: number
@@ -3100,7 +3098,7 @@ declare namespace google.maps {
     }
 
     /***** AdSense Library *****/
-    module adsense {
+    namespace adsense {
         class AdUnit extends MVCObject {
             constructor(container: Element, opts: AdUnitOptions);
             getBackgroundColor(): string;
@@ -3161,14 +3159,14 @@ declare namespace google.maps {
     }
 
     /***** Places Library *****/
-    module places {
+    namespace places {
         class Autocomplete extends MVCObject {
             constructor(inputField: HTMLInputElement, opts?: AutocompleteOptions);
             getBounds(): LatLngBounds;
             getPlace(): PlaceResult;
             setBounds(bounds: LatLngBounds | LatLngBoundsLiteral): void;
             setComponentRestrictions(restrictions: ComponentRestrictions): void;
-            setFields(fields: Array<string> | undefined): void;
+            setFields(fields: string[] | undefined): void;
             setOptions(options: AutocompleteOptions): void;
             setTypes(types: string[]): void;
         }
@@ -3243,9 +3241,7 @@ declare namespace google.maps {
             ): void;
         }
 
-        class AutocompleteSessionToken {
-            constructor();
-        }
+        class AutocompleteSessionToken {}
 
         interface AutocompletionRequest {
             bounds?: LatLngBounds | LatLngBoundsLiteral;
@@ -3467,7 +3463,7 @@ declare namespace google.maps {
     }
 
     /***** Drawing Library *****/
-    module drawing {
+    namespace drawing {
         class DrawingManager extends MVCObject {
             constructor(options?: DrawingManagerOptions);
             getDrawingMode(): OverlayType;
@@ -3578,7 +3574,7 @@ declare namespace google.maps {
     }
 
     /***** Visualization Library *****/
-    module visualization {
+    namespace visualization {
         class MapsEngineLayer extends MVCObject {
             constructor(options: MapsEngineLayerOptions);
             getLayerId(): string;
@@ -3630,7 +3626,7 @@ declare namespace google.maps {
 
         class HeatmapLayer extends MVCObject {
             constructor(opts?: HeatmapLayerOptions);
-            getData<T extends LatLng | WeightedLocation>(): MVCArray<T>;
+            getData(): MVCArray<LatLng | WeightedLocation>;
             getMap(): Map;
             setData(
                 data: MVCArray<LatLng | WeightedLocation> | LatLng[] | WeightedLocation[]
