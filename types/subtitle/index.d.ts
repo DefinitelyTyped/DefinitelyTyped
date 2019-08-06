@@ -12,6 +12,7 @@ export interface subTitleType {
 
 export function parse(srtOrVtt: string): subTitleType[];
 export function stringify(captions: ReadonlyArray<subTitleType>): string;
+export function stringifyVtt(captions: ReadonlyArray<subTitleType>): string;
 export function resync(captions: ReadonlyArray<subTitleType>, time: number): subTitleType[];
 export function toMs(timestamp: string): number;
 export function toSrtTime(timestamp: number): string;
