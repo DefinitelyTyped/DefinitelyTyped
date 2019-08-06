@@ -14981,7 +14981,9 @@ declare namespace Office {
          * **Errors**:
          * 
          * - HTTPRequestFailure: The request has failed. Please look at the diagnostics object for the HTTP error code.
+         * 
          * - InternalServerError: The Exchange server returned an error. Please look at the diagnostics object for more information.
+         * 
          * - NetworkError: The user is no longer connected to the network. Please check your network connection and try again.
          * 
          * @param options - An object literal that contains one or more of the following properties.
@@ -15019,7 +15021,9 @@ declare namespace Office {
          * **Errors**:
          * 
          * - HTTPRequestFailure: The request has failed. Please look at the diagnostics object for the HTTP error code.
+         * 
          * - InternalServerError: The Exchange server returned an error. Please look at the diagnostics object for more information.
+         * 
          * - NetworkError: The user is no longer connected to the network. Please check your network connection and try again.
          * 
          * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
@@ -15048,7 +15052,9 @@ declare namespace Office {
          * **Errors**:
          * 
          * - HTTPRequestFailure: The request has failed. Please look at the diagnostics object for the HTTP error code.
+         * 
          * - InternalServerError: The Exchange server returned an error. Please look at the diagnostics object for more information.
+         * 
          * - NetworkError: The user is no longer connected to the network. Please check your network connection and try again.
          * 
          * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
