@@ -343,17 +343,19 @@ declare namespace Flexmonster {
         isTotal?: boolean;
         isTotalColumn?: boolean;
         isTotalRow?: boolean;
-        member?: Member;
-        width?: number;
-        x?: number;
-        y?: number;
         label?: string;
         level?: number;
         measure?: MeasureObject;
+        member?: Member;
+        recordId?: string | string[];
+        rowData?: CellData[];
         rowIndex?: number;
         rows?: object[];
         type?: string;
         value?: number;
+        width?: number;
+        x?: number;
+        y?: number;
     }
 
     interface ExportOptions {
