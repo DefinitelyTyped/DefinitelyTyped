@@ -32,7 +32,7 @@
 
 /// <reference types="node" />
 
-import { ObjectID, Timestamp } from 'bson';
+import { Binary, ObjectID, Timestamp } from 'bson';
 import { EventEmitter } from 'events';
 import { Readable, Writable } from "stream";
 import { checkServerIdentity } from "tls";
@@ -144,7 +144,6 @@ export interface ClientSession extends EventEmitter {
      * @param options Optional settings for the transaction
      */
     withTransaction<T>(fn: WithTransactionCallback<T>, options?: TransactionOptions): Promise<T>;
-
 }
 
 // http://mongodb.github.io/node-mongodb-native/3.1/api/global.html#ReadConcern
@@ -1080,42 +1079,6 @@ export interface Collection<TSchema = Default> {
     watch(pipeline?: object[], options?: ChangeStreamOptions & { startAtOperationTime?: Timestamp, session?: ClientSession }): ChangeStream;
 }
 
-export type Condition<T, P extends keyof T> = {
-    $eq?: T[P];
-    $gt?: T[P];
-    $gte?: T[P];
-    $in?: Array<T[P]>;
-    $lt?: T[P];
-    $lte?: T[P];
-    $ne?: T[P];
-    $nin?: Array<T[P]>;
-    $and?: Array<FilterQuery<T[P]> | T[P]>;
-    $or?: Array<FilterQuery<T[P]> | T[P]>;
-    $not?: Array<FilterQuery<T[P]> | T[P]> | T[P];
-    $expr?: any;
-    $jsonSchema?: any;
-    $mod?: [number, number];
-    $regex?: RegExp;
-    $options?: string;
-    $text?: {
-        $search: string;
-        $language?: string;
-        $caseSensitive?: boolean;
-        $diacraticSensitive?: boolean;
-    };
-    $where?: object;
-    $geoIntersects?: object;
-    $geoWithin?: object;
-    $near?: object;
-    $nearSphere?: object;
-    $elemMatch?: object;
-    $size?: number;
-    $bitsAllClear?: object;
-    $bitsAllSet?: object;
-    $bitsAnyClear?: object;
-    $bitsAnySet?: object;
-    [key: string]: any;
-};
 
 /** https://docs.mongodb.com/manual/reference/operator/update */
 export type UpdateQuery<T> = {
@@ -1137,9 +1100,118 @@ export type UpdateQuery<T> = {
     $bit?: { [P in keyof T]?: any } | { [key: string]: any };
 };
 
+/** https://docs.mongodb.com/manual/reference/operator/query/type/#available-types */
+export enum BSONType {
+    Double = 1,
+    String,
+    Object,
+    Array,
+    BinData,
+    /** @deprecated */
+    Undefined,
+    ObjectId,
+    Boolean,
+    Date,
+    Null,
+    Regex,
+    /** @deprecated */
+    DBPointer,
+    JavaScript,
+    /** @deprecated */
+    Symbol,
+    JavaScriptWithScope,
+    Int,
+    Timestamp,
+    Long,
+    Decimal,
+    MinKey = -1,
+    MaxKey = 127,
+}
+
+type BSONTypeAlias =
+    | 'number'
+    | 'double' | 'string' | 'object' | 'array'
+    | 'binData' | 'undefined' | 'objectId' | 'bool'
+    | 'date' | 'null' | 'regex' | 'dbPointer' | 'javascript'
+    | 'symbol' | 'javascriptWithScope' | 'int' | 'timestamp'
+    | 'long' | 'decimal' | 'minKey' | 'maxKey';
+
+/** https://docs.mongodb.com/manual/reference/operator/query-bitwise */
+type BitwiseQuery =
+    | number    /** <numeric bitmask> */
+    | Binary    /** <BinData bitmask> */
+    | number[]; /** [ <position1>, <position2>, ... ] */
+
+/** https://docs.mongodb.com/manual/reference/operator/query/#query-selectors */
+export type QuerySelector<T> = {
+    // Comparison
+    $eq?: T;
+    $gt?: T;
+    $gte?: T;
+    $in?: T[];
+    $lt?: T;
+    $lte?: T;
+    $ne?: T;
+    $nin?: T[];
+    // Logical
+    // Array<FilterQuery<T>> is a better type after we added support for none object types in FilterQuery
+    $not?: any[];
+    // Element
+    $exists?: boolean;
+    $type?: BSONType | BSONTypeAlias;
+    // Evaluation
+    $expr?: any;
+    $jsonSchema?: any;
+    $mod?: [number, number];
+    $regex?: RegExp | string;
+    $options?: string;
+    $text?: {
+        $search: string;
+        $language?: string;
+        $caseSensitive?: boolean;
+        $diacraticSensitive?: boolean;
+    };
+    $where?: any;
+    // Geospatial
+    // TODO: define better types for geo queries
+    $geoIntersects?: { $geometry: object };
+    $geoWithin?: object;
+    $near?: object;
+    $nearSphere?: object;
+    $maxDistance?: number;
+    // Array
+    // TODO: array operators should throw errors for none array fields
+    $all?: any[]; // TODO: define better types for $all
+    $elemMatch?: object;
+    $size?: number;
+    // Bitwise
+    $bitsAllClear?: BitwiseQuery;
+    $bitsAllSet?: BitwiseQuery;
+    $bitsAnyClear?: BitwiseQuery;
+    $bitsAnySet?: BitwiseQuery;
+};
+
+export type RootQuerySelector<T> = {
+    /** https://docs.mongodb.com/manual/reference/operator/query/and/#op._S_and */
+    $and?: Array<FilterQuery<T>>;
+    /** https://docs.mongodb.com/manual/reference/operator/query/nor/#op._S_nor */
+    $nor?: Array<FilterQuery<T>>;
+    /** https://docs.mongodb.com/manual/reference/operator/query/or/#op._S_or */
+    $or?: Array<FilterQuery<T>>;
+    /** https://docs.mongodb.com/manual/reference/operator/query/comment/#op._S_comment */
+    $comment?: string;
+    // we could not find a proper TypeScript generic to support nested queries e.g. 'user.friends.name'
+    // this will mark all unrecognized properties as any (including nested queries)
+    [key: string]: any;
+};
+
+// string types can be searched using a regex in mongo
+type RegExpString<T> = T extends string ? (RegExp | T) : T;
+
 export type FilterQuery<T> = {
-    [P in keyof T]?: T[P] | Condition<T, P>;
-} | { [key: string]: any };
+    [P in keyof T]?: RegExpString<T[P]> | QuerySelector<RegExpString<T[P]>>
+} & RootQuerySelector<T>;
+
 
 /** http://docs.mongodb.org/manual/reference/command/collStats/ */
 export interface CollStats {

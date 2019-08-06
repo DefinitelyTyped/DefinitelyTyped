@@ -210,9 +210,7 @@ mongodb.MongoClient.connect(connectionString, options, (err: mongodb.MongoError,
             { stringField: 'hola', numberField: 1, fruitTags: [] },
         ]);
         testCollection.find({
-            numberField: {
-                $and: [{ $gt: 0, $lt: 100 }]
-            }
+            $and: [{ numberField: { $gt: 0 } }, { numberField: { $lt: 100 } }],
         });
 
         const res: mongodb.Cursor<TestCollection> = testCollection.find({ _id: 123 });
