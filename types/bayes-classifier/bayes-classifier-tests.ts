@@ -1,4 +1,4 @@
-import BayesClassifier from 'bayes-classifier';
+import BayesClassifier = require('bayes-classifier');
 
 const classifier = new BayesClassifier();
 
