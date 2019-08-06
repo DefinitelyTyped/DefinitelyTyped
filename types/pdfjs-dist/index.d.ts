@@ -1,4 +1,4 @@
-// Type definitions for PDF.js v2.0
+// Type definitions for PDF.js v2.1
 // Project: https://github.com/mozilla/pdf.js
 // Definitions by: Josh Baldwin <https://github.com/jbaldwin>, Dmitrii Sorin <https://github.com/1999>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -131,7 +131,7 @@ interface PDFPageViewportOptions {
 interface PDFPageViewport {
     width: number;
     height: number;
-    fontScale: number;
+    scale: number;
     transforms: number[];
 
     clone(options: PDFPageViewportOptions): PDFPageViewport;
@@ -140,6 +140,11 @@ interface PDFPageViewport {
     convertToPdfPoint(x: number, y: number): number[]; // [x, y]
 }
 
+interface ViewportParameters {
+    scale: number; // The desired scale of the viewport.
+    rotation?: number; // (optional) The desired rotation, in degrees, of the viewport. If omitted it defaults to the page rotation.
+    dontFlip?: boolean; // (optional) If true, the y-axis will not be flipped. The default value is `false`.
+}
 interface PDFAnnotationData {
     subtype: string;
     rect: number[]; // [x1, y1, x2, y2]
@@ -219,12 +224,10 @@ interface PDFPageProxy {
     view: number[];
 
     /**
-     * @param scale The desired scale of the viewport.
-     * @param rotate Degrees to rotate the viewport.  If omitted this defaults to the page rotation.
-     * @param dontFlip
+     * @param params viewport options
      * @return
      **/
-    getViewport(scale: number, rotate?: number, dontFlip?: boolean): PDFPageViewport;
+    getViewport(params: ViewportParameters): PDFPageViewport;
 
     /**
      * A promise that is resolved with an array of the annotation objects.

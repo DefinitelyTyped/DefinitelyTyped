@@ -600,7 +600,7 @@ export class Account implements Resource {
      * Lists account’s transactions.
      * Scope: wallet:transactions:read
      */
-    getTransactions(cb: (error: Error | null, result: Transaction[]) => void): void;
+    getTransactions(opts: {}, cb: (error: Error | null, result: Transaction[]) => void): void;
 
     /**
      * Show an individual transaction for an account
@@ -966,29 +966,29 @@ export class Buy implements Resource {
 }
 
 export interface Fee {
-  /**
-   * Amount associated to this fee
-   */
-  amount: MoneyHash;
-  /**
-   * Fee beneficiary ("bank", "coinbase", ...)
-   */
-  type: string;
+    /**
+     * Amount associated to this fee
+     */
+    amount: MoneyHash;
+    /**
+     * Fee beneficiary ("bank", "coinbase", ...)
+     */
+    type: string;
 }
 
 export interface UnitPrice {
-  /**
-   * Amount as floating-point in a string
-   */
-  amount: string;
-  /**
-   * Currency e.g. "BTC" (see Client#getCurrencies() for available strings)
-   */
-  currency: string;
-  /**
-   * Type of price
-   */
-  scale: number;
+    /**
+     * Amount as floating-point in a string
+     */
+    amount: string;
+    /**
+     * Currency e.g. "BTC" (see Client#getCurrencies() for available strings)
+     */
+    currency: string;
+    /**
+     * Type of price
+     */
+    scale: number;
 }
 
 export type SellStatus = "created" | "completed" | "canceled";
@@ -1337,35 +1337,41 @@ export interface PaymentMethodLimit {
  * Information about one supported currency.  Currency codes will conform to the ISO 4217 standard where possible.
  * Currencies which have or had no representation in ISO 4217 may use a custom code (e.g. BTC).
  */
-export interface Currency {
-    /**
-     * Abbreviation e.g. "USD" or "BTC"
-     */
-    id: string;
-    /**
-     * Full name e.g. "United Arab Emirates Dirham"
-     */
-    name: string;
-    /**
-     * Floating-point number in a string
-     */
-    min_size: string;
+export interface Currencies {
+    data: [{
+        /**
+         * Abbreviation e.g. "USD" or "BTC"
+         */
+        id: string;
+        /**
+         * Full name e.g. "United Arab Emirates Dirham"
+         */
+        name: string;
+        /**
+         * Floating-point number in a string
+         */
+        min_size: string;
+    }];
 }
 
 export interface ExchangeRate {
-    /**
-     * Base currency
-     */
-    currency: string;
-    /**
-     * Rates as floating points in strings; indexed by currency id
-     */
-    rates: { [index: string]: string };
+    data: {
+        /**
+         * Base currency
+         */
+        currency: string;
+        /**
+         * Rates as floating points in strings; indexed by currency id
+         */
+        rates: { [index: string]: string };
+    };
 }
 
 export interface Time {
-    iso: string;
-    epoch: number;
+    data: {
+        iso: string;
+        epoch: number;
+    };
 }
 
 export class Client {
@@ -1421,7 +1427,7 @@ export class Client {
      * representation in ISO 4217 may use a custom code (e.g. BTC).
      * Scope: none
      */
-    getCurrencies(cb: (error: Error | null, result: Currency[]) => void): void;
+    getCurrencies(cb: (error: Error | null, result: Currencies) => void): void;
 
     /**
      * Get current exchange rates. Default base currency is USD but it can be defined as any supported currency.

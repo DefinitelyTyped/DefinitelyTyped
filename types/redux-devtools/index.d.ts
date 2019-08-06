@@ -5,15 +5,15 @@
 // TypeScript Version: 3.0
 
 import * as React from 'react';
-import { GenericStoreEnhancer } from 'redux';
+import { StoreEnhancer } from 'redux';
 
 export interface IDevTools {
     new (): JSX.ElementClass;
-    instrument(): GenericStoreEnhancer
+    instrument(): StoreEnhancer
 }
 
 export declare function createDevTools(el: React.ReactElement): IDevTools;
-export declare function persistState(debugSessionKey: string): GenericStoreEnhancer;
+export declare function persistState(debugSessionKey: string): StoreEnhancer;
 
 declare const factory: { instrument(): (opts: any) => any };
 

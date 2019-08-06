@@ -1,6 +1,5 @@
 import initStoryshots, {
     getSnapshotFileName,
-    imageSnapshot,
     multiSnapshotWithOptions,
     renderOnly,
     renderWithOptions,
@@ -46,20 +45,13 @@ initStoryshots({
 });
 
 initStoryshots({
-    configPath: "",
-    test: imageSnapshot({
-        storybookUrl: "http://localhost:9002"
-    })
-});
-
-initStoryshots({
-    configPath: "",
-    test: imageSnapshot({
-        storybookUrl: "http://localhost:9002",
-        getScreenshotOptions: ({ context, url }) => ({ path: "/foo" }),
-        getGotoOptions: ({ context, url }) => ({ timeout: 10 }),
-        chromeExecutablePath: "/usr/local/bin/chrome"
-    })
+    configPath: '',
+    test: renderWithOptions(story => ({
+        createNodeMock: () => {
+            story.name;
+            return undefined;
+        },
+    })),
 });
 
 initStoryshots({

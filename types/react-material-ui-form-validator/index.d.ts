@@ -1,6 +1,7 @@
 // Type definitions for react-material-ui-form-validator 2.0
 // Project: https://github.com/NewOldMax/react-material-ui-form-validator
 // Definitions by: Frank Brullo <https://github.com/FrankBrullo>
+//                 J.R <https://github.com/jrguenin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
@@ -13,6 +14,7 @@ export interface ValidatorFormProps {
     instantValidate?: boolean;
     onError?: (errors: any[]) => void;
     debounceTime?: number;
+    [key: string]: any;
 }
 export class ValidatorForm extends React.Component<ValidatorFormProps> {
     static addValidationRule(name: string, callback: (value: any) => boolean): void;
@@ -27,6 +29,7 @@ export interface ValidatorComponentProps {
     value: any;
     validatorListener?: (isValid: boolean) => void;
     withRequiredValidator?: boolean;
+    [key: string]: any;
 }
 export class ValidatorComponent extends React.Component<ValidatorComponentProps & TextFieldProps> {}
 export class TextValidator extends ValidatorComponent {}

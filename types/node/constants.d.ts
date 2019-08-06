@@ -193,7 +193,6 @@ declare module "constants" {
     const DH_CHECK_P_NOT_PRIME: number;
     const DH_UNABLE_TO_CHECK_GENERATOR: number;
     const DH_NOT_SUITABLE_GENERATOR: number;
-    const NPN_ENABLED: number;
     const RSA_PKCS1_PADDING: number;
     const RSA_SSLV23_PADDING: number;
     const RSA_NO_PADDING: number;

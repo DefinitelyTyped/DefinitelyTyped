@@ -11,6 +11,7 @@
 //                 Kanitkorn Sujautra <https://github.com/lukyth>
 //                 obedm503 <https://github.com/obedm503>
 //                 anion155 <https://github.com/anion155>
+//                 tkryskiewicz <https://github.com/tkryskiewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -124,7 +125,7 @@ declare namespace ReactIntl {
             /*
              * one of "best fit" (default) | "numeric"
              */
-            style?: "best-fit" | "numeric";
+            style?: "best fit" | "numeric";
             format?: string;
             updateInterval?: number;
             initialNow?: any;
@@ -176,7 +177,7 @@ declare namespace ReactIntl {
         }
 
         interface PropsBase extends Base {
-            other?: any;
+            other: any;
             zero?: any;
             one?: any;
             two?: any;

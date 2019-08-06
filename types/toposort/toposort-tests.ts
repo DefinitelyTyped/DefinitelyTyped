@@ -1,10 +1,11 @@
 import toposort = require('toposort');
 
-const testGraph: ReadonlyArray<[string, string]> = [
-    ["string1", "string2"],
-    ["string2", "string3"],
-    ["string3", "string1"]
+const testGraph: Array<[string, string | undefined]> = [
+    ['string1', 'string2'],
+    ['string2', 'string3'],
+    ['string3', 'string1'],
+    ['string4', undefined],
 ];
 
-// $ExpectType ReadonlyArray<string>
+// $ExpectType string[]
 toposort(testGraph);

@@ -5062,8 +5062,8 @@ export interface DecryptResult {
  *          ]
  *          }
  */
-export function decrypt(options: DecryptOptions & { format: "utf8" }): Promise<DecryptOptions & { data: string | ReadableStream<String> | NodeStream}>
-export function decrypt(options: DecryptOptions & { format: "binary" }): Promise<DecryptOptions & { data: Uint8Array | ReadableStream<Uint8Array> | NodeStream }>
+export function decrypt(options: DecryptOptions & { format: "utf8" }): Promise<DecryptResult & { data: string | ReadableStream<String> | NodeStream}>
+export function decrypt(options: DecryptOptions & { format: "binary" }): Promise<DecryptResult & { data: Uint8Array | ReadableStream<Uint8Array> | NodeStream }>
 export function decrypt(options: DecryptOptions): Promise<DecryptResult>;
 
 export interface SignOptions {

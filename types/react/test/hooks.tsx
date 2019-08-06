@@ -201,6 +201,12 @@ function useEveryHook(ref: React.Ref<{ id: number }>|undefined): () => boolean {
     // make sure the generic argument does reject actual potentially undefined inputs
     // $ExpectError
     React.useState<number>(undefined)[0];
+    // make sure useState does not widen
+    const [toggle, setToggle] = React.useState(false);
+    // $ExpectType boolean
+    toggle;
+    // make sure setState accepts a function
+    setToggle(r => !r);
 
     // useReducer convenience overload
 

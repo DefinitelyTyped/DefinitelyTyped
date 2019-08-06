@@ -12,6 +12,7 @@
 //                 Domas Trijonis <https://github.com/fdim>
 //                 Peter Safranek <https://github.com/pe8ter>
 //                 Moshe Kolodny <https://github.com/kolodny>
+//                 Stephen Farrar <https://github.com/stephenfarrar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 // For ddescribe / iit use : https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/karma-jasmine/karma-jasmine.d.ts
@@ -179,7 +180,12 @@ declare function waitsFor(latchMethod: () => boolean, failureMessage?: string, t
 declare function waits(timeout?: number): void;
 
 declare namespace jasmine {
-    type Expected<T> = T | ObjectContaining<T> | Any | Spy;
+    type ExpectedRecursive<T> = T | ObjectContaining<T> | AsymmetricMatcher | {
+        [K in keyof T]: ExpectedRecursive<T[K]> | Any;
+    };
+    type Expected<T> = T | ObjectContaining<T> | AsymmetricMatcher | Any | Spy | {
+        [K in keyof T]: ExpectedRecursive<T[K]>;
+    };
     type SpyObjMethodNames<T = undefined> =
         T extends undefined ?
             (ReadonlyArray<string> | {[methodName: string]: any}) :
@@ -224,24 +230,26 @@ declare namespace jasmine {
         jasmineToString(): string;
     }
 
+    interface AsymmetricMatcher {
+        asymmetricMatch(other: any): boolean;
+        jasmineToString?(): string;
+    }
+
     // taken from TypeScript lib.core.es6.d.ts, applicable to CustomMatchers.contains()
     interface ArrayLike<T> {
         length: number;
         [n: number]: T;
     }
 
-    interface ArrayContaining<T> {
-        new (sample: ArrayLike<T>): ArrayLike<T>;
-
-        asymmetricMatch(other: any): boolean;
-        jasmineToString(): string;
+    interface ArrayContaining<T> extends AsymmetricMatcher {
+        new?(sample: ArrayLike<T>): ArrayLike<T>;
     }
 
     interface ObjectContaining<T> {
-        new (sample: Partial<T>): Partial<T>;
+        new?(sample: Partial<T>): Partial<T>;
 
         jasmineMatches(other: any, mismatchKeys: any[], mismatchValues: any[]): boolean;
-        jasmineToString(): string;
+        jasmineToString?(): string;
     }
 
     interface Block {

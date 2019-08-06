@@ -972,6 +972,7 @@ export interface TabViewConfig {
     activeBackgroundColor?: string;
     inactiveTintColor?: string;
     inactiveBackgroundColor?: string;
+    keyboardHidesTabBar?: boolean;
     showLabel?: boolean;
     style?: StyleProp<ViewStyle>;
     labelStyle?: StyleProp<TextStyle>;

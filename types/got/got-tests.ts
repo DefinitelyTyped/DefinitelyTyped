@@ -21,6 +21,11 @@ got('todomvc.com')
 
 got('todomvc.com').cancel();
 
+got('todomvc.com').then((response) => {
+    response.statusCode; // $ExpectType number
+    response.statusMessage; // $ExpectType string
+});
+
 got('todomvc.com', { json: true }).then((response) => {
     response.body; // $ExpectType any
 });
@@ -343,6 +348,15 @@ got('http://todomvc.com', { timeout: 1 }).catch((err) => err instanceof got.Time
 // Test hooks.
 got('example.com', {
     hooks: {
+        init: [
+            options => {
+                options.baseUrl = 'https://google.com';
+            }
+        ]
+    }
+});
+got('example.com', {
+    hooks: {
         beforeRequest: [
             options => {
                 options.headers!['x-foo'] = 'bar';
@@ -425,3 +439,8 @@ got('example.com', {
         }
     });
 }
+
+// Test request option
+got('example.com', {
+    request: https.request
+});

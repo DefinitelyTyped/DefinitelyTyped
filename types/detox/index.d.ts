@@ -343,6 +343,16 @@ declare global {
              */
             clearText(): Promise<Actions<R>>;
             /**
+             * Taps the backspace key on the built-in keyboard.
+             * @example await element(by.id('textField')).tapBackspaceKey();
+             */
+            tapBackspaceKey(): Promise<Actions<R>>;
+            /**
+             * Taps the return key on the built-in keyboard.
+             * @example await element(by.id('textField')).tapReturnKey();
+             */
+            tapReturnKey(): Promise<Actions<R>>;
+            /**
              *
              * @param pixels
              * @param direction
@@ -350,7 +360,12 @@ declare global {
              * await element(by.id('scrollView')).scroll(100, 'down');
              * await element(by.id('scrollView')).scroll(100, 'up');
              */
-            scroll(pixels: number, direction: Direction): Promise<Actions<R>>;
+            scroll(
+                pixels: number,
+                direction: Direction,
+                startPositionX?: number,
+                startPositionY?: number,
+            ): Promise<Actions<R>>;
             /**
              * Scroll to edge.
              * @param edge
@@ -403,6 +418,10 @@ declare global {
              * By default await detox.init(config); will launch the installed app. If you wish to control when your app is launched, add {launchApp: false} param to your init.
              */
             launchApp?: boolean;
+            /**
+             * By default await detox.init(config); will uninstall and install the app. If you wish to reuse the existing app for a faster run, add {reuse: true} param to your init.
+             */
+            reuse?: boolean;
         }
         interface DeviceLanchAppConfig {
             /**
