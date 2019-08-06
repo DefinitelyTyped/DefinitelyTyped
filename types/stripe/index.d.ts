@@ -2329,6 +2329,11 @@ declare namespace Stripe {
 
             email?: string;
 
+            /**
+             * Default invoice settings for this customer.
+             */
+            invoice_settings?: ICustomerInvoiceSettings | null;
+
             livemode: boolean;
 
             metadata: IMetadata;
@@ -2472,6 +2477,16 @@ declare namespace Stripe {
             email?: string;
 
             /**
+             * The prefix for the customer used to generate unique invoice numbers.
+             */
+            invoice_prefix?: string;
+
+            /**
+             * Default invoice settings for this customer.
+             */
+            invoice_settings?: ICustomerInvoiceSettings | null;
+
+            /**
              * The customer’s full name or business name. This can be unset by updating the value to null and then saving.
              */
             name?: string;
@@ -2480,11 +2495,6 @@ declare namespace Stripe {
              * The customer’s phone number. This can be unset by updating the value to null and then saving.
              */
             phone?: string;
-
-            /**
-             * The prefix for the customer used to generate unique invoice numbers.
-             */
-            invoice_prefix?: string;
 
             shipping?: IShippingInformation;
 
@@ -2516,6 +2526,34 @@ declare namespace Stripe {
              * below). Stripe will automatically validate the card.
              */
             source: string | cards.ICardSourceCreationOptions;
+        }
+
+        interface ICustomerInvoiceSettings {
+            /**
+             * Default custom fields to be displayed on invoices for this customer.
+             */
+            custom_fields?: Array<{
+                /**
+                 * The name of the custom field. This may be up to 30 characters.
+                 */
+                name: string;
+
+                /**
+                 * The value of the custom field. This may be up to 30 characters.
+                 */
+                value: string;
+            }>;
+
+            /**
+             * ID of the default payment method used for subscriptions and invoices for the customer.
+             */
+            default_payment_method?: string;
+
+            /**
+             * Default footer to be displayed on invoices for this customer.
+             * This can be unset by updating the value to null and then saving.
+             */
+            footer?: string;
         }
 
         interface ICustomerCardSourceCreationOptions extends ICustomerSourceCreationOptions {
