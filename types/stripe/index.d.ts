@@ -91,6 +91,7 @@ declare class Stripe {
     countrySpecs: Stripe.resources.CountrySpecs;
     orders: Stripe.resources.Orders;
     products: Stripe.resources.Products;
+    setupIntents: Stripe.resources.SetupIntents;
     skus: Stripe.resources.SKUs;
     webhooks: Stripe.resources.WebHooks;
     ephemeralKeys: Stripe.resources.EphemeralKeys;
@@ -4888,6 +4889,299 @@ declare namespace Stripe {
         }
     }
 
+    namespace setupIntents {
+        type SetupIntentCancelationReason = 'abandoned' | 'requested_by_customer' | 'duplicate';
+
+        type SetupIntentUsageType = 'on_session' | 'off_session';
+
+        interface ISetupIntentPaymentMethodOptions {
+            /**
+             * Configuration for any card payments attempted on this SetupIntent.
+             */
+            card?: {
+                /**
+                 * We strongly recommend that you rely on our SCA Engine to automatically prompt your
+                 * customers for authentication based on risk level and other requirements. However,
+                 * if you wish to request 3D Secure based on logic from your own fraud engine, provide
+                 * this option. Permitted values include: `automatic` or `any`. If not provided, defaults
+                 * to `automatic`. Read our guide on manually requesting 3D Secure for more information
+                 * on how this configuration interacts with Radar and our SCA Engine.
+                 */
+                request_three_d_secure?: "automatic" | "any";
+            };
+        }
+
+        /** Payment methods supported by Payment Intents. This is a subsetset of all Payment Method types. See https://stripe.com/docs/api/payment_methods/create#create_payment_method-type */
+        type SetupIntentPaymentMethodType = 'card' | 'card_present';
+
+        interface ISetupIntent extends IResourceObject {
+            /**
+             * Value is "setup_intent".
+             */
+            object: 'setup_intent';
+
+            /**
+             * ID of the Connect application that created the SetupIntent. [Expandable]
+             */
+            application?: string | applications.IApplication | null;
+
+            /**
+             * Reason for cancellation of this SetupIntent, one of `abandoned`, `requested_by_customer`, or `duplicate`.
+             */
+            cancelation_reason: SetupIntentCancelationReason | null;
+
+            /**
+             * The client secret of this SetupIntent. Used for client-side retrieval using a publishable key.
+             *
+             * The client secret can be used to complete payment setup from your frontend. It should not
+             * be stored, logged, embedded in URLs, or exposed to anyone other than the customer. Make
+             * sure that you have TLS enabled on any page that includes the client secret.
+             */
+            client_secret: string;
+
+            /**
+             * Time at which the object was created. Measured in seconds since the Unix epoch.
+             */
+            created: number;
+
+            /**
+             * ID of the Customer this SetupIntent is for if one exists. [Expandable]
+             */
+            customer: string | customers.ICustomer | null;
+
+            /**
+             * An arbitrary string attached to the object.
+             *
+             * If present, payment methods used with this SetupIntent can only be attached to
+             * this Customer, and payment methods attached to other Customers cannot be used with
+             * this SetupIntent.
+             */
+            description?: string;
+
+            /**
+             * The error encountered in the previous SetupIntent confirmation.
+             */
+            last_setup_error: IStripeError | null;
+
+            livemode: boolean;
+
+            metadata: IMetadata;
+
+            /**
+             * If present, this property tells you what actions you need to take in order for your customer to continue payment setup.
+             */
+            next_action:
+            | ISetupIntentNextActionUseStripeSdk
+            | ISetupIntentNextActionRedirectToUrl;
+
+            /**
+             * The account (if any) for which the setup is intended. [Expandable]
+             */
+            on_behalf_of?: string | null;
+
+            /**
+             * ID of the payment method used in this SetupIntent. [Expandable]
+             */
+            payment_method?: string | null;
+
+            /**
+             * Payment-method-specific configuration for this SetupIntent.
+             */
+            payment_method_options?: ISetupIntentPaymentMethodOptions;
+
+            /**
+             * The list of payment method types (e.g. card) that this SetupIntent is allowed to use.
+             */
+            payment_method_types: SetupIntentPaymentMethodType[];
+
+            /**
+             * The several states the SetupIntent goes through until it it either canceled or succeeds.
+             */
+            status:
+            | 'requires_payment_method'
+            | 'requires_confirmation'
+            | 'requires_action'
+            | 'processing'
+            | 'canceled'
+            | 'succeeded';
+
+            /**
+             * Indicates how the payment method is intended to be used in the future.
+             *
+             * Use `on_session` if you intend to only reuse the payment method when the customer is in
+             * your checkout flow. Use `off_session` if your customer may or may not be in your checkout
+             * flow. If not provided, this value defaults to `off_session`.
+             */
+            usage: SetupIntentUsageType;
+        }
+
+        interface ISetupIntentTransferData {
+            /**
+             * The account (if any) the payment will be attributed to for tax reporting, and where funds from the payment will be transferred to upon payment success. [Expandable]
+             */
+            destination:
+            | string
+            | bankAccounts.IBankAccount
+            | cards.ICardHash
+            | accounts.IAccountCreationOptions;
+        }
+
+        interface ISetupIntentNextActionRedirectToUrl {
+            type: 'redirect_to_url';
+
+            /**
+             * Contains instructions for authenticating a payment by redirecting your customer to another page or application.
+             */
+            redirect_to_url: { return_url: string; url: string };
+        }
+
+        interface ISetupIntentNextActionUseStripeSdk {
+            type: 'use_stripe_sdk';
+
+            /**
+             * When confirming a SetupIntent with js, js depends on the contents of this object to invoke authentication flows. The shape of the contents is subject to change and is only intended to be used by js.
+             */
+            use_stripe_sdk: any;
+        }
+
+        interface ISetupIntentCreationOptions {
+            /**
+             * Set to `true` to attempt to confirm this SetupIntent immediately. This parameter defaults
+             * to `false`. If the payment method attached is a card, a return_url may be provided in case
+             * additional authentication is required.
+             */
+            confirm?: boolean;
+
+            /**
+             * ID of the Customer this SetupIntent belongs to, if one exists.
+             *
+             * If present, payment methods used with this SetupIntent can only be attached to this
+             * Customer, and payment methods attached to other Customers cannot be used with this
+             * SetupIntent.
+             */
+            customer?: string;
+
+            /**
+             * An arbitrary string attached to the object. Often useful for displaying to users.
+             * This can be unset by updating the value to `null` and then saving.
+             */
+            description?: string | null;
+
+            /**
+             * Set of key-value pairs that you can attach to an object. This can be useful for storing
+             * additional information about the object in a structured format.
+             */
+            metadata?: IOptionsMetadata;
+
+            /**
+             * The Stripe account ID for which this SetupIntent is created.
+             */
+            on_behalf_of?: string;
+
+            /**
+             * ID of the payment method (a PaymentMethod, Card, BankAccount, or saved Source object)
+             * to attach to this SetupIntent.
+             */
+            payment_method?: string;
+
+            /**
+             * Payment-method-specific configuration for this SetupIntent.
+             */
+            payment_method_options?: ISetupIntentPaymentMethodOptions;
+
+            /**
+             * The list of payment method types (e.g. card) that this SetupIntent is allowed to use.
+             */
+            payment_method_types?: SetupIntentPaymentMethodType[];
+
+            /**
+             * The URL to redirect your customer back to after they authenticate or cancel their payment on
+             * the payment method’s app or site. If you’d prefer to redirect to a mobile application, you
+             * can alternatively supply an application URI scheme. This parameter can only be used with
+             * `confirm=true`.
+             */
+            return_url?: string;
+
+            /**
+             * Indicates how the payment method is intended to be used in the future.
+             *
+             * Use `on_session` if you intend to only reuse the payment method when the customer is in your checkout flow. Use `off_session` if your customer may or may not be in your checkout flow. If not provided, this value defaults to `off_session`.
+             */
+            usage?: SetupIntentUsageType;
+        }
+
+        interface ISetupIntentUpdateOptions {
+            /**
+             * ID of the customer this SetupIntent is for if one exists.
+             */
+            customer?: string;
+
+            /**
+             * An arbitrary string attached to the object. Often useful for displaying to users.
+             * This can be unset by updating the value to `null` and then saving.
+             */
+            description?: string | null;
+
+            /**
+             * Set of key-value pairs that you can attach to an object. This can be useful for storing
+             * additional information about the object in a structured format.
+             */
+            metadata?: IOptionsMetadata;
+
+            /**
+             * ID of the payment method (a PaymentMethod, Card, BankAccount, or saved Source object)
+             * to attach to this SetupIntent.
+             */
+            payment_method?: string;
+
+            /**
+             * The list of payment method types (e.g. card) that this SetupIntent is allowed to use.
+             */
+            payment_method_types?: SetupIntentPaymentMethodType[];
+        }
+
+        interface ISetupIntentConfirmOptions {
+            /**
+             * ID of the payment method (a PaymentMethod, Card, BankAccount, or saved Source object)
+             * to attach to this SetupIntent.
+             */
+            payment_method?: string;
+
+            /**
+             * Payment-method-specific configuration for this SetupIntent.
+             */
+            payment_method_options?: ISetupIntentPaymentMethodOptions;
+
+            /**
+             * The URL to redirect your customer back to after they authenticate on the payment method’s
+             * app or site. If you’d prefer to redirect to a mobile application, you can alternatively
+             * supply an application URI scheme. This parameter is only used for cards and other
+             * redirect-based payment methods.
+             */
+            return_url?: string;
+        }
+
+        interface ISetupIntentRetrieveOptions {
+            /**
+             * The client secret of the SetupIntent. Required if a publishable key is used to retrieve
+             * the SetupIntent. REQUIRED IF USING PUBLISHABLE KEY
+             */
+            client_secret?: string;
+        }
+
+        interface ISetupIntentListOptions extends IListOptionsCreated {
+            /**
+             * Only return SetupIntents for the customer specified by this customer ID.
+             */
+            customer?: string;
+
+            /**
+             * Only return SetupIntents associated with the specified payment method.
+             */
+            payment_method?: string;
+        }
+    }
+
     namespace paymentMethods {
         interface WalletAddress {
             /** City/District/Suburb/Town/Village. */
@@ -9496,6 +9790,156 @@ declare namespace Stripe {
                 paymentIntentId: string,
                 response?: IResponseFn<paymentIntents.IPaymentIntent>,
             ): Promise<paymentIntents.IPaymentIntent>;
+        }
+
+        class SetupIntents extends StripeResource {
+            /**
+             * Creates a SetupIntent object.
+             *
+             * After the SetupIntent is created, attach a payment method and confirm to collect
+             * any required permissions to charge the payment method later.
+             */
+            create(
+                data: setupIntents.ISetupIntentCreationOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<setupIntents.ISetupIntent>
+            ): Promise<setupIntents.ISetupIntent>;
+            create(
+                data: setupIntents.ISetupIntentCreationOptions,
+                response?: IResponseFn<setupIntents.ISetupIntent>
+            ): Promise<setupIntents.ISetupIntent>;
+
+            /**
+             * Returns a list of SetupIntents.
+             *
+             * @returns An object with a data property that contains an array of up to limit SetupIntents, starting after SetupIntent starting_after. Each entry in the array is a separate SetupIntent object. If no more SetupIntents are available, the resulting array will be empty. This request should never throw an error.
+             */
+            list(
+                data: setupIntents.ISetupIntentListOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<IList<setupIntents.ISetupIntent>>
+            ): IListPromise<setupIntents.ISetupIntent>;
+            list(
+                data: setupIntents.ISetupIntentListOptions,
+                response?: IResponseFn<IList<setupIntents.ISetupIntent>>
+            ): IListPromise<setupIntents.ISetupIntent>;
+            list(
+                options: HeaderOptions,
+                response?: IResponseFn<IList<setupIntents.ISetupIntent>>
+            ): IListPromise<setupIntents.ISetupIntent>;
+            list(response?: IResponseFn<IList<setupIntents.ISetupIntent>>): IListPromise<setupIntents.ISetupIntent>;
+
+            /**
+             * Updates a SetupIntent object.
+             */
+            update(
+                intent: string,
+                data: setupIntents.ISetupIntentUpdateOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<setupIntents.ISetupIntent>
+            ): Promise<setupIntents.ISetupIntent>;
+            update(
+                intent: string,
+                data: setupIntents.ISetupIntentUpdateOptions,
+                response?: IResponseFn<setupIntents.ISetupIntent>
+            ): Promise<setupIntents.ISetupIntent>;
+
+            /**
+             * Retrieves the details of a SetupIntent that has previously been created.
+             *
+             * Client-side retrieval using a publishable key is allowed when the `client_secret`
+             * is provided in the query string.
+             *
+             * When retrieved with a publishable key, only a subset of properties will be returned.
+             * Please refer to the SetupIntent object reference for more details.
+             */
+            retrieve(
+                intent: string,
+                data: setupIntents.ISetupIntentRetrieveOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<setupIntents.ISetupIntent>
+            ): Promise<setupIntents.ISetupIntent>;
+            retrieve(
+                intent: string,
+                data: setupIntents.ISetupIntentRetrieveOptions,
+                response?: IResponseFn<setupIntents.ISetupIntent>
+            ): Promise<setupIntents.ISetupIntent>;
+            retrieve(
+                intent: string,
+                options: HeaderOptions,
+                response?: IResponseFn<setupIntents.ISetupIntent>
+            ): Promise<setupIntents.ISetupIntent>;
+            retrieve(
+                intent: string,
+                response?: IResponseFn<setupIntents.ISetupIntent>
+            ): Promise<setupIntents.ISetupIntent>;
+
+            /**
+             * Confirm that your customer intends to set up the current or provided payment method.
+             * For example, you would confirm a SetupIntent when a customer hits the “Save” button
+             * on a payment method management page on your website.
+             *
+             * If the selected payment method does not require any additional steps from the customer,
+             * the SetupIntent will transition to the `succeeded` status.
+             *
+             * Otherwise, it will transition to the `requires_action` status and suggest additional
+             * actions via `next_action`. If setup fails, the SetupIntent will transition to the
+             * `requires_payment_method` status.
+             */
+            confirm(
+                intent: string,
+                data: setupIntents.ISetupIntentConfirmOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<setupIntents.ISetupIntent>
+            ): Promise<setupIntents.ISetupIntent>;
+            confirm(
+                intent: string,
+                data: setupIntents.ISetupIntentConfirmOptions,
+                response?: IResponseFn<setupIntents.ISetupIntent>
+            ): Promise<setupIntents.ISetupIntent>;
+            confirm(
+                intent: string,
+                options: HeaderOptions,
+                response?: IResponseFn<setupIntents.ISetupIntent>
+            ): Promise<setupIntents.ISetupIntent>;
+            confirm(
+                intent: string,
+                response?: IResponseFn<setupIntents.ISetupIntent>
+            ): Promise<setupIntents.ISetupIntent>;
+
+            /**
+             * A SetupIntent object can be canceled when it is in one of these statuses:
+             * `requires_payment_method`, `requires_capture`, `requires_confirmation`, `requires_action`.
+             *
+             * Once canceled, setup is abandoned and any operations on the SetupIntent will fail
+             * with an error.
+             *
+             * @returns Returns a SetupIntent object if the cancellation succeeded. Returns an error if the SetupIntent has already been canceled or is not in a cancelable state.
+             */
+            cancel(
+                intent: string,
+                data: {
+                    cancellation_reason?: setupIntents.SetupIntentCancelationReason;
+                },
+                options: HeaderOptions,
+                response?: IResponseFn<setupIntents.ISetupIntent>
+            ): Promise<setupIntents.ISetupIntent>;
+            cancel(
+                intent: string,
+                options: HeaderOptions,
+                response?: IResponseFn<setupIntents.ISetupIntent>
+            ): Promise<setupIntents.ISetupIntent>;
+            cancel(
+                intent: string,
+                data: {
+                    cancellation_reason?: setupIntents.SetupIntentCancelationReason;
+                },
+                response?: IResponseFn<setupIntents.ISetupIntent>
+            ): Promise<setupIntents.ISetupIntent>;
+            cancel(
+                intent: string,
+                response?: IResponseFn<setupIntents.ISetupIntent>
+            ): Promise<setupIntents.ISetupIntent>;
         }
 
         /** https://stripe.com/docs/api/payment_methods */
