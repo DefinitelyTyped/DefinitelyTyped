@@ -219,6 +219,14 @@ test = (
     />
 );
 
+test = (
+    <VictoryAxis axisValue={3} />
+)
+
+test = (
+    <VictoryAxis axisValue="series1" />
+)
+
 // VictoryBar test
 test = (
     <VictoryBar
