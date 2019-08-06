@@ -48,4 +48,4 @@ declare namespace SwitchTransition {
  */
 declare class SwitchTransition extends Component<SwitchTransition.SwitchTransitionProps> {}
 
-export default SwitchTransition;
+export = SwitchTransition;
