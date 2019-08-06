@@ -1,5 +1,3 @@
-import Collection from './Collection';
-import Control from './control/Control';
 import { DefaultsOptions } from './control/util';
 
 export { default as Attribution } from './control/Attribution';
@@ -12,5 +10,4 @@ export { default as ScaleLine } from './control/ScaleLine';
 export { default as Zoom } from './control/Zoom';
 export { default as ZoomSlider } from './control/ZoomSlider';
 export { default as ZoomToExtent } from './control/ZoomToExtent';
-
-export function defaults(opt_options?: DefaultsOptions): Collection<Control>;
+export { defaults } from './control/util';

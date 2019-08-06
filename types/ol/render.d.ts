@@ -3,7 +3,7 @@ import SimpleGeometry from './geom/SimpleGeometry';
 import CanvasImmediateRenderer from './render/canvas/Immediate';
 import { Size } from './size';
 
-export type OrderFunction = ((p0: FeatureLike, p1: FeatureLike) => number);
+export type OrderFunction = (p0: FeatureLike, p1: FeatureLike) => number;
 export interface State {
     context: CanvasRenderingContext2D;
     feature: FeatureLike;
