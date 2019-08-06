@@ -8,6 +8,12 @@ export interface SIZE {
   full: 'full';
   auto: 'auto';
 }
+
+export interface SIZE_WIDTHS {
+    default: '500px';
+    full: '100%';
+    auto: 'auto';
+}
 export interface ROLE {
   dialog: 'dialog';
   alertdialog: 'alertdialog';
@@ -86,3 +92,8 @@ export const StyledClose: StyletronComponent<any>;
 export const ModalHeader: StyletronComponent<any>;
 export const ModalBody: StyletronComponent<any>;
 export const ModalFooter: StyletronComponent<any>;
+
+export const SIZE: SIZE;
+export const SIZE_WIDTHS: SIZE_WIDTHS;
+export const ROLE: ROLE;
+export const CLOSE_SOURCE: CLOSE_SOURCE;

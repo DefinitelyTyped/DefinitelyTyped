@@ -6,6 +6,13 @@ import { ObjectEvent } from '../Object';
 import { AttributionLike } from './Source';
 import VectorSource, { VectorSourceEvent } from './Vector';
 
+export interface Options {
+    attributions?: AttributionLike;
+    distance?: number;
+    geometryFunction?: ((p0: Feature) => Point);
+    source: VectorSource;
+    wrapX?: boolean;
+}
 export default class Cluster extends VectorSource {
     constructor(options: Options);
     protected distance: number;
@@ -39,11 +46,4 @@ export default class Cluster extends VectorSource {
     on(type: 'removefeature', listener: (evt: VectorSourceEvent) => void): EventsKey;
     once(type: 'removefeature', listener: (evt: VectorSourceEvent) => void): EventsKey;
     un(type: 'removefeature', listener: (evt: VectorSourceEvent) => void): void;
-}
-export interface Options {
-    attributions?: AttributionLike;
-    distance?: number;
-    geometryFunction?: ((p0: Feature) => Point);
-    source: VectorSource;
-    wrapX?: boolean;
 }

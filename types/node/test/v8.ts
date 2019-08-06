@@ -2,6 +2,7 @@ import * as v8 from 'v8';
 import { Readable } from 'stream';
 
 const heapStats = v8.getHeapStatistics();
+const numOfDetached = heapStats.number_of_detached_contexts;
 const heapSpaceStats = v8.getHeapSpaceStatistics();
 
 const zapsGarbage: number = heapStats.does_zap_garbage;

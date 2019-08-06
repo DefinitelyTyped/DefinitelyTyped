@@ -615,6 +615,11 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
         value; // $ExpectType AbcObject
         return 0;
     });
+    // $ExpectType AbcObject[]
+    _.intersectionBy(...[list], (value) => {
+        value; // $ExpectType AbcObject
+        return 0;
+    });
 
     _(list).intersectionBy(list); // $ExpectType Collection<AbcObject>
     _(list).intersectionBy(list, "a"); // $ExpectType Collection<AbcObject>
@@ -632,6 +637,11 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
     _.chain(list).intersectionBy(list, ["a", 42]); // $ExpectType CollectionChain<AbcObject>
     // $ExpectType CollectionChain<AbcObject>
     _.chain(list).intersectionBy(list, (value) => {
+        value; // $ExpectType AbcObject
+        return null;
+    });
+    // $ExpectType CollectionChain<AbcObject>
+    _.chain(list).intersectionBy(...[list], (value) => {
         value; // $ExpectType AbcObject
         return null;
     });

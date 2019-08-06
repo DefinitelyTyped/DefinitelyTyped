@@ -6,6 +6,11 @@ import BaseObject, { ObjectEvent } from './Object';
 import { ProjectionLike } from './proj';
 import Projection from './proj/Projection';
 
+export interface Options {
+    tracking?: boolean;
+    trackingOptions?: PositionOptions;
+    projection?: ProjectionLike;
+}
 export default class Geolocation extends BaseObject {
     constructor(opt_options?: Options);
     getAccuracy(): number;
@@ -63,9 +68,4 @@ export default class Geolocation extends BaseObject {
     on(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
     once(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
     un(type: 'propertychange', listener: (evt: ObjectEvent) => void): void;
-}
-export interface Options {
-    tracking?: boolean;
-    trackingOptions?: PositionOptions;
-    projection?: ProjectionLike;
 }

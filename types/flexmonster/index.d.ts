@@ -111,6 +111,7 @@ declare namespace Flexmonster {
         off(eventType: string, handler?: ((...args: any[]) => any) | string): void;
         on(eventType: string, handler: ((...args: any[]) => any) | string): void;
         open(): void;
+        openCalculatedValueEditor(uniqueName?: string, callbackHandler?: ((response: {uniqueName: string, isRemoved: boolean}) => void) | string): void;
         openFieldsList(): void;
         openFilter(hierarchyName: string): void;
         print(options?: PrintOptions): void;

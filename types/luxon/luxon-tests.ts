@@ -98,7 +98,7 @@ dt.toRelative({
     base: DateTime.local(),
     locale: 'fr',
     style: 'long',
-    unit: 'day',
+    unit: 'days',
     round: true,
     padding: 10,
     numberingSystem: 'bali',
@@ -108,7 +108,7 @@ dt.toRelative({
 dt.toRelativeCalendar({
     base: DateTime.local(),
     locale: 'fr',
-    unit: 'day',
+    unit: 'days',
     numberingSystem: 'bali',
 });
 

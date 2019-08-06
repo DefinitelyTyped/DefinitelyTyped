@@ -46,7 +46,14 @@ const chart: Chart = new Chart(ctx, {
             caretPadding: 2,
             displayColors: true,
             borderColor: "rgba(0,0,0,0)",
-            borderWidth: 1
+            borderWidth: 1,
+            callbacks: {
+                title: ([point]) => point.label ? point.label.substring(0, 2) : 'title',
+                label(tooltipItem) {
+                    const { value, x, y, label } = tooltipItem;
+                    return `${label}(${x}, ${y}) = ${value}`;
+                },
+            },
         },
         scales: {
             xAxes: [

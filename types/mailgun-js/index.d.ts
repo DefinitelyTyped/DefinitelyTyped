@@ -1,11 +1,14 @@
-// Type definitions for mailgun-js 0.16
+// Type definitions for mailgun-js 0.22
 // Project: https://github.com/bojand/mailgun-js
 // Definitions by: Sampson Oliver <https://github.com/sampsonjoliver>
 //                 Andi Pätzold <https://github.com/andipaetzold>
+//                 Jiri Balcar <https://github.com/JiriBalcar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 /// <reference types="node" />
+
+import * as FormData from 'form-data';
 
 declare const Mailgun: Mailgun.MailgunExport;
 export = Mailgun;
@@ -28,6 +31,20 @@ declare namespace Mailgun {
                   interval: number;
               };
         proxy?: string;
+        testMode?: boolean;
+        testModeLogger?: (httpOptions: LoggerHttpOptions, payload: string, form: FormData) => void;
+    }
+
+    interface LoggerHttpOptions {
+        hostname: string;
+        port: number;
+        protocol: string;
+        path: string;
+        method: string;
+        headers: any;
+        auth: string;
+        agent: false;
+        timeout: number;
     }
 
     interface Error {
@@ -57,6 +74,11 @@ declare namespace Mailgun {
         (options: ConstructorParams): Mailgun;
     }
 
+    interface MailgunRequest {
+        (resource: string, data: any, callback: (error: Error, response: any) => void): void;
+        (resource: string, data: any): Promise<any>;
+    }
+
     namespace messages {
         interface SendData {
             from?: string;
@@ -71,7 +93,7 @@ declare namespace Mailgun {
             inline?: AttachmentData | ReadonlyArray<AttachmentData>;
 
             // Mailgun options
-            'o:tag'?: string[];
+            'o:tag'?: string | string[];
             'o:deliverytime'?: string;
             'o:dkim'?: 'yes' | 'no' | boolean;
             'o:tracking'?: 'yes' | 'no' | boolean;
@@ -88,7 +110,7 @@ declare namespace Mailgun {
         }
 
         interface BatchData extends SendData {
-            "recipient-variables"?: BatchSendRecipientVars;
+            'recipient-variables'?: BatchSendRecipientVars;
         }
 
         interface BatchSendRecipientVars {
@@ -194,6 +216,12 @@ declare namespace Mailgun {
         validate(address: string, opts?: validation.ValidationOptionsPublic): Promise<validation.ValidateResponse>;
         validate(address: string, isPrivate: false, opts?: validation.ValidationOptionsPublic): Promise<validation.ValidateResponse>;
         validate(address: string, isPrivate: true, opts?: validation.ValidationOptionsPrivate): Promise<validation.ValidateResponse>;
+
+        // Generic requests
+        get: MailgunRequest;
+        post: MailgunRequest;
+        put: MailgunRequest;
+        delete: MailgunRequest;
     }
 
     interface Lists {

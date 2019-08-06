@@ -1,4 +1,4 @@
-// Type definitions for stripe 6.30
+// Type definitions for stripe 6.31
 // Project: https://github.com/stripe/stripe-node/
 // Definitions by: William Johnston <https://github.com/wjohnsto>
 //                 Peter Harris <https://github.com/codeanimal>
@@ -24,8 +24,11 @@
 //                 Christopher Eck <https://github.com/chrisleck>
 //                 Joshua Feltimo <https://github.com/opticalgenesis>
 //                 Josiah <https://github.com/spacetag>
+//                 Oleg Vaskevich <https://github.com/vaskevich>
+//                 Dylan Aspden <https://github.com/dhaspden>
+//                 Ethan Setnik <https://github.com/esetnik>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 /// <reference types="node" />
 
@@ -56,6 +59,7 @@ declare class Stripe {
     charges: Stripe.resources.Charges;
     checkout: Stripe.resources.Checkout;
     coupons: Stripe.resources.Coupons;
+    creditNotes: Stripe.resources.CreditNotes;
     customers: Stripe.resources.Customers;
     disputes: Stripe.resources.Disputes;
     events: Stripe.resources.Events;
@@ -91,18 +95,21 @@ declare class Stripe {
     sources: Stripe.resources.Sources;
 
     setHost(host: string): void;
-    setHost(host: string, port: string|number): void;
-    setHost(host: string, port: string|number, protocol: string): void;
+    setHost(host: string, port: string | number): void;
+    setHost(host: string, port: string | number, protocol: string): void;
 
     setProtocol(protocol: string): void;
-    setPort(port: string|number): void;
+    setPort(port: string | number): void;
     setApiVersion(version?: string): void;
     setApiKey(key?: string): void;
+    setAppInfo(info?: { partner_id?: string; name: string; url?: string; version?: string }): void;
     setTimeout(timeout?: number): void;
     setMaxNetworkRetries(maxNetworkRetries: number): void;
+    setTelemetryEnabled(enabled: boolean): void;
     setHttpAgent(agent: string): void;
     getConstant(c: string): any;
     getMaxNetworkRetries(): number;
+    getTelemetryEnabled(): boolean;
     getClientUserAgent(response: (userAgent: string) => void): void;
 }
 export = Stripe;
@@ -193,6 +200,12 @@ declare namespace Stripe {
              * This field is null unless business_type is set to individual.
              */
             individual?: IIndividual;
+
+             /**
+              * External accounts (bank accounts and debit cards) currently
+              * attached to this account
+              */
+            external_accounts?: IList<cards.ICard | bankAccounts.IBankAccount>;
         }
 
         interface IAccountCreationOptions extends IAccountUpdateOptions {
@@ -805,13 +818,13 @@ declare namespace Stripe {
             last_name?: string;
 
             /**
-             * The Kana varation of the individual’s last name (Japan only).
+             * The Kana variation of the individual’s last name (Japan only).
              * This can be unset by updating the value to null and then saving.
              */
             last_name_kana?: string;
 
             /**
-             * The Kanji varation of the individual’s last name (Japan only).
+             * The Kanji variation of the individual’s last name (Japan only).
              * This can be unset by updating the value to null and then saving.
              */
             last_name_kanji?: string;
@@ -1914,6 +1927,149 @@ declare namespace Stripe {
         }
     }
 
+    namespace creditNotes {
+      /**
+       * Credit notes are documents that decrease the amount owed on a specified invoice.
+       * Credit notes are the only way to adjust the amount of an invoice once it's been finalized
+       * (other than voiding and recreating the invoice from scratch).
+       */
+      interface ICreditNote extends IResourceObject {
+            /**
+             * Value is "credit_note"
+             */
+            object: "credit_note";
+
+            /**
+             * The integer amount in cents representing the total amount of the credit note.
+             */
+            amount: number;
+
+            /**
+             * Time at which the object was created. Measured in seconds since the Unix epoch.
+             */
+            created: string;
+
+            /**
+             * Three-letter ISO currency code, in lowercase. Must be a supported currency.
+             */
+            currency: string;
+
+            /**
+             * ID of the customer. [Expandable]
+             */
+            customer: string | customers.ICustomer;
+
+            /**
+             * Customer balance transaction related to this credit note. [Expandable]
+             */
+            customer_balance_transaction: string | balance.IBalanceTransaction;
+
+            /**
+             * ID of the invoice. [Expandable]
+             */
+            invoice: string | invoices.IInvoice;
+
+            /**
+             * Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+             */
+            livemode: boolean;
+
+            /**
+             * Customer-facing text that appears on the credit note PDF.
+             */
+            memo: string | null;
+
+            /**
+             * Set of key-value pairs that you can attach to an object.
+             * This can be useful for storing additional information about the object in a structured format.
+             */
+            metadata: IMetadata;
+
+            /**
+             * A unique number that identifies this particular credit note.
+             * It appears on the PDF of the credit note and its associated invoice.
+             */
+            number: string;
+
+            /**
+             * The link to download the PDF of the credit note.
+             */
+            pdf: string;
+
+            /**
+             * Reason for issuing this credit note, one of duplicate, fraudulent, order_change, or product_unsatisfactory
+             */
+            reason: CreditNoteReason | null;
+
+            /**
+             * Refund related to this credit note. [Expandable]
+             */
+            refund: string | null | refunds.IRefund;
+
+            /**
+             * Status of this credit note, one of issued or void.
+             */
+            status: "issued" | "void";
+
+            /**
+             * Type of this credit note, one of post_payment or pre_payment.
+             * A pre_payment credit note means it was issued when the invoice was open.
+             * A post_payment credit note means it was issued when the invoice was paid.
+             */
+            type: "post_payment" | "pre_payment";
+      }
+
+      interface ICreditNoteCreationOptions extends IDataOptionsWithMetadata {
+        amount: number;
+        invoice: string;
+
+        /**
+         * The amount to credit the customer’s balance.
+         * It will be automatically applied to their next invoice.
+         */
+        credit_amount?: number;
+
+        /**
+         * The credit note’s memo appears on the credit note PDF. This can be unset by updating the value to nil and then saving.
+         */
+        memo?: string;
+
+        /**
+         * Reason for issuing this credit note, one of duplicate, fraudulent, order_change, or product_unsatisfactory.
+         */
+        reason?: CreditNoteReason;
+
+        /**
+         * ID of an existing refund to link this credit note to.
+         */
+        refund?: string;
+
+        /**
+         * The amount to refund. If set, a refund will be created for the charge associated with the invoice.
+         */
+        refund_amount?: number;
+      }
+
+      interface ICreditNoteUpdateOptions extends IDataOptionsWithMetadata {
+        /**
+         * Credit note memo. This can be unset by updating the value to nil and then saving.
+         */
+        memo?: string;
+      }
+
+      interface ICreditNoteListOptions extends IListOptions {
+        /**
+         * ID of the invoice.
+         */
+        invoice?: string;
+      }
+
+      /**
+       * Reason for issuing a credit note, one of duplicate, fraudulent, order_change, or product_unsatisfactory
+       */
+      type CreditNoteReason = "duplicate" | "fraudulent" | "order_change" | "product_unsatisfactory";
+    }
+
     namespace customers {
         /**
          * Customer objects allow you to perform recurring charges and track multiple charges that are associated
@@ -2274,7 +2430,7 @@ declare namespace Stripe {
             access_activity_log?: string;
 
             /**
-             * The billing addess provided by the customer.
+             * The billing address provided by the customer.
              */
             billing_address?: string;
 
@@ -2642,7 +2798,7 @@ declare namespace Stripe {
             /**
              * ID of the latest charge generated for this invoice, if any. [Expandable]
              */
-            charge: string | charges.ICharge;
+            charge: string | charges.ICharge | null;
 
             /**
              * Whether or not the invoice is still trying to collect payment. An invoice is closed if it's either paid or
@@ -2790,6 +2946,16 @@ declare namespace Stripe {
              * Start of the usage period during which invoice items were added to this invoice
              */
             period_start: number;
+
+            /**
+             * Total amount of all post-payment credit notes issued for this invoice.
+             */
+            post_payment_credit_notes_amount: number;
+
+            /**
+             * Total amount of all pre-payment credit notes issued for this invoice.
+             */
+            pre_payment_credit_notes_amount: number;
 
             /**
              * This is the transaction number that appears on email receipts sent for this invoice.
@@ -3109,6 +3275,16 @@ declare namespace Stripe {
             tax_percent?: number;
         }
 
+        interface IInvoiceFinalizeOptions extends IDataOptions {
+            /**
+             * Controls whether Stripe will perform
+             * [automatic collection](https://stripe.com/docs/billing/invoices/workflow/#auto_advance)
+             * of the invoice. When `false`, the invoice’s state will not automatically advance
+             * without an explicit action.
+             */
+            auto_advance: boolean;
+        }
+
         interface IInvoicePayOptions extends IDataOptionsWithMetadata {
             /**
              * A payment source to be charged. The source must be the ID of a source
@@ -3191,6 +3367,8 @@ declare namespace Stripe {
             subscription_trial_end?: number;
         }
 
+        type IInvoiceListLineItemsOptions = IListOptions;
+
         interface IInvoiceUpcomingOptions extends IDataOptions {
             /**
              * The code of the coupon to apply. If a subscription or subscription_plan is provided, the invoice returned will preview updating
@@ -3244,6 +3422,9 @@ declare namespace Stripe {
              */
             subscription_trial_end?: number;
         }
+
+        // TODO: update once https://stripe.com/docs/api/invoices/upcoming_invoice_lines is fixed.
+        type IInvoiceListUpcomingLineItemsOptions = IListOptions;
 
         interface IPeriod {
             /**
@@ -3328,9 +3509,9 @@ declare namespace Stripe {
             discountable: boolean;
 
             /**
-             * If null, the invoice item is pending and will be included in the upcoming invoice.
+             * If null, the invoice item is pending and will be included in the upcoming invoice. [Expandable]
              */
-            invoice: string | null;
+            invoice: string | invoices.IInvoice | null;
             livemode: boolean;
             metadata: IMetadata;
 
@@ -4076,9 +4257,9 @@ declare namespace Stripe {
              */
             status:
                 | 'requires_payment_method'
+                | 'requires_confirmation'
                 | 'requires_action'
                 | 'processing'
-                | 'requires_authorization'
                 | 'requires_capture'
                 | 'canceled'
                 | 'succeeded';
@@ -4288,6 +4469,11 @@ declare namespace Stripe {
              * The client secret of this PaymentIntent. Used for client-side retrieval using a publishable key. Please refer to dynamic authentication guide on how client_secret should be handled. Required if using Publishable Key!
              */
             client_secret?: string;
+
+            /**
+             * ID of the payment method (a PaymentMethod, Card, BankAccount, or saved Source object) to attach to this PaymentIntent.
+             */
+            payment_method?: string;
 
             /**
              * Email address that the receipt for the resulting payment will be sent to.
@@ -5792,7 +5978,7 @@ declare namespace Stripe {
         /**
          * Hash describing the card used to make the charge
          */
-        interface ICardHash extends IResourceObject {
+        interface ICardHash extends IResourceObject, ICardHashInfo {
             /**
              * ID of card (used in conjunction with a customer or recipient ID)
              */
@@ -5802,79 +5988,6 @@ declare namespace Stripe {
              * Value is 'card'
              */
             object: "card";
-
-            /**
-             * The card number
-             */
-            number?: string;
-
-            /**
-             * Card brand. Can be Visa, American Express, MasterCard, Discover, JCB, Diners Club, or Unknown.
-             */
-            brand: "Visa" | "American Express" | "MasterCard" | "Discover" | "JCB" | "Diners Club" | "Unknown" ;
-            exp_month: number;
-            exp_year: number;
-
-            /**
-             * Card funding type. Can be credit, debit, prepaid, or unknown
-             */
-            funding: "credit" | "debit" | "prepaid" | "unknown";
-            last4: string;
-            address_city: string | null;
-
-            /**
-             * Billing address country, if provided when creating card
-             */
-            address_country: string | null;
-            address_line1: string | null;
-
-            /**
-             * If address_line1 was provided, results of the check: pass, fail, unavailable, or unchecked.
-             */
-            address_line1_check: "pass" | "fail" | "unavailable" | "unchecked" | null;
-            address_line2: string | null;
-            address_state: string | null;
-            address_zip: string | null;
-
-            /**
-             * If address_zip was provided, results of the check: pass, fail, unavailable, or unchecked.
-             */
-            address_zip_check: "pass" | "fail" | "unavailable" | "unchecked" | null;
-
-            /**
-             * Two-letter ISO code representing the country of the card. You could use this
-             * attribute to get a sense of the international breakdown of cards you've collected.
-             */
-            country: string;
-
-            /**
-             * If a CVC was provided, results of the check: pass, fail, unavailable, or unchecked
-             */
-            cvc_check: "pass" | "fail" | "unavailable" | "unchecked";
-
-            /**
-             * (For Apple Pay integrations only.) The last four digits of the device account number.
-             */
-            dynamic_last4: string | null;
-
-            /**
-             * Cardholder name
-             */
-            name: string | null;
-
-            /**
-             * Uniquely identifies this particular card number. You can use this attribute to check
-             * whether two customers who've signed up with you are using the same card number, for example.
-             */
-            fingerprint: string;
-
-            metadata?: IMetadata;
-
-            /**
-             * If the card number is tokenized, this is the method that was
-             * used. Can be "apple_pay" or "android_pay".
-             */
-            tokenization_method: "apple_pay" | "android_pay" | null;
         }
 
         interface ICardUpdateOptions extends IDataOptionsWithMetadata {
@@ -6353,6 +6466,14 @@ declare namespace Stripe {
              * Boolean indicating whether this subscription should cancel at the end of the current period.
              */
             cancel_at_period_end?: boolean;
+
+            /**
+             * Boolean (default true). Used to prevent Stripe Invoicing from automatically paying the subscription when the term changes.
+             * This can be set to false when used with services like Avalara that need to augment an invoice before the subscription is paid.
+             *
+             * Using this flag requires contacting Stripe support in order to have the account whitelisted.
+             */
+            pay_immediately?: boolean;
         }
 
         interface ISubscriptionCancellationOptions extends IDataOptions {
@@ -6716,6 +6837,7 @@ declare namespace Stripe {
                 refund_account_holder_name?: string | null;
             };
             amount?: number | null;
+            card?: ICardHashInfo;
             client_secret: string;
             code_verification?: {
                 attempts_remaining: number
@@ -6991,6 +7113,11 @@ declare namespace Stripe {
         constructor(stripe: Stripe, urlData: any);
     }
 
+    interface IListPromise<T> extends Promise<IList<T>>, AsyncIterableIterator<T> {
+        autoPagingEach(handler: (item: T) => Promise<void>): void;
+        autoPagingToArray(opts: {limit: number}): Promise<T[]>;
+    }
+
     namespace resources {
         class UsageRecords extends StripeResource {
             /**
@@ -7059,10 +7186,10 @@ declare namespace Stripe {
             /**
              * Returns a list of accounts connected to your platform via Connect. If you’re not a platform, the list will be empty.
              */
-            list(data: IListOptions, options: HeaderOptions, response?: IResponseFn<IList<accounts.IAccount>>): Promise<IList<accounts.IAccount>>;
-            list(data: IListOptions, response?: IResponseFn<IList<accounts.IAccount>>): Promise<IList<accounts.IAccount>>;
-            list(options: HeaderOptions, response?: IResponseFn<IList<accounts.IAccount>>): Promise<IList<accounts.IAccount>>;
-            list(response?: IResponseFn<IList<accounts.IAccount>>): Promise<IList<accounts.IAccount>>;
+            list(data: IListOptions, options: HeaderOptions, response?: IResponseFn<IList<accounts.IAccount>>): IListPromise<accounts.IAccount>;
+            list(data: IListOptions, response?: IResponseFn<IList<accounts.IAccount>>): IListPromise<accounts.IAccount>;
+            list(options: HeaderOptions, response?: IResponseFn<IList<accounts.IAccount>>): IListPromise<accounts.IAccount>;
+            list(response?: IResponseFn<IList<accounts.IAccount>>): IListPromise<accounts.IAccount>;
 
             /**
              * When you create a new bank account or credit card, you must specify a managed account to create it on.
@@ -7122,16 +7249,16 @@ declare namespace Stripe {
              * available by default on the corresponding Stripe object. If you need more than those 10, you can use this API method and the limit
              * and starting_after parameters to page through additional bank accounts.
              */
-            listExternalAccounts(accId: string, data: accounts.IBankAccountListOptions, options: HeaderOptions, response?: IResponseFn<IList<bankAccounts.IBankAccount>>): Promise<IList<bankAccounts.IBankAccount>>;
-            listExternalAccounts(accId: string, data: accounts.IBankAccountListOptions, response?: IResponseFn<IList<bankAccounts.IBankAccount>>): Promise<IList<bankAccounts.IBankAccount>>;
+            listExternalAccounts(accId: string, data: accounts.IBankAccountListOptions, options: HeaderOptions, response?: IResponseFn<IList<bankAccounts.IBankAccount>>): IListPromise<bankAccounts.IBankAccount>;
+            listExternalAccounts(accId: string, data: accounts.IBankAccountListOptions, response?: IResponseFn<IList<bankAccounts.IBankAccount>>): IListPromise<bankAccounts.IBankAccount>;
 
             /**
              * You can see a list of the cards belonging to a managed account. Note that the 10 most recent external accounts are available on the
              * account object. If you need more than those 10, you can use this API method and the limit and starting_after parameters to page
              * through additional cards.
              */
-            listExternalAccounts(accId: string, data: accounts.ICardListOptions, options: HeaderOptions, response?: IResponseFn<IList<cards.ICard>>): Promise<IList<cards.ICard>>;
-            listExternalAccounts(accId: string, data: accounts.ICardListOptions, response?: IResponseFn<IList<cards.ICard>>): Promise<IList<cards.ICard>>;
+            listExternalAccounts(accId: string, data: accounts.ICardListOptions, options: HeaderOptions, response?: IResponseFn<IList<cards.ICard>>): IListPromise<cards.ICard>;
+            listExternalAccounts(accId: string, data: accounts.ICardListOptions, response?: IResponseFn<IList<cards.ICard>>): IListPromise<cards.ICard>;
 
             /**
              * Creates a single-use login link for an Express account to access their Stripe dashboard.
@@ -7156,10 +7283,10 @@ declare namespace Stripe {
              * Returns a list of application fees you’ve previously collected. The application fees are returned in sorted order, with the most
              * recent fees appearing first.
              */
-            list(data: applicationFees.IApplicationFeeListOptions, options: HeaderOptions, response?: IResponseFn<IList<applicationFees.IApplicationFee>>): Promise<IList<applicationFees.IApplicationFee>>;
-            list(data: applicationFees.IApplicationFeeListOptions, response?: IResponseFn<IList<applicationFees.IApplicationFee>>): Promise<IList<applicationFees.IApplicationFee>>;
-            list(options: HeaderOptions, response?: IResponseFn<IList<applicationFees.IApplicationFee>>): Promise<IList<applicationFees.IApplicationFee>>;
-            list(response?: IResponseFn<IList<applicationFees.IApplicationFee>>): Promise<IList<applicationFees.IApplicationFee>>;
+            list(data: applicationFees.IApplicationFeeListOptions, options: HeaderOptions, response?: IResponseFn<IList<applicationFees.IApplicationFee>>): IListPromise<applicationFees.IApplicationFee>;
+            list(data: applicationFees.IApplicationFeeListOptions, response?: IResponseFn<IList<applicationFees.IApplicationFee>>): IListPromise<applicationFees.IApplicationFee>;
+            list(options: HeaderOptions, response?: IResponseFn<IList<applicationFees.IApplicationFee>>): IListPromise<applicationFees.IApplicationFee>;
+            list(response?: IResponseFn<IList<applicationFees.IApplicationFee>>): IListPromise<applicationFees.IApplicationFee>;
 
             /**
              * Refunds an application fee that has previously been collected but not yet refunded. Funds will be refunded to the Stripe account that
@@ -7193,8 +7320,8 @@ declare namespace Stripe {
              * By default, you can see the 10 most recent refunds stored directly on the application fee object, but you can also retrieve details
              * about a specific refund stored on the application fee.
              */
-            retreiveRefund(feeId: string, refundId: string, options: HeaderOptions, response?: IResponseFn<applicationFees.IApplicationFeeRefund>): Promise<applicationFees.IApplicationFeeRefund>;
-            retreiveRefund(feeId: string, refundId: string, response?: IResponseFn<applicationFees.IApplicationFeeRefund>): Promise<applicationFees.IApplicationFeeRefund>;
+            retrieveRefund(feeId: string, refundId: string, options: HeaderOptions, response?: IResponseFn<applicationFees.IApplicationFeeRefund>): Promise<applicationFees.IApplicationFeeRefund>;
+            retrieveRefund(feeId: string, refundId: string, response?: IResponseFn<applicationFees.IApplicationFeeRefund>): Promise<applicationFees.IApplicationFeeRefund>;
 
             /**
              * Updates the specified application fee refund by setting the values of the parameters passed. Any parameters not provided will be left
@@ -7210,10 +7337,10 @@ declare namespace Stripe {
              * by default on the application fee object. If you need more than those 10, you can use this API method and the limit and starting_after
              * parameters to page through additional refunds.
              */
-            listRefunds(feeId: string, data: IListOptions, options: HeaderOptions, response?: IResponseFn<IList<applicationFees.IApplicationFeeRefund>>): Promise<IList<applicationFees.IApplicationFeeRefund>>;
-            listRefunds(feeId: string, data: IListOptions, response?: IResponseFn<IList<applicationFees.IApplicationFeeRefund>>): Promise<IList<applicationFees.IApplicationFeeRefund>>;
-            listRefunds(feeId: string, options: HeaderOptions, response?: IResponseFn<IList<applicationFees.IApplicationFeeRefund>>): Promise<IList<applicationFees.IApplicationFeeRefund>>;
-            listRefunds(feeId: string, response?: IResponseFn<IList<applicationFees.IApplicationFeeRefund>>): Promise<IList<applicationFees.IApplicationFeeRefund>>;
+            listRefunds(feeId: string, data: IListOptions, options: HeaderOptions, response?: IResponseFn<IList<applicationFees.IApplicationFeeRefund>>): IListPromise<applicationFees.IApplicationFeeRefund>;
+            listRefunds(feeId: string, data: IListOptions, response?: IResponseFn<IList<applicationFees.IApplicationFeeRefund>>): IListPromise<applicationFees.IApplicationFeeRefund>;
+            listRefunds(feeId: string, options: HeaderOptions, response?: IResponseFn<IList<applicationFees.IApplicationFeeRefund>>): IListPromise<applicationFees.IApplicationFeeRefund>;
+            listRefunds(feeId: string, response?: IResponseFn<IList<applicationFees.IApplicationFeeRefund>>): IListPromise<applicationFees.IApplicationFeeRefund>;
         }
 
         class ApplicationFeeRefunds extends StripeResource {
@@ -7254,10 +7381,10 @@ declare namespace Stripe {
              * by default on the application fee object. If you need more than those 10, you can use this API method and the limit and starting_after
              * parameters to page through additional refunds.
              */
-            list(data: IListOptions, options: HeaderOptions, response?: IResponseFn<IList<applicationFees.IApplicationFeeRefund>>): Promise<IList<applicationFees.IApplicationFeeRefund>>;
-            list(data: IListOptions, response?: IResponseFn<IList<applicationFees.IApplicationFeeRefund>>): Promise<IList<applicationFees.IApplicationFeeRefund>>;
-            list(options: HeaderOptions, response?: IResponseFn<IList<applicationFees.IApplicationFeeRefund>>): Promise<IList<applicationFees.IApplicationFeeRefund>>;
-            list(response?: IResponseFn<IList<applicationFees.IApplicationFeeRefund>>): Promise<IList<applicationFees.IApplicationFeeRefund>>;
+            list(data: IListOptions, options: HeaderOptions, response?: IResponseFn<IList<applicationFees.IApplicationFeeRefund>>): IListPromise<applicationFees.IApplicationFeeRefund>;
+            list(data: IListOptions, response?: IResponseFn<IList<applicationFees.IApplicationFeeRefund>>): IListPromise<applicationFees.IApplicationFeeRefund>;
+            list(options: HeaderOptions, response?: IResponseFn<IList<applicationFees.IApplicationFeeRefund>>): IListPromise<applicationFees.IApplicationFeeRefund>;
+            list(response?: IResponseFn<IList<applicationFees.IApplicationFeeRefund>>): IListPromise<applicationFees.IApplicationFeeRefund>;
         }
 
         class Balance extends StripeResource {
@@ -7267,10 +7394,10 @@ declare namespace Stripe {
             retrieveTransaction(id: string, options: HeaderOptions, response?: IResponseFn<balance.IBalanceTransaction>): Promise<balance.IBalanceTransaction>;
             retrieveTransaction(id: string, response?: IResponseFn<balance.IBalanceTransaction>): Promise<balance.IBalanceTransaction>;
 
-            listTransactions(data: balance.IBalanceListOptions, options: HeaderOptions, response?: IResponseFn<balance.IBalanceTransaction>): Promise<IList<balance.IBalanceTransaction>>;
-            listTransactions(data: balance.IBalanceListOptions, response?: IResponseFn<balance.IBalanceTransaction>): Promise<IList<balance.IBalanceTransaction>>;
-            listTransactions(options: HeaderOptions, response?: IResponseFn<balance.IBalanceTransaction>): Promise<IList<balance.IBalanceTransaction>>;
-            listTransactions(response?: IResponseFn<balance.IBalanceTransaction>): Promise<IList<balance.IBalanceTransaction>>;
+            listTransactions(data: balance.IBalanceListOptions, options: HeaderOptions, response?: IResponseFn<balance.IBalanceTransaction>): IListPromise<balance.IBalanceTransaction>;
+            listTransactions(data: balance.IBalanceListOptions, response?: IResponseFn<balance.IBalanceTransaction>): IListPromise<balance.IBalanceTransaction>;
+            listTransactions(options: HeaderOptions, response?: IResponseFn<balance.IBalanceTransaction>): IListPromise<balance.IBalanceTransaction>;
+            listTransactions(response?: IResponseFn<balance.IBalanceTransaction>): IListPromise<balance.IBalanceTransaction>;
         }
 
         class BitcoinReceivers extends StripeResource {
@@ -7292,8 +7419,8 @@ declare namespace Stripe {
             /**
              * Returns a list of your receivers. Receivers are returned sorted by creation date, with the most recently created receivers appearing first.
              */
-            list(data: bitcoinReceivers.IBitcoinReceiverListOptions, options: HeaderOptions, response?: IResponseFn<IList<bitcoinReceivers.IBitcoinReceiver>>): Promise<IList<bitcoinReceivers.IBitcoinReceiver>>;
-            list(data: bitcoinReceivers.IBitcoinReceiverListOptions, response?: IResponseFn<IList<bitcoinReceivers.IBitcoinReceiver>>): Promise<IList<bitcoinReceivers.IBitcoinReceiver>>;
+            list(data: bitcoinReceivers.IBitcoinReceiverListOptions, options: HeaderOptions, response?: IResponseFn<IList<bitcoinReceivers.IBitcoinReceiver>>): IListPromise<bitcoinReceivers.IBitcoinReceiver>;
+            list(data: bitcoinReceivers.IBitcoinReceiverListOptions, response?: IResponseFn<IList<bitcoinReceivers.IBitcoinReceiver>>): IListPromise<bitcoinReceivers.IBitcoinReceiver>;
 
             // update(id: string): void; // This does seem to be a method in the library (https://github.com/stripe/stripe-node/blob/master/lib/resources/BitcoinReceivers.js#L12), but isn't in the API documentation.
 
@@ -7342,7 +7469,7 @@ declare namespace Stripe {
 
             /**
              * Updates the specified charge by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
-             * This request accepts only the description, metadata, receipt_emailand fraud_details as arguments.
+             * This request accepts only the description, metadata, receipt_email and fraud_details as arguments.
              *
              * @param id The identifier of the charge to be updated
              * @param data An object containing the updated properties.
@@ -7368,10 +7495,10 @@ declare namespace Stripe {
              *
              * @param data Filtering options for the returned items.
              */
-            list(data: charges.IChargeListOptions, options: HeaderOptions, response?: IResponseFn<IList<charges.ICharge>>): Promise<IList<charges.ICharge>>;
-            list(data: charges.IChargeListOptions, response?: IResponseFn<IList<charges.ICharge>>): Promise<IList<charges.ICharge>>;
-            list(options: HeaderOptions, response?: IResponseFn<IList<charges.ICharge>>): Promise<IList<charges.ICharge>>;
-            list(response?: IResponseFn<IList<charges.ICharge>>): Promise<IList<charges.ICharge>>;
+            list(data: charges.IChargeListOptions, options: HeaderOptions, response?: IResponseFn<IList<charges.ICharge>>): IListPromise<charges.ICharge>;
+            list(data: charges.IChargeListOptions, response?: IResponseFn<IList<charges.ICharge>>): IListPromise<charges.ICharge>;
+            list(options: HeaderOptions, response?: IResponseFn<IList<charges.ICharge>>): IListPromise<charges.ICharge>;
+            list(response?: IResponseFn<IList<charges.ICharge>>): IListPromise<charges.ICharge>;
 
             /**
              * When you create a new refund, you must specify a charge to create it on.
@@ -7438,10 +7565,10 @@ declare namespace Stripe {
              * @param chargeId The ID of the charge refunded
              * @param data Used to filter the refunds returned
              */
-            listRefunds(chargeId: string, data: IListOptions, options: HeaderOptions, response?: IResponseFn<IList<refunds.IRefund>>): Promise<IList<refunds.IRefund>>;
-            listRefunds(chargeId: string, data: IListOptions, response?: IResponseFn<IList<refunds.IRefund>>): Promise<IList<refunds.IRefund>>;
-            listRefunds(chargeId: string, options: HeaderOptions, response?: IResponseFn<IList<refunds.IRefund>>): Promise<IList<refunds.IRefund>>;
-            listRefunds(chargeId: string, response?: IResponseFn<IList<refunds.IRefund>>): Promise<IList<refunds.IRefund>>;
+            listRefunds(chargeId: string, data: IListOptions, options: HeaderOptions, response?: IResponseFn<IList<refunds.IRefund>>): IListPromise<refunds.IRefund>;
+            listRefunds(chargeId: string, data: IListOptions, response?: IResponseFn<IList<refunds.IRefund>>): IListPromise<refunds.IRefund>;
+            listRefunds(chargeId: string, options: HeaderOptions, response?: IResponseFn<IList<refunds.IRefund>>): IListPromise<refunds.IRefund>;
+            listRefunds(chargeId: string, response?: IResponseFn<IList<refunds.IRefund>>): IListPromise<refunds.IRefund>;
 
             markAsSafe(chargeId: string, response?: IResponseFn<charges.ICharge>): Promise<charges.ICharge>;
             markAsFraudulent(chargeId: string, response?: IResponseFn<charges.ICharge>): Promise<charges.ICharge>;
@@ -7488,10 +7615,10 @@ declare namespace Stripe {
              * with the most recent refunds appearing first.
              * For convenience, the 10 most recent refunds are always available by default on the charge object.
              */
-            list?(data: refunds.IRefundListOptions, options: HeaderOptions, response?: IResponseFn<IList<refunds.IRefund>>): Promise<IList<refunds.IRefund>>;
-            list?(data: refunds.IRefundListOptions, response?: IResponseFn<IList<refunds.IRefund>>): Promise<IList<refunds.IRefund>>;
-            list?(options: HeaderOptions, response?: IResponseFn<IList<refunds.IRefund>>): Promise<IList<refunds.IRefund>>;
-            list?(response?: IResponseFn<IList<refunds.IRefund>>): Promise<IList<refunds.IRefund>>;
+            list?(data: refunds.IRefundListOptions, options: HeaderOptions, response?: IResponseFn<IList<refunds.IRefund>>): IListPromise<refunds.IRefund>;
+            list?(data: refunds.IRefundListOptions, response?: IResponseFn<IList<refunds.IRefund>>): IListPromise<refunds.IRefund>;
+            list?(options: HeaderOptions, response?: IResponseFn<IList<refunds.IRefund>>): IListPromise<refunds.IRefund>;
+            list?(response?: IResponseFn<IList<refunds.IRefund>>): IListPromise<refunds.IRefund>;
         }
 
         class Coupons extends StripeResource {
@@ -7556,10 +7683,87 @@ declare namespace Stripe {
              *
              * @param data Filtering options for the list.
              */
-            list(data: IListOptionsCreated, options: HeaderOptions, response?: IResponseFn<IList<coupons.ICoupon>>): Promise<IList<coupons.ICoupon>>;
-            list(data: IListOptionsCreated, response?: IResponseFn<IList<coupons.ICoupon>>): Promise<IList<coupons.ICoupon>>;
-            list(options: HeaderOptions, response?: IResponseFn<IList<coupons.ICoupon>>): Promise<IList<coupons.ICoupon>>;
-            list(response?: IResponseFn<IList<coupons.ICoupon>>): Promise<IList<coupons.ICoupon>>;
+            list(data: IListOptionsCreated, options: HeaderOptions, response?: IResponseFn<IList<coupons.ICoupon>>): IListPromise<coupons.ICoupon>;
+            list(data: IListOptionsCreated, response?: IResponseFn<IList<coupons.ICoupon>>): IListPromise<coupons.ICoupon>;
+            list(options: HeaderOptions, response?: IResponseFn<IList<coupons.ICoupon>>): IListPromise<coupons.ICoupon>;
+            list(response?: IResponseFn<IList<coupons.ICoupon>>): IListPromise<coupons.ICoupon>;
+        }
+
+        class CreditNotes extends StripeResource {
+            /**
+             * A credit note can be issued for open and paid invoices.
+             * When issued for an open invoice, a credit note decreases the invoice’s amount due.
+             * When issued for a paid invoice, it is commonly used to refund or credit a specified amount to the customer.
+             */
+            create(
+                data: creditNotes.ICreditNoteCreationOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<creditNotes.ICreditNote>
+            ): Promise<creditNotes.ICreditNote>;
+            create(
+                data: creditNotes.ICreditNoteCreationOptions,
+                response?: IResponseFn<creditNotes.ICreditNote>
+            ): Promise<creditNotes.ICreditNote>;
+
+            /**
+             * Retrieves the credit note with the given ID.
+             */
+            retrieve(
+                creditNoteId: string,
+                options: HeaderOptions,
+                response?: IResponseFn<creditNotes.ICreditNote>
+            ): Promise<creditNotes.ICreditNote>;
+            retrieve(
+                creditNoteId: string,
+                response?: IResponseFn<creditNotes.ICreditNote>
+            ): Promise<creditNotes.ICreditNote>;
+
+            /**
+             * Updates the memo or metadata on the credit note.
+             */
+            update(
+                creditNoteId: string,
+                data: creditNotes.ICreditNoteUpdateOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<creditNotes.ICreditNote>
+            ): Promise<creditNotes.ICreditNote>;
+            update(
+                creditNoteId: string,
+                data: creditNotes.ICreditNoteUpdateOptions,
+                response?: IResponseFn<creditNotes.ICreditNote>
+            ): Promise<creditNotes.ICreditNote>;
+
+            /**
+             * Returns a list of your credit notes. Credit notes are returned sorted by creation date, with the most recently created credit note
+             * items appearing first.
+             */
+            list(
+                data: creditNotes.ICreditNoteListOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<IList<creditNotes.ICreditNote>>
+            ): Promise<IList<creditNotes.ICreditNote>>;
+            list(
+                data: creditNotes.ICreditNoteListOptions,
+                response?: IResponseFn<IList<creditNotes.ICreditNote>>
+            ): Promise<IList<creditNotes.ICreditNote>>;
+            list(
+                options: HeaderOptions,
+                response?: IResponseFn<IList<creditNotes.ICreditNote>>
+            ): Promise<IList<creditNotes.ICreditNote>>;
+            list(response?: IResponseFn<IList<creditNotes.ICreditNote>>): Promise<IList<creditNotes.ICreditNote>>;
+
+            /**
+             * Marks a credit note as void. Voiding a credit note reverses its adjustment. Voiding is only possible on open invoices.
+             */
+            voidCreditNote(
+                creditNoteId: string,
+                options: HeaderOptions,
+                response?: IResponseFn<creditNotes.ICreditNote>
+            ): Promise<creditNotes.ICreditNote>;
+            voidCreditNote(
+                creditNoteId: string,
+                response?: IResponseFn<creditNotes.ICreditNote>
+            ): Promise<creditNotes.ICreditNote>;
         }
 
         class CustomerCards extends StripeResource {
@@ -7588,10 +7792,10 @@ declare namespace Stripe {
              * specify include[]=total_count in your request.
              * @param data Filtering options
              */
-            list(data: IListOptions, options: HeaderOptions, response?: IResponseFn<IList<cards.ICard>>): Promise<IList<cards.ICard>>;
-            list(data: IListOptions, response?: IResponseFn<IList<cards.ICard>>): Promise<IList<cards.ICard>>;
-            list(options: HeaderOptions, response?: IResponseFn<IList<cards.ICard>>): Promise<IList<cards.ICard>>;
-            list(response?: IResponseFn<IList<cards.ICard>>): Promise<IList<cards.ICard>>;
+            list(data: IListOptions, options: HeaderOptions, response?: IResponseFn<IList<cards.ICard>>): IListPromise<cards.ICard>;
+            list(data: IListOptions, response?: IResponseFn<IList<cards.ICard>>): IListPromise<cards.ICard>;
+            list(options: HeaderOptions, response?: IResponseFn<IList<cards.ICard>>): IListPromise<cards.ICard>;
+            list(response?: IResponseFn<IList<cards.ICard>>): IListPromise<cards.ICard>;
 
             /**
              * If you need to update only some card details, like the billing address or expiration date, you can do so without having to re-enter the
@@ -7660,10 +7864,10 @@ declare namespace Stripe {
              *
              * @param data Allows you to filter the customers you want.
              */
-            list(data: customers.ICustomerListOptions, options: HeaderOptions, response?: IResponseFn<IList<customers.ICustomer>>): Promise<IList<customers.ICustomer>>;
-            list(data: customers.ICustomerListOptions, response?: IResponseFn<IList<customers.ICustomer>>): Promise<IList<customers.ICustomer>>;
-            list(options: HeaderOptions, response?: IResponseFn<IList<customers.ICustomer>>): Promise<IList<customers.ICustomer>>;
-            list(response?: IResponseFn<IList<customers.ICustomer>>): Promise<IList<customers.ICustomer>>;
+            list(data: customers.ICustomerListOptions, options: HeaderOptions, response?: IResponseFn<IList<customers.ICustomer>>): IListPromise<customers.ICustomer>;
+            list(data: customers.ICustomerListOptions, response?: IResponseFn<IList<customers.ICustomer>>): IListPromise<customers.ICustomer>;
+            list(options: HeaderOptions, response?: IResponseFn<IList<customers.ICustomer>>): IListPromise<customers.ICustomer>;
+            list(response?: IResponseFn<IList<customers.ICustomer>>): IListPromise<customers.ICustomer>;
 
             /**
              * Updates the specified customer by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
@@ -7782,10 +7986,10 @@ declare namespace Stripe {
              * @param customerId The ID of the customer whose cards will be retrieved
              * @param data Filtering options
              */
-            listCards(customerId: string, data: IListOptions, options: HeaderOptions, response?: IResponseFn<IList<cards.ICard>>): Promise<IList<cards.ICard>>;
-            listCards(customerId: string, data: IListOptions, response?: IResponseFn<IList<cards.ICard>>): Promise<IList<cards.ICard>>;
-            listCards(customerId: string, options: HeaderOptions, response?: IResponseFn<IList<cards.ICard>>): Promise<IList<cards.ICard>>;
-            listCards(customerId: string, response?: IResponseFn<IList<cards.ICard>>): Promise<IList<cards.ICard>>;
+            listCards(customerId: string, data: IListOptions, options: HeaderOptions, response?: IResponseFn<IList<cards.ICard>>): IListPromise<cards.ICard>;
+            listCards(customerId: string, data: IListOptions, response?: IResponseFn<IList<cards.ICard>>): IListPromise<cards.ICard>;
+            listCards(customerId: string, options: HeaderOptions, response?: IResponseFn<IList<cards.ICard>>): IListPromise<cards.ICard>;
+            listCards(customerId: string, response?: IResponseFn<IList<cards.ICard>>): IListPromise<cards.ICard>;
 
             /**
              * When adding a card to a customer, the parameter name is source. When
@@ -7827,8 +8031,8 @@ declare namespace Stripe {
              * @param customerId The ID of the customer whose cards will be retrieved
              * @param data Filtering options
              */
-            listSources(customerId: string, data: customers.ICardSourceListOptions, options: HeaderOptions, response?: IResponseFn<IList<cards.ICard>>): Promise<IList<cards.ICard>>;
-            listSources(customerId: string, data: customers.ICardSourceListOptions, response?: IResponseFn<IList<cards.ICard>>): Promise<IList<cards.ICard>>;
+            listSources(customerId: string, data: customers.ICardSourceListOptions, options: HeaderOptions, response?: IResponseFn<IList<cards.ICard>>): IListPromise<cards.ICard>;
+            listSources(customerId: string, data: customers.ICardSourceListOptions, response?: IResponseFn<IList<cards.ICard>>): IListPromise<cards.ICard>;
             /**
              * You can see a list of the bank accounts belonging to a customer or recipient. Note that the 10 most recent
              * bank accounts are always available by default on the customer or recipient object. If you need more than
@@ -7842,11 +8046,11 @@ declare namespace Stripe {
              * @param customerId The ID of the customer whose cards will be retrieved
              * @param data Filtering options
              */
-            listSources(customerId: string, data: customers.IBankAccountSourceListOptions, options: HeaderOptions, response?: IResponseFn<IList<bankAccounts.IBankAccount>>): Promise<IList<bankAccounts.IBankAccount>>;
-            listSources(customerId: string, data: customers.IBankAccountSourceListOptions, response?: IResponseFn<IList<bankAccounts.IBankAccount>>): Promise<IList<bankAccounts.IBankAccount>>;
+            listSources(customerId: string, data: customers.IBankAccountSourceListOptions, options: HeaderOptions, response?: IResponseFn<IList<bankAccounts.IBankAccount>>): IListPromise<bankAccounts.IBankAccount>;
+            listSources(customerId: string, data: customers.IBankAccountSourceListOptions, response?: IResponseFn<IList<bankAccounts.IBankAccount>>): IListPromise<bankAccounts.IBankAccount>;
 
-            listSources(customerId: string, data: customers.ISourceListOptions, options: HeaderOptions, response?: IResponseFn<IList<sources.ISource>>): Promise<IList<sources.ISource>>;
-            listSources(customerId: string, data: customers.ISourceListOptions, response?: IResponseFn<IList<sources.ISource>>): Promise<IList<sources.ISource>>;
+            listSources(customerId: string, data: customers.ISourceListOptions, options: HeaderOptions, response?: IResponseFn<IList<sources.ISource>>): IListPromise<sources.ISource>;
+            listSources(customerId: string, data: customers.ISourceListOptions, response?: IResponseFn<IList<sources.ISource>>): IListPromise<sources.ISource>;
 
             /**
              * By default, you can see the 10 most recent cards/bank accounts stored on a customer or recipient directly on the customer or recipient object, but
@@ -8003,10 +8207,10 @@ declare namespace Stripe {
              * @param customerId The ID of the customer whose subscriptions will be retrieved
              * @param data Filtering options
              */
-            listSubscriptions(customerId: string, data: IListOptions, options: HeaderOptions, response?: IResponseFn<IList<subscriptions.ISubscription>>): Promise<IList<subscriptions.ISubscription>>;
-            listSubscriptions(customerId: string, data: IListOptions, response?: IResponseFn<IList<subscriptions.ISubscription>>): Promise<IList<subscriptions.ISubscription>>;
-            listSubscriptions(customerId: string, options: HeaderOptions, response?: IResponseFn<IList<subscriptions.ISubscription>>): Promise<IList<subscriptions.ISubscription>>;
-            listSubscriptions(customerId: string, response?: IResponseFn<IList<subscriptions.ISubscription>>): Promise<IList<subscriptions.ISubscription>>;
+            listSubscriptions(customerId: string, data: IListOptions, options: HeaderOptions, response?: IResponseFn<IList<subscriptions.ISubscription>>): IListPromise<subscriptions.ISubscription>;
+            listSubscriptions(customerId: string, data: IListOptions, response?: IResponseFn<IList<subscriptions.ISubscription>>): IListPromise<subscriptions.ISubscription>;
+            listSubscriptions(customerId: string, options: HeaderOptions, response?: IResponseFn<IList<subscriptions.ISubscription>>): IListPromise<subscriptions.ISubscription>;
+            listSubscriptions(customerId: string, response?: IResponseFn<IList<subscriptions.ISubscription>>): IListPromise<subscriptions.ISubscription>;
 
             /**
              * Removes the currently applied discount on a customer.
@@ -8104,10 +8308,10 @@ declare namespace Stripe {
              *
              * @param data Filtering options
              */
-            list(data: subscriptions.ISubscriptionListOptions, options: HeaderOptions, response?: IResponseFn<IList<subscriptions.ISubscription>>): Promise<IList<subscriptions.ISubscription>>;
-            list(data: subscriptions.ISubscriptionListOptions, response?: IResponseFn<IList<subscriptions.ISubscription>>): Promise<IList<subscriptions.ISubscription>>;
-            list(options: HeaderOptions, response?: IResponseFn<IList<subscriptions.ISubscription>>): Promise<IList<subscriptions.ISubscription>>;
-            list(response?: IResponseFn<IList<subscriptions.ISubscription>>): Promise<IList<subscriptions.ISubscription>>;
+            list(data: subscriptions.ISubscriptionListOptions, options: HeaderOptions, response?: IResponseFn<IList<subscriptions.ISubscription>>): IListPromise<subscriptions.ISubscription>;
+            list(data: subscriptions.ISubscriptionListOptions, response?: IResponseFn<IList<subscriptions.ISubscription>>): IListPromise<subscriptions.ISubscription>;
+            list(options: HeaderOptions, response?: IResponseFn<IList<subscriptions.ISubscription>>): IListPromise<subscriptions.ISubscription>;
+            list(response?: IResponseFn<IList<subscriptions.ISubscription>>): IListPromise<subscriptions.ISubscription>;
 
             /**
              * Removes the currently applied discount on a subscription.
@@ -8199,8 +8403,8 @@ declare namespace Stripe {
              *
              * @param data Filtering options
              */
-            list(data: subscriptionItems.ISubscriptionItemListOptions, options: HeaderOptions, response?: IResponseFn<IList<subscriptionItems.ISubscriptionItem>>): Promise<IList<subscriptionItems.ISubscriptionItem>>;
-            list(data: subscriptionItems.ISubscriptionItemListOptions, response?: IResponseFn<IList<subscriptionItems.ISubscriptionItem>>): Promise<IList<subscriptionItems.ISubscriptionItem>>;
+            list(data: subscriptionItems.ISubscriptionItemListOptions, options: HeaderOptions, response?: IResponseFn<IList<subscriptionItems.ISubscriptionItem>>): IListPromise<subscriptionItems.ISubscriptionItem>;
+            list(data: subscriptionItems.ISubscriptionItemListOptions, response?: IResponseFn<IList<subscriptionItems.ISubscriptionItem>>): IListPromise<subscriptionItems.ISubscriptionItem>;
         }
 
         class Disputes extends StripeResource {
@@ -8238,10 +8442,10 @@ declare namespace Stripe {
             /**
              * Returns a list of your disputes.
              */
-            list(data: IListOptionsCreated, options: HeaderOptions, response?: IResponseFn<IList<disputes.IDispute>>): Promise<IList<disputes.IDispute>>;
-            list(data: IListOptionsCreated, response?: IResponseFn<IList<disputes.IDispute>>): Promise<IList<disputes.IDispute>>;
-            list(options: HeaderOptions, response?: IResponseFn<IList<disputes.IDispute>>): Promise<IList<disputes.IDispute>>;
-            list(response?: IResponseFn<IList<disputes.IDispute>>): Promise<IList<disputes.IDispute>>;
+            list(data: IListOptionsCreated, options: HeaderOptions, response?: IResponseFn<IList<disputes.IDispute>>): IListPromise<disputes.IDispute>;
+            list(data: IListOptionsCreated, response?: IResponseFn<IList<disputes.IDispute>>): IListPromise<disputes.IDispute>;
+            list(options: HeaderOptions, response?: IResponseFn<IList<disputes.IDispute>>): IListPromise<disputes.IDispute>;
+            list(response?: IResponseFn<IList<disputes.IDispute>>): IListPromise<disputes.IDispute>;
 
             setMetadata(): void; // TODO: Implement placeholder method
             getMetadata(): void; // TODO: Implement placeholder method
@@ -8260,10 +8464,10 @@ declare namespace Stripe {
             /**
              * List events, going back up to 30 days.
              */
-            list(data: events.IEventListOptions, options: HeaderOptions, response?: IResponseFn<IList<events.IEvent>>): Promise<IList<events.IEvent>>;
-            list(data: events.IEventListOptions, response?: IResponseFn<IList<events.IEvent>>): Promise<IList<events.IEvent>>;
-            list(options: HeaderOptions, response?: IResponseFn<IList<events.IEvent>>): Promise<IList<events.IEvent>>;
-            list(response?: IResponseFn<IList<events.IEvent>>): Promise<IList<events.IEvent>>;
+            list(data: events.IEventListOptions, options: HeaderOptions, response?: IResponseFn<IList<events.IEvent>>): IListPromise<events.IEvent>;
+            list(data: events.IEventListOptions, response?: IResponseFn<IList<events.IEvent>>): IListPromise<events.IEvent>;
+            list(options: HeaderOptions, response?: IResponseFn<IList<events.IEvent>>): IListPromise<events.IEvent>;
+            list(response?: IResponseFn<IList<events.IEvent>>): IListPromise<events.IEvent>;
         }
 
         class FileUploads extends StripeResource {
@@ -8289,10 +8493,10 @@ declare namespace Stripe {
              * Returns a list of the files that you have uploaded to Stripe.
              * The file uploads are returned sorted by creation date, with the most recently created file uploads appearing first.
              */
-            list(data: fileUploads.IFileUploadListOptions, options: HeaderOptions, response?: IResponseFn<IList<fileUploads.IFileUpdate>>): Promise<IList<fileUploads.IFileUpdate>>;
-            list(data: fileUploads.IFileUploadListOptions, response?: IResponseFn<IList<fileUploads.IFileUpdate>>): Promise<IList<fileUploads.IFileUpdate>>;
-            list(options: HeaderOptions, response?: IResponseFn<IList<fileUploads.IFileUpdate>>): Promise<IList<fileUploads.IFileUpdate>>;
-            list(response?: IResponseFn<IList<fileUploads.IFileUpdate>>): Promise<IList<fileUploads.IFileUpdate>>;
+            list(data: fileUploads.IFileUploadListOptions, options: HeaderOptions, response?: IResponseFn<IList<fileUploads.IFileUpdate>>): IListPromise<fileUploads.IFileUpdate>;
+            list(data: fileUploads.IFileUploadListOptions, response?: IResponseFn<IList<fileUploads.IFileUpdate>>): IListPromise<fileUploads.IFileUpdate>;
+            list(options: HeaderOptions, response?: IResponseFn<IList<fileUploads.IFileUpdate>>): IListPromise<fileUploads.IFileUpdate>;
+            list(response?: IResponseFn<IList<fileUploads.IFileUpdate>>): IListPromise<fileUploads.IFileUpdate>;
         }
 
         class Invoices extends StripeResource {
@@ -8342,10 +8546,24 @@ declare namespace Stripe {
              * @param id The id of the invoice containing the lines to be retrieved
              * @param data Filtering options
              */
-            retrieveLines(id: string, data: invoices.IInvoiceLineItemRetrievalOptions, options: HeaderOptions, response?: IResponseFn<IList<invoices.IInvoiceLineItem>>): Promise<IList<invoices.IInvoiceLineItem>>;
-            retrieveLines(id: string, data: invoices.IInvoiceLineItemRetrievalOptions, response?: IResponseFn<IList<invoices.IInvoiceLineItem>>): Promise<IList<invoices.IInvoiceLineItem>>;
-            retrieveLines(id: string, options: HeaderOptions, response?: IResponseFn<IList<invoices.IInvoiceLineItem>>): Promise<IList<invoices.IInvoiceLineItem>>;
-            retrieveLines(id: string, response?: IResponseFn<IList<invoices.IInvoiceLineItem>>): Promise<IList<invoices.IInvoiceLineItem>>;
+            retrieveLines(id: string, data: invoices.IInvoiceLineItemRetrievalOptions, options: HeaderOptions, response?: IResponseFn<IList<invoices.IInvoiceLineItem>>): IListPromise<invoices.IInvoiceLineItem>;
+            retrieveLines(id: string, data: invoices.IInvoiceLineItemRetrievalOptions, response?: IResponseFn<IList<invoices.IInvoiceLineItem>>): IListPromise<invoices.IInvoiceLineItem>;
+            retrieveLines(id: string, options: HeaderOptions, response?: IResponseFn<IList<invoices.IInvoiceLineItem>>): IListPromise<invoices.IInvoiceLineItem>;
+            retrieveLines(id: string, response?: IResponseFn<IList<invoices.IInvoiceLineItem>>): IListPromise<invoices.IInvoiceLineItem>;
+
+            /**
+             * When retrieving an invoice, you'll get a lines property containing the total count of line items and the first
+             * handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
+             *
+             * @returns Returns a list of line_item objects.
+             *
+             * @param id The id of the invoice containing the lines to be retrieved
+             * @param data Filtering options
+             */
+            listLineItems(id: string, data: invoices.IInvoiceListLineItemsOptions, options: HeaderOptions, response?: IResponseFn<IList<invoices.IInvoiceLineItem>>): IListPromise<invoices.IInvoiceLineItem>;
+            listLineItems(id: string, data: invoices.IInvoiceListLineItemsOptions, response?: IResponseFn<IList<invoices.IInvoiceLineItem>>): IListPromise<invoices.IInvoiceLineItem>;
+            listLineItems(id: string, options: HeaderOptions, response?: IResponseFn<IList<invoices.IInvoiceLineItem>>): IListPromise<invoices.IInvoiceLineItem>;
+            listLineItems(id: string, response?: IResponseFn<IList<invoices.IInvoiceLineItem>>): IListPromise<invoices.IInvoiceLineItem>;
 
             /**
              * At any time, you can preview the upcoming invoice for a customer. This will show you all the charges that are pending,
@@ -8367,6 +8585,21 @@ declare namespace Stripe {
             retrieveUpcoming(id: string, response?: IResponseFn<invoices.IInvoice>): Promise<invoices.IInvoice>;
 
             /**
+             * When retrieving an upcoming invoice, you’ll get a lines property containing the total count of line
+             * items and the first handful of those items. There is also a URL where you can retrieve the full
+             * (paginated) list of line items.
+             *
+             * @returns Returns a list of line_item objects.
+             *
+             * @param id The id of the invoice containing the lines to be retrieved
+             * @param data Filtering options
+             */
+            listUpcomingLineItems(data: invoices.IInvoiceListUpcomingLineItemsOptions, options: HeaderOptions, response?: IResponseFn<IList<invoices.IInvoiceLineItem>>): IListPromise<invoices.IInvoiceLineItem>;
+            listUpcomingLineItems(data: invoices.IInvoiceListUpcomingLineItemsOptions, response?: IResponseFn<IList<invoices.IInvoiceLineItem>>): IListPromise<invoices.IInvoiceLineItem>;
+            listUpcomingLineItems(options: HeaderOptions, response?: IResponseFn<IList<invoices.IInvoiceLineItem>>): IListPromise<invoices.IInvoiceLineItem>;
+            listUpcomingLineItems(response?: IResponseFn<IList<invoices.IInvoiceLineItem>>): IListPromise<invoices.IInvoiceLineItem>;
+
+            /**
              * Until an invoice is paid, it is marked as open (closed=false). If you'd like to stop Stripe from automatically attempting
              * payment on an invoice or would simply like to close the invoice out as no longer owed by the customer, you can update the
              * closed parameter.
@@ -8378,6 +8611,21 @@ declare namespace Stripe {
              */
             update(id: string, data: invoices.IInvoiceUpdateOptions, options: HeaderOptions, response?: IResponseFn<invoices.IInvoice>): Promise<invoices.IInvoice>;
             update(id: string, data: invoices.IInvoiceUpdateOptions, response?: IResponseFn<invoices.IInvoice>): Promise<invoices.IInvoice>;
+
+            /**
+             * Stripe automatically finalizes drafts before sending and attempting payment on invoices. However, if
+             * you’d like to finalize a draft invoice manually, you can do so using this method.
+             *
+             * @returns Returns the invoice object.
+             *
+             * @param id The ID of the invoice to pay.
+             * @param data Additional arguments.
+             */
+            finalizeInvoice(id: string, data: invoices.IInvoiceFinalizeOptions, options: HeaderOptions, response?: IResponseFn<invoices.IInvoice>): Promise<invoices.IInvoice>;
+            finalizeInvoice(id: string, data: invoices.IInvoiceFinalizeOptions, response: IResponseFn<invoices.IInvoice>): Promise<invoices.IInvoice>;
+            finalizeInvoice(id: string, data: invoices.IInvoiceFinalizeOptions): Promise<invoices.IInvoice>;
+            finalizeInvoice(id: string, options: HeaderOptions, response?: IResponseFn<invoices.IInvoice>): Promise<invoices.IInvoice>;
+            finalizeInvoice(id: string, response?: IResponseFn<invoices.IInvoice>): Promise<invoices.IInvoice>;
 
             /**
              * Stripe automatically creates and then attempts to pay invoices for customers on subscriptions. We'll also retry unpaid
@@ -8403,9 +8651,9 @@ declare namespace Stripe {
              *
              * @param data Filtering options
              */
-            list(data: invoices.IInvoiceListOptions, options: HeaderOptions, response?: IResponseFn<IList<invoices.IInvoice>>): Promise<IList<invoices.IInvoice>>;
-            list(data: invoices.IInvoiceListOptions, response?: IResponseFn<IList<invoices.IInvoice>>): Promise<IList<invoices.IInvoice>>;
-            list(response?: IResponseFn<IList<invoices.IInvoice>>): Promise<IList<invoices.IInvoice>>;
+            list(data: invoices.IInvoiceListOptions, options: HeaderOptions, response?: IResponseFn<IList<invoices.IInvoice>>): IListPromise<invoices.IInvoice>;
+            list(data: invoices.IInvoiceListOptions, response?: IResponseFn<IList<invoices.IInvoice>>): IListPromise<invoices.IInvoice>;
+            list(response?: IResponseFn<IList<invoices.IInvoice>>): IListPromise<invoices.IInvoice>;
         }
 
         class InvoiceItems extends StripeResource {
@@ -8432,10 +8680,10 @@ declare namespace Stripe {
              * Returns a list of your invoice items. Invoice items are returned sorted by creation date, with the most recently created invoice
              * items appearing first.
              */
-            list(data: invoiceItems.InvoiceItemListOptions, options: HeaderOptions, response?: IResponseFn<IList<invoiceItems.InvoiceItem>>): Promise<IList<invoiceItems.InvoiceItem>>;
-            list(data: invoiceItems.InvoiceItemListOptions, response?: IResponseFn<IList<invoiceItems.InvoiceItem>>): Promise<IList<invoiceItems.InvoiceItem>>;
-            list(options: HeaderOptions, response?: IResponseFn<IList<invoiceItems.InvoiceItem>>): Promise<IList<invoiceItems.InvoiceItem>>;
-            list(response?: IResponseFn<IList<invoiceItems.InvoiceItem>>): Promise<IList<invoiceItems.InvoiceItem>>;
+            list(data: invoiceItems.InvoiceItemListOptions, options: HeaderOptions, response?: IResponseFn<IList<invoiceItems.InvoiceItem>>): IListPromise<invoiceItems.InvoiceItem>;
+            list(data: invoiceItems.InvoiceItemListOptions, response?: IResponseFn<IList<invoiceItems.InvoiceItem>>): IListPromise<invoiceItems.InvoiceItem>;
+            list(options: HeaderOptions, response?: IResponseFn<IList<invoiceItems.InvoiceItem>>): IListPromise<invoiceItems.InvoiceItem>;
+            list(response?: IResponseFn<IList<invoiceItems.InvoiceItem>>): IListPromise<invoiceItems.InvoiceItem>;
 
             /**
              * Removes an invoice item from the upcoming invoice. Removing an invoice item is only possible before the invoice it's attached
@@ -8468,18 +8716,18 @@ declare namespace Stripe {
                 data: paymentIntents.IPaymentIntentListOptions,
                 options: HeaderOptions,
                 response?: IResponseFn<IList<paymentIntents.IPaymentIntent>>,
-            ): Promise<IList<paymentIntents.IPaymentIntent>>;
+            ): IListPromise<paymentIntents.IPaymentIntent>;
             list(
                 data: paymentIntents.IPaymentIntentListOptions,
                 response?: IResponseFn<IList<paymentIntents.IPaymentIntent>>,
-            ): Promise<IList<paymentIntents.IPaymentIntent>>;
+            ): IListPromise<paymentIntents.IPaymentIntent>;
             list(
                 options: HeaderOptions,
                 response?: IResponseFn<IList<paymentIntents.IPaymentIntent>>,
-            ): Promise<IList<paymentIntents.IPaymentIntent>>;
+            ): IListPromise<paymentIntents.IPaymentIntent>;
             list(
                 response?: IResponseFn<IList<paymentIntents.IPaymentIntent>>,
-            ): Promise<IList<paymentIntents.IPaymentIntent>>;
+            ): IListPromise<paymentIntents.IPaymentIntent>;
 
             /**
              * Updates a PaymentIntent object.
@@ -8637,10 +8885,10 @@ declare namespace Stripe {
             /**
              * Returns a list of existing payouts sent to third-party bank accounts or that Stripe has sent you. The payouts are returned in sorted order, with the most recently created payouts appearing first.
              */
-            list(data: payouts.IPayoutListOptions, options: HeaderOptions, response?: IResponseFn<IList<payouts.IPayout>>): Promise<IList<payouts.IPayout>>;
-            list(data: payouts.IPayoutListOptions, response?: IResponseFn<IList<payouts.IPayout>>): Promise<IList<payouts.IPayout>>;
-            list(options: HeaderOptions, response?: IResponseFn<IList<payouts.IPayout>>): Promise<IList<payouts.IPayout>>;
-            list(response?: IResponseFn<IList<payouts.IPayout>>): Promise<IList<payouts.IPayout>>;
+            list(data: payouts.IPayoutListOptions, options: HeaderOptions, response?: IResponseFn<IList<payouts.IPayout>>): IListPromise<payouts.IPayout>;
+            list(data: payouts.IPayoutListOptions, response?: IResponseFn<IList<payouts.IPayout>>): IListPromise<payouts.IPayout>;
+            list(options: HeaderOptions, response?: IResponseFn<IList<payouts.IPayout>>): IListPromise<payouts.IPayout>;
+            list(response?: IResponseFn<IList<payouts.IPayout>>): IListPromise<payouts.IPayout>;
 
             /**
              * A previously created payout can be canceled if it has not yet been paid out. Funds will be refunded to your available balance, and the fees you were originally charged on the payout will be refunded.
@@ -8703,10 +8951,10 @@ declare namespace Stripe {
              * request should never throw an error. You can optionally request that the response include the total count of all plans. To
              * do so, specify include[]=total_count in your request.
              */
-            list(data: IPlanListOptions, options: HeaderOptions, response?: IResponseFn<IList<plans.IPlan>>): Promise<IList<plans.IPlan>>;
-            list(data: IPlanListOptions, response?: IResponseFn<IList<plans.IPlan>>): Promise<IList<plans.IPlan>>;
-            list(options: HeaderOptions, response?: IResponseFn<IList<plans.IPlan>>): Promise<IList<plans.IPlan>>;
-            list(response?: IResponseFn<IList<plans.IPlan>>): Promise<IList<plans.IPlan>>;
+            list(data: IPlanListOptions, options: HeaderOptions, response?: IResponseFn<IList<plans.IPlan>>): IListPromise<plans.IPlan>;
+            list(data: IPlanListOptions, response?: IResponseFn<IList<plans.IPlan>>): IListPromise<plans.IPlan>;
+            list(options: HeaderOptions, response?: IResponseFn<IList<plans.IPlan>>): IListPromise<plans.IPlan>;
+            list(response?: IResponseFn<IList<plans.IPlan>>): IListPromise<plans.IPlan>;
         }
 
         interface IPlanListOptions extends IListOptionsCreated {
@@ -8814,10 +9062,10 @@ declare namespace Stripe {
              * with the most recent refunds appearing first.
              * For convenience, the 10 most recent refunds are always available by default on the charge object.
              */
-            list(data: refunds.IRefundListOptions, options: HeaderOptions, response?: IResponseFn<IList<refunds.IRefund>>): Promise<IList<refunds.IRefund>>;
-            list(data: refunds.IRefundListOptions, response?: IResponseFn<IList<refunds.IRefund>>): Promise<IList<refunds.IRefund>>;
-            list(options: HeaderOptions, response?: IResponseFn<IList<refunds.IRefund>>): Promise<IList<refunds.IRefund>>;
-            list(response?: IResponseFn<IList<refunds.IRefund>>): Promise<IList<refunds.IRefund>>;
+            list(data: refunds.IRefundListOptions, options: HeaderOptions, response?: IResponseFn<IList<refunds.IRefund>>): IListPromise<refunds.IRefund>;
+            list(data: refunds.IRefundListOptions, response?: IResponseFn<IList<refunds.IRefund>>): IListPromise<refunds.IRefund>;
+            list(options: HeaderOptions, response?: IResponseFn<IList<refunds.IRefund>>): IListPromise<refunds.IRefund>;
+            list(response?: IResponseFn<IList<refunds.IRefund>>): IListPromise<refunds.IRefund>;
         }
 
         class Sources extends StripeResource {
@@ -8904,16 +9152,16 @@ declare namespace Stripe {
              * Returns a list of existing transfers sent to third-party bank accounts or that Stripe has sent you. The transfers are
              * returned in sorted order, with the most recently created transfers appearing first.
              */
-            list(data: transfers.ITransferListOptions, options: HeaderOptions, response?: IResponseFn<IList<transfers.ITransfer>>): Promise<IList<transfers.ITransfer>>;
-            list(data: transfers.ITransferListOptions, response?: IResponseFn<IList<transfers.ITransfer>>): Promise<IList<transfers.ITransfer>>;
-            list(options: HeaderOptions, response?: IResponseFn<IList<transfers.ITransfer>>): Promise<IList<transfers.ITransfer>>;
-            list(response?: IResponseFn<IList<transfers.ITransfer>>): Promise<IList<transfers.ITransfer>>;
+            list(data: transfers.ITransferListOptions, options: HeaderOptions, response?: IResponseFn<IList<transfers.ITransfer>>): IListPromise<transfers.ITransfer>;
+            list(data: transfers.ITransferListOptions, response?: IResponseFn<IList<transfers.ITransfer>>): IListPromise<transfers.ITransfer>;
+            list(options: HeaderOptions, response?: IResponseFn<IList<transfers.ITransfer>>): IListPromise<transfers.ITransfer>;
+            list(response?: IResponseFn<IList<transfers.ITransfer>>): IListPromise<transfers.ITransfer>;
 
             cancel(id: string, options: HeaderOptions, response?: IResponseFn<transfers.ITransfer>): Promise<transfers.ITransfer>;
             cancel(id: string, response?: IResponseFn<transfers.ITransfer>): Promise<transfers.ITransfer>;
 
-            listTransactions(options: HeaderOptions, response?: IResponseFn<IList<charges.ICharge>>): Promise<IList<charges.ICharge>>; // TODO: Not sure if this should be a list of balance transactions or charges.
-            listTransactions(response?: IResponseFn<IList<charges.ICharge>>): Promise<IList<charges.ICharge>>; // TODO: Not sure if this should be a list of balance transactions or charges.
+            listTransactions(options: HeaderOptions, response?: IResponseFn<IList<charges.ICharge>>): IListPromise<charges.ICharge>; // TODO: Not sure if this should be a list of balance transactions or charges.
+            listTransactions(response?: IResponseFn<IList<charges.ICharge>>): IListPromise<charges.ICharge>; // TODO: Not sure if this should be a list of balance transactions or charges.
 
             /**
              * When you create a new reversal, you must specify a transfer to create it on.
@@ -8967,10 +9215,10 @@ declare namespace Stripe {
              * default on the transfer object. If you need more than those 10, you can use this API method and the limit and starting_after
              * parameters to page through additional reversals.
              */
-            listReversals(transferId: string, data: IListOptions, options: HeaderOptions, response?: IResponseFn<IList<transferReversals.IReversal>>): Promise<IList<transferReversals.IReversal>>;
-            listReversals(transferId: string, data: IListOptions, response?: IResponseFn<IList<transferReversals.IReversal>>): Promise<IList<transferReversals.IReversal>>;
-            listReversals(transferId: string, options: HeaderOptions, response?: IResponseFn<IList<transferReversals.IReversal>>): Promise<IList<transferReversals.IReversal>>;
-            listReversals(transferId: string, response?: IResponseFn<IList<transferReversals.IReversal>>): Promise<IList<transferReversals.IReversal>>;
+            listReversals(transferId: string, data: IListOptions, options: HeaderOptions, response?: IResponseFn<IList<transferReversals.IReversal>>): IListPromise<transferReversals.IReversal>;
+            listReversals(transferId: string, data: IListOptions, response?: IResponseFn<IList<transferReversals.IReversal>>): IListPromise<transferReversals.IReversal>;
+            listReversals(transferId: string, options: HeaderOptions, response?: IResponseFn<IList<transferReversals.IReversal>>): IListPromise<transferReversals.IReversal>;
+            listReversals(transferId: string, response?: IResponseFn<IList<transferReversals.IReversal>>): IListPromise<transferReversals.IReversal>;
 
             setMetadata(): void; // TODO: Implement placeholder method
             getMetadata(): void; // TODO: Implement placeholder method
@@ -9015,20 +9263,20 @@ declare namespace Stripe {
              * default on the transfer object. If you need more than those 10, you can use this API method and the limit and starting_after
              * parameters to page through additional reversals.
              */
-            list(data: IListOptions, options: HeaderOptions, response?: IResponseFn<IList<transferReversals.IReversal>>): Promise<IList<transferReversals.IReversal>>;
-            list(data: IListOptions, response?: IResponseFn<IList<transferReversals.IReversal>>): Promise<IList<transferReversals.IReversal>>;
-            list(options: HeaderOptions, response?: IResponseFn<IList<transferReversals.IReversal>>): Promise<IList<transferReversals.IReversal>>;
-            list(response?: IResponseFn<IList<transferReversals.IReversal>>): Promise<IList<transferReversals.IReversal>>;
+            list(data: IListOptions, options: HeaderOptions, response?: IResponseFn<IList<transferReversals.IReversal>>): IListPromise<transferReversals.IReversal>;
+            list(data: IListOptions, response?: IResponseFn<IList<transferReversals.IReversal>>): IListPromise<transferReversals.IReversal>;
+            list(options: HeaderOptions, response?: IResponseFn<IList<transferReversals.IReversal>>): IListPromise<transferReversals.IReversal>;
+            list(response?: IResponseFn<IList<transferReversals.IReversal>>): IListPromise<transferReversals.IReversal>;
         }
 
         class CountrySpecs extends StripeResource {
             /**
              * Lists all Country Spec objects available in the API.
              */
-            list(data: IListOptions, options: HeaderOptions, response?: IResponseFn<IList<countrySpecs.ICountrySpec>>): Promise<IList<countrySpecs.ICountrySpec>>;
-            list(data: IListOptions, response?: IResponseFn<IList<countrySpecs.ICountrySpec>>): Promise<IList<countrySpecs.ICountrySpec>>;
-            list(options: HeaderOptions, response?: IResponseFn<IList<countrySpecs.ICountrySpec>>): Promise<IList<countrySpecs.ICountrySpec>>;
-            list(response?: IResponseFn<IList<countrySpecs.ICountrySpec>>): Promise<IList<countrySpecs.ICountrySpec>>;
+            list(data: IListOptions, options: HeaderOptions, response?: IResponseFn<IList<countrySpecs.ICountrySpec>>): IListPromise<countrySpecs.ICountrySpec>;
+            list(data: IListOptions, response?: IResponseFn<IList<countrySpecs.ICountrySpec>>): IListPromise<countrySpecs.ICountrySpec>;
+            list(options: HeaderOptions, response?: IResponseFn<IList<countrySpecs.ICountrySpec>>): IListPromise<countrySpecs.ICountrySpec>;
+            list(response?: IResponseFn<IList<countrySpecs.ICountrySpec>>): IListPromise<countrySpecs.ICountrySpec>;
 
             /**
              * Returns a Country Spec for a given Country code.
@@ -9073,10 +9321,10 @@ declare namespace Stripe {
             /**
              * Returns a list of your orders. The orders are returned sorted by creation date, with the most recently created orders appearing first.
              */
-            list(data: orders.IOrderListOptions, options: HeaderOptions, response?: IResponseFn<IList<orders.IOrder>>): Promise<IList<orders.IOrder>>;
-            list(data: orders.IOrderListOptions, response?: IResponseFn<IList<orders.IOrder>>): Promise<IList<orders.IOrder>>;
-            list(options: HeaderOptions, response?: IResponseFn<IList<orders.IOrder>>): Promise<IList<orders.IOrder>>;
-            list(response?: IResponseFn<IList<orders.IOrder>>): Promise<IList<orders.IOrder>>;
+            list(data: orders.IOrderListOptions, options: HeaderOptions, response?: IResponseFn<IList<orders.IOrder>>): IListPromise<orders.IOrder>;
+            list(data: orders.IOrderListOptions, response?: IResponseFn<IList<orders.IOrder>>): IListPromise<orders.IOrder>;
+            list(options: HeaderOptions, response?: IResponseFn<IList<orders.IOrder>>): IListPromise<orders.IOrder>;
+            list(response?: IResponseFn<IList<orders.IOrder>>): IListPromise<orders.IOrder>;
         }
 
         class Products {
@@ -9107,10 +9355,10 @@ declare namespace Stripe {
             /**
              * Returns a list of your products. The products are returned sorted by creation date, with the most recently created products appearing first.
              */
-            list(data: products.IProductListOptions, options: HeaderOptions, response?: IResponseFn<IList<products.IProduct>>): Promise<IList<products.IProduct>>;
-            list(data: products.IProductListOptions, response?: IResponseFn<IList<products.IProduct>>): Promise<IList<products.IProduct>>;
-            list(options: HeaderOptions, response?: IResponseFn<IList<products.IProduct>>): Promise<IList<products.IProduct>>;
-            list(response?: IResponseFn<IList<products.IProduct>>): Promise<IList<products.IProduct>>;
+            list(data: products.IProductListOptions, options: HeaderOptions, response?: IResponseFn<IList<products.IProduct>>): IListPromise<products.IProduct>;
+            list(data: products.IProductListOptions, response?: IResponseFn<IList<products.IProduct>>): IListPromise<products.IProduct>;
+            list(options: HeaderOptions, response?: IResponseFn<IList<products.IProduct>>): IListPromise<products.IProduct>;
+            list(response?: IResponseFn<IList<products.IProduct>>): IListPromise<products.IProduct>;
 
             /**
              * Delete a product. Deleting a product is only possible if it has no SKUs associated with it.
@@ -9147,10 +9395,10 @@ declare namespace Stripe {
             /**
              * Returns a list of your SKUs. The SKUs are returned sorted by creation date, with the most recently created SKUs appearing first.
              */
-            list(data: skus.ISkuListOptions, options: HeaderOptions, response?: IResponseFn<IList<skus.ISku>>): Promise<IList<skus.ISku>>;
-            list(data: skus.ISkuListOptions, response?: IResponseFn<IList<skus.ISku>>): Promise<IList<skus.ISku>>;
-            list(options: HeaderOptions, response?: IResponseFn<IList<skus.ISku>>): Promise<IList<skus.ISku>>;
-            list(response?: IResponseFn<IList<skus.ISku>>): Promise<IList<skus.ISku>>;
+            list(data: skus.ISkuListOptions, options: HeaderOptions, response?: IResponseFn<IList<skus.ISku>>): IListPromise<skus.ISku>;
+            list(data: skus.ISkuListOptions, response?: IResponseFn<IList<skus.ISku>>): IListPromise<skus.ISku>;
+            list(options: HeaderOptions, response?: IResponseFn<IList<skus.ISku>>): IListPromise<skus.ISku>;
+            list(response?: IResponseFn<IList<skus.ISku>>): IListPromise<skus.ISku>;
 
             /**
              * Delete a SKU. Deleting a SKU is only possible until it has been used in an order.
@@ -9174,6 +9422,80 @@ declare namespace Stripe {
 
     interface IResourceObject extends IObject {
         id: string;
+    }
+
+    interface ICardHashInfo {
+        /**
+         * The card number
+         */
+        number?: string;
+
+        /**
+         * Card brand. Can be Visa, American Express, MasterCard, Discover, JCB, Diners Club, or Unknown.
+         */
+        brand: "Visa" | "American Express" | "MasterCard" | "Discover" | "JCB" | "Diners Club" | "Unknown" ;
+        exp_month: number;
+        exp_year: number;
+
+        /**
+         * Card funding type. Can be credit, debit, prepaid, or unknown
+         */
+        funding: "credit" | "debit" | "prepaid" | "unknown";
+        last4: string;
+        address_city: string | null;
+
+        /**
+         * Billing address country, if provided when creating card
+         */
+        address_country: string | null;
+        address_line1: string | null;
+
+        /**
+         * If address_line1 was provided, results of the check: pass, fail, unavailable, or unchecked.
+         */
+        address_line1_check: "pass" | "fail" | "unavailable" | "unchecked" | null;
+        address_line2: string | null;
+        address_state: string | null;
+        address_zip: string | null;
+
+        /**
+         * If address_zip was provided, results of the check: pass, fail, unavailable, or unchecked.
+         */
+        address_zip_check: "pass" | "fail" | "unavailable" | "unchecked" | null;
+
+        /**
+         * Two-letter ISO code representing the country of the card. You could use this
+         * attribute to get a sense of the international breakdown of cards you've collected.
+         */
+        country: string;
+
+        /**
+         * If a CVC was provided, results of the check: pass, fail, unavailable, or unchecked
+         */
+        cvc_check: "pass" | "fail" | "unavailable" | "unchecked";
+
+        /**
+         * (For Apple Pay integrations only.) The last four digits of the device account number.
+         */
+        dynamic_last4: string | null;
+
+        /**
+         * Cardholder name
+         */
+        name: string | null;
+
+        /**
+         * Uniquely identifies this particular card number. You can use this attribute to check
+         * whether two customers who've signed up with you are using the same card number, for example.
+         */
+        fingerprint: string;
+        metadata?: IMetadata;
+
+        /**
+         * If the card number is tokenized, this is the method that was
+         * used. Can be "apple_pay" or "android_pay".
+         */
+        tokenization_method: "apple_pay" | "android_pay" | null;
     }
 
     type IResponseFn<R> = (err: IStripeError, value: R) => void;

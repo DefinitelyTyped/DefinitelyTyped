@@ -5,7 +5,17 @@ import { ProjectionLike } from '../proj';
 import Projection from '../proj/Projection';
 import FormatType from './FormatType';
 
-export function transformWithOptions(geometry: Geometry | Extent, write: boolean, opt_options?: WriteOptions | ReadOptions): Geometry | Extent;
+export interface ReadOptions {
+    dataProjection?: ProjectionLike;
+    extent?: Extent;
+    featureProjection?: ProjectionLike;
+}
+export interface WriteOptions {
+    dataProjection?: ProjectionLike;
+    featureProjection?: ProjectionLike;
+    rightHanded?: boolean;
+    decimals?: number;
+}
 export default class FeatureFormat {
     constructor();
     protected dataProjection: Projection;
@@ -22,14 +32,4 @@ export default class FeatureFormat {
     writeFeatures(features: Feature[], opt_options?: WriteOptions): string;
     writeGeometry(geometry: Geometry, opt_options?: WriteOptions): string;
 }
-export interface ReadOptions {
-    dataProjection?: ProjectionLike;
-    extent?: Extent;
-    featureProjection?: ProjectionLike;
-}
-export interface WriteOptions {
-    dataProjection?: ProjectionLike;
-    featureProjection?: ProjectionLike;
-    rightHanded?: boolean;
-    decimals?: number;
-}
+export function transformWithOptions(geometry: Geometry | Extent, write: boolean, opt_options?: WriteOptions | ReadOptions): Geometry | Extent;

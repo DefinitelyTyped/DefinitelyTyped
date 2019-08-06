@@ -114,3 +114,7 @@ export class Toast extends React.Component<ToastProps, ToastPrivateState> {
 export const Root: StyletronComponent<any>;
 export const Body: StyletronComponent<any>;
 export const CloseIconSvg: StyletronComponent<any>;
+
+export const KIND: KIND;
+export const PLACEMENT: PLACEMENT;
+export const TYPE: TYPE;

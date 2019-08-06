@@ -83,3 +83,6 @@ export const StyledRoot: StyletronComponent<any>;
 export const StyledTab: StyletronComponent<any>;
 export const StyledTabBar: StyletronComponent<any>;
 export const StyledTabContent: StyletronComponent<any>;
+
+export const ORIENTATION: ORIENTATION;
+export const STATE_CHANGE_TYPE: STATE_CHANGE_TYPE;

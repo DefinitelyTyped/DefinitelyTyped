@@ -10,9 +10,9 @@ export interface KIND {
 }
 
 export interface SIZE {
+  compact: 'compact';
   default: 'default';
-  round: 'round';
-  square: 'square';
+  large: 'large';
 }
 
 export interface SHAPE {
@@ -36,7 +36,7 @@ export interface ButtonProps {
   isLoading?: boolean;
   isSelected?: boolean;
   kind?: KIND[keyof KIND];
-  onClick?: (event: React.SyntheticEvent<HTMLButtonElement>) => any;
+  onClick?: (event: React.MouseEventHandler<HTMLButtonElement>) => any;
   overrides?: ButtonOverrides;
   shape?: SHAPE[keyof SHAPE];
   size?: SIZE[keyof SIZE];
@@ -52,3 +52,7 @@ export const StyledLoadingSpinnerContainer: StyletronComponent<any>;
 export class Button extends React.Component<ButtonProps> {
   internalOnClick(...args: any): void;
 }
+
+export const KIND: KIND;
+export const SHAPE: SHAPE;
+export const SIZE: SIZE;

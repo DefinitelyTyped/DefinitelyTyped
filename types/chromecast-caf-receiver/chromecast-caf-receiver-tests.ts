@@ -118,3 +118,6 @@ const supportedCommands: number =
     cast.framework.messages.Command.ALL_BASIC_MEDIA |
     cast.framework.messages.Command.QUEUE_NEXT |
     cast.framework.messages.Command.QUEUE_PREV;
+
+const playbackConfig = new cast.framework.PlaybackConfig();
+playbackConfig.protectionSystem = cast.framework.ContentProtection.WIDEVINE;

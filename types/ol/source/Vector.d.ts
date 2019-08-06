@@ -10,10 +10,6 @@ import { ObjectEvent } from '../Object';
 import Projection from '../proj/Projection';
 import Source, { AttributionLike } from './Source';
 
-export class VectorSourceEvent extends Event {
-    constructor();
-    feature: Feature;
-}
 export type LoadingStrategy = ((p0: Extent, p1: number) => Extent[]);
 export interface Options {
     attributions?: AttributionLike;
@@ -75,4 +71,8 @@ export default class VectorSource extends Source {
     on(type: 'removefeature', listener: (evt: VectorSourceEvent) => void): EventsKey;
     once(type: 'removefeature', listener: (evt: VectorSourceEvent) => void): EventsKey;
     un(type: 'removefeature', listener: (evt: VectorSourceEvent) => void): void;
+}
+export class VectorSourceEvent extends Event {
+    constructor();
+    feature: Feature;
 }

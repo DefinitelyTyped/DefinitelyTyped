@@ -13,10 +13,23 @@ import VectorSource from '../source/Vector';
 import { StyleFunction, StyleLike } from '../style/Style';
 import PointerInteraction from './Pointer';
 
-export class ModifyEvent extends Event {
-    constructor();
-    features: Collection<Feature>;
-    mapBrowserEvent: MapBrowserEvent;
+export interface Options {
+    condition?: Condition;
+    deleteCondition?: Condition;
+    insertVertexCondition?: Condition;
+    pixelTolerance?: number;
+    style?: StyleLike;
+    source?: VectorSource;
+    features?: Collection<Feature>;
+    wrapX?: boolean;
+}
+export interface SegmentData {
+    depth?: number[];
+    feature: Feature;
+    geometry: SimpleGeometry;
+    index?: number;
+    segment: Extent[];
+    featureSegments?: SegmentData[];
 }
 export default class Modify extends PointerInteraction {
     constructor(options: Options);
@@ -41,21 +54,8 @@ export default class Modify extends PointerInteraction {
     once(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
     un(type: 'propertychange', listener: (evt: ObjectEvent) => void): void;
 }
-export interface Options {
-    condition?: Condition;
-    deleteCondition?: Condition;
-    insertVertexCondition?: Condition;
-    pixelTolerance?: number;
-    style?: StyleLike;
-    source?: VectorSource;
-    features?: Collection<Feature>;
-    wrapX?: boolean;
-}
-export interface SegmentData {
-    depth?: number[];
-    feature: Feature;
-    geometry: SimpleGeometry;
-    index?: number;
-    segment: Extent[];
-    featureSegments?: SegmentData[];
+export class ModifyEvent extends Event {
+    constructor();
+    features: Collection<Feature>;
+    mapBrowserEvent: MapBrowserEvent;
 }

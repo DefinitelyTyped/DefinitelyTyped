@@ -7,7 +7,6 @@ import { Pixel } from '../pixel';
 import PointerEvent from '../pointer/PointerEvent';
 import Interaction from './Interaction';
 
-export function centroid(pointerEvents: PointerEvent[]): Pixel;
 export interface Options {
     handleDownEvent?: ((p0: MapBrowserPointerEvent) => boolean);
     handleDragEvent?: ((p0: MapBrowserPointerEvent) => void);
@@ -38,3 +37,4 @@ export default class PointerInteraction extends Interaction {
     once(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
     un(type: 'propertychange', listener: (evt: ObjectEvent) => void): void;
 }
+export function centroid(pointerEvents: PointerEvent[]): Pixel;

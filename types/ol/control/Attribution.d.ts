@@ -4,7 +4,16 @@ import MapEvent from '../MapEvent';
 import { ObjectEvent } from '../Object';
 import Control from './Control';
 
-export function render(mapEvent: MapEvent): void;
+export interface Options {
+    className?: string;
+    target?: HTMLElement | string;
+    collapsible?: boolean;
+    collapsed?: boolean;
+    tipLabel?: string;
+    label?: string | HTMLElement;
+    collapseLabel?: string | HTMLElement;
+    render?: ((p0: MapEvent) => void);
+}
 export default class Attribution extends Control {
     constructor(opt_options?: Options);
     getCollapsed(): boolean;
@@ -21,13 +30,4 @@ export default class Attribution extends Control {
     once(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
     un(type: 'propertychange', listener: (evt: ObjectEvent) => void): void;
 }
-export interface Options {
-    className?: string;
-    target?: HTMLElement | string;
-    collapsible?: boolean;
-    collapsed?: boolean;
-    tipLabel?: string;
-    label?: string | HTMLElement;
-    collapseLabel?: string | HTMLElement;
-    render?: ((p0: MapEvent) => void);
-}
+export function render(mapEvent: MapEvent): void;
