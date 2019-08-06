@@ -3,7 +3,7 @@
 // Definitions by: Mike Tugushev <https://github.com/michael-whi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export namespace Ecore {
+declare namespace Ecore {
     function create(eClass: EClass): EObject;
 
     let EClass: EClass;
@@ -148,4 +148,4 @@ export namespace Ecore {
     }
 }
 
-export default Ecore;
+export = Ecore;
