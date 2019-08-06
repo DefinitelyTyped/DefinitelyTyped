@@ -30,7 +30,7 @@
 //                 Aram Kharazyan <https://github.com/nemo108>
 //                 Jituan Lin <https://github.com/jituanlin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.3
+// TypeScript Version: 3.5
 
 /// <reference path="./es/add.d.ts" />
 /// <reference path="./es/addIndex.d.ts" />
