@@ -9,7 +9,7 @@
 import CSSTransition = require("./CSSTransition");
 import Transition from "./Transition";
 import TransitionGroup = require("./TransitionGroup");
-import SwitchTransition = require("./SwitchTransition");
+import SwitchTransition from "./SwitchTransition";
 
 export {
     CSSTransition,
