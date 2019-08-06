@@ -38,33 +38,53 @@ declare function DiceCoefficient(str1: string, str2: string): number;
 
 interface Stemmer {
     stem(token: string): string;
+    tokenizeAndStem(text: string): string[];
+    attach(): void;
 }
 declare var PorterStemmer: {
     stem(token: string): string;
+    tokenizeAndStem(text: string): string[];
+    attach(): void;
 }
 declare var PorterStemmerRu: {
     stem(token: string): string;
+    tokenizeAndStem(text: string): string[];
+    attach(): void;
 }
 declare var PorterStemmerEs: {
     stem(token: string): string;
+    tokenizeAndStem(text: string): string[];
+    attach(): void;
 }
 declare var PorterStemmerFa: {
     stem(token: string): string;
+    tokenizeAndStem(text: string): string[];
+    attach(): void;
 }
 declare var PorterStemmerFr: {
     stem(token: string): string;
+    tokenizeAndStem(text: string): string[];
+    attach(): void;
 }
 declare var PorterStemmerIt: {
     stem(token: string): string;
+    tokenizeAndStem(text: string): string[];
+    attach(): void;
 }
 declare var PorterStemmerNo: {
     stem(token: string): string;
+    tokenizeAndStem(text: string): string[];
+    attach(): void;
 }
 declare var PorterStemmerPt: {
     stem(token: string): string;
+    tokenizeAndStem(text: string): string[];
+    attach(): void;
 }
 declare var LancasterStemmer: {
     stem(token: string): string;
+    tokenizeAndStem(text: string): string[];
+    attach(): void;
 }
 
 interface BayesClassifierClassification { label: string, value: number }
