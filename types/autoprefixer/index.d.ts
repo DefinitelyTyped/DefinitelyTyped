@@ -18,6 +18,7 @@ declare namespace autoprefixer {
         grid?: false | 'autoplace' | 'no-autoplace';
         stats?: Stats;
         browsers?: string[] | string;
+        overrideBrowserslist?: string[] | string;
         ignoreUnknownVersions?: boolean;
     }
 
