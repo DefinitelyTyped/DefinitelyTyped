@@ -988,7 +988,7 @@ declare namespace GoogleAppsScript {
         quantity?: string;
         timestampMicros?: string;
         treatmentForUnderage?: boolean;
-        value?: Number;
+        value?: number;
       }
       export interface ConversionError {
         code?: string;
@@ -1070,7 +1070,7 @@ declare namespace GoogleAppsScript {
         lastModifiedInfo?: Dfareporting.Schema.LastModifiedInfo;
         latestTraffickedCreativeId?: string;
         mediaDescription?: string;
-        mediaDuration?: Number;
+        mediaDuration?: number;
         name?: string;
         overrideCss?: string;
         progressOffset?: Dfareporting.Schema.VideoOffset;
@@ -1119,13 +1119,13 @@ declare namespace GoogleAppsScript {
         expandedDimension?: Dfareporting.Schema.Size;
         fileSize?: string;
         flashVersion?: number;
-        frameRate?: Number;
+        frameRate?: number;
         hideFlashObjects?: boolean;
         hideSelectionBoxes?: boolean;
         horizontallyLocked?: boolean;
         id?: string;
         idDimensionValue?: Dfareporting.Schema.DimensionValue;
-        mediaDuration?: Number;
+        mediaDuration?: number;
         mimeType?: string;
         offset?: Dfareporting.Schema.OffsetPosition;
         orientation?: string;
@@ -1136,7 +1136,7 @@ declare namespace GoogleAppsScript {
         positionTopUnit?: string;
         progressiveServingUrl?: string;
         pushdown?: boolean;
-        pushdownDuration?: Number;
+        pushdownDuration?: number;
         role?: string;
         size?: Dfareporting.Schema.Size;
         sslCompliant?: boolean;

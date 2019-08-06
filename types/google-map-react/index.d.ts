@@ -143,6 +143,7 @@ export interface Props {
   onGoogleApiLoaded?(maps: { map: any, maps: any }): void;
   onTilesLoaded?(): void;
   yesIWantToUseGoogleMapApiInternals?: boolean;
+  style?: React.HTMLProps<HTMLDivElement>;
 }
 
 export default class GoogleMapReact extends React.Component<Props> {}

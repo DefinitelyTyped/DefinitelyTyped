@@ -15,6 +15,8 @@
 //                 Manuel Heidrich <https://github.com/mahnuh>
 //                 Conrad Holtzhausen <https://github.com/Conrad777>
 //                 Adrián Caballero <https://github.com/adripanico>
+//                 wertzui <https://github.com/wertzui>
+//                 Martin Trobäck <https://github.com/lekoaf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -27,8 +29,8 @@ declare class Chart {
     config: Chart.ChartConfiguration;
     data: Chart.ChartData;
     destroy: () => {};
-    update: (duration?: any, lazy?: any) => {};
-    render: (duration?: any, lazy?: any) => {};
+    update: ({duration, lazy, easing}?: Chart.ChartUpdateProps) => {};
+    render: ({duration, lazy, easing}?: Chart.ChartRenderProps) => {};
     stop: () => {};
     resize: () => {};
     clear: () => {};
@@ -40,6 +42,10 @@ declare class Chart {
     getDatasetMeta: (index: number) => Meta;
     ctx: CanvasRenderingContext2D | null;
     canvas: HTMLCanvasElement | null;
+    width: number | null;
+    height: number | null;
+    aspectRatio: number | null;
+    options: Chart.ChartOptions;
     chartArea: Chart.ChartArea;
     static pluginService: PluginServiceStatic;
     static plugins: PluginServiceStatic;
@@ -122,6 +128,11 @@ declare namespace Chart {
 
     type InteractionMode = 'point' | 'nearest' | 'single' | 'label' | 'index' | 'x-axis' | 'dataset' | 'x' | 'y';
 
+    type Easing = 'linear' | 'easeInQuad' | 'easeOutQuad' | 'easeInOutQuad' | 'easeInCubic' | 'easeOutCubic' | 'easeInOutCubic' |
+        'easeInQuart' | 'easeOutQuart' | 'easeInOutQuart' | 'easeInQuint' | 'easeOutQuint' | 'easeInOutQuint' | 'easeInSine' | 'easeOutSine' |
+        'easeInOutSine' | 'easeInExpo' | 'easeOutExpo' | 'easeInOutExpo' | 'easeInCirc' | 'easeOutCirc' | 'easeInOutCirc' | 'easeInElastic' |
+        'easeOutElastic' | 'easeInOutElastic' | 'easeInBack' | 'easeOutBack' | 'easeInOutBack' | 'easeInBounce' | 'easeOutBounce' | 'easeInOutBounce';
+
     interface ChartArea {
         top: number;
         right: number;
@@ -147,10 +158,14 @@ declare namespace Chart {
     }
 
     interface ChartTooltipItem {
+        label?: string;
+        value?: string;
         xLabel?: string | number;
         yLabel?: string | number;
         datasetIndex?: number;
         index?: number;
+        x?: number;
+        y?: number;
     }
 
     interface ChartTooltipLabelColor {
@@ -270,7 +285,7 @@ declare namespace Chart {
         fontColor?: ChartColor;
         fontFamily?: string;
         padding?: number;
-        generateLabels?(chart: any): any;
+        generateLabels?(chart: Chart): ChartLegendLabelItem[];
         filter?(legendItem: ChartLegendLabelItem, data: ChartData): any;
         usePointStyle?: boolean;
     }
@@ -335,7 +350,7 @@ declare namespace Chart {
     interface ChartAnimationObject {
         currentStep?: number;
         numSteps?: number;
-        easing?: string;
+        easing?: Easing;
         render?(arg: any): void;
         onAnimationProgress?(arg: any): void;
         onAnimationComplete?(arg: any): void;
@@ -343,7 +358,7 @@ declare namespace Chart {
 
     interface ChartAnimationOptions {
         duration?: number;
-        easing?: string;
+        easing?: Easing;
         onProgress?(chart: any): void;
         onComplete?(chart: any): void;
         animateRotate?: boolean;
@@ -659,15 +674,15 @@ declare namespace Chart {
         afterRender?(chartInstance: Chart, options?: any): void;
 
         // Easing is for animation
-        beforeDraw?(chartInstance: Chart, easing: string, options?: any): void;
-        afterDraw?(chartInstance: Chart, easing: string, options?: any): void;
+        beforeDraw?(chartInstance: Chart, easing: Easing, options?: any): void;
+        afterDraw?(chartInstance: Chart, easing: Easing, options?: any): void;
 
         // Before the datasets are drawn but after scales are drawn
-        beforeDatasetsDraw?(chartInstance: Chart, easing: string, options?: any): void;
-        afterDatasetsDraw?(chartInstance: Chart, easing: string, options?: any): void;
+        beforeDatasetsDraw?(chartInstance: Chart, easing: Easing, options?: any): void;
+        afterDatasetsDraw?(chartInstance: Chart, easing: Easing, options?: any): void;
 
-        beforeDatasetDraw?(chartInstance: Chart, easing: string, options?: any): void;
-        afterDatasetDraw?(chartInstance: Chart, easing: string, options?: any): void;
+        beforeDatasetDraw?(chartInstance: Chart, easing: Easing, options?: any): void;
+        afterDatasetDraw?(chartInstance: Chart, easing: Easing, options?: any): void;
 
         // Called before drawing the `tooltip`. If any plugin returns `false`,
         // the tooltip drawing is cancelled until another `render` is triggered.
@@ -685,6 +700,18 @@ declare namespace Chart {
 
         /** @deprecated since version 2.5.0. Use `afterLayout` instead. */
         afterScaleUpdate?(chartInstance: Chart, options?: any): void;
+    }
+
+    interface ChartUpdateProps {
+        duration?: number;
+        lazy?: boolean;
+        easing?: Easing;
+    }
+
+    interface ChartRenderProps {
+        duration?: number;
+        lazy?: boolean;
+        easing?: Easing;
     }
 }
 

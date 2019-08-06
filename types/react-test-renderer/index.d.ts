@@ -17,8 +17,9 @@ import { ReactElement, ReactType } from "react";
 export interface ReactTestRendererJSON {
     type: string;
     props: { [propName: string]: any };
-    children: null | ReactTestRendererJSON[];
+    children: null | ReactTestRendererNode[];
 }
+export type ReactTestRendererNode = ReactTestRendererJSON | string;
 export interface ReactTestRendererTree extends ReactTestRendererJSON {
     nodeType: "component" | "host";
     instance: any;
@@ -64,9 +65,8 @@ export function create(nextElement: ReactElement, options?: TestRendererOptions)
  * @see https://reactjs.org/blog/2019/02/06/react-v16.8.0.html#testing-hooks
  */
 // the "void | undefined" is here to forbid any sneaky "Promise" returns.
-// the actual return value is always a "DebugPromiseLike",
-// but having an "| {}" makes it harder to accidentally use.
-export function act(callback: () => void | undefined): DebugPromiseLike | {};
+// the actual return value is always a "DebugPromiseLike".
+export function act(callback: () => void | undefined): DebugPromiseLike;
 
 // Intentionally doesn't extend PromiseLike<never>.
 // Ideally this should be as hard to accidentally use as possible.

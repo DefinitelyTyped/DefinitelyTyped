@@ -2146,6 +2146,7 @@ declare module "child_process" {
         gid?: number;
         windowsHide?: boolean;
         windowsVerbatimArguments?: boolean;
+        shell?: boolean | string;
     }
     export interface ExecFileOptionsWithStringEncoding extends ExecFileOptions {
         encoding: BufferEncoding;
@@ -4606,6 +4607,7 @@ declare module "fs" {
         mode?: number;
         autoClose?: boolean;
         start?: number;
+        highWaterMark?: number;
     }): WriteStream;
 
     /**

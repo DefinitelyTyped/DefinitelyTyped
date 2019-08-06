@@ -19,8 +19,10 @@
 //                 Duy Truong <https://github.com/truongkhanhduy95>
 //                 Emmanuel Gautier <https://github.com/emmanuelgautier>
 //                 Dan Rumney <https://github.com/dancrumb>
+//                 Kan Yueh Chen <https://github.com/lalayueh>
+//                 Rohit Sud <https://github.com/rohitsud>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.2
 
 // ***************************** IMPORTANT NOTE *****************************
 // These types are for the 4.x branch of Sequelize. As of Sequelize 5.0,
@@ -35,6 +37,8 @@
 import * as _ from "lodash";
 import Promise = require("bluebird");
 import * as cls from "continuation-local-storage"
+
+type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
 
 declare namespace sequelize {
 
@@ -3939,9 +3943,18 @@ declare namespace sequelize {
          * Search for a single instance by its primary key. This applies LIMIT 1, so the listener will
          * always be called with a single instance.
          */
-        findById<TCustomAttributes>(identifier?: number | string | Buffer, options?: FindOptions<TAttributes & TCustomAttributes>): Promise<TInstance | null>;
-        findByPrimary<TCustomAttributes>(identifier?: number | string | Buffer, options?: FindOptions<TAttributes & TCustomAttributes>): Promise<TInstance | null>;
-        findByPk<TCustomAttributes>(identifier?: number | string | Buffer, options?: FindOptions<TAttributes & TCustomAttributes>): Promise<TInstance | null>;
+        findById<TCustomAttributes>(
+          identifier?: number | string | Buffer,
+          options?: Omit<FindOptions<TAttributes & TCustomAttributes>, 'where'>,
+        ): Promise<TInstance | null>;
+        findByPrimary<TCustomAttributes>(
+          identifier?: number | string | Buffer,
+          options?: Omit<FindOptions<TAttributes & TCustomAttributes>, 'where'>,
+        ): Promise<TInstance | null>;
+        findByPk<TCustomAttributes>(
+          identifier?: number | string | Buffer,
+          options?: Omit<FindOptions<TAttributes & TCustomAttributes>, 'where'>,
+        ): Promise<TInstance | null>;
 
         /**
          * Search for a single instance. This applies LIMIT 1, so the listener will always be called with a single
@@ -5084,7 +5097,7 @@ declare namespace sequelize {
         /**
          * Index type. Only used by mysql. One of `UNIQUE`, `FULLTEXT` and `SPATIAL`
          */
-        index?: string;
+        type?: IndexType;
 
         /**
          * The method to create the index by (`USING` statement in SQL). BTREE and HASH are supported by mysql and

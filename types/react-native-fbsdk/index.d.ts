@@ -1,4 +1,4 @@
-// Type definitions for react-native-fbsdk 0.6
+// Type definitions for react-native-fbsdk 0.7
 // Project: https://github.com/facebook/react-native-fbsdk
 // Definitions by: Ifiok Jr. <https://github.com/ifiokjr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -921,14 +921,9 @@ export interface LoginResult {
 
 export namespace LoginManager {
     /**
-     * Logs the user in with the requested read permissions.
+     * Logs the user in with the requested read and/or publish permissions.
      */
-    function logInWithReadPermissions(permissions: Permissions[]): Promise<LoginResult>;
-
-    /**
-     * Logs the user in with the requested publish permissions.
-     */
-    function logInWithPublishPermissions(permissions: Permissions[]): Promise<LoginResult>;
+    function logInWithPermissions(permissions: Permissions[]): Promise<LoginResult>;
 
     /**
      * Getter for the login behavior.

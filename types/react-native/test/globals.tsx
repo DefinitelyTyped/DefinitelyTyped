@@ -1,4 +1,4 @@
-const fetchCopy: GlobalFetch["fetch"] = fetch;
+const fetchCopy: WindowOrWorkerGlobalScope["fetch"] = fetch;
 
 const myHeaders = new Headers();
 myHeaders.append("Content-Type", "image/jpeg");

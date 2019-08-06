@@ -1,4 +1,4 @@
-// Type definitions for luxon 1.13
+// Type definitions for luxon 1.15
 // Project: https://github.com/moment/luxon#readme
 // Definitions by: Colby DeHart <https://github.com/colbydehart>
 //                 Hyeonseok Yang <https://github.com/FourwingsY>
@@ -7,6 +7,7 @@
 //                 Pietro Vismara <https://github.com/pietrovismara>
 //                 Janeene Beeforth <https://github.com/dawnmist>
 //                 Jason Yu <https://github.com/ycmjason>
+//                 Miklos Danka <https://github.com/mdanka>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -21,14 +22,14 @@ export interface ZoneOptions {
 }
 
 export type ToRelativeUnit =
-    | 'year'
-    | 'quarter'
-    | 'month'
-    | 'week'
-    | 'day'
-    | 'hour'
-    | 'minute'
-    | 'second';
+    | 'years'
+    | 'quarters'
+    | 'months'
+    | 'weeks'
+    | 'days'
+    | 'hours'
+    | 'minutes'
+    | 'seconds';
 
 export interface ToRelativeOptions {
     /** The DateTime to use as the basis to which this time is compared. Defaults to now. */
@@ -493,11 +494,14 @@ export namespace Settings {
 
 export interface ZoneOffsetOptions {
     format?: 'short' | 'long';
-    localeCode?: string;
+    locale?: string;
 }
 
+export type ZoneOffsetFormat = 'narrow' | 'short' | 'techie';
+
 export class Zone {
-    offsetName(ts: number, options?: ZoneOffsetOptions): string;
+    offsetName(ts: number, options: ZoneOffsetOptions): string;
+    formatOffset(ts: number, format: ZoneOffsetFormat): string;
     isValid: boolean;
     name: string;
     type: string;

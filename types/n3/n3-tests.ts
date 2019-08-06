@@ -198,6 +198,8 @@ function test_doc_storing() {
     }
     console.log(mickey.subject, mickey.predicate, mickey.object, '.');
 
+    const quadStream: RDF.Stream = store.match(N3.DataFactory.namedNode('http://ex.org/Mickey'));
+
     interface N3QuadGeneralized extends N3.BaseQuad {
       subject: N3.Quad_Subject | N3.BlankNode | N3.Literal;
       predicate: N3.Quad_Predicate | N3.BlankNode | N3.Literal;
