@@ -480,7 +480,10 @@ cli.addPlugin('my-fancy-plugin', {});
 
 cli.isPathIgnored('./dist/index.js');
 
-const formatter = cli.getFormatter('codeframe');
+let formatter: CLIEngine.Formatter;
+
+formatter = cli.getFormatter('codeframe');
+formatter = cli.getFormatter();
 
 formatter(cliReport.results);
 
@@ -533,6 +536,14 @@ ruleTester.run('my-rule', rule, {
         { code: 'foo', errors: [{ message: 'foo', type: 'foo' }] },
         { code: 'foo', errors: [{ message: 'foo', data: { foo: true } }] },
         { code: 'foo', errors: [{ message: 'foo', line: 0 }] },
+    ]
+});
+
+ruleTester.run('simple-valid-test', rule, {
+    valid: [
+        'foo',
+        'bar',
+        { code: 'foo', options: [{ allowFoo: true }] },
     ]
 });
 

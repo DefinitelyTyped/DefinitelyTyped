@@ -56,6 +56,10 @@ function test_application() {
             ++groupCounter;
         });
     });
+    // getInfo
+    application.getInfo(info => {
+        console.log(`Launch mode: ${info.launchMode}`);
+    });
     // getManifest
     application.getManifest(manifest => {
         console.log("Application manifest:");
@@ -72,14 +76,15 @@ function test_application() {
         console.log("Start Menu shortcut is enabled: ", config.startMenu);
         console.log("System Startup shortcut is enabled: ", config.systemStartup);
     });
-    // getInfo
-    application.getInfo(info => {
-        console.log(`Launch mode: ${info.launchMode}`);
-    });
     // getTrayIconInfo
     application.getTrayIconInfo(info => {
         console.log(info.x, info.y, info.bounds.left, info.bounds.top, info.bounds.height, info.bounds.width,
                     info.monitorInfo.reason);
+    });
+    // getZoomLevel
+    application.getZoomLevel(level => {
+        console.log("Application zoom level:");
+        console.log(level);
     });
     // isRunning
     application.isRunning(running => {
@@ -107,11 +112,28 @@ function test_application() {
     }, err => {
         console.log("failure:", err);
     });
+    // run
+    application.run(() => {
+        console.log("Application is running.");
+    }, err => {
+        console.log("failure:", err);
+    });
     // schedule restart
     application.scheduleRestart(() => {
         console.log("You will not read this.");
     }, err => {
         console.log("failure:", err);
+    });
+    // sendApplicationLog
+    application.sendApplicationLog(info => {
+        console.log("Application logId:");
+        console.log(info.logId);
+    });
+    // setAppLogUsername
+    application.setAppLogUsername("username", () => {
+        console.log("Successfully set app log username");
+    }, error => {
+        console.log("Failed to set app log username. Error: ", error);
     });
     // setShortcuts
     application.setShortcuts({
@@ -126,6 +148,12 @@ function test_application() {
     // setTrayIcon
     application.setTrayIcon("https://developer.openf.in/download/openfin.png", clickInfo => {
         console.log(`The mouse has clicked at (${clickInfo.x}, ${clickInfo.y})`);
+    });
+    // setZoomLevel
+    application.setZoomLevel(2, () => {
+        console.log("Successfully set application zoom level");
+    }, error => {
+        console.log("Failed to set application zoom level. Error: ", error);
     });
     // terminate
     application.terminate();
@@ -162,6 +190,51 @@ function test_external_application() {
     externalApp.getInfo(info => {
         console.log(info.parent.uuid, info.parent.name);
     }, err => console.log(err));
+}
+
+function test_global_hot_key() {
+    // addEventListener
+    fin.desktop.GlobalHotkey.addEventListener('registered', (event) => {
+        console.log(` window ${event.identity.name} has registered ${event.hotkey}`, event);
+    }, () => {
+        console.log('The registration was successful');
+    }, (reason, err) => {
+        console.log(`Error Message: ${err.message} Error Stack: ${err.stack}`);
+    });
+    // isRegister
+    const hotkey = 'CommandOrControl+X';
+    fin.desktop.GlobalHotkey.isRegistered(hotkey, registered => {
+        console.log(`hotkey ${hotkey} is registered ? ${registered}`);
+    }, (reason, err) => {
+        console.log('Error unregistering the hotkey', err);
+    });
+    // register
+    fin.desktop.GlobalHotkey.register(hotkey, () => {
+        console.log(`${hotkey} pressed`);
+    }, () => {
+        console.log('Success');
+    }, (reason, err) => {
+        console.log('Error registering the hotkey', err);
+    });
+    // removeEventListener
+    const previousCallback = () => { };
+    fin.desktop.GlobalHotkey.removeEventListener('registered', previousCallback, () => {
+        console.log('The unregistration was successful');
+    }, (reason, err) => {
+        console.log(`Error Message: ${err.message} Error Stack: ${err.stack}`);
+    });
+    // unregister
+    fin.desktop.GlobalHotkey.unregister(hotkey, () => {
+        console.log('Success');
+    }, (reason, err) => {
+        console.log('Error unregistering the hotkey', err);
+    });
+    // unregisterAll
+    fin.desktop.GlobalHotkey.unregisterAll(() => {
+        console.log('Success');
+    }, (reason, err) => {
+        console.log('Error unregistering all hotkeys for this application', err);
+    });
 }
 
 function test_inter_application_bus() {
@@ -207,7 +280,7 @@ function test_notification() {
     notification.close();
     // sendMessage
     notification = new fin.desktop.Notification({
-        duration: 10,
+        timeout: 10,
         url: "http://localhost:5000/Account/Register",
         message: "Hello",
         onShow: () => { },
@@ -322,6 +395,8 @@ function test_system() {
         const cookie1 = cookies[0];
         console.log(cookie1.name, cookie1.domain, cookie1.path);
     }, err => console.log(err));
+    // getCrashReporterState
+    fin.desktop.System.getCrashReporterState(state => console.log(state), err => console.error(err));
     // getDeviceId
     fin.desktop.System.getDeviceId(id => {
         console.log("The id of the device is: " + id);
@@ -356,6 +431,8 @@ function test_system() {
             console.log(`The filename of the log is ${logInfo.name}, the size is ${logInfo.size}, and the date of creation is ${logInfo.date}`);
         });
     });
+    // getMachineId
+    fin.desktop.System.getMachineId(id => console.log(id), err => console.error(err));
     // getMinLogLevel
     fin.desktop.System.getMinLogLevel(level => console.log(level), err => console.log(err));
     // getMonitorInfo
@@ -375,6 +452,13 @@ function test_system() {
     // getProxySettings
     fin.desktop.System.getProxySettings(proxy => {
         console.log(proxy);
+    });
+    // getRuntimeInfo
+    fin.desktop.System.getRuntimeInfo(runtimeInfoObject => {
+        console.log("Runtime version:", runtimeInfoObject.version);
+        console.log("Runtime architecture:", runtimeInfoObject["architecture"]);
+    }, err => {
+        console.log("Failed to get runtime info, error message:", err);
     });
     // getRvmInfo
     fin.desktop.System.getRvmInfo(rvmInfoObject => {
@@ -506,6 +590,12 @@ function test_system() {
     }, err => {
         console.log("failure: " + err);
     });
+    // startCrashReporter
+    fin.desktop.System.startCrashReporter({diagnosticMode: true}, () => {
+        console.log('success');
+    }, err => {
+        console.log(err);
+    });
     // terminateExternalProcess
     fin.desktop.System.launchExternalProcess({
         // notepad is in the system's PATH
@@ -519,7 +609,7 @@ function test_system() {
 
         // Attempt to close the process. Terminate after 4 seconds if it
         // has not done so.
-        fin.desktop.System.terminateExternalProcess(result.uuid, 4000, info => {
+        fin.desktop.System.terminateExternalProcess(result.uuid, 4000, true, info => {
             console.log("Termination result " + info.result);
         }, reason => {
             console.log("failure: " + reason);
@@ -656,6 +746,8 @@ function test_window() {
     finWindow.bringToFront();
     // close
     finWindow.close();
+    // executeJavaScript
+    finWindow.executeJavaScript("console.log('Hello world');");
     // disableFrame
     finWindow.disableFrame();
     // enableFrame
@@ -664,9 +756,21 @@ function test_window() {
     finWindow.flash();
     // focus
     finWindow.focus();
+    // getAllFrames
+    finWindow.getAllFrames(frames => {
+        console.log(`name: ${frames[0].name} uuid: ${frames[0].uuid}`);
+    });
     // getBounds
     finWindow.getBounds(bounds => {
         console.log(`top: ${bounds.top} left: ${bounds.left} height: ${bounds.height} width: ${bounds.width}`);
+    });
+    // getGroups
+    finWindow.getGroup(windowGroup => {
+        console.log(`There are a total of ${windowGroup.length} windows in this group.`);
+    });
+    // getInfo
+    finWindow.getInfo(info => {
+        console.log(`Window title: ${info.title}`);
     });
     // getOptions
     finWindow.getOptions(options => {
@@ -750,6 +854,14 @@ function test_window() {
     finWindow.moveBy(10, 10);
     // moveTo
     finWindow.moveTo(100, 200);
+    // navigate
+    finWindow.navigate("https://openfin.co");
+    // navigateBack
+    finWindow.navigateBack();
+    // navigateForward
+    finWindow.navigateForward();
+    // reload
+    finWindow.reload();
     // removeEventListener
     finWindow.removeEventListener("bounds-changed", event => {
 		console.log(event);
@@ -772,11 +884,32 @@ function test_window() {
     finWindow.showAt(10, 10, false);
     // stopFlashing
     finWindow.stopFlashing();
+    // stopNavigation
+    finWindow.stopNavigation();
     // updateOptions
     finWindow.updateOptions({
         frame: false,
         maxWidth: 500
     });
+}
+
+function test_external_window() {
+    // wrapSync
+    const externalWin = fin.ExternalWindow.wrapSync({uuid: 'uuid', name: 'name'});
+
+    // getCurrent
+    fin.System.getFocusedExternalWindow();
+
+    // getAllExternalWindows
+    fin.System.getAllExternalWindows().then(exWins => exWins.forEach(exWin => console.log(exWin.uuid)));
+    // addEventListener
+    externalWin.addListener('some-event', event => console.log(event.message));
+
+    // removeEventListener
+    externalWin.removeListener('some-event', () => {});
+
+    // getInfo
+    externalWin.getInfo().then(console.log);
 }
 
 function test_frame() {

@@ -9,4 +9,6 @@ import Video from 'react-native-video';
         console.log(data.canPlayFastForward, data.canPlayReverse, data.canPlaySlowForward, data.canPlaySlowReverse,
         data.canStepBackward, data.canStepForward, data.currentTime, data.duration, data.naturalSize.height, data.naturalSize.width, data.naturalSize.orientation);
     }}
+    onPlaybackRateChange={({playbackRate}) => console.log(playbackRate)}
+    posterResizeMode={"cover"}
 />;

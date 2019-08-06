@@ -155,6 +155,11 @@ board.on('ready', function(){
         }
     });
 
+    var motors = new five.Motors([
+       { controller: 'PCA9685', pins: { pwm: 4, dir: 6 }},
+       { controller: 'PCA9685', pins: { pwm: 5, dir: 7 }}
+    ]);
+
     var piezo = new five.Piezo(3);
 
     // Plays a song

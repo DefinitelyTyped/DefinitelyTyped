@@ -1,5 +1,4 @@
-import countries from 'country-list';
-const Countries = countries();
+import * as Countries from 'country-list';
 
 Countries.getCode('Barbados'); // BB
 
@@ -14,3 +13,5 @@ Countries.getName('BB'); // Barbados
 Countries.getNameList();
 
 Countries.getNames();
+
+Countries.overwrite([{ code: 'TW', name: 'Taiwan' }]);

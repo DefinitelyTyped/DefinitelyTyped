@@ -1,8 +1,9 @@
-// Type definitions for HERE Maps API for JavaScript 3.0
+// Type definitions for non-npm package HERE Maps API for JavaScript 3.0
 // Project: https://developer.here.com/
 // Definitions by: Joshua Efiong <https://github.com/Josh-ES>
 //                 Bernd Hacker <https://github.com/denyo>
 //                 Ferdinand Armbruster <https://github.com/fx88>
+//                 Vladimir Dashukevich <https://github.com/life777>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -309,6 +310,7 @@ declare namespace H {
          * @property margin {number=} - The size in pixel of the supplemental area to render for each side of the map
          * @property padding {H.map.ViewPort.Padding=} - The padding in pixels for each side of the map
          * @property fixedCenter {boolean=} - Indicates whether the center of the map should remain unchanged if the viewport's size or padding has been changed, default is true
+         * @property noWrap {boolean=} - Indicates whether to wrap the world on longitude axes. When set to true, only one world will be rendered. Default is false, multiple worlds are rendered.
          */
         interface Options {
             center?: H.geo.IPoint;
@@ -323,6 +325,7 @@ declare namespace H {
             margin?: number;
             padding?: H.map.ViewPort.Padding;
             fixedCenter?: boolean;
+            noWrap?: boolean;
         }
     }
 

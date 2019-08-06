@@ -1,4 +1,4 @@
-// Type definitions for React-Tags (react-tag-input) 5.0
+// Type definitions for React-Tags (react-tag-input) 6.1
 // Project: https://github.com/prakhar1989/react-tags
 // Definitions by: Ogglas <https://github.com/Ogglas>
 //                  Jan Karres <https://github.com/jankarres>
@@ -18,20 +18,37 @@ export interface ReactTagsProps {
     handleAddition: ((tag: {id: string, text: string}) => void);
     handleDelete: ((i: number) => void);
     handleDrag?: ((tag: { id: string; text: string; }, currPos: number, newPos: number) => void);
-    handleInputChange?: ((value: string) => void);
     handleFilterSuggestions?: ((textInputValue: string, possibleSuggestionsArray: Array<{ id: string, text: string }>) => Array<{ id: string, text: string }>);
-    handleInputBlur?: ((textInputValue: string) => void);
+    handleTagClick?: ((i: number) => void);
 
     autofocus?: boolean;
     allowDeleteFromEmptyInput?: boolean;
+    handleInputChange?: ((value: string) => void);
+    handleInputFocus?: ((value: string) => void);
+    handleInputBlur?: ((textInputValue: string) => void);
     minQueryLength?: number;
     removeComponent?: React.Component<any, any>;
     autocomplete?: boolean | 1;
     readOnly?: boolean;
-    maxLength?: number;
 
     name?: string;
     id?: string;
+    maxLength?: number;
+
+    inline?: boolean;
+    allowUnique?: boolean;
+    allowDragDrop?: boolean;
+
+    classNames?: {
+        tags?: string,
+        tagInput?: string,
+        tagInputField?: string,
+        selected?: string,
+        tag?: string,
+        remove?: string,
+        suggestions?: string,
+        activeSuggestion?: string
+    };
 }
 
 export class WithContext extends React.Component<ReactTagsProps> { }

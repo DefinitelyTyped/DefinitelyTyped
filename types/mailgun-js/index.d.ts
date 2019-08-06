@@ -1,10 +1,14 @@
-// Type definitions for mailgun-js 0.16
+// Type definitions for mailgun-js 0.22
 // Project: https://github.com/bojand/mailgun-js
 // Definitions by: Sampson Oliver <https://github.com/sampsonjoliver>
+//                 Andi Pätzold <https://github.com/andipaetzold>
+//                 Jiri Balcar <https://github.com/JiriBalcar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 /// <reference types="node" />
+
+import * as FormData from 'form-data';
 
 declare const Mailgun: Mailgun.MailgunExport;
 export = Mailgun;
@@ -27,6 +31,20 @@ declare namespace Mailgun {
                   interval: number;
               };
         proxy?: string;
+        testMode?: boolean;
+        testModeLogger?: (httpOptions: LoggerHttpOptions, payload: string, form: FormData) => void;
+    }
+
+    interface LoggerHttpOptions {
+        hostname: string;
+        port: number;
+        protocol: string;
+        path: string;
+        method: string;
+        headers: any;
+        auth: string;
+        agent: false;
+        timeout: number;
     }
 
     interface Error {
@@ -49,25 +67,50 @@ declare namespace Mailgun {
         getType(): string;
     }
 
+    type AttachmentData = string | Buffer | NodeJS.ReadWriteStream | Attachment;
+
     interface MailgunExport {
         new (options: ConstructorParams): Mailgun;
         (options: ConstructorParams): Mailgun;
+    }
+
+    interface MailgunRequest {
+        (resource: string, data: any, callback: (error: Error, response: any) => void): void;
+        (resource: string, data: any): Promise<any>;
     }
 
     namespace messages {
         interface SendData {
             from?: string;
             to: string | string[];
-            cc?: string;
-            bcc?: string;
+            cc?: string | string[];
+            bcc?: string | string[];
             subject?: string;
             text?: string;
             html?: string;
-            attachment?: string | Buffer | NodeJS.ReadWriteStream | Attachment;
+            'amp-html'?: string;
+            attachment?: AttachmentData | ReadonlyArray<AttachmentData>;
+            inline?: AttachmentData | ReadonlyArray<AttachmentData>;
+
+            // Mailgun options
+            'o:tag'?: string | string[];
+            'o:deliverytime'?: string;
+            'o:dkim'?: 'yes' | 'no' | boolean;
+            'o:tracking'?: 'yes' | 'no' | boolean;
+            'o:tracking-opens'?: 'yes' | 'no' | boolean;
+            'o:tracking-clicks'?: 'yes' | 'no' | 'htmlonly' | boolean;
+            'o:require-tls'?: 'yes' | 'no' | 'True' | 'False';
+            'o:skip-verification'?: 'yes' | 'no' | 'True' | 'False';
+
+            // Standard email headers
+            'h:Reply-To'?: string;
+            'h:In-Reply-To'?: string;
+            'h:References'?: string;
+            'h:Importance'?: string;
         }
 
         interface BatchData extends SendData {
-            "recipient-variables"?: BatchSendRecipientVars;
+            'recipient-variables'?: BatchSendRecipientVars;
         }
 
         interface BatchSendRecipientVars {
@@ -125,8 +168,29 @@ declare namespace Mailgun {
             unparseable: string[];
         }
 
+        type ValidationCallback = (error: Error, body: ValidateResponse) => void;
+
+        interface ValidationOptionsPublic {
+            api_key?: string;
+            mailbox_verification?: boolean | "true" | "false";
+        }
+
+        interface ValidationOptionsPrivate {
+            mailbox_verification?: boolean | "true" | "false";
+        }
+
         interface ValidateResponse {
+            address: string;
+            did_you_mean: string | null;
+            is_disposable_address: boolean;
+            is_role_address: boolean;
             is_valid: boolean;
+            mailbox_verification: "true" | "false" | "unknown" | null;
+            parts: {
+                display_name: string | null;
+                domain: string;
+                local_part: string;
+            };
         }
     }
 
@@ -140,15 +204,24 @@ declare namespace Mailgun {
             bodySignature: string
         ): boolean;
 
-        parse(
-            addressList: string[],
-            callback?: (error: Error, body: validation.ValidateResponse) => void
-        ): Promise<validation.ParseResponse>;
+        parse(addressList: string[], callback?: validation.ValidationCallback): Promise<validation.ParseResponse>;
 
-        validate(
-            address: string,
-            callback?: (error: Error, body: validation.ValidateResponse) => void
-        ): Promise<validation.ValidateResponse>;
+        validate(address: string, callback: validation.ValidationCallback): void;
+        validate(address: string, opts: validation.ValidationOptionsPublic, callback: validation.ValidationCallback): void;
+        // tslint:disable-next-line unified-signatures
+        validate(address: string, isPrivate: boolean, callback: validation.ValidationCallback): void;
+        validate(address: string, isPrivate: false, opts: validation.ValidationOptionsPublic, callback: validation.ValidationCallback): void;
+        validate(address: string, isPrivate: true, opts: validation.ValidationOptionsPrivate, callback: validation.ValidationCallback): void;
+
+        validate(address: string, opts?: validation.ValidationOptionsPublic): Promise<validation.ValidateResponse>;
+        validate(address: string, isPrivate: false, opts?: validation.ValidationOptionsPublic): Promise<validation.ValidateResponse>;
+        validate(address: string, isPrivate: true, opts?: validation.ValidationOptionsPrivate): Promise<validation.ValidateResponse>;
+
+        // Generic requests
+        get: MailgunRequest;
+        post: MailgunRequest;
+        put: MailgunRequest;
+        delete: MailgunRequest;
     }
 
     interface Lists {

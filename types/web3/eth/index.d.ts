@@ -88,11 +88,11 @@ export default interface Eth {
     getBalance(
         address: string,
         defaultBlock?: BlockType
-    ): Promise<BigNumber>;
+    ): Promise<string>;
     getBalance(
         address: string,
         defaultBlock: BlockType,
-        cb: Callback<BigNumber>
+        cb: Callback<string>
     ): void;
     getBlock(
         number: BlockType,
@@ -122,7 +122,7 @@ export default interface Eth {
             fromBlock?: BlockType;
             toBlock?: BlockType;
             address?: string;
-            topics?: Array<string | string[]>;
+            topics?: Array<string | string[] | null>;
         },
         cb?: Callback<Log[]>
     ): Promise<Log[]>;

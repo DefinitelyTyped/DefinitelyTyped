@@ -3,12 +3,14 @@
 // Definitions by: Pasi Eronen <https://github.com/pasieronen>
 //                 Wang Zishi <https://github.com/WangZishi>
 //                 Eduardo AC <https://github.com/EduardoAC>
+//                 Ivan Fernandes <https://github.com/ivan94>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 import { Request } from 'express';
 import { Strategy } from 'passport';
 import { OAuth2 } from 'oauth';
+import { OutgoingHttpHeaders } from 'http';
 
 declare class OAuth2Strategy extends Strategy {
     name: string;
@@ -32,6 +34,23 @@ declare class OAuth2Strategy extends Strategy {
 }
 
 declare namespace OAuth2Strategy {
+    interface Metadata {
+        authorizationURL: string;
+        tokenURL: string;
+        clientID: string;
+    }
+
+    type StateStoreStoreCallback = (err: Error | null, state: any) => void;
+    type StateStoreVerifyCallback = (err: Error, ok: boolean, state: any) => void;
+
+    interface StateStore {
+        store(req: Request, callback: StateStoreStoreCallback): void;
+        store(req: Request, meta: Metadata, callback: StateStoreStoreCallback): void;
+
+        verify(req: Request, state: string, callback: StateStoreVerifyCallback): void;
+        verify(req: Request, state: string, meta: Metadata, callback: StateStoreVerifyCallback): void;
+    }
+
     type VerifyCallback = (err?: Error | null, user?: object, info?: object) => void;
 
     type VerifyFunction =
@@ -47,6 +66,12 @@ declare namespace OAuth2Strategy {
         clientID: string;
         clientSecret: string;
         callbackURL?: string;
+        customHeaders?: OutgoingHttpHeaders;
+        scope?: string | string[];
+        scopeSeparator?: string;
+        sessionKey?: string;
+        store?: StateStore;
+        state?: any;
     }
     interface StrategyOptions extends _StrategyOptionsBase {
         passReqToCallback?: false;

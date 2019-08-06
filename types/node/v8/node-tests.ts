@@ -1,3 +1,11 @@
+// NOTE: Disabled to preserve existing tests file:
+// tslint:disable:no-namespace
+// tslint:disable:no-duplicate-variable
+// tslint:disable:no-duplicate-imports
+// tslint:disable:no-var-keyword
+// tslint:disable:no-inferrable-types
+// tslint:disable:prefer-const
+// tslint:disable:max-line-length
 import assert = require("assert");
 import * as fs from "fs";
 import * as events from "events";
@@ -33,7 +41,7 @@ import * as perf_hooks from "perf_hooks";
 import Module = require("module");
 
 // Specifically test buffer module regression.
-import { Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer } from "buffer";
+import { Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer, transcode, TranscodeEncoding } from "buffer";
 
 //////////////////////////////////////////////////////////
 /// Global Tests : https://nodejs.org/api/global.html  ///
@@ -568,6 +576,15 @@ function bufferTests() {
         let buffer = new Buffer('123');
         let octets = new Uint8Array(buffer.buffer);
     }
+
+    // Buffer module, transcode function
+    {
+        transcode(Buffer.from('€'), 'utf8', 'ascii'); // $ExpectType Buffer
+
+        const source: TranscodeEncoding = 'utf8';
+        const target: TranscodeEncoding = 'ascii';
+        transcode(Buffer.from('€'), source, target); // $ExpectType Buffer
+    }
 }
 
 ////////////////////////////////////////////////////
@@ -791,14 +808,14 @@ namespace util_tests {
             }
 
             static test(): void {
-                var cfn = util.callbackify(this.fn);
-                var cfnE = util.callbackify(this.fnE);
-                var cfnT1 = util.callbackify(this.fnT1);
-                var cfnT1E = util.callbackify(this.fnT1E);
-                var cfnTResult = util.callbackify(this.fnTResult);
-                var cfnTResultE = util.callbackify(this.fnTResultE);
-                var cfnT1TResult = util.callbackify(this.fnT1TResult);
-                var cfnT1TResultE = util.callbackify(this.fnT1TResultE);
+                var cfn = util.callbackify(callbackifyTest.fn);
+                var cfnE = util.callbackify(callbackifyTest.fnE);
+                var cfnT1 = util.callbackify(callbackifyTest.fnT1);
+                var cfnT1E = util.callbackify(callbackifyTest.fnT1E);
+                var cfnTResult = util.callbackify(callbackifyTest.fnTResult);
+                var cfnTResultE = util.callbackify(callbackifyTest.fnTResultE);
+                var cfnT1TResult = util.callbackify(callbackifyTest.fnT1TResult);
+                var cfnT1TResultE = util.callbackify(callbackifyTest.fnT1TResultE);
 
                 cfn((err: NodeJS.ErrnoException, ...args: string[]) => assert(err === null && args.length === 1 && args[0] === undefined));
                 cfnE((err: NodeJS.ErrnoException, ...args: string[]) => assert(err.message === 'fail' && args.length === 0));
@@ -1290,10 +1307,11 @@ namespace tls_tests {
         // close callback parameter is optional
         _server = _server.close();
 
-        // close callback parameter doesn't specify any arguments, so any
-        // function is acceptable
+        // close callback parameter can be either nothing (undefined) or an error
         _server = _server.close(() => { });
-        _server = _server.close((...args: any[]) => { });
+        _server = _server.close((err) => {
+            if (typeof err !== 'undefined') { const _err: Error = err; }
+        });
     }
 
     {
@@ -2700,6 +2718,57 @@ namespace console_tests {
         var writeStream = fs.createWriteStream('./index.d.ts');
         var consoleInstance = new console.Console(writeStream);
     }
+    {
+        console.assert('value');
+        console.assert('value', 'message');
+        console.assert('value', 'message', 'foo', 'bar');
+        console.clear();
+        console.count();
+        console.count('label');
+        console.countReset();
+        console.countReset('label');
+        console.debug();
+        console.debug('message');
+        console.debug('message', 'foo', 'bar');
+        console.dir('obj');
+        console.dir('obj', { depth: 1 });
+        console.error();
+        console.error('message');
+        console.error('message', 'foo', 'bar');
+        console.group();
+        console.group('label');
+        console.group('label1', 'label2');
+        console.groupCollapsed();
+        console.groupEnd();
+        console.info();
+        console.info('message');
+        console.info('message', 'foo', 'bar');
+        console.log();
+        console.log('message');
+        console.log('message', 'foo', 'bar');
+        console.time('label');
+        console.timeEnd('label');
+        console.trace();
+        console.trace('message');
+        console.trace('message', 'foo', 'bar');
+        console.warn();
+        console.warn('message');
+        console.warn('message', 'foo', 'bar');
+
+        // --- Inspector mode only ---
+        console.markTimeline();
+        console.markTimeline('label');
+        console.profile();
+        console.profile('label');
+        console.profileEnd();
+        console.profileEnd('label');
+        console.timeStamp();
+        console.timeStamp('label');
+        console.timeline();
+        console.timeline('label');
+        console.timelineEnd();
+        console.timelineEnd('label');
+    }
 }
 
 ///////////////////////////////////////////////////
@@ -2728,9 +2797,11 @@ namespace net_tests {
             .ref()
             .unref();
 
-        // close has an optional callback function. No callback parameters are
-        // specified, so any callback function is permissible.
-        server = server.close((...args: any[]) => { });
+        // close callback parameter can be either nothing (undefined) or an error
+        server = server.close(() => { });
+        server = server.close((err) => {
+            if (typeof err !== 'undefined') { const _err: Error = err; }
+        });
 
         // test the types of the address object fields
         let address = server.address();
@@ -3623,8 +3694,7 @@ namespace http2_tests {
             paddingStrategy: 0,
             peerMaxConcurrentStreams: 0,
             selectPadding: (frameLen: number, maxFrameLen: number) => 0,
-            settings,
-            allowHTTP1: true
+            settings
         };
         // tslint:disable-next-line prefer-object-spread (ts2.1 feature)
         let secureServerOptions: http2.SecureServerOptions = Object.assign({}, serverOptions);
@@ -3971,7 +4041,7 @@ namespace inspector_tests {
         inspector.open(0, 'localhost');
         inspector.open(0, 'localhost', true);
         inspector.close();
-        const inspectorUrl: string = inspector.url();
+        const inspectorUrl: string | undefined = inspector.url();
 
         const session = new inspector.Session();
         session.connect();

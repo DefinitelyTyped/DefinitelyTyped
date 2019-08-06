@@ -1,10 +1,11 @@
 // Type definitions for pino 5.8
-// Project: https://github.com/pinojs/pino.git
+// Project: https://github.com/pinojs/pino.git, http://getpino.io
 // Definitions by: Peter Snider <https://github.com/psnider>
 //                 BendingBender <https://github.com/BendingBender>
 //                 Christian Rackerseder <https://github.com/screendriver>
 //                 GP <https://github.com/paambaati>
 //                 Alex Ferrando <https://github.com/alferpal>
+//                 Oleksandr Sidko <https://github.com/mortiy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -22,7 +23,7 @@ export = P;
  * relative protocol is enabled. Default: process.stdout
  * @returns a new logger instance.
  */
-declare function P(optionsOrStream?: P.LoggerOptions | stream.Writable | stream.Duplex | stream.Transform | NodeJS.WritableStream | SonicBoom): P.Logger;
+declare function P(optionsOrStream?: P.LoggerOptions | P.DestinationStream): P.Logger;
 
 /**
  * @param [options]: an options object
@@ -30,7 +31,7 @@ declare function P(optionsOrStream?: P.LoggerOptions | stream.Writable | stream.
  * relative protocol is enabled. Default: process.stdout
  * @returns a new logger instance.
  */
-declare function P(options: P.LoggerOptions, stream: stream.Writable | stream.Duplex | stream.Transform | NodeJS.WritableStream | SonicBoom): P.Logger;
+declare function P(options: P.LoggerOptions, stream: P.DestinationStream): P.Logger;
 
 declare namespace P {
     /**
@@ -126,6 +127,7 @@ declare namespace P {
         labels: { [level: number]: string; };
     }
     type TimeFn = () => string;
+    type DestinationStream = stream.Writable | stream.Duplex | stream.Transform | NodeJS.WritableStream | SonicBoom;
 
     interface LoggerOptions {
         /**
@@ -173,6 +175,20 @@ declare namespace P {
          * Warning: this option may not be supported by downstream transports.
          */
         useOnlyCustomLevels?: boolean;
+
+        /**
+         * As an array, the redact option specifies paths that should have their values redacted from any log output.
+         *
+         * Each path must be a string using a syntax which corresponds to JavaScript dot and bracket notation.
+         *
+         * If an object is supplied, three options can be specified:
+         *
+         *      paths (String[]): Required. An array of paths
+         *      censor (String): Optional. A value to overwrite key which are to be redacted. Default: '[Redacted]'
+         *      remove (Boolean): Optional. Instead of censoring the value, remove both the key and the value. Default: false
+         */
+        redact?: string[] | redactOptions;
+
         /**
          * When defining a custom log level via level, set to an integer value to define the new level. Default: `undefined`.
          */
@@ -229,13 +245,12 @@ declare namespace P {
 
     interface PrettyOptions {
         /**
-         * If set to true, it will only covert the unix timestamp to ISO 8601 date format, and reserialize the JSON (equivalent to pino -t).
+         * Translate the epoch time value into a human readable date and time string.
+         * This flag also can set the format string to apply when translating the date to human readable format.
+         * The default format is yyyy-mm-dd HH:MM:ss.l o in UTC.
+         * For a list of available pattern letters see the {@link https://www.npmjs.com/package/dateformat|dateformat documentation}.
          */
-        timeTransOnly?: boolean;
-        /**
-         * A custom function to format the line, is passed the JSON object as an argument and should return a string value.
-         */
-        formatter?(log: LogDescriptor): string;
+        translateTime?: boolean | string;
         /**
          * If set to true, it will print the name of the log level as the first field in the log line. Default: `false`.
          */
@@ -245,9 +260,34 @@ declare namespace P {
          */
         messageKey?: string;
         /**
+         * The key in the JSON object to use for timestamp display. Default: "time".
+         */
+        timestampKey?: string;
+        /**
          * If set to true, will add color information to the formatted output message. Default: `false`.
          */
-        forceColor?: boolean;
+        colorize?: boolean;
+        /**
+         * Appends carriage return and line feed, instead of just a line feed, to the formatted log line.
+         */
+        crlf?: boolean;
+        /**
+         * Define the log keys that are associated with error like objects. Default: ["err", "error"]
+         */
+        errorLikeObjectKeys?: string[];
+        /**
+         *  When formatting an error object, display this list of properties.
+         *  The list should be a comma separated list of properties. Default: ''
+         */
+        errorProps?: string;
+        /**
+         * Specify a search pattern according to {@link http://jmespath.org|jmespath}
+         */
+        search?: string;
+        /**
+         * Ignore one or several keys. Example: "time,hostname"
+         */
+        ignore?: string;
     }
 
     type Level = 'fatal' | 'error' | 'warn' | 'info' | 'debug' | 'trace';
@@ -412,6 +452,11 @@ declare namespace P {
          * Flushes the content of the buffer in extreme mode. It has no effect if extreme mode is not enabled.
          */
         flush(): void;
+
+        /**
+         * A utility method for determining if a given log level will write to the destination.
+         */
+        isLevelEnabled(level: LevelWithSilent | string): boolean;
     }
 
     type LevelChangeEventListener = (lvl: LevelWithSilent | string, val: number, prevLvl: LevelWithSilent | string, prevVal: number) => void;
@@ -419,5 +464,11 @@ declare namespace P {
     interface LogFn {
         (msg: string, ...args: any[]): void;
         (obj: object, msg?: string, ...args: any[]): void;
+    }
+
+    interface redactOptions {
+        paths: string[];
+        censor?: string;
+        remove?: boolean;
     }
 }

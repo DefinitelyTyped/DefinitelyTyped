@@ -1,4 +1,4 @@
-// Type definitions for Natural 0.2.2
+// Type definitions for Natural 0.6
 // Project: https://github.com/NaturalNode/natural
 // Definitions by: Dylan R. E. Moonfire <https://github.com/dmoonfire>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -67,6 +67,7 @@ declare var LancasterStemmer: {
     stem(token: string): string;
 }
 
+interface BayesClassifierClassification { label: string, value: number }
 interface BayesClassifierCallback { (err: any, classifier: any): void }
 declare class BayesClassifier {
     events: events.EventEmitter;
@@ -74,12 +75,13 @@ declare class BayesClassifier {
     addDocument(text: string[], stem: string): void;
     train(): void;
     classify(observation: string): string;
-    getClassifications(observation: string): string[];
+    getClassifications(observation: string): BayesClassifierClassification[];
     save(filename: string, callback: BayesClassifierCallback): void;
     static load(filename: string, stemmer: Stemmer, callback: BayesClassifierCallback): void;
     static restore(classifier: any, stemmer?: Stemmer): BayesClassifier;
 }
 
+interface LogisticRegressionClassifierClassification { label: string, value: number }
 interface LogisticRegressionClassifierCallback { (err: any, classifier: any): void }
 declare class LogisticRegressionClassifier {
     events: events.EventEmitter;
@@ -87,7 +89,7 @@ declare class LogisticRegressionClassifier {
     addDocument(text: string[], stem: string): void;
     train(): void;
     classify(observation: string): string;
-    getClassifications(observation: string): string[];
+    getClassifications(observation: string): LogisticRegressionClassifierClassification[];
     save(filename: string, callback: LogisticRegressionClassifierCallback): void;
     static load(filename: string, stemmer: Stemmer, callback: LogisticRegressionClassifierCallback): void;
     static restore(classifier: any, stemmer?: Stemmer): LogisticRegressionClassifier;

@@ -24,6 +24,8 @@ if ($fromElement("ul > li").length !== 3) {
   throw new Error("Expecting 3 elements when passing `CheerioElement` to `load()`");
 }
 
+$ = cheerio.load(Buffer.from(html));
+
 $ = cheerio.load(html, {
     normalizeWhitespace: true,
     xmlMode: true

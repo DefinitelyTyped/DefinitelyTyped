@@ -1,8 +1,9 @@
 // Type definitions for braft-editor 1.9
 // Project: https://github.com/margox/braft#readme
-// Definitions by: My Self <https://github.com/me>
+// Definitions by: Jonny Yao <https://github.com/petitspois>
+//                 Munif Tanjim <https://github.com/MunifTanjim>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 2.9
 
 import * as React from "react";
 import { RawDraftContentState } from 'draft-js';

@@ -1,4 +1,4 @@
-// Type definitions for meteor-astronomy 2.6
+// Type definitions for non-npm package meteor-astronomy 2.6
 // Project: https://github.com/jagi/meteor-astronomy/
 // Definitions by: Igor Golovin <https://github.com/Deadly0>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -7,6 +7,7 @@
 /// <reference types="meteor" />
 
 declare namespace MeteorAstronomy {
+    type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
     type NonFunctionPropertyNames<T> = { [K in keyof T]: T[K] extends Function ? never : K }[keyof T]; // tslint:disable-line:ban-types
     type NonFunctionProperties<T> = Pick<T, NonFunctionPropertyNames<T>>;
     type FunctionPropertyNames<T> = { [K in keyof T]: T[K] extends Function ? K : never }[keyof T]; // tslint:disable-line:ban-types
@@ -14,7 +15,6 @@ declare namespace MeteorAstronomy {
 
     type TypeOptionsPrimitives = typeof String | typeof Date | typeof Boolean | typeof Object | typeof Number;
     type TypeOptions = TypeOptionsPrimitives | TypeOptionsPrimitives[] | Class<any> | Enum<any>;
-    type MongoQuery = object | string;
 
     interface SaveAndValidateOptions<K> {
         fields?: K[];
@@ -55,7 +55,7 @@ declare namespace MeteorAstronomy {
     interface ClassModel<T> {
         name: string;
         collection?: Mongo.Collection<T>;
-        fields: Fields<T>;
+        fields: Fields<Omit<T, '_id'>>;
         behaviors?: object;
         secured?: {
             insert: boolean,
@@ -77,28 +77,56 @@ declare namespace MeteorAstronomy {
         set(fields: Partial<T>, options?: {cast?: boolean; clone?: boolean; merge?: boolean}): void;
         set(field: string, value: any): void;
         get(field: string): any;
-        get(fields: string[]): any[];
+        get(fields: string[]): Partial<T>;
         isModified(field?: string): boolean;
         getModified(): any;
         getModifiedValues(options?: {old?: boolean, raw?: boolean}): Partial<T>;
         getModifier(): any;
         raw(): T;
         raw(field: string): any;
-        raw(fields: string[]): any[];
-        save(options?: SaveAndValidateOptions<keyof T>, callback?: SaveAndValidateCallback): void;
-        save(callback?: SaveAndValidateCallback): void;
-        copy(save: boolean): any;
-        validate(options?: SaveAndValidateOptions<keyof T>, callback?: SaveAndValidateCallback): void;
-        validate(callback?: SaveAndValidateCallback): void;
+        raw(fields: string[]): Partial<T>;
+        save(options: SaveAndValidateOptions<keyof T>, callback: SaveAndValidateCallback): void;
+        save(optionsOrCallback?: SaveAndValidateOptions<keyof T> | SaveAndValidateCallback): void;
+        copy(save?: boolean): Model<T>;
+        validate(options: SaveAndValidateOptions<keyof T>, callback: SaveAndValidateCallback): void;
+        validate(optionsOrCallback?: SaveAndValidateOptions<keyof T> | SaveAndValidateCallback): void;
         remove(callback?: RemoveCallback): void;
     };
+
+    interface FindOneOptions {
+        sort?: Mongo.SortSpecifier;
+        skip?: number;
+        fields?: Mongo.FieldSpecifier;
+        reactive?: boolean;
+        transform?: (...args: any[]) => any;
+        disableEvents?: boolean;
+        children?: number;
+        defaults?: boolean;
+    }
+
+    interface FindOptions extends FindOneOptions {
+        limit?: number;
+    }
+
+    interface UpsertOptions {
+        multi?: boolean;
+    }
+
+    interface UpdateOptions extends UpsertOptions {
+        upsert?: boolean;
+    }
+
+    type MongoQuery<T> = Mongo.Selector<T> | Mongo.ObjectID | string;
 
     interface Class<T> {
         new(data?: Partial<T>): Model<T>;
 
-        findOne(query?: MongoQuery): Model<T>;
-        find(query?: MongoQuery): Array<Model<T>>;
-        update(search: object | string, query: object, callback?: () => void): void;
+        findOne(selector?: MongoQuery<T>, options?: FindOneOptions): Model<T>;
+        find(selector?: MongoQuery<T>, options?: FindOptions): Mongo.Cursor<Model<T>>;
+        insert(doc: T, callback?: () => void): string;
+        update(selector: MongoQuery<T>, modifier: Mongo.Modifier<T>, options?: UpdateOptions, callback?: () => void): number;
+        upsert(selector: MongoQuery<T>, modifier: Mongo.Modifier<T>, options?: UpsertOptions, callback?: () => void): number;
+        remove(selector: MongoQuery<T>, callback?: () => void): number;
     }
 
     type Enum<T> = T & {

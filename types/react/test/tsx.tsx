@@ -1,4 +1,5 @@
-import * as React from "react";
+import PropTypes = require("prop-types");
+import React = require("react");
 
 interface SCProps {
     foo?: number;
@@ -51,6 +52,13 @@ FunctionComponent2.defaultProps = {
 >
     <b>bar</b>
 </div>;
+
+// button type attribute
+<button type="submit">foo</button>;
+<button type="reset">foo</button>;
+<button type="button">foo</button>;
+<button type="botton">foo</button>; // $ExpectError
+<button type={"botton" as string}>foo</button>; // $ExpectError
 
 interface Props {
     hello: string;
@@ -221,9 +229,7 @@ const Memoized5 = React.memo<{ test: boolean }>(
 
 <Memoized5 test/>;
 
-// for some reason the ExpectType doesn't work if the type is namespaced
-// $ExpectType NamedExoticComponent<{}>
-const Memoized6 = React.memo(props => null);
+const Memoized6: React.NamedExoticComponent<object> = React.memo(props => null);
 <Memoized6/>;
 // $ExpectError
 <Memoized6 foo/>;
@@ -254,3 +260,153 @@ const LazyRefForwarding = React.lazy(async () => ({ default: Memoized4 }));
 <React.Suspense fallback={null}/>;
 // $ExpectError
 <React.Suspense/>;
+
+class LegacyContext extends React.Component {
+    static contextTypes = { foo: PropTypes.node.isRequired };
+
+    render() {
+        // $ExpectType any
+        this.context.foo;
+        return this.context.foo;
+    }
+}
+
+class LegacyContextAnnotated extends React.Component {
+    static contextTypes = { foo: PropTypes.node.isRequired };
+    context!: { foo: React.ReactNode };
+
+    render() {
+        // $ExpectType ReactNode
+        this.context.foo;
+        return this.context.foo;
+    }
+}
+
+class NewContext extends React.Component {
+    static contextType = ContextWithRenderProps;
+    context!: React.ContextType<typeof ContextWithRenderProps>;
+
+    render() {
+        // $ExpectType string
+        this.context;
+        return this.context;
+    }
+}
+
+const ForwardRef = React.forwardRef((props: JSX.IntrinsicElements['div'], ref?: React.Ref<HTMLDivElement>) => <div {...props} ref={ref}/>);
+const ForwardRef2 = React.forwardRef((props: React.ComponentProps<typeof ForwardRef>, ref?: React.Ref<HTMLDivElement>) => <ForwardRef {...props} ref={ref}/>);
+const divFnRef = (ref: HTMLDivElement|null) => { /* empty */ };
+const divRef = React.createRef<HTMLDivElement>();
+
+<ForwardRef ref={divFnRef}/>;
+<ForwardRef ref={divRef}/>;
+<ForwardRef ref='string'/>; // $ExpectError
+<ForwardRef2 ref={divFnRef}/>;
+<ForwardRef2 ref={divRef}/>;
+<ForwardRef2 ref='string'/>; // $ExpectError
+
+const newContextRef = React.createRef<NewContext>();
+<NewContext ref={newContextRef}/>;
+<NewContext ref='string'/>;
+
+const ForwardNewContext = React.forwardRef((_props: {}, ref?: React.Ref<NewContext>) => <NewContext ref={ref}/>);
+<ForwardNewContext ref={newContextRef}/>;
+<ForwardNewContext ref='string'/>; // $ExpectError
+
+const ForwardRef3 = React.forwardRef(
+    (props: JSX.IntrinsicElements['div'] & Pick<JSX.IntrinsicElements['div'] & { theme?: {} }, 'ref'|'theme'>, ref?: React.Ref<HTMLDivElement>) =>
+        <div {...props} ref={ref}/>
+);
+
+<ForwardRef3 ref={divFnRef}/>;
+<ForwardRef3 ref={divRef}/>;
+
+const Profiler = React.unstable_Profiler;
+
+// 'id' is missing
+<Profiler />; // $ExpectError
+// 'onRender' is missing
+<Profiler id="test" />; // $ExpectError
+// 'number' is not assignable to 'string'
+<Profiler id={2} />; // $ExpectError
+
+<Profiler
+  id="test"
+  onRender={(
+    id,
+    phase,
+    actualDuration,
+    baseDuration,
+    startTime,
+    commitTime,
+    interactions
+  ) => {
+    const message = `${id} ${phase} took ${actualDuration.toFixed(2)}s actual, ${baseDuration.toFixed(2)}s base`;
+
+    const commitMessage = `commit started ${startTime.toFixed(2)} within ${commitTime}`;
+
+    const interactionsSummary = Array.from(interactions)
+      .map(interaction => {
+        return `${interaction.id}: '${interaction.name}' started at ${interaction.timestamp.toFixed(2)}`;
+      })
+      .join("\n");
+    const interactionMessage = `there were ${interactions.size} interactions:\n${interactionsSummary}`;
+  }}
+>
+  <div />
+</Profiler>;
+
+type ImgProps = React.ComponentProps<'img'>;
+// $ExpectType "async" | "auto" | "sync" | undefined
+type ImgPropsDecoding = ImgProps['decoding'];
+type ImgPropsWithRef = React.ComponentPropsWithRef<'img'>;
+// $ExpectType ((instance: HTMLImageElement | null) => void) | RefObject<HTMLImageElement> | null | undefined
+type ImgPropsWithRefRef = ImgPropsWithRef['ref'];
+type ImgPropsWithoutRef = React.ComponentPropsWithoutRef<'img'>;
+// $ExpectType false
+type ImgPropsHasRef = 'ref' extends keyof ImgPropsWithoutRef ? true : false;
+
+const HasClassName: React.ReactType<{ className?: string }> = 'a';
+const HasFoo: React.ReactType<{ foo: boolean }> = 'a'; // $ExpectError
+const HasFoo2: React.ReactType<{ foo: boolean }> = (props: { foo: boolean }) => null;
+const HasFoo3: React.ReactType<{ foo: boolean }> = (props: { foo: string }) => null; // $ExpectError
+const HasHref: React.ReactType<{ href?: string }> = 'a';
+const HasHref2: React.ReactType<{ href?: string }> = 'div'; // $ExpectError
+
+const CustomElement: React.ReactType = 'my-undeclared-element'; // $ExpectError
+
+// custom elements now need to be declared as intrinsic elements
+declare global {
+    namespace JSX {
+        interface IntrinsicElements {
+            'my-declared-element': {};
+        }
+    }
+}
+
+const CustomElement2: React.ReactType = 'my-declared-element';
+
+interface TestPropTypesProps {
+    foo: string;
+}
+interface TestPropTypesProps1 {
+    foo?: string;
+}
+interface TestPropTypesProps2 {
+    foo: string | null;
+}
+interface TestPropTypesProps3 {
+    foo?: string | null;
+}
+const testPropTypes = {
+    foo: PropTypes.string
+};
+type DeclaredPropTypes<P> = Required<Exclude<React.FunctionComponent<P>['propTypes'], undefined>>;
+// $ExpectType false
+type propTypesTest = typeof testPropTypes extends DeclaredPropTypes<TestPropTypesProps> ? true : false;
+// $ExpectType true
+type propTypesTest1 = typeof testPropTypes extends DeclaredPropTypes<TestPropTypesProps1> ? true : false;
+// $ExpectType true
+type propTypesTest2 = typeof testPropTypes extends DeclaredPropTypes<TestPropTypesProps2> ? true : false;
+// $ExpectType true
+type propTypesTest3 = typeof testPropTypes extends DeclaredPropTypes<TestPropTypesProps3> ? true : false;

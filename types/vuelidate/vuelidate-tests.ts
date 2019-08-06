@@ -1,5 +1,5 @@
 import { Validation } from 'vuelidate'
-import { required, minLength, sameAs, helpers } from 'vuelidate/lib/validators'
+import { required, integer, decimal,  minLength, sameAs, helpers } from 'vuelidate/lib/validators'
 
 import Vue, { ComponentOptions } from 'vue'
 
@@ -45,7 +45,8 @@ const mustHaveLength = (minLen: number) => helpers.withParams(
         },
         repeatPassword: {
             sameAsPassword: sameAs('password'),
-            mustBeSame: mustBeSame('password')
+            mustBeSame: mustBeSame('password'),
+            sameAsPassword2: sameAs(vm => vm.password)
         },
         form: {
             nestedA: {
@@ -53,14 +54,25 @@ const mustHaveLength = (minLen: number) => helpers.withParams(
             },
             nestedB: {
                 required
+            },
+            nestedOfLength: {
+                mustHaveLength: mustHaveLength(6)
             }
+        },
+        age: {
+            required,
+            integer
+        },
+        coolFactor: {
+            required,
+            decimal
         },
         flatA: { required },
         flatB: { required },
         forGroup: {
             nested: { required }
         },
-        validationGroup: ['flatA', 'flatB', 'forGroup.nested'],
+        validationGroup: ['age', 'coolFactor', 'flatA', 'flatB', 'forGroup.nested'],
         people: {
             required,
             minLength: minLength(3),
@@ -89,7 +101,7 @@ const mustHaveLength = (minLen: number) => helpers.withParams(
             required,
             mustBeCool,
             mustBeCool2,
-            containsA: contains("a"),
+            containsA: contains('a'),
             mustBeCool3
         }
     }
@@ -100,8 +112,12 @@ export class ValidComponent extends Vue {
 
     form = {
         nestedA: 'A',
-        nestedB: 'B'
+        nestedB: 'B',
+        nestedOfLength: ''
     }
+
+    age = 50
+    coolFactor = 0.25
 
     flatA = ''
     flatB = ''
@@ -116,19 +132,25 @@ export class ValidComponent extends Vue {
     myField = ''
 
     touchMap = new WeakMap()
-    delayTouch($v: Validation) {
-        $v.$reset()
-        if (this.touchMap.has($v)) {
-            clearTimeout(this.touchMap.get($v))
+    delayTouch(v: Validation) {
+        v.$reset()
+        if (this.touchMap.has(v)) {
+            clearTimeout(this.touchMap.get(v))
         }
-        this.touchMap.set($v, setTimeout($v.$touch, 1000))
+        this.touchMap.set(v, setTimeout(v.$touch, 1000))
     }
 
     accessValidatorParams() {
-        console.log(this.$v.$params.username)
-        if (this.$v.username) {
-            console.log(this.$v.username.$params)
+        console.log(this.$v.$params.form)
+
+        if (this.$v.form) {
+            console.log(this.$v.form.$params)
+            console.log(this.$v.form.$params.nestedA)
+            console.log(this.$v.form.nestedA)
+            console.log(this.$v.form.$params.nestedOfLength)
+            console.log(this.$v.form.nestedOfLength)
         }
+        console.log(this.$v.validationGroup.$params)
     }
 
     accessGroups() {
@@ -140,25 +162,22 @@ export class ValidComponent extends Vue {
     }
 
     hasDescription = false
-    validations() {
-        if (!this.hasDescription) {
-            return {
-                name: {
-                    required
-                }
-            }
-        } else {
-            return {
-                name: {
-                    required
-                },
-                description: {
-                    required
-                }
-            }
-        }
-    }
+
     get isRepoValid() {
         return !this.$v.$invalid
     }
+}
+
+@Component({
+    validations() {
+        const self = this as Valid2Component // assert
+        return self.myToggle
+            ? { myField1: required, myField2: contains('maybe') }
+            : { myField1: contains('maybe'), myField2: required }
+    }
+})
+export class Valid2Component extends Vue {
+    myToggle = false
+    myField1 = ''
+    myField2 = ''
 }

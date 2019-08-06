@@ -1,4 +1,5 @@
 import browserslist from "browserslist";
+import BrowserslistError from "browserslist/error";
 
 browserslist(); // $ExpectType string[]
 browserslist(""); // $ExpectType string[]
@@ -20,3 +21,5 @@ for (const opt of opts) {
 
 browserslist.coverage([""]); // $ExpectType number
 browserslist.coverage([""], { "": { "": 0 } }); // $ExpectType number
+
+new BrowserslistError('error'); // $ExpectType BrowserslistError

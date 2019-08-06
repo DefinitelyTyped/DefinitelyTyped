@@ -244,6 +244,8 @@ consumerGroup.on('error', (err) => {
 });
 consumerGroup.on('message', (msg) => {
 });
+consumerGroup.on('connect', () => {
+});
 consumerGroup.close(true, () => {
 });
 

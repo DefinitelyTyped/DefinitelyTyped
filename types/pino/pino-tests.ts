@@ -91,6 +91,7 @@ logstderr.error('on stderr instead of stdout');
 log.useLevelLabels = true;
 log.info('lol');
 log.level === 'info';
+const isEnabled: boolean = log.isLevelEnabled('info');
 
 const extremeDest = pino.extreme();
 const logExtreme = pino(extremeDest);
@@ -102,3 +103,38 @@ const handler = pino.final(logExtreme, (err: Error, finalLogger: pino.BaseLogger
 });
 
 handler(new Error('error'));
+
+const redacted = pino({
+    redact: ['path']
+});
+
+redacted.info({
+    msg: 'logged with redacted properties',
+    path: 'Not shown'
+});
+
+const anotherRedacted = pino({
+    redact: {
+        paths: ['anotherPath'],
+        censor: 'Not the log you\re looking for'
+    }
+});
+
+anotherRedacted.info({
+    msg: 'another logged with redacted properties',
+    anotherPath: 'Not shown'
+});
+
+const pretty = pino({
+	prettyPrint: {
+		colorize: true,
+		crlf: false,
+		errorLikeObjectKeys: ['err', 'error'],
+		errorProps: '',
+		levelFirst: false,
+		messageKey: 'msg',
+		timestampKey: "timestamp",
+		translateTime: 'UTC:h:MM:ss TT Z',
+		search: 'foo == `bar`'
+	}
+});

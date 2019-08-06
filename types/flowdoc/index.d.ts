@@ -1,4 +1,4 @@
-// Type definitions for flowdoc 1.0
+// Type definitions for non-npm package flowdoc 1.1
 // Project: https://github.com/overflowapp/Flow
 // Definitions by: Stefan Mansson <https://github.com/animify>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -14,42 +14,42 @@ declare namespace Flow {
     interface Document {
         id: string;
         name: string;
-        type: Type.Document;
+        type: Types['DOCUMENT'];
         children: Page[];
     }
 
     interface Page extends Node {
-        type: Type.Page;
-        children: Array<(Screen | Image | Rectangle | Ellipse | Diamond)>;
+        type: Types['PAGE'];
+        children: Array<Screen | Image | Rectangle | Ellipse | Diamond>;
         backgroundColor: Color;
         startNodeID?: string;
     }
 
     interface Screen extends Graphic {
-        type: Type.Screen;
+        type: Types['SCREEN'];
         children: Layer[];
         connections?: Connection[];
     }
 
     interface Image extends Graphic {
-        type: Type.Image;
+        type: Types['IMAGE'];
         connections?: Connection[];
     }
 
     interface Rectangle extends Shape {
-        type: Type.Rectangle;
+        type: Types['RECTANGLE'];
     }
 
     interface Ellipse extends Shape {
-        type: Type.Ellipse;
+        type: Types['ELLIPSE'];
     }
 
     interface Diamond extends Shape {
-        type: Type.Diamond;
+        type: Types['DIAMOND'];
     }
 
     interface Layer extends Node {
-        type: Type.Layer | Type.Hotspot;
+        type: Types['LAYER'] | Types['HOTSPOT'];
         position: Point;
         size: Size;
         connections?: Connection[];
@@ -87,25 +87,27 @@ declare namespace Flow {
         w: number;
     }
 
-    const enum Type {
-        Document = 'DOCUMENT',
-        Page = 'PAGE',
-        Screen = 'SCREEN',
-        Image = 'IMAGE',
-        Rectangle = 'RECT',
-        Ellipse = 'ELLIPSE',
-        Diamond = 'DIAMOND',
-        Hotspot = 'HOTSPOT',
-        Layer = 'LAYER',
+    interface Types {
+        DOCUMENT: 'DOCUMENT';
+        PAGE: 'PAGE';
+        SCREEN: 'SCREEN';
+        IMAGE: 'IMAGE';
+        RECTANGLE: 'RECT';
+        ELLIPSE: 'ELLIPSE';
+        DIAMOND: 'DIAMOND';
+        HOTSPOT: 'HOTSPOT';
+        LAYER: 'LAYER';
     }
 
     type SchemaVersion = 1;
 }
 
+type NodeType = 'DOCUMENT' | 'PAGE' | 'SCREEN' | 'IMAGE' | 'RECT' | 'ELLIPSE' | 'DIAMOND' | 'HOTSPOT' | 'LAYER';
+
 interface Node {
     id: string;
     name: string;
-    type: Flow.Type;
+    type: NodeType;
 }
 
 interface Shape extends Node {

@@ -1,14 +1,25 @@
+import asyncFormat = require('nanoid/async/format');
+import asyncGenerate = require('nanoid/async/generate');
+import asyncRandom = require('nanoid/async/random');
+import asyncRandomBrowser = require('nanoid/async/random-browser');
 import nanoid = require('nanoid');
 import format = require('nanoid/format');
 import generate = require('nanoid/generate');
 import random = require('nanoid/random');
 import randomBrowser = require('nanoid/random-browser');
 import url = require('nanoid/url');
-import nanoidAsync = require('nanoid/async');
-import nanoidAsyncBrowser = require('nanoid/async-browser');
+import nanoidAsync = require('nanoid/async/index');
+import nanoidAsyncBrowser = require('nanoid/async/index-browser');
+import nanoidNonSecure = require('nanoid/non-secure');
+import generateNonSecure = require('nanoid/non-secure/generate');
 
 const _random = (size: number) => [1, 2, 3, 4];
+const _asyncRandom = (size: number) => Promise.resolve([1, 2, 3, 4]);
 
+asyncFormat(_asyncRandom, "abcdef", 5).then((id) => console.log(id));
+asyncGenerate('0123456789абвгдеё', 5).then((id) => console.log(id));
+asyncRandom(10).then((id) => console.log(id));
+asyncRandomBrowser(10).then((id) => console.log(id));
 nanoid();
 nanoid(10);
 format(_random, "abcdef", 5);
@@ -22,5 +33,9 @@ nanoidAsync(null, (error, id) => {
 });
 nanoidAsyncBrowser().then((id) => console.log(id));
 nanoidAsyncBrowser(10).then((id) => console.log(id));
+nanoidNonSecure();
+nanoidNonSecure(10);
+generateNonSecure('0123456789абвгдеё', 5);
+generateNonSecure('0123456789абвгдеё');
 
 console.log(url);

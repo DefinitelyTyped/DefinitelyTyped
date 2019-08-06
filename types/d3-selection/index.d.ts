@@ -1,12 +1,13 @@
-// Type definitions for D3JS d3-selection module 1.3
-// Project: https://github.com/d3/d3-selection/
+// Type definitions for D3JS d3-selection module 1.4
+// Project: https://github.com/d3/d3-selection/, https://d3js.org/d3-selection
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>
 //                 Alex Ford <https://github.com/gustavderdrache>
 //                 Boris Yankov <https://github.com/borisyankov>
 //                 denisname <https://github.com/denisname>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
-// Last module patch version validated against: 1.3.0
+// Last module patch version validated against: 1.4.0
 
 // --------------------------------------------------------------------------
 // Shared Type Definitions and Interfaces
@@ -474,6 +475,19 @@ export interface Selection<GElement extends BaseType, Datum, PElement extends Ba
      * This method returns a new selection containing the appended elements.
      * Each new element inherits the data of the current elements, if any.
      *
+     * @param type A string representing the tag name.
+     */
+    append<K extends keyof ElementTagNameMap>(type: K): Selection<ElementTagNameMap[K], Datum, PElement, PDatum>;
+    /**
+     * Appends a new element of this type (tag name) as the last child of each selected element,
+     * or before the next following sibling in the update selection if this is an enter selection.
+     * The latter behavior for enter selections allows you to insert elements into the DOM in an order consistent with the new bound data;
+     * however, note that selection.order may still be required if updating elements change order
+     * (i.e., if the order of new data is inconsistent with old data).
+     *
+     * This method returns a new selection containing the appended elements.
+     * Each new element inherits the data of the current elements, if any.
+     *
      * The generic refers to the type of the child element to be appended.
      *
      * @param type A string representing the tag name. The specified name may have a namespace prefix, such as svg:text
@@ -482,6 +496,7 @@ export interface Selection<GElement extends BaseType, Datum, PElement extends Ba
      * (for example, svg implies svg:svg)
      */
     append<ChildElement extends BaseType>(type: string): Selection<ChildElement, Datum, PElement, PDatum>;
+
     /**
      * Appends a new element of the type provided by the element creator function as the last child of each selected element,
      * or before the next following sibling in the update selection if this is an enter selection.
@@ -510,6 +525,27 @@ export interface Selection<GElement extends BaseType, Datum, PElement extends Ba
      *
      * The generic refers to the type of the child element to be appended.
      *
+     * @param type A string representing the tag name for the element type to be inserted.
+     * @param before One of:
+     *   * A CSS selector string for the element before which the insertion should occur.
+     *   * A child selector function which is evaluated for each selected element, in order, being passed the current datum (d),
+     *     the current index (i), and the current group (nodes), with this as the current DOM element (nodes[i]). This function should return the child element
+     *     before which the element should be inserted.
+     */
+    insert<K extends keyof ElementTagNameMap>(
+        type: K,
+        before?: string | ValueFn<GElement, Datum, BaseType>
+    ): Selection<ElementTagNameMap[K], Datum, PElement, PDatum>;
+    /**
+     * Inserts a new element of the specified type (tag name) before the first element matching the specified
+     * before selector for each selected element. For example, a before selector :first-child will prepend nodes before the first child.
+     * If before is not specified, it defaults to null. (To append elements in an order consistent with bound data, use selection.append.)
+     *
+     * This method returns a new selection containing the appended elements.
+     * Each new element inherits the data of the current elements, if any.
+     *
+     * The generic refers to the type of the child element to be appended.
+     *
      * @param type One of:
      *   * A string representing the tag name for the element type to be inserted. The specified name may have a namespace prefix,
      *     such as svg:text to specify a text attribute in the SVG namespace. If no namespace is specified, the namespace will be inherited
@@ -527,7 +563,7 @@ export interface Selection<GElement extends BaseType, Datum, PElement extends Ba
     insert<ChildElement extends BaseType>(
         type: string | ValueFn<GElement, Datum, ChildElement>,
         before?: string | ValueFn<GElement, Datum, BaseType>
-        ): Selection<ChildElement, Datum, PElement, PDatum>;
+    ): Selection<ChildElement, Datum, PElement, PDatum>;
 
     /**
      * Removes the selected elements from the document.
@@ -747,6 +783,40 @@ export interface Selection<GElement extends BaseType, Datum, PElement extends Ba
     data<NewDatum>(data: ValueFn<PElement, PDatum, NewDatum[]>, key?: ValueFn<GElement | PElement, Datum | NewDatum, string>): Selection<GElement, NewDatum, PElement, PDatum>;
 
     /**
+     * Appends, removes and reorders elements as necessary to match the data that was previously bound by `selection.data`, returning the merged enter and update selection.
+     * This method is a convenient alternative to the more explicit `selection.enter`, `selection.exit`, `selection.append` and `selection.remove`.
+     *
+     * The "matching" logic is determined by the key function passed to `selection.data`.
+     */
+    join<K extends keyof ElementTagNameMap, OldDatum = Datum>(
+        enter: K,
+        update?: (elem: Selection<GElement, Datum, PElement, PDatum>) => Selection<GElement, Datum, PElement, PDatum> | undefined,
+        exit?: (elem: Selection<GElement, OldDatum, PElement, PDatum>) => void
+    ): Selection<GElement | ElementTagNameMap[K], Datum, PElement, PDatum>;
+    /**
+     * Appends, removes and reorders elements as necessary to match the data that was previously bound by `selection.data`, returning the merged enter and update selection.
+     * This method is a convenient alternative to the more explicit `selection.enter`, `selection.exit`, `selection.append` and `selection.remove`.
+     *
+     * The "matching" logic is determined by the key function passed to `selection.data`.
+     */
+    join<ChildElement extends BaseType, OldDatum = Datum>(
+        enter: string,
+        update?: (elem: Selection<GElement, Datum, PElement, PDatum>) => Selection<GElement, Datum, PElement, PDatum> | undefined,
+        exit?: (elem: Selection<GElement, OldDatum, PElement, PDatum>) => void
+    ): Selection<ChildElement | GElement, Datum, PElement, PDatum>;
+    /**
+     * Appends, removes and reorders elements as necessary to match the data that was previously bound by `selection.data`, returning the merged enter and update selection.
+     * This method is a convenient alternative to the more explicit `selection.enter`, `selection.exit`, `selection.append` and `selection.remove`.
+     *
+     * The "matching" logic is determined by the key function passed to `selection.data`.
+     */
+    join<ChildElement extends BaseType, OldDatum = Datum>(
+        enter: (elem: Selection<EnterElement, Datum, PElement, PDatum>) => Selection<ChildElement, Datum, PElement, PDatum>,
+        update?: (elem: Selection<GElement, Datum, PElement, PDatum>) => Selection<GElement, Datum, PElement, PDatum> | undefined,
+        exit?: (elem: Selection<GElement, OldDatum, PElement, PDatum>) => void
+    ): Selection<ChildElement | GElement, Datum, PElement, PDatum>;
+
+    /**
      * Return the enter selection: placeholder nodes for each datum that had no corresponding DOM element
      * in the selection. (The enter selection is empty for selections not returned by selection.data.)
      */
@@ -792,9 +862,9 @@ export interface Selection<GElement extends BaseType, Datum, PElement extends Ba
      * When a specified event is dispatched on a selected node, the specified listener will be evaluated for each selected element.
      *
      * An optional capture flag may be specified which corresponds to the W3C useCapture flag:
-     * “After initiating capture, all events of the specified type will be dispatched to the registered EventListener before being
+     * "After initiating capture, all events of the specified type will be dispatched to the registered EventListener before being
      * dispatched to any EventTargets beneath them in the tree. Events which are bubbling upward through the tree will not
-     * trigger an EventListener designated to use capture.”
+     * trigger an EventListener designated to use capture."
      *
      * @param typenames The typenames is a string event type, such as click, mouseover, or submit; any DOM event type supported by your browser may be used.
      * The type may be optionally followed by a period (.) and a name; the optional name allows multiple callbacks to be registered
@@ -1119,11 +1189,25 @@ export function window(DOMNode: Window | Document | Element): Window;
  * Given the specified element name, returns a single-element selection containing
  * a detached element of the given name in the current document.
  *
+ * @param name tag name of the element to be added.
+ */
+export function create<K extends keyof ElementTagNameMap>(name: K): Selection<ElementTagNameMap[K], undefined, null, undefined>;
+/**
+ * Given the specified element name, returns a single-element selection containing
+ * a detached element of the given name in the current document.
+ *
  * @param name Tag name of the element to be added. See "namespace" for details on supported namespace prefixes,
  * such as for SVG elements.
  */
 export function create<NewGElement extends Element>(name: string): Selection<NewGElement, undefined, null, undefined>;
 
+/**
+ * Given the specified element name, returns a function which creates an element of the given name,
+ * assuming that "this" is the parent element.
+ *
+ * @param name Tag name of the element to be added.
+ */
+export function creator<K extends keyof ElementTagNameMap>(name: K): (this: BaseType) => ElementTagNameMap[K];
 /**
  * Given the specified element name, returns a function which creates an element of the given name,
  * assuming that "this" is the parent element.

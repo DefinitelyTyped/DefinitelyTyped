@@ -23,7 +23,7 @@ interface ShareSingleReturn {
 }
 
 interface Options {
-    url: string;
+    url?: string;
     urls?: string[];
     type?: string;
     message?: string;
@@ -45,7 +45,7 @@ interface MultipleOptions {
     showAppsToView?: boolean;
 }
 
-type SupportedSocialApps =
+export type SupportedSocialApps =
     | "facebook"
     | "pagesmanager"
     | "twitter"

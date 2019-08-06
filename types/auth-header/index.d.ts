@@ -7,7 +7,7 @@
 type Params =
     | Array<[string, string | ReadonlyArray<string>]>
     | {[key: string]: string | ReadonlyArray<string>};
-export {Params};
+export { Params };
 
 export interface TokenOptions {
     scheme: string;

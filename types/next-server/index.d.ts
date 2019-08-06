@@ -1,4 +1,4 @@
-// Type definitions for next-server 7.0
+// Type definitions for next-server 8.1
 // Project: https://github.com/zeit/next.js/packages/next-server
 // Definitions by: Drew Hays <https://github.com/dru89>
 //                 Brice BERNARD <https://github.com/brikou>

@@ -337,6 +337,45 @@ declare module "../../index" {
     removeElements(): void;
 
     /**
+     *   The .changed() function is called when the value
+     *   of an element changes. This can be used to attach
+     *   an element specific event listener.
+     *   @param fxn function to be fired when the value of
+     *   an element changes. if false is passed instead,
+     *   the previously firing function will no longer
+     *   fire.
+     *   @chainable
+     */
+    changed(
+      fxn:
+        | ((
+            ...args: any[]
+          ) => any)
+        | boolean
+    ): p5;
+
+    /**
+     *   The .input() function is called when any user
+     *   input is detected with an element. The input event
+     *   is often used to detect keystrokes in a input
+     *   element, or changes on a slider element. This can
+     *   be used to attach an element specific event
+     *   listener.
+     *   @param fxn function to be fired when any user
+     *   input is detected within the element. if false is
+     *   passed instead, the previously firing function
+     *   will no longer fire.
+     *   @chainable
+     */
+    input(
+      fxn:
+        | ((
+            ...args: any[]
+          ) => any)
+        | boolean
+    ): p5;
+
+    /**
      *   Creates a <div></div> element in the DOM with
      *   given inner HTML. Appends to the container node if
      *   one is specified, otherwise appends to body.

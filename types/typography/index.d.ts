@@ -1,17 +1,19 @@
 // Type definitions for typography 0.16
 // Project: https://github.com/KyleAMathews/typography.js
 // Definitions by: Boye <https://github.com/boyeborg>
+//                 Krzysztof Żuraw <https://github.com/krzysztofzuraw>
+//                 Dominic Fallows <https://github.com/dominicfallows>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-interface BaseLine {
+export interface BaseLine {
     fontSize: string;
     lineHeight: string;
 }
 
 export interface VerticalRhythm {
     rhythm: (value: number) => string;
-    scale: (value: number) => object;
+    scale: (value: number) => BaseLine;
     adjustFontSizeTo: (value?: number | string) => object;
     linesForFontSize: (fontSize: number) => number;
     establishBaseline: () => BaseLine;
@@ -55,6 +57,11 @@ declare class Typography {
     createStyles(): string;
     toJSON(): object;
     injectStyles(): void;
+    rhythm: VerticalRhythm["rhythm"];
+    scale: VerticalRhythm["scale"];
+    adjustFontSizeTo: VerticalRhythm["adjustFontSizeTo"];
+    linesForFontSize: VerticalRhythm["linesForFontSize"];
+    establishBaseline: VerticalRhythm["establishBaseline"];
 }
 
 export default Typography;

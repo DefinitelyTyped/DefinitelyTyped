@@ -92,10 +92,10 @@ App.userController = Ember.Object.create({
     }),
 });
 
-Handlebars.registerHelper(
+Ember.Handlebars.registerHelper(
     'highlight',
     (property: string, options: any) =>
-        new Handlebars.SafeString('<span class="highlight">' + 'some value' + '</span>')
+        new Ember.Handlebars.SafeString('<span class="highlight">' + 'some value' + '</span>')
 );
 
 const coolView = App.CoolView.create();

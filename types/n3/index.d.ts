@@ -1,10 +1,10 @@
-// Type definitions for N3 1.0
-// Project: https://github.com/RubenVerborgh/N3.js
+// Type definitions for N3 1.1
+// Project: https://github.com/rdfjs/n3.js
 // Definitions by: Fred Eisele <https://github.com/phreed>
 //                 Ruben Taelman <https://github.com/rubensworks>
 //                 Laurens Rietveld <https://github.com/LaurensRietveld>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 
@@ -21,10 +21,10 @@ export type Term = NamedNode | BlankNode | Literal | Variable | DefaultGraph;
 export type PrefixedToIri = (suffix: string) => RDF.NamedNode;
 
 export class NamedNode implements RDF.NamedNode {
-    termType: "NamedNode";
-    value: string;
+    readonly termType: "NamedNode";
+    readonly value: string;
     constructor(iri: string);
-    id: string;
+    readonly id: string;
     toJSON(): {};
     equals(other: RDF.Term): boolean;
     static subclass(type: any): void;
@@ -32,20 +32,20 @@ export class NamedNode implements RDF.NamedNode {
 
 export class BlankNode implements RDF.BlankNode {
     static nextId: number;
-    termType: "BlankNode";
-    value: string;
+    readonly termType: "BlankNode";
+    readonly value: string;
     constructor(name: string);
-    id: string;
+    readonly id: string;
     toJSON(): {};
     equals(other: RDF.Term): boolean;
     static subclass(type: any): void;
 }
 
 export class Variable  implements RDF.Variable {
-    termType: "Variable";
-    value: string;
+    readonly termType: "Variable";
+    readonly value: string;
     constructor(name: string);
-    id: string;
+    readonly id: string;
     toJSON(): {};
     equals(other: RDF.Term): boolean;
     static subclass(type: any): void;
@@ -53,23 +53,23 @@ export class Variable  implements RDF.Variable {
 
 export class Literal implements RDF.Literal {
     static readonly langStringDatatype: NamedNode;
-    termType: "Literal";
-    value: string;
-    id: string;
+    readonly termType: "Literal";
+    readonly value: string;
+    readonly id: string;
     toJSON(): {};
     equals(other: RDF.Term): boolean;
     static subclass(type: any): void;
-    language: string;
-    datatype: NamedNode;
-    datatypeString: string;
+    readonly language: string;
+    readonly datatype: NamedNode;
+    readonly datatypeString: string;
     constructor(id: string);
 }
 
 export class DefaultGraph implements RDF.DefaultGraph {
-    termType: "DefaultGraph";
-    value: "";
+    readonly termType: "DefaultGraph";
+    readonly value: "";
     constructor();
-    id: string;
+    readonly id: string;
     toJSON(): {};
     equals(other: RDF.Term): boolean;
     static subclass(type: any): void;
@@ -143,6 +143,7 @@ export interface ParserOptions {
 export type ParseCallback<Q extends BaseQuad = Quad> = (error: Error, quad: Q, prefixes: Prefixes) => void;
 
 export interface N3Parser<Q extends BaseQuad = Quad> {
+    parse(input: string): Q[];
     parse(input: string, callback: ParseCallback<Q>): void;
 }
 
@@ -204,9 +205,9 @@ export interface StreamWriterConstructor {
 }
 export const StreamWriter: StreamWriterConstructor;
 
-export interface N3StreamWriter<Q extends RDF.BaseQuad = Quad> extends NodeJS.ReadWriteStream, RDF.Source {}
+export interface N3StreamWriter<Q extends RDF.BaseQuad = Quad> extends NodeJS.ReadWriteStream, RDF.Source<Q> {}
 
-export interface N3Store<Q_RDF extends RDF.BaseQuad = RDF.Quad, Q_N3 extends BaseQuad = Quad> extends RDF.Sink {
+export interface N3Store<Q_RDF extends RDF.BaseQuad = RDF.Quad, Q_N3 extends BaseQuad = Quad> extends RDF.Store<Q_RDF> {
     readonly size: number;
     addQuad(subject: Q_RDF['subject'], predicate: Q_RDF['predicate'], object: Q_RDF['object'] | Array<Q_RDF['object']>, graph?: Q_RDF['graph'], done?: () => void): void;
     addQuad(quad: Q_RDF): void;
@@ -228,9 +229,6 @@ export interface N3Store<Q_RDF extends RDF.BaseQuad = RDF.Quad, Q_N3 extends Bas
     getGraphs(subject: OTerm, predicate: OTerm, object: OTerm): Array<Q_N3['graph']>;
     forGraphs(callback: QuadCallback<Q_N3>, subject: OTerm, predicate: OTerm, object: OTerm): void;
     createBlankNode(suggestedName?: string): BlankNode;
-
-    // match, removeMatches and deleteGraph are missing for full RDF.Store adherence
-    remove(stream: stream.Stream): EventEmitter;
 }
 export interface StoreConstructor {
   new<Q_RDF extends RDF.BaseQuad = RDF.Quad, Q_N3 extends BaseQuad = Quad> (triples?: Q_RDF[], options?: StoreOptions): N3Store<Q_RDF, Q_N3>;

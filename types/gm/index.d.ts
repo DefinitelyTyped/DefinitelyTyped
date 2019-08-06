@@ -3,6 +3,7 @@
 // Definitions by:  Joel Spadin <https://github.com/ChaosinaCan>
 //                  Maarten van Vliet <https://github.com/maartenvanvliet>
 //                  Vaclav Mlejnsky <https://github.com/mlejva>
+//                  Dimitry Kooijmans <https://github.com/mrcageman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node"/>
@@ -284,6 +285,7 @@ declare namespace m {
         format(callback: GetterCallback<string>): State;
         format(opts: GetterOptions, callback: GetterCallback<string>): State;
         identify(callback: GetterCallback<ImageInfo>): State;
+        identify(format: string, callback: GetterCallback<string>): State;
         identify(opts: GetterOptions, callback: GetterCallback<ImageInfo>): State;
         res(callback: GetterCallback<string>): State;
         res(opts: GetterOptions, callback: GetterCallback<string>): State;

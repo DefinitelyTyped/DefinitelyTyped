@@ -14,10 +14,7 @@ function test_doc() {
 // To test KeyframeEffect, SequenceEffect and GroupEffect
 function test_AnimationsApiNext() {
     function buildFadeIn(target: HTMLElement) {
-        const steps = [
-            { opacity: 0, transform: 'translate(0, 20em)' },
-            { opacity: 1, transform: 'translate(0)' }
-        ];
+        const steps: Keyframe[] = [];
         return new KeyframeEffect(target, steps, {
             duration: 500,
             delay: -1000,
@@ -29,10 +26,7 @@ function test_AnimationsApiNext() {
         const angle = Math.pow((Math.random() * 16) - 6, 3);
         const offset = (Math.random() * 20) - 10;
         const transform = `translate(${offset}em, 20em) rotate(${angle}deg) scale(0)`;
-        const steps = [
-            { visibility: 'visible', opacity: 1, transform: 'none' },
-            { visibility: 'visible', opacity: 0, transform }
-        ];
+        const steps: Keyframe[] = [];
         return new KeyframeEffect(target, steps, {
             duration: 1500,
             easing: 'ease-in'
@@ -40,7 +34,8 @@ function test_AnimationsApiNext() {
     }
     const effectNode = document.createElement('div');
     effectNode.className = 'circleEffect';
-    const bounds = document.documentElement.getBoundingClientRect();
+    // tslint:disable-next-line:no-unnecessary-type-assertion
+    const bounds = document.documentElement!.getBoundingClientRect();
     effectNode.style.left = `${bounds.left + bounds.width / 2}px`;
     effectNode.style.top = `${bounds.top + bounds.height / 2}px`;
     const header = document.querySelector('header');
@@ -49,7 +44,7 @@ function test_AnimationsApiNext() {
     }
     const newColor = `hsl(${Math.round(Math.random() * 255)}, 46%, 42%)`;
     effectNode.style.background = newColor;
-    const scaleSteps = [{ transform: 'scale(0)' }, { transform: 'scale(1)' }];
+    const scaleSteps: Keyframe[] = [];
     const timing: AnimationEffectTiming = { duration: 2500, easing: 'ease-in-out', fill: "backwards" };
     const scaleEffect = new KeyframeEffect(effectNode, scaleSteps, timing);
     const fadeEffect = new SequenceEffect([buildFadeOut(effectNode), buildFadeIn(effectNode)]);
@@ -66,10 +61,7 @@ function test_whiteRabbit() {
     if (whiteRabbit) {
         const rabbitDownKeyframes = new KeyframeEffect(
             whiteRabbit,
-            [
-                { transform: 'translateY(0%)' },
-                { transform: 'translateY(100%)' }
-            ],
+            [],
             { duration: 3000, fill: 'forwards' }
         );
         const rabbitDownAnimation = new Animation(rabbitDownKeyframes, document.timeline);
@@ -86,33 +78,5 @@ function test_whiteRabbit() {
             // Play rabbit animation
             rabbitDownAnimation.play();
         }
-    }
-}
-// Testing onsample
-// https://github.com/web-animations/web-animations-js/releases
-function test_onsample_And_addEventListener() {
-    const elem = document.createElement("div");
-    if (elem) {
-        elem.style.width = '150px';
-        elem.style.color = 'black';
-        elem.textContent = "HELLO";
-        document.body.appendChild(elem);
-        const myEffect = new KeyframeEffect(elem, [], 1000);
-        myEffect.onsample = (timeFraction, effect, animation) => {
-            console.log("fraction", timeFraction);
-            // After finish event, timeFraction is null
-            if (timeFraction) {
-                effect.target.style.opacity = timeFraction.toFixed(2);
-            }
-        };
-        // onsample is write only
-        console.log(myEffect.onsample); // => undefined
-        const myAnimation = document.timeline.play(myEffect);
-        myAnimation.addEventListener("finish", (e) => {
-            console.log("finished", e);
-        });
-        myAnimation.addEventListener("cancel", (e) => {
-            console.log("canceled", e);
-        });
     }
 }

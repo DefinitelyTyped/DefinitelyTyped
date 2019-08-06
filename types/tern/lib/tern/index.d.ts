@@ -1,12 +1,12 @@
 import * as ESTree from "estree";
-import { Scope, Type } from "../infer";
+import { Context, Scope, Type } from "../infer";
 
 export { };
 
 // #### Programming interface ####
 export type ConstructorOptions = CtorOptions & (SyncConstructorOptions | ASyncConstructorOptions);
 
-interface CtorOptions {
+export interface CtorOptions {
     /** The definition objects to load into the server’s environment. */
     defs?: Def[];
     /** The ECMAScript version to parse. Should be either 5 or 6. Default is 6. */
@@ -17,7 +17,7 @@ interface CtorOptions {
     plugins?: { [key: string]: object };
 }
 
-interface SyncConstructorOptions {
+export interface SyncConstructorOptions {
     /** Indicates whether `getFile` is asynchronous. Default is `false`. */
     async?: false;
     /**
@@ -29,7 +29,7 @@ interface SyncConstructorOptions {
     getFile?(filename: string): string;
 }
 
-interface ASyncConstructorOptions {
+export interface ASyncConstructorOptions {
     /** Indicates whether `getFile` is asynchronous. Default is `false`. */
     async: true;
     /**
@@ -48,6 +48,10 @@ interface TernConstructor {
 export const Server: TernConstructor;
 
 export interface Server {
+    readonly cx: Context;
+    readonly options: ConstructorOptions;
+    readonly files: File[];
+    readonly plugins: any;
     /**
      * Add a set of type definitions to the server. If `atFront` is true, they will be added before all other
      * existing definitions. Otherwise, they are added at the back.
@@ -93,17 +97,19 @@ export interface Server {
     request<Q extends Query, D extends Document>(
         doc: D & { query?: Q },
         callback: (
-            error: Error | undefined,
+            error: string | null,
             response: (D extends { query: undefined } ? {} : D extends { query: Query } ? QueryResult<Q> : {}) | undefined
         ) => void
     ): void;
+    reset(): void;
+    signal(event: keyof Events, file: File): void;
 }
 
 // #### JSON Protocol ####
 
-type QueryResult<Q extends Query> = QueryRegistry[Q["type"]]["result"];
+export type QueryResult<Q extends Query> = QueryRegistry[Q["type"]]["result"];
 
-type Query = QueryRegistry[keyof QueryRegistry]["query"];
+export type Query = QueryRegistry[keyof QueryRegistry]["query"];
 
 export interface QueryRegistry {
     completions: {
@@ -156,6 +162,7 @@ export interface File {
     scope: Scope;
     ast: ESTree.Program;
     type?: "full" | "part" | "delete";
+    asLineChar?(nodePosition: number): Position;
 }
 
 export interface BaseQuery {
@@ -164,17 +171,20 @@ export interface BaseQuery {
     docFormat?: "full";
 }
 
-interface Position {
+export interface BaseQueryWithFile extends BaseQuery {
+    /** may hold either a filename, or a string in the form "#N", where N should be an integer referring to one of the files included in the request */
+    file: string;
+}
+
+export interface Position {
     ch: number;
     line: number;
 }
 
 /** Asks the server for a set of completions at the given point. */
-export interface CompletionsQuery extends BaseQuery {
+export interface CompletionsQuery extends BaseQueryWithFile {
     /** Asks the server for a set of completions at the given point. */
     type: "completions";
-    /** may hold either a filename, or a string in the form "#N", where N should be an integer referring to one of the files included in the request */
-    file: string;
     /** Specify the location to complete at. */
     end: number | Position;
     /** Whether to include the types of the completions in the result data. Default `false` */
@@ -208,7 +218,7 @@ export interface CompletionsQuery extends BaseQuery {
     inLiteral?: boolean;
 }
 
-interface CompletionsQueryResult {
+export interface CompletionsQueryResult {
     /** start offsets of the word that was completed */
     start: number | Position;
     /** end offsets of the word that was completed */
@@ -233,11 +243,9 @@ interface CompletionsQueryResult {
 }
 
 /** Query the type of something. */
-export interface TypeQuery extends BaseQuery {
+export interface TypeQuery extends BaseQueryWithFile {
     /** Query the type of something. */
     type: "type";
-    /** may hold either a filename, or a string in the form "#N", where N should be an integer referring to one of the files included in the request */
-    file: string;
     /** Specify the location of the expression. */
     end: number | Position;
     /** Specify the location of the expression. */
@@ -257,7 +265,7 @@ export interface TypeQuery extends BaseQuery {
     depth?: number;
 }
 
-interface TypeQueryResult {
+export interface TypeQueryResult {
     /** A description of the type of the value. May be "?" when no type was found. */
     type: string;
     /** Whether the given type was guessed, or should be considered reliable. */
@@ -282,7 +290,7 @@ interface TypeQueryResult {
  * type is not an object or function (other types don’t store their definition site),
  * it will fail to return useful information.
  */
-export interface DefinitionQuery extends BaseQuery {
+export interface DefinitionQuery extends BaseQueryWithFile {
     /**
      * Asks for the definition of something. This will try, for a variable or property,
      * to return the point at which it was defined. If that fails, or the chosen
@@ -292,15 +300,13 @@ export interface DefinitionQuery extends BaseQuery {
      * it will fail to return useful information.
      */
     type: "definition";
-    /** may hold either a filename, or a string in the form "#N", where N should be an integer referring to one of the files included in the request */
-    file: string;
     /** Specify the location of the expression. */
     end: number | Position;
     /** Specify the location of the expression. */
     start?: number | Position;
 }
 
-interface DefinitionQueryResult {
+export interface DefinitionQueryResult {
     /** The start position of the expression. */
     start?: number | Position;
     /** The end position of the expression. */
@@ -320,18 +326,16 @@ interface DefinitionQueryResult {
 }
 
 /** Get the documentation string and URL for a given expression, if any. */
-export interface DocumentationQuery extends BaseQuery {
+export interface DocumentationQuery extends BaseQueryWithFile {
     /** Get the documentation string and URL for a given expression, if any. */
     type: "documentation";
-    /** may hold either a filename, or a string in the form "#N", where N should be an integer referring to one of the files included in the request */
-    file: string;
     /** Specify the location of the expression. */
     end: number | Position;
     /** Specify the location of the expression. */
     start?: number | Position;
 }
 
-interface DocumentationQueryResult {
+export interface DocumentationQueryResult {
     /** The documentation string of the definition or value, if any. */
     doc?: string;
     /** The url of the definition or value, if any. */
@@ -341,18 +345,16 @@ interface DocumentationQueryResult {
 }
 
 /** Used to find all references to a given variable or property. */
-export interface RefsQuery extends BaseQuery {
+export interface RefsQuery extends BaseQueryWithFile {
     /** Used to find all references to a given variable or property. */
     type: "refs";
-    /** may hold either a filename, or a string in the form "#N", where N should be an integer referring to one of the files included in the request */
-    file: string;
     /** Specify the location of the expression. */
     end: number | Position;
     /** Specify the location of the expression. */
     start?: number | Position;
 }
 
-interface RefsQueryResult {
+export interface RefsQueryResult {
     /** The name of the variable or property */
     name: string;
     refs: Array<{
@@ -365,11 +367,9 @@ interface RefsQueryResult {
 }
 
 /** Rename a variable in a scope-aware way. */
-export interface RenameQuery extends BaseQuery {
+export interface RenameQuery extends BaseQueryWithFile {
     /** Rename a variable in a scope-aware way. */
     type: "rename";
-    /** may hold either a filename, or a string in the form "#N", where N should be an integer referring to one of the files included in the request */
-    file: string;
     /** Specify the location of the variable. */
     end: number | Position;
     /** Specify the location of the variable. */
@@ -382,7 +382,7 @@ export interface RenameQuery extends BaseQuery {
  * Returns an object whose `changes` property holds an array of `{file, start, end, text}` objects, which
  * give the changes that must be performed to apply the rename. The client is responsible for doing the actual modification.
  */
-interface RenameQueryResult {
+export interface RenameQueryResult {
     /** Array of changes that must be performed to apply the rename. The client is responsible for doing the actual modification. */
     changes: Array<{
         file: string,
@@ -402,7 +402,7 @@ export interface PropertiesQuery extends BaseQuery {
     sort?: boolean;
 }
 
-interface PropertiesQueryResult {
+export interface PropertiesQueryResult {
     /** The property names. */
     completions: string[];
 }
@@ -415,7 +415,7 @@ export interface FilesQuery extends BaseQuery {
     lineCharPositions?: never;
 }
 
-interface FilesQueryResult {
+export interface FilesQueryResult {
     /** The file names. */
     files: string[];
 }
@@ -447,7 +447,7 @@ export interface Events {
      */
     typeAt(file: File, end: Position, expr: ESTree.Node, type: Type): Type | void;
     /** Run at the start of a completion query. May return a valid completion result to replace the default completion algorithm. */
-    completion(file: File, query: Query): CompletionsQueryResult | void;
+    completion(file: File, query: CompletionsQuery): CompletionsQueryResult | void;
 }
 
 export const version: string;
@@ -465,9 +465,9 @@ export const version: string;
  */
 export function registerPlugin(name: string, init: (server: Server, options?: ConstructorOptions) => void): void;
 
-interface Desc<T extends Query["type"]> {
+export interface Desc<T extends Query["type"]> {
     run(Server: Server, query: QueryRegistry[T]["query"], file?: File): QueryRegistry[T]["result"];
-    takesfile?: boolean;
+    takesFile?: boolean;
 }
 
 /**

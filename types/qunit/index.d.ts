@@ -1,7 +1,8 @@
-// Type definitions for QUnit v2.5.0
+// Type definitions for QUnit v2.9.2
 // Project: http://qunitjs.com/
 // Definitions by: James Bracy <https://github.com/waratuman>
 //                 Mike North <https://github.com/mike-north>
+//                 Stefan Sechelmann <https://github.com/sechel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface Assert {
@@ -237,6 +238,34 @@ interface Assert {
     raises(block: () => void, expected?: any, message?: any): void;
 
     /**
+     * Test if the provided promise rejects, and optionally compare the
+     * rejection value.
+     *
+     * When testing code that is expected to return a rejected promise based on
+     * a specific set of circumstances, use assert.rejects() for testing and
+     * comparison.
+     *
+     * The expectedMatcher argument can be:
+     *      A function that returns true when the assertion should be considered passing.
+     *      An Error object
+     *      A base constructor to use ala rejectionValue instanceof expectedMatcher
+     *      A RegExp that matches (or partially matches) rejectionValue.toString()
+     *
+     * Note: in order to avoid confusion between the message and the expectedMatcher,
+     * the expectedMatcher can not be a string.
+     *
+     * @param promise promise to test for rejection
+     * @param expectedMatcher Rejection value matcher
+     * @param message A short description of the assertion
+     */
+    rejects(promise: Promise<any>, message?: string): void;
+    rejects(
+        promise: Promise<any>,
+        expectedMatcher?: any,
+        message?: string,
+    ): void;
+
+    /**
      * A marker for progress in a given test.
      *
      * The `step()` assertion registers a passing assertion with a provided message. This makes
@@ -339,6 +368,10 @@ interface NestedHooks {
     beforeEach: (fn: (assert: Assert) => void) => void;
 
 }
+
+type moduleFunc1 = (name: string, hooks?: Hooks, nested?: (hooks: NestedHooks) => void) => void;
+type moduleFunc2 = (name: string, nested?: (hooks: NestedHooks) => void) => void;
+type ModuleOnly = { only: moduleFunc1 & moduleFunc2 }
 
 declare namespace QUnit {
     interface BeginDetails { totalTests: number }
@@ -491,8 +524,7 @@ interface QUnit {
      * @param hookds Callbacks to run during test execution
      * @param nested A callback with grouped tests and nested modules to run under the current module label
      */
-    module(name: string, hooks?: Hooks, nested?: (hooks: NestedHooks) => void): void;
-    module(name: string, nested?: (hooks: NestedHooks) => void): void;
+    module: moduleFunc1 & moduleFunc2 & ModuleOnly;
 
     /**
      * Register a callback to fire whenever a module ends.

@@ -169,7 +169,7 @@ declare namespace SocketIO {
 		listen( port: number, opts?: ServerOptions ): Server;
 
 		/**
-		 * Binds socket.io to an engine.io intsance
+		 * Binds socket.io to an engine.io instance
 		 * @param src The Engine.io (or compatible) server to bind to
 		 * @return This Server
 		 */

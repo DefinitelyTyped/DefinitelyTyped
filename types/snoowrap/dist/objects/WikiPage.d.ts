@@ -13,8 +13,8 @@ export default class WikiPage extends RedditContent<WikiPage> {
   addEditor(options: { name: string; }): Promise<this>;
   edit(options: EditOptions): Promise<this>;
   editSettings(options: Settings): Promise<this>;
-  getDiscussions(options?: ListingOptions): Listing<Submission>;
-  getRevisions(options?: ListingOptions): Listing<WikiPageRevision>;
+  getDiscussions(options?: ListingOptions): Promise<Listing<Submission>>;
+  getRevisions(options?: ListingOptions): Promise<Listing<WikiPageRevision>>;
   getSettings(): Promise<Settings>;
   hideRevision(options: { id: string; }): Promise<this>;
   removeEditor(options: { name: string; }): Promise<this>;

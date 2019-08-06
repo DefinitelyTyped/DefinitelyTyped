@@ -1,8 +1,9 @@
-// Type definitions for hapi 17.6
-// Project: https://github.com/hapijs/hapi
+// Type definitions for hapi 18.0
+// Project: https://github.com/hapijs/hapi, https://hapijs.com
 // Definitions by: Rafael Souza Fijalkowski <https://github.com/rafaelsouzaf>
 //                 Justin Simms <https://github.com/jhsimms>
 //                 Simon Schick <https://github.com/SimonSchick>
+//                 Rodrigo Saboya <https://github.com/saboya>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -28,9 +29,9 @@ import * as zlib from 'zlib';
 
 import { MimosOptions } from 'mimos';
 import { SealOptions, SealOptionsSub } from 'iron';
-import { AnySchema, ValidationOptions } from 'joi';
+import { ValidationOptions, SchemaMap, Schema } from 'joi';
 import Podium = require('podium');
-import { PolicyOptionVariants, EnginePrototypeOrObject, PolicyOptions, EnginePrototype, Policy } from 'catbox';
+import { PolicyOptionVariants, EnginePrototypeOrObject, PolicyOptions, EnginePrototype, Policy, ClientApi, ClientOptions } from 'catbox';
 
 /* + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + +
  +                                                                           +
@@ -41,6 +42,18 @@ import { PolicyOptionVariants, EnginePrototypeOrObject, PolicyOptions, EnginePro
  +                                                                           +
  +                                                                           +
  + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + */
+
+/**
+ * one of
+ * a single plugin name string.
+ * an array of plugin name strings.
+ * an object where each key is a plugin name and each matching value is a
+ * {@link https://www.npmjs.com/package/semver version range string} which must match the registered
+ *  plugin version.
+ */
+export type Dependencies = string | string[] | {
+    [key: string]: string;
+};
 
 /**
  * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverregistrations)
@@ -126,7 +139,16 @@ export interface PluginBase<T> {
     multiple?: boolean;
 
     /** (optional) a string or an array of strings indicating a plugin dependency. Same as setting dependencies via server.dependency(). */
-    dependencies?: string | string[];
+    dependencies?: Dependencies;
+
+    /**
+     * Allows defining semver requirements for node and hapi.
+     * @default Allows all.
+     */
+    requirements?: {
+        node?: string;
+        hapi?: string;
+    };
 
     /** once - (optional) if true, will only register the plugin once per server. If set, overrides the once option passed to server.register(). Defaults to no override. */
     once?: boolean;
@@ -296,6 +318,8 @@ export interface RequestInfo {
     remotePort: string;
     /** request response timestamp (0 is not responded yet). */
     responded: number;
+    /** request processing completion timestamp (0 is still processing). */
+    completed: number;
 }
 
 /**
@@ -481,9 +505,10 @@ export interface Request extends Podium {
     /**
      * Access: read / write (see limitations below).
      * The response object when set. The object can be modified but must not be assigned another object. To replace the response with another from within an extension point, use reply(response) to
-     * override with a different response. Contains null when no response has been set (e.g. when a request terminates prematurely when the client disconnects).
+     * override with a different response.
+     * In case of an aborted request the status code will be set to `disconnectStatusCode`.
      */
-    response: ResponseObject | Boom | null;
+    response: ResponseObject | Boom;
 
     /**
      * Same as pre but represented as the response object created by the pre method.
@@ -491,10 +516,9 @@ export interface Request extends Podium {
     readonly preResponses: Util.Dictionary<any>;
 
     /**
-     * By default the object outputted from node's URL parse() method. Might also be set indirectly via request.setUrl in which case it may be a string (if url is set to an object with the query
-     * attribute as an unparsed string).
+     * By default the object outputted from node's URL parse() method.
      */
-    readonly query: RequestQuery | string;
+    readonly query: RequestQuery;
 
     /**
      * An object containing the Node HTTP server objects. Direct interaction with these raw objects is not recommended.
@@ -527,7 +551,7 @@ export interface Request extends Podium {
     /**
      * The parsed request URI.
      */
-    readonly url: url.Url;
+    readonly url: url.URL;
 
     /**
      * Returns `true` when the request is active and processing should continue and `false` when the
@@ -577,7 +601,7 @@ export interface Request extends Podium {
      * @return void
      * [See docs](https://hapijs.com/api/17.0.1#-requestseturlurl-striptrailingslash)
      */
-    setUrl(url: string | url.Url, stripTrailingSlash?: boolean): void;
+    setUrl(url: string | url.URL, stripTrailingSlash?: boolean): void;
 }
 
 /* + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + +
@@ -715,8 +739,8 @@ export interface ResponseObject extends Podium {
     charset(charset: string): ResponseObject;
 
     /**
-     * Sets the 'Content-Type' HTTP header 'charset' property where:
-     * $param charset - the charset property value.
+     * Sets the HTTP status code where:
+     * @param statusCode - the HTTP status code (e.g. 200).
      * @return Return value: the current response object.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-responsecodestatuscode)
      */
@@ -1407,21 +1431,26 @@ export interface RouteOptionsPreObject {
     /**
      * key name used to assign the response of the method to in request.pre and request.preResponses.
      */
-    assign: string;
+    assign?: string;
     /**
      * A failAction value which determine what to do when a pre-handler method throws an error. If assign is specified and the failAction setting is not 'error', the error will be assigned.
      */
     failAction?: Lifecycle.FailAction;
 }
 
-export interface ValidationObject {
-    [key: string]: AnySchema;
-}
+export type ValidationObject = SchemaMap;
 
+/**
+ * * true - any query parameter value allowed (no validation performed). false - no parameter value allowed.
+ * * a joi validation object.
+ * * a validation function using the signature async function(value, options) where:
+ * * * value - the request.* object containing the request parameters.
+ * * * options - options.
+ */
 export type RouteOptionsResponseSchema =
     boolean
     | ValidationObject
-    | AnySchema
+    | Schema
     | ((value: object | Buffer | string, options: ValidationOptions) => Promise<any>);
 
 /**
@@ -1495,6 +1524,16 @@ export interface RouteOptionsResponse {
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsresponsestatus)
      */
     status?: Util.Dictionary<RouteOptionsResponseSchema>;
+
+    /**
+     * The default HTTP status code used to set a response error when the request is closed or aborted before the
+     * response is fully transmitted.
+     * Value can be any integer greater or equal to 400.
+     * The default value 499 is based on the non-standard nginx "CLIENT CLOSED REQUEST" error.
+     * The value is only used for logging as the request has already ended.
+     * @default 499
+     */
+    disconnectStatusCode?: number;
 }
 
 /**
@@ -1608,21 +1647,15 @@ export interface RouteOptionsValidate {
     failAction?: Lifecycle.FailAction;
 
     /**
-     * Default value: true (no validation).
      * Validation rules for incoming request headers:
-     * * true - any headers allowed (no validation performed).
-     * * a joi validation object.
-     * * a validation function using the signature async function(value, options) where:
-     * * * value - the request.headers object containing the request headers.
-     * * * options - options.
-     * * * if a value is returned, the value is used as the new request.headers value and the original value is stored in request.orig.headers. Otherwise, the headers are left unchanged. If an error
+     * * If a value is returned, the value is used as the new request.headers value and the original value is stored in request.orig.headers. Otherwise, the headers are left unchanged. If an error
      * is thrown, the error is handled according to failAction. Note that all header field names must be in lowercase to match the headers normalized by node.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsvalidateheaders)
+     * @default true
      */
     headers?: RouteOptionsResponseSchema;
 
     /**
-     * Default value: none.
      * An options object passed to the joi rules or the custom validation methods. Used for setting global options such as stripUnknown or abortEarly (the complete list is available here).
      * If a custom validation function (see headers, params, query, or payload above) is defined then options can an arbitrary object that will be passed to this function as the second parameter.
      * The values of the other inputs (i.e. headers, query, params, payload, app, and auth) are added to the options object under the validation context (accessible in rules as
@@ -1631,11 +1664,11 @@ export interface RouteOptionsValidate {
      * will reflect the raw, unvalidated and unmodified values. If the validation rules for headers, params, query, and payload are defined at both the server routes level and at the route level, the
      * individual route settings override the routes defaults (the rules are not merged).
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsvalidateparams)
+     * @default true
      */
     options?: ValidationOptions | object;
 
     /**
-     * Default value: true (no validation).
      * Validation rules for incoming request path parameters, after matching the path against the route, extracting any parameters, and storing them in request.params, where:
      * * true - any path parameter value allowed (no validation performed).
      * * a joi validation object.
@@ -1645,39 +1678,37 @@ export interface RouteOptionsValidate {
      * if a value is returned, the value is used as the new request.params value and the original value is stored in request.orig.params. Otherwise, the path parameters are left unchanged. If an
      * error is thrown, the error is handled according to failAction. Note that failing to match the validation rules to the route path parameters definition will cause all requests to fail.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsvalidateparams)
+     * @default true
      */
     params?: RouteOptionsResponseSchema;
 
     /**
-     * Default value: true (no validation).
      * Validation rules for incoming request payload (request body), where:
-     * * true - any payload allowed (no validation performed). false - no payload allowed.
-     * * a joi validation object. Note that empty payloads are represented by a null value. If a validation schema is provided and empty payload are allowed, the schema must be explicitly defined by
-     * setting the rule to a joi schema with null allowed (e.g. Joi.object({  keys here  }).allow(null)).
-     * * a validation function using the signature async function(value, options) where:
-     * * * value - the request.query object containing the request query parameters.
-     * * * options - options.
-     * if a value is returned, the value is used as the new request.payload value and the original value is stored in request.orig.payload. Otherwise, the payload is left unchanged. If an error is
+     * * If a value is returned, the value is used as the new request.payload value and the original value is stored in request.orig.payload. Otherwise, the payload is left unchanged. If an error is
      * thrown, the error is handled according to failAction. Note that validating large payloads and modifying them will cause memory duplication of the payload (since the original is kept), as well
      * as the significant performance cost of validating large amounts of data.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsvalidatepayload)
+     * @default true
      */
     payload?: RouteOptionsResponseSchema;
 
     /**
-     * Default value: true (no validation).
      * Validation rules for incoming request URI query component (the key-value part of the URI between '?' and '#'). The query is parsed into its individual key-value pairs, decoded, and stored in
      * request.query prior to validation. Where:
-     * * true - any query parameter value allowed (no validation performed). false - no query parameter value allowed.
-     * * a joi validation object.
-     * * a validation function using the signature async function(value, options) where:
-     * * * value - the request.query object containing the request query parameters.
-     * * * options - options.
-     * if a value is returned, the value is used as the new request.query value and the original value is stored in request.orig.query. Otherwise, the query parameters are left unchanged. If an error
+     * * If a value is returned, the value is used as the new request.query value and the original value is stored in request.orig.query. Otherwise, the query parameters are left unchanged.
+     * If an error
      * is thrown, the error is handled according to failAction. Note that changes to the query parameters will not be reflected in request.url.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsvalidatequery)
+     * @default true
      */
     query?: RouteOptionsResponseSchema;
+
+    /**
+     * Validation rules for incoming cookies.
+     * The cookie header is parsed and decoded into the request.state prior to validation.
+     * @default true
+     */
+    state?: RouteOptionsResponseSchema;
 }
 
 /**
@@ -2014,6 +2045,15 @@ export interface ServerAuthSchemeObject {
     response?(request: Request, h: ResponseToolkit): Lifecycle.ReturnValue;
 
     /**
+     * a method used to verify the authentication credentials provided
+     * are still valid (e.g. not expired or revoked after the initial authentication).
+     * the method throws an `Error` when the credentials passed are no longer valid (e.g. expired or
+     * revoked). Note that the method does not have access to the original request, only to the
+     * credentials and artifacts produced by the `authenticate()` method.
+     */
+    verify?(auth: RequestAuth): Promise<void>;
+
+    /**
      * An object with the following keys:
      * * payload
      */
@@ -2040,7 +2080,7 @@ export interface ServerAuth {
      * returned from its implementation function.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverauthapi)
      */
-    api: Util.Dictionary<any>;
+    api: Util.Dictionary<ServerAuthSchemeObjectApi>;
 
     /**
      * Contains the default authentication configuration is a default strategy was set via
@@ -2094,16 +2134,31 @@ export interface ServerAuth {
      * Tests a request against an authentication strategy where:
      * @param strategy - the strategy name registered with server.auth.strategy().
      * @param request - the request object.
-     * @return Return value: the authentication credentials object if authentication was successful, otherwise throws an error.
+     * @return an object containing the authentication credentials and artifacts if authentication was successful, otherwise throws an error.
      * Note that the test() method does not take into account the route authentication configuration. It also does not
      * perform payload authentication. It is limited to the basic strategy authentication execution. It does not
      * include verifying scope, entity, or other route properties.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-await-serverauthteststrategy-request)
      */
-    test(strategy: string, request: Request): Promise<any>;
+    test(strategy: string, request: Request): Promise<AuthenticationData>;
+
+    /**
+     * Verify a request's authentication credentials against an authentication strategy.
+     * Returns nothing if verification was successful, otherwise throws an error.
+     *
+     * Note that the `verify()` method does not take into account the route authentication configuration
+     * or any other information from the request other than the `request.auth` object. It also does not
+     * perform payload authentication. It is limited to verifying that the previously valid credentials
+     * are still valid (e.g. have not been revoked or expired). It does not include verifying scope,
+     * entity, or other route properties.
+     */
+    verify(request: Request): Promise<void>;
 }
 
 export type CachePolicyOptions<T> = PolicyOptionVariants<T> & {
+    /**
+     * @default '_default'
+     */
     cache?: string;
     segment?: string;
 };
@@ -2260,7 +2315,7 @@ export interface RequestEvent {
 export type LogEventHandler = (event: LogEvent, tags: { [key: string]: true }) => void;
 export type RequestEventHandler = (request: Request, event: RequestEvent, tags: { [key: string]: true }) => void;
 export type ResponseEventHandler = (request: Request) => void;
-export type RouteEventHandler = (route: ServerRoute) => void;
+export type RouteEventHandler = (route: RequestRoute) => void;
 export type StartEventHandler = () => void;
 export type StopEventHandler = () => void;
 
@@ -2601,15 +2656,24 @@ export interface ServerInfo {
  */
 export interface ServerInjectOptions extends Shot.RequestOptions {
     /**
-     * an credentials object containing authentication information. The credentials are used to bypass the default authentication strategies, and are validated directly as if they were received via
-     * an authentication scheme. Defaults to no credentials.
+     * Authentication bypass options.
      */
-    credentials?: AuthCredentials;
-    /**
-     * (an artifacts object containing authentication artifact information. The artifacts are used to bypass the default authentication strategies, and are validated directly as if they were received
-     * via an authentication scheme. Ignored if set without credentials. Defaults to no artifacts.
-     */
-    artifacts?: object;
+    auth?: {
+        /**
+         * The authentication strategy name matching the provided credentials.
+         */
+        strategy: string;
+        /**
+         * The credentials are used to bypass the default authentication strategies,
+         * and are validated directly as if they were received via an authentication scheme.
+         */
+        credentials: AuthCredentials;
+        /**
+         * The artifacts are used to bypass the default authentication strategies,
+         * and are validated directly as if they were received via an authentication scheme. Defaults to no artifacts.
+         */
+        artifacts?: object;
+    };
     /**
      * sets the initial value of request.app, defaults to {}.
      */
@@ -2658,7 +2722,7 @@ export interface ServerInjectResponse extends Shot.ResponseObject {
  * * * ttl - 0 if result is valid but cannot be cached. Defaults to cache policy.
  * For reference [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-servermethodname-method-options)
  */
-export type ServerMethod = (...args: any[]) => Promise<any>;
+export type ServerMethod = (...args: any[]) => any;
 
 /**
  * The same cache configuration used in server.cache().
@@ -2720,14 +2784,24 @@ export interface ServerMethodConfigurationObject {
     options?: ServerMethodOptions;
 }
 
+export type CacheProvider<T extends ClientOptions = ClientOptions> = EnginePrototype<any> | {
+    constructor: EnginePrototype<any>;
+    options?: T;
+};
+
 /**
  * hapi uses catbox for its cache implementation which includes support for common storage solutions (e.g. Redis,
  * MongoDB, Memcached, Riak, among others). Caching is only utilized if methods and plugins explicitly store their state in the cache.
  * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-cache)
  */
 export interface ServerOptionsCache extends PolicyOptions<any> {
-    /** a class, a prototype function, or a catbox engine object. */
-    engine?: EnginePrototypeOrObject;
+    /** catbox engine object. */
+    engine?: ClientApi<any>;
+
+    /**
+     * a class or a prototype function
+     */
+    provider?: CacheProvider;
 
     /**
      * an identifier used later when provisioning or configuring caching for server methods or plugins. Each cache name must be unique. A single item may omit the name option which defines
@@ -2805,7 +2879,7 @@ export interface ServerOptions {
      * * * other options passed to the catbox strategy used. Other options are only passed to catbox when engine above is a class or function and ignored if engine is a catbox engine object).
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serveroptionscache)
      */
-    cache?: EnginePrototype<any> | ServerOptionsCache | ServerOptionsCache[];
+    cache?: CacheProvider | ServerOptionsCache | ServerOptionsCache[];
 
     /**
      * Default value: { minBytes: 1024 }.
@@ -2950,6 +3024,17 @@ export interface ServerOptions {
      * The full public URI without the path (e.g. 'http://example.com:8080'). If present, used as the server server.info.uri, otherwise constructed from the server settings.
      */
     uri?: string;
+
+    /**
+     * Query parameter configuration.
+     */
+    query?: {
+        /**
+         * the method must return an object where each key is a parameter and matching value is the parameter value.
+         * If the method throws, the error is used as the response or returned when `request.setUrl` is called.
+         */
+        parser(raw: Util.Dictionary<string>): Util.Dictionary<any>;
+    };
 }
 
 /**
@@ -3299,7 +3384,7 @@ export class Server {
     /**
      * Server Auth: properties and methods
      */
-    auth: ServerAuth;
+    readonly auth: ServerAuth;
 
     /**
      * Links another server to the initialize/start/stop state of the current server by calling the
@@ -3539,7 +3624,7 @@ export class Server {
 
     /**
      * Used within a plugin to declare a required dependency on other plugins where:
-     * @param dependencies - a single string or an array of plugin name strings which must be registered in order for this plugin to operate. Plugins listed must be registered before the server is
+     * @param dependencies - plugins which must be registered in order for this plugin to operate. Plugins listed must be registered before the server is
      *     initialized or started.
      * @param after - (optional) a function that is called after all the specified dependencies have been registered and before the server starts. The function is only called if the server is
      *     initialized or started. The function signature is async function(server) where: server - the server the dependency() method was called on.
@@ -3549,7 +3634,7 @@ export class Server {
      * The method does not provide version dependency which should be implemented using npm peer dependencies.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverdependencydependencies-after)
      */
-    dependency(dependencies: string | string[], after?: ((server: Server) => Promise<void>)): void;
+    dependency(dependencies: Dependencies, after?: ((server: Server) => Promise<void>)): void;
 
     /**
      * Registers a custom content encoding compressor to extend the built-in support for 'gzip' and 'deflate' where:

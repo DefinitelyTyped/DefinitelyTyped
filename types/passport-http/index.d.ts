@@ -3,6 +3,7 @@
 // Definitions by: Christophe Vidal <https://github.com/krizalys>
 //                 Tomek Łaziuk <https://github.com/tlaziuk>
 //                 Chris Barth <https://github.com/cjbarth>
+//                 James Adarich <https://github.com/jamesadarich>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -11,7 +12,7 @@ import express = require("express");
 
 export interface BasicStrategyOptions<req extends boolean = boolean> {
     realm?: string;
-    passReqToCallback?: boolean;
+    passReqToCallback?: req;
 }
 
 export interface DigestStrategyOptions {
@@ -52,7 +53,7 @@ export type DigestValidateFunction = (
     done: (error: any, valid: boolean) => void,
 ) => any;
 
-export class BasicStrategy extends passport.Strategy {
+export class BasicStrategy implements passport.Strategy {
     constructor(verify: BasicVerifyFunction);
     constructor(options: BasicStrategyOptions<false>, verify: BasicVerifyFunction);
     constructor(options: BasicStrategyOptions<true>, verify: BasicVerifyFunctionWithRequest);
@@ -61,7 +62,7 @@ export class BasicStrategy extends passport.Strategy {
     authenticate(req: express.Request, options?: object): void;
 }
 
-export class DigestStrategy extends passport.Strategy {
+export class DigestStrategy implements passport.Strategy {
     constructor(secret: DigestSecretFunction, validate?: DigestValidateFunction);
     constructor(options: DigestStrategyOptions, secret: DigestSecretFunction, validate?: DigestValidateFunction);
 

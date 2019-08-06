@@ -1,5 +1,5 @@
 declare namespace mermaidAPI {
-    type Theme = "default" | "forest" | "dark" | "netural";
+    type Theme = "default" | "forest" | "dark" | "neutral";
 
     enum LogLevel {
         Debug = 1,
@@ -240,7 +240,7 @@ declare namespace mermaidAPI {
 
     function parse(text: string): any;
 
-    function initalize(options: Config): void;
+    function initialize(options: Config): void;
 
     function getConfig(): Config;
 }

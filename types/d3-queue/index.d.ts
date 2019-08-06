@@ -1,5 +1,5 @@
 // Type definitions for D3JS d3-queue module 3.0
-// Project: https://github.com/d3/d3-queue/
+// Project: https://github.com/d3/d3-queue/, https://d3js.org/d3-queue
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>
 //                 Alex Ford <https://github.com/gustavderdrache>
 //                 Boris Yankov <https://github.com/borisyankov>

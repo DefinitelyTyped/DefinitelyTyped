@@ -6,13 +6,18 @@ import { buildSchema } from "graphql";
 const app = express();
 const schema = buildSchema(`type Query { hello: String }`);
 
+const validationRules = [
+    () => ({ Field: () => false }),
+    () => ({ Variable: () => true }),
+];
+
 const graphqlOption: graphqlHTTP.OptionsData = {
     graphiql: true,
     schema,
-    formatError: (error: Error) => ({
+    customFormatErrorFn: (error: Error) => ({
         message: error.message,
     }),
-    validationRules: [() => false, () => true],
+    validationRules,
     extensions: ({ document, variables, operationName, result }) => ({ key: "value", key2: "value" }),
 };
 
@@ -20,7 +25,7 @@ const graphqlOptionRequest = (request: express.Request): graphqlHTTP.OptionsData
     graphiql: true,
     schema,
     context: request.session,
-    validationRules: [() => false, () => true],
+    validationRules,
 });
 
 const graphqlOptionRequestAsync = async (request: express.Request): Promise<graphqlHTTP.OptionsData> => {
@@ -29,7 +34,7 @@ const graphqlOptionRequestAsync = async (request: express.Request): Promise<grap
         schema: await Promise.resolve(schema),
         context: request.session,
         extensions: async args => {},
-        validationRules: [() => false, () => true],
+        validationRules,
     };
 };
 

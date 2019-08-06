@@ -23,10 +23,21 @@ class pLoader extends Hls.DefaultConfig.loader {
 
 if (Hls.isSupported()) {
     const video = <HTMLVideoElement> document.getElementById('video');
-    const hls = new Hls({ pLoader, startFragPrefetch: true });
+    const hls = new Hls({
+        pLoader,
+        startFragPrefetch: true,
+        debug: {
+            log: (...args: any[]) => console.log(...args)
+        }
+    });
+
     const version: string = Hls.version;
     hls.loadSource('http://www.streambox.fr/playlists/test_001/stream.m3u8');
-    hls.attachMedia(video);
+    if (hls.media === undefined || hls.media === null) {
+        hls.attachMedia(video);
+    } else {
+        console.log('src: ', hls.media.src);
+    }
 
     hls.once(Hls.Events.MANIFEST_PARSED, (event: "hlsManifestParsed", data: Hls.manifestParsedData) => {
         video.play();

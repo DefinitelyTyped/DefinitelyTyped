@@ -51,7 +51,6 @@ import {
     VirtualizedListProps,
     SectionListProps,
     ListViewProps,
-    MapViewProps,
     MaskedViewIOSProps,
     ModalProps,
     TouchableWithoutFeedbackProps,
@@ -66,7 +65,7 @@ import {
     StatusBarPropsIOS,
     StatusBarPropsAndroid,
     SwitchProps,
-    SwitchPropsIOS
+    SwitchPropsIOS,
 } from "react-native";
 
 declare module "react-native" {
@@ -231,9 +230,6 @@ declare module "react-native" {
 
     /** @deprecated Use ListViewProps */
     export type ListViewProperties = ListViewProps;
-
-    /** @deprecated Use MapViewProps */
-    export type MapViewProperties = MapViewProps;
 
     /** @deprecated Use MaskedViewIOSProps */
     export type MaskedViewIOSProperties = MaskedViewIOSProps;

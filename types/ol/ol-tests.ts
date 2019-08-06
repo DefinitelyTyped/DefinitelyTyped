@@ -1,325 +1,310 @@
-import ControlAttribution from 'ol/control/attribution';
-
-import ControlControl from 'ol/control/control';
-
-import ControlFullScreen from 'ol/control/fullscreen';
-
-import ControlMousePosition from 'ol/control/mouseposition';
-
-import ControlOverviewMap from 'ol/control/overviewmap';
-
-import ControlRotate from 'ol/control/rotate';
-
-import ControlScaleLine from 'ol/control/scaleline';
-
-import ControlZoom from 'ol/control/zoom';
-
-import ControlZoomSlider from 'ol/control/zoomslider';
-
-import ControlZoomToExtent from 'ol/control/zoomtoextent';
-
-import Eventscondition from 'ol/events/condition';
-
-import EventsEvent from 'ol/events/event';
-
-import EventsEventTarget from 'ol/events/eventtarget';
-
-import FormatEsriJSON from 'ol/format/esrijson';
-
-import FormatFeature from 'ol/format/feature';
-
-import Formatfilter from 'ol/format/filter';
-
-import FormatGeoJSON from 'ol/format/geojson';
-
-import FormatGML2 from 'ol/format/gml2';
-
-import FormatGML3 from 'ol/format/gml3';
-
-import FormatGMLBase from 'ol/format/gmlbase';
-
-import FormatGPX from 'ol/format/gpx';
-
-import FormatIGC from 'ol/format/igc';
-
-import FormatJSONFeature from 'ol/format/jsonfeature';
-
-import FormatKML from 'ol/format/kml';
-
-import FormatMVT from 'ol/format/mvt';
-
-import FormatOSMXML from 'ol/format/osmxml';
-
-import FormatPolyline from 'ol/format/polyline';
-
-import FormatTextFeature from 'ol/format/textfeature';
-
-import FormatTopoJSON from 'ol/format/topojson';
-
-import FormatWFS from 'ol/format/wfs';
-
-import FormatWKT from 'ol/format/wkt';
-
-import FormatWMSCapabilities from 'ol/format/wmscapabilities';
-
-import FormatWMSGetFeatureInfo from 'ol/format/wmsgetfeatureinfo';
-
-import FormatWMTSCapabilities from 'ol/format/wmtscapabilities';
-
-import FormatXML from 'ol/format/xml';
-
-import FormatXMLFeature from 'ol/format/xmlfeature';
-
-import GeomCircle from 'ol/geom/circle';
-
-import GeomGeometry from 'ol/geom/geometry';
-
-import GeomGeometryCollection from 'ol/geom/geometrycollection';
-
-import GeomLinearRing from 'ol/geom/linearring';
-
-import GeomLineString from 'ol/geom/linestring';
-
-import GeomMultiLineString from 'ol/geom/multilinestring';
-
-import GeomMultiPoint from 'ol/geom/multipoint';
-
-import GeomMultiPolygon from 'ol/geom/multipolygon';
-
-import GeomPoint from 'ol/geom/point';
-
-import GeomPolygon from 'ol/geom/polygon';
-
-import GeomSimpleGeometry from 'ol/geom/simplegeometry';
-
-import InteractionDoubleClickZoom from 'ol/interaction/doubleclickzoom';
-
-import InteractionDragAndDrop from 'ol/interaction/draganddrop';
-
-import InteractionDragBox from 'ol/interaction/dragbox';
-
-import InteractionDragPan from 'ol/interaction/dragpan';
-
-import InteractionDragRotate from 'ol/interaction/dragrotate';
-
-import InteractionDragRotateAndZoom from 'ol/interaction/dragrotateandzoom';
-
-import InteractionDragZoom from 'ol/interaction/dragzoom';
-
-import InteractionDraw from 'ol/interaction/draw';
-
-import InteractionInteraction from 'ol/interaction/interaction';
-
-import InteractionKeyboardPan from 'ol/interaction/keyboardpan';
-
-import InteractionKeyboardZoom from 'ol/interaction/keyboardzoom';
-
-import InteractionModify from 'ol/interaction/modify';
-
-import InteractionMouseWheelZoom from 'ol/interaction/mousewheelzoom';
-
-import InteractionPinchRotate from 'ol/interaction/pinchrotate';
-
-import InteractionPinchZoom from 'ol/interaction/pinchzoom';
-
-import InteractionPointer from 'ol/interaction/pointer';
-
-import InteractionSelect from 'ol/interaction/select';
-
-import InteractionSnap from 'ol/interaction/snap';
-
-import InteractionTranslate from 'ol/interaction/translate';
-
-import LayerBase from 'ol/layer/base';
-
-import LayerGroup from 'ol/layer/group';
-
-import LayerHeatmap from 'ol/layer/heatmap';
-
-import LayerImage from 'ol/layer/image';
-
-import LayerLayer from 'ol/layer/layer';
-
-import LayerTile from 'ol/layer/tile';
-
-import LayerVector from 'ol/layer/vector';
-
-import LayerVectorTile from 'ol/layer/vectortile';
-
-import PointerPointerEvent from 'ol/pointer/pointerevent';
-
-import Proj from 'ol/proj';
-
-import ProjProjection from 'ol/proj/projection';
-
-import Rendercanvas from 'ol/render/canvas';
-
-import RenderEvent from 'ol/render/event';
-
-import RenderFeature from 'ol/render/feature';
-
-import RenderVectorContext from 'ol/render/vectorcontext';
-
-import SourceBingMaps from 'ol/source/bingmaps';
-
-import SourceCartoDB from 'ol/source/cartodb';
-
-import SourceCluster from 'ol/source/cluster';
-
-import SourceImage from 'ol/source/image';
-
-import SourceImageArcGISRest from 'ol/source/imagearcgisrest';
-
-import SourceImageCanvas from 'ol/source/imagecanvas';
-
-import SourceImageMapGuide from 'ol/source/imagemapguide';
-
-import SourceImageStatic from 'ol/source/imagestatic';
-
-import SourceImageVector from 'ol/source/imagevector';
-
-import SourceImageWMS from 'ol/source/imagewms';
-
-import SourceOSM from 'ol/source/osm';
-
-import SourceRaster from 'ol/source/raster';
-
-import SourceSource from 'ol/source/source';
-
-import SourceStamen from 'ol/source/stamen';
-
-import SourceTile from 'ol/source/tile';
-
-import SourceTileArcGISRest from 'ol/source/tilearcgisrest';
-
-import SourceTileDebug from 'ol/source/tiledebug';
-
-import SourceTileImage from 'ol/source/tileimage';
-
-import SourceTileJSON from 'ol/source/tilejson';
-
-import SourceTileUTFGrid from 'ol/source/tileutfgrid';
-
-import SourceTileWMS from 'ol/source/tilewms';
-
-import SourceUrlTile from 'ol/source/urltile';
-
-import SourceVector from 'ol/source/vector';
-
-import SourceVectorTile from 'ol/source/vectortile';
-
-import SourceWMTS from 'ol/source/wmts';
-
-import SourceXYZ from 'ol/source/xyz';
-
-import SourceZoomify from 'ol/source/zoomify';
-
-import StyleAtlasManager from 'ol/style/atlasmanager';
-
-import StyleCircle from 'ol/style/circle';
-
-import StyleFill from 'ol/style/fill';
-
-import StyleIcon from 'ol/style/icon';
-
-import StyleImage from 'ol/style/image';
-
-import StyleRegularShape from 'ol/style/regularshape';
-
-import StyleStroke from 'ol/style/stroke';
-
-import StyleStyle from 'ol/style/style';
-
-import StyleText from 'ol/style/text';
-
-import TilegridTileGrid from 'ol/tilegrid/tilegrid';
-
-import TilegridWMTS from 'ol/tilegrid/wmts';
-
-import AssertionError from 'ol/assertionerror';
-
-import Attribution from 'ol/attribution';
-
-import Collection from 'ol/collection';
-
-import Color from 'ol/color';
-
-import Colorlike from 'ol/colorlike';
-
-import Control from 'ol/control';
-
-import DeviceOrientation from 'ol/deviceorientation';
-
-import Disposable from 'ol/disposable';
-
-import Easing from 'ol/easing';
-
-import Events from 'ol/events';
-
-import Extent from 'ol/extent';
-
-import Feature from 'ol/feature';
-
-import FeatureLoader from 'ol/featureloader';
-
-import Geolocation from 'ol/geolocation';
-
-import Graticule from 'ol/graticule';
-
-import Image from 'ol/image';
-
-import ImageBase from 'ol/imagebase';
-
-import ImageTile from 'ol/imagetile';
-
-import Interaction from 'ol/interaction';
-
-import Kinetic from 'ol/kinetic';
-
-import Loadingstrategy from 'ol/loadingstrategy';
-
-import Map from 'ol/map';
-
-import MapBrowserEvent from 'ol/mapbrowserevent';
-
-import MapBrowserPointerEvent from 'ol/mapbrowserpointerevent';
-
-import MapEvent from 'ol/mapevent';
-
-import Object from 'ol/object';
-
-import Observable from 'ol/observable';
-
-import Overlay from 'ol/overlay';
-
-import Sphere from 'ol/sphere';
-
-import Tile from 'ol/tile';
-
-import Tilegrid from 'ol/tilegrid';
-
-import VectorTile from 'ol/vectortile';
-
-import View from 'ol/view';
-
-// Map
-const map: ol.Map = new Map(<any> {});
-const mapView: View = <any> {};
-const layerBase: LayerBase = <any> {};
-const control: ControlControl = <any> {};
-const interaction: InteractionInteraction = <any> {};
-map.setView(mapView);
-map.addLayer(layerBase);
-map.addControl(control);
-map.addInteraction(interaction);
-
-// View
-let view: View;
-const coordinate: ol.Coordinate = <any> {};
-const size: ol.Size = <any> {};
-const position: ol.Pixel = <any> {};
-view = map.getView();
-view.getProjection();
-view.animate(<any> {});
-view.calculateExtent(<any> 'size');
-view.centerOn(coordinate, size, position);
+import { Collection, Map, MapBrowserEvent, PluggableMap, View } from 'ol';
+import { unByKey } from 'ol/Observable';
+import {
+  Control, FullScreen, MousePosition, OverviewMap, ScaleLine, ZoomSlider, ZoomToExtent, defaults as defaultControls
+} from 'ol/control';
+import { Options as ControlOptions } from 'ol/control/Control';
+import { toStringXY } from 'ol/coordinate';
+import { EventsKey } from 'ol/events';
+import { applyTransform } from 'ol/extent';
+import { GeoJSON, MVT } from 'ol/format';
+import GeometryType from 'ol/geom/GeometryType';
+import { Draw, Modify, Select, defaults as defaultInteractions } from 'ol/interaction';
+import { Tile as TileLayer, Vector as VectorLayer, VectorTile as VectorTileLayer } from 'ol/layer';
+import { get as getProjection, getTransform } from 'ol/proj';
+import { register } from 'ol/proj/proj4';
+import { OSM, Vector as VectorSource, VectorTile as VectorTileSource } from 'ol/source';
+import { Circle, Fill, Stroke, Style } from 'ol/style';
+import { StyleFunction } from 'ol/style/Style';
+
+import proj4 = require('proj4');
+/**
+ * ==================================================
+ * # Styles
+ * ==================================================
+ */
+
+const image = new Circle({
+  radius: 5,
+  fill: null as any,
+  stroke: new Stroke({ color: 'red', width: 1 })
+});
+
+const styles: { [key: string]: Style } = {
+  Point: new Style({
+    image
+  }),
+  LineString: new Style({
+    stroke: new Stroke({
+      color: 'green',
+      width: 1
+    })
+  }),
+  MultiLineString: new Style({
+    stroke: new Stroke({
+      color: 'green',
+      width: 1
+    })
+  }),
+  MultiPoint: new Style({
+    image
+  }),
+  MultiPolygon: new Style({
+    stroke: new Stroke({
+      color: 'yellow',
+      width: 1
+    }),
+    fill: new Fill({
+      color: 'rgba(255, 255, 0, 0.1)'
+    })
+  }),
+  Polygon: new Style({
+    stroke: new Stroke({
+      color: 'blue',
+      lineDash: [4],
+      width: 3
+    }),
+    fill: new Fill({
+      color: 'rgba(0, 0, 255, 0.1)'
+    })
+  }),
+  GeometryCollection: new Style({
+    stroke: new Stroke({
+      color: 'magenta',
+      width: 2
+    }),
+    fill: new Fill({
+      color: 'magenta'
+    }),
+    image: new Circle({
+      radius: 10,
+      fill: null as any,
+      stroke: new Stroke({
+        color: 'magenta'
+      })
+    })
+  }),
+  Circle: new Style({
+    stroke: new Stroke({
+      color: 'red',
+      width: 2
+    }),
+    fill: new Fill({
+      color: 'rgba(255,0,0,0.2)'
+    })
+  })
+};
+
+const styleFunction: StyleFunction = feature => styles[feature.getGeometry().getType()];
+
+/**
+ * ==================================================
+ * # Vector
+ * ==================================================
+ */
+
+const geojsonString = '{"type":"FeatureCollection","crs":{"type":"name","properties":{"name":"EPSG:3857"}},"features":[{"type":"Feature","geometry":{"type":"Point","coordinates":[0,0]}},{"type":"Feature","geometry":{"type":"LineString","coordinates":[[4000000,-2000000],[8000000,2000000]]}},{"type":"Feature","geometry":{"type":"LineString","coordinates":[[4000000,2000000],[8000000,-2000000]]}},{"type":"Feature","geometry":{"type":"Polygon","coordinates":[[[-5000000,-1000000],[-4000000,1000000],[-3000000,-1000000]]]}},{"type":"Feature","geometry":{"type":"MultiLineString","coordinates":[[[-1000000,-750000],[-1000000,750000]],[[1000000,-750000],[1000000,750000]],[[-750000,-1000000],[750000,-1000000]],[[-750000,1000000],[750000,1000000]]]}},{"type":"Feature","geometry":{"type":"MultiPolygon","coordinates":[[[[-5000000,6000000],[-5000000,8000000],[-3000000,8000000],[-3000000,6000000]]],[[[-2000000,6000000],[-2000000,8000000],[0,8000000],[0,6000000]]],[[[1000000,6000000],[1000000,8000000],[3000000,8000000],[3000000,6000000]]]]}},{"type":"Feature","geometry":{"type":"GeometryCollection","geometries":[{"type":"LineString","coordinates":[[-5000000,-5000000],[0,-5000000]]},{"type":"Point","coordinates":[4000000,-5000000]},{"type":"Polygon","coordinates":[[[1000000,-6000000],[2000000,-4000000],[3000000,-6000000]]]}]}}]}';
+
+const vectorSource = new VectorSource({
+  features: (new GeoJSON()).readFeatures(JSON.parse(geojsonString))
+});
+
+const vectorLayer = new VectorLayer({
+  source: vectorSource,
+  style: styleFunction,
+  visible: true,
+  zIndex: 10
+});
+
+const vectorTileSource = new VectorTileSource({
+  format: new MVT(),
+  url: 'https://basemaps.arcgis.com/v1/arcgis/rest/services/World_Basemap/VectorTileServer/tile/{z}/{y}/{x}.pbf'
+});
+
+const vectorTileLayer = new VectorTileLayer({
+  source: vectorTileSource,
+  visible: false,
+  zIndex: 9
+});
+
+/**
+ * ==================================================
+ * # Tile
+ * ==================================================
+ */
+
+const osmLayer = new TileLayer({
+  source: new OSM({
+    crossOrigin: 'anonymous'
+  }),
+  visible: true,
+  zIndex: 0
+});
+
+/**
+ * ==================================================
+ * # Controls
+ * ==================================================
+ */
+
+const layers = [
+  osmLayer,
+  vectorLayer,
+  vectorTileLayer
+];
+
+const controls = defaultControls().extend([
+  new FullScreen(),
+  new MousePosition({
+    coordinateFormat: coord => toStringXY(coord, 8),
+    undefinedHTML: ''
+  }),
+  new OverviewMap({
+    layers,
+    view: new View({
+      projection: 'EPSG:3857'
+    })
+  }),
+  new ScaleLine(),
+  new ZoomSlider(),
+  new ZoomToExtent(),
+]);
+
+/**
+ * ==================================================
+ * # Interactions
+ * ==================================================
+ */
+
+const drawInteractions: Draw[] = [];
+(Object.keys(GeometryType) as (keyof typeof GeometryType)[]).forEach(type => {
+  const draw = new Draw({
+    type: GeometryType[type],
+  });
+
+  drawInteractions.push(draw);
+});
+
+const selectInteraction = new Select({
+  features: new Collection(vectorSource.getFeatures())
+});
+
+const modifyInteraction = new Modify({
+  features: selectInteraction.getFeatures()
+});
+
+const interactions = defaultInteractions()
+  .extend([
+    selectInteraction,
+    modifyInteraction
+  ]);
+
+/**
+ * ==================================================
+ * # Map and View
+ * ==================================================
+ */
+
+const view = new View({
+  center: [0, 0],
+  projection: 'EPSG:3857',
+  zoom: 10
+});
+
+const map = new Map({
+  target: document.getElementById('map') as HTMLElement,
+  view,
+  layers,
+  controls,
+  interactions
+});
+
+/**
+ * ==================================================
+ * # Reprojection
+ * ==================================================
+ */
+
+const projSpec = {
+  code: 'EPSG:4813',
+  bbox: [
+    -5.83,
+    105.06,
+    -8.91,
+    115.77
+  ],
+  proj4: '+proj=longlat +ellps=bessel +towgs84=-377,681,-50,0,0,0,0 +pm=jakarta +no_defs',
+  name: 'Batavia (Jakarta)'
+};
+
+proj4.defs(projSpec.code, projSpec.proj4);
+register(proj4);
+
+const proj = getProjection(projSpec.code);
+const transform = getTransform('EPSG:4326', proj);
+const extent = applyTransform([projSpec.bbox[1], projSpec.bbox[2], projSpec.bbox[3], projSpec.bbox[0]], transform);
+proj.setExtent(extent);
+const newView = new View({
+  projection: proj
+});
+
+setTimeout(() => {
+  map.setView(newView);
+  newView.fit(extent);
+}, 5000);
+
+/**
+ * ==================================================
+ * # Custom Control
+ * ==================================================
+ */
+
+interface CustomControlOptions extends ControlOptions {
+  name?: string;
+}
+
+class CustomControl extends Control {
+  element: HTMLElement;
+  name: string;
+  mapViewport?: HTMLElement;
+  private readonly _boundListener: (e: Event) => void;
+  private readonly _eventKeys: EventsKey[];
+
+  constructor(options: CustomControlOptions = {}) {
+    options.element = document.createElement('div');
+    options.element.className = 'ol-custom-control ol-unselectable ol-control';
+    super(options);
+    this.name = options.name || this.constructor.name;
+    this._boundListener = this._listener.bind(this);
+    this._eventKeys = [];
+  }
+
+  // Override
+  setMap(map: PluggableMap) {
+    super.setMap(map);
+    unByKey(this._eventKeys);
+    this._eventKeys.splice(0);
+
+    if (this.mapViewport)
+      this.mapViewport.removeEventListener('click', this._boundListener);
+
+    this.mapViewport = map ? map.getViewport() : undefined;
+
+    if (!this.mapViewport) return;
+
+    this.mapViewport.addEventListener('click', this._boundListener);
+    const view = map.getView();
+    this._eventKeys.push(
+      view.on('change:center', evt => {
+        console.log(evt.oldValue, view.getCenter());
+      })
+    );
+  }
+
+  private _listener(evt: MouseEvent) {
+    const mapEvent = new MapBrowserEvent(evt.type, this.getMap(), evt);
+    console.log(mapEvent);
+  }
+}
+
+map.addControl(new CustomControl());

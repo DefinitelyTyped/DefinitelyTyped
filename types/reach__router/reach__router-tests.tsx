@@ -1,6 +1,7 @@
 import {
     Link,
     Location,
+    LocationProvider,
     RouteComponentProps,
     Router,
     Redirect
@@ -45,6 +46,16 @@ render(
                 </>
             )}
         </Location>
+        <LocationProvider>
+            {context => (
+                <>
+                    <div>hostname is {context.location.hostname}</div>
+                    <button onClick={() => context.navigate('/')}>
+                        Go Home
+                    </button>
+                </>
+            )}
+        </LocationProvider>
     </Router>,
     document.getElementById('app-root')
 );

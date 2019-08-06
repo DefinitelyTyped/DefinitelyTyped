@@ -24,6 +24,12 @@ declare namespace download {
          * Proxy endpoint
          */
         proxy?: string;
+        /**
+         * Request Headers
+         */
+        headers?: {
+            [name: string]: string;
+        };
     }
 }
 

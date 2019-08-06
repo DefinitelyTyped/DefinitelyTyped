@@ -1020,7 +1020,7 @@ declare module "../index" {
 
     // isMatchWith
 
-    type isMatchWithCustomizer = (value: any, other: any, indexOrKey: PropertyName) => boolean;
+    type isMatchWithCustomizer = (value: any, other: any, indexOrKey: PropertyName, object: object, source: object) => boolean;
 
     interface LoDashStatic {
         /**
@@ -1224,14 +1224,14 @@ declare module "../index" {
          * @param value The value to check.
          * @return Returns true if value is an object, else false.
          */
-        isObject(value?: any): boolean;
+        isObject(value?: any): value is object;
     }
 
     interface LoDashImplicitWrapper<TValue> {
         /**
          * see _.isObject
          */
-        isObject(): boolean;
+        isObject(): this is LoDashImplicitWrapper<object>;
     }
 
     interface LoDashExplicitWrapper<TValue> {

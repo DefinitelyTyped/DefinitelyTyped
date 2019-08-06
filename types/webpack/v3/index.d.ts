@@ -389,7 +389,7 @@ declare namespace webpack {
     }
     interface NewLoader {
         loader: string;
-        options?: { [name: string]: any };
+        options?: { [name: string]: any } | string;
     }
     type Loader = string | OldLoader | NewLoader;
 
@@ -455,7 +455,7 @@ declare namespace webpack {
         query?: { [name: string]: any };
     }
     interface NewLoaderRule extends BaseSingleLoaderRule {
-        options?: { [name: string]: any };
+        options?: { [name: string]: any } | string;
     }
     type LoaderRule = OldLoaderRule | NewLoaderRule;
     interface OldUseRule extends BaseDirectRule {

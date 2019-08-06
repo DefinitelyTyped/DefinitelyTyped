@@ -38,6 +38,7 @@ export interface Location {
     pathname: Pathname;
     search: Search;
     query: Query;
+    hash: Hash;
     state: LocationState;
     action: Action;
     key: LocationKey;
@@ -47,6 +48,7 @@ export interface LocationDescriptorObject {
     pathname?: Pathname;
     search?: Search;
     query?: Query;
+    hash?: Hash;
     state?: LocationState;
 }
 

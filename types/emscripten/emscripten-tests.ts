@@ -8,7 +8,7 @@ function ModuleTest(): void {
     Module.preinitializedWebGLContext = new WebGLRenderingContext();
 
     let package: ArrayBuffer = Module.getPreloadedPackage("package-name", 100);
-    let exports: WebAssembly.Exports = Module.instantiateWasm(
+    let exports: Emscripten.WebAssemblyExports = Module.instantiateWasm(
         [{name: "func-name", kind: "function"}],
         (module: WebAssembly.Module) => {}
     );

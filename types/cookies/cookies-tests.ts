@@ -10,9 +10,9 @@ const server = http.createServer((req, res) => {
     new Cookies(req, res, {keys: new Keygrip([])});
     new Cookies(req, res, {secure: true});
 
-    let unsigned: string;
-    let signed: string;
-    let tampered: string;
+    let unsigned: string | undefined;
+    let signed: string | undefined;
+    let tampered: string | undefined;
 
     if (req.url === "/set") {
         cookies

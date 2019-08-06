@@ -79,7 +79,7 @@ export interface SingletonRouter<Q = DefaultQuery> extends RouterProps<Q> {
 }
 
 export interface WithRouterProps<Q = DefaultQuery> {
-    router: SingletonRouter<Q>;
+    router?: SingletonRouter<Q>;
 }
 
 /**
@@ -95,6 +95,9 @@ export type Omit<T, K extends keyof any> = T extends any ? Pick<T, Exclude<keyof
 export function withRouter<T extends {}, Q = DefaultQuery>(
   Component: React.ComponentType<T & WithRouterProps<Q>>
 ): React.ComponentType<Omit<T, keyof WithRouterProps<Q>>>;
+
+// tslint:disable-next-line no-unnecessary-generics
+export function useRouter<Q = DefaultQuery>(): RouterProps<Q>;
 
 declare const Router: SingletonRouter;
 export default Router;

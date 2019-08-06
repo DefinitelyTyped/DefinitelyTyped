@@ -201,7 +201,7 @@ Posts.insert({ title: "Hello world", body: "First post" });
  **/
 
 class Animal {
-    constructor(doc: any) {}
+    constructor(public doc: any) {}
 }
 
 interface AnimalDAO {
@@ -234,7 +234,13 @@ Items.insert({ list: groceriesId, name: "Persimmons" });
 /**
  * From Collections, collection.update section
  */
-var Players = new Mongo.Collection('Players');
+
+interface Players {
+  score: number
+  badges: string[]
+}
+
+var Players: Mongo.Collection<Players> = new Mongo.Collection('Players');
 
 Template['adminDashboard'].events({
     'click .givePoints': function () {
@@ -249,6 +255,17 @@ Meteor.methods({
     declareWinners: function () {
         Players.update({ score: { $gt: 10 } },
             { $addToSet: { badges: "Winner" } },
+            { multi: true });
+    }
+});
+
+/**
+ * Also from Collections, collection.update section
+ */
+Meteor.methods({
+    declareWinners: function () {
+        Players.update({ score: { $gt: 10 } },
+            { $addToSet: { badges: {$each: ["Winner", "Super"]} } },
             { multi: true });
     }
 });
@@ -371,19 +388,19 @@ Comments.find({ viewNumber: { $gt: 100 } });
 Comments.find({ viewNumber: { $not: { $lt: 100, $gt: 1000 } } });
 Comments.find({ tags: { $in: [ "tag-1", "tag-2", "tag-3" ] } });
 Comments.find({ $or: [ { text: "hello" }, { text: "world" } ] });
-Comments.find({ $or: [ 
-    { text: "hello" }, 
-    { text: "world", viewNumber: { $gt: 0 } } 
+Comments.find({ $or: [
+    { text: "hello" },
+    { text: "world", viewNumber: { $gt: 0 } }
 ], authorId: "test-author-id" });
-Comments.find({ $and: [ 
-    { $or: [{ authorId: "author-id-1" }, { authorId: "author-id-2" }] }, 
+Comments.find({ $and: [
+    { $or: [{ authorId: "author-id-1" }, { authorId: "author-id-2" }] },
     { $or: [{ tags: "tag-1" }, { tags: "tag-2" }] }
 ]});
 
-Comments.find({ $query: {inlineLinks: { $exists: true, $type: "array" } } });
-Comments.find({ inlineLinks: { $elemMatch: { 
-    objectType: InlineObjectType.Image, 
-    objectUrl: { $regex: "https://(www\.?)youtube\.com" } 
+Comments.find({ $query: { inlineLinks: { $exists: true, $type: "array" } } });
+Comments.find({ inlineLinks: { $elemMatch: {
+    objectType: InlineObjectType.Image,
+    objectUrl: { $regex: "https://(www\.?)youtube\.com" }
 } } });
 Comments.find({ "inlineLinks.objectType": InlineObjectType.Person });
 Comments.find({ tags: "tag-1" });
@@ -697,7 +714,7 @@ Accounts.onPageLoadLogin(function () {
 });
 
 // Covers this PR:  https://github.com/DefinitelyTyped/DefinitelyTyped/pull/8065
-var loginOpts = <Meteor.LoginWithExternalServiceOptions>{
+var loginOpts = {
     requestPermissions: ["a", "b"],
     requestOfflineToken: true,
     loginUrlParameters: { asdf: 1, qwer: "1234" },
@@ -705,7 +722,7 @@ var loginOpts = <Meteor.LoginWithExternalServiceOptions>{
     loginStyle: "Bold and powerful",
     redirectUrl: "popup",
     profile: "asdfasdf"
-};
+} as Meteor.LoginWithExternalServiceOptions;
 Meteor.loginWithMeteorDeveloperAccount(loginOpts, function (error: Meteor.Error) { });
 
 Accounts.emailTemplates.siteName = "AwesomeSite";
@@ -739,6 +756,43 @@ var handle = Accounts.validateLoginAttempt(function (attemptInfoObject: Accounts
 });
 handle.stop();
 
+if (Meteor.isServer) {
+    Accounts.registerLoginHandler('impersonate', (options: { targetUserId: string }) => {
+        const currentUser = Meteor.userId();
+        if (!currentUser) {
+            return { error: 'No user was logged in' };
+        }
+
+        const isSuperUser = (userId: string) => true;
+
+        if (!isSuperUser(currentUser)) {
+            const errMsg = `User ${currentUser} tried to impersonate but is not allowed`;
+            return { error: errMsg };
+        }
+        // By returning an object with userId, the session will now be logged in as that user
+        return { userId: options.targetUserId };
+    });
+}
+
+if (Meteor.isClient) {
+    Accounts.callLoginMethod({
+        methodName: 'impersonate',
+        methodArguments: [{ targetUserId: 'abc123' }],
+        userCallback: (...args: any[]) => {
+            const error = args[0];
+            if (!error) {
+                console.error(error);
+            }
+        },
+    });
+}
+
+if (Meteor.isServer) {
+    const check = Accounts._checkPassword(Meteor.users.findOne({}), 'abc123');
+    if (check.error) {
+        console.error('incorrect password');
+    }
+}
 
 // Covers https://github.com/meteor-typings/meteor/issues/8
 const publicSetting = Meteor.settings.public['somePublicSetting'];
@@ -748,7 +802,7 @@ const deeperPrivateSetting = Meteor.settings['somePrivateSettings']['deeperSetti
 
 
 // Covers https://github.com/meteor-typings/meteor/issues/9
-const username = (<HTMLInputElement>Template.instance().find('#username')).value;
+const username = (Template.instance().find('#username') as HTMLInputElement).value;
 
 
 // Covers https://github.com/meteor-typings/meteor/issues/3
@@ -783,3 +837,10 @@ const collectionWithoutConnection = new Mongo.Collection<MonkeyDAO>("monkey", {
 });
 
 }  // End of namespace
+
+// absoluteUrl
+Meteor.absoluteUrl('/sub', {rootUrl: 'http://wonderful.com'});
+Meteor.absoluteUrl.defaultOptions = {
+  rootUrl: 'http://123.com',
+  secure: false
+};

@@ -90,7 +90,7 @@ declare namespace SerialPort {
 			constructor(options: {delimiter: string | Buffer | number[], includeDelimiter?: boolean});
 		}
 		class Readline extends Delimiter {
-			constructor(options: {delimiter: string | Buffer | number[], encoding?: 'ascii'|'utf8'|'utf16le'|'ucs2'|'base64'|'binary'|'hex'});
+			constructor(options: {delimiter: string | Buffer | number[], encoding?: 'ascii'|'utf8'|'utf16le'|'ucs2'|'base64'|'binary'|'hex', includeDelimiter?: boolean});
 		}
 		class Ready extends Stream.Transform {
 			constructor(options: {data: string | Buffer | number[]});

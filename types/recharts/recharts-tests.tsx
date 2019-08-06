@@ -161,7 +161,7 @@ class Component extends React.Component<{}, ComponentState> {
                 <ResponsiveContainer height={400}>
                     <PieChart width={800} height={400}>
                         <Pie
-                            label={(props: {name: string}) => <Label>{name}</Label>}
+                            label={(props: {name: string}) => <Label>{props.name}</Label>}
                             dataKey="value"
                             activeIndex={this.state.activeIndex}
                             activeShape={renderActiveShape}
@@ -204,7 +204,7 @@ class Component extends React.Component<{}, ComponentState> {
                     <Bar dataKey="pv" fill="#8884d8">
                         <LabelList dataKey="name" position="insideTop" angle={45}  />
                     </Bar>
-                    <Bar dataKey="uv" fill="#82ca9d">
+                    <Bar dataKey="uv" fill="#82ca9d" radius={[10, 10, 0, 0]}>
                         <LabelList dataKey="uv" position="top" />
                     </Bar>
                     </BarChart>

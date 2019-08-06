@@ -144,7 +144,8 @@ function handleSignoutClick(event: MouseEvent) {
 // Load the API and make an API call.  Display the results on the screen.
 function makeApiCall() {
   gapi.client.people.people.get({
-    resourceName: 'people/me'
+    resourceName: 'people/me',
+    personFields: 'names'
   }).then((resp) => {
     const p = document.createElement('p');
     const name = resp.result.names[0].givenName;

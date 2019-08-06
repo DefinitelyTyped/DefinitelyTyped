@@ -48,6 +48,10 @@ class TestComponent extends React.Component<{ disableOnClickOutside(): void; ena
         console.log('this.handleClickOutside');
     }
 
+    logProps = () => {
+        console.log(this.props);
+    }
+
     render() {
         this.props.disableOnClickOutside();
         this.props.enableOnClickOutside();
@@ -58,12 +62,18 @@ class TestComponent extends React.Component<{ disableOnClickOutside(): void; ena
 }
 
 const WrappedComponent = onClickOutside(TestComponent);
+const wrappedComponentRef: React.RefObject<InstanceType<typeof WrappedComponent>> = React.createRef();
 
 render(
     <WrappedComponent
+        ref={wrappedComponentRef}
         eventTypes="whatever"
         preventDefault
         stopPropagation
     />,
     document.getElementById("main")
 );
+
+if (wrappedComponentRef.current) {
+  wrappedComponentRef.current.getInstance().logProps();
+}

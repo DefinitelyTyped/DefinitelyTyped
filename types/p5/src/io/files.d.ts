@@ -197,6 +197,8 @@ declare module "../../index" {
      *   - tsv - parse the table as tab-separated values
      *   - header - this table has a header (title) row
      *
+     *
+     *
      *   When passing in multiple options, pass them in as
      *   separate parameters, seperated by commas. For
      *   example:
@@ -254,6 +256,8 @@ declare module "../../index" {
      *   - csv - parse the table as comma-separated values
      *   - tsv - parse the table as tab-separated values
      *   - header - this table has a header (title) row
+     *
+     *
      *
      *   When passing in multiple options, pass them in as
      *   separate parameters, seperated by commas. For
@@ -652,22 +656,22 @@ declare module "../../index" {
      *
      *
      *   // Saves canvas as an image save('myCanvas.jpg');
-     *   // Saves pImage as a png image var img =
+     *   // Saves pImage as a png image let img =
      *   createImage(10, 10); save(img, 'my.png'); // Saves
-     *   canvas as an image var cnv = createCanvas(100,
+     *   canvas as an image let cnv = createCanvas(100,
      *   100); save(cnv, 'myCanvas.jpg'); // Saves
-     *   p5.Renderer object as an image var gb =
+     *   p5.Renderer object as an image let gb =
      *   createGraphics(100, 100); save(gb,
-     *   'myGraphics.jpg'); var myTable = new p5.Table();
+     *   'myGraphics.jpg'); let myTable = new p5.Table();
      *   // Saves table as html file save(myTable,
      *   'myTable.html'); // Comma Separated Values
      *   save(myTable, 'myTable.csv'); // Tab Separated
-     *   Values save(myTable, 'myTable.tsv'); var myJSON =
+     *   Values save(myTable, 'myTable.tsv'); let myJSON =
      *   { a: 1, b: true }; // Saves pretty JSON
      *   save(myJSON, 'my.json'); // Optimizes JSON
      *   filesize save(myJSON, 'my.json', true); // Saves
      *   array of strings to a text file with line breaks
-     *   after each item var arrayOfStrings = ['a', 'b'];
+     *   after each item let arrayOfStrings = ['a', 'b'];
      *   save(arrayOfStrings, 'my.txt');
      *   @param [objectOrFilename] If filename is provided,
      *   will save canvas as an image with either png or
