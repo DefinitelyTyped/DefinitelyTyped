@@ -536,13 +536,10 @@ class Overlay extends google.maps.OverlayView {
     draw(): void {
         const panes = this.getPanes();
         panes.floatPane.appendChild(div);
-        panes.floatShadow.appendChild(div);
         panes.mapPane.appendChild(div);
         panes.markerLayer.appendChild(div);
-        panes.overlayImage.appendChild(div);
         panes.overlayLayer.appendChild(div);
         panes.overlayMouseTarget.appendChild(div);
-        panes.overlayShadow.appendChild(div);
     }
 }
 let overlay = new Overlay();
