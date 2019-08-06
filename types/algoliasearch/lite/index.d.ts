@@ -8,7 +8,7 @@
 //                 Nery Ortez <https://github.com/neryortez>
 //                 Antoine Rousseau <https://github.com/antoinerousseau>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
+// TypeScript Version: 2.8
 
 import {
   QueryParameters,

@@ -10,7 +10,9 @@
 //                 Alexandre Deve <https://github.com/adeve>
 //                 Dan Grayson <https://github.com/dan-grayson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
+// TypeScript Version: 2.8
+
+type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 
 declare namespace algoliasearch {
   /**
@@ -2097,6 +2099,5 @@ interface AlgoliaStatic extends AlgoliasearchInstance {
 
 declare const algoliasearch: AlgoliaStatic;
 
-declare module 'algoliasearch' {
-  export = algoliasearch;
-}
+export = algoliasearch;
+export as namespace algoliasearch;
