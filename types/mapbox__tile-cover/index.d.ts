@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-/// <reference types="geojson"/>
+import * as GeoJSON from 'geojson';
 
 /**
  * Given a geometry, create cells and return them in a format easily readable
