@@ -34,13 +34,13 @@ export type CanvasOptions = CanvasTrueOptions | CanvasFalseOptions;
 // Setting 'aspectRatio' automatically enables 'crop', so setting 'crop' to
 // 'false' in that case is not valid
 export interface CropTrueOptions { crop?: true; aspectRatio?: AspectRatio; }
-export interface CropFalseOptions { crop: false; }
+export interface CropFalseOptions { crop?: false; }
 export type CropOptions = CanvasTrueOptions | CropFalseOptions;
 
 // Setting 'orientation' automatically sets 'meta' to true
 // so setting it to false is not valid in that case
 export interface MetaTrueOptions { meta?: true; orientation: Orientation; }
-export interface MetaFalseOptions { meta: false; }
+export interface MetaFalseOptions { meta?: false; }
 export type MetaOptions = MetaTrueOptions | MetaFalseOptions;
 
 export type LoadImageOptions = BasicOptions & CanvasOptions & CropOptions & MetaOptions;
