@@ -80,7 +80,6 @@ module DXDemo {
 
     export function onSearchComboBoxIndexChanged(s: ASPxClientComboBox, e: ASPxClientProcessingModeEventArgs): void {
         hideMenu();
-        $("#IndexContent").addClass("search-extend");
         searchButton.AdjustControl();
     };
 
@@ -301,19 +300,14 @@ module DXDemo {
         } catch (e) { }
         ASPxClientUtils.AttachEventToElement(window, "resize", onWindowResize);
         if (ASPxClientUtils.iOSPlatform) {
-            $("form :input").blur(function () {
-                $('html, body').animate({ scrollTop: 0 }, 0);
-            });
+            // animate
         }
     };
 
     export function updateRatingLabels(ratingControl: ASPxClientTrackBar) {
-		$("#cpLeftLabelID").html(ratingControl.GetPositionStart().toString());
-		$("#cpRightLabelID").html(ratingControl.GetPositionEnd().toString());
-    };
-
-    export function onAboutWindowCloseUp(): void {
-        $(mainCallbackPanel.GetMainElement()).removeClass("show-about");
+        var start = ratingControl.GetPositionStart().toString();
+        var end = ratingControl.GetPositionEnd().toString();
+        document.getElementById("cpLeftLabelID").innerHTML = start + " " + end;
     };
 
     export function onRatingControlItemClick(s: ASPxClientRatingControl, e: ASPxClientRatingControlItemClickEventArgs): void {
@@ -322,10 +316,8 @@ module DXDemo {
 
     export function onInputKeyDown(s: ASPxClientTextBox, e: ASPxClientEditKeyEventArgs): void {
         var keyCode = ASPxClientUtils.GetKeyCode(e.htmlEvent);
-        if (keyCode == 13) {
-            (<any>jQuery).event.fix(e.htmlEvent).preventDefault();
+        if (keyCode == 13)
             (<HTMLElement>s.GetInputElement()).blur();
-        }
     };
 
     function getCurrentPage(): string {
@@ -337,7 +329,6 @@ module DXDemo {
     };
 
     function showAboutWindow(): void {
-        $(mainCallbackPanel.GetMainElement()).addClass("show-about");
         aboutWindow.ShowAtElementByID("MainCallbackPanel_ContentPane");
     };
 
