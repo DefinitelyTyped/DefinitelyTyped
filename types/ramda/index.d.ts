@@ -1415,7 +1415,7 @@ declare namespace R {
          * order is reversed.
          */
         flip<T, U, TResult>(fn: (arg0: T, arg1: U) => TResult): (arg1: U, arg0?: T) => TResult;
-        flip<T, U, TResult>(fn: (arg0: T, arg1: U, ...args: any[]) => TResult): (arg1: U, arg0?: T, ...args: any[]) => TResult;
+        flip<F extends (...args: any) => any, P extends F.Parameters<F>>(fn: F): F.Curry<(...args: T.Merge<[P[1], P[0]], P>) => F.Return<F>>;
 
         /**
          * Iterate over an input list, calling a provided function fn for each element in the list.
