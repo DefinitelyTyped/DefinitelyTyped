@@ -24,7 +24,7 @@ import { Transform } from './transform';
 import View, { State } from './View';
 
 export interface AtPixelOptions {
-    layerFilter: ((p0: Layer) => boolean);
+    layerFilter: (p0: Layer) => boolean;
     hitTolerance?: number;
 }
 export interface FrameState {
@@ -68,7 +68,7 @@ export interface MapOptionsInternal {
     overlays: Collection<Overlay>;
     values: { [key: string]: any };
 }
-export type PostRenderFunction = ((p0: PluggableMap, p1: FrameState) => boolean);
+export type PostRenderFunction = (p0: PluggableMap, p1: FrameState) => boolean;
 export default class PluggableMap extends BaseObject {
     constructor(options: MapOptions);
     protected controls: Collection<Control>;
@@ -79,8 +79,16 @@ export default class PluggableMap extends BaseObject {
     addLayer(layer: BaseLayer): void;
     addOverlay(overlay: Overlay): void;
     createRenderer(): MapRenderer;
-    forEachFeatureAtPixel<S, T>(pixel: Pixel, callback: ((this: S, p0: FeatureLike, p1: Layer) => T), opt_options?: AtPixelOptions): T;
-    forEachLayerAtPixel<S, T>(pixel: Pixel, callback: ((this: S, p0: Layer, p1: (Uint8ClampedArray | Uint8Array)) => T), opt_options?: AtPixelOptions): T;
+    forEachFeatureAtPixel<S, T>(
+        pixel: Pixel,
+        callback: (this: S, p0: FeatureLike, p1: Layer) => T,
+        opt_options?: AtPixelOptions
+    ): T;
+    forEachLayerAtPixel<S, T>(
+        pixel: Pixel,
+        callback: (this: S, p0: Layer, p1: Uint8ClampedArray | Uint8Array) => T,
+        opt_options?: AtPixelOptions
+    ): T;
     getControls(): Collection<Control>;
     getCoordinateFromPixel(pixel: Pixel): Coordinate;
     getEventCoordinate(event: Event): Coordinate;
@@ -112,15 +120,15 @@ export default class PluggableMap extends BaseObject {
     render(): void;
     renderSync(): void;
     setLayerGroup(layerGroup: LayerGroup): void;
-    setSize(size: Size): void;
-    setTarget(target: HTMLElement | string): void;
+    setSize(size: Size | undefined): void;
+    setTarget(target: HTMLElement | string | undefined): void;
     setView(view: View): void;
     skipFeature(feature: Feature): void;
     unskipFeature(feature: Feature): void;
     updateSize(): void;
-    on(type: string | string[], listener: ((p0: any) => void)): EventsKey | EventsKey[];
-    once(type: string | string[], listener: ((p0: any) => void)): EventsKey | EventsKey[];
-    un(type: string | string[], listener: ((p0: any) => void)): void;
+    on(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
+    once(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
+    un(type: string | string[], listener: (p0: any) => void): void;
     on(type: 'change', listener: (evt: Event) => void): EventsKey;
     once(type: 'change', listener: (evt: Event) => void): EventsKey;
     un(type: 'change', listener: (evt: Event) => void): void;

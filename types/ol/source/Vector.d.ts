@@ -10,7 +10,7 @@ import { ObjectEvent } from '../Object';
 import Projection from '../proj/Projection';
 import Source, { AttributionLike } from './Source';
 
-export type LoadingStrategy = ((p0: Extent, p1: number) => Extent[]);
+export type LoadingStrategy = (p0: Extent, p1: number) => Extent[];
 export interface Options {
     attributions?: AttributionLike;
     features?: Feature[] | Collection<Feature>;
@@ -30,11 +30,11 @@ export default class VectorSource extends Source {
     addFeature(feature: Feature): void;
     addFeatures(features: Feature[]): void;
     clear(opt_fast?: boolean): void;
-    forEachFeature<T>(callback: ((p0: Feature) => T)): T;
-    forEachFeatureAtCoordinateDirect<T>(coordinate: Coordinate, callback: ((p0: Feature) => T)): T;
-    forEachFeatureInExtent<T>(extent: Extent, callback: ((p0: Feature) => T)): T;
-    forEachFeatureIntersectingExtent<T>(extent: Extent, callback: ((p0: Feature) => T)): T;
-    getClosestFeatureToCoordinate(coordinate: Coordinate, opt_filter?: (() => void)): Feature;
+    forEachFeature<T>(callback: (p0: Feature) => T): T;
+    forEachFeatureAtCoordinateDirect<T>(coordinate: Coordinate, callback: (p0: Feature) => T): T;
+    forEachFeatureInExtent<T>(extent: Extent, callback: (p0: Feature) => T): T;
+    forEachFeatureIntersectingExtent<T>(extent: Extent, callback: (p0: Feature) => T): T;
+    getClosestFeatureToCoordinate(coordinate: Coordinate, opt_filter?: () => void): Feature;
     getExtent(opt_extent?: Extent): Extent;
     getFeatureById(id: string | number): Feature;
     getFeatures(): Feature[];
@@ -50,9 +50,9 @@ export default class VectorSource extends Source {
     removeFeature(feature: Feature): void;
     removeLoadedExtent(extent: Extent): void;
     setLoader(loader: FeatureLoader): void;
-    on(type: string | string[], listener: ((p0: any) => void)): EventsKey | EventsKey[];
-    once(type: string | string[], listener: ((p0: any) => void)): EventsKey | EventsKey[];
-    un(type: string | string[], listener: ((p0: any) => void)): void;
+    on(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
+    once(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
+    un(type: string | string[], listener: (p0: any) => void): void;
     on(type: 'addfeature', listener: (evt: VectorSourceEvent) => void): EventsKey;
     once(type: 'addfeature', listener: (evt: VectorSourceEvent) => void): EventsKey;
     un(type: 'addfeature', listener: (evt: VectorSourceEvent) => void): void;
