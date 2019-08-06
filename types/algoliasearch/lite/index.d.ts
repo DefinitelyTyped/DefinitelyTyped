@@ -18,7 +18,7 @@ import {
   Response,
   BrowseParameters,
   BrowseResponse
-} from '../index';
+} from 'algoliasearch';
 
 declare namespace algoliasearch {
   /**
