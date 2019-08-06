@@ -543,7 +543,7 @@
 /// <reference path="./src/zipWith.d.ts" />
 /// <reference path="./src/includes.d.ts" />
 
-import {A, F, T} from "ts-toolbelt"
+import { A, F, T } from "ts-toolbelt";
 
 declare let R: R.Static;
 
