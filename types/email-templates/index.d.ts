@@ -33,7 +33,7 @@ interface EmailConfig {
     /**
      * Pass a custom render function if necessary
      */
-    render?: { view: string, locals: any };
+    render?: ( view: string, locals: any ) => Promise<any>;
     /**
      * force text-only rendering of template (disregards template folder)
      */
