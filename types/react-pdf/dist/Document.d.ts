@@ -105,6 +105,8 @@ export interface Props {
      * 90 = rotated to the right, 180 = upside down, 270 = rotated to the left.
      */
     rotate?: number;
+
+    children?: React.ReactNode;
 }
 
 export default class Document extends React.Component<Props> { }
