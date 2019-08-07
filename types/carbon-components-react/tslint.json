@@ -9,6 +9,7 @@
         "no-unnecessary-generics": false,
         "no-void-expression": false,
         "one-line": false,
+        "prefer-const": false,
         "semicolon": [true, "always", "ignore-interfaces"],
         "strict-export-declare-modifiers": false,
         "void-return": false

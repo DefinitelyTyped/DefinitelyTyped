@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { DataTable, DataTableHeader, DataTableRow } from '.';
+import { DataTable, DataTableHeader, DataTableRow } from 'carbon-components-react';
 
 interface Row1 extends DataTableRow {
     rowProp: string;
