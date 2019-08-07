@@ -1,4 +1,4 @@
-import { Ecore } from 'ecore';
+import Ecore = require('ecore');
 // Main test
 
 // Resources contain model elements and are identified by a URI.
