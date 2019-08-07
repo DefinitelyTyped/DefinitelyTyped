@@ -26,18 +26,7 @@ export type LogicalBooleanOperatorType = 'AND' | 'OR';
 // EXPRESSIONS AND TOKENS
 // ----------------------------------------------------------------------
 
-export type SerializableValueType = 
-    | string 
-    | number 
-    | boolean 
-    | SerializableValueObject 
-    | SerializableValueArray;
-
-interface SerializableValueObject {
-    [x: string]: SerializableValueType;
-}
-
-interface SerializableValueArray extends Array<SerializableValueType> { }
+export type SerializableValueType = any;
 
 export interface IdentifierTokenType {
     names: ReadonlyArray<string>;
@@ -119,6 +108,7 @@ export type SqlTokenType =
     AssignmentListTokenType |
     IdentifierTokenType |
     IdentifierListTokenType |
+    JsonSqlTokenType |
     RawSqlTokenType |
     SqlSqlTokenType<any> |
     TupleListSqlTokenType |
