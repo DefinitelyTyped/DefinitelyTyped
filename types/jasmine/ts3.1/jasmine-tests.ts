@@ -1399,62 +1399,47 @@ describe("createSpyObj", function() {
 });
 
 describe('Static Matcher Test', function() {
-  it('Falsy', () => {
-    expect({ value: null }).toEqual(
-      jasmine.objectContaining({
-        value: jasmine.falsy(),
-      }),
-    );
-    expect({ value: null }).toEqual(
-      jasmine.objectContaining({
-        value: 'any value should ok',
-      }),
-    );
+    it('Falsy', () => {
+      expect({ value: null }).toEqual(
+        jasmine.objectContaining({
+          value: jasmine.falsy(),
+        })
+      );
+    });
+    it('Truthy', () => {
+      expect({ value: null }).toEqual(
+        jasmine.objectContaining({
+          value: jasmine.truthy(),
+        })
+      );
+    });
+    it('Empty', () => {
+      expect({ value: null }).toEqual(
+        jasmine.objectContaining({
+          value: jasmine.empty(),
+        })
+      );
+    });
+    it('NotEmpty', () => {
+      expect({ value: null }).toEqual(
+        jasmine.objectContaining({
+          value: jasmine.notEmpty(),
+        })
+      );
+    });
+    it('Partial should OK', () => {
+      expect({ value: null, label: 'abcd' }).toEqual(
+        jasmine.objectContaining({
+          value: jasmine.anything(),
+        })
+      );
+      expect({ value: null }).toEqual(
+          jasmine.objectContaining({
+            value: 'any value should ok',
+          })
+        );
+    });
   });
-  it('Truthy', () => {
-    expect({ value: null }).toEqual(
-      jasmine.objectContaining({
-        value: jasmine.truthy(),
-      }),
-    );
-    expect({ value: null }).toEqual(
-      jasmine.objectContaining({
-        value: 'any value should ok',
-      }),
-    );
-  });
-  it('Empty', () => {
-    expect({ value: null }).toEqual(
-      jasmine.objectContaining({
-        value: jasmine.empty(),
-      }),
-    );
-    expect({ value: null }).toEqual(
-      jasmine.objectContaining({
-        value: 'any value should ok',
-      }),
-    );
-  });
-  it('NotEmpty', () => {
-    expect({ value: null }).toEqual(
-      jasmine.objectContaining({
-        value: jasmine.notEmpty(),
-      }),
-    );
-    expect({ value: null }).toEqual(
-      jasmine.objectContaining({
-        value: 'any value should ok',
-      }),
-    );
-  });
-  it('Partial should OK', () => {
-    expect({ value: null, label: 'abcd' }).toEqual(
-      jasmine.objectContaining({
-        value: jasmine.anything(),
-      }),
-    );
-  });
-});
 
 (() => {
     // from boot.js
