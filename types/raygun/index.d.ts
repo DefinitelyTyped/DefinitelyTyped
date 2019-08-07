@@ -150,6 +150,7 @@ declare class Client {
         res: any,
         next: any
     ): void;
+    user(req: raygun.RaygunRequest): raygun.RaygunUser|string;
 }
 
 export { Client };
