@@ -216,13 +216,13 @@ declare namespace jasmine {
      * That will succeed if the actual value being compared is empty.
      * @since 3.1.0
      */
-    function empty(): Empty
+    function empty(): Empty;
 
     /**
      * That will succeed if the actual value being compared is not empty.
      * @since 3.1.0
      */
-    function notEmpty(): NotEmpty
+    function notEmpty(): NotEmpty;
 
     function arrayContaining<T>(sample: ArrayLike<T>): ArrayContaining<T>;
     function arrayWithExactContents<T>(sample: ArrayLike<T>): ArrayContaining<T>;
@@ -259,7 +259,7 @@ declare namespace jasmine {
         asymmetricMatch(other: any): boolean;
         jasmineToString?(): T;
       }
-  
+
     interface Truthy extends AsymmetricMatcher<'<jasmine.truthy>'> { }
     interface Falsy extends AsymmetricMatcher<'<jasmine.falsy>'> { }
     interface Empty extends AsymmetricMatcher<'<jasmine.empty>'> { }
