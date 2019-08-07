@@ -4,7 +4,7 @@
 //                 James Greenleaf <https://github.com/aMoniker>
 //                 Remin <https://github.com/rdrgn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.5
 
 import * as React from "react";
 
@@ -77,9 +77,9 @@ declare class ReactResizeDetector extends React.PureComponent<
     ReactResizeDetectorProps
 > {}
 
-export function withResizeDetector(
-    WrappedComponent: React.ReactNode,
+export function withResizeDetector<T extends Partial<ReactResizeDetectorDimensions>>(
+    WrappedComponent: React.ComponentType<T>,
     props?: ReactResizeDetectorProps
-): React.Component;
+): React.ComponentType<Omit<T, keyof ReactResizeDetectorDimensions>>;
 
 export default ReactResizeDetector;
