@@ -1,3 +1,4 @@
+import { ReactNode } from 'react';
 import * as React from 'react';
 import { Props as SelectProps } from './Select';
 
@@ -87,17 +88,41 @@ export type FocusDirection =
   | 'first'
   | 'last';
 
-export type OptionProps = PropsWithInnerRef & {
-  data: any,
-  id: number,
-  index: number,
-  isDisabled: boolean,
-  isFocused: boolean,
-  isSelected: boolean,
+
+interface OptionsInnerProps {
+  id: string;
+  key: string;
+  onClick: MouseEventHandler;
+  onMouseMove: MouseEventHandler;
+  onMouseOver: MouseEventHandler;
+  tabIndex: number;
+}
+
+export interface OptionStateProps {
+  /** Whether the option is disabled. */
+  isDisabled: boolean;
+  /** Whether the option is focused. */
+  isFocused: boolean;
+  /** Whether the option is selected. */
+  isSelected: boolean;
+}
+
+export type OptionProps<OptionType> = PropsWithStyles &
+  CommonProps<OptionType> &
+  OptionStateProps & {
+  /** The children to be rendered. */
+  children: ReactNode,
+  /** Inner ref to DOM Node */
+  innerRef: InnerRef,
+  /** props passed to the wrapping element for the group. */
+  innerProps: OptionsInnerProps,
+  /* Text to be displayed representing the option. */
   label: string,
-  onClick: MouseEventHandler,
-  onMouseOver: MouseEventHandler,
-  value: any,
+  /* Type is used by the menu to determine whether this is an option or a group.
+  In the case of option this is always `option`. */
+  type: 'option',
+  /* The data of the selected option. */
+  data: OptionType,
 };
 
 export interface ThemeSpacing {
