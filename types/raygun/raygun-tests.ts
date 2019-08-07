@@ -40,6 +40,7 @@ client.onBeforeSend(payload => {
 client.onBeforeSend(); // $ExpectError
 
 client.groupingKey('123'); // $ExpectType Client
+client.groupingKey(payload => payload.details.client.name); // $ExpectType Client
 
 client.groupingKey(); // $ExpectError
 client.groupingKey({}); // $ExpectError
