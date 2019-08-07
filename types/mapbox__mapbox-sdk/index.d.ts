@@ -1338,7 +1338,7 @@ declare module '@mapbox/mapbox-sdk/services/static' {
     }
 
     interface GeoJsonOverlay {
-        geoJson: GeoJSON.GeoJsonTypes;
+        geoJson: GeoJSON.GeoJSON;
     }
 }
 
