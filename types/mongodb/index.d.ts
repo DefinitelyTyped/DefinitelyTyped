@@ -24,8 +24,9 @@
 //                 Nick Zahn <https://github.com/Manc>
 //                 Jarom Loveridge <https://github.com/jloveridge>
 //                 Luis Pais <https://github.com/ranguna>
+//                 Hossein Saniei <https://github.com/HosseinAgha>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 // Documentation: https://mongodb.github.io/node-mongodb-native/3.1/api/
 
@@ -35,6 +36,9 @@ import { ObjectID, Timestamp } from 'bson';
 import { EventEmitter } from 'events';
 import { Readable, Writable } from "stream";
 import { checkServerIdentity } from "tls";
+
+// This line can be removed after minimum required TypeScript Version is above 3.5
+type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
 
 export function connect(uri: string, options?: MongoClientOptions): Promise<MongoClient>;
 export function connect(uri: string, callback: MongoCallback<MongoClient>): void;
@@ -127,7 +131,7 @@ export interface ClientSession extends EventEmitter {
      * Starts a new transaction with the given options.
      */
     startTransaction(options?: TransactionOptions): void;
-    
+
     /**
      * Runs a provided lambda within a transaction, retrying either the commit operation
      * or entire transaction as needed (and when the error permits) to better ensure that
@@ -135,7 +139,7 @@ export interface ClientSession extends EventEmitter {
      *
      * IMPORTANT: This method requires the user to return a Promise, all lambdas that do not
      * return a Promise will result in undefined behavior.
-     * 
+     *
      * @param fn Function to execute with the new session.
      * @param options Optional settings for the transaction
      */
@@ -846,6 +850,8 @@ export interface FSyncOptions extends CommonOptions {
     fsync?: boolean;
 }
 
+type OptionalId<TSchema> = Omit<TSchema, '_id'> & { _id?: any };
+
 /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html */
 export interface Collection<TSchema = Default> {
     /**
@@ -994,19 +1000,19 @@ export interface Collection<TSchema = Default> {
     initializeUnorderedBulkOp(options?: CommonOptions): UnorderedBulkOperation;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#insertOne */
     /** @deprecated Use insertOne, insertMany or bulkWrite */
-    insert(docs: TSchema, callback: MongoCallback<InsertOneWriteOpResult>): void;
+    insert(docs: OptionalId<TSchema>, callback: MongoCallback<InsertOneWriteOpResult>): void;
     /** @deprecated Use insertOne, insertMany or bulkWrite */
-    insert(docs: TSchema, options?: CollectionInsertOneOptions): Promise<InsertOneWriteOpResult>;
+    insert(docs: OptionalId<TSchema>, options?: CollectionInsertOneOptions): Promise<InsertOneWriteOpResult>;
     /** @deprecated Use insertOne, insertMany or bulkWrite */
-    insert(docs: TSchema, options: CollectionInsertOneOptions, callback: MongoCallback<InsertOneWriteOpResult>): void;
+    insert(docs: OptionalId<TSchema>, options: CollectionInsertOneOptions, callback: MongoCallback<InsertOneWriteOpResult>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#insertMany */
-    insertMany(docs: TSchema[], callback: MongoCallback<InsertWriteOpResult>): void;
-    insertMany(docs: TSchema[], options?: CollectionInsertManyOptions): Promise<InsertWriteOpResult>;
-    insertMany(docs: TSchema[], options: CollectionInsertManyOptions, callback: MongoCallback<InsertWriteOpResult>): void;
+    insertMany(docs: Array<OptionalId<TSchema>>, callback: MongoCallback<InsertWriteOpResult>): void;
+    insertMany(docs: Array<OptionalId<TSchema>>, options?: CollectionInsertManyOptions): Promise<InsertWriteOpResult>;
+    insertMany(docs: Array<OptionalId<TSchema>>, options: CollectionInsertManyOptions, callback: MongoCallback<InsertWriteOpResult>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#insertOne */
-    insertOne(docs: TSchema, callback: MongoCallback<InsertOneWriteOpResult>): void;
-    insertOne(docs: TSchema, options?: CollectionInsertOneOptions): Promise<InsertOneWriteOpResult>;
-    insertOne(docs: TSchema, options: CollectionInsertOneOptions, callback: MongoCallback<InsertOneWriteOpResult>): void;
+    insertOne(docs: OptionalId<TSchema>, callback: MongoCallback<InsertOneWriteOpResult>): void;
+    insertOne(docs: OptionalId<TSchema>, options?: CollectionInsertOneOptions): Promise<InsertOneWriteOpResult>;
+    insertOne(docs: OptionalId<TSchema>, options: CollectionInsertOneOptions, callback: MongoCallback<InsertOneWriteOpResult>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#isCapped */
     isCapped(options?: { session: ClientSession }): Promise<any>;
     isCapped(callback: MongoCallback<any>): void;
