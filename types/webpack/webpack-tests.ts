@@ -963,7 +963,7 @@ function testTemplate(template: webpack.Template) {
   }
   Math.max(...result);
   const chunk = new webpack.compilation.Chunk('name');
-  const moduleTemplate = {} as any as webpack.compilation.ModuleTemplate;
+  const moduleTemplate = ({} as any) as webpack.compilation.ModuleTemplate;
   template.renderChunkModules(
     chunk,
     (module, num) => {
