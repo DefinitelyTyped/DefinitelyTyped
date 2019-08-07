@@ -300,20 +300,20 @@ configuration = {
       );
       this.hooks.run.tap('SomePlugin', (compiler: webpack.Compiler) => {});
 
-      compiler.hooks.compilation.tap('SomePlugin', compilation => {       const { mainTemplate } = compilation;
-      if (mainTemplate.hooks.jsonpScript == null) {
-      return;
-      }
-      mainTemplate.hooks.jsonpScript.tap(
+      compiler.hooks.compilation.tap('SomePlugin', compilation => {
+        const { mainTemplate } = compilation;
+        if (mainTemplate.hooks.jsonpScript == null) {
+          return;
+        }
+        mainTemplate.hooks.jsonpScript.tap(
           'SomePlugin',
           (source, chunk, hash) => {
             source.trimLeft();
-           hash.trimLeft();
-          return chunk.name;
+            hash.trimLeft();
+            return chunk.name;
           },
         );
-      },
-              );
+      });
     },
   ],
 };
@@ -951,7 +951,7 @@ function testTemplate(template: webpack.Template) {
   template.toPath('a').trimLeft();
   template.numberToIdentifer(2).trimLeft();
   template.indent('a').trimLeft();
- template.indent(['a']).trimLeft();
+  template.indent(['a']).trimLeft();
     template.prefix('a', 'a').trimLeft();
   template.prefix(['a'], 'a').trimLeft();
   template.asString('a').trimLeft();
