@@ -10,31 +10,146 @@
 //                 Gintautas Miselis <https://github.com/Naktibalda>
 //                 Satana Charuwichitratana <https://github.com/micksatana>
 //                 Erik Schierboom <https://github.com/ErikSchierboom>
+//                 Rebecca Turner <https://github.com/9999years>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.0
 
 declare namespace Chai {
+    type Message = string | (() => string);
+
+    interface ErrorConstructor {
+        new(...args: any[]): Error;
+    }
+
+    interface PathInfo {
+        parent: object;
+        name: string;
+        value?: any;
+        exists: boolean;
+    }
+
+    interface ChaiUtils {
+        addChainableMethod(
+            // object to define the method on, e.g. chai.Assertion.prototype
+            ctx: object,
+            // method name
+            name: string,
+            // method itself; any arguments
+            method: (...args: any[]) => void,
+            // called when property is accessed
+            chainingBehavior: () => void
+        ): void;
+        overwriteChainableMethod(
+            ctx: object,
+            name: string,
+            method: (...args: any[]) => void,
+            chainingBehavior: () => void
+        ): void;
+        addLengthGuard(
+            fn: Function,
+            assertionName: string,
+            isChainable: boolean
+        ): void;
+        addMethod(ctx: object, name: string, method: Function): void;
+        addProperty(ctx: object, name: string, getter: () => any): void;
+        overwriteMethod(ctx: object, name: string, method: Function): void;
+        overwriteProperty(ctx: object, name: string, getter: () => any): void;
+        compareByInspect(a: object, b: object): -1 | 1;
+        expectTypes(obj: object, types: string[]): void;
+        flag(obj: object, key: string, value?: any): any;
+        getActual(obj: object, args: AssertionArgs): any;
+        getProperties(obj: object): string[];
+        getEnumerableProperties(obj: object): string[];
+        getOwnEnumerablePropertySymbols(obj: object): symbol[];
+        getOwnEnumerableProperties(obj: object): Array<string | symbol>;
+        getMessage(errorLike: Error | string): string;
+        getMessage(obj: any, args: AssertionArgs): string;
+        inspect(obj: any, showHidden?: boolean, depth?: number, colors?: boolean): void;
+        isProxyEnabled(): boolean;
+        objDisplay(obj: object): void;
+        proxify(obj: object, nonChainableMethodName: string): object;
+        test(obj: object, args: AssertionArgs): boolean;
+        transferFlags(assertion: Assertion, obj: object, includeAll?: boolean): void;
+        compatibleInstance(thrown: Error, errorLike: Error | ErrorConstructor): boolean;
+        compatibleConstructor(thrown: Error, errorLike: Error | ErrorConstructor): boolean;
+        compatibleMessage(thrown: Error, errMatcher: string | RegExp): boolean;
+        getConstructorName(constructorFn: Function): string;
+        getFuncName(constructorFn: Function): string | null;
+
+        // From pathval:
+        hasProperty(obj: object | undefined | null, name: Property): boolean;
+        getPathInfo(obj: object, path: string): PathInfo;
+        getPathValue(obj: object, path: string): object | undefined;
+    }
+
+    type ChaiPlugin = (chai: ChaiStatic, utils: ChaiUtils) => void;
+
     interface ChaiStatic {
         expect: ExpectStatic;
         should(): Should;
         /**
          * Provides a way to extend the internals of Chai
          */
-        use(fn: (chai: any, utils: any) => void): ChaiStatic;
+        use(fn: ChaiPlugin): ChaiStatic;
+        util: ChaiUtils;
         assert: AssertStatic;
         config: Config;
+        Assertion: AssertionStatic;
         AssertionError: typeof AssertionError;
         version: string;
     }
 
-    export interface ExpectStatic extends AssertionStatic {
+    export interface ExpectStatic {
+        (val: Object, message?: string): Assertion;
         fail(actual?: any, expected?: any, message?: string, operator?: Operator): void;
     }
 
     export interface AssertStatic extends Assert {
     }
 
+    // chai.Assertion.prototype.assert arguments
+    type AssertionArgs = [
+        // 'expression to be tested'
+        // This parameter is unused and the docs list its type as
+        // 'Philosophical', which is mentioned nowhere else in the source. Do
+        // with that what you will!
+        any,
+        Message, // message if value fails
+        Message, // message if negated value fails
+        any, // expected value
+        any?, // actual value
+        boolean? // showDiff
+    ];
+
+    export interface AssertionPrototype {
+        assert(...args: AssertionArgs): void;
+        _obj: any;
+    }
+
     export interface AssertionStatic {
-        (target: any, message?: string): Assertion;
+        prototype: AssertionPrototype;
+
+        new (target: Object, message?: string, ssfi?: Function, lockSsfi?: boolean): Assertion;
+
+        // Deprecated properties:
+        includeStack: boolean;
+        showDiff: boolean;
+
+        // Partials of functions on ChaiUtils:
+        addProperty(name: string, getter: (this: AssertionStatic) => any): void;
+        addMethod(name: string, method: (this: AssertionStatic, ...args: any[]) => any): void;
+        addChainableMethod(
+            name: string,
+            method: (this: AssertionStatic, ...args: any[]) => void,
+            chainingBehavior: () => void
+        ): void;
+        overwriteProperty(name: string, getter: (this: AssertionStatic) => any): void;
+        overwriteMethod(name: string, method: (this: AssertionStatic, ...args: any[]) => any): void;
+        overwriteChainableMethod(
+            name: string,
+            method: (this: AssertionStatic, ...args: any[]) => void,
+            chainingBehavior: () => void
+        ): void;
     }
 
     export type Operator = string; // "==" | "===" | ">" | ">=" | "<" | "<=" | "!=" | "!==";
@@ -1686,6 +1801,16 @@ declare namespace Chai {
          * Default: 40
          */
         truncateThreshold: number;
+
+        /**
+         * Default: true
+         */
+        useProxy: boolean;
+
+        /**
+         * Default: ['then', 'catch', 'inspect', 'toJSON']
+         */
+        proxyExcludedKeys: string[];
     }
 
     export class AssertionError {
