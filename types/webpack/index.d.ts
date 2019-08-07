@@ -934,7 +934,7 @@ declare namespace webpack {
 
         class MainTemplate extends Tapable {
           hooks: {
-            jsonpScript?: Hook<string, webpack.compilation.Chunk, string>;
+            jsonpScript?: Hook<string, Chunk, string>;
           };
         }
         class ChunkTemplate extends Tapable {}
@@ -2006,21 +2006,21 @@ declare namespace webpack {
         toNormalComment: (str: string) => string;
         toPath: (str: string) => string;
         numberToIdentifer: (n: number) => string;
-        indent: (s: string | readonly string[]) => string;
-        prefix: (s: string | readonly string[], prefix: string) => string;
-        asString: (str: string | readonly string[]) => string;
+        indent: (s: string | string[]) => string;
+        prefix: (s: string | string[], prefix: string) => string;
+        asString: (str: string | string[]) => string;
         getModulesArrayBounds: (modules: {
             id: string | number;
         }) => [number, number] | false;
         renderChunkModules: (
-          chunk: webpack.compilation.Chunk,
+          chunk: compilation.Chunk,
           filterFn: (module: Module, num: number) => boolean,
-          moduleTemplate: webpack.compilation.ModuleTemplate,
+          moduleTemplate: compilation.ModuleTemplate,
           dependencyTemplates: any,
           prefix?: string,
         ) => ConcatSource;
     }
-    
+
     /** @deprecated use webpack.Options.Performance */
     type PerformanceOptions = Options.Performance;
     /** @deprecated use webpack.Options.WatchOptions */
