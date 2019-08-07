@@ -437,9 +437,11 @@ declare namespace Office {
         */
         asyncContext: any;
         /**
-        * Gets an object that may provide additional information if an error occurred.
+        * Gets an object that may provide additional information if an {@link Office.Error | error} occurred.
         *
         * @remarks
+        * 
+        * This property returns additional information if the following errors occur with these supported APIs.
         * 
         * *Supported APIs*
         * 
@@ -13623,12 +13625,21 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
          * 
+         * **Errors**:
+         * 
+         * - HTTPRequestFailure: The request has failed. Please look at the diagnostics object for the HTTP error code.
+         * 
+         * - InternalServerError: The Exchange server returned an error. Please look at the diagnostics object for more information.
+         * 
+         * - NetworkError: The user is no longer connected to the network. Please check your network connection and try again.
+         * 
          * @param options - An object literal that contains one or more of the following properties.
          *        isRest: Determines if the token provided will be used for the Outlook REST APIs or Exchange Web Services. Default value is false.
          *        asyncContext: Any state data that is passed to the asynchronous method.
          * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
          *                 type Office.AsyncResult. The token is provided as a string in the `asyncResult.value` property.
-         *                 If there was an error, then the `asyncResult.error` and `asyncResult.diagnostics` properties may provide additional information.
+         *                 If there was an error, the `error` and `diagnostics` properties of the {@link Office.AsyncResult | `asyncResult`} object
+         *                 may provide additional information.
          */
         getCallbackTokenAsync(options: Office.AsyncContextOptions & { isRest?: boolean }, callback: (asyncResult: Office.AsyncResult<string>) => void): void;
         /**
@@ -13654,9 +13665,18 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
          *
+         * **Errors**:
+         * 
+         * - HTTPRequestFailure: The request has failed. Please look at the diagnostics object for the HTTP error code.
+         * 
+         * - InternalServerError: The Exchange server returned an error. Please look at the diagnostics object for more information.
+         * 
+         * - NetworkError: The user is no longer connected to the network. Please check your network connection and try again.
+         * 
          * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
          *                 type Office.AsyncResult. The token is provided as a string in the `asyncResult.value` property.
-         *                 If there was an error, then the `asyncResult.error` and `asyncResult.diagnostics` properties may provide additional information.
+         *                 If there was an error, the `error` and `diagnostics` properties of the {@link Office.AsyncResult | `asyncResult`} object
+         *                 may provide additional information.
          * @param userContext - Optional. Any state data that is passed to the asynchronous method.
          */
         getCallbackTokenAsync(callback: (asyncResult: Office.AsyncResult<string>) => void, userContext?: any): void;
@@ -13676,10 +13696,19 @@ declare namespace Office {
          * The getUserIdentityTokenAsync method returns a token that you can use to identify and 
          * {@link https://docs.microsoft.com/outlook/add-ins/authentication | authenticate the add-in and user with a third-party system}.
          *
+         * **Errors**:
+         * 
+         * - HTTPRequestFailure: The request has failed. Please look at the diagnostics object for the HTTP error code.
+         * 
+         * - InternalServerError: The Exchange server returned an error. Please look at the diagnostics object for more information.
+         * 
+         * - NetworkError: The user is no longer connected to the network. Please check your network connection and try again.
+         * 
          * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
          *                 type Office.AsyncResult.
          *                 The token is provided as a string in the `asyncResult.value` property.
-         *                 If there was an error, then the `asyncResult.error` and `asyncResult.diagnostics` properties may provide additional information.
+         *                 If there was an error, the `error` and `diagnostics` properties of the {@link Office.AsyncResult | `asyncResult`} object
+         *                 may provide additional information.
          * @param userContext - Optional. Any state data that is passed to the asynchronous method.
          */
         getUserIdentityTokenAsync(callback: (asyncResult: Office.AsyncResult<string>) => void, userContext?: any): void;
