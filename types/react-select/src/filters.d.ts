@@ -1,16 +1,16 @@
-export interface Config {
+export interface Config<OptionType = any> {
   ignoreCase?: boolean;
   ignoreAccents?: boolean;
-  stringify?: (obj: any) => string;
+  stringify?: (obj: OptionType) => string;
   trim?: boolean;
   matchFrom?: 'any' | 'start';
 }
 
 import { stripDiacritics } from './diacritics';
 
-export interface Option { label: string; value: string; data: any; }
+export interface Option<OptionType = any> { label: string; value: string; data: OptionType; }
 
-export function createFilter(config: Config | null): (
-  option: Option,
+export function createFilter<OptionType = Option<any>>(config: Config<OptionType> | null): (
+  option: OptionType,
   rawInput: string
 ) => boolean;
