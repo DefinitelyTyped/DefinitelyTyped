@@ -10,7 +10,7 @@ import { stripDiacritics } from './diacritics';
 
 export interface Option<OptionType = any> { label: string; value: string; data: OptionType; }
 
-export function createFilter<OptionType = Option<any>>(config: Config<OptionType> | null): (
+export function createFilter<OptionType = Option>(config: Config<OptionType> | null): (
   option: OptionType,
   rawInput: string
 ) => boolean;

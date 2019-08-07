@@ -40,9 +40,10 @@ import MultiValue, {
   MultiValueLabel,
   MultiValueRemove,
 } from './MultiValue';
-import Option, { OptionProps } from './Option';
+import Option from './Option';
 import Placeholder, { PlaceholderProps } from './Placeholder';
 import SingleValue, { SingleValueProps } from './SingleValue';
+import { OptionProps } from '../types';
 
 export type PlaceholderOrValue<OptionType> =
   | Element<ComponentType<PlaceholderProps<OptionType>>>

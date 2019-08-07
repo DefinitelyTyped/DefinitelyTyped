@@ -10,6 +10,33 @@ import { StateManager } from './src/stateManager';
 
 export default StateManager;
 
-export { createFilter } from './src/filters';
+export { createFilter, Config as CreateFilterConfig, Option as CreateFilterOption } from './src/filters';
 export { components } from './src/components/index';
-export { mergeStyles } from './src/styles';
+export { mergeStyles, Styles, StylesConfig, GetStyles } from './src/styles';
+export {
+    ActionMeta,
+    ActionTypes,
+    ClassNameList,
+    ClassNamesState,
+    CommonProps,
+    FocusDirection,
+    FocusEventHandler,
+    GroupedOptionsType,
+    GroupType,
+    InnerRef,
+    InputActionMeta,
+    InputActionTypes,
+    KeyboardEventHandler,
+    MenuPlacement,
+    MenuPosition,
+    MouseEventHandler,
+    OptionProps,
+    OptionsInnerProps,
+    OptionStateProps,
+    OptionsType,
+    PropsWithInnerRef,
+    PropsWithStyles,
+    Theme,
+    ThemeSpacing,
+    ValueType,
+} from './src/types';

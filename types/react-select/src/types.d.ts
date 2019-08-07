@@ -1,4 +1,3 @@
-import { ReactNode } from 'react';
 import * as React from 'react';
 import { Props as SelectProps } from './Select';
 
@@ -88,8 +87,7 @@ export type FocusDirection =
   | 'first'
   | 'last';
 
-
-interface OptionsInnerProps {
+export interface OptionsInnerProps {
   id: string;
   key: string;
   onClick: MouseEventHandler;
@@ -111,7 +109,7 @@ export type OptionProps<OptionType> = PropsWithStyles &
   CommonProps<OptionType> &
   OptionStateProps & {
   /** The children to be rendered. */
-  children: ReactNode,
+  children: React.ReactNode,
   /** Inner ref to DOM Node */
   innerRef: InnerRef,
   /** props passed to the wrapping element for the group. */
