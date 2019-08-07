@@ -14,6 +14,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
+/// <reference types="pathval" />
+
 declare namespace Chai {
     type Message = string | (() => string);
 
@@ -21,14 +23,7 @@ declare namespace Chai {
         new(...args: any[]): Error;
     }
 
-    interface PathInfo {
-        parent: object;
-        name: string;
-        value?: any;
-        exists: boolean;
-    }
-
-    interface ChaiUtils {
+    interface ChaiUtils extends PathVal.PathValStatic {
         addChainableMethod(
             // object to define the method on, e.g. chai.Assertion.prototype
             ctx: object,
@@ -75,11 +70,6 @@ declare namespace Chai {
         compatibleMessage(thrown: Error, errMatcher: string | RegExp): boolean;
         getConstructorName(constructorFn: Function): string;
         getFuncName(constructorFn: Function): string | null;
-
-        // From pathval:
-        hasProperty(obj: object | undefined | null, name: Property): boolean;
-        getPathInfo(obj: object, path: string): PathInfo;
-        getPathValue(obj: object, path: string): object | undefined;
     }
 
     type ChaiPlugin = (chai: ChaiStatic, utils: ChaiUtils) => void;
@@ -100,7 +90,7 @@ declare namespace Chai {
     }
 
     export interface ExpectStatic {
-        (val: Object, message?: string): Assertion;
+        (val: any, message?: string): Assertion;
         fail(actual?: any, expected?: any, message?: string, operator?: Operator): void;
     }
 
@@ -129,7 +119,7 @@ declare namespace Chai {
     export interface AssertionStatic {
         prototype: AssertionPrototype;
 
-        new (target: Object, message?: string, ssfi?: Function, lockSsfi?: boolean): Assertion;
+        new (target: any, message?: string, ssfi?: Function, lockSsfi?: boolean): Assertion;
 
         // Deprecated properties:
         includeStack: boolean;
@@ -280,7 +270,7 @@ declare namespace Chai {
     }
 
     interface InstanceOf {
-        (constructor: Object, message?: string): Assertion;
+        (constructor: any, message?: string): Assertion;
     }
 
     interface CloseTo {
@@ -335,7 +325,7 @@ declare namespace Chai {
     }
 
     interface Include {
-        (value: Object | string | number, message?: string): Assertion;
+        (value: object | string | number, message?: string): Assertion;
         keys: Keys;
         deep: Deep;
         ordered: Ordered;
