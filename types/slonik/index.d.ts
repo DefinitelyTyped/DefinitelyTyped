@@ -1,4 +1,4 @@
-// Type definitions for slonik 18.2
+// Type definitions for slonik 18.6
 // Project: https://github.com/gajus/slonik#readme
 // Definitions by: Sebastian Sebald <https://github.com/sebald>
 //                 Misha Kaletsky <https://github.com/mmkal>
@@ -25,6 +25,19 @@ export type LogicalBooleanOperatorType = 'AND' | 'OR';
 //
 // EXPRESSIONS AND TOKENS
 // ----------------------------------------------------------------------
+
+export type SerializableValueType = 
+    | string 
+    | number 
+    | boolean 
+    | SerializableValueObject 
+    | SerializableValueArray;
+
+interface SerializableValueObject {
+    [x: string]: SerializableValueType;
+}
+
+interface SerializableValueArray extends Array<SerializableValueType> { }
 
 export interface IdentifierTokenType {
     names: ReadonlyArray<string>;
@@ -58,6 +71,11 @@ export interface ArraySqlTokenType {
     memberType: string;
     type: typeof SlonikSymbol.ArrayTokenSymbol;
     values: PrimitiveValueExpressionType[];
+}
+
+export interface JsonSqlTokenType {
+    value: SerializableValueType;
+    type: typeof SlonikSymbol.JsonTokenSymbol;
 }
 
 export interface TupleSqlTokenType {
@@ -325,6 +343,9 @@ export interface SqlTaggedTemplateType {
     identifierList: (
         identifiers: IdentifierListMemberType[]
     ) => IdentifierListTokenType;
+    json: (
+        value: SerializableValueType
+    ) => JsonSqlTokenType;
     raw: (
         rawSql: string,
         values?: PrimitiveValueExpressionType[]
