@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { DataTable, DataTableHeader, DataTableRow } from '../index';
+import { DataTable, DataTableHeader, DataTableRow } from '.';
 
 interface Row1 extends DataTableRow {
     rowProp: string;
@@ -24,8 +24,8 @@ const t1 = (
 const t2 = (
     <DataTable<Row1, Header1>
         filterRows={data => {
-            const headers: Header1[] = data.headers;
-            const rowIds: string[] = data.rowIds;
+            const headers: ReadonlyArray<Header1> = data.headers;
+            const rowIds: ReadonlyArray<string> = data.rowIds;
             return [headers[0].key];
         }}
         headers={[{ key: 'h1', header: <div />, headerProp: 2 }]}

@@ -256,7 +256,7 @@
         "components/UnorderedList/UnorderedList.d.ts",
         "components/UnorderedList/index.d.ts",
         "index.d.ts",
-        "tests/DataTable.tsx",
-        "typings/shared.d.ts"
+        "typings/shared.d.ts",
+        "carbon-components-react-tests.tsx"
     ]
 }

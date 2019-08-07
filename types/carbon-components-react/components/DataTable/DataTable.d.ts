@@ -41,7 +41,7 @@ export interface SortRowData {
 
 export interface FilterRowsData<R extends DataTableRow = DataTableRow, H extends DataTableHeader = DataTableHeader> {
     cellsById: { [cellId: string]: DataTableCell };
-    headers: H[];
+    headers: ReadonlyArray<H>;
     inputValue: string;
     rowIds: ReadonlyArray<R['id']>;
 }
