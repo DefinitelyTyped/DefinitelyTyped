@@ -258,49 +258,64 @@ rule = {
 declare const require: any;
 declare const path: any;
 configuration = {
-    plugins: [
-        function apply(this: webpack.Compiler, compiler: webpack.Compiler) {
-            const prevTimestamps = new Map<string, number>();
-            const startTime = Date.now();
+  plugins: [
+    function apply(this: webpack.Compiler, compiler: webpack.Compiler) {
+      const prevTimestamps = new Map<string, number>();
+      const startTime = Date.now();
 
-            this.hooks.emit.tap("SomePlugin", (compilation: webpack.compilation.Compilation) => {
-                for (const filepath in compilation.fileTimestamps.keys()) {
-                    const prevTimestamp = prevTimestamps.get(filepath) || startTime;
-                    const newTimestamp = compilation.fileTimestamps.get(filepath) || Infinity;
-                    if (prevTimestamp < newTimestamp) {
-                        this.inputFileSystem.readFileSync(filepath).toString('utf-8');
-                    }
-                }
-            });
+      this.hooks.emit.tap(
+        'SomePlugin',
+        (compilation: webpack.compilation.Compilation) => {
+          for (const filepath in compilation.fileTimestamps.keys()) {
+            const prevTimestamp = prevTimestamps.get(filepath) || startTime;
+            const newTimestamp =
+              compilation.fileTimestamps.get(filepath) || Infinity;
+            if (prevTimestamp < newTimestamp) {
+              this.inputFileSystem.readFileSync(filepath).toString('utf-8');
+            }
+          }
+        },
+      );
 
-            compiler.hooks.afterCompile.tap("SomePlugin", (compilation: webpack.compilation.Compilation) => {
-                ['path/to/extra/dep', 'another/extra/dep'].forEach(path => compilation.fileDependencies.add(path));
-              });
+      compiler.hooks.afterCompile.tap(
+        'SomePlugin',
+        (compilation: webpack.compilation.Compilation) => {
+          ['path/to/extra/dep', 'another/extra/dep'].forEach(path =>
+            compilation.fileDependencies.add(path),
+          );
+        },
+      );
 
-            this.hooks.afterEmit.tapAsync("afterEmit", (stats, callback) => {
-                this.outputFileSystem.writeFile(
-                    path.join(__dirname, "...", "stats.json"),
-                    JSON.stringify(stats.getStats().toJson()),
-                    callback
-                );
-            });
+      this.hooks.afterEmit.tapAsync('afterEmit', (stats, callback) => {
+        this.outputFileSystem.writeFile(
+          path.join(__dirname, '...', 'stats.json'),
+          JSON.stringify(stats.getStats().toJson()),
+          callback,
+        );
+      });
 
-            this.hooks.beforeRun.tap("SomePlugin", (compiler: webpack.Compiler) => {});
-            this.hooks.run.tap("SomePlugin", (compiler: webpack.Compiler) => {});
+      this.hooks.beforeRun.tap(
+        'SomePlugin',
+        (compiler: webpack.Compiler) => {},
+      );
+      this.hooks.run.tap('SomePlugin', (compiler: webpack.Compiler) => {});
 
-            compiler.hooks.compilation.tap("SomePlugin", (compilation) => {
-                const { mainTemplate } = compilation;
-                if (mainTemplate.hooks.jsonpScript == null) {
-                    return;
-                }
-                mainTemplate.hooks.jsonpScript.tap("SomePlugin", (source, chunk, hash) => {
-                    source.trimLeft();
-                    hash.trimLeft();
-                    return chunk.name;
-                });
-            });
-        }
-    ]
+      compiler.hooks.compilation.tap('SomePlugin', compilation => {       const { mainTemplate } = compilation;
+      if (mainTemplate.hooks.jsonpScript == null) {
+      return;
+      }
+      mainTemplate.hooks.jsonpScript.tap(
+          'SomePlugin',
+          (source, chunk, hash) => {
+            source.trimLeft();
+           hash.trimLeft();
+          return chunk.name;
+          },
+        );
+      },
+              );
+    },
+  ],
 };
 
 //
@@ -929,30 +944,35 @@ multiCompiler.hooks.done.tap('foo', ({ stats: multiStats, hash }) => {
 });
 
 function testTemplate(template: webpack.Template) {
-    template.getFunctionContent(() => undefined).trimLeft();
-    template.toIdentifier('a').trimLeft();
-    template.toComment('a').trimLeft();
+  template.getFunctionContent(() => undefined).trimLeft();
+  template.toIdentifier('a').trimLeft();
+  template.toComment('a').trimLeft();
     template.toNormalComment('a').trimLeft();
-    template.toPath('a').trimLeft();
-    template.numberToIdentifer(2).trimLeft();
-    template.indent('a').trimLeft();
-    template.indent(['a']).trimLeft();
+  template.toPath('a').trimLeft();
+  template.numberToIdentifer(2).trimLeft();
+  template.indent('a').trimLeft();
+ template.indent(['a']).trimLeft();
     template.prefix('a', 'a').trimLeft();
-    template.prefix(['a'], 'a').trimLeft();
-    template.asString('a').trimLeft();
-    template.asString(['a']).trimLeft();
-    template.getModulesArrayBounds({ id: 'a' });
-    const result = template.getModulesArrayBounds({ id: 1 });
-    if (result === false) {
-        return;
-    }
-    Math.max(...result);
-    const chunk = {} as unknown as webpack.compilation.Chunk;
-    const moduleTemplate = {} as unknown as webpack.compilation.ModuleTemplate;
-    template.renderChunkModules(chunk, (module, num) => {
-        Math.max(num, 2);
-        module.exprContextCritical;
-        return true;
-    }, moduleTemplate, []);
-    template.renderChunkModules(chunk, () => false, moduleTemplate, [], 'a');
+  template.prefix(['a'], 'a').trimLeft();
+  template.asString('a').trimLeft();
+  template.asString(['a']).trimLeft();
+  template.getModulesArrayBounds({ id: 'a' });
+  const result = template.getModulesArrayBounds({ id: 1 });
+  if (result === false) {
+    return;
+  }
+  Math.max(...result);
+  const chunk = ({} as unknown) as webpack.compilation.Chunk;
+  const moduleTemplate = ({} as unknown) as webpack.compilation.ModuleTemplate;
+  template.renderChunkModules(
+    chunk,
+    (module, num) => {
+      Math.max(num, 2);
+      module.exprContextCritical;
+      return true;
+    },
+    moduleTemplate,
+    [],
+  );
+  template.renderChunkModules(chunk, () => false, moduleTemplate, [], 'a');
 }
