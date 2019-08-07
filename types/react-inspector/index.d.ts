@@ -2,7 +2,7 @@
 // Project: http://formatjs.io/react/, https://github.com/yahoo/react-intl
 // Definitions by: Roger Clotet <https://github.com/rogerclotet>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
+// TypeScript Version: 2.8
 
 import * as React from 'react';
 
@@ -73,9 +73,21 @@ interface InspectorProps {
 }
 
 export class Inspector extends React.Component<InspectorProps & { table?: boolean }> {}
-
 export class ObjectInspector extends React.Component<InspectorProps> {}
-export class DomInspector extends React.Component<Omit<InspectorProps, 'data'> & { data: object }> {}
 export class TableInspector extends React.Component<InspectorProps> {}
+
+interface DomInspectorProps {
+    data: object;
+    name?: string;
+    columns?: ReadonlyArray<string>;
+    expandLevel?: number;
+    expandPaths?: string | ReadonlyArray<string>;
+    showNonenumerable?: boolean;
+    sortObjectKeys?: boolean | ((a: any, b: any) => number);
+    nodeRenderer?: nodeRenderer;
+    theme?: 'chromeLight' | 'chromeDark' | Theme;
+}
+
+export class DomInspector extends React.Component<DomInspectorProps> {}
 
 export default Inspector;
