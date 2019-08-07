@@ -1711,6 +1711,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "jpeg-js",
+            "typingsPackageName": "jpeg-js",
+            "sourceRepoURL": "https://github.com/eugeneware/jpeg-js",
+            "asOfVersion": "0.3.6"
+        },
+        {
             "libraryName": "jpush-react-native",
             "typingsPackageName": "jpush-react-native",
             "sourceRepoURL": "https://github.com/jpush/jpush-react-native",
