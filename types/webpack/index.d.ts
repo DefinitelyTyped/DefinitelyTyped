@@ -1,4 +1,4 @@
-// Type definitions for webpack 4.32
+// Type definitions for webpack 4.39
 // Project: https://github.com/webpack/webpack
 // Definitions by: Qubo <https://github.com/tkqubo>
 //                 Benjamin Lim <https://github.com/bumbleblym>
@@ -24,10 +24,11 @@
 
 import { Tapable, HookMap,
          SyncBailHook, SyncHook, SyncLoopHook, SyncWaterfallHook,
-         AsyncParallelBailHook, AsyncParallelHook, AsyncSeriesBailHook, AsyncSeriesHook, AsyncSeriesWaterfallHook } from 'tapable';
+         AsyncParallelBailHook, AsyncParallelHook, AsyncSeriesBailHook, AsyncSeriesHook, AsyncSeriesWaterfallHook, Hook } from 'tapable';
 import * as UglifyJS from 'uglify-js';
 import * as anymatch from 'anymatch';
 import { RawSourceMap } from 'source-map';
+import { ConcatSource } from 'webpack-sources';
 
 export = webpack;
 
@@ -920,7 +921,11 @@ declare namespace webpack {
             dependencies: boolean;
         }
 
-        class MainTemplate extends Tapable {}
+        class MainTemplate extends Tapable {
+            hooks: {
+                jsonpScript?: Hook<string, webpack.compilation.Chunk, string>;
+            }
+        }
         class ChunkTemplate extends Tapable {}
         class HotUpdateChunkTemplate extends Tapable {}
         class RuntimeTemplate {}
@@ -1954,6 +1959,28 @@ declare namespace webpack {
             /** Flag if HMR is enabled */
             hot: boolean;
         }
+
+        interface Template {
+            getFunctionContent: (fn: (...args: any[]) => any) => string;
+            toIdentifier: (str: string) => string;
+            toComment: (str: string) => string;
+            toNormalComment: (str: string) => string;
+            toPath: (str: string) => string;
+            numberToIdentifer: (n: number) => string;
+            indent: (s: string | readonly string[]) => string;
+            prefix: (s: string | readonly string[], prefix: string) => string;
+            asString: (str: string | readonly string[]) => string;
+            getModulesArrayBounds: (modules: {
+                id: string | number;
+            }) => [number, number] | false;
+            renderChunkModules: (
+              chunk: webpack.compilation.Chunk,
+              filterFn: (module: Module, num: number) => boolean,
+              moduleTemplate: webpack.compilation.ModuleTemplate,
+              dependencyTemplates: any,
+              prefix?: string,
+            ) => ConcatSource;
+          }
     }
 
     /** @deprecated */
