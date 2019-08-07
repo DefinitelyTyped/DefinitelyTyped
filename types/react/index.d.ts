@@ -2172,6 +2172,7 @@ declare namespace React {
         headers?: string;
         rowSpan?: number;
         scope?: string;
+        valign?: "top" | "middle" | "bottom" | "baseline";
     }
 
     interface ThHTMLAttributes<T> extends HTMLAttributes<T> {
