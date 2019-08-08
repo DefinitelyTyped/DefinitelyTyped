@@ -7,6 +7,7 @@
 //                 Matthew Bull <https://github.com/wingsbob>
 //                 Ryan Wilson-Perkin <https://github.com/ryanwilsonperkin>
 //                 Paul Hawxby <https://github.com/phawxby>
+//                 Ivy Witter <https://github.com/ivywit>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -145,6 +146,7 @@ declare namespace got {
         beforeRequest?: Array<BeforeRequestHook<Options>>;
         beforeRedirect?: Array<BeforeRedirectHook<Options>>;
         beforeRetry?: Array<BeforeRetryHook<Options>>;
+        beforeError?: Array<BeforeErrorHook>;
         afterResponse?: Array<AfterResponseHook<Options, Body>>;
     }
 
@@ -169,6 +171,11 @@ declare namespace got {
      * @param retryCount Number of retry.
      */
     type BeforeRetryHook<Options> = (options: Options, error: GotError, retryCount: number) => any;
+
+    /**
+     * @param error Request or parse error.
+     */
+    type BeforeErrorHook = <ErrorLike extends Error | GotError | ParseError | HTTPError | MaxRedirectsError>(error: ErrorLike) => Error | Promise<Error>;
 
     /**
      * @param response Response object.
