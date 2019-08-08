@@ -334,7 +334,7 @@ declare namespace React {
         displayName?: string;
     }
     function createContext<T>(
-        defaultValue: T,
+        defaultValue?: T,
         calculateChangedBits?: (prev: T, next: T) => number
     ): Context<T>;
 
