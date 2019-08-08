@@ -108,6 +108,7 @@ async function main() {
         "// npm install && npm run generate",
         "",
         'import lodash = require("./index");',
+        'import { O } from "ts-toolbelt";',
         "",
         "export = _;",
         "",

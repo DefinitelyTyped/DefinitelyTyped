@@ -1,6 +1,6 @@
 import _ = require("../index");
 
-import {O} from "ts-toolbelt";
+import { O } from "ts-toolbelt";
 
 declare module "../index" {
     // assign
@@ -35,7 +35,7 @@ declare module "../index" {
          * // => { 'a': 1, 'c': 3, 'e': 5 }
          */
         assign<TObject extends object, TSource extends object[]>(
-            object: TObject, source: TSource): O.Assign<TObject, TSource>
+            object: TObject, source: TSource): O.Assign<TObject, TSource>;
     }
 
     interface LoDashImplicitWrapper<TValue> {
@@ -43,7 +43,7 @@ declare module "../index" {
          * @see _.assign
          */
         assign<TSource extends object[]>(
-            source: TSource): LoDashImplicitWrapper<O.Assign<TValue & {}, TSource>>
+            source: TSource): LoDashImplicitWrapper<O.Assign<TValue & {}, TSource>>;
     }
 
     interface LoDashExplicitWrapper<TValue> {
