@@ -969,13 +969,13 @@ function testTemplateFn() {
 const chunk = new webpack.compilation.Chunk('name');
 const moduleTemplate = ({} as any) as webpack.compilation.ModuleTemplate;
 webpack.Template.renderChunkModules(
-chunk,
-(module, num) => {
+  chunk,
+  (module, num) => {
     Math.max(num, 2);
     module.exprContextCritical;
     return true;
-},
-moduleTemplate,
+  },
+  moduleTemplate,
   [],
 );
 
