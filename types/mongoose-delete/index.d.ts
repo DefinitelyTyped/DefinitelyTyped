@@ -44,33 +44,55 @@ declare global {
             /** Update all documents including deleted */
             updateWithDeleted: typeof mongoose.Model.update;
 
+
             /**
              * Delete documents by conditions
              */
-            delete(
-                conditions?: any | Callback<T[] | null, this>,
-                deleteBy?: string | mongoose.Types.ObjectId | mongoose.Document | Callback<T[] | null, this>,
-                fn?: Callback<T[] | null, this>
-            ): mongoose.Query<T[] | null> & QueryHelpers;
+            delete(): mongoose.Query<T> & QueryHelpers;
+            delete(fn: { (err: any, result: any): void }): void;
+            delete(conditions: any): mongoose.Query<T> & QueryHelpers;
+            delete(conditions: any, fn: Callback<T, this>): void;
+            delete(conditions: any, deleteBy: any): mongoose.Query<T> & QueryHelpers;
+            delete(conditions: any, deleteBy: any, fn: Callback<T, this>): void;
 
             /**
              * Restore documents by conditions
              */
-            restore(conditions?: any | Callback<T, this>, fn?: Callback<T, this>): mongoose.Query<T> & QueryHelpers;
+            restore(): mongoose.Query<T> & QueryHelpers;
+            restore(fn: { (err: any, result: any): void }): void;
+            restore(conditions: any): mongoose.Query<T> & QueryHelpers;
+            restore(conditions: any, fn: Callback<T, this>): void;
 
             /**
              * Delete a document by ID
              */
+            deleteById(id: string | mongoose.Types.ObjectId): mongoose.Query<T> & QueryHelpers;
+            deleteById(id: string | mongoose.Types.ObjectId, fn: Callback<T, this>): void;
             deleteById(
-                id?: string | mongoose.Types.ObjectId | Callback<T, this>,
-                deleteBy?: any | Callback<T, this>,
-                fn?: Callback<T, this>,
+                id: string | mongoose.Types.ObjectId,
+                deleteBy: any,
             ): mongoose.Query<T> & QueryHelpers;
+            deleteById(
+                id: string | mongoose.Types.ObjectId,
+                deleteBy: any,
+                fn: Callback<T, this>,
+            ): void;
         }
-        interface SoftDeleteDocument extends mongoose.Document, SoftDeleteInterface {
-            /** Soft delete this document */
-            delete(deleteBy?: string | mongoose.Types.ObjectId | Callback<this>, fn?: Callback<this>): mongoose.Query<this>;
-            restore(fn?: Callback<this>): mongoose.Query<this>;
+
+        export interface SoftDeleteDocument
+
+                   extends mongoose.Document,
+            SoftDeleteInterface {
+          /** Soft delete this document */
+         delete(): Promise<this>;
+        delete(fn: Callback<this>): void;
+         delete(deleteBy: string | mongoose.Types.ObjectId): Promise<this>;
+        delete(
+        deleteBy: string | mongoose.Types.ObjectId,
+          fn: Callback<this>,
+        ): void;
+          restore(): Promise<this>;
+        restore(fn: Callback<this>): void;
         }
         interface SoftDeleteInterface {
             /** Soft deleted ? */
