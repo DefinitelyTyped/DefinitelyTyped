@@ -302,6 +302,7 @@ configuration = {
 
       compiler.hooks.compilation.tap('SomePlugin', compilation => {
         const { mainTemplate } = compilation;
+        mainTemplate.requireFn.trimLeft();
         mainTemplate.outputOptions.crossOriginLoading;
         if (mainTemplate.hooks.jsonpScript == null) {
           return;

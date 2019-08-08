@@ -937,6 +937,7 @@ declare namespace webpack {
             jsonpScript?: Hook<string, Chunk, string>;
           };
           outputOptions: Output;
+          requireFn: string;
         }
         class ChunkTemplate extends Tapable {}
         class HotUpdateChunkTemplate extends Tapable {}
