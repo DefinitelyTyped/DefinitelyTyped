@@ -1,4 +1,7 @@
 import _ = require("../index");
+
+import {O} from "ts-toolbelt";
+
 declare module "../index" {
     // assign
 
@@ -31,99 +34,16 @@ declare module "../index" {
          * _.assign({ 'a': 1 }, new Foo, new Bar);
          * // => { 'a': 1, 'c': 3, 'e': 5 }
          */
-        assign<TObject, TSource>(
-            object: TObject,
-            source: TSource
-        ): TObject & TSource;
-
-        /**
-         * @see assign
-         */
-        assign<TObject, TSource1, TSource2>(
-            object: TObject,
-            source1: TSource1,
-            source2: TSource2
-        ): TObject & TSource1 & TSource2;
-
-        /**
-         * @see assign
-         */
-        assign<TObject, TSource1, TSource2, TSource3>(
-            object: TObject,
-            source1: TSource1,
-            source2: TSource2,
-            source3: TSource3
-        ): TObject & TSource1 & TSource2 & TSource3;
-
-        /**
-         * @see assign
-         */
-        assign<TObject, TSource1, TSource2, TSource3, TSource4>(
-            object: TObject,
-            source1: TSource1,
-            source2: TSource2,
-            source3: TSource3,
-            source4: TSource4
-        ): TObject & TSource1 & TSource2 & TSource3 & TSource4;
-
-        /**
-         * @see _.assign
-         */
-        assign<TObject>(object: TObject): TObject;
-
-        /**
-         * @see _.assign
-         */
-        assign(
-            object: any,
-            ...otherArgs: any[]
-        ): any;
+        assign<TObject extends object, TSource extends object[]>(
+            object: TObject, source: TSource): O.Assign<TObject, TSource>
     }
 
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.assign
          */
-        assign<TSource>(
-            source: TSource
-        ): LoDashImplicitWrapper<TValue & TSource>;
-
-        /**
-         * @see assign
-         */
-        assign<TSource1, TSource2>(
-            source1: TSource1,
-            source2: TSource2
-        ): LoDashImplicitWrapper<TValue & TSource1 & TSource2>;
-
-        /**
-         * @see assign
-         */
-        assign<TSource1, TSource2, TSource3>(
-            source1: TSource1,
-            source2: TSource2,
-            source3: TSource3
-        ): LoDashImplicitWrapper<TValue & TSource1 & TSource2 & TSource3>;
-
-        /**
-         * @see assign
-         */
-        assign<TSource1, TSource2, TSource3, TSource4>(
-            source1: TSource1,
-            source2: TSource2,
-            source3: TSource3,
-            source4: TSource4
-        ): LoDashImplicitWrapper<TValue & TSource1 & TSource2 & TSource3 & TSource4>;
-
-        /**
-         * @see _.assign
-         */
-        assign(): LoDashImplicitWrapper<TValue>;
-
-        /**
-         * @see _.assign
-         */
-        assign(...otherArgs: any[]): LoDashImplicitWrapper<any>;
+        assign<TSource extends object[]>(
+            source: TSource): LoDashImplicitWrapper<O.Assign<TValue & {}, TSource>>
     }
 
     interface LoDashExplicitWrapper<TValue> {
