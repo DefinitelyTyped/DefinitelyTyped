@@ -4,26 +4,18 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-declare namespace PathVal {
-    interface PathInfo {
-        parent: object;
-        name: string;
-        value?: any;
-        exists: boolean;
-    }
-
-    type Property = string | symbol | number;
-
-    interface PathValStatic {
-        hasProperty(obj: object | undefined | null, name: Property): boolean;
-        getPathInfo(obj: object, path: string): PathInfo;
-        getPathValue(obj: object, path: string): object | undefined;
-        setPathValue(obj: object, path: string, val: any): object;
-    }
+export interface PathInfo {
+    parent: object;
+    name: string;
+    value?: any;
+    exists: boolean;
 }
 
-declare const pathval: PathVal.PathValStatic;
+export type Property = string | symbol | number;
 
-declare module "pathval" {
-    export = pathval;
-}
+export function hasProperty(obj: object | undefined | null, name: Property): boolean;
+export function getPathInfo(obj: object, path: string): PathInfo;
+export function getPathValue(obj: object, path: string): object | undefined;
+export function setPathValue(obj: object, path: string, val: any): object;
+
+export as namespace pathval;

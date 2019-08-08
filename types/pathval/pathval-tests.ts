@@ -5,7 +5,7 @@ pathval.hasProperty(obj, 'prop'); // true
 
 const earth = { earth: { country: 'Brazil' } };
 pathval.getPathInfo(earth, 'earth.country');
-const info: PathVal.PathInfo = {
+const info: pathval.PathInfo = {
     parent: { country: 'Brazil' },
     name: 'country',
     value: 'Brazil',
