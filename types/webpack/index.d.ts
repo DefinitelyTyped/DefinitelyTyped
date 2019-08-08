@@ -1992,7 +1992,7 @@ declare namespace webpack {
 
         function asString(str: string | string[]): string;
 
-        function getModulesArrayBounds (modules: {
+        function getModulesArrayBounds(modules: {
             id: string | number;
         }): [number, number] | false;
 
@@ -2004,7 +2004,7 @@ declare namespace webpack {
             prefix?: string,
         ): ConcatSource;
     }
-    
+
     /** @deprecated */
     namespace compiler {
         /** @deprecated use webpack.Compiler */

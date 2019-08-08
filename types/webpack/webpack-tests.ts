@@ -944,36 +944,45 @@ multiCompiler.hooks.done.tap('foo', ({ stats: multiStats, hash }) => {
     console.log(`Compiled in ${stats.endTime - stats.startTime}ms`, hash);
 });
 
-function testTemplate(template: webpack.Template) {
-  template.getFunctionContent(() => undefined).trimLeft();
-  template.toIdentifier('a').trimLeft();
-  template.toComment('a').trimLeft();
-    template.toNormalComment('a').trimLeft();
-  template.toPath('a').trimLeft();
-  template.numberToIdentifer(2).trimLeft();
-  template.indent('a').trimLeft();
-  template.indent(['a']).trimLeft();
-    template.prefix('a', 'a').trimLeft();
-  template.prefix(['a'], 'a').trimLeft();
-  template.asString('a').trimLeft();
-  template.asString(['a']).trimLeft();
-  template.getModulesArrayBounds({ id: 'a' });
-  const result = template.getModulesArrayBounds({ id: 1 });
+webpack.Template.getFunctionContent(() => undefined).trimLeft();
+webpack.Template.toIdentifier('a').trimLeft();
+webpack.Template.toComment('a').trimLeft();
+webpack.Template.toNormalComment('a').trimLeft();
+webpack.Template.toPath('a').trimLeft();
+webpack.Template.numberToIdentifer(2).trimLeft();
+webpack.Template.indent('a').trimLeft();
+webpack.Template.indent(['a']).trimLeft();
+webpack.Template.prefix('a', 'a').trimLeft();
+webpack.Template.prefix(['a'], 'a').trimLeft();
+webpack.Template.asString('a').trimLeft();
+webpack.Template.asString(['a']).trimLeft();
+webpack.Template.getModulesArrayBounds({ id: 'a' });
+
+function testTemplateFn() {
+  const result = webpack.Template.getModulesArrayBounds({ id: 1 });
   if (result === false) {
     return;
   }
   Math.max(...result);
-  const chunk = new webpack.compilation.Chunk('name');
-  const moduleTemplate = ({} as any) as webpack.compilation.ModuleTemplate;
-  template.renderChunkModules(
-    chunk,
-    (module, num) => {
-      Math.max(num, 2);
-      module.exprContextCritical;
-      return true;
-    },
-    moduleTemplate,
-    [],
-  );
-  template.renderChunkModules(chunk, () => false, moduleTemplate, [], 'a');
 }
+
+const chunk = new webpack.compilation.Chunk('name');
+const moduleTemplate = ({} as any) as webpack.compilation.ModuleTemplate;
+webpack.Template.renderChunkModules(
+chunk,
+(module, num) => {
+    Math.max(num, 2);
+    module.exprContextCritical;
+    return true;
+},
+moduleTemplate,
+  [],
+);
+
+webpack.Template.renderChunkModules(
+  chunk,
+  () => false,
+  moduleTemplate,
+  [],
+  'a',
+);
