@@ -1972,6 +1972,38 @@ declare namespace webpack {
         }
     }
 
+    class Template {
+        static getFunctionContent(fn: (...args: any[]) => any): string;
+
+        static toIdentifier(str: string): string;
+
+        static toComment(str: string): string;
+
+        static toNormalComment(str: string): string;
+
+        static toPath(str: string): string;
+
+        static numberToIdentifer(n: number): string;
+
+        static indent(s: string | string[]): string;
+
+        static prefix(s: string | string[], prefix: string): string;
+
+        static asString(str: string | string[]): string;
+
+        static getModulesArrayBounds (modules: {
+            id: string | number;
+        }): [number, number] | false;
+
+        static renderChunkModules(
+          chunk: compilation.Chunk,
+          filterFn: (module: Module, num: number) => boolean,
+          moduleTemplate: compilation.ModuleTemplate,
+          dependencyTemplates: any,
+          prefix?: string,
+        ): ConcatSource;
+    }
+    
     /** @deprecated */
     namespace compiler {
         /** @deprecated use webpack.Compiler */
@@ -1997,28 +2029,6 @@ declare namespace webpack {
 
         /** @deprecated use webpack.Compiler.Handler */
         type CompilerCallback = Compiler.Handler;
-    }
-
-    interface Template {
-        getFunctionContent: (fn: (...args: any[]) => any) => string;
-        toIdentifier: (str: string) => string;
-        toComment: (str: string) => string;
-        toNormalComment: (str: string) => string;
-        toPath: (str: string) => string;
-        numberToIdentifer: (n: number) => string;
-        indent: (s: string | string[]) => string;
-        prefix: (s: string | string[], prefix: string) => string;
-        asString: (str: string | string[]) => string;
-        getModulesArrayBounds: (modules: {
-            id: string | number;
-        }) => [number, number] | false;
-        renderChunkModules: (
-          chunk: compilation.Chunk,
-          filterFn: (module: Module, num: number) => boolean,
-          moduleTemplate: compilation.ModuleTemplate,
-          dependencyTemplates: any,
-          prefix?: string,
-        ) => ConcatSource;
     }
 
     /** @deprecated use webpack.Options.Performance */
