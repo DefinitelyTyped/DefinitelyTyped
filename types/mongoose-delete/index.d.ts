@@ -2,7 +2,7 @@
 // Project: https://github.com/dsanel/mongoose-delete
 // Definitions by: Mochamad Arifin <https://github.com/ndunks>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.2
 
 import mongoose = require('mongoose');
 
