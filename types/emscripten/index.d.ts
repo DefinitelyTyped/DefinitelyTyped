@@ -16,7 +16,7 @@ declare namespace Emscripten {
     }
     type EnvironmentType = "WEB" | "NODE" | "SHELL" | "WORKER";
     type ValueType = "number" | "string" | "array" | "boolean";
-    type TypeCompatibleWithC = number | string | Array<any> | boolean;
+    type TypeCompatibleWithC = number | string | any[] | boolean;
 
     type WebAssemblyImports =  Array<{
         name: string;
@@ -34,17 +34,16 @@ declare namespace Emscripten {
     }
 }
 
-declare interface EmscriptenModule {
-
+interface EmscriptenModule {
     print(str: string): void;
     printErr(str: string): void;
     arguments: string[];
     environment: Emscripten.EnvironmentType;
-    preInit: { ():  void }[];
-    preRun: { ():  void }[];
-    postRun: { ():  void }[];
-    onAbort: { (what: any):  void };
-    onRuntimeInitialized: { ():  void };
+    preInit: Array<{ (): void }>;
+    preRun: Array<{ (): void }>;
+    postRun: Array<{ (): void }>;
+    onAbort: { (what: any): void };
+    onRuntimeInitialized: { (): void };
     preinitializedWebGLContext: WebGLRenderingContext;
     noInitialRun: boolean;
     noExitRuntime: boolean;
@@ -75,8 +74,7 @@ declare interface EmscriptenModule {
     ALLOC_DYNAMIC: number;
     ALLOC_NONE: number;
 
-    allocate(slab: any, types: string, allocator: number, ptr: number): number;
-    allocate(slab: any, types: string[], allocator: number, ptr: number): number;
+    allocate(slab: any, types: string | string[], allocator: number, ptr: number): number;
 
     // USE_TYPED_ARRAYS == 1
     HEAP: Int32Array;
@@ -87,7 +85,7 @@ declare interface EmscriptenModule {
     HEAP8: Int8Array;
     HEAP16: Int16Array;
     HEAP32: Int32Array;
-    HEAPU8:  Uint8Array;
+    HEAPU8: Uint8Array;
     HEAPU16: Uint16Array;
     HEAPU32: Uint32Array;
     HEAPF32: Float32Array;
@@ -113,7 +111,6 @@ declare interface EmscriptenModule {
     addRunDependency(id: any): void;
     removeRunDependency(id: any): void;
 
-
     preloadedImages: any;
     preloadedAudios: any;
 
@@ -136,10 +133,10 @@ declare namespace FS {
     interface FSNode {}
     interface ErrnoError {}
 
-    var ignorePermissions: boolean;
-    var trackingDelegate: any;
-    var tracking: any;
-    var genericErrors: any;
+    let ignorePermissions: boolean;
+    let trackingDelegate: any;
+    let tracking: any;
+    let genericErrors: any;
 
     //
     // paths
@@ -170,7 +167,7 @@ declare namespace FS {
     // core
     //
     function syncfs(populate: boolean, callback: (e: any) => any): void;
-    function syncfs( callback: (e: any) => any, populate?: boolean): void;
+    function syncfs(callback: (e: any) => any, populate?: boolean): void;
     function mount(type: Emscripten.FileSystemType, opts: any, mountpoint: string): any;
     function unmount(mountpoint: string): void;
 
@@ -201,8 +198,8 @@ declare namespace FS {
     function allocate(stream: FSStream, offset: number, length: number): void;
     function mmap(stream: FSStream, buffer: ArrayBufferView, offset: number, length: number, position: number, prot: number, flags: number): any;
     function ioctl(stream: FSStream, cmd: any, arg: any): any;
-    function readFile(path: string, opts?: {encoding: string; flags: string}): any;
-    function writeFile(path: string, data: string | ArrayBufferView, opts?: {encoding: string; flags: string}): void;
+    function readFile(path: string, opts?: { encoding: string; flags: string }): any;
+    function writeFile(path: string, data: string | ArrayBufferView, opts?: { encoding: string; flags: string }): void;
 
     //
     // module-level FS code
@@ -215,11 +212,9 @@ declare namespace FS {
         error: null | ((c: number) => any),
     ): void;
 
-    function createLazyFile(parent: string, name: string, url: string, canRead: boolean, canWrite: boolean): FSNode;
-    function createLazyFile(parent: FSNode, name: string, url: string, canRead: boolean, canWrite: boolean): FSNode;
-
-    function createPreloadedFile(parent: string, name: string, url: string, canRead: boolean, canWrite: boolean, onload?: ()=> void, onerror?: ()=>void, dontCreateFile?:boolean, canOwn?: boolean): void;
-    function createPreloadedFile(parent: FSNode, name: string, url: string, canRead: boolean, canWrite: boolean, onload?: ()=> void, onerror?: ()=>void, dontCreateFile?:boolean, canOwn?: boolean): void;
+    function createLazyFile(parent: string | FSNode, name: string, url: string, canRead: boolean, canWrite: boolean): FSNode;
+    function createPreloadedFile(parent: string | FSNode, name: string, url: string,
+        canRead: boolean, canWrite: boolean, onload?: () => void, onerror?: () => void, dontCreateFile?: boolean, canOwn?: boolean): void;
 }
 
 declare var MEMFS: Emscripten.FileSystemType;
