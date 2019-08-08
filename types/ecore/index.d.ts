@@ -3,42 +3,41 @@
 // Definitions by: Mike Tugushev <https://github.com/michael-whi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare namespace Ecore {
-    function create(eClass: EClass): EObject;
+    export function create(eClass: EClass): EObject;
 
-    let EClass: EClass;
-    let Edit: Edit;
-    let EObject: EObject;
-    let EList: EList;
-    let EString: EString;
-    let EInt: EInt;
-    let EBoolean: EBoolean;
-    let EDouble: EDouble;
-    let EDate: EDate;
-    let EIntegerObject: EIntegerObject;
-    let EFloatObject: EFloatObject;
-    let ELongObject: ELongObject;
-    let EMap: EMap;
-    let EDiagnosticChain: EDiagnosticChain;
-    let JSObject: JSObject;
-    let EModelElement: EModelElement;
-    let EAnnotation: EAnnotation;
-    let ENamedElement: ENamedElement;
-    let EClassifier: EClassifier;
-    let ETypedElement: ETypedElement;
-    let EDataType: EDataType;
-    let EStructuralFeature: EStructuralFeature;
-    let EAttribute: EAttribute;
-    let EReference: EReference;
-    let EOperation: EOperation;
-    let EParameter: EParameter;
-    let EEnum: EEnum;
-    let EEnumLiteral: EEnumLiteral;
-    let EGenericType: EGenericType;
-    let ETypeParameter: ETypeParameter;
-    let Resource: Resource;
-    let EPackageRegistry: EPackageRegistry;
-    let EPackage: EPackage;
+    export let EClass: EClass;
+    export let Edit: Edit;
+    export let EObject: EObject;
+    export let EList: EList;
+    export let EString: EString;
+    export let EInt: EInt;
+    export let EBoolean: EBoolean;
+    export let EDouble: EDouble;
+    export let EDate: EDate;
+    export let EIntegerObject: EIntegerObject;
+    export let EFloatObject: EFloatObject;
+    export let ELongObject: ELongObject;
+    export let EMap: EMap;
+    export let EDiagnosticChain: EDiagnosticChain;
+    export let JSObject: JSObject;
+    export let EModelElement: EModelElement;
+    export let EAnnotation: EAnnotation;
+    export let ENamedElement: ENamedElement;
+    export let EClassifier: EClassifier;
+    export let ETypedElement: ETypedElement;
+    export let EDataType: EDataType;
+    export let EStructuralFeature: EStructuralFeature;
+    export let EAttribute: EAttribute;
+    export let EReference: EReference;
+    export let EOperation: EOperation;
+    export let EParameter: EParameter;
+    export let EEnum: EEnum;
+    export let EEnumLiteral: EEnumLiteral;
+    export let EGenericType: EGenericType;
+    export let ETypeParameter: ETypeParameter;
+    export let Resource: Resource;
+    export let EPackageRegistry: EPackageRegistry;
+    export let EPackage: EPackage;
 
     interface Edit {
         childTypes: (object: EObject, createDescriptor: any) => EObject[];
@@ -143,9 +142,6 @@ declare namespace Ecore {
         elements: (type?: string | EClass) => EObject[];
         toJSON: () => any;
     }
-    namespace ResourceSet {
+    export namespace ResourceSet {
         function create(): ResourceSet;
     }
-}
-
-export = Ecore;
