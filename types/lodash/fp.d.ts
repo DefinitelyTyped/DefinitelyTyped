@@ -3,6 +3,7 @@
 // npm install && npm run generate
 
 import lodash = require("./index");
+import { O } from "ts-toolbelt";
 
 export = _;
 
@@ -54,20 +55,13 @@ declare namespace _ {
     type LodashAry1x1 = (func: (...args: any[]) => any) => (...args: any[]) => any;
     type LodashAry1x2 = (n: number) => (...args: any[]) => any;
     interface LodashAssign {
-        <TObject>(object: TObject): LodashAssign1x1<TObject>;
-        <TSource>(object: lodash.__, source: TSource): LodashAssign1x2<TSource>;
-        <TObject, TSource>(object: TObject, source: TSource): TObject & TSource;
+        <TObject extends object>(object: TObject): LodashAssign1x1<TObject>;
+        <TSource extends object[]>(object: lodash.__, source: TSource): LodashAssign1x2<TSource>;
+        <TObject extends object, TSource extends object[]>(object: TObject, source: TSource): O.Assign<TObject, TSource>;
     }
-    type LodashAssign1x1<TObject> = <TSource>(source: TSource) => TObject & TSource;
-    type LodashAssign1x2<TSource> = <TObject>(object: TObject) => TObject & TSource;
-    interface LodashAssignAll {
-        <TObject, TSource>(object: [TObject, TSource]): TObject & TSource;
-        <TObject, TSource1, TSource2>(object: [TObject, TSource1, TSource2]): TObject & TSource1 & TSource2;
-        <TObject, TSource1, TSource2, TSource3>(object: [TObject, TSource1, TSource2, TSource3]): TObject & TSource1 & TSource2 & TSource3;
-        <TObject, TSource1, TSource2, TSource3, TSource4>(object: [TObject, TSource1, TSource2, TSource3, TSource4]): TObject & TSource1 & TSource2 & TSource3 & TSource4;
-        <TObject>(object: [TObject]): TObject;
-        (object: ReadonlyArray<any>): any;
-    }
+    type LodashAssign1x1<TObject> = <TSource extends object[]>(source: TSource) => O.Assign<TObject, TSource>;
+    type LodashAssign1x2<TSource> = <TObject extends object>(object: TObject) => O.Assign<TObject, TSource>;
+    type LodashAssignAll = <TObject extends object, TSource extends object[]>(object: [TObject, TSource]) => O.Assign<TObject, TSource>;
     interface LodashAssignAllWith {
         (customizer: lodash.AssignCustomizer): LodashAssignAllWith1x1;
         (customizer: lodash.__, args: ReadonlyArray<any>): LodashAssignAllWith1x2;
