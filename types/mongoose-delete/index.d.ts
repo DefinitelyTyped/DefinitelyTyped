@@ -78,7 +78,7 @@ declare global {
             ): void;
         }
 
-        export interface SoftDeleteDocument
+        interface SoftDeleteDocument
           extends mongoose.Document,
             SoftDeleteInterface {
           /** Soft delete this document */

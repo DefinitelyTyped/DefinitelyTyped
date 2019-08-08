@@ -1,8 +1,8 @@
-import * as mongoose from 'mongoose';
-import * as mongoose_delete from 'mongoose-delete';
+import mongoose = require('mongoose');
+import mongoose_delete = require('mongoose-delete');
 
 interface PetDocument extends mongoose_delete.SoftDeleteDocument {
-    name: string;
+  name: string;
 }
 const PetSchema = new mongoose.Schema<PetDocument>({
   name: String,
