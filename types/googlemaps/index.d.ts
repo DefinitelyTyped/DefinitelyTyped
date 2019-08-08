@@ -58,10 +58,7 @@ declare namespace google.maps {
         getZoom(): number;
         panBy(x: number, y: number): void;
         panTo(latLng: LatLng | LatLngLiteral): void;
-        panToBounds(
-            latLngBounds: LatLngBounds | LatLngBoundsLiteral,
-            padding?: number | Padding
-        ): void;
+        panToBounds(latLngBounds: LatLngBounds | LatLngBoundsLiteral, padding?: number | Padding): void;
         setCenter(latlng: LatLng | LatLngLiteral): void;
         setHeading(heading: number): void;
         setMapTypeId(mapTypeId: MapTypeId | string): void;
@@ -273,7 +270,7 @@ declare namespace google.maps {
         /** This map type displays satellite images. */
         SATELLITE,
         /** This map type displays maps with physical features such as terrain and vegetation. */
-        TERRAIN
+        TERRAIN,
     }
 
     /***** Controls *****/
@@ -293,7 +290,7 @@ declare namespace google.maps {
     enum MapTypeControlStyle {
         DEFAULT,
         DROPDOWN_MENU,
-        HORIZONTAL_BAR
+        HORIZONTAL_BAR,
     }
 
     type GestureHandlingOptions = 'cooperative' | 'greedy' | 'none' | 'auto';
@@ -348,7 +345,7 @@ declare namespace google.maps {
     }
 
     enum ScaleControlStyle {
-        DEFAULT
+        DEFAULT,
     }
 
     /** Options for the rendering of the Street View pegman control on the map. */
@@ -377,7 +374,7 @@ declare namespace google.maps {
     enum ZoomControlStyle {
         DEFAULT,
         LARGE,
-        SMALL
+        SMALL,
     }
 
     /**
@@ -424,7 +421,7 @@ declare namespace google.maps {
         /** Elements are positioned in the top left and flow towards the middle. */
         TOP_LEFT,
         /** Elements are positioned in the top right and flow towards the middle. */
-        TOP_RIGHT
+        TOP_RIGHT,
     }
 
     type DrawingMode = 'Point' | 'LineString' | 'Polygon';
@@ -442,11 +439,7 @@ declare namespace google.maps {
         getFeatureById(id: number | string): Data.Feature;
         getMap(): Map;
         getStyle(): Data.StylingFunction | Data.StyleOptions;
-        loadGeoJson(
-            url: string,
-            options?: Data.GeoJsonOptions,
-            callback?: (features: Data.Feature[]) => void
-        ): void;
+        loadGeoJson(url: string, options?: Data.GeoJsonOptions, callback?: (features: Data.Feature[]) => void): void;
         overrideStyle(feature: Data.Feature, style: Data.StyleOptions): void;
         remove(feature: Data.Feature): void;
         revertStyle(feature?: Data.Feature): void;
@@ -712,19 +705,13 @@ declare namespace google.maps {
         setVisible(visible: boolean): void;
         /** @see {@link https://developers.google.com/maps/documentation/javascript/reference/marker#Marker.setZIndex Maps JavaScript API} */
         setZIndex(zIndex: number | null): void;
-        addListener(
-            eventName: MarkerChangeOptionEventNames,
-            handler: (this: Marker) => void
-        ): MapsEventListener;
+        addListener(eventName: MarkerChangeOptionEventNames, handler: (this: Marker) => void): MapsEventListener;
         addListener(
             eventName: MarkerMouseEventNames,
-            handler: (this: Marker, event: MouseEvent) => void
+            handler: (this: Marker, event: MouseEvent) => void,
         ): MapsEventListener;
         /** @deprecated */
-        addListener(
-            eventName: string,
-            handler: (this: Marker, ...args: any[]) => void
-        ): MapsEventListener;
+        addListener(eventName: string, handler: (this: Marker, ...args: any[]) => void): MapsEventListener;
     }
 
     /**
@@ -1169,7 +1156,7 @@ declare namespace google.maps {
          * A forward-pointing open arrow.
          * @see {@link https://developers.google.com/maps/documentation/javascript/reference/marker#SymbolPath.FORWARD_OPEN_ARROW Maps JavaScript API}
          */
-        FORWARD_OPEN_ARROW = 2
+        FORWARD_OPEN_ARROW = 2,
     }
 
     /**
@@ -1188,7 +1175,7 @@ declare namespace google.maps {
          * Marker falls from the top of the map ending with a small bounce.
          * @see {@link https://developers.google.com/maps/documentation/javascript/reference/marker#Animation.DROP Maps JavaScript API}
          */
-        DROP = 2
+        DROP = 2,
     }
 
     /**
@@ -1364,7 +1351,7 @@ declare namespace google.maps {
                 | LatLng[][]
                 | LatLngLiteral[][]
                 | LatLng[]
-                | LatLngLiteral[]
+                | LatLngLiteral[],
         ): void;
         setVisible(visible: boolean): void;
     }
@@ -1584,15 +1571,11 @@ declare namespace google.maps {
         /** The stroke lies inside the polygon. */
         INSIDE,
         /** The stroke lies outside the polygon. */
-        OUTSIDE
+        OUTSIDE,
     }
 
     class GroundOverlay extends MVCObject {
-        constructor(
-            url: string,
-            bounds: LatLngBounds | LatLngBoundsLiteral,
-            opts?: GroundOverlayOptions
-        );
+        constructor(url: string, bounds: LatLngBounds | LatLngBoundsLiteral, opts?: GroundOverlayOptions);
         getBounds(): LatLngBounds;
         getMap(): Map;
         getOpacity(): number;
@@ -1672,10 +1655,7 @@ declare namespace google.maps {
 
     /***** Services *****/
     class Geocoder {
-        geocode(
-            request: GeocoderRequest,
-            callback: (results: GeocoderResult[], status: GeocoderStatus) => void
-        ): void;
+        geocode(request: GeocoderRequest, callback: (results: GeocoderResult[], status: GeocoderStatus) => void): void;
     }
 
     interface GeocoderRequest {
@@ -1702,7 +1682,7 @@ declare namespace google.maps {
         OVER_QUERY_LIMIT,
         REQUEST_DENIED,
         UNKNOWN_ERROR,
-        ZERO_RESULTS
+        ZERO_RESULTS,
     }
 
     interface GeocoderResult {
@@ -1732,7 +1712,7 @@ declare namespace google.maps {
         APPROXIMATE,
         GEOMETRIC_CENTER,
         RANGE_INTERPOLATED,
-        ROOFTOP
+        ROOFTOP,
     }
 
     class DirectionsRenderer extends MVCObject {
@@ -1766,10 +1746,7 @@ declare namespace google.maps {
     }
 
     class DirectionsService {
-        route(
-            request: DirectionsRequest,
-            callback: (result: DirectionsResult, status: DirectionsStatus) => void
-        ): void;
+        route(request: DirectionsRequest, callback: (result: DirectionsResult, status: DirectionsStatus) => void): void;
     }
 
     /** A directions query to be sent to the DirectionsService. */
@@ -1844,12 +1821,12 @@ declare namespace google.maps {
         BICYCLING,
         DRIVING,
         TRANSIT,
-        WALKING
+        WALKING,
     }
 
     enum UnitSystem {
         IMPERIAL,
-        METRIC
+        METRIC,
     }
 
     interface TransitOptions {
@@ -1864,12 +1841,12 @@ declare namespace google.maps {
         RAIL,
         SUBWAY,
         TRAIN,
-        TRAM
+        TRAM,
     }
 
     enum TransitRoutePreference {
         FEWER_TRANSFERS,
-        LESS_WALKING
+        LESS_WALKING,
     }
 
     interface TransitFare {
@@ -1885,7 +1862,7 @@ declare namespace google.maps {
     enum TrafficModel {
         BEST_GUESS,
         OPTIMISTIC,
-        PESSIMISTIC
+        PESSIMISTIC,
     }
 
     /**
@@ -1920,7 +1897,7 @@ declare namespace google.maps {
         OVER_QUERY_LIMIT,
         REQUEST_DENIED,
         UNKNOWN_ERROR,
-        ZERO_RESULTS
+        ZERO_RESULTS,
     }
 
     interface DirectionsResult {
@@ -2087,17 +2064,17 @@ declare namespace google.maps {
         SHARE_TAXI,
         SUBWAY,
         TRAM,
-        TROLLEYBUS
+        TROLLEYBUS,
     }
 
     class ElevationService {
         getElevationAlongPath(
             request: PathElevationRequest,
-            callback: (results: ElevationResult[], status: ElevationStatus) => void
+            callback: (results: ElevationResult[], status: ElevationStatus) => void,
         ): void;
         getElevationForLocations(
             request: LocationElevationRequest,
-            callback: (results: ElevationResult[], status: ElevationStatus) => void
+            callback: (results: ElevationResult[], status: ElevationStatus) => void,
         ): void;
     }
 
@@ -2121,14 +2098,11 @@ declare namespace google.maps {
         OK,
         OVER_QUERY_LIMIT,
         REQUEST_DENIED,
-        UNKNOWN_ERROR
+        UNKNOWN_ERROR,
     }
 
     class MaxZoomService {
-        getMaxZoomAtLatLng(
-            latlng: LatLng | LatLngLiteral,
-            callback: (result: MaxZoomResult) => void
-        ): void;
+        getMaxZoomAtLatLng(latlng: LatLng | LatLngLiteral, callback: (result: MaxZoomResult) => void): void;
     }
 
     interface MaxZoomResult {
@@ -2138,13 +2112,13 @@ declare namespace google.maps {
 
     enum MaxZoomStatus {
         ERROR,
-        OK
+        OK,
     }
 
     class DistanceMatrixService {
         getDistanceMatrix(
             request: DistanceMatrixRequest,
-            callback: (response: DistanceMatrixResponse, status: DistanceMatrixStatus) => void
+            callback: (response: DistanceMatrixResponse, status: DistanceMatrixStatus) => void,
         ): void;
     }
 
@@ -2187,13 +2161,13 @@ declare namespace google.maps {
         OK,
         OVER_QUERY_LIMIT,
         REQUEST_DENIED,
-        UNKNOWN_ERROR
+        UNKNOWN_ERROR,
     }
 
     enum DistanceMatrixElementStatus {
         NOT_FOUND,
         OK,
-        ZERO_RESULTS
+        ZERO_RESULTS,
     }
 
     /***** Save to Google Maps *****/
@@ -2468,7 +2442,7 @@ declare namespace google.maps {
         LIMITS_EXCEEDED,
         OK,
         TIMED_OUT,
-        UNKNOWN
+        UNKNOWN,
     }
 
     interface KmlMouseEvent {
@@ -2524,10 +2498,7 @@ declare namespace google.maps {
         getStatus(): StreetViewStatus;
         getVisible(): boolean;
         getZoom(): number;
-        registerPanoProvider(
-            provider: (input: string) => StreetViewPanoramaData,
-            opts?: PanoProviderOptions
-        ): void;
+        registerPanoProvider(provider: (input: string) => StreetViewPanoramaData, opts?: PanoProviderOptions): void;
         setLinks(links: StreetViewLink[]): void;
         setMotionTracking(motionTracking: boolean): void;
         setOptions(options: StreetViewPanoramaOptions): void;
@@ -2614,12 +2585,12 @@ declare namespace google.maps {
 
     enum StreetViewPreference {
         BEST,
-        NEAREST
+        NEAREST,
     }
 
     enum StreetViewSource {
         DEFAULT,
-        OUTDOOR
+        OUTDOOR,
     }
 
     interface StreetViewLocationRequest {
@@ -2636,29 +2607,23 @@ declare namespace google.maps {
     class StreetViewService {
         getPanorama(
             request: StreetViewLocationRequest | StreetViewPanoRequest,
-            cb: (data: StreetViewPanoramaData | null, status: StreetViewStatus) => void
+            cb: (data: StreetViewPanoramaData | null, status: StreetViewStatus) => void,
         ): void;
         getPanoramaById(
             pano: string,
-            callback: (
-                streetViewPanoramaData: StreetViewPanoramaData,
-                streetViewStatus: StreetViewStatus
-            ) => void
+            callback: (streetViewPanoramaData: StreetViewPanoramaData, streetViewStatus: StreetViewStatus) => void,
         ): void;
         getPanoramaByLocation(
             latlng: LatLng | LatLngLiteral,
             radius: number,
-            callback: (
-                streetViewPanoramaData: StreetViewPanoramaData,
-                streetViewStatus: StreetViewStatus
-            ) => void
+            callback: (streetViewPanoramaData: StreetViewPanoramaData, streetViewStatus: StreetViewStatus) => void,
         ): void;
     }
 
     enum StreetViewStatus {
         OK,
         UNKNOWN_ERROR,
-        ZERO_RESULTS
+        ZERO_RESULTS,
     }
 
     class StreetViewCoverageLayer extends MVCObject {
@@ -2697,7 +2662,7 @@ declare namespace google.maps {
             instance: object,
             eventName: string,
             handler: (event: Event) => void,
-            capture?: boolean
+            capture?: boolean,
         ): MapsEventListener;
         /**
          * Wrapper around addDomListener that removes the listener after the first
@@ -2707,18 +2672,14 @@ declare namespace google.maps {
             instance: object,
             eventName: string,
             handler: (event: Event) => void,
-            capture?: boolean
+            capture?: boolean,
         ): MapsEventListener;
         /**
          * Adds the given listener function to the given event name for the given
          * object instance. Returns an identifier for this listener that can be used
          * with removeListener().
          */
-        function addListener(
-            instance: object,
-            eventName: string,
-            handler: (...args: any[]) => void
-        ): MapsEventListener;
+        function addListener(instance: object, eventName: string, handler: (...args: any[]) => void): MapsEventListener;
         /**
          * Like addListener, but the handler removes itself after handling the first
          * event.
@@ -2726,7 +2687,7 @@ declare namespace google.maps {
         function addListenerOnce(
             instance: object,
             eventName: string,
-            handler: (...args: any[]) => void
+            handler: (...args: any[]) => void,
         ): MapsEventListener;
         /**
          * Removes all listeners for all events for the given instance.
@@ -3055,24 +3016,14 @@ declare namespace google.maps {
              * Returns the LatLng resulting from moving a distance from an origin in
              * the specified heading (expressed in degrees clockwise from north).
              */
-            function computeOffset(
-                from: LatLng,
-                distance: number,
-                heading: number,
-                radius?: number
-            ): LatLng;
+            function computeOffset(from: LatLng, distance: number, heading: number, radius?: number): LatLng;
             /**
              * Returns the location of origin when provided with a LatLng destination,
              * meters travelled and original heading. Headings are expressed in
              * degrees clockwise from North. This function returns null when no
              * solution is available.
              */
-            function computeOffsetOrigin(
-                to: LatLng,
-                distance: number,
-                heading: number,
-                radius?: number
-            ): LatLng;
+            function computeOffsetOrigin(to: LatLng, distance: number, heading: number, radius?: number): LatLng;
             /**
              * Returns the signed area of a closed path. The signed area may be used
              * to determine the orientation of the path. The computed area uses the
@@ -3089,11 +3040,7 @@ declare namespace google.maps {
 
         namespace poly {
             function containsLocation(point: LatLng, polygon: Polygon): boolean;
-            function isLocationOnEdge(
-                point: LatLng,
-                poly: Polygon | Polyline,
-                tolerance?: number
-            ): boolean;
+            function isLocationOnEdge(point: LatLng, poly: Polygon | Polyline, tolerance?: number): boolean;
         }
     }
 
@@ -3154,7 +3101,7 @@ declare namespace google.maps {
             SQUARE,
             VERTICAL_BANNER,
             WIDE_SKYSCRAPER,
-            X_LARGE_VERTICAL_LINK_UNIT
+            X_LARGE_VERTICAL_LINK_UNIT,
         }
     }
 
@@ -3230,14 +3177,11 @@ declare namespace google.maps {
             constructor();
             getPlacePredictions(
                 request: AutocompletionRequest,
-                callback: (result: AutocompletePrediction[], status: PlacesServiceStatus) => void
+                callback: (result: AutocompletePrediction[], status: PlacesServiceStatus) => void,
             ): void;
             getQueryPredictions(
                 request: QueryAutocompletionRequest,
-                callback: (
-                    result: QueryAutocompletePrediction[],
-                    status: PlacesServiceStatus
-                ) => void
+                callback: (result: QueryAutocompletePrediction[], status: PlacesServiceStatus) => void,
             ): void;
         }
 
@@ -3352,23 +3296,23 @@ declare namespace google.maps {
             constructor(attrContainer: HTMLDivElement | Map);
             findPlaceFromPhoneNumber(
                 request: FindPlaceFromPhoneNumberRequest,
-                callback: (results: PlaceResult[], status: PlacesServiceStatus) => void
+                callback: (results: PlaceResult[], status: PlacesServiceStatus) => void,
             ): void;
             findPlaceFromQuery(
                 request: FindPlaceFromQueryRequest,
-                callback: (results: PlaceResult[], status: PlacesServiceStatus) => void
+                callback: (results: PlaceResult[], status: PlacesServiceStatus) => void,
             ): void;
             getDetails(
                 request: PlaceDetailsRequest,
-                callback: (result: PlaceResult, status: PlacesServiceStatus) => void
+                callback: (result: PlaceResult, status: PlacesServiceStatus) => void,
             ): void;
             nearbySearch(
                 request: PlaceSearchRequest,
                 callback: (
                     results: PlaceResult[],
                     status: PlacesServiceStatus,
-                    pagination: PlaceSearchPagination
-                ) => void
+                    pagination: PlaceSearchPagination,
+                ) => void,
             ): void;
             /**
              * @deprecated Radar search is deprecated as of June 30, 2018. After that
@@ -3376,15 +3320,15 @@ declare namespace google.maps {
              */
             radarSearch(
                 request: RadarSearchRequest,
-                callback: (results: PlaceResult[], status: PlacesServiceStatus) => void
+                callback: (results: PlaceResult[], status: PlacesServiceStatus) => void,
             ): void;
             textSearch(
                 request: TextSearchRequest,
                 callback: (
                     results: PlaceResult[],
                     status: PlacesServiceStatus,
-                    pagination: PlaceSearchPagination
-                ) => void
+                    pagination: PlaceSearchPagination,
+                ) => void,
             ): void;
         }
 
@@ -3396,7 +3340,7 @@ declare namespace google.maps {
             NOT_FOUND,
             REQUEST_DENIED,
             UNKNOWN_ERROR,
-            ZERO_RESULTS
+            ZERO_RESULTS,
         }
 
         interface QueryAutocompletePrediction {
@@ -3426,7 +3370,7 @@ declare namespace google.maps {
 
         enum RankBy {
             DISTANCE,
-            PROMINENCE
+            PROMINENCE,
         }
 
         class SearchBox extends MVCObject {
@@ -3569,7 +3513,7 @@ declare namespace google.maps {
              * Specifies that the DrawingManager creates rectangles, and that the
              * overlay given in the overlaycomplete event is a rectangle.
              */
-            RECTANGLE
+            RECTANGLE,
         }
     }
 
@@ -3621,16 +3565,14 @@ declare namespace google.maps {
         enum MapsEngineStatus {
             INVALID_LAYER,
             OK,
-            UNKNOWN_ERROR
+            UNKNOWN_ERROR,
         }
 
         class HeatmapLayer extends MVCObject {
             constructor(opts?: HeatmapLayerOptions);
             getData(): MVCArray<LatLng | WeightedLocation>;
             getMap(): Map;
-            setData(
-                data: MVCArray<LatLng | WeightedLocation> | LatLng[] | WeightedLocation[]
-            ): void;
+            setData(data: MVCArray<LatLng | WeightedLocation> | LatLng[] | WeightedLocation[]): void;
             setMap(map: Map | null): void;
             setOptions(options: HeatmapLayerOptions): void;
         }
