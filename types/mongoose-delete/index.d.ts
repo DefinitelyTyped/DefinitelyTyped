@@ -80,17 +80,18 @@ declare global {
         }
 
         export interface SoftDeleteDocument
-            extends mongoose.Document, SoftDeleteInterface {
-            /** Soft delete this document */
-            delete(): Promise<this>;
-            delete(fn: Callback<this>): void;
-            delete(deleteBy: string | mongoose.Types.ObjectId): Promise<this>;
-            delete(
-                deleteBy: string | mongoose.Types.ObjectId,
-                fn: Callback<this>,
-            ): void;
-            restore(): Promise<this>;
-            restore(fn: Callback<this>): void;
+          extends mongoose.Document,
+            SoftDeleteInterface {
+          /** Soft delete this document */
+          delete(): Promise<this>;
+          delete(fn: Callback<this>): void;
+          delete(deleteBy: string | mongoose.Types.ObjectId): Promise<this>;
+          delete(
+            deleteBy: string | mongoose.Types.ObjectId,
+            fn: Callback<this>,
+          ): void;
+          restore(): Promise<this>;
+          restore(fn: Callback<this>): void;
         }
         interface SoftDeleteInterface {
             /** Soft deleted ? */
