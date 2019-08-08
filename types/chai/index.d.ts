@@ -38,13 +38,13 @@ declare namespace Chai {
             // method itself; any arguments
             method: (...args: any[]) => void,
             // called when property is accessed
-            chainingBehavior: () => void
+            chainingBehavior?: () => void
         ): void;
         overwriteChainableMethod(
             ctx: object,
             name: string,
             method: (...args: any[]) => void,
-            chainingBehavior: () => void
+            chainingBehavior?: () => void
         ): void;
         addLengthGuard(
             fn: Function,
@@ -127,7 +127,7 @@ declare namespace Chai {
         _obj: any;
     }
 
-    export interface AssertionStatic {
+    export interface AssertionStatic extends AssertionPrototype {
         prototype: AssertionPrototype;
 
         new (target: any, message?: string, ssfi?: Function, lockSsfi?: boolean): Assertion;
@@ -142,14 +142,14 @@ declare namespace Chai {
         addChainableMethod(
             name: string,
             method: (this: AssertionStatic, ...args: any[]) => void,
-            chainingBehavior: () => void
+            chainingBehavior?: () => void
         ): void;
         overwriteProperty(name: string, getter: (this: AssertionStatic) => any): void;
         overwriteMethod(name: string, method: (this: AssertionStatic, ...args: any[]) => any): void;
         overwriteChainableMethod(
             name: string,
             method: (this: AssertionStatic, ...args: any[]) => void,
-            chainingBehavior: () => void
+            chainingBehavior?: () => void
         ): void;
     }
 
