@@ -11,6 +11,7 @@
 //                 Peter Safranek <https://github.com/pe8ter>
 //                 Moshe Kolodny <https://github.com/kolodny>
 //                 Stephen Farrar <https://github.com/stephenfarrar>
+//                 Mochamad Arfin <https://github.com/ndunks>
 // For ddescribe / iit use : https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/karma-jasmine/karma-jasmine.d.ts
 
 type ImplementationCallback = (() => Promise<any>) | ((done: DoneFn) => void);
@@ -208,6 +209,30 @@ declare namespace jasmine {
 
     function anything(): Any;
 
+    /**
+     * That will succeed if the actual value being compared is `true` or anything truthy.
+     * @since 3.1.0
+     */
+    function truthy(): Truthy;
+
+    /**
+     * That will succeed if the actual value being compared is  `null`, `undefined`, `0`, `false` or anything falsey.
+     * @since 3.1.0
+     */
+    function falsy(): Falsy;
+
+    /**
+     * That will succeed if the actual value being compared is empty.
+     * @since 3.1.0
+     */
+    function empty(): Empty;
+
+    /**
+     * That will succeed if the actual value being compared is not empty.
+     * @since 3.1.0
+     */
+    function notEmpty(): NotEmpty;
+
     function arrayContaining<T>(sample: ArrayLike<T>): ArrayContaining<T>;
     function arrayWithExactContents<T>(sample: ArrayLike<T>): ArrayContaining<T>;
     function objectContaining<T>(sample: Partial<T>): ObjectContaining<T>;
@@ -239,10 +264,15 @@ declare namespace jasmine {
         jasmineToString(): string;
     }
 
-    interface AsymmetricMatcher {
+    interface AsymmetricMatcher<T extends string = string> {
       asymmetricMatch(other: any): boolean;
-      jasmineToString?(): string;
-  }
+      jasmineToString?(): T;
+    }
+
+    interface Truthy extends AsymmetricMatcher<'<jasmine.truthy>'> { }
+    interface Falsy extends AsymmetricMatcher<'<jasmine.falsy>'> { }
+    interface Empty extends AsymmetricMatcher<'<jasmine.empty>'> { }
+    interface NotEmpty extends AsymmetricMatcher<'<jasmine.notEmpty>'> { }
 
     // taken from TypeScript lib.core.es6.d.ts, applicable to CustomMatchers.contains()
     interface ArrayLike<T> {
@@ -255,7 +285,7 @@ declare namespace jasmine {
     }
 
     interface ObjectContaining<T> {
-        new?(sample: Partial<T>): Partial<T>;
+        new?(sample: {[K in keyof T]?: any}): {[K in keyof T]?: any};
 
         jasmineMatches(other: any, mismatchKeys: any[], mismatchValues: any[]): boolean;
         jasmineToString?(): string;

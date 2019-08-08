@@ -4328,7 +4328,7 @@ declare namespace Stripe {
     }
 
     namespace paymentIntents {
-        type PaymentIntentCancelationReason = 'duplicate' | 'fraudulent' | 'requested_by_customer' | 'failed_invoice';
+        type PaymentIntentCancellationReason = 'duplicate' | 'fraudulent' | 'requested_by_customer' | 'failed_invoice';
 
         type PaymentIntentFutureUsageType = 'on_session' | 'off_session';
 
@@ -4372,7 +4372,7 @@ declare namespace Stripe {
             /**
              * User-given reason for cancellation of this PaymentIntent.
              */
-            cancelation_reason: PaymentIntentCancelationReason | null;
+            cancellation_reason: PaymentIntentCancellationReason | null;
 
             /**
              * Capture method of this PaymentIntent.
@@ -9437,7 +9437,7 @@ declare namespace Stripe {
             cancel(
                 paymentIntentId: string,
                 data: {
-                    cancellation_reason?: paymentIntents.PaymentIntentCancelationReason,
+                    cancellation_reason?: paymentIntents.PaymentIntentCancellationReason,
                 },
                 options: HeaderOptions,
                 response?: IResponseFn<paymentIntents.IPaymentIntent>,
@@ -9450,7 +9450,7 @@ declare namespace Stripe {
             cancel(
                 paymentIntentId: string,
                 data: {
-                    cancellation_reason?: paymentIntents.PaymentIntentCancelationReason,
+                    cancellation_reason?: paymentIntents.PaymentIntentCancellationReason,
                 },
                 response?: IResponseFn<paymentIntents.IPaymentIntent>,
             ): Promise<paymentIntents.IPaymentIntent>;

@@ -51,7 +51,7 @@ export namespace ReactStripeElements {
 		handleCardSetup(
 			clientSecret: string,
 			data?: stripe.HandleCardSetupOptions
-		): Promise<stripe.PaymentIntentResponse>;
+		): Promise<stripe.SetupIntentResponse>;
 	}
 
 	interface InjectOptions {

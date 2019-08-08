@@ -1398,6 +1398,49 @@ describe("createSpyObj", function() {
     });
 });
 
+describe('Static Matcher Test', function() {
+    it('Falsy', () => {
+      expect({ value: null }).toEqual(
+        jasmine.objectContaining({
+          value: jasmine.falsy(),
+        })
+      );
+    });
+    it('Truthy', () => {
+      expect({ value: null }).toEqual(
+        jasmine.objectContaining({
+          value: jasmine.truthy(),
+        })
+      );
+    });
+    it('Empty', () => {
+      expect({ value: null }).toEqual(
+        jasmine.objectContaining({
+          value: jasmine.empty(),
+        })
+      );
+    });
+    it('NotEmpty', () => {
+      expect({ value: null }).toEqual(
+        jasmine.objectContaining({
+          value: jasmine.notEmpty(),
+        })
+      );
+    });
+    it('Partial should OK', () => {
+      expect({ value: null, label: 'abcd' }).toEqual(
+        jasmine.objectContaining({
+          value: jasmine.anything(),
+        })
+      );
+      expect({ value: null }).toEqual(
+          jasmine.objectContaining({
+            value: 'any value should ok',
+          })
+        );
+    });
+  });
+
 (() => {
     // from boot.js
     const env = jasmine.getEnv();

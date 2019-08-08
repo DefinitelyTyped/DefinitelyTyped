@@ -17,6 +17,7 @@ const subtitles = [
     ];
 
 const srt = Subtitle.stringify(subtitles);
+const vtt = Subtitle.stringifyVtt(subtitles);
 
 const newSubtitles: Subtitle.subTitleType[] = Subtitle.resync(subtitles, 1000);
 
