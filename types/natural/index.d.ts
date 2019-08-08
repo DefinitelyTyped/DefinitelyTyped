@@ -41,51 +41,15 @@ interface Stemmer {
     tokenizeAndStem(text: string): string[];
     attach(): void;
 }
-declare var PorterStemmer: {
-    stem(token: string): string;
-    tokenizeAndStem(text: string): string[];
-    attach(): void;
-}
-declare var PorterStemmerRu: {
-    stem(token: string): string;
-    tokenizeAndStem(text: string): string[];
-    attach(): void;
-}
-declare var PorterStemmerEs: {
-    stem(token: string): string;
-    tokenizeAndStem(text: string): string[];
-    attach(): void;
-}
-declare var PorterStemmerFa: {
-    stem(token: string): string;
-    tokenizeAndStem(text: string): string[];
-    attach(): void;
-}
-declare var PorterStemmerFr: {
-    stem(token: string): string;
-    tokenizeAndStem(text: string): string[];
-    attach(): void;
-}
-declare var PorterStemmerIt: {
-    stem(token: string): string;
-    tokenizeAndStem(text: string): string[];
-    attach(): void;
-}
-declare var PorterStemmerNo: {
-    stem(token: string): string;
-    tokenizeAndStem(text: string): string[];
-    attach(): void;
-}
-declare var PorterStemmerPt: {
-    stem(token: string): string;
-    tokenizeAndStem(text: string): string[];
-    attach(): void;
-}
-declare var LancasterStemmer: {
-    stem(token: string): string;
-    tokenizeAndStem(text: string): string[];
-    attach(): void;
-}
+declare var PorterStemmer: Stemmer;
+declare var PorterStemmerRu: Stemmer;
+declare var PorterStemmerEs: Stemmer;
+declare var PorterStemmerFa: Stemmer;
+declare var PorterStemmerFr: Stemmer;
+declare var PorterStemmerIt: Stemmer;
+declare var PorterStemmerNo: Stemmer;
+declare var PorterStemmerPt: Stemmer;
+declare var LancasterStemmer: Stemmer;
 
 interface BayesClassifierClassification { label: string, value: number }
 interface BayesClassifierCallback { (err: any, classifier: any): void }
