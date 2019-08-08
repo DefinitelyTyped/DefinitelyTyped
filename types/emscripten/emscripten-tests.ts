@@ -6,6 +6,7 @@ function ModuleTest(): void {
     Module.logReadFiles = false;
     Module.filePackagePrefixURL = "http://www.example.org/";
     Module.preinitializedWebGLContext = new WebGLRenderingContext();
+    Module.onAbort = (what) => console.log('abort');
     Module.onRuntimeInitialized = () => console.log('init');
 
     let package: ArrayBuffer = Module.getPreloadedPackage("package-name", 100);

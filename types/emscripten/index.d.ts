@@ -43,6 +43,7 @@ declare interface EmscriptenModule {
     preInit: { ():  void }[];
     preRun: { ():  void }[];
     postRun: { ():  void }[];
+    onAbort: { (what: any):  void };
     onRuntimeInitialized: { ():  void };
     preinitializedWebGLContext: WebGLRenderingContext;
     noInitialRun: boolean;
