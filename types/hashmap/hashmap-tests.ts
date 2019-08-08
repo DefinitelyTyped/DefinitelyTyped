@@ -1,6 +1,10 @@
 import HashMap = require("hashmap");
 var emptyMap:HashMap<string, number> = new HashMap<string, number>();
 var filledMap:HashMap<string, number> = new HashMap<string, number>("bar", 123, "bar2", 234);
+var filledMap2: HashMap<string, number> = new HashMap<string, number>([
+  ['bar', 123],
+  ['bar2', 234],
+]);
 var copiedMap:HashMap<string, number> = new HashMap(filledMap);
 
 emptyMap.set("foo", 123);
@@ -14,11 +18,14 @@ var hasFoo:boolean = emptyMap.has("foo");
 
 var key:string = emptyMap.search(567);
 
-emptyMap.remove("foo").remove("foo2");
+emptyMap.delete('foo');
+emptyMap.remove('foo2');
 
 var keys:string[] = emptyMap.keys();
 
 var values:number[] = emptyMap.values();
+
+var entries: [string, number][] = emptyMap.entries();
 
 var count:number = emptyMap.count();
 

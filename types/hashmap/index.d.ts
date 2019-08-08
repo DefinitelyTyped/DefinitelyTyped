@@ -1,6 +1,6 @@
-// Type definitions for HashMap 2.0.3
+// Type definitions for HashMap 2.3.0
 // Project: https://github.com/flesler/hashmap
-// Definitions by: Rafał Wrzeszcz <http://wrzasq.pl>, Vasya Aksyonov <https://github.com/outring>
+// Definitions by: Rafał Wrzeszcz <http://wrzasq.pl>, Vasya Aksyonov <https://github.com/outring>, Edoardo Morandi <https://github.com/dodomorandi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare class HashMap<TKey, TValue> {
@@ -23,6 +23,14 @@ declare class HashMap<TKey, TValue> {
      * @param keysAndValues key1, value1, key2, value2...
      */
     constructor(...keysAndValues:(TKey|TValue)[]);
+
+    /**
+     * Creates a hashmap with several key-value pairs.
+     *
+     * @param keysAndValues An array of key-value pairs
+     * @since 2.3.0
+     */
+    constructor(keysAndValues:[TKey, TValue][]);
 
     /**
      * Return value from hashmap.
@@ -79,6 +87,15 @@ declare class HashMap<TKey, TValue> {
      * @param key Key.
      * @return Self.
      */
+    delete(key:TKey):HashMap<TKey, TValue>;
+
+    /**
+     * Removes given key from hashmap.
+     *
+     * @param key Key.
+     * @return Self.
+     * @deprecated Since 2.3.0
+     */
     remove(key:TKey):HashMap<TKey, TValue>;
 
     /**
@@ -94,6 +111,14 @@ declare class HashMap<TKey, TValue> {
      * @return List of values.
      */
     values():TValue[];
+
+    /**
+     * Returns all key-value pairs.
+     *
+     * @return List of key-value pairs.
+     * @since 2.3.0
+     */
+    entries():[TKey, TValue][];
 
     /**
      * Returns size of hashmap (number of entries).
