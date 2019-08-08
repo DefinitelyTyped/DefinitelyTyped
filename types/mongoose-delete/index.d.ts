@@ -44,7 +44,6 @@ declare global {
             /** Update all documents including deleted */
             updateWithDeleted: typeof mongoose.Model.update;
 
-
             /**
              * Delete documents by conditions
              */
