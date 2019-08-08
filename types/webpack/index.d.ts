@@ -936,6 +936,7 @@ declare namespace webpack {
           hooks: {
             jsonpScript?: Hook<string, Chunk, string>;
           };
+          outputOptions: Output;
         }
         class ChunkTemplate extends Tapable {}
         class HotUpdateChunkTemplate extends Tapable {}
@@ -1972,35 +1973,35 @@ declare namespace webpack {
         }
     }
 
-    class Template {
-        static getFunctionContent(fn: (...args: any[]) => any): string;
+    namespace Template {
+        function getFunctionContent(fn: (...args: any[]) => any): string;
 
-        static toIdentifier(str: string): string;
+        function toIdentifier(str: string): string;
 
-        static toComment(str: string): string;
+        function toComment(str: string): string;
 
-        static toNormalComment(str: string): string;
+        function toNormalComment(str: string): string;
 
-        static toPath(str: string): string;
+        function toPath(str: string): string;
 
-        static numberToIdentifer(n: number): string;
+        function numberToIdentifer(n: number): string;
 
-        static indent(s: string | string[]): string;
+        function indent(s: string | string[]): string;
 
-        static prefix(s: string | string[], prefix: string): string;
+        function prefix(s: string | string[], prefix: string): string;
 
-        static asString(str: string | string[]): string;
+        function asString(str: string | string[]): string;
 
-        static getModulesArrayBounds (modules: {
+        function getModulesArrayBounds (modules: {
             id: string | number;
         }): [number, number] | false;
 
-        static renderChunkModules(
-          chunk: compilation.Chunk,
-          filterFn: (module: Module, num: number) => boolean,
-          moduleTemplate: compilation.ModuleTemplate,
-          dependencyTemplates: any,
-          prefix?: string,
+        function renderChunkModules(
+            chunk: compilation.Chunk,
+            filterFn: (module: Module, num: number) => boolean,
+            moduleTemplate: compilation.ModuleTemplate,
+            dependencyTemplates: any,
+            prefix?: string,
         ): ConcatSource;
     }
     
