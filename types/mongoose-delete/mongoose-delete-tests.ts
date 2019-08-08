@@ -1,11 +1,7 @@
 import * as mongoose from 'mongoose';
 import * as mongoose_delete from 'mongoose-delete';
-import {
-  SoftDeleteDocument,
-  SoftDeleteModel,
-} from 'mongoose-delete/interfaces';
 
-interface PetDocument extends SoftDeleteDocument {
+interface PetDocument extends mongoose_delete.SoftDeleteDocument {
     name: string;
 }
 const PetSchema = new mongoose.Schema<PetDocument>({
@@ -36,12 +32,15 @@ PetSchema.plugin(mongoose_delete, {
 
 const idUser = mongoose.Types.ObjectId('53da93b16b4a6670076b16bf');
 
-const Pet = mongoose.model<PetDocument, SoftDeleteModel<PetDocument>>(
+const Pet = mongoose.model<
+  PetDocument,
+  mongoose_delete.SoftDeleteModel<PetDocument>
+>('Pet', PetSchema);
+
+const Pet2 = mongoose.model(
   'Pet',
   PetSchema,
-);
-
-const Pet2 = mongoose.model('Pet', PetSchema) as SoftDeleteModel<PetDocument>;
+) as mongoose_delete.SoftDeleteModel<PetDocument>;
 
 const fluffy = new Pet({ name: 'Fluffy' });
 
