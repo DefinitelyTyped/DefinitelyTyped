@@ -496,7 +496,7 @@ declare module "../index" {
          * @param array The array to recursively flatten.
          * @return Returns the new flattened array.
          */
-        flattenDeep<T>(array: ListOfRecursiveArraysOrValues<T> | null | undefined): T[];
+        flattenDeep<T>(array: ListOfRecursiveArraysOrValues<T> | null | undefined): Array<Flat<T>>;
     }
     interface Collection<T> {
         /**
