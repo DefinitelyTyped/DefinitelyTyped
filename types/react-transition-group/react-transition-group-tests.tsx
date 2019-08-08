@@ -1,9 +1,13 @@
-import * as React from "react";
-import { UNMOUNTED, EXITED, ENTERING, ENTERED, EXITING, TransitionStatus } from "react-transition-group/Transition";
-import { modes } from "react-transition-group/SwitchTransition";
-import { Transition, CSSTransition, TransitionGroup, SwitchTransition } from "react-transition-group";
+import * as React from 'react';
+import {
+    CSSTransition, CSSTransitionProps, SwitchTransition, Transition, TransitionGroup
+} from 'react-transition-group';
+import { modes } from 'react-transition-group/SwitchTransition';
+import {
+    ENTERED, ENTERING, EXITED, EXITING, TransitionStatus, UNMOUNTED
+} from 'react-transition-group/Transition';
 
-interface ContainerProps {
+interface ContainerProps extends Partial<CSSTransitionProps> {
     theme: string;
     children?: Element[];
 }

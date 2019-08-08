@@ -6,7 +6,34 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-export { default as Transition } from './Transition';
-export { default as CSSTransition } from './CSSTransition';
-export { default as TransitionGroup } from './TransitionGroup';
-export { default as SwitchTransition } from './SwitchTransition';
+export {
+    default as Transition,
+    EndHandler,
+    EnterHandler,
+    ExitHandler,
+    TransitionActions,
+    TransitionChildren,
+    TransitionProps,
+    TransitionStatus,
+    UNMOUNTED,
+    EXITED,
+    ENTERING,
+    ENTERED,
+    EXITING,
+} from './Transition';
+export {
+    default as CSSTransition,
+    CSSTransitionClassNames,
+    CSSTransitionProps,
+} from './CSSTransition';
+export {
+    default as TransitionGroup,
+    IntrinsicTransitionGroupProps,
+    ComponentTransitionGroupProps,
+    TransitionGroupProps,
+} from './TransitionGroup';
+export {
+    default as SwitchTransition,
+    modes,
+    SwitchTransitionProps,
+} from './SwitchTransition';
