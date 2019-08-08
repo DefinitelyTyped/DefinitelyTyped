@@ -1,4 +1,4 @@
-// Type definitions for chai 4.1
+// Type definitions for chai 4.2
 // Project: http://chaijs.com/
 // Definitions by: Jed Mao <https://github.com/jedmao>,
 //                 Bart van der Schoor <https://github.com/Bartvds>,
@@ -14,16 +14,22 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
-/// <reference types="pathval" />
-
 declare namespace Chai {
     type Message = string | (() => string);
+    type Property = string | symbol | number
+
+    interface PathInfo {
+        parent: object;
+        name: string;
+        value?: any;
+        exists: boolean;
+    }
 
     interface ErrorConstructor {
         new(...args: any[]): Error;
     }
 
-    interface ChaiUtils extends PathVal.PathValStatic {
+    interface ChaiUtils {
         addChainableMethod(
             // object to define the method on, e.g. chai.Assertion.prototype
             ctx: object,
@@ -70,6 +76,11 @@ declare namespace Chai {
         compatibleMessage(thrown: Error, errMatcher: string | RegExp): boolean;
         getConstructorName(constructorFn: Function): string;
         getFuncName(constructorFn: Function): string | null;
+
+        // Reexports from pathval:
+        hasProperty(obj: object | undefined | null, name: Property): boolean;
+        getPathInfo(obj: object, path: string): PathInfo;
+        getPathValue(obj: object, path: string): object | undefined;
     }
 
     type ChaiPlugin = (chai: ChaiStatic, utils: ChaiUtils) => void;
@@ -325,7 +336,7 @@ declare namespace Chai {
     }
 
     interface Include {
-        (value: object | string | number, message?: string): Assertion;
+        (value: any, message?: string): Assertion;
         keys: Keys;
         deep: Deep;
         ordered: Ordered;
