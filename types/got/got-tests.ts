@@ -391,9 +391,9 @@ got('example.com', {
         beforeError: [
             error => {
                 return error;
-            },
-        ],
-    },
+            }
+        ]
+    }
 });
 got('example.com', {
     hooks: {
@@ -427,31 +427,31 @@ got('example.com', {
             beforeRequest: [
                 async () => {
                     await doSomethingAsync();
-                },
+                }
             ],
             beforeRedirect: [
                 async () => {
                     await doSomethingAsync();
-                },
+                }
             ],
             beforeRetry: [
                 async () => {
                     await doSomethingAsync();
-                },
+                }
             ],
             beforeError: [
-                async error => {
+                async (error) => {
                     await doSomethingAsync();
                     return error;
-                },
+                }
             ],
             afterResponse: [
-                async response => {
+                async (response) => {
                     await doSomethingAsync();
                     return response;
-                },
-            ],
-        },
+                }
+            ]
+        }
     });
 }
 
