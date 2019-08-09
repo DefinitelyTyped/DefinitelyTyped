@@ -111,7 +111,8 @@ namespace express_tests {
         });
 
     router.get('/user/:id', (req, res, next) => {
-        if (Number(req.params.id) === 0) next('route');
+        const paramsDictionary: ParamsDictionary = Array.isArray(req.params) ? {} : req.params;
+        if (Number(paramsDictionary.id) === 0) next('route');
         else next();
     }, (req, res, next) => {
         res.render('regular');
@@ -158,7 +159,7 @@ namespace express_tests {
  *                         *
  ***************************/
 import * as http from 'http';
-import { RequestRanges } from 'express-serve-static-core';
+import { RequestRanges, ParamsDictionary } from 'express-serve-static-core';
 
 namespace node_tests {
     {
