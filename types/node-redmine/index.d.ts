@@ -3,7 +3,7 @@
 // Definitions by: Roberto Rossetti <https://github.com/grptx>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-interface IssueRecord {
+export interface IssueRecord {
     id: number;
     project: IssueRecordField;
     tracker: IssueRecordField;
@@ -24,12 +24,12 @@ interface IssueRecord {
     closed_on: string | null;
 }
 
-interface IssueRecordField {
+export interface IssueRecordField {
     id: number;
     name?: string;
 }
 
-interface IssueParams {
+export interface IssueParams {
     project_id?: number;
     tracker_id?: number;
     priority_id?: number;
@@ -43,11 +43,11 @@ interface IssueParams {
     uploads?: UploadRecord[];
 }
 
-interface UploadResult {
+export interface UploadResult {
     upload: UploadRecord;
 }
 
-interface UploadRecord {
+export interface UploadRecord {
     token: string;
     content_type?: string;
     filename: string;
@@ -70,31 +70,31 @@ export class Redmine {
 
     /////////////////////////////////////// REST API for issues(Stable) ///////////////////////////////////////
 
-    issues(params: any, callback:(err: any, data: any) => void): Issues;
+    issues(params: any, callback: (err: any, data: any) => void): Issues;
 
-    get_issue_by_id(id: number, params: any, callback:(err: any, data: any) => void): Issue;
+    get_issue_by_id(id: number, params: any, callback: (err: any, data: any) => void): Issue;
 
-    create_issue(issue: IssueData, callback:(err: any, data: any) => void): Issue;
+    create_issue(issue: IssueData, callback: (err: any, data: any) => void): Issue;
 
-    update_issue(id: number, issue: IssueData, callback:(err: any, data: any) => void): Issue;
+    update_issue(id: number, issue: IssueData, callback: (err: any, data: any) => void): Issue;
 
-    delete_issue(id: number, callback:(err: any, data: any) => void): void;
+    delete_issue(id: number, callback: (err: any, data: any) => void): void;
 
-    add_watcher(id: number, params: any, callback:(err: any, data: any) => void): void;
+    add_watcher(id: number, params: any, callback: (err: any, data: any) => void): void;
 
-    remove_watcher(id: number, params: any, callback:(err: any, data: any) => void): void;
+    remove_watcher(id: number, params: any, callback: (err: any, data: any) => void): void;
 
     /////////////////////////////////////// REST API for Issue Relations(Alpha) ///////////////////////////////////////
 
-    issue_relation_by_issue_id(id: number, callback:(err: any, data: any) => void): void;
+    issue_relation_by_issue_id(id: number, callback: (err: any, data: any) => void): void;
 
-    create_issue_relation(id: number, params: any, callback:(err: any, data: any) => void): void;
+    create_issue_relation(id: number, params: any, callback: (err: any, data: any) => void): void;
 
-    issue_relation_by_id(id: number, callback:(err: any, data: any) => void): void;
+    issue_relation_by_id(id: number, callback: (err: any, data: any) => void): void;
 
-    delete_issue_relation(id: number, callback:(err: any, data: any) => void): void;
+    delete_issue_relation(id: number, callback: (err: any, data: any) => void): void;
 
     /////////////////////////////////////// REST API for Common(Alpha) ///////////////////////////////////////
 
-    upload(content: any, callback:(err: any, data: any) => void): UploadResult;
+    upload(content: any, callback: (err: any, data: any) => void): UploadResult;
 }
