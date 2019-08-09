@@ -34,16 +34,16 @@ declare module "../index" {
          * _.assign({ 'a': 1 }, new Foo, new Bar);
          * // => { 'a': 1, 'c': 3, 'e': 5 }
          */
-        assign<TObject extends object, TSource extends object[]>(
-            object: TObject, source: TSource): O.Assign<TObject, TSource>;
+        assign<TObject, TSource>(
+            object: TObject, source: TSource): O.Assign<TObject & {}, TSource & []>;
     }
 
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.assign
          */
-        assign<TSource extends object[]>(
-            source: TSource): LoDashImplicitWrapper<O.Assign<TValue & {}, TSource>>;
+        assign<TSource>(
+            source: TSource): LoDashImplicitWrapper<O.Assign<TValue & {}, TSource & []>>;
     }
 
     interface LoDashExplicitWrapper<TValue> {
