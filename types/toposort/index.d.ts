@@ -4,6 +4,7 @@
 //                 Prokop Simek <https://github.com/prokopsimek>
 //                 Emily Marigold Klassen <https://github.com/forivall>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /**
  * @param edges An array of directed edges describing a graph. An edge looks
@@ -24,7 +25,7 @@ declare namespace toposort {
      * @returns a list of vertices, sorted from "start" to "end"
      * @throws if there are any cycles in the graph
      */
-    export function array<T = string>(
+    function array<T = string>(
       nodes: ReadonlyArray<T>,
       edges: ReadonlyArray<[T, T | undefined]>,
     ): T[];
