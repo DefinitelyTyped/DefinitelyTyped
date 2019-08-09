@@ -3,6 +3,8 @@
 // Definitions by: Roberto Rossetti <https://github.com/grptx>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="node" />
+
 export interface IssueRecord {
     id: number;
     project: IssueRecordField;
