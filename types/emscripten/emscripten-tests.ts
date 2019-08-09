@@ -81,6 +81,8 @@ function FSTest(): void {
     FS.writeFile('file', 'foobar');
     FS.truncate('file', 3);
 
+    const contents = FS.readFile('file', { encoding: 'utf8' });
+
     const rstream = FS.open('abinaryfile', 'r');
     const buf = new Uint8Array(4);
     FS.read(rstream, buf, 0, 4, 0);

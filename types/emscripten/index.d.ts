@@ -198,8 +198,8 @@ declare namespace FS {
     function allocate(stream: FSStream, offset: number, length: number): void;
     function mmap(stream: FSStream, buffer: ArrayBufferView, offset: number, length: number, position: number, prot: number, flags: number): any;
     function ioctl(stream: FSStream, cmd: any, arg: any): any;
-    function readFile(path: string, opts?: { encoding: string; flags: string }): any;
-    function writeFile(path: string, data: string | ArrayBufferView, opts?: { encoding: string; flags: string }): void;
+    function readFile(path: string, opts?: { encoding?: "binary" | "utf8"; flags?: string }): string | Uint8Array;
+    function writeFile(path: string, data: string | ArrayBufferView, opts?: { flags?: string }): void;
 
     //
     // module-level FS code
