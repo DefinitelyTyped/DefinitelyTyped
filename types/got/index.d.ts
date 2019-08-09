@@ -172,9 +172,6 @@ declare namespace got {
      */
     type BeforeRetryHook<Options> = (options: Options, error: GotError, retryCount: number) => any;
 
-    /**
-     * @param error Request or parse error.
-     */
     type BeforeErrorHook = (error: GotError) => Error | Promise<Error>;
 
     /**
