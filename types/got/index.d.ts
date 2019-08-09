@@ -107,18 +107,19 @@ declare namespace got {
     }
 
     type GotInstance<T = GotFn> = T &
-        Record<'get' | 'post' | 'put' | 'patch' | 'head' | 'delete', T> & {
-            stream: GotStreamFn & Record<'get' | 'post' | 'put' | 'patch' | 'head' | 'delete', GotStreamFn>;
-            extend: GotExtend;
-            RequestError: typeof RequestError;
-            ReadError: typeof ReadError;
-            ParseError: typeof ParseError;
-            HTTPError: typeof HTTPError;
-            MaxRedirectsError: typeof MaxRedirectsError;
-            UnsupportedProtocolError: typeof UnsupportedProtocolError;
-            CancelError: typeof CancelError;
-            TimeoutError: typeof TimeoutError;
-        };
+        Record<'get' | 'post' | 'put' | 'patch' | 'head' | 'delete', T> &
+    {
+        stream: GotStreamFn & Record<'get' | 'post' | 'put' | 'patch' | 'head' | 'delete', GotStreamFn>;
+        extend: GotExtend;
+        RequestError: typeof RequestError;
+        ReadError: typeof ReadError;
+        ParseError: typeof ParseError;
+        HTTPError: typeof HTTPError;
+        MaxRedirectsError: typeof MaxRedirectsError;
+        UnsupportedProtocolError: typeof UnsupportedProtocolError;
+        CancelError: typeof CancelError;
+        TimeoutError: typeof TimeoutError;
+    };
 
     interface GotExtend {
         (options: GotJSONOptions): GotInstance<GotJSONFn>;
@@ -182,7 +183,7 @@ declare namespace got {
      */
     type AfterResponseHook<Options, Body extends Buffer | string | object> = (
         response: Response<Body>,
-        retryWithMergedOptions: (updateOptions: Options) => GotPromise<Body>,
+        retryWithMergedOptions: (updateOptions: Options) => GotPromise<Body>
     ) => Response<Body> | Promise<Response<Body>>;
 
     interface GotBodyOptions<E extends string | null> extends GotOptions<E> {
@@ -306,83 +307,48 @@ declare namespace got {
     interface GotEmitter {
         addListener(event: 'request', listener: (req: http.ClientRequest) => void): this;
         addListener(event: 'response', listener: (res: http.IncomingMessage) => void): this;
-        addListener(
-            event: 'redirect',
-            listener: (res: http.IncomingMessage, nextOptions: GotOptions<string | null> & Url) => void,
-        ): this;
+        addListener(event: 'redirect', listener: (res: http.IncomingMessage, nextOptions: GotOptions<string | null> & Url) => void): this;
         addListener(event: 'error', listener: (error: GotError, body?: any, res?: http.IncomingMessage) => void): this;
         addListener(event: 'downloadProgress', listener: (progress: Progress) => void): this;
         addListener(event: 'uploadProgress', listener: (progress: Progress) => void): this;
 
         on(event: 'request', listener: (req: http.ClientRequest) => void): this;
         on(event: 'response', listener: (res: http.IncomingMessage) => void): this;
-        on(
-            event: 'redirect',
-            listener: (res: http.IncomingMessage, nextOptions: GotOptions<string | null> & Url) => void,
-        ): this;
+        on(event: 'redirect', listener: (res: http.IncomingMessage, nextOptions: GotOptions<string | null> & Url) => void): this;
         on(event: 'error', listener: (error: GotError, body?: any, res?: http.IncomingMessage) => void): this;
         on(event: 'downloadProgress', listener: (progress: Progress) => void): this;
         on(event: 'uploadProgress', listener: (progress: Progress) => void): this;
 
         once(event: 'request', listener: (req: http.ClientRequest) => void): this;
         once(event: 'response', listener: (res: http.IncomingMessage) => void): this;
-        once(
-            event: 'redirect',
-            listener: (res: http.IncomingMessage, nextOptions: GotOptions<string | null> & Url) => void,
-        ): this;
+        once(event: 'redirect', listener: (res: http.IncomingMessage, nextOptions: GotOptions<string | null> & Url) => void): this;
         once(event: 'error', listener: (error: GotError, body?: any, res?: http.IncomingMessage) => void): this;
         once(event: 'downloadProgress', listener: (progress: Progress) => void): this;
         once(event: 'uploadProgress', listener: (progress: Progress) => void): this;
 
         prependListener(event: 'request', listener: (req: http.ClientRequest) => void): this;
         prependListener(event: 'response', listener: (res: http.IncomingMessage) => void): this;
-        prependListener(
-            event: 'redirect',
-            listener: (res: http.IncomingMessage, nextOptions: GotOptions<string | null> & Url) => void,
-        ): this;
-        prependListener(
-            event: 'error',
-            listener: (error: GotError, body?: any, res?: http.IncomingMessage) => void,
-        ): this;
+        prependListener(event: 'redirect', listener: (res: http.IncomingMessage, nextOptions: GotOptions<string | null> & Url) => void): this;
+        prependListener(event: 'error', listener: (error: GotError, body?: any, res?: http.IncomingMessage) => void): this;
         prependListener(event: 'downloadProgress', listener: (progress: Progress) => void): this;
         prependListener(event: 'uploadProgress', listener: (progress: Progress) => void): this;
 
         prependOnceListener(event: 'request', listener: (req: http.ClientRequest) => void): this;
         prependOnceListener(event: 'response', listener: (res: http.IncomingMessage) => void): this;
-        prependOnceListener(
-            event: 'redirect',
-            listener: (res: http.IncomingMessage, nextOptions: GotOptions<string | null> & Url) => void,
-        ): this;
-        prependOnceListener(
-            event: 'error',
-            listener: (error: GotError, body?: any, res?: http.IncomingMessage) => void,
-        ): this;
+        prependOnceListener(event: 'redirect', listener: (res: http.IncomingMessage, nextOptions: GotOptions<string | null> & Url) => void): this;
+        prependOnceListener(event: 'error', listener: (error: GotError, body?: any, res?: http.IncomingMessage) => void): this;
         prependOnceListener(event: 'downloadProgress', listener: (progress: Progress) => void): this;
         prependOnceListener(event: 'uploadProgress', listener: (progress: Progress) => void): this;
 
         removeListener(event: 'request', listener: (req: http.ClientRequest) => void): this;
         removeListener(event: 'response', listener: (res: http.IncomingMessage) => void): this;
-        removeListener(
-            event: 'redirect',
-            listener: (res: http.IncomingMessage, nextOptions: GotOptions<string | null> & Url) => void,
-        ): this;
-        removeListener(
-            event: 'error',
-            listener: (error: GotError, body?: any, res?: http.IncomingMessage) => void,
-        ): this;
+        removeListener(event: 'redirect', listener: (res: http.IncomingMessage, nextOptions: GotOptions<string | null> & Url) => void): this;
+        removeListener(event: 'error', listener: (error: GotError, body?: any, res?: http.IncomingMessage) => void): this;
         removeListener(event: 'downloadProgress', listener: (progress: Progress) => void): this;
         removeListener(event: 'uploadProgress', listener: (progress: Progress) => void): this;
     }
 
-    type GotError =
-        | RequestError
-        | ReadError
-        | ParseError
-        | HTTPError
-        | MaxRedirectsError
-        | UnsupportedProtocolError
-        | CancelError
-        | TimeoutError;
+    type GotError = RequestError | ReadError | ParseError | HTTPError | MaxRedirectsError | UnsupportedProtocolError | CancelError | TimeoutError;
 
     interface Progress {
         percent: number;
