@@ -195,6 +195,10 @@ declare module 'rethinkdb' {
         replace(obj: Object, options?: UpdateOptions): Operation<WriteResult>;
         replace(expr: ExpressionFunction<any>): Operation<WriteResult>;
         delete(options?: UpdateOptions): Operation<WriteResult>;
+
+        // Manipulation
+        pluck<TObjectType extends object>(...props: string[]): Operation<TObjectType> & Writeable;
+        without<TObjectType extends object>(...props: string[]): Operation<TObjectType> & Writeable;
     }
 
     /**
@@ -262,6 +266,8 @@ declare module 'rethinkdb' {
 
     interface Polygon extends Geometry {}
 
+    type Key = string | number | boolean | Date;
+
     interface Table extends Sequence, HasFields<Sequence> {
         indexCreate(name: string, index?: IndexFunction<any>): Operation<CreateResult>;
         indexDrop(name: string): Operation<DropResult>;
@@ -269,72 +275,87 @@ declare module 'rethinkdb' {
         indexWait(
             name?: string,
         ): Operation<
-            Array<{ index: string; ready: true; function: number; multi: boolean; geo: boolean; outdated: boolean }>
+            Array<{
+                index: string;
+                ready: true;
+                function: number;
+                multi: boolean;
+                geo: boolean;
+                outdated: boolean;
+            }>
         >;
 
         insert(obj: any[], options?: InsertOptions): Operation<WriteResult>;
         insert(obj: any, options?: InsertOptions): Operation<WriteResult>;
 
-        get<TObjectType extends object>(key: string): Operation<TObjectType | null> & Writeable;
+        get<TObjectType extends object>(key: Key): Operation<TObjectType | null> & Writeable;
+        get<TObjectType extends object>(key: Expression<Key>): Operation<TObjectType | null> & Writeable;
 
         /**
          * Get all documents matching one or more keys on a simple index; defaults to primary key if no index provided.
          * See [getAll](https://www.rethinkdb.com/api/javascript/get_all/)
          */
-        getAll(...keys: string[]): Sequence;
+        getAll(...keys: Key[]): Sequence;
         /**
          * Get all documents matching a key on a simple index; defaults to primary key if no index provided.
          * See [getAll](https://www.rethinkdb.com/api/javascript/get_all/)
          */
-        getAll(key: string, index?: Index): Sequence; // without index defaults to primary key
+        getAll(key: Key | Key[], index?: Index): Sequence; // without index defaults to primary key
         /**
          * Get all documents matching 2 or more keys on a simple index; defaults to primary key if no index provided.
          * See [getAll](https://www.rethinkdb.com/api/javascript/get_all/)
          */
-        getAll(key: string, key2: string, index?: Index): Sequence; // without index defaults to primary key
+        getAll(key: Key | Key[], key2: Key | Key[], index?: Index): Sequence; // without index defaults to primary key
         /**
          * Get all documents matching 2 or more keys on a simple index; defaults to primary key if no index provided.
          * See [getAll](https://www.rethinkdb.com/api/javascript/get_all/)
          */
-        getAll(key: string, key2: string, key3: string, index?: Index): Sequence; // without index defaults to primary key
+        getAll(key: Key | Key[], key2: Key | Key[], key3: Key | Key[], index?: Index): Sequence; // without index defaults to primary key
         /**
          * Get all documents matching 2 or more keys on a simple index; defaults to primary key if no index provided.
          * See [getAll](https://www.rethinkdb.com/api/javascript/get_all/)
          */
-        getAll(key: string, key2: string, key3: string, key4: string, index?: Index): Sequence; // without index defaults to primary key
+        getAll(key: Key | Key[], key2: Key | Key[], key3: Key | Key[], key4: Key | Key[], index?: Index): Sequence; // without index defaults to primary key
         /**
          * Get all documents matching 2 or more keys on a simple index; defaults to primary key if no index provided.
          * See [getAll](https://www.rethinkdb.com/api/javascript/get_all/)
          */
-        getAll(key: string, key2: string, key3: string, key4: string, key5: string, index?: Index): Sequence; // without index defaults to primary key
+        getAll(
+            key: Key | Key[],
+            key2: Key | Key[],
+            key3: Key | Key[],
+            key4: Key | Key[],
+            key5: Key | Key[],
+            index?: Index,
+        ): Sequence; // without index defaults to primary key
         /**
          * Get all documents matching a compound index key.
          * See [getAll](https://www.rethinkdb.com/api/javascript/get_all/) and
          * [compound indexes](https://www.rethinkdb.com/docs/secondary-indexes/javascript/#compound-indexes)
          */
-        getAll(compoundKey: string[], index: Index): Sequence; // without index defaults to primary key
+        getAll(compoundKey: Key[], index: Index): Sequence; // without index defaults to primary key
         /**
          * Get all documents matching 2 or more compound index keys.
          * See [getAll](https://www.rethinkdb.com/api/javascript/get_all/) and
          * [compound indexes](https://www.rethinkdb.com/docs/secondary-indexes/javascript/#compound-indexes)
          */
-        getAll(compoundKey: string[], compoundKey2: string[], index: Index): Sequence; // without index defaults to primary key
+        getAll(compoundKey: Key[], compoundKey2: Key[], index: Index): Sequence; // without index defaults to primary key
         /**
          * Get all documents matching 2 or more compound index keys.
          * See [getAll](https://www.rethinkdb.com/api/javascript/get_all/) and
          * [compound indexes](https://www.rethinkdb.com/docs/secondary-indexes/javascript/#compound-indexes)
          */
-        getAll(compoundKey: string[], compoundKey2: string[], compoundKey3: string[], index: Index): Sequence; // without index defaults to primary key
+        getAll(compoundKey: Key[], compoundKey2: Key[], compoundKey3: Key[], index: Index): Sequence; // without index defaults to primary key
         /**
          * Get all documents matching 2 or more compound index keys.
          * See [getAll](https://www.rethinkdb.com/api/javascript/get_all/) and
          * [compound indexes](https://www.rethinkdb.com/docs/secondary-indexes/javascript/#compound-indexes)
          */
         getAll(
-            compoundKey: string[],
-            compoundKey2: string[],
-            compoundKey3: string[],
-            compoundKey4: string[],
+            compoundKey: Key[],
+            compoundKey2: Key[],
+            compoundKey3: Key[],
+            compoundKey4: Key[],
             index: Index,
         ): Sequence; // without index defaults to primary key
         /**
@@ -343,11 +364,11 @@ declare module 'rethinkdb' {
          * [compound indexes](https://www.rethinkdb.com/docs/secondary-indexes/javascript/#compound-indexes)
          */
         getAll(
-            compoundKey: string[],
-            compoundKey2: string[],
-            compoundKey3: string[],
-            compoundKey4: string[],
-            compoundKey5: string[],
+            compoundKey: Key[],
+            compoundKey2: Key[],
+            compoundKey3: Key[],
+            compoundKey4: Key[],
+            compoundKey5: Key[],
             index: Index,
         ): Sequence; // without index defaults to primary key
         /**
@@ -355,13 +376,13 @@ declare module 'rethinkdb' {
          * See [getAll](https://www.rethinkdb.com/api/javascript/get_all/) and
          * [compound indexes](https://www.rethinkdb.com/docs/secondary-indexes/javascript/#compound-indexes)
          */
-        getAll(key: Expression<any>, index?: Index): Sequence;
+        getAll(key: Expression<Key>, index?: Index): Sequence;
         /**
          * Get all documents matching a key on a compound index; index must be provided.
          * See [getAll](https://www.rethinkdb.com/api/javascript/get_all/) and
          * [compound indexes](https://www.rethinkdb.com/docs/secondary-indexes/javascript/#compound-indexes)
          */
-        getAll(keys: Expression<any[]>, index: Index): Sequence;
+        getAll(keys: Expression<Key>[], index: Index): Sequence;
 
         getIntersecting(geometry: Geometry, index: Index): Sequence;
         wait(WaitOptions?: WaitOptions): Operation<WaitResult>;
@@ -378,8 +399,24 @@ declare module 'rethinkdb' {
         coerceTo(key: 'array'): Expression<any[]>;
         coerceTo(key: 'object'): Expression<Object>;
 
+        /**
+         * merge([object | function, object | function, ...])
+         *
+         * Merge two or more objects together to construct a new object with properties from all.
+         * When there is a conflict between field names, preference is given to fields in the
+         * rightmost object in the argument list. merge also accepts a subquery function that
+         * returns an object, which will be used similarly to a map function.
+         *
+         * Example: Equip Thor for battle.
+         *
+         * r.table('marvel').get('thor').merge(
+         *     r.table('equipment').get('hammer'),
+         *     r.table('equipment').get('pimento_sandwich')
+         * ).run(conn, callback)
+         */
         merge(object: Object): Sequence;
         merge(cb: ExpressionFunction<Expression<any>>): Sequence;
+        merge(query: Expression<Object>): Sequence;
 
         filter(rql: ExpressionFunction<boolean>): Sequence;
         filter(rql: Expression<boolean>): Sequence;
@@ -432,11 +469,22 @@ declare module 'rethinkdb' {
             base?: any,
         ): Sequence;
         groupBy(...aggregators: Aggregator[]): Expression<Object>; // TODO: reduction object
-        contains(prop: string): Expression<boolean>;
+        /**
+         * contains([value | predicate_function, ...])
+         *
+         * When called with values, returns true if a sequence contains all the specified values.
+         * When called with predicate functions, returns true if for each predicate there exists
+         * at least one element of the stream where that predicate returns true.
+         *
+         * Example: Has Iron Man ever fought Superman?
+         *
+         * r.table('marvel').get('ironman')('opponents').contains('superman').run(conn, callback)
+         */
+        contains(element: any | Expression<any> | ExpressionFunction<boolean>): Expression<boolean>;
 
         // Manipulation
-        pluck(...props: string[]): Sequence;
-        without(...props: string[]): Sequence;
+        pluck<TObjectType extends object>(...props: string[]): Sequence & Operation<TObjectType>;
+        without<TObjectType extends object>(...props: string[]): Sequence & Operation<TObjectType>;
     }
 
     type IndexFunction<U> =
@@ -526,9 +574,39 @@ declare module 'rethinkdb' {
 
     interface Expression<T> extends Writeable, Operation<T>, HasFields<Expression<number>> {
         (prop: string): Expression<any>;
+
+        /**
+         * merge([object | function, object | function, ...])
+         *
+         * Merge two or more objects together to construct a new object with properties from all.
+         * When there is a conflict between field names, preference is given to fields in the
+         * rightmost object in the argument list. merge also accepts a subquery function that
+         * returns an object, which will be used similarly to a map function.
+         *
+         * Example: Equip Thor for battle.
+         *
+         * r.table('marvel').get('thor').merge(
+         *     r.table('equipment').get('hammer'),
+         *     r.table('equipment').get('pimento_sandwich')
+         * ).run(conn, callback)
+         */
         merge(query: Expression<Object>): Expression<Object>;
-        append(prop: string): Expression<Object>;
-        contains(prop: string): Expression<boolean>;
+        merge(object: Object): Expression<Object>;
+        merge(cb: ExpressionFunction<Expression<any>>): Expression<Object>;
+
+        append(element: any | Expression<any>): Expression<Object>;
+        /**
+         * contains([value | predicate_function, ...])
+         *
+         * When called with values, returns true if a sequence contains all the specified values.
+         * When called with predicate functions, returns true if for each predicate there exists
+         * at least one element of the stream where that predicate returns true.
+         *
+         * Example: Has Iron Man ever fought Superman?
+         *
+         * r.table('marvel').get('ironman')('opponents').contains('superman').run(conn, callback)
+         */
+        contains(element: any | Expression<any> | ExpressionFunction<boolean>): Expression<boolean>;
 
         and(b: boolean | Expression<boolean>): Expression<boolean>;
         or(b: boolean | Expression<boolean>): Expression<boolean>;
@@ -541,8 +619,7 @@ declare module 'rethinkdb' {
         lt(value: T): Expression<boolean>;
         le(value: T): Expression<boolean>;
 
-        add(n: number): Expression<number>;
-        add(n: Expression<number>): Expression<number>;
+        add(...numbers: (number | Expression<number>)[]): Expression<number>;
 
         /**
          * Subtract two numbers.
@@ -553,7 +630,7 @@ declare module 'rethinkdb' {
          *
          *     r.expr(2).sub(2).run(conn, callback)
          */
-        sub(n: number, ...numbers: number[]): Expression<number>;
+        sub(...numbers: (number | Expression<number>)[]): Expression<number>;
 
         /**
          * Retrieve how many seconds elapsed between today and `date`.
@@ -566,9 +643,9 @@ declare module 'rethinkdb' {
          */
         sub(date: Time): Expression<number>;
 
-        mul(n: number): Expression<number>;
-        div(n: number): Expression<number>;
-        mod(n: number): Expression<number>;
+        mul(...numbers: (number | Expression<number>)[]): Expression<number>;
+        div(...numbers: (number | Expression<number>)[]): Expression<number>;
+        mod(...numbers: (number | Expression<number>)[]): Expression<number>;
 
         distance(geometry: Geometry, options?: DistanceOptions): Expression<number>;
 
@@ -652,6 +729,15 @@ declare module 'rethinkdb' {
     }
 
     interface Operation<T> {
+        /**
+         * Get a single field from an object. If called on a sequence, gets that field from every object in the sequence, skipping objects that lack it.
+         *
+         * Example: What was Iron Man's first appearance in a comic?
+         *
+         * r.table('marvel').get('IronMan')('firstAppearance').run(conn, callback)
+         */
+        (prop: string): Expression<any>;
+
         /**
          * Run a query on a connection. The callback will get either an error, a single JSON result, or a cursor, depending on the query.
          *
