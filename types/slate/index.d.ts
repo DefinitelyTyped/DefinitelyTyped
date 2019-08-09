@@ -323,8 +323,9 @@ export interface LeafAndOffset {
 export class Text extends Immutable.Record({}) {
     object: "text";
     key: string;
-
+    
     readonly text: string;
+    readonly marks:  Immutable.List<Mark>
 
     static create(properties?: TextProperties | TextJSON | Text | string): Text;
     static createList(
@@ -1817,8 +1818,8 @@ export class Editor implements Controller {
     wrapNodeByPath(path: Immutable.List<number>, parent: Block | Document | Inline | Text): Editor;
     normalize(): Editor;
     withoutNormalizing(fn: () => void): Editor;
-    withoutSaving(fn: () => void): void;
-    withoutMerging(fn: () => void): void;
+    withoutSaving(fn: () => void): Editor;
+    withoutMerging(fn: () => void): Editor;
     redo(): Editor;
     undo(): Editor;
     save(operation: Operation): void;
