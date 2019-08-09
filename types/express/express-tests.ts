@@ -1,4 +1,5 @@
 import express = require('express');
+import { RequestRanges, ParamsDictionary } from 'express-serve-static-core';
 
 namespace express_tests {
     const app = express();
@@ -159,7 +160,6 @@ namespace express_tests {
  *                         *
  ***************************/
 import * as http from 'http';
-import { RequestRanges, ParamsDictionary } from 'express-serve-static-core';
 
 namespace node_tests {
     {
