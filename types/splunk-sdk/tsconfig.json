@@ -17,6 +17,13 @@
     },
     "files": [
         "index.d.ts",
-        "splunk-sdk-tests.ts"
+        "splunk-sdk-tests.ts",
+        "tests/apps.ts",
+        "tests/firedalerts.ts",
+        "tests/job.ts",
+        "tests/log.ts",
+        "tests/search_oneshot.ts",
+        "tests/search_realtime.ts",
+        "tests/search.ts"
     ]
 }
