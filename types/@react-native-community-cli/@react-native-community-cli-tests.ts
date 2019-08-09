@@ -1,6 +1,7 @@
+// TypeScript Version: 2.4
 import { UserDependencyConfigT } from '@react-native-community-cli';
 
-export const pluginConfig: UserDependencyConfigT = {
+const pluginConfig: UserDependencyConfigT = {
   commands: [
     {
       name: 'test-type',
@@ -14,4 +15,3 @@ export const pluginConfig: UserDependencyConfigT = {
     },
   ],
 };
-

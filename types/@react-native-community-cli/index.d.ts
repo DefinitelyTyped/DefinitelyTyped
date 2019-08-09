@@ -2,12 +2,13 @@
 // Project: https://github.com/react-native-community/cli
 // Definitions by: agathekieny <https://github.com/agathekieny>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 export interface CommandT {
   name: string;
   description?: string;
   func: (argv: string[], ctx: ConfigT, args: object) => Promise<void>;
-  options?: {
+  options?: Array<{
     name: string;
     description?: string;
     parse?: (val: string) => any;
@@ -16,11 +17,11 @@ export interface CommandT {
       | boolean
       | number
       | ((ctx: ConfigT) => string | boolean | number);
-  }[];
-  examples?: {
+  }>;
+  examples?: Array<{
     desc: string;
     cmd: string;
-  }[];
+  }>;
 }
 
 /**
@@ -35,19 +36,19 @@ export type InquirerPromptT = any;
  *
  * See UserDependencyConfigT for details
  */
-type DependencyParamsAndroidT = {
+export interface DependencyParamsAndroidT  {
   sourceDir?: string;
   manifestPath?: string;
   packageImportPath?: string;
   packageInstance?: string;
-};
+}
 
 /**
  * Settings that user can define in the project configuration for Android
  *
  * See UserConfigT for details
  */
-type ProjectParamsAndroidT = {
+export interface ProjectParamsAndroidT  {
   sourceDir?: string;
   manifestPath?: string;
   packageName?: string;
@@ -57,7 +58,7 @@ type ProjectParamsAndroidT = {
   settingsGradlePath?: string;
   assetsPath?: string;
   buildGradlePath?: string;
-};
+}
 
 /**
  * Settings that user can define in the project configuration for iOS.
@@ -65,16 +66,16 @@ type ProjectParamsAndroidT = {
  *
  * See UserDependencyConfigT and UserConfigT for details
  */
-type ProjectParamsIOST = {
+export interface ProjectParamsIOST {
   project?: string;
   podspecPath?: string;
   sharedLibraries?: string[];
   libraryFolder?: string;
   plist: any[];
   scriptPhases: Record<string, string>;
-};
+}
 
-interface PlatformConfig<
+export interface PlatformConfig<
   ProjectParams,
   DependencyParams,
   ProjectConfig,
@@ -97,7 +98,7 @@ interface PlatformConfig<
     register: (
       name: string,
       dependencyConfig: DependencyConfig,
-      params: Object,
+      params: object,
       projectConfig: ProjectConfig,
     ) => void;
     unregister: (
@@ -114,7 +115,7 @@ interface PlatformConfig<
 /**
  * Final configuration object
  */
-export type ConfigT = {
+export interface ConfigT {
   // Root where the configuration has been resolved from
   root: string;
 
@@ -169,15 +170,15 @@ export type ConfigT = {
     platforms: string[];
     providesModuleNodeModules: string[];
   };
-};
+}
 
 /**
  * Aliases
  */
-declare let configT: ConfigT;
+export let configT: ConfigT;
 export type DependencyConfigT = typeof configT.dependencies.key;
 
-declare let dependencyConfig: DependencyConfigT;
+export let dependencyConfig: DependencyConfigT;
 export type HooksT = typeof dependencyConfig.hooks;
 export type ProjectConfigT = typeof configT.project;
 export type PlatformsT = typeof configT.platforms;
@@ -185,7 +186,7 @@ export type PlatformsT = typeof configT.platforms;
 /**
  * Config defined by a developer for a library
  */
-export type UserDependencyConfigT = {
+export interface UserDependencyConfigT  {
   // Additional dependency settings
   dependency?: {
     platforms: {
@@ -211,11 +212,11 @@ export type UserDependencyConfigT = {
     platforms: string[];
     providesModuleNodeModules: string[];
   };
-};
+}
 
 // The following types are used in untyped-parts of the codebase, so I am leaving them
 // until we actually need them.
-export type ProjectConfigIOST = {
+export interface ProjectConfigIOST  {
   sourceDir: string;
   folder: string;
   pbxprojPath: string;
@@ -226,10 +227,10 @@ export type ProjectConfigIOST = {
   libraryFolder: string;
   sharedLibraries: any[];
   plist: any[];
-};
+}
 
 export type DependencyConfigIOST = ProjectConfigIOST;
-type ProjectConfigAndroidT = {
+export interface ProjectConfigAndroidT {
   sourceDir: string;
   isFlat: boolean;
   folder: string;
@@ -240,10 +241,10 @@ type ProjectConfigAndroidT = {
   assetsPath: string;
   mainFilePath: string;
   packageName: string;
-};
-type DependencyConfigAndroidT = {
+}
+export interface DependencyConfigAndroidT  {
   sourceDir: string;
   folder: string;
   packageImportPath: string;
   packageInstance: string;
-};
+}
