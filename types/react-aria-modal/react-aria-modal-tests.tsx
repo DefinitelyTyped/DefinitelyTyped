@@ -7,8 +7,8 @@ declare const appContainer: HTMLElement;
 const onExit = () => {};
 
 render(
-    <AriaModal onExit={onExit} underlayClickExits>
-        Hello world
+    <AriaModal onExit={onExit} titleId="describedby" underlayClickExits>
+        <p id="describedby">Hello world</p>
     </AriaModal>,
     appContainer
 );

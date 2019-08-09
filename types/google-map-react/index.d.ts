@@ -1,5 +1,5 @@
 // Type definitions for google-map-react 0.23
-// Project: https://github.com/istarkov/google-map-react
+// Project: https://github.com/google-map-react/google-map-react
 // Definitions by: Honza Brecka <https://github.com/honzabrecka>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
@@ -131,6 +131,9 @@ export interface Props {
   onChildClick?(hoverKey: any, childProps: any): void;
   onChildMouseEnter?(hoverKey: any, childProps: any): void;
   onChildMouseLeave?(hoverKey: any, childProps: any): void;
+  onChildMouseDown?(childKey: any, childProps: any, mouse: any): void;
+  onChildMouseUp?(childKey: any, childProps: any, mouse: any): void;
+  onChildMouseMove?(childKey: any, childProps: any, mouse: any): void;
   onDrag?(args: any): void;
   onZoomAnimationStart?(args: any): void;
   onZoomAnimationEnd?(args: any): void;
@@ -140,6 +143,7 @@ export interface Props {
   onGoogleApiLoaded?(maps: { map: any, maps: any }): void;
   onTilesLoaded?(): void;
   yesIWantToUseGoogleMapApiInternals?: boolean;
+  style?: React.HTMLProps<HTMLDivElement>;
 }
 
 export default class GoogleMapReact extends React.Component<Props> {}

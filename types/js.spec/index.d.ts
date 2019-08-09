@@ -1,5 +1,5 @@
 // Type definitions for js.spec 1.0
-// Project: http://js-spec.online
+// Project: http://js-spec.online, https://github.com/prayerslayer/js.spec
 // Definitions by: Matt Bishop <https://github.com/mattbishop>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2

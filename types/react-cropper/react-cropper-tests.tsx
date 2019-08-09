@@ -22,3 +22,20 @@ class Demo extends React.Component {
         );
     }
 }
+
+function testCropperRef() {
+    const refIsWorking = <Cropper
+        ref={(el: Cropper) => {
+            // $ExpectError el can be null
+            el.getCroppedCanvas();
+            if (el !== null) {
+                // el is a cropperjs element
+                el.getCroppedCanvas();
+                // el is also a React.Component instance
+                el.props;
+            }
+        }}
+    />;
+
+    const refIsOptional = <Cropper />;
+}

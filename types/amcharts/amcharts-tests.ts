@@ -20,6 +20,9 @@ const chart = AmCharts.makeChart("chartdiv", {
             size: 15
         }
     ],
+    export: {
+        enabled: true
+    },
     axes: [
         {
             bottomText: "0 km/h",
@@ -45,6 +48,20 @@ const chart = AmCharts.makeChart("chartdiv", {
             ]
         }
     ]
+});
+
+chart.export.capture(null, () => {
+    chart.export.toJPG(null, data => console.log(data));
+    chart.export.toPNG(null, data => console.log(data));
+    chart.export.toSVG(null, data => console.log(data));
+    chart.export.toPDF(null, data => console.log(data));
+    chart.export.toJSON(null, data => console.log(data));
+    chart.export.toCSV(null, data => console.log(data));
+    chart.export.toXLSX(null, data => console.log(data));
+    chart.export.toBlob(null, data => console.log(data));
+    chart.export.toCanvas(null, data => console.log(data));
+    chart.export.toArray(null, data => console.log(data));
+    chart.export.toImage(null, data => console.log(data));
 });
 
 // Object based API.

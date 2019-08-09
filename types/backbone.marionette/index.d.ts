@@ -1,16 +1,19 @@
 // Type definitions for Marionette 3.3
-// Project: https://github.com/marionettejs/
+// Project: https://github.com/marionettejs/, https://marionettejs.com
 // Definitions by: Zeeshan Hamid <https://github.com/zhamid>,
 //                 Natan Vivo <https://github.com/nvivo>,
 //                 Sven Tschui <https://github.com/sventschui>,
 //                 Volker Nauruhn <https://github.com/razorness>,
-//                 Ard Timmerman <https://github.com/confususs>
+//                 Ard Timmerman <https://github.com/confususs>,
+//                 J. Joe Koullas <https://github.com/jjoekoullas>
+//                 Julian Gonggrijp <https://github.com/jgonggrijp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import * as Backbone from 'backbone';
 import * as JQuery from 'jquery';
 import * as Radio from 'backbone.radio';
+import * as _ from 'underscore';
 
 export as namespace Marionette;
 
@@ -179,6 +182,131 @@ export class Container<TView> {
      * Find a view by it's cid.
      */
     remove(view: TView): void;
+
+    /**
+     * @see _.forEach
+     */
+    forEach(iterator: _.ListIterator<TView, void>, context?: any): Container<TView>;
+
+    /**
+     * @see _.each
+     */
+    each(iterator: _.ListIterator<TView, void>, context?: any): Container<TView>;
+
+    /**
+     * @see _.map
+     */
+    map<TResult>(iterator: _.ListIterator<TView, TResult>, context?: any): TResult[];
+
+    /**
+     * @see _.find
+     */
+    find(iterator: _.ListIterator<TView, boolean>, context?: any): Container<TView> | undefined;
+
+    /**
+     * @see _.detect
+     */
+    detect(iterator: _.ListIterator<TView, boolean>, context?: any): Container<TView> | undefined;
+
+    /**
+     * @see _.filter
+     */
+    filter(iterator: _.ListIterator<TView, boolean>, context?: any): TView[];
+
+    /**
+     * @see _.select
+     */
+    select(iterator: _.ListIterator<TView, boolean>, context?: any): TView[];
+
+    /**
+     * @see _.reject
+     */
+    reject(iterator: _.ListIterator<TView, boolean>, context?: any): TView[];
+
+    /**
+     * @see _.every
+     */
+    every(iterator: _.ListIterator<TView, boolean>, context?: any): boolean;
+
+    /**
+     * @see _.all
+     */
+    all(iterator: _.ListIterator<TView, boolean>, context?: any): boolean;
+
+    /**
+     * @see _.some
+     */
+    some(iterator: _.ListIterator<TView, boolean>, context?: any): boolean;
+
+    /**
+     * @see _.any
+     */
+    any(iterator: _.ListIterator<TView, boolean>, context?: any): boolean;
+
+    /**
+     * @see _.include
+     */
+    include(value: TView, fromIndex?: number): boolean;
+
+    /**
+     * @see _.contains
+     */
+    contains(value: TView, fromIndex?: number): boolean;
+
+    /**
+     * @see _.invoke
+     */
+    invoke(methodName: string, ...args: any[]): any;
+
+    /**
+     * @see _.toArray
+     */
+    toArray(): TView[];
+
+    /**
+     * @see _.first
+     */
+    first(): TView | undefined;
+
+    /**
+     * @see _.initial
+     */
+    initial(n?: number): TView[];
+
+    /**
+     * @see _.rest
+     */
+    rest(n?: number): TView[];
+
+    /**
+     * @see _.last
+     */
+    last(n: number): TView[];
+
+    /**
+     * @see _.without
+     */
+    without(...values: TView[]): TView[];
+
+    /**
+     * @see _.isEmpty
+     */
+    isEmpty(): boolean;
+
+    /**
+     * @see _.pluck
+     */
+    pluck(propertyName: string): any[];
+
+    /**
+     * @see _.reduce
+     */
+    reduce<TResult>(iterator: _.MemoIterator<TView, TResult>, memo?: TResult, context?: any): TResult;
+
+    /**
+     * @see _.partition
+     */
+    partition(iterator: _.ListIterator<TView, boolean>, context?: any): TView[][];
 }
 
 /**
@@ -280,8 +408,14 @@ export interface ObjectOptions extends RadioMixinOptions {
  * A base class which other classes can extend from. Object incorporates many
  * backbone conventions and utilities like initialize and Backbone.Events.
  */
-export class Object extends Backbone.Events implements CommonMixin, RadioMixin {
+export class Object extends Backbone.EventsMixin implements CommonMixin, RadioMixin, Backbone.Events {
     constructor(options?: ObjectOptions);
+
+    /**
+     * Faulty overgeneralization of Backbone.Events.on, for historical
+     * reasons.
+     */
+    on(eventName: any, callback?: any, context?: any): any;
 
     /**
      * Receives a hash of event names and functions and/or function names,
@@ -1154,7 +1288,7 @@ export class View<TModel extends Backbone.Model> extends Backbone.View<TModel> i
 export interface CollectionViewOptions<
     TModel extends Backbone.Model,
     TCollection extends Backbone.Collection<TModel> = Backbone.Collection<TModel>
-> extends Backbone.ViewOptions<TModel>, ViewMixinOptions {
+    > extends Backbone.ViewOptions<TModel>, ViewMixinOptions {
     /**
      * Specify a child view to use.
      */

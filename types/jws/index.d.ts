@@ -1,4 +1,4 @@
-// Type definitions for jws 3.1
+// Type definitions for jws 3.2
 // Project: https://github.com/brianloveswords/node-jws
 // Definitions by: Justin Beckwith <https://github.com/JustinBeckwith>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -145,7 +145,8 @@ export interface VerifyOptions {
 
 export type Algorithm = 'HS256' | 'HS384' | 'HS512' | 'RS256' |
                         'RS384' | 'RS512' | 'ES256' | 'ES384' |
-                        'ES512' | 'none';
+                        'ES512' | 'PS256' | 'PS384' | 'PS512' |
+                        'none';
 
 export interface Header {
     alg: Algorithm;

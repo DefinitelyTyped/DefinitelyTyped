@@ -22,6 +22,7 @@ var bool: boolean;
 var strArr: string[];
 var strArrArr: string[][];
 var pattern: string;
+var subs: { [name: string]: RegExp };
 var flags: string;
 var right: string;
 var left: string;
@@ -68,6 +69,8 @@ XRegExp.addToken(regex, (arr, scope) => {
 
 regex = XRegExp.build(pattern, strArr, flags);
 regex = XRegExp.build(pattern, strArr);
+regex = XRegExp.build(pattern, subs, flags);
+regex = XRegExp.build(pattern, subs);
 regex = XRegExp.cache(pattern);
 regex = XRegExp.cache(pattern, flags);
 

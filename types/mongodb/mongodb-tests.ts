@@ -1,18 +1,19 @@
 // Test source : https://github.com/mongodb/node-mongodb-native
-import mongodb = require('mongodb');
-var MongoClient = mongodb.MongoClient;
+
+import { format } from 'util';
+import * as mongodb from 'mongodb';
 
 const connectionString = 'mongodb://127.0.0.1:27017/test';
 
-var format = require('util').format;
-let options: mongodb.MongoClientOptions = {
+const options: mongodb.MongoClientOptions = {
     authSource: ' ',
+    loggerLevel: 'debug',
     w: 1,
     wtimeout: 300,
     j: true,
     bufferMaxEntries: 1000,
-    readPreference: 'ReadPreference | string',
-    promoteValues: {},
+    readPreference: true ? mongodb.ReadPreference.NEAREST : 'string',
+    promoteValues: true,
     pkFactory: {},
     poolSize: 1,
 
@@ -21,69 +22,76 @@ let options: mongodb.MongoClientOptions = {
 
     reconnectTries: 123456,
     reconnectInterval: 123456,
-
     ssl: true,
     sslValidate: false,
-    checkServerIdentity: function () { },
+    checkServerIdentity: true ? true : (host, cert) => { return undefined; },
     sslCA: ['str'],
     sslCRL: ['str'],
     sslCert: new Buffer(999),
     sslKey: new Buffer(999),
     sslPass: new Buffer(999),
     promoteBuffers: false,
-    useNewUrlParser: false
-}
-MongoClient.connect(connectionString, options, function (err: mongodb.MongoError, client: mongodb.MongoClient) {
+    useNewUrlParser: false,
+    authMechanism: 'SCRAM-SHA-1',
+    forceServerObjectId: false,
+    promiseLibrary: Promise,
+};
+
+mongodb.MongoClient.connect(connectionString, options, (err: mongodb.MongoError, client: mongodb.MongoClient) => {
     if (err) throw err;
     const db = client.db('test');
-	
-    var collection = db.collection('test_insert');
-    collection.insertOne({ a: 2 }, function (err: mongodb.MongoError, docs: any) {
+
+    const collection = db.collection('test_insert');
+    collection.insertOne({ a: 2 }, (err: mongodb.MongoError, result) => {
+        result.insertedCount; // $ExpectType number
+        result.insertedId; // $ExpectType ObjectId
+        result.result.n; // $ExpectType number
+        result.result.ok; // $ExpectType number
 
         // Intentionally omitted type annotation from 'count'.
         // This way it requires a more accurate typedef which allows inferring that it's a number.
-        collection.countDocuments(function (err: mongodb.MongoError, count) {
+        collection.countDocuments((err: mongodb.MongoError, count) => {
             console.log(format("count = %s", count));
         });
 
-        collection.countDocuments().then(function (count: number) {
+        collection.countDocuments().then((count: number) => {
             console.log(format("count = %s", count));
         });
 
-        collection.countDocuments({ foo: 1 }, function (err: mongodb.MongoError, count: number) {
+        collection.countDocuments({ foo: 1 }, (err: mongodb.MongoError, count: number) => {
             console.log(format("count = %s", count));
         });
 
-        collection.countDocuments({ foo: 1 }).then(function (count: number) {
+        collection.countDocuments({ foo: 1 }).then((count: number) => {
             console.log(format("count = %s", count));
         });
 
-        collection.countDocuments({ foo: 1 }, { limit: 10 }, function (err: mongodb.MongoError, count: number) {
+        collection.countDocuments({ foo: 1 }, { limit: 10 }, (err: mongodb.MongoError, count: number) => {
             console.log(format("count = %s", count));
         });
 
-        collection.countDocuments({ foo: 1 }, { limit: 10 }).then(function (count: number) {
+        collection.countDocuments({ foo: 1 }, { limit: 10 }).then((count: number) => {
             console.log(format("count = %s", count));
         });
 
         // Locate all the entries using find
-        collection.find({}).toArray(function (err: mongodb.MongoError, results: any) {
+        collection.find({}).toArray((err: mongodb.MongoError, results: any) => {
             console.dir(results);
             // Let's close the db
             client.close();
         });
 
         // Get some statistics
-        collection.stats(function (err: mongodb.MongoError, stats: any) {
+        collection.stats((err: mongodb.MongoError, stats: any) => {
             console.log(stats.count + " documents");
         });
 
         //
-        collection.stats().then(function (stats) {
+        collection.stats().then((stats) => {
             console.log(stats.wiredTiger.cache['bytes currently in the cache']);
-        })
+        });
 
-        collection.createIndex({}, { partialFilterExpression: { rating: { $exists: 1 } } })
+        collection.createIndex({}, { partialFilterExpression: { rating: { $exists: 1 } } });
     });
 
     {
@@ -93,12 +101,13 @@ MongoClient.connect(connectionString, options, function (err: mongodb.MongoError
         cursor = cursor.addQueryModifier('', true);
         cursor = cursor.batchSize(1);
         cursor = cursor.comment('');
-        cursor = cursor.filter(1);
-        cursor = cursor.hint({});
+        cursor = cursor.filter({a: 1});
+        cursor = cursor.hint({ age: 1 });
+        cursor = cursor.hint('age_1');
         cursor = cursor.limit(1);
-        cursor = cursor.map(function (result) { });
-        cursor = cursor.max(1);
-        cursor = cursor.min(1);
+        cursor = cursor.map((result) => {});
+        cursor = cursor.max({ age: 130 });
+        cursor = cursor.min({ age: 18 });
         cursor = cursor.maxAwaitTimeMS(1);
         cursor = cursor.maxScan({});
         cursor = cursor.maxTimeMS(1);
@@ -114,54 +123,92 @@ MongoClient.connect(connectionString, options, function (err: mongodb.MongoError
     }
     // Collection .findM<T>() & .agggregate<T>() generic tests
     {
-        let bag: { cost: number, color: string };
-        type bag = typeof bag;
-        let cursor: mongodb.Cursor<bag> = collection.find<bag>({ color: 'black' })
-        cursor.toArray(function (err, r) { r[0].cost });
-        cursor.forEach(function (bag) { bag.color }, () => { });
-        collection.findOne({ color: 'white' }).then(b => { let _b: bag = b; })
-        collection.findOne<bag>({ color: 'white' }).then(b => { b.cost; })
+        interface Bag {
+            cost: number;
+            color: string;
+        }
+        const cursor: mongodb.Cursor<Bag> = collection.find<Bag>({ color: 'black' });
+        cursor.toArray((err, r) => { r[0].cost; });
+        cursor.forEach((bag) => { bag.color; }, () => {});
+        collection.findOne({ color: 'white' }).then(b => { const _b: Bag = b; });
+        collection.findOne<Bag>({ color: 'white' }).then(b => { b.cost; });
     }
     {
-        let payment: { total: number };
-        type payment = typeof payment;
-        let cursor: mongodb.AggregationCursor<payment> = collection.aggregate<payment>([{}])
+        interface Payment {
+            total: number;
+        }
+        const cursor: mongodb.AggregationCursor<Payment> = collection.aggregate<Payment>([{}]);
 
-        collection.aggregate([{ $match: { bar: 1 } }, { $limit: 10 }])
-        collection.aggregate([{ $match: { bar: 1 } }]).limit(10)
-        collection.aggregate([]).match({ bar: 1 }).limit(10)
-        collection.aggregate().match({ bar: 1 }).limit(10)
+        collection.aggregate([{ $match: { bar: 1 } }, { $limit: 10 }]);
+        collection.aggregate([{ $match: { bar: 1 } }]).limit(10);
+        collection.aggregate([]).match({ bar: 1 }).limit(10);
+        collection.aggregate().match({ bar: 1 }).limit(10);
 
-        collection.aggregate<payment>(
+        collection.aggregate<Payment>(
             [{ $match: { bar: 1 } }],
-            function (err: mongodb.MongoError, cursor: mongodb.AggregationCursor<payment>) {
-                cursor.limit(10)
+            (err: mongodb.MongoError, cursor: mongodb.AggregationCursor<Payment>) => {
+                cursor.limit(10);
             }
-        )
+        );
 
-        collection.aggregate<payment>(
+        collection.aggregate<Payment>(
             [],
-            function (err: mongodb.MongoError, cursor: mongodb.AggregationCursor<payment>) {
-                cursor.match({ bar: 1 }).limit(10)
+            (err: mongodb.MongoError, cursor: mongodb.AggregationCursor<Payment>) => {
+                cursor.match({ bar: 1 }).limit(10);
             }
-        )
+        );
 
-        collection.aggregate<payment>(
-            function (err: mongodb.MongoError, cursor: mongodb.AggregationCursor<payment>) {
-                cursor.match({ bar: 1 }).limit(10)
+        collection.aggregate<Payment>(
+            (err: mongodb.MongoError, cursor: mongodb.AggregationCursor<Payment>) => {
+                cursor.match({ bar: 1 }).limit(10);
             }
-        )
+        );
+
+        interface Employee {
+            firstName: string;
+            lastName: string;
+            department: string;
+        }
+
+        interface EmployeeName {
+            fullName: string;
+        }
+
+        const cursor1: mongodb.AggregationCursor<EmployeeName> = (
+          collection.aggregate<Employee>().project<EmployeeName>({
+            fullName: { $concat: ['$firstName', ' ', '$lastName'] },
+          })
+        );
+
+        interface DepartmentSummary {
+            _id: string;
+            count: number;
+        }
+
+        const cursor2: mongodb.AggregationCursor<DepartmentSummary> = (
+          collection.aggregate<Employee>().group<DepartmentSummary>({
+            _id: '$department',
+            count: { $sum: 1 },
+          })
+        );
     }
 
     // test for new typings
     {
-        type TestCollection = {
+        interface TestCollection {
             stringField: string;
             numberField?: number;
-        };
-        let testCollection = db.collection<TestCollection>('testCollection');
-		testCollection.insertOne({stringField:'hola'})
-		testCollection.insertMany([{stringField:'hola'},{stringField:'hola', numberField: 1}])
+            fruitTags: string[];
+        }
+        const testCollection = db.collection<TestCollection>('testCollection');
+        testCollection.insertOne({
+            stringField: 'hola',
+            fruitTags: ['Strawberry'],
+        });
+        testCollection.insertMany([
+            { stringField: 'hola', fruitTags: ['Apple', 'Lemon'] },
+            { stringField: 'hola', numberField: 1, fruitTags: [] },
+        ]);
         testCollection.find({
             numberField: {
                 $and: [{ $gt: 0, $lt: 100 }]
@@ -169,16 +216,28 @@ MongoClient.connect(connectionString, options, function (err: mongodb.MongoError
         });
 
         const res: mongodb.Cursor<TestCollection> = testCollection.find({ _id: 123 });
+
+        testCollection.updateOne(
+            { stringField: 'hola' },
+            {
+                $addToSet: {
+                    fruitTags: 'Orange',
+                },
+                $pull: {
+                    fruitTags: 'Lemon',
+                }
+            }
+        );
     }
-})
+});
 
-let testFunc = async () => {
-    let testClient: mongodb.MongoClient;
-    testClient = await mongodb.connect(connectionString);
-};
+async function testFunc(): Promise<mongodb.MongoClient> {
+    const testClient: mongodb.MongoClient = await mongodb.connect(connectionString);
+    return testClient;
+}
 
-mongodb.connect(connectionString, (err: mongodb.MongoError, client: mongodb.MongoClient) => { });
-mongodb.connect(connectionString, options, (err: mongodb.MongoError, client: mongodb.MongoClient) => { });
+mongodb.connect(connectionString, (err: mongodb.MongoError, client: mongodb.MongoClient) => {});
+mongodb.connect(connectionString, options, (err: mongodb.MongoError, client: mongodb.MongoClient) => {});
 
 // https://docs.mongodb.com/manual/core/transactions/
 
@@ -191,10 +250,10 @@ async function commitWithRetry(session: mongodb.ClientSession) {
             error.errorLabels &&
             error.errorLabels.indexOf('UnknownTransactionCommitResult') < 0
         ) {
-            console.log('UnknownTransactionCommitResult, retrying commit operation ...');
+            console.log('UnknownTransactionCommitResult, retrying commit operation...');
             await commitWithRetry(session);
         } else {
-            console.log('Error during commit ...');
+            console.log('Error during commit...');
             throw error;
         }
     }
@@ -203,7 +262,8 @@ async function commitWithRetry(session: mongodb.ClientSession) {
 async function runTransactionWithRetry(
     txnFunc: (client: mongodb.MongoClient, session: mongodb.ClientSession) => Promise<void>,
     client: mongodb.MongoClient,
-    session: mongodb.ClientSession) {
+    session: mongodb.ClientSession
+) {
     try {
         await txnFunc(client, session);
     } catch (error) {
@@ -254,31 +314,31 @@ async function transfer(client: mongodb.MongoClient, from: any, to: any, amount:
     const session = client.startSession();
     session.startTransaction();
     try {
-      const opts = { session, returnOriginal: false };
-      const A = await db.collection('Account').
+        const opts = { session, returnOriginal: false };
+        const A = await db.collection('Account').
         findOneAndUpdate({ name: from }, { $inc: { balance: -amount } }, opts).
         then(res => res.value);
-      if (A.balance < 0) {
-        // If A would have negative balance, fail and abort the transaction
-        // `session.abortTransaction()` will undo the above `findOneAndUpdate()`
-        throw new Error('Insufficient funds: ' + (A.balance + amount));
-      }
-  
-      const B = await db.collection('Account').
-        findOneAndUpdate({ name: to }, { $inc: { balance: amount } }, opts).
-        then(res => res.value);
-  
-      await session.commitTransaction();
-      session.endSession();
-      return { from: A, to: B };
+        if (A.balance < 0) {
+            // If A would have negative balance, fail and abort the transaction
+            // `session.abortTransaction()` will undo the above `findOneAndUpdate()`
+            throw new Error('Insufficient funds: ' + (A.balance + amount));
+        }
+
+        const B = await db.collection('Account')
+            .findOneAndUpdate({ name: to }, { $inc: { balance: amount } }, opts)
+            .then(res => res.value);
+
+        await session.commitTransaction();
+        session.endSession();
+        return { from: A, to: B };
     } catch (error) {
-      // If an error occurred, abort the whole transaction and
-      // undo any changes that might have happened
-      await session.abortTransaction();
-      session.endSession();
-      throw error; // Rethrow so calling function sees error
+        // If an error occurred, abort the whole transaction and
+        // undo any changes that might have happened
+        await session.abortTransaction();
+        session.endSession();
+        throw error; // Rethrow so calling function sees error
     }
-  }
+}
 
 mongodb.connect(connectionString).then((client) => {
     client.startSession();
@@ -287,3 +347,32 @@ mongodb.connect(connectionString).then((client) => {
     );
 });
 
+// https://docs.mongodb.com/manual/core/map-reduce/
+
+// Declare emit function to be called inside map function
+declare function emit(key: any, value: any): void;
+
+interface ITestMapReduceSchema {
+    cust_id: string;
+    amount: number;
+    status: string;
+}
+
+function testCollectionMapFunction(this: ITestMapReduceSchema) {
+    emit(this.cust_id, this.amount);
+}
+
+function testCollectionReduceFunction(_key: string, values: number[]): number {
+    return values.reduce((a, v) => a + v, 0);
+}
+
+mongodb.connect(connectionString).then((client) => {
+    client.db("test").collection<ITestMapReduceSchema>('test-mapReduce-collection').mapReduce(
+        testCollectionMapFunction,
+        testCollectionReduceFunction
+    );
+});
+
+// Test other error classes
+new mongodb.MongoNetworkError('network error');
+new mongodb.MongoParseError('parse error');

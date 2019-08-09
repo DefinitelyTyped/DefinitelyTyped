@@ -48,7 +48,7 @@ brush = brush.extent(function(d, i, group) {
 // chainable
 brush = brush.filter(function(d, i, group) {
     // Cast d3 event to D3ZoomEvent to be used in filter logic
-    const e = <d3Brush.D3BrushEvent<BrushDatum>> event;
+    const e = event as d3Brush.D3BrushEvent<BrushDatum>;
 
     console.log('Owner SVG Element of svg group: ', this.ownerSVGElement); // this is of type SVGGElement
     return e.sourceEvent.type !== 'zoom' || !d.filterZoomEvent; // datum type is BrushDatum (as propagated to SVGGElement with brush event attached)
@@ -98,7 +98,7 @@ brush.on('end', function(d, i, g) {
 // -----------------------------------------------------------------------------
 
 const g = select<SVGSVGElement, any>('svg')
-    .append<SVGGElement>('g')
+    .append('g')
     .classed('brush', true)
     .datum<BrushDatum>({
         extent: [[0, 0], [300, 200]],
@@ -108,7 +108,7 @@ const g = select<SVGSVGElement, any>('svg')
 g.call(brush);
 
 const gX = select<SVGSVGElement, any>('svg')
-    .append<SVGGElement>('g')
+    .append('g')
     .classed('brush', true)
     .datum<BrushDatum>({
         extent: [[0, 0], [300, 200]],

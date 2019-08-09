@@ -150,7 +150,7 @@ export class ODBCStatement {
     // TODO: type of outparams is unknown
     _execute(cb: (err: Error, result: any[]) => void): void;
 
-    _executeSync(params: any[]): ODBCResult;
+    _executeSync(params?: any[]): ODBCResult;
 
     _executeDirect(sql: string, cb: (err: Error, result: any[]) => void): void;
 
@@ -170,7 +170,7 @@ export class ODBCStatement {
     execute(cb: (err: Error, result: any[], outparams: any) => void): void;
     execute(params: any[]): Promise<{result: any[], outparams: any}>;
 
-    executeSync(params: any[]): ODBCResult;
+    executeSync(params?: any[]): ODBCResult;
 
     executeDirect(sql: string, cb: (err: Error, result: any[]) => void): void;
 

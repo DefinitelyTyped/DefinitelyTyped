@@ -1,4 +1,4 @@
-// Type definitions for yar 9.0
+// Type definitions for yar 9.1
 // Project: https://github.com/hapijs/yar#readme
 // Definitions by: Simon Schick <https://github.com/SimonSchick>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -10,7 +10,9 @@ import {
     ServerOptionsCache,
     Request,
     Plugin,
+    CachePolicyOptions,
 } from 'hapi';
+import { PolicyOptions, Id } from 'catbox';
 declare namespace yar {
     interface YarOptions {
         /**
@@ -41,12 +43,8 @@ declare namespace yar {
         /**
          * hapi cache options which includes (among other options):
          */
-        cache?: ServerOptionsCache;
+        cache?: CachePolicyOptions<any>;
 
-        /**
-         * server-side storage expiration (defaults to 1 day).
-         */
-        expiresIn?: number;
         /**
          * the configuration for cookie-specific features:
          */
@@ -161,6 +159,10 @@ declare namespace yar {
          */
         lazy(enabled: boolean): void;
     }
+
+    interface ServerYar {
+        revoke(id: Id): Promise<void>;
+    }
 }
 declare const yar: Plugin<yar.YarOptions>;
 export = yar;
@@ -168,5 +170,9 @@ export = yar;
 declare module 'hapi' {
     interface Request {
         yar: yar.Yar;
+    }
+
+    interface Server {
+        yar: yar.ServerYar;
     }
 }

@@ -136,7 +136,7 @@ export class SourceCode {
 
     isSpaceBetweenTokens(first: AST.Token, second: AST.Token): boolean;
 
-    getLocFromIndex(index: number): ESTree.SourceLocation;
+    getLocFromIndex(index: number): ESTree.Position;
 
     getIndexFromLoc(location: ESTree.Position): number;
 
@@ -379,16 +379,28 @@ export namespace Linter {
     interface RuleLevelAndOptions extends Array<any> {
         0: RuleLevel;
     }
-
-    interface Config {
+    interface HasRules {
         rules?: {
             [name: string]: RuleLevel | RuleLevelAndOptions
         };
+    }
+
+    interface RuleOverride extends HasRules {
+        excludedFiles?: string[];
+        files?: string[];
+    }
+
+    interface Config extends HasRules {
         parser?: string;
         parserOptions?: ParserOptions;
         settings?: { [name: string]: any };
         env?: { [name: string]: boolean };
         globals?: { [name: string]: boolean };
+        extends?: string | string[];
+        overrides?: RuleOverride[];
+        processor?: string;
+        plugins?: string[];
+        root?: boolean;
     }
 
     interface ParserOptions {
@@ -471,7 +483,7 @@ export class CLIEngine {
 
     isPathIgnored(filePath: string): boolean;
 
-    getFormatter(format: string): CLIEngine.Formatter;
+    getFormatter(format?: string): CLIEngine.Formatter;
 
     getRules(): Map<string, Rule.RuleModule>;
 
@@ -540,7 +552,7 @@ export class RuleTester {
         name: string,
         rule: Rule.RuleModule,
         tests: {
-            valid?: RuleTester.ValidTestCase[];
+            valid?: Array<string | RuleTester.ValidTestCase>;
             invalid?: RuleTester.InvalidTestCase[];
         },
     ): void;

@@ -15,7 +15,7 @@ declare namespace GracefulShutdown {
         signals?: string;
         timeout?: number;
         development?: boolean;
-        onShutdown?: () => Promise<void>;
+        onShutdown?: (signal: string) => Promise<void>;
         finally?: () => void;
     }
 }

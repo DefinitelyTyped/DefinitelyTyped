@@ -1,5 +1,3 @@
-/// <reference types="node" />
-import * as fs from "fs";
 import * as WaveSurfer from "wavesurfer.js";
 
 // https://www.npmjs.com/package/wavesurfer.js#api-in-examples
@@ -29,7 +27,7 @@ wsNewed.empty();
 
 // - create an instance with plugins
 class SamplePlugin {
-    constructor(ws: WaveSurfer, params: object) { }
+    constructor(params: object, ws: WaveSurfer) { }
     static create(params: object): WaveSurfer.PluginDefinition {
         return {
             name: "samplePlugin",

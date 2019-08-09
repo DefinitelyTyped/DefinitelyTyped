@@ -2,6 +2,7 @@
 // Project: https://github.com/wix/react-native-calendars#readme
 // Definitions by: Tyler Zhang <https://github.com/Tyler-Zhang>
 //                 David Noreña <https://github.com/DavidNorena>
+//                 Fabian Meul <https://github.com/FabianMeul>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -23,6 +24,10 @@ export interface CalendarDot {
     selectedDotColor?: string;
 }
 
+export interface CalendarThemeIdStyle {
+    [themeId: string]: ViewStyle | TextStyle;
+}
+
 export interface CalendarTheme {
     arrowColor?: string;
     backgroundColor?: string;
@@ -35,14 +40,28 @@ export interface CalendarTheme {
     selectedDotColor?: string;
     textDayFontFamily?: string;
     textDayFontSize?: number;
+    textDayFontWeight?: string;
     textDayHeaderFontFamily?: string;
     textDayHeaderFontSize?: number;
+    textDayHeaderFontWeight?: string;
     textDisabledColor?: string;
     textMonthFontFamily?: string;
     textMonthFontWeight?: string;
     textMonthFontSize?: number;
     textSectionTitleColor?: string;
     todayTextColor?: string;
+    indicatorColor?: string;
+
+    // Theme ID's to style for
+    "stylesheet.calendar.header"?: CalendarThemeIdStyle;
+    "stylesheet.calendar.main"?: CalendarThemeIdStyle;
+    "stylesheet.calendar-list.main"?: CalendarThemeIdStyle;
+    "stylesheet.agenda.main"?: CalendarThemeIdStyle;
+    "stylesheet.agenda.list"?: CalendarThemeIdStyle;
+    "stylesheet.day.basic"?: CalendarThemeIdStyle;
+    "stylesheet.day.single"?: CalendarThemeIdStyle;
+    "stylesheet.day.multiDot"?: CalendarThemeIdStyle;
+    "stylesheet.day.period"?: CalendarThemeIdStyle;
 }
 
 export type DateCallbackHandler = (date: DateObject) => void;
@@ -153,8 +172,8 @@ export type CalendarMarkingProps =
 export interface DayComponentProps {
     date: DateObject;
     marking: false | Marking[];
-    onPress: () => any;
-    onLongPress: () => any;
+    onPress: (date: DateObject) => any;
+    onLongPress: (date: DateObject) => any;
     state: '' | 'selected' | 'disabled' | 'today';
     theme: CalendarTheme;
 }
@@ -319,6 +338,11 @@ export interface CalendarListBaseProps extends CalendarBaseProps {
      *  Enable or disable vertical scroll indicator. Default = false
      */
     showScrollIndicator?: boolean;
+
+    /**
+     * Initially selected day
+     */
+    selected?: string;
 }
 
 export class CalendarList extends React.Component<CalendarMarkingProps & CalendarListBaseProps> { }

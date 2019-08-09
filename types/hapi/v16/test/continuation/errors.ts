@@ -26,7 +26,7 @@ const handleError: Hapi.ContinuationValueFunction = (err?: Boom.BoomError | null
 handleError(Boom.badData());
 
 // Accepts an error with custom data
-const errorWithData = Boom.badImplementation('', { custom1: 'test', customType: <'Custom1'>'Custom1', isCustom: <true>true });
+const errorWithData = Boom.badImplementation('', { custom1: 'test', customType: 'Custom1' as 'Custom1', isCustom: true as true });
 handleError(errorWithData);
 
 // Accepts an error with a more explicit type

@@ -9,8 +9,9 @@ import {
   Response,
   IndexSettings,
   QueryParameters,
-  Client
+  Client,
 } from 'algoliasearch';
+import * as algoliasearchLite from 'algoliasearch/lite';
 
 let _algoliaResponse: Response = {
   hits: [{}, {}],
@@ -21,6 +22,9 @@ let _algoliaResponse: Response = {
   processingTimeMS: 32,
   query: '',
   params: '',
+  index: '',
+  exhaustiveFacetsCount: true,
+  exhaustiveNbHits: false,
 };
 
 let _clientOptions: ClientOptions = {
@@ -96,6 +100,8 @@ let _algoliaIndexSettings: IndexSettings = {
   minProximity: 0,
   placeholders: { '': [''] },
   camelCaseAttributes: [''],
+  sortFacetValuesBy: 'count',
+  queryLanguages: ['fr', 'es'],
 };
 
 let _algoliaQueryParameters: QueryParameters = {
@@ -103,7 +109,7 @@ let _algoliaQueryParameters: QueryParameters = {
   filters: '',
   attributesToRetrieve: [''],
   restrictSearchableAttributes: [''],
-  facets: '',
+  facets: [''],
   facetingAfterDistinct: true,
   maxValuesPerFacet: 2,
   attributesToHighlight: [''],
@@ -121,33 +127,36 @@ let _algoliaQueryParameters: QueryParameters = {
   typoTolerance: false,
   allowTyposOnNumericTokens: false,
   ignorePlurals: false,
-  disableTypoToleranceOnAttributes: '',
+  disableTypoToleranceOnAttributes: [''],
   aroundLatLng: '',
-  aroundLatLngViaIP: '',
+  aroundLatLngViaIP: true,
   aroundRadius: 0,
   aroundPrecision: 0,
   minimumAroundRadius: 0,
   insideBoundingBox: [[0]],
-  queryType: '',
+  queryType: 'prefixAll',
   insidePolygon: [[0]],
-  removeWordsIfNoResults: '',
+  removeWordsIfNoResults: 'firstWords',
   advancedSyntax: false,
   optionalWords: [''],
   removeStopWords: [''],
   disableExactOnAttributes: [''],
-  exactOnSingleWordQuery: '',
-  alternativesAsExact: true,
+  exactOnSingleWordQuery: 'attribute',
+  alternativesAsExact: ['ignorePlurals'],
   distinct: 0,
   getRankingInfo: false,
   numericAttributesToIndex: [''],
+  numericAttributesForFiltering: [''],
   numericFilters: [''],
-  tagFilters: '',
-  facetFilters: '',
+  tagFilters: [''],
+  facetFilters: ['', ['']],
   analytics: false,
+  clickAnalytics: true,
   analyticsTags: [''],
   synonyms: true,
   replaceSynonymsInHighlight: false,
   minProximity: 0,
+  sortFacetValuesBy: 'alpha',
 };
 
 let client: Client = algoliasearch('', '');
@@ -169,11 +178,55 @@ index.partialUpdateObjects([{}], false, () => {});
 index.partialUpdateObjects([{}]).then(() => {});
 index.partialUpdateObjects([{}], false).then(() => {});
 
-let indexName : string = index.indexName;
+let indexName: string = index.indexName;
 
 // complete copy
-client.copyIndex('from', 'to').then(()=>{})
-client.copyIndex('from', 'to', ()=> {})
+client.copyIndex('from', 'to').then(() => {});
+client.copyIndex('from', 'to', () => {});
 // with scope
-client.copyIndex('from', 'to', ['settings']).then(()=>{})
-client.copyIndex('from', 'to', ['synonyms', 'rules'], ()=> {})
+client.copyIndex('from', 'to', ['settings']).then(() => {});
+client.copyIndex('from', 'to', ['synonyms', 'rules'], () => {});
+
+// Browsing
+const browser = index.browseAll();
+index.browseAll('query');
+index.browseAll('', {
+  filters: 'dog',
+});
+
+let hits: Object[] = [];
+
+browser.on('result', function onResult(content) {
+  hits = hits.concat(content.hits);
+});
+
+browser.on('end', function onEnd() {
+  const _message = `We got ${hits.length} hits`;
+});
+
+browser.on('error', function onError(err) {
+  throw err;
+});
+
+browser.stop();
+
+index.setSettings({ hitsPerPage: 10 }, () => {});
+index.setSettings({ hitsPerPage: 10 }, { forwardToReplicas: true }, () => {});
+index.setSettings({ hitsPerPage: 10 }).then(() => {});
+index
+  .setSettings({ hitsPerPage: 10 }, { forwardToReplicas: true })
+  .then(() => {});
+
+index.browse('', {
+  advancedSyntax: false,
+  attributesToRetrieve: ['dogs'],
+});
+client.copyIndex('from', 'to', ['settings']).then(() => {});
+client.copyIndex('from', 'to', ['synonyms', 'rules'], () => {});
+
+const liteClient: algoliasearchLite.Client = algoliasearchLite('', '');
+
+liteClient.search([], (err: Error, res: algoliasearch.MultiResponse) => {});
+liteClient.search([]).then((res: algoliasearch.MultiResponse) => {});
+type Res = { zipzop: true };
+liteClient.search<Res>([]).then((res: algoliasearch.MultiResponse<Res>) => {});

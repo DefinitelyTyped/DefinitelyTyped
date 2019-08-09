@@ -20,6 +20,7 @@
     },
     "files": [
         "index.d.ts",
+        "amp.d.ts",
         "asset.d.ts",
         "config.d.ts",
         "constants.d.ts",
@@ -29,10 +30,14 @@
         "next-config.d.ts",
         "router.d.ts",
         "test/next-server-tests.ts",
+        "test/next-server-amp-tests.tsx",
         "test/next-server-constants-tests.ts",
         "test/next-server-head-tests.tsx",
         "test/next-server-link-tests.tsx",
         "test/next-server-dynamic-tests.tsx",
-        "test/next-server-router-tests.tsx"
+        "test/next-server-router-tests.tsx",
+        "test/imports/no-default.tsx",
+        "test/imports/with-default.tsx",
+        "test/imports/with-default-second.tsx"
     ]
 }

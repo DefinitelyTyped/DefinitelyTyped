@@ -1,18 +1,14 @@
-// Type definitions for jexl 1.1
-// Project: https://github.com/TechnologyAdvice/jexl
+// Type definitions for jexl 2.1
+// Project: https://github.com/TomFrost/Jexl
 // Definitions by: Marcin Tomczyk <https://github.com/m-tomczyk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
-
-// Currently maintained by https://github.com/TomFrost/Jexl
 
 type TransformFunction = (value: any, ...args: any[]) => any;
 
 type BinaryOpFunction = (left: any, right: any) => any;
 
 type UnaryOpFunction = (right: any) => any;
-
-type EvalCallbackFunction = (err: Error | null, result: any) => void;
 
 /**
  * Jexl is the Javascript Expression Language, capable of parsing and
@@ -54,14 +50,14 @@ declare class Jexl {
      * @param name The name of the transform function, as it will be used
      *      within Jexl expressions
      * @param fn The function to be executed when this transform is
-     *      invoked.  It will be provided with at least one argument:
+     *      invoked. It will be provided with at least one argument:
      *          - {*} value: The value to be transformed
      *          - {...*} args: The arguments for this transform
      */
     addTransform(name: string, fn: TransformFunction): void;
 
     /**
-     * Syntactic sugar for calling {@link #Jexl:addTransform} repeatedly.  This function
+     * Syntactic sugar for calling {@link #addTransform} repeatedly.  This function
      * accepts a map of one or more transform names to their transform function.
      * @param map A map of transform names to transform functions
      */
@@ -75,25 +71,23 @@ declare class Jexl {
     getTransform(name: string): TransformFunction;
 
     /**
-     * Evaluates a Jexl string within an optional context.
+     * Asynchronously evaluates a Jexl string within an optional context.
      * @param expression The Jexl expression to be evaluated
-     * @param context A mapping of variables to values, which will be
+     * @param [context] A mapping of variables to values, which will be
      *      made accessible to the Jexl expression when evaluating it
-     * @param cb An optional callback function to be executed when
-     *      evaluation is complete.  It will be supplied with two arguments:
-     *          - err: Present if an error occurred
-     *          - result: The result of the evaluation
-     * @returns resolves with the result of the evaluation.  Note that
-     *      if a callback is supplied, the returned promise will already have
-     *      a '.catch' attached to it in order to pass the error to the callback.
+     * @returns resolves with the result of the evaluation.
      */
-    eval(expression: string, context?: object, cb?: EvalCallbackFunction): Promise<any>;
+    eval(expression: string, context?: object): Promise<any>;
 
     /**
-     * Removes a binary or unary operator from the Jexl grammar.
-     * @param operator The operator string to be removed
+     * Synchronously evaluates a Jexl string within an optional context.
+     * @param expression The Jexl expression to be evaluated
+     * @param [context] A mapping of variables to values, which will be
+     *      made accessible to the Jexl expression when evaluating it
+     * @returns the result of the evaluation.
+     * @throws on error
      */
-    removeOp(operator: string): void;
+    evalSync(expression: string, context?: object): any;
 }
 
 /**

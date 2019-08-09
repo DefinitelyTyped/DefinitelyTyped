@@ -13,6 +13,8 @@ const id = new Git.Oid();
 const ref = new Git.Reference();
 const tree = new Git.Tree();
 
+tree.walk().start();
+
 // AnnotatedCommit Tests
 
 Git.AnnotatedCommit.fromFetchhead(repo, "branch_name", "remote_url", id).then((annotatedCommit) => {
@@ -62,3 +64,5 @@ const signature = Git.Signature.now("name", "email");
 signature.name();
 signature.email();
 signature.when();
+
+repo.createBlobFromBuffer(Buffer.from("test")).then((oid: Git.Oid) => oid.cpy());

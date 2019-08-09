@@ -2,7 +2,7 @@
 // Project: https://github.com/chaijs/chai-jquery
 // Definitions by: Kazi Manzur Rashid <https://github.com/kazimanzurrashid>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.0
 
 /// <reference types="chai" />
 /// <reference types="jquery" />
@@ -25,6 +25,7 @@ declare namespace Chai {
         selected(): Assertion;
         checked(): Assertion;
         disabled(): Assertion;
+        enabled(): Assertion;
         (selector: string): Assertion;
     }
 

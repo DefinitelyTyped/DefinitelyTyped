@@ -6,6 +6,10 @@ interface TestAppProps {
     pageProps: any;
 }
 
+interface TestAppState {
+    color: string;
+}
+
 interface TypedQuery extends DefaultQuery {
     id?: string;
 }
@@ -31,6 +35,20 @@ class TestAppWithProps extends App<TestAppProps & WithExampleProps> {
         const { Component, router, pageProps, example } = this.props;
         return <Component {...pageProps} example={example} />;
     }
+}
+
+class ErrorTestAppWithState extends App<TestAppProps & WithExampleProps, TestAppState> {
+    static async getInitialProps({ Component, router, ctx }: NextAppContext) {
+        const pageProps = Component.getInitialProps && (await Component.getInitialProps(ctx));
+        return { pageProps };
+    }
+
+    render() {
+        const { Component, router, pageProps, example } = this.props;
+        return <Component {...pageProps} example={example} />;
+    }
+
+    state: {}; // $ExpectError
 }
 
 class TestAppWithTypedQuery extends App {

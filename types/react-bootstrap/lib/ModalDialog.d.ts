@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Sizes } from 'react-bootstrap';
 
 declare namespace ModalDialog {
     export interface ModalDialogProps extends React.HTMLProps<ModalDialog> {
@@ -10,6 +11,8 @@ declare namespace ModalDialog {
         onExit?: Function;
         onExited?: Function;
         onExiting?: Function;
+        bsSize?: Sizes;
+        bsClass?: string;
     }
 }
 declare class ModalDialog extends React.Component<ModalDialog.ModalDialogProps> { }

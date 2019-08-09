@@ -8,7 +8,7 @@ const shape = { top: num, left: num, bottom: num, right: num };
 
 const component = (
   <ReactVisibilitySensor
-    onChange={(bool, shape) => {}}
+    onChange={(bool) => {}}
     active={bool}
     partialVisibility={bool}
     offset={shape}
@@ -21,7 +21,15 @@ const component = (
     resizeCheck={bool}
     resizeDelay={num}
     resizeThrottle={num}
-    delayedCall={bool}>
-    {({ isVisible: bool, visibilityRect: shape }) => <div />}
+    delayedCall={bool}
+    containment={window.document.body}
+  >
+    <div />
+  </ReactVisibilitySensor>
+);
+
+const componentWithFunctionAsChild = (
+  <ReactVisibilitySensor>
+    {({ isVisible, visibilityRect }) => <div />}
   </ReactVisibilitySensor>
 );

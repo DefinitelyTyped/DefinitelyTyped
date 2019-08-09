@@ -1,4 +1,4 @@
-// Type definitions for KeyboardJS v2.4.1
+// Type definitions for KeyboardJS v2.4.2
 // Project: https://github.com/RobertWHurst/KeyboardJS
 // Definitions by: Vincent Bortone <https://github.com/vbortone>,
 //                 David Asmuth <https://github.com/piranha771>,
@@ -92,14 +92,16 @@ declare namespace keyboardjs {
 
     /**
      * Triggers a key press. Stays in pressed state until released.
-     * @param keyCombo String of keys to be pressed to execute 'pressed' callbacks.
+     * @param keyCombo String of keys or keyCode to be pressed to execute 'pressed' callbacks.
+     * @param event The KeyEvent, can be null.
      */
-    export function pressKey(keyCombo: string): void
+    export function pressKey(keyCombo: string | number, event?: KeyEvent): void;
     /**
      * Triggers a key release.
-     * @param keyCombo String of keys to be released to execute 'released' callbacks.
+     * @param keyCombo String of keys or keyCode to be released to execute 'released' callbacks.
+     * @param event The KeyEvent, can be null.
      */
-    export function releaseKey(keyCombo: string): void;
+    export function releaseKey(keyCombo: string | number, event?: KeyEvent): void;
     /**
      * Releases all keys.
      */

@@ -8,6 +8,9 @@
 //                 James Garbutt <https://github.com/43081j>
 //                 Bartek Szczepański <https://github.com/barnski>
 //                 Pirasis Leelatanon <https://github.com/1pete>
+//                 Stanislav Dzhus <https://github.com/blablapolicja>
+//                 Jake Ferrante <https://github.com/ferrantejake>
+//                 Adebayo Opesanya <https://github.com/OpesanyaAdebayo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Imported from: https://github.com/types/npm-redis
@@ -36,6 +39,7 @@ export interface ClientOpts {
     return_buffers?: boolean;
     detect_buffers?: boolean;
     socket_keepalive?: boolean;
+    socket_initialdelay?: number;
     no_ready_check?: boolean;
     enable_offline_queue?: boolean;
     retry_max_delay?: number;
@@ -75,7 +79,7 @@ export interface OverloadedKeyCommand<T, U, R> {
     (key: string, arg1: T, arg2: T, arg3: T, arg4: T, cb?: Callback<U>): R;
     (key: string, arg1: T, arg2: T, arg3: T, cb?: Callback<U>): R;
     (key: string, arg1: T, arg2: T, cb?: Callback<U>): R;
-    (key: string, arg1: T| T[], cb?: Callback<U>): R;
+    (key: string, arg1: T | T[], cb?: Callback<U>): R;
     (key: string, ...args: Array<T | Callback<U>>): R;
     (...args: Array<string | T | Callback<U>>): R;
 }
@@ -159,8 +163,8 @@ export interface Commands<R> {
     /**
      * Set multiple hash fields to multiple values.
      */
-    hmset: OverloadedSetCommand<string | number, boolean, R>;
-    HMSET: OverloadedSetCommand<string | number, boolean, R>;
+    hmset: OverloadedSetCommand<string | number, 'OK', R>;
+    HMSET: OverloadedSetCommand<string | number, 'OK', R>;
 
     /**
      * Listen for messages published to the given channels.
@@ -255,8 +259,8 @@ export interface Commands<R> {
     /**
      * Pop a value from a list, push it to another list and return it; or block until one is available.
      */
-    brpoplpush(source: string, destination: string, timeout: number, cb?: Callback<string|null>): R;
-    BRPOPLPUSH(source: string, destination: string, timeout: number, cb?: Callback<string|null>): R;
+    brpoplpush(source: string, destination: string, timeout: number, cb?: Callback<string | null>): R;
+    BRPOPLPUSH(source: string, destination: string, timeout: number, cb?: Callback<string | null>): R;
 
     /**
      * ADDSLOTS - Assign new hash slots to receiving node.
@@ -393,8 +397,8 @@ export interface Commands<R> {
     /**
      * Remove all keys from the current database.
      */
-    flushdb(cb?: Callback<string>): R;
-    FLUSHDB(cb?: Callback<string>): R;
+    flushdb(cb?: Callback<'OK'>): R;
+    FLUSHDB(cb?: Callback<'OK'>): R;
 
     /**
      * Add one or more geospatial items in the geospatial index represented using a sorted set.
@@ -1025,8 +1029,8 @@ export interface Commands<R> {
     /**
      * Increment the score of a member in a sorted set.
      */
-    zincrby(key: string, increment: number, member: string, cb?: Callback<number>): R;
-    ZINCRBY(key: string, increment: number, member: string, cb?: Callback<number>): R;
+    zincrby(key: string, increment: number, member: string, cb?: Callback<string>): R;
+    ZINCRBY(key: string, increment: number, member: string, cb?: Callback<string>): R;
 
     /**
      * Intersect multiple sorted sets and store the resulting sorted set in a new key.
@@ -1079,8 +1083,8 @@ export interface Commands<R> {
     /**
      * Determine the index of a member in a sorted set.
      */
-    zrank(key: string, member: string, cb?: Callback<number | undefined>): R;
-    ZRANK(key: string, member: string, cb?: Callback<number | undefined>): R;
+    zrank(key: string, member: string, cb?: Callback<number | null>): R;
+    ZRANK(key: string, member: string, cb?: Callback<number | null>): R;
 
     /**
      * Remove one or more members from a sorted set.
@@ -1129,8 +1133,8 @@ export interface Commands<R> {
     /**
      * Determine the index of a member in a sorted set, with scores ordered from high to low.
      */
-    zrevrank(key: string, member: string, cb?: Callback<number | undefined>): R;
-    ZREVRANK(key: string, member: string, cb?: Callback<number | undefined>): R;
+    zrevrank(key: string, member: string, cb?: Callback<number | null>): R;
+    ZREVRANK(key: string, member: string, cb?: Callback<number | null>): R;
 
     /**
      * Get the score associated with the given member in a sorted set.
@@ -1169,9 +1173,7 @@ export interface Commands<R> {
     ZSCAN: OverloadedKeyCommand<string, [string, string[]], R>;
 }
 
-export const RedisClient: {
-    new (options: ClientOpts): RedisClient;
-};
+export const RedisClient: new (options: ClientOpts) => RedisClient;
 
 export interface RedisClient extends Commands<boolean>, EventEmitter {
     connected: boolean;
@@ -1221,9 +1223,7 @@ export interface RedisClient extends Commands<boolean>, EventEmitter {
     BATCH(args?: Array<Array<string | number | Callback<any>>>): Multi;
 }
 
-export const Multi: {
-    new (): Multi;
-};
+export const Multi: new () => Multi;
 
 export interface Multi extends Commands<Multi> {
     exec(cb?: Callback<any[]>): boolean;
@@ -1241,3 +1241,12 @@ export function createClient(redis_url: string, options?: ClientOpts): RedisClie
 export function createClient(options?: ClientOpts): RedisClient;
 
 export function print(err: Error | null, reply: any): void;
+
+export class RedisError extends Error { }
+export class ReplyError extends RedisError { }
+export class AbortError extends RedisError { }
+export class ParserError extends RedisError {
+    offset: number;
+    buffer: Buffer;
+}
+export class AggregateError extends AbortError { }

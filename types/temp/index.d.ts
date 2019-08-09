@@ -1,5 +1,5 @@
 // Type definitions for temp 0.8
-// Project: https://www.npmjs.com/package/temp, https://github.com/bruce/node-temp
+// Project: https://github.com/bruce/node-temp
 // Definitions by: Daniel Rosenwasser <https://github.com/DanielRosenwasser>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -38,7 +38,7 @@ declare namespace temp {
 
   function path(affixes?: string | AffixOptions, defaultPrefix?: string): string;
 
-  function cleanup(callback?: (result: boolean | Stats) => void): void;
+  function cleanup(callback?: (err: any, result: Stats) => void): void;
 
   function cleanupSync(): boolean | Stats;
 

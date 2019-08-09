@@ -13,7 +13,7 @@ export interface RevertOptions {
 }
 
 export class Revert {
-    static revert(repo: Repository, commit: Commit, givenOpts: RevertOptions): Promise<number>;
+    static revert(repo: Repository, commit: Commit, givenOpts?: RevertOptions): Promise<number>;
     /**
      * Reverts the given commit against the given "our" commit, producing an index that reflects the result of the revert.
      */

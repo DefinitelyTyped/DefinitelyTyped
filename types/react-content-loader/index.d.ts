@@ -22,6 +22,7 @@ export interface ContentLoaderProps {
     'xMidYMid slice' | 'xMaxYMid slice' | 'xMinYMax slice' | 'xMidYMax slice' | 'xMaxYMax slice';
     uniquekey?: string;
     className?: string;
+    ariaLabel?: string;
 }
 export default class ContentLoader extends React.Component<ContentLoaderProps> { }
 export class Facebook extends React.Component<ContentLoaderProps> { }

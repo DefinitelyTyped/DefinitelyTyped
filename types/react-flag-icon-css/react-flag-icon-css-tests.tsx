@@ -81,8 +81,6 @@ export class ChildrenFlagComponent extends React.PureComponent<ChildrenFlagCompo
 const appChildrenProps: ChildrenFlagComponentProps = {
     code: 'ex1',
     size: 'lg',
-    children: FlagIcon({
-        code: 'it'
-    })
+    children: <FlagIcon code='it'/>
 };
 ReactDOM.render(<ChildrenFlagComponent {...appChildrenProps} />, rootEL);

@@ -1,8 +1,9 @@
-// Type definitions for update-notifier 2.2
+// Type definitions for update-notifier 2.5
 // Project: https://github.com/yeoman/update-notifier
 // Definitions by: vvakame <https://github.com/vvakame>
 //                 Noah Chen <https://github.com/nchen63>
 //                 Jason Dreyzehner <https://github.com/bitjson>
+//                 Michael Grinich <https://github.com/grinich>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = UpdateNotifier;
@@ -27,6 +28,7 @@ declare namespace UpdateNotifier {
         packageName?: string;
         packageVersion?: string;
         updateCheckInterval?: number; // in milliseconds, default 1000 * 60 * 60 * 24 (1 day)
+        shouldNotifyInNpmScript?: boolean;
     }
 
     interface BoxenOptions {

@@ -1,3 +1,5 @@
+import Promise = require("promise-polyfill");
+
 const prom1 = new Promise<number>((resolve, reject) => {
 	resolve(12);
 });
@@ -16,3 +18,5 @@ Promise.all([prom1, prom2])
 	console.log(result);
 }, (exception) => console.error(exception))
 .catch((ex) => console.error(ex));
+
+Promise._immediateFn = setTimeout;

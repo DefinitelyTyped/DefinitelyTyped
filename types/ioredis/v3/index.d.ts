@@ -7,8 +7,9 @@
 //                 Shahar Mor <https://github.com/shaharmor>
 //                 Whemoon Jang <https://github.com/palindrom615>
 //                 Francis Gulotta <https://github.com/reconbot>
+//                 Alex Petty <https://github.com/pettyalex>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.2
 
 /* =================== USAGE ===================
     import * as Redis from "ioredis";
@@ -102,6 +103,7 @@ declare namespace IORedis {
         del(...keys: string[]): any;
 
         exists(...keys: string[]): Promise<number>;
+        exists(key: string, callback: (err: Error, res: number) => void): void;
 
         setbit(key: string, offset: number, value: any, callback: (err: Error, res: number) => void): void;
         setbit(key: string, offset: number, value: any): Promise<number>;
@@ -404,6 +406,9 @@ declare namespace IORedis {
 
         ttl(key: string, callback: (err: Error, res: number) => void): void;
         ttl(key: string): Promise<number>;
+
+        pttl(key: string, callback: (err: Error, res: number) => void): void;
+        pttl(key: string): Promise<number>;
 
         persist(key: string, callback: (err: Error, res: 0 | 1) => void): void;
         persist(key: string): Promise<0 | 1>;
@@ -732,6 +737,8 @@ declare namespace IORedis {
 
         ttl(key: string, callback?: (err: Error, res: number) => void): Pipeline;
 
+        pttl(key: string, callback?: (err: Error, res: number) => void): Pipeline;
+
         persist(key: string, callback?: (err: Error, res: 0 | 1) => void): Pipeline;
 
         slaveof(host: string, port: number, callback?: (err: Error, res: string) => void): Pipeline;
@@ -894,7 +901,7 @@ declare namespace IORedis {
     }
 
     interface ClusterOptions {
-        clusterRetryStrategy?(times: number): number;
+        clusterRetryStrategy?(times: number): number | null;
         enableOfflineQueue?: boolean;
         enableReadyCheck?: boolean;
         scaleReads?: string;

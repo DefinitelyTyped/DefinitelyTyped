@@ -7,7 +7,7 @@
 import express = require('express');
 
 type CustomOrigin = (
-    requestOrigin: string,
+    requestOrigin: string | undefined,
     callback: (err: Error | null, allow?: boolean) => void
 ) => void;
 

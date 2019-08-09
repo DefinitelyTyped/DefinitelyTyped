@@ -62,7 +62,9 @@ sourceCode.getNodeByRangeIndex(0);
 
 sourceCode.isSpaceBetweenTokens(TOKEN, TOKEN);
 
-sourceCode.getLocFromIndex(0);
+const loc = sourceCode.getLocFromIndex(0);
+loc.line; // $ExpectType number
+loc.column; // $ExpectType number
 
 sourceCode.getIndexFromLoc({ line: 0, column: 0 });
 
@@ -368,6 +370,11 @@ linter.verify(SOURCE, { env: { node: true } }, 'test.js');
 linter.verify(SOURCE, { globals: { foo: true } }, 'test.js');
 linter.verify(SOURCE, { parser: 'custom-parser' }, 'test.js');
 linter.verify(SOURCE, { settings: { info: 'foo' } }, 'test.js');
+linter.verify(SOURCE, { processor: 'a-plugin/a-processor' }, 'test.js');
+linter.verify(SOURCE, { plugins: ['a-plugin'] }, 'test.js');
+linter.verify(SOURCE, { root: true }, 'test.js');
+linter.verify(SOURCE, { extends: 'eslint-config-bad-guy' }, 'test.js');
+linter.verify(SOURCE, { extends: ['eslint-config-bad-guy', 'eslint-config-roblox'] }, 'test.js');
 
 linter.verify(SOURCE, { rules: {} }, 'test.js');
 linter.verify(SOURCE, { rules: { quotes: 2 } }, 'test.js');
@@ -376,6 +383,18 @@ linter.verify(SOURCE, { rules: { 'no-unused-vars': [2, { vars: 'all' }] } }, 'te
 linter.verify(SOURCE, { rules: { 'no-console': 1 } }, 'test.js');
 linter.verify(SOURCE, { rules: { 'no-console': 0 } }, 'test.js');
 linter.verify(SOURCE, { rules: { 'no-console': 'error' } }, 'test.js');
+linter.verify(SOURCE, {
+    rules: { 'no-console': 'error' },
+    overrides: [
+        {
+            excludedFiles: ['*-test.js', '*.spec.js'],
+            files: ['*-test.js', '*.spec.js'],
+            rules: {
+                'no-unused-expressions': 'off'
+            }
+        }
+    ]
+}, 'test.js');
 linter.verify(SOURCE, { rules: { 'no-console': 'warn' } }, 'test.js');
 linter.verify(SOURCE, { rules: { 'no-console': 'off' } }, 'test.js');
 
@@ -478,7 +497,10 @@ cli.addPlugin('my-fancy-plugin', {});
 
 cli.isPathIgnored('./dist/index.js');
 
-const formatter = cli.getFormatter('codeframe');
+let formatter: CLIEngine.Formatter;
+
+formatter = cli.getFormatter('codeframe');
+formatter = cli.getFormatter();
 
 formatter(cliReport.results);
 
@@ -531,6 +553,14 @@ ruleTester.run('my-rule', rule, {
         { code: 'foo', errors: [{ message: 'foo', type: 'foo' }] },
         { code: 'foo', errors: [{ message: 'foo', data: { foo: true } }] },
         { code: 'foo', errors: [{ message: 'foo', line: 0 }] },
+    ]
+});
+
+ruleTester.run('simple-valid-test', rule, {
+    valid: [
+        'foo',
+        'bar',
+        { code: 'foo', options: [{ allowFoo: true }] },
     ]
 });
 

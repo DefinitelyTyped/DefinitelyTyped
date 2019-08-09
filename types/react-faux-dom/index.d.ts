@@ -14,7 +14,7 @@ export class Element extends HTMLElement {
 
     constructor(nodeName: string, parentNode?: Element);
 
-    toReact(): React.ReactElement<any>;
+    toReact(): React.ReactElement;
 }
 
 export const defaultView: {
