@@ -1,0 +1,1 @@
+const life = 42;

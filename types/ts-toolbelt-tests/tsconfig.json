@@ -1,0 +1,33 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "ts-toolbelt-tests-tests.ts",
+        "test/Any.ts",
+        "test/Boolean.ts",
+        "test/Class.ts",
+        "test/Function.ts",
+        "test/Iteration.ts",
+        "test/Number.ts",
+        "test/Object.ts",
+        "test/String.ts",
+        "test/Tuple.ts",
+        "test/Union.ts"
+    ]
+}
