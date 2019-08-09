@@ -15,14 +15,14 @@
 // Testing:
 //   $ tsc --noImplicitAny --module commonjs -p rethinkdb/
 
-/// <reference types="node"/>
+/// <reference types='node'/>
 
-import { ConnectionOptions as TLSConnectionOptions } from "tls";
+import { ConnectionOptions as TLSConnectionOptions } from 'tls';
 
 /**
  * https://rethinkdb.com/api/javascript/
  */
-declare module "rethinkdb" {
+declare module 'rethinkdb' {
     /**
      * Create a new connection to the database server.
      *
@@ -58,7 +58,11 @@ declare module "rethinkdb" {
     export function epochTime(): Expression<Time>;
 
     // Control Structures
-    export function branch(test: Expression<boolean>, trueBranch: Expression<any>, falseBranch: Expression<any>): Expression<any>;
+    export function branch(
+        test: Expression<boolean>,
+        trueBranch: Expression<any>,
+        falseBranch: Expression<any>,
+    ): Expression<any>;
 
     /**
      * Create a javascript expression.
@@ -252,17 +256,21 @@ declare module "rethinkdb" {
         hasFields(...fields: string[]): T;
     }
 
-    interface Geometry { }
+    interface Geometry {}
 
-    interface Point { }
+    interface Point {}
 
-    interface Polygon extends Geometry { }
+    interface Polygon extends Geometry {}
 
     interface Table extends Sequence, HasFields<Sequence> {
         indexCreate(name: string, index?: IndexFunction<any>): Operation<CreateResult>;
         indexDrop(name: string): Operation<DropResult>;
         indexList(): Operation<string[]>;
-        indexWait(name?: string): Operation<Array<{ index: string, ready: true, function: number, multi: boolean, geo: boolean, outdated: boolean }>>;
+        indexWait(
+            name?: string,
+        ): Operation<
+            Array<{ index: string; ready: true; function: number; multi: boolean; geo: boolean; outdated: boolean }>
+        >;
 
         insert(obj: any[], options?: InsertOptions): Operation<WriteResult>;
         insert(obj: any, options?: InsertOptions): Operation<WriteResult>;
@@ -298,14 +306,7 @@ declare module "rethinkdb" {
          * Get all documents matching 2 or more keys on a simple index; defaults to primary key if no index provided.
          * See [getAll](https://www.rethinkdb.com/api/javascript/get_all/)
          */
-        getAll(
-            key: string,
-            key2: string,
-            key3: string,
-            key4: string,
-            key5: string,
-            index?: Index
-        ): Sequence; // without index defaults to primary key
+        getAll(key: string, key2: string, key3: string, key4: string, key5: string, index?: Index): Sequence; // without index defaults to primary key
         /**
          * Get all documents matching a compound index key.
          * See [getAll](https://www.rethinkdb.com/api/javascript/get_all/) and
@@ -323,12 +324,7 @@ declare module "rethinkdb" {
          * See [getAll](https://www.rethinkdb.com/api/javascript/get_all/) and
          * [compound indexes](https://www.rethinkdb.com/docs/secondary-indexes/javascript/#compound-indexes)
          */
-        getAll(
-            compoundKey: string[],
-            compoundKey2: string[],
-            compoundKey3: string[],
-            index: Index
-        ): Sequence; // without index defaults to primary key
+        getAll(compoundKey: string[], compoundKey2: string[], compoundKey3: string[], index: Index): Sequence; // without index defaults to primary key
         /**
          * Get all documents matching 2 or more compound index keys.
          * See [getAll](https://www.rethinkdb.com/api/javascript/get_all/) and
@@ -339,7 +335,7 @@ declare module "rethinkdb" {
             compoundKey2: string[],
             compoundKey3: string[],
             compoundKey4: string[],
-            index: Index
+            index: Index,
         ): Sequence; // without index defaults to primary key
         /**
          * Get all documents matching 2 or more compound index keys.
@@ -352,7 +348,7 @@ declare module "rethinkdb" {
             compoundKey3: string[],
             compoundKey4: string[],
             compoundKey5: string[],
-            index: Index
+            index: Index,
         ): Sequence; // without index defaults to primary key
         /**
          * Get all documents matching a key on a simple index; defaults to primary key if no index provided.
@@ -366,7 +362,6 @@ declare module "rethinkdb" {
          * [compound indexes](https://www.rethinkdb.com/docs/secondary-indexes/javascript/#compound-indexes)
          */
         getAll(keys: Expression<any[]>, index: Index): Sequence;
-
 
         getIntersecting(geometry: Geometry, index: Index): Sequence;
         wait(WaitOptions?: WaitOptions): Operation<WaitResult>;
@@ -430,7 +425,12 @@ declare module "rethinkdb" {
         reduce(r: ReduceFunction<any>, base?: any): Expression<any>;
         count(): Expression<number>;
         distinct(): Sequence;
-        groupedMapReduce(group: ExpressionFunction<any>, map: ExpressionFunction<any>, reduce: ReduceFunction<any>, base?: any): Sequence;
+        groupedMapReduce(
+            group: ExpressionFunction<any>,
+            map: ExpressionFunction<any>,
+            reduce: ReduceFunction<any>,
+            base?: any,
+        ): Sequence;
         groupBy(...aggregators: Aggregator[]): Expression<Object>; // TODO: reduction object
         contains(prop: string): Expression<boolean>;
 
@@ -439,7 +439,10 @@ declare module "rethinkdb" {
         without(...props: string[]): Sequence;
     }
 
-    type IndexFunction<U> = Expression<U> | Expression<U>[] | ((doc: Expression<any>) => Expression<U> | Expression<U>[]);
+    type IndexFunction<U> =
+        | Expression<U>
+        | Expression<U>[]
+        | ((doc: Expression<any>) => Expression<U> | Expression<U>[]);
 
     interface ExpressionFunction<U> {
         (doc: Expression<any>): Expression<U>;
@@ -580,12 +583,12 @@ declare module "rethinkdb" {
          *   * 'majority' will only return values that are safely committed on disk on a majority of replicas. This requires sending a message to every replica on each read, so it is the slowest but most consistent.
          *   * 'outdated' will return values that are in memory on an arbitrarily-selected replica. This is the fastest but least consistent.
          */
-        readMode: "single" | "majority" | "outdated";
+        readMode: 'single' | 'majority' | 'outdated';
 
         /**
          * What format to return times in (default: 'native'). Set this to 'raw' if you want times returned as JSON objects for exporting.
          */
-        timeFormat: "native" | "raw";
+        timeFormat: 'native' | 'raw';
 
         /**
          * Whether or not to return a profile of the query’s execution (default: false).
@@ -595,12 +598,12 @@ declare module "rethinkdb" {
         /**
          * Possible values are 'hard' and 'soft'. In soft durability mode RethinkDB will acknowledge the write immediately after receiving it, but before the write has been committed to disk.
          */
-        durability: "hard" | "soft";
+        durability: 'hard' | 'soft';
 
         /**
          * What format to return `grouped_data` and `grouped_streams` in (default: 'native'). Set this to 'raw' if you want the raw pseudotype.
          */
-        groupFormat: "native" | "raw";
+        groupFormat: 'native' | 'raw';
 
         /**
          * Set to `true` to not receive the result object or cursor and return immediately.
@@ -620,7 +623,7 @@ declare module "rethinkdb" {
         /**
          * What format to return binary data in (default: 'native'). Set this to 'raw' if you want the raw pseudotype.
          */
-        binaryFormat: "native" | "raw";
+        binaryFormat: 'native' | 'raw';
 
         /**
          * Minimum number of rows to wait for before batching a result set (default: 8). This is an integer.
@@ -660,26 +663,26 @@ declare module "rethinkdb" {
         run(conn: Connection): Promise<T>;
     }
 
-    interface Aggregator { }
+    interface Aggregator {}
 
-    interface Sort { }
+    interface Sort {}
 
     interface ReqlType {
         $reql_type$: string;
     }
 
     interface Time extends ReqlType {
-        $reql_type$: "TIME";
+        $reql_type$: 'TIME';
         epoch_time: number;
         timezone: string;
     }
 
     interface Binary extends ReqlType {
-        $reql_type$: "BINARY";
+        $reql_type$: 'BINARY';
         data: string;
     }
 
-    interface ReqlError extends Error { }
+    interface ReqlError extends Error {}
 
     /**
      * An error has occurred within the driver. This may be a driver bug, or it may
@@ -687,5 +690,5 @@ declare module "rethinkdb" {
      *
      * See https://www.rethinkdb.com/docs/error-types/
      */
-    interface ReqlDriverError extends ReqlError { }
+    interface ReqlDriverError extends ReqlError {}
 }
