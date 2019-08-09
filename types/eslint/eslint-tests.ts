@@ -283,6 +283,12 @@ rule = { create(context) { return {}; }, meta: { fixable: 'whitespace' }};
 rule = { create(context) { return {}; }, meta: { fixable: 'code' }};
 rule = { create(context) { return {}; }, meta: { schema: [{ enum: ['always', 'never'] }] }};
 rule = { create(context) { return {}; }, meta: { deprecated: true }};
+rule = {
+    create(context) {
+        return {};
+    },
+    meta: { type: 'layout' },
+};
 
 rule = {
     create(context) {
