@@ -6,6 +6,7 @@
 //                 GP <https://github.com/paambaati>
 //                 Alex Ferrando <https://github.com/alferpal>
 //                 Oleksandr Sidko <https://github.com/mortiy>
+//                 Harris Lummis <https://github.com/lummish>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.7
 
