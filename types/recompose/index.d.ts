@@ -257,7 +257,7 @@ declare module 'recompose' {
         UNSAFE_componentWillReceiveProps?(this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>, nextProps: TProps): void;
         shouldComponentUpdate?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>, nextProps: TProps, nextState: TState) => boolean;
         componentWillUpdate?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>, nextProps: TProps, nextState: TState) => void;
-        UNSAFE_componentWillUpdate?(this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>, nextProps: TProps, nextState: TStat): void;
+        UNSAFE_componentWillUpdate?(this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>, nextProps: TProps, nextState: TState): void;
         componentDidUpdate?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>, prevProps: TProps, prevState: TState) => void;
         componentWillUnmount?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>) => void;
         componentDidCatch?:(this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>, error: Error, info: React.ErrorInfo) => void;
