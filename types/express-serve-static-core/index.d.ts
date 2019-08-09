@@ -181,9 +181,9 @@ export interface RequestRanges extends RangeParserRanges { }
 
 export type Errback = (err: Error) => void;
 
-type Dictionary<T> = { [key: string]: T };
+export interface Dictionary<T> { [key: string]: T; }
 export type ParamsDictionary = Dictionary<string>;
-export type ParamsArray = Array<string>;
+export type ParamsArray = string[];
 export type Params = ParamsDictionary | ParamsArray;
 
 export interface Request extends http.IncomingMessage, Express.Request {
