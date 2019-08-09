@@ -323,9 +323,9 @@ export interface LeafAndOffset {
 export class Text extends Immutable.Record({}) {
     object: "text";
     key: string;
-    
+
     readonly text: string;
-    readonly marks:  Immutable.List<Mark>
+    readonly marks: Immutable.List<Mark>;
 
     static create(properties?: TextProperties | TextJSON | Text | string): Text;
     static createList(
