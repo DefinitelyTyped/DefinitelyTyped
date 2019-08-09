@@ -935,6 +935,7 @@ declare namespace webpack {
         class MainTemplate extends Tapable {
           hooks: {
             jsonpScript?: Hook<string, Chunk, string>;
+            requireExtensions: Hook<string, Chunk, string>;
           };
           outputOptions: Output;
           requireFn: string;

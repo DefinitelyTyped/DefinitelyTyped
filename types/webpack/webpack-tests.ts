@@ -304,6 +304,9 @@ configuration = {
         const { mainTemplate } = compilation;
         mainTemplate.requireFn.trimLeft();
         mainTemplate.outputOptions.crossOriginLoading;
+        mainTemplate.hooks.requireExtensions.tap('SomePlugin', (resource) => {
+            resource.trimLeft();
+        });
         if (mainTemplate.hooks.jsonpScript == null) {
           return;
         }
