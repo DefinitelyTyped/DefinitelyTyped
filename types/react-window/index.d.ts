@@ -265,7 +265,7 @@ export interface GridProps extends CommonProps {
      */
     onScroll?: (props: GridOnScrollProps) => any;
     /**
-     * @deprecated since version 1.8.2, please use the overscanColumnCount
+     * @deprecated since version 1.8.2, please use overscanColumnCount
      */
     overscanColumnsCount?: number;
     /**
@@ -278,7 +278,7 @@ export interface GridProps extends CommonProps {
      */
     overscanColumnCount?: number;
     /**
-     * @deprecated since version 1.8.2, please use the overscanRowCount
+     * @deprecated since version 1.8.2, please use overscanRowCount
      */
     overscanRowsCount?: number;
     /**
