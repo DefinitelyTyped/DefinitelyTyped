@@ -1,6 +1,8 @@
 # Testing ts-toolbelt
 
-Regression testing for `ts-toolbelt` against multiple TS versions
+Regression testing for `ts-toolbelt` against multiple TS versions.
+
+It's also used for monitoring the performance with the benchmarks.
 
 ### Getting started
 
@@ -26,3 +28,8 @@ Then test against TS >= 3.5 and above
 ```sh
     npm test
 ```
+
+### FAQ
+
+**Why is prettier disabled on this package?**
+> Because it's unable to format it correctly
