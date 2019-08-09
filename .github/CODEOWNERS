@@ -1055,6 +1055,7 @@
 /types/di/                                              @johnjbarton
 /types/di-lite/                                         @dcrusader
 /types/diacritics/                                      @otociulis
+/types/dialog-polyfill/                                 @rubenswieringa
 /types/dialogflow/                                      @dyladan @tcarrio @khalilchoudhry
 /types/dicer/                                           @GoupilRobin @BendingBender
 /types/didyoumean/                                      @jamesgeorge007
