@@ -3,6 +3,11 @@
 // Definitions by: Figma <https://www.figma.com>
 //                 Rudi Chen <rudi@figma.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+//
+// Talk to the Figma team regarding changes to the typings. While
+// changes to the types aren't breaking changes to how plugins run,
+// it is preferrable to coordinate break type changes with breaking
+// API changes.
 
 // Global variable with Figma's plugin API.
 declare const figma: PluginAPI
