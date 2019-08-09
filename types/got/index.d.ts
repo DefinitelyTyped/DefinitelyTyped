@@ -175,7 +175,7 @@ declare namespace got {
     /**
      * @param error Request or parse error.
      */
-    type BeforeErrorHook = (error: GotError | ParseError | HTTPError | MaxRedirectsError) => Error | Promise<Error>;
+    type BeforeErrorHook = (error: GotError) => Error | Promise<Error>;
 
     /**
      * @param response Response object.
