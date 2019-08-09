@@ -9,7 +9,6 @@
 //                 Digiguru <https://github.com/digiguru>
 //                 Eric Anderson <https://github.com/ericanderson>
 //                 Dovydas Navickas <https://github.com/DovydasNavickas>
-//                 Stéphane Goetz <https://github.com/onigoetz>
 //                 Josh Rutherford <https://github.com/theruther4d>
 //                 Guilherme Hübner <https://github.com/guilhermehubner>
 //                 Ferdy Budhidharma <https://github.com/ferdaber>
