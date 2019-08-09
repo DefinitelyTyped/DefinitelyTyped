@@ -17,7 +17,7 @@ import '../process';
 import '../querystring';
 import '../readline';
 import '../repl';
-import '../stream';
+import './stream';
 import '../tls';
 import '../tty';
 import '../util';

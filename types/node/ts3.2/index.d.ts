@@ -18,3 +18,5 @@
 // TypeScript 3.2-specific augmentations:
 /// <reference path="util.d.ts" />
 /// <reference path="globals.d.ts" />
+/// <reference path="globals.stream.d.ts" />
+/// <reference path="stream.d.ts" />

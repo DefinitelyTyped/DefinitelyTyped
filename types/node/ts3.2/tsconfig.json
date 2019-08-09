@@ -1,7 +1,9 @@
 {
     "files": [
         "index.d.ts",
-        "node-tests.ts"
+        "node-tests.ts",
+
+        "test/stream.ts"
     ],
     "compilerOptions": {
         "module": "commonjs",

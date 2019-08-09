@@ -27,7 +27,6 @@
 /// <reference path="querystring.d.ts" />
 /// <reference path="readline.d.ts" />
 /// <reference path="repl.d.ts" />
-/// <reference path="stream.d.ts" />
 /// <reference path="string_decoder.d.ts" />
 /// <reference path="timers.d.ts" />
 /// <reference path="tls.d.ts" />

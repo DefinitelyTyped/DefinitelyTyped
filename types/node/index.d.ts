@@ -54,6 +54,8 @@
 /// <reference path="base.d.ts" />
 
 // TypeScript 2.1-specific augmentations:
+/// <reference path="globals.stream.d.ts" />
+/// <reference path="stream.d.ts" />
 
 // Forward-declarations for needed types from es2015 and later (in case users are using `--lib es5`)
 // Empty interfaces are used here which merge fine with the real declarations in the lib XXX files
