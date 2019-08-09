@@ -4,5 +4,5 @@
 //                 Prokop Simek <https://github.com/prokopsimek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function toposort(graph: Array<[string, string | undefined]>): string[];
+declare function toposort(graph: ReadonlyArray<[string, string | undefined]>): ReadonlyArray<string>;
 export = toposort;
