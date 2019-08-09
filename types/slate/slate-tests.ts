@@ -477,7 +477,8 @@ editor
     properties: {},
     newProperties: {},
     data: Data.create({})
-}).withoutMerging(() => { /* noop */ })
+})
+.withoutMerging(() => { /* noop */ })
 .withoutNormalizing(() => { /* noop */ })
 .withoutSaving(() => { /* noop */ });
 
