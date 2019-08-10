@@ -1,7 +1,6 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { WithContext as ReactTags } from "react-tag-input";
-import { Tag } from './';
+import { WithContext as ReactTags, Tag } from "react-tag-input";
 
 const tags = Array({ id: "0", text: "test" }, { id: "1", text: "testing" });
 
