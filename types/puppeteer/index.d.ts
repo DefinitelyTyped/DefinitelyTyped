@@ -570,7 +570,6 @@ export type PDFFormat =
   | "A5"
   | "A6";
                                     
-
 export interface PDFOptions {
   /**
    * The file path to save the PDF to.
