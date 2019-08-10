@@ -1,6 +1,7 @@
 // Type definitions for utm 1.1
 // Project: https://github.com/timothygu/utm#readme
 // Definitions by: Hyeonsoo David Lee <https://github.com/civilizeddev>
+//                 Jonas Triki <https://github.com/JonasTriki>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export function fromLatLon(
@@ -19,7 +20,7 @@ export function toLatLon(
     northing: number,
     zoneNum: number,
     zoneLetter: string,
-    northern: boolean,
+    northern?: boolean,
     strict?: boolean,
 ): {
     latitude: number
