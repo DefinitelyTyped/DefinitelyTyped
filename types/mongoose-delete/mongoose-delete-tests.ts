@@ -60,8 +60,8 @@ Pet.deleteById(idUser, (err, petDocument) => {
 });
 
 // Delete multiple object, callback
-Pet.delete((err, result) => {});
-Pet.delete({ age: 10 }, (err, result) => {});
+Pet.delete((err: any, result: PetDocument) => {});
+Pet.delete({ age: 10 }, (err: any, result: PetDocument) => {});
 Pet.delete({}, idUser, (err, result) => {});
 Pet.delete({ age: 10 }, idUser, (err, result) => {});
 
@@ -72,7 +72,7 @@ Pet.delete({}, idUser).exec((err, result) => {});
 Pet.delete({ age: 10 }, idUser).exec((err, result) => {});
 
 // Restore multiple object, callback
-Pet.restore((err, result) => {});
+Pet.restore((err: any, result: PetDocument) => {});
 Pet.restore({ age: 10 }, (err, result) => {});
 
 // Restore multiple object, promise

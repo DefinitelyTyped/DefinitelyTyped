@@ -57,9 +57,9 @@ declare namespace mongoose_delete {
          * Delete a document by ID
          */
         deleteById(
-            id: string | mongoose.Types.ObjectId | Callback<T, this>,
-            deleteBy: any | Callback<T, this>,
-            fn: Callback<T, this>,
+            id?: string | mongoose.Types.ObjectId | Callback<T, this>,
+            deleteBy?: string | mongoose.Types.ObjectId | mongoose.Document | Callback<T, this>,
+            fn?: Callback<T, this>,
         ): mongoose.Query<T> & QueryHelpers;
     }
 
@@ -70,7 +70,7 @@ declare namespace mongoose_delete {
         delete(
             deleteBy?: string | mongoose.Types.ObjectId | Callback<this>,
             fn?: Callback<this>,
-        ): Promise<this>
+        ): Promise<this>;
         restore(fn?: Callback<this>): Promise<this>;
     }
     interface SoftDeleteInterface {
