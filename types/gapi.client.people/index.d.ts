@@ -21,6 +21,9 @@ declare namespace gapi.client {
     const people: people.PeopleResource;
 
     namespace people {
+        
+        const people: people.PeopleResource;
+        
         interface Address {
             /** The city of the address. */
             city?: string;
