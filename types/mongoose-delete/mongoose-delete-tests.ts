@@ -55,26 +55,26 @@ fluffy.delete(idUser).then(() => {});
 fluffy.restore(() => {});
 
 // INFO: Example usage of deleteById static method
-Pet.deleteById(idUser, function(err, petDocument) {
+Pet.deleteById(idUser, (err, petDocument) => {
   // mongodb: { deleted: true, name: 'Fluffy', _id: '53da93b1...' }
 });
 
 // Delete multiple object, callback
-Pet.delete(function(err, result) {});
-Pet.delete({ age: 10 }, function(err, result) {});
-Pet.delete({}, idUser, function(err, result) {});
-Pet.delete({ age: 10 }, idUser, function(err, result) {});
+Pet.delete((err, result) => {});
+Pet.delete({ age: 10 }, (err, result) => {});
+Pet.delete({}, idUser, (err, result) => {});
+Pet.delete({ age: 10 }, idUser, (err, result) => {});
 
 // Delete multiple object, promise
-Pet.delete().exec(function(err, result) {});
-Pet.delete({ age: 10 }).exec(function(err, result) { });
-Pet.delete({}, idUser).exec(function(err, result) { });
-Pet.delete({ age: 10 }, idUser).exec(function(err, result) {});
+Pet.delete().exec((err, result) => {});
+Pet.delete({ age: 10 }).exec((err, result) => {});
+Pet.delete({}, idUser).exec((err, result) => {});
+Pet.delete({ age: 10 }, idUser).exec((err, result) => {});
 
 // Restore multiple object, callback
-Pet.restore(function(err, result) {});
-Pet.restore({ age: 10 }, function(err, result) { });
+Pet.restore((err, result) => {});
+Pet.restore({ age: 10 }, (err, result) => {});
 
 // Restore multiple object, promise
-Pet.restore().exec(function(err, result) {});
-Pet.restore({ age: 10 }).exec(function(err, result) {});
+Pet.restore().exec((err, result) => {});
+Pet.restore({ age: 10 }).exec((err, result) => {});
