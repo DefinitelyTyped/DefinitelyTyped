@@ -3,7 +3,7 @@ const pluginConfig: UserDependencyConfigT = {
   commands: [
     {
       name: 'test-type',
-      func: () =>  Promise.resolve(),
+      func: () => Promise.resolve(),
       options: [
         {
           name: '--option1',
