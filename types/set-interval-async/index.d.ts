@@ -4,6 +4,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
+/// <reference path="./dynamic/index.d.ts" />
+/// <reference path="./fixed/index.d.ts" />
+/// <reference path="./legacy/index.d.ts" />
+
 export as namespace SetIntervalAsync;
 
 export namespace dynamic {
