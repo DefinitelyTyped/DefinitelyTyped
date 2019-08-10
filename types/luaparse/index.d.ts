@@ -2,6 +2,7 @@
 // Project: https://oxyc.github.io/luaparse
 // Definitions by: Sam Saint-Pettersen <https://github.com/stpettersens>
 //                 thomasfn <https://github.com/thomasfn>
+//                 Teoxoy <https://github.com/teoxoy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
