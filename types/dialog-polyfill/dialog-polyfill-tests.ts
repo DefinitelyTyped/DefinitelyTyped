@@ -1,4 +1,4 @@
-import dialogPolyfill from 'dialog-polyfill';
+import * as dialogPolyfill from 'dialog-polyfill';
 
 const element = document.createElement('dialog');
 
