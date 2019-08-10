@@ -6,7 +6,7 @@
 export interface CommandT {
   name: string;
   description?: string;
-  func: (argv: string[], ctx: ConfigT, args: Record<string, string>) => void;
+  func: (argv: string[], ctx: ConfigT, args: Record<string, string>) => Promise<void>;
   options?: Array<{
     name: string;
     description?: string;
