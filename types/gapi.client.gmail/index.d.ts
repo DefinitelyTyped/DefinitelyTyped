@@ -16,9 +16,11 @@ declare namespace gapi.client {
     function load(name: "gmail", version: "v1"): PromiseLike<void>;
     function load(name: "gmail", version: "v1", callback: () => any): void;
 
-    const users: gmail.UsersResource;
 
     namespace gmail {
+        
+        const users: gmail.UsersResource;
+        
         interface AutoForwarding {
             /** The state that a message should be left in after it has been forwarded. */
             disposition?: string;
@@ -1058,6 +1060,8 @@ declare namespace gapi.client {
                 userId: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
+                /** raw the email payload */
+                raw: any
             }): Request<Message>;
             /** Moves the specified message to the trash. */
             trash(request: {
