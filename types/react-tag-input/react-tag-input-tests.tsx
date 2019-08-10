@@ -28,6 +28,8 @@ ReactDOM.render(
         autocomplete={true}
         readOnly={false}
         maxLength={64}
+        inputFieldPosition="top"
+        renderSuggestion={({ id, text }, query) => console.log('tag' + id, text)}
 
         name="react-tags-field"
         id="react-tags-field"
