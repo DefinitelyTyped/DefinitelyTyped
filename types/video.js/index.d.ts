@@ -6716,4 +6716,4 @@ declare namespace videojs {
         techOrder?: string[];
         tracks?: videojs.TextTrackOptions[];
         width?: number;
-	}
+    }
