@@ -303,7 +303,7 @@ export interface TextProperties {
     object?: "text";
     key?: string;
     text?: string;
-    marks?: Immutable.List<Mark> | Mark[];
+    marks?: Immutable.Set<Mark> | Mark[];
 }
 
 export interface TextJSON {
@@ -325,7 +325,7 @@ export class Text extends Immutable.Record({}) {
     key: string;
 
     readonly text: string;
-    readonly marks: Immutable.List<Mark>;
+    readonly marks: Immutable.Set<Mark> | null;
 
     static create(properties?: TextProperties | TextJSON | Text | string): Text;
     static createList(
