@@ -1,6 +1,7 @@
 // Type definitions for underscore.string
 // Project: https://github.com/epeli/underscore.string
 // Definitions by: Ry Racherbaumer <https://github.com/rygine>
+//                 Ketan Padegaonkar <https://github.com/ketan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -55,7 +56,7 @@ declare module 'underscore' {
          * Determine if a string is 'blank.'
          * @param str
          */
-        isBlank(str: string): boolean;
+        isBlank(str: string | undefined | null | boolean | number): boolean;
 
         /**
          * Removes all html tags from string.

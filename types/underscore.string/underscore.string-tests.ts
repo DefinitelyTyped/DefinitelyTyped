@@ -33,6 +33,11 @@ _.isBlank('');
 _.isBlank('\n');
 _.isBlank(' ');
 _.isBlank('a');
+_.isBlank(undefined);
+_.isBlank(true);
+_.isBlank(false);
+_.isBlank(null);
+_.isBlank(0);
 
 _.join(' ', 'foo', 'bar');
 
