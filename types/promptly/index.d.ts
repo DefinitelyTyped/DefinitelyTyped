@@ -18,6 +18,7 @@ export interface Options {
     validator?: any;
     retry?: boolean;
     silent?: boolean;
+    replace?: string,
     input?: NodeJS.ReadableStream;
     output?: NodeJS.WritableStream;
 }
