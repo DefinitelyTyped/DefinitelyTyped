@@ -1,13 +1,12 @@
-// Type definitions for @react-native-community/cli 2.0
+// Type definitions for react-native-community__cli 2.0
 // Project: https://github.com/react-native-community/cli
 // Definitions by: agathekieny <https://github.com/agathekieny>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
+// TypeScript Version: 2.1
 export interface CommandT {
   name: string;
   description?: string;
-  func: (argv: string[], ctx: ConfigT, args: object) => Promise<void>;
+  func: (argv: string[], ctx: ConfigT, args: Record<string, string>) => void;
   options?: Array<{
     name: string;
     description?: string;
@@ -36,7 +35,7 @@ export type InquirerPromptT = any;
  *
  * See UserDependencyConfigT for details
  */
-export interface DependencyParamsAndroidT  {
+export interface DependencyParamsAndroidT {
   sourceDir?: string;
   manifestPath?: string;
   packageImportPath?: string;
@@ -48,7 +47,7 @@ export interface DependencyParamsAndroidT  {
  *
  * See UserConfigT for details
  */
-export interface ProjectParamsAndroidT  {
+export interface ProjectParamsAndroidT {
   sourceDir?: string;
   manifestPath?: string;
   packageName?: string;
@@ -98,7 +97,7 @@ export interface PlatformConfig<
     register: (
       name: string,
       dependencyConfig: DependencyConfig,
-      params: object,
+      params: Record<string, string>,
       projectConfig: ProjectConfig,
     ) => void;
     unregister: (
@@ -176,7 +175,7 @@ export interface ConfigT {
  * Aliases
  */
 export let configT: ConfigT;
-export type DependencyConfigT = typeof configT.dependencies.key;
+export type DependencyConfigT = typeof configT.dependencies['key'];
 
 export let dependencyConfig: DependencyConfigT;
 export type HooksT = typeof dependencyConfig.hooks;
@@ -186,7 +185,7 @@ export type PlatformsT = typeof configT.platforms;
 /**
  * Config defined by a developer for a library
  */
-export interface UserDependencyConfigT  {
+export interface UserDependencyConfigT {
   // Additional dependency settings
   dependency?: {
     platforms: {
@@ -216,7 +215,7 @@ export interface UserDependencyConfigT  {
 
 // The following types are used in untyped-parts of the codebase, so I am leaving them
 // until we actually need them.
-export interface ProjectConfigIOST  {
+export interface ProjectConfigIOST {
   sourceDir: string;
   folder: string;
   pbxprojPath: string;
@@ -242,7 +241,7 @@ export interface ProjectConfigAndroidT {
   mainFilePath: string;
   packageName: string;
 }
-export interface DependencyConfigAndroidT  {
+export interface DependencyConfigAndroidT {
   sourceDir: string;
   folder: string;
   packageImportPath: string;

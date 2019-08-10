@@ -1,11 +1,9 @@
-// TypeScript Version: 2.4
-import { UserDependencyConfigT } from '@react-native-community-cli';
-
+import { UserDependencyConfigT } from 'react-native-community__cli';
 const pluginConfig: UserDependencyConfigT = {
   commands: [
     {
       name: 'test-type',
-      func: () => new Promise(resolve => resolve()),
+      func: () => {},
       options: [
         {
           name: '--option1',

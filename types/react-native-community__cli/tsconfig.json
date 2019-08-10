@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "@react-native-community-cli-tests.ts"
+        "react-native-community__cli-tests.ts"
     ]
 }
