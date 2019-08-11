@@ -1,4 +1,4 @@
-// Type definitions for MongoDB 3.1
+// Type definitions for MongoDB 3.2
 // Project: https://github.com/mongodb/node-mongodb-native
 //          https://github.com/mongodb/node-mongodb-native/tree/3.1
 // Definitions by: Federico Caselli <https://github.com/CaselIT>
@@ -309,9 +309,16 @@ export interface MongoClientOptions extends
     };
 
     /**
-     * Determines whether or not to use the new url parser
+     * Determines whether or not to use the new url parser. Enables the new, spec-compliant
+     * url parser shipped in the core driver. This url parser fixes a number of problems with
+     * the original parser, and aims to outright replace that parser in the near future.
      */
     useNewUrlParser?: boolean;
+
+    /**
+     * Enables the new unified topology layer
+     */
+    useUnifiedTopology?: boolean;
 
     /**
      * number of retries for a tailable cursor
