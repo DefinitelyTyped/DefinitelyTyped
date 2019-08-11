@@ -9,6 +9,7 @@
 //                 Esteban Ibarra <https://github.com/ibarrae>
 //                 Dominic Lee <https://github.com/dominictwlee>
 //                 Dave Vedder <https://github.com/veddermatic>
+//                 Daniel O'Connor <https://github.com/danoc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -107,6 +108,26 @@ declare module "victory" {
    * Just use a child function inside VictoryAnimation that accepts an object of tweened values and returns a component to render.
    */
   export class VictoryAnimation extends React.Component<VictoryAnimationProps, any> {}
+
+  export interface VictoryClipContainerProps {
+    /**
+     * The `clipId` prop may be used to set a deterministic id for the container. When a
+     * `containerId` is not manually set, a unique id will be generated. It is usually necessary
+     * to set deterministic ids for automated testing.
+     */
+    clipId?: number | string;
+  }
+
+  /**
+   * `VictoryClipContainer` is a specialized group container that enables curtain-style transitions
+   * for continuous data types like `VictoryLine` and `VictoryArea`. `VictoryClipContainer` will
+   * render its children either in a regular `<g>` element, or in a `<g>` element clipped by a
+   * rectangular clip path when a `clipWidth` is supplied.
+   */
+  export class VictoryClipContainer extends React.Component<
+    VictoryClipContainerProps,
+    any
+  > {}
 
   /**
    * Text anchor type
@@ -282,6 +303,12 @@ declare module "victory" {
      * @default ""
      */
     desc?: string;
+    /**
+     * The `containerId` prop may be used to set a deterministic id for the container. When a
+     * `containerId` is not manually set, a unique id will be generated. It is usually necessary
+     * to set deterministic ids for automated testing.
+     */
+    containerId: string | number;
   }
 
   export class VictoryContainer extends React.Component<VictoryContainerProps, any> {}
@@ -1021,12 +1048,48 @@ declare module "victory" {
      * @default <g/>
      */
     groupComponent?: React.ReactElement;
+    /**
+     * The `minDomain` prop defines a minimum domain value for a chart. This prop is useful in
+     * situations where the minimum domain of a chart is static, while the maximum value depends
+     * on data or other variable information. If the `domain` prop is set in addition to
+     * `minimumDomain`, `domain` will be used.
+     *
+     * Note: The `x` value supplied to the `minDomain` prop refers to the independent variable, and
+     * the `y` value refers to the dependent variable. This may cause confusion in horizontal
+     * charts, as the independent variable will corresponds to the `y` axis.
+     * @example
+     * minDomain={0}
+     * @example
+     * minDomain={{ y: 0 }}
+     */
+    minDomain?: number | Date |  {
+      x?: number;
+      y?: number;
+    };
+    /**
+     * The `maxDomain` prop defines a minimum domain value for a chart. This prop is useful in
+     * situations where the maximum domain of a chart is static, while the minimum value depends
+     * on data or other variable information. If the `domain` prop is set in addition to
+     * `maximumDomain`, `domain` will be used.
+     *
+     * Note: The `x` value supplied to the `maxDomain` prop refers to the independent variable, and
+     * the `y` value refers to the dependent variable. This may cause confusion in horizontal
+     * charts, as the independent variable will corresponds to the `y` axis.
+     * @example
+     * maxDomain={0}
+     * @example
+     * maxDomain={{ y: 0 }}
+     */
+    maxDomain?: number | Date | {
+      x?: number;
+      y?: number;
+    };
   }
 
   /**
    * Common properties for all data components
    */
-  interface VictoryDatableProps {
+ interface VictoryDatableProps {
     /**
      * The categories prop specifies how categorical data for a chart should be ordered.
      * This prop should be given as an array of string values, or an object with
