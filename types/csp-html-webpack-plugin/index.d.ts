@@ -2,10 +2,11 @@
 // Project: https://github.com/slackhq/csp-html-webpack-plugin
 // Definitions by: Porama Ruengrairatanaroj <https://github.com/Seally>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7
+// TypeScript Version: 2.8
 
-import { Compiler as WebpackCompiler } from "webpack";
-import HtmlWebpackPlugin = require("html-webpack-plugin");
+import { Compiler as WebpackCompiler } from 'webpack';
+import { AsyncSeriesWaterfallHook } from 'tapable';
+import HtmlWebpackPlugin = require('html-webpack-plugin');
 
 export = CspHtmlWebpackPlugin;
 
@@ -43,11 +44,12 @@ declare namespace CspHtmlWebpackPlugin {
         [directive: string]: string | string[];
     }
 
-    interface HtmlPluginData {
-        html: string;
-        outputName: string;
-        plugin: HtmlWebpackPlugin;
-    }
+    // HtmlWebpackPlugin v3 and v4 uses different hook interfaces. Figure out
+    // which we're using and infer the generic type variable inside.
+    type HtmlPluginData
+        = HtmlWebpackPlugin.Hooks extends HtmlPluginDataHookV3<infer T> ? T
+        : HtmlWebpackPlugin.Hooks extends HtmlPluginDataHookV4<infer U> ? U
+        : any; // Fallback when nothing works.
 
     /**
      * Additional options. Defaults are:
@@ -82,7 +84,7 @@ declare namespace CspHtmlWebpackPlugin {
          * The hashing method. Your node version must also accept this hashing
          * method.
          */
-        hashingMethod?: "sha256" | "sha384" | "sha512";
+        hashingMethod?: 'sha256' | 'sha384' | 'sha512';
         /**
          * A `<string, boolean>` entry for which policy rules are allowed to
          * include hashes.
@@ -96,10 +98,20 @@ declare namespace CspHtmlWebpackPlugin {
     }
 }
 
-declare module "html-webpack-plugin" {
+declare module 'html-webpack-plugin' {
     interface Options {
         cspPlugin?: CspHtmlWebpackPlugin.AdditionalOptions & {
             policy?: CspHtmlWebpackPlugin.Policy
         };
     }
+}
+
+// Helpers for extracting the relevant generic types from
+// HtmlWebpackPlugin.Hooks.
+interface HtmlPluginDataHookV3<T> {
+    htmlWebpackPluginAfterHtmlProcessing: AsyncSeriesWaterfallHook<T>;
+}
+
+interface HtmlPluginDataHookV4<T> {
+    beforeEmit: AsyncSeriesWaterfallHook<T>;
 }
