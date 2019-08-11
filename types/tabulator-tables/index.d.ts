@@ -1502,7 +1502,7 @@ You can pass an optional additional property with sorter, sorterParams that shou
         getPrevColumn: () => ColumnComponent | false;
 
         /**You can move a column component next to another column using the move function */
-        move: (toColumn: Tabulator.ColumnLookup, after: boolean) => void;
+        move: (toColumn: ColumnLookup, after: boolean) => void;
 
         /** The getVisibility function returns a boolean to show if the column is visible, a value of true means it is visible.*/
         getVisibility: () => boolean;

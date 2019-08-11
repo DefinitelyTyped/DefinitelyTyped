@@ -480,26 +480,26 @@ table.download('csv', 'data.csv', { bom: true });
 table.download('csv', 'data.csv', { delimiter: '.' });
 
 // 4.4 updates
-table.moveColumn('name', 'age', true); //move the name column after the age column
+table.moveColumn('name', 'age', true);
 
 let column = {} as Tabulator.ColumnComponent;
-column.move('age', true); //move the current column after the age column
+column.move('age', true);
 
 colDef.editorParams = {
     elementAttributes: {
-        '+style': 'background-color:#f00;', //set background colour of the element to red and keep existing styles.,
+        '+style': 'background-color:#f00;',
         maxlength: '10',
     },
 };
 
 colDef.editorParams = {
     values: ['red', 'green', 'blue'],
-    defaultValue: 'green', //select the value of green in the dropdown list by default if the cell has no value
+    defaultValue: 'green',
 };
 
 colDef.editorParams = {
     values: 'color',
-    defaultValue: 'green', //select the value of green in the dropdown list by default if the cell has no value
+    defaultValue: 'green',
 };
 
 colDef.clipboard = false;
