@@ -17,7 +17,7 @@ table.setFilter(
         // filterParams - params object passed to the filter
         return data.name === 'bob' && data.height < filterParams.height; // must return a boolean, true if it passes the filter.
     },
-    { height: 3 }
+    { height: 3 },
 );
 table.setFilter('age', 'in', ['steve', 'bob', 'jim']);
 table.setFilter([
@@ -478,3 +478,44 @@ table.download('pdf', 'data.pdf', {
 table.download('xlsx', 'AllData.xlsx');
 table.download('csv', 'data.csv', { bom: true });
 table.download('csv', 'data.csv', { delimiter: '.' });
+
+// 4.4 updates
+table.moveColumn('name', 'age', true); //move the name column after the age column
+
+let column = {} as Tabulator.ColumnComponent;
+column.move('age', true); //move the current column after the age column
+
+colDef.editorParams = {
+    elementAttributes: {
+        '+style': 'background-color:#f00;', //set background colour of the element to red and keep existing styles.,
+        maxlength: '10',
+    },
+};
+
+colDef.editorParams = {
+    values: ['red', 'green', 'blue'],
+    defaultValue: 'green', //select the value of green in the dropdown list by default if the cell has no value
+};
+
+colDef.editorParams = {
+    values: 'color',
+    defaultValue: 'green', //select the value of green in the dropdown list by default if the cell has no value
+};
+
+colDef.clipboard = false;
+
+let group = {} as Tabulator.GroupComponent;
+let field = group.getField();
+
+options.tabEndNewRow = true;
+options.tabEndNewRow = { name: 'steve', age: 62 };
+options.tabEndNewRow = row => {
+    return { name: 'steve', age: 62 };
+};
+
+options.headerSort = false;
+options.headerSortTristate = true;
+
+colDef.formatter = 'rowSelection';
+
+options.invalidOptionWarnings = false;
