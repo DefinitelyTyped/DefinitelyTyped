@@ -184,7 +184,7 @@ export interface MUIDataTableOptions {
     rowsPerPageOptions?: number[];
     rowsSelected?: any[];
     search?: boolean;
-    searchText?: string; 
+    searchText?: string;
     selectableRows?: SelectableRows;
     serverSide?: boolean;
     setRowProps?: (row: any[], rowIndex: number) => object;
