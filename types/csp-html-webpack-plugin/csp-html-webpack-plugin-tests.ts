@@ -1,5 +1,5 @@
-import HtmlWebpackPlugin from 'html-webpack-plugin';
-import CspHtmlWebpackPlugin from 'csp-html-webpack-plugin';
+import HtmlWebpackPlugin = require('html-webpack-plugin');
+import CspHtmlWebpackPlugin = require('csp-html-webpack-plugin');
 
 import { Configuration as WebpackConfiguration } from 'webpack';
 

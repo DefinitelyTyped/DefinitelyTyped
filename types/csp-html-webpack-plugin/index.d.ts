@@ -44,7 +44,7 @@ declare namespace CspHtmlWebpackPlugin {
         [directive: string]: string | string[];
     }
 
-    // HtmlWebpackPlugin v3 and v4 uses different hook interfaces. Figure out
+    // HtmlWebpackPlugin v3 and v4 use different hook interfaces. Figure out
     // which we're using and infer the generic type variable inside.
     type HtmlPluginData
         = HtmlWebpackPlugin.Hooks extends HtmlPluginDataHookV3<infer T> ? T
