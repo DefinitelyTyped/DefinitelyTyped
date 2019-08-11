@@ -43,6 +43,18 @@ declare namespace CspHtmlWebpackPlugin {
         [directive: string]: string | string[];
     }
 
+    // Listed here because otherwise the type needs to be extracted from a
+    // generic property for HtmlWebpackPlugin.Hooks interface. Also, the hook's
+    // name changed from 'htmlWebpackPluginAfterHtmlProcessing' in v3 to
+    // 'beforeEmit' in v4, making referencing by name difficult, especially when
+    // CspHtmlWebpackPlugin itself has been written to be
+    // HtmlWebpackPlugin-version agnostic.
+    interface HtmlPluginData {
+        html: string;
+        outputName: string;
+        plugin: HtmlWebpackPlugin;
+    }
+
     /**
      * Additional options. Defaults are:
      *
@@ -96,15 +108,4 @@ declare module "html-webpack-plugin" {
             policy?: CspHtmlWebpackPlugin.Policy
         };
     }
-}
-
-// Copied here because the type needs to be extracted from a generic declared
-// under HtmlWebpackPlugin.Hooks interface. Furthermore, the hook's name changed
-// from 'htmlWebpackPluginAfterHtmlProcessing' in v3 to 'beforeEmit' in v4,
-// making extraction difficult, especially when CspHtmlWebpackPlugin itself has
-// been written to be HtmlWebpackPlugin-version agnostic.
-interface HtmlPluginData {
-    html: string;
-    outputName: string;
-    plugin: HtmlWebpackPlugin;
 }
