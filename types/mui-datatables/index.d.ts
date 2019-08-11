@@ -11,7 +11,7 @@ import * as React from 'react';
 
 export type Display = 'true' | 'false' | 'excluded';
 export type SortDirection = 'asc' | 'desc';
-export type FilterType = 'dropdown' | 'checkbox' | 'multiselect' | 'textField';
+export type FilterType = 'dropdown' | 'checkbox' | 'multiselect' | 'textField' | 'custom';
 export type Responsive = 'stacked' | 'scroll';
 export type SelectableRows = 'multiple' | 'single' | 'none';
 
@@ -184,6 +184,7 @@ export interface MUIDataTableOptions {
     rowsPerPageOptions?: number[];
     rowsSelected?: any[];
     search?: boolean;
+    searchText?: string; 
     selectableRows?: SelectableRows;
     serverSide?: boolean;
     setRowProps?: (row: any[], rowIndex: number) => object;
