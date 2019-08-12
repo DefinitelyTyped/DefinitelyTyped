@@ -3068,6 +3068,7 @@ declare namespace Cesium {
         depthTestAgainstTerrain: boolean;
         maximumScreenSpaceError: number;
         tileCacheSize: number;
+        tilesLoaded: boolean;
         enableLighting: boolean;
         lightingFadeOutDistance: number;
         lightingFadeInDistance: number;
