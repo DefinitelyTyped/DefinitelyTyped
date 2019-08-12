@@ -1643,7 +1643,7 @@ export interface FindOneOptions {
     promoteBuffers?: boolean;
     readPreference?: ReadPreference | string;
     partial?: boolean;
-    maxTimeMs?: number;
+    maxTimeMS?: number;
     collation?: CollationDocument;
     session?: ClientSession;
 }
