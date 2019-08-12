@@ -154,10 +154,6 @@ function StepSampleWithoutDefineSupportCode() {
         assert.equal(typeof this.attach, 'function');
     });
 
-    Given<CustomWorld>('Common world constructor', function() {
-        assert.equal(typeof this.myCustomFunction, 'function');
-    });
-
     defineParameterType({
         regexp: /particular/,
         transformer: s => s.toUpperCase(),
