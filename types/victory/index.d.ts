@@ -308,7 +308,7 @@ declare module "victory" {
      * `containerId` is not manually set, a unique id will be generated. It is usually necessary
      * to set deterministic ids for automated testing.
      */
-    containerId: string | number;
+    containerId?: string | number;
   }
 
   export class VictoryContainer extends React.Component<VictoryContainerProps, any> {}
