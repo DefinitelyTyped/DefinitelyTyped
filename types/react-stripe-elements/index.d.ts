@@ -1,4 +1,4 @@
-// Type definitions for react-stripe-elements 1.1
+// Type definitions for react-stripe-elements 1.3
 // Project: https://github.com/stripe/react-stripe-elements#readme
 // Definitions by: dan-j <https://github.com/dan-j>
 //                 Santiago Doldan <https://github.com/santiagodoldan>
@@ -7,6 +7,7 @@
 //                 Thomas Chia <https://github.com/thchia>
 //                 Piotr Dabrowski <https://github.com/yhnavein>
 //                 Victor Irzak <https://github.com/virzak>
+//                 Alex Price <https://github.com/remotealex>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -39,6 +40,18 @@ export namespace ReactStripeElements {
 		createSource(sourceData?: SourceOptions): Promise<SourceResponse>;
 		createToken(options?: TokenOptions): Promise<PatchedTokenResponse>;
 		paymentRequest: stripe.Stripe['paymentRequest'];
+		createPaymentMethod(
+			paymentMethodType: stripe.paymentMethod.paymentMethodType,
+			data?: stripe.CreatePaymentMethodOptions,
+		): Promise<stripe.PaymentMethodResponse>;
+		handleCardPayment(
+			clientSecret: string,
+			options?: stripe.HandleCardPaymentOptions
+		): Promise<stripe.PaymentIntentResponse>;
+		handleCardSetup(
+			clientSecret: string,
+			data?: stripe.HandleCardSetupOptions
+		): Promise<stripe.SetupIntentResponse>;
 	}
 
 	interface InjectOptions {
@@ -85,8 +98,10 @@ export class CardNumberElement extends React.Component<ReactStripeElements.Eleme
 export class CardExpiryElement extends React.Component<ReactStripeElements.ElementProps> {
 }
 
-export class CardCVCElement extends React.Component<ReactStripeElements.ElementProps> {
-}
+export class CardCvcElement extends React.Component<ReactStripeElements.ElementProps> {}
+
+// Deprecated but aliased until react-stripe-elements v5
+export class CardCVCElement extends CardCvcElement {}
 
 export class PostalCodeElement extends React.Component<ReactStripeElements.ElementProps> {
 }

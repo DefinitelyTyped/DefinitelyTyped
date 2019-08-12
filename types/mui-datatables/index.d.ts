@@ -148,6 +148,7 @@ export interface MUIDataTableOptions {
     downloadOptions?: { filename: string; separator: string };
     elevation?: number;
     expandableRows?: boolean;
+    expandableRowsOnClick?: boolean;
     filter?: boolean;
     filterType?: FilterType;
     fixedHeader?: boolean;

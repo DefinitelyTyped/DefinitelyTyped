@@ -21,6 +21,21 @@ braintree.client.create({
     }
   };
 
+  braintree.threeDSecure
+    .create({
+      version: 2,
+      client: clientInstance
+    })
+    .then((threeDSecureInstance) => {
+      let testBin = '123456';
+      threeDSecureInstance.prepareLookup({
+        nonce: existingNonce,
+        bin: testBin
+      })
+      .then(payload => {})
+      .catch((err: braintree.BraintreeError) => {});
+    });
+
   clientInstance.request({
     endpoint: 'payment_methods/credit_cards',
     method: 'post',
@@ -439,3 +454,4 @@ braintree.threeDSecure.cancelVerifyCard(function (err: braintree.BraintreeError,
   verifyPayload.liabilityShifted; // boolean
   verifyPayload.liabilityShiftPossible; // boolean
 });
+

@@ -104,6 +104,8 @@ export interface MixedSchema<T = any> extends Schema<T> {
     nullable(isNullable?: boolean): MixedSchema<T>;
     required(message?: TestOptionsMessage): MixedSchema<Exclude<T, undefined>>;
     notRequired(): MixedSchema<T | undefined>;
+    concat(schema: this): this;
+    concat<U >(schema: MixedSchema<U>): MixedSchema<T | U>;
 }
 
 export interface StringSchemaConstructor {
@@ -296,6 +298,8 @@ export interface ObjectSchema<T extends object | null | undefined = object>
     nullable(isNullable?: boolean): ObjectSchema<T>;
     required(message?: TestOptionsMessage): ObjectSchema<Exclude<T, undefined>>;
     notRequired(): ObjectSchema<T | undefined>;
+    concat(schema: this): this;
+    concat<U extends object>(schema: ObjectSchema<U>): ObjectSchema<T & U>;
 }
 
 export type TransformFunction<T> = (

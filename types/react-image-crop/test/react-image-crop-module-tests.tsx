@@ -144,6 +144,8 @@ class CompleteTest extends React.Component<{}, TestState> {
                 className="my-cropper"
                 locked={false}
                 renderComponent={<div></div>}
+                ruleOfThirds={false}
+                circularCrop={false}
             />
         );
     }

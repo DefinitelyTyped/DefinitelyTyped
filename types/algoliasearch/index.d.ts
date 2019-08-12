@@ -1,4 +1,4 @@
-// Type definitions for algoliasearch-client-js 3.30.1
+// Type definitions for algoliasearch-client-js 3.30.2
 // Project: https://github.com/algolia/algoliasearch-client-js
 // Definitions by: Baptiste Coquelle <https://github.com/cbaptiste>
 //                 Haroen Viaene <https://github.com/haroenv>
@@ -8,6 +8,7 @@
 //                 Antoine Rousseau <https://github.com/antoinerousseau>
 //                 Luca Pasquale <https://github.com/lucapasquale>
 //                 Alexandre Deve <https://github.com/adeve>
+//                 Dan Grayson <https://github.com/dan-grayson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -210,6 +211,10 @@ declare namespace algoliasearch {
      * Get 1000 last events
      */
     getLogs(options: LogsOptions): Promise<{ logs: Log[] }>;
+    /**
+     * add a header, used for flagging InstantSearch implementations
+     */
+    addAlgoliaAgent(agent: string): void;
   }
   /**
    * Interface for the index algolia object
@@ -1240,7 +1245,7 @@ declare namespace algoliasearch {
      * Filter the query by a set of facets.
      * Default: []
      */
-    facetFilters?: string[]|string[][];
+    facetFilters?: Array<string|string[]>;
     /**
      * If set to false, this query will not be taken into account in the analytics feature.
      * default true
@@ -2095,3 +2100,4 @@ interface AlgoliaStatic extends AlgoliasearchInstance {
 declare const algoliasearch: AlgoliaStatic;
 
 export = algoliasearch;
+export as namespace algoliasearch;

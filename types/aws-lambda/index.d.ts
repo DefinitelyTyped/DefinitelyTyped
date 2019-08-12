@@ -40,6 +40,7 @@ export interface APIGatewayEventRequestContext {
     connectedAt?: number;
     connectionId?: string;
     domainName?: string;
+    domainPrefix?: string;
     eventType?: string;
     extendedRequestId?: string;
     httpMethod: string;

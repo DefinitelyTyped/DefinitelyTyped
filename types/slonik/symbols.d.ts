@@ -4,6 +4,7 @@ export const BooleanExpressionTokenSymbol: unique symbol;
 export const ComparisonPredicateTokenSymbol: unique symbol;
 export const IdentifierListTokenSymbol: unique symbol;
 export const IdentifierTokenSymbol: unique symbol;
+export const JsonTokenSymbol: unique symbol;
 export const RawSqlTokenSymbol: unique symbol;
 export const SqlTokenSymbol: unique symbol;
 export const ValueListTokenSymbol: unique symbol;

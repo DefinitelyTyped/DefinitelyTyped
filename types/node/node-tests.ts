@@ -4,9 +4,7 @@ import * as url from "url";
 import * as util from "util";
 import * as http from "http";
 import * as https from "https";
-import * as vm from "vm";
 import * as console2 from "console";
-import * as string_decoder from "string_decoder";
 import * as timers from "timers";
 import * as dns from "dns";
 import * as async_hooks from "async_hooks";
@@ -545,21 +543,6 @@ import Module = require("module");
         const headersTimeout: number = server.headersTimeout;
         server.setTimeout().setTimeout(1000).setTimeout(() => {}).setTimeout(100, () => {});
     }
-}
-
-////////////////////////////////////////////////////
-/// string_decoder tests : https://nodejs.org/api/string_decoder.html
-////////////////////////////////////////////////////
-
-{
-    const StringDecoder = string_decoder.StringDecoder;
-    const buffer = new Buffer('test');
-    const decoder1 = new StringDecoder();
-    const decoder2 = new StringDecoder('utf8');
-    const part1: string = decoder1.write(new Buffer('test'));
-    const end1: string = decoder1.end();
-    const part2: string = decoder2.write(new Buffer('test'));
-    const end2: string = decoder1.end(new Buffer('test'));
 }
 
 /////////////////////////////////////////////////////

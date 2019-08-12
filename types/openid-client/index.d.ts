@@ -2,6 +2,7 @@
 // Project: https://github.com/panva/node-openid-client
 // Definitions by: ulrichb <https://github.com/ulrichb>
 //                 Brandon Shelton <https://github.com/YangusKhan>
+//                 Richard Honor <https://github.com/RMHonor>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -89,6 +90,35 @@ export interface EndSessionUrlParameters {
     readonly state?: string;
 }
 
+export interface IntrospectionResponse {
+    readonly active: boolean;
+    readonly scope?: string;
+    readonly client_id?: string;
+    readonly username?: string;
+    readonly token_type?: string;
+    readonly exp?: number;
+    readonly iat?: number;
+    readonly nbf?: number;
+    readonly sub?: string;
+    readonly aud?: string;
+    readonly iss?: string;
+    readonly jti?: string;
+    readonly [key: string]: unknown;
+}
+
+export interface RevokeRequestOptions {
+    /**
+     * Extra request body properties to be sent to the revocation endpoint.
+     */
+    readonly revokeBody?: object;
+    /**
+     * extra client assertion payload parameters to be sent as part of a client JWT assertion.
+     * This is only used when the client's `token_endpoint_auth_method` is either
+     * `client_secret_jwt` or `private_key_jwt`.
+     */
+    readonly clientAssertionPayload?: object;
+}
+
 export class Client {
     static [custom.http_options]: CustomHttpOptionsProvider;
 
@@ -127,7 +157,16 @@ export class Client {
         token: string,
         tokenTypeHint?: string,
         extras?: { readonly introspectBody?: object }
-    ): Promise<{ readonly [name: string]: {} | null | undefined }>;
+    ): Promise<IntrospectionResponse>;
+
+    /**
+     * Revokes a token at the Authorization Server's `revocation_endpoint`.
+     *
+     * @param token Token to revoke
+     * @param tokenTypeHint Hint the Authorization Server as to the token type
+     * @param extras Additional revoke options
+     */
+    revoke(token: string, tokenTypeHint: string, extras?: RevokeRequestOptions): Promise<void>;
 }
 
 export class TokenSet {

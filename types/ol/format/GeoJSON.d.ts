@@ -9,7 +9,7 @@ import {
     MultiPoint,
     MultiPolygon,
     Point,
-    Polygon
+    Polygon,
 } from 'geojson';
 import Geometry_1 from '../geom/Geometry';
 import GeometryCollection_1 from '../geom/GeometryCollection';

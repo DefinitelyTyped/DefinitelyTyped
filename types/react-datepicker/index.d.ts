@@ -1,4 +1,4 @@
-// Type definitions for react-datepicker 2.3
+// Type definitions for react-datepicker 2.8
 // Project: https://github.com/Hacker0x01/react-datepicker
 // Definitions by: Rajab Shakirov <https://github.com/radziksh>,
 //                 Andrey Balokha <https://github.com/andrewBalekha>,
@@ -11,11 +11,13 @@
 //                 Jake Boone <https://github.com/jakeboone02>
 //                 Roman Nuritdinov <https://github.com/Ky6uk>
 //                 Avi Klaiman <https://github.com/aviklai>
+//                 Naoki Sekiguchi <https://github.com/seckie>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
 import * as React from "react";
 import * as Popper from "popper.js";
+import { Locale } from 'date-fns';
 
 export function registerLocale(localeName: string, localeData: {}): void;
 export function setDefaultLocale(localeName: string): void;
@@ -58,7 +60,7 @@ export interface ReactDatePickerProps {
 	injectTimes?: Date[];
 	inline?: boolean;
 	isClearable?: boolean;
-	locale?: string;
+	locale?: string | Locale;
 	maxDate?: Date | null;
 	maxTime?: Date;
 	minDate?: Date | null;
@@ -131,6 +133,7 @@ export interface ReactDatePickerProps {
 	withPortal?: boolean;
 	yearDropdownItemNumber?: number;
 	timeInputLabel?: string;
+    showTimeInput?: boolean;
 	inlineFocusSelectedMonth?: boolean;
 	onDayMouseEnter?: (date: Date) => void;
 	onMonthMouseLeave?: () => void;

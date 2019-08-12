@@ -8,7 +8,7 @@ import {
     Polygon,
     Polyline,
     Position,
-    SpatialReferenceWkid
+    SpatialReferenceWkid,
 } from 'arcgis-rest-api';
 import Geometry_1 from '../geom/Geometry';
 import GeometryLayout from '../geom/GeometryLayout';
