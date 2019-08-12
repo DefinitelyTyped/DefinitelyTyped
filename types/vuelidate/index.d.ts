@@ -1,4 +1,5 @@
-// Type definitions for vuelidate 0.7
+// Type definitions for vuelidate 0.7.3
+
 // Project: https://github.com/monterail/vuelidate
 // Definitions by: Jan Esser <https://github.com/janesser>
 //                 Jubair Saidi <https://github.com/jubairsaidi>
