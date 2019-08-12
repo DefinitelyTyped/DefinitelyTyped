@@ -41,7 +41,8 @@ export type BuiltInParserName =
     | 'html'
     | 'angular'
     | 'mdx'
-    | 'yaml';
+    | 'yaml'
+    | 'lwc';
 
 export type CustomParser = (text: string, parsers: Record<BuiltInParserName, BuiltInParser>, options: Options) => AST;
 
