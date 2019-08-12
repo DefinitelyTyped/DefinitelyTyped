@@ -15,6 +15,7 @@ import {
   VictoryLegend,
   VictoryBoxPlot,
   VictoryGroup,
+  VictoryClipContainer,
   createContainer,
   VictoryZoomContainerProps,
   VictoryBrushContainerProps
@@ -514,6 +515,15 @@ test = (
     <VictoryBar />
   </VictoryGroup>
 );
+
+// VictoryGroup test
+test(
+  <VictoryClipContainer clipId="goose" />
+)
+
+test(
+  <VictoryClipContainer clipId={123} />
+)
 
 // VictoryLine test
 test = (
