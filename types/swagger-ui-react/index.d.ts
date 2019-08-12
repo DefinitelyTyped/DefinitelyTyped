@@ -6,8 +6,12 @@
 
 import * as React from 'react';
 
-type Request = { [k: string]: any };
-type Response = { [k: string]: any };
+interface Request {
+    [k: string]: any;
+}
+interface Response {
+    [k: string]: any;
+}
 type System = any;
 
 export interface SwaggerUIProps {

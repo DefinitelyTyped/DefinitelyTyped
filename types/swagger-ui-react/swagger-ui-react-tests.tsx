@@ -11,4 +11,3 @@ import SwaggerUI from 'swagger-ui-react';
     }}
   />
 </div>;
-
