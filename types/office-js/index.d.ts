@@ -9314,7 +9314,7 @@ declare namespace Office {
      * 
      * **Important**: This is an internal Outlook object, not directly exposed through existing interfaces. 
      * You should treat this as a mode of Office.context.mailbox.item. Refer to the
-     * {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/preview-requirement-set/office.context.mailbox.item | Object Model} page for more information.
+     * {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.7/office.context.mailbox.item | Object Model} page for more information.
      */
     interface Appointment extends Item {
     }
@@ -9323,7 +9323,7 @@ declare namespace Office {
      * 
      * **Important**: This is an internal Outlook object, not directly exposed through existing interfaces. 
      * You should treat this as a mode of Office.context.mailbox.item. Refer to the
-     * {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/preview-requirement-set/office.context.mailbox.item | Object Model} page for more information.
+     * {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.7/office.context.mailbox.item | Object Model} page for more information.
      */
     interface AppointmentCompose extends Appointment, ItemCompose {
          /**
@@ -10007,7 +10007,7 @@ declare namespace Office {
          * 
          * **Errors**: 
          * 
-         * - InvalidAttachmentId: The attachment identifier does not exist.S
+         * - InvalidAttachmentId: The attachment identifier does not exist.
          *
          * @param data - The data to be inserted. Data is not to exceed 1,000,000 characters. 
          *             If more than 1,000,000 characters are passed in, an ArgumentOutOfRange exception is thrown.
@@ -10022,7 +10022,7 @@ declare namespace Office {
      * 
      * **Important**: This is an internal Outlook object, not directly exposed through existing interfaces. 
      * You should treat this as a mode of Office.context.mailbox.item. Refer to the
-     * {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/preview-requirement-set/office.context.mailbox.item | Object Model} page for more information.
+     * {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.7/office.context.mailbox.item | Object Model} page for more information.
      */
     interface AppointmentRead extends Appointment, ItemRead {
         /**
@@ -10837,7 +10837,7 @@ declare namespace Office {
         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
         * 
         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-        * </table>        *
+        * 
         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
         *                 type Office.AsyncResult.
         * @param userContext - Optional. Developers can provide any object they wish to access in the callback function. 
@@ -10893,7 +10893,7 @@ declare namespace Office {
      * 
      * **Important**: This is an internal Outlook object, not directly exposed through existing interfaces. 
      * You should treat this as a mode of Office.context.mailbox.item. Refer to the
-     * {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/preview-requirement-set/office.context.mailbox.item | Object Model} page for more information.
+     * {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.7/office.context.mailbox.item | Object Model} page for more information.
      */
     interface ItemCompose extends Item {
         /**
@@ -11324,7 +11324,7 @@ declare namespace Office {
      * 
      * **Important**: This is an internal Outlook object, not directly exposed through existing interfaces. 
      * You should treat this as a mode of Office.context.mailbox.item. Refer to the
-     * {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/preview-requirement-set/office.context.mailbox.item | Object Model} page for more information.
+     * {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.7/office.context.mailbox.item | Object Model} page for more information.
      */
     interface ItemRead extends Item {
         /**
@@ -11697,7 +11697,7 @@ declare namespace Office {
      * 
      * **Important**: This is an internal Outlook object, not directly exposed through existing interfaces. 
      * You should treat this as a mode of Office.context.mailbox.item. Refer to the
-     * {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/preview-requirement-set/office.context.mailbox.item | Object Model} page for more information.
+     * {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.7/office.context.mailbox.item | Object Model} page for more information.
      */
     interface Message extends Item {
         /**
@@ -11726,7 +11726,7 @@ declare namespace Office {
      * 
      * **Important**: This is an internal Outlook object, not directly exposed through existing interfaces. 
      * You should treat this as a mode of Office.context.mailbox.item. Refer to the
-     * {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/preview-requirement-set/office.context.mailbox.item | Object Model} page for more information.
+     * {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.7/office.context.mailbox.item | Object Model} page for more information.
      */
     interface MessageCompose extends Message, ItemCompose {
         /**
@@ -12402,7 +12402,7 @@ declare namespace Office {
      * 
      * **Important**: This is an internal Outlook object, not directly exposed through existing interfaces. 
      * You should treat this as a mode of Office.context.mailbox.item. Refer to the
-     * {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/preview-requirement-set/office.context.mailbox.item | Object Model} page for more information.
+     * {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/requirement-set-1.7/office.context.mailbox.item | Object Model} page for more information.
      */
     interface MessageRead extends Message, ItemRead {
         /**
