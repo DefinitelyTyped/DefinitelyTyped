@@ -303,7 +303,7 @@ export interface TextProperties {
     object?: "text";
     key?: string;
     text?: string;
-    marks?: Immutable.List<Mark> | Mark[];
+    marks?: Immutable.Set<Mark> | Mark[];
 }
 
 export interface TextJSON {
@@ -325,6 +325,7 @@ export class Text extends Immutable.Record({}) {
     key: string;
 
     readonly text: string;
+    readonly marks: Immutable.Set<Mark> | null;
 
     static create(properties?: TextProperties | TextJSON | Text | string): Text;
     static createList(
@@ -1817,8 +1818,8 @@ export class Editor implements Controller {
     wrapNodeByPath(path: Immutable.List<number>, parent: Block | Document | Inline | Text): Editor;
     normalize(): Editor;
     withoutNormalizing(fn: () => void): Editor;
-    withoutSaving(fn: () => void): void;
-    withoutMerging(fn: () => void): void;
+    withoutSaving(fn: () => void): Editor;
+    withoutMerging(fn: () => void): Editor;
     redo(): Editor;
     undo(): Editor;
     save(operation: Operation): void;
