@@ -30,7 +30,7 @@ declare module "vm" {
         /** @deprecated This option is deprecated in favor of script.createCachedData() */
         produceCachedData?: boolean;
         /** This option is part of the experimental API for the --experimental-modules flag, and should not be considered stable. */
-        importModuleDynamically?(specifier: string, module: SourceTextModule): any | SourceTextModule;
+        importModuleDynamically?(specifier: string, module: SourceTextModule): { [key: string]: any } | SourceTextModule;
     } & BaseOptions | string;
 
     interface RunningScriptOptions extends BaseOptions {
