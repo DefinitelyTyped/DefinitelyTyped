@@ -21,19 +21,17 @@ declare module "vm" {
         columnOffset?: number;
     }
 
-    interface ScriptOptionsObject extends BaseOptions {
-        cachedData?: NodeJS.TypedArray | DataView;
-        /** @deprecated This option is deprecated in favor of script.createCachedData() */
-        produceCachedData?: boolean;
-        /** This option is part of the experimental API for the --experimental-modules flag, and should not be considered stable. */
-        importModuleDynamically?(specifier: string, module: SourceTextModule): Object | SourceTextModule;
-    }
-
     /**
      * If options is a string, then it specifies the filename.
      * https://nodejs.org/api/vm.html#vm_constructor_new_vm_script_code_options
      */
-    type ScriptOptions = ScriptOptionsObject | string;
+    type ScriptOptions = {
+        cachedData?: NodeJS.TypedArray | DataView;
+        /** @deprecated This option is deprecated in favor of script.createCachedData() */
+        produceCachedData?: boolean;
+        /** This option is part of the experimental API for the --experimental-modules flag, and should not be considered stable. */
+        importModuleDynamically?(specifier: string, module: SourceTextModule): any | SourceTextModule;
+    } & BaseOptions | string;
 
     interface RunningScriptOptions extends BaseOptions {
         displayErrors?: boolean;
