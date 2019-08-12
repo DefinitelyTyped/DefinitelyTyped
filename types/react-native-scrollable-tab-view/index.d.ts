@@ -137,6 +137,7 @@ export interface DefaultTabBarProps {
     tabStyle?: ViewStyle;
     renderTab?: RenderTabProperties;
     underlineStyle?: ViewStyle;
+    style?: ViewStyle;
 }
 
 export type RenderTabProperties =
