@@ -1,4 +1,4 @@
-// Type definitions for jest-environment-puppeteer 4.0
+// Type definitions for jest-environment-puppeteer 4.3
 // Project: https://github.com/smooth-code/jest-puppeteer/tree/master/packages/jest-environment-puppeteer
 // Definitions by: Josh Goldberg <https://github.com/joshuakgoldberg>
 //                 Ifiok Jr. <https://github.com/ifiokjr>
@@ -18,6 +18,17 @@ interface JestPuppeteer {
      * ```
      */
     resetPage(): Promise<void>;
+
+    /**
+     * Reset global.browser
+     *
+     * ```ts
+     * beforeEach(async () => {
+     *   await jestPuppeteer.resetBrowser()
+     * })
+     * ```
+     */
+    resetBrowser(): Promise<void>;
 
     /**
      * Suspends test execution and gives you opportunity to see what's going on in the browser
