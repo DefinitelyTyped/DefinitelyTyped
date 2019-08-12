@@ -20,6 +20,7 @@
 //                 Wesley Tsai <https://github.com/wezleytsai>
 //                 Sebastian Silbermann <https://github.com/eps1lon>
 //                 Nicholas Hehr <https://github.com/HipsterBrown>
+//                 Mykolas Krupauskas <https://github.com/mkrupauskas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -129,7 +130,7 @@ export type Omit<T, K extends keyof T> = T extends any ? Pick<T, Exclude<keyof T
 
 export function matchPath<Params extends { [K in keyof Params]?: string }>(pathname: string, props: string | RouteProps, parent?: match<Params> | null): match<Params> | null;
 
-export function generatePath(pattern: string, params?: { [paramName: string]: string | number | boolean | undefined }): string;
+export function generatePath<Params extends { [K in keyof Params]?: string }>(pattern: string, params?: Params): string;
 
 export type WithRouterProps<C extends React.ComponentType<any>> = C extends React.ComponentClass
   ? { wrappedComponentRef?: React.Ref<InstanceType<C>> }
