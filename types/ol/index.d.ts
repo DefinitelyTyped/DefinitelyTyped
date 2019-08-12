@@ -1,6 +1,7 @@
 // Type definitions for ol 5.3
 // Project: https://github.com/openlayers/openlayers, https://openlayers.org
 // Definitions by: Rifa'i M. Hanif <https://github.com/hanreev>
+//                 Steve Heuertz <https://github.com/sheuertz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 

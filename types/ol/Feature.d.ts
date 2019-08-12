@@ -13,12 +13,12 @@ export default class Feature extends BaseObject {
     getGeometry(): Geometry;
     getGeometryName(): string;
     getId(): number | string;
-    getStyle(): StyleLike;
-    getStyleFunction(): StyleFunction;
+    getStyle(): StyleLike | null;
+    getStyleFunction(): StyleFunction | undefined;
     setGeometry(geometry: Geometry | undefined): void;
     setGeometryName(name: string): void;
     setId(id: number | string | undefined): void;
-    setStyle(style: StyleLike): void;
+    setStyle(style: StyleLike | null): void;
     on(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
     un(type: string | string[], listener: (p0: any) => void): void;

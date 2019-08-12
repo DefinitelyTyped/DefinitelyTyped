@@ -39,13 +39,13 @@ export default class VectorLayer extends Layer {
     getRenderOrder(): (p0: Feature, p1: Feature) => number;
     getSource(): VectorSource;
     getSource(): Source;
-    getStyle(): StyleLike;
-    getStyleFunction(): StyleFunction;
+    getStyle(): StyleLike | null | undefined;
+    getStyleFunction(): StyleFunction | undefined;
     getUpdateWhileAnimating(): boolean;
     getUpdateWhileInteracting(): boolean;
     setDeclutter(declutter: boolean): void;
     setRenderOrder(renderOrder: OrderFunction | undefined | undefined): void;
-    setStyle(style: Style | Style[] | StyleFunction | undefined | undefined): void;
+    setStyle(style: Style | Style[] | StyleFunction | undefined | null): void;
     on(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
     un(type: string | string[], listener: (p0: any) => void): void;
