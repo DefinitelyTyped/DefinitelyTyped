@@ -303,6 +303,7 @@ interface AliasesCSSProperties {
      */
     paddingY?: StandardCSSProperties['paddingTop'];
 }
+
 interface OverwriteCSSProperties {
     /**
      * The **`box-shadow`** CSS property adds shadow effects around an element's frame. You can set multiple effects separated by commas. A box shadow is described by X and Y offsets relative to the
@@ -332,15 +333,21 @@ interface OverwriteCSSProperties {
      */
     fontWeight?: CSS.FontWeightProperty | string;
 }
-interface SystemCSSProperties
+
+/**
+ * Map of all available CSS properties (including aliases) and their raw value.
+ * Only used internally to map CCS properties to input types (responsive value,
+ * theme function or nested) in `SystemCssProperties`.
+ */
+interface AllSystemCSSProperties
     extends Omit<CSSProperties, 'boxShadow' | 'fontWeight'>,
         AliasesCSSProperties,
         OverwriteCSSProperties {}
 
 export type SystemCssProperties = {
-    [K in keyof SystemCSSProperties]:
-        | ResponsiveStyleValue<SystemCSSProperties[K]>
-        | ((theme: any) => ResponsiveStyleValue<SystemCSSProperties[K]>)
+    [K in keyof AllSystemCSSProperties]:
+        | ResponsiveStyleValue<AllSystemCSSProperties[K]>
+        | ((theme: any) => ResponsiveStyleValue<AllSystemCSSProperties[K]>)
         | SystemStyleObject;
 };
 
@@ -561,9 +568,7 @@ export interface ScaleThemeProperties {
  * If you're using variants in your theme, you can access them by using the `variant`
  * property. The value of the property has to correspond to a path of your `Theme`.
  */
-export function css(
-    input?: SystemStyleObject
-): (props?: Theme | { theme: Theme }) => CSSObject;
+export function css(input?: SystemStyleObject): (props?: Theme | { theme: Theme }) => CSSObject;
 export default css;
 
 /**
