@@ -152,7 +152,7 @@ export namespace runtime {
     }
 }
 
-export interface TemplateError extends Error {
+export class TemplateError extends Error {
     name: string; // always 'Template render error'
     message: string;
     stack: string;
