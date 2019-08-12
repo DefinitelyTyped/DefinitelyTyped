@@ -292,7 +292,9 @@ export function createRenderer(): ShallowRenderer;
  */
 // the "void | undefined" is here to forbid any sneaky "Promise" returns.
 export function act(callback: () => void | undefined): DebugPromiseLike;
-export function act(callback: () => Promise<void | undefined>): Promise<void>;
+// the "void | undefined" is here to forbid any sneaky return values
+// tslint:disable-next-line: void-return
+export function act(callback: () => Promise<void | undefined>): Promise<undefined>;
 
 // Intentionally doesn't extend PromiseLike<never>.
 // Ideally this should be as hard to accidentally use as possible.

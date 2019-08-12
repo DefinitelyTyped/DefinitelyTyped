@@ -1,8 +1,6 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        // `async () => {}` is of type `() => Promise<void>` which is rejected by this rule
-        "void-return": false,
         // TODOs
         "dt-header": false,
         "npm-naming": false,
