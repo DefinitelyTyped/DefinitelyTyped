@@ -1,4 +1,5 @@
 import { MediaMetadata } from 'chromecast-caf-receiver/cast.framework.messages';
+import { CastReceiverContext } from './cast.framework';
 
 // The following test showcases how you can import individual types directly from the namespace:
 
@@ -121,3 +122,8 @@ const supportedCommands: number =
 
 const playbackConfig = new cast.framework.PlaybackConfig();
 playbackConfig.protectionSystem = cast.framework.ContentProtection.WIDEVINE;
+
+cast.framework.CastReceiverContext.getInstance().addEventListener(
+    [cast.framework.system.EventType.SENDER_CONNECTED, cast.framework.system.EventType.SENDER_DISCONNECTED],
+    () => '¡hola!',
+);
