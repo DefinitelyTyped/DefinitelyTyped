@@ -118,6 +118,14 @@ describe("Stripe elements", () => {
             // now wait until chargeable then make the charge
             return Promise.resolve(null);
         });
+
+        // Test add/remove event listener
+        const listener = (evt: Event) => {
+            return Promise.resolve(null);
+        };
+        card.addEventListener('change', listener);
+        card.removeEventListener('change', listener);
+
         card.destroy();
     });
 

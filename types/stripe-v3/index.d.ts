@@ -10,6 +10,7 @@
 //                 Marlos Borges <https://github.com/marlosin>
 //                 Thomas Marek <https://github.com/ttmarek>
 //                 Kim Ehrenpohl <https://github.com/kimehrenpohl>
+//                 Brad Humphrey <https://github.com/wbhumphrey>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var Stripe: stripe.StripeStatic;
@@ -669,6 +670,8 @@ declare namespace stripe {
             unmount(): void;
             destroy(): void;
             update(options: ElementsOptions): void;
+            addEventListener(type: string, listener: EventListenerOrEventListenerObject): void;
+            removeEventListener(type: string, listener: EventListenerOrEventListenerObject): void;
         }
 
         interface ElementChangeResponse {
