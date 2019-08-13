@@ -38,6 +38,8 @@ import {
     GridProps,
     shadow,
     ShadowProps,
+    overflow,
+    OverflowProps,
 } from 'styled-system';
 
 // tslint:disable-next-line:strict-export-declare-modifiers
@@ -59,7 +61,8 @@ interface BoxProps
         ShadowProps,
         TypographyProps,
         ColorStyleProps,
-        ColorProps {
+        ColorProps,
+        OverflowProps {
     boxStyle?: string;
 }
 
@@ -77,7 +80,8 @@ const boxStyles = compose(
     position,
     shadow,
     colorStyle,
-    boxStyle
+    boxStyle,
+    overflow,
 );
 
 const Box: React.ComponentType<BoxProps> = styled(boxStyles);
@@ -383,6 +387,10 @@ const test = () => (
         <Spacer marginRight={[1, 2, 3]} paddingRight={[1, 2, 3]} />
         <Spacer marginTop={[1, 2, 3]} paddingTop={[1, 2, 3]} />
         <Spacer marginBottom={[1, 2, 3]} paddingBottom={[1, 2, 3]} />
+        // overflow
+        <Box overflow="hidden" />
+        <Box overflowX="auto" />
+        <Box overflowY="scroll" />
     </div>
 );
 

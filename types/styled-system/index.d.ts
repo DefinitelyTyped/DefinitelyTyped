@@ -15,6 +15,7 @@
 //                 Dhalton Huber <https://github.com/Dhalton>
 //                 Elliot Bonneville <https://github.com/elliotbonneville>
 //                 Jack Caldwell <https://github.com/jackcaldwell>
+//                 Eliseu Monar dos Santos <https://github.com/eliseumds>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -1030,6 +1031,20 @@ export interface OverflowProps {
      * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/overflow)
      */
     overflow?: ResponsiveValue<CSS.OverflowProperty>;
+    /**
+     * The overflow-x CSS property sets what shows when content overflows a block-level element's left
+     * and right edges. This may be nothing, a scroll bar, or the overflow content.
+     *
+     * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/overflow-x)
+     */
+    overflowX?: ResponsiveValue<CSS.OverflowXProperty>;
+    /**
+     * The overflow-y CSS property sets what shows when content overflows a block-level element's top
+     * and bottom edges. This may be nothing, a scroll bar, or the overflow content.
+     *
+     * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/overflow-y)
+     */
+    overflowY?: ResponsiveValue<CSS.OverflowYProperty>;
 }
 
 export const overflow: styleFn;
