@@ -45,3 +45,6 @@ uni.canvasToTempFilePath({
         console.log('canvasToTempFilePath success');
     }
 });
+
+const videoContext = uni.createVideoContext('test');
+videoContext.play();

@@ -189,7 +189,7 @@ declare class Uni {
      *
      * 参考: [http://uniapp.dcloud.io/api/media/video-context?id=createvideocontext](http://uniapp.dcloud.io/api/media/video-context?id=createvideocontext)
      */
-    createVideoContext(): VideoContext;
+    createVideoContext(videoId?: string, currentComponent?: any): VideoContext;
     /**
      * 保存文件到本地
      *
@@ -2561,6 +2561,10 @@ interface GetLocationSuccess {
 }
 
 interface ChooseLocationOptions {
+    /**
+     * 搜索关键字
+     */
+    keyword?: string;
     /**
      * 接口调用成功的回调函数
      */
