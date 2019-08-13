@@ -18,6 +18,7 @@ export interface ValidatorFormProps {
 }
 export class ValidatorForm extends React.Component<ValidatorFormProps> {
     static addValidationRule(name: string, callback: (value: any) => boolean): void;
+    static removeValidationRule(name: string): void;
     isFormValid(dryRun: boolean): Promise<boolean>;
     resetValidations(): void;
 }
