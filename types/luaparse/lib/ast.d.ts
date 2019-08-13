@@ -17,7 +17,7 @@ export interface ReturnStatement extends Base<"ReturnStatement"> {
 }
 
 export interface IfStatement extends Base<"IfStatement"> {
-    clauses: IfClause[];
+    clauses: Array<IfClause | ElseifClause | ElseClause>;
 }
 
 export interface IfClause extends Base<"IfClause"> {
