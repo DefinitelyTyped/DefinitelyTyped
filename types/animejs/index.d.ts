@@ -101,7 +101,6 @@ declare namespace anime {
 		direction: string;
 		duration: number;
 		loop: number | boolean;
-		offset: number;
 		timelineOffset: number;
 		progress: number;
 		remaining: number;
@@ -112,7 +111,7 @@ declare namespace anime {
 	}
 
 	interface AnimeTimelineAnimParams extends AnimeAnimParams {
-		offset: number | string | FunctionBasedParameter;
+		timelineOffset: number | string | FunctionBasedParameter;
 	}
 
 	interface AnimeTimelineInstance extends AnimeInstance {
@@ -142,11 +141,11 @@ declare namespace anime {
 	};
 	function setDashoffset(el: HTMLElement | SVGElement | null): number;
 	function bezier(x1: number, y1: number, x2: number, y2: number): (t: number) => number;
+	function stagger(value: number | string | ReadonlyArray<number | string>, options?: StaggerOptions): FunctionBasedParameter;
+	function set(targets: AnimeTarget, value: {[AnyAnimatedProperty: string]: any}): void;
 	// Timeline
 	function timeline(params?: AnimeParams | ReadonlyArray<AnimeInstance>): AnimeTimelineInstance;
-	function stagger(value: number | string | ReadonlyArray<number | string>, options?: StaggerOptions): FunctionBasedParameter;
 	function random(min: number, max: number): number;
-	function set(targets: AnimeTarget, value: {[AnyAnimatedProperty: string]: any}): void;
 }
 
 declare function anime(params: anime.AnimeParams): anime.AnimeInstance;
