@@ -1148,10 +1148,19 @@ export namespace token {
 }
 
 export namespace concurrent {
+  interface executeConcurrentOptions {
+    executionProfile?: string;
+    concurrencyLevel?: number;
+    raiseOnFirstError?: boolean;
+    collectResults?: boolean;
+    maxErrors?: number;
+  }
+
   function executeConcurrent(
     client: Client,
     query: string | Array<{ query: string; params?: any[] }>,
     parameters: any[][] | stream.Readable | { [key: string]: any },
+    options?: executeConcurrentOptions,
   ): Promise<ResultSetGroup>;
 
   class ResultSetGroup {

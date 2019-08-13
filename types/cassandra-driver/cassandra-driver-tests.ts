@@ -139,7 +139,9 @@ const values = Array.from(new Array(10000).keys()).map(x => [ cassandra.types.Uu
 async function example() {
   try {
     const query = 'INSERT INTO tbl_sample_kv (id, value) VALUES (?, ?)';
-    await cassandra.concurrent.executeConcurrent(client, query, values);
+    await cassandra.concurrent.executeConcurrent(client, query, values, {
+      raiseOnFirstError: false,
+    });
   } finally {
     client.shutdown();
   }
