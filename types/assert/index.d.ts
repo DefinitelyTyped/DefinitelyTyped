@@ -8,8 +8,7 @@ declare function assert(value: any, message?: string): void;
 
 declare namespace assert {
     function strict(value: any, message?: string): void;
-    export namespace strict{
-
+    export namespace strict {
         function fail(actual?: any, expected?: any, message?: string, operator?: string): void;
 
         function ok(value: any, message?: string): void;
