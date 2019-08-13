@@ -1,3 +1,3 @@
 import { Locale } from '../core';
 
-export default Partial<Locale>;
+export default Locale;
