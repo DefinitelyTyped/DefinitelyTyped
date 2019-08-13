@@ -1,5 +1,5 @@
 // Type definitions for raf-schd 4.0
-// Project: https://github.com/alexreardon/raf-schd (Does not have to be to GitHub, but prefer linking to a source code repository rather than to a project website.)
+// Project: https://github.com/alexreardon/raf-schd
 // Definitions by: Adam Bergman <https://github.com/adambrgmn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
