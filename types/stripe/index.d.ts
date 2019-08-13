@@ -2827,12 +2827,22 @@ declare namespace Stripe {
             pending_webhooks: number;
 
             /**
-             * ID of the API request that caused the event. If null, the event was
-             * automatic (e.g. Stripe’s automatic subscription handling). Request logs are
-             * available in the dashboard but currently not in the API. Note: this property
-             * is populated for events on or after April 23, 2013.
+             * Information on the API request that instigated the event.
              */
-            request?: string;
+            request: {
+                /**
+                 * ID of the API request that caused the event. If null, the event was
+                 * automatic (e.g., Stripe’s automatic subscription handling). Request logs
+                 * are available in the dashboard, but currently not in the API.
+                 */
+                id: string | null,
+
+                /**
+                 * The idempotency key transmitted during the request, if any.
+                 * Note: This property is populated only for events on or after May 23, 2017.
+                 */
+                idempotency_key?: string | null,
+            };
 
             /**
              * Description of the event: e.g. invoice.created, charge.refunded, etc.
