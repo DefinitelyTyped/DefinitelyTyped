@@ -2,38 +2,38 @@ import { EventType } from './cast.framework.events';
 
 export as namespace system;
 export enum EventType {
-    ALLOW_GROUP_CHANGE = 'allowgroupchange',
-    // Fired when there is a system error.
-    ERROR = 'error',
-    // Fired when system starts to create feedback report.
-    FEEDBACK_STARTED = 'feedbackstarted',
-    GROUP_CAPABILITIES = 'groupcapabilities',
-    MAX_VIDEO_RESOLUTION_CHANGED = 'maxvideoresolutionchanged',
-    PROXIMITY_CHANGED = 'proximitychanged',
-    // Fired when the system is ready.
-    READY = 'ready',
-    // Fired when a new sender has connected.
-    SENDER_CONNECTED = 'senderconnected',
-    // Fired when a sender has disconnected.
-    SENDER_DISCONNECTED = 'senderdisconnected',
-    // Fired when the application is terminated
-    SHUTDOWN = 'shutdown',
-    // Fired when the standby state of the TV has changed.
-    // This event is related to the visibility chnaged event, as if the TV is in standby
-    // the visibility will be false, the visibility is more granular
-    // (as it also detects that the TV has selected a different channel)
-    // but it is not reliably detected in all TVs,
-    // standby can be used in those cases as most TVs implement it.
-    STANDBY_CHANGED = 'standbychanged',
-    // Fired when the system volume has changed.
-    SYSTEM_VOLUME_CHANGED = 'systemvolumechanged',
-    // Fired when the visibility of the application has changed
-    // (for example after a HDMI Input change or when the TV is turned
-    // off/on and the cast device is externally powered).
-    // Note that this API has the same effect as the webkitvisibilitychange event raised
-    // by your document, we provided it as CastReceiverManager API for convenience and
-    // to avoid a dependency on a webkit-prefixed event.
-    VISIBILITY_CHANGED = 'visibilitychanged',
+ALLOW_GROUP_CHANGE = 'allowgroupchange',
+  // Fired when there is a system error.
+ERROR = 'error',
+  // Fired when system starts to create feedback report.
+FEEDBACK_STARTED = 'feedbackstarted',
+  GROUP_CAPABILITIES = 'groupcapabilities',
+MAX_VIDEO_RESOLUTION_CHANGED = 'maxvideoresolutionchanged',
+  PROXIMITY_CHANGED = 'proximitychanged',
+// Fired when the system is ready.
+  READY = 'ready',
+// Fired when a new sender has connected.
+  SENDER_CONNECTED = 'senderconnected',
+// Fired when a sender has disconnected.
+  SENDER_DISCONNECTED = 'senderdisconnected',
+// Fired when the application is terminated
+  SHUTDOWN = 'shutdown',
+// Fired when the standby state of the TV has changed.
+  // This event is related to the visibility chnaged event, as if the TV is in standby
+// the visibility will be false, the visibility is more granular
+  // (as it also detects that the TV has selected a different channel)
+// but it is not reliably detected in all TVs,
+  // standby can be used in those cases as most TVs implement it.
+STANDBY_CHANGED = 'standbychanged',
+  // Fired when the system volume has changed.
+SYSTEM_VOLUME_CHANGED = 'systemvolumechanged',
+  // Fired when the visibility of the application has changed
+// (for example after a HDMI Input change or when the TV is turned
+  // off/on and the cast device is externally powered).
+// Note that this API has the same effect as the webkitvisibilitychange event raised
+  // by your document, we provided it as CastReceiverManager API for convenience and
+// to avoid a dependency on a webkit-prefixed event.
+  VISIBILITY_CHANGED = 'visibilitychanged',
 }
 
 // Represents the current system state.

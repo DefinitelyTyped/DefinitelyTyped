@@ -1,5 +1,5 @@
 import { MediaMetadata } from 'chromecast-caf-receiver/cast.framework.messages';
-import { CastReceiverContext } from './cast.framework';
+import { CastReceiverContext } from 'chromecast-caf-receiver/cast.framework';
 
 // The following test showcases how you can import individual types directly from the namespace:
 
