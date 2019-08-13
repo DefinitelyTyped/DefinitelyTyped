@@ -17,7 +17,7 @@ If adding a new definition:
 
 If changing an existing definition:
 - [ ] Provide a URL to documentation or source code which provides context for the suggested changes: <<url here>>
-- [ ] Increase the version number in the header if appropriate.
+- [ ] If this PR brings the type definitions up to date with a new version of the JS library, update the version number in the header.
 - [ ] If you are making substantial changes, consider adding a `tslint.json` containing `{ "extends": "dtslint/dt.json" }`.
 
 If removing a declaration:

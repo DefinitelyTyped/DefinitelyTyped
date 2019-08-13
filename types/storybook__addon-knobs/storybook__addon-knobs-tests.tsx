@@ -75,7 +75,7 @@ stories.add('with all knobs', () => {
 
   return (
     <div style={style}>
-      I'm {name} and I was born on "{dob}"
+      I'm {name} and I was born on "{new Date(dob)}"
       <p>My favorite number is {favoriteNumber}.</p>
       <p>My most comfortable room temperature is {comfortTemp} degrees Fahrenheit.</p>
       <p>My favorite radio station is: {radioStation}</p>

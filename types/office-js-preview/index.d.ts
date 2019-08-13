@@ -437,9 +437,11 @@ declare namespace Office {
         */
         asyncContext: any;
         /**
-        * Gets an object that may provide additional information if an error occurred.
+        * Gets an object that may provide additional information if an {@link Office.Error | error} occurred.
         *
         * @remarks
+        * 
+        * This property returns additional information if the following errors occur with these supported APIs.
         * 
         * *Supported APIs*
         * 
@@ -465,6 +467,7 @@ declare namespace Office {
         * Gets the payload or content of this asynchronous operation, if any.
         * 
         * @remarks
+        * 
         * You access the AsyncResult object in the function passed as the argument to the callback parameter of an "Async" method, such as the 
         * `getSelectedDataAsync` and `setSelectedDataAsync` methods of the {@link Office.Document | Document} object.
         *
@@ -477,7 +480,8 @@ declare namespace Office {
      * Represents the runtime environment of the add-in and provides access to key objects of the API. 
      * The current context exists as a property of Office. It is accessed using `Office.context`.
      *
-     * @remarks 
+     * @remarks
+     * 
      * **Hosts**: Excel, Outlook, PowerPoint, Project, Word
      */     
     interface Context {
@@ -491,6 +495,7 @@ declare namespace Office {
         * True, if the current platform allows the add-in to display a UI for selling or upgrading; otherwise returns False.
         * 
         * @remarks
+        * 
         * **Hosts**: Excel, Word
         * 
         * `commerceAllowed` is only supported in Office on iPad.
@@ -504,6 +509,7 @@ declare namespace Office {
         * Gets the locale (language) specified by the user for editing the document or item.
         * 
         * @remarks
+        * 
         * The `contentLanguage` value reflects the **Editing Language** setting specified with **File \> Options \> Language** in the Office host 
         * application.
         * 
@@ -583,8 +589,7 @@ declare namespace Office {
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: Restricted
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-         * 
-         * 
+         *
          * **Namespaces**:
          *
          * - `diagnostics`: Provides diagnostic information to an Outlook add-in.
@@ -626,6 +631,7 @@ declare namespace Office {
         * True if the add-in is running on a touch device, such as an iPad; false otherwise.
         * 
         * @remarks
+        * 
         * **Hosts**: Excel, PowerPoint, Word
         * 
         * `touchEnabled` is only supported in Office on iPad.
@@ -643,6 +649,7 @@ declare namespace Office {
      * Provides specific information about an error that occurred during an asynchronous data operation.
      *
      * @remarks
+     * 
      * The Error object is accessed from the AsyncResult object that is returned in the function passed as the callback argument of an asynchronous 
      * data operation, such as the `setSelectedDataAsync` method of the Document object.
      */
@@ -666,6 +673,7 @@ declare namespace Office {
          * which button was clicked and to signal the host that it has completed its processing.
          * 
          * @remarks
+         * 
          * See {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/add-in-commands-requirement-sets | Add-in commands requirement sets} for more support information.
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: Restricted
@@ -742,6 +750,7 @@ declare namespace Office {
         * Displays a dialog to show or collect information from the user or to facilitate Web navigation.
         *
         * @remarks
+        * 
         * **Hosts**: Word, Excel, Outlook, PowerPoint
         * 
         * **Requirement sets**: 
@@ -984,9 +993,9 @@ declare namespace Office {
         /**
         * Check if the specified requirement set is supported by the host Office application.
         * @param name - Set name; e.g., "MatrixBindings".
-        * @param minVersion - The minimum required version; e.g., "1.4".
+        * @param minVersion - The minimum required version; e.g., "1.4". Note: String type is recommended data type for this parameter. The use of number type is deprecated and will not be compatible with recent requirement sets.
         */
-       isSetSupported(name: string, minVersion?: number): boolean;
+       isSetSupported(name: string, minVersion?: string | number): boolean;
     }
 
     /**
@@ -1130,6 +1139,7 @@ declare namespace Office {
      * Provides options for how to get the data in a binding.
      *
      * @remarks
+     * 
      * If the rows option is used, the value must be "thisRow".
      */
     interface GetBindingDataOptions {
@@ -1165,6 +1175,10 @@ declare namespace Office {
         filterType?: Office.FilterType | string
         /**
         * Only for table bindings in content add-ins for Access. Specifies the pre-defined string "thisRow" to get data in the currently selected row.
+        * 
+        * **Important**: We no longer recommend that you create and use Access web apps and databases in SharePoint.
+        * As an alternative, we recommend that you use {@link https://powerapps.microsoft.com/ | Microsoft PowerApps}
+        * to build no-code business solutions for web and mobile devices.
         */
         rows?: string
         /**
@@ -1176,6 +1190,7 @@ declare namespace Office {
      * Provides options for how to set the data in a binding.
      *
      * @remarks
+     * 
      * If the rows option is used, the value must be "thisRow".
      */
     interface SetBindingDataOptions {
@@ -1361,6 +1376,7 @@ declare namespace Office {
      * Provides options for whether to select the location that is navigated to.
      *
      * @remarks
+     * 
      * The behavior caused by the {@link Office.SelectionMode | options.selectionMode} option varies by host:
      *
      * In Excel: `Office.SelectionMode.Selected` selects all content in the binding, or named item. `Office.SelectionMode.None` for text bindings, 
@@ -1451,6 +1467,7 @@ declare namespace Office {
      * task pane add-ins.
      * 
      * @remarks
+     * 
      * **Hosts**: Excel, Outlook (in preview), PowerPoint, Word
      * 
      * `OfficeTheme` is only supported in Office on Windows.
@@ -1671,6 +1688,8 @@ declare namespace Office {
      * Add-ins for Project support the `Office.EventType.ResourceSelectionChanged`, `Office.EventType.TaskSelectionChanged`, and 
      * `Office.EventType.ViewSelectionChanged` event types.
      * 
+     * Only task pane add-ins for Outlook support Mailbox API set event types.
+     * 
      * @remarks
      * 
      * **`BindingDataChanged` and `BindingSelectionChanged` hosts**: Excel, Word.
@@ -1681,17 +1700,18 @@ declare namespace Office {
          * A Document.ActiveViewChanged event was raised.
          * 
          * @remarks 
+         * 
          * **Hosts**: PowerPoint
          */
         ActiveViewChanged,
         /**
-         * Triggers when any date or time of the selected appointment or series is changed in Outlook.
+         * Triggers when any date or time of the selected appointment or series is changed in Outlook. Supported with task pane only.
          * 
          * [Api set: Mailbox 1.7]
          */
         AppointmentTimeChanged,
         /**
-         * Triggers when an attachment is added to or removed from an item.
+         * Triggers when an attachment is added to or removed from an item. Supported with task pane only.
          * 
          * [Api set: Mailbox Preview]
          * 
@@ -1704,6 +1724,7 @@ declare namespace Office {
          * The event handler receives an argument of type {@link Office.BindingDataChangedEventArgs}.
          * 
          * @remarks 
+         * 
          * **Hosts**: Excel, Word
          */
         BindingDataChanged,
@@ -1712,6 +1733,7 @@ declare namespace Office {
          * the addHandlerAsync method of the Binding object. The event handler receives an argument of type {@link Office.BindingSelectionChangedEventArgs}.
          * 
          * @remarks 
+         * 
          * **Hosts**: Excel, Word 
          */
         BindingSelectionChanged,
@@ -1727,17 +1749,18 @@ declare namespace Office {
          * Triggers when a document-level selection happens.
          * 
          * @remarks 
+         * 
          * **Hosts**: Excel, Word
          */
         DocumentSelectionChanged,
         /**
-         * Triggers when a different Outlook item is selected for viewing while the task pane is pinned.
+         * Triggers when a different Outlook item is selected for viewing while the task pane is pinned. Supported with task pane only.
          * 
          * [Api set: Mailbox 1.5]
          */
         ItemChanged,
         /**
-         * Triggers when the appointment location is changed in Outlook.
+         * Triggers when the appointment location is changed in Outlook. Supported with task pane only.
          * 
          * [Api set: Mailbox Preview]
          */
@@ -1755,7 +1778,7 @@ declare namespace Office {
          */
         NodeReplaced,
         /**
-         * Triggers when the OfficeTheme is changed in Outlook.
+         * Triggers when the OfficeTheme is changed in Outlook. Supported with task pane only.
          * 
          * [Api set: Mailbox Preview]
          * 
@@ -1763,13 +1786,13 @@ declare namespace Office {
          */
         OfficeThemeChanged,
         /**
-         * Triggers when the recipient list of the selected item or the appointment location is changed in Outlook.
+         * Triggers when the recipient list of the selected item or the appointment location is changed in Outlook. Supported with task pane only.
          * 
          * [Api set: Mailbox 1.7]
          */
         RecipientsChanged,
         /**
-         * Triggers when the recurrence pattern of the selected series is changed in Outlook.
+         * Triggers when the recurrence pattern of the selected series is changed in Outlook. Supported with task pane only.
          * 
          * [Api set: Mailbox 1.7]
          */
@@ -1782,6 +1805,7 @@ declare namespace Office {
          * A Settings.settingsChanged event was raised.
          * 
          * @remarks 
+         * 
          * **Hosts**: Excel, PowerPoint, Word
          */
         SettingsChanged,
@@ -1798,6 +1822,7 @@ declare namespace Office {
      * Specifies the format in which to return the document.
      *
      * @remarks
+     * 
      * `FileType.Text` is only supported in Word, `FileType.Pdf` is only supported in Word on the web, Windows, and Mac, and PowerPoint.
      */
     enum FileType {
@@ -1896,6 +1921,7 @@ declare namespace Office {
      * Specifies whether values, such as numbers and dates, returned by the invoked method are returned with their formatting applied.
      *
      * @remarks
+     * 
      * For example, if the valueFormat parameter is specified as "formatted", a number formatted as currency, or a date formatted as mm/dd/yy in the 
      * host application will have its formatting preserved. If the valueFormat parameter is specified as "unformatted", a date will be returned in its 
      * underlying sequential serial number form.
@@ -1923,6 +1949,7 @@ declare namespace Office {
     * and table-specific features, such as counting the number of rows and columns.
     *
     * @remarks
+    * 
     * **Hosts**: Excel, Word
     * 
     * **Requirement sets**: 
@@ -1984,7 +2011,7 @@ declare namespace Office {
          * 
          * **Requirement sets**: 
          * 
-         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#htmlcoercion | HtmlCoercion} (when using `Office.CoercionType.Html`),
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#htmlcoercion | HtmlCoercion} (when using `Office.CoercionType.Html`)
          * 
          * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixbindings | MatrixBindings}
          * 
@@ -2297,7 +2324,7 @@ declare namespace Office {
          *     <td>The set of rows and columns are written.You can also specify an array of arrays that contain valid formulas to add them to the bound cells. For example, setting  data to `[["=SUM(A1:A5)","=AVERAGE(A1:A5)"]]` will add those two formulas to a binding that contains two cells. Just as when setting a formula on a single bound cell, you can't read the added formulas (or any pre-existing formulas) from the binding with the `Binding.getDataAsync` method - it returns only the data displayed in the bound cells.</td>
          *   </tr>
          *   <tr>
-         *     <td>An `TableData` object, and the shape of the table matches the bound table.</td>
+         *     <td>A `TableData` object, and the shape of the table matches the bound table.</td>
          *     <td>The specified set of rows and/or headers are written, if no other data in surrounding cells will be overwritten. **Note**: If you specify formulas in the TableData object you pass for the *data* parameter, you might not get the results you expect due to the "calculated columns" feature of Excel, which automatically duplicates formulas within a column. To work around this when you want to write *data* that contains formulas to a bound table, try specifying the data as an array of arrays (instead of a TableData object), and specify the *coercionType* as Microsoft.Office.Matrix or "matrix".</td>
          *   </tr>
          * </table>
@@ -2476,6 +2503,7 @@ declare namespace Office {
          * Creates a binding against a named object in the document.
          *
          * @remarks
+         * 
          * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixbindings | MatrixBindings}, 
          * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#tablebindings | TableBindings}, 
          * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textbindings | TextBindings}
@@ -2525,6 +2553,7 @@ declare namespace Office {
          * Create a binding by prompting the user to make a selection on the document.
          *
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#methods-that-arent-part-of-a-requirement-set | Not in a set}
          *
          * Adds a binding object of the specified type to the Bindings collection, which will be identified with the supplied id. 
@@ -2690,7 +2719,7 @@ declare namespace Office {
          *
          * @remarks
          * 
-         * **Requirement sets**: 
+         * **Requirement sets**:
          * 
          * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixbindings | MatrixBindings}
          * 
@@ -2709,6 +2738,7 @@ declare namespace Office {
      * Represents an XML node in a tree in a document.
      * 
      * @remarks
+     * 
      * **Hosts**: Word
      */
     interface CustomXmlNode {
@@ -2728,6 +2758,7 @@ declare namespace Office {
          * Gets the nodes associated with the XPath expression.
          *
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param xPath The XPath expression that specifies the nodes to get. Required.
@@ -2740,6 +2771,7 @@ declare namespace Office {
          * Gets the nodes associated with the XPath expression.
          *
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param xPath The XPath expression that specifies the nodes to get. Required.
@@ -2751,6 +2783,7 @@ declare namespace Office {
          * Gets the node value.
          *
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
@@ -2762,6 +2795,7 @@ declare namespace Office {
          * Gets the node value.
          *
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
@@ -2772,6 +2806,7 @@ declare namespace Office {
          * Gets the text of an XML node in a custom XML part.
          *
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
@@ -2783,6 +2818,7 @@ declare namespace Office {
          * Gets the text of an XML node in a custom XML part.
          *
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
@@ -2793,6 +2829,7 @@ declare namespace Office {
          * Gets the node's XML.
          *
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
@@ -2804,6 +2841,7 @@ declare namespace Office {
          * Gets the node's XML.
          *
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
@@ -2814,6 +2852,7 @@ declare namespace Office {
          * Sets the node value.
          *
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param value The value to be set on the node
@@ -2825,6 +2864,7 @@ declare namespace Office {
          * Sets the node value.
          *
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param value The value to be set on the node
@@ -2835,6 +2875,7 @@ declare namespace Office {
          * Asynchronously sets the text of an XML node in a custom XML part.
          *
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param text Required. The text value of the XML node.
@@ -2846,6 +2887,7 @@ declare namespace Office {
          * Asynchronously sets the text of an XML node in a custom XML part.
          *
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param text Required. The text value of the XML node.
@@ -2856,6 +2898,7 @@ declare namespace Office {
          * Sets the node XML.
          *
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param xml The XML to be set on the node
@@ -2867,6 +2910,7 @@ declare namespace Office {
          * Sets the node XML.
          *
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param xml The XML to be set on the node
@@ -2878,6 +2922,7 @@ declare namespace Office {
      * Represents a single CustomXMLPart in an {@link Office.CustomXmlParts} collection.
      * 
      * @remarks
+     * 
      * **Hosts**: Word
      */
     interface CustomXmlPart {
@@ -2897,6 +2942,7 @@ declare namespace Office {
          * Adds an event handler to the object using the specified event type.
          *
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * You can add multiple event handlers for the specified eventType as long as the name of each event handler function is unique.
@@ -2913,6 +2959,7 @@ declare namespace Office {
          * Adds an event handler to the object using the specified event type.
          *
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * You can add multiple event handlers for the specified eventType as long as the name of each event handler function is unique.
@@ -2928,6 +2975,7 @@ declare namespace Office {
          * Deletes the Custom XML Part.
          * 
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
@@ -2938,6 +2986,7 @@ declare namespace Office {
          * Deletes the Custom XML Part.
          * 
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
@@ -2947,6 +2996,7 @@ declare namespace Office {
          * Asynchronously gets any CustomXmlNodes in this custom XML part which match the specified XPath.
          * 
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param xPath An XPath expression that specifies the nodes you want returned. Required.
@@ -2959,6 +3009,7 @@ declare namespace Office {
          * Asynchronously gets any CustomXmlNodes in this custom XML part which match the specified XPath.
          * 
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param xPath An XPath expression that specifies the nodes you want returned. Required.
@@ -2970,6 +3021,7 @@ declare namespace Office {
          * Asynchronously gets the XML inside this custom XML part.
          * 
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
@@ -2981,6 +3033,7 @@ declare namespace Office {
          * Asynchronously gets the XML inside this custom XML part.
          * 
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
@@ -2991,6 +3044,7 @@ declare namespace Office {
          * Removes an event handler for the specified event type.
          * 
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param eventType Specifies the type of event to remove. For a CustomXmlPart object, the eventType parameter can be specified as 
@@ -3004,6 +3058,7 @@ declare namespace Office {
          * Removes an event handler for the specified event type.
          * 
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param eventType Specifies the type of event to remove. For a CustomXmlPart object, the eventType parameter can be specified as 
@@ -3078,6 +3133,7 @@ declare namespace Office {
      * Represents a collection of CustomXmlPart objects.
      * 
      * @remarks
+     * 
      * **Hosts**: Word
      */
     interface CustomXmlParts {
@@ -3085,6 +3141,7 @@ declare namespace Office {
          * Asynchronously adds a new custom XML part to a file.
          * 
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param xml The XML to add to the newly created custom XML part.
@@ -3097,6 +3154,7 @@ declare namespace Office {
          * Asynchronously adds a new custom XML part to a file.
          * 
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param xml The XML to add to the newly created custom XML part.
@@ -3108,6 +3166,7 @@ declare namespace Office {
          * Asynchronously gets the specified custom XML part by its id.
          * 
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param id The GUID of the custom XML part, including opening and closing braces.
@@ -3121,6 +3180,7 @@ declare namespace Office {
          * Asynchronously gets the specified custom XML part by its id.
          * 
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param id The GUID of the custom XML part, including opening and closing braces.
@@ -3133,6 +3193,7 @@ declare namespace Office {
          * Asynchronously gets the specified custom XML part(s) by its namespace.
          * 
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param ns  The namespace URI.
@@ -3145,6 +3206,7 @@ declare namespace Office {
          * Asynchronously gets the specified custom XML part(s) by its namespace.
          * 
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param ns  The namespace URI.
@@ -3157,6 +3219,7 @@ declare namespace Office {
      * Represents a collection of CustomXmlPart objects.
      * 
      * @remarks
+     * 
      * **Hosts**: Word
      */
     interface CustomXmlPrefixMappings {
@@ -3256,6 +3319,7 @@ declare namespace Office {
      * An abstract class that represents the document the add-in is interacting with.
      *
      * @remarks
+     * 
      * **Hosts**: Excel, PowerPoint, Project, Word
      */
     interface Document {
@@ -3263,6 +3327,7 @@ declare namespace Office {
          * Gets an object that provides access to the bindings defined in the document.
          *
          * @remarks
+         * 
          * You don't instantiate the Document object directly in your script. To call members of the Document object to interact with the current 
          * document or worksheet, use `Office.context.document` in your script.
          */
@@ -3287,6 +3352,7 @@ declare namespace Office {
          * Adds an event handler for a Document object event.
          *
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#documentevents | DocumentEvents}
          *
          * You can add multiple event handlers for the specified eventType as long as the name of each event handler function is unique.
@@ -3302,6 +3368,7 @@ declare namespace Office {
          * Adds an event handler for a Document object event.
          *
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#documentevents | DocumentEvents}
          *
          * You can add multiple event handlers for the specified eventType as long as the name of each event handler function is unique.
@@ -3316,6 +3383,7 @@ declare namespace Office {
          * Returns the state of the current view of the presentation (edit or read).
          *
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#activeview | ActiveView}
          *
          * Can trigger an event when the view changes.
@@ -3331,6 +3399,7 @@ declare namespace Office {
          * Returns the state of the current view of the presentation (edit or read).
          *
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#activeview | ActiveView}
          *
          * Can trigger an event when the view changes.
@@ -3414,6 +3483,7 @@ declare namespace Office {
          * Gets file properties of the current document.
          *
          * @remarks
+         * 
          * **Requirement sets**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#methods-that-arent-part-of-a-requirement-set | Not in a set}
          *
          * You get the file's URL with the url property `asyncResult.value.url`.
@@ -3427,6 +3497,7 @@ declare namespace Office {
          * Gets file properties of the current document.
          *
          * @remarks
+         * 
          * **Requirement sets**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#methods-that-arent-part-of-a-requirement-set | Not in a set}
          *
          * You get the file's URL with the url property `asyncResult.value.url`.
@@ -3532,7 +3603,7 @@ declare namespace Office {
          *
          * @remarks
          * 
-         * **Requirement sets**: 
+         * **Requirement sets**:
          * 
          * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#htmlcoercion | HtmlCoercion} (when using `Office.CoercionType.Html`)
          * 
@@ -3620,6 +3691,7 @@ declare namespace Office {
          * Goes to the specified object or location in the document.
          *
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#methods-that-arent-part-of-a-requirement-set | Not in a set}
          *
          * PowerPoint doesn't support the goToByIdAsync method in Master Views.
@@ -3646,6 +3718,7 @@ declare namespace Office {
          * Goes to the specified object or location in the document.
          *
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#methods-that-arent-part-of-a-requirement-set | Not in a set}
          *
          * PowerPoint doesn't support the goToByIdAsync method in Master Views.
@@ -3671,6 +3744,7 @@ declare namespace Office {
          * Removes an event handler for the specified event type.
          *
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#documentevents | DocumentEvents}
          *
          * @param eventType The event type. For document can be 'Document.SelectionChanged' or 'Document.ActiveViewChanged'.
@@ -3682,6 +3756,7 @@ declare namespace Office {
          * Removes an event handler for the specified event type.
          *
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#documentevents | DocumentEvents}
          *
          * @param eventType The event type. For document can be 'Document.SelectionChanged' or 'Document.ActiveViewChanged'.
@@ -4363,6 +4438,7 @@ declare namespace Office {
      * Represents the document file associated with an Office Add-in.
      *
      * @remarks
+     * 
      * Access the File object with the AsyncResult.value property in the callback function passed to the Document.getFileAsync method.
      * 
      */
@@ -4418,6 +4494,7 @@ declare namespace Office {
          * Returns the specified slice.
          * 
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#file | File}
          * 
          * In the callback function passed to the getSliceAsync method, you can use the properties of the AsyncResult object to return the following 
@@ -4462,6 +4539,7 @@ declare namespace Office {
      * Represents a binding in two dimensions of rows and columns.
      *
      * @remarks
+     * 
      * The MatrixBinding object inherits the id property, type property, getDataAsync method, and setDataAsync method from the Binding object.
      */
     interface MatrixBinding extends Binding {
@@ -4478,6 +4556,7 @@ declare namespace Office {
      * Represents custom settings for a task pane or content add-in that are stored in the host document as name/value pairs.
      *
      * @remarks
+     * 
      * **Hosts**: Excel, PowerPoint, Word
      * 
      * The settings created by using the methods of the Settings object are saved per add-in and per document. 
@@ -4499,6 +4578,7 @@ declare namespace Office {
          * spreadsheet (coauthoring). Therefore, effectively the settingsChanged event is supported only in Excel on the web in coauthoring scenarios.
          *
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#methods-that-arent-part-of-a-requirement-set | Not in a set}
          * 
          * You can add multiple event handlers for the specified eventType as long as the name of each event handler function is unique.
@@ -4540,6 +4620,7 @@ declare namespace Office {
          * spreadsheet (coauthoring). Therefore, effectively the settingsChanged event is supported only in Excel on the web in coauthoring scenarios.
          *
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#methods-that-arent-part-of-a-requirement-set | Not in a set}
          * 
          * You can add multiple event handlers for the specified eventType as long as the name of each event handler function is unique.
@@ -4576,6 +4657,7 @@ declare namespace Office {
          * Retrieves the specified setting.
          *
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#settings | Settings}
          *
          * @param settingName The case-sensitive name of the setting to retrieve.
@@ -4586,6 +4668,7 @@ declare namespace Office {
          * Reads all settings persisted in the document and refreshes the content or task pane add-in's copy of those settings held in memory.
          *
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#methods-that-arent-part-of-a-requirement-set | Not in a set}
          * 
          * This method is useful in Excel, Word, and PowerPoint coauthoring scenarios when multiple instances of the same add-in are working against 
@@ -4632,6 +4715,7 @@ declare namespace Office {
          * call the Settings.saveAsync method.
          *
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#settings | Settings}
          * 
          * null is a valid value for a setting. Therefore, assigning null to the setting will not remove it from the settings property bag.
@@ -4643,6 +4727,7 @@ declare namespace Office {
          * Removes an event handler for the settingsChanged event.
          *
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#methods-that-arent-part-of-a-requirement-set | Not in a set}
          * 
          * If the optional handler parameter is omitted when calling the removeHandlerAsync method, all event handlers for the specified eventType 
@@ -4663,6 +4748,7 @@ declare namespace Office {
          * Removes an event handler for the settingsChanged event.
          *
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#methods-that-arent-part-of-a-requirement-set | Not in a set}
          * 
          * If the optional handler parameter is omitted when calling the removeHandlerAsync method, all event handlers for the specified eventType 
@@ -4682,6 +4768,7 @@ declare namespace Office {
          * Persists the in-memory copy of the settings property bag in the document.
          * 
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#settings | Settings}
          * 
          * Any settings previously saved by an add-in are loaded when it is initialized, so during the lifetime of the session you can just use the 
@@ -4724,6 +4811,7 @@ declare namespace Office {
          * Persists the in-memory copy of the settings property bag in the document.
          * 
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#settings | Settings}
          * 
          * Any settings previously saved by an add-in are loaded when it is initialized, so during the lifetime of the session you can just use the 
@@ -4770,6 +4858,7 @@ declare namespace Office {
          * the document.
          *
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#settings | Settings}
          * 
          * The set method creates a new setting of the specified name if it does not already exist, or sets an existing setting of the specified name 
@@ -4855,6 +4944,7 @@ declare namespace Office {
         * Gets the number of rows in the TableBinding, as an integer value.
         *
         * @remarks
+        * 
         * When you insert an empty table by selecting a single row in Excel 2013 and Excel on the web (using Table on the Insert tab), both Office host 
         * applications create a single row of headers followed by a single blank row. However, if your add-in's script creates a binding for this 
         * newly inserted table (for example, by using the {@link Office.Bindings}.addFromSelectionAsync method), and then checks the value of the 
@@ -4993,6 +5083,7 @@ declare namespace Office {
          * Clears formatting on the bound table.
          *
          * @remarks
+         * 
          * See {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-tables#format-a-table | Format tables in add-ins for Excel} for more information.
          *
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
@@ -5003,6 +5094,7 @@ declare namespace Office {
          * Clears formatting on the bound table.
          *
          * @remarks
+         * 
          * See {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-tables#format-a-table | Format tables in add-ins for Excel} for more information.
          *
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
@@ -5316,6 +5408,7 @@ declare namespace Office {
          * Updates table formatting options on the bound table.
          *
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#methods-that-arent-part-of-a-requirement-set | Not in a set}
          * 
          * In the callback function passed to the goToByIdAsync method, you can use the properties of the AsyncResult object to return the following information.
@@ -5353,6 +5446,7 @@ declare namespace Office {
          * Updates table formatting options on the bound table.
          *
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#methods-that-arent-part-of-a-requirement-set | Not in a set}
          * 
          * In the callback function passed to the goToByIdAsync method, you can use the properties of the AsyncResult object to return the following information.
@@ -5514,6 +5608,7 @@ declare namespace Office {
      * Specifies the resource fields that are available as a parameter for the {@link Office.Document | Document}.getResourceFieldAsync method.
      *
      * @remarks
+     * 
      * A ProjectResourceFields constant can be used as a parameter of the {@link Office.Document | Document}.getResourceFieldAsync method.
      *
      * For more information about working with fields in Project, see 
@@ -6327,6 +6422,7 @@ declare namespace Office {
      * Specifies the task fields that are available as a parameter for the {@link Office.Document | Document}.getTaskFieldAsync method.
      *
      * @remarks
+     * 
      * A ProjectTaskFields constant can be used as a parameter of the {@link Office.Document | Document}.getTaskFieldAsync method.
      *
      * For more information about working with fields in Project, see the 
@@ -7478,6 +7574,7 @@ declare namespace Office {
      * Specifies the types of views that the {@link Office.Document | Document}.getSelectedViewAsync method can recognize.
      *
      * @remarks
+     * 
      * The {@link Office.Document | Document}.getSelectedViewAsync method returns the ProjectViewTypes constant value and name that corresponds to the 
      * active view.
      */
@@ -7570,6 +7667,7 @@ declare namespace Office {
          * [Api set: Mailbox Preview]
          * 
          * @remarks
+         * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
          * 
          * @beta
@@ -7601,6 +7699,7 @@ declare namespace Office {
          * [Api set: Mailbox Preview]
          * 
          * @remarks
+         * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
          * 
          * @beta
@@ -7625,6 +7724,7 @@ declare namespace Office {
          * [Api set: Mailbox Preview]
          * 
          * @remarks
+         * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
          * 
          * @beta
@@ -7741,6 +7841,7 @@ declare namespace Office {
          * [Api set: Mailbox 1.0]
          *
          * @remarks
+         * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
          */
         enum AttachmentType {
@@ -7763,6 +7864,7 @@ declare namespace Office {
          * [Api set: Mailbox 1.7]
          *
          * @remarks
+         * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
          */
         enum Days {
@@ -7813,6 +7915,7 @@ declare namespace Office {
          * [Api set: Mailbox Preview]
          *
          * @remarks
+         * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
          * 
          * @beta
@@ -7849,6 +7952,7 @@ declare namespace Office {
          * [Api set: Mailbox 1.0]
          *
          * @remarks
+         * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
          */
         enum EntityType {
@@ -7887,6 +7991,7 @@ declare namespace Office {
          * [Api set: Mailbox 1.3]
          *
          * @remarks
+         * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
          */
         enum ItemNotificationMessageType {
@@ -7909,6 +8014,7 @@ declare namespace Office {
          * [Api set: Mailbox 1.0]
          *
          * @remarks
+         * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
          */
         enum ItemType {
@@ -7927,6 +8033,7 @@ declare namespace Office {
          * [Api set: Mailbox Preview]
          * 
          * @remarks
+         * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
          * 
          * @beta
@@ -7947,6 +8054,7 @@ declare namespace Office {
          * [Api set: Mailbox 1.7]
          *
          * @remarks
+         * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
          */
         enum Month {
@@ -8023,6 +8131,7 @@ declare namespace Office {
          * [Api set: Mailbox 1.1]
          *
          * @remarks
+         * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
          */
         enum RecipientType {
@@ -8049,6 +8158,7 @@ declare namespace Office {
          * [Api set: Mailbox 1.7]
          *
          * @remarks
+         * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
          */
         enum RecurrenceTimeZone {
@@ -8605,6 +8715,7 @@ declare namespace Office {
          * [Api set: Mailbox 1.7]
          *
          * @remarks
+         * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
          */
         enum RecurrenceType {
@@ -8635,6 +8746,7 @@ declare namespace Office {
          * [Api set: Mailbox 1.0]
          *
          * @remarks
+         * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
          */
         enum ResponseType {
@@ -8665,6 +8777,7 @@ declare namespace Office {
          * [Api set: Mailbox 1.3]
          *
          * @remarks
+         * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
          */
         enum RestVersion {
@@ -8687,6 +8800,7 @@ declare namespace Office {
          * [Api set: Mailbox 1.7]
          *
          * @remarks
+         * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
          */
         enum WeekNumber {
@@ -8731,6 +8845,7 @@ declare namespace Office {
      * [Api set: Mailbox 1.0]
      *
      * @remarks
+     * 
      * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: Restricted
      * 
      * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
@@ -9079,7 +9194,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - DataExceedsMaximumSize: The data parameter is longer than 1,000,000 characters.
          * 
@@ -9108,10 +9223,10 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - DataExceedsMaximumSize: The data parameter is longer than 1,000,000 characters.
-         *
+         * 
          * @param data - The string to be inserted at the beginning of the body. The string is limited to 1,000,000 characters.
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult.
          *                  Any errors encountered will be provided in the asyncResult.error property.
@@ -9135,7 +9250,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - DataExceedsMaximumSize: The data parameter is longer than 1,000,000 characters.
          * 
@@ -9167,7 +9282,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - DataExceedsMaximumSize: The data parameter is longer than 1,000,000 characters.
          * 
@@ -9197,7 +9312,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - DataExceedsMaximumSize: The data parameter is longer than 1,000,000 characters.
          * 
@@ -9229,7 +9344,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - DataExceedsMaximumSize: The data parameter is longer than 1,000,000 characters.
          * 
@@ -9389,7 +9504,9 @@ declare namespace Office {
         /**
          * Gets a string that represents the name of the host application.
          *
-         * A string that can be one of the following values: Outlook, Mac Outlook, OutlookIOS, or OutlookWebApp.
+         * A string that can be one of the following values: "Outlook", "OutlookWebApp", "OutlookIOS", or "OutlookAndroid".
+         *
+         * **Note**: The "Outlook" value is returned for Outlook on desktop clients (i.e., Windows and Mac).
          *
          * [Api set: Mailbox 1.0]
          *
@@ -9401,10 +9518,10 @@ declare namespace Office {
          */
         hostName: string;
         /**
-         * Gets a string that represents the version of either the host application or the Exchange Server.
+         * Gets a string that represents the version of either the host application or the Exchange Server (e.g., "15.0.468.0").
          *
-         * If the mail add-in is running in Outlook client on the desktop or iOS, the hostVersion property returns the version of the host 
-         * application, Outlook. In Outlook on the web, the property returns the version of the Exchange Server. An example is the string 15.0.468.0.
+         * If the mail add-in is running in Outlook on a desktop or mobile client, the hostVersion property returns the version of the host 
+         * application, Outlook. In Outlook on the web, the property returns the version of the Exchange Server.
          *
          * [Api set: Mailbox 1.0]
          *
@@ -9418,18 +9535,18 @@ declare namespace Office {
         /**
          * Gets a string that represents the current view of Outlook on the web.
          *
-         * The returned string can be one of the following values: OneColumn, TwoColumns, or ThreeColumns.
+         * The returned string can be one of the following values: "OneColumn", "TwoColumns", or "ThreeColumns".
          *
          * If the host application is not Outlook on the web, then accessing this property results in undefined.
          *
          * Outlook on the web has three views that correspond to the width of the screen and the window, and the number of columns that can be displayed:
          *
-         * - OneColumn, which is displayed when the screen is narrow. Outlook on the web uses this single-column layout on the entire screen of a 
+         * - "OneColumn", which is displayed when the screen is narrow. Outlook on the web uses this single-column layout on the entire screen of a 
          * smartphone.
          *
-         * - TwoColumns, which is displayed when the screen is wider. Outlook on the web uses this view on most tablets.
+         * - "TwoColumns", which is displayed when the screen is wider. Outlook on the web uses this view on most tablets.
          *
-         * - ThreeColumns, which is displayed when the screen is wide. For example, Outlook on the web uses this view in a full screen window on a 
+         * - "ThreeColumns", which is displayed when the screen is wide. For example, Outlook on the web uses this view in a full screen window on a 
          * desktop computer.
          *
          * [Api set: Mailbox 1.0]
@@ -9519,7 +9636,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - InvalidFormatError: The format of the specified data object is not valid.
          * 
@@ -9543,7 +9660,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - InvalidFormatError: The format of the specified data object is not valid.
          * 
@@ -9705,7 +9822,6 @@ declare namespace Office {
      * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
      * 
      * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
-     * 
      */
     interface From {
         /**
@@ -9972,6 +10088,7 @@ declare namespace Office {
      * [Api set: Mailbox 1.7]
      * 
      * @remarks
+     * 
      * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
      * 
      * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
@@ -10034,7 +10151,7 @@ declare namespace Office {
          * [Api set: Mailbox 1.1]
          *
          * @remarks
-         *
+         * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Appointment Organizer
@@ -10260,7 +10377,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Appointment Organizer
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - AttachmentSizeExceeded: The attachment is larger than allowed.
          * 
@@ -10293,7 +10410,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Appointment Organizer
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - AttachmentSizeExceeded: The attachment is larger than allowed.
          * 
@@ -10323,7 +10440,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Appointment Organizer
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - AttachmentSizeExceeded: The attachment is larger than allowed.
          * 
@@ -10358,7 +10475,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Appointment Organizer
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - AttachmentSizeExceeded: The attachment is larger than allowed.
          * 
@@ -10376,9 +10493,9 @@ declare namespace Office {
          */
         addFileAttachmentFromBase64Async(base64File: string, attachmentName: string, callback?: (asyncResult: Office.AsyncResult<string>) => void): void;
         /**
-         * Adds an event handler for a supported event.
+         * Adds an event handler for a supported event. **Note**: Events are available only with task pane.
          * 
-         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
+         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and
          * `Office.EventType.RecurrenceChanged`.
          * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.EnhancedLocationsChanged` are also supported.
          * 
@@ -10400,7 +10517,7 @@ declare namespace Office {
          */
         addHandlerAsync(eventType: Office.EventType | string, handler: any, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
-         * Adds an event handler for a supported event.
+         * Adds an event handler for a supported event. **Note**: Events are available only with task pane.
          * 
          * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
          * `Office.EventType.RecurrenceChanged`.
@@ -10442,7 +10559,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Appointment Organizer
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - NumberOfAttachmentsExceeded: The message or appointment has too many attachments.
          * 
@@ -10476,7 +10593,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Appointment Organizer
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - NumberOfAttachmentsExceeded: The message or appointment has too many attachments.
          *
@@ -10608,7 +10725,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Appointment Organizer
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - `ItemNotSaved`: The id can't be retrieved until the item is saved.
          * 
@@ -10634,7 +10751,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Appointment Organizer
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - `ItemNotSaved`: The id can't be retrieved until the item is saved.
          * 
@@ -10683,7 +10800,7 @@ declare namespace Office {
          * The selected data as a string with format determined by coercionType.
          *
          * @remarks
-         *
+         * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadWriteItem
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Appointment Organizer
@@ -10736,7 +10853,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Appointment Organizer
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - InvalidAttachmentId: The attachment identifier does not exist.
          *
@@ -10765,7 +10882,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Appointment Organizer
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - InvalidAttachmentId: The attachment identifier does not exist.
          *
@@ -10776,7 +10893,7 @@ declare namespace Office {
          */
         removeAttachmentAsync(attachmentId: string, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
        /**
-        * Removes the event handlers for a supported event type.
+        * Removes the event handlers for a supported event type. **Note**: Events are available only with task pane.
         * 
         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
         * `Office.EventType.RecurrenceChanged`.
@@ -10798,7 +10915,7 @@ declare namespace Office {
         */
        removeHandlerAsync(eventType: Office.EventType | string, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
        /**
-        * Removes the event handlers for a supported event type.
+        * Removes the event handlers for a supported event type. **Note**: Events are available only with task pane.
         * 
         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
         * `Office.EventType.RecurrenceChanged`.
@@ -10847,7 +10964,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Appointment Organizer
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - InvalidAttachmentId: The attachment identifier does not exist.
          * 
@@ -10880,12 +10997,12 @@ declare namespace Office {
          * [Api set: Mailbox 1.3]
          *
          * @remarks
-         *
+         * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadWriteItem
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Appointment Organizer
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - InvalidAttachmentId: The attachment identifier does not exist.
          *
@@ -10907,7 +11024,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Appointment Organizer
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - InvalidAttachmentId: The attachment identifier does not exist.
          * 
@@ -10941,7 +11058,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Appointment Organizer
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - InvalidAttachmentId: The attachment identifier does not exist.
          *
@@ -11294,7 +11411,7 @@ declare namespace Office {
         subject: string;
 
         /**
-         * Adds an event handler for a supported event.
+         * Adds an event handler for a supported event. **Note**: Events are available only with task pane.
          * 
          * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
          * `Office.EventType.RecurrenceChanged`.
@@ -11318,7 +11435,7 @@ declare namespace Office {
          */
         addHandlerAsync(eventType: Office.EventType | string, handler: any, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
-         * Adds an event handler for a supported event.
+         * Adds an event handler for a supported event. **Note**: Events are available only with task pane.
          * 
          * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
          * `Office.EventType.RecurrenceChanged`.
@@ -11607,7 +11724,7 @@ declare namespace Office {
          * [Api set: Mailbox 1.6]
          *
          * @remarks
-         *
+         * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Appointment Attendee
@@ -11672,7 +11789,7 @@ declare namespace Office {
        loadCustomPropertiesAsync(callback: (asyncResult: Office.AsyncResult<CustomProperties>) => void, userContext?: any): void;
 
        /**
-        * Removes the event handlers for a supported event type.
+        * Removes the event handlers for a supported event type. **Note**: Events are available only with task pane.
         * 
         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
         * `Office.EventType.RecurrenceChanged`.
@@ -11694,7 +11811,7 @@ declare namespace Office {
         */
        removeHandlerAsync(eventType: Office.EventType | string, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
        /**
-        * Removes the event handlers for a supported event type.
+        * Removes the event handlers for a supported event type. **Note**: Events are available only with task pane.
         * 
         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
         * `Office.EventType.RecurrenceChanged`.
@@ -11722,6 +11839,7 @@ declare namespace Office {
      * [Api set: Mailbox 1.0]
      *
      * @remarks
+     * 
      * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: Restricted
      * 
      * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
@@ -11806,7 +11924,7 @@ declare namespace Office {
         seriesId: string;
 
         /**
-         * Adds an event handler for a supported event.
+         * Adds an event handler for a supported event. **Note**: Events are available only with task pane.
          * 
          * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
          * `Office.EventType.RecurrenceChanged`.
@@ -11831,7 +11949,7 @@ declare namespace Office {
         addHandlerAsync(eventType: Office.EventType | string, handler: any, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
 
         /**
-         * Adds an event handler for a supported event.
+         * Adds an event handler for a supported event. **Note**: Events are available only with task pane.
          * 
          * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
          * `Office.EventType.RecurrenceChanged`.
@@ -11870,7 +11988,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - InvalidAttachmentId: The attachment identifier does not exist.
          * 
@@ -11902,7 +12020,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - InvalidAttachmentId: The attachment identifier does not exist.
          * 
@@ -12023,7 +12141,7 @@ declare namespace Office {
         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
         * 
         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-        *
+        * 
         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
         *                 type Office.AsyncResult.
         * @param userContext - Optional. Developers can provide any object they wish to access in the callback function. 
@@ -12033,7 +12151,7 @@ declare namespace Office {
 
 
        /**
-        * Removes the event handlers for a supported event type.
+        * Removes the event handlers for a supported event type. **Note**: Events are available only with task pane.
         * 
         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
         * `Office.EventType.RecurrenceChanged`.
@@ -12056,7 +12174,7 @@ declare namespace Office {
        removeHandlerAsync(eventType: Office.EventType | string, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
 
        /**
-        * Removes the event handlers for a supported event type.
+        * Removes the event handlers for a supported event type. **Note**: Events are available only with task pane.
         * 
         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
         * `Office.EventType.RecurrenceChanged`.
@@ -12116,7 +12234,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - AttachmentSizeExceeded: The attachment is larger than allowed.
          * 
@@ -12183,7 +12301,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - AttachmentSizeExceeded: The attachment is larger than allowed.
          * 
@@ -12218,7 +12336,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - AttachmentSizeExceeded: The attachment is larger than allowed.
          * 
@@ -12257,7 +12375,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - NumberOfAttachmentsExceeded: The message or appointment has too many attachments.
          * 
@@ -12292,7 +12410,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - NumberOfAttachmentsExceeded: The message or appointment has too many attachments.
          *
@@ -12351,7 +12469,6 @@ declare namespace Office {
          * [Api set: Mailbox Preview]
          *
          * @remarks
-         *
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
          * 
@@ -12486,7 +12603,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - InvalidAttachmentId: The attachment identifier does not exist.
          * 
@@ -12515,7 +12632,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - InvalidAttachmentId: The attachment identifier does not exist.
          *
@@ -12556,7 +12673,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - InvalidAttachmentId: The attachment identifier does not exist.
          * 
@@ -12597,7 +12714,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - InvalidAttachmentId: The attachment identifier does not exist.
          *
@@ -12621,7 +12738,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - InvalidAttachmentId: The attachment identifier does not exist.
          * 
@@ -12655,7 +12772,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - InvalidAttachmentId: The attachment identifier does not exist.
          *
@@ -13327,7 +13444,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Message Compose
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - AttachmentSizeExceeded: The attachment is larger than allowed.
          * 
@@ -13362,7 +13479,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Message Compose
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - AttachmentSizeExceeded: The attachment is larger than allowed.
          * 
@@ -13393,7 +13510,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Message Compose
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - AttachmentSizeExceeded: The attachment is larger than allowed.
          * 
@@ -13428,7 +13545,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Message Compose
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - AttachmentSizeExceeded: The attachment is larger than allowed.
          * 
@@ -13446,7 +13563,7 @@ declare namespace Office {
          */
         addFileAttachmentFromBase64Async(base64File: string, attachmentName: string, callback?: (asyncResult: Office.AsyncResult<string>) => void): void;
         /**
-         * Adds an event handler for a supported event.
+         * Adds an event handler for a supported event. **Note**: Events are available only with task pane.
          * 
          * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
          * `Office.EventType.RecurrenceChanged`.
@@ -13470,7 +13587,7 @@ declare namespace Office {
          */
         addHandlerAsync(eventType: Office.EventType | string, handler: any, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
-         * Adds an event handler for a supported event.
+         * Adds an event handler for a supported event. **Note**: Events are available only with task pane.
          * 
          * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
          * `Office.EventType.RecurrenceChanged`.
@@ -13512,7 +13629,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Message Compose
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - NumberOfAttachmentsExceeded: The message or appointment has too many attachments.
          * 
@@ -13547,7 +13664,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Message Compose
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - NumberOfAttachmentsExceeded: The message or appointment has too many attachments.
          *
@@ -13714,7 +13831,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Message Compose
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - `ItemNotSaved`: The id can't be retrieved until the item is saved.
          * 
@@ -13740,7 +13857,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Message Compose
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - `ItemNotSaved`: The id can't be retrieved until the item is saved.
          * 
@@ -13815,7 +13932,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Message Compose
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - InvalidAttachmentId: The attachment identifier does not exist.
          * 
@@ -13844,7 +13961,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Message Compose
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - InvalidAttachmentId: The attachment identifier does not exist.
          *
@@ -13855,7 +13972,7 @@ declare namespace Office {
          */
         removeAttachmentAsync(attachmentId: string, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
-         * Removes the event handlers for a supported event type.
+         * Removes the event handlers for a supported event type. **Note**: Events are available only with task pane.
          * 
          * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
          * `Office.EventType.RecurrenceChanged`.
@@ -13877,7 +13994,7 @@ declare namespace Office {
          */
         removeHandlerAsync(eventType: Office.EventType | string, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
-         * Removes the event handlers for a supported event type.
+         * Removes the event handlers for a supported event type. **Note**: Events are available only with task pane.
          * 
          * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
          * `Office.EventType.RecurrenceChanged`.
@@ -13926,7 +14043,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Message Compose
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - InvalidAttachmentId: The attachment identifier does not exist.
          * 
@@ -13966,7 +14083,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Message Compose
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - InvalidAttachmentId: The attachment identifier does not exist.
          *
@@ -13989,7 +14106,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Message Compose
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - InvalidAttachmentId: The attachment identifier does not exist.
          * 
@@ -14022,7 +14139,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Message Compose
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - InvalidAttachmentId: The attachment identifier does not exist.
          *
@@ -14389,7 +14506,7 @@ declare namespace Office {
         to: EmailAddressDetails[];
 
         /**
-         * Adds an event handler for a supported event.
+         * Adds an event handler for a supported event. **Note**: Events are available only with task pane.
          * 
          * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
          * `Office.EventType.RecurrenceChanged`.
@@ -14413,7 +14530,7 @@ declare namespace Office {
          */
         addHandlerAsync(eventType: Office.EventType | string, handler: any, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
-         * Adds an event handler for a supported event.
+         * Adds an event handler for a supported event. **Note**: Events are available only with task pane.
          * 
          * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
          * `Office.EventType.RecurrenceChanged`.
@@ -14770,7 +14887,7 @@ declare namespace Office {
          */
         loadCustomPropertiesAsync(callback: (asyncResult: Office.AsyncResult<CustomProperties>) => void, userContext?: any): void;
         /**
-         * Removes the event handlers for a supported event type.
+         * Removes the event handlers for a supported event type. **Note**: Events are available only with task pane.
          * 
          * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
          * `Office.EventType.RecurrenceChanged`.
@@ -14792,7 +14909,7 @@ declare namespace Office {
          */
         removeHandlerAsync(eventType: Office.EventType | string, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
-         * Removes the event handlers for a supported event type.
+         * Removes the event handlers for a supported event type. **Note**: Events are available only with task pane.
          * 
          * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
          * `Office.EventType.RecurrenceChanged`.
@@ -14928,7 +15045,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - DataExceedsMaximumSize: The location parameter is longer than 255 characters.
          */
@@ -14951,7 +15068,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - DataExceedsMaximumSize: The location parameter is longer than 255 characters.
          */
@@ -14983,16 +15100,17 @@ declare namespace Office {
          * Contains the following members:
          * 
          *  - hostName (string): A string that represents the name of the host application. 
-         * It be one of the following values: Outlook, Mac Outlook, OutlookIOS, or OutlookWebApp.
+         * It should be one of the following values: "Outlook", "OutlookWebApp", "OutlookIOS", or "OutlookAndroid".
+         * **Note**: The "Outlook" value is returned for Outlook on desktop clients (i.e., Windows and Mac).
          * 
-         *  - hostVersion (string): A string that represents the version of either the host application or the Exchange Server. 
-         * If the mail add-in is running in Outlook on desktop clients or iOS, the hostVersion property returns the version of the 
-         * host application, Outlook. In Outlook on the web, the property returns the version of the Exchange Server. An example is the string 15.0.468.0.
+         *  - hostVersion (string): A string that represents the version of either the host application or the Exchange Server (e.g., "15.0.468.0"). 
+         * If the mail add-in is running in Outlook on desktop or mobile clients, the hostVersion property returns the version of the 
+         * host application, Outlook. In Outlook on the web, the property returns the version of the Exchange Server.
          * 
          *  - OWAView (MailboxEnums.OWAView or string): An enum (or string literal) that represents the current view of Outlook on the web. 
          * If the host application is not Outlook on the web, then accessing this property results in undefined. 
-         * Outlook on the web has three views (OneColumn - displayed when the screen is narrow, TwoColumns - displayed when the screen is wider, 
-         * and ThreeColumns - displayed when the screen is wide) that correspond to the width of the screen and the window, and the number of columns 
+         * Outlook on the web has three views ("OneColumn" - displayed when the screen is narrow, "TwoColumns" - displayed when the screen is wider, 
+         * and "ThreeColumns" - displayed when the screen is wide) that correspond to the width of the screen and the window, and the number of columns 
          * that can be displayed.
          *
          *  More information is under {@link Office.Diagnostics}. 
@@ -15074,7 +15192,7 @@ declare namespace Office {
          */
         userProfile: UserProfile;
         /**
-         * Adds an event handler for a supported event.
+         * Adds an event handler for a supported event. **Note**: Events are available only with task pane.
          *
          * Currently, the only supported event type is `Office.EventType.ItemChanged`.
          * In Preview, `Office.EventType.OfficeThemeChanged` is also supported.
@@ -15096,7 +15214,7 @@ declare namespace Office {
          */
         addHandlerAsync(eventType: Office.EventType | string, handler: (type: Office.EventType) => void, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
-         * Adds an event handler for a supported event.
+         * Adds an event handler for a supported event. **Note**: Events are available only with task pane.
          *
          * Currently, the only supported event type is `Office.EventType.ItemChanged`.
          * In Preview, `Office.EventType.OfficeThemeChanged` is also supported.
@@ -15334,6 +15452,8 @@ declare namespace Office {
          * The getCallbackTokenAsync method makes an asynchronous call to get an opaque token from the Exchange Server that hosts the user's mailbox. 
          * The lifetime of the callback token is 5 minutes.
          *
+         * The token is returned as a string in the `asyncResult.value` property.
+         *
          * *REST Tokens*
          *
          * When a REST token is requested (options.isRest = true), the resulting token will not work to authenticate Exchange Web Services calls. 
@@ -15361,12 +15481,20 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
          * 
+         * **Errors**:
+         * 
+         * - HTTPRequestFailure: The request has failed. Please look at the diagnostics object for the HTTP error code.
+         * 
+         * - InternalServerError: The Exchange server returned an error. Please look at the diagnostics object for more information.
+         * 
+         * - NetworkError: The user is no longer connected to the network. Please check your network connection and try again.
+         * 
          * @param options - An object literal that contains one or more of the following properties.
          *        isRest: Determines if the token provided will be used for the Outlook REST APIs or Exchange Web Services. Default value is false.
          *        asyncContext: Any state data that is passed to the asynchronous method.
          * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
-         *                 type Office.AsyncResult. The token is provided as a string in the `asyncResult.value` property.
-         *                 If there was an error, then the `asyncResult.error` and `asyncResult.diagnostics` properties may provide additional information.
+         *                 type Office.AsyncResult. The token is returned as a string in the `asyncResult.value` property.
+         *                 If there was an error, the `asyncResult.error` and `asyncResult.diagnostics` properties may provide additional information.
          */
         getCallbackTokenAsync(options: Office.AsyncContextOptions & { isRest?: boolean }, callback: (asyncResult: Office.AsyncResult<string>) => void): void;
         /**
@@ -15374,6 +15502,8 @@ declare namespace Office {
          *
          * The getCallbackTokenAsync method makes an asynchronous call to get an opaque token from the Exchange Server that hosts the user's mailbox. 
          * The lifetime of the callback token is 5 minutes.
+         *
+         * The token is returned as a string in the `asyncResult.value` property.
          *
          * You can pass the token and an attachment identifier or item identifier to a third-party system. 
          * The third-party system uses the token as a bearer authorization token to call the Exchange Web Services (EWS) GetAttachment or 
@@ -15384,7 +15514,7 @@ declare namespace Office {
          * In compose mode you must call the saveAsync method to get an item identifier to pass to the getCallbackTokenAsync method. 
          * Your app must have ReadWriteItem permissions to call the saveAsync method.
          *
-         * [Api set: Mailbox 1.3]
+         * [Api set: Mailbox 1.0]
          *
          * @remarks
          *
@@ -15392,16 +15522,24 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
          *
+         * **Errors**:
+         * 
+         * - HTTPRequestFailure: The request has failed. Please look at the diagnostics object for the HTTP error code.
+         * 
+         * - InternalServerError: The Exchange server returned an error. Please look at the diagnostics object for more information.
+         * 
+         * - NetworkError: The user is no longer connected to the network. Please check your network connection and try again.
+         * 
          * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
-         *                 type Office.AsyncResult. The token is provided as a string in the `asyncResult.value` property.
-         *                 If there was an error, then the `asyncResult.error` and `asyncResult.diagnostics` properties may provide additional information.
+         *                 type Office.AsyncResult. The token is returned as a string in the `asyncResult.value` property.
+         *                 If there was an error, the `asyncResult.error` and `asyncResult.diagnostics` properties may provide additional information.
          * @param userContext - Optional. Any state data that is passed to the asynchronous method.
          */
         getCallbackTokenAsync(callback: (asyncResult: Office.AsyncResult<string>) => void, userContext?: any): void;
         /**
          * Gets a token identifying the user and the Office Add-in.
          *
-         * The token is provided as a string in the asyncResult.value property.
+         * The token is returned as a string in the `asyncResult.value` property.
          *
          * [Api set: Mailbox 1.0]
          *
@@ -15414,10 +15552,18 @@ declare namespace Office {
          * The getUserIdentityTokenAsync method returns a token that you can use to identify and 
          * {@link https://docs.microsoft.com/outlook/add-ins/authentication | authenticate the add-in and user with a third-party system}.
          *
+         * **Errors**:
+         * 
+         * - HTTPRequestFailure: The request has failed. Please look at the diagnostics object for the HTTP error code.
+         * 
+         * - InternalServerError: The Exchange server returned an error. Please look at the diagnostics object for more information.
+         * 
+         * - NetworkError: The user is no longer connected to the network. Please check your network connection and try again.
+         * 
          * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
          *                 type Office.AsyncResult.
-         *                 The token is provided as a string in the `asyncResult.value` property.
-         *                 If there was an error, then the `asyncResult.error` and `asyncResult.diagnostics` properties may provide additional information.
+         *                 The token is returned as a string in the `asyncResult.value` property.
+         *                 If there was an error, the `asyncResult.error` and `asyncResult.diagnostics` properties may provide additional information.
          * @param userContext - Optional. Any state data that is passed to the asynchronous method.
          */
         getUserIdentityTokenAsync(callback: (asyncResult: Office.AsyncResult<string>) => void, userContext?: any): void;
@@ -15475,7 +15621,7 @@ declare namespace Office {
          */
         makeEwsRequestAsync(data: any, callback: (asyncResult: Office.AsyncResult<string>) => void, userContext?: any): void;
         /**
-         * Removes the event handlers for a supported event type.
+         * Removes the event handlers for a supported event type. **Note**: Events are available only with task pane.
          *
          * Currently, the only supported event type is `Office.EventType.ItemChanged`.
          * In Preview, `Office.EventType.OfficeThemeChanged` is also supported.
@@ -15495,7 +15641,7 @@ declare namespace Office {
          */
         removeHandlerAsync(eventType: Office.EventType | string, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
-         * Removes the event handlers for a supported event type.
+         * Removes the event handlers for a supported event type. **Note**: Events are available only with task pane.
          *
          * Currently, the only supported event type is `Office.EventType.ItemChanged`.
          * In Preview, `Office.EventType.OfficeThemeChanged` is also supported.
@@ -15551,7 +15697,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - InvalidCategory: Invalid categories were provided.
          * 
@@ -15574,7 +15720,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - InvalidCategory: Invalid categories were provided.
          * 
@@ -15715,7 +15861,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - DuplicateCategory: One of the categories provided is already in the master category list.
          * 
@@ -15739,7 +15885,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - DuplicateCategory: One of the categories provided is already in the master category list.
          * 
@@ -15801,7 +15947,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - PermissionDenied: The user does not have permission to perform this action.
          * 
@@ -15823,7 +15969,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - PermissionDenied: The user does not have permission to perform this action.
          * 
@@ -15902,6 +16048,8 @@ declare namespace Office {
         /**
          * A reference to an icon that is defined in the manifest in the Resources section. It appears in the infobar area. 
          * It is only applicable if the type is InformationalMessage. Specifying this parameter for an unsupported type results in an exception.
+         * 
+         * **Note**: At present, the custom icon is displayed in Outlook on Windows only and not on other clients (e.g., Mac, web browser).
          */
         icon?: string;
         /**
@@ -16139,7 +16287,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - NumberOfRecipientsExceeded: The number of recipients exceeded 100 entries.
          * 
@@ -16169,7 +16317,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - NumberOfRecipientsExceeded: The number of recipients exceeded 100 entries.
          *
@@ -16237,7 +16385,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - NumberOfRecipientsExceeded: The number of recipients exceeded 100 entries.
          * 
@@ -16271,7 +16419,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - NumberOfRecipientsExceeded: The number of recipients exceeded 100 entries.
          *
@@ -16344,7 +16492,6 @@ declare namespace Office {
          * [Api set: Mailbox 1.7]
          * 
          * @remarks
-         * 
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
          * 
@@ -16445,7 +16592,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - InvalidEndTime: The appointment end time is before its start time.
          * 
@@ -16470,7 +16617,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - InvalidEndTime: The appointment end time is before its start time.
          * 
@@ -16779,7 +16926,7 @@ declare namespace Office {
          *
          * @remarks
          * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadWriteItem         
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadWriteItem
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
          * 
@@ -16900,11 +17047,20 @@ declare namespace Office {
         /**
          * The email address of the owner of a shared item.
          */
-        owner: String;
+        owner: string;
         /**
-         * The remote REST URL related to the owner’s mailbox.
+         * The REST API's base URL (currently https://outlook.office.com/api).
+         * Use with targetMailbox to construct REST operation's URL.
+         * 
+         * Example usage: `targetRestUrl + "/{api_version}/users/" + targetMailbox + "/{REST_operation}"`
          */
-        restUrl: String;
+        targetRestUrl: string;
+        /**
+         * The target/owner's mailbox. Use with targetRestUrl to construct REST operation's URL.
+         * 
+         * Example usage: `targetRestUrl + "/{api_version}/users/" + targetMailbox + "/{REST_operation}"`
+         */
+        targetMailbox: string;
         /**
          * The permissions that the delegate has on a shared folder.
          */
@@ -16974,7 +17130,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - DataExceedsMaximumSize: The subject parameter is longer than 255 characters.
          * 
@@ -16999,7 +17155,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - DataExceedsMaximumSize: The subject parameter is longer than 255 characters.
          *
@@ -17100,7 +17256,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - InvalidEndTime: The appointment end time is before the appointment start time.
          * 
@@ -17128,7 +17284,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - InvalidEndTime: The appointment end time is before the appointment start time.
          *
@@ -18615,7 +18771,7 @@ declare namespace Excel {
         address: string;
         /**
          *
-         * Gets the change type that represents how the Changed event is triggered. See Excel.RowHiddenChangeType for details.
+         * Gets the change type that represents how the RowHiddenChanged event is triggered. See Excel.RowHiddenChangeType for details.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -18948,7 +19104,7 @@ declare namespace Excel {
         address: string;
         /**
          *
-         * The distance, in points, from the left-clicked/tapped point to the left (right for RTL) gridline edge of the left-clicked/tapped cell.
+         * The distance, in points, from the left-clicked/tapped point to the left (or right for RTL) gridline edge of the left-clicked/tapped cell.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -19612,6 +19768,7 @@ declare namespace Excel {
     /**
      *
      * Workbook is the top level object which contains related workbook objects such as worksheets, tables, ranges, etc.
+     * To learn more about the workbook object model, read {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-workbooks | Work with workbooks using the Excel JavaScript API}.
      *
      * [Api set: ExcelApi 1.1]
      */
@@ -20088,6 +20245,7 @@ declare namespace Excel {
     /**
      *
      * An Excel worksheet is a grid of cells. It can contain data, tables, charts, etc.
+     * To learn more about the worksheet object model, read {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-worksheets | Work with worksheets using the Excel JavaScript API}.
      *
      * [Api set: ExcelApi 1.1]
      */
@@ -20449,6 +20607,21 @@ declare namespace Excel {
          */
         replaceAll(text: string, replacement: string, criteria: Excel.ReplaceCriteria): OfficeExtension.ClientResult<number>;
         /**
+         *
+         * Shows row or column groups by their outline levels.
+            Outlines group and summarize a list of data in the worksheet.
+            The `rowLevels` and `columnLevels` parameters specify how many levels of the outline will be displayed.
+            The acceptable argument range is between 0 and 8.
+            A value of 0 does not change the current display. A value greater than the current number of levels displays all the levels.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         *
+         * @param rowLevels The number of row levels of an outline to display.
+         * @param columnLevels The number of column levels of an outline to display.
+         */
+        showOutlineLevels(rowLevels: number, columnLevels: number): void;
+        /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          *
          * @remarks
@@ -20565,7 +20738,9 @@ declare namespace Excel {
         readonly onSelectionChanged: OfficeExtension.EventHandlers<Excel.WorksheetSelectionChangedEventArgs>;
         /**
          *
-         * Occurs when left-clicked/tapped operation happens in the worksheet.
+         * Occurs when left-clicked/tapped operation happens in the worksheet. This event will not be fired when clicking in the following cases:
+                    - The user drags the mouse for multi-selection.
+                    - The user selects a cell in the mode when cell arguments are selected for formula references.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          *
@@ -20810,7 +20985,9 @@ declare namespace Excel {
         readonly onSelectionChanged: OfficeExtension.EventHandlers<Excel.WorksheetSelectionChangedEventArgs>;
         /**
          *
-         * Occurs when left-clicked/tapped operation happens in the worksheet collection.
+         * Occurs when left-clicked/tapped operation happens in the worksheet collection. This event will not be fired when clicking in the following cases:
+                    - The user drags the mouse for multi-selection.
+                    - The user selects a cell in the mode when cell arguments are selected for formula references.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          *
@@ -21068,6 +21245,7 @@ declare namespace Excel {
     /**
      *
      * Range represents a set of one or more contiguous cells such as a cell, a row, a column, block of cells, etc.
+     * To learn more about how ranges are used throughout the API, read {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-ranges | Work with ranges using the Excel JavaScript API} and {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-ranges-advanced | Work with ranges using the Excel JavaScript API (advanced)}.
      *
      * [Api set: ExcelApi 1.1]
      */
@@ -21246,8 +21424,9 @@ declare namespace Excel {
         numberFormat: any[][];
         /**
          *
-         * Represents Excel's number format code for the given range as a string in the language of the user.
+         * Represents Excel's number format code for the given range, based on the language settings of the user.
             When setting number format local to a range, the value argument can be either a single value (string) or a two-dimensional array. If the argument is a single value, it will be applied to all cells in the range.
+            Excel does not perform any language or format coercion when getting or setting the `numberFormatLocal` property. Any returned text uses the locally-formatted strings based on the language specified in the system settings.
          *
          * [Api set: ExcelApi 1.7]
          */
@@ -21798,6 +21977,50 @@ declare namespace Excel {
         getVisibleView(): Excel.RangeView;
         /**
          *
+         * Groups columns and rows for an outline.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         *
+         * @param groupOption Specifies how the range can be grouped by rows or columns.
+            An `InvalidArgument` error is thrown when the group option differs from the range's
+            `isEntireRow` or `isEntireColumn` property (i.e., `range.isEntireRow` is true and `groupOption` is "ByColumns"
+            or `range.isEntireColumn` is true and `groupOption` is "ByRows").
+         */
+        group(groupOption: Excel.GroupOption): void;
+        /**
+         *
+         * Groups columns and rows for an outline.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         *
+         * @param groupOption Specifies how the range can be grouped by rows or columns.
+            An `InvalidArgument` error is thrown when the group option differs from the range's
+            `isEntireRow` or `isEntireColumn` property (i.e., `range.isEntireRow` is true and `groupOption` is "ByColumns"
+            or `range.isEntireColumn` is true and `groupOption` is "ByRows").
+         */
+        group(groupOption: "ByRows" | "ByColumns"): void;
+        /**
+         *
+         * Hide details of the row or column group.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         *
+         * @param groupOption Specifies whether to hide details of grouped rows or grouped columns.
+         */
+        hideGroupDetails(groupOption: Excel.GroupOption): void;
+        /**
+         *
+         * Hide details of the row or column group.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         *
+         * @param groupOption Specifies whether to hide details of grouped rows or grouped columns.
+         */
+        hideGroupDetails(groupOption: "ByRows" | "ByColumns"): void;
+        /**
+         *
          * Inserts a cell or a range of cells into the worksheet in place of this range, and shifts the other cells to make space. Returns a new Range object at the now blank space.
          *
          * [Api set: ExcelApi 1.1]
@@ -21896,6 +22119,44 @@ declare namespace Excel {
         showCard(): void;
         /**
          *
+         * Show details of the row or column group.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         *
+         * @param groupOption Specifies whether to show details of grouped rows or grouped columns.
+         */
+        showGroupDetails(groupOption: Excel.GroupOption): void;
+        /**
+         *
+         * Show details of the row or column group.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         *
+         * @param groupOption Specifies whether to show details of grouped rows or grouped columns.
+         */
+        showGroupDetails(groupOption: "ByRows" | "ByColumns"): void;
+        /**
+         *
+         * Ungroups columns and rows for an outline.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         *
+         * @param groupOption Specifies how the range can be ungrouped by rows or columns.
+         */
+        ungroup(groupOption: Excel.GroupOption): void;
+        /**
+         *
+         * Ungroups columns and rows for an outline.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         *
+         * @param groupOption Specifies how the range can be ungrouped by rows or columns.
+         */
+        ungroup(groupOption: "ByRows" | "ByColumns"): void;
+        /**
+         *
          * Unmerge the range cells into separate cells.
          *
          * [Api set: ExcelApi 1.2]
@@ -21990,6 +22251,7 @@ declare namespace Excel {
     /**
      *
      * RangeAreas represents a collection of one or more rectangular ranges in the same worksheet.
+     * To learn how to use discontinguous ranges, read {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-multiple-ranges | Work with multiple ranges simultaneously in Excel add-ins}.
      *
      * [Api set: ExcelApi 1.9]
      */
@@ -23834,6 +24096,7 @@ declare namespace Excel {
     /**
      *
      * Represents an Excel table.
+     * To learn more about the table object model, read {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-tables | Work with tables using the Excel JavaScript API}.
      *
      * [Api set: ExcelApi 1.1]
      */
@@ -24461,6 +24724,7 @@ declare namespace Excel {
     /**
      *
      * Represents the data validation applied to the current range.
+     * To learn more about the data validation object model, read {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-data-validation | Add data validation to Excel ranges}.
      *
      * [Api set: ExcelApi 1.8]
      */
@@ -25622,6 +25886,7 @@ declare namespace Excel {
     /**
      *
      * Represents a chart object in a workbook.
+     * To learn more about the Chart object model, see {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-charts | Work with charts using the Excel JavaScript API}.
      *
      * [Api set: ExcelApi 1.1]
      */
@@ -30931,6 +31196,7 @@ declare namespace Excel {
     /**
      *
      * Represents an Excel PivotTable.
+     * To learn more about the PivotTable object model, read {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-pivottables | Work with PivotTables using the Excel JavaScript API}.
      *
      * [Api set: ExcelApi 1.3]
      */
@@ -31271,7 +31537,7 @@ declare namespace Excel {
     }
     /**
      *
-     * Represents a collection of all the PivotTables that are part of the workbook or worksheet.
+     * Represents a collection of all the PivotHierarchies that are part of the PivotTable.
      *
      * [Api set: ExcelApi 1.8]
      */
@@ -31293,7 +31559,7 @@ declare namespace Excel {
          *
          * [Api set: ExcelApi 1.8]
          *
-         * @param name Name of the PivotTable to be retrieved.
+         * @param name Name of the PivotHierarchy to be retrieved.
          */
         getItem(name: string): Excel.PivotHierarchy;
         /**
@@ -31432,7 +31698,7 @@ declare namespace Excel {
          *
          * [Api set: ExcelApi 1.8]
          *
-         * @param name Name of the PivotTable to be retrieved.
+         * @param name Name of the RowColumnPivotHierarchy to be retrieved.
          */
         getItem(name: string): Excel.RowColumnPivotHierarchy;
         /**
@@ -31592,7 +31858,7 @@ declare namespace Excel {
          *
          * [Api set: ExcelApi 1.8]
          *
-         * @param name Name of the PivotTable to be retrieved.
+         * @param name Name of the FilterPivotHierarchy to be retrieved.
          */
         getItem(name: string): Excel.FilterPivotHierarchy;
         /**
@@ -31758,7 +32024,7 @@ declare namespace Excel {
          *
          * [Api set: ExcelApi 1.8]
          *
-         * @param name Name of the PivotTable to be retrieved.
+         * @param name Name of the DataPivotHierarchy to be retrieved.
          */
         getItem(name: string): Excel.DataPivotHierarchy;
         /**
@@ -31935,7 +32201,7 @@ declare namespace Excel {
     }
     /**
      *
-     * Represents a collection of all the PivotTables that are part of the workbook or worksheet.
+     * Represents a collection of all the PivotFields that are part of a PivotTable's hierarchy.
      *
      * [Api set: ExcelApi 1.8]
      */
@@ -31946,27 +32212,27 @@ declare namespace Excel {
         readonly items: Excel.PivotField[];
         /**
          *
-         * Gets the number of pivot hierarchies in the collection.
+         * Gets the number of pivot fields in the collection.
          *
          * [Api set: ExcelApi 1.8]
          */
         getCount(): OfficeExtension.ClientResult<number>;
         /**
          *
-         * Gets a PivotHierarchy by its name or id.
+         * Gets a PivotField by its name or id.
          *
          * [Api set: ExcelApi 1.8]
          *
-         * @param name Name of the PivotTable to be retrieved.
+         * @param name Name of the PivotField to be retrieved.
          */
         getItem(name: string): Excel.PivotField;
         /**
          *
-         * Gets a PivotHierarchy by name. If the PivotHierarchy does not exist, will return a null object.
+         * Gets a PivotField by name. If the PivotField does not exist, will return a null object.
          *
          * [Api set: ExcelApi 1.8]
          *
-         * @param name Name of the PivotHierarchy to be retrieved.
+         * @param name Name of the PivotField to be retrieved.
          */
         getItemOrNullObject(name: string): Excel.PivotField;
         /**
@@ -32119,7 +32385,7 @@ declare namespace Excel {
     }
     /**
      *
-     * Represents a collection of all the Pivot Items related to their parent PivotField.
+     * Represents a collection of all the PivotItems related to their parent PivotField.
      *
      * [Api set: ExcelApi 1.8]
      */
@@ -32130,27 +32396,27 @@ declare namespace Excel {
         readonly items: Excel.PivotItem[];
         /**
          *
-         * Gets the number of pivot hierarchies in the collection.
+         * Gets the number of PivotItems in the collection.
          *
          * [Api set: ExcelApi 1.8]
          */
         getCount(): OfficeExtension.ClientResult<number>;
         /**
          *
-         * Gets a PivotHierarchy by its name or id.
+         * Gets a PivotItem by its name or id.
          *
          * [Api set: ExcelApi 1.8]
          *
-         * @param name Name of the PivotTable to be retrieved.
+         * @param name Name of the PivotItem to be retrieved.
          */
         getItem(name: string): Excel.PivotItem;
         /**
          *
-         * Gets a PivotHierarchy by name. If the PivotHierarchy does not exist, will return a null object.
+         * Gets a PivotItem by name. If the PivotItem does not exist, will return a null object.
          *
          * [Api set: ExcelApi 1.8]
          *
-         * @param name Name of the PivotHierarchy to be retrieved.
+         * @param name Name of the PivotItem to be retrieved.
          */
         getItemOrNullObject(name: string): Excel.PivotItem;
         /**
@@ -32923,6 +33189,7 @@ declare namespace Excel {
     /**
      *
      * An object encapsulating a conditional format's range, format, rule, and other properties.
+     * To learn more about the conditional formatting object model, read {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-conditional-formatting | Apply conditional formatting to Excel ranges}.
      *
      * [Api set: ExcelApi 1.6]
      */
@@ -34952,7 +35219,7 @@ declare namespace Excel {
         name: string;
         /**
          *
-         * Specifies if this TableStyle object is read-only. Read-only.
+         * Specifies whether this TableStyle object is read-only. Read-only.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -35133,7 +35400,7 @@ declare namespace Excel {
         name: string;
         /**
          *
-         * Specifies if this PivotTableStyle object is read-only. Read-only.
+         * Specifies whether this PivotTableStyle object is read-only. Read-only.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -35314,7 +35581,7 @@ declare namespace Excel {
         name: string;
         /**
          *
-         * Specifies if this SlicerStyle object is read-only. Read-only.
+         * Specifies whether this SlicerStyle object is read-only. Read-only.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -35495,7 +35762,7 @@ declare namespace Excel {
         name: string;
         /**
          *
-         * Specifies if this TimelineStyle object is read-only. Read-only.
+         * Specifies whether this TimelineStyle object is read-only. Read-only.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -36369,7 +36636,7 @@ declare namespace Excel {
         getItemAt(index: number): Excel.Comment;
         /**
          *
-         * Gets the comment from the specified cell.
+         * Gets the comment from the specifed cell.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -36469,6 +36736,14 @@ declare namespace Excel {
          * @beta
          */
         readonly id: string;
+        /**
+         *
+         * Gets or sets the comment thread status. A value of "true" means the comment thread is in the resolved state.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        resolved: boolean;
         /** Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.
          *
          * @remarks
@@ -36662,6 +36937,14 @@ declare namespace Excel {
          * @beta
          */
         readonly id: string;
+        /**
+         *
+         * Gets or sets the comment reply status. A value of "true" means the comment reply is in the resolved state.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly resolved: boolean;
         /** Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.
          *
          * @remarks
@@ -36871,6 +37154,7 @@ declare namespace Excel {
     /**
      *
      * Represents a generic shape object in the worksheet. A shape could be a geometric shape, a line, a group of shapes, etc.
+     * To learn more about the shape object model, read {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-shapes | Work with shapes using the Excel JavaScript API}.
      *
      * [Api set: ExcelApi 1.9]
      */
@@ -40748,6 +41032,24 @@ declare namespace Excel {
         linearTrend = "LinearTrend",
         growthTrend = "GrowthTrend",
         flashFill = "FlashFill"
+    }
+    /**
+     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+     * @beta
+     */
+    enum GroupOption {
+        /**
+         *
+         * Group by rows.
+         *
+         */
+        byRows = "ByRows",
+        /**
+         *
+         * Group by columns.
+         *
+         */
+        byColumns = "ByColumns"
     }
     /**
      * [Api set: ExcelApi 1.9]
@@ -45432,8 +45734,9 @@ declare namespace Excel {
             numberFormat?: any[][];
             /**
              *
-             * Represents Excel's number format code for the given range as a string in the language of the user.
-            When setting number format local to a range, the value argument can be either a single value (string) or a two-dimensional array. If the argument is a single value, it will be applied to all cells in the range.
+             * Represents Excel's number format code for the given range, based on the language settings of the user.
+                When setting number format local to a range, the value argument can be either a single value (string) or a two-dimensional array. If the argument is a single value, it will be applied to all cells in the range.
+                Excel does not perform any language or format coercion when getting or setting the `numberFormatLocal` property. Any returned text uses the locally-formatted strings based on the language specified in the system settings.
              *
              * [Api set: ExcelApi 1.7]
              */
@@ -49323,6 +49626,14 @@ declare namespace Excel {
              * @beta
              */
             content?: string;
+            /**
+             *
+             * Gets or sets the comment thread status. A value of "true" means the comment thread is in the resolved state.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            resolved?: boolean;
         }
         /** An interface for updating data on the CommentReplyCollection object, for use in "commentReplyCollection.set({ ... })". */
         interface CommentReplyCollectionUpdateData {
@@ -50431,8 +50742,9 @@ declare namespace Excel {
             numberFormat?: any[][];
             /**
              *
-             * Represents Excel's number format code for the given range as a string in the language of the user.
-            When setting number format local to a range, the value argument can be either a single value (string) or a two-dimensional array. If the argument is a single value, it will be applied to all cells in the range.
+             * Represents Excel's number format code for the given range, based on the language settings of the user.
+                When setting number format local to a range, the value argument can be either a single value (string) or a two-dimensional array. If the argument is a single value, it will be applied to all cells in the range.
+                Excel does not perform any language or format coercion when getting or setting the `numberFormatLocal` property. Any returned text uses the locally-formatted strings based on the language specified in the system settings.
              *
              * [Api set: ExcelApi 1.7]
              */
@@ -50461,8 +50773,8 @@ declare namespace Excel {
             /**
              *
              * Represents if ALL the cells would be saved as an array formula.
-            Returns true if ALL cells would be saved as an array, or false if ALL cells would NOT be saved as an array formula.
-            Returns null if there is a mixture of cells that would and would not be saved as an array formula.
+             * Returns true if ALL cells would be saved as an array, or false if ALL cells would NOT be saved as an array formula.
+             * Returns null if there is a mixture of cells that would and would not be saved as an array formula.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -54758,7 +55070,7 @@ declare namespace Excel {
             name?: string;
             /**
              *
-             * Specifies if this TableStyle object is read-only. Read-only.
+             * Specifies whether this TableStyle object is read-only. Read-only.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -54781,7 +55093,7 @@ declare namespace Excel {
             name?: string;
             /**
              *
-             * Specifies if this PivotTableStyle object is read-only. Read-only.
+             * Specifies whether this PivotTableStyle object is read-only. Read-only.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -54804,7 +55116,7 @@ declare namespace Excel {
             name?: string;
             /**
              *
-             * Specifies if this SlicerStyle object is read-only. Read-only.
+             * Specifies whether this SlicerStyle object is read-only. Read-only.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -54827,7 +55139,7 @@ declare namespace Excel {
             name?: string;
             /**
              *
-             * Specifies if this TimelineStyle object is read-only. Read-only.
+             * Specifies whether this TimelineStyle object is read-only. Read-only.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -55159,6 +55471,14 @@ declare namespace Excel {
              * @beta
              */
             id?: string;
+            /**
+             *
+             * Gets or sets the comment thread status. A value of "true" means the comment thread is in the resolved state.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            resolved?: boolean;
         }
         /** An interface describing the data returned by calling "commentReplyCollection.toJSON()". */
         interface CommentReplyCollectionData {
@@ -55206,6 +55526,14 @@ declare namespace Excel {
              * @beta
              */
             id?: string;
+            /**
+             *
+             * Gets or sets the comment reply status. A value of "true" means the comment reply is in the resolved state.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            resolved?: boolean;
         }
         /** An interface describing the data returned by calling "shapeCollection.toJSON()". */
         interface ShapeCollectionData {
@@ -56519,8 +56847,9 @@ declare namespace Excel {
             numberFormat?: boolean;
             /**
              *
-             * Represents Excel's number format code for the given range as a string in the language of the user.
-            When setting number format local to a range, the value argument can be either a single value (string) or a two-dimensional array. If the argument is a single value, it will be applied to all cells in the range.
+             * Represents Excel's number format code for the given range, based on the language settings of the user.
+                When setting number format local to a range, the value argument can be either a single value (string) or a two-dimensional array. If the argument is a single value, it will be applied to all cells in the range.
+                Excel does not perform any language or format coercion when getting or setting the `numberFormatLocal` property. Any returned text uses the locally-formatted strings based on the language specified in the system settings.
              *
              * [Api set: ExcelApi 1.7]
              */
@@ -56549,8 +56878,8 @@ declare namespace Excel {
             /**
              *
              * Represents if ALL the cells would be saved as an array formula.
-            Returns true if ALL cells would be saved as an array, or false if ALL cells would NOT be saved as an array formula.
-            Returns null if there is a mixture of cells that would and would not be saved as an array formula.
+             * Returns true if ALL cells would be saved as an array, or false if ALL cells would NOT be saved as an array formula.
+             * Returns null if there is a mixture of cells that would and would not be saved as an array formula.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -61435,7 +61764,7 @@ declare namespace Excel {
         }
         /**
          *
-         * Represents a collection of all the PivotTables that are part of the workbook or worksheet.
+         * Represents a collection of all the PivotHierarchies that are part of the PivotTable.
          *
          * [Api set: ExcelApi 1.8]
          */
@@ -61731,7 +62060,7 @@ declare namespace Excel {
         }
         /**
          *
-         * Represents a collection of all the PivotTables that are part of the workbook or worksheet.
+         * Represents a collection of all the PivotFields that are part of a PivotTable's hierarchy.
          *
          * [Api set: ExcelApi 1.8]
          */
@@ -61805,7 +62134,7 @@ declare namespace Excel {
         }
         /**
          *
-         * Represents a collection of all the Pivot Items related to their parent PivotField.
+         * Represents a collection of all the PivotItems related to their parent PivotField.
          *
          * [Api set: ExcelApi 1.8]
          */
@@ -63199,7 +63528,7 @@ declare namespace Excel {
             name?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: Specifies if this TableStyle object is read-only. Read-only.
+             * For EACH ITEM in the collection: Specifies whether this TableStyle object is read-only. Read-only.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -63225,7 +63554,7 @@ declare namespace Excel {
             name?: boolean;
             /**
              *
-             * Specifies if this TableStyle object is read-only. Read-only.
+             * Specifies whether this TableStyle object is read-only. Read-only.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -63251,7 +63580,7 @@ declare namespace Excel {
             name?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: Specifies if this PivotTableStyle object is read-only. Read-only.
+             * For EACH ITEM in the collection: Specifies whether this PivotTableStyle object is read-only. Read-only.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -63277,7 +63606,7 @@ declare namespace Excel {
             name?: boolean;
             /**
              *
-             * Specifies if this PivotTableStyle object is read-only. Read-only.
+             * Specifies whether this PivotTableStyle object is read-only. Read-only.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -63303,7 +63632,7 @@ declare namespace Excel {
             name?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: Specifies if this SlicerStyle object is read-only. Read-only.
+             * For EACH ITEM in the collection: Specifies whether this SlicerStyle object is read-only. Read-only.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -63329,7 +63658,7 @@ declare namespace Excel {
             name?: boolean;
             /**
              *
-             * Specifies if this SlicerStyle object is read-only. Read-only.
+             * Specifies whether this SlicerStyle object is read-only. Read-only.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -63355,7 +63684,7 @@ declare namespace Excel {
             name?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: Specifies if this TimelineStyle object is read-only. Read-only.
+             * For EACH ITEM in the collection: Specifies whether this TimelineStyle object is read-only. Read-only.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -63381,7 +63710,7 @@ declare namespace Excel {
             name?: boolean;
             /**
              *
-             * Specifies if this TimelineStyle object is read-only. Read-only.
+             * Specifies whether this TimelineStyle object is read-only. Read-only.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -63846,8 +64175,9 @@ declare namespace Excel {
             numberFormat?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: Represents Excel's number format code for the given range as a string in the language of the user.
-            When setting number format local to a range, the value argument can be either a single value (string) or a two-dimensional array. If the argument is a single value, it will be applied to all cells in the range.
+             * For EACH ITEM in the collection: Represents Excel's number format code for the given range, based on the language settings of the user.
+                When setting number format local to a range, the value argument can be either a single value (string) or a two-dimensional array. If the argument is a single value, it will be applied to all cells in the range.
+                Excel does not perform any language or format coercion when getting or setting the `numberFormatLocal` property. Any returned text uses the locally-formatted strings based on the language specified in the system settings.
              *
              * [Api set: ExcelApi 1.7]
              */
@@ -63876,8 +64206,8 @@ declare namespace Excel {
             /**
              *
              * For EACH ITEM in the collection: Represents if ALL the cells would be saved as an array formula.
-            Returns true if ALL cells would be saved as an array, or false if ALL cells would NOT be saved as an array formula.
-            Returns null if there is a mixture of cells that would and would not be saved as an array formula.
+             * Returns true if ALL cells would be saved as an array, or false if ALL cells would NOT be saved as an array formula.
+             * Returns null if there is a mixture of cells that would and would not be saved as an array formula.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -63980,6 +64310,14 @@ declare namespace Excel {
              * @beta
              */
             id?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Gets or sets the comment thread status. A value of "true" means the comment thread is in the resolved state.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            resolved?: boolean;
         }
         /**
          *
@@ -64030,6 +64368,14 @@ declare namespace Excel {
              * @beta
              */
             id?: boolean;
+            /**
+             *
+             * Gets or sets the comment thread status. A value of "true" means the comment thread is in the resolved state.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            resolved?: boolean;
         }
         /**
          *
@@ -64080,6 +64426,14 @@ declare namespace Excel {
              * @beta
              */
             id?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Gets or sets the comment reply status. A value of "true" means the comment reply is in the resolved state.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            resolved?: boolean;
         }
         /**
          *
@@ -64130,6 +64484,14 @@ declare namespace Excel {
              * @beta
              */
             id?: boolean;
+            /**
+             *
+             * Gets or sets the comment reply status. A value of "true" means the comment reply is in the resolved state.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            resolved?: boolean;
         }
         /**
          *
@@ -72798,7 +73160,6 @@ declare namespace Word {
             * Gets the body object of the document. The body is the text that excludes headers, footers, footnotes, textboxes, etc..
             *
             * [Api set: WordApiHiddenDocument 1.3]
-            * @beta
             */
             body?: Word.Interfaces.BodyUpdateData;
             /**
@@ -72806,7 +73167,6 @@ declare namespace Word {
             * Gets the properties of the document.
             *
             * [Api set: WordApiHiddenDocument 1.3]
-            * @beta
             */
             properties?: Word.Interfaces.DocumentPropertiesUpdateData;
         }
@@ -73821,7 +74181,6 @@ declare namespace Word {
             * Gets the body object of the document. The body is the text that excludes headers, footers, footnotes, textboxes, etc.. Read-only.
             *
             * [Api set: WordApiHiddenDocument 1.3]
-            * @beta
             */
             body?: Word.Interfaces.BodyData;
             /**
@@ -73829,7 +74188,6 @@ declare namespace Word {
             * Gets the collection of content control objects in the document. This includes content controls in the body of the document, headers, footers, textboxes, etc.. Read-only.
             *
             * [Api set: WordApiHiddenDocument 1.3]
-            * @beta
             */
             contentControls?: Word.Interfaces.ContentControlData[];
             /**
@@ -73845,7 +74203,6 @@ declare namespace Word {
             * Gets the properties of the document. Read-only.
             *
             * [Api set: WordApiHiddenDocument 1.3]
-            * @beta
             */
             properties?: Word.Interfaces.DocumentPropertiesData;
             /**
@@ -73853,7 +74210,6 @@ declare namespace Word {
             * Gets the collection of section objects in the document. Read-only.
             *
             * [Api set: WordApiHiddenDocument 1.3]
-            * @beta
             */
             sections?: Word.Interfaces.SectionData[];
             /**
@@ -73869,7 +74225,6 @@ declare namespace Word {
              * Indicates whether the changes in the document have been saved. A value of true indicates that the document hasn't changed since it was saved. Read-only.
              *
              * [Api set: WordApiHiddenDocument 1.3]
-             * @beta
              */
             saved?: boolean;
         }
@@ -75412,7 +75767,6 @@ declare namespace Word {
             * Gets the body object of the document. The body is the text that excludes headers, footers, footnotes, textboxes, etc..
             *
             * [Api set: WordApiHiddenDocument 1.3]
-            * @beta
             */
             body?: Word.Interfaces.BodyLoadOptions;
             /**
@@ -75420,7 +75774,6 @@ declare namespace Word {
             * Gets the properties of the document.
             *
             * [Api set: WordApiHiddenDocument 1.3]
-            * @beta
             */
             properties?: Word.Interfaces.DocumentPropertiesLoadOptions;
             /**
@@ -75428,7 +75781,6 @@ declare namespace Word {
              * Indicates whether the changes in the document have been saved. A value of true indicates that the document hasn't changed since it was saved. Read-only.
              *
              * [Api set: WordApiHiddenDocument 1.3]
-             * @beta
              */
             saved?: boolean;
         }

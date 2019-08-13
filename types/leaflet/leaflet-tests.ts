@@ -289,6 +289,23 @@ imageOverlay.setZIndex(1);
 imageOverlayBounds = imageOverlay.getBounds();
 html = imageOverlay.getElement();
 
+// SVGOverlay
+let svgOverlayOptions: L.ImageOverlayOptions;
+svgOverlayOptions = {
+	interactive: true,
+	opacity: 100
+};
+
+const svgOverlayBounds = latLngBounds;
+const svgElement = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+const svgString = '<svg viewBox="0 0 120 120" version="1.1" xmlns="http://www.w3.org/2000/svg"><circle cx="60" cy="60" r="50"/></svg>';
+
+let svgOverlay: L.SVGOverlay;
+svgOverlay = L.svgOverlay(svgString, svgOverlayBounds);
+svgOverlay = L.svgOverlay(svgElement, svgOverlayBounds, {
+	interactive: false
+});
+
 // videoOverlay
 let videoOverlayOptions: L.VideoOverlayOptions;
 videoOverlayOptions = {

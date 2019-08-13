@@ -20,6 +20,7 @@
 //                 Emmanuel Gautier <https://github.com/emmanuelgautier>
 //                 Dan Rumney <https://github.com/dancrumb>
 //                 Kan Yueh Chen <https://github.com/lalayueh>
+//                 Rohit Sud <https://github.com/rohitsud>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.2
 
@@ -5096,7 +5097,7 @@ declare namespace sequelize {
         /**
          * Index type. Only used by mysql. One of `UNIQUE`, `FULLTEXT` and `SPATIAL`
          */
-        index?: string;
+        type?: IndexType;
 
         /**
          * The method to create the index by (`USING` statement in SQL). BTREE and HASH are supported by mysql and

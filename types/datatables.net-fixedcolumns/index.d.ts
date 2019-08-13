@@ -22,7 +22,7 @@ declare namespace DataTables {
          * The algorithm to use. This can be one of (see below for full description):
          * 'none' | 'semiauto' | 'auto'
          */
-        heightMatch?: string;
+        heightMatch?: 'none' | 'semiauto' | 'auto';
 
         /*
          * The number of columns on the left hand side of the table to fix in place.
@@ -36,10 +36,6 @@ declare namespace DataTables {
     }
 
     interface Api {
-        fixedColumns: FixedColumnsMethodsModel;
-    }
-
-    interface FixedColumnsMethodsModel {
         /*
         * Get FixedColumns Api
         */

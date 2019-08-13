@@ -169,3 +169,11 @@ Chart.Tooltip.positioners.custom = (elements: any[], eventPosition: Point) => {
         y: eventPosition.y + 10
     };
 };
+
+if (radialChart.width !== null && radialChart.height !== null) {
+    console.log('area', radialChart.width * radialChart.height);
+}
+if (radialChart.aspectRatio !== null) {
+    console.log(radialChart.aspectRatio * 2);
+}
+console.log(radialChart.options === radialChart.config.options);

@@ -63,6 +63,7 @@
         "test/readline.ts",
         "test/repl.ts",
         "test/stream.ts",
+        "test/string_decoder.ts",
         "test/tls.ts",
         "test/tty.ts",
         "test/util.ts",

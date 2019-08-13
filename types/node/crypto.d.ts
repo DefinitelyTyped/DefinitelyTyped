@@ -159,7 +159,7 @@ declare module "crypto" {
     type CipherCCMTypes = 'aes-128-ccm' | 'aes-192-ccm' | 'aes-256-ccm';
     type CipherGCMTypes = 'aes-128-gcm' | 'aes-192-gcm' | 'aes-256-gcm';
 
-    type Binary = Buffer | NodeJS.TypedArray | DataView;
+    type Binary = NodeJS.TypedArray | DataView;
     type BinaryLike = string | Binary;
 
     type CipherKey = BinaryLike | KeyObject;
@@ -296,7 +296,7 @@ declare module "crypto" {
         sign(private_key: SignPrivateKeyInput | KeyLike, output_format: HexBase64Latin1Encoding): string;
     }
 
-    function createVerify(algorith: string, options?: stream.WritableOptions): Verify;
+    function createVerify(algorithm: string, options?: stream.WritableOptions): Verify;
     class Verify extends stream.Writable {
         private constructor();
 

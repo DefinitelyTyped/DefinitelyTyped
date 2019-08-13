@@ -1,5 +1,13 @@
 // Specifically test buffer module regression.
-import { Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer, transcode, TranscodeEncoding } from "buffer";
+import {
+    Buffer as ImportedBuffer,
+    SlowBuffer as ImportedSlowBuffer,
+    transcode,
+    TranscodeEncoding,
+    constants,
+    kMaxLength,
+    kStringMaxLength,
+} from 'buffer';
 
 const utf8Buffer = new Buffer('test');
 const base64Buffer = new Buffer('', 'base64');
@@ -13,6 +21,14 @@ console.log(Buffer.byteLength('xyz123'));
 console.log(Buffer.byteLength('xyz123', 'ascii'));
 const result1 = Buffer.concat([utf8Buffer, base64Buffer]);
 const result2 = Buffer.concat([utf8Buffer, base64Buffer], 9999999);
+
+// Module constants
+{
+    const value1: number = constants.MAX_LENGTH;
+    const value2: number = constants.MAX_STRING_LENGTH;
+    const value3: number = kMaxLength;
+    const value4: number = kStringMaxLength;
+}
 
 // Class Methods: Buffer.swap16(), Buffer.swa32(), Buffer.swap64()
 {

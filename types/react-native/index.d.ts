@@ -40,6 +40,7 @@
 /// <reference path="legacy-properties.d.ts" />
 /// <reference path="BatchedBridge.d.ts" />
 /// <reference path="Devtools.d.ts" />
+/// <reference path="LaunchScreen.d.ts" />
 
 import * as PropTypes from "prop-types";
 import * as React from "react";
@@ -3865,7 +3866,9 @@ interface ImagePropsAndroid {
     resizeMethod?: "auto" | "resize" | "scale";
 
     /**
-     * Duration of fade in animation.
+     * Duration of fade in animation in ms. Defaults to 300
+     *
+     * @platform android
      */
     fadeDuration?: number;
 
@@ -7535,6 +7538,11 @@ export interface LinkingStatic extends NativeEventEmitter {
      * NOTE: To support deep linking on Android, refer http://developer.android.com/training/app-indexing/deep-linking.html#handling-intents
      */
     getInitialURL(): Promise<string | null>;
+
+    /**
+     * Open the Settings app and displays the app’s custom settings, if it has any.
+     */
+    openSettings(): Promise<void>;
 }
 
 export interface LinkingIOSStatic {
@@ -9491,4 +9499,6 @@ declare global {
      * <code> if (__DEV__) console.log('Running in dev mode')</code>
      */
     const __DEV__: boolean;
+
+    const HermesInternal: null | {};
 }

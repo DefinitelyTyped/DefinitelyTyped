@@ -11,7 +11,7 @@ export interface Options {
     className?: string;
     coordinateFormat?: CoordinateFormat;
     projection?: ProjectionLike;
-    render?: ((p0: MapEvent) => void);
+    render?: (p0: MapEvent) => void;
     target?: HTMLElement | string;
     undefinedHTML?: string;
 }
@@ -23,9 +23,9 @@ export default class MousePosition extends Control {
     getProjection(): Projection;
     setCoordinateFormat(format: CoordinateFormat): void;
     setProjection(projection: ProjectionLike): void;
-    on(type: string | string[], listener: ((p0: any) => void)): EventsKey | EventsKey[];
-    once(type: string | string[], listener: ((p0: any) => void)): EventsKey | EventsKey[];
-    un(type: string | string[], listener: ((p0: any) => void)): void;
+    on(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
+    once(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
+    un(type: string | string[], listener: (p0: any) => void): void;
     on(type: 'change', listener: (evt: Event) => void): EventsKey;
     once(type: 'change', listener: (evt: Event) => void): EventsKey;
     un(type: 'change', listener: (evt: Event) => void): void;

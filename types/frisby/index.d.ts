@@ -35,7 +35,7 @@ export class FrisbySpec {
     del(url: string, params?: {}): FrisbySpec;
     done(doneFn: (...args: any[]) => void): FrisbySpec;
     expect(expectName: string, ...args: any[]): FrisbySpec;
-    expectNot(expectName: string): FrisbySpec;
+    expectNot(expectName: string, ...args: any[]): FrisbySpec;
     fetch(url: string, params?: {}, options?: {}): FrisbySpec;
     fromJSON(json: {}): FrisbySpec;
     get(url: string, params?: {}): FrisbySpec;

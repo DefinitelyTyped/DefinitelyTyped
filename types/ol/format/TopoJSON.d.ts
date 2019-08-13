@@ -7,7 +7,7 @@ import {
     MultiPolygon,
     Point,
     Polygon,
-    Topology
+    Topology,
 } from 'topojson-specification';
 import { Coordinate } from '../coordinate';
 import Feature from '../Feature';

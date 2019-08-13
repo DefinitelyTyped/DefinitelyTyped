@@ -36,7 +36,7 @@ export default class VectorLayer extends Layer {
     getDeclutter(): boolean;
     getRenderBuffer(): number;
     getRenderMode(): VectorRenderType | string;
-    getRenderOrder(): ((p0: Feature, p1: Feature) => number);
+    getRenderOrder(): (p0: Feature, p1: Feature) => number;
     getSource(): VectorSource;
     getSource(): Source;
     getStyle(): StyleLike;
@@ -44,11 +44,11 @@ export default class VectorLayer extends Layer {
     getUpdateWhileAnimating(): boolean;
     getUpdateWhileInteracting(): boolean;
     setDeclutter(declutter: boolean): void;
-    setRenderOrder(renderOrder: OrderFunction): void;
-    setStyle(style: Style | Style[] | StyleFunction): void;
-    on(type: string | string[], listener: ((p0: any) => void)): EventsKey | EventsKey[];
-    once(type: string | string[], listener: ((p0: any) => void)): EventsKey | EventsKey[];
-    un(type: string | string[], listener: ((p0: any) => void)): void;
+    setRenderOrder(renderOrder: OrderFunction | undefined | undefined): void;
+    setStyle(style: Style | Style[] | StyleFunction | undefined | undefined): void;
+    on(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
+    once(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
+    un(type: string | string[], listener: (p0: any) => void): void;
     on(type: 'change', listener: (evt: Event) => void): EventsKey;
     once(type: 'change', listener: (evt: Event) => void): EventsKey;
     un(type: 'change', listener: (evt: Event) => void): void;

@@ -42,6 +42,10 @@ declare class Chart {
     getDatasetMeta: (index: number) => Meta;
     ctx: CanvasRenderingContext2D | null;
     canvas: HTMLCanvasElement | null;
+    width: number | null;
+    height: number | null;
+    aspectRatio: number | null;
+    options: Chart.ChartOptions;
     chartArea: Chart.ChartArea;
     static pluginService: PluginServiceStatic;
     static plugins: PluginServiceStatic;

@@ -22,10 +22,10 @@ export default class Stroke {
     getMiterLimit(): number;
     getWidth(): number;
     setColor(color: Color | ColorLike): void;
-    setLineCap(lineCap: string): void;
+    setLineCap(lineCap: string | undefined): void;
     setLineDash(lineDash: number[]): void;
-    setLineDashOffset(lineDashOffset: number): void;
-    setLineJoin(lineJoin: string): void;
-    setMiterLimit(miterLimit: number): void;
-    setWidth(width: number): void;
+    setLineDashOffset(lineDashOffset: number | undefined): void;
+    setLineJoin(lineJoin: string | undefined): void;
+    setMiterLimit(miterLimit: number | undefined): void;
+    setWidth(width: number | undefined): void;
 }
