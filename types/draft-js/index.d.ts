@@ -36,7 +36,10 @@ declare namespace Draft {
 
             import DraftBlockRenderConfig = Draft.Model.ImmutableData.DraftBlockRenderConfig;
 
-            type DraftBlockRenderMap = Immutable.Map<DraftBlockType, DraftBlockRenderConfig>;
+            type DraftBlockRenderMap<CustomBlockType = void> = Immutable.Map<
+                DraftBlockType<CustomBlockType>,
+                DraftBlockRenderConfig
+            >;
 
             type DraftStyleMap = {
                 [styleName: string]: React.CSSProperties
@@ -66,7 +69,7 @@ declare namespace Draft {
              * These props are analagous to `value` and `onChange` in controlled React
              * text inputs.
              */
-            export interface DraftEditorProps {
+            export interface DraftEditorProps<CustomBlockType = void> {
                 editorState: EditorState;
                 onChange(editorState: EditorState): void;
 
@@ -176,7 +179,7 @@ declare namespace Draft {
                 // Provide a map of block rendering configurations. Each block type maps to
                 // an element tag and an optional react element wrapper. This configuration
                 // is used for both rendering and paste processing.
-                blockRenderMap?: DraftBlockRenderMap
+                blockRenderMap?: DraftBlockRenderMap<CustomBlockType>
             }
 
             type DraftTextAlignment = "left" | "center" | "right";
@@ -325,9 +328,9 @@ declare namespace Draft {
                 "atomic"
             );
 
-            type CustomBlockType = string;
-
-            type DraftBlockType = CoreDraftBlockType | CustomBlockType;
+            type DraftBlockType<CustomBlockType = void> = CustomBlockType extends void
+                ? CoreDraftBlockType
+                : CustomBlockType;
 
             /**
              * A type that allows us to avoid passing boolean arguments
@@ -524,9 +527,9 @@ declare namespace Draft {
              * A plain object representation of a ContentBlock, with all style and entity
              * attribution repackaged as range objects.
              */
-            interface RawDraftContentBlock {
+            interface RawDraftContentBlock<CustomBlockType = void> {
                 key: string;
-                type: DraftBlockType;
+                type: DraftBlockType<CustomBlockType>;
                 text: string;
                 depth: number;
                 inlineStyleRanges: Array<RawDraftInlineStyleRange>;
@@ -548,7 +551,7 @@ declare namespace Draft {
                 entityMap: { [key: string]: RawDraftEntity };
             }
 
-            function convertFromHTMLtoContentBlocks(html: string, DOMBuilder?: Function, blockRenderMap?: DraftBlockRenderMap): { contentBlocks: Array<ContentBlock>, entityMap: any };
+            function convertFromHTMLtoContentBlocks<CustomBlockType = void>(html: string, DOMBuilder?: Function, blockRenderMap?: DraftBlockRenderMap<CustomBlockType>): { contentBlocks: Array<ContentBlock>, entityMap: any };
             function convertFromRawToDraftState(rawState: RawDraftContentState): ContentState;
             function convertFromDraftStateToRaw(contentState: ContentState): RawDraftContentState;
         }
@@ -738,10 +741,10 @@ declare namespace Draft {
                 getDirectionMap(): Immutable.OrderedMap<any, any>;
             }
 
-            class ContentBlock extends Record {
+            class ContentBlock<CustomBlockType = void> extends Record {
                 getKey(): string;
 
-                getType(): DraftBlockType;
+                getType(): DraftBlockType<CustomBlockType>;
                 getType(): string;
 
                 getText(): string;
@@ -910,7 +913,7 @@ declare namespace Draft {
                 static applyInlineStyle(contentState: ContentState, selectionState: SelectionState, inlineStyle: string): ContentState;
                 static removeInlineStyle(contentState: ContentState, selectionState: SelectionState, inlineStyle: string): ContentState;
 
-                static setBlockType(contentState: ContentState, selectionState: SelectionState, blockType: DraftBlockType): ContentState;
+                static setBlockType<CustomBlockType = void>(contentState: ContentState, selectionState: SelectionState, blockType: DraftBlockType<CustomBlockType>): ContentState;
                 static setBlockType(contentState: ContentState, selectionState: SelectionState, blockType: string): ContentState;
 
                 static setBlockData(contentState: ContentState, selectionState: SelectionState, blockData: Immutable.Map<any, any>): ContentState;
@@ -920,7 +923,7 @@ declare namespace Draft {
 
             class RichTextEditorUtil {
                 static currentBlockContainsLink(editorState: EditorState): boolean;
-                static getCurrentBlockType(editorState: EditorState): DraftBlockType;
+                static getCurrentBlockType<CustomBlockType = void>(editorState: EditorState): DraftBlockType<CustomBlockType>;
                 static getCurrentBlockType(editorState: EditorState): string;
                 static getDataObjectForLinkURL(uri: URI): Object;
 
@@ -937,7 +940,7 @@ declare namespace Draft {
                 static onDelete(editorState: EditorState): EditorState;
                 static onTab(event: SyntheticKeyboardEvent, editorState: EditorState, maxDepth: number): EditorState;
 
-                static toggleBlockType(editorState: EditorState, blockType: DraftBlockType): EditorState;
+                static toggleBlockType<CustomBlockType = void>(editorState: EditorState, blockType: DraftBlockType<CustomBlockType>): EditorState;
                 static toggleBlockType(editorState: EditorState, blockType: string): EditorState;
 
                 static toggleCode(editorState: EditorState): EditorState;
