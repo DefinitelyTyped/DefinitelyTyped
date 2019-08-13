@@ -576,10 +576,6 @@ R.times(i, 5);
 })();
 
 (() => {
-    const plus3 = R.add(3);
-})();
-
-(() => {
     const pairs = [["a", 1], ["b", 2], ["c", 3]];
 
     function flattenPairs(pair: [string, number], acc: Array<string|number>): Array<string|number> {
@@ -2497,13 +2493,6 @@ class Rectangle {
     R.startsWith(1)([1, 2, 3]);   // => true
     R.startsWith([1], [1, 2, 3]);   // => true
     R.startsWith([1])([1, 2, 3]);   // => true
-};
-
-() => {
-    R.add(2, 3);       // =>  5
-    R.add(7)(10);      // => 17
-    R.add("Hello", " World");  // =>  "Hello World"
-    R.add("Hello")(" World");  // =>  "Hello World"
 };
 
 () => {
