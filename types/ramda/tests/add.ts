@@ -9,6 +9,9 @@ add(2, 3); // =>  5
 // $ExpectType number
 add(7)(10); // => 17
 
+// $ExpectType (b: string) => string
+add('Hello');
+
 // $ExpectType string
 add('Hello', ' World'); // =>  "Hello World"
 
