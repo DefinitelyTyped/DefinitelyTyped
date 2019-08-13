@@ -65,7 +65,7 @@ export interface CallStatement extends Base<"CallStatement"> {
 export interface FunctionDeclaration extends Base<"FunctionDeclaration"> {
     identifier: Identifier | null;
     isLocal: boolean;
-    parameters: Identifier[];
+    parameters: Array<Identifier | VarargLiteral>;
     body: Statement[];
 }
 
