@@ -861,6 +861,30 @@ export interface BorderWidthProps<TLength = TLengthStyledSystem> {
      * [MDN * reference](https://developer.mozilla.org/en-US/docs/Web/CSS/border-width)
      */
     borderWidth?: ResponsiveValue<CSS.BorderWidthProperty<TLength>>;
+    /**
+     * The border-top-width CSS property sets the width of the top border of an element.
+     *
+     * [MDN * reference](https://developer.mozilla.org/en-US/docs/Web/CSS/border-top-width)
+     */
+    borderTopWidth?: ResponsiveValue<CSS.BorderTopWidthProperty<TLength>>;
+    /**
+     * The border-bottom-width CSS property sets the width of the bottom border of an element.
+     *
+     * [MDN * reference](https://developer.mozilla.org/en-US/docs/Web/CSS/border-bottom-width)
+     */
+    borderBottomWidth?: ResponsiveValue<CSS.BorderBottomWidthProperty<TLength>>;
+    /**
+     * The border-left-width CSS property sets the width of the left border of an element.
+     *
+     * [MDN * reference](https://developer.mozilla.org/en-US/docs/Web/CSS/border-left-width)
+     */
+    borderLeftWidth?: ResponsiveValue<CSS.BorderLeftWidthProperty<TLength>>;
+    /**
+     * The border-right-width CSS property sets the width of the right border of an element.
+     *
+     * [MDN * reference](https://developer.mozilla.org/en-US/docs/Web/CSS/border-right-width)
+     */
+    borderRightWidth?: ResponsiveValue<CSS.BorderRightWidthProperty<TLength>>;
 }
 
 export const borderWidth: styleFn;
@@ -872,6 +896,30 @@ export interface BorderStyleProps {
      * [MDN * reference](https://developer.mozilla.org/en-US/docs/Web/CSS/border-style)
      */
     borderStyle?: ResponsiveValue<CSS.BorderStyleProperty>;
+    /**
+     * The border-top-style CSS property sets the line style of an element's top border.
+     *
+     * [MDN * reference](https://developer.mozilla.org/en-US/docs/Web/CSS/border-top-style)
+     */
+    borderTopStyle?: ResponsiveValue<CSS.BorderTopStyleProperty>;
+    /**
+     * The border-bottom-style CSS property sets the line style of an element's bottom border.
+     *
+     * [MDN * reference](https://developer.mozilla.org/en-US/docs/Web/CSS/border-bottom-style)
+     */
+    borderBottomStyle?: ResponsiveValue<CSS.BorderBottomStyleProperty>;
+    /**
+     * The border-left-style CSS property sets the line style of an element's left border.
+     *
+     * [MDN * reference](https://developer.mozilla.org/en-US/docs/Web/CSS/border-left-style)
+     */
+    borderLeftStyle?: ResponsiveValue<CSS.BorderLeftStyleProperty>;
+    /**
+     * The border-right-style CSS property sets the line style of an element's right border.
+     *
+     * [MDN * reference](https://developer.mozilla.org/en-US/docs/Web/CSS/border-right-style)
+     */
+    borderRightStyle?: ResponsiveValue<CSS.BorderRightStyleProperty>;
 }
 
 export const borderStyle: styleFn;
@@ -883,6 +931,30 @@ export interface BorderColorProps {
      * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/border-color)
      */
     borderColor?: ResponsiveValue<CSS.BorderColorProperty>;
+    /**
+     * The border-top-color CSS property sets the color of an element's top border. It can also be set with the shorthand CSS properties border-color or border-top.
+     *
+     * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/border-top-color)
+     */
+    borderTopColor?: ResponsiveValue<CSS.BorderTopColorProperty>;
+    /**
+     * The border-bottom-color CSS property sets the color of an element's bottom border. It can also be set with the shorthand CSS properties border-color or border-bottom.
+     *
+     * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/border-bottom-color)
+     */
+    borderBottomColor?: ResponsiveValue<CSS.BorderBottomColorProperty>;
+    /**
+     * The border-left-color CSS property sets the color of an element's left border. It can also be set with the shorthand CSS properties border-color or border-left.
+     *
+     * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/border-left-color)
+     */
+    borderLeftColor?: ResponsiveValue<CSS.BorderLeftColorProperty>;
+    /**
+     * The border-right-color CSS property sets the color of an element's right border. It can also be set with the shorthand CSS properties border-color or border-right.
+     *
+     * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/border-right-color)
+     */
+    borderRightColor?: ResponsiveValue<CSS.BorderRightColorProperty>;
 }
 
 export const borderColor: styleFn;
@@ -943,6 +1015,30 @@ export interface BorderRadiusProps<TLength = TLengthStyledSystem> {
      * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/border-radius)
      */
     borderRadius?: ResponsiveValue<CSS.BorderRadiusProperty<TLength>>;
+    /**
+     * The border-top-left-radius CSS property rounds the top-left corner of an element.
+     *
+     * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/border-top-left-radius)
+     */
+    borderTopLeftRadius?: ResponsiveValue<CSS.BorderTopLeftRadiusProperty<TLength>>;
+    /**
+     * The border-top-right-radius CSS property rounds the top-right corner of an element.
+     *
+     * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/border-top-right-radius)
+     */
+    borderTopRightRadius?: ResponsiveValue<CSS.BorderTopRightRadiusProperty<TLength>>;
+    /**
+     * The border-bottom-left-radius CSS property rounds the bottom-left corner of an element.
+     *
+     * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/border-bottom-left-radius)
+     */
+    borderBottomLeftRadius?: ResponsiveValue<CSS.BorderBottomLeftRadiusProperty<TLength>>;
+    /**
+     * The border-bottom-right-radius CSS property rounds the bottom-right corner of an element.
+     *
+     * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/border-bottom-right-radius)
+     */
+    borderBottomRightRadius?: ResponsiveValue<CSS.BorderBottomRightRadiusProperty<TLength>>;
 }
 
 export const borderRadius: styleFn;
