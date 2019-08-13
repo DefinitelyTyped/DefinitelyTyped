@@ -1,10 +1,4 @@
-export function arrayMaxSquaredDelta(
-    flatCoordinates: number[],
-    offset: number,
-    ends: number[],
-    stride: number,
-    max: number
-): number;
+export function arrayMaxSquaredDelta(flatCoordinates: number[], offset: number, ends: number[], stride: number, max: number): number;
 export function assignClosestArrayPoint(
     flatCoordinates: number[],
     offset: number,
@@ -44,17 +38,5 @@ export function assignClosestPoint(
     minSquaredDistance: number,
     opt_tmpPoint?: number[]
 ): number;
-export function maxSquaredDelta(
-    flatCoordinates: number[],
-    offset: number,
-    end: number,
-    stride: number,
-    max: number
-): number;
-export function multiArrayMaxSquaredDelta(
-    flatCoordinates: number[],
-    offset: number,
-    endss: number[][],
-    stride: number,
-    max: number
-): number;
+export function maxSquaredDelta(flatCoordinates: number[], offset: number, end: number, stride: number, max: number): number;
+export function multiArrayMaxSquaredDelta(flatCoordinates: number[], offset: number, endss: number[][], stride: number, max: number): number;

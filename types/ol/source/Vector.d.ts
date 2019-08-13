@@ -30,10 +30,10 @@ export default class VectorSource extends Source {
     addFeature(feature: Feature): void;
     addFeatures(features: Feature[]): void;
     clear(opt_fast?: boolean): void;
-    forEachFeature<T>(callback: (p0: Feature) => T): T;
-    forEachFeatureAtCoordinateDirect<T>(coordinate: Coordinate, callback: (p0: Feature) => T): T;
-    forEachFeatureInExtent<T>(extent: Extent, callback: (p0: Feature) => T): T;
-    forEachFeatureIntersectingExtent<T>(extent: Extent, callback: (p0: Feature) => T): T;
+    forEachFeature<T>(callback: (p0: Feature) => T): T | undefined;
+    forEachFeatureAtCoordinateDirect<T>(coordinate: Coordinate, callback: (p0: Feature) => T): T | undefined;
+    forEachFeatureInExtent<T>(extent: Extent, callback: (p0: Feature) => T): T | undefined;
+    forEachFeatureIntersectingExtent<T>(extent: Extent, callback: (p0: Feature) => T): T | undefined;
     getClosestFeatureToCoordinate(coordinate: Coordinate, opt_filter?: () => void): Feature;
     getExtent(opt_extent?: Extent): Extent;
     getFeatureById(id: string | number): Feature;
@@ -41,9 +41,9 @@ export default class VectorSource extends Source {
     getFeaturesAtCoordinate(coordinate: Coordinate): Feature[];
     getFeaturesCollection(): Collection<Feature>;
     getFeaturesInExtent(extent: Extent): Feature[];
-    getFormat(): FeatureFormat;
+    getFormat(): FeatureFormat | undefined;
     getOverlaps(): boolean;
-    getUrl(): string | FeatureUrlFunction;
+    getUrl(): string | FeatureUrlFunction | undefined;
     hasFeature(feature: Feature): boolean;
     isEmpty(): boolean;
     loadFeatures(extent: Extent, resolution: number, projection: Projection): void;

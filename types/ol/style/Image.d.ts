@@ -25,7 +25,7 @@ export default class ImageStyle {
     getScale(): number;
     getSize(): Size;
     getSnapToPixel(): boolean;
-    listenImageChange<T>(listener: (this: T, p0: Event) => void, thisArg: T): EventsKey;
+    listenImageChange<T>(listener: (this: T, p0: Event) => void, thisArg: T): EventsKey | undefined;
     load(): void;
     setOpacity(opacity: number): void;
     setRotateWithView(rotateWithView: boolean): void;

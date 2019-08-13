@@ -18,12 +18,7 @@ export default class WebGLLayerRenderer extends LayerRenderer {
     protected texture: WebGLTexture;
     protected bindFramebuffer(frameState: FrameState, framebufferDimension: number): void;
     composeFrame(frameState: FrameState, layerState: State, context: WebGLContext): void;
-    forEachLayerAtPixel<S, T, U>(
-        pixel: Pixel,
-        frameState: FrameState,
-        callback: (this: S, p0: Layer, p1: Uint8ClampedArray | Uint8Array) => T,
-        thisArg: S
-    ): T;
+    forEachLayerAtPixel<S, T, U>(pixel: Pixel, frameState: FrameState, callback: (this: S, p0: Layer, p1: Uint8ClampedArray | Uint8Array) => T, thisArg: S): T | undefined;
     getProjectionMatrix(): Transform;
     getTexCoordMatrix(): Transform;
     getTexture(): WebGLTexture;

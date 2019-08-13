@@ -3,12 +3,7 @@ import { Extent } from './extent';
 import Projection from './proj/Projection';
 import Triangulation from './reproj/Triangulation';
 
-export function calculateSourceResolution(
-    sourceProj: Projection,
-    targetProj: Projection,
-    targetCenter: Coordinate,
-    targetResolution: number
-): number;
+export function calculateSourceResolution(sourceProj: Projection, targetProj: Projection, targetCenter: Coordinate, targetResolution: number): number;
 export function render(
     width: number,
     height: number,
