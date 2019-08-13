@@ -3,16 +3,7 @@ import { Pixel } from './pixel';
 
 export type Transform = number[];
 export function apply(transform: Transform, coordinate: Coordinate | Pixel): Coordinate | Pixel;
-export function compose(
-    transform: Transform,
-    dx1: number,
-    dy1: number,
-    sx: number,
-    sy: number,
-    angle: number,
-    dx2: number,
-    dy2: number
-): Transform;
+export function compose(transform: Transform, dx1: number, dy1: number, sx: number, sy: number, angle: number, dx2: number, dy2: number): Transform;
 export function create(): Transform;
 export function determinant(mat: Transform): number;
 export function invert(transform: Transform): Transform;

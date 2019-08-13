@@ -16,7 +16,7 @@ export interface Options {
 }
 export default class BaseLayer extends BaseObject {
     constructor(options: Options);
-    getExtent(): Extent;
+    getExtent(): Extent | undefined;
     getLayersArray(opt_array?: Layer[]): Layer[];
     getLayerState(): State;
     getLayerStatesArray(opt_states?: State[]): State[];

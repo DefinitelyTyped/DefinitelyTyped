@@ -20,8 +20,8 @@ export default class Projection {
     getCode(): string;
     getDefaultTileGrid(): TileGrid;
     getExtent(): Extent;
-    getMetersPerUnit(): number;
-    getPointResolutionFunc(): (p0: number, p1: Coordinate) => number;
+    getMetersPerUnit(): number | undefined;
+    getPointResolutionFunc(): (p0: number, p1: Coordinate) => number | undefined;
     getUnits(): Units;
     getWorldExtent(): Extent;
     isGlobal(): boolean;

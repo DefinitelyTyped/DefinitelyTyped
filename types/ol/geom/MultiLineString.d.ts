@@ -7,11 +7,7 @@ import LineString from './LineString';
 import SimpleGeometry from './SimpleGeometry';
 
 export default class MultiLineString extends SimpleGeometry {
-    constructor(
-        coordinates: (Coordinate[] | LineString)[] | number[],
-        opt_layout?: GeometryLayout,
-        opt_ends?: number[]
-    );
+    constructor(coordinates: (Coordinate[] | LineString)[] | number[], opt_layout?: GeometryLayout, opt_ends?: number[]);
     appendLineString(lineString: LineString): void;
     getCoordinateAtM(m: number, opt_extrapolate?: boolean, opt_interpolate?: boolean): Coordinate;
     getEnds(): number[];
