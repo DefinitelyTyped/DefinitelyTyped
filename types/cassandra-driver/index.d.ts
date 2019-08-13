@@ -1,4 +1,4 @@
-// Type definitions for cassandra-driver 4.0
+// Type definitions for cassandra-driver 4.1
 // Project: https://github.com/datastax/nodejs-driver
 // Definitions by: Marc Fisher <https://github.com/Svjard>
 //                 Christian D <https://github.com/pc-jedi>
@@ -11,10 +11,10 @@
 export type Callback = Function;
 export type ResultCallback = (err: Error, result: types.ResultSet) => void;
 
-import * as events from "events";
-import * as stream from "stream";
-import * as tls from "tls";
-import _Long = require("long");
+import * as events from 'events';
+import * as stream from 'stream';
+import * as tls from 'tls';
+import _Long = require('long');
 
 export namespace policies {
   namespace addressResolution {
@@ -1144,6 +1144,22 @@ export namespace token {
     contains(token: Token): boolean;
     equals(other: TokenRange): boolean;
     compare(other: TokenRange): number;
+  }
+}
+
+export namespace concurrent {
+  function executeConcurrent(
+    client: Client,
+    query: string | Array<{ query: string; params?: any[] }>,
+    parameters: any[][] | stream.Readable | { [key: string]: any },
+  ): Promise<ResultSetGroup>;
+
+  class ResultSetGroup {
+    totalExecuted: number;
+    errors: Error[];
+    resultItems: any[];
+
+    constructor(options: { collectResults: boolean; maxErrors?: number });
   }
 }
 
