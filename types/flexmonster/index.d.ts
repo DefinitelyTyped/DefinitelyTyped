@@ -175,12 +175,13 @@ declare namespace Flexmonster {
     }
 
     interface DataSource {
+    	type?: string;
+        dataSourceType?: string;
         browseForFile?: boolean;
         catalog?: string;
         cube?: string;
         data?: object[];
         dataSourceInfo?: string;
-        dataSourceType?: string;
         fieldSeparator?: string;
         thousandSeparator?: string;
         filename?: string;
