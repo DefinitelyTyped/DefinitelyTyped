@@ -18,8 +18,8 @@ var hasFoo:boolean = emptyMap.has("foo");
 
 var key:string = emptyMap.search(567);
 
-emptyMap.delete("foo");
-emptyMap.remove("foo2");
+emptyMap.remove("foo").remove("foo2");
+emptyMap.delete("foo3").delete("foo4");
 
 var keys:string[] = emptyMap.keys();
 
