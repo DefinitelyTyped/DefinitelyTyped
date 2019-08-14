@@ -792,6 +792,16 @@ declare namespace R {
         <T, U>(val: T, obj: U): Record<K, T> & U;
     }
 
+    interface CurriedIndexedIterationFunction {
+        <T, U>(
+            a: (item: T, idx: number, list?: T[]) => U
+        ): (b: ReadonlyArray<T>) => U[];
+        <T, U>(
+            a: (item: T, idx: number, list?: T[]) => U,
+            b: ReadonlyArray<T>
+        ): U[];
+    }
+
     interface Static {
         /**
          * Placeholder. When used with functions like curry, or op, the second argument is applied to the second
@@ -811,7 +821,9 @@ declare namespace R {
          * Creates a new list iteration function from an existing one by adding two new parameters to its callback
          * function: the current index, and the entire list.
          */
-        addIndex<T, U>(fn: (f: (item: T) => U, list: T[]) => U[]): F.Curry<(a: (item: T, idx: number, list?: T[]) => U, b: ReadonlyArray<T>) => U[]>;
+        addIndex<F extends ((item: any) => any)>(
+            fn: (f: F, list: Array<Parameters<F>[0]>) => Array<ReturnType<F>>
+        ): CurriedIndexedIterationFunction;
         /* Special case for forEach */
         addIndex<T>(fn: (f: (item: T) => void, list: T[]) => T[]): F.Curry<(a: (item: T, idx: number, list?: T[]) => void, b: ReadonlyArray<T>) => T[]>;
         /* Special case for reduce */
