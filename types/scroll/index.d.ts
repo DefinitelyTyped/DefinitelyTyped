@@ -1,4 +1,4 @@
-// Type definitions for scroll 3.0.1
+// Type definitions for scroll 3.0
 // Project: https://github.com/michaelrhodes/scroll
 // Definitions by: Roman Charugin <https://github.com/romic>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
