@@ -33,6 +33,7 @@ const options: mongodb.MongoClientOptions = {
   sslPass: new Buffer(999),
   promoteBuffers: false,
   useNewUrlParser: false,
+  useUnifiedTopology: false,
   authMechanism: 'SCRAM-SHA-1',
   forceServerObjectId: false,
   promiseLibrary: Promise,
