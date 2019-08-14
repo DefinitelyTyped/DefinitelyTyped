@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
-interface Schedule<T extends (...args: any[]) => any> {
+interface Schedule<T extends (...args: any[]) => void> {
     (...args: Parameters<T>): void;
     cancel(): void;
 }
