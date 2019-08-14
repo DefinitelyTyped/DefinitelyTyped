@@ -1184,7 +1184,6 @@ export type QuerySelector<T> = {
     $mod?: T extends number ? [number, number] : never;
     $regex?: T extends string ? (RegExp | string) : never;
     $options?: T extends string ? string : never;
-    $where?: any;
     // Geospatial
     // TODO: define better types for geo queries
     $geoIntersects?: { $geometry: object };
@@ -1218,6 +1217,8 @@ export type RootQuerySelector<T> = {
         $caseSensitive?: boolean;
         $diacraticSensitive?: boolean;
     };
+    /** https://docs.mongodb.com/manual/reference/operator/query/where/#op._S_where */
+    $where?: string | Function;
     /** https://docs.mongodb.com/manual/reference/operator/query/comment/#op._S_comment */
     $comment?: string;
     // we could not find a proper TypeScript generic to support nested queries e.g. 'user.friends.name'
