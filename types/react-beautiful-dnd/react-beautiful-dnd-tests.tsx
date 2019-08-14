@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { DragDropContext, Draggable, Droppable, DropResult, DragStart, DragUpdate, ResponderProvided } from 'react-beautiful-dnd';
+import { DragDropContext, Draggable, Droppable, DropResult, DragStart, DragUpdate, ResponderProvided, DroppableStateSnapshot, resetServerContext } from 'react-beautiful-dnd';
 
 interface Item {
   id: string;
@@ -30,8 +30,8 @@ const getItemStyle = (isDragging: boolean, draggableStyle: any) => ({
   ...draggableStyle
 });
 
-const getListStyle = (isDraggingOver: any) => ({
-  background: isDraggingOver ? 'lightblue' : 'lightgrey',
+const getListStyle = (snapshot: DroppableStateSnapshot) => ({
+  background: snapshot.draggingFromThisWith ? 'lightpink' : snapshot.isDraggingOver ? 'lightblue' : 'lightgrey',
   width: 250
 });
 
@@ -46,6 +46,10 @@ class App extends React.Component<{}, AppState> {
   constructor(props: any) {
     super(props);
     this.onDragEnd = this.onDragEnd.bind(this);
+  }
+
+  onBeforeDragStart(dragStart: DragStart) {
+    //
   }
 
   onDragStart(dragStart: DragStart, provided: ResponderProvided) {
@@ -80,12 +84,12 @@ class App extends React.Component<{}, AppState> {
 
   render() {
     return (
-      <DragDropContext onDragStart={this.onDragStart} onDragUpdate={this.onDragUpdate} onDragEnd={this.onDragEnd}>
+      <DragDropContext onBeforeDragStart={this.onBeforeDragStart} onDragStart={this.onDragStart} onDragUpdate={this.onDragUpdate} onDragEnd={this.onDragEnd}>
         <Droppable droppableId="droppable" ignoreContainerClipping={false} isCombineEnabled={true}>
           {(provided, snapshot) => (
-            <div ref={provided.innerRef} style={getListStyle(snapshot.isDraggingOver)} {...provided.droppableProps}>
+            <div ref={provided.innerRef} style={getListStyle(snapshot)} {...provided.droppableProps}>
               {this.state.items.map((item, index) => (
-                <Draggable key={item.id} draggableId={item.id} index={index}>
+                <Draggable key={item.id} draggableId={item.id} index={index} shouldRespectForcePress>
                   {(provided, snapshot) => (
                     <div>
                       <div
@@ -111,3 +115,5 @@ class App extends React.Component<{}, AppState> {
 }
 
 ReactDOM.render(<App />, document.getElementById('app'));
+
+resetServerContext();

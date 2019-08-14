@@ -1,5 +1,5 @@
-// Type definitions for Bootstrap 4.1
-// Project: https://github.com/twbs/bootstrap/
+// Type definitions for Bootstrap 4.3
+// Project: https://github.com/twbs/bootstrap/, https://getbootstrap.com
 // Definitions by: denisname <https://github.com/denisname>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
@@ -64,9 +64,10 @@ export interface CarouselOption {
     slide?: "next" | "prev" | false;
 
     /**
-     * If set to "hover", pauses the cycling of the carousel on mouseenter and resumes the cycling of the carousel on mouseleave.
+     * If set to "hover", pauses the cycling of the carousel on `mouseenter` and resumes the cycling of the carousel on `mouseleave`.
      * If set to false, hovering over the carousel won't pause it.
-     * On touch-enabled devices, when set to "hover", cycling will pause on touchend (once the user finished interacting with the carousel)
+     *
+     * On touch-enabled devices, when set to "hover", cycling will pause on `touchend` (once the user finished interacting with the carousel)
      * for two intervals, before automatically resuming. Note that this is in addition to the above mouse behavior.
      *
      * @default "hover"
@@ -79,6 +80,13 @@ export interface CarouselOption {
      * @default true
      */
     wrap?: boolean;
+
+    /**
+     * Whether the carousel should support left/right swipe interactions on touchscreen devices.
+     *
+     * @default true
+     */
+    touch?: boolean;
 }
 
 export interface CollapseOption {
@@ -144,7 +152,7 @@ export interface DropdownOption {
 export interface ModalOption {
     /**
      * Includes a modal-backdrop element.
-     * Alternatively, specify static for a backdrop which doesn't close the modal on click.
+     * Alternatively, specify `static` for a backdrop which doesn't close the modal on click.
      *
      * @default true
      */
@@ -174,8 +182,8 @@ export interface ModalOption {
 
 export interface PopoverOption extends TooltipOption {
     /**
-     * Default content value if data-content attribute isn't present.
-     * If a function is given, it will be called with its this reference
+     * Default content value if `data-content` attribute isn't present.
+     * If a function is given, it will be called with its `this` reference
      * set to the element that the popover is attached to.
      *
      * @default ""
@@ -208,6 +216,29 @@ export interface ScrollspyOption {
      * @default ""
      */
     target?: string | Element;
+}
+
+export interface ToastOption {
+    /**
+     * Apply a CSS fade transition to the toast.
+     *
+     * @default true
+     */
+    animation?: boolean;
+
+    /**
+     * Auto hide the toast.
+     *
+     * @default true
+     */
+    autohide?: boolean;
+
+    /**
+     * Delay hiding the toast in millisecond.
+     *
+     * @default 500
+     */
+    delay?: number;
 }
 
 export interface TooltipOption {
@@ -249,10 +280,11 @@ export interface TooltipOption {
 
     /**
      * How to position the tooltip or popover - auto | top | bottom | left | right.
-     * When auto is specified, it will dynamically reorient the tooltip or popover.
+     * When "auto" is specified, it will dynamically reorient the tooltip or popover.
+     *
      * When a function is used to determine the placement, it is called with
      * the tooltip or popover DOM node as its first argument and the triggering element DOM node as its second.
-     * The this context is set to the tooltip or popover instance.
+     * The `this` context is set to the tooltip or popover instance.
      *
      * @default tooltip: "top", popover: "right"
      */
@@ -267,8 +299,9 @@ export interface TooltipOption {
     selector?: string | false;
 
     /**
-     * Base HTML to use when creating the tooltip or popover. The tooltip's (resp., popover's) title will be injected into
-     * the `.tooltip-inner` (resp., `.popover-header`). The `.arrow` will become the tooltip's (resp., popover's) arrow.
+     * Base HTML to use when creating the tooltip or popover.
+     * The tooltip's (resp., popover's) title will be injected into the `.tooltip-inner` (resp., `.popover-header`).
+     * The `.arrow` will become the tooltip's (resp., popover's) arrow.
      * The outermost wrapper element should have the `.tooltip` (resp., .popover) class and `role="tooltip"`.
      *
      * @default '<div class="tooltip" role="tooltip"><div class="arrow"></div><div class="tooltip-inner"></div></div>'
@@ -278,7 +311,7 @@ export interface TooltipOption {
 
     /**
      * Default title value if title attribute isn't present.
-     * If a function is given, it will be called with its this reference set to the element
+     * If a function is given, it will be called with its `this` reference set to the element
      * that the tooltip or popover is attached to.
      *
      * @default ""
@@ -319,6 +352,25 @@ export interface TooltipOption {
      * @default "scrollParent"
      */
     boundary?: Popper.Boundary | HTMLElement;
+
+    /**
+     * Enable or disable the sanitization. If activated 'template', 'content' and 'title' options will be sanitized.
+     *
+     * @default true
+     */
+    sanitize?: boolean;
+
+    /**
+     * Object which contains allowed attributes and tags.
+     */
+    whiteList?: {[key: string]: string[]};
+
+    /**
+     * Here you can supply your own sanitize function. This can be useful if you prefer to use a dedicated library to perform sanitization.
+     *
+     * @default null
+     */
+    sanitizeFn?: null | ((input: string) => string);
 }
 
 // --------------------------------------------------------------------------------------
@@ -401,6 +453,7 @@ export type ModalEvent = "show.bs.modal" | "shown.bs.modal" | "hide.bs.modal" | 
 export type PopoverEvent = "show.bs.popover" | "shown.bs.popover" | "hide.bs.popover" | "hidden.bs.popover" | "inserted.bs.popover";
 export type ScrollspyEvent = "activate.bs.scrollspy";
 export type TapEvent = "show.bs.tab" | "shown.bs.tab" | "hide.bs.tab" | "hidden.bs.tab";
+export type ToastEvent = "show.bs.toast" | "shown.bs.toast" | "hide.bs.toast" | "hidden.bs.toast";
 export type TooltipEvent = "show.bs.tooltip" | "shown.bs.tooltip" | "hide.bs.tooltip" | "hidden.bs.tooltip" | "inserted.bs.tooltip";
 
 // --------------------------------------------------------------------------------------
@@ -413,26 +466,26 @@ declare global {
          * If no _method_ is specified, makes an alert listen for click events on descendant elements which have the `data-dismiss="alert"` attribute.
          * (Not necessary when using the data-api's auto-initialization.)
          * Otherwise, call the method on the alert element:
-         * * `close` — Closes an alert by removing it from the DOM. If the `.fade` and `.show` classes are present on the element, the alert will fade out before it is removed.
-         * * `dispose` — Destroys an element's alert.
+         * * `close` – Closes an alert by removing it from the DOM. If the `.fade` and `.show` classes are present on the element, the alert will fade out before it is removed.
+         * * `dispose` – Destroys an element's alert.
          */
         alert(action?: "close" | "dispose"): this;
 
         /**
          * Call a method on the button element:
-         * * `toggle` — Toggles push state. Gives the button the appearance that it has been activated.
-         * * `dispose` — Destroys an element's button.
+         * * `toggle` – Toggles push state. Gives the button the appearance that it has been activated.
+         * * `dispose` – Destroys an element's button.
          */
         button(action: "toggle" | "dispose"): this;
 
         /**
          * Call a method on the carousel element:
-         * * `cycle` — Cycles through the carousel items from left to right.
-         * * `pause` — Stops the carousel from cycling through items.
-         * * _number_ — Cycles the carousel to a particular frame (0 based, similar to an array).
-         * * `prev` — Cycles to the previous item.
-         * * `next` — Cycles to the next item.
-         * * `dispose` — Destroys an element's carousel.
+         * * `cycle` – Cycles through the carousel items from left to right.
+         * * `pause` – Stops the carousel from cycling through items.
+         * * _number_ – Cycles the carousel to a particular frame (0 based, similar to an array).
+         * * `prev` – Cycles to the previous item.
+         * * `next` – Cycles to the next item.
+         * * `dispose` – Destroys an element's carousel.
          *
          * Returns to the caller before the target item has been shown (i.e. before the `slid.bs.carousel` event occurs).
          */
@@ -460,10 +513,12 @@ declare global {
         /**
          * Call a method on the dropdown element:
          * * `toggle` – Toggles the dropdown menu of a given navbar or tabbed navigation.
+         * * `show` – Shows the dropdown menu of a given navbar or tabbed navigation.
+         * * `hide` – Hides the dropdown menu of a given navbar or tabbed navigation.
          * * `update` – Updates the position of an element's dropdown.
-         * * `dispose` — Destroys an element's dropdown.
+         * * `dispose` – Destroys an element's dropdown.
          */
-        dropdown(action: "toggle" | "update" | "dispose"): this;
+        dropdown(action: "toggle" | "show" | "hide" | "update" | "dispose"): this;
         /**
          * Toggle contextual overlays for displaying lists of links.
          *
@@ -489,7 +544,7 @@ declare global {
 
         /**
          * Call a method on the popover element:
-         * * `show` – Reveals an element's popover.
+         * * `show` – Reveals an element's popover. Popovers whose both title and content are zero-length are never displayed.
          * * `hide` – Hides an element's popover.
          * * `toggle` – Toggles an element's popover.
          * * `dispose` – Hides and destroys an element's popover.
@@ -500,7 +555,7 @@ declare global {
          * * `update` – Updates the position of an element's popover.
          *
          * Returns to the caller before the popover has actually been shown or hidden (i.e. before the `shown.bs.popover` or `hidden.bs.popover` event occurs).
-         * This is considered a "manual" triggering of the popover. Popovers whose both title and content are zero-length are never displayed.
+         * This is considered a "manual" triggering of the popover.
          */
         popover(action: "show" | "hide" | "toggle" | "dispose" | "enable" | "disable" | "toggleEnabled" | "update"): this;
         /**
@@ -539,8 +594,22 @@ $('[data-spy="scroll"]').each(function () {
         tab(action: "show" | "dispose"): this;
 
         /**
+         * Call a method on the toast element:
+         * * `show` – Reveals an element's toast. You have to manually call this method, instead your toast won't show.
+         * * `hide` – Hides an element's toast. You have to manually call this method if you made `autohide` to false.
+         * * `dispose` – Hides an element's toast. Your toast will remain on the DOM but won't show anymore.
+         *
+         * Returns to the caller before the toast has actually been shown or hidden (i.e. before the `shown.bs.toast` or `hidden.bs.toast` event occurs).
+         */
+        toast(action: "show" | "hide" | "dispose"): this;
+        /**
+         * Attaches a toast handler to an element collection.
+         */
+        toast(options?: ToastOption): this;
+
+        /**
          * Call a method on the tooltip element:
-         * * `show` – Reveals an element's tooltip.
+         * * `show` – Reveals an element's tooltip. Tooltips with zero-length titles are never displayed.
          * * `hide` – Hides an element's tooltip.
          * * `toggle` – Toggles an element's tooltip.
          * * `dispose` – Hides and destroys an element's tooltip.
@@ -564,7 +633,7 @@ $('[data-spy="scroll"]').each(function () {
         on(events: ModalEvent, handler: JQuery.EventHandlerBase<TElement, ModalEventHandler<TElement>>): this;
         on(events: TapEvent, handler: JQuery.EventHandlerBase<TElement, TapEventHandler<TElement>>): this;
         on(
-            events: AlertEvent | CollapseEvent | PopoverEvent | ScrollspyEvent | TooltipEvent,
+            events: AlertEvent | CollapseEvent | PopoverEvent | ScrollspyEvent | ToastEvent | TooltipEvent,
             handler: JQuery.EventHandler<TElement>
         ): this;
     }

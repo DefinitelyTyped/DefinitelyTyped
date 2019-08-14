@@ -88,12 +88,12 @@ declare module "../../index" {
 
     /**
      *   Sets/gets the style of the text for system fonts
-     *   to NORMAL, ITALIC, or BOLD. Note: this may be is
-     *   overridden by CSS styling. For non-system fonts
-     *   (opentype, truetype, etc.) please load styled
-     *   fonts instead.
+     *   to NORMAL, ITALIC, BOLD or BOLDITALIC. Note: this
+     *   may be is overridden by CSS styling. For
+     *   non-system fonts (opentype, truetype, etc.) please
+     *   load styled fonts instead.
      *   @param theStyle styling for text, either NORMAL,
-     *   ITALIC, or BOLD
+     *   ITALIC, BOLD or BOLDITALIC
      *   @chainable
      */
     textStyle(
@@ -102,10 +102,10 @@ declare module "../../index" {
 
     /**
      *   Sets/gets the style of the text for system fonts
-     *   to NORMAL, ITALIC, or BOLD. Note: this may be is
-     *   overridden by CSS styling. For non-system fonts
-     *   (opentype, truetype, etc.) please load styled
-     *   fonts instead.
+     *   to NORMAL, ITALIC, BOLD or BOLDITALIC. Note: this
+     *   may be is overridden by CSS styling. For
+     *   non-system fonts (opentype, truetype, etc.) please
+     *   load styled fonts instead.
      */
     textStyle(): string;
 

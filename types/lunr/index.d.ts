@@ -1,5 +1,5 @@
 // Type definitions for lunr.js 2.3
-// Project: https://github.com/olivernn/lunr.js
+// Project: https://github.com/olivernn/lunr.js, http://lunrjs.com
 // Definitions by: Sean Tan <https://github.com/seantanly>, Andrés Pérez <https://github.com/hokiegeek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
@@ -535,6 +535,24 @@ declare namespace lunr {
     }
 
     namespace Query {
+        /**
+         * Constants for indicating what kind of presence a term must have in matching documents.
+         */
+        enum presence {
+            /**
+             * Term's presence in a document is optional, this is the default value.
+             */
+            OPTIONAL = 1,
+            /**
+             * Term's presence in a document is required, documents that do not contain this term will not be returned.
+             */
+            REQUIRED = 2,
+            /**
+             * Term's presence in a document is prohibited, documents that do contain this term will not be returned.
+             */
+            PROHIBITED = 3
+        }
+
         enum wildcard {
             NONE = 0,
             LEADING = 1 << 0,
@@ -598,6 +616,12 @@ declare namespace lunr {
          * Adds a term to the current query, under the covers this will create a {@link lunr.Query~Clause}
          * to the list of clauses that make up this query.
          *
+         * The term is used as is, i.e. no tokenization will be performed by this method. Instead conversion
+         * to a token or token-like string should be done before calling this method.
+         *
+         * The term will be converted to a string by calling `toString`. Multiple terms can be passed as an
+         * array, each term in the array will share the same options.
+         *
          * @param term - The term to add to the query.
          * @param [options] - Any additional properties to add to the query clause.
          * @see lunr.Query#clause
@@ -611,7 +635,7 @@ declare namespace lunr {
          *   wildcard: lunr.Query.wildcard.TRAILING
          * })
          */
-        term(term: string, options: object): Query;
+        term(term: string | string[] | Token | Token[], options: object): Query;
     }
 
     class QueryParseError extends Error {

@@ -4,6 +4,8 @@ import DatePicker from "react-flatpickr";
 
 const noParamsElement = <DatePicker />;
 
+const classNameElement = <DatePicker className={"test"} />;
+
 const defaultValueElement = <DatePicker defaultValue={"Default value"} />;
 
 const options = {
@@ -40,3 +42,8 @@ const valueDateArrayElement = (
 const valueNumberArrayElement = (
     <DatePicker value={[1543516477474, 1544549477474]} />
 );
+const customRender = (
+    <DatePicker render={({value}, ref) => <input ref={ref} value={value ? value.toString() : ''} />} />
+);
+
+const extraInputPropertiesElement = <DatePicker placeholder="Enter a date..." id="datepicker-1" />;

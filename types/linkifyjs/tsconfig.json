@@ -1,25 +1,24 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "lib": [
-            "es6",
-            "dom"
-        ],
+        "lib": ["es6", "dom"],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
         "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
+        "typeRoots": ["../"],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "jsx": "preserve"
     },
     "files": [
-        "index.d.ts",
-        "html.d.ts",
-        "linkifyjs-tests.ts"
+      "element.d.ts",
+      "html.d.ts",
+      "index.d.ts",
+      "linkifyjs-tests.tsx",
+      "react.d.ts",
+      "string.d.ts"
     ]
 }

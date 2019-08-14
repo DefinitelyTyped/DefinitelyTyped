@@ -15,7 +15,7 @@ import * as httpProxy from "http-proxy";
 import { Readable } from 'stream';
 
 declare function proxy(config: proxy.Config): proxy.Proxy;
-declare function proxy(contextOrUri: string | string[] | proxy.Filter, config: proxy.Config): proxy.Proxy;
+declare function proxy(contextOrUri: string | string[] | proxy.Filter, config?: proxy.Config): proxy.Proxy;
 
 declare namespace proxy {
   type Filter = (pathname: string, req: http.IncomingMessage) => boolean;

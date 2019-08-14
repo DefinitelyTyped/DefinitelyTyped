@@ -31,7 +31,7 @@ declare class Polyglot {
 
     replace(phrases: any): void;
 
-    locale(locale?: string): void;
+    locale(locale?: string): string;
 
     has(phrase: string): boolean;
 }

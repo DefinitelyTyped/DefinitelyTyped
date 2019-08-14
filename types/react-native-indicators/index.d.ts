@@ -15,9 +15,21 @@ export interface BaseIndicatorProps {
 
     /**
      * Animation duration in ms
-     * @default1200
+     * @default 1200
      */
     animationDuration?: number;
+
+    /**
+     * Animation toggle
+     * @default true
+     */
+    animating?: boolean;
+
+    /**
+     * Animation is interaction
+     * @default true
+     */
+    interaction?: boolean;
 }
 
 export interface UIActivityIndicatorProps extends BaseIndicatorProps {

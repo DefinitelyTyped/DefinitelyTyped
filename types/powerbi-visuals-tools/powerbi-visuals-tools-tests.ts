@@ -1,4 +1,4 @@
-import powerbi from './index';
+import powerbi = require('./index');
 
 import IVisualPlugin = powerbi.visuals.plugins.IVisualPlugin;
 import IVisual = powerbi.extensibility.visual.IVisual;

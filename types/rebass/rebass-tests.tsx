@@ -1,13 +1,34 @@
-import * as React from 'react'
-import { Box, Flex, Text, Heading, Button, Link, Image, Card } from 'rebass'
+import * as React from "react";
+import styled, { css } from "styled-components";
+import { Box, Flex, Text, Heading, Button, Link, Image, Card } from "rebass";
+import "styled-components/macro";
 
-const RebassTests = () => (
-    <Box width={1} css={{ height: '100vh' }} ml="1em">
+const CustomComponent: React.FunctionComponent = ({ children }) => {
+    return <div>{children}</div>;
+};
+
+const ExtendedBox = styled(Box)`
+    color: red;
+`;
+
+ExtendedBox.defaultProps = {
+    p: 3
+};
+
+const boxCss = css`
+    background: purple;
+    color: white;
+`;
+
+const CssBox = () => <Box css={boxCss} />;
+
+export default () => (
+    <Box width={1} css={{ height: "100vh" }} py={[1, 2, 3]} ml="1em">
         <Flex width={1} alignItems="center" justifyContent="center">
             <Heading fontSize={5} fontWeight="bold">
                 Hi, I'm a heading.
             </Heading>
-            <Text fontSize={3} lineHeight="1em" letterSpacing="1rem">
+            <Text as="p" fontSize={3} lineHeight="1em" letterSpacing="1rem">
                 Hi, I'm text.
             </Text>
             <Card
@@ -26,10 +47,25 @@ const RebassTests = () => (
                 src="https://source.unsplash.com/random/1280x720"
                 borderRadius="1em"
             />
-            <Link href="https://rebassjs.org">Link</Link>
+            <Link href="https://rebassjs.org" title="Rebass" target="_blank">
+                Link
+            </Link>
             <Button bg="magenta" border="1em" borderRadius="1em">
                 Button
             </Button>
+            <Box as={CustomComponent} bg="red">
+                CustomComponent
+            </Box>
+            <ExtendedBox m={2}>ExtendedBox</ExtendedBox>
+            <Box
+                css={`
+                    color: red;
+                `}
+            >
+                String css prop
+            </Box>
+
+            <CssBox />
         </Flex>
     </Box>
-)
+);

@@ -1,4 +1,4 @@
-import * as fetchMock from "fetch-mock";
+import fetchMock = require('fetch-mock');
 
 fetchMock.mock("http://test.com", 200);
 fetchMock.mock("http://test.com", 200, {
@@ -9,6 +9,16 @@ fetchMock.mock("http://test.com", 200, {
 fetchMock.mock("http//test.com", 200, {
     query: {
         searchValue: "apples"
+    }
+});
+fetchMock.mock("express:/users/:user", 200, {
+    params: {
+        user: "someone"
+    }
+});
+fetchMock.mock("http://test.com", 200, {
+    functionMatcher: (url, opts) => {
+        return url.includes("test.com");
     }
 });
 fetchMock.mock("http://test.com", 200, {
@@ -120,6 +130,7 @@ const myMatcher: fetchMock.MockMatcherFunction = (
 
 fetchMock.flush().then(resolved => resolved.forEach(console.log));
 fetchMock.flush().catch(r => r);
+fetchMock.flush(true).catch(r => r);
 
 fetchMock.get("http://test.com", {
     body: 'abc',
@@ -140,3 +151,16 @@ sandbox.get("http://test.com", {
 const response: fetchMock.MockResponseObject = {
     throws: new Error('error'),
 };
+
+fetchMock.config.sendAsJson = true;
+fetchMock.config.includeContentLength = true;
+fetchMock.config.fallbackToNetwork = true;
+fetchMock.config.fallbackToNetwork = 'always';
+fetchMock.config.overwriteRoutes = true;
+fetchMock.config.overwriteRoutes = undefined;
+fetchMock.config.warnOnFallback = true;
+fetchMock.config.Promise = Promise;
+fetchMock.config.fetch = (): Promise<Response> => new Promise(() => { });
+fetchMock.config.Headers = Headers;
+fetchMock.config.Request = Request;
+fetchMock.config.Response = Response;

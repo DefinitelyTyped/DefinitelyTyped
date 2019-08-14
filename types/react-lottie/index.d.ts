@@ -21,7 +21,7 @@ export interface Options {
      */
     animationData: any;
     rendererSettings?: {
-        preserveAspectRatio?: boolean;
+        preserveAspectRatio?: string;
         /**
          * The canvas context
          */

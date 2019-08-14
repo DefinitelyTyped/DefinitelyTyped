@@ -77,7 +77,7 @@ export interface RedirectProps<TState> {
     replace?: boolean;
 }
 
-export class Redirect<TState> extends React.Component<RedirectProps<TState>> { }
+export class Redirect<TState> extends React.Component<RouteComponentProps<RedirectProps<TState>>> { }
 
 export interface MatchProps<TParams> {
     path: string;
@@ -110,7 +110,7 @@ export interface LocationProps {
 export class Location extends React.Component<LocationProps> { }
 
 export interface LocationProviderProps {
-    history: History;
+    history?: History;
     children?: React.ReactNode | LocationProviderRenderFn;
 }
 

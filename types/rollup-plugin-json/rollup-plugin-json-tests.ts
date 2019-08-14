@@ -1,4 +1,4 @@
-import json from 'rollup-plugin-json';
+import json = require('rollup-plugin-json');
 
 json(); // $ExpectType Plugin
 

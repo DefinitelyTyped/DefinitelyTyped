@@ -762,11 +762,11 @@ export interface ThemeProps {
 
 export interface ThemeProviderProps {
     value: {};
-    children: React.ReactElement<any>;
+    children: React.ReactElement;
 }
 
 export interface ThemeConsumerProps {
-    children(props: ThemeProps): React.ReactElement<any>;
+    children(props: ThemeProps): React.ReactElement;
 }
 
 export namespace ThemeContext {

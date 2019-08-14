@@ -113,6 +113,8 @@ aPath.extend(aPath);
 aPath.extend(aPath.commands);
 aPath.extend(aPath.getBoundingBox());
 const pathBBox: opentype.BoundingBox = aPath.getBoundingBox();
+pathBBox.addQuad(1, 1, 1, 1, 1, 1);
+const yDist = pathBBox.y2 - pathBBox.y1;
 aPath.draw(ctx);
 const pathData: string = aPath.toPathData(7);
 const pathSvg: string = aPath.toSVG(7);

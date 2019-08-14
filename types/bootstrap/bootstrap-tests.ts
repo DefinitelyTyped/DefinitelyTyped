@@ -52,6 +52,7 @@ $("#carousel").carousel({
     slide: false,
     pause: "hover",
     wrap: true,
+    touch: false,
 });
 
 $("#carousel").carousel({
@@ -195,6 +196,12 @@ $("#popover").popover({
     offset: 10,
     fallbackPlacement: ["flip", "clockwise"],
     boundary: "scrollParent",
+    sanitize: false,
+    whiteList: {
+        h1: [],
+        img: ['src', 'alt', 'title', 'width', 'height'],
+    },
+    sanitizeFn: (x: string) => x.replace("<", ""),
 });
 
 $("#popover").popover({
@@ -204,6 +211,10 @@ $("#popover").popover({
         console.log(this.config.content);
         return "left";
     },
+});
+
+$("#popover").popover({
+    sanitizeFn: null,
 });
 
 // --------------------------------------------------------------------------------------
@@ -246,6 +257,26 @@ $("a[data-toggle=\"list\"]").on("shown.bs.tab", (e) => {
 });
 
 // --------------------------------------------------------------------------------------
+// Toast
+// --------------------------------------------------------------------------------------
+
+// $ExpectType JQuery<HTMLElement>
+$("#toast").toast();
+
+// $ExpectType JQuery<HTMLElement>
+$("#toast").toast("show");
+
+$("#toast").on("shown.bs.toast", () => {});
+
+$("#toast").toast({
+    animation: false,
+    autohide: false,
+    delay: 100,
+});
+
+$("#toast").toast({});
+
+// --------------------------------------------------------------------------------------
 // Tooltip
 // --------------------------------------------------------------------------------------
 
@@ -259,10 +290,23 @@ $("#tooltip").on("hide.bs.tooltip", () => {});
 
 $("#tooltip").tooltip({
     animation: false,
-});
-
-$("#tooltip").tooltip({
     container: "#container",
+    delay: {show: 500, hide: 100},
+    html: true,
+    placement: "auto",
+    selector: "[rel=\"tooltip\"]",
+    template: '<div class="tooltip empty" role="tooltip"></div>',
+    title: "Hello world",
+    trigger: "hover focus",
+    offset: 10,
+    fallbackPlacement: ["flip", "clockwise"],
+    boundary: "scrollParent",
+    sanitize: false,
+    whiteList: {
+        h1: [],
+        img: ['src', 'alt', 'title', 'width', 'height'],
+    },
+    sanitizeFn: (x: string) => x.replace("<", ""),
 });
 
 $("#tooltip").tooltip({
@@ -275,18 +319,6 @@ $("#tooltip").tooltip({
 
 $("#tooltip").tooltip({
     delay: 250,
-});
-
-$("#tooltip").tooltip({
-    delay: {show: 500, hide: 100},
-});
-
-$("#tooltip").tooltip({
-    html: true,
-});
-
-$("#tooltip").tooltip({
-    placement: "auto",
 });
 
 $("#tooltip").tooltip({
@@ -307,19 +339,7 @@ $("#tooltip").tooltip({
 });
 
 $("#tooltip").tooltip({
-    selector: "[rel=\"tooltip\"]",
-});
-
-$("#tooltip").tooltip({
     selector: false,
-});
-
-$("#tooltip").tooltip({
-    template: '<div class="tooltip empty" role="tooltip"></div>',
-});
-
-$("#tooltip").tooltip({
-    title: "Hello world",
 });
 
 $("#tooltip").tooltip({
@@ -333,14 +353,6 @@ $("#tooltip").tooltip({
 });
 
 $("#tooltip").tooltip({
-    trigger: "hover focus",
-});
-
-$("#tooltip").tooltip({
-    offset: 10,
-});
-
-$("#tooltip").tooltip({
     offset: "10px",
 });
 
@@ -349,13 +361,9 @@ $("#tooltip").tooltip({
 });
 
 $("#tooltip").tooltip({
-    fallbackPlacement: ["flip", "clockwise"],
-});
-
-$("#tooltip").tooltip({
-    boundary: "scrollParent",
-});
-
-$("#tooltip").tooltip({
     boundary: aHtmlElement,
+});
+
+$("#tooltip").tooltip({
+    sanitizeFn: null,
 });

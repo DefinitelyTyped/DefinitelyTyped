@@ -11,6 +11,7 @@
 //                 Tina Roh <https://github.com/tinaroh>
 //                 Nathan Phillip Brink <https://github.com/binki>
 //                 Martin Olsson <https://github.com/mo>
+//                 Mattias Sämskar <https://github.com/mattiassamskar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -1997,6 +1998,14 @@ export namespace Speech {
 }
 
 /**
+ * SplashScreen
+ */
+export namespace SplashScreen {
+    function hide(): void;
+    function preventAutoHide(): void;
+}
+
+/**
  * SQLite
  */
 export namespace SQLite {
@@ -2083,6 +2092,8 @@ export interface SvgCommonProps {
 export interface SvgRectProps extends SvgCommonProps {
     width: number | string;
     height: number | string;
+    rx?: number | string;
+    ry?: number | string;
 }
 
 export interface SvgCircleProps extends SvgCommonProps {
@@ -2193,7 +2204,7 @@ export class Svg extends Component<{ width: number, height: number, viewBox?: st
  * Take Snapshot
  */
 export function takeSnapshotAsync(
-    view?: (number | React.ReactElement<any>),
+    view?: (number | React.ReactElement),
     options?: {
         width?: number,
         height?: number,

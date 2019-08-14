@@ -4,6 +4,7 @@ import DatePicker, {
 	setDefaultLocale,
 	getDefaultLocale,
 } from 'react-datepicker';
+import * as enUS from 'date-fns/locale/en-US';
 
 registerLocale('en-GB', { options: { weekStartsOn: 1 } });
 setDefaultLocale('en-GB');
@@ -76,7 +77,8 @@ const defaultLocale = getDefaultLocale();
 	popperProps={{}}
 	preventOpenOnFocus
 	previousMonthButtonLabel=""
-	readOnly
+    readOnly
+    ref={handleRef}
 	renderCustomHeader={({
 		date,
 		changeYear,
@@ -97,6 +99,7 @@ const defaultLocale = getDefaultLocale();
 	showDisabledMonthNavigation
 	showMonthDropdown
 	showMonthYearDropdown
+	showMonthYearPicker
 	showTimeSelect
 	showTimeSelectOnly
 	showWeekNumbers
@@ -115,7 +118,30 @@ const defaultLocale = getDefaultLocale();
 	weekLabel=""
 	withPortal
 	yearDropdownItemNumber={1}
+	timeInputLabel=""
+	inlineFocusSelectedMonth={false}
+	onDayMouseEnter={(date: Date) => {}}
+	onMonthMouseLeave={() => {}}
 >
 	<div />
 	<span />
 </DatePicker>;
+
+<DatePicker
+    minDate={null}
+    maxDate={null}
+    startDate={null}
+    endDate={null}
+    locale={enUS}
+    onChange={() => null}
+/>;
+
+function handleRef(ref: DatePicker | null) {
+    if (ref) {
+        ref.setBlur();
+        ref.setFocus();
+        if (ref.isCalendarOpen()) {
+            ref.setOpen(false);
+        }
+    }
+}

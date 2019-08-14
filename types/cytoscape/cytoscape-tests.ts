@@ -20,8 +20,8 @@ const parentCSS = {
   'padding-left': '10px',
   'padding-bottom': '10px',
   'padding-right': '10px',
-  'text-valign': 'top',
-  'text-halign': 'center',
+  'text-valign': 'top' as 'top',
+  'text-halign': 'center' as 'center',
   'background-color': '#CCC',
   'font-size': 40,
   'min-zoomed-font-size': 15
@@ -47,7 +47,8 @@ const showAllStyle: cytoscape.Stylesheet[] = [
   {
     selector: 'edge',
     css: {
-      'target-arrow-shape': 'triangle'
+      'target-arrow-shape': 'triangle',
+      'curve-style': 'taxi',
     }
   },
   {
@@ -57,6 +58,14 @@ const showAllStyle: cytoscape.Stylesheet[] = [
       'line-color': 'black',
       'target-arrow-color': 'black',
       'source-arrow-color': 'black'
+    }
+  },
+  {
+    selector: 'node.lesstext',
+    style: {
+      label: 'data(name)',
+      'text-wrap': 'ellipsis',
+      'text-max-width': '200',
     }
   }
 ];
@@ -508,6 +517,18 @@ nodes.forEach((child) => {
   });
 });
 
+// position is not required for an animation
+nodes.forEach((child) => {
+  child.animate({
+    style: {
+      backgroundColor: '#f185dc',
+      width: '30px',
+      height: '30px'
+    },
+    duration: 300
+  });
+});
+
 nodes.animate({
   renderedPosition: node.position()
 }, {
@@ -565,6 +586,50 @@ nodes.min(n => n.degree(false));
 nodes.max(n => n.degree(false));
 edges.max(n => n.source().id().length);
 edges.max(n => n.source().id().length);
+
+// directly from the doc: http://js.cytoscape.org/#eles.stop
+cy.nodes().animate({
+  style: { 'background-color': 'cyan' }
+}, {
+  duration: 5000,
+  complete: () => {
+    console.log('Animation complete');
+  }
+}).delay(100);
+
+setTimeout(() => {
+  console.log('Stopping nodes animation');
+  cy.nodes().stop();
+}, 2500);
+
+// directly from the doc: http://js.cytoscape.org/#eles.breadthFirstSearch
+const bfs = cy.elements().bfs({
+  roots: '#e',
+  visit: (v, e, u, i, depth) => {
+    console.log('visit ' + v.id());
+
+    // example of finding desired node
+    if (v.data('weight') > 70) {
+      return true;
+    }
+
+    // example of exiting search early
+    if (v.data('weight') < 0) {
+      return false;
+    }
+  },
+  directed: false
+});
+
+const path = bfs.path; // path to found node
+const found = bfs.found; // found node
+
+// select the path
+path.select();
+
+// root || roots are both ok
+cy.elements(':grabbable').bfs({ root: '#1' });
+cy.elements(':grabbable').dfs({ roots: '#1' });
 
 // TODO: traversing (need to actively check the nodes/edges distinction)
 // TODO: algorithms

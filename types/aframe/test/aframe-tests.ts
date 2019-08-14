@@ -75,6 +75,7 @@ const Component = registerComponent('test-component', {
 	},
 	init() {
 		this.data.num = 0;
+		this.el.setAttribute('custom-attribute', 'custom-value');
 	},
 	update() {},
 	tick() {},

@@ -28,7 +28,8 @@ declare module "../../index" {
      *   The deviceMoved() function is called when the
      *   device is moved by more than the threshold value
      *   along X, Y or Z axis. The default threshold is set
-     *   to 0.5.
+     *   to 0.5. The threshold value can be changed using
+     *   setMoveThreshold().
      */
     deviceMoved(): void;
 
@@ -48,7 +49,8 @@ declare module "../../index" {
      *   device total acceleration changes of accelerationX
      *   and accelerationY values is more than the
      *   threshold value. The default threshold is set to
-     *   30.
+     *   30. The threshold value can be changed using
+     *   setShakeThreshold().
      */
     deviceShaken(): void;
 
@@ -170,6 +172,13 @@ declare module "../../index" {
      *   rotate direction of the device along the Z-axis.
      */
     pRotationZ: number;
+
+    /**
+     *   When a device is rotated, the axis that triggers
+     *   the deviceTurned() method is stored in the
+     *   turnAxis variable. The turnAxis variable is only
+     *   defined within the scope of deviceTurned().
+     */
     turnAxis: string;
   }
 }

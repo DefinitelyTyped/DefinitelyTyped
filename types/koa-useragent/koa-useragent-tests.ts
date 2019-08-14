@@ -5,7 +5,7 @@ const app = new Koa();
 
 app.use(userAgent);
 
-app.use((ctx, next) => {
+app.use((ctx: Koa.Context, next) => {
     ctx.userAgent.isAuthoritative; // $ExpectType boolean
     ctx.userAgent.isMobile; // $ExpectType boolean
     ctx.userAgent.isTablet; // $ExpectType boolean

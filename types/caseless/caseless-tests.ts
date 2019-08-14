@@ -1,9 +1,9 @@
-import caseless, { Caseless, httpify, Httpified } from "caseless";
+import caseless = require("caseless");
 
-new Caseless(); // $ExpectError
+new caseless.Caseless(); // $ExpectError
 
 // tslint:disable-next-line: prefer-const
-let c1: Caseless;
+let c1: caseless.Caseless;
 
 caseless(); // $ExpectType Caseless
 caseless({}); // $ExpectType Caseless
@@ -30,16 +30,16 @@ c2.swap(10); // $ExpectError
 
 c2.del('foo'); // $ExpectType boolean
 
-httpify(null, {}); // $ExpectError
-httpify(1, {}); // $ExpectError
-httpify("2", {}); // $ExpectError
-httpify({}, null); // $ExpectError
-httpify({}, 1); // $ExpectError
-httpify({}, "2"); // $ExpectError
+caseless.httpify(null, {}); // $ExpectError
+caseless.httpify(1, {}); // $ExpectError
+caseless.httpify("2", {}); // $ExpectError
+caseless.httpify({}, null); // $ExpectError
+caseless.httpify({}, 1); // $ExpectError
+caseless.httpify({}, "2"); // $ExpectError
 
-httpify({}, {}); // $ExpectType Caseless
+caseless.httpify({}, {}); // $ExpectType Caseless
 
-const request: Httpified = {}; // $ExpectError
+const request: caseless.Httpified = {}; // $ExpectError
 
 request.setHeader({}); // $ExpectType void
 request.setHeader('foo', 'bar'); // $ExpectType string | false

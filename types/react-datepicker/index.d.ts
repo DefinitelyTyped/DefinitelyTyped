@@ -1,4 +1,4 @@
-// Type definitions for react-datepicker 2.0
+// Type definitions for react-datepicker 2.8
 // Project: https://github.com/Hacker0x01/react-datepicker
 // Definitions by: Rajab Shakirov <https://github.com/radziksh>,
 //                 Andrey Balokha <https://github.com/andrewBalekha>,
@@ -9,11 +9,15 @@
 //                 Sean Kelley <https://github.com/seansfkelley>
 //                 Justin Grant <https://github.com/justingrant>
 //                 Jake Boone <https://github.com/jakeboone02>
+//                 Roman Nuritdinov <https://github.com/Ky6uk>
+//                 Avi Klaiman <https://github.com/aviklai>
+//                 Naoki Sekiguchi <https://github.com/seckie>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
 import * as React from "react";
 import * as Popper from "popper.js";
+import { Locale } from 'date-fns';
 
 export function registerLocale(localeName: string, localeData: {}): void;
 export function setDefaultLocale(localeName: string): void;
@@ -41,7 +45,7 @@ export interface ReactDatePickerProps {
 	disabled?: boolean;
 	disabledKeyboardNavigation?: boolean;
 	dropdownMode?: 'scroll' | 'select';
-	endDate?: Date;
+	endDate?: Date | null;
 	excludeDates?: Date[];
 	excludeTimes?: Date[];
 	filterDate?(date: Date): boolean;
@@ -56,10 +60,10 @@ export interface ReactDatePickerProps {
 	injectTimes?: Date[];
 	inline?: boolean;
 	isClearable?: boolean;
-	locale?: string;
-	maxDate?: Date;
+	locale?: string | Locale;
+	maxDate?: Date | null;
 	maxTime?: Date;
-	minDate?: Date;
+	minDate?: Date | null;
 	minTime?: Date;
 	monthsShown?: number;
 	name?: string;
@@ -108,12 +112,14 @@ export interface ReactDatePickerProps {
 	showDisabledMonthNavigation?: boolean;
 	showMonthDropdown?: boolean;
 	showMonthYearDropdown?: boolean;
+	showMonthYearPicker?: boolean;
 	showTimeSelect?: boolean;
 	showTimeSelectOnly?: boolean;
 	showWeekNumbers?: boolean;
 	showYearDropdown?: boolean;
-	startDate?: Date;
+	startDate?: Date | null;
 	startOpen?: boolean;
+	strictParsing?: boolean;
 	tabIndex?: number;
 	timeCaption?: string;
 	timeFormat?: string;
@@ -126,6 +132,18 @@ export interface ReactDatePickerProps {
 	weekLabel?: string;
 	withPortal?: boolean;
 	yearDropdownItemNumber?: number;
+	timeInputLabel?: string;
+    showTimeInput?: boolean;
+	inlineFocusSelectedMonth?: boolean;
+	onDayMouseEnter?: (date: Date) => void;
+	onMonthMouseLeave?: () => void;
 }
-declare const ReactDatePicker: React.ClassicComponentClass<ReactDatePickerProps>;
+
+declare class ReactDatePicker extends React.Component<ReactDatePickerProps> {
+    readonly setBlur: () => void;
+    readonly setFocus: () => void;
+    readonly setOpen: (open: boolean, skipSetBlur?: boolean) => void;
+    readonly isCalendarOpen: () => boolean;
+}
+
 export default ReactDatePicker;

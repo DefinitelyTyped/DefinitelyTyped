@@ -3,10 +3,11 @@
 // Definitions by: Ilko Hoffmann <https://github.com/Schnillz>
 //                 Karl O. <https://github.com/karl-run>
 //                 Tom Barton <https://github.com/tombarton>
+//                 Josh Sullivan <https://github.com/jpsullivan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export class Eureka {
-    constructor(config: EurekaClient.EurekaConfig | EurekaClient.EurekaYmlConfig)
+    constructor(config: EurekaClient.EurekaConfig | EurekaClient.EurekaYmlConfig | EurekaClient.EurekaMiddlewareConfig);
     start(cb?: (err: Error, ...rest: any[]) => void): void;
     stop(cb?: (err: Error, ...rest: any[]) => void): void;
     getInstancesByAppId(appId: string): EurekaClient.EurekaInstanceConfig[];
@@ -19,6 +20,7 @@ export namespace EurekaClient {
     type DataCenterName = 'Netflix' | 'Amazon' | 'MyOwn';
 
     interface EurekaConfig {
+        requestMiddleware?: EurekaMiddlewareConfig;
         instance: EurekaInstanceConfig;
         eureka: EurekaClientConfig;
     }
@@ -80,8 +82,11 @@ export namespace EurekaClient {
         cwd: string;
         filename?: string;
     }
+    interface EurekaMiddlewareConfig {
+        requestMiddleware: (requestOpts: any, done: (opts: any) => void) => void;
+    }
     interface LegacyPortWrapper {
-        '$': number;
+        $: number;
         '@enabled': boolean;
     }
     interface PortWrapper {

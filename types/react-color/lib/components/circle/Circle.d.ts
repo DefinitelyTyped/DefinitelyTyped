@@ -6,7 +6,7 @@ export interface CirclePickerProps extends ColorPickerProps<CirclePicker> {
     width?: string;
     circleSize?: number;
     circleSpacing?: number;
-    onSwatchHover?(colorResult: ColorResult, event: MouseEvent): void;
+    onSwatchHover?(color: ColorResult, event: MouseEvent): void;
 }
 
 export default class CirclePicker extends Component<CirclePickerProps> {}

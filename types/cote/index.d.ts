@@ -1,4 +1,4 @@
-// Type definitions for cote 0.17
+// Type definitions for cote 0.19
 // Project: https://github.com/dashersw/cote#readme
 // Definitions by: makepost <https://github.com/makepost>
 //                 Labat Robin <https://github.com/roblabat>
@@ -115,6 +115,11 @@ export interface ResponderAdvertisement extends Advertisement {
      * Request types that a Responder can listen to.
      */
     respondsTo?: string[];
+
+    /**
+     * Advertisement attribute that lets you target a subgroup of responders using the __subset property of a request.
+     */
+    subset?: string;
 }
 
 export class Publisher extends Component {

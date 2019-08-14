@@ -10,13 +10,13 @@ const client = new Eureka({
     port: 8080,
     vipAddress: 'jq.test.something.com',
     dataCenterInfo: {
-      name: 'MyOwn',
-    },
+      name: 'MyOwn'
+    }
   },
   eureka: {
     // eureka server host / port
     host: '192.168.99.100',
-    port: 32768,
+    port: 32768
   }
 });
 
@@ -34,19 +34,30 @@ const newerClient = new Eureka({
     vipAddress: 'jq.test.something.com',
     dataCenterInfo: {
       '@class': 'com.netflix.appinfo.InstanceInfo$DefaultDataCenterInfo',
-      name: 'MyOwn',
-    },
+      name: 'MyOwn'
+    }
   },
   eureka: {
     // eureka server host / port
     host: '192.168.99.100',
-    port: 32768,
+    port: 32768
   }
 });
 
 const ymlInitClient = new Eureka({
   cwd: `/opt/config`,
   filename: 'eureka-config'
+});
+
+// example using middleware to set-up HTTP authentication (https://www.npmjs.com/package/eureka-js-client#providing-custom-request-middleware)
+const middlewareClient = new Eureka({
+  requestMiddleware: (requestOpts, done) => {
+    requestOpts.auth = {
+      user: 'username',
+      password: 'somepassword'
+    };
+    done(requestOpts);
+  }
 });
 
 // Test callbacks

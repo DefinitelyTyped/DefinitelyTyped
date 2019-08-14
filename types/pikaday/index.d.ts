@@ -1,5 +1,5 @@
 // Type definitions for pikaday 1.7
-// Project: https://github.com/dbushell/Pikaday
+// Project: https://github.com/dbushell/Pikaday, https://pikaday.com
 // Definitions by: Rudolph Gottesheim <https://github.com/MidnightDesign>
 //                 Åke Wivänge <https://github.com/wake42>
 //                 Istvan Mezo <https://github.com/mezoistvan>
@@ -36,7 +36,7 @@ declare class Pikaday {
      * Returns a JavaScript Date object for the selected day, or null if
      * no date is selected.
      */
-    getDate(): Date;
+    getDate(): Date | null;
 
     /**
      * Set the current selection. This will be restricted within the bounds
@@ -44,13 +44,13 @@ declare class Pikaday {
      * can optionally be passed as the second parameter to prevent triggering
      * of the onSelect callback, allowing the date to be set silently.
      */
-    setDate(date: string | Date, triggerOnSelect?: boolean): void;
+    setDate(date: string | Date | null, preventOnSelect?: boolean): void;
 
     /**
      * Returns a Moment.js object for the selected date (Moment must be
      * loaded before Pikaday).
      */
-    getMoment(): moment.Moment;
+    getMoment(): moment.Moment | null;
 
     /**
      * Set the current selection with a Moment.js object (see setDate).
@@ -90,24 +90,24 @@ declare class Pikaday {
     /**
      * Update the minimum/earliest date that can be selected.
      */
-    setMinDate(date: Date): void;
+    setMinDate(date: Date | null): void;
 
     /**
      * Update the maximum/latest date that can be selected.
      */
-    setMaxDate(date: Date): void;
+    setMaxDate(date: Date | null): void;
 
     /**
      * Update the range start date. For using two Pikaday instances to
      * select a date range.
      */
-    setStartRange(date: Date): void;
+    setStartRange(date: Date | null): void;
 
     /**
      * Update the range end date. For using two Pikaday instances to select
      * a date range.
      */
-    setEndRange(date: Date): void;
+    setEndRange(date: Date | null): void;
 
     /**
      * Update the HTML.
@@ -138,6 +138,11 @@ declare class Pikaday {
      * Hide the picker and remove all event listeners - no going back!
      */
     destroy(): void;
+
+    /**
+     * Clear and reset the date
+     */
+    clear(): void;
 }
 
 // merge the Pikaday class declaration with a module
@@ -154,7 +159,7 @@ declare namespace Pikaday {
         /**
          * Bind the datepicker to a form field.
          */
-        field?: HTMLElement;
+        field?: HTMLElement | null;
 
         /**
          * The default output format for toString() and field value.
@@ -166,7 +171,7 @@ declare namespace Pikaday {
          * Use a different element to trigger opening the datepicker.
          * Default: field element.
          */
-        trigger?: HTMLElement;
+        trigger?: HTMLElement | null;
 
         /**
          * Automatically show/hide the datepicker on field focus.
@@ -196,7 +201,7 @@ declare namespace Pikaday {
          * DOM node to render calendar into, see container example.
          * Default: undefined.
          */
-        container?: HTMLElement;
+        container?: HTMLElement | null;
 
         /**
          * The initial date to view when first opened.
@@ -325,12 +330,12 @@ declare namespace Pikaday {
          * Function which will be used for parsing input string and getting a date object from it.
          * This function will take precedence over moment.
          */
-        parse?(date: string, format: string): Date;
+        parse?(date: string, format: string): Date | null;
 
         /**
          * Callback function for when a date is selected.
          */
-        onSelect?(date: Date): void;
+        onSelect?(this: Pikaday, date: Date): void;
 
         /**
          * Callback function for when the picker becomes visible.

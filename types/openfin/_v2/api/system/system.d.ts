@@ -12,7 +12,7 @@ import { RVMInfo } from './rvm';
 import { RuntimeInfo } from './runtime-info';
 import { Entity, EntityInfo } from './entity';
 import { HostSpecs } from './host-specs';
-import { ExternalProcessRequestType, TerminateExternalRequestType, ExternalConnection, ExternalProcessInfo } from './external-process';
+import { ExternalProcessRequestType, TerminateExternalRequestType, ExternalConnection, ExternalProcessInfo, ServiceConfiguration } from './external-process';
 import Transport from '../../transport/transport';
 import { CookieInfo, CookieOption } from './cookie';
 import { RegistryInfo } from './registry-info';
@@ -22,29 +22,29 @@ import { CrashReporterOption } from './crashReporterOption';
 import { SystemEvents } from '../events/system';
 /**
  * AppAssetInfo interface
- * @typedef { Object } AppAssetInfo
+ * @typedef { object } AppAssetInfo
  * @property { string } src  The URL to a zip file containing the package files (executables, dlls, etc…)
  * @property { string } alias The name of the asset
  * @property { string } version The version of the package
  * @property { string } target Specify default executable to launch. This option can be overridden in launchExternalProcess
- * @property { args } args The default command line arguments for the aforementioned target.
+ * @property { string } args The default command line arguments for the aforementioned target.
  * @property { boolean } mandatory When set to true, the app will fail to load if the asset cannot be downloaded.
  * When set to false, the app will continue to load if the asset cannot be downloaded. (Default: true)
  */
 /**
  * AppAssetRequest interface
- * @typedef { Object } AppAssetRequest
+ * @typedef { object } AppAssetRequest
  * @property { string } alias The name of the asset
  */
 /**
  * ApplicationInfo interface
- * @typedef { Object } ApplicationInfo
+ * @typedef { object } ApplicationInfo
  * @property { boolean } isRunning  true when the application is running
  * @property { string } uuid uuid of the application
  * @property { string } parentUuid uuid of the application that launches this application
  */
 /**
- * @typedef { Object } ClearCacheOption
+ * @typedef { object } ClearCacheOption
  * @summary Clear cache options.
  * @desc These are the options required by the clearCache function.
  *
@@ -55,33 +55,45 @@ import { SystemEvents } from '../events/system';
  */
 /**
  * CookieInfo interface
- * @typedef { Object } CookieInfo
+ * @typedef { object } CookieInfo
  * @property { string } name  The name of the cookie
  * @property { string } domain The domain of the cookie
  * @property { string } path The path of the cookie
  */
 /**
  * CookieOption interface
- * @typedef { Object } CookieOption
+ * @typedef { object } CookieOption
  * @property { string } name The name of the cookie
  */
 /**
  * CpuInfo interface
- * @typedef { Object } CpuInfo
+ * @typedef { object } CpuInfo
  * @property { string } model The model of the cpu
  * @property { number } speed The number in MHz
  * @property { Time } times The numbers of milliseconds the CPU has spent in different modes.
  */
 /**
 * CrashReporterOption interface
-* @typedef { Object } CrashReporterOption
+* @typedef { object } CrashReporterOption
 * @property { boolean } diagnosticMode In diagnostic mode the crash reporter will send diagnostic logs to
 *  the OpenFin reporting service on runtime shutdown
 * @property { boolean } isRunning check if it's running
 */
 /**
+ * DipRect interface
+ * @typedef { object } DipRect
+ * @property { Rect } dipRect The DIP coordinates
+ * @property { Rect } scaledRect The scale coordinates
+ */
+/**
+ * DipScaleRects interface
+ * @typedef { object } DipScaleRects
+ * @property { Rect } dipRect The DIP coordinates
+ * @property { Rect } scaledRect The scale coordinates
+ */
+/**
  * DownloadPreloadInfo interface
- * @typedef { Object } DownloadPreloadInfo
+ * @typedef { object } DownloadPreloadInfo
  * @desc downloadPreloadScripts function return value
  * @property { string } url url to the preload script
  * @property { string } error error during preload script acquisition
@@ -89,52 +101,65 @@ import { SystemEvents } from '../events/system';
  */
 /**
  * DownloadPreloadOption interface
- * @typedef { Object } DownloadPreloadOption
+ * @typedef { object } DownloadPreloadOption
  * @desc These are the options object required by the downloadPreloadScripts function
  * @property { string } url url to the preload script
  */
 /**
  * Entity interface
- * @typedef { Object } Entity
+ * @typedef { object } Entity
  * @property { string } type The type of the entity
  * @property { string } uuid The uuid of the entity
  */
 /**
  * EntityInfo interface
- * @typedef { Object } EntityInfo
+ * @typedef { object } EntityInfo
  * @property { string } name The name of the entity
  * @property { string } uuid The uuid of the entity
  * @property { Identity } parent The parent of the entity
  * @property { string } entityType The type of the entity
  */
 /**
+ * ExternalApplicationInfo interface
+ * @typedef { object } ExternalApplicationInfo
+ * @property { Identity } parent The parent identity
+ */
+/**
  * ExternalConnection interface
- * @typedef { Object } ExternalConnection
+ * @typedef { object } ExternalConnection
  * @property { string } token The token to broker an external connection
  * @property { string } uuid The uuid of the external connection
  */
 /**
  * ExternalProcessRequestType interface
- * @typedef { Object } ExternalProcessRequestType
+ * @typedef { object } ExternalProcessRequestType
  * @property { string } path The file path to where the running application resides
  * @property { string } arguments The argument passed to the running application
- * @property { Object } listener This is described in the {LaunchExternalProcessListner} type definition
+ * @property { LaunchExternalProcessListener } listener This is described in the {LaunchExternalProcessListner} type definition
+ */
+/**
+ * FrameInfo interface
+ * @typedef { object } FrameInfo
+ * @property { string } name The name of the frame
+ * @property { string } uuid The uuid of the frame
+ * @property { entityType } entityType The entity type, could be 'window', 'iframe', 'external connection' or 'unknown'
+ * @property { Identity } parent The parent identity
  */
 /**
  * GetLogRequestType interface
- * @typedef { Object } GetLogRequestType
+ * @typedef { object } GetLogRequestType
  * @property { string } name The name of the running application
  * @property { number } endFile The file length of the log file
  * @property { number } sizeLimit The set size limit of the log file
  */
 /**
  * GpuInfo interface
- * @typedef { Object } GpuInfo
+ * @typedef { object } GpuInfo
  * @property { string } name The graphics card name
  */
 /**
  * HostSpecs interface
- * @typedef { Object } HostSpecs
+ * @typedef { object } HostSpecs
  * @property { boolean } aeroGlassEnabled Value to check if Aero Glass theme is supported on Windows platforms
  * @property { string } arch "x86" for 32-bit or "x86_64" for 64-bit
  * @property { Array<CpuInfo> } cpus The same payload as Node's os.cpus()
@@ -145,16 +170,40 @@ import { SystemEvents } from '../events/system';
  */
 /**
  * Identity interface
- * @typedef { Object } Identity
+ * @typedef { object } Identity
  * @property { string } name The name of the application
  * @property { string } uuid The uuid of the application
  */
 /**
  * LogInfo interface
- * @typedef { Object } LogInfo
+ * @typedef { object } LogInfo
  * @property { string } name The filename of the log
  * @property { number } size The size of the log in bytes
  * @property { string } date The unix time at which the log was created "Thu Jan 08 2015 14:40:30 GMT-0500 (Eastern Standard Time)""
+ */
+/**
+ * MonitorDetails interface
+ * @typedef { object } MonitorDetails
+ * @property { DipScaleRects } available The available DIP scale coordinates
+ * @property { Rect } availableRect The available monitor coordinates
+ * @property { string } deviceId The device id of the display
+ * @property { boolean } displayDeviceActive true if the display is active
+ * @property { number } deviceScaleFactor The device scale factor
+ * @property { Rect } monitorRect The monitor coordinates
+ * @property { string } name The name of the display
+ * @property { Point } dpi The dots per inch
+ * @property { DipScaleRects } monitor The monitor coordinates
+ */
+/**
+ * MonitorInfo interface
+ * @typedef { object } MonitorInfo
+ * @property { number } deviceScaleFactor The device scale factor
+ * @property { Point } dpi The dots per inch
+ * @property { Array<MonitorDetails> } nonPrimaryMonitors The array of monitor details
+ * @property { MonitorDetails } primaryMonitor The monitor details
+ * @property { string } reason always "api-query"
+ * @property { TaskBar } taskBar The taskbar on monitor
+ * @property { DipRect } virtualScreen The virtual display screen coordinates
  */
 /**
  * @typedef { verbose | info | warning | error | fatal } LogLevel
@@ -169,13 +218,19 @@ import { SystemEvents } from '../events/system';
  */
 /**
  * PointTopLeft interface
- * @typedef { Object } PointTopLeft
+ * @typedef { object } PointTopLeft
  * @property { number } top The mouse top position in virtual screen coordinates
  * @property { number } left The mouse left position in virtual screen coordinates
  */
 /**
+ * Point interface
+ * @typedef { object } Point
+ * @property { number } x The mouse x position
+ * @property { number } y The mouse y position
+ */
+/**
  * ProcessInfo interface
- * @typedef { Object } ProcessInfo
+ * @typedef { object } ProcessInfo
  * @property { numder } cpuUsage The percentage of total CPU usage
  * @property { string } name The application name
  * @property { number } nonPagedPoolUsage The current nonpaged pool usage in bytes
@@ -192,28 +247,36 @@ import { SystemEvents } from '../events/system';
  */
 /**
  * ProxyConfig interface
- * @typedef { Object } ProxyConfig
+ * @typedef { object } ProxyConfig
  * @property { string } proxyAddress The configured proxy address
  * @property { numder } proxyPort The configured proxy port
  * @property { string } type The proxy Type
  */
 /**
  * ProxyInfo interface
- * @typedef { Object } ProxyInfo
+ * @typedef { object } ProxyInfo
  * @property { ProxyConfig } config The proxy config
  * @property { ProxySystemInfo } system The proxy system info
  */
 /**
  * ProxySystemInfo interface
- * @typedef { Object } ProxySystemInfo
+ * @typedef { object } ProxySystemInfo
  * @property { string } autoConfigUrl The auto configuration url
  * @property { string } bypass The proxy bypass info
  * @property { boolean } enabled Value to check if a proxy is enabled
  * @property { string } proxy The proxy info
  */
 /**
+ * Rect interface
+ * @typedef { object } Rect
+ * @property { number } bottom The bottom-most coordinate
+ * @property { nubmer } left The left-most coordinate
+ * @property { number } right The right-most coordinate
+ * @property { nubmer } top The top-most coordinate
+ */
+/**
  * RegistryInfo interface
- * @typedef { Object } RegistryInfo
+ * @typedef { object } RegistryInfo
  * @property { any } data The registry data
  * @property { string } rootKey The registry root key
  * @property { string } subkey The registry key
@@ -222,13 +285,23 @@ import { SystemEvents } from '../events/system';
  */
 /**
  * RuntimeDownloadOptions interface
- * @typedef { Object } RuntimeDownloadOptions
+ * @typedef { object } RuntimeDownloadOptions
  * @desc These are the options object required by the downloadRuntime function.
  * @property { string } version The given version to download
  */
 /**
+ * RuntimeInfo interface
+ * @typedef { object } RuntimeInfo
+ * @property { string } architecture The runtime build architecture
+ * @property { string } manifestUrl The runtime manifest URL
+ * @property { nubmer } port The runtime websocket port
+ * @property { string } securityRealm The runtime security realm
+ * @property { string } version The runtime version
+ * @property { object } args the command line argument used to start the Runtime
+ */
+/**
  * RVMInfo interface
- * @typedef { Object } RVMInfo
+ * @typedef { object } RVMInfo
  * @property { string } action The name of action: "get-rvm-info"
  * @property { string } appLogDirectory The app log directory
  * @property { string } path The path of OpenfinRVM.exe
@@ -237,15 +310,33 @@ import { SystemEvents } from '../events/system';
  * @property { string } 'working-dir' The working directory
  */
 /**
+ * ShortCutConfig interface
+ * @typedef { object } ShortCutConfig
+ * @property { boolean } desktop true if application has a shortcut on the desktop
+ * @property { boolean } startMenu true if application has shortcut in the start menu
+ * @property { boolean } systemStartup true if application will be launched on system startup
+ */
+/**
+ * SubOptions interface
+ * @typedef { Object } SubOptions
+ * @property { number } timestamp The event timestamp
+ */
+/**
+ * TaskBar interface
+ * @typedef { object } TaskBar
+ * @property { string } edge which edge of a monitor the taskbar is on
+ * @property { Rect } rect The taskbar coordinates
+ */
+/**
  * TerminateExternalRequestType interface
- * @typedef { Object } TerminateExternalRequestType
+ * @typedef { object } TerminateExternalRequestType
  * @property { string } uuid The uuid of the running application
  * @property { number } timeout Time out period before the running application terminates
  * @property { boolean } killtree Value to terminate the running application
  */
 /**
  * Time interface
- * @typedef { Object } Time
+ * @typedef { object } Time
  * @property { number } user The number of milliseconds the CPU has spent in user mode
  * @property { number } nice The number of milliseconds the CPU has spent in nice mode
  * @property { number } sys The number of milliseconds the CPU has spent in sys mode
@@ -253,8 +344,16 @@ import { SystemEvents } from '../events/system';
  * @property { number } irq The number of milliseconds the CPU has spent in irq mode
  */
 /**
+ * TrayInfo interface
+ * @typedef { object } TrayInfo
+ * @property { Bounds } bounds The bound of tray icon in virtual screen pixels
+ * @property { MonitorInfo } monitorInfo Please see fin.System.getMonitorInfo for more information
+ * @property { number } x copy of bounds.x
+ * @property { number } y copy of bounds.y
+ */
+/**
  * WindowDetail interface
- * @typedef { Object } WindowDetail
+ * @typedef { object } WindowDetail
  * @property { number } bottom The bottom-most coordinate of the window
  * @property { number } height The height of the window
  * @property { boolean } isShowing Value to check if the window is showing
@@ -267,19 +366,105 @@ import { SystemEvents } from '../events/system';
  */
 /**
  * WindowInfo interface
- * @typedef { Object } WindowInfo
+ * @typedef { object } WindowInfo
  * @property { Array<WindowDetail> } childWindows The array of child windows details
  * @property { WindowDetail } mainWindow The main window detail
  * @property { string } uuid The uuid of the application
  */
 /**
+* Service identifier
+* @typedef { object } ServiceIdentifier
+* @property { string } name The name of the service
+*/
+interface ServiceIdentifier {
+    name: string;
+}
+/**
  * An object representing the core of OpenFin Runtime. Allows the developer
  * to perform system-level actions, such as accessing logs, viewing processes,
- * clearing the cache and exiting the runtime.
+ * clearing the cache and exiting the runtime as well as listen to <a href="tutorial-System.EventEmitter.html">system events</a>.
  * @namespace
  */
 export default class System extends EmitterBase<SystemEvents> {
     constructor(wire: Transport);
+    private sendExternalProcessRequest;
+    /**
+     * Adds a listener to the end of the listeners array for the specified event.
+     * @param { string | symbol } eventType  - The type of the event.
+     * @param { Function } listener - Called whenever an event of the specified type occurs.
+     * @param { SubOptions } [options] - Option to support event timestamps.
+     * @return {Promise.<this>}
+     * @function addListener
+     * @memberof System
+     * @instance
+     * @tutorial System.EventEmitter
+     */
+    /**
+     * Adds a listener to the end of the listeners array for the specified event.
+     * @param { string | symbol } eventType  - The type of the event.
+     * @param { Function } listener - Called whenever an event of the specified type occurs.
+     * @param { SubOptions } [options] - Option to support event timestamps.
+     * @return {Promise.<this>}
+     * @function on
+     * @memberof System
+     * @instance
+     * @tutorial System.EventEmitter
+     */
+    /**
+     * Adds a one time listener for the event. The listener is invoked only the first time the event is fired, after which it is removed.
+     * @param { string | symbol } eventType  - The type of the event.
+     * @param { Function } listener - The callback function.
+     * @param { SubOptions } [options] - Option to support event timestamps.
+     * @return {Promise.<this>}
+     * @function once
+     * @memberof System
+     * @instance
+     * @tutorial System.EventEmitter
+     */
+    /**
+     * Adds a listener to the beginning of the listeners array for the specified event.
+     * @param { string | symbol } eventType  - The type of the event.
+     * @param { Function } listener - The callback function.
+     * @param { SubOptions } [options] - Option to support event timestamps.
+     * @return {Promise.<this>}
+     * @function prependListener
+     * @memberof System
+     * @instance
+     * @tutorial System.EventEmitter
+     */
+    /**
+     * Adds a one time listener for the event. The listener is invoked only the first time the event is fired, after which it is removed.
+     * The listener is added to the beginning of the listeners array.
+     * @param { string | symbol } eventType  - The type of the event.
+     * @param { Function } listener - The callback function.
+     * @param { SubOptions } [options] - Option to support event timestamps.
+     * @return {Promise.<this>}
+     * @function prependOnceListener
+     * @memberof System
+     * @instance
+     * @tutorial System.EventEmitter
+     */
+    /**
+     * Remove a listener from the listener array for the specified event.
+     * Caution: Calling this method changes the array indices in the listener array behind the listener.
+     * @param { string | symbol } eventType  - The type of the event.
+     * @param { Function } listener - The callback function.
+     * @param { SubOptions } [options] - Option to support event timestamps.
+     * @return {Promise.<this>}
+     * @function removeListener
+     * @memberof System
+     * @instance
+     * @tutorial System.EventEmitter
+     */
+    /**
+     * Removes all listeners, or those of the specified event.
+     * @param { string | symbol } [eventType]  - The type of the event.
+     * @return {Promise.<this>}
+     * @function removeAllListeners
+     * @memberof System
+     * @instance
+     * @tutorial System.EventEmitter
+     */
     /**
      * Returns the version of the runtime. The version contains the major, minor,
      * build and revision numbers.
@@ -375,6 +560,12 @@ export default class System extends EmitterBase<SystemEvents> {
      * @tutorial System.getFocusedWindow
      */
     getFocusedWindow(): Promise<WindowInfo>;
+    /**
+     * Get currently focused external window.
+     * @return {Promise.<Identity>}
+     * @experimental
+     */
+    getFocusedExternalWindow(): Promise<Identity>;
     /**
      * Retrieves the contents of the log with the specified filename.
      * @param { GetLogRequestType } options A object that id defined by the GetLogRequestType interface
@@ -533,6 +724,13 @@ export default class System extends EmitterBase<SystemEvents> {
      */
     getAllExternalApplications(): Promise<Array<Identity>>;
     /**
+     * Retrieves an array of objects representing information about currently
+     * running user-friendly native windows on the system.
+     * @return {Promise.Array.<Identity>}
+     * @experimental
+     */
+    getAllExternalWindows(): Promise<Array<Identity>>;
+    /**
      * Retrieves app asset information.
      * @param { AppAssetRequest } options
      * @return {Promise.<AppAssetInfo>}
@@ -585,4 +783,14 @@ export default class System extends EmitterBase<SystemEvents> {
      * @tutorial System.registerExternalConnection
      */
     registerExternalConnection(uuid: string): Promise<ExternalConnection>;
+    /**
+     * Returns the json blob found in the [desktop owner settings](https://openfin.co/documentation/desktop-owner-settings/)
+     * for the specified service.
+     * More information about desktop services can be found [here](https://developers.openfin.co/docs/desktop-services).
+     * @param { ServiceIdentifier } serviceIdentifier An object containing a name key that identifies the service.
+     * @return {Promise.<ServiceConfiguration>}
+     * @tutorial System.getServiceConfiguration
+     */
+    getServiceConfiguration(serviceIdentifier: ServiceIdentifier): Promise<ServiceConfiguration>;
 }
+export {};

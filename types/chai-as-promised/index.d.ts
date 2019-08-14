@@ -228,12 +228,8 @@ declare namespace Chai {
 
     interface PromisedThrow {
         (): PromisedAssertion;
-        (expected: string, message?: string): PromisedAssertion;
-        (expected: RegExp, message?: string): PromisedAssertion;
-        (constructor: Error, expected?: string, message?: string): PromisedAssertion;
-        (constructor: Error, expected?: RegExp, message?: string): PromisedAssertion;
-        (constructor: Function, expected?: string, message?: string): PromisedAssertion;
-        (constructor: Function, expected?: RegExp, message?: string): PromisedAssertion;
+        (expected: string | RegExp, message?: string): PromisedAssertion;
+        (constructor: Error | Function, expected?: string | RegExp, message?: string): PromisedAssertion;
     }
 
     interface PromisedRespondTo {

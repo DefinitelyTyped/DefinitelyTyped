@@ -1,7 +1,8 @@
-// Type definitions for Dot-Object v1.5
+// Type definitions for Dot-Object 1.7
 // Project: https://github.com/rhalff/dot-object
 // Definitions by: Niko Kovačič <https://github.com/nkovacic>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 
 declare namespace DotObject {
@@ -120,12 +121,25 @@ declare namespace DotObject {
          */
         remove(path: string, obj: any): any;
         /**
+         *
+         * Replace/create with a string
+         *
          * @param {String} path dotted path
          * @param {String} v value to be set
          * @param {Object} obj object to be modified
          * @param {Function|Array} mods optional modifier
         */
-        str(path: string, v: any, obj: Object, mods?: ModifierFunctionWrapper | Array<ModifierFunctionWrapper>): void;
+        str(path: string, v: any, obj: object, mods?: ModifierFunctionWrapper | Array<ModifierFunctionWrapper>): void;
+        /**
+         *
+         * Replace/merge an object to an existing object property
+         *
+         * @param {String} path dotted path
+         * @param {Object} v object to be set
+         * @param {Object} obj object to be modified
+         * @param {Boolean} merge optional merge
+        */
+		set(path: string, v: any, obj: object, merge?: boolean): void;
         /**
          *
          * Transfer a property from one object to another object.

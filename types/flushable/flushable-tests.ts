@@ -3,7 +3,7 @@
  * from the package's README
  */
 
-import flushable from 'flushable';
+import flushable = require('flushable');
 
 // prints a message to the console after 1 second
 const operation = flushable(flushed => {

@@ -1,5 +1,5 @@
 // Type definitions for Material Components Web 0.35
-// Project: https://material.io/components/
+// Project: https://material.io/components/, https://github.com/material-components/material-components-web
 // Definitions by: Brent Douglas <https://github.com/BrentDouglas>, Collin Kostichuk <https://github.com/ckosti>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
@@ -26,7 +26,7 @@ import MDCRippleAdapter from './adapter';
 import MDCRippleFoundation from './foundation';
 import * as util from './util';
 
-export {MDCRippleAdapter, MDCRippleFoundation, util};
+export { MDCRippleAdapter, MDCRippleFoundation, util };
 
 export class MDCRipple extends MDCComponent<MDCRippleAdapter, MDCRippleFoundation> {
     static attachTo(root: Element, options?: { isUnbounded?: boolean; }): MDCRipple;
