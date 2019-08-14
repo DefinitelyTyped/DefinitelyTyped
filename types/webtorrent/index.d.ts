@@ -1,4 +1,4 @@
-// Type definitions for WebTorrent 0.98
+// Type definitions for WebTorrent 0.107.3
 // Project: https://github.com/feross/webtorrent, https://webtorrent.io
 // Definitions by: Bazyli Brzóska <https://github.com/niieani>
 //                 Tomasz Łaziuk <https://github.com/tlaziuk>
