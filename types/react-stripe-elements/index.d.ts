@@ -17,7 +17,9 @@ import * as React from 'react';
 export namespace ReactStripeElements {
     type ElementChangeResponse = stripe.elements.ElementChangeResponse;
     type ElementsOptions = stripe.elements.ElementsOptions;
-    type TokenOptions = stripe.TokenOptions;
+    // From https://stripe.com/docs/stripe-js/reference#element-types
+    type TokenType = 'card' | 'cardNumber' | 'cardExpiry' | 'cardCvc' | 'paymentRequestButton' | 'iban' | 'idealBank';
+    type TokenOptions = stripe.TokenOptions & { type?: TokenType };
     type TokenResponse = stripe.TokenResponse;
     type SourceResponse = stripe.SourceResponse;
     type SourceOptions = stripe.SourceOptions;
@@ -38,12 +40,9 @@ export namespace ReactStripeElements {
         | { apiKey: string; stripe?: never } & StripeProviderOptions
         | { apiKey?: never; stripe: stripe.Stripe | null } & StripeProviderOptions;
 
-    // From https://stripe.com/docs/stripe-js/reference#element-types
-    type TokenType = 'card' | 'cardNumber' | 'cardExpiry' | 'cardCvc' | 'paymentRequestButton' | 'iban' | 'idealBank';
-
     interface StripeProps {
         createSource(sourceData?: SourceOptions): Promise<SourceResponse>;
-        createToken(options?: TokenOptions & { type?: TokenType }): Promise<PatchedTokenResponse>;
+        createToken(options?: TokenOptions): Promise<PatchedTokenResponse>;
         paymentRequest: stripe.Stripe['paymentRequest'];
         createPaymentMethod(
             paymentMethodType: stripe.paymentMethod.paymentMethodType,
