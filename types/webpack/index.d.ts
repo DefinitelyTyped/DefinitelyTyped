@@ -212,8 +212,9 @@ declare namespace webpack {
         /** An expression which is used to address the global object/scope in runtime code. */
         globalObject?: string;
         /**
-         * Tells webpack to use the future version of asset emitting logic, which allows freeing memory of assets after emitting. It could break plugins which
-         * assume that assets are still readable after they were emitted.
+         * Use the future version of asset emitting logic, which allows freeing memory of assets after emitting.
+         * It could break plugins which assume that assets are still readable after they were emitted.
+         * @deprecated - will be removed in webpack v5.0.0 and this behaviour will become the new default.
          */
         futureEmitAssets?: boolean;
     }
