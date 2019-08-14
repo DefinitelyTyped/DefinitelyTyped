@@ -1181,15 +1181,9 @@ export type QuerySelector<T> = {
     // Evaluation
     $expr?: any;
     $jsonSchema?: any;
-    $mod?: T extends number ? [number, number]: never;
+    $mod?: T extends number ? [number, number] : never;
     $regex?: T extends string ? (RegExp | string) : never;
     $options?: string;
-    $text?: {
-        $search: string;
-        $language?: string;
-        $caseSensitive?: boolean;
-        $diacraticSensitive?: boolean;
-    };
     $where?: any;
     // Geospatial
     // TODO: define better types for geo queries
@@ -1217,6 +1211,13 @@ export type RootQuerySelector<T> = {
     $nor?: Array<FilterQuery<T>>;
     /** https://docs.mongodb.com/manual/reference/operator/query/or/#op._S_or */
     $or?: Array<FilterQuery<T>>;
+    /** https://docs.mongodb.com/manual/reference/operator/query/text */
+    $text?: {
+        $search: string;
+        $language?: string;
+        $caseSensitive?: boolean;
+        $diacraticSensitive?: boolean;
+    };
     /** https://docs.mongodb.com/manual/reference/operator/query/comment/#op._S_comment */
     $comment?: string;
     // we could not find a proper TypeScript generic to support nested queries e.g. 'user.friends.name'
