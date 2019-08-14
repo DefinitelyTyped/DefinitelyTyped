@@ -802,6 +802,12 @@ declare namespace R {
         ): U[];
     }
 
+    interface Mapper<T, U> {
+        (list: ReadonlyArray<T>): U[];
+        (obj: Functor<T>): Functor<U>;
+        <O extends { [key: string]: T }>(obj: O): { [K in keyof O]: U };
+    }
+
     interface Static {
         /**
          * Placeholder. When used with functions like curry, or op, the second argument is applied to the second
@@ -1778,12 +1784,10 @@ declare namespace R {
         /**
          * Returns a new list, constructed by applying the supplied function to every element of the supplied list.
          */
+        map<T, U>(fn: (x: T) => U): Mapper<T, U>;
         map<T, U>(fn: (x: T) => U, list: ReadonlyArray<T>): U[];
-        map<T, U>(fn: (x: T) => U): (list: ReadonlyArray<T>) => U[];
-        map<T, U>(fn: (x: T[keyof T & keyof U]) => U[keyof T & keyof U], list: T): U;
-        map<T, U>(fn: (x: T[keyof T & keyof U]) => U[keyof T & keyof U]): (list: T) => U;
-        map<T, U>(fn: (x: T) => U, obj: Functor<T>): Functor<U>; // used in functors
-        map<T, U>(fn: (x: T) => U): (obj: Functor<T>) => Functor<U>; // used in functors
+        map<T, U>(fn: (x: T) => U, obj: Functor<T>): Functor<U>;
+        map<T, U, O extends object>(fn: (x: T) => U, obj: O): { [K in keyof O]: U };
 
         /**
          * The mapAccum function behaves like a combination of map and reduce.

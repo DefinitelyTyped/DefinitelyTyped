@@ -40,34 +40,27 @@ import { flatten, identity, inc, ifElse, map, toString } from 'ramda';
     b: number;
   }
 
-  interface B {
-    a: string;
-    b: string;
-  }
-
-  // $ExpectType A
-  map<A, A>(inc)({ a: 1, b: 2 });
-
-  // $ExpectType A
-  map<A, A>(inc, { a: 1, b: 2 });
-
-  // $ExpectType B
-  map<A, B>(toString)({ a: 1, b: 2 });
-
-  // $ExpectType B
-  map<A, B>(toString, { a: 1, b: 2 });
-};
-
-() => {
-  // $ExpectType { a: number, b: number }
+  // $ExpectType { a: number; b: number; }
   map(inc)({ a: 1, b: 2 });
 
-  // $ExpectType { a: number, b: number }
+  // $ExpectType { a: number; b: number; }
+  map<number, number>(inc)({ a: 1, b: 2 });
+
+  // $ExpectType { a: number; b: number; }
   map(inc, { a: 1, b: 2 });
 
-  // $ExpectType { a: string, b: string }
+  // $ExpectType { a: number; b: number; }
+  map<number, number, A>(inc, { a: 1, b: 2 });
+
+  // $ExpectType { a: string; b: string; }
   map(toString)({ a: 1, b: 2 });
 
-  // $ExpectType { a: string, b: string }
+  // $ExpectType { a: string; b: string; }
+  map<number, string>(toString)({ a: 1, b: 2 });
+
+  // $ExpectType { a: string; b: string; }
   map(toString, { a: 1, b: 2 });
+
+  // $ExpectType { a: string; b: string; }
+  map<number, string, A>(toString, { a: 1, b: 2 });
 };
