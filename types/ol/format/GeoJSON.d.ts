@@ -1,16 +1,4 @@
-import {
-    Feature,
-    FeatureCollection,
-    GeoJSON as GeoJSON_1,
-    Geometry,
-    GeometryCollection,
-    LineString,
-    MultiLineString,
-    MultiPoint,
-    MultiPolygon,
-    Point,
-    Polygon
-} from 'geojson';
+import { Feature, FeatureCollection, GeoJSON as GeoJSON_1, Geometry, GeometryCollection, LineString, MultiLineString, MultiPoint, MultiPolygon, Point, Polygon } from 'geojson';
 import Geometry_1 from '../geom/Geometry';
 import GeometryCollection_1 from '../geom/GeometryCollection';
 import LineString_1 from '../geom/LineString';

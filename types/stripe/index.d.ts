@@ -2158,7 +2158,7 @@ declare namespace Stripe {
             /**
              * Time at which the object was created. Measured in seconds since the Unix epoch.
              */
-            created: string;
+            created: number;
 
             /**
              * Three-letter ISO currency code, in lowercase. Must be a supported currency.
@@ -3527,8 +3527,16 @@ declare namespace Stripe {
         interface IInvoiceListOptions extends IListOptions {
             /**
              * The billing mode of the invoice to retrieve. Either `charge_automatically` or `send_invoice`
+             * This field has been renamed to collection_method and will be removed in a future API version.
              */
             billing?: "charge_automatically" | "send_invoice";
+
+            /**
+             * Either charge_automatically, or send_invoice. When charging automatically, Stripe will attempt to pay
+             * this invoice using the default source attached to the customer. When sending an invoice, Stripe will
+             * email this invoice to the customer with payment instructions.
+             */
+            collection_method?: "charge_automatically" | "send_invoice";
 
             /**
              * A filter on the list based on the object created field. The value can be a string with an integer Unix timestamp,
@@ -3551,6 +3559,11 @@ declare namespace Stripe {
              * or it can be a dictionary with the following options:
              */
             due_date?: IDateFilter;
+
+            /**
+             * The status of the invoice, one of draft, open, paid, uncollectible, or void.
+             */
+            status?: "draft" | "open" | "paid" | "uncollectible" | "void";
 
             /**
              * Only return invoices for the subscription specified by this subscription ID
@@ -3596,9 +3609,19 @@ declare namespace Stripe {
             subscription?: string;
 
             /**
+             * Boolean indicating whether this subscription should cancel at the end of the current period.
+             */
+            subscription_cancel_at_period_end?: boolean;
+
+            /**
              * The identifier of the customer whose upcoming invoice you’d like to retrieve. REQUIRED IF SUBSCRIPTION UNSET
              */
             customer?: string;
+
+            /**
+             * List of subscription items, each with an attached plan.
+             */
+            subscription_items?: subscriptions.ISubscriptionUpdateItem[];
 
             /**
              * If set, the invoice returned will preview updating the subscription given to this plan, or creating a new subscription to this plan
@@ -3634,8 +3657,124 @@ declare namespace Stripe {
             subscription_trial_end?: number;
         }
 
-        // TODO: update once https://stripe.com/docs/api/invoices/upcoming_invoice_lines is fixed.
-        type IInvoiceListUpcomingLineItemsOptions = IListOptions;
+        interface IInvoiceListUpcomingLineItemsOptions extends IListOptions {
+            /**
+             * The code of the coupon to apply. If subscription or subscription_items is provided, the invoice returned will preview updating or
+             * creating a subscription with that coupon. Otherwise, it will preview applying that coupon to the customer for the next upcoming invoice
+             * from among the customer’s subscriptions. The invoice can be previewed without a coupon by passing this value as an empty string.
+             */
+            coupon?: string;
+
+            /**
+             * The identifier of the customer whose upcoming invoice you’d like to retrieve.
+             * Required if subscription unset
+             */
+            customer?: string;
+
+            /**
+             * A cursor for use in pagination. ending_before is an object ID that defines your place in the list. For instance, if you make a list request
+             * and receive 100 objects, starting with obj_bar, your subsequent call can include ending_before=obj_bar in order to fetch the previous page
+             * of the list.
+             */
+            ending_before?: string;
+
+            /**
+             * array of hashes
+             * List of invoice items to add or update in the upcoming invoice preview.
+             */
+
+            invoice_items?: invoiceItems.InvoiceItem[];
+
+            /**
+             * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default
+             * is 10.
+             */
+            limit?: number;
+
+            /**
+             * A cursor for use in pagination. starting_after is an object ID that defines your place in the list. For
+             * instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call
+             * can include starting_after=obj_foo in order to fetch the next page of the list.
+             */
+            starting_after?: string;
+
+            /**
+             * The identifier of the subscription for which you’d like to retrieve the upcoming invoice. If not
+             * provided, but a subscription_items is provided, you will preview creating a subscription with
+             * those items. If neither subscription nor subscription_items is provided, you will retrieve the
+             * next upcoming invoice from among the customer’s subscriptions.
+             */
+            subscription?: string;
+
+            /**
+             * For new subscriptions, a future timestamp to anchor the subscription’s billing cycle. This is used to
+             * determine the date of the first full invoice, and, for plans with month or year intervals, the day of
+             * the month for subsequent invoices. For existing subscriptions, the value can only be set to now or
+             * unchanged.
+             */
+            subscription_billing_cycle_anchor?: 'now' | 'unchanged';
+
+            /**
+             * Boolean indicating when the subscription should be scheduled to cancel. Will prorate if
+             * within the current period if prorate=true
+             */
+            subscription_cancel_at?: boolean;
+
+            /**
+             * Boolean indicating whether this subscription should cancel at the end of the current period.
+             */
+            subscription_cancel_at_period_end?: boolean;
+
+            subscription_cancel_now?: boolean;
+
+            /**
+             * array of hashes List of subscription items, each with an attached plan.
+             */
+            subscription_items?: subscriptions.ISubscriptionUpdateItem[];
+
+            /**
+             * If previewing an update to a subscription, this decides whether the preview will show the result of
+             * applying prorations or not. If set, one of subscription_items or subscription, and one of
+             * subscription_items or subscription_trial_end are required.
+             */
+            subscription_prorate?: boolean;
+
+            /**
+             * If previewing an update to a subscription, and doing proration, subscription_proration_date
+             * forces the proration to be calculated as though the update was done at the specified time. The time
+             * given must be within the current subscription period, and cannot be before the subscription was on
+             * its current plan. If set, subscription, and one of subscription_items, or subscription_trial_end are
+             * required. Also, subscription_proration cannot be set to false.
+             */
+            subscription_proration_date?: number;
+
+            /**
+             * Date a subscription is intended to start (can be future or past)
+             */
+            subscription_start_date?: number;
+
+            /**
+             * DEPRECATED
+             * If provided, the invoice returned will preview updating or creating a subscription with that tax
+             * percent. If set, one of subscription_items or subscription is required. This field has been deprecated
+             * and will be removed in a future API version, for further information view the migration docs for
+             * tax_rates.
+             */
+            subscription_tax_percent?: number;
+
+            /**
+             * If provided, the invoice returned will preview updating or creating a subscription with that trial end.
+             * If set, one of subscription_items or subscription is required.
+             */
+            subscription_trial_end?: 'now' | number | string;
+
+            /**
+             * Indicates if a plan’s trial_period_days should be applied to the subscription. Setting
+             * subscription_trial_end per subscription is preferred, and this defaults to false. Setting this flag to
+             * true together with subscription_trial_end is not allowed.
+             */
+            subscription_trial_from_plan?: boolean;
+        }
 
         interface IPeriod {
             /**
@@ -3754,7 +3893,7 @@ declare namespace Stripe {
              * The integer amount in cents of the charge to be applied to the upcoming invoice. If you want to apply a credit to the customer’s
              * account, pass a negative amount.
              */
-            amount: number;
+            amount?: number;
 
             /**
              * 3-letter ISO code for currency.
@@ -3786,11 +3925,22 @@ declare namespace Stripe {
             invoice?: string;
 
             /**
+             * Non-negative integer. The quantity of units for the invoice item.
+             */
+            quantity?: number;
+
+            /**
              * The ID of a subscription to add this invoice item to. When left blank, the invoice item will be be added to the next upcoming
              * scheduled invoice. When set, scheduled invoices for subscriptions other than the specified subscription will ignore the invoice
              * item. Use this when you want to express that an invoice item has been accrued within the context of a particular subscription.
              */
             subscription?: string;
+
+            /**
+             * The integer unit amount in cents of the charge to be applied to the upcoming invoice. This unit_amount will be multiplied by
+             * the quantity to get the full amount. If you want to apply a credit to the customer’s account, pass a negative unit_amount.
+             */
+            unit_amount?: number;
         }
 
         interface InvoiceItemUpdateOptions extends IDataOptionsWithMetadata {
@@ -3818,6 +3968,17 @@ declare namespace Stripe {
              * The identifier of the customer whose invoice items to return. If none is provided, all invoice items will be returned.
              */
             customer?: string;
+
+            /**
+             * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+             */
+            limit?: number;
+
+            /**
+             * Set to true to only show pending invoice items, which are not yet attached to any invoices. Set to false to only show
+             * invoice items already attached to invoices. If unspecified, no filter is applied.
+             */
+            pending?: boolean;
         }
     }
 
@@ -4328,7 +4489,7 @@ declare namespace Stripe {
     }
 
     namespace paymentIntents {
-        type PaymentIntentCancelationReason = 'duplicate' | 'fraudulent' | 'requested_by_customer' | 'failed_invoice';
+        type PaymentIntentCancellationReason = 'duplicate' | 'fraudulent' | 'requested_by_customer' | 'failed_invoice';
 
         type PaymentIntentFutureUsageType = 'on_session' | 'off_session';
 
@@ -4372,7 +4533,7 @@ declare namespace Stripe {
             /**
              * User-given reason for cancellation of this PaymentIntent.
              */
-            cancelation_reason: PaymentIntentCancelationReason | null;
+            cancellation_reason: PaymentIntentCancellationReason | null;
 
             /**
              * Capture method of this PaymentIntent.
@@ -5429,6 +5590,12 @@ declare namespace Stripe {
              * use with Subscriptions and Plans.
              */
             type: ProductType;
+
+            /**
+             * A label that represents units of this product, such as seat(s), in Stripe and on customers’ receipts and invoices.
+             * Only available on products of type=service.
+             */
+            unit_label?: string;
 
             /**
              * A URL of a publicly-accessible webpage for this product.
@@ -9437,7 +9604,7 @@ declare namespace Stripe {
             cancel(
                 paymentIntentId: string,
                 data: {
-                    cancellation_reason?: paymentIntents.PaymentIntentCancelationReason,
+                    cancellation_reason?: paymentIntents.PaymentIntentCancellationReason,
                 },
                 options: HeaderOptions,
                 response?: IResponseFn<paymentIntents.IPaymentIntent>,
@@ -9450,7 +9617,7 @@ declare namespace Stripe {
             cancel(
                 paymentIntentId: string,
                 data: {
-                    cancellation_reason?: paymentIntents.PaymentIntentCancelationReason,
+                    cancellation_reason?: paymentIntents.PaymentIntentCancellationReason,
                 },
                 response?: IResponseFn<paymentIntents.IPaymentIntent>,
             ): Promise<paymentIntents.IPaymentIntent>;

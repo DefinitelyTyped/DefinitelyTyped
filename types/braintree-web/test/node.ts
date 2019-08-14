@@ -30,6 +30,21 @@ braintree.client.create({
     console.log('Got nonce:', response.creditCards[0].nonce);
   });
 
+  braintree.threeDSecure
+    .create({
+      version: 2,
+      client: clientInstance
+    })
+    .then((threeDSecureInstance) => {
+      let testBin = '123456';
+      threeDSecureInstance.prepareLookup({
+        nonce: existingNonce,
+        bin: testBin
+      })
+      .then(payload => {})
+      .catch((err: braintree.BraintreeError) => {});
+    });
+
   braintree.hostedFields.create({
     client: clientInstance,
     styles: {

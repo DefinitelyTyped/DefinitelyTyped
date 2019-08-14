@@ -1711,6 +1711,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "jpeg-js",
+            "typingsPackageName": "jpeg-js",
+            "sourceRepoURL": "https://github.com/eugeneware/jpeg-js",
+            "asOfVersion": "0.3.6"
+        },
+        {
             "libraryName": "jpush-react-native",
             "typingsPackageName": "jpush-react-native",
             "sourceRepoURL": "https://github.com/jpush/jpush-react-native",
@@ -2851,6 +2857,12 @@
             "asOfVersion": "3.0.0"
         },
         {
+            "libraryName": "react-intl",
+            "typingsPackageName": "react-intl",
+            "sourceRepoURL": "https://github.com/formatjs/react-intl",
+            "asOfVersion": "3.0.0"
+        },
+        {
             "libraryName": "react-monaco-editor",
             "typingsPackageName": "react-monaco-editor",
             "sourceRepoURL": "https://github.com/superRaytin/react-monaco-editor",
@@ -3299,6 +3311,12 @@
             "typingsPackageName": "snake-case",
             "sourceRepoURL": "https://github.com/blakeembrey/snake-case",
             "asOfVersion": "1.1.2"
+        },
+        {
+            "libraryName": "snoowrap",
+            "typingsPackageName": "snoowrap",
+            "sourceRepoURL": "https://github.com/not-an-aardvark/snoowrap",
+            "asOfVersion": "1.19.0"
         },
         {
             "libraryName": "soap",

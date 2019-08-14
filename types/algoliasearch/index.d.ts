@@ -2100,3 +2100,4 @@ interface AlgoliaStatic extends AlgoliasearchInstance {
 declare const algoliasearch: AlgoliaStatic;
 
 export = algoliasearch;
+export as namespace algoliasearch;

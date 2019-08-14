@@ -200,6 +200,11 @@ export interface DropAnimation {
     scale?: number;
 }
 
+export interface Position {
+    x: number;
+    y: number;
+}
+
 export interface DraggableProps {
     draggableId: DroppableId;
     index: number;

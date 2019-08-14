@@ -106,6 +106,19 @@ export interface IntrospectionResponse {
     readonly [key: string]: unknown;
 }
 
+export interface RevokeRequestOptions {
+    /**
+     * Extra request body properties to be sent to the revocation endpoint.
+     */
+    readonly revokeBody?: object;
+    /**
+     * extra client assertion payload parameters to be sent as part of a client JWT assertion.
+     * This is only used when the client's `token_endpoint_auth_method` is either
+     * `client_secret_jwt` or `private_key_jwt`.
+     */
+    readonly clientAssertionPayload?: object;
+}
+
 export class Client {
     static [custom.http_options]: CustomHttpOptionsProvider;
 
@@ -145,6 +158,15 @@ export class Client {
         tokenTypeHint?: string,
         extras?: { readonly introspectBody?: object }
     ): Promise<IntrospectionResponse>;
+
+    /**
+     * Revokes a token at the Authorization Server's `revocation_endpoint`.
+     *
+     * @param token Token to revoke
+     * @param tokenTypeHint Hint the Authorization Server as to the token type
+     * @param extras Additional revoke options
+     */
+    revoke(token: string, tokenTypeHint: string, extras?: RevokeRequestOptions): Promise<void>;
 }
 
 export class TokenSet {

@@ -33,14 +33,14 @@ export default class UrlTile extends TileSource {
     protected handleTileChange(event: Event): void;
     getTileLoadFunction(): LoadFunction;
     getTileUrlFunction(): UrlFunction;
-    getUrls(): string[];
+    getUrls(): string[] | null;
     setTileLoadFunction(tileLoadFunction: LoadFunction): void;
     setTileUrlFunction(tileUrlFunction: UrlFunction, key?: string): void;
     setUrl(url: string): void;
     setUrls(urls: string[]): void;
-    on(type: string | string[], listener: ((p0: any) => void)): EventsKey | EventsKey[];
-    once(type: string | string[], listener: ((p0: any) => void)): EventsKey | EventsKey[];
-    un(type: string | string[], listener: ((p0: any) => void)): void;
+    on(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
+    once(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
+    un(type: string | string[], listener: (p0: any) => void): void;
     on(type: 'change', listener: (evt: Event) => void): EventsKey;
     once(type: 'change', listener: (evt: Event) => void): EventsKey;
     un(type: 'change', listener: (evt: Event) => void): void;
