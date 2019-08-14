@@ -66,7 +66,7 @@ import { Rectangle } from './test-helpers';
     return list.length - idx <= 2;
   }
 
-  const rejectIndexed = addIndex(reject);
+  const rejectIndexed = addIndex<number>(reject);
 
   // $ExpectType number[]
   rejectIndexed(lastTwo)([8, 6, 7, 5, 3, 0, 9]); // => [8, 6, 7, 5, 3]

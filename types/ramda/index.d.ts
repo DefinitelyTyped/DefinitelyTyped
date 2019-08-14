@@ -816,6 +816,8 @@ declare namespace R {
         addIndex<T>(fn: (f: (item: T) => void, list: T[]) => T[]): F.Curry<(a: (item: T, idx: number, list?: T[]) => void, b: ReadonlyArray<T>) => T[]>;
         /* Special case for reduce */
         addIndex<T, U>(fn: (f: (acc: U, item: T) => U, aci: U, list: T[]) => U): F.Curry<(a: (acc: U, item: T, idx: number, list?: T[]) => U, b: U, c: ReadonlyArray<T>) => U>;
+        /* Special case for Filters */
+        addIndex<T>(fn: Filter): F.Curry<(a: (item: T, idx: number, list?: T[]) => boolean, b: ReadonlyArray<T>) => T[]>;
 
         /**
          * Applies a function to the value at the given index of an array, returning a new copy of the array with the
