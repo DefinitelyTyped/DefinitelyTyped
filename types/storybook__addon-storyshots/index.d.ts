@@ -52,8 +52,10 @@ export function renderWithOptions(options?: SnapshotOptions): Test;
 
 export function getSnapshotFileName(context: StoryContext): string;
 
-// tslint:disable-next-line no-unnecessary-generics
-export default function initStoryshots<Rendered>(options: InitOptions<Rendered>): void;
+export default function initStoryshots<Rendered>(
+  // tslint:disable-next-line no-unnecessary-generics
+  options?: InitOptions<Rendered>,
+): void;
 
 export interface InitOptions<Rendered = any> {
     configPath?: string;

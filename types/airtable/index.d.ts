@@ -69,6 +69,7 @@ declare global {
         interface Query<TFields extends object> {
             all(): Promise<Response<TFields>>;
             firstPage(): Promise<Response<TFields>>;
+            eachPage(pageCallback: (records: Response<TFields>, next: () => void) => void): Promise<void>;
         }
 
         type Response<TFields> = ReadonlyArray<Row<TFields>>;

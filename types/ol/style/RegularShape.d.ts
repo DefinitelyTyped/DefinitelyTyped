@@ -38,6 +38,6 @@ export default class RegularShape extends ImageStyle {
     getFill(): Fill;
     getPoints(): number;
     getRadius(): number;
-    getRadius2(): number;
+    getRadius2(): number | undefined;
     getStroke(): Stroke;
 }

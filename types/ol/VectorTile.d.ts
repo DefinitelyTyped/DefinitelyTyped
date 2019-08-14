@@ -10,14 +10,7 @@ import { TileCoord } from './tilecoord';
 import TileState from './TileState';
 
 export default class VectorTile extends Tile {
-    constructor(
-        tileCoord: TileCoord,
-        state: TileState,
-        src: string,
-        format: FeatureFormat,
-        tileLoadFunction: LoadFunction,
-        opt_options?: Options
-    );
+    constructor(tileCoord: TileCoord, state: TileState, src: string, format: FeatureFormat, tileLoadFunction: LoadFunction, opt_options?: Options);
     getExtent(): Extent;
     getFeatures(): FeatureLike[];
     getFormat(): FeatureFormat;

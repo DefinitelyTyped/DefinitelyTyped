@@ -8,7 +8,7 @@ import * as connectBusboy from 'connect-busboy';
 import * as express from 'express';
 
 export interface ExpressBusboyOptions extends connectBusboy.ConnectBusboyOptions {
-    upload?: number;
+    upload?: boolean;
     path?: string;
     allowedPath?: string | RegExp | ((url: string) => boolean);
     restrictMultiple?: boolean;

@@ -452,7 +452,7 @@ declare namespace Chart {
 
     interface TickOptions extends NestedTickOptions {
         minor?: NestedTickOptions | false;
-        major?: NestedTickOptions | false;
+        major?: MajorTickOptions | false;
     }
 
     interface NestedTickOptions {
@@ -483,6 +483,10 @@ declare namespace Chart {
         stepSize?: number;
         suggestedMax?: number;
         suggestedMin?: number;
+    }
+
+    interface MajorTickOptions extends NestedTickOptions {
+        enabled?: boolean;
     }
 
     interface AngleLineOptions {

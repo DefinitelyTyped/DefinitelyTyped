@@ -6,35 +6,40 @@ import * as mongodb from 'mongodb';
 const connectionString = 'mongodb://127.0.0.1:27017/test';
 
 const options: mongodb.MongoClientOptions = {
-    authSource: ' ',
-    loggerLevel: 'debug',
-    w: 1,
-    wtimeout: 300,
-    j: true,
-    bufferMaxEntries: 1000,
-    readPreference: true ? mongodb.ReadPreference.NEAREST : 'string',
-    promoteValues: true,
-    pkFactory: {},
-    poolSize: 1,
+  authSource: ' ',
+  loggerLevel: 'debug',
+  w: 1,
+  wtimeout: 300,
+  j: true,
+  bufferMaxEntries: 1000,
+  readPreference: true ? mongodb.ReadPreference.NEAREST : 'string',
+  promoteValues: true,
+  pkFactory: {},
+  poolSize: 1,
 
-    socketOptions: {},
-    family: 4,
+  socketOptions: {},
+  family: 4,
 
-    reconnectTries: 123456,
-    reconnectInterval: 123456,
-    ssl: true,
-    sslValidate: false,
-    checkServerIdentity: true ? true : (host, cert) => { return undefined; },
-    sslCA: ['str'],
-    sslCRL: ['str'],
-    sslCert: new Buffer(999),
-    sslKey: new Buffer(999),
-    sslPass: new Buffer(999),
-    promoteBuffers: false,
-    useNewUrlParser: false,
-    authMechanism: 'SCRAM-SHA-1',
-    forceServerObjectId: false,
-    promiseLibrary: Promise,
+  reconnectTries: 123456,
+  reconnectInterval: 123456,
+  ssl: true,
+  sslValidate: false,
+  checkServerIdentity: true
+    ? true
+    : (host, cert) => {
+        return undefined;
+      },
+  sslCA: ['str'],
+  sslCRL: ['str'],
+  sslCert: new Buffer(999),
+  sslKey: new Buffer(999),
+  sslPass: new Buffer(999),
+  promoteBuffers: false,
+  useNewUrlParser: false,
+  useUnifiedTopology: false,
+  authMechanism: 'SCRAM-SHA-1',
+  forceServerObjectId: false,
+  promiseLibrary: Promise,
 };
 
 mongodb.MongoClient.connect(connectionString, options, (err: mongodb.MongoError, client: mongodb.MongoClient) => {
@@ -210,9 +215,7 @@ mongodb.MongoClient.connect(connectionString, options, (err: mongodb.MongoError,
             { stringField: 'hola', numberField: 1, fruitTags: [] },
         ]);
         testCollection.find({
-            numberField: {
-                $and: [{ $gt: 0, $lt: 100 }]
-            }
+            $and: [{ numberField: { $gt: 0 } }, { numberField: { $lt: 100 } }],
         });
 
         const res: mongodb.Cursor<TestCollection> = testCollection.find({ _id: 123 });

@@ -10,6 +10,8 @@ import toJson from 'enzyme-to-json';
 import 'jest';
 import 'jest-specific-snapshot';
 
+initStoryshots();
+
 initStoryshots({
     integrityOptions: { cwd: '' },
     test: multiSnapshotWithOptions({}),

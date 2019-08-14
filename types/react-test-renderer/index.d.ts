@@ -1,4 +1,4 @@
-// Type definitions for react-test-renderer 16.8
+// Type definitions for react-test-renderer 16.9
 // Project: https://facebook.github.io/react/
 // Definitions by: Arvitaly <https://github.com/arvitaly>
 //                 Lochbrunner <https://github.com/lochbrunner>
@@ -60,6 +60,20 @@ export function create(nextElement: ReactElement, options?: TestRendererOptions)
  * more closely by executing pending `useEffect`s before returning. This also
  * reduces the amount of re-renders done.
  *
+ * @param callback An asynchronous, void callback that will execute as a single, complete React commit.
+ *
+ * @see https://reactjs.org/blog/2019/02/06/react-v16.8.0.html#testing-hooks
+ */
+// the "void | undefined" is here to forbid any sneaky return values
+// tslint:disable-next-line: void-return
+export function act(callback: () => Promise<void | undefined>): Promise<undefined>;
+/**
+ * Wrap any code rendering and triggering updates to your components into `act()` calls.
+ *
+ * Ensures that the behavior in your tests matches what happens in the browser
+ * more closely by executing pending `useEffect`s before returning. This also
+ * reduces the amount of re-renders done.
+ *
  * @param callback A synchronous, void callback that will execute as a single, complete React commit.
  *
  * @see https://reactjs.org/blog/2019/02/06/react-v16.8.0.html#testing-hooks
@@ -71,6 +85,9 @@ export function act(callback: () => void | undefined): DebugPromiseLike;
 // Intentionally doesn't extend PromiseLike<never>.
 // Ideally this should be as hard to accidentally use as possible.
 export interface DebugPromiseLike {
-    // the actual then() in here is 0-ary, but that doesn't count as a PromiseLike.
-    then(onfulfilled: (value: never) => never, onrejected: (reason: never) => never): never;
+  // the actual then() in here is 1-ary, but that doesn't count as a PromiseLike.
+  then(
+    onfulfilled: (value: never) => never,
+    onrejected: (reason: never) => never,
+  ): never;
 }
