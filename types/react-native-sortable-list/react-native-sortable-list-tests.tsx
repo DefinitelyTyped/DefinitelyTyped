@@ -12,7 +12,7 @@ import {
     TextStyle,
     ImageStyle,
 } from 'react-native';
-import SortableList, {RowProps } from 'react-native-sortable-list';
+import SortableList, { RowProps } from 'react-native-sortable-list';
 
 const window = Dimensions.get('window');
 
@@ -66,17 +66,14 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#eee',
         paddingTop: 60,
-    } as ViewStyle,
-
+    },
     list: {
         flex: 1,
-    } as ViewStyle,
-
+    },
     contentContainer: {
         width: window.width,
         paddingHorizontal: 30,
-    } as ViewStyle,
-
+    },
     row: {
         flexDirection: 'row',
         alignItems: 'center',
@@ -90,19 +87,16 @@ const styles = StyleSheet.create({
         shadowOpacity: 1,
         shadowOffset: {height: 2, width: 2},
         shadowRadius: 2,
-    } as ViewStyle,
-
+    },
     image: {
         width: 60,
         height: 60,
         marginRight: 30,
         borderRadius: 30,
-    } as ImageStyle,
-
+    },
     text: {
         fontSize: 24,
-    } as TextStyle,
-
+    },
 });
 
 class Basic extends React.Component {
@@ -119,19 +113,18 @@ class Basic extends React.Component {
     }
 
     _renderRow = ({data, active}: RowProps) => {
-        return <Row data={data} active={active}/>
+        return <Row data={data} active={active}/>;
     }
 }
 
 interface RowState {
     style: {
         shadowRadius: Animated.Value
-        transform: {scale: Animated.Value}[]
-    }
+        transform: Array<{scale: Animated.Value}>
+    };
 }
 
 class Row extends React.Component<RowProps, RowState> {
-
     state = {
         style: {
             shadowRadius: new Animated.Value(2),
@@ -166,7 +159,7 @@ class Row extends React.Component<RowProps, RowState> {
                 toValue: 10
             }),
         ]).start();
-    };
+    }
 
     startDeactivationAnimation = () => {
         const {style} = this.state;
@@ -183,7 +176,7 @@ class Row extends React.Component<RowProps, RowState> {
                 toValue: 2
             }),
         ]).start();
-    };
+    }
 
     render() {
         const {data} = this.props;
@@ -199,6 +192,5 @@ class Row extends React.Component<RowProps, RowState> {
         );
     }
 }
-
 
 AppRegistry.registerComponent('Basic', () => Basic);

@@ -1,9 +1,12 @@
-import { PureComponent, Validator, Requireable } from 'react'
-import { Grid, GridCoreProps, GridCellProps, OverscanIndicesGetter } from './Grid'
-import { Index, IndexRange, Alignment } from '../../index'
-import { CellMeasurerCache } from './CellMeasurer'
+import { PureComponent, Validator, Requireable } from 'react';
+import { Grid, GridCoreProps, GridCellProps, OverscanIndicesGetter } from './Grid';
+import { Index, IndexRange, Alignment } from '../../index';
+import { CellMeasurerCache, CellPosition } from './CellMeasurer';
+import { OnScrollParams } from './ScrollSync';
 
-export type ListRowProps = GridCellProps & { index: number, style: React.CSSProperties };
+export type ListRowProps = Pick<GridCellProps, Exclude<keyof GridCellProps, 'rowIndex'>> & {
+    index: GridCellProps['rowIndex'];
+};
 
 export type ListRowRenderer = (props: ListRowProps) => React.ReactNode;
 export type ListProps = GridCoreProps & {
@@ -28,7 +31,12 @@ export type ListProps = GridCoreProps & {
      * Callback invoked with information about the slice of rows that were just rendered.
      * ({ startIndex, stopIndex }): void
      */
-    onRowsRendered?: (info: { overscanStartIndex: number, overscanStopIndex: number, startIndex: number, stopIndex: number }) => void;
+    onRowsRendered?: (info: {
+        overscanStartIndex: number;
+        overscanStopIndex: number;
+        startIndex: number;
+        stopIndex: number;
+    }) => void;
     /**
      * Number of rows to render above/below the visible bounds of the list.
      * These rows can help for smoother scrolling on touch devices.
@@ -39,9 +47,9 @@ export type ListProps = GridCoreProps & {
      * This callback can be used to sync scrolling between lists, tables, or grids.
      * ({ clientHeight, scrollHeight, scrollTop }): void
      */
-    onScroll?: (info: { clientHeight: number, scrollHeight: number, scrollTop: number }) => void;
+    onScroll?: (params: OnScrollParams) => void;
     /** See Grid#overscanIndicesGetter */
-    overscanIndicesGetter?: OverscanIndicesGetter,
+    overscanIndicesGetter?: OverscanIndicesGetter;
     /**
      * Either a fixed row height (number) or a function that returns the height of a row given its index.
      * ({ index: number }): number
@@ -60,10 +68,10 @@ export type ListProps = GridCoreProps & {
     /** Optional inline style */
     style?: React.CSSProperties;
     /** Tab index for focus */
-    tabIndex?: number;
+    tabIndex?: number | null;
     /** Width of list */
     width: number;
-}
+};
 /**
  * It is inefficient to create and manage a large list of DOM elements within a scrolling container
  * if only a few of those elements are visible. The primary purpose of this component is to improve
@@ -73,60 +81,41 @@ export type ListProps = GridCoreProps & {
  * This component renders a virtualized list of elements with either fixed or dynamic heights.
  */
 export class List extends PureComponent<ListProps> {
-    static propTypes: {
-        'aria-label': Requireable<string>,
-        autoHeight: Requireable<boolean>,
-        className: Requireable<string>,
-        estimatedRowSize: Validator<number>,
-        height: Validator<number>,
-        noRowsRenderer: Validator<() => JSX.Element>,
-        onRowsRendered: Validator<(params: IndexRange) => void>,
-        overscanRowCount: Validator<number>,
-        onScroll: Validator<(params: { clientHeight: number, scrollHeight: number, scrollTop: number }) => void>,
-        overscanIndicesGetter: Validator<OverscanIndicesGetter>,
-        rowHeight: Validator<number | ((params: Index) => number)>,
-        rowRenderer: Validator<ListRowRenderer>,
-        rowCount: Validator<number>,
-        scrollToAlignment: Validator<Alignment>,
-        scrollToIndex: Validator<number>,
-        scrollTop: Requireable<number>,
-        style: Validator<React.CSSProperties>,
-        tabIndex: Requireable<number>,
-        width: Validator<number>
-    };
-
     static defaultProps: {
-        estimatedRowSize: 30,
-        noRowsRenderer: () => null,
-        onRowsRendered: () => null,
-        onScroll: () => null,
-        overscanRowCount: 10,
-        scrollToAlignment: 'auto',
-        scrollToIndex: -1,
-        style: {}
+        autoHeight: false;
+        estimatedRowSize: 30;
+        onScroll: () => void;
+        noRowsRenderer: () => null;
+        onRowsRendered: () => void;
+        overscanIndicesGetter: OverscanIndicesGetter;
+        overscanRowCount: 10;
+        scrollToAlignment: 'auto';
+        scrollToIndex: -1;
+        style: {};
     };
 
-    constructor(props: ListProps, context: any);
+    Grid?: Grid;
 
     forceUpdateGrid(): void;
+
+    /** See Grid#getOffsetForCell */
+    getOffsetForRow(params: { alignment?: Alignment; index?: number }): number;
+
+    /** CellMeasurer compatibility */
+    invalidateCellSizeAfterRender({ columnIndex, rowIndex }: CellPosition): void;
 
     /** See Grid#measureAllCells */
     measureAllRows(): void;
 
+    /** CellMeasurer compatibility */
+    recomputeGridSize(params?: Partial<CellPosition>): void;
+
     /** See Grid#recomputeGridSize */
     recomputeRowHeights(index?: number): void;
-
-    /** See Grid#getOffsetForCell */
-    getOffsetForRow(params: {
-        alignment?: Alignment,
-        index?: number
-    }): number;
 
     /** See Grid#scrollToPosition */
     scrollToPosition(scrollTop?: number): void;
 
     /** See Grid#scrollToCell */
     scrollToRow(index?: number): void;
-
-    render(): JSX.Element;
 }

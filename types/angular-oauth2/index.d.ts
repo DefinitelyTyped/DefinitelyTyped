@@ -1,5 +1,5 @@
 // Type definitions for angular-oauth2 4.1
-// Project: https://github.com/oauthjs/angular-oauth2
+// Project: https://github.com/oauthjs/angular-oauth2, https://github.com/seegno/angular-oauth2
 // Definitions by: Antério Vieira <https://github.com/anteriovieira>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
@@ -27,9 +27,9 @@ declare module 'angular' {
 
         interface OAuth {
             isAuthenticated(): boolean;
-            getAccessToken(data: Data, options?: any): angular.IPromise<string>;
-            getRefreshToken(data?: Data, options?: any): angular.IPromise<string>;
-            revokeToken(data?: Data, options?: any): angular.IPromise<string>;
+            getAccessToken(data: Data, options?: any): IPromise<string>;
+            getRefreshToken(data?: Data, options?: any): IPromise<string>;
+            revokeToken(data?: Data, options?: any): IPromise<string>;
         }
 
         interface OAuthTokenConfig {

@@ -1,13 +1,16 @@
-// Type definitions for rc-tooltip v3.4.2
-// Project: https://github.com/react-component/tooltip
-// Definitions by: rhysd <https://rhysd.github.io>
-//                 ahstro <http://ahst.ro>
+// Type definitions for rc-tooltip 3.7
+// Project: http://github.com/react-component/tooltip
+// Definitions by: rhysd <https://github.com/rhysd>
+//                 ahstro <https://github.com/ahstro>
+//                 vsaarinen <https://github.com/vsaarinen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
-/// <reference types="react" />
+import * as React from 'react';
 
-declare namespace Tooltip {
+export as namespace RCTooltip;
+
+declare namespace RCTooltip {
 	export type Trigger = "hover" | "click" | "focus";
 	export type Placement =
 		"left" | "right" | "top" | "bottom" |
@@ -21,7 +24,8 @@ declare namespace Tooltip {
 		overlayStyle?: React.CSSProperties;
 		prefixCls?: string;
 		transitionName?: string;
-		onVisibleChange?: () => void;
+		onVisibleChange?: (visible?: boolean) => void;
+		afterVisibleChange?: (visible?: boolean) => void;
 		visible?: boolean;
 		defaultVisible?: boolean;
 		placement?: Placement | Object;
@@ -31,11 +35,8 @@ declare namespace Tooltip {
 		arrowContent?: React.ReactNode;
 		getTooltipContainer?: () => Element;
 		destroyTooltipOnHide?: boolean;
+		id?: string;
 	}
 }
 
-declare class Tooltip extends React.Component<Tooltip.Props> {}
-
-declare module "rc-tooltip" {
-	export = Tooltip
-}
+export default class Tooltip extends React.Component<RCTooltip.Props> {}

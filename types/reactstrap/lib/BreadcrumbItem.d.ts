@@ -1,6 +1,7 @@
+import * as React from 'react';
 import { CSSModule } from '../index';
 
-interface Props {
+export interface BreadcrumbItemProps extends React.HTMLAttributes<HTMLElement> {
   tag?: React.ReactType;
   active?: boolean;
   className?: string;
@@ -10,6 +11,5 @@ interface Props {
   [others: string]: any;
 }
 
-declare var BreadcrumbItem: React.StatelessComponent<Props>;
+declare class BreadcrumbItem<T = {[key: string]: any}> extends React.Component<BreadcrumbItemProps> {}
 export default BreadcrumbItem;
-

@@ -2,6 +2,7 @@
 // Project: https://github.com/webpack/watchpack
 // Definitions by: e-cloud <https://github.com/e-cloud>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 /// <reference types="node" />
 
@@ -22,7 +23,7 @@ declare class Watchpack extends EventEmitter {
 
     constructor(options: Watchpack.WatchOptions);
 
-    watch(files: string[], directories: string[], startTime: number): void;
+    watch(files: string[], directories: string[], startTime?: number): void;
 
     close(): void;
 

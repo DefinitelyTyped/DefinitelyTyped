@@ -2,6 +2,8 @@ import * as React from 'react';
 import * as FBSDK from 'react-native-fbsdk';
 import { View } from 'react-native';
 
+declare function alert(s: string): void;
+
 const {
     LoginButton,
     AccessToken,
@@ -43,15 +45,15 @@ export class Login extends React.Component {
 }
 
 // Attempt a login using the Facebook login dialog asking for default permissions.
-LoginManager.logInWithReadPermissions(['public_profile']).then(
-    (result) => {
+LoginManager.logInWithPermissions(['public_profile']).then(
+    result => {
         if (result.isCancelled) {
             alert('Login cancelled');
         } else {
             alert(`Login success with permissions: ${result.grantedPermissions}`);
         }
     },
-    (error) => {
+    error => {
         alert(`Login fail with error: ${error}`);
     }
 );

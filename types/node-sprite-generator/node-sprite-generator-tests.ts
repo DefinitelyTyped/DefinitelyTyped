@@ -1,5 +1,5 @@
-import * as nsg from 'node-sprite-generator';
-import * as express from 'express';
+import nsg = require('node-sprite-generator');
+import express = require('express');
 const app = express();
 
 app.use(nsg.middleware({

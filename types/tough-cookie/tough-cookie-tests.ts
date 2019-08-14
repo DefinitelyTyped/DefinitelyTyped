@@ -1,4 +1,4 @@
-import { Cookie, CookieJar } from 'tough-cookie';
+import { Cookie, CookieJar, MemoryCookieStore } from 'tough-cookie';
 
 let header = '';
 const cb = () => { };
@@ -13,3 +13,6 @@ cookiejar.setCookie(cookie, 'http://currentdomain.example.com/path', cb);
 cookiejar.getCookies('http://example.com/otherpath', (err, cookies) => {
     // res.headers['cookie'] = cookies.join('; ');
 });
+
+CookieJar.deserializeSync("test cookie with store", new MemoryCookieStore());
+CookieJar.deserializeSync("test cookie");

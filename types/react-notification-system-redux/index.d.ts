@@ -2,7 +2,7 @@
 // Project: https://github.com/gor181/react-notification-system-redux
 // Definitions by: Karol Janyst <https://github.com/LKay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import { Component } from "react";
 import { Action } from "redux";
@@ -12,7 +12,7 @@ export as namespace Notifications;
 
 export = Notifications;
 
-declare class Notifications extends Component<Notifications.NotificationsProps, {}> {}
+declare class Notifications extends Component<Notifications.NotificationsProps> {}
 
 declare namespace Notifications {
     type NotificationsState = Notification[];

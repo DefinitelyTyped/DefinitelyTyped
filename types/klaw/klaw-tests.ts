@@ -1,11 +1,11 @@
-import * as klaw from "klaw";
+import klaw = require("klaw");
 const path = require('path');
 
 // README.md: Streams 1 (push) example:
 
 let items: klaw.Item[] = [] // files, directories, symlinks, etc
 
-klaw('/some/dir')
+klaw('/some/dir', { preserveSymlinks: false })
     .on('data', function(item: klaw.Item) {
         items.push(item)
     })

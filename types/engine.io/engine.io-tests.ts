@@ -38,7 +38,7 @@ attachOptions.handlePreflightRequest = (server, req, res) => {
 	console.log(req.httpVersion);
 	console.log(res.finished);
 };
-serverAttachOptions = Object.assign({}, serverOptions, attachOptions);
+serverAttachOptions = { ...serverOptions, ...attachOptions };
 
 console.log(engine.protocol);
 

@@ -1,118 +1,382 @@
-// Type definitions for JW Player 6.0
-// Project: http://developer.longtailvideo.com/trac/
-// Definitions by: Martin Duparc <https://github.com/martinduparc/>
+// Type definitions for JW Player 8.2
+// Project: https://github.com/jwplayer/jwplayer
+// Definitions by: Martin Duparc <https://github.com/martinduparc>
+//                 Tomer Kruvi <https://github.com/kutomer>
+//                 Philipp Gürtler <https://github.com/philippguertler>
+//                 Daniel McGraw <https://github.com/danielmcgraw>
+//                 Benjamin Dobson <https://github.com/bpdsw>
+//                 Be Birchall <https://github.com/bebebebebe>
+//                 Daniel Cassidy <https://github.com/djcsdy>
+//                 Drew Wyatt <https://github.com/drewwyatt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 // JW Player is the leading HTML5 & Flash video player, optimized for mobile and the desktop. Easy enough for beginners, advanced enough for pros.
 
-interface JWPlayer {
-	addButton(icon: string, label: string, handler: () => void, id: string): void;
-	getAudioTracks(): any[];
-	getBuffer(): number;
-	getCaptionsList(): any[];
-	getControls(): boolean;
-	getCurrentAudioTrack(): number;
-	getCurrentCaptions(): number;
-	getCurrentQuality(): number;
-	getDuration(): number;
-	getHeight(): number;
-	getFullscreen(): boolean;
-	getMute(): boolean;
-	getPlaylist(): any[];
-	getPlaylistIndex(): number;
-	getPlaylistItem(index?: number): any;
-	getPosition(): number;
-	getQualityLevels(): any[];
-	getRenderingMode(): string;
-	getSafeRegion(): any[];
-	getState(): string;
-	getVolume(): number;
-	getWidth(): number;
-	load(playlist: any[]): void;
-	load(playlist: string): void;
-	onAdClick(callback: (o: { tag: string; }) => void): void;
-	onAdCompanions(callback: (o: {
-		tag: string;
-		companions: any[];
-	}) => void): void;
-	onAdComplete(callback: (o: { tag: string; }) => void): void;
-	onAdError(callback: (o: {
-		tag: string;
-		message: string;
-	}) => void): void;
-	onAdImpression(callback: (o: { tag: string; }) => void): void;
-	onAdPause(callback: (o: { tag: string; }) => void): void;
-	onAdPlay(callback: (o: { tag: string; }) => void): void;
-	onAdSkipped(callback: (o: { tag: string; }) => void): void;
-	onAdTime(callback: (o: {
-		tag: string;
-		position: number;
-		duration: number;
-		sequence: number;
-	}) => void): void;
-	onAudioTracks(callback: (o: { levels: any[]; }) => void): void;
-	onAudioTrackChange(callback: (o: { currentTrack: number; }) => void): void;
-	onBeforeComplete(callback: () => void): void;
-	onBeforePlay(callback: () => void): void;
-	onBuffer(callback: (o: { oldstate: string }) => void): void;
-	onBufferChange(callback: () => void): void;
-	onCaptionsChange(callback: (o: { track: number; }) => void): void;
-	onCaptionsList(callback: (o: { tracks: any[]; }) => void): void;
-	onComplete(callback: () => void): void;
-	onControls(callback: (o: { controls: boolean; }) => void): void;
-	onDisplayClick(callback: () => void): void;
-	onError(callback: (o: { message: string }) => void): void;
-	onFullscreen(callback: (o: { fullscreen: boolean; }) => void): void;
-	onIdle(callback: (o: { oldstate: string }) => void): void;
-	onLevelsChanged(callback: (o: { currentQuality: number }) => void): void;
-	onMeta(callback: (o: { metadata: any; }) => void): void;
-	onMute(callback: (o: { mute: boolean; }) => void): void;
-	onPause(callback: (o: { oldstate: string }) => void): void;
-	onPlay(callback: (o: { oldstate: string }) => void): void;
-	onPlaylist(callback: () => void): void;
-	onPlaylistItem(callback: () => void): void;
-	onPlaylistComplete(callback: () => void): void;
-	onReady(callback: () => void): void;
-	onResize(callback: () => void): void;
-	onQualityChange(callback: () => void): void;
-	onQualityLevels(callback: (o: { levels: any[] }) => void): void;
-	onSeek(callback: (o: {
-		position: number;
-		offset: number;
-	}) => void): void;
-	onSetupError(callback: (o: {
-		fallback: boolean;
-		message: string;
-	}) => void): void;
-	onTime(callback: (o: {
-		duration: number;
-		position: number;
-	}) => void): void;
-	onVolume(callback: (o: { volume: number; }) => void): void;
-	pause(state?: boolean): void;
-	play(state?: boolean): void;
-	playAd(tag: string): void;
-	playlistItem(index: number): void;
-	registerPlugin(id: string, target: string, jsPlugin: () => void, swfURL?: string): void;
-	remove(): void;
-	removeButton(id: string): void;
-	resize(width: number, height: number): void;
-	seek(position: number): void;
-	setControls(controls: boolean): void;
-	setCurrentAudioTrack(index: number): void;
-	setCurrentCaptions(index: number): void;
-	setCurrentQuality(index: number): void;
-	setFullscreen(state: boolean): void;
-	setMute(state?: boolean): void;
-	setup(options: any): JWPlayer;
-	setVolume(volume: number): void;
-	stop(): void;
+declare namespace jwplayer {
+    interface Version {
+        version: string;
+        major: number;
+        minor: number;
+    }
+
+    interface Browser {
+        chrome: boolean;
+        edge: boolean;
+        facebook: boolean;
+        firefox: boolean;
+        ie: boolean;
+        msie: boolean;
+        safari: boolean;
+        version: Version;
+    }
+
+    interface OS {
+        android: boolean;
+        androidNative: boolean;   // Android native browser
+        iOS: boolean;
+        mobile: boolean;
+        mac: boolean;
+        iPad: boolean;
+        iPhone: boolean;
+        windows: boolean;
+        version: Version;
+    }
+
+    interface Features {
+        flash: boolean;
+        flashVersion: number;
+        iframe: boolean;
+    }
+
+    interface Environment {
+        Browser: Browser;
+        OS: OS;
+        Features: Features;
+    }
+
+    interface AdProgressParam {
+        client: 'vast' | 'googima';
+        creativetype: string;
+        tag: string;
+    }
+
+    interface AdCompanionsParam {
+        companions: any[];
+        tag: string;
+    }
+
+    interface AdErrorParam {
+        message: string;
+        tag: string;
+    }
+
+    interface AdRequestParam {
+        adposition: 'pre' | 'mid' | 'post';
+        client: 'vast' | 'googima';
+        offset: 'pre' | 'mid' | 'post';
+        tag: string;
+    }
+
+    interface AdImpressionParam {
+        adposition: 'pre' | 'mid' | 'post';
+        adsystem: string;
+        adtitle: string;
+        clickThroughUrl: string;
+        client: 'vast' | 'googima';
+        creativetype: string;
+        linear: string;
+        mediafile: any;
+        tag: string;
+        vastversion: number;
+        wrapper: any[];
+    }
+
+    interface AdScheduleParam {
+        tag: string;
+        client: string;
+        adbreaks: object[];
+    }
+
+    interface AdStartedParam {
+        creativetype: string;
+        tag: string;
+    }
+
+    interface AdPlayParam {
+        creativetype: string;
+        newstate: string;
+        oldstate: string;
+        tag: string;
+    }
+
+    interface BufferParam {
+        newstate: string;
+        oldstate: string;
+        reason: 'loading' | 'complete' | 'stalled' | 'error';
+    }
+
+    interface BufferChangeParam {
+        duration: number;
+        bufferPercent: number;
+        position: number;
+        metadata: any;
+    }
+
+    interface AdTimeParam {
+        client: 'vast' | 'googima';
+        creativetype: string;
+        duration: number;
+        position: number;
+        sequence: number;
+        tag: string;
+    }
+
+    interface AudioTracksParam {
+        levels: any[];
+    }
+
+    interface CaptionsChangedParam {
+        currentTrack: number;
+    }
+
+    interface CaptionsListParam {
+        tracks: any[];
+    }
+
+    interface AudioTrackChangedParam {
+        currentTrack: number;
+    }
+
+    interface MetadataParam {
+        metadata: any;
+    }
+
+    interface ControlsParam {
+        controls: boolean;
+    }
+
+    interface ErrorParam {
+        message: string;
+    }
+
+    interface FullscreenParam {
+        fullscreen: boolean;
+    }
+
+    interface IdleParam {
+        oldstate: 'buffering' | 'playing' | 'paused';
+    }
+
+    interface LevelsChangedParam {
+        currentQuality: number;
+    }
+
+    interface MuteParam {
+        mute: boolean;
+    }
+
+    interface VolumeParam {
+        volume: boolean;
+    }
+
+    interface PlayParam {
+        oldstate: 'buffering' | 'playing';
+        viewable: 0 | 1;
+    }
+
+    interface PlaylistParam {
+        playlist: any[];
+    }
+
+    interface PlaylistItemParam {
+        index: number;
+        item: any;
+    }
+
+    interface ReadyParam {
+        setupTime: number;
+        viewable: 0 | 1;
+    }
+
+    interface ResizeParam {
+        width: number;
+        height: number;
+    }
+
+    interface VisualQualityParam {
+        mode: string;
+        label: string;
+        reason: string;
+    }
+
+    interface LevelsParam {
+        width: number;
+        levels: any[];
+    }
+
+    interface SeekParam {
+        position: number;
+        offset: number;
+    }
+
+    interface TimeParam {
+        duration: number;
+        position: number;
+        viewable: 0 | 1;
+    }
+
+    interface FirstFrameParam {
+        loadTime: number;
+        viewable: 0 | 1;
+    }
+
+    type EventCallback<T> = (param: T) => void;
+
+    interface Region {
+        x: 0; // x and y will always be 0 according to https://developer.jwplayer.com/jw-player/docs/javascript-api-reference/#jwplayergetsaferegion
+        y: 0;
+        width: number;
+        height: number;
+    }
+
+    interface CaptionOptions {
+        color: string;
+        fontSize: number;
+        fontFamily: string;
+        fontOpacity: number;
+        backgroundColor: string;
+        backgroundOpacity: number;
+        edgeStyle: string;
+        windowColor: string;
+        windowOpacity: number;
+    }
+
+    interface Level {
+        bitrate: number;
+        height: number;
+        width: number;
+        label: string;
+    }
+
+    interface QualityLevel {
+        mode: 'auto' | 'manual';
+        level: Level;
+        reason: 'auto' | 'api' | 'initial choice';
+    }
+
+    interface CastParam {
+        available: boolean;
+        active: boolean;
+        deviceName: string;
+        type: 'cast';
+    }
+
+    interface EventParams {
+        adClick: AdProgressParam;
+        adCompanions: AdCompanionsParam;
+        adComplete: AdProgressParam;
+        adSkipped: AdProgressParam;
+        adError: AdErrorParam;
+        adRequest: AdRequestParam;
+        adSchedule: AdScheduleParam;
+        adStarted: AdStartedParam;
+        adImpression: AdImpressionParam;
+        adPlay: AdPlayParam;
+        adPause: AdPlayParam;
+        adTime: AdTimeParam;
+        cast: CastParam;
+        meta: MetadataParam;
+        audioTracks: AudioTracksParam;
+        audioTrackChanged: AudioTrackChangedParam;
+        firstFrame: FirstFrameParam;
+        buffer: BufferParam;
+        bufferChange: BufferChangeParam;
+        captionsChanged: CaptionsChangedParam;
+        captionsList: CaptionsListParam;
+        controls: ControlsParam;
+        error: ErrorParam;
+        fullscreen: FullscreenParam;
+        idle: IdleParam;
+        levelsChanged: LevelsChangedParam;
+        mute: MuteParam;
+        volume: VolumeParam;
+        pause: PlayParam;
+        play: PlayParam;
+        playlist: PlaylistParam;
+        playlistItem: PlaylistItemParam;
+        ready: ReadyParam;
+        resize: ResizeParam;
+        visualQuality: VisualQualityParam;
+        levels: LevelsParam;
+        seek: SeekParam;
+        setupError: ErrorParam;
+        time: TimeParam;
+    }
+
+    type NoParamEvent = 'adBlock' | 'beforeComplete' | 'complete' | 'beforePlay' | 'displayClick' | 'playlistComplete'
+            | 'seeked' | 'remove';
+
+    interface JWPlayer {
+        addButton(icon: string, label: string, handler: () => void, id: string): void;
+        getAudioTracks(): any[];
+        getBuffer(): number;
+        getCaptionsList(): any[];
+        getControls(): boolean;
+        getCurrentAudioTrack(): number;
+        getCurrentCaptions(): number;
+        getCurrentQuality(): number;
+        getDuration(): number;
+        getHeight(): number;
+        getFullscreen(): boolean;
+        getMute(): boolean;
+        getPlaylist(): any[];
+        getPlaylistIndex(): number;
+        getPlaylistItem(index?: number): any;
+        getPosition(): number;
+        getQualityLevels(): any[];
+        getRenderingMode(): string;
+        getSafeRegion(): Region;
+        getState(): string;
+        getVolume(): number;
+        getContainer(): HTMLElement;
+        getEnvironment(): Environment;
+        getWidth(): number;
+        getVisualQuality(): QualityLevel | undefined;
+        load(playlist: any[] | string): void;
+        on<TEvent extends keyof EventParams>(event: TEvent, callback: EventCallback<EventParams[TEvent]>): void;
+        on(event: NoParamEvent, callback: () => void): void;
+        once<TEvent extends keyof EventParams>(event: TEvent, callback: EventCallback<EventParams[TEvent]>): void;
+        once(event: NoParamEvent, callback: () => void): void;
+        off(event: keyof EventParams | NoParamEvent): void;
+        trigger<TEvent extends keyof EventParams>(event: TEvent, args: EventParams[TEvent]): void;
+        trigger(event: NoParamEvent): void;
+        pause(state?: boolean): void;
+        play(state?: boolean): void;
+        playAd(tag: string): void;
+        playlistItem(index: number): void;
+        registerPlugin(id: string, target: string, jsPlugin: () => void, swfURL?: string): void;
+        remove(): void;
+        removeButton(id: string): void;
+        resize(width: number, height: number): void;
+        seek(position: number): void;
+        setControls(controls: boolean): void;
+        setCurrentAudioTrack(index: number): void;
+        setCurrentCaptions(index: number): void;
+        setCurrentQuality(index: number): void;
+        setFullscreen(state: boolean): void;
+        setMute(state?: boolean): void;
+        setup(options: any): JWPlayer;
+        setVolume(volume: number): void;
+        setCaptions(options: CaptionOptions): void;
+        stop(): void;
+    }
+
+    interface JWPlayerStatic {
+        (query?: string | number | Element): JWPlayer;
+        key: string;
+        version: string;
+    }
 }
 
-interface JWPlayerStatic {
-	(id: string): JWPlayer;
-	key: string;
-	version: string;
-}
-
-declare var jwplayer:JWPlayerStatic;
+declare const jwplayer: jwplayer.JWPlayerStatic;

@@ -1,3 +1,3 @@
-import flash from "express-flash-2";
+import flash = require("express-flash-2");
 
 flash();

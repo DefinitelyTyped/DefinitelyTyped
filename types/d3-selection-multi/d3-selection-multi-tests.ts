@@ -1,4 +1,3 @@
-// tslint:disable:object-literal-shorthand
 /**
  * Typescript definition tests for d3/d3-selection-multi module
  *
@@ -28,13 +27,13 @@ selection = selection.attrs({
     foo: () => 1,
     bar: (d) => d,
     baz: (d, i) => i !== 0,
-    bat: function() {
+    bat() {
         return this.href;
     },
 });
 
 // Function that returns a map
-selection = selection.attrs(function(d, i, g) {
+selection = selection.attrs(function(d, i, g): {} | { id: string } {
     const that: HTMLAnchorElement = this;
     const index: number = i;
     const group: HTMLAnchorElement[] | ArrayLike<HTMLAnchorElement> = g;
@@ -89,7 +88,7 @@ selection = selection.properties({
 });
 
 // Function that returns an object
-selection = selection.properties(function(d, i, g) {
+selection = selection.properties(function(d, i, g): {} | { href: string } {
     const that: HTMLAnchorElement = this;
     const index: number = i;
     const group: HTMLAnchorElement[] | ArrayLike<HTMLAnchorElement> = g;
@@ -118,7 +117,7 @@ transition = transition.attrs({
 });
 
 // Function that returns a map
-transition = transition.attrs(function(d, i, g) {
+transition = transition.attrs(function(d, i, g): {} | { id: string } {
     const that: HTMLAnchorElement = this;
     const index: number = i;
     const group: HTMLAnchorElement[] | ArrayLike<HTMLAnchorElement> = g;

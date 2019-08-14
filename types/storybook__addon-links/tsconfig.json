@@ -7,14 +7,22 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
         "jsx": "react",
         "typeRoots": [
             "../"
         ],
-        "paths":{
-            "@storybook/addon-links": ["storybook__addon-links"],
-            "@storybook/react": ["storybook__react"]
+        "paths": {
+            "@storybook/addon-links": [
+                "storybook__addon-links"
+            ],
+            "@storybook/addon-links/react": [
+                "storybook__addon-links/react"
+            ],
+            "@storybook/react": [
+                "storybook__react"
+            ]
         },
         "types": [],
         "noEmit": true,
@@ -22,6 +30,7 @@
     },
     "files": [
         "index.d.ts",
+        "react.d.ts",
         "storybook__addon-links-tests.tsx"
     ]
 }

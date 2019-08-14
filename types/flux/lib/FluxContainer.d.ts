@@ -9,29 +9,14 @@ import * as React from "react";
  * The component receives information from the stores via state. The state
  * is generated using a static `calculateState()` method that each container must implement.
  */
-/**
- * Default options to create a Container.
- *
- * @interface RealOptions
- */
+
+/** Default options to create a Container. */
 export interface RealOptions {
-    /**
-     * Default value: true
-     *
-     * @type {boolean}
-     */
+    /** @default true */
     pure?: boolean;
-    /**
-     * Default value: false
-     *
-     * @type {boolean}
-     */
+    /** @default false */
     withProps?: boolean;
-    /**
-     * Default value: false
-     *
-     * @type {boolean}
-     */
+    /** @default false */
     withContext?: boolean;
 }
 
@@ -60,7 +45,7 @@ export function create<TProps, TState, TContext, TStatic>(base: Component<TProps
  * This is a way to connect stores to a functional stateless view.
  */
 export function createFunctional<TProps, TState>(
-    viewFn: (props: TProps) => React.ReactElement<TState>,
+    viewFn: (props: TState) => React.ReactElement<TState>,
     getStores: (maybeProps?: TProps, maybeContext?: any) => Array<FluxStore<any>>,
     calculateState: (prevState?: TState, maybeProps?: TProps, maybeContext?: any) => TState,
     options?: RealOptions

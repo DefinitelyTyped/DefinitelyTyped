@@ -83,12 +83,12 @@ declare namespace Router {
 
     interface RouteComponentProps<P, R> {
         history?: History;
-        location?: Location;
-        params?: P;
+        location: Location;
+        params: P;
         route?: PlainRoute;
         routeParams?: R;
         routes?: PlainRoute[];
-        children?: React.ReactElement<any>;
+        children?: React.ReactElement;
     }
 
     interface RouterOnContext extends History {

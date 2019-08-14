@@ -2,6 +2,7 @@
 // Project: https://github.com/thingdom/node-neo4j
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="request" />
 
@@ -57,7 +58,7 @@ export interface GraphDatabaseOptions {
      * HTTP agent.
      * @type {any}
      */
-    agent: any;
+    agent?: any;
 
     /**
      * Authentication information.
@@ -69,13 +70,13 @@ export interface GraphDatabaseOptions {
      * HTTP headers.
      * @type {Object}
      */
-    headers: {};
+    headers?: {};
 
     /**
      * Proxy address.
      * @type {string}
      */
-    proxy: string;
+    proxy?: string;
 
     /**
      * URL connection.

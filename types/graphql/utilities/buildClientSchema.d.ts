@@ -1,5 +1,7 @@
-import { IntrospectionQuery } from './introspectionQuery';
-import { GraphQLSchema } from '../type/schema';
+import { IntrospectionQuery } from "./introspectionQuery";
+import { GraphQLSchema, GraphQLSchemaValidationOptions } from "../type/schema";
+
+interface Options extends GraphQLSchemaValidationOptions {}
 
 /**
  * Build a GraphQLSchema for use by client tools.
@@ -9,7 +11,8 @@ import { GraphQLSchema } from '../type/schema';
  * tools, but cannot be used to execute a query, as introspection does not
  * represent the "resolver", "parse" or "serialize" functions or any other
  * server-internal mechanisms.
+ *
+ * This function expects a complete introspection result. Don't forget to check
+ * the "errors" field of a server response before calling this function.
  */
-export function buildClientSchema(
-    introspection: IntrospectionQuery
-): GraphQLSchema;
+export function buildClientSchema(introspection: IntrospectionQuery, options?: Options): GraphQLSchema;

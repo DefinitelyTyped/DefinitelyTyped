@@ -1,6 +1,10 @@
 import * as React from 'react';
-import { Component, PropTypes } from 'react';
+import {
+  Component, ComponentClass, CSSProperties,
+  StatelessComponent, ReactElement, ReactInstance, ValidationMap
+} from 'react';
 import * as ReactDOM from 'react-dom';
+import * as PropTypes from 'prop-types';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import { muiThemeable } from 'material-ui/styles/muiThemeable';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -2059,16 +2063,16 @@ import {
 
 import injectTapEventPlugin = require('react-tap-event-plugin');
 
-// Needed for onTouchTap
+// Needed for onClick
 // Check this repo:
 // https://github.com/zilverline/react-tap-event-plugin
 injectTapEventPlugin();
 
-function handleTouchTap() {
-  alert('onTouchTap triggered on the title component');
+function handleClick() {
+  alert('onClick triggered on the title component');
 }
 
-const styles: { [key: string]: React.CSSProperties } = {
+const styles: { [key: string]: CSSProperties } = {
   title: {
     cursor: 'pointer',
   },
@@ -2266,9 +2270,9 @@ const lightBaseTheme = {
 
 const lightMuiTheme = getMuiTheme(lightBaseTheme);
 
-class DeepDownTheTree extends React.Component<{} & {muiTheme: MuiTheme}> {
-  static propTypes: React.ValidationMap<any> = {
-    muiTheme: React.PropTypes.object.isRequired,
+class DeepDownTheTree extends Component<{} & {muiTheme: MuiTheme}> {
+  static propTypes: ValidationMap<any> = {
+    muiTheme: PropTypes.object.isRequired,
   };
 
   render() {
@@ -2284,7 +2288,7 @@ interface Props {
   label: string;
   muiTheme?: MuiTheme;
 }
-const MuiThemeableFunction = muiThemeable()<React.StatelessComponent<Props>, Props>(props => {
+const MuiThemeableFunction = muiThemeable()<StatelessComponent<Props>, Props>(props => {
   return (
       <span style={{color: props.muiTheme.palette.textColor}}>
         Applied the Theme to functional component: {props.label}.
@@ -2293,7 +2297,7 @@ const MuiThemeableFunction = muiThemeable()<React.StatelessComponent<Props>, Pro
 });
 
 @muiThemeable()
-class MuiThemeableClass extends React.Component<{label: string} & {muiTheme?: MuiTheme}> {
+class MuiThemeableClass extends Component<{label: string} & {muiTheme?: MuiTheme}> {
   render() {
     return (
       <span style={{color: this.props.muiTheme.palette.textColor}}>
@@ -2340,7 +2344,7 @@ const AppBarExampleIcon = () => (
 const AppBarExampleIconButton = () => (
   <AppBar
     title={<span style={styles.title}>Title</span>}
-    onTitleTouchTap={handleTouchTap}
+    onTitleClick={handleClick}
     iconElementLeft={<IconButton><NavigationClose /></IconButton>}
     iconElementRight={<FlatButton label="Save" />}
   />
@@ -2367,14 +2371,10 @@ const AppBarExampleIconMenu = () => (
 );
 
 // "http://www.material-ui.com/#/components/auto-complete"
-export class AutoCompleteExampleSimple extends React.Component<{}, {dataSource: string[]}> {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      dataSource: [],
-    };
-  }
+export class AutoCompleteExampleSimple extends Component<{}, {dataSource: string[]}> {
+  state = {
+    dataSource: [],
+  };
 
   handleUpdateInput = (value) => {
     this.setState({
@@ -2532,7 +2532,7 @@ const AutoCompleteExampleFilters = () => (
 
 // "http://www.material-ui.com/#/components/avatar"
 const AvatarExampleSimple = () => (
-  <List>
+  <List className="foo">
     <ListItem
       disabled={true}
       leftAvatar={
@@ -2954,13 +2954,10 @@ const CardExampleWithoutAvatar = () => (
   </Card>
 );
 
-class CardExampleControlled extends React.Component<{}, {expanded: boolean}> {
-  constructor(props) {
-    super(props);
-    this.state = {
-      expanded: false,
-    };
-  }
+class CardExampleControlled extends Component<{}, {expanded: boolean}> {
+  state = {
+    expanded: false,
+  };
 
   handleExpandChange = (expanded) => {
     this.setState({expanded});
@@ -3010,8 +3007,8 @@ class CardExampleControlled extends React.Component<{}, {expanded: boolean}> {
           Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
         </CardText>
         <CardActions>
-                    <FlatButton label="Expand" onTouchTap={this.handleExpand}/>
-                    <FlatButton label="Reduce" onTouchTap={this.handleReduce}/>
+                    <FlatButton label="Expand" onClick={this.handleExpand}/>
+                    <FlatButton label="Reduce" onClick={this.handleReduce}/>
         </CardActions>
       </Card>
     );
@@ -3026,22 +3023,24 @@ const ChipExampleSimple = () => (
     <Chip labelColor={blue500}>Blue Label Color</Chip>
     <Chip><Avatar size={32} color={blue300} backgroundColor={indigo900}>UI</Avatar> Avatar</Chip>
     <Chip style={styles.chip}>Styled</Chip>
+    <Chip containerElement="span">String Container</Chip>
+    <Chip containerElement={() => {}}>ReactNode Container</Chip>
   </div>
 );
 
-class ChipExampleComplex extends React.Component {
+class ChipExampleComplex extends Component {
   handleRequestDelete = () => {
     alert('You clicked the delete button.');
   }
 
-  handleTouchTap = () => {
+  handleClick = () => {
     alert('You clicked the Chip.');
   }
 
   render() {
     return (
       <div>
-        <Chip onTouchTap={this.handleTouchTap} onRequestDelete={this.handleRequestDelete}>Click Me</Chip>
+        <Chip onClick={this.handleClick} onRequestDelete={this.handleRequestDelete}>Click Me</Chip>
       </div>
     );
   }
@@ -3075,96 +3074,91 @@ interface DatePickerExampleToggleState {
   disableYearSelection?: boolean;
 }
 
-class DatePickerExampleToggle extends React.Component<{}, DatePickerExampleToggleState> {
-  constructor(props) {
-    super(props);
+class DatePickerExampleToggle extends Component<{}, DatePickerExampleToggleState> {
+    static initState() {
+        const minDate = new Date();
+        const maxDate = new Date();
+        minDate.setFullYear(minDate.getFullYear() - 1);
+        minDate.setHours(0, 0, 0, 0);
+        maxDate.setFullYear(maxDate.getFullYear() + 1);
+        maxDate.setHours(0, 0, 0, 0);
 
-    const minDate = new Date();
-    const maxDate = new Date();
-    minDate.setFullYear(minDate.getFullYear() - 1);
-    minDate.setHours(0, 0, 0, 0);
-    maxDate.setFullYear(maxDate.getFullYear() + 1);
-    maxDate.setHours(0, 0, 0, 0);
+        return {
+            minDate,
+            maxDate,
+            autoOk: false,
+            disableYearSelection: false
+        };
+    }
+    state = DatePickerExampleToggle.initState();
 
-    this.state = {
-      minDate,
-      maxDate,
-      autoOk: false,
-      disableYearSelection: false,
-    };
-  }
+    handleChangeMinDate = (event, date) => {
+        this.setState({
+            minDate: date
+        });
+    }
 
-  handleChangeMinDate = (event, date) => {
-    this.setState({
-      minDate: date,
-    });
-  }
+    handleChangeMaxDate = (event, date) => {
+        this.setState({
+            maxDate: date
+        });
+    }
 
-  handleChangeMaxDate = (event, date) => {
-    this.setState({
-      maxDate: date,
-    });
-  }
+    handleToggle = (event, toggled) => {
+        this.setState({
+            [event.target.name]: toggled
+        });
+    }
 
-  handleToggle = (event, toggled) => {
-    this.setState({
-      [event.target.name]: toggled,
-    });
-  }
-
-  render() {
-    return (
-      <div>
-        <DatePicker
-          floatingLabelText="Ranged Date Picker"
-          autoOk={this.state.autoOk}
-          minDate={this.state.minDate}
-          maxDate={this.state.maxDate}
-          disableYearSelection={this.state.disableYearSelection}
-        />
-        <div style={optionsStyle}>
-          <DatePicker
-            onChange={this.handleChangeMinDate}
-            autoOk={this.state.autoOk}
-            floatingLabelText="Min Date"
-            defaultDate={this.state.minDate}
-            disableYearSelection={this.state.disableYearSelection}
-          />
-          <DatePicker
-            onChange={this.handleChangeMaxDate}
-            autoOk={this.state.autoOk}
-            floatingLabelText="Max Date"
-            defaultDate={this.state.maxDate}
-            disableYearSelection={this.state.disableYearSelection}
-          />
-          <Toggle
-            name="autoOk"
-            value="autoOk"
-            label="Auto Ok"
-            toggled={this.state.autoOk}
-            onToggle={this.handleToggle}
-          />
-          <Toggle
-            name="disableYearSelection"
-            value="disableYearSelection"
-            label="Disable Year Selection"
-            toggled={this.state.disableYearSelection}
-            onToggle={this.handleToggle}
-          />
-        </div>
-      </div>
-    );
-  }
+    render() {
+        return (
+            <div>
+                <DatePicker
+                    floatingLabelText="Ranged Date Picker"
+                    autoOk={this.state.autoOk}
+                    minDate={this.state.minDate}
+                    maxDate={this.state.maxDate}
+                    disableYearSelection={this.state.disableYearSelection}
+                />
+                <div style={optionsStyle}>
+                    <DatePicker
+                        onChange={this.handleChangeMinDate}
+                        autoOk={this.state.autoOk}
+                        floatingLabelText="Min Date"
+                        defaultDate={this.state.minDate}
+                        disableYearSelection={this.state.disableYearSelection}
+                    />
+                    <DatePicker
+                        onChange={this.handleChangeMaxDate}
+                        autoOk={this.state.autoOk}
+                        floatingLabelText="Max Date"
+                        defaultDate={this.state.maxDate}
+                        disableYearSelection={this.state.disableYearSelection}
+                    />
+                    <Toggle
+                        name="autoOk"
+                        value="autoOk"
+                        label="Auto Ok"
+                        toggled={this.state.autoOk}
+                        onToggle={this.handleToggle}
+                    />
+                    <Toggle
+                        name="disableYearSelection"
+                        value="disableYearSelection"
+                        label="Disable Year Selection"
+                        toggled={this.state.disableYearSelection}
+                        onToggle={this.handleToggle}
+                    />
+                </div>
+            </div>
+        );
+    }
 }
 
-class DatePickerExampleControlled extends React.Component<{}, {controlledDate?: Date}> {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      controlledDate: null,
-    };
-  }
+class DatePickerExampleControlled extends Component<{}, {controlledDate?: Date}> {
+  state = {
+    controlledDate: null,
+  };
 
   handleChange = (event, date) => {
     this.setState({
@@ -3223,7 +3217,7 @@ const DatePickerExampleInternational = () => (
 );
 
 // "http://material-ui.com/#/components/dialog"
-class DialogExampleSimple extends React.Component<{}, {open?: boolean}> {
+class DialogExampleSimple extends Component<{}, {open?: boolean}> {
   state = {
     open: false,
   };
@@ -3241,19 +3235,19 @@ class DialogExampleSimple extends React.Component<{}, {open?: boolean}> {
       <FlatButton
         label="Cancel"
         primary={true}
-        onTouchTap={this.handleClose}
+        onClick={this.handleClose}
       />,
       <FlatButton
         label="Submit"
         primary={true}
         keyboardFocused={true}
-        onTouchTap={this.handleClose}
+        onClick={this.handleClose}
       />,
     ];
 
     return (
       <div>
-                <RaisedButton label="Dialog" onTouchTap={this.handleOpen}/>
+                <RaisedButton label="Dialog" onClick={this.handleOpen}/>
         <Dialog
           title="Dialog With Actions"
           actions={actions}
@@ -3268,7 +3262,7 @@ class DialogExampleSimple extends React.Component<{}, {open?: boolean}> {
   }
 }
 
-class DialogExampleModal extends React.Component<{}, {open?: boolean}> {
+class DialogExampleModal extends Component<{}, {open?: boolean}> {
   state = {
     open: false,
   };
@@ -3286,19 +3280,19 @@ class DialogExampleModal extends React.Component<{}, {open?: boolean}> {
       <FlatButton
         label="Cancel"
         primary={true}
-        onTouchTap={this.handleClose}
+        onClick={this.handleClose}
       />,
       <FlatButton
         label="Submit"
         primary={true}
         disabled={true}
-        onTouchTap={this.handleClose}
+        onClick={this.handleClose}
       />,
     ];
 
     return (
       <div>
-                <RaisedButton label="Modal Dialog" onTouchTap={this.handleOpen}/>
+                <RaisedButton label="Modal Dialog" onClick={this.handleOpen}/>
         <Dialog
           title="Dialog With Actions"
           actions={actions}
@@ -3312,7 +3306,7 @@ class DialogExampleModal extends React.Component<{}, {open?: boolean}> {
   }
 }
 
-class DialogExampleCustomWidth extends React.Component<{}, {open?: boolean}> {
+class DialogExampleCustomWidth extends Component<{}, {open?: boolean}> {
   state = {
     open: false,
   };
@@ -3330,18 +3324,18 @@ class DialogExampleCustomWidth extends React.Component<{}, {open?: boolean}> {
       <FlatButton
         label="Cancel"
         primary={true}
-        onTouchTap={this.handleClose}
+        onClick={this.handleClose}
       />,
       <FlatButton
         label="Submit"
         primary={true}
-        onTouchTap={this.handleClose}
+        onClick={this.handleClose}
       />,
     ];
 
     return (
       <div>
-                <RaisedButton label="Dialog With Custom Width" onTouchTap={this.handleOpen}/>
+                <RaisedButton label="Dialog With Custom Width" onClick={this.handleOpen}/>
         <Dialog
           title="Dialog With Custom Width"
           actions={actions}
@@ -3356,7 +3350,7 @@ class DialogExampleCustomWidth extends React.Component<{}, {open?: boolean}> {
   }
 }
 
-class DialogExampleDialogDatePicker extends React.Component<{}, {open?: boolean}> {
+class DialogExampleDialogDatePicker extends Component<{}, {open?: boolean}> {
   state = {
     open: false,
   };
@@ -3375,13 +3369,13 @@ class DialogExampleDialogDatePicker extends React.Component<{}, {open?: boolean}
         label="Ok"
         primary={true}
         keyboardFocused={true}
-        onTouchTap={this.handleClose}
+        onClick={this.handleClose}
       />,
     ];
 
     return (
       <div>
-                <RaisedButton label="Dialog With Date Picker" onTouchTap={this.handleOpen}/>
+                <RaisedButton label="Dialog With Date Picker" onClick={this.handleOpen}/>
         <Dialog
           title="Dialog With Date Picker"
           actions={actions}
@@ -3397,7 +3391,7 @@ class DialogExampleDialogDatePicker extends React.Component<{}, {open?: boolean}
   }
 }
 
-class DialogExampleScrollable extends React.Component<{}, {open?: boolean}> {
+class DialogExampleScrollable extends Component<{}, {open?: boolean}> {
   state = {
     open: false,
   };
@@ -3415,13 +3409,13 @@ class DialogExampleScrollable extends React.Component<{}, {open?: boolean}> {
       <FlatButton
         label="Cancel"
         primary={true}
-        onTouchTap={this.handleClose}
+        onClick={this.handleClose}
       />,
       <FlatButton
         label="Submit"
         primary={true}
         keyboardFocused={true}
-        onTouchTap={this.handleClose}
+        onClick={this.handleClose}
       />,
     ];
 
@@ -3439,7 +3433,7 @@ class DialogExampleScrollable extends React.Component<{}, {open?: boolean}> {
 
     return (
       <div>
-                <RaisedButton label="Scrollable Dialog" onTouchTap={this.handleOpen}/>
+                <RaisedButton label="Scrollable Dialog" onClick={this.handleOpen}/>
         <Dialog
           title="Scrollable Dialog"
           actions={actions}
@@ -3457,7 +3451,7 @@ class DialogExampleScrollable extends React.Component<{}, {open?: boolean}> {
   }
 }
 
-class DialogExampleAlert extends React.Component<{}, {open?: boolean}> {
+class DialogExampleAlert extends Component<{}, {open?: boolean}> {
   state = {
     open: false,
   };
@@ -3475,18 +3469,18 @@ class DialogExampleAlert extends React.Component<{}, {open?: boolean}> {
       <FlatButton
         label="Cancel"
         primary={true}
-        onTouchTap={this.handleClose}
+        onClick={this.handleClose}
       />,
       <FlatButton
         label="Discard"
         primary={true}
-        onTouchTap={this.handleClose}
+        onClick={this.handleClose}
       />,
     ];
 
     return (
       <div>
-                <RaisedButton label="Alert" onTouchTap={this.handleOpen}/>
+                <RaisedButton label="Alert" onClick={this.handleOpen}/>
         <Dialog
           actions={actions}
           modal={false}
@@ -3538,11 +3532,8 @@ const DividerExampleMenu = () => (
 );
 
 // "http://www.material-ui.com/#/components/drawer"
-class DrawerSimpleExample extends React.Component<{}, {open?: boolean}> {
-  constructor(props) {
-    super(props);
-    this.state = {open: false};
-  }
+class DrawerSimpleExample extends Component<{}, {open?: boolean}> {
+  state = {open: false};
 
   handleToggle = () => this.setState({open: !this.state.open});
 
@@ -3551,7 +3542,7 @@ class DrawerSimpleExample extends React.Component<{}, {open?: boolean}> {
       <div>
         <RaisedButton
           label="Toggle Drawer"
-          onTouchTap={this.handleToggle}
+          onClick={this.handleToggle}
         />
         <Drawer open={this.state.open}>
           <MenuItem>Menu Item</MenuItem>
@@ -3562,11 +3553,8 @@ class DrawerSimpleExample extends React.Component<{}, {open?: boolean}> {
   }
 }
 
-class DrawerUndockedExample extends React.Component<{}, {open?: boolean}> {
-  constructor(props) {
-    super(props);
-    this.state = {open: false};
-  }
+class DrawerUndockedExample extends Component<{}, {open?: boolean}> {
+  state = {open: false};
 
   handleToggle = () => this.setState({open: !this.state.open});
 
@@ -3577,7 +3565,7 @@ class DrawerUndockedExample extends React.Component<{}, {open?: boolean}> {
       <div>
         <RaisedButton
           label="Open Drawer"
-          onTouchTap={this.handleToggle}
+          onClick={this.handleToggle}
         />
         <Drawer
           docked={false}
@@ -3585,19 +3573,16 @@ class DrawerUndockedExample extends React.Component<{}, {open?: boolean}> {
           open={this.state.open}
           onRequestChange={(open) => this.setState({open})}
         >
-          <MenuItem onTouchTap={this.handleClose}>Menu Item</MenuItem>
-          <MenuItem onTouchTap={this.handleClose}>Menu Item 2</MenuItem>
+          <MenuItem onClick={this.handleClose}>Menu Item</MenuItem>
+          <MenuItem onClick={this.handleClose}>Menu Item 2</MenuItem>
         </Drawer>
       </div>
     );
   }
 }
 
-class DrawerOpenRightExample extends React.Component<{}, {open?: boolean}> {
-  constructor(props) {
-    super(props);
-    this.state = {open: false};
-  }
+class DrawerOpenRightExample extends Component<{}, {open?: boolean}> {
+  state = {open: false};
 
   handleToggle = () => this.setState({open: !this.state.open});
 
@@ -3606,7 +3591,7 @@ class DrawerOpenRightExample extends React.Component<{}, {open?: boolean}> {
       <div>
         <RaisedButton
           label="Toggle Drawer"
-          onTouchTap={this.handleToggle}
+          onClick={this.handleToggle}
         />
                 <Drawer width="20%" openSecondary={true} open={this.state.open}>
                     <AppBar title="AppBar"/>
@@ -4210,7 +4195,7 @@ const ListExampleMessages = () => (
   </div>
 );
 
-function wrapState(ComposedComponent: React.ComponentClass<__MaterialUI.List.SelectableProps>) {
+function wrapState(ComposedComponent: ComponentClass<__MaterialUI.List.SelectableProps>) {
   return class SelectableList extends Component<{defaultValue: number}, {selectedIndex: number}> {
     static propTypes = {
       children: PropTypes.node.isRequired,
@@ -4242,7 +4227,7 @@ function wrapState(ComposedComponent: React.ComponentClass<__MaterialUI.List.Sel
   };
 }
 
-let SelectableList = wrapState(makeSelectable(List));
+const SelectableList = wrapState(makeSelectable<{}>(List));
 
 const ListExampleSelectable = () => (
   <Paper>
@@ -4481,6 +4466,31 @@ const IconMenuExampleSimple = () => (
             <MenuItem primaryText="Help"/>
             <MenuItem primaryText="Sign out"/>
     </IconMenu>
+    <IconMenu
+      iconButtonElement={<IconButton><NavigationMoreVert /></IconButton>}
+      onClick={(e) => {}}
+      onItemClick={(e, child) => {}}
+    >
+            <MenuItem primaryText="Refresh"/>
+            <MenuItem primaryText="Send feedback"/>
+            <MenuItem primaryText="Settings"/>
+            <MenuItem primaryText="Help"/>
+            <MenuItem primaryText="Sign out"/>
+    </IconMenu>
+    <IconMenu
+      iconButtonElement={<IconButton><NavigationMoreVert /></IconButton>}
+    >
+            <MenuItem primaryText="Sign out"/>
+    </IconMenu>
+    <IconMenu
+      iconButtonElement={<IconButton><NavigationMoreVert /></IconButton>}
+    >
+            {false}
+            {undefined}
+            {null}
+            {true}
+            <MenuItem primaryText="Sign out"/>
+    </IconMenu>
   </div>
 );
 
@@ -4490,15 +4500,12 @@ interface IconMenuExampleControlledState {
   openMenu?: boolean;
 }
 
-class IconMenuExampleControlled extends React.Component<{}, IconMenuExampleControlledState> {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      valueSingle: '3',
-      valueMultiple: ['3', '5'],
-    };
-  }
+class IconMenuExampleControlled extends Component<{}, IconMenuExampleControlledState> {
+  state = {
+    valueSingle: '3',
+    valueMultiple: ['3', '5'],
+    openMenu: false
+  };
 
   handleChangeSingle = (event, value) => {
     this.setState({
@@ -4561,7 +4568,7 @@ class IconMenuExampleControlled extends React.Component<{}, IconMenuExampleContr
                     <MenuItem value="3" primaryText="Android App"/>
                     <MenuItem value="4" primaryText="iOS App"/>
         </IconMenu>
-                <RaisedButton onTouchTap={this.handleOpenMenu} label="Downloads"/>
+                <RaisedButton onClick={this.handleOpenMenu} label="Downloads"/>
       </div>
     );
   }
@@ -4666,11 +4673,8 @@ const IconMenuExampleNested = () => (
 );
 
 // "http://www.material-ui.com/#/components/dropdown-menu"
-class DropDownMenuSimpleExample extends React.Component<{}, {value?: number}> {
-  constructor(props) {
-    super(props);
-    this.state = {value: 1};
-  }
+class DropDownMenuSimpleExample extends Component<{}, {value?: number}> {
+  state = {value: 1};
 
   handleChange = (event, index, value) => this.setState({value});
 
@@ -4690,7 +4694,6 @@ class DropDownMenuSimpleExample extends React.Component<{}, {value?: number}> {
           value={this.state.value}
           onChange={this.handleChange}
           style={styles.customWidth}
-          autoWidth={false}
         >
                     <MenuItem value={1} primaryText="Custom width"/>
                     <MenuItem value={2} primaryText="Every Night"/>
@@ -4703,11 +4706,8 @@ class DropDownMenuSimpleExample extends React.Component<{}, {value?: number}> {
   }
 }
 
-class DropDownMenuOpenImmediateExample extends React.Component<{}, {value?: number}> {
-  constructor(props) {
-    super(props);
-    this.state = {value: 2};
-  }
+class DropDownMenuOpenImmediateExample extends Component<{}, {value?: number}> {
+  state = {value: 2};
 
   handleChange = (event, index, value) => this.setState({value});
 
@@ -4724,7 +4724,7 @@ class DropDownMenuOpenImmediateExample extends React.Component<{}, {value?: numb
   }
 }
 
-const DropDownMenuAnchorExample: React.SFC<{}> = () => (
+const DropDownMenuAnchorExample: React.SFC = () => (
   <DropDownMenu
     value={1}
     targetOrigin={{ horizontal: 'middle', vertical: 'top' }}
@@ -4740,11 +4740,8 @@ for (let i = 0; i < 100; i++) {
     items.push(<MenuItem value={i} key={i} primaryText={`Item ${i}`}/>);
 }
 
-class DropDownMenuLongMenuExample extends React.Component<{}, {value?: number}> {
-  constructor(props) {
-    super(props);
-    this.state = {value: 10};
-  }
+class DropDownMenuLongMenuExample extends Component<{}, {value?: number}> {
+  state = {value: 10};
 
   handleChange = (event, index, value) => this.setState({value});
 
@@ -4757,11 +4754,8 @@ class DropDownMenuLongMenuExample extends React.Component<{}, {value?: number}> 
   }
 }
 
-class DropDownMenuLabeledExample extends React.Component<{}, {value?: number}> {
-  constructor(props) {
-    super(props);
-    this.state = {value: 2};
-  }
+class DropDownMenuLabeledExample extends Component<{}, {value?: number}> {
+  state = {value: 2};
 
   handleChange = (event, index, value) => this.setState({value});
 
@@ -4809,16 +4803,13 @@ const PaperExampleCircle = () => (
 );
 
 // "http://www.material-ui.com/#/components/popover"
-class PopoverExampleSimple extends React.Component<{}, {open?: boolean, anchorEl?: React.ReactInstance}> {
-  constructor(props) {
-    super(props);
+class PopoverExampleSimple extends Component<{}, {open?: boolean, anchorEl?: ReactInstance}> {
+  state = {
+    open: false,
+    anchorEl: null
+  };
 
-    this.state = {
-      open: false,
-    };
-  }
-
-  handleTouchTap = (event) => {
+  handleClick = (event) => {
     // This prevents ghost click.
     event.preventDefault();
 
@@ -4838,7 +4829,7 @@ class PopoverExampleSimple extends React.Component<{}, {open?: boolean, anchorEl
     return (
       <div>
         <RaisedButton
-          onTouchTap={this.handleTouchTap}
+          onClick={this.handleClick}
           label="Click me"
         />
         <Popover
@@ -4860,16 +4851,13 @@ class PopoverExampleSimple extends React.Component<{}, {open?: boolean, anchorEl
   }
 }
 
-class PopoverExampleAnimation extends React.Component<{}, {open?: boolean, anchorEl?: React.ReactInstance}> {
-  constructor(props) {
-    super(props);
+class PopoverExampleAnimation extends Component<{}, {open?: boolean, anchorEl?: ReactInstance}> {
+  state = {
+    open: false,
+    anchorEl: null
+  };
 
-    this.state = {
-      open: false,
-    };
-  }
-
-  handleTouchTap = (event) => {
+  handleClick = (event) => {
     // This prevents ghost click.
     event.preventDefault();
     this.setState({
@@ -4888,7 +4876,7 @@ class PopoverExampleAnimation extends React.Component<{}, {open?: boolean, ancho
     return (
       <div>
         <RaisedButton
-          onTouchTap={this.handleTouchTap}
+          onClick={this.handleClick}
           label="Click me"
         />
         <Popover
@@ -4915,27 +4903,23 @@ interface PopoverExampleConfigurableState {
   open?: boolean;
   anchorOrigin?: __MaterialUI.propTypes.origin;
   targetOrigin?: __MaterialUI.propTypes.origin;
-  anchorEl?: React.ReactInstance;
+  anchorEl?: ReactInstance;
 }
 
-class PopoverExampleConfigurable extends React.Component<{}, PopoverExampleConfigurableState> {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      open: false,
-      anchorOrigin: {
+class PopoverExampleConfigurable extends Component<{}, PopoverExampleConfigurableState> {
+  state: PopoverExampleConfigurableState = {
+    open: false,
+    anchorOrigin: {
         horizontal: 'left',
         vertical: 'bottom',
-      },
-      targetOrigin: {
+    },
+    targetOrigin: {
         horizontal: 'left',
         vertical: 'top',
-      },
-    };
-  }
+    },
+  };
 
-  handleTouchTap = (event) => {
+  handleClick = (event) => {
     // This prevents ghost click.
     event.preventDefault();
     this.setState({
@@ -4972,7 +4956,7 @@ class PopoverExampleConfigurable extends React.Component<{}, PopoverExampleConfi
     return (
       <div>
         <RaisedButton
-          onTouchTap={this.handleTouchTap}
+          onClick={this.handleClick}
           label="Click me"
         />
         <h3 style={styles.h3}>Current Settings</h3>
@@ -5077,16 +5061,12 @@ const CircularProgressExampleSimple = () => (
   </div>
 );
 
-class CircularProgressExampleDeterminate extends React.Component<{}, {completed?: number}> {
+class CircularProgressExampleDeterminate extends Component<{}, {completed?: number}> {
   private timer: number;
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      completed: 0,
-    };
-  }
+  state = {
+    completed: 0,
+  };
 
   componentDidMount() {
     this.timer = setTimeout(() => this.progress(5), 1000);
@@ -5122,16 +5102,12 @@ const LinearProgressExampleSimple = () => (
     <LinearProgress mode="indeterminate"/>
 );
 
-class LinearProgressExampleDeterminate extends React.Component<{}, {completed?: number}> {
+class LinearProgressExampleDeterminate extends Component<{}, {completed?: number}> {
   private timer: number;
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      completed: 0,
-    };
-  }
+  state = {
+    completed: 0,
+  };
 
   componentDidMount() {
     this.timer = setTimeout(() => this.progress(5), 1000);
@@ -5219,11 +5195,8 @@ const RefreshIndicatorExampleLoading = () => (
 );
 
 // "http://www.material-ui.com/#/components/select-field"
-class SelectFieldExampleSimple extends React.Component<{}, {value?: number}> {
-  constructor(props) {
-    super(props);
-    this.state = {value: 1};
-  }
+class SelectFieldExampleSimple extends Component<{}, {value?: number}> {
+  state = {value: 1};
 
   handleChange = (event, index, value) => this.setState({value});
 
@@ -5271,11 +5244,8 @@ class SelectFieldExampleSimple extends React.Component<{}, {value?: number}> {
   }
 }
 
-class SelectFieldLongMenuExample extends React.Component<{}, {value?: number}> {
-  constructor(props) {
-    super(props);
-    this.state = {value: 10};
-  }
+class SelectFieldLongMenuExample extends Component<{}, {value?: number}> {
+  state = {value: 10};
 
   handleChange = (event, index, value) => this.setState({value});
 
@@ -5288,11 +5258,8 @@ class SelectFieldLongMenuExample extends React.Component<{}, {value?: number}> {
   }
 }
 
-class SelectFieldExampleCustomLabel extends React.Component<{}, {value?: number}> {
-  constructor(props) {
-    super(props);
-    this.state = {value: 1};
-  }
+class SelectFieldExampleCustomLabel extends Component<{}, {value?: number}> {
+  state = {value: 1};
 
   handleChange = (event, index, value) => this.setState({value});
 
@@ -5316,11 +5283,8 @@ const itemsPeriod = [
     <MenuItem key={5} value={5} primaryText="Weekly"/>,
 ];
 
-export default class SelectFieldExampleFloatingLabel extends React.Component<{}, {value?: number}> {
-  constructor(props) {
-    super(props);
-    this.state = {value: null};
-  }
+export default class SelectFieldExampleFloatingLabel extends Component<{}, {value?: number}> {
+  state = {value: null};
 
   handleChange = (event, index, value) => this.setState({value});
 
@@ -5349,11 +5313,8 @@ export default class SelectFieldExampleFloatingLabel extends React.Component<{},
   }
 }
 
-class SelectFieldExampleError extends React.Component<{}, {value?: number}> {
-  constructor(props) {
-    super(props);
-    this.state = {value: null};
-  }
+class SelectFieldExampleError extends Component<{}, {value?: number}> {
+  state = {value: null};
 
   handleChange = (event, index, value) => this.setState({value});
 
@@ -5398,11 +5359,8 @@ const names = [
   'Kelly Snyder',
 ];
 
-class SelectFieldExampleMultiSelect extends React.Component<{}, {values?: string[]}> {
-  constructor(props) {
-    super(props);
-    this.state = {values: []};
-  }
+class SelectFieldExampleMultiSelect extends Component<{}, {values?: string[]}> {
+  state = {values: []};
 
   handleChange = (event, index, values) => this.setState({values});
 
@@ -5446,11 +5404,8 @@ const persons = [
   {value: 9, name: 'Kelly Snyder'},
 ];
 
-class SelectFieldExampleSelectionRenderer extends React.Component<{}, {values?: string[]}> {
-  constructor(props) {
-    super(props);
-    this.state = {values: []};
-  }
+class SelectFieldExampleSelectionRenderer extends Component<{}, {values?: string[]}> {
+  state = {values: []};
 
   handleChange = (event, index, values) => this.setState({values});
 
@@ -5492,6 +5447,28 @@ class SelectFieldExampleSelectionRenderer extends React.Component<{}, {values?: 
   }
 }
 
+class SelectFieldExampleDropDownMenu extends Component<{}, {value?: number}> {
+  state = {value: null};
+
+  handleChange = (event, index, value) => this.setState({value});
+
+  render() {
+    return (
+    <SelectField
+      value={this.state.value}
+      onChange={this.handleChange}
+      dropDownMenuProps={{
+        anchorOrigin: { vertical: 'top', horizontal: 'left' },
+      }}
+    >
+      <MenuItem value={1} primaryText="Foo"/>
+      <MenuItem value={2} primaryText="Bar"/>
+      <MenuItem value={3} primaryText="Baz"/>
+    </SelectField>
+    );
+  }
+}
+
 // "http://www.material-ui.com/#/components/slider"
 const SliderExampleSimple = () => (
   <div>
@@ -5513,7 +5490,7 @@ const SliderExampleStep = () => (
     <Slider step={0.10} value={.5}/>
 );
 
-class SliderExampleControlled extends React.Component<{}, {firstSlider?: number, secondSlider?: number}> {
+class SliderExampleControlled extends Component<{}, {firstSlider?: number, secondSlider?: number}> {
   state = {
     firstSlider: 0.5,
     secondSlider: 50,
@@ -5655,6 +5632,10 @@ const ToggleExampleSimple = () => (
       style={styles.toggle}
     />
     <Toggle
+      label={<span>Element</span>}
+      style={styles.toggle}
+    />
+    <Toggle
       label="Toggled by default"
       defaultToggled={true}
       style={styles.toggle}
@@ -5675,15 +5656,10 @@ const ToggleExampleSimple = () => (
 );
 
 // "http://material-ui.com/#/components/snackbar"
-class SnackbarExampleSimple extends React.Component<{}, {open?: boolean}> {
-  constructor(props) {
-    super(props);
-    this.state = {
-      open: false,
-    };
-  }
+class SnackbarExampleSimple extends Component<{}, {open?: boolean}> {
+  state = { open: false, };
 
-  handleTouchTap = () => {
+  handleClick = () => {
     this.setState({
       open: true,
     });
@@ -5699,7 +5675,7 @@ class SnackbarExampleSimple extends React.Component<{}, {open?: boolean}> {
     return (
       <div>
         <RaisedButton
-          onTouchTap={this.handleTouchTap}
+          onClick={this.handleClick}
           label="Add to my calendar"
         />
         <Snackbar
@@ -5714,23 +5690,20 @@ class SnackbarExampleSimple extends React.Component<{}, {open?: boolean}> {
   }
 }
 
-class SnackbarExampleAction extends React.Component<{}, {open?: boolean, autoHideDuration?: number, message?: string}> {
-  constructor(props) {
-    super(props);
-    this.state = {
-      autoHideDuration: 4000,
-      message: 'Event added to your calendar',
-      open: false,
-    };
-  }
+class SnackbarExampleAction extends Component<{}, {open?: boolean, autoHideDuration?: number, message?: string}> {
+  state = {
+    autoHideDuration: 4000,
+    message: 'Event added to your calendar',
+    open: false,
+  };
 
-  handleTouchTap = () => {
+  handleClick = () => {
     this.setState({
       open: true,
     });
   }
 
-  handleActionTouchTap = () => {
+  handleActionClick = () => {
     this.setState({
       open: false,
     });
@@ -5754,7 +5727,7 @@ class SnackbarExampleAction extends React.Component<{}, {open?: boolean, autoHid
     return (
       <div>
         <RaisedButton
-          onTouchTap={this.handleTouchTap}
+          onClick={this.handleClick}
           label="Add to my calendar"
         />
         <br />
@@ -5768,7 +5741,7 @@ class SnackbarExampleAction extends React.Component<{}, {open?: boolean, autoHid
           message={this.state.message}
           action="undo"
           autoHideDuration={this.state.autoHideDuration}
-          onActionTouchTap={this.handleActionTouchTap}
+          onActionClick={this.handleActionClick}
           onRequestClose={this.handleRequestClose}
         />
       </div>
@@ -5776,23 +5749,18 @@ class SnackbarExampleAction extends React.Component<{}, {open?: boolean, autoHid
   }
 }
 
-class SnackbarExampleTwice extends React.Component<{}, {open?: boolean, message?: string}> {
-  private timer: number;
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      message: 'Event 1 added to your calendar',
-      open: false,
-    };
-    this.timer = undefined;
-  }
+class SnackbarExampleTwice extends Component<{}, {open?: boolean, message?: string}> {
+  state = {
+    message: 'Event 1 added to your calendar',
+    open: false,
+  };
+  private timer?: number;
 
   componentWillUnMount() {
     clearTimeout(this.timer);
   }
 
-  handleTouchTap = () => {
+  handleClick = () => {
     this.setState({
       open: true,
     });
@@ -5814,7 +5782,7 @@ class SnackbarExampleTwice extends React.Component<{}, {open?: boolean, message?
     return (
       <div>
         <RaisedButton
-          onTouchTap={this.handleTouchTap}
+          onClick={this.handleClick}
           label="Add to my calendar two times"
         />
         <Snackbar
@@ -5830,7 +5798,7 @@ class SnackbarExampleTwice extends React.Component<{}, {open?: boolean, message?
 }
 
 // "http://www.material-ui.com/#/components/stepper"
-class HorizontalLinearStepper extends React.Component<{}, {stepIndex?: number, finished?: boolean}> {
+class HorizontalLinearStepper extends Component<{}, {stepIndex?: number, finished?: boolean}> {
   state = {
     finished: false,
     stepIndex: 0,
@@ -5901,13 +5869,13 @@ class HorizontalLinearStepper extends React.Component<{}, {stepIndex?: number, f
                 <FlatButton
                   label="Back"
                   disabled={stepIndex === 0}
-                  onTouchTap={this.handlePrev}
+                  onClick={this.handlePrev}
                   style={{marginRight: 12}}
                 />
                 <RaisedButton
                   label={stepIndex === 2 ? 'Finish' : 'Next'}
                   primary={true}
-                  onTouchTap={this.handleNext}
+                  onClick={this.handleNext}
                 />
               </div>
             </div>
@@ -5918,7 +5886,7 @@ class HorizontalLinearStepper extends React.Component<{}, {stepIndex?: number, f
   }
 }
 
-class VerticalLinearStepper extends React.Component<{}, {stepIndex?: number, finished?: boolean}> {
+class VerticalLinearStepper extends Component<{}, {stepIndex?: number, finished?: boolean}> {
   state = {
     finished: false,
     stepIndex: 0,
@@ -5949,7 +5917,7 @@ class VerticalLinearStepper extends React.Component<{}, {stepIndex?: number, fin
           disableTouchRipple={true}
           disableFocusRipple={true}
           primary={true}
-          onTouchTap={this.handleNext}
+          onClick={this.handleNext}
           style={{marginRight: 12}}
         />
         {step > 0 && (
@@ -5958,7 +5926,7 @@ class VerticalLinearStepper extends React.Component<{}, {stepIndex?: number, fin
             disabled={stepIndex === 0}
             disableTouchRipple={true}
             disableFocusRipple={true}
-            onTouchTap={this.handlePrev}
+            onClick={this.handlePrev}
           />
         )}
       </div>
@@ -6020,7 +5988,7 @@ class VerticalLinearStepper extends React.Component<{}, {stepIndex?: number, fin
   }
 }
 
-class HorizontalNonLinearStepper extends React.Component<{}, {stepIndex?: number}> {
+class HorizontalNonLinearStepper extends Component<{}, {stepIndex?: number}> {
   state = {
     stepIndex: 0,
   };
@@ -6081,14 +6049,14 @@ class HorizontalNonLinearStepper extends React.Component<{}, {stepIndex?: number
             <FlatButton
               label="Back"
               disabled={stepIndex === 0}
-              onTouchTap={this.handlePrev}
+              onClick={this.handlePrev}
               style={{marginRight: 12}}
             />
             <RaisedButton
               label="Next"
               disabled={stepIndex === 2}
               primary={true}
-              onTouchTap={this.handleNext}
+              onClick={this.handleNext}
             />
           </div>
         </div>
@@ -6097,7 +6065,7 @@ class HorizontalNonLinearStepper extends React.Component<{}, {stepIndex?: number
   }
 }
 
-class VerticalNonLinear extends React.Component<{}, {stepIndex?: number}> {
+class VerticalNonLinear extends Component<{}, {stepIndex?: number}> {
   state = {
     stepIndex: 0,
   };
@@ -6124,7 +6092,7 @@ class VerticalNonLinear extends React.Component<{}, {stepIndex?: number}> {
           disableTouchRipple={true}
           disableFocusRipple={true}
           primary={true}
-          onTouchTap={this.handleNext}
+          onClick={this.handleNext}
           style={{marginRight: 12}}
         />
         {step > 0 && (
@@ -6132,7 +6100,7 @@ class VerticalNonLinear extends React.Component<{}, {stepIndex?: number}> {
             label="Back"
             disableTouchRipple={true}
             disableFocusRipple={true}
-            onTouchTap={this.handlePrev}
+            onClick={this.handlePrev}
           />
         )}
       </div>
@@ -6210,7 +6178,7 @@ const getStyles = () => {
   };
 };
 
-class GranularControlStepper extends React.Component<{}, {stepIndex?: number, visited?: number[]}> {
+class GranularControlStepper extends Component<{}, {stepIndex?: number, visited?: number[]}> {
   state = {
     stepIndex: null,
     visited: [],
@@ -6296,13 +6264,13 @@ class GranularControlStepper extends React.Component<{}, {stepIndex?: number, vi
               <FlatButton
                 label="Back"
                 disabled={stepIndex === 0}
-                onTouchTap={this.handlePrev}
+                onClick={this.handlePrev}
                 style={styles.backButton}
               />
               <RaisedButton
                 label="Next"
                 primary={true}
-                onTouchTap={this.handleNext}
+                onClick={this.handleNext}
               />
             </div>
           )}
@@ -6312,7 +6280,7 @@ class GranularControlStepper extends React.Component<{}, {stepIndex?: number, vi
   }
 }
 
-class CustomIcon extends React.Component<{}, {stepIndex?: number}> {
+class CustomIcon extends Component<{}, {stepIndex?: number}> {
   state = {
     stepIndex: 0,
   };
@@ -6456,23 +6424,19 @@ interface TableExampleComplexState {
   height?: string;
 }
 
-class TableExampleComplex extends React.Component<{}, TableExampleComplexState> {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      fixedHeader: true,
-      fixedFooter: true,
-      stripedRows: false,
-      showRowHover: false,
-      selectable: true,
-      multiSelectable: false,
-      enableSelectAll: false,
-      deselectOnClickaway: true,
-      showCheckboxes: true,
-      height: '300px',
-    };
-  }
+class TableExampleComplex extends Component<{}, TableExampleComplexState> {
+  state = {
+    fixedHeader: true,
+    fixedFooter: true,
+    stripedRows: false,
+    showRowHover: false,
+    selectable: true,
+    multiSelectable: false,
+    enableSelectAll: false,
+    deselectOnClickaway: true,
+    showCheckboxes: true,
+    height: '300px',
+  };
 
   handleToggle = (event, toggled) => {
     this.setState({
@@ -6651,13 +6615,10 @@ const TabsExampleSimple = () => (
   </Tabs>
 );
 
-class TabsExampleControlled extends React.Component<{}, {value?: string}> {
-  constructor(props) {
-    super(props);
-    this.state = {
-      value: 'a',
-    };
-  }
+class TabsExampleControlled extends Component<{}, {value?: string}> {
+  state = {
+    value: 'a',
+  };
 
   handleChange = (value) => {
     this.setState({
@@ -6856,14 +6817,10 @@ const TextFieldExampleDisabled = () => (
   </div>
 );
 
-class TextFieldExampleControlled extends React.Component<{}, {value?: string}> {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      value: 'Property Value',
-    };
-  }
+class TextFieldExampleControlled extends Component<{}, {value?: string}> {
+  state = {
+    value: 'Property Value',
+  };
 
   handleChange = (event) => {
     this.setState({
@@ -6902,11 +6859,8 @@ const TimePickerExampleSimple = () => (
   </div>
 );
 
-class TimePickerExampleComplex extends React.Component<{}, {value24?: Date, value12?: Date}> {
-  constructor(props) {
-    super(props);
-    this.state = {value24: null, value12: null};
-  }
+class TimePickerExampleComplex extends Component<{}, {value24?: Date, value12?: Date}> {
+  state = {value24: null, value12: null};
 
   handleChangeTimePicker24 = (event, date) => {
     this.setState({value24: date});
@@ -6947,13 +6901,10 @@ const TimePickerInternational = () => (
 );
 
 // "http://www.material-ui.com/#/components/toolbar"
-class ToolbarExamplesSimple extends React.Component<{}, {value?: number}> {
-  constructor(props) {
-    super(props);
-    this.state = {
-      value: 3,
-    };
-  }
+class ToolbarExamplesSimple extends Component<{}, {value?: number}> {
+  state = {
+    value: 3
+  };
 
   handleChange = (event, index, value) => this.setState({value});
 
@@ -6994,24 +6945,21 @@ class ToolbarExamplesSimple extends React.Component<{}, {value?: number}> {
 
 const componentWithWidth = withWidth()(ToolbarExamplesSimple);
 
-class BottomNavigationExample extends React.Component<{}, {
+class BottomNavigationExample extends Component<{}, {
   index?: number
 }> {
-  constructor() {
-    super();
-    this.state = {
-      index: 0
-    };
-  }
+  state = {
+    index: 0
+  };
   render() {
     return <BottomNavigation selectedIndex={this.state.index}>
-      <BottomNavigationItem label='0' icon={<ActionHome/>} onTouchTap={() => this.setState({index: 0})}/>
-      <BottomNavigationItem label='1' icon={<ActionInfo/>} onTouchTap={() => this.setState({index: 1})}/>
+      <BottomNavigationItem label='0' icon={<ActionHome/>} onClick={() => this.setState({index: 0})}/>
+      <BottomNavigationItem label='1' icon={<ActionInfo/>} onClick={() => this.setState({index: 1})}/>
     </BottomNavigation>;
   }
 }
 
-class MaterialUiTests extends React.Component<{}, {}> {
+class MaterialUiTests extends Component {
     render() {
     return (
       <MuiThemeProvider muiTheme={getMuiTheme()}>

@@ -1,6 +1,6 @@
 import * as ascii2mathml from 'ascii2mathml';
 
-let fn = ascii2mathml({}); // $ExpectType any
+const fn = ascii2mathml({}); // $ExpectType ascii2mathml
 fn(''); // $ExpectType string
 ascii2mathml('', {}); // $ExpectType string
 

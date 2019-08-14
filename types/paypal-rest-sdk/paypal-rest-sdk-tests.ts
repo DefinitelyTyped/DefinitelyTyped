@@ -139,7 +139,7 @@ paypal.payment.create(maxPayment, (err, response) => {
     test = response.state;
 });
 
-let request: paypal.payment.ExecuteRequest = {
+const request: paypal.payment.ExecuteRequest = {
     payer_id: 'test'
 };
 
@@ -167,7 +167,7 @@ paypal.payment.get('test', (err, response) => {
     test = response.state;
 });
 
-let paymentList: paypal.QueryParameters = {
+const paymentList: paypal.QueryParameters = {
     page: 2
 };
 
@@ -183,7 +183,7 @@ paypal.payment.list(paymentList, (err, response) => {
     test = response.total_count;
 });
 
-let updatePayment: paypal.UpdateRequest = {
+const updatePayment: paypal.UpdateRequest = {
     op: 'asdf',
     path: 'asdf',
     value: 'asdf',
@@ -201,7 +201,7 @@ paypal.payment.update('asdf', [updatePayment], (err, response) => {
 });
 
 // List Webhooks
-let whList: paypal.QueryParameters = {
+const whList: paypal.QueryParameters = {
     transaction_id: 'asdf'
 };
 paypal.notification.webhook.list(whList, (err, response) => {
@@ -215,7 +215,7 @@ paypal.notification.webhook.list(whList, (err, response) => {
 });
 
 // Create Webhooks
-let webhook =  { name: 'test', url: 'asdf', event_types: [ { name: 'test' } ] };
+const webhook =  { name: 'test', url: 'asdf', event_types: [ { name: 'test' } ] };
 paypal.notification.webhook.create(webhook, (err, response) => {
     let test;
     if (err) {
@@ -282,7 +282,7 @@ paypal.notification.webhookEvent.get('asdf', (err, response) => {
     test = response.resource;
 });
 
-let webhookEvent: paypal.notification.webhookEvent.WebhookEvent = {
+const webhookEvent: paypal.notification.webhookEvent.WebhookEvent = {
     id: 'etst',
     create_time: 'asdf',
     resource_type: 'adsf',
@@ -374,7 +374,7 @@ paypal.authorization.get('id', (err, response) => {
     test = response.id;
 });
 
-let captureRequest: paypal.authorization.CaptureRequest = {
+const captureRequest: paypal.authorization.CaptureRequest = {
     is_final_capture: true,
 };
 // Authorization Capture
@@ -410,7 +410,7 @@ paypal.capture.get('id', (err, response) => {
     test = response.id;
 });
 
-let refundRequest: paypal.RefundRequest = {
+const refundRequest: paypal.RefundRequest = {
     amount: {
         total: "30.00",
         currency: "USD"
@@ -429,16 +429,17 @@ paypal.capture.refund('id', refundRequest, (err, response) => {
 });
 
 // Min Invoice
-let minInvoice: paypal.invoice.Invoice = {};
+const minInvoice: paypal.invoice.Invoice = {};
 
 // Max Invoice
-let maxInvoice: paypal.invoice.Invoice = {
+const maxInvoice: paypal.invoice.Invoice = {
     allow_tip: true,
-    billing_info: {
+    billing_info: [{
         email: 'asfd',
         language: 'string',
         notification_channel: 'string',
-    },
+        additional_info: 'string',
+    }],
     discount: {
         percent: 2,
         amount: {
@@ -654,7 +655,7 @@ paypal.invoice.qrCode('asdf', 1, 3, (err, response) => {
     test = response.image;
 });
 
-let recordPayment: paypal.invoice.PayRequest = {
+const recordPayment: paypal.invoice.PayRequest = {
     date: "asdf",
     method: "asdf",
     note: "asdf",
@@ -694,7 +695,7 @@ paypal.invoice.remind('asdf', (err, response) => {
     }
 });
 
-let invoiceSearch: paypal.invoice.SearchRequest = {
+const invoiceSearch: paypal.invoice.SearchRequest = {
     archived: true,
     start_creation_date: "asdf",
 };

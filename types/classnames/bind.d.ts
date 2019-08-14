@@ -1,5 +1,11 @@
-export type ClassNamesFn = (
-    ...args: Array<string | string[] | Record<string, boolean | undefined | null>>
-) => string;
+import { ClassNamesFn } from './types';
 
-export function bind(styles: Record<string, string>): ClassNamesFn;
+interface ClassNamesBind extends ClassNamesFn {
+    bind(styles: Record<string, string>): ClassNamesFn;
+}
+type ClassNamesBindExport = ClassNamesBind & {
+    default: ClassNamesBind;
+};
+declare const classNamesBind: ClassNamesBindExport;
+
+export = classNamesBind;

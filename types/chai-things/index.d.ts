@@ -2,6 +2,7 @@
 // Project: https://github.com/chaijs/chai-things
 // Definitions by: David Broder-Rodgers <https://github.com/DavidBR-SW/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+// TypeScript Version: 3.0
 
 /// <reference types="chai" />
 
@@ -59,6 +60,7 @@ interface Array<T> {
 }
 
 declare module "chai-things" {
-    function chaiThings(chai: any, utils: any): void;
+    const chaiThings: Chai.ChaiPlugin;
+    namespace chaiThings { }
     export = chaiThings;
 }

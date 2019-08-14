@@ -12,6 +12,8 @@ import SignerInfo from "pkijs/src/SignerInfo";
 import IssuerAndSerialNumber from "pkijs/src/IssuerAndSerialNumber";
 import SignedAndUnsignedAttributes from "pkijs/src/SignedAndUnsignedAttributes";
 import ContentInfo from "pkijs/src/ContentInfo";
+import RelativeDistinguishedNames from "pkijs/src/RelativeDistinguishedNames";
+
 // *********************************************************************************
 let cmsSignedBuffer = new ArrayBuffer(0); // ArrayBuffer with loaded or created CMS_Signed
 const trustedCertificates: Certificate[] = []; // Array of root certificates from "CA Bundle"
@@ -22,11 +24,12 @@ function formatPEM(pemString: string) {
     const stringLength = pemString.length;
     let resultString = "";
 
-    for (let i = 0, count = 0; i < stringLength; i++ , count++) {
+    for (let i = 0, count = 0; i < stringLength; i++) {
         if (count > 63) {
             resultString = `${resultString}\r\n`;
             count = 0;
         }
+        count++;
 
         resultString = resultString + pemString[i];
     }
@@ -656,4 +659,14 @@ function handleCABundle(evt: Event) {
         event => parseCAbundle((event.target as any).result);
 
     tempReader.readAsArrayBuffer(currentFiles[0]);
+}
+
+function typetest_RelativeDN_isEqual() {
+
+    const rdn1 = new RelativeDistinguishedNames();
+    const rdn2 = new RelativeDistinguishedNames();
+    const arraybuf = new ArrayBuffer(1);
+
+    rdn1.isEqual(rdn2); // $ExpectType boolean
+    rdn1.isEqual(arraybuf); // $ExpectType boolean
 }

@@ -3,7 +3,7 @@
 import Nes = require('nes');
 
 var client = new Nes.Client('ws://localhost');
-client.connect(function (err) {
+client.connect().then(() => {
 
     client.onUpdate = function (update) {
 
@@ -16,7 +16,7 @@ client.connect(function (err) {
 import NesClient = require('nes/client');
 
 var client = new NesClient('ws://localhost');
-client.connect(function (err) {
+client.connect().then(() => {
 
     client.onUpdate = function (update) {
 

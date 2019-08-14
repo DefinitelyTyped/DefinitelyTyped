@@ -8,7 +8,6 @@ export = RemoveMarkdown;
 /**
  * Strip Markdown formatting from text
  * @param markdown Markdown text
- * @param options
  */
 declare function RemoveMarkdown(markdown: string, options?: {
     stripListLeaders?: boolean

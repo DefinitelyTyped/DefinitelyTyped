@@ -3,7 +3,7 @@
 // Definitions by: Ali Taheri Moghaddar <https://github.com/alitaheri>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as moment from 'moment';
+import moment = require('moment');
 
 export = moment;
 
@@ -15,6 +15,12 @@ declare module 'moment' {
          * Use persian digits as decribed by unicode
          */
         usePersianDigits?: boolean;
+        /**
+         * use dialect option to change usePersian dialect, available options are:
+         *      persian: default dialect(امرداد، آدینه، ...)
+         *      persian-modern: modern dialect(مرداد، جمعه، ...)
+         */
+        dialect?: 'persian' | 'persian-modern';
     }
 
     /**

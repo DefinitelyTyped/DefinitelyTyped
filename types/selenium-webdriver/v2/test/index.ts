@@ -1,4 +1,3 @@
-/* tslint:disable */
 import * as webdriver from 'selenium-webdriver';
 import * as chrome from 'selenium-webdriver/chrome';
 import * as firefox from 'selenium-webdriver/firefox';
@@ -7,21 +6,21 @@ import * as executors from 'selenium-webdriver/executors';
 import * as testing from 'selenium-webdriver/testing';
 
 function TestExecutors() {
-    var exec: webdriver.Executor = executors.createExecutor('url');
-    var promise: webdriver.promise.Promise<string>;
+    let exec: webdriver.Executor = executors.createExecutor('url');
+    const promise: webdriver.promise.Promise<string> = {} as any;
     exec = executors.createExecutor(promise);
 }
 
 function TestBuilder() {
-    var builder: webdriver.Builder = new webdriver.Builder();
+    let builder: webdriver.Builder = new webdriver.Builder();
 
-    var driver: webdriver.WebDriver = builder.build();
+    const driver: webdriver.WebDriver = builder.build();
     builder = builder.forBrowser('name');
     builder = builder.forBrowser('name', 'version');
     builder = builder.forBrowser('name', 'version', 'platform');
 
-    var cap: webdriver.Capabilities = builder.getCapabilities();
-    var str: string = builder.getServerUrl();
+    const cap: webdriver.Capabilities = builder.getCapabilities();
+    const str: string = builder.getServerUrl();
 
     builder = builder.setAlertBehavior('behavior');
     builder = builder.setChromeOptions(new chrome.Options());
@@ -38,13 +37,13 @@ function TestBuilder() {
 }
 
 function TestActionSequence() {
-    var driver: webdriver.WebDriver = new webdriver.Builder().
+    const driver: webdriver.WebDriver = new webdriver.Builder().
         withCapabilities(webdriver.Capabilities.chrome()).
         build();
 
-    var sequence: webdriver.ActionSequence = new webdriver.ActionSequence(driver);
-    var element: webdriver.WebElement = new webdriver.WebElement(driver, 'elementId');
-    var promise: webdriver.promise.Promise<string>;
+    let sequence: webdriver.ActionSequence = new webdriver.ActionSequence(driver);
+    let element: webdriver.WebElement = new webdriver.WebElement(driver, 'elementId');
+    const promise: webdriver.promise.Promise<string> = {} as any;
     element = new webdriver.WebElement(driver, promise);
 
     // Click
@@ -94,12 +93,12 @@ function TestActionSequence() {
 }
 
 function TestTouchSequence() {
-    var driver: webdriver.WebDriver = new webdriver.Builder().
+    const driver: webdriver.WebDriver = new webdriver.Builder().
         withCapabilities(webdriver.Capabilities.chrome()).
         build();
-    var element: webdriver.WebElement = new webdriver.WebElement(driver, 'elementId');
+    const element: webdriver.WebElement = new webdriver.WebElement(driver, 'elementId');
 
-    var sequence: webdriver.TouchSequence = new webdriver.TouchSequence(driver);
+    let sequence: webdriver.TouchSequence = new webdriver.TouchSequence(driver);
 
     sequence = sequence.tap(element);
     sequence = sequence.doubleTap(element);
@@ -116,11 +115,11 @@ function TestTouchSequence() {
 }
 
 function TestAlert() {
-    var driver: webdriver.WebDriver = new webdriver.Builder().
+    const driver: webdriver.WebDriver = new webdriver.Builder().
         withCapabilities(webdriver.Capabilities.chrome()).
         build();
 
-    var alert: webdriver.Alert = driver.switchTo().alert();
+    const alert: webdriver.Alert = driver.switchTo().alert();
 
     alert.accept().then(() => {});
     alert.dismiss().then(() => {});
@@ -129,7 +128,7 @@ function TestAlert() {
 }
 
 function TestBrowser() {
-    var browser: string;
+    let browser: string;
 
     browser = webdriver.Browser.ANDROID;
     browser = webdriver.Browser.CHROME;
@@ -144,7 +143,7 @@ function TestBrowser() {
 }
 
 function TestButton() {
-    var button: string;
+    let button: string;
 
     button = webdriver.Button.LEFT;
     button = webdriver.Button.MIDDLE;
@@ -152,14 +151,14 @@ function TestButton() {
 }
 
 function TestCapabilities() {
-    var capabilities: webdriver.Capabilities = new webdriver.Capabilities();
+    let capabilities: webdriver.Capabilities = new webdriver.Capabilities();
     capabilities = new webdriver.Capabilities(webdriver.Capabilities.chrome());
-    var objCapabilities: any = {};
+    const objCapabilities: any = {};
     objCapabilities[webdriver.Capability.BROWSER_NAME] = webdriver.Browser.PHANTOM_JS;
     capabilities = new webdriver.Capabilities(objCapabilities);
 
-    var anything: any = capabilities.get(webdriver.Capability.SECURE_SSL);
-    var check: boolean = capabilities.has(webdriver.Capability.SECURE_SSL);
+    let anything: any = capabilities.get(webdriver.Capability.SECURE_SSL);
+    const check: boolean = capabilities.has(webdriver.Capability.SECURE_SSL);
     capabilities = capabilities.merge(capabilities);
     capabilities = capabilities.merge(objCapabilities);
     capabilities = capabilities.set(webdriver.Capability.VERSION, { abc: 'def' });
@@ -187,7 +186,7 @@ function TestCapabilities() {
 }
 
 function TestCapability() {
-    var capability: string;
+    let capability: string;
 
     capability = webdriver.Capability.ACCEPT_SSL_CERTS;
     capability = webdriver.Capability.BROWSER_NAME;
@@ -209,24 +208,24 @@ function TestCapability() {
 }
 
 function TestCommand() {
-    var command: webdriver.Command = new webdriver.Command(webdriver.CommandName.ADD_COOKIE);
+    let command: webdriver.Command = new webdriver.Command(webdriver.CommandName.ADD_COOKIE);
 
-    var name: string = command.getName();
-    var param: any = command.getParameter('param');
+    const name: string = command.getName();
+    const param: any = command.getParameter('param');
 
-    var params: any = command.getParameters();
+    const params: any = command.getParameters();
 
     command = command.setParameter('param', 123);
     command = command.setParameters({ param: 123 });
 }
 
 function TestDeferredExecutor() {
-    var promise: webdriver.promise.Promise<webdriver.Executor>;
-    var executor: webdriver.DeferredExecutor = new webdriver.DeferredExecutor(promise);
+    const promise: webdriver.promise.Promise<webdriver.Executor> = {} as any;
+    const executor: webdriver.DeferredExecutor = new webdriver.DeferredExecutor(promise);
 }
 
 function TestCommandName() {
-    var command: string;
+    let command: string;
 
     command = webdriver.CommandName.ACCEPT_ALERT;
     command = webdriver.CommandName.ADD_COOKIE;
@@ -327,21 +326,21 @@ function TestCommandName() {
 }
 
 function TestEventEmitter() {
-    var emitter: webdriver.EventEmitter = new webdriver.EventEmitter();
+    let emitter: webdriver.EventEmitter = new webdriver.EventEmitter();
 
-    var callback = (a: number, b: number, c: number) => {};
+    const callback = (a: number, b: number, c: number) => {};
 
     emitter = emitter.addListener('ABC', callback);
     emitter = emitter.addListener('ABC', callback, this);
 
     emitter.emit('ABC', 1, 2, 3);
 
-    var listeners = emitter.listeners('ABC');
+    const listeners = emitter.listeners('ABC');
     if (listeners[0].oneshot) {
         listeners[0].fn.apply(listeners[0].scope);
     }
-    var length: number = listeners.length;
-    var listenerInfo = listeners[0];
+    const length: number = listeners.length;
+    const listenerInfo = listeners[0];
     if (listenerInfo.oneshot) {
         listenerInfo.fn.apply(listenerInfo.scope, [1, 2, 3]);
     }
@@ -359,7 +358,7 @@ function TestEventEmitter() {
 }
 
 function TestKey() {
-    var key: string;
+    let key: string;
 
     key = webdriver.Key.ADD;
     key = webdriver.Key.ALT;
@@ -424,13 +423,13 @@ function TestKey() {
 }
 
 function TestBy() {
-    var driver: webdriver.WebDriver = new webdriver.Builder().
+    const driver: webdriver.WebDriver = new webdriver.Builder().
         withCapabilities(webdriver.Capabilities.chrome()).
         build();
 
-    var locator: webdriver.By = new webdriver.By('class name', 'class');
+    let locator: webdriver.By = new webdriver.By('class name', 'class');
 
-    var str: string = locator.toString();
+    const str: string = locator.toString();
 
     locator = webdriver.By.className('class');
     locator = webdriver.By.css('css');
@@ -442,9 +441,9 @@ function TestBy() {
     locator = webdriver.By.xpath('xpath');
 
     // Can import 'By' without import declarations
-    var By = webdriver.By;
+    const By = webdriver.By;
 
-    var locatorHash: webdriver.ByHash;
+    let locatorHash: webdriver.ByHash;
     locatorHash = { className: 'class' };
     locatorHash = { css: 'css' };
     locatorHash = { id: 'id' };
@@ -458,53 +457,53 @@ function TestBy() {
 }
 
 function TestSession() {
-    var session: webdriver.Session = new webdriver.Session('ABC', webdriver.Capabilities.android());
-    var capabilitiesObj: any = {};
+    let session: webdriver.Session = new webdriver.Session('ABC', webdriver.Capabilities.android());
+    const capabilitiesObj: any = {};
     capabilitiesObj[webdriver.Capability.BROWSER_NAME] = webdriver.Browser.ANDROID;
     capabilitiesObj[webdriver.Capability.PLATFORM] = 'ANDROID';
     session = new webdriver.Session('ABC', capabilitiesObj);
 
-    var capabilities: webdriver.Capabilities = session.getCapabilities();
-    var capability: any = session.getCapability(webdriver.Capability.BROWSER_NAME);
-    var id: string = session.getId();
-    var data: string = session.toJSON();
+    const capabilities: webdriver.Capabilities = session.getCapabilities();
+    const capability: any = session.getCapability(webdriver.Capability.BROWSER_NAME);
+    const id: string = session.getId();
+    const data: string = session.toJSON();
 }
 
 function TestUnhandledAlertError() {
-    var someFunc = (error: webdriver.UnhandledAlertError) => {
-        var baseError: Error = error;
-        var str: string = error.getAlertText();
+    const someFunc = (error: webdriver.UnhandledAlertError) => {
+        const baseError: Error = error;
+        let str: string = error.getAlertText();
         str = error.toString();
     };
 }
 
 function TestWebDriverFileDetector() {
-    var driver: webdriver.WebDriver = new webdriver.Builder().
+    const driver: webdriver.WebDriver = new webdriver.Builder().
         withCapabilities(webdriver.Capabilities.chrome()).
         build();
 
-    var fileDetector: webdriver.FileDetector = new webdriver.FileDetector();
+    const fileDetector: webdriver.FileDetector = new webdriver.FileDetector();
 
     fileDetector.handleFile(driver, 'path/to/file').then((path: string) => {});
 }
 
 function TestWebDriverLogs() {
-    var driver: webdriver.WebDriver = new webdriver.Builder().
+    const driver: webdriver.WebDriver = new webdriver.Builder().
         withCapabilities(webdriver.Capabilities.chrome()).
         build();
 
-    var logs: webdriver.Logs = new webdriver.Logs(driver);
+    const logs: webdriver.Logs = new webdriver.Logs(driver);
 
     logs.get(webdriver.logging.Type.BROWSER).then((entries: webdriver.logging.Entry[]) => {});
     logs.getAvailableLogTypes().then((types: string[]) => {});
 }
 
 function TestWebDriverNavigation() {
-    var driver: webdriver.WebDriver = new webdriver.Builder().
+    const driver: webdriver.WebDriver = new webdriver.Builder().
         withCapabilities(webdriver.Capabilities.chrome()).
         build();
 
-    var navigation: webdriver.Navigation = new webdriver.Navigation(driver);
+    const navigation: webdriver.Navigation = new webdriver.Navigation(driver);
 
     navigation.back().then(() => {});
     navigation.forward().then(() => {});
@@ -513,12 +512,12 @@ function TestWebDriverNavigation() {
 }
 
 function TestWebDriverOptions() {
-    var driver: webdriver.WebDriver = new webdriver.Builder().
+    const driver: webdriver.WebDriver = new webdriver.Builder().
         withCapabilities(webdriver.Capabilities.chrome()).
         build();
 
-    var options: webdriver.Options = new webdriver.Options(driver);
-    var promise: webdriver.promise.Promise<void>;
+    const options: webdriver.Options = new webdriver.Options(driver);
+    let promise: webdriver.promise.Promise<void>;
 
     // Add Cookie
     promise = options.addCookie('name', 'value');
@@ -533,33 +532,33 @@ function TestWebDriverOptions() {
     options.getCookie('name').then((cookies: webdriver.IWebDriverOptionsCookie) => {});
     options.getCookies().then((cookies: webdriver.IWebDriverOptionsCookie[]) => {});
 
-    var logs: webdriver.Logs = options.logs();
-    var timeouts: webdriver.Timeouts = options.timeouts();
-    var window: webdriver.Window = options.window();
+    const logs: webdriver.Logs = options.logs();
+    const timeouts: webdriver.Timeouts = options.timeouts();
+    const window: webdriver.Window = options.window();
 }
 
 function TestWebDriverTargetLocator() {
-    var driver: webdriver.WebDriver = new webdriver.Builder().
+    const driver: webdriver.WebDriver = new webdriver.Builder().
         withCapabilities(webdriver.Capabilities.chrome()).
         build();
 
-    var locator: webdriver.TargetLocator = new webdriver.TargetLocator(driver);
-    var promise: webdriver.promise.Promise<void>;
+    const locator: webdriver.TargetLocator = new webdriver.TargetLocator(driver);
+    let promise: webdriver.promise.Promise<void>;
 
-    var element: webdriver.WebElement = locator.activeElement();
-    var alert: webdriver.Alert = locator.alert();
+    const element: webdriver.WebElement = locator.activeElement();
+    const alert: webdriver.Alert = locator.alert();
     promise = locator.defaultContent();
     promise = locator.frame(1);
     promise = locator.window('nameOrHandle');
 }
 
 function TestWebDriverTimeouts() {
-    var driver: webdriver.WebDriver = new webdriver.Builder().
+    const driver: webdriver.WebDriver = new webdriver.Builder().
         withCapabilities(webdriver.Capabilities.chrome()).
         build();
 
-    var timeouts: webdriver.Timeouts = new webdriver.Timeouts(driver);
-    var promise: webdriver.promise.Promise<void>;
+    const timeouts: webdriver.Timeouts = new webdriver.Timeouts(driver);
+    let promise: webdriver.promise.Promise<void>;
 
     promise = timeouts.implicitlyWait(123);
     promise = timeouts.pageLoadTimeout(123);
@@ -567,14 +566,14 @@ function TestWebDriverTimeouts() {
 }
 
 function TestWebDriverWindow() {
-    var driver: webdriver.WebDriver = new webdriver.Builder().
+    const driver: webdriver.WebDriver = new webdriver.Builder().
         withCapabilities(webdriver.Capabilities.chrome()).
         build();
 
-    var window: webdriver.Window = new webdriver.Window(driver);
-    var locationPromise: webdriver.promise.Promise<webdriver.ILocation>;
-    var sizePromise: webdriver.promise.Promise<webdriver.ISize>;
-    var voidPromise: webdriver.promise.Promise<void>;
+    const window: webdriver.Window = new webdriver.Window(driver);
+    let locationPromise: webdriver.promise.Promise<webdriver.ILocation>;
+    let sizePromise: webdriver.promise.Promise<webdriver.ISize>;
+    let voidPromise: webdriver.promise.Promise<void>;
 
     locationPromise = window.getPosition();
     sizePromise = window.getSize();
@@ -584,26 +583,26 @@ function TestWebDriverWindow() {
 }
 
 function TestWebDriver() {
-    var session: webdriver.Session = new webdriver.Session('ABC', webdriver.Capabilities.android());
-    var sessionPromise: webdriver.promise.Promise<webdriver.Session>;
-    var executor: webdriver.Executor = executors.createExecutor('http://someserver');
-    var flow: webdriver.promise.ControlFlow = new webdriver.promise.ControlFlow();
-    var driver: webdriver.WebDriver = new webdriver.WebDriver(session, executor);
+    const session: webdriver.Session = new webdriver.Session('ABC', webdriver.Capabilities.android());
+    const sessionPromise: webdriver.promise.Promise<webdriver.Session> = {} as any;
+    const executor: webdriver.Executor = executors.createExecutor('http://someserver');
+    let flow: webdriver.promise.ControlFlow = new webdriver.promise.ControlFlow();
+    let driver: webdriver.WebDriver = new webdriver.WebDriver(session, executor);
     driver = new webdriver.WebDriver(session, executor, flow);
     driver = new webdriver.WebDriver(sessionPromise, executor);
     driver = new webdriver.WebDriver(sessionPromise, executor, flow);
 
-    var voidPromise: webdriver.promise.Promise<void>;
-    var stringPromise: webdriver.promise.Promise<string>;
-    var booleanPromise: webdriver.promise.Promise<boolean>;
+    let voidPromise: webdriver.promise.Promise<void>;
+    let stringPromise: webdriver.promise.Promise<string>;
+    let booleanPromise: webdriver.promise.Promise<boolean>;
 
-    var actions: webdriver.ActionSequence = driver.actions();
-    var touchActions: webdriver.TouchSequence = driver.touchActions();
+    const actions: webdriver.ActionSequence = driver.actions();
+    const touchActions: webdriver.TouchSequence = driver.touchActions();
 
     // call
     stringPromise = driver.call<string>(() => 'value');
     stringPromise = driver.call<string>(() => stringPromise);
-    stringPromise = driver.call<string>(() => { var d: any = this; return 'value'; }, driver);
+    stringPromise = driver.call<string>(() => { const d: any = this; return 'value'; }, driver);
     stringPromise = driver.call<string>((a: number) => 'value', driver, 1);
 
     voidPromise = driver.close();
@@ -622,7 +621,7 @@ function TestWebDriver() {
     stringPromise = driver.executeScript<string>((a: number) => {}, 1);
 
     // findElement
-    var element: webdriver.WebElement;
+    let element: webdriver.WebElement;
     element = driver.findElement(webdriver.By.id('ABC'));
     element = driver.findElement(webdriver.By.js('function(){}'));
 
@@ -642,11 +641,11 @@ function TestWebDriver() {
     booleanPromise = driver.isElementPresent(webdriver.By.className('ABC'));
     booleanPromise = driver.isElementPresent(webdriver.By.js('function(){}'));
 
-    var options: webdriver.Options = driver.manage();
-    var navigation: webdriver.Navigation = driver.navigate();
-    var locator: webdriver.TargetLocator = driver.switchTo();
+    const options: webdriver.Options = driver.manage();
+    const navigation: webdriver.Navigation = driver.navigate();
+    const locator: webdriver.TargetLocator = driver.switchTo();
 
-    var fileDetector: webdriver.FileDetector = new webdriver.FileDetector();
+    const fileDetector: webdriver.FileDetector = new webdriver.FileDetector();
     driver.setFileDetector(fileDetector);
 
     voidPromise = driver.quit();
@@ -654,7 +653,7 @@ function TestWebDriver() {
     voidPromise = driver.sleep(123);
     stringPromise = driver.takeScreenshot();
 
-    var booleanCondition: webdriver.until.Condition<boolean>;
+    const booleanCondition: webdriver.until.Condition<boolean> = {} as any;
     booleanPromise = driver.wait(booleanPromise);
     booleanPromise = driver.wait(booleanCondition);
     booleanPromise = driver.wait((driver: webdriver.WebDriver) => true);
@@ -668,24 +667,24 @@ function TestWebDriver() {
 }
 
 function TestSerializable() {
-    var serializable: webdriver.Serializable<string>;
-    var serial: string | webdriver.promise.IThenable<string> = serializable.serialize();
+    const serializable: webdriver.Serializable<string> = {} as any;
+    const serial: string | webdriver.promise.IThenable<string> = serializable.serialize();
 }
 
 function TestWebElement() {
-    var driver: webdriver.WebDriver = new webdriver.Builder().
+    let driver: webdriver.WebDriver = new webdriver.Builder().
         withCapabilities(webdriver.Capabilities.chrome()).
         build();
 
-    var promise: webdriver.promise.Promise<string>;
-    var element: webdriver.WebElement;
+    const promise: webdriver.promise.Promise<string> = {} as any;
+    let element: webdriver.WebElement;
 
     element = new webdriver.WebElement(driver, 'elementId');
     element = new webdriver.WebElement(driver, promise);
 
-    var voidPromise: webdriver.promise.Promise<void>;
-    var stringPromise: webdriver.promise.Promise<string>;
-    var booleanPromise: webdriver.promise.Promise<boolean>;
+    let voidPromise: webdriver.promise.Promise<void>;
+    let stringPromise: webdriver.promise.Promise<string>;
+    let booleanPromise: webdriver.promise.Promise<boolean>;
 
     voidPromise = element.clear();
     voidPromise = element.click();
@@ -720,16 +719,16 @@ function TestWebElement() {
 }
 
 function TestWebElementPromise() {
-    var driver: webdriver.WebDriver = new webdriver.Builder().
+    const driver: webdriver.WebDriver = new webdriver.Builder().
         withCapabilities(webdriver.Capabilities.chrome()).
         build();
 
-    var elementPromise: webdriver.WebElementPromise = driver.findElement(webdriver.By.id('id'));
+    const elementPromise: webdriver.WebElementPromise = driver.findElement(webdriver.By.id('id'));
 
     elementPromise.cancel();
     elementPromise.cancel('reason');
 
-    var bool: boolean = elementPromise.isPending();
+    const bool: boolean = elementPromise.isPending();
 
     elementPromise.then();
     elementPromise.then((element: webdriver.WebElement) => {});
@@ -742,11 +741,11 @@ function TestWebElementPromise() {
 }
 
 function TestLogging() {
-    var preferences: webdriver.logging.Preferences = new webdriver.logging.Preferences();
+    const preferences: webdriver.logging.Preferences = new webdriver.logging.Preferences();
     preferences.setLevel(webdriver.logging.Type.BROWSER, webdriver.logging.Level.ALL);
-    var prefs: any = preferences.toJSON();
+    const prefs: any = preferences.toJSON();
 
-    var level: webdriver.logging.Level = webdriver.logging.getLevel('OFF');
+    let level: webdriver.logging.Level = webdriver.logging.getLevel('OFF');
     level = webdriver.logging.getLevel(1);
 
     level = webdriver.logging.Level.ALL;
@@ -756,10 +755,10 @@ function TestLogging() {
     level = webdriver.logging.Level.SEVERE;
     level = webdriver.logging.Level.WARNING;
 
-    var name: string = level.name;
-    var value: number = level.value;
+    const name: string = level.name;
+    const value: number = level.value;
 
-    var type: string;
+    let type: string;
     type = webdriver.logging.Type.BROWSER;
     type = webdriver.logging.Type.CLIENT;
     type = webdriver.logging.Type.DRIVER;
@@ -768,7 +767,7 @@ function TestLogging() {
 }
 
 function TestLoggingEntry() {
-    var entry: webdriver.logging.Entry;
+    let entry: webdriver.logging.Entry;
 
     entry = new webdriver.logging.Entry(webdriver.logging.Level.ALL, 'ABC');
     entry = new webdriver.logging.Entry('ALL', 'ABC');
@@ -777,23 +776,22 @@ function TestLoggingEntry() {
     entry = new webdriver.logging.Entry(webdriver.logging.Level.ALL, 'ABC', 123, webdriver.logging.Type.BROWSER);
     entry = new webdriver.logging.Entry('ALL', 'ABC', 123, webdriver.logging.Type.BROWSER);
 
-    var entryObj: any = entry.toJSON();
+    const entryObj: any = entry.toJSON();
 
-    var message: string = entry.message;
-    var timestamp: number = entry.timestamp;
-    var type: string = entry.type;
+    const message: string = entry.message;
+    const timestamp: number = entry.timestamp;
+    const type: string = entry.type;
 }
 
 function TestPromiseModule() {
-    var cancellationError: webdriver.promise.CancellationError = new webdriver.promise.CancellationError();
+    let cancellationError: webdriver.promise.CancellationError = new webdriver.promise.CancellationError();
     cancellationError = new webdriver.promise.CancellationError('message');
-    var str: string = cancellationError.message;
+    let str: string = cancellationError.message;
     str = cancellationError.name;
 
-    var stringPromise: webdriver.promise.Promise<string>;
-    var numberPromise: webdriver.promise.Promise<number>;
-    var booleanPromise: webdriver.promise.Promise<boolean>;
-    var voidPromise: webdriver.promise.Promise<void>;
+    let stringPromise: webdriver.promise.Promise<string>;
+    let numberPromise: webdriver.promise.Promise<number>;
+    let voidPromise: webdriver.promise.Promise<void>;
 
     webdriver.promise.all([stringPromise]).then((values: string[]) => {});
 
@@ -811,7 +809,7 @@ function TestPromiseModule() {
     webdriver.promise.consume((a: number, b: number, c: number) => 5, this, 1, 2, 3)
         .then((value: number) => {});
 
-    var numbersPromise: webdriver.promise.Promise<number[]> = webdriver.promise.filter([1, 2, 3], (element: number, type: any, index: number, arr: number[]) => {
+    let numbersPromise: webdriver.promise.Promise<number[]> = webdriver.promise.filter([1, 2, 3], (element: number, type: any, index: number, arr: number[]) => {
         return true;
     });
     numbersPromise = webdriver.promise.filter([1, 2, 3], (element: number, type: any, index: number, arr: number[]) => {
@@ -837,11 +835,11 @@ function TestPromiseModule() {
         return true;
     }, this);
 
-    var flow: webdriver.promise.ControlFlow = webdriver.promise.controlFlow();
+    const flow: webdriver.promise.ControlFlow = webdriver.promise.controlFlow();
 
     stringPromise = webdriver.promise.createFlow<string>((newFlow: webdriver.promise.ControlFlow) => 'ABC');
 
-    var deferred: webdriver.promise.Deferred<string>;
+    let deferred: webdriver.promise.Deferred<string>;
     deferred = webdriver.promise.defer();
     deferred = webdriver.promise.defer();
 
@@ -857,8 +855,8 @@ function TestPromiseModule() {
 
     stringPromise = webdriver.promise.fullyResolved('abc');
 
-    var bool: boolean = webdriver.promise.isGenerator(() => {});
-    var isPromise: boolean = webdriver.promise.isPromise('ABC');
+    const bool: boolean = webdriver.promise.isGenerator(() => {});
+    const isPromise: boolean = webdriver.promise.isPromise('ABC');
 
     stringPromise = webdriver.promise.rejected('{a: 123}');
 
@@ -868,18 +866,18 @@ function TestPromiseModule() {
 }
 
 function TestUntilModule() {
-    var driver: webdriver.WebDriver = new webdriver.Builder().
+    const driver: webdriver.WebDriver = new webdriver.Builder().
         withCapabilities(webdriver.Capabilities.chrome()).
         build();
 
-    var conditionB: webdriver.until.Condition<boolean> = new webdriver.until.Condition<boolean>('message', (driver: webdriver.WebDriver) => true);
-    var conditionBBase: webdriver.until.Condition<boolean> = conditionB;
-    var conditionWebElement: webdriver.until.Condition<webdriver.WebElement>;
-    var conditionWebElements: webdriver.until.Condition<webdriver.WebElement[]>;
+    let conditionB: webdriver.until.Condition<boolean> = new webdriver.until.Condition<boolean>('message', (driver: webdriver.WebDriver) => true);
+    const conditionBBase: webdriver.until.Condition<boolean> = conditionB;
+    let conditionWebElement: webdriver.until.Condition<webdriver.WebElement>;
+    let conditionWebElements: webdriver.until.Condition<webdriver.WebElement[]>;
 
     conditionB = webdriver.until.ableToSwitchToFrame(5);
-    var conditionAlert: webdriver.until.Condition<webdriver.Alert> = webdriver.until.alertIsPresent();
-    var el: webdriver.WebElement = driver.findElement(webdriver.By.id('id'));
+    const conditionAlert: webdriver.until.Condition<webdriver.Alert> = webdriver.until.alertIsPresent();
+    const el: webdriver.WebElement = driver.findElement(webdriver.By.id('id'));
     conditionB = webdriver.until.elementIsDisabled(el);
     conditionB = webdriver.until.elementIsEnabled(el);
     conditionB = webdriver.until.elementIsNotSelected(el);
@@ -899,31 +897,31 @@ function TestUntilModule() {
 }
 
 function TestControlFlow() {
-    var flow: webdriver.promise.ControlFlow;
+    let flow: webdriver.promise.ControlFlow;
     flow = new webdriver.promise.ControlFlow();
 
-    var emitter: webdriver.EventEmitter = flow;
+    const emitter: webdriver.EventEmitter = flow;
 
-    var eventType: string;
+    let eventType: string;
 
     eventType = webdriver.promise.ControlFlow.EventType.IDLE;
     eventType = webdriver.promise.ControlFlow.EventType.RESET;
     eventType = webdriver.promise.ControlFlow.EventType.SCHEDULE_TASK;
     eventType = webdriver.promise.ControlFlow.EventType.UNCAUGHT_EXCEPTION;
 
-    var stringPromise: webdriver.promise.Promise<string>;
+    let stringPromise: webdriver.promise.Promise<string>;
     stringPromise = flow.execute(() => 'value');
     stringPromise = flow.execute(() => stringPromise);
     stringPromise = flow.execute(() => stringPromise, 'Description');
 
-    var schedule: string;
+    let schedule: string;
     schedule = flow.toString();
     schedule = flow.getSchedule();
     schedule = flow.getSchedule(true);
 
     flow.reset();
 
-    var voidPromise: webdriver.promise.Promise<void> = flow.timeout(123);
+    let voidPromise: webdriver.promise.Promise<void> = flow.timeout(123);
     voidPromise = flow.timeout(123, 'Description');
 
     stringPromise = flow.wait(stringPromise);
@@ -934,12 +932,12 @@ function TestControlFlow() {
 }
 
 function TestDeferred() {
-    var deferred: webdriver.promise.Deferred<string>;
+    let deferred: webdriver.promise.Deferred<string>;
 
     deferred = new webdriver.promise.Deferred<string>();
     deferred = new webdriver.promise.Deferred<string>(new webdriver.promise.ControlFlow());
 
-    var promise: webdriver.promise.Promise<string> = deferred.promise;
+    const promise: webdriver.promise.Promise<string> = deferred.promise;
 
     deferred.errback(new Error('Error'));
     deferred.errback('Error');
@@ -950,15 +948,15 @@ function TestDeferred() {
 }
 
 function TestPromiseClass() {
-    var controlFlow: webdriver.promise.ControlFlow;
-    var promise: webdriver.promise.Promise<string>;
-    promise = new webdriver.promise.Promise<string>((resolve: (value: string) => void, reject: () => void) => {});
-    promise = new webdriver.promise.Promise<string>((resolve: (value: webdriver.promise.Promise<string>) => void, reject: () => void) => {});
-    promise = new webdriver.promise.Promise<string>((resolve: (value: string) => void, reject: () => void) => {}, controlFlow);
+    const controlFlow: webdriver.promise.ControlFlow = {} as any;
+    let promise: webdriver.promise.Promise<string>;
+    promise = new webdriver.promise.Promise<string>((resolve: (value: string) => void, reject: (reason: any) => void) => {});
+    promise = new webdriver.promise.Promise<string>((resolve: (value: webdriver.promise.Promise<string>) => void, reject: (reason: any) => void) => {});
+    promise = new webdriver.promise.Promise<string>((resolve: (value: string) => void, reject: (readon: any) => void) => {}, controlFlow);
 
     promise.cancel('Abort');
 
-    var isPending: boolean = promise.isPending();
+    const isPending: boolean = promise.isPending();
 
     promise = promise.then();
     promise = promise.then((a: string) => 'cde');
@@ -971,13 +969,13 @@ function TestPromiseClass() {
 }
 
 function TestThenableClass() {
-    var thenable: webdriver.promise.Promise<string> = new webdriver.promise.Promise<string>((resolve, reject) => {
+    let thenable: webdriver.promise.Promise<string> = new webdriver.promise.Promise<string>((resolve, reject) => {
         resolve('a');
     });
 
     thenable.cancel('Abort');
 
-    var isPending: boolean = thenable.isPending();
+    const isPending: boolean = thenable.isPending();
 
     thenable = thenable.then((a: string) => 'cde');
     thenable = thenable.then((a: string) => 'cde', (e: any) => {});
@@ -989,7 +987,7 @@ function TestThenableClass() {
 }
 
 function TestErrorCode() {
-    var errorCode: number;
+    let errorCode: number;
 
     errorCode = new webdriver.error.ElementNotSelectableError().code();
     errorCode = new webdriver.error.ElementNotVisibleError().code();
@@ -1018,8 +1016,8 @@ function TestErrorCode() {
 }
 
 async function TestAsyncAwaitable() {
-    var thenable: webdriver.promise.Promise<string> = new webdriver.promise.Promise<string>((resolve, reject) => resolve('foo'));
-    var str: string = await thenable;
+    const thenable: webdriver.promise.Promise<string> = new webdriver.promise.Promise<string>((resolve, reject) => resolve('foo'));
+    const str: string = await thenable;
 }
 
 function TestTestingModule() {

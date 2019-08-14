@@ -7,8 +7,13 @@ interface SomeModule {
 let someModule = require<SomeModule>('./someModule');
 someModule.someMethod();
 
+let otherModule = require('./otherModule');
+otherModule.otherMethod();
+
 let context = require.context('./somePath', true);
 let contextModule = context<SomeModule>('./someModule');
+
+const contextId: string = require.context('./somePath').id;
 
 require(['./someModule', './otherModule'], (someModule: SomeModule, otherModule: any) => {
 
@@ -16,6 +21,9 @@ require(['./someModule', './otherModule'], (someModule: SomeModule, otherModule:
 
 // check if HMR is enabled
 if(module.hot) {
+    // accept update of dependency without a callback
+    module.hot.accept("./handler.js");
+
     // accept update of dependency
     module.hot.accept("./handler.js", function() {
         //...

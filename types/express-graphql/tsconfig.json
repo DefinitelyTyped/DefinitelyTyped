@@ -1,12 +1,15 @@
 {
     "compilerOptions": {
         "module": "commonjs",
+        "target": "es2015",
         "lib": [
-            "es6"
+            "es6",
+            "esnext.asynciterable"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": false,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"

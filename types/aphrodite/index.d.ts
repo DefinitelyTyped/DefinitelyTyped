@@ -2,15 +2,33 @@
 // Project: https://github.com/Khan/aphrodite
 // Definitions by: Alexey Svetliakov <https://github.com/asvetliakov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
-import * as React from "react";
+import * as CSS from "csstype";
+
+type BaseCSSProperties = CSS.Properties<number | string>;
+
+type FontFamily =
+    | BaseCSSProperties['fontFamily']
+    | CSS.FontFace;
+
+type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
+
+type CSSProperties = Omit<BaseCSSProperties, 'fontFamily' | 'transition' | 'animationName' > & {
+    fontFamily?: FontFamily | FontFamily[];
+    animationName?: string | OpenCSSProperties | OpenCSSProperties[];
+};
+
+// For pseudo selectors and media queries
+interface OpenCSSProperties extends CSSProperties {
+    [k: string]: CSSProperties[keyof CSSProperties] | CSSProperties;
+}
 
 /**
  * Aphrodite style declaration
  */
 export interface StyleDeclaration {
-    [key: string]: React.CSSProperties;
+    [key: string]: OpenCSSProperties;
 }
 
 interface StyleSheetStatic {

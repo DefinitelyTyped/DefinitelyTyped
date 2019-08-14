@@ -1,10 +1,16 @@
 // Type definitions for Velocity 1.2.2
 // Project: http://velocityjs.org/
-// Definitions by: Greg Smith <https://github.com/smrq/>
+// Definitions by: Greg Smith <https://github.com/smrq>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 /// <reference types="jquery" />
+
+declare const Velocity: jquery.velocity.VelocityStatic;
+
+declare module "velocity-animate" {
+  export = Velocity;
+}
 
 interface JQuery {
 	velocity(name: string, options: jquery.velocity.RegisteredEffectOptions): JQuery;
@@ -81,8 +87,8 @@ declare namespace jquery.velocity {
 	interface VelocityStatic {
 		Sequences: any;
 		mock: any;
-		animate(options: {elements: NodeListOf<HTMLElement>; properties: Properties; options: Options}): any;
-		animate(elements: HTMLElement|NodeListOf<HTMLElement>, properties: Properties, options: Options): any;
+		animate(options: {elements: HTMLCollection | NodeListOf<HTMLElement>; properties: Properties; options: Options}): any;
+		animate(elements: HTMLElement | HTMLCollection | NodeListOf<HTMLElement>, properties: Properties, options: Options): any;
 		RegisterEffect(name: string, options: RegisterEffectOptions): VelocityStatic;
 		RunSequence(sequence: SequenceCall[]): VelocityStatic;
 

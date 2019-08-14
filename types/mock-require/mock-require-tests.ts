@@ -1,10 +1,12 @@
 import mock = require('mock-require');
 
+const request = () => {
+  console.log('http.request called');
+};
+
 function testMock() {
   mock('http', {
-    request: function () {
-      console.log('http.request called');
-    }
+    request
   });
 
   const http = require('http');

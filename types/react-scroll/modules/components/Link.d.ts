@@ -5,6 +5,7 @@ export interface ReactScrollLinkProps {
     containerId?: string;
     activeClass?: string;
     spy?: boolean;
+    hashSpy?: boolean;
     smooth?: boolean | string;
     offset?: number;
     delay?: number;

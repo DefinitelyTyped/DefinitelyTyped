@@ -40,8 +40,6 @@ else { // if not an array but scalar value here is a way how to convert to array
 
 // The way to remove the parameter:
 delete u.query.a
-// or:
-delete u.query["a"]
 
 // If you need to remove all query string params:
 u.query.clear();

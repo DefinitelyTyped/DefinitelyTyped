@@ -1,17 +1,17 @@
-// Type definitions for Nightmare 1.6.6
+// Type definitions for Nightmare 2.10.1
 // Project: https://github.com/segmentio/nightmare
-// Definitions by: horiuchi <https://github.com/horiuchi/>
+// Definitions by: horiuchi <https://github.com/horiuchi>
 //                 Sam Yang <https://github.com/samyang-au>
+//                 Bleser   <https://github.com/Bleser92>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-
+/// <reference types="node" />
 
 declare class Nightmare {
     constructor(options?: Nightmare.IConstructorOptions);
 
     // Interact
-    userAgent(agent: string): Nightmare;
     end(): Nightmare;
     then<T, R>(fn: (value: T) => R): Promise<R>;
     halt(error: string, cb: () => void): Nightmare;
@@ -30,6 +30,8 @@ declare class Nightmare {
     uncheck(seletor: string): Nightmare;
     select(seletor: string, option: string): Nightmare;
     upload(selector: string, path: string): Nightmare;
+    download(path:string): Nightmare;
+    download(action: "cancel" | "continue"): Nightmare;
     scrollTo(top: number, left: number): Nightmare;
     viewport(width: number, height: number): Nightmare;
     inject(type: string, file: string): Nightmare;
@@ -39,17 +41,23 @@ declare class Nightmare {
     evaluate<T>(fn: (arg: T) => void, cb: () => void, arg: T): Nightmare;
     evaluate<R>(fn: () => R, cb: (result: R) => void): Nightmare;
     evaluate(fn: () => void): Nightmare;
-    wait(): Nightmare;
+    wait<T1, T2, T3, T4, T5>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5) => any, value1: T1, value2: T2, value3: T3, value4: T4, value5: T5): Nightmare;
+    wait<T1, T2, T3, T4>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4) => any, value1: T1, value2: T2, value3: T3, value4: T4): Nightmare;
+    wait<T1, T2, T3>(fn: (arg1: T1, arg2: T2, arg3: T3) => any, value1: T1, value2: T2, value3: T3): Nightmare;
+    wait<T1, T2>(fn: (arg1: T1, arg2: T2) => any, value1: T1, value2: T2): Nightmare;
+    wait<T1>(fn: (arg1: T1) => any, value1: T1): Nightmare;
+    wait(fn: () => any, value: any, delay?: number): Nightmare;
+    wait(fn: () => any): Nightmare;
     wait(ms: number): Nightmare;
     wait(selector: string): Nightmare;
-    wait(fn: () => any, value: any, delay?: number): Nightmare;
+    wait(): Nightmare;
     header(header: string, value: string): Nightmare;
     use(plugin: (nightmare: Nightmare) => void): Nightmare;
     run(cb?: (err: any, nightmare: Nightmare) => void): Nightmare;
 
     // Extract
-    exists(selector: string, cb: (result: boolean) => void): Nightmare;
-    visible(selector: string, cb: (result: boolean) => void): Nightmare;
+    exists(selector: string, cb?: (result: boolean) => void): Nightmare;
+    visible(selector: string, cb?: (result: boolean) => void): Nightmare;
     on(event: string, cb: () => void): Nightmare;
     on(event: 'initialized', cb: () => void): Nightmare;
     on(event: 'loadStarted', cb: () => void): Nightmare;
@@ -95,13 +103,17 @@ declare class Nightmare {
     removeListener(event: 'prompt', cb: (msg: string, defaultValue?: string) => void): Nightmare;
     removeListener(event: 'error', cb: (msg: string, trace?: Nightmare.IStackTrace[]) => void): Nightmare;
     removeListener(event: 'timeout', cb: (msg: string) => void): Nightmare;
-    screenshot(path: string): Nightmare;
+    screenshot(done?: (err: any, buffer: Buffer) => void): Nightmare;
+    screenshot(path: string, done?: (err: any) => void): Nightmare;
+    screenshot(clip: { x: number, y: number, width: number, height: number }, done?: (err: any, buffer: Buffer) => void): Nightmare;
+    screenshot(path: string, clip?: { x: number, y: number, width: number, height: number }, done?: (err: any) => void): Nightmare;
     html(path: string, saveType: string): Nightmare;
     html(path: string, saveType: 'HTMLOnly'): Nightmare;
     html(path: string, saveType: 'HTMLComplete'): Nightmare;
     html(path: string, saveType: 'MHTML'): Nightmare;
     pdf(path: string): Nightmare;
     pdf(path: string, options: Object): Nightmare;
+    pdf(cb: (err: Error, data: Buffer) => void): Nightmare;
     title(): string;
     title(cb: (title: string) => void): Nightmare;
     url(cb: (url: string) => void): Nightmare;
@@ -121,6 +133,10 @@ declare class Nightmare {
 declare namespace Nightmare {
     export interface IConstructorOptions {
         timeout?: any;  // number | string;
+        waitTimeout?:number //in ms
+        gotoTimeout?:number
+        pollInterval?:number
+        executionTimeout?:number
         interval?: any; // number | string;
         port?: number;
         weak?: boolean;
@@ -134,6 +150,22 @@ declare namespace Nightmare {
         cookiesFile?: string;
         phantomPath?: string;
         show?: boolean;
+        paths?: {
+            downloads?:string;
+        };
+        maxDownloadRequestWait?:number;
+        ignoreDownloads?:boolean;
+        typeInterval?: number;
+        x?: number;
+        y?: number;
+        electronPath?: string;
+        openDevTools?: {
+            /**
+             * Opens the devtools with specified dock state, can be right, bottom, undocked, detach.
+             * https://github.com/electron/electron/blob/master/docs/api/web-contents.md#contentsopendevtoolsoptions
+             */
+            mode?: string;
+        };
     }
 
     export interface IRequest {

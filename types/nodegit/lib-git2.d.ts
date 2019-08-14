@@ -17,52 +17,9 @@ export namespace Libgit2 {
 }
 
 export class Libgit2 {
-    /**
-     *
-     *
-     * @static
-     * @returns {number}
-     *
-     * @memberof Libgit2
-     */
     static features(): number;
-    /**
-     *
-     *
-     * @static
-     * @returns {number}
-     *
-     * @memberof Libgit2
-     */
     static init(): number;
-    /**
-     *
-     *
-     * @static
-     * @param {number} option
-     * @returns {number}
-     *
-     * @memberof Libgit2
-     */
     static opts(option: number): number;
-    /**
-     *
-     *
-     * @static
-     * @returns {number}
-     *
-     * @memberof Libgit2
-     */
     static shutdown(): number;
-    /**
-     *
-     *
-     * @static
-     * @param {number} major
-     * @param {number} minor
-     * @param {number} rev
-     *
-     * @memberof Libgit2
-     */
     static version(major: number, minor: number, rev: number): void;
 }

@@ -1,5 +1,5 @@
 // Type definitions for Tether v1.4
-// Project: http://github.hubspot.com/tether/
+// Project: https://github.hubspot.com/tether/
 // Definitions by: Adi Dahiya <https://github.com/adidahiya>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
@@ -24,7 +24,7 @@ declare namespace Tether {
     interface ITetherOptions {
         attachment: string;
         bodyElement?: HTMLElement;
-        classes?: {[className: string]: boolean};
+        classes?: {[className: string]: boolean | string};
         classPrefix?: string;
         constraints?: ITetherConstraint[];
         element?: HTMLElement | string | any /* JQuery */;

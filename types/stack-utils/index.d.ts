@@ -6,7 +6,6 @@
 
 export = StackUtils;
 
-// tslint:disable ban-types
 declare class StackUtils {
     static nodeInternals(): RegExp[];
     constructor(options?: StackUtils.Options);

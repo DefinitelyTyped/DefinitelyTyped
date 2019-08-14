@@ -1,6 +1,7 @@
-// Type definitions for electron-settings 3.0
+// Type definitions for electron-settings 3.1
 // Project: https://github.com/nathanbuchar/electron-settings#readme
-// Definitions by: Ian Copp <https://github.com/icopp>
+// Definitions by: Ian Copp <https://github.com/icopp>,
+//                 nrlquaker <https://github.com/nrlquaker>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node"/>
@@ -56,7 +57,7 @@ interface Settings extends NodeJS.EventEmitter {
      *                     exist.
      * @see #getAll
      */
-    get(keyPath: string, defaultValue?: any): JsonValue;
+    get(keyPath: string, defaultValue?: any, options?: SettingsOptions): JsonValue;
 
     /**
      * Returns all settings.
@@ -109,6 +110,25 @@ interface Settings extends NodeJS.EventEmitter {
      * cause unintended consequences.
      */
     file(): string;
+
+    /**
+     * Sets a custom settings file path. By default, the settings file is
+     * stored in your app's user data directory in a file called Settings,
+     * but this method allows you to change this.
+     *
+     * Note: This method should be used cautiously, as it may have unintended
+     * consequences. In general, this method should only be used for
+     * debug purposes, and not in production apps.
+     * @param filePath An absolute path to the settings file where the
+     *                 user data will be saved.
+     */
+    setPath(filePath: string): Settings;
+
+    /**
+     * Clears the custom settings file path, if it exists.
+     * @see #setPath
+     */
+    clearPath(): Settings;
 }
 
 interface SettingsObserver {

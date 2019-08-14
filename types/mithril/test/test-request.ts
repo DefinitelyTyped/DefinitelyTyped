@@ -15,7 +15,15 @@ request<{a: string}>("/item", {method: "POST"}).then(result => {
 request<any>({
 	method: "GET",
 	url: "/item",
-	data: {x: "y"}
+	params: {x: "y"}
+}).then(result => {
+	console.log(result);
+});
+
+request<any>({
+	method: "GET",
+	url: "/item",
+	body: {x: "y"}
 }).then(result => {
 	console.log(result);
 });
@@ -23,7 +31,7 @@ request<any>({
 request<Result>({
 	method: "GET",
 	url: "/item",
-	data: 5,
+	body: "5",
 	serialize: (data: number) => "id=" + data.toString()
 }).then(result => {
 	console.log(result);
@@ -44,8 +52,9 @@ request<Result>('/id', {
 });
 
 request<Result>('/item', {
-	config: xhr => {
+	config: (xhr, opts) => {
 		xhr.setRequestHeader('accept', '*');
+		console.log(opts.background);
 		return xhr;
 	},
 	headers: {"Content-Type": "application/json"},

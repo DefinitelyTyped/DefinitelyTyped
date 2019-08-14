@@ -1,6 +1,9 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "ban-types": false
+        // TODOs
+        "ban-types": false,
+        "no-angle-bracket-type-assertion": false,
+        "no-void-expression": false
     }
 }

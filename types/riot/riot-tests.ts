@@ -11,7 +11,7 @@ riot.settings.asyncRenderTimeout = 100500;
 
 // util.tmpl
 riot.util.tmpl.errorHandler = (err: riot.TemplateError) => {
-    console.error(err.message + ' in ' + err.riotData.tagName);
+    console.error(`${err.message} in ${err.riotData.tagName}`);
 };
 
 // util.vdom

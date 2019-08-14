@@ -17,9 +17,9 @@ interface Action {
 }
 
 function dispatcherCallback(payload: Action) {
-    let source: ActionSource = payload.source;
-    let type: ActionType = payload.type;
-    let data: {} = payload.data;
+    const source: ActionSource = payload.source;
+    const type: ActionType = payload.type;
+    const data: {} = payload.data;
 }
 
 let dispatcherIsDispatching: boolean;

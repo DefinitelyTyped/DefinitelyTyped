@@ -1,96 +1,104 @@
-
-import { createLogger } from 'redux-logger';
-import logger from 'redux-logger';
+import logger, { createLogger } from 'redux-logger';
 import { applyMiddleware, createStore } from 'redux';
 
-let loggerSimple = createLogger();
+const loggerSimple = createLogger();
 
-let loggerSimpleOpts = createLogger({
-  duration: true,
-  timestamp: true,
-  logger: console,
-  logErrors: true,
-  predicate: (getState, action) => true,
-  stateTransformer: (state) => state,
-  actionTransformer: (action) => action,
-  errorTransformer: (error) => error,
-  diff: true,
-  diffPredicate: (getState, action) => true,
+const loggerSimpleOpts = createLogger({
+    duration: true,
+    timestamp: true,
+    logger: console,
+    logErrors: true,
+    predicate: (getState, action) => true,
+    stateTransformer: state => state,
+    actionTransformer: action => action,
+    errorTransformer: error => error,
+    diff: true,
+    diffPredicate: (getState, action) => true
 });
 
-let loggerCollapsedBool = createLogger({
-  collapsed: true
+const loggerCollapsedBool = createLogger({
+    collapsed: true
 });
 
-let loggerCollapsedPredicate = createLogger({
-  collapsed: (getAction, action) => true
+const loggerCollapsedPredicate = createLogger({
+    collapsed: (getAction, action) => true
 });
 
-let loggerColorsBoolean = createLogger({
-  colors: {
-    title: false,
-    prevState: false,
-    action: false,
-    nextState: false,
-    error: false
-  }
+const loggerCollapsedLogEntryPredicate = createLogger({
+    collapsed: (getAction, action, logEntry) =>
+        logEntry !== undefined && !logEntry.error
 });
 
-let loggerColorsFunction = createLogger({
-  colors: {
-    title: (action) => '#000',
-    prevState: (state) => '#000',
-    action: (action) => '#000',
-    nextState: (state) => '#000',
-    error: (error, prevState) => '#000'
-  }
+const loggerColorsOverallBoolean = createLogger({
+    colors: false
 });
 
-let loggerLevelString = createLogger({
-  level: 'log'
+const loggerColorsBoolean = createLogger({
+    colors: {
+        title: false,
+        prevState: false,
+        action: false,
+        nextState: false,
+        error: false
+    }
 });
 
-let loggerLevelFunction = createLogger({
-  level: (action) => 'log'
+const loggerColorsFunction = createLogger({
+    colors: {
+        title: action => '#000',
+        prevState: state => '#000',
+        action: action => '#000',
+        nextState: state => '#000',
+        error: (error, prevState) => '#000'
+    }
 });
 
-let loggerLevelObjectFunction = createLogger({
-  level: {
-    prevState: (state) => 'log',
-    action: (action) => 'log',
-    nextState: (state) => 'log',
-    error: (error, prevState) => 'log'
-  }
+const loggerLevelString = createLogger({
+    level: 'log'
 });
 
-let loggerLevelObjectBoolean = createLogger({
-  level: {
-    prevState: false,
-    action: false,
-    nextState: false,
-    error: false
-  }
+const loggerLevelFunction = createLogger({
+    level: action => 'log'
 });
 
-let loggerLevelObjectString = createLogger({
-  level: {
-    prevState: 'log',
-    action: 'log',
-    nextState: 'log',
-    error: 'log'
-  }
+const loggerLevelObjectFunction = createLogger({
+    level: {
+        prevState: state => 'log',
+        action: action => 'log',
+        nextState: state => 'log',
+        error: (error, prevState) => 'log'
+    }
 });
 
-let createStoreWithMiddleware = applyMiddleware(
-  logger,
-  loggerSimpleOpts,
-  loggerCollapsedBool,
-  loggerCollapsedPredicate,
-  loggerColorsBoolean,
-  loggerColorsFunction,
-  loggerLevelString,
-  loggerLevelFunction,
-  loggerLevelObjectFunction,
-  loggerLevelObjectBoolean,
-  loggerLevelObjectString
+const loggerLevelObjectBoolean = createLogger({
+    level: {
+        prevState: false,
+        action: false,
+        nextState: false,
+        error: false
+    }
+});
+
+const loggerLevelObjectString = createLogger({
+    level: {
+        prevState: 'log',
+        action: 'log',
+        nextState: 'log',
+        error: 'log'
+    }
+});
+
+const createStoreWithMiddleware = applyMiddleware(
+    logger,
+    loggerSimpleOpts,
+    loggerCollapsedBool,
+    loggerCollapsedPredicate,
+    loggerCollapsedLogEntryPredicate,
+    loggerColorsBoolean,
+    loggerColorsFunction,
+    loggerLevelString,
+    loggerLevelFunction,
+    loggerLevelObjectFunction,
+    loggerLevelObjectBoolean,
+    loggerLevelObjectString
 )(createStore);

@@ -1,24 +1,30 @@
-// Type definitions for Microsoft Scripting Runtime 1.0
-// Project: https://msdn.microsoft.com/en-us/library/bstcxhf7.aspx
+// Type definitions for non-npm package Microsoft Scripting Runtime 1.0
+// Project: https://msdn.microsoft.com/en-us/library/bstcxhf7(v=vs.84).aspx
 // Definitions by: Zev Spitz <https://github.com/zspitz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.6
+
+/// <reference types="activex-interop" />
 
 declare namespace Scripting {
+    // tslint:disable-next-line:no-const-enum
     const enum CompareMethod {
         BinaryCompare = 0,
         DatabaseCompare = 2,
-        TextCompare = 1
+        TextCompare = 1,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum DriveTypeConst {
         CDRom = 4,
         Fixed = 2,
         RamDisk = 5,
         Remote = 3,
         Removable = 1,
-        UnknownType = 0
+        UnknownType = 0,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum FileAttribute {
         Alias = 1024,
         Archive = 32,
@@ -28,38 +34,42 @@ declare namespace Scripting {
         Normal = 0,
         ReadOnly = 1,
         System = 4,
-        Volume = 8
+        Volume = 8,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum IOMode {
         ForAppending = 8,
         ForReading = 1,
-        ForWriting = 2
+        ForWriting = 2,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum SpecialFolderConst {
         SystemFolder = 1,
         TemporaryFolder = 2,
-        WindowsFolder = 0
+        WindowsFolder = 0,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum StandardStreamTypes {
         StdErr = 2,
         StdIn = 0,
-        StdOut = 1
+        StdOut = 1,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum Tristate {
         TristateFalse = 0,
         TristateMixed = -2,
         TristateTrue = -1,
-        TristateUseDefault = -2
+        TristateUseDefault = -2,
     }
 
     /** Scripting.Dictionary */
-    interface Dictionary {
+    interface Dictionary<TKey = any, TItem = any> {
         /** Add a new key and item to the dictionary. */
-        Add(Key: any, Item: any): void;
+        Add(Key: TKey, Item: TItem): void;
 
         /** Set or get the string comparison method. */
         CompareMode: CompareMethod;
@@ -68,32 +78,38 @@ declare namespace Scripting {
         readonly Count: number;
 
         /** Determine if a given key is in the dictionary. */
-        Exists(Key: any): boolean;
-        HashVal(Key: any): any;
+        Exists(Key: TKey): boolean;
+        HashVal(Key: TKey): any;
 
         /** Set or get the item for a given key */
-        Item(Key: any): any;
+        Item(Key: TKey): TItem;
 
         /** Get an array containing all items in the dictionary. */
-        Items(): any;
+        Items(): SafeArray<TItem>;
 
         /** Change a key to a different key. */
-        Key(Key: any): any;
+        Key(Key: TKey): TKey;
 
         /** Get an array containing all keys in the dictionary. */
-        Keys(): any;
+        Keys(): SafeArray<TKey>;
 
         /** Remove a given key from the dictionary. */
-        Remove(Key: any): void;
+        Remove(Key: TKey): void;
 
         /** Remove all information from the dictionary. */
         RemoveAll(): void;
+
+        /** Set or get the item for a given key */
+        (Key: TKey): TItem;
     }
 
     /** Drive Object */
-    interface Drive {
+    class Drive {
+        private constructor();
+        private 'Scripting.Drive_typekey': Drive;
+
         /** Get available space */
-        readonly AvailableSpace: any;
+        readonly AvailableSpace: number;
 
         /** Drive letter */
         readonly DriveLetter: string;
@@ -105,7 +121,7 @@ declare namespace Scripting {
         readonly FileSystem: string;
 
         /** Get drive free space */
-        readonly FreeSpace: any;
+        readonly FreeSpace: number;
 
         /** Check if disk is available */
         readonly IsReady: boolean;
@@ -123,7 +139,7 @@ declare namespace Scripting {
         readonly ShareName: string;
 
         /** Get total drive size */
-        readonly TotalSize: any;
+        readonly TotalSize: number;
 
         /** Name of volume */
         VolumeName: string;
@@ -134,18 +150,27 @@ declare namespace Scripting {
         /** Number of drives */
         readonly Count: number;
 
-        /** Get drive */
-        Item(Key: any): Drive;
+        /** Get drive using the drive letter (`C`) or path (`C:\\`) */
+        Item(Key: string): Drive;
+
+        /** Get drive using the drive letter (`C`) or path (`C:\\`) */
+        (Key: string): Drive;
     }
 
     /** Script Encoder Object */
     interface Encoder {
         /** Call the Encoder determined by szExt, passing bstrStreamIn and optional arguments */
         EncodeScriptFile(szExt: string, bstrStreamIn: string, cFlags: number, bstrDefaultLang: string): string;
+
+        /** Call the Encoder determined by szExt, passing bstrStreamIn and optional arguments */
+        (szExt: string, bstrStreamIn: string, cFlags: number, bstrDefaultLang: string): string;
     }
 
     /** File object */
-    interface File {
+    class File {
+        private constructor();
+        private 'Scripting.File_typekey': File;
+
         /** File attributes */
         Attributes: FileAttribute;
 
@@ -166,7 +191,7 @@ declare namespace Scripting {
 
         /**
          * Delete this file
-         * @param boolean [Force=false]
+         * @param boolean [Force=false] Pass `true` to delete the file even if the read-only attribute is set
          */
         Delete(Force?: boolean): void;
 
@@ -199,7 +224,7 @@ declare namespace Scripting {
         readonly ShortPath: string;
 
         /** File size */
-        readonly Size: any;
+        readonly Size: number;
 
         /** Type description */
         readonly Type: string;
@@ -210,12 +235,18 @@ declare namespace Scripting {
         /** Number of folders */
         readonly Count: number;
 
+        /** Get file object using the name and extension of the file */
+        Item(Key: string): File;
+
         /** Get file */
-        Item(Key: any): File;
+        (Key: string): File;
     }
 
     /** FileSystem Object */
-    interface FileSystemObject {
+    class FileSystemObject {
+        private constructor();
+        private 'Scripting.FileSystemObject_typekey': FileSystemObject;
+
         /** Generate a path from an existing path and a name */
         BuildPath(Path: string, Name: string): string;
 
@@ -243,13 +274,13 @@ declare namespace Scripting {
 
         /**
          * Delete a file
-         * @param boolean [Force=false]
+         * @param boolean [Force=false] Pass `true` to also delete files with the read-only attribute set
          */
         DeleteFile(FileSpec: string, Force?: boolean): void;
 
         /**
          * Delete a folder
-         * @param boolean [Force=false]
+         * @param boolean [Force=false] Pass `true` to also delete folders with the read-only attribute set
          */
         DeleteFolder(FolderSpec: string, Force?: boolean): void;
 
@@ -317,13 +348,16 @@ declare namespace Scripting {
          * Open a file as a TextStream
          * @param Scripting.IOMode [IOMode=1]
          * @param boolean [Create=false]
-         * @param Scripting.Tristate [Format=0]
+         * @param Scripting.Tristate [Format=0] **TristateTrue** opens the file as Unicode; **TristateFalse** opens the file as ASCII;  **TristateUseDefault** opens the file with  the system default
          */
         OpenTextFile(FileName: string, IOMode?: IOMode, Create?: boolean, Format?: Tristate): TextStream;
     }
 
     /** Folder object */
-    interface Folder {
+    class Folder {
+        private constructor();
+        private 'Scripting.Folder_typekey': Folder;
+
         /** Folder attributes */
         Attributes: FileAttribute;
 
@@ -351,7 +385,7 @@ declare namespace Scripting {
 
         /**
          * Delete this folder
-         * @param boolean [Force=false]
+         * @param boolean [Force=false] Pass `true` to delete the folder even if the read-only attribute set
          */
         Delete(Force?: boolean): void;
 
@@ -383,7 +417,7 @@ declare namespace Scripting {
         readonly ShortPath: string;
 
         /** Sum of files and subfolders */
-        readonly Size: any;
+        readonly Size: number;
 
         /** Get folders collection */
         readonly SubFolders: Folders;
@@ -400,12 +434,18 @@ declare namespace Scripting {
         /** Number of folders */
         readonly Count: number;
 
-        /** Get folder */
-        Item(Key: any): Folder;
+        /** Get folder in collection using the folder's name */
+        Item(Key: string): Folder;
+
+        /** Get folder in collection using the folder's name */
+        (Key: string): Folder;
     }
 
     /** TextStream object */
-    interface TextStream {
+    class TextStream {
+        private constructor();
+        private 'Scripting.TextStream_typekey': TextStream;
+
         /** Is the current position at the end of a line? */
         readonly AtEndOfLine: boolean;
 
@@ -451,15 +491,15 @@ declare namespace Scripting {
 }
 
 interface ActiveXObject {
-    set(obj: Scripting.Dictionary, propertyName: 'Item', parameterTypes: [any], newValue: any): void;
-    new(progid: 'Scripting.Dictionary'): Scripting.Dictionary;
-    new(progid: 'Scripting.Encoder'): Scripting.Encoder;
-    new(progid: 'Scripting.FileSystemObject'): Scripting.FileSystemObject;
+    set<TKey = any, TValue = any>(obj: Scripting.Dictionary<TKey, TValue>, propertyName: 'Item', parameterTypes: [TKey], newValue: TValue): void;
+}
+
+interface ActiveXObjectNameMap {
+    'Scripting.Dictionary': Scripting.Dictionary;
+    'Scripting.Encoder': Scripting.Encoder;
+    'Scripting.FileSystemObject': Scripting.FileSystemObject;
 }
 
 interface EnumeratorConstructor {
-    new(col: Scripting.Dictionary): any;
-    new(col: Scripting.Drives): Scripting.Drive;
-    new(col: Scripting.Files): Scripting.File;
-    new(col: Scripting.Folders): Scripting.Folder;
+    new <TKey>(dict: Scripting.Dictionary<TKey>): Enumerator<TKey>;
 }

@@ -17,8 +17,8 @@ declare namespace bunnymq {
         /**
          * Handle messages from a named queue.
          *
-         * @param {string}           queue      A named queue.
-         * @param {ConsumerCallback} callback   A callback.
+         * @param queue A named queue.
+         * @param callback A callback.
          */
         consume<T>(queue: string, callback: ConsumerCallback<T>): void;
     }
@@ -31,16 +31,15 @@ declare namespace bunnymq {
         /**
          * Subscriber to handle messages from a named queue.
          *
-         * @param {string}           queue      A named queue.
-         * @param {ConsumerCallback} callback   A callback.
+         * @param queue A named queue.
+         * @param callback A callback.
          */
         subscribe<T>(queueName: string, callback: ConsumerCallback<T>): void;
 
         /**
          * Publisher to send messages to a named queue.
          *
-         * @type {Producer}
-         * @return {Promise} The consumer response.
+         * @return The consumer response.
          */
         publish<T>(queueName: string, message: any, options?: ProducerOptions): Promise<T>;
     }
@@ -61,14 +60,12 @@ declare namespace bunnymq {
         /**
          * Number of fetched messages at once on the channel.
          *
-         * @type {number}
          */
         prefetch?: number;
 
         /**
          * Requeue put back message into the broker if consumer crashes/trigger exception.
          *
-         * @type {boolean}
          */
         requeue?: boolean;
         rpcTimeout?: number;
@@ -80,9 +77,9 @@ declare namespace bunnymq {
         /**
          * Send messages to a named queue.
          *
-         * @param {string}  queue   A named queue.
-         * @param {any}     message A message.
-         * @return {Promise} The consumer response.
+         * @param queue A named queue.
+         * @param message A message.
+         * @return The consumer response.
          */
         produce<T>(queue: string, message: any, options?: ProducerOptions): Promise<T>;
     }

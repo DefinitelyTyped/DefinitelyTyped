@@ -1,7 +1,8 @@
 // Type definitions for chai-arrays 1.0
 // Project: https://github.com/GaneshSPatil/chai-arrays
-// Definitions by: Clément Prévot <https://github.com/clementprevot/>
+// Definitions by: Clément Prévot <https://github.com/clementprevot>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.0
 
 /// <reference types="chai" />
 
@@ -27,11 +28,7 @@ declare global {
             sorted(val: any[], msg?: string): void;
         }
     }
-
-    interface Array<T> {
-        should: Chai.Assertion;
-    }
 }
 
-declare function chaiArrays(chai: any, utils: any): void;
+declare const chaiArrays: Chai.ChaiPlugin;
 export = chaiArrays;

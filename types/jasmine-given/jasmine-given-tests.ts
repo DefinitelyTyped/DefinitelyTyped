@@ -4,36 +4,48 @@ When(() => { });
 
 Then(() => { });
 
+Then('expected condition 1', () => { });
+
 And(() => { });
 
 Invariant(() => { });
 
 Given((done) => {
-  if (done) {
-    done();
-  }
+  done();
 });
 
 When((done) => {
-  if (done) {
-    done();
-  }
+  done();
 });
 
-Then((done) => {
-  if (done) {
-    done();
-  }
+Then('expected condition 2', (done) => {
+  done();
 });
 
 And((done) => {
-  if (done) {
-    done();
-  }
+  done();
 });
 
 Invariant((done) => {
-  if (done) {
-    done();
-  }
+  done();
+});
+
+Given((done) => {
+  done.fail();
+});
+
+When((done) => {
+  done.fail();
+});
+
+Then('expected condition 2', (done) => {
+  done.fail();
+});
+
+And((done) => {
+  done.fail();
+});
+
+Invariant((done) => {
+  done.fail();
 });

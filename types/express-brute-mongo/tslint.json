@@ -1,0 +1,10 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        // TODOs
+        "ban-types": false,
+        "dt-header": false,
+        "npm-naming": false,
+        "no-unnecessary-class": false
+    }
+}

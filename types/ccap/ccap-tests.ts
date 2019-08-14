@@ -1,4 +1,4 @@
-import * as ccap from 'ccap';
+import ccap = require('ccap');
 
 const captcha1 = ccap();
 

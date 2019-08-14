@@ -1,9 +1,11 @@
 // Type definitions for kue 0.11.x
 // Project: https://github.com/Automattic/kue
-// Definitions by: Nicholas Penree <http://github.com/drudge>
-//                 Amiram Korach <http://github.com/amiram>
+// Definitions by: Nicholas Penree <https://github.com/drudge>
+//                 Amiram Korach <https://github.com/amiram>
 //                 Christian D. <https://github.com/pc-jedi>
+//                 Budi Irawan <https://github.com/deerawan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 /// <reference types="node" />
 
@@ -29,9 +31,10 @@ export declare class Queue extends events.EventEmitter {
     setupTimer(): void;
     checkJobPromotion(ms: number): void;
     checkActiveJobTtl(ttlOptions: Object): void;
-    watchStuckJobs(ms: number): void;
+    watchStuckJobs(ms?: number): void;
     setting(name: string, fn: Function): Queue;
-    process(type: string, n?: number | ProcessCallback, fn?: ProcessCallback): void;
+    process(type: string, fn?: ProcessCallback): void;
+    process(type: string, n: number, fn?: ProcessCallback): void;
     shutdown(timeout: number, fn: Function): Queue;
     shutdown(timeout: number, type: string, fn: Function): Queue;
     types(fn: Function): Queue;
@@ -61,7 +64,9 @@ interface Priorities {
 
 export type DoneCallback = (err?: any, result?: any) => void;
 export type JobCallback = (err?: any, job?: Job) => void;
-export type ProcessCallback = (job: Job, cb: DoneCallback) => void;
+export type ProcessCallback =
+    | ((job: Job, cb: DoneCallback) => void)
+    | ((job: Job, ctx: WorkerCtx, cb: DoneCallback) => void);
 
 export declare class Job extends events.EventEmitter {
     public id: number;
@@ -71,7 +76,13 @@ export declare class Job extends events.EventEmitter {
     // Should always be a number however currently it is a number when creating and a string when loading
     // https://github.com/Automattic/kue/issues/1081
     public created_at: string | number;
+    public updated_at: string | number;
+    public promote_at: string | number;
+    public failed_at: string | number;
+    public started_at: string | number;
     public client: redisClientFactory.RedisClient;
+    public workerId: string;
+    private _error: string;
     private _max_attempts;
 
     static priorities: Priorities;
@@ -98,6 +109,7 @@ export declare class Job extends events.EventEmitter {
     ttl(param: any): Job;
     private _getBackoffImpl(): void;
     priority(level: string | number): Job;
+    priority(): number | string;
     attempt(fn: Function): Job;
     reattempt(attempt: number, fn?: Function): void;
     attempts(n: number): Job;
@@ -133,6 +145,13 @@ declare class Worker extends events.EventEmitter {
     shutdown(timeout: number, fn: Function): void;
     emitJobEvent(event: Object, job: Job, arg1: any, arg2: any): void;
     resume(): boolean;
+}
+
+interface WorkerCtx {
+    pause(fn?: DoneCallback): void;
+    pause(timeout: number, fn?: DoneCallback): void;
+    resume(): void;
+    shutdown(): void;
 }
 
 interface Redis {

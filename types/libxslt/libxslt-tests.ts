@@ -1,7 +1,7 @@
 import * as libxslt from 'libxslt';
 import * as libxmljs from 'libxmljs';
 
-const document: libxmljs.XMLDocument = libxslt.libxmljs.parseXmlString('<xml></xml>');
+const document: libxmljs.Document = libxslt.libxmljs.parseXmlString('<xml></xml>');
 
 let stylesheet: libxslt.Stylesheet;
 
@@ -36,7 +36,7 @@ applyOptions = {
 
 let transformedString: string;
 
-let transformedDocument: libxmljs.XMLDocument;
+let transformedDocument: libxmljs.Document;
 
 transformedString = stylesheet.apply('<xml></xml>');
 

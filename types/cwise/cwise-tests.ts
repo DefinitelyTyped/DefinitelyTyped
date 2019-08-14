@@ -1,6 +1,6 @@
-import * as cwise from 'cwise';
-import * as ndarray from 'ndarray';
-import * as tape from 'tape';
+import cwise = require('cwise');
+import ndarray = require('ndarray');
+import tape = require('tape');
 
 // basic
 tape("only allow same shape", (t) => {
@@ -66,7 +66,7 @@ tape("binary", (t) => {
 	const binary = cwise({
 		args: ["array", "array", "scalar", "shape", "index"],
 		body(a: number, b: number, t: tape.Test, s: number[], idx: number) {
-			if (!(a === 0)) t.fail("idx:" + idx + ", shape:" + s + ",a:" + a);
+			if (!(a === 0)) t.fail(`idx:${idx}, shape:${s},a:${a}`);
 			a = b + 1001;
 		}
 	});
@@ -80,7 +80,7 @@ tape("binary", (t) => {
 		binary(P, Q, t);
 		for (let i = 0; i < P.shape[0]; ++i) {
 			if (!(P.get(i) === i + 1001)) {
-				t.fail(testName + "; encountered " + P.get(i) + " instead of " + (i + 1001) + " at " + i);
+				t.fail(`${testName}; encountered ${P.get(i)} instead of ${(i + 1001)} at ${i}`);
 				return;
 			}
 		}
@@ -128,7 +128,7 @@ tape("binary", (t) => {
 		for (let i = 0; i < P.shape[0]; ++i) {
 			for (let j = 0; j < P.shape[1]; ++j) {
 				if (!(P.get(i, j) === i * 1000 + j + 1001)) {
-					t.fail(testName + "; encountered " + P.get(i, j) + " instead of " + (i * 1000 + j + 1001) + " at (" + i + "," + j + ")");
+					t.fail(`${testName}; encountered ${P.get(i, j)} instead of ${(i * 1000 + j + 1001)} at (" + i + "," + j + ")`);
 					return;
 				}
 			}
@@ -150,8 +150,7 @@ tape("binary", (t) => {
 	t.end();
 });
 
-// browserify
-import * as browserify from "browserify";
+import browserify = require("browserify");
 import * as vm from 'vm';
 import * as path from 'path';
 
@@ -163,7 +162,7 @@ function bundleCasesFrom(i: number) {
 	if (i >= cases.length) return;
 	const b = browserify();
 	b.ignore("tape");
-	b.add(__dirname + "/" + cases[i] + ".js");
+	b.add(`${__dirname}/${cases[i]}.js`);
 	b.transform(path.normalize(__dirname + "/../cwise.js"));
 	tape(cases[i], (t) => { // Without nested tests, the asynchronous nature of bundle causes issues with tape...
 		b.bundle((err, src) => {
@@ -209,7 +208,7 @@ tape("fill", (t) => {
 
 	for (let i = 0; i < xlen; i++) {
 		for (let j = 0; j < ylen; j++) {
-			t.equals(array.get(i, j), 0, 'fill (' + i + ',' + j + ')');
+			t.equals(array.get(i, j), 0, `fill (${i},${j})`);
 		}
 	}
 
@@ -219,7 +218,7 @@ tape("fill", (t) => {
 
 	for (let i = 0; i < xlen; i++) {
 		for (let j = 0; j < ylen; j++) {
-			t.equals(array.get(i, j), 10 * (i + j), 'fill (' + i + ',' + j + ')');
+			t.equals(array.get(i, j), 10 * (i + j), `fill (${i},${j})`);
 		}
 	}
 
@@ -231,7 +230,7 @@ tape("offset", (t) => {
 	const binary = cwise({
 		args: ["array", "array", { offset: [1], array: 1 }, "scalar", "shape", "index"],
 		body(a, b, c, t, s, idx) {
-			if (!(a === 0)) t.fail("idx:" + idx + ", shape:" + s + ",a:" + a);
+			if (!(a === 0)) t.fail(`idx:${idx}, shape:${s},a:${a}`);
 			a = c + b + 1000;
 		}
 	});
@@ -246,7 +245,7 @@ tape("offset", (t) => {
 		binary(P, Q.hi(Q.shape[0] - 1), t);
 		for (let i = 0; i < P.shape[0]; ++i) {
 			if (!(P.get(i) === 2 * i + 1001)) {
-				t.fail(testName + "; encountered " + P.get(i) + " instead of " + (2 * i + 1001) + " at " + i);
+				t.fail(`${testName}; encountered ${P.get(i)} instead of ${2 * i + 1001} at ${i}`);
 				return;
 			}
 		}
@@ -292,7 +291,7 @@ tape("unary", (t) => {
 		unary(arr);
 		for (let i = 0; i < arr.shape[0]; ++i) {
 			if (!(arr.get(i) === i + 1)) {
-				t.fail(testName + "; encountered " + arr.get(i) + " instead of " + (i + 1) + " at " + i);
+				t.fail(`${testName}; encountered ${arr.get(i)} instead of ${i + 1} at ${i}`);
 				return;
 			}
 		}
@@ -336,7 +335,7 @@ tape("unary", (t) => {
 		for (let i = 0; i < arr.shape[0]; ++i) {
 			for (let j = 0; j < arr.shape[1]; ++j) {
 				if (!(arr.get(i, j) === 1 + i + j * arr.shape[0])) {
-					t.fail(testName + "; encountered " + arr.get(i, j) + " instead of " + (1 + i + j * arr.shape[0]) + " at (" + i + "," + j + ")");
+					t.fail(`${testName}; encountered ${arr.get(i, j)} instead of ${1 + i + j * arr.shape[0]} at (${i},${j})`);
 					return;
 				}
 			}

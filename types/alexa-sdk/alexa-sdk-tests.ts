@@ -1,13 +1,13 @@
 import * as Alexa from "alexa-sdk";
 
 const handler = (event: Alexa.RequestBody<Alexa.Request>, context: Alexa.Context, callback: () => void) => {
-    let alexa = Alexa.handler(event, context);
+    const alexa = Alexa.handler(event, context);
     alexa.resources = {};
     alexa.registerHandlers(handlers);
     alexa.execute();
 };
 
-let handlers: Alexa.Handlers<Alexa.Request> = {
+const handlers: Alexa.Handlers<Alexa.Request> = {
     'LaunchRequest': function() {
         this.emit('SayHello');
     },

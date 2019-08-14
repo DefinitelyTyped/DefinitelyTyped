@@ -1,6 +1,6 @@
 // Type definitions for ZeroMQ Node
 // Project: https://github.com/JustinTulloss/zeromq.node
-// Definitions by: Dave McKeown <http://github.com/davemckeown>
+// Definitions by: Dave McKeown <https://github.com/davemckeown>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -44,7 +44,7 @@ interface SocketOptions {
     swap: number;
 }
 
-interface Socket extends EventEmitter {
+export class Socket implements EventEmitter {
     /**
      * Set `opt` to `val`.
      *

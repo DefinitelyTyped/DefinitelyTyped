@@ -167,7 +167,7 @@ popover.setList([
 popover.setList(['a', 'b', 'c'], item => {
     const text = typeof item === 'string' ? item : item.text;
     const value = typeof item === 'string' ? item : item.value;
-    return '<li><a class="padded-list" data-value="' + value + '">' + text + '</a></li>';
+    return `<li><a class="padded-list" data-value="${value}">${text}</a></li>`;
 });
 
 popover.attachButton('.button-trigger-popover', true);
@@ -412,7 +412,7 @@ phonon.options({
 phonon.navigator().on({ page: 'home' }, activity => {
     activity.onReady(() => {
         // input where user typed words to query
-        const input = document.querySelector( '#searchJS' );
+        const input = document.querySelector('#searchJS');
         let list = '';
         // external autocomplete
         const req = phonon.ajax({

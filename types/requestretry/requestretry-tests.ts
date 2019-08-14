@@ -1,6 +1,21 @@
 import request = require('requestretry');
 import http = require('http');
 
+// Promisified request function
+request({
+	url: 'https://api.example.com/v1/a/b',
+	json: true,
+	// The below parameters are specific to request-retry
+	// (default) try 5 times
+	maxAttempts: 5,
+	// (default) wait for 5s before trying again
+	retryDelay: 5000,
+	// (default) retry on 5xx or network errors
+	retryStrategy: request.RetryStrategies.HTTPOrNetworkError
+}).then(res => {
+	// Body
+});
+
 // HTTPOrNetworkError strategy.
 request({
 	url: 'https://api.example.com/v1/a/b',
@@ -73,3 +88,15 @@ request({
 }, (err, response, body) => {
 	// Body.
 });
+
+// Define options
+const options: request.RequestRetryOptions = {
+	maxAttempts: 2,
+	promiseFactory: (resolver: any) => {
+		return new Promise(resolver);
+	},
+	retryDelay: 4,
+	retryStrategy: (err: Error, response: http.IncomingMessage, body: any) => {
+		return true;
+	},
+};

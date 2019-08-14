@@ -1,8 +1,5 @@
-
-
-
 import * as gulp from 'gulp';
-import * as stripDebug from 'gulp-strip-debug';
+import stripDebug = require('gulp-strip-debug');
 
 // Example taken from https://www.npmjs.com/package/gulp-strip-debug
 gulp.task('default', function () {

@@ -1,17 +1,19 @@
-import * as autopref from 'autoprefixer';
+import autoprefixer = require('autoprefixer');
+import { Transformer } from 'postcss';
 
-const ap: autopref.Transformer = autopref({
-	browsers: ['> 5%', 'last 2 versions'],
-	env: '',
-	cascade: true,
-	add: true,
-	remove: true,
-	supports: true,
-	flexbox: true,
-	grid: true,
-	stats: {},
+// No options
+const ap1: Transformer = autoprefixer();
+
+// Default options
+const ap2: Transformer = autoprefixer({
+    browsers: [],
+    env: 'test',
+    cascade: true,
+    add: true,
+    remove: true,
+    supports: true,
+    flexbox: true,
+    grid: false,
+    stats: {},
+    ignoreUnknownVersions: false
 });
-const ap2: autopref.Transformer = autopref({
-	flexbox: 'no-2009',
-});
-const info: string = ap.info();

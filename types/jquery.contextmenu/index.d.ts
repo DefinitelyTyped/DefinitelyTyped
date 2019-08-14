@@ -1,6 +1,6 @@
 // Type definitions for jQuery contextMenu 1.7.0
 // Project: http://medialize.github.com/jQuery-contextMenu/
-// Definitions by: Natan Vivo <https://github.com/nvivo/>
+// Definitions by: Natan Vivo <https://github.com/nvivo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -22,8 +22,8 @@ interface JQueryContextMenuOptions {
         hide?: string;
     };
     events?: {
-        show?: () => void;
-        hide?: () => void;
+        show?: (options: any) => boolean;
+        hide?: (options: any) => boolean;
     };
     callback?: (key: any, options: any) => any;
     items?: any;

@@ -1,8 +1,8 @@
 // Type definitions for SuperAgent 2.3
 // Project: https://github.com/visionmedia/superagent
-// Definitions by: Alex Varju <https://github.com/varju/>
-//                 Nico Zelaya <https://github.com/NicoZelaya/>
-//                 Michael Ledin <https://github.com/mxl/>
+// Definitions by: Alex Varju <https://github.com/varju>
+//                 Nico Zelaya <https://github.com/NicoZelaya>
+//                 Michael Ledin <https://github.com/mxl>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -89,6 +89,7 @@ declare namespace request {
         forbidden: boolean;
         xhr: XMLHttpRequest;
         get(header: string): string;
+        redirects: string[];
     }
 
     interface Request extends Promise<Response> /* extends NodeJS.WritableStream */ {
@@ -118,6 +119,7 @@ declare namespace request {
         withCredentials(): this;
         write(data: string | Buffer, encoding?: string): this;
         parse(fn: (res: Response, callback: (err: Error | null, body: any) => void) => void): this;
+        maxResponseSize(size: number): this;
     }
 
     type Plugin = (req: Request) => void;

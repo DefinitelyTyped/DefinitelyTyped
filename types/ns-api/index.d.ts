@@ -10,50 +10,27 @@ interface nsApi {
     /**
      * Vertrektijden - departure times
      *
-     * @callback callback
-     * @param station {string} - Station ID
-     * @param callback {function} - `function (err, data) {}`
-     * @returns {void}
+     * @param station - Station ID
      */
     vertrektijden(station: string, callback: (err: string, data: {}) => void): void;
 
     /**
      * Reisadvies - travel advise
-     *
-     * @callback callback
-     * @param params {object} - Parameters
-     * @param callback {function} - `function (err, data) {}`
-     * @returns {void}
      */
     reisadvies(params: {}, callback: (err: string, data: {}) => void): void;
 
-    /**
-     * Prijzen - tariffs
-     *
-     * @callback callback
-     * @param params {object} - Parameters
-     * @param callback {function} - `function (err, data) {}`
-     * @returns {void}
-     */
+    /** Prijzen - tariffs */
     prijzen(params: {}, callback: (err: any, data: {}) => void): void;
 
     /**
      * List available stations
      *
-     * @callback callback
-     * @param [treeKey] {string} - Group by this key
-     * @param callback {function} - `function (err, data) {}`
+     * @param [treeKey] - Group by this key
      */
     stations(treeKey: string, callback: (err: string, data: {}) => void): void;
     stations(callback: (err: string, data: {}) => void): void;
 
-    /**
-     * List disruptions
-     *
-     * @callback callback
-     * @param params {object} - Parameters
-     * @param callback {function} - `function (err, data) {}`
-     */
+    /** List disruptions */
     storingen(params: {}, callback: (err: string, data: {}) => void): void;
 }
 

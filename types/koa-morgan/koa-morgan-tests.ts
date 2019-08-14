@@ -1,6 +1,6 @@
 import { IncomingMessage, ServerResponse } from 'http';
-import * as Koa from 'koa';
-import * as morgan from 'koa-morgan';
+import Koa = require('koa');
+import morgan = require('koa-morgan');
 
 const app = new Koa();
 
@@ -12,11 +12,12 @@ app.use(morgan('tiny'));
 app.use(morgan(':remote-addr :method :url'));
 
 const tokenCallback: morgan.TokenCallbackFn = (req: IncomingMessage, res: ServerResponse): string => {
-    if (req.headers['request-id']) {
-        if (Array.isArray(req.headers['request-id'])) {
-            return (req.headers['request-id'] as string[]).join(';');
+    const rqid = req.headers['request-id'];
+    if (rqid) {
+        if (Array.isArray(rqid)) {
+            return rqid.join(';');
         } else {
-            return req.headers['request-id'] as string;
+            return rqid;
         }
     } else {
         return '-';
@@ -77,8 +78,8 @@ const developmentExtendedFormatLine: ExtendedFormatFn = (tokens, req: IncomingMe
             developmentExtendedFormatLine.memoizer = {};
         }
 
-        fn = developmentExtendedFormatLine.memoizer[color] = morgan.compile('\x1b[0m:method :url \x1b['
-            + color + 'm:status \x1b[0m:response-time ms - :res[content-length]\x1b[0m :user-agent');
+        fn = developmentExtendedFormatLine.memoizer[color] = morgan.compile(
+            `\x1b[0m:method :url \x1b[${color}m:status \x1b[0m:response-time ms - :res[content-length]\x1b[0m :user-agent`);
     }
 
     return fn(tokens, req, res);

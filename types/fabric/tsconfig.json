@@ -8,6 +8,7 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": false,
+        "strictFunctionTypes": false,
         "baseUrl": "../",
         "typeRoots": [
             "../"
@@ -18,6 +19,7 @@
     },
     "files": [
         "index.d.ts",
-        "fabric-tests.ts"
+        "test/index.ts",
+        "test/import.ts"
     ]
 }

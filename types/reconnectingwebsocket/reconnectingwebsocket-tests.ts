@@ -1,7 +1,6 @@
-import ReconnectingWebSocket from "reconnectingwebsocket";
-import { Options } from "reconnectingwebsocket";
+import ReconnectingWebSocket = require("reconnectingwebsocket");
 
-const options: Options = {
+const options: ReconnectingWebSocket.Options = {
     automaticOpen: false,
     binaryType: "blob",
     debug: false,

@@ -21,19 +21,16 @@ export interface FrameBus {
     unsub(event: string, fn: (...args: any[]) => any): boolean;
     off(event: string, fn: (...args: any[]) => any): boolean;
 }
-/*~ If this module has methods, declare them as functions like so.
- */
+
 /**
  * let popup = window.open('https://example.com');
  * framebus.include(popup);
  * framebus.emit('hello popup and friends!');
- * @param popup
  */
 export function include(popup: Window): boolean;
 /**
  * framebus.target('https://example.com').on('my cool event', function () {});
  * // will ignore all incoming 'my cool event' NOT from 'https://example.com'
- * @param origin {string}
  */
 export function target(origin: string): FrameBus;
 
@@ -42,64 +39,64 @@ export function target(origin: string): FrameBus;
  *    console.log('Got back %s as a reply!', data)
  * }
  * framebus.publish('Marco!', callback, 'http://listener.example.com');
- * @param event {string} The name of the event
- * @param args  {...any[]} The data to give to subscribers
- * // @param last{callback(data)} Give subscribers a function for easy, direct replies
+ * @param event The name of the event
+ * @param args The data to give to subscribers
+ * @param last Give subscribers a function for easy, direct replies
  */
 export function publish(event: string, ...args: any[]/* fn:  callback(data:)*/): boolean;
 
 /**
  * publish = pub = trigger = emit
  * framebus.publish('Marco!', callback, 'http://listener.example.com');
- * @param event {string} The name of the event
- * @param args  {...any[]} The data to give to subscribers
- * // @param last{callback(data)} Give subscribers a function for easy, direct replies
+ * @param event The name of the event
+ * @param args  The data to give to subscribers
+ * @param last Give subscribers a function for easy, direct replies
  */
 export function pub(event: string, ...args: any[]): boolean;
 /**
  * publish = pub = trigger = emit
- * @param event {string} The name of the event
- * @param args  {...any[]} The data to give to subscribers
- * // @param last{callback(data)} Give subscribers a function for easy, direct replies
+ * @param event The name of the event
+ * @param args  The data to give to subscribers
+ * @param last Give subscribers a function for easy, direct replies
  */
 export function trigger(event: string, ...args: any[]): boolean;
 /**
  * publish = pub = trigger = emit
- * @param event {string} The name of the event
- * @param args  {...any[]} The data to give to subscribers
- * // @param last{callback(data)} Give subscribers a function for easy, direct replies
+ * @param event The name of the event
+ * @param args  The data to give to subscribers
+ * @param last Give subscribers a function for easy, direct replies
  */
 export function emit(event: string, ...args: any[]): boolean;
 /**
  * **this** scope is the MessageEvent object from the underlying postMessage
- * @param event {string} The name of the event
- * @param fn  {Callback} ([arg...] [, callback]) Event handler. Arguments are from the publish invocation
+ * @param event The name of the event
+ * @param fn  ([arg...] [, callback]) Event handler. Arguments are from the publish invocation
  */
 export function subscribe(event: string, fn: (...args: any[]) => any): boolean;
 /**
  * **this** scope is the MessageEvent object from the underlying postMessage
- * @param event {string} The name of the event
- * @param fn  {Callback} ([arg...] [, callback]) Event handler. Arguments are from the publish invocation
+ * @param event The name of the event
+ * @param fn  ([arg...] [, callback]) Event handler. Arguments are from the publish invocation
  */
 export function sub(event: string, fn: (...args: any[]) => any): boolean;
 /**
  * **this** scope is the MessageEvent object from the underlying postMessage
- * @param event {string} The name of the event
- * @param fn  {Callback} ([arg...] [, callback]) Event handler. Arguments are from the publish invocation
+ * @param event The name of the event
+ * @param fn  ([arg...] [, callback]) Event handler. Arguments are from the publish invocation
  */
 export function on(event: string, fn: (...args: any[]) => any): boolean;
 /**
- * @param event {string} The name of the event
- * @param fn {Callback} The function that was subscribed
+ * @param event The name of the event
+ * @param fn The function that was subscribed
  */
 export function unsubscribe(event: string, fn: (...args: any[]) => any): boolean;
 /**
- * @param event {string} The name of the event
- * @param fn {Callback} The function that was subscribed
+ * @param event The name of the event
+ * @param fn The function that was subscribed
  */
 export function unsub(event: string, fn: (...args: any[]) => any): boolean;
 /**
- * @param event {string} The name of the event
- * @param fn {Callback} The function that was subscribed
+ * @param event The name of the event
+ * @param fn The function that was subscribed
  */
 export function off(event: string, fn: (...args: any[]) => any): boolean;

@@ -1,6 +1,7 @@
 /**
  * Created by jcabresos on 4/19/2014.
  */
+import express = require('express');
 import passport = require('passport');
 import github = require('passport-github2');
 
@@ -35,7 +36,22 @@ passport.use(new github.Strategy(
     },
     (accessToken: string, refreshToken: string, profile: github.Profile, done: (error: any, user?: any) => void) => {
         User.findOrCreate(profile.id, profile.provider, (err, user) => {
-            if (err) { return done(err); }
+            if (err) { done(err); return; }
+            done(null, user);
+        });
+    })
+);
+
+passport.use(new github.Strategy(
+    {
+        callbackURL,
+        clientID,
+        clientSecret,
+        passReqToCallback: true
+    },
+    (request: express.Request, accessToken: string, refreshToken: string, profile: github.Profile, done: (error: any, user?: any) => void) => {
+        User.findOrCreate(profile.id, profile.provider, (err, user) => {
+            if (err) { done(err); return; }
             done(null, user);
         });
     })

@@ -1,0 +1,9 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        // We don't want to export the Constructor interfaces
+        // and I can't figure out how to disable this lint using
+        // `export {}`
+        "strict-export-declare-modifiers": false
+    }
+}

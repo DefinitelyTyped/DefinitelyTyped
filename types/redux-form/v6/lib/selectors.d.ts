@@ -1,4 +1,4 @@
-import { DataShape, FormErrors } from "../index";
+import { DataShape, FormErrors, FormMeta } from "../index";
 
 /**
  * A "selector" API to make it easier to connect() to form values. Creates a selector
@@ -27,6 +27,14 @@ export interface ErrorSelector {
 }
 
 /**
+ * Get form field meta
+ */
+export interface MetaSelector {
+    <FormData extends DataShape, State>(formName: string): (state: State) => FormMeta<FormData>;
+    <FormData extends DataShape>(formName: string): (state: any) => FormMeta<FormData>;
+}
+
+/**
  * Gets boolean info from form.
  */
 export interface BooleanSelector {
@@ -42,7 +50,7 @@ export const getFormValues: DataSelector;
 /**
  * Returns the form's fields meta data, namely touched and visited.
  */
-export const getFormMeta: DataSelector;
+export const getFormMeta: MetaSelector;
 
 /**
  * Gets the form's initial values.
@@ -78,7 +86,7 @@ export const getFormSubmitErrors: ErrorSelector;
  *
  * If you are using ImmutableJS, it will return a List.
  */
-export const getFormNames: <State>(state: State) => string[];
+export function getFormNames<State>(state: State): string[];
 
 /**
  * Returns true if the form is dirty, i.e. the values have been altered

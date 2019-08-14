@@ -1,4 +1,4 @@
-import * as toMarkdown from 'to-markdown';
+import toMarkdown = require('to-markdown');
 
 // toMarkdown()
 toMarkdown(`
@@ -22,31 +22,31 @@ toMarkdown(`
     {
       filter: 'code',
       replacement(innerHTML) {
-        return '`' + innerHTML + '`';
+        return `\`${innerHTML}\``;
       }
     },
     {
       filter: ['em', 'i'],
       replacement(innerHTML) {
-        return '*' + innerHTML + '*';
+        return `*${innerHTML}*`;
       }
     },
     {
       filter(node) {
         return node.nodeName === 'SPAN'
-               && /italic/i.test(node.style.fontStyle!);
+               && /italic/i.test(node.style.fontStyle || "");
       },
       replacement(innerHTML) {
-        return '*' + innerHTML + '*';
+        return `*${innerHTML}*`;
       }
     },
     {
       filter(node) {
         return node.nodeName === 'SPAN'
-               && /italic/i.test(node.style.fontStyle!);
+               && /italic/i.test(node.style.fontStyle || "");
       },
       replacement(innerHTML, node) {
-        return innerHTML + ' (node: `' + node.nodeName + '`)';
+        return `${innerHTML}(node: \`${node.nodeName}\`)`;
       }
     }
   ]

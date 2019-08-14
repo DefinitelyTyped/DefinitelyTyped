@@ -1,7 +1,10 @@
-/// <reference types="mocha" />
-
 import assert = require('assert')
 import fs = require('mz/fs')
+
+// Stub mocha functions
+const {describe, it, before, after, beforeEach, afterEach} = null as any as {
+  [s: string]: ((s: string, cb: (done: any) => void) => void) & ((cb: (done: any) => void) => void) & {only: any, skip: any};
+};
 
 describe('fs', function () {
 
@@ -133,7 +136,7 @@ describe('readline', function () {
     var input = new stream.PassThrough()
     var output = new stream.PassThrough()
     var bufferedOutput = ''
-    var rl = readline.createInterface( input, output, <readline.Completer>completer, true )
+    var rl = readline.createInterface( input, output, completer as readline.Completer, true )
 
     rl.question('a').then(function (answer: string) {
       assert.equal(answer, 'bTESTSTRING')
@@ -171,12 +174,12 @@ describe('readline', function () {
     it('completer support sync', function (done) {
       function completer (line: string) {
         assert.equal(line, 'b')
-        return <[string[], string]>[['bTESTSTRING'], line]
+        return [['bTESTSTRING'], line] as [string[], string]
       }
 
       var input = new stream.PassThrough()
       var output = new stream.PassThrough()
-      var rl = readline.createInterface(input, output, <readline.Completer>completer, true)
+      var rl = readline.createInterface(input, output, completer as readline.Completer, true)
 
       rl.question('a').then(function (answer) {
         assert.ok(output.read().toString().match(/TESTSTRING/))
@@ -194,7 +197,7 @@ describe('readline', function () {
 
       var input = new stream.PassThrough()
       var output = new stream.PassThrough()
-      var rl = readline.createInterface(input, output, <readline.Completer>completer, true )
+      var rl = readline.createInterface(input, output, completer as readline.Completer, true )
 
       rl.question('a').then(function (answer) {
         assert.ok(output.read().toString().match(/TESTSTRING/))

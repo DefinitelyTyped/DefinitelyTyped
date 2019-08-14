@@ -6,11 +6,11 @@ function retrieveFile(path: string): string {
 	return "foo";
 }
 
-function retrieveSourceMap(source: string): sms.UrlAndMap {
-	return {
+function retrieveSourceMap(source: string): sms.UrlAndMap | null {
+	return source ? {
 		url: "http://foo",
 		map: "foo"
-	};
+	} : null;
 }
 
 const options: sms.Options = {
@@ -39,5 +39,7 @@ let p: sms.Position = {
 };
 p = sms.mapSourcePosition(p);
 
-let u: sms.UrlAndMap;
+let u: sms.UrlAndMap | null;
 u = retrieveSourceMap("foo");
+
+sms.resetRetrieveHandlers();

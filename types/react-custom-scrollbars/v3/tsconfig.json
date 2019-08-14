@@ -8,13 +8,18 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
+        "strictFunctionTypes": true,
         "baseUrl": "../../",
         "typeRoots": [
             "../../"
         ],
         "paths": {
-          "react-custom-scrollbars": ["react-custom-scrollbars/v3"],
-          "react-custom-scrollbars/*": ["react-custom-scrollbars/v3/*"]
+            "react-custom-scrollbars": [
+                "react-custom-scrollbars/v3"
+            ],
+            "react-custom-scrollbars/*": [
+                "react-custom-scrollbars/v3/*"
+            ]
         },
         "types": [],
         "noEmit": true,

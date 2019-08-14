@@ -1,6 +1,6 @@
 // Type definitions for npm 2.0.0
 // Project: https://github.com/npm/npm
-// Definitions by: Maxime LUCE <https://github.com/SomaticIT/>
+// Definitions by: Maxime LUCE <https://github.com/SomaticIT>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -167,8 +167,8 @@ declare namespace NPM {
         Conf: ConfigStatic;
         defs: ConfigDefs;
 
-        get(setting: string): string;
-        set(setting: string, value: string): void;
+        get(setting: string): any;
+        set(setting: string, value: any): void;
 
         loadPrefix(cb: ErrorCallback): void;
         loadCAFile(caFilePath: string, cb: ErrorCallback): void;

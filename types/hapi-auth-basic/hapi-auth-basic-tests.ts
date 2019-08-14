@@ -2,9 +2,9 @@
 
 import Bcrypt = require('bcrypt');
 import Basic = require('hapi-auth-basic');
-import * as Hapi from 'hapi';
+import { Server } from 'hapi';
 
-const server = new Hapi.Server();
+const server = new Server();
 
 interface User {
     username: string;
@@ -22,21 +22,22 @@ const users: {[index: string]: User} = {
     }
 };
 
-const validate: Basic.ValidateFunc = function (request, username, password, callback) {
+const validate: Basic.Validate = async (request, username, password, h) => {
 
     const user = users[username];
     if (!user) {
-        return callback(null, false);
+        return { isValid: false, credentials: null };
     }
 
-    Bcrypt.compare(password, user.password, (err, isValid) => {
+    let isValid = await Bcrypt.compare(password, user.password)
 
-        callback(err, isValid, { id: user.id, name: user.name });
-    });
+    return { isValid, credentials: { id: user.id, name: user.name } };
 };
 
-server.register(Basic, (err) => {
+server.register(Basic).then(() => {
 
-    server.auth.strategy('simple', 'basic', { validateFunc: validate });
-    server.route({ method: 'GET', path: '/', config: { auth: 'simple' } });
+    server.auth.strategy('simple', 'basic', { validate });
+	server.auth.default('simple');
+
+    server.route({ method: 'GET', path: '/', options: { auth: 'simple' } });
 });

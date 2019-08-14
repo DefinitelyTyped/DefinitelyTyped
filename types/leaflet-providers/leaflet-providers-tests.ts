@@ -1,9 +1,17 @@
+import * as L from 'leaflet';
+import 'leaflet-providers';
+
 const map = L.map('map');
 L.tileLayer.provider('Stamen.Watercolor').addTo(map);
 
 L.tileLayer.provider('HERE.terrainDay', {
   app_id: '<insert ID here>',
   app_code: '<insert ID here>'
+}).addTo(map);
+
+L.tileLayer.provider('OpenStreetMap', {
+  maxZoom: 21,
+  maxNativeZoom: 19
 }).addTo(map);
 
 new L.TileLayer.Provider('MapBox').addTo(map);

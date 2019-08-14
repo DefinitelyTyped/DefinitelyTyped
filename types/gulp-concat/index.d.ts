@@ -1,5 +1,5 @@
 // Type definitions for gulp-concat
-// Project: http://github.com/wearefractal/gulp-concat
+// Project: https://github.com/wearefractal/gulp-concat
 // Definitions by: Keita Kagurazaka <https://github.com/k-kagurazaka>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 

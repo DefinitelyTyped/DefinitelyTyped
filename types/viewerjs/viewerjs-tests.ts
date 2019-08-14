@@ -1,4 +1,4 @@
-import Viewer from 'viewerjs';
+import Viewer = require('viewerjs');
 
 ////////////////
 // Static Methods
@@ -11,7 +11,7 @@ Viewer.noConflict();
 // Constructors
 ////////////////
 
-let pictures: Element = <Element> document.querySelector('.docs-pictures');
+const pictures: Element = <Element> document.querySelector('.docs-pictures');
 
 let viewer = new Viewer(pictures);
 viewer = new Viewer(pictures, {});

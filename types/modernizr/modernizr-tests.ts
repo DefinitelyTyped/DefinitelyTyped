@@ -1,7 +1,7 @@
 declare const $: any;
 
 window.alert = (thing?: string) => {
-    $('#content').append('<div>' + thing + '</div>');
+    $('#content').append(`<div>${thing}</div>`);
 };
 
 $(() => {
@@ -110,7 +110,7 @@ Modernizr.prefixedCSSValue('background', 'linear-gradient(left, red, red)');
 let rule = Modernizr._prefixes.join('transform: rotate(20deg); ');
 rule === 'transform: rotate(20deg); webkit-transform: rotate(20deg); moz-transform: rotate(20deg); o-transform: rotate(20deg); ms-transform: rotate(20deg);';
 
-rule = 'display:' +  Modernizr._prefixes.join('flex; display:') + 'flex';
+rule = `display:${Modernizr._prefixes.join('flex; display:')}flex`;
 rule === 'display:flex; display:-webkit-flex; display:-moz-flex; display:-o-flex; display:-ms-flex; display:flex';
 
 Modernizr.testAllProps('boxSizing');  // true

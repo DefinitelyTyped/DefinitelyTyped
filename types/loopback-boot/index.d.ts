@@ -1,8 +1,8 @@
 // Type definitions for Loopback-boot 2.23
 // Project: https://github.com/strongloop/loopback-boot
-// Definitions by: Andres D Jimenez <https://github.com/kattsushi/>
+// Definitions by: Andres D Jimenez <https://github.com/kattsushi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 /************************************************
 *                                               *
@@ -79,9 +79,8 @@ import * as loopback from "loopback";
  * To avoid this when using bootLoopBackApp() make sure all models are passed as part of the models definition.
  * Throws an error if the config object is not valid or if boot fails.
  *
- * @param {Loopback.LoopbackApplication} app LoopBack application created by loopback().
- * @param {string|OptionsLB} options Boot options; If String, this is the application root directory; if object, has below properties.
- * @param {() => void} callback
+ * @param app LoopBack application created by loopback().
+ * @param options Boot options; If String, this is the application root directory; if object, has below properties.
  */
 
 declare function lb(app: loopback.LoopBackApplication, options: string|OptionsLB, callback?: (err: Error) => void): void;
@@ -189,12 +188,9 @@ declare namespace lb {
        * compileToBrowserify
        *
        * Compile boot instructions and add them to a browserify bundler.
-       * @param {string|any} options as described in bootLoopBackApp above.
-       * @param {any} bundler A browserify bundler created by browserify().
-       * @class
-       * @constructor
+       * @param options as described in bootLoopBackApp above.
+       * @param bundler A browserify bundler created by browserify().
        */
-
       class compileToBrowserify {
             /**
              * Application identifier used to load the correct boot configuration when

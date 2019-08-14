@@ -15,6 +15,10 @@ const modeNum = 0;
 const modeStr = "";
 const object = {};
 const errorCallback = (err: Error) => { };
+const ensureNum = 0o700;
+const ensureObj: fs.EnsureOptions = {
+   mode: 0o700
+};
 const readOptions: fs.ReadOptions = {
 	reviver: {}
 };
@@ -43,40 +47,26 @@ fs.copy(src, dest, { overwrite: true }).then(() => {
 	// stub
 });
 fs.copy(src, dest, errorCallback);
-fs.copy(src, dest, (src: string) => false, errorCallback);
+fs.copy(src, dest, { filter: (src: string, dest: string) => false }, errorCallback);
 fs.copy(src, dest,
 	{
 		overwrite: true,
 		preserveTimestamps: true,
-		filter: (src: string) => false
+		filter: (src: string, dest: string) => Promise.resolve(false)
 	},
 	errorCallback
 );
-fs.copy(src, dest,
-	{
-		overwrite: true,
-		preserveTimestamps: true,
-		filter: /.*/
-	},
-	errorCallback
-);
+
 fs.copySync(src, dest);
-fs.copySync(src, dest, (src: string) => false);
-fs.copySync(src, dest, { filter: /.*/ });
+fs.copySync(src, dest, { filter: (src: string, dest: string) => false });
 fs.copySync(src, dest,
 	{
 		overwrite: true,
 		preserveTimestamps: true,
-		filter: (src: string) => false
+		filter: (src: string, dest: string) => false
 	}
 );
-fs.copySync(src, dest,
-	{
-		overwrite: true,
-		preserveTimestamps: true,
-		filter: /.*/
-	}
-);
+
 fs.createFile(file).then(() => {
 	// stub
 });
@@ -159,8 +149,17 @@ fs.writeJSONSync(file, object, writeOptions);
 fs.ensureDir(path).then(() => {
 	// stub
 });
-fs.ensureDir(path, errorCallback);
+fs.ensureDir(path, ensureObj).then(() => {
+	// stub
+});
+fs.ensureDir(path, ensureNum).then(() => {
+	// stub
+});
+fs.ensureDir(path, ensureObj, errorCallback);
+fs.ensureDir(path, ensureNum, errorCallback);
 fs.ensureDirSync(path);
+fs.ensureDirSync(path, ensureObj);
+fs.ensureDirSync(path, ensureNum);
 
 fs.ensureFile(path).then(() => {
 	// stub
@@ -228,3 +227,7 @@ fs.writeFile("foo.txt", "i am foo", { encoding: "utf-8" });
 
 // $ExpectType Promise<string>
 fs.mkdtemp("foo");
+
+fs.copyFile("src", "dest").then();
+fs.copyFile("src", "dest", fs.constants.COPYFILE_EXCL).then();
+fs.copyFile("src", "dest", errorCallback);

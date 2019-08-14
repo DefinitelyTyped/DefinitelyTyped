@@ -1,54 +1,64 @@
-
 import mm = require('micromatch');
 
-var strArrResult: string[];
-var boolResult: boolean;
-var strMatchFuncResult: mm.MatchFunction<string>;
-var anyMatchFuncResult: mm.MatchFunction<any>;
-var globDataResult: mm.GlobData;
-var regExpResult: RegExp;
+// options type is accessible
+const micromatchOptions: mm.Options = {
+    basename: true,
+    dot: true,
+};
 
-// Usage.
-strArrResult = mm(['a.js', 'b.md', 'c.txt'], '*.{js,txt}');
+let strArrResult: string[];
+let boolResult: boolean;
 
-// Multiple patterns.
-strArrResult = mm(['a.md', 'b.js', 'c.txt', 'd.json'], ['*.md', '*.txt']);
+// main function
+strArrResult = mm(['a.js', 'a.txt'], '*.js', micromatchOptions);
+strArrResult = mm(['a.js', 'a.txt'], ['*.js']);
 
-// "isMatch" method.
-boolResult = mm.isMatch('.verb.md', '*.md');
-boolResult = mm.isMatch('.verb.md', '*.md', {dot: true});
-boolResult = mm.isMatch('*.md', {dot: true})('.verb.md');
+// .match
+strArrResult = mm.match(['a.a', 'a.aa', 'a.b', 'a.c'], '*.a');
 
-// "contains" method.
-boolResult = mm.contains('a/b/c', 'a/b');
-boolResult = mm.contains('a/b/c', 'a/b', {dot: true});
+// .isMatch
+boolResult = mm.isMatch('a.a', '*.a');
 
-// "matcher" method.
-strMatchFuncResult = mm.matcher('*.md');
-strMatchFuncResult = mm.matcher(/\.md$/);
-strMatchFuncResult = mm.matcher((filePath: string) => true);
+// .some
+boolResult = mm.some('foo.js', '*.js');
+boolResult = mm.some(['foo.js', 'bar.js'], ['*.js', '!foo.js']);
+boolResult = mm.some(['foo.js', 'bar.js'], '*.js');
 
-// "filter" method.
-anyMatchFuncResult = mm.filter('*.md');
-anyMatchFuncResult = mm.filter(/\.md$/);
-anyMatchFuncResult = mm.filter((filePath: string) => true);
+// .every
+boolResult = mm.every('foo.js', ['foo.js']);
+boolResult = mm.every(['foo.js', 'bar.js'], ['*.js', '!foo.js']);
+boolResult = mm.every(['foo.js', 'bar.js'], '*.js');
 
-anyMatchFuncResult = mm.filter('*.md', {dot: true});
-['a.js', 'b.txt', 'c.md'].filter(anyMatchFuncResult);
+// .any
+boolResult = mm.any('foo.js', ['foo.js']);
+boolResult = mm.any(['foo.js', 'bar.js'], ['*.js', '!foo.js'], micromatchOptions);
+boolResult = mm.any(['foo.js', 'bar.js'], '*.js');
 
-var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
-anyMatchFuncResult = mm.filter(['{1..10}', '![7-9]', '!{3..4}']);
-arr.filter(anyMatchFuncResult);
+// .all
+boolResult = mm.all('foo.js', ['foo.js']);
+boolResult = mm.all(['foo.js', 'bar.js'], ['*.js', '!foo.js']);
+boolResult = mm.all(['foo.js', 'bar.js'], '*.js');
 
-// "any" method.
-boolResult = mm.any('abc', ['!*z']);
-boolResult = mm.any('abc', 'a*');
-boolResult = mm.any('abc', 'a*', {dot: true});
+// .not
+strArrResult = mm.not(['a.a', 'b.b', 'c.c'], '*.a');
 
-// "expand" method.
-globDataResult = mm.expand('*.js');
-globDataResult = mm.expand('*.js', {dot: true});
+// .contains
+boolResult = mm.contains('aa/bb/cc', '*b');
+boolResult = mm.contains('aa/bb/cc', ['*b', '*a']);
 
-// "makeRe" method.
-regExpResult = mm.makeRe('*.js');
-regExpResult = mm.makeRe('*.js', {dot: true});
+// .matchKeys
+const obj = { aa: 'a', ab: 'b', ac: 'c' };
+const partialObj: Partial<typeof obj> = mm.matchKeys(obj, '*b');
+
+// .matcher
+const matcherFn: (str: string) => boolean = mm.matcher('*.!(*a)');
+
+// .capture
+const strArrResultNullable: string[] | null = mm.capture('test/*.js', 'test/foo.js');
+
+// .makeRe
+const regex: RegExp = mm.makeRe('*.js');
+
+// .braces
+strArrResult = mm.braces('*.js');
+strArrResult = mm.braces('*.js', { expand: true });

@@ -14,3 +14,11 @@ const result = commentJson.parse(`
 // comment at the bottom
 `);
 const str = commentJson.stringify(result);
+
+const numericallyIndexed = commentJson.stringify(result, (key, value) => {
+return key && Number.isInteger(Number(key))
+    ? value
+    : undefined;
+});
+
+const whiteListed = commentJson.stringify(result, ['a', 1]);

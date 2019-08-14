@@ -79,7 +79,7 @@ const selectOptions: DropkickOptions = {
     open(this: Dropkick) {
         const optionsList = (<any> this).data.elem.lastChild; // undocumented but useful data field
         if (optionsList.scrollWidth > optionsList.offsetWidth) {
-            optionsList.style.width = optionsList.scrollWidth + 25 + 'px';
+            optionsList.style.width = `${optionsList.scrollWidth + 25}px`;
         }
     },
     change: () => {

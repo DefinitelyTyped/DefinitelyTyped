@@ -1,4 +1,4 @@
-import * as touch from 'touch';
+import touch = require('touch');
 
 // type value definitions
 const boolVal = true;
@@ -7,7 +7,7 @@ const strVal = "string";
 const dateVal = new Date();
 
 // Options tests
-let opts: touch.Options = {};
+const opts: touch.Options = {};
 
 opts.force = boolVal;
 
@@ -24,6 +24,8 @@ opts.mtime = dateVal;
 opts.ref = strVal;
 
 opts.nocreate = boolVal;
+
+opts.closeAfter = boolVal;
 
 let str: string;
 // touch API tests

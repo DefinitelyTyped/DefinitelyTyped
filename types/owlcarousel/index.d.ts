@@ -44,6 +44,8 @@ interface IOwlCarouselOptions {
     mouseDrag?: boolean;
     touchDrag?: boolean;
     addClassActive?: boolean;
+    loop?: boolean;
+    nav?: boolean;
     transitionStyle?: any;
 
     // callbacks

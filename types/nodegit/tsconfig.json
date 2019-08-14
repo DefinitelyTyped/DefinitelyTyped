@@ -7,6 +7,7 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": false,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
@@ -35,6 +36,7 @@
         "clone.d.ts",
         "commit.d.ts",
         "config.d.ts",
+        "convenient-hunk.d.ts",
         "convenient-patch.d.ts",
         "cred-user-pass-payload.d.ts",
         "cred-username.d.ts",
@@ -46,7 +48,6 @@
         "diff-binary.d.ts",
         "diff-delta.d.ts",
         "diff-file.d.ts",
-        "diff-hunk.d.ts",
         "diff-line.d.ts",
         "diff-options.d.ts",
         "diff-perf-data.d.ts",
@@ -101,6 +102,8 @@
         "signature.d.ts",
         "stash.d.ts",
         "status-entry.d.ts",
+        "status-file-options.d.ts",
+        "status-file.d.ts",
         "status-list.d.ts",
         "status-options.d.ts",
         "status.d.ts",

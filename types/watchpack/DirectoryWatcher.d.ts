@@ -3,7 +3,7 @@
 import { EventEmitter } from 'events';
 import fs = require('graceful-fs');
 import Watcher = require('./Watcher');
-import Watchpack = require('watchpack');
+import Watchpack = require('.');
 
 declare class DirectoryWatcher extends EventEmitter {
     options: Watchpack.WatcherOptions;

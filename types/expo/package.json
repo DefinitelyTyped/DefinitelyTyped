@@ -1,0 +1,7 @@
+{
+  "private": true,
+  "dependencies": {
+    "react-native-maps": "*",
+    "react-native-svg": "*"
+  }
+}

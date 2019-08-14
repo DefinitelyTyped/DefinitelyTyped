@@ -1,6 +1,6 @@
 // Type definitions for AngularFire 0.8.2
 // Project: http://angularfire.com
-// Definitions by: Dénes Harmath <http://github.com/thSoft>
+// Definitions by: Dénes Harmath <https://github.com/thSoft>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -112,7 +112,7 @@ interface AngularFireObject extends AngularFireSimpleObject {
 	 * @param {object} scope
 	 * @param {string} varName
 	 * @returns a promise which resolves to an unbind method after data is set in scope
-	 */	
+	 */
 	$bindTo(scope: ng.IScope, varName: string): ng.IPromise<any>;
 
 	/**
@@ -125,7 +125,7 @@ interface AngularFireObject extends AngularFireSimpleObject {
 	 * @param {Function} cb
 	 * @param {Object} [context]
 	 * @returns {Function} invoke to stop observing events
-	 */	
+	 */
 	$watch(callback: Function, context?: any): Function;
 
 	/**

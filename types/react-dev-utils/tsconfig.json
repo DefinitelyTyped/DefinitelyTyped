@@ -1,0 +1,48 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "checkRequiredFiles.d.ts",
+        "clearConsole.d.ts",
+        "errorOverlayMiddleware.d.ts",
+        "eslintFormatter.d.ts",
+        "FileSizeReporter.d.ts",
+        "formatWebpackMessages.d.ts",
+        "getCacheIdentifier.d.ts",
+        "getCSSModuleLocalIdent.d.ts",
+        "getProcessForPort.d.ts",
+        "ignoredFiles.d.ts",
+        "InlineChunkHtmlPlugin.d.ts",
+        "InterpolateHtmlPlugin.d.ts",
+        "launchEditor.d.ts",
+        "ModuleScopePlugin.d.ts",
+        "noopServiceWorkerMiddleware.d.ts",
+        "openBrowser.d.ts",
+        "printBuildError.d.ts",
+        "printHostingInstructions.d.ts",
+        "WatchMissingNodeModulesPlugin.d.ts",
+        "WebpackDevServerUtils.d.ts",
+        "webpackHotDevClient.d.ts",
+        "test/eslintFormatter.ts",
+        "test/noopServiceWorkerMiddleware.ts",
+        "test/utils.ts",
+        "test/webpack-plugins.ts",
+        "test/webpack-utils.ts"
+    ]
+}

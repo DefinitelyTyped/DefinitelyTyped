@@ -52,7 +52,8 @@ cli.main(function (args, options) {
                 }
                 return str;
             }
-            for (i = 0, l = this.argc; i < l; i++) {
+            var l: number = this.argc;
+            for (i = 0; i < l; i++) {
                 args[i] = escape(args[i]);
             }
             options.separator = escape(options.separator);

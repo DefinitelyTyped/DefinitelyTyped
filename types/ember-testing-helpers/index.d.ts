@@ -1,8 +1,8 @@
 // Type definitions for ember-testing/lib/helpers
 // Project: https://github.com/emberjs/ember.js/tree/master/packages/ember-testing/lib/helpers
-// Definitions by: Chris Krycho <github.com/chriskrycho>
+// Definitions by: Chris Krycho <https://github.com/chriskrycho>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 
 // Note that these are distributed separately because they represent a discrete
 // set of functionality, and as globally-injected items (as of Ember 2.13), are
@@ -13,11 +13,11 @@
 import RSVP from 'rsvp';
 
 type KeyEventType = 'keydown' | 'keyup' | 'keypress';
-type WaitResult<T> = RSVP.Promise<T, never>;
+type WaitResult<T> = RSVP.Promise<T>;
 
 declare global {
     // https://github.com/emberjs/ember.js/blob/master/packages/ember-testing/lib/helpers/and_then.js
-    function andThen<T>(callback: (...args: any[]) => T): RSVP.Promise<T, never>;
+    function andThen<T>(callback: (...args: any[]) => T): RSVP.Promise<T>;
 
     // https://github.com/emberjs/ember.js/blob/master/packages/ember-testing/lib/helpers/click.js
     function click(selector: string, context?: Object): WaitResult<void>;
@@ -45,7 +45,7 @@ declare global {
     function keyEvent(selector: string, type: KeyEventType, keyCode: number): WaitResult<void>;
 
     // https://github.com/emberjs/ember.js/blob/master/packages/ember-testing/lib/helpers/pause_test.js
-    function pauseTest(): RSVP.Promise<{}, never>;
+    function pauseTest(): RSVP.Promise<{}>;
     function resumeTest(): void;
 
     // https://github.com/emberjs/ember.js/blob/master/packages/ember-testing/lib/helpers/trigger_event.js

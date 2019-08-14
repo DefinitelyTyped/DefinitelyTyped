@@ -1,11 +1,13 @@
 // Type definitions for leaflet-polylinedecorator 1.1
 // Project: https://github.com/bbecquet/Leaflet.PolylineDecorator#readme
 // Definitions by: Viktor Soucek <https://github.com/soucekv>
+//                 Michael Faisst <https://github.com/michaelfaisst>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
-/// <reference types="leaflet" />
+import * as L from 'leaflet';
 
-declare namespace L {
+declare module 'leaflet' {
     namespace Symbol {
         interface DashOptions {
             pixelSize?: number;
@@ -37,16 +39,16 @@ declare namespace L {
         }
 
         class Marker {
-            constructor(options?: L.Symbol.MarkerOptions);
+            constructor(options?: MarkerOptions);
         }
 
-        function marker(options?: L.Symbol.MarkerOptions): L.Symbol.Marker;
+        function marker(options?: MarkerOptions): Marker;
     }
 
     interface Pattern {
-        offset?: number;
-        endOffset?: number;
-        repeat: number;
+        offset?: number | string;
+        endOffset?: number | string;
+        repeat: number | string;
         symbol: Symbol.Dash | Symbol.ArrowHead | Symbol.Marker;
     }
 

@@ -1,6 +1,6 @@
 // Type definitions for typeahead.js 0.11.1
 // Project: http://twitter.github.io/typeahead.js/
-// Definitions by: Ivaylo Gochkov <https://github.com/igochkov/>, Gidon Junge <https://github.com/gjunge/>
+// Definitions by: Ivaylo Gochkov <https://github.com/igochkov>, Gidon Junge <https://github.com/gjunge>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -1186,7 +1186,7 @@ declare class Bloodhound<T> {
      * @param async Async callback.
      * @returns The data that matches query.
      */
-    public search(query: string, sync: (datums: T[]) => void, async: (datums: T[]) => void): T[];
+    public search(query: string, sync: (datums: T[]) => void, async?: (datums: T[]) => void): T[];
 
     /**
      * Returns all items from the internal search index.

@@ -1,7 +1,7 @@
 import * as angular from "angular";
 import { ngStorage } from "ngstorage";
 
-let app: angular.IModule = angular.module('at', ['ngStorage']);
+const app: angular.IModule = angular.module('at', ['ngStorage']);
 
 app.controller('LocalCtrl', ($localStorage: ngStorage.StorageService) => {
     if ($localStorage.$supported()) {

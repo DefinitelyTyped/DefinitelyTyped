@@ -1,3 +1,6 @@
+// package: google.protobuf
+// file: timestamp.proto
+
 import * as jspb from "../../index";
 
 export class Timestamp extends jspb.Message {

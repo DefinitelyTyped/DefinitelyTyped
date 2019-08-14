@@ -1,7 +1,8 @@
-import * as webpack from 'webpack';
-import * as WebpackDevServer from 'webpack-dev-server';
-import * as core from 'express-serve-static-core';
-let compiler = webpack({});
+import webpack = require('webpack');
+import WebpackDevServer = require('webpack-dev-server');
+import { Application } from 'express';
+const compiler = webpack({});
+const multipleCompiler = webpack([]);
 
 // basic example
 let server = new WebpackDevServer(compiler, {
@@ -10,8 +11,11 @@ let server = new WebpackDevServer(compiler, {
 server.listen(8080);
 
 // Configuration can be used as a type
-let config: WebpackDevServer.Configuration = {
+const config: WebpackDevServer.Configuration = {
     // webpack-dev-server options
+    inline: true,
+    // Toggle between the dev-server's two different modes --- inline (default, recommended for HMR) or iframe.
+
     contentBase: "/path/to/directory",
     // or: contentBase: "http://localhost/",
 
@@ -42,7 +46,7 @@ let config: WebpackDevServer.Configuration = {
         "**": "http://localhost:9090"
     },
 
-    setup: (app: core.Express) => {
+    setup: (app: Application, server: WebpackDevServer) => {
         // Here you can access the Express app object and add your own custom middleware to it.
         // For example, to define custom handlers for some paths:
         app.get('/some/path', (req, res) => {
@@ -54,6 +58,11 @@ let config: WebpackDevServer.Configuration = {
     staticOptions: {
     },
 
+    stats: {
+        assets: false,
+        warningsFilter: /1/,
+    },
+
     // webpack-dev-middleware options
     quiet: false,
     noInfo: false,
@@ -63,12 +72,83 @@ let config: WebpackDevServer.Configuration = {
         aggregateTimeout: 300,
         poll: 1000
     },
+    writeToDisk: true,
     // It's a required option.
     publicPath: "/assets/",
-    headers: { "X-Custom-Header": "yes" },
-    stats: { colors: true }
+    headers: { "X-Custom-Header": "yes" }
+};
+
+const c2: WebpackDevServer.Configuration = {
+    stats: false,
+};
+const c3: WebpackDevServer.Configuration = {
+    stats: "verbose",
+};
+const c4: WebpackDevServer.Configuration = {
+    writeToDisk: (filePath: string) => true,
+};
+const c5: WebpackDevServer.Configuration = {
+    proxy: [{context: (pathname: string) => true}]
+};
+const c6: WebpackDevServer.Configuration = {
+    historyApiFallback: {
+        disableDotRule: true,
+        htmlAcceptHeaders: ['text/html'],
+        index: '/app/',
+        logger: () => {},
+        rewrites: [
+            {
+                from: /\/page/,
+                to: '/page.html'
+            },
+            {
+                from: /^\/images\/.*$/,
+                to: (context) => '/assets/' + context.parsedUrl.pathname
+            }
+        ],
+        verbose: true
+    }
 };
 
 // API example
 server = new WebpackDevServer(compiler, config);
-server.listen(8080, "localhost", () => {});
+server.listen(8080, "localhost", () => { });
+
+// HTTPS example
+server = new WebpackDevServer(compiler, {
+    publicPath: "/assets/",
+    https: true
+});
+
+server.listen(8080, "localhost", () => { });
+
+server.close();
+
+const webpackConfig: webpack.Configuration = {
+    context: __dirname,
+
+    mode: 'development',
+
+    target: 'node',
+
+    devServer: config
+};
+
+WebpackDevServer.addDevServerEntrypoints(webpackConfig, {
+    publicPath: "/assets/",
+    https: true
+});
+
+WebpackDevServer.addDevServerEntrypoints(
+    [webpackConfig],
+    {
+        publicPath: "/assets/",
+        https: true
+    },
+    {
+        address: () => ({ port: 80 })
+    }
+);
+
+// multiple compilers
+server = new WebpackDevServer(multipleCompiler, config);

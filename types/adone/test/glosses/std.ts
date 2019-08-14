@@ -1,36 +1,4 @@
-import adone from "adone";
-
-import * as assert from "assert";
-import * as fs from "fs";
-import * as path from "path";
-import * as util from "util";
-import * as events from "events";
-import * as stream from "stream";
-import * as url from "url";
-import * as net from "net";
-import * as http from "http";
-import * as https from "https";
-import * as child_process from "child_process";
-import * as os from "os";
-import * as cluster from "cluster";
-import * as repl from "repl";
-import * as punycode from "punycode";
-import * as readline from "readline";
-import * as string_decoder from "string_decoder";
-import * as querystring from "querystring";
-import * as crypto from "crypto";
-import * as vm from "vm";
-import * as v8 from "v8";
-import * as domain from "domain";
-import * as tty from "tty";
-import * as buffer from "buffer";
-import * as constants from "constants";
-import * as zlib from "zlib";
-import * as tls from "tls";
-import * as console from "console";
-import * as dns from "dns";
-import * as timers from "timers";
-import * as dgram from "dgram";
+import { adone } from "adone";
 
 const { std } = adone;
 
@@ -69,6 +37,12 @@ namespace stdTests {
 
     namespace http {
         std.http.get("http://localhost").end();
+    }
+
+    namespace http2 {
+        std.http2.connect("somewhere").on("stream", (stream) => {
+            stream.pipe(process.stdout);
+        });
     }
 
     namespace https {
@@ -123,8 +97,12 @@ namespace stdTests {
         std.domain.create().members;
     }
 
+    namespace module {
+        new std.module.Module("1").exports;
+    }
+
     namespace tty {
-        std.tty.isatty(1) === true;
+        const a: boolean = std.tty.isatty(1);
     }
 
     namespace buffer {
@@ -157,5 +135,9 @@ namespace stdTests {
 
     namespace dgram {
         std.dgram.createSocket("udp4").bind(31337);
+    }
+
+    namespace perf_hooks {
+        std.perf_hooks.performance.measure("1", "2", "3");
     }
 }

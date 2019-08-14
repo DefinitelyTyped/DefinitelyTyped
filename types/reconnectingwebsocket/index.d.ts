@@ -1,21 +1,23 @@
 // Type definitions for reconnectingwebsocket 1.0
 // Project: https://github.com/joewalnes/reconnecting-websocket
-// Definitions by: Nicholas Guarracino <https://github.com/nguarracino/>
+// Definitions by: Nicholas Guarracino <https://github.com/nguarracino>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export interface Options {
-    automaticOpen?: boolean;
-    binaryType?: 'blob' | 'arraybuffer';
-    debug?: boolean;
-    maxReconnectAttempts?: number | null;
-    maxReconnectInterval?: number;
-    reconnectDecay?: number;
-    reconnectInterval?: number;
-    timeoutInterval?: number;
+declare namespace ReconnectingWebSocket {
+    interface Options {
+        automaticOpen?: boolean;
+        binaryType?: 'blob' | 'arraybuffer';
+        debug?: boolean;
+        maxReconnectAttempts?: number | null;
+        maxReconnectInterval?: number;
+        reconnectDecay?: number;
+        reconnectInterval?: number;
+        timeoutInterval?: number;
+    }
 }
 
-export default class ReconnectingWebSocket {
-    constructor(url: string, protocols?: string[], options?: Options);
+declare class ReconnectingWebSocket {
+    constructor(url: string, protocols?: string[], options?: ReconnectingWebSocket.Options);
 
     static debugAll: boolean;
 
@@ -41,3 +43,4 @@ export default class ReconnectingWebSocket {
     reconnectAttempts: number;
     url: string;
 }
+export = ReconnectingWebSocket;

@@ -1,4 +1,4 @@
-import * as ndarray from 'ndarray';
+import ndarray = require('ndarray');
 
 const data = new Int32Array(2 * 2 * 2 + 10);
 const a = ndarray(data, [2, 2, 2], [1, 2, 4], 5);
@@ -22,3 +22,5 @@ console.log(a.get(0, 0, 0) === 1);
 console.log(a.index(1, 1, 1) === 12);
 
 const b = a.lo(0, 0, 0).hi(1, 1, 1);
+
+a.pick(null, null, 1);

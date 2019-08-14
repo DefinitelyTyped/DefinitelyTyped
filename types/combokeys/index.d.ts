@@ -35,7 +35,7 @@ declare namespace Combokeys {
          * @param {handler} optional - one of "keypress", "keydown", or "keyup"
          * @returns void
          */
-        bind(keys: string | string[], callback: () => void, action?: string): void;
+        bind(keys: string | string[], callback: (event: KeyboardEvent) => void, action?: string): void;
 
 
         /**

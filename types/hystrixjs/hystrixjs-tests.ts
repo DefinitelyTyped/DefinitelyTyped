@@ -1,10 +1,10 @@
 import hystrixjs = require('hystrixjs');
 import q = require('q');
 
-var commandFactory = hystrixjs.commandFactory;
+const commandFactory = hystrixjs.commandFactory;
 
-var command = commandFactory
-    .getOrCreate('testCommand', 'testGroup')
+const command = commandFactory
+    .getOrCreate<string, string>('testCommand', 'testGroup')
     .circuitBreakerSleepWindowInMilliseconds(5000)
     .errorHandler((error) => {
         return false;
@@ -29,16 +29,16 @@ var command = commandFactory
 
 command.execute('something').then((result) => {
     console.log(result);
-})
+});
 
 commandFactory.resetCache();
 
-var metricsFactory = hystrixjs.metricsFactory;
+const metricsFactory = hystrixjs.metricsFactory;
 
-var metrics = metricsFactory.getOrCreate({
+const metrics = metricsFactory.getOrCreate({
     commandKey: 'metricsKey',
     commandGroup: 'metricsGroup'
-})
+});
 metrics.markSuccess();
 metrics.markFailure();
 metrics.markRejected();
@@ -48,7 +48,7 @@ metrics.decrementExecutionCount();
 metrics.getCurrentExecutionCount();
 metrics.addExecutionTime(3000);
 metrics.getRollingCount("FAILURE");
-var healthcounts = metrics.getHealthCounts();
+const healthcounts = metrics.getHealthCounts();
 console.log(healthcounts.totalCount);
 console.log(healthcounts.errorCount);
 console.log(healthcounts.errorPercentage);
@@ -59,7 +59,7 @@ metricsFactory.getAllMetrics().map((metrics) => {
     console.log(metrics.getCurrentExecutionCount());
 });
 
-var hystrixConfig = hystrixjs.hystrixConfig;
+const hystrixConfig = hystrixjs.hystrixConfig;
 console.log(hystrixConfig.metricsPercentileWindowBuckets());
 console.log(hystrixConfig.circuitBreakerForceClosed());
 console.log(hystrixConfig.circuitBreakerForceOpened());
@@ -73,11 +73,11 @@ console.log(hystrixConfig.metricsStatisticalWindowBuckets());
 console.log(hystrixConfig.metricsStatisticalWindowInMilliseconds());
 console.log(hystrixConfig.metricsPercentileWindowInMilliseconds());
 console.log(hystrixConfig.requestVolumeRejectionThreshold());
-console.log(hystrixConfig.resetProperties());
-console.log(hystrixConfig.init({}));
+hystrixConfig.resetProperties();
+hystrixConfig.init({});
 
-var hystrixSSEStream = hystrixjs.hystrixSSEStream;
+const hystrixSSEStream = hystrixjs.hystrixSSEStream;
 
 hystrixSSEStream.toObservable().subscribe((result) => {
     console.log(result);
-})
+});

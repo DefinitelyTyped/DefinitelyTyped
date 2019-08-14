@@ -1,4 +1,4 @@
-// Type definitions for Google Sign-In API 0.0
+// Type definitions for non-npm package Google Sign-In API 0.0
 // Project: https://developers.google.com/identity/sign-in/web/
 // Definitions by: Derek Lawless <https://github.com/flawless2011>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -21,13 +21,13 @@ declare namespace gapi.auth2 {
      * Calls the onInit function when the GoogleAuth object is fully initialized, or calls the onFailure function if
      * initialization fails.
      */
-    then(onInit: (googleAuth: GoogleAuth) => any, onFailure?: (reason: string) => any): any;
+    then(onInit: (googleAuth: GoogleAuth) => any, onFailure?: (reason: {error: string, details: string}) => any): any;
 
     /**
      * Signs in the user using the specified options.
      * If no option specified here, fallback to the options specified to gapi.auth2.init().
      */
-    signIn(options?: SigninOptions | SigninOptionsBuilder): any;
+    signIn(options?: SigninOptions | SigninOptionsBuilder): Promise<GoogleUser>;
 
     /**
      * Signs out all accounts from the application.
@@ -42,11 +42,7 @@ declare namespace gapi.auth2 {
     /**
      * Get permission from the user to access the specified scopes offline.
      */
-    grantOfflineAccess(options?: {
-      scope?: string;
-      prompt?: "select_account" | "consent";
-      app_package_name?: string;
-    }): any;
+    grantOfflineAccess(options?: OfflineAccessOptions): Promise<{code: string}>;
 
     /**
      * Attaches the sign-in flow to the specified container's click handler.
@@ -105,6 +101,27 @@ declare namespace gapi.auth2 {
      * Optional if fetch_basic_profile is not set to false.
      */
     scope?: string;
+    /**
+     * The UX mode to use for the sign-in flow.
+     * By default, it will open the consent flow in a popup.
+     */
+    ux_mode?: "popup" | "redirect";
+    /**
+     * If using ux_mode='redirect', this parameter allows you to override the default redirect_uri that will be used at the end of the consent flow.
+     * The default redirect_uri is the current URL stripped of query parameters and hash fragment.
+     */
+    redirect_uri?: string;
+  }
+
+  /**
+   * Definitions by: John <https://github.com/jhcao23>
+   * Interface that represents the different configuration parameters for the GoogleAuth.grantOfflineAccess(options) method.
+   * Reference: https://developers.google.com/api-client-library/javascript/reference/referencedocs#gapiauth2offlineaccessoptions
+   */
+  interface OfflineAccessOptions {
+    scope?: string;
+    prompt?: "select_account" | "consent";
+    app_package_name?: string;
   }
 
   /**
@@ -201,7 +218,7 @@ declare namespace gapi.auth2 {
     login_hint?: string;
     app_package_name?: string;
     openid_realm?: string;
-    include_granted_scope?: boolean;
+    include_granted_scopes?: boolean;
   }
 
   /**
@@ -342,7 +359,7 @@ declare namespace gapi.signin2 {
     /**
      * The callback function to call when sign-in fails (default: none).
      */
-    onfailure?(): void;
+    onfailure?(reason: { error: string }): void;
 
     /**
      * The package name of the Android app to install over the air. See

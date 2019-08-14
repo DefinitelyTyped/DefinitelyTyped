@@ -1,1 +1,7 @@
-{ "extends": "dtslint/dt.json" }
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        // Node is declared as `ProsemirrorNode` to avoid name-clash with `Node` from the DOM
+        "strict-export-declare-modifiers": false
+    }
+}

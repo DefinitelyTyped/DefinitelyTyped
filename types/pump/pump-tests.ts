@@ -1,4 +1,4 @@
-import * as pump from 'pump';
+import pump = require('pump');
 import { createReadStream, createWriteStream } from 'fs';
 import { Transform } from 'stream';
 
@@ -47,6 +47,8 @@ setTimeout(() => {
     throw new Error('timeout');
 }, 5000);
 
+// $ExpectType Stream
 pump(createReadStream('/dev/random'), toHex(), createWriteStream('/dev/null'));
 
+// $ExpectType Stream
 pump([createReadStream('/dev/random'), toHex(), createWriteStream('/dev/null')]);

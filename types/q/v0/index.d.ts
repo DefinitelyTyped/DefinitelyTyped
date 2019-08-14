@@ -249,7 +249,10 @@ declare namespace Q {
     /**
      * Returns a promise that is fulfilled with an array containing the fulfillment value of each promise, or is rejected with the same rejection reason as the first promise to be rejected.
      */
-    export function all<A, B>(promises: IWhenable<[IWhenable<A>, IWhenable<B>]>): Promise<[A, B]>;
+    export function all<A, B>(promises: IWhenable<[IPromise<A>, IPromise<B>]>): Promise<[A, B]>;
+    export function all<A, B>(promises: IWhenable<[A, IPromise<B>]>): Promise<[A, B]>;
+    export function all<A, B>(promises: IWhenable<[IPromise<A>, B]>): Promise<[A, B]>;
+    export function all<A, B>(promises: IWhenable<[A, B]>): Promise<[A, B]>;
     /**
      * Returns a promise that is fulfilled with an array containing the fulfillment value of each promise, or is rejected with the same rejection reason as the first promise to be rejected.
      */

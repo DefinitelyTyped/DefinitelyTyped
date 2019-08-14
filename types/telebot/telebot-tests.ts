@@ -1,4 +1,4 @@
-import * as TeleBot from "telebot";
+import TeleBot = require("telebot");
 
 let bot = new TeleBot('token');
 bot = new TeleBot({
@@ -56,7 +56,7 @@ bot.on(['/start', 'audio', 'sticker'], msg => {
 });
 
 bot.mod('text', (data) => {
-    let msg = data.message;
+    const msg = data.message;
     msg.text = `📢 ${ msg.text }`;
     return data;
 });

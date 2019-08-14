@@ -5,9 +5,8 @@ import * as temp from "temp";
 function testCleanup() {
     temp.cleanup(result => {
         if (typeof result === "boolean") {
-            const x = result === true;
-        }
-        else {
+            const x = result;
+        } else {
             const { files, dirs } = result;
             files.toPrecision(4);
             files.toPrecision(4);
@@ -16,12 +15,11 @@ function testCleanup() {
 }
 
 function testCleanupSync() {
-    const cleanupResult: boolean | temp.Stats = temp.cleanupSync()
+    const cleanupResult: boolean | temp.Stats = temp.cleanupSync();
     if (typeof cleanupResult === "boolean") {
-        const x = cleanupResult === true;
-    }
-    else {
-        const { dirs, files } = cleanupResult
+        const x = cleanupResult;
+    } else {
+        const { dirs, files } = cleanupResult;
         dirs.toPrecision(4);
         files.toPrecision(4);
     }

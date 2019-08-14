@@ -112,7 +112,7 @@ export interface Comment extends Node {
 /** 
  * The @charset at-rule. 
  */
-export interface Charset {
+export interface Charset extends Node {
     /** The part following @charset. */
     charset?: string;
 }
@@ -120,7 +120,7 @@ export interface Charset {
 /**
  * The @custom-media at-rule 
  */
-export interface CustomMedia {
+export interface CustomMedia extends Node {
     /** The ---prefixed name. */
     name?: string;
     /** The part following the name. */
@@ -130,7 +130,7 @@ export interface CustomMedia {
 /**
  * The @document at-rule.
  */
-export interface Document {
+export interface Document extends Node {
     /** The part following @document. */
     document?: string;
     /** The vendor prefix in @document, or undefined if there is none. */
@@ -142,7 +142,7 @@ export interface Document {
 /**
  * The @font-face at-rule.
  */
-export interface FontFace {
+export interface FontFace extends Node {
     /** Array of nodes with the types declaration and comment. */
     declarations?: Array<Declaration | Comment>;
 }
@@ -150,7 +150,7 @@ export interface FontFace {
 /**
  * The @host at-rule.
  */
-export interface Host {
+export interface Host extends Node {
     /** Array of nodes with the types rule, comment and any of the at-rule types. */
     rules?: Array<Rule | Comment | AtRule>;
 }
@@ -158,7 +158,7 @@ export interface Host {
 /**
  * The @import at-rule.
  */
-export interface Import {
+export interface Import extends Node {
     /** The part following @import. */
     import?: string;
 }
@@ -166,7 +166,7 @@ export interface Import {
 /**
  * The @keyframes at-rule.
  */
-export interface KeyFrames {
+export interface KeyFrames extends Node {
     /** The name of the keyframes rule. */
     name?: string;
     /** The vendor prefix in @keyframes, or undefined if there is none. */
@@ -175,7 +175,7 @@ export interface KeyFrames {
     keyframes?: Array<KeyFrame | Comment>;
 }
 
-export interface KeyFrame {
+export interface KeyFrame extends Node {
     /** The list of "selectors" of the keyframe rule, split on commas. Each “selector” is trimmed from whitespace. */
     values?: Array<string>;
     /** Array of nodes with the types declaration and comment. */
@@ -185,7 +185,7 @@ export interface KeyFrame {
 /**
  * The @media at-rule.
  */
-export interface Media {
+export interface Media extends Node {
     /** The part following @media. */
     media?: string;
     /** Array of nodes with the types rule, comment and any of the at-rule types. */
@@ -195,7 +195,7 @@ export interface Media {
 /**
  * The @namespace at-rule.
  */
-export interface Namespace {
+export interface Namespace extends Node {
     /** The part following @namespace. */
     namespace?: string;
 }
@@ -203,7 +203,7 @@ export interface Namespace {
 /**
  * The @page at-rule.
  */
-export interface Page {
+export interface Page extends Node {
     /** The list of selectors of the rule, split on commas. Each selector is trimmed from whitespace and comments. */
     selectors?: Array<string>;
     /** Array of nodes with the types declaration and comment. */
@@ -213,7 +213,7 @@ export interface Page {
 /**
  * The @supports at-rule.
  */
-export interface Supports {
+export interface Supports extends Node {
     /** The part following @supports. */
     supports?: string;
     /** Array of nodes with the types rule, comment and any of the at-rule types. */
@@ -223,16 +223,21 @@ export interface Supports {
 /** All at-rules. */
 export type AtRule = Charset | CustomMedia | Document | FontFace | Host | Import | KeyFrames | Media | Namespace | Page | Supports;
 
+/**
+ * A collection of rules
+ */
+export interface StyleRules {
+    /** Array of nodes with the types rule, comment and any of the at-rule types. */
+    rules: Array<Rule | Comment | AtRule>;
+    /** Array of Errors. Errors collected during parsing when option silent is true. */
+    parsingErrors?: Array<ParserError>
+}
+
 /** 
  * The root node returned by css.parse. 
  */
 export interface Stylesheet extends Node {
-    stylesheet?: {
-        /** Array of nodes with the types rule, comment and any of the at-rule types. */
-        rules?: Array<Rule | Comment | AtRule>;
-        /** Array of Errors. Errors collected during parsing when option silent is true. */
-        parsingErrors?: Array<ParserError>
-    };
+    stylesheet?: StyleRules;
 }
 
 // ---------------------------------------------------------------------------------

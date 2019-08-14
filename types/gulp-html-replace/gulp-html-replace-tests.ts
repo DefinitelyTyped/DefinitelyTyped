@@ -1,5 +1,5 @@
 import * as gulp from 'gulp';
-import * as htmlreplace from 'gulp-html-replace';
+import htmlreplace = require('gulp-html-replace');
 
 // Examples taken from README.md of the gulp-html-replace project:
 // https://www.npmjs.com/package/gulp-html-replace

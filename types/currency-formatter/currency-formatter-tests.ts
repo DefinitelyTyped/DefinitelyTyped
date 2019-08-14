@@ -3,11 +3,20 @@ import currencyFormatter = require('currency-formatter');
 currencyFormatter.format(1000000, { code: 'USD' });
 // => '$1,000,000.00'
 
+currencyFormatter.unformat('$1,000,000.00', { code: 'USD' });
+// => 1000000
+
 currencyFormatter.format(1000000, { code: 'GBP' });
 // => '£1,000,000.00'
 
+currencyFormatter.unformat('£1,000,000.00', { code: 'GBP' });
+// => 1000000
+
 currencyFormatter.format(1000000, { code: 'EUR' });
 // => '1 000 000,00 €'
+
+currencyFormatter.unformat('1 000 000,00 €', { code: 'EUR' });
+// => 1000000
 
 currencyFormatter.findCurrency('USD');
 // returns:

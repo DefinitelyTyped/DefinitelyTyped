@@ -4,6 +4,5 @@ root = true
 indent_size = 4
 trim_trailing_whitespace = true
 insert_final_newline = true
-
-[{*.json,*.yml}]
+max_line_length = 120
 indent_style = space

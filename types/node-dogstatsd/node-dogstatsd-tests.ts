@@ -1,12 +1,14 @@
+import * as dgram from 'dgram';
 import * as datadog from 'node-dogstatsd';
 
 function test_statsd_client() {
   // can create client with defaults
   let client = new datadog.StatsD('localhost');
   let options: datadog.StatsDOptions = { global_tags: ['environment:definitely_typed']};
+  const socket: dgram.Socket = dgram.createSocket('udp4');
 
   // can create client with all params
-  client = new datadog.StatsD('localhost', 8125, null, options);
+  client = new datadog.StatsD('localhost', 8125, socket, options);
 
   let key: string = 'key';
   let timeValue: number = 99;

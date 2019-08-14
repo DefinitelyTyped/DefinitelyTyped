@@ -1,10 +1,11 @@
 import * as React from 'react';
-import { Component, PropTypes } from 'react';
+import * as PropTypes from 'prop-types';
+import { Component } from 'react';
 import * as ReactDOM from 'react-dom';
 import Pagination from 'material-ui-pagination';
 import * as ui from 'material-ui';
 import { MuiThemeProvider } from 'material-ui/styles';
-import * as injectTapEventPlugin from 'react-tap-event-plugin';
+import injectTapEventPlugin = require('react-tap-event-plugin');
 
 // Needed for onTouchTap
 // Check this repo:
@@ -16,12 +17,9 @@ interface PagerState {
 }
 
 class Pager extends React.Component<{}, PagerState> {
-	constructor() {
-		super();
-		this.state = {
-			pageIndex: 0
-		};
-	}
+	state = {
+		pageIndex: 0
+	};
 	setPageIndex = (pageIndex: number) => {
 		this.setState({ pageIndex });
 	}
@@ -31,7 +29,7 @@ class Pager extends React.Component<{}, PagerState> {
 		const perPage = 10;
 		const totalPage = Math.floor(length / perPage);
 
-		let list: JSX.Element[] = [];
+		const list: JSX.Element[] = [];
 		for (let i = pageIndex * perPage; i < (pageIndex * perPage + perPage); i++) {
 			list.push(<p key={`${i}`}>{`No.${i}`}</p>);
 		}

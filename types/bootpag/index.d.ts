@@ -1,6 +1,6 @@
 // Type definitions for jQuery-Bootpag 1.0.7
 // Project: http://botmonster.com/jquery-bootpag/
-// Definitions by: MAF.DAP / Romain Deneau <https://github.com/rdeneau/>
+// Definitions by: MAF.DAP / Romain Deneau <https://github.com/rdeneau>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -32,12 +32,12 @@ declare namespace JqueryBootpag {
         leaps?: boolean;
 
         /**
-         * next button text (default "�")
+         * next button text (default ???)
          */
         next?: string;
 
         /**
-         * prev button text (default "�")
+         * prev button text (default ???)
          */
         prev?: string;
 

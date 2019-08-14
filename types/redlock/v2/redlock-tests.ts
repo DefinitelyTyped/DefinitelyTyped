@@ -1,11 +1,11 @@
-import * as Redlock from 'redlock';
+import Redlock = require('redlock');
 import { Lock } from 'redlock';
 import { RedisClient } from 'redis';
 import { using } from 'bluebird';
 
 let redlock: Redlock;
-let client: RedisClient = <RedisClient> {};
-let lock: Lock = <Lock> {};
+const client: RedisClient = <RedisClient> {};
+const lock: Lock = <Lock> {};
 
 redlock = new Redlock([client]);
 redlock = new Redlock([client], {

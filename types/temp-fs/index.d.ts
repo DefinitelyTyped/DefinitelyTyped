@@ -180,6 +180,7 @@ declare namespace tempfs {
      *                 <code>null</code>, <code>file</code> has the properties
      *                 of {@link file}.
      */
+    function open(callback?:(err:any, file:file)=>any):any;
     function open(options?:options, callback?:(err:any, file:file)=>any):any;
 
     /**

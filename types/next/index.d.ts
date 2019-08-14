@@ -1,177 +1,185 @@
-// Type definitions for next 2.4
-// Project: https://github.com/zeit/next.js
+// Type definitions for next 8.0
+// Project: https://github.com/zeit/next.js/packages/next, https://nextjs.org
 // Definitions by: Drew Hays <https://github.com/dru89>
+//                 Brice BERNARD <https://github.com/brikou>
+//                 James Hegedus <https://github.com/jthegedus>
+//                 Resi Respati <https://github.com/resir014>
+//                 Scott Jones <https://github.com/scottdj92>
+//                 Joao Vieira <https://github.com/joaovieira>
+//                 AJ Livingston <https://github.com/ajliv>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 
-declare module 'next' {
-  import * as http from 'http';
-  import * as url from 'url';
+import * as http from "http";
+import * as url from "url";
+import { Server as NextServer, ServerOptions as NextServerOptions, RenderOptions } from "next-server";
+import { NextConfig as NextServerConfig } from "next-server/next-config";
+import { Response as NodeResponse } from "node-fetch";
+import { SingletonRouter, DefaultQuery, UrlLike } from "./router";
 
-  namespace next {
-    type UrlLike = url.UrlObject | url.Url;
+declare namespace next {
+    // Moved to next-server
+    type NextConfig = NextServerConfig;
+    type Server = NextServer;
+    type ServerOptions = NextServerOptions;
+    // End Moved to next-server
 
-    interface ServerConfig {
-      // known keys
-      webpack?: any;
-      webpackDevMiddleware?: any;
-      poweredByHeader?: boolean;
-      distDir?: string;
-      assetPrefix?: string;
-      configOrigin?: string;
-      useFileSystemPublicRoutes?: boolean;
+    // Deprecated
+    type QueryStringMapObject = DefaultQuery;
+    type ServerConfig = NextConfig;
+    // End Deprecated
 
-      // and since this is a config, it can take anything else, too.
-      [key: string]: any;
+    /**
+     * HTTP request object (server only, non-export mode)
+     */
+    type NextReq<CustomReq = {}> = http.IncomingMessage & CustomReq;
+
+    /**
+     * HTTP request object (server only, `next export` mode)
+     *
+     * Note: We're using `Partial` here (instead of `{ url?: string }`)
+     * in order to avoid TS raising typedef errors
+     * when using it like `req && req.getHeaderNames ? req.getHeaderNames() : []`.
+     */
+    type NextExportReq<CustomReq = {}> = Partial<NextReq<CustomReq>>;
+
+    /**
+     * HTTP response object (server only, non-export mode)
+     */
+    type NextResponse = http.ServerResponse;
+
+    /**
+     * HTTP response object (server only, `next export` mode)
+     *
+     * Note: We're using `Partial` here (instead of `{}`)
+     * in order to avoid TS raising typedef errors
+     * when using it like `res && res.getHeaderNames ? res.getHeaderNames() : []`.
+     */
+    type NextExportResponse = Partial<NextResponse>;
+
+    /**
+     * Context object used in methods like `getInitialProps()`
+     * https://github.com/zeit/next.js/blob/7.0.0/server/render.js#L97
+     * https://github.com/zeit/next.js/blob/7.0.0/README.md#fetching-data-and-component-lifecycle
+     *
+     * @template Q Query object schema.
+     */
+    interface NextContext<
+        Q extends DefaultQuery = DefaultQuery,
+        CustomReq = {}
+    > {
+        /** path section of URL */
+        pathname: string;
+        /** query string section of URL parsed as an object */
+        query: Q;
+        /** String of the actual path (including the query) shows in the browser */
+        asPath: string;
+        /**
+         * HTTP request object (server only)
+         * Note: In `next export` mode, this will consist of only `{ url?: string }`.
+         */
+        req?: NextReq<CustomReq> | NextExportReq<CustomReq>;
+        /**
+         * HTTP response object (server only)
+         * Note: In `next export` mode, this will be empty `{}` object.
+         */
+        res?: NextResponse | NextExportResponse;
+        /** Fetch Response object (client only) - from https://developer.mozilla.org/en-US/docs/Web/API/Response */
+        jsonPageRes?: NodeResponse;
+        /** Error object if any error is encountered during the rendering */
+        err?: Error;
     }
 
-    interface ServerOptions {
-      dir?: string;
-      dev?: boolean;
-      staticMarkup?: boolean;
-      quiet?: boolean;
-      conf?: ServerConfig;
+    /**
+     * Next.js dev server instance API.
+     */
+    interface DevServer extends Server {
+        hotReloader: any;
+        renderOpts: RenderOptions & {
+            dev: true;
+            hotReloader: any;
+        };
+
+        getHotReloader(
+            dir: string,
+            options: { quiet: boolean; config: NextConfig; buildId: string }
+        ): any;
+
+        addExportPathMapRoutes(): Promise<void>;
+        getCompilationError(): Promise<any>;
     }
 
-    interface Server {
-      handleRequest(req: http.IncomingMessage, res: http.ServerResponse, parsedUrl?: UrlLike): Promise<void>;
-      getRequestHandler(): (req: http.IncomingMessage, res: http.ServerResponse, parsedUrl?: UrlLike) => Promise<void>;
-      prepare(): Promise<void>;
-      close(): Promise<void>;
-      defineRoutes(): Promise<void>;
-      start(): Promise<void>;
-      run(req: http.IncomingMessage, res: http.ServerResponse, parsedUrl: UrlLike): Promise<void>;
+    /**
+     * Next.js counterpart of React.ComponentType.
+     * Specially useful in HOCs that receive Next.js components.
+     *
+     * @template P Component props.
+     * @template IP Initial props returned from getInitialProps.
+     * @template C Context passed to getInitialProps.
+     */
+    type NextComponentType<P = {}, IP = P, C = NextContext> =
+        | NextComponentClass<P, IP, C>
+        | NextStatelessComponent<P, IP, C>;
 
-      render(req: http.IncomingMessage, res: http.ServerResponse, pathname: string, query?: {[key: string]: any}, parsedUrl?: UrlLike): Promise<void>;
-      renderError(err: any, req: http.IncomingMessage, res: http.ServerResponse, pathname: string, query?: {[key: string]: any}): Promise<void>;
-      render404(req: http.IncomingMessage, res: http.ServerResponse, parsedUrl: UrlLike): Promise<void>;
-      renderToHTML(req: http.IncomingMessage, res: http.ServerResponse, pathname: string, query?: {[key: string]: any}): Promise<string>;
-      renderErrorToHTML(err: any, req: http.IncomingMessage, res: http.ServerResponse, pathname: string, query?: {[key: string]: any}): Promise<string>;
+    /**
+     * @deprecated as of recent React versions, function components can no
+     * longer be considered 'stateless'. Please use `NextFunctionComponent` instead.
+     *
+     * @see [React Hooks](https://reactjs.org/docs/hooks-intro.html)
+     */
+    type NextSFC<P = {}, IP = P, C = NextContext> = NextFunctionComponent<P, IP, C>;
 
-      serveStatic(req: http.IncomingMessage, res: http.ServerResponse, path: string): Promise<void>;
-      isServeableUrl(path: string): boolean;
-      isInternalUrl(req: http.IncomingMessage): boolean;
-      readBuildId(): string;
-      handleBuildId(buildId: string, res: http.ServerResponse): boolean;
-      getCompilationError(page: string, req: http.IncomingMessage, res: http.ServerResponse): Promise<any>;
-      handleBuildHash(filename: string, hash: string, res: http.ServerResponse): void;
-      send404(res: http.ServerResponse): void;
+    /**
+     * @deprecated as of recent React versions, function components can no
+     * longer be considered 'stateless'. Please use `NextFunctionComponent` instead.
+     *
+     * @see [React Hooks](https://reactjs.org/docs/hooks-intro.html)
+     */
+    type NextStatelessComponent<P = {}, IP = P, C = NextContext> = NextFunctionComponent<P, IP, C>;
+
+    type NextFC<P = {}, IP = P, C = NextContext> = NextFunctionComponent<P, IP, C>;
+
+    /**
+     * Next.js counterpart of React.FC/React.FunctionComponent.
+     *
+     * @template P Component props.
+     * @template IP Initial props returned from getInitialProps.
+     * @template C Context passed to getInitialProps.
+     */
+    type NextFunctionComponent<P = {}, IP = P, C = NextContext> = React.FunctionComponent<P> &
+        NextStaticLifecycle<IP, C>;
+
+    /**
+     * Next.js counterpart of React.ComponentClass.
+     *
+     * @template P Component props.
+     * @template IP Initial props returned from getInitialProps.
+     * @template C Context passed to getInitialProps.
+     */
+    type NextComponentClass<P = {}, IP = P, C = NextContext> = React.ComponentClass<P> &
+        NextStaticLifecycle<IP, C>;
+
+    /**
+     * Next.js specific lifecycle methods.
+     *
+     * @template IP Initial props returned from getInitialProps and passed to the component.
+     * @template C Context passed to getInitialProps.
+     */
+    interface NextStaticLifecycle<IP, C> {
+        getInitialProps?: GetInitialProps<IP, C>;
     }
-  }
 
-  function next(options?: next.ServerOptions): next.Server;
-  export = next;
+    /**
+     * Next.js getInitialProps type.
+     *
+     * @template IP Initial props returned from getInitialProps and passed to the component.
+     * @template C Context passed to getInitialProps.
+     */
+    type GetInitialProps<IP, C> = (ctx: C) => Promise<IP> | IP;
 }
 
-declare module 'next/error' {
-  import * as React from 'react';
-  export default class extends React.Component<{statusCode: number}, {}> {}
-}
-
-declare module 'next/head' {
-  import * as React from 'react';
-
-  function defaultHead(): JSX.Element[];
-  export default class extends React.Component<{}, {}> {
-    static canUseDOM: boolean;
-    static peek(): Array<React.ReactElement<any>>;
-    static rewind(): Array<React.ReactElement<any>>;
-  }
-}
-
-declare module 'next/document' {
-  import * as React from 'react';
-
-  interface DocumentProps {
-    __NEXT_DATA__?: any;
-    dev?: boolean;
-    chunks?: string[];
-    head?: Array<React.ReactElement<any>>;
-    styles?: Array<React.ReactElement<any>>;
-    [key: string]: any;
-  }
-
-  class Head extends React.Component<any, {}> {}
-  class Main extends React.Component<{}, {}> {}
-  class NextScript extends React.Component<{}, {}> {}
-  export default class extends React.Component<DocumentProps, {}> {}
-}
-
-declare module 'next/link' {
-  import * as url from 'url';
-  import * as React from 'react';
-
-  type UrlLike = url.UrlObject | url.Url;
-  interface LinkState {
-    prefetch?: boolean;
-    shallow?: boolean;
-    scroll?: boolean;
-    replace?: boolean;
-    onError?(error: any): void;
-    href?: string | UrlLike;
-    as?: string | UrlLike;
-    children: React.ReactElement<any>;
-  }
-
-  export default class extends React.Component<LinkState, {}> {}
-}
-
-declare module 'next/dynamic' {
-  import * as React from 'react';
-
-  interface DynamicOptions<TCProps, TLProps> {
-    loading?: React.ComponentType<TLProps>;
-    ssr?: boolean;
-    modules?(props: TCProps & TLProps): { [key: string]: Promise<React.ComponentType<any>> };
-    render?(props: TCProps & TLProps, modules: { [key: string]: React.ComponentType<any> }): void;
-  }
-
-  class SameLoopPromise<T> extends Promise<T> {
-    constructor(executor: (resolve: (value?: T) => void, reject: (reason?: any) => void) => void);
-    setResult(value: T): void;
-    setError(value: any): void;
-    runIfNeeded(): void;
-  }
-  export default function<TCProps, TLProps>(componentPromise: Promise<React.ComponentType<TCProps>>, options?: DynamicOptions<TCProps, TLProps>): React.ComponentType<TCProps & TLProps>;
-}
-
-declare module 'next/router' {
-  import * as React from 'react';
-
-  interface EventChangeOptions {
-    shallow?: boolean;
-    [key: string]: any;
-  }
-
-  type RouterCallback = () => void;
-  interface SingletonRouter {
-    readyCallbacks: RouterCallback[];
-    ready(cb: RouterCallback): void;
-
-    // router properties
-    readonly components: { [key: string]: { Component: React.ComponentType<any>, err: any } };
-    readonly pathname: string;
-    readonly route: string;
-    readonly asPath?: string;
-    readonly query?: { [key: string]: any };
-
-    // router methods
-    reload(route: string): Promise<void>;
-    back(): void;
-    push(url: string, as?: string, options?: EventChangeOptions): Promise<boolean>;
-    replace(url: string, as?: string, options?: EventChangeOptions): Promise<boolean>;
-    prefetch(url: string): Promise<React.ComponentType<any>>;
-
-    // router events
-    onAppUpdated?(nextRoute: string): void;
-    onRouteChangeStart?(url: string): void;
-    onBeforeHistoryChange?(as: string): void;
-    onRouteChangeComplete?(url: string): void;
-    onRouteChangeError?(error: any, url: string): void;
-  }
-
-  const Singleton: SingletonRouter;
-  export default Singleton;
-}
+declare function next(options?: next.ServerOptions & { dev: true }): next.DevServer;
+declare function next(options?: next.ServerOptions): next.Server;
+export = next;

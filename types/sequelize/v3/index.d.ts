@@ -1,12 +1,12 @@
 // Type definitions for Sequelize 3.30.4
-// Project: http://sequelizejs.com
+// Project: http://sequelizejs.com, https://github.com/sequelize/sequelize
 // Definitions by: samuelneff <https://github.com/samuelneff>
 //                 Peter Harris <https://github.com/codeanimal>
 //                 Ivan Drinchev <https://github.com/drinchev>
 //                 Nick Mueller <https://github.com/morpheusxaut>
 //                 James D. Callahan III <https://github.com/torhal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.2
 
 // Based on original work by: samuelneff <https://github.com/samuelneff/sequelize-auto-ts/blob/master/lib/sequelize.d.ts>
 
@@ -3140,7 +3140,7 @@ declare namespace sequelize {
     /**
     * Shortcut for types used in FindOptions.attributes
     */
-    type FindOptionsAttributesArray = Array<string | literal | [string, string] | fn | [fn, string] | cast | [cast, string] | [literal, string]>;    
+    type FindOptionsAttributesArray = Array<string | literal | [string, string] | fn | [fn, string] | cast | [cast, string] | [literal, string]>;
 
     /**
 * Options that are passed to any model creating a SELECT query
@@ -3221,6 +3221,11 @@ declare namespace sequelize {
          * Apply DISTINCT(col) for FindAndCount(all)
          */
         distinct?: boolean;
+
+        /**
+         * Prevents a subquery on the main table when using include
+         */
+        subQuery?: boolean;
     }
 
     /**
@@ -3237,6 +3242,11 @@ declare namespace sequelize {
          * Include options. See `find` for details
          */
         include?: Array<Model<any, any> | IncludeOptions>;
+
+        /**
+         * Apply column on which COUNT() should be applied
+         */
+        col?: string;
 
         /**
          * Apply COUNT(DISTINCT(col))
@@ -4329,7 +4339,7 @@ declare namespace sequelize {
          *
          * PostgreSQL only
          */
-        deferrable?: Deferrable;
+        deferrable?: DeferrableInitiallyDeferred | DeferrableInitiallyImmediate | DeferrableNot | DeferrableSetDeferred | DeferrableSetImmediate;
 
     }
 
@@ -5057,7 +5067,7 @@ declare namespace sequelize {
             username?: string;
             password?: string;
             database?: string;
-        };
+        }[];
 
         write?: {
             host?: string;
@@ -6158,8 +6168,6 @@ declare namespace sequelize {
 
     interface SequelizeLoDash extends _.LoDashStatic {
 
-        camelizeIf(str: string, condition: boolean): string;
-        underscoredIf(str: string, condition: boolean): string;
         /**
          * * Returns an array with some falsy values removed. The values null, "", undefined and NaN are considered
          * falsey.
@@ -6172,6 +6180,9 @@ declare namespace sequelize {
     }
 
     interface Utils {
+
+        camelizeIf(str: string, condition: boolean): string;
+        underscoredIf(str: string, condition: boolean): string;
 
         _: SequelizeLoDash;
 
