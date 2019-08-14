@@ -979,7 +979,7 @@ declare namespace Office {
         /**
         * Check if the specified requirement set is supported by the host Office application.
         * @param name - Set name; e.g., "MatrixBindings".
-        * @param minVersionString - The minimum required version (e.g., "1.4").
+        * @param minVersion - The minimum required version (e.g., "1.4").
         */
        isSetSupported(name: string, minVersion?: string): boolean;
 
@@ -987,7 +987,7 @@ declare namespace Office {
         /**
         * Check if the specified requirement set is supported by the host Office application.
         * @param name - Set name; e.g., "MatrixBindings".
-        * @param minVersion - The minimum required version (e.g., 1.4). Warning: Your add-ins should use the string overload of `isSetSupported` instead. 
+        * @param minVersionNumber - The minimum required version (e.g., 1.4). Warning: Your add-ins should use the string overload of `isSetSupported` instead. 
         * The use of the number type is deprecated, as the JavaScript parser cannot tell the difference between `1.1` and `1.10`.
         */
        isSetSupported(name: string, minVersionNumber?: number): boolean;
