@@ -1,11 +1,11 @@
-import scroll, { ScrollOptions } from 'scroll';
+import scroll = require('scroll');
 
-var el: HTMLElement = document.createElement('div');
-var opts: ScrollOptions = {
+const el: HTMLElement = document.createElement('div');
+const opts = {
     duration: 1000,
-    ease: time => 0.5 * time,
+    ease: (time: number) => 0.5 * time,
 };
-var cb: (error: Error | null, scrollValue: number) => void = (error, scrollValue) => {
+const cb: (error: Error | null, scrollValue: number) => void = (error, scrollValue) => {
     if (error != null) {
         console.error(error);
     } else {
