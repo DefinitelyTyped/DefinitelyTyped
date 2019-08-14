@@ -1,6 +1,6 @@
 // Type definitions for datadog-winston 1.0
-// Project: https://github.com/baz/foo (Does not have to be to GitHub, but prefer linking to a source code repository rather than to a project website.)
-// Definitions by: Matt Hintzke <https://github.com/me>
+// Project: https://https://github.com/itsfadnis/datadog-winston
+// Definitions by: Matt Hintzke <https://github.com/mhintzke13>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
