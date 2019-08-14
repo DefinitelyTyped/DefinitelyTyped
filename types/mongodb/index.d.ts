@@ -1170,15 +1170,19 @@ export type QuerySelector<T> = {
     $nin?: T[];
     // Logical
     // Array<FilterQuery<T>> is a better type after we added support for none object types in FilterQuery
-    $not?: any[];
+    $not?: QuerySelector<T>;
     // Element
+    /**
+     * When `true`, `$exists` matches the documents that contain the field,
+     * including documents where the field value is null.
+     * */
     $exists?: boolean;
     $type?: BSONType | BSONTypeAlias;
     // Evaluation
     $expr?: any;
     $jsonSchema?: any;
-    $mod?: [number, number];
-    $regex?: RegExp | string;
+    $mod?: T extends number ? [number, number]: never;
+    $regex?: T extends string ? (RegExp | string) : never;
     $options?: string;
     $text?: {
         $search: string;
