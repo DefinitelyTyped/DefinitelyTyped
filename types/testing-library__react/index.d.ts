@@ -2,7 +2,7 @@
 // Project: https://github.com/testing-library/react-testing-library
 // Definitions by: Alex Krolick <https://github.com/alexkrolick>
 //                 Kent C Dodds <https://github.com/kentcdodds>
-//                 Sebastian Silbermann <https://github.com/@eps1lon>
+//                 Sebastian Silbermann <https://github.com/eps1lon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
