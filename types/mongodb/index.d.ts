@@ -1183,7 +1183,7 @@ export type QuerySelector<T> = {
     $jsonSchema?: any;
     $mod?: T extends number ? [number, number] : never;
     $regex?: T extends string ? (RegExp | string) : never;
-    $options?: string;
+    $options?: T extends string ? string : never;
     $where?: any;
     // Geospatial
     // TODO: define better types for geo queries
