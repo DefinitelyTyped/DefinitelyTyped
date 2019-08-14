@@ -9,7 +9,7 @@ declare var path: {
     exists: (path: string, callback?: (err: Error, exists: boolean) => any) => void;
 };
 
-function funcStringCbErrBoolean(v: string, cb: (err: Error, res: boolean) => void) {}
+function funcStringCbErrBoolean(v: string, cb: (err: Error, res: boolean) => void) { }
 function callback() { }
 
 async.map(['file1', 'file2', 'file3'], fs.stat, (err: Error, results: fs.Stats[]) => { });
@@ -103,15 +103,15 @@ async.series([callback => { callback(undefined, 'one'); }, callback => { callbac
 async.series<string>([callback => { callback(undefined, 'one'); }, callback => { callback(undefined, 'two'); }], (err, results) => { });
 
 async.series({
-        one: callback => { setTimeout(() => { callback(undefined, 1); }, 200); },
-        two: callback => { setTimeout(() => { callback(undefined, 2); }, 100); }
-    },
+    one: callback => { setTimeout(() => { callback(undefined, 1); }, 200); },
+    two: callback => { setTimeout(() => { callback(undefined, 2); }, 100); }
+},
     (err, results) => { });
 
 async.series<number>({
-        one: callback => { setTimeout(() => { callback(undefined, 1); }, 200); },
-        two: callback => { setTimeout(() => { callback(undefined, 2); }, 100); }
-    },
+    one: callback => { setTimeout(() => { callback(undefined, 1); }, 200); },
+    two: callback => { setTimeout(() => { callback(undefined, 2); }, 100); }
+},
     (err, results) => { });
 
 async.times(5, (n, next) => { next(undefined as any, n); }, (err, results) => { console.log(results); });
@@ -119,38 +119,38 @@ async.times(5, (n, next) => { next(undefined as any, n); }, (err, results) => { 
 async.timesSeries(5, (n, next) => { next(undefined as any, n); }, (err, results) => { console.log(results); });
 
 async.parallel([
-        callback => { setTimeout(() => { callback(undefined, 'one'); }, 200); },
-        callback => { setTimeout(() => { callback(undefined, 'two'); }, 100); }
-    ],
+    callback => { setTimeout(() => { callback(undefined, 'one'); }, 200); },
+    callback => { setTimeout(() => { callback(undefined, 'two'); }, 100); }
+],
     (err, results) => { });
 
 async.parallel<string>([
-        callback => { setTimeout(() => { callback(undefined, 'one'); }, 200); },
-        callback => { setTimeout(() => { callback(undefined, 'two'); }, 100); }
-    ],
+    callback => { setTimeout(() => { callback(undefined, 'one'); }, 200); },
+    callback => { setTimeout(() => { callback(undefined, 'two'); }, 100); }
+],
     (err, results) => { });
 
 async.parallel({
-        one: callback => { setTimeout(() => { callback(undefined, 1); }, 200); },
-        two: callback => { setTimeout(() => { callback(undefined, 2); }, 100); }
-    },
+    one: callback => { setTimeout(() => { callback(undefined, 1); }, 200); },
+    two: callback => { setTimeout(() => { callback(undefined, 2); }, 100); }
+},
     (err, results) => { });
 
 async.parallel<number>({
-        one: callback => { setTimeout(() => { callback(undefined, 1); }, 200); },
-        two: callback => { setTimeout(() => { callback(undefined, 2); }, 100); }
-    },
+    one: callback => { setTimeout(() => { callback(undefined, 1); }, 200); },
+    two: callback => { setTimeout(() => { callback(undefined, 2); }, 100); }
+},
     (err, results) => { });
 
 async.parallelLimit({
-        one: callback => { setTimeout(() => { callback(undefined, 1); }, 200); },
-        two: callback => { setTimeout(() => { callback(undefined, 2); }, 100); }
-    },
+    one: callback => { setTimeout(() => { callback(undefined, 1); }, 200); },
+    two: callback => { setTimeout(() => { callback(undefined, 2); }, 100); }
+},
     2,
     (err, results) => { }
 );
 
-function whileFn(callback: any) {
+function whileFn(callback: (err: Error | null, result: number) => void) {
     setTimeout(() => callback(null, ++count), 1000);
 }
 
@@ -164,14 +164,14 @@ async.doWhilst(whileFn, doWhileTest, err => { });
 async.doUntil(whileFn, doWhileTest, err => { });
 
 async.during(testCallback => { testCallback(new Error(), false); }, callback => { callback(); }, error => { console.log(error); });
-async.doDuring(callback => { callback(); }, testCallback => { testCallback(new Error(), false); }, error => { console.log(error); });
+async.doDuring(callback => { callback(); }, (testCallback: (err: Error | null, truth: boolean) => void) => { testCallback(new Error(), false); }, error => { console.log(error); });
 async.forever(errBack => { errBack(new Error("Not going on forever.")); }, error => { console.log(error); });
 
 async.waterfall([
-        (callback: any) => { callback(null, 'one', 'two'); },
-        (arg1: any, arg2: any, callback: any) => { callback(null, 'three'); },
-        (arg1: any, callback: any) => { callback(null, 'done'); }
-    ],
+    (callback: any) => { callback(null, 'one', 'two'); },
+    (arg1: any, arg2: any, callback: any) => { callback(null, 'three'); },
+    (arg1: any, callback: any) => { callback(null, 'done'); }
+],
     (err, result) => { });
 
 const q = async.queue<any>((task: any, callback: (err?: Error, msg?: string) => void) => {
@@ -184,7 +184,7 @@ q.drain(() => { console.log('all items have been processed'); });
 q.push({ name: 'foo' });
 q.push({ name: 'bar' }, err => { console.log('finished processing bar'); });
 q.push([{ name: 'baz' }, { name: 'bay' }, { name: 'bax' }], err => { console.log('finished processing bar'); });
-q.push<string>({name: 'foo'}, (err, msg) => { console.log(`foo finished with a message "${msg!}"`); });
+q.push<string>({ name: 'foo' }, (err, msg) => { console.log(`foo finished with a message "${msg!}"`); });
 
 q.unshift({ name: 'foo' });
 q.unshift({ name: 'bar' }, err => { console.log('finished processing bar'); });
@@ -225,7 +225,7 @@ q2.push('testRemovalTask');
 q2.remove(x => x.data === 'testTaskRemoval');
 
 if (q2Length !== q2.length()) {
-  console.log('warning: Failed to remove a task from queue.');
+    console.log('warning: Failed to remove a task from queue.');
 }
 
 const aq = async.queue<number, number>((level: number, callback: (error?: Error, newLevel?: number) => void) => {
@@ -243,7 +243,7 @@ const q3 = async.queue<string>((task: string, callback: ErrorCallback) => {
 }, 1);
 
 q3.error((error, task) => {
-    console.log('task: ' +  task);
+    console.log('task: ' + task);
     console.log('error: ' + error);
 });
 
@@ -277,15 +277,15 @@ async.auto({
 });
 
 async.auto({
-        get_data: (callback: AsyncResultCallback<any>) => { },
-        make_folder: (callback: AsyncResultCallback<any>) => { },
+    get_data: (callback: AsyncResultCallback<any>) => { },
+    make_folder: (callback: AsyncResultCallback<any>) => { },
 
-        // arrays with different types are not accepted by TypeScript.
-        write_file: ['get_data', 'make_folder', ((callback: AsyncResultCallback<any>) => { callback(null, filename); }) as any],
+    // arrays with different types are not accepted by TypeScript.
+    write_file: ['get_data', 'make_folder', ((callback: AsyncResultCallback<any>) => { callback(null, filename); }) as any],
 
-        // arrays with different types are not accepted by TypeScript.
-        email_link: ['write_file', ((callback: AsyncResultCallback<any>, results: any) => { }) as any]
-    },
+    // arrays with different types are not accepted by TypeScript.
+    email_link: ['write_file', ((callback: AsyncResultCallback<any>, results: any) => { }) as any]
+},
     (err, results) => { console.log('finished auto'); }
 );
 
@@ -297,30 +297,31 @@ interface A {
 }
 
 async.auto<A>({
-        get_data: (callback: AsyncResultCallback<any>) => { },
-        make_folder: (callback: AsyncResultCallback<any>) => { },
+    get_data: (callback: AsyncResultCallback<any>) => { },
+    make_folder: (callback: AsyncResultCallback<any>) => { },
 
-        // arrays with different types are not accepted by TypeScript.
-        write_file: ['get_data', 'make_folder', ((callback: AsyncResultCallback<any>) => { callback(null, filename); }) as any],
+    // arrays with different types are not accepted by TypeScript.
+    write_file: ['get_data', 'make_folder', ((callback: AsyncResultCallback<any>) => { callback(null, filename); }) as any],
 
-        // arrays with different types are not accepted by TypeScript.
-        email_link: ['write_file', ((callback: AsyncResultCallback<any>, results: any) => { }) as any]
-    },
+    // arrays with different types are not accepted by TypeScript.
+    email_link: ['write_file', ((callback: AsyncResultCallback<any>, results: any) => { }) as any]
+},
     1,
     (err, results) => { console.log('finished auto'); }
 );
 
-async.retry(3, (callback, results) => { }, (err, result) => { });
-async.retry({ times: 3, interval: 200 }, (callback, results) => { }, (err, result) => { });
-async.retry({ times: 3, interval: (retryCount) => 200 * retryCount }, (callback, results) => { }, (err, result) => { });
-async.retry({ times: 3, interval: 200, errorFilter: (err) => true }, (callback, results) => { }, (err, result) => { });
+async.retry(3, (callback) => { }, (err, result) => { });
+async.retry({ times: 3, interval: 200 }, (callback) => { }, (err, result) => { });
+async.retry({ times: 3, interval: (retryCount) => 200 * retryCount }, (callback) => { }, (err, result) => { });
+async.retry({ times: 3, interval: 200, errorFilter: (err) => true }, (callback) => { }, (err, result) => { });
 
 async.parallel([
-        (callback: (err: Error, val: string) => void) => { },
-        callback => { }
-    ],
-    (err: Error, results: string[]) => { async.series([callback => { }, function email_link(callback) { }]);
-});
+    (callback: (err: Error, val: string) => void) => { },
+    callback => { }
+],
+    (err: Error, results: string[]) => {
+        async.series([callback => { }, function email_link(callback) { }]);
+    });
 
 async.parallel([
     async.apply(fs.writeFile, 'testfile1', 'test1'),
@@ -360,7 +361,7 @@ async.each<number>(
             console.log(`async.each: ${val}`);
             next();
         },
-        500);
+            500);
     },
     (err?: Error) => { console.log("async.each: done."); }
 );
@@ -386,7 +387,7 @@ async.eachLimit<number>(
             console.log(`async.eachLimit: ${val}`);
             next();
         },
-        500);
+            500);
     },
     (err?: Error) => { console.log("async.eachLimit: done."); }
 );
@@ -465,12 +466,12 @@ async.mapLimit<number, string>(
     { a: 1, b: 2, c: 3, d: 4, e: 5, f: 6 },
     2,
     (val: number, next: AsyncResultCallback<string>) => {
-    setTimeout(
-        () => {
-            console.log(`async.mapLimit: ${val}`);
-            next(undefined as any, val.toString());
-        },
-        500);
+        setTimeout(
+            () => {
+                console.log(`async.mapLimit: ${val}`);
+                next(undefined as any, val.toString());
+            },
+            500);
     },
     (err: Error, results: string[]) => { console.log("async.mapLimit: done with results", results); }
 );
@@ -584,24 +585,46 @@ async.some<number>(
 // timeout
 
 function myFunction1(foo: any, callback: (err?: Error, result?: any) => void): void {
-	console.log(`async.timeout 1 ${foo}`);
-	callback(undefined, foo);
+    console.log(`async.timeout 1 ${foo}`);
+    callback(undefined, foo);
 }
 const wrapped1 = async.timeout(myFunction1, 1000);
 wrapped1({ bar: 'bar' }, (err: Error, data: any) => { console.log(`async.timeout 1 end ${data}`); });
 
 function myFunction2(callback: (err?: Error, result?: any) => void): void {
-	console.log(`async.timeout 2`);
-	callback(undefined, { bar: 'bar' });
+    console.log(`async.timeout 2`);
+    callback(undefined, { bar: 'bar' });
 }
 
 const wrapped2 = async.timeout(myFunction2, 1000);
 wrapped2((err: Error, data: any) => { console.log(`async.timeout 2 end ${data}`); });
 
 function myFunction3(callback: (err?: Error, result?: any) => void): void {
-	console.log(`async.timeout 3`);
-	callback(undefined, { bar: 'bar' });
+    console.log(`async.timeout 3`);
+    callback(undefined, { bar: 'bar' });
 }
 
 const wrapped3 = async.timeout(myFunction3, 1000, { bar: 'bar' });
 wrapped3((err: Error, data: any) => { console.log(`async.timeout 3 end ${data}`); });
+
+async.race([
+    (callback) => {
+        callback(null, 42);
+    },
+    (callback) => {
+        callback(null, 'foo');
+    }
+], (err, result) => {
+    console.log(result);
+});
+
+async.race([
+    (callback) => {
+        callback(null, 42);
+    },
+    (callback) => {
+        callback(null, 'foo');
+    }
+]).then(result => {
+    console.log(result);
+});
