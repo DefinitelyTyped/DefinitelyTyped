@@ -67,6 +67,7 @@ export namespace policies {
       newSchedule(): {
         next(): { delay: number; done: boolean; }
       };
+      getOptions(): Map<string, any>;
     }
 
     interface ConstantReconnectionPolicyStatic {
@@ -129,6 +130,8 @@ export namespace policies {
       newPlan(keyspace: string, queryInfo: string | string[]): {
           nextExecution: () => number;
       };
+      getOptions(): Map<string, any>;
+      shutdown(): void;
     }
 
     interface NoSpeculativeExecutionPolicyStatic {
@@ -602,6 +605,7 @@ export interface Host extends events.EventEmitter {
   datacenter: string;
   rack: string;
   tokens: string[];
+  hostId: types.Uuid;
 
   canBeConsideredAsUp(): boolean;
   getCassandraVersion(): number[];
