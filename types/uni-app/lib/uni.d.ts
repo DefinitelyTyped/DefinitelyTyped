@@ -4569,7 +4569,7 @@ interface NodesRef {
     /**
      * 添加节点的布局位置的查询请求，相对于显示区域，以像素为单位
      */
-    boundingClientRect(callback?: (result: NodeInfo) => void): void;
+    boundingClientRect(callback?: (result: NodeInfo) => void): SelectorQuery;
     /**
      * 添加节点的滚动位置查询请求，以像素为单位
      */

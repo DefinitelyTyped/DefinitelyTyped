@@ -29,6 +29,10 @@ uni.createSelectorQuery().select('.test').context(res => {
     });
 });
 
+uni.createSelectorQuery().select(".test").boundingClientRect(data => {
+    console.log(data);
+}).exec();
+
 const px: number = uni.upx2px(750);
 
 uni.canvasToTempFilePath({
