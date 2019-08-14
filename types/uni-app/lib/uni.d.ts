@@ -401,9 +401,15 @@ declare class Uni {
     /**
      * 隐藏软键盘
      *
-     * 参考: [http://uniapp.dcloud.io/api/keyboard?id=hidekeyboard](http://uniapp.dcloud.io/api/keyboard?id=hidekeyboard)
+     * 参考: [http://uniapp.dcloud.io/api/key?id=hidekeyboard](http://uniapp.dcloud.io/api/key?id=hidekeyboard)
      */
     hideKeyboard(): void;
+    /**
+     * 监听键盘高度变化
+     *
+     * 参考: [http://uniapp.dcloud.io/api/key?id=onkeyboardheightchange](http://uniapp.dcloud.io/api/key?id=onkeyboardheightchange)
+     */
+    onKeyboardHeightChange(callback?: (result: OnKeyboardHeightChangeResult) => void): void;
     /**
      * 设置屏幕亮度
      *
@@ -2863,6 +2869,13 @@ interface OnNetworkStatusChangeSuccess {
      * 网络类型
      */
     networkType?: string;
+}
+
+interface OnKeyboardHeightChangeResult {
+    /**
+     * 键盘高度
+     */
+    height?: number;
 }
 
 interface OnAccelerometerChangeSuccess {

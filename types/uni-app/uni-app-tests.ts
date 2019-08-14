@@ -52,3 +52,7 @@ uni.canvasToTempFilePath({
 
 const videoContext = uni.createVideoContext('test');
 videoContext.play();
+
+uni.onKeyboardHeightChange(({height}) => {
+   console.log(height);
+});
