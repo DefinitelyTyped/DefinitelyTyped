@@ -38,7 +38,7 @@ export type BuiltQueryMethods<Arguments extends any[]> = [
     GetAllBy<Arguments>,
     GetBy<Arguments>,
     FindAllBy<Arguments>,
-    FindBy<Arguments>,
+    FindBy<Arguments>
 ];
 export function buildQueries<Arguments extends any[]>(
     queryByAll: GetAllBy<Arguments>,
