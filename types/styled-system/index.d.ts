@@ -89,6 +89,8 @@ export interface VariantArgs {
     prop?: string;
     /** theme key for variant definitions */
     scale?: string;
+    /** inline theme aware variants definitions  */
+    variants?: object;
 }
 
 export function variant(props: VariantArgs): (...args: any[]) => any;
