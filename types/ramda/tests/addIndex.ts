@@ -41,7 +41,7 @@ import { Rectangle } from './test-helpers';
 () => {
   // Test that addIndex works with reduce
 
-  const reduceIndexed = addIndex(reduce);
+  const reduceIndexed = addIndex<string, Record<string, number>>(reduce);
   const letters = ['a', 'b', 'c'];
 
   function objectify(accObject: { [elem: string]: number }, elem: string, idx: number, list: string[]) {
@@ -113,7 +113,7 @@ import { Rectangle } from './test-helpers';
 () => {
   // Test that addIndex works with reduce
 
-  const reduceIndexed = addIndex(reduce);
+  const reduceIndexed = addIndex<string, string>(reduce);
 
   // $ExpectType string
   reduceIndexed((acc: string, val: string, idx: number) => `${acc},${idx}-${val}`, '', [
