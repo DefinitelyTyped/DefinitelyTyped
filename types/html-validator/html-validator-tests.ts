@@ -1,19 +1,28 @@
 import validateHtml = require('html-validator');
 
-const testHtml = ``;
+const testHtml = `
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Invalid</title>
+</head>
+<body>
+<p>I'm baaaaaaaaaaaad code</div></p>
+</body>
+</html>
+`;
 
 validateHtml({
-  data: compiledHtmlFile.contents.toString(),
+  data: testHtml,
   format: 'json'
-}).then((validationResults: validateHtml.ValidationResultsAsParsedJSON) => {
-
+}).then((validationResults: validateHtml.ParsedJsonAsValidationResults) => {
   if (validationResults.messages.length === 0) {
-    console.warn(`File ${compiledHtmlFile.basename} contains W3C standard violations or guidelines neglects.`);
+    console.warn(`File "test" contains W3C standard violations or guidelines neglects.`);
     return;
   }
 
-  validationResults.messages.forEach( (violation: validateHtml.ValidationMessageObject) => {
-
+  validationResults.messages.forEach((violation: validateHtml.ValidationMessageObject) => {
     if (violation.type === 'error') {
       console.log(`W3C standard violation: ${violation.message}`);
     }
