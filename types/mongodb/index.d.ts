@@ -1192,10 +1192,10 @@ export type QuerySelector<T> = {
     $nearSphere?: object;
     $maxDistance?: number;
     // Array
-    // TODO: array operators should throw errors for none array fields
-    $all?: any[]; // TODO: define better types for $all
-    $elemMatch?: object;
-    $size?: number;
+    // TODO: define better types for $all and $elemMatch
+    $all?: T extends Array<infer U> ? any[] : never;
+    $elemMatch?: T extends Array<infer U> ? object : never;
+    $size?: T extends Array<infer U> ? number : never;
     // Bitwise
     $bitsAllClear?: BitwiseQuery;
     $bitsAllSet?: BitwiseQuery;
