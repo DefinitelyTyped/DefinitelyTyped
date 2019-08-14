@@ -1,12 +1,12 @@
 import { ValidationParams, Params } from './lib/validators';
-import Vue, { PluginFunction } from 'vue'
+import Vue, { PluginFunction } from 'vue';
 
 /**
  * Covers beforeCreate(), beforeDestroy() and data().
  *
  * No public members.
  */
-export const validationMixin: any
+export const validationMixin: any;
 
 export interface Validation {
   readonly $anyDirty: boolean;
@@ -16,6 +16,7 @@ export interface Validation {
   readonly $invalid: boolean;
   readonly $params: { [attr: string]: Params | null };
   readonly $pending: boolean;
+  $each?: EachValidation;
   $model: any;
   $touch(): never;
   $reset(): never;
@@ -28,10 +29,6 @@ export interface Validation {
 
 interface EachValidation extends Validation {
   $iter: Validation;
-}
-
-export interface IterableValidation extends Validation {
-  $each: EachValidation;
 }
 
 // vue plugin
