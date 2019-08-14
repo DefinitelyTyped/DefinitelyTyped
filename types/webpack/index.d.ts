@@ -173,7 +173,7 @@ declare namespace webpack {
         /** The filename of the Hot Update Main File. It is inside the output.path directory. */
         hotUpdateMainFilename?: string;
         /** If set, export the bundle as library. output.library is the name. */
-        library?: string | string[];
+        library?: string | string[] | {[key: string]: string};
         /**
          * Which format to export the library:
          * - "var" - Export by setting a variable: var Library = xxx (default)
