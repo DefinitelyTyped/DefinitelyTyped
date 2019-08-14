@@ -57,3 +57,17 @@ import { flatten, identity, inc, ifElse, map, toString } from 'ramda';
   // $ExpectType B
   map<A, B>(toString, { a: 1, b: 2 });
 };
+
+() => {
+  // $ExpectType { a: number, b: number }
+  map(inc)({ a: 1, b: 2 });
+
+  // $ExpectType { a: number, b: number }
+  map(inc, { a: 1, b: 2 });
+
+  // $ExpectType { a: string, b: string }
+  map(toString)({ a: 1, b: 2 });
+
+  // $ExpectType { a: string, b: string }
+  map(toString, { a: 1, b: 2 });
+};
