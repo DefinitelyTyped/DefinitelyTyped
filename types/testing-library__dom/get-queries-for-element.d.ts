@@ -1,0 +1,33 @@
+import { Matcher } from './matches';
+import * as queries from './queries';
+
+export type BoundFunction<T> = T extends (
+  attribute: string,
+  element: HTMLElement,
+  text: infer P,
+  options: infer Q,
+) => infer R
+  ? (text: P, options?: Q) => R
+  : T extends (a1: any, text: infer P, options: infer Q) => infer R
+  ? (text: P, options?: Q) => R
+  : never;
+export type BoundFunctions<T> = { [P in keyof T]: BoundFunction<T[P]> };
+
+interface Query extends Function {
+  (container: HTMLElement, ...args: any[]):
+    | Error
+    | Promise<HTMLElement[]>
+    | Promise<HTMLElement>
+    | HTMLElement[]
+    | HTMLElement
+    | null;
+}
+
+interface Queries {
+  [T: string]: Query;
+}
+
+export function getQueriesForElement<T extends Queries = typeof queries>(
+  element: HTMLElement,
+  queriesToBind?: T,
+): BoundFunctions<T>;
