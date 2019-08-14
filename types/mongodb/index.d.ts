@@ -1149,6 +1149,14 @@ type BitwiseQuery =
     | Binary    /** <BinData bitmask> */
     | number[]; /** [ <position1>, <position2>, ... ] */
 
+// we can search using alternative types in mongodb e.g.
+// string types can be searched using a regex in mongo
+// array types can be searched using their element type
+type RegExpForString<T> = T extends string ? (RegExp | T): T;
+type MongoAltQuery<T> =
+    T extends Array<infer U> ? (T | RegExpForString<U>):
+    RegExpForString<T>;
+
 /** https://docs.mongodb.com/manual/reference/operator/query/#query-selectors */
 export type QuerySelector<T> = {
     // Comparison
@@ -1212,11 +1220,8 @@ export type RootQuerySelector<T> = {
     [key: string]: any;
 };
 
-// string types can be searched using a regex in mongo
-type RegExpString<T> = T extends string ? (RegExp | T) : T;
-
 export type FilterQuery<T> = {
-    [P in keyof T]?: RegExpString<T[P]> | QuerySelector<RegExpString<T[P]>>
+  [P in keyof T]?: MongoAltQuery<T[P]> | QuerySelector<MongoAltQuery<T[P]>>;
 } & RootQuerySelector<T>;
 
 
