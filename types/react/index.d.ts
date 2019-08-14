@@ -439,7 +439,7 @@ declare namespace React {
             callback?: () => void
         ): void;
 
-        forceUpdate(callBack?: () => void): void;
+        forceUpdate(callback?: () => void): void;
         render(): ReactNode;
 
         // React.Props<T> is now deprecated, which means that the `children`
