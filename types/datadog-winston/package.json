@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "dependencies": {
+        "winston-transport": "^4.3.0"
+    }
+}
