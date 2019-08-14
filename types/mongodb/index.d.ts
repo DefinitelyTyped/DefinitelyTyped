@@ -1175,7 +1175,7 @@ export type QuerySelector<T> = {
     /**
      * When `true`, `$exists` matches the documents that contain the field,
      * including documents where the field value is null.
-     * */
+     */
     $exists?: boolean;
     $type?: BSONType | BSONTypeAlias;
     // Evaluation

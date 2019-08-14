@@ -23,6 +23,7 @@
         "test/stats.ts",
         "test/cursor.ts",
         "test/createIndex.ts",
+        "test/collection/filterQuery.ts",
         "test/collection/findX.ts",
         "test/collection/insertX.ts",
         "test/collection/updateX.ts",
