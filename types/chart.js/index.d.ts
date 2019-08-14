@@ -17,6 +17,7 @@
 //                 Adrián Caballero <https://github.com/adripanico>
 //                 wertzui <https://github.com/wertzui>
 //                 Martin Trobäck <https://github.com/lekoaf>
+//                 Elian Cordoba <https://github.com/ElianCordoba>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -239,6 +240,7 @@ declare namespace Chart {
         animation?: ChartAnimationOptions;
         elements?: ChartElementsOptions;
         layout?: ChartLayoutOptions;
+        scale?: { display?: boolean };
         scales?: ChartScales;
         showLines?: boolean;
         spanGaps?: boolean;
