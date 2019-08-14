@@ -10,14 +10,7 @@ import ImageSource from './Image';
 import { AttributionLike } from './Source';
 import State from './State';
 
-export type FunctionType = (
-    this: ImageCanvas,
-    p0: Extent,
-    p1: number,
-    p2: number,
-    p3: Size,
-    p4: Projection
-) => HTMLCanvasElement;
+export type FunctionType = (this: ImageCanvas, p0: Extent, p1: number, p2: number, p3: Size, p4: Projection) => HTMLCanvasElement;
 export interface Options {
     attributions?: AttributionLike;
     canvasFunction?: FunctionType;
