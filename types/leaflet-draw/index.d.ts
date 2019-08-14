@@ -81,93 +81,93 @@ declare module 'leaflet' {
 
     namespace Control {
         interface DrawConstructorOptions {
-			/**
-			 * The initial position of the control (one of the map corners).
-			 *
-			 * @default 'topleft'
-			 */
+            /**
+             * The initial position of the control (one of the map corners).
+             *
+             * @default 'topleft'
+             */
             position?: ControlPosition;
 
-			/**
-			 * The options used to configure the draw toolbar.
-			 *
-			 * @default {}
-			 */
+            /**
+             * The options used to configure the draw toolbar.
+             *
+             * @default {}
+             */
             draw?: DrawOptions;
 
-			/**
-			 * The options used to configure the edit toolbar.
-			 *
-			 * @default false
-			 */
+            /**
+             * The options used to configure the edit toolbar.
+             *
+             * @default false
+             */
             edit?: EditOptions;
         }
 
         interface DrawOptions {
-			/**
-			 * Polyline draw handler options. Set to false to disable handler.
-			 *
-			 * @default {}
-			 */
+            /**
+             * Polyline draw handler options. Set to false to disable handler.
+             *
+             * @default {}
+             */
             polyline?: DrawOptions.PolylineOptions | false;
 
-			/**
-			 * Polygon draw handler options. Set to false to disable handler.
-			 *
-			 * @default {}
-			 */
+            /**
+             * Polygon draw handler options. Set to false to disable handler.
+             *
+             * @default {}
+             */
             polygon?: DrawOptions.PolygonOptions | false;
 
-			/**
-			 * Rectangle draw handler options. Set to false to disable handler.
-			 *
-			 * @default {}
-			 */
+            /**
+             * Rectangle draw handler options. Set to false to disable handler.
+             *
+             * @default {}
+             */
             rectangle?: DrawOptions.RectangleOptions | false;
 
-			/**
-			 * Circle draw handler options. Set to false to disable handler.
-			 *
-			 * @default {}
-			 */
+            /**
+             * Circle draw handler options. Set to false to disable handler.
+             *
+             * @default {}
+             */
             circle?: DrawOptions.CircleOptions | false;
 
-			/**
-			 * Circle marker draw handler options. Set to false to disable handler.
-			 *
-			 * @default {}
-			 */
+            /**
+             * Circle marker draw handler options. Set to false to disable handler.
+             *
+             * @default {}
+             */
             circlemarker?: DrawOptions.CircleMarkerOptions | false;
 
-			/**
-			 * Marker draw handler options. Set to false to disable handler.
-			 *
-			 * @default {}
-			 */
+            /**
+             * Marker draw handler options. Set to false to disable handler.
+             *
+             * @default {}
+             */
             marker?: DrawOptions.MarkerOptions | false;
         }
 
         interface EditOptions {
-			/**
-			 * This is the FeatureGroup that stores all editable shapes.
-			 * THIS IS REQUIRED FOR THE EDIT TOOLBAR TO WORK
-			 *
-			 * @default null
-			 */
+            /**
+             * This is the FeatureGroup that stores all editable shapes.
+             * THIS IS REQUIRED FOR THE EDIT TOOLBAR TO WORK
+             *
+             * @default null
+             */
             featureGroup: FeatureGroup;
 
-			/**
-			 * Edit handler options. Set to false to disable handler.
-			 *
-			 * @default null
-			 */
+            /**
+             * Edit handler options. Set to false to disable handler.
+             *
+             * @default null
+             */
             edit?: DrawOptions.EditHandlerOptions | false;
 
-			/**
-			 * Delete handler options. Set to false to disable handler.
-			 *
-			 * Default value: null
-			 */
+            /**
+             * Delete handler options. Set to false to disable handler.
+             *
+             * Default value: null
+             */
             remove?: null | false;
         }
 
@@ -181,269 +181,269 @@ declare module 'leaflet' {
 
     namespace DrawOptions {
         interface SimpleShapeOptions {
-			/**
-			 * Determines if the draw tool remains enabled after drawing a shape.
-			 *
-			 * @default false
-			 */
+            /**
+             * Determines if the draw tool remains enabled after drawing a shape.
+             *
+             * @default false
+             */
             repeatMode?: boolean;
         }
 
         interface PolylineOptions extends SimpleShapeOptions {
-			/**
-			 * Determines if line segments can cross.
-			 *
-			 * @default true
-			 */
+            /**
+             * Determines if line segments can cross.
+             *
+             * @default true
+             */
             allowIntersection?: boolean;
 
-			/**
-			 * Configuration options for the error that displays if an intersection is detected.
-			 *
-			 * @default { color: '#b00b00', timeout: 2500 }
-			 */
+            /**
+             * Configuration options for the error that displays if an intersection is detected.
+             *
+             * @default { color: '#b00b00', timeout: 2500 }
+             */
             drawError?: DrawErrorOptions;
 
-			/**
-			 * Distance in pixels between each guide dash.
-			 *
-			 * @default 20
-			 */
+            /**
+             * Distance in pixels between each guide dash.
+             *
+             * @default 20
+             */
             guidelineDistance?: number;
 
-			/**
-			 * The options used when drawing the polyline/polygon on the map.
-			 *
-			 * @default { stroke: true, color: '#3388ff', weight: 4, opacity: 0.5, fill: false, clickable: true }
-			 */
+            /**
+             * The options used when drawing the polyline/polygon on the map.
+             *
+             * @default { stroke: true, color: '#3388ff', weight: 4, opacity: 0.5, fill: false, clickable: true }
+             */
             shapeOptions?: L.PolylineOptions & {
                 clickable?: boolean;
             };
 
-			/**
-			 * Whether to display distance in the tooltip
-			 *
-			 * @default true
-			 */
+            /**
+             * Whether to display distance in the tooltip
+             *
+             * @default true
+             */
             showLength?: boolean;
 
-			/**
-			 * Determines which measurement system (metric or imperial) is used.
-			 *
-			 * @default true
-			 */
+            /**
+             * Determines which measurement system (metric or imperial) is used.
+             *
+             * @default true
+             */
             metric?: boolean;
 
-			/**
-			 * When not metric, to use feet instead of yards for display.
-			 *
-			 * @default true
-			 */
+            /**
+             * When not metric, to use feet instead of yards for display.
+             *
+             * @default true
+             */
             feet?: boolean;
 
-			/**
-			 * When not metric, not feet use nautic mile for display
-			 *
-			 * @default false
-			 */
+            /**
+             * When not metric, not feet use nautic mile for display
+             *
+             * @default false
+             */
             nautic?: boolean;
 
-			/**
-			 * This should be a high number to ensure that you can draw over all other layers on the map.
-			 *
-			 * @default 2000
-			 */
+            /**
+             * This should be a high number to ensure that you can draw over all other layers on the map.
+             *
+             * @default 2000
+             */
             zIndexOffset?: number;
 
             icon?: Icon | DivIcon;
 
             touchIcon?: Icon | DivIcon;
 
-			/**
-			 * The maximum length of the guide line
-			 *
-			 * @default 4000
-			 */
+            /**
+             * The maximum length of the guide line
+             *
+             * @default 4000
+             */
             maxGuideLineLength?: number;
 
-			/**
-			 * To change distance calculation
-			 *
-			 * @default 1
-			 */
+            /**
+             * To change distance calculation
+             *
+             * @default 1
+             */
             factor?: number;
 
-			/**
-			 * Once this number of points are placed, finish shape
-			 *
-			 * @default 0
-			 */
+            /**
+             * Once this number of points are placed, finish shape
+             *
+             * @default 0
+             */
             maxPoints?: number;
         }
 
         interface PolygonOptions extends PolylineOptions {
-			/**
-			 * Show the area of the drawn polygon in m², ha or km².
-			 * The area is only approximate and become less accurate the larger the polygon is.
-			 *
-			 * @default false
-			 */
+            /**
+             * Show the area of the drawn polygon in m², ha or km².
+             * The area is only approximate and become less accurate the larger the polygon is.
+             *
+             * @default false
+             */
             showArea?: boolean;
 
-			/**
-			 * Show the length of the drawn line.
-			 * The area is only approximate and become less accurate the larger the polygon is.
-			 *
-			 * @default false
-			 */
+            /**
+             * Show the length of the drawn line.
+             * The area is only approximate and become less accurate the larger the polygon is.
+             *
+             * @default false
+             */
             showLength?: boolean;
 
-			/**
-			 * Defines the precision for each type of unit (e.g. {km: 2, ft: 0}
-			 *
-			 * @default {}
-			 */
+            /**
+             * Defines the precision for each type of unit (e.g. {km: 2, ft: 0}
+             *
+             * @default {}
+             */
             precision?: PrecisionOptions;
         }
 
         interface RectangleOptions extends SimpleShapeOptions {
-			/**
-			 * The options used when drawing the rectangle on the map.
-			 *
-			 * @default {stroke: true, weight: 4, opacity: 0.5, fill: true, fillColor: null, fillOpacity: 0.2, showArea: true, clickable: true }
-			 */
+            /**
+             * The options used when drawing the rectangle on the map.
+             *
+             * @default {stroke: true, weight: 4, opacity: 0.5, fill: true, fillColor: null, fillOpacity: 0.2, showArea: true, clickable: true }
+             */
             shapeOptions?: PathOptions;
 
-			/**
-			 * Whether to use the metric measurement system or imperial
-			 *
-			 * @default true
-			 */
+            /**
+             * Whether to use the metric measurement system or imperial
+             *
+             * @default true
+             */
             metric?: boolean;
         }
 
         interface CircleOptions extends SimpleShapeOptions {
-			/**
-			 * The options used when drawing the circle on the map.
-			 *
-			 * @default { stroke: true, color: '#3388ff', weight: 4, opacity: 0.5, fill: true, fillColor: null, fillOpacity: 0.2, clickable: true }
-			 */
+            /**
+             * The options used when drawing the circle on the map.
+             *
+             * @default { stroke: true, color: '#3388ff', weight: 4, opacity: 0.5, fill: true, fillColor: null, fillOpacity: 0.2, clickable: true }
+             */
             shapeOptions?: PathOptions;
 
-			/**
-			 * Whether to show the radius in the tooltip
-			 *
-			 * @default true
-			 */
+            /**
+             * Whether to show the radius in the tooltip
+             *
+             * @default true
+             */
             showRadius?: boolean;
 
-			/**
-			 * Whether to use the metric measurement system or imperial
-			 *
-			 * @default true
-			 */
+            /**
+             * Whether to use the metric measurement system or imperial
+             *
+             * @default true
+             */
             metric?: boolean;
 
-			/**
-			 * When not metric, use feet instead of yards for display
-			 *
-			 * @default true
-			 */
+            /**
+             * When not metric, use feet instead of yards for display
+             *
+             * @default true
+             */
             feet?: boolean;
 
-			/**
-			 * When not metric, not feet use nautic mile for display
-			 *
-			 * @default false
-			 */
+            /**
+             * When not metric, not feet use nautic mile for display
+             *
+             * @default false
+             */
             nautic?: boolean;
         }
 
         interface CircleMarkerOptions {
-			/**
-			 * Whether to draw stroke around the circle marker.
-			 *
-			 * @default true
-			 */
+            /**
+             * Whether to draw stroke around the circle marker.
+             *
+             * @default true
+             */
             stroke?: boolean;
 
-			/**
-			 * The stroke color of the circle marker.
-			 *
-			 * @default '#3388ff'
-			 */
+            /**
+             * The stroke color of the circle marker.
+             *
+             * @default '#3388ff'
+             */
             color?: string;
 
-			/**
-			 * The stroke width in pixels of the circle marker.
-			 *
-			 * @default 4
-			 */
+            /**
+             * The stroke width in pixels of the circle marker.
+             *
+             * @default 4
+             */
             weight?: number;
 
-			/**
-			 * The stroke opacity of the circle marker.
-			 *
-			 * @default 0.5
-			 */
+            /**
+             * The stroke opacity of the circle marker.
+             *
+             * @default 0.5
+             */
             opacity?: number;
 
-			/**
-			 * Whether to fill the circle marker with color.
-			 *
-			 * @default true
-			 */
+            /**
+             * Whether to fill the circle marker with color.
+             *
+             * @default true
+             */
             fill?: boolean;
 
-			/**
-			 * The fill color of the circle marker. Defaults to the value of the color option.
-			 *
-			 * @default null
-			 */
+            /**
+             * The fill color of the circle marker. Defaults to the value of the color option.
+             *
+             * @default null
+             */
             fillColor?: string;
 
-			/**
-			 * The opacity of the circle marker.
-			 *
-			 * @default 0.2
-			 */
+            /**
+             * The opacity of the circle marker.
+             *
+             * @default 0.2
+             */
             fillOpacity?: number;
 
-			/**
-			 * Whether you can click the circle marker.
-			 *
-			 * @default true
-			 */
+            /**
+             * Whether you can click the circle marker.
+             *
+             * @default true
+             */
             clickable?: boolean;
 
-			/**
-			 * This should be a high number to ensure that you can draw over all other layers on the map.
-			 *
-			 * @default 2000
-			 */
+            /**
+             * This should be a high number to ensure that you can draw over all other layers on the map.
+             *
+             * @default 2000
+             */
             zIndexOffset?: number;
         }
 
         interface MarkerOptions {
-			/**
-			 * The icon displayed when drawing a marker.
-			 *
-			 * @default L.Icon.Default()
-			 */
+            /**
+             * The icon displayed when drawing a marker.
+             *
+             * @default L.Icon.Default()
+             */
             icon?: Icon | DivIcon;
 
-			/**
-			 * This should be a high number to ensure that you can draw over all other layers on the map.
-			 *
-			 * @default 2000
-			 */
+            /**
+             * This should be a high number to ensure that you can draw over all other layers on the map.
+             *
+             * @default 2000
+             */
             zIndexOffset?: number;
 
-			/**
-			 * Determines if the draw tool remains enabled after drawing a shape.
-			 *
-			 * @default false
-			 */
+            /**
+             * Determines if the draw tool remains enabled after drawing a shape.
+             *
+             * @default false
+             */
             repeatMode?: boolean;
         }
 
@@ -478,12 +478,12 @@ declare module 'leaflet' {
         }
 
         interface EditHandlerOptions {
-			/**
-			 * The path options for how the layers will look while in edit mode.
-			 * If this is set to null the editable path options will not be set.
-			 *
-			 * @default { dashArray: '10, 10', fill: true, fillColor: '#fe57a1', fillOpacity: 0.1, maintainColor: false }
-			 */
+            /**
+             * The path options for how the layers will look while in edit mode.
+             * If this is set to null the editable path options will not be set.
+             *
+             * @default { dashArray: '10, 10', fill: true, fillColor: '#fe57a1', fillOpacity: 0.1, maintainColor: false }
+             */
             selectedPathOptions?: PathOptions;
         }
 
@@ -631,103 +631,103 @@ declare module 'leaflet' {
 
     namespace DrawEvents {
         interface Created extends Event {
-			/**
-			 * Layer that was just created.
-			 */
+            /**
+             * Layer that was just created.
+             */
             layer: Circle | CircleMarker | Marker | Polygon | Polyline | Rectangle;
 
-			/**
-			 * The type of layer this is. One of: polyline, polygon, rectangle, circle, marker.
-			 */
+            /**
+             * The type of layer this is. One of: polyline, polygon, rectangle, circle, marker.
+             */
             layerType: string;
         }
 
         interface Edited extends Event {
-			/**
-			 * List of all layers just edited on the map.
-			 */
+            /**
+             * List of all layers just edited on the map.
+             */
             layers: LayerGroup;
         }
 
-		/**
-		 * Triggered when layers have been removed (and saved) from the FeatureGroup.
-		 */
+        /**
+         * Triggered when layers have been removed (and saved) from the FeatureGroup.
+         */
         interface Deleted extends Event {
-			/**
-			 * List of all layers just removed from the map.
-			 */
+            /**
+             * List of all layers just removed from the map.
+             */
             layers: LayerGroup;
         }
 
         interface DrawStart extends Event {
-			/**
-			 * The type of layer this is. One of: polyline, polygon, rectangle, circle, marker
-			 */
+            /**
+             * The type of layer this is. One of: polyline, polygon, rectangle, circle, marker
+             */
             layerType: string;
         }
 
         interface DrawStop extends Event {
-			/**
-			 * The type of layer this is. One of: polyline, polygon, rectangle, circle, marker
-			 */
+            /**
+             * The type of layer this is. One of: polyline, polygon, rectangle, circle, marker
+             */
             layerType: string;
         }
 
         interface DrawVertex extends Event {
-			/**
-			 * List of all layers just being added from the map.
-			 */
+            /**
+             * List of all layers just being added from the map.
+             */
             layers: LayerGroup;
         }
 
         interface EditStart extends Event {
-			/**
-			 * The type of edit this is. One of: edit
-			 */
+            /**
+             * The type of edit this is. One of: edit
+             */
             handler: string;
         }
 
         interface EditMove extends Event {
-			/**
-			 * Layer that was just moved.
-			 */
+            /**
+             * Layer that was just moved.
+             */
             layer: Layer;
         }
 
         interface EditResize extends Event {
-			/**
-			 * Layer that was just resized.
-			 */
+            /**
+             * Layer that was just resized.
+             */
             layer: Layer;
         }
 
         interface EditVertex extends Event {
-			/**
-			 * List of all layers just being edited from the map.
-			 */
+            /**
+             * List of all layers just being edited from the map.
+             */
             layers: LayerGroup;
 
             poly: Polyline | Polygon;
         }
 
         interface EditStop extends Event {
-			/**
-			 * The type of edit this is. One of: edit
-			 */
+            /**
+             * The type of edit this is. One of: edit
+             */
             handler: string;
         }
 
         interface DeleteStart extends Event {
-			/**
-			 * The type of edit this is. One of: remove
-			 */
+            /**
+             * The type of edit this is. One of: remove
+             */
             handler: string;
         }
 
         interface DeleteStop extends Event {
-			/**
-			 * The type of edit this is. One of: remove
-			 */
+            /**
+             * The type of edit this is. One of: remove
+             */
             handler: string;
         }
 
@@ -737,45 +737,45 @@ declare module 'leaflet' {
     }
 
     namespace GeometryUtil {
-		/**
-		 * Returns the area of a polygon drawn with leaflet.draw
-		 */
+        /**
+         * Returns the area of a polygon drawn with leaflet.draw
+         */
         function geodesicArea(coordinates: LatLngLiteral[]): number;
 
-		/**
-		 * Returns n in specified number format (if defined) and precision
-		 */
+        /**
+         * Returns n in specified number format (if defined) and precision
+         */
         function formattedNumber(n: string, precision: number): string;
 
-		/**
-		 * Returns a readable area string in yards or metric
-		 */
+        /**
+         * Returns a readable area string in yards or metric
+         */
         function readableArea(area: number, isMetric?: boolean, precision?: PrecisionOptions): string;
 
-		/**
-		 * Converts a metric distance to one of [ feet, nauticalMile, metric or yards ] string
-		 * The value will be rounded as defined by the precision option object.
-		 */
+        /**
+         * Converts a metric distance to one of [ feet, nauticalMile, metric or yards ] string
+         * The value will be rounded as defined by the precision option object.
+         */
         function readableDistance(
             distance: number, isMetric?: boolean, isFeet?: boolean,
             isNauticalMile?: boolean, precision?: PrecisionOptions
         ): string;
 
-		/**
-		 * Returns true if the Leaflet version is 0.7.x, false otherwise.
-		 */
+        /**
+         * Returns true if the Leaflet version is 0.7.x, false otherwise.
+         */
         function isVersion07x(): boolean;
     }
 
     namespace LatLngUtil {
-		/**
-		 * Clone the latLng point or points or nested points and return an array with those points
-		 */
+        /**
+         * Clone the latLng point or points or nested points and return an array with those points
+         */
         function cloneLatLngs(latlngs: LatLng[]): LatLng[][];
 
-		/**
-		 * Clone the latLng and return a new LatLng object.
-		 */
+        /**
+         * Clone the latLng and return a new LatLng object.
+         */
         function cloneLatLng(latlng: LatLng): LatLng;
     }
 
