@@ -3,67 +3,47 @@ import { SelectorMatcherOptions } from './query-helpers';
 import { WaitForElementOptions } from './wait-for-element';
 
 export type QueryByBoundAttribute = (
-  container: HTMLElement,
-  id: Matcher,
-  options?: MatcherOptions,
+    container: HTMLElement,
+    id: Matcher,
+    options?: MatcherOptions,
 ) => HTMLElement | null;
 
-export type AllByBoundAttribute = (
-  container: HTMLElement,
-  id: Matcher,
-  options?: MatcherOptions,
-) => HTMLElement[];
+export type AllByBoundAttribute = (container: HTMLElement, id: Matcher, options?: MatcherOptions) => HTMLElement[];
 
 export type FindAllByBoundAttribute = (
-  container: HTMLElement,
-  id: Matcher,
-  options?: MatcherOptions,
-  waitForElementOptions?: WaitForElementOptions,
+    container: HTMLElement,
+    id: Matcher,
+    options?: MatcherOptions,
+    waitForElementOptions?: WaitForElementOptions,
 ) => Promise<HTMLElement[]>;
 
-export type GetByBoundAttribute = (
-  container: HTMLElement,
-  id: Matcher,
-  options?: MatcherOptions,
-) => HTMLElement;
+export type GetByBoundAttribute = (container: HTMLElement, id: Matcher, options?: MatcherOptions) => HTMLElement;
 
 export type FindByBoundAttribute = (
-  container: HTMLElement,
-  id: Matcher,
-  options?: MatcherOptions,
-  waitForElementOptions?: WaitForElementOptions,
+    container: HTMLElement,
+    id: Matcher,
+    options?: MatcherOptions,
+    waitForElementOptions?: WaitForElementOptions,
 ) => Promise<HTMLElement>;
 
-export type QueryByText = (
-  container: HTMLElement,
-  id: Matcher,
-  options?: SelectorMatcherOptions,
-) => HTMLElement | null;
+export type QueryByText = (container: HTMLElement, id: Matcher, options?: SelectorMatcherOptions) => HTMLElement | null;
 
-export type AllByText = (
-  container: HTMLElement,
-  id: Matcher,
-  options?: SelectorMatcherOptions,
-) => HTMLElement[];
+export type AllByText = (container: HTMLElement, id: Matcher, options?: SelectorMatcherOptions) => HTMLElement[];
 
 export type FindAllByText = (
-  container: HTMLElement,
-  id: Matcher,
-  options?: SelectorMatcherOptions,
-  waitForElementOptions?: WaitForElementOptions,
+    container: HTMLElement,
+    id: Matcher,
+    options?: SelectorMatcherOptions,
+    waitForElementOptions?: WaitForElementOptions,
 ) => Promise<HTMLElement[]>;
 
-export type GetByText = (
-  container: HTMLElement,
-  id: Matcher,
-  options?: SelectorMatcherOptions,
-) => HTMLElement;
+export type GetByText = (container: HTMLElement, id: Matcher, options?: SelectorMatcherOptions) => HTMLElement;
 
 export type FindByText = (
-  container: HTMLElement,
-  id: Matcher,
-  options?: SelectorMatcherOptions,
-  waitForElementOptions?: WaitForElementOptions,
+    container: HTMLElement,
+    id: Matcher,
+    options?: SelectorMatcherOptions,
+    waitForElementOptions?: WaitForElementOptions,
 ) => Promise<HTMLElement>;
 
 export const getByLabelText: GetByText;

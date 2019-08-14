@@ -24,6 +24,6 @@ export interface DefaultNormalizerOptions {
     collapseWhitespace?: boolean;
 }
 
-export declare function getDefaultNormalizer(options?: DefaultNormalizerOptions): NormalizerFn;
+export function getDefaultNormalizer(options?: DefaultNormalizerOptions): NormalizerFn;
 
 // N.B. Don't expose fuzzyMatches + matches here: they're not public API

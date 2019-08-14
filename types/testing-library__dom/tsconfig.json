@@ -11,7 +11,10 @@
         "target": "es6",
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@testing-library/dom": ["testing-library__dom"]
+        }
     },
     "files": ["index.d.ts", "testing-library__dom-tests.ts"]
 }
