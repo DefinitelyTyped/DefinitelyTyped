@@ -9,10 +9,10 @@ import { Rectangle } from './test-helpers';
   }
 
   // $ExpectType number[]
-  addIndex(forEach)(plusFive, [1, 2, 3]); // => [6, 7, 8]
+  addIndex<number>(forEach)(plusFive, [1, 2, 3]); // => [6, 7, 8]
 
   // $ExpectType number[]
-  addIndex(forEach)(plusFive)([1, 2, 3]); // => [6, 7, 8]
+  addIndex<number>(forEach)(plusFive)([1, 2, 3]); // => [6, 7, 8]
 };
 
 () => {
