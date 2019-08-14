@@ -1,4 +1,4 @@
-import rafSchd = require('raf-schd');
+import rafSchd from 'raf-schd';
 
 const expensiveSideEffect = (a: number, b: number): void => {};
 
