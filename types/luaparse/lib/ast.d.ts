@@ -136,7 +136,7 @@ export interface TableConstructorExpression extends Base<"TableConstructorExpres
 }
 
 export interface UnaryExpression extends Base<"UnaryExpression"> {
-    operator: "#" | "not";
+    operator: "#" | "not" | '-';
     argument: Expression;
 }
 
