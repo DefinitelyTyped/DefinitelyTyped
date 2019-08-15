@@ -12,5 +12,5 @@ export interface Locale {
         date?: string;
         decimal?: string;
         thousands?: string;
-    }
+    };
 }
