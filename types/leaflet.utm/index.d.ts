@@ -1,4 +1,4 @@
-// Type definitions for Leaflet.UTM 0.0.5
+// Type definitions for Leaflet.UTM 0.0
 // Project: https://github.com/jjimenezshaw/Leaflet.UTM
 // Definitions by: Andrew Lineyschikov <https://github.com/Elcaten>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
