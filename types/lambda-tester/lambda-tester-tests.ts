@@ -54,7 +54,7 @@ lambdaTesterInstance().expectError((error: TError) => {
     const t: string = error.message;
 });
 
-const apiGateway: APIGatewayProxyHandler = (event, _context) => {};
+const apiGateway: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent, _context: Context) => { };
 
 const s3Lambda = lambdaTester(apiGateway).event({} as APIGatewayProxyEvent);
 

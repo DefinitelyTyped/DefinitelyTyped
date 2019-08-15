@@ -1033,17 +1033,34 @@ export interface LexResult {
 /**
  * AWS Lambda handler function.
  * http://docs.aws.amazon.com/lambda/latest/dg/nodejs-prog-model-handler.html
+ */
+export type Handler<TEvent = any, TResult = any> = PromiseHandler<TEvent, TResult> | CallbackHandler<TEvent, TResult>;
+
+/**
+ * AWS Lambda handler function: Promise version (node8.10 or later)
+ * http://docs.aws.amazon.com/lambda/latest/dg/nodejs-prog-model-handler.html
  *
  * @param event – event data.
  * @param context – runtime information of the Lambda function that is executing.
- * @param callback – optional callback to return information to the caller, otherwise return value is null.
- * @return In the node8.10 runtime, a promise for the lambda result.
  */
-export type Handler<TEvent = any, TResult = any> = (
+export type PromiseHandler<TEvent = any, TResult = any> = (
+    event: TEvent,
+    context: Context
+) => Promise<TResult>;
+
+/**
+ * AWS Lambda handler function: callback version
+ * http://docs.aws.amazon.com/lambda/latest/dg/nodejs-prog-model-handler.html
+ *
+ * @param event – event data.
+ * @param context – runtime information of the Lambda function that is executing.
+ * @param callback – the callback to return information to the caller
+ */
+export type CallbackHandler<TEvent = any, TResult = any> = (
     event: TEvent,
     context: Context,
     callback: Callback<TResult>,
-) => void | Promise<TResult>;
+) => void;
 
 /**
  * Optional callback parameter.
