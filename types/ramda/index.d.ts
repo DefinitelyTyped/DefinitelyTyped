@@ -3068,7 +3068,7 @@ declare namespace R {
          * need to be transformed, although you can ignore them, it's best to pass an identity function so
          * that the new function reports the correct arity.
          */
-        useWith<F extends (...args: any) => any>(fn: F, transformers: ReadonlyArray<((...a: Array<any>) => any)>): F.Curry<F>;
+        useWith<F extends (...args: any) => any>(fn: F, transformers: ReadonlyArray<((...args: any) => any)>): F.Curry<F>;
 
         /**
          * Returns a list of all the enumerable own properties of the supplied object.
