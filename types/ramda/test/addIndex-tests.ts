@@ -1,5 +1,4 @@
 import { addIndex, forEach, map, reduce, reject } from 'ramda';
-import { Rectangle } from './test-helpers';
 
 () => {
   // Test that addIndex works with forEach
@@ -120,6 +119,17 @@ import { Rectangle } from './test-helpers';
 
   // $ExpectError
   mapIndexed((val: string, idx: number) => `${idx}-${val}`)([1, 2, 3]);
+
+  class Rectangle {
+    constructor(public width: number, public height: number) {
+      this.width = width;
+      this.height = height;
+    }
+
+    area(): number {
+      return this.width * this.height;
+    }
+  }
 
   // $ExpectType number[]
   mapIndexed(
