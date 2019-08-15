@@ -1,4 +1,4 @@
-// Type definitions for @testing-library/react 9.1
+// Type definitions for @testing-library/react 10.0
 // Project: https://github.com/testing-library/react-testing-library
 // Definitions by: Alex Krolick <https://github.com/alexkrolick>
 //                 Kent C Dodds <https://github.com/kentcdodds>
