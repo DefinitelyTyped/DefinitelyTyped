@@ -12,6 +12,12 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
-    "files": ["index.d.ts", "tools.d.ts", "ramda-tests.ts"],
-    "include": ["tests/*.ts"]
+    "files": [
+        "index.d.ts",
+        "tools.d.ts",
+        "ramda-tests.ts",
+        "tests/add-tests.ts",
+        "tests/addIndex-tests.ts",
+        "tests/map-tests.ts"
+    ]
 }
