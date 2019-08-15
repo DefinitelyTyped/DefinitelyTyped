@@ -228,7 +228,12 @@ class F2 {
     const g1             = R.dropWhile(R.gt(10));
     const g2             = R.map((i: number) => i > 5 ? "bigger" : "smaller");
     const g3             = R.all((i: string) => i === "smaller");
-    const g              = R.compose(g3, g2, g1, g0);
+    const g = R.compose<number[], number[], number[], string[], boolean>(
+      g3,
+      g2,
+      g1,
+      g0,
+    );
     const g_res: boolean = g([1, 2, 10, 13]);
 
     // compose with last function taking no params
@@ -1028,7 +1033,8 @@ interface Obj {
     const a4 = R.indexBy(R.prop<"id", string>("id"))(list);
     const a5 = R.indexBy<{ id: string }>(R.prop<"id", string>("id"))(list);
 
-    const titlesIndexedByTitles: { [k: string]: string } = R.pipe(
+    // $ExpectType { [k: string]: string; }
+    R.pipe<Book[], string[], { [k: string]: string }>(
         R.map((x: Book) => x.title),
         R.indexBy(x => x),
     )(list);
@@ -1451,7 +1457,10 @@ type Pair = KeyValuePair<string, number>;
 
 () => {
     const numbers    = [1, 2, 3, 4];
-    const transducer = R.compose(R.map(R.add(1)), R.take(2));
+    const transducer = R.compose<number[], number[], number[]>(
+      R.map(R.add(1)),
+      R.take(2),
+    );
     const fn         = R.flip<number, number[], number[]>(R.append);
     R.transduce(transducer, fn, [], numbers); // => [2, 3]
     R.transduce(transducer, fn, [])(numbers); // => [2, 3]
