@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "dependencies": {
+        "scroll-into-view-if-needed": "*"
+    }
+}
