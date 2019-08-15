@@ -380,7 +380,6 @@ mongodb.connect(connectionString).then((client) => {
 new mongodb.MongoNetworkError('network error');
 new mongodb.MongoParseError('parse error');
 
-
 // Test typed FilterQuery
 interface ITestFilterQuerySchema {
   cust_id: string;
@@ -397,4 +396,3 @@ mongodb.connect(connectionString).then((client) => {
     status: "completed"
   });
 });
-
