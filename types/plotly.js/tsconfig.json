@@ -25,7 +25,6 @@
         "lib/core.d.ts",
         "test/index-tests.ts",
         "test/core-tests.ts",
-        "files": [
         "index.d.ts",
         "lib/core.d.ts",
         "lib/locales/af.d.ts",
