@@ -1169,8 +1169,7 @@ export type QuerySelector<T> = {
     $ne?: T;
     $nin?: T[];
     // Logical
-    // Array<FilterQuery<T>> is a better type after we added support for none object types in FilterQuery
-    $not?: QuerySelector<T>;
+    $not?: T extends string ? (QuerySelector<T> | RegExp) : QuerySelector<T>;
     // Element
     /**
      * When `true`, `$exists` matches the documents that contain the field,

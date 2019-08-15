@@ -168,9 +168,15 @@ async function run() {
    */
   /// it should accept any query selector for __$not operator__
   await collectionT.find({ name: { $not: { $eq: 'John' } } }).toArray();
+  /// it should accept regex for string fields
+  await collectionT.find({ name: { $not: /Hi/i } }).toArray();
+  await collectionT.find({ schools: { $not: /Hi/ } }).toArray();
   /// it should not accept simple queries in $not operator
   // $ExpectError
   await collectionT.find({ name: { $not: 'John' } }).toArray();
+  /// it should not accept regex for non strings
+  // $ExpectError
+  await collectionT.find({ age: { $not: /sdsd/ } }).toArray();
 
   /// it should accept any filter query for __$and, $or, $nor operator__
   await collectionT.find({ $and: [ { name: 'John' } ]}).toArray();
