@@ -3,6 +3,7 @@
 // Definitions by: Alex Krolick <https://github.com/alexkrolick>
 //                 Kent C Dodds <https://github.com/kentcdodds>
 //                 Sebastian Silbermann <https://github.com/eps1lon>
+//                 Weyert de Boer <https://github.com/weyert>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
