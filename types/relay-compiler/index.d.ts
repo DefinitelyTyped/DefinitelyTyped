@@ -5,10 +5,12 @@
 // TypeScript Version: 3.0
 
 import { GraphQLCompilerContext } from './lib/GraphQLCompilerContext';
+import * as ASTConvert from './lib/ASTConvert';
 import { transformASTSchema } from './lib/ASTConvert';
+
 import * as Parser from './lib/RelayParser';
 import * as Printer from './lib/GraphQLIRPrinter';
-import ConsoleReporter from './lib/GraphQLConsoleReporter';
-import MultiReporter from './lib/GraphQLMultiReporter';
+import ConsoleReporter = require('./lib/GraphQLConsoleReporter');
+import MultiReporter = require('./lib/GraphQLMultiReporter');
 
-export { GraphQLCompilerContext, transformASTSchema, Parser, Printer, ConsoleReporter, MultiReporter };
+export { GraphQLCompilerContext, ASTConvert, transformASTSchema, Parser, Printer, ConsoleReporter, MultiReporter };
