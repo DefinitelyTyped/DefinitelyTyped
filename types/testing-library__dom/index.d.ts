@@ -1,4 +1,4 @@
-// Type definitions for @testing-library/dom 7.0
+// Type definitions for @testing-library/dom 6.0
 // Project: https://github.com/testing-library/dom-testing-library
 // Definitions by: Alex Krolick <https://github.com/alexkrolick>
 //                 Kent C Dodds <https://github.com/kentcdodds>
