@@ -1,0 +1,121 @@
+// Type definitions for notp 2.0.3
+// Project: https://github.com/guyht/notp
+// Definitions by: Wilfred Tan <https://github.com/wilfredtan>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+/// <reference types="node" />
+
+declare namespace notp {
+    /**
+     * Simple to use, fast, and with zero dependencies. The Node One Time Password
+     * library is fully compliant with HOTP (counter based one time passwords) and
+     * TOTP (time based one time passwords). It can be used in conjunction with the
+     * Google Authenticator which has free apps for iOS, Android and BlackBerry.
+     */
+    type HOTPGenerateOptions = {
+        /**
+         * Counter value. This should be stored by the application, must be user
+         * specific, and be incremented for each request.
+         */
+        counter?: number;
+    };
+
+    type HOTPVerifyOptions = {
+        /**
+         * The allowable margin for the counter. The function will check 'W' codes in
+         * the future against the provided passcode. Note, it is the calling
+         * applications responsibility to keep track of 'W' and increment it for each
+         * password check, and also to adjust it accordingly in the case where the
+         * client and server become out of sync (second argument returns non zero).
+         *
+         * E.g. if W = 100, and C = 5, this function will check the passcode against
+         * all One Time Passcodes between 5 and 105.
+         *
+         * Default - 50
+         */
+        window?: number;
+
+        /**
+         * Counter value. This should be stored by the application, must be user
+         * specific, and be incremented for each request.
+         */
+        counter?: number;
+    };
+
+    type TOTPOptions = {
+        /**
+         * The time step of the counter. This must be the same for every request and is
+         * used to calculat C.
+         *
+         * Default - 30
+         */
+        time?: number;
+
+        /**
+         * UNIX Epoch time (overwrite time in test environment, NODE_ENV=test)
+         */
+        _t?: number;
+    };
+
+    type VerifyResult = {
+        /**
+         * Time step difference between the client and the server.
+         */
+        delta: number;
+    }
+
+    /**
+     * hotp.gen(key: string | Buffer | Uint8Array, opt?: HOTPGenerateOptions): string
+     * hotp.verify(token: string, key: string | Buffer | Uint8Array, opt?: HOTPVerifyOptions): VerifyResult | null
+     */
+    namespace hotp
+    {
+        /**
+         * Generate a counter based One Time Password.
+         * @param key Key for the one time password. This should be unique and secret for
+         * every user as this is the seed that is used to calculate the HMAC.
+         * @param opt Generate options.
+         */
+        function gen(key: string | Buffer | Uint8Array, opt?: HOTPGenerateOptions): string;
+
+        /**
+         * Check a One Time Password based on a counter.
+         * @param token Passcode to validate.
+         * @param key Key for the one time password. This should be unique and secret for
+         * every user as it is the seed used to calculate the HMAC.
+         * @param opt Verify options.
+         */
+         function verify(token: string,
+                         key: string | Buffer | Uint8Array,
+                         opt?: HOTPVerifyOptions): VerifyResult | null;
+    }
+
+    /**
+     * totp.gen(key: string | Buffer | Uint8Array, opt?: TOTPOptions): string
+     * totp.verify(token: string, key: string | Buffer | Uint8Array, opt?: TOTPOptions): VerifyResult | null
+     */
+    namespace totp
+    {
+        /**
+         * Generate a time based One Time Password.
+         * @param key Key for the one time password. This should be unique and secret
+         * for every user as it is the seed used to calculate the HMAC.
+         * @param opt Generate options.
+         *
+         */
+        function gen(key: string | Buffer | Uint8Array, opt?: TOTPOptions): string;
+
+        /**
+         * Check a One Time Password based on a timer.
+         * @param token Passcode to validate.
+         * @param key Key for the one time password. This should be unique and secret
+         * @param opt Verify options.
+         *
+         */
+        function verify(token: string,
+                        key: string | Buffer | Uint8Array,
+                        opt?: TOTPOptions): VerifyResult | null;
+    }
+}
+
+export = notp;
