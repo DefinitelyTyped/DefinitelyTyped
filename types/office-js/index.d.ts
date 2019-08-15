@@ -976,15 +976,14 @@ declare namespace Office {
      * Provides information about which Requirement Sets are supported in the current environment.
      */
     interface RequirementSetSupport {
-        /**
+       /**
         * Check if the specified requirement set is supported by the host Office application.
         * @param name - The requirement set name (e.g., "ExcelApi").
         * @param minVersion - The minimum required version (e.g., "1.4").
         */
        isSetSupported(name: string, minVersion?: string): boolean;
 
-       
-        /**
+       /**
         * Check if the specified requirement set is supported by the host Office application.
         * @deprecated
         * @param name - The requirement set name (e.g., "ExcelApi").
