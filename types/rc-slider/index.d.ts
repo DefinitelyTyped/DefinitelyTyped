@@ -8,6 +8,7 @@
 //                 Nick Maddren <https://github.com/nicholasmaddren>
 //                 Roman Nevolin <https://github.com/nulladdict>
 //                 Mojtaba Izadmehr <https://github.com/m-izadmehr>
+//                 Andrey Yankovsky <https://github.com/yankovsky>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -136,9 +137,9 @@ export interface SliderProps extends CommonApiProps {
      */
     onAfterChange?(value: number): void;
     /**
-     * Handle blur event on the control 
+     * Handle blur event on the control
      */
-    onBlur?: FocusEventHandler;
+    onBlur?: React.FocusEventHandler;
     /**
      * Set initial value of slider.
      *  @default 0
