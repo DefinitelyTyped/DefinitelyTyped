@@ -21,8 +21,18 @@ client.add(magnetURI, {}, torrent => {
     torrent.announce.forEach(announce => console.log(announce));
 
     console.log(torrent.length, torrent.pieceLength, torrent.lastPieceLength);
-    console.log(torrent.pieces.reduce((acc, piece) => acc + piece.length, 0));
-    console.log(torrent.pieces.reduce((acc, piece) => acc + piece.missing, 0));
+    console.log(
+      torrent.pieces.reduce(
+        (acc, piece) => acc + (piece ? piece.length : 0),
+        0,
+      ),
+    );
+    console.log(
+      torrent.pieces.reduce(
+        (acc, piece) => acc + (piece ? piece.missing : 0),
+        0,
+      ),
+    );
 
     torrent.files.forEach(file => {
         // Display the file by appending it to the DOM. Supports video, audio, images, and
