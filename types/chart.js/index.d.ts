@@ -582,6 +582,7 @@ declare namespace Chart {
         gridLines?: GridLineOptions;
         barThickness?: number | "flex";
         maxBarThickness?: number;
+        minBarLength?: number;
         scaleLabel?: ScaleTitleOptions;
         time?: TimeScale;
         offset?: boolean;
