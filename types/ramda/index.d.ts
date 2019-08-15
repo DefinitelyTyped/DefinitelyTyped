@@ -29,6 +29,7 @@
 //                 Brekk Bockrath <https://github.com/brekk>
 //                 Aram Kharazyan <https://github.com/nemo108>
 //                 Jituan Lin <https://github.com/jituanlin>
+//                 Joshua Avalon <https://github.com/joshuaavalon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
 
@@ -3067,7 +3068,7 @@ declare namespace R {
          * need to be transformed, although you can ignore them, it's best to pass an identity function so
          * that the new function reports the correct arity.
          */
-        useWith(fn: ((...a: any[]) => any), transformers: Array<((...a: any[]) => any)>): (...a: any[]) => any;
+        useWith<F extends (...args: any) => any>(fn: F, transformers: ReadonlyArray<((...a: Array<any>) => any)>): F.Curry<F>;
 
         /**
          * Returns a list of all the enumerable own properties of the supplied object.
