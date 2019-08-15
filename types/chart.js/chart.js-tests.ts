@@ -47,6 +47,7 @@ const chart: Chart = new Chart(ctx, {
             displayColors: true,
             borderColor: "rgba(0,0,0,0)",
             borderWidth: 1,
+            titleAlign: 'center',
             callbacks: {
                 title: ([point]) => point.label ? point.label.substring(0, 2) : 'title',
                 label(tooltipItem) {
