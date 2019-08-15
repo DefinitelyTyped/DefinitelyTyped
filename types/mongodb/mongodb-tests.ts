@@ -379,3 +379,22 @@ mongodb.connect(connectionString).then((client) => {
 // Test other error classes
 new mongodb.MongoNetworkError('network error');
 new mongodb.MongoParseError('parse error');
+
+
+// Test typed FilterQuery
+interface ITestFilterQuerySchema {
+  cust_id: string;
+  amount: number;
+  status: string;
+}
+mongodb.connect(connectionString).then((client) => {
+  const collection = client.db("test").collection<ITestFilterQuerySchema>('test-filter-query');
+  collection.updateOne({
+    cust_id: "someid"
+  }, {
+    cust_id: "someid",
+    amount: 2,
+    status: "completed"
+  });
+});
+
