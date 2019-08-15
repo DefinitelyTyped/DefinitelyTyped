@@ -44,7 +44,12 @@ import { Rectangle } from './test-helpers';
   const reduceIndexed = addIndex<string, Record<string, number>>(reduce);
   const letters = ['a', 'b', 'c'];
 
-  function objectify(accObject: { [elem: string]: number }, elem: string, idx: number, list: string[]) {
+  function objectify(
+    accObject: { [elem: string]: number },
+    elem: string,
+    idx: number,
+    list: string[],
+  ) {
     accObject[elem] = idx;
     return accObject;
   }
@@ -90,23 +95,37 @@ import { Rectangle } from './test-helpers';
   mapIndexed((val: string, idx: number) => `${idx}-${val}`);
 
   // $ExpectType string[]
-  mapIndexed((val: string, idx: number) => `${idx}-${val}`, ['f', 'o', 'o', 'b', 'a', 'r']);
+  mapIndexed((val: string, idx: number) => `${idx}-${val}`, [
+    'f',
+    'o',
+    'o',
+    'b',
+    'a',
+    'r',
+  ]);
 
   // $ExpectError
   mapIndexed((val: string, idx: number) => `${idx}-${val}`, [1, 2, 3]);
 
   // $ExpectType string[]
-  mapIndexed((val: string, idx: number) => `${idx}-${val}`)(['f', 'o', 'o', 'b', 'a', 'r']);
+  mapIndexed((val: string, idx: number) => `${idx}-${val}`)([
+    'f',
+    'o',
+    'o',
+    'b',
+    'a',
+    'r',
+  ]);
   // => ['0-f', '1-o', '2-o', '3-b', '4-a', '5-r']
 
   // $ExpectError
   mapIndexed((val: string, idx: number) => `${idx}-${val}`)([1, 2, 3]);
 
   // $ExpectType number[]
-  mapIndexed((rectangle: Rectangle, idx: number): number => rectangle.area() * idx, [
-    new Rectangle(1, 2),
-    new Rectangle(4, 7),
-  ]);
+  mapIndexed(
+    (rectangle: Rectangle, idx: number): number => rectangle.area() * idx,
+    [new Rectangle(1, 2), new Rectangle(4, 7)],
+  );
   // => [2, 56]
 };
 
@@ -116,13 +135,10 @@ import { Rectangle } from './test-helpers';
   const reduceIndexed = addIndex<string, string>(reduce);
 
   // $ExpectType string
-  reduceIndexed((acc: string, val: string, idx: number) => `${acc},${idx}-${val}`, '', [
-    'f',
-    'o',
-    'o',
-    'b',
-    'a',
-    'r',
-  ]);
+  reduceIndexed(
+    (acc: string, val: string, idx: number) => `${acc},${idx}-${val}`,
+    '',
+    ['f', 'o', 'o', 'b', 'a', 'r'],
+  );
   // => ',0-f,1-o,2-o,3-b,4-a,5-r'
 };
