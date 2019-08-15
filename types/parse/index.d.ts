@@ -335,7 +335,7 @@ declare namespace Parse {
         fetch(options?: Object.FetchOptions): Promise<this>;
         fetchFromLocalDatastore(): Promise<this> | void;
         fetchWithInclude<P extends keyof K>(keys: P | Array<P | Array<P>>, options?: RequestOptions): Promise<this>;
-        get<P extends keyof K>(attr: P): K[P] | undefined;
+        get<P extends keyof K>(attr: P): K[P];
         getACL(): ACL | undefined;
         has<P extends keyof K>(attr: P): boolean;
         hasChanged<P extends keyof K>(attr: P): boolean;
