@@ -136,6 +136,10 @@ export interface SliderProps extends CommonApiProps {
      */
     onAfterChange?(value: number): void;
     /**
+     * Handle blur event on the control 
+     */
+    onBlur?: FocusEventHandler;
+    /**
      * Set initial value of slider.
      *  @default 0
      */
