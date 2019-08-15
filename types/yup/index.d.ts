@@ -49,8 +49,8 @@ export type AnySchemaConstructor =
     | ObjectSchemaConstructor;
 
 export type TestOptionsMessage<Extra extends Record<string, any> = {}> =
-    | string
-    | ((params: Extra & Partial<TestMessageParams>) => any);
+  | string
+  | ((params: Extra & Partial<TestMessageParams>) => any);
 
 export interface Schema<T> {
     clone(): this;
