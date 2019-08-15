@@ -1669,7 +1669,7 @@ declare class Tabulator {
     /** You can retrieve the Row Component of a row at a given position in the table using getRowFromPosition function. By default this will return the row based in its position in all table data, including data currently filtered out of the table.
 
   If you want to get a row based on its position in the currently filtered/sorted data, you can pass a value of true to the optional second argument of the function. */
-    getRowFromPosition: (position: number, activeOnly?: boolean) => void;
+    getRowFromPosition: (position: number, activeOnly?: boolean) => Tabulator.RowComponent;
     /** You can delete any row in the table using the deleteRow function. */
     deleteRow: (row: Tabulator.RowLookup) => void;
 
