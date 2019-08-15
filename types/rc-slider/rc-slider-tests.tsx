@@ -24,7 +24,7 @@ const onChangeFunc1 = (string: number) => {};
 
 const onChangeFunc2 = (string: number[]) => {};
 
-const onBlurFunc = (e: React.FocusEvent) => {}
+const onBlurFunc = (e: React.FocusEvent) => {};
 
 ReactDOM.render(
     <Slider
