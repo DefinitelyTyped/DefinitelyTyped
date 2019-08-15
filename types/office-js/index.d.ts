@@ -978,7 +978,7 @@ declare namespace Office {
     interface RequirementSetSupport {
         /**
         * Check if the specified requirement set is supported by the host Office application.
-        * @param name - Set name; e.g., "MatrixBindings".
+        * @param name - The requirement set name (e.g., "ExcelApi").
         * @param minVersion - The minimum required version (e.g., "1.4").
         */
        isSetSupported(name: string, minVersion?: string): boolean;
@@ -987,9 +987,9 @@ declare namespace Office {
         /**
         * Check if the specified requirement set is supported by the host Office application.
         * @deprecated
-        * @param name - Set name; e.g., "MatrixBindings".
-        * @param minVersionNumber - The minimum required version (e.g., 1.4). Warning: Your add-ins should use the string overload of `isSetSupported` instead. 
-        * The use of the number type is deprecated. This is because the JavaScript parser cannot differentiate between numeric values such as 1.1 and 1.10, where as it can for string values such as "1.1" and "1.10".
+        * @param name - The requirement set name (e.g., "ExcelApi").
+        * @param minVersionNumber - The minimum required version (e.g., 1.4). 
+        * Warning: This overload of `isSetSupported` (where `minVersionNumber` is a number) is deprecated. Use the string overload of `isSetSupported` instead.
         */
        isSetSupported(name: string, minVersionNumber?: number): boolean;
     }
