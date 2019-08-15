@@ -48,9 +48,9 @@ export type AnySchemaConstructor =
     | ArraySchemaConstructor
     | ObjectSchemaConstructor;
 
-export type TestOptionsMessage =
+export type TestOptionsMessage<Extra extends Record<string, any> = {}> =
     | string
-    | ((params: object & Partial<TestMessageParams>) => string);
+    | ((params: Extra & Partial<TestMessageParams>) => any);
 
 export interface Schema<T> {
     clone(): this;
@@ -73,14 +73,12 @@ export interface Schema<T> {
     default(value: any): this;
     default(): T;
     typeError(message?: TestOptionsMessage): this;
-    oneOf(arrayOfValues: Array<T | Ref>, message?: TestOptionsMessage): this;
-    notOneOf(arrayOfValues: any[], message?: TestOptionsMessage): this;
+    oneOf(arrayOfValues: Array<T | Ref | null>, message?: TestOptionsMessage<{ values: T | Ref }>): this;
+    notOneOf(arrayOfValues: any[], message?: TestOptionsMessage<{ values: T | Ref }>): this;
     when(keys: string | any[], builder: WhenOptions<this>): this;
     test(
         name: string,
-        message:
-            | string
-            | ((params: object & Partial<TestMessageParams>) => string),
+        message: TestOptionsMessage,
         test: (
             this: TestContext,
             value?: any
@@ -115,9 +113,9 @@ export interface StringSchemaConstructor {
 
 export interface StringSchema<T extends string | null | undefined = string>
     extends Schema<T> {
-    length(limit: number | Ref, message?: TestOptionsMessage): StringSchema<T>;
-    min(limit: number | Ref, message?: TestOptionsMessage): StringSchema<T>;
-    max(limit: number | Ref, message?: TestOptionsMessage): StringSchema<T>;
+    length(limit: number | Ref, message?: TestOptionsMessage<{ length: number | Ref }>): StringSchema<T>;
+    min(limit: number | Ref, message?: TestOptionsMessage<{ min: number | Ref }>): StringSchema<T>;
+    max(limit: number | Ref, message?: TestOptionsMessage<{ max: number | Ref }>): StringSchema<T>;
     matches(
         regex: RegExp,
         messageOrOptions?:
@@ -144,8 +142,8 @@ export interface NumberSchemaConstructor {
 
 export interface NumberSchema<T extends number | null | undefined = number>
     extends Schema<T> {
-    min(limit: number | Ref, message?: TestOptionsMessage): NumberSchema<T>;
-    max(limit: number | Ref, message?: TestOptionsMessage): NumberSchema<T>;
+    min(limit: number | Ref, message?: TestOptionsMessage<{ min: number | Ref }>): NumberSchema<T>;
+    max(limit: number | Ref, message?: TestOptionsMessage<{ max: number | Ref }>): NumberSchema<T>;
     lessThan(
         limit: number | Ref,
         message?: TestOptionsMessage
@@ -191,11 +189,11 @@ export interface DateSchema<T extends Date | null | undefined = Date>
     extends Schema<T> {
     min(
         limit: Date | string | Ref,
-        message?: TestOptionsMessage
+        message?: TestOptionsMessage<{ min: Date | string | Ref }>
     ): DateSchema<T>;
     max(
         limit: Date | string | Ref,
-        message?: TestOptionsMessage
+        message?: TestOptionsMessage<{ max: Date | string | Ref }>
     ): DateSchema<T>;
     nullable(isNullable?: true): DateSchema<T | null>;
     nullable(isNullable: false): DateSchema<Exclude<T, null>>;
@@ -211,8 +209,8 @@ export interface ArraySchemaConstructor {
 
 interface BasicArraySchema<T extends any[] | null | undefined>
     extends Schema<T> {
-    min(limit: number | Ref, message?: TestOptionsMessage): this;
-    max(limit: number | Ref, message?: TestOptionsMessage): this;
+    min(limit: number | Ref, message?: TestOptionsMessage<{ min: number | Ref }>): this;
+    max(limit: number | Ref, message?: TestOptionsMessage<{ max: number | Ref }>): this;
     ensure(): this;
     compact(
         rejector?: (
@@ -493,15 +491,23 @@ export interface FormatErrorParams {
 
 export type LocaleValue = string | ((params: FormatErrorParams) => string);
 
+type MessageFromParameters<P extends unknown[]> = {
+    [K in keyof P]: P[K] extends TestOptionsMessage<any> ? P[K] : never;
+}[number];
+
+type MappedLocaleSchema<S extends Schema<any>> = {
+    [key in keyof S]?: S[key] extends (...args: infer P) => any ? MessageFromParameters<Required<P>> : never;
+};
+
 export interface LocaleObject {
-    mixed?: { [key in keyof MixedSchema]?: string } & { notType?: LocaleValue };
-    string?: { [key in keyof StringSchema]?: string };
-    number?: { [key in keyof NumberSchema]?: string };
-    boolean?: { [key in keyof BooleanSchema]?: string };
-    bool?: { [key in keyof BooleanSchema]?: string };
-    date?: { [key in keyof DateSchema]?: string };
-    array?: { [key in keyof ArraySchema<any>]?: string };
-    object?: { [key in keyof ObjectSchema<any>]?: string };
+    mixed?: MappedLocaleSchema<MixedSchema> & { notType?: LocaleValue };
+    string?: MappedLocaleSchema<StringSchema>;
+    number?: MappedLocaleSchema<NumberSchema>;
+    boolean?: MappedLocaleSchema<BooleanSchema>;
+    bool?: MappedLocaleSchema<BooleanSchema>;
+    date?: MappedLocaleSchema<DateSchema>;
+    array?: MappedLocaleSchema<ArraySchema<any>>;
+    object?: MappedLocaleSchema<ObjectSchema<any>>;
 }
 
 export type InferType<T> = T extends Schema<infer P>

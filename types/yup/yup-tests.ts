@@ -358,8 +358,8 @@ arrSchema.compact((value, index, array) => value === array[index]);
 
 const arrOfObjSchema = yup.array().of(
     yup.object().shape({
-        field: yup.number()
-    })
+        field: yup.number(),
+    }),
 );
 arrOfObjSchema.compact((value, index, array) => {
     return value.field > 10 && array[index].field > 10;
@@ -462,6 +462,9 @@ const localeNotType3: LocaleObject = {
 };
 
 yup.setLocale({
+    mixed: {
+        required: options => options,
+    },
     number: { max: 'Max message', min: 'Min message' },
     string: { email: 'String message' },
 });
@@ -583,9 +586,7 @@ enum Gender {
 
 const personSchema = yup.object({
     firstName: yup.string(), // $ExpectType StringSchema<string>
-    gender: yup
-        .mixed<Gender>()
-        .oneOf([Gender.Male, Gender.Female]),
+    gender: yup.mixed<Gender>().oneOf([Gender.Male, Gender.Female]),
     email: yup
         .string()
         .nullable()
@@ -685,7 +686,10 @@ castPerson.children = undefined;
 
 const loginSchema = yup.object({
     password: yup.string(),
-    confirmPassword: yup.string().nullable().oneOf([yup.ref("password"), null]),
+    confirmPassword: yup
+        .string()
+        .nullable()
+        .oneOf([yup.ref('password'), null]),
 });
 
 function wrapper<T>(b: false, msx: MixedSchema<T>): MixedSchema<T>;
