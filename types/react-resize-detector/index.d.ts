@@ -4,9 +4,11 @@
 //                 James Greenleaf <https://github.com/aMoniker>
 //                 Remin <https://github.com/rdrgn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
+// TypeScript Version: 2.8
 
 import * as React from "react";
+
+type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
 
 interface ReactResizeDetectorDimensions {
     height: number;
