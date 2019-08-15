@@ -124,7 +124,7 @@ declare namespace mapboxgl {
 
         listImages(): string[];
 
-        addLayer(layer: mapboxgl.Layer, before?: string): this;
+        addLayer(layer: mapboxgl.Layer | mapboxgl.CustomLayerInterface, before?: string): this;
 
         moveLayer(id: string, beforeId?: string): this;
 
@@ -1382,6 +1382,77 @@ declare namespace mapboxgl {
         filter?: any[];
         layout?: BackgroundLayout | FillLayout | FillExtrusionLayout | LineLayout | SymbolLayout | RasterLayout | CircleLayout | HeatmapLayout | HillshadeLayout;
         paint?: BackgroundPaint | FillPaint | FillExtrusionPaint | LinePaint | SymbolPaint | RasterPaint | CirclePaint | HeatmapPaint | HillshadePaint;
+    }
+
+    // See https://docs.mapbox.com/mapbox-gl-js/api/#customlayerinterface
+    export interface CustomLayerInterface {
+        /** A unique layer id. */
+        id: string;
+
+        /* The layer's type. Must be "custom". */
+        type: 'custom';
+
+        /* Either "2d" or "3d". Defaults to  "2d". */
+        renderingMode?: '2d' | '3d';
+
+        /**
+         * Optional method called when the layer has been removed from the Map with Map#removeLayer.
+         * This gives the layer a chance to clean up gl resources and event listeners.
+         * @param map The Map this custom layer was just added to.
+         * @param gl The gl context for the map.
+         */
+        onRemove?(map: mapboxgl.Map, gl: WebGLRenderingContext): void;
+
+        /**
+         * Optional method called when the layer has been added to the Map with Map#addLayer.
+         * This gives the layer a chance to initialize gl resources and register event listeners.
+         * @param map The Map this custom layer was just added to.
+         * @param gl The gl context for the map.
+         */
+        onAdd?(map: mapboxgl.Map, gl: WebGLRenderingContext): void;
+
+        /**
+         * Optional method called during a render frame to allow a layer to prepare resources
+         * or render into a texture.
+         *
+         * The layer cannot make any assumptions about the current GL state and must bind a framebuffer
+         * before rendering.
+         * @param gl The map's gl context.
+         * @param matrix The map's camera matrix. It projects spherical mercator coordinates to gl
+         *               coordinates. The mercator coordinate  [0, 0] represents the top left corner of
+         *               the mercator world and  [1, 1] represents the bottom right corner. When the
+         *               renderingMode is  "3d" , the z coordinate is conformal. A box with identical
+         *               x, y, and z lengths in mercator units would be rendered as a cube.
+         *               MercatorCoordinate .fromLatLng can be used to project a  LngLat to a mercator
+         *               coordinate.
+         */
+        prerender?(gl: WebGLRenderingContext, matrix: number[]): void;
+
+        /**
+         * Called during a render frame allowing the layer to draw into the GL context.
+         *
+         * The layer can assume blending and depth state is set to allow the layer to properly blend
+         * and clip other layers. The layer cannot make any other assumptions about the current GL state.
+         *
+         * If the layer needs to render to a texture, it should implement the prerender method to do this
+         * and only use the render method for drawing directly into the main framebuffer.
+         *
+         * The blend function is set to gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA). This expects
+         * colors to be provided in premultiplied alpha form where the r, g and b values are already
+         * multiplied by the a value. If you are unable to provide colors in premultiplied form you may
+         * want to change the blend function to
+         * gl.blendFuncSeparate(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA, gl.ONE, gl.ONE_MINUS_SRC_ALPHA).
+         *
+         * @param gl The map's gl context.
+         * @param matrix The map's camera matrix. It projects spherical mercator coordinates to gl
+         *               coordinates. The mercator coordinate  [0, 0] represents the top left corner of
+         *               the mercator world and  [1, 1] represents the bottom right corner. When the
+         *               renderingMode is  "3d" , the z coordinate is conformal. A box with identical
+         *               x, y, and z lengths in mercator units would be rendered as a cube.
+         *               MercatorCoordinate .fromLatLng can be used to project a  LngLat to a mercator
+         *               coordinate.
+         */
+        render(gl: WebGLRenderingContext, matrix: number[]): void;
     }
 
     export interface StyleFunction {
