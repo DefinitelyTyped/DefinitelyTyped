@@ -142,6 +142,7 @@ const pretty = pino({
 	}
 });
 
+// Properties/types imported from pino-std-serializers
 const wrappedErrSerializer = pino.stdSerializers.wrapErrorSerializer((err: pino.SerializedError) => {
   return {...err, newProp: 'foo'};
 });
