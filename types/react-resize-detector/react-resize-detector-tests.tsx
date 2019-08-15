@@ -56,3 +56,70 @@ class App extends React.PureComponent {
         console.log(`height = ${height}`);
     }
 }
+
+interface WrappedComponentProps {
+    width: number;
+    height: number;
+}
+
+const WrappedComponent: React.FC<WrappedComponentProps> = ({width, height}) => (
+    <div>
+        width: {width} height: {height}
+    </div>
+)
+
+const ComposedComponent = withResizeDetector(WrappedComponent);
+
+export const ComposedComponentExample: React.FC = () => {
+    return (<ComposedComponent />)
+}
+
+interface WrappedWidthOnlyComponentProps {
+    width: number;
+}
+
+const WrappedWidthOnlyComponent: React.FC<WrappedWidthOnlyComponentProps> = ({width}) => (
+    <div>
+        width: {width}
+    </div>
+)
+
+const ComposedWidthOnlyComponent = withResizeDetector(WrappedWidthOnlyComponent, { handleWidth: true});
+
+export const ComposedWidthOnlyComponentExample: React.FC = () => {
+    return (<ComposedWidthOnlyComponent />)
+}
+
+interface WrappedHeightOnlyComponentProps {
+    height: number;
+}
+
+const WrappedHeightOnlyComponent: React.FC<WrappedHeightOnlyComponentProps> = ({height}) => (
+    <div>
+        height: {height}
+    </div>
+)
+
+const ComposedHeightOnlyComponent = withResizeDetector(WrappedHeightOnlyComponent, { handleHeight: true});
+
+export const ComposedHeightOnlyComponentExample: React.FC = () => {
+    return (<ComposedHeightOnlyComponent />)
+}
+
+interface WrappedComponentWithExtraPropsProps {
+    width: number;
+    height: number;
+    someProp: string;
+}
+
+const WrappedComponentWithExtraProps: React.FC<WrappedComponentWithExtraPropsProps> = ({width, height, someProp}) => (
+    <div>
+        width: {width} height: {height} someProp: {someProp}
+    </div>
+)
+
+const ComposedComponentWithExtraProps = withResizeDetector(WrappedComponentWithExtraProps);
+
+export const Example: React.FC = () => {
+    return (<ComposedComponentWithExtraProps someProp={'string'} />)
+}
