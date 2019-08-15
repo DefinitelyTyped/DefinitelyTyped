@@ -1,6 +1,7 @@
-// Type definitions for optimize-css-assets-webpack-plugin 1.3
+// Type definitions for optimize-css-assets-webpack-plugin 5.0
 // Project: http://github.com/nmfr/optimize-css-assets-webpack-plugin
 // Definitions by: Armando Meziat <https://github.com/odnamrataizem>
+//                 Spencer Miskoviak <https://github.com/skovy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
