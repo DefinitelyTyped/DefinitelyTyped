@@ -1,4 +1,4 @@
-// Type definitions for pg 7.4
+// Type definitions for pg 7.11
 // Project: http://github.com/brianc/node-postgres
 // Definitions by: Phips Peter <https://github.com/pspeter3>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -19,6 +19,8 @@ export interface ConnectionConfig {
     keepAlive?: boolean;
     stream?: stream.Duplex;
     statement_timeout?: false | number;
+    connectionTimeoutMillis?: number;
+    keepAliveInitialDelayMillis?: number;
 }
 
 export interface Defaults extends ConnectionConfig {
