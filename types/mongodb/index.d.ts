@@ -1217,7 +1217,7 @@ type RegExpString<T> = T extends string ? (RegExp | T) : T;
 
 export type FilterQuery<T> = {
     [P in keyof T]?: RegExpString<T[P]> | QuerySelector<RegExpString<T[P]>>
-} & RootQuerySelector<T>;
+} | RootQuerySelector<T>;
 
 
 /** http://docs.mongodb.org/manual/reference/command/collStats/ */
