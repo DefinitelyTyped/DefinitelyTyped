@@ -1,4 +1,4 @@
-// Type definitions for smooth-scroll 16.1.0
+// Type definitions for smooth-scroll 16.1
 // Project: https://github.com/cferdinandi/smooth-scroll
 // Definitions by: Andrei Horodinca <https://github.com/andreiho>
 //                 grgr-dkrk <https://github.com/grgr-dkrk>
