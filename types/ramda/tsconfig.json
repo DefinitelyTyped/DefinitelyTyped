@@ -93,6 +93,7 @@
         "test/hasIn-tests.ts",
         "test/hasPath-tests.ts",
         "test/head-tests.ts",
-        "test/identical-tests.ts"
+        "test/identical-tests.ts",
+        "test/identity-tests.ts"
     ]
 }

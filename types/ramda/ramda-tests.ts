@@ -1505,14 +1505,6 @@ type Pair = KeyValuePair<string, number>;
  * Relation category
  */
 () => {
-    const a1 = R.identity(1); // => 1
-    const obj  = {};
-    const a2 = R.identity([1, 2, 3]);
-    const a3 = R.identity(["a", "b", "c"]);
-    const a4 = R.identity(obj) === obj; // => true
-};
-
-() => {
     const testPath = ["x", 0, "y"];
     const testObj  = {x: [{y: 2, z: 3}, {y: 4, z: 5}]};
 
