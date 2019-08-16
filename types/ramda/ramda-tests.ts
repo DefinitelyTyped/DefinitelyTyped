@@ -1449,11 +1449,7 @@ class Rectangle {
 };
 
 () => {
-    R.lte(2, 6); // => true
-    R.lte(2, 0); // => false
-    R.lte(2, 2); // => true
     R.flip(R.lte)(2)(1); // => true
-    R.lte(2)(10); // => true
 };
 
 () => {
