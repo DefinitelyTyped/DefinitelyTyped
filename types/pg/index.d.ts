@@ -80,7 +80,7 @@ export interface QueryResultBase {
 }
 
 export type RowBase = {
-    [column: string]: any
+    [column: string]: any;
 }
 
 export interface QueryResult<R extends RowBase = any> extends QueryResultBase {
