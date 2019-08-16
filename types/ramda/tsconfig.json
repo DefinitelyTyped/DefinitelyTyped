@@ -32,6 +32,7 @@
         "test/ap-tests.ts",
         "test/aperture-tests.ts",
         "test/append-tests.ts",
-        "test/apply-tests.ts"
+        "test/apply-tests.ts",
+        "test/applySpec-tests.ts"
     ]
 }
