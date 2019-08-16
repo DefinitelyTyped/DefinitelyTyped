@@ -13,7 +13,7 @@ import { ModuleMocker } from 'jest-mock';
 import { Browser, Page, BrowserContext } from 'puppeteer';
 import { Script, Context } from 'vm';
 
-export interface JestPuppeteer {
+interface JestPuppeteer {
     /**
      * Reset global.page
      *
@@ -50,13 +50,13 @@ export interface JestPuppeteer {
     debug(): Promise<void>;
 }
 
-export interface Timer {
+interface Timer {
     id: number;
     ref: () => Timer;
     unref: () => Timer;
 }
 
-export interface Global extends GlobalType.Global {
+interface Global extends GlobalType.Global {
     browser: Browser;
     context: Context;
     page: Page;
