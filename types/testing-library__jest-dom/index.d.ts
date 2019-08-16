@@ -1,4 +1,4 @@
-// Type definitions for @testing-library/jest-dom 4.0.0
+// Type definitions for @testing-library/jest-dom 4.0
 // Project: https://github.com/testing-library/jest-dom
 // Definitions by: Damien Senger <https://github.com/hiwelo>
 //                 Łukasz Fiszer <https://github.com/lukaszfiszer>
