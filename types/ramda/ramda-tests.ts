@@ -1094,23 +1094,6 @@ type Pair = KeyValuePair<string, number>;
  * Object category
  */
 
-class Rectangle {
-    constructor(public width: number, public height: number) {
-        this.width  = width;
-        this.height = height;
-    }
-
-    area(): number {
-        return this.width * this.height;
-    }
-}
-
-() => {
-    const square = new Rectangle(2, 2);
-    R.hasIn("width", square);  // => true
-    R.hasIn("area", square);  // => true
-};
-
 () => {
     R.hasPath(['a', 'b'], {a: {b: 2}});         // true
     R.hasPath(['a', 'b'], {a: {b: undefined}}); // => true
