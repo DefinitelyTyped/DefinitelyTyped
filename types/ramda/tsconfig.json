@@ -41,6 +41,7 @@
         "test/both-tests.ts",
         "test/chain-tests.ts",
         "test/clamp-tests.ts",
-        "test/clone-tests.ts"
+        "test/clone-tests.ts",
+        "test/comparator-tests.ts"
     ]
 }
