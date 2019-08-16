@@ -25,13 +25,6 @@ class F2 {
 }
 
 (() => {
-    let x: boolean;
-    x = R.isArrayLike("a");
-    x = R.isArrayLike([1, 2, 3]);
-    x = R.isArrayLike([]);
-});
-
-(() => {
     R.propIs(Number, "x", {x: 1, y: 2});  // => true
     R.propIs(Number, "x")({x: 1, y: 2});  // => true
     R.propIs(Number)("x", {x: 1, y: 2});  // => true
