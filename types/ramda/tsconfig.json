@@ -88,6 +88,7 @@
         "test/groupBy-tests.ts",
         "test/groupWith-tests.ts",
         "test/gt-tests.ts",
-        "test/gte-tests.ts"
+        "test/gte-tests.ts",
+        "test/has-tests.ts"
     ]
 }

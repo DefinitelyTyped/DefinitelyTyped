@@ -1095,11 +1095,6 @@ type Pair = KeyValuePair<string, number>;
  */
 
 () => {
-    const hasName     = R.has("name");
-    const a1: boolean = hasName({name: "alice"});   // => true
-    const a2: boolean = hasName({name: "bob"});     // => true
-    const a3: boolean = hasName({});                // => false
-
     const point       = {x: 0, y: 0};
     const pointHas    = R.flip(R.has)(point);
     const b1: boolean = pointHas("x");  // => true
@@ -1697,11 +1692,6 @@ class Rectangle {
 };
 
 () => {
-    const hasName = R.has("name");
-    hasName({name: "alice"});   // => true
-    hasName({name: "bob"});     // => true
-    hasName({});                // => false
-
     const point    = {x: 0, y: 0};
     const pointHas = R.flip(R.has)(point);
     pointHas("x");  // => true
