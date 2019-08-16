@@ -448,18 +448,6 @@ R.times(i, 5);
     const b = R.unfold(f); // => [-10, -20, -30, -40, -50]
     const c = b(10);
 });
-/*****************************************************************
- * Function category
- */
-() => {
-    function mergeThree(a: number, b: number, c: number): number[] {
-        return (new Array<number>()).concat(a, b, c);
-    }
-
-    mergeThree(1, 2, 3); // => [1, 2, 3]
-    const flipped = R.flip(mergeThree);
-    flipped(1, 2, 3); // => [2, 1, 3]
-};
 
 /*********************
  * List category
@@ -1164,12 +1152,6 @@ type Pair = KeyValuePair<string, number>;
     const a1: boolean = hasName({name: "alice"});   // => true
     const a2: boolean = hasName({name: "bob"});     // => true
     const a3: boolean = hasName({});                // => false
-
-    const point       = {x: 0, y: 0};
-    const pointHas    = R.flip(R.has)(point);
-    const b1: boolean = pointHas("x");  // => true
-    const b2: boolean = pointHas("y");  // => true
-    const b3: boolean = pointHas("z");  // => false
 };
 
 class Rectangle {
@@ -1187,7 +1169,6 @@ class Rectangle {
     const square = new Rectangle(2, 2);
     R.hasIn("width", square);  // => true
     R.hasIn("area", square);  // => true
-    R.flip(R.hasIn)(square)("area");  // => true
 };
 
 () => {
@@ -1340,9 +1321,6 @@ class Rectangle {
 () => {
     R.merge({name: "fred", age: 10}, {age: 40});
     // => { 'name': 'fred', 'age': 40 }
-
-    const resetToDefault = R.flip(R.merge)({x: 0});
-    resetToDefault({x: 5, y: 2}); // => {x: 0, y: 2}
 };
 
 () => {
@@ -1720,15 +1698,9 @@ class Rectangle {
 };
 
 () => {
-    const half = R.flip(R.divide)(2);
-    half(42); // => 21
-};
-
-() => {
     R.gt(2, 6); // => false
     R.gt(2, 0); // => true
     R.gt(2, 2); // => false
-    R.flip(R.gt)(2)(10); // => true
     R.gt(2)(10); // => false
 };
 
@@ -1736,7 +1708,6 @@ class Rectangle {
     R.gte(2, 6); // => false
     R.gte(2, 0); // => true
     R.gte(2, 2); // => false
-    R.flip(R.gte)(2)(10); // => true
     R.gte(2)(10); // => false
 };
 
@@ -1751,14 +1722,12 @@ class Rectangle {
     R.lt(2, 0); // => false
     R.lt(2, 2); // => false
     R.lt(5)(10); // => true
-    R.flip(R.lt)(5)(10); // => false // right-sectioned currying
 };
 
 () => {
     R.lte(2, 6); // => true
     R.lte(2, 0); // => false
     R.lte(2, 2); // => true
-    R.flip(R.lte)(2)(1); // => true
     R.lte(2)(10); // => true
 };
 
@@ -1770,10 +1739,6 @@ class Rectangle {
     R.mathMod(17.2, 5); // => NaN
     R.mathMod(17, 5.3); // => NaN
 
-    const clock = R.flip(R.mathMod)(12);
-    clock(15); // => 3
-    clock(24); // => 0
-
     const seventeenMod = R.mathMod(17);
     seventeenMod(3);  // => 2
 };
@@ -1783,12 +1748,6 @@ class Rectangle {
     hasName({name: "alice"});   // => true
     hasName({name: "bob"});     // => true
     hasName({});                // => false
-
-    const point    = {x: 0, y: 0};
-    const pointHas = R.flip(R.has)(point);
-    pointHas("x");  // => true
-    pointHas("y");  // => true
-    pointHas("z");  // => false
 };
 
 () => {
@@ -1853,10 +1812,6 @@ class Rectangle {
     // JS behavior:
     R.modulo(-17, 3); // => -2
     R.modulo(17, -3); // => 2
-
-    const isOdd = R.flip(R.modulo)(2);
-    isOdd(42); // => 0
-    isOdd(21); // => 1
 };
 
 () => {
@@ -1877,9 +1832,6 @@ class Rectangle {
 
 () => {
     R.subtract(10, 8); // => 2
-
-    const minus5 = R.flip(R.subtract)(5);
-    minus5(17); // => 12
 
     const complementaryAngle = R.subtract(90);
     complementaryAngle(30); // => 60
