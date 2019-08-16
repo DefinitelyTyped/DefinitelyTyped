@@ -736,6 +736,7 @@ doc.populate(function (err, doc) {
 });
 doc.populated('path');
 doc.set('path', 999, {}).set({ path: 999 });
+doc.overwrite({path: 999});
 doc.toJSON({
   getters: true,
   virtuals: false

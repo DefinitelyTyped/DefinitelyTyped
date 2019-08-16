@@ -22,6 +22,7 @@
 //                 Gregor Stamać <https://github.com/gstamac>
 //                 ExE Boss <https://github.com/ExE-Boss>
 //                 Alex Bolenok <https://github.com/quassnoi>
+//                 Mario Beltrán Alarcón <https://github.com/Belco90>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -96,6 +97,10 @@ declare namespace jest {
      * to execute in the future.
      */
     function clearAllTimers(): typeof jest;
+    /**
+     * Returns the number of fake timers still left to run.
+     */
+    function getTimerCount(): number;
     /**
      * Indicates that the module system should never return a mocked version
      * of the specified module, including all of the specificied module's dependencies.
@@ -1612,6 +1617,7 @@ declare namespace jest {
 
     interface FakeTimers {
         clearAllTimers(): void;
+        getTimerCount(): number;
         runAllImmediates(): void;
         runAllTicks(): void;
         runAllTimers(): void;

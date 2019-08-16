@@ -738,6 +738,7 @@ export interface DbSignUpOptions {
     email: string;
     password: string;
     connection: string;
+    /** User desired username. Required if you use a database connection and you have enabled `Requires Username` */
     username?: string;
     scope?: string;
     user_metadata?: any;
@@ -748,6 +749,8 @@ export interface ParseHashOptions {
     state?: string;
     nonce?: string;
     _idTokenVerification?: boolean;
+    /** indicates that you want to allow IdP-Initiated flows. See {@link https://auth0.com/docs/protocols/saml/idp-initiated-sso#lock-auth0-js} */
+    __enableIdPInitiatedLogin?: boolean;
 }
 
 export interface RenewAuthOptions {

@@ -1,8 +1,14 @@
 /** @jsx h */
-import { h } from 'preact';
+import { h, Component } from 'preact';
 import { storiesOf, setAddon, addDecorator, addParameters, configure, getStorybook, RenderFunction, Story, forceReRender, DecoratorParameters, clearDecorators } from '@storybook/preact';
 
 const Decorator = (story: RenderFunction) => <div>{story()}</div>;
+class Input<P> extends Component<P> {
+    render() {
+        return <div><input type="text" id="name" name="name" /></div>;
+    }
+}
+
 const parameters: DecoratorParameters = { parameter: 'foo' };
 
 forceReRender();
@@ -31,12 +37,13 @@ const AnyAddon: AnyAddon = {
 };
 setAddon(AnyAddon);
 storiesOf<AnyAddon>('withAnyAddon', module)
-    .addWithSideEffect('custom story', () => <div/>)
-    .addWithSideEffect('more', () => <div/>)
-    .add('another story', () => <div/>)
+    .addWithSideEffect('custom story', () => <div />)
+    .addWithSideEffect('more', () => <div />)
+    .add('another story', () => <div />)
     .add('to Storybook as Array', () => [<div />, <div />])
-    .add('and a story with additional parameters', () => <div/>, parameters)
-    .addWithSideEffect('even more', () => <div/>);
+    .add('and a story with additional parameters', () => <div />, parameters)
+    .addWithSideEffect('even more', () => <div />)
+    .add('add a class component', () => <Input></Input>);
 
 // configure
 configure(() => undefined, module);

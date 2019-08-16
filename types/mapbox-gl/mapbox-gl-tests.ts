@@ -172,6 +172,21 @@ map.on('load', function() {
 			"line-width": 8
 		}
 	});
+
+	// Add a custom layer
+	map.addLayer({
+		id: 'custom',
+		type: 'custom',
+		renderingMode: '3d',
+		onRemove: function(map, gl) {
+			map;  // $ExpectType Map
+			gl;  // $ExpectType WebGLRenderingContext
+		},
+		render: function(gl, matrix) {
+			gl;  // $ExpectType WebGLRenderingContext
+			matrix;  // $ExpectType number[]
+		},
+	});
 });
 
 // FlyTo
@@ -897,3 +912,9 @@ expectType<mapboxgl.Expression>([
 	['concat', ['get', 'area'], 'foobar', { 'font-scale': 0.8 }]
 ]);
 expectType<mapboxgl.Expression>(['coalesce', ['get', 'property'], ['get', 'property']]);
+
+/*
+ *	ScrollZoomHandler
+ */
+expectType<void>(new mapboxgl.Map().scrollZoom.setZoomRate(1));
+expectType<void>(new mapboxgl.Map().scrollZoom.setWheelZoomRate(1));

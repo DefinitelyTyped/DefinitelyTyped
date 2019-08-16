@@ -31,9 +31,9 @@ declare module "dns" {
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
     namespace lookup {
-        function __promisify__(hostname: string, options: LookupAllOptions): Promise<{ address: LookupAddress[] }>;
-        function __promisify__(hostname: string, options?: LookupOneOptions | number): Promise<{ address: string, family: number }>;
-        function __promisify__(hostname: string, options?: LookupOptions | number): Promise<{ address: string | LookupAddress[], family?: number }>;
+        function __promisify__(hostname: string, options: LookupAllOptions): Promise<LookupAddress[]>;
+        function __promisify__(hostname: string, options?: LookupOneOptions | number): Promise<LookupAddress>;
+        function __promisify__(hostname: string, options: LookupOptions): Promise<LookupAddress | LookupAddress[]>;
     }
 
     function lookupService(address: string, port: number, callback: (err: NodeJS.ErrnoException | null, hostname: string, service: string) => void): void;

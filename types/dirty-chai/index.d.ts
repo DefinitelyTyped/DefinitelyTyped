@@ -2,6 +2,7 @@
 // Project: https://github.com/prodatakey/dirty-chai
 // Definitions by: Piotr Roszatycki <https://github.com/dex4er>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.0
 
 /// <reference types="chai" />
 /// <reference types="chai-as-promised" />
@@ -24,5 +25,5 @@ declare global {
     }
 }
 
-declare function dirtyChai(chai: any, utils: any): void;
+declare const dirtyChai: Chai.ChaiPlugin;
 export = dirtyChai;

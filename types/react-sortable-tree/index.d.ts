@@ -116,6 +116,7 @@ export interface NodeRendererProps {
     swapLength?: number;
     listIndex: number;
     treeId: string;
+    rowDirection?: "ltr" | "rtl";
 
     connectDragPreview: ConnectDragPreview;
     connectDragSource: ConnectDragSource;
@@ -149,9 +150,11 @@ export interface TreeRendererProps {
     swapLength?: number;
     scaffoldBlockPxWidth: number;
     lowerSiblingCounts: number[];
+    rowDirection?: 'ltr' | 'rtl';
 
     listIndex: number;
     children: JSX.Element[];
+    style?: React.CSSProperties;
 
     // Drop target
     connectDropTarget: ConnectDropTarget;

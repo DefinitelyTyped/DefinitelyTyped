@@ -27,6 +27,7 @@
 //                 Grimmer Kang <https://github.com/grimmer0125>
 //                 Richard Davison <https://github.com/richarddd>
 //                 Brian Chen <https://github.com/ToucheSir>
+//                 Boris Figovsky <https://github.com/borfig>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -1339,6 +1340,12 @@ declare module "mongoose" {
     set(path: string, val: any, options?: any): this;
     set(path: string, val: any, type: any, options?: any): this;
     set(value: any): this;
+
+    /**
+     * Overwrite all values, except for immutable properties.
+     * @param obj the object to overwrite this document with
+     */
+    overwrite(obj: any): this;
 
     /**
      * The return value of this method is used in calls to JSON.stringify(doc).

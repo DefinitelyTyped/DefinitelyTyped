@@ -486,6 +486,8 @@ export class GridLayer extends Layer {
 export function gridLayer(options?: GridLayerOptions): GridLayer;
 
 export interface TileLayerOptions extends GridLayerOptions {
+    id?: string;
+    accessToken?: string;
     minZoom?: number;
     maxZoom?: number;
     maxNativeZoom?: number;

@@ -63,7 +63,7 @@ export interface CallStatement extends Base<"CallStatement"> {
 }
 
 export interface FunctionDeclaration extends Base<"FunctionDeclaration"> {
-    identifier: Identifier | null;
+    identifier: Identifier | MemberExpression | null;
     isLocal: boolean;
     parameters: Identifier[];
     body: Statement[];
@@ -132,7 +132,7 @@ export interface TableValue extends Base<"TableValue"> {
 }
 
 export interface TableConstructorExpression extends Base<"TableConstructorExpression"> {
-    fields: Array<TableKey | TableKeyString>;
+    fields: Array<TableKey | TableKeyString | TableValue>;
 }
 
 export interface UnaryExpression extends Base<"UnaryExpression"> {
@@ -153,7 +153,7 @@ export interface LogicalExpression extends Base<"LogicalExpression"> {
 }
 
 export interface MemberExpression extends Base<"MemberExpression"> {
-    indexer: string;
+    indexer: '.' | ':';
     identifier: Identifier;
     base: Expression;
 }
@@ -170,7 +170,7 @@ export interface CallExpression extends Base<"CallExpression"> {
 
 export interface TableCallExpression extends Base<"TableCallExpression"> {
     base: Expression;
-    arguments: Expression[];
+    arguments: Expression;
 }
 
 export interface StringCallExpression extends Base<"StringCallExpression"> {

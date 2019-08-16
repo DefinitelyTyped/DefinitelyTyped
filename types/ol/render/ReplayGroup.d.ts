@@ -4,6 +4,6 @@ import VectorContext from './VectorContext';
 export default class ReplayGroup {
     constructor();
     addDeclutter(group: boolean): any[];
-    getReplay(zIndex: number, replayType: ReplayType): VectorContext;
+    getReplay(zIndex: number | undefined, replayType: ReplayType): VectorContext;
     isEmpty(): boolean;
 }
