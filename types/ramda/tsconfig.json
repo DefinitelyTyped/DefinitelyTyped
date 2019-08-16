@@ -75,6 +75,7 @@
         "test/eqBy-tests.ts",
         "test/eqProps-tests.ts",
         "test/equals-tests.ts",
-        "test/evolve-tests.ts"
+        "test/evolve-tests.ts",
+        "test/filter-tests.ts"
     ]
 }
