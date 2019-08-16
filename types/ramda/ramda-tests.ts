@@ -558,12 +558,6 @@ interface Obj {
 });
 
 () => {
-    R.insertAll(2, [10, 11, 12], [1, 2, 3, 4]);
-    R.insertAll(2)([10, 11, 12], [1, 2, 3, 4]);
-    R.insertAll(2, [10, 11, 12])([1, 2, 3, 4]);
-};
-
-() => {
     const numbers    = [1, 2, 3, 4];
     const transducer = R.compose(R.map(R.add(1)), R.take(2));
 

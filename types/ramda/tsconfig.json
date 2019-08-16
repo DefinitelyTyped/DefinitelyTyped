@@ -101,6 +101,7 @@
         "test/indexOf-tests.ts",
         "test/init-tests.ts",
         "test/innerJoin-tests.ts",
-        "test/insert-tests.ts"
+        "test/insert-tests.ts",
+        "test/insertAll-tests.ts"
     ]
 }
