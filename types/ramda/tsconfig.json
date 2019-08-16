@@ -86,6 +86,7 @@
         "test/forEach-tests.ts",
         "test/fromPairs-tests.ts",
         "test/groupBy-tests.ts",
-        "test/groupWith-tests.ts"
+        "test/groupWith-tests.ts",
+        "test/gt-tests.ts"
     ]
 }
