@@ -83,6 +83,7 @@
         "test/findLastIndex-tests.ts",
         "test/flatten-tests.ts",
         "test/flip-tests.ts",
-        "test/forEach-tests.ts"
+        "test/forEach-tests.ts",
+        "test/fromPairs-tests.ts"
     ]
 }

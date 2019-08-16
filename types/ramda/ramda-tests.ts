@@ -1436,10 +1436,6 @@ class Rectangle {
 };
 
 () => {
-    R.fromPairs([["a", 1], ["b", 2], ["c", 3]]); // => {a: 1, b: 2, c: 3}
-};
-
-() => {
     R.pair("foo", "bar"); // => ['foo', 'bar']
     const p         = R.pair("foo", 1); // => ['foo', 'bar']
     const x: string = p[0];
