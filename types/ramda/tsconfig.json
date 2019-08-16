@@ -40,6 +40,7 @@
         "test/bind-tests.ts",
         "test/both-tests.ts",
         "test/chain-tests.ts",
-        "test/clamp-tests.ts"
+        "test/clamp-tests.ts",
+        "test/clone-tests.ts"
     ]
 }
