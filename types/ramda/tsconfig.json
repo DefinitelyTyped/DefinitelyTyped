@@ -80,6 +80,7 @@
         "test/find-tests.ts",
         "test/findIndex-tests.ts",
         "test/findLast-tests.ts",
-        "test/findLastIndex-tests.ts"
+        "test/findLastIndex-tests.ts",
+        "test/flatten-tests.ts"
     ]
 }
