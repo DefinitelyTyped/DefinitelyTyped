@@ -1191,11 +1191,6 @@ type Pair = KeyValuePair<string, number>;
 };
 
 () => {
-    R.equals(R.unnest([1, [2], [[3]]]), [1, 2, [3]]); // => true
-    R.equals(R.unnest<number>([[1, 2], [3, 4], [5, 6]]), [1, 2, 3, 4, 5, 6]); // => true
-};
-
-() => {
     R.xprod([1, 2], ["a", "b"]); // => [[1, 'a'], [1, 'b'], [2, 'a'], [2, 'b']]
     R.xprod([1, 2])(["a", "b"]); // => [[1, 'a'], [1, 'b'], [2, 'a'], [2, 'b']]
 };
@@ -1756,18 +1751,6 @@ class Rectangle {
 /*****************************************************************
  * Relation category
  */
-() => {
-    R.equals(1, 1); // => true
-    R.equals("2", "1"); // => false
-    R.equals([1, 2, 3], [1, 2, 3]); // => true
-
-    const a: any = {};
-    a.v        = a;
-    const b: any = {};
-    b.v        = b;
-    R.equals(a, b); // => true
-};
-
 () => {
     const a1 = R.identity(1); // => 1
     const obj  = {};

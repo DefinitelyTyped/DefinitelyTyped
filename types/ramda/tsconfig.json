@@ -73,6 +73,7 @@
         "test/empty-tests.ts",
         "test/endsWith-tests.ts",
         "test/eqBy-tests.ts",
-        "test/eqProps-tests.ts"
+        "test/eqProps-tests.ts",
+        "test/equals-tests.ts"
     ]
 }
