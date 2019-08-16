@@ -64,6 +64,7 @@
         "test/dissocPath-tests.ts",
         "test/divide-tests.ts",
         "test/drop-tests.ts",
-        "test/dropLast-tests.ts"
+        "test/dropLast-tests.ts",
+        "test/dropLastWhile-tests.ts"
     ]
 }
