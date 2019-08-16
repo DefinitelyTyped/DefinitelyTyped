@@ -150,8 +150,12 @@ interface SymbolConstructor {
 interface String {
     /** Removes whitespace from the left end of a string. */
     trimLeft(): string;
+    /** String.prototype.trimLeft.name === 'trimStart'; // ? true */
+    trimStart(): string;
     /** Removes whitespace from the right end of a string. */
     trimRight(): string;
+    /** String.prototype.trimRight.name === 'trimEnd'; // ? true */
+    trimEnd(): string;
 }
 
 interface ImportMeta {
