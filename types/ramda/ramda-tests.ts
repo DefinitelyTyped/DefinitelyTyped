@@ -1730,15 +1730,6 @@ class Rectangle {
 };
 
 () => {
-    R.isEmpty([1, 2, 3]); // => false
-    R.isEmpty([]); // => true
-    R.isEmpty(""); // => true
-    R.isEmpty(null); // => false
-    R.isEmpty({}); // =>true
-    R.isEmpty({a: 1}); // => false
-};
-
-() => {
     R.not(true); // => false
     R.not(false); // => true
     R.not(0); // => true
