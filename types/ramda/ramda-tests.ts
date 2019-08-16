@@ -2114,12 +2114,6 @@ class Rectangle {
 };
 
 () => {
-    const nums = [1, 2, 3, -99, 42, 6, 7];
-    R.apply(Math.max, nums); // => 42
-    R.apply(Math.max)(nums); // => 42
-};
-
-() => {
     interface T { sum: number; nested: { mul: number; }; }
     const getMetrics = R.applySpec<T>({
         sum: R.add, nested: {mul: R.multiply}

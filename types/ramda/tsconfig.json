@@ -31,6 +31,7 @@
         "test/anyPass-tests.ts",
         "test/ap-tests.ts",
         "test/aperture-tests.ts",
-        "test/append-tests.ts"
+        "test/append-tests.ts",
+        "test/apply-tests.ts"
     ]
 }
