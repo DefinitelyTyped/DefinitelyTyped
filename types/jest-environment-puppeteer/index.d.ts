@@ -93,4 +93,4 @@ declare global {
     const jestPuppeteer: JestPuppeteer;
 }
 
-export default PuppeteerEnvironment;
+export = PuppeteerEnvironment;
