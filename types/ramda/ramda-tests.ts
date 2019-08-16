@@ -1235,15 +1235,6 @@ type Pair = KeyValuePair<string, number>;
  */
 
 () => {
-    const o1                                        = {a: 1, b: 2, c: 3, d: 4};
-    const o2                                        = {a: 10, b: 20, c: 3, d: 40};
-    const a1                                      = R.eqProps("a", o1, o2); // => false
-    const a2                                      = R.eqProps("c", o1, o2); // => true
-    const a3: <T extends { c: any }, U extends { c: any }>(obj1: T, obj2: U) => boolean = R.eqProps("c");
-    const a4: <U>(obj2: U) => boolean             = R.eqProps("c", o1);
-};
-
-() => {
     // No type transformation
 
     const a1 = R.evolve({ elapsed: R.add(1), remaining: R.add(-1) }, { name: "Tomato", elapsed: 100, remaining: 1400 });

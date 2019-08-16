@@ -72,6 +72,7 @@
         "test/either-tests.ts",
         "test/empty-tests.ts",
         "test/endsWith-tests.ts",
-        "test/eqBy-tests.ts"
+        "test/eqBy-tests.ts",
+        "test/eqProps-tests.ts"
     ]
 }
