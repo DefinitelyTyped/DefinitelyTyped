@@ -1036,13 +1036,6 @@ class Rectangle {
 };
 
 () => {
-    const objKeys = R.keys({a: 1, b: 2, c: 3}); // => ['a', 'b', 'c']
-    const numberKeys = R.keys(1);
-    const arrayKeys = R.keys([]);
-    const stringKeys = R.keys('foo');
-};
-
-() => {
     const f = new F();
     R.keysIn(f); // => ['x', 'y']
 };
@@ -1099,10 +1092,6 @@ class Rectangle {
     R.view(xyLens, testObj);            // => 2
     R.set(xyLens, 4, testObj);          // => {x: [{y: 4, z: 3}, {y: 4, z: 5}]}
     R.over(xyLens, R.negate, testObj);  // => {x: [{y: -2, z: 3}, {y: 4, z: 5}]}
-};
-
-() => {
-    R.keys({a: 1, b: 2, c: 3}); // => ['a', 'b', 'c']
 };
 
 () => {
