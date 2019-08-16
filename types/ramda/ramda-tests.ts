@@ -479,13 +479,6 @@ R.times(i, 5);
  * List category
  */
 (() => {
-    R.dropLast(1, ["foo", "bar", "baz"]); // => ['foo', 'bar']
-    R.dropLast(2)(["foo", "bar", "baz"]); // => ['foo']
-    R.dropLast(3, "ramda");               // => 'ra'
-    R.dropLast(3)("ramda");               // => 'ra'
-});
-
-(() => {
     const lteThree = (x: number) => x <= 3;
     R.dropLastWhile(lteThree, [1, 2, 3, 4, 3, 2, 1]); // => [1, 2, 3, 4]
 });
