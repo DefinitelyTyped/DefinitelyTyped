@@ -1279,19 +1279,6 @@ type Pair = KeyValuePair<string, number>;
  */
 
 () => {
-    const a1 = R.dissocPath(["a", "b", "c"], {a: {b: {c: 42}}}); // => {a: {b: {}}}
-    // optionally specify return type
-    const a2 = R.dissocPath<{ a: { b: number } }>(["a", "b", "c"], {a: {b: {c: 42}}}); // => {a: {b: {}}}
-    const a3 = R.dissocPath(["a", "b", "c"])({a: {b: {c: 42}}}); // => {a: {b: {}}}
-
-    const testPath = ["x", 0, "y"];
-    const testObj  = {x: [{y: 2, z: 3}, {y: 4, z: 5}]};
-
-    R.dissocPath(testPath, testObj); // => {x: [{z: 3}, {y: 4, z: 5}]}
-    R.dissocPath(testPath)(testObj); // => {x: [{z: 3}, {y: 4, z: 5}]}
-};
-
-() => {
     const o1                                        = {a: 1, b: 2, c: 3, d: 4};
     const o2                                        = {a: 10, b: 20, c: 3, d: 40};
     const a1                                      = R.eqProps("a", o1, o2); // => false

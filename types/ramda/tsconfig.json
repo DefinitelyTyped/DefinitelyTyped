@@ -60,6 +60,7 @@
         "test/defaultTo-tests.ts",
         "test/difference-tests.ts",
         "test/differenceWith-tests.ts",
-        "test/dissoc-tests.ts"
+        "test/dissoc-tests.ts",
+        "test/dissocPath-tests.ts"
     ]
 }
