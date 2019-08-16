@@ -34,6 +34,7 @@
         "test/append-tests.ts",
         "test/apply-tests.ts",
         "test/applySpec-tests.ts",
-        "test/assoc-tests.ts"
+        "test/assoc-tests.ts",
+        "test/assocPath-tests.ts"
     ]
 }
