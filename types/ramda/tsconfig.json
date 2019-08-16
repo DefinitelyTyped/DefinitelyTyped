@@ -66,6 +66,7 @@
         "test/drop-tests.ts",
         "test/dropLast-tests.ts",
         "test/dropLastWhile-tests.ts",
-        "test/dropRepeats-tests.ts"
+        "test/dropRepeats-tests.ts",
+        "test/dropRepeatsWith-tests.ts"
     ]
 }
