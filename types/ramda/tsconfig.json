@@ -23,6 +23,7 @@
         "ramda-tests.ts",
         "test/add-tests.ts",
         "test/addIndex-tests.ts",
-        "test/all-tests.ts"
+        "test/all-tests.ts",
+        "test/allPass-tests.ts"
     ]
 }
