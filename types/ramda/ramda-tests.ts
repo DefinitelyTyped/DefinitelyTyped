@@ -1115,8 +1115,6 @@ class Rectangle {
 
 () => {
     const square = new Rectangle(2, 2);
-    R.hasIn("width", square);  // => true
-    R.hasIn("area", square);  // => true
     R.flip(R.hasIn)(square)("area");  // => true
 };
 
