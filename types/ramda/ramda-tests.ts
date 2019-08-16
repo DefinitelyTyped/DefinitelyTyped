@@ -1094,13 +1094,6 @@ type Pair = KeyValuePair<string, number>;
  * Object category
  */
 
-() => {
-    const hasName     = R.has("name");
-    const a1: boolean = hasName({name: "alice"});   // => true
-    const a2: boolean = hasName({name: "bob"});     // => true
-    const a3: boolean = hasName({});                // => false
-};
-
 class Rectangle {
     constructor(public width: number, public height: number) {
         this.width  = width;
@@ -1670,13 +1663,6 @@ class Rectangle {
 
     const seventeenMod = R.mathMod(17);
     seventeenMod(3);  // => 2
-};
-
-() => {
-    const hasName = R.has("name");
-    hasName({name: "alice"});   // => true
-    hasName({name: "bob"});     // => true
-    hasName({});                // => false
 };
 
 () => {
