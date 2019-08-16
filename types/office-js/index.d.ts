@@ -981,15 +981,24 @@ declare namespace Office {
     }
 
     /**
-     * Provides information about what Requirement Sets are supported in current environment.
+     * Provides information about which Requirement Sets are supported in the current environment.
      */
     interface RequirementSetSupport {
-        /**
+       /**
         * Check if the specified requirement set is supported by the host Office application.
-        * @param name - Set name; e.g., "MatrixBindings".
-        * @param minVersion - The minimum required version; e.g., "1.4". Note: String type is recommended data type for this parameter. The use of number type is deprecated and will not be compatible with recent requirement sets.
+        * @param name - The requirement set name (e.g., "ExcelApi").
+        * @param minVersion - The minimum required version (e.g., "1.4").
         */
-       isSetSupported(name: string, minVersion?: string | number): boolean;
+       isSetSupported(name: string, minVersion?: string): boolean;
+
+       /**
+        * Check if the specified requirement set is supported by the host Office application.
+        * @deprecated
+        * @param name - The requirement set name (e.g., "ExcelApi").
+        * @param minVersionNumber - The minimum required version (e.g., 1.4). 
+        * Warning: This overload of `isSetSupported` (where `minVersionNumber` is a number) is deprecated. Use the string overload of `isSetSupported` instead.
+        */
+       isSetSupported(name: string, minVersionNumber?: number): boolean;
     }
 
     /**
