@@ -57,6 +57,7 @@
         "test/countBy-tests.ts",
         "test/curry-tests.ts",
         "test/dec-tests.ts",
-        "test/defaultTo-tests.ts"
+        "test/defaultTo-tests.ts",
+        "test/difference-tests.ts"
     ]
 }
