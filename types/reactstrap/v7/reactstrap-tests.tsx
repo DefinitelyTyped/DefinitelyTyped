@@ -4364,28 +4364,30 @@ class Example127 extends React.Component<any, any> {
 
     this.toggle = this.toggle.bind(this);
     this.state = {
-      dropdownOpen: false
+      dropdownOpen: false,
     };
   }
 
   toggle() {
     this.setState({
-      dropdownOpen: !this.state.dropdownOpen
+      dropdownOpen: !this.state.dropdownOpen,
     });
   }
 
   render() {
     return (
-      <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle} positionFixed>
-        <DropdownToggle caret>
-        Dropdown
-        </DropdownToggle>
+      <Dropdown
+        isOpen={this.state.dropdownOpen}
+        toggle={this.toggle}
+        positionFixed
+      >
+        <DropdownToggle caret>Dropdown</DropdownToggle>
         <DropdownMenu persist>
-        <DropdownItem header>Header</DropdownItem>
-        <DropdownItem disabled>Action</DropdownItem>
-        <DropdownItem>Another Action</DropdownItem>
-        <DropdownItem divider />
-        <DropdownItem>Another Action</DropdownItem>
+          <DropdownItem header>Header</DropdownItem>
+          <DropdownItem disabled>Action</DropdownItem>
+          <DropdownItem>Another Action</DropdownItem>
+          <DropdownItem divider />
+          <DropdownItem>Another Action</DropdownItem>
         </DropdownMenu>
       </Dropdown>
     );
