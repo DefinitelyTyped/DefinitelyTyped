@@ -538,13 +538,6 @@ R.times(i, 5);
  * List category
  */
 () => {
-    R.concat([], []); // => []
-    R.concat([4, 5, 6], [1, 2, 3]); // => [4, 5, 6, 1, 2, 3]
-    R.concat([4, 5, 6])([1, 2, 3]); // => [4, 5, 6, 1, 2, 3]
-    R.concat("ABC")("DEF"); // 'ABCDEF'
-};
-
-() => {
     R.contains(3)([1, 2, 3]); // => true
     R.contains(3, [1, 2, 3]); // => true
     R.contains(4)([1, 2, 3]); // => false
