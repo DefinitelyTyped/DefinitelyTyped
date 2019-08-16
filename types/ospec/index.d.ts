@@ -85,7 +85,7 @@ declare namespace Ospec {
         afterEach(teardown: Definer): void;
 
         /** Returns a function that records the number of times it gets called, and its arguments */
-        spy<A extends any[]>(): Spy<A, undefined>;
+        spy<A extends any[]>(): Spy<A, undefined>; //tslint:disable no-unnecessary-generics
         spy<A extends any[], R>(fn: (...args: A) => R): Spy<A, R>;
 
         /** Amount of time (in milliseconds) to wait until bailing out of a test */
