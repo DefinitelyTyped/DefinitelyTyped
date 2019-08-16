@@ -538,12 +538,6 @@ interface Obj {
 });
 
 () => {
-    R.last(["fi", "fo", "fum"]); // => 'fum'
-    R.last("abc"); // => 'c'
-    R.last(""); // => ''
-};
-
-() => {
     R.lastIndexOf(3, [-1, 3, 3, 0, 1, 2, 3, 4]); // => 6
     R.lastIndexOf(10, [1, 2, 3, 4]); // => -1
 };

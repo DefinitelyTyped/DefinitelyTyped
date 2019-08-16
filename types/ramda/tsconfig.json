@@ -116,6 +116,7 @@
         "test/join-tests.ts",
         "test/juxt-tests.ts",
         "test/keys-tests.ts",
-        "test/keysIn-tests.ts"
+        "test/keysIn-tests.ts",
+        "test/last-tests.ts"
     ]
 }
