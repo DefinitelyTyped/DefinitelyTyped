@@ -681,13 +681,6 @@ R.times(i, 5);
  * List category
  */
 () => {
-    const lessThan0 = R.flip(R.lt)(0);
-    const lessThan2 = R.flip(R.lt)(2);
-    R.any(lessThan0)([1, 2]); // => false
-    R.any(lessThan2)([1, 2]); // => true
-};
-
-() => {
     R.aperture(2, [1, 2, 3, 4, 5]); // => [[1, 2], [2, 3], [3, 4], [4, 5]]
     R.aperture(3, [1, 2, 3, 4, 5]); // => [[1, 2, 3], [2, 3, 4], [3, 4, 5]]
     R.aperture(7, [1, 2, 3, 4, 5]); // => []
