@@ -51,6 +51,7 @@
         "test/concat-tests.ts",
         "test/cond-tests.ts",
         "test/construct-tests.ts",
-        "test/constructN-tests.ts"
+        "test/constructN-tests.ts",
+        "test/contains-tests.ts"
     ]
 }

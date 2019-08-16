@@ -538,15 +538,6 @@ R.times(i, 5);
  * List category
  */
 () => {
-    R.contains(3)([1, 2, 3]); // => true
-    R.contains(3, [1, 2, 3]); // => true
-    R.contains(4)([1, 2, 3]); // => false
-    R.contains({})([{}, {}]); // => false
-    const obj = {};
-    R.contains(obj)([{}, obj, {}]); // => true
-};
-
-() => {
     R.drop(3, [1, 2, 3, 4, 5, 6, 7]); // => [4,5,6,7]
     R.drop(3)([1, 2, 3, 4, 5, 6, 7]); // => [4,5,6,7]
     R.drop(3, "ramda"); // => 'ram'
