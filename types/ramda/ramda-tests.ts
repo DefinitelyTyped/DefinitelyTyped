@@ -99,9 +99,6 @@ class F2 {
     const u2: (a: any) => any = R.unary(takesTwoArgs);
     const u3: (a: any) => any = R.unary(takesThreeArgs);
 
-    R.binary(takesTwoArgs);
-    R.binary(takesThreeArgs);
-
     function addTwoNumbers(a: number, b: number) {
         return a + b;
     }
@@ -2085,20 +2082,6 @@ class Rectangle {
 
 () => {
     const a: number[] = R.without([1, 2], [1, 2, 1, 3, 4]); // => [3, 4]
-};
-
-() => {
-    function takesThreeArgs(a: number, b: number, c: number) {
-        return [a, b, c];
-    }
-
-    takesThreeArgs.length; // => 3
-    takesThreeArgs(1, 2, 3); // => [1, 2, 3]
-
-    const takesTwoArgs = R.binary(takesThreeArgs);
-    takesTwoArgs.length; // => 2
-    // Only 2 arguments are passed to the wrapped function
-    takesTwoArgs(1, 2, 3); // => [1, 2, undefined]
 };
 
 () => {
