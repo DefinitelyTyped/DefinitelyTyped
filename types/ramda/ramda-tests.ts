@@ -245,14 +245,6 @@ class F2 {
     const followersForUser2: (userName: string) => Promise<string[]> = R.pipeWith(R.then)([db.getUserById, db.getFollowers]);
 };
 
-(() => {
-    const range = R.juxt([Math.min, Math.max]);
-    range(3, 4, 9, -3); // => [-3, 9]
-
-    const chopped = R.juxt([R.head, R.last]);
-    chopped([1, 2, 3]); // => [1, 3]
-});
-
 function square(x: number) {
     return x * x;
 }
