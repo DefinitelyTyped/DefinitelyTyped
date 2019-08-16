@@ -112,6 +112,7 @@
         "test/is-tests.ts",
         "test/isArrayLike-tests.ts",
         "test/isEmpty-tests.ts",
-        "test/isNaN-tests.ts"
+        "test/isNaN-tests.ts",
+        "test/join-tests.ts"
     ]
 }

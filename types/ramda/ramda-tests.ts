@@ -546,12 +546,6 @@ interface Obj {
 });
 
 () => {
-    const spacer = R.join(" ");
-    spacer(["a", 2, 3.4]);   // => 'a 2 3.4'
-    R.join("|", [1, 2, 3]);    // => '1|2|3'
-};
-
-() => {
     R.last(["fi", "fo", "fum"]); // => 'fum'
     R.last("abc"); // => 'c'
     R.last(""); // => ''
