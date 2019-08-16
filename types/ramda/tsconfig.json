@@ -106,6 +106,7 @@
         "test/intersection-tests.ts",
         "test/intersperse-tests.ts",
         "test/into-tests.ts",
-        "test/invert-tests.ts"
+        "test/invert-tests.ts",
+        "test/invertObj-tests.ts"
     ]
 }
