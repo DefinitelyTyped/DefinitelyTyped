@@ -96,6 +96,7 @@
         "test/identical-tests.ts",
         "test/identity-tests.ts",
         "test/ifElse-tests.ts",
-        "test/includes-tests.ts"
+        "test/includes-tests.ts",
+        "test/indexBy-tests.ts"
     ]
 }
