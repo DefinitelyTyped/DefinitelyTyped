@@ -94,6 +94,7 @@
         "test/hasPath-tests.ts",
         "test/head-tests.ts",
         "test/identical-tests.ts",
-        "test/identity-tests.ts"
+        "test/identity-tests.ts",
+        "test/ifElse-tests.ts"
     ]
 }
