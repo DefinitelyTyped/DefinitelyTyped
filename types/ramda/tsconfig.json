@@ -95,6 +95,7 @@
         "test/head-tests.ts",
         "test/identical-tests.ts",
         "test/identity-tests.ts",
-        "test/ifElse-tests.ts"
+        "test/ifElse-tests.ts",
+        "test/includes-tests.ts"
     ]
 }
