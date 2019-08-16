@@ -77,6 +77,7 @@
         "test/equals-tests.ts",
         "test/evolve-tests.ts",
         "test/filter-tests.ts",
-        "test/find-tests.ts"
+        "test/find-tests.ts",
+        "test/findIndex-tests.ts"
     ]
 }
