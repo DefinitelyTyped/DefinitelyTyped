@@ -12680,7 +12680,6 @@ declare namespace Office {
          *                 If removing the attachment fails, the asyncResult.error property will contain an error code with the reason for the failure.
          */
         removeAttachmentAsync(attachmentId: string, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
-
         /**
          * Asynchronously saves an item.
          *
@@ -14250,7 +14249,6 @@ declare namespace Office {
          */
         conversationId: string;
     }
-
      /**
      * The message compose mode of {@link Office.Item | Office.context.mailbox.item}.
      * 

@@ -11970,6 +11970,7 @@ declare namespace Office {
          * More information is under {@link Office.UserProfile}
          */
         userProfile: UserProfile;
+
         /**
          * Adds an event handler for a supported event. **Note**: Events are available only with task pane.
          *
@@ -11990,7 +11991,6 @@ declare namespace Office {
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
          *                 type Office.AsyncResult.
          */
-
         addHandlerAsync(eventType: Office.EventType | string, handler: (type: Office.EventType) => void, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
          * Adds an event handler for a supported event. **Note**: Events are available only with task pane.
@@ -12508,7 +12508,6 @@ declare namespace Office {
          */
         conversationId: string;
     }
-
      /**
      * The message compose mode of {@link Office.Item | Office.context.mailbox.item}.
      * 
