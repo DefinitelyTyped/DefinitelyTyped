@@ -79,16 +79,8 @@ export default class PluggableMap extends BaseObject {
     addLayer(layer: BaseLayer): void;
     addOverlay(overlay: Overlay): void;
     createRenderer(): MapRenderer;
-    forEachFeatureAtPixel<S, T>(
-        pixel: Pixel,
-        callback: (this: S, p0: FeatureLike, p1: Layer) => T,
-        opt_options?: AtPixelOptions
-    ): T;
-    forEachLayerAtPixel<S, T>(
-        pixel: Pixel,
-        callback: (this: S, p0: Layer, p1: Uint8ClampedArray | Uint8Array) => T,
-        opt_options?: AtPixelOptions
-    ): T;
+    forEachFeatureAtPixel<S, T>(pixel: Pixel, callback: (this: S, p0: FeatureLike, p1: Layer) => T, opt_options?: AtPixelOptions): T | undefined;
+    forEachLayerAtPixel<S, T>(pixel: Pixel, callback: (this: S, p0: Layer, p1: Uint8ClampedArray | Uint8Array) => T, opt_options?: AtPixelOptions): T | undefined;
     getControls(): Collection<Control>;
     getCoordinateFromPixel(pixel: Pixel): Coordinate;
     getEventCoordinate(event: Event): Coordinate;
@@ -103,8 +95,8 @@ export default class PluggableMap extends BaseObject {
     getOverlays(): Collection<Overlay>;
     getPixelFromCoordinate(coordinate: Coordinate): Pixel;
     getRenderer(): MapRenderer;
-    getSize(): Size;
-    getTarget(): HTMLElement | string;
+    getSize(): Size | undefined;
+    getTarget(): HTMLElement | string | undefined;
     getTargetElement(): HTMLElement;
     getTilePriority(tile: Tile, tileSourceKey: string, tileCenter: Coordinate, tileResolution: number): number;
     getView(): View;
@@ -113,10 +105,10 @@ export default class PluggableMap extends BaseObject {
     handleMapBrowserEvent(mapBrowserEvent: MapBrowserEvent): void;
     hasFeatureAtPixel<U>(pixel: Pixel, opt_options?: AtPixelOptions): boolean;
     isRendered(): boolean;
-    removeControl(control: Control): Control;
-    removeInteraction(interaction: Interaction): Interaction;
-    removeLayer(layer: BaseLayer): BaseLayer;
-    removeOverlay(overlay: Overlay): Overlay;
+    removeControl(control: Control): Control | undefined;
+    removeInteraction(interaction: Interaction): Interaction | undefined;
+    removeLayer(layer: BaseLayer): BaseLayer | undefined;
+    removeOverlay(overlay: Overlay): Overlay | undefined;
     render(): void;
     renderSync(): void;
     setLayerGroup(layerGroup: LayerGroup): void;

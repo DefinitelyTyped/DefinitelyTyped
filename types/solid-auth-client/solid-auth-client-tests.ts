@@ -17,11 +17,34 @@ async function login(idp: string) {
     alert(`Logged in as ${session.webId}`);
 }
 
+async function loginWithOptions(idp: string) {
+  const session = await auth.currentSession();
+  if (!session)
+    await auth.login(idp, {
+      callbackUri: '/callback',
+      popupUri: 'https://solid.community/common/popup.html',
+      storage: localStorage,
+    });
+  else alert(`Logged in as ${session.webId}`);
+}
+
 async function popupLogin() {
   let session = await auth.currentSession();
   const popupUri = 'https://solid.community/common/popup.html';
   if (!session)
     session = await auth.popupLogin({ popupUri });
+  alert(`Logged in as ${session.webId}`);
+}
+
+async function popupLoginWIthOptions() {
+  let session = await auth.currentSession();
+  const popupUri = 'https://solid.community/common/popup.html';
+  if (!session)
+    session = await auth.popupLogin({
+      callbackUri: '/callback',
+      popupUri,
+      storage: localStorage,
+    });
   alert(`Logged in as ${session.webId}`);
 }
 

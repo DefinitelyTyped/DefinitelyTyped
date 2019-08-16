@@ -76,6 +76,7 @@ const rl: readline.ReadLine = readline.createInterface(new stream.Readable());
     const x = 1;
     const y = 1;
 
+    readline.cursorTo(strm, x);
     readline.cursorTo(strm, x, y);
     readline.cursorTo(strm, x, y, () => {}); // $ExpectType boolean
 }

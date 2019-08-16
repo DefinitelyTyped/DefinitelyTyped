@@ -4156,9 +4156,19 @@ export interface FlatListProps<ItemT> extends VirtualizedListProps<ItemT> {
     ListFooterComponent?: React.ComponentType<any> | React.ReactElement | null;
 
     /**
+     * Styling for internal View for ListFooterComponent
+     */
+    ListFooterComponentStyle?: ViewStyle | null;
+
+    /**
      * Rendered at the very beginning of the list.
      */
     ListHeaderComponent?: React.ComponentType<any> | React.ReactElement | null;
+
+    /**
+     * Styling for internal View for ListHeaderComponent
+     */
+    ListHeaderComponentStyle?: ViewStyle | null;
 
     /**
      * Optional custom style for multi-item rows generated when numColumns > 1

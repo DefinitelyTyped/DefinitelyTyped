@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Knuddels UserApps API 1.00111486
+// Type definitions for non-npm package Knuddels UserApps API 1.00119839
 // Project: https://developer.knuddels.de
 // Definitions by: Knuddels GmbH & Co. KG <https://github.com/Knuddels>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -1620,6 +1620,10 @@ declare global {
 		 * @see https://developer.knuddels.de/docs/classes/KnuddelTransferDisplayType.html#property_Post
 		 */
 		static readonly Post: KnuddelTransferDisplayType;
+		/**
+		 * @see https://developer.knuddels.de/docs/classes/KnuddelTransferDisplayType.html#property_Silent
+		 */
+		static readonly Silent: KnuddelTransferDisplayType;
 	}
 
 	/**
@@ -1817,6 +1821,10 @@ declare global {
 		 */
 		getText(): string;
 		/**
+		 * @see https://developer.knuddels.de/docs/classes/Message.html#method_getRawText
+		 */
+		getRawText(): string;
+		/**
 		 * @see https://developer.knuddels.de/docs/classes/Message.html#method_getCreationDate
 		 */
 		getCreationDate(): Date;
@@ -1967,12 +1975,20 @@ declare global {
 	 * @see https://developer.knuddels.de/docs/classes/PublicActionMessage.html
 	 */
 	class PublicActionMessage extends Message {
+		/**
+		 * @see https://developer.knuddels.de/docs/classes/PublicActionMessage.html#method_getFunctionName
+		 */
+		getFunctionName(): string;
 	}
 
 	/**
 	 * @see https://developer.knuddels.de/docs/classes/PublicEventMessage.html
 	 */
 	class PublicEventMessage extends Message {
+		/**
+		 * @see https://developer.knuddels.de/docs/classes/PublicEventMessage.html#method_getFunctionName
+		 */
+		getFunctionName(): string;
 	}
 
 	/**

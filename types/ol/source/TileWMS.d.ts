@@ -33,7 +33,7 @@ export interface Options {
 }
 export default class TileWMS extends TileImage {
     constructor(opt_options?: Options);
-    getGetFeatureInfoUrl(coordinate: Coordinate, resolution: number, projection: ProjectionLike, params: any): string;
+    getGetFeatureInfoUrl(coordinate: Coordinate, resolution: number, projection: ProjectionLike, params: any): string | undefined;
     getParams(): any;
     updateParams(params: any): void;
     on(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
