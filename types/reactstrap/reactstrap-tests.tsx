@@ -4528,3 +4528,37 @@ function Example127() {
         </div>
     );
 }
+
+class Example128 extends React.Component<any, any> {
+  constructor(props: any) {
+    super(props);
+
+    this.toggle = this.toggle.bind(this);
+    this.state = {
+    dropdownOpen: false
+    };
+  }
+
+  toggle() {
+    this.setState({
+      dropdownOpen: !this.state.dropdownOpen
+    });
+  }
+
+  render() {
+    return (
+      <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle} positionFixed>
+        <DropdownToggle caret>
+        Dropdown
+        </DropdownToggle>
+        <DropdownMenu persist>
+        <DropdownItem header>Header</DropdownItem>
+        <DropdownItem disabled>Action</DropdownItem>
+        <DropdownItem>Another Action</DropdownItem>
+        <DropdownItem divider />
+        <DropdownItem>Another Action</DropdownItem>
+        </DropdownMenu>
+      </Dropdown>
+    );
+  }
+}
