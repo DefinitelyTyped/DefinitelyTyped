@@ -1036,11 +1036,6 @@ class Rectangle {
 };
 
 () => {
-    const f = new F();
-    R.keysIn(f); // => ['x', 'y']
-};
-
-() => {
     interface Person { firstName: string; lastName: string; }
     const failedFetch = (id: string): Promise<Person> => Promise.reject('bad ID');
     const useDefault = (): Person => ({ firstName: 'Bob', lastName: 'Loblaw' });
@@ -1092,11 +1087,6 @@ class Rectangle {
     R.view(xyLens, testObj);            // => 2
     R.set(xyLens, 4, testObj);          // => {x: [{y: 4, z: 3}, {y: 4, z: 5}]}
     R.over(xyLens, R.negate, testObj);  // => {x: [{y: -2, z: 3}, {y: 4, z: 5}]}
-};
-
-() => {
-    const f = new F();
-    R.keysIn(f); // => ['x', 'y']
 };
 
 () => {
