@@ -45,6 +45,7 @@
         "test/comparator-tests.ts",
         "test/complement-tests.ts",
         "test/compose-tests.ts",
-        "test/composeK-tests.ts"
+        "test/composeK-tests.ts",
+        "test/composeP-tests.ts"
     ]
 }
