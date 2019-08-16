@@ -55,7 +55,7 @@ declare namespace MicroModal {
     /**
      * Closes the active modal
      */
-    function close(targetModal?: string): void
+    function close(targetModal?: string): void;
 }
 
 export default MicroModal;
