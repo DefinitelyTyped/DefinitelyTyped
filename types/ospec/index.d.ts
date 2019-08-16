@@ -9,14 +9,14 @@
 declare namespace Ospec {
     type AssertionDescriber = (description: string) => void;
 
-    interface Spy<Args extends any[] = any[], Returns = undefined> {
+    interface Spy<Args extends any[], Returns> {
         (...args: Args): Returns;
         /** The number of times the function has been called */
-        callCount: number;
+        readonly callCount: number;
         /** The arguments that were passed to the function in the last time it was called */
-        args: Args;
+        readonly args: Args;
         /** List of arguments that were passed to the function each tine it was called */
-        calls: Args[];
+        readonly calls: Args[];
     }
 
     interface BasicAssertions<T = any> {
@@ -85,7 +85,8 @@ declare namespace Ospec {
         afterEach(teardown: Definer): void;
 
         /** Returns a function that records the number of times it gets called, and its arguments */
-        spy<A extends any[], R>(fn?: (...args: A) => R): Spy<A, R>;
+        spy<A extends any[]>(): Spy<A, undefined>;
+        spy<A extends any[], R>(fn: (...args: A) => R): Spy<A, R>;
 
         /** Amount of time (in milliseconds) to wait until bailing out of a test */
         timeout(delay: number): void;
