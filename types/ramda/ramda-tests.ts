@@ -680,12 +680,6 @@ R.times(i, 5);
  * List category
  */
 () => {
-    R.append("tests", ["write", "more"]); // => ['write', 'more', 'tests']
-    R.append("tests")(["write", "more"]); // => ['write', 'more', 'tests']
-    R.append("tests", []); // => ['tests']
-};
-
-() => {
     function duplicate(n: number) {
         return [n, n];
     }
