@@ -25,6 +25,7 @@
         "test/addIndex-tests.ts",
         "test/all-tests.ts",
         "test/allPass-tests.ts",
-        "test/always-tests.ts"
+        "test/always-tests.ts",
+        "test/and-tests.ts"
     ]
 }
