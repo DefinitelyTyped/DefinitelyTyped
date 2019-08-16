@@ -136,12 +136,12 @@ export interface TableConstructorExpression extends Base<"TableConstructorExpres
 }
 
 export interface UnaryExpression extends Base<"UnaryExpression"> {
-    operator: "#" | "not";
+    operator: "not" | "-" | "~" | "#";
     argument: Expression;
 }
 
 export interface BinaryExpression extends Base<"BinaryExpression"> {
-    operator: "+" | "-" | "*" | "/" | "%" | "^" | "==" | "~=" | "<=" | ">=" | "<" | ">" | "..";
+    operator: "+" | "-" | "*" | "%" | "^" | "/" | "//" | "&" | "|" | "~" | "<<" | ">>" | ".." | "~=" | "=="  | "<" | "<=" | ">" | ">=";
     left: Expression;
     right: Expression;
 }
