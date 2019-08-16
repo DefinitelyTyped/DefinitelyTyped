@@ -479,10 +479,6 @@ R.times(i, 5);
  * List category
  */
 (() => {
-    R.dropRepeats([1, 1, 1, 2, 3, 4, 4, 2, 2]); // => [1, 2, 3, 4, 2]
-});
-
-(() => {
     const l = [1, -1, 1, 3, 4, -4, -4, -5, 5, 3, 3];
     const x: number[] = R.dropRepeatsWith(R.eqBy(Math.abs), l); // => [1, 3, 4, -5, 3]
 });
