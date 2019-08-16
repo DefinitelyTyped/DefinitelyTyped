@@ -831,11 +831,10 @@ declare namespace Tabulator {
     }
 
     interface ColumnLayout {
-        //columns?: ColumnDefinition[];
         /** title - Required This is the title that will be displayed in the header for this column */
         title: string;
         /** field - Required (not required in icon/button columns) this is the key for this column in the data array*/
-        field?: string;
+        field: string;
         /** visible - (boolean, default - true) determines if the column is visible. (see Column Visibility for more details */
         visible?: boolean;
 
