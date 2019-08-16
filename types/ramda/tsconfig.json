@@ -38,6 +38,7 @@
         "test/assocPath-tests.ts",
         "test/binary-tests.ts",
         "test/bind-tests.ts",
-        "test/both-tests.ts"
+        "test/both-tests.ts",
+        "test/chain-tests.ts"
     ]
 }

@@ -677,20 +677,6 @@ R.times(i, 5);
  * List category
  */
 () => {
-    function duplicate(n: number) {
-        return [n, n];
-    }
-
-    R.chain(duplicate, [1, 2, 3]); // => [1, 1, 2, 2, 3, 3]
-    R.chain(duplicate)([1, 2, 3]); // => [1, 1, 2, 2, 3, 3]
-    const result1: number[] = R.chain<number, number[], number[]>(R.append, R.head)([
-        1,
-        2,
-        3
-    ]); // => [1, 2, 3, 1]
-};
-
-() => {
     R.clamp(1, 10, -1); // => 1
     R.clamp(1, 10)(11); // => 10
     R.clamp(1)(10, 4);  // => 4
