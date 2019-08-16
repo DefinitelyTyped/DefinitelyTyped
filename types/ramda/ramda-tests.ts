@@ -1012,13 +1012,6 @@ type Pair = KeyValuePair<string, number>;
  */
 
 () => {
-    const objKeys = R.keys({a: 1, b: 2, c: 3}); // $ExpectType ("a" | "b" | "c")[]
-    const numberKeys = R.keys(1); // $ExpectType string[]
-    const arrayKeys = R.keys([]); // List of array members
-    const stringKeys = R.keys('foo'); // $ExpectType string[]
-};
-
-() => {
     const f = new F();
     R.keysIn(f); // => ['x', 'y']
 };
@@ -1075,10 +1068,6 @@ type Pair = KeyValuePair<string, number>;
     R.view(xyLens, testObj);            // => 2
     R.set(xyLens, 4, testObj);          // => {x: [{y: 4, z: 3}, {y: 4, z: 5}]}
     R.over(xyLens, R.negate, testObj);  // => {x: [{y: -2, z: 3}, {y: 4, z: 5}]}
-};
-
-() => {
-    R.keys({a: 1, b: 2, c: 3}); // => ['a', 'b', 'c']
 };
 
 () => {
