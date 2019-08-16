@@ -148,14 +148,18 @@ interface SymbolConstructor {
 
 // Node.js ES2019/ESNEXT support
 interface String {
-    /** The property trimStart is preferred. 
-    The trimLeft property is provided principally for compatibility with old code. 
-    It is recommended that the trimStart property be used in new ECMAScript(ES2019) code. */
+    /** 
+     * The property trimStart is preferred. 
+     * The trimLeft property is provided principally for compatibility with old code. 
+     * It is recommended that the trimStart property be used in new ECMAScript(ES2019) code. 
+     */
     trimLeft(): string;
     
-    /** The property trimEnd is preferred. 
-    The trimRight property is provided principally for compatibility with old code. 
-    It is recommended that the trimEnd property be used in new ECMAScript(ES2019) code. */
+    /** 
+    * The property trimEnd is preferred. 
+    * The trimRight property is provided principally for compatibility with old code. 
+    * It is recommended that the trimEnd property be used in new ECMAScript(ES2019) code. 
+    */
     trimRight(): string;
 
     /** Removes whitespace from the left end of a string. */
