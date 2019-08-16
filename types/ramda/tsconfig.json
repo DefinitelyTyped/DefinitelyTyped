@@ -28,6 +28,7 @@
         "test/always-tests.ts",
         "test/and-tests.ts",
         "test/any-tests.ts",
-        "test/anyPass-tests.ts"
+        "test/anyPass-tests.ts",
+        "test/ap-tests.ts"
     ]
 }

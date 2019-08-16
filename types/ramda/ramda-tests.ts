@@ -616,7 +616,6 @@ R.times(i, 5);
 });
 
 (() => {
-    const a: number[]   = R.ap([R.multiply(2), R.add(3)], [1, 2, 3]); // => [2, 4, 6, 4, 5, 6]
     const b: number[][] = R.of([1]); // => [[1]]
     const c: number[]   = R.of(1);
 });
@@ -2128,12 +2127,6 @@ class Rectangle {
 
 () => {
     const a: number[] = R.without([1, 2], [1, 2, 1, 3, 4]); // => [3, 4]
-};
-
-() => {
-    const x: number[] = R.ap([R.multiply(2), R.add(3)], [1, 2, 3]); // => [2, 4, 6, 4, 5, 6]
-    const y: number[] = R.ap([R.multiply(2), R.add(3)])([1, 2, 3]); // => [2, 4, 6, 4, 5, 6]
-    const z: string = R.ap<string, string, string>(R.concat, R.toUpper)('Ramda'); // => 'RamdaRAMDA'
 };
 
 () => {
