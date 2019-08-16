@@ -16,8 +16,8 @@ render(
 const DisplacedModal = AriaModal.renderTo('#some-id');
 
 render(
-  <DisplacedModal onExit={onExit} titleId="describedby" underlayClickExits>
-    <p id="describedby">Hello world</p>
-  </DisplacedModal>,
-  appContainer,
+    <DisplacedModal onExit={onExit} titleId="describedby" underlayClickExits>
+        <p id="describedby">Hello world</p>
+    </DisplacedModal>,
+    appContainer
 );
