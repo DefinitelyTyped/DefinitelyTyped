@@ -479,11 +479,6 @@ R.times(i, 5);
  * List category
  */
 (() => {
-    const lteThree = (x: number) => x <= 3;
-    R.dropLastWhile(lteThree, [1, 2, 3, 4, 3, 2, 1]); // => [1, 2, 3, 4]
-});
-
-(() => {
     R.dropRepeats([1, 1, 1, 2, 3, 4, 4, 2, 2]); // => [1, 2, 3, 4, 2]
 });
 
