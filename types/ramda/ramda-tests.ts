@@ -448,18 +448,6 @@ R.times(i, 5);
     const b = R.unfold(f); // => [-10, -20, -30, -40, -50]
     const c = b(10);
 });
-/*****************************************************************
- * Function category
- */
-() => {
-    function mergeThree(a: number, b: number, c: number): number[] {
-        return (new Array<number>()).concat(a, b, c);
-    }
-
-    mergeThree(1, 2, 3); // => [1, 2, 3]
-    const flipped = R.flip(mergeThree);
-    flipped(1, 2, 3); // => [2, 1, 3]
-};
 
 /*********************
  * List category
