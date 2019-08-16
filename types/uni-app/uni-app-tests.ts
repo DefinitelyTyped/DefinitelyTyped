@@ -56,3 +56,9 @@ videoContext.play();
 uni.onKeyboardHeightChange(({height}) => {
    console.log(height);
 });
+
+uni.checkSession({
+    success() {
+        console.log('success');
+    }
+});

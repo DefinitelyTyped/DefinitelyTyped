@@ -807,6 +807,12 @@ declare class Uni {
      */
     login(options?: LoginOptions): void;
     /**
+     * 登录
+     *
+     * 参考: [http://uniapp.dcloud.io/api/plugins/login?id=unichecksession](http://uniapp.dcloud.io/api/plugins/login?id=unichecksession)
+     */
+    checkSession(options?: CheckSessionOptions): void;
+    /**
      * 获取用户信息
      *
      * 参考: [http://uniapp.dcloud.io/api/plugins/login?id=getuserinfo](http://uniapp.dcloud.io/api/plugins/login?id=getuserinfo)
