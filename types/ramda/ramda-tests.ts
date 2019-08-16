@@ -541,11 +541,6 @@ interface Obj {
 };
 
 () => {
-    R.flatten([[1, 2], [3, 4], [5, 6]]); // => [1, 2, 3, 4, 5, 6]
-    R.flatten([1, 2, 3, 4, 5, 6]);       // => [1, 2, 3, 4, 5, 6]
-};
-
-() => {
     function printXPlusFive(x: number) {
         console.log(x + 5);
     }
