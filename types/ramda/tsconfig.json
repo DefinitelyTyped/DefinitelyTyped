@@ -55,6 +55,7 @@
         "test/contains-tests.ts",
         "test/converge-tests.ts",
         "test/countBy-tests.ts",
-        "test/curry-tests.ts"
+        "test/curry-tests.ts",
+        "test/dec-tests.ts"
     ]
 }
