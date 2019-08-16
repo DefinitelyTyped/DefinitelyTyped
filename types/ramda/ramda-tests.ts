@@ -558,11 +558,6 @@ interface Obj {
 });
 
 () => {
-    R.indexOf(3, [1, 2, 3, 4]); // => 2
-    R.indexOf(10)([1, 2, 3, 4]); // => -1
-};
-
-() => {
     R.init(["fi", "fo", "fum"]); // => ['fi', 'fo']
     R.init("abc"); // => 'ab'
     R.init(""); // => ''
