@@ -424,13 +424,6 @@ R.times(i, 5);
 });
 
 (() => {
-    function isEven(n: number) {
-        return n % 2 === 0;
-    }
-
-    R.filter(isEven, [1, 2, 3, 4]); // => [2, 4]
-    R.filter(isEven, { a: 0, b: 1 }); // => { a: 0 }
-
     function isOdd(n: number) {
         return n % 2 === 1;
     }
@@ -475,11 +468,6 @@ R.times(i, 5);
     function isEven(n: number) {
         return n % 2 === 0;
     }
-
-    const filterEven = R.filter(isEven);
-    const objA: R.Dictionary<number> = filterEven({ a: 0, b: 1 }); // => { a: 0 }
-    const listA: number[] = filterEven([0, 1]); // => [0]
-
     const rejectEven = R.reject(isEven);
     const objB: R.Dictionary<number> = rejectEven({ a: 0, b: 1 }); // => { b: 1 }
     const listB: number[] = rejectEven([0, 1]); // => [1]
@@ -505,18 +493,6 @@ R.times(i, 5);
     const d: number[] = R.pipe(
         R.reject<number, 'array'>(isEven),
     )([0, 1]); // => [1]
-};
-
-() => {
-    const compact = R.filter(Boolean);
-    const objA: R.Dictionary<number> = compact({ a: 0, b: 1 }); // => { b: 1 }
-    const listA: number[] = compact([0, 1]); // => [1]
-
-    const omitEmptyString = R.filter((val: string) => val !== '');
-    const objB: R.Dictionary<string> = omitEmptyString({ a: '', b: 'foo' }); // => { b: 'foo' }
-    const listB: string[] = omitEmptyString(['', 'foo']); // => ['foo']
-
-    const objC = omitEmptyString({ some: 42 }); // $ExpectError
 };
 
 () => {
@@ -554,20 +530,6 @@ R.times(i, 5);
     R.pathEq(testPath, 2)(testObj); // => true
     R.pathEq(testPath)(2)(testObj); // => true
     R.pathEq(testPath)(2, testObj); // => true
-
-    const user1    = {address: {zipCode: 90210}};
-    const user2    = {address: {zipCode: 55555}};
-    const user3    = {name: "Bob"};
-    const users    = [user1, user2, user3];
-    const isFamous = R.pathEq(["address", "zipCode"], 90210);
-    R.filter(isFamous, users); // => [ user1 ]
-};
-
-() => {
-    const coll = [{ type: 'BUY' }, { type: 'SELL' }, { type: 'BUY' }];
-    const typeIs = R.propEq('type');
-    const isBuy = typeIs('BUY');
-    R.filter(isBuy, coll); // [{ type: 'BUY' }, { type: 'BUY' }]
 };
 
 () => {
@@ -1668,10 +1630,6 @@ class Rectangle {
     };
     R.where(spec2, {x: 2, y: 7}); // => false
     R.where(spec2, {x: 3, y: 8}); // => true
-
-    const xs = [{x: 2, y: 1}, {x: 10, y: 2}, {x: 8, y: 3}, {x: 10, y: 4}];
-    R.filter(R.where({x: 10}), xs); // ==> [{x: 10, y: 2}, {x: 10, y: 4}]
-    R.filter(R.where({x: 10}))(xs); // ==> [{x: 10, y: 2}, {x: 10, y: 4}]
 };
 
 () => {
