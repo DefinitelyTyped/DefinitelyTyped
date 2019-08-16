@@ -1121,6 +1121,8 @@ import moduleModule = require('module');
 ////////////////////////////////////////////////////
 
 {
+    const s = 'foo';
+  
     // The initial value of the trimLeft property is the same function object as the initial
     // value of the  String.prototype.trimStart property.
     assert(String.prototype.trimLeft.name === 'trimStart');
