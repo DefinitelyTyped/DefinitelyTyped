@@ -1122,7 +1122,7 @@ import moduleModule = require('module');
 
 {
     const s = 'foo';
-  
+
     // The initial value of the trimLeft property is the same function object as the initial
     // value of the  String.prototype.trimStart property.
     assert(String.prototype.trimLeft.name === 'trimStart');
@@ -1131,7 +1131,7 @@ import moduleModule = require('module');
 
     // The initial value of the trimRight property is the same function object as the initial
     // value of the  String.prototype.trimEnd property.
-    assert(String.prototype.trimRight.name === 'trimEnd'); 
+    assert(String.prototype.trimRight.name === 'trimEnd');
     const s2a: string = s.trimRight();
     const s2b: string = s.trimEnd();
 }
