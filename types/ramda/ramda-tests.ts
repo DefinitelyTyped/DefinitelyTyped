@@ -279,19 +279,6 @@ function addAll() {
 // Basic example
 R.useWith(addAll, [double, square]);
 
-(() => {
-    function printXPlusFive(x: number) {
-        console.log(x + 5);
-    }
-
-    R.forEach(printXPlusFive, [1, 2, 3]);
-})();
-
-// (() => {
-//   function printXPlusFive(x, i) { console.log(i + 5); }
-//   R.forEach.idx(printXPlusFive, [{name: 1}, {name: 2}, {name: 3}]);
-// })();
-
 function i(x: number) {
     return x;
 }
@@ -526,18 +513,6 @@ interface Obj {
     const xs: Obj = {a: 1, b: 0};
     R.propEq("a", 1, xs); // => true
     R.propEq("a", 4, xs); // => false
-};
-
-() => {
-    function printXPlusFive(x: number) {
-        console.log(x + 5);
-    }
-
-    R.forEach(printXPlusFive, [1, 2, 3]); // => [1, 2, 3]
-    R.forEach(printXPlusFive)([1, 2, 3]); // => [1, 2, 3]
-    // -> 6
-    // -> 7
-    // -> 8
 };
 
 () => {
