@@ -2543,16 +2543,6 @@ class Rectangle {
  * Logic category
  */
 
-() => {
-    function isEven(n: number) {
-        return n % 2 === 0;
-    }
-
-    const isOdd = R.complement(isEven);
-    isOdd(21); // => true
-    isOdd(42); // => false
-};
-
 (() => {
     R.eqBy(Math.abs, 5, -5); // => true
 });
