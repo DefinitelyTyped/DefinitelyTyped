@@ -104,6 +104,7 @@
         "test/insert-tests.ts",
         "test/insertAll-tests.ts",
         "test/intersection-tests.ts",
-        "test/intersperse-tests.ts"
+        "test/intersperse-tests.ts",
+        "test/into-tests.ts"
     ]
 }
