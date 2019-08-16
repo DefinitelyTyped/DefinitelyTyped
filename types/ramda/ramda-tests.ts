@@ -387,10 +387,6 @@ R.times(i, 5);
 });
 
 (() => {
-    R.length([1, 2, 3]); // => 3
-});
-
-(() => {
     function isOdd(n: number) {
         return n % 2 === 1;
     }
@@ -536,11 +532,6 @@ interface Obj {
         R.indexBy(x => x),
     )(list);
 });
-
-() => {
-    R.length([]); // => 0
-    R.length([1, 2, 3]); // => 3
-};
 
 () => {
     const headLens = R.lensIndex(0);

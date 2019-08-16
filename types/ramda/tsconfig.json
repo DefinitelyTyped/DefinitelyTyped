@@ -118,6 +118,7 @@
         "test/keys-tests.ts",
         "test/keysIn-tests.ts",
         "test/last-tests.ts",
-        "test/lastIndexOf-tests.ts"
+        "test/lastIndexOf-tests.ts",
+        "test/length-tests.ts"
     ]
 }
