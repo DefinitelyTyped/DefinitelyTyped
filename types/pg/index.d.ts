@@ -157,9 +157,9 @@ export class Pool extends events.EventEmitter {
     query(queryConfig: QueryArrayConfig, values?: any[]): Promise<QueryArrayResult>;
     query(queryConfig: QueryConfig): Promise<QueryResult>;
     query(queryTextOrConfig: string | QueryConfig, values?: any[]): Promise<QueryResult>;
-    query(queryConfig: QueryArrayConfig, callback: (err: Error, result: QueryArrayResult) => void): Query;
-    query(queryTextOrConfig: string | QueryConfig, callback: (err: Error, result: QueryResult) => void): Query;
-    query(queryText: string, values: any[], callback: (err: Error, result: QueryResult) => void): Query;
+    query(queryConfig: QueryArrayConfig, callback: (err: Error, result: QueryArrayResult) => void): void;
+    query(queryTextOrConfig: string | QueryConfig, callback: (err: Error, result: QueryResult) => void): void;
+    query(queryText: string, values: any[], callback: (err: Error, result: QueryResult) => void): void;
 
     on(event: "error", listener: (err: Error, client: PoolClient) => void): this;
     on(event: "connect" | "acquire" | "remove", listener: (client: PoolClient) => void): this;
@@ -175,9 +175,9 @@ export class ClientBase extends events.EventEmitter {
     query(queryConfig: QueryArrayConfig, values?: any[]): Promise<QueryArrayResult>;
     query(queryConfig: QueryConfig): Promise<QueryResult>;
     query(queryTextOrConfig: string | QueryConfig, values?: any[]): Promise<QueryResult>;
-    query(queryConfig: QueryArrayConfig, callback: (err: Error, result: QueryArrayResult) => void): Query;
-    query(queryTextOrConfig: string | QueryConfig, callback: (err: Error, result: QueryResult) => void): Query;
-    query(queryText: string, values: any[], callback: (err: Error, result: QueryResult) => void): Query;
+    query(queryConfig: QueryArrayConfig, callback: (err: Error, result: QueryArrayResult) => void): void;
+    query(queryTextOrConfig: string | QueryConfig, callback: (err: Error, result: QueryResult) => void): void;
+    query(queryText: string, values: any[], callback: (err: Error, result: QueryResult) => void): void;
 
     copyFrom(queryText: string): stream.Writable;
     copyTo(queryText: string): stream.Readable;
