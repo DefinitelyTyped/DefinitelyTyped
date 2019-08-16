@@ -1038,16 +1038,6 @@ type Pair = KeyValuePair<string, number>;
  */
 
 () => {
-    const raceResultsByFirstName = {
-        first : "alice",
-        second: "jake",
-        third : "alice",
-    };
-    R.invert(raceResultsByFirstName);
-    // => { 'alice': ['first', 'third'], 'jake':['second'] }
-};
-
-() => {
     const raceResults0 = {
         first : "alice",
         second: "jake"
