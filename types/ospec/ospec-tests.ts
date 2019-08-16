@@ -16,12 +16,12 @@ o.spec('ospec typings', () => {
 
     // $ExpectType void
     o('o(actual) returns assertion interface based on input type', () => {
-        o(bool); // $ExpectType BasicAssertions<boolean>
-        o(numOrStr); // $ExpectType BasicAssertions<string | number>
-        o(arr); // $ExpectType ObjectAssertions<number[]>
-        o(obj); // $ExpectType ObjectAssertions<{ a: number; }>
-        o(new Date()); // $ExpectType ObjectAssertions<Date>
-        o(fn); // $ExpectType FunctionAssertions<() => void>
+        o(bool); // $ExpectType Assertion<boolean>
+        o(numOrStr); // $ExpectType Assertion<string | number>
+        o(arr); // $ExpectType Assertion<number[]>
+        o(obj); // $ExpectType Assertion<{ a: number; }>
+        o(new Date()); // $ExpectType Assertion<Date>
+        o(fn); // $ExpectType Assertion<() => void>
     });
 
     o('.equals() is type safe', () => {

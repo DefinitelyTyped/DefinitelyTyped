@@ -21,26 +21,21 @@ declare namespace o {
         readonly calls: Args[];
     }
 
-    interface BasicAssertions<T = any> {
+    interface Assertion<T> {
         /** Asserts that two values are strictly equal */
         equals(expected: T): AssertionDescriber;
         /** Asserts that two values are **not** strictly equal */
         notEquals(value: any): AssertionDescriber;
-    }
 
-    interface ObjectAssertions<T = any> extends BasicAssertions<T> {
         /** Asserts that two objects are recursively equal */
-        deepEquals(expected: T): AssertionDescriber;
+        deepEquals(this: Assertion<object>, expected: T): AssertionDescriber;
         /** Asserts that two objects are **not** recursively equal */
-        notDeepEquals(value: object): AssertionDescriber;
-    }
+        notDeepEquals(this: Assertion<object>, value: object): AssertionDescriber;
 
-    interface FunctionAssertions<T = any> extends ObjectAssertions<T> {
         /** Asserts that the function throws an error of a given type */
-        throws(error: string | ObjectConstructor): AssertionDescriber;
-
+        throws(this: Assertion<() => any>, error: string | ObjectConstructor): AssertionDescriber;
         /** Asserts that the function does **not** throw an error of given type */
-        notThrows(error: string | ObjectConstructor): AssertionDescriber; // See above
+        notThrows(this: Assertion<() => any>, error: string | ObjectConstructor): AssertionDescriber; // See above
     }
 
     type Definer = (
@@ -59,12 +54,8 @@ declare namespace o {
     type Reporter = (results: Result[]) => number;
 
     interface Ospec {
-        /** Starts a function assertion */
-        <T extends () => void>(actual: T): FunctionAssertions<T>;
-        /** Starts an object assertion */
-        <T extends object>(actual: T): ObjectAssertions<T>;
         /** Starts an assertion */
-        <T>(actual: T): BasicAssertions<T>;
+        <T>(actual: T): Assertion<T>;
 
         /** Defines a test */
         (name: string, assertions: Definer): void;
