@@ -1960,10 +1960,6 @@ class Rectangle {
 };
 
 () => {
-    R.dec(42); // => 41
-};
-
-() => {
     R.divide(71, 100); // => 0.71
 
     const half = R.flip(R.divide)(2);
