@@ -1062,20 +1062,6 @@ class Rectangle {
 };
 
 () => {
-    const raceResults0 = {
-        first : "alice",
-        second: "jake"
-    };
-    R.invertObj(raceResults0);
-    // => { 'alice': 'first', 'jake':'second' }
-
-    // Alternatively:
-    const raceResults1 = ["alice", "jake"];
-    R.invertObj(raceResults1);
-    // => { 'alice': '0', 'jake':'1' }
-};
-
-() => {
     const objKeys = R.keys({a: 1, b: 2, c: 3}); // => ['a', 'b', 'c']
     const numberKeys = R.keys(1);
     const arrayKeys = R.keys([]);
