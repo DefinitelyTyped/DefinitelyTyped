@@ -5427,10 +5427,7 @@ export namespace StyleSheet {
      * their respective objects, merged as one and then returned. This also explains
      * the alternative use.
      */
-    export function flatten<T>(style?: RegisteredStyle<T>): T;
-    export function flatten(style?: StyleProp<TextStyle>): TextStyle;
-    export function flatten(style?: StyleProp<ImageStyle>): ImageStyle;
-    export function flatten(style?: StyleProp<ViewStyle>): ViewStyle;
+    export function flatten<T>(style?: StyleProp<T>): T;
 
     /**
      * WARNING: EXPERIMENTAL. Breaking changes will probably happen a lot and will
