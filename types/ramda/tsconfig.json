@@ -71,6 +71,7 @@
         "test/dropWhile-tests.ts",
         "test/either-tests.ts",
         "test/empty-tests.ts",
-        "test/endsWith-tests.ts"
+        "test/endsWith-tests.ts",
+        "test/eqBy-tests.ts"
     ]
 }

@@ -2128,10 +2128,6 @@ class Rectangle {
  * Logic category
  */
 
-(() => {
-    R.eqBy(Math.abs, 5, -5); // => true
-});
-
 () => {
     // Flatten all arrays in the list but leave other values alone.
     const flattenArrays = R.map(R.ifElse(Array.isArray, R.flatten, R.identity));
