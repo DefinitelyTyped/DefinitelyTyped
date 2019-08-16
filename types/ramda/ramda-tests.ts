@@ -1888,13 +1888,6 @@ class Rectangle {
  * Relation category
  */
 () => {
-    const numbers = [1.0, 1.1, 1.2, 2.0, 3.0, 2.2];
-    const letters = R.split("", "abcABCaaaBBc");
-    R.countBy(Math.floor)(numbers);    // => {'1': 3, '2': 2, '3': 1}
-    R.countBy(R.toLower)(letters);   // => {'a': 5, 'b': 4, 'c': 3}
-};
-
-() => {
     R.difference([1, 2, 3, 4], [7, 6, 5, 4, 3]); // => [1,2]
     R.difference([7, 6, 5, 4, 3], [1, 2, 3, 4]); // => [7,6,5]
 };
