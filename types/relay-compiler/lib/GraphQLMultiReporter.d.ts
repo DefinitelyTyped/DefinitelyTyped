@@ -6,4 +6,4 @@ declare class GraphQLMultiReporter implements GraphQLReporter {
     reportError(caughtLocation: string, error: Error): void;
 }
 
-export = GraphQLMultiReporter;
+export default GraphQLMultiReporter;

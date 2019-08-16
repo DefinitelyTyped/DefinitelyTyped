@@ -10,7 +10,7 @@ import { transformASTSchema } from './lib/ASTConvert';
 
 import * as Parser from './lib/RelayParser';
 import * as Printer from './lib/GraphQLIRPrinter';
-import ConsoleReporter = require('./lib/GraphQLConsoleReporter');
-import MultiReporter = require('./lib/GraphQLMultiReporter');
+import ConsoleReporter from './lib/GraphQLConsoleReporter';
+import MultiReporter from './lib/GraphQLMultiReporter';
 
 export { GraphQLCompilerContext, ASTConvert, transformASTSchema, Parser, Printer, ConsoleReporter, MultiReporter };
