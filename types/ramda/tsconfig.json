@@ -98,6 +98,7 @@
         "test/ifElse-tests.ts",
         "test/includes-tests.ts",
         "test/indexBy-tests.ts",
-        "test/indexOf-tests.ts"
+        "test/indexOf-tests.ts",
+        "test/init-tests.ts"
     ]
 }
