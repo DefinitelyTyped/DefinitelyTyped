@@ -49,6 +49,7 @@
         "test/composeP-tests.ts",
         "test/composeWith-tests.ts",
         "test/concat-tests.ts",
-        "test/cond-tests.ts"
+        "test/cond-tests.ts",
+        "test/construct-tests.ts"
     ]
 }

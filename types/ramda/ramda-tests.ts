@@ -1943,8 +1943,6 @@ class Rectangle {
     const circleN = R.constructN(1, Circle);
     circleN(10, "red");
     circleN(10);
-    const circle  = R.construct(Circle);
-    circle(10, "red");
 })();
 
 /*****************************************************************
