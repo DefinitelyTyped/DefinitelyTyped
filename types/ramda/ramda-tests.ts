@@ -1401,13 +1401,6 @@ type Pair = KeyValuePair<string, number>;
 };
 
 () => {
-    R.lte(2, 6); // => true
-    R.lte(2, 0); // => false
-    R.lte(2, 2); // => true
-    R.lte(2)(10); // => true
-};
-
-() => {
     R.mathMod(-17, 5);  // => 3
     R.mathMod(17, 5);   // => 2
     R.mathMod(17, -5);  // => NaN
