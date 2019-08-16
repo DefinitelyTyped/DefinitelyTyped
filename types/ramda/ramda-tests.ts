@@ -1531,12 +1531,6 @@ class Rectangle {
 };
 
 () => {
-    R.isNaN(NaN);        // => true
-    R.isNaN(undefined);  // => false
-    R.isNaN({});         // => false
-};
-
-() => {
     R.lt(2, 6); // => true
     R.lt(2, 0); // => false
     R.lt(2, 2); // => false
