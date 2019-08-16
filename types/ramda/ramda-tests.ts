@@ -535,8 +535,6 @@ interface Obj {
 
 () => {
     const headLens = R.lensIndex(0);
-    headLens([10, 20, 30, 40]); // => 10
-    headLens.set("mu", [10, 20, 30, 40]); // => ['mu', 20, 30, 40]
     R.view(headLens, ["a", "b", "c"]);            // => 'a'
     R.set(headLens, "x", ["a", "b", "c"]);        // => ['x', 'b', 'c']
     R.over(headLens, R.toUpper, ["a", "b", "c"]); // => ['A', 'b', 'c']
