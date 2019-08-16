@@ -1,6 +1,6 @@
 export interface Base<TType extends string> {
     type: TType;
-    loc: {
+    loc?: {
         start: {
             line: number;
             column: number;
@@ -9,7 +9,7 @@ export interface Base<TType extends string> {
             line: number;
             column: number;
         };
-    } | undefined,
+    },
 }
 
 export interface LabelStatement extends Base<"LabelStatement"> {
@@ -95,7 +95,7 @@ export interface ForGenericStatement extends Base<"ForGenericStatement"> {
 
 export interface Chunk extends Base<"Chunk"> {
     body: Statement[];
-    comments: string[] | undefined;
+    comments?: string[];
 }
 
 export interface Identifier extends Base<"Identifier"> {
