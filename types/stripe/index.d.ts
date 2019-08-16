@@ -3057,6 +3057,13 @@ declare namespace Stripe {
             closed: boolean;
 
             /**
+             * Either charge_automatically, or send_invoice. When charging automatically, Stripe will attempt to pay
+             * this invoice using the default source attached to the customer. When sending an invoice, Stripe will
+             * email this invoice to the customer with payment instructions.
+             */
+            collection_method?: "charge_automatically" | "send_invoice";
+
+            /**
              * Time at which the object was created. Measured in seconds since the Unix epoch.
              */
             created: number;
@@ -7279,7 +7286,7 @@ declare namespace Stripe {
             /**
              * The most recent invoice this subscription has generated. [Expandable]
              */
-            latest_invoice: null | invoices.IInvoice;
+            latest_invoice: invoices.IInvoice | string | null;
 
             /**
              * Has the value true if the object exists in live mode or the value false if the object exists in test mode.
