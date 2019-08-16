@@ -497,12 +497,6 @@ R.times(i, 5);
 
 () => {
     const xs = [{a: 1, b: 0}, {a: 1, b: 1}];
-    R.findLast(R.propEq("a", 1))(xs); // => {a: 1, b: 1}
-    R.findLast(R.propEq("a", 4))(xs); // => undefined
-};
-
-() => {
-    const xs = [{a: 1, b: 0}, {a: 1, b: 1}];
     R.findLastIndex(R.propEq("a", 1))(xs); // => 1
     R.findLastIndex(R.propEq("a", 4))(xs); // => -1
     R.findLastIndex((x: number) => x === 1, [1, 2, 3]);
