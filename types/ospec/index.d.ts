@@ -4,7 +4,9 @@
 //                 Mike Linkovich <https://github.com/spacejack>
 //                 Isiah Meadows <https://github.com/isiahmeadows>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
+// TypeScript Version: 3.1
+
+type ObjectConstructor = new (...args: any[]) => any;
 
 declare namespace o {
     type AssertionDescriber = (description: string) => void;
@@ -34,16 +36,11 @@ declare namespace o {
     }
 
     interface FunctionAssertions<T = any> extends ObjectAssertions<T> {
-        // FIXME: Find a more appropriate type annotation for the `error` parameter
-        // NOTE: We're using `NewableFunction` because the API docs say "Object constructor"
-        // Still TypeScript seems to accept something like `nonNewableFunction = () => {}`
-        // which errors at runtime.
-
         /** Asserts that the function throws an error of a given type */
-        throws(error: string | NewableFunction): AssertionDescriber;
+        throws(error: string | ObjectConstructor): AssertionDescriber;
 
         /** Asserts that the function does **not** throw an error of given type */
-        notThrows(error: string | NewableFunction): AssertionDescriber; // See above
+        notThrows(error: string | ObjectConstructor): AssertionDescriber; // See above
     }
 
     type Definer = (

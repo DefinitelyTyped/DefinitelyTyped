@@ -90,14 +90,11 @@ o.spec('ospec typings', () => {
         // $ExpectError
         o(fn).throws(1);
 
-        /*
-      // FIXME: find a way to make these lines error (See note in index.d.ts)
-      const nonNewableFn = () => {}
-      // $_ExpectError
-      a(fn).throws(nonNewableFn)
-      // $_ExpectError
-      a(fn).notThrows(nonNewableFn)
-    */
+        const nonNewableFn = () => {};
+        // $ExpectError
+        o(fn).throws(nonNewableFn);
+        // $ExpectError
+        o(fn).notThrows(nonNewableFn);
     });
 
     // ======================================================================
