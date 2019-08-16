@@ -1932,19 +1932,6 @@ class Rectangle {
     const y: number = R.converge(add3, [multiply, add, subtract])(1, 2); // => 4
 };
 
-(() => {
-    function Circle(r: number, colors: string) {
-        this.r      = r;
-        this.colors = colors;
-    }
-
-    Circle.prototype.area = function() { return Math.PI * Math.pow(this.r, 2); };
-
-    const circleN = R.constructN(1, Circle);
-    circleN(10, "red");
-    circleN(10);
-})();
-
 /*****************************************************************
  * Relation category
  */
