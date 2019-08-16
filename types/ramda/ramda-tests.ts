@@ -478,13 +478,6 @@ R.times(i, 5);
 /*********************
  * List category
  */
-() => {
-    R.drop(3, [1, 2, 3, 4, 5, 6, 7]); // => [4,5,6,7]
-    R.drop(3)([1, 2, 3, 4, 5, 6, 7]); // => [4,5,6,7]
-    R.drop(3, "ramda"); // => 'ram'
-    R.drop(3)("ramda"); // => 'ram'
-};
-
 (() => {
     R.dropLast(1, ["foo", "bar", "baz"]); // => ['foo', 'bar']
     R.dropLast(2)(["foo", "bar", "baz"]); // => ['foo']
