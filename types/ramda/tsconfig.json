@@ -69,6 +69,7 @@
         "test/dropRepeats-tests.ts",
         "test/dropRepeatsWith-tests.ts",
         "test/dropWhile-tests.ts",
-        "test/either-tests.ts"
+        "test/either-tests.ts",
+        "test/empty-tests.ts"
     ]
 }
