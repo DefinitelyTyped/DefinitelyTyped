@@ -6,7 +6,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.2
 
-declare namespace Ospec {
+declare namespace o {
     type AssertionDescriber = (description: string) => void;
 
     interface Spy<Args extends any[], Returns> {
@@ -102,6 +102,6 @@ declare namespace Ospec {
     }
 }
 
-declare const Ospec: Ospec.Ospec;
-export = Ospec;
-export as namespace Ospec;
+declare const o: o.Ospec;
+export = o;
+export as namespace o;
