@@ -122,6 +122,7 @@
         "test/length-tests.ts",
         "test/lens-tests.ts",
         "test/lensIndex-tests.ts",
-        "test/lensProp-tests.ts"
+        "test/lensProp-tests.ts",
+        "test/lt-tests.ts"
     ]
 }
