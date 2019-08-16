@@ -1916,16 +1916,6 @@ class Rectangle {
 };
 
 () => {
-    R.divide(71, 100); // => 0.71
-
-    const half = R.flip(R.divide)(2);
-    half(42); // => 21
-
-    const reciprocal = R.divide(1);
-    reciprocal(4);   // => 0.25
-};
-
-() => {
     R.gt(2, 6); // => false
     R.gt(2, 0); // => true
     R.gt(2, 2); // => false
