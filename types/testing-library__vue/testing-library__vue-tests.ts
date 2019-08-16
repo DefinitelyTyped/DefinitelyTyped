@@ -104,15 +104,14 @@ lib.findByText(elem, /some text/, {exact: true, trim: false, collapseWhitespace:
 lib.findAllByText(elem, "foo"); // $ExpectType Promise<HTMLElement[]>
 lib.findAllByText(elem, /some text/, {exact: true, trim: false, collapseWhitespace: true, normalizer: x => x, selector: '*'}); // $ExpectType Promise<HTMLElement[]>
 
-// Reexports event functions from dom-testing-library
-// Note that it does NOT make the core fireEvent() function asynchronous
-lib.fireEvent(elem, new Event('change')); // $ExpectType boolean
+// Reexports createEvent from dom-testing-library
 lib.createEvent.click(elem); // $ExpectType Event
 lib.createEvent.click(elem, {foo: "bar"}); // $ExpectType Event
 lib.createEvent.keyDown(elem); // $ExpectType Event
 lib.createEvent.mouseEnter(elem); // $ExpectType Event
 
-// Changes fireEvent[event]() to be asynchronous
+// Changes fireEvent to be asynchronous
+lib.fireEvent(elem, new Event('change')); // $ExpectType Promise<void>
 lib.fireEvent.click(elem); // $ExpectType Promise<void>
 lib.fireEvent.click(elem, {foo: "bar"}); // $ExpectType Promise<void>
 lib.fireEvent.keyDown(elem); // $ExpectType Promise<void>
@@ -141,6 +140,6 @@ lib.buildQueries((el: HTMLElement) => [el], (_: HTMLElement) => "something", (_:
 lib.within(elem);
 lib.getQueriesForElement(elem);
 lib.getNodeText(elem); // $ExpectType string
-// lib.getRoles(elem); // $ExpectType { [name: string]: string[]; }
+lib.getRoles(elem); // $ExpectType { [index: string]: HTMLElement[]; }
 lib.prettyDOM(elem); // $ExpectType string | false
-// lib.logRoles(elem); // $ExpectType string | false
+lib.logRoles(elem); // $ExpectType string
