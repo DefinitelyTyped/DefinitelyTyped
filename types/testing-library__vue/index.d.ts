@@ -1,4 +1,4 @@
-// Type definitions for @testing-library/vue 1.2
+// Type definitions for @testing-library/vue 2.0
 // Project: https://github.com/testing-library/vue-testing-library
 // Definitions by: Tim Yates <https://github.com/cimbul>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -48,10 +48,11 @@ export type AsyncFireObject = {
 };
 
 export interface VueFireObject extends AsyncFireObject {
+  (element: Document | Element | Window, event: Event): Promise<void>;
   touch(element: Document | Element | Window): Promise<void>;
   update(element: HTMLOptionElement): Promise<void>;
   update(element: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement, value: string): Promise<void>;
   update(element: HTMLElement, value?: string): Promise<void>;
 }
 
-export const fireEvent: FireFunction & VueFireObject;
+export const fireEvent: VueFireObject;
