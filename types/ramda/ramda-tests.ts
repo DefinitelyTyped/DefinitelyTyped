@@ -419,13 +419,6 @@ R.times(i, 5);
     const c: number[]   = R.of(1);
 });
 
-() => {
-    const a1 = R.empty([1, 2, 3, 4, 5]); // => []
-    const a2 = R.empty([1, 2, 3]);     // => []
-    const a3 = R.empty("unicorns");    // => ''
-    const a4 = R.empty({x: 1, y: 2});  // => {}
-};
-
 (() => {
     R.length([1, 2, 3]); // => 3
 });
