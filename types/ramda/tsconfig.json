@@ -90,6 +90,7 @@
         "test/gt-tests.ts",
         "test/gte-tests.ts",
         "test/has-tests.ts",
-        "test/hasIn-tests.ts"
+        "test/hasIn-tests.ts",
+        "test/hasPath-tests.ts"
     ]
 }
