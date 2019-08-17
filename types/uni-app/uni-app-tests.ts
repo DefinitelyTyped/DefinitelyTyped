@@ -62,3 +62,40 @@ uni.checkSession({
         console.log('success');
     }
 });
+
+const mapContext = uni.createMapContext('map');
+mapContext.getCenterLocation({
+    success(res) {
+        console.log(res.longitude);
+    }
+});
+mapContext.moveToLocation();
+mapContext.translateMarker({
+    markerId: 1,
+    destination: {
+        latitude: 100,
+        longitude: 100
+    },
+    autoRotate: false,
+    rotate: 0,
+    animationEnd() {
+        console.log('animationEnd');
+    }
+});
+mapContext.includePoints({
+    points: [{
+        latitude: 100,
+        longitude: 100
+    }],
+    padding: [0]
+});
+mapContext.getRegion({
+    success(res) {
+        console.log(res.northeast);
+    }
+});
+mapContext.getScale({
+    success(res) {
+        console.log(res.scale);
+    }
+});

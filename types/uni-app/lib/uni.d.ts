@@ -307,7 +307,7 @@ declare class Uni {
      *
      * 参考: [http://uniapp.dcloud.io/api/location/map?id=createmapcontext](http://uniapp.dcloud.io/api/location/map?id=createmapcontext)
      */
-    createMapContext(): MapContext;
+    createMapContext(mapId?: string, currentComponent?: any): MapContext;
     /**
      * 异步获取系统信息
      *
@@ -2680,7 +2680,7 @@ interface MapContextGetCenterLocationOptions {
     /**
      * 接口调用成功的回调函数 ，res = { longitude: "经度", latitude: "纬度"}
      */
-    success?: (result: MapContextGetLocationSuccess) => void;
+    success?: (result: LocationObject) => void;
     /**
      * 接口调用失败的回调函数
      */
@@ -2691,7 +2691,7 @@ interface MapContextGetCenterLocationOptions {
     complete?: () => void;
 }
 
-interface MapContextGetLocationSuccess {
+interface LocationObject {
     /**
      * 纬度，浮点数，范围为-90~90，负数表示南纬
      */
@@ -2710,7 +2710,7 @@ interface MapContextTranslateMarkerOptions {
     /**
      * 指定marker移动到的目标点
      */
-    destination?: any;
+    destination?: LocationObject;
     /**
      * 移动过程中是否自动旋转marker
      */
@@ -2737,18 +2737,18 @@ interface MapContextIncludePointsOptions {
     /**
      * 要显示在可视区域内的坐标点列表，[{latitude, longitude}]
      */
-    points?: any [];
+    points?: LocationObject [];
     /**
      * 坐标点形成的矩形边缘到地图边缘的距离，单位像素。格式为[上,右,下,左]，安卓上只能识别数组第一项，上下左右的padding一致。开发者工具暂不支持padding参数。
      */
-    padding?: any [];
+    padding?: number [];
 }
 
 interface MapContextGetRegionOptions {
     /**
      * 接口调用成功的回调函数，res = {southwest, northeast}，西南角与东北角的经纬度
      */
-    success?: () => void;
+    success?: (result: MapContextGetRegionResult) => void;
     /**
      * 接口调用失败的回调函数
      */
@@ -2759,11 +2759,22 @@ interface MapContextGetRegionOptions {
     complete?: () => void;
 }
 
+interface MapContextGetRegionResult {
+    /**
+     * 西南角的经纬度
+     */
+    southwest?: LocationObject;
+    /**
+     * 东北角的经纬度
+     */
+    northeast?: LocationObject;
+}
+
 interface MapContextGetScaleOptions {
     /**
      * 接口调用成功的回调函数，res = {scale}
      */
-    success?: () => void;
+    success?: (result: MapContextGetScaleResult) => void;
     /**
      * 接口调用失败的回调函数
      */
@@ -2772,6 +2783,13 @@ interface MapContextGetScaleOptions {
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
     complete?: () => void;
+}
+
+interface MapContextGetScaleResult {
+    /**
+     * 地图缩放级别
+     */
+    scale?: number;
 }
 
 interface GetSystemInfoOptions {
