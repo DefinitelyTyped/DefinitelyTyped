@@ -517,13 +517,13 @@ test = (
 );
 
 // VictoryGroup test
-test(
+test = (
   <VictoryClipContainer clipId="goose" />
-)
+);
 
-test(
+test = (
   <VictoryClipContainer clipId={123} />
-)
+);
 
 // VictoryLine test
 test = (
