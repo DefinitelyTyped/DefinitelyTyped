@@ -931,14 +931,6 @@ type Pair = KeyValuePair<string, number>;
 };
 
 () => {
-    const a = R.mergeDeepWithKey(
-        (k: string, a: number[], b: number[]) => k === 'bar' ? a.concat(b) : a,
-        {foo: {bar: [1, 2], userIds: [42]}},
-        {foo: {bar: [3, 4], userIds: [34]}}
-    ); // => { foo: { bar: [ 1, 2, 3, 4 ], userIds: [42] } }
-};
-
-() => {
     R.mergeLeft({foo: {bar: 1}}, {foo: {bar: 2}}); // => {foo: {bar: 1}}
     const curry1 = R.mergeLeft({foo: {bar: 1}});
     curry1({foo: {bar: 2}}); // => {foo: {bar: 1}}
