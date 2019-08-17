@@ -427,14 +427,6 @@ R.times(i, 5);
  * Relation category
  */
 () => {
-    R.subtract(10, 8); // => 2
-
-    const complementaryAngle = R.subtract(90);
-    complementaryAngle(30); // => 60
-    complementaryAngle(72); // => 18
-};
-
-() => {
     R.sum([2, 4, 6, 8, 100, 1]); // => 121
 };
 
