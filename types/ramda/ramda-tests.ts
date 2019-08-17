@@ -929,13 +929,6 @@ type Pair = KeyValuePair<string, number>;
     R.set(xyLens, 4, testObj);          // => {x: [{y: 4, z: 3}, {y: 4, z: 5}]}
     R.over(xyLens, R.negate, testObj);  // => {x: [{y: -2, z: 3}, {y: 4, z: 5}]}
 };
-
-() => {
-    R.mergeLeft({foo: {bar: 1}}, {foo: {bar: 2}}); // => {foo: {bar: 1}}
-    const curry1 = R.mergeLeft({foo: {bar: 1}});
-    curry1({foo: {bar: 2}}); // => {foo: {bar: 1}}
-};
-
 () => {
     R.mergeRight({ name: 'fred', age: 10 }, { age: 40 });
     // => { 'name': 'fred', 'age': 40 }
