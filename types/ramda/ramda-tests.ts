@@ -89,11 +89,6 @@ class F2 {
 };
 
 () => {
-    const fn: (...args: string[]) => string = R.unapply(JSON.stringify);
-    const res: string                       = R.unapply(JSON.stringify)(1, 2, 3); // => '[1,2,3]'
-};
-
-() => {
     const a: number = R.until(R.flip(R.gt)(100), R.multiply(2))(1); // => 128
 };
 
