@@ -1,16 +1,5 @@
 import * as R from "ramda";
 
-class F2 {
-    a = 100;
-    y = 1;
-
-    x() {
-    }
-
-    z() {
-    }
-}
-
 /** R.__ */
 () => {
 };
