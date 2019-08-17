@@ -130,6 +130,7 @@
         "test/mapObjIndexed-tests.ts",
         "test/mathMod-tests.ts",
         "test/max-tests.ts",
-        "test/maxBy-tests.ts"
+        "test/maxBy-tests.ts",
+        "test/mean-tests.ts"
     ]
 }
