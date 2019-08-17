@@ -242,6 +242,7 @@
         "test/when-tests.ts",
         "test/where-tests.ts",
         "test/whereEq-tests.ts",
+        "test/why-tests.ts",
         "test/without-tests.ts",
         "test/wrap-tests.ts",
         "test/xprod-tests.ts",
