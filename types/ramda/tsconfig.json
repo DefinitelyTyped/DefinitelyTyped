@@ -213,6 +213,7 @@
         "test/takeLastWhile-tests.ts",
         "test/takeWhile-tests.ts",
         "test/tap-tests.ts",
-        "test/test-tests.ts"
+        "test/test-tests.ts",
+        "test/thunkify-tests.ts"
     ]
 }

@@ -166,12 +166,6 @@ R.times(i, 5);
 };
 
 () => {
-    const x: number = R.thunkify(R.identity)(42)();
-    const y: number = R.thunkify((a: number, b: number) => a + b)(25, 17)();
-    const z: number = R.thunkify((a: number, b: number) => a + b)(25)(17)();
-};
-
-() => {
     const a1 = R.times(R.identity, 5); // => [0, 1, 2, 3, 4]
     const a2 = R.times(R.identity)(5); // => [0, 1, 2, 3, 4]
 };
