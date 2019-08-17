@@ -969,14 +969,6 @@ class Rectangle {
 };
 
 () => {
-    const a = R.mergeDeepWith(
-        (a: number[], b: number[]) => a.concat(b),
-        {foo: {bar: [1, 2]}},
-        {foo: {bar: [3, 4]}},
-    ); // => {foo: {bar: [1,2,3,4]}}
-};
-
-() => {
     const a = R.mergeDeepWithKey(
         (k: string, a: number[], b: number[]) => k === 'bar' ? a.concat(b) : a,
         {foo: {bar: [1, 2], userIds: [42]}},
