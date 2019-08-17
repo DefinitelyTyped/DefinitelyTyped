@@ -191,6 +191,7 @@
         "test/reduceBy-tests.ts",
         "test/reduceRight-tests.ts",
         "test/reduceWhile-tests.ts",
-        "test/reject-tests.ts"
+        "test/reject-tests.ts",
+        "test/remove-tests.ts"
     ]
 }
