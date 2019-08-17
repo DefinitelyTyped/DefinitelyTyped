@@ -478,12 +478,6 @@ interface Obj {
 };
 
 () => {
-    R.none(R.isNaN, [1, 2, 3]); // => true
-    R.none(R.isNaN, [1, 2, 3, NaN]); // => false
-    R.none(R.isNaN)([1, 2, 3, NaN]); // => false
-};
-
-() => {
     const list = ["foo", "bar", "baz", "quux"];
     R.nth(1, list); // => 'bar'
     R.nth(-1, list); // => 'quux'
