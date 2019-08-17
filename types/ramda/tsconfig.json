@@ -123,6 +123,7 @@
         "test/lens-tests.ts",
         "test/lensIndex-tests.ts",
         "test/lt-tests.ts",
-        "test/lte-tests.ts"
+        "test/lte-tests.ts",
+        "test/map-tests.ts"
     ]
 }
