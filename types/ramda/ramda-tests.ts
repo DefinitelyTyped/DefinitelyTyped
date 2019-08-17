@@ -20,16 +20,6 @@ class F2 {
     }
 }
 
-(() => {
-    R.type({}); // => "Object"
-    R.type(1); // => "Number"
-    R.type(false); // => "Boolean"
-    R.type("s"); // => "String"
-    R.type(null); // => "Null"
-    R.type([]); // => "Array"
-    R.type(/[A-z]/); // => "RegExp"
-});
-
 () => {
     function takesOneArg(a: number) {
         return [a];
