@@ -120,9 +120,6 @@ class F2 {
 function square(x: number) {
     return x * x;
 }
-function add(a: number, b: number) {
-    return a + b;
-}
 // Adds any number of arguments together
 function addAll() {
     return 0;
@@ -135,11 +132,6 @@ function i(x: number) {
     return x;
 }
 R.times(i, 5);
-
-(() => {
-    const numbers = [1, 2, 3];
-    R.reduce((a, b) => a + b, 10, numbers); // => 16;
-})();
 
 (() => {
     const pairs = [["a", 1], ["b", 2], ["c", 3]];
@@ -193,14 +185,6 @@ R.times(i, 5);
     const headLens = R.lensIndex(0);
     R.view(headLens, ["a", "b", "c"]);            // => 'a'
     R.set(headLens, "x", ["a", "b", "c"]);        // => ['x', 'b', 'c']
-};
-
-() => {
-    const numbers = [1, 2, 3];
-
-    R.reduce((a, b) => a + b, 10, numbers); // => 16
-    R.reduce(add)(10, numbers); // => 16
-    R.reduce<number, number>((a, b) => a + b, 10)(numbers); // => 16
 };
 
 interface Student {
