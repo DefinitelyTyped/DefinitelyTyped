@@ -35,10 +35,9 @@ declare module 'leaflet' {
             glyphSize?: string;
             glyphAnchor?: PointExpression;
         }
+    }
 
-        /**
-         * Creates a glyph icon.
-         */
-        function glyph(options?: GlyphOptions | GlyphIconOptions): Glyph;
+    namespace icon {
+        function glyph(options?: Icon.GlyphOptions | Icon.GlyphIconOptions): Icon.Glyph;
     }
 }
