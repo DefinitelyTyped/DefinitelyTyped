@@ -10,3 +10,8 @@ import * as R from 'ramda';
   complementaryAngle(30); // => 60
   complementaryAngle(72); // => 18
 };
+
+() => {
+  R.subtract(R.__, 5)(17); // 12
+  R.subtract(R.__)(5, 17); // 12
+};
