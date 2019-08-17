@@ -243,6 +243,7 @@
         "test/wrap-tests.ts",
         "test/xprod-tests.ts",
         "test/zip-tests.ts",
-        "test/zipObj-tests.ts"
+        "test/zipObj-tests.ts",
+        "test/zipWith-tests.ts"
     ]
 }
