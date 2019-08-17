@@ -1,10 +1,5 @@
 import * as R from "ramda";
 
-class F {
-    [k: string]: string;
-    x = "X";
-    y = "Y";
-}
 class F2 {
     a = 100;
     y = 1;
@@ -132,11 +127,6 @@ class F2 {
     const testObj = {x: [{y: 2, z: 3}, {y: 4, z: 5}]};
 
     R.view(xyLens, testObj);            // => 2
-};
-
-() => {
-    const f   = new F();
-    const a = R.valuesIn(f); // => ['X', 'Y']
 };
 
 () => {
