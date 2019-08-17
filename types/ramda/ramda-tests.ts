@@ -471,14 +471,6 @@ interface Obj {
 };
 
 () => {
-    const list = ["foo", "bar", "baz", "quux"];
-    R.nth(1, list); // => 'bar'
-    R.nth(-1, list); // => 'quux'
-    R.nth(-99, list); // => undefined
-    R.nth(-99)(list); // => undefined
-};
-
-() => {
     R.partition(R.contains("s"), ["sss", "ttt", "foo", "bars"]);
     R.partition(R.contains("s"))(["sss", "ttt", "foo", "bars"]);
     R.partition((x: number) => x > 2, [1, 2, 3, 4]);
