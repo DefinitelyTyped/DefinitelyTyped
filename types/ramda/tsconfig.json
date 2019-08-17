@@ -146,6 +146,7 @@
         "test/mergeWith-tests.ts",
         "test/mergeWithKey-tests.ts",
         "test/min-tests.ts",
-        "test/minBy-tests.ts"
+        "test/minBy-tests.ts",
+        "test/modulo-tests.ts"
     ]
 }

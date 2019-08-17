@@ -1220,13 +1220,6 @@ type Pair = KeyValuePair<string, number>;
 };
 
 () => {
-    R.modulo(17, 3); // => 2
-    // JS behavior:
-    R.modulo(-17, 3); // => -2
-    R.modulo(17, -3); // => 2
-};
-
-() => {
     const double = R.multiply(2);
     const triple = R.multiply(3);
     double(3);       // =>  6
