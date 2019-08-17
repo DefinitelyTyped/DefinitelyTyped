@@ -148,13 +148,6 @@ R.times(i, 5);
 })();
 
 (() => {
-    function isNotFour(x: number) {
-        return !(x === 4);
-    }
-
-    R.takeWhile(isNotFour, [1, 2, 3, 4]); // => [1, 2, 3]
-});
-(() => {
     function f(n: number): false | [number, number] {
         return n > 50 ? false : [-n, n + 10];
     }
@@ -170,15 +163,6 @@ R.times(i, 5);
 () => {
     const headLens = R.lensIndex(0);
     R.view(headLens, ["a", "b", "c"]);            // => 'a'
-};
-
-() => {
-    function isNotFour(x: number) {
-        return !(x === 4);
-    }
-
-    R.takeWhile(isNotFour, [1, 2, 3, 4]); // => [1, 2, 3]
-    R.takeWhile(isNotFour)([1, 2, 3, 4]); // => [1, 2, 3]
 };
 
 () => {
