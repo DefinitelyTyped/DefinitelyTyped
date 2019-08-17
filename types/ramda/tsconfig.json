@@ -143,6 +143,7 @@
         "test/mergeDeepWithKey-tests.ts",
         "test/mergeLeft-tests.ts",
         "test/mergeRight-tests.ts",
-        "test/mergeWith-tests.ts"
+        "test/mergeWith-tests.ts",
+        "test/mergeWithKey-tests.ts"
     ]
 }
