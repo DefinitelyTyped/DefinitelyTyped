@@ -207,6 +207,7 @@
         "test/sum-tests.ts",
         "test/symmetricDifference-tests.ts",
         "test/symmetricDifferenceWith-tests.ts",
-        "test/tail-tests.ts"
+        "test/tail-tests.ts",
+        "test/take-tests.ts"
     ]
 }
