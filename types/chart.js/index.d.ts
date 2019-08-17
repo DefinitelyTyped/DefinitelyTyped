@@ -136,7 +136,6 @@ declare namespace Chart {
     type TextAlignment = 'left' | 'center' | 'right';
 
     type BorderAlignment = 'center' | 'inner';
-    
 
     interface ChartArea {
         top: number;
