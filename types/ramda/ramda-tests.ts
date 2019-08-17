@@ -553,10 +553,6 @@ type Pair = KeyValuePair<string, number>;
 };
 
 () => {
-    R.props(["x", "y"], {x: 1, y: 2}); // => [1, 2]
-};
-
-() => {
     const a = R.toPairs<number>({a: 1, b: 2, c: 3}); // => [['a', 1], ['b', 2], ['c', 3]]
     const b = R.toPairs({1: 'a'}); // => [['1', 'something']]
 };

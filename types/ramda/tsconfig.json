@@ -182,6 +182,7 @@
         "test/prop-tests.ts",
         "test/propEq-tests.ts",
         "test/propIs-tests.ts",
-        "test/propOr-tests.ts"
+        "test/propOr-tests.ts",
+        "test/props-tests.ts"
     ]
 }
