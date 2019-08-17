@@ -779,10 +779,6 @@ type Pair = KeyValuePair<string, number>;
 };
 
 () => {
-    R.product([2, 4, 6, 8, 100, 1]); // => 38400
-};
-
-() => {
     R.subtract(10, 8); // => 2
 
     const complementaryAngle = R.subtract(90);
