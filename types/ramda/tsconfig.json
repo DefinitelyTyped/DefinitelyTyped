@@ -163,6 +163,7 @@
         "test/over-tests.ts",
         "test/pair-tests.ts",
         "test/partial-tests.ts",
-        "test/partialRight-tests.ts"
+        "test/partialRight-tests.ts",
+        "test/partition-tests.ts"
     ]
 }
