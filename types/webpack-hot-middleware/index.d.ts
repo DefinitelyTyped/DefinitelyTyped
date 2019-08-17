@@ -1,4 +1,4 @@
-// Type definitions for webpack-hot-middleware 2.25.0
+// Type definitions for webpack-hot-middleware 2.25
 // Project: https://github.com/webpack-contrib/webpack-hot-middleware
 // Definitions by: Benjamin Lim <https://github.com/bumbleblym>
 //                 Ron Martinez <https://github.com/icylace>
@@ -20,7 +20,7 @@ declare function WebpackHotMiddleware(
 declare namespace WebpackHotMiddleware {
 	interface Options {
         reload?: boolean;
-        name? string;
+        name?: string;
         timeout?: number;
         overlay?: boolean;
         noInfo?: boolean;
