@@ -185,6 +185,7 @@
         "test/propSatisfies-tests.ts",
         "test/range-tests.ts",
         "test/reduce-tests.ts",
-        "test/reduceBy-tests.ts"
+        "test/reduceBy-tests.ts",
+        "test/reduceRight-tests.ts"
     ]
 }
