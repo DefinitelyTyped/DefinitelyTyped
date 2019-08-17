@@ -204,6 +204,7 @@
         "test/splitWhen-tests.ts",
         "test/startsWith-tests.ts",
         "test/subtract-tests.ts",
-        "test/sum-tests.ts"
+        "test/sum-tests.ts",
+        "test/symmetricDifference-tests.ts"
     ]
 }
