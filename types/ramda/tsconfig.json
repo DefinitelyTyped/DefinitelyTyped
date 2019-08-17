@@ -172,6 +172,7 @@
         "test/pickAll-tests.ts",
         "test/pickBy-tests.ts",
         "test/pipe-tests.ts",
-        "test/pipeK-tests.ts"
+        "test/pipeK-tests.ts",
+        "test/pipeP-tests.ts"
     ]
 }
