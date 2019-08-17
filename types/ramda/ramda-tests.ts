@@ -173,13 +173,6 @@ R.times(i, 5);
 };
 
 () => {
-    const a: string[] = R.takeLast(1, ["foo", "bar", "baz"]); // => ['baz']
-    const b: string[] = R.takeLast(2)(["foo", "bar", "baz"]); // => ['bar', 'baz']
-    const c: string   = R.takeLast(3, "ramda");               // => 'mda'
-    const d: string   = R.takeLast(3)("ramda");               // => 'mda'
-};
-
-() => {
     const isNotOne    = (x: number) => x !== 1;
     const a: number[] = R.takeLastWhile(isNotOne, [1, 2, 3, 4]); // => [2, 3, 4]
     const b: number[] = R.takeLastWhile(isNotOne)([1, 2, 3, 4]); // => [2, 3, 4]
