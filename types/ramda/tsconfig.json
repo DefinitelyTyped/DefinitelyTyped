@@ -233,6 +233,7 @@
         "test/unless-tests.ts",
         "test/until-tests.ts",
         "test/useWith-tests.ts",
-        "test/values-tests.ts"
+        "test/values-tests.ts",
+        "test/valuesIn-tests.ts"
     ]
 }

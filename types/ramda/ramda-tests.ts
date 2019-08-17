@@ -1,10 +1,5 @@
 import * as R from "ramda";
 
-class F {
-    [k: string]: string;
-    x = "X";
-    y = "Y";
-}
 class F2 {
     a = 100;
     y = 1;
@@ -190,11 +185,6 @@ class Rectangle {
 () => {
     R.omit(["a", "d"], {a: 1, b: 2, c: 3, d: 4}); // => {b: 2, c: 3}
     R.omit(["a", "d"])({a: 1, b: 2, c: 3, d: 4}); // => {b: 2, c: 3}
-};
-
-() => {
-    const f   = new F();
-    const a = R.valuesIn(f); // => ['X', 'Y']
 };
 
 () => {
