@@ -427,15 +427,6 @@ R.times(i, 5);
  * Relation category
  */
 () => {
-    R.startsWith("a", "abc");   // => true
-    R.startsWith("a")("abc");   // => true
-    R.startsWith(1, [1, 2, 3]);   // => true
-    R.startsWith(1)([1, 2, 3]);   // => true
-    R.startsWith([1], [1, 2, 3]);   // => true
-    R.startsWith([1])([1, 2, 3]);   // => true
-};
-
-() => {
     R.subtract(10, 8); // => 2
 
     const complementaryAngle = R.subtract(90);
