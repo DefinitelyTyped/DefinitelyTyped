@@ -127,11 +127,6 @@ function addAll() {
 // Basic example
 R.useWith(addAll, [double, square]);
 
-function i(x: number) {
-    return x;
-}
-R.times(i, 5);
-
 (() => {
     const addOneOnce = R.once((x: number) => x + 1);
     addOneOnce(10); // => 11
@@ -163,11 +158,6 @@ R.times(i, 5);
 () => {
     const headLens = R.lensIndex(0);
     R.view(headLens, ["a", "b", "c"]);            // => 'a'
-};
-
-() => {
-    const a1 = R.times(R.identity, 5); // => [0, 1, 2, 3, 4]
-    const a2 = R.times(R.identity)(5); // => [0, 1, 2, 3, 4]
 };
 
 () => {

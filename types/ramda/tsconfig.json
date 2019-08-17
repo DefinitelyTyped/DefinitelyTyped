@@ -214,6 +214,7 @@
         "test/takeWhile-tests.ts",
         "test/tap-tests.ts",
         "test/test-tests.ts",
-        "test/thunkify-tests.ts"
+        "test/thunkify-tests.ts",
+        "test/times-tests.ts"
     ]
 }
