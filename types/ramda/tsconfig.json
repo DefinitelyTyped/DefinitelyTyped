@@ -226,6 +226,7 @@
         "test/type-tests.ts",
         "test/unapply-tests.ts",
         "test/unary-tests.ts",
-        "test/uncurryN-tests.ts"
+        "test/uncurryN-tests.ts",
+        "test/unfold-tests.ts"
     ]
 }
