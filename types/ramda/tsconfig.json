@@ -203,6 +203,7 @@
         "test/splitEvery-tests.ts",
         "test/splitWhen-tests.ts",
         "test/startsWith-tests.ts",
-        "test/subtract-tests.ts"
+        "test/subtract-tests.ts",
+        "test/sum-tests.ts"
     ]
 }
