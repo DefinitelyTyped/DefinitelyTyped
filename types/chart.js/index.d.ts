@@ -541,13 +541,13 @@ declare namespace Chart {
         borderDash?: number[];
         borderDashOffset?: number;
         borderJoinStyle?: 'bevel' | 'round' | 'miter';
-        borderSkipped?: PositionType | Scriptable<PositionType>;
+        borderSkipped?: PositionType | PositionType[] | Scriptable<PositionType>;
         data?: Array<number | null | undefined> | ChartPoint[];
         fill?: boolean | number | string;
         hitRadius?: number | number[] | Scriptable<number>;
         hoverBackgroundColor?: ChartColor | ChartColor[] | Scriptable<ChartColor>;
         hoverBorderColor?: ChartColor | ChartColor[] | Scriptable<ChartColor>;
-        hoverBorderWidth?: number | number[] | Scriptable<ChartColor>;
+        hoverBorderWidth?: number | number[] | Scriptable<number>;
         label?: string;
         lineTension?: number;
         steppedLine?: 'before' | 'after' | 'middle' | boolean;
