@@ -1194,10 +1194,6 @@ type Pair = KeyValuePair<string, number>;
 };
 
 () => {
-    R.negate(42); // => -42
-};
-
-() => {
     R.product([2, 4, 6, 8, 100, 1]); // => 38400
 };
 
