@@ -19,7 +19,7 @@ declare function WebpackHotMiddleware(
 
 declare namespace WebpackHotMiddleware {
 	interface Options {
-		reload?: boolean;
+        reload?: boolean;
         name? string;
         timeout?: number;
         overlay?: boolean;
@@ -29,14 +29,14 @@ declare namespace WebpackHotMiddleware {
         autoConnect?: boolean;
         ansiColors?: {
             [key: string]: any
-        }
+        };
         overlayStyles?: {
             [key: string]: any
-        }
+        };
         overlayWarnings?: boolean;
         log?: false | Logger;
-		path?: string;
-		heartbeat?: number;
+        path?: string;
+        heartbeat?: number;
 	}
 
 	type Logger = (message?: any, ...optionalParams: any[]) => void;
