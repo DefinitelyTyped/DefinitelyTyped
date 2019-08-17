@@ -127,6 +127,7 @@
         "test/lte-tests.ts",
         "test/map-tests.ts",
         "test/mapAccum-tests.ts",
-        "test/mapAccumRight-tests.ts"
+        "test/mapAccumRight-tests.ts",
+        "test/mapObjIndexed-tests.ts"
     ]
 }
