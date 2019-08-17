@@ -132,6 +132,7 @@
         "test/mathMod-tests.ts",
         "test/max-tests.ts",
         "test/maxBy-tests.ts",
-        "test/mean-tests.ts"
+        "test/mean-tests.ts",
+        "test/median-tests.ts"
     ]
 }
