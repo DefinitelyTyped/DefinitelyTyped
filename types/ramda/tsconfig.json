@@ -220,6 +220,7 @@
         "test/toPairsIn-tests.ts",
         "test/toString-tests.ts",
         "test/transduce-tests.ts",
-        "test/transpose-tests.ts"
+        "test/transpose-tests.ts",
+        "test/traverse-tests.ts"
     ]
 }
