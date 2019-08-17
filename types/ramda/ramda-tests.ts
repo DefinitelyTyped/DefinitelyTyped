@@ -1289,11 +1289,6 @@ class Rectangle {
 };
 
 () => {
-    const x: number = R.min(9, 3); // => 3
-    const y: string = R.min("a", "z"); // => 'a'
-};
-
-() => {
     function cmp(obj: { x: R.Ord }) {
         return obj.x;
     }
