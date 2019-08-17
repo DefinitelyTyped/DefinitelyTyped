@@ -58,13 +58,6 @@ class F2 {
     const str = R.once<string>(() => 'test')();
 })();
 
-(() => {
-    const slashify = R.wrap(R.flip(R.add)("/"), (f: (x: string) => string, x: string) => R.match(/\/$/, x) ? x : f(x));
-
-    slashify("a");  // => 'a/'
-    slashify("a/"); // => 'a/'
-})();
-
 /*********************
  * List category
  */
