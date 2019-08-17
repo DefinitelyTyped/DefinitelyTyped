@@ -114,18 +114,6 @@ R.useWith(addAll, [double, square]);
 };
 
 () => {
-    function strEq(a: any, b: any) {
-        return String(a) === String(b);
-    }
-
-    R.uniqWith(strEq, [1, "1", 2, 1]); // => [1, 2]
-    R.uniqWith(strEq)([1, "1", 2, 1]); // => [1, 2]
-    R.uniqWith(strEq)([{}, {}]);       // => [{}]
-    R.uniqWith(strEq)([1, "1", 1]);    // => [1]
-    R.uniqWith(strEq)(["1", 1, 1]);    // => ['1']
-};
-
-() => {
     R.xprod([1, 2], ["a", "b"]); // => [[1, 'a'], [1, 'b'], [2, 'a'], [2, 'b']]
     R.xprod([1, 2])(["a", "b"]); // => [[1, 'a'], [1, 'b'], [2, 'a'], [2, 'b']]
 };
