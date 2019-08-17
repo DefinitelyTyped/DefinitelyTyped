@@ -142,7 +142,7 @@ declare module "readline" {
     /**
      * Moves this WriteStream's cursor to the specified position.
      */
-    function cursorTo(stream: NodeJS.WritableStream, x: number, y: number, callback?: () => void): boolean;
+    function cursorTo(stream: NodeJS.WritableStream, x: number, y?: number, callback?: () => void): boolean;
     /**
      * Moves this WriteStream's cursor relative to its current position.
      */

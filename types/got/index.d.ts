@@ -286,10 +286,33 @@ declare namespace got {
         delete(key: string): any;
     }
 
+    interface GotTimingsPhases {
+        wait: number;
+        dns: number;
+        tcp: number;
+        request: number;
+        fistByte: number;
+        download: number;
+        total: number;
+    }
+
+    interface GotTimings {
+        start: number;
+        socket: number;
+        lookup: number;
+        connect: number;
+        upload: number;
+        response: number;
+        end: number;
+        error: number;
+        phases: GotTimingsPhases;
+    }
+
     interface Response<B extends Buffer | string | object> extends http.IncomingMessage {
         body: B;
         url: string;
         requestUrl: string;
+        timings: GotTimings;
         fromCache: boolean;
         redirectUrls?: string[];
         retryCount: number;

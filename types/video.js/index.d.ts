@@ -1964,6 +1964,7 @@ declare namespace videojs {
 
 	interface ControlBarOptions extends ComponentOptions {
 		volumePanel?: VolumePanelOptions;
+		fullscreenToggle?: boolean;
 	}
 
 	/**

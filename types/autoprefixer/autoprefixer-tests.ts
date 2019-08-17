@@ -7,6 +7,7 @@ const ap1: Transformer = autoprefixer();
 // Default options
 const ap2: Transformer = autoprefixer({
     browsers: [],
+    overrideBrowserslist: [],
     env: 'test',
     cascade: true,
     add: true,
