@@ -921,11 +921,6 @@ type Pair = KeyValuePair<string, number>;
 };
 
 () => {
-    R.omit(["a", "d"], {a: 1, b: 2, c: 3, d: 4}); // => {b: 2, c: 3}
-    R.omit(["a", "d"])({a: 1, b: 2, c: 3, d: 4}); // => {b: 2, c: 3}
-};
-
-() => {
     R.pair("foo", "bar"); // => ['foo', 'bar']
     const p         = R.pair("foo", 1); // => ['foo', 'bar']
     const x: string = p[0];
