@@ -1,9 +1,5 @@
 import * as R from "ramda";
 
-function double(x: number): number {
-    return x + x;
-}
-
 class F {
     [k: string]: string;
     x = "X";
@@ -67,17 +63,6 @@ class F2 {
     const a: string = truncate("12345");         // => '12345'
     const b: string = truncate("0123456789ABC"); // => '0123456789…'
 };
-
-function square(x: number) {
-    return x * x;
-}
-// Adds any number of arguments together
-function addAll() {
-    return 0;
-}
-
-// Basic example
-R.useWith(addAll, [double, square]);
 
 (() => {
     const addOneOnce = R.once((x: number) => x + 1);
