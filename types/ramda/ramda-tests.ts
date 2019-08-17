@@ -39,14 +39,6 @@ import * as R from "ramda";
   R.subtract(R.__)(5, 17); // 12
 };
 
-(() => {
-    const addOneOnce = R.once((x: number) => x + 1);
-    addOneOnce(10); // => 11
-    addOneOnce(addOneOnce(50)); // => 11
-
-    const str = R.once<string>(() => 'test')();
-})();
-
 /*****************************************************************
  * Logic category
  */
