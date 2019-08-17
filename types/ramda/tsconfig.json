@@ -148,6 +148,7 @@
         "test/minBy-tests.ts",
         "test/modulo-tests.ts",
         "test/move-tests.ts",
-        "test/multiply-tests.ts"
+        "test/multiply-tests.ts",
+        "test/nAry-tests.ts"
     ]
 }
