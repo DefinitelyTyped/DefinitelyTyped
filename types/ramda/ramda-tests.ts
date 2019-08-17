@@ -969,10 +969,6 @@ class Rectangle {
 };
 
 () => {
-    const a = R.mergeDeepRight({foo: {bar: 1}}, {foo: {bar: 2}}); // => {foor: bar: 2}}
-};
-
-() => {
     const a = R.mergeDeepWith(
         (a: number[], b: number[]) => a.concat(b),
         {foo: {bar: [1, 2]}},
