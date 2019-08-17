@@ -972,18 +972,6 @@ class Rectangle {
 };
 
 () => {
-    const matchPhrases = (xs: string[]) => R.objOf("must",
-        R.map(
-            (x: string) => R.objOf("match_phrase", x),
-            xs
-        )
-    );
-
-    const out: { must: Array<{ match_phrase: string }> } =
-              matchPhrases(["foo", "bar", "baz"]);
-};
-
-() => {
     R.omit(["a", "d"], {a: 1, b: 2, c: 3, d: 4}); // => {b: 2, c: 3}
     R.omit(["a", "d"])({a: 1, b: 2, c: 3, d: 4}); // => {b: 2, c: 3}
 };
