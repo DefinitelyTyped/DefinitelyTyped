@@ -19,7 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "ramda-tests.ts",
         "test/add-tests.ts",
         "test/addIndex-tests.ts",
         "test/all-tests.ts",
