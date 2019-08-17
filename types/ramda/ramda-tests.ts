@@ -427,10 +427,6 @@ R.times(i, 5);
  * Relation category
  */
 () => {
-    R.sum([2, 4, 6, 8, 100, 1]); // => 121
-};
-
-() => {
     const a: number[] = R.symmetricDifference([1, 2, 3, 4], [7, 6, 5, 4, 3]); // => [1,2,7,6,5]
     const b: number[] = R.symmetricDifference([7, 6, 5, 4, 3])([1, 2, 3, 4]); // => [7,6,5,1,2]
 };
