@@ -60,10 +60,6 @@ class F2 {
 };
 
 () => {
-    const a: number = R.until(R.flip(R.gt)(100), R.multiply(2))(1); // => 128
-};
-
-() => {
     const truncate = R.when(
         R.propSatisfies(R.flip(R.gt)(10), "length"),
         R.pipe<string, string, string[], string>(R.take(10), R.append("…") as (wrong: any) => string[], R.join(""))
