@@ -517,9 +517,9 @@ test = (
 );
 
 // VictoryGroup test
-test =<VictoryClipContainer clipId="goose" />;
+test = <VictoryClipContainer clipId="goose" />;
 
-test =<VictoryClipContainer clipId={123} />;
+test = <VictoryClipContainer clipId={123} />;
 
 // VictoryLine test
 test = (
