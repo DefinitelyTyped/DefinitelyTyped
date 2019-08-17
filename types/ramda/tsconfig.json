@@ -234,6 +234,7 @@
         "test/until-tests.ts",
         "test/useWith-tests.ts",
         "test/values-tests.ts",
-        "test/valuesIn-tests.ts"
+        "test/valuesIn-tests.ts",
+        "test/view-tests.ts"
     ]
 }
