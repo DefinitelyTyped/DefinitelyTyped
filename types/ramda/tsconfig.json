@@ -152,6 +152,7 @@
         "test/negate-tests.ts",
         "test/none-tests.ts",
         "test/not-tests.ts",
-        "test/nth-tests.ts"
+        "test/nth-tests.ts",
+        "test/nthArg-tests.ts"
     ]
 }
