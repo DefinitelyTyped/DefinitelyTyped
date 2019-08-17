@@ -222,6 +222,7 @@
         "test/transduce-tests.ts",
         "test/transpose-tests.ts",
         "test/traverse-tests.ts",
-        "test/tryCatch-tests.ts"
+        "test/tryCatch-tests.ts",
+        "test/type-tests.ts"
     ]
 }
