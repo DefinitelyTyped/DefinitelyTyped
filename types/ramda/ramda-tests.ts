@@ -1370,19 +1370,9 @@ class Rectangle {
 };
 
 () => {
-    R.mathMod(-17, 5);  // => 3
-    R.mathMod(17, 5);   // => 2
-    R.mathMod(17, -5);  // => NaN
-    R.mathMod(17, 0);   // => NaN
-    R.mathMod(17.2, 5); // => NaN
-    R.mathMod(17, 5.3); // => NaN
-
     const clock = R.flip(R.mathMod)(12);
     clock(15); // => 3
     clock(24); // => 0
-
-    const seventeenMod = R.mathMod(17);
-    seventeenMod(3);  // => 2
 };
 
 () => {
