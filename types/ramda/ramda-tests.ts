@@ -240,11 +240,6 @@ interface Obj {
 };
 
 () => {
-    R.prepend("fee", ["fi", "fo", "fum"]); // => ['fee', 'fi', 'fo', 'fum']
-    R.prepend("fee")(["fi", "fo", "fum"]); // => ['fee', 'fi', 'fo', 'fum']
-};
-
-() => {
     R.range(1, 5);    // => [1, 2, 3, 4]
     R.range(50)(53);  // => [50, 51, 52]
 };
