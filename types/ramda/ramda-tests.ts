@@ -60,12 +60,6 @@ class F2 {
 };
 
 () => {
-    const addFour          = (a: number) => (b: number) => (c: number) => (d: number) => a + b + c + d;
-    const uncurriedAddFour = R.uncurryN<number>(4, addFour);
-    const res: number      = uncurriedAddFour(1, 2, 3, 4); // => 10
-};
-
-() => {
     // coerceArray :: (a|[a]) -> [a]
     const coerceArray = R.unless(R.isArrayLike, R.of);
     const a: number[] = coerceArray([1, 2, 3]); // => [1, 2, 3]
