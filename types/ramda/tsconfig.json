@@ -240,6 +240,7 @@
         "test/where-tests.ts",
         "test/whereEq-tests.ts",
         "test/without-tests.ts",
-        "test/wrap-tests.ts"
+        "test/wrap-tests.ts",
+        "test/xprod-tests.ts"
     ]
 }
