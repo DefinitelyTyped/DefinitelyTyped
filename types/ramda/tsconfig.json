@@ -170,6 +170,7 @@
         "test/pathOr-tests.ts",
         "test/pathSatisfies-tests.ts",
         "test/pick-tests.ts",
-        "test/pickAll-tests.ts"
+        "test/pickAll-tests.ts",
+        "test/pickBy-tests.ts"
     ]
 }
