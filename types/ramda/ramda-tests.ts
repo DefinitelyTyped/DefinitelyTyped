@@ -1194,31 +1194,3 @@ type Pair = KeyValuePair<string, number>;
     R.replace(/([cfk])oo/g, (match, p1, offset) => `${p1}-${offset}`)("coo foo koo"); // => 'c0oo f4oo k8oo'
     R.replace(/([cfk])oo/g)((match, p1, offset) => `${p1}-${offset}`) ("coo foo koo"); // => 'c0oo f4oo k8oo'
 };
-
-/*****************************************************************
- * Logic category
- */
-
-class Why {
-    val: boolean;
-
-    constructor(val: boolean) {
-        this.val = val;
-    }
-
-    or(x: boolean) {
-        return this.val && x;
-    }
-}
-() => {
-    const x0: boolean        = R.or(false, true); // => false
-    const x1: number | any[] = R.or(0, []); // => []
-    const x2: number | any[] = R.or(0)([]); // => []
-    const x3: string | null  = R.or(null, ""); // => ''
-
-    const why = new Why(true);
-    why.or(true);
-    const x4: Why | boolean = R.or(why, false); // false
-};
-
-// Curry tests
