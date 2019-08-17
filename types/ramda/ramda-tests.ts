@@ -479,15 +479,6 @@ R.times(i, 5);
  * List category
  */
 () => {
-    function lteTwo(x: number) {
-        return x <= 2;
-    }
-
-    R.dropWhile(lteTwo, [1, 2, 3, 4]); // => [3, 4]
-    R.dropWhile(lteTwo)([1, 2, 3, 4]); // => [3, 4]
-};
-
-() => {
     function isEven(n: number) {
         return n % 2 === 0;
     }
