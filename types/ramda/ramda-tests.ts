@@ -485,15 +485,6 @@ class Rectangle {
  * Relation category
  */
 () => {
-    R.startsWith("a", "abc");   // => true
-    R.startsWith("a")("abc");   // => true
-    R.startsWith(1, [1, 2, 3]);   // => true
-    R.startsWith(1)([1, 2, 3]);   // => true
-    R.startsWith([1], [1, 2, 3]);   // => true
-    R.startsWith([1])([1, 2, 3]);   // => true
-};
-
-() => {
     R.flip(R.gt)(2)(10); // => true
 };
 

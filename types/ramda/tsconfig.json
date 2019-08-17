@@ -201,6 +201,7 @@
         "test/sortWith-tests.ts",
         "test/splitAt-tests.ts",
         "test/splitEvery-tests.ts",
-        "test/splitWhen-tests.ts"
+        "test/splitWhen-tests.ts",
+        "test/startsWith-tests.ts"
     ]
 }
