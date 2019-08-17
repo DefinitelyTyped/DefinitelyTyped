@@ -2,6 +2,7 @@
 // Project: https://github.com/sindresorhus/gulp-autoprefixer
 // Definitions by: Asana <https://asana.com>, Jordy van Dortmont <https://github.com/jordyvandortmont>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 /// <reference types="node"/>
 
