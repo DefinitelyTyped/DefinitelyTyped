@@ -177,6 +177,7 @@
         "test/pipeP-tests.ts",
         "test/pipeWith-tests.ts",
         "test/pluck-tests.ts",
+        "test/prepend-tests.ts",
         "test/propEq-tests.ts"
     ]
 }
