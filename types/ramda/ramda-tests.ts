@@ -547,12 +547,6 @@ type Pair = KeyValuePair<string, number>;
 };
 
 () => {
-    const a: boolean = R.propSatisfies((x: number) => x > 0, "x", {x: 1, y: 2}); // => true
-    const b: boolean = R.propSatisfies((x: number) => x > 0, "x")({x: 1, y: 2}); // => true
-    const c: boolean = R.propSatisfies((x: number) => x > 0)("x")({x: 1, y: 2}); // => true
-};
-
-() => {
     const a = R.toPairs<number>({a: 1, b: 2, c: 3}); // => [['a', 1], ['b', 2], ['c', 3]]
     const b = R.toPairs({1: 'a'}); // => [['1', 'something']]
 };
