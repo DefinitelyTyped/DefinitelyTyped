@@ -135,6 +135,9 @@ declare namespace Chart {
 
     type TextAlignment = 'left' | 'center' | 'right';
 
+    type BorderAlignment = 'center' | 'inner';
+    
+
     interface ChartArea {
         top: number;
         right: number;
@@ -532,6 +535,7 @@ declare namespace Chart {
     interface ChartDataSets {
         cubicInterpolationMode?: 'default' | 'monotone';
         backgroundColor?: ChartColor | ChartColor[] | Scriptable<ChartColor>;
+        borderAlign?: BorderAlignment | BorderAlignment[] | Scriptable<BorderAlignment>;
         borderWidth?: number | number[] | Scriptable<number>;
         borderColor?: ChartColor | ChartColor[] | Scriptable<ChartColor>;
         borderCapStyle?: 'butt' | 'round' | 'square';
@@ -541,6 +545,7 @@ declare namespace Chart {
         borderSkipped?: PositionType | Scriptable<PositionType>;
         data?: Array<number | null | undefined> | ChartPoint[];
         fill?: boolean | number | string;
+        hitRadius?: number | number[] | Scriptable<number>;
         hoverBackgroundColor?: ChartColor | ChartColor[] | Scriptable<ChartColor>;
         hoverBorderColor?: ChartColor | ChartColor[] | Scriptable<ChartColor>;
         hoverBorderWidth?: number | number[] | Scriptable<ChartColor>;
@@ -551,12 +556,15 @@ declare namespace Chart {
         pointBackgroundColor?: ChartColor | ChartColor[] | Scriptable<ChartColor>;
         pointBorderWidth?: number | number[] | Scriptable<number>;
         pointRadius?: number | number[] | Scriptable<number>;
+        pointRotation?: number | number[] | Scriptable<number>;
         pointHoverRadius?: number | number[] | Scriptable<number>;
         pointHitRadius?: number | number[] | Scriptable<number>;
         pointHoverBackgroundColor?: ChartColor | ChartColor[] | Scriptable<ChartColor>;
         pointHoverBorderColor?: ChartColor | ChartColor[] | Scriptable<ChartColor>;
         pointHoverBorderWidth?: number | number[] | Scriptable<number>;
         pointStyle?: PointStyle | HTMLImageElement | HTMLCanvasElement | Array<PointStyle | HTMLImageElement | HTMLCanvasElement> | Scriptable<PointStyle | HTMLImageElement | HTMLCanvasElement>;
+        radius?: number | number[] | Scriptable<number>;
+        rotation?: number | number[] | Scriptable<number>;
         xAxisID?: string;
         yAxisID?: string;
         type?: ChartType | string;
