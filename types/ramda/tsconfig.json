@@ -150,6 +150,7 @@
         "test/multiply-tests.ts",
         "test/nAry-tests.ts",
         "test/negate-tests.ts",
-        "test/none-tests.ts"
+        "test/none-tests.ts",
+        "test/not-tests.ts"
     ]
 }
