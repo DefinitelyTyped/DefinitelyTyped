@@ -969,13 +969,6 @@ class Rectangle {
 };
 
 () => {
-    const a = R.mergeWith(R.concat,
-        {a: true, values: [10, 20]},
-        {b: true, values: [15, 35]});
-    // => { a: true, b: true, values: [10, 20, 15, 35] }
-};
-
-() => {
     const concatValues = (k: string, l: string, r: string) => k === "values" ? R.concat(l, r) : r;
     R.mergeWithKey(concatValues,
         {a: true, thing: "foo", values: [10, 20]},
