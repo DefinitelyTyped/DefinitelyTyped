@@ -930,13 +930,6 @@ type Pair = KeyValuePair<string, number>;
     R.over(xyLens, R.negate, testObj);  // => {x: [{y: -2, z: 3}, {y: 4, z: 5}]}
 };
 () => {
-    const a = R.mergeWith(R.concat,
-        {a: true, values: [10, 20]},
-        {b: true, values: [15, 35]});
-    // => { a: true, b: true, values: [10, 20, 15, 35] }
-};
-
-() => {
     const concatValues = (k: string, l: string, r: string) => k === "values" ? R.concat(l, r) : r;
     R.mergeWithKey(concatValues,
         {a: true, thing: "foo", values: [10, 20]},
