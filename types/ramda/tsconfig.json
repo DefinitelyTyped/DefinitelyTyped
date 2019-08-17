@@ -192,6 +192,7 @@
         "test/remove-tests.ts",
         "test/repeat-tests.ts",
         "test/replace-tests.ts",
-        "test/reverse-tests.ts"
+        "test/reverse-tests.ts",
+        "test/scan-tests.ts"
     ]
 }
