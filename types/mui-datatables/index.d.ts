@@ -106,7 +106,7 @@ export interface MUIDataTableTextLabels {
 export interface MUIDataTableFilterOptions {
     names?: string[];
     display?: (filterList: string[], onChange: any, index: number, column: any) => void;
-    logic?: any;
+    logic?: (prop: string, filterValue: any[]) => boolean;
 }
 
 export interface MUIDataTableColumnOptions {
