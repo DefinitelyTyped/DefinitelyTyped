@@ -177,6 +177,7 @@
         "test/pipeWith-tests.ts",
         "test/pluck-tests.ts",
         "test/prepend-tests.ts",
-        "test/product-tests.ts"
+        "test/product-tests.ts",
+        "test/project-tests.ts"
     ]
 }
