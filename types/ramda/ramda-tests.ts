@@ -60,13 +60,6 @@ class F2 {
 };
 
 () => {
-    // coerceArray :: (a|[a]) -> [a]
-    const coerceArray = R.unless(R.isArrayLike, R.of);
-    const a: number[] = coerceArray([1, 2, 3]); // => [1, 2, 3]
-    const b: number[] = coerceArray(1);         // => [1]
-};
-
-() => {
     const a: number = R.until(R.flip(R.gt)(100), R.multiply(2))(1); // => 128
 };
 
