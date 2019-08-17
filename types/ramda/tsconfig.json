@@ -181,6 +181,7 @@
         "test/product-tests.ts",
         "test/project-tests.ts",
         "test/prop-tests.ts",
-        "test/propEq-tests.ts"
+        "test/propEq-tests.ts",
+        "test/propIs-tests.ts"
     ]
 }
