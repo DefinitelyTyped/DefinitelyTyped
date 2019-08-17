@@ -1,5 +1,4 @@
 import * as R from "ramda";
-import { Dictionary } from "ramda/tools";
 
 function double(x: number): number {
     return x + x;
@@ -134,14 +133,6 @@ function i(x: number) {
 R.times(i, 5);
 
 (() => {
-    function isOdd(n: number) {
-        return n % 2 === 1;
-    }
-
-    R.reject(isOdd, [1, 2, 3, 4]); // => [2, 4]
-    R.reject(isOdd, { a: 0, b: 1 }); // => { a: 0 }
-});
-(() => {
     function isNotFour(x: number) {
         return !(x === 4);
     }
@@ -163,27 +154,9 @@ R.times(i, 5);
  * List category
  */
 () => {
-    function isEven(n: number) {
-        return n % 2 === 0;
-    }
-    const rejectEven = R.reject(isEven);
-    const objB: Dictionary<number> = rejectEven({ a: 0, b: 1 }); // => { b: 1 }
-    const listB: number[] = rejectEven([0, 1]); // => [1]
-};
-
-() => {
     const headLens = R.lensIndex(0);
     R.view(headLens, ["a", "b", "c"]);            // => 'a'
     R.set(headLens, "x", ["a", "b", "c"]);        // => ['x', 'b', 'c']
-};
-
-() => {
-    function isOdd(n: number) {
-        return n % 2 === 1;
-    }
-
-    R.reject(isOdd, [1, 2, 3, 4]); // => [2, 4]
-    R.reject(isOdd)([1, 2, 3, 4]); // => [2, 4]
 };
 
 () => {
