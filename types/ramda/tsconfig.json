@@ -198,6 +198,7 @@
         "test/slice-tests.ts",
         "test/sort-tests.ts",
         "test/sortBy-tests.ts",
-        "test/sortWith-tests.ts"
+        "test/sortWith-tests.ts",
+        "test/splitAt-tests.ts"
     ]
 }
