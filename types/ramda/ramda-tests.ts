@@ -264,15 +264,6 @@ R.times(i, 5);
 })();
 
 (() => {
-    function greet(salutation: string, title: string, firstName: string, lastName: string) {
-        return `${salutation}, ${title} ${firstName} ${lastName}!`;
-    }
-
-    const greetMsJaneJones = R.partialRight(greet, ["Ms.", "Jane", "Jones"]);
-    greetMsJaneJones("Hello"); // => 'Hello, Ms. Jane Jones!'
-})();
-
-(() => {
     const addOneOnce = R.once((x: number) => x + 1);
     addOneOnce(10); // => 11
     addOneOnce(addOneOnce(50)); // => 11
