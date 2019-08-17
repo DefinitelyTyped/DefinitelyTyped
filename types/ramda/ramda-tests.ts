@@ -50,19 +50,6 @@ class F2 {
   R.subtract(R.__)(5, 17); // 12
 };
 
-/*********************
- * List category
- */
-() => {
-    function f(x: number, y: string) {
-        // ...
-    }
-
-    R.zipWith(f, [1, 2, 3], ["a", "b", "c"]); // => [f(1, 'a'), f(2, 'b'), f(3, 'c')]
-    R.zipWith(f)([1, 2, 3], ["a", "b", "c"]); // => [f(1, 'a'), f(2, 'b'), f(3, 'c')]
-    R.zipWith(f, [1, 2, 3])(["a", "b", "c"]); // => [f(1, 'a'), f(2, 'b'), f(3, 'c')]
-};
-
 () => {
     interface A {
         a: number;
