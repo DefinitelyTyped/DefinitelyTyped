@@ -1,11 +1,4 @@
-// Type definitions for eslint 4.16
-// Project: https://eslint.org
-// Definitions by: Pierre-Marie Dartus <https://github.com/pmdartus>
-//                 Jed Fox <https://github.com/j-f1>
-//                 Saad Quadri <https://github.com/saadq>
-//                 Jason Kwok <https://github.com/JasonHK>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+/// <reference path="helpers.d.ts" />
 
 import { JSONSchema4 } from 'json-schema';
 import * as ESTree from 'estree';
@@ -378,23 +371,26 @@ export class Linter {
 
 export namespace Linter {
     type Severity = 0 | 1 | 2;
+
     type RuleLevel = Severity | 'off' | 'warn' | 'error';
+    type RuleLevelAndOptions<Options extends any[] = any[]> = Prepend<Partial<Options>, RuleLevel>;
 
-    interface RuleLevelAndOptions extends Array<any> {
-        0: RuleLevel;
-    }
-    interface HasRules {
-        rules?: {
-            [name: string]: RuleLevel | RuleLevelAndOptions
-        };
+    type RuleEntry<Options extends any[] = any[]> = RuleLevel | RuleLevelAndOptions<Options>;
+
+    interface RulesRecord {
+        [rule: string]: RuleEntry;
     }
 
-    interface RuleOverride extends HasRules {
+    interface HasRules<Rules extends RulesRecord = RulesRecord> {
+        rules?: Partial<Rules>;
+    }
+
+    interface RuleOverride<Rules extends RulesRecord = RulesRecord> extends HasRules<Rules> {
         excludedFiles?: string[];
         files?: string[];
     }
 
-    interface Config extends HasRules {
+    interface Config<Rules extends RulesRecord = RulesRecord> extends HasRules<Rules> {
         parser?: string;
         parserOptions?: ParserOptions;
         settings?: { [name: string]: any };
