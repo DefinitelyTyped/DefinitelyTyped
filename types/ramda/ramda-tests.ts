@@ -307,11 +307,6 @@ R.times(i, 5);
 })();
 
 (() => {
-    const b: number[][] = R.of([1]); // => [[1]]
-    const c: number[]   = R.of(1);
-});
-
-(() => {
     function isOdd(n: number) {
         return n % 2 === 1;
     }
