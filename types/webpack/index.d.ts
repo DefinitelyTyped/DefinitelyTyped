@@ -173,7 +173,7 @@ declare namespace webpack {
         /** The filename of the Hot Update Main File. It is inside the output.path directory. */
         hotUpdateMainFilename?: string;
         /** If set, export the bundle as library. output.library is the name. */
-        library?: string | string[];
+        library?: string | string[] | {[key: string]: string};
         /**
          * Which format to export the library:
          * - "var" - Export by setting a variable: var Library = xxx (default)
@@ -212,8 +212,9 @@ declare namespace webpack {
         /** An expression which is used to address the global object/scope in runtime code. */
         globalObject?: string;
         /**
-         * Tells webpack to use the future version of asset emitting logic, which allows freeing memory of assets after emitting. It could break plugins which
-         * assume that assets are still readable after they were emitted.
+         * Use the future version of asset emitting logic, which allows freeing memory of assets after emitting.
+         * It could break plugins which assume that assets are still readable after they were emitted.
+         * @deprecated - will be removed in webpack v5.0.0 and this behaviour will become the new default.
          */
         futureEmitAssets?: boolean;
     }
