@@ -22,15 +22,6 @@ class F2 {
 }
 
 (() => {
-    R.propIs(Number, "x", {x: 1, y: 2});  // => true
-    R.propIs(Number, "x")({x: 1, y: 2});  // => true
-    R.propIs(Number)("x", {x: 1, y: 2});  // => true
-    R.propIs(Number)("x")({x: 1, y: 2});  // => true
-    R.propIs(Number, "x", {x: "foo"});    // => false
-    R.propIs(Number, "x", {});            // => false
-});
-
-(() => {
     R.type({}); // => "Object"
     R.type(1); // => "Number"
     R.type(false); // => "Boolean"
