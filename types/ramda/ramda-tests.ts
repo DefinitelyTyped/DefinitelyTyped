@@ -1289,11 +1289,6 @@ class Rectangle {
 };
 
 () => {
-    R.modulo(17, 3); // => 2
-    // JS behavior:
-    R.modulo(-17, 3); // => -2
-    R.modulo(17, -3); // => 2
-
     const isOdd = R.flip(R.modulo)(2);
     isOdd(42); // => 0
     isOdd(21); // => 1
