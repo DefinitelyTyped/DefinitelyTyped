@@ -427,11 +427,6 @@ R.times(i, 5);
  * Relation category
  */
 () => {
-    const a: number[] = R.symmetricDifference([1, 2, 3, 4], [7, 6, 5, 4, 3]); // => [1,2,7,6,5]
-    const b: number[] = R.symmetricDifference([7, 6, 5, 4, 3])([1, 2, 3, 4]); // => [7,6,5,1,2]
-};
-
-() => {
     const eqA = R.eqBy(R.prop("a"));
     const l1  = [{a: 1}, {a: 2}, {a: 3}, {a: 4}];
     const l2  = [{a: 3}, {a: 4}, {a: 5}, {a: 6}];
