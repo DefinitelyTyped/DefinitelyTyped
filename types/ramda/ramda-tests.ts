@@ -931,11 +931,6 @@ type Pair = KeyValuePair<string, number>;
 };
 
 () => {
-    R.merge({name: "fred", age: 10}, {age: 40});
-    // => { 'name': 'fred', 'age': 40 }
-};
-
-() => {
     const a = R.mergeAll([{foo: 1}, {bar: 2}, {baz: 3}]); // => {foo:1,bar:2,baz:3}
     const b = R.mergeAll([{foo: 1}, {foo: 2}, {bar: 2}]); // => {foo:2,bar:2}
 };
