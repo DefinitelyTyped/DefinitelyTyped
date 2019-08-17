@@ -114,12 +114,6 @@ R.useWith(addAll, [double, square]);
 };
 
 () => {
-    R.uniq([1, 1, 2, 1]); // => [1, 2]
-    R.uniq([{}, {}]);     // => [{}, {}]
-    R.uniq([1, "1"]);     // => [1, '1']
-};
-
-() => {
     function strEq(a: any, b: any) {
         return String(a) === String(b);
     }
