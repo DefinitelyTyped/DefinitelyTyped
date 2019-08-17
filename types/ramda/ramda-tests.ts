@@ -339,16 +339,6 @@ R.times(i, 5);
 };
 
 () => {
-    const testPath = ["x", 0, "y"];
-    const testObj  = {x: [{y: 2, z: 3}, {y: 4, z: 5}]};
-
-    R.pathEq(testPath, 2, testObj); // => true
-    R.pathEq(testPath, 2)(testObj); // => true
-    R.pathEq(testPath)(2)(testObj); // => true
-    R.pathEq(testPath)(2, testObj); // => true
-};
-
-() => {
     const xs: { [key: string]: string } = {a: "1", b: "0"};
     R.propEq("a", "1", xs); // => true
     R.propEq("a", "4", xs); // => false
