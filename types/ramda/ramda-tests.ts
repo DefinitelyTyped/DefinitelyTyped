@@ -821,21 +821,6 @@ type Pair = KeyValuePair<string, number>;
     R.set(xyLens, 4, testObj);          // => {x: [{y: 4, z: 3}, {y: 4, z: 5}]}
 };
 () => {
-    const orValue  = 11;
-    const orValueStr = "str";
-    const testPath = ["x", 0, "y"];
-    const testObj  = {x: [{y: 2, z: 3}, {y: 4, z: 5}]};
-    const testObjMiss = {c: {b: 2}};
-
-    R.pathOr<number>(orValue, testPath, testObj); // => 2
-    R.pathOr<number>(orValue, testPath)(testObj); // => 2
-    R.pathOr<number>(orValue)(testPath)(testObj); // => 2
-    R.pathOr<number>(orValue)(testPath, testObj); // => 2
-    R.pathOr<number>(orValue, testPath, testObjMiss); // => 11
-    R.pathOr<number | string>(orValueStr, testPath, testObjMiss); // => "str"
-};
-
-() => {
     const a: boolean = R.pathSatisfies((x: number) => x > 0, ["x"], {x: 1, y: 2}); // => true
     const b: boolean = R.pathSatisfies((x: number) => x > 0, ["x"])({x: 1, y: 2}); // => true
     const c: boolean = R.pathSatisfies((x: number) => x > 0)(["x"])({x: 1, y: 2}); // => true

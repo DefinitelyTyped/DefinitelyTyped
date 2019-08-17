@@ -166,6 +166,7 @@
         "test/partialRight-tests.ts",
         "test/partition-tests.ts",
         "test/path-tests.ts",
-        "test/pathEq-tests.ts"
+        "test/pathEq-tests.ts",
+        "test/pathOr-tests.ts"
     ]
 }
