@@ -179,6 +179,7 @@
         "test/prepend-tests.ts",
         "test/product-tests.ts",
         "test/project-tests.ts",
-        "test/prop-tests.ts"
+        "test/prop-tests.ts",
+        "test/propEq-tests.ts"
     ]
 }
