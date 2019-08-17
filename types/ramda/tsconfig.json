@@ -228,6 +228,7 @@
         "test/tryCatch-tests.ts",
         "test/type-tests.ts",
         "test/unapply-tests.ts",
-        "test/unary-tests.ts"
+        "test/unary-tests.ts",
+        "test/uncurryN-tests.ts"
     ]
 }
