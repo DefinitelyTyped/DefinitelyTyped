@@ -5,10 +5,6 @@ function double(x: number): number {
     return x + x;
 }
 
-function shout(x: number): string {
-    return x >= 10 ? "big" : "small";
-}
-
 class F {
     [k: string]: string;
     x = "X";
@@ -130,26 +126,6 @@ class F2 {
     const b: string = truncate("0123456789ABC"); // => '0123456789…'
 };
 
-/* pipe */
-() => {
-    const func: (x: number) => string = R.pipe(double, double, shout);
-    const res: string                 = R.pipe(double, double, shout)(10);
-
-    const capitalize = (str: string) => R.pipe(
-        R.split(""),
-        R.adjust(0, R.toUpper),
-        R.join("")
-    )(str);
-
-    const f          = R.pipe(Math.pow, R.negate, R.inc);
-    const fr: number = f(3, 4); // -(3^4) + 1
-
-    // pipe with first function taking no params
-    const f10 = () => 'str';
-    const f11 = (str: string) => str;
-    const f12: () => string = R.pipe(f10, f11);
-};
-
 /* pipeK */
 () => {
     const parseJson = (input: string): any[] => {
@@ -252,19 +228,6 @@ function i(x: number) {
 R.times(i, 5);
 
 (() => {
-    function triple(x: number): number {
-        return x * 3;
-    }
-
-    function square(x: number): number {
-        return x * x;
-    }
-
-    const squareThenDoubleThenTriple = R.pipe(square, double, triple);
-    squareThenDoubleThenTriple(5); // => 150
-})();
-
-(() => {
     const numbers = [1, 2, 3];
     R.reduce((a, b) => a + b, 10, numbers); // => 16;
 })();
@@ -318,28 +281,6 @@ R.times(i, 5);
 };
 
 () => {
-    function isEven(n: number) {
-        return n % 2 === 0;
-    }
-
-    const a: Dictionary<number> = R.pipe(
-        R.filter<number, 'object'>(isEven),
-    )({ a: 0, b: 1 }); // => { a: 0 }
-
-    const b: number[] = R.pipe(
-        R.filter<number, 'array'>(isEven),
-    )([0, 1]); // => [0]
-
-    const c: Dictionary<number> = R.pipe(
-        R.reject<number, 'object'>(isEven),
-    )({ a: 0, b: 1 }); // => { b: 1 }
-
-    const d: number[] = R.pipe(
-        R.reject<number, 'array'>(isEven),
-    )([0, 1]); // => [1]
-};
-
-() => {
     const xs: { [key: string]: string } = {a: "1", b: "0"};
     R.propEq("a", "1", xs); // => true
     R.propEq("a", "4", xs); // => false
@@ -373,48 +314,6 @@ interface Obj {
     R.propEq("a", 1, xs); // => true
     R.propEq("a", 4, xs); // => false
 };
-
-() => {
-    interface MyObject {
-        id: string;
-        quantity: number;
-    }
-
-    const reduceWithCombinedQuantities = (items: MyObject[]) =>
-        items.reduce<MyObject>(
-            (acc, item) => ({...item, quantity: acc.quantity + item.quantity}),
-            {id: '', quantity: 0},
-        );
-
-    const combineMyObjects = R.pipe(
-        R.groupBy<MyObject>(s => s.id),
-        R.values,
-        R.map(reduceWithCombinedQuantities),
-    );
-
-    const combined = combineMyObjects([
-        {id: 'foo', quantity: 4},
-        {id: 'bar', quantity: 3},
-        {id: 'foo', quantity: 2},
-    ]);
-
-    return {
-        id: combined[0].id,
-        quantity: combined[0].quantity
-    };
-};
-
-(() => {
-    interface Book {
-        id: string;
-        title: string;
-    }
-    const list: Book[] = [{id: "xyz", title: "A"}, {id: "abc", title: "B"}];
-    const titlesIndexedByTitles: { [k: string]: string } = R.pipe(
-        R.map((x: Book) => x.title),
-        R.indexBy(x => x),
-    )(list);
-});
 
 () => {
     const headLens = R.lensIndex(0);
@@ -635,25 +534,6 @@ type Pair = KeyValuePair<string, number>;
 };
 
 () => {
-    interface Person { id: number; firstName: string; lastName: string; }
-    const makeQuery = (email: string) => ({ query: { email }});
-    const fetchMember = (query: any) => Promise.resolve({ id: 1, firstName: 'Jon', lastName: 'Snow' });
-    const getTitleAsync = (person: Person) => person.firstName === 'Jon' && person.lastName === 'Snow' ? Promise.resolve('King in the North') : Promise.reject('Unknown');
-
-    const getMemberName: (email: string) => Promise<{ firstName: string, lastName: string }> = R.pipe(
-        makeQuery,
-        fetchMember,
-        R.then(R.pick(['firstName', 'lastName'])),
-    );
-
-    const getMemberTitle: (email: string) => Promise<string> = R.pipe(
-        makeQuery,
-        fetchMember,
-        R.then(getTitleAsync),
-    );
-};
-
-() => {
     const x: unknown = R.thunkify(R.identity)(42)();
     const y: number = R.thunkify((a: number, b: number) => a + b)(25, 17)();
     const z: number = R.thunkify((a: number, b: number) => a + b)(25)(17)();
@@ -773,25 +653,6 @@ type Pair = KeyValuePair<string, number>;
 /*****************************************************************
  * Object category
  */
-
-() => {
-    interface Person { firstName: string; lastName: string; }
-    const failedFetch = (id: string): Promise<Person> => Promise.reject('bad ID');
-    const useDefault = (): Person => ({ firstName: 'Bob', lastName: 'Loblaw' });
-    const loadAlternative = (): Promise<Person> => Promise.resolve({ firstName: 'Saul', lastName: 'Goodman' });
-
-    const recoverFromFailure: (id: string) => Promise<{ firstName: string; lastName: string; }> = R.pipe(
-      failedFetch,
-      R.otherwise(useDefault),
-      R.then(R.pick(['firstName', 'lastName'])),
-    );
-
-    const recoverFromFailureByAlternative: (id: string) => Promise<Person> = R.pipe(
-      failedFetch,
-      R.otherwise(useDefault),
-      R.then(loadAlternative),
-    );
-};
 
 () => {
     const xLens = R.lens(R.prop("x"), R.assoc("x"));
