@@ -157,6 +157,7 @@
         "test/o-tests.ts",
         "test/objOf-tests.ts",
         "test/of-tests.ts",
-        "test/omit-tests.ts"
+        "test/omit-tests.ts",
+        "test/once-tests.ts"
     ]
 }

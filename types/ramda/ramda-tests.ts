@@ -284,14 +284,6 @@ R.times(i, 5);
 })();
 
 (() => {
-    const addOneOnce = R.once((x: number) => x + 1);
-    addOneOnce(10); // => 11
-    addOneOnce(addOneOnce(50)); // => 11
-
-    const str = R.once<string>(() => 'test')();
-})();
-
-(() => {
     const numbers = [1, 2, 3];
     R.reduce((a, b) => a + b, 10, numbers); // => 16;
 })();
