@@ -190,6 +190,7 @@
         "test/reduceWhile-tests.ts",
         "test/reject-tests.ts",
         "test/remove-tests.ts",
-        "test/repeat-tests.ts"
+        "test/repeat-tests.ts",
+        "test/replace-tests.ts"
     ]
 }
