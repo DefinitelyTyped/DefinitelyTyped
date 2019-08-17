@@ -547,18 +547,6 @@ type Pair = KeyValuePair<string, number>;
 };
 
 () => {
-    const alice               = {
-        name: "ALICE",
-        age : 101
-    };
-    const favoriteWithDefault = R.propOr("Ramda", "favoriteLibrary");
-
-    const s2 = favoriteWithDefault(alice);  // => 'Ramda'
-    R.propOr('Ramda', R.__, alice)('name');  // => 'ALICE'
-    R.propOr(R.__, 'foo', alice)('default');  // => 'default'
-};
-
-() => {
     const a: boolean = R.propSatisfies((x: number) => x > 0, "x", {x: 1, y: 2}); // => true
     const b: boolean = R.propSatisfies((x: number) => x > 0, "x")({x: 1, y: 2}); // => true
     const c: boolean = R.propSatisfies((x: number) => x > 0)("x")({x: 1, y: 2}); // => true
