@@ -1016,17 +1016,6 @@ type Pair = KeyValuePair<string, number>;
  * Relation category
  */
 () => {
-    const testPath = ["x", 0, "y"];
-    const testObj  = {x: [{y: 2, z: 3}, {y: 4, z: 5}]};
-
-    R.path(testPath, testObj); // => 2
-    R.path(testPath)(testObj); // => 2
-
-    R.path(['a', 'b'])({c: {b: 2}}); // => undefined
-    R.path(['a', 'b'], {c: {b: 2}}); // => undefined
-};
-
-() => {
     const sortByAgeDescending = R.sortBy(R.compose<{}, number, number>(R.negate, R.prop("age")));
     const alice               = {
         name: "ALICE",
