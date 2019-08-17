@@ -174,13 +174,6 @@ R.times(i, 5);
 };
 
 () => {
-    R.tail(["fi", "fo", "fum"]); // => ['fo', 'fum']
-    R.tail([1, 2, 3]); // => [2, 3]
-    R.tail("abc");  // => 'bc'
-    R.tail("");     // => ''
-};
-
-() => {
     R.take(3, [1, 2, 3, 4, 5]); // => [1,2,3]
 
     const members  = ["Paul Desmond", "Bob Bates", "Joe Dodge", "Ron Crotty", "Lloyd Davis", "Joe Morello", "Norman Bates",
