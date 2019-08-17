@@ -134,6 +134,7 @@
         "test/mean-tests.ts",
         "test/median-tests.ts",
         "test/memoizeWith-tests.ts",
-        "test/merge-tests.ts"
+        "test/merge-tests.ts",
+        "test/mergeAll-tests.ts"
     ]
 }
