@@ -237,6 +237,7 @@
         "test/valuesIn-tests.ts",
         "test/view-tests.ts",
         "test/when-tests.ts",
-        "test/where-tests.ts"
+        "test/where-tests.ts",
+        "test/whereEq-tests.ts"
     ]
 }

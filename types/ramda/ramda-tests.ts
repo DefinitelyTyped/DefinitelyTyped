@@ -151,16 +151,6 @@ class Rectangle {
 };
 
 () => {
-    // pred :: Object -> Boolean
-    const pred = R.whereEq({a: 1, b: 2});
-    pred({a: 1});              // => false
-    pred({a: 1, b: 2});        // => true
-    pred({a: 1, b: 2, c: 3});  // => true
-    pred({a: 1, b: 1});        // => false
-    R.whereEq({a: "one"}, {a: "one"}); // => true
-};
-
-() => {
     const a: number[] = R.without([1, 2], [1, 2, 1, 3, 4]); // => [3, 4]
 };
 
