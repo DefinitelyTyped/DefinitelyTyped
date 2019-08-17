@@ -223,6 +223,7 @@
         "test/transpose-tests.ts",
         "test/traverse-tests.ts",
         "test/tryCatch-tests.ts",
-        "test/type-tests.ts"
+        "test/type-tests.ts",
+        "test/unapply-tests.ts"
     ]
 }
