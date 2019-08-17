@@ -218,6 +218,7 @@
         "test/times-tests.ts",
         "test/toPairs-tests.ts",
         "test/toPairsIn-tests.ts",
-        "test/toString-tests.ts"
+        "test/toString-tests.ts",
+        "test/transduce-tests.ts"
     ]
 }
