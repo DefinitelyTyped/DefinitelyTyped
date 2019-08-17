@@ -209,6 +209,7 @@
         "test/symmetricDifferenceWith-tests.ts",
         "test/tail-tests.ts",
         "test/take-tests.ts",
-        "test/takeLast-tests.ts"
+        "test/takeLast-tests.ts",
+        "test/takeLastWhile-tests.ts"
     ]
 }
