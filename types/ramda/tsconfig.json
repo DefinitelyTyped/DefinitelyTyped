@@ -129,6 +129,7 @@
         "test/mapAccumRight-tests.ts",
         "test/mapObjIndexed-tests.ts",
         "test/mathMod-tests.ts",
-        "test/max-tests.ts"
+        "test/max-tests.ts",
+        "test/maxBy-tests.ts"
     ]
 }
