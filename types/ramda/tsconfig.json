@@ -168,6 +168,7 @@
         "test/path-tests.ts",
         "test/pathEq-tests.ts",
         "test/pathOr-tests.ts",
-        "test/pathSatisfies-tests.ts"
+        "test/pathSatisfies-tests.ts",
+        "test/pick-tests.ts"
     ]
 }
