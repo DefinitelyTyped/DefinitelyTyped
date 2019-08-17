@@ -498,7 +498,6 @@ type Pair = KeyValuePair<string, number>;
 };
 
 () => {
-    const x          = R.prop("x");
     const a: boolean  = R.tryCatch<boolean>(R.prop("x"), R.F)({x: true}); // => true
     const a1: boolean = R.tryCatch(R.prop<"x", true>("x"), R.F)({x: true}); // => true
     const b: boolean = R.tryCatch<boolean>(R.prop("x"), R.F)(null);      // => false
@@ -592,27 +591,10 @@ type Pair = KeyValuePair<string, number>;
 };
 
 () => {
-    const x: number = R.prop("x", {x: 100}); // => 100
-    const obj = {
-        str: 'string',
-        num: 5,
-    };
-
-    const strVal: string = R.prop('str', obj); // => 'string'
-    const numVal: number = R.prop('num', obj); // => 5
-
-    const strValPl: string = R.prop(R.__, obj)('str'); // => 'string'
-
-    const strValCur: string = R.prop('str')(obj); // => 'string'
-    const numValCur: number = R.prop('num')(obj); // => 5
-};
-
-() => {
     const alice               = {
         name: "ALICE",
         age : 101
     };
-    const favorite            = R.prop("favoriteLibrary");
     const favoriteWithDefault = R.propOr("Ramda", "favoriteLibrary");
 
     const s2 = favoriteWithDefault(alice);  // => 'Ramda'
