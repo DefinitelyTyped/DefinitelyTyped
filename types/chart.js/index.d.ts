@@ -522,34 +522,41 @@ declare namespace Chart {
 
     type ChartColor = string | CanvasGradient | CanvasPattern | string[];
 
+    type Scriptable<T> = (ctx: {
+        chart?: Chart;
+        dataIndex?: number;
+        dataset?: ChartDataSets
+        datasetIndex?: number;
+    }) => T;
+
     interface ChartDataSets {
         cubicInterpolationMode?: 'default' | 'monotone';
-        backgroundColor?: ChartColor | ChartColor[];
-        borderWidth?: number | number[];
-        borderColor?: ChartColor | ChartColor[];
+        backgroundColor?: ChartColor | ChartColor[] | Scriptable<ChartColor>;
+        borderWidth?: number | number[] | Scriptable<number>;
+        borderColor?: ChartColor | ChartColor[] | Scriptable<ChartColor>;
         borderCapStyle?: 'butt' | 'round' | 'square';
         borderDash?: number[];
         borderDashOffset?: number;
         borderJoinStyle?: 'bevel' | 'round' | 'miter';
-        borderSkipped?: PositionType;
+        borderSkipped?: PositionType | Scriptable<PositionType>;
         data?: Array<number | null | undefined> | ChartPoint[];
         fill?: boolean | number | string;
-        hoverBackgroundColor?: ChartColor | ChartColor[];
-        hoverBorderColor?: ChartColor | ChartColor[];
-        hoverBorderWidth?: number | number[];
+        hoverBackgroundColor?: ChartColor | ChartColor[] | Scriptable<ChartColor>;
+        hoverBorderColor?: ChartColor | ChartColor[] | Scriptable<ChartColor>;
+        hoverBorderWidth?: number | number[] | Scriptable<ChartColor>;
         label?: string;
         lineTension?: number;
         steppedLine?: 'before' | 'after' | 'middle' | boolean;
-        pointBorderColor?: ChartColor | ChartColor[];
-        pointBackgroundColor?: ChartColor | ChartColor[];
-        pointBorderWidth?: number | number[];
-        pointRadius?: number | number[];
-        pointHoverRadius?: number | number[];
-        pointHitRadius?: number | number[];
-        pointHoverBackgroundColor?: ChartColor | ChartColor[];
-        pointHoverBorderColor?: ChartColor | ChartColor[];
-        pointHoverBorderWidth?: number | number[];
-        pointStyle?: PointStyle | HTMLImageElement | HTMLCanvasElement | Array<PointStyle | HTMLImageElement | HTMLCanvasElement>;
+        pointBorderColor?: ChartColor | ChartColor[] | Scriptable<ChartColor>;
+        pointBackgroundColor?: ChartColor | ChartColor[] | Scriptable<ChartColor>;
+        pointBorderWidth?: number | number[] | Scriptable<number>;
+        pointRadius?: number | number[] | Scriptable<number>;
+        pointHoverRadius?: number | number[] | Scriptable<number>;
+        pointHitRadius?: number | number[] | Scriptable<number>;
+        pointHoverBackgroundColor?: ChartColor | ChartColor[] | Scriptable<ChartColor>;
+        pointHoverBorderColor?: ChartColor | ChartColor[] | Scriptable<ChartColor>;
+        pointHoverBorderWidth?: number | number[] | Scriptable<number>;
+        pointStyle?: PointStyle | HTMLImageElement | HTMLCanvasElement | Array<PointStyle | HTMLImageElement | HTMLCanvasElement> | Scriptable<PointStyle | HTMLImageElement | HTMLCanvasElement>;
         xAxisID?: string;
         yAxisID?: string;
         type?: ChartType | string;
