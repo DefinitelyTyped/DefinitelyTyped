@@ -906,13 +906,6 @@ type Pair = KeyValuePair<string, number>;
 };
 
 () => {
-    R.pair("foo", "bar"); // => ['foo', 'bar']
-    const p         = R.pair("foo", 1); // => ['foo', 'bar']
-    const x: string = p[0];
-    const y: number = p[1];
-};
-
-() => {
     R.pickAll(["a", "d"], {a: 1, b: 2, c: 3, d: 4}); // => {a: 1, d: 4}
     R.pickAll(["a", "d"])({a: 1, b: 2, c: 3, d: 4}); // => {a: 1, d: 4}
     R.pickAll(["a", "e", "f"], {a: 1, b: 2, c: 3, d: 4}); // => {a: 1, e: undefined, f: undefined}
