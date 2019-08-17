@@ -159,6 +159,7 @@
         "test/of-tests.ts",
         "test/omit-tests.ts",
         "test/once-tests.ts",
-        "test/or-tests.ts"
+        "test/or-tests.ts",
+        "test/over-tests.ts"
     ]
 }
