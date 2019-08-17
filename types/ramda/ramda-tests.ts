@@ -240,11 +240,6 @@ interface Obj {
 };
 
 () => {
-    const a = R.pluck("a")([{a: 1}, {a: 2}]); // => [1, 2]
-    const b = R.pluck(0)([[1, 2], [3, 4]]);   // => [1, 3]
-};
-
-() => {
     R.prepend("fee", ["fi", "fo", "fum"]); // => ['fee', 'fi', 'fo', 'fum']
     R.prepend("fee")(["fi", "fo", "fum"]); // => ['fee', 'fi', 'fo', 'fum']
 };
