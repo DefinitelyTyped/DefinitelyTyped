@@ -184,6 +184,7 @@
         "test/propIs-tests.ts",
         "test/propOr-tests.ts",
         "test/props-tests.ts",
-        "test/propSatisfies-tests.ts"
+        "test/propSatisfies-tests.ts",
+        "test/range-tests.ts"
     ]
 }
