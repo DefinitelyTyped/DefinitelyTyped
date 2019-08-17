@@ -1,4 +1,4 @@
-// Type definitions for eslint 4.16
+// Type definitions for eslint 6.1
 // Project: https://eslint.org
 // Definitions by: Pierre-Marie Dartus <https://github.com/pmdartus>
 //                 Jed Fox <https://github.com/j-f1>
