@@ -198,17 +198,6 @@ R.times(i, 5);
     const listB: number[] = rejectEven([0, 1]); // => [1]
 };
 
-interface Obj {
-    a: number;
-    b: number;
-}
-
-() => {
-    const xs: Obj = {a: 1, b: 0};
-    R.propEq("a", 1, xs); // => true
-    R.propEq("a", 4, xs); // => false
-};
-
 () => {
     const headLens = R.lensIndex(0);
     R.view(headLens, ["a", "b", "c"]);            // => 'a'
