@@ -481,14 +481,6 @@ class Rectangle {
     const a: number[] = R.without([1, 2], [1, 2, 1, 3, 4]); // => [3, 4]
 };
 
-() => {
-    const people = [
-        {name: 'Agy', age: 33}, {name: 'Bib', age: 15}, {name: 'Cari', age: 16}
-    ];
-
-    R.sortWith([R.ascend(R.prop('age')), R.descend(R.prop('name'))], people);
-};
-
 /*****************************************************************
  * Relation category
  */
