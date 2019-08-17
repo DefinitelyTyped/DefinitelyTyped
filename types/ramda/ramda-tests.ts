@@ -681,13 +681,6 @@ R.times(i, 5);
  * List category
  */
 () => {
-    const lessThan2 = R.flip(R.lt)(2);
-    const lessThan3 = R.flip(R.lt)(3);
-    R.all(lessThan2)([1, 2]); // => false
-    R.all(lessThan3)([1, 2]); // => true
-};
-
-() => {
     const lessThan0 = R.flip(R.lt)(0);
     const lessThan2 = R.flip(R.lt)(2);
     R.any(lessThan0)([1, 2]); // => false
