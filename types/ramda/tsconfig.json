@@ -195,6 +195,7 @@
         "test/reverse-tests.ts",
         "test/scan-tests.ts",
         "test/set-tests.ts",
-        "test/slice-tests.ts"
+        "test/slice-tests.ts",
+        "test/sort-tests.ts"
     ]
 }
