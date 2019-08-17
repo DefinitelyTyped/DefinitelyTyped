@@ -166,11 +166,6 @@ R.times(i, 5);
 };
 
 () => {
-    const sayX      = (x: number) => console.log("x is " + x);
-    const a: number = R.tap(sayX, 100); // => 100
-};
-
-() => {
     const a: boolean = R.test(/^x/, "xyz"); // => true
     const b: boolean = R.test(/^y/)("xyz"); // => false
 };
