@@ -44,9 +44,6 @@ class F2 {
 });
 
 () => {
-    function takesNoArg() {
-        return true;
-    }
     function takesOneArg(a: number) {
         return [a];
     }
@@ -56,12 +53,6 @@ class F2 {
     function takesThreeArgs(a: number, b: number, c: number) {
         return [a, b, c];
     }
-
-    R.nAry(0);
-    R.nAry(0, takesNoArg);
-    R.nAry(0, takesOneArg);
-    R.nAry(1, takesTwoArgs);
-    R.nAry(1, takesThreeArgs);
 
     const u1: (a: any) => any = R.unary(takesOneArg);
     const u2: (a: any) => any = R.unary(takesTwoArgs);
