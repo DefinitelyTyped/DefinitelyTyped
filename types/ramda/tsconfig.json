@@ -137,6 +137,7 @@
         "test/memoizeWith-tests.ts",
         "test/merge-tests.ts",
         "test/mergeAll-tests.ts",
-        "test/mergeDeepLeft-tests.ts"
+        "test/mergeDeepLeft-tests.ts",
+        "test/mergeDeepRight-tests.ts"
     ]
 }
