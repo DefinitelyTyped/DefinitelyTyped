@@ -156,6 +156,7 @@
         "test/nth-tests.ts",
         "test/nthArg-tests.ts",
         "test/objOf-tests.ts",
-        "test/of-tests.ts"
+        "test/of-tests.ts",
+        "test/over-tests.ts"
     ]
 }

@@ -464,7 +464,6 @@ interface Obj {
     const headLens = R.lensIndex(0);
     R.view(headLens, ["a", "b", "c"]);            // => 'a'
     R.set(headLens, "x", ["a", "b", "c"]);        // => ['x', 'b', 'c']
-    R.over(headLens, R.toUpper, ["a", "b", "c"]); // => ['A', 'b', 'c']
 };
 
 () => {
@@ -876,23 +875,18 @@ class Rectangle {
     R.set(xLens, 4, {x: 1, y: 2});          // => {x: 4, y: 2}
     R.set(xLens)(4, {x: 1, y: 2});          // => {x: 4, y: 2}
     R.set(xLens, 4)({x: 1, y: 2});          // => {x: 4, y: 2}
-    R.over(xLens, R.negate, {x: 1, y: 2});  // => {x: -1, y: 2}
-    R.over(xLens, R.negate)({x: 1, y: 2});  // => {x: -1, y: 2}
-    R.over(xLens)(R.negate, {x: 1, y: 2});  // => {x: -1, y: 2}
 };
 
 () => {
     const headLens = R.lensIndex(0);
     R.view(headLens, ["a", "b", "c"]);            // => 'a'
     R.set(headLens, "x", ["a", "b", "c"]);        // => ['x', 'b', 'c']
-    R.over(headLens, R.toUpper, ["a", "b", "c"]); // => ['A', 'b', 'c']
 };
 
 () => {
     const xLens = R.lensProp("x");
     R.view(xLens, {x: 1, y: 2});            // => 1
     R.set(xLens, 4, {x: 1, y: 2});          // => {x: 4, y: 2}
-    R.over(xLens, R.negate, {x: 1, y: 2});  // => {x: -1, y: 2}
 };
 
 () => {
@@ -901,7 +895,6 @@ class Rectangle {
 
     R.view(xyLens, testObj);            // => 2
     R.set(xyLens, 4, testObj);          // => {x: [{y: 4, z: 3}, {y: 4, z: 5}]}
-    R.over(xyLens, R.negate, testObj);  // => {x: [{y: -2, z: 3}, {y: 4, z: 5}]}
 };
 
 () => {
@@ -976,11 +969,6 @@ class Rectangle {
     const p         = R.pair("foo", 1); // => ['foo', 'bar']
     const x: string = p[0];
     const y: number = p[1];
-};
-
-() => {
-    const headLens = R.lensIndex(0);
-    R.over(headLens, R.toUpper, ["foo", "bar", "baz"]); // => ['FOO', 'bar', 'baz']
 };
 
 () => {
