@@ -117,6 +117,18 @@ namespace express_tests {
         res.render('regular');
     });
 
+    // Params defaults to dictionary
+    router.get('/user/:id', (req, res, next) => {
+        req.params.id; // $ExpectType string
+        req.params[0]; // $ExpectType string
+    });
+
+    // Params can used as an array
+    router.get<ParamsArray>('/*', (req, res, next) => {
+        req.params[0]; // $ExpectType string
+        req.params.length; // $ExpectType number
+    });
+
     app.use((req, res, next) => {
         // hacky trick, router is just a handler
         router(req, res, next);
@@ -158,7 +170,7 @@ namespace express_tests {
  *                         *
  ***************************/
 import * as http from 'http';
-import { RequestRanges } from 'express-serve-static-core';
+import { RequestRanges, ParamsArray } from 'express-serve-static-core';
 
 namespace node_tests {
     {

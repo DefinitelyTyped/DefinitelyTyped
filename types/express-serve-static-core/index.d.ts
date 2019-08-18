@@ -7,7 +7,7 @@
 //                 Sami Jaber <https://github.com/samijaber>
 //                 aereal <https://github.com/aereal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 // This extracts the core definitions from express to prevent a circular dependency between express and serve-static
 /// <reference types="node" />
@@ -31,20 +31,25 @@ export interface NextFunction {
     (err?: any): void;
 }
 
-export interface RequestHandler {
+export interface Dictionary<T> { [key: string]: T; }
+export type ParamsDictionary = Dictionary<string>;
+export type ParamsArray = string[];
+export type Params = ParamsDictionary | ParamsArray;
+
+export interface RequestHandler<P extends Params = ParamsDictionary> {
     // tslint:disable-next-line callable-types (This is extended from and can't extend from a type alias in ts<2.2
-    (req: Request, res: Response, next: NextFunction): any;
+    (req: Request<P>, res: Response, next: NextFunction): any;
 }
 
-export type ErrorRequestHandler = (err: any, req: Request, res: Response, next: NextFunction) => any;
+export type ErrorRequestHandler<P extends Params = ParamsDictionary> = (err: any, req: Request<P>, res: Response, next: NextFunction) => any;
 
 export type PathParams = string | RegExp | Array<string | RegExp>;
 
-export type RequestHandlerParams = RequestHandler | ErrorRequestHandler | Array<RequestHandler | ErrorRequestHandler>;
+export type RequestHandlerParams<P extends Params = ParamsDictionary> = RequestHandler<P> | ErrorRequestHandler<P> | Array<RequestHandler<P> | ErrorRequestHandler<P>>;
 
 export interface IRouterMatcher<T> {
-    (path: PathParams, ...handlers: RequestHandler[]): T;
-    (path: PathParams, ...handlers: RequestHandlerParams[]): T;
+    <P extends Params = ParamsDictionary>(path: PathParams, ...handlers: RequestHandler<P>[]): T;
+    <P extends Params = ParamsDictionary>(path: PathParams, ...handlers: RequestHandlerParams<P>[]): T;
     (path: PathParams, subApplication: Application): T;
 }
 
@@ -181,7 +186,7 @@ export interface RequestRanges extends RangeParserRanges { }
 
 export type Errback = (err: Error) => void;
 
-export interface Request extends http.IncomingMessage, Express.Request {
+export interface Request<P extends Params = ParamsDictionary> extends http.IncomingMessage, Express.Request {
     /**
      * Return request header.
      *
@@ -433,7 +438,7 @@ export interface Request extends http.IncomingMessage, Express.Request {
 
     method: string;
 
-    params: any;
+    params: P;
 
     /** Clear cookie `name`. */
     clearCookie(name: string, options?: any): Response;
