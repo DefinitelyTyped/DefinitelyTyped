@@ -48,8 +48,10 @@ export type PathParams = string | RegExp | Array<string | RegExp>;
 export type RequestHandlerParams<P extends Params = ParamsDictionary> = RequestHandler<P> | ErrorRequestHandler<P> | Array<RequestHandler<P> | ErrorRequestHandler<P>>;
 
 export interface IRouterMatcher<T> {
-    <P extends Params = ParamsDictionary>(path: PathParams, ...handlers: RequestHandler<P>[]): T;
-    <P extends Params = ParamsDictionary>(path: PathParams, ...handlers: RequestHandlerParams<P>[]): T;
+    // tslint:disable-next-line no-unnecessary-generics
+    <P extends Params = ParamsDictionary>(path: PathParams, ...handlers: Array<RequestHandler<P>>): T;
+    // tslint:disable-next-line no-unnecessary-generics
+    <P extends Params = ParamsDictionary>(path: PathParams, ...handlers: Array<RequestHandlerParams<P>>): T;
     (path: PathParams, subApplication: Application): T;
 }
 
