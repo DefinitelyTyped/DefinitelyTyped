@@ -1,7 +1,8 @@
-// Type definitions for koji-tools 0.5.1
+// Type definitions for koji-tools 0.5
 // Project: https://github.com/madewithkoji/koji-tools
-// Definitions by: Jeff Peterson <github.com/bdjeffyp>
+// Definitions by: Jeff Peterson <https://github.com/bdjeffyp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.0
 
 // tslint:disable-next-line:export-just-namespace
 export = Koji;
