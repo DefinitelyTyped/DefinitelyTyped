@@ -18,7 +18,7 @@ app.get<express.ParamsArray>('/*', (req, res) => {
 });
 
 // Params can be a custom type that conforms to constraint
-app.get<{foo: string}>('/:foo', (req, res) => {
+app.get<{ foo: string }>('/:foo', (req, res) => {
     req.params.foo; // $ExpectType string
     req.params.bar; // $ExpectError
 });

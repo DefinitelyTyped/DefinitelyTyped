@@ -132,7 +132,7 @@ namespace express_tests {
     });
 
     // Params can be a custom type that conforms to constraint
-    router.get<{foo: string}>('/:foo', (req, res) => {
+    router.get<{ foo: string }>('/:foo', (req, res) => {
         req.params.foo; // $ExpectType string
         req.params.bar; // $ExpectError
     });
