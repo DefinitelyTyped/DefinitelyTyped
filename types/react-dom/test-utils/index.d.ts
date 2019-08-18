@@ -295,6 +295,7 @@ export function createRenderer(): ShallowRenderer;
 export function act(callback: () => void | undefined): DebugPromiseLike;
 
 // Support the async version
+// tslint:disable-next-line: void-return
 export function act(callback: () => Promise<void | undefined>): Promise<undefined>;
 
 // Intentionally doesn't extend PromiseLike<never>.
