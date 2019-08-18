@@ -24,5 +24,4 @@ const verifyOptions = {
   (await argon2.hash({ ...mandatoryOptions, type: argon2.ArgonType.Argon2i })).encoded; // string
 
   await argon2.verify(verifyOptions); // undefined
-  argon2.verify({ pass: "Qwerty12?", encoded: "Incorrect Hash" }).catch(e => { return e; }) // Argon2Error
 })();
