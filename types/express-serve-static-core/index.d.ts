@@ -192,8 +192,10 @@ export type Errback = (err: Error) => void;
 /**
  * @param P  For most requests, this should be `ParamsDictionary`, but if you're
  * using this in a route handler for a route that uses a `RegExp` or a wildcard
- * string paths (e.g. "/user/*"), then `req.params` will be an array, in which
- * case you should use `Request<ParamsArray>` instead.
+ * string path (e.g. `'/user/*'`), then `req.params` will be an array, in which
+ * case you should use `ParamsArray` instead.
+ *
+ * @see https://expressjs.com/en/api.html#req.params
  *
  * @example
  *     app.get('/user/:id', (req, res) => res.send(req.params.id)); // implicitly `ParamsDictionary`
