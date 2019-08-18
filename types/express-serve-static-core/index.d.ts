@@ -49,9 +49,9 @@ export type PathParams = string | RegExp | Array<string | RegExp>;
 export type RequestHandlerParams<P extends Params = ParamsDictionary> = RequestHandler<P> | ErrorRequestHandler<P> | Array<RequestHandler<P> | ErrorRequestHandler<P>>;
 
 export interface IRouterMatcher<T> {
-    // tslint:disable-next-line no-unnecessary-generics
+    // tslint:disable-next-line no-unnecessary-generics (This generic is meant to be passed explicitly.)
     <P extends Params = ParamsDictionary>(path: PathParams, ...handlers: Array<RequestHandler<P>>): T;
-    // tslint:disable-next-line no-unnecessary-generics
+    // tslint:disable-next-line no-unnecessary-generics (This generic is meant to be passed explicitly.)
     <P extends Params = ParamsDictionary>(path: PathParams, ...handlers: Array<RequestHandlerParams<P>>): T;
     (path: PathParams, subApplication: Application): T;
 }
