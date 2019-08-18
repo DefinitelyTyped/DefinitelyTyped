@@ -3601,6 +3601,12 @@
             "asOfVersion": "3.0.0"
         },
         {
+            "libraryName": "ts3-nodejs-library",
+            "typingsPackageName": "ts3-nodejs-library",
+            "sourceRepoURL": "https://github.com/Multivit4min/TS3-NodeJS-Library",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "TsMonad",
             "typingsPackageName": "tsmonad",
             "sourceRepoURL": "https://github.com/cbowdon/TsMonad",
