@@ -120,19 +120,19 @@ namespace express_tests {
     });
 
     // Params defaults to dictionary
-    router.get('/:foo', (req, res) => {
+    router.get('/:foo', req => {
         req.params.foo; // $ExpectType string
         req.params[0]; // $ExpectType string
     });
 
     // Params can used as an array
-    router.get<ParamsArray>('/*', (req, res) => {
+    router.get<ParamsArray>('/*', req => {
         req.params[0]; // $ExpectType string
         req.params.length; // $ExpectType number
     });
 
     // Params can be a custom type that conforms to constraint
-    router.get<{ foo: string }>('/:foo', (req, res) => {
+    router.get<{ foo: string }>('/:foo', req => {
         req.params.foo; // $ExpectType string
         req.params.bar; // $ExpectError
     });

@@ -6,19 +6,19 @@ app.listen(3000, (err: any) => {
     // no-op error callback
 });
 
-app.get('/:foo', (req, res) => {
+app.get('/:foo', req => {
     req.params.foo; // $ExpectType string
     req.params[0]; // $ExpectType string
 });
 
 // Params can used as an array
-app.get<express.ParamsArray>('/*', (req, res) => {
+app.get<express.ParamsArray>('/*', req => {
     req.params[0]; // $ExpectType string
     req.params.length; // $ExpectType number
 });
 
 // Params can be a custom type that conforms to constraint
-app.get<{ foo: string }>('/:foo', (req, res) => {
+app.get<{ foo: string }>('/:foo', req => {
     req.params.foo; // $ExpectType string
     req.params.bar; // $ExpectError
 });
