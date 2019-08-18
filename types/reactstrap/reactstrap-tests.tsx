@@ -4326,6 +4326,10 @@ class Example119 extends React.Component<any, any> {
           </CustomInput>
         </FormGroup>
         <FormGroup>
+          <Label for="exampleCustomRange">Custom Range</Label>
+          <CustomInput type="range" id="exampleCustomRange" name="customRange" />
+        </FormGroup>
+        <FormGroup>
           <Label for="exampleCustomFileBrowser">File Browser</Label>
           <CustomInput type="file" id="exampleCustomFileBrowser" name="customFile" />
         </FormGroup>
