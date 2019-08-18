@@ -33,11 +33,20 @@ Don't forget to authenticate your client before sending any request to resources
 // declare client_id registered in Google Developers Console
 var client_id = '',
     scope = [     
-        // Manage your calendars
+        // See, edit, share, and permanently delete all the calendars you can access using Google Calendar
         'https://www.googleapis.com/auth/calendar',
+    
+        // View and edit events on all your calendars
+        'https://www.googleapis.com/auth/calendar.events',
+    
+        // View events on all your calendars
+        'https://www.googleapis.com/auth/calendar.events.readonly',
     
         // View your calendars
         'https://www.googleapis.com/auth/calendar.readonly',
+    
+        // View your Calendar settings
+        'https://www.googleapis.com/auth/calendar.settings.readonly',
     ],
     immediate = true;
 // ...
@@ -91,32 +100,32 @@ Watch for changes to ACL resources.
 await gapi.client.acl.watch({ calendarId: "calendarId",  }); 
     
 /* 
-Deletes an entry on the user's calendar list.  
+Removes a calendar from the user's calendar list.  
 */
 await gapi.client.calendarList.delete({ calendarId: "calendarId",  }); 
     
 /* 
-Returns an entry on the user's calendar list.  
+Returns a calendar from the user's calendar list.  
 */
 await gapi.client.calendarList.get({ calendarId: "calendarId",  }); 
     
 /* 
-Adds an entry to the user's calendar list.  
+Inserts an existing calendar into the user's calendar list.  
 */
 await gapi.client.calendarList.insert({  }); 
     
 /* 
-Returns entries on the user's calendar list.  
+Returns the calendars on the user's calendar list.  
 */
 await gapi.client.calendarList.list({  }); 
     
 /* 
-Updates an entry on the user's calendar list. This method supports patch semantics.  
+Updates an existing calendar on the user's calendar list. This method supports patch semantics.  
 */
 await gapi.client.calendarList.patch({ calendarId: "calendarId",  }); 
     
 /* 
-Updates an entry on the user's calendar list.  
+Updates an existing calendar on the user's calendar list.  
 */
 await gapi.client.calendarList.update({ calendarId: "calendarId",  }); 
     
