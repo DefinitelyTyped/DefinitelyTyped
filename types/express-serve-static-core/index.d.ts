@@ -32,6 +32,7 @@ export interface NextFunction {
 }
 
 export interface Dictionary<T> { [key: string]: T; }
+
 export type ParamsDictionary = Dictionary<string>;
 export type ParamsArray = string[];
 export type Params = ParamsDictionary | ParamsArray;
