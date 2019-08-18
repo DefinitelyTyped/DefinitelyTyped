@@ -294,6 +294,9 @@ export function createRenderer(): ShallowRenderer;
 // the actual return value is always a "DebugPromiseLike".
 export function act(callback: () => void | undefined): DebugPromiseLike;
 
+// Support the async version
+export function act(callback: () => Promise<void | undefined>): Promise<undefined>;
+
 // Intentionally doesn't extend PromiseLike<never>.
 // Ideally this should be as hard to accidentally use as possible.
 export interface DebugPromiseLike {
