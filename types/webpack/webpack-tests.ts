@@ -304,8 +304,8 @@ configuration = {
         const { mainTemplate } = compilation;
         mainTemplate.requireFn.trimLeft();
         mainTemplate.outputOptions.crossOriginLoading;
-        mainTemplate.hooks.requireExtensions.tap('SomePlugin', (resource) => {
-            resource.trimLeft();
+        mainTemplate.hooks.requireExtensions.tap('SomePlugin', resource => {
+          return resource.trimLeft();
         });
         if (mainTemplate.hooks.jsonpScript == null) {
           return;
@@ -960,10 +960,10 @@ webpack.Template.prefix('a', 'a').trimLeft();
 webpack.Template.prefix(['a'], 'a').trimLeft();
 webpack.Template.asString('a').trimLeft();
 webpack.Template.asString(['a']).trimLeft();
-webpack.Template.getModulesArrayBounds({ id: 'a' });
+webpack.Template.getModulesArrayBounds([{ id: 'a' }]);
 
 function testTemplateFn() {
-  const result = webpack.Template.getModulesArrayBounds({ id: 1 });
+  const result = webpack.Template.getModulesArrayBounds([{ id: 1 }]);
   if (result === false) {
     return;
   }
@@ -974,9 +974,8 @@ const chunk = new webpack.compilation.Chunk('name');
 const moduleTemplate = ({} as any) as webpack.compilation.ModuleTemplate;
 webpack.Template.renderChunkModules(
   chunk,
-  (module, num) => {
+  (_, num) => {
     Math.max(num, 2);
-    module.exprContextCritical;
     return true;
   },
   moduleTemplate,

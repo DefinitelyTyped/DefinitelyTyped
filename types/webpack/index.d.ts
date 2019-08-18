@@ -34,7 +34,6 @@ import {
   AsyncSeriesBailHook,
   AsyncSeriesHook,
   AsyncSeriesWaterfallHook,
-  Hook,
 } from 'tapable';
 import * as UglifyJS from 'uglify-js';
 import * as anymatch from 'anymatch';
@@ -934,8 +933,8 @@ declare namespace webpack {
 
         class MainTemplate extends Tapable {
           hooks: {
-            jsonpScript?: Hook<string, Chunk, string>;
-            requireExtensions: Hook<string, Chunk, string>;
+            jsonpScript?: SyncWaterfallHook<string, Chunk, string>;
+            requireExtensions: SyncWaterfallHook<string, Chunk, string>;
           };
           outputOptions: Output;
           requireFn: string;
@@ -1994,13 +1993,13 @@ declare namespace webpack {
 
         function asString(str: string | string[]): string;
 
-        function getModulesArrayBounds(modules: {
+        function getModulesArrayBounds(modules: ReadonlyArray<{
             id: string | number;
-        }): [number, number] | false;
+        }>): [number, number] | false;
 
         function renderChunkModules(
             chunk: compilation.Chunk,
-            filterFn: (module: Module, num: number) => boolean,
+            filterFn: (module: compilation.Module, num: number) => boolean,
             moduleTemplate: compilation.ModuleTemplate,
             dependencyTemplates: any,
             prefix?: string,
