@@ -22,3 +22,6 @@ app.get<{ foo: string }>('/:foo', req => {
     req.params.foo; // $ExpectType string
     req.params.bar; // $ExpectError
 });
+
+// Params cannot be a custom type that does not conform to constraint
+app.get<{ foo: number }>('/:foo', () => {}); // $ExpectError

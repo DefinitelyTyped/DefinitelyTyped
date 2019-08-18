@@ -137,6 +137,9 @@ namespace express_tests {
         req.params.bar; // $ExpectError
     });
 
+    // Params cannot be a custom type that does not conform to constraint
+    router.get<{ foo: number }>('/:foo', () => {}); // $ExpectError
+
     app.use((req, res, next) => {
         // hacky trick, router is just a handler
         router(req, res, next);
