@@ -484,7 +484,10 @@ yup.setLocale({
         required: options => options,
     },
     number: { max: 'Max message', min: 'Min message' },
-    string: { email: 'String message' },
+    string: {
+        email: 'String message',
+        length: ({ length }) => ({ key: 'stringLength', options: { length } }),
+    },
 });
 
 yup.setLocale({
