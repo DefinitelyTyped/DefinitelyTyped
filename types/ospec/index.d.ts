@@ -38,10 +38,7 @@ declare namespace o {
         notThrows(this: Assertion<() => any>, error: string | ObjectConstructor): AssertionDescriber; // See above
     }
 
-    type Definer = (
-        done: (error?: Error | {} | null) => void,
-        timeout: (delay: number) => void,
-    ) => void | Promise<void>;
+    type Definer = (done: (error?: Error | null) => void, timeout: (delay: number) => void) => void | PromiseLike<any>;
 
     interface Result {
         pass: boolean | null;

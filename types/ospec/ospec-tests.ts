@@ -149,13 +149,13 @@ o.spec('ospec typings', () => {
     definerFn = () => {};
     definerFn = done => {
         done(); // $ExpectType void
-
-        // Done accepts just about anything thrown at it.
         done(new Error('err'));
-        done('err');
-        done(1);
         done(null);
 
+        // $ExpectError
+        done('Error message');
+        // $ExpectError
+        done(1);
         // $ExpectError
         done(null, null);
     };
