@@ -1,3 +1,5 @@
+// TypeScript Version: 2.7
+
 import omelette, { Callback } from "omelette";
 
 // Prepare environment value
