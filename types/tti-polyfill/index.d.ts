@@ -36,5 +36,5 @@ export interface GetFirstConsistentlyInteractiveOpts {
      * The lower bound to start forward-searching for the quite window. If no value is set, the default is after the
      * DOMContentLoaded event.
      */
-    minValue: number;
+    minValue?: number | null;
 }
