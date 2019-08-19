@@ -170,6 +170,18 @@ o.spec('ospec typings', () => {
         timeout(1, 2);
     };
 
+    // Tests may return a promise-like value instead of calling done()
+    definerFn = () => {
+        return Promise.resolve('Whatever');
+    };
+    definerFn = (done, timeout) => {
+        timeout(9000);
+        // TODO: Find a way to discourage the use of done() in promise returning tests
+        // $_ExpectError
+        done();
+        return Promise.resolve('Whatever');
+    };
+
     o('async tests', definerFn);
     o.before(definerFn); // $ExpectType void
     o.after(definerFn); // $ExpectType void
