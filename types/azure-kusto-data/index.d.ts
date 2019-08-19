@@ -44,7 +44,7 @@ export class KustoConnectionStringBuilder {
     static withAadApplicationKeyAuthentication(connectionString: string, aadAppId: string, appKey: string, authorityId: string): KustoConnectionStringBuilder;
     static withAadDeviceAuthentication(connectionString: string, authorityId: string, authCallback?: any): KustoConnectionStringBuilder;
     static withAadUserPasswordAuthentication(connectionString: string, userId: string, password: string, authorityId?: any): KustoConnectionStringBuilder;
-    static withAadManagedIdentities(connectionString: string, msi_endpoint: string, msi_secret: string): KustoConnectionStringBuilder;
+    static withAadManagedIdentities(connectionString: string, msi_endpoint?: string, msi_secret?: string): KustoConnectionStringBuilder;
 }
 
 export namespace Client {

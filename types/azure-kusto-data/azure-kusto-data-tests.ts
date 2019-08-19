@@ -11,6 +11,7 @@ client1.execute("db", "TableName | limit 1", (err, results) => {
 
 KustoConnectionStringBuilder.withAadApplicationKeyAuthentication(connectionString, 'appid', 'appkey', 'authorityId');
 KustoConnectionStringBuilder.withAadApplicationCertificateAuthentication(connectionString, 'appid', 'certificate', 'thumbprint', 'authorityId');
+KustoConnectionStringBuilder.withAadManagedIdentities(connectionString);
 KustoConnectionStringBuilder.withAadManagedIdentities(connectionString, 'msi_endpoint', 'msi_secret');
 KustoConnectionStringBuilder.withAadUserPasswordAuthentication(connectionString, 'username', 'password');
 KustoConnectionStringBuilder.withAadUserPasswordAuthentication(connectionString, 'username', 'password', 'authorityId');
