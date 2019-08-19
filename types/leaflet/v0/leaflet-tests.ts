@@ -2,7 +2,7 @@
 
 var div = document.getElementById('map');
 
-var map : L.Map = L.map(div, {
+var map: L.Map = L.map(div, {
     center: L.latLng([51.505, -0.09]),
     zoom: 13,
     minZoom: 3,
@@ -35,8 +35,7 @@ var map : L.Map = L.map(div, {
     fadeAnimation: true,
     zoomAnimation: true,
     zoomAnimationThreshold: 4,
-    markerZoomAnimation: true
-
+    markerZoomAnimation: true,
 });
 
 map.dragging.enable();
@@ -56,11 +55,11 @@ map.setView(L.latLng(42, 51), 12, {
         animate: true,
         duration: 0.25,
         easeLinearity: 0.25,
-        noMoveStart: false
+        noMoveStart: false,
     },
     zoom: {
-        animate: true
-    }
+        animate: true,
+    },
 });
 
 map.setZoom(50);
@@ -82,18 +81,18 @@ map.fitBounds(L.latLngBounds(L.latLng(10, 10), L.latLng(20, 20)), {
     paddingTopLeft: L.point(20, 20),
     paddingBottomRight: L.point(20, 20),
     padding: L.point(0, 0),
-    maxZoom: null
+    maxZoom: null,
 });
 
 map.fitWorld();
 
 map.fitWorld({
-    animate: false
+    animate: false,
 });
 
 map.panTo(L.latLng(42, 42));
 map.panTo(L.latLng(42, 42), {
-    animate: true
+    animate: true,
 });
 
 map.invalidateSize(true);
@@ -108,15 +107,15 @@ map.locate({
     maxZoom: 18,
     timeout: 10000,
     maximumAge: 0,
-    enableHighAccuracy: false
+    enableHighAccuracy: false,
 });
 
 map.stopLocate();
 
 map.remove();
 
-var center : L.LatLng = map.getCenter();
-var zoom : number = map.getZoom();
+var center: L.LatLng = map.getCenter();
+var zoom: number = map.getZoom();
 var minZoom: number = map.getMinZoom();
 var maxZoom: number = map.getMaxZoom();
 var bounds: L.LatLngBounds = map.getBounds();
@@ -125,7 +124,7 @@ var size: L.Point = map.getSize();
 var pixelBounds: L.Bounds = map.getPixelBounds();
 var pixelOrigin: L.Point = map.getPixelOrigin();
 
-var layer = L.tileLayer("http://{s}.example.net/{x}/{y}/{z}.png");
+var layer = L.tileLayer('http://{s}.example.net/{x}/{y}/{z}.png');
 
 map.addLayer(layer);
 map.addLayer(layer, false);
@@ -134,22 +133,22 @@ map.eachLayer(l => {});
 map.removeLayer(layer);
 map.hasLayer(layer);
 
-map.openPopup("canard", L.latLng(42, 51));
+map.openPopup('canard', L.latLng(42, 51));
 
 var popup = L.popup({
-    autoPan: true
+    autoPan: true,
 });
 
 map.openPopup(popup);
 map.closePopup(popup);
 map.closePopup();
 
-map.addControl(L.control.attribution({position: 'bottomright'}));
+map.addControl(L.control.attribution({ position: 'bottomright' }));
 map.removeControl(L.control.attribution({ position: 'bottomright' }));
 
-L.control.layers({'Base': layer}).addTo(map);
+L.control.layers({ Base: layer }).addTo(map);
 map.on('baseLayerChange', function(e: L.LeafletLayersControlEvent) {
-  alert(e.name);
+    alert(e.name);
 });
 
 map.latLngToLayerPoint(map.layerPointToLatLng(L.point(0, 0)));
@@ -199,7 +198,7 @@ var marker = L.marker(L.latLng(42, 51), {
         shadowSize: L.point(44, 44),
         shadowAnchor: L.point(22, 0),
         popupAnchor: L.point(0, 0),
-        className: 'roger-icon'
+        className: 'roger-icon',
     }),
     clickable: true,
     draggable: false,
@@ -209,7 +208,7 @@ var marker = L.marker(L.latLng(42, 51), {
     zIndexOffset: 0,
     opacity: 1.0,
     riseOnHover: false,
-    riseOffset: 250
+    riseOffset: 250,
 });
 
 marker.addTo(map);
@@ -220,7 +219,7 @@ marker.on('click', (e: L.LeafletMouseEvent) => {
 
 marker.once('mouseover', () => {
     marker.openPopup();
-})
+});
 
 marker.setLatLng(marker.getLatLng());
 
@@ -232,14 +231,14 @@ marker.setOpacity(0.8);
 marker.bindPopup(popup);
 marker.unbindPopup();
 marker.bindPopup('hello', {
-    closeOnClick: true
+    closeOnClick: true,
 });
 
 marker.openPopup();
 marker.closePopup();
 marker.togglePopup();
 marker.togglePopup();
-marker.setPopupContent('hello 3')
+marker.setPopupContent('hello 3');
 marker.getPopup().setContent('hello 2');
 marker.update();
 
@@ -260,10 +259,13 @@ popup = L.popup({
     autoPanPadding: L.point(5, 5),
     zoomAnimation: true,
     closeOnClick: null,
-    className: 'roger'
+    className: 'roger',
 });
 
-popup.setLatLng(L.latLng(12, 54)).setContent('this is nice popup').openOn(map);
+popup
+    .setLatLng(L.latLng(12, 54))
+    .setContent('this is nice popup')
+    .openOn(map);
 
 popup.update();
 
@@ -272,7 +274,7 @@ var tileLayer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png?{foo}', {
     maxZoom: 18,
     maxNativeZoom: 17,
     tileSize: 256,
-    subdomains: ['a','b','c'],
+    subdomains: ['a', 'b', 'c'],
     errorTileUrl: '',
     attribution: '',
     tms: false,
@@ -286,16 +288,18 @@ var tileLayer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png?{foo}', {
     updateWhenIdle: false,
     detectRetina: true,
     reuseTiles: true,
-    bounds: null
+    bounds: null,
 });
 
-tileLayer.on('loading', L.Util.falseFn)
+tileLayer
+    .on('loading', L.Util.falseFn)
     .off('loading', L.Util.falseFn)
     .once('tileload', L.Util.falseFn);
 
 tileLayer.addTo(map);
 
-tileLayer.bringToBack()
+tileLayer
+    .bringToBack()
     .bringToFront()
     .setOpacity(0.7)
     .setZIndex(9)
@@ -313,7 +317,7 @@ interface CustomControl extends L.Control {
     getTitle(): string;
     setTitle(title: string): CustomControl;
 }
-var CustomControl: { new(options: CustomControl.Options): CustomControl };
+var CustomControl: { new (options: CustomControl.Options): CustomControl };
 CustomControl = L.Control.extend<CustomControl.Options, CustomControl>({
     initialize: function(options: CustomControl.Options) {
         L.Control.prototype.initialize.call(this, {
@@ -419,7 +423,7 @@ popup.setLatLng(latLngLiteral);
 popup.setLatLng(latLngObjectLiteral);
 
 var zoomCtrl = L.control.zoom({
-    position: "topleft",
+    position: 'topleft',
     zoomInText: '+',
-    zoomOutText: '-'
+    zoomOutText: '-',
 });
