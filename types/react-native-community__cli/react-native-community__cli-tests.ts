@@ -1,15 +1,29 @@
-import { UserDependencyConfig } from 'react-native-community__cli';
-const pluginConfig: UserDependencyConfig = {
-  commands: [
-    {
-      name: 'test-type',
-      func: () => Promise.resolve(),
-      options: [
-        {
-          name: '--option1',
-          description: 'description of the command',
-        },
-      ],
-    },
-  ],
-};
+import { init, run, loadConfig } from 'react-native-community__cli';
+
+/*
+ * init
+ */
+// $ExpectType Promise<void>
+init('./resources', 'test');
+// $ExpectType Promise<void>
+init('./resources', ['test', 'test1']);
+// $ExpectError
+init(1, 'test');
+// $ExpectError
+init('./resources', 1);
+
+/*
+ * run
+ */
+// $ExpectType Promise<void>
+run();
+// $ExpectError
+run(1);
+
+/*
+ * run
+ */
+// $ExpectType Config
+loadConfig('./resources');
+// $ExpectError
+loadConfig(1);

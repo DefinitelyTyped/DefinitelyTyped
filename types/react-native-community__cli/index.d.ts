@@ -251,3 +251,10 @@ export interface DependencyConfigAndroid {
   packageImportPath: string;
   packageInstance: string;
 }
+
+export function run(): Promise<void>;
+export function init(
+  projectDir: string,
+  argsOrName: string | string[],
+): Promise<void>;
+export function loadConfig(projectRoot: string): Config;
