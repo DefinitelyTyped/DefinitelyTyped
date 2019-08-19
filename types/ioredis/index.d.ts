@@ -796,7 +796,7 @@ declare namespace IORedis {
 
         ttl(key: KeyType, callback?: (err: Error, res: number) => void): Pipeline;
 
-        pttl(key: KeyType, callback: (err: Error, res: number) => void): Pipeline;
+        pttl(key: KeyType, callback?: (err: Error, res: number) => void): Pipeline;
 
         persist(key: KeyType, callback?: (err: Error, res: 0 | 1) => void): Pipeline;
 
