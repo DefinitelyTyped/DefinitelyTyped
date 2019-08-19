@@ -1,5 +1,3 @@
-// TypeScript Version: 2.7
-
 import omelette, { Callback } from "omelette";
 
 // Prepare environment value
@@ -92,7 +90,6 @@ omelette`
 omelette`
   githubber|gh
       ${["pull", "push", "star"] /* Direct command list */}
-      ${require("some/other/commands") /* Import from another file */}
       ${getFromRemote("http://api.example.com/commands") /* Remote call at the beginning */}
       ${({ reply }) => fetch("http://api.example.com/lazy-commands").then(reply) /* Fetch when argument <tab>bed */}
       ${() => fs.readdirSync("/Users/") /* Access filesystem via Node */}
