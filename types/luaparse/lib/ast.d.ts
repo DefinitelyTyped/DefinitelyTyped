@@ -3,13 +3,13 @@ export interface Base<TType extends string> {
 }
 
 export interface LabelStatement extends Base<"LabelStatement"> {
-    label: string;
+    label: Identifier;
 }
 
 export type BreakStatement = Base<"BreakStatement">;
 
 export interface GotoStatement extends Base<"GotoStatement"> {
-    label: string;
+    label: Identifier;
 }
 
 export interface ReturnStatement extends Base<"ReturnStatement"> {
