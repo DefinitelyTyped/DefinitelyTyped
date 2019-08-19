@@ -45,18 +45,38 @@ o.spec('ospec typings', () => {
         o(arr).equals(['hi']);
     });
 
-    o('.notEquals() accepts anything', () => {
-        o(bool).notEquals({}); // $ExpectType AssertionDescriber
+    o('.notEquals() is also type safe', () => {
+        o(bool).notEquals(true); // $ExpectType AssertionDescriber
+        o(bool).notEquals(true)('description text');
+        o(numOrStr).notEquals('hello');
+        o(numOrStr).notEquals(1);
+        o(fn).notEquals(() => {});
+        o(obj).notEquals({ a: 1 });
+        o(arr).notEquals([1, 2]);
+
+        // $ExpectError
+        o(bool).notEquals(1);
+        // $ExpectError
+        o(numOrStr).notEquals(true);
+        // $ExpectError
         o(fn).notEquals(1);
+        // $ExpectError
+        o(obj).notEquals({});
+        // $ExpectError
+        o(arr).notEquals(['hi']);
     });
 
     o('.deepEquals()/.notDeepEquals() only compares objects to object values', () => {
-        o(obj).deepEquals({ a: 1 });
+        o(obj).deepEquals({
+            a: 1,
+        });
         o(arr).deepEquals([1]); // $ExpectType AssertionDescriber
         o(fn).deepEquals(() => {}); // $ExpectType AssertionDescriber
-        o(obj).notDeepEquals({});
-        o(arr).notDeepEquals(['hi']); // $ExpectType AssertionDescriber
-        o(fn).notDeepEquals({}); // $ExpectType AssertionDescriber
+        o(obj).notDeepEquals({
+            a: 1,
+        });
+        o(arr).notDeepEquals([1]); // $ExpectType AssertionDescriber
+        o(fn).notDeepEquals(() => {}); // $ExpectType AssertionDescriber
 
         // $ExpectError
         o(obj).deepEquals(1);
@@ -70,6 +90,12 @@ o.spec('ospec typings', () => {
         o(numOrStr).deepEquals(1);
         // $ExpectError
         o(numOrStr).notDeepEquals(1);
+        // $ExpectError
+        o(obj).notDeepEquals({});
+        // $ExpectError
+        o(arr).notDeepEquals(['hi']); // $ExpectType AssertionDescriber
+        // $ExpectError
+        o(fn).notDeepEquals({}); // $ExpectType AssertionDescriber
     });
 
     o('.throws()/.notThrows() only available for function values', () => {

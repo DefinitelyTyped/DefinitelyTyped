@@ -25,12 +25,12 @@ declare namespace o {
         /** Asserts that two values are strictly equal */
         equals(expected: T): AssertionDescriber;
         /** Asserts that two values are **not** strictly equal */
-        notEquals(value: any): AssertionDescriber;
+        notEquals(value: T): AssertionDescriber;
 
         /** Asserts that two objects are recursively equal */
         deepEquals(this: Assertion<object>, expected: T): AssertionDescriber;
         /** Asserts that two objects are **not** recursively equal */
-        notDeepEquals(this: Assertion<object>, value: object): AssertionDescriber;
+        notDeepEquals(this: Assertion<object>, value: T): AssertionDescriber;
 
         /** Asserts that the function throws an error of a given type */
         throws(this: Assertion<() => any>, error: string | ObjectConstructor): AssertionDescriber;
