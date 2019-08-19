@@ -54,7 +54,7 @@ declare namespace omelette {
 
     type CallbackAsync = (obj: CallbackAsyncValue) => Promise<void>;
 
-    type Choices = Array<string>;
+    type Choices = string[];
 
     type TemplatePrimativeValue = string | Choices;
 
