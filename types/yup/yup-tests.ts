@@ -487,6 +487,13 @@ yup.setLocale({
     string: { email: 'String message' },
 });
 
+yup.setLocale({
+    // $ExpectError
+    string: {
+        nullable: 'message',
+    },
+});
+
 interface MyInterface {
     stringField: string;
     numberField: number;
