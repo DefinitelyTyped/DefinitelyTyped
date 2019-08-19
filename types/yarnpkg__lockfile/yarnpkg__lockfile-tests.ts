@@ -1,12 +1,6 @@
 import parseYarnLock = require('@yarnpkg/lockfile');
 
-function testFirstLevelDependency(obj: {
-  version: string;
-  resolved?: string;
-  dependencies?: {
-    [packageName: string]: string;
-  }
-}) {}
+function testFirstLevelDependency(obj: parseYarnLock.FirstLevelDependency) {}
 
 const { object } = parseYarnLock('');
 
