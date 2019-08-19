@@ -1,5 +1,5 @@
-import { UserDependencyConfigT } from 'react-native-community__cli';
-const pluginConfig: UserDependencyConfigT = {
+import { UserDependencyConfig } from 'react-native-community__cli';
+const pluginConfig: UserDependencyConfig = {
   commands: [
     {
       name: 'test-type',

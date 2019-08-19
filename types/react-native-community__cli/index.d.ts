@@ -3,12 +3,12 @@
 // Definitions by: agathekieny <https://github.com/agathekieny>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
-export interface CommandT {
+export interface Command {
   name: string;
   description?: string;
   func: (
     argv: string[],
-    ctx: ConfigT,
+    ctx: Config,
     args: Record<string, string>,
   ) => Promise<void>;
   options?: Array<{
@@ -19,7 +19,7 @@ export interface CommandT {
       | string
       | boolean
       | number
-      | ((ctx: ConfigT) => string | boolean | number);
+      | ((ctx: Config) => string | boolean | number);
   }>;
   examples?: Array<{
     desc: string;
@@ -31,15 +31,15 @@ export interface CommandT {
  * Opaque type that describes the Inquirer question format. Not typed, since we just
  * pass it directly to Inquirer.
  */
-export type InquirerPromptT = any;
+export type InquirerPrompt = any;
 
 /**
  * Settings that a library author can define in the configuration bundled with
  * dependency for Android
  *
- * See UserDependencyConfigT for details
+ * See UserDependencyConfig for details
  */
-export interface DependencyParamsAndroidT {
+export interface DependencyParamsAndroid {
   sourceDir?: string;
   manifestPath?: string;
   packageImportPath?: string;
@@ -49,9 +49,9 @@ export interface DependencyParamsAndroidT {
 /**
  * Settings that user can define in the project configuration for Android
  *
- * See UserConfigT for details
+ * See UserConfig for details
  */
-export interface ProjectParamsAndroidT {
+export interface ProjectParamsAndroid {
   sourceDir?: string;
   manifestPath?: string;
   packageName?: string;
@@ -67,9 +67,9 @@ export interface ProjectParamsAndroidT {
  * Settings that user can define in the project configuration for iOS.
  * Same for dependency - we share the type.
  *
- * See UserDependencyConfigT and UserConfigT for details
+ * See UserDependencyConfig and UserConfig for details
  */
-export interface ProjectParamsIOST {
+export interface ProjectParamsIOS {
   project?: string;
   podspecPath?: string;
   sharedLibraries?: string[];
@@ -118,7 +118,7 @@ export interface PlatformConfig<
 /**
  * Final configuration object
  */
-export interface ConfigT {
+export interface Config {
   // Root where the configuration has been resolved from
   root: string;
 
@@ -137,8 +137,8 @@ export interface ConfigT {
       name: string;
       root: string;
       platforms: {
-        android?: DependencyConfigAndroidT | null;
-        ios?: DependencyConfigIOST | null;
+        android?: DependencyConfigAndroid | null;
+        ios?: DependencyConfigIOS | null;
         [key: string]: any;
       };
       assets: string[];
@@ -152,21 +152,21 @@ export interface ConfigT {
     [name: string]: PlatformConfig<any, any, any, any>;
   } & {
     ios?: PlatformConfig<
-      ProjectParamsIOST,
-      ProjectParamsIOST, // DependencyParams are the same as ProjectParams on iOS
-      ProjectConfigIOST,
-      DependencyConfigIOST
+      ProjectParamsIOS,
+      ProjectParamsIOS, // DependencyParams are the same as ProjectParams on iOS
+      ProjectConfigIOS,
+      DependencyConfigIOS
     >;
     android?: PlatformConfig<
-      ProjectParamsAndroidT,
-      DependencyParamsAndroidT,
-      ProjectConfigAndroidT,
-      DependencyConfigAndroidT
+      ProjectParamsAndroid,
+      DependencyParamsAndroid,
+      ProjectConfigAndroid,
+      DependencyConfigAndroid
     >;
   };
 
   // An array of commands that are present in 3rd party packages
-  commands: CommandT[];
+  commands: Command[];
 
   // Haste configuration resolved based on available plugins
   haste: {
@@ -178,32 +178,32 @@ export interface ConfigT {
 /**
  * Aliases
  */
-export let configT: ConfigT;
-export type DependencyConfigT = typeof configT.dependencies['key'];
+export let config: Config;
+export type DependencyConfig = typeof config.dependencies['key'];
 
-export let dependencyConfig: DependencyConfigT;
-export type HooksT = typeof dependencyConfig.hooks;
-export type ProjectConfigT = typeof configT.project;
-export type PlatformsT = typeof configT.platforms;
+export let dependencyConfig: DependencyConfig;
+export type Hooks = typeof dependencyConfig.hooks;
+export type ProjectConfig = typeof config.project;
+export type Platforms = typeof config.platforms;
 
 /**
  * Config defined by a developer for a library
  */
-export interface UserDependencyConfigT {
+export interface UserDependencyConfig {
   // Additional dependency settings
   dependency?: {
     platforms: {
-      android?: DependencyParamsAndroidT;
-      ios?: ProjectParamsIOST;
+      android?: DependencyParamsAndroid;
+      ios?: ProjectParamsIOS;
       [key: string]: any;
     };
     assets: string[];
-    hooks: HooksT;
+    hooks: Hooks;
     params: any[];
   };
 
   // An array of commands that ship with the dependency
-  commands: CommandT[];
+  commands: Command[];
 
   // An array of extra platforms to load
   platforms?: {
@@ -219,7 +219,7 @@ export interface UserDependencyConfigT {
 
 // The following types are used in untyped-parts of the codebase, so I am leaving them
 // until we actually need them.
-export interface ProjectConfigIOST {
+export interface ProjectConfigIOS {
   sourceDir: string;
   folder: string;
   pbxprojPath: string;
@@ -232,8 +232,8 @@ export interface ProjectConfigIOST {
   plist: any[];
 }
 
-export type DependencyConfigIOST = ProjectConfigIOST;
-export interface ProjectConfigAndroidT {
+export type DependencyConfigIOS = ProjectConfigIOS;
+export interface ProjectConfigAndroid {
   sourceDir: string;
   isFlat: boolean;
   folder: string;
@@ -245,7 +245,7 @@ export interface ProjectConfigAndroidT {
   mainFilePath: string;
   packageName: string;
 }
-export interface DependencyConfigAndroidT {
+export interface DependencyConfigAndroid {
   sourceDir: string;
   folder: string;
   packageImportPath: string;
