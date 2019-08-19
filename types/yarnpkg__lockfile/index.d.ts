@@ -9,13 +9,13 @@ declare namespace parse {
   interface Dependency {
     [packageName: string]: string;
   }
-  
+
   interface FirstLevelDependency {
     version: string;
     resolved?: string;
     dependencies?: Dependency;
   }
-  
+
   interface LockFileObject {
     [packageName: string]: FirstLevelDependency;
   }
