@@ -309,13 +309,17 @@ const version4Tests = async () => {
 
     const connection = await pool.getConnection();
 
-    const implicitResults = (await connection.execute<One>('SELECT 1 FROM DUAL')).implicitResults as oracledb.ResultSet<One>[];
+    const implicitResults = (await connection.execute<One>(
+      'SELECT 1 FROM DUAL',
+    )).implicitResults as oracledb.ResultSet<One>[];
 
     (await implicitResults[0].getRow()).one;
 
     await implicitResults[0].close()
 
-    const implicitResults2 = (await connection.execute<One>('SELECT 1 FROM DUAL')).implicitResults as One[][];
+    const implicitResults2 = (await connection.execute<One>(
+      'SELECT 1 FROM DUAL',
+    )).implicitResults as One[][];
 
     const results = implicitResults2[0][0];
 
@@ -413,14 +417,14 @@ const version4Tests = async () => {
     result = await connection.execute(plsql, [], { resultSet: true });
 
     for (let i = 0; i < result.implicitResults.length; i++) {
-        console.log(" Implicit Result Set", i + 1);
-        const rs = result.implicitResults[i] as oracledb.ResultSet<One>;  // get the next ResultSet
-        let row;
-    while ((row = await rs.getRow())) {
-        console.log("  ", row);
-    }
-    
-    await rs.close();
+      console.log(' Implicit Result Set', i + 1);
+      const rs = result.implicitResults[i] as oracledb.ResultSet<One>; // get the next ResultSet
+      let row;
+      while ((row = await rs.getRow())) {
+        console.log('  ', row);
+      }
+
+      await rs.close();
     }
 
     const queueName = "DEMO_RAW_QUEUE";
