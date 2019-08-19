@@ -1,4 +1,4 @@
-// Type definitions for pg-pool
+// Type definitions for pg-pool 2.0
 // Project: https://github.com/brianc/node-pg-pool
 // Definitions by: Leo Liang <https://github.com/aleung>, Nikita Tokarchuk <https://github.com/mainnika>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
