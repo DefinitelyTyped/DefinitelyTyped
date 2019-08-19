@@ -38,13 +38,11 @@ export class KustoConnectionStringBuilder {
     applicationCertificate: string | undefined;
     applicationCertificateThumbprint: string | undefined;
     authorityId: string;
-    msiEndpoint: string | undefined;
-    msiSecret: string | undefined;
     static withAadApplicationCertificateAuthentication(connectionString: string, aadAppId: string, certificate: string, thumbprint: string, authorityId: string): KustoConnectionStringBuilder;
     static withAadApplicationKeyAuthentication(connectionString: string, aadAppId: string, appKey: string, authorityId: string): KustoConnectionStringBuilder;
     static withAadDeviceAuthentication(connectionString: string, authorityId: string, authCallback?: any): KustoConnectionStringBuilder;
     static withAadUserPasswordAuthentication(connectionString: string, userId: string, password: string, authorityId?: any): KustoConnectionStringBuilder;
-    static withAadManagedIdentities(connectionString: string, msi_endpoint?: string, msi_secret?: string): KustoConnectionStringBuilder;
+    static withAadManagedIdentities(connectionString: string, msiEndpoint?: string, clientId?: string): KustoConnectionStringBuilder;
 }
 
 export namespace Client {
