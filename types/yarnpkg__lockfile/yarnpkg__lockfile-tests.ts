@@ -1,10 +1,13 @@
-import parseYarnLock = require('@yarnpkg/lockfile');
+import { parse, stringify, FirstLevelDependency } from '@yarnpkg/lockfile';
 
-function testFirstLevelDependency(obj: parseYarnLock.FirstLevelDependency) {}
+function testFirstLevelDependency(obj: FirstLevelDependency) {}
 
-const { object } = parseYarnLock('');
+const file = '';
+const json = parse(file);
+const fileAgain = stringify(json);
+fileAgain.toLowerCase();
 
-Object.keys(object).forEach(k => {
-  const value = object[k];
+Object.keys(json.object).forEach(k => {
+  const value = json.object[k];
   testFirstLevelDependency(value);
 });
