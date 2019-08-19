@@ -1,4 +1,4 @@
-// Type definitions for webpack 4.32
+// Type definitions for webpack 4.39
 // Project: https://github.com/webpack/webpack
 // Definitions by: Qubo <https://github.com/tkqubo>
 //                 Benjamin Lim <https://github.com/bumbleblym>
@@ -22,12 +22,23 @@
 
 /// <reference types="node" />
 
-import { Tapable, HookMap,
-         SyncBailHook, SyncHook, SyncLoopHook, SyncWaterfallHook,
-         AsyncParallelBailHook, AsyncParallelHook, AsyncSeriesBailHook, AsyncSeriesHook, AsyncSeriesWaterfallHook } from 'tapable';
+import {
+  Tapable,
+  HookMap,
+  SyncBailHook,
+  SyncHook,
+  SyncLoopHook,
+  SyncWaterfallHook,
+  AsyncParallelBailHook,
+  AsyncParallelHook,
+  AsyncSeriesBailHook,
+  AsyncSeriesHook,
+  AsyncSeriesWaterfallHook,
+} from 'tapable';
 import * as UglifyJS from 'uglify-js';
 import * as anymatch from 'anymatch';
 import { RawSourceMap } from 'source-map';
+import { ConcatSource } from 'webpack-sources';
 
 export = webpack;
 
@@ -921,7 +932,14 @@ declare namespace webpack {
             dependencies: boolean;
         }
 
-        class MainTemplate extends Tapable {}
+        class MainTemplate extends Tapable {
+          hooks: {
+            jsonpScript?: SyncWaterfallHook<string, Chunk, string>;
+            requireExtensions: SyncWaterfallHook<string, Chunk, string>;
+          };
+          outputOptions: Output;
+          requireFn: string;
+        }
         class ChunkTemplate extends Tapable {}
         class HotUpdateChunkTemplate extends Tapable {}
         class RuntimeTemplate {}
@@ -1955,6 +1973,38 @@ declare namespace webpack {
             /** Flag if HMR is enabled */
             hot: boolean;
         }
+    }
+
+    namespace Template {
+        function getFunctionContent(fn: (...args: any[]) => any): string;
+
+        function toIdentifier(str: string): string;
+
+        function toComment(str: string): string;
+
+        function toNormalComment(str: string): string;
+
+        function toPath(str: string): string;
+
+        function numberToIdentifer(n: number): string;
+
+        function indent(s: string | string[]): string;
+
+        function prefix(s: string | string[], prefix: string): string;
+
+        function asString(str: string | string[]): string;
+
+        function getModulesArrayBounds(modules: ReadonlyArray<{
+            id: string | number;
+        }>): [number, number] | false;
+
+        function renderChunkModules(
+            chunk: compilation.Chunk,
+            filterFn: (module: compilation.Module, num: number) => boolean,
+            moduleTemplate: compilation.ModuleTemplate,
+            dependencyTemplates: any,
+            prefix?: string,
+        ): ConcatSource;
     }
 
     /** @deprecated */
