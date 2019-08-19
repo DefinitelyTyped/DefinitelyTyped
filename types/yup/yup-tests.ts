@@ -143,6 +143,9 @@ mixed.typeError('type error');
 mixed.typeError(() => 'type error');
 mixed.oneOf(['hello', 'world'], 'message');
 mixed.oneOf(['hello', 'world'], () => 'message');
+mixed.oneOf(['hello', 'world'], ({ values }) => `one of ${values}`);
+// $ExpectError
+mixed.oneOf(['hello', 'world'], ({ random }) => `one of ${random}`);
 mixed.notOneOf(['hello', 'world'], 'message');
 mixed.notOneOf(['hello', 'world'], () => 'message');
 mixed.when('isBig', {
@@ -267,10 +270,19 @@ strSchema.required('req');
 strSchema.required(() => 'req');
 strSchema.length(5, 'message');
 strSchema.length(5, () => 'message');
+strSchema.length(5, ({ length }) => `must be ${length}`);
+// $ExpectError
+strSchema.length(5, ({ min }) => `must be ${min}`);
 strSchema.min(5, 'message');
 strSchema.min(5, () => 'message');
+strSchema.min(5, ({ min }) => `more than ${min}`);
+// $ExpectError
+strSchema.min(5, ({ max }) => `more than ${max}`);
 strSchema.max(5, 'message');
 strSchema.max(5, () => 'message');
+strSchema.max(5, ({ max }) => `less than ${max}`);
+// $ExpectError
+strSchema.max(5, ({ min }) => `less than ${min}`);
 strSchema.matches(/(hi|bye)/);
 strSchema.matches(/(hi|bye)/, 'invalid');
 strSchema.matches(/(hi|bye)/, () => 'invalid');
@@ -297,9 +309,15 @@ numSchema.isValid(10); // => true
 numSchema.min(5);
 numSchema.min(5, 'message');
 numSchema.min(5, () => 'message');
+numSchema.min(5, ({ min }) => `more than ${min}`);
+// $ExpectError
+numSchema.min(5, ({ max }) => `more than ${max}`);
 numSchema.max(5);
 numSchema.max(5, 'message');
 numSchema.max(5, () => 'message');
+numSchema.max(5, ({ max }) => `less than ${max}`);
+// $ExpectError
+numSchema.max(5, ({ min }) => `more than ${min}`);
 numSchema.positive();
 numSchema.positive('pos');
 numSchema.positive(() => 'pos');
