@@ -3,7 +3,9 @@
 // Definitions by: Yuri Drabik <https://github.com/yurist38>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export default class Compress {
+export = Compress;
+
+declare class Compress {
     attach(
         el: string,
         options: CompressOptions,
@@ -20,7 +22,7 @@ export default class Compress {
     ): File;
 }
 
-export interface CompressOptions {
+interface CompressOptions {
     quality?: number;
     size?: number;
     maxWidth?: number;
@@ -28,7 +30,7 @@ export interface CompressOptions {
     resize?: boolean;
 }
 
-export interface CompressResult {
+interface CompressResult {
     data: string;
     prefix: string;
     elapsedTimeInSeconds: number;

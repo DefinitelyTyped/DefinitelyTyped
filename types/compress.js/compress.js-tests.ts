@@ -1,4 +1,4 @@
-import Compress from 'compress.js';
+import Compress = require('compress.js');
 
 const compress = new Compress();
 
