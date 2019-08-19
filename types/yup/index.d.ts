@@ -43,9 +43,9 @@ export type AnySchemaConstructor =
     | ArraySchemaConstructor
     | ObjectSchemaConstructor;
 
-export type TestOptionsMessage<Extra extends Record<string, any> = {}> =
+export type TestOptionsMessage<Extra extends Record<string, any> = {}, R = any> =
     | string
-    | ((params: Extra & Partial<TestMessageParams>) => string | Record<string, any>);
+    | ((params: Extra & Partial<TestMessageParams>) => R);
 
 export interface Schema<T> {
     clone(): this;
@@ -77,7 +77,8 @@ export interface Schema<T> {
         test: (this: TestContext, value?: any) => boolean | ValidationError | Promise<boolean | ValidationError>,
         callbackStyleAsync?: boolean,
     ): this;
-    test(options: TestOptions): this;
+    // tslint:disable-next-line:no-unnecessary-generics
+    test<P>(options: TestOptions<P>): this;
     transform(fn: TransformFunction<this>): this;
 }
 
@@ -109,10 +110,12 @@ export interface StringSchema<T extends string | null | undefined = string> exte
     max(limit: number | Ref, message?: TestOptionsMessage<{ max: number | Ref }>): StringSchema<T>;
     matches(
         regex: RegExp,
-        messageOrOptions?: TestOptionsMessage | { message?: TestOptionsMessage; excludeEmptyString?: boolean },
+        messageOrOptions?:
+            | TestOptionsMessage<{ regex: RegExp }>
+            | { message?: TestOptionsMessage<{ regex: RegExp }>; excludeEmptyString?: boolean },
     ): StringSchema<T>;
-    email(message?: TestOptionsMessage): StringSchema<T>;
-    url(message?: TestOptionsMessage): StringSchema<T>;
+    email(message?: TestOptionsMessage<{ regex: RegExp }>): StringSchema<T>;
+    url(message?: TestOptionsMessage<{ regex: RegExp }>): StringSchema<T>;
     ensure(): StringSchema<T>;
     trim(message?: TestOptionsMessage): StringSchema<T>;
     lowercase(message?: TestOptionsMessage): StringSchema<T>;
@@ -130,12 +133,12 @@ export interface NumberSchemaConstructor {
 }
 
 export interface NumberSchema<T extends number | null | undefined = number> extends Schema<T> {
-    min(limit: number | Ref, message?: TestOptionsMessage<{ min: number | Ref }>): NumberSchema<T>;
-    max(limit: number | Ref, message?: TestOptionsMessage<{ max: number | Ref }>): NumberSchema<T>;
-    lessThan(limit: number | Ref, message?: TestOptionsMessage): NumberSchema<T>;
-    moreThan(limit: number | Ref, message?: TestOptionsMessage): NumberSchema<T>;
-    positive(message?: TestOptionsMessage): NumberSchema<T>;
-    negative(message?: TestOptionsMessage): NumberSchema<T>;
+    min(limit: number | Ref, message?: TestOptionsMessage<{ min: number }>): NumberSchema<T>;
+    max(limit: number | Ref, message?: TestOptionsMessage<{ max: number }>): NumberSchema<T>;
+    lessThan(limit: number | Ref, message?: TestOptionsMessage<{ less: number }>): NumberSchema<T>;
+    moreThan(limit: number | Ref, message?: TestOptionsMessage<{ more: number }>): NumberSchema<T>;
+    positive(message?: TestOptionsMessage<{ more: number }>): NumberSchema<T>;
+    negative(message?: TestOptionsMessage<{ less: number }>): NumberSchema<T>;
     integer(message?: TestOptionsMessage): NumberSchema<T>;
     truncate(): NumberSchema<T>;
     round(type: 'floor' | 'ceil' | 'trunc' | 'round'): NumberSchema<T>;
@@ -165,8 +168,8 @@ export interface DateSchemaConstructor {
 }
 
 export interface DateSchema<T extends Date | null | undefined = Date> extends Schema<T> {
-    min(limit: Date | string | Ref, message?: TestOptionsMessage<{ min: Date | string | Ref }>): DateSchema<T>;
-    max(limit: Date | string | Ref, message?: TestOptionsMessage<{ max: Date | string | Ref }>): DateSchema<T>;
+    min(limit: Date | string | Ref, message?: TestOptionsMessage<{ min: Date | string }>): DateSchema<T>;
+    max(limit: Date | string | Ref, message?: TestOptionsMessage<{ max: Date | string }>): DateSchema<T>;
     nullable(isNullable?: true): DateSchema<T | null>;
     nullable(isNullable: false): DateSchema<Exclude<T, null>>;
     nullable(isNullable?: boolean): DateSchema<T>;
@@ -180,8 +183,8 @@ export interface ArraySchemaConstructor {
 }
 
 interface BasicArraySchema<T extends any[] | null | undefined> extends Schema<T> {
-    min(limit: number | Ref, message?: TestOptionsMessage<{ min: number | Ref }>): this;
-    max(limit: number | Ref, message?: TestOptionsMessage<{ max: number | Ref }>): this;
+    min(limit: number | Ref, message?: TestOptionsMessage<{ min: number }>): this;
+    max(limit: number | Ref, message?: TestOptionsMessage<{ max: number }>): this;
     ensure(): this;
     compact(
         rejector?: (value: InferredArrayType<T>, index: number, array: Array<InferredArrayType<T>>) => boolean,
@@ -321,7 +324,7 @@ export interface TestMessageParams {
     label: string;
 }
 
-export interface TestOptions {
+export interface TestOptions<P extends Record<string, any> = {}, R = any> {
     /**
      * Unique name identifying the test
      */
@@ -335,12 +338,12 @@ export interface TestOptions {
     /**
      * The validation error message
      */
-    message?: TestOptionsMessage;
+    message?: TestOptionsMessage<P, R>;
 
     /**
      * Values passed to message for interpolation
      */
-    params?: object;
+    params?: P;
 
     /**
      * Mark the test as exclusive, meaning only one of the same can be active at once

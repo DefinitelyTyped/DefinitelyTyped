@@ -201,6 +201,12 @@ mixed.test('with-context', 'it uses function context', testContext);
 mixed.test({
     test: testContext,
 });
+mixed.test({
+  message: ({ passed }) => (passed ? 'You passed' : 'You failed'),
+  name: 'checkParams',
+  params: { passed: true },
+  test: value => !!value,
+});
 
 // mixed with concat
 yup.object({ name: yup.string() }).concat(yup.object({ when: yup.date() })); // $ExpectType ObjectSchema<{ name: string; } & { when: Date; }>
@@ -286,12 +292,15 @@ strSchema.max(5, ({ min }) => `less than ${min}`);
 strSchema.matches(/(hi|bye)/);
 strSchema.matches(/(hi|bye)/, 'invalid');
 strSchema.matches(/(hi|bye)/, () => 'invalid');
+strSchema.matches(/(hi|bye)/, ({ regex }) => `Does not match ${regex}`);
 strSchema.email();
 strSchema.email('invalid');
 strSchema.email(() => 'invalid');
+strSchema.email(({ regex }) => `Does not match ${regex}`);
 strSchema.url();
 strSchema.url('bad url');
 strSchema.url(() => 'bad url');
+strSchema.url(({ regex }) => `Does not match ${regex}`);
 strSchema.ensure();
 strSchema.trim();
 strSchema.trim('trimmed');
