@@ -4376,10 +4376,7 @@ class Example127 extends React.Component<any, any> {
 
   render() {
     return (
-      <Dropdown
-        isOpen={this.state.dropdownOpen}
-        toggle={this.toggle}
-      >
+      <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
         <DropdownToggle caret>Dropdown</DropdownToggle>
         <DropdownMenu persist positionFixed>
           <DropdownItem header>Header</DropdownItem>
