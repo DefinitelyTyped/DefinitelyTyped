@@ -144,6 +144,8 @@ function testScheduleJob() {
     const startDate: Date = new Date();
     const endDate: Date = new Date(startDate.getDate() + 10000);
     const jobDateRange: nodeSchedule.Job = nodeSchedule.scheduleJob({start: startDate, end: endDate, rule: "* * * * * *"}, callback);
+
+    const jobTimestamp: nodeSchedule.Job = nodeSchedule.scheduleJob(Date.now() + 1000, callback);
 }
 
 function testRescheduleJob() {
