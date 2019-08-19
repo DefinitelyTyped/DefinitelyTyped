@@ -469,6 +469,7 @@ declare namespace NodeJS {
         zlib: string;
         modules: string;
         openssl: string;
+        pnp?: string;
     }
 
     type Platform = 'aix'
