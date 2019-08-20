@@ -1,8 +1,8 @@
-// import o = require('ospec');
-import o, { Definer } from 'ospec'; // NOTE: this only works with  "esModuleInterop": true
+import o = require('ospec');
+// import o, { Definer } from 'ospec'; // NOTE: this only works with  "esModuleInterop": true
 
 const exampleTypeUse1: o.Definer = () => {};
-const exampleTypeUse2: Definer = () => {}; // NOTE: this only works with  "esModuleInterop": true
+// const exampleTypeUse2: Definer = () => {}; // NOTE: this only works with  "esModuleInterop": true
 
 // ======================================================================
 
