@@ -1,18 +1,13 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "lib": [
-            "es6",
-            "dom"
-        ],
+        "lib": ["es6", "dom"],
         "noImplicitAny": true,
         "noImplicitThis": false,
         "strictNullChecks": false,
         "strictFunctionTypes": true,
         "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
+        "typeRoots": ["../"],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
@@ -45,6 +40,7 @@
         "test/offline-exporting.ts",
         "test/solid-gauge.ts",
         "test/treemap.ts",
-        "test/wordcloud.ts"
+        "test/wordcloud.ts",
+        "test/datapoint.ts"
     ]
 }

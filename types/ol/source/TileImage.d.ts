@@ -1,16 +1,17 @@
-import { EventsKey } from 'ol/events';
-import Event from 'ol/events/Event';
-import ImageTile from 'ol/ImageTile';
-import { ObjectEvent } from 'ol/Object';
-import { ProjectionLike } from 'ol/proj';
-import Projection from 'ol/proj/Projection';
-import { AttributionLike } from 'ol/source/Source';
-import State from 'ol/source/State';
-import { TileSourceEvent } from 'ol/source/Tile';
-import UrlTile from 'ol/source/UrlTile';
-import Tile, { LoadFunction, UrlFunction } from 'ol/Tile';
-import TileCache from 'ol/TileCache';
-import TileGrid from 'ol/tilegrid/TileGrid';
+import { EventsKey } from '../events';
+import Event from '../events/Event';
+import ImageTile from '../ImageTile';
+import { ObjectEvent } from '../Object';
+import { ProjectionLike } from '../proj';
+import Projection from '../proj/Projection';
+import Tile, { LoadFunction, UrlFunction } from '../Tile';
+import TileCache from '../TileCache';
+import TileGrid from '../tilegrid/TileGrid';
+import { AttributionLike } from './Source';
+import State from './State';
+import { TileSourceEvent } from './Tile';
+import UrlTile from './UrlTile';
+
 export interface Options {
     attributions?: AttributionLike;
     attributionsCollapsible?: boolean;
@@ -41,9 +42,9 @@ export default class TileImage extends UrlTile {
     getGutter(): number;
     setRenderReprojectionEdges(render: boolean): void;
     setTileGridForProjection(projection: ProjectionLike, tilegrid: TileGrid): void;
-    on(type: string | string[], listener: ((param0: any) => void)): EventsKey | EventsKey[];
-    once(type: string | string[], listener: ((param0: any) => void)): EventsKey | EventsKey[];
-    un(type: string | string[], listener: ((param0: any) => void)): void;
+    on(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
+    once(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
+    un(type: string | string[], listener: (p0: any) => void): void;
     on(type: 'change', listener: (evt: Event) => void): EventsKey;
     once(type: 'change', listener: (evt: Event) => void): EventsKey;
     un(type: 'change', listener: (evt: Event) => void): void;

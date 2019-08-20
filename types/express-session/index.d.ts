@@ -5,7 +5,7 @@
 //                 Naoto Yokoyama <https://github.com/builtinnya>
 //                 Ryan Cannon <https://github.com/ry7n>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 /// <reference types="node" />
 
@@ -45,7 +45,7 @@ declare global {
       destroy(callback: (err: any) => void): void;
       reload(callback: (err: any) => void): void;
       save(callback: (err: any) => void): void;
-      touch(callback: (err: any) => void): void;
+      touch(): void;
       cookie: SessionCookie;
     }
   }

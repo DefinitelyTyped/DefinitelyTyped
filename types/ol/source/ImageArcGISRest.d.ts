@@ -1,21 +1,33 @@
-import { EventsKey } from 'ol/events';
-import Event from 'ol/events/Event';
-import { LoadFunction } from 'ol/Image';
-import { ObjectEvent } from 'ol/Object';
-import { ProjectionLike } from 'ol/proj';
-import ImageSource, { ImageSourceEvent } from 'ol/source/Image';
-import { AttributionLike } from 'ol/source/Source';
+import { EventsKey } from '../events';
+import Event from '../events/Event';
+import { LoadFunction } from '../Image';
+import { ObjectEvent } from '../Object';
+import { ProjectionLike } from '../proj';
+import ImageSource, { ImageSourceEvent } from './Image';
+import { AttributionLike } from './Source';
+
+export interface Options {
+    attributions?: AttributionLike;
+    crossOrigin?: string;
+    hidpi?: boolean;
+    imageLoadFunction?: LoadFunction;
+    params?: { [key: string]: any };
+    projection?: ProjectionLike;
+    ratio?: number;
+    resolutions?: number[];
+    url?: string;
+}
 export default class ImageArcGISRest extends ImageSource {
     constructor(opt_options?: Options);
     getImageLoadFunction(): LoadFunction;
-    getParams(): { [key: string]: any };
-    getUrl(): string;
+    getParams(): any;
+    getUrl(): string | undefined;
     setImageLoadFunction(imageLoadFunction: LoadFunction): void;
-    setUrl(url: string): void;
-    updateParams(params: { [key: string]: any }): void;
-    on(type: string | string[], listener: ((param0: any) => void)): EventsKey | EventsKey[];
-    once(type: string | string[], listener: ((param0: any) => void)): EventsKey | EventsKey[];
-    un(type: string | string[], listener: ((param0: any) => void)): void;
+    setUrl(url: string | undefined): void;
+    updateParams(params: any): void;
+    on(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
+    once(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
+    un(type: string | string[], listener: (p0: any) => void): void;
     on(type: 'change', listener: (evt: Event) => void): EventsKey;
     once(type: 'change', listener: (evt: Event) => void): EventsKey;
     un(type: 'change', listener: (evt: Event) => void): void;
@@ -31,15 +43,4 @@ export default class ImageArcGISRest extends ImageSource {
     on(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
     once(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
     un(type: 'propertychange', listener: (evt: ObjectEvent) => void): void;
-}
-export interface Options {
-    attributions?: AttributionLike;
-    crossOrigin?: string;
-    hidpi?: boolean;
-    imageLoadFunction?: LoadFunction;
-    params?: { [key: string]: any };
-    projection?: ProjectionLike;
-    ratio?: number;
-    resolutions?: number[];
-    url?: string;
 }

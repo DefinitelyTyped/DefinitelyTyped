@@ -1185,6 +1185,11 @@ declare module "victory" {
      */
     interpolation?: InterpolationPropType;
     /**
+     * The labels prop defines the labels that will appear above each point.
+     * This prop should be given as an array or as a function of data.
+     */
+    labels?: string[] | number[] | Function;
+    /**
      * The samples prop specifies how many individual points to plot when plotting
      * y as a function of x. Samples is ignored if x props are provided instead.
      * @default 50
@@ -1228,6 +1233,12 @@ declare module "victory" {
      * @default <VictoryLabel/>
      */
     axisLabelComponent?: React.ReactElement;
+    /**
+     * The axisValue prop may be used instead of axisAngle to position the
+     * dependent axis. Ths prop is useful when dependent axes should line up
+     * with values on the independent axis.
+     */
+    axisValue?: number | string | object;
     /**
      * This prop specifies whether a given axis is intended to cross another axis.
      */
@@ -1760,7 +1771,7 @@ declare module "victory" {
    */
   export class VictoryChart extends React.Component<VictoryChartProps, any> {}
 
-  export interface VictoryGroupProps extends VictoryCommonProps, VictoryMultiLabeableProps {
+  export interface VictoryGroupProps extends VictoryCommonProps, VictoryDatableProps, VictoryMultiLabeableProps {
     /**
      * The categories prop specifies how categorical data for a chart should be ordered.
      * This prop should be given as an array of string values, or an object with

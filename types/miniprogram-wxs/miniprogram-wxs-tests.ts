@@ -4,11 +4,14 @@ getDate();
 // $ExpectType RegExp
 getRegExp('.*');
 
-// $ExpectType never
+// $ExpectError
 new Date();
 
-// $ExpectType never
+// $ExpectError
 new RegExp('');
 
 // $ExpectError
 console.warn();
+
+// $ExpectType number
+Number.MAX_VALUE;

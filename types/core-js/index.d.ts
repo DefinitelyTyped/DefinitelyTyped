@@ -316,22 +316,6 @@ interface ObjectConstructor {
 }
 
 // #############################################################################################
-// Console - https://github.com/zloirock/core-js/#console
-// Modules: core.log
-// #############################################################################################
-
-interface Log extends Console {
-    (message?: any, ...optionalParams: any[]): void;
-    enable(): void;
-    disable(): void;
-}
-
-/**
- * Non-standard.
- */
-declare var log: Log;
-
-// #############################################################################################
 // Dict - https://github.com/zloirock/core-js/#dict
 // Modules: core.dict
 // #############################################################################################
@@ -830,7 +814,6 @@ declare namespace core {
     const Symbol: SymbolConstructor;
     const Dict: DictConstructor;
     const global: any;
-    const log: Log;
     const _: boolean;
 
     function setTimeout(handler: any, timeout?: any, ...args: any[]): number;
@@ -900,10 +883,6 @@ declare module "core-js/core/global" {
     const global: typeof core.global;
     export = global;
 }
-declare module "core-js/core/log" {
-    const log: typeof core.log;
-    export = log;
-}
 declare module "core-js/core/number" {
     const Number: typeof core.Number;
     export = Number;
@@ -947,10 +926,6 @@ declare module "core-js/fn/global" {
 declare module "core-js/fn/is-iterable" {
     const isIterable: typeof core.isIterable;
     export = isIterable;
-}
-declare module "core-js/fn/log" {
-    const log: typeof core.log;
-    export = log;
 }
 declare module "core-js/fn/map" {
     const Map: typeof core.Map;
@@ -1683,10 +1658,6 @@ declare module "core-js/library/core/global" {
     const global: typeof core.global;
     export = global;
 }
-declare module "core-js/library/core/log" {
-    const log: typeof core.log;
-    export = log;
-}
 declare module "core-js/library/core/number" {
     const Number: typeof core.Number;
     export = Number;
@@ -1730,10 +1701,6 @@ declare module "core-js/library/fn/global" {
 declare module "core-js/library/fn/is-iterable" {
     const isIterable: typeof core.isIterable;
     export = isIterable;
-}
-declare module "core-js/library/fn/log" {
-    const log: typeof core.log;
-    export = log;
 }
 declare module "core-js/library/fn/map" {
     const Map: typeof core.Map;

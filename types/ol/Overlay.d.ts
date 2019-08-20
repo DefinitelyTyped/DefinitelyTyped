@@ -1,12 +1,13 @@
-import { Coordinate } from 'ol/coordinate';
-import { EventsKey } from 'ol/events';
-import Event from 'ol/events/Event';
-import { Extent } from 'ol/extent';
-import BaseObject, { ObjectEvent } from 'ol/Object';
-import OverlayPositioning from 'ol/OverlayPositioning';
-import { Pixel } from 'ol/pixel';
-import PluggableMap from 'ol/PluggableMap';
-import { Size } from 'ol/size';
+import { Coordinate } from './coordinate';
+import { EventsKey } from './events';
+import Event from './events/Event';
+import { Extent } from './extent';
+import BaseObject, { ObjectEvent } from './Object';
+import OverlayPositioning from './OverlayPositioning';
+import { Pixel } from './pixel';
+import PluggableMap from './PluggableMap';
+import { Size } from './size';
+
 export interface Options {
     id?: number | string;
     element?: HTMLElement;
@@ -20,44 +21,48 @@ export interface Options {
     autoPanMargin?: number;
     className?: string;
 }
+export interface PanOptions {
+    duration?: number;
+    easing?: (p0: number) => number;
+}
 export default class Overlay extends BaseObject {
     constructor(options: Options);
     protected autoPan: boolean;
+    protected autoPanAnimation: PanOptions;
     protected autoPanMargin: number;
     protected element: HTMLElement;
-    protected stopEvent: boolean;
-    protected rendered: { [key: string]: any };
-    protected options: Options;
-    protected autoPanAnimation: PanOptions;
     protected id: number | string;
     protected insertFirst: boolean;
     protected mapPostrenderListenerKey: EventsKey;
-    protected updateRenderedPosition(pixel: Pixel, mapSize: Size): void;
-    protected getRect(element: HTMLElement, size: Size): Extent;
+    protected options: Options;
+    protected rendered: any;
+    protected stopEvent: boolean;
+    protected getRect(element: HTMLElement | undefined, size: Size | undefined): Extent;
     protected handleElementChanged(): void;
     protected handleMapChanged(): void;
     protected handleOffsetChanged(): void;
     protected handlePositionChanged(): void;
+    protected handlePositioningChanged(): void;
+    protected panIntoView(): void;
+    protected render(): void;
     protected setVisible(visible: boolean): void;
     protected updatePixelPosition(): void;
-    protected render(): void;
-    protected panIntoView(): void;
-    protected handlePositioningChanged(): void;
-    getPositioning(): OverlayPositioning;
-    getOptions(): Options;
+    protected updateRenderedPosition(pixel: Pixel, mapSize: Size | undefined): void;
+    getElement(): HTMLElement | undefined;
+    getId(): number | string | undefined;
+    getMap(): PluggableMap | undefined;
     getOffset(): number[];
-    setElement(element: HTMLElement): void;
-    setMap(map: PluggableMap): void;
-    getPosition(): Coordinate;
-    setPosition(position: Coordinate): void;
-    setPositioning(positioning: OverlayPositioning): void;
-    getMap(): PluggableMap;
-    getId(): number | string;
-    getElement(): HTMLElement;
+    getOptions(): Options;
+    getPosition(): Coordinate | undefined;
+    getPositioning(): OverlayPositioning;
+    setElement(element: HTMLElement | undefined): void;
+    setMap(map: PluggableMap | undefined): void;
     setOffset(offset: number[]): void;
-    on(type: string | string[], listener: ((param0: any) => void)): EventsKey | EventsKey[];
-    once(type: string | string[], listener: ((param0: any) => void)): EventsKey | EventsKey[];
-    un(type: string | string[], listener: ((param0: any) => void)): void;
+    setPosition(position: Coordinate | undefined): void;
+    setPositioning(positioning: OverlayPositioning): void;
+    on(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
+    once(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
+    un(type: string | string[], listener: (p0: any) => void): void;
     on(type: 'change', listener: (evt: Event) => void): EventsKey;
     once(type: 'change', listener: (evt: Event) => void): EventsKey;
     un(type: 'change', listener: (evt: Event) => void): void;
@@ -79,8 +84,4 @@ export default class Overlay extends BaseObject {
     on(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
     once(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
     un(type: 'propertychange', listener: (evt: ObjectEvent) => void): void;
-}
-export interface PanOptions {
-    duration?: number;
-    easing?: ((param0: number) => number);
 }

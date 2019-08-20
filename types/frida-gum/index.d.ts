@@ -1,4 +1,4 @@
-// Type definitions for non-npm package frida-gum 12.6
+// Type definitions for non-npm package frida-gum 14.0
 // Project: https://github.com/frida/frida
 // Definitions by: Ole André Vadla Ravnås <https://github.com/oleavr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -233,10 +233,7 @@ declare namespace Script {
     function setGlobalAccessHandler(handler: GlobalAccessHandler | null): void;
 }
 
-declare const enum ScriptRuntime {
-    Duk = "DUK",
-    V8 = "V8",
-}
+type ScriptRuntime = "DUK" | "V8";
 
 interface GlobalAccessHandler {
     /**
@@ -791,25 +788,22 @@ declare class Backtracer {
     static FUZZY: Backtracer;
 }
 
-declare const enum Architecture {
-    Ia32 = "ia32",
-    X64 = "x64",
-    Arm = "arm",
-    Arm64 = "arm64",
-    Mips = "mips"
-}
+type Architecture =
+    | "ia32"
+    | "x64"
+    | "arm"
+    | "arm64"
+    | "mips"
+    ;
 
-declare const enum Platform {
-    Windows = "windows",
-    Darwin = "darwin",
-    Linux = "linux",
-    Qnx = "qnx"
-}
+type Platform =
+    | "windows"
+    | "darwin"
+    | "linux"
+    | "qnx"
+    ;
 
-declare const enum CodeSigningPolicy {
-    Optional = "optional",
-    Required = "required"
-}
+type CodeSigningPolicy = "optional" | "required";
 
 /**
  * Given as a string of the form: rwx, where rw- means “readable and writable”.
@@ -818,13 +812,13 @@ type PageProtection = string;
 
 type ThreadId = number;
 
-declare const enum ThreadState {
-    Running = "running",
-    Stopped = "stopped",
-    Waiting = "waiting",
-    Uninterruptible = "uninterruptible",
-    Halted = "halted"
-}
+type ThreadState =
+    | "running"
+    | "stopped"
+    | "waiting"
+    | "uninterruptible"
+    | "halted"
+    ;
 
 interface ThreadDetails {
     /**
@@ -931,34 +925,28 @@ interface ModuleSymbolDetails {
     address: NativePointer;
 }
 
-declare const enum ModuleImportType {
-    Function = "function",
-    Variable = "variable"
-}
+type ModuleImportType = "function" | "variable";
 
-declare const enum ModuleExportType {
-    Function = "function",
-    Variable = "variable"
-}
+type ModuleExportType = "function" | "variable";
 
-declare const enum ModuleSymbolType {
+type ModuleSymbolType =
     // Common
-    Unknown = "unknown",
-    Section = "section",
+    | "unknown"
+    | "section"
 
     // Mach-O
-    Undefined = "undefined",
-    Absolute = "absolute",
-    PreboundUndefined = "prebound-undefined",
-    Indirect = "indirect",
+    | "undefined"
+    | "absolute"
+    | "prebound-undefined"
+    | "indirect"
 
     // ELF
-    Object = "object",
-    Function = "function",
-    File = "file",
-    Common = "common",
-    Tls = "tls"
-}
+    | "object"
+    | "function"
+    | "file"
+    | "common"
+    | "tls"
+    ;
 
 interface ModuleSymbolSectionDetails {
     /**
@@ -1095,17 +1083,17 @@ interface ExceptionDetails {
     nativeContext: NativePointer;
 }
 
-declare const enum ExceptionType {
-    Abort = "abort",
-    AccessViolation = "access-violation",
-    GuardPage = "guard-page",
-    IllegalInstruction = "illegal-instruction",
-    StackOverflow = "stack-overflow",
-    Arithmetic = "arithmetic",
-    Breakpoint = "breakpoint",
-    SingleStep = "single-step",
-    System = "system"
-}
+type ExceptionType =
+    | "abort"
+    | "access-violation"
+    | "guard-page"
+    | "illegal-instruction"
+    | "stack-overflow"
+    | "arithmetic"
+    | "breakpoint"
+    | "single-step"
+    | "system"
+    ;
 
 interface ExceptionMemoryDetails {
     /**
@@ -1119,20 +1107,14 @@ interface ExceptionMemoryDetails {
     address: NativePointer;
 }
 
-declare const enum MemoryOperation {
-    read = "read",
-    write = "write",
-    execute = "execute"
-}
+type MemoryOperation = "read" | "write" | "execute";
 
 interface EnumerateCallbacks<T> {
     onMatch: (item: T) => void | EnumerateAction;
     onComplete: () => void;
 }
 
-declare const enum EnumerateAction {
-    Stop = "stop"
-}
+type EnumerateAction = "stop";
 
 interface MemoryScanCallbacks {
     /**
@@ -1543,8 +1525,10 @@ interface UnixSystemFunctionResult {
 }
 
 declare class NativeCallback extends NativePointer {
-    constructor(func: AnyFunction, retType: NativeType, argTypes: NativeType[]);
+    constructor(func: NativeCallbackImplementation, retType: NativeType, argTypes: NativeType[]);
 }
+
+type NativeCallbackImplementation = (this: InvocationContext | undefined, ...params: any[]) => any;
 
 type NativeArgumentValue = NativePointerValue | UInt64 | Int64 | number | boolean | any[];
 
@@ -1552,17 +1536,17 @@ type NativeReturnValue = NativePointer | UInt64 | Int64 | number | boolean | any
 
 type NativeType = string | any[];
 
-declare const enum NativeABI {
-    Default = "default",
-    SysV = "sysv",
-    StdCall = "stdcall",
-    ThisCall = "thiscall",
-    FastCall = "fastcall",
-    MSCDecl = "mscdecl",
-    Win64 = "win64",
-    Unix64 = "unix64",
-    VFP = "vfp"
-}
+type NativeABI =
+    | "default"
+    | "sysv"
+    | "stdcall"
+    | "thiscall"
+    | "fastcall"
+    | "mscdecl"
+    | "win64"
+    | "unix64"
+    | "vfp"
+    ;
 
 interface NativeFunctionOptions {
     abi?: NativeABI;
@@ -1570,15 +1554,9 @@ interface NativeFunctionOptions {
     exceptions?: ExceptionsBehavior;
 }
 
-declare const enum SchedulingBehavior {
-    Cooperative = "cooperative",
-    Exclusive = "exclusive"
-}
+type SchedulingBehavior = "cooperative" | "exclusive";
 
-declare const enum ExceptionsBehavior {
-    Steal = "steal",
-    Propagate = "propagate"
-}
+type ExceptionsBehavior = "steal" | "propagate";
 
 type CpuContext = PortableCpuContext | Ia32CpuContext | X64CpuContext | ArmCpuContext | Arm64CpuContext | MipsCpuContext;
 
@@ -1982,27 +1960,27 @@ interface WindowsStreamOptions {
     autoClose?: boolean;
 }
 
-declare const enum AddressFamily {
-    Unix = "unix",
-    IPv4 = "ipv4",
-    IPv6 = "ipv6"
-}
+type AddressFamily =
+    | "unix"
+    | "ipv4"
+    | "ipv6"
+    ;
 
-declare const enum SocketType {
-    Tcp = "tcp",
-    Udp = "udp",
-    Tcp6 = "tcp6",
-    Udp6 = "udp6",
-    UnixStream = "unix:stream",
-    UnixDatagram = "unix:dgram"
-}
+type SocketType =
+    | "tcp"
+    | "udp"
+    | "tcp6"
+    | "udp6"
+    | "unix:stream"
+    | "unix:dgram"
+    ;
 
-declare const enum UnixSocketType {
-    Anonymous = "anonymous",
-    Path = "path",
-    Abstract = "abstract",
-    AbstractPadded = "abstract-padded"
-}
+type UnixSocketType =
+    | "anonymous"
+    | "path"
+    | "abstract"
+    | "abstract-padded"
+    ;
 
 type SocketListenOptions = TcpListenOptions | UnixListenOptions;
 
@@ -2010,7 +1988,7 @@ interface TcpListenOptions extends BaseListenOptions {
     /**
      * Address family. Omit to listen on both ipv4 and ipv6 – if supported by the OS.
      */
-    family?: AddressFamily.IPv4 | AddressFamily.IPv6;
+    family?: "ipv4" | "ipv6";
 
     /**
      * Host or IP address to listen on. Omit to listen on all interfaces.
@@ -2027,7 +2005,7 @@ interface UnixListenOptions extends BaseListenOptions {
     /**
      * Address family.
      */
-    family: AddressFamily.Unix;
+    family: "unix";
 
     /**
      * Type of UNIX socket to listen on. Defaults to UnixSocketType.Path.
@@ -2053,7 +2031,7 @@ interface TcpConnectOptions {
     /**
      * Address family. Omit to determine based on the host specified.
      */
-    family?: AddressFamily.IPv4 | AddressFamily.IPv6;
+    family?: "ipv4" | "ipv6";
 
     /**
      * Host or IP address to connect to. Defaults to `localhost`.
@@ -2075,7 +2053,7 @@ interface UnixConnectOptions {
     /**
      * Address family.
      */
-    family: AddressFamily.Unix;
+    family: "unix";
 
     /**
      * Type of UNIX socket to connect to. Defaults to UnixSocketType.Path.
@@ -2218,11 +2196,11 @@ interface SqliteOpenOptions {
     flags?: SqliteOpenFlag[];
 }
 
-declare const enum SqliteOpenFlag {
-    ReadOnly = "readonly",
-    ReadWrite = "readwrite",
-    Create = "create",
-}
+type SqliteOpenFlag =
+    | "readonly"
+    | "readwrite"
+    | "create"
+    ;
 
 /**
  * Pre-compiled SQL statement.
@@ -2572,33 +2550,33 @@ type StalkerCallProbeCallback = (args: InvocationArguments) => void;
 
 type StalkerCallProbeId = number;
 
-declare const enum StalkerEventType {
-    Call = "call",
-    Ret = "ret",
-    Exec = "exec",
-    Block = "block",
-    Compile = "compile",
-}
+type StalkerEventType =
+    | "call"
+    | "ret"
+    | "exec"
+    | "block"
+    | "compile"
+    ;
 
 type StalkerEventFull = StalkerCallEventFull | StalkerRetEventFull | StalkerExecEventFull |
     StalkerBlockEventFull | StalkerCompileEventFull;
 type StalkerEventBare = StalkerCallEventBare | StalkerRetEventBare | StalkerExecEventBare |
     StalkerBlockEventBare | StalkerCompileEventBare;
 
-type StalkerCallEventFull = [ StalkerEventType.Call, NativePointer | string, NativePointer | string, number ];
-type StalkerCallEventBare = [                        NativePointer | string, NativePointer | string, number ];
+type StalkerCallEventFull = [ "call", NativePointer | string, NativePointer | string, number ];
+type StalkerCallEventBare = [         NativePointer | string, NativePointer | string, number ];
 
-type StalkerRetEventFull = [ StalkerEventType.Ret, NativePointer | string, NativePointer | string, number ];
-type StalkerRetEventBare = [                       NativePointer | string, NativePointer | string, number ];
+type StalkerRetEventFull = [ "ret", NativePointer | string, NativePointer | string, number ];
+type StalkerRetEventBare = [        NativePointer | string, NativePointer | string, number ];
 
-type StalkerExecEventFull = [ StalkerEventType.Exec, NativePointer | string ];
-type StalkerExecEventBare = [                        NativePointer | string ];
+type StalkerExecEventFull = [ "exec", NativePointer | string ];
+type StalkerExecEventBare = [         NativePointer | string ];
 
-type StalkerBlockEventFull = [ StalkerEventType.Block, NativePointer | string, NativePointer | string ];
-type StalkerBlockEventBare = [                         NativePointer | string, NativePointer | string ];
+type StalkerBlockEventFull = [ "block", NativePointer | string, NativePointer | string ];
+type StalkerBlockEventBare = [          NativePointer | string, NativePointer | string ];
 
-type StalkerCompileEventFull = [ StalkerEventType.Compile, NativePointer | string, NativePointer | string ];
-type StalkerCompileEventBare = [                           NativePointer | string, NativePointer | string ];
+type StalkerCompileEventFull = [ "compile", NativePointer | string, NativePointer | string ];
+type StalkerCompileEventBare = [            NativePointer | string, NativePointer | string ];
 
 type StalkerTransformCallback = StalkerX86TransformCallback | StalkerArm64TransformCallback;
 
@@ -2659,7 +2637,7 @@ interface ApiResolverMatch {
     address: NativePointer;
 }
 
-declare const enum ApiResolverType {
+type ApiResolverType =
     /**
      * Resolves exported and imported functions of shared libraries
      * currently loaded.
@@ -2669,7 +2647,7 @@ declare const enum ApiResolverType {
      * Example query: `"exports:*!open*"`
      * Which may resolve to: `"/usr/lib/libSystem.B.dylib!opendir$INODE64"`
      */
-    Module = "module",
+    | "module"
 
     /**
      * Resolves Objective-C methods of classes currently loaded.
@@ -2681,8 +2659,8 @@ declare const enum ApiResolverType {
      * Example query: `"-[NSURL* *HTTP*]"`
      * Which may resolve to: `"-[NSURLRequest valueForHTTPHeaderField:]"`
      */
-    ObjC = "objc",
-}
+    | "objc"
+    ;
 
 declare class DebugSymbol {
     /**
@@ -2691,24 +2669,24 @@ declare class DebugSymbol {
     address: NativePointer;
 
     /**
-     * Name of the symbol.
+     * Name of the symbol, or `null` if unknown.
      */
-    name: string;
+    name: string | null;
 
     /**
-     * Module name owning this symbol.
+     * Module name owning this symbol, or `null` if unknown.
      */
-    moduleName: string;
+    moduleName: string | null;
 
     /**
-     * File name owning this symbol.
+     * File name owning this symbol, or `null` if unknown.
      */
-    fileName: string;
+    fileName: string | null;
 
     /**
-     * Line number in `fileName`.
+     * Line number in `fileName`, or `null` if unknown.
      */
-    lineNumber: number;
+    lineNumber: number | null;
 
     /**
      * Looks up debug information for `address`.
@@ -2872,28 +2850,24 @@ declare class MipsInstruction extends Instruction {
 
 type X86Operand = X86RegOperand | X86ImmOperand | X86MemOperand;
 
-declare const enum X86OperandType {
-    Reg = "reg",
-    Imm = "imm",
-    Mem = "mem",
-}
+type X86OperandType = "reg" | "imm" | "mem";
 
 interface X86BaseOperand {
     size: number;
 }
 
 interface X86RegOperand extends X86BaseOperand {
-    type: X86OperandType.Reg;
+    type: "reg";
     value: X86Register;
 }
 
 interface X86ImmOperand extends X86BaseOperand {
-    type: X86OperandType.Imm;
+    type: "imm";
     value: number | Int64;
 }
 
 interface X86MemOperand extends X86BaseOperand {
-    type: X86OperandType.Mem;
+    type: "mem";
     value: {
         segment?: X86Register;
         base?: X86Register;
@@ -2907,16 +2881,16 @@ type ArmOperand = ArmRegOperand | ArmImmOperand | ArmMemOperand |
     ArmFpOperand | ArmCimmOperand | ArmPimmOperand | ArmSetendOperand |
     ArmSysregOperand;
 
-declare const enum ArmOperandType {
-    Reg = "reg",
-    Imm = "imm",
-    Mem = "mem",
-    Fp = "fp",
-    Cimm = "cimm",
-    Pimm = "pimm",
-    Setend = "setend",
-    Sysreg = "sysreg",
-}
+type ArmOperandType =
+    | "reg"
+    | "imm"
+    | "mem"
+    | "fp"
+    | "cimm"
+    | "pimm"
+    | "setend"
+    | "sysreg"
+    ;
 
 interface ArmBaseOperand {
     shift?: {
@@ -2928,17 +2902,17 @@ interface ArmBaseOperand {
 }
 
 interface ArmRegOperand extends ArmBaseOperand {
-    type: ArmOperandType.Reg;
+    type: "reg";
     value: ArmRegister;
 }
 
 interface ArmImmOperand extends ArmBaseOperand {
-    type: ArmOperandType.Imm;
+    type: "imm";
     value: number;
 }
 
 interface ArmMemOperand extends ArmBaseOperand {
-    type: ArmOperandType.Mem;
+    type: "mem";
     value: {
         base?: ArmRegister;
         index?: ArmRegister;
@@ -2948,60 +2922,60 @@ interface ArmMemOperand extends ArmBaseOperand {
 }
 
 interface ArmFpOperand extends ArmBaseOperand {
-    type: ArmOperandType.Fp;
+    type: "fp";
     value: number;
 }
 
 interface ArmCimmOperand extends ArmBaseOperand {
-    type: ArmOperandType.Cimm;
+    type: "cimm";
     value: number;
 }
 
 interface ArmPimmOperand extends ArmBaseOperand {
-    type: ArmOperandType.Pimm;
+    type: "pimm";
     value: number;
 }
 
 interface ArmSetendOperand extends ArmBaseOperand {
-    type: ArmOperandType.Setend;
+    type: "setend";
     value: Endian;
 }
 
 interface ArmSysregOperand extends ArmBaseOperand {
-    type: ArmOperandType.Sysreg;
+    type: "sysreg";
     value: ArmRegister;
 }
 
-declare const enum ArmShifter {
-    Asr = "asr",
-    Lsl = "lsl",
-    Lsr = "lsr",
-    Ror = "ror",
-    Rrx = "rrx",
-    AsrReg = "asr-reg",
-    LslReg = "lsl-reg",
-    LsrReg = "lsr-reg",
-    RorReg = "ror-reg",
-    RrxReg = "rrx-reg",
-}
+type ArmShifter =
+    | "asr"
+    | "lsl"
+    | "lsr"
+    | "ror"
+    | "rrx"
+    | "asr-reg"
+    | "lsl-reg"
+    | "lsr-reg"
+    | "ror-reg"
+    | "rrx-reg"
+    ;
 
 type Arm64Operand = Arm64RegOperand | Arm64ImmOperand | Arm64MemOperand |
     Arm64FpOperand | Arm64CimmOperand | Arm64RegMrsOperand | Arm64RegMsrOperand |
     Arm64PstateOperand | Arm64SysOperand | Arm64PrefetchOperand | Arm64BarrierOperand;
 
-declare const enum Arm64OperandType {
-    Reg = "reg",
-    Imm = "imm",
-    Mem = "mem",
-    Fp = "fp",
-    Cimm = "cimm",
-    RegMrs = "reg-mrs",
-    RegMsr = "reg-msr",
-    Pstate = "pstate",
-    Sys = "sys",
-    Prefetch = "prefetch",
-    Barrier = "barrier",
-}
+type Arm64OperandType =
+    | "reg"
+    | "imm"
+    | "mem"
+    | "fp"
+    | "cimm"
+    | "reg-mrs"
+    | "reg-msr"
+    | "pstate"
+    | "sys"
+    | "prefetch"
+    | "barrier"
+    ;
 
 interface Arm64BaseOperand {
     shift?: {
@@ -3014,17 +2988,17 @@ interface Arm64BaseOperand {
 }
 
 interface Arm64RegOperand extends Arm64BaseOperand {
-    type: Arm64OperandType.Reg;
+    type: "reg";
     value: Arm64Register;
 }
 
 interface Arm64ImmOperand extends Arm64BaseOperand {
-    type: Arm64OperandType.Imm;
+    type: "imm";
     value: Int64;
 }
 
 interface Arm64MemOperand extends Arm64BaseOperand {
-    type: Arm64OperandType.Mem;
+    type: "mem";
     value: {
         base?: Arm64Register;
         index?: Arm64Register;
@@ -3033,106 +3007,99 @@ interface Arm64MemOperand extends Arm64BaseOperand {
 }
 
 interface Arm64FpOperand extends Arm64BaseOperand {
-    type: Arm64OperandType.Fp;
+    type: "fp";
     value: number;
 }
 
 interface Arm64CimmOperand extends Arm64BaseOperand {
-    type: Arm64OperandType.Cimm;
+    type: "cimm";
     value: Int64;
 }
 
 interface Arm64RegMrsOperand extends Arm64BaseOperand {
-    type: Arm64OperandType.RegMrs;
+    type: "reg-mrs";
     value: Arm64Register;
 }
 
 interface Arm64RegMsrOperand extends Arm64BaseOperand {
-    type: Arm64OperandType.RegMsr;
+    type: "reg-msr";
     value: Arm64Register;
 }
 
 interface Arm64PstateOperand extends Arm64BaseOperand {
-    type: Arm64OperandType.Pstate;
+    type: "pstate";
     value: number;
 }
 
 interface Arm64SysOperand extends Arm64BaseOperand {
-    type: Arm64OperandType.Sys;
+    type: "sys";
     value: number;
 }
 
 interface Arm64PrefetchOperand extends Arm64BaseOperand {
-    type: Arm64OperandType.Prefetch;
+    type: "prefetch";
     value: number;
 }
 
 interface Arm64BarrierOperand extends Arm64BaseOperand {
-    type: Arm64OperandType.Barrier;
+    type: "barrier";
     value: number;
 }
 
-declare const enum Arm64Shifter {
-    Lsl = "lsl",
-    Msl = "msl",
-    Lsr = "lsr",
-    Asr = "asr",
-    Ror = "ror",
-}
+type Arm64Shifter =
+    | "lsl"
+    | "msl"
+    | "lsr"
+    | "asr"
+    | "ror"
+    ;
 
-declare const enum Arm64Extender {
-    Uxtb = "uxtb",
-    Uxth = "uxth",
-    Uxtw = "uxtw",
-    Uxtx = "uxtx",
-    Sxtb = "sxtb",
-    Sxth = "sxth",
-    Sxtw = "sxtw",
-    Sxtx = "sxtx",
-}
+type Arm64Extender =
+    | "uxtb"
+    | "uxth"
+    | "uxtw"
+    | "uxtx"
+    | "sxtb"
+    | "sxth"
+    | "sxtw"
+    | "sxtx"
+    ;
 
-declare const enum Arm64Vas {
-    A8b = "8b",
-    A16b = "16b",
-    A4h = "4h",
-    A8h = "8h",
-    A2s = "2s",
-    A4s = "4s",
-    A1d = "1d",
-    A2d = "2d",
-    A1q = "1q",
-}
+type Arm64Vas =
+    | "8b"
+    | "16b"
+    | "4h"
+    | "8h"
+    | "2s"
+    | "4s"
+    | "1d"
+    | "2d"
+    | "1q"
+    ;
 
 type MipsOperand = MipsRegOperand | MipsImmOperand | MipsMemOperand;
 
-declare const enum MipsOperandType {
-    Reg = "reg",
-    Imm = "imm",
-    Mem = "mem",
-}
+type MipsOperandType = "reg" | "imm" | "mem";
 
 interface MipsRegOperand {
-    type: MipsOperandType.Reg;
+    type: "reg";
     value: MipsRegister;
 }
 
 interface MipsImmOperand {
-    type: MipsOperandType.Imm;
+    type: "imm";
     value: number;
 }
 
 interface MipsMemOperand {
-    type: MipsOperandType.Mem;
+    type: "mem";
     value: {
         base?: MipsRegister;
         disp: number;
     };
 }
 
-declare const enum Endian {
-    Big = "be",
-    Little = "le",
-}
+type Endian = "be" | "le";
 
 declare namespace Kernel {
     /**
@@ -3355,10 +3322,15 @@ declare namespace ObjC {
         $className: string;
 
         /**
+         * Name of module where this object is implemented.
+         */
+        $moduleName: string;
+
+        /**
          * Protocols that this object conforms to.
          */
         $protocols: {
-            [name: string]: Protocol
+            [name: string]: Protocol;
         };
 
         /**
@@ -3405,7 +3377,7 @@ declare namespace ObjC {
          *
          * You may replace it by assigning to this property. See `ObjC.implement()` for details.
          */
-        implementation: AnyFunction | NativePointer;
+        implementation: NativePointer;
 
         /**
          * Return type name.
@@ -3426,11 +3398,7 @@ declare namespace ObjC {
     /**
      * What kind of object an ObjC.Object represents.
      */
-    const enum ObjectKind {
-        Instance = "instance",
-        Class = "class",
-        MetaClass = "meta-class"
-    }
+    type ObjectKind = "instance" | "class" | "meta-class";
 
     /**
      * Dynamically generated language binding for any Objective-C protocol.
@@ -4015,6 +3983,11 @@ declare namespace Java {
         $className: string;
 
         /**
+         * Instance used for chaining up to super-class method implementations.
+         */
+        $super: Wrapper;
+
+        /**
          * Methods and fields.
          */
         [name: string]: any;
@@ -4059,9 +4032,11 @@ declare namespace Java {
         handle: NativePointer;
 
         /**
-         * Implementation. Assign to this property to replace it.
+         * Implementation. Assign a new implementation to this property to
+         * replace the original implementation. Assign `null` at a future point
+         * to revert back to the original implementation.
          */
-        implementation: (...params: any[]) => any;
+        implementation: MethodImplementation | null;
 
         /**
          * Method return type.
@@ -4078,6 +4053,8 @@ declare namespace Java {
          */
         canInvokeWith: (...args: any[]) => boolean;
     }
+
+    type MethodImplementation = (this: Wrapper, ...params: any[]) => any;
 
     interface Field {
         /**
@@ -4101,12 +4078,14 @@ declare namespace Java {
         fieldReturnType: Type;
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum MethodType {
         Constructor = 1,
         Static = 2,
         Instance = 3,
     }
 
+    // tslint:disable-next-line:no-const-enum
     const enum FieldType {
         Static = 1,
         Instance = 2,
@@ -4183,15 +4162,27 @@ declare namespace Java {
         name: string;
 
         /**
+         * Super-class. Omit to inherit from `java.lang.Object`.
+         */
+        superClass?: Wrapper;
+
+        /**
          * Interfaces implemented by this class.
          */
         implements?: Wrapper[];
 
         /**
-         * Methods to implement.
+         * Name and type of each field to expose.
+         */
+        fields?: {
+            [name: string]: string;
+        };
+
+        /**
+         * Methods to implement. Use the special name `$init` to define one or more constructors.
          */
         methods?: {
-            [name: string]: AnyFunction | MethodSpec | MethodSpec[];
+            [name: string]: MethodImplementation | MethodSpec | MethodSpec[];
         };
     }
 
@@ -4209,7 +4200,7 @@ declare namespace Java {
         /**
          * Implementation.
          */
-        implementation: AnyFunction;
+        implementation: MethodImplementation;
     }
 
     interface VM {
@@ -4981,85 +4972,77 @@ declare class X86Relocator {
     writeAll(): void;
 }
 
-declare const enum X86Register {
-    Xax = "xax",
-    Xcx = "xcx",
-    Xdx = "xdx",
-    Xbx = "xbx",
-    Xsp = "xsp",
-    Xbp = "xbp",
-    Xsi = "xsi",
-    Xdi = "xdi",
-    Eax = "eax",
-    Ecx = "ecx",
-    Edx = "edx",
-    Ebx = "ebx",
-    Esp = "esp",
-    Ebp = "ebp",
-    Esi = "esi",
-    Edi = "edi",
-    Rax = "rax",
-    Rcx = "rcx",
-    Rdx = "rdx",
-    Rbx = "rbx",
-    Rsp = "rsp",
-    Rbp = "rbp",
-    Rsi = "rsi",
-    Rdi = "rdi",
-    R8 = "r8",
-    R9 = "r9",
-    R10 = "r10",
-    R11 = "r11",
-    R12 = "r12",
-    R13 = "r13",
-    R14 = "r14",
-    R15 = "r15",
-    R8d = "r8d",
-    R9d = "r9d",
-    R10d = "r10d",
-    R11d = "r11d",
-    R12d = "r12d",
-    R13d = "r13d",
-    R14d = "r14d",
-    R15d = "r15d",
-    Xip = "xip",
-    Eip = "eip",
-    Rip = "rip",
-}
+type X86Register =
+    | "xax"
+    | "xcx"
+    | "xdx"
+    | "xbx"
+    | "xsp"
+    | "xbp"
+    | "xsi"
+    | "xdi"
+    | "eax"
+    | "ecx"
+    | "edx"
+    | "ebx"
+    | "esp"
+    | "ebp"
+    | "esi"
+    | "edi"
+    | "rax"
+    | "rcx"
+    | "rdx"
+    | "rbx"
+    | "rsp"
+    | "rbp"
+    | "rsi"
+    | "rdi"
+    | "r8"
+    | "r9"
+    | "r10"
+    | "r11"
+    | "r12"
+    | "r13"
+    | "r14"
+    | "r15"
+    | "r8d"
+    | "r9d"
+    | "r10d"
+    | "r11d"
+    | "r12d"
+    | "r13d"
+    | "r14d"
+    | "r15d"
+    | "xip"
+    | "eip"
+    | "rip"
+    ;
 
-declare const enum X86InstructionId {
-    Jo = "jo",
-    Jno = "jno",
-    Jb = "jb",
-    Jae = "jae",
-    Je = "je",
-    Jne = "jne",
-    Jbe = "jbe",
-    Ja = "ja",
-    Js = "js",
-    Jns = "jns",
-    Jp = "jp",
-    Jnp = "jnp",
-    Jl = "jl",
-    Jge = "jge",
-    Jle = "jle",
-    Jg = "jg",
-    Jcxz = "jcxz",
-    Jecxz = "jecxz",
-    Jrcxz = "jrcxz",
-}
+type X86InstructionId =
+    | "jo"
+    | "jno"
+    | "jb"
+    | "jae"
+    | "je"
+    | "jne"
+    | "jbe"
+    | "ja"
+    | "js"
+    | "jns"
+    | "jp"
+    | "jnp"
+    | "jl"
+    | "jge"
+    | "jle"
+    | "jg"
+    | "jcxz"
+    | "jecxz"
+    | "jrcxz"
+    ;
 
-declare const enum X86BranchHint {
-    NoHint = "no-hint",
-    Likely = "likely",
-    Unlikely = "unlikely",
-}
+type X86BranchHint = "no-hint" | "likely" | "unlikely";
 
-declare const enum X86PointerTarget {
-    Byte = "byte",
-    Dword = "dword",
-    Qword = "qword",
-}
+type X86PointerTarget = "byte" | "dword" | "qword";
 
 /**
  * Generates machine code for arm.
@@ -5657,53 +5640,51 @@ declare class ThumbRelocator {
     writeAll(): void;
 }
 
-declare const enum ArmRegister {
-    R0 = "r0",
-    R1 = "r1",
-    R2 = "r2",
-    R3 = "r3",
-    R4 = "r4",
-    R5 = "r5",
-    R6 = "r6",
-    R7 = "r7",
-    R8 = "r8",
-    R9 = "r9",
-    R10 = "r10",
-    R11 = "r11",
-    R12 = "r12",
-    R13 = "r13",
-    R14 = "r14",
-    R15 = "r15",
-    Sp = "sp",
-    Lr = "lr",
-    Sb = "sb",
-    Sl = "sl",
-    Fp = "fp",
-    Ip = "ip",
-    Pc = "pc",
-}
+type ArmRegister =
+    | "r0"
+    | "r1"
+    | "r2"
+    | "r3"
+    | "r4"
+    | "r5"
+    | "r6"
+    | "r7"
+    | "r8"
+    | "r9"
+    | "r10"
+    | "r11"
+    | "r12"
+    | "r13"
+    | "r14"
+    | "r15"
+    | "sp"
+    | "lr"
+    | "sb"
+    | "sl"
+    | "fp"
+    | "ip"
+    | "pc"
+    ;
 
-declare const enum ArmSystemRegister {
-    ApsrNzcvq = "apsr-nzcvq",
-}
+type ArmSystemRegister = "apsr-nzcvq";
 
-declare const enum ArmConditionCode {
-    Eq = "eq",
-    Ne = "ne",
-    Hs = "hs",
-    Lo = "lo",
-    Mi = "mi",
-    Pl = "pl",
-    Vs = "vs",
-    Vc = "vc",
-    Hi = "hi",
-    Ls = "ls",
-    Ge = "ge",
-    Lt = "lt",
-    Gt = "gt",
-    Le = "le",
-    Al = "al",
-}
+type ArmConditionCode =
+    | "eq"
+    | "ne"
+    | "hs"
+    | "lo"
+    | "mi"
+    | "pl"
+    | "vs"
+    | "vc"
+    | "hi"
+    | "ls"
+    | "ge"
+    | "lt"
+    | "gt"
+    | "le"
+    | "al"
+    ;
 
 /**
  * Generates machine code for arm64.
@@ -6095,200 +6076,196 @@ declare class Arm64Relocator {
     writeAll(): void;
 }
 
-declare const enum Arm64Register {
-    X0 = "x0",
-    X1 = "x1",
-    X2 = "x2",
-    X3 = "x3",
-    X4 = "x4",
-    X5 = "x5",
-    X6 = "x6",
-    X7 = "x7",
-    X8 = "x8",
-    X9 = "x9",
-    X10 = "x10",
-    X11 = "x11",
-    X12 = "x12",
-    X13 = "x13",
-    X14 = "x14",
-    X15 = "x15",
-    X16 = "x16",
-    X17 = "x17",
-    X18 = "x18",
-    X19 = "x19",
-    X20 = "x20",
-    X21 = "x21",
-    X22 = "x22",
-    X23 = "x23",
-    X24 = "x24",
-    X25 = "x25",
-    X26 = "x26",
-    X27 = "x27",
-    X28 = "x28",
-    X29 = "x29",
-    X30 = "x30",
-    W0 = "w0",
-    W1 = "w1",
-    W2 = "w2",
-    W3 = "w3",
-    W4 = "w4",
-    W5 = "w5",
-    W6 = "w6",
-    W7 = "w7",
-    W8 = "w8",
-    W9 = "w9",
-    W10 = "w10",
-    W11 = "w11",
-    W12 = "w12",
-    W13 = "w13",
-    W14 = "w14",
-    W15 = "w15",
-    W16 = "w16",
-    W17 = "w17",
-    W18 = "w18",
-    W19 = "w19",
-    W20 = "w20",
-    W21 = "w21",
-    W22 = "w22",
-    W23 = "w23",
-    W24 = "w24",
-    W25 = "w25",
-    W26 = "w26",
-    W27 = "w27",
-    W28 = "w28",
-    W29 = "w29",
-    W30 = "w30",
-    Sp = "sp",
-    Lr = "lr",
-    Fp = "fp",
-    Wsp = "wsp",
-    Wzr = "wzr",
-    Xzr = "xzr",
-    Nzcv = "nzcv",
-    Ip0 = "ip0",
-    Ip1 = "ip1",
-    S0 = "s0",
-    S1 = "s1",
-    S2 = "s2",
-    S3 = "s3",
-    S4 = "s4",
-    S5 = "s5",
-    S6 = "s6",
-    S7 = "s7",
-    S8 = "s8",
-    S9 = "s9",
-    S10 = "s10",
-    S11 = "s11",
-    S12 = "s12",
-    S13 = "s13",
-    S14 = "s14",
-    S15 = "s15",
-    S16 = "s16",
-    S17 = "s17",
-    S18 = "s18",
-    S19 = "s19",
-    S20 = "s20",
-    S21 = "s21",
-    S22 = "s22",
-    S23 = "s23",
-    S24 = "s24",
-    S25 = "s25",
-    S26 = "s26",
-    S27 = "s27",
-    S28 = "s28",
-    S29 = "s29",
-    S30 = "s30",
-    S31 = "s31",
-    D0 = "d0",
-    D1 = "d1",
-    D2 = "d2",
-    D3 = "d3",
-    D4 = "d4",
-    D5 = "d5",
-    D6 = "d6",
-    D7 = "d7",
-    D8 = "d8",
-    D9 = "d9",
-    D10 = "d10",
-    D11 = "d11",
-    D12 = "d12",
-    D13 = "d13",
-    D14 = "d14",
-    D15 = "d15",
-    D16 = "d16",
-    D17 = "d17",
-    D18 = "d18",
-    D19 = "d19",
-    D20 = "d20",
-    D21 = "d21",
-    D22 = "d22",
-    D23 = "d23",
-    D24 = "d24",
-    D25 = "d25",
-    D26 = "d26",
-    D27 = "d27",
-    D28 = "d28",
-    D29 = "d29",
-    D30 = "d30",
-    D31 = "d31",
-    Q0 = "q0",
-    Q1 = "q1",
-    Q2 = "q2",
-    Q3 = "q3",
-    Q4 = "q4",
-    Q5 = "q5",
-    Q6 = "q6",
-    Q7 = "q7",
-    Q8 = "q8",
-    Q9 = "q9",
-    Q10 = "q10",
-    Q11 = "q11",
-    Q12 = "q12",
-    Q13 = "q13",
-    Q14 = "q14",
-    Q15 = "q15",
-    Q16 = "q16",
-    Q17 = "q17",
-    Q18 = "q18",
-    Q19 = "q19",
-    Q20 = "q20",
-    Q21 = "q21",
-    Q22 = "q22",
-    Q23 = "q23",
-    Q24 = "q24",
-    Q25 = "q25",
-    Q26 = "q26",
-    Q27 = "q27",
-    Q28 = "q28",
-    Q29 = "q29",
-    Q30 = "q30",
-    Q31 = "q31",
-}
+type Arm64Register =
+    | "x0"
+    | "x1"
+    | "x2"
+    | "x3"
+    | "x4"
+    | "x5"
+    | "x6"
+    | "x7"
+    | "x8"
+    | "x9"
+    | "x10"
+    | "x11"
+    | "x12"
+    | "x13"
+    | "x14"
+    | "x15"
+    | "x16"
+    | "x17"
+    | "x18"
+    | "x19"
+    | "x20"
+    | "x21"
+    | "x22"
+    | "x23"
+    | "x24"
+    | "x25"
+    | "x26"
+    | "x27"
+    | "x28"
+    | "x29"
+    | "x30"
+    | "w0"
+    | "w1"
+    | "w2"
+    | "w3"
+    | "w4"
+    | "w5"
+    | "w6"
+    | "w7"
+    | "w8"
+    | "w9"
+    | "w10"
+    | "w11"
+    | "w12"
+    | "w13"
+    | "w14"
+    | "w15"
+    | "w16"
+    | "w17"
+    | "w18"
+    | "w19"
+    | "w20"
+    | "w21"
+    | "w22"
+    | "w23"
+    | "w24"
+    | "w25"
+    | "w26"
+    | "w27"
+    | "w28"
+    | "w29"
+    | "w30"
+    | "sp"
+    | "lr"
+    | "fp"
+    | "wsp"
+    | "wzr"
+    | "xzr"
+    | "nzcv"
+    | "ip0"
+    | "ip1"
+    | "s0"
+    | "s1"
+    | "s2"
+    | "s3"
+    | "s4"
+    | "s5"
+    | "s6"
+    | "s7"
+    | "s8"
+    | "s9"
+    | "s10"
+    | "s11"
+    | "s12"
+    | "s13"
+    | "s14"
+    | "s15"
+    | "s16"
+    | "s17"
+    | "s18"
+    | "s19"
+    | "s20"
+    | "s21"
+    | "s22"
+    | "s23"
+    | "s24"
+    | "s25"
+    | "s26"
+    | "s27"
+    | "s28"
+    | "s29"
+    | "s30"
+    | "s31"
+    | "d0"
+    | "d1"
+    | "d2"
+    | "d3"
+    | "d4"
+    | "d5"
+    | "d6"
+    | "d7"
+    | "d8"
+    | "d9"
+    | "d10"
+    | "d11"
+    | "d12"
+    | "d13"
+    | "d14"
+    | "d15"
+    | "d16"
+    | "d17"
+    | "d18"
+    | "d19"
+    | "d20"
+    | "d21"
+    | "d22"
+    | "d23"
+    | "d24"
+    | "d25"
+    | "d26"
+    | "d27"
+    | "d28"
+    | "d29"
+    | "d30"
+    | "d31"
+    | "q0"
+    | "q1"
+    | "q2"
+    | "q3"
+    | "q4"
+    | "q5"
+    | "q6"
+    | "q7"
+    | "q8"
+    | "q9"
+    | "q10"
+    | "q11"
+    | "q12"
+    | "q13"
+    | "q14"
+    | "q15"
+    | "q16"
+    | "q17"
+    | "q18"
+    | "q19"
+    | "q20"
+    | "q21"
+    | "q22"
+    | "q23"
+    | "q24"
+    | "q25"
+    | "q26"
+    | "q27"
+    | "q28"
+    | "q29"
+    | "q30"
+    | "q31"
+    ;
 
-declare const enum Arm64ConditionCode {
-    Eq = "eq",
-    Ne = "ne",
-    Hs = "hs",
-    Lo = "lo",
-    Mi = "mi",
-    Pl = "pl",
-    Vs = "vs",
-    Vc = "vc",
-    Hi = "hi",
-    Ls = "ls",
-    Ge = "ge",
-    Lt = "lt",
-    Gt = "gt",
-    Le = "le",
-    Al = "al",
-    Nv = "nv",
-}
+type Arm64ConditionCode =
+    | "eq"
+    | "ne"
+    | "hs"
+    | "lo"
+    | "mi"
+    | "pl"
+    | "vs"
+    | "vc"
+    | "hi"
+    | "ls"
+    | "ge"
+    | "lt"
+    | "gt"
+    | "le"
+    | "al"
+    | "nv"
+    ;
 
-declare const enum Arm64IndexMode {
-    PostAdjust = "post-adjust",
-    SignedOffset = "signed-offset",
-    PreAdjust = "pre-adjust",
-}
+type Arm64IndexMode = "post-adjust" | "signed-offset" | "pre-adjust";
 
 /**
  * Generates machine code for mips.
@@ -6602,72 +6579,72 @@ declare class MipsRelocator {
     writeAll(): void;
 }
 
-declare const enum MipsRegister {
-    V0 = "v0",
-    V1 = "v1",
-    A0 = "a0",
-    A1 = "a1",
-    A2 = "a2",
-    A3 = "a3",
-    T0 = "t0",
-    T1 = "t1",
-    T2 = "t2",
-    T3 = "t3",
-    T4 = "t4",
-    T5 = "t5",
-    T6 = "t6",
-    T7 = "t7",
-    S0 = "s0",
-    S1 = "s1",
-    S2 = "s2",
-    S3 = "s3",
-    S4 = "s4",
-    S5 = "s5",
-    S6 = "s6",
-    S7 = "s7",
-    T8 = "t8",
-    T9 = "t9",
-    K0 = "k0",
-    K1 = "k1",
-    Gp = "gp",
-    Sp = "sp",
-    Fp = "fp",
-    S8 = "s8",
-    Ra = "ra",
-    Hi = "hi",
-    Lo = "lo",
-    Zero = "zero",
-    At = "at",
-    R0 = "0",
-    R1 = "1",
-    R2 = "2",
-    R3 = "3",
-    R4 = "4",
-    R5 = "5",
-    R6 = "6",
-    R7 = "7",
-    R8 = "8",
-    R9 = "9",
-    R10 = "10",
-    R11 = "11",
-    R12 = "12",
-    R13 = "13",
-    R14 = "14",
-    R15 = "15",
-    R16 = "16",
-    R17 = "17",
-    R18 = "18",
-    R19 = "19",
-    R20 = "20",
-    R21 = "21",
-    R22 = "22",
-    R23 = "23",
-    R24 = "24",
-    R25 = "25",
-    R26 = "26",
-    R27 = "27",
-    R28 = "28",
-    R29 = "29",
-    R30 = "30",
-    R31 = "31",
-}
+type MipsRegister =
+    | "v0"
+    | "v1"
+    | "a0"
+    | "a1"
+    | "a2"
+    | "a3"
+    | "t0"
+    | "t1"
+    | "t2"
+    | "t3"
+    | "t4"
+    | "t5"
+    | "t6"
+    | "t7"
+    | "s0"
+    | "s1"
+    | "s2"
+    | "s3"
+    | "s4"
+    | "s5"
+    | "s6"
+    | "s7"
+    | "t8"
+    | "t9"
+    | "k0"
+    | "k1"
+    | "gp"
+    | "sp"
+    | "fp"
+    | "s8"
+    | "ra"
+    | "hi"
+    | "lo"
+    | "zero"
+    | "at"
+    | "0"
+    | "1"
+    | "2"
+    | "3"
+    | "4"
+    | "5"
+    | "6"
+    | "7"
+    | "8"
+    | "9"
+    | "10"
+    | "11"
+    | "12"
+    | "13"
+    | "14"
+    | "15"
+    | "16"
+    | "17"
+    | "18"
+    | "19"
+    | "20"
+    | "21"
+    | "22"
+    | "23"
+    | "24"
+    | "25"
+    | "26"
+    | "27"
+    | "28"
+    | "29"
+    | "30"
+    | "31"
+    ;

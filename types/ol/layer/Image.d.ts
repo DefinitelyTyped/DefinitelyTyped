@@ -1,21 +1,32 @@
-import { EventsKey } from 'ol/events';
-import Event from 'ol/events/Event';
-import { Extent } from 'ol/extent';
-import Layer from 'ol/layer/Layer';
-import LayerType from 'ol/LayerType';
-import { ObjectEvent } from 'ol/Object';
-import PluggableMap from 'ol/PluggableMap';
-import RenderEvent from 'ol/render/Event';
-import ImageSource from 'ol/source/Image';
-import Source from 'ol/source/Source';
+import { EventsKey } from '../events';
+import Event from '../events/Event';
+import { Extent } from '../extent';
+import LayerType from '../LayerType';
+import { ObjectEvent } from '../Object';
+import PluggableMap from '../PluggableMap';
+import RenderEvent from '../render/Event';
+import ImageSource from '../source/Image';
+import Source from '../source/Source';
+import Layer from './Layer';
+
+export interface Options {
+    opacity?: number;
+    visible?: boolean;
+    extent?: Extent;
+    zIndex?: number;
+    minResolution?: number;
+    maxResolution?: number;
+    map?: PluggableMap;
+    source?: ImageSource;
+}
 export default class ImageLayer extends Layer {
     constructor(opt_options?: Options);
     protected type: LayerType;
     getSource(): ImageSource;
     getSource(): Source;
-    on(type: string | string[], listener: ((param0: any) => void)): EventsKey | EventsKey[];
-    once(type: string | string[], listener: ((param0: any) => void)): EventsKey | EventsKey[];
-    un(type: string | string[], listener: ((param0: any) => void)): void;
+    on(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
+    once(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
+    un(type: string | string[], listener: (p0: any) => void): void;
     on(type: 'change', listener: (evt: Event) => void): EventsKey;
     once(type: 'change', listener: (evt: Event) => void): EventsKey;
     un(type: 'change', listener: (evt: Event) => void): void;
@@ -55,14 +66,4 @@ export default class ImageLayer extends Layer {
     on(type: 'rendercomplete', listener: (evt: RenderEvent) => void): EventsKey;
     once(type: 'rendercomplete', listener: (evt: RenderEvent) => void): EventsKey;
     un(type: 'rendercomplete', listener: (evt: RenderEvent) => void): void;
-}
-export interface Options {
-    opacity?: number;
-    visible?: boolean;
-    extent?: Extent;
-    zIndex?: number;
-    minResolution?: number;
-    maxResolution?: number;
-    map?: PluggableMap;
-    source?: ImageSource;
 }

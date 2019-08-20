@@ -1,8 +1,9 @@
-import ReplayType from 'ol/render/ReplayType';
-import VectorContext from 'ol/render/VectorContext';
+import ReplayType from './ReplayType';
+import VectorContext from './VectorContext';
+
 export default class ReplayGroup {
     constructor();
     addDeclutter(group: boolean): any[];
-    getReplay(zIndex: number, replayType: ReplayType): VectorContext;
+    getReplay(zIndex: number | undefined, replayType: ReplayType): VectorContext;
     isEmpty(): boolean;
 }

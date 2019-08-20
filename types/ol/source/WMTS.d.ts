@@ -1,15 +1,15 @@
-import { EventsKey } from 'ol/events';
-import Event from 'ol/events/Event';
-import ImageTile from 'ol/ImageTile';
-import { ObjectEvent } from 'ol/Object';
-import { ProjectionLike } from 'ol/proj';
-import { AttributionLike } from 'ol/source/Source';
-import { TileSourceEvent } from 'ol/source/Tile';
-import TileImage from 'ol/source/TileImage';
-import WMTSRequestEncoding from 'ol/source/WMTSRequestEncoding';
-import { UrlFunction, LoadFunction } from 'ol/Tile';
-import WMTSTileGrid from 'ol/tilegrid/WMTS';
-export function optionsFromCapabilities(wmtsCap: { [key: string]: any }, config: { [key: string]: any }): Options;
+import { EventsKey } from '../events';
+import Event from '../events/Event';
+import ImageTile from '../ImageTile';
+import { ObjectEvent } from '../Object';
+import { ProjectionLike } from '../proj';
+import { LoadFunction, UrlFunction } from '../Tile';
+import WMTSTileGrid from '../tilegrid/WMTS';
+import { AttributionLike } from './Source';
+import { TileSourceEvent } from './Tile';
+import TileImage from './TileImage';
+import WMTSRequestEncoding from './WMTSRequestEncoding';
+
 export interface Options {
     attributions?: AttributionLike;
     cacheSize?: number;
@@ -25,7 +25,7 @@ export interface Options {
     format?: string;
     version?: string;
     matrixSet: string;
-    dimensions?: { [key: string]: any };
+    dimensions?: any;
     url?: string;
     tileLoadFunction?: LoadFunction;
     urls?: string[];
@@ -34,17 +34,17 @@ export interface Options {
 }
 export default class WMTS extends TileImage {
     constructor(options: Options);
-    getDimensions(): { [key: string]: any };
+    getDimensions(): any;
     getFormat(): string;
     getLayer(): string;
     getMatrixSet(): string;
     getRequestEncoding(): WMTSRequestEncoding;
     getStyle(): string;
     getVersion(): string;
-    updateDimensions(dimensions: { [key: string]: any }): void;
-    on(type: string | string[], listener: ((param0: any) => void)): EventsKey | EventsKey[];
-    once(type: string | string[], listener: ((param0: any) => void)): EventsKey | EventsKey[];
-    un(type: string | string[], listener: ((param0: any) => void)): void;
+    updateDimensions(dimensions: any): void;
+    on(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
+    once(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
+    un(type: string | string[], listener: (p0: any) => void): void;
     on(type: 'change', listener: (evt: Event) => void): EventsKey;
     once(type: 'change', listener: (evt: Event) => void): EventsKey;
     un(type: 'change', listener: (evt: Event) => void): void;
@@ -61,3 +61,4 @@ export default class WMTS extends TileImage {
     once(type: 'tileloadstart', listener: (evt: TileSourceEvent) => void): EventsKey;
     un(type: 'tileloadstart', listener: (evt: TileSourceEvent) => void): void;
 }
+export function optionsFromCapabilities(wmtsCap: any, config: any): Options;

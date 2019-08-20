@@ -1,8 +1,9 @@
-import { ColorLike } from 'ol/colorlike';
-import AtlasManager from 'ol/style/AtlasManager';
-import Fill from 'ol/style/Fill';
-import ImageStyle from 'ol/style/Image';
-import Stroke from 'ol/style/Stroke';
+import { ColorLike } from '../colorlike';
+import AtlasManager from './AtlasManager';
+import Fill from './Fill';
+import ImageStyle from './Image';
+import Stroke from './Stroke';
+
 export interface Options {
     fill?: Fill;
     points: number;
@@ -15,21 +16,6 @@ export interface Options {
     rotateWithView?: boolean;
     atlasManager?: AtlasManager;
 }
-export default class RegularShape extends ImageStyle {
-    constructor(options: Options);
-    protected atlasManager_: AtlasManager;
-    protected radius_: number;
-    protected render_(atlasManager: AtlasManager): void;
-    getChecksum(): string;
-    getFill(): Fill;
-    clone(): RegularShape;
-    clone(): ImageStyle;
-    getRadius(): number;
-    getRadius2(): number;
-    getStroke(): Stroke;
-    getAngle(): number;
-    getPoints(): number;
-}
 export interface RenderOptions {
     strokeStyle?: ColorLike;
     strokeWidth: number;
@@ -39,4 +25,19 @@ export interface RenderOptions {
     lineDashOffset: number;
     lineJoin: string;
     miterLimit: number;
+}
+export default class RegularShape extends ImageStyle {
+    constructor(options: Options);
+    protected atlasManager_: AtlasManager;
+    protected radius_: number;
+    protected render_(atlasManager: AtlasManager | undefined): void;
+    clone(): RegularShape;
+    clone(): ImageStyle;
+    getAngle(): number;
+    getChecksum(): string;
+    getFill(): Fill;
+    getPoints(): number;
+    getRadius(): number;
+    getRadius2(): number | undefined;
+    getStroke(): Stroke;
 }

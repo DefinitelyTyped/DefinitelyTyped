@@ -1,7 +1,8 @@
-import { Coordinate } from 'ol/coordinate';
-import { Extent } from 'ol/extent';
-import Units from 'ol/proj/Units';
-import TileGrid from 'ol/tilegrid/TileGrid';
+import { Coordinate } from '../coordinate';
+import { Extent } from '../extent';
+import TileGrid from '../tilegrid/TileGrid';
+import Units from './Units';
+
 export interface Options {
     code: string;
     units?: Units | string;
@@ -10,23 +11,23 @@ export interface Options {
     global?: boolean;
     metersPerUnit?: number;
     worldExtent?: Extent;
-    getPointResolution?: ((param0: number, param1: Coordinate) => number);
+    getPointResolution?: (p0: number, p1: Coordinate) => number;
 }
 export default class Projection {
     constructor(options: Options);
-    getUnits(): Units;
     canWrapX(): boolean;
+    getAxisOrientation(): string;
     getCode(): string;
     getDefaultTileGrid(): TileGrid;
     getExtent(): Extent;
-    getMetersPerUnit(): number;
-    getPointResolutionFunc(): ((param0: number, param1: Coordinate) => number);
-    getAxisOrientation(): string;
+    getMetersPerUnit(): number | undefined;
+    getPointResolutionFunc(): (p0: number, p1: Coordinate) => number | undefined;
+    getUnits(): Units;
     getWorldExtent(): Extent;
     isGlobal(): boolean;
     setDefaultTileGrid(tileGrid: TileGrid): void;
     setExtent(extent: Extent): void;
-    setGetPointResolution(func: ((param0: number, param1: Coordinate) => number)): void;
+    setGetPointResolution(func: (p0: number, p1: Coordinate) => number): void;
     setGlobal(global: boolean): void;
     setWorldExtent(worldExtent: Extent): void;
 }

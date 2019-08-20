@@ -1,4 +1,4 @@
-// Type definitions for newrelic 4.11
+// Type definitions for newrelic 5.11
 // Project: http://github.com/newrelic/node-newrelic
 // Definitions by: Matt R. Wilson <https://github.com/mastermatt>
 //                 Brooks Patton <https://github.com/brookspatton>
@@ -176,7 +176,6 @@ export function startSegment<T, C extends (...args: any[]) => any>(name: string,
  * The agent begins timing the segment when createTracer is called, and ends the segment when the callback
  * defined by the callback argument finishes executing.
  *
- * @deprecated
  * This method has been deprecated in favor of newrelic.startSegment()
  */
 export function createTracer<T extends (...args: any[]) => any>(name: string, handle: T): T;
@@ -192,7 +191,7 @@ export function createTracer<T extends (...args: any[]) => any>(name: string, ha
  *    transaction as externally handled.  In this case the transaction
  *    will be ended when `TransactionHandle#end` is called in the user's code.
  *
- * @example
+ * Example:
  * var newrelic = require('newrelic')
  * newrelic.startWebTransaction('/some/url/path', function() {
  *   var transaction = newrelic.getTransaction()
@@ -205,7 +204,8 @@ export function createTracer<T extends (...args: any[]) => any>(name: string, ha
  * The `url` is used to name and group related transactions in APM,
  * so it should be a generic name and not include any variable parameters.
  */
-export function startWebTransaction(url: string, handle: (...args: any[]) => any): any;
+export function startWebTransaction<T>(url: string, handle: Promise<T>): Promise<T>;
+export function startWebTransaction<T>(url: string, handle: (...args: any[]) => T): T;
 
 /**
  * Creates and starts a background transaction to record work done in the handle supplied.
@@ -218,7 +218,7 @@ export function startWebTransaction(url: string, handle: (...args: any[]) => any
  *    transaction as externally handled.  In this case the transaction
  *    will be ended when `TransactionHandle#end` is called in the user's code.
  *
- * @example
+ * Example:
  * var newrelic = require('newrelic')
  * newrelic.startBackgroundTransaction('Red October', 'Subs', function() {
  *   var transaction = newrelic.getTransaction()
@@ -235,8 +235,10 @@ export function startWebTransaction(url: string, handle: (...args: any[]) => any
  * For more information see:
  *  https://docs.newrelic.com/docs/apm/applications-menu/monitoring/transactions-page#txn-type-dropdown
  */
-export function startBackgroundTransaction(name: string, handle: (...args: any[]) => any): any;
-export function startBackgroundTransaction(name: string, group: string, handle: (...args: any[]) => any): any;
+export function startBackgroundTransaction<T>(name: string, handle: Promise<T>): Promise<T>;
+export function startBackgroundTransaction<T>(name: string, handle: (...args: any[]) => T): T;
+export function startBackgroundTransaction<T>(name: string, group: string, handle: Promise<T>): Promise<T>;
+export function startBackgroundTransaction<T>(name: string, group: string, handle: (...args: any[]) => T): T;
 
 /**
  * End the current web or background custom transaction.
@@ -325,8 +327,8 @@ export function shutdown(options?: { collectPendingData?: boolean, timeout?: num
 /**
  * Wraps an AWS Lambda function with NewRelic instrumentation and returns the value of the handler
  *
- * @param handler a callback function whose value is returned from setLambdaHandler
- * @returns the value returned by handler
+ * The handler is a callback function whose value is returned from setLambdaHandler
+ * Returns the value returned by handler
  */
 export function setLambdaHandler<T>(handler: (...args: any[]) => T): T;
 

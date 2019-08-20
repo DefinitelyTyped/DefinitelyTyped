@@ -2,7 +2,7 @@
 // Project: https://github.com/pinojs/pino-http#readme
 // Definitions by: Christian Rackerseder <https://github.com/screendriver>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.7
 
 import { IncomingMessage, ServerResponse } from 'http';
 import { DestinationStream, Level, Logger, LoggerOptions } from 'pino';

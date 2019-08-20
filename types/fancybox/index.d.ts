@@ -19,7 +19,7 @@ interface FancyBoxPlainObject {
 
 interface FancyBoxGroupItemWithFilledProps extends FancyBoxGroupItem {
     $thumb?: JQuery;
-    thumb?;
+    thumb?: any;
     contentType?: string;
     index?: number;
 }
@@ -712,7 +712,7 @@ interface FancyBoxInstanceMethods {
      * Update content size and position for all slides
      * @param e
      */
-    update(e): void;
+    update(e: any): void;
     /**
      * Update infobar values, navigation button states and reveal caption
      */
@@ -728,7 +728,7 @@ interface FancyBoxInstanceMethods {
      * @param slide
      * @param e
      */
-    updateSlide(slide: FancyBoxSlide, e?): void;
+    updateSlide(slide: FancyBoxSlide, e?: any): void;
 }
 
 interface FancyBoxInstance extends FancyBoxInstanceMethods {

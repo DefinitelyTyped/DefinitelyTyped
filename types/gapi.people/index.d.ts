@@ -133,6 +133,15 @@ declare namespace gapi.client.people {
   }
 
   interface Birthday {
+    metadata: FieldMetadata;
+    date: Date;
+    text: string;
+  }
+
+  interface Date {
+    day: number;
+    month: number;
+    year: number;
   }
 
   interface Event {

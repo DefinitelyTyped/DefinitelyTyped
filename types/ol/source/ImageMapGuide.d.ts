@@ -1,22 +1,36 @@
-import { EventsKey } from 'ol/events';
-import Event from 'ol/events/Event';
-import { Extent } from 'ol/extent';
-import { LoadFunction } from 'ol/Image';
-import { ObjectEvent } from 'ol/Object';
-import { ProjectionLike } from 'ol/proj';
-import Projection from 'ol/proj/Projection';
-import { Size } from 'ol/size';
-import ImageSource, { ImageSourceEvent } from 'ol/source/Image';
+import { EventsKey } from '../events';
+import Event from '../events/Event';
+import { Extent } from '../extent';
+import { LoadFunction } from '../Image';
+import { ObjectEvent } from '../Object';
+import { ProjectionLike } from '../proj';
+import Projection from '../proj/Projection';
+import { Size } from '../size';
+import ImageSource, { ImageSourceEvent } from './Image';
+
+export interface Options {
+    url?: string;
+    crossOrigin?: string;
+    displayDpi?: number;
+    metersPerUnit?: number;
+    hidpi?: boolean;
+    useOverlay?: boolean;
+    projection?: ProjectionLike;
+    ratio?: number;
+    resolutions?: number[];
+    imageLoadFunction?: LoadFunction;
+    params?: any;
+}
 export default class ImageMapGuide extends ImageSource {
     constructor(options: Options);
     getImageLoadFunction(): LoadFunction;
-    getParams(): { [key: string]: any };
-    getUrl(baseUrl: string, params: { [key: string]: any }, extent: Extent, size: Size, projection: Projection): string;
+    getParams(): any;
+    getUrl(baseUrl: string, params: { [key: string]: string | number }, extent: Extent, size: Size, projection: Projection): string;
     setImageLoadFunction(imageLoadFunction: LoadFunction): void;
-    updateParams(params: { [key: string]: any }): void;
-    on(type: string | string[], listener: ((param0: any) => void)): EventsKey | EventsKey[];
-    once(type: string | string[], listener: ((param0: any) => void)): EventsKey | EventsKey[];
-    un(type: string | string[], listener: ((param0: any) => void)): void;
+    updateParams(params: any): void;
+    on(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
+    once(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
+    un(type: string | string[], listener: (p0: any) => void): void;
     on(type: 'change', listener: (evt: Event) => void): EventsKey;
     once(type: 'change', listener: (evt: Event) => void): EventsKey;
     un(type: 'change', listener: (evt: Event) => void): void;
@@ -32,17 +46,4 @@ export default class ImageMapGuide extends ImageSource {
     on(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
     once(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
     un(type: 'propertychange', listener: (evt: ObjectEvent) => void): void;
-}
-export interface Options {
-    url?: string;
-    crossOrigin?: string;
-    displayDpi?: number;
-    metersPerUnit?: number;
-    hidpi?: boolean;
-    useOverlay?: boolean;
-    projection?: ProjectionLike;
-    ratio?: number;
-    resolutions?: number[];
-    imageLoadFunction?: LoadFunction;
-    params?: { [key: string]: any };
 }

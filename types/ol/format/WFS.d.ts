@@ -1,20 +1,20 @@
-import { Extent } from 'ol/extent';
-import Feature from 'ol/Feature';
-import Bbox from 'ol/format/filter/Bbox';
-import ComparisonBinary from 'ol/format/filter/ComparisonBinary';
-import Contains from 'ol/format/filter/Contains';
-import During from 'ol/format/filter/During';
-import Filter from 'ol/format/filter/Filter';
-import Intersects from 'ol/format/filter/Intersects';
-import IsBetween from 'ol/format/filter/IsBetween';
-import IsLike from 'ol/format/filter/IsLike';
-import IsNull from 'ol/format/filter/IsNull';
-import LogicalNary from 'ol/format/filter/LogicalNary';
-import Not from 'ol/format/filter/Not';
-import Within from 'ol/format/filter/Within';
-import GMLBase, { Options as Options_1 } from 'ol/format/GMLBase';
-import XMLFeature from 'ol/format/XMLFeature';
-export function writeFilter(filter: Filter): Node;
+import { Extent } from '../extent';
+import Feature from '../Feature';
+import Bbox from './filter/Bbox';
+import ComparisonBinary from './filter/ComparisonBinary';
+import Contains from './filter/Contains';
+import During from './filter/During';
+import Filter from './filter/Filter';
+import Intersects from './filter/Intersects';
+import IsBetween from './filter/IsBetween';
+import IsLike from './filter/IsLike';
+import IsNull from './filter/IsNull';
+import LogicalNary from './filter/LogicalNary';
+import Not from './filter/Not';
+import Within from './filter/Within';
+import GMLBase, { Options as Options_1 } from './GMLBase';
+import XMLFeature from './XMLFeature';
+
 export interface FeatureCollectionMetadata {
     numberOfFeatures: number;
     bounds: Extent;
@@ -30,19 +30,6 @@ export interface TransactionResponse {
     totalInserted: number;
     totalUpdated: number;
     insertIds: string[];
-}
-export default class WFS extends XMLFeature {
-    constructor(opt_options?: Options);
-    getFeatureType(): string[] | string;
-    readFeatureCollectionMetadata(source: Document | Element | { [key: string]: any } | string): FeatureCollectionMetadata;
-    readFeatureCollectionMetadataFromDocument(doc: Document): FeatureCollectionMetadata;
-    readFeatureCollectionMetadataFromNode(node: Element): FeatureCollectionMetadata;
-    readTransactionResponse(source: Document | Element | { [key: string]: any } | string): TransactionResponse;
-    readTransactionResponseFromDocument(doc: Document): TransactionResponse;
-    readTransactionResponseFromNode(node: Element): TransactionResponse;
-    setFeatureType(featureType: string[] | string): void;
-    writeGetFeature(options: WriteGetFeatureOptions): Node;
-    writeTransaction(inserts: Feature[], updates: Feature[], deletes: Feature[], options: WriteTransactionOptions): Node;
 }
 export interface WriteGetFeatureOptions {
     featureNS: string;
@@ -68,7 +55,21 @@ export interface WriteTransactionOptions {
     srsName?: string;
     handle?: string;
     hasZ?: boolean;
-    nativeElements: { [key: string]: any }[];
+    nativeElements: object[];
     gmlOptions?: Options_1;
     version?: string;
 }
+export default class WFS extends XMLFeature {
+    constructor(opt_options?: Options);
+    getFeatureType(): string[] | string | undefined;
+    readFeatureCollectionMetadata(source: Document | Element | object | string): FeatureCollectionMetadata | undefined;
+    readFeatureCollectionMetadataFromDocument(doc: Document): FeatureCollectionMetadata | undefined;
+    readFeatureCollectionMetadataFromNode(node: Element): FeatureCollectionMetadata | undefined;
+    readTransactionResponse(source: Document | Element | object | string): TransactionResponse | undefined;
+    readTransactionResponseFromDocument(doc: Document): TransactionResponse | undefined;
+    readTransactionResponseFromNode(node: Element): TransactionResponse | undefined;
+    setFeatureType(featureType: string[] | string | undefined): void;
+    writeGetFeature(options: WriteGetFeatureOptions): Node;
+    writeTransaction(inserts: Feature[], updates: Feature[], deletes: Feature[], options: WriteTransactionOptions): Node;
+}
+export function writeFilter(filter: Filter): Node;

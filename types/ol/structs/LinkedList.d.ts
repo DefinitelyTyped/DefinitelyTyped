@@ -5,13 +5,13 @@ export interface Item {
 }
 export default class LinkedList {
     constructor(opt_circular?: boolean);
-    insertItem(data: any): void;
     concat(list: LinkedList): void;
+    firstItem(): any;
     getCurrItem(): any;
     getLength(): number;
     getNextItem(): any;
     getPrevItem(): any;
-    firstItem(): any;
+    insertItem(data: any): void;
     lastItem(): any;
     nextItem(): any;
     prevItem(): any;

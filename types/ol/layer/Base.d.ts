@@ -1,32 +1,41 @@
-import { EventsKey } from 'ol/events';
-import Event from 'ol/events/Event';
-import { Extent } from 'ol/extent';
-import Layer, { State } from 'ol/layer/Layer';
-import LayerType from 'ol/LayerType';
-import BaseObject, { ObjectEvent } from 'ol/Object';
-import State_1 from 'ol/source/State';
+import { EventsKey } from '../events';
+import Event from '../events/Event';
+import { Extent } from '../extent';
+import LayerType from '../LayerType';
+import BaseObject, { ObjectEvent } from '../Object';
+import State_1 from '../source/State';
+import Layer, { State } from './Layer';
+
+export interface Options {
+    opacity?: number;
+    visible?: boolean;
+    extent?: Extent;
+    zIndex?: number;
+    minResolution?: number;
+    maxResolution?: number;
+}
 export default class BaseLayer extends BaseObject {
     constructor(options: Options);
-    getType(): LayerType;
-    getExtent(): Extent;
+    getExtent(): Extent | undefined;
+    getLayersArray(opt_array?: Layer[]): Layer[];
     getLayerState(): State;
     getLayerStatesArray(opt_states?: State[]): State[];
     getMaxResolution(): number;
     getMinResolution(): number;
     getOpacity(): number;
     getSourceState(): State_1;
-    getLayersArray(opt_array?: Layer[]): Layer[];
+    getType(): LayerType;
     getVisible(): boolean;
     getZIndex(): number;
-    setExtent(extent: Extent): void;
+    setExtent(extent: Extent | undefined): void;
     setMaxResolution(maxResolution: number): void;
     setMinResolution(minResolution: number): void;
     setOpacity(opacity: number): void;
     setVisible(visible: boolean): void;
     setZIndex(zindex: number): void;
-    on(type: string | string[], listener: ((param0: any) => void)): EventsKey | EventsKey[];
-    once(type: string | string[], listener: ((param0: any) => void)): EventsKey | EventsKey[];
-    un(type: string | string[], listener: ((param0: any) => void)): void;
+    on(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
+    once(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
+    un(type: string | string[], listener: (p0: any) => void): void;
     on(type: 'change', listener: (evt: Event) => void): EventsKey;
     once(type: 'change', listener: (evt: Event) => void): EventsKey;
     un(type: 'change', listener: (evt: Event) => void): void;
@@ -51,12 +60,4 @@ export default class BaseLayer extends BaseObject {
     on(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
     once(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
     un(type: 'propertychange', listener: (evt: ObjectEvent) => void): void;
-}
-export interface Options {
-    opacity?: number;
-    visible?: boolean;
-    extent?: Extent;
-    zIndex?: number;
-    minResolution?: number;
-    maxResolution?: number;
 }

@@ -24,6 +24,7 @@
         "CSSTransition.d.ts",
         "Transition.d.ts",
         "TransitionGroup.d.ts",
+        "SwitchTransition.d.ts",
         "react-transition-group-tests.tsx"
     ]
 }

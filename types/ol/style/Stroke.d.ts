@@ -1,5 +1,6 @@
-import { Color } from 'ol/color';
-import { ColorLike } from 'ol/colorlike';
+import { Color } from '../color';
+import { ColorLike } from '../colorlike';
+
 export interface Options {
     color?: Color | ColorLike;
     lineCap?: string;
@@ -11,20 +12,20 @@ export interface Options {
 }
 export default class Stroke {
     constructor(opt_options?: Options);
-    getWidth(): number;
     clone(): Stroke;
-    getColor(): Color | ColorLike;
-    getLineCap(): string;
-    getLineDash(): number[];
-    getLineDashOffset(): number;
-    getLineJoin(): string;
-    getMiterLimit(): number;
     getChecksum(): string;
+    getColor(): Color | ColorLike;
+    getLineCap(): string | undefined;
+    getLineDash(): number[];
+    getLineDashOffset(): number | undefined;
+    getLineJoin(): string | undefined;
+    getMiterLimit(): number | undefined;
+    getWidth(): number | undefined;
     setColor(color: Color | ColorLike): void;
-    setLineCap(lineCap: string): void;
+    setLineCap(lineCap: string | undefined): void;
     setLineDash(lineDash: number[]): void;
-    setLineDashOffset(lineDashOffset: number): void;
-    setLineJoin(lineJoin: string): void;
-    setMiterLimit(miterLimit: number): void;
-    setWidth(width: number): void;
+    setLineDashOffset(lineDashOffset: number | undefined): void;
+    setLineJoin(lineJoin: string | undefined): void;
+    setMiterLimit(miterLimit: number | undefined): void;
+    setWidth(width: number | undefined): void;
 }

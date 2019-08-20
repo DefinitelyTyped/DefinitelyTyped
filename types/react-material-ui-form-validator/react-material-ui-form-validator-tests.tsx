@@ -10,6 +10,14 @@ class Test extends React.Component {
     onError = (errors: any[]) => {};
     onValidate = (isValid: boolean) => {};
 
+    componentDidMount() {
+        ValidatorForm.addValidationRule('isTruthy', value => value);
+    }
+
+    componentWillUnmount() {
+        ValidatorForm.removeValidationRule('isTruthy');
+    }
+
     render() {
         return (
             <ValidatorForm

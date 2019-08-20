@@ -1,16 +1,9 @@
-import { Color } from 'ol/color';
-import { Size } from 'ol/size';
-import IconAnchorUnits from 'ol/style/IconAnchorUnits';
-import IconOrigin from 'ol/style/IconOrigin';
-import ImageStyle from 'ol/style/Image';
-export default class Icon extends ImageStyle {
-    constructor(opt_options?: Options);
-    clone(): Icon;
-    clone(): ImageStyle;
-    getColor(): Color;
-    getSrc(): string;
-    setAnchor(anchor: number[]): void;
-}
+import { Color } from '../color';
+import { Size } from '../size';
+import IconAnchorUnits from './IconAnchorUnits';
+import IconOrigin from './IconOrigin';
+import ImageStyle from './Image';
+
 export interface Options {
     anchor?: number[];
     anchorOrigin?: IconOrigin;
@@ -28,4 +21,12 @@ export interface Options {
     size?: Size;
     imgSize?: Size;
     src?: string;
+}
+export default class Icon extends ImageStyle {
+    constructor(opt_options?: Options);
+    clone(): Icon;
+    clone(): ImageStyle;
+    getColor(): Color;
+    getSrc(): string | undefined;
+    setAnchor(anchor: number[]): void;
 }

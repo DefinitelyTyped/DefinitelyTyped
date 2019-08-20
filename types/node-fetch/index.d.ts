@@ -1,4 +1,4 @@
-// Type definitions for node-fetch 2.3
+// Type definitions for node-fetch 2.5
 // Project: https://github.com/bitinn/node-fetch
 // Definitions by: Torsten Werner <https://github.com/torstenwerner>
 //                 Niklas Lindgren <https://github.com/nikcorg>
@@ -7,12 +7,13 @@
 //                 Andrew Leedham <https://github.com/AndrewLeedham>
 //                 Jason Li <https://github.com/JasonLi914>
 //                 Brandon Wilson <https://github.com/wilsonianb>
+//                 Steve Faulkner <https://github.com/southpolesteve>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
 
 import { Agent } from "http";
-import { URLSearchParams } from "url";
+import { URLSearchParams, URL } from "url";
 import { AbortSignal } from "./externals";
 
 export class Request extends Body {
@@ -26,7 +27,7 @@ export class Request extends Body {
     url: string;
 
     // node-fetch extensions to the whatwg/fetch spec
-    agent?: Agent;
+    agent?: Agent | ((parsedUrl: URL) => Agent);
     compress: boolean;
     counter: number;
     follow: number;
@@ -46,7 +47,7 @@ export interface RequestInit {
     signal?: AbortSignal | null;
 
     // node-fetch extensions
-    agent?: Agent; // =null http.Agent instance, allows custom proxy, certificate etc.
+    agent?: Agent | ((parsedUrl: URL) => Agent); // =null http.Agent instance, allows custom proxy, certificate etc.
     compress?: boolean; // =true support gzip/deflate content encoding. false to disable
     follow?: number; // =20 maximum redirect count. 0 to not follow redirect
     size?: number; // =0 maximum response body size in bytes. 0 to disable
@@ -162,6 +163,7 @@ export class Response extends Body {
     clone(): Response;
     headers: Headers;
     ok: boolean;
+    redirected: boolean;
     status: number;
     statusText: string;
     type: ResponseType;
