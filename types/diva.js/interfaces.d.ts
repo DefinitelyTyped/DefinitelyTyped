@@ -109,3 +109,8 @@ export interface Dimensions {
   height: number;
   width: number;
 }
+
+export interface Offset {
+  top: number;
+  left: number;
+}
