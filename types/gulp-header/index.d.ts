@@ -5,7 +5,7 @@
 
 /// <reference types="node"/>
 
-declare function header(text: string, data?: Object): NodeJS.ReadWriteStream;
+declare function header(text: string, data?: object): NodeJS.ReadWriteStream;
 
 declare namespace header { }
 
