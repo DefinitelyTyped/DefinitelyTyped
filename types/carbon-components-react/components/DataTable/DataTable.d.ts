@@ -1,5 +1,5 @@
 import * as React from "react";
-import { InternationalProps, ShapeOf } from "../../typings/shared";
+import { InternationalProps, ReactAttr, ReactDivAttr, ShapeOf } from '../../typings/shared';
 import { DataTableSortState, DataTableSortStates } from "./state/sorting";
 import Table, { TableCarbonProps } from "./Table";
 import TableActionList from "./TableActionList";
@@ -132,13 +132,13 @@ export interface DataTableCustomRenderProps<
     H extends DataTableHeader = DataTableHeader
 > {
     expandRow(rowId: R['id']): void;
-    getBatchActionProps<E extends object = {}>(
+    getBatchActionProps<E extends object = ReactDivAttr>(
         data?: ShapeOf<DataTableCustomBatchActionsData, E>
     ): ShapeOf<DataTableCustomBatchActionsProps, E>;
-    getHeaderProps<E extends object = {}>(
+    getHeaderProps<E extends object = ReactAttr>(
         data: ShapeOf<DataTableCustomHeaderData<H>, E>
     ): ShapeOf<DataTableCustomHeaderProps<H>, E>;
-    getRowProps<E extends object = {}>(
+    getRowProps<E extends object = ReactAttr<HTMLTableRowElement>>(
         data: ShapeOf<DataTableCustomRowData<R>, E>
     ): ShapeOf<DataTableCustomRowProps<R>, E>;
     getSelectionProps<E extends object = {}>(
