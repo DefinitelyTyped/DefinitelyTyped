@@ -202,10 +202,10 @@ mixed.test({
     test: testContext,
 });
 mixed.test({
-  message: ({ passed }) => (passed ? 'You passed' : 'You failed'),
-  name: 'checkParams',
-  params: { passed: true },
-  test: value => !!value,
+    message: ({ passed }) => (passed ? 'You passed' : 'You failed'),
+    name: 'checkParams',
+    params: { passed: true },
+    test: value => !!value,
 });
 
 // mixed with concat

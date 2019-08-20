@@ -11,6 +11,7 @@
 //                 Dan Rumney <https://github.com/dancrumb>
 //                 Desmond Koh <https://github.com/deskoh>
 //                 Maurice de Beijer <https://github.com/mauricedb>
+//                 Kalley Powell <https://github.com/kalley>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
