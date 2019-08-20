@@ -9,7 +9,7 @@
 
 declare namespace Intercom_ {
   interface IntercomSettings {
-    // Messanger attributes
+    // Messenger attributes
     app_id?: string;
     alignment?: string;
     custom_launcher_selector?: string;
