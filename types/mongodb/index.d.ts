@@ -1,4 +1,4 @@
-// Type definitions for MongoDB 3.2
+// Type definitions for MongoDB 3.3
 // Project: https://github.com/mongodb/node-mongodb-native
 //          https://github.com/mongodb/node-mongodb-native/tree/3.1
 // Definitions by: Federico Caselli <https://github.com/CaselIT>
@@ -2152,6 +2152,7 @@ export interface ChangeStreamOptions {
     batchSize?: number;
     collation?: CollationDocument;
     readPreference?: ReadPreference;
+    startAfter?: object;
 }
 
 type GridFSBucketWriteStreamId = string | number | object | ObjectID;
