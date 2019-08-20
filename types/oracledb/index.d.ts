@@ -513,8 +513,6 @@ declare namespace OracleDB {
      */
     const versionSuffix: string;
 
-    type Row = any[] | Record<string, any>;
-
     interface BindParameter {
         /**
          * The direction of the bind. One of the Execute Bind Direction Constants.
@@ -580,7 +578,7 @@ declare namespace OracleDB {
      *
      * @see https://oracle.github.io/node-oracledb/doc/api.html#executebindParams
      */
-    type BindParameters = Record<string, BindParameter | string | number | Date | DBObject | null> | BindParameter[] | any[];
+    type BindParameters = Record<string, BindParameter | string | number | Date | DBObject | Buffer | null> | BindParameter[] | any[];
 
     interface CloseConnectionOptions {
         /**
@@ -753,12 +751,12 @@ declare namespace OracleDB {
          * @see https://oracle.github.io/node-oracledb/doc/api.html#sqlexecution
          * @see https://oracle.github.io/node-oracledb/doc/api.html#querystream For an alternative
          */
-        execute(sql: string, bindParams: BindParameters, options: ExecuteOptions): Promise<Result>;
-        execute(
+        execute<T>(sql: string, bindParams: BindParameters, options: ExecuteOptions): Promise<Result<T>>;
+        execute<T>(
             sql: string,
             bindParams: BindParameters,
             options: ExecuteOptions,
-            callback: (error: DBError, result: Result) => void,
+            callback: (error: DBError, result: Result<T>) => void,
         ): void;
 
         /**
@@ -770,11 +768,11 @@ declare namespace OracleDB {
          * @see https://oracle.github.io/node-oracledb/doc/api.html#sqlexecution
          * @see https://oracle.github.io/node-oracledb/doc/api.html#querystream For an alternative
          */
-        execute(sql: string, bindParams: BindParameters): Promise<Result>;
-        execute(
+        execute<T>(sql: string, bindParams: BindParameters): Promise<Result<T>>;
+        execute<T>(
             sql: string,
             bindParams: BindParameters,
-            callback: (error: DBError, result: Result) => void,
+            callback: (error: DBError, result: Result<T>) => void,
         ): void;
 
         /**
@@ -785,8 +783,8 @@ declare namespace OracleDB {
          * @see https://oracle.github.io/node-oracledb/doc/api.html#sqlexecution
          * @see https://oracle.github.io/node-oracledb/doc/api.html#querystream For an alternative
          */
-        execute(sql: string): Promise<Result>;
-        execute(sql: string, callback: (error: DBError, result: Result) => void): void;
+        execute<T>(sql: string): Promise<Result<T>>;
+        execute<T>(sql: string, callback: (error: DBError, result: Result<T>) => void): void;
 
         /**
          * This method allows sets of data values to be bound to one DML or PL/SQL statement for execution.
@@ -827,26 +825,26 @@ declare namespace OracleDB {
          *
          * @since 2.2
          */
-        executeMany(
+        executeMany<T>(
             sql: string,
-            binds: Row[],
+            binds: BindParameters[],
             options: ExecuteManyOptions,
-        ): Promise<Results>;
-        executeMany(
+        ): Promise<Results<T>>;
+        executeMany<T>(
             sql: string,
-            binds: Row[],
+            binds: BindParameters[],
             options: ExecuteManyOptions,
-            callback: (error: DBError, result: Results) => void,
+            callback: (error: DBError, result: Results<T>) => void,
         ): void;
 
-        executeMany(
+        executeMany<T>(
             sql: string,
-            binds: Row[],
-        ): Promise<Results>;
-        executeMany(
+            binds: BindParameters[],
+        ): Promise<Results<T>>;
+        executeMany<T>(
             sql: string,
-            binds: Row[],
-            callback: (error: DBError, result: Results) => void,
+            binds: BindParameters[],
+            callback: (error: DBError, result: Results<T>) => void,
         ): void;
 
         /**
@@ -865,19 +863,19 @@ declare namespace OracleDB {
          * @param iterations The number of times the SQL should be executed.
          * @param options Optional parameter to control the execution.
          */
-        executeMany(sql: string, iterations: number, options: ExecuteManyOptions): Promise<Results>;
-        executeMany(
+        executeMany<T>(sql: string, iterations: number, options: ExecuteManyOptions): Promise<Results<T>>;
+        executeMany<T>(
             sql: string,
             iterations: number,
             options: ExecuteManyOptions,
-            callback: (error: DBError, result: Results) => void,
+            callback: (error: DBError, result: Results<T>) => void,
         ): void;
 
-        executeMany(sql: string, iterations: number): Promise<Results>;
-        executeMany(
+        executeMany<T>(sql: string, iterations: number): Promise<Results<T>>;
+        executeMany<T>(
             sql: string,
             iterations: number,
-            callback: (error: DBError, result: Results) => void,
+            callback: (error: DBError, result: Results<T>) => void,
         ): void;
 
         /**
@@ -2119,7 +2117,7 @@ declare namespace OracleDB {
     /**
      * Contains information regarding the outcome of a successful connection.execute().
      */
-    interface Result {
+    interface Result<T> {
         /**
          * This property will be defined if the executed statement returned Implicit Results. Depending on the value of resultSet it will either be an array,
          * each element containing an array of rows from one query, or an array of ResultSets each corresponding to a query.
@@ -2127,7 +2125,7 @@ declare namespace OracleDB {
          * @see https://oracle.github.io/node-oracledb/doc/api.html#implicitresults
          * @since 4.0
          */
-        implicitResults?: (Row[] | ResultSet)[];
+        implicitResults?: (T[] | ResultSet<T>)[];
         /**
          * For SELECT statements, this contains an array of objects describing details of columns for the select list.
          * For non queries, this property is undefined.
@@ -2141,7 +2139,7 @@ declare namespace OracleDB {
          * then outBinds is returned as an array. If bindParams is passed as an object,
          * then outBinds is returned as an object. If there are no OUT or IN OUT binds, the value is undefined.
          */
-        outBinds: Row;
+        outBinds: T;
         /**
          * For SELECT statements when the resultSet option is true, use the resultSet object to fetch rows.
          *
@@ -2151,7 +2149,7 @@ declare namespace OracleDB {
          * @see https://oracle.github.io/node-oracledb/doc/api.html#resultsetclass
          * @see https://oracle.github.io/node-oracledb/doc/api.html#resultsethandling
          */
-        resultSet: ResultSet;
+        resultSet: ResultSet<T>;
         /**
          * For SELECT statements using direct fetches, rows contains an array of fetched rows.
          * It will be NULL if there is an error or the SQL statement was not a SELECT statement.
@@ -2162,7 +2160,7 @@ declare namespace OracleDB {
          * The number of rows returned is limited by oracledb.maxRows or the maxRows option in an execute() call.
          * If maxRows is 0, then the number of rows is limited by Node.js memory constraints.
          */
-        rows: Row[];
+        rows: T[];
         /**
          * For DML statements (including SELECT FOR UPDATE) this contains the number of rows affected,
          * for example the number of rows inserted. For non-DML statements such as queries and PL/SQL statements,
@@ -2174,7 +2172,7 @@ declare namespace OracleDB {
     /**
      * Contains information regarding the outcome of a successful connection.executeMany().
      */
-    interface Results {
+    interface Results<T> {
         /**
          * An array of error objects that were reported during execution.
          *
@@ -2199,7 +2197,7 @@ declare namespace OracleDB {
          * the array passed as the binds parameter. It will be present only if there is at least one OUT bind
          * variable identified.
          */
-        outBinds: Row[];
+        outBinds: T[];
         /**
          * An integer identifying the total number of database rows affected by the processing of all records
          * of the binds parameter. It is only present if a DML statement was executed.
@@ -2220,7 +2218,7 @@ declare namespace OracleDB {
      *
      * @see https://oracle.github.io/node-oracledb/doc/api.html#resultsethandling
      */
-    interface ResultSet {
+    interface ResultSet<T> {
         /**
          * Contains an array of objects with metadata about the query or REF CURSOR columns.
          *
@@ -2245,11 +2243,11 @@ declare namespace OracleDB {
          * Performance of getRow() can be tuned by adjusting the value of oracledb.fetchArraySize or
          * the execute() option fetchArraySize.
          */
-        getRow(): Promise<Row>;
+        getRow(): Promise<T>;
         getRow(
             callback: (
                 error: DBError,
-                row: Row,
+                row: T,
             ) => void,
         ): void;
 
@@ -2264,8 +2262,8 @@ declare namespace OracleDB {
          *
          * @param numRows The number of rows to fetch
          */
-        getRows(numRows: number): Promise<Row[]>;
-        getRows(numRows: number, callback: (error: DBError, rows: Row[]) => void): void;
+        getRows(numRows: number): Promise<T[]>;
+        getRows(numRows: number, callback: (error: DBError, rows: T[]) => void): void;
 
         /**
          * This synchronous method converts a ResultSet into a stream.

@@ -2866,12 +2866,22 @@ declare namespace Stripe {
             pending_webhooks: number;
 
             /**
-             * ID of the API request that caused the event. If null, the event was
-             * automatic (e.g. Stripe’s automatic subscription handling). Request logs are
-             * available in the dashboard but currently not in the API. Note: this property
-             * is populated for events on or after April 23, 2013.
+             * Information on the API request that instigated the event.
              */
-            request?: string;
+            request: {
+                /**
+                 * ID of the API request that caused the event. If null, the event was
+                 * automatic (e.g., Stripe’s automatic subscription handling). Request logs
+                 * are available in the dashboard, but currently not in the API.
+                 */
+                id: string | null,
+
+                /**
+                 * The idempotency key transmitted during the request, if any.
+                 * Note: This property is populated only for events on or after May 23, 2017.
+                 */
+                idempotency_key?: string | null,
+            };
 
             /**
              * Description of the event: e.g. invoice.created, charge.refunded, etc.
@@ -3055,6 +3065,13 @@ declare namespace Stripe {
              * it has been marked closed. A closed invoice will no longer attempt to collect payment.
              */
             closed: boolean;
+
+            /**
+             * Either charge_automatically, or send_invoice. When charging automatically, Stripe will attempt to pay
+             * this invoice using the default source attached to the customer. When sending an invoice, Stripe will
+             * email this invoice to the customer with payment instructions.
+             */
+            collection_method?: "charge_automatically" | "send_invoice";
 
             /**
              * Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -7279,7 +7296,7 @@ declare namespace Stripe {
             /**
              * The most recent invoice this subscription has generated. [Expandable]
              */
-            latest_invoice: null | invoices.IInvoice;
+            latest_invoice: invoices.IInvoice | string | null;
 
             /**
              * Has the value true if the object exists in live mode or the value false if the object exists in test mode.

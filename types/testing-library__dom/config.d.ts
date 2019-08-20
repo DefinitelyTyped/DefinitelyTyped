@@ -1,6 +1,7 @@
 export interface Config {
     testIdAttribute: string;
     asyncWrapper(cb: (...args: any[]) => any): Promise<any>;
+    asyncUtilTimeout: number;
 }
 
 export interface ConfigFn {

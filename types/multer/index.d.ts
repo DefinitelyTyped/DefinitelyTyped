@@ -7,7 +7,7 @@
 //                 HyunSeob Lee <https://github.com/hyunseob>
 //                 Pierre Tchuente <https://github.com/PierreTchuente>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 import * as express from 'express';
 
