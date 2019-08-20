@@ -306,7 +306,7 @@ declare namespace Chart {
         multiKeyBackground?: string;
         callbacks?: ChartTooltipCallback;
         filter?(item: ChartTooltipItem, data: ChartData): boolean;
-        itemSort?(itemA: ChartTooltipItem, itemB: ChartTooltipItem): number;
+        itemSort?(itemA: ChartTooltipItem, itemB: ChartTooltipItem, data: any): number;
         position?: string;
         caretPadding?: number;
         displayColors?: boolean;
