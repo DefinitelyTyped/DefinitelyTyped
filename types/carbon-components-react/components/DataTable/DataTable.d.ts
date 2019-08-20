@@ -1,7 +1,7 @@
 import * as React from "react";
-import { InternationalProps, ShapeOf } from "../../typings/shared";
+import { InternationalProps, ReactAttr, ReactDivAttr, ShapeOf } from '../../typings/shared';
 import { DataTableSortState, DataTableSortStates } from "./state/sorting";
-import Table from "./Table";
+import Table, { TableCarbonProps } from "./Table";
 import TableActionList from "./TableActionList";
 import TableBatchAction from "./TableBatchAction";
 import TableBatchActions from "./TableBatchActions";
@@ -126,34 +126,25 @@ export interface DataTableCustomBatchActionsProps {
 
 // region DataTable
 
-export type DataTableSize = "compact" | "normal" | "short" | "tall";
-export interface DataTableExposedProps {
-    isSortable?: boolean,
-    shouldShowBorder?: boolean,
-    size?: DataTableSize,
-    useStaticWidth?: boolean,
-    useZebraStyles?: boolean,
-}
-
 // Custom Render Props
 export interface DataTableCustomRenderProps<
     R extends DataTableRow = DataTableRow,
     H extends DataTableHeader = DataTableHeader
 > {
     expandRow(rowId: R['id']): void;
-    getBatchActionProps<E extends object = {}>(
+    getBatchActionProps<E extends object = ReactDivAttr>(
         data?: ShapeOf<DataTableCustomBatchActionsData, E>
     ): ShapeOf<DataTableCustomBatchActionsProps, E>;
-    getHeaderProps<E extends object = {}>(
+    getHeaderProps<E extends object = ReactAttr>(
         data: ShapeOf<DataTableCustomHeaderData<H>, E>
     ): ShapeOf<DataTableCustomHeaderProps<H>, E>;
-    getRowProps<E extends object = {}>(
+    getRowProps<E extends object = ReactAttr<HTMLTableRowElement>>(
         data: ShapeOf<DataTableCustomRowData<R>, E>
     ): ShapeOf<DataTableCustomRowProps<R>, E>;
     getSelectionProps<E extends object = {}>(
         data?: ShapeOf<DataTableCustomSelectionData<R>, E>
     ): ShapeOf<DataTableCustomSelectionProps<R>, E> | ShapeOf<DataTableCustomSelectionProps<never>, E>;
-    getTableProps(): DataTableExposedProps;
+    getTableProps(): TableCarbonProps;
     headers: DataTableProps<R, H>['headers'];
     onInputChange(event: React.SyntheticEvent<HTMLInputElement>): void;
     radio?: DataTableProps<R, H>['radio'];
@@ -172,7 +163,7 @@ export type DataTableTranslationKey =
     | "carbon.table.row.select"
     | "carbon.table.row.unselect";
 
-interface DataTableInheritedProps extends InternationalProps<DataTableTranslationKey>, DataTableExposedProps { }
+interface DataTableInheritedProps extends InternationalProps<DataTableTranslationKey>, TableCarbonProps { }
 
 export interface DataTableProps<R extends DataTableRow = DataTableRow, H extends DataTableHeader = DataTableHeader>
     extends DataTableInheritedProps {
