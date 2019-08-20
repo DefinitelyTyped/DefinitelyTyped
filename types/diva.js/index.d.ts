@@ -8,7 +8,18 @@ import { Options, State, ViewerState } from './interfaces';
 
 type Settings = Options & ViewerState;
 
+interface DivaState {
+  viewerCore: ViewerCore;
+  toolbar: null; // | Toolbar
+}
+
 export class Diva {
+  element: HTMLElement;
+  options: Options;
+  viewerState: ViewerState;
+  toolbar: null; // | Toolbar
+  divaState: DivaState;
+  hashState: any; // HashParamState;
   /**
    * @param element - The ID of an HTMLElement to attach an instance of Diva to.
    * @param options - Options to be set by the user for the instance of Diva.
