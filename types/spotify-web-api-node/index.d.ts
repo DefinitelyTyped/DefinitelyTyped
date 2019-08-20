@@ -1057,12 +1057,20 @@ interface GetFeaturedPlaylistsOptions extends PaginationLocaleOptions {
     timestamp?: string;
 }
 
+/**
+ * Response returned when using Client Credentials authentication flow
+ * https://developer.spotify.com/documentation/general/guides/authorization-guide/#example-4
+ */
 interface ClientCredentialsGrantResponse {
     access_token: string;
     expires_in: number;
     token_type: string;
 }
 
+/**
+ * Response returned when requesting for access token
+ * https://developer.spotify.com/documentation/general/guides/authorization-guide/#2-have-your-application-request-refresh-and-access-tokens-spotify-returns-access-and-refresh-tokens
+ */
 interface AuthorizationCodeGrantResponse {
     access_token: string;
     expires_in: number;
@@ -1071,6 +1079,10 @@ interface AuthorizationCodeGrantResponse {
     token_type: string;
 }
 
+/**
+ * Response returned when requesting new access token (via refresh token)
+ * https://developer.spotify.com/documentation/general/guides/authorization-guide/#4-requesting-a-refreshed-access-token-spotify-returns-a-new-access-token-to-your-app
+ */
 interface RefreshAccessTokenResponse {
     access_token: string;
     expires_in: number;
