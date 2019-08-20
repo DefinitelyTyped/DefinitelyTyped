@@ -1,4 +1,4 @@
-// Type definitions for non-npm package frida-gum 14.0
+// Type definitions for non-npm package frida-gum 14.1
 // Project: https://github.com/frida/frida
 // Definitions by: Ole André Vadla Ravnås <https://github.com/oleavr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -3860,13 +3860,20 @@ declare namespace Java {
     function choose(className: string, callbacks: ChooseCallbacks): void;
 
     /**
+     * Duplicates a JavaScript wrapper for later use outside replacement method.
+     *
+     * @param handle An existing wrapper retrieved from `this` in replacement method.
+     */
+    function retain(obj: Wrapper): Wrapper;
+
+    /**
      * Creates a JavaScript wrapper given the existing instance at `handle` of
      * given class `klass` as returned from `Java.use()`.
      *
      * @param handle An existing wrapper or a JNI handle.
      * @param klass Class wrapper for type to cast to.
      */
-    function cast(handle: any, klass: Wrapper): Wrapper;
+    function cast(handle: Wrapper | NativePointerValue, klass: Wrapper): Wrapper;
 
     /**
      * Creates a Java array with elements of the specified `type`, from a
