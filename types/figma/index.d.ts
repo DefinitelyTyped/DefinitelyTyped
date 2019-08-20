@@ -1,13 +1,12 @@
-// Type definitions for Figma API v1.0.0
+// Type definitions for Figma API 1.0
 // Project: https://www.figma.com/plugin-docs/intro
-// Definitions by: Figma <https://www.figma.com>
-//                 Rudi Chen <rudi@figma.com>
+// Definitions by: Rudi Chen <https://github.com/rudi-c>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 //
-// Talk to the Figma team regarding changes to the typings. While
-// changes to the types aren't breaking changes to how plugins run,
-// it is preferrable to coordinate break type changes with breaking
-// API changes.
+// Talk to the Figma team regarding changes to the typings.
+//   rudi@figma.com, jonas@figma.com
+// While changes to the types aren't breaking changes to how plugins run,
+// it is preferable to coordinate breaking type changes with breaking API changes.
 
 // Global variable with Figma's plugin API.
 declare const figma: PluginAPI;
