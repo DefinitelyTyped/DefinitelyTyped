@@ -141,7 +141,7 @@ export interface MUIDataTableOptions {
         changePage: number
     ) => React.ReactNode;
     customSearch?: (searchQuery: string, currentRow: any[], columns: any[]) => boolean;
-    customSearchRender?: (searchText: string, handleSearch: any, hideSearch: any, options: any) => React.Component;
+    customSearchRender?: (searchText: string, handleSearch: any, hideSearch: any, options: any) => React.Component | JSX.Element;
     customSort?: (data: any[], colIndex: number, order: string) => any[];
     customToolbar?: () => React.ReactNode;
     customToolbarSelect?: (
