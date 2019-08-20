@@ -2,13 +2,17 @@ import * as React from "react";
 
 interface InheritedProps extends React.TableHTMLAttributes<HTMLTableElement> { }
 
-export interface TableProps extends InheritedProps {
+export type DataTableSize = "compact" | "normal" | "short" | "tall";
+
+export interface TableCarbonProps {
     isSortable?: boolean,
     shouldShowBorder?: boolean,
-    size?: "compact" | "normal" | "small" | "tall",
+    size?: DataTableSize,
     useStaticWidth?: boolean,
     useZebraStyles?: boolean,
 }
+
+export interface TableProps extends InheritedProps, TableCarbonProps { }
 
 declare const Table: React.FC<TableProps>;
 
