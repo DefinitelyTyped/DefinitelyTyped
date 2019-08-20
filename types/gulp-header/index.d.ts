@@ -1,4 +1,4 @@
-// Type definitions for gulp-header
+// Type definitions for gulp-header 2.0
 // Project: https://github.com/tracker1/gulp-header
 // Definitions by: Asana <https://asana.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
