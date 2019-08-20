@@ -12,6 +12,7 @@
 //                 Claudio Procida <https://github.com/claudiopro>
 //                 Kevin Hawkinson <https://github.com/khawkinson>
 //                 Munif Tanjim <https://github.com/MunifTanjim>
+//                 Ben Salili-James <https://github.com/benhjames>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
@@ -76,10 +77,19 @@ declare namespace Draft {
                 // regardless of input characters.
                 textAlignment?: DraftTextAlignment;
 
+                // Specify whether text directionality should be forced in a direction
+                // regardless of input characters.
+                textDirectionality?: DraftTextDirectionality;
+
                 // For a given `ContentBlock` object, return an object that specifies
                 // a custom block component and/or props. If no object is returned,
                 // the default `TextEditorBlock` is used.
                 blockRendererFn?(block: ContentBlock): any;
+
+                // Provide a map of block rendering configurations. Each block type maps to
+                // an element tag and an optional react element wrapper. This configuration
+                // is used for both rendering and paste processing.
+                blockRenderMap?: DraftBlockRenderMap
 
                 // Function that allows to define class names to apply to the given block when it is rendered.
                 blockStyleFn?(block: ContentBlock): string;
@@ -130,6 +140,10 @@ declare namespace Draft {
 
                 webDriverTestID?: string;
 
+                // If using server-side rendering, this prop is required to be set to
+                // avoid client/server mismatches.
+                editorKey?: string;
+
                 /**
                  * Cancelable event handlers, handled from the top level down. A handler
                  * that returns `handled` will be the last handler to execute for that event.
@@ -172,14 +186,11 @@ declare namespace Draft {
 
                 onBlur?(e: SyntheticEvent): void,
                 onFocus?(e: SyntheticEvent): void,
-
-                // Provide a map of block rendering configurations. Each block type maps to
-                // an element tag and an optional react element wrapper. This configuration
-                // is used for both rendering and paste processing.
-                blockRenderMap?: DraftBlockRenderMap
             }
 
             type DraftTextAlignment = "left" | "center" | "right";
+
+            type DraftTextDirectionality = "LTR" | "RTL" | "NEUTRAL";
         }
 
         namespace Components {

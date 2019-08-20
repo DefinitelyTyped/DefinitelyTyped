@@ -3,13 +3,13 @@ export interface Base<TType extends string> {
 }
 
 export interface LabelStatement extends Base<"LabelStatement"> {
-    label: string;
+    label: Identifier;
 }
 
 export type BreakStatement = Base<"BreakStatement">;
 
 export interface GotoStatement extends Base<"GotoStatement"> {
-    label: string;
+    label: Identifier;
 }
 
 export interface ReturnStatement extends Base<"ReturnStatement"> {
@@ -136,12 +136,12 @@ export interface TableConstructorExpression extends Base<"TableConstructorExpres
 }
 
 export interface UnaryExpression extends Base<"UnaryExpression"> {
-    operator: "#" | "not" | "-";
+    operator: "not" | "-" | "~" | "#";
     argument: Expression;
 }
 
 export interface BinaryExpression extends Base<"BinaryExpression"> {
-    operator: "+" | "-" | "*" | "/" | "%" | "^" | "==" | "~=" | "<=" | ">=" | "<" | ">" | "..";
+    operator: "+" | "-" | "*" | "%" | "^" | "/" | "//" | "&" | "|" | "~" | "<<" | ">>" | ".." | "~=" | "=="  | "<" | "<=" | ">" | ">=";
     left: Expression;
     right: Expression;
 }

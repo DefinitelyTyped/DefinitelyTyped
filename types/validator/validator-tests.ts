@@ -572,6 +572,8 @@ let any: any;
   result = validator.isMobilePhone('sample', 'zh-HK');
   result = validator.isMobilePhone('sample', 'zh-TW');
   result = validator.isMobilePhone('sample', 'any');
+  result = validator.isMobilePhone("sample");
+  result = validator.isMobilePhone("sample", [ "pl-PL", "pt-PT" ]);
 
   result = validator.isMongoId('sample');
 

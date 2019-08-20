@@ -1149,6 +1149,14 @@ type BitwiseQuery =
     | Binary    /** <BinData bitmask> */
     | number[]; /** [ <position1>, <position2>, ... ] */
 
+// we can search using alternative types in mongodb e.g.
+// string types can be searched using a regex in mongo
+// array types can be searched using their element type
+type RegExpForString<T> = T extends string ? (RegExp | T): T;
+type MongoAltQuery<T> =
+    T extends Array<infer U> ? (T | RegExpForString<U>):
+    RegExpForString<T>;
+
 /** https://docs.mongodb.com/manual/reference/operator/query/#query-selectors */
 export type QuerySelector<T> = {
     // Comparison
@@ -1161,24 +1169,20 @@ export type QuerySelector<T> = {
     $ne?: T;
     $nin?: T[];
     // Logical
-    // Array<FilterQuery<T>> is a better type after we added support for none object types in FilterQuery
-    $not?: any[];
+    $not?: T extends string ? (QuerySelector<T> | RegExp) : QuerySelector<T>;
     // Element
+    /**
+     * When `true`, `$exists` matches the documents that contain the field,
+     * including documents where the field value is null.
+     */
     $exists?: boolean;
     $type?: BSONType | BSONTypeAlias;
     // Evaluation
     $expr?: any;
     $jsonSchema?: any;
-    $mod?: [number, number];
-    $regex?: RegExp | string;
-    $options?: string;
-    $text?: {
-        $search: string;
-        $language?: string;
-        $caseSensitive?: boolean;
-        $diacraticSensitive?: boolean;
-    };
-    $where?: any;
+    $mod?: T extends number ? [number, number] : never;
+    $regex?: T extends string ? (RegExp | string) : never;
+    $options?: T extends string ? string : never;
     // Geospatial
     // TODO: define better types for geo queries
     $geoIntersects?: { $geometry: object };
@@ -1187,10 +1191,10 @@ export type QuerySelector<T> = {
     $nearSphere?: object;
     $maxDistance?: number;
     // Array
-    // TODO: array operators should throw errors for none array fields
-    $all?: any[]; // TODO: define better types for $all
-    $elemMatch?: object;
-    $size?: number;
+    // TODO: define better types for $all and $elemMatch
+    $all?: T extends Array<infer U> ? any[] : never;
+    $elemMatch?: T extends Array<infer U> ? object : never;
+    $size?: T extends Array<infer U> ? number : never;
     // Bitwise
     $bitsAllClear?: BitwiseQuery;
     $bitsAllSet?: BitwiseQuery;
@@ -1205,6 +1209,15 @@ export type RootQuerySelector<T> = {
     $nor?: Array<FilterQuery<T>>;
     /** https://docs.mongodb.com/manual/reference/operator/query/or/#op._S_or */
     $or?: Array<FilterQuery<T>>;
+    /** https://docs.mongodb.com/manual/reference/operator/query/text */
+    $text?: {
+        $search: string;
+        $language?: string;
+        $caseSensitive?: boolean;
+        $diacraticSensitive?: boolean;
+    };
+    /** https://docs.mongodb.com/manual/reference/operator/query/where/#op._S_where */
+    $where?: string | Function;
     /** https://docs.mongodb.com/manual/reference/operator/query/comment/#op._S_comment */
     $comment?: string;
     // we could not find a proper TypeScript generic to support nested queries e.g. 'user.friends.name'
@@ -1212,11 +1225,8 @@ export type RootQuerySelector<T> = {
     [key: string]: any;
 };
 
-// string types can be searched using a regex in mongo
-type RegExpString<T> = T extends string ? (RegExp | T) : T;
-
 export type FilterQuery<T> = {
-    [P in keyof T]?: RegExpString<T[P]> | QuerySelector<RegExpString<T[P]>>
+  [P in keyof T]?: MongoAltQuery<T[P]> | QuerySelector<MongoAltQuery<T[P]>>;
 } & RootQuerySelector<T>;
 
 

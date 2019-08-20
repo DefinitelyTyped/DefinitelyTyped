@@ -1351,10 +1351,22 @@
             "asOfVersion": "2.1.0"
         },
         {
+            "libraryName": "i18next",
+            "typingsPackageName": "i18next",
+            "sourceRepoURL": "https://github.com/i18next/i18next",
+            "asOfVersion": "13.0.0"
+        },
+        {
             "libraryName": "i18next-browser-languagedetector",
             "typingsPackageName": "i18next-browser-languagedetector",
             "sourceRepoURL": "https://github.com/i18next/i18next-browser-languagedetector",
             "asOfVersion": "3.0.0"
+        },
+        {
+            "libraryName": "i18next-express-middleware",
+            "typingsPackageName": "i18next-express-middleware",
+            "sourceRepoURL": "https://github.com/i18next/i18next-express-middleware",
+            "asOfVersion": "1.7.0"
         },
         {
             "libraryName": "i18next-xhr-backend",
@@ -3599,6 +3611,12 @@
             "typingsPackageName": "trim-newlines",
             "sourceRepoURL": "https://github.com/sindresorhus/trim-newlines",
             "asOfVersion": "3.0.0"
+        },
+        {
+            "libraryName": "ts3-nodejs-library",
+            "typingsPackageName": "ts3-nodejs-library",
+            "sourceRepoURL": "https://github.com/Multivit4min/TS3-NodeJS-Library",
+            "asOfVersion": "2.0.0"
         },
         {
             "libraryName": "TsMonad",
