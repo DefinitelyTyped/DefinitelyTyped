@@ -1292,7 +1292,7 @@ declare namespace webpack {
             childAssets: Record<string, string[]>;
             isOverSizeLimit?: boolean;
         }
-        
+
         type ReasonType
             = 'amd define'
             | 'amd require array'
