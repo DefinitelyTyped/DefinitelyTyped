@@ -2,100 +2,95 @@
 // Project: https://github.com/DDMAL/diva.js#readme
 // Definitions by: Juliette Regimbal <https://github.com/JRegimbal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/*~ If this module is a UMD module that exposes a global variable 'myLib' when
- *~ loaded outside a module loader environment, declare that global here.
- *~ Otherwise, delete this declaration.
- */
-export as namespace myLib;
+// TypeScript Version: 2.2
 
 interface Options {
-    acceptHeader: string,
-    adaptivePadding: number,
-    arrowScrollAmount: number,
-    blockMobileMove: boolean,
-    objectData: object | string,
-    enableAutoTitle: boolean,
-    enableFilename: boolean,
-    enableFullscreen: boolean,
-    enableGotoPage: boolean,
-    enableGotoSuggestions: boolean,
-    enableGridIcon: boolean,
-    enableGridControls: string,
-    enableImageTitles: boolean,
-    enableIndexAsLabel: boolean,
-    enableKeyScroll: boolean,
-    enableLinkIcon: boolean,
-    enableNonPagedVisibilityIcon: boolean,
-    enableSpaceScroll: boolean,
-    enableToolbar: boolean,
-    enableZoomControls: string,
-    fillParentHeight: boolean,
-    fixedPadding: number,
-    fixedHeightGrid: boolean,
-    goDirectlyTo: number,
-    hashParamSuffix: string | null,
-    inFullscreen: boolean,
-    inBookLayout: boolean,
-    inGrid: boolean,
-    maxPagesPerRow: number,
-    maxZoomLevel: number,
-    minPagesPerRow: number,
-    minZoomLevel: number,
-    onGotoSubmit: Function,
-    pageAliases: {},
-    pageAliasFunction: Function,
-    pageLoadTimeout: number,
-    pagesPerRow: number,
-    showNonPagedPages: boolean,
-    throbberTimeout: number,
-    tileHeight: number,
-    tileWidth: number,
-    toolbarParentObject: object,
+    acceptHeader: string;
+    adaptivePadding: number;
+    arrowScrollAmount: number;
+    blockMobileMove: boolean;
+    objectData: object | string;
+    enableAutoTitle: boolean;
+    enableFilename: boolean;
+    enableFullscreen: boolean;
+    enableGotoPage: boolean;
+    enableGotoSuggestions: boolean;
+    enableGridIcon: boolean;
+    enableGridControls: string;
+    enableImageTitles: boolean;
+    enableIndexAsLabel: boolean;
+    enableKeyScroll: boolean;
+    enableLinkIcon: boolean;
+    enableNonPagedVisibilityIcon: boolean;
+    enableSpaceScroll: boolean;
+    enableToolbar: boolean;
+    enableZoomControls: string;
+    fillParentHeight: boolean;
+    fixedPadding: number;
+    fixedHeightGrid: boolean;
+    goDirectlyTo: number;
+    hashParamSuffix: string;
+    inFullscreen: boolean;
+    inBookLayout: boolean;
+    inGrid: boolean;
+    maxPagesPerRow: number;
+    maxZoomLevel: number;
+    minPagesPerRow: number;
+    minZoomLevel: number;
+    onGotoSubmit: () => any;
+    pageAliases: {};
+    pageAliasFunction: () => any;
+    pageLoadTimeout: number;
+    pagesPerRow: number;
+    showNonPagedPages: boolean;
+    throbberTimeout: number;
+    tileHeight: number;
+    tileWidth: number;
+    toolbarParentObject: object;
     verticallyOriented: boolean;
-    viewportMargin: number,
-    zoomLevel: number
+    viewportMargin: number;
+    zoomLevel: number;
 }
 
 interface ViewerState {
-    currentPageIndices: number[],
-    activePageIndex: number,
-    horizontalOffset: number,
-    horizontalPadding: number,
-    ID: null | string,
-    initialKeyScroll: boolean,
-    initialSpaceScroll: boolean,
-    innerElement: HTMLElement,
-    innerObject: HTMLElement,
-    isActiveDiva: boolean,
-    isScrollable: boolean,
-    isZooming: boolean,
-    loaded: boolean,
-    manifest: object,
-    mobileWebkit: boolean,
-    numPages: number,
-    oldZoomLevel: number,
-    options: Options,
-    outerElement: HTMLElement,
-    outerObject: HTMLElement,
-    pageOverlays: object, // new PageOverlayManager(),
-    pageTools: object[], // plugins as page tools
-    parentObject: HTMLElement,
-    pendingManifestRequest: XMLHttpRequest,
-    pluginInstances: object[], // enabled plugins from the registry
-    renderer: object, // Renderer object
-    resizeTimer: number,
-    scrollbarWidth: number,
-    selector: string,
-    throbberTimeoutID: number,
-    toolbar: object,
-    verticalOffset: number,
-    verticalPadding: number,
-    viewHandler: object,
-    viewport: object,
-    viewportElement: HTMLElement,
-    viewportObject: HTMLElement,
-    zoomDuration: number
+    currentPageIndices: number[];
+    activePageIndex: number;
+    horizontalOffset: number;
+    horizontalPadding: number;
+    ID: string;
+    initialKeyScroll: boolean;
+    initialSpaceScroll: boolean;
+    innerElement: HTMLElement;
+    innerObject: HTMLElement;
+    isActiveDiva: boolean;
+    isScrollable: boolean;
+    isZooming: boolean;
+    loaded: boolean;
+    manifest: object;
+    mobileWebkit: boolean;
+    numPages: number;
+    oldZoomLevel: number;
+    options: Options;
+    outerElement: HTMLElement;
+    outerObject: HTMLElement;
+    pageOverlays: object; // new PageOverlayManager();
+    pageTools: object[]; // plugins as page tools
+    parentObject: HTMLElement;
+    pendingManifestRequest: XMLHttpRequest;
+    pluginInstances: object[]; // enabled plugins from the registr;
+    renderer: object; // Renderer objec;
+    resizeTimer: number;
+    scrollbarWidth: number;
+    selector: string;
+    throbberTimeoutID: number;
+    toolbar: object;
+    verticalOffset: number;
+    verticalPadding: number;
+    viewHandler: object;
+    viewport: object;
+    viewportElement: HTMLElement;
+    viewportObject: HTMLElement;
+    zoomDuration: number;
 }
 
 interface State {
@@ -104,12 +99,12 @@ interface State {
 
 type Settings = Options & ViewerState;
 
-export default class Diva {
+declare class Diva {
     /**
      * @param element - The ID of an HTMLElement to attach an instance of Diva to.
      * @param options - Options to be set by the user for the instance of Diva.
      */
-    constructor(element: string, options: Options);
+    constructor(element: string, options: Partial<Options> & { objectData: string | object });
 
     /**
      * Activate this instance of diva via the active Diva controller.
@@ -485,40 +480,16 @@ export default class Diva {
      zoomOut(): boolean;
 }
 
-interface DivaEvent {
+declare class DivaEvent {
     publish(topic: string, args: object, scope?: object): void;
-    subscribe(topic: string, callback: Function, instanceID?: string): EventHandlerNonNull[];
-    unsubscribe(handle: EventHandlerNonNull[], completely?: boolean): boolean
+    subscribe(topic: string, callback: (...rest: any[]) => void, instanceID?: string): any[];
+    unsubscribe(handle: any[], completely?: boolean): boolean;
     unsubscribeAll(instanceID: string): void;
 }
 
-//export const Events: DivaEvent;
-//
-///*~ If this module has methods, declare them as functions like so.
-// */
-//export function myMethod(a: string): string;
-//export function myOtherMethod(a: number): number;
-//
-///*~ You can declare types that are available via importing the module */
-//export interface someType {
-//    name: string;
-//    length: number;
-//    extras?: string[];
-//}
-//
-///*~ You can declare properties of the module using const, let, or var */
-//export const myField: number;
-//
-///*~ If there are types, properties, or methods inside dotted names
-// *~ of the module, declare them inside a 'namespace'.
-// */
-//export namespace subProp {
-//    /*~ For example, given this definition, someone could write:
-//     *~   import { subProp } from 'yourModule';
-//     *~   subProp.foo();
-//     *~ or
-//     *~   import * as yourMod from 'yourModule';
-//     *~   yourMod.subProp.foo();
-//     */
-//    function foo(): void;
-//}
+declare const Global: {
+    new(element: string, options: Partial<Options> & { objectData: string | object }): Diva;
+    Events: DivaEvent;
+};
+
+export { Global as default };
