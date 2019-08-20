@@ -19,6 +19,7 @@ import {
 
 export function findDOMNode(instance: ReactInstance | null | undefined): Element | null | Text;
 export function unmountComponentAtNode(container: Element): boolean;
+export function renderToStaticMarkup(element: Element): string;
 
 export function createPortal(children: ReactNode, container: Element, key?: null | string): ReactPortal;
 
