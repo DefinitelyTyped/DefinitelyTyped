@@ -4,6 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
 
+// tslint:disable-next-line:no-unnecessary-class
 declare class PasswordComplexity {
     constructor(options?: PasswordComplexity.ComplexityOptions);
 }
