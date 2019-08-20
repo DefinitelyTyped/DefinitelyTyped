@@ -43,10 +43,10 @@ const canvas = document.createElement('canvas') as HTMLCanvasElement;
 bwipjs(canvas, {
     bcid: 'qrcode',
     text: 'example',
-}, (err, cvs) => {
+}, (err?: string | Error, cvs?: HTMLCanvasElement): void => {
     if (err) {
-        console.log(err);
+        err; // $ExpectType string | Error
     } else if (cvs) {
-        // console.log(cvs.toDataURL());
+        cvs; // $ExpectType HTMLCanvasElement
     }
 });
