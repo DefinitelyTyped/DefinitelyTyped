@@ -467,6 +467,11 @@ declare namespace stripe {
                 token: string;
             }
         };
+        /**
+         * Instead of payment_method, the ID of a Source may be passed in.
+         * (Note that this is undocumented as of August 2019).
+         */
+       source?: string;
     }
     interface HandleCardSetupOptions {
         /**
@@ -933,6 +938,11 @@ declare namespace stripe {
             on_behalf_of: string | null;
 
             /**
+             * ID of the payment method used in this PaymentIntent.
+             */
+            payment_method: string | null;
+
+            /**
              * The list of payment method types (e.g. card) that this PaymentIntent is allowed to use.
              */
             payment_method_types: string[];
@@ -951,6 +961,13 @@ declare namespace stripe {
              * Shipping information for this PaymentIntent.
              */
             shipping: ShippingDetails | null;
+
+            /**
+             * The ID of a Source (e.g. 'src_abc123' or 'card_abc123').
+             * Will be null unless this PaymentIntent was created with a source
+             * instead of a payment_method. (Undocumented as of August 2019)
+             */
+            source: string | null;
 
             /**
              * Extra information about a PaymentIntent. This will appear on your
