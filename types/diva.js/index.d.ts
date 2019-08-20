@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import { Options, State, ViewerState } from './interfaces';
+import { Dimensions, Options, State, ViewerState } from './interfaces';
 
 type Settings = Options & ViewerState;
 
@@ -203,7 +203,7 @@ export class Diva {
   /**
    * Get page dimensions in the current view and zoom level.
    */
-  getPageDimensions(pageIndex: number): { height: number; width: number };
+  getPageDimensions(pageIndex: number): Dimensions;
 
   /**
    * Returns the dimensions of a given page at the current zoom level.
@@ -211,7 +211,7 @@ export class Diva {
    */
   getPageDimensionsAtCurrentZoomLevel(
     pageIndex: number,
-  ): { height: number; width: number };
+  ): Dimensions;
 
   /**
    * Get page dimensions at a given zoom level.
@@ -219,7 +219,7 @@ export class Diva {
   getPageDimensionsAtZoomLevel(
     pageIdx: number,
     zoomLevel: number,
-  ): { height: number; width: number };
+  ): Dimensions;
 
   /**
    * Returns a URL for the image of the page at the given index. By default
@@ -228,7 +228,7 @@ export class Diva {
    */
   getPageImageURL(
     pageIndex: number,
-    size?: { height: number; width: number },
+    size?: Dimensions,
   ): string;
 
   /**

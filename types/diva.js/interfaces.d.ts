@@ -97,3 +97,15 @@ export interface State {
   y: boolean | number;
   x: boolean | number;
 }
+
+export interface Region {
+  top: number;
+  bottom: number;
+  left: number;
+  right: number;
+}
+
+export interface Dimensions {
+  height: number;
+  width: number;
+}
