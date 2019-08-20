@@ -1,7 +1,6 @@
 import * as gulp from "gulp";
 import header = require("gulp-header");
 
-
 gulp.task('templates', () => {
   gulp
     .src(['file.txt'])
