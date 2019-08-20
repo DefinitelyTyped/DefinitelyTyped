@@ -41,7 +41,7 @@ const chart: Chart = new Chart(ctx, {
             filter: data => Number(data.yLabel) > 0,
             intersect: true,
             mode: 'index',
-            itemSort: (a, b) => Math.random() - 0.5,
+            itemSort: (a, b, data) => Math.random() - 0.5,
             position: "average",
             caretPadding: 2,
             displayColors: true,
