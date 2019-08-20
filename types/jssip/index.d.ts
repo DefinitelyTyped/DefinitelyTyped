@@ -62,7 +62,6 @@ export interface Socket {
 }
 
 export class WebSocketInterface implements JsSIP.Socket {
-    constructor(host: string);
     via_transport: string;
     url: string;
     sip_uri: string;
@@ -109,7 +108,7 @@ export interface UserAgentConnectedEvent {
     socket: JsSIP.Socket;
 }
 
-export interface UserAgentDisonnectedEvent {
+export interface UserAgentDisconnectedEvent {
     socket: JsSIP.Socket;
     error: boolean;
     code: number;
@@ -203,7 +202,7 @@ export class UA {
     unregister(options?: UserAgentUnregisterOptions): void;
     on(eventName: "connecting", handler: EventHandler<UserAgentConnectingEvent>): void;
     on(eventName: "connected", handler: EventHandler<UserAgentConnectedEvent>): void;
-    on(eventName: "disconnected", handler: EventHandler<UserAgentDisonnectedEvent>): void;
+    on(eventName: "disconnected", handler: EventHandler<UserAgentDisconnectedEvent>): void;
     on(eventName: "registered", handler: EventHandler<UserAgentRegisteredEvent>): void;
     on(eventName: "unregistered", handler: EventHandler<UserAgentUnregisteredEvent>): void;
     on(eventName: "registrationFailed", handler: EventHandler<UserAgentRegistrationFailedEvent>): void;
@@ -213,7 +212,11 @@ export class UA {
     on(eventName: "sipEvent", handler: EventHandler<UserAgentSipEvent>): void;
 }
 
-export type EventHandler<T> = (data: T) => void;
+export interface EventValue<T> {
+    data: T;
+}
+
+export type EventHandler<T> = (e: EventValue<T>) => void;
 
 export interface SessionConnectingEvent {
     request: JsSIP.IncomingRequest|JsSIP.OutgoingRequest;

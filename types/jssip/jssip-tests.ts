@@ -1,52 +1,66 @@
-JsSIP.URI.parse("test");
+JsSIP.URI.parse('test');
 
-var socket = new JsSIP.WebSocketInterface('ws://sip-ws.example.com');
-socket.via_transport = "tcp";
+const socket = new JsSIP.WebSocketInterface('ws://sip-ws.example.com');
+socket.via_transport = 'tcp';
 
-var configuration = {
-  sockets  : [ socket ],
-  uri      : 'sip:alice@example.com',
-  password : 'superpassword'
+const configuration = {
+  sockets: [socket],
+  uri: 'sip:alice@example.com',
+  password: 'superpassword',
 };
 
-var coolPhone = new JsSIP.UA(configuration);
+const coolPhone = new JsSIP.UA(configuration);
 
-coolPhone.on('connected', function(e){ /* Your code here */ });
+coolPhone.on('connected', (e: JsSIP.EventValue<JsSIP.UserAgentConnectedEvent>) => {
+  console.log('Connected.');
+});
 
-coolPhone.on('disconnected', function(e){ /* Your code here */ });
+coolPhone.on('disconnected', (e: JsSIP.EventValue<JsSIP.UserAgentDisconnectedEvent>) => {
+  console.log('Disconnected');
+});
 
-coolPhone.on('newRTCSession', function(e){ /* Your code here */ });
+coolPhone.on('newRTCSession', (e: JsSIP.EventValue<JsSIP.UserAgentNewRtcSessionEvent>) => {
+  console.log('New Session');
+});
 
-coolPhone.on('newMessage', function(e){ /* Your code here */ });
+coolPhone.on('newMessage', (e: JsSIP.EventValue<JsSIP.UserAgentNewMessageEvent>) => {
+  console.log('New Message');
+});
 
-coolPhone.on('registered', function(e){ /* Your code here */ });
-coolPhone.on('unregistered', function(e){ /* Your code here */ });
-coolPhone.on('registrationFailed', function(e){ /* Your code here */ });
+coolPhone.on('registered', (e: JsSIP.EventValue<JsSIP.UserAgentRegisteredEvent>) => {
+  console.log('Rergistered.');
+});
+coolPhone.on('unregistered', (e: JsSIP.EventValue<JsSIP.UserAgentUnregisteredEvent>) => {
+  console.log('Unregistered.');
+});
+coolPhone.on('registrationFailed', (e: JsSIP.EventValue<JsSIP.UserAgentRegistrationFailedEvent>) => {
+  console.log('Registration failed');
+});
 
 coolPhone.start();
 
 // Register callbacks to desired call events
-var eventHandlers = {
-  'progress': function(e: any) {
+const eventHandlers = {
+  progress: (e: JsSIP.SessionProgressEvent) => {
     console.log('call is in progress');
   },
-  'failed': function(e: any) {
-    console.log('call failed with cause: '+ e.data.cause);
+  failed: (e: JsSIP.EventValue<JsSIP.SessionFailedEvent>) => {
+    console.log('call failed with cause: ' + e.data.cause);
   },
-  'ended': function(e: any) {
-    console.log('call ended with cause: '+ e.data.cause);
+  ended: (e: JsSIP.EventValue<JsSIP.SessionEndedEvent>) => {
+    console.log('call ended with cause: ' + e.data.cause);
   },
-  'confirmed': function(e: any) {
+  confirmed: (e: JsSIP.EventValue<JsSIP.SessionConfirmedEvent>) => {
     console.log('call confirmed');
-  }
+  },
 };
 
-var options = {
-  'eventHandlers'    : eventHandlers,
-  'mediaConstraints' : { 'audio': true, 'video': true }
+const options = {
+  eventHandlers,
+  mediaConstraints: { audio: true, video: true },
 };
 
-var session = coolPhone.call('sip:bob@example.com', options);
+const session = coolPhone.call('sip:bob@example.com', options);
 
-var text = 'Hello Bob!';
+const text = 'Hello Bob!';
 coolPhone.sendMessage('sip:bob@example.com', text);
