@@ -1,4 +1,4 @@
-// Type definitions for carbon-components-react 7.4
+// Type definitions for carbon-components-react 7.5
 // Project: https://github.com/carbon-design-system/carbon/tree/master/packages/react
 // Definitions by: Kyle Albert <https://github.com/kalbert312>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -288,3 +288,5 @@ export { _ToggleSkeleton as ToggleSkeleton };
 export { _ToggleSmallSkeleton as ToggleSmallSkeleton };
 export { _IconSkeleton as IconSkeleton };
 export { _DatePickerSkeleton as DatePickerSkeleton };
+
+export * from "./typings/translation";

@@ -1,5 +1,6 @@
 import * as React from "react";
 import { InternationalProps, ReactButtonAttr } from "../../typings/shared";
+import { DataTableSortState } from './state/sorting';
 
 export type TableHeaderTranslationKey = "carbon.table.header.icon.description";
 interface InheritedProps extends
@@ -9,11 +10,10 @@ interface InheritedProps extends
     scope?: React.ThHTMLAttributes<any>["scope"],
 }
 
-export type SortDirection = "ascending" | "descending" | "none";
 export interface TableHeaderProps extends InheritedProps {
     isSortable?: boolean,
     isSortHeader?: boolean,
-    sortDirection?: SortDirection,
+    sortDirection?: DataTableSortState,
 }
 
 interface TableHeaderFC extends React.FC<TableHeaderProps> {

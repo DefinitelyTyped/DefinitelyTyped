@@ -7,7 +7,7 @@ interface SharedProps {
     buttonKind?: ButtonKind,
     disabled?: ReactInputAttr["disabled"],
     disableLabelChanges?: boolean,
-    labelText?: string
+    labelText?: React.ReactNode,
     listFiles?: boolean,
     multiple?: boolean,
 }
