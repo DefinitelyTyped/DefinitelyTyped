@@ -1,9 +1,10 @@
-// Type definitions for restify 7.2
+// Type definitions for restify 8.4
 // Project: https://github.com/restify/node-restify, http://restify.com
 // Definitions by: Bret Little <https://github.com/blittle>
 //                 Steve Hipwell <https://github.com/stevehipwell>
 //                 Leandro Almeida <https://github.com/leanazulyoro>
 //                 Mitchell Bundy <https://github.com/mgebundy>
+//                 Alexandre Moraes <https://github.com/alcmoraes>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -1407,6 +1408,17 @@ export namespace plugins {
      * Used to serve static files
      */
     function serveStatic(options?: ServeStatic): RequestHandler;
+
+    interface ServeStaticFiles {
+        maxAge?: number;
+        etag?: string;
+        setHeaders?: (res: Response, path: string, stat: any) => any;
+    }
+
+    /**
+     * Used to serve static files from a given directory
+     */
+    function serveStaticFiles(dir: string, options?: ServeStaticFiles): RequestHandler;
 
     interface ThrottleOptions {
         burst?: number;
