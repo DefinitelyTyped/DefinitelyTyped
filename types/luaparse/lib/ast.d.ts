@@ -9,7 +9,7 @@ export interface Base<TType extends string> {
             line: number;
             column: number;
         };
-    },
+    };
 }
 
 export interface LabelStatement extends Base<"LabelStatement"> {
