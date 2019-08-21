@@ -1,5 +1,6 @@
 import Renderer from './renderer';
 import Viewport from './viewport';
+import ImageManifest from './image-manifest';
 
 export interface Options {
   acceptHeader: string;
@@ -35,7 +36,7 @@ export interface Options {
   minPagesPerRow: number;
   minZoomLevel: number;
   onGotoSubmit: () => any;
-  pageAliases: {};
+  pageAliases: object;
   pageAliasFunction: () => any;
   pageLoadTimeout: number;
   pagesPerRow: number;
@@ -63,7 +64,7 @@ export interface ViewerState {
   isScrollable: boolean;
   isZooming: boolean;
   loaded: boolean;
-  manifest: object;
+  manifest: ImageManifest;
   mobileWebkit: boolean;
   numPages: number;
   oldZoomLevel: number;
@@ -159,6 +160,46 @@ export interface SourceProvider {
     dimensions: Dimensions;
     offset: Offset;
   }>;
+}
+
+export interface Page {
+  d: { h: number; w: number };
+  m: number;
+  l: string;
+  il: string;
+  f: string;
+  url: string;
+  api: number;
+  paged: boolean;
+  facingPages: boolean;
+  canvas: string;
+  otherImages: {
+    f: string;
+    url: string;
+    il: string;
+    d: { h: number; w: number };
+  };
+  xoffset: number;
+  yoffset: number;
+}
+
+export interface ManifestData {
+  version?: number;
+  pgs: Page[];
+  max_zoom: number;
+  dims: {
+    a_wid: number;
+    a_hei: number;
+    max_w: number;
+    max_h: number;
+    max_ratio: number;
+    min_ratio: number;
+    t_hei: number;
+    t_wid: number;
+  };
+  item_title: string;
+  metadata: object;
+  paged: boolean;
 }
 
 export type Settings = Options & ViewerState;
