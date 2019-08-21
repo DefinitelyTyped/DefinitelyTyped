@@ -319,7 +319,7 @@ declare class Uni {
      *
      * 参考: [http://uniapp.dcloud.io/api/system/info?id=getsysteminfosync](http://uniapp.dcloud.io/api/system/info?id=getsysteminfosync)
      */
-    getSystemInfoSync(): GetSystemInfoSuccess;
+    getSystemInfoSync(): GetSystemInfoResult;
     /**
      * 判断uni-app的API，回调，参数，组件等是否在当前版本可用
      *
@@ -2796,7 +2796,7 @@ interface GetSystemInfoOptions {
     /**
      * 接口调用成功的回调函数
      */
-    success?: (result: GetSystemInfoSuccess) => void;
+    success?: (result: GetSystemInfoResult) => void;
     /**
      * 接口调用失败的回调函数
      */
@@ -2807,7 +2807,7 @@ interface GetSystemInfoOptions {
     complete?: () => void;
 }
 
-interface GetSystemInfoSuccess {
+interface GetSystemInfoResult {
     /**
      * 手机品牌
      */
@@ -2860,6 +2860,45 @@ interface GetSystemInfoSuccess {
      * 用户字体大小设置
      */
     fontSizeSetting?: number;
+    /**
+     * 可使用窗口的顶部位置
+     */
+    windowTop?: number;
+    /**
+     * 可使用窗口的底部位置
+     */
+    windowBottom?: number;
+    /**
+     * 在竖屏正方向下的安全区域
+     */
+    safeArea?: SafeAreaResult;
+}
+
+interface SafeAreaResult {
+    /**
+     * 安全区域左上角横坐标
+     */
+    left?: number;
+    /**
+     * 安全区域右下角横坐标
+     */
+    right?: number;
+    /**
+     * 安全区域左上角纵坐标
+     */
+    top?: number;
+    /**
+     * 安全区域右下角纵坐标
+     */
+    bottom?: number;
+    /**
+     * 安全区域的宽度，单位逻辑像素
+     */
+    width?: number;
+    /**
+     * 安全区域的高度，单位逻辑像素
+     */
+    height?: number;
 }
 
 interface GetNetworkTypeOptions {

@@ -53,8 +53,8 @@ uni.canvasToTempFilePath({
 const videoContext = uni.createVideoContext('test');
 videoContext.play();
 
-uni.onKeyboardHeightChange(({height}) => {
-   console.log(height);
+uni.onKeyboardHeightChange(({ height }) => {
+    console.log(height);
 });
 
 uni.checkSession({
@@ -99,3 +99,7 @@ mapContext.getScale({
         console.log(res.scale);
     }
 });
+
+const systemInfo = uni.getSystemInfoSync();
+const safeArea = <SafeAreaResult> systemInfo.safeArea;
+console.log(safeArea.top);
