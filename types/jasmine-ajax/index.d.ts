@@ -1,4 +1,4 @@
-// Type definitions for jasmine-ajax 3.1
+// Type definitions for jasmine-ajax 3.3
 // Project: https://github.com/jasmine/jasmine-ajax
 // Definitions by: Louis Grignon <https://github.com/lgrignon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -48,10 +48,20 @@ interface JasmineAjaxRequestStubReturnOptions {
 	responseHeaders?: { [key: string]: string };
 }
 
+interface JasmineAjaxRequestStubErrorOptions {
+	status?: number;
+	statusText?: string;
+}
+
 interface JasmineAjaxRequestStub {
-	data?: string;
-	method?: string;
+	url: RegExp | string;
+	query: string;
+	data: string;
+	method: string;
 	andReturn(options: JasmineAjaxRequestStubReturnOptions): void;
+	andError(options: JasmineAjaxRequestStubErrorOptions): void;
+	andTimeout(): void;
+	andCallFunction(functionToCall: (JasmineAjaxRequest) => void): void;
 	matches(fullUrl: string, data: string, method: string): boolean;
 }
 
