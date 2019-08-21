@@ -1,4 +1,4 @@
-// Type definitions for conflux-web 
+// Type definitions for conflux-web 0.20.0
 // Project: https://github.com/Conflux-Chain/ConfluxWeb
 // Definitions by: liuis Lee <https://github.com/liuis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

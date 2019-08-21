@@ -80,4 +80,3 @@ export interface Subscribe<T> {
     on(type: "data" | "changed", handler: (data: T) => void): void;
     on(type: "error", handler: (data: Error) => void): void;
 }
-
