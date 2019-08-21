@@ -37,7 +37,7 @@ interface JasmineAjaxRequestTracker {
 	mostRecent(): JasmineAjaxRequest;
 	at(index: number): JasmineAjaxRequest;
 	filter(urlToMatch: RegExp): JasmineAjaxRequest[];
-	filter(urlToMatch: Function): JasmineAjaxRequest[];
+	filter(urlToMatch: (JasmineAjaxRequest) => boolean): JasmineAjaxRequest[];
 	filter(urlToMatch: string): JasmineAjaxRequest[];
 }
 
