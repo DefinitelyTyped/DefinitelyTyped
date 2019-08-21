@@ -114,3 +114,46 @@ export interface Offset {
   top: number;
   left: number;
 }
+
+export interface RendererConfig {
+  pageLayouts: object;
+  padding: Offset;
+  maxZoomLevel: number | null;
+  verticallyOriented: boolean;
+}
+
+export interface PageGroup {
+  index: number;
+  dimensions: Dimensions;
+  pages: number[];
+  region: Region;
+  padding: Offset;
+}
+
+export interface PageInfo {
+  index: number;
+  group: PageGroup;
+  dimensions: Dimensions;
+  groupOffset: Offset;
+}
+
+export interface ViewportPosition {
+  zoomLevel: null | number;
+  anchorPage: boolean;
+  verticalOffset: number;
+  horizontalOffset: number;
+}
+
+export interface SourceProvider {
+  zoomLevel: number;
+  rows: number;
+  cols: number;
+  titles: Array<{
+    url: string;
+    zoomLevel: number;
+    row: number;
+    col: number;
+    dimensions: Dimensions;
+    offset: Offset;
+  }>;
+}

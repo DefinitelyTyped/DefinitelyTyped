@@ -1,27 +1,11 @@
-import { Dimensions, Offset, Region } from './interfaces';
-
-interface RendererConfig {
-  pageLayouts: object;
-  padding: Offset;
-  maxZoomLevel: number | null;
-  verticallyOriented: boolean;
-}
-
-interface PageGroup {
-  index: number;
-  dimensions: Dimensions;
-  pages: number[];
-  region: Region;
-  padding: Offset;
-}
-
-interface PageInfo {
-  index;
-  number;
-  group: PageGroup;
-  dimensions: Dimensions;
-  groupOffset: Offset;
-}
+import {
+  Dimensions,
+  Offset,
+  PageGroup,
+  PageInfo,
+  RendererConfig,
+  Region,
+} from './interfaces';
 
 export default class DocumentLayout {
   dimensions: Dimensions;
