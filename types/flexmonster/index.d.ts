@@ -176,6 +176,8 @@ declare namespace Flexmonster {
             rows?: RowSize[];
         };
         localization?: object | string;
+        version?: string;
+        creationDate?: string;
     }
 
     interface DataSource {
