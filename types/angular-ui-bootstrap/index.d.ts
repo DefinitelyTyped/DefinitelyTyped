@@ -3,6 +3,7 @@
 // Definitions by:  Brian Surowiec <https://github.com/xt0rted>,
 //                  Ryan Southgate <https://github.com/ry8806>
 //                  Alfie Johnson <https://github.com/alfiej>
+//                  Igor Oleinikov <https://github.com/Igorbek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
