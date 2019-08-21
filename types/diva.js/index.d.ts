@@ -5,6 +5,7 @@
 // TypeScript Version: 2.2
 
 import { Dimensions, Options, State, ViewerState } from './interfaces';
+import ViewerCore from './viewer-core';
 
 type Settings = Options & ViewerState;
 
