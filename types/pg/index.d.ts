@@ -33,8 +33,14 @@ export interface Defaults extends ConnectionConfig {
 
 import { ConnectionOptions } from "tls";
 
+export type SSLMode = 'disable' | 'allow' | 'prefer' | 'require' | 'verify-ca' | 'verify-full';
+
+export interface SSLOptions extends ConnectionOptions {
+    sslmode?: SSLMode;
+}
+
 export interface ClientConfig extends ConnectionConfig {
-    ssl?: boolean | ConnectionOptions;
+    ssl?: boolean | SSLMode | SSLOptions;
 }
 
 export interface PoolConfig extends ClientConfig {

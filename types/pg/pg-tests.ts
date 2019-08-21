@@ -186,3 +186,18 @@ pool.end().then(() => console.log('pool has ended'));
 // client config object tested above
 let c = new Client(); // empty constructor allowed
 c = new Client('connectionString'); // connection string allowed
+
+// Test SSL support.
+{
+  let c = new Client({ ssl: true });
+  c = new Client({ ssl: false });
+  c = new Client({ ssl: 'verify-full' });
+  c = new Client({
+    ssl: {
+      sslmode: 'verify-ca',
+      ca: 'root.crt',
+      key: 'postgresql.key',
+      cert: 'postgresql.crt'
+    }
+  });
+}
