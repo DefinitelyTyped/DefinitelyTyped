@@ -999,7 +999,7 @@ declare namespace Office {
 
        /**
         * Check if the specified requirement set is supported by the host Office application.
-        * @deprecated
+        * @deprecated Use the string overload of `isSetSupported` instead.
         * @param name - The requirement set name (e.g., "ExcelApi").
         * @param minVersionNumber - The minimum required version (e.g., 1.4). 
         * Warning: This overload of `isSetSupported` (where `minVersionNumber` is a number) is deprecated. Use the string overload of `isSetSupported` instead.
