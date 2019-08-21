@@ -1,4 +1,4 @@
-// Type definitions for parse-package-name 1.1
+// Type definitions for @yarnpkg/lockfile 1.1
 // Project: https://github.com/yarnpkg/yarn/tree/master/packages/lockfile
 // Definitions by: Eric Wang <https://github.com/fa93hws>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -14,8 +14,16 @@ export interface FirstLevelDependency {
 }
 
 export interface LockFileObject {
-  [packageName: string]: FirstLevelDependency;
+  [packageName: string]: FirstLevelDependency | {};
 }
 
-export function parse(file: string): { object: LockFileObject };
-export function stringify(json: { object: LockFileObject }): string;
+export type ParseResult = {
+  type: 'success' | 'merge';
+  object: LockFileObject;
+} | {
+  type: 'conflict';
+  object: {};
+};
+
+export function parse(file: string, fileLoc?: string): ParseResult;
+export function stringify(json: any, noHeader?: boolean, enableVersions?: boolean): string;
