@@ -8,7 +8,7 @@
 import { lstat, realpath, createReadStream, readdir } from 'fs';
 import { IncomingMessage, ServerResponse } from 'http';
 
-export default serveHandler;
+export = serveHandler;
 
 /**
  * This package represents the core of `serve`. It can be plugged into any HTTP
