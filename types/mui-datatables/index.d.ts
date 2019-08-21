@@ -36,6 +36,7 @@ export interface MUIDataTableState {
     showResponsive: boolean;
     searchText: string | null;
     rowsPerPageOptions: number[];
+    displayData: Array<{ data: any[]; dataIndex: number }>;
 }
 
 interface MUIDataTableMeta {
@@ -182,6 +183,7 @@ export interface MUIDataTableOptions {
     onSearchChange?: (searchText: string) => void;
     onSearchOpen?: () => void;
     onTableChange?: (action: string, tableState: MUIDataTableState) => void;
+    onTableInit?: (action: string, tableState: MUIDataTableState) => void;
     page?: number;
     pagination?: boolean;
     print?: boolean;
