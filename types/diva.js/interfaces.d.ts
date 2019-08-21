@@ -1,6 +1,7 @@
 import Renderer from './renderer';
 import Viewport from './viewport';
 import ImageManifest from './image-manifest';
+import { ViewHandler } from './handlers';
 
 export interface Options {
   acceptHeader: string;
@@ -84,7 +85,7 @@ export interface ViewerState {
   toolbar: object;
   verticalOffset: number;
   verticalPadding: number;
-  viewHandler: object;
+  viewHandler: ViewHandler;
   viewport: Viewport;
   viewportElement: HTMLElement;
   viewportObject: HTMLElement;
