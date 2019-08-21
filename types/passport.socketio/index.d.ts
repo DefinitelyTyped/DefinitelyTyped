@@ -2,13 +2,14 @@
 // Project: https://github.com/jfromaniello/passport.socketio#readme
 // Definitions by: AhmedMKamal <https://github.com/AhmedMKamal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 import { Store } from 'express-session';
 import { RequestHandler } from 'express';
 import { PassportStatic } from 'passport';
 import { Server, Socket } from 'socket.io';
 
-interface IOptions {
+interface PassportSocketIoOptions {
     /**
      * the name of the cookie where express/connect stores its session_id.
      */
@@ -42,8 +43,8 @@ interface IOptions {
 }
 
 interface PassportSocketIOStatic {
-    authorize(options: IOptions): (socket: Socket, fn: (err?: any) => void) => void;
-    filterSocketsByUser<T>(io: Server, filter: (user: T) => boolean): Socket[];
+    authorize(options: PassportSocketIoOptions): (socket: Socket, fn: (err?: any) => void) => void;
+    filterSocketsByUser(io: Server, filter: (user: any) => boolean): Socket[];
 }
 
 declare const PassportSocketIO: PassportSocketIOStatic;
