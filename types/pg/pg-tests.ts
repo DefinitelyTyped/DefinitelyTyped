@@ -189,10 +189,17 @@ c = new Client('connectionString'); // connection string allowed
 
 // Test SSL support.
 {
-  let c = new Client({ ssl: true });
-  c = new Client({ ssl: false });
-  c = new Client({ ssl: 'verify-full' });
-  c = new Client({
+  new Client({ ssl: true });
+  new Client({ ssl: false });
+  new Client({ ssl: 'verify-full' });
+  new Client({
+    ssl: {
+      ca: 'root.crt',
+      key: 'postgresql.key',
+      cert: 'postgresql.crt'
+    }
+  });
+  new Client({
     ssl: {
       sslmode: 'verify-ca',
       ca: 'root.crt',
