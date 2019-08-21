@@ -18,14 +18,8 @@ export interface LockFileObject {
 }
 
 export type ParseResult =
-  {
-      type: 'success' | 'merge';
-      object: LockFileObject;
-    }
-  | {
-      type: 'conflict';
-      object: {};
-    };
+  { type: 'success' | 'merge';object: LockFileObject; }
+  | { type: 'conflict'; object: {}; };
 
 export function parse(file: string, fileLoc?: string): ParseResult;
 export function stringify(
