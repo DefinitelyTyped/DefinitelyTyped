@@ -157,3 +157,5 @@ export interface SourceProvider {
     offset: Offset;
   }>;
 }
+
+export type Settings = Options & ViewerState;

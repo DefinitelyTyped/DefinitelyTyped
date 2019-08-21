@@ -3,13 +3,12 @@ import {
   Offset,
   Options,
   Region,
+  Settings,
   SourceProvider,
   ViewerState,
 } from './interfaces';
 import { Diva } from './index';
 import Layout from './document-layout';
-
-type Settings = Options & ViewerState;
 
 export default class ViewerCore {
   parentObject: HTMLElement;

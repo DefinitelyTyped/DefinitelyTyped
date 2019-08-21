@@ -4,10 +4,14 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import { Dimensions, Options, State, ViewerState } from './interfaces';
+import {
+  Dimensions,
+  Options,
+  Settings,
+  State,
+  ViewerState,
+} from './interfaces';
 import ViewerCore from './viewer-core';
-
-type Settings = Options & ViewerState;
 
 interface DivaState {
   viewerCore: ViewerCore;
