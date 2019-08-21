@@ -76,7 +76,7 @@ const t2 = (
             props.selectAll();
             props.selectRow('qwerty');
             props.sortBy('zxcv');
-            
+
             props.rows.forEach((denormalizedRow) => {
                 denormalizedRow.cells.forEach((cell) => {
                     let cellId = cell.id;

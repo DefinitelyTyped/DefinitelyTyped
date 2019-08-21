@@ -107,7 +107,7 @@ export interface DataTableCustomHeaderProps<H extends DataTableHeader = DataTabl
 // region Cell Types
 
 export interface DataTableCell {
-    errors?: Array<any>,
+    errors?: any[] | null,
     id: string,
     info: {
         header: DataTableHeader["key"],
