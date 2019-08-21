@@ -2,7 +2,9 @@ import { parse, stringify, FirstLevelDependency } from '@yarnpkg/lockfile';
 
 function testFirstLevelDependency(obj: FirstLevelDependency) {}
 
-function isFirstLevelDependency(obj: FirstLevelDependency | {}): obj is FirstLevelDependency {
+function isFirstLevelDependency(
+  obj: FirstLevelDependency | {},
+): obj is FirstLevelDependency {
   return 'version' in obj;
 }
 
