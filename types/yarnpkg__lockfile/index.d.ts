@@ -17,12 +17,12 @@ export interface LockFileObject {
   [packageName: string]: FirstLevelDependency | {};
 }
 
-interface SuccessLockFileResult {
+export interface SuccessLockFileResult {
   type: 'success' | 'merge';
   object: LockFileObject;
 }
 
-interface ConflictLockFileResult {
+export interface ConflictLockFileResult {
   type: 'conflict';
   object: {};
 }
