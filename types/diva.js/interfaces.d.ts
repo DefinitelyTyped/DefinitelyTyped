@@ -74,7 +74,7 @@ export interface ViewerState {
   pageOverlays: object; // new PageOverlayManager();
   pageTools: object[]; // plugins as page tools
   parentObject: HTMLElement;
-  pendingManifestRequest: XMLHttpRequest;
+  pendingManifestRequest: Promise<Response>;
   pluginInstances: object[]; // enabled plugins from the registr;
   renderer: Renderer;
   resizeTimer: number;

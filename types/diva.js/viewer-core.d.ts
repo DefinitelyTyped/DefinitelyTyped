@@ -76,6 +76,6 @@ export default class ViewerCore {
   disableScrollable(): void;
   disableDragScrollable(): void;
   clear(): void;
-  setPendingManifestRequest(pendingManifestRequest: XMLHttpRequest): void;
+  setPendingManifestRequest(pendingManifestRequest: Promise<Response>): void;
   destroy(): void;
 }
