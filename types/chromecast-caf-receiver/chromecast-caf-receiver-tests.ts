@@ -32,6 +32,10 @@ pManager.addEventListener(cast.framework.events.category.CORE, () => {});
 pManager.addEventListener(cast.framework.events.category.DEBUG, () => {});
 pManager.addEventListener(cast.framework.events.category.FINE, () => {});
 pManager.addEventListener(cast.framework.events.category.REQUEST, () => {});
+pManager.addEventListener(
+    'MEDIA_FINISHED',
+    (event: cast.framework.events.MediaFinishedEvent) => `${event.currentMediaTime} ${event.endedReason}`,
+);
 // tslint:disable-next-line
 const ttManager = new cast.framework.TextTracksManager();
 // tslint:disable-next-line
