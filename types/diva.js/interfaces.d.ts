@@ -1,3 +1,5 @@
+import Renderer from './renderer';
+
 export interface Options {
   acceptHeader: string;
   adaptivePadding: number;
@@ -72,7 +74,7 @@ export interface ViewerState {
   parentObject: HTMLElement;
   pendingManifestRequest: XMLHttpRequest;
   pluginInstances: object[]; // enabled plugins from the registr;
-  renderer: object; // Renderer objec;
+  renderer: Renderer;
   resizeTimer: number;
   scrollbarWidth: number;
   selector: string;
