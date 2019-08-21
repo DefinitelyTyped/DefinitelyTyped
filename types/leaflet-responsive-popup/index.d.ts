@@ -11,7 +11,9 @@ declare module 'leaflet' {
         hasTip?: boolean;
     }
 
-    class responsivePopup extends Popup {
+    class ResponsivePopup extends Popup {
         constructor(options?: ResponsivePopupOptions, source?: Layer);
     }
+
+    function responsivePopup(options?: ResponsivePopupOptions, source?: Layer): ResponsivePopup;
 }
