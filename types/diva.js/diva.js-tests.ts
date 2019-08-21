@@ -1,5 +1,5 @@
 import Diva from 'diva.js';
-import { Settings } from './interfaces';
+import { Settings } from 'diva.js/interfaces';
 
 function TestDiva(): void {
   const diva = new Diva('diva-wrapper', {
