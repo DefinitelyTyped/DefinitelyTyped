@@ -1,8 +1,6 @@
-import { ValidElement } from "@testing-library/jest-dom";
-
 // Global usage
 
-const element: ValidElement = document.body;
+const element: HTMLElement = document.body;
 
 expect(element).toBeInTheDOM();
 expect(element).toBeInTheDOM(document.body);
