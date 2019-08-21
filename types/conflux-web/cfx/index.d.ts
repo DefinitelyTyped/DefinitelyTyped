@@ -5,17 +5,16 @@ import PromiEvent from "../promiEvent";
 import ABI from "./abi";
 import Accounts from "./accounts";
 import {
-    BatchRequest,
-    Iban,
-    BlockHeader,
-    CompileResult,
-    Block,
-    Transaction,
-    Tx,
-    BlockType,
-    Net
-
-} from "./types";
+  BatchRequest,
+  Iban,
+  BlockHeader,
+  CompileResult,
+  Block,
+  Transaction,
+  Tx,
+  BlockType,
+  Net,
+} from './types';
 import {
     Callback,
     TransactionReceipt,
