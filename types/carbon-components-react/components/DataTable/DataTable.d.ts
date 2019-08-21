@@ -107,6 +107,14 @@ export interface DataTableCustomHeaderProps<H extends DataTableHeader = DataTabl
 // region Cell Types
 
 export interface DataTableCell {
+    errors?: any[] | null,
+    id: string,
+    info: {
+        header: DataTableHeader["key"],
+    },
+    isEditable: boolean,
+    isEditing: boolean,
+    isValid: boolean,
     value?: any,
 }
 

@@ -77,6 +77,13 @@ const t2 = (
             props.selectRow('qwerty');
             props.sortBy('zxcv');
 
+            props.rows.forEach((denormalizedRow) => {
+                denormalizedRow.cells.forEach((cell) => {
+                    let cellId = cell.id;
+                    let cellHeaderKey = cell.info.header;
+                });
+            });
+
             return <div />;
         }}
     />
