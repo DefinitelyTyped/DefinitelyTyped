@@ -22,26 +22,21 @@ export default interface ABI {
     decodeParameters(
         types: string[],
         hex: string
-//    ): EthAbiDecodeParametersResultArray;
     ): CfxAbiDecodeParametersResultArray;
     decodeParameters(
-        //types: EthAbiDecodeParametersType[],
         types: CfxAbiDecodeParametersType[],
         hex: string
-//    ): EthAbiDecodeParametersResultObject;
     ): CfxAbiDecodeParametersResultObject;
 }
 
-//interface EthAbiDecodeParametersType {
 interface CfxAbiDecodeParametersType {
     name: string;
     type: string;
 }
-//interface EthAbiDecodeParametersResultArray {
 interface CfxAbiDecodeParametersResultArray {
     [index: number]: any;
 }
-//type EthAbiDecodeParametersResultObject = EthAbiDecodeParametersResultArray & {
+
 type CfxAbiDecodeParametersResultObject = CfxAbiDecodeParametersResultArray & {
     [key: string]: any;
 };

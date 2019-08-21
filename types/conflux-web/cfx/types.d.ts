@@ -22,7 +22,6 @@ export class Iban {
   static toAddress(iban: Iban): string;
   isValid(): boolean;
 }
-//export type BlockType = "latest" | "pending" | "genesis" | number;
 export type BlockType = 'earliest' | 'latest_state' | 'latest_mined' | number;
 
 export interface BlockHeader {
@@ -30,7 +29,6 @@ export interface BlockHeader {
   hash: string;
   parentHash: string;
   nonce: string;
-  //sha3Uncles: string;
   logsBloom: string;
   transactionRoot: string;
   stateRoot: string;
@@ -46,7 +44,6 @@ export interface Block extends BlockHeader {
   size: number;
   difficulty: number;
   totalDifficulty: number;
-  //uncles: string[];
 }
 
 export class Net {
@@ -54,15 +51,6 @@ export class Net {
   isListening(cb?: Callback<boolean>): Promise<boolean>;
   getPeerCount(cb?: Callback<number>): Promise<number>;
 }
-//export class Personal {
-//	newAccount(password: string, cb?: Callback<boolean>): Promise<string>;
-//	importRawKey(): Promise<string>;
-//	lockAccount(): Promise<boolean>;
-//	unlockAccount(address: string, password: string, unlockDuration: number): void;
-//	sign(): Promise<string>;
-//	ecRecover(message: string, sig: string): void;
-//	sendTransaction(tx: Tx, passphrase: string): Promise<string>;
-//}
 
 export interface Transaction {
   hash: string;

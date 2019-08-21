@@ -14,8 +14,7 @@ import {
     Tx,
     BlockType,
     Net
-    //Net,
-    //Personal
+
 } from "./types";
 import {
     Callback,
@@ -26,7 +25,6 @@ import {
     EncodedTransaction
 } from "../types";
 
-//export default interface Eth {
 export default interface Cfx {
     defaultAccount: string;
     defaultBlock: BlockType;
