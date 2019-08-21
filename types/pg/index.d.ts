@@ -33,7 +33,9 @@ export interface Defaults extends ConnectionConfig {
 
 import { ConnectionOptions } from "tls";
 
-export type SSLMode = 'disable' | 'allow' | 'prefer' | 'require' | 'verify-ca' | 'verify-full';
+// Note: modes 'disable' and 'allow' don't work correctly. If property `ssl` is not undefined, SSL
+// will be used.
+export type SSLMode = 'prefer' | 'require' | 'verify-ca' | 'verify-full';
 
 export interface SSLOptions extends ConnectionOptions {
     sslmode?: SSLMode;
