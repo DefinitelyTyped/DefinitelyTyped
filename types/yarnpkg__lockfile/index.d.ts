@@ -17,7 +17,17 @@ export interface LockFileObject {
   [packageName: string]: FirstLevelDependency | {};
 }
 
-export type ParseResult = { type: 'success' | 'merge'; object: LockFileObject } | { type: 'conflict'; object: {} };
+interface SuccessLockFileResult {
+  type: 'success' | 'merge';
+  object: LockFileObject;
+}
+
+interface ConflictLockFileResult {
+  type: 'conflict';
+  object: {};
+}
+
+export type ParseResult = SuccessLockFileResult | ConflictLockFileResult;
 
 export function parse(file: string, fileLoc?: string): ParseResult;
 export function stringify(
