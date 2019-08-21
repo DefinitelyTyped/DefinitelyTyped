@@ -1,6 +1,7 @@
 // Type definitions for Braintree-web v3.47.0
 // Project: https://github.com/braintree/braintree-web
 // Definitions by: Guy Shahine <https://github.com/chlela>
+//                 Michael Hodgins <https://github.com/michaelhodgins>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -1147,6 +1148,33 @@ declare namespace braintree {
     liabilityShifted: boolean;
   }
 
+  interface ThreeDSecureVerifyCardOptions {
+    nonce: string;
+    bin: string;
+    amount: number | string;
+    challengeRequested?: boolean;
+    exemptionRequested?: boolean;
+    onLookupComplete: (data, next) => void;
+    email?: string;
+    mobilePhoneNumber?: string;
+    billingAddress?: {
+      givenName?: string;
+      surname?: string;
+      phoneNumber?: string;
+      streetAddress?: string;
+      extendedAddress?: string;
+      line3?: string;
+      locality?: string;
+      region?: string;
+      postalCode?: string;
+      countryCodeAlpha2?: string;
+    },
+    additionalInformation?: {[k: string]: any},
+    customer?: {},
+    addFrame?: (err?: BraintreeError, iframe?: HTMLIFrameElement) => void;
+    removeFrame?: () => void;
+  }
+
   export interface ThreeDSecure {
     /**
      * @static
@@ -1233,8 +1261,8 @@ declare namespace braintree {
      *   }
      * });
      */
-    verifyCard(options: { nonce: string, amount: number, addFrame: (err?: BraintreeError, iframe?: HTMLIFrameElement) => void, removeFrame?: () => void }): Promise<ThreeDSecureVerifyPayload>;
-    verifyCard(options: { nonce: string, amount: number, addFrame: (err?: BraintreeError, iframe?: HTMLIFrameElement) => void, removeFrame: () => void }, callback: callback): void;
+    verifyCard(options: ThreeDSecureVerifyCardOptions): Promise<ThreeDSecureVerifyPayload>;
+    verifyCard(options: ThreeDSecureVerifyCardOptions, callback: callback): void;
 
     /**
      * Cancel the 3DS flow and return the verification payload if available.
