@@ -6,11 +6,12 @@
 
 import { GraphQLCompilerContext } from './lib/GraphQLCompilerContext';
 import * as ASTConvert from './lib/ASTConvert';
-import { transformASTSchema } from './lib/ASTConvert';
 
 import * as Parser from './lib/RelayParser';
 import * as Printer from './lib/GraphQLIRPrinter';
 import ConsoleReporter from './lib/GraphQLConsoleReporter';
-import MultiReporter from './lib/GraphQLMultiReporter';
+import MultiReporter = require('./lib/GraphQLMultiReporter');
+
+declare var transformASTSchema: typeof ASTConvert.transformASTSchema;
 
 export { GraphQLCompilerContext, ASTConvert, transformASTSchema, Parser, Printer, ConsoleReporter, MultiReporter };
