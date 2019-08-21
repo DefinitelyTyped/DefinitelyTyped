@@ -18,13 +18,17 @@ interface InheritedProps<ItemType> extends
     type?: ListBoxProps["type"],
 }
 
-export interface ComboBoxProps<ItemType = string> extends InheritedProps<ItemType> {
-    downshiftProps: any, // TODO
+export interface ComboBoxProps<ItemType = string, CustomElementProps = Extract<ItemType, object>>
+extends InheritedProps<ItemType> {
+    downshiftProps?: any, // TODO
+    helperText?: React.ReactNode,
     initialSelectedItem?: ItemType;
     items: ItemType[],
+    itemToElement?: CustomElementProps extends object ? React.ComponentType<CustomElementProps> : never,
     onChange?(selectedItem?: ItemType): void,
     onInputChange?(inputValue?: string): void,
     shouldFilterItem?(item: ItemType, itemToString?: ComboBoxProps<ItemType>["itemToString"], inputValue?: string): void,
+    titleText?: React.ReactNode,
 }
 
 declare class ComboBox<T = string> extends React.Component<ComboBoxProps<T>> { }
