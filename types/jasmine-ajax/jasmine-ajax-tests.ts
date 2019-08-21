@@ -1439,6 +1439,33 @@ describe('RequestStub', () => {
 			responseText: '{"success": true}',
 			responseHeaders: { 'X-Example': 'a value' },
 		});
+		jasmine.Ajax.stubRequest('/bar').andReturn({});
+		jasmine.Ajax.stubRequest('/baz').andError({
+			status: 400,
+			statusText: 'Invalid',
+		});
+		jasmine.Ajax.stubRequest('/foobar').andError({});
+		jasmine.Ajax.stubRequest('/foobaz').andTimeout();
+		jasmine.Ajax.stubRequest('/barbaz').andCallFunction((xhr) => {
+			xhr.url === '/barbaz';
+			xhr.method === 'POST';
+			xhr.params === {};
+			xhr.username === 'jane_coder';
+			xhr.password === '12345';
+			xhr.requestHeaders === {Accept: 'application/json'};
+			xhr.data() === {query: 'bananas'};
+			xhr.respondWith({
+				status: 200,
+				contentType: 'application/json',
+				responseText: '{"success": true}',
+				responseHeaders: { 'X-Example': 'a value' },
+			});
+			xhr.responseTimeout();
+			xhr.responseError({
+				status: 400,
+				statusText: 'Invalid',
+			});
+		});
 	});
 });
 
