@@ -1431,6 +1431,15 @@ describe('RequestStub', () => {
 		expect(stub)['toMatchRequest']('/foo', 'baz=quux&foo=bar');
 		expect(stub).not['toMatchRequest']('/foo', 'foo=bar');
 	});
+
+	it('has methods', () => {
+		jasmine.Ajax.stubRequest('/foo').andReturn({
+			status: 200,
+			contentType: 'application/json',
+			responseText: '{"success": true}',
+			responseHeaders: { 'X-Example': 'a value' },
+		});
+	});
 });
 
 describe('RequestTracker', () => {
