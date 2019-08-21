@@ -1,4 +1,5 @@
 import Renderer from './renderer';
+import Viewport from './viewport';
 
 export interface Options {
   acceptHeader: string;
@@ -83,7 +84,7 @@ export interface ViewerState {
   verticalOffset: number;
   verticalPadding: number;
   viewHandler: object;
-  viewport: object;
+  viewport: Viewport;
   viewportElement: HTMLElement;
   viewportObject: HTMLElement;
   zoomDuration: number;
