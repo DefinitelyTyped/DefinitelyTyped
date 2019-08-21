@@ -1,4 +1,5 @@
 import Diva from 'diva.js';
+import { Settings } from './interfaces';
 
 function TestDiva(): void {
   const diva = new Diva('diva-wrapper', {
@@ -8,4 +9,6 @@ function TestDiva(): void {
   Diva.Events.subscribe('ObjectDidLoad', () => {}, diva.getSettings().ID);
   diva.disableDragScrollable();
   const pageIndex: number = diva.getActivePageIndex();
+  let settings: Settings = diva.settings;
+  settings = diva.getSettings();
 }
