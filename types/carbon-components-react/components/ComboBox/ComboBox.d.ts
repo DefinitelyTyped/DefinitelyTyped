@@ -25,7 +25,7 @@ extends InheritedProps<ItemType> {
     initialSelectedItem?: ItemType;
     items: ItemType[],
     itemToElement?: CustomElementProps extends object ? React.ComponentType<CustomElementProps> : never,
-    onChange?(selectedItem?: ItemType): void,
+    onChange?(data: { selectedItem?: ItemType }): void,
     onInputChange?(inputValue?: string): void,
     shouldFilterItem?(item: ItemType, itemToString?: ComboBoxProps<ItemType>["itemToString"], inputValue?: string): void,
     titleText?: React.ReactNode,
