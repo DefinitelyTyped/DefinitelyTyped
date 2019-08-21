@@ -9,7 +9,7 @@ import { RequestHandler } from 'express';
 import { PassportStatic } from 'passport';
 import { Server, Socket } from 'socket.io';
 
-interface PassportSocketIoOptions {
+export interface PassportSocketIoOptions {
     /**
      * the name of the cookie where express/connect stores its session_id.
      */
@@ -42,11 +42,5 @@ interface PassportSocketIoOptions {
     fail?: (data: any, message: string, critical: string, accept: (err?: any, accepted?: boolean) => void) => void;
 }
 
-interface PassportSocketIOStatic {
-    authorize(options: PassportSocketIoOptions): (socket: Socket, fn: (err?: any) => void) => void;
-    filterSocketsByUser(io: Server, filter: (user: any) => boolean): Socket[];
-}
-
-declare const PassportSocketIO: PassportSocketIOStatic;
-
-export = PassportSocketIO;
+export function authorize(options: PassportSocketIoOptions): (socket: Socket, fn: (err?: any) => void) => void;
+export function filterSocketsByUser(io: Server, filter: (user: any) => boolean): Socket[];
