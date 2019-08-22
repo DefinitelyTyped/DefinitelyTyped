@@ -1,6 +1,7 @@
 // Type definitions for non-npm package Google Google Sheets API v4 4.0
 // Project: https://developers.google.com/sheets/
-// Definitions by: Maxim Mazurok <https://maxim.mazurok.com>
+// Definitions by: Bolisov Alexey <https://github.com/Bolisov>
+//                 Maxim Mazurok <https://github.com/Maxim-Mazurok>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -3208,7 +3209,7 @@ declare namespace gapi.client {
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** The A1 notation of the values to retrieve. */
-                ranges?: tsType | Array<string>;
+                ranges?: string | string[];
                 /** The ID of the spreadsheet to retrieve data from. */
                 spreadsheetId: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
@@ -3584,7 +3585,7 @@ declare namespace gapi.client {
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** The ranges to retrieve from the spreadsheet. */
-                ranges?: tsType | Array<string>;
+                ranges?: string | string[];
                 /** The spreadsheet to request. */
                 spreadsheetId: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
@@ -3647,6 +3648,6 @@ declare namespace gapi.client {
             values: ValuesResource;
         }
 
-        const spreadsheets: sheets.SpreadsheetsResource;
+        const spreadsheets: SpreadsheetsResource;
     }
 }
