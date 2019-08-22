@@ -46,13 +46,9 @@ declare namespace VueScrollTo {
     }
 }
 
-declare class VueScrollTo implements PluginObject<VueScrollTo.Options> {
-    install: PluginFunction<VueScrollTo.Options>;
-    static install: PluginFunction<VueScrollTo.Options>;
-
-    static scrollTo: VueScrollTo.VueStatic;
-
-    static setDefaults: VueScrollTo.VueStatic;
+interface VueScrollToPlugin extends PluginObject<VueScrollTo.Options> {
+    scrollTo: VueScrollTo.VueStatic;
+    setDefaults: VueScrollTo.VueStatic;
 }
 
 declare module 'vue/types/vue' {
@@ -61,4 +57,5 @@ declare module 'vue/types/vue' {
     }
 }
 
+declare const VueScrollTo: VueScrollToPlugin;
 export = VueScrollTo;
