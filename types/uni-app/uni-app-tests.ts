@@ -101,5 +101,6 @@ mapContext.getScale({
 });
 
 const systemInfo = uni.getSystemInfoSync();
+console.log(systemInfo.swanNativeVersion);
 const safeArea = <SafeAreaResult> systemInfo.safeArea;
 console.log(safeArea.top);

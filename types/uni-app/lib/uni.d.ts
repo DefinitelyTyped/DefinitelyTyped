@@ -2819,7 +2819,7 @@ interface GetSystemInfoResult {
     /**
      * 设备像素比
      */
-    pixelRatio?: string;
+    pixelRatio?: number;
     /**
      * 屏幕宽度
      */
@@ -2841,13 +2841,53 @@ interface GetSystemInfoResult {
      */
     statusBarHeight?: number;
     /**
+     * 导航栏的高度
+     */
+    navigationBarHeight?: number;
+    /**
+     * 标题栏高度
+     */
+    titleBarHeight?: number;
+    /**
      * 程序设置的语言
      */
     language?: string;
     /**
-     * 5+版本号
+     * 引擎版本号
      */
     version?: number;
+    /**
+     * 设备磁盘容量
+     */
+    storage?: string;
+    /**
+     * 当前电量百分比
+     */
+    currentBattery?: string;
+    /**
+     * 宿主APP名称
+     */
+    appName?: string;
+    /**
+     * App平台
+     */
+    AppPlatform?: string;
+    /**
+     * 宿主平台
+     */
+    host?: string;
+    /**
+     * 当前运行的客户端
+     */
+    app?: string;
+    /**
+     * 客户端基础库版本
+     */
+    SDKVersion?: string;
+    /**
+     * 宿主平台版本号
+     */
+    swanNativeVersion?: string;
     /**
      * 操作系统版本
      */
@@ -2869,9 +2909,57 @@ interface GetSystemInfoResult {
      */
     windowBottom?: number;
     /**
+     * 允许微信使用相册的开关（仅 iOS 有效）
+     */
+    albumAuthorized?: boolean;
+    /**
+     * 允许微信使用摄像头的开关
+     */
+    cameraAuthorized?: boolean;
+    /**
+     * 允许微信使用定位的开关
+     */
+    locationAuthorized?: boolean;
+    /**
+     * 允许微信使用麦克风的开关
+     */
+    microphoneAuthorized?: boolean;
+    /**
+     * 允许微信通知的开关
+     */
+    notificationAuthorized?: boolean;
+    /**
+     * 允许微信通知带有提醒的开关（仅 iOS 有效）
+     */
+    notificationAlertAuthorized?: boolean;
+    /**
+     * 允许微信通知带有标记的开关（仅 iOS 有效）
+     */
+    notificationBadgeAuthorized?: boolean;
+    /**
+     * 允许微信通知带有声音的开关（仅 iOS 有效）
+     */
+    notificationSoundAuthorized?: boolean;
+    /**
+     * 蓝牙的系统开关
+     */
+    bluetoothEnabled?: boolean;
+    /**
+     * 地理位置的系统开关
+     */
+    locationEnabled?: boolean;
+    /**
+     * Wi-Fi 的系统开关
+     */
+    wifiEnabled?: boolean;
+    /**
      * 在竖屏正方向下的安全区域
      */
     safeArea?: SafeAreaResult;
+    /**
+     * 上一次缓存的位置信息
+     */
+    cacheLocation?: any;
 }
 
 interface SafeAreaResult {
