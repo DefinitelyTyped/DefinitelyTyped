@@ -15,7 +15,7 @@ export interface Exif {
 export interface Iptc {
     [tag: number]: number | string | string[];
 }
- 
+
 export interface MetaData {
     originalWidth?: number;
     originalHeight?: number;
