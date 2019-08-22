@@ -1,11 +1,11 @@
-import { Chart, ChartData, Point } from 'chart.js';
+import { Chart, ChartData, Point, ChartColor } from 'chart.js';
 
 // alternative:
 // import chartjs = require('chart.js');
 // => chartjs.Chart
 
 const plugin = {
-    afterDraw: (chartInstance: Chart, easing: Chart.Easing, options?: any) => {},
+    afterDraw: (chartInstance: Chart, easing: Chart.Easing, options?: any) => { },
 };
 
 const ctx = new CanvasRenderingContext2D();
@@ -180,3 +180,24 @@ if (radialChart.aspectRatio !== null) {
     console.log(radialChart.aspectRatio * 2);
 }
 console.log(radialChart.options === radialChart.config.options);
+
+const chartWithScriptedOptions = new Chart(new CanvasRenderingContext2D(), {
+    type: "bar",
+    data: {
+        labels: ["a", "b", "c", "d", "e"],
+        datasets: [{
+            label: "test",
+            data: [1, 3, 5, 4, 2],
+            backgroundColor: ({ dataset, dataIndex }): ChartColor => {
+                if (dataset === undefined || dataset.data === undefined || dataIndex === undefined) {
+                    return "black";
+                }
+                const value = dataset.data[dataIndex];
+                if (typeof value !== "number") {
+                    return "black";
+                }
+                return value > 3 ? "red" : "green";
+            }
+        }],
+    }
+});
