@@ -38,4 +38,3 @@ export function toLatLon(
   latitude: number;
   longitude: number;
 };
-
