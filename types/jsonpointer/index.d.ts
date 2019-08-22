@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-interface JSONPointer {
+export interface JSONPointer {
     /**
      * Looks up a JSON pointer in an object
      */
@@ -16,21 +16,17 @@ interface JSONPointer {
     set(object: object, value: any): void;
 }
 
-declare namespace JSONPointer {
-    /**
-     * Looks up a JSON pointer in an object
-     */
-    function get(object: object, pointer: string): any;
+/**
+ * Looks up a JSON pointer in an object
+ */
+export function get(object: object, pointer: string): any;
 
-    /**
-     * Set a value for a JSON pointer on object
-     */
-    function set(object: object, pointer: string, value: any): void;
+/**
+ * Set a value for a JSON pointer on object
+ */
+export function set(object: object, pointer: string, value: any): void;
 
-    /**
-     *  Builds a JSONPointer instance from a pointer value.
-     */
-    function compile(pointer: string): JSONPointer;
-}
-
-export = JSONPointer;
+/**
+ *  Builds a JSONPointer instance from a pointer value.
+ */
+export function compile(pointer: string): JSONPointer;
