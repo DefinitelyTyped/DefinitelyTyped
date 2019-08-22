@@ -161,7 +161,7 @@ export interface Props<OptionType = { label: string; value: string }> extends Se
   /* Name of the HTML Input (optional - without this, no input will be rendered) */
   name?: string;
   /* Text to display when there are no options */
-  noOptionsMessage?: (obj: { inputValue: string }) => React.ReactNode;
+  noOptionsMessage?: (obj: { inputValue: string }) => string | null;
   /* Handle blur events on the control */
   onBlur?: FocusEventHandler;
   /* Handle change events on the select */
