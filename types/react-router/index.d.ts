@@ -20,6 +20,7 @@
 //                 Wesley Tsai <https://github.com/wezleytsai>
 //                 Sebastian Silbermann <https://github.com/eps1lon>
 //                 Nicholas Hehr <https://github.com/HipsterBrown>
+//                 Daniel Nixon <https://github.com/danielnixon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -28,46 +29,65 @@ import * as H from 'history';
 
 // This is the type of the context object that will be passed down to all children of
 // a `Router` component:
-export interface RouterChildContext<Params extends { [K in keyof Params]?: string } = {}> {
+export interface RouterChildContext<
+  Params extends { [K in keyof Params]?: string } = {},
+  S = H.LocationState
+> {
   router: {
-    history: H.History
+    history: H.History<S>;
     route: {
-      location: H.Location
-      match: match<Params>
-    }
+      location: H.Location<S>;
+      match: match<Params>;
+    };
   };
 }
-export interface MemoryRouterProps {
-  initialEntries?: H.LocationDescriptor[];
+export interface MemoryRouterProps<S = H.LocationState> {
+  initialEntries?: Array<H.LocationDescriptor<S>>;
   initialIndex?: number;
-  getUserConfirmation?: ((message: string, callback: (ok: boolean) => void) => void);
+  getUserConfirmation?: (
+    message: string,
+    callback: (ok: boolean) => void,
+  ) => void;
   keyLength?: number;
 }
 
-export class MemoryRouter extends React.Component<MemoryRouterProps, any> { }
+export class MemoryRouter<S = H.LocationState> extends React.Component<
+  MemoryRouterProps<S>,
+  any
+> {}
 
-export interface PromptProps {
-  message: string | ((location: H.Location) => string | boolean);
+export interface PromptProps<S = H.LocationState> {
+  message: string | ((location: H.Location<S>) => string | boolean);
   when?: boolean;
 }
-export class Prompt extends React.Component<PromptProps, any> { }
+export class Prompt<S = H.LocationState> extends React.Component<
+  PromptProps<S>,
+  any
+> {}
 
-export interface RedirectProps {
-  to: H.LocationDescriptor;
+export interface RedirectProps<S = H.LocationState> {
+  to: H.LocationDescriptor<S>;
   push?: boolean;
   from?: string;
   path?: string;
   exact?: boolean;
   strict?: boolean;
 }
-export class Redirect extends React.Component<RedirectProps, any> { }
+export class Redirect<S = H.LocationState> extends React.Component<
+  RedirectProps<S>,
+  any
+> {}
 
 export interface StaticContext {
   statusCode?: number;
 }
 
-export interface RouteComponentProps<Params extends { [K in keyof Params]?: string } = {}, C extends StaticContext = StaticContext, S = H.LocationState> {
-  history: H.History;
+export interface RouteComponentProps<
+  Params extends { [K in keyof Params]?: string } = {},
+  C extends StaticContext = StaticContext,
+  S = H.LocationState
+> {
+  history: H.History<S>;
   location: H.Location<S>;
   match: match<Params>;
   staticContext?: C;
@@ -77,16 +97,20 @@ export interface RouteChildrenProps<
   Params extends { [K in keyof Params]?: string } = {},
   S = H.LocationState
 > {
-  history: H.History;
+  history: H.History<S>;
   location: H.Location<S>;
   match: match<Params> | null;
 }
 
-export interface RouteProps {
-  location?: H.Location;
-  component?: React.ComponentType<RouteComponentProps<any>> | React.ComponentType<any>;
-  render?: ((props: RouteComponentProps<any>) => React.ReactNode);
-  children?: ((props: RouteChildrenProps<any>) => React.ReactNode) | React.ReactNode;
+export interface RouteProps<S = H.LocationState> {
+  location?: H.Location<S>;
+  component?:
+    | React.ComponentType<RouteComponentProps<any>>
+    | React.ComponentType<any>;
+  render?: (props: RouteComponentProps<any>) => React.ReactNode;
+  children?:
+    | ((props: RouteChildrenProps<any>) => React.ReactNode)
+    | React.ReactNode;
   path?: string | string[];
   exact?: boolean;
   sensitive?: boolean;
@@ -94,10 +118,13 @@ export interface RouteProps {
 }
 export class Route<T extends RouteProps = RouteProps> extends React.Component<T, any> { }
 
-export interface RouterProps {
-  history: H.History;
+export interface RouterProps<S = H.LocationState> {
+  history: H.History<S>;
 }
-export class Router extends React.Component<RouterProps, any> { }
+export class Router<S = H.LocationState> extends React.Component<
+  RouterProps<S>,
+  any
+> {}
 
 export interface StaticRouterContext extends StaticContext {
   url?: string;
@@ -111,11 +138,14 @@ export interface StaticRouterProps {
 }
 
 export class StaticRouter extends React.Component<StaticRouterProps, any> { }
-export interface SwitchProps {
+export interface SwitchProps<S = H.LocationState> {
   children?: React.ReactNode;
-  location?: H.Location;
+  location?: H.Location<S>;
 }
-export class Switch extends React.Component<SwitchProps, any> { }
+export class Switch<S = H.LocationState> extends React.Component<
+  SwitchProps<S>,
+  any
+> {}
 
 export interface match<Params extends { [K in keyof Params]?: string } = {}> {
   params: Params;
