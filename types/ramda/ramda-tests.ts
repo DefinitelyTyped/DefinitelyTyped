@@ -74,14 +74,20 @@ class F2 {
 
     const x1: (a: number, b: number, c: number, d: number) => number = R.curry(addFourNumbers);
     // because of the current way of currying, the following call results in a type error
-    const x2: (...args: any) => any            = R.curry(addFourNumbers)(1, 2, 4);
+    const x2: (...args: any) => any = R.curry(addFourNumbers)(1, 2, 4);
     const x3: (c: number, d: number) => number = R.curry(addFourNumbers)(1)(2);
-    const x4: (d: number) => number            = R.curry(addFourNumbers)(1)(2)(3);
-    const y1: number                           = R.curry(addFourNumbers)(1)(2)(3)(4);
-    const y2: number                           = R.curry(addFourNumbers)(1, 2)(3, 4);
-    const y3: number                           = R.curry(addFourNumbers)(1, 2, 3)(4);
-    const y4: number                           = R.curry(addTenFixedNumbers)(R.__, 1, 2)(0)(3)(R.__, R.__)(R.__, 5)(4)(6, 7)(R.__)(8, R.__, R.__)(9, 10);
-    const y5: number                           = R.curry(addTenFixedNumbers)(R.__, 1, R.__)(R.__, 2)(0, 3)(R.__, 5)(4, R.__)(R.__)(6, R.__, 8, 9, 10)(7);
+    const x4: (d: number) => number = R.curry(addFourNumbers)(1)(2)(3);
+    const y1: number = R.curry(addFourNumbers)(1)(2)(3)(4);
+    const y2: number = R.curry(addFourNumbers)(1, 2)(3, 4);
+    const y3: number = R.curry(addFourNumbers)(1, 2, 3)(4);
+    const y4: number = R.curry(addTenFixedNumbers)(R.__, 1, 2)(0)(3)(
+      R.__,
+      R.__,
+    )(R.__, 5)(4)(6, 7)(R.__)(8, R.__, R.__)(9, 10);
+    const y5: number = R.curry(addTenFixedNumbers)(R.__, 1, R.__)(R.__, 2)(
+      0,
+      3,
+    )(R.__, 5)(4, R.__)(R.__)(6, R.__, 8, 9, 10)(7);
 
     R.nAry(0);
     R.nAry(0, takesNoArg);
