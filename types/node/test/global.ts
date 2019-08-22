@@ -39,3 +39,17 @@ const a: NodeJS.TypedArray = new Buffer(123);
     const stderr: Writable = process.stderr;
     writableFinished = process.stderr.writableFinished;
 }
+
+// When Buffer.from takes a single argument it can be a union of any accepted value
+let value: string | Buffer | ArrayBuffer | number[];
+const ranNum = Math.random();
+if (ranNum < 0.25) {
+    value = 'hello';
+} else if (ranNum < 0.5) {
+    value = Buffer.alloc(0);
+} else if (ranNum < 0.75) {
+    value = new ArrayBuffer(0);
+} else {
+    value = [1, 2, 3];
+}
+const buf: Buffer = Buffer.from(value);
