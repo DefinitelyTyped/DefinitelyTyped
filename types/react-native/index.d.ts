@@ -8434,6 +8434,19 @@ export interface UIManagerStatic {
         error: () => void, /* currently unused */
         success: (item: string, index: number | undefined) => void
     ): void;
+
+    /**
+     * Used to call a native view method from JavaScript
+     * 
+     * reactTag  -  Id of react view.
+     * commandID  -  Id of the native method that should be called
+     * commandArgs  -  Args of the native method that we can pass from JS to native.
+     */
+    dispatchViewManagerCommand: (
+      reactTag: number | null,
+      commandID: number,
+      commandArgs?: Array<any>,
+    ) => void;
 }
 
 export interface SwitchPropsIOS extends ViewProps {
