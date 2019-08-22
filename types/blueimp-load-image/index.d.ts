@@ -1,11 +1,28 @@
 // Type definitions for blueimp-load-image 2.23
 // Project: https://github.com/blueimp/JavaScript-Load-Image
 // Definitions by: Evan Kesten <https://github.com/ebk46>
+//                 Konstantin Lukaschenko <https://github.com/KonstantinLukaschenko>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
 
-export type LoadImageCallback = (canvas: HTMLCanvasElement) => void;
+export type LoadImageCallback = (image?: HTMLCanvasElement | HTMLImageElement, data?: MetaData) => void;
+
+export interface Exif {
+    [tag: number]: number | string | string[];
+}
+
+export interface Iptc {
+    [tag: number]: number | string | string[];
+}
+ 
+export interface MetaData {
+    originalWidth?: number;
+    originalHeight?: number;
+    imageHead?: ArrayBuffer | Uint8Array;
+    exif?: Exif;
+    iptc?: Iptc;
+}
 
 export interface BasicOptions {
     maxWidth?: number; maxHeight?: number;

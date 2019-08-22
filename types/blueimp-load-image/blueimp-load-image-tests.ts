@@ -20,7 +20,8 @@ const b64DataJPEG =
   '2uLj5OXm5+jp6vLz9PX29/j5+v/aAAwDAQACEQMRAD8A/v4ooooA/9k=';
 const imageUrlJPEG = 'data:image/jpeg;base64,' + b64DataJPEG;
 
-loadImage(imageUrlJPEG, (canvas: HTMLCanvasElement): void => {
+loadImage(imageUrlJPEG, (image?: HTMLCanvasElement | HTMLImageElement): void => {
+  const canvas = image as HTMLCanvasElement;
   canvas.toBlob((blob: Blob | null): void => {
     const url = canvas.toDataURL("image/png");
     console.log(url);
