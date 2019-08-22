@@ -58,7 +58,7 @@ declare class Stripe {
 
     accounts: Stripe.resources.Accounts;
     balance: Stripe.resources.Balance;
-    balanceTransaction: Stripe.resources.BalanceTransaction;
+    balanceTransactions: Stripe.resources.BalanceTransaction;
     charges: Stripe.resources.Charges;
     checkout: Stripe.resources.Checkout;
     coupons: Stripe.resources.Coupons;

@@ -69,26 +69,26 @@ stripe.balance.listTransactions().then((transactions) => {
 //#region BalanceTransaction tests
 // ##################################################################################
 
-stripe.balanceTransaction.retrieve(
+stripe.balanceTransactions.retrieve(
     "txn_17xMvmBoqMA9o2xkYNH2ewNj",
     (err, balanceTransaction) => {
         // asynchronously called
     }
 );
-stripe.balanceTransaction.retrieve(
+stripe.balanceTransactions.retrieve(
     "txn_17xMvmBoqMA9o2xkYNH2ewNj").then(
     (balanceTransaction) => {
         // asynchronously called
     }
 );
 
-stripe.balanceTransaction.list({ limit: 3 }, (err, balanceTransactions) => {
+stripe.balanceTransactions.list({ limit: 3 }, (err, balanceTransactions) => {
     // asynchronously called
 });
-stripe.balanceTransaction.list({ limit: 3 }).then((balanceTransactions) => {
+stripe.balanceTransactions.list({ limit: 3 }).then((balanceTransactions) => {
     // asynchronously called
 });
-stripe.balanceTransaction.list().then((balanceTransactions) => {
+stripe.balanceTransactions.list().then((balanceTransactions) => {
     // asynchronously called
 });
 //#endregion
