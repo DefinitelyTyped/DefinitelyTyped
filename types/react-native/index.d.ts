@@ -21,6 +21,7 @@
 //                 Jake Bloom <https://github.com/jakebloom>
 //                 Ceyhun Ozugur <https://github.com/ceyhun>
 //                 Mike Martin <https://github.com/mcmar>
+//                 Theo Henry de Villeneuve <https://github.com/theohdv>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
