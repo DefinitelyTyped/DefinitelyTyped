@@ -162,6 +162,7 @@ declare namespace helmet {
 
     export interface IHelmetXssFilterConfiguration {
         setOnOldIE?: boolean;
+        reportUri?: string;
     }
 
     export interface IHelmetExpectCtConfiguration {

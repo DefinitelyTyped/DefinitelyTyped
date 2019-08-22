@@ -116,7 +116,7 @@ management
 
 // Link users
 management
-  .createUser({ connection: 'email', email: 'hi@me.co' })
+  .createUser({ connection: 'email', email: 'hi@me.co', user_id: "my_id" })
   .catch(err => console.error('Cannot create E-mail user', err))
   .then((emailUser) => {
     if (!emailUser) return;
@@ -277,15 +277,20 @@ const retryableManagementClient = new auth0.ManagementClient({
   }
 });
 
-management.createPasswordChangeTicket({
-  connection_id: 'con_id',
-  email: 'test@me.co',
-  new_password: 'password',
-  result_url: 'https://www.google.com/',
-  ttl_sec: 86400,
-}, (err: Error, data) => {
-  console.log(data.ticket);
-});
+management.createPasswordChangeTicket(
+    {
+        connection_id: 'con_id',
+        email: 'test@me.co',
+        new_password: 'password',
+        result_url: 'https://www.google.com/',
+        ttl_sec: 86400,
+        mark_email_as_verified: true,
+        includeEmailInRedirect: true,
+    },
+    (err: Error, data) => {
+        console.log(data.ticket);
+    }
+);
 
 // Link users
 management.linkUsers('primaryId', { user_id: 'secondaryId' })

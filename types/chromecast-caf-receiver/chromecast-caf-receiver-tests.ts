@@ -1,4 +1,5 @@
 import { MediaMetadata } from 'chromecast-caf-receiver/cast.framework.messages';
+import { CastReceiverContext } from 'chromecast-caf-receiver/cast.framework';
 
 // The following test showcases how you can import individual types directly from the namespace:
 
@@ -31,6 +32,11 @@ pManager.addEventListener(cast.framework.events.category.CORE, () => {});
 pManager.addEventListener(cast.framework.events.category.DEBUG, () => {});
 pManager.addEventListener(cast.framework.events.category.FINE, () => {});
 pManager.addEventListener(cast.framework.events.category.REQUEST, () => {});
+pManager.addEventListener(
+  'MEDIA_FINISHED',
+  (event: cast.framework.events.MediaFinishedEvent) =>
+    `${event.currentMediaTime} ${event.endedReason}`,
+);
 // tslint:disable-next-line
 const ttManager = new cast.framework.TextTracksManager();
 // tslint:disable-next-line
@@ -121,3 +127,8 @@ const supportedCommands: number =
 
 const playbackConfig = new cast.framework.PlaybackConfig();
 playbackConfig.protectionSystem = cast.framework.ContentProtection.WIDEVINE;
+
+cast.framework.CastReceiverContext.getInstance().addEventListener(
+    [cast.framework.system.EventType.SENDER_CONNECTED, cast.framework.system.EventType.SENDER_DISCONNECTED],
+    () => '¡hola!',
+);

@@ -61,10 +61,10 @@ declare module "meteor/mongo" {
         type Query<T> = {
             [P in keyof T]?: Flatten<T[P]> | RegExp | FieldExpression<Flatten<T[P]>>
         } & {
-                $or?: Query<T>[],
-                $and?: Query<T>[],
-                $nor?: Query<T>[]
-            } & Dictionary<any>
+            $or?: Query<T>[],
+            $and?: Query<T>[],
+            $nor?: Query<T>[]
+        } & Dictionary<any>
 
         type QueryWithModifiers<T> = {
             $query: Query<T>,
@@ -159,7 +159,7 @@ declare module "meteor/mongo" {
                 fields?: FieldSpecifier;
                 reactive?: boolean;
                 transform?: Function | null;
-            }): T;
+            }): T | undefined;
             insert(doc: T, callback?: Function): string;
             rawCollection(): any;
             rawDatabase(): any;
@@ -171,8 +171,8 @@ declare module "meteor/mongo" {
             upsert(selector: Selector<T> | ObjectID | string, modifier: Modifier<T>, options?: {
                 multi?: boolean;
             }, callback?: Function): {
-                    numberAffected?: number; insertedId?: string;
-                };
+                numberAffected?: number; insertedId?: string;
+            };
             _ensureIndex(keys: {
                 [key: string]: number | string
             } | string, options?: {

@@ -40,6 +40,7 @@ export interface APIGatewayEventRequestContext {
     connectedAt?: number;
     connectionId?: string;
     domainName?: string;
+    domainPrefix?: string;
     eventType?: string;
     extendedRequestId?: string;
     httpMethod: string;
@@ -308,6 +309,8 @@ export interface CognitoUserPoolTriggerEvent {
     };
     response: {
         autoConfirmUser?: boolean;
+        autoVerifyPhone?: boolean;
+        autoVerifyEmail?: boolean;
         smsMessage?: string;
         emailMessage?: string;
         emailSubject?: string;
@@ -639,7 +642,7 @@ export interface CodePipelineEvent {
  * https://docs.aws.amazon.com/codepipeline/latest/userguide/detect-state-changes-cloudwatch-events.html
  *
  * The above CodePipelineEvent is when a lambda is invoked by a CodePipeline.
- * These events are when you subsribe to CodePipeline events in CloudWatch.
+ * These events are when you subscribe to CodePipeline events in CloudWatch.
  *
  * Their documentation says that detail.version is a string, but it is actually an integer
  */

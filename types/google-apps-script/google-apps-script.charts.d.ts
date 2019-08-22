@@ -1,11 +1,10 @@
-// Type definitions for Google Apps Script 2019-04-09
+// Type definitions for Google Apps Script 2019-08-09
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="google-apps-script.types.d.ts" />
 /// <reference path="google-apps-script.base.d.ts" />
-/// <reference path="google-apps-script.ui.d.ts" />
 
 declare namespace GoogleAppsScript {
   export module Charts {
@@ -352,7 +351,6 @@ declare namespace GoogleAppsScript {
       getId(): string;
       getType(): string;
       setId(id: string): DashboardPanel;
-      add(widget: UI.Widget): DashboardPanel;
     }
 
     /**

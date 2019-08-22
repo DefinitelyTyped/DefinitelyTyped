@@ -343,6 +343,16 @@ declare global {
              */
             clearText(): Promise<Actions<R>>;
             /**
+             * Taps the backspace key on the built-in keyboard.
+             * @example await element(by.id('textField')).tapBackspaceKey();
+             */
+            tapBackspaceKey(): Promise<Actions<R>>;
+            /**
+             * Taps the return key on the built-in keyboard.
+             * @example await element(by.id('textField')).tapReturnKey();
+             */
+            tapReturnKey(): Promise<Actions<R>>;
+            /**
              *
              * @param pixels
              * @param direction
@@ -413,6 +423,43 @@ declare global {
              */
             reuse?: boolean;
         }
+
+        /**
+         *  Source for string definitions is https://github.com/wix/AppleSimulatorUtils
+         */
+        interface  DevicePermissions {
+            location?: LocationPermission;
+            notifications?: NotificationsPermission;
+            calendar?: CalendarPermission;
+            camera?: CameraPermission;
+            contacts?: ContactsPermission;
+            health?: HealthPermission;
+            homekit?: HomekitPermission;
+            medialibrary?: MediaLibraryPermission;
+            microphone?: MicrophonePermission;
+            motion?: MotionPermission;
+            photos?: PhotosPermission;
+            reminders?: RemindersPermission;
+            siri?: SiriPermission;
+            speech?: SpeechPermission;
+        }
+
+        type LocationPermission = "always" | "inuse" | "never" | "unset";
+        type PermissionState = "YES" | "NO" | "unset";
+        type CameraPermission = PermissionState;
+        type ContactsPermission = PermissionState;
+        type CalendarPermission = PermissionState;
+        type HealthPermission = PermissionState;
+        type HomekitPermission = PermissionState;
+        type MediaLibraryPermission = PermissionState;
+        type MicrophonePermission = PermissionState;
+        type MotionPermission = PermissionState;
+        type PhotosPermission = PermissionState;
+        type RemindersPermission = PermissionState;
+        type SiriPermission = PermissionState;
+        type SpeechPermission = PermissionState;
+        type NotificationsPermission = PermissionState;
+
         interface DeviceLanchAppConfig {
             /**
              * Restart the app
@@ -423,7 +470,7 @@ declare global {
              * Set runtime permissions
              * Grant or deny runtime permissions for your application.
              */
-            permissions?: any;
+            permissions?: DevicePermissions;
             /**
              * Launch from URL
              * Mock opening the app from URL to test your app's deep link handling mechanism.

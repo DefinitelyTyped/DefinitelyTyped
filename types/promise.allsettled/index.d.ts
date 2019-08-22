@@ -28,6 +28,6 @@ export = exportedImplementation;
 declare namespace exportedImplementation {
     type PromiseRejection<E> = PromiseRejectionType<E>;
     type PromiseResolution<T> = PromiseResolutionType<T>;
-    type PromiseResult<T, E> = PromiseResultType<T, E>;
+    type PromiseResult<T, E = unknown> = PromiseResultType<T, E>;
     type PromiseResultTuple<T extends [unknown, ...unknown[]]> = PromiseResultTupleType<T>;
 }

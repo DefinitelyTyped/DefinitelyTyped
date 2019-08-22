@@ -51,6 +51,9 @@ videoQueue.process((job, done) => {
 
     // If the job throws an unhandled exception it is also handled correctly
     throw new Error('some unexpected error');
+}).catch(error => {
+    // Catch the general error, like redis connection
+    console.log(error);
 });
 
 audioQueue.process((job, done) => {
