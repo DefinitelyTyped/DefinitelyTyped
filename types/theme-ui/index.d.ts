@@ -2,6 +2,7 @@
 // Project: https://github.com/system-ui/theme-ui#readme
 // Definitions by: Erik Stockmeier <https://github.com/erikdstock>
 //                 Ifiok Jr. <https://github.com/ifiokjr>
+//                 Brian Andrews <https://github.com/sbardian>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
@@ -40,16 +41,18 @@ type SSColors = StyledSystemTheme['colors'];
  * the name for the root color palette.
  */
 export interface ColorModes {
-    /**
-     * This is required for a color mode.
-     */
-    text: string;
+    [k: string]: {
+        /**
+         * This is required for a color mode.
+         */
+        text: string;
 
-    /**
-     * This is required for the color mode.
-     */
-    background: string;
-    [k: string]: Partial<Omit<StyledSystemTheme['colors'], 'modes'>>;
+        /**
+         * This is required for the color mode.
+         */
+        background: string;
+        [k: string]: Partial<Omit<StyledSystemTheme['colors'], 'modes'>>;
+    };
 }
 
 export interface Theme extends StyledSystemTheme {
@@ -125,12 +128,12 @@ export const jsx: typeof React.createElement;
  * their corresponding values. Other valid CSS properties are also allowed.
  */
 export type SxStyleProp = SystemStyleObject &
-  Record<
-    string,
-    | SystemStyleObject
-    | ResponsiveStyleValue<number | string>
-    | Record<string, SystemStyleObject | ResponsiveStyleValue<number | string>>
-  >;
+    Record<
+        string,
+        | SystemStyleObject
+        | ResponsiveStyleValue<number | string>
+        | Record<string, SystemStyleObject | ResponsiveStyleValue<number | string>>
+    >;
 
 export interface SxProps {
     /**
@@ -158,43 +161,43 @@ export const Layout: SxComponent;
 export const Main: SxComponent;
 
 export interface IntrinsicSxElements {
-  p: JSX.IntrinsicElements['p'] & SxProps;
-  b: JSX.IntrinsicElements['b'] & SxProps;
-  i: JSX.IntrinsicElements['i'] & SxProps;
-  a: JSX.IntrinsicElements['a'] & SxProps;
-  h1: JSX.IntrinsicElements['h1'] & SxProps;
-  h2: JSX.IntrinsicElements['h2'] & SxProps;
-  h3: JSX.IntrinsicElements['h3'] & SxProps;
-  h4: JSX.IntrinsicElements['h4'] & SxProps;
-  h5: JSX.IntrinsicElements['h5'] & SxProps;
-  h6: JSX.IntrinsicElements['h6'] & SxProps;
-  img: JSX.IntrinsicElements['img'] & SxProps;
-  pre: JSX.IntrinsicElements['pre'] & SxProps;
-  code: JSX.IntrinsicElements['code'] & SxProps;
-  ol: JSX.IntrinsicElements['ol'] & SxProps;
-  ul: JSX.IntrinsicElements['ul'] & SxProps;
-  li: JSX.IntrinsicElements['li'] & SxProps;
-  blockquote: JSX.IntrinsicElements['blockquote'] & SxProps;
-  hr: JSX.IntrinsicElements['hr'] & SxProps;
-  table: JSX.IntrinsicElements['table'] & SxProps;
-  tr: JSX.IntrinsicElements['tr'] & SxProps;
-  th: JSX.IntrinsicElements['th'] & SxProps;
-  td: JSX.IntrinsicElements['td'] & SxProps;
-  em: JSX.IntrinsicElements['em'] & SxProps;
-  strong: JSX.IntrinsicElements['strong'] & SxProps;
-  div: JSX.IntrinsicElements['div'] & SxProps;
-  delete: JSX.IntrinsicElements['div'] & SxProps;
-  inlineCode: JSX.IntrinsicElements['div'] & SxProps;
-  thematicBreak: JSX.IntrinsicElements['div'] & SxProps;
-  root: JSX.IntrinsicElements['div'] & SxProps;
+    p: JSX.IntrinsicElements['p'] & SxProps;
+    b: JSX.IntrinsicElements['b'] & SxProps;
+    i: JSX.IntrinsicElements['i'] & SxProps;
+    a: JSX.IntrinsicElements['a'] & SxProps;
+    h1: JSX.IntrinsicElements['h1'] & SxProps;
+    h2: JSX.IntrinsicElements['h2'] & SxProps;
+    h3: JSX.IntrinsicElements['h3'] & SxProps;
+    h4: JSX.IntrinsicElements['h4'] & SxProps;
+    h5: JSX.IntrinsicElements['h5'] & SxProps;
+    h6: JSX.IntrinsicElements['h6'] & SxProps;
+    img: JSX.IntrinsicElements['img'] & SxProps;
+    pre: JSX.IntrinsicElements['pre'] & SxProps;
+    code: JSX.IntrinsicElements['code'] & SxProps;
+    ol: JSX.IntrinsicElements['ol'] & SxProps;
+    ul: JSX.IntrinsicElements['ul'] & SxProps;
+    li: JSX.IntrinsicElements['li'] & SxProps;
+    blockquote: JSX.IntrinsicElements['blockquote'] & SxProps;
+    hr: JSX.IntrinsicElements['hr'] & SxProps;
+    table: JSX.IntrinsicElements['table'] & SxProps;
+    tr: JSX.IntrinsicElements['tr'] & SxProps;
+    th: JSX.IntrinsicElements['th'] & SxProps;
+    td: JSX.IntrinsicElements['td'] & SxProps;
+    em: JSX.IntrinsicElements['em'] & SxProps;
+    strong: JSX.IntrinsicElements['strong'] & SxProps;
+    div: JSX.IntrinsicElements['div'] & SxProps;
+    delete: JSX.IntrinsicElements['div'] & SxProps;
+    inlineCode: JSX.IntrinsicElements['div'] & SxProps;
+    thematicBreak: JSX.IntrinsicElements['div'] & SxProps;
+    root: JSX.IntrinsicElements['div'] & SxProps;
 }
 
 export type StyledTags = keyof IntrinsicSxElements;
 
 export const Styled: {
-         [P in keyof IntrinsicSxElements]: SxComponent<IntrinsicSxElements[P]>;
-       } &
-         SxComponent;
+    [P in keyof IntrinsicSxElements]: SxComponent<IntrinsicSxElements[P]>;
+} &
+    SxComponent;
 
 interface ThemeUIContext {
     theme: Theme;
@@ -215,7 +218,7 @@ export function useThemeUI(): ThemeUIContext;
  * @param initialMode - the default color mode to use
  */
 export function useColorMode<Modes extends string>(
-  initialMode?: Modes,
+    initialMode?: Modes,
 ): [Modes, React.Dispatch<React.SetStateAction<Modes>>];
 
 export const InitializeColorMode: React.ComponentType;
