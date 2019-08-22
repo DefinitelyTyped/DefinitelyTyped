@@ -5,7 +5,6 @@ import Form, {
   WidgetProps,
   ErrorSchema,
   withTheme,
-  FieldProps,
 } from 'react-jsonschema-form';
 import {
   SchemaField,
