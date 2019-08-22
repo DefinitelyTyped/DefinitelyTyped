@@ -2557,6 +2557,10 @@ declare namespace Stripe {
             footer?: string;
         }
 
+        interface ICustomerBankAccountSourceCreationOptions extends ICustomerSourceCreationOptions {
+            source: bankAccounts.ISourceCreationOptions;
+        }
+
         interface ICustomerCardSourceCreationOptions extends ICustomerSourceCreationOptions {
             source: cards.ICardSourceCreationOptions;
         }
@@ -9096,6 +9100,18 @@ declare namespace Stripe {
             listCards(customerId: string, response?: IResponseFn<IList<cards.ICard>>): IListPromise<cards.ICard>;
 
             /**
+             * When adding a bank account to a customer, the parameter name is source. When
+             * adding to an account, the parameter name is external_account. The
+             * value can either be a token, like the ones returned by our Stripe.js, or a
+             * dictionary containing a user’s bank account details.
+             *
+             * @returns Returns the bank account object.
+             *
+             * @param customerId The customer ID to which to add the bank account.
+             */
+            createSource(customerId: string, data: customers.ICustomerBankAccountSourceCreationOptions, options: HeaderOptions, response?: IResponseFn<bankAccounts.IBankAccount>): Promise<bankAccounts.IBankAccount>;
+            createSource(customerId: string, data: customers.ICustomerBankAccountSourceCreationOptions, response?: IResponseFn<bankAccounts.IBankAccount>): Promise<bankAccounts.IBankAccount>;
+            /**
              * When adding a card to a customer, the parameter name is source. When
              * adding to an account, the parameter name is external_account. The
              * value can either be a token, like the ones returned by our Stripe.js, or a
@@ -9109,15 +9125,15 @@ declare namespace Stripe {
             createSource(customerId: string, data: customers.ICustomerCardSourceCreationOptions, options: HeaderOptions, response?: IResponseFn<cards.ICard>): Promise<cards.ICard>;
             createSource(customerId: string, data: customers.ICustomerCardSourceCreationOptions, response?: IResponseFn<cards.ICard>): Promise<cards.ICard>;
             /**
-             * When adding a card to a customer, the parameter name is source. When
+             * When adding a card or bank account to a customer, the parameter name is source. When
              * adding to an account, the parameter name is external_account. The
              * value can either be a token, like the ones returned by our Stripe.js, or a
-             * dictionary containing a user’s credit card details.
+             * dictionary containing a user’s credit card or bank account details.
              * Stripe will automatically validate the card.
              *
              * @returns Returns the card or bank account object.
              *
-             * @param customerId The customer ID to which to add the card.
+             * @param customerId The customer ID to which to add the card or bank account.
              */
             createSource(customerId: string, data: customers.ICustomerSourceCreationOptions, options: HeaderOptions, response?: IResponseFn<IStripeSource>): Promise<IStripeSource>;
             createSource(customerId: string, data: customers.ICustomerSourceCreationOptions, response?: IResponseFn<IStripeSource>): Promise<IStripeSource>;

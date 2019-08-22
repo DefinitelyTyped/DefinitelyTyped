@@ -649,7 +649,7 @@ stripe.customers.createSource(
     },
     (err, bankAcc) => {
         // asynchronously called
-        const obj: Stripe.IBankAccount = bankAcc as Stripe.IBankAccount;
+        bankAcc; // $ExpectType IBankAccount
     }
 );
 stripe.customers.createSource(
@@ -666,7 +666,7 @@ stripe.customers.createSource(
     }).then(
     (bankAcc) => {
         // asynchronously called
-        const obj: Stripe.IBankAccount = bankAcc as Stripe.IBankAccount;
+        bankAcc; // $ExpectType IBankAccount
     }
 );
 
