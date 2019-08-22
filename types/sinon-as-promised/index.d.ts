@@ -2,7 +2,7 @@
 // Project: https://github.com/bendrucker/sinon-as-promised
 // Definitions by: igrayson <https://github.com/igrayson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// TypeScript Version: 2.8
 
 import * as s from "sinon";
 

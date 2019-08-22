@@ -2,10 +2,15 @@ import * as React from "react";
 import { NextContext, NextComponentType } from ".";
 import { DefaultQuery } from "./router";
 
+/**
+ * Result from renderPage().
+ * https://github.com/zeit/next.js/blob/v8.0.0/packages/next/pages/_document.js#L18
+ * https://github.com/zeit/next.js/blob/v8.0.0/packages/next-server/server/render.tsx#L159
+ * https://github.com/zeit/next.js/blob/v8.0.0/packages/next-server/server/render.tsx#L44
+ */
 export interface RenderPageResponse {
-    buildManifest: Record<string, any>;
     html?: string;
-    head?: Array<React.ReactElement<any>>;
+    head?: React.ReactNode;
 }
 
 export interface PageProps {
@@ -25,10 +30,20 @@ export type Enhancer<E extends PageProps = AnyPageProps, P extends any = E> = (
  *
  * @template Q Query object schema.
  */
-export interface NextDocumentContext<Q extends DefaultQuery = DefaultQuery> extends NextContext<Q> {
+export interface NextDocumentContext<
+    Q extends DefaultQuery = DefaultQuery,
+    CustomReq = {}
+> extends NextContext<Q, CustomReq> {
     /** A callback that executes the actual React rendering logic (synchronously) */
-    renderPage<E extends PageProps = AnyPageProps, P extends any = E>(
-        enhancer?: Enhancer<E, P> // tslint:disable-line no-unnecessary-generics
+    renderPage<
+        E extends PageProps = AnyPageProps,
+        P = E,
+        EA extends PageProps = AnyPageProps,
+        PA = EA
+    >(
+        enhancer?:
+            | Enhancer<E, P> // tslint:disable-line no-unnecessary-generics
+            | { enhanceApp?: Enhancer<EA, PA>; enhanceComponent?: Enhancer<E, P> } // tslint:disable-line no-unnecessary-generics
     ): RenderPageResponse;
 }
 
@@ -99,6 +114,7 @@ export type DocumentComponentType<P = {}, IP = P, C = NextDocumentContext> = Nex
     C
 >;
 
+export class Html extends React.Component<React.HTMLProps<HTMLHtmlElement>> {}
 export class Head extends React.Component<HeadProps> {}
 export class Main extends React.Component {}
 export class NextScript extends React.Component<NextScriptProps> {}

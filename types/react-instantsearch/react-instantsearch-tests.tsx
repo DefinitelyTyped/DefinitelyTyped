@@ -262,7 +262,7 @@ import { createInstantSearch } from "react-instantsearch-core";
 
 () => {
   const App = () => (
-    <InstantSearch appId="" apiKey="" indexName="first">
+    <InstantSearch indexName="first" searchClient={{}}>
       <SearchBox />
       <AllResults>
         <div>
@@ -298,7 +298,7 @@ import { createInstantSearch } from "react-instantsearch-core";
   const IndexResults = connectStateResults(
     ({ searchState, searchResults, children }) =>
       searchResults && searchResults.nbHits !== 0 ? (
-        children as React.ReactElement<any>
+        children as React.ReactElement
       ) : (
         <div>
           No results has been found for {searchState.query} and index{' '}
@@ -320,7 +320,7 @@ import { createInstantSearch } from "react-instantsearch-core";
         <Index indexName="third" />
       </div>
     ) : (
-      children as React.ReactElement<any>
+      children as React.ReactElement
     );
   });
 };
@@ -348,7 +348,7 @@ import { createInstantSearch } from "react-instantsearch-core";
         : item.label;
 
       return (
-        <li key={item.value}>
+        <li key={item.label}>
           <span onClick={() => props.refine(item.value)}>
             {label} {item.isRefined ? '- selected' : ''}
           </span>
@@ -374,9 +374,8 @@ import { createInstantSearch } from "react-instantsearch-core";
 
   const App = () => (
     <InstantSearch
-      appId="..."
-      apiKey="..."
       indexName="..."
+      searchClient={{}}
     >
       <SearchBox defaultRefinement="hi" />
       <Hoodies />

@@ -2,7 +2,7 @@
 // Project: https://github.com/realtymaps/promise-ftp
 // Definitions by: coolreader18 <https://github.com/coolreader18>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.2
 
 /// <reference types="node" />
 
@@ -88,8 +88,8 @@ declare class PromiseFtp {
      * @param useCompression - defaults to false.
      * @returns the contents of the specified directory
      */
-    list(path?: string, useCompression?: boolean): FtpClient.ListingElement[];
-    list(useCompression: boolean): FtpClient.ListingElement[];
+    list(path?: string, useCompression?: boolean): Promise<FtpClient.ListingElement[]>;
+    list(useCompression: boolean): Promise<FtpClient.ListingElement[]>;
 
     /**
      * Optional "standard" commands (RFC 959)
@@ -107,7 +107,7 @@ declare class PromiseFtp {
         path?: string,
         useCompression?: boolean
     ): FtpClient.ListingElement[];
-    listSafe(useCompression: boolean): FtpClient.ListingElement[];
+    listSafe(useCompression: boolean): Promise<FtpClient.ListingElement[]>;
 
     /**
      * Retrieve a file at path from the server.

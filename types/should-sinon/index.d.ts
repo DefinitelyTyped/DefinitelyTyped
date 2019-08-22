@@ -2,7 +2,7 @@
 // Project: https://github.com/shouldjs/sinon
 // Definitions by: AryloYeung <https://github.com/Arylo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// TypeScript Version: 2.8
 
 import * as s from 'sinon';
 import should = require('should');

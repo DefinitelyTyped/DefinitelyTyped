@@ -28,6 +28,7 @@ const showOptions : Auth0LockShowOptions = {
   allowSignUp: true,
   allowForgotPassword: false,
   auth: {
+    autoParseHash: true,
     params: { state: "foo" },
     redirect: true,
     redirectUrl: "some url",
@@ -111,6 +112,7 @@ new Auth0Lock(CLIENT_ID, DOMAIN, themeOptions);
 
 const authOptions : Auth0LockConstructorOptions = {
   auth: {
+   autoParseHash: true,
    params: { state: "foo" },
    redirect: true,
    redirectUrl: "some url",
@@ -130,7 +132,8 @@ const otherOptions : Auth0LockConstructorOptions = {
   hashCleanup: false,
   leeway: 30,
   _enableImpersonation: true,
-  _enableIdPInitiatedLogin: false
+  _enableIdPInitiatedLogin: false,
+  defaultADUsernameFromEmailPrefix: false
 };
 
 new Auth0Lock(CLIENT_ID, DOMAIN, otherOptions);

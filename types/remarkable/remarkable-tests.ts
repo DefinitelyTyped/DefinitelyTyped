@@ -2,6 +2,7 @@
 
 import hljs = require("highlight.js");
 import Remarkable = require("remarkable");
+import * as ImportedRemarkable from "remarkable";
 
 /**
  * Examples from README.
@@ -10,6 +11,9 @@ export class RemarkableTest {
     usage() {
         const md = new Remarkable();
         md.render("# Remarkable rulezz!");
+
+        const importedMd = new ImportedRemarkable();
+        importedMd.render("# Remarkable rulezz!");
     }
 
     defineOptionsInContructor() {
@@ -19,6 +23,7 @@ export class RemarkableTest {
             breaks: false,
             langPrefix: "language-",
             linkify: false,
+            linkTarget: "_blank",
             typographer: false,
             quotes: "“”‘’",
             highlight(/*str, lang*/) { return ""; },
@@ -147,72 +152,78 @@ export class RemarkableTest {
  */
 export class TokenTest {
     blockRules() {
-        const tokens: Remarkable.Token[] = [];
-        const state = {
-            level: 0,
-            line: 0,
-            tokens,
-        };
+        const state: Remarkable.StateBlock = {} as any;
 
         const lines: [number, number] = [0, 0];
         const startLine = 0;
 
-        state.tokens.push({
+        const blockquoteOpenToken: Remarkable.BlockquoteOpenToken = {
             type: "blockquote_open",
             lines,
             level: state.level++,
-        });
+        };
+        state.tokens.push(blockquoteOpenToken);
 
-        state.tokens.push({
+        const blockquoteCloseToken: Remarkable.BlockquoteCloseToken = {
             type: "blockquote_close",
             level: --state.level,
-        });
+        };
+        state.tokens.push(blockquoteCloseToken);
 
-        state.tokens.push({
+        const codeToken: Remarkable.CodeToken = {
             type: "code",
             content: "",
             block: true,
             lines,
             level: state.level,
-        });
+        };
+        state.tokens.push(codeToken);
 
-        state.tokens.push({
+        // inline token doesn't need a proper type
+        const inlineToken: Remarkable.BlockContentToken = {
             type: "inline",
             content: "",
             level: state.level + 1,
             lines,
             children: [],
-        });
+        };
+        state.tokens.push(inlineToken);
 
-        state.tokens.push({
+        const fenceToken: Remarkable.FenceToken = {
             type: "fence",
-            params: [],
+            params: "",
             content: "",
             lines: [startLine, state.line],
             level: state.level,
-        });
+        };
+        state.tokens.push(fenceToken);
 
-        state.tokens.push({
+        const footnoteRefOpenToken: Remarkable.FootnoteReferenceOpenToken = {
             type: "footnote_reference_open",
             label: "",
             level: state.level++,
-        });
+            id: 0,
+        };
+        state.tokens.push(footnoteRefOpenToken);
 
-        state.tokens.push({ type: "heading_close", hLevel: 1, level: state.level });
+        const headingCloseToken: Remarkable.HeadingCloseToken = { type: "heading_close", hLevel: 1, level: state.level };
+        state.tokens.push(headingCloseToken);
 
-        state.tokens.push({
+        const orderedListOpenToken: Remarkable.OrderedListOpenToken = {
             type: "ordered_list_open",
             order: 0,
             lines: [startLine, 0],
             level: state.level++,
-        });
+        };
+        state.tokens.push(orderedListOpenToken);
 
-        state.tokens.push({
+        const paragraphOpenToken: Remarkable.ParagraphOpenToken = {
             type: "paragraph_open",
             tight: false,
             lines: [startLine, state.line],
             level: state.level,
-        });
+        };
+        state.tokens.push(paragraphOpenToken);
     }
 
     coreRules() {
@@ -223,89 +234,102 @@ export class TokenTest {
         const m = ["", "", ""];
         let level = 0;
 
-        nodes.push({
+        const textToken1: Remarkable.TextToken = {
             type: "text",
             content: "",
             level,
-        });
+        };
+        nodes.push(textToken1);
 
-        nodes.push({
+        const abbrOpenToken: Remarkable.AbbrOpenToken = {
             type: "abbr_open",
             title: state.env["abbreviations"][":" + m[2]],
             level: level++,
-        });
+        };
+        nodes.push(abbrOpenToken);
 
-        nodes.push({
+        const textToken2: Remarkable.TextToken = {
             type: "text",
             content: m[2],
             level,
-        });
+        };
+        nodes.push(textToken2);
 
-        nodes.push({
+        const abbrCloseToken: Remarkable.AbbrCloseToken = {
             type: "abbr_close",
             level: --level,
-        });
+        };
+        nodes.push(abbrCloseToken);
 
-        state.tokens.push({
+        // inline token doesn't need a proper type
+        const inlineToken1: Remarkable.BlockContentToken = {
             type: "inline",
             content: state.src.replace(/\n/g, " ").trim(),
             level: 0,
             lines: [0, 1],
             children: [],
-        });
+        };
+        state.tokens.push(inlineToken1);
 
-        tokens.push({
+        const inlineToken2: Remarkable.BlockContentToken = {
             type: "inline",
             content: "",
             level,
             children: [],
-        });
+        };
+        tokens.push(inlineToken2);
     }
 
     inlineRules() {
-        const state: Remarkable.Token[] = [];
+        const state: Remarkable.StateInline = {} as any;
         let level = 0;
 
-        state.push({
+        const linkOpenToken1: Remarkable.LinkOpenToken = {
             type: "link_open",
             href: "",
             level,
-        });
+        };
+        state.push(linkOpenToken1);
 
-        state.push({
+        const codeToken: Remarkable.CodeToken = {
             type: "code",
             content: "",
             block: false,
             level,
-        });
+        };
+        state.push(codeToken);
 
-        state.push({
+        const footnoteRefToken1: Remarkable.FootnoteReferenceToken = {
             type: "footnote_ref",
             id: 1,
             level,
-        });
+        };
+        state.push(footnoteRefToken1);
 
-        state.push({
+        const footnoteRefToken2: Remarkable.FootnoteReferenceToken = {
             type: "footnote_ref",
             id: 1,
             subId: 1,
             level,
-        });
+        };
+        state.push(footnoteRefToken2);
 
-        state.push({
+        const imageToken: Remarkable.ImageToken = {
             type: "image",
             src: "",
             title: "",
             alt: "",
             level,
-        });
+        };
+        state.push(imageToken);
 
-        state.push({
+        const linkOpenToken2: Remarkable.LinkOpenToken = {
             type: "link_open",
             href: "",
             title: "",
             level: level++,
-        });
+        };
+        state.push(linkOpenToken2);
     }
 }
 

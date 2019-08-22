@@ -27,6 +27,10 @@ type OtherProps = RouteComponentProps<{
 }>;
 
 const Component: React.SFC<OtherProps> = props => {
+  if (!props.match) {
+    return null;
+  }
+
   const { id } = props.match.params;
   return (
     <div>{id}</div>
@@ -35,5 +39,7 @@ const Component: React.SFC<OtherProps> = props => {
 
 <Link to="/url" />;
 
-const acceptRef = (node: HTMLAnchorElement | null) => {};
-<Link to="/url" replace={true} innerRef={acceptRef} />;
+const refCallback: React.Ref<HTMLAnchorElement> = node => {};
+<Link to="/url" replace={true} innerRef={refCallback} />;
+const ref = React.createRef<HTMLAnchorElement>();
+<Link to="/url" replace={true} innerRef={ref} />;

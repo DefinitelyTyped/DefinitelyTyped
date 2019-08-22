@@ -122,13 +122,20 @@ function hpkpTest() {
     app.use(helmet.hpkp({
         maxAge: 7776000000,
         sha256s: ['AbCdEf123=', 'ZyXwVu456='],
+        includeSubDomains: false
+    }));
+
+    // Deprecated: Use includeSubDomains instead. (Uppercase "D")
+    app.use(helmet.hpkp({
+        maxAge: 7776000000,
+        sha256s: ['AbCdEf123=', 'ZyXwVu456='],
         includeSubdomains: false
     }));
 
     app.use(helmet.hpkp({
         maxAge: 7776000000,
         sha256s: ['AbCdEf123=', 'ZyXwVu456='],
-        includeSubdomains: true
+        includeSubDomains: true
     }));
 
     app.use(helmet.hpkp({
@@ -162,6 +169,12 @@ function hstsTest() {
       maxAge: 7776000000,
     }));
 
+    app.use(helmet.hsts({
+      maxAge: 7776000000,
+      includeSubDomains: true
+    }));
+
+    // Deprecated: Use includeSubDomains instead. (Uppercase "D")
     app.use(helmet.hsts({
       maxAge: 7776000000,
       includeSubdomains: true

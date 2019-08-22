@@ -1,19 +1,17 @@
-// Type definitions for WebExtension Development in FireFox 64.0
+// Type definitions for non-npm package WebExtension Development in FireFox 67.0
 // Project: https://developer.mozilla.org/en-US/Add-ons/WebExtensions
 // Definitions by: Jasmin Bom <https://github.com/jsmnbom>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 // Generated using script at github.com/jsmnbom/definitelytyped-firefox-webext-browser
 
-interface WebExtEventBase<TAddListener extends (...args: any[]) => any, TCallback> {
-    addListener: TAddListener;
+interface WebExtEvent<TCallback extends (...args: any[]) => any> {
+    addListener(cb: TCallback): void;
 
     removeListener(cb: TCallback): void;
 
     hasListener(cb: TCallback): boolean;
 }
-
-type WebExtEvent<TCallback extends (...args: any[]) => any> = WebExtEventBase<(callback: TCallback) => void, TCallback>;
 
 interface Window {
     browser: typeof browser;
@@ -107,14 +105,14 @@ declare namespace browser._manifest {
 
     /** Represents a WebExtension manifest.json file */
     interface WebExtensionManifest {
-        experiment_apis?: experiments.ExperimentAPI;
+        experiment_apis?: { [key: string]: experiments.ExperimentAPI };
         /** A list of protocol handler definitions. */
         protocol_handlers?: ProtocolHandler[];
         default_locale?: string;
         minimum_chrome_version?: string;
         minimum_opera_version?: string;
         icons?: {
-            [key: number]: string;
+            [key: number]: ExtensionFileUrl;
         };
         incognito?: _WebExtensionManifestIncognito;
         background?: {
@@ -178,6 +176,8 @@ declare namespace browser._manifest {
                 alternate_urls?: string[];
                 /** @deprecated Unsupported on Firefox. */
                 prepopulated_id?: number;
+                /** Encoding of the search term. */
+                encoding?: string;
                 /** Sets the default engine to a built-in engine only. */
                 is_default?: boolean;
                 /**
@@ -199,18 +199,20 @@ declare namespace browser._manifest {
             };
         };
         commands?: {
-            suggested_key?: {
-                default?: KeyName;
-                mac?: KeyName;
-                linux?: KeyName;
-                windows?: KeyName;
-                chromeos?: string;
-                android?: string;
-                ios?: string;
-                /** @deprecated Unknown platform name */
-                additionalProperties?: string;
-            };
-            description?: string;
+            [key: string]: {
+                suggested_key?: {
+                    default?: KeyName;
+                    mac?: KeyName;
+                    linux?: KeyName;
+                    windows?: KeyName;
+                    chromeos?: string;
+                    android?: string;
+                    ios?: string;
+                    /** @deprecated Unknown platform name */
+                    additionalProperties?: string;
+                };
+                description?: string;
+            }
         };
         devtools_page?: ExtensionURL;
         omnibox?: {
@@ -363,6 +365,8 @@ declare namespace browser._manifest {
 
     type ExtensionURL = string;
 
+    type ExtensionFileUrl = string;
+
     type ImageDataOrExtensionURL = string;
 
     type ExtensionID = string;
@@ -414,8 +418,8 @@ declare namespace browser._manifest {
     }
 
     type IconPath = {
-        [key: number]: ExtensionURL;
-    } | ExtensionURL;
+        [key: number]: ExtensionFileUrl;
+    } | ExtensionFileUrl;
 
     type IconImageData = {
         [key: number]: ImageData;
@@ -439,7 +443,7 @@ declare namespace browser._manifest {
     } | {
         name: ExtensionID;
         description: string;
-        data: any;
+        data: { [key: string]: any };
         type: "storage";
     };
 
@@ -447,22 +451,25 @@ declare namespace browser._manifest {
 
     interface ThemeExperiment {
         stylesheet?: ExtensionURL;
-        images?: string;
-        colors?: string;
-        properties?: string;
+        images?: { [key: string]: string };
+        colors?: { [key: string]: string };
+        properties?: { [key: string]: string };
     }
 
     interface ThemeType {
         images?: {
             additional_backgrounds?: ImageDataOrExtensionURL[];
+            /** @deprecated Please use _theme.images.theme_frame_, this alias will be removed in Firefox 69. */
             headerURL?: ImageDataOrExtensionURL;
             theme_frame?: ImageDataOrExtensionURL;
         };
         colors?: {
             tab_selected?: ThemeColor;
+            /** @deprecated Please use _theme.colors.frame_, this alias will be removed in Firefox 69. */
             accentcolor?: ThemeColor;
             frame?: ThemeColor;
             frame_inactive?: ThemeColor;
+            /** @deprecated Please use _theme.colors.tab_background_text_, this alias will be removed in Firefox 69. */
             textcolor?: ThemeColor;
             tab_background_text?: ThemeColor;
             tab_background_separator?: ThemeColor;
@@ -470,6 +477,7 @@ declare namespace browser._manifest {
             tab_text?: ThemeColor;
             tab_line?: ThemeColor;
             toolbar?: ThemeColor;
+            /** @deprecated Please use _theme.colors.bookmark_text_, this alias will be removed in Firefox 69. */
             toolbar_text?: ThemeColor;
             bookmark_text?: ThemeColor;
             toolbar_field?: ThemeColor;
@@ -498,6 +506,8 @@ declare namespace browser._manifest {
             sidebar_text?: ThemeColor;
             sidebar_highlight?: ThemeColor;
             sidebar_highlight_text?: ThemeColor;
+            toolbar_field_highlight?: ThemeColor;
+            toolbar_field_highlight_text?: ThemeColor;
         };
         icons?: {
             back?: ExtensionURL;
@@ -644,7 +654,7 @@ declare namespace browser._manifest {
         | "pkcs11"
         | "sessions";
 
-    type _WebExtensionManifestIncognito = "spanning";
+    type _WebExtensionManifestIncognito = "not_allowed" | "spanning";
 
     /** Defines the location the browserAction will appear by default. The default location is navbar. */
     type _WebExtensionManifestBrowserActionDefaultArea =
@@ -1311,7 +1321,7 @@ declare namespace browser.downloads {
         /** Indication of whether this download is thought to be safe or known to be suspicious. */
         danger: DangerType;
         /** The file's MIME type. */
-        mime: string;
+        mime?: string;
         /** Number of milliseconds between the unix epoch and when this download began. */
         startTime: string;
         /** Number of milliseconds between the unix epoch and when this download ended. */
@@ -2380,7 +2390,7 @@ declare namespace browser.notifications {
     function clear(notificationId: string): Promise<boolean | undefined>;
 
     /** Retrieves all the notifications. */
-    function getAll(): Promise<CreateNotificationOptions>;
+    function getAll(): Promise<{ [key: string]: CreateNotificationOptions }>;
 
     /**
      * Retrieves whether the user has enabled notifications from this app or extension.
@@ -2670,7 +2680,7 @@ declare namespace browser.proxy {
         | "manual"
         | "autoConfig";
 
-    type _ProxyOnRequestEvent<T = (details: {
+    interface _ProxyOnRequestEvent<TCallback = (details: {
         /**
          * The ID of the request. Request IDs are unique within a browser session. As a result, they could be used to
          * relate different events of the same request.
@@ -2706,7 +2716,13 @@ declare namespace browser.proxy {
         fromCache: boolean;
         /** The HTTP request headers that are going to be sent out with this request. */
         requestHeaders?: webRequest.HttpHeaders;
-    }) => void> = WebExtEventBase<(callback: T, filter: webRequest.RequestFilter, extraInfoSpec?: Array<"requestHeaders">) => void, T>;
+    }) => void> {
+        addListener(cb: TCallback, filter: webRequest.RequestFilter, extraInfoSpec?: Array<"requestHeaders">): void;
+
+        removeListener(cb: TCallback): void;
+
+        hasListener(cb: TCallback): boolean;
+    }
 
     /* proxy properties */
     /** Configures proxy settings. This setting's value is an object of type ProxyConfig. */
@@ -2730,10 +2746,10 @@ declare namespace browser.proxy {
     const onRequest: _ProxyOnRequestEvent;
 
     /** Notifies about proxy script errors. */
-    const onError: WebExtEvent<(error: object) => void>;
+    const onError: WebExtEvent<(error: Error) => void>;
 
     /** Please use `proxy.onError`. */
-    const onProxyError: WebExtEvent<(error: object) => void>;
+    const onProxyError: WebExtEvent<(error: Error) => void>;
 }
 
 /**
@@ -2749,11 +2765,12 @@ declare namespace browser.runtime {
     interface Port {
         name: string;
         disconnect: () => void;
-        onDisconnect: events.Event;
-        onMessage: events.Event;
         postMessage: (message: object) => void;
         /** This property will **only** be present on ports passed to onConnect/onConnectExternal listeners. */
         sender?: MessageSender;
+        error?: Error;
+        onMessage: WebExtEvent<(response: object) => void>;
+        onDisconnect: WebExtEvent<(port: Port) => void>;
     }
 
     /** An object containing information about the script context that sent a message or request. */
@@ -2894,10 +2911,10 @@ declare namespace browser.runtime {
     /**
      * Sets the URL to be visited upon uninstallation. This may be used to clean up server-side data, do analytics, and
      * implement surveys. Maximum 255 characters.
-     * @param url URL to be opened after the extension is uninstalled. This URL must have an http: or https: scheme.
+     * @param [url] URL to be opened after the extension is uninstalled. This URL must have an http: or https: scheme.
      *     Set an empty string to not open a new tab upon uninstallation.
      */
-    function setUninstallURL(url: string): Promise<void>;
+    function setUninstallURL(url?: string): Promise<void>;
 
     /** Reloads the app or extension. */
     function reload(): void;
@@ -3132,7 +3149,7 @@ declare namespace browser.storage {
          *     description of the object). An empty list or object will return an empty result object. Pass in `null`
          *     to get the entire contents of storage.
          */
-        get(keys?: string | string[] | object): Promise<any>;
+        get(keys?: string | string[] | { [key: string]: any }): Promise<{ [key: string]: any }>;
 
         /**
          * Gets the amount of space (in bytes) being used by one or more items.
@@ -3151,7 +3168,7 @@ declare namespace browser.storage {
          *     `"function"` will typically serialize to `{}`, with the exception of `Array` (serializes as expected),
          *     `Date`, and `Regex` (serialize using their `String` representation).
          */
-        set(items: any): Promise<void>;
+        set(items: { [key: string]: any }): Promise<void>;
 
         /**
          * Removes one or more items from storage.
@@ -3182,7 +3199,7 @@ declare namespace browser.storage {
      * @param changes Object mapping each key that changed to its corresponding `storage.StorageChange` for that item.
      * @param areaName The name of the storage area (`"sync"`, `"local"` or `"managed"`) the changes are for.
      */
-    const onChanged: WebExtEvent<(changes: StorageChange, areaName: string) => void>;
+    const onChanged: WebExtEvent<(changes: { [key: string]: StorageChange }, areaName: string) => void>;
 }
 
 /**
@@ -3241,18 +3258,18 @@ declare namespace browser.telemetry {
      * @param message The data payload for the ping.
      * @param options Options object.
      */
-    function submitPing(type: string, message: any, options: {
+    function submitPing(type: string, message: { [key: string]: any }, options: {
         /** True if the ping should contain the client id. */
         addClientId?: boolean;
         /** True if the ping should contain the environment data. */
         addEnvironment?: boolean;
         /** Set to override the environment data. */
-        overrideEnvironment?: any;
+        overrideEnvironment?: { [key: string]: any };
         /** If true, send the ping using the PingSender. */
         usePingSender?: boolean;
     }): Promise<any>;
 
-    /** Checks if Telemetry is enabled. */
+    /** Checks if Telemetry upload is enabled. */
     function canUpload(): Promise<any>;
 
     /**
@@ -3267,7 +3284,7 @@ declare namespace browser.telemetry {
      * @param name The scalar name
      * @param value The value to set the scalar to
      */
-    function scalarSet(name: string, value: string | boolean | number | object): Promise<any>;
+    function scalarSet(name: string, value: string | boolean | number | { [key: string]: any }): Promise<any>;
 
     /**
      * Sets the scalar to the maximum of the current and the passed value
@@ -3284,7 +3301,7 @@ declare namespace browser.telemetry {
      * @param [value] An optional string value to record.
      * @param [extra] An optional object of the form (string -> string). It should only contain registered extra keys.
      */
-    function recordEvent(category: string, method: string, object: string, value?: number, extra?: string): Promise<any>;
+    function recordEvent(category: string, method: string, object: string, value?: number, extra?: { [key: string]: string }): Promise<any>;
 
     /**
      * Register new scalars to record them from addons. See nsITelemetry.idl for more details.
@@ -3292,7 +3309,7 @@ declare namespace browser.telemetry {
      * @param data An object that contains registration data for multiple scalars. Each property name is the scalar
      *     name, and the corresponding property value is an object of ScalarData type.
      */
-    function registerScalars(category: string, data: ScalarData): Promise<any>;
+    function registerScalars(category: string, data: { [key: string]: ScalarData }): Promise<any>;
 
     /**
      * Register new events to record them from addons. See nsITelemetry.idl for more details.
@@ -3300,7 +3317,7 @@ declare namespace browser.telemetry {
      * @param data An object that contains registration data for 1+ events. Each property name is the category name,
      *     and the corresponding property value is an object of EventData type.
      */
-    function registerEvents(category: string, data: EventData): Promise<any>;
+    function registerEvents(category: string, data: { [key: string]: EventData }): Promise<any>;
 
     /**
      * Enable recording of events in a category. Events default to recording disabled. This allows to toggle recording
@@ -3535,11 +3552,6 @@ declare namespace browser.userScripts {
         unregister(): Promise<any>;
     }
 
-    /** A set of API methods provided by the extensions to its userScripts */
-    interface ExportedAPIMethods {
-        [key: string]: (...args: any[]) => any;
-    }
-
     /* userScripts functions */
     /**
      * Register a user script programmatically given its `userScripts.UserScriptOptions`, and resolves to a
@@ -3547,12 +3559,28 @@ declare namespace browser.userScripts {
      */
     function register(userScriptOptions: UserScriptOptions): Promise<RegisteredUserScript>;
 
+    /* userScripts events */
     /**
-     * Provides a set of custom API methods available to the registered userScripts
+     * Event called when a new userScript global has been created
      *
      * Allowed in: Content scripts only
      */
-    function setScriptAPIs(exportedAPIMethods: ExportedAPIMethods): void;
+    const onBeforeScript: WebExtEvent<(userScript: {
+        /** The userScript metadata (as set in userScripts.register) */
+        metadata: any;
+        /** The userScript global */
+        global: any;
+        /**
+         * Exports all the properties of a given plain object as userScript globals
+         * @param sourceObject A plain object whose properties are exported as userScript globals
+         */
+        defineGlobals: (sourceObject: object) => void;
+        /**
+         * Convert a given value to make it accessible to the userScript code
+         * @param value A value to convert into an object accessible to the userScript
+         */
+        export: (value: any) => any;
+    }) => void>;
 }
 
 /**
@@ -3592,7 +3620,7 @@ declare namespace browser.webNavigation {
         url: events.UrlFilter[];
     }
 
-    type _WebNavigationOnBeforeNavigateEvent<T = (details: {
+    interface _WebNavigationOnBeforeNavigateEvent<TCallback = (details: {
         /** The ID of the tab in which the navigation is about to occur. */
         tabId: number;
         url: string;
@@ -3610,9 +3638,15 @@ declare namespace browser.webNavigation {
         parentFrameId: number;
         /** The time when the browser was about to start the navigation, in milliseconds since the epoch. */
         timeStamp: number;
-    }) => void> = WebExtEventBase<(callback: T, filters?: EventUrlFilters) => void, T>;
+    }) => void> {
+        addListener(cb: TCallback, filters?: EventUrlFilters): void;
 
-    type _WebNavigationOnCommittedEvent<T = (details: {
+        removeListener(cb: TCallback): void;
+
+        hasListener(cb: TCallback): boolean;
+    }
+
+    interface _WebNavigationOnCommittedEvent<TCallback = (details: {
         /** The ID of the tab in which the navigation occurs. */
         tabId: number;
         url: string;
@@ -3638,9 +3672,15 @@ declare namespace browser.webNavigation {
         transitionQualifiers?: TransitionQualifier[];
         /** The time when the navigation was committed, in milliseconds since the epoch. */
         timeStamp: number;
-    }) => void> = WebExtEventBase<(callback: T, filters?: EventUrlFilters) => void, T>;
+    }) => void> {
+        addListener(cb: TCallback, filters?: EventUrlFilters): void;
 
-    type _WebNavigationOnDOMContentLoadedEvent<T = (details: {
+        removeListener(cb: TCallback): void;
+
+        hasListener(cb: TCallback): boolean;
+    }
+
+    interface _WebNavigationOnDOMContentLoadedEvent<TCallback = (details: {
         /** The ID of the tab in which the navigation occurs. */
         tabId: number;
         url: string;
@@ -3656,9 +3696,15 @@ declare namespace browser.webNavigation {
         frameId: number;
         /** The time when the page's DOM was fully constructed, in milliseconds since the epoch. */
         timeStamp: number;
-    }) => void> = WebExtEventBase<(callback: T, filters?: EventUrlFilters) => void, T>;
+    }) => void> {
+        addListener(cb: TCallback, filters?: EventUrlFilters): void;
 
-    type _WebNavigationOnCompletedEvent<T = (details: {
+        removeListener(cb: TCallback): void;
+
+        hasListener(cb: TCallback): boolean;
+    }
+
+    interface _WebNavigationOnCompletedEvent<TCallback = (details: {
         /** The ID of the tab in which the navigation occurs. */
         tabId: number;
         url: string;
@@ -3674,9 +3720,15 @@ declare namespace browser.webNavigation {
         frameId: number;
         /** The time when the document finished loading, in milliseconds since the epoch. */
         timeStamp: number;
-    }) => void> = WebExtEventBase<(callback: T, filters?: EventUrlFilters) => void, T>;
+    }) => void> {
+        addListener(cb: TCallback, filters?: EventUrlFilters): void;
 
-    type _WebNavigationOnErrorOccurredEvent<T = (details: {
+        removeListener(cb: TCallback): void;
+
+        hasListener(cb: TCallback): boolean;
+    }
+
+    interface _WebNavigationOnErrorOccurredEvent<TCallback = (details: {
         /** The ID of the tab in which the navigation occurs. */
         tabId: number;
         url: string;
@@ -3697,9 +3749,15 @@ declare namespace browser.webNavigation {
         error?: string;
         /** The time when the error occurred, in milliseconds since the epoch. */
         timeStamp: number;
-    }) => void> = WebExtEventBase<(callback: T, filters?: EventUrlFilters) => void, T>;
+    }) => void> {
+        addListener(cb: TCallback, filters?: EventUrlFilters): void;
 
-    type _WebNavigationOnCreatedNavigationTargetEvent<T = (details: {
+        removeListener(cb: TCallback): void;
+
+        hasListener(cb: TCallback): boolean;
+    }
+
+    interface _WebNavigationOnCreatedNavigationTargetEvent<TCallback = (details: {
         /** The ID of the tab in which the navigation is triggered. */
         sourceTabId: number;
         /** The ID of the process runs the renderer for the source tab. */
@@ -3714,9 +3772,15 @@ declare namespace browser.webNavigation {
         tabId: number;
         /** The time when the browser was about to create a new view, in milliseconds since the epoch. */
         timeStamp: number;
-    }) => void> = WebExtEventBase<(callback: T, filters?: EventUrlFilters) => void, T>;
+    }) => void> {
+        addListener(cb: TCallback, filters?: EventUrlFilters): void;
 
-    type _WebNavigationOnReferenceFragmentUpdatedEvent<T = (details: {
+        removeListener(cb: TCallback): void;
+
+        hasListener(cb: TCallback): boolean;
+    }
+
+    interface _WebNavigationOnReferenceFragmentUpdatedEvent<TCallback = (details: {
         /** The ID of the tab in which the navigation occurs. */
         tabId: number;
         url: string;
@@ -3742,9 +3806,15 @@ declare namespace browser.webNavigation {
         transitionQualifiers?: TransitionQualifier[];
         /** The time when the navigation was committed, in milliseconds since the epoch. */
         timeStamp: number;
-    }) => void> = WebExtEventBase<(callback: T, filters?: EventUrlFilters) => void, T>;
+    }) => void> {
+        addListener(cb: TCallback, filters?: EventUrlFilters): void;
 
-    type _WebNavigationOnHistoryStateUpdatedEvent<T = (details: {
+        removeListener(cb: TCallback): void;
+
+        hasListener(cb: TCallback): boolean;
+    }
+
+    interface _WebNavigationOnHistoryStateUpdatedEvent<TCallback = (details: {
         /** The ID of the tab in which the navigation occurs. */
         tabId: number;
         url: string;
@@ -3770,7 +3840,13 @@ declare namespace browser.webNavigation {
         transitionQualifiers?: TransitionQualifier[];
         /** The time when the navigation was committed, in milliseconds since the epoch. */
         timeStamp: number;
-    }) => void> = WebExtEventBase<(callback: T, filters?: EventUrlFilters) => void, T>;
+    }) => void> {
+        addListener(cb: TCallback, filters?: EventUrlFilters): void;
+
+        removeListener(cb: TCallback): void;
+
+        hasListener(cb: TCallback): boolean;
+    }
 
     /* webNavigation functions */
     /**
@@ -4098,7 +4174,7 @@ declare namespace browser.webRequest {
         | "TLSv1.3"
         | "unknown";
 
-    type _WebRequestOnBeforeRequestEvent<T = (details: {
+    interface _WebRequestOnBeforeRequestEvent<TCallback = (details: {
         /**
          * The ID of the request. Request IDs are unique within a browser session. As a result, they could be used to
          * relate different events of the same request.
@@ -4144,9 +4220,15 @@ declare namespace browser.webRequest {
         type: ResourceType;
         /** The time when this signal is triggered, in milliseconds since the epoch. */
         timeStamp: number;
-    }) => BlockingResponse | Promise<BlockingResponse> | void> = WebExtEventBase<(callback: T, filter: RequestFilter, extraInfoSpec?: OnBeforeRequestOptions[]) => void, T>;
+    }) => BlockingResponse | Promise<BlockingResponse> | void> {
+        addListener(cb: TCallback, filter: RequestFilter, extraInfoSpec?: OnBeforeRequestOptions[]): void;
 
-    type _WebRequestOnBeforeSendHeadersEvent<T = (details: {
+        removeListener(cb: TCallback): void;
+
+        hasListener(cb: TCallback): boolean;
+    }
+
+    interface _WebRequestOnBeforeSendHeadersEvent<TCallback = (details: {
         /**
          * The ID of the request. Request IDs are unique within a browser session. As a result, they could be used to
          * relate different events of the same request.
@@ -4176,9 +4258,15 @@ declare namespace browser.webRequest {
         timeStamp: number;
         /** The HTTP request headers that are going to be sent out with this request. */
         requestHeaders?: HttpHeaders;
-    }) => BlockingResponse | Promise<BlockingResponse> | void> = WebExtEventBase<(callback: T, filter: RequestFilter, extraInfoSpec?: OnBeforeSendHeadersOptions[]) => void, T>;
+    }) => BlockingResponse | Promise<BlockingResponse> | void> {
+        addListener(cb: TCallback, filter: RequestFilter, extraInfoSpec?: OnBeforeSendHeadersOptions[]): void;
 
-    type _WebRequestOnSendHeadersEvent<T = (details: {
+        removeListener(cb: TCallback): void;
+
+        hasListener(cb: TCallback): boolean;
+    }
+
+    interface _WebRequestOnSendHeadersEvent<TCallback = (details: {
         /**
          * The ID of the request. Request IDs are unique within a browser session. As a result, they could be used to
          * relate different events of the same request.
@@ -4208,9 +4296,15 @@ declare namespace browser.webRequest {
         timeStamp: number;
         /** The HTTP request headers that have been sent out with this request. */
         requestHeaders?: HttpHeaders;
-    }) => void> = WebExtEventBase<(callback: T, filter: RequestFilter, extraInfoSpec?: OnSendHeadersOptions[]) => void, T>;
+    }) => void> {
+        addListener(cb: TCallback, filter: RequestFilter, extraInfoSpec?: OnSendHeadersOptions[]): void;
 
-    type _WebRequestOnHeadersReceivedEvent<T = (details: {
+        removeListener(cb: TCallback): void;
+
+        hasListener(cb: TCallback): boolean;
+    }
+
+    interface _WebRequestOnHeadersReceivedEvent<TCallback = (details: {
         /**
          * The ID of the request. Request IDs are unique within a browser session. As a result, they could be used to
          * relate different events of the same request.
@@ -4247,9 +4341,15 @@ declare namespace browser.webRequest {
         responseHeaders?: HttpHeaders;
         /** Standard HTTP status code returned by the server. */
         statusCode: number;
-    }) => BlockingResponse | Promise<BlockingResponse> | void> = WebExtEventBase<(callback: T, filter: RequestFilter, extraInfoSpec?: OnHeadersReceivedOptions[]) => void, T>;
+    }) => BlockingResponse | Promise<BlockingResponse> | void> {
+        addListener(cb: TCallback, filter: RequestFilter, extraInfoSpec?: OnHeadersReceivedOptions[]): void;
 
-    type _WebRequestOnAuthRequiredEvent<T = (details: {
+        removeListener(cb: TCallback): void;
+
+        hasListener(cb: TCallback): boolean;
+    }
+
+    interface _WebRequestOnAuthRequiredEvent<TCallback = (details: {
         /**
          * The ID of the request. Request IDs are unique within a browser session. As a result, they could be used to
          * relate different events of the same request.
@@ -4297,9 +4397,15 @@ declare namespace browser.webRequest {
         statusLine: string;
         /** Standard HTTP status code returned by the server. */
         statusCode: number;
-    }) => BlockingResponse | Promise<BlockingResponse> | void> = WebExtEventBase<(callback: T, filter: RequestFilter, extraInfoSpec?: OnAuthRequiredOptions[]) => void, T>;
+    }) => BlockingResponse | Promise<BlockingResponse> | void> {
+        addListener(cb: TCallback, filter: RequestFilter, extraInfoSpec?: OnAuthRequiredOptions[]): void;
 
-    type _WebRequestOnResponseStartedEvent<T = (details: {
+        removeListener(cb: TCallback): void;
+
+        hasListener(cb: TCallback): boolean;
+    }
+
+    interface _WebRequestOnResponseStartedEvent<TCallback = (details: {
         /**
          * The ID of the request. Request IDs are unique within a browser session. As a result, they could be used to
          * relate different events of the same request.
@@ -4342,9 +4448,15 @@ declare namespace browser.webRequest {
          * that lack a status line) or an empty string if there are no headers.
          */
         statusLine: string;
-    }) => void> = WebExtEventBase<(callback: T, filter: RequestFilter, extraInfoSpec?: OnResponseStartedOptions[]) => void, T>;
+    }) => void> {
+        addListener(cb: TCallback, filter: RequestFilter, extraInfoSpec?: OnResponseStartedOptions[]): void;
 
-    type _WebRequestOnBeforeRedirectEvent<T = (details: {
+        removeListener(cb: TCallback): void;
+
+        hasListener(cb: TCallback): boolean;
+    }
+
+    interface _WebRequestOnBeforeRedirectEvent<TCallback = (details: {
         /**
          * The ID of the request. Request IDs are unique within a browser session. As a result, they could be used to
          * relate different events of the same request.
@@ -4389,9 +4501,15 @@ declare namespace browser.webRequest {
          * that lack a status line) or an empty string if there are no headers.
          */
         statusLine: string;
-    }) => void> = WebExtEventBase<(callback: T, filter: RequestFilter, extraInfoSpec?: OnBeforeRedirectOptions[]) => void, T>;
+    }) => void> {
+        addListener(cb: TCallback, filter: RequestFilter, extraInfoSpec?: OnBeforeRedirectOptions[]): void;
 
-    type _WebRequestOnCompletedEvent<T = (details: {
+        removeListener(cb: TCallback): void;
+
+        hasListener(cb: TCallback): boolean;
+    }
+
+    interface _WebRequestOnCompletedEvent<TCallback = (details: {
         /**
          * The ID of the request. Request IDs are unique within a browser session. As a result, they could be used to
          * relate different events of the same request.
@@ -4434,9 +4552,15 @@ declare namespace browser.webRequest {
          * that lack a status line) or an empty string if there are no headers.
          */
         statusLine: string;
-    }) => void> = WebExtEventBase<(callback: T, filter: RequestFilter, extraInfoSpec?: OnCompletedOptions[]) => void, T>;
+    }) => void> {
+        addListener(cb: TCallback, filter: RequestFilter, extraInfoSpec?: OnCompletedOptions[]): void;
 
-    type _WebRequestOnErrorOccurredEvent<T = (details: {
+        removeListener(cb: TCallback): void;
+
+        hasListener(cb: TCallback): boolean;
+    }
+
+    interface _WebRequestOnErrorOccurredEvent<TCallback = (details: {
         /**
          * The ID of the request. Request IDs are unique within a browser session. As a result, they could be used to
          * relate different events of the same request.
@@ -4475,7 +4599,13 @@ declare namespace browser.webRequest {
          * must not parse and act based upon its content.
          */
         error: string;
-    }) => void> = WebExtEventBase<(callback: T, filter: RequestFilter) => void, T>;
+    }) => void> {
+        addListener(cb: TCallback, filter: RequestFilter): void;
+
+        removeListener(cb: TCallback): void;
+
+        hasListener(cb: TCallback): boolean;
+    }
 
     /* webRequest properties */
     /**
@@ -5178,7 +5308,7 @@ declare namespace browser.devtools.inspectedWindow {
          *     be persisted; false if this is a minor change sent in progress of the user editing the resource.
          * @deprecated Unsupported on Firefox at this time.
          */
-        setContent?(content: string, commit: boolean): Promise<any>;
+        setContent?(content: string, commit: boolean): Promise<{ [key: string]: any } | undefined>;
     }
 
     /* devtools.inspectedWindow properties */
@@ -5291,7 +5421,7 @@ declare namespace browser.devtools.network {
 
     /* devtools.network functions */
     /** Returns HAR log that contains all known network requests. */
-    function getHAR(): Promise<any>;
+    function getHAR(): Promise<{ [key: string]: any }>;
 
     /* devtools.network events */
     /**
@@ -5570,16 +5700,24 @@ declare namespace browser.geckoProfiler {
         | "stackwalk"
         | "tasktracer"
         | "threads"
-        | "trackopts";
+        | "trackopts"
+        | "jstracer";
+
+    type Supports = "windowLength";
 
     /* geckoProfiler functions */
     /** Starts the profiler with the specified settings. */
     function start(settings: {
         /**
-         * The size in bytes of the buffer used to store profiling data. A larger value allows capturing a profile that
-         * covers a greater amount of time.
+         * The maximum size in bytes of the buffer used to store profiling data. A larger value allows capturing a
+         * profile that covers a greater amount of time.
          */
         bufferSize: number;
+        /**
+         * The length of the window of time that's kept in the buffer. Any collected samples are discarded as soon as
+         * they are older than the number of seconds specified in this setting. Zero means no duration restriction.
+         */
+        windowLength?: number;
         /**
          * Interval in milliseconds between samples of profiling data. A smaller value will increase the detail of the
          * profiles captured.
@@ -5821,6 +5959,8 @@ declare namespace browser.contextMenus {
          * context where there is no current page, such as in a launcher context menu.
          */
         pageUrl?: string;
+        /** The id of the frame of the element where the context menu was clicked. */
+        frameId?: number;
         /** The URL of the frame of the element where the context menu was clicked, if it was in a frame. */
         frameUrl?: string;
         /** The text for the context selection, if any. */
@@ -6100,6 +6240,8 @@ declare namespace browser.menus {
          * context where there is no current page, such as in a launcher context menu.
          */
         pageUrl?: string;
+        /** The id of the frame of the element where the context menu was clicked. */
+        frameId?: number;
         /** The URL of the frame of the element where the context menu was clicked, if it was in a frame. */
         frameUrl?: string;
         /** The text for the context selection, if any. */
@@ -6775,7 +6917,7 @@ declare namespace browser.sidebarAction {
          * size `scale` * 19 will be selected. Initially only scales 1 and 2 will be supported. At least one image must
          * be specified. Note that 'details.path = foo' is equivalent to 'details.imageData = {'19': foo}'
          */
-        path?: string;
+        path?: string | { [key: string]: string };
         /** Sets the sidebar icon for the tab specified by tabId. Automatically resets when the tab is closed. */
         tabId?: number;
         /** Sets the sidebar icon for the window specified by windowId. */
@@ -6939,6 +7081,8 @@ declare namespace browser.tabs {
         sharingState?: SharingState;
         /** Whether the tab is drawing attention. */
         attention?: boolean;
+        /** The ID of this tab's successor, if any; `tabs.TAB_ID_NONE` otherwise. */
+        successorTabId?: number;
     }
 
     /**
@@ -7087,7 +7231,7 @@ declare namespace browser.tabs {
         | "Window"
         | "Application";
 
-    type _TabsOnUpdatedEvent<T = (tabId: number, changeInfo: {
+    interface _TabsOnUpdatedEvent<TCallback = (tabId: number, changeInfo: {
         /** The tab's new attention state. */
         attention?: boolean;
         /** The tab's new audible state. */
@@ -7121,7 +7265,13 @@ declare namespace browser.tabs {
          * `"tabs"` permission.
          */
         url?: string;
-    }, tab: Tab) => void> = WebExtEventBase<(callback: T, filter?: UpdateFilter) => void, T>;
+    }, tab: Tab) => void> {
+        addListener(cb: TCallback, filter?: UpdateFilter): void;
+
+        removeListener(cb: TCallback): void;
+
+        hasListener(cb: TCallback): boolean;
+    }
 
     /* tabs properties */
     /** An ID which represents the absence of a browser tab. */
@@ -7320,6 +7470,10 @@ declare namespace browser.tabs {
         openerTabId?: number;
         /** Whether the load should replace the current history entry for the tab. */
         loadReplace?: boolean;
+        /**
+         * The ID of this tab's successor. If specified, the successor tab must be in the same window as this tab.
+         */
+        successorTabId?: number;
     }): Promise<Tab | undefined>;
     /**
      * Modifies the properties of a tab. Properties that are not specified in `updateProperties` are not modified.
@@ -7349,6 +7503,10 @@ declare namespace browser.tabs {
         openerTabId?: number;
         /** Whether the load should replace the current history entry for the tab. */
         loadReplace?: boolean;
+        /**
+         * The ID of this tab's successor. If specified, the successor tab must be in the same window as this tab.
+         */
+        successorTabId?: number;
     }): Promise<Tab | undefined>;
 
     /**
@@ -7517,6 +7675,29 @@ declare namespace browser.tabs {
      */
     function hide(tabIds: number | number[]): Promise<number[]>;
 
+    /**
+     * Removes an array of tabs from their lines of succession and prepends or appends them in a chain to another tab.
+     * @param tabIds An array of tab IDs to move in the line of succession. For each tab in the array, the tab's
+     *     current predecessors will have their successor set to the tab's current successor, and each tab will then be
+     *     set to be the successor of the previous tab in the array. Any tabs not in the same window as the tab
+     *     indicated by the second argument (or the first tab in the array, if no second argument) will be skipped.
+     * @param [tabId] The ID of a tab to set as the successor of the last tab in the array, or `tabs.TAB_ID_NONE` to
+     *     leave the last tab without a successor. If options.append is true, then this tab is made the predecessor of
+     *     the first tab in the array instead.
+     */
+    function moveInSuccession(tabIds: number[], tabId?: number, options?: {
+        /** Whether to move the tabs before (false) or after (true) tabId in the succession. Defaults to false. */
+        append?: boolean;
+        /**
+         * Whether to link up the current predecessors or successor (depending on options.append) of tabId to the other
+         * side of the chain after it is prepended or appended. If true, one of the following happens: if
+         * options.append is false, the first tab in the array is set as the successor of any current predecessors of
+         * tabId; if options.append is true, the current successor of tabId is set as the successor of the last tab in
+         * the array. Defaults to false.
+         */
+        insert?: boolean;
+    }): Promise<any>;
+
     /* tabs events */
     /**
      * Fired when a tab is created. Note that the tab's URL may not be set at the time this event fired, but you can
@@ -7571,6 +7752,8 @@ declare namespace browser.tabs {
     const onActivated: WebExtEvent<(activeInfo: {
         /** The ID of the tab that has become active. */
         tabId: number;
+        /** The ID of the tab that was previously active, if that tab is still open. */
+        previousTabId?: number;
         /** The ID of the window the active tab changed inside of. */
         windowId: number;
     }) => void>;

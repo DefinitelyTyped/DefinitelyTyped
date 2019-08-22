@@ -23,7 +23,7 @@ export class Client<T> implements ClientApi<T> {
     /** start() - creates a connection to the cache server. Must be called before any other method is available. */
     start(): Promise<void>;
     /** stop() - terminates the connection to the cache server. */
-    stop(): void;
+    stop(): Promise<void>;
     /**
      * get(key, callback) - retrieve an item from the cache engine if found where:
      *  * key - a cache key object (see [ICacheKey]).
@@ -231,7 +231,7 @@ export interface DecoratedPolicyOptions<T> extends PolicyOptions<T> {
     /**
      * @default false
      */
-    getDecoratedValue?: boolean;
+    getDecoratedValue: boolean | undefined;
 }
 
 export interface GenerateFuncFlags {
@@ -249,7 +249,7 @@ export interface GenerateFuncFlags {
  *      * ttl - the cache ttl value in milliseconds. Set to 0 to skip storing in the cache. Defaults to the cache global policy.
  * @see {@link https://github.com/hapijs/catbox#policy}
  */
-export type GenerateFunc<T> = (id: string, flags: GenerateFuncFlags) => Promise<T>;
+export type GenerateFunc<T> = (id: Id, flags: GenerateFuncFlags) => Promise<T>;
 
 /**
  * An object with logging information about the generation operation containing the following keys (as relevant):

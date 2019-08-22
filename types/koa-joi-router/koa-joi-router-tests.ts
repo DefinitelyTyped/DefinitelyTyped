@@ -30,6 +30,7 @@ const spec3: router.Spec = {
     body: Joi.any(),
   },
   handler: (ctx: koa.Context) => ctx.status = 201,
+  pre: (_ctx, next) => next(),
 };
 
 router().route(spec3);
@@ -40,10 +41,22 @@ const spec4: router.Spec = {
   validate: {
     type: 'json',
     output: {
-      201: Joi.object(),
+      201: {
+        body: Joi.object(),
+      },
+      '400,404': {
+        headers: Joi.object(),
+        body: Joi.object(),
+      },
+      '500-599': {
+        headers: Joi.object(),
+      },
+    },
+    jsonOptions: {
+        limit: '10kb'
     }
   },
-  handler: (ctx: koa.Context) => {
+  handler(ctx) {
     ctx.status = 201;
     ctx.body = {};
   },
@@ -54,10 +67,11 @@ router().route(spec4);
 const spec5: router.Spec = {
   method: 'PUT',
   path: '/user',
-  handler: (ctx: koa.Context) => {
+  handler: (ctx) => {
     ctx.status = 201;
     ctx.body = ctx.request.body;
   },
+  meta: 'meta data',
 };
 
 router().route(spec5);
@@ -117,6 +131,34 @@ const handler1 = async (ctx: koa.Context) => {
 router().get('/', handler1);
 
 router().get('/', {meta: {desc: 'desc'}}, handler1);
+
+router().get('/user', {
+    validate: {
+        query: {
+          id: Joi.number(),
+          name: Joi.string(),
+        }
+    }
+}, (ctx: koa.Context) => {
+    ctx.status = 201;
+    ctx.body = ctx.request.params;
+});
+
+const spec9: router.Config = {
+    validate: {
+        body: {
+          name: Joi.string(),
+        },
+        type: 'json'
+    }
+};
+
+const spec9Handler = (ctx: koa.Context) => {
+    ctx.status = 201;
+    ctx.body = ctx.request.params;
+};
+
+router().get('/user', spec9, spec9Handler);
 
 const middleware1 = async (ctx: koa.Context, next: () => Promise<any>) => {
   console.log('middleware1');

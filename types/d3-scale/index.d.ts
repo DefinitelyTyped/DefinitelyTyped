@@ -1,10 +1,13 @@
-// Type definitions for D3JS d3-scale module 2.0
-// Project: https://github.com/d3/d3-scale/
-// Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
+// Type definitions for D3JS d3-scale module 2.1
+// Project: https://github.com/d3/d3-scale/, https://d3js.org/d3-scale
+// Definitions by: Tom Wanzek <https://github.com/tomwanzek>
+//                 Alex Ford <https://github.com/gustavderdrache>
+//                 Boris Yankov <https://github.com/borisyankov>
+//                 denisname <https://github.com/denisname>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-// Last module patch version validated against: 2.0.0
+// Last module patch version validated against: 2.1.2
 
 import { CountableTimeInterval, TimeInterval } from 'd3-time';
 
@@ -1081,6 +1084,82 @@ export interface ScaleSequential<Output> {
  * @param interpolator The interpolator function to be used with the scale.
  */
 export function scaleSequential<Output>(interpolator: ((t: number) => Output)): ScaleSequential<Output>;
+
+// -------------------------------------------------------------------------------
+// Diverging Scale Factory
+// -------------------------------------------------------------------------------
+
+/**
+ * Diverging scales, like sequential scales, are similar to continuous scales in that they map a continuous, numeric input domain to a continuous output range.
+ * However, unlike continuous scales, the output range of a diverging scale is fixed by its interpolator and not configurable.
+ * These scales do not expose invert, range, rangeRound and interpolate methods.
+ *
+ * The generic corresponds to the data type of the interpolator return type.
+ */
+export interface ScaleDiverging<Output> {
+    /**
+     * Given a value from the domain, returns the corresponding value subject to interpolation.
+     *
+     * If the given value is outside the domain, and clamping is not enabled, the mapping may be extrapolated such that the returned value is outside the range.
+     *
+     * @param value A numeric value from the domain.
+     */
+    (value: number | { valueOf(): number }): Output;
+
+    /**
+     * Returns a copy of the scale’s current domain.
+     */
+    domain(): [number, number, number];
+    /**
+     * Sets the scale’s domain to the specified array of numbers.
+     * The domain must be numeric and must contain exactly three values. The default domain is [0, 0.5, 1].
+     * If the elements in the given array are not numbers, they will be coerced to numbers
+     *
+     * @param domain Array of three numeric domain values.
+     */
+    domain(domain: [number | { valueOf(): number }, number | { valueOf(): number }, number | { valueOf(): number }]): this;
+
+    /**
+     * Returns whether or not the scale currently clamps values to within the range.
+     */
+    clamp(): boolean;
+    /**
+     * Enables or disables clamping, respectively. If clamping is disabled and the scale is passed a value outside the domain,
+     * the scale may return a value outside the range through extrapolation.
+     *
+     * If clamping is enabled, the return value of the scale is always within the interpolator scale’s range.
+     *
+     * @param clamp A flag to enable (true) or disable (false) clamping.
+     */
+    clamp(clamp: boolean): this;
+
+    /**
+     * Returns the scale’s current interpolator.
+     */
+    interpolator(): (t: number) => Output;
+    /**
+     * Sets the scale’s interpolator to the specified function.
+     *
+     * @param interpolator The scale’s interpolator.
+     */
+    interpolator(interpolator?: (t: number) => Output): this;
+
+    /**
+     * Returns an exact copy of this scale. Changes to this scale will not affect the returned scale, and vice versa.
+     */
+    copy(): this;
+}
+
+/**
+ * Constructs a new diverging scale with the given interpolator function.
+ * When the scale is applied, the interpolator will be invoked with a value typically in the range [0, 1],
+ * where 0 represents the extreme negative value, 0.5 represents the neutral value, and 1 represents the extreme positive value.
+ *
+ * The generic corresponds to the data type of the interpolator return type.
+ *
+ * @param interpolator The scale’s interpolator.
+ */
+export function scaleDiverging<T>(interpolator: (t: number) => T): ScaleDiverging<T>;
 
 // -------------------------------------------------------------------------------
 // Quantize Scale Factory

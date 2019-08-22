@@ -1,7 +1,9 @@
 // Type definitions for react-instantsearch 5.2
-// Project: https://community.algolia.com/react-instantsearch/
+// Project: https://www.algolia.com/doc/guides/building-search-ui/what-is-instantsearch/react, https://community.algolia.com/react-instantsearch/
 // Definitions by: Gordon Burgett <https://github.com/gburgett>
 //                 Justin Powell <https://github.com/jpowell>
+//                 Haroen Viaene <https://github.com/haroenv>
+//                 Samuel Vaillant <https://github.com/samouss>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
@@ -53,21 +55,21 @@ interface CommonWidgetProps {
 }
 
 export interface InstantSearchProps {
-  apiKey: string;
-  appId: string;
+  apiKey?: string;
+  appId?: string;
   indexName: string;
-
-  algoliaClient?: any;
   searchClient?: any;
+
   createURL?: (...args: any[]) => any;
   searchState?: any;
   refresh?: boolean;
   onSearchStateChange?: (...args: any[]) => any;
   onSearchParameters?: (...args: any[]) => any;
   resultsState?: any;
+  stalledSearchDelay?: number;
   root?: {
     Root: string | ((...args: any[]) => any);
-    props: any;
+    props?: object;
   };
 }
 /**
@@ -118,8 +120,9 @@ export interface SearchBoxProps extends CommonWidgetProps {
   reset?: JSX.Element;
   loadingIndicator?: JSX.Element;
 
-  onSubmit?: (...args: any[]) => any;
-  onReset?: (...args: any[]) => any;
+  onSubmit?: (event: React.SyntheticEvent<HTMLFormElement>) => any;
+  onReset?: (event: React.SyntheticEvent<HTMLFormElement>) => any;
+  onChange?: (event: React.SyntheticEvent<HTMLInputElement>) => any;
 }
 /**
  * The SearchBox component displays a search box that lets the user search for a specific query.

@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2018-07-11
+// Type definitions for Google Apps Script 2018-12-26
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -219,7 +219,7 @@ declare namespace GoogleAppsScript {
      *     item.setTitle('When were you born?');
      */
     export interface DateItem {
-      createResponse(response: Date): ItemResponse;
+      createResponse(response: Base.Date): ItemResponse;
       duplicate(): DateItem;
       getGeneralFeedback(): QuizFeedback;
       getHelpText(): string;
@@ -248,7 +248,7 @@ declare namespace GoogleAppsScript {
      *     item.setTitle('When do you want to meet?');
      */
     export interface DateTimeItem {
-      createResponse(response: Date): ItemResponse;
+      createResponse(response: Base.Date): ItemResponse;
       duplicate(): DateTimeItem;
       getGeneralFeedback(): QuizFeedback;
       getHelpText(): string;
@@ -385,7 +385,7 @@ declare namespace GoogleAppsScript {
       getPublishedUrl(): string;
       getResponse(responseId: string): FormResponse;
       getResponses(): FormResponse[];
-      getResponses(timestamp: Date): FormResponse[];
+      getResponses(timestamp: Base.Date): FormResponse[];
       getShuffleQuestions(): boolean;
       getSummaryUrl(): string;
       getTitle(): string;
@@ -477,7 +477,7 @@ declare namespace GoogleAppsScript {
       getItemResponses(): ItemResponse[];
       getRespondentEmail(): string;
       getResponseForItem(item: Item): ItemResponse;
-      getTimestamp(): Date;
+      getTimestamp(): Base.Date;
       submit(): FormResponse;
       toPrefilledUrl(): string;
       withItemGrade(gradedResponse: ItemResponse): FormResponse;
@@ -650,12 +650,12 @@ declare namespace GoogleAppsScript {
      *     }
      */
     export interface ItemResponse {
-      getFeedback(): Object;
+      getFeedback(): any;
       getItem(): Item;
-      getResponse(): Object;
-      getScore(): Object;
-      setFeedback(feedback: Object): ItemResponse;
-      setScore(score: Object): ItemResponse;
+      getResponse(): any;
+      getScore(): any;
+      setFeedback(feedback: any): ItemResponse;
+      setScore(score: any): ItemResponse;
     }
 
     /**
@@ -671,7 +671,7 @@ declare namespace GoogleAppsScript {
      *       item.setHelpText('Description of new section.');
      *     }
      */
-    export enum ItemType { CHECKBOX, CHECKBOX_GRID, DATE, DATETIME, DURATION, GRID, IMAGE, LIST, MULTIPLE_CHOICE, PAGE_BREAK, PARAGRAPH_TEXT, SCALE, SECTION_HEADER, TEXT, TIME }
+    export enum ItemType { CHECKBOX, CHECKBOX_GRID, DATE, DATETIME, DURATION, GRID, IMAGE, LIST, MULTIPLE_CHOICE, PAGE_BREAK, PARAGRAPH_TEXT, SCALE, SECTION_HEADER, TEXT, TIME, VIDEO }
 
     /**
      * A question item that allows the respondent to select one choice from a drop-down list. Items can
@@ -1026,14 +1026,14 @@ declare namespace GoogleAppsScript {
      */
     export interface TextValidationBuilder {
       requireNumber(): TextValidationBuilder;
-      requireNumberBetween(start: Number, end: Number): TextValidationBuilder;
-      requireNumberEqualTo(number: Number): TextValidationBuilder;
-      requireNumberGreaterThan(number: Number): TextValidationBuilder;
-      requireNumberGreaterThanOrEqualTo(number: Number): TextValidationBuilder;
-      requireNumberLessThan(number: Number): TextValidationBuilder;
-      requireNumberLessThanOrEqualTo(number: Number): TextValidationBuilder;
-      requireNumberNotBetween(start: Number, end: Number): TextValidationBuilder;
-      requireNumberNotEqualTo(number: Number): TextValidationBuilder;
+      requireNumberBetween(start: number, end: number): TextValidationBuilder;
+      requireNumberEqualTo(number: number): TextValidationBuilder;
+      requireNumberGreaterThan(number: number): TextValidationBuilder;
+      requireNumberGreaterThanOrEqualTo(number: number): TextValidationBuilder;
+      requireNumberLessThan(number: number): TextValidationBuilder;
+      requireNumberLessThanOrEqualTo(number: number): TextValidationBuilder;
+      requireNumberNotBetween(start: number, end: number): TextValidationBuilder;
+      requireNumberNotEqualTo(number: number): TextValidationBuilder;
       requireTextContainsPattern(pattern: string): TextValidationBuilder;
       requireTextDoesNotContainPattern(pattern: string): TextValidationBuilder;
       requireTextDoesNotMatchPattern(pattern: string): TextValidationBuilder;

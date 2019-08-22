@@ -1,4 +1,4 @@
-// Type definitions for archiver 2.1
+// Type definitions for archiver 3.0.0
 // Project: https://github.com/archiverjs/node-archiver
 // Definitions by: Esri <https://github.com/archiverjs/node-archiver>, Dolan Miu <https://github.com/dolanmiu>, Crevil <https://github.com/crevil>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -41,6 +41,8 @@ declare namespace archiver {
     class ArchiverError extends Error {
         code: string;       // Since archiver format support is modular, we cannot enumerate all possible error codes, as the modules can throw arbitrary ones.
         data: any;
+        path?: any;
+
         constructor(code: string, data: any);
     }
 
@@ -52,7 +54,7 @@ declare namespace archiver {
         directory(dirpath: string, destpath: false | string, data?: EntryData | EntryDataFunction): this;
         file(filename: string, data: EntryData): this;
         glob(pattern: string, options?: glob.IOptions, data?: EntryData): this;
-        finalize(): void;
+        finalize(): Promise<void>;
 
         setFormat(format: string): this;
         setModule(module: Function): this;
@@ -67,6 +69,7 @@ declare namespace archiver {
         on(event: 'progress', listener: (progress: ProgressData) => void): this;
         on(event: 'close' | 'drain' | 'finish', listener: () => void): this;
         on(event: 'pipe' | 'unpipe', listener: (src: stream.Readable) => void): this;
+        on(event: 'entry', listener: (entry: EntryData) => void): this;
         on(event: string, listener: (...args: any[]) => void): this;
     }
 

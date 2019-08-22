@@ -104,6 +104,6 @@ declare global {
     }
 }
 
-declare function sinonChai(chai: any, utils: any): void;
+declare const sinonChai: Chai.ChaiPlugin;
 declare namespace sinonChai { }
 export = sinonChai;

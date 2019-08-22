@@ -1,5 +1,5 @@
 // Type definitions for jira-client 6.4
-// Project: https://github.com/jira-node/node-jira-client
+// Project: http://github.com/jira-node/node-jira-client
 // Definitions by: Anatoliy Ostapenko <https://github.com/KOPTE3>
 //                 Orta Therox <https://github.com/orta>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -77,6 +77,8 @@ declare class JiraApi {
 
     addWatcher(issueKey: string, username: string): Promise<JiraApi.JsonResponse>;
 
+    getIssueWatchers(issueId: string): Promise<JiraApi.JsonResponse[]>;
+
     deleteIssue(issueId: string): Promise<JiraApi.JsonResponse>;
 
     updateIssue(issueId: string, issueUpdate: JiraApi.IssueObject): Promise<JiraApi.JsonResponse>;
@@ -89,7 +91,7 @@ declare class JiraApi {
 
     createCustomField(field: JiraApi.FieldObject): Promise<JiraApi.JsonResponse>;
 
-    listFields(): Promise<JiraApi.JsonResponse>;
+    listFields(): Promise<JiraApi.FieldObject[]>;
 
     createFieldOption(fieldKey: string, option: JiraApi.FieldOptionObject): Promise<JiraApi.JsonResponse>;
 
@@ -122,7 +124,7 @@ declare class JiraApi {
     addWorklog(
         issueId: string,
         worklog: JiraApi.WorklogObject,
-        newEstimate: JiraApi.EstimateObject
+        newEstimate?: JiraApi.EstimateObject
     ): Promise<JiraApi.JsonResponse>;
 
     deleteWorklog(issueId: string, worklogId: string): Promise<JiraApi.JsonResponse>;

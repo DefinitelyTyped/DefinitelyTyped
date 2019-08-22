@@ -1,13 +1,18 @@
 // Type definitions for intro.js 2.4
 // Project: https://github.com/usablica/intro.js
 // Definitions by: Maxime Fabre <https://github.com/anahkiasen>
+//                 Leon Montealegre <https://github.com/LeonMontealegre>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace IntroJs {
     interface Step {
         intro: string;
         element?: string|HTMLElement|Element;
-        position?: string;
+        position?: "top"|"left"|"right"|"bottom"|"bottom-left-aligned"|"bottom-middle-aligned"|"bottom-right-aligned"|"auto";
+        tooltipClass?: string;
+        highlightClass?: string;
+        scrollTo?: "off"|"tooltip"|"element";
+        disableInteraction?: boolean;
     }
 
     interface Hint {
@@ -88,5 +93,5 @@ declare namespace IntroJs {
 
 declare var introJs: IntroJs.Factory;
 declare module 'intro.js' {
-    export = IntroJs;
+    export = introJs;
 }

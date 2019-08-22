@@ -3,6 +3,7 @@
 // Definitions by: Qubo <https://github.com/tkQubo>
 //                 Ron Buckton <https://github.com/rbuckton>
 //                 Will Boyce <https://github.com/wrboyce>
+//                 Lucas Motta <https://github.com/lucasmotta>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -21,6 +22,7 @@ import {
     Attributes,
     Stats,
     TransferOptions,
+    ReadFileOptions,
     ReadStreamOptions,
     WriteStreamOptions,
     FileEntry
@@ -727,6 +729,8 @@ export interface ServerConfig {
     /** Explicit overrides for the default transport layer algorithms used for the connection. */
     algorithms?: Algorithms;
     /** A message that is sent to clients immediately upon connection, before handshaking begins. */
+    greeting?: string
+    /** A message that is sent to clients once, right before authentication begins. */
     banner?: string;
     /** A custom server software name/version identifier. */
     ident?: string;
@@ -1272,6 +1276,24 @@ export interface SFTPWrapper extends events.EventEmitter {
      * Uploads a file from `localPath` to `remotePath` using parallel reads for faster throughput.
      */
     fastPut(localPath: string, remotePath: string, callback: (err: any) => void): void;
+
+    /**
+     * (Client-only)
+     * Reads a file in memory and returns its contents
+     */
+    readFile(remotePath: string, options: ReadFileOptions, callback: (err: any, handle: Buffer) => void): void;
+
+    /**
+     * (Client-only)
+     * Reads a file in memory and returns its contents
+     */
+    readFile(remotePath: string, encoding: string, callback: (err: any, handle: Buffer) => void): void;
+
+    /**
+     * (Client-only)
+     * Reads a file in memory and returns its contents
+     */
+    readFile(remotePath: string, callback: (err: any, handle: Buffer) => void): void;
 
     /**
      * (Client-only)

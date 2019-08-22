@@ -12,6 +12,7 @@
 const creep: Creep = Game.creeps.sampleCreep;
 const room: Room = Game.rooms.W10S10;
 const flag: Flag = Game.flags.Flag1;
+const powerCreep: PowerCreep = Game.powerCreeps.samplePowerCreep;
 const spawn: StructureSpawn = Game.spawns.Spawn1;
 const body: BodyPartConstant[] = [WORK, WORK, CARRY, MOVE];
 
@@ -45,6 +46,55 @@ function keys<T>(o: T): Array<keyof T> {
 
 {
     creep.moveTo(Game.flags.Flag1);
+}
+
+// Game.powerCreeps
+
+{
+    PowerCreep.create("steve", POWER_CLASS.OPERATOR) === OK;
+
+    for (const i in Game.powerCreeps) {
+        const powerCreep = Game.powerCreeps[i];
+
+        if (powerCreep.ticksToLive === undefined) {
+            // Not spawned in world; spawn creep
+            const spawn = Game.getObjectById("powerSpawnID") as StructurePowerSpawn;
+            powerCreep.spawn(spawn);
+        } else {
+            // Generate Ops
+            if (
+                powerCreep.powers[PWR_GENERATE_OPS] &&
+                powerCreep.powers[PWR_GENERATE_OPS].cooldown === 0 &&
+                (powerCreep.carry.ops || 0) < 10
+            ) {
+                Game.powerCreeps[i].usePower(PWR_GENERATE_OPS);
+            } else {
+                // Boost resource
+                const targetSource = Game.getObjectById("targetSourceID") as Source;
+                const sourceEffect = targetSource.effects.find(effect => effect.power === PWR_REGEN_SOURCE);
+                if (!sourceEffect && powerCreep.powers[PWR_REGEN_SOURCE] && powerCreep.powers[PWR_REGEN_SOURCE].cooldown === 0) {
+                    powerCreep.usePower(PWR_REGEN_SOURCE, targetSource);
+                }
+            }
+        }
+
+        // AnyCreep type checks
+        creep.attack(powerCreep);
+        creep.heal(powerCreep);
+        creep.rangedAttack(powerCreep);
+        creep.rangedHeal(powerCreep);
+        creep.transfer(powerCreep, RESOURCE_ENERGY);
+        powerCreep.transfer(creep, RESOURCE_ENERGY);
+
+        // Upgrading
+        powerCreep.upgrade(PWR_GENERATE_OPS);
+    }
+
+    const myPowaCreeps = Game.rooms.sim.find(FIND_MY_POWER_CREEPS);
+
+    // Constant type checking
+    POWER_INFO[PWR_GENERATE_OPS].className === POWER_CLASS.OPERATOR;
+    typeof POWER_INFO[PWR_GENERATE_OPS].level[0] === "number";
 }
 
 // Game.spawns
@@ -424,6 +474,16 @@ function keys<T>(o: T): Array<keyof T> {
     RawMemory.setPublicSegments([]);
 }
 
+// InterShardMemory
+
+{
+    let localShardData = "";
+    InterShardMemory.setLocal(localShardData);
+    localShardData = InterShardMemory.getLocal();
+
+    const remoteShardData: string = InterShardMemory.getRemote("shard2") || "";
+}
+
 // Find Overloads
 
 {
@@ -457,6 +517,9 @@ function keys<T>(o: T): Array<keyof T> {
         },
     });
     towers[0].attack(creeps[0]);
+    towers[0].attack(creeps[0] as AnyCreep);
+    towers[0].attack(powerCreep);
+    towers[0].heal(powerCreep);
 }
 
 // RoomPosition Finds
@@ -475,6 +538,7 @@ function keys<T>(o: T): Array<keyof T> {
     });
     if (tower !== null) {
         tower.attack(creep);
+        tower.attack(powerCreep);
     }
 
     const rampart = creep.pos.findClosestByRange<StructureRampart>(FIND_HOSTILE_STRUCTURES, {
@@ -590,10 +654,13 @@ function keys<T>(o: T): Array<keyof T> {
     BOOSTS[creep.body[0].type];
 }
 
+// Tombstones
+
 {
     const tombstone = room.find(FIND_TOMBSTONES)[0];
 
-    tombstone.creep.my;
+    (tombstone.creep as PowerCreep).spawnCooldownTime;
+    (tombstone.creep as Creep).my;
 
     tombstone.store.energy;
 
@@ -655,6 +722,12 @@ function keys<T>(o: T): Array<keyof T> {
 {
     room.getEventLog();
     room.getEventLog(true);
+
+    const events = room.getEventLog();
+
+    const event = events[0] as EventItem<EVENT_ATTACK>;
+
+    event.data.attackType;
 }
 
 // Room.Terrain

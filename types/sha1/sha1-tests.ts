@@ -9,3 +9,7 @@ const testThree = sha1('message', {asBytes: true});
 fs.readFile('sha1.d.ts', (err: Error, buf: Buffer) => {
     console.log(sha1(buf));
 });
+
+const asHexString: string = sha1('message');
+const asBinString: string = sha1('message', {asString: true});
+const asBytes: Uint8Array = sha1('message', {asBytes: true});

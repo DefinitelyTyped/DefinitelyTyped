@@ -1,5 +1,6 @@
 import vfile = require('vfile');
 import * as Unist from 'unist';
+import vfileMessage = require('vfile-message');
 
 // Instantiation
 const file: vfile.VFile = vfile();
@@ -15,24 +16,7 @@ file.dirname = '~';
 file.extname = '.md';
 file.basename = 'test.text';
 file.history = ['~/test.txt']; // => ['~/example.txt', '~/example.md', '~/index.text']
-file.messages = [{
-    file: '~/test.txt',
-    ruleId: '',
-    reason: '',
-    line: 1,
-    column: 1,
-    location: {
-        start: {
-            line: 1,
-            column: 1,
-        },
-        end: {
-            line: 1,
-            column: 1,
-        }
-    },
-    source: ''
-}];
+file.messages = [vfileMessage('random error')];
 
 const startPoint: Unist.Point = {
     line: 1,
@@ -46,7 +30,7 @@ const position: Unist.Position = {
     },
 };
 
-file.message('test', startPoint);
+const message: vfileMessage.VFileMessage = file.message('test', startPoint, 'test origin');
 file.message('test', position);
 file.message('test', {
     type: 'ramdom node',
@@ -55,6 +39,10 @@ file.message('test', {
 });
 
 file.message('test', { start: 'invalid point' }); // $ExpectError
+
+file.fail('test');
+
+const infoMessage: vfileMessage.VFileMessage = file.info('test');
 
 // Using `data` prop
 interface CustomData {

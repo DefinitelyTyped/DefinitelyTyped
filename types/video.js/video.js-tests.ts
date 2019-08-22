@@ -57,13 +57,19 @@ videojs("example_video_1").ready(function() {
 
 	this.height(480);
 
+	const readyState: videojs.ReadyState = this.readyState();
+
 	this.requestFullscreen();
+
+	const networkState: videojs.NetworkState = this.networkState();
 
 	testEvents(this);
 
 	testComponents(this);
 
 	testPlugin(this, {});
+
+	testAugmentation(this);
 });
 
 function testEvents(player: videojs.Player) {
@@ -110,4 +116,8 @@ function testPlugin(player: videojs.Player, options: {}) {
 		});
 	});
 	(player as any).uloztoExample(options);
+}
+
+function testAugmentation(player: videojs.Player) {
+    player.somePluginDefinedInAugmentation();
 }

@@ -1,5 +1,23 @@
-import { setOptions, withOptions } from '@storybook/addon-options';
 import { addDecorator } from '@storybook/react';
+import { setOptions, withOptions } from '@storybook/addon-options';
+
+addDecorator(
+  withOptions({
+    name: 'My Storybook',
+    url: 'https://example.com',
+    goFullScreen: false,
+    showStoriesPanel: false,
+    showAddonPanel: false,
+    showSearchBox: false,
+    addonPanelInRight: false,
+    sortStoriesByKind: false,
+    hierarchySeparator: /\//,
+    hierarchyRootSeparator: /\|/,
+    sidebarAnimations: false,
+    selectedAddonPanel: 'storybook/actions/action-panel',
+    enableShortcuts: false
+  })
+);
 
 setOptions({
   name: 'My Storybook',
@@ -12,7 +30,9 @@ setOptions({
   sortStoriesByKind: false,
   hierarchySeparator: /\//,
   hierarchyRootSeparator: /\|/,
+  sidebarAnimations: false,
   selectedAddonPanel: 'storybook/actions/action-panel',
+  enableShortcuts: false
 });
 
 setOptions({
@@ -32,19 +52,3 @@ setOptions({
   hierarchySeparator: '.',
   hierarchyRootSeparator: '#',
 });
-
-addDecorator(
-    withOptions({
-        name: "My Storybook",
-        url: "https://example.com",
-        goFullScreen: false,
-        showStoriesPanel: false,
-        showAddonPanel: false,
-        showSearchBox: false,
-        addonPanelInRight: false,
-        sortStoriesByKind: false,
-        hierarchySeparator: /\//,
-        hierarchyRootSeparator: /\|/,
-        selectedAddonPanel: "storybook/actions/action-panel"
-    })
-);

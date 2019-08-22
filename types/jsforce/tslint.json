@@ -3,6 +3,7 @@
     "rules": {
         // TODOs
         "array-type": false,
+        "await-promise": [true, "Request"],
         "ban-types": false,
         "eofline": false,
         "max-line-length": false,

@@ -1,5 +1,5 @@
 // Type definitions for pouchdb-core 7.0
-// Project: https://pouchdb.com/
+// Project: https://pouchdb.com/, https://github.com/pouchdb/pouchdb
 // Definitions by: Simon Paulger <https://github.com/spaulg>, Jakub Navratil <https://github.com/trubit>,
 //                 Brian Geppert <https://github.com/geppy>, Frederico Galvão <https://github.com/fredgalvao>,
 //                 Tobias Bales <https://github.com/TobiasBales>, Sebastián Ramírez <https://github.com/tiangolo>,
@@ -247,7 +247,10 @@ declare namespace PouchDB {
 
         type PostDocument<Content extends {}> = NewDocument<Content> & {
             filters?: {[filterName: string]: string};
-            views?: {[viewName: string]: string};
+            views?: {[viewName: string]: {
+                map: string,
+                reduce?: string
+            }};
 
             /** You can update an existing doc using _rev */
             _rev?: RevisionId;
@@ -573,6 +576,11 @@ declare namespace PouchDB {
              * ex_ new PouchDB("dbName", {size:100});
              */
             size?: number;
+            /**
+             * A special constructor option, which appends a prefix to the database name
+             * and can be helpful for URL-based or file-based LevelDOWN path names.
+             */
+            prefix?: string;
         }
 
         interface RemoteDatabaseConfiguration extends CommonDatabaseConfiguration {

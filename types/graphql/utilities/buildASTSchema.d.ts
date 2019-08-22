@@ -15,7 +15,7 @@ import { GraphQLDirective } from "../type/directives";
 import { Source } from "../language/source";
 import { GraphQLSchema, GraphQLSchemaValidationOptions } from "../type/schema";
 import { ParseOptions } from "../language/parser";
-import blockStringValue from "../language/blockStringValue";
+import { dedentBlockStringValue } from "../language/blockString";
 
 interface BuildSchemaOptions extends GraphQLSchemaValidationOptions {
     /**

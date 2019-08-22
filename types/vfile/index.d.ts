@@ -8,14 +8,10 @@
 /// <reference types='node' />
 
 import * as Unist from 'unist';
+import * as vfileMessage from 'vfile-message';
 
 declare namespace vfile {
     type VFileContents = string | Buffer;
-
-    interface NodeWithPosition extends Unist.Node {
-        position: Unist.Position;
-        [key: string]: any;
-    }
 
     interface VFileOptions {
         contents?: VFileContents;
@@ -29,86 +25,18 @@ declare namespace vfile {
         [key: string]: any;
     }
 
-    /**
-     * File-related message describing something at certain position.
-     */
-    interface VFileMessage {
-        /**
-         * File-path, when the message was triggered.
-         */
-        file: string;
-        /**
-         * Category of message.
-         */
-        ruleId: string | null;
-        /**
-         * Reason for message.
-         */
-        reason: string;
-        /**
-         * Starting line of error.
-         */
-        line: number | null;
-        /**
-         * Starting column of error.
-         */
-        column: number | null;
-        /**
-         * Full range information, when available.
-         * Has start and end properties, both set to an object with line and column, set to number?.
-         */
-        location: Unist.Position;
-        /**
-         * Namespace of warning.
-         */
-        source: string | null;
-        /**
-         * If true, marks associated file as no longer processable.
-         */
-        fatal?: boolean | null;
-    }
-
-    /**
-     * Associates a message with the file for `reason` at `position`.
-     * When an error is passed in as `reason`, copies the stack.
-     * Each message has a `fatal` property which by default is set to `false` (ie. `warning`).
-     * @param reason Reason for message. Uses the stack and message of the error if given.
-     * @param position Place at which the message occurred in `vfile`.
-     * @param ruleId Category of message.
-     */
-    type Message = (reason: string, position?: Unist.Point | Unist.Position | NodeWithPosition, ruleId?: string) => VFileMessage;
-    /**
-     * Associates a fatal message with the file, then immediately throws it.
-     * Note: fatal errors mean a file is no longer processable.
-     * Calls `message()` internally.
-     * @param reason Reason for message. Uses the stack and message of the error if given.
-     * @param position Place at which the message occurred in `vfile`.
-     * @param ruleId Category of message.
-     */
-    type Fail = (reason: string, position?: Unist.Point | Unist.Position | NodeWithPosition, ruleId?: string) => never;
-    /**
-     * Associates an informational message with the file, where `fatal` is set to `null`.
-     * Calls `message()` internally.
-     * @param reason Reason for message. Uses the stack and message of the error if given.
-     * @param position Place at which the message occurred in `vfile`.
-     * @param ruleId Category of message.
-     */
-    type Info = (reason: string, position?: Unist.Point | Unist.Position | NodeWithPosition, ruleId?: string) => void;
-
-    /**
-     * Convert contents of `vfile` to string.
-     * @param encoding If `contents` is a buffer, `encoding` is used to stringify buffers (default: `'utf8'`).
-     */
-    type ToString = (encoding?: BufferEncoding) => string;
-
     interface VFile {
         /**
+         * Create a new virtual file. If `options` is `string` or `Buffer`, treats it as `{contents: options}`.
+         * If `options` is a `VFile`, returns it. All other options are set on the newly created `vfile`.
+         *
+         * Path related properties are set in the following order (least specific to most specific): `history`, `path`, `basename`, `stem`, `extname`, `dirname`.
+         *
+         * It’s not possible to set either `dirname` or `extname` without setting either `history`, `path`, `basename`, or `stem` as well.
+         *
          * @param options If `options` is `string` or `Buffer`, treats it as `{contents: options}`. If `options` is a `VFile`, returns it. All other options are set on the newly created `vfile`.
          */
         <F extends VFile>(input?: VFileContents | F | VFileOptions): F;
-        message: Message;
-        fail: Fail;
-        info: Info;
         /**
          * List of file-paths the file moved between.
          */
@@ -121,7 +49,7 @@ declare namespace vfile {
         /**
          * List of messages associated with the file.
          */
-        messages: VFileMessage[];
+        messages: vfileMessage.VFileMessage[];
         /**
          * Raw value.
          */
@@ -157,15 +85,40 @@ declare namespace vfile {
          * Defaults to `process.cwd()`.
          */
         cwd: string;
-        toString: ToString;
+        /**
+         * Convert contents of `vfile` to string.
+         * @param encoding If `contents` is a buffer, `encoding` is used to stringify buffers (default: `'utf8'`).
+         */
+        toString: (encoding?: BufferEncoding) => string;
+        /**
+         * Associates a message with the file for `reason` at `position`.
+         * When an error is passed in as `reason`, copies the stack.
+         * Each message has a `fatal` property which by default is set to `false` (ie. `warning`).
+         * @param reason Reason for message. Uses the stack and message of the error if given.
+         * @param position Place at which the message occurred in `vfile`.
+         * @param ruleId Category of message.
+         */
+        message: (reason: string, position?: Unist.Point | Unist.Position | Unist.Node, ruleId?: string) => vfileMessage.VFileMessage;
+        /**
+         * Associates a fatal message with the file, then immediately throws it.
+         * Note: fatal errors mean a file is no longer processable.
+         * Calls `message()` internally.
+         * @param reason Reason for message. Uses the stack and message of the error if given.
+         * @param position Place at which the message occurred in `vfile`.
+         * @param ruleId Category of message.
+         */
+        fail: (reason: string, position?: Unist.Point | Unist.Position | Unist.Node, ruleId?: string) => never;
+        /**
+         * Associates an informational message with the file, where `fatal` is set to `null`.
+         * Calls `message()` internally.
+         * @param reason Reason for message. Uses the stack and message of the error if given.
+         * @param position Place at which the message occurred in `vfile`.
+         * @param ruleId Category of message.
+         */
+        info: (reason: string, position?: Unist.Point | Unist.Position | Unist.Node, ruleId?: string) => vfileMessage.VFileMessage;
     }
 }
 
-/**
- * Create a new virtual file.
- * Path related properties are set in the following order (least specific to most specific): `history`, `path`, `basename`, `stem`, `extname`, `dirname`.
- * It’s not possible to set either `dirname` or `extname` without setting either `history`, `path`, `basename`, or `stem` as well.
- */
 declare const vfile: vfile.VFile;
 
 export = vfile;

@@ -26,7 +26,7 @@ export class Index {
     static open(indexPath: string): Promise<Index>;
 
     add(sourceEntry: IndexEntry): number;
-    addAll(pathspec: Strarray | string | string[], flags: number, callback?: Function): Promise<number>;
+    addAll(pathspec?: Strarray | string | string[], flags?: number, callback?: Function): Promise<number>;
     addByPath(path: string): Promise<number>;
     caps(): number;
     checksum(): Oid;
@@ -37,7 +37,7 @@ export class Index {
     conflictRemove(path: string): number;
     entryCount(): number;
     getByIndex(n: number): IndexEntry;
-    getByPath(path: string, stage: number): IndexEntry;
+    getByPath(path: string, stage?: number): IndexEntry;
     hasConflicts(): boolean;
     owner(): Repository;
     path(): string;

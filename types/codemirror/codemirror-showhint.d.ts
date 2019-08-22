@@ -10,8 +10,6 @@
 import * as CodeMirror from "codemirror";
 
 declare module "codemirror" {
-    var commands: any;
-
     /** Provides a framework for showing autocompletion hints. Defines editor.showHint, which takes an optional
     options object, and pops up a widget that allows the user to select a completion. Finding hints is done with
     a hinting functions (the hint option), which is a function that take an editor instance and options object,

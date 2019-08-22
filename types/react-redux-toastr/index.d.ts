@@ -4,7 +4,7 @@
 //                 Artyom Stukans <https://github.com/artyomsv>
 //                 Mika Kuitunen <https://github.com/kulmajaba>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 import { Component } from 'react';
 import { Action, Reducer } from 'redux';

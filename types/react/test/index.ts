@@ -488,15 +488,32 @@ DOM.svg({
 // --------------------------------------------------------------------------
 
 const mappedChildrenArray: number[] =
-    React.Children.map<number>(children, (child) => 42);
+    React.Children.map(children, (child: any) => 42);
 const childrenArray: Array<React.ReactElement<{ p: number }>> = children;
 const mappedChildrenArrayWithKnownChildren: number[] =
     React.Children.map(childrenArray, (child) => child.props.p);
 React.Children.forEach(children, (child) => { });
 const nChildren: number = React.Children.count(children);
-let onlyChild: React.ReactElement<any> = React.Children.only(DOM.div()); // ok
+let onlyChild: React.ReactElement = React.Children.only(DOM.div()); // ok
 onlyChild = React.Children.only([null, [[["Hallo"], true]], false]); // error
 const childrenToArray: React.ReactChild[] = React.Children.toArray(children);
+
+declare const numberChildren: number[];
+declare const elementChildren: JSX.Element[];
+declare const mixedChildren: Array<JSX.Element | string>;
+declare const singlePluralChildren: JSX.Element | JSX.Element[];
+declare const renderPropsChildren: () => JSX.Element;
+
+// $ExpectType number[]
+const mappedChildrenArray2 = React.Children.map(numberChildren, num => num);
+// $ExpectType Element[]
+const mappedChildrenArray3 = React.Children.map(elementChildren, element => element);
+// $ExpectType (string | Element)[]
+const mappedChildrenArray4 = React.Children.map(mixedChildren, elementOrString => elementOrString);
+// $ExpectType (string | number | null)[]
+const mappedChildrenArray5 = React.Children.map(singlePluralChildren, element => element.key);
+// $ExpectType string[]
+const mappedChildrenArray6 = React.Children.map(renderPropsChildren, element => element.name);
 
 //
 // Example from http://facebook.github.io/react/
@@ -696,6 +713,15 @@ React.createFactory(TransitionGroup)({ component: "div" });
 }
 
 //
+// Events
+// --------------------------------------------------------------------------
+function eventHandler<T extends React.BaseSyntheticEvent>(e: T) {}
+
+function handler(e: React.MouseEvent) {
+    eventHandler(e);
+}
+
+//
 // The SyntheticEvent.target.value should be accessible for onChange
 // --------------------------------------------------------------------------
 class SyntheticEventTargetValue extends React.Component<{}, { value: string }> {
@@ -765,7 +791,7 @@ class RenderChildren extends React.Component {
 const Memoized1 = React.memo(function Foo(props: { foo: string }) { return null; });
 React.createElement(Memoized1, { foo: 'string' });
 
-const Memoized2 = React.memo(
+const Memoized2 = React.memo<{ bar: string }>(
     function Bar(props: { bar: string }) { return null; },
     (prevProps, nextProps) => prevProps.bar === nextProps.bar
 );
@@ -777,3 +803,9 @@ const sfc: React.SFC<any> = Memoized2;
 // this $ExpectError is failing on TypeScript@next
 // // $ExpectError Property '$$typeof' is missing in type
 // const specialSfc2: React.SpecialSFC = props => null;
+
+const propsWithChildren: React.PropsWithChildren<Props> = {
+    hello: "world",
+    foo: 42,
+    children: functionComponent,
+};

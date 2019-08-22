@@ -64,6 +64,10 @@ declare namespace node_geocoder {
         countryCode?: string;
         zipcode?: string;
         provider?: string;
+        state?: string;
+        county?: string;
+        district?: string;
+        building?: string;
     }
 
     interface Query {

@@ -6,6 +6,7 @@ import qs = require('querystring');
 import request = require('request');
 import stream = require('stream');
 import urlModule = require('url');
+import constants = require('constants');
 
 let value: any;
 let str: string;
@@ -14,7 +15,6 @@ let strOrTrueOrUndef: string | true | undefined;
 const buffer: Buffer = new Buffer('foo');
 let num = 0;
 let bool: boolean;
-let date: Date;
 let obj: object;
 const dest = 'foo';
 
@@ -58,8 +58,8 @@ obj = req.toJSON();
 let cookie: request.Cookie = request.cookie('foo')!;
 str = cookie.key;
 str = cookie.value;
-date = cookie.expires;
-str = cookie.path;
+const expires: Date | 'Infinity' = cookie.expires;
+const cpath: string | null = cookie.path;
 str = cookie.toString();
 bool = cookie.httpOnly;
 
@@ -541,7 +541,7 @@ options = {
         // Or use `pfx` property replacing `cert` and `key` when using private key, certificate and CA certs in PFX or PKCS12 format:
         // pfx: fs.readFileSync(pfxFilePath),
         passphrase: 'password',
-        securityOptions: 'SSL_OP_NO_SSLv3'
+        secureOptions: constants.SSL_OP_NO_SSLv3
     }
 };
 

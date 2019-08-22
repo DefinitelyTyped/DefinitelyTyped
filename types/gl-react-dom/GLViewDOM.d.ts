@@ -4,10 +4,10 @@ export type SupportedImage = 'image/png' | 'image/jpeg' | 'image/bmp' | 'image/w
 export type ValidQuality = 0.0 | 0.1 | 0.2 | 0.3 | 0.4 | 0.5 | 0.6 | 0.7 | 0.8 | 0.9 | 1.0;
 
 export interface GLViewDOMProps {
-  onContextCreate: (gl: WebGLRenderingContext) => void;
-  onContextFailure: (e: Error) => void;
-  onContextLost: () => void;
-  onContextRestored: (gl: WebGLRenderingContext) => void;
+  onContextCreate?: (gl: WebGLRenderingContext) => void;
+  onContextFailure?: (e: Error) => void;
+  onContextLost?: () => void;
+  onContextRestored?: (gl: WebGLRenderingContext) => void;
   webglContextAttributes?: WebGLContextAttributes;
   pixelRatio?: number;
   width: number;

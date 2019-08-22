@@ -1,5 +1,5 @@
 // Type definitions for JSZip 3.1
-// Project: http://stuk.github.com/jszip/
+// Project: http://stuk.github.com/jszip/, https://github.com/stuk/jszip
 // Definitions by: mzeiher <https://github.com/mzeiher>, forabi <https://github.com/forabi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
@@ -132,6 +132,7 @@ declare namespace JSZip {
         checkCRC32?: boolean;
         optimizedBinaryString?: boolean;
         createFolders?: boolean;
+        decodeFileName?(filenameBytes: Uint8Array): string;
     }
 }
 

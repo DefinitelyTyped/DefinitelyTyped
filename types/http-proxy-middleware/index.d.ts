@@ -3,7 +3,7 @@
 // Definitions by: Zebulon McCorkle <https://github.com/zebMcCorkle>
 //                 BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 /// <reference types="node" />
 
@@ -15,10 +15,10 @@ import * as httpProxy from "http-proxy";
 import { Readable } from 'stream';
 
 declare function proxy(config: proxy.Config): proxy.Proxy;
-declare function proxy(contextOrUri: string | string[] | proxy.Filter, config: proxy.Config): proxy.Proxy;
+declare function proxy(contextOrUri: string | string[] | proxy.Filter, config?: proxy.Config): proxy.Proxy;
 
 declare namespace proxy {
-  type Filter = (pathanme: string, req: http.IncomingMessage) => boolean;
+  type Filter = (pathname: string, req: http.IncomingMessage) => boolean;
   type Logger = (...args: any[]) => void;
   interface LogProvider {
     log: Logger;

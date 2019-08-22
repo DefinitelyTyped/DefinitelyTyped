@@ -7,8 +7,10 @@
 //                 jscinoz <https://github.com/jscinoz>
 //                 surgeboris <https://github.com/surgeboris>
 //                 geirsagberg <https://github.com/geirsagberg>
+//                 Harry Hedger <https://github.com/hedgerh>
+//                 Adam Rich <https://github.com/adam1658>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.8
 
 import {
     Dispatch,
@@ -35,7 +37,7 @@ export type RouteThunk<TState = any> = (
 export type RouteObject<TKeys = {}, TState = any> = TKeys & {
     capitalizedWords?: boolean;
     navKey?: string;
-    path: string;
+    path?: string;
     thunk?: RouteThunk<TState>;
     fromPath?(path: string, key?: string): string;
     toPath?(param: string, key?: string): string;
@@ -54,7 +56,7 @@ export interface ReceivedAction {
     type: string;
     payload: Payload;
     meta?: object;
-    query?: object;
+    query?: Query;
     search?: string;
     navKey?: Nullable<string>;
 }
@@ -62,11 +64,11 @@ export interface ReceivedAction {
 export interface ReceivedActionMeta {
     type: string;
     payload: Payload;
-    query?: object;
+    query?: Query;
     navKey?: Nullable<string>;
     meta: {
         notFoundPath?: string;
-        query?: object;
+        query?: Query;
         search?: string;
     };
 }
@@ -83,7 +85,7 @@ export interface Location {
     pathname: string;
     type: string;
     payload: Payload;
-    query?: object;
+    query?: Query;
     search?: string;
 }
 
@@ -91,7 +93,7 @@ export interface LocationState<TKeys = {}, TState = any> {
     pathname: string;
     type: string;
     payload: Payload;
-    query?: object;
+    query?: Query;
     search?: string;
     prev: Location;
     kind: Nullable<string>;
@@ -122,7 +124,7 @@ export interface Meta {
     location: ActionMetaLocation;
     notFoundPath?: string;
     navigation?: NavigationAction;
-    query?: object;
+    query?: Query;
     search?: string;
 }
 
@@ -130,7 +132,7 @@ export interface Action {
     type: string;
     payload?: Payload;
     meta?: Meta;
-    query?: object;
+    query?: Query;
     navKey?: Nullable<string>;
 }
 
@@ -296,8 +298,18 @@ export interface Options<TKeys = {}, TState = any> {
     extra?: any;
 }
 
-export type Params = object;
-export type Payload = object;
+export interface Query {
+    [key: string]: string | undefined;
+}
+
+export interface Params {
+    [key: string]: any;
+}
+
+export interface Payload {
+    query?: Query;
+    [key: string]: any;
+}
 
 export type DisplayConfirmLeave = (message: string, callback: (unblock: boolean) => void) => void;
 

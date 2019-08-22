@@ -17,11 +17,21 @@
     "scripts": {
         "compile-scripts": "tsc -p scripts",
         "not-needed": "node scripts/not-needed.js",
+        "update-codeowners": "node scripts/update-codeowners.js",
         "test": "node node_modules/types-publisher/bin/tester/test.js --run-from-definitely-typed",
         "lint": "dtslint types"
     },
     "devDependencies": {
-        "dtslint": "github:Microsoft/dtslint#production",
-        "types-publisher": "Microsoft/types-publisher#production"
+        "dtslint": "latest",
+        "husky": ">=1",
+        "precise-commits": "^1.0.2",
+        "prettier": "^1.17.1",
+        "types-publisher": "github:Microsoft/types-publisher#production"
+    },
+    "dependencies": {},
+    "husky": {
+        "hooks": {
+            "pre-commit": "precise-commits"
+        }
     }
 }

@@ -1,191 +1,175 @@
-// Type definitions for react-relay 1.3
-// Project: https://github.com/facebook/relay
+// Type definitions for react-relay 5.0
+// Project: https://github.com/facebook/relay, https://facebook.github.io/relay
 // Definitions by: Johannes Schickling <https://github.com/graphcool>
 //                 Matt Martin <https://github.com/voxmatt>
 //                 Eloy Durán <https://github.com/alloy>
 //                 Nicolas Pirotte <https://github.com/npirotte>
 //                 Cameron Knight <https://github.com/ckknight>
 //                 Kaare Hoff Skovgaard <https://github.com/kastermester>
+//                 Matt Krick <https://github.com/mattkrick>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
+// TypeScript Version: 3.0
 
-// Prettified with:
-// $ prettier --parser typescript --tab-width 4 --semi --trailing-comma es5 --write --print-width 120 \
-//   types/{react-relay,relay-runtime}/{,*}/*.ts*
-
-export {
-    commitLocalUpdate,
-    commitRelayModernMutation as commitMutation,
-    fetchRelayModernQuery as fetchQuery,
+import * as React from 'react';
+import {
+    Environment,
+    Variables,
+    Disposable,
+    Observer,
+    CacheConfig,
     GraphQLTaggedNode,
-    requestRelaySubscription as requestSubscription,
-} from "relay-runtime";
+    RelayContext,
+    PageInfo,
+    OperationType,
+} from 'relay-runtime';
 
-import * as React from "react";
-import * as RelayRuntimeTypes from "relay-runtime";
+// ./ReactRelayTypes
+export interface RelayProp {
+    environment: Environment;
+    refetch: undefined; // ensures no RelayRefetchProp is used with a fragment container
+    hasMore: undefined; // ensures no RelayPaginationProp is used with a fragment container
+}
 
-// ~~~~~~~~~~~~~~~~~~~~~
-// Utility types
-// ~~~~~~~~~~~~~~~~~~~~~
+export interface RelayRefetchProp {
+    environment: Environment;
+    refetch: (
+        refetchVariables: Variables | ((fragmentVariables: Variables) => Variables),
+        renderVariables?: Variables | null,
+        observerOrCallback?: ObserverOrCallback | null,
+        options?: RefetchOptions
+    ) => Disposable;
+    hasMore: undefined; // ensures no RelayPaginationProp is used with a refetch container
+}
+export interface RefetchOptions {
+    force?: boolean;
+    fetchPolicy?: 'store-or-network' | 'network-only';
+}
+
+type ObserverOrCallback = Observer<void> | ((error: Error | null | undefined) => void);
+
+export interface RelayPaginationProp {
+    readonly environment: Environment;
+    readonly hasMore: () => boolean;
+    readonly isLoading: () => boolean;
+    readonly loadMore: (
+        pageSize: number,
+        observerOrCallback?: ObserverOrCallback | null,
+        options?: RefetchOptions | null
+    ) => Disposable | null | undefined;
+    readonly refetchConnection: (
+        totalCount: number,
+        observerOrCallback?: ObserverOrCallback | null,
+        refetchVariables?: Variables | null
+    ) => Disposable | null | undefined;
+    refetch: undefined; // ensures no RelayRefetchProp is used with a pagination container
+}
 
 export interface _RefType<T> {
-    " $refType": T;
+    ' $refType': T;
 }
 export interface _FragmentRefs<T> {
-    " $fragmentRefs": T;
+    ' $fragmentRefs': T;
 }
 
 export type FragmentOrRegularProp<T> = T extends _RefType<infer U>
     ? _FragmentRefs<U>
-    : T extends ReadonlyArray<_RefType<infer U>> ? ReadonlyArray<_FragmentRefs<U>> : T;
+    : T extends ReadonlyArray<_RefType<infer U>>
+    ? ReadonlyArray<_FragmentRefs<U>>
+    : T;
 
-export type MappedFragmentProps<T> = { [K in keyof T]: FragmentOrRegularProp<T[K]> };
-
-export type RemoveRelayProp<P> = Pick<P, Exclude<keyof P, "relay">>;
-
-export interface ComponentRef {
-    componentRef?: (ref: any) => void;
-}
-
-export type RelayContainer<P> = React.ComponentType<MappedFragmentProps<RemoveRelayProp<P>> & ComponentRef>;
-
-// ~~~~~~~~~~~~~~~~~~~~~
-// Maybe Fix
-// ~~~~~~~~~~~~~~~~~~~~~
-export type ConcreteFragmentDefinition = object;
-export type ConcreteOperationDefinition = object;
-
-// ~~~~~~~~~~~~~~~~~~~~~
-// RelayProp
-// ~~~~~~~~~~~~~~~~~~~~~
-// note: refetch and pagination containers augment this
-export interface RelayProp {
-    environment: RelayRuntimeTypes.Environment;
-}
-
-// ~~~~~~~~~~~~~~~~~~~~~
-// RelayQL
-// ~~~~~~~~~~~~~~~~~~~~~
-export function RelayQL(strings: string[], ...substitutions: any[]): RelayRuntimeTypes.RelayConcreteNode;
-
-// ~~~~~~~~~~~~~~~~~~~~~
-// ReactRelayTypes
-// ~~~~~~~~~~~~~~~~~~~~~
-export interface GeneratedNodeMap {
-    [key: string]: RelayRuntimeTypes.GraphQLTaggedNode;
-}
-
-/**
- * Runtime function to correspond to the `graphql` tagged template function.
- * All calls to this function should be transformed by the plugin.
- */
-export interface GraphqlInterface {
-    (strings: string[] | TemplateStringsArray): RelayRuntimeTypes.GraphQLTaggedNode;
-    experimental(strings: string[] | TemplateStringsArray): RelayRuntimeTypes.GraphQLTaggedNode;
-}
-export const graphql: GraphqlInterface;
-
-// ~~~~~~~~~~~~~~~~~~~~~
-// ReactRelayQueryRenderer
-// ~~~~~~~~~~~~~~~~~~~~~
-
-export interface QueryRendererProps<T extends RelayRuntimeTypes.OperationBase = RelayRuntimeTypes.OperationDefaults> {
-    cacheConfig?: RelayRuntimeTypes.CacheConfig;
-    environment: RelayRuntimeTypes.Environment;
-    query?: RelayRuntimeTypes.GraphQLTaggedNode | null;
-    render(readyState: ReadyState<T["response"]>): React.ReactElement<any> | undefined | null;
-    variables: T["variables"];
-    rerunParamExperimental?: RelayRuntimeTypes.RerunParam;
-}
-export interface ReadyState<T extends RelayRuntimeTypes.Variables = RelayRuntimeTypes.Variables> {
-    error: Error | undefined | null;
-    props: T | undefined | null;
-    retry?(): void;
-}
-
-export class ReactRelayQueryRenderer<T extends RelayRuntimeTypes.OperationBase> extends React.Component<
-    QueryRendererProps<T>
-> {}
-export class QueryRenderer<
-    T extends RelayRuntimeTypes.OperationBase = RelayRuntimeTypes.OperationDefaults
-> extends ReactRelayQueryRenderer<T> {}
-
-// ~~~~~~~~~~~~~~~~~~~~~
-// createFragmentContainer
-// ~~~~~~~~~~~~~~~~~~~~~
-
-export function createFragmentContainer<P>(
-    Component: React.ComponentType<P>,
-    fragmentSpec: RelayRuntimeTypes.GraphQLTaggedNode | GeneratedNodeMap
-): RelayContainer<P>;
-
-// ~~~~~~~~~~~~~~~~~~~~~
-// createPaginationContainer
-// ~~~~~~~~~~~~~~~~~~~~~
-export interface PageInfo {
-    endCursor: string | undefined | null;
-    hasNextPage: boolean;
-    hasPreviousPage: boolean;
-    startCursor: string | undefined | null;
-}
-export interface ConnectionData {
-    edges?: ReadonlyArray<any>;
-    pageInfo?: Partial<PageInfo>;
-}
-export type RelayPaginationProp = RelayProp & {
-    hasMore(): boolean;
-    isLoading(): boolean;
-    loadMore(
-        pageSize: number,
-        callback: (error?: Error) => void,
-        options?: RefetchOptions
-    ): RelayRuntimeTypes.Disposable | undefined | null;
-    refetchConnection(
-        totalCount: number,
-        callback: (error?: Error) => void,
-        refetchVariables?: RelayRuntimeTypes.Variables
-    ): RelayRuntimeTypes.Disposable | undefined | null;
+export type MappedFragmentProps<T> = {
+    [K in keyof T]: FragmentOrRegularProp<T[K]>;
 };
-export function FragmentVariablesGetter(
-    prevVars: RelayRuntimeTypes.Variables,
-    totalCount: number
-): RelayRuntimeTypes.Variables;
-export interface ConnectionConfig<P> {
-    direction?: "backward" | "forward";
-    getConnectionFromProps?(props: P): ConnectionData | undefined | null;
-    getFragmentVariables?: typeof FragmentVariablesGetter;
-    getVariables(
-        props: { [propName: string]: any },
-        paginationInfo: { count: number; cursor?: string },
-        fragmentVariables: RelayRuntimeTypes.Variables
-    ): RelayRuntimeTypes.Variables;
-    query: RelayRuntimeTypes.GraphQLTaggedNode;
-}
-export function createPaginationContainer<P>(
-    Component: React.ComponentType<P>,
-    fragmentSpec: RelayRuntimeTypes.GraphQLTaggedNode | GeneratedNodeMap,
-    connectionConfig: ConnectionConfig<P>
-): RelayContainer<P>;
 
-// ~~~~~~~~~~~~~~~~~~~~~
-// createRefetchContainer
-// ~~~~~~~~~~~~~~~~~~~~~
-export interface RefetchOptions {
-    force?: boolean;
-    rerunParamExperimental?: RelayRuntimeTypes.RerunParam;
+export {
+    DataID,
+    DeclarativeMutationConfig,
+    Disposable,
+    Environment,
+    GraphQLTaggedNode,
+    MutationType,
+    NormalizationSelector,
+    OperationDescriptor,
+    RangeOperation,
+    ReaderSelector,
+    RelayContext,
+    Snapshot,
+    Variables,
+    MutationTypes,
+    RangeOperations,
+    applyOptimisticMutation,
+    commitLocalUpdate,
+    commitMutation,
+    fetchQuery,
+    graphql,
+    requestSubscription,
+} from 'relay-runtime';
+
+export type DataFrom = 'NETWORK_ONLY' | 'STORE_THEN_NETWORK';
+declare class ReactRelayQueryRenderer<TOperation extends OperationType> extends React.Component<{
+    cacheConfig?: CacheConfig | null;
+    dataFrom?: DataFrom;
+    environment: Environment;
+    query: GraphQLTaggedNode | null | undefined;
+    render: (renderProps: {
+        error: Error | null;
+        props: TOperation['response'] | null;
+        retry: (() => void) | null;
+    }) => React.ReactNode;
+    variables: TOperation['variables'];
+}> {}
+export { ReactRelayQueryRenderer as QueryRenderer };
+
+export const ReactRelayContext: React.Context<RelayContext | null>;
+
+interface GeneratedNodeMap {
+    [key: string]: GraphQLTaggedNode;
 }
-export type RelayRefetchProp = RelayProp & {
-    refetch(
-        refetchVariables:
-            | RelayRuntimeTypes.Variables
-            | ((fragmentVariables: RelayRuntimeTypes.Variables) => RelayRuntimeTypes.Variables),
-        renderVariables?: RelayRuntimeTypes.Variables,
-        callback?: (error?: Error) => void,
-        options?: RefetchOptions
-    ): RelayRuntimeTypes.Disposable;
-};
-export function createRefetchContainer<P>(
-    Component: React.ComponentType<P>,
-    fragmentSpec: RelayRuntimeTypes.GraphQLTaggedNode | GeneratedNodeMap,
-    taggedNode: RelayRuntimeTypes.GraphQLTaggedNode
-): RelayContainer<P>;
+
+export type ContainerProps<Props> = MappedFragmentProps<Pick<Props, Exclude<keyof Props, 'relay'>>>;
+
+export type Container<Props> = React.ComponentType<ContainerProps<Props> & { componentRef?: (ref: any) => void }>;
+
+export function createFragmentContainer<Props>(
+    Component: React.ComponentType<Props & { relay?: RelayProp }>,
+    fragmentSpec: GraphQLTaggedNode | GeneratedNodeMap
+): Container<Props>;
+
+interface ConnectionData {
+    edges?: ReadonlyArray<any> | null;
+    pageInfo?: Partial<PageInfo> | null;
+}
+
+type FragmentVariablesGetter = (prevVars: Variables, totalCount: number) => Variables;
+
+export interface ConnectionConfig<Props = object> {
+    direction?: 'backward' | 'forward';
+    getConnectionFromProps?: (props: Props) => ConnectionData | null | undefined;
+    getFragmentVariables?: FragmentVariablesGetter;
+    getVariables: (
+        props: Props,
+        paginationInfo: { count: number; cursor?: string | null },
+        fragmentVariables: Variables
+    ) => Variables;
+    query: GraphQLTaggedNode;
+}
+
+export function createPaginationContainer<Props>(
+    Component: React.ComponentType<
+        Props & {
+            relay: RelayPaginationProp;
+        }
+    >,
+    fragmentSpec: GraphQLTaggedNode | GeneratedNodeMap,
+    connectionConfig: ConnectionConfig<Props>
+): Container<Props>;
+
+export function createRefetchContainer<Props>(
+    Component: React.ComponentType<
+        Props & {
+            relay: RelayRefetchProp;
+        }
+    >,
+    fragmentSpec: GraphQLTaggedNode | GeneratedNodeMap,
+    taggedNode: GraphQLTaggedNode
+): Container<Props>;

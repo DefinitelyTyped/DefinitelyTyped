@@ -8,12 +8,30 @@ const options: ServerOptions = {
 
 const routeOptions: RouteOptions = {
     validate: {
+        payload: {
+            id: Joi.string().uuid().required(),
+            name: Joi.object({
+                firstName: Joi.string().required(),
+                lastName: Joi.string().allow(null)
+            }),
+            firstName: Joi.ref("name.firstName")
+        },
         params: {
-            name: Joi.string().min(3).max(10)
-        }
+            name: Joi.string().min(3).max(10),
+            nameRef: Joi.ref("name")
+        },
+        state: {
+            woop: Joi.string().allow('doop'),
+        },
     },
     response: {
-        schema: Joi.string()
+        schema: Joi.object({
+            a: Joi.string(),
+            b: Joi.object({
+                c: Joi.number()
+            }),
+            d: Joi.ref("b.c")
+        })
     }
 };
 

@@ -23,6 +23,7 @@
     "no-irregular-whitespace": false,
     "no-namespace": false,
     "no-padding": false,
+    "no-single-declare-module": false,
     "no-string-throw": false,
     "no-redundant-jsdoc": false,
     "no-redundant-jsdoc-2": false,

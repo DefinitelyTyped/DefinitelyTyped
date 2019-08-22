@@ -377,7 +377,7 @@ declare module "rethinkdb" {
 
         /**
          * Turn a sequence into an array or object, necessary when merging a sequence.
-         * 
+         *
          * See: https://www.rethinkdb.com/api/javascript/coerce_to/
          */
         coerceTo(key: 'array'): Expression<any[]>;
@@ -539,6 +539,7 @@ declare module "rethinkdb" {
         le(value: T): Expression<boolean>;
 
         add(n: number): Expression<number>;
+        add(n: Expression<number>): Expression<number>;
 
         /**
          * Subtract two numbers.

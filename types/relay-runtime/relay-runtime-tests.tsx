@@ -5,10 +5,10 @@ import {
     Store,
     ConnectionHandler,
     ViewerHandler,
-    RecordSourceInspector,
     commitLocalUpdate,
+    QueryResponseCache,
     ROOT_ID,
-} from "relay-runtime";
+} from 'relay-runtime';
 
 const source = new RecordSource();
 const store = new Store(source);
@@ -19,8 +19,8 @@ const store = new Store(source);
 // Define a function that fetches the results of an operation (query/mutation/etc)
 // and returns its results as a Promise:
 function fetchQuery(operation: any, variables: { [key: string]: string }, cacheConfig: {}) {
-    return fetch("/graphql", {
-        method: "POST",
+    return fetch('/graphql', {
+        method: 'POST',
         body: JSON.stringify({
             query: operation.text, // GraphQL text from input
             variables,
@@ -32,6 +32,9 @@ function fetchQuery(operation: any, variables: { [key: string]: string }, cacheC
 
 // Create a network layer from the fetch function
 const network = Network.create(fetchQuery);
+
+// Create a cache for storing query responses
+const cache = new QueryResponseCache({ size: 250, ttl: 60000 });
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // Environment
@@ -49,10 +52,11 @@ const environment = new Environment({
 function handlerProvider(handle: any) {
     switch (handle) {
         // Augment (or remove from) this list:
-        case "connection":
+        case 'connection':
             return ConnectionHandler;
-        case "viewer":
-            return ViewerHandler;
+        // case 'viewer':
+        //     // ViewerHandler is special-cased and does not have an `update` method
+        //     return ViewerHandler;
     }
     throw new Error(`handlerProvider: No handler provided for ${handle}`);
 }
@@ -61,13 +65,13 @@ function handlerProvider(handle: any) {
 // Source
 // ~~~~~~~~~~~~~~~~~~~~~
 
-const inspector = new RecordSourceInspector(source);
+store.publish(source);
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // commitLocalUpdate
 // ~~~~~~~~~~~~~~~~~~~~~
 
 commitLocalUpdate(environment, store => {
-  const root = store.get(ROOT_ID)!;
-  root.setValue("foo", "localKey");
+    const root = store.get(ROOT_ID)!;
+    root.setValue('foo', 'localKey');
 });

@@ -1,5 +1,5 @@
-// Type definitions for pg 7.4
-// Project: https://github.com/brianc/node-postgres
+// Type definitions for pg 7.11
+// Project: http://github.com/brianc/node-postgres
 // Definitions by: Phips Peter <https://github.com/pspeter3>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -19,6 +19,8 @@ export interface ConnectionConfig {
     keepAlive?: boolean;
     stream?: stream.Duplex;
     statement_timeout?: false | number;
+    connectionTimeoutMillis?: number;
+    keepAliveInitialDelayMillis?: number;
 }
 
 export interface Defaults extends ConnectionConfig {
@@ -29,10 +31,10 @@ export interface Defaults extends ConnectionConfig {
     parseInt8?: boolean;
 }
 
-import { TlsOptions } from "tls";
+import { ConnectionOptions } from "tls";
 
 export interface ClientConfig extends ConnectionConfig {
-    ssl?: boolean | TlsOptions;
+    ssl?: boolean | ConnectionOptions;
 }
 
 export interface PoolConfig extends ClientConfig {
@@ -157,9 +159,9 @@ export class Pool extends events.EventEmitter {
     query(queryConfig: QueryArrayConfig, values?: any[]): Promise<QueryArrayResult>;
     query(queryConfig: QueryConfig): Promise<QueryResult>;
     query(queryTextOrConfig: string | QueryConfig, values?: any[]): Promise<QueryResult>;
-    query(queryConfig: QueryArrayConfig, callback: (err: Error, result: QueryArrayResult) => void): Query;
-    query(queryTextOrConfig: string | QueryConfig, callback: (err: Error, result: QueryResult) => void): Query;
-    query(queryText: string, values: any[], callback: (err: Error, result: QueryResult) => void): Query;
+    query(queryConfig: QueryArrayConfig, callback: (err: Error, result: QueryArrayResult) => void): void;
+    query(queryTextOrConfig: string | QueryConfig, callback: (err: Error, result: QueryResult) => void): void;
+    query(queryText: string, values: any[], callback: (err: Error, result: QueryResult) => void): void;
 
     on(event: "error", listener: (err: Error, client: PoolClient) => void): this;
     on(event: "connect" | "acquire" | "remove", listener: (client: PoolClient) => void): this;
@@ -175,9 +177,9 @@ export class ClientBase extends events.EventEmitter {
     query(queryConfig: QueryArrayConfig, values?: any[]): Promise<QueryArrayResult>;
     query(queryConfig: QueryConfig): Promise<QueryResult>;
     query(queryTextOrConfig: string | QueryConfig, values?: any[]): Promise<QueryResult>;
-    query(queryConfig: QueryArrayConfig, callback: (err: Error, result: QueryArrayResult) => void): Query;
-    query(queryTextOrConfig: string | QueryConfig, callback: (err: Error, result: QueryResult) => void): Query;
-    query(queryText: string, values: any[], callback: (err: Error, result: QueryResult) => void): Query;
+    query(queryConfig: QueryArrayConfig, callback: (err: Error, result: QueryArrayResult) => void): void;
+    query(queryTextOrConfig: string | QueryConfig, callback: (err: Error, result: QueryResult) => void): void;
+    query(queryText: string, values: any[], callback: (err: Error, result: QueryResult) => void): void;
 
     copyFrom(queryText: string): stream.Writable;
     copyTo(queryText: string): stream.Readable;
@@ -206,7 +208,9 @@ export interface PoolClient extends ClientBase {
     release(err?: Error): void;
 }
 
-export class Query extends events.EventEmitter {
+export class Query extends events.EventEmitter implements Submittable {
+    constructor(queryTextOrConfig?: string | QueryConfig, values?: any[]);
+    submit: (connection: Connection) => void;
     on(event: "row", listener: (row: any, result?: ResultBuilder) => void): this;
     on(event: "error", listener: (err: Error) => void): this;
     on(event: "end", listener: (result: ResultBuilder) => void): this;

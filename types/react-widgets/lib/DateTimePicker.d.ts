@@ -42,6 +42,10 @@ interface DateTimePickerProps extends ReactWidgetsCommonDropdownProps<DateTimePi
      */
     currentDate?: Date;
     /**
+     * Default current date
+     */
+    defaultCurrentDate?: Date;
+    /**
      * Default value for current date. Useful for suggesting a date when the caldenar opens without keep forcing it once 'value' is set.
      */
     date?: boolean;

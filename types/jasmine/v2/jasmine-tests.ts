@@ -311,6 +311,12 @@ describe("A spy", () => {
     it("stops all execution on a function", () => {
         expect(bar).toBeNull();
     });
+
+    it("tracks if it was called at all", function () {
+        foo.setBar();
+
+        expect(foo.setBar.calls.any()).toEqual(true);
+    });
 });
 
 describe("A spy, when configured to call through", () => {
@@ -637,11 +643,25 @@ describe("A spy, when created manually", () => {
 });
 
 describe("Multiple spies, when created manually", () => {
-    var tape: any;
+    abstract class Tape {
+        private rewindTo: number;
+        play(): void { };
+        pause(): void { };
+        rewind(pos: number): void {
+            this.rewindTo = pos;
+        };
+        stop(): void { };
+        readonly isPlaying: boolean; // spy obj makes this writable
+    }
+
+    var tape: Tape;
+    var tapeSpy: jasmine.SpyObj<Tape>;
     var el: jasmine.SpyObj<Element>;
 
     beforeEach(() => {
-        tape = jasmine.createSpyObj('tape', ['play', 'pause', 'stop', 'rewind']);
+        tapeSpy = jasmine.createSpyObj<Tape>('tape', ['play', 'pause', 'stop', 'rewind']);
+        tape = tapeSpy;
+        (tape as { isPlaying: boolean }).isPlaying = false;
         el = jasmine.createSpyObj<Element>('Element', ['hasAttribute']);
 
         el.hasAttribute.and.returnValue(false);
@@ -650,6 +670,10 @@ describe("Multiple spies, when created manually", () => {
         tape.play();
         tape.pause();
         tape.rewind(0);
+
+        tapeSpy.play.and.callThrough();
+        tapeSpy.pause.and.callThrough();
+        tapeSpy.rewind.and.callThrough();
     });
 
     it("creates spies for each requested function", () => {
@@ -669,6 +693,10 @@ describe("Multiple spies, when created manually", () => {
     it("tracks all the arguments of its calls", () => {
         expect(tape.rewind).toHaveBeenCalledWith(0);
     });
+
+    it("read isPlaying property", () => {
+        expect(tape.isPlaying).toBe(false);
+    })
 });
 
 describe("jasmine.nothing", () => {
@@ -882,7 +910,7 @@ describe("Asynchronous specs", () => {
     });
 
     it("should support async execution of test preparation and expectations", (done: DoneFn) => {
-        value++;
+        value += 1;
         expect(value).toBeGreaterThan(0);
         done();
     });
@@ -1060,7 +1088,7 @@ var myReporter: jasmine.CustomReporter = {
     specDone: (result: jasmine.CustomReporterResult) => {
         console.log("Spec: " + result.description + " was " + result.status);
         //tslint:disable-next-line:prefer-for-of
-        for (var i = 0; result.failedExpectations && i < result.failedExpectations.length; i++) {
+        for (var i = 0; result.failedExpectations && i < result.failedExpectations.length; i += 1) {
             console.log("Failure: " + result.failedExpectations[i].message);
             console.log("Actual: " + result.failedExpectations[i].actual);
             console.log("Expected: " + result.failedExpectations[i].expected);
@@ -1072,7 +1100,7 @@ var myReporter: jasmine.CustomReporter = {
     suiteDone: (result: jasmine.CustomReporterResult) => {
         console.log('Suite: ' + result.description + ' was ' + result.status);
         //tslint:disable-next-line:prefer-for-of
-        for (var i = 0; result.failedExpectations && i < result.failedExpectations.length; i++) {
+        for (var i = 0; result.failedExpectations && i < result.failedExpectations.length; i += 1) {
             console.log('AfterAll ' + result.failedExpectations[i].message);
             console.log(result.failedExpectations[i].stack);
         }

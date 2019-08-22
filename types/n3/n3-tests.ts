@@ -76,6 +76,15 @@ function test_doc_rdf_to_triples_2() {
     const parser5: N3.N3Parser = N3.Parser({ format: 'text/n3' });
 }
 
+function test_doc_rdf_sync_to_triples_1() {
+    const parser: N3.N3Parser = new N3.Parser();
+    const result = parser.parse(`@prefix c: <http://example.org/cartoons#>.
+      c:Tom a c:Cat.
+      c:Jerry a c:Mouse;
+      c:smarterThan c:Tom.`);
+    result.forEach((s) => console.log(s));
+}
+
 function test_doc_rdf_stream_to_triples_1() {
     interface QuadBnode extends N3.BaseQuad {
       subject: N3.BlankNode;
@@ -188,6 +197,8 @@ function test_doc_storing() {
       console.log(mickey.object.datatype);
     }
     console.log(mickey.subject, mickey.predicate, mickey.object, '.');
+
+    const quadStream: RDF.Stream = store.match(N3.DataFactory.namedNode('http://ex.org/Mickey'));
 
     interface N3QuadGeneralized extends N3.BaseQuad {
       subject: N3.Quad_Subject | N3.BlankNode | N3.Literal;
