@@ -1,4 +1,4 @@
-import { Alert } from '@reach/alert';
+import Alert from '@reach/alert';
 
 import * as React from "react";
 import { render } from "react-dom";

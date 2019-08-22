@@ -11,7 +11,7 @@ import * as React from 'react';
 
 export type Display = 'true' | 'false' | 'excluded';
 export type SortDirection = 'asc' | 'desc';
-export type FilterType = 'dropdown' | 'checkbox' | 'multiselect' | 'textField';
+export type FilterType = 'dropdown' | 'checkbox' | 'multiselect' | 'textField' | 'custom';
 export type Responsive = 'stacked' | 'scroll';
 export type SelectableRows = 'multiple' | 'single' | 'none';
 
@@ -103,12 +103,18 @@ export interface MUIDataTableTextLabels {
     selectedRows: MUIDataTableTextLabelsSelectedRows;
 }
 
+export interface MUIDataTableFilterOptions {
+    names?: string[];
+    display?: (filterList: string[], onChange: any, index: number, column: any) => void;
+    logic?: (prop: string, filterValue: any[]) => boolean;
+}
+
 export interface MUIDataTableColumnOptions {
     display?: Display;
     empty?: boolean;
     filter?: boolean;
     filterList?: string[];
-    filterOptions?: string[];
+    filterOptions?: MUIDataTableFilterOptions;
     filterType?: FilterType;
     sort?: boolean;
     searchable?: boolean;
@@ -117,6 +123,7 @@ export interface MUIDataTableColumnOptions {
     download?: boolean;
     viewColumns?: boolean;
     hint?: string;
+    customFilterListRender?: (value: any) => string;
     customHeadRender?: (columnMeta: MUIDataTableCustomHeadRenderer, updateDirection: (params: any) => any) => string | React.ReactNode;
     customBodyRender?: (value: any, tableMeta: MUIDataTableMeta, updateValue: (s: any, c: any, p: any) => any) => string | React.ReactNode;
     setCellProps?: (cellValue: string, rowIndex: number, columnIndex: number) => object;
@@ -134,6 +141,7 @@ export interface MUIDataTableOptions {
         changePage: number
     ) => React.ReactNode;
     customSearch?: (searchQuery: string, currentRow: any[], columns: any[]) => boolean;
+    customSearchRender?: (searchText: string, handleSearch: any, hideSearch: any, options: any) => React.Component | JSX.Element;
     customSort?: (data: any[], colIndex: number, order: string) => any[];
     customToolbar?: () => React.ReactNode;
     customToolbarSelect?: (
@@ -148,6 +156,7 @@ export interface MUIDataTableOptions {
     downloadOptions?: { filename: string; separator: string };
     elevation?: number;
     expandableRows?: boolean;
+    expandableRowsOnClick?: boolean;
     filter?: boolean;
     filterType?: FilterType;
     fixedHeader?: boolean;
@@ -171,6 +180,7 @@ export interface MUIDataTableOptions {
     onRowsDelete?: (rowsDeleted: any[]) => void;
     onRowsSelect?: (currentRowsSelected: any[], rowsSelected: any[]) => void;
     onSearchChange?: (searchText: string) => void;
+    onSearchOpen?: () => void;
     onTableChange?: (action: string, tableState: MUIDataTableState) => void;
     page?: number;
     pagination?: boolean;
@@ -182,8 +192,11 @@ export interface MUIDataTableOptions {
     rowsPerPage?: number;
     rowsPerPageOptions?: number[];
     rowsSelected?: any[];
+    rowsExpanded?: any[];
     search?: boolean;
+    searchText?: string;
     selectableRows?: SelectableRows;
+    selectableRowsOnClick?: boolean;
     serverSide?: boolean;
     setRowProps?: (row: any[], rowIndex: number) => object;
     sort?: boolean;

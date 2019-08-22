@@ -131,7 +131,9 @@ export interface EPackageRegistry extends EObject {
     register: (ePackage: EPackage) => void;
     ePackages: () => EPackage[];
     elements: (type: EObject) => EObject[];
+    Registry: EPackageRegistry;
 }
+
 export interface ResourceSet extends EObject {
     create: (uri: any) => Resource;
     getEObject: (uri: string) => EObject;

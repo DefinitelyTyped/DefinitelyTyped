@@ -28,7 +28,7 @@ export function extendCoordinates(extent: Extent, coordinates: Coordinate[]): Ex
 export function extendFlatCoordinates(extent: Extent, flatCoordinates: number[], offset: number, end: number, stride: number): Extent;
 export function extendRings(extent: Extent, rings: Coordinate[][]): Extent;
 export function extendXY(extent: Extent, x: number, y: number): void;
-export function forEachCorner<S, T>(extent: Extent, callback: ((this: T, p0: Coordinate) => S), opt_this?: T): S | boolean;
+export function forEachCorner<S, T>(extent: Extent, callback: (this: T, p0: Coordinate) => S, opt_this?: T): S | boolean;
 export function getArea(extent: Extent): number;
 export function getBottomLeft(extent: Extent): Coordinate;
 export function getBottomRight(extent: Extent): Coordinate;

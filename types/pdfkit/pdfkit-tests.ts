@@ -162,10 +162,14 @@ doc.image(
     },
     {
         scale: 0.25,
-    }
+    },
 ).text('Scale', 320, 265);
 
 doc.text('Scale', { align: 'justify' });
+
+doc.text('Baseline - string literal', { baseline: 'alphabetic' });
+
+doc.text('Baseline - numeric', { baseline: 10 });
 
 doc.goTo(0, 0, 0, 0, 'lorem');
 

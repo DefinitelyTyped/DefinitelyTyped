@@ -3866,7 +3866,9 @@ interface ImagePropsAndroid {
     resizeMethod?: "auto" | "resize" | "scale";
 
     /**
-     * Duration of fade in animation.
+     * Duration of fade in animation in ms. Defaults to 300
+     *
+     * @platform android
      */
     fadeDuration?: number;
 
@@ -4154,9 +4156,19 @@ export interface FlatListProps<ItemT> extends VirtualizedListProps<ItemT> {
     ListFooterComponent?: React.ComponentType<any> | React.ReactElement | null;
 
     /**
+     * Styling for internal View for ListFooterComponent
+     */
+    ListFooterComponentStyle?: ViewStyle | null;
+
+    /**
      * Rendered at the very beginning of the list.
      */
     ListHeaderComponent?: React.ComponentType<any> | React.ReactElement | null;
+
+    /**
+     * Styling for internal View for ListHeaderComponent
+     */
+    ListHeaderComponentStyle?: ViewStyle | null;
 
     /**
      * Optional custom style for multi-item rows generated when numColumns > 1
@@ -5415,10 +5427,7 @@ export namespace StyleSheet {
      * their respective objects, merged as one and then returned. This also explains
      * the alternative use.
      */
-    export function flatten<T>(style?: RegisteredStyle<T>): T;
-    export function flatten(style?: StyleProp<TextStyle>): TextStyle;
-    export function flatten(style?: StyleProp<ImageStyle>): ImageStyle;
-    export function flatten(style?: StyleProp<ViewStyle>): ViewStyle;
+    export function flatten<T>(style?: StyleProp<T>): T;
 
     /**
      * WARNING: EXPERIMENTAL. Breaking changes will probably happen a lot and will

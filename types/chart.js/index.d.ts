@@ -1,4 +1,4 @@
-// Type definitions for Chart.js 2.7
+// Type definitions for Chart.js 2.8
 // Project: https://github.com/nnnick/Chart.js, https://www.chartjs.org
 // Definitions by: Alberto Nuti <https://github.com/anuti>
 //                 Fabien Lavocat <https://github.com/FabienLavocat>
@@ -132,6 +132,8 @@ declare namespace Chart {
         'easeInQuart' | 'easeOutQuart' | 'easeInOutQuart' | 'easeInQuint' | 'easeOutQuint' | 'easeInOutQuint' | 'easeInSine' | 'easeOutSine' |
         'easeInOutSine' | 'easeInExpo' | 'easeOutExpo' | 'easeInOutExpo' | 'easeInCirc' | 'easeOutCirc' | 'easeInOutCirc' | 'easeInElastic' |
         'easeOutElastic' | 'easeInOutElastic' | 'easeInBack' | 'easeOutBack' | 'easeInOutBack' | 'easeInBounce' | 'easeOutBounce' | 'easeInOutBounce';
+
+    type TextAlignment = 'left' | 'center' | 'right';
 
     interface ChartArea {
         top: number;
@@ -296,17 +298,20 @@ declare namespace Chart {
         mode?: InteractionMode;
         intersect?: boolean;
         backgroundColor?: ChartColor;
+        titleAlign?: TextAlignment;
         titleFontFamily?: string;
         titleFontSize?: number;
         titleFontStyle?: string;
         titleFontColor?: ChartColor;
         titleSpacing?: number;
         titleMarginBottom?: number;
+        bodyAlign?: TextAlignment;
         bodyFontFamily?: string;
         bodyFontSize?: number;
         bodyFontStyle?: string;
         bodyFontColor?: ChartColor;
         bodySpacing?: number;
+        footerAlign?: TextAlignment;
         footerFontFamily?: string;
         footerFontSize?: number;
         footerFontStyle?: string;
@@ -320,7 +325,7 @@ declare namespace Chart {
         multiKeyBackground?: string;
         callbacks?: ChartTooltipCallback;
         filter?(item: ChartTooltipItem, data: ChartData): boolean;
-        itemSort?(itemA: ChartTooltipItem, itemB: ChartTooltipItem): number;
+        itemSort?(itemA: ChartTooltipItem, itemB: ChartTooltipItem, data?: ChartData): number;
         position?: string;
         caretPadding?: number;
         displayColors?: boolean;
@@ -452,7 +457,7 @@ declare namespace Chart {
 
     interface TickOptions extends NestedTickOptions {
         minor?: NestedTickOptions | false;
-        major?: NestedTickOptions | false;
+        major?: MajorTickOptions | false;
     }
 
     interface NestedTickOptions {
@@ -483,6 +488,10 @@ declare namespace Chart {
         stepSize?: number;
         suggestedMax?: number;
         suggestedMin?: number;
+    }
+
+    interface MajorTickOptions extends NestedTickOptions {
+        enabled?: boolean;
     }
 
     interface AngleLineOptions {
@@ -573,6 +582,7 @@ declare namespace Chart {
         gridLines?: GridLineOptions;
         barThickness?: number | "flex";
         maxBarThickness?: number;
+        minBarLength?: number;
         scaleLabel?: ScaleTitleOptions;
         time?: TimeScale;
         offset?: boolean;

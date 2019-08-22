@@ -1,6 +1,6 @@
 {
   "private": true,
   "dependencies": {
-    "csstype": "^2.6.5"
+    "csstype": "^2.6.6"
   }
 }

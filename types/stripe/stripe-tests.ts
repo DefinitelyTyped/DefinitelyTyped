@@ -1465,6 +1465,45 @@ stripe.paymentIntents.cancel("pi_Aabcxyz01aDfoo", { cancellation_reason: 'duplic
 stripe.paymentIntents.cancel("pi_Aabcxyz01aDfoo", { cancellation_reason: 'requested_by_customer' }).then((intent) => {});
 //#endregion
 
+//#region Setup Intents test
+// ##################################################################################
+stripe.setupIntents.create({
+    payment_method_types: ["card"],
+}, (err, intent) => {});
+
+stripe.setupIntents.create({
+    customer: 'cus_5rfJKDJkuxzh5Q',
+    payment_method_types: ["card"],
+}).then((intent) => {});
+
+stripe.setupIntents.list({}, (err, intent) => {});
+stripe.setupIntents.list({}).then((intent) => {});
+stripe.setupIntents.list((err, intent) => {});
+stripe.setupIntents.list().then((intent) => {});
+stripe.setupIntents.list({ limit: 10 }, (err, intent) => {});
+stripe.setupIntents.list({ customer: 'cus_5rfJKDJkuxzh5Q' }).then((intent) => {});
+
+stripe.setupIntents.update("seti_123456789", {
+    customer: 'cus_5rfJKDJkuxzh5Q',
+}, (err, intent) => {});
+stripe.setupIntents.update("seti_123456789", {
+    customer: 'cus_5rfJKDJkuxzh5Q',
+}).then((intent) => {});
+
+stripe.setupIntents.retrieve("seti_123456789", (err, intent) => {});
+stripe.setupIntents.retrieve("seti_123456789").then((intent) => {});
+
+stripe.setupIntents.confirm("seti_123456789", {}, (err, intent) => {});
+stripe.setupIntents.confirm("seti_123456789", {}).then((intent) => {});
+
+stripe.setupIntents.cancel("seti_123456789", (err, intent) => {});
+stripe.setupIntents.cancel("seti_123456789").then((intent) => {});
+stripe.setupIntents.cancel("seti_123456789", {}, (err, intent) => {});
+stripe.setupIntents.cancel("seti_123456789", {}).then((intent) => {});
+stripe.setupIntents.cancel("seti_123456789", { cancellation_reason: 'duplicate' }, (err, intent) => {});
+stripe.setupIntents.cancel("seti_123456789", { cancellation_reason: 'requested_by_customer' }).then((intent) => {});
+//#endregion
+
 //#region Payouts tests
 // ##################################################################################
 stripe.payouts.create({

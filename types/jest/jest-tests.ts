@@ -282,6 +282,9 @@ jest.addMatchers(customMatcherFactories)
     .useFakeTimers()
     .useRealTimers();
 
+jest.advanceTimersToNextTimer();
+jest.advanceTimersToNextTimer(2);
+
 // https://jestjs.io/docs/en/jest-object#jestrequireactualmodulename
 jest.requireActual('./thisReturnsTheActualModule');
 
@@ -1109,27 +1112,31 @@ const projectConfig: jest.ProjectConfig = {
 };
 
 const environment = {
-    global: {},
-    fakeTimers: {
-        clearAllTimers() {},
-        runAllImmediates() {},
-        runAllTicks() {},
-        runAllTimers() {},
-        runTimersToTime(time: number) {},
-        advanceTimersByTime(time: number) {},
-        runOnlyPendingTimers() {},
-        runWithRealTimers(callback: () => void) {
-            callback();
-        },
-        useFakeTimers() {},
-        useRealTimers() {},
+  global: {},
+  fakeTimers: {
+    clearAllTimers() {},
+    runAllImmediates() {},
+    runAllTicks() {},
+    runAllTimers() {},
+    runTimersToTime(time: number) {},
+    advanceTimersByTime(time: number) {},
+    advanceTimersToNextTimer(step: number) {},
+    runOnlyPendingTimers() {},
+    runWithRealTimers(callback: () => void) {
+      callback();
     },
-    testFilePath: '',
-    moduleMocker: {},
-    dispose() {},
-    runScript(script: '') {
-        return {};
+    useFakeTimers() {},
+    useRealTimers() {},
+    getTimerCount() {
+      return 1;
     },
+  },
+  testFilePath: '',
+  moduleMocker: {},
+  dispose() {},
+  runScript(script: '') {
+    return {};
+  },
 };
 
 const workTestFramework = async (testFramework: jest.TestFramework): Promise<jest.TestResult> => {
