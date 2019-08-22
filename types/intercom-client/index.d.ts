@@ -1,4 +1,4 @@
-// Type definitions for intercom-client 2.9
+// Type definitions for intercom-client 2.11
 // Project: https://github.com/intercom/intercom-node
 // Definitions by: Jinesh Shah <https://github.com/jineshshah36>, Josef Hornych <https://github.com/peping>, Mikhail Monchak <https://github.com/mikhail-monchak>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
