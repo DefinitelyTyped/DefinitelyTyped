@@ -1,4 +1,4 @@
-// Type definitions for backstopjs 4.1.12
+// Type definitions for backstopjs 4.1
 // Project: https://github.com/garris/backstopjs#readme
 // Definitions by: Darío Blanco <https://github.com/darioblanco>, MindDoc <https://github.com/minddocdev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
