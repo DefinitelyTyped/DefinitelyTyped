@@ -74,9 +74,9 @@ class F2 {
 
     const x1: (a: number, b: number, c: number, d: number) => number = R.curry(addFourNumbers);
     // because of the current way of currying, the following call results in a type error
-    // const x2: Function = R.curry(addFourNumbers)(1,2,4)
-    // const x3: (c: number, d: number) => number = R.curry(addFourNumbers)(1)(2);
-    // const x4: (d: number) => number = R.curry(addFourNumbers)(1)(2)(3);
+    const x2: Function = R.curry(addFourNumbers)(1,2,4)
+    const x3: (c: number, d: number) => number = R.curry(addFourNumbers)(1)(2);
+    const x4: (d: number) => number = R.curry(addFourNumbers)(1)(2)(3);
     const y1: number   = R.curry(addFourNumbers)(1)(2)(3)(4);
     const y2: number   = R.curry(addFourNumbers)(1, 2)(3, 4);
     const y3: number   = R.curry(addFourNumbers)(1, 2, 3)(4);
