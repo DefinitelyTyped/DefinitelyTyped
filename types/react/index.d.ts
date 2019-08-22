@@ -833,6 +833,7 @@ declare namespace React {
      * @version 16.8.0
      * @see https://reactjs.org/docs/hooks-reference.html#usestate
      */
+    // function useState<S extends Function>(lazyState: () => S): [S, Dispatch<SetStateAction<S>>];
     function useState<S>(initialState: S extends Function ? () => S : (() => S) | S): [S, Dispatch<SetStateAction<S>>];
     // convenience overload when first argument is ommitted
     /**

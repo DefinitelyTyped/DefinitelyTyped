@@ -198,6 +198,13 @@ function useEveryHook(ref: React.Ref<{ id: number }>|undefined): () => boolean {
     React.useState(0)[0];
     // $ExpectType undefined
     React.useState(undefined)[0];
+    // make sure that a state type extending Function is passed as a lazyInitialState
+    // $ExpectType () => undefined
+    React.useState(() => () => undefined)[0];
+    // $ExpectType undefined
+    React.useState(() => undefined)[0];
+    // $ExpectError
+    React.useState<() => undefined>(() => undefined);
     // make sure the generic argument does reject actual potentially undefined inputs
     // $ExpectError
     React.useState<number>(undefined)[0];
