@@ -53,6 +53,7 @@ declare namespace sanitize {
     allowedClasses?: { [index: string]: string[] } | boolean;
     allowedIframeHostnames?: string[];
     allowIframeRelativeUrls?: boolean;
+    escapeDisallowedTags?: boolean;
     allowedSchemes?: string[] | boolean;
     allowedSchemesByTag?: { [index: string]: string[] } | boolean;
     allowedSchemesAppliedToAttributes?: string[];
