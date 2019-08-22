@@ -1,4 +1,4 @@
-// Type definitions for non-npm package ej.web.all 17.2
+// Type definitions for ej.web.all 17.2
 // Project: http://help.syncfusion.com/js/typescript
 // Definitions by: Syncfusion <https://github.com/syncfusion>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -8,7 +8,7 @@
 
 /*!
 *  filename: ej.web.all.d.ts
-*  version : 17.2.0.34
+*  version : 17.2.0.46
 *  Copyright Syncfusion Inc. 2001 - 2019. All rights reserved.
 *  Use of this code is subject to the terms of our license.
 *  A copy of the current license can be obtained at any time by e-mailing
