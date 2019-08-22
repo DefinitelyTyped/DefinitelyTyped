@@ -55,6 +55,7 @@ export interface KeypressSelector {
 
 /** The Backstop test definition. See https://github.com/garris/BackstopJS#advanced-scenarios */
 export interface Scenario {
+  [key: string]: any; // Allow for custom properties.
   clickSelector?: string; // Click the specified DOM element prior to screenshot
   clickSelectors?: string[]; // Simulates multiple sequential click interactions
   cookiePath?: string; // Import cookies in JSON format
