@@ -12,7 +12,7 @@ export default () => (
   <Select
     closeMenuOnSelect={false}
     components={{ Placeholder }}
-    placeholder={'custom placeholder component'}
+    placeholder={<span>custom placeholder component</span>}
     styles={{ placeholder: (base: any) => ({ ...base, fontSize: '1em', color: colourOptions[2].color, fontWeight: 400 }) }}
     options={colourOptions}
   />
