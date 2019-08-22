@@ -46,7 +46,7 @@ declare namespace VueScrollTo {
     }
 }
 
-declare class VueScrollTo implements PluginObject<VueScrollTo.Options>{
+declare class VueScrollTo implements PluginObject<VueScrollTo.Options> {
     install: PluginFunction<VueScrollTo.Options>;
     static install: PluginFunction<VueScrollTo.Options>;
 

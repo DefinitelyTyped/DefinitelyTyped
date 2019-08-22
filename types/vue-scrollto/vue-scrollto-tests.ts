@@ -10,6 +10,6 @@ class Test extends Vue {
     mounted() {
         this.$scrollTo(this.$el, {offset: -100});
         this.$scrollTo("#id");
-        VueScrollTo.scrollTo("#id", {offset: -100})
+        VueScrollTo.scrollTo("#id", {offset: -100});
     }
 }
