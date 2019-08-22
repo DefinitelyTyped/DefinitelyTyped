@@ -49,7 +49,7 @@ function test_chroma() {
 
 function test_color() {
     chroma('red').alpha(0.5);
-    chroma('rgba(255,0,0,0.35)').alpha();
+    chroma('rgba(255,0,0,0.35)').alpha() === 0.35;
     chroma('hotpink').darken();
     chroma('hotpink').darken(2);
     chroma('hotpink').brighten();
