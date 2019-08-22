@@ -2526,7 +2526,7 @@ declare namespace Stripe {
              * dictionary containing a user’s credit card details (with the options shown
              * below). Stripe will automatically validate the card.
              */
-            source: string | cards.ICardSourceCreationOptions;
+            source: string | cards.ICardSourceCreationOptions | bankAccounts.ISourceCreationOptions;
         }
 
         interface ICustomerInvoiceSettings {
