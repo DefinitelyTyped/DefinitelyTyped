@@ -6,7 +6,7 @@
 
 /// <reference types="node" />
 
-export type LoadImageCallback = (image?: HTMLCanvasElement | HTMLImageElement, data?: MetaData) => void;
+export type LoadImageCallback = (image: HTMLCanvasElement | HTMLImageElement, data?: MetaData) => void;
 
 export interface Exif {
     [tag: number]: number | string | string[];
