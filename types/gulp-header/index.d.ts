@@ -7,6 +7,4 @@
 
 declare function header(text: string, data?: object): NodeJS.ReadWriteStream;
 
-declare namespace header { }
-
 export = header;
