@@ -8,7 +8,7 @@
 //                 Bilal <https://github.com/bilalucar>
 //                 TMTron <https://github.com/tmtron>
 //                 dwhitney <https://github.com/dwhitney>
-//                 Ruixue Liao <https://github.com/ruixuel>
+//                 Ruixuel <https://github.com/ruixuel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 

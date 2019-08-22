@@ -410,11 +410,11 @@ declare namespace echarts {
                 encode?: object;
 
                 // dimension names list
-                dimensionNames: string[],
+                dimensionNames?: string[],
 
                 // data dimension index, for example 0 or 1 or 2 ...
                 // Only work in `radar` series.
-                dimensionIndex: number,
+                dimensionIndex?: number,
 
                 // Color of data
                 color?: string;
