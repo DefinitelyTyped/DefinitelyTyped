@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import loadImage, { MetaData } from 'blueimp-load-image';
 
 // Test image taken from package tests: https://github.com/blueimp/JavaScript-Load-Image/blob/master/test/test.js
@@ -25,10 +24,7 @@ const imageUrlJPEG = 'data:image/jpeg;base64,' + b64DataJPEG;
 
 loadImage(imageUrlJPEG, (image?: HTMLCanvasElement | HTMLImageElement, data?: MetaData): void => {
   const canvas = image as HTMLCanvasElement;
-  expect(data).not.null;
   console.log(data);
-  expect(data!.exif).not.null;
-  expect(data!.iptc).not.null;
   canvas.toBlob((blob: Blob | null): void => {
     const url = canvas.toDataURL("image/png");
     console.log(url);
