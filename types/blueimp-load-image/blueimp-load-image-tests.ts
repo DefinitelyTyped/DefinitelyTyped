@@ -1,7 +1,10 @@
-import loadImage from 'blueimp-load-image';
+import { expect } from 'chai';
+import loadImage, { MetaData } from 'blueimp-load-image';
 
 // Test image taken from package tests: https://github.com/blueimp/JavaScript-Load-Image/blob/master/test/test.js
 
+// 2x1px JPEG (color white, with the Exif orientation flag set to 6 and the
+// IPTC ObjectName (2:5) set to 'objectname'):
 const b64DataJPEG =
   '/9j/4AAQSkZJRgABAQEAYABgAAD/4QAiRXhpZgAASUkqAAgAAAABABIBAwABAAAA' +
   'BgASAAAAAAD/7QAsUGhvdG9zaG9wIDMuMAA4QklNBAQAAAAAAA8cAgUACm9iamVj' +
@@ -20,8 +23,12 @@ const b64DataJPEG =
   '2uLj5OXm5+jp6vLz9PX29/j5+v/aAAwDAQACEQMRAD8A/v4ooooA/9k=';
 const imageUrlJPEG = 'data:image/jpeg;base64,' + b64DataJPEG;
 
-loadImage(imageUrlJPEG, (image?: HTMLCanvasElement | HTMLImageElement): void => {
+loadImage(imageUrlJPEG, (image?: HTMLCanvasElement | HTMLImageElement, data?: MetaData): void => {
   const canvas = image as HTMLCanvasElement;
+  expect(data).not.null;
+  console.log(data);
+  expect(data!.exif).not.null;
+  expect(data!.iptc).not.null;
   canvas.toBlob((blob: Blob | null): void => {
     const url = canvas.toDataURL("image/png");
     console.log(url);
