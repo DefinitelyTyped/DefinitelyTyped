@@ -1,5 +1,3 @@
-/// <reference types="ccapture.js" />
-
 const canvas = document.createElement('canvas');
 const capturer = new CCapture({ format: 'webm' });
 capturer.start(); // $ExpectType void
