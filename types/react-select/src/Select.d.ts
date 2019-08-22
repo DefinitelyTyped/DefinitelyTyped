@@ -161,7 +161,7 @@ export interface Props<OptionType = { label: string; value: string }> extends Se
   /* Name of the HTML Input (optional - without this, no input will be rendered) */
   name?: string;
   /* Text to display when there are no options */
-  noOptionsMessage?: (obj: { inputValue: string }) => string | null;
+  noOptionsMessage?: (obj: { inputValue: string }) => React.ReactNode;
   /* Handle blur events on the control */
   onBlur?: FocusEventHandler;
   /* Handle change events on the select */
@@ -189,7 +189,7 @@ export interface Props<OptionType = { label: string; value: string }> extends Se
   /* Number of options to jump in menu when page{up|down} keys are used */
   pageSize?: number;
   /* Placeholder text for the select value */
-  placeholder?: string;
+  placeholder?: React.ReactNode;
   /* Status to relay to screen readers */
   screenReaderStatus?: (obj: { count: number }) => string;
   /* Style modifier methods */
