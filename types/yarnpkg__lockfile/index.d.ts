@@ -17,19 +17,14 @@ export interface LockFileObject {
   [packageName: string]: FirstLevelDependency | {};
 }
 
-export interface SuccessLockFileResult {
-  type: 'success' | 'merge';
-  object: LockFileObject;
-}
+export function parse(
+  file: string,
+  fileLoc?: string,
+): {
+  type: 'success' | 'merge' | 'conflict';
+  object: any;
+};
 
-export interface ConflictLockFileResult {
-  type: 'conflict';
-  object: {};
-}
-
-export type ParseResult = SuccessLockFileResult | ConflictLockFileResult;
-
-export function parse(file: string, fileLoc?: string): ParseResult;
 export function stringify(
   json: any,
   noHeader?: boolean,
