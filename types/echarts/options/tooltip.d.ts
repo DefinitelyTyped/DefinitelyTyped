@@ -44,45 +44,7 @@ declare namespace echarts {
              *
              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.axisPointer
              */
-            axisPointer?: {
-                /**
-                 * Indicator type.
-                 * Options:
-                 * + 'line' line indicator.
-                 * + 'shadow' shadow crosshair indicator.
-                 * + 'none' no indicator displayed.
-                 * + 'cross' crosshair indicator, which is actually
-                 *   the shortcut of enable two axisPointers
-                 *   of two orthometric axes.
-                 *
-                 * @default 'line'
-                 */
-                type?: 'line' | 'shadow' | 'none' | 'cross';
-
-                /**
-                 * By default, each coordinate system will automatically
-                 * chose the axes whose will display its axisPointer
-                 * (category axis or time axis is used by default).
-                 */
-                axis?: 'x' | 'y' | 'radius' | 'angle';
-
-                /**
-                 * Whether snap to point automatically.
-                 * The default value is auto determined.
-                 * This feature usually makes sense in value axis
-                 * and time axis, where tiny points
-                 * can be seeked automatically.
-                */
-                snap?: boolean;
-
-                /**
-                 * `z` value, which controls order of drawing
-                 * graphical components.
-                 * Components with smaller `z` values may be overwritten
-                 * by those with larger `z` values.
-                 */
-                z?: number;
-            };
+            axisPointer?: AxisPointer;
 
             /**
              * Whether to show the tooltip floating layer,
@@ -420,6 +382,9 @@ declare namespace echarts {
                 // Series name
                 seriesName?: string;
 
+                // item marker, string of HTMLElement
+                marker?: string;
+
                 // Data name, or category name
                 name?: string;
 
@@ -431,6 +396,25 @@ declare namespace echarts {
 
                 // Value of data
                 value?: number | any[];
+
+                // Value of axis
+                axisValue?: number | string;
+
+                // encoding info of coordinate system
+                // Key: coord, like ('x' 'y' 'radius' 'angle')
+                // value: Must be an array, not null/undefined. Contain dimension indices, like:
+                // {
+                //     x: [2] // values on dimension index 2 are mapped to x axis.
+                //     y: [0] // values on dimension index 0 are mapped to y axis.
+                // }
+                encode?: object;
+
+                // dimension names list
+                dimensionNames: string[],
+
+                // data dimension index, for example 0 or 1 or 2 ...
+                // Only work in `radar` series.
+                dimensionIndex: number,
 
                 // Color of data
                 color?: string;
