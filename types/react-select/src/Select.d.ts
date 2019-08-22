@@ -189,7 +189,7 @@ export interface Props<OptionType = { label: string; value: string }> extends Se
   /* Number of options to jump in menu when page{up|down} keys are used */
   pageSize?: number;
   /* Placeholder text for the select value */
-  placeholder?: string;
+  placeholder?: React.ReactNode;
   /* Status to relay to screen readers */
   screenReaderStatus?: (obj: { count: number }) => string;
   /* Style modifier methods */
