@@ -1,5 +1,5 @@
 // Type definitions for conflux-web 0.1
-// Project: https://github.com/Conflux-Chain/ConfluxWeb
+// Project: https://github.com/Conflux-Chain/ConfluxWeb/tree/master/packages/conflux-web 
 // Definitions by: liuis Lee <https://github.com/liuis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
