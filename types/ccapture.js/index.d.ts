@@ -61,7 +61,3 @@ declare namespace CCapture {
         workersPath?: string;
     }
 }
-
-export = CCapture;
-
-export as namespace CCapture;

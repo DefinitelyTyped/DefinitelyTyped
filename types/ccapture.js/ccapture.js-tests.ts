@@ -1,4 +1,4 @@
-import * as CCapture from "ccapture.js";
+/// <reference types="ccapture.js" />
 
 const canvas = document.createElement('canvas');
 const capturer = new CCapture({ format: 'webm' });
