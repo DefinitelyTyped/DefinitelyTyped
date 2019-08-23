@@ -29,7 +29,7 @@ const connection2: Promise<mongoose.Mongoose> = mongoose.connect(connectUri, {
   useFindAndModify: true,
   useCreateIndex: true,
   autoIndex: true,
-  autoCreate: true
+  autoCreate: true,
 });
 const connection3 = mongoose.connect(connectUri, function (error) {
   error.stack;
