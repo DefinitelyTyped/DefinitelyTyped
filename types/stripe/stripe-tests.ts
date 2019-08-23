@@ -635,6 +635,41 @@ stripe.customers.createSource(
     }
 );
 
+stripe.customers.createSource(
+    "cus_5rfJKDJkuxzh5Q",
+    {
+        source: {
+            country: 'US',
+            currency: 'USD',
+            account_holder_name: 'Account Holder',
+            account_holder_type: 'individual',
+            account_number: '000123456789',
+            routing_number: '110000000'
+        }
+    },
+    (err, bankAcc) => {
+        // asynchronously called
+        bankAcc; // $ExpectType IBankAccount
+    }
+);
+stripe.customers.createSource(
+    "cus_5rfJKDJkuxzh5Q",
+    {
+        source: {
+            country: 'US',
+            currency: 'USD',
+            account_holder_name: 'Account Holder',
+            account_holder_type: 'individual',
+            account_number: '000123456789',
+            routing_number: '110000000'
+        }
+    }).then(
+    (bankAcc) => {
+        // asynchronously called
+        bankAcc; // $ExpectType IBankAccount
+    }
+);
+
 stripe.customers.createSubscription(
     "cus_5rfJKDJkuxzh5Q",
     {
@@ -884,7 +919,7 @@ stripe.accounts.retrieve(
         // asynchronously called
 
         // account should have external_accounts property
-        account.external_accounts; // $ExpectType IList<ICard | IBankAccount>
+        account.external_accounts; // $ExpectType IList<IExternalAccount>
     }
 );
 
