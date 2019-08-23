@@ -191,6 +191,7 @@ c = new Client('connectionString'); // connection string allowed
 {
   new Client({ ssl: true });
   new Client({ ssl: false });
+  new Client({ ssl: 'verify-full' });
   new Client({
     ssl: {
       ca: 'root.crt',
