@@ -134,7 +134,7 @@ declare namespace _Readable {
         awaitDrain: number;
         defaultEncoding: string;
         readingMore: boolean;
-        decoder: StringDecoder | null;
+        decoder: typeof StringDecoder | null;
         encoding: string | null;
 
         // new (options: ReadableStateOptions, stream: _Readable): ReadableState;
