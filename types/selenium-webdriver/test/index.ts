@@ -18,7 +18,7 @@ function TestBuilder() {
     let cap: webdriver.Capabilities = builder.getCapabilities();
     let str: string = builder.getServerUrl();
 
-    builder = builder.setAlertBehavior('accept');
+    builder = builder.setAlertBehavior('behavior');
     builder = builder.setAlertBehavior();
     builder = builder.setChromeOptions(new chrome.Options());
     let chromeOpts: chrome.Options = builder.getChromeOptions();

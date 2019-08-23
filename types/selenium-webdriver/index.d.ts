@@ -1038,16 +1038,16 @@ export class Builder {
    * Any calls to {@link #withCapabilities} after this function will
    * overwrite these settings.
    *
-   * You may also define the target browser using the {@code SELENIUM_BROWSER}
-   * environment variable. If set, this environment variable should be of the
-   * form `browser[:[version][:platform]]`.
+   * <p>You may also define the target browser using the {@code
+   * SELENIUM_BROWSER} environment variable. If set, this environment variable
+   * should be of the form {@code browser[:[version][:platform]]}.
    *
-   * @param {(string|!Browser)} name The name of the target browser;
-   *     common defaults are available on the {@link webdriver.Browser} enum.
+   * @param {(string|Browser)} name The name of the target browser;
+   *     common defaults are available on the {@link Browser} enum.
    * @param {string=} opt_version A desired version; may be omitted if any
    *     version should be used.
-   * @param {(string|!capabilities.Platform)=} opt_platform
-   *     The desired platform; may be omitted if any platform may be used.
+   * @param {string=} opt_platform The desired platform; may be omitted if any
+   *     version may be used.
    * @return {!Builder} A self reference.
    */
   forBrowser(name: string, opt_version?: string, opt_platform?: string): Builder;
@@ -1074,12 +1074,11 @@ export class Builder {
   /**
    * Sets the default action to take with an unexpected alert before returning
    * an error.
-   *
-   * @param {?UserPromptHandler} behavior The desired behavior.
+   * @param {string} beahvior The desired behavior; should be 'accept',
+   *     'dismiss', or 'ignore'. Defaults to 'dismiss'.
    * @return {!Builder} A self reference.
-   * @see capabilities.Capabilities#setAlertBehavior
    */
-  setAlertBehavior(behavior?: UserPromptHandler): Builder;
+  setAlertBehavior(behavior?: string): Builder;
 
   /**
    * Sets Chrome-specific options for drivers created by this builder. Any
@@ -1175,7 +1174,7 @@ export class Builder {
   /**
    * Sets the logging preferences for the created session. Preferences may be
    * changed by repeated calls, or by calling {@link #withCapabilities}.
-   * @param {!(logging.Preferences|Object<string, string>)} prefs The
+   * @param {!(logging.Preferences|Object.<string, string>)} prefs The
    *     desired logging preferences.
    * @return {!Builder} A self reference.
    */
@@ -1357,32 +1356,6 @@ export interface ICapability {
 export const Capability: ICapability;
 
 /**
- * The possible default actions a WebDriver session can take to respond to
- * unhandled user prompts (`window.alert()`, `window.confirm()`, and
- * `window.prompt()`).
- *
- * accept: All prompts should be silently accepted.
- *
- * dismiss: All prompts should be silently dismissed.
- *
- * accept and notify: All prompts should be automatically accepted, but an
- *     error should be returned to the next (or currently executing)
- *     WebDriver command.
- *
- * dismiss and notify: All prompts should be automatically dismissed, but
- *     an error should be returned to the next (or currently executing)
- *     WebDriver command.
- *
- * ignore: All prompts should be left unhandled.
- */
-export type UserPromptHandler =
-  'accept' |
-  'dismiss' |
-  'accept and notify' |
-  'dismiss and notify' |
-  'ignore';
-
-/**
  * Describes a set of capabilities for a WebDriver session.
  */
 export class Capabilities {
@@ -1453,13 +1426,12 @@ export class Capabilities {
 
   /**
    * Sets the default action to take with an unexpected alert before returning
-   * an error. If unspecified, WebDriver will default to `'dismiss and notify'`
-   *
-   * @param {?UserPromptHandler} behavior The way WebDriver should respond to
-   *     unhandled user prompts.
+   * an error.
+   * @param {string} behavior The desired behavior; should be 'accept',
+   *     'dismiss', or 'ignore'. Defaults to 'dismiss'.
    * @return {!Capabilities} A self reference.
    */
-  setAlertBehavior(behavior?: UserPromptHandler): Capabilities;
+  setAlertBehavior(behavior?: string): Capabilities;
 
   /**
    * @param {string} key The capability to return.
