@@ -5,6 +5,7 @@
 //                 Michael Haan <https://github.com/sfrooster>
 //                 Amiram Korach <https://github.com/amiram>
 //                 Insanehong <https://github.com/insanehong>
+//                 Roger <https://github.com/rstpv>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -101,24 +102,33 @@ export class KeyedMessage {
 }
 
 export class Admin {
-    constructor(kafkaClient: KafkaClient);
-    listGroups(cb: (error: any, data: any) => any): void;
-    describeGroups(consumerGroups: any, cb: (error: any, data: any) => any): void;
-    listTopics(cb: (error: any, data: any) => any): void;
-    createTopics(topics:TopicConfigData[], cb: (error: any, data: any) => any): void;
-    describeConfigs(payload: {resources: Resource[], includeSynonyms: boolean}, cb: (error: any, data: any) => any): void;
-}
+         constructor(kafkaClient: KafkaClient);
+         listGroups(cb: (error: any, data: any) => any): void;
+         describeGroups(
+           consumerGroups: any,
+           cb: (error: any, data: any) => any,
+         ): void;
+         listTopics(cb: (error: any, data: any) => any): void;
+         createTopics(
+           topics: TopicConfigData[],
+           cb: (error: any, data: any) => any,
+         ): void;
+         describeConfigs(
+           payload: { resources: Resource[]; includeSynonyms: boolean },
+           cb: (error: any, data: any) => any,
+         ): void;
+       }
 export interface Resource {
-    resourceType: string,
-    resourceName: string,
-    configNames: string[]
+  resourceType: string;
+  resourceName: string;
+  configNames: string[];
 }
 
 export interface TopicConfigData {
-    topic: string;
-    partitions?: number;
-    replicationFactor?: number;
-    configEntry: {name: string, value: string}[]
+  topic: string;
+  partitions?: number;
+  replicationFactor?: number;
+  configEntry?: Array<{ name: string; value: string }>;
 }
 // # Interfaces
 
