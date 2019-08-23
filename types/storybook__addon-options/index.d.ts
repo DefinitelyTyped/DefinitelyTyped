@@ -1,5 +1,5 @@
 // Type definitions for @storybook/addon-options 4.0
-// Project: https://github.com/storybooks/storybook
+// Project: https://github.com/storybookjs/storybook, https://github.com/storybookjs/storybook/tree/master/addons/options
 // Definitions by: Joscha Feth <https://github.com/joscha>
 //                 Simon Helle Nielsen <https://github.com/simonhn>
 //                 A.MacLeay <https://github.com/amacleay>

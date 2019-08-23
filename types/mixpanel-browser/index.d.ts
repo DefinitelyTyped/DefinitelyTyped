@@ -1,6 +1,7 @@
 // Type definitions for mixpanel-browser 2.23
 // Project: https://github.com/mixpanel/mixpanel-js
 // Definitions by: Carlos López <https://github.com/karlos1337>
+//                 Ricardo Rodrigues <https://github.com/RicardoRodrigues>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -55,6 +56,7 @@ export interface Config {
   upgrade: boolean;
   disable_persistence: boolean;
   disable_cookie: boolean;
+  disable_notifications: boolean;
   secure_cookie: boolean;
   ip: boolean;
   property_blacklist: string[];

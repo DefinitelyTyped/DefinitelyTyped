@@ -68,7 +68,7 @@ declare namespace ReactModal {
         onAfterClose?(): void;
 
         /* Function that will be run when the modal is requested to be closed, prior to actually closing. */
-        onRequestClose?(event: (MouseEvent | KeyboardEvent)): void;
+        onRequestClose?(event: (React.MouseEvent | React.KeyboardEvent)): void;
 
         /* Number indicating the milliseconds to wait before closing the modal. Defaults to zero (no timeout). */
         closeTimeoutMS?: number;
@@ -108,6 +108,9 @@ declare namespace ReactModal {
 
         /* Function accepting the ref for the overlay */
         overlayRef?: (instance: HTMLDivElement) => void;
+
+        /* String value of data-test-id attibute to be applied to to the modal content. */
+        testId?: string;
     }
 }
 

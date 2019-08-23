@@ -8,8 +8,8 @@ interface TestStore {
     a: number;
     b: string;
 }
-const firstReducer: (state: TestStore, action: Action) => TestStore = (a, b) => a;
-const secondReducer: (state: TestStore, action: Action) => TestStore = (a, b) => a;
+const firstReducer: Reducer<TestStore, Action> = (store, action) => ({a: 0, b: ''});
+const secondReducer: Reducer<TestStore, Action> = (store, action) => ({a: 0, b: ''});
 const finalReducer: (state: TestStore, action: Action) => TestStore = reduceReducers(firstReducer, secondReducer);
 const finalReducerWithState: (state: TestStore, action: Action) => TestStore = reduceReducers(firstReducer, secondReducer, null);
 
@@ -23,14 +23,14 @@ const finalReducerWithInitialState: (state: TestStore, action: Action) => TestSt
     secondReducer,
     initialState);
 
-const reducer02: (state: TestStore, action: Action) => TestStore = (a, b) => a;
-const reducer03: (state: TestStore, action: Action) => TestStore = (a, b) => a;
-const reducer04: (state: TestStore, action: Action) => TestStore = (a, b) => a;
-const reducer05: (state: TestStore, action: Action) => TestStore = (a, b) => a;
-const reducer06: (state: TestStore, action: Action) => TestStore = (a, b) => a;
-const reducer07: (state: TestStore, action: Action) => TestStore = (a, b) => a;
-const reducer08: (state: TestStore, action: Action) => TestStore = (a, b) => a;
-const reducer09: (state: TestStore, action: Action) => TestStore = (a, b) => a;
+const reducer02: Reducer<TestStore, Action> = (store, action) => ({a: 0, b: ''});
+const reducer03: Reducer<TestStore, Action> = (store, action) => ({a: 0, b: ''});
+const reducer04: Reducer<TestStore, Action> = (store, action) => ({a: 0, b: ''});
+const reducer05: Reducer<TestStore, Action> = (store, action) => ({a: 0, b: ''});
+const reducer06: Reducer<TestStore, Action> = (store, action) => ({a: 0, b: ''});
+const reducer07: Reducer<TestStore, Action> = (store, action) => ({a: 0, b: ''});
+const reducer08: Reducer<TestStore, Action> = (store, action) => ({a: 0, b: ''});
+const reducer09: Reducer<TestStore, Action> = (store, action) => ({a: 0, b: ''});
 
 const finalReducerWithInitialState02: (state: TestStore, action: Action) => TestStore = reduceReducers(
     firstReducer,

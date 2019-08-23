@@ -25,6 +25,10 @@
 //                 Trevor Leach <https://github.com/trevor-leach>
 //                 James Gregory <https://github.com/jagregory>
 //                 Erik Dalén <https://github.com/dalen>
+//                 Loïk Gaonac'h <https://github.com/loikg>
+//                 Roberto Zen <https://github.com/skyzenr>
+//                 Grzegorz Redlicki <https://github.com/redlickigrzegorz>
+//                 Juan Carbonel <https://github.com/juancarbonel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -33,6 +37,12 @@ export interface APIGatewayEventRequestContext {
     accountId: string;
     apiId: string;
     authorizer?: AuthResponseContext | null;
+    connectedAt?: number;
+    connectionId?: string;
+    domainName?: string;
+    domainPrefix?: string;
+    eventType?: string;
+    extendedRequestId?: string;
     httpMethod: string;
     identity: {
         accessKey: string | null;
@@ -49,12 +59,16 @@ export interface APIGatewayEventRequestContext {
         userAgent: string | null;
         userArn: string | null;
     };
+    messageDirection?: string;
+    messageId?: string | null;
     path: string;
     stage: string;
     requestId: string;
+    requestTime?: string;
     requestTimeEpoch: number;
     resourceId: string;
     resourcePath: string;
+    routeKey?: string;
 }
 
 // API Gateway "event"
@@ -73,6 +87,24 @@ export interface APIGatewayProxyEvent {
     resource: string;
 }
 export type APIGatewayEvent = APIGatewayProxyEvent; // Old name
+
+// https://docs.aws.amazon.com/elasticloadbalancing/latest/application/lambda-functions.html
+export interface ALBEventRequestContext {
+    elb: {
+        targetGroupArn: string;
+    };
+}
+export interface ALBEvent {
+    requestContext: ALBEventRequestContext;
+    httpMethod: string;
+    path: string;
+    queryStringParameters?: { [parameter: string]: string }; // URL encoded
+    headers?: { [header: string]: string };
+    multiValueQueryStringParameters?: { [parameter: string]: string[] }; // URL encoded
+    multiValueHeaders?: { [header: string]: string[] };
+    body: string | null;
+    isBase64Encoded: boolean;
+}
 
 // API Gateway CustomAuthorizer "event"
 export interface CustomAuthorizerEvent {
@@ -228,6 +260,7 @@ export interface CognitoUserPoolTriggerEvent {
     version: number;
     triggerSource:
     | "PreSignUp_SignUp"
+    | "PreSignUp_ExternalProvider"
     | "PostConfirmation_ConfirmSignUp"
     | "PreAuthentication_Authentication"
     | "PostAuthentication_Authentication"
@@ -261,6 +294,7 @@ export interface CognitoUserPoolTriggerEvent {
         userAttributes: { [key: string]: string };
         validationData?: { [key: string]: string };
         codeParameter?: string;
+        linkParameter?: string;
         usernameParameter?: string;
         newDeviceUsed?: boolean;
         session?: Array<{
@@ -275,6 +309,8 @@ export interface CognitoUserPoolTriggerEvent {
     };
     response: {
         autoConfirmUser?: boolean;
+        autoVerifyPhone?: boolean;
+        autoVerifyEmail?: boolean;
         smsMessage?: string;
         emailMessage?: string;
         emailSubject?: string;
@@ -290,6 +326,15 @@ export interface CognitoUserPoolTriggerEvent {
         messageAction?: "SUPPRESS";
         desiredDeliveryMediums?: Array<"EMAIL" | "SMS">;
         forceAliasCreation?: boolean;
+        claimsOverrideDetails?: {
+            claimsToAddOrOverride?: { [key: string]: string };
+            claimsToSuppress?: string[];
+            groupOverrideDetails?: null | {
+                groupsToOverride?: string[];
+                iamRolesToOverride?: string[];
+                preferredRole?: string;
+            };
+        };
     };
 }
 export type CognitoUserPoolEvent = CognitoUserPoolTriggerEvent;
@@ -429,7 +474,7 @@ export interface CognitoIdentity {
 
 export interface ClientContext {
     client: ClientContextClient;
-    custom?: any;
+    Custom?: any;
     env: ClientContextEnv;
 }
 
@@ -461,6 +506,15 @@ export interface APIGatewayProxyResult {
     isBase64Encoded?: boolean;
 }
 export type ProxyResult = APIGatewayProxyResult; // Old name
+
+export interface ALBResult {
+    statusCode: number;
+    statusDescription: string;
+    headers?: { [header: string]: boolean | number | string };
+    multiValueHeaders?: { [header: string]: Array<boolean | number | string> };
+    body: string;
+    isBase64Encoded: boolean;
+}
 
 /**
  * API Gateway CustomAuthorizer AuthResponse.
@@ -588,7 +642,7 @@ export interface CodePipelineEvent {
  * https://docs.aws.amazon.com/codepipeline/latest/userguide/detect-state-changes-cloudwatch-events.html
  *
  * The above CodePipelineEvent is when a lambda is invoked by a CodePipeline.
- * These events are when you subsribe to CodePipeline events in CloudWatch.
+ * These events are when you subscribe to CodePipeline events in CloudWatch.
  *
  * Their documentation says that detail.version is a string, but it is actually an integer
  */
@@ -695,7 +749,7 @@ export type CodePipelineCloudWatchEvent =
  */
 export interface CloudFrontHeaders {
     [name: string]: Array<{
-        key: string;
+        key?: string;
         value: string;
     }>;
 }
@@ -867,11 +921,17 @@ export interface SQSRecordAttributes {
     SenderId: string;
     ApproximateFirstReceiveTimestamp: string;
 }
+
+export type SQSMessageAttributeDataType = 'String' | 'Number' | 'Binary' | string;
+
 export interface SQSMessageAttribute {
-    Name: string;
-    Type: string;
-    Value: string;
+    stringValue?: string;
+    binaryValue?: string;
+    stringListValues: never[]; // Not implemented. Reserved for future use.
+    binaryListValues: never[]; // Not implemented. Reserved for future use.
+    dataType: SQSMessageAttributeDataType;
 }
+
 export interface SQSMessageAttributes {
     [name: string]: SQSMessageAttribute;
 }
@@ -1039,6 +1099,9 @@ export type APIGatewayProxyHandler = Handler<APIGatewayProxyEvent, APIGatewayPro
 export type APIGatewayProxyCallback = Callback<APIGatewayProxyResult>;
 export type ProxyHandler = APIGatewayProxyHandler; // Old name
 export type ProxyCallback = APIGatewayProxyCallback; // Old name
+
+export type ALBHandler = Handler<ALBEvent, ALBResult>;
+export type ALBCallback = Callback<ALBResult>;
 
 // TODO: IoT
 

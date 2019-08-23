@@ -33,7 +33,7 @@ export function subscribe<TData = ExecutionResultDataDefault>(args: {
     operationName?: Maybe<string>;
     fieldResolver?: Maybe<GraphQLFieldResolver<any, any>>;
     subscribeFieldResolver?: Maybe<GraphQLFieldResolver<any, any>>;
-}): Promise<AsyncIterator<ExecutionResult<TData>> | ExecutionResult<TData>>;
+}): Promise<AsyncIterableIterator<ExecutionResult<TData>> | ExecutionResult<TData>>;
 
 export function subscribe<TData = ExecutionResultDataDefault>(
     schema: GraphQLSchema,
@@ -44,7 +44,7 @@ export function subscribe<TData = ExecutionResultDataDefault>(
     operationName?: Maybe<string>,
     fieldResolver?: Maybe<GraphQLFieldResolver<any, any>>,
     subscribeFieldResolver?: Maybe<GraphQLFieldResolver<any, any>>
-): Promise<AsyncIterator<ExecutionResult<TData>> | ExecutionResult<TData>>;
+): Promise<AsyncIterableIterator<ExecutionResult<TData>> | ExecutionResult<TData>>;
 
 /**
  * Implements the "CreateSourceEventStream" algorithm described in the

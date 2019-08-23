@@ -7,6 +7,7 @@ import Dialog, {
     SlideAnimation,
     ScaleAnimation,
     FadeAnimation,
+    DialogFooter,
 } from 'react-native-popup-dialog';
 
 const slideAnimation = new SlideAnimation({ slideFrom: 'bottom' });
@@ -50,14 +51,22 @@ class Test extends React.Component<any> {
                 <Dialog ref={(popupDialog) => this.scalingPopupDialog = popupDialog}
                     dialogTitle={<DialogTitle title="Popup Dialog - Scale Animation" />}
                     dialogAnimation={scaleAnimation}
-                    actions={[
-                        <DialogButton
-                            text="CLOSE"
-                            onPress={(event) => this.dismissPopupDialog(this.scalingPopupDialog)}
-                            textStyle={{ color: "red" }}
-                            key="button-1"
-                        />,
-                    ]}
+                    footer={
+                        <DialogFooter>
+                            <DialogButton
+                                text="CLOSE"
+                                onPress={(event) => this.dismissPopupDialog(this.scalingPopupDialog)}
+                                textStyle={{ color: "red" }}
+                                bordered
+                                key="button-1"
+                            />
+                            <DialogButton
+                                text="OK"
+                                onPress={() => {}}
+                                key="button-2"
+                            />
+                        </DialogFooter>
+                    }
                 />
                 <Dialog ref={(popupDialog) => this.slidingPopupDialog = popupDialog}
                     dialogTitle={<DialogTitle title="Popup Dialog - Slide Animation" />}

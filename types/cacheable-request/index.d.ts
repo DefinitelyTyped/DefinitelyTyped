@@ -1,6 +1,7 @@
 // Type definitions for cacheable-request 6.0
 // Project: https://github.com/lukechilds/cacheable-request#readme
 // Definitions by: BendingBender <https://github.com/BendingBender>
+//                 Paul Melnikow <https://github.com/paulmelnikow>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -20,7 +21,7 @@ declare const CacheableRequest: CacheableRequest;
 type RequestFn = typeof request;
 
 interface CacheableRequest {
-    new (requestFn: RequestFn, storageAdapter?: string | Store<any>): (
+    new (requestFn: RequestFn, storageAdapter?: string | CacheableRequest.StorageAdapter): (
         opts: string | URL | (RequestOptions & CacheSemanticsOptions),
         cb?: (response: ServerResponse | ResponseLike) => void
     ) => CacheableRequest.Emitter;
@@ -30,6 +31,8 @@ interface CacheableRequest {
 }
 
 declare namespace CacheableRequest {
+    type StorageAdapter = Store<any>;
+
     interface Options {
         /**
          * If the cache should be used. Setting this to `false` will completely bypass the cache for the current request.

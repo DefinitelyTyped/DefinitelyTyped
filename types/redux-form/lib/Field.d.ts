@@ -44,7 +44,7 @@ export interface BaseFieldProps<P = {}> extends Partial<CommonFieldProps> {
     parse?: Parser;
     validate?: Validator | Validator[];
     warn?: Validator | Validator[];
-    withRef?: boolean;
+    forwardRef?: boolean;
     immutableProps?: string[];
 }
 
@@ -61,7 +61,7 @@ export type GenericFieldHTMLAttributes =
     SelectHTMLAttributes<HTMLSelectElement> |
     TextareaHTMLAttributes<HTMLTextAreaElement>;
 
-export class Field<P = GenericFieldHTMLAttributes | BaseFieldProps> extends Component<BaseFieldProps<P> & P> {
+export class Field<P extends GenericFieldHTMLAttributes | BaseFieldProps = GenericFieldHTMLAttributes | BaseFieldProps> extends Component<P> {
     dirty: boolean;
     name: string;
     pristine: boolean;

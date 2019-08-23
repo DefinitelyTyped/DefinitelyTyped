@@ -10,6 +10,7 @@
 //                 Pirasis Leelatanon <https://github.com/1pete>
 //                 Stanislav Dzhus <https://github.com/blablapolicja>
 //                 Jake Ferrante <https://github.com/ferrantejake>
+//                 Adebayo Opesanya <https://github.com/OpesanyaAdebayo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Imported from: https://github.com/types/npm-redis
@@ -38,6 +39,7 @@ export interface ClientOpts {
     return_buffers?: boolean;
     detect_buffers?: boolean;
     socket_keepalive?: boolean;
+    socket_initialdelay?: number;
     no_ready_check?: boolean;
     enable_offline_queue?: boolean;
     retry_max_delay?: number;
@@ -1081,8 +1083,8 @@ export interface Commands<R> {
     /**
      * Determine the index of a member in a sorted set.
      */
-    zrank(key: string, member: string, cb?: Callback<number | undefined>): R;
-    ZRANK(key: string, member: string, cb?: Callback<number | undefined>): R;
+    zrank(key: string, member: string, cb?: Callback<number | null>): R;
+    ZRANK(key: string, member: string, cb?: Callback<number | null>): R;
 
     /**
      * Remove one or more members from a sorted set.
@@ -1131,8 +1133,8 @@ export interface Commands<R> {
     /**
      * Determine the index of a member in a sorted set, with scores ordered from high to low.
      */
-    zrevrank(key: string, member: string, cb?: Callback<number | undefined>): R;
-    ZREVRANK(key: string, member: string, cb?: Callback<number | undefined>): R;
+    zrevrank(key: string, member: string, cb?: Callback<number | null>): R;
+    ZREVRANK(key: string, member: string, cb?: Callback<number | null>): R;
 
     /**
      * Get the score associated with the given member in a sorted set.

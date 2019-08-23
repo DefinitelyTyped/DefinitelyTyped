@@ -41,7 +41,7 @@ export type Overwrite<T, U> = Omit<T, keyof U> & U;
  */
 export type PropsOf<C> = C extends new (props: infer P) => React.Component
   ? P
-  : C extends (props: infer P) => React.ReactElement<any> | null ? P : never;
+  : C extends (props: infer P) => React.ReactElement | null ? P : never;
 
 /**
  * a function that takes {component} and returns a component that passes along
@@ -62,9 +62,9 @@ export type PropInjector<InjectedProps, AdditionalProps = {}> = <
 
 // Allow functions that take the properties of the component and return a CSS value
 export type DynamicCSSRule<Props> = {
-  [K in keyof CSS.Properties<number | string>]:
-  | CSS.Properties<number | string>[K]
-  | ((props: Props) => CSS.Properties<number | string>[K])
+  [K in keyof CSS.Properties<number | string | Array<number | string>>]:
+  | CSS.Properties<number | string | Array<number | string>>[K]
+  | ((props: Props) => CSS.Properties<number | string | Array<number | string>>[K])
 }[keyof CSS.Properties];
 
 export interface CSSProperties<Props> {
@@ -73,11 +73,11 @@ export interface CSSProperties<Props> {
     | DynamicCSSRule<Props>
     | CSSProperties<Props>;
 }
-export type Styles<ClassKey extends string = string, Props = {}> = Record<
+export type Styles<ClassKey extends string | number | symbol = string, Props = {}> = Record<
   ClassKey,
   CSSProperties<Props>
   >;
-export type StyleCreator<C extends string = string, T extends {} = {}, Props = {}> = (
+export type StyleCreator<C extends string | number | symbol = string, T extends {} = {}, Props = {}> = (
   theme: T
 ) => Styles<C, Props>;
 
@@ -93,20 +93,20 @@ export interface InjectOptions extends CreateStyleSheetOptions {
   theming?: Theming;
 }
 
-export type ClassNameMap<C extends string> = Record<C, string>;
+export type ClassNameMap<C extends string | number | symbol> = Record<C, string>;
 export type WithSheet<
-  S extends string | Styles | StyleCreator<string, any>,
+    S extends string | Styles | StyleCreator<keyof S, any>,
   GivenTheme = undefined,
-  Props = {}
+Props = {},
   > = {
   classes: ClassNameMap<
-    S extends string
+    S extends string | number | symbol
       ? S
       : S extends StyleCreator<infer C, any, Props>
       ? C
       : S extends Styles<infer C, Props> ? C : never
     >;
-} & WithTheme<S extends StyleCreator<string, infer T> ? T : GivenTheme>;
+} & WithTheme<S extends StyleCreator<keyof S, infer T> ? T : GivenTheme>;
 
 export interface WithTheme<T> {
   theme: T;

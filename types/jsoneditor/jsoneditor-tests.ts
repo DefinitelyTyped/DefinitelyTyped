@@ -1,11 +1,13 @@
-import JSONEditor, {JSONEditorMode, JSONEditorNode, JSONEditorOptions } from 'jsoneditor';
+import * as Ajv from 'ajv';
+import JSONEditor, {JSONEditorMode, Node, JSONEditorOptions } from 'jsoneditor';
 
 let options: JSONEditorOptions;
+options = {};
 options = {
     ace: ace,
-    //ajv: Ajv({allErrors: true, verbose: true})
+    ajv: new Ajv({allErrors: true, verbose: true}),
     onChange() {},
-    onEditable(node: JSONEditorNode) {
+    onEditable(node: Node) {
         return true;
     },
     onError(error: Error) {},
@@ -23,7 +25,7 @@ options = {
     theme: 'default'
 };
 options = {
-    onEditable(node: JSONEditorNode) {
+    onEditable(node: Node) {
         return {field: true, value: false};
     }
 };

@@ -15,6 +15,7 @@
 //                 Peter Thorson <https://github.com/zaphoyd>
 //                 Will Garcia <https://github.com/thewillg>
 //                 Simon Schick <https://github.com/SimonSchick>
+//                 Alejandro Fernandez Haro <https://github.com/afharo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -206,6 +207,10 @@ export interface IPOptions {
 export interface StringRegexOptions {
     name?: string;
     invert?: boolean;
+}
+
+export interface ArrayUniqueOptions {
+    ignoreUndefined?: boolean;
 }
 
 export interface JoiObject {
@@ -704,7 +709,7 @@ export interface ArraySchema extends AnySchema {
      * `schema` - the validation rules required to satisfy the assertion. If the `schema` includes references, they are resolved against
      * the array item being tested, not the value of the `ref` target.
      */
-    assertItem(schema: SchemaLike): this;
+    has(schema: SchemaLike): this;
     /**
      * Allow this array to be sparse.
      * enabled can be used with a falsy value to go back to the default behavior.
@@ -761,7 +766,7 @@ export interface ArraySchema extends AnySchema {
      * Be aware that a deep equality is performed on elements of the array having a type of object,
      * a performance penalty is to be expected for this kind of operation.
      */
-    unique(comparator?: string): this;
+    unique(comparator?: string, options?: ArrayUniqueOptions): this;
     unique<T = any>(comparator?: (a: T, b: T) => boolean): this;
 }
 

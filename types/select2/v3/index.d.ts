@@ -168,6 +168,14 @@ interface Select2Plugin {
     (method: 'search'): JQuery;
 
     (options: Select2Options): JQuery;
+
+    /**
+     * Select2 exposes its default options via the $.fn.select2.defaults
+     * object. Properties changed in this object (same properties configurable
+     * through the constructor) will take effect for every instance created
+     * after the change.
+     */
+    defaults: Partial<Select2Options>;
 }
 
 interface JQuery {

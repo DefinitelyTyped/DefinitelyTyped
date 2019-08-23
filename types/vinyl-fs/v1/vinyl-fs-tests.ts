@@ -502,7 +502,7 @@ describe('dest stream', () => {
       const stream1 = vfs.dest('./out-fixtures/', { cwd: __dirname });
       const stream2 = vfs.dest('./out-fixtures/', { cwd: __dirname });
       const content = fs.readFileSync(srcPath);
-      const rename = through.obj((file: any, _: any, next: any) => {
+      const rename = through.obj(function(file: any, _: any, next: any) {
          file.path = inputPath2;
          this.push(file);
          next();

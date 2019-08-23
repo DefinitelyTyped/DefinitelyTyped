@@ -134,7 +134,7 @@ Para un buen paquete de ejemplo, vea [base64-js](https://github.com/DefinitelyTy
 #### Errores comunes
 
 * Primero, sigue el consejo del [manual](http://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html).
-* Formatear: Ya sea utilizar todo en tabs, o siempre utiliza 4 espacios.
+* Formatear: Utiliza 4 espacios.
 * `function sum(nums: number[]): number`: Utiliza `ReadonlyArray` si una función no escribe a sus parámetros.
 * `interface Foo { new(): Foo; }`:
     Este define el tipo de objeto que esten nuevos. Probablemente quieras `declare class Foo { constructor(); }`.
@@ -332,5 +332,3 @@ Es más apropiado importar este módulo utilizando la sintaxis `import foo = req
 Este proyecto es licenciado bajo la licencia MIT.
 
 Los derechos de autor de cada archivo de definición son respectivos de cada contribuidor listado al comienzo de cada archivo de definición.
-
-[![Analytics](https://ga-beacon.appspot.com/UA-47495295-4/borisyankov/DefinitelyTyped)](https://github.com/igrigorik/ga-beacon)

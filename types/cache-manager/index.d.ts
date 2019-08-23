@@ -3,17 +3,21 @@
 // Definitions by: Simon Gausmann <https://github.com/GausSim>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-interface CachingConfig {
-    ttl: number;
+export interface CachingConfig {
+    ttl: number | TtlFunction;
 }
 
-interface StoreConfig extends CachingConfig {
+export interface TtlFunction {
+    (result: any): number;
+}
+
+export interface StoreConfig extends CachingConfig {
     store: string;
     max?: number;
     isCacheableValue?: (value: any) => boolean;
 }
 
-interface Cache {
+export interface Cache {
     set<T>(key: string, value: T, options: CachingConfig, callback?: (error: any) => void): void;
     set<T>(key: string, value: T, ttl: number, callback?: (error: any) => void): void;
     set<T>(key: string, value: T, options: CachingConfig): Promise<any>;
@@ -31,12 +35,5 @@ interface Cache {
     del(key: string): Promise<any>;
 }
 
-
-
-declare namespace cacheManager {
-    function caching(IConfig: StoreConfig): Cache;
-    function multiCaching(Caches: Cache[]): Cache;
-}
-
-export = cacheManager;
-
+export function caching(IConfig: StoreConfig): Cache;
+export function multiCaching(Caches: Cache[]): Cache;

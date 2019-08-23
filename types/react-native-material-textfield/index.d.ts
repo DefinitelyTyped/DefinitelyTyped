@@ -66,4 +66,29 @@ export interface TextFieldProps extends TextInputProps {
  * Material Style Text Field
  * @see https://github.com/n4kz/react-native-material-textfield/blob/master/src/components/field/index.js
  */
-export class TextField extends React.Component<TextFieldProps, any> {}
+export class TextField extends React.Component<TextFieldProps, any> {
+    /*
+     * Acquire focus
+     */
+    focus(): void;
+    /*
+     * Release focus
+     */
+    blur(): void;
+    /*
+     * Clear text field
+     */
+    clear(): void;
+    /*
+     * Get current value
+     */
+    value(): string;
+    /*
+     * Get current focus state
+     */
+    isFocused(): boolean;
+    /*
+     * Get current restriction state
+     */
+    isRestricted(): boolean;
+}

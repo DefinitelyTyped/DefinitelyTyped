@@ -14,4 +14,4 @@ function run(event: any, context: any, callback?: any)  {
   iopipe.mark.end("my-db-call");
 }
 
-iopipe(config)(run);
+export default iopipe(config)(run);

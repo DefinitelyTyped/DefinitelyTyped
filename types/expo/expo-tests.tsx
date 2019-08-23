@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Text, AccessibilityInfo } from 'react-native';
+import { Text } from 'react-native';
 
 import {
     Accelerometer,
@@ -37,6 +37,7 @@ import {
     LinearGradient,
     Linking,
     Location,
+    Localization,
     MailComposer,
     MapEvent,
     MapStyleElement,
@@ -48,13 +49,25 @@ import {
     registerRootComponent,
     ScreenOrientation,
     SecureStore,
+    SplashScreen,
     Svg,
-    Updates
+    Updates,
+    WebBrowser
 } from 'expo';
 
 const reverseGeocode: Promise<Location.GeocodeData[]> = Location.reverseGeocodeAsync({
     latitude: 0,
     longitude: 0
+});
+
+Location.watchPositionAsync({
+    accuracy: Location.Accuracy.BestForNavigation,
+    timeInterval: 10000,
+    distanceInterval: 0,
+    timeout: 10000
+}, (data) => {
+    data.coords;
+    data.timestamp;
 });
 
 Accelerometer.addListener((obj) => {
@@ -154,7 +167,7 @@ Audio.setAudioModeAsync({
     interruptionModeIOS: 2,
     interruptionModeAndroid: 1,
     allowsRecordingIOS: true,
-    playThroughEarpieceAndroid: false
+    playThroughEarpieceAndroid: true,
 });
 Audio.setIsEnabledAsync(true);
 
@@ -233,7 +246,7 @@ Audio.RECORDING_OPTION_IOS_BIT_RATE_STRATEGY_VARIABLE === 3;
 Audio.RECORDING_OPTIONS_PRESET_HIGH_QUALITY;
 Audio.RECORDING_OPTIONS_PRESET_LOW_QUALITY;
 async () => {
-    const result = await Audio.Sound.create({uri: 'uri'}, {
+    const result = await Audio.Sound.createAsync({uri: 'uri'}, {
         volume: 0.55,
         rate: 16.5
     }, null, true);
@@ -262,13 +275,13 @@ async () => {
     <AppLoading />
 );
 
-const barCodeScannedCallback = () => {};
+const barcodeReadCallback = () => {};
 () => (
     <BarCodeScanner
         type="front"
         torchMode="off"
         barCodeTypes={[BarCodeScanner.Constants.BarCodeType.aztec]}
-        onBarCodeScanned={barCodeScannedCallback} />
+        onBarCodeScanned={barcodeReadCallback} />
 );
 
 () => (
@@ -408,11 +421,12 @@ async () => {
 };
 
 async () => {
-    const result = await ImageManipulator.manipulate('url', [
+    const result = await ImageManipulator.manipulateAsync('url', [
         { rotate: 90 },
         { resize: { width: 300 } },
         { resize: { height: 300 } },
         { resize: { height: 300, width: 300 } },
+        { crop: { originX: 0, originY: 0, height: 300, width: 300 } }
     ], {
         compress: 0.75
     });
@@ -581,7 +595,7 @@ const allSecureStoreKeychainAccessibleValues: number[] = [
         </Svg.Defs>
         <Svg.G transform="translate(0, 0)" y={20}>
             <Svg.Text fill="blue" transform={{ translateX: 0, translateY: 0 }}>
-                <Svg.TextPath href="#path" startOffset="-10%">
+                <Svg.TextPath href="#path" startOffset="-10%" midLine="smooth">
                     We go up and down,
                     <Svg.TSpan fill="red" dy="5,5,5">then up again</Svg.TSpan>
                 </Svg.TextPath>
@@ -595,7 +609,7 @@ const allSecureStoreKeychainAccessibleValues: number[] = [
         </Svg.G>
         <Svg.Use href="#shape" transform="translate(0, 0)" x="20" y="0" />
         <Svg.Use href="#shape" transform={{ translateX: 0, translateY: 0 }} x="20" y="0" width="20" height="20"/>
-        <Svg.Symbol id="symbol" viewBox="0 0 150 110" width="100" height="50">
+        <Svg.Symbol id="symbol" viewBox="0 0 150 110">
             <Svg.Circle cx="50" cy="50" r="40" strokeWidth="8" stroke="red" fill="red"/>
             <Svg.Circle cx="90" cy="60" r="40" strokeWidth="8" stroke="green" fill="white"/>
         </Svg.Symbol>
@@ -963,7 +977,7 @@ const userLocationCallback = (event: EventUserLocation) =>  console.log(event);
 // #endregion
 
 async () => {
-    const updateEventListener: Updates.UpdateEventListener = ({ type, manifest, message }) => {
+    const updateEventListener: Updates.UpdateEventListener = ({ type }) => {
         switch (type) {
             case Updates.EventType.DOWNLOAD_STARTED:
             case Updates.EventType.DOWNLOAD_PROGRESS:
@@ -1092,6 +1106,28 @@ async () => {
     const linkingUri = Constants.linkingUri;
     const userAgent: string = await Constants.getWebViewUserAgentAsync();
 };
+// #endregion
+
+// #region Localization
+
+let locale: string = Localization.locale;
+let locales: string[] = Localization.locales;
+let country: string | undefined = Localization.country;
+let isoCurrencyCodes: string[] | undefined = Localization.isoCurrencyCodes;
+let timezone: string = Localization.timezone;
+let isRTL: boolean = Localization.isRTL;
+
+async () => {
+    const localizationData = await Localization.getLocalizationAsync();
+
+    locale = localizationData.locale;
+    locales = localizationData.locales;
+    country = localizationData.country;
+    isoCurrencyCodes = localizationData.isoCurrencyCodes;
+    timezone = localizationData.timezone;
+    isRTL = localizationData.isRTL;
+};
+
 // #endregion
 
 // #region Contacts
@@ -1260,5 +1296,26 @@ async () => {
 
     const response13 = await Contacts.getContainersAsync({ containerId: 'containerId' });
     response13.forEach((_: Contacts.Container) => _);
+};
+// #endregion
+
+// #region SplashScreen
+SplashScreen.hide();
+SplashScreen.preventAutoHide();
+// #endregion
+
+// #region WebBrowser
+async () => {
+    const result1 = await WebBrowser.openBrowserAsync('https://google.com');
+    result1.type;
+
+    const result2 = await WebBrowser.openAuthSessionAsync('https://google.com', 'https://example.com');
+    if (result2.type === 'success') {
+        result2.url;
+    } else {
+        result2.type;
+    }
+
+    WebBrowser.dismissBrowser();
 };
 // #endregion

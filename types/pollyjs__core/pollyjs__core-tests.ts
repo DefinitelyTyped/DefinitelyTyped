@@ -5,7 +5,8 @@ const polly = new Polly('test recording', {
 	mode: MODES.PASSTHROUGH,
 	recordFailedRequests: true,
 	adapters: ['xhr', 'fetch'],
-	persister: 'rest',
+    persister: 'rest',
+    expiryStrategy: 'error',
 	timing: Timing.relative(3),
 	matchRequestsBy: {
 		method: true,
@@ -113,6 +114,16 @@ async function test() {
 			/* Do something else */
 		});
 
+		server
+			.get('/users/:id')
+			.filter(req => req.params.id === '1')
+			.filter(req => req.params.id !== '2')
+			.recordingName('test')
+			.recordingName()
+			.intercept((_req, res) => {
+				res.status(200).json({ email: 'user1@test.com' });
+			});
+
 	/* Intercept all Google Analytic requests and respond with a 200 */
 	server.get('/google-analytics/*path').intercept((req, res, intercept) => {
 		if (req.pathname === 'test') {
@@ -126,6 +137,20 @@ async function test() {
 	server.get('/coverage')
 		.configure({ expiresIn: '5d' })
 		.passthrough();
+
+	server.any().on('error', (req, error) => {
+		req
+			.setHeader('Content-Length', '2344')
+			.setHeaders({
+				'Content-Type': 'application/json',
+				'Content-Length': '42'
+			})
+			.removeHeader('Content-Length')
+			.removeHeaders(['Content-Type', 'Content-Length']);
+
+		req.removeHeaders(['Content-Type', 'Content-Length']);
+		log(req.pathname + JSON.stringify(error));
+	});
 
 	await polly.flush();
 }

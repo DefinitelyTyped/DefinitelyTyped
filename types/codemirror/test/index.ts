@@ -100,3 +100,7 @@ widget1.clear();
 widget2.clear();
 htmlElement1.remove();
 htmlElement2.remove();
+
+CodeMirror.commands.newlineAndIndent(myCodeMirror);
+
+let stringStream = new CodeMirror.StringStream("var myEditor;");

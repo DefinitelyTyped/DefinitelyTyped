@@ -3,6 +3,7 @@
 // Definitions by: KIM Jaesuck a.k.a. gim tcaesvk <https://github.com/tcaesvk>
 //                 DingWeizhe <https://github.com/DingWeizhe>
 //                 Mounir Abid <https://github.com/mabidina>
+//                 Doyoung Ha <https://github.com/hados99>
 // Definitions: https://github.com/DefinitelyType/DefinitelyTyped
 
 /// <reference types="node" />
@@ -31,8 +32,8 @@ declare namespace Ffmpeg {
 
     interface FilterSpecification {
         filter: string;
-        inputs: string | string[];
-        outputs: string | string[];
+        inputs?: string | string[];
+        outputs?: string | string[];
         options?: any | string | any[];
     }
 
@@ -271,8 +272,8 @@ declare namespace Ffmpeg {
         outputOption(...options: string[]): FfmpegCommand;
         outputOptions(options: string[]): FfmpegCommand;
         outputOptions(...options: string[]): FfmpegCommand;
-        filterGraph(spec: string | FilterSpecification[], map: string[]): FfmpegCommand;
-        complexFilter(spec: string | FilterSpecification[], map: string[]): FfmpegCommand;
+        filterGraph(spec: string | FilterSpecification | Array<string | FilterSpecification>, map: string[]): FfmpegCommand;
+        complexFilter(spec: string | FilterSpecification | Array<string | FilterSpecification>, map: string[]): FfmpegCommand;
 
         // options/misc
         usingPreset(proset: string | GetPreset): FfmpegCommand;
@@ -281,6 +282,7 @@ declare namespace Ffmpeg {
         // processor
         renice(niceness: number): FfmpegCommand;
         kill(signal: string): FfmpegCommand;
+        _getArguments(): string[];
 
         // capabilities
         setFfmpegPath(path: string): FfmpegCommand;

@@ -1,5 +1,5 @@
 // Type definitions for D3JS d3-scale module 2.1
-// Project: https://github.com/d3/d3-scale/
+// Project: https://github.com/d3/d3-scale/, https://d3js.org/d3-scale
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>
 //                 Alex Ford <https://github.com/gustavderdrache>
 //                 Boris Yankov <https://github.com/borisyankov>

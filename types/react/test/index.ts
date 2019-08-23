@@ -494,7 +494,7 @@ const mappedChildrenArrayWithKnownChildren: number[] =
     React.Children.map(childrenArray, (child) => child.props.p);
 React.Children.forEach(children, (child) => { });
 const nChildren: number = React.Children.count(children);
-let onlyChild: React.ReactElement<any> = React.Children.only(DOM.div()); // ok
+let onlyChild: React.ReactElement = React.Children.only(DOM.div()); // ok
 onlyChild = React.Children.only([null, [[["Hallo"], true]], false]); // error
 const childrenToArray: React.ReactChild[] = React.Children.toArray(children);
 
@@ -803,3 +803,9 @@ const sfc: React.SFC<any> = Memoized2;
 // this $ExpectError is failing on TypeScript@next
 // // $ExpectError Property '$$typeof' is missing in type
 // const specialSfc2: React.SpecialSFC = props => null;
+
+const propsWithChildren: React.PropsWithChildren<Props> = {
+    hello: "world",
+    foo: 42,
+    children: functionComponent,
+};

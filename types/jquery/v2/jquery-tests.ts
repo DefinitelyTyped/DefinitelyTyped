@@ -1753,6 +1753,8 @@ function test_find() {
     .end()
         .find(":contains('t')")
         .css({ "font-style": "italic", "font-weight": "bolder" });
+    var input_selector = '.input' as string | JQuery | Element;
+    $("body").find(input_selector).prop("disabled", true);
 }
 
 function test_finish() {

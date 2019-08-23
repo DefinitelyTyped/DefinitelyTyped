@@ -9,7 +9,7 @@ import { ComponentClass, TransitionGroupProps } from 'react';
 declare module 'react' {
     export interface HTMLTransitionGroupProps<T> extends HTMLAttributes<T> {
         component?: ReactType;
-        childFactory?: (child: ReactElement<any>) => ReactElement<any>;
+        childFactory?: (child: ReactElement) => ReactElement;
     }
 
     export interface TransitionGroupProps extends HTMLTransitionGroupProps<ReactTransitionGroup> {

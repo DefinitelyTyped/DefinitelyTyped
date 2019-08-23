@@ -1,5 +1,5 @@
 // Type definitions for Material Components Web 0.43
-// Project: https://material.io/components/
+// Project: https://material.io/components/, https://github.com/material-components/material-components-web
 // Definitions by: Arthur Groupp <https://github.com/agroupp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
@@ -29,4 +29,4 @@
 
 import * as ponyfill from './ponyfill';
 
-export {ponyfill};
+export { ponyfill };

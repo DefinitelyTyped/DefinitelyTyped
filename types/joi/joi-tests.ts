@@ -312,7 +312,7 @@ anySchema = Joi.any();
 
 arrSchema = Joi.array();
 
-arrSchema = arrSchema.assertItem(Joi.any());
+arrSchema = arrSchema.has(Joi.any());
 arrSchema = arrSchema.sparse();
 arrSchema = arrSchema.sparse(bool);
 arrSchema = arrSchema.single();
@@ -328,6 +328,7 @@ arrSchema = arrSchema.length(ref);
 arrSchema = arrSchema.unique();
 arrSchema = arrSchema.unique((a, b) => a.test === b.test);
 arrSchema = arrSchema.unique('customer.id');
+arrSchema = arrSchema.unique('customer.id', {ignoreUndefined: true});
 
 arrSchema = arrSchema.items(numSchema);
 arrSchema = arrSchema.items(numSchema, strSchema, schemaLike);

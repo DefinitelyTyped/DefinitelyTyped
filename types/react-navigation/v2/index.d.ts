@@ -425,24 +425,24 @@ export interface NavigationSwitchRouterConfig {
 export interface NavigationStackScreenOptions {
   title?: string;
   header?:
-  | React.ReactElement<any>
-  | ((headerProps: HeaderProps) => React.ReactElement<any>)
+  | React.ReactElement
+  | ((headerProps: HeaderProps) => React.ReactElement)
   | null;
   headerTransparent?: boolean;
-  headerTitle?: string | React.ReactElement<any>;
+  headerTitle?: string | React.ReactElement;
   headerTitleStyle?: StyleProp<TextStyle>;
   headerTitleAllowFontScaling?: boolean;
   headerTintColor?: string;
   headerLeft?:
-  | React.ReactElement<any>
-  | ((backButtonProps: HeaderBackButtonProps) => React.ReactElement<any>)
+  | React.ReactElement
+  | ((backButtonProps: HeaderBackButtonProps) => React.ReactElement)
   | null;
   headerBackTitle?: string | null;
-  headerBackImage?: React.ReactElement<any>;
+  headerBackImage?: React.ReactElement;
   headerTruncatedBackTitle?: string;
   headerBackTitleStyle?: StyleProp<TextStyle>;
   headerPressColorAndroid?: string;
-  headerRight?: React.ReactElement<any> | null;
+  headerRight?: React.ReactElement | null;
   headerStyle?: StyleProp<ViewStyle>;
   headerForceInset?: HeaderForceInset;
   headerBackground?: React.ReactNode | React.ReactType;
@@ -534,16 +534,16 @@ export interface TabScene {
 interface NavigationTabScreenOptionsBase {
   title?: string;
   tabBarIcon?:
-  | React.ReactElement<any>
+  | React.ReactElement
   | ((
     options: { tintColor: string | null; focused: boolean; horizontal: boolean }
-  ) => React.ReactElement<any> | null);
+  ) => React.ReactElement | null);
   tabBarLabel?:
   | string
-  | React.ReactElement<any>
+  | React.ReactElement
   | ((
     options: { tintColor: string | null; focused: boolean }
-  ) => React.ReactElement<any> | string | null);
+  ) => React.ReactElement | string | null);
   tabBarVisible?: boolean;
   tabBarTestIDProps?: { testID?: string; accessibilityLabel?: string };
 }
@@ -573,16 +573,16 @@ export type DrawerLockMode = 'unlocked' | 'locked-closed' | 'locked-open';
 export interface NavigationDrawerScreenOptions {
   title?: string;
   drawerIcon?:
-  | React.ReactElement<any>
+  | React.ReactElement
   | ((
     options: { tintColor: string | null; focused: boolean }
-  ) => React.ReactElement<any> | null);
+  ) => React.ReactElement | null);
   drawerLabel?:
   | string
-  | React.ReactElement<any>
+  | React.ReactElement
   | ((
     options: { tintColor: string | null; focused: boolean }
-  ) => React.ReactElement<any> | null);
+  ) => React.ReactElement | null);
   drawerLockMode?: DrawerLockMode;
 }
 
@@ -799,7 +799,7 @@ export type NavigationAnimationSetter = (
   lastState: NavigationState
 ) => void;
 
-export type NavigationSceneRenderer = () => React.ReactElement<any> | null;
+export type NavigationSceneRenderer = () => React.ReactElement | null;
 
 export type NavigationStyleInterpolator = (
   props: NavigationSceneRendererProps
@@ -1056,7 +1056,7 @@ export interface TabBarTopProps {
         jumpToIndex: (index: number) => void;
       }
     ) => void;
-  renderIcon: (scene: TabScene) => React.ReactElement<any>;
+  renderIcon: (scene: TabScene) => React.ReactElement;
   labelStyle?: TextStyle;
   iconStyle?: ViewStyle;
 }

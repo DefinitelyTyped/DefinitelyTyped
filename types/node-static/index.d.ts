@@ -53,4 +53,4 @@ export class Server {
 }
 
 export const version: [number, number, number];
-export {mime};
+export { mime };

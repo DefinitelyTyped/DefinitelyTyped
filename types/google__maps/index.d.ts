@@ -1687,7 +1687,7 @@ export interface PlaceSearchResult {
      * contains a feature name of a nearby location. Often this feature refers to a street or neighborhood within the given results.
      * The `vicinity` property is only returned for a Nearby Search.
      */
-    vicinity: number;
+    vicinity?: string;
     /**
      * is a string containing the human-readable address of this place. Often this address is equivalent to the "postal address".
      * The `formatted_address` property is only returned for a Text Search.
@@ -1985,7 +1985,7 @@ export interface GeocodingRequest {
  */
 export interface GeocodingComponents {
     /** matches `postal_code` and `postal_code_prefix`. */
-    postalCode?: string;
+    postal_code?: string;
     /**
      * matches a country name or a two letter [ISO 3166-1](https://en.wikipedia.org/wiki/ISO_3166-1) country code.
      * **Note:** The API follows the ISO standard for defining countries, and the filtering works best when using
@@ -1997,7 +1997,7 @@ export interface GeocodingComponents {
     /** matches against `locality` and `sublocality` types. */
     locality?: string;
     /** matches all the administrative_area levels. */
-    administrativeArea?: string;
+    administrative_area?: string;
 }
 
 export interface GeocodingResponse<STATUSES = GeocodingResponseStatus> {
@@ -2404,8 +2404,35 @@ export interface PlaceDetailsRequest {
      * parameter from a request, ALL possible fields will be returned, and you will be billed accordingly.
      * This applies only to Place Details requests.
      */
-    fields?: Array<keyof PlaceDetailsResult>;
+    fields?: PlaceDetailsRequestField[];
 }
+
+export type PlaceDetailsRequestField = (
+    "address_component" |
+    "adr_address" |
+    "alt_id" |
+    "formatted_address" |
+    "geometry" |
+    "icon" |
+    "id" |
+    "name" |
+    "permanently_closed" |
+    "photo" |
+    "place_id" |
+    "plus_code" |
+    "scope" |
+    "type" |
+    "url" |
+    "user_ratings_total" |
+    "utc_offset" |
+    "vicinity" |
+    "formatted_phone_number" |
+    "international_phone_number" |
+    "opening_hours" |
+    "website" |
+    "price_level" |
+    "rating" |
+    "review");
 
 export interface PlaceDetailsResponse {
     /** contains metadata on the request. */

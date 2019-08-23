@@ -1,5 +1,5 @@
 // Type definitions for stellar-base 0.10
-// Project: https://github.com/stellar/js-stellar-sdk
+// Project: https://github.com/stellar/js-stellar-base
 // Definitions by: Carl Foster <https://github.com/carl-foster>
 //                 Triston Jones <https://github.com/tristonj>
 //                 Paul Selden <https://github.com/pselden>
@@ -49,6 +49,8 @@ export class Asset {
 
 export const FastSigning: boolean;
 
+export type KeypairType = 'ed25519';
+
 export class Keypair {
     static fromRawEd25519Seed(secretSeed: Buffer): Keypair;
     static fromBase58Seed(secretSeed: string): Keypair;
@@ -57,17 +59,18 @@ export class Keypair {
     static fromPublicKey(publicKey: string): Keypair;
     static random(): Keypair;
 
-    constructor(keys: { type: 'ed25519', secretKey: string } | { type: 'ed25519', Key: string })
+    constructor(keys: { type: KeypairType, secretKey: string, publicKey?: string } | { type: KeypairType, publicKey: string })
 
+    readonly type: KeypairType;
     publicKey(): string;
     secret(): string;
     rawPublicKey(): Buffer;
     rawSecretKey(): Buffer;
     canSign(): boolean;
-    sign(data: Buffer): Buffer;
+    sign(data: Buffer): xdr.Signature;
     signDecorated(data: Buffer): xdr.DecoratedSignature;
     signatureHint(): xdr.SignatureHint;
-    verify(data: Buffer, signature: Buffer): boolean;
+    verify(data: Buffer, signature: xdr.Signature): boolean;
 }
 
 export const MemoNone = 'none';
@@ -439,10 +442,13 @@ export class Transaction<TMemo extends Memo = Memo, TOps extends Operation[] = O
     signatures: xdr.DecoratedSignature[];
 }
 
+export const TimeoutInfinite = 0;
+
 export class TransactionBuilder {
     constructor(sourceAccount: Account, options?: TransactionBuilder.TransactionBuilderOptions)
     addOperation(operation: xdr.Operation): this;
     addMemo(memo: Memo): this;
+    setTimeout(timeoutInSeconds: number): this;
     build(): Transaction;
 }
 
@@ -498,5 +504,5 @@ export namespace xdr {
 }
 
 export function hash(data: Buffer): Buffer;
-export function sign(data: Buffer, rawSecret: Buffer): Buffer;
-export function verify(data: Buffer, signature: Buffer, rawPublicKey: Buffer): boolean;
+export function sign(data: Buffer, rawSecret: Buffer): xdr.Signature;
+export function verify(data: Buffer, signature: xdr.Signature, rawPublicKey: Buffer): boolean;

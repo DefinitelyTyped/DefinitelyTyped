@@ -63,10 +63,22 @@ const c: Configuration = {
 			// Copy glob results (without dot files) to {output}/to/directory/
 			{
 				from: '**/*.png',
-				fromArgs: { dot: false },
 				to: 'to/directory'
 			},
+
+			// Turns 1st and 2nd level directory names into file name seperated by a dash for png files
+			{
+				from: '*/*',
+				to: '[1]-[2].[hash].[ext]',
+				test: /([^/]+)\/(.+)\.png$/,
+			},
 		], {
+			// Log only errors
+			logLevel: 'error',
+			
+			// All 'from' paths will be intepreted from this context
+			context: 'app/',
+
 			ignore: [
 				// Doesn't copy any files with a txt extension
 				'*.txt',

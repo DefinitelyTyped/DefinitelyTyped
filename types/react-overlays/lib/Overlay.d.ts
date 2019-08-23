@@ -18,12 +18,12 @@ declare namespace Overlay {
         outOfBoundaries?: boolean;
         scheduleUpdate(): void;
         props: {
-            ref?(element: HTMLElement): void;
+            ref: (popperNode: HTMLElement | null) => void;
             style: { [key: string]: string | number };
             'aria-labelledby'?: string;
         };
         arrowProps: {
-            ref?(element: HTMLElement): void;
+            ref: (popperNode: HTMLElement | null) => void;
             style: { [key: string]: string | number };
         };
     }
@@ -47,7 +47,7 @@ declare namespace Overlay {
          * A render prop that returns an element to overlay and position. See
          * the [react-popper documentation](https://github.com/FezVrasta/react-popper#children) for more info.
          */
-        children(renderProps: OverlayRenderProps): React.ReactElement<any>;
+        children(renderProps: OverlayRenderProps): React.ReactElement;
 
         /**
          * A set of popper options and props passed directly to react-popper's Popper component.

@@ -1,8 +1,9 @@
-// Type definitions for is-ci 1.1
+// Type definitions for is-ci 2.0
 // Project: https://github.com/watson/is-ci
-// Definitions by: Arne Schubert <https://github.com/atd-schubert>
+// Definitions by: Arne Schubert <https://github.com/atd-schubert>,
+//                 Florian Keller <https://github.com/ffflorian>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export = is_ci;
+import { isCI } from 'ci-info';
 
-declare const is_ci: boolean;
+export = isCI;

@@ -23,4 +23,4 @@ interface ElectronLoadDevtoolOptions {
 
 declare const electronLoadDevtool: ElectronLoadDevtool;
 
-export default electronLoadDevtool;
+export = electronLoadDevtool;

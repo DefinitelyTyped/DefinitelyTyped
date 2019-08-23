@@ -1,5 +1,5 @@
 // Type definitions for @babel/traverse 7.0
-// Project: https://github.com/babel/babel/tree/master/packages/babel-traverse
+// Project: https://github.com/babel/babel/tree/master/packages/babel-traverse, https://babeljs.io
 // Definitions by: Troy Gerwien <https://github.com/yortus>
 //                 Marvin Hagemeister <https://github.com/marvinhagemeister>
 //                 Ryan Petrich <https://github.com/rpetrich>
@@ -11,8 +11,20 @@ import * as t from "@babel/types";
 
 export type Node = t.Node;
 
-export default function traverse<S>(parent: Node | Node[], opts: TraverseOptions<S>, scope: Scope, state: S, parentPath?: NodePath): void;
-export default function traverse(parent: Node | Node[], opts: TraverseOptions, scope?: Scope, state?: any, parentPath?: NodePath): void;
+export default function traverse<S>(
+    parent: Node | Node[],
+    opts: TraverseOptions<S>,
+    scope: Scope | undefined,
+    state: S,
+    parentPath?: NodePath,
+): void;
+export default function traverse(
+    parent: Node | Node[],
+    opts: TraverseOptions,
+    scope?: Scope,
+    state?: any,
+    parentPath?: NodePath,
+): void;
 
 export interface TraverseOptions<S = Node> extends Visitor<S> {
     scope?: Scope;

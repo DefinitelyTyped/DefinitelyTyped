@@ -1,12 +1,12 @@
-// Type definitions for Sarif 2.0
+// Type definitions for non-npm package Sarif 2.1
 // Project: https://github.com/Microsoft/sarif-sdk
 // Definitions by: Rusty Scrivens <https://github.com/rscrivens>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
 /**
- * Static Analysis Results Format (SARIF) Version 2.0.0-csd.2.beta-2018-10-10 JSON Schema:
- * a standard format for the output of static analysis tools.
+ * Static Analysis Results Format (SARIF) Version 2.1.0-rtm.4 JSON Schema: a standard format for the output of static
+ * analysis tools.
  */
 export interface Log {
     /**
@@ -23,26 +23,268 @@ export interface Log {
      * The set of runs contained in this log file.
      */
     runs: Run[];
+
+    /**
+     * References to external property files that share data between runs.
+     */
+    inlineExternalProperties?: ExternalProperties[];
+
+    /**
+     * Key/value pairs that provide additional information about the log file.
+     */
+    properties?: PropertyBag;
 }
 
 export namespace Log {
     type version =
-        "2.0.0-csd.2.beta.2018-10-10";
+        "2.1.0";
 }
 
 /**
- * A file relevant to a tool invocation or to a result.
+ * A physical or virtual address, or a range of addresses, in an 'addressable region' (memory or a binary file).
  */
-export interface Attachment {
+export interface Address {
     /**
-     * A message describing the role played by the attachment.
+     * The address expressed as a byte offset from the start of the addressable region.
+     */
+    absoluteAddress?: number;
+
+    /**
+     * A human-readable fully qualified name that is associated with the address.
+     */
+    fullyQualifiedName?: string;
+
+    /**
+     * The index within run.addresses of the cached object for this address.
+     */
+    index?: number;
+
+    /**
+     * An open-ended string that identifies the address kind. 'data', 'function', 'header','instruction', 'module',
+     * 'page', 'section', 'segment', 'stack', 'stackFrame', 'table' are well-known values.
+     */
+    kind?: string;
+
+    /**
+     * The number of bytes in this range of addresses.
+     */
+    length?: number;
+
+    /**
+     * A name that is associated with the address, e.g., '.text'.
+     */
+    name?: string;
+
+    /**
+     * The byte offset of this address from the absolute or relative address of the parent object.
+     */
+    offsetFromParent?: number;
+
+    /**
+     * The index within run.addresses of the parent object.
+     */
+    parentIndex?: number;
+
+    /**
+     * The address expressed as a byte offset from the absolute address of the top-most parent object.
+     */
+    relativeAddress?: number;
+
+    /**
+     * Key/value pairs that provide additional information about the address.
+     */
+    properties?: PropertyBag;
+}
+
+/**
+ * A single artifact. In some cases, this artifact might be nested within another artifact.
+ */
+export interface Artifact {
+    /**
+     * The contents of the artifact.
+     */
+    contents?: ArtifactContent;
+
+    /**
+     * A short description of the artifact.
      */
     description?: Message;
 
     /**
+     * Specifies the encoding for an artifact object that refers to a text file.
+     */
+    encoding?: string;
+
+    /**
+     * A dictionary, each of whose keys is the name of a hash function and each of whose values is the hashed value of
+     * the artifact produced by the specified hash function.
+     */
+    hashes?: { [key: string]: string };
+
+    /**
+     * The Coordinated Universal Time (UTC) date and time at which the artifact was most recently modified. See
+     * "Date/time properties" in the SARIF spec for the required format.
+     */
+    lastModifiedTimeUtc?: string;
+
+    /**
+     * The length of the artifact in bytes.
+     */
+    length?: number;
+
+    /**
+     * The location of the artifact.
+     */
+    location?: ArtifactLocation;
+
+    /**
+     * The MIME type (RFC 2045) of the artifact.
+     */
+    mimeType?: string;
+
+    /**
+     * The offset in bytes of the artifact within its containing artifact.
+     */
+    offset?: number;
+
+    /**
+     * Identifies the index of the immediate parent of the artifact, if this artifact is nested.
+     */
+    parentIndex?: number;
+
+    /**
+     * The role or roles played by the artifact in the analysis.
+     */
+    roles?: Artifact.roles[];
+
+    /**
+     * Specifies the source language for any artifact object that refers to a text file that contains source code.
+     */
+    sourceLanguage?: string;
+
+    /**
+     * Key/value pairs that provide additional information about the artifact.
+     */
+    properties?: PropertyBag;
+}
+
+export namespace Artifact {
+    type roles =
+        "analysisTarget" |
+        "attachment" |
+        "responseFile" |
+        "resultFile" |
+        "standardStream" |
+        "tracedFile" |
+        "unmodified" |
+        "modified" |
+        "added" |
+        "deleted" |
+        "renamed" |
+        "uncontrolled" |
+        "driver" |
+        "extension" |
+        "translation" |
+        "taxonomy" |
+        "policy" |
+        "referencedOnCommandLine" |
+        "memoryContents" |
+        "directory" |
+        "userSpecifiedConfiguration" |
+        "toolSpecifiedConfiguration" |
+        "debugOutputFile";
+}
+
+/**
+ * A change to a single artifact.
+ */
+export interface ArtifactChange {
+    /**
+     * The location of the artifact to change.
+     */
+    artifactLocation: ArtifactLocation;
+
+    /**
+     * An array of replacement objects, each of which represents the replacement of a single region in a single
+     * artifact specified by 'artifactLocation'.
+     */
+    replacements: Replacement[];
+
+    /**
+     * Key/value pairs that provide additional information about the change.
+     */
+    properties?: PropertyBag;
+}
+
+/**
+ * Represents the contents of an artifact.
+ */
+export interface ArtifactContent {
+    /**
+     * MIME Base64-encoded content from a binary artifact, or from a text artifact in its original encoding.
+     */
+    binary?: string;
+
+    /**
+     * An alternate rendered representation of the artifact (e.g., a decompiled representation of a binary region).
+     */
+    rendered?: MultiformatMessageString;
+
+    /**
+     * UTF-8-encoded content from a text artifact.
+     */
+    text?: string;
+
+    /**
+     * Key/value pairs that provide additional information about the artifact content.
+     */
+    properties?: PropertyBag;
+}
+
+/**
+ * Specifies the location of an artifact.
+ */
+export interface ArtifactLocation {
+    /**
+     * A short description of the artifact location.
+     */
+    description?: Message;
+
+    /**
+     * The index within the run artifacts array of the artifact object associated with the artifact location.
+     */
+    index?: number;
+
+    /**
+     * A string containing a valid relative or absolute URI.
+     */
+    uri?: string;
+
+    /**
+     * A string which indirectly specifies the absolute URI with respect to which a relative URI in the "uri" property
+     * is interpreted.
+     */
+    uriBaseId?: string;
+
+    /**
+     * Key/value pairs that provide additional information about the artifact location.
+     */
+    properties?: PropertyBag;
+}
+
+/**
+ * An artifact relevant to a result.
+ */
+export interface Attachment {
+    /**
      * The location of the attachment.
      */
-    fileLocation: FileLocation;
+    artifactLocation: ArtifactLocation;
+
+    /**
+     * A message describing the role played by the attachment.
+     */
+    description?: Message;
 
     /**
      * An array of rectangles specifying areas of interest within the image.
@@ -53,6 +295,11 @@ export interface Attachment {
      * An array of regions of interest within the attachment.
      */
     regions?: Region[];
+
+    /**
+     * Key/value pairs that provide additional information about the attachment.
+     */
+    properties?: PropertyBag;
 }
 
 /**
@@ -65,13 +312,33 @@ export interface CodeFlow {
     message?: Message;
 
     /**
-     * An array of one or more unique threadFlow objects, each of which describes the progress of a program through
-     * a thread of execution.
+     * An array of one or more unique threadFlow objects, each of which describes the progress of a program through a
+     * thread of execution.
      */
     threadFlows: ThreadFlow[];
 
     /**
      * Key/value pairs that provide additional information about the code flow.
+     */
+    properties?: PropertyBag;
+}
+
+/**
+ * Information about how a specific rule or notification was reconfigured at runtime.
+ */
+export interface ConfigurationOverride {
+    /**
+     * Specifies how the rule or notification was configured during the scan.
+     */
+    configuration: ReportingConfiguration;
+
+    /**
+     * A reference used to locate the descriptor whose configuration was overridden.
+     */
+    descriptor: ReportingDescriptorReference;
+
+    /**
+     * Key/value pairs that provide additional information about the configuration override.
      */
     properties?: PropertyBag;
 }
@@ -84,7 +351,7 @@ export interface Conversion {
     /**
      * The locations of the analysis tool's per-run log files.
      */
-    analysisToolLogFiles?: FileLocation[];
+    analysisToolLogFiles?: ArtifactLocation[];
 
     /**
      * An invocation object that describes the invocation of the converter.
@@ -144,7 +411,7 @@ export interface EdgeTraversal {
     /**
      * The values of relevant expressions after the edge has been traversed.
      */
-    finalState?: { [key: string]: string };
+    finalState?: { [key: string]: MultiformatMessageString };
 
     /**
      * A message to display to the user as the edge is traversed.
@@ -163,7 +430,7 @@ export interface EdgeTraversal {
 }
 
 /**
- * TBD
+ * Describes a runtime exception encountered during the execution of an analysis tool.
  */
 export interface Exception {
     /**
@@ -172,15 +439,15 @@ export interface Exception {
     innerExceptions?: Exception[];
 
     /**
-     * A string that identifies the kind of exception, for example, the fully qualified type name of an object that
-     * was thrown, or the symbolic name of a signal.
+     * A string that identifies the kind of exception, for example, the fully qualified type name of an object that was
+     * thrown, or the symbolic name of a signal.
      */
     kind?: string;
 
     /**
      * A message that describes the exception.
      */
-    message?: Message;
+    message?: string;
 
     /**
      * The sequence of function calls leading to the exception.
@@ -188,211 +455,257 @@ export interface Exception {
     stack?: Stack;
 
     /**
-     * Key/value pairs that provide additional information about the exception
+     * Key/value pairs that provide additional information about the exception.
      */
     properties?: PropertyBag;
 }
 
 /**
- * References to external files that should be inlined with the content of a root log file.
+ * The top-level element of an external property file.
  */
-export interface ExternalFiles {
+export interface ExternalProperties {
     /**
-     * The location of a file containing a run.conversion object to be merged with the root log file.
+     * Addresses that will be merged with a separate run.
      */
-    conversion?: FileLocation;
+    addresses?: Address[];
 
     /**
-     * The location of a file containing a run.files object to be merged with the root log file.
+     * An array of artifact objects that will be merged with a separate run.
      */
-    files?: FileLocation;
+    artifacts?: Artifact[];
 
     /**
-     * The location of a file containing a run.graphs object to be merged with the root log file.
+     * A conversion object that will be merged with a separate run.
      */
-    graphs?: FileLocation;
+    conversion?: Conversion;
 
     /**
-     * An array of locations of files containing arrays of run.invocation objects to be merged with the root log
+     * The analysis tool object that will be merged with a separate run.
+     */
+    driver?: ToolComponent;
+
+    /**
+     * Tool extensions that will be merged with a separate run.
+     */
+    extensions?: ToolComponent[];
+
+    /**
+     * Key/value pairs that provide additional information that will be merged with a separate run.
+     */
+    externalizedProperties?: PropertyBag;
+
+    /**
+     * An array of graph objects that will be merged with a separate run.
+     */
+    graphs?: Graph[];
+
+    /**
+     * A stable, unique identifer for this external properties object, in the form of a GUID.
+     */
+    guid?: string;
+
+    /**
+     * Describes the invocation of the analysis tool that will be merged with a separate run.
+     */
+    invocations?: Invocation[];
+
+    /**
+     * An array of logical locations such as namespaces, types or functions that will be merged with a separate run.
+     */
+    logicalLocations?: LogicalLocation[];
+
+    /**
+     * Tool policies that will be merged with a separate run.
+     */
+    policies?: ToolComponent[];
+
+    /**
+     * An array of result objects that will be merged with a separate run.
+     */
+    results?: Result[];
+
+    /**
+     * A stable, unique identifer for the run associated with this external properties object, in the form of a GUID.
+     */
+    runGuid?: string;
+
+    /**
+     * The URI of the JSON schema corresponding to the version of the external property file format.
+     */
+    schema?: string;
+
+    /**
+     * Tool taxonomies that will be merged with a separate run.
+     */
+    taxonomies?: ToolComponent[];
+
+    /**
+     * An array of threadFlowLocation objects that will be merged with a separate run.
+     */
+    threadFlowLocations?: ThreadFlowLocation[];
+
+    /**
+     * Tool translations that will be merged with a separate run.
+     */
+    translations?: ToolComponent[];
+
+    /**
+     * The SARIF format version of this external properties object.
+     */
+    version?: ExternalProperties.version;
+
+    /**
+     * Requests that will be merged with a separate run.
+     */
+    webRequests?: WebRequest[];
+
+    /**
+     * Responses that will be merged with a separate run.
+     */
+    webResponses?: WebResponse[];
+
+    /**
+     * Key/value pairs that provide additional information about the external properties.
+     */
+    properties?: PropertyBag;
+}
+
+export namespace ExternalProperties {
+    type version =
+        "2.1.0";
+}
+
+/**
+ * Contains information that enables a SARIF consumer to locate the external property file that contains the value of
+ * an externalized property associated with the run.
+ */
+export interface ExternalPropertyFileReference {
+    /**
+     * A stable, unique identifer for the external property file in the form of a GUID.
+     */
+    guid?: string;
+
+    /**
+     * A non-negative integer specifying the number of items contained in the external property file.
+     */
+    itemCount?: number;
+
+    /**
+     * The location of the external property file.
+     */
+    location?: ArtifactLocation;
+
+    /**
+     * Key/value pairs that provide additional information about the external property file.
+     */
+    properties?: PropertyBag;
+}
+
+/**
+ * References to external property files that should be inlined with the content of a root log file.
+ */
+export interface ExternalPropertyFileReferences {
+    /**
+     * An array of external property files containing run.addresses arrays to be merged with the root log file.
+     */
+    addresses?: ExternalPropertyFileReference[];
+
+    /**
+     * An array of external property files containing run.artifacts arrays to be merged with the root log file.
+     */
+    artifacts?: ExternalPropertyFileReference[];
+
+    /**
+     * An external property file containing a run.conversion object to be merged with the root log file.
+     */
+    conversion?: ExternalPropertyFileReference;
+
+    /**
+     * An external property file containing a run.driver object to be merged with the root log file.
+     */
+    driver?: ExternalPropertyFileReference;
+
+    /**
+     * An array of external property files containing run.extensions arrays to be merged with the root log file.
+     */
+    extensions?: ExternalPropertyFileReference[];
+
+    /**
+     * An external property file containing a run.properties object to be merged with the root log file.
+     */
+    externalizedProperties?: ExternalPropertyFileReference;
+
+    /**
+     * An array of external property files containing a run.graphs object to be merged with the root log file.
+     */
+    graphs?: ExternalPropertyFileReference[];
+
+    /**
+     * An array of external property files containing run.invocations arrays to be merged with the root log file.
+     */
+    invocations?: ExternalPropertyFileReference[];
+
+    /**
+     * An array of external property files containing run.logicalLocations arrays to be merged with the root log file.
+     */
+    logicalLocations?: ExternalPropertyFileReference[];
+
+    /**
+     * An array of external property files containing run.policies arrays to be merged with the root log file.
+     */
+    policies?: ExternalPropertyFileReference[];
+
+    /**
+     * An array of external property files containing run.results arrays to be merged with the root log file.
+     */
+    results?: ExternalPropertyFileReference[];
+
+    /**
+     * An array of external property files containing run.taxonomies arrays to be merged with the root log file.
+     */
+    taxonomies?: ExternalPropertyFileReference[];
+
+    /**
+     * An array of external property files containing run.threadFlowLocations arrays to be merged with the root log
      * file.
      */
-    invocations?: FileLocation[];
+    threadFlowLocations?: ExternalPropertyFileReference[];
 
     /**
-     * The location of a file containing a run.logicalLocations object to be merged with the root log file.
+     * An array of external property files containing run.translations arrays to be merged with the root log file.
      */
-    logicalLocations?: FileLocation;
+    translations?: ExternalPropertyFileReference[];
 
     /**
-     * The location of a file containing a run.resources object to be merged with the root log file.
+     * An array of external property files containing run.requests arrays to be merged with the root log file.
      */
-    resources?: FileLocation;
+    webRequests?: ExternalPropertyFileReference[];
 
     /**
-     * An array of locations of files containins arrays of run.result objects to be merged with the root log file.
+     * An array of external property files containing run.responses arrays to be merged with the root log file.
      */
-    results?: FileLocation[];
+    webResponses?: ExternalPropertyFileReference[];
 
     /**
-     * Key/value pairs that provide additional information about the external files
-     */
-    properties?: PropertyBag;
-}
-
-/**
- * A single file. In some cases, this file might be nested within another file.
- */
-export interface File {
-    /**
-     * The contents of the file.
-     */
-    contents?: FileContent;
-
-    /**
-     * Specifies the encoding for a file object that refers to a text file.
-     */
-    encoding?: string;
-
-    /**
-     * The location of the file.
-     */
-    fileLocation?: FileLocation;
-
-    /**
-     * A dictionary, each of whose keys is the name of a hash function and each of whose values is the hashed value
-     * of the file produced by the specified hash function.
-     */
-    hashes?: { [key: string]: string };
-
-    /**
-     * The Coordinated Universal Time (UTC) date and time at which the file was most recently modified. See
-     * "Date/time properties" in the SARIF spec for the required format.
-     */
-    lastModifiedTimeUtc?: string;
-
-    /**
-     * The length of the file in bytes.
-     */
-    length?: number;
-
-    /**
-     * The MIME type (RFC 2045) of the file.
-     */
-    mimeType?: string;
-
-    /**
-     * The offset in bytes of the file within its containing file.
-     */
-    offset?: number;
-
-    /**
-     * Identifies the key of the immediate parent of the file, if this file is nested.
-     */
-    parentKey?: string;
-
-    /**
-     * The role or roles played by the file in the analysis.
-     */
-    roles?: File.roles[];
-
-    /**
-     * Key/value pairs that provide additional information about the file.
-     */
-    properties?: PropertyBag;
-}
-
-export namespace File {
-    type roles =
-        "analysisTarget" |
-        "attachment" |
-        "responseFile" |
-        "resultFile" |
-        "standardStream" |
-        "traceFile" |
-        "unmodifiedFile" |
-        "modifiedFile" |
-        "addedFile" |
-        "deletedFile" |
-        "renamedFile" |
-        "uncontrolledFile";
-}
-
-/**
- * A change to a single file.
- */
-export interface FileChange {
-    /**
-     * The location of the file to change.
-     */
-    fileLocation: FileLocation;
-
-    /**
-     * An array of replacement objects, each of which represents the replacement of a single region in a single file
-     * specified by 'fileLocation'.
-     */
-    replacements: Replacement[];
-
-    /**
-     * Key/value pairs that provide additional information about the file change.
+     * Key/value pairs that provide additional information about the external property files.
      */
     properties?: PropertyBag;
 }
 
 /**
- * Represents content from an external file.
- */
-export interface FileContent {
-    /**
-     * MIME Base64-encoded content from a binary file, or from a text file in its original encoding.
-     */
-    binary?: string;
-
-    /**
-     * UTF-8-encoded content from a text file.
-     */
-    text?: string;
-
-    /**
-     * Key/value pairs that provide additional information about the external file.
-     */
-    properties?: PropertyBag;
-}
-
-/**
- * Specifies the location of a file.
- */
-export interface FileLocation {
-    /**
-     * A string containing a valid relative or absolute URI.
-     */
-    uri: string;
-
-    /**
-     * A string which indirectly specifies the absolute URI with respect to which a relative URI in the "uri"
-     * property is interpreted.
-     */
-    uriBaseId?: string;
-
-    /**
-     * Key/value pairs that provide additional information about the file location.
-     */
-    properties?: PropertyBag;
-}
-
-/**
- * A proposed fix for the problem represented by a result object. A fix specifies a set of file to modify. For each
- * file, it specifies a set of bytes to remove, and provides a set of new bytes to replace them.
+ * A proposed fix for the problem represented by a result object. A fix specifies a set of artifacts to modify. For
+ * each artifact, it specifies a set of bytes to remove, and provides a set of new bytes to replace them.
  */
 export interface Fix {
+    /**
+     * One or more artifact changes that comprise a fix for a result.
+     */
+    artifactChanges: ArtifactChange[];
+
     /**
      * A message that describes the proposed fix, enabling viewers to present the proposed change to an end user.
      */
     description?: Message;
-
-    /**
-     * One or more file changes that comprise a fix for a result.
-     */
-    fileChanges: FileChange[];
 
     /**
      * Key/value pairs that provide additional information about the fix.
@@ -401,8 +714,8 @@ export interface Fix {
 }
 
 /**
- * A network of nodes and directed edges that describes some aspect of the structure of the code (for example, a
- * call graph).
+ * A network of nodes and directed edges that describes some aspect of the structure of the code (for example, a call
+ * graph).
  */
 export interface Graph {
     /**
@@ -413,17 +726,12 @@ export interface Graph {
     /**
      * An array of edge objects representing the edges of the graph.
      */
-    edges: Edge[];
-
-    /**
-     * A string that uniquely identifies the graph within a run.graphs or result.graphs array.
-     */
-    id: string;
+    edges?: Edge[];
 
     /**
      * An array of node objects representing the nodes of the graph.
      */
-    nodes: Node[];
+    nodes?: Node[];
 
     /**
      * Key/value pairs that provide additional information about the graph.
@@ -443,17 +751,27 @@ export interface GraphTraversal {
     /**
      * The sequences of edges traversed by this graph traversal.
      */
-    edgeTraversals: EdgeTraversal[];
+    edgeTraversals?: EdgeTraversal[];
 
     /**
-     * A string that uniquely identifies that graph being traversed.
+     * Values of relevant expressions at the start of the graph traversal that remain constant for the graph traversal.
      */
-    graphId: string;
+    immutableState?: { [key: string]: MultiformatMessageString };
 
     /**
-     * Values of relevant expressions at the start of the graph traversal.
+     * Values of relevant expressions at the start of the graph traversal that may change during graph traversal.
      */
-    initialState?: { [key: string]: string };
+    initialState?: { [key: string]: MultiformatMessageString };
+
+    /**
+     * The index within the result.graphs to be associated with the result.
+     */
+    resultGraphIndex?: number;
+
+    /**
+     * The index within the run.graphs to be associated with the result.
+     */
+    runGraphIndex?: number;
 
     /**
      * Key/value pairs that provide additional information about the graph traversal.
@@ -477,19 +795,9 @@ export interface Invocation {
     arguments?: string[];
 
     /**
-     * A set of files relevant to the invocation of the tool.
-     */
-    attachments?: Attachment[];
-
-    /**
      * The command line used to invoke the tool.
      */
     commandLine?: string;
-
-    /**
-     * A list of conditions detected by the tool that are relevant to the tool's configuration.
-     */
-    configurationNotifications?: Notification[];
 
     /**
      * The Coordinated Universal Time (UTC) date and time at which the run ended. See "Date/time properties" in the
@@ -505,7 +813,12 @@ export interface Invocation {
     /**
      * An absolute URI specifying the location of the analysis tool's executable.
      */
-    executableLocation?: FileLocation;
+    executableLocation?: ArtifactLocation;
+
+    /**
+     * Specifies whether the tool's execution completed successfully.
+     */
+    executionSuccessful: boolean;
 
     /**
      * The process exit code.
@@ -533,6 +846,11 @@ export interface Invocation {
     machine?: string;
 
     /**
+     * An array of configurationOverride objects that describe notifications related runtime overrides.
+     */
+    notificationConfigurationOverrides?: ConfigurationOverride[];
+
+    /**
      * The process id for the analysis tool run.
      */
     processId?: number;
@@ -545,49 +863,53 @@ export interface Invocation {
     /**
      * The locations of any response files specified on the tool's command line.
      */
-    responseFiles?: FileLocation[];
+    responseFiles?: ArtifactLocation[];
 
     /**
-     * The Coordinated Universal Time (UTC) date and time at which the run started. See "Date/time properties" in
-     * the SARIF spec for the required format.
+     * An array of configurationOverride objects that describe rules related runtime overrides.
+     */
+    ruleConfigurationOverrides?: ConfigurationOverride[];
+
+    /**
+     * The Coordinated Universal Time (UTC) date and time at which the run started. See "Date/time properties" in the
+     * SARIF spec for the required format.
      */
     startTimeUtc?: string;
 
     /**
      * A file containing the standard error stream from the process that was invoked.
      */
-    stderr?: FileLocation;
+    stderr?: ArtifactLocation;
 
     /**
      * A file containing the standard input stream to the process that was invoked.
      */
-    stdin?: FileLocation;
+    stdin?: ArtifactLocation;
 
     /**
      * A file containing the standard output stream from the process that was invoked.
      */
-    stdout?: FileLocation;
+    stdout?: ArtifactLocation;
 
     /**
-     * A file containing the interleaved standard output and standard error stream from the process that was
-     * invoked.
+     * A file containing the interleaved standard output and standard error stream from the process that was invoked.
      */
-    stdoutStderr?: FileLocation;
+    stdoutStderr?: ArtifactLocation;
 
     /**
-     * A value indicating whether the tool's execution completed successfully.
+     * A list of conditions detected by the tool that are relevant to the tool's configuration.
      */
-    toolExecutionSuccessful?: boolean;
+    toolConfigurationNotifications?: Notification[];
 
     /**
      * A list of runtime conditions detected by the tool during the analysis.
      */
-    toolNotifications?: Notification[];
+    toolExecutionNotifications?: Notification[];
 
     /**
      * The working directory for the analysis tool run.
      */
-    workingDirectory?: FileLocation;
+    workingDirectory?: ArtifactLocation;
 
     /**
      * Key/value pairs that provide additional information about the invocation.
@@ -605,11 +927,14 @@ export interface Location {
     annotations?: Region[];
 
     /**
-     * The human-readable fully qualified name of the logical location. If run.logicalLocations is present, this
-     * value matches a property name within that object, from which further information about the logical location
-     * can be obtained.
+     * Value that distinguishes this location from all other locations within a single result object.
      */
-    fullyQualifiedLogicalName?: string;
+    id?: number;
+
+    /**
+     * The logical locations associated with the result.
+     */
+    logicalLocations?: LogicalLocation[];
 
     /**
      * A message relevant to the location.
@@ -617,12 +942,43 @@ export interface Location {
     message?: Message;
 
     /**
-     * Identifies the file and region.
+     * Identifies the artifact and region.
      */
     physicalLocation?: PhysicalLocation;
 
     /**
+     * An array of objects that describe relationships between this location and others.
+     */
+    relationships?: LocationRelationship[];
+
+    /**
      * Key/value pairs that provide additional information about the location.
+     */
+    properties?: PropertyBag;
+}
+
+/**
+ * Information about the relation of one location to another.
+ */
+export interface LocationRelationship {
+    /**
+     * A description of the location relationship.
+     */
+    description?: Message;
+
+    /**
+     * A set of distinct strings that categorize the relationship. Well-known kinds include 'includes', 'isIncludedBy'
+     * and 'relevant'.
+     */
+    kinds?: string[];
+
+    /**
+     * A reference to the related location.
+     */
+    target: number;
+
+    /**
+     * Key/value pairs that provide additional information about the location relationship.
      */
     properties?: PropertyBag;
 }
@@ -632,8 +988,8 @@ export interface Location {
  */
 export interface LogicalLocation {
     /**
-     * The machine-readable name for the logical location, such as a mangled function name provided by a C++
-     * compiler that encodes calling convention, return type and other details along with the function name.
+     * The machine-readable name for the logical location, such as a mangled function name provided by a C++ compiler
+     * that encodes calling convention, return type and other details along with the function name.
      */
     decoratedName?: string;
 
@@ -643,8 +999,14 @@ export interface LogicalLocation {
     fullyQualifiedName?: string;
 
     /**
-     * The type of construct this logicalLocationComponent refers to. Should be one of 'function', 'member',
-     * 'module', 'namespace', 'package', 'parameter', 'resource', 'returnType', 'type', or 'variable', if any of
+     * The index within the logical locations array.
+     */
+    index?: number;
+
+    /**
+     * The type of construct this logical location component refers to. Should be one of 'function', 'member',
+     * 'module', 'namespace', 'parameter', 'resource', 'returnType', 'type', 'variable', 'object', 'array', 'property',
+     * 'value', 'element', 'text', 'attribute', 'comment', 'declaration', 'dtd' or 'processingInstruction', if any of
      * those accurately describe the construct.
      */
     kind?: string;
@@ -656,10 +1018,10 @@ export interface LogicalLocation {
     name?: string;
 
     /**
-     * Identifies the key of the immediate parent of the construct in which the result was detected. For example,
+     * Identifies the index of the immediate parent of the construct in which the result was detected. For example,
      * this property might point to a logical location that represents the namespace that holds a type.
      */
-    parentKey?: string;
+    parentIndex?: number;
 
     /**
      * Key/value pairs that provide additional information about the logical location.
@@ -677,24 +1039,39 @@ export interface Message {
     arguments?: string[];
 
     /**
-     * The resource id for a plain text message string.
+     * The identifier for this message.
      */
-    messageId?: string;
+    id?: string;
 
     /**
-     * The resource id for a rich text message string.
+     * A Markdown message string.
      */
-    richMessageId?: string;
-
-    /**
-     * A rich text message string.
-     */
-    richText?: string;
+    markdown?: string;
 
     /**
      * A plain text message string.
      */
     text?: string;
+
+    /**
+     * Key/value pairs that provide additional information about the message.
+     */
+    properties?: PropertyBag;
+}
+
+/**
+ * A message string or message format string rendered in multiple formats.
+ */
+export interface MultiformatMessageString {
+    /**
+     * A Markdown message string or format string.
+     */
+    markdown?: string;
+
+    /**
+     * A plain text message string or format string.
+     */
+    text: string;
 
     /**
      * Key/value pairs that provide additional information about the message.
@@ -738,14 +1115,19 @@ export interface Node {
  */
 export interface Notification {
     /**
+     * A reference used to locate the rule descriptor associated with this notification.
+     */
+    associatedRule?: ReportingDescriptorReference;
+
+    /**
+     * A reference used to locate the descriptor relevant to this notification.
+     */
+    descriptor?: ReportingDescriptorReference;
+
+    /**
      * The runtime exception, if any, relevant to this notification.
      */
     exception?: Exception;
-
-    /**
-     * An identifier for the condition that was encountered.
-     */
-    id?: string;
 
     /**
      * A value specifying the severity level of the notification.
@@ -753,20 +1135,14 @@ export interface Notification {
     level?: Notification.level;
 
     /**
+     * The locations relevant to this notification.
+     */
+    locations?: Location[];
+
+    /**
      * A message that describes the condition that was encountered.
      */
     message: Message;
-
-    /**
-     * The file and region relevant to this notification.
-     */
-    physicalLocation?: PhysicalLocation;
-
-    /**
-     * The stable, unique identifier of the rule (if any) to which this notification is relevant. This member can be
-     * used to retrieve rule metadata from the rules dictionary, if it exists.
-     */
-    ruleId?: string;
 
     /**
      * The thread identifier of the code that generated the notification.
@@ -786,34 +1162,35 @@ export interface Notification {
 
 export namespace Notification {
     type level =
+        "none" |
         "note" |
         "warning" |
         "error";
 }
 
 /**
- * A physical location relevant to a result. Specifies a reference to a programming artifact together with a range
- * of bytes or characters within that artifact.
+ * A physical location relevant to a result. Specifies a reference to a programming artifact together with a range of
+ * bytes or characters within that artifact.
  */
 export interface PhysicalLocation {
     /**
-     * Specifies a portion of the file that encloses the region. Allows a viewer to display additional context
+     * The address of the location.
+     */
+    address?: Address;
+
+    /**
+     * The location of the artifact.
+     */
+    artifactLocation?: ArtifactLocation;
+
+    /**
+     * Specifies a portion of the artifact that encloses the region. Allows a viewer to display additional context
      * around the region.
      */
     contextRegion?: Region;
 
     /**
-     * The location of the file.
-     */
-    fileLocation: FileLocation;
-
-    /**
-     * Value that distinguishes this physical location from all other physical locations in this run object.
-     */
-    id?: number;
-
-    /**
-     * Specifies a portion of the file.
+     * Specifies a portion of the artifact.
      */
     region?: Region;
 
@@ -874,7 +1251,7 @@ export interface Rectangle {
 }
 
 /**
- * A region within a file where a result was detected.
+ * A region within an artifact where a result was detected.
  */
 export interface Region {
     /**
@@ -883,7 +1260,7 @@ export interface Region {
     byteLength?: number;
 
     /**
-     * The zero-based offset from the beginning of the file of the first byte in the region.
+     * The zero-based offset from the beginning of the artifact of the first byte in the region.
      */
     byteOffset?: number;
 
@@ -893,7 +1270,7 @@ export interface Region {
     charLength?: number;
 
     /**
-     * The zero-based offset from the beginning of the file of the first character in the region.
+     * The zero-based offset from the beginning of the artifact of the first character in the region.
      */
     charOffset?: number;
 
@@ -913,9 +1290,14 @@ export interface Region {
     message?: Message;
 
     /**
-     * The portion of the file contents within the specified region.
+     * The portion of the artifact contents within the specified region.
      */
-    snippet?: FileContent;
+    snippet?: ArtifactContent;
+
+    /**
+     * Specifies the source language, if any, of the portion of the artifact specified by the region object.
+     */
+    sourceLanguage?: string;
 
     /**
      * The column number of the first character in the region.
@@ -934,18 +1316,18 @@ export interface Region {
 }
 
 /**
- * The replacement of a single region of a file.
+ * The replacement of a single region of an artifact.
  */
 export interface Replacement {
     /**
-     * The region of the file to delete.
+     * The region of the artifact to delete.
      */
     deletedRegion: Region;
 
     /**
      * The content to insert at the location specified by the 'deletedRegion' property.
      */
-    insertedContent?: FileContent;
+    insertedContent?: ArtifactContent;
 
     /**
      * Key/value pairs that provide additional information about the replacement.
@@ -954,19 +1336,180 @@ export interface Replacement {
 }
 
 /**
- * Container for items that require localization.
+ * Information about a rule or notification that can be configured at runtime.
  */
-export interface Resources {
+export interface ReportingConfiguration {
     /**
-     * A dictionary, each of whose keys is a resource identifier and each of whose values is a localized string.
+     * Specifies whether the report may be produced during the scan.
      */
-    messageStrings?: { [key: string]: string };
+    enabled?: boolean;
 
     /**
-     * A dictionary, each of whose keys is a string and each of whose values is a 'rule' object, that describe all
-     * rules associated with an analysis tool or a specific run of an analysis tool.
+     * Specifies the failure level for the report.
      */
-    rules?: { [key: string]: Rule };
+    level?: ReportingConfiguration.level;
+
+    /**
+     * Contains configuration information specific to a report.
+     */
+    parameters?: PropertyBag;
+
+    /**
+     * Specifies the relative priority of the report. Used for analysis output only.
+     */
+    rank?: number;
+
+    /**
+     * Key/value pairs that provide additional information about the reporting configuration.
+     */
+    properties?: PropertyBag;
+}
+
+export namespace ReportingConfiguration {
+    type level =
+        "none" |
+        "note" |
+        "warning" |
+        "error";
+}
+
+/**
+ * Metadata that describes a specific report produced by the tool, as part of the analysis it provides or its runtime
+ * reporting.
+ */
+export interface ReportingDescriptor {
+    /**
+     * Default reporting configuration information.
+     */
+    defaultConfiguration?: ReportingConfiguration;
+
+    /**
+     * An array of unique identifies in the form of a GUID by which this report was known in some previous version of
+     * the analysis tool.
+     */
+    deprecatedGuids?: string[];
+
+    /**
+     * An array of stable, opaque identifiers by which this report was known in some previous version of the analysis
+     * tool.
+     */
+    deprecatedIds?: string[];
+
+    /**
+     * An array of readable identifiers by which this report was known in some previous version of the analysis tool.
+     */
+    deprecatedNames?: string[];
+
+    /**
+     * A description of the report. Should, as far as possible, provide details sufficient to enable resolution of any
+     * problem indicated by the result.
+     */
+    fullDescription?: MultiformatMessageString;
+
+    /**
+     * A unique identifer for the reporting descriptor in the form of a GUID.
+     */
+    guid?: string;
+
+    /**
+     * Provides the primary documentation for the report, useful when there is no online documentation.
+     */
+    help?: MultiformatMessageString;
+
+    /**
+     * A URI where the primary documentation for the report can be found.
+     */
+    helpUri?: string;
+
+    /**
+     * A stable, opaque identifier for the report.
+     */
+    id: string;
+
+    /**
+     * A set of name/value pairs with arbitrary names. Each value is a multiformatMessageString object, which holds
+     * message strings in plain text and (optionally) Markdown format. The strings can include placeholders, which can
+     * be used to construct a message in combination with an arbitrary number of additional string arguments.
+     */
+    messageStrings?: { [key: string]: MultiformatMessageString };
+
+    /**
+     * A report identifier that is understandable to an end user.
+     */
+    name?: string;
+
+    /**
+     * An array of objects that describe relationships between this reporting descriptor and others.
+     */
+    relationships?: ReportingDescriptorRelationship[];
+
+    /**
+     * A concise description of the report. Should be a single sentence that is understandable when visible space is
+     * limited to a single line of text.
+     */
+    shortDescription?: MultiformatMessageString;
+
+    /**
+     * Key/value pairs that provide additional information about the report.
+     */
+    properties?: PropertyBag;
+}
+
+/**
+ * Information about how to locate a relevant reporting descriptor.
+ */
+export interface ReportingDescriptorReference {
+    /**
+     * A guid that uniquely identifies the descriptor.
+     */
+    guid?: string;
+
+    /**
+     * The id of the descriptor.
+     */
+    id?: string;
+
+    /**
+     * The index into an array of descriptors in toolComponent.ruleDescriptors, toolComponent.notificationDescriptors,
+     * or toolComponent.taxonomyDescriptors, depending on context.
+     */
+    index?: number;
+
+    /**
+     * A reference used to locate the toolComponent associated with the descriptor.
+     */
+    toolComponent?: ToolComponentReference;
+
+    /**
+     * Key/value pairs that provide additional information about the reporting descriptor reference.
+     */
+    properties?: PropertyBag;
+}
+
+/**
+ * Information about the relation of one reporting descriptor to another.
+ */
+export interface ReportingDescriptorRelationship {
+    /**
+     * A description of the reporting descriptor relationship.
+     */
+    description?: Message;
+
+    /**
+     * A set of distinct strings that categorize the relationship. Well-known kinds include 'canPrecede', 'canFollow',
+     * 'willPrecede', 'willFollow', 'superset', 'subset', 'equal', 'disjoint', 'relevant', and 'incomparable'.
+     */
+    kinds?: string[];
+
+    /**
+     * A reference to the related reporting descriptor.
+     */
+    target: ReportingDescriptorReference;
+
+    /**
+     * Key/value pairs that provide additional information about the reporting descriptor reference.
+     */
+    properties?: PropertyBag;
 }
 
 /**
@@ -974,13 +1517,13 @@ export interface Resources {
  */
 export interface Result {
     /**
-     * Identifies the file that the analysis tool was instructed to scan. This need not be the same as the file
+     * Identifies the artifact that the analysis tool was instructed to scan. This need not be the same as the artifact
      * where the result actually occurred.
      */
-    analysisTarget?: FileLocation;
+    analysisTarget?: ArtifactLocation;
 
     /**
-     * A set of files relevant to the result.
+     * A set of artifacts relevant to the result.
      */
     attachments?: Attachment[];
 
@@ -993,12 +1536,6 @@ export interface Result {
      * An array of 'codeFlow' objects relevant to the result.
      */
     codeFlows?: CodeFlow[];
-
-    /**
-     * An array of physicalLocation objects which specify the portions of an analysis tool's output that a converter
-     * transformed into the result object.
-     */
-    conversionProvenance?: PhysicalLocation[];
 
     /**
      * A stable, unique identifier for the equivalence class of logically identical results to which this result
@@ -1017,10 +1554,9 @@ export interface Result {
     fixes?: Fix[];
 
     /**
-     * A dictionary, each of whose keys is the id of a graph and each of whose values is a 'graph' object with that
-     * id.
+     * An array of zero or more unique graph objects associated with the result.
      */
-    graphs?: { [key: string]: Graph };
+    graphs?: Graph[];
 
     /**
      * An array of one or more unique 'graphTraversal' objects.
@@ -1030,7 +1566,17 @@ export interface Result {
     /**
      * A stable, unique identifer for the result in the form of a GUID.
      */
-    instanceGuid?: string;
+    guid?: string;
+
+    /**
+     * An absolute URI at which the result can be viewed.
+     */
+    hostedViewerUri?: string;
+
+    /**
+     * A value that categorizes results by evaluation state.
+     */
+    kind?: Result.kind;
 
     /**
      * A value specifying the severity level of the result.
@@ -1038,16 +1584,16 @@ export interface Result {
     level?: Result.level;
 
     /**
-     * One or more locations where the result occurred. Specify only one location unless the problem indicated by
+     * The set of locations where the result was detected. Specify only one location unless the problem indicated by
      * the result can only be corrected by making a change at every specified location.
      */
     locations?: Location[];
 
     /**
-     * A message that describes the result. The first sentence of the message only will be displayed when visible
-     * space is limited.
+     * A message that describes the result. The first sentence of the message only will be displayed when visible space
+     * is limited.
      */
-    message?: Message;
+    message: Message;
 
     /**
      * A positive integer specifying the number of times this logically unique result was observed in this run.
@@ -1060,15 +1606,35 @@ export interface Result {
     partialFingerprints?: { [key: string]: string };
 
     /**
+     * Information about how and when the result was detected.
+     */
+    provenance?: ResultProvenance;
+
+    /**
+     * A number representing the priority or importance of the result.
+     */
+    rank?: number;
+
+    /**
      * A set of locations relevant to this result.
      */
     relatedLocations?: Location[];
 
     /**
-     * The stable, unique identifier of the rule (if any) to which this notification is relevant. This member can be
+     * A reference used to locate the rule descriptor relevant to this result.
+     */
+    rule?: ReportingDescriptorReference;
+
+    /**
+     * The stable, unique identifier of the rule, if any, to which this notification is relevant. This member can be
      * used to retrieve rule metadata from the rules dictionary, if it exists.
      */
     ruleId?: string;
+
+    /**
+     * The index within the tool component rules array of the rule object associated with this result.
+     */
+    ruleIndex?: number;
 
     /**
      * An array of 'stack' objects relevant to the result.
@@ -1076,12 +1642,27 @@ export interface Result {
     stacks?: Stack[];
 
     /**
-     * A set of flags indicating one or more suppression conditions.
+     * A set of suppressions relevant to this result.
      */
-    suppressionStates?: Result.suppressionStates[];
+    suppressions?: Suppression[];
 
     /**
-     * The URIs of the work items associated with this result
+     * An array of references to taxonomy reporting descriptors that are applicable to the result.
+     */
+    taxa?: ReportingDescriptorReference[];
+
+    /**
+     * A web request associated with this result.
+     */
+    webRequest?: WebRequest;
+
+    /**
+     * A web response associated with this result.
+     */
+    webResponse?: WebResponse;
+
+    /**
+     * The URIs of the work items associated with this result.
      */
     workItemUris?: string[];
 
@@ -1092,137 +1673,97 @@ export interface Result {
 }
 
 export namespace Result {
-    type level =
+    type kind =
         "notApplicable" |
         "pass" |
+        "fail" |
+        "review" |
+        "open" |
+        "informational";
+
+    type level =
+        "none" |
         "note" |
         "warning" |
-        "error" |
-        "open";
-
-    type suppressionStates =
-        "suppressedInSource" |
-        "suppressedExternally";
+        "error";
 
     type baselineState =
         "new" |
-        "existing" |
+        "unchanged" |
+        "updated" |
         "absent";
 }
 
 /**
- * Describes an analysis rule.
+ * Contains information about how and when a result was detected.
  */
-export interface Rule {
+export interface ResultProvenance {
     /**
-     * Information about the rule that can be configured at runtime.
+     * An array of physicalLocation objects which specify the portions of an analysis tool's output that a converter
+     * transformed into the result.
      */
-    configuration?: RuleConfiguration;
+    conversionSources?: PhysicalLocation[];
 
     /**
-     * A description of the rule. Should, as far as possible, provide details sufficient to enable resolution of any
-     * problem indicated by the result.
+     * A GUID-valued string equal to the automationDetails.guid property of the run in which the result was first
+     * detected.
      */
-    fullDescription?: Message;
+    firstDetectionRunGuid?: string;
 
     /**
-     * Provides the primary documentation for the rule, useful when there is no online documentation.
+     * The Coordinated Universal Time (UTC) date and time at which the result was first detected. See "Date/time
+     * properties" in the SARIF spec for the required format.
      */
-    help?: Message;
+    firstDetectionTimeUtc?: string;
 
     /**
-     * A URI where the primary documentation for the rule can be found.
+     * The index within the run.invocations array of the invocation object which describes the tool invocation that
+     * detected the result.
      */
-    helpUri?: string;
+    invocationIndex?: number;
 
     /**
-     * A stable, opaque identifier for the rule.
+     * A GUID-valued string equal to the automationDetails.guid property of the run in which the result was most
+     * recently detected.
      */
-    id?: string;
+    lastDetectionRunGuid?: string;
 
     /**
-     * A set of name/value pairs with arbitrary names. The value within each name/value pair consists of plain text
-     * interspersed with placeholders, which can be used to construct a message in combination with an arbitrary
-     * number of additional string arguments.
+     * The Coordinated Universal Time (UTC) date and time at which the result was most recently detected. See
+     * "Date/time properties" in the SARIF spec for the required format.
      */
-    messageStrings?: { [key: string]: string };
+    lastDetectionTimeUtc?: string;
 
     /**
-     * A rule identifier that is understandable to an end user.
-     */
-    name?: Message;
-
-    /**
-     * A set of name/value pairs with arbitrary names. The value within each name/value pair consists of rich text
-     * interspersed with placeholders, which can be used to construct a message in combination with an arbitrary
-     * number of additional string arguments.
-     */
-    richMessageStrings?: { [key: string]: string };
-
-    /**
-     * A concise description of the rule. Should be a single sentence that is understandable when visible space is
-     * limited to a single line of text.
-     */
-    shortDescription?: Message;
-
-    /**
-     * Key/value pairs that provide additional information about the rule.
+     * Key/value pairs that provide additional information about the result.
      */
     properties?: PropertyBag;
 }
 
 /**
- * Information about a rule that can be configured at runtime.
- */
-export interface RuleConfiguration {
-    /**
-     * Specifies the default severity level of the result.
-     */
-    defaultLevel?: RuleConfiguration.defaultLevel;
-
-    /**
-     * Specifies whether the rule will be evaluated during the scan.
-     */
-    enabled?: boolean;
-
-    /**
-     * Contains configuration information specific to this rule.
-     */
-    parameters?: PropertyBag;
-
-    /**
-     * Key/value pairs that provide additional information about the rule configuration.
-     */
-    properties?: PropertyBag;
-}
-
-export namespace RuleConfiguration {
-    type defaultLevel =
-        "note" |
-        "warning" |
-        "error" |
-        "open";
-}
-
-/**
- * Describes a single run of an analysis tool, and contains the output of that run.
+ * Describes a single run of an analysis tool, and contains the reported output of that run.
  */
 export interface Run {
     /**
-     * Automation details that describe the aggregate of runs to which this run belongs.
+     * Addresses associated with this run instance, if any.
      */
-    aggregateIds?: RunAutomationDetails[];
+    addresses?: Address[];
 
     /**
-     * The hardware architecture for which the run was targeted.
+     * An array of artifact objects relevant to the run.
      */
-    architecture?: string;
+    artifacts?: Artifact[];
 
     /**
-     * The 'instanceGuid' property of a previous SARIF 'run' that comprises the baseline that was used to compute
-     * result 'baselineState' properties for the run.
+     * Automation details that describe this run.
      */
-    baselineInstanceGuid?: string;
+    automationDetails?: RunAutomationDetails;
+
+    /**
+     * The 'guid' property of a previous SARIF 'run' that comprises the baseline that was used to compute result
+     * 'baselineState' properties for the run.
+     */
+    baselineGuid?: string;
 
     /**
      * Specifies the unit in which the tool measures columns.
@@ -1230,31 +1771,31 @@ export interface Run {
     columnKind?: Run.columnKind;
 
     /**
-     * A conversion object that describes how a converter transformed an analysis tool's native output format into
+     * A conversion object that describes how a converter transformed an analysis tool's native reporting format into
      * the SARIF format.
      */
     conversion?: Conversion;
 
     /**
-     * Specifies the default encoding for any file object that refers to a text file.
+     * Specifies the default encoding for any artifact object that refers to a text file.
      */
-    defaultFileEncoding?: string;
+    defaultEncoding?: string;
 
     /**
-     * A dictionary, each of whose keys is a URI and each of whose values is a file object.
+     * Specifies the default source language for any artifact object that refers to a text file that contains source
+     * code.
      */
-    files?: { [key: string]: File };
+    defaultSourceLanguage?: string;
 
     /**
-     * A dictionary, each of whose keys is the id of a graph and each of whose values is a 'graph' object with that
-     * id.
+     * References to external property files that should be inlined with the content of a root log file.
      */
-    graphs?: { [key: string]: Graph };
+    externalPropertyFileReferences?: ExternalPropertyFileReferences;
 
     /**
-     * Automation details that describe this run.
+     * An array of zero or more unique graph objects associated with the run.
      */
-    id?: RunAutomationDetails;
+    graphs?: Graph[];
 
     /**
      * Describes the invocation of the analysis tool.
@@ -1262,24 +1803,40 @@ export interface Run {
     invocations?: Invocation[];
 
     /**
-     * A dictionary, each of whose keys specifies a logical location such as a namespace, type or function.
+     * The language of the messages emitted into the log file during this run (expressed as an ISO 639-1 two-letter
+     * lowercase culture code) and an optional region (expressed as an ISO 3166-1 two-letter uppercase subculture code
+     * associated with a country or region). The casing is recommended but not required (in order for this data to
+     * conform to RFC5646).
      */
-    logicalLocations?: { [key: string]: LogicalLocation };
+    language?: string;
 
     /**
-     * The file location specified by each uriBaseId symbol on the machine where the tool originally ran.
+     * An array of logical locations such as namespaces, types or functions.
      */
-    originalUriBaseIds?: { [key: string]: FileLocation };
+    logicalLocations?: LogicalLocation[];
 
     /**
-     * The string used to replace sensitive information in a redaction-aware property.
+     * An ordered list of character sequences that were treated as line breaks when computing region information for
+     * the run.
      */
-    redactionToken?: string;
+    newlineSequences?: string[];
 
     /**
-     * Items that can be localized, such as message strings and rule metadata.
+     * The artifact location specified by each uriBaseId symbol on the machine where the tool originally ran.
      */
-    resources?: Resources;
+    originalUriBaseIds?: { [key: string]: ArtifactLocation };
+
+    /**
+     * Contains configurations that may potentially override both reportingDescriptor.defaultConfiguration (the tool's
+     * default severities) and invocation.configurationOverrides (severities established at run-time from the command
+     * line).
+     */
+    policies?: ToolComponent[];
+
+    /**
+     * An array of strings used to replace sensitive information in a redaction-aware property.
+     */
+    redactionTokens?: string[];
 
     /**
      * The set of results contained in an SARIF log. The results array can be omitted when a run is solely exporting
@@ -1288,22 +1845,51 @@ export interface Run {
     results?: Result[];
 
     /**
-     * The MIME type of all rich text message properties in the run. Default: "text/markdown;variant=GFM"
+     * Automation details that describe the aggregate of runs to which this run belongs.
      */
-    richMessageMimeType?: string;
+    runAggregates?: RunAutomationDetails[];
+
+    /**
+     * A specialLocations object that defines locations of special significance to SARIF consumers.
+     */
+    specialLocations?: SpecialLocations;
+
+    /**
+     * An array of toolComponent objects relevant to a taxonomy in which results are categorized.
+     */
+    taxonomies?: ToolComponent[];
+
+    /**
+     * An array of threadFlowLocation objects cached at run level.
+     */
+    threadFlowLocations?: ThreadFlowLocation[];
 
     /**
      * Information about the tool or tool pipeline that generated the results in this run. A run can only contain
-     * results produced by a single tool or tool pipeline. A run can aggregate results from multiple log files, as
-     * long as context around the tool run (tool command-line arguments and the like) is identical for all
-     * aggregated files.
+     * results produced by a single tool or tool pipeline. A run can aggregate results from multiple log files, as long
+     * as context around the tool run (tool command-line arguments and the like) is identical for all aggregated files.
      */
     tool: Tool;
 
     /**
-     * Specifies the revision in version control of the files that were scanned.
+     * The set of available translations of the localized data provided by the tool.
+     */
+    translations?: ToolComponent[];
+
+    /**
+     * Specifies the revision in version control of the artifacts that were scanned.
      */
     versionControlProvenance?: VersionControlDetails[];
+
+    /**
+     * An array of request objects cached at run level.
+     */
+    webRequests?: WebRequest[];
+
+    /**
+     * An array of response objects cached at run level.
+     */
+    webResponses?: WebResponse[];
 
     /**
      * Key/value pairs that provide additional information about the run.
@@ -1336,15 +1922,30 @@ export interface RunAutomationDetails {
     /**
      * A stable, unique identifer for this object's containing run object in the form of a GUID.
      */
-    instanceGuid?: string;
+    guid?: string;
 
     /**
      * A hierarchical string that uniquely identifies this object's containing run object.
      */
-    instanceId?: string;
+    id?: string;
 
     /**
      * Key/value pairs that provide additional information about the run automation details.
+     */
+    properties?: PropertyBag;
+}
+
+/**
+ * Defines locations of special significance to SARIF consumers.
+ */
+export interface SpecialLocations {
+    /**
+     * Provides a suggestion to SARIF consumers to display file paths relative to the specified location.
+     */
+    displayBase?: ArtifactLocation;
+
+    /**
+     * Key/value pairs that provide additional information about the special locations.
      */
     properties?: PropertyBag;
 }
@@ -1375,11 +1976,6 @@ export interface Stack {
  */
 export interface StackFrame {
     /**
-     * The address of the method or function that is executing.
-     */
-    address?: number;
-
-    /**
      * The location to which this stack frame refers.
      */
     location?: Location;
@@ -1388,11 +1984,6 @@ export interface StackFrame {
      * The name of the module that contains the code of this stack frame.
      */
     module?: string;
-
-    /**
-     * The offset from the method or function that is executing.
-     */
-    offset?: number;
 
     /**
      * The parameters of the call that is executing.
@@ -1411,13 +2002,70 @@ export interface StackFrame {
 }
 
 /**
- * TBD
+ * A suppression that is relevant to a result.
+ */
+export interface Suppression {
+    /**
+     * A stable, unique identifer for the suprression in the form of a GUID.
+     */
+    guid?: string;
+
+    /**
+     * A string representing the justification for the suppression.
+     */
+    justification?: string;
+
+    /**
+     * A string that indicates where the suppression is persisted.
+     */
+    kind: Suppression.kind;
+
+    /**
+     * Identifies the location associated with the suppression.
+     */
+    location?: Location;
+
+    /**
+     * A string that indicates the state of the suppression.
+     */
+    state?: Suppression.state;
+
+    /**
+     * Key/value pairs that provide additional information about the suppression.
+     */
+    properties?: PropertyBag;
+}
+
+export namespace Suppression {
+    type kind =
+        "inSource" |
+        "external";
+
+    type state =
+        "accepted" |
+        "underReview" |
+        "rejected";
+}
+
+/**
+ * Describes a sequence of code locations that specify a path through a single thread of execution such as an operating
+ * system or fiber.
  */
 export interface ThreadFlow {
     /**
      * An string that uniquely identifies the threadFlow within the codeFlow in which it occurs.
      */
     id?: string;
+
+    /**
+     * Values of relevant expressions at the start of the thread flow that remain constant.
+     */
+    immutableState?: { [key: string]: MultiformatMessageString };
+
+    /**
+     * Values of relevant expressions at the start of the thread flow that may change during thread flow execution.
+     */
+    initialState?: { [key: string]: MultiformatMessageString };
 
     /**
      * A temporally ordered array of 'threadFlowLocation' objects, each of which describes a location visited by the
@@ -1451,15 +2099,22 @@ export interface ThreadFlowLocation {
     executionTimeUtc?: string;
 
     /**
-     * Specifies the importance of this location in understanding the code flow in which it occurs. The order from
-     * most to least important is "essential", "important", "unimportant". Default: "important".
+     * Specifies the importance of this location in understanding the code flow in which it occurs. The order from most
+     * to least important is "essential", "important", "unimportant". Default: "important".
      */
     importance?: ThreadFlowLocation.importance;
 
     /**
-     * A string describing the type of this location.
+     * The index within the run threadFlowLocations array.
      */
-    kind?: string;
+    index?: number;
+
+    /**
+     * A set of distinct strings that categorize the thread flow location. Well-known kinds include 'acquire',
+     * 'release', 'enter', 'exit', 'call', 'return', 'branch', 'implicit', 'false', 'true', 'caution', 'danger',
+     * 'unknown', 'unreachable', 'taint', 'function', 'handler', 'lock', 'memory', 'resource', 'scope' and 'value'.
+     */
+    kinds?: string[];
 
     /**
      * The code location.
@@ -1472,7 +2127,7 @@ export interface ThreadFlowLocation {
     module?: string;
 
     /**
-     * An integer representing a containment hierarchy within the thread flow
+     * An integer representing a containment hierarchy within the thread flow.
      */
     nestingLevel?: number;
 
@@ -1483,10 +2138,26 @@ export interface ThreadFlowLocation {
 
     /**
      * A dictionary, each of whose keys specifies a variable or expression, the associated value of which represents
-     * the variable or expression value. For an annotation of kind 'continuation', for example, this dictionary
-     * might hold the current assumed values of a set of global variables.
+     * the variable or expression value. For an annotation of kind 'continuation', for example, this dictionary might
+     * hold the current assumed values of a set of global variables.
      */
-    state?: { [key: string]: string };
+    state?: { [key: string]: MultiformatMessageString };
+
+    /**
+     * An array of references to rule or taxonomy reporting descriptors that are applicable to the thread flow
+     * location.
+     */
+    taxa?: ReportingDescriptorReference[];
+
+    /**
+     * A web request associated with this thread flow location.
+     */
+    webRequest?: WebRequest;
+
+    /**
+     * A web response associated with this thread flow location.
+     */
+    webResponse?: WebResponse;
 
     /**
      * Key/value pairs that provide additional information about the threadflow location.
@@ -1506,47 +2177,14 @@ export namespace ThreadFlowLocation {
  */
 export interface Tool {
     /**
-     * The absolute URI from which the tool can be downloaded.
+     * The analysis tool that was run.
      */
-    downloadUri?: string;
+    driver: ToolComponent;
 
     /**
-     * The binary version of the tool's primary executable file (for operating systems such as Windows that provide
-     * that information).
+     * Tool extensions that contributed to or reconfigured the analysis tool that was run.
      */
-    fileVersion?: string;
-
-    /**
-     * The name of the tool along with its version and any other useful identifying information, such as its locale.
-     */
-    fullName?: string;
-
-    /**
-     * The tool language (expressed as an ISO 649 two-letter lowercase culture code) and region (expressed as an ISO
-     * 3166 two-letter uppercase subculture code associated with a country or region).
-     */
-    language?: string;
-
-    /**
-     * The name of the tool.
-     */
-    name: string;
-
-    /**
-     * A version that uniquely identifies the SARIF logging component that generated this file, if it is versioned
-     * separately from the tool.
-     */
-    sarifLoggerVersion?: string;
-
-    /**
-     * The tool version in the format specified by Semantic Versioning 2.0.
-     */
-    semanticVersion?: string;
-
-    /**
-     * The tool version, in whatever format the tool natively provides.
-     */
-    version?: string;
+    extensions?: ToolComponent[];
 
     /**
      * Key/value pairs that provide additional information about the tool.
@@ -1555,12 +2193,242 @@ export interface Tool {
 }
 
 /**
- * TBD
+ * A component, such as a plug-in or the driver, of the analysis tool that was run.
+ */
+export interface ToolComponent {
+    /**
+     * The component which is strongly associated with this component. For a translation, this refers to the component
+     * which has been translated. For an extension, this is the driver that provides the extension's plugin model.
+     */
+    associatedComponent?: ToolComponentReference;
+
+    /**
+     * The kinds of data contained in this object.
+     */
+    contents?: ToolComponent.contents[];
+
+    /**
+     * The binary version of the tool component's primary executable file expressed as four non-negative integers
+     * separated by a period (for operating systems that express file versions in this way).
+     */
+    dottedQuadFileVersion?: string;
+
+    /**
+     * The absolute URI from which the tool component can be downloaded.
+     */
+    downloadUri?: string;
+
+    /**
+     * A comprehensive description of the tool component.
+     */
+    fullDescription?: MultiformatMessageString;
+
+    /**
+     * The name of the tool component along with its version and any other useful identifying information, such as its
+     * locale.
+     */
+    fullName?: string;
+
+    /**
+     * A dictionary, each of whose keys is a resource identifier and each of whose values is a multiformatMessageString
+     * object, which holds message strings in plain text and (optionally) Markdown format. The strings can include
+     * placeholders, which can be used to construct a message in combination with an arbitrary number of additional
+     * string arguments.
+     */
+    globalMessageStrings?: { [key: string]: MultiformatMessageString };
+
+    /**
+     * A unique identifer for the tool component in the form of a GUID.
+     */
+    guid?: string;
+
+    /**
+     * The absolute URI at which information about this version of the tool component can be found.
+     */
+    informationUri?: string;
+
+    /**
+     * Specifies whether this object contains a complete definition of the localizable and/or non-localizable data for
+     * this component, as opposed to including only data that is relevant to the results persisted to this log file.
+     */
+    isComprehensive?: boolean;
+
+    /**
+     * The language of the messages emitted into the log file during this run (expressed as an ISO 639-1 two-letter
+     * lowercase language code) and an optional region (expressed as an ISO 3166-1 two-letter uppercase subculture code
+     * associated with a country or region). The casing is recommended but not required (in order for this data to
+     * conform to RFC5646).
+     */
+    language?: string;
+
+    /**
+     * The semantic version of the localized strings defined in this component; maintained by components that provide
+     * translations.
+     */
+    localizedDataSemanticVersion?: string;
+
+    /**
+     * An array of the artifactLocation objects associated with the tool component.
+     */
+    locations?: ArtifactLocation[];
+
+    /**
+     * The minimum value of localizedDataSemanticVersion required in translations consumed by this component; used by
+     * components that consume translations.
+     */
+    minimumRequiredLocalizedDataSemanticVersion?: string;
+
+    /**
+     * The name of the tool component.
+     */
+    name: string;
+
+    /**
+     * An array of reportingDescriptor objects relevant to the notifications related to the configuration and runtime
+     * execution of the tool component.
+     */
+    notifications?: ReportingDescriptor[];
+
+    /**
+     * The organization or company that produced the tool component.
+     */
+    organization?: string;
+
+    /**
+     * A product suite to which the tool component belongs.
+     */
+    product?: string;
+
+    /**
+     * A localizable string containing the name of the suite of products to which the tool component belongs.
+     */
+    productSuite?: string;
+
+    /**
+     * A string specifying the UTC date (and optionally, the time) of the component's release.
+     */
+    releaseDateUtc?: string;
+
+    /**
+     * An array of reportingDescriptor objects relevant to the analysis performed by the tool component.
+     */
+    rules?: ReportingDescriptor[];
+
+    /**
+     * The tool component version in the format specified by Semantic Versioning 2.0.
+     */
+    semanticVersion?: string;
+
+    /**
+     * A brief description of the tool component.
+     */
+    shortDescription?: MultiformatMessageString;
+
+    /**
+     * An array of toolComponentReference objects to declare the taxonomies supported by the tool component.
+     */
+    supportedTaxonomies?: ToolComponentReference[];
+
+    /**
+     * An array of reportingDescriptor objects relevant to the definitions of both standalone and tool-defined
+     * taxonomies.
+     */
+    taxa?: ReportingDescriptor[];
+
+    /**
+     * Translation metadata, required for a translation, not populated by other component types.
+     */
+    translationMetadata?: TranslationMetadata;
+
+    /**
+     * The tool component version, in whatever format the component natively provides.
+     */
+    version?: string;
+
+    /**
+     * Key/value pairs that provide additional information about the tool component.
+     */
+    properties?: PropertyBag;
+}
+
+export namespace ToolComponent {
+    type contents =
+        "localizedData" |
+        "nonLocalizedData";
+}
+
+/**
+ * Identifies a particular toolComponent object, either the driver or an extension.
+ */
+export interface ToolComponentReference {
+    /**
+     * The 'guid' property of the referenced toolComponent.
+     */
+    guid?: string;
+
+    /**
+     * An index into the referenced toolComponent in tool.extensions.
+     */
+    index?: number;
+
+    /**
+     * The 'name' property of the referenced toolComponent.
+     */
+    name?: string;
+
+    /**
+     * Key/value pairs that provide additional information about the toolComponentReference.
+     */
+    properties?: PropertyBag;
+}
+
+/**
+ * Provides additional metadata related to translation.
+ */
+export interface TranslationMetadata {
+    /**
+     * The absolute URI from which the translation metadata can be downloaded.
+     */
+    downloadUri?: string;
+
+    /**
+     * A comprehensive description of the translation metadata.
+     */
+    fullDescription?: MultiformatMessageString;
+
+    /**
+     * The full name associated with the translation metadata.
+     */
+    fullName?: string;
+
+    /**
+     * The absolute URI from which information related to the translation metadata can be downloaded.
+     */
+    informationUri?: string;
+
+    /**
+     * The name associated with the translation metadata.
+     */
+    name: string;
+
+    /**
+     * A brief description of the translation metadata.
+     */
+    shortDescription?: MultiformatMessageString;
+
+    /**
+     * Key/value pairs that provide additional information about the translation metadata.
+     */
+    properties?: PropertyBag;
+}
+
+/**
+ * Specifies the information necessary to retrieve a desired revision from a version control system.
  */
 export interface VersionControlDetails {
     /**
-     * A Coordinated Universal Time (UTC) date and time that can be used to synchronize an enlistment to the state
-     * of the repository at that time.
+     * A Coordinated Universal Time (UTC) date and time that can be used to synchronize an enlistment to the state of
+     * the repository at that time.
      */
     asOfTimeUtc?: string;
 
@@ -1568,6 +2436,12 @@ export interface VersionControlDetails {
      * The name of a branch containing the revision.
      */
     branch?: string;
+
+    /**
+     * The location in the local file system to which the root of the repository was mapped at the time of the
+     * analysis.
+     */
+    mappedTo?: ArtifactLocation;
 
     /**
      * The absolute URI of the repository.
@@ -1586,6 +2460,107 @@ export interface VersionControlDetails {
 
     /**
      * Key/value pairs that provide additional information about the version control details.
+     */
+    properties?: PropertyBag;
+}
+
+/**
+ * Describes an HTTP request.
+ */
+export interface WebRequest {
+    /**
+     * The body of the request.
+     */
+    body?: ArtifactContent;
+
+    /**
+     * The request headers.
+     */
+    headers?: { [key: string]: string };
+
+    /**
+     * The index within the run.webRequests array of the request object associated with this result.
+     */
+    index?: number;
+
+    /**
+     * The HTTP method. Well-known values are 'GET', 'PUT', 'POST', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS', 'TRACE',
+     * 'CONNECT'.
+     */
+    method?: string;
+
+    /**
+     * The request parameters.
+     */
+    parameters?: { [key: string]: string };
+
+    /**
+     * The request protocol. Example: 'http'.
+     */
+    protocol?: string;
+
+    /**
+     * The target of the request.
+     */
+    target?: string;
+
+    /**
+     * The request version. Example: '1.1'.
+     */
+    version?: string;
+
+    /**
+     * Key/value pairs that provide additional information about the request.
+     */
+    properties?: PropertyBag;
+}
+
+/**
+ * Describes the response to an HTTP request.
+ */
+export interface WebResponse {
+    /**
+     * The body of the response.
+     */
+    body?: ArtifactContent;
+
+    /**
+     * The response headers.
+     */
+    headers?: { [key: string]: string };
+
+    /**
+     * The index within the run.webResponses array of the response object associated with this result.
+     */
+    index?: number;
+
+    /**
+     * Specifies whether a response was received from the server.
+     */
+    noResponseReceived?: boolean;
+
+    /**
+     * The response protocol. Example: 'http'.
+     */
+    protocol?: string;
+
+    /**
+     * The response reason. Example: 'Not found'.
+     */
+    reasonPhrase?: string;
+
+    /**
+     * The response status code. Example: 451.
+     */
+    statusCode?: number;
+
+    /**
+     * The response version. Example: '1.1'.
+     */
+    version?: string;
+
+    /**
+     * Key/value pairs that provide additional information about the response.
      */
     properties?: PropertyBag;
 }

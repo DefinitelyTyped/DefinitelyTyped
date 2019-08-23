@@ -1,5 +1,5 @@
 // Type definitions for hapi 18.0
-// Project: https://github.com/hapijs/hapi
+// Project: https://github.com/hapijs/hapi, https://hapijs.com
 // Definitions by: Rafael Souza Fijalkowski <https://github.com/rafaelsouzaf>
 //                 Justin Simms <https://github.com/jhsimms>
 //                 Simon Schick <https://github.com/SimonSchick>
@@ -739,8 +739,8 @@ export interface ResponseObject extends Podium {
     charset(charset: string): ResponseObject;
 
     /**
-     * Sets the 'Content-Type' HTTP header 'charset' property where:
-     * $param charset - the charset property value.
+     * Sets the HTTP status code where:
+     * @param statusCode - the HTTP status code (e.g. 200).
      * @return Return value: the current response object.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-responsecodestatuscode)
      */

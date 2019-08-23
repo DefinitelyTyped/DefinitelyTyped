@@ -1,7 +1,17 @@
 {
-    "extends": "dtslint/dt.json",
-    "rules": {
-        "max-line-length": false,
-        "unified-signatures": false
-    }
+	"extends": "dtslint/dt.json",
+	"rules": {
+		"indent": [
+			true,
+			"tabs"
+		],
+
+		/**
+		 * This package uses TSDoc conditional on the specific
+		 * signature, with an optional parameter at the beginning,
+		 * which `unified-signatures` considers to be mergeable with
+		 * signatures that don't include it.
+		 */
+		"unified-signatures": false
+	}
 }

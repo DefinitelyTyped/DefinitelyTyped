@@ -1,5 +1,5 @@
-// Type definitions for expo 31.0
-// Project: https://github.com/expo/expo-sdk
+// Type definitions for expo 32.0
+// Project: https://github.com/expo/expo/tree/master/packages/expo
 // Definitions by: Konstantin Kai <https://github.com/KonstantinKai>
 //                 Martynas Kadiša <https://github.com/martynaskadisa>
 //                 Jan Aagaard <https://github.com/janaagaard75>
@@ -15,6 +15,12 @@
 //                 Pavel Ihm <https://github.com/ihmpavel>
 //                 Bartosz Dotryw <https://github.com/burtek>
 //                 Jason Killian <https://github.com/jkillian>
+//                 Satyajit Sahoo <https://github.com/satya164>
+//                 Vinit Sood <https://github.com/vinitsood>
+//                 Mattias Sämskar <https://github.com/mattiassamskar>
+//                 Julian Hundeloh <https://github.com/jaulz>
+//                 Matevz Poljanc <https://github.com/matevzpoljanc>
+//                 Romain Faust <https://github.com/romain-faust>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -22,11 +28,21 @@ export * from 'react-native-maps';
 export { default as MapView } from 'react-native-maps';
 
 import { EventSubscription } from 'fbemitter';
-import { Component, ComponentClass, ComponentType, Ref } from 'react';
-import { ImageRequireSource, ImageURISource, LinkingStatic as ReactNativeLinkingStatic, StyleProp, ViewProps, ViewStyle } from 'react-native';
+import { Component, ComponentClass, Ref, ComponentType } from 'react';
+import {
+    ColorPropType,
+    ImageRequireSource,
+    ImageURISource,
+    LinkingStatic as ReactNativeLinkingStatic,
+    NativeEventEmitter,
+    ViewProps,
+    ViewStyle,
+    Permission,
+    StyleProp
+} from 'react-native';
 
 export type Axis = number;
-export type BarCodeScannedCallback = (params: { type: string; data: string; }) => void;
+export type BarCodeScannedCallback = (result: { type: string; data: string; }) => void;
 export type Md5 = string;
 export type Orientation = 'portrait' | 'landscape';
 export type RequireSource = ImageRequireSource;
@@ -189,6 +205,9 @@ export interface AppLoadingProps {
 
     /** If `startAsync` throws an error, it is caught and passed into the function provided to `onError`. */
     onError?: (error: Error) => void;
+
+    /**  Whether to hide the native splash screen as soon as you unmount the AppLoading component. */
+    autoHideSplash?: boolean;
 }
 
 /**
@@ -402,7 +421,7 @@ export namespace Audio {
         /** an enum selecting how your experience’s audio should interact with the audio from other apps on Android: */
         interruptionModeAndroid: InterruptionModeAndroid;
 
-        /** Boolean selecting if audio should go to earpiece (only on Android). */
+        /** Boolean selecting if your experience’s audio should route to earpiece on Android: */
         playThroughEarpieceAndroid: boolean;
     }
 
@@ -420,7 +439,7 @@ export namespace Audio {
          * - `sound`: The newly created and loaded Sound object.
          * - `status`: The PlaybackStatus of the Sound object. See the AV documentation for further information.
          */
-        static create(
+        static createAsync(
             /**
              * The source of the sound. The following forms are supported:
              *
@@ -565,7 +584,7 @@ export interface PlaybackStatusToSet {
     volume?: number;
 }
 
-export type PlaybackSource = RequireSource | { uri: string, headers?: { [header: string]: string }, overrideFileExtensionAndroid?: string } | Asset;
+export type PlaybackSource = RequireSource | { uri: string } | Asset;
 
 export class PlaybackObject {
     /**
@@ -703,6 +722,24 @@ export class PlaybackObject {
 }
 // #endregion
 
+// #region BackgroundFetch
+/**
+ * BackgroundFetch
+ */
+export namespace BackgroundFetch {
+    function getStatusAsync(): Promise<Status>;
+    function registerTaskAsync(taskName: string): Promise<void>;
+    function unregisterTaskAsync(taskName: string): Promise<void>;
+    function setMinimumIntervalAsync(minimumInterval: number): Promise<void>;
+
+    enum Status {
+        Restricted = 1,
+        Denied = 2,
+        Available = 3
+    }
+}
+// #endregion
+
 // #region BarCodeScanner
 /**
  * BarCodeScanner
@@ -769,10 +806,10 @@ export namespace Brightness {
  * Camera
  */
 export interface PictureOptions {
-    quality?: number;
-    base64?: boolean;
-    exif?: boolean;
-    onPictureSaved?: (data: PictureResponse) => void;
+  quality?: number;
+  base64?: boolean;
+  exif?: boolean;
+  onPictureSaved?: (data: PictureResponse) => void;
 }
 
 export interface PictureResponse {
@@ -797,24 +834,28 @@ export class CameraObject {
 }
 
 export interface CameraProps extends ViewProps {
-    autoFocus?: string | number | boolean;
-    barCodeTypes?: Array<string | number>;
-    faceDetectionClassifications?: number;
-    faceDetectionLandmarks?: number;
-    faceDetectionMode?: number;
-    flashMode?: string | number;
+    zoom?: number;
+    ratio?: string;
     /** Distance to plane of sharpest focus. A value between `0` and `1`. `0`: infinity focus, `1`: focus as close as possible. Default: `0`. For Android this is available only for some devices and when `useCamera2Api` is set to `true`. */
     focusDepth?: number;
-    onBarCodeScanned?: BarCodeScannedCallback;
+    type?: number | string;
     onCameraReady?: () => void;
+    useCamera2Api?: boolean;
+    flashMode?: number | string;
+    whiteBalance?: number | string;
+    autoFocus?: string | boolean | number;
+    pictureSize?: string;
+    videoStabilizationMode?: number;
+    onMountError?: (error: { message: string }) => void;
+    barCodeScannerSettings?: { barCodeTypes?: Array<string | number>; };
+    onBarCodeScanned?: BarCodeScannedCallback;
+    faceDetectorSettings?: {
+        mode?: number;
+        runClassifications?: number;
+        detectLandmarks?: number;
+    };
     onFacesDetected?: (options: { faces: TrackedFaceFeature[] }) => void;
-    onMountError?: () => void;
-    ratio?: string;
     ref?: Ref<CameraObject>;
-    type?: string | number;
-    whiteBalance?: string | number;
-    /** A value between `0` and `1` being a percentage of device's max zoom. `0`: not zoomed, `1`: maximum zoom. Default: `0`. */
-    zoom?: number;
 }
 
 export interface CameraConstants {
@@ -1540,15 +1581,62 @@ export namespace FacebookAds {
         setMediaCachePolicy(cachePolicy: MediaCachePolicy): void;
     }
 
-    function withNativeAd(component: Component<{
-        icon?: string;
-        coverImage?: string;
-        title?: string;
-        subtitle?: string;
-        description?: string;
-        callToActionText?: string;
+    interface NativeAd {
+        /**
+         * The headline the advertiser entered when they created their ad. This is usually the ad's main
+         * title.
+         */
+        headline?: string;
+
+        /**
+         * The link description which is additional information that the advertiser may have entered
+         */
+        linkDescription?: string;
+
+        /**
+         * The name of the Facebook Page or mobile app that represents the business running the ad
+         */
+        advertiserName?: string;
+
+        /**
+         * The ad's social context, such as, "Over half a million users"
+         */
         socialContext?: string;
-    }>): Component<{ adsManager: NativeAdsManager }, { ad: any, canRequestAds: boolean }>;
+
+        /**
+         * The call-to-action phrase of the ad, such as, "Install Now"
+         */
+        callToActionText?: string;
+
+        /**
+         * The body text, truncated to 90 characters, that contains the text the advertiser entered when
+         * they created their ad to tell people what the ad promotes
+         */
+        bodyText?: string;
+
+        /**
+         * The word "ad", translated into the viewer's language
+         */
+        adTranslation?: string;
+
+        /**
+         * The word "promoted", translated into the viewer's language
+         */
+        promotedTranslation?: string;
+
+        /**
+         * The word "sponsored", translated into the viewer's language
+         */
+        sponsoredTranslation?: string;
+    }
+
+    function withNativeAd<P>(component: Component<P & { nativeAd: NativeAd }>): Component<
+        {
+            adsManager: NativeAdsManager,
+            onAdLoaded?: ((ad: NativeAd) => void) | null;
+        } & P,
+        { ad: NativeAd | null, canRequestAds: boolean }
+    >;
 
     /**
      * Banner View
@@ -1563,6 +1651,16 @@ export namespace FacebookAds {
     }
 
     class BannerView extends Component<BannerViewProps> { }
+
+    type AdTriggerViewProps<P> = {
+        renderInteractiveComponent?: (props: P) => React.ReactElement<P>;
+    } & P;
+
+    class AdTriggerView<P> extends Component<AdTriggerViewProps<P>> { }
+
+    class AdIconView extends Component { }
+
+    class AdMediaView extends Component { }
 
     /**
      * Ad Settings
@@ -1657,6 +1755,8 @@ export namespace FaceDetector {
  * FileSystem
  */
 export namespace FileSystem {
+    type EncodingType = "utf8" | "base64";
+
     type FileInfo = {
         exists: true;
         isDirectory: boolean;
@@ -1669,6 +1769,16 @@ export namespace FileSystem {
         isDirectory: false;
     };
 
+    interface ReadingOptions {
+        encoding?: EncodingType;
+        position?: number;
+        length?: number;
+    }
+
+    interface WritingOptions {
+        encoding?: EncodingType;
+    }
+
     interface DownloadResult {
         uri: string;
         status: number;
@@ -1680,8 +1790,8 @@ export namespace FileSystem {
     const cacheDirectory: string;
 
     function getInfoAsync(fileUri: string, options?: { md5?: string, size?: boolean; }): Promise<FileInfo>;
-    function readAsStringAsync(fileUri: string): Promise<string>;
-    function writeAsStringAsync(fileUri: string, contents: string): Promise<void>;
+    function readAsStringAsync(fileUri: string, options?: ReadingOptions): Promise<string>;
+    function writeAsStringAsync(fileUri: string, contents: string, options?: WritingOptions): Promise<void>;
     function deleteAsync(fileUri: string, options?: { idempotent: boolean; }): Promise<void>;
     function moveAsync(options: { from: string, to: string; }): Promise<void>;
     function copyAsync(options: { from: string, to: string; }): Promise<void>;
@@ -1741,6 +1851,14 @@ export namespace LocalAuthentication {
         /** Error code in the case where authentication fails. */
         error: string
     };
+
+    interface AuthenticationTypeType {
+        FINGERPRINT: number;
+        FACIAL_RECOGNITION: number;
+    }
+
+    /** Determine the auhentication types supported on the device. */
+    function supportedAuthenticationTypesAsync(): Promise<AuthenticationTypeType[]>;
 
     /** Determine whether a face or fingerprint scanner is available on the device. */
     function hasHardwareAsync(): Promise<boolean>;
@@ -1863,14 +1981,16 @@ export namespace ImageManipulator {
     }
 
     interface Flip {
-        flip?: { vertical?: boolean; horizontal?: boolean };
+        flip: { vertical?: boolean; horizontal?: boolean };
     }
 
     interface Crop {
-        originX: number;
-        originY: number;
-        width: number;
-        height: number;
+        crop: {
+            originX: number;
+            originY: number;
+            width: number;
+            height: number;
+        };
     }
 
     interface ImageResult {
@@ -1886,8 +2006,6 @@ export namespace ImageManipulator {
         compress?: number;
         format?: 'jpeg' | 'png';
     }
-
-    function manipulate(uri: string, actions: Action[], saveOptions?: SaveOptions): Promise<ImageResult>;
 
     function manipulateAsync(uri: string, actions: Action[], saveOptions?: SaveOptions): Promise<ImageResult>;
 }
@@ -2075,9 +2193,10 @@ export const Linking: LinkingStatic;
  */
 export namespace Location {
     interface LocationOptions {
-        enableHighAccuracy?: boolean;
+        accuracy: number;
         timeInterval?: number;
         distanceInterval?: number;
+        timeout?: number;
     }
 
     interface LocationProps {
@@ -2120,6 +2239,22 @@ export namespace Location {
         name: string;
     }
 
+    interface LocationTaskOptions {
+        accuracy?: number;
+        timeInterval: number;
+        distanceInterval: number;
+        showsBackgroundLocationIndicator?: boolean;
+    }
+
+    interface Region {
+        identifier?: string;
+        latitude: number;
+        longitude: number;
+        radius: number;
+        notifyOnEnter?: boolean;
+        notifyOnExit?: boolean;
+    }
+
     type LocationCallback = (data: LocationData) => void;
 
     function getCurrentPositionAsync(options: LocationOptions): Promise<LocationData>;
@@ -2127,9 +2262,49 @@ export namespace Location {
     function getProviderStatusAsync(): Promise<ProviderStatus>;
     function getHeadingAsync(): Promise<HeadingStatus>;
     function watchHeadingAsync(callback: (status: HeadingStatus) => void): EventSubscription;
-    function geocodeAsync(address: string): Promise<Coords[]>;
+    function geocodeAsync(address: string): Promise<Coords>;
     function reverseGeocodeAsync(location: LocationProps): Promise<GeocodeData[]>;
+    function requestPermissionsAsync(): Promise<void>;
+    function hasServicesEnabledAsync(): Promise<boolean>;
+    function startLocationUpdatesAsync(taskName: string, options: LocationTaskOptions): Promise<void>;
+    function stopLocationUpdatesAsync(taskName: string): Promise<void>;
+    function hasStartedLocationUpdatesAsync(taskName: string): Promise<boolean>;
+    function startGeofencingAsync(taskName: string, regions: Region[]): Promise<void>;
+    function stopGeofencingAsync(taskName: string): Promise<void>;
+    function hasStartedGeofencingAsync(taskName: string): Promise<boolean>;
     function setApiKey(key: string): void;
+
+    enum Accuracy  {
+        Lowest = 1,
+        Low = 2,
+        Balanced = 3,
+        High = 4,
+        Highest = 5,
+        BestForNavigation = 6
+    }
+}
+
+/**
+ * Localization
+ */
+export namespace Localization {
+    const locale: string;
+    const locales: string[];
+    const country: string | undefined;
+    const isoCurrencyCodes: string[] | undefined;
+    const timezone: string;
+    const isRTL: boolean;
+
+    interface LocalizationData {
+        locale: string;
+        locales: string[];
+        country?: string;
+        isoCurrencyCodes?: string[];
+        timezone: string;
+        isRTL: boolean;
+    }
+
+    function getLocalizationAsync(): Promise<LocalizationData>;
 }
 
 /**
@@ -2166,46 +2341,72 @@ export namespace Notifications {
             sound?: boolean
         };
         android?: {
-            sound?: boolean;
+            channelId?: string;
             icon?: string;
             color?: string;
-            priority?: 'min' | 'low' | 'high' | 'max';
             sticky?: boolean;
-            vibrate?: boolean | number[];
-            link?: string;
         };
-    }
-
-    interface SchedulingOptions {
-        time: Date | number;
-        repeat?: 'minute' | 'hour' | 'day' | 'week' | 'month' | 'year';
-        intervalMs?: number;
-    }
-
-    interface ChannelAndroid {
-        name: string;
-        description?: string;
-        sound?: boolean;
-        priority?: 'min' | 'low' | 'default' | 'high' | 'max';
-        vibrate?: boolean | number[];
-        badge?: boolean;
     }
 
     type LocalNotificationId = string | number;
 
-    function addListener(listener: (notification: Notification) => any): EventSubscription;
+    interface Channel {
+        name: string;
+        description?: string;
+        priority?: string;
+        sound?: boolean;
+        vibrate?: boolean | number[];
+        badge?: boolean;
+    }
+
+    interface ActionType {
+        actionId: string;
+        buttonTitle: string;
+        isDestructive?: boolean;
+        isAuthenticationRequired?: boolean;
+        textInput?: {
+          submitButtonTitle: string;
+          placeholder: string;
+        };
+    }
+
+    function createCategoryAsync(categoryId: string, actions: ActionType[]): Promise<void>;
+    function deleteCategoryAsync(categoryId: string): Promise<void>;
     function getExpoPushTokenAsync(): Promise<string>;
-    function presentLocalNotificationAsync(localNotification: LocalNotification): Promise<LocalNotificationId>;
-    function scheduleLocalNotificationAsync(
-        localNotification: LocalNotification,
-        schedulingOptions: SchedulingOptions
-    ): Promise<LocalNotificationId>;
-    function dismissNotificationAsync(localNotificationId: LocalNotificationId): Promise<void>;
-    function dismissAllNotificationsAsync(): Promise<void>;
-    function cancelScheduledNotificationAsync(localNotificationId: LocalNotificationId): Promise<void>;
-    function cancelAllScheduledNotificationsAsync(): Promise<void>;
-    function createChannelAndroidAsync(id: string, channel: ChannelAndroid): Promise<void>;
+    function getDevicePushTokenAsync(config: {
+        gcmSenderId?: string;
+    }): Promise<{ type: string; data: string }>;
+    function createChannelAndroidAsync(id: string, channel: Channel): Promise<void>;
     function deleteChannelAndroidAsync(id: string): Promise<void>;
+
+    /* Shows a notification instantly */
+    function presentLocalNotificationAsync(
+        notification: LocalNotification
+    ): Promise<LocalNotificationId>;
+
+    /** Schedule a notification at a later date */
+    function scheduleLocalNotificationAsync(
+        notification: LocalNotification,
+        options?: {
+          time?: Date | number;
+          repeat?: 'minute' | 'hour' | 'day' | 'week' | 'month' | 'year';
+          intervalMs?: number;
+        }
+    ): Promise<LocalNotificationId>;
+
+    /** Dismiss currently shown notification with ID (Android only) */
+    function dismissNotificationAsync(notificationId: LocalNotificationId): Promise<void>;
+
+    /** Dismiss all currently shown notifications (Android only) */
+    function dismissAllNotificationsAsync(): Promise<void>;
+
+    /** Cancel scheduled notification notification with ID */
+    function cancelScheduledNotificationAsync(notificationId: LocalNotificationId): Promise<void>;
+
+    /** Cancel all scheduled notifications */
+    function cancelAllScheduledNotificationsAsync(): Promise<void>;
+
+    function addListener(listener: (notification: Notification) => any): EventSubscription;
     function getBadgeNumberAsync(): Promise<number>;
     function setBadgeNumberAsync(number: number): Promise<void>;
 }
@@ -2293,7 +2494,11 @@ export namespace ScreenOrientation {
 
     const Orientation: Orientations;
 
+    /** Deprecated in favour of ScreenOrientation.allowAsync. */
     function allow(orientation: keyof Orientations): void;
+
+    /** Allow a screen orientation. You can call this function multiple times with multiple orientations to allow multiple orientations. */
+    function allowAsync(orientation: keyof Orientations): void;
 }
 
 /**
@@ -2325,18 +2530,30 @@ export namespace SecureStore {
  * Segment
  */
 export namespace Segment {
-    function initialize(keys: {
-        androidWriteKey: string;
-        iosWriteKey: string;
-    }): void;
+    interface SegmentOptions {
+        androidWriteKey?: string;
+        iosWriteKey?: string;
+    }
+
+    function initialize(options: SegmentOptions): void;
+
     function identify(userId: string): void;
     function identifyWithTraits(userId: string, traits: object): void;
-    function track(event: string): void;
+    function group(groupId: string): void;
+    function groupWithTraits(groupId: string, traits: object): void;
     function reset(): void;
-    function trackWithProperties(event: string, properties: object): void;
+
+    function alias(newId: string, options?: object): Promise<boolean>;
+
     function screen(screenName: string): void;
     function screenWithProperties(screenName: string, properties: object): void;
+    function track(event: string): void;
+    function trackWithProperties(event: string, properties: object): void;
+
     function flush(): void;
+
+    function getEnabledAsync(): Promise<boolean>;
+    function setEnabledAsync(enabled: boolean): Promise<void>;
 }
 
 /**
@@ -2350,7 +2567,7 @@ export namespace Speech {
         onStart?: () => void;
         onStopped?: () => void;
         onDone?: () => void;
-        onError?: (error: string) => void;
+        onError?: (error: Error) => void;
     }
 
     function speak(text: string, options?: SpeechOptions): void;
@@ -2362,6 +2579,14 @@ export namespace Speech {
 
     /** Available on iOS only */
     function resume(): void;
+}
+
+/**
+ * SplashScreen
+ */
+export namespace SplashScreen {
+    function hide(): void;
+    function preventAutoHide(): void;
 }
 
 /**
@@ -2389,7 +2614,7 @@ export namespace SQLite {
 
     interface ResultSet {
         insertId: number;
-        rowAffected: number;
+        rowsAffected: number;
         rows: {
             length: number;
             item: (index: number) => any;
@@ -2416,146 +2641,30 @@ export namespace SQLite {
 /**
  * Svg
  */
-export interface SvgCommonProps {
-    fill?: string;
-    fillOpacity?: number | string;
-    fillRule?: 'nonzero' | 'evenodd';
-    opacity?: number | string;
-    stroke?: string;
-    strokeWidth?: number | string;
-    strokeOpacity?: number | string;
-    strokeLinecap?: string;
-    strokeLineJoin?: string;
-    strokeDasharray?: any[];
-    strokeDashoffset?: any;
-    transform?: string | object;
-    x?: number | string;
-    y?: number | string;
-    rotate?: number | string;
-    rotation?: number | string;
-    scale?: number | string;
-    origin?: number | string;
-    originX?: number | string;
-    originY?: number | string;
-    id?: string;
-    disabled?: boolean;
-    onPress?: () => any;
-    onPressIn?: () => any;
-    onPressOut?: () => any;
-    onLongPress?: () => any;
-    delayPressIn?: number;
-    delayPressOut?: number;
-    delayLongPress?: number;
-}
+import * as RNSvg from 'react-native-svg';
 
-export interface SvgRectProps extends SvgCommonProps {
-    width: number | string;
-    height: number | string;
-    rx?: number | string;
-    ry?: number | string;
-}
-
-export interface SvgCircleProps extends SvgCommonProps {
-    cx: number | string;
-    cy: number | string;
-    r: number | string;
-}
-
-export interface SvgEllipseProps extends SvgCommonProps {
-    cx: number | string;
-    cy: number | string;
-    rx: number | string;
-    ry: number | string;
-}
-
-export interface SvgLineProps extends SvgCommonProps {
-    x1: number | string;
-    y1: number | string;
-    x2: number | string;
-    y2: number | string;
-}
-
-export interface SvgPolyProps extends SvgCommonProps {
-    points: string;
-}
-
-export interface SvgPathProps extends SvgCommonProps {
-    d: string;
-}
-
-export interface SvgTextProps extends SvgCommonProps {
-    textAnchor?: string;
-    fontSize?: number | string;
-    fontWeight?: string;
-}
-
-export interface SvgTSpanProps extends SvgTextProps {
-    dx?: string;
-    dy?: string;
-}
-
-export interface SvgTextPathProps extends SvgCommonProps {
-    href?: string;
-    startOffset?: string;
-}
-
-export interface SvgUseProps extends SvgCommonProps {
-    href: string;
-    x: number | string;
-    y: number | string;
-    width?: number | string;
-    height?: number | string;
-}
-
-export interface SvgSymbolProps extends SvgCommonProps {
-    viewBox: string;
-    preserveAspectRatio?: string;
-    width: number | string;
-    height: number | string;
-}
-
-export interface SvgLinearGradientProps extends SvgCommonProps {
-    x1: number | string;
-    x2: number | string;
-    y1: number | string;
-    y2: number | string;
-}
-
-export interface SvgRadialGradientProps extends SvgCommonProps {
-    cx: number | string;
-    cy: number | string;
-    rx: number | string;
-    ry: number | string;
-    fx: number | string;
-    fy: number | string;
-    gradientUnits?: string;
-}
-
-export interface SvgStopProps extends SvgCommonProps {
-    offset?: string;
-    stopColor?: string;
-    stopOpacity?: string;
-}
-
-export class Svg extends Component<{ width: number, height: number, viewBox?: string, preserveAspectRatio?: string }> {
-    static Circle: ComponentClass<SvgCircleProps>;
-    static ClipPath: ComponentClass<SvgCommonProps>;
-    static Defs: ComponentClass;
-    static Ellipse: ComponentClass<SvgEllipseProps>;
-    static G: ComponentClass<SvgCommonProps>;
-    static Line: ComponentClass<SvgLineProps>;
-    static LinearGradient: ComponentClass<SvgLinearGradientProps>;
-    static Path: ComponentClass<SvgPathProps>;
-    static Polygon: ComponentClass<SvgPolyProps>;
-    static Polyline: ComponentClass<SvgPolyProps>;
-    static RadialGradient: ComponentClass<SvgRadialGradientProps>;
-    static Rect: ComponentClass<SvgRectProps>;
-    static Stop: ComponentClass<SvgStopProps>;
-    static Symbol: ComponentClass<SvgSymbolProps>;
-    static Text: ComponentClass<SvgTextProps>;
-    static TextPath: ComponentClass<SvgTextPathProps>;
-    static TSpan: ComponentClass<SvgTSpanProps>;
-    static Use: ComponentClass<SvgUseProps>;
+export class Svg extends RNSvg.Svg {
+    static Circle: typeof RNSvg.Circle;
+    static ClipPath: typeof RNSvg.ClipPath;
+    static Defs: typeof RNSvg.Defs;
+    static Ellipse: typeof RNSvg.Ellipse;
+    static G: typeof RNSvg.G;
+    static Image: typeof RNSvg.Image;
+    static Line: typeof RNSvg.Line;
+    static LinearGradient: typeof RNSvg.LinearGradient;
+    static Mask: typeof RNSvg.Mask;
+    static Path: typeof RNSvg.Path;
+    static Pattern: typeof RNSvg.Pattern;
+    static Polygon: typeof RNSvg.Polygon;
+    static Polyline: typeof RNSvg.Polyline;
+    static RadialGradient: typeof RNSvg.RadialGradient;
+    static Rect: typeof RNSvg.Rect;
+    static Stop: typeof RNSvg.Stop;
+    static Symbol: typeof RNSvg.Symbol;
+    static Text: typeof RNSvg.Text;
+    static TextPath: typeof RNSvg.TextPath;
+    static TSpan: typeof RNSvg.TSpan;
+    static Use: typeof RNSvg.Use;
 }
 // #endregion
 
@@ -2563,13 +2672,14 @@ export class Svg extends Component<{ width: number, height: number, viewBox?: st
  * Take Snapshot
  */
 export function takeSnapshotAsync(
-    view?: (number | React.ReactElement<any>),
+    node: number | React.ReactElement | React.RefObject<any>,
     options?: {
-        width?: number,
-        height?: number,
-        format?: 'png' | 'jpg' | 'jpeg' | 'webm',
-        quality?: number,
-        result?: 'file' | 'base64' | 'data-uri',
+        width?: number;
+        height?: number;
+        format: 'png' | 'jpg' | 'raw' | 'webm';
+        quality: number;
+        snapshotContentContainer: boolean;
+        result: "tmpfile" | "base64" | "data-uri" | "zip-base64";
     }
 ): Promise<string>;
 
@@ -2674,9 +2784,20 @@ export class Video extends Component<VideoProps, VideoState> {
  * Web Browser
  */
 export namespace WebBrowser {
-    function openBrowserAsync(url: string): Promise<{ type: 'cancelled' | 'dismissed' }>;
-    function openAuthSessionAsync(url: string, redirectUrl?: string): Promise<{ type: 'cancelled' | 'dismissed' }>;
-    function dismissBrowser(): Promise<{ type: 'dismissed' }>;
+    interface BrowserResult {
+        type: 'cancel' | 'dismiss';
+    }
+
+    interface RedirectResult {
+        type: 'success';
+        url: string;
+    }
+
+    type AuthSessionResult = RedirectResult | BrowserResult;
+
+    function openBrowserAsync(url: string): Promise<BrowserResult>;
+    function openAuthSessionAsync(url: string, redirectUrl?: string): Promise<RedirectResult | BrowserResult>;
+    function dismissBrowser(): void;
 }
 
 // #region Calendar

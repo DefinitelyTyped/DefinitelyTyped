@@ -1,5 +1,5 @@
 // Type definitions for Loopback 3.2
-// Project: https://github.com/strongloop/loopback
+// Project: https://github.com/strongloop/loopback, http://loopback.io
 // Definitions by: Andres D Jimenez <https://github.com/kattsushi>
 //                 Tim Schumacher <https://github.com/enko>
 //                 Sequoia McDowell <https://github.com/sequoia>

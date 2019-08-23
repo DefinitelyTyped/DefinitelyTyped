@@ -1,8 +1,16 @@
-import initStoryshots, { multiSnapshotWithOptions, snapshotWithOptions, getSnapshotFileName, renderOnly, imageSnapshot } from "@storybook/addon-storyshots";
+import initStoryshots, {
+    getSnapshotFileName,
+    multiSnapshotWithOptions,
+    renderOnly,
+    renderWithOptions,
+    snapshotWithOptions,
+} from "@storybook/addon-storyshots";
 import { shallow, ShallowWrapper } from 'enzyme';
 import toJson from 'enzyme-to-json';
 import 'jest';
 import 'jest-specific-snapshot';
+
+initStoryshots();
 
 initStoryshots({
     integrityOptions: { cwd: '' },
@@ -28,19 +36,24 @@ initStoryshots({
 
 initStoryshots({
     configPath: "",
-    test: imageSnapshot({
-        storybookUrl: "http://localhost:9002"
-    })
+    test: renderWithOptions()
 });
 
 initStoryshots({
     configPath: "",
-    test: imageSnapshot({
-        storybookUrl: "http://localhost:9002",
-        getScreenshotOptions: ({ context, url }) => ({ path: "/foo" }),
-        getGotoOptions: ({ context, url }) => ({ timeout: 10 }),
-        chromeExecutablePath: "/usr/local/bin/chrome"
+    test: renderWithOptions({
+        createNodeMock: () => undefined,
     })
+});
+
+initStoryshots({
+    configPath: '',
+    test: renderWithOptions(story => ({
+        createNodeMock: () => {
+            story.name;
+            return undefined;
+        },
+    })),
 });
 
 initStoryshots({

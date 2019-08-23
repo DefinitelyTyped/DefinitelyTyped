@@ -87,9 +87,7 @@ server.forwardedTcpip(0, 0, 0, { bindAddr: "bindAddr", bindPort: 8080, remoteAdd
 server.x11(0, 0, 0, { originAddr: "originAddr", originPort: 0 });
 server.openssh_forwardedStreamLocal(0, 0, 0, { socketPath: "socketPath" });
 
-const maybeParsedKey = ssh2.utils.parseKey("keyData");
-ssh2.utils.decryptKey(parsedKey, "passphrase");
-const publicKey = ssh2.utils.genPublicKey(parsedKey);
+const maybeParsedKey = ssh2.utils.parseKey("keyData", "passphrase");
 
 
 declare const attrs: ssh2.Attributes;

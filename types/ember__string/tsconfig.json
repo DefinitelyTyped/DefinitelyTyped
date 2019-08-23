@@ -15,13 +15,15 @@
             "../"
         ],
         "paths": {
-            "@ember/string": ["ember__string"]
+            "@ember/string": ["ember__string"],
+            "@ember/string/*": ["ember__string/*"]
         },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
+        "-private/handlebars.d.ts",
         "index.d.ts",
         "ember__string-tests.ts"
     ]

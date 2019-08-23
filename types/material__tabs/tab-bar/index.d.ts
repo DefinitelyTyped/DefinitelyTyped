@@ -20,7 +20,7 @@ import { MDCTab } from '../tab';
 import MDCTabBarFoundation from './foundation';
 import MDCTabBarAdapter from './adapter';
 
-export {MDCTabBarAdapter, MDCTabBarFoundation};
+export { MDCTabBarAdapter, MDCTabBarFoundation };
 
 export class MDCTabBar extends MDCComponent<MDCTabBarAdapter, MDCTabBarFoundation> {
     static attachTo(root: Element): MDCTabBar;

@@ -1,7 +1,8 @@
-// Type definitions for cassandra-driver 3.6
+// Type definitions for cassandra-driver 4.1
 // Project: https://github.com/datastax/nodejs-driver
 // Definitions by: Marc Fisher <https://github.com/Svjard>
 //                 Christian D <https://github.com/pc-jedi>
+//                 Michal Kaminski <https://github.com/michal-b-kaminski>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -10,10 +11,10 @@
 export type Callback = Function;
 export type ResultCallback = (err: Error, result: types.ResultSet) => void;
 
-import * as events from "events";
-import * as stream from "stream";
-import * as tls from "tls";
-import _Long = require("long");
+import * as events from 'events';
+import * as stream from 'stream';
+import * as tls from 'tls';
+import _Long = require('long');
 
 export namespace policies {
   namespace addressResolution {
@@ -33,43 +34,29 @@ export namespace policies {
   }
 
   namespace loadBalancing {
-    let DCAwareRoundRobinPolicy: DCAwareRoundRobinPolicyStatic;
-    let RoundRobinPolicy: RoundRobinPolicyStatic;
-    let TokenAwarePolicy: TokenAwarePolicyStatic;
-    let WhiteListPolicy: WhiteListPolicyStatic;
-
-    interface LoadBalancingPolicy {
+    class LoadBalancingPolicy {
       init(client: Client, hosts: HostMap, callback: Callback): void;
       getDistance(host: Host): types.distance;
-      newQueryPlan(keyspace: string, queryOptions: any, callback: Callback): void;
+      newQueryPlan(keyspace: string, queryOptions: ExecutionOptions | null, callback: Callback): void;
+      getOptions(): Map<string, any>;
     }
 
-    interface DCAwareRoundRobinPolicyStatic {
-      new (localDc?: string, usedHostsPerRemoteDc?: number): DCAwareRoundRobinPolicy;
-    }
-
-    interface DCAwareRoundRobinPolicy extends LoadBalancingPolicy {
+    class DCAwareRoundRobinPolicy extends LoadBalancingPolicy {
+      localDc: string;
       localHostsArray: Host[];
-      remoteHostsArray: Host[];
+
+      constructor(localDc?: string);
     }
 
-    interface RoundRobinPolicyStatic {
-      new (): RoundRobinPolicy;
+    class RoundRobinPolicy extends LoadBalancingPolicy {}
+
+    class TokenAwarePolicy extends LoadBalancingPolicy {
+      constructor(childPolicy: LoadBalancingPolicy);
     }
 
-    interface RoundRobinPolicy extends LoadBalancingPolicy { }
-
-    interface TokenAwarePolicyStatic {
-      new (childPolicy: LoadBalancingPolicy): TokenAwarePolicy;
+    class WhiteListPolicy extends LoadBalancingPolicy {
+      constructor(childPolicy: LoadBalancingPolicy, whiteList: string[]);
     }
-
-    interface TokenAwarePolicy extends LoadBalancingPolicy { }
-
-    interface WhiteListPolicyStatic {
-      new (childPolicy: LoadBalancingPolicy, whiteList: string[]): WhiteListPolicy;
-    }
-
-    interface WhiteListPolicy extends LoadBalancingPolicy { }
   }
 
   namespace reconnection {
@@ -80,6 +67,7 @@ export namespace policies {
       newSchedule(): {
         next(): { delay: number; done: boolean; }
       };
+      getOptions(): Map<string, any>;
     }
 
     interface ConstantReconnectionPolicyStatic {
@@ -100,7 +88,8 @@ export namespace policies {
 
     interface DecisionInfo {
       decision: number;
-      consistency: number;
+      consistency?: number;
+      useCurrentHost?: boolean;
     }
 
     interface RequestInfo {
@@ -128,8 +117,8 @@ export namespace policies {
       onReadTimeout(requestInfo: RequestInfo, consistency: types.consistencies, received: number, blockFor: number, isDataPresent: boolean): DecisionInfo;
       onUnavailable(requestInfo: RequestInfo, consistency: types.consistencies, required: number, alive: number): DecisionInfo;
       onWriteTimeout(requestInfo: RequestInfo, consistency: types.consistencies, received: number, blockFor: number, writeType: string): DecisionInfo;
-      rethrowResult(): { decision: retryDecision };
-      retryResult(): { decision: retryDecision, consistency: types.consistencies, useCurrentHost: boolean };
+      rethrowResult(): DecisionInfo;
+      retryResult(consistency?: types.consistencies, useCurrentHost?: boolean): DecisionInfo;
     }
   }
 
@@ -141,6 +130,8 @@ export namespace policies {
       newPlan(keyspace: string, queryInfo: string | string[]): {
           nextExecution: () => number;
       };
+      getOptions(): Map<string, any>;
+      shutdown(): void;
     }
 
     interface NoSpeculativeExecutionPolicyStatic {
@@ -498,12 +489,11 @@ export namespace types {
 }
 
 export let Client: ClientStatic;
-export let Host: HostStatic;
-export let HostMap: HostMapStatic;
 export let Encoder: EncoderStatic;
 
 export interface ClientOptions {
   contactPoints: string[];
+  localDataCenter?: string;
   keyspace?: string;
   refreshSchemaDelay?: number;
   isMetadataSyncEnabled?: boolean;
@@ -541,15 +531,19 @@ export interface ClientOptions {
     coalescingThreshold?: number;
   };
   authProvider?: auth.AuthProvider;
+  requestTracker?: tracker.RequestTracker;
   sslOptions?: tls.ConnectionOptions;
   encoding?: {
     map?: typeof Map | ((...args: any[]) => any);
     set?: typeof Set | ((...args: any[]) => any);
     copyBuffer?: boolean;
     useUndefinedAsUnset?: boolean;
+    useBigIntAsLong?: boolean;
+    useBigIntAsVarint?: boolean;
   };
   profiles?: ExecutionProfile[];
   promiseFactory?: (handler: (callback: (err?: any, result?: any) => void) => void) => Promise<any>;
+  metrics?: metrics.ClientMetrics;
 }
 
 export interface QueryOptions {
@@ -563,11 +557,11 @@ export interface QueryOptions {
   isIdempotent?: boolean;
   keyspace?: string;
   logged?: boolean;
+  counter?: boolean;
   pageState?: Buffer | string;
   prepare?: boolean;
   readTimeout?: number;
   retry?: policies.retry.RetryPolicy;
-  retryOnTimeout?: boolean;
   routingIndexes?: number[];
   routingKey?: Buffer | Buffer[];
   routingNames?: string[];
@@ -585,6 +579,7 @@ export interface Client extends events.EventEmitter {
   hosts: HostMap;
   keyspace: string;
   metadata: metadata.Metadata;
+  metrics: metrics.ClientMetrics;
 
   batch(queries: string[] | Array<{ query: string, params?: any }>, options: QueryOptions, callback: ResultCallback): void;
   batch(queries: string[] | Array<{ query: string, params?: any }>, callback: ResultCallback): void;
@@ -604,24 +599,17 @@ export interface Client extends events.EventEmitter {
   stream(query: string, params?: any, options?: QueryOptions, callback?: Callback): NodeJS.ReadableStream;
 }
 
-export interface HostStatic {
-  new (address: string, protocolVersion: number, options: ClientOptions): Host;
-}
-
 export interface Host extends events.EventEmitter {
   address: string;
   cassandraVersion: string;
-  dataCenter: string;
+  datacenter: string;
   rack: string;
   tokens: string[];
+  hostId: types.Uuid;
 
   canBeConsideredAsUp(): boolean;
   getCassandraVersion(): number[];
   isUp(): boolean;
-}
-
-export interface HostMapStatic {
-  new (): HostMap;
 }
 
 export interface HostMap extends events.EventEmitter {
@@ -735,18 +723,9 @@ export namespace errors {
 }
 
 export namespace metadata {
-  let Aggregate: AggregateStatic;
-  let Index: IndexStatic;
-  let MaterializedView: MaterializedViewStatic;
   let Metadata: MetadataStatic;
-  let SchemaFunction: SchemaFunctionStatic;
-  let TableMetadata: TableMetadataStatic;
 
   type caching = "all" | "keys_only" | "rows_only" | "none";
-
-  interface AggregateStatic {
-    new (): Aggregate;
-  }
 
   interface Aggregate {
     argumentTypes: Array<{ code: number, info: any }>;
@@ -757,10 +736,6 @@ export namespace metadata {
     signature: string[];
     stateFunction: string;
     stateType: string;
-  }
-
-  interface ClientStateStatic {
-    new (): ClientState;
   }
 
   interface ClientState {
@@ -815,13 +790,6 @@ export namespace metadata {
     composites
   }
 
-  interface IndexStatic {
-    new (name: string, target: string, kind: string | IndexType, options: object): Index;
-
-    fromRows(indexRows: types.Row[]): Index[];
-    fromColumnRows(columnRows: types.Row[], columnsByName: { [key: string]: ColumnInfo }): Index[];
-  }
-
   interface Index {
     kind: IndexType;
     name: string;
@@ -833,11 +801,19 @@ export namespace metadata {
     isKeysKind(): boolean;
   }
 
-  interface MaterializedViewStatic {
-    new (name: string): MaterializedView;
+  interface MaterializedView extends DataCollection { }
+
+  interface QueryTrace {
+    requestType: any;
+    coordinator: any;
+    parameters: any;
+    startedAt: any;
+    duration: any;
+    clientAddress: any;
+    events: Array<{ id: any; activity: any; source: any; elapsed: any; thread: any }>;
   }
 
-  interface MaterializedView extends DataCollection { }
+  type MetadataCallback<T> = (err: any, retVal: T) => void;
 
   interface MetadataStatic {
     new (options: ClientOptions, controlConnection: any): Metadata;
@@ -846,21 +822,34 @@ export namespace metadata {
   interface Metadata {
     clearPrepared(): void;
 
-    getAggregate(keyspaceName: string, name: string, signature: string[] | Array<{ code: number, info: any }>, callback: Callback): void;
-    getAggregates(keyspaceName: string, name: string, callback: Callback): void;
-    getFunction(keyspaceName: string, name: string, signature: string[] | Array<{ code: number, info: any }>, callback: Callback): void;
-    getFunctions(keyspaceName: string, name: string, callback: Callback): void;
-    getMaterializedView(keyspaceName: string, name: string, callback: Callback): void;
-    getReplicas(keyspaceName: string, tokenBuffer: Buffer): any[];
-    getTable(keyspaceName: string, name: string, callback: Callback): void;
-    getTrace(traceId: types.Uuid, callback: Callback): void;
-    getUdt(keyspaceName: string, name: string, callback: Callback): void;
-    refreshKeyspace(name: string, callback?: Callback): void;
-    refreshKeyspaces(callback?: Callback): void;
-  }
-
-  interface SchemaFunctionStatic {
-    new (): SchemaFunction;
+    getAggregate(keyspaceName: string, name: string, signature: string[] | Array<{ code: number, info: any }>, callback: MetadataCallback<Aggregate>): void;
+    getAggregate(keyspaceName: string, name: string, signature: string[] | Array<{ code: number, info: any }>): Promise<Aggregate>;
+    getAggregates(keyspaceName: string, name: string, callback: MetadataCallback<Aggregate[]>): void;
+    getAggregates(keyspaceName: string, name: string): Promise<Aggregate[]>;
+    getFunction(keyspaceName: string, name: string, signature: string[] | Array<{ code: number, info: any }>, callback: MetadataCallback<SchemaFunction>): void;
+    getFunction(keyspaceName: string, name: string, signature: string[] | Array<{ code: number, info: any }>): Promise<SchemaFunction>;
+    getFunctions(keyspaceName: string, name: string, callback: MetadataCallback<SchemaFunction[]>): void;
+    getFunctions(keyspaceName: string, name: string): Promise<SchemaFunction[]>;
+    getMaterializedView(keyspaceName: string, name: string, callback: MetadataCallback<MaterializedView>): void;
+    getMaterializedView(keyspaceName: string, name: string, callback: Callback): Promise<MaterializedView>;
+    getReplicas(keyspaceName: string, token: Buffer | token.Token | token.TokenRange): any[]; // TODO
+    getTable(keyspaceName: string, name: string, callback: MetadataCallback<TableMetadata>): void;
+    getTable(keyspaceName: string, name: string): Promise<TableMetadata>;
+    getTokenRanges(): Set<token.TokenRange>;
+    getTokenRangesForHost(keyspaceName: string, host: Host): Set<token.TokenRange> | null;
+    getTrace(traceId: types.Uuid, consistency: types.consistencies, callback: MetadataCallback<QueryTrace>): void;
+    getTrace(traceId: types.Uuid, consistency: types.consistencies, callback: Callback): Promise<QueryTrace>;
+    getTrace(traceId: types.Uuid, callback: MetadataCallback<QueryTrace>): void;
+    getTrace(traceId: types.Uuid): Promise<QueryTrace>;
+    getUdt(keyspaceName: string, name: string, callback: MetadataCallback<any>): void; // TODO
+    getUdt(keyspaceName: string, name: string): Promise<any>; // TODO
+    newToken(components: Buffer[] | Buffer | string): token.Token;
+    newTokenRange(start: token.Token, end: token.Token): token.TokenRange;
+    refreshKeyspace(name: string, callback: Callback): void;
+    refreshKeyspace(name: string): Promise<void>;
+    refreshKeyspaces(waitReconnect: boolean, callback: Callback): void;
+    refreshKeyspaces(waitReconnect?: boolean): Promise<void>;
+    refreshKeyspaces(callback: Callback): void;
   }
 
   interface SchemaFunction {
@@ -875,10 +864,6 @@ export namespace metadata {
     signature: string[];
   }
 
-  interface TableMetadataStatic {
-    new (name: string): TableMetadata;
-  }
-
   interface TableMetadata extends DataCollection {
     indexes: Index[];
     indexInterval?: number;
@@ -889,3 +874,307 @@ export namespace metadata {
     virtual: boolean;
   }
 }
+
+export interface ExecutionOptionsStatic {
+  new (): ExecutionOptions;
+}
+
+export interface ExecutionOptions {
+  getCaptureStackTrace(): boolean;
+  getConsistency(): types.consistencies;
+  getCustomPayload(): { [key: string]: any };
+  getFetchSize(): number;
+  getFixedHost(): Host;
+  getHints(): string[] | string[][];
+  isAutoPage(): boolean;
+  isBatchCounter(): boolean;
+  isBatchLogged(): boolean;
+  isIdempotent(): boolean;
+  isPrepared(): boolean;
+  isQueryTracing(): boolean;
+  getKeyspace(): string;
+  getLoadBalancingPolicy(): policies.loadBalancing.LoadBalancingPolicy;
+  getPageState(): Buffer;
+  getRawQueryOptions(): QueryOptions;
+  getReadTimeout(): number;
+  getRetryPolicy(): policies.retry.RetryPolicy;
+  getRoutingKey(): Buffer | Buffer[];
+  getSerialConsistency(): types.consistencies;
+  getTimestamp(): number | Long | undefined | null;
+  setHints(hints: string[]): void;
+}
+
+export let ExecutionOptions: ExecutionOptionsStatic;
+export let ExecutionProfile: ExecutionProfileStatic;
+
+export namespace mapping {
+  let Mapper: MapperStatic;
+  let ModelBatchItem: ModelBatchItemStatic;
+  let ModelMappingInfo: ModelMappingInfoStatic;
+  let ModelMapper: ModelMapperStatic;
+  let MappingHandler: MappingHandlerStatic;
+  let Result: ResultStatic;
+  let DefaultTableMappings: DefaultTableMappingsStatic;
+  let UnderscoreCqlToCamelCaseMappings: UnderscoreCqlToCamelCaseMappingsStatic;
+
+  interface MappingExecutionOptions {
+    executionProfile?: string;
+    isIdempotent?: boolean;
+    logged?: boolean;
+    timestamp?: number | Long;
+    fetchSize?: number;
+    pageState?: number;
+  }
+
+  interface ModelTables {
+    name: string;
+    isView: boolean;
+  }
+
+  interface MappingQuery {
+    query: string;
+    isIdempotent: boolean;
+    isCounter: boolean;
+  }
+
+  interface MapperStatic {
+    new (client: Client, options?: MappingOptions): Mapper;
+  }
+  interface Mapper {
+    batch(items: ModelBatchItem[], executionOptions?: string | MappingExecutionOptions): Promise<Result>;
+    forModel(name: string): ModelMapper;
+  }
+
+  interface MappingOptions {
+    models: { [key: string]: ModelOptions };
+  }
+
+  interface ModelOptions {
+    tables?: string[] | ModelTables[];
+    mappings?: TableMappings;
+    columns?: { [key: string]: string };
+    keyspace?: string;
+  }
+
+  interface ModelMappingInfoStatic {
+    new (keyspace: string, tables: ModelTables[], mappings: TableMappings, columns: { [key: string]: string }): ModelMappingInfo;
+    parse(options: MappingOptions, currentKeyspace: string): { [key: string]: ModelMappingInfo };
+    createDefault(modelName: string, currentKeyspace: string): ModelMappingInfo;
+  }
+  interface ModelMappingInfo {
+    keyspace: string;
+    tables: ModelTables[];
+
+    getColumnName(propName: string): string;
+    getPropertyName(columnName: string): string;
+    newInstance(): TableMappings;
+  }
+
+  interface MappingDocInfo {
+    fields?: string[];
+    ttl?: number;
+    ifNotExists?: boolean;
+    when?: { [key: string]: string };
+    orderBy?: { [key: string]: string };
+    limit?: number;
+    deleteOnlyColumns?: boolean;
+  }
+
+  interface ModelBatchItemStatic {
+    new (
+      queries: Promise<MappingQuery[]>,
+      doc: { [key: string]: any },
+      docInfo: MappingDocInfo,
+      mappingInfo: ModelMappingInfo
+    ): ModelBatchItem;
+  }
+  interface ModelBatchItem {}
+
+  interface MappingHandlerStatic {
+    new (client: Client, mappingInfo: ModelMappingInfo): MappingHandler;
+  }
+  interface MappingHandler {}
+
+  interface ModelBatchMapper {
+    insert(doc: { [key: string]: any }, docInfo?: MappingDocInfo): ModelBatchItem;
+    remove(doc: { [key: string]: any }, docInfo?: MappingDocInfo): ModelBatchItem;
+    update(doc: { [key: string]: any }, docInfo?: MappingDocInfo): ModelBatchItem;
+  }
+
+  interface ModelMapperStatic {
+    new (name: string, handler: MappingHandler): ModelMapper;
+  }
+  interface ModelMapper {
+    name: string;
+    batching: ModelBatchMapper;
+
+    get(doc: { [key: string]: any }, docInfo?: MappingDocInfo, executionOptions?: string | MappingExecutionOptions): Promise<Result>;
+    find(doc: { [key: string]: any }, docInfo?: MappingDocInfo, executionOptions?: string | MappingExecutionOptions): Promise<Result>;
+    findAll(docInfo?: MappingDocInfo, executionOptions?: string | MappingExecutionOptions): Promise<Result>;
+    insert(doc: { [key: string]: any }, docInfo?: MappingDocInfo, executionOptions?: string | MappingExecutionOptions): Promise<Result>;
+    update(doc: { [key: string]: any }, docInfo?: MappingDocInfo, executionOptions?: string | MappingExecutionOptions): Promise<Result>;
+    remove(doc: { [key: string]: any }, docInfo?: MappingDocInfo, executionOptions?: string | MappingExecutionOptions): Promise<Result>;
+    mapWithQuery(
+      query: string,
+      paramsHandler: (doc: { [key: string]: any }) => any,
+      executionOptions?: string | MappingExecutionOptions
+    ): (doc: { [key: string]: any }, executionOptions?: string | MappingExecutionOptions) => Promise<Result>;
+  }
+
+  interface ResultStatic {
+    new (rs: types.ResultSet, info: ModelMappingInfo, rowAdapter: (row: types.Row, info: ModelMappingInfo) => { [key: string]: any }): Result;
+  }
+  interface Result {
+    [Symbol.iterator](): Iterator<{ [key: string]: any }>;
+    wasApplied(): boolean;
+    first(): { [key: string]: any };
+    toArray(): Array<{ [key: string]: any }>;
+    forEach(callback: (currentValue: { [key: string]: any }, index: number) => void, thisArg?: any): void;
+  }
+
+  interface TableMappings {
+    getColumnName(propName: string): string;
+    getPropertyName(columnName: string): string;
+    newObjectInstance(): { [key: string]: any };
+  }
+
+  interface DefaultTableMappingsStatic {
+    new (): DefaultTableMappings;
+  }
+  interface DefaultTableMappings extends TableMappings {}
+  interface UnderscoreCqlToCamelCaseMappingsStatic {
+    new (): UnderscoreCqlToCamelCaseMappings;
+  }
+  interface UnderscoreCqlToCamelCaseMappings extends TableMappings {}
+}
+
+export namespace tracker {
+  let RequestLogger: RequestLoggerStatic;
+
+  interface RequestLoggerOptions {
+    slowThreshold?: number;
+    logNormalRequests?: boolean;
+    logErroredRequests?: boolean;
+    messageMaxQueryLength?: number;
+    messageMaxParameterValueLength?: number;
+    messageMaxErrorStackTraceLength?: number;
+  }
+
+  interface RequestTracker {
+    onError(
+      host: Host,
+      query: string | Array<{ query: string, params?: any }>,
+      parameters: any[] | { [key: string]: any } | null,
+      executionOptions: ExecutionOptions,
+      requestLength: number,
+      err: Error,
+      latency: number[]
+    ): void;
+    onSuccess(
+      host: Host,
+      query: string | Array<{ query: string, params?: any }>,
+      parameters: any[] | { [key: string]: any } | null,
+      executionOptions: ExecutionOptions,
+      requestLength: number,
+      responseLength: number,
+      latency: number[]
+    ): void;
+    shutdown(): void;
+  }
+
+  interface RequestLoggerStatic {
+    new (options: RequestLoggerOptions): RequestLogger;
+  }
+  interface RequestLogger extends RequestTracker {}
+}
+
+export namespace metrics {
+  let DefaultMetrics: DefaultMetricsStatic;
+
+  interface ClientMetrics {
+    onAuthenticationError(e: Error | errors.AuthenticationError): void;
+    onClientTimeoutError(e: errors.OperationTimedOutError): void;
+    onClientTimeoutRetry(e: Error): void;
+    onConnectionError(e: Error): void;
+    onIgnoreError(e: Error): void;
+    onOtherError(e: Error): void;
+    onOtherErrorRetry(e: Error): void;
+    onReadTimeoutError(e: errors.ResponseError): void;
+    onReadTimeoutRetry(e: Error): void;
+    onResponse(latency: number[]): void;
+    onSpeculativeExecution(): void;
+    onSuccessfulResponse(latency: number[]): void;
+    onUnavailableError(e: errors.ResponseError): void;
+    onUnavailableRetry(e: Error): void;
+    onWriteTimeoutError(e: errors.ResponseError): void;
+    onWriteTimeoutRetry(e: Error): void;
+  }
+
+  interface DefaultMetricsStatic {
+    new (): DefaultMetrics;
+  }
+  interface DefaultMetrics extends ClientMetrics {}
+}
+
+export namespace token {
+  interface Tokenizer {
+    hash(value: Buffer | number[]): Token;
+    parse(value: string): Token;
+    minToken(): Token;
+    split(start: Token, end: Token, numberOfSplits: number): TokenRange[];
+    splitBase(start: number, end: number, ringEnd: number, ringLength: number, numberOfSplits: number): number[];
+    stringify(token: Token): string;
+  }
+
+  class Token {
+    constructor(value: any);
+
+    getType(): { code: number, info: any };
+    getValue(): any;
+    compare(other: Token): number;
+    equals(other: Token): boolean;
+  }
+
+  class TokenRange {
+    start: Token;
+    end: Token;
+
+    constructor(start: Token, end: Token, tokenizer: Tokenizer);
+
+    splitEvenly(numberOfSplits: number): TokenRange[];
+    isEmpty(): boolean;
+    isWrappedAround(): boolean;
+    unwrap(): TokenRange[];
+    contains(token: Token): boolean;
+    equals(other: TokenRange): boolean;
+    compare(other: TokenRange): number;
+  }
+}
+
+export namespace concurrent {
+  interface executeConcurrentOptions {
+    executionProfile?: string;
+    concurrencyLevel?: number;
+    raiseOnFirstError?: boolean;
+    collectResults?: boolean;
+    maxErrors?: number;
+  }
+
+  function executeConcurrent(
+    client: Client,
+    query: string | Array<{ query: string; params?: any[] }>,
+    parameters: any[][] | stream.Readable | { [key: string]: any },
+    options?: executeConcurrentOptions,
+  ): Promise<ResultSetGroup>;
+
+  class ResultSetGroup {
+    totalExecuted: number;
+    errors: Error[];
+    resultItems: any[];
+
+    constructor(options: { collectResults: boolean; maxErrors?: number });
+  }
+}
+
+export function defaultOptions(): ClientOptions;
+export const version: string;

@@ -1,4 +1,4 @@
-import dlv from 'dlv';
+import dlv = require('dlv');
 
 const obj = {
 	undef: undefined,
