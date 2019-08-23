@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface ISummary extends Function {
-    data(): number[];
-    sort(): number[];
+    data(): ReadonlyArray<number>;
+    sort(): ReadonlyArray<number>;
     size(): number;
     sum(): number;
     mode(): number;
@@ -19,7 +19,7 @@ interface ISummary extends Function {
 }
 
 declare module 'summary' {
-    function Summary(data: number[], isSorted?: boolean): ISummary;
+    function Summary(data: ReadonlyArray<number>, isSorted?: boolean): ISummary;
 
     export = Summary;
 }
