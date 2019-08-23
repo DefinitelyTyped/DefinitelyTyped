@@ -1421,9 +1421,11 @@ declare namespace R {
          * Iterate over an input list, calling a provided function fn for each element in the list.
          */
         forEach<T>(fn: (x: T) => void, list: T[]): T[];
-        forEach<T>(fn: (x: T) => void): (list: T[]) => T[];
         forEach<T>(fn: (x: T) => void, list: ReadonlyArray<T>): ReadonlyArray<T>;
-        forEach<T>(fn: (x: T) => void): (list: ReadonlyArray<T>) => ReadonlyArray<T>;
+        forEach<T>(fn: (x: T) => void): {
+            (list: T[]): T[];
+            (list: ReadonlyArray<T>): ReadonlyArray<T>;
+        };
 
         /**
          * Iterate over an input object, calling a provided function fn for each key and value in the object.

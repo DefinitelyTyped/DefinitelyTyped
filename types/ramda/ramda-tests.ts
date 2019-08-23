@@ -951,6 +951,13 @@ interface Obj {
     // -> 6
     // -> 7
     // -> 8
+
+    const xs: ReadonlyArray<number> = [1, 2, 3];
+    R.forEach(printXPlusFive, xs); // => readonly [1, 2, 3]
+    R.forEach(printXPlusFive)(xs); // => readonly [1, 2, 3]
+    // -> 6
+    // -> 7
+    // -> 8
 };
 
 () => {
