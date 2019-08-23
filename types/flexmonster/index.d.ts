@@ -463,6 +463,67 @@ declare namespace Flexmonster {
 
     interface Toolbar {
         getTabs: () => ToolbarTab[];
+        // Connect tab
+        connectLocalCSVHandler: () => void;
+        connectLocalJSONHandler: () => void;
+        connectRemoteCSV: () => void;
+        connectRemoteJSON: () => void;
+        connectOLAP: () => void;
+        // Open tab
+        openLocalReport: () => void;
+        openRemoteReport: () => void;
+        // Save tab
+        saveHandler: () => void;
+        // Export tab
+        printHandler: () => void;
+        exportHandler: (type: string) => void;
+        // Grid tab
+        gridHandler: () => void;
+        // Charts tab
+        chartsHandler: (type: string) => void;
+        chartsMultipleHandler: () => void;
+        // Format tab
+        formatCellsHandler: () => void;
+        conditionalFormattingHandler: () => void;
+        // Options tab
+        optionsHandler: () => void;
+        // Fields tab
+        fieldsHandler: () => void;
+        // Fullscreen tab
+        fullscreenHandler: () => void;
+        icons: {
+            connect: string,
+            connect_csv: string,
+            connect_csv_remote: string,
+            connect_json_remote: string,
+            connect_olap: string,
+            open: string,
+            open_local: string,
+            open_remote: string,
+            save: string,
+            export: string,
+            export_print: string,
+            export_html: string,
+            export_csv: string,
+            export_excel: string,
+            export_image: string,
+            export_pdf: string,
+            grid: string,
+            charts: string,
+            charts_bar: string,
+            charts_line: string,
+            charts_scatter: string,
+            charts_pie: string,
+            charts_stacked_column: string,
+            charts_column_line: string,
+            format: string,
+            format_number: string,
+            format_conditional: string,
+            options: string,
+            fields: string,
+            fullscreen: string,
+            minimize: string
+        };
     }
 
     interface ToolbarTab {
