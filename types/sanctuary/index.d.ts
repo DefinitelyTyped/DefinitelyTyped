@@ -1,8 +1,9 @@
-// Type definitions for sanctuary 0.14
+// Type definitions for sanctuary 2.0.0
 // Project: https://github.com/sanctuary-js/sanctuary#readme
 // Definitions by: David Chambers <https://github.com/davidchambers>
 //                 Juan J. Jimenez-Anca <https://github.com/cortopy>
 //                 Ken Aguilar <https://github.com/piq9117>
+//                 Michał Kaczanowicz <https://github.com/vicrac>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var S: Sanctuary.Environment;
