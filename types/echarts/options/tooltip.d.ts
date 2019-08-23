@@ -44,7 +44,7 @@ declare namespace echarts {
              *
              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.axisPointer
              */
-            axisPointer?: AxisPointer;
+            axisPointer?: Tooltip.AxisPointer;
 
             /**
              * Whether to show the tooltip floating layer,
@@ -421,6 +421,33 @@ declare namespace echarts {
 
                 // the percentage of pie chart
                 percent?: number;
+            }
+            interface AxisPointer {
+                show?: boolean;
+                type?: 'line' | 'shadow' | 'none' | 'cross';
+                axis?: 'auto' | 'x' | 'y' | 'radius' | 'angle';
+                snap?: boolean;
+                z?: number;
+                label?: BasicComponents.CartesianAxis.PointerLabel;
+                lineStyle?: LineStyle;
+                shadowStyle?: {
+                    color?: string;
+                    shadowBlur?: number;
+                    shadowColor?: string;
+                    shadowOffsetX?: number;
+                    shadowOffsetY?: number;
+                    opacity?: number;
+                };
+                // It is valid when axisPointer.type is 'cross'.
+                crossStyle?: LineStyle;
+                animation?: boolean,
+                animationThreshold?: number,
+                animationDuration?: number,
+                animationEasing?: string,
+                animationDelay?: number | Function,
+                animationDurationUpdate?: number | Function,
+                animationEasingUpdate?: string,
+                animationDelayUpdate?: number | Function,
             }
         }
     }
