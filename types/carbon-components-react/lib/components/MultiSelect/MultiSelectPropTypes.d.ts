@@ -13,5 +13,3 @@ export interface MultiSelectSortingProps<ItemType extends ListBoxBaseItemType = 
     compareItems?(item1: ItemType, item2: ItemType, options: SharedOptions): number, // required but has default value
     sortItems?(items: ReadonlyArray<ItemType>, options: SortItemsOptions<ItemType>): ItemType[], // required but has default value
 }
-
-export declare const sortingPropTypes: MultiSelectSortingProps<any>;

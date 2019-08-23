@@ -18,6 +18,8 @@ interface InheritedProps<T extends ListBoxBaseItemType = string> extends
 }
 
 export interface MultiSelectProps<T extends ListBoxBaseItemType = string> extends InheritedProps<T> {
+    downshiftProps?: any, // TODO
+    initialSelectedItems?: T[],
     inline?: boolean,
     label?: React.ReactNode,
     locale?: string,
