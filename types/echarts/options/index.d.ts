@@ -30,5 +30,6 @@
 /// <reference path="./single-axis.d.ts" />
 /// <reference path="./text-style.d.ts" />
 /// <reference path="./tooltip.d.ts" />
+/// <reference path="./visual-map.d.ts" />
 /// <reference path="./x-axis.d.ts" />
 /// <reference path="./y-axis.d.ts" />

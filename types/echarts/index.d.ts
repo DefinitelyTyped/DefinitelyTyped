@@ -612,7 +612,7 @@ declare namespace echarts {
          *
          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#visualMap
          */
-        visualMap?: object[],
+        visualMap?: EChartOption.VisualMap[],
 
         /**
          * Tooltip component.
