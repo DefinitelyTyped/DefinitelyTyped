@@ -20,14 +20,14 @@ export interface Iptc {
 }
 
 export interface ImageHead {
-    imageHead?: ArrayBuffer | Uint8Array;
+  imageHead?: ArrayBuffer | Uint8Array;
 }
 
 export interface MetaData extends ImageHead {
-    originalWidth?: number;
-    originalHeight?: number;
-    exif?: Exif;
-    iptc?: Iptc;
+  originalWidth?: number;
+  originalHeight?: number;
+  exif?: Exif;
+  iptc?: Iptc;
 }
 
 export interface BasicOptions {
@@ -68,10 +68,10 @@ export type MetaOptions = MetaTrueOptions | MetaFalseOptions;
 
 export interface ParseOptions {
   // Defines the maximum number of bytes to parse.
-  maxMetaDataSize?: number,
+  maxMetaDataSize?: number;
 
   // Disables creating the imageHead property.
-  disableImageHead?: boolean
+  disableImageHead?: boolean;
 }
 
 export type LoadImageOptions = BasicOptions & CanvasOptions & CropOptions & MetaOptions;
