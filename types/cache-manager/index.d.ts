@@ -32,6 +32,12 @@ export interface StoreConfig extends CachingConfig {
         create(...args: any[]): Store;
     };
     max?: number;
+
+    /**
+     * You may pass in any other arguments these will be passed on to the `create` method of your store,
+     * otherwise they will be ignored.
+     */
+    [key: string]: any;
 }
 
 export interface CacheOptions {
