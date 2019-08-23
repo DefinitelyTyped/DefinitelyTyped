@@ -269,6 +269,8 @@ declare namespace Sanctuary {
       (foldable: ReadonlyArray<A>): A[];
       (foldable: Foldable<A>): Foldable<A>;
     };
+    zip<A, B>(as: ReadonlyArray<A>): (bs: ReadonlyArray<B>) => ReadonlyArray<Pair<A, B>>;
+    zipWith<A, B, C>(fn: Fn2<A, B, C>): (as: ReadonlyArray<A>) => (bs: ReadonlyArray<B>) => ReadonlyArray<C>;
     //  Object
     prop(p: string): (q: any) => any;
     props(p: ReadonlyArray<string>): (q: any) => any;
