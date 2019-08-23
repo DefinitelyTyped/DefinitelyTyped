@@ -28,8 +28,8 @@ type Fn5_<A, B, C, D, E, F>  = (a: A, b: B, c: C, d: D, e: E) => F;
 
 type Predicate<A> = (a: A) => boolean;
 
-interface StrMap<A> { [k: string]: A; }   
-    
+interface StrMap<A> { [k: string]: A; }
+
 interface Maybe<A> {
   constructor: {
     '@@type': 'sanctuary/Maybe';
