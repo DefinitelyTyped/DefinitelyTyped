@@ -14,7 +14,7 @@ export interface FirstLevelDependency {
 }
 
 export interface LockFileObject {
-  [packageName: string]: FirstLevelDependency | {};
+  [packageName: string]: FirstLevelDependency;
 }
 
 export function parse(
