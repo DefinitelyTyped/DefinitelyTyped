@@ -28,8 +28,8 @@ type Fn5_<A, B, C, D, E, F>  = (a: A, b: B, c: C, d: D, e: E) => F;
 
 type Predicate<A> = (a: A) => boolean;
 
-interface StrMap<A> { [k: string]: A; }
-
+interface StrMap<A> { [k: string]: A; }   
+    
 interface Maybe<A> {
   constructor: {
     '@@type': 'sanctuary/Maybe';
@@ -189,6 +189,11 @@ declare namespace Sanctuary {
     pipe<A, B, C, D, E, F>(fs: [Fn<A, B>, Fn<B, C>, Fn<C, D>, Fn<D, E>, Fn<E, F>]): (x: A) => F;
     pipe(fs: ReadonlyArray<Fn<any, any>>): (x: any) => any;
     on<A, B, C>(p: Fn2<B, B, C>): (q: Fn<A, B>) => (r: A) => Fn<A, C>;
+    // Pair
+    pair<A, B, C>(f: Fn2<A, B, C>): (p: Pair<A, B>) => C;
+    fst<A, B>(p: Pair<A, B>): A;
+    snd<A, B>(p: Pair<A, B>): B;
+    swap<A, B>(p: Pair<A, B>): Pair<B, A>;
     //  TODO: Maybe
     isNothing(p: Maybe<any>): boolean;
     isJust(p: Maybe<any>): boolean;
