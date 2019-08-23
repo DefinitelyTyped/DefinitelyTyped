@@ -346,6 +346,11 @@ declare module "mongoose" {
     };
     autoIndex?: boolean;
 
+    /** Before Mongoose builds indexes, it calls Model.createCollection() 
+     * to create the underlying collection in MongoDB if autoCreate 
+     * is set to true.(default: false) */
+    autoCreate?: boolean;
+
     /** Specify a journal write concern (default: false). */
     journal?: boolean;
 
