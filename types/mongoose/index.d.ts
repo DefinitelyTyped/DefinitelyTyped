@@ -28,6 +28,7 @@
 //                 Richard Davison <https://github.com/richarddd>
 //                 Brian Chen <https://github.com/ToucheSir>
 //                 Boris Figovsky <https://github.com/borfig>
+//                 Simon Driscoll <https://github.com/dinodeSimon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
