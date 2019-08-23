@@ -4,6 +4,7 @@
 //                 Konstantin Lukaschenko <https://github.com/KonstantinLukaschenko>
 //                 Saeid Rezaei <https://github.com/moeinio>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 /// <reference types="node" />
 
@@ -99,7 +100,7 @@ export interface ParseOptions {
 export type LoadImageOptions = BasicOptions & CanvasOptions & CropOptions & MetaOptions;
 
 // loadImage is implemented as a callable object.
-type LoadImageType = {
+interface loadImage  {
     (file: File | Blob | string, callback: LoadImageCallback, options: LoadImageOptions):
         | HTMLImageElement
         | FileReader
@@ -114,8 +115,6 @@ type LoadImageType = {
     ) => void;
 
     blobSlice: (file: Blob, start?: number, end?: number) => Blob;
-};
-
-declare const loadImage: LoadImageType;
+}
 
 export default loadImage;
