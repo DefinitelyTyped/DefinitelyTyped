@@ -163,11 +163,9 @@ declare namespace echarts {
                  */
                 show?: boolean;
                 /**
-                 * Position of week, at the beginning or end of the range.
-                 *
-                 * @default 'start'
+                 * The margin between the label and the axis line.
                  */
-                position?: 'start' | 'end';
+                margin?: number;
                 /**
                  * Week text content, defaults to 'en'; It supports Chinese, English, and custom;
                  * index 0 always means Sunday;
@@ -183,9 +181,24 @@ declare namespace echarts {
                  * @default 0
                  */
                 firstDay?: number;
+                /**
+                 * Position of week, at the beginning or end of the range.
+                 *
+                 * @default 'start'
+                 */
+                position?: 'start' | 'end';
             }
             interface MonthLabel extends Label {
+                /**
+                 * Formatter of month text label, which supports string template and callback function.
+                 */
                 formatter?: string | MonthLabelFormatter;
+                /**
+                 * Position of week, at the beginning or end of the range.
+                 *
+                 * @default 'start'
+                 */
+                position?: 'start' | 'end';
             }
             interface MonthLabelFormatter {
                 (params: MonthLabelFormatterParams): string;
@@ -198,7 +211,18 @@ declare namespace echarts {
                 M?: number;
             }
             interface YearLabel extends Label {
+                /**
+                 * Formatter of year text label, which supports string template and callback function.
+                 * By default, the current range of the year,
+                 * if the interval across the year, showing the first year and the last year
+                 */
                 formatter?: string;
+                /**
+                 * Position of year.
+                 * Default: when orient is set as horizontal,
+                 * position is left when orient is set as vertical, position is top
+                 */
+                position?: 'top' | 'bottom' | 'left' | 'right';
             }
             interface YearLabelFormatter {
                 (params: YearLabelFormatterParams): string;

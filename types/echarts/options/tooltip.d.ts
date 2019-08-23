@@ -400,6 +400,9 @@ declare namespace echarts {
                 // Value of axis
                 axisValue?: number | string;
 
+                // Label of axis value
+                axisValueLabel?: string;
+
                 // encoding info of coordinate system
                 // Key: coord, like ('x' 'y' 'radius' 'angle')
                 // value: Must be an array, not null/undefined. Contain dimension indices, like:

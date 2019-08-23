@@ -1349,7 +1349,7 @@ declare namespace echarts {
                  *
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#yAxis.data
                  */
-                data?: (string | CartesianAxis.DataObject)[];
+                data?: (string | number | CartesianAxis.DataObject)[];
 
                 /**
                  * axisPointer settings on the axis.
@@ -1491,7 +1491,7 @@ declare namespace echarts {
                  * @todo describe
                  */
                 interface DataObject {
-                    value?: string;
+                    value?: string | number;
                     textStyle?: TextStyle;
                 }
 
