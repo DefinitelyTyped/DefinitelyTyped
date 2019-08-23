@@ -104,8 +104,22 @@ export class Admin {
     constructor(kafkaClient: KafkaClient);
     listGroups(cb: (error: any, data: any) => any): void;
     describeGroups(consumerGroups: any, cb: (error: any, data: any) => any): void;
+    listTopics(cb: (error: any, data: any) => any): void;
+    createTopics(topics:TopicConfigData[], cb: (error: any, data: any) => any): void;
+    describeConfigs(payload: {resources: Resource[], includeSynonyms: boolean}, cb: (error: any, data: any) => any): void;
+}
+export interface Resource {
+    resourceType: string,
+    resourceName: string,
+    configNames: string[]
 }
 
+export interface TopicConfigData {
+    topic: string;
+    partitions?: number;
+    replicationFactor?: number;
+    configEntry: {name: string, value: string}[]
+}
 // # Interfaces
 
 export interface Message {
