@@ -479,7 +479,7 @@ declare namespace echarts {
          *
          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#legend
          */
-        legend?: object,
+        legend?: EChartOption.Legend,
 
         /**
          * Drawing grid in rectangular coordinate.
@@ -492,7 +492,7 @@ declare namespace echarts {
          *
          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#grid
          */
-        grid?: object,
+        grid?: EChartOption.Grid | EChartOption.Grid[],
 
         /**
          * The x axis in cartesian(rectangular) coordinate.
@@ -697,7 +697,7 @@ declare namespace echarts {
          *
          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#singleAxis
          */
-        singleAxis?: object,
+        singleAxis?: EChartOption.SingleAxis | EChartOption.SingleAxis[],
 
         /**
          * `timeline` component, which provides functions like switching and playing
@@ -727,12 +727,12 @@ declare namespace echarts {
 
          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#calendar
          */
-        calendar?: object,
+        calendar?: EChartOption.Calendar | EChartOption.Calendar[],
 
         /**
          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#dataset
          */
-        dataset?: object,
+        dataset?: EChartOption.Dataset | EChartOption.Dataset[],
 
         /**
          * `dataset` component is published since ECharts 4.
@@ -1063,16 +1063,7 @@ declare namespace echarts {
                 symbol?: string | string[];
                 symbolSize?: number[];
                 symbolOffset?: number[];
-                lineStyle?: {
-                    color?: string;
-                    width?: number;
-                    type?: 'solid' | 'dashed' | 'dotted';
-                    shadowBlur?: number;
-                    shadowColor?: string;
-                    shadowOffsetX?: number;
-                    shadowOffsetY?: number;
-                    opacity?: number;
-                };
+                lineStyle?: LineStyle;
             }
 
             interface CartesianAxis {
@@ -1454,16 +1445,7 @@ declare namespace echarts {
                     interval?: number | Function;
                     inside?: boolean;
                     length?: number;
-                    lineStyle?: {
-                        color?: string;
-                        width?: number;
-                        type?: 'solid' | 'dashed' | 'dotted';
-                        shadowBlur?: number;
-                        shadowColor?: string;
-                        shadowOffsetX?: number;
-                        shadowOffsetY?: number;
-                        opacity?: number;
-                    };
+                    lineStyle?: LineStyle;
                 }
 
                 /**
@@ -1486,16 +1468,7 @@ declare namespace echarts {
                 interface SplitLine {
                     show?: boolean;
                     interval?: number | Function;
-                    lineStyle?: {
-                        color?: string | string[];
-                        width?: number;
-                        type?: 'solid' | 'dashed' | 'dotted';
-                        shadowBlur?: number;
-                        shadowColor?: string;
-                        shadowOffsetX?: number;
-                        shadowOffsetY?: number;
-                        opacity?: number;
-                    };
+                    lineStyle?: LineStyle;
                 }
 
                 /**
@@ -1531,16 +1504,7 @@ declare namespace echarts {
                     snap?: boolean;
                     z?: number;
                     label?: PointerLabel;
-                    lineStyle?: {
-                        color?: string;
-                        width?: number;
-                        type?: string;
-                        shadowBlur?: number;
-                        shadowColor?: string;
-                        shadowOffsetX?: number;
-                        shadowOffsetY?: number;
-                        opacity?: number;
-                    };
+                    lineStyle?: LineStyle;
                     shadowStyle?: {
                         color?: string;
                         shadowBlur?: number;
