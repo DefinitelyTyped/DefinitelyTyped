@@ -100,7 +100,7 @@ export interface ParseOptions {
 export type LoadImageOptions = BasicOptions & CanvasOptions & CropOptions & MetaOptions;
 
 // loadImage is implemented as a callable object.
-interface loadImage  {
+interface LoadImage  {
     (file: File | Blob | string, callback: LoadImageCallback, options: LoadImageOptions):
         | HTMLImageElement
         | FileReader
@@ -116,5 +116,7 @@ interface loadImage  {
 
     blobSlice: (file: Blob, start?: number, end?: number) => Blob;
 }
+
+declare const loadImage: LoadImage;
 
 export default loadImage;
