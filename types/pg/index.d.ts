@@ -42,7 +42,7 @@ export interface SSLOptions extends ConnectionOptions {
 }
 
 export interface ClientConfig extends ConnectionConfig {
-    ssl?: boolean | SSLMode | SSLOptions;
+    ssl?: boolean | SSLOptions;
 }
 
 export interface PoolConfig extends ClientConfig {
