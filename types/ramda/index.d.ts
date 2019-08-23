@@ -11,7 +11,6 @@
 //                 Samson Keung <https://github.com/samsonkeung>
 //                 Angelo Ocana <https://github.com/angeloocana>
 //                 Rayner Pupo <https://github.com/raynerd>
-//                 Miika Hänninen <https://github.com/googol>
 //                 Nikita Moshensky <https://github.com/moshensky>
 //                 Ethan Resnick <https://github.com/ethanresnick>
 //                 Jack Leigh <https://github.com/leighman>
