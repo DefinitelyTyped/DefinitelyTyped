@@ -919,7 +919,7 @@ stripe.accounts.retrieve(
         // asynchronously called
 
         // account should have external_accounts property
-        account.external_accounts; // $ExpectType IList<ICard | IBankAccount>
+        account.external_accounts; // $ExpectType IList<IExternalAccount>
     }
 );
 

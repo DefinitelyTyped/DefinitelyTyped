@@ -129,6 +129,9 @@ declare namespace Stripe {
     type IStripeSource = cards.ICard | bitcoinReceivers.IBitcoinReceiver | bankAccounts.IBankAccount | sources.ISource;
 
     namespace accounts {
+        // Helper
+        type IExternalAccount = bankAccounts.IBankAccount | cards.ICard;
+
         interface IAccount extends IResourceObject, IAccountShared {
             /**
              * Value is "account"
@@ -210,7 +213,7 @@ declare namespace Stripe {
               * External accounts (bank accounts and debit cards) currently
               * attached to this account
               */
-            external_accounts?: IList<cards.ICard | bankAccounts.IBankAccount>;
+            external_accounts?: IList<IExternalAccount>;
         }
 
         interface IAccountCreationOptions extends IAccountUpdateOptions {
