@@ -5,6 +5,7 @@ import { Color, Component, Fragment, Indent, render } from "ink";
 interface CounterProps {
     totalTests: number;
 }
+
 class Counter extends Component<CounterProps, { i: number }> {
     timer = null as ReturnType<typeof setInterval> | null;
     state = { i: 0 };
@@ -36,4 +37,4 @@ class Counter extends Component<CounterProps, { i: number }> {
     }
 }
 
-render(<Counter />);
+render(<Counter totalTests={100} />);
