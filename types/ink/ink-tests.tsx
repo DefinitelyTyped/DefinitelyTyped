@@ -2,11 +2,14 @@
 
 import { Color, Component, Fragment, Indent, render } from "ink";
 
-class Counter extends Component<{ totalTests: number }, { i: number }> {
+interface CounterProps {
+    totalTests: number;
+}
+class Counter extends Component<CounterProps, { i: number }> {
     timer = null as ReturnType<typeof setInterval> | null;
     state = { i: 0 };
 
-    constructor(props) {
+    constructor(props: CounterProps) {
         super(props);
     }
 
