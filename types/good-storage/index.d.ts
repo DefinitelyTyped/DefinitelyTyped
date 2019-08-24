@@ -1,4 +1,4 @@
-// Type definitions for good-storage
+// Type definitions for good-storage 1.1
 // Project: https://github.com/ustbhuangyi/storage
 // Definitions by: Wang KaiLing <https://github.com/wkl007>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -21,8 +21,6 @@ interface Storage {
     forEach(callback: () => void): void;
 }
 
-declare var storage: Storage;
+declare const storage: Storage;
 
-declare module 'good-storage' {
-    export = storage;
-}
+export = storage;

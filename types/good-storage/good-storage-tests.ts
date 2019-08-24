@@ -7,7 +7,7 @@ storage.has('name');
 storage.remove('name');
 storage.clear();
 storage.getAll();
-storage.forEach(function() {});
+storage.forEach(() => {});
 
 // sessionStorage
 storage.session.set('name', 'value');
@@ -16,4 +16,4 @@ storage.session.has('name');
 storage.session.remove('name');
 storage.session.clear();
 storage.session.getAll();
-storage.session.forEach(function() {});
+storage.session.forEach(() => {});
