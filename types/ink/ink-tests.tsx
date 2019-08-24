@@ -1,19 +1,21 @@
 // @jsx h
 
-import { Color, Component, Fragment, render } from "ink";
+import { Color, Component, Fragment, Indent, render } from "ink";
 
-class Counter extends Component<{}, { i: number }> {
+class Counter extends Component<{ totalTests: number }, { i: number }> {
     timer = null as ReturnType<typeof setInterval> | null;
     state = { i: 0 };
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
     }
 
     render() {
         return (
             <Fragment>
-                <Color green>{this.state.i} tests passed</Color>
+                <Indent>
+                    <Color green>{this.state.i} / {this.props.totalTests} tests passed</Color>
+                </Indent>
             </Fragment>
         );
     }
