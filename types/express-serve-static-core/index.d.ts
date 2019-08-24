@@ -488,7 +488,8 @@ export interface MediaType {
     subtype: string;
 }
 
-export type Send = (body?: any) => Response;
+// tslint:disable-next-line no-unnecessary-generics
+export type Send = <T = any>(body?: T) => Response;
 
 export interface Response extends http.ServerResponse, Express.Response {
     /**

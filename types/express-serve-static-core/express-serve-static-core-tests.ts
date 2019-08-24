@@ -25,3 +25,19 @@ app.get<{ foo: string }>('/:foo', req => {
 
 // Params cannot be a custom type that does not conform to constraint
 app.get<{ foo: number }>('/:foo', () => {}); // $ExpectError
+
+// Response send methods accept an option generic type which will enforce
+// a check on the parameter passed in.
+app.get('/:foo', (req, res) => {
+    res.send({ test: true });
+    res.send<{ test: boolean }>({ test: true });
+    res.send<{ test: boolean }>({ test: 'string' }); // $ExpectError
+
+    res.json({ test: true });
+    res.json<{ test: boolean }>({ test: true });
+    res.json<{ test: boolean }>({ test: 'string' }); // $ExpectError
+
+    res.jsonp({ test: true });
+    res.jsonp<{ test: boolean }>({ test: true });
+    res.jsonp<{ test: boolean }>({ test: 'string' }); // $ExpectError
+});
