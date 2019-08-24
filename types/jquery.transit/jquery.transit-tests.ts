@@ -26,6 +26,7 @@ $(document).ready(function() {
     test_rotateY();
     test_rotate3d();
     test_transform();
+    // test_transformOrigin();
     test_opacity();
     test_scale();
     test_duration();
@@ -33,21 +34,20 @@ $(document).ready(function() {
     setTimeout(Assert.Results, 2000);
 });
 
-class Assert {
+abstract class Assert {
     static totalTests: number = 0;
     static passedTests: number = 0;
 
     static Results() {
-        console.log(
-            'Tests succeeded - ' +
-                Assert.passedTests +
-                '/' +
-                Assert.totalTests +
-                '; Tests failed - ' +
-                (Assert.totalTests - Assert.passedTests) +
-                '/' +
-                Assert.totalTests,
-        );
+        var results = 'Tests succeeded - ';
+        results += Assert.passedTests;
+        results += ' out of';
+        results += Assert.totalTests;
+        results += ' Tests failed - ';
+        results += Assert.totalTests - Assert.passedTests;
+        results += ' out of ';
+        results += Assert.totalTests;
+        console.log(results);
     }
 
     static AssertionFailed(actual: any, expected: any, test?: string) {
@@ -56,16 +56,14 @@ class Assert {
         );
     }
 
-    static Equal(actual: string | undefined, expected: string | undefined, test?: string) {
+    static Equal(actual: string, expected: string, test: string) {
         Assert.totalTests++;
-        if (actual && expected) {
-            expected = expected.slice(0, expected.indexOf('transition'));
-            expected = expected.trim();
-            if (expected.indexOf(';') < 0) expected += ';';
-            if (actual === expected) {
-                Assert.passedTests++;
-                return;
-            }
+        expected = expected.slice(0, expected.indexOf('transition'));
+        expected = expected.trim();
+        if (expected.indexOf(';') < 0) expected += ';';
+        if (actual === expected) {
+            Assert.passedTests++;
+            return;
         }
         Assert.AssertionFailed(actual, expected, test);
     }
