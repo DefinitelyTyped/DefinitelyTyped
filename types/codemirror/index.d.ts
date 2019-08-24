@@ -161,7 +161,7 @@ declare namespace CodeMirror {
         [keyName: string]: false | string | ((instance: Editor) => void | typeof Pass);
     }
 
-    interface Editor {
+    interface Editor extends Doc {
 
         /** Tells you whether the editor currently has focus. */
         hasFocus(): boolean;
