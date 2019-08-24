@@ -129,6 +129,8 @@ declare class JiraApi {
 
     deleteWorklog(issueId: string, worklogId: string): Promise<JiraApi.JsonResponse>;
 
+    getIssueWorklogs(issueId: string): Promise<JiraApi.JsonResponse>;
+
     listIssueTypes(): Promise<JiraApi.JsonResponse>;
 
     registerWebhook(webhook: JiraApi.WebhookObject): Promise<JiraApi.JsonResponse>;
