@@ -31,13 +31,6 @@ interface JQueryTransitOptions {
     duration?: number;
     delay?: number;
     easing?: string;
-
-
-
-
-
-
-
     complete?: () => void;
     scale?: number | number[];
 }
@@ -51,15 +44,7 @@ interface JQuery {
     transition(options: JQueryTransitOptions, duration: number, easing: string): JQuery;
     transition(options: JQueryTransitOptions, complete: () => void): JQuery;
     transition(options: JQueryTransitOptions, duration: number, easing: string, complete: () => void): JQuery;
-
-
     /**
-
-
-
-
-
-
      * Set one or more CSS properties for the set of matched elements.
      *
      * @param propertyName A CSS property name.
