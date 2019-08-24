@@ -1,6 +1,7 @@
 // Type definitions for ink 0.5
 // Project: https://github.com/vadimdemedes/ink#readme
 // Definitions by: Carlos Precioso <https://github.com/cprecioso>
+//                 James Adarich <https://github.com/jamesadarich>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -61,6 +62,9 @@ export abstract class Component<
 > {
     readonly props: P & { children?: InkNode };
     readonly context: C;
+    state: S;
+
+    constructor(props?: P);
 
     setState(
         nextState:
@@ -121,6 +125,8 @@ export namespace h {
     const Fragment: InkComponent;
 }
 export const Fragment: typeof h.Fragment;
+
+export const Indent: ComponentClass;
 
 export const Color: ComponentClass<{
     rgb?: [number, number, number];
