@@ -141,8 +141,7 @@ declare namespace GoogleAppsScript {
       getBooleanCondition(): BooleanCondition;
       getGradientCondition(): GradientCondition;
       getRanges(): Range[];
-      setBackground(color: string): ConditionalFormatRuleBuilder;
-      setBackground(color: null): ConditionalFormatRuleBuilder;
+      setBackground(color: string | null): ConditionalFormatRuleBuilder;
       setBold(bold: boolean): ConditionalFormatRuleBuilder;
       setFontColor(color: string): ConditionalFormatRuleBuilder;
       setGradientMaxpoint(color: string): ConditionalFormatRuleBuilder;
