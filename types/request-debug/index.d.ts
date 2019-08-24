@@ -2,7 +2,7 @@
 // Project: https://github.com/request/request-debug
 // Definitions by: Marcello Urbani <https://github.com/marcellourbani>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 export = request_debug;
 
