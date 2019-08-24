@@ -191,8 +191,8 @@ declare namespace Sanctuary {
     on<A, B, C>(p: Fn2<B, B, C>): (q: Fn<A, B>) => (r: A) => Fn<A, C>;
     // Pair
     pair<A, B, C>(f: Fn2<A, B, C>): (p: Pair<A, B>) => C;
-    fst<A>(p: Pair<A, _>): A;
-    snd<B>(p: Pair<_, B>): B;
+    fst<A>(p: Pair<A, any>): A;
+    snd<B>(p: Pair<any, B>): B;
     swap<A, B>(p: Pair<A, B>): Pair<B, A>;
     //  TODO: Maybe
     isNothing(p: Maybe<any>): boolean;
