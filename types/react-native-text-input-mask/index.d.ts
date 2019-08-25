@@ -90,6 +90,16 @@ export interface TextInputMaskProps extends ReactNative.ViewProps, ReactNative.T
      * If true, the text input can be multiple lines. The default value is false.
      */
     multiline?: boolean;
+    
+    /**
+     * If true, context menu is hidden. The default value is false.
+     */
+    contextMenuHidden?: boolean;
+    
+    /**
+     * Callback that is called when internal `TextInput` gets ref.
+     */
+    refInput?: (ref: React.Ref<ReactNative.TextInputComponent>) => void;
 
     /**
      * Callback that is called when the text input is blurred
