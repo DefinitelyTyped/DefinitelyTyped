@@ -6,7 +6,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
-import { ResponsiveStyleValue, SystemStyleObject } from '@styled-system/css';
+import css, get, { ResponsiveStyleValue, SystemStyleObject } from '@styled-system/css';
 import * as CSS from 'csstype';
 import * as React from 'react';
 import { lineHeight, Theme as StyledSystemTheme } from 'styled-system';
@@ -121,6 +121,9 @@ export interface Theme extends StyledSystemTheme {
  * at the top of your file for use.
  */
 export const jsx: typeof React.createElement;
+
+export const css: typeof css;
+export const get: typeof get;
 
 /**
  * The `SxStyleProp` extension `SystemStyleObject` and `Emotion` [style props](https://emotion.sh/docs/object-styles)
