@@ -21,8 +21,8 @@
     "files": [
         "index.d.ts",
         "gun.d.ts",
-        "gun-api-validation.ts",
-        "gun-api-doc-test.ts",
+        "test/api-validation.ts",
+        "test/code-from-document.ts",
         "lib/radisk.d.ts"
     ]
 }
