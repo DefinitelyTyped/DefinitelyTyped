@@ -1,6 +1,6 @@
 import * as places from 'places.js';
 // tslint:disable-next-line:no-duplicate-imports
-import { PlacesOptions, PlacesStaticOptions, PlaceSuggestion, PlaceType } from 'places.js';
+import { PlacesOptions, PlacesStaticOptions, PlaceSuggestion } from 'places.js';
 
 // Response
 const chosenPlace: PlaceSuggestion = {
@@ -9,7 +9,7 @@ const chosenPlace: PlaceSuggestion = {
     county: 'City of Adelaide',
     country: 'Australia',
     countryCode: 'au',
-    type: PlaceType.City,
+    type: 'city',
     latlng: {
         lat: -34.9282,
         lng: 138.6,
@@ -51,14 +51,14 @@ const fixedOptions: PlacesStaticOptions = {
         },
     },
     style: true,
-    type: PlaceType.Address,
+    type: 'address',
     language: 'en',
 };
 
 const reconfigurableOptions: PlacesOptions = {
     language: 'de',
     countries: ['us', 'ru'],
-    type: PlaceType.City,
+    type: 'city',
     aroundLatLngViaIP: false,
     aroundRadius: 500,
     useDeviceLocation: true,

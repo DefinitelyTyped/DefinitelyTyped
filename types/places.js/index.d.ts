@@ -14,16 +14,7 @@ export = places;
 declare function places(options: places.PlacesStaticOptions): places.PlacesAutocomplete;
 
 declare namespace places {
-    // tslint:disable-next-line:no-const-enum
-    const enum PlaceType {
-        Country = "country",
-        City = "city",
-        Address = "address",
-        BusStop = "busStop",
-        TrainStation = "trainStation",
-        Townhall = "townhall",
-        Airport = "airport"
-    }
+    type PlaceType = "country" | "city" | "address" | "busStop" | "trainStation" | "townhall" | "airport";
 
     interface PlaceLatLng {
         lat: number;
