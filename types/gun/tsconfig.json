@@ -14,11 +14,17 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        // According to https://gun.eco/docs/Installation
+        // Even you use ES import, this lib will also create a global binding.
+        "allowUmdGlobalAccess": true,
+        "esModuleInterop": true
     },
     "files": [
         "index.d.ts",
         "gun.d.ts",
-        "gun-tests.ts"
+        "gun-api-validation.ts",
+        "gun-api-doc-test.ts",
+        "lib/radisk.d.ts"
     ]
 }
