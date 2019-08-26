@@ -349,7 +349,9 @@ export class NoSuchAttributeError {
 export class ProtocolError {
 	constructor(error?: string);
 }
-
+export class OperationsError {
+	constructor(error?: string);
+}
 
 declare class Filter {
 	matches(obj: any): boolean;
