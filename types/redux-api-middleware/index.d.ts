@@ -1,6 +1,7 @@
 // Type definitions for redux-api-middleware 3.0
 // Project: https://github.com/agraboso/redux-api-middleware
-// Definitions by: Andrew Luca <https://github.com/iamandrewluca>
+// Definitions by:  Andrew Luca <https://github.com/iamandrewluca>
+//                  Craig S <https://github.com/Mrman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -66,24 +67,24 @@ export function createMiddleware(options?: CreateMiddlewareOptions): Middleware;
 
 export interface RSAARequestTypeDescriptor<S = any, P = any, M = any> {
     type: string | symbol;
-    payload?: (action: RSAAAction, state: S) => P | P;
-    meta?: (action: RSAAAction, state: S) => M | M;
+    payload?: ((action: RSAAAction, state: S) => P) | P;
+    meta?: ((action: RSAAAction, state: S) => M) | M;
 }
 
 export interface RSAASuccessTypeDescriptor<S = any, P = any, M = any> {
     type: string | symbol;
-    payload?: (action: RSAAAction, state: S, res: any) => P | P;
-    meta?: (action: RSAAAction, state: S, res: any) => M | M;
+    payload?: ((action: RSAAAction, state: S, res: any) => P) | P;
+    meta?: ((action: RSAAAction, state: S, res: any) => M) | M;
 }
 
 export interface RSAAFailureTypeDescriptor<S = any, P = any, M = any> {
     type: string | symbol;
-    payload?: (action: RSAAAction, state: S) => P | P;
-    meta?: (action: RSAAAction, state: S, res: any) => M | M;
+    payload?: ((action: RSAAAction, state: S) => P) | P;
+    meta?: ((action: RSAAAction, state: S, res: any) => M) | M;
 }
 
 export interface RSAACall<S = any, P = any, M = any> {
-    endpoint: (state: S) => string | string;
+    endpoint: ((state: S) => string) | string;
     method: string;
     types: [
         string | symbol | RSAARequestTypeDescriptor<S, P, M>,
@@ -91,10 +92,10 @@ export interface RSAACall<S = any, P = any, M = any> {
         string | symbol | RSAAFailureTypeDescriptor<S, P, M>
     ];
     body?: ((state: S) => BodyInit | null) | BodyInit | null;
-    headers?: (state: S) => HeadersInit | HeadersInit;
-    options?: (state: S) => RequestInit | RequestInit;
+    headers?: ((state: S) => HeadersInit) | HeadersInit;
+    options?: ((state: S) => RequestInit) | RequestInit;
     credentials?: RequestCredentials;
-    bailout?: (state: S) => boolean | boolean;
+    bailout?: ((state: S) => boolean) | boolean;
     fetch?: typeof fetch;
     ok?: (res: Response) => boolean;
 }
