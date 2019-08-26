@@ -143,7 +143,7 @@ export interface ClientSession extends EventEmitter {
      * @param fn Function to execute with the new session.
      * @param options Optional settings for the transaction
      */
-    withTransaction<T>(fn: WithTransactionCallback<T>, options?: TransactionOptions): Promise<T>;
+    withTransaction<T>(fn: WithTransactionCallback<T>, options?: TransactionOptions): Promise<void>;
 }
 
 // http://mongodb.github.io/node-mongodb-native/3.1/api/global.html#ReadConcern
