@@ -3169,6 +3169,12 @@
             "asOfVersion": "0.1.0"
         },
         {
+            "libraryName": "sanitize-filename",
+            "typingsPackageName": "sanitize-filename",
+            "sourceRepoURL": "https://github.com/parshap/node-sanitize-filename",
+            "asOfVersion": "1.6.3"
+        },
+        {
             "libraryName": "node-scanf",
             "typingsPackageName": "scanf",
             "sourceRepoURL": "https://github.com/Lellansin/node-scanf",
