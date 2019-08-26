@@ -114,7 +114,7 @@ interface LoadImage  {
         data?: ImageHead,
     ) => void;
 
-    blobSlice: (file: Blob, start?: number, end?: number) => Blob;
+    blobSlice: (this: Blob, start?: number, end?: number) => Blob;
 }
 
 declare const loadImage: LoadImage;
