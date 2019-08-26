@@ -3,7 +3,7 @@ import { TransactionObject, BlockType } from './types';
 import { ABIDefinition } from './abi';
 import { Provider } from '../providers';
 
-interface CustomOptions {
+export interface CustomOptions {
   address?: string;
   jsonInterface?: ABIDefinition[];
   data?: string;
@@ -12,7 +12,7 @@ interface CustomOptions {
   gas?: number;
 }
 
-interface contractOptions {
+export interface contractOptions {
   address: string;
   jsonInterface: ABIDefinition[];
   data: string;

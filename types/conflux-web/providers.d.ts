@@ -1,18 +1,18 @@
-interface JsonRPCRequest {
+export interface JsonRPCRequest {
     jsonrpc: string;
     method: string;
     params: any[];
     id: number;
 }
 
-interface JsonRPCResponse {
+export interface JsonRPCResponse {
     jsonrpc: string;
     id: number;
     result?: any;
     error?: string;
 }
 
-interface Callback<ResultType> {
+export interface Callback<ResultType> {
   (error: Error): void;
   (error: null, val: ResultType): void;
 }
