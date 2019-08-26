@@ -1,3 +1,6 @@
 import { Locale } from '../core';
 
-export = Locale;
+const locale: Locale;
+
+export { Locale };
+
