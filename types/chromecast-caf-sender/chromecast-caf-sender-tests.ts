@@ -1,6 +1,8 @@
 cast.framework.VERSION === "1.0.06";
 cast.framework.setLoggerLevel(cast.framework.LoggerLevel.DEBUG);
 
+window.__onGCastApiAvailable = (available: boolean) => {};
+
 const context = cast.framework.CastContext.getInstance();
 context.getCastState() === cast.framework.CastState.CONNECTED;
 context.getSessionState() === cast.framework.SessionState.NO_SESSION;

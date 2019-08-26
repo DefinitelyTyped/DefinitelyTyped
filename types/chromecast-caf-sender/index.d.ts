@@ -11,6 +11,7 @@
 ////////////////////
 interface Window {
   cast: typeof cast;
+  __onGCastApiAvailable(available: boolean): void;
 }
 
 ////////////////////
