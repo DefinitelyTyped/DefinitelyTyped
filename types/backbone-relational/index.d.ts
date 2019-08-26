@@ -167,3 +167,5 @@ export class Store extends EventsMixin implements Events {
     reset():void;
 
 }
+
+export const store: Store;
