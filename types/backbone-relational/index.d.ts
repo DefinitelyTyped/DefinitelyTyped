@@ -162,7 +162,7 @@ export class Store extends EventsMixin implements Events {
 
     update(model:Model):void;
 
-    unregister(model:Model, collection:Collection<BModel>, options:any):void;
+    unregister(type: Model | Collection<Model> | typeof Model): void;
 
     reset():void;
 
