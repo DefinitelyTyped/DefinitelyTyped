@@ -13,7 +13,7 @@ import {
   Transaction,
   Tx,
   BlockType,
-  Net,
+  Net
 } from './types';
 import {
     Callback,
@@ -150,12 +150,6 @@ export default interface Cfx {
         index: number,
         cb?: Callback<Transaction>
     ): Promise<Transaction>;
-    getUncle(
-        blockHashOrBlockNumber: BlockType | string,
-        uncleIndex: number,
-        returnTransactionObjects?: boolean,
-        cb?: Callback<Block>
-    ): Promise<Block>;
     getWork(cb?: Callback<string[]>): Promise<string[]>;
     givenProvider: Provider;
     isMining(cb?: Callback<boolean>): Promise<boolean>;

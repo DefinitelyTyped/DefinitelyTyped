@@ -87,3 +87,5 @@ export interface CompileResult {
   userDoc: { methods: object };
   developerDoc: { methods: object };
 }
+
+export {};

@@ -1,4 +1,4 @@
-import Web3 = require("conflux-web");
+import CW = require("conflux-web");
 import BigNumber = require("bn.js");
 import { TransactionReceipt, Log } from "conflux-web/types";
 import PromiEvent from "conflux-web/promiEvent";
@@ -8,10 +8,10 @@ import { Provider, JsonRPCResponse } from "conflux-web/providers";
 const contractAddress = "0xde0B295669a9FD93d5F28D9Ec85E40f4cb697BAe";
 
 //
-// Web3
+// CW
 // --------------------------------------------------------------------------
-const web3 = new Web3();
-const myProvider = new web3.providers.HttpProvider("http://localhost:5454");
+const cw = new CW();
+const myProvider = new cw.providers.HttpProvider("http://localhost:5454");
 
 const createFailingHttpProvider = (): Provider => ({
   send(payload, callback) {
@@ -29,15 +29,15 @@ const createSuccesfulHttpProvider = (): Provider => ({
 const fakeProvider: Provider = createFailingHttpProvider();
 const otherFakeProvider: Provider = createSuccesfulHttpProvider();
 
-web3.setProvider(fakeProvider);
-web3.setProvider(otherFakeProvider);
-web3.setProvider(myProvider);
-web3.cfx.setProvider(myProvider);
+cw.setProvider(fakeProvider);
+cw.setProvider(otherFakeProvider);
+cw.setProvider(myProvider);
+cw.cfx.setProvider(myProvider);
 
 //
-// web3.cfx
+// cw.cfx
 // --------------------------------------------------------------------------
-const logs: Promise<Log[]> = web3.cfx.getPastLogs({
+const logs: Promise<Log[]> = cw.cfx.getPastLogs({
     fromBlock: "latest_state",
     address: contractAddress,
     topics: [
@@ -45,47 +45,47 @@ const logs: Promise<Log[]> = web3.cfx.getPastLogs({
         "0x1"
     ]
 });
-const storage: Promise<string> = web3.cfx.getStorageAt(contractAddress, 0);
-const balance1: Promise<string> = web3.cfx.getBalance(contractAddress);
-const balance2: Promise<string> = web3.cfx.getBalance(contractAddress, "earliest");
-const balance3: Promise<string> = web3.cfx.getBalance(contractAddress, 1);
-web3.cfx.getBalance(contractAddress, "earliest", (error: Error, balance: string) => { });
-web3.cfx.getBalance(contractAddress, 1, (error: Error, balance: string) => { });
+const storage: Promise<string> = cw.cfx.getStorageAt(contractAddress, 0);
+const balance1: Promise<string> = cw.cfx.getBalance(contractAddress);
+const balance2: Promise<string> = cw.cfx.getBalance(contractAddress, "earliest");
+const balance3: Promise<string> = cw.cfx.getBalance(contractAddress, 1);
+cw.cfx.getBalance(contractAddress, "earliest", (error: Error, balance: string) => { });
+cw.cfx.getBalance(contractAddress, 1, (error: Error, balance: string) => { });
 
-const sendSignedTransactionTxReceipt0: PromiEvent<TransactionReceipt> = web3.cfx.sendSignedTransaction("",
+const sendSignedTransactionTxReceipt0: PromiEvent<TransactionReceipt> = cw.cfx.sendSignedTransaction("",
     (error: Error, txHash: string) => { });
-const sendSignedTransactionTxReceipt1: PromiEvent<TransactionReceipt> = web3.cfx.sendSignedTransaction("")
+const sendSignedTransactionTxReceipt1: PromiEvent<TransactionReceipt> = cw.cfx.sendSignedTransaction("")
     .on("transactionHash", (txHash: string) => { });
-const sendSignedTransactionTxReceipt2: PromiEvent<TransactionReceipt> = web3.cfx.sendSignedTransaction("")
+const sendSignedTransactionTxReceipt2: PromiEvent<TransactionReceipt> = cw.cfx.sendSignedTransaction("")
     .on("receipt", (txReceipt: TransactionReceipt) => {
         const { status }: { status: boolean }  = txReceipt;
     });
-const sendSignedTransactionTxReceipt3: PromiEvent<TransactionReceipt> = web3.cfx.sendSignedTransaction("")
+const sendSignedTransactionTxReceipt3: PromiEvent<TransactionReceipt> = cw.cfx.sendSignedTransaction("")
     .on("confirmation", (confNumber: number, receipt: TransactionReceipt) => { });
-const sendSignedTransactionTxReceipt4: PromiEvent<TransactionReceipt> = web3.cfx.sendSignedTransaction("")
+const sendSignedTransactionTxReceipt4: PromiEvent<TransactionReceipt> = cw.cfx.sendSignedTransaction("")
     .on("receipt", (txReceipt: TransactionReceipt) => { })
     .on("confirmation", (confNumber: number, receipt: TransactionReceipt) => { });
 
-const sendTransactionTxReceipt0: PromiEvent<TransactionReceipt> = web3.cfx.sendTransaction({ to: "0x1" },
+const sendTransactionTxReceipt0: PromiEvent<TransactionReceipt> = cw.cfx.sendTransaction({ to: "0x1" },
     (error: Error, txHash: string) => { });
-const sendTransactionTxReceipt1: PromiEvent<TransactionReceipt> = web3.cfx.sendTransaction({ to: "0x1" })
+const sendTransactionTxReceipt1: PromiEvent<TransactionReceipt> = cw.cfx.sendTransaction({ to: "0x1" })
     .on("transactionHash", (txHash: string) => { });
-const sendTransactionTxReceipt2: PromiEvent<TransactionReceipt> = web3.cfx.sendTransaction({ to: "0x1" })
+const sendTransactionTxReceipt2: PromiEvent<TransactionReceipt> = cw.cfx.sendTransaction({ to: "0x1" })
     .on("receipt", (txReceipt: TransactionReceipt) => { });
-const sendTransactionTxReceipt3: PromiEvent<TransactionReceipt> = web3.cfx.sendTransaction({ to: "0x1" })
+const sendTransactionTxReceipt3: PromiEvent<TransactionReceipt> = cw.cfx.sendTransaction({ to: "0x1" })
     .on("confirmation", (confNumber: number, receipt: TransactionReceipt) => { });
-const sendTransactionTxReceipt4: PromiEvent<TransactionReceipt> = web3.cfx.sendTransaction({ to: "0x1" })
+const sendTransactionTxReceipt4: PromiEvent<TransactionReceipt> = cw.cfx.sendTransaction({ to: "0x1" })
     .on("receipt", (txReceipt: TransactionReceipt) => { })
     .on("confirmation", (confNumber: number, receipt: TransactionReceipt) => { });
 
 //
-// web3.cfx.subscribe
+// cw.cfx.subscribe
 // --------------------------------------------------------------------------
 
 //
-// web3.cfx.Contract
+// cw.cfx.Contract
 // --------------------------------------------------------------------------
-const myContract = new web3.cfx.Contract(
+const myContract = new cw.cfx.Contract(
     [],
     contractAddress,
     {
@@ -99,9 +99,9 @@ myContract.options.gasPrice = "20000000000000";
 myContract.options.gas = 5000000;
 
 //
-// web3.cfx.accounts
+// cw.cfx.accounts
 // --------------------------------------------------------------------------
-const account = web3.cfx.accounts.privateKeyToAccount("0x1234");
+const account = cw.cfx.accounts.privateKeyToAccount("0x1234");
 
 // check that no `publicKey` field is present on `Account` type
 const noPublicKeyInAccount: typeof account & { publicKey?: never } = account;
@@ -112,21 +112,21 @@ const testTx = {
     gas: 2000000
 };
 
-web3.cfx.accounts.signTransaction(testTx, "").then(txSig => {
+cw.cfx.accounts.signTransaction(testTx, "").then(txSig => {
     txSig.messageHash = "0x1234";
     txSig.rawTransaction = "0x5678";
 
     const noHashFieldInTxSig: typeof txSig & { hash?: never, message?: never, signature?: never } = txSig;
 });
 
-const msgSig = web3.cfx.accounts.sign("0x1234", "0x5678");
+const msgSig = cw.cfx.accounts.sign("0x1234", "0x5678");
 msgSig.messageHash = "0x1234";
 msgSig.message = "0x5678";
 msgSig.signature = "0x90ab";
 
 const noHashFieldInMsgSig: typeof msgSig & { hash?: never, rawTransaction?: never } = msgSig;
 
-const encryptedKeystore = web3.cfx.accounts.encrypt("0x1234", "5678");
+const encryptedKeystore = cw.cfx.accounts.encrypt("0x1234", "5678");
 encryptedKeystore.crypto.cipher = "aes-128-ctr";
 
 const msgSignature: string = account.sign("0x1234").signature;
@@ -135,50 +135,50 @@ account.signTransaction(testTx).then(txSig => {
 });
 
 //
-// web3.cfx.personal
+// cw.cfx.personal
 // --------------------------------------------------------------------------
 /*
-web3.cfx.personal.unlockAccount(
-    web3.cfx.defaultAccount,
+cw.cfx.personal.unlockAccount(
+    cw.cfx.defaultAccount,
     "passphrase",
     600
 );
 */
 //
-// web3.cfx.ens
+// cw.cfx.ens
 // --------------------------------------------------------------------------
 
 //
-// web3.cfx.Iban
+// cw.cfx.Iban
 // --------------------------------------------------------------------------
 
 //
-// web3.cfx.abi
+// cw.cfx.abi
 // --------------------------------------------------------------------------
-const myContractOldAbi = new web3.cfx.Contract(OLD_ABI_STANDARD);
-const myContractNewAbi = new web3.cfx.Contract(NEW_ABI_STANDARD);
+const myContractOldAbi = new cw.cfx.Contract(OLD_ABI_STANDARD);
+const myContractNewAbi = new cw.cfx.Contract(NEW_ABI_STANDARD);
 
 //
-// web3.bzz
-// --------------------------------------------------------------------------
-
-//
-// web3.shh
+// cw.bzz
 // --------------------------------------------------------------------------
 
 //
-// web3.utils
+// cw.shh
 // --------------------------------------------------------------------------
-const weiStr: string = web3.utils.toWei("100", "gwei");
-const weiBn: BigNumber = web3.utils.toWei(web3.utils.toBN("1"));
 
-const rndHex: string = Web3.utils.randomHex(10);
-const sha3: string = web3.utils.soliditySha3(0, 1, "abc");
-const fromWei1: string = web3.utils.fromWei(new BigNumber(1));
-const fromWei2: string = web3.utils.fromWei(new BigNumber(1), "gwei");
-const fromWei3: string = web3.utils.fromWei("1");
-const fromWei4: string = web3.utils.fromWei("1", "gwei");
-const fromWei5: string = web3.utils.fromWei(1);
-const fromWei6: string = web3.utils.fromWei(1, "gwei");
-const isStrictHexString: boolean = web3.utils.isHexStrict("0xc1912");
-const isStrictHexNumber: boolean = web3.utils.isHexStrict(0xc1912);
+//
+// cw.utils
+// --------------------------------------------------------------------------
+const weiStr: string = cw.utils.toWei("100", "gwei");
+const weiBn: BigNumber = cw.utils.toWei(cw.utils.toBN("1"));
+
+const rndHex: string = cw.utils.randomHex(10);
+const sha3: string = cw.utils.soliditySha3(0, 1, "abc");
+const fromWei1: string = cw.utils.fromWei(new BigNumber(1));
+const fromWei2: string = cw.utils.fromWei(new BigNumber(1), "gwei");
+const fromWei3: string = cw.utils.fromWei("1");
+const fromWei4: string = cw.utils.fromWei("1", "gwei");
+const fromWei5: string = cw.utils.fromWei(1);
+const fromWei6: string = cw.utils.fromWei(1, "gwei");
+const isStrictHexString: boolean = cw.utils.isHexStrict("0xc1912");
+const isStrictHexNumber: boolean = cw.utils.isHexStrict(0xc1912);

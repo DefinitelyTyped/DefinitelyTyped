@@ -75,3 +75,5 @@ export default interface Accounts {
     clear(): any;
   };
 }
+
+export {};

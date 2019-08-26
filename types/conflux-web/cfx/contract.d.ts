@@ -61,3 +61,4 @@ export default class Contract {
   ): Promise<EventLog[]>;
   setProvider(provider: Provider): void;
 }
+export {};

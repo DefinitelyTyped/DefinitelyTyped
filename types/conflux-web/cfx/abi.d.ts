@@ -40,3 +40,5 @@ interface CfxAbiDecodeParametersResultArray {
 type CfxAbiDecodeParametersResultObject = CfxAbiDecodeParametersResultArray & {
     [key: string]: any;
 };
+
+export {};
