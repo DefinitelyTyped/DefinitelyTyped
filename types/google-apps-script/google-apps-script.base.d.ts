@@ -307,15 +307,15 @@ declare namespace GoogleAppsScript {
      */
     export interface console {
       error(): void;
-      error(formatOrObject: object, ...values: object[]): void;
+      error(formatOrObject: object | string, ...values: object[]): void;
       info(): void;
-      info(formatOrObject: object, ...values: object[]): void;
+      info(formatOrObject: object | string, ...values: object[]): void;
       log(): void;
-      log(formatOrObject: object, ...values: object[]): void;
+      log(formatOrObject: object | string, ...values: object[]): void;
       time(label: string): void;
       timeEnd(label: string): void;
       warn(): void;
-      warn(formatOrObject: object, ...values: object[]): void;
+      warn(formatOrObject: object | string, ...values: object[]): void;
     }
     /** 
      * Apps Script has a non-standard Date Class

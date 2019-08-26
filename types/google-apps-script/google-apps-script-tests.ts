@@ -108,3 +108,8 @@ function doGet(e: GoogleAppsScript.Events.DoGet) {
 function createFileFromBlob(blob: GoogleAppsScript.Base.Blob){
   const file: GoogleAppsScript.Drive.File = DriveApp.createFile(blob);
 }
+
+// Console
+console.log("log");
+console.info("info");
+console.error("error");
