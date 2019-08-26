@@ -13,7 +13,7 @@ import {
   Transaction,
   Tx,
   BlockType,
-  Net
+  Net,
 } from './types';
 import {
     Callback,
