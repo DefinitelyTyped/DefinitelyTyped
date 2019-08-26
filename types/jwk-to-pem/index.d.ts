@@ -1,4 +1,4 @@
-// Type definitions for jwk-to-pem 2.0.1
+// Type definitions for jwk-to-pem 2.0
 // Project: https://github.com/Brightspace/node-jwk-to-pem
 // Definitions by: Rodrigo Sasaki <https://github.com/rodrigopsasaki>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
