@@ -92,19 +92,19 @@ strOrUndefined = apiGwEvtReqCtx.domainName;
 strOrUndefined = apiGwEvtReqCtx.eventType;
 strOrUndefined = apiGwEvtReqCtx.extendedRequestId;
 str = apiGwEvtReqCtx.httpMethod;
-strOrNull = apiGwEvtReqCtx.identity.accessKey;
-strOrNull = apiGwEvtReqCtx.identity.accountId;
-strOrNull = apiGwEvtReqCtx.identity.apiKey;
-strOrNull = apiGwEvtReqCtx.identity.apiKeyId;
-strOrNull = apiGwEvtReqCtx.identity.caller;
-strOrNull = apiGwEvtReqCtx.identity.cognitoAuthenticationProvider;
-strOrNull = apiGwEvtReqCtx.identity.cognitoAuthenticationType;
-strOrNull = apiGwEvtReqCtx.identity.cognitoIdentityId;
-strOrNull = apiGwEvtReqCtx.identity.cognitoIdentityPoolId;
+strOrUndefined = apiGwEvtReqCtx.identity.accessKey;
+strOrUndefined = apiGwEvtReqCtx.identity.accountId;
+strOrUndefined = apiGwEvtReqCtx.identity.apiKey;
+strOrUndefined = apiGwEvtReqCtx.identity.apiKeyId;
+strOrUndefined = apiGwEvtReqCtx.identity.caller;
+strOrUndefined = apiGwEvtReqCtx.identity.cognitoAuthenticationProvider;
+strOrUndefined = apiGwEvtReqCtx.identity.cognitoAuthenticationType;
+strOrUndefined = apiGwEvtReqCtx.identity.cognitoIdentityId;
+strOrUndefined = apiGwEvtReqCtx.identity.cognitoIdentityPoolId;
 str = apiGwEvtReqCtx.identity.sourceIp;
-strOrNull = apiGwEvtReqCtx.identity.user;
-strOrNull = apiGwEvtReqCtx.identity.userAgent;
-strOrNull = apiGwEvtReqCtx.identity.userArn;
+strOrUndefined = apiGwEvtReqCtx.identity.user;
+strOrUndefined = apiGwEvtReqCtx.identity.userAgent;
+strOrUndefined = apiGwEvtReqCtx.identity.userArn;
 strOrUndefined = apiGwEvtReqCtx.messageDirection;
 strOrUndefinedOrNull = apiGwEvtReqCtx.messageId;
 str = apiGwEvtReqCtx.path;
@@ -116,7 +116,7 @@ str = apiGwEvtReqCtx.resourcePath;
 strOrUndefined = apiGwEvtReqCtx.routeKey;
 
 /* API Gateway Event */
-strOrNull = apiGwEvt.body;
+strOrUndefined = apiGwEvt.body;
 str = apiGwEvt.headers["example"];
 str = apiGwEvt.multiValueHeaders["example"][0];
 str = apiGwEvt.httpMethod;
@@ -139,7 +139,7 @@ str = albEvt.queryStringParameters!["example"];
 str = albEvt.headers!["example"];
 str = albEvt.multiValueQueryStringParameters!["example"][0];
 str = albEvt.multiValueHeaders!["example"][0];
-strOrNull = albEvt.body;
+strOrUndefined = albEvt.body;
 bool = albEvt.isBase64Encoded;
 
 /* Application Load Balancer Result */
@@ -502,7 +502,7 @@ cognitoUserPoolEvent.response = {
         }
     }
 };
-cognitoUserPoolEvent.response.claimsOverrideDetails!.groupOverrideDetails = null;
+cognitoUserPoolEvent.response.claimsOverrideDetails!.groupOverrideDetails = undefined;
 
 // CloudFormation Custom Resource
 switch (cloudformationCustomResourceEvent.RequestType) {
@@ -637,7 +637,7 @@ const CodePipelineEvent: AWSLambda.CodePipelineEvent = {
                         },
                         type: "S3"
                     },
-                    revision: null,
+                    revision: undefined,
                     name: "ArtifactName"
                 }
             ],

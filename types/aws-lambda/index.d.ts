@@ -29,6 +29,7 @@
 //                 Roberto Zen <https://github.com/skyzenr>
 //                 Grzegorz Redlicki <https://github.com/redlickigrzegorz>
 //                 Juan Carbonel <https://github.com/juancarbonel>
+//                 TATSUNO Yasuhiro <https://github.com/exoego>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -36,7 +37,7 @@
 export interface APIGatewayEventRequestContext {
     accountId: string;
     apiId: string;
-    authorizer?: AuthResponseContext | null;
+    authorizer?: AuthResponseContext;
     connectedAt?: number;
     connectionId?: string;
     domainName?: string;
@@ -45,22 +46,22 @@ export interface APIGatewayEventRequestContext {
     extendedRequestId?: string;
     httpMethod: string;
     identity: {
-        accessKey: string | null;
-        accountId: string | null;
-        apiKey: string | null;
-        apiKeyId: string | null;
-        caller: string | null;
-        cognitoAuthenticationProvider: string | null;
-        cognitoAuthenticationType: string | null;
-        cognitoIdentityId: string | null;
-        cognitoIdentityPoolId: string | null;
+        accessKey?: string;
+        accountId?: string;
+        apiKey?: string;
+        apiKeyId?: string;
+        caller?: string;
+        cognitoAuthenticationProvider?: string;
+        cognitoAuthenticationType?: string;
+        cognitoIdentityId?: string;
+        cognitoIdentityPoolId?: string;
         sourceIp: string;
-        user: string | null;
-        userAgent: string | null;
-        userArn: string | null;
+        user?: string;
+        userAgent?: string;
+        userArn?: string;
     };
     messageDirection?: string;
-    messageId?: string | null;
+    messageId?: string;
     path: string;
     stage: string;
     requestId: string;
@@ -73,16 +74,16 @@ export interface APIGatewayEventRequestContext {
 
 // API Gateway "event"
 export interface APIGatewayProxyEvent {
-    body: string | null;
+    body?: string;
     headers: { [name: string]: string };
     multiValueHeaders: { [name: string]: string[] };
     httpMethod: string;
     isBase64Encoded: boolean;
     path: string;
-    pathParameters: { [name: string]: string } | null;
-    queryStringParameters: { [name: string]: string } | null;
-    multiValueQueryStringParameters: { [name: string]: string[] } | null;
-    stageVariables: { [name: string]: string } | null;
+    pathParameters?: { [name: string]: string };
+    queryStringParameters?: { [name: string]: string };
+    multiValueQueryStringParameters?: { [name: string]: string[] };
+    stageVariables?: { [name: string]: string };
     requestContext: APIGatewayEventRequestContext;
     resource: string;
 }
@@ -102,7 +103,7 @@ export interface ALBEvent {
     headers?: { [header: string]: string };
     multiValueQueryStringParameters?: { [parameter: string]: string[] }; // URL encoded
     multiValueHeaders?: { [header: string]: string[] };
-    body: string | null;
+    body?: string;
     isBase64Encoded: boolean;
 }
 
@@ -116,9 +117,9 @@ export interface CustomAuthorizerEvent {
     httpMethod?: string;
     headers?: { [name: string]: string };
     multiValueHeaders?: { [name: string]: string[] };
-    pathParameters?: { [name: string]: string } | null;
-    queryStringParameters?: { [name: string]: string } | null;
-    multiValueQueryStringParameters?: { [name: string]: string[] } | null;
+    pathParameters?: { [name: string]: string };
+    queryStringParameters?: { [name: string]: string };
+    multiValueQueryStringParameters?: { [name: string]: string[] };
     stageVariables?: { [name: string]: string };
     requestContext?: APIGatewayEventRequestContext;
     domainName?: string;
@@ -329,7 +330,7 @@ export interface CognitoUserPoolTriggerEvent {
         claimsOverrideDetails?: {
             claimsToAddOrOverride?: { [key: string]: string };
             claimsToSuppress?: string[];
-            groupOverrideDetails?: null | {
+            groupOverrideDetails?: {
                 groupsToOverride?: string[];
                 iamRolesToOverride?: string[];
                 preferredRole?: string;
@@ -602,7 +603,7 @@ export type ArtifactLocation = S3ArtifactStore;
 
 export interface Artifact {
     name: string;
-    revision: string | null;
+    revision?: string;
     location: ArtifactLocation;
 }
 
@@ -956,7 +957,7 @@ export interface LexEvent {
     outputDialogMode: 'Text' | 'Voice';
     messageVersion: '1.0';
     sessionAttributes: { [key: string]: string };
-    requestAttributes: { [key: string]: string } | null;
+    requestAttributes?: { [key: string]: string };
 }
 
 export interface LexSlotResolution {
