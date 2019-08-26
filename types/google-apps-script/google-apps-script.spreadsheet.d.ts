@@ -141,7 +141,7 @@ declare namespace GoogleAppsScript {
       getBooleanCondition(): BooleanCondition;
       getGradientCondition(): GradientCondition;
       getRanges(): Range[];
-      setBackground(color: string): ConditionalFormatRuleBuilder;
+      setBackground(color: string | null): ConditionalFormatRuleBuilder;
       setBold(bold: boolean): ConditionalFormatRuleBuilder;
       setFontColor(color: string): ConditionalFormatRuleBuilder;
       setGradientMaxpoint(color: string): ConditionalFormatRuleBuilder;
@@ -1876,7 +1876,7 @@ declare namespace GoogleAppsScript {
       getRecalculationInterval(): RecalculationInterval;
       getRowHeight(rowPosition: Integer): Integer;
       getSelection(): Selection;
-      getSheetByName(name: string): Sheet;
+      getSheetByName(name: string): Sheet | null;
       getSheetId(): Integer;
       getSheetName(): string;
       getSheetValues(startRow: Integer, startColumn: Integer, numRows: Integer, numColumns: Integer): any[][];
