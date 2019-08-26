@@ -92,3 +92,5 @@ export default interface Utils {
     toWei(val: BigNumber, unit?: Unit): BigNumber;
     unitMap: any;
 }
+
+export {};

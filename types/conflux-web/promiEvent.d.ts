@@ -38,3 +38,4 @@ export default interface PromiEvent<T> extends Promise<T> {
     handler: (error: Error | TransactionReceipt | string) => void,
   ): PromiEvent<T>;
 }
+export {};

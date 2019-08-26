@@ -64,3 +64,5 @@ export default interface Providers {
     HttpProvider: new (host: string, timeout?: number) => HttpProvider;
     IpcProvider: new (path: string, net: any) => IpcProvider;
 }
+
+export {};
