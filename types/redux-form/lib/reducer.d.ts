@@ -23,6 +23,7 @@ export interface FormState {
     values?: { [fieldName: string]: any };
     active?: string;
     anyTouched?: boolean;
+    error: string;
     submitting?: boolean;
     submitErrors?: { [fieldName: string]: string };
     submitFailed?: boolean;
