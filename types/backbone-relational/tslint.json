@@ -20,7 +20,6 @@
         "space-before-function-paren": false,
         "typedef-whitespace": false,
         "unified-signatures": false,
-        "use-default-type-parameter": false,
         "whitespace": false
     }
 }
