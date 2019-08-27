@@ -92,6 +92,29 @@ declare module "child_process" {
         ];
     }
 
+    type StdioOptionToStream<
+        O extends undefined | null | 'pipe' | 'ignore' | 'inherit' | Stream,
+        S extends Stream,
+    > = O extends undefined | null | 'pipe' ? S : null;
+
+    // return this object when stdio option is a tuple of 3
+    interface ChildProcessForStdioTuple<
+        I extends undefined | null | 'pipe' | 'ignore' | 'inherit' | Stream,
+        O extends undefined | null | 'pipe' | 'ignore' | 'inherit' | Stream,
+        E extends undefined | null | 'pipe' | 'ignore' | 'inherit' | Stream,
+    > extends ChildProcess {
+        stdin: StdioOptionToStream<I, Writable>;
+        stdout: StdioOptionToStream<O, Readable>;
+        stderr: StdioOptionToStream<E, Readable>;
+        readonly stdio: [
+            StdioOptionToStream<I, Writable>,
+            StdioOptionToStream<O, Readable>,
+            StdioOptionToStream<E, Readable>,
+            Readable | Writable | null | undefined, // extra, no modification
+            Readable | Writable | null | undefined // extra, no modification
+        ];
+    }
+
     interface MessageOptions {
         keepOpen?: boolean;
     }
@@ -128,9 +151,27 @@ declare module "child_process" {
         stdio?: 'pipe' | Array<null | undefined | 'pipe'>;
     }
 
+    interface SpawnOptionsWithStdioTuple<
+        Stdin extends undefined | null | 'pipe' | 'ignore' | 'inherit' | Stream,
+        Stdout extends undefined | null | 'pipe' | 'ignore' | 'inherit' | Stream,
+        Stderr extends undefined | null | 'pipe' | 'ignore' | 'inherit' | Stream,
+    > extends SpawnOptions {
+        stdio: [Stdin, Stdout, Stderr];
+    }
+
     function spawn(command: string, options?: SpawnOptionsWithoutStdio): ChildProcessWithoutNullStreams;
+    function spawn<
+        Stdin extends undefined | null | 'pipe' | 'ignore' | 'inherit' | Stream,
+        Stdout extends undefined | null | 'pipe' | 'ignore' | 'inherit' | Stream,
+        Stderr extends undefined | null | 'pipe' | 'ignore' | 'inherit' | Stream,
+    >(command: string, options: SpawnOptionsWithStdioTuple<Stdin, Stdout, Stderr>): ChildProcessForStdioTuple<Stdin, Stdout, Stderr>;
     function spawn(command: string, options: SpawnOptions): ChildProcess;
     function spawn(command: string, args?: ReadonlyArray<string>, options?: SpawnOptionsWithoutStdio): ChildProcessWithoutNullStreams;
+    function spawn<
+        Stdin extends undefined | null | 'pipe' | 'ignore' | 'inherit' | Stream,
+        Stdout extends undefined | null | 'pipe' | 'ignore' | 'inherit' | Stream,
+        Stderr extends undefined | null | 'pipe' | 'ignore' | 'inherit' | Stream,
+    >(command: string, args: ReadonlyArray<string>, options: SpawnOptionsWithStdioTuple<Stdin, Stdout, Stderr>): ChildProcessForStdioTuple<Stdin, Stdout, Stderr>;
     function spawn(command: string, args: ReadonlyArray<string>, options: SpawnOptions): ChildProcess;
 
     interface ExecOptions extends CommonOptions {
