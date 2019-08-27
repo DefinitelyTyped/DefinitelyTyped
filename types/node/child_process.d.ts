@@ -92,24 +92,19 @@ declare module "child_process" {
         ];
     }
 
-    type StdioOptionToStream<
-        O extends undefined | null | 'pipe' | 'ignore' | 'inherit' | Stream,
-        S extends Stream,
-    > = O extends undefined | null | 'pipe' ? S : null;
-
     // return this object when stdio option is a tuple of 3
-    interface ChildProcessForStdioTuple<
-        I extends undefined | null | 'pipe' | 'ignore' | 'inherit' | Stream,
-        O extends undefined | null | 'pipe' | 'ignore' | 'inherit' | Stream,
-        E extends undefined | null | 'pipe' | 'ignore' | 'inherit' | Stream,
+    interface ChildProcessByStdio<
+        I extends null | Writable,
+        O extends null | Readable,
+        E extends null | Readable,
     > extends ChildProcess {
-        stdin: StdioOptionToStream<I, Writable>;
-        stdout: StdioOptionToStream<O, Readable>;
-        stderr: StdioOptionToStream<E, Readable>;
+        stdin: I,
+        stdout: O,
+        stderr: E,
         readonly stdio: [
-            StdioOptionToStream<I, Writable>,
-            StdioOptionToStream<O, Readable>,
-            StdioOptionToStream<E, Readable>,
+            I,
+            O,
+            E,
             Readable | Writable | null | undefined, // extra, no modification
             Readable | Writable | null | undefined // extra, no modification
         ];
@@ -151,27 +146,99 @@ declare module "child_process" {
         stdio?: 'pipe' | Array<null | undefined | 'pipe'>;
     }
 
+    type StdioNull = 'inherit' | 'ignore' | Stream;
+    type StdioPipe = undefined | null | 'pipe';
+
     interface SpawnOptionsWithStdioTuple<
-        Stdin extends undefined | null | 'pipe' | 'ignore' | 'inherit' | Stream,
-        Stdout extends undefined | null | 'pipe' | 'ignore' | 'inherit' | Stream,
-        Stderr extends undefined | null | 'pipe' | 'ignore' | 'inherit' | Stream,
+        Stdin extends StdioNull | StdioPipe,
+        Stdout extends StdioNull | StdioPipe,
+        Stderr extends StdioNull | StdioPipe,
     > extends SpawnOptions {
         stdio: [Stdin, Stdout, Stderr];
     }
 
+    // overloads of spawn without 'args'
     function spawn(command: string, options?: SpawnOptionsWithoutStdio): ChildProcessWithoutNullStreams;
-    function spawn<
-        Stdin extends undefined | null | 'pipe' | 'ignore' | 'inherit' | Stream,
-        Stdout extends undefined | null | 'pipe' | 'ignore' | 'inherit' | Stream,
-        Stderr extends undefined | null | 'pipe' | 'ignore' | 'inherit' | Stream,
-    >(command: string, options: SpawnOptionsWithStdioTuple<Stdin, Stdout, Stderr>): ChildProcessForStdioTuple<Stdin, Stdout, Stderr>;
+
+    function spawn(
+        command: string,
+        options: SpawnOptionsWithStdioTuple<StdioPipe, StdioPipe, StdioPipe>,
+    ): ChildProcessByStdio<Writable, Readable, Readable>;
+    function spawn(
+        command: string,
+        options: SpawnOptionsWithStdioTuple<StdioPipe, StdioPipe, StdioNull>,
+    ): ChildProcessByStdio<Writable, Readable, null>;
+    function spawn(
+        command: string,
+        options: SpawnOptionsWithStdioTuple<StdioPipe, StdioNull, StdioPipe>,
+    ): ChildProcessByStdio<Writable, null, Readable>;
+    function spawn(
+        command: string,
+        options: SpawnOptionsWithStdioTuple<StdioNull, StdioPipe, StdioPipe>,
+    ): ChildProcessByStdio<null, Readable, Readable>;
+    function spawn(
+        command: string,
+        options: SpawnOptionsWithStdioTuple<StdioPipe, StdioNull, StdioNull>,
+    ): ChildProcessByStdio<Writable, null, null>;
+    function spawn(
+        command: string,
+        options: SpawnOptionsWithStdioTuple<StdioNull, StdioPipe, StdioNull>,
+    ): ChildProcessByStdio<null, Readable, null>;
+    function spawn(
+        command: string,
+        options: SpawnOptionsWithStdioTuple<StdioNull, StdioNull, StdioPipe>,
+    ): ChildProcessByStdio<null, null, Readable>;
+    function spawn(
+        command: string,
+        options: SpawnOptionsWithStdioTuple<StdioNull, StdioNull, StdioNull>,
+    ): ChildProcessByStdio<null, null, null>;
+
     function spawn(command: string, options: SpawnOptions): ChildProcess;
+
+    // overloads of spawn with 'args'
     function spawn(command: string, args?: ReadonlyArray<string>, options?: SpawnOptionsWithoutStdio): ChildProcessWithoutNullStreams;
-    function spawn<
-        Stdin extends undefined | null | 'pipe' | 'ignore' | 'inherit' | Stream,
-        Stdout extends undefined | null | 'pipe' | 'ignore' | 'inherit' | Stream,
-        Stderr extends undefined | null | 'pipe' | 'ignore' | 'inherit' | Stream,
-    >(command: string, args: ReadonlyArray<string>, options: SpawnOptionsWithStdioTuple<Stdin, Stdout, Stderr>): ChildProcessForStdioTuple<Stdin, Stdout, Stderr>;
+
+    function spawn(
+        command: string,
+        args: ReadonlyArray<string>,
+        options: SpawnOptionsWithStdioTuple<StdioPipe, StdioPipe, StdioPipe>,
+    ): ChildProcessByStdio<Writable, Readable, Readable>;
+    function spawn(
+        command: string,
+        args: ReadonlyArray<string>,
+        options: SpawnOptionsWithStdioTuple<StdioPipe, StdioPipe, StdioNull>,
+    ): ChildProcessByStdio<Writable, Readable, null>;
+    function spawn(
+        command: string,
+        args: ReadonlyArray<string>,
+        options: SpawnOptionsWithStdioTuple<StdioPipe, StdioNull, StdioPipe>,
+    ): ChildProcessByStdio<Writable, null, Readable>;
+    function spawn(
+        command: string,
+        args: ReadonlyArray<string>,
+        options: SpawnOptionsWithStdioTuple<StdioNull, StdioPipe, StdioPipe>,
+    ): ChildProcessByStdio<null, Readable, Readable>;
+    function spawn(
+        command: string,
+        args: ReadonlyArray<string>,
+        options: SpawnOptionsWithStdioTuple<StdioPipe, StdioNull, StdioNull>,
+    ): ChildProcessByStdio<Writable, null, null>;
+    function spawn(
+        command: string,
+        args: ReadonlyArray<string>,
+        options: SpawnOptionsWithStdioTuple<StdioNull, StdioPipe, StdioNull>,
+    ): ChildProcessByStdio<null, Readable, null>;
+    function spawn(
+        command: string,
+        args: ReadonlyArray<string>,
+        options: SpawnOptionsWithStdioTuple<StdioNull, StdioNull, StdioPipe>,
+    ): ChildProcessByStdio<null, null, Readable>;
+    function spawn(
+        command: string,
+        args: ReadonlyArray<string>,
+        options: SpawnOptionsWithStdioTuple<StdioNull, StdioNull, StdioNull>,
+    ): ChildProcessByStdio<null, null, null>;
+
     function spawn(command: string, args: ReadonlyArray<string>, options: SpawnOptions): ChildProcess;
 
     interface ExecOptions extends CommonOptions {
