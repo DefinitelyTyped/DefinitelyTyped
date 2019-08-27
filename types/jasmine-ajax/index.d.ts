@@ -37,7 +37,7 @@ interface JasmineAjaxRequestTracker {
 	mostRecent(): JasmineAjaxRequest;
 	at(index: number): JasmineAjaxRequest;
 	filter(urlToMatch: RegExp): JasmineAjaxRequest[];
-	filter(urlToMatch: (JasmineAjaxRequest) => boolean): JasmineAjaxRequest[];
+	filter(urlToMatch: (request: JasmineAjaxRequest) => boolean): JasmineAjaxRequest[];
 	filter(urlToMatch: string): JasmineAjaxRequest[];
 }
 
@@ -62,7 +62,7 @@ interface JasmineAjaxRequestStub {
 	andReturn(options: JasmineAjaxRequestStubReturnOptions): void;
 	andError(options: JasmineAjaxRequestStubErrorOptions): void;
 	andTimeout(): void;
-	andCallFunction(functionToCall: (JasmineAjaxRequest) => void): void;
+	andCallFunction(functionToCall: (request: JasmineAjaxRequest) => void): void;
 	matches(fullUrl: string, data: string, method: string): boolean;
 }
 
