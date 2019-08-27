@@ -69,26 +69,26 @@ stripe.balance.listTransactions().then((transactions) => {
 //#region BalanceTransaction tests
 // ##################################################################################
 
-stripe.balanceTransaction.retrieve(
+stripe.balanceTransactions.retrieve(
     "txn_17xMvmBoqMA9o2xkYNH2ewNj",
     (err, balanceTransaction) => {
         // asynchronously called
     }
 );
-stripe.balanceTransaction.retrieve(
+stripe.balanceTransactions.retrieve(
     "txn_17xMvmBoqMA9o2xkYNH2ewNj").then(
     (balanceTransaction) => {
         // asynchronously called
     }
 );
 
-stripe.balanceTransaction.list({ limit: 3 }, (err, balanceTransactions) => {
+stripe.balanceTransactions.list({ limit: 3 }, (err, balanceTransactions) => {
     // asynchronously called
 });
-stripe.balanceTransaction.list({ limit: 3 }).then((balanceTransactions) => {
+stripe.balanceTransactions.list({ limit: 3 }).then((balanceTransactions) => {
     // asynchronously called
 });
-stripe.balanceTransaction.list().then((balanceTransactions) => {
+stripe.balanceTransactions.list().then((balanceTransactions) => {
     // asynchronously called
 });
 //#endregion
@@ -635,6 +635,41 @@ stripe.customers.createSource(
     }
 );
 
+stripe.customers.createSource(
+    "cus_5rfJKDJkuxzh5Q",
+    {
+        source: {
+            country: 'US',
+            currency: 'USD',
+            account_holder_name: 'Account Holder',
+            account_holder_type: 'individual',
+            account_number: '000123456789',
+            routing_number: '110000000'
+        }
+    },
+    (err, bankAcc) => {
+        // asynchronously called
+        bankAcc; // $ExpectType IBankAccount
+    }
+);
+stripe.customers.createSource(
+    "cus_5rfJKDJkuxzh5Q",
+    {
+        source: {
+            country: 'US',
+            currency: 'USD',
+            account_holder_name: 'Account Holder',
+            account_holder_type: 'individual',
+            account_number: '000123456789',
+            routing_number: '110000000'
+        }
+    }).then(
+    (bankAcc) => {
+        // asynchronously called
+        bankAcc; // $ExpectType IBankAccount
+    }
+);
+
 stripe.customers.createSubscription(
     "cus_5rfJKDJkuxzh5Q",
     {
@@ -884,7 +919,7 @@ stripe.accounts.retrieve(
         // asynchronously called
 
         // account should have external_accounts property
-        account.external_accounts; // $ExpectType IList<ICard | IBankAccount>
+        account.external_accounts; // $ExpectType IList<IExternalAccount>
     }
 );
 

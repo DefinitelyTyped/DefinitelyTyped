@@ -58,7 +58,7 @@ declare class Stripe {
 
     accounts: Stripe.resources.Accounts;
     balance: Stripe.resources.Balance;
-    balanceTransaction: Stripe.resources.BalanceTransaction;
+    balanceTransactions: Stripe.resources.BalanceTransaction;
     charges: Stripe.resources.Charges;
     checkout: Stripe.resources.Checkout;
     coupons: Stripe.resources.Coupons;
@@ -129,6 +129,9 @@ declare namespace Stripe {
     type IStripeSource = cards.ICard | bitcoinReceivers.IBitcoinReceiver | bankAccounts.IBankAccount | sources.ISource;
 
     namespace accounts {
+        // Helper
+        type IExternalAccount = bankAccounts.IBankAccount | cards.ICard;
+
         interface IAccount extends IResourceObject, IAccountShared {
             /**
              * Value is "account"
@@ -210,7 +213,7 @@ declare namespace Stripe {
               * External accounts (bank accounts and debit cards) currently
               * attached to this account
               */
-            external_accounts?: IList<cards.ICard | bankAccounts.IBankAccount>;
+            external_accounts?: IList<IExternalAccount>;
         }
 
         interface IAccountCreationOptions extends IAccountUpdateOptions {
@@ -2526,7 +2529,7 @@ declare namespace Stripe {
              * dictionary containing a user’s credit card details (with the options shown
              * below). Stripe will automatically validate the card.
              */
-            source: string | cards.ICardSourceCreationOptions;
+            source: string | cards.ICardSourceCreationOptions | bankAccounts.ISourceCreationOptions;
         }
 
         interface ICustomerInvoiceSettings {
@@ -2555,6 +2558,10 @@ declare namespace Stripe {
              * This can be unset by updating the value to null and then saving.
              */
             footer?: string;
+        }
+
+        interface ICustomerBankAccountSourceCreationOptions extends ICustomerSourceCreationOptions {
+            source: bankAccounts.ISourceCreationOptions;
         }
 
         interface ICustomerCardSourceCreationOptions extends ICustomerSourceCreationOptions {
@@ -5617,16 +5624,16 @@ declare namespace Stripe {
             /**
              * A flat fee for the tier to be added into the total amount
              */
-            flat_amount: number;
+            flat_amount: number | null;
 
             /**
              * Up to and including to this quantity will be contained in the tier.
              */
-            up_to: number;
+            up_to: number | null;
             /**
              * Per unit price for units relevant to the tier.
              */
-            unit_amount: number;
+            unit_amount: number | null;
         }
 
         interface ITransformUsage {
@@ -5664,7 +5671,7 @@ declare namespace Stripe {
             /**
              * The amount in cents to be charged on the interval specified
              */
-            amount: number;
+            amount: number | null;
 
             /**
              * Describes how to compute the price per period. Either `per_unit` or `tiered`. `per_unit` indicates that the fixed amount (specified in `amount`) will be charged per unit in `quantity` (for plans with `usage_type=licensed`), or per unit of total usage (for plans with `usage_type=metered`). `tiered` indicates that the unit pricing will be computed using a tiering strategy as defined using the `tiers` and `tiers_mode` attributes.
@@ -5729,7 +5736,7 @@ declare namespace Stripe {
             /**
              * Default number of trial days when subscribing a customer to this plan using `trial_from_plan=true`.
              */
-            trial_period_days: number;
+            trial_period_days: number | null;
 
             /**
              * Configures how the quantity per period should be determined, can be either `metered` or `licensed`. `licensed` will automatically bill the `quantity` set for a plan when adding it to a subscription, `metered` will aggregate the total usage based on usage records. Defaults to `licensed`.
@@ -7186,14 +7193,20 @@ declare namespace Stripe {
              * A positive decimal that represents the fee percentage of the subscription invoice amount that will be transferred to
              * the application owner's Stripe account each billing period.
              */
-            application_fee_percent: number;
+            application_fee_percent: number | null;
+
+            /**
+             * Either `charge_automatically`, or `send_invoice`.
+             * This field has been renamed to collection_method and will be removed in a future API version.
+             */
+            billing: SubscriptionBilling;
 
             /**
              * Either "charge_automatically", or "send_invoice". When charging automatically, Stripe will attempt to pay this subscription at the
              * end of the cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an
              * invoice with payment instructions.
              */
-            billing: SubscriptionBilling;
+            collection_method: SubscriptionBilling;
 
             /**
              * Determines the date of the first full invoice, and, for plans with month or year intervals, the day of the month
@@ -7221,7 +7234,7 @@ declare namespace Stripe {
             /**
              * A date in the future at which the subscription will automatically get canceled.
              */
-            cancel_at: number;
+            cancel_at: number | null;
 
             /**
              * If the subscription has been canceled with the at_period_end flag set to true, cancel_at_period_end on the
@@ -7274,7 +7287,7 @@ declare namespace Stripe {
              * It must belong to the customer associated with the subscription and be in a chargeable state.
              * If not set, defaults to the customer’s default source. [Expandable]
              */
-            default_source: string;
+            default_source: string | null;
 
             /**
              * Describes the current discount applied to this subscription, if there is one. When billing, a discount applied to a
@@ -7357,7 +7370,7 @@ declare namespace Stripe {
             /**
              * If provided, each invoice created by this subscription will apply the tax rate, increasing the amount billed to the customer.
              */
-            tax_percent: number;
+            tax_percent: number | null;
 
             /**
              * If the subscription has a trial, the end of that trial.
@@ -7707,7 +7720,7 @@ declare namespace Stripe {
             /**
              * The quantity of the plan to which the customer should be subscribed.
              */
-            quantity: number;
+            quantity?: number;
 
             /**
              * The subscription this subscription_item belongs to.
@@ -9096,6 +9109,18 @@ declare namespace Stripe {
             listCards(customerId: string, response?: IResponseFn<IList<cards.ICard>>): IListPromise<cards.ICard>;
 
             /**
+             * When adding a bank account to a customer, the parameter name is source. When
+             * adding to an account, the parameter name is external_account. The
+             * value can either be a token, like the ones returned by our Stripe.js, or a
+             * dictionary containing a user’s bank account details.
+             *
+             * @returns Returns the bank account object.
+             *
+             * @param customerId The customer ID to which to add the bank account.
+             */
+            createSource(customerId: string, data: customers.ICustomerBankAccountSourceCreationOptions, options: HeaderOptions, response?: IResponseFn<bankAccounts.IBankAccount>): Promise<bankAccounts.IBankAccount>;
+            createSource(customerId: string, data: customers.ICustomerBankAccountSourceCreationOptions, response?: IResponseFn<bankAccounts.IBankAccount>): Promise<bankAccounts.IBankAccount>;
+            /**
              * When adding a card to a customer, the parameter name is source. When
              * adding to an account, the parameter name is external_account. The
              * value can either be a token, like the ones returned by our Stripe.js, or a
@@ -9109,15 +9134,15 @@ declare namespace Stripe {
             createSource(customerId: string, data: customers.ICustomerCardSourceCreationOptions, options: HeaderOptions, response?: IResponseFn<cards.ICard>): Promise<cards.ICard>;
             createSource(customerId: string, data: customers.ICustomerCardSourceCreationOptions, response?: IResponseFn<cards.ICard>): Promise<cards.ICard>;
             /**
-             * When adding a card to a customer, the parameter name is source. When
+             * When adding a card or bank account to a customer, the parameter name is source. When
              * adding to an account, the parameter name is external_account. The
              * value can either be a token, like the ones returned by our Stripe.js, or a
-             * dictionary containing a user’s credit card details.
+             * dictionary containing a user’s credit card or bank account details.
              * Stripe will automatically validate the card.
              *
              * @returns Returns the card or bank account object.
              *
-             * @param customerId The customer ID to which to add the card.
+             * @param customerId The customer ID to which to add the card or bank account.
              */
             createSource(customerId: string, data: customers.ICustomerSourceCreationOptions, options: HeaderOptions, response?: IResponseFn<IStripeSource>): Promise<IStripeSource>;
             createSource(customerId: string, data: customers.ICustomerSourceCreationOptions, response?: IResponseFn<IStripeSource>): Promise<IStripeSource>;

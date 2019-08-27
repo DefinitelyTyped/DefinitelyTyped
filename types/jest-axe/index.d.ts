@@ -34,7 +34,10 @@ export interface AxeOptions {
  * @param options   Options to run aXe.
  * @returns Promise for the results of running aXe.
  */
-export type JestAxe = (html: string, options?: AxeOptions) => Promise<AxeResults>;
+export type JestAxe = (
+  html: Element | string,
+  options?: AxeOptions,
+) => Promise<AxeResults>;
 
 /**
  * Creates a new aXe verifier function.

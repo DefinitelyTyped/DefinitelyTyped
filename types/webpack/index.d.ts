@@ -1292,6 +1292,59 @@ declare namespace webpack {
             childAssets: Record<string, string[]>;
             isOverSizeLimit?: boolean;
         }
+
+        type ReasonType
+            = 'amd define'
+            | 'amd require array'
+            | 'amd require context'
+            | 'amd require'
+            | 'cjs require context'
+            | 'cjs require'
+            | 'context element'
+            | 'delegated exports'
+            | 'delegated source'
+            | 'dll entry'
+            | 'accepted harmony modules'
+            | 'harmony accept'
+            | 'harmony export expression'
+            | 'harmony export header'
+            | 'harmony export imported specifier'
+            | 'harmony export specifier'
+            | 'harmony import specifier'
+            | 'harmony side effect evaluation'
+            | 'harmony init'
+            | 'import() context development'
+            | 'import() context production'
+            | 'import() eager'
+            | 'import() weak'
+            | 'import()'
+            | 'json exports'
+            | 'loader'
+            | 'module.hot.accept'
+            | 'module.hot.decline'
+            | 'multi entry'
+            | 'null'
+            | 'prefetch'
+            | 'require.context'
+            | 'require.ensure'
+            | 'require.ensure item'
+            | 'require.include'
+            | 'require.resolve'
+            | 'single entry'
+            | 'wasm export import'
+            | 'wasm import';
+
+        interface Reason {
+            moduleId: number | string | null;
+            moduleIdentifier: string | null;
+            module: string | null;
+            moduleName: string | null;
+            type: ReasonType;
+            explanation?: string;
+            userRequest: string;
+            loc: string;
+        }
+
         interface FnModules {
             assets?: string[];
             built: boolean;
@@ -1321,16 +1374,7 @@ declare namespace webpack {
             prefetched: boolean;
             profile: any; // TODO
             providedExports?: any; // TODO
-            reasons: {
-                explanation: string | undefined;
-                loc?: string;
-                module: string | null;
-                moduleId: number | string | null;
-                moduleIdentifier: string | null;
-                moduleName: string |  null;
-                type: any; // TODO
-                userRequest: any; // TODO
-            };
+            reasons: Reason[];
             size: number;
             source?: string;
             usedExports?: boolean;

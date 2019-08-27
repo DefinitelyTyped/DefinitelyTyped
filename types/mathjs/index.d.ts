@@ -1614,7 +1614,7 @@ declare namespace math {
             array: number[],
             number?: number,
             weights?: number[]
-        ): number;
+        ): number | number[];
 
         /**
          * Return a random number larger or equal to min and smaller than max

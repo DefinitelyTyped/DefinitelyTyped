@@ -14,6 +14,7 @@ import * as events from 'events';
 import * as http from 'http';
 import * as https from 'https';
 import * as net from 'net';
+import * as zlib from 'zlib';
 
 // WebSocket socket.
 declare class WebSocket extends events.EventEmitter {
@@ -161,6 +162,7 @@ declare namespace WebSocket {
             dictionary?: Buffer | Buffer[] | DataView;
             info?: boolean;
         };
+        zlibInflateOptions?: zlib.ZlibOptions;
         threshold?: number;
         concurrencyLimit?: number;
     }

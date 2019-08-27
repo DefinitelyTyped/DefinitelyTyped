@@ -949,6 +949,12 @@
             "asOfVersion": "1.1.0"
         },
         {
+            "libraryName": "express-graphql",
+            "typingsPackageName": "express-graphql",
+            "sourceRepoURL": "https://github.com/graphql/express-graphql",
+            "asOfVersion": "0.9.0"
+        },
+        {
             "libraryName": "express-validator",
             "typingsPackageName": "express-validator",
             "sourceRepoURL": "https://github.com/ctavan/express-validator",
@@ -1229,6 +1235,12 @@
             "typingsPackageName": "graphene-pk11",
             "sourceRepoURL": "https://github.com/PeculiarVentures/graphene",
             "asOfVersion": "2.0.31"
+        },
+        {
+            "libraryName": "graphql",
+            "typingsPackageName": "graphql",
+            "sourceRepoURL": "https://github.com/graphql/graphql-js",
+            "asOfVersion": "14.5.0"
         },
         {
             "libraryName": "gravatar-url",
@@ -3161,6 +3173,12 @@
             "typingsPackageName": "samchon-library",
             "sourceRepoURL": "https://github.com/samchon/framework",
             "asOfVersion": "0.1.0"
+        },
+        {
+            "libraryName": "sanitize-filename",
+            "typingsPackageName": "sanitize-filename",
+            "sourceRepoURL": "https://github.com/parshap/node-sanitize-filename",
+            "asOfVersion": "1.6.3"
         },
         {
             "libraryName": "node-scanf",

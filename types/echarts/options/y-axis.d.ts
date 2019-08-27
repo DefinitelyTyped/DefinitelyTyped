@@ -32,6 +32,15 @@ declare namespace echarts {
              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#yAxis.type
              */
             type?: BasicComponents.CartesianAxis.Type;
+
+            /**
+             * Offset of this axis relative to default position.
+             * Useful when multiple axis of this type has same position value.
+             *
+             * @default 0
+             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#yAxis.offset
+             */
+            offset?: number;
         }
     }
 }
