@@ -2,7 +2,7 @@
 // Project: https://developers.google.com/cast/docs/caf_receiver_overview
 // Definitions by: Samuel Maddock <https://github.com/samuelmaddock>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 3.0
 
 /// <reference types="chrome/chrome-cast" />
 
@@ -11,6 +11,7 @@
 ////////////////////
 interface Window {
   cast: typeof cast;
+  __onGCastApiAvailable(available: boolean): void;
 }
 
 ////////////////////
