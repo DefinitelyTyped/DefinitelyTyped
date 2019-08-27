@@ -98,9 +98,9 @@ declare module "child_process" {
         O extends null | Readable,
         E extends null | Readable,
     > extends ChildProcess {
-        stdin: I,
-        stdout: O,
-        stderr: E,
+        stdin: I;
+        stdout: O;
+        stderr: E;
         readonly stdio: [
             I,
             O,
