@@ -4,13 +4,12 @@ export default class Viewport {
   intersectionTolerance: number;
   outer: HTMLElement;
 
-  // TODO Add these definitions
-  top: object;
-  left: object;
-  width: object;
-  height: object;
-  bottom: object;
-  right: object;
+  top: number;
+  left: number;
+  width: number;
+  height: number;
+  bottom: number;
+  right: number;
 
   constructor(outer: HTMLElement, options?: { intersectionTolerance: number });
   intersectsRegion(region: Region): boolean;
