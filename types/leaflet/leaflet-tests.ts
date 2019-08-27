@@ -167,6 +167,79 @@ map.off('moveend');
 map.off('moveend', () => {});
 map.off('moveend', () => {}, {});
 
+map.on('baselayerchange', event => {
+    console.log(event.name);
+});
+map.on('overlaydadd', event => {
+    console.log(event.name);
+});
+map.on('overlayremove', event => {
+    console.log(event.name);
+});
+map.on('layeradd', event => {
+    console.log(event.layer);
+});
+map.on('layerremove', event => {
+    console.log(event.layer);
+});
+map.on('resize', event => {
+    console.log(event.oldSize);
+});
+map.on('popupopen', event => {
+    console.log(event.popup);
+});
+map.on('popupclose', event => {
+    console.log(event.popup);
+});
+map.on('tooltipopen', event => {
+    console.log(event.tooltip);
+});
+map.on('tooltipclose', event => {
+    console.log(event.tooltip);
+});
+map.on('locationerror', event => {
+    console.log(event.code);
+});
+map.on('locationfound', event => {
+    console.log(event.latlng);
+});
+map.on('click', event => {
+    console.log(event.x);
+});
+map.on('dblclick', event => {
+    console.log(event.x);
+});
+map.on('mousedown', event => {
+    console.log(event.x);
+});
+map.on('mouseup', event => {
+    console.log(event.x);
+});
+map.on('mouseover', event => {
+    console.log(event.x);
+});
+map.on('mouseout', event => {
+    console.log(event.x);
+});
+map.on('mousemove', event => {
+    console.log(event.x);
+});
+map.on('contextmenu', event => {
+    console.log(event.x);
+});
+map.on('keypress', event => {
+    console.log(event.shiftKey);
+});
+map.on('keydown', event => {
+    console.log(event.shiftKey);
+});
+map.on('keyup', event => {
+    console.log(event.shiftKey);
+});
+map.on('preclick', event => {
+    console.log(event.shiftKey);
+});
+
 map.removeEventListener('moveend');
 map.removeEventListener('moveend', () => {});
 map.removeEventListener('moveend', () => {}, {});

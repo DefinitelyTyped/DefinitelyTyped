@@ -224,10 +224,10 @@ export function bounds(topLeft: PointExpression, bottomRight: PointExpression): 
 
 export function bounds(points: Point[] | BoundsLiteral): Bounds;
 
-export type LeafletEventHandlerFn = (event: LeafletEvent) => void;
+export type LeafletEventHandlerFn<EventType extends LeafletEvent> = (event: EventType) => void;
 
 export interface LeafletEventHandlerFnMap {
-    [type: string]: LeafletEventHandlerFn;
+    [type: string]: LeafletEventHandlerFn<LeafletEvent>;
 }
 
 /**
@@ -236,19 +236,19 @@ export interface LeafletEventHandlerFnMap {
  * with an object (e.g. the user clicks on the map, causing the map to fire
  * 'click' event).
  */
-export abstract class Evented extends Class {
+export abstract class Evented<EventMap extends LeafletEventHandlerFnMap> extends Class {
     /**
      * Adds a listener function (fn) to a particular event type of the object.
      * You can optionally specify the context of the listener (object the this
      * keyword will point to). You can also pass several space-separated types
      * (e.g. 'click dblclick').
      */
-    on(type: string, fn: LeafletEventHandlerFn, context?: any): this;
+    on<K extends keyof EventMap>(type: K, fn: EventMap[K], context?: any): this;
 
     /**
      * Adds a set of type/listener pairs, e.g. {click: onClick, mousemove: onMouseMove}
      */
-    on(eventMap: LeafletEventHandlerFnMap): this;
+    on(eventMap: EventMap): this;
 
     /**
      * Removes a previously added listener function. If no function is specified,
@@ -257,15 +257,13 @@ export abstract class Evented extends Class {
      * to off in order to remove the listener.
      */
     // With an eventMap there are no additional arguments allowed
-    // tslint:disable-next-line:unified-signatures
-    off(type: string, fn?: LeafletEventHandlerFn, context?: any): this;
+    off<K extends keyof EventMap>(type: K, fn?: EventMap[K], context?: any): this;
 
     /**
      * Removes a set of type/listener pairs.
      */
     // With an eventMap there are no additional arguments allowed
-    // tslint:disable-next-line:unified-signatures
-    off(eventMap: LeafletEventHandlerFnMap): this;
+    on(eventMap: EventMap): this;
     /**
      * Removes all listeners to all events on the object.
      */
@@ -276,32 +274,32 @@ export abstract class Evented extends Class {
      * object — the first argument of the listener function will contain its properties.
      * The event might can optionally be propagated to event parents.
      */
-    fire(type: string, data?: any, propagate?: boolean): this;
+    fire<K extends keyof EventMap>(type: K, data?: any, propagate?: boolean): this;
 
     /**
      * Returns true if a particular event type has any listeners attached to it.
      */
-    listens(type: string): boolean;
+    listens<K extends keyof EventMap>(type: K): boolean;
 
     /**
      * Behaves as on(...), except the listener will only get fired once and then removed.
      */
-    once(type: string, fn: LeafletEventHandlerFn, context?: any): this;
+    once<K extends keyof EventMap>(type: K, fn: EventMap[K], context?: any): this;
 
     /**
      * Behaves as on(...), except the listener will only get fired once and then removed.
      */
-    once(eventMap: LeafletEventHandlerFnMap): this;
+    once(eventMap: EventMap): this;
 
     /**
      * Adds an event parent - an Evented that will receive propagated events
      */
-    addEventParent(obj: Evented): this;
+    addEventParent(obj: Evented<LeafletEventHandlerFnMap>): this;
 
     /**
      * Removes an event parent, so it will stop receiving propagated events
      */
-    removeEventParent(obj: Evented): this;
+    removeEventParent(obj: Evented<LeafletEventHandlerFnMap>): this;
 
     /**
      * Alias for on(...)
@@ -311,14 +309,14 @@ export abstract class Evented extends Class {
      * keyword will point to). You can also pass several space-separated types
      * (e.g. 'click dblclick').
      */
-    addEventListener(type: string, fn: LeafletEventHandlerFn, context?: any): this;
+    addEventListener<K extends keyof EventMap>(type: K, fn: EventMap[K], context?: any): this;
 
     /**
      * Alias for on(...)
      *
      * Adds a set of type/listener pairs, e.g. {click: onClick, mousemove: onMouseMove}
      */
-    addEventListener(eventMap: LeafletEventHandlerFnMap): this;
+    addEventListener(eventMap: EventMap): this;
 
     /**
      * Alias for off(...)
@@ -328,14 +326,14 @@ export abstract class Evented extends Class {
      * Note that if you passed a custom context to on, you must pass the same context
      * to off in order to remove the listener.
      */
-    removeEventListener(type: string, fn?: LeafletEventHandlerFn, context?: any): this;
+    removeEventListener<K extends keyof EventMap>(type: K, fn?: EventMap[K], context?: any): this;
 
     /**
      * Alias for off(...)
      *
      * Removes a set of type/listener pairs.
      */
-    removeEventListener(eventMap: LeafletEventHandlerFnMap): this;
+    removeEventListener(eventMap: EventMap): this;
 
     /**
      * Alias for off()
@@ -349,14 +347,14 @@ export abstract class Evented extends Class {
      *
      * Behaves as on(...), except the listener will only get fired once and then removed.
      */
-    addOneTimeEventListener(type: string, fn: LeafletEventHandlerFn, context?: any): this;
+    addOneTimeEventListener<K extends keyof EventMap>(type: K, fn: EventMap[K], context?: any): this;
 
     /**
      * Alias for once(...)
      *
      * Behaves as on(...), except the listener will only get fired once and then removed.
      */
-    addOneTimeEventListener(eventMap: LeafletEventHandlerFnMap): this;
+    addOneTimeEventListener(eventMap: EventMap): this;
 
     /**
      * Alias for fire(...)
@@ -365,14 +363,85 @@ export abstract class Evented extends Class {
      * object — the first argument of the listener function will contain its properties.
      * The event might can optionally be propagated to event parents.
      */
-    fireEvent(type: string, data?: any, propagate?: boolean): this;
+    fireEvent<K extends keyof EventMap>(type: K, data?: any, propagate?: boolean): this;
 
     /**
      * Alias for listens(...)
      *
      * Returns true if a particular event type has any listeners attached to it.
      */
-    hasEventListeners(type: string): boolean;
+    hasEventListeners<K extends keyof EventMap>(type: K): boolean;
+}
+
+export interface LayerEventHandlerFnMap extends LeafletEventHandlerFnMap {
+    /**
+     * Fired after the layer is added to a map.
+     */
+    add: LeafletEventHandlerFn<LeafletEvent>;
+
+    /**
+     * Fired after the layer is removed from a map.
+     */
+    remove: LeafletEventHandlerFn<LeafletEvent>;
+
+    /**
+     * Fired when a popup bound to this layer is opened.
+     */
+    popupopen: LeafletEventHandlerFn<PopupEvent>;
+
+    /**
+     * Fired when a popup bound to this layer is closed.
+     */
+    popupclose: LeafletEventHandlerFn<PopupEvent>;
+
+    /**
+     * Fired when a tooltip bound to this layer is opened.
+     */
+    tooltipopen: LeafletEventHandlerFn<TooltipEvent>;
+
+    /**
+     * Fired when a tooltip bound to this layer is closed.
+     */
+    tooltipclose: LeafletEventHandlerFn<TooltipEvent>;
+}
+
+export interface InteractiveLayerEventHandlerFnMap extends LayerEventHandlerFnMap {
+    /**
+     * Fired when the user clicks (or taps) the layer.
+     */
+    click: LeafletEventHandlerFn<MouseEvent>;
+
+    /**
+     * Fired when the user double-clicks (or double-taps) the layer.
+     */
+    dblclick: LeafletEventHandlerFn<MouseEvent>;
+
+    /**
+     * Fired when the user pushes the mouse button on the layer.
+     */
+    mousedown: LeafletEventHandlerFn<MouseEvent>;
+
+    /**
+     * Fired when the user releases the mouse button pushed on the layer.
+     */
+    mouseup: LeafletEventHandlerFn<MouseEvent>;
+
+    /**
+     * Fired when the mouse enters the layer.
+     */
+    mouseover: LeafletEventHandlerFn<MouseEvent>;
+
+    /**
+     * Fired when the mouse leaves the layer.
+     */
+    mouseout: LeafletEventHandlerFn<MouseEvent>;
+
+    /**
+     * Fired when the user right-clicks on the layer, prevents default browser context menu from showing if there are
+     * listeners on this event. Also fired on mobile when the user holds a single touch for a second (also called long
+     * press).
+     */
+    contextmenu: LeafletEventHandlerFn<MouseEvent>;
 }
 
 /**
@@ -380,7 +449,7 @@ export abstract class Evented extends Class {
  * Used internally for map and marker dragging. Only works for elements
  * that were positioned with [`L.DomUtil.setPosition`](#domutil-setposition).
  */
-export class Draggable extends Evented {
+export class Draggable extends Evented<LeafletEventHandlerFnMap> {
     constructor(element: HTMLElement, dragStartTarget?: HTMLElement, preventOutline?: boolean);
 
     enable(): void;
@@ -400,7 +469,7 @@ export interface InteractiveLayerOptions extends LayerOptions {
     bubblingMouseEvents?: boolean;
 }
 
-export class Layer extends Evented {
+export class Layer<M extends LayerEventHandlerFnMap = LayerEventHandlerFnMap> extends Evented<M> {
     constructor(options?: LayerOptions);
     addTo(map: Map | LayerGroup): this;
     remove(): this;
@@ -467,7 +536,39 @@ export interface InternalTiles {
     };
 }
 
-export class GridLayer extends Layer {
+export interface GridLayerEventHandlerFnMap extends LayerEventHandlerFnMap {
+    /**
+     * Fired when the grid layer starts loading tiles.
+     */
+    loading: LeafletEventHandlerFn<LeafletEvent>;
+
+    /**
+     * Fired when a tile is removed (e.g. when a tile goes off the screen).
+     */
+    tileunload: LeafletEventHandlerFn<TileEvent>;
+
+    /**
+     * Fired when a tile is requested and starts loading.
+     */
+    tileloadstart: LeafletEventHandlerFn<TileEvent>;
+
+    /**
+     * Fired when there is an error loading a tile.
+     */
+    tileerror: LeafletEventHandlerFn<TileErrorEvent>;
+
+    /**
+     * Fired when a tile loads.
+     */
+    tileload: LeafletEventHandlerFn<TileEvent>;
+
+    /**
+     * Fired when the grid layer loaded all visible tiles.
+     */
+    load: LeafletEventHandlerFn<LeafletEvent>;
+}
+
+export class GridLayer extends Layer<GridLayerEventHandlerFnMap> {
     constructor(options?: GridLayerOptions);
     bringToFront(): this;
     bringToBack(): this;
@@ -569,7 +670,18 @@ export interface ImageOverlayOptions extends InteractiveLayerOptions {
     className?: string;
 }
 
-export class ImageOverlay extends Layer {
+export interface ImageOverlayEventHandlerFnMap extends InteractiveLayerEventHandlerFnMap {
+    /**
+     * Fired when the ImageOverlay layer has loaded its image.
+     */
+    load: LeafletEventHandlerFn<LeafletEvent>;
+    /**
+     * Fired when the ImageOverlay layer fails to load its image.
+     */
+    error: LeafletEventHandlerFn<LeafletEvent>;
+}
+
+export class ImageOverlay extends Layer<ImageOverlayEventHandlerFnMap> {
     constructor(imageUrl: string, bounds: LatLngBoundsExpression, options?: ImageOverlayOptions);
     setOpacity(opacity: number): this;
     bringToFront(): this;
@@ -597,7 +709,9 @@ export function imageOverlay(
     options?: ImageOverlayOptions,
 ): ImageOverlay;
 
-export class SVGOverlay extends Layer {
+export interface SVGOverlayEventHandlerFnMap extends ImageOverlayEventHandlerFnMap {}
+
+export class SVGOverlay extends Layer<SVGOverlayEventHandlerFnMap> {
     /** SVGOverlay doesn't extend ImageOverlay because SVGOverlay.getElement returns SVGElement */
     constructor(svgImage: string | SVGElement, bounds: LatLngBoundsExpression, options?: ImageOverlayOptions);
     setOpacity(opacity: number): this;
@@ -635,7 +749,14 @@ export interface VideoOverlayOptions extends ImageOverlayOptions {
     keepAspectRatio?: boolean;
 }
 
-export class VideoOverlay extends Layer {
+export interface VideoOverlayEventHandlerFnMap extends ImageOverlayEventHandlerFnMap {
+    /**
+     * Fired when the video has finished loading the first frame.
+     */
+    load: LeafletEventHandlerFn<LeafletEvent>;
+}
+
+export class VideoOverlay extends Layer<VideoOverlayEventHandlerFnMap> {
     /** VideoOverlay doesn't extend ImageOverlay because VideoOverlay.getElement returns HTMLImageElement */
     constructor(
         video: string | string[] | HTMLVideoElement,
@@ -688,7 +809,7 @@ export interface PathOptions extends InteractiveLayerOptions {
     className?: string;
 }
 
-export abstract class Path extends Layer {
+export abstract class Path extends Layer<InteractiveLayerEventHandlerFnMap> {
     redraw(): this;
     setStyle(style: PathOptions): this;
     bringToFront(): this;
@@ -769,7 +890,7 @@ export interface RendererOptions extends LayerOptions {
     padding?: number;
 }
 
-export class Renderer extends Layer {
+export class Renderer extends Layer<LayerEventHandlerFnMap> {
     constructor(options?: RendererOptions);
 
     options: RendererOptions;
@@ -789,12 +910,14 @@ export class Canvas extends Renderer {}
 
 export function canvas(options?: RendererOptions): Canvas;
 
+export interface LayerGroupEventHandlerFnMap extends LayerEventHandlerFnMap {}
+
 /**
  * Used to group several layers and handle them as one.
  * If you add it to the map, any layers added or removed from the group will be
  * added/removed on the map as well. Extends Layer.
  */
-export class LayerGroup<P = any> extends Layer {
+export class LayerGroup<P = any, M extends LayerGroupEventHandlerFnMap = LayerGroupEventHandlerFnMap> extends Layer<M> {
     constructor(layers?: Layer[], options?: LayerOptions);
 
     /**
@@ -868,11 +991,23 @@ export class LayerGroup<P = any> extends Layer {
  */
 export function layerGroup(layers?: Layer[], options?: LayerOptions): LayerGroup;
 
+export interface FeatureGroupEventHandlerFnMap extends LayerGroupEventHandlerFnMap {
+    /**
+     * Fired when a layer is added to this FeatureGroup.
+     */
+    layeradd: LeafletEventHandlerFn<LayerEvent>;
+
+    /**
+     * Fired when a layer is removed from this FeatureGroup.
+     */
+    layerremove: LeafletEventHandlerFn<LayerEvent>;
+}
+
 /**
  * Extended LayerGroup that also has mouse events (propagated from
  * members of the group) and a shared bindPopup method.
  */
-export class FeatureGroup<P = any> extends LayerGroup<P> {
+export class FeatureGroup<P = any> extends LayerGroup<P, FeatureGroupEventHandlerFnMap> {
     /**
      * Sets the given path options to each layer of the group that has a setStyle method.
      */
@@ -1222,7 +1357,9 @@ export interface PopupOptions extends DivOverlayOptions {
 
 export type Content = string | HTMLElement;
 
-export class Popup extends Layer {
+export interface PopupEventHandlerFnMap extends LayerEventHandlerFnMap {}
+
+export class Popup extends Layer<PopupEventHandlerFnMap> {
     constructor(options?: PopupOptions, source?: Layer);
     getLatLng(): LatLng | undefined;
     setLatLng(latlng: LatLngExpression): this;
@@ -1252,7 +1389,9 @@ export interface TooltipOptions extends DivOverlayOptions {
     opacity?: number;
 }
 
-export class Tooltip extends Layer {
+export interface ToolTipEventHandlerFnMap extends LayerEventHandlerFnMap {}
+
+export class Tooltip extends Layer<ToolTipEventHandlerFnMap> {
     constructor(options?: TooltipOptions, source?: Layer);
     setOpacity(val: number): void;
     getLatLng(): LatLng | undefined;
@@ -1448,7 +1587,196 @@ export interface DefaultMapPanes {
     popupPane: HTMLElement;
 }
 
-export class Map extends Evented {
+interface MapEventHandlerFnMap extends LeafletEventHandlerFnMap {
+    // Layer events
+    /**
+     * Fired when the base layer is changed through the layer control.
+     */
+    baselayerchange: LeafletEventHandlerFn<LayersControlEvent>;
+
+    /**
+     * Fired when an overlay is selected through the layer control.
+     */
+    overlaydadd: LeafletEventHandlerFn<LayersControlEvent>;
+
+    /**
+     * Fired when an overlay is deselected through the layer control.
+     */
+    overlayremove: LeafletEventHandlerFn<LayersControlEvent>;
+
+    /**
+     * Fired when a new layer is added to the map.
+     */
+    layeradd: LeafletEventHandlerFn<LayerEvent>;
+
+    /**
+     * Fired when some layer is removed from the map.
+     */
+    layerremove: LeafletEventHandlerFn<LayerEvent>;
+
+    // Map state change events
+    /**
+     * Fired when the number of zoomlevels on the map is changed due to adding or removing a layer.
+     */
+    zoomlevelschange: LeafletEventHandlerFn<LeafletEvent>;
+
+    /**
+     * Fired when the map is resized.
+     */
+    resize: LeafletEventHandlerFn<ResizeEvent>;
+
+    /**
+     * Fired when the map is destroyed with remove method.
+     */
+    unload: LeafletEventHandlerFn<LeafletEvent>;
+
+    /**
+     * Fired when the map needs to redraw its content (this usually happens on map zoom or load). Very useful for
+     * creating custom overlays.
+     */
+    viewreset: LeafletEventHandlerFn<LeafletEvent>;
+
+    /**
+     * Fired when the map is initialized (when its center and zoom are set for the first time).
+     */
+    load: LeafletEventHandlerFn<LeafletEvent>;
+
+    /**
+     * Fired when the map zoom is about to change (e.g. before zoom animation).
+     */
+    zoomstart: LeafletEventHandlerFn<LeafletEvent>;
+
+    /**
+     * Fired when the view of the map starts changing (e.g. user starts dragging the map).
+     */
+    movestart: LeafletEventHandlerFn<LeafletEvent>;
+
+    /**
+     * Fired repeatedly during any change in zoom level, including zoom and fly animations.
+     */
+    zoom: LeafletEventHandlerFn<LeafletEvent>;
+
+    /**
+     * Fired repeatedly during any movement of the map, including pan and fly animations.
+     */
+    move: LeafletEventHandlerFn<LeafletEvent>;
+
+    /**
+     * Fired when the map has changed, after any animations.
+     */
+    zoomend: LeafletEventHandlerFn<LeafletEvent>;
+
+    /**
+     * Fired when the center of the map stops changing (e.g. user stopped dragging the map).
+     */
+    moveend: LeafletEventHandlerFn<LeafletEvent>;
+
+    // Popup events
+    /**
+     * Fired when a popup is opened in the map.
+     */
+    popupopen: LeafletEventHandlerFn<PopupEvent>;
+
+    /**
+     * Fired when a popup in the map is closed.
+     */
+    popupclose: LeafletEventHandlerFn<PopupEvent>;
+
+    /**
+     * Fired when the map starts autopanning when opening a popup.
+     */
+    autopanstart: LeafletEventHandlerFn<LeafletEvent>;
+
+    // Tooltip events
+    /**
+     * Fired when a tooltip is opened in the map.
+     */
+    tooltipopen: LeafletEventHandlerFn<TooltipEvent>;
+
+    /**
+     * Fired when a tooltip in the map is closed.
+     */
+    tooltipclose: LeafletEventHandlerFn<TooltipEvent>;
+
+    // Location events
+    /**
+     * Fired when geolocation (using the locate method) failed.
+     */
+    locationerror: LeafletEventHandlerFn<ErrorEvent>;
+
+    /**
+     * Fired when geolocation (using the locate method) went successfully.
+     */
+    locationfound: LeafletEventHandlerFn<LocationEvent>;
+
+    // Interaction events
+    /**
+     * Fired when the user clicks (or taps) the map.
+     */
+    click: LeafletEventHandlerFn<MouseEvent>;
+
+    /**
+     * Fired when the user double-clicks (or double-taps) the map.
+     */
+    dblclick: LeafletEventHandlerFn<MouseEvent>;
+
+    /**
+     * Fired when the user pushes the mouse button on the map.
+     */
+    mousedown: LeafletEventHandlerFn<MouseEvent>;
+
+    /**
+     * Fired when the user releases the mouse button on the map.
+     */
+    mouseup: LeafletEventHandlerFn<MouseEvent>;
+
+    /**
+     * Fired when the mouse enters the map.
+     */
+    mouseover: LeafletEventHandlerFn<MouseEvent>;
+
+    /**
+     * Fired when the mouse leaves the map.
+     */
+    mouseout: LeafletEventHandlerFn<MouseEvent>;
+
+    /**
+     * Fired while the mouse moves over the map.
+     */
+    mousemove: LeafletEventHandlerFn<MouseEvent>;
+
+    /**
+     * Fired when the user pushes the right mouse button on the map, prevents default browser context menu from showing
+     * if there are listeners on this event. Also fired on mobile when the user holds a single touch for a second (also
+     * called long press).
+     */
+    contextmenu: LeafletEventHandlerFn<MouseEvent>;
+
+    /**
+     * Fired when the user presses a key from the keyboard that produces a character value while the map is focused.
+     */
+    keypress: LeafletEventHandlerFn<KeyboardEvent>;
+
+    /**
+     * Fired when the user presses a key from the keyboard while the map is focused. Unlike the keypress event, the
+     * keydown event is fired for keys that produce a character value and for keys that do not produce a character
+     * value.
+     */
+    keydown: LeafletEventHandlerFn<KeyboardEvent>;
+
+    /**
+     * Fired when the user releases a key from the keyboard while the map is focused.
+     */
+    keyup: LeafletEventHandlerFn<KeyboardEvent>;
+
+    /**
+     * Fired before mouse click on the map (sometimes useful when you want something to happen on click before any
+     * existing click handlers start running).
+     */
+    preclick: LeafletEventHandlerFn<MouseEvent>;
+}
+
+export class Map extends Evented<MapEventHandlerFnMap> {
     constructor(element: string | HTMLElement, options?: MapOptions);
     getRenderer(layer: Path): Renderer;
 
