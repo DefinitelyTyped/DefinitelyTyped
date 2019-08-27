@@ -26,7 +26,7 @@ interface JasmineAjaxRequest extends XMLHttpRequest {
 
 	respondWith(response: JasmineAjaxResponse): void;
 	responseTimeout(): void;
-	responseError(): void;
+	responseError(options?: JasmineAjaxRequestStubErrorOptions): void;
 }
 
 interface JasmineAjaxRequestTracker {
