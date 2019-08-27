@@ -1,9 +1,7 @@
 import * as places from 'places.js';
-// tslint:disable-next-line:no-duplicate-imports
-import { PlacesOptions, PlacesStaticOptions, PlaceSuggestion } from 'places.js';
 
 // Response
-const chosenPlace: PlaceSuggestion = {
+const chosenPlace: places.PlaceSuggestion = {
     name: 'Adelaide',
     administrative: 'South Australia',
     county: 'City of Adelaide',
@@ -38,7 +36,7 @@ const placesMinimal = places({
 });
 
 // Full usage with reconfiguration
-const fixedOptions: PlacesStaticOptions = {
+const fixedOptions: places.PlacesStaticOptions = {
     appId: 'plXRMF37RRY2',
     apiKey: '05d4d28918b4d77a65c3d1deb0cd8dec',
     container: document.querySelector<HTMLInputElement>('#demo')!,
@@ -55,7 +53,7 @@ const fixedOptions: PlacesStaticOptions = {
     language: 'en',
 };
 
-const reconfigurableOptions: PlacesOptions = {
+const reconfigurableOptions: places.PlacesOptions = {
     language: 'de',
     countries: ['us', 'ru'],
     type: 'city',
@@ -67,7 +65,7 @@ const reconfigurableOptions: PlacesOptions = {
 const placesInstance = places(fixedOptions).configure(reconfigurableOptions);
 
 // Events
-let somePlaces: PlaceSuggestion[];
+let somePlaces: places.PlaceSuggestion[];
 
 placesInstance.on('change', e => {
     // $ExpectType string

@@ -14,7 +14,14 @@ export = places;
 declare function places(options: places.PlacesStaticOptions): places.PlacesAutocomplete;
 
 declare namespace places {
-    type PlaceType = "country" | "city" | "address" | "busStop" | "trainStation" | "townhall" | "airport";
+    type PlaceType
+        = "country"
+        | "city"
+        | "address"
+        | "busStop"
+        | "trainStation"
+        | "townhall"
+        | "airport";
 
     interface PlaceLatLng {
         lat: number;
