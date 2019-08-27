@@ -505,3 +505,10 @@ management.createClient({
         subject: 'subject',
     }
 });
+
+management.createEmailTemplate({name: 'template_name'}).then(data => {console.log(data)});
+management.createEmailTemplate({name: 'template_name'}, (err) => {console.log(err)});
+management.getEmailTemplate({name: 'template_name'}).then(data => {console.log(data)});
+management.getEmailTemplate({name: 'template_name'}, (err, data) => {console.log(data)});
+management.updateEmailTemplate({name: 'template_name'}, {type:'type'}).then(data => {console.log(data)});
+management.updateEmailTemplate({name: 'template_name'}, {type:'type'}, (err, data) => {console.log(data)});
