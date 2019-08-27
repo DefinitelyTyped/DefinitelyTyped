@@ -1,4 +1,4 @@
-// Type definitions for xml2json 0.11.2
+// Type definitions for xml2json 0.11
 // Project: https://github.com/buglabs/node-xml2json
 // Definitions by: Dolan Miu <https://github.com/dolanmiu>
 //                 Igor Strebezhev <https://github.com/xamgore>
@@ -28,7 +28,7 @@ export interface XmlOptions {
     /**
      * Ignores all null values.
      */
-    ignoreNull: boolean;
+    ignoreNull?: boolean;
 }
 
 export interface JsonOptions {
