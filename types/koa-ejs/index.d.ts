@@ -16,7 +16,7 @@ declare namespace koaEjs {
         /** View root directory */
         root: string;
         /** Global layout file, default is layout, set false to disable layout. */
-        layout: string | false;
+        layout?: string | false;
         /** Filename extension for the views. Defaults to html. */
         viewExt?: string;
         /** Cache compiled templates */
