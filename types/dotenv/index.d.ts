@@ -61,6 +61,6 @@ export interface DotenvConfigOutput {
  * @returns an object with a `parsed` key if successful or `error` key if an error occurred
  *
  */
-export function config(options?: DotenvConfigOptions): DotenvConfigOutput;
+export function config(options?: DotenvConfigOptions | string): DotenvConfigOutput;
 /** @deprecated since v7.0.0 Use config instead. */
 export const load: typeof config;
