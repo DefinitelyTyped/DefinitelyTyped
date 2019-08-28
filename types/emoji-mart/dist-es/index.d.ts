@@ -17,20 +17,21 @@ export {
 export { default as emojiIndex } from './utils/emoji-index/emoji-index';
 
 export {
-    BaseEmoji,
-    CustomEmoji,
-    EmojiData,
-    EmojiSkin,
-    default as NimbleEmojiIndex,
+  BaseEmoji,
+  CustomEmoji,
+  EmojiData,
+  EmojiSkin,
+  default as NimbleEmojiIndex,
+  EmojiEntry,
 } from './utils/emoji-index/nimble-emoji-index';
 
 export {
-    Picker,
-    NimblePicker,
-    NimblePickerProps,
-    Emoji,
-    NimbleEmoji,
-    NimbleEmojiProps,
-    Category,
-    CategoryProps
+  Picker,
+  NimblePicker,
+  NimblePickerProps,
+  Emoji,
+  NimbleEmoji,
+  NimbleEmojiProps,
+  Category,
+  CategoryProps,
 } from './components';
