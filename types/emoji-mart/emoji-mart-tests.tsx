@@ -126,7 +126,7 @@ const AutoCompleteExample: React.FC = () => {
         if (!isSingleEmoji(emoji)) {
             emoji = emoji[1];
         }
-        const native = isNativeEmoji(emoji) && emoji.native || '';
+        const native = (isNativeEmoji(emoji) && emoji.native) || '';
         setSearch(search.replace(match[0], native));
     } else if (match && match[1].length > 2) {
         suggestions = emojiIndex.search(match[1]) || [];

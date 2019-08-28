@@ -33,17 +33,17 @@ export interface EmojiProps {
 }
 
 export type CategoryName =
-  | 'search'
-  | 'recent'
-  | 'people'
-  | 'nature'
-  | 'foods'
-  | 'activity'
-  | 'places'
-  | 'objects'
-  | 'symbols'
-  | 'flags'
-  | 'custom';
+    | 'search'
+    | 'recent'
+    | 'people'
+    | 'nature'
+    | 'foods'
+    | 'activity'
+    | 'places'
+    | 'objects'
+    | 'symbols'
+    | 'flags'
+    | 'custom';
 
 // tslint:disable-next-line interface-name
 export interface I18n {

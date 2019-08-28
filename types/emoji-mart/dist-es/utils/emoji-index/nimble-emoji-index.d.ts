@@ -32,10 +32,10 @@ export type EmojiData = BaseEmoji | CustomEmoji;
 export type EmojiEntry = EmojiData | { [variant: number]: EmojiData }; // emoji with skin tones will return
 
 export default class NimbleEmojiIndex {
-                 constructor(data: Data);
-                 search(query: ''): null;
-                 search(query: string): EmojiData[] | null;
-                 emojis: { [emoji: string]: EmojiData };
-                 /** Mapping of string to keyof emojis */
-                 emoticons: { [emoticon: string]: string };
-               }
+    constructor(data: Data);
+    search(query: ''): null;
+    search(query: string): EmojiData[] | null;
+    emojis: { [emoji: string]: EmojiData };
+    /** Mapping of string to keyof emojis */
+    emoticons: { [emoticon: string]: string };
+}
