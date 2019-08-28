@@ -4,22 +4,21 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
-declare module "datadog-winston" {
-    import * as Transport from "winston-transport";
 
-    interface DataDogTransportOptions extends Transport.TransportStreamOptions {
-        apiKey: string;
-        hostname?: string;
-        service?: string;
-        ddsource?: string;
-        ddtags?: string;
-    }
+import * as Transport from "winston-transport";
 
-    class DatadogWinston extends Transport {
-      constructor(options: DataDogTransportOptions);
-
-      log?(info: any, next: () => void): void;
-    }
-
-    export = DatadogWinston;
+interface DataDogTransportOptions extends Transport.TransportStreamOptions {
+    apiKey: string;
+    hostname?: string;
+    service?: string;
+    ddsource?: string;
+    ddtags?: string;
 }
+
+declare class DatadogWinston extends Transport {
+    constructor(options: DataDogTransportOptions);
+
+    log?(info: any, next: () => void): void;
+}
+
+export = DatadogWinston;
