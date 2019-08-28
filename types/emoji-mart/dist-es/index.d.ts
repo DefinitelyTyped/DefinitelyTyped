@@ -20,9 +20,9 @@ export {
     BaseEmoji,
     CustomEmoji,
     EmojiData,
+    EmojiEntry,
     EmojiSkin,
     default as NimbleEmojiIndex,
-    EmojiEntry,
 } from './utils/emoji-index/nimble-emoji-index';
 
 export {
