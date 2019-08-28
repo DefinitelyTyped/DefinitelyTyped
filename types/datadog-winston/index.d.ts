@@ -4,7 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
-
 import * as Transport from "winston-transport";
 
 interface DataDogTransportOptions extends Transport.TransportStreamOptions {
