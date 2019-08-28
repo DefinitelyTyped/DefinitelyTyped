@@ -179,6 +179,7 @@
 /// <reference path="./es/not.d.ts" />
 /// <reference path="./es/nthArg.d.ts" />
 /// <reference path="./es/nth.d.ts" />
+/// <reference path="./es/o.d.ts" />
 /// <reference path="./es/objOf.d.ts" />
 /// <reference path="./es/of.d.ts" />
 /// <reference path="./es/omit.d.ts" />
@@ -435,6 +436,7 @@
 /// <reference path="./src/not.d.ts" />
 /// <reference path="./src/nthArg.d.ts" />
 /// <reference path="./src/nth.d.ts" />
+/// <reference path="./src/o.d.ts" />
 /// <reference path="./src/objOf.d.ts" />
 /// <reference path="./src/of.d.ts" />
 /// <reference path="./src/omit.d.ts" />
@@ -2009,6 +2011,21 @@ declare namespace R {
          * Returns a function which returns its nth argument.
          */
         nthArg(n: number): (...a: readonly any[]) => any;
+
+        /**
+         * o is a curried composition function that returns a unary function. Like compose, o performs right-to-left function composition.
+         * Unlike compose, the rightmost function passed to o will be invoked with only one argument.
+         * Also, unlike compose, o is limited to accepting only 2 unary functions.
+         * The name o was chosen because of its similarity to the mathematical composition operator ∘.
+         */
+        o<T1, T2, R>(f: (x: T2) => R, g: (x: T1) => T2, v: T1): R;
+        o<T1, T2, R>(f: (x: T2) => R, g: (x: T1) => T2): (v: T1) => R;
+        o<T1, T2, R>(
+            f: (x: T2) => R,
+        ): {
+            (g: (x: T1) => T2, v: T1): R;
+            (g: (x: T1) => T2): (v: T1) => R;
+        };
 
         /**
          * Creates an object containing a single key:value pair.
