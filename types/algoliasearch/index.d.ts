@@ -1105,7 +1105,7 @@ declare namespace algoliasearch {
      * 'min' Only keep results with the minimum number of typos
      * 'strict' Hits matching with 2 typos are not retrieved if there are some matching without typos.
      */
-    typoTolerance?: boolean | string;
+    typoTolerance?: boolean | 'min' | 'strict';
     /**
      * If set to false, disables typo tolerance on numeric tokens (numbers).
      * default:
