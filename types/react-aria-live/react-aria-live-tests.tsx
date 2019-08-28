@@ -36,4 +36,4 @@ render(
         </LiveMessenger>
     </LiveAnnouncer>,
     document.getElementById("main")
-)
+);
