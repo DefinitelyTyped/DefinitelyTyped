@@ -111,4 +111,9 @@ async (req: IncomingMessage) => {
     await client.revoke('token', 'hint');
     client.revoke('token', 'hint', {});
     client.revoke('token', 'hint', { revokeBody: {}, clientAssertionPayload: {} });
+    //
+
+    await client.refresh('token');
+    client.refresh('token', {});
+    client.refresh('token', { exchangeBody: {}, clientAssertionPayload: {} });
 };
