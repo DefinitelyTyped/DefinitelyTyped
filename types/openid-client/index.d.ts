@@ -181,18 +181,14 @@ export class Client {
     refresh(refreshToken: string, opts?: RefreshRequestOptions): Promise<TokenSet>;
 }
 
-type PartialRecord<K extends keyof any, T> = {
-    [P in K]?: T;
-};
-
-export class TokenSet implements PartialRecord<string, any> {
+export class TokenSet {
     readonly access_token?: string;
     readonly token_type?: string;
     readonly id_token?: string;
     readonly refresh_token?: string;
     readonly expires_at?: number;
     readonly expires_in?: number;
-    readonly [key: string]: any;
+    readonly [key: string]: unknown;
 
     expired(): boolean;
 
