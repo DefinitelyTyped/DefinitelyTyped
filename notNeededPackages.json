@@ -949,6 +949,12 @@
             "asOfVersion": "1.1.0"
         },
         {
+            "libraryName": "express-graphql",
+            "typingsPackageName": "express-graphql",
+            "sourceRepoURL": "https://github.com/graphql/express-graphql",
+            "asOfVersion": "0.9.0"
+        },
+        {
             "libraryName": "express-validator",
             "typingsPackageName": "express-validator",
             "sourceRepoURL": "https://github.com/ctavan/express-validator",
@@ -1231,6 +1237,12 @@
             "asOfVersion": "2.0.31"
         },
         {
+            "libraryName": "graphql",
+            "typingsPackageName": "graphql",
+            "sourceRepoURL": "https://github.com/graphql/graphql-js",
+            "asOfVersion": "14.5.0"
+        },
+        {
             "libraryName": "gravatar-url",
             "typingsPackageName": "gravatar-url",
             "sourceRepoURL": "https://github.com/sindresorhus/gravatar-url",
@@ -1351,10 +1363,22 @@
             "asOfVersion": "2.1.0"
         },
         {
+            "libraryName": "i18next",
+            "typingsPackageName": "i18next",
+            "sourceRepoURL": "https://github.com/i18next/i18next",
+            "asOfVersion": "13.0.0"
+        },
+        {
             "libraryName": "i18next-browser-languagedetector",
             "typingsPackageName": "i18next-browser-languagedetector",
             "sourceRepoURL": "https://github.com/i18next/i18next-browser-languagedetector",
             "asOfVersion": "3.0.0"
+        },
+        {
+            "libraryName": "i18next-express-middleware",
+            "typingsPackageName": "i18next-express-middleware",
+            "sourceRepoURL": "https://github.com/i18next/i18next-express-middleware",
+            "asOfVersion": "1.7.0"
         },
         {
             "libraryName": "i18next-xhr-backend",
@@ -3151,6 +3175,12 @@
             "asOfVersion": "0.1.0"
         },
         {
+            "libraryName": "sanitize-filename",
+            "typingsPackageName": "sanitize-filename",
+            "sourceRepoURL": "https://github.com/parshap/node-sanitize-filename",
+            "asOfVersion": "1.6.3"
+        },
+        {
             "libraryName": "node-scanf",
             "typingsPackageName": "scanf",
             "sourceRepoURL": "https://github.com/Lellansin/node-scanf",
@@ -3599,6 +3629,12 @@
             "typingsPackageName": "trim-newlines",
             "sourceRepoURL": "https://github.com/sindresorhus/trim-newlines",
             "asOfVersion": "3.0.0"
+        },
+        {
+            "libraryName": "ts3-nodejs-library",
+            "typingsPackageName": "ts3-nodejs-library",
+            "sourceRepoURL": "https://github.com/Multivit4min/TS3-NodeJS-Library",
+            "asOfVersion": "2.0.0"
         },
         {
             "libraryName": "TsMonad",

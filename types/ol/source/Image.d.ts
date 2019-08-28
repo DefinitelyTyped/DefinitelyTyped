@@ -23,12 +23,7 @@ export enum ImageSourceEventType {
 export default class ImageSource extends Source {
     constructor(options: Options);
     protected findNearestResolution(resolution: number): number;
-    protected getImageInternal(
-        extent: Extent,
-        resolution: number,
-        pixelRatio: number,
-        projection: Projection
-    ): ImageBase;
+    protected getImageInternal(extent: Extent, resolution: number, pixelRatio: number, projection: Projection): ImageBase;
     protected handleImageChange(event: Event): void;
     getImage(extent: Extent, resolution: number, pixelRatio: number, projection: Projection): ImageBase;
     on(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];

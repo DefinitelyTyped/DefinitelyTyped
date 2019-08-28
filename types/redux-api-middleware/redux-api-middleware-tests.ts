@@ -10,6 +10,8 @@ import {
     getJSON,
     createMiddleware,
     apiMiddleware,
+    RSAAAction,
+    RSAACall
 } from 'redux-api-middleware';
 
 {
@@ -102,4 +104,33 @@ import {
     // $ExpectType (next: Dispatch<AnyAction>) => (action: any) => any
     apiMiddleware({ getState: () => undefined, dispatch: (action: any) => action });
     apiMiddleware(); // $ExpectError
+}
+
+{
+    interface State {
+        path: string;
+        headers: HeadersInit;
+        options: RequestInit;
+        bailout: boolean;
+        body: null;
+    }
+
+    class StateDrivenRSAACall implements RSAACall<State> {
+        endpoint(state: State) { return state.path; }
+        headers(state: State) { return state.headers; }
+        options(state: State) { return state.options; }
+        body(state: State) { return state.body; }
+        bailout(state: State) { return state.bailout; }
+        method: 'GET';
+        types: ['REQ_TYPE', 'SUCCESS_TYPE', 'FAILURE_TYPE'];
+    }
+
+    class NonStateDrivenRSAACall implements RSAACall<State> {
+        endpoint: '/test/endpoint';
+        method: 'GET';
+        headers: { 'Content-Type': 'application/json' };
+        options: { redirect: 'follow' };
+        bailout: true;
+        types: ['REQ_TYPE', 'SUCCESS_TYPE', 'FAILURE_TYPE'];
+    }
 }

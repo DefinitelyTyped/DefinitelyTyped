@@ -185,9 +185,8 @@ describe('React dom test utils', () => {
         it('accepts a sync callback that is void', () => {
             ReactTestUtils.act(() => {});
         });
-        it('rejects an async callback even if void', () => {
-            // $ExpectError
-            ReactTestUtils.act(async () => {});
+        it('accepts an async callback that is void', async () => {
+            await ReactTestUtils.act(async () => {});
         });
         it('rejects a callback that returns null', () => {
             // $ExpectError

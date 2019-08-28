@@ -38,9 +38,9 @@ export interface Vec2 {
 }
 export default class KML extends XMLFeature {
     constructor(opt_options?: Options);
-    readName(source: Document | Element | string): string;
-    readNameFromDocument(doc: Document): string;
-    readNameFromNode(node: Element): string;
+    readName(source: Document | Element | string): string | undefined;
+    readNameFromDocument(doc: Document): string | undefined;
+    readNameFromNode(node: Element): string | undefined;
     readNetworkLinks(source: Document | Element | string): object[];
     readNetworkLinksFromDocument(doc: Document): object[];
     readNetworkLinksFromNode(node: Element): object[];
@@ -54,4 +54,4 @@ export function getDefaultStrokeStyle(): Stroke;
 export function getDefaultStyle(): Style;
 export function getDefaultStyleArray(): Style[];
 export function getDefaultTextStyle(): Text;
-export function readFlatCoordinates(node: Node): number[];
+export function readFlatCoordinates(node: Node): number[] | undefined;

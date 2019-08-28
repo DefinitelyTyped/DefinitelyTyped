@@ -69,26 +69,26 @@ stripe.balance.listTransactions().then((transactions) => {
 //#region BalanceTransaction tests
 // ##################################################################################
 
-stripe.balanceTransaction.retrieve(
+stripe.balanceTransactions.retrieve(
     "txn_17xMvmBoqMA9o2xkYNH2ewNj",
     (err, balanceTransaction) => {
         // asynchronously called
     }
 );
-stripe.balanceTransaction.retrieve(
+stripe.balanceTransactions.retrieve(
     "txn_17xMvmBoqMA9o2xkYNH2ewNj").then(
     (balanceTransaction) => {
         // asynchronously called
     }
 );
 
-stripe.balanceTransaction.list({ limit: 3 }, (err, balanceTransactions) => {
+stripe.balanceTransactions.list({ limit: 3 }, (err, balanceTransactions) => {
     // asynchronously called
 });
-stripe.balanceTransaction.list({ limit: 3 }).then((balanceTransactions) => {
+stripe.balanceTransactions.list({ limit: 3 }).then((balanceTransactions) => {
     // asynchronously called
 });
-stripe.balanceTransaction.list().then((balanceTransactions) => {
+stripe.balanceTransactions.list().then((balanceTransactions) => {
     // asynchronously called
 });
 //#endregion
@@ -635,6 +635,43 @@ stripe.customers.createSource(
     }
 );
 
+stripe.customers.createSource(
+    "cus_5rfJKDJkuxzh5Q",
+    {
+        source: {
+            object: 'bank_account',
+            country: 'US',
+            currency: 'USD',
+            account_holder_name: 'Account Holder',
+            account_holder_type: 'individual',
+            account_number: '000123456789',
+            routing_number: '110000000'
+        }
+    },
+    (err, bankAcc) => {
+        // asynchronously called
+        bankAcc; // $ExpectType IBankAccount
+    }
+);
+stripe.customers.createSource(
+    "cus_5rfJKDJkuxzh5Q",
+    {
+        source: {
+            object: 'bank_account',
+            country: 'US',
+            currency: 'USD',
+            account_holder_name: 'Account Holder',
+            account_holder_type: 'individual',
+            account_number: '000123456789',
+            routing_number: '110000000'
+        }
+    }).then(
+    (bankAcc) => {
+        // asynchronously called
+        bankAcc; // $ExpectType IBankAccount
+    }
+);
+
 stripe.customers.createSubscription(
     "cus_5rfJKDJkuxzh5Q",
     {
@@ -884,7 +921,7 @@ stripe.accounts.retrieve(
         // asynchronously called
 
         // account should have external_accounts property
-        account.external_accounts; // $ExpectType IList<ICard | IBankAccount>
+        account.external_accounts; // $ExpectType IList<IExternalAccount>
     }
 );
 
@@ -1463,6 +1500,45 @@ stripe.paymentIntents.cancel("pi_Aabcxyz01aDfoo", {}, (err, intent) => {});
 stripe.paymentIntents.cancel("pi_Aabcxyz01aDfoo", {}).then((intent) => {});
 stripe.paymentIntents.cancel("pi_Aabcxyz01aDfoo", { cancellation_reason: 'duplicate' }, (err, intent) => {});
 stripe.paymentIntents.cancel("pi_Aabcxyz01aDfoo", { cancellation_reason: 'requested_by_customer' }).then((intent) => {});
+//#endregion
+
+//#region Setup Intents test
+// ##################################################################################
+stripe.setupIntents.create({
+    payment_method_types: ["card"],
+}, (err, intent) => {});
+
+stripe.setupIntents.create({
+    customer: 'cus_5rfJKDJkuxzh5Q',
+    payment_method_types: ["card"],
+}).then((intent) => {});
+
+stripe.setupIntents.list({}, (err, intent) => {});
+stripe.setupIntents.list({}).then((intent) => {});
+stripe.setupIntents.list((err, intent) => {});
+stripe.setupIntents.list().then((intent) => {});
+stripe.setupIntents.list({ limit: 10 }, (err, intent) => {});
+stripe.setupIntents.list({ customer: 'cus_5rfJKDJkuxzh5Q' }).then((intent) => {});
+
+stripe.setupIntents.update("seti_123456789", {
+    customer: 'cus_5rfJKDJkuxzh5Q',
+}, (err, intent) => {});
+stripe.setupIntents.update("seti_123456789", {
+    customer: 'cus_5rfJKDJkuxzh5Q',
+}).then((intent) => {});
+
+stripe.setupIntents.retrieve("seti_123456789", (err, intent) => {});
+stripe.setupIntents.retrieve("seti_123456789").then((intent) => {});
+
+stripe.setupIntents.confirm("seti_123456789", {}, (err, intent) => {});
+stripe.setupIntents.confirm("seti_123456789", {}).then((intent) => {});
+
+stripe.setupIntents.cancel("seti_123456789", (err, intent) => {});
+stripe.setupIntents.cancel("seti_123456789").then((intent) => {});
+stripe.setupIntents.cancel("seti_123456789", {}, (err, intent) => {});
+stripe.setupIntents.cancel("seti_123456789", {}).then((intent) => {});
+stripe.setupIntents.cancel("seti_123456789", { cancellation_reason: 'duplicate' }, (err, intent) => {});
+stripe.setupIntents.cancel("seti_123456789", { cancellation_reason: 'requested_by_customer' }).then((intent) => {});
 //#endregion
 
 //#region Payouts tests

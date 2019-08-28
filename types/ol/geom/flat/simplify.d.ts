@@ -1,12 +1,4 @@
-export function douglasPeucker(
-    flatCoordinates: number[],
-    offset: number,
-    end: number,
-    stride: number,
-    squaredTolerance: number,
-    simplifiedFlatCoordinates: number[],
-    simplifiedOffset: number
-): number;
+export function douglasPeucker(flatCoordinates: number[], offset: number, end: number, stride: number, squaredTolerance: number, simplifiedFlatCoordinates: number[], simplifiedOffset: number): number;
 export function douglasPeuckerArray(
     flatCoordinates: number[],
     offset: number,
@@ -27,15 +19,7 @@ export function douglasPeuckerMultiArray(
     simplifiedOffset: number,
     simplifiedEndss: number[][]
 ): number;
-export function quantize(
-    flatCoordinates: number[],
-    offset: number,
-    end: number,
-    stride: number,
-    tolerance: number,
-    simplifiedFlatCoordinates: number[],
-    simplifiedOffset: number
-): number;
+export function quantize(flatCoordinates: number[], offset: number, end: number, stride: number, tolerance: number, simplifiedFlatCoordinates: number[], simplifiedOffset: number): number;
 export function quantizeArray(
     flatCoordinates: number[],
     offset: number,
@@ -56,15 +40,7 @@ export function quantizeMultiArray(
     simplifiedOffset: number,
     simplifiedEndss: number[][]
 ): number;
-export function radialDistance(
-    flatCoordinates: number[],
-    offset: number,
-    end: number,
-    stride: number,
-    squaredTolerance: number,
-    simplifiedFlatCoordinates: number[],
-    simplifiedOffset: number
-): number;
+export function radialDistance(flatCoordinates: number[], offset: number, end: number, stride: number, squaredTolerance: number, simplifiedFlatCoordinates: number[], simplifiedOffset: number): number;
 export function simplifyLineString(
     flatCoordinates: number[],
     offset: number,

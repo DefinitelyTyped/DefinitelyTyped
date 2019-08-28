@@ -13,12 +13,7 @@ export default class CanvasVectorTileLayerRenderer extends CanvasTileLayerRender
     create(mapRenderer: MapRenderer, layer: Layer): CanvasVectorTileLayerRenderer;
     handles(layer: Layer): boolean;
     handleFontsChanged_(event: Event): void;
-    renderFeature(
-        feature: FeatureLike,
-        squaredTolerance: number,
-        styles: Style | Style[],
-        replayGroup: CanvasReplayGroup
-    ): boolean;
+    renderFeature(feature: FeatureLike, squaredTolerance: number, styles: Style | Style[], replayGroup: CanvasReplayGroup): boolean;
     on(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
     un(type: string | string[], listener: (p0: any) => void): void;

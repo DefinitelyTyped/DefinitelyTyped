@@ -8,6 +8,7 @@ declare namespace Gtag {
   interface Gtag {
     (command: 'config', targetId: string, config?: ControlParams | EventParams | CustomParams): void;
     (command: 'set', config: CustomParams): void;
+    (command: 'js', config: Date): void;
     (command: 'event', eventName: EventNames | string, eventParams?: ControlParams |  EventParams | CustomParams): void;
   }
 

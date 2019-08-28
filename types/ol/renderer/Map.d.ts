@@ -25,7 +25,7 @@ export default class MapRenderer extends Disposable {
         thisArg: S,
         layerFilter: (this: U, p0: Layer) => boolean,
         thisArg2: U
-    ): T;
+    ): T | undefined;
     forEachLayerAtPixel<S, T, U>(
         pixel: Pixel,
         frameState: FrameState,
@@ -34,15 +34,9 @@ export default class MapRenderer extends Disposable {
         thisArg: S,
         layerFilter: (this: U, p0: Layer) => boolean,
         thisArg2: U
-    ): T;
+    ): T | undefined;
     getMap(): PluggableMap;
-    hasFeatureAtCoordinate<U>(
-        coordinate: Coordinate,
-        frameState: FrameState,
-        hitTolerance: number,
-        layerFilter: (this: U, p0: Layer) => boolean,
-        thisArg: U
-    ): boolean;
+    hasFeatureAtCoordinate<U>(coordinate: Coordinate, frameState: FrameState, hitTolerance: number, layerFilter: (this: U, p0: Layer) => boolean, thisArg: U): boolean;
     registerLayerRenderers(constructors: LayerRenderer[]): void;
     removeLayerRenderers(): void;
     renderFrame(frameState: FrameState): void;

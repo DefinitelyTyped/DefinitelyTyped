@@ -1073,7 +1073,7 @@ export interface FindOneOptions {
     raw?: boolean,
     readPreference?: ReadPreference | string,
     partial?: boolean,
-    maxTimeMs?: number
+    maxTimeMS?: number
 }
 
 //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#~insertWriteOpResult

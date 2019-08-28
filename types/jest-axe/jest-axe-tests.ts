@@ -17,3 +17,4 @@ const newJestWithOptions: JestAxe = configureAxe({
 const sameJest: JestAxe = axe;
 
 expect("").toHaveNoViolations();
+expect(document.body).toHaveNoViolations();

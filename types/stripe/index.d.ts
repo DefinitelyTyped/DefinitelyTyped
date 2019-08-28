@@ -58,7 +58,7 @@ declare class Stripe {
 
     accounts: Stripe.resources.Accounts;
     balance: Stripe.resources.Balance;
-    balanceTransaction: Stripe.resources.BalanceTransaction;
+    balanceTransactions: Stripe.resources.BalanceTransaction;
     charges: Stripe.resources.Charges;
     checkout: Stripe.resources.Checkout;
     coupons: Stripe.resources.Coupons;
@@ -91,6 +91,7 @@ declare class Stripe {
     countrySpecs: Stripe.resources.CountrySpecs;
     orders: Stripe.resources.Orders;
     products: Stripe.resources.Products;
+    setupIntents: Stripe.resources.SetupIntents;
     skus: Stripe.resources.SKUs;
     webhooks: Stripe.resources.WebHooks;
     ephemeralKeys: Stripe.resources.EphemeralKeys;
@@ -128,6 +129,9 @@ declare namespace Stripe {
     type IStripeSource = cards.ICard | bitcoinReceivers.IBitcoinReceiver | bankAccounts.IBankAccount | sources.ISource;
 
     namespace accounts {
+        // Helper
+        type IExternalAccount = bankAccounts.IBankAccount | cards.ICard;
+
         interface IAccount extends IResourceObject, IAccountShared {
             /**
              * Value is "account"
@@ -209,7 +213,7 @@ declare namespace Stripe {
               * External accounts (bank accounts and debit cards) currently
               * attached to this account
               */
-            external_accounts?: IList<cards.ICard | bankAccounts.IBankAccount>;
+            external_accounts?: IList<IExternalAccount>;
         }
 
         interface IAccountCreationOptions extends IAccountUpdateOptions {
@@ -2158,7 +2162,7 @@ declare namespace Stripe {
             /**
              * Time at which the object was created. Measured in seconds since the Unix epoch.
              */
-            created: string;
+            created: number;
 
             /**
              * Three-letter ISO currency code, in lowercase. Must be a supported currency.
@@ -2329,6 +2333,11 @@ declare namespace Stripe {
 
             email?: string;
 
+            /**
+             * Default invoice settings for this customer.
+             */
+            invoice_settings?: ICustomerInvoiceSettings | null;
+
             livemode: boolean;
 
             metadata: IMetadata;
@@ -2472,6 +2481,16 @@ declare namespace Stripe {
             email?: string;
 
             /**
+             * The prefix for the customer used to generate unique invoice numbers.
+             */
+            invoice_prefix?: string;
+
+            /**
+             * Default invoice settings for this customer.
+             */
+            invoice_settings?: ICustomerInvoiceSettings | null;
+
+            /**
              * The customer’s full name or business name. This can be unset by updating the value to null and then saving.
              */
             name?: string;
@@ -2480,11 +2499,6 @@ declare namespace Stripe {
              * The customer’s phone number. This can be unset by updating the value to null and then saving.
              */
             phone?: string;
-
-            /**
-             * The prefix for the customer used to generate unique invoice numbers.
-             */
-            invoice_prefix?: string;
 
             shipping?: IShippingInformation;
 
@@ -2515,7 +2529,39 @@ declare namespace Stripe {
              * dictionary containing a user’s credit card details (with the options shown
              * below). Stripe will automatically validate the card.
              */
-            source: string | cards.ICardSourceCreationOptions;
+            source: string | cards.ICardSourceCreationOptions | bankAccounts.ISourceCreationOptions;
+        }
+
+        interface ICustomerInvoiceSettings {
+            /**
+             * Default custom fields to be displayed on invoices for this customer.
+             */
+            custom_fields?: Array<{
+                /**
+                 * The name of the custom field. This may be up to 30 characters.
+                 */
+                name: string;
+
+                /**
+                 * The value of the custom field. This may be up to 30 characters.
+                 */
+                value: string;
+            }>;
+
+            /**
+             * ID of the default payment method used for subscriptions and invoices for the customer.
+             */
+            default_payment_method?: string;
+
+            /**
+             * Default footer to be displayed on invoices for this customer.
+             * This can be unset by updating the value to null and then saving.
+             */
+            footer?: string;
+        }
+
+        interface ICustomerBankAccountSourceCreationOptions extends ICustomerSourceCreationOptions {
+            source: bankAccounts.ISourceCreationOptions;
         }
 
         interface ICustomerCardSourceCreationOptions extends ICustomerSourceCreationOptions {
@@ -2827,12 +2873,22 @@ declare namespace Stripe {
             pending_webhooks: number;
 
             /**
-             * ID of the API request that caused the event. If null, the event was
-             * automatic (e.g. Stripe’s automatic subscription handling). Request logs are
-             * available in the dashboard but currently not in the API. Note: this property
-             * is populated for events on or after April 23, 2013.
+             * Information on the API request that instigated the event.
              */
-            request?: string;
+            request: {
+                /**
+                 * ID of the API request that caused the event. If null, the event was
+                 * automatic (e.g., Stripe’s automatic subscription handling). Request logs
+                 * are available in the dashboard, but currently not in the API.
+                 */
+                id: string | null,
+
+                /**
+                 * The idempotency key transmitted during the request, if any.
+                 * Note: This property is populated only for events on or after May 23, 2017.
+                 */
+                idempotency_key?: string | null,
+            };
 
             /**
              * Description of the event: e.g. invoice.created, charge.refunded, etc.
@@ -3016,6 +3072,13 @@ declare namespace Stripe {
              * it has been marked closed. A closed invoice will no longer attempt to collect payment.
              */
             closed: boolean;
+
+            /**
+             * Either charge_automatically, or send_invoice. When charging automatically, Stripe will attempt to pay
+             * this invoice using the default source attached to the customer. When sending an invoice, Stripe will
+             * email this invoice to the customer with payment instructions.
+             */
+            collection_method?: "charge_automatically" | "send_invoice";
 
             /**
              * Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -3527,8 +3590,16 @@ declare namespace Stripe {
         interface IInvoiceListOptions extends IListOptions {
             /**
              * The billing mode of the invoice to retrieve. Either `charge_automatically` or `send_invoice`
+             * This field has been renamed to collection_method and will be removed in a future API version.
              */
             billing?: "charge_automatically" | "send_invoice";
+
+            /**
+             * Either charge_automatically, or send_invoice. When charging automatically, Stripe will attempt to pay
+             * this invoice using the default source attached to the customer. When sending an invoice, Stripe will
+             * email this invoice to the customer with payment instructions.
+             */
+            collection_method?: "charge_automatically" | "send_invoice";
 
             /**
              * A filter on the list based on the object created field. The value can be a string with an integer Unix timestamp,
@@ -3551,6 +3622,11 @@ declare namespace Stripe {
              * or it can be a dictionary with the following options:
              */
             due_date?: IDateFilter;
+
+            /**
+             * The status of the invoice, one of draft, open, paid, uncollectible, or void.
+             */
+            status?: "draft" | "open" | "paid" | "uncollectible" | "void";
 
             /**
              * Only return invoices for the subscription specified by this subscription ID
@@ -3596,9 +3672,19 @@ declare namespace Stripe {
             subscription?: string;
 
             /**
+             * Boolean indicating whether this subscription should cancel at the end of the current period.
+             */
+            subscription_cancel_at_period_end?: boolean;
+
+            /**
              * The identifier of the customer whose upcoming invoice you’d like to retrieve. REQUIRED IF SUBSCRIPTION UNSET
              */
             customer?: string;
+
+            /**
+             * List of subscription items, each with an attached plan.
+             */
+            subscription_items?: subscriptions.ISubscriptionUpdateItem[];
 
             /**
              * If set, the invoice returned will preview updating the subscription given to this plan, or creating a new subscription to this plan
@@ -3634,8 +3720,124 @@ declare namespace Stripe {
             subscription_trial_end?: number;
         }
 
-        // TODO: update once https://stripe.com/docs/api/invoices/upcoming_invoice_lines is fixed.
-        type IInvoiceListUpcomingLineItemsOptions = IListOptions;
+        interface IInvoiceListUpcomingLineItemsOptions extends IListOptions {
+            /**
+             * The code of the coupon to apply. If subscription or subscription_items is provided, the invoice returned will preview updating or
+             * creating a subscription with that coupon. Otherwise, it will preview applying that coupon to the customer for the next upcoming invoice
+             * from among the customer’s subscriptions. The invoice can be previewed without a coupon by passing this value as an empty string.
+             */
+            coupon?: string;
+
+            /**
+             * The identifier of the customer whose upcoming invoice you’d like to retrieve.
+             * Required if subscription unset
+             */
+            customer?: string;
+
+            /**
+             * A cursor for use in pagination. ending_before is an object ID that defines your place in the list. For instance, if you make a list request
+             * and receive 100 objects, starting with obj_bar, your subsequent call can include ending_before=obj_bar in order to fetch the previous page
+             * of the list.
+             */
+            ending_before?: string;
+
+            /**
+             * array of hashes
+             * List of invoice items to add or update in the upcoming invoice preview.
+             */
+
+            invoice_items?: invoiceItems.InvoiceItem[];
+
+            /**
+             * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default
+             * is 10.
+             */
+            limit?: number;
+
+            /**
+             * A cursor for use in pagination. starting_after is an object ID that defines your place in the list. For
+             * instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call
+             * can include starting_after=obj_foo in order to fetch the next page of the list.
+             */
+            starting_after?: string;
+
+            /**
+             * The identifier of the subscription for which you’d like to retrieve the upcoming invoice. If not
+             * provided, but a subscription_items is provided, you will preview creating a subscription with
+             * those items. If neither subscription nor subscription_items is provided, you will retrieve the
+             * next upcoming invoice from among the customer’s subscriptions.
+             */
+            subscription?: string;
+
+            /**
+             * For new subscriptions, a future timestamp to anchor the subscription’s billing cycle. This is used to
+             * determine the date of the first full invoice, and, for plans with month or year intervals, the day of
+             * the month for subsequent invoices. For existing subscriptions, the value can only be set to now or
+             * unchanged.
+             */
+            subscription_billing_cycle_anchor?: 'now' | 'unchanged';
+
+            /**
+             * Boolean indicating when the subscription should be scheduled to cancel. Will prorate if
+             * within the current period if prorate=true
+             */
+            subscription_cancel_at?: boolean;
+
+            /**
+             * Boolean indicating whether this subscription should cancel at the end of the current period.
+             */
+            subscription_cancel_at_period_end?: boolean;
+
+            subscription_cancel_now?: boolean;
+
+            /**
+             * array of hashes List of subscription items, each with an attached plan.
+             */
+            subscription_items?: subscriptions.ISubscriptionUpdateItem[];
+
+            /**
+             * If previewing an update to a subscription, this decides whether the preview will show the result of
+             * applying prorations or not. If set, one of subscription_items or subscription, and one of
+             * subscription_items or subscription_trial_end are required.
+             */
+            subscription_prorate?: boolean;
+
+            /**
+             * If previewing an update to a subscription, and doing proration, subscription_proration_date
+             * forces the proration to be calculated as though the update was done at the specified time. The time
+             * given must be within the current subscription period, and cannot be before the subscription was on
+             * its current plan. If set, subscription, and one of subscription_items, or subscription_trial_end are
+             * required. Also, subscription_proration cannot be set to false.
+             */
+            subscription_proration_date?: number;
+
+            /**
+             * Date a subscription is intended to start (can be future or past)
+             */
+            subscription_start_date?: number;
+
+            /**
+             * DEPRECATED
+             * If provided, the invoice returned will preview updating or creating a subscription with that tax
+             * percent. If set, one of subscription_items or subscription is required. This field has been deprecated
+             * and will be removed in a future API version, for further information view the migration docs for
+             * tax_rates.
+             */
+            subscription_tax_percent?: number;
+
+            /**
+             * If provided, the invoice returned will preview updating or creating a subscription with that trial end.
+             * If set, one of subscription_items or subscription is required.
+             */
+            subscription_trial_end?: 'now' | number | string;
+
+            /**
+             * Indicates if a plan’s trial_period_days should be applied to the subscription. Setting
+             * subscription_trial_end per subscription is preferred, and this defaults to false. Setting this flag to
+             * true together with subscription_trial_end is not allowed.
+             */
+            subscription_trial_from_plan?: boolean;
+        }
 
         interface IPeriod {
             /**
@@ -3754,7 +3956,7 @@ declare namespace Stripe {
              * The integer amount in cents of the charge to be applied to the upcoming invoice. If you want to apply a credit to the customer’s
              * account, pass a negative amount.
              */
-            amount: number;
+            amount?: number;
 
             /**
              * 3-letter ISO code for currency.
@@ -3786,11 +3988,22 @@ declare namespace Stripe {
             invoice?: string;
 
             /**
+             * Non-negative integer. The quantity of units for the invoice item.
+             */
+            quantity?: number;
+
+            /**
              * The ID of a subscription to add this invoice item to. When left blank, the invoice item will be be added to the next upcoming
              * scheduled invoice. When set, scheduled invoices for subscriptions other than the specified subscription will ignore the invoice
              * item. Use this when you want to express that an invoice item has been accrued within the context of a particular subscription.
              */
             subscription?: string;
+
+            /**
+             * The integer unit amount in cents of the charge to be applied to the upcoming invoice. This unit_amount will be multiplied by
+             * the quantity to get the full amount. If you want to apply a credit to the customer’s account, pass a negative unit_amount.
+             */
+            unit_amount?: number;
         }
 
         interface InvoiceItemUpdateOptions extends IDataOptionsWithMetadata {
@@ -3818,6 +4031,17 @@ declare namespace Stripe {
              * The identifier of the customer whose invoice items to return. If none is provided, all invoice items will be returned.
              */
             customer?: string;
+
+            /**
+             * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+             */
+            limit?: number;
+
+            /**
+             * Set to true to only show pending invoice items, which are not yet attached to any invoices. Set to false to only show
+             * invoice items already attached to invoices. If unspecified, no filter is applied.
+             */
+            pending?: boolean;
         }
     }
 
@@ -4850,6 +5074,299 @@ declare namespace Stripe {
         }
     }
 
+    namespace setupIntents {
+        type SetupIntentCancelationReason = 'abandoned' | 'requested_by_customer' | 'duplicate';
+
+        type SetupIntentUsageType = 'on_session' | 'off_session';
+
+        interface ISetupIntentPaymentMethodOptions {
+            /**
+             * Configuration for any card payments attempted on this SetupIntent.
+             */
+            card?: {
+                /**
+                 * We strongly recommend that you rely on our SCA Engine to automatically prompt your
+                 * customers for authentication based on risk level and other requirements. However,
+                 * if you wish to request 3D Secure based on logic from your own fraud engine, provide
+                 * this option. Permitted values include: `automatic` or `any`. If not provided, defaults
+                 * to `automatic`. Read our guide on manually requesting 3D Secure for more information
+                 * on how this configuration interacts with Radar and our SCA Engine.
+                 */
+                request_three_d_secure?: "automatic" | "any";
+            };
+        }
+
+        /** Payment methods supported by Payment Intents. This is a subsetset of all Payment Method types. See https://stripe.com/docs/api/payment_methods/create#create_payment_method-type */
+        type SetupIntentPaymentMethodType = 'card' | 'card_present';
+
+        interface ISetupIntent extends IResourceObject {
+            /**
+             * Value is "setup_intent".
+             */
+            object: 'setup_intent';
+
+            /**
+             * ID of the Connect application that created the SetupIntent. [Expandable]
+             */
+            application?: string | applications.IApplication | null;
+
+            /**
+             * Reason for cancellation of this SetupIntent, one of `abandoned`, `requested_by_customer`, or `duplicate`.
+             */
+            cancelation_reason: SetupIntentCancelationReason | null;
+
+            /**
+             * The client secret of this SetupIntent. Used for client-side retrieval using a publishable key.
+             *
+             * The client secret can be used to complete payment setup from your frontend. It should not
+             * be stored, logged, embedded in URLs, or exposed to anyone other than the customer. Make
+             * sure that you have TLS enabled on any page that includes the client secret.
+             */
+            client_secret: string;
+
+            /**
+             * Time at which the object was created. Measured in seconds since the Unix epoch.
+             */
+            created: number;
+
+            /**
+             * ID of the Customer this SetupIntent is for if one exists. [Expandable]
+             */
+            customer: string | customers.ICustomer | null;
+
+            /**
+             * An arbitrary string attached to the object.
+             *
+             * If present, payment methods used with this SetupIntent can only be attached to
+             * this Customer, and payment methods attached to other Customers cannot be used with
+             * this SetupIntent.
+             */
+            description?: string;
+
+            /**
+             * The error encountered in the previous SetupIntent confirmation.
+             */
+            last_setup_error: IStripeError | null;
+
+            livemode: boolean;
+
+            metadata: IMetadata;
+
+            /**
+             * If present, this property tells you what actions you need to take in order for your customer to continue payment setup.
+             */
+            next_action:
+            | ISetupIntentNextActionUseStripeSdk
+            | ISetupIntentNextActionRedirectToUrl;
+
+            /**
+             * The account (if any) for which the setup is intended. [Expandable]
+             */
+            on_behalf_of?: string | null;
+
+            /**
+             * ID of the payment method used in this SetupIntent. [Expandable]
+             */
+            payment_method?: string | null;
+
+            /**
+             * Payment-method-specific configuration for this SetupIntent.
+             */
+            payment_method_options?: ISetupIntentPaymentMethodOptions;
+
+            /**
+             * The list of payment method types (e.g. card) that this SetupIntent is allowed to use.
+             */
+            payment_method_types: SetupIntentPaymentMethodType[];
+
+            /**
+             * The several states the SetupIntent goes through until it it either canceled or succeeds.
+             */
+            status:
+            | 'requires_payment_method'
+            | 'requires_confirmation'
+            | 'requires_action'
+            | 'processing'
+            | 'canceled'
+            | 'succeeded';
+
+            /**
+             * Indicates how the payment method is intended to be used in the future.
+             *
+             * Use `on_session` if you intend to only reuse the payment method when the customer is in
+             * your checkout flow. Use `off_session` if your customer may or may not be in your checkout
+             * flow. If not provided, this value defaults to `off_session`.
+             */
+            usage: SetupIntentUsageType;
+        }
+
+        interface ISetupIntentTransferData {
+            /**
+             * The account (if any) the payment will be attributed to for tax reporting, and where funds from the payment will be transferred to upon payment success. [Expandable]
+             */
+            destination:
+            | string
+            | bankAccounts.IBankAccount
+            | cards.ICardHash
+            | accounts.IAccountCreationOptions;
+        }
+
+        interface ISetupIntentNextActionRedirectToUrl {
+            type: 'redirect_to_url';
+
+            /**
+             * Contains instructions for authenticating a payment by redirecting your customer to another page or application.
+             */
+            redirect_to_url: { return_url: string; url: string };
+        }
+
+        interface ISetupIntentNextActionUseStripeSdk {
+            type: 'use_stripe_sdk';
+
+            /**
+             * When confirming a SetupIntent with js, js depends on the contents of this object to invoke authentication flows. The shape of the contents is subject to change and is only intended to be used by js.
+             */
+            use_stripe_sdk: any;
+        }
+
+        interface ISetupIntentCreationOptions {
+            /**
+             * Set to `true` to attempt to confirm this SetupIntent immediately. This parameter defaults
+             * to `false`. If the payment method attached is a card, a return_url may be provided in case
+             * additional authentication is required.
+             */
+            confirm?: boolean;
+
+            /**
+             * ID of the Customer this SetupIntent belongs to, if one exists.
+             *
+             * If present, payment methods used with this SetupIntent can only be attached to this
+             * Customer, and payment methods attached to other Customers cannot be used with this
+             * SetupIntent.
+             */
+            customer?: string;
+
+            /**
+             * An arbitrary string attached to the object. Often useful for displaying to users.
+             * This can be unset by updating the value to `null` and then saving.
+             */
+            description?: string | null;
+
+            /**
+             * Set of key-value pairs that you can attach to an object. This can be useful for storing
+             * additional information about the object in a structured format.
+             */
+            metadata?: IOptionsMetadata;
+
+            /**
+             * The Stripe account ID for which this SetupIntent is created.
+             */
+            on_behalf_of?: string;
+
+            /**
+             * ID of the payment method (a PaymentMethod, Card, BankAccount, or saved Source object)
+             * to attach to this SetupIntent.
+             */
+            payment_method?: string;
+
+            /**
+             * Payment-method-specific configuration for this SetupIntent.
+             */
+            payment_method_options?: ISetupIntentPaymentMethodOptions;
+
+            /**
+             * The list of payment method types (e.g. card) that this SetupIntent is allowed to use.
+             */
+            payment_method_types?: SetupIntentPaymentMethodType[];
+
+            /**
+             * The URL to redirect your customer back to after they authenticate or cancel their payment on
+             * the payment method’s app or site. If you’d prefer to redirect to a mobile application, you
+             * can alternatively supply an application URI scheme. This parameter can only be used with
+             * `confirm=true`.
+             */
+            return_url?: string;
+
+            /**
+             * Indicates how the payment method is intended to be used in the future.
+             *
+             * Use `on_session` if you intend to only reuse the payment method when the customer is in your checkout flow. Use `off_session` if your customer may or may not be in your checkout flow. If not provided, this value defaults to `off_session`.
+             */
+            usage?: SetupIntentUsageType;
+        }
+
+        interface ISetupIntentUpdateOptions {
+            /**
+             * ID of the customer this SetupIntent is for if one exists.
+             */
+            customer?: string;
+
+            /**
+             * An arbitrary string attached to the object. Often useful for displaying to users.
+             * This can be unset by updating the value to `null` and then saving.
+             */
+            description?: string | null;
+
+            /**
+             * Set of key-value pairs that you can attach to an object. This can be useful for storing
+             * additional information about the object in a structured format.
+             */
+            metadata?: IOptionsMetadata;
+
+            /**
+             * ID of the payment method (a PaymentMethod, Card, BankAccount, or saved Source object)
+             * to attach to this SetupIntent.
+             */
+            payment_method?: string;
+
+            /**
+             * The list of payment method types (e.g. card) that this SetupIntent is allowed to use.
+             */
+            payment_method_types?: SetupIntentPaymentMethodType[];
+        }
+
+        interface ISetupIntentConfirmOptions {
+            /**
+             * ID of the payment method (a PaymentMethod, Card, BankAccount, or saved Source object)
+             * to attach to this SetupIntent.
+             */
+            payment_method?: string;
+
+            /**
+             * Payment-method-specific configuration for this SetupIntent.
+             */
+            payment_method_options?: ISetupIntentPaymentMethodOptions;
+
+            /**
+             * The URL to redirect your customer back to after they authenticate on the payment method’s
+             * app or site. If you’d prefer to redirect to a mobile application, you can alternatively
+             * supply an application URI scheme. This parameter is only used for cards and other
+             * redirect-based payment methods.
+             */
+            return_url?: string;
+        }
+
+        interface ISetupIntentRetrieveOptions {
+            /**
+             * The client secret of the SetupIntent. Required if a publishable key is used to retrieve
+             * the SetupIntent. REQUIRED IF USING PUBLISHABLE KEY
+             */
+            client_secret?: string;
+        }
+
+        interface ISetupIntentListOptions extends IListOptionsCreated {
+            /**
+             * Only return SetupIntents for the customer specified by this customer ID.
+             */
+            customer?: string;
+
+            /**
+             * Only return SetupIntents associated with the specified payment method.
+             */
+            payment_method?: string;
+        }
+    }
+
     namespace paymentMethods {
         interface WalletAddress {
             /** City/District/Suburb/Town/Village. */
@@ -5107,16 +5624,16 @@ declare namespace Stripe {
             /**
              * A flat fee for the tier to be added into the total amount
              */
-            flat_amount: number;
+            flat_amount: number | null;
 
             /**
              * Up to and including to this quantity will be contained in the tier.
              */
-            up_to: number;
+            up_to: number | null;
             /**
              * Per unit price for units relevant to the tier.
              */
-            unit_amount: number;
+            unit_amount: number | null;
         }
 
         interface ITransformUsage {
@@ -5154,7 +5671,7 @@ declare namespace Stripe {
             /**
              * The amount in cents to be charged on the interval specified
              */
-            amount: number;
+            amount: number | null;
 
             /**
              * Describes how to compute the price per period. Either `per_unit` or `tiered`. `per_unit` indicates that the fixed amount (specified in `amount`) will be charged per unit in `quantity` (for plans with `usage_type=licensed`), or per unit of total usage (for plans with `usage_type=metered`). `tiered` indicates that the unit pricing will be computed using a tiering strategy as defined using the `tiers` and `tiers_mode` attributes.
@@ -5219,7 +5736,7 @@ declare namespace Stripe {
             /**
              * Default number of trial days when subscribing a customer to this plan using `trial_from_plan=true`.
              */
-            trial_period_days: number;
+            trial_period_days: number | null;
 
             /**
              * Configures how the quantity per period should be determined, can be either `metered` or `licensed`. `licensed` will automatically bill the `quantity` set for a plan when adding it to a subscription, `metered` will aggregate the total usage based on usage records. Defaults to `licensed`.
@@ -5429,6 +5946,12 @@ declare namespace Stripe {
              * use with Subscriptions and Plans.
              */
             type: ProductType;
+
+            /**
+             * A label that represents units of this product, such as seat(s), in Stripe and on customers’ receipts and invoices.
+             * Only available on products of type=service.
+             */
+            unit_label?: string;
 
             /**
              * A URL of a publicly-accessible webpage for this product.
@@ -6279,6 +6802,11 @@ declare namespace Stripe {
 
         interface ISourceCreationOptions {
             /**
+             * The type of payment source. Should be "bank_account".
+             */
+            object: "bank_account";
+
+            /**
              * The account number for the bank account in string form.
              * Must be a checking account.
              */
@@ -6670,14 +7198,20 @@ declare namespace Stripe {
              * A positive decimal that represents the fee percentage of the subscription invoice amount that will be transferred to
              * the application owner's Stripe account each billing period.
              */
-            application_fee_percent: number;
+            application_fee_percent: number | null;
+
+            /**
+             * Either `charge_automatically`, or `send_invoice`.
+             * This field has been renamed to collection_method and will be removed in a future API version.
+             */
+            billing: SubscriptionBilling;
 
             /**
              * Either "charge_automatically", or "send_invoice". When charging automatically, Stripe will attempt to pay this subscription at the
              * end of the cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an
              * invoice with payment instructions.
              */
-            billing: SubscriptionBilling;
+            collection_method: SubscriptionBilling;
 
             /**
              * Determines the date of the first full invoice, and, for plans with month or year intervals, the day of the month
@@ -6705,7 +7239,7 @@ declare namespace Stripe {
             /**
              * A date in the future at which the subscription will automatically get canceled.
              */
-            cancel_at: number;
+            cancel_at: number | null;
 
             /**
              * If the subscription has been canceled with the at_period_end flag set to true, cancel_at_period_end on the
@@ -6758,7 +7292,7 @@ declare namespace Stripe {
              * It must belong to the customer associated with the subscription and be in a chargeable state.
              * If not set, defaults to the customer’s default source. [Expandable]
              */
-            default_source: string;
+            default_source: string | null;
 
             /**
              * Describes the current discount applied to this subscription, if there is one. When billing, a discount applied to a
@@ -6780,7 +7314,7 @@ declare namespace Stripe {
             /**
              * The most recent invoice this subscription has generated. [Expandable]
              */
-            latest_invoice: null | invoices.IInvoice;
+            latest_invoice: invoices.IInvoice | string | null;
 
             /**
              * Has the value true if the object exists in live mode or the value false if the object exists in test mode.
@@ -6841,7 +7375,7 @@ declare namespace Stripe {
             /**
              * If provided, each invoice created by this subscription will apply the tax rate, increasing the amount billed to the customer.
              */
-            tax_percent: number;
+            tax_percent: number | null;
 
             /**
              * If the subscription has a trial, the end of that trial.
@@ -7191,7 +7725,7 @@ declare namespace Stripe {
             /**
              * The quantity of the plan to which the customer should be subscribed.
              */
-            quantity: number;
+            quantity?: number;
 
             /**
              * The subscription this subscription_item belongs to.
@@ -8580,6 +9114,18 @@ declare namespace Stripe {
             listCards(customerId: string, response?: IResponseFn<IList<cards.ICard>>): IListPromise<cards.ICard>;
 
             /**
+             * When adding a bank account to a customer, the parameter name is source. When
+             * adding to an account, the parameter name is external_account. The
+             * value can either be a token, like the ones returned by our Stripe.js, or a
+             * dictionary containing a user’s bank account details.
+             *
+             * @returns Returns the bank account object.
+             *
+             * @param customerId The customer ID to which to add the bank account.
+             */
+            createSource(customerId: string, data: customers.ICustomerBankAccountSourceCreationOptions, options: HeaderOptions, response?: IResponseFn<bankAccounts.IBankAccount>): Promise<bankAccounts.IBankAccount>;
+            createSource(customerId: string, data: customers.ICustomerBankAccountSourceCreationOptions, response?: IResponseFn<bankAccounts.IBankAccount>): Promise<bankAccounts.IBankAccount>;
+            /**
              * When adding a card to a customer, the parameter name is source. When
              * adding to an account, the parameter name is external_account. The
              * value can either be a token, like the ones returned by our Stripe.js, or a
@@ -8593,15 +9139,15 @@ declare namespace Stripe {
             createSource(customerId: string, data: customers.ICustomerCardSourceCreationOptions, options: HeaderOptions, response?: IResponseFn<cards.ICard>): Promise<cards.ICard>;
             createSource(customerId: string, data: customers.ICustomerCardSourceCreationOptions, response?: IResponseFn<cards.ICard>): Promise<cards.ICard>;
             /**
-             * When adding a card to a customer, the parameter name is source. When
+             * When adding a card or bank account to a customer, the parameter name is source. When
              * adding to an account, the parameter name is external_account. The
              * value can either be a token, like the ones returned by our Stripe.js, or a
-             * dictionary containing a user’s credit card details.
+             * dictionary containing a user’s credit card or bank account details.
              * Stripe will automatically validate the card.
              *
              * @returns Returns the card or bank account object.
              *
-             * @param customerId The customer ID to which to add the card.
+             * @param customerId The customer ID to which to add the card or bank account.
              */
             createSource(customerId: string, data: customers.ICustomerSourceCreationOptions, options: HeaderOptions, response?: IResponseFn<IStripeSource>): Promise<IStripeSource>;
             createSource(customerId: string, data: customers.ICustomerSourceCreationOptions, response?: IResponseFn<IStripeSource>): Promise<IStripeSource>;
@@ -9458,6 +10004,156 @@ declare namespace Stripe {
                 paymentIntentId: string,
                 response?: IResponseFn<paymentIntents.IPaymentIntent>,
             ): Promise<paymentIntents.IPaymentIntent>;
+        }
+
+        class SetupIntents extends StripeResource {
+            /**
+             * Creates a SetupIntent object.
+             *
+             * After the SetupIntent is created, attach a payment method and confirm to collect
+             * any required permissions to charge the payment method later.
+             */
+            create(
+                data: setupIntents.ISetupIntentCreationOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<setupIntents.ISetupIntent>
+            ): Promise<setupIntents.ISetupIntent>;
+            create(
+                data: setupIntents.ISetupIntentCreationOptions,
+                response?: IResponseFn<setupIntents.ISetupIntent>
+            ): Promise<setupIntents.ISetupIntent>;
+
+            /**
+             * Returns a list of SetupIntents.
+             *
+             * @returns An object with a data property that contains an array of up to limit SetupIntents, starting after SetupIntent starting_after. Each entry in the array is a separate SetupIntent object. If no more SetupIntents are available, the resulting array will be empty. This request should never throw an error.
+             */
+            list(
+                data: setupIntents.ISetupIntentListOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<IList<setupIntents.ISetupIntent>>
+            ): IListPromise<setupIntents.ISetupIntent>;
+            list(
+                data: setupIntents.ISetupIntentListOptions,
+                response?: IResponseFn<IList<setupIntents.ISetupIntent>>
+            ): IListPromise<setupIntents.ISetupIntent>;
+            list(
+                options: HeaderOptions,
+                response?: IResponseFn<IList<setupIntents.ISetupIntent>>
+            ): IListPromise<setupIntents.ISetupIntent>;
+            list(response?: IResponseFn<IList<setupIntents.ISetupIntent>>): IListPromise<setupIntents.ISetupIntent>;
+
+            /**
+             * Updates a SetupIntent object.
+             */
+            update(
+                intent: string,
+                data: setupIntents.ISetupIntentUpdateOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<setupIntents.ISetupIntent>
+            ): Promise<setupIntents.ISetupIntent>;
+            update(
+                intent: string,
+                data: setupIntents.ISetupIntentUpdateOptions,
+                response?: IResponseFn<setupIntents.ISetupIntent>
+            ): Promise<setupIntents.ISetupIntent>;
+
+            /**
+             * Retrieves the details of a SetupIntent that has previously been created.
+             *
+             * Client-side retrieval using a publishable key is allowed when the `client_secret`
+             * is provided in the query string.
+             *
+             * When retrieved with a publishable key, only a subset of properties will be returned.
+             * Please refer to the SetupIntent object reference for more details.
+             */
+            retrieve(
+                intent: string,
+                data: setupIntents.ISetupIntentRetrieveOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<setupIntents.ISetupIntent>
+            ): Promise<setupIntents.ISetupIntent>;
+            retrieve(
+                intent: string,
+                data: setupIntents.ISetupIntentRetrieveOptions,
+                response?: IResponseFn<setupIntents.ISetupIntent>
+            ): Promise<setupIntents.ISetupIntent>;
+            retrieve(
+                intent: string,
+                options: HeaderOptions,
+                response?: IResponseFn<setupIntents.ISetupIntent>
+            ): Promise<setupIntents.ISetupIntent>;
+            retrieve(
+                intent: string,
+                response?: IResponseFn<setupIntents.ISetupIntent>
+            ): Promise<setupIntents.ISetupIntent>;
+
+            /**
+             * Confirm that your customer intends to set up the current or provided payment method.
+             * For example, you would confirm a SetupIntent when a customer hits the “Save” button
+             * on a payment method management page on your website.
+             *
+             * If the selected payment method does not require any additional steps from the customer,
+             * the SetupIntent will transition to the `succeeded` status.
+             *
+             * Otherwise, it will transition to the `requires_action` status and suggest additional
+             * actions via `next_action`. If setup fails, the SetupIntent will transition to the
+             * `requires_payment_method` status.
+             */
+            confirm(
+                intent: string,
+                data: setupIntents.ISetupIntentConfirmOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<setupIntents.ISetupIntent>
+            ): Promise<setupIntents.ISetupIntent>;
+            confirm(
+                intent: string,
+                data: setupIntents.ISetupIntentConfirmOptions,
+                response?: IResponseFn<setupIntents.ISetupIntent>
+            ): Promise<setupIntents.ISetupIntent>;
+            confirm(
+                intent: string,
+                options: HeaderOptions,
+                response?: IResponseFn<setupIntents.ISetupIntent>
+            ): Promise<setupIntents.ISetupIntent>;
+            confirm(
+                intent: string,
+                response?: IResponseFn<setupIntents.ISetupIntent>
+            ): Promise<setupIntents.ISetupIntent>;
+
+            /**
+             * A SetupIntent object can be canceled when it is in one of these statuses:
+             * `requires_payment_method`, `requires_capture`, `requires_confirmation`, `requires_action`.
+             *
+             * Once canceled, setup is abandoned and any operations on the SetupIntent will fail
+             * with an error.
+             *
+             * @returns Returns a SetupIntent object if the cancellation succeeded. Returns an error if the SetupIntent has already been canceled or is not in a cancelable state.
+             */
+            cancel(
+                intent: string,
+                data: {
+                    cancellation_reason?: setupIntents.SetupIntentCancelationReason;
+                },
+                options: HeaderOptions,
+                response?: IResponseFn<setupIntents.ISetupIntent>
+            ): Promise<setupIntents.ISetupIntent>;
+            cancel(
+                intent: string,
+                options: HeaderOptions,
+                response?: IResponseFn<setupIntents.ISetupIntent>
+            ): Promise<setupIntents.ISetupIntent>;
+            cancel(
+                intent: string,
+                data: {
+                    cancellation_reason?: setupIntents.SetupIntentCancelationReason;
+                },
+                response?: IResponseFn<setupIntents.ISetupIntent>
+            ): Promise<setupIntents.ISetupIntent>;
+            cancel(
+                intent: string,
+                response?: IResponseFn<setupIntents.ISetupIntent>
+            ): Promise<setupIntents.ISetupIntent>;
         }
 
         /** https://stripe.com/docs/api/payment_methods */

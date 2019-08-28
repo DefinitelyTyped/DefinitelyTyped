@@ -1,6 +1,7 @@
-// Type definitions for react-aria-modal 2.12
+// Type definitions for react-aria-modal 4.0
 // Project: https://github.com/davidtheclark/react-aria-modal#readme
-// Definitions by: forabi <https://github.com/forabi>
+// Definitions by: gabycperezdias <https://github.com/gabycperezdias>
+//                 forabi <https://github.com/forabi>
 //                 dkrk <https://github.com/grgr-dkrk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
@@ -163,7 +164,25 @@ export interface AriaModalProps {
      * That also makes it easier to create your own "close modal" buttons; because you
      * have the function that closes the modal right there, written by you, at your disposal.
      */
-    onExit(): any;
+    onExit?(): any;
+
+    /**
+     * If true, the modal dialog's focus trap will be paused.
+     * You won't typically need to use this prop. It used to be that the typical reason for pausing a focus trap was to enable nested focus traps;
+     * but as of focus-trap v4, the pausing and unpausing of hierachical traps is handled automatically.
+     */
+    focusTrapPaused?: boolean;
+
+    /**
+     * Customize properties of the focusTrapOptions prop that is passed to the modal dialog's focus trap.
+     * For example, you can use this prop if you need better control of where focus is returned.
+     */
+    focusTrapOptions?: object;
+
+    /**
+     * If true, the modal dialog will prevent any scrolling behind the modal window.
+     */
+    scrollDisabled?: boolean;
 }
 
 /**
@@ -173,5 +192,5 @@ export type RequiredAriaTypes<T = Pick<AriaModalProps, 'titleId'>, U = Pick<Aria
     { [K in keyof T]-? : T[K] } & { [P in keyof U]: never} | { [X in keyof T]: never } & { [Y in keyof U]-?: U[Y]};
 
 export default class AriaModal extends React.PureComponent<AriaModalProps & RequiredAriaTypes> {
-    static renderTo(node: HTMLElement | string): void;
+    static renderTo(node: HTMLElement | string): React.ReactType;
 }

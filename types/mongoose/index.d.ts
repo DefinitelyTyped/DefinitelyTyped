@@ -69,16 +69,6 @@ declare module "mongoose" {
   import mongoose = require('mongoose');
 
   /**
-   * Allows for nested objects and arrays to be partial
-   */
-  export type DeepPartial<T> = {
-    [P in keyof T]?:
-    T[P] extends (infer U)[] ? DeepPartial<U>[] :
-    T[P] extends object ? DeepPartial<T[P]> :
-    T[P];
-  };
-
-  /**
    * Gets and optionally overwrites the function used to pluralize collection names
    * @param fn function to use for pluralization of collection names
    * @returns the current function used to pluralize collection names (defaults to the `mongoose-legacy-pluralize` module's function)
@@ -1490,7 +1480,7 @@ declare module "mongoose" {
 
       /**
        * Return the index of obj or -1 if not found.
-       * @param obj he item to look for
+       * @param obj the item to look for
        */
       indexOf(obj: any): number;
 
@@ -2859,7 +2849,7 @@ declare module "mongoose" {
      *   Model#ensureIndexes. If an error occurred it is passed with the event.
      *   The fields, options, and index name are also passed.
      */
-    new(doc?: DeepPartial<T>): T;
+    new(doc?: any): T;
 
     /**
      * Requires a replica set running MongoDB >= 3.6.0. Watches the underlying collection for changes using MongoDB change streams.
@@ -3255,9 +3245,9 @@ declare module "mongoose" {
       callback?: (err: any, res: T) => void): Promise<T>;
 
     /** Removes documents from the collection. */
-    remove(conditions: any, callback?: (err: any) => void): Query<mongodb.DeleteWriteOpResultObject['result']> & QueryHelpers;
-    deleteOne(conditions: any, callback?: (err: any) => void): Query<mongodb.DeleteWriteOpResultObject['result']> & QueryHelpers;
-    deleteMany(conditions: any, callback?: (err: any) => void): Query<mongodb.DeleteWriteOpResultObject['result']> & QueryHelpers;
+    remove(conditions: any, callback?: (err: any) => void): Query<mongodb.DeleteWriteOpResultObject['result'] & { deletedCount?: number }> & QueryHelpers;
+    deleteOne(conditions: any, callback?: (err: any) => void): Query<mongodb.DeleteWriteOpResultObject['result'] & { deletedCount?: number }> & QueryHelpers;
+    deleteMany(conditions: any, callback?: (err: any) => void): Query<mongodb.DeleteWriteOpResultObject['result'] & { deletedCount?: number }> & QueryHelpers;
 
     /**
      * Same as update(), except MongoDB replace the existing document with the given document (no atomic operators like $set).

@@ -13,6 +13,7 @@ import {
 import {
     Connect,
     connect,
+    ConnectedProps,
     Provider,
     DispatchProp,
     MapStateToProps,
@@ -1399,4 +1400,53 @@ function testUseStore() {
     const typedState = typedStore.getState();
     typedState.counter;
     typedState.things.stuff; // $ExpectError
+}
+
+function testConnectedProps() {
+    interface OwnProps {
+        own: string;
+    }
+    const Component: React.FC<OwnProps & ReduxProps> = ({ own, dispatch }) => null;
+
+    const connector = connect();
+    type ReduxProps = ConnectedProps<typeof connector>;
+
+    const ConnectedComponent = connect(Component);
+}
+
+function testConnectedPropsWithState() {
+    interface OwnProps {
+        own: string;
+    }
+    const Component: React.FC<OwnProps & ReduxProps> = ({ own, injected, dispatch }) => {
+        injected.slice();
+        return null;
+    };
+
+    const connector = connect((state: any) => ({ injected: '' }));
+    type ReduxProps = ConnectedProps<typeof connector>;
+
+    const ConnectedComponent = connect(Component);
+}
+
+function testConnectedPropsWithStateAndActions() {
+    interface OwnProps {
+        own: string;
+    }
+    const actionCreator = () => ({ type: 'action' });
+
+    const Component: React.FC<OwnProps & ReduxProps> = ({ own, injected, actionCreator }) => {
+        actionCreator();
+        return null;
+    };
+
+    const ComponentWithDispatch: React.FC<OwnProps & ReduxProps> = ({ own, dispatch }) => null; // $ExpectError
+
+    const connector = connect(
+        (state: any) => ({ injected: '' }),
+        { actionCreator }
+    );
+    type ReduxProps = ConnectedProps<typeof connector>;
+
+    const ConnectedComponent = connect(Component);
 }
