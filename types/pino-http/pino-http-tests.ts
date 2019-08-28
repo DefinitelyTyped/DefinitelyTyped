@@ -17,5 +17,6 @@ pinoHttp({ genReqId: (req) => 'foo' });
 pinoHttp({ genReqId: (req) => Buffer.allocUnsafe(16) });
 pinoHttp({ useLevel: 'error' });
 pinoHttp({ prettyPrint: true });
+pinoHttp({ autoLogging: false });
 pinoHttp(new Writable());
 pinoHttp({ customLogLevel(req, res) { return 'info'; } });
