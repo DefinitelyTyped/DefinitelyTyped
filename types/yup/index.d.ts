@@ -101,8 +101,8 @@ export interface MixedSchema<T = any> extends Schema<T> {
 }
 
 export interface StringSchemaConstructor {
-    (): StringSchema;
-    new (): StringSchema;
+    <T extends string = string>(): StringSchema<T>;
+    new <T extends string = string>(): StringSchema<T>;
 }
 
 export interface StringSchema<T extends string | null | undefined = string> extends Schema<T> {
