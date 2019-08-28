@@ -531,6 +531,7 @@ declare namespace p2 {
         allowSleep?: boolean;
         collisionResponse?: boolean;
         angle?: number;
+        angularDamping?: number;
         angularForce?: number;
         angularVelocity?: number;
         ccdIterations?: number;
