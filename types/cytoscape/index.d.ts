@@ -4482,7 +4482,7 @@ declare namespace cytoscape {
     type LayoutOptions =
         NullLayoutOptions | RandomLayoutOptions | PresetLayoutOptions |
         GridLayoutOptions | CircleLayoutOptions | ConcentricLayoutOptions |
-        BreadthFirstLayoutOptions | CoseLayoutOptions | BaseLayoutOptions;
+        BreadthFirstLayoutOptions | CoseLayoutOptions | BaseLayoutOptions | DagreExtensionLayoutOptions;
 
     type LayoutHandler = (e: LayoutEventObject) => void;
 
@@ -4693,6 +4693,22 @@ declare namespace cytoscape {
         minTemp: number;
         // Pass a reference to weaver to use threads for calculations
         weaver: boolean;
+    }
+
+    /**
+     * https://github.com/cytoscape/cytoscape.js-dagre
+     */
+    interface DagreExtensionLayoutOptions extends BaseLayoutOptions, AnimatedLayoutOptions {
+        name: "dagre";
+        // a positive value which adjusts spacing between nodes (>1 means greater than usual spacing)
+        spacingFactor?: number;
+        // dagre algo options, uses default value on undefined
+        nodeSep: number; // the separation between adjacent nodes in the same rank
+        edgeSep: number; // the separation between adjacent edges in the same rank
+        rankSep: number; // the separation between adjacent nodes in the same rank
+        rankDir: string; // 'TB' for top to bottom flow, 'LR' for left to right,
+        ranker:  string; // Type of algorithm to assigns a rank to each node in the input graph.
+        // Possible values: network-simplex, tight-tree or longest-path
     }
 
     /**
