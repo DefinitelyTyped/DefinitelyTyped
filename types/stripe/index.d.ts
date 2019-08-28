@@ -3437,6 +3437,16 @@ declare namespace Stripe {
              * The identifier of the customer whose invoice items to return. If none is provided, all invoice items will be returned.
              */
             customer?: string;
+            
+            /**
+             * Only return invoice items belonging to this invoice. If none is provided, all invoice items will be returned. If specifying an invoice, no customer identifier is needed.
+             */
+            invoice?: string;
+
+            /**
+             * Set to true to only show pending invoice items, which are not yet attached to any invoices. Set to false to only show invoice items already attached to invoices. If unspecified, no filter is applied.
+             */
+            pending?: boolean;
         }
     }
 
