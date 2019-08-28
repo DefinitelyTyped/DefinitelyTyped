@@ -119,6 +119,11 @@ export interface RevokeRequestOptions {
     readonly clientAssertionPayload?: object;
 }
 
+export interface RefreshRequestOptions {
+    readonly exchangeBody?: { readonly [key: string] : string };
+    readonly clientAssertionPayload?: { readonly [key: string] : string };
+}
+
 export class Client {
     static [custom.http_options]: CustomHttpOptionsProvider;
 
@@ -167,6 +172,8 @@ export class Client {
      * @param extras Additional revoke options
      */
     revoke(token: string, tokenTypeHint: string, extras?: RevokeRequestOptions): Promise<void>;
+    
+    refresh(refreshToken: string, opts: RefreshRequestOptions): Promise<TokenSet>
 }
 
 export class TokenSet {
@@ -174,6 +181,7 @@ export class TokenSet {
     readonly token_type?: string;
     readonly id_token?: string;
     readonly refresh_token?: string;
+    readonly expiration?: number;
 
     expired(): boolean;
 
