@@ -777,6 +777,21 @@ declare module "mongoose" {
      * @param method name of the method to hook
      * @param fn callback
      */
+    post<T extends Document>(method: 'insertMany', fn: (
+      this: Model<Document>,
+      error: mongodb.MongoError, docs: T[], next: (err?: NativeError) => void
+    ) => void): this;
+
+    post<T extends Document>(method: 'insertMany', fn: (
+      this: Model<Document>,
+      docs: T[], next: (err?: NativeError) => void
+    ) => void): this;
+
+    post<T extends Document>(method: 'insertMany', fn: (
+      this: Model<Document>,
+      docs: T[], next: (err?: NativeError) => Promise<any>
+    ) => void): this;
+
     post<T extends Document>(method: string | RegExp, fn: (
       doc: T, next: (err?: NativeError) => void
     ) => void): this;

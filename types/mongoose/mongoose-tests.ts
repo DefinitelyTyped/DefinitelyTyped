@@ -503,6 +503,22 @@ schema
 .post('save', function (doc: mongoose.Document) {
   doc.model;
 });
+
+schema.post('insertMany', function(docs: mongoose.Document[], next: () => void) {
+    const isDefaultType: mongoose.Model<mongoose.Document> = this;
+    next();
+});
+
+schema.post('insertMany', function(error, docs: mongoose.Document[], next) {
+    const isDefaultType: mongoose.Model<mongoose.Document> = this;
+    next();
+});
+
+schema.post('insertMany', async function(docs: mongoose.Document[]): Promise<void> {
+    const isDefaultType: mongoose.Model<mongoose.Document> = this;
+    return;
+});
+
 schema.queue('m1', [1, 2, 3]).queue('m2', [[]]);
 schema.remove('path');
 schema.remove(['path1', 'path2', 'path3']);
