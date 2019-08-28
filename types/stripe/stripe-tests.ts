@@ -1472,7 +1472,7 @@ stripe.invoiceItems
         pending: true,
         limit: 3,
     })
-    .then(invoices => {
+    .then(invoiceItems => {
         // asynchronously called
     });
 
