@@ -37,9 +37,9 @@ declare class sharedb {
      * @param action name of an action from https://github.com/share/sharedb#middlewares
      * @param fn listener invoked when the specified action occurs
      */
-    use<A extends keyof middleware.ActionContextMap>(
+    use<A extends keyof sharedb.middleware.ActionContextMap>(
         action: A,
-        fn: (context: middleware.ActionContextMap[A], callback: (err?: any) => void) => void,
+        fn: (context: sharedb.middleware.ActionContextMap[A], callback: (err?: any) => void) => void,
     ): void;
     static types: {
         register: (type: { name?: string, uri?: string, [key: string]: any}) => void;
@@ -114,82 +114,82 @@ declare namespace sharedb {
 
     type Path = ShareDB.Path;
     type ShareDBSourceOptions = ShareDB.ShareDBSourceOptions;
-}
 
-declare namespace middleware {
-    interface ActionContextMap {
-        afterSubmit: SubmitContext;
-        apply: ApplyContext;
-        commit: CommitContext;
-        connect: ConnectContext;
-        doc: DocContext;  // Deprecated, use 'readSnapshots' instead.
-        op: OpContext;
-        query: QueryContext;
-        readSnapshots: ReadSnapshotsContext;
-        receive: ReceiveContext;
-        reply: ReplyContext;
-        submit: SubmitContext;
-    }
+    namespace middleware {
+        interface ActionContextMap {
+            afterSubmit: SubmitContext;
+            apply: ApplyContext;
+            commit: CommitContext;
+            connect: ConnectContext;
+            doc: DocContext;  // Deprecated, use 'readSnapshots' instead.
+            op: OpContext;
+            query: QueryContext;
+            readSnapshots: ReadSnapshotsContext;
+            receive: ReceiveContext;
+            reply: ReplyContext;
+            submit: SubmitContext;
+        }
 
-    interface BaseContext {
-        action: keyof ActionContextMap;
-        agent: any;
-        backend: sharedb;
-    }
+        interface BaseContext {
+            action: keyof ActionContextMap;
+            agent: any;
+            backend: sharedb;
+        }
 
-    interface ApplyContext extends BaseContext, SubmitRequest {
-    }
+        interface ApplyContext extends BaseContext, SubmitRequest {
+        }
 
-    interface CommitContext extends BaseContext, SubmitRequest {
-    }
+        interface CommitContext extends BaseContext, SubmitRequest {
+        }
 
-    interface ConnectContext extends BaseContext {
-        stream: any;
-        req: any;  // Property always exists, value may be undefined
-    }
+        interface ConnectContext extends BaseContext {
+            stream: any;
+            req: any;  // Property always exists, value may be undefined
+        }
 
-    interface DocContext extends BaseContext {
-        collection: string;
-        id: string;
-        snapshot: ShareDB.Snapshot;
-    }
+        interface DocContext extends BaseContext {
+            collection: string;
+            id: string;
+            snapshot: ShareDB.Snapshot;
+        }
 
-    interface OpContext extends BaseContext {
-        collection: string;
-        id: string;
-        op: ShareDB.Op;
-    }
+        interface OpContext extends BaseContext {
+            collection: string;
+            id: string;
+            op: ShareDB.Op;
+        }
 
-    interface QueryContext extends BaseContext {
-        index: string;
-        collection: string;
-        projection: Projection | undefined;
-        fields: ProjectionFields | undefined;
-        channel: string;
-        query: ShareDB.JSONObject;
-        options: ShareDB.JSONObject;
-        db: sharedb.DB | null;
-        snapshotProjection: Projection | null;
-    }
+        interface QueryContext extends BaseContext {
+            index: string;
+            collection: string;
+            projection: Projection | undefined;
+            fields: ProjectionFields | undefined;
+            channel: string;
+            query: any;
+            options?: {[key: string]: any};
+            db: DB | null;
+            snapshotProjection: Projection | null;
+        }
 
-    interface ReadSnapshotsContext extends BaseContext {
-        collection: string;
-        snapshots: ShareDB.Snapshot[];
-        snapshotType: SnapshotType;
-    }
+        interface ReadSnapshotsContext extends BaseContext {
+            collection: string;
+            snapshots: ShareDB.Snapshot[];
+            snapshotType: SnapshotType;
+        }
 
-    interface ReceiveContext extends BaseContext {
-        data: ShareDB.JSONObject;  // ClientRequest, but before any validation
-    }
+        interface ReceiveContext extends BaseContext {
+            data: {[key: string]: any};  // ClientRequest, but before any validation
+        }
 
-    interface ReplyContext extends BaseContext {
-        request: ShareDB.ClientRequest;
-        reply: ShareDB.JSONObject;
-    }
+        interface ReplyContext extends BaseContext {
+            request: ShareDB.ClientRequest;
+            reply: {[key: string]: any};
+        }
 
-    type SnapshotType = 'current' | 'byVersion' | 'byTimestamp';
+        type SnapshotType = 'current' | 'byVersion' | 'byTimestamp';
 
-    interface SubmitContext extends BaseContext, SubmitRequest {
+        interface SubmitContext extends BaseContext, SubmitRequest {
+        }
     }
 }
 

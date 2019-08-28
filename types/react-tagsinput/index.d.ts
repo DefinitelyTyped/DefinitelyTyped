@@ -43,13 +43,13 @@ declare namespace TagsInput {
         readonly tag: Tag;
     }
 
-    type RenderLayout = (tagComponent: React.Component[], inputComponent: React.Component) => React.ReactChild;
+    type RenderLayout = (tagElements: React.ReactElement[], inputElement: React.ReactElement) => React.ReactChild;
 
     interface ReactTagsInputProps extends React.Props<TagsInput> {
         value: Tag[];
         onChange: (tags: Tag[], changed: Tag[], changedIndexes: number[]) => void;
         onChangeInput?: (value: string) => void;
-        addKeys?: number[];
+        addKeys?: number[] | string[];
         currentValue?: string;
         inputValue?: string;
         onlyUnique?: boolean;

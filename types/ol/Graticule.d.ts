@@ -14,8 +14,8 @@ export interface Options {
     strokeStyle?: Stroke;
     targetSize?: number;
     showLabels?: boolean;
-    lonLabelFormatter?: ((p0: number) => string);
-    latLabelFormatter?: ((p0: number) => string);
+    lonLabelFormatter?: (p0: number) => string;
+    latLabelFormatter?: (p0: number) => string;
     lonLabelPosition?: number;
     latLabelPosition?: number;
     lonLabelStyle?: Text;

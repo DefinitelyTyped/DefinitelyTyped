@@ -1,30 +1,15 @@
-import { PureComponent, Validator, Requireable } from "react";
-import {
-    CellMeasurerCacheInterface,
-    KeyMapper,
-    MeasuredCellParent
-} from "./CellMeasurer";
-import { GridCellRenderer } from "./Grid";
+import { PureComponent, Validator, Requireable } from 'react';
+import { CellMeasurerCacheInterface, KeyMapper, MeasuredCellParent } from './CellMeasurer';
+import { GridCellRenderer } from './Grid';
 /**
  * Specifies the number of miliseconds during which to disable pointer events while a scroll is in progress.
  * This improves performance and makes scrolling smoother.
  */
 export const DEFAULT_SCROLLING_RESET_TIME_INTERVAL = 150;
 
-export type OnCellsRenderedCallback = (
-    params: {
-        startIndex: number;
-        stopIndex: number;
-    }
-) => void;
+export type OnCellsRenderedCallback = (params: { startIndex: number; stopIndex: number }) => void;
 
-export type OnScrollCallback = (
-    params: {
-        clientHeight: number;
-        scrollHeight: number;
-        scrollTop: number;
-    }
-) => void;
+export type OnScrollCallback = (params: { clientHeight: number; scrollHeight: number; scrollTop: number }) => void;
 
 export type MasonryCellProps = {
     index: number;
@@ -104,7 +89,7 @@ export class Masonry extends PureComponent<MasonryProps, MasonryState> {
         onCellsRendered: noop;
         onScroll: noop;
         overscanByPixels: 20;
-        role: "grid";
+        role: 'grid';
         scrollingResetTimeInterval: typeof DEFAULT_SCROLLING_RESET_TIME_INTERVAL;
         style: emptyObject;
         tabIndex: 0;
@@ -117,10 +102,7 @@ export class Masonry extends PureComponent<MasonryProps, MasonryState> {
 
     recomputeCellPositions(): void;
 
-    static getDerivedStateFromProps(
-        nextProps: MasonryProps,
-        prevState: MasonryState
-    ): MasonryState | null;
+    static getDerivedStateFromProps(nextProps: MasonryProps, prevState: MasonryState): MasonryState | null;
 }
 
 export type emptyObject = {};
@@ -151,6 +133,4 @@ export type Positioner = ((index: number) => Position) & {
     reset: (params: resetParams) => void;
 };
 
-export const createCellPositioner: (
-    params: createCellPositionerParams
-) => Positioner;
+export const createCellPositioner: (params: createCellPositionerParams) => Positioner;

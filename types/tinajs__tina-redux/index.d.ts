@@ -2,7 +2,7 @@
 // Project: https://github.com/tinajs/tina-redux
 // Definitions by: Jiayu Liu <https://github.com/Jimexist>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped/tinajs__tina-redux
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import { Store, Dispatch } from "redux";
 

@@ -215,6 +215,12 @@ declare namespace Flickity {
         asNavFor?: string | HTMLElement;
 
         /**
+         * Enables hash navigation to select slides with links and URLs.
+         * default: false
+         */
+        hash?: boolean;
+
+        /**
          * The number of pixels a mouse or touch has to move before dragging begins. Increase dragThreshold to allow for more wiggle room for vertical page scrolling on touch devices.
          *
          * default: 3

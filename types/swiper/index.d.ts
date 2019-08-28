@@ -6,6 +6,7 @@
 //                 Luiz M. <https://github.com/odahcam>
 //                 Justin Abene <https://github.com/jmca>
 //                 Asif Rahman <https://github.com/daem0ndev>
+//                 Liad Idan <https://github.com/LiadIdan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
@@ -428,13 +429,13 @@ export interface SwiperOptions {
     containerModifierClass?: string;
     slideClass?: string;
     slideActiveClass?: string;
-    slideDuplicatedActiveClass?: string;
+    slideDuplicateActiveClass?: string;
     slideVisibleClass?: string;
     slideDuplicateClass?: string;
     slideNextClass?: string;
-    slideDuplicatedNextClass?: string;
+    slideDuplicateNextClass?: string;
     slidePrevClass?: string;
-    slideDuplicatedPrevClass?: string;
+    slideDuplicatePrevClass?: string;
     wrapperClass?: string;
 
     // Components
@@ -978,6 +979,8 @@ export interface MousewheelOptions {
 export interface VirtualOptions {
     slides?: any[];
     cache?: boolean;
+    addSlidesBefore?: number;
+    addSlidesAfter?: number;
     renderSlide?: (slide: any, index: any) => any;
     renderExternal?: (data: any) => any;
 }

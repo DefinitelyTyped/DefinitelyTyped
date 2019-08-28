@@ -16,7 +16,7 @@ const node = store.any(
     undefined,
     undefined
 );
-const value = node.value;
+const value = node ? node.value : null;
 
 const updateManager = new $rdf.UpdateManager(store);
 updateManager.update(

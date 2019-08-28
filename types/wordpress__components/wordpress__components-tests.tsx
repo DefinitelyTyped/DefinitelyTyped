@@ -314,7 +314,7 @@ const IconFunctionComponent = (props: { foo: number; bar: number }) => (
 // icon-button
 //
 <C.IconButton icon="ellipsis" label="More" />;
-<C.IconButton icon={() => <i>foo</i>} onClick={() => console.log('clicked')} />;
+<C.IconButton icon={<i>foo</i>} onClick={() => console.log('clicked')} />;
 
 //
 // keyboard-shortcuts

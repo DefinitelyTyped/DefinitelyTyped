@@ -100,11 +100,14 @@ import * as https from 'https';
                 strategy: 0,
                 dictionary: new Buffer('test'),
                 info: false
+            },
+            zlibInflateOptions: {
+                chunkSize: 0
             }
         },
         verifyClient: (info: any, cb: any) => {
-            cb(true, 123, 'message', { Upgrade: "websocket" });
-        }
+            cb(true, 123, 'message', { Upgrade: 'websocket' });
+        },
     });
 }
 
@@ -113,4 +116,20 @@ import * as https from 'https';
         maxPayload: 10 * 1024 * 1024
     });
     ws.on('open', () => ws.send('something assume to be really long'));
+}
+
+{
+    const ws = new WebSocket('ws://www.host.com/path');
+    ws.onopen = (event: WebSocket.OpenEvent) => {
+        console.log(event.target);
+    };
+    ws.onerror = (event: WebSocket.ErrorEvent) => {
+        console.log(event.error, event.message, event.target, event.type);
+    };
+    ws.onclose = (event: WebSocket.CloseEvent) => {
+        console.log(event.code, event.reason, event.target, event.wasClean);
+    };
+    ws.onmessage = (event: WebSocket.MessageEvent) => {
+        console.log(event.data, event.target, event.type);
+    };
 }

@@ -1,9 +1,10 @@
-// Type definitions for prosemirror-view 1.3
+// Type definitions for prosemirror-view 1.9
 // Project: https://github.com/ProseMirror/prosemirror-view
 // Definitions by: Bradley Ayers <https://github.com/bradleyayers>
 //                 David Hahn <https://github.com/davidka>
 //                 Tim Baumann <https://github.com/timjb>
 //                 Patrick Simmelbauer <https://github.com/patsimm>
+//                 Ifiok Jr. <https://github.com/ifiokjr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -46,44 +47,51 @@ export class Decoration {
    * called when the widget is actually drawn in a view, but you can
    * also directly pass a DOM node. getPos can be used to find the
    * widget's current document position.
-   *
-   * @param spec These options are supported:
-   * @param spec.side Controls which side of the document position
-   * this widget is associated with. When negative, it is drawn before
-   * a cursor at its position, and content inserted at that position
-   * ends up after the widget. When zero (the default) or positive, the
-   * widget is drawn after the cursor and content inserted there ends
-   * up before the widget.
-   *
-   * When there are multiple widgets at a given position, their side
-   * values determine the order in which they appear. Those with lower
-   * values appear first. The ordering of widgets with the same side
-   * value is unspecified.
-   *
-   * When marks is null, side also determines the marks that the widget
-   * is wrapped in—those of the node before when negative, those of
-   * the node after when positive.
-   * @param spec.marks The precise set of marks to draw around the widget.
-   * @param spec.stopEvent Can be used to control which DOM events, when
-   * they bubble out of this widget, the editor view should ignore.
-   * @param spec.key When comparing decorations of this type (in order to
-   * decide whether it needs to be redrawn), ProseMirror will by default
-   * compare the widget DOM node by identity. If you pass a key, that key
-   * will be compared instead, which can be useful when you generate
-   * decorations on the fly and don't want to store and reuse DOM nodes.
-   * Make sure that any widgets with the same key are interchangeable—if
-   * widgets differ in, for example, the behavior of some event handler,
-   * they should get different keys.
    */
   static widget(
     pos: number,
     toDOM: ((view: EditorView, getPos: () => number) => Node) | Node,
     spec?: {
-      [key: string]: any;
+      /**
+       * Controls which side of the document position this widget is
+       * associated with. When negative, it is drawn before a cursor
+       * at its position, and content inserted at that position ends
+       * up after the widget. When zero (the default) or positive, the
+       * widget is drawn after the cursor and content inserted there
+       * ends up before the widget.
+       *
+       * When there are multiple widgets at a given position, their
+       * `side` values determine the order in which they appear. Those
+       * with lower values appear first. The ordering of widgets with
+       * the same `side` value is unspecified.
+       *
+       * When `marks` is null, `side` also determines the marks that
+       * the widget is wrapped in—those of the node before when
+       * negative, those of the node after when positive.
+       */
       side?: number | null;
+      /**
+       * The precise set of marks to draw around the widget.
+       */
       marks?: Mark[] | null;
+      /**
+       * Can be used to control which DOM events, when they bubble out
+       * of this widget, the editor view should ignore.
+       */
       stopEvent?: ((event: Event) => boolean) | null;
+      /**
+       * When comparing decorations of this type (in order to decide
+       * whether it needs to be redrawn), ProseMirror will by default
+       * compare the widget DOM node by identity. If you pass a key,
+       * that key will be compared instead, which can be useful when
+       * you generate decorations on the fly and don't want to store
+       * and reuse DOM nodes. Make sure that any widgets with the same
+       * key are interchangeable—if widgets differ in, for example,
+       * the behavior of some event handler, they should get
+       * different keys.
+       */
       key?: string | null;
+      [key: string]: any;
     }
   ): Decoration;
   /**
@@ -94,7 +102,20 @@ export class Decoration {
     from: number,
     to: number,
     attrs: DecorationAttrs,
-    spec?: { inclusiveStart?: boolean | null; inclusiveEnd?: boolean | null }
+    spec?: {
+      /**
+       * Determines how the left side of the decoration is
+       * [mapped](#transform.Position_Mapping) when content is
+       * inserted directly at that position. By default, the decoration
+       * won't include the new content, but you can set this to `true`
+       * to make it inclusive.
+       */
+      inclusiveStart?: boolean | null;
+      /**
+       * Determines how the right side of the decoration is mapped.
+       */
+      inclusiveEnd?: boolean | null
+    }
   ): Decoration;
   /**
    * Creates a node decoration. `from` and `to` should point precisely
@@ -147,7 +168,7 @@ export class DecorationSet<S extends Schema = any> {
    * boundaries) and match the given predicate on their spec. When
    * `start` and `end` are omitted, all decorations in the set are
    * considered. When `predicate` isn't given, all decorations are
-   * asssumed to match.
+   * assumed to match.
    */
   find(
     start?: number,
@@ -220,6 +241,10 @@ export class EditorView<S extends Schema = any> {
    */
   dragging?: { slice: Slice<S>; move: boolean } | null;
   /**
+   * Holds true when a composition is active.
+   */
+  composing: boolean;
+  /**
    * The view's current [props](#view.EditorProps).
    */
   props: DirectEditorProps<S>;
@@ -266,8 +291,8 @@ export class EditorView<S extends Schema = any> {
   /**
    * Given a pair of viewport coordinates, return the document
    * position that corresponds to them. May return null if the given
-   * coordinates aren't inside of the visible editor. When an object
-   * is returned, its `pos` property is the position nearest to the
+   * coordinates aren't inside of the editor. When an object is
+   * returned, its `pos` property is the position nearest to the
    * coordinates, and its `inside` property holds the position of the
    * inner node that the position falls inside of, or -1 if it is at
    * the top level, not in any node.
@@ -505,9 +530,11 @@ export interface EditorProps<S extends Schema = any> {
    * Allows you to pass custom rendering and behavior logic for nodes
    * and marks. Should map node and mark names to constructor
    * functions that produce a [`NodeView`](#view.NodeView) object
-   * implementing the node's display behavior. `getPos` is a function
-   * that can be called to get the node's current position, which can
-   * be useful when creating transactions to update it.
+   * implementing the node's display behavior. For nodes, the third
+   * argument `getPos` is a function that can be called to get the
+   * node's current position, which can be useful when creating
+   * transactions to update it. For marks, the third argument is a
+   * boolean that indicates whether the mark's content is inline.
    *
    * `decorations` is an array of node or inline decorations that are
    * active around the node. They are automatically drawn in the
@@ -566,12 +593,12 @@ export interface EditorProps<S extends Schema = any> {
    * end of the visible viewport at which point, when scrolling the
    * cursor into view, scrolling takes place. Defaults to 0.
    */
-  scrollThreshold?: number | null;
+  scrollThreshold?: number | { top: number, right: number, bottom: number, left: number } | null;
   /**
    * Determines the extra space (in pixels) that is left above or
    * below the cursor when it is scrolled into view. Defaults to 5.
    */
-  scrollMargin?: number | null;
+  scrollMargin?: number | { top: number, right: number, bottom: number, left: number } | null;
 }
 /**
  * The props object given directly to the editor view supports two
@@ -588,7 +615,8 @@ export interface DirectEditorProps<S extends Schema = any> extends EditorProps<S
    * make sure this ends up calling the view's
    * [`updateState`](#view.EditorView.updateState) method with a new
    * state that has the transaction
-   * [applied](#state.EditorState.apply).
+   * [applied](#state.EditorState.apply). The callback will be bound to have
+   * the view instance as its `this` binding.
    */
   dispatchTransaction?: ((tr: Transaction<S>) => void) | null;
 }

@@ -1,4 +1,4 @@
-import Mercury from 'postlight__mercury-parser';
+import * as Mercury from 'postlight__mercury-parser';
 
 const url = "https://en.wikipedia.org/wiki/Thunder_(mascot)";
 

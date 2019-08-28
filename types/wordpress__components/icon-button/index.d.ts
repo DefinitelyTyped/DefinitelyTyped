@@ -10,7 +10,7 @@ declare namespace IconButton {
         /**
          * Icon to use. Either a Dashicon slug or a custom component.
          */
-        icon: Dashicon.Icon | ComponentType;
+        icon: Dashicon.Icon | JSX.Element;
         shortcut?: Shortcut.ShortcutType;
         /**
          * Label for the button.

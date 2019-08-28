@@ -120,6 +120,8 @@ export interface UnparseConfig {
     delimiter?: string; // default: ","
     header?: boolean; // default: true
     newline?: string; // default: "\r\n"
+    skipEmptyLines?: boolean | 'greedy'; // default: false
+    columns?: string[]; // default: null
 }
 
 export interface UnparseObject {

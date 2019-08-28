@@ -12,7 +12,7 @@ export default class SimpleGeometry extends Geometry {
     protected layout: GeometryLayout;
     protected stride: number;
     protected getSimplifiedGeometryInternal(squaredTolerance: number): SimpleGeometry;
-    protected setLayout(layout: GeometryLayout, coordinates: any[], nesting: number): void;
+    protected setLayout(layout: GeometryLayout | undefined, coordinates: any[], nesting: number): void;
     getCoordinates(): any[];
     getFirstCoordinate(): Coordinate;
     getFlatCoordinates(): number[];
@@ -21,9 +21,9 @@ export default class SimpleGeometry extends Geometry {
     getStride(): number;
     setCoordinates(coordinates: any[], opt_layout?: GeometryLayout): void;
     setFlatCoordinates(layout: GeometryLayout, flatCoordinates: number[]): void;
-    on(type: string | string[], listener: ((p0: any) => void)): EventsKey | EventsKey[];
-    once(type: string | string[], listener: ((p0: any) => void)): EventsKey | EventsKey[];
-    un(type: string | string[], listener: ((p0: any) => void)): void;
+    on(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
+    once(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
+    un(type: string | string[], listener: (p0: any) => void): void;
     on(type: 'change', listener: (evt: Event) => void): EventsKey;
     once(type: 'change', listener: (evt: Event) => void): EventsKey;
     un(type: 'change', listener: (evt: Event) => void): void;

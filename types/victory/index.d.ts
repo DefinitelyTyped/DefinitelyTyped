@@ -1234,6 +1234,12 @@ declare module "victory" {
      */
     axisLabelComponent?: React.ReactElement;
     /**
+     * The axisValue prop may be used instead of axisAngle to position the
+     * dependent axis. Ths prop is useful when dependent axes should line up
+     * with values on the independent axis.
+     */
+    axisValue?: number | string | object;
+    /**
      * This prop specifies whether a given axis is intended to cross another axis.
      */
     crossAxis?: boolean;

@@ -25,8 +25,11 @@
 //                 Vlad Melnik <https://github.com/vladmel1234>
 //                 Jarom Loveridge <https://github.com/jloveridge>
 //                 Grimmer Kang <https://github.com/grimmer0125>
+//                 Richard Davison <https://github.com/richarddd>
+//                 Brian Chen <https://github.com/ToucheSir>
+//                 Boris Figovsky <https://github.com/borfig>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference types="mongodb" />
 /// <reference types="node" />
@@ -1144,6 +1147,9 @@ declare module "mongoose" {
     /** ObjectId only - Adds an auto-generated ObjectId default if turnOn is true. */
     auto?: boolean | any;
 
+    /** Map only - Specifies the type of the map's attributes */
+    of?: any;
+
     [other: string]: any;
   }
 
@@ -1326,6 +1332,12 @@ declare module "mongoose" {
     set(value: any): this;
 
     /**
+     * Overwrite all values, except for immutable properties.
+     * @param obj the object to overwrite this document with
+     */
+    overwrite(obj: any): this;
+
+    /**
      * The return value of this method is used in calls to JSON.stringify(doc).
      * This method accepts the same options as Document#toObject. To apply the
      * options to every document of your schema by default, set your schemas
@@ -1468,7 +1480,7 @@ declare module "mongoose" {
 
       /**
        * Return the index of obj or -1 if not found.
-       * @param obj he item to look for
+       * @param obj the item to look for
        */
       indexOf(obj: any): number;
 
@@ -1653,7 +1665,22 @@ declare module "mongoose" {
        */
       markModified(path: string): void;
     }
+
+    /**
+     * section types/map.js
+     * https://mongoosejs.com/docs/schematypes.html#maps
+     */
+    class Map<V> extends global.Map<string, V> {
+      /** Returns this Map object as a POJO. */
+      toObject(options: { flattenMaps: true } & object): Record<string, V>;
+      /** Returns a native js Map. */
+      toObject(options?: any): GlobalMap<string, V>;
+    }
   }
+
+  // Because the mongoose Map type shares a name with the default global interface,
+  // this type alias has to exist outside of the namespace
+  interface GlobalMap<K, V> extends Map<K, V> {}
 
   /*
    * section query.js
@@ -2520,6 +2547,15 @@ declare module "mongoose" {
         /** Sub-schema schematype constructor */
         constructor(schema: Schema, key: string, options?: any);
       }
+
+      /**
+       * section schema/map.js
+       * https://mongoosejs.com/docs/schematypes.html#maps
+       */
+      class Map extends SchemaType {
+        /** Sub-schema schematype constructor */
+        constructor(key: string, options?: any);
+      }
     }
   }
 
@@ -2920,15 +2956,17 @@ declare module "mongoose" {
      * Adds a discriminator type.
      * @param name discriminator model name
      * @param schema discriminator model schema
+     * @param value the string stored in the `discriminatorKey` property
      */
-    discriminator<U extends Document>(name: string, schema: Schema): Model<U>;
+    discriminator<U extends Document>(name: string, schema: Schema, value?: string): Model<U>;
 
     /**
      * Adds a discriminator type.
      * @param name discriminator model name
      * @param schema discriminator model schema
+     * @param value the string stored in the `discriminatorKey` property
      */
-    discriminator<U extends Document, M extends Model<U>>(name: string, schema: Schema): M;
+    discriminator<U extends Document, M extends Model<U>>(name: string, schema: Schema, value?: string): M;
 
     /** Creates a Query for a distinct operation. Passing a callback immediately executes the query. */
     distinct(field: string, callback?: (err: any, res: any[]) => void): Query<any[]> & QueryHelpers;
@@ -2971,6 +3009,12 @@ declare module "mongoose" {
      * @param cb Optional callback
      */
     createIndexes(cb?: (err: any) => void): Promise<void>;
+
+    /**
+     * Returns true if at least one document exists in the database that matches
+     * the given `filter`, and false otherwise.
+     */
+    exists(filter: any, callback?: (err: any, res: boolean) => void): Promise<boolean>;
 
     /**
      * Finds documents.
@@ -3201,9 +3245,9 @@ declare module "mongoose" {
       callback?: (err: any, res: T) => void): Promise<T>;
 
     /** Removes documents from the collection. */
-    remove(conditions: any, callback?: (err: any) => void): Query<mongodb.DeleteWriteOpResultObject['result']> & QueryHelpers;
-    deleteOne(conditions: any, callback?: (err: any) => void): Query<mongodb.DeleteWriteOpResultObject['result']> & QueryHelpers;
-    deleteMany(conditions: any, callback?: (err: any) => void): Query<mongodb.DeleteWriteOpResultObject['result']> & QueryHelpers;
+    remove(conditions: any, callback?: (err: any) => void): Query<mongodb.DeleteWriteOpResultObject['result'] & { deletedCount?: number }> & QueryHelpers;
+    deleteOne(conditions: any, callback?: (err: any) => void): Query<mongodb.DeleteWriteOpResultObject['result'] & { deletedCount?: number }> & QueryHelpers;
+    deleteMany(conditions: any, callback?: (err: any) => void): Query<mongodb.DeleteWriteOpResultObject['result'] & { deletedCount?: number }> & QueryHelpers;
 
     /**
      * Same as update(), except MongoDB replace the existing document with the given document (no atomic operators like $set).
@@ -3324,8 +3368,8 @@ declare module "mongoose" {
     select?: any;
     /** optional query conditions to match */
     match?: any;
-    /** optional name of the model to use for population */
-    model?: string;
+    /** optional model to use for population */
+    model?: string | Model<any>;
     /** optional query options like sort, limit, etc */
     options?: any;
     /** deep populate */
