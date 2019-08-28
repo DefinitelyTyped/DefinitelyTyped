@@ -839,7 +839,7 @@ stripe.customers.createTaxId(
         type: 'eu_vat',
         value: 'DE123456789',
     },
-    function(err, taxId) {
+    (err, taxId) => {
         // asynchronously called
     }
 );
@@ -847,7 +847,7 @@ stripe.customers.createTaxId(
 stripe.customers.retrieveTaxId(
     'cus_FhdWgak8aeNfht',
     'txi_123456789',
-    function(err, taxId) {
+    (err, taxId) => {
         // asynchronously called
     }
 );
@@ -855,12 +855,12 @@ stripe.customers.retrieveTaxId(
 stripe.customers.deleteTaxId(
     'cus_FhdWgak8aeNfht',
     'txi_123456789',
-    function(err, confirmation) {
+    (err, confirmation) => {
         // asynchronously called
     }
 );
 
-stripe.customers.listTaxIds('cus_FhdWgak8aeNfht', function(err, taxIds) {
+stripe.customers.listTaxIds('cus_FhdWgak8aeNfht', (err, taxIds) => {
     // asynchronously called
 });
 
