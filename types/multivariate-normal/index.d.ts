@@ -11,4 +11,7 @@ export interface Distribution {
     setCov(newCov: number[][]): Distribution;
 }
 
-export default function MultivariateNormal(mean: number[], cov: number[][]): Distribution;
+export default function MultivariateNormal(
+  mean: ReadonlyArray<number>,
+  cov: ReadonlyArray<ReadonlyArray<number>>,
+): Distribution;
