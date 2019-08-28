@@ -120,8 +120,8 @@ export interface RevokeRequestOptions {
 }
 
 export interface RefreshRequestOptions {
-    readonly exchangeBody?: { readonly [key: string] : string };
-    readonly clientAssertionPayload?: { readonly [key: string] : string };
+    readonly exchangeBody?: { readonly [key: string]: string };
+    readonly clientAssertionPayload?: { readonly [key: string]: string };
 }
 
 export class Client {
@@ -178,7 +178,7 @@ export class Client {
      * @param refreshToken The refresh token
      * @param opts Additional options
      */
-    refresh(refreshToken: string, opts?: RefreshRequestOptions): Promise<TokenSet>
+    refresh(refreshToken: string, opts?: RefreshRequestOptions): Promise<TokenSet>;
 }
 
 export class TokenSet {
