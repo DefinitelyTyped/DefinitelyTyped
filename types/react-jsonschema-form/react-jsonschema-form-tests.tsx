@@ -173,3 +173,15 @@ export const withThemeExample = () => {
 export const additionalPropertyFlagExample = () => {
     return ADDITIONAL_PROPERTY_FLAG;
 };
+
+export const ExternalFormSubmissionExample = () => {
+  const formRef = React.useRef<Form<any>>(null);
+
+  return (
+    <Form schema={schema} ref={formRef}>
+      <button onClick={formRef.current ? formRef.current.submit : undefined}>
+        FancySubmitButton
+      </button>
+    </Form>
+  );
+};
