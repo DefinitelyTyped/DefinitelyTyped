@@ -21,6 +21,17 @@ function instantiatePolyglot(): void {
 			return 'ouups!';
 		}
 	});
+    var warnPolyglot = new Polyglot({
+        warn: (message: string): void => {
+            return;
+        }
+    });
+    var interpolationPrefixPolyglot = new Polyglot({
+        interpolation: {prefix: "$["}
+    });
+    var interpolationSuffixPolyglot = new Polyglot(
+        {interpolation: {suffix: "]"}
+    });
 }
 
 function translate(): void {
@@ -36,6 +47,10 @@ function translate(): void {
 		},
 		"num_cars": "%{smart_count} car |||| %{smart_count} cars"
 	});
+    polyglot.extend({
+        "hello": "Hello",
+        "hello_name": "Hola, %{name}."
+    }, "nested");
 
 	polyglot.t("hello");
 	polyglot.t("hello_name");
@@ -47,7 +62,7 @@ function translate(): void {
 		_: "I like to write in %{language}.",
 		language: "Javascript"
 	});
-  
+
 	polyglot.has("hello");
 	polyglot.has("world");
 
@@ -60,11 +75,28 @@ function translate(): void {
 		}
 	});
 
+    polyglot.unset("hello");
+    polyglot.unset({
+        "hello_name": "Hola, %{name}."
+    });
+    polyglot.unset("hello", "nested");
+    polyglot.unset({
+        "hello_name": "Hola, %{name}."
+    }, "nested");
+
 	polyglot.clear();
 
 	if (polyglot.locale("fr")) {
     };
-    
+
 	if (polyglot.locale()) {
     };
+}
+
+function transform(): void {
+    Polyglot.transformPhrase("Hello");
+    Polyglot.transformPhrase("Hola, %{name}.", {name: "Spike"});
+    Polyglot.transformPhrase("%{smart_count} car |||| %{smart_count} cars", 0);
+    Polyglot.transformPhrase("%{smart_count} car |||| %{smart_count} cars", {smart_count: 0});
+    Polyglot.transformPhrase("Bonjour", undefined, "fr");
 }
