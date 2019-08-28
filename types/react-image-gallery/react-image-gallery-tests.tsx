@@ -13,7 +13,8 @@ class ImageGallery extends React.Component {
     render() {
         const galleryItem: ReactImageGalleryItem = {
             original: 'http://localhost/logo.jpg',
-            originalTitle: 'My Logo'
+            originalTitle: 'My Logo',
+            bulletClass: 'my-bullet-class-name',
         };
 
         const props: ReactImageGalleryProps = {

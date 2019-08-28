@@ -1,9 +1,10 @@
-// Type definitions for mathjs 5.0
+// Type definitions for mathjs 6.0
 // Project: https://mathjs.org/
 // Definitions by: Ilya Shestakov <https://github.com/siavol>,
 //                  Andy Patterson <https://github.com/andnp>,
 //                  Brad Besserman <https://github.com/bradbesserman>
 //                  Pawel Krol <https://github.com/pawkrol>
+//                  Charlee Li <https://github.com/charlee>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -25,7 +26,16 @@ declare namespace math {
         | Matrix;
     type MathExpression = string | string[] | MathArray | Matrix;
 
-    interface MathJsStatic {
+    type FactoryFunction<T> = (scope: any) => T;
+
+    // FactoryFunctionMap can be nested; all nested objects will be flattened
+    interface FactoryFunctionMap {
+        [key: string]: FactoryFunction<any> | FactoryFunctionMap;
+    }
+
+    type MathJsFunctionName = keyof MathJsStatic;
+
+    interface MathJsStatic extends FactoryDependencies {
         e: number;
         pi: number;
         i: number;
@@ -302,7 +312,7 @@ declare namespace math {
 
         /**
          * Parse and compile an expression. Returns a an object with a function
-         * eval([scope]) to evaluate the compiled expression.
+         * evaluate([scope]) to evaluate the compiled expression.
          * @param expr The expression to be compiled
          * @returns An object with the compiled expression
          */
@@ -319,7 +329,7 @@ declare namespace math {
          * @param scope Scope to read/write variables
          * @returns The result of the expression
          */
-        eval(
+        evaluate(
             expr: MathExpression | MathExpression[] | Matrix,
             scope?: object
         ): any;
@@ -334,7 +344,7 @@ declare namespace math {
 
         /**
          * Parse an expression. Returns a node tree, which can be evaluated by
-         * invoking node.eval();
+         * invoking node.evaluate();
          * @param expr Expression to be parsed
          * @param options Available options: nodes - a set of custome nodes
          * @returns A node
@@ -1604,7 +1614,7 @@ declare namespace math {
             array: number[],
             number?: number,
             weights?: number[]
-        ): number;
+        ): number | number[];
 
         /**
          * Return a random number larger or equal to min and smaller than max
@@ -2053,7 +2063,7 @@ declare namespace math {
         /**
          * Compute the standard deviation of a matrix or a list with values. The
          * standard deviations is defined as the square root of the variance:
-         * std(A) = sqrt(var(A)). In case of a (multi dimensional) array or
+         * std(A) = sqrt(variance(A)). In case of a (multi dimensional) array or
          * matrix, the standard deviation over all elements will be calculated.
          * Optionally, the type of normalization can be specified as second
          * parameter. The parameter normalization can be one of the following
@@ -2095,11 +2105,11 @@ declare namespace math {
          * is divided by n 'biased' The sum of squared errors is divided by (n +
          * 1) Note that older browser may not like the variable name var. In
          * that case, the function can be called as math['var'](...) instead of
-         * math.var(...).
+         * math.variance(...).
          * @param args A single matrix or multiple scalar values
          * @returns The variance
          */
-        var(...args: Array<number | BigNumber | Fraction>): any;
+        variance(...args: Array<number | BigNumber | Fraction>): any;
         /**
          * @param array A single matrix
          * @param normalization normalization Determines how to normalize the
@@ -2107,7 +2117,7 @@ declare namespace math {
          * Default value: ‘unbiased’.
          * @returns The variance
          */
-        var(
+        variance(
             array: MathArray | Matrix,
             normalization?: "unbiased" | "uncorrected" | "biased" | "unbiased"
         ): any;
@@ -2571,7 +2581,7 @@ declare namespace math {
          * case, non-primitive types are upper-camel-case. For example ‘number’,
          * ‘string’, ‘Array’, ‘Date’.
          */
-        typeof(x: any): string;
+        typeOf(x: any): string;
 
         /**
          * Import functions from an object or a module
@@ -2589,6 +2599,342 @@ declare namespace math {
          * @param options An object with import options.
          */
         import(object: ImportObject | ImportObject[], options: ImportOptions): void;
+    }
+
+    /*************************************************************************
+     * Factory and Dependencies
+     ************************************************************************/
+    interface FactoryDependencies {
+        create: (factories: FactoryFunctionMap, config: ConfigOptions) => Partial<MathJsStatic>;
+        factory: <T>(
+            name: string,
+            dependencies: MathJsFunctionName[],
+            create: (injected: Partial<MathJsStatic>) => T,
+            meta?: any,
+        ) => FactoryFunction<T>;
+        all: FactoryFunctionMap;
+
+        typedDependencies: FactoryFunctionMap;
+        ResultSetDependencies: FactoryFunctionMap;
+        BigNumberDependencies: FactoryFunctionMap;
+        ComplexDependencies: FactoryFunctionMap;
+        FractionDependencies: FactoryFunctionMap;
+        RangeDependencies: FactoryFunctionMap;
+        MatrixDependencies: FactoryFunctionMap;
+        DenseMatrixDependencies: FactoryFunctionMap;
+        cloneDependencies: FactoryFunctionMap;
+        isIntegerDependencies: FactoryFunctionMap;
+        isNegativeDependencies: FactoryFunctionMap;
+        isNumericDependencies: FactoryFunctionMap;
+        hasNumericValueDependencies: FactoryFunctionMap;
+        isPositiveDependencies: FactoryFunctionMap;
+        isZeroDependencies: FactoryFunctionMap;
+        isNaNDependencies: FactoryFunctionMap;
+        typeOfDependencies: FactoryFunctionMap;
+        typeofDependencies: FactoryFunctionMap;
+        equalScalarDependencies: FactoryFunctionMap;
+        SparseMatrixDependencies: FactoryFunctionMap;
+        numberDependencies: FactoryFunctionMap;
+        stringDependencies: FactoryFunctionMap;
+        booleanDependencies: FactoryFunctionMap;
+        bignumberDependencies: FactoryFunctionMap;
+        complexDependencies: FactoryFunctionMap;
+        fractionDependencies: FactoryFunctionMap;
+        matrixDependencies: FactoryFunctionMap;
+        splitUnitDependencies: FactoryFunctionMap;
+        unaryMinusDependencies: FactoryFunctionMap;
+        unaryPlusDependencies: FactoryFunctionMap;
+        absDependencies: FactoryFunctionMap;
+        applyDependencies: FactoryFunctionMap;
+        addScalarDependencies: FactoryFunctionMap;
+        cbrtDependencies: FactoryFunctionMap;
+        ceilDependencies: FactoryFunctionMap;
+        cubeDependencies: FactoryFunctionMap;
+        expDependencies: FactoryFunctionMap;
+        expm1Dependencies: FactoryFunctionMap;
+        fixDependencies: FactoryFunctionMap;
+        floorDependencies: FactoryFunctionMap;
+        gcdDependencies: FactoryFunctionMap;
+        lcmDependencies: FactoryFunctionMap;
+        log10Dependencies: FactoryFunctionMap;
+        log2Dependencies: FactoryFunctionMap;
+        modDependencies: FactoryFunctionMap;
+        multiplyScalarDependencies: FactoryFunctionMap;
+        multiplyDependencies: FactoryFunctionMap;
+        nthRootDependencies: FactoryFunctionMap;
+        signDependencies: FactoryFunctionMap;
+        sqrtDependencies: FactoryFunctionMap;
+        squareDependencies: FactoryFunctionMap;
+        subtractDependencies: FactoryFunctionMap;
+        xgcdDependencies: FactoryFunctionMap;
+        dotMultiplyDependencies: FactoryFunctionMap;
+        bitAndDependencies: FactoryFunctionMap;
+        bitNotDependencies: FactoryFunctionMap;
+        bitOrDependencies: FactoryFunctionMap;
+        bitXorDependencies: FactoryFunctionMap;
+        argDependencies: FactoryFunctionMap;
+        conjDependencies: FactoryFunctionMap;
+        imDependencies: FactoryFunctionMap;
+        reDependencies: FactoryFunctionMap;
+        notDependencies: FactoryFunctionMap;
+        orDependencies: FactoryFunctionMap;
+        xorDependencies: FactoryFunctionMap;
+        concatDependencies: FactoryFunctionMap;
+        columnDependencies: FactoryFunctionMap;
+        crossDependencies: FactoryFunctionMap;
+        diagDependencies: FactoryFunctionMap;
+        eyeDependencies: FactoryFunctionMap;
+        filterDependencies: FactoryFunctionMap;
+        flattenDependencies: FactoryFunctionMap;
+        forEachDependencies: FactoryFunctionMap;
+        getMatrixDataTypeDependencies: FactoryFunctionMap;
+        identityDependencies: FactoryFunctionMap;
+        kronDependencies: FactoryFunctionMap;
+        mapDependencies: FactoryFunctionMap;
+        onesDependencies: FactoryFunctionMap;
+        rangeDependencies: FactoryFunctionMap;
+        reshapeDependencies: FactoryFunctionMap;
+        resizeDependencies: FactoryFunctionMap;
+        rowDependencies: FactoryFunctionMap;
+        sizeDependencies: FactoryFunctionMap;
+        squeezeDependencies: FactoryFunctionMap;
+        subsetDependencies: FactoryFunctionMap;
+        transposeDependencies: FactoryFunctionMap;
+        ctransposeDependencies: FactoryFunctionMap;
+        zerosDependencies: FactoryFunctionMap;
+        erfDependencies: FactoryFunctionMap;
+        modeDependencies: FactoryFunctionMap;
+        prodDependencies: FactoryFunctionMap;
+        formatDependencies: FactoryFunctionMap;
+        printDependencies: FactoryFunctionMap;
+        toDependencies: FactoryFunctionMap;
+        isPrimeDependencies: FactoryFunctionMap;
+        numericDependencies: FactoryFunctionMap;
+        divideScalarDependencies: FactoryFunctionMap;
+        powDependencies: FactoryFunctionMap;
+        roundDependencies: FactoryFunctionMap;
+        logDependencies: FactoryFunctionMap;
+        log1pDependencies: FactoryFunctionMap;
+        nthRootsDependencies: FactoryFunctionMap;
+        dotPowDependencies: FactoryFunctionMap;
+        dotDivideDependencies: FactoryFunctionMap;
+        lsolveDependencies: FactoryFunctionMap;
+        usolveDependencies: FactoryFunctionMap;
+        leftShiftDependencies: FactoryFunctionMap;
+        rightArithShiftDependencies: FactoryFunctionMap;
+        rightLogShiftDependencies: FactoryFunctionMap;
+        andDependencies: FactoryFunctionMap;
+        compareDependencies: FactoryFunctionMap;
+        compareNaturalDependencies: FactoryFunctionMap;
+        compareTextDependencies: FactoryFunctionMap;
+        equalDependencies: FactoryFunctionMap;
+        equalTextDependencies: FactoryFunctionMap;
+        smallerDependencies: FactoryFunctionMap;
+        smallerEqDependencies: FactoryFunctionMap;
+        largerDependencies: FactoryFunctionMap;
+        largerEqDependencies: FactoryFunctionMap;
+        deepEqualDependencies: FactoryFunctionMap;
+        unequalDependencies: FactoryFunctionMap;
+        partitionSelectDependencies: FactoryFunctionMap;
+        sortDependencies: FactoryFunctionMap;
+        maxDependencies: FactoryFunctionMap;
+        minDependencies: FactoryFunctionMap;
+        ImmutableDenseMatrixDependencies: FactoryFunctionMap;
+        IndexDependencies: FactoryFunctionMap;
+        FibonacciHeapDependencies: FactoryFunctionMap;
+        SpaDependencies: FactoryFunctionMap;
+        UnitDependencies: FactoryFunctionMap;
+        unitDependencies: FactoryFunctionMap;
+        sparseDependencies: FactoryFunctionMap;
+        createUnitDependencies: FactoryFunctionMap;
+        acosDependencies: FactoryFunctionMap;
+        acoshDependencies: FactoryFunctionMap;
+        acotDependencies: FactoryFunctionMap;
+        acothDependencies: FactoryFunctionMap;
+        acscDependencies: FactoryFunctionMap;
+        acschDependencies: FactoryFunctionMap;
+        asecDependencies: FactoryFunctionMap;
+        asechDependencies: FactoryFunctionMap;
+        asinDependencies: FactoryFunctionMap;
+        asinhDependencies: FactoryFunctionMap;
+        atanDependencies: FactoryFunctionMap;
+        atan2Dependencies: FactoryFunctionMap;
+        atanhDependencies: FactoryFunctionMap;
+        cosDependencies: FactoryFunctionMap;
+        coshDependencies: FactoryFunctionMap;
+        cotDependencies: FactoryFunctionMap;
+        cothDependencies: FactoryFunctionMap;
+        cscDependencies: FactoryFunctionMap;
+        cschDependencies: FactoryFunctionMap;
+        secDependencies: FactoryFunctionMap;
+        sechDependencies: FactoryFunctionMap;
+        sinDependencies: FactoryFunctionMap;
+        sinhDependencies: FactoryFunctionMap;
+        tanDependencies: FactoryFunctionMap;
+        tanhDependencies: FactoryFunctionMap;
+        setCartesianDependencies: FactoryFunctionMap;
+        setDifferenceDependencies: FactoryFunctionMap;
+        setDistinctDependencies: FactoryFunctionMap;
+        setIntersectDependencies: FactoryFunctionMap;
+        setIsSubsetDependencies: FactoryFunctionMap;
+        setMultiplicityDependencies: FactoryFunctionMap;
+        setPowersetDependencies: FactoryFunctionMap;
+        setSizeDependencies: FactoryFunctionMap;
+        setSymDifferenceDependencies: FactoryFunctionMap;
+        setUnionDependencies: FactoryFunctionMap;
+        addDependencies: FactoryFunctionMap;
+        hypotDependencies: FactoryFunctionMap;
+        normDependencies: FactoryFunctionMap;
+        dotDependencies: FactoryFunctionMap;
+        traceDependencies: FactoryFunctionMap;
+        indexDependencies: FactoryFunctionMap;
+        NodeDependencies: FactoryFunctionMap;
+        AccessorNodeDependencies: FactoryFunctionMap;
+        ArrayNodeDependencies: FactoryFunctionMap;
+        AssignmentNodeDependencies: FactoryFunctionMap;
+        BlockNodeDependencies: FactoryFunctionMap;
+        ConditionalNodeDependencies: FactoryFunctionMap;
+        ConstantNodeDependencies: FactoryFunctionMap;
+        FunctionAssignmentNodeDependencies: FactoryFunctionMap;
+        IndexNodeDependencies: FactoryFunctionMap;
+        ObjectNodeDependencies: FactoryFunctionMap;
+        OperatorNodeDependencies: FactoryFunctionMap;
+        ParenthesisNodeDependencies: FactoryFunctionMap;
+        RangeNodeDependencies: FactoryFunctionMap;
+        RelationalNodeDependencies: FactoryFunctionMap;
+        SymbolNodeDependencies: FactoryFunctionMap;
+        FunctionNodeDependencies: FactoryFunctionMap;
+        parseDependencies: FactoryFunctionMap;
+        compileDependencies: FactoryFunctionMap;
+        evaluateDependencies: FactoryFunctionMap;
+        evalDependencies: FactoryFunctionMap;
+        ParserDependencies: FactoryFunctionMap;
+        parserDependencies: FactoryFunctionMap;
+        lupDependencies: FactoryFunctionMap;
+        qrDependencies: FactoryFunctionMap;
+        sluDependencies: FactoryFunctionMap;
+        lusolveDependencies: FactoryFunctionMap;
+        HelpDependencies: FactoryFunctionMap;
+        ChainDependencies: FactoryFunctionMap;
+        helpDependencies: FactoryFunctionMap;
+        chainDependencies: FactoryFunctionMap;
+        detDependencies: FactoryFunctionMap;
+        invDependencies: FactoryFunctionMap;
+        expmDependencies: FactoryFunctionMap;
+        sqrtmDependencies: FactoryFunctionMap;
+        divideDependencies: FactoryFunctionMap;
+        distanceDependencies: FactoryFunctionMap;
+        intersectDependencies: FactoryFunctionMap;
+        sumDependencies: FactoryFunctionMap;
+        meanDependencies: FactoryFunctionMap;
+        medianDependencies: FactoryFunctionMap;
+        madDependencies: FactoryFunctionMap;
+        varianceDependencies: FactoryFunctionMap;
+        varDependencies: FactoryFunctionMap;
+        quantileSeqDependencies: FactoryFunctionMap;
+        stdDependencies: FactoryFunctionMap;
+        combinationsDependencies: FactoryFunctionMap;
+        gammaDependencies: FactoryFunctionMap;
+        factorialDependencies: FactoryFunctionMap;
+        kldivergenceDependencies: FactoryFunctionMap;
+        multinomialDependencies: FactoryFunctionMap;
+        permutationsDependencies: FactoryFunctionMap;
+        pickRandomDependencies: FactoryFunctionMap;
+        randomDependencies: FactoryFunctionMap;
+        randomIntDependencies: FactoryFunctionMap;
+        stirlingS2Dependencies: FactoryFunctionMap;
+        bellNumbersDependencies: FactoryFunctionMap;
+        catalanDependencies: FactoryFunctionMap;
+        compositionDependencies: FactoryFunctionMap;
+        simplifyDependencies: FactoryFunctionMap;
+        derivativeDependencies: FactoryFunctionMap;
+        rationalizeDependencies: FactoryFunctionMap;
+        reviverDependencies: FactoryFunctionMap;
+        eDependencies: FactoryFunctionMap;
+        EDependencies: FactoryFunctionMap;
+        falseDependencies: FactoryFunctionMap;
+        iDependencies: FactoryFunctionMap;
+        InfinityDependencies: FactoryFunctionMap;
+        LN10Dependencies: FactoryFunctionMap;
+        LN2Dependencies: FactoryFunctionMap;
+        LOG10EDependencies: FactoryFunctionMap;
+        LOG2EDependencies: FactoryFunctionMap;
+        NaNDependencies: FactoryFunctionMap;
+        nullDependencies: FactoryFunctionMap;
+        phiDependencies: FactoryFunctionMap;
+        piDependencies: FactoryFunctionMap;
+        PIDependencies: FactoryFunctionMap;
+        SQRT1_2Dependencies: FactoryFunctionMap;
+        SQRT2Dependencies: FactoryFunctionMap;
+        tauDependencies: FactoryFunctionMap;
+        trueDependencies: FactoryFunctionMap;
+        versionDependencies: FactoryFunctionMap;
+        atomicMassDependencies: FactoryFunctionMap;
+        avogadroDependencies: FactoryFunctionMap;
+        bohrMagnetonDependencies: FactoryFunctionMap;
+        bohrRadiusDependencies: FactoryFunctionMap;
+        boltzmannDependencies: FactoryFunctionMap;
+        classicalElectronRadiusDependencies: FactoryFunctionMap;
+        conductanceQuantumDependencies: FactoryFunctionMap;
+        coulombDependencies: FactoryFunctionMap;
+        deuteronMassDependencies: FactoryFunctionMap;
+        efimovFactorDependencies: FactoryFunctionMap;
+        electricConstantDependencies: FactoryFunctionMap;
+        electronMassDependencies: FactoryFunctionMap;
+        elementaryChargeDependencies: FactoryFunctionMap;
+        faradayDependencies: FactoryFunctionMap;
+        fermiCouplingDependencies: FactoryFunctionMap;
+        fineStructureDependencies: FactoryFunctionMap;
+        firstRadiationDependencies: FactoryFunctionMap;
+        gasConstantDependencies: FactoryFunctionMap;
+        gravitationConstantDependencies: FactoryFunctionMap;
+        gravityDependencies: FactoryFunctionMap;
+        hartreeEnergyDependencies: FactoryFunctionMap;
+        inverseConductanceQuantumDependencies: FactoryFunctionMap;
+        klitzingDependencies: FactoryFunctionMap;
+        loschmidtDependencies: FactoryFunctionMap;
+        magneticConstantDependencies: FactoryFunctionMap;
+        magneticFluxQuantumDependencies: FactoryFunctionMap;
+        molarMassDependencies: FactoryFunctionMap;
+        molarMassC12Dependencies: FactoryFunctionMap;
+        molarPlanckConstantDependencies: FactoryFunctionMap;
+        molarVolumeDependencies: FactoryFunctionMap;
+        neutronMassDependencies: FactoryFunctionMap;
+        nuclearMagnetonDependencies: FactoryFunctionMap;
+        planckChargeDependencies: FactoryFunctionMap;
+        planckConstantDependencies: FactoryFunctionMap;
+        planckLengthDependencies: FactoryFunctionMap;
+        planckMassDependencies: FactoryFunctionMap;
+        planckTemperatureDependencies: FactoryFunctionMap;
+        planckTimeDependencies: FactoryFunctionMap;
+        protonMassDependencies: FactoryFunctionMap;
+        quantumOfCirculationDependencies: FactoryFunctionMap;
+        reducedPlanckConstantDependencies: FactoryFunctionMap;
+        rydbergDependencies: FactoryFunctionMap;
+        sackurTetrodeDependencies: FactoryFunctionMap;
+        secondRadiationDependencies: FactoryFunctionMap;
+        speedOfLightDependencies: FactoryFunctionMap;
+        stefanBoltzmannDependencies: FactoryFunctionMap;
+        thomsonCrossSectionDependencies: FactoryFunctionMap;
+        vacuumImpedanceDependencies: FactoryFunctionMap;
+        weakMixingAngleDependencies: FactoryFunctionMap;
+        wienDisplacementDependencies: FactoryFunctionMap;
+        applyTransformDependencies: FactoryFunctionMap;
+        columnTransformDependencies: FactoryFunctionMap;
+        filterTransformDependencies: FactoryFunctionMap;
+        forEachTransformDependencies: FactoryFunctionMap;
+        indexTransformDependencies: FactoryFunctionMap;
+        mapTransformDependencies: FactoryFunctionMap;
+        maxTransformDependencies: FactoryFunctionMap;
+        meanTransformDependencies: FactoryFunctionMap;
+        minTransformDependencies: FactoryFunctionMap;
+        rangeTransformDependencies: FactoryFunctionMap;
+        rowTransformDependencies: FactoryFunctionMap;
+        subsetTransformDependencies: FactoryFunctionMap;
+        concatTransformDependencies: FactoryFunctionMap;
+        stdTransformDependencies: FactoryFunctionMap;
+        sumTransformDependencies: FactoryFunctionMap;
+        varianceTransformDependencies: FactoryFunctionMap;
     }
 
     interface Matrix {
@@ -2700,7 +3046,7 @@ declare namespace math {
     interface Index {} // tslint:disable-line no-empty-interface
 
     interface EvalFunction {
-        eval(scope?: any): any;
+        evaluate(scope?: any): any;
     }
 
     interface MathNode {
@@ -2740,14 +3086,14 @@ declare namespace math {
         cloneDeep(): MathNode;
         /**
          * Compile an expression into optimized JavaScript code. compile returns
-         * an object with a function eval([scope]) to evaluate. Example:
+         * an object with a function evaluate([scope]) to evaluate. Example:
          */
         compile(): EvalFunction;
         /**
          * Compile and eval an expression, this is the equivalent of doing
-         * node.compile().eval(scope). Example:
+         * node.compile().evaluate(scope). Example:
          */
-        eval(expr?: any): any;
+        evaluate(expr?: any): any;
         /**
          * Test whether this node equals an other node. Does a deep comparison
          * of the values of both nodes.
@@ -2892,7 +3238,7 @@ declare namespace math {
     }
 
     interface Parser {
-        eval(expr: string): any;
+        evaluate(expr: string): any;
         get(variable: string): any;
         getAll(): { [key: string]: any; };
         set: (variable: string, value: any) => void;
@@ -3092,7 +3438,7 @@ declare namespace math {
 
         /**
          * Parse and compile an expression. Returns a an object with a function
-         * eval([scope]) to evaluate the compiled expression.
+         * evaluate([scope]) to evaluate the compiled expression.
          */
         compile(): MathJsChain;
 
@@ -3100,7 +3446,7 @@ declare namespace math {
          * Evaluate an expression.
          * @param scope Scope to read/write variables
          */
-        eval(scope?: object): MathJsChain;
+        evaluate(scope?: object): MathJsChain;
 
         /**
          * Retrieve help on a function or data type. Help files are retrieved
@@ -3110,7 +3456,7 @@ declare namespace math {
 
         /**
          * Parse an expression. Returns a node tree, which can be evaluated by
-         * invoking node.eval();
+         * invoking node.evaluate();
          * @param options Available options: nodes - a set of custome nodes
          */
         parse(options?: any): MathJsChain;
@@ -4242,7 +4588,7 @@ declare namespace math {
         /**
          * Compute the standard deviation of a matrix or a list with values. The
          * standard deviations is defined as the square root of the variance:
-         * std(A) = sqrt(var(A)). In case of a (multi dimensional) array or
+         * std(A) = sqrt(variance(A)). In case of a (multi dimensional) array or
          * matrix, the standard deviation over all elements will be calculated.
          * Optionally, the type of normalization can be specified as second
          * parameter. The parameter normalization can be one of the following
@@ -4276,13 +4622,13 @@ declare namespace math {
          * is divided by n 'biased' The sum of squared errors is divided by (n +
          * 1) Note that older browser may not like the variable name var. In
          * that case, the function can be called as math['var'](...) instead of
-         * math.var(...).
+         * math.variance(...).
          * @param normalization normalization Determines how to normalize the
          * variance. Choose ‘unbiased’ (default), ‘uncorrected’, or ‘biased’.
          * Default value: ‘unbiased’.
          * @returns The variance
          */
-        var(
+        variance(
             normalization?: "unbiased" | "uncorrected" | "biased" | "unbiased"
         ): MathJsChain;
 
@@ -4558,7 +4904,7 @@ declare namespace math {
         /**
          * Determine the type of a variable.
          */
-        typeof(): MathJsChain;
+        typeOf(): MathJsChain;
     }
 
     interface ImportOptions {

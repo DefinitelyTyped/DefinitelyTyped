@@ -456,6 +456,9 @@ function ShallowWrapperTest() {
 
     function test_debug() {
         stringVal = shallowWrapper.debug();
+        stringVal = shallowWrapper.debug({ verbose: false });
+        stringVal = shallowWrapper.debug({ ignoreProps: true });
+        stringVal = shallowWrapper.debug({ ignoreProps: true, verbose: true });
     }
 
     function test_type() {
@@ -885,6 +888,9 @@ function ReactWrapperTest() {
 
     function test_debug() {
         stringVal = reactWrapper.debug();
+        stringVal = reactWrapper.debug({ verbose: false });
+        stringVal = reactWrapper.debug({ ignoreProps: true });
+        stringVal = reactWrapper.debug({ ignoreProps: true, verbose: true });
     }
 
     function test_type() {
@@ -961,6 +967,22 @@ function ReactWrapperTest() {
 
       const wrapper2 = mount(<div><ComponentType stringProp={"S"} numberProp={1} /></div>);
       wrapper2.find<MyComponentProps>(ComponentType).props().stringProp; // $ExpectType string
+    }
+
+    function test_getWrappingComponent() {
+        const MyContext = React.createContext('test');
+        function MyProvider(props: MyProviderProps) {
+            const { children, value } = props;
+            return <MyContext.Provider value={value}>{children}</MyContext.Provider>;
+        }
+        const wrapper = mount<MyRenderPropProps>(
+            <MyRenderPropComponent children={params => <div className={params} />} />,
+            {
+                wrappingComponent: MyProvider,
+            }
+        );
+        const provider = wrapper.getWrappingComponent();
+        provider.setProps({ value: 'test new' });
     }
 }
 

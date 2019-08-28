@@ -1,7 +1,7 @@
 import Circle from './geom/Circle';
 
 export type Coordinate = number[];
-export type CoordinateFormat = ((p0: Coordinate) => string);
+export type CoordinateFormat = (p0: Coordinate | undefined) => string;
 export function add(coordinate: Coordinate, delta: Coordinate): Coordinate;
 export function closestOnCircle(coordinate: Coordinate, circle: Circle): Coordinate;
 export function closestOnSegment(coordinate: Coordinate, segment: Coordinate[]): Coordinate;

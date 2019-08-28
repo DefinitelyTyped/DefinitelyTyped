@@ -15,6 +15,10 @@
 // - rxjs: https://github.com/ReactiveX/rxjs/issues/1986
 /// <reference path="./dom-monkeypatch.d.ts" />
 
+// Compatability with node.js
+// tslint:disable-next-line:no-empty-interface
+interface HTMLElement { }
+
 declare namespace uri {
     interface URI {
         absoluteTo(path: string | URI): URI;

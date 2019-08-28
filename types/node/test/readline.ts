@@ -78,6 +78,7 @@ const rl: readline.ReadLine = readline.createInterface(new stream.Readable());
 
     readline.cursorTo(strm, x);
     readline.cursorTo(strm, x, y);
+    readline.cursorTo(strm, x, y, () => {}); // $ExpectType boolean
 }
 
 {
@@ -94,17 +95,20 @@ const rl: readline.ReadLine = readline.createInterface(new stream.Readable());
     const dy: number | string = 1;
 
     readline.moveCursor(strm, dx, dy);
+    readline.moveCursor(strm, dx, dy, () => {}); // $ExpectType boolean
 }
 
 {
     const strm: NodeJS.WritableStream = new stream.Writable();
     readline.clearLine(strm, 1);
+    readline.clearLine(strm, 1, () => {}); // $ExpectType boolean
 }
 
 {
     const strm: NodeJS.WritableStream = new stream.Writable();
 
     readline.clearScreenDown(strm);
+    readline.clearScreenDown(strm, () => {}); // $ExpectType boolean
 }
 
 {

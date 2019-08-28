@@ -279,6 +279,7 @@ export interface Layout {
 	barmode: "stack" | "group" | "overlay" | "relative";
 	bargap: number;
 	bargroupgap: number;
+	selectdirection: 'h' | 'v' | 'd' | 'any';
 }
 
 export interface Legend extends Label {

@@ -1,6 +1,8 @@
-// Type definitions for autoprefixer 9.5
+// Type definitions for autoprefixer 9.6
 // Project: https://github.com/postcss/autoprefixer
-// Definitions by:  Armando Meziat <https://github.com/odnamrataizem>, murt <https://github.com/murt>
+// Definitions by: Armando Meziat <https://github.com/odnamrataizem>
+//                 murt <https://github.com/murt>
+//                 Slava Fomin II <https://github.com/slavafomin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.7
 
@@ -8,6 +10,8 @@ import { Plugin } from 'postcss';
 import { Stats } from 'browserslist';
 
 declare namespace autoprefixer {
+    type BrowserslistTarget = (string | string[] | { [key: string]: string[]; });
+
     interface Options {
         env?: string;
         cascade?: boolean;
@@ -18,6 +22,7 @@ declare namespace autoprefixer {
         grid?: false | 'autoplace' | 'no-autoplace';
         stats?: Stats;
         browsers?: string[] | string;
+        overrideBrowserslist?: BrowserslistTarget;
         ignoreUnknownVersions?: boolean;
     }
 

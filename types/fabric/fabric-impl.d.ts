@@ -5570,7 +5570,7 @@ interface IUtilDomMisc {
 	 * Returns offset for a given element
 	 * @param element Element to get offset for
 	 */
-	getElementOffset(element: HTMLElement): { left: number; right: number; };
+	getElementOffset(element: HTMLElement): { left: number; top: number; };
 	/**
 	 * Returns style attribute value of a given element
 	 * @param element Element to get style attribute for

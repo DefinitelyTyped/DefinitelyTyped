@@ -1863,6 +1863,7 @@ s.define('DefineOptionsIndexesTest', {
             {
                 name: "DefineOptionsIndexesTest_lower_email",
                 unique: true,
+                type: "SPATIAL",
                 fields: [
                     Sequelize.fn("LOWER", Sequelize.col("email"))
                 ]

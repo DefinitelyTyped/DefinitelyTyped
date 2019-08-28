@@ -9,6 +9,7 @@
 //                 Prabodh Tiwari <https://github.com/prabodht>
 //                 Georg Steinmetz <https://github.com/georg94>
 //                 Kyle Tsang <https://github.com/kyletsang>
+//                 Hayato Shimokawa <https://github.com/ichiwa>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 

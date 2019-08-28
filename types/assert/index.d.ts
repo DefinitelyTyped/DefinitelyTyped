@@ -17,7 +17,9 @@ declare namespace assert {
 
     function deepEqual(actual: any, expected: any, message?: string): void;
 
-    function notDeepEqual(acutal: any, expected: any, message?: string): void;
+    function notDeepEqual(actual: any, expected: any, message?: string): void;
+
+    function deepStrictEqual(actual: any, expected: any, message?: string): void;
 
     function strictEqual(actual: any, expected: any, message?: string): void;
 

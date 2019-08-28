@@ -28,16 +28,42 @@ export default class CanvasReplay extends VectorContext {
     createFill(state: FillStrokeState, geometry: Geometry | RenderFeature): any[];
     createStroke(state: FillStrokeState): any[];
     drawCustom(): void;
-    drawCustom(geometry: SimpleGeometry, feature: Feature | RenderFeature, renderer: (() => void)): void;
+    drawCustom(geometry: SimpleGeometry, feature: Feature | RenderFeature, renderer: () => void): void;
     drawCustomCoordinates_(flatCoordinates: number[], offset: number, ends: number[], stride: number, replayEnds: number[]): number;
     endGeometry(geometry: Geometry | RenderFeature, feature: Feature | RenderFeature): void;
     finish(): void;
     renderDeclutter_(declutterGroup: DeclutterGroup, feature: Feature | RenderFeature): void;
     replay(context: CanvasRenderingContext2D, transform: Transform, viewRotation: number, skippedFeaturesHash: { [key: string]: boolean }, snapToPixel: boolean): void;
-    replayHitDetection<T>(context: CanvasRenderingContext2D, transform: Transform, viewRotation: number, skippedFeaturesHash: { [key: string]: boolean }, opt_featureCallback?: (() => void), opt_hitExtent?: Extent): T;
-    replayImage_(context: CanvasRenderingContext2D, x: number, y: number, image: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement, anchorX: number, anchorY: number, declutterGroup: DeclutterGroup, height: number, opacity: number, originX: number, originY: number, rotation: number, scale: number, snapToPixel: boolean, width: number, padding: number[], fillInstruction: any[], strokeInstruction: any[]): void;
+    replayHitDetection<T>(
+        context: CanvasRenderingContext2D,
+        transform: Transform,
+        viewRotation: number,
+        skippedFeaturesHash: { [key: string]: boolean },
+        opt_featureCallback?: () => void,
+        opt_hitExtent?: Extent
+    ): T | undefined;
+    replayImage_(
+        context: CanvasRenderingContext2D,
+        x: number,
+        y: number,
+        image: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement,
+        anchorX: number,
+        anchorY: number,
+        declutterGroup: DeclutterGroup,
+        height: number,
+        opacity: number,
+        originX: number,
+        originY: number,
+        rotation: number,
+        scale: number,
+        snapToPixel: boolean,
+        width: number,
+        padding: number[],
+        fillInstruction: any[],
+        strokeInstruction: any[]
+    ): void;
     replayTextBackground_(context: CanvasRenderingContext2D, p1: Coordinate, p2: Coordinate, p3: Coordinate, p4: Coordinate, fillInstruction: any[], strokeInstruction: any[]): void;
     reverseHitDetectionInstructions(): void;
-    updateFillStyle(state: FillStrokeState, createFill: ((this: CanvasReplay, p0: FillStrokeState, p1: (Geometry | RenderFeature)) => any[]), geometry: Geometry | RenderFeature): void;
-    updateStrokeStyle(state: FillStrokeState, applyStroke: ((this: CanvasReplay, p0: FillStrokeState) => void)): void;
+    updateFillStyle(state: FillStrokeState, createFill: (this: CanvasReplay, p0: FillStrokeState, p1: Geometry | RenderFeature) => any[], geometry: Geometry | RenderFeature): void;
+    updateStrokeStyle(state: FillStrokeState, applyStroke: (this: CanvasReplay, p0: FillStrokeState) => void): void;
 }

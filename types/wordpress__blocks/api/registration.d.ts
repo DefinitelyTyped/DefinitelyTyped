@@ -20,12 +20,12 @@ export function getBlockSupport<T>(
  * Returns a registered block type.
  */
 // tslint:disable:no-unnecessary-generics
-export function getBlockType<T = any>(name: string): Block<T> | undefined;
+export function getBlockType<T = any>(name: string | undefined): Block<T> | undefined;
 
 /**
  * Returns all registered blocks.
  */
-export function getBlockTypes(): ReadonlyArray<Block<any>>;
+export function getBlockTypes(): Array<Block<any>>;
 
 /**
  * Returns an array with the child blocks of a given block.

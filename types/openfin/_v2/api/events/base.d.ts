@@ -1,4 +1,3 @@
-import { Identity } from '../../identity';
 import { FrameEvent } from './frame';
 export declare type RuntimeEvent<Topic = string, Type = string> = Topic extends 'window' ? WindowEvent<Topic, Type> : Topic extends 'frame' ? FrameEvent<Type> : Topic extends 'application' ? ApplicationEvent<Topic, Type> : Topic extends 'external-window' ? ApplicationEvent<Topic, Type> : BaseEvent<Topic, Type>;
 export interface BaseEvent<Topic, Type> {
@@ -10,8 +9,6 @@ export interface ApplicationEvent<Topic, Type> extends BaseEvent<Topic, Type> {
 }
 export interface WindowEvent<Topic, Type> extends ApplicationEvent<Topic, Type> {
     name: string;
-}
-export interface ExternalWindowEvent<Topic, Type> extends BaseEvent<Topic, Type>, Identity {
 }
 export declare function getTopic(e: RuntimeEvent<any>): string;
 export interface BaseEventMap {

@@ -2,6 +2,8 @@ import * as React from "react";
 import Form, { UiSchema, ErrorListProps, WidgetProps, ErrorSchema, withTheme } from 'react-jsonschema-form';
 import { JSONSchema6 } from "json-schema";
 
+import { ADDITIONAL_PROPERTY_FLAG } from 'react-jsonschema-form/lib/utils';
+
 // example taken from the react-jsonschema-form playground:
 // https://github.com/mozilla-services/react-jsonschema-form/blob/fedd830294417969d88e38fb9f6b3a85e6ad105e/playground/samples/simple.js
 
@@ -166,4 +168,8 @@ export const withThemeExample = () => {
     });
 
     return <Form schema={schema} />;
+};
+
+export const additionalPropertyFlagExample = () => {
+    return ADDITIONAL_PROPERTY_FLAG;
 };

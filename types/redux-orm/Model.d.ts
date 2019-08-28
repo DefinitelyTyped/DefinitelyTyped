@@ -1,8 +1,8 @@
 import { ModelTableOpts, TableOpts } from './db';
 import { IdAttribute } from './db/Table';
 import { AttributeWithDefault, FieldSpecMap, ForeignKey, ManyToMany, OneToOne } from './fields';
-import { Optional, OptionalKeys, Overwrite, PickByValue } from './helpers';
-import QuerySet, { LookupSpec, MutableQuerySet, SortIteratee, SortOrder } from './QuerySet';
+import { KnownKeys, OptionalKeys, PickByValue } from './helpers';
+import QuerySet, { MutableQuerySet } from './QuerySet';
 import { OrmSession } from './Session';
 
 /**
@@ -22,13 +22,6 @@ export type Serializable =
       };
 
 /**
- * Object restricted to serializable properties only
- */
-export interface SerializableMap {
-    [K: string]: Serializable | Serializable[];
-}
-
-/**
  * A union of supported model field types
  *
  * Specify foreign key and one-to-one association properties as Model typed properties.
@@ -37,7 +30,7 @@ export interface SerializableMap {
  * - {@link MutableQuerySet} - for many-to-many relations
  * - {@link QuerySet} - for reverse side of foreign keys
  */
-export type ModelField = MutableQuerySet | QuerySet | SessionBoundModel | Serializable;
+export type ModelField = QuerySet | SessionBoundModel | Serializable;
 
 /**
  * Map of fields restriction to supported field types.
@@ -51,7 +44,7 @@ export interface ModelFieldMap {
  *
  * Either a primitive type matching Model's identifier type or an object implementing a `{ getId(): IdType<M> }` interface
  */
-export type IdOrModelLike<M extends Model> = IdType<M> | {getId(): IdType<M>; };
+export type IdOrModelLike<M extends Model> = IdType<M> | { getId(): IdType<M> };
 
 /**
  * The heart of an ORM, the data model.
@@ -72,7 +65,7 @@ export type IdOrModelLike<M extends Model> = IdType<M> | {getId(): IdType<M>; };
  * logic by defining prototype methods (without `static` keyword).
  * @borrows {@link QuerySet.filter} as Model#filter
  */
-export default class Model<MClass extends typeof AnyModel = any, Fields extends ModelFieldMap = any> {
+export default class Model<MClass extends typeof AnyModel = typeof AnyModel, Fields extends ModelFieldMap = any> {
     /**
      * A string constant identifying specific Model, necessary to retain the shape of state and relations through transpilation steps
      */
@@ -122,7 +115,7 @@ export default class Model<MClass extends typeof AnyModel = any, Fields extends 
      *
      * @return a reference to the plain JS object in the store
      */
-    readonly ref: Ref<InstanceType<MClass>>;
+    readonly ref: Ref<this>;
 
     /**
      * Creates a Model instance from it's properties.
@@ -176,9 +169,7 @@ export default class Model<MClass extends typeof AnyModel = any, Fields extends 
      * @throws {Error} If more than one entity matches the properties in `lookupObj`.
      * @return a {@link SessionBoundModel} instance that matches the properties in `lookupObj`.
      */
-    static get<M extends AnyModel, TProps extends LookupSpec<M>>(
-        lookupObj: TProps
-    ): SessionBoundModel<M, TProps> | null;
+    static get<M extends AnyModel>(lookupObj: QuerySet.LookupSpec<M>): SessionBoundModel<M> | null;
 
     /**
      * Returns a {@link Model} instance for the object with id `id`.
@@ -233,7 +224,7 @@ export default class Model<MClass extends typeof AnyModel = any, Fields extends 
     /**
      * @see {@link QuerySet.all}
      */
-    static all<M extends AnyModel>(this: ModelType<M>): QuerySet<M>;
+    static all(): QuerySet;
 
     /**
      * @see {@link QuerySet.at}
@@ -258,17 +249,20 @@ export default class Model<MClass extends typeof AnyModel = any, Fields extends 
     /**
      * @see {@link QuerySet.filter}
      */
-    static filter(props: LookupSpec<Model>): QuerySet;
+    static filter(props: QuerySet.LookupSpec<Model>): QuerySet;
 
     /**
      * @see {@link QuerySet.exclude}
      */
-    static exclude(props: LookupSpec<Model>): QuerySet;
+    static exclude(props: QuerySet.LookupSpec<Model>): QuerySet;
 
     /**
      * @see {@link QuerySet.orderBy}
      */
-    static orderBy(iteratees: ReadonlyArray<SortIteratee<Model>>, orders?: ReadonlyArray<SortOrder>): QuerySet;
+    static orderBy(
+        iteratees: ReadonlyArray<QuerySet.SortIteratee<Model>>,
+        orders?: ReadonlyArray<QuerySet.SortOrder>
+    ): QuerySet;
 
     /**
      * @see {@link QuerySet.count}
@@ -276,9 +270,13 @@ export default class Model<MClass extends typeof AnyModel = any, Fields extends 
     static count(): number;
 
     /**
-     * @see {@link QuerySet.exists}
+     * Returns a boolean indicating if an entity
+     * with the given props exists in the state.
+     *
+     * @param  props - a key-value that {@link Model} instances should have to be considered as existing.
+     * @return a boolean indicating if entity with `props` exists in the state
      */
-    static exists(): boolean;
+    static exists(props: Partial<Ref<Model>>): boolean;
 
     /**
      * @see {@link QuerySet.delete}
@@ -298,7 +296,7 @@ export default class Model<MClass extends typeof AnyModel = any, Fields extends 
      * Gets the id value of the current instance by looking up the id attribute.
      * @return The id value of the current instance.
      */
-    getId<Id extends Fields[IdAttribute<MClass>] = Fields[IdAttribute<MClass>]>(): Id extends undefined ? number: Id;
+    getId<Id extends Fields[IdAttribute<MClass>] = Fields[IdAttribute<MClass>]>(): Id extends undefined ? number : Id;
 
     /**
      * @return A string representation of this {@link Model} instance.
@@ -354,14 +352,6 @@ export default class Model<MClass extends typeof AnyModel = any, Fields extends 
 export class AnyModel extends Model {}
 
 /**
- * {@link Model#upsert} argument type
- *
- * Relations can be provided in a flexible manner for both many-to-many and foreign key associations
- * @see {@link IdOrModelLike}
- */
-export type UpsertProps<M extends Model> = Overwrite<Partial<CreateProps<M>>, {[K in IdKey<M>]-?: IdType<M>}>;
-
-/**
  * {@link Model#update} argument type
  *
  * All properties are optional.
@@ -369,14 +359,13 @@ export type UpsertProps<M extends Model> = Overwrite<Partial<CreateProps<M>>, {[
  * Relations can be provided in a flexible manner for both many-to-many and foreign key associations
  * @see {@link IdOrModelLike}
  */
-export type UpdateProps<M extends Model> = Omit<UpsertProps<M>, IdKey<M>>;
 
 /**
  * @internal
  */
-export type CustomInstanceProps<M extends AnyModel, Props extends object> = PickByValue<
-    Omit<Props, Extract<keyof Props, keyof ModelFields<M>>>,
-    Serializable
+export type CustomInstanceProps<M extends AnyModel, Props extends object> = Omit<
+    Props,
+    Extract<keyof Props, KnownKeys<ModelBlueprint<M>>>
 >;
 
 /**
@@ -402,8 +391,8 @@ export type IdType<M extends Model> = IdKey<M> extends infer U
 /**
  * Type of {@link Model.ref} / database entry for a particular Model type
  */
-export type Ref<M extends Model> = {
-    [K in keyof RefFields<M>]: ModelFields<M>[K] extends AnyModel ? IdType<ModelFields<M>[K]> : RefFields<M>[K]
+export type Ref<M extends AnyModel> = {
+    [K in keyof RefFields<M>]: ModelFields<M>[K] extends AnyModel ? IdType<ModelFields<M>[K]> : RefFields<M>[K];
 };
 
 /**
@@ -412,7 +401,7 @@ export type Ref<M extends Model> = {
  * - declared Model field type - if propertyName belongs to declared Model fields
  * - any serializable value - if propertyName is not among declared Model fields
  */
-export type RefPropOrSimple<M extends Model, K extends string> = K extends keyof RefFields<M>
+export type RefPropOrSimple<M extends AnyModel, K extends string> = K extends keyof RefFields<M>
     ? Ref<M>[K]
     : Serializable;
 
@@ -425,7 +414,7 @@ export type RefPropOrSimple<M extends Model, K extends string> = K extends keyof
  */
 export type SessionBoundModel<M extends Model = any, InstanceProps extends object = {}> = M &
     { [K in keyof ModelFields<M>]: SessionBoundModelField<M, K> } &
-    CustomInstanceProps<M, InstanceProps>;
+    InstanceProps;
 
 /**
  * Static side of a particular {@link Model} with member signatures narrowed to provided {@link Model} type
@@ -434,9 +423,7 @@ export type SessionBoundModel<M extends Model = any, InstanceProps extends objec
  *
  * @inheritDoc
  */
-export interface ModelType<M extends AnyModel> extends QuerySet<M> {
-    new (props: ModelFields<M>): SessionBoundModel<M>;
-
+export interface ModelType<M extends AnyModel> extends QuerySet.QueryBuilder<M> {
     options: ModelTableOpts<ModelClass<M>>;
 
     modelName: ModelClass<M>['modelName'];
@@ -449,6 +436,11 @@ export interface ModelType<M extends AnyModel> extends QuerySet<M> {
     idExists(id: IdType<M>): boolean;
 
     /**
+     * @see {@link Model#exists}
+     */
+    exists(props: QuerySet.LookupProps<M>): boolean;
+
+    /**
      * @see {@link Model#withId}
      */
     withId(id: IdType<M>): SessionBoundModel<M> | null;
@@ -456,17 +448,22 @@ export interface ModelType<M extends AnyModel> extends QuerySet<M> {
     /**
      * @see {@link Model#get}
      */
-    get<TLookup extends LookupSpec<M>>(lookupSpec: TLookup): SessionBoundModel<M, TLookup> | null;
+    get(lookupSpec: QuerySet.LookupSpec<M>): SessionBoundModel<M> | null;
 
     /**
      * @see {@link Model#create}
      */
-    create<TProps extends CreateProps<M>>(props: TProps): SessionBoundModel<M, TProps>;
+    create<T extends CreateProps<M>>(props: T): SessionBoundModel<M, CustomInstanceProps<M, T>>;
 
     /**
      * @see {@link Model#upsert}
      */
-    upsert<TProps extends UpsertProps<M>>(props: TProps): SessionBoundModel<M, TProps>;
+    upsert<T extends UpsertProps<M>>(props: T): SessionBoundModel<M, CustomInstanceProps<M, T>>;
+
+    /**
+     * @see {@link QuerySet.update}
+     */
+    update(props: UpdateProps<M>): void;
 }
 
 /**
@@ -477,7 +474,7 @@ export type ModelClass<M extends AnyModel> = ReturnType<M['getClass']>;
 /**
  * @internal
  */
-export type ModelFields<M extends Model> = [ConstructorParameters<ModelClass<M>>] extends [[infer U]]
+export type ModelFields<M extends Model> = ConstructorParameters<ModelClass<M>> extends [infer U]
     ? U extends ModelFieldMap
         ? U
         : never
@@ -486,7 +483,10 @@ export type ModelFields<M extends Model> = [ConstructorParameters<ModelClass<M>>
 /**
  * @internal
  */
-export type FieldSpecKeys<M extends AnyModel, TField> = keyof PickByValue<ModelClass<M>['fields'], TField>;
+export type FieldSpecKeys<M extends AnyModel, TField> = Extract<
+    keyof ModelFields<M>,
+    keyof PickByValue<ModelClass<M>['fields'], TField>
+>;
 
 /**
  * @internal
@@ -512,27 +512,44 @@ export type SessionBoundModelField<M extends AnyModel, K extends keyof ModelFiel
  * @see {@link IdOrModelLike}
  */
 
-export type CreateProps<
-    M extends AnyModel,
-    RFields extends Required<ModelFields<M>> = Required<ModelFields<M>>
-> = Optional<
-    {
-        [K in keyof ModelFields<M>]: {
-            [P in K]: RFields[P] extends MutableQuerySet<infer RM>
-                ? ReadonlyArray<IdOrModelLike<RM>>
-                : (RFields[P] extends QuerySet
-                      ? never
-                      : RFields[P] extends AnyModel
-                      ? (P extends FieldSpecKeys<M, OneToOne | ForeignKey> ? IdOrModelLike<RFields[P]> : never)
-                      : RFields[P])
-        }[K]
-    },
-    OptionalCreatePropsKeys<M>
+export type ModelBlueprint<M extends AnyModel, Fields extends Required<ModelFields<M>> = Required<ModelFields<M>>> = {
+    [K in keyof Fields]: Fields[K] extends AnyModel
+        ? IdOrModelLike<Fields[K]>
+        : Fields[K] extends MutableQuerySet<infer RM>
+        ? ReadonlyArray<IdOrModelLike<RM>>
+        : Fields[K];
+};
+
+export type NonBlueprintKeys<M extends AnyModel> = Exclude<
+    keyof PickByValue<Required<ModelFields<M>>, AnyModel | QuerySet>,
+    FieldSpecKeys<M, OneToOne | ForeignKey> | keyof PickByValue<Required<ModelFields<M>>, MutableQuerySet>
 >;
 
-/**
- * @internal
- */
-export type OptionalCreatePropsKeys<M extends Model> = IdType<M> extends number
-    ? (IdKey<M> | OptionalKeys<ModelFields<M>> | FieldSpecKeys<M, AttributeWithDefault>)
-    : (OptionalKeys<ModelFields<M>> | FieldSpecKeys<M, AttributeWithDefault>);
+export type BlueprintProps<
+    M extends AnyModel,
+    ReqKeys extends keyof ModelBlueprint<M>,
+    OptKeys extends keyof ModelBlueprint<M>
+> = {
+    [K in ReqKeys]-?: K extends NonBlueprintKeys<M> ? never : ModelBlueprint<M>[K];
+} &
+    {
+        [K in OptKeys]+?: K extends NonBlueprintKeys<M> ? never : ModelBlueprint<M>[K];
+    };
+
+export type IdKeyOpt<M extends AnyModel> = IdType<M> extends number ? IdKey<M> : never;
+
+export type CreateProps<
+    M extends AnyModel,
+    Fields extends ModelFields<M> = ModelFields<M>,
+    MQsKeys extends keyof PickByValue<Fields, MutableQuerySet> = keyof PickByValue<Fields, MutableQuerySet>,
+    OptAttrKeys extends FieldSpecKeys<M, AttributeWithDefault> = FieldSpecKeys<M, AttributeWithDefault>,
+    OptKeys extends MQsKeys | OptionalKeys<Fields> | OptAttrKeys | IdKeyOpt<M> =
+        | MQsKeys
+        | OptionalKeys<Fields>
+        | OptAttrKeys
+        | IdKeyOpt<M>
+> = BlueprintProps<M, Exclude<keyof Fields, OptKeys>, OptKeys>;
+
+export type UpsertProps<M extends AnyModel> = BlueprintProps<M, IdKey<M>, Exclude<keyof ModelBlueprint<M>, IdKey<M>>>;
+
+export type UpdateProps<M extends AnyModel> = BlueprintProps<M, never, Exclude<keyof ModelBlueprint<M>, IdKey<M>>>;

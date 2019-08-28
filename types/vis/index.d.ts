@@ -32,7 +32,7 @@ export type HeightWidthType = IdType;
 export type TimelineItemType = 'box' | 'point' | 'range' | 'background';
 export type TimelineAlignType = 'auto' | 'center' | 'left' | 'right';
 export type TimelineTimeAxisScaleType = 'millisecond' | 'second' | 'minute' | 'hour' |
-  'weekday' | 'day' | 'month' | 'year';
+  'weekday' | 'day' | 'week' | 'month' | 'year';
 export type TimelineEventPropertiesResultWhatType = 'item' | 'background' | 'axis' |
   'group-label' | 'custom-time' | 'current-time';
 export type TimelineEvents =

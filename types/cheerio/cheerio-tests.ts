@@ -55,6 +55,9 @@ var $multiEl = $('selector', 'selector', 'selector');
 $el.attr();
 $el.attr('id');
 $el.attr('id', 'favorite').html();
+$el.attr('id', (el, i, attr) => el.tagName + i * 2 + attr).html();
+$el.attr('id', el => el.tagName).html();
+$el.attr({ id: 'uniq', class: 'big' }).html();
 
 // props
 $el.prop('style')
