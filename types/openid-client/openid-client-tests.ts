@@ -1,9 +1,5 @@
 import { IncomingMessage } from 'http';
-import {
-  custom,
-  generators,
-  Issuer,
-} from 'openid-client';
+import { custom, generators, Issuer } from 'openid-client';
 
 async (req: IncomingMessage) => {
     // Custom HTTP options on the `Issuer` _c'tor_ (e.g. used for `Issuer.discover()`):
@@ -114,5 +110,5 @@ async (req: IncomingMessage) => {
 
     await client.refresh('token');
     await client.refresh('token', {});
-    await client.refresh('token', { exchangeBody: {}, clientAssertionPayload: {}});
+    await client.refresh('token', { exchangeBody: {}, clientAssertionPayload: {} });
 };

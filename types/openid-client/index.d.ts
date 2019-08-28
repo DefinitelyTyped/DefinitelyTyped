@@ -11,7 +11,7 @@
 import { IncomingMessage } from 'http';
 import { GotOptions } from 'got';
 
-export { }; // Disable automatic export of all module members (make it explicit)
+export {}; // Disable automatic export of all module members (make it explicit)
 
 //
 
@@ -19,7 +19,7 @@ type HttpRequestOptions = GotOptions<null>;
 type CustomHttpOptionsProvider = (options: HttpRequestOptions) => HttpRequestOptions;
 
 export const custom: {
-    readonly http_options: unique symbol,
+    readonly http_options: unique symbol;
 };
 
 // https://github.com/panva/node-openid-client/tree/master/docs#issuer
@@ -120,8 +120,8 @@ export interface RevokeRequestOptions {
 }
 
 export interface RefreshRequestOptions {
-  readonly exchangeBody?: { readonly [key: string]: string };
-  readonly clientAssertionPayload?: { readonly [key: string]: string };
+    readonly exchangeBody?: { readonly [key: string]: string };
+    readonly clientAssertionPayload?: { readonly [key: string]: string };
 }
 
 export class Client {
@@ -139,25 +139,30 @@ export class Client {
 
     callbackParams(input: string | IncomingMessage): {};
 
-    callback(redirectUri: string, parameters: {}, checks?: {
-        readonly response_type?: string;
-        readonly state?: string;
-        readonly nonce?: string;
-        readonly code_verifier?: string;
-        readonly max_age?: number;
-    }
+    callback(
+        redirectUri: string,
+        parameters: {},
+        checks?: {
+            readonly response_type?: string;
+            readonly state?: string;
+            readonly nonce?: string;
+            readonly code_verifier?: string;
+            readonly max_age?: number;
+        },
     ): Promise<TokenSet>;
 
-    userinfo(
-     accessToken: string | TokenSet,
-    ): Promise<{ readonly [name: string]: {} | null | undefined }>;
+    userinfo(accessToken: string | TokenSet): Promise<{ readonly [name: string]: {} | null | undefined }>;
 
     grant(body: {
-        readonly grant_type: | 'authorization_code' | 'client_credentials' | 'password' | 'refresh_token' | string;
+        readonly grant_type: 'authorization_code' | 'client_credentials' | 'password' | 'refresh_token' | string;
         readonly [name: string]: string | undefined;
     }): Promise<TokenSet>;
 
-    introspect(token: string, tokenTypeHint?: string, extras?: { readonly introspectBody?: object }): Promise<IntrospectionResponse>;
+    introspect(
+        token: string,
+        tokenTypeHint?: string,
+        extras?: { readonly introspectBody?: object },
+    ): Promise<IntrospectionResponse>;
 
     /**
      * Revokes a token at the Authorization Server's `revocation_endpoint`.
