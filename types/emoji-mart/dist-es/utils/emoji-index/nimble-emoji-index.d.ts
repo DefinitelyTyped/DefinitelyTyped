@@ -29,7 +29,7 @@ export interface CustomEmoji {
 }
 
 export type EmojiData = BaseEmoji | CustomEmoji;
-export type EmojiEntry = EmojiData | { [variant: number]: EmojiData }; // emoji with skin tones will return
+export type EmojiEntry = EmojiData | { [variant in EmojiSkin]: EmojiData }; // emoji with skin tones will return
 
 export default class NimbleEmojiIndex {
     constructor(data: Data);
