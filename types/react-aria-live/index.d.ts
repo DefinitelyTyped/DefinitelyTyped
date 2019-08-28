@@ -21,5 +21,5 @@ export const LiveMessenger: React.StatelessComponent<{
     children(contextProps: {
         announceAssertive(message: string, id?: string): void;
         announcePolite(message: string, id?: string): void;
-    }): React.ReactElement<any> | null;
+    }): React.ReactNode;
 }>;
