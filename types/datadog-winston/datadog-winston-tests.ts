@@ -1,6 +1,6 @@
-import { DataDogTransport } from "datadog-winston";
+import DatadogWinston = require("datadog-winston");
 
-const logger = new DataDogTransport({
+const logger = new DatadogWinston({
     apiKey: "<key>",
     ddsource: "node.js",
     ddtags: "key:value",
