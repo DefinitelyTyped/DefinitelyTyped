@@ -32,8 +32,12 @@ declare namespace ReactModal {
     }
 
     interface Aria {
+        /** Defines a string value that labels the current element. */
         labelledby?: string;
+        /** Identifies the element (or elements) that describes the object. */
         describedby?: string;
+        /** Indicates whether an element is modal when displayed. */
+        modal?: boolean | 'false' | 'true';
     }
 
     interface Props {
