@@ -101,8 +101,8 @@ export interface MixedSchema<T = any> extends Schema<T> {
 }
 
 export interface StringSchemaConstructor {
-    <T extends string = string>(): StringSchema<T>;
-    new <T extends string = string>(): StringSchema<T>;
+    (): StringSchema;
+    new (): StringSchema;
 }
 
 export interface StringSchema<T extends string | null | undefined = string> extends Schema<T> {
@@ -228,7 +228,7 @@ export interface ArraySchema<T> extends BasicArraySchema<T[]> {
 }
 
 export type ObjectSchemaDefinition<T extends object | null | undefined> = {
-    [field in keyof T]: Schema<T[field]> | Ref;
+    [field in keyof T]: Schema<T[field] extends string ? string : T[field]> | Ref
 };
 
 /**
