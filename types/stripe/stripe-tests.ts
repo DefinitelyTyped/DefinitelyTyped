@@ -1273,6 +1273,29 @@ stripe.invoices.retrieve("in_15fvyXEe31JkLCeQH7QbgZZb", { expand: ["subscription
 //#region Invoice Items tests
 // ##################################################################################
 
+stripe.invoiceItems.list(
+    {
+        customer: 'cus_5rfJKDJkuxzh5Q',
+        invoice: 'in_15fvyXEe31JkLCeQH7QbgZZb',
+        pending: true,
+        limit: 3,
+    },
+    (err, invoiceItems) => {
+        // asynchronously called
+    }
+);
+
+stripe.invoiceItems
+    .list({
+        customer: 'cus_5rfJKDJkuxzh5Q',
+        invoice: 'in_15fvyXEe31JkLCeQH7QbgZZb',
+        pending: true,
+        limit: 3,
+    })
+    .then(invoices => {
+        // asynchronously called
+    });
+
 //#endregion
 
 //#region Payment Intents test
