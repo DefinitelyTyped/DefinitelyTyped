@@ -16,9 +16,9 @@ declare module "datadog-winston" {
     }
 
     class DatadogWinston extends Transport {
-        constructor(options: DataDogTransportOptions);
+      constructor(options: DataDogTransportOptions);
 
-        log?(info: any, next: () => void): void;
+      log?(info: any, next: () => void): void;
     }
 
     export = DatadogWinston;
