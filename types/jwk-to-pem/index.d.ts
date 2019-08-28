@@ -19,7 +19,7 @@ export interface JWK {
 }
 
 export interface JWKOptions {
-    private: boolean;
+    private?: boolean;
 }
 
-export function jwkToBuffer(jwk: JWK, opts: JWKOptions): string;
+export function jwkToBuffer(jwk: JWK, opts?: JWKOptions): string;

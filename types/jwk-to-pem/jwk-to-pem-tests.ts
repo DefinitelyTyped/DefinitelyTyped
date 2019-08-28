@@ -8,4 +8,5 @@ const jwk: JWK = {
 
 const options: JWKOptions = { private: false };
 
+jwkToBuffer(jwk); // $ExpectType string
 jwkToBuffer(jwk, options); // $ExpectType string
