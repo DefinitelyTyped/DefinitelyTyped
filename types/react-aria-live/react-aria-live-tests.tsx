@@ -24,13 +24,13 @@ render(
                             announcePolite('Polite message');
                         }}>
                         Press me for a polite message
-                </button>
+                    </button>
                     <button
                         onClick={() => {
                             announceAssertive('Assertive message', 'UniqueId');
                         }}>
                         Press me for an assertive message
-                </button>
+                    </button>
                 </>
             }
         </LiveMessenger>
