@@ -398,16 +398,6 @@ declare namespace P {
         levelVal: number;
 
         /**
-         * Defines a new level on the logger instance. Returns `true` on success and `false` if there was a conflict (level name or number already exists).
-         * When using this method, the current level of the logger instance does not change. You must adjust the level with the `level` property after
-         * adding your custom level.
-         *
-         * @param name: defines the method name of the new level
-         * @param lvl: value for the level, e.g. `35` is between `info` and `warn`
-         * @returns whether level was correctly created or not
-         */
-        addLevel(name: string, lvl: number): boolean;
-        /**
          * Registers a listener function that is triggered when the level is changed.
          * Note: When browserified, this functionality will only be available if the `events` module has been required elsewhere
          * (e.g. if you're using streams in the browser). This allows for a trade-off between bundle size and functionality.
