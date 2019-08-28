@@ -2060,7 +2060,7 @@ class Rectangle {
 
 () => {
     const classyGreeting = (name: { last: string; first: string }) =>
-        "The name's " + name.last + ', ' + name.first + ' ' + name.last;
+        `The name's ${name.last}, ${name.first} ${name.last}`;
     const yellGreeting = R.o(R.toUpper, classyGreeting);
     const str: string = yellGreeting({ first: 'James', last: 'Bond' });
 
