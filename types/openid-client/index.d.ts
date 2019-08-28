@@ -172,8 +172,13 @@ export class Client {
      * @param extras Additional revoke options
      */
     revoke(token: string, tokenTypeHint: string, extras?: RevokeRequestOptions): Promise<void>;
-    
-    refresh(refreshToken: string, opts: RefreshRequestOptions): Promise<TokenSet>
+
+    /**
+     * Refresh your active token
+     * @param refreshToken The refresh token
+     * @param opts Additional options
+     */
+    refresh(refreshToken: string, opts?: RefreshRequestOptions): Promise<TokenSet>
 }
 
 export class TokenSet {
