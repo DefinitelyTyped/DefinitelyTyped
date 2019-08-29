@@ -2,6 +2,7 @@
 // Project: https://github.com/airbnb/polyglot.js
 // Definitions by: Tim Jackson-Kiely <https://github.com/timjk>
 //                 Liam Ross <https://github.com/liamross>
+//                 Michael Mok <https://github.com/pmmmwh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace Polyglot {
