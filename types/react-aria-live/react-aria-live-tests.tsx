@@ -1,17 +1,17 @@
-import * as React from "react";
+import * as React from 'react';
 import { render } from 'react-dom';
 
-import { LiveAnnouncer, LiveMessage, LiveMessenger } from "react-aria-live";
+import { LiveAnnouncer, LiveMessage, LiveMessenger } from 'react-aria-live';
 
 render(
     <LiveAnnouncer>
         <LiveMessage
-            aria-live="polite"
+            aria-live='polite'
             message='hello'
             clearOnUnmount
         />
     </LiveAnnouncer>,
-    document.getElementById("main")
+    document.getElementById('main')
 );
 
 render(
@@ -35,5 +35,5 @@ render(
             }
         </LiveMessenger>
     </LiveAnnouncer>,
-    document.getElementById("main")
+    document.getElementById('main')
 );
