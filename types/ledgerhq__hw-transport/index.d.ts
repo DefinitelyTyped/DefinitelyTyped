@@ -28,7 +28,13 @@ declare class Transport<TDescriptor extends Descriptor = string> {
     off(eventName: string, cb: any): void;
     setDebugMode(debug: boolean | ((log: string) => void)): void;
     setExchangeTimeout(exchangeTimeout: number): void;
-    send(cla: number, ins: number, p1: number, p2: number, data: Buffer, statusList: ReadonlyArray<number>): Promise<Buffer>;
+    /**
+     * A wrapper around exchange to simplify work of the implementation.
+     * @param data The data to be sent. Defaults to a zero-length Buffer.
+     * @param statusList A list of accepted status code (shorts). [0x9000] by default.
+     * @return A Promise of the response Buffer
+     */
+    send(cla: number, ins: number, p1: number, p2: number, data?: Buffer, statusList?: ReadonlyArray<number>): Promise<Buffer>;
 }
 
 export type Device = any;
