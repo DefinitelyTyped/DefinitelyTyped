@@ -11,7 +11,7 @@
 import { IncomingMessage } from 'http';
 import { GotOptions } from 'got';
 
-export { }; // Disable automatic export of all module members (make it explicit)
+export {}; // Disable automatic export of all module members (make it explicit)
 
 //
 
@@ -19,7 +19,7 @@ type HttpRequestOptions = GotOptions<null>;
 type CustomHttpOptionsProvider = (options: HttpRequestOptions) => HttpRequestOptions;
 
 export const custom: {
-    readonly http_options: unique symbol,
+    readonly http_options: unique symbol;
 };
 
 // https://github.com/panva/node-openid-client/tree/master/docs#issuer
@@ -119,6 +119,11 @@ export interface RevokeRequestOptions {
     readonly clientAssertionPayload?: object;
 }
 
+export interface RefreshRequestOptions {
+    readonly exchangeBody?: { readonly [key: string]: string };
+    readonly clientAssertionPayload?: { readonly [key: string]: string };
+}
+
 export class Client {
     static [custom.http_options]: CustomHttpOptionsProvider;
 
@@ -143,7 +148,7 @@ export class Client {
             readonly nonce?: string;
             readonly code_verifier?: string;
             readonly max_age?: number;
-        }
+        },
     ): Promise<TokenSet>;
 
     userinfo(accessToken: string | TokenSet): Promise<{ readonly [name: string]: {} | null | undefined }>;
@@ -156,7 +161,7 @@ export class Client {
     introspect(
         token: string,
         tokenTypeHint?: string,
-        extras?: { readonly introspectBody?: object }
+        extras?: { readonly introspectBody?: object },
     ): Promise<IntrospectionResponse>;
 
     /**
@@ -167,6 +172,13 @@ export class Client {
      * @param extras Additional revoke options
      */
     revoke(token: string, tokenTypeHint: string, extras?: RevokeRequestOptions): Promise<void>;
+
+    /**
+     * Refresh your active token
+     * @param refreshToken The refresh token
+     * @param opts Additional options
+     */
+    refresh(refreshToken: string, opts?: RefreshRequestOptions): Promise<TokenSet>;
 }
 
 export class TokenSet {
@@ -174,6 +186,9 @@ export class TokenSet {
     readonly token_type?: string;
     readonly id_token?: string;
     readonly refresh_token?: string;
+    readonly expires_at?: number;
+    readonly expires_in?: number;
+    readonly [key: string]: unknown;
 
     expired(): boolean;
 
