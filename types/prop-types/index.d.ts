@@ -30,7 +30,6 @@ export type ReactNodeLike =
     | undefined;
 
 export const nominalTypeHack: unique symbol;
-export const nominalOptionalHack: unique symbol;
 
 export type IsOptional<T> = undefined extends T ? true : false;
 
@@ -40,8 +39,9 @@ export type InferPropsInner<V> = { [K in keyof V]-?: InferType<V[K]>; };
 
 export interface Validator<T> {
     (props: object, propName: string, componentName: string, location: string, propFullName: string): Error | null;
-    [nominalTypeHack]?: T;
-    [nominalOptionalHack]?: T extends undefined ? true : false;
+    [nominalTypeHack]?: {
+        type: T;
+    };
 }
 
 export interface Requireable<T> extends Validator<T | undefined | null> {
