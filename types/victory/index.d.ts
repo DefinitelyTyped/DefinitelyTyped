@@ -109,7 +109,7 @@ declare module "victory" {
    */
   export class VictoryAnimation extends React.Component<VictoryAnimationProps, any> {}
 
-  export interface VictoryClipContainerProps {
+  export interface VictoryClipContainerProps extends VictoryContainerProps {
     /**
      * The `clipId` prop may be used to set a deterministic id for the container. When a
      * `containerId` is not manually set, a unique id will be generated. It is usually necessary
@@ -956,6 +956,8 @@ declare module "victory" {
 
   type ColorScalePropType = "greyscale" | "qualitative" | "heatmap" | "warm" | "cool" | "red" | "green" | "blue" | string[];
 
+  type DomainLimit = number | { x?: number; y?: number; };
+
   /**
    * Common properties
    */
@@ -1062,10 +1064,7 @@ declare module "victory" {
      * @example
      * minDomain={{ y: 0 }}
      */
-    minDomain?: number | Date |  {
-      x?: number;
-      y?: number;
-    };
+    minDomain?: DomainLimit;
     /**
      * The `maxDomain` prop defines a minimum domain value for a chart. This prop is useful in
      * situations where the maximum domain of a chart is static, while the minimum value depends
@@ -1080,10 +1079,7 @@ declare module "victory" {
      * @example
      * maxDomain={{ y: 0 }}
      */
-    maxDomain?: number | Date | {
-      x?: number;
-      y?: number;
-    };
+    maxDomain?: DomainLimit;
   }
 
   /**
