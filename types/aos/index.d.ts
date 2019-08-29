@@ -83,6 +83,18 @@ declare namespace Aos {
          * If true, will add content of `data-aos` as classes on scroll
          */
         useClassNames?: boolean;
+        /**
+         * Disables automatic mutations' detections
+         */
+        disableMutationObserver?: boolean;
+        /**
+         * The delay on debounce used while resizing window
+         */
+        debounceDelay?: number;
+        /**
+         * The delay on throttle used while scrolling the page
+         */
+        throttleDelay?: number;
         // #endregion
 
         // #region Settings that can be overridden on per-element basis, by `data-aos-*` attributes
