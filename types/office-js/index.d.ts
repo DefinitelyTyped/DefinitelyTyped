@@ -18876,7 +18876,8 @@ declare namespace Excel {
         /**
          *
          * Fills range from the current range to the destination range using the specified AutoFill logic. 
-         * The destination range can be null, or can extend the source either horizontally or vertically. If the destination range is null, data is filled out based on the surrounding cells (which is the behavior when double-clicking the UI’s range fill handle). 
+         * The destination range can be null, or can extend the source either horizontally or vertically. 
+         * If the destination range is null, data is filled out based on the surrounding cells (which is the behavior when double-clicking the UI’s range fill handle). 
          * Discontiguous ranges are not supported.
          * 
          * For more information, read {@link https://support.office.com/article/video-use-autofill-and-flash-fill-2e79a709-c814-4b27-8bc2-c4dc84d49464 | Use AutoFill and Flash Fill}.
@@ -18890,7 +18891,8 @@ declare namespace Excel {
         /**
          *
          * Fills range from the current range to the destination range using the specified AutoFill logic. 
-         * The destination range can be null, or can extend the source either horizontally or vertically. If the destination range is null, data is filled out based on the surrounding cells (which is the behavior when double-clicking the UI’s range fill handle). 
+         * The destination range can be null, or can extend the source either horizontally or vertically. 
+         * If the destination range is null, data is filled out based on the surrounding cells (which is the behavior when double-clicking the UI’s range fill handle). 
          * Discontiguous ranges are not supported.
          * 
          * For more information, read {@link https://support.office.com/article/video-use-autofill-and-flash-fill-2e79a709-c814-4b27-8bc2-c4dc84d49464 | Use AutoFill and Flash Fill}.
