@@ -33,7 +33,7 @@ interface Props {
         baz?: any;
     };
     optionalNumber?: number | null;
-    nullableNumber: number | null,
+    nullableNumber: number | null;
     undefinableNumber?: number;
     customProp?: typeof uniqueType;
     component: PropTypes.ReactComponentLike;
