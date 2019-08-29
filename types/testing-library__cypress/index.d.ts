@@ -1,4 +1,4 @@
-// Type definitions for @testing-library/cypress 4.1
+// Type definitions for @testing-library/cypress 4.2
 // Project: https://github.com/testing-library/cypress-testing-library
 // Definitions by: Aaron Mc Adam <https://github.com/aaronmcadam>
 //                 Basti Buck <https://github.com/ppi-buck>
@@ -11,6 +11,7 @@
 // TypeScript Version: 3.0
 
 import {
+    configure,
     Matcher,
     MatcherOptions as DTLMatcherOptions,
     SelectorMatcherOptions as DTLSelectorMatcherOptions,
@@ -696,3 +697,5 @@ declare global {
 
 declare const Cypress: Cypress.Chainable;
 export default Cypress;
+
+export { configure };

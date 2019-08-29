@@ -1,4 +1,6 @@
-import Cypress from '@testing-library/cypress';
+import Cypress, { configure } from '@testing-library/cypress';
+
+configure({ testIdAttribute: 'data-myown-testid' });
 
 // getBy*
 Cypress.getByPlaceholderText('foo');
