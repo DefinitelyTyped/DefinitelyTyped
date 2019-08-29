@@ -33,6 +33,8 @@ interface Props {
         baz?: any;
     };
     optionalNumber?: number | null;
+    nullableNumber: number | null,
+    undefinableNumber?: number;
     customProp?: typeof uniqueType;
     component: PropTypes.ReactComponentLike;
 }
@@ -75,6 +77,8 @@ const propTypes: PropTypesMap = {
     objectOf: PropTypes.objectOf(PropTypes.number.isRequired).isRequired,
     shape: PropTypes.shape(innerProps).isRequired,
     optionalNumber: PropTypes.number,
+    nullableNumber: (() => null) as PropTypes.Validator<number | null>,
+    undefinableNumber: (() => null) as PropTypes.Validator<number | undefined>,
     customProp: (() => null) as PropTypes.Validator<typeof uniqueType | undefined>,
     component: PropTypes.elementType.isRequired
 };
@@ -102,6 +106,8 @@ const propTypesWithoutAnnotation = {
     objectOf: PropTypes.objectOf(PropTypes.number.isRequired).isRequired,
     shape: PropTypes.shape(innerProps).isRequired,
     optionalNumber: PropTypes.number,
+    nullableNumber: (() => null) as PropTypes.Validator<number | null>,
+    undefinableNumber: (() => null) as PropTypes.Validator<number | undefined>,
     customProp: (() => null) as PropTypes.Validator<typeof uniqueType | undefined>,
     component: PropTypes.elementType.isRequired
 };
