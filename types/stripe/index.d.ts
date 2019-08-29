@@ -30,6 +30,7 @@
 //                 Pavel Ivanov <https://github.com/schfkt>
 //                 Chris Zieba <https://github.com/ChrisZieba>
 //                 Jeffery Grajkowski <https://github.com/pushplay>
+//                 Claus Stilborg <https://github.com/stilborg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -5296,6 +5297,18 @@ declare namespace Stripe {
             client_secret: string;
         }
 
+        interface IpaymentIntentTransferDataOptions {
+            /**
+             * A positive integer representing how much to charge in the smallest currency unit.
+             */
+            amount?: number;
+
+            /**
+             * The account (if any) the payment will be attributed to for tax reporting, and where funds from the payment will be transferred to upon payment success.
+             */
+            destination?: string;
+        }
+
         interface IPaymentIntentCaptureOptions {
             /**
              * The amount to capture (in cents) from the PaymentIntent, which must be less than or equal to the original amount. Any additional amount will be automatically refunded. Defaults to the full `amount_capturable` if not provided.
@@ -5306,6 +5319,16 @@ declare namespace Stripe {
              * The amount of the application fee (if any) that will be applied to the payment and transferred to the application owner’s Stripe account. To use an application fee, the request must be made on behalf of another account, using the `Stripe-Account` header or an OAuth key.
              */
             application_fee_amount?: number;
+
+            /**
+             * The account (if any) for which the funds of the PaymentIntent are intended. Used with connected accounts.
+             */
+            on_behalf_of?: string;
+
+            /**
+             * The data with which to automatically create a Transfer when the payment is finalized. Used with connected accounts.
+             */
+            transfer_data?: IpaymentIntentTransferDataOptions;
         }
 
         interface IPaymentIntentListOptions extends IListOptionsCreated {
