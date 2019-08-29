@@ -35,6 +35,7 @@ declare class Transport<TDescriptor extends Descriptor = string> {
      * @return A Promise of the response Buffer
      */
     send(cla: number, ins: number, p1: number, p2: number, data?: Buffer, statusList?: ReadonlyArray<number>): Promise<Buffer>;
+    decorateAppAPIMethods(self: any, methods: string[], scrambleKey: string): void;
 }
 
 export type Device = any;
