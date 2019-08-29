@@ -3,21 +3,29 @@ import * as ReactCrop from 'react-image-crop';
 
 interface TestState {
     crop?: ReactCrop.Crop;
+    percentCrop?: ReactCrop.PercentCrop;
 }
 
 const initialState = {
     crop: {
         x: 100,
-        y: 200
-    }
+        y: 200,
+    },
+    percentCrop: {
+        x: 0,
+        y: 0,
+    },
 };
 
 // Basic use case
 class SimpleTest extends React.Component<{}, TestState> {
     state = initialState;
 
-    onChange = (crop: ReactCrop.Crop) => {
-        this.setState({ crop });
+    onChange = (crop: ReactCrop.Crop, percentCrop: ReactCrop.PercentCrop) => {
+        this.setState({
+            crop,
+            percentCrop,
+        });
     }
 
     render() {
@@ -29,8 +37,11 @@ class SimpleTest extends React.Component<{}, TestState> {
 class AspectRatioTest extends React.Component<{}, TestState> {
     state = initialState;
 
-    onChange = (crop: ReactCrop.Crop) => {
-        this.setState({ crop });
+    onChange = (crop: ReactCrop.Crop, percentCrop: ReactCrop.PercentCrop) => {
+        this.setState({
+            crop,
+            percentCrop,
+        });
     }
 
     onImageLoaded = (image: HTMLImageElement) => {
@@ -41,8 +52,10 @@ class AspectRatioTest extends React.Component<{}, TestState> {
                     y: 0,
                     aspect: 16 / 9,
                     width: 50,
+                    unit: 'px',
                 },
-                image.width / image.height,
+                image.width,
+                image.height
             ),
         });
     }
@@ -59,12 +72,34 @@ class AspectRatioTest extends React.Component<{}, TestState> {
     }
 }
 
+// Testing renderComponent
+class RenderComponentTest extends React.Component {
+    render() {
+        const videoComponent = (
+            <video autoPlay loop style={{ display: 'block', maxWidth: '100%' }}>
+                <source src="sample.mp4" type="video/mp4" />
+            </video>
+        );
+
+        return (
+            <ReactCrop
+                src="imageSrc"
+                onChange={(crop, percentCrop) => console.log(crop, percentCrop)}
+                renderComponent={videoComponent}
+            />
+        );
+    }
+}
+
 // All available props
 class CompleteTest extends React.Component<{}, TestState> {
     state = initialState;
 
-    onChange = (crop: ReactCrop.Crop) => {
-        this.setState({ crop });
+    onChange = (crop: ReactCrop.Crop, percentCrop: ReactCrop.PercentCrop) => {
+        this.setState({
+            crop,
+            percentCrop,
+        });
     }
 
     onImageLoaded = (image: HTMLImageElement) => {
@@ -75,8 +110,10 @@ class CompleteTest extends React.Component<{}, TestState> {
                     y: 0,
                     aspect: 16 / 9,
                     width: 20,
+                    unit: 'px',
                 },
-                image.width / image.height,
+                image.width,
+                image.height
             ),
         });
     }
@@ -106,6 +143,9 @@ class CompleteTest extends React.Component<{}, TestState> {
                 onImageError={this.onImageError}
                 className="my-cropper"
                 locked={false}
+                renderComponent={<div></div>}
+                ruleOfThirds={false}
+                circularCrop={false}
             />
         );
     }

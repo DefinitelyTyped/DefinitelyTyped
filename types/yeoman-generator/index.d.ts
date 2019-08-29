@@ -6,8 +6,9 @@
 //                 Joshua Cherry <https://github.com/tasadar2>
 //                 Arthur Corenzan <https://github.com/haggen>
 //                 Richard Lea <https://github.com/chigix>
+//                 Devid Farinelli <https://github.com/misterdev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.3
 
 import { EventEmitter } from 'events';
 import * as inquirer from 'inquirer';
@@ -16,14 +17,19 @@ import { Observable } from 'rxjs';
 type Callback = (err: any) => void;
 
 declare namespace Generator {
-    interface Question extends inquirer.Question {
+    type Question<T extends Answers = Answers> = inquirer.DistinctQuestion<T> & {
         /**
          * whether to store the user's previous answer
          */
         store?: boolean;
-    }
-    type Questions = Question | Question[] | Observable<Question>;
+    };
     type Answers = inquirer.Answers;
+
+    type Questions<A extends Answers = Answers> = (
+        | Question<A>
+        | Array<Question<A>>
+        | Observable<Question<A>>
+    );
 
     class Storage {
         constructor(name: string, fs: MemFsEditor, configPath: string);
@@ -87,7 +93,10 @@ declare class Generator extends EventEmitter {
     constructor(args: string|string[], options: {});
 
     env: {
-        error(...e: Error[]): void
+        error(...e: Error[]): void;
+        adapter: {
+            promptModule: inquirer.PromptModule;
+        };
     };
     args: {};
     resolved: string;
@@ -104,7 +113,7 @@ declare class Generator extends EventEmitter {
     destinationRoot(rootPath?: string): string;
     determineAppname(): string;
     option(name: string, config: Generator.OptionConfig): this;
-    prompt(questions: Generator.Questions): Promise<Generator.Answers>;
+    prompt<A extends Generator.Answers = Generator.Answers>(questions: Generator.Questions<A>): Promise<A>;
     registerTransformStream(stream: {}|Array<{}>): this;
     rootGeneratorName(): string;
     rootGeneratorVersion(): string;
@@ -114,6 +123,7 @@ declare class Generator extends EventEmitter {
 
     // actions/help mixin
     argumentsHelp(): string;
+    async(): () => {};
     desc(description: string): this;
     help(): string;
     optionsHelp(): string;

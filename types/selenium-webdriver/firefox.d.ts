@@ -41,6 +41,12 @@ export class Options extends webdriver.Capabilities {
    * @see https://github.com/mozilla/geckodriver
    */
   useGeckoDriver(enable: boolean): Options;
+
+  /**
+   * Configures the geckodriver to start Firefox in headless mode.
+   * @return {!Options} A self reference.
+   */
+  headless(): Options
 }
 
 /**

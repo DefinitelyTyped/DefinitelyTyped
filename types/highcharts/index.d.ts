@@ -6,6 +6,9 @@
 //                 Juliën Hanssens <https://github.com/hanssens>
 //                 Johns Gresham <https://github.com/jgresham>
 //                 ArunkeshavaReddy Sankaramaddi <https://github.com/Arunkeshavareddy>
+//                 Dolan Miu <https://github.com/dolanmiu>
+//                 Jack Siman <https://github.com/jjsiman>
+//                 Matthew Wills <https://github.com/mdotwills>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -80,7 +83,7 @@ declare namespace Highcharts {
          * @default [-45]
          * @since 4.1.0
          */
-        autoRotation?: number[];
+        autoRotation?: number[] | boolean;
         /**
          * When each category width is more than this many pixels, we don't apply auto rotation. Instead, we lay out the
          * axis label with word wrap. A lower limit makes sense when the label contains multiple short words that don't
@@ -1005,6 +1008,11 @@ declare namespace Highcharts {
          * @default 0
          */
         gridLineWidth?: number;
+        /**
+         * Polar charts only. Whether the grid lines should draw as a polygon with straight lines between categories, or as circles.
+         * @default undefined
+         */
+        gridLineInterpolation?: string;
         /**
          * The Z index of the grid lines.
          * @default 1
@@ -5903,14 +5911,18 @@ declare namespace Highcharts {
          *            [3, 7, 8]
          *
          */
-        data?: Array<number | [number, number] | [string, number] | [string, number, number] | [number, number, number] | DataPoint>;
+        data?: Array<number | null | [number, number] | [number, null] | [string, number] | [string, number, number] | [number, number, number] | DataPoint | null>;
         /**
          * A description of the series to add to the screen reader information about the series.
          * @since 5.0.0
          * @default undefined
          */
         description?: string;
-
+        /**
+         * The dash style for the series. See series.dashStyle for possible values. Defaults to Solid.
+         * @since 4.1
+         */
+        dashStyle?: string; // Solid ShortDash ShortDot ShortDashDot ShortDashDotDot Dot Dash LongDash DashDot LongDashDot LongDashDotDot
         /**
          * An id for the series. This can be used after render time to get a pointer to the series object through
          * chart.get().
@@ -6127,7 +6139,7 @@ declare namespace Highcharts {
         /**
          * The y value of the point.
          */
-        y?: number;
+        y?: number | null;
         /**
          * The size value for each bubble. The bubbles' diameters are computed based on the z, and controlled by series
          * options like minSize, maxSize, sizeBy, zMin and zMax.
@@ -7509,7 +7521,7 @@ declare namespace Highcharts {
          * Use this option for live charts monitoring a value over time.
          * @since 1.2.0
          */
-        addPoint(options: number | [number, number] | DataPoint, redraw?: boolean, shift?: boolean, animation?: boolean | Animation): void;
+        addPoint(options: number | [number, number] | [number, number, number] | DataPoint, redraw?: boolean, shift?: boolean, animation?: boolean | Animation): void;
         /**
          * Read only. The chart that the series belongs to.
          * @since 1.2.0

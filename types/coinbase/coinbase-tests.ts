@@ -37,7 +37,7 @@ client.getAccount("abcdef", (error: Error | null, account: coinbase.Account): vo
 
     account.getTransaction("abcdef", (error: Error | null, deposit: coinbase.Transaction): void => undefined);
 
-    account.getTransactions((error: Error | null, deposit: coinbase.Transaction[]): void => undefined);
+    account.getTransactions({}, (error: Error | null, deposit: coinbase.Transaction[]): void => undefined);
 
     account.getWithdrawal("abcdef", (error: Error | null, deposit: coinbase.Withdrawal): void => undefined);
 
@@ -54,13 +54,13 @@ client.getAccount("abcdef", (error: Error | null, account: coinbase.Account): vo
     });
 
     account.sell(
-        { agree_btc_amount_varies: true, amount: "1", commit: true, currency: "BTC", payment_method: "abcdef", quote: true},
+        { agree_btc_amount_varies: true, amount: "1", commit: true, currency: "BTC", payment_method: "abcdef", quote: true },
         (error: Error | null, sell: coinbase.Sell): void => {
             sell.commit((error: Error | null, sell: coinbase.Sell): void => undefined);
         }
     );
     account.sell(
-        { currency: "BTC", payment_method: "abcdef", total: "3"},
+        { currency: "BTC", payment_method: "abcdef", total: "3" },
         (error: Error | null, sell: coinbase.Sell): void => {
             sell.commit((error: Error | null, sell: coinbase.Sell): void => undefined);
         }
@@ -80,16 +80,16 @@ client.getAccount("abcdef", (error: Error | null, account: coinbase.Account): vo
 
     account.update({ name: "foo" }, (error: Error | null, result: coinbase.Account): void => undefined);
 
-    account.withdraw({ amount: "1", commit: false, currency: "ETH", payment_method: "abcdef"}, (error: Error | null, result: coinbase.Withdrawal): void => {
+    account.withdraw({ amount: "1", commit: false, currency: "ETH", payment_method: "abcdef" }, (error: Error | null, result: coinbase.Withdrawal): void => {
         result.commit((error: Error | null, result: coinbase.Withdrawal): void => undefined);
     });
 });
 
 client.getBuyPrice({ currencyPair: "USD-BTC" }, (error: Error | null, result: coinbase.Price): void => undefined);
 
-client.getCurrencies((error: Error | null, result: coinbase.Currency[]): void => undefined);
+client.getCurrencies((error: Error | null, result: coinbase.Currencies): void => undefined);
 
-client.getExchangeRates({currency: "ETC"}, (error: Error | null, result: coinbase.ExchangeRate): void => undefined);
+client.getExchangeRates({ currency: "ETC" }, (error: Error | null, result: coinbase.ExchangeRate): void => undefined);
 
 client.getPaymentMethod("foo", (error: Error | null, result: coinbase.PaymentMethod): void => undefined);
 

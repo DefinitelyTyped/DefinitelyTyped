@@ -21,6 +21,11 @@ const client = new Client<string>(Memory, { partition: 'cache' });
 client.start().then(() => {});
 client.stop().then(() => {});
 
+const client2 = new Client<string>(Memory);
+
+client2.start().then(() => {});
+client2.stop().then(() => {});
+
 const cache = new Policy({
     expiresIn: 5000,
 }, client, 'cache');

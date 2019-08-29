@@ -86,6 +86,15 @@ let emailOpts: Joi.EmailOptions = {};
 emailOpts = { allowUnicode: bool };
 emailOpts = { tlds: { allow: strArr } };
 emailOpts = { minDomainSegments: num };
+emailOpts = { tlds: false };
+
+// --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+
+let domainOpts: Joi.DomainOptions = {};
+
+domainOpts = { allowUnicode: bool };
+domainOpts = { tlds: { allow: strArr } };
+domainOpts = { minDomainSegments: num };
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
@@ -828,6 +837,8 @@ strSchema = strSchema.alphanum();
 strSchema = strSchema.token();
 strSchema = strSchema.email();
 strSchema = strSchema.email(emailOpts);
+strSchema = strSchema.domain();
+strSchema = strSchema.domain(domainOpts);
 strSchema = strSchema.ip();
 strSchema = strSchema.ip(ipOpts);
 strSchema = strSchema.uri();

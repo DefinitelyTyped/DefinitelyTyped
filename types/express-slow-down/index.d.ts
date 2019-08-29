@@ -2,7 +2,7 @@
 // Project: https://github.com/nfriedly/express-slow-down
 // Definitions by: Jeremy Forsythe <https://github.com/jdforsythe>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 import express = require("express");
 

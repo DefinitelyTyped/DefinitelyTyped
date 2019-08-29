@@ -1,6 +1,6 @@
 import TelegramBot = require('node-telegram-bot-api');
 
-const MyTelegramBot = new TelegramBot('token');
+const MyTelegramBot = new TelegramBot('token', { webHook: { host: 'myhost'}});
 
 MyTelegramBot.startPolling({restart: true});
 MyTelegramBot.stopPolling();

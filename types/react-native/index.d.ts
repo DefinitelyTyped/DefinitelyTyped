@@ -1,4 +1,4 @@
-// Type definitions for react-native 0.57
+// Type definitions for react-native 0.60
 // Project: https://github.com/facebook/react-native
 // Definitions by: Eloy Durán <https://github.com/alloy>
 //                 HuHuanming <https://github.com/huhuanming>
@@ -6,11 +6,9 @@
 //                 Simon Knott <https://github.com/skn0tt>
 //                 Tim Wang <https://github.com/timwangdev>
 //                 Kamal Mahyuddin <https://github.com/kamal>
-//                 Naoufal El Yousfi <https://github.com/nelyousfi>
 //                 Alex Dunne <https://github.com/alexdunne>
 //                 Manuel Alabor <https://github.com/swissmanu>
 //                 Michele Bombardi <https://github.com/bm-software>
-//                 Tanguy Krotoff <https://github.com/tkrotoff>
 //                 Alexander T. <https://github.com/a-tarasyuk>
 //                 Martin van Dam <https://github.com/mvdam>
 //                 Kacper Wiszczuk <https://github.com/esemesek>
@@ -20,6 +18,9 @@
 //                 Saransh Kataria <https://github.com/saranshkataria>
 //                 Francesco Moro <https://github.com/franzmoro>
 //                 Wojciech Tyczynski <https://github.com/tykus160>
+//                 Jake Bloom <https://github.com/jakebloom>
+//                 Ceyhun Ozugur <https://github.com/ceyhun>
+//                 Mike Martin <https://github.com/mcmar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -39,6 +40,7 @@
 /// <reference path="legacy-properties.d.ts" />
 /// <reference path="BatchedBridge.d.ts" />
 /// <reference path="Devtools.d.ts" />
+/// <reference path="LaunchScreen.d.ts" />
 
 import * as PropTypes from "prop-types";
 import * as React from "react";
@@ -2032,16 +2034,52 @@ export interface AccessibilityProps extends AccessibilityPropsAndroid, Accessibi
     accessibilityRole?: AccessibilityRole;
     /**
      * Accessibility State tells a person using either VoiceOver on iOS or TalkBack on Android the state of the element currently focused on.
+     * @deprecated: accessibilityState available in 0.60+
      */
-    accessibilityStates?: AccessibilityState[];
-
+    accessibilityStates?: AccessibilityStates[];
+    /**
+     * Accessibility State tells a person using either VoiceOver on iOS or TalkBack on Android the state of the element currently focused on.
+     */
+    accessibilityState?: AccessibilityState;
     /**
      * An accessibility hint helps users understand what will happen when they perform an action on the accessibility element when that result is not obvious from the accessibility label.
      */
     accessibilityHint?: string;
 }
 
-export type AccessibilityState = "selected" | "disabled";
+// @deprecated: use AccessibilityState available in 0.60+
+export type AccessibilityStates =
+    | "disabled"
+    | "selected"
+    | "checked"
+    | "unchecked"
+    | "busy"
+    | "expanded"
+    | "collapsed"
+    | "hasPopup";
+
+export interface AccessibilityState {
+    /**
+     * When true, informs accessible tools if the element is disabled
+     */
+    disabled?: boolean;
+    /**
+     * When true, informs accessible tools if the element is selected
+     */
+    selected?: boolean;
+    /**
+     * For items like Checkboxes and Toggle switches, reports their state to accessible tools
+     */
+    checked?: boolean | "mixed";
+    /**
+     *  When present, informs accessible tools if the element is busy
+     */
+    busy?: boolean;
+    /**
+     *  When present, informs accessible tools the element is expanded or collapsed
+     */
+    expanded?: boolean;
+}
 
 export type AccessibilityRole =
     | "none"
@@ -2052,9 +2090,26 @@ export type AccessibilityRole =
     | "keyboardkey"
     | "text"
     | "adjustable"
+    | "imagebutton"
     | "header"
     | "summary"
-    | "imagebutton";
+    | "alert"
+    | "checkbox"
+    | "combobox"
+    | "menu"
+    | "menubar"
+    | "menuitem"
+    | "progressbar"
+    | "radio"
+    | "radiogroup"
+    | "scrollbar"
+    | "spinbutton"
+    | "switch"
+    | "tab"
+    | "tablist"
+    | "timer"
+    | "toolbar";
+
 
 export interface AccessibilityPropsAndroid {
     /**
@@ -3177,7 +3232,7 @@ export interface PickerPropsIOS extends ViewProps {
      * Style to apply to each of the item labels.
      * @platform ios
      */
-    itemStyle?: StyleProp<ViewStyle>;
+    itemStyle?: StyleProp<TextStyle>;
 }
 
 export interface PickerPropsAndroid extends ViewProps {
@@ -3297,6 +3352,11 @@ export interface ProgressBarAndroidProps extends ViewProps {
      * The progress value (between 0 and 1).
      */
     progress?: number;
+
+    /**
+     * Whether to show the ProgressBar (true, the default) or hide it (false).
+     */
+    animating?: boolean;
 
     /**
      * Color of the progress bar.
@@ -3806,7 +3866,9 @@ interface ImagePropsAndroid {
     resizeMethod?: "auto" | "resize" | "scale";
 
     /**
-     * Duration of fade in animation.
+     * Duration of fade in animation in ms. Defaults to 300
+     *
+     * @platform android
      */
     fadeDuration?: number;
 
@@ -3991,7 +4053,7 @@ export class Image extends ImageBase {
     static getSize(uri: string, success: (width: number, height: number) => void, failure: (error: any) => void): any;
     static prefetch(url: string): any;
     static abortPrefetch?(requestId: number): void;
-    static queryCache?(urls: string[]): Promise<Map<string, "memory" | "disk">>;
+    static queryCache?(urls: string[]): Promise<{[url: string]: "memory" | "disk" | "disk/memory"}>;
 
     /**
      * @see https://facebook.github.io/react-native/docs/image.html#resolveassetsource
@@ -4012,7 +4074,7 @@ export class ImageBackground extends ImageBackgroundBase {
     getSize(uri: string, success: (width: number, height: number) => void, failure: (error: any) => void): any;
     prefetch(url: string): any;
     abortPrefetch?(requestId: number): void;
-    queryCache?(urls: string[]): Promise<Map<string, "memory" | "disk">>;
+    queryCache?(urls: string[]): Promise<{[url: string]: "memory" | "disk" | "disk/memory"}>;
 }
 
 export interface ViewToken {
@@ -4094,9 +4156,19 @@ export interface FlatListProps<ItemT> extends VirtualizedListProps<ItemT> {
     ListFooterComponent?: React.ComponentType<any> | React.ReactElement | null;
 
     /**
+     * Styling for internal View for ListFooterComponent
+     */
+    ListFooterComponentStyle?: ViewStyle | null;
+
+    /**
      * Rendered at the very beginning of the list.
      */
     ListHeaderComponent?: React.ComponentType<any> | React.ReactElement | null;
+
+    /**
+     * Styling for internal View for ListHeaderComponent
+     */
+    ListHeaderComponentStyle?: ViewStyle | null;
 
     /**
      * Optional custom style for multi-item rows generated when numColumns > 1
@@ -4281,7 +4353,7 @@ export class FlatList<ItemT> extends React.Component<FlatListProps<ItemT>> {
  * @see https://facebook.github.io/react-native/docs/sectionlist.html
  */
 export interface SectionBase<ItemT> {
-    data: ItemT[];
+    data: ReadonlyArray<ItemT>;
 
     key?: string;
 
@@ -4426,7 +4498,7 @@ export interface SectionListProps<ItemT> extends VirtualizedListWithoutRenderIte
     /**
      * An array of objects with data for each section.
      */
-    sections: SectionListData<ItemT>[];
+    sections: ReadonlyArray<SectionListData<ItemT>>;
 
     /**
      * Render a custom scroll component, e.g. with a differently styled `RefreshControl`.
@@ -4836,179 +4908,6 @@ export class ListView extends ListViewBase {
      * See `ScrollView#scrollTo`.
      */
     scrollTo: (y?: number | { x?: number; y?: number; animated?: boolean }, x?: number, animated?: boolean) => void;
-}
-
-export interface MapViewAnnotation {
-    latitude: number;
-    longitude: number;
-    animateDrop?: boolean;
-    draggable?: boolean;
-    onDragStateChange?: () => any;
-    onFocus?: () => any;
-    onBlur?: () => any;
-    title?: string;
-    subtitle?: string;
-    leftCalloutView?: React.ReactElement;
-    rightCalloutView?: React.ReactElement;
-    detailCalloutView?: React.ReactElement;
-    tintColor?: string;
-    image?: ImageURISource;
-    view?: React.ReactElement;
-    hasLeftCallout?: boolean;
-    hasRightCallout?: boolean;
-    onLeftCalloutPress?: () => void;
-    onRightCalloutPress?: () => void;
-    id?: string;
-}
-
-export interface MapViewRegion {
-    latitude: number;
-    longitude: number;
-    latitudeDelta?: number;
-    longitudeDelta?: number;
-}
-
-export interface MapViewOverlay {
-    coordinates: ({ latitude: number; longitude: number })[];
-    lineWidth?: number;
-    strokeColor?: string;
-    fillColor?: string;
-    id?: string;
-}
-
-export interface MapViewProps extends ViewProps {
-    /**
-     * If false points of interest won't be displayed on the map.
-     * Default value is true.
-     */
-    showsPointsOfInterest?: boolean;
-
-    /**
-     * Map annotations with title/subtitle.
-     */
-    annotations?: MapViewAnnotation[];
-
-    /**
-     * If true the map will follow the user's location whenever it changes.
-     * Note that this has no effect unless showsUserLocation is enabled.
-     * Default value is true.
-     */
-    followUserLocation?: boolean;
-
-    /**
-     * Insets for the map's legal label, originally at bottom left of the map. See EdgeInsetsPropType.js for more information.
-     */
-    legalLabelInsets?: Insets;
-
-    /**
-     * The map type to be displayed.
-     *     standard: standard road map (default)
-     *     satellite: satellite view
-     *     hybrid: satellite view with roads and points of interest overlayed
-     *
-     * enum('standard', 'satellite', 'hybrid')
-     */
-    mapType?: "standard" | "satellite" | "hybrid";
-
-    /**
-     * Maximum size of area that can be displayed.
-     */
-    maxDelta?: number;
-
-    /**
-     * Minimum size of area that can be displayed.
-     */
-    minDelta?: number;
-
-    /**
-     * Map overlays
-     */
-    overlays?: MapViewOverlay[];
-
-    /**
-     * If false compass won't be displayed on the map.
-     * Default value is true.
-     */
-    showsCompass?: boolean;
-
-    /**
-     * Callback that is called once, when the user taps an annotation.
-     */
-    onAnnotationPress?: () => void;
-
-    /**
-     * Callback that is called continuously when the user is dragging the map.
-     */
-    onRegionChange?: (region: MapViewRegion) => void;
-
-    /**
-     * Callback that is called once, when the user is done moving the map.
-     */
-    onRegionChangeComplete?: (region: MapViewRegion) => void;
-
-    /**
-     * When this property is set to true and a valid camera is associated with the map,
-     * the camera’s pitch angle is used to tilt the plane of the map.
-     *
-     * When this property is set to false, the camera’s pitch angle is ignored and
-     * the map is always displayed as if the user is looking straight down onto it.
-     */
-    pitchEnabled?: boolean;
-
-    /**
-     * The region to be displayed by the map.
-     * The region is defined by the center coordinates and the span of coordinates to display.
-     */
-    region?: MapViewRegion;
-
-    /**
-     * When this property is set to true and a valid camera is associated with the map,
-     * the camera’s heading angle is used to rotate the plane of the map around its center point.
-     *
-     * When this property is set to false, the camera’s heading angle is ignored and the map is always oriented
-     * so that true north is situated at the top of the map view
-     */
-    rotateEnabled?: boolean;
-
-    /**
-     * If false the user won't be able to change the map region being displayed.
-     * Default value is true.
-     */
-    scrollEnabled?: boolean;
-
-    /**
-     * If true the app will ask for the user's location and focus on it.
-     * Default value is false.
-     *
-     * NOTE: You need to add NSLocationWhenInUseUsageDescription key in Info.plist to enable geolocation,
-     * otherwise it is going to fail silently!
-     */
-    showsUserLocation?: boolean;
-
-    /**
-     * Used to style and layout the MapView.
-     * See StyleSheet.js and ViewStylePropTypes.js for more info.
-     */
-    style?: StyleProp<ViewStyle>;
-
-    /**
-     * If false the user won't be able to pinch/zoom the map.
-     * Default value is true.
-     */
-    zoomEnabled?: boolean;
-}
-
-/**
- * @see https://facebook.github.io/react-native/docs/mapview.html#content
- */
-declare class MapViewComponent extends React.Component<MapViewProps> {}
-declare const MapViewBase: Constructor<NativeMethodsMixin> & typeof MapViewComponent;
-export class MapView extends MapViewBase {
-    static PinColors: {
-        RED: string;
-        GREEN: string;
-        PURPLE: string;
-    };
 }
 
 interface MaskedViewIOSProps extends ViewProps {
@@ -5487,7 +5386,7 @@ export namespace StyleSheet {
     /**
      * Creates a StyleSheet style reference from the given object.
      */
-    export function create<T extends NamedStyles<T> | NamedStyles<any>>(styles: T): T;
+    export function create<T extends NamedStyles<T> | NamedStyles<any>>(styles: T | NamedStyles<T>): T;
 
     /**
      * Flattens an array of style objects, into one aggregated style object.
@@ -5528,10 +5427,7 @@ export namespace StyleSheet {
      * their respective objects, merged as one and then returned. This also explains
      * the alternative use.
      */
-    export function flatten<T>(style?: RegisteredStyle<T>): T;
-    export function flatten(style?: StyleProp<TextStyle>): TextStyle;
-    export function flatten(style?: StyleProp<ImageStyle>): ImageStyle;
-    export function flatten(style?: StyleProp<ViewStyle>): ViewStyle;
+    export function flatten<T>(style?: StyleProp<T>): T;
 
     /**
      * WARNING: EXPERIMENTAL. Breaking changes will probably happen a lot and will
@@ -5959,7 +5855,6 @@ export type PlatformOSType = "ios" | "android" | "macos" | "windows" | "web";
 
 interface PlatformStatic {
     isTV: boolean;
-    OS: PlatformOSType;
     Version: number | string;
 
     /**
@@ -5969,8 +5864,25 @@ interface PlatformStatic {
 }
 
 interface PlatformIOSStatic extends PlatformStatic {
+    OS: 'ios';
     isPad: boolean;
     isTVOS: boolean;
+}
+
+interface PlatformAndroidStatic extends PlatformStatic {
+    OS: 'android';
+}
+
+interface PlatformMacOSStatic extends PlatformStatic {
+    OS: 'macos';
+}
+
+interface PlatformWindowsOSStatic extends PlatformStatic {
+    OS: 'windows';
+}
+
+interface PlatformWebStatic extends PlatformStatic {
+    OS: 'web';
 }
 
 /**
@@ -6707,6 +6619,22 @@ export interface ScrollViewProps extends ViewProps, ScrollViewPropsIOS, ScrollVi
      * between its end and the last `snapToOffsets` offset. The default value is true.
      */
     snapToEnd?: boolean;
+
+    /**
+     * When true, the scroll view stops on the next index (in relation to scroll position at release)
+     * regardless of how fast the gesture is. This can be used for horizontal pagination when the page
+     * is less than the width of the ScrollView. The default value is false.
+     */
+    disableIntervalMomentum?: boolean;
+
+    /**
+     * When true, the default JS pan responder on the ScrollView is disabled, and full control over
+     * touches inside the ScrollView is left to its child components. This is particularly useful
+     * if `snapToInterval` is enabled, since it does not follow typical touch patterns. Do not use
+     * this on regular ScrollView use cases without `snapToInterval` as it may cause unexpected
+     * touches to occur while scrolling. The default value is false.
+     */
+    disableScrollViewPanResponder?: boolean;
 }
 
 declare class ScrollViewComponent extends React.Component<ScrollViewProps> {}
@@ -6946,6 +6874,7 @@ export type ShareOptions = {
     dialogTitle?: string;
     excludedActivityTypes?: Array<string>;
     tintColor?: string;
+    subject?: string;
 };
 
 export type ShareSharedAction = {
@@ -7632,6 +7561,11 @@ export interface LinkingStatic extends NativeEventEmitter {
      * NOTE: To support deep linking on Android, refer http://developer.android.com/training/app-indexing/deep-linking.html#handling-intents
      */
     getInitialURL(): Promise<string | null>;
+
+    /**
+     * Open the Settings app and displays the app’s custom settings, if it has any.
+     */
+    openSettings(): Promise<void>;
 }
 
 export interface LinkingIOSStatic {
@@ -7706,6 +7640,10 @@ export interface ConnectionInfo {
     effectiveType: EffectiveConnectionType;
 }
 
+interface NetInfoEventListener {
+    remove: () => void;
+}
+
 export interface NetInfoStatic {
     /**
      * This function is deprecated. Use `getConnectionInfo` instead. Returns a promise that
@@ -7724,7 +7662,7 @@ export interface NetInfoStatic {
      *   the network status changes. The argument to the event handler is one of the deprecated
      *   connectivity types listed above.
      */
-    addEventListener: (eventName: string, listener: (result: ConnectionInfo | ConnectionType) => void) => void;
+    addEventListener: (eventName: string, listener: (result: ConnectionInfo | ConnectionType) => void) => NetInfoEventListener;
 
     /**
      * Removes the listener for network status changes.
@@ -7750,7 +7688,7 @@ export interface NetInfoStatic {
         /**
          * eventName is expected to be `change`(deprecated) or `connectionChange`
          */
-        addEventListener: (eventName: string, listener: (result: boolean) => void) => void;
+        addEventListener: (eventName: string, listener: (result: boolean) => void) => NetInfoEventListener;
 
         /**
          * eventName is expected to be `change`(deprecated) or `connectionChange`
@@ -7959,13 +7897,13 @@ export interface PermissionsAndroidStatic {
      * (https://developer.android.com/training/permissions/requesting.html#explain)
      * and then shows the system permission dialog
      */
-    request(permission: Permission, rationale?: Rationale): Promise<string>;
+    request(permission: Permission, rationale?: Rationale): Promise<PermissionStatus>;
     /**
      * Prompts the user to enable multiple permissions in the same dialog and
      * returns an object with the permissions as keys and strings as values
      * indicating whether the user allowed or denied the request
      */
-    requestMultiple(permissions: Array<string>): Promise<{ [permission: string]: PermissionStatus }>;
+    requestMultiple(permissions: Array<Permission>): Promise<{ [key in Permission]: PermissionStatus }>;
 }
 
 export interface PushNotificationPermissions {
@@ -8027,13 +7965,16 @@ type PresentLocalNotificationDetails = {
 };
 
 type ScheduleLocalNotificationDetails = {
-    fireDate: Date;
-    alertBody: string;
-    alertAction: string;
-    soundName?: string;
-    category?: string;
-    userInfo?: Object;
+    alertAction?: string;
+    alertBody?: string;
+    alertTitle?: string
     applicationIconBadgeNumber?: number;
+    category?: string;
+    fireDate?: number | string;
+    isSilent?: boolean;
+    repeatInterval?: 'year' | 'month' | 'week' | 'day' | 'hour' | 'minute';
+    soundName?: string;
+    userInfo?: Object;
 };
 
 export type PushNotificationEventName = "notification" | "localNotification" | "register" | "registrationError";
@@ -8187,7 +8128,7 @@ export interface PushNotificationIOSStatic {
      * This method returns a promise that resolves to either the notification
      * object if the app was launched by a push notification, or `null` otherwise.
      */
-    getInitialNotification(): Promise<PushNotification>;
+    getInitialNotification(): Promise<PushNotification | null>;
 
     /**
      * iOS fetch results that best describe the result of a finished remote notification handler.
@@ -9464,8 +9405,7 @@ interface NativeModulesStatic {
  * <code>const MyModule = NativeModules.ModuleName</code>
  */
 export const NativeModules: NativeModulesStatic;
-export const Platform: PlatformStatic;
-export const PlatformIOS: PlatformIOSStatic;
+export const Platform: PlatformIOSStatic | PlatformAndroidStatic | PlatformWindowsOSStatic | PlatformMacOSStatic | PlatformWebStatic;
 export const PixelRatio: PixelRatioStatic;
 
 /**
@@ -9582,4 +9522,6 @@ declare global {
      * <code> if (__DEV__) console.log('Running in dev mode')</code>
      */
     const __DEV__: boolean;
+
+    const HermesInternal: null | {};
 }

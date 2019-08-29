@@ -9,22 +9,24 @@ export function hubConnection(url?: string, options?: Options): Connection;
 export function signalR(url?: string, qs?: any, logging?: any): any;
 
 export interface Connection {
-    id: string;
-    proxies: { [hubName: string]: any };
-    transport: {
-        name: string,
-        supportsKeepAlive: SupportsKeepAliveHandler
-    };
+  id: string;
+  proxies: { [hubName: string]: any };
+  transport: {
+    name: string;
+    supportsKeepAlive: SupportsKeepAliveHandler;
+  };
 
-   /**
-    * Creates a new proxy object for the given hub connection that can be used to invoke
-    * methods on server hubs and handle client method invocation requests from the server.
-    *
-    * @param hubName The name of the hub on the server to create the proxy for.
-    */
-    createHubProxy(hubName: string): Proxy;
+  /**
+   * Creates a new proxy object for the given hub connection that can be used to invoke
+   * methods on server hubs and handle client method invocation requests from the server.
+   *
+   * @param hubName The name of the hub on the server to create the proxy for.
+   */
+  createHubProxy(hubName: string): Proxy;
 
-    start(options?: any, callback?: any): any;
+  start(options?: any, callback?: any): any;
+
+  stop(async?: boolean, notifyServer?: boolean): void;
 }
 
 export interface Proxy {

@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2019-04-26
+// Type definitions for Google Apps Script 2019-07-30
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -34,7 +34,7 @@ declare namespace GoogleAppsScript {
      */
     export interface BigQueryConfig {
       addQueryParameter(name: string, type: BigQueryParameterType, value: string): BigQueryConfig;
-      build(): Object;
+      build(): object;
       printJson(): string;
       setAccessToken(accessToken: string): BigQueryConfig;
       setBillingProjectId(billingProjectId: string): BigQueryConfig;
@@ -78,7 +78,7 @@ declare namespace GoogleAppsScript {
      *
      *     fields.newMetric()
      *       .setAggregation(aggregationType.AVG)
-     *       .setFieldType(fieldType.CURRENCY_USD);
+     *       .setType(fieldType.CURRENCY_USD);
      */
     export interface CommunityConnector {
       AggregationType: typeof AggregationType;
@@ -105,7 +105,7 @@ declare namespace GoogleAppsScript {
      *       .setHelpText("This connector can connect to multiple data endpoints.");
      */
     export interface Config {
-      build(): Object;
+      build(): any;
       newCheckbox(): Checkbox;
       newInfo(): Info;
       newOptionBuilder(): OptionBuilder;
@@ -196,7 +196,7 @@ declare namespace GoogleAppsScript {
      */
     export interface Fields {
       asArray(): Field[];
-      build(): Object[];
+      build(): any[];
       forIds(ids: string[]): Fields;
       getDefaultDimension(): Field;
       getDefaultMetric(): Field;
@@ -221,7 +221,7 @@ declare namespace GoogleAppsScript {
      *     }
      */
     export interface GetAuthTypeResponse {
-      build(): Object;
+      build(): any;
       printJson(): string;
       setAuthType(authType: AuthType): GetAuthTypeResponse;
       setHelpUrl(helpUrl: string): GetAuthTypeResponse;

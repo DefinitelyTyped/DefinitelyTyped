@@ -596,7 +596,7 @@ declare namespace GoogleAppsScript {
       }
       export interface ConflictingOwnership {
         owner?: string;
-        ratio?: Number;
+        ratio?: number;
       }
       export interface ContentOwner {
         conflictNotificationEmail?: string;
@@ -638,14 +638,14 @@ declare namespace GoogleAppsScript {
         start?: YoutubePartner.Schema.Date;
       }
       export interface ExcludedInterval {
-        high?: Number;
-        low?: Number;
+        high?: number;
+        low?: number;
         origin?: string;
         timeCreated?: string;
       }
       export interface IntervalCondition {
-        high?: Number;
-        low?: Number;
+        high?: number;
+        low?: number;
       }
       export interface LiveCuepoint {
         broadcastId?: string;
@@ -826,7 +826,7 @@ declare namespace GoogleAppsScript {
         id?: string;
         ignoreFpMatch?: boolean;
         kind?: string;
-        length?: Number;
+        length?: number;
         origination?: YoutubePartner.Schema.Origination;
         status?: string;
         statusReason?: string;
@@ -923,7 +923,7 @@ declare namespace GoogleAppsScript {
       export interface TerritoryOwners {
         owner?: string;
         publisher?: string;
-        ratio?: Number;
+        ratio?: number;
         territories?: string[];
         type?: string;
       }

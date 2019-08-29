@@ -2,7 +2,7 @@
 // Project: https://github.com/ericf/express-handlebars
 // Definitions by: Sam Saint-Pettersen <https://github.com/stpettersens>, Igor Dultsev <https://github.com/yhaskell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 interface PartialTemplateOptions {
     cache?: boolean;
@@ -45,7 +45,7 @@ interface Exphbs {
 }
 
 interface ExpressHandlebars {
-  (options?: ExphbsOptions): Function;
+  (options?: ExphbsOptions): (...args: any[]) => any;
   create (options?: ExphbsOptions): Exphbs;
 }
 

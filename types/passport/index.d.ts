@@ -6,20 +6,26 @@
 //                 Tomek Łaziuk <https://github.com/tlaziuk>
 //                 Daniel Perez Alvarez <https://github.com/danielpa9708>
 //                 Kevin Stiehl <https://github.com/kstiehl>
+//                 Oleg Vaskevich <https://github.com/vaskevich>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 declare global {
     namespace Express {
+        // tslint:disable-next-line:no-empty-interface
+        interface AuthInfo {}
+        // tslint:disable-next-line:no-empty-interface
+        interface User {}
+
         interface Request {
-            authInfo?: any;
-            user?: any;
+            authInfo?: AuthInfo;
+            user?: User;
 
             // These declarations are merged into express's Request type
-            login(user: any, done: (err: any) => void): void;
-            login(user: any, options: any, done: (err: any) => void): void;
-            logIn(user: any, done: (err: any) => void): void;
-            logIn(user: any, options: any, done: (err: any) => void): void;
+            login(user: User, done: (err: any) => void): void;
+            login(user: User, options: any, done: (err: any) => void): void;
+            logIn(user: User, done: (err: any) => void): void;
+            logIn(user: User, options: any, done: (err: any) => void): void;
 
             logout(): void;
             logOut(): void;

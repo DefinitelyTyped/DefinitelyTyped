@@ -117,10 +117,12 @@ export interface CompactLayoutInfo {
 export interface DeletedRecordsInfo {
     earliestDateAvailable: string;
     latestDateCovered: string;
-    deletedRecords: {
-        id: string,
-        deletedDate: string,
-    };
+    deletedRecords: DeletedRecord[];
+}
+
+export interface DeletedRecord {
+    id: string,
+    deletedDate: string,
 }
 
 export interface LayoutInfo {

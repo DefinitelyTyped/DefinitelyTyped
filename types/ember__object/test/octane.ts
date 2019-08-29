@@ -34,6 +34,12 @@ import {
     uniqBy
 } from "@ember/object/computed";
 
+function customMacro(message: string) {
+    return computed(() => {
+        return [message, message];
+    });
+}
+
 // Native class syntax
 class Foo extends EmberObject {
     firstName: string;
@@ -46,6 +52,17 @@ class Foo extends EmberObject {
     get fullName() {
         return `${this.firstName} ${this.lastName}`;
     }
+
+    @computed("firstName", "lastName") // $ExpectError
+    badFullName: string;
+
+    @computed("fullName", function(this: Foo) {
+        return this.fullName.toUpperCase();
+    })
+    bigFullName: string;
+
+    @customMacro('hi')
+    hiTwice: string[];
 
     @action
     foo() {}

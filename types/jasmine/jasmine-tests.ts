@@ -837,6 +837,30 @@ describe("jasmine.any", () => {
     });
 });
 
+describe('custom asymmetry', function() {
+    const tester = {
+        asymmetricMatch: (actual: string) => {
+            const secondValue = actual.split(',')[1];
+            return secondValue === 'bar';
+        },
+    };
+
+    it('dives in deep', function() {
+        expect('foo,bar,baz,quux').toEqual(tester);
+        expect(123).not.toEqual(tester);
+    });
+
+    describe('when used with a spy', function() {
+        it('is useful for comparing arguments', function() {
+            const callback = jasmine.createSpy('callback');
+
+            callback('foo,bar,baz');
+
+            expect(callback).toHaveBeenCalledWith(tester);
+        });
+    });
+});
+
 describe("jasmine.objectContaining", () => {
     interface fooType {
         a: number;
@@ -868,6 +892,28 @@ describe("jasmine.objectContaining", () => {
             bar: '',
             // foo: 1, <-- this would cause an error as `foo` is not defined in fooType
         }));
+    });
+
+    it("can be used in a nested object", () => {
+        interface nestedFooType {
+            nested: {
+                a: number;
+                b: number;
+                bar: string;
+            };
+        }
+
+        const nestedFoo: nestedFooType = {
+            nested: {
+                a: 1,
+                b: 2,
+                bar: 's',
+            },
+        };
+
+        expect(nestedFoo).toEqual({
+            nested: jasmine.objectContaining({b: 2})
+        });
     });
 
     describe("when used with a spy", () => {
@@ -1269,6 +1315,49 @@ describe("createSpyObj", function() {
             jasmine.createSpyObj('BaseName', {});
         }).toThrow("createSpyObj requires a non-empty array or object of method names to create spies for");
     });
+});
+
+describe('Static Matcher Test', function() {
+  it('Falsy', () => {
+    expect({ value: null }).toEqual(
+      jasmine.objectContaining({
+        value: jasmine.falsy(),
+      })
+    );
+  });
+  it('Truthy', () => {
+    expect({ value: null }).toEqual(
+      jasmine.objectContaining({
+        value: jasmine.truthy(),
+      })
+    );
+  });
+  it('Empty', () => {
+    expect({ value: null }).toEqual(
+      jasmine.objectContaining({
+        value: jasmine.empty(),
+      })
+    );
+  });
+  it('NotEmpty', () => {
+    expect({ value: null }).toEqual(
+      jasmine.objectContaining({
+        value: jasmine.notEmpty(),
+      })
+    );
+  });
+  it('Partial should OK', () => {
+    expect({ value: null, label: 'abcd' }).toEqual(
+      jasmine.objectContaining({
+        value: jasmine.anything(),
+      })
+    );
+    expect({ value: null }).toEqual(
+        jasmine.objectContaining({
+          value: 'any value should ok',
+        })
+      );
+  });
 });
 
 (() => {

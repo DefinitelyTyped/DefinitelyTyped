@@ -1,4 +1,4 @@
-// Type definitions for Backbone 1.3.3
+// Type definitions for Backbone 1.4
 // Project: http://backbonejs.org/
 //          https://github.com/jashkenas/backbone
 // Definitions by: Boris Yankov <https://github.com/borisyankov>
@@ -6,8 +6,9 @@
 //                 kenjiru <https://github.com/kenjiru>
 //                 jjoekoullas <https://github.com/jjoekoullas>
 //                 Julian Gonggrijp <https://github.com/jgonggrijp>
+//                 Kyle Scully <https://github.com/zieka>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference types="jquery" />
 
@@ -235,6 +236,14 @@ declare namespace Backbone {
 
         urlRoot: any;
 
+        /**
+         * For use with models as ES classes. If you define a preinitialize
+         * method, it will be invoked when the Model is first created, before
+         * any instantiation logic is run for the Model.
+         * @see https://backbonejs.org/#Model-preinitialize
+         */
+        preinitialize(attributes?: any, options?: any): void;
+
         constructor(attributes?: any, options?: any);
         initialize(attributes?: any, options?: any): void;
 
@@ -310,6 +319,14 @@ declare namespace Backbone {
         model: new (...args:any[]) => TModel;
         models: TModel[];
         length: number;
+
+        /**
+         * For use with collections as ES classes. If you define a preinitialize
+         * method, it will be invoked when the Collection is first created and
+         * before any instantiation logic is run for the Collection.
+         * @see https://backbonejs.org/#Collection-preinitialize
+         */
+        preinitialize(models?: TModel[] | Object[], options?: any): void;
 
         constructor(models?: TModel[] | Object[], options?: any);
         initialize(models?: TModel[] | Object[], options?: any): void;
@@ -452,6 +469,14 @@ declare namespace Backbone {
         **/
         routes: RoutesHash | any;
 
+        /**
+         * For use with Router as ES classes. If you define a preinitialize method,
+         * it will be invoked when the Router is first created, before any
+         * instantiation logic is run for the Router.
+         * @see https://backbonejs.org/#Router-preinitialize
+         */
+        preinitialize(options?: RouterOptions): void;
+
         constructor(options?: RouterOptions);
         initialize(options?: RouterOptions): void;
         route(route: string|RegExp, name: string, callback?: Function): Router;
@@ -510,6 +535,14 @@ declare namespace Backbone {
         * Do not use, prefer TypeScript's extend functionality.
         **/
         public static extend(properties: any, classProperties?: any): any;
+
+        /**
+         * For use with views as ES classes. If you define a preinitialize
+         * method, it will be invoked when the view is first created, before any
+         * instantiation logic is run.
+         * @see https://backbonejs.org/#View-preinitialize
+         */
+        preinitialize(options?: ViewOptions<TModel>): void;
 
         constructor(options?: ViewOptions<TModel>);
         initialize(options?: ViewOptions<TModel>): void;

@@ -10,6 +10,7 @@ export type DropdownMenuProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   flip?: boolean;
   modifiers?: Popper.Modifiers;
   persist?: boolean;
+  positionFixed?: boolean;
 } & T;
 
 declare class DropdownMenu<T = {[key: string]: any}> extends React.Component<DropdownMenuProps<T>> {}

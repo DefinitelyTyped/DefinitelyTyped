@@ -86,6 +86,7 @@ declare namespace GoogleAppsScript {
       getCode(): string;
       getCodeWithComments(): string;
       getRawContent(): string;
+      [propName: string]: any;
     }
 
     /**

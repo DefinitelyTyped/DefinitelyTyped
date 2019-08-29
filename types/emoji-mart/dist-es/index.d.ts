@@ -20,6 +20,7 @@ export {
     BaseEmoji,
     CustomEmoji,
     EmojiData,
+    EmojiEntry,
     EmojiSkin,
     default as NimbleEmojiIndex,
 } from './utils/emoji-index/nimble-emoji-index';
@@ -32,5 +33,5 @@ export {
     NimbleEmoji,
     NimbleEmojiProps,
     Category,
-    CategoryProps
+    CategoryProps,
 } from './components';

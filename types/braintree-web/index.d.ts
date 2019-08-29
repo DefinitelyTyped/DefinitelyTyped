@@ -1,4 +1,4 @@
-// Type definitions for Braintree-web v3.6.1
+// Type definitions for Braintree-web v3.47.0
 // Project: https://github.com/braintree/braintree-web
 // Definitions by: Guy Shahine <https://github.com/chlela>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -472,6 +472,18 @@ declare namespace braintree {
   }
 }
 
+interface HostedFieldsFieldMaskInput {
+    /**
+     * The character to use when masking the input.
+     * @default '•'
+     */
+    character?: string;
+    /**
+     * Only applicable for the credit card field. Whether or not to show the last 4 digits of the card when masking.
+     */
+    showLastFour?: boolean;
+}
+
 /** @module braintree-web/hosted-fields */
 declare namespace braintree {
   /**
@@ -483,13 +495,20 @@ declare namespace braintree {
    * @property {boolean} [formatInput=true] - Enable or disable automatic formatting on this field.
    * @property {object|boolean} [select] If truthy, this field becomes a `<select>` dropdown list. This can only be used for `expirationMonth` and `expirationYear` fields.
    * @property {string[]} [select.options] An array of 12 strings, one per month. This can only be used for the `expirationMonth` field. For example, the array can look like `['01 - January', '02 - February', ...]`.
+   * @property {boolean | HostedFieldsFieldMaskInput} [maskInput] Enable or disable input masking when input is not focused. If set to `true` instead of an object, the defaults for the `maskInput` parameters will be used.
    */
   interface HostedFieldsField {
     selector: string;
     placeholder?: string;
     type?: string;
     formatInput?: boolean;
+    maskInput?: boolean | HostedFieldsFieldMaskInput;
     select?: boolean | { options: string[] };
+    maxCardLength?: number;
+    maxlength?: number;
+    minlength?: number;
+    prefill?: string;
+    rejectUnsupportedCards?: boolean;
   }
 
   /**
@@ -1133,6 +1152,7 @@ declare namespace braintree {
      * @static
      * @function create
      * @param {object} options Creation options:
+     * @param {Version} options.version=1 The version of 3DS to use. Pass in 2 to use 3DS 2.0.
      * @param {Client} options.client A {@link Client} instance.
      * @param {callback} callback The second argument, `data`, is the {@link ThreeDSecure} instance.
      * @returns {void}
@@ -1143,6 +1163,8 @@ declare namespace braintree {
      */
     create(options: { client: Client }): Promise<ThreeDSecure>;
     create(options: { client: Client }, callback: callback): void;
+    create(options: { version: number, client: Client }): Promise<ThreeDSecure>;
+    create(options: { version: number, client: Client }, callback: callback): void;
 
     /**
      * @description The current version of the SDK, i.e. `3.0.2`.
@@ -1233,6 +1255,32 @@ declare namespace braintree {
      * });
      */
     cancelVerifyCard(callback: callback): void;
+
+    /**
+     * Gather the data needed for a 3D Secure lookup call.
+     *
+     * @public
+     * @param {object} options Options for 3D Secure lookup.
+     * @param {string} options.nonce The nonce representing the card from a tokenization payload. For example, this can be a {@link HostedFields~tokenizePayload|tokenizePayload} returned by Hosted Fields under `payload.nonce`.
+     * @param {string} [options.bin] The numeric Bank Identification Number (bin) of the card from a tokenization payload. For example, this can be a {@link HostedFields~tokenizePayload|tokenizePayload} returned by Hosted Fields under `payload.details.bin`. Though not required to start the verification, it is required to receive a 3DS 2.0 lookup response.
+     * @param {callback} [callback] The second argument, <code>data</code>, is a {@link ThreeDSecure~prepareLookupPayload|prepareLookupPayload}. If no callback is provided, it will return a promise that resolves {@link ThreeDSecure~prepareLookupPayload|prepareLookupPayload}.
+     * @returns {Promise|void} Returns a promise if no callback is provided.
+     * @example
+     * <caption>Preparing data for a 3D Secure lookup</caption>
+     * threeDSecure.prepareLookup({
+     *   nonce: hostedFieldsTokenizationPayload.nonce,
+     *   bin: hostedFieldsTokenizationPayload.details.bin
+     * }, function (err, payload) {
+     *   if (err) {
+     *     console.error(err);
+     *     return;
+     *   }
+     *
+     *   // send payload to server to do server side lookup
+     * });
+     */
+     prepareLookup(options: {nonce: string, bin: string}): Promise<string>;
+     prepareLookup(options: {nonce: string, bin: string}, callback: callback): void;
 
     /**
      * Cleanly tear down anything set up by {@link module:braintree-web/three-d-secure.create|create}
