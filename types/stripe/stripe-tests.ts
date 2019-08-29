@@ -832,6 +832,42 @@ stripe.customers.deleteSubscriptionDiscount("cus_5rfJKDJkuxzh5Q", "sub_5rfJxnBLG
 
 //#endregion
 
+//#region Customer Tax Ids
+// ##################################################################################
+
+stripe.customers.createTaxId(
+    'cus_FhdWgak8aeNfht',
+    {
+        type: 'eu_vat',
+        value: 'DE123456789',
+    },
+    (err, taxId) => {
+        // asynchronously called
+    }
+);
+
+stripe.customers.retrieveTaxId(
+    'cus_FhdWgak8aeNfht',
+    'txi_123456789',
+    (err, taxId) => {
+        // asynchronously called
+    }
+);
+
+stripe.customers.deleteTaxId(
+    'cus_FhdWgak8aeNfht',
+    'txi_123456789',
+    (err, confirmation) => {
+        // asynchronously called
+    }
+);
+
+stripe.customers.listTaxIds('cus_FhdWgak8aeNfht', (err, taxIds) => {
+    // asynchronously called
+});
+
+//#endregion
+
 //#region Disputes tests
 // ##################################################################################
 
