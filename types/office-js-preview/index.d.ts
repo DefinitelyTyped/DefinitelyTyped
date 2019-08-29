@@ -1773,6 +1773,8 @@ declare namespace Office {
          * The event handler receives an argument of type `Office.EnhancedLocationsChangedEventArgs`.
          * 
          * [Api set: Mailbox Preview]
+         * 
+         * @beta
          */
         EnhancedLocationsChanged,
         /**
@@ -9464,6 +9466,8 @@ declare namespace Office {
          * @param options - An object literal that contains one or more of the following properties.
          *        asyncContext: Developers can provide any object they wish to access in the callback method.
          * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult. 
+         * 
+         * @beta
          */
         getItemIdAsync(options: Office.AsyncContextOptions, callback: (asyncResult: Office.AsyncResult<string>) => void): void;
         /**
@@ -9488,6 +9492,8 @@ declare namespace Office {
          * - `ItemNotSaved`: The id can't be retrieved until the item is saved.
          * 
          * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult. 
+         * 
+         * @beta
          */
         getItemIdAsync(callback: (asyncResult: Office.AsyncResult<string>) => void): void;
         /**
@@ -10830,34 +10836,38 @@ declare namespace Office {
          * Gets the url of the attachment if its type is `MailboxEnums.AttachmentType.Cloud`.
          * 
          * [Api set: Mailbox Preview]
+         * 
+         * @beta
          */
         url: string;
     }
     /**
-     * Provides information about the attachments that raised the `Office.EventType.AttachmentsChanged` event. 
+     * Provides information about the attachments that raised the `Office.EventType.AttachmentsChanged` event.
      * 
-     * [Api set: Mailbox Preview] 
+     * [Api set: Mailbox Preview]
+     * 
+     * @beta
      */ 
     export interface AttachmentsChangedEventArgs { 
         /** 
          * Represents the set of attachments that were added or removed. 
-         * For each such attachment, gets a subset of {@link AttachmentDetails} properties: `id`, `name`, `size`, and `attachmentType`. 
+         * For each such attachment, gets a subset of {@link AttachmentDetails} properties: `id`, `name`, `size`, and `attachmentType`.
          * 
-         * [Api set: Mailbox Preview] 
-         */ 
-        attachmentDetails: object[]; 
-        /** 
-         * Gets whether the attachments were added or removed. See {@link MailboxEnums.AttachmentStatus} for details. 
+         * [Api set: Mailbox Preview]
+         */
+        attachmentDetails: object[];
+        /**
+         * Gets whether the attachments were added or removed. See {@link MailboxEnums.AttachmentStatus} for details.
          * 
-         * [Api set: Mailbox Preview] 
+         * [Api set: Mailbox Preview]
          */ 
-        attachmentStatus: MailboxEnums.AttachmentStatus | string; 
-        /** 
-         * Gets the type of the event. See `Office.EventType` for details. 
+        attachmentStatus: MailboxEnums.AttachmentStatus | string;
+        /**
+         * Gets the type of the event. See `Office.EventType` for details.
          * 
-         * [Api set: Mailbox Preview] 
-         */ 
-        type: "olkAttachmentsChanged"; 
+         * [Api set: Mailbox Preview]
+         */
+        type: "olkAttachmentsChanged";
     }
     /**
      * The body object provides methods for adding and updating the content of the message or appointment. 
@@ -11687,23 +11697,25 @@ declare namespace Office {
         removeAsync(locationIdentifiers: LocationIdentifier[], callback?: (asyncResult: Office.AsyncResultStatus) => void): void;
     }
     /**
-     * Provides the current enhanced locations when the `Office.EventType.EnhancedLocationsChanged` event is raised. 
+     * Provides the current enhanced locations when the `Office.EventType.EnhancedLocationsChanged` event is raised.
      * 
-     * [Api set: Mailbox Preview] 
+     * [Api set: Mailbox Preview]
+     * 
+     * @beta
      */ 
-    export interface EnhancedLocationsChangedEventArgs { 
-        /** 
-         * Gets the set of enhanced locations. 
+    export interface EnhancedLocationsChangedEventArgs {
+        /**
+         * Gets the set of enhanced locations.
          * 
-         * [Api set: Mailbox Preview] 
-         */ 
-        enhancedLocations: LocationDetails[]; 
-        /** 
-         * Gets the type of the event. See `Office.EventType` for details. 
+         * [Api set: Mailbox Preview]
+         */
+        enhancedLocations: LocationDetails[];
+        /**
+         * Gets the type of the event. See `Office.EventType` for details.
          * 
-         * [Api set: Mailbox Preview] 
-         */ 
-        type: "olkEnhancedLocationsChanged"; 
+         * [Api set: Mailbox Preview]
+         */
+        type: "olkEnhancedLocationsChanged";
     }
     /**
      * Represents a collection of entities found in an email message or appointment. Read mode only.
@@ -14946,6 +14958,8 @@ declare namespace Office {
          * @param options - An object literal that contains one or more of the following properties.
          *        asyncContext: Developers can provide any object they wish to access in the callback method.
          * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult. 
+         * 
+         * @beta
          */
         getItemIdAsync(options: Office.AsyncContextOptions, callback: (asyncResult: Office.AsyncResult<string>) => void): void;
         /**
@@ -14970,6 +14984,8 @@ declare namespace Office {
          * - `ItemNotSaved`: The id can't be retrieved until the item is saved.
          * 
          * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult. 
+         * 
+         * @beta
          */
         getItemIdAsync(callback: (asyncResult: Office.AsyncResult<string>) => void): void;
         /**
@@ -16246,23 +16262,25 @@ declare namespace Office {
         replaceAsync(key: string, JSONmessage: NotificationMessageDetails, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
     }
     /**
-     * Provides the updated Office theme that raised the `Office.EventType.OfficeThemeChanged` event. 
+     * Provides the updated Office theme that raised the `Office.EventType.OfficeThemeChanged` event.
      * 
-     * [Api set: Mailbox Preview] 
+     * [Api set: Mailbox Preview]
+     * 
+     * @beta
      */ 
-    export interface OfficeThemeChangedEventArgs { 
-        /** 
-         * Gets the updated Office theme. 
+    export interface OfficeThemeChangedEventArgs {
+        /**
+         * Gets the updated Office theme.
          * 
-         * [Api set: Mailbox Preview] 
-         */ 
-        officeTheme: Office.OfficeTheme; 
-        /** 
-         * Gets the type of the event. See `Office.EventType` for details. 
+         * [Api set: Mailbox Preview]
+         */
+        officeTheme: Office.OfficeTheme;
+        /**
+         * Gets the type of the event. See `Office.EventType` for details.
          * 
-         * [Api set: Mailbox Preview] 
-         */ 
-        type: "officeThemeChanged"; 
+         * [Api set: Mailbox Preview]
+         */
+        type: "officeThemeChanged";
     }
     /**
      * Represents the appointment organizer, even if an alias or a delegate was used to create the appointment. 
