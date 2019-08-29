@@ -1,6 +1,6 @@
-// Type definitions for aos 3.0
+// Type definitions for aos 3.0.0-beta.6
 // Project: https://github.com/michalsnik/aos, https://michalsnik.github.io/aos
-// Definitions by: Rostislav Shermenyov <https://github.com/shermendev>
+// Definitions by: Rostislav Shermenyov <https://github.com/shermendev>, Matheus Grieger <https://github.com/matheusgrieger>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
