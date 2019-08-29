@@ -20,7 +20,7 @@ interface Props {
     instanceOf: TestClass;
     oneOf: 'a' | 'b' | 'c';
     oneOfType: string | boolean | {
-        foo?: string;
+        foo?: string | null;
         bar: number;
     };
     numberOrFalse: false | number;
@@ -29,8 +29,8 @@ interface Props {
     objectOf: { [K: string]: number };
     shape: {
         foo: string;
-        bar?: boolean;
-        baz?: any
+        bar?: boolean | null;
+        baz?: any;
     };
     optionalNumber?: number | null;
     customProp?: typeof uniqueType;
