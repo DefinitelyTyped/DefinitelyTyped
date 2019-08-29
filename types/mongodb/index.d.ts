@@ -680,6 +680,8 @@ export class Db extends EventEmitter {
     stats(callback: MongoCallback<any>): void;
     stats(options?: { scale?: number }): Promise<any>;
     stats(options: { scale?: number }, callback: MongoCallback<any>): void;
+    /** http://mongodb.github.io/node-mongodb-native/3.1/api/Db.html#watch */
+    watch(pipeline?: object[], options?: ChangeStreamOptions & { startAtOperationTime?: Timestamp, session?: ClientSession }): ChangeStream;
 }
 
 export interface CommonOptions extends WriteConcern {
