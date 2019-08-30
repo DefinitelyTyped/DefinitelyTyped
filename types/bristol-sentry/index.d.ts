@@ -1,6 +1,6 @@
 // Type definitions for bristol-sentry 0.0
 // Project: https://github.com/jeffijoe/bristol-sentry#readme
-// Definitions by: Elliott Campbell <https://github.com/me>
+// Definitions by: Elliott Campbell <https://github.com/ElliottCampbellJHA>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
