@@ -1782,7 +1782,7 @@ declare namespace CodeMirror {
         insertSoftTab(cm: CodeMirror.Editor): void;
 
         /** If something is selected, indent it by one indent unit. If nothing is selected, insert a tab character. */
-        defaultTabTab(cm: CodeMirror.Editor): void;
+        defaultTab(cm: CodeMirror.Editor): void;
 
         /** Swap the characters before and after the cursor. */
         transposeChars(cm: CodeMirror.Editor): void;
