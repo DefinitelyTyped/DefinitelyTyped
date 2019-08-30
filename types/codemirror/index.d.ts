@@ -1431,6 +1431,12 @@ declare namespace CodeMirror {
         /** Like inclusiveLeft , but for the right side. */
         inclusiveRight?: boolean;
 
+        /** For atomic ranges, determines whether the cursor is allowed to be placed directly to the left of the range. Has no effect on non-atomic ranges. */
+        selectLeft?: boolean;
+
+        /** Like `selectLeft`, but for the right side. */
+        selectRight?: boolean;
+
         /** Atomic ranges act as a single unit when cursor movement is concerned — i.e. it is impossible to place the cursor inside of them.
         In atomic ranges, inclusiveLeft and inclusiveRight have a different meaning — they will prevent the cursor from being placed
         respectively directly before and directly after the range. */

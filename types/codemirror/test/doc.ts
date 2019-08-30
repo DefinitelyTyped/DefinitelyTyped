@@ -88,6 +88,8 @@ const mark: CodeMirror.TextMarker = doc.markText(position, position1, {
     className: "mark",
     inclusiveLeft: true,
     inclusiveRight: true,
+    selectLeft: true,
+    selectRight: true,
     atomic: true,
     collapsed: true,
     clearOnEnter: true,
