@@ -415,28 +415,53 @@ declare namespace CodeMirror {
         on(eventName: string, handler: (instance: CodeMirror.Editor) => void ): void;
         off(eventName: string, handler: (instance: CodeMirror.Editor) => void ): void;
 
-        /** Fires every time the content of the editor is changed. */
-        on(eventName: 'change', handler: (instance: CodeMirror.Editor, change: CodeMirror.EditorChangeLinkedList) => void ): void;
-        off(eventName: 'change', handler: (instance: CodeMirror.Editor, change: CodeMirror.EditorChangeLinkedList) => void ): void;
+        /**
+         * Fires every time the content of the editor is changed. The changeObj is a {from, to, text, removed, origin} object containing information
+         * about the changes that occurred as second argument. from and to are the positions (in the pre-change coordinate system) where the change
+         * started and ended (for example, it might be {ch:0, line:18} if the position is at the beginning of line #19). text is an array of strings
+         * representing the text that replaced the changed range (split by line). removed is the text that used to be between from and to, which is
+         * overwritten by this change. This event is fired before the end of an operation, before the DOM updates happen.
+         */
+        on(eventName: 'change', handler: (instance: CodeMirror.Editor, changeObj: CodeMirror.EditorChangeCancellable) => void ): void;
+        off(eventName: 'change', handler: (instance: CodeMirror.Editor, changeObj: CodeMirror.EditorChangeCancellable) => void ): void;
 
         /** Like the "change" event, but batched per operation, passing an
          * array containing all the changes that happened in the operation.
          * This event is fired after the operation finished, and display
          * changes it makes will trigger a new operation. */
-        on(eventName: 'changes', handler: (instance: CodeMirror.Editor, change: CodeMirror.EditorChangeLinkedList[]) => void ): void;
-        off(eventName: 'changes', handler: (instance: CodeMirror.Editor, change: CodeMirror.EditorChangeLinkedList[]) => void ): void;
+        on(eventName: 'changes', handler: (instance: CodeMirror.Editor, changes: CodeMirror.EditorChangeLinkedList[]) => void ): void;
+        off(eventName: 'changes', handler: (instance: CodeMirror.Editor, changes: CodeMirror.EditorChangeLinkedList[]) => void ): void;
 
         /** This event is fired before a change is applied, and its handler may choose to modify or cancel the change.
         The changeObj never has a next property, since this is fired for each individual change, and not batched per operation.
         Note: you may not do anything from a "beforeChange" handler that would cause changes to the document or its visualization.
         Doing so will, since this handler is called directly from the bowels of the CodeMirror implementation,
         probably cause the editor to become corrupted. */
-        on(eventName: 'beforeChange', handler: (instance: CodeMirror.Editor, change: CodeMirror.EditorChangeCancellable) => void ): void;
-        off(eventName: 'beforeChange', handler: (instance: CodeMirror.Editor, change: CodeMirror.EditorChangeCancellable) => void ): void;
+        on(eventName: 'beforeChange', handler: (instance: CodeMirror.Editor, changeObj: CodeMirror.EditorChangeCancellable) => void ): void;
+        off(eventName: 'beforeChange', handler: (instance: CodeMirror.Editor, changeObj: CodeMirror.EditorChangeCancellable) => void ): void;
 
         /** Will be fired when the cursor or selection moves, or any change is made to the editor content. */
         on(eventName: 'cursorActivity', handler: (instance: CodeMirror.Editor) => void ): void;
         off(eventName: 'cursorActivity', handler: (instance: CodeMirror.Editor) => void ): void;
+
+        /**
+         * Fired after a key is handled through a key map. name is the name of the handled key (for example "Ctrl-X" or "'q'"), and event
+         * is the DOM keydown or keypress event.
+         */
+        on(eventName: 'keyHandled', handler: (instance: CodeMirror.Editor, name: string, event: Event) => void ): void;
+        off(eventName: 'keyHandled', handler: (instance: CodeMirror.Editor, name: string, event: Event) => void ): void;
+
+        /**
+         * Fired whenever new input is read from the hidden textarea (typed or pasted by the user).
+         */
+        on(eventName: 'inputRead', handler: (instance: CodeMirror.Editor, changeObj: CodeMirror.EditorChangeCancellable) => void): void;
+        off(eventName: 'inputRead', handler: (instance: CodeMirror.Editor, changeObj: CodeMirror.EditorChangeCancellable) => void): void;
+
+        /**
+         * Fired if text input matched the mode's electric patterns, and this caused the line's indentation to change.
+         */
+        on(eventName: 'electricInput', handler: (instance: CodeMirror.Editor, line: number) => void): void;
+        off(eventName: 'electricInput', handler: (instance: CodeMirror.Editor, line: number) => void): void;
 
         /** This event is fired before the selection is moved. Its handler may modify the resulting selection head and anchor.
         Handlers for this event have the same restriction as "beforeChange" handlers they should not do anything to directly update the state of the editor. */
@@ -448,23 +473,57 @@ declare namespace CodeMirror {
         on(eventName: 'viewportChange', handler: (instance: CodeMirror.Editor, from: number, to: number) => void ): void;
         off(eventName: 'viewportChange', handler: (instance: CodeMirror.Editor, from: number, to: number) => void ): void;
 
+        /**
+         * This is signalled when the editor's document is replaced using the swapDoc method.
+         */
+        on(eventName: 'swapDoc', handler: (instance: CodeMirror.Editor, oldDoc: CodeMirror.Doc) => void ): void;
+        off(eventName: 'swapDoc', handler: (instance: CodeMirror.Editor, oldDoc: CodeMirror.Doc) => void ): void;
+
         /** Fires when the editor gutter (the line-number area) is clicked. Will pass the editor instance as first argument,
         the (zero-based) number of the line that was clicked as second argument, the CSS class of the gutter that was clicked as third argument,
         and the raw mousedown event object as fourth argument. */
         on(eventName: 'gutterClick', handler: (instance: CodeMirror.Editor, line: number, gutter: string, clickEvent: Event) => void ): void;
         off(eventName: 'gutterClick', handler: (instance: CodeMirror.Editor, line: number, gutter: string, clickEvent: Event) => void ): void;
 
+        /**
+         * Fires when the editor gutter (the line-number area) receives a contextmenu event. Will pass the editor instance as first argument,
+         * the (zero-based) number of the line that was clicked as second argument, the CSS class of the gutter that was clicked as third argument,
+         * and the raw contextmenu mouse event object as fourth argument. You can preventDefault the event, to signal that CodeMirror should do no
+         * further handling.
+         */
+        on(eventName: 'gutterContextMenu', handler: (instance: CodeMirror.Editor, line: number, gutter: string, event: Event) => void ): void;
+        off(eventName: 'gutterContextMenu', handler: (instance: CodeMirror.Editor, line: number, gutter: string, event: Event) => void ): void;
+
         /** Fires whenever the editor is focused. */
-        on(eventName: 'focus', handler: (instance: CodeMirror.Editor) => void ): void;
-        off(eventName: 'focus', handler: (instance: CodeMirror.Editor) => void ): void;
+        on(eventName: 'focus', handler: (instance: CodeMirror.Editor, event: Event) => void ): void;
+        off(eventName: 'focus', handler: (instance: CodeMirror.Editor, event: Event) => void ): void;
 
         /** Fires whenever the editor is unfocused. */
-        on(eventName: 'blur', handler: (instance: CodeMirror.Editor) => void ): void;
-        off(eventName: 'blur', handler: (instance: CodeMirror.Editor) => void ): void;
+        on(eventName: 'blur', handler: (instance: CodeMirror.Editor, event: Event) => void ): void;
+        off(eventName: 'blur', handler: (instance: CodeMirror.Editor, event: Event) => void ): void;
 
         /** Fires when the editor is scrolled. */
         on(eventName: 'scroll', handler: (instance: CodeMirror.Editor) => void ): void;
         off(eventName: 'scroll', handler: (instance: CodeMirror.Editor) => void ): void;
+
+        /**
+         * Fires when the editor is refreshed or resized. Mostly useful to invalidate cached values that depend on the editor or character size.
+         */
+        on(eventName: 'refresh', handler: (instance: CodeMirror.Editor) => void ): void;
+        off(eventName: 'refresh', handler: (instance: CodeMirror.Editor) => void ): void;
+
+        /**
+         * Dispatched every time an option is changed with setOption.
+         */
+        on(eventName: 'optionChange', handler: (instance: CodeMirror.Editor, option: string) => void ): void;
+        off(eventName: 'optionChange', handler: (instance: CodeMirror.Editor, option: string) => void ): void;
+
+        /**
+         * Fires when the editor tries to scroll its cursor into view. Can be hooked into to take care of additional scrollable containers
+         * around the editor. When the event object has its preventDefault method called, CodeMirror will not itself try to scroll the window.
+         */
+        on(eventName: 'scrollCursorIntoView', handler: (instance: CodeMirror.Editor, event: Event) => void ): void;
+        off(eventName: 'scrollCursorIntoView', handler: (instance: CodeMirror.Editor, event: Event) => void ): void;
 
         /** Will be fired whenever CodeMirror updates its DOM display. */
         on(eventName: 'update', handler: (instance: CodeMirror.Editor) => void ): void;
@@ -472,10 +531,13 @@ declare namespace CodeMirror {
 
         /** Fired whenever a line is (re-)rendered to the DOM. Fired right after the DOM element is built, before it is added to the document.
         The handler may mess with the style of the resulting element, or add event handlers, but should not try to change the state of the editor. */
-        on(eventName: 'renderLine', handler: (instance: CodeMirror.Editor, line: CodeMirror.LineHandle, element: HTMLElement) => void ): void;
-        off(eventName: 'renderLine', handler: (instance: CodeMirror.Editor, line: CodeMirror.LineHandle, element: HTMLElement) => void ): void;
+        on(eventName: 'renderLine', handler: (instance: CodeMirror.Editor, line: CodeMirror.LineHandle, element: Element) => void ): void;
+        off(eventName: 'renderLine', handler: (instance: CodeMirror.Editor, line: CodeMirror.LineHandle, element: Element) => void ): void;
 
-        /** Fires when one of the DOM events fires. */
+        /**
+         * Fired when CodeMirror is handling a DOM event of this type. You can preventDefault the event, or give it a truthy codemirrorIgnore
+         * property, to signal that CodeMirror should do no further handling.
+         */
         on(eventName: DOMEvent, handler: (instance: CodeMirror.Editor, event: Event) => void ): void;
         off(eventName: DOMEvent, handler: (instance: CodeMirror.Editor, event: Event) => void ): void;
 
@@ -741,12 +803,50 @@ declare namespace CodeMirror {
         /** The reverse of posFromIndex. */
         indexFromPos(object: CodeMirror.Position): number;
 
+        /**
+         * Fired whenever a change occurs to the document. changeObj has a similar type as the object passed to the editor's "change" event.
+         */
+        on(eventName: "change", handler: (doc: CodeMirror.Doc, changeObj: CodeMirror.EditorChangeCancellable) => void): void;
+        off(eventName: "change", handler: (doc: CodeMirror.Doc, changeObj: CodeMirror.EditorChangeCancellable) => void): void;
+
+        /**
+         * See the description of the same event on editor instances.
+         */
+        on(eventName: "beforeChange", handler: (doc: CodeMirror.Doc, change: CodeMirror.EditorChangeCancellable) => void): void;
+        off(eventName: "beforeChange", handler: (doc: CodeMirror.Doc, change: CodeMirror.EditorChangeCancellable) => void): void;
+
+        /**
+         * Fired whenever the cursor or selection in this document changes.
+         */
+        on(eventName: "cursorActivity", handler: (doc: CodeMirror.Doc) => void): void;
+        off(eventName: "cursorActivity", handler: (doc: CodeMirror.Doc) => void): void;
+
+        /**
+         * Equivalent to the event by the same name as fired on editor instances.
+         */
+        on(eventName: "beforeSelectionChange", handler: (doc: CodeMirror.Doc, selection: CodeMirror.Selection) => void): void;
+        off(eventName: "beforeSelectionChange", handler: (doc: CodeMirror.Doc, selection: CodeMirror.Selection) => void): void;
+
         /** Expose the state object, so that the Doc.state.completionActive property is reachable*/
         state: any;
     }
 
     interface LineHandle {
         text: string;
+
+        /**
+         * Will be fired when the line object is deleted. A line object is associated with the start of the line. Mostly useful when
+         * you need to find out when your gutter markers on a given line are removed.
+         */
+        on(eventName: "delete", handler: () => void): void;
+        off(eventName: "delete", handler: () => void): void;
+
+        /**
+         * Fires when the line's text content is changed in any way (but the line is not deleted outright). The change object is similar
+         * to the one passed to change event on the editor object.
+         */
+        on(eventName: "change", handler: (line: CodeMirror.LineHandle, changeObj: CodeMirror.EditorChangeCancellable) => void): void;
+        off(eventName: "change", handler: (line: CodeMirror.LineHandle, changeObj: CodeMirror.EditorChangeCancellable) => void): void;
     }
 
     interface ScrollInfo {
@@ -782,11 +882,11 @@ declare namespace CodeMirror {
 
         /** Fired when the last part of the marker is removed from the document by editing operations */
         on(eventName: 'hide', handler: () => void) : void;
-        off(eventname: 'hide', handler: () => void) : void;
+        off(eventName: 'hide', handler: () => void) : void;
 
         /** Fired when, after the marker was removed by editing, a undo operation brough the marker back */
         on(eventName: 'unhide', handler: () => void) : void;
-        off(eventname: 'unhide', handler: () => void) : void;
+        off(eventName: 'unhide', handler: () => void) : void;
     }
 
     interface LineWidget {
@@ -796,6 +896,14 @@ declare namespace CodeMirror {
         /** Call this if you made some change to the widget's DOM node that might affect its height.
         It'll force CodeMirror to update the height of the line that contains the widget. */
         changed(): void;
+
+        /**
+         * Fired whenever the editor re-adds the widget to the DOM. This will happen once right after the widget is added
+         * (if it is scrolled into view), and then again whenever it is scrolled out of view and back in again, or when changes
+         * to the editor options or the line the widget is on require the widget to be redrawn.
+         */
+        on(eventName: 'redraw', handler: () => void) : void;
+        off(eventName: 'redraw', handler: () => void) : void;
     }
 
     interface LineWidgetOptions {
