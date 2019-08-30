@@ -5,5 +5,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-declare function pick(obj: object, paths: string | Array<string | string[]>, separator?: string): object;
+declare function pick(obj: object, paths: string | ReadonlyArray<string | ReadonlyArray<string>>, separator?: string): object;
 export = pick;

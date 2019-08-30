@@ -21,4 +21,11 @@ const obj = {
         n: []
     }
 };
-pick(obj, ['a.b.c', 'a.b.d', 'a.b.e', 'a.m', 'x.y.z', 'a.q.u.a']);
+const item: {} = pick(obj, [
+  'a.b.c',
+  'a.b.d',
+  'a.b.e',
+  'a.m',
+  'x.y.z',
+  'a.q.u.a',
+]);
