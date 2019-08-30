@@ -67,6 +67,8 @@
         "addon/search/search.d.ts",
         "addon/search/searchcursor.d.ts",
         "addon/selection/active-line.d.ts",
+        "addon/selection/mark-selection.d.ts",
+        "addon/selection/selection-pointer.d.ts",
         "test/index.ts",
         "test/runmode.ts",
         "test/tern.ts",
@@ -82,6 +84,6 @@
         "test/addon/mode/mode.ts",
         "test/addon/scroll/scroll.ts",
         "test/addon/search/search.ts",
-        "test/addon/selection/active-line.ts"
+        "test/addon/selection/selection.ts"
     ]
 }

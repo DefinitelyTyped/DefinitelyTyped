@@ -3,7 +3,7 @@
 // Definitions by: ficristo <https://github.com/ficristo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// See docs https://codemirror.net/doc/manual.html#active-line
+// See docs https://codemirror.net/doc/manual.html#addon_active-line
 
 import * as CodeMirror from "codemirror";
 
