@@ -2,6 +2,7 @@
 // Project: https://github.com/mzabriskie/moxios
 // Definitions by: Asuka Ito <https://github.com/itoasuka>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.1
 
 import { AxiosInstance, AxiosRequestConfig } from "axios";
 
