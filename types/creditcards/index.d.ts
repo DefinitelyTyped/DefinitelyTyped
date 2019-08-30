@@ -1,4 +1,3 @@
-
 // Type definitions for creditcards v3.1.0
 // Project: https://github.com/bendrucker/creditcards
 // Definitions by: Enrique Franco S. <https://github.com/enrifransch/>

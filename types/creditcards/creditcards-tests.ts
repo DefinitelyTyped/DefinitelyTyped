@@ -1,4 +1,3 @@
-
 import { creditcards } from 'creditcards';
 import * as test from 'tape';
 var amex = require('creditcards-types/types/american-express');
