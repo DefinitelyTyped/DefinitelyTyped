@@ -6,6 +6,7 @@ let x: any = null;
 declare const value: any;
 let num = 0;
 let str = '';
+let strOrNum: string | number;
 declare const bool: boolean;
 declare const exp: RegExp;
 declare const obj: object;
@@ -180,6 +181,14 @@ validErrItem = {
     message: str,
     type: str,
     path: [str],
+    options: validOpts,
+    context: obj
+};
+
+validErrItem = {
+    message: str,
+    type: str,
+    path: [str, num, str],
     options: validOpts,
     context: obj
 };
@@ -940,7 +949,7 @@ schema = Joi.lazy(() => schema, { once: true });
         Joi.validate(value, schema, validOpts, (err, value) => {
             x = value;
             str = err.message;
-            str = err.details[0].path[0];
+            strOrNum = err.details[0].path[0];
             str = err.details[0].message;
             str = err.details[0].type;
         });

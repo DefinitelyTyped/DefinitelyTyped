@@ -18,6 +18,7 @@
 //                 Alejandro Fernandez Haro <https://github.com/afharo>
 //                 Silas Rech <https://github.com/lenovouser>
 //                 Anand Chowdhary <https://github.com/AnandChowdhary>
+//                 Miro Yovchev <https://github.com/myovchev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -283,7 +284,7 @@ export interface ValidationError extends Error, JoiObject {
 export interface ValidationErrorItem {
     message: string;
     type: string;
-    path: string[];
+    path: Array<string | number>;
     options?: ValidationOptions;
     context?: Context;
 }
