@@ -30,15 +30,15 @@ declare module "codemirror" {
         showToken?: boolean | RegExp;
 
         /**
-         * Used to specify how much time to wait, in milliseconds, before highlighting the matches. 
+         * Used to specify how much time to wait, in milliseconds, before highlighting the matches.
          */
-        delay: 100,
+        delay?: number;
 
         /**
          * If wordsOnly is enabled, the matches will be highlighted only if the selected text is a word.
          */
         wordsOnly?: boolean;
-        
+
         /**
          * If annotateScrollbar is enabled, the occurences will be highlighted on the scrollbar via the matchesonscrollbar addon.
          */
