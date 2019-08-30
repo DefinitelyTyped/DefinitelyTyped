@@ -69,6 +69,8 @@
         "addon/selection/active-line.d.ts",
         "addon/selection/mark-selection.d.ts",
         "addon/selection/selection-pointer.d.ts",
+        "test/doc.ts",
+        "test/editor.ts",
         "test/index.ts",
         "test/runmode.ts",
         "test/tern.ts",
