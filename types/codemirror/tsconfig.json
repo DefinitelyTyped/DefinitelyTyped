@@ -33,6 +33,7 @@
         "addon/edit/closetag.d.ts",
         "addon/edit/matchbrackets.d.ts",
         "addon/edit/matchtags.d.ts",
+        "addon/edit/trailingspace.d.ts",
         "addon/hint/anyword-hint.d.ts",
         "addon/hint/css-hint.d.ts",
         "addon/hint/html-hint.d.ts",
