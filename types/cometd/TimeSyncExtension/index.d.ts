@@ -1,4 +1,4 @@
-import * as m from '..';
+import * as m from '../index';
 
 declare class TimeSyncExtension implements m.Extension {
     constructor();
