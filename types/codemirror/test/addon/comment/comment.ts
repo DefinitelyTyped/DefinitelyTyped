@@ -1,15 +1,19 @@
+import CodeMirror = require("codemirror");
+
 const editor = CodeMirror(document.body);
 const position: CodeMirror.Position = { ch: 0, line: 0 };
 const opt: CodeMirror.CommentOptions = {
-    blockCommentEnd: "*/",
     blockCommentStart: "/*",
+    blockCommentEnd: "*/",
     blockCommentLead: "*",
-    commentBlankLines: true,
-    fullLines: true,
-    indent: true,
     lineComment: "//",
-    padding: " "
+    padding: " ",
+    commentBlankLines: true,
+    indent: true,
+    fullLines: true
 };
+
+// Check methods
 editor.toggleComment(opt);
 editor.blockComment(position, position, opt);
 editor.lineComment(position, position, opt);
