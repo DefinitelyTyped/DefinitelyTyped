@@ -11,8 +11,8 @@
 export = CodeMirror;
 export as namespace CodeMirror;
 
-declare function CodeMirror(host: HTMLElement, options?: CodeMirror.EditorConfiguration): CodeMirror.Editor;
-declare function CodeMirror(callback: (host: HTMLElement) => void , options?: CodeMirror.EditorConfiguration): CodeMirror.Editor;
+declare function CodeMirror(place: Element, options?: CodeMirror.EditorConfiguration): CodeMirror.Editor;
+declare function CodeMirror(callback: (place: Element) => void , options?: CodeMirror.EditorConfiguration): CodeMirror.Editor;
 
 declare namespace CodeMirror {
     export var Doc : CodeMirror.DocConstructor;
@@ -22,7 +22,7 @@ declare namespace CodeMirror {
 
     /** Find the column position at a given string index using a given tabsize. */
     function countColumn(line: string, index: number | null, tabSize: number): number;
-    function fromTextArea(host: HTMLTextAreaElement, options?: EditorConfiguration): CodeMirror.EditorFromTextArea;
+    function fromTextArea(place: HTMLTextAreaElement, options?: EditorConfiguration): CodeMirror.EditorFromTextArea;
 
     /** Split a string by new line. */
     function splitLines(text: string): Array<string>;
@@ -46,7 +46,7 @@ declare namespace CodeMirror {
 
     /** An object containing default values for all options.
     You can assign to its properties to modify defaults (though this won't affect editors that have already been created). */
-    var defaults: any;
+    var defaults: CodeMirror.EditorConfiguration;
 
     /** If you want to define extra methods in terms of the CodeMirror API, it is possible to use defineExtension.
     This will cause the given value(usually a method) to be added to all CodeMirror instances created from then on. */
@@ -58,18 +58,24 @@ declare namespace CodeMirror {
     /** Similarly, defineOption can be used to define new options for CodeMirror.
     The updateFunc will be called with the editor instance and the new value when an editor is initialized,
     and whenever the option is modified through setOption. */
-    function defineOption(name: string, default_: any, updateFunc: Function): void;
+    function defineOption(name: string, defaultValue: any, updateFunc: (instance: CodeMirror.Editor, newVal: any, oldVal: any) => void): void;
 
     /** If your extention just needs to run some code whenever a CodeMirror instance is initialized, use CodeMirror.defineInitHook.
     Give it a function as its only argument, and from then on, that function will be called (with the instance as argument)
     whenever a new CodeMirror instance is initialized. */
-    function defineInitHook(func: Function): void;
+    function defineInitHook(func: (instance: CodeMirror.Editor) => void): void;
 
-    /** Registers a helper value with the given name in the given namespace (type). This is used to define functionality
+    /** Registers a helper value with the given name in the given type. This is used to define functionality
     that may be looked up by mode. Will create (if it doesn't already exist) a property on the CodeMirror object for
     the given type, pointing to an object that maps names to values. I.e. after doing
     CodeMirror.registerHelper("hint", "foo", myFoo), the value CodeMirror.hint.foo will point to myFoo. */
-    function registerHelper(namespace: string, name: string, helper: any): void;
+    function registerHelper(type: string, name: string, helper: any): void;
+
+    /**
+     * Acts like registerHelper, but also registers this helper as 'global', meaning that it will be included by getHelpers
+     * whenever the given predicate returns true when called with the local mode and editor.
+     */
+    function registerGlobalHelper(type: string, name: string, predicate: (mode: Mode<any>, instance: CodeMirror.Editor) => boolean, value: any): void;
 
     /** Given a state object, returns a {state, mode} object with the inner mode and its state for the current position. */
     function innerMode(mode: Mode<any>, state: any): { state: any, mode: Mode<any> };
@@ -1798,7 +1804,7 @@ declare namespace CodeMirror {
     /**
      * A function that calculates either a two-way or three-way merge between different sets of content.
      */
-    function MergeView(element: HTMLElement, options?: MergeView.MergeViewEditorConfiguration): MergeView.MergeViewEditor;
+    function MergeView(element: Element, options?: MergeView.MergeViewEditorConfiguration): MergeView.MergeViewEditor;
 
     namespace MergeView {
       /**
