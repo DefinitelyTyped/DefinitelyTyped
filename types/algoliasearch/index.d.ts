@@ -903,7 +903,7 @@ declare namespace algoliasearch {
     /**
      * Condition of the rule
      */
-    condition: {
+    condition?: {
       /**
        * Query pattern
        */
