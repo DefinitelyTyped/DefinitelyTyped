@@ -202,10 +202,10 @@ declare namespace CodeMirror {
         mode can be a mode spec or a mode object (an object with a token method). The options parameter is optional. If given, it should be an object.
         Currently, only the opaque option is recognized. This defaults to off, but can be given to allow the overlay styling, when not null,
         to override the styling of the base mode entirely, instead of the two being applied together. */
-        addOverlay(mode: any, options?: any): void;
+        addOverlay(mode: string | object, options?: CodeMirror.OverlayOptions): void;
 
         /** Pass this the exact argument passed for the mode parameter to addOverlay to remove an overlay again. */
-        removeOverlay(mode: any): void;
+        removeOverlay(mode: string | object): void;
 
 
         /** Retrieve the currently active document from an editor. */
@@ -344,7 +344,7 @@ declare namespace CodeMirror {
         refresh(): void;
 
         /** Gets the inner mode at a given position. This will return the same as getMode for simple modes, but will return an inner mode for nesting modes (such as htmlmixed). */
-        getModeAt(pos: Position): any;
+        getModeAt<T>(pos: Position): Mode<T>;
 
         /** Retrieves information about the token the current mode found before the given position (a {line, ch} object). */
         getTokenAt(pos: CodeMirror.Position, precise?: boolean): Token;
@@ -699,7 +699,7 @@ declare namespace CodeMirror {
 
         /** Gets the mode object for the editor. Note that this is distinct from getOption("mode"), which gives you the mode specification,
         rather than the resolved, instantiated mode object. */
-        getMode(): any;
+        getMode<T>(): Mode<T>;
 
         /** Calculates and returns a { line , ch } object for a zero-based index whose value is relative to the start of the editor's text.
         If the index is out of range of the text then the returned object is clipped to start or end of the text respectively. */
@@ -774,6 +774,19 @@ declare namespace CodeMirror {
         above?: boolean;
         /** When true, will cause the widget to be rendered even if the line it is associated with is hidden. */
         showIfHidden?: boolean;
+    }
+
+    interface OverlayOptions {
+        /**
+         * Defaults to off, but can be given to allow the overlay styling, when not null, to override the styling of the base mode
+         * entirely, instead of the two being applied together.
+         */
+        opaque?: boolean;
+        /**
+         * Determines the ordering in which the overlays are applied. Those with high priority are applied after those with lower
+         * priority, and able to override the opaqueness of the ones that come before. Defaults to 0.
+         */
+        priority?: number;
     }
 
     interface EditorChange {
@@ -1362,6 +1375,7 @@ declare namespace CodeMirror {
      */
     interface Mode<T> {
         name?: string;
+        dependencies?: Mode<any>[]
 
         /**
          * This function should read one token from the stream it is given as an argument, optionally update its state,

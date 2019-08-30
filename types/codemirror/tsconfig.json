@@ -55,6 +55,9 @@
         "addon/lint/json-lint.d.ts",
         "addon/lint/lint.d.ts",
         "addon/lint/yaml-lint.d.ts",
+        "addon/mode/loadmode.d.ts",
+        "addon/mode/multiplex.d.ts",
+        "addon/mode/overlay.d.ts",
         "addon/scroll/scrollpastend.d.ts",
         "addon/search/match-highlighter.d.ts",
         "addon/selection/active-line.d.ts",
@@ -73,6 +76,7 @@
         "test/addon/fold/fold.ts",
         "test/addon/hint/hint.ts",
         "test/addon/lint/lint.ts",
+        "test/addon/mode/mode.ts",
         "test/addon/scroll/scrollpastend.ts",
         "test/addon/search/match-highlighter.ts",
         "test/addon/selection/active-line.ts"
