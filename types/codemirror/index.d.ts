@@ -97,8 +97,8 @@ declare namespace CodeMirror {
     function off(doc: Doc, eventName: 'cursorActivity', handler: (instance: CodeMirror.Editor) => void ): void;
 
     /** Equivalent to the event by the same name as fired on editor instances. */
-    function on(doc: Doc, eventName: 'beforeSelectionChange', handler: (instance: CodeMirror.Editor, selection: { head: Position; anchor: Position; }) => void ): void;
-    function off(doc: Doc, eventName: 'beforeSelectionChange', handler: (instance: CodeMirror.Editor, selection: { head: Position; anchor: Position; }) => void ): void;
+    function on(doc: Doc, eventName: 'beforeSelectionChange', handler: (instance: CodeMirror.Editor, selection: CodeMirror.Selection) => void ): void;
+    function off(doc: Doc, eventName: 'beforeSelectionChange', handler: (instance: CodeMirror.Editor, selection: CodeMirror.Selection) => void ): void;
 
     /** Will be fired when the line object is deleted. A line object is associated with the start of the line.
     Mostly useful when you need to find out when your gutter markers on a given line are removed. */
@@ -440,8 +440,8 @@ declare namespace CodeMirror {
 
         /** This event is fired before the selection is moved. Its handler may modify the resulting selection head and anchor.
         Handlers for this event have the same restriction as "beforeChange" handlers they should not do anything to directly update the state of the editor. */
-        on(eventName: 'beforeSelectionChange', handler: (instance: CodeMirror.Editor, selection: { head: CodeMirror.Position; anchor: CodeMirror.Position; }) => void ): void;
-        off(eventName: 'beforeSelectionChange', handler: (instance: CodeMirror.Editor, selection: { head: CodeMirror.Position; anchor: CodeMirror.Position; }) => void ): void;
+        on(eventName: 'beforeSelectionChange', handler: (instance: CodeMirror.Editor, selection: CodeMirror.Selection) => void ): void;
+        off(eventName: 'beforeSelectionChange', handler: (instance: CodeMirror.Editor, selection: CodeMirror.Selection) => void ): void;
 
         /** Fires whenever the view port of the editor changes (due to scrolling, editing, or any other factor).
         The from and to arguments give the new start and end of the viewport. */
@@ -569,23 +569,30 @@ declare namespace CodeMirror {
 
 
         /** Get the currently selected code. */
-        getSelection(): string;
+        getSelection(lineSep?: string): string;
 
         /** Returns an array containing a string for each selection, representing the content of the selections. */
         getSelections(lineSep?: string): Array<string>;
 
         /** Replace the selection with the given string. By default, the new selection will span the inserted text.
-        The optional collapse argument can be used to change this -- passing "start" or "end" will collapse the selection to the start or end of the inserted text. */
-        replaceSelection(replacement: string, collapse?: string): void;
+        The optional select argument can be used to change this -- passing "start" or "end" will collapse the selection
+        to the start or end of the inserted text. */
+        replaceSelection(replacement: string, select?: "start" | "end"): void;
+
+        /**
+         * The length of the given array should be the same as the number of active selections.
+         * Replaces the content of the selections with the strings in the array. The select argument works the same as in replaceSelection.
+         */
+        replaceSelections(replacements: Array<string>, select?: "start" | "end"): void;
 
         /** start is a an optional string indicating which end of the selection to return.
         It may be "start" , "end" , "head"(the side of the selection that moves when you press shift + arrow),
         or "anchor"(the fixed side of the selection).Omitting the argument is the same as passing "head".A { line , ch } object will be returned. */
-        getCursor(start?: string): CodeMirror.Position;
+        getCursor(start?: "start" | "end" | "head" | "anchor"): CodeMirror.Position;
 
         /** Retrieves a list of all current selections. These will always be sorted, and never overlap (overlapping selections are merged).
         Each object in the array contains anchor and head properties referring to {line, ch} objects. */
-        listSelections(): { anchor: CodeMirror.Position; head: CodeMirror.Position }[];
+        listSelections(): CodeMirror.Range[];
 
         /** Return true if any text is selected. */
         somethingSelected(): boolean;
@@ -593,26 +600,46 @@ declare namespace CodeMirror {
         /** Set the cursor position. You can either pass a single {line, ch} object, or the line and the character as two separate parameters.
         Will replace all selections with a single, empty selection at the given position.
         The supported options are the same as for setSelection */
-        setCursor(pos: CodeMirror.Position | number, ch?: number, options?: { bias?: number, origin?: string, scroll?: boolean }): void;
+        setCursor(pos: CodeMirror.Position | number, ch?: number, options?: CodeMirror.SelectionOptions): void;
 
         /** Set a single selection range. anchor and head should be {line, ch} objects. head defaults to anchor when not given. */
-        setSelection(anchor: CodeMirror.Position, head: CodeMirror.Position, options?: { bias?: number, origin?: string, scroll?: boolean }): void;
+        setSelection(anchor: CodeMirror.Position, head?: CodeMirror.Position, options?: CodeMirror.SelectionOptions): void;
 
         /** Sets a new set of selections. There must be at least one selection in the given array. When primary is a
         number, it determines which selection is the primary one. When it is not given, the primary index is taken from
         the previous selection, or set to the last range if the previous selection had less ranges than the new one.
         Supports the same options as setSelection. */
-        setSelections(ranges: Array<{ anchor: CodeMirror.Position, head: CodeMirror.Position }>, primary?: number, options?: { bias?: number, origin?: string, scroll?: boolean }): void;
+        setSelections(ranges: Array<CodeMirror.Range>, primary?: number, options?: CodeMirror.SelectionOptions): void;
+
+        /**
+         * Adds a new selection to the existing set of selections, and makes it the primary selection.
+         */
+        addSelection(anchor: CodeMirror.Position, head?: CodeMirror.Position): void;
 
         /** Similar to setSelection , but will, if shift is held or the extending flag is set,
         move the head of the selection while leaving the anchor at its current place.
         pos2 is optional , and can be passed to ensure a region (for example a word or paragraph) will end up selected
         (in addition to whatever lies between that region and the current anchor). */
-        extendSelection(from: CodeMirror.Position, to?: CodeMirror.Position): void;
+        extendSelection(from: CodeMirror.Position, to?: CodeMirror.Position, options?: CodeMirror.SelectionOptions): void;
+
+        /**
+         * An equivalent of extendSelection that acts on all selections at once.
+         */
+        extendSelections(heads: Array<CodeMirror.Range>, options?: CodeMirror.SelectionOptions): void;
+
+        /**
+         * Applies the given function to all existing selections, and calls extendSelections on the result.
+         */
+        extendSelectionBy(fn: (range: CodeMirror.Range) => CodeMirror.Range, options?: CodeMirror.SelectionOptions): void;
 
         /** Sets or clears the 'extending' flag , which acts similar to the shift key,
         in that it will cause cursor movement and calls to extendSelection to leave the selection anchor in place. */
         setExtending(value: boolean): void;
+
+        /**
+         * Get the value of the 'extending' flag.
+         */
+        getExtending(): boolean;
 
 
         /** Retrieve the editor associated with a document. May return null. */
@@ -649,6 +676,12 @@ declare namespace CodeMirror {
 
         /** Redo one undone edit. */
         redo(): void;
+
+        /** Undo one edit or selection change. */
+        undoSelection(): void;
+
+        /** Redo one undone edit or selection change. */
+        redoSelection(): void;
 
         /** Returns an object with {undo, redo } properties , both of which hold integers , indicating the amount of stored undo and redo operations. */
         historySize(): { undo: number; redo: number; };
@@ -789,6 +822,23 @@ declare namespace CodeMirror {
         priority?: number;
     }
 
+    interface SelectionOptions {
+        /** Determines whether the selection head should be scrolled into view. Defaults to true. */
+        scroll?: boolean;
+        /** Determines whether the selection history event may be merged with the previous one. When an origin starts with the
+         * character +, and the last recorded selection had the same origin and was similar (close in time, both collapsed or both
+         * non-collapsed), the new one will replace the old one. When it starts with *, it will always replace the previous event
+         * (if that had the same origin). Built-in motion uses the "+move" origin. User input uses the "+input" origin.
+         */
+        origin?: string;
+        /**
+         * Determine the direction into which the selection endpoints should be adjusted when they fall inside an atomic range. Can be
+         * either -1 (backward) or 1 (forward). When not given, the bias will be based on the relative position of the old selection—the
+         * editor will try to move further away from that, to prevent getting stuck.
+         */
+        bias?: number;
+    }
+
     interface EditorChange {
         /** Position (in the pre-change coordinate system) where the change started. */
         from: CodeMirror.Position;
@@ -816,15 +866,21 @@ declare namespace CodeMirror {
     }
 
     interface PositionConstructor {
-        new (line: number, ch?: number, sticky?: string): Position;
-        (line: number, ch?: number, sticky?: string): Position;
+        new (line: number, ch?: number, sticky?: "before" | "after"): Position;
+        (line: number, ch?: number, sticky?: "before" | "after"): Position;
+    }
+
+    interface Selection {
+        ranges: Range[];
+        origin: string;
+        update(ranges: Range[]): void;
     }
 
     interface Range {
         anchor: CodeMirror.Position;
         head: CodeMirror.Position;
-        from(): CodeMirror.Position;
-        to(): CodeMirror.Position;
+        from?(): CodeMirror.Position;
+        to?(): CodeMirror.Position;
     }
 
     interface Position {
