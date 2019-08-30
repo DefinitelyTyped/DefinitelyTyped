@@ -33,9 +33,12 @@ coolPhone.on('registered', (e: JsSIP.UserAgentRegisteredEvent) => {
 coolPhone.on('unregistered', (e: JsSIP.UserAgentUnregisteredEvent) => {
   console.log('Unregistered.');
 });
-coolPhone.on('registrationFailed', (e: JsSIP.UserAgentRegistrationFailedEvent) => {
-  console.log('Registration failed');
-});
+coolPhone.on(
+  'registrationFailed',
+  (e: JsSIP.UserAgentRegistrationFailedEvent) => {
+    console.log('Registration failed');
+  },
+);
 
 coolPhone.start();
 
