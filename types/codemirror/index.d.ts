@@ -177,20 +177,20 @@ declare namespace CodeMirror {
         Will return a position that is produced by moving amount times the distance specified by unit.
         When visually is true , motion in right - to - left text will be visual rather than logical.
         When the motion was clipped by hitting the end or start of the document, the returned value will have a hitSide property set to true. */
-        findPosH(start: CodeMirror.Position, amount: number, unit: string, visually: boolean): { line: number; ch: number; hitSide?: boolean; };
+        findPosH(start: CodeMirror.Position, amount: number, unit: "char" | "column" | "word", visually: boolean): { line: number; ch: number; hitSide?: boolean; };
 
         /** Similar to findPosH , but used for vertical motion.unit may be "line" or "page".
         The other arguments and the returned value have the same interpretation as they have in findPosH. */
-        findPosV(start: CodeMirror.Position, amount: number, unit: string): { line: number; ch: number; hitSide?: boolean; };
+        findPosV(start: CodeMirror.Position, amount: number, unit: "line" | "page"): { line: number; ch: number; hitSide?: boolean; };
 
         /** Returns the start and end of the 'word' (the stretch of letters, whitespace, or punctuation) at the given position. */
         findWordAt(pos: CodeMirror.Position): CodeMirror.Range;
 
         /** Change the configuration of the editor. option should the name of an option, and value should be a valid value for that option. */
-        setOption(option: string, value: any): void;
+        setOption<T = any>(option: string, value: T): void;
 
         /** Retrieves the current value of the given option for this editor instance. */
-        getOption(option: string): any;
+        getOption<T = any>(option: string): T;
 
         /** Attach an additional keymap to the editor.
         This is mostly useful for add - ons that need to register some key handlers without trampling on the extraKeys option.
@@ -228,7 +228,7 @@ declare namespace CodeMirror {
 
         /** Sets the gutter marker for the given gutter (identified by its CSS class, see the gutters option) to the given value.
         Value can be either null, to clear the marker, or a DOM element, to set it. The DOM element will be shown in the specified gutter next to the specified line. */
-        setGutterMarker(line: any, gutterID: string, value: HTMLElement | null): CodeMirror.LineHandle;
+        setGutterMarker(line: any, gutterID: string, value: Element | null): CodeMirror.LineHandle;
 
         /** Remove all gutter markers in the gutter with the given ID. */
         clearGutter(gutterID: string): void;
@@ -255,30 +255,10 @@ declare namespace CodeMirror {
         If includeWidgets is true and the line has line widgets, the position above the first line widget is returned. */
         heightAtLine(line: any, mode?: CoordsMode, includeWidgets?: boolean): number;
 
-        /** Returns the line number, text content, and marker status of the given line, which can be either a number or a line handle. */
-        lineInfo(line: any): {
-            line: any;
-            handle: any;
-            text: string;
-            /** Object mapping gutter IDs to marker elements. */
-            gutterMarkers: any;
-            textClass: string;
-            bgClass: string;
-            wrapClass: string;
-            /** Array of line widgets attached to this line. */
-            widgets: any;
-        };
-
         /** Puts node, which should be an absolutely positioned DOM node, into the editor, positioned right below the given { line , ch } position.
         When scrollIntoView is true, the editor will ensure that the entire node is visible (if possible).
         To remove the widget again, simply use DOM methods (move it somewhere else, or call removeChild on its parent). */
-        addWidget(pos: CodeMirror.Position, node: HTMLElement, scrollIntoView: boolean): void;
-
-        /** Adds a line widget, an element shown below a line, spanning the whole of the editor's width, and moving the lines below it downwards.
-        line should be either an integer or a line handle, and node should be a DOM node, which will be displayed below the given line.
-        options, when given, should be an object that configures the behavior of the widget.
-        Note that the widget node will become a descendant of nodes with CodeMirror-specific CSS classes, and those classes might in some cases affect it. */
-        addLineWidget(line: any, node: HTMLElement, options?: CodeMirror.LineWidgetOptions): CodeMirror.LineWidget;
+        addWidget(pos: CodeMirror.Position, node: Element, scrollIntoView: boolean): void;
 
 
         /** Programatically set the size of the editor (overriding the applicable CSS rules).
@@ -363,10 +343,26 @@ declare namespace CodeMirror {
         /** This is similar to getTokenAt, but collects all tokens for a given line into an array. */
         getLineTokens(line: number, precise?: boolean): Token[];
 
-        /** Returns the mode's parser state, if any, at the end of the given line number.
-        If no line number is given, the state at the end of the document is returned.
-        This can be useful for storing parsing errors in the state, or getting other kinds of contextual information for a line. */
-        getStateAfter(line?: number): any;
+        /**
+         * Fetch the set of applicable helper values for the given position. Helpers provide a way to look up functionality
+         * appropriate for a mode. The type argument provides the helper namespace (see registerHelper), in which the values
+         * will be looked up. When the mode itself has a property that corresponds to the type, that directly determines the
+         * keys that are used to look up the helper values (it may be either a single string, or an array of strings). Failing
+         * that, the mode's helperType property and finally the mode's name are used.
+         */
+        getHelpers(pos: CodeMirror.Position, type: string): Array<object>
+
+        /**
+         * Returns the first applicable helper value. See getHelpers.
+         */
+        getHelper(pos: CodeMirror.Position, type: string): object
+
+        /**
+         * Returns the mode's parser state, if any, at the end of the given line number. If no line number is given, the state at
+         * the end of the document is returned. This can be useful for storing parsing errors in the state, or getting other kinds
+         * of contextual information for a line. precise is defined as in getTokenAt().
+         */
+        getStateAfter(line?: number, precise?: boolean): any;
 
         /** CodeMirror internally buffers changes and only updates its DOM structure after it has finished performing some operation.
         If you need to perform a lot of operations on a CodeMirror instance, you can call this method with a function argument.
@@ -378,6 +374,8 @@ declare namespace CodeMirror {
         function, you can call startOperation to tell CodeMirror to start buffering changes, and endOperation to actually render all the updates. Be careful: if you use this
         API and forget to call endOperation, the editor will just never update. */
         startOperation(): void;
+
+        /** See startOperation */
         endOperation(): void;
 
         /** Adjust the indentation of the given line.
@@ -386,7 +384,7 @@ declare namespace CodeMirror {
         "smart" Use the mode's smart indentation if available, behave like "prev" otherwise.
         "add" Increase the indentation of the line by one indent unit.
         "subtract" Reduce the indentation of the line. */
-        indentLine(line: number, dir?: string): void;
+        indentLine(line: number, dir?: "prev" | "smart" | "add" | "subtract" | number): void;
 
         /** Tells you whether the editor's content can be edited by the user. */
         isReadOnly(): boolean;
@@ -401,17 +399,24 @@ declare namespace CodeMirror {
         /** Give the editor focus. */
         focus(): void;
 
-        /** Returns the hidden textarea used to read input. */
-        getInputField(): HTMLTextAreaElement;
+        /**
+         * Allow the given string to be translated with the phrases option.
+         */
+        phrase(text: string): string;
+
+        /**
+         * Returns the input field for the editor. Will be a textarea or an editable div, depending on the value of the inputStyle option.
+         */
+        getInputField(): Element;
 
         /** Returns the DOM node that represents the editor, and controls its size. Remove this from your tree to delete an editor instance. */
-        getWrapperElement(): HTMLElement;
+        getWrapperElement(): Element;
 
         /** Returns the DOM node that is responsible for the scrolling of the editor. */
-        getScrollerElement(): HTMLElement;
+        getScrollerElement(): Element;
 
         /** Fetches the DOM node that contains the editor gutters. */
-        getGutterElement(): HTMLElement;
+        getGutterElement(): Element;
 
 
 
@@ -709,10 +714,8 @@ declare namespace CodeMirror {
          */
         getExtending(): boolean;
 
-
         /** Retrieve the editor associated with a document. May return null. */
         getEditor(): CodeMirror.Editor | null;
-
 
         /** Create an identical copy of the given doc. When copyHistory is true , the history will also be copied.Can not be called directly on an editor. */
         copy(copyHistory: boolean): CodeMirror.Doc;
