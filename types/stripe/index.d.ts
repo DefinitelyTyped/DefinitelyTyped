@@ -5400,16 +5400,6 @@ declare namespace Stripe {
              * The amount of the application fee (if any) that will be applied to the payment and transferred to the application owner’s Stripe account. To use an application fee, the request must be made on behalf of another account, using the `Stripe-Account` header or an OAuth key.
              */
             application_fee_amount?: number;
-
-            /**
-             * The account (if any) for which the funds of the PaymentIntent are intended. Used with connected accounts.
-             */
-            on_behalf_of?: string;
-
-            /**
-             * The data with which to automatically create a Transfer when the payment is finalized. Used with connected accounts.
-             */
-            transfer_data?: IpaymentIntentTransferDataOptions;
         }
 
         interface IPaymentIntentListOptions extends IListOptionsCreated {
