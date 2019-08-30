@@ -3,6 +3,7 @@
 // Definitions by: jacqt <https://github.com/jacqt>
 //                 basarat <https://github.com/basarat>
 //                 mbilsing <https://github.com/mbilsing>
+//                 orblazer <https://github.com/orblazer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // See docs https://codemirror.net/doc/manual.html#addon_show-hint
@@ -10,6 +11,10 @@
 import * as CodeMirror from "codemirror";
 
 declare module "codemirror" {
+    interface HintHelper {}
+
+    var hint: HintHelper;
+
     /** Provides a framework for showing autocompletion hints. Defines editor.showHint, which takes an optional
     options object, and pops up a widget that allows the user to select a completion. Finding hints is done with
     a hinting functions (the hint option), which is a function that take an editor instance and options object,
@@ -38,14 +43,11 @@ declare module "codemirror" {
     }
 
     interface Editor {
-        /** An extension of the existing CodeMirror typings for the Editor.on("keyup", func) syntax */
-        on(eventName: string, handler: (doc: CodeMirror.Doc, event: any) => void): void;
-        off(eventName: string, handler: (doc: CodeMirror.Doc, event: any) => void): void;
         showHint: (options: ShowHintOptions) => void;
     }
 
-    interface HintFunction {
-        (cm: CodeMirror.Editor): Hints;
+    interface HintFunction<Opts = any> {
+        (cm: CodeMirror.Editor, options?: Opts): Hints;
     }
 
     interface AsyncHintFunction {
@@ -56,17 +58,6 @@ declare module "codemirror" {
     interface ShowHintOptions {
         completeSingle: boolean;
         hint: HintFunction | AsyncHintFunction;
-    }
-
-    /** The Handle used to interact with the autocomplete dialog box.*/
-    interface Handle {
-        moveFocus(n: number, avoidWrap: boolean): void;
-        setFocus(n: number): void;
-        menuSize(): number;
-        length: number;
-        close(): void;
-        pick(): void;
-        data: any;
     }
 
     interface EditorConfiguration {
