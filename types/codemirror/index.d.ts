@@ -861,6 +861,8 @@ declare namespace CodeMirror {
 
     interface LineHandle {
         text: string;
+        height: number;
+	    styles: Array<number | string>;
 
         /**
          * Will be fired when the line object is deleted. A line object is associated with the start of the line. Mostly useful when
