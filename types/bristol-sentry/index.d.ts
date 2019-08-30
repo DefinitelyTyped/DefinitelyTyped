@@ -21,5 +21,5 @@ export = makeSentryTarget;
 declare function makeSentryTarget(config: SentryConfig): () => void;
 
 declare namespace makeSentryTarget {
-    function formatter(opts: any, severity: string, date: Date, elems: ReadonlyArray<any>): FormattedLog;
+    function formatter(opts: object, severity: string, date: Date, elems: ReadonlyArray<any>): FormattedLog;
 }
