@@ -721,18 +721,7 @@ declare namespace CodeMirror {
         copy(copyHistory: boolean): CodeMirror.Doc;
 
         /** Create a new document that's linked to the target document. Linked documents will stay in sync (changes to one are also applied to the other) until unlinked. */
-        linkedDoc(options: {
-            /** When turned on, the linked copy will share an undo history with the original.
-            Thus, something done in one of the two can be undone in the other, and vice versa. */
-            sharedHist?: boolean;
-            from?: number;
-            /** Can be given to make the new document a subview of the original. Subviews only show a given range of lines.
-            Note that line coordinates inside the subview will be consistent with those of the parent,
-            so that for example a subview starting at line 10 will refer to its first line as line 10, not 0. */
-            to?: number;
-            /** By default, the new document inherits the mode of the parent. This option can be set to a mode spec to give it a different mode. */
-            mode: any;
-        }): CodeMirror.Doc;
+        linkedDoc(options: CodeMirror.LinkDocOptions): CodeMirror.Doc;
 
         /** Break the link between two documents. After calling this , changes will no longer propagate between the documents,
         and, if they had a shared history, the history will become separate. */
@@ -760,12 +749,12 @@ declare namespace CodeMirror {
         /** Clears the editor's undo history. */
         clearHistory(): void;
 
-        /** Get a(JSON - serializeable) representation of the undo history. */
-        getHistory(): any;
+        /** Get a (JSON - serializeable) representation of the undo history. */
+        getHistory(): object;
 
         /** Replace the editor's undo history with the one provided, which must be a value as returned by getHistory.
         Note that this will have entirely undefined results if the editor content isn't also the same as it was when getHistory was called. */
-        setHistory(history: any): void;
+        setHistory(history: object): void;
 
 
         /** Can be used to mark a range of text with a specific CSS class name. from and to should be { line , ch } objects. */
@@ -774,14 +763,7 @@ declare namespace CodeMirror {
         /** Inserts a bookmark, a handle that follows the text around it as it is being edited, at the given position.
         A bookmark has two methods find() and clear(). The first returns the current position of the bookmark, if it is still in the document,
         and the second explicitly removes the bookmark. */
-        setBookmark(pos: CodeMirror.Position, options?: {
-            /** Can be used to display a DOM node at the current location of the bookmark (analogous to the replacedWith option to markText). */
-            widget?: HTMLElement;
-
-            /** By default, text typed when the cursor is on top of the bookmark will end up to the right of the bookmark.
-            Set this option to true to make it go to the left instead. */
-            insertLeft?: boolean;
-        }): CodeMirror.TextMarker;
+        setBookmark(pos: CodeMirror.Position, options?: CodeMirror.BookmarkOptions): CodeMirror.TextMarker;
 
         /** Returns an array of all the bookmarks and marked ranges found between the given positions. */
         findMarks(from: CodeMirror.Position, to: CodeMirror.Position): TextMarker[];
@@ -792,11 +774,42 @@ declare namespace CodeMirror {
         /** Returns an array containing all marked ranges in the document. */
         getAllMarks(): CodeMirror.TextMarker[];
 
+        /**
+         * Sets the gutter marker for the given gutter (identified by its CSS class, see the gutters option) to the given value.
+         * Value can be either null, to clear the marker, or a DOM element, to set it. The DOM element will be shown in the specified
+         * gutter next to the specified line.
+         */
+        setGutterMarker(line: number | CodeMirror.LineHandle, gutterID: string, value: Element): CodeMirror.LineHandle;
+
+        /**
+         * Remove all gutter markers in the gutter with the given ID.
+         */
+        clearGutter(gutterID: string): void;
+
+        /**
+         * Set a CSS class name for the given line. line can be a number or a line handle. where determines to which element this class
+         * should be applied, can can be one of "text" (the text element, which lies in front of the selection), "background" (a background
+         * element that will be behind the selection), "gutter" (the line's gutter space), or "wrap" (the wrapper node that wraps all of the
+         * line's elements, including gutter elements). class should be the name of the class to apply.
+         */
+        addLineClass(line: number | CodeMirror.LineHandle, where: "text" | "background" | "gutter" | "wrap", className: string): CodeMirror.LineHandle;
+
+        /**
+         * Remove a CSS class from a line. line can be a line handle or number. where should be one of "text", "background", or "wrap" (see addLineClass).
+         * class can be left off to remove all classes for the specified node, or be a string to remove only a specific class.
+         */
+        removeLineClass(line: number | CodeMirror.LineHandle, where: "text" | "background" | "gutter" | "wrap", className: string): CodeMirror.LineHandle;
+
+        /**
+         * Returns the line number, text content, and marker status of the given line, which can be either a number or a line handle.
+         */
+        lineInfo(line: number | CodeMirror.LineHandle): CodeMirror.LineInfo;
+
         /** Adds a line widget, an element shown below a line, spanning the whole of the editor's width, and moving the lines below it downwards.
         line should be either an integer or a line handle, and node should be a DOM node, which will be displayed below the given line.
         options, when given, should be an object that configures the behavior of the widget.
         Note that the widget node will become a descendant of nodes with CodeMirror-specific CSS classes, and those classes might in some cases affect it. */
-        addLineWidget(line: any, node: HTMLElement, options?: CodeMirror.LineWidgetOptions): CodeMirror.LineWidget;
+        addLineWidget(line: any, node: Element, options?: CodeMirror.LineWidgetOptions): CodeMirror.LineWidget;
 
         /** Remove the line widget */
         removeLineWidget(widget: CodeMirror.LineWidget): void;
@@ -804,6 +817,12 @@ declare namespace CodeMirror {
         /** Gets the mode object for the editor. Note that this is distinct from getOption("mode"), which gives you the mode specification,
         rather than the resolved, instantiated mode object. */
         getMode<T>(): Mode<T>;
+
+        /**
+         * Returns the preferred line separator string for this document, as per the option by the same name. When that option is null,
+         * the string "\n" is returned.
+         */
+        lineSeparator(): string | null;
 
         /** Calculates and returns a { line , ch } object for a zero-based index whose value is relative to the start of the editor's text.
         If the index is out of range of the text then the returned object is clipped to start or end of the text respectively. */
@@ -856,6 +875,17 @@ declare namespace CodeMirror {
          */
         on(eventName: "change", handler: (line: CodeMirror.LineHandle, changeObj: CodeMirror.EditorChangeCancellable) => void): void;
         off(eventName: "change", handler: (line: CodeMirror.LineHandle, changeObj: CodeMirror.EditorChangeCancellable) => void): void;
+    }
+
+    interface LineInfo {
+        line: number;
+        handle: LineHandle;
+        text: string;
+        gutterMarkers: { [key: string]: string };
+        textClass: string;
+        bgClass: string;
+        wrapClass: string;
+        widgets: LineWidget[];
     }
 
     interface ScrollInfo {
@@ -922,8 +952,30 @@ declare namespace CodeMirror {
         noHScroll?: boolean;
         /** Causes the widget to be placed above instead of below the text of the line. */
         above?: boolean;
-        /** When true, will cause the widget to be rendered even if the line it is associated with is hidden. */
-        showIfHidden?: boolean;
+        /**
+         * Determines whether the editor will capture mouse and drag events occurring in this widget. Default is false—the events will be left
+         * alone for the default browser handler, or specific handlers on the widget, to capture.
+         */
+        handleMouseEvents?: boolean;
+        /**
+         * By default, the widget is added below other widgets for the line. This option can be used to place it at a different position (zero for
+         * the top, N to put it after the Nth other widget). Note that this only has effect once, when the widget is created.
+         */
+        insertAt?: number;
+    }
+
+    interface LinkDocOptions {
+        /** When turned on, the linked copy will share an undo history with the original.
+        Thus, something done in one of the two can be undone in the other, and vice versa. */
+        sharedHist?: boolean;
+        /** Can be given to make the new document a subview of the original. Subviews only show a given range of lines.
+        Note that line coordinates inside the subview will be consistent with those of the parent,
+        so that for example a subview starting at line 10 will refer to its first line as line 10, not 0. */
+        from?: number;
+        /** See from */
+        to?: number;
+        /** By default, the new document inherits the mode of the parent. This option can be set to a mode spec to give it a different mode. */
+        mode: string | object;
     }
 
     interface OverlayOptions {
@@ -1395,7 +1447,7 @@ declare namespace CodeMirror {
 
         /** Use a given node to display this range.Implies both collapsed and atomic.
         The given DOM node must be an inline element(as opposed to a block element). */
-        replacedWith?: HTMLElement;
+        replacedWith?: Element;
 
         /** When replacedWith is given, this determines whether the editor will
          * capture mouse and drag events occurring in this widget. Default is
@@ -1420,12 +1472,34 @@ declare namespace CodeMirror {
         /** A string of CSS to be applied to the covered text. For example "color: #fe3". */
         css?: string;
 
-        /** When given, will give the nodes created for this span a HTML title attribute with the given value. */
-        title?: string;
+        /**
+         * When given, add the attributes in the given object to the elements created for the marked text. Adding class or style attributes this way
+         * is not supported.
+         */
+        attributes?: object;
 
         /** When the target document is linked to other documents, you can set shared to true to make the marker appear in all documents.
         By default, a marker appears only in its target document. */
         shared?: boolean;
+    }
+
+    interface BookmarkOptions {
+        /** Can be used to display a DOM node at the current location of the bookmark (analogous to the replacedWith option to markText). */
+        widget?: Element;
+
+        /** By default, text typed when the cursor is on top of the bookmark will end up to the right of the bookmark.
+        Set this option to true to make it go to the left instead. */
+        insertLeft?: boolean;
+
+        /**
+         * See the corresponding option (in TextMarkerOptions) to markText.
+         */
+        shared?: boolean;
+
+        /**
+         * As with markText, this determines whether mouse events on the widget inserted for this bookmark are handled by CodeMirror. The default is false.
+         */
+        handleMouseEvents?: boolean;
     }
 
     interface StringStreamConstructor {
