@@ -390,6 +390,53 @@ declare namespace GoogleAppsScript {
       throwException(): void;
     }
 
+    export class Request<T> {
+      /** An object containing the user provided values for the config parameters defined by the connector. */
+      configParams: T;
+      /** An object containing information relevant to connector execution. */
+      scriptParams: ScriptParams;
+      /**
+       * By default, the date range provided will be the last 28 days excluding today.
+       * If a user applies a date range filter for a report, then the date range provided will reflect the user selection.
+       * When sampleExtraction is set to true, the date two days earlier than today is given as both the start and end date.
+       */
+      dateRange: DateRange;
+      /** The names of the requested fields. */
+      fields: { name: string }[];
+      /**
+       * A nested array of the user selected filters.
+       * The innermost arrays should be ORed together, the outermost arrays should be ANDed together.
+       */
+      dimensionsFilters: DimensionsFilters[][];
+    }
+
+    export class DateRange {
+      /** The start date for filtering the data. Applies only if dateRangeRequired is set to true. It will be in YYYY-MM-DD format. */
+      startDate: string;
+      /** The end date for filtering the data. Applies only dateRangeRequired is set to true. It will be inYYYY-MM-DD format. */
+      endDate: string;
+    }
+
+    export class ScriptParams {
+      /** If true, the getData() request is for automatic semantic type detection. */
+      sampleExtraction?: boolean;
+      /** A timestamp that marks the most recent request for a refresh of data. */
+      lastRefresh: string;
+    }
+      
+    export class DimensionsFilters {
+      /** The name of the field to be filtered */
+      fieldName: string;
+      /** An array of values to use for the operator. */
+      values: string[];
+      /** "INCLUDE" | "EXCLUDE"	Whether data matching this filter should be included or excluded from the getData() response. */
+      type: string;
+      /**  The operator to apply.
+       * "EQUALS" | "CONTAINS" | "REGEXP_PARTIAL_MATCH" | "REGEXP_EXACT_MATCH" | "IN_LIST" | "IS_NULL" | "BETWEEN" |
+       * "NUMERIC_GREATER_THAN"  |  "NUMERIC_GREATER_THAN_OR_EQUAL" |  "NUMERIC_LESS_THAN"  | "NUMERIC_LESS_THAN_OR_EQUAL"
+       */
+      operator: string;
+    }
   }
 }
 
