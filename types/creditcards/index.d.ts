@@ -76,5 +76,5 @@ interface Year {
     parse(year: string | number, expand: boolean): number;
     format(year: string | number, strip: boolean): string;
     isValid(year: number): boolean;
-    isPast(year: number, year: number): boolean;
+    isPast(year: number): boolean;
 }
