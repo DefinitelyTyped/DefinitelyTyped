@@ -301,7 +301,7 @@ declare namespace CodeMirror {
 
         /** Scrolls the given element into view. pos is a { from, to } object, in editor-local coordinates.
         The margin parameter is optional. When given, it indicates the amount of pixels around the given area that should be made visible as well. */
-        scrollIntoView(pos: { from: CodeMirror.Position, to: CodeMirror.Position }, margin?: number): void;
+        scrollIntoView(pos: CodeMirror.PositionRange, margin?: number): void;
 
         /** Returns an { left , top , bottom } object containing the coordinates of the cursor position.
         If mode is "local", they will be relative to the top-left corner of the editable document.
@@ -731,7 +731,7 @@ declare namespace CodeMirror {
 
         /** Returns a {from, to} object (both holding document positions), indicating the current position of the marked range,
         or undefined if the marker is no longer in the document. */
-        find(): {from: CodeMirror.Position, to: CodeMirror.Position};
+        find(): CodeMirror.PositionRange;
 
         /**  Called when you've done something that might change the size of the marker and want to cheaply update the display*/
         changed(): void;
@@ -820,6 +820,11 @@ declare namespace CodeMirror {
         sticky?: string;
     }
 
+    interface PositionRange {
+        from: CodeMirror.Position;
+        to: CodeMirror.Position;
+    }
+
     type InputStyle = "textarea" | "contenteditable";
 
     interface MouseConfiguration {
@@ -828,7 +833,7 @@ declare namespace CodeMirror {
          * a range around that, for a custom unit. The default is to return "word" for double clicks, "line" for triple
          * clicks, "rectangle" for alt-clicks (or, on Chrome OS, meta-shift-clicks), and "single" otherwise.
          */
-        unit?: "char" | "word" | "line" | "rectangle" | ((cm: Editor, pos: Position) => { from: Position; to: Position });
+        unit?: "char" | "word" | "line" | "rectangle" | ((cm: Editor, pos: Position) => CodeMirror.PositionRange);
         /**
          * Whether to extend the existing selection range or start a new one. By default, this is enabled when shift clicking.
          */
