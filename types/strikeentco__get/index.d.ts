@@ -5,5 +5,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-declare function get(obj: object, paths: string | string[], separator?: string): any;
+declare function get(obj: object, paths: string | ReadonlyArray<string>, separator?: string): any;
 export = get;
