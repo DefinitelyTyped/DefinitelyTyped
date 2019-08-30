@@ -282,11 +282,11 @@ export interface ValidationError extends Error, JoiObject {
 }
 
 export interface ValidationErrorItem {
-    message: string;
-    type: string;
-    path: Array<string | number>;
-    options?: ValidationOptions;
-    context?: Context;
+  message: string;
+  type: string;
+  path: Array<string | number>;
+  options?: ValidationOptions;
+  context?: Context;
 }
 
 export type ValidationErrorFunction = (errors: ValidationErrorItem[]) => string | ValidationErrorItem | ValidationErrorItem[] | Error;

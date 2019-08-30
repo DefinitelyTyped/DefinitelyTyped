@@ -186,11 +186,11 @@ validErrItem = {
 };
 
 validErrItem = {
-    message: str,
-    type: str,
-    path: [str, num, str],
-    options: validOpts,
-    context: obj
+  message: str,
+  type: str,
+  path: [str, num, str],
+  options: validOpts,
+  context: obj,
 };
 
 validErrFunc = errs => errs;
