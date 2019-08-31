@@ -142,7 +142,7 @@ declare namespace CodeMirror {
 
     type DOMEvent = 'mousedown' | 'dblclick' | 'touchstart' | 'contextmenu' | 'keydown' | 'keypress' | 'keyup' | 'cut' | 'copy' | 'paste' | 'dragstart' | 'dragenter' | 'dragover' | 'dragleave' | 'drop';
 
-    type CoordsMode = 'window' | 'page' | 'local';
+    type CoordsMode = 'window' | 'page' | 'local' | 'div';
 
     interface Token {
         /** The character(on the given line) at which the token starts. */
