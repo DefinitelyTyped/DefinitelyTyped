@@ -407,14 +407,6 @@ declare namespace CodeMirror {
         /** Fetches the DOM node that contains the editor gutters. */
         getGutterElement(): HTMLElement;
 
-
-
-        /** Events are registered with the on method (and removed with the off method).
-        These are the events that fire on the instance object. The name of the event is followed by the arguments that will be passed to the handler.
-        The instance argument always refers to the editor instance. */
-        on(eventName: string, handler: (instance: CodeMirror.Editor) => void ): void;
-        off(eventName: string, handler: (instance: CodeMirror.Editor) => void ): void;
-
         /** Fires every time the content of the editor is changed. */
         on(eventName: 'change', handler: (instance: CodeMirror.Editor, change: CodeMirror.EditorChangeLinkedList) => void ): void;
         off(eventName: 'change', handler: (instance: CodeMirror.Editor, change: CodeMirror.EditorChangeLinkedList) => void ): void;
@@ -481,6 +473,12 @@ declare namespace CodeMirror {
 
         /** Fires when the overwrite flag is flipped. */
         on(eventName: "overwriteToggle", handler: (instance: CodeMirror.Editor, overwrite: boolean) => void): void;
+
+        /** Events are registered with the on method (and removed with the off method).
+        These are the events that fire on the instance object. The name of the event is followed by the arguments that will be passed to the handler.
+        The instance argument always refers to the editor instance. */
+        on(eventName: string, handler: (instance: CodeMirror.Editor) => void ): void;
+        off(eventName: string, handler: (instance: CodeMirror.Editor) => void ): void;
 
         /** Expose the state object, so that the Editor.state.completionActive property is reachable*/
         state: any;
