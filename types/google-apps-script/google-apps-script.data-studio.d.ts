@@ -390,7 +390,12 @@ declare namespace GoogleAppsScript {
       throwException(): void;
     }
 
-    export class Request<T> {
+    /**
+     * function getData(request: GoogleAppsScript.Data_Studio.Request<YourConnectorParams>)
+     * 
+     * See https://developers.google.com/datastudio/connector/reference#getdata
+     */
+    export interface Request<T> {
       /** An object containing the user provided values for the config parameters defined by the connector. */
       configParams: T;
       /** An object containing information relevant to connector execution. */
@@ -410,21 +415,21 @@ declare namespace GoogleAppsScript {
       dimensionsFilters: DimensionsFilters[][];
     }
 
-    export class DateRange {
+    export interface DateRange {
       /** The start date for filtering the data. Applies only if dateRangeRequired is set to true. It will be in YYYY-MM-DD format. */
       startDate: string;
-      /** The end date for filtering the data. Applies only dateRangeRequired is set to true. It will be inYYYY-MM-DD format. */
+      /** The end date for filtering the data. Applies only dateRangeRequired is set to true. It will be in YYYY-MM-DD format. */
       endDate: string;
     }
 
-    export class ScriptParams {
+    export interface ScriptParams {
       /** If true, the getData() request is for automatic semantic type detection. */
       sampleExtraction?: boolean;
       /** A timestamp that marks the most recent request for a refresh of data. */
       lastRefresh: string;
     }
       
-    export class DimensionsFilters {
+    export interface DimensionsFilters {
       /** The name of the field to be filtered */
       fieldName: string;
       /** An array of values to use for the operator. */
