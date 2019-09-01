@@ -414,7 +414,7 @@ videoOverlay = L.videoOverlay(videoElement, videoOverlayBounds, {
 });
 
 const eventHandler = () => {};
-const domEvent: Event = ({} as any) as Event;
+const domEvent: Event = {} as Event;
 L.DomEvent.on(htmlElement, 'click', eventHandler)
     .addListener(htmlElement, 'click', eventHandler)
     .off(htmlElement, 'click', eventHandler)
