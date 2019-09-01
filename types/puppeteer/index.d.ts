@@ -1751,7 +1751,7 @@ export interface Page extends EventEmitter, FrameBase {
   url(): string;
 
   /** Gets the page viewport. */
-  viewport(): Viewport;
+  viewport(): Viewport | null;
 
   waitForRequest(
     urlOrPredicate: string | ((req: Request) => boolean),
