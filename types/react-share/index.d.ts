@@ -1,4 +1,4 @@
-// Type definitions for react-share 2.1
+// Type definitions for react-share 3.0.1
 // Project: https://github.com/nygardk/react-share#readme
 // Definitions by: icopp <https://github.com/icopp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
