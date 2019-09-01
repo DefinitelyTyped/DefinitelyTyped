@@ -20,8 +20,8 @@ declare global {
     }
 
     interface SessionData {
-      [key: string]: any;
       cookie: SessionCookieData;
+      [key: string]: any;
     }
 
     interface SessionCookieData {
