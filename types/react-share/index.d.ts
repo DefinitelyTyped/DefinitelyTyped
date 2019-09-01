@@ -149,6 +149,10 @@ export const EmailShareButton: React.StatelessComponent<
     }
 >;
 
+export const LineShareButton: React.StatelessComponent<
+    CommonShareButtonProps & { title?: string }
+>;
+
 // =============================================================================
 // Share counts
 // =============================================================================
@@ -203,3 +207,4 @@ export const TumblrIcon: React.StatelessComponent<IconComponentProps>;
 export const LivejournalIcon: React.StatelessComponent<IconComponentProps>;
 export const MailruIcon: React.StatelessComponent<IconComponentProps>;
 export const EmailIcon: React.StatelessComponent<IconComponentProps>;
+export const LineIcon: React.StatelessComponent<IconComponentProps>;
