@@ -142,15 +142,79 @@ interface IDataURLOptions {
 	withoutShadow?: boolean;
 }
 
+/**
+ * A general Event type that represents all events mixed in a single type.
+ */
 interface IEvent {
-	e: Event;
+  /**
+   * The native Event instance, for example, a DOM MouseEvent if the user selected or 
+   * modified fabric.js objects using the mouse in the browser. 
+   */
+  e: Event;
 	target?: Object;
-    subTargets?: Object[],
+  subTargets?: Object[];
 	button?: number;
+  selected?: Object[];
 	isClick?: boolean;
+  deselected: Object[];
 	pointer?: Point;
 	absolutePointer?: Point;
-    transform?: { corner: string, original: Object, originX: string, originY: string, width: number };
+  transform?: { corner: string, original: Object, originX: string, originY: string, width: number };
+}
+
+/**
+ * Emitted when an existing selection is cleared. Any selection with one or more elements are considered. 
+ */
+interface ISelectionClearedEvent extends IEvent {
+  /** 
+   * Elements in the cleared selection. 
+   */
+  deselected: Object[];
+}
+
+/**
+ * Emitted when an existing selection is cleared.
+ * @deprecated this event is deprecated. use selection:created
+ */
+interface IObjectSelectedEvent extends IEvent {
+  /** 
+   * Elements in the cleared selection. 
+   */
+  target: Object;
+}
+
+/**
+ * Emitted when an existing selection is cleared.
+ */
+interface ISelectionCreated extends IEvent {
+  /** 
+   * An object if the selection only has one element, or nn ActiveSelection instance otherwise. 
+   */
+  target: ActiveSelection|Object;
+  /**
+   * All the objects in the current selection
+   */
+  selected: Object[];
+}
+
+/**
+ * Emitted when an object is added to the canvas.
+ */
+interface IObjectAdded extends IEvent {
+  /** 
+   * Element added to the canvas.
+   */
+  target: Object;
+}
+
+/**
+ * Emitted when an is removed from the canvas.
+ */
+interface IObjectRemoved extends IEvent {
+  /** 
+   * Element removed from the canvas
+   */
+  target: Object;
 }
 
 interface IFillOptions {
@@ -291,13 +355,33 @@ interface ICollection<T> {
 }
 
 interface IObservable<T> {
+  /**
+	 * Observes the selection of one or more objects.
+	 */
+	on(eventName: 'selection:cleared', handler: (e: ISelectionClearedEvent) => void): T;
+  /**
+	 * Observes when a single object is selected (does not consider selections with more than one object). 
+   * @deprecated this event is deprecated. use selection:created
+	 */
+	on(eventName: 'object:selected', handler: (e: IObjectSelectedEvent) => void): T;
+  /**
+	 * Observes when an selection is created (with one or more ojbect).
+	 */
+	on(eventName: 'selection:created', handler: (e: ISelectionCreated) => void): T;
+  /**
+	 * Observes when an object is added to this canvas.
+	 */
+	on(eventName: 'object:added', handler: (e: IObjectAdded) => void): T;
+  /**
+	 * Observes when an object is removed from this canvas. 
+	 */
+	on(eventName: 'object:removed', handler: (e: IObjectRemoved) => void): T;
 	/**
 	 * Observes specified event
 	 * @param eventName Event name (eg. 'after:render')
 	 * @param handler Function that receives a notification when an event of the specified type occurs
 	 */
 	on(eventName: string, handler: (e: IEvent) => void): T;
-
 	/**
 	 * Observes specified event
 	 * @param eventName Object with key/value pairs (eg. {'after:render': handler, 'selection:cleared': handler})
