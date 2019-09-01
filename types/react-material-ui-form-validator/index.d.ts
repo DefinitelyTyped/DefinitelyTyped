@@ -6,7 +6,7 @@
 // TypeScript Version: 3.1
 
 import * as React from "react";
-import { TextFieldProps } from "material-ui";
+import { TextFieldProps } from '@material-ui/core/TextField';
 
 export interface ValidatorFormProps {
     className?: string;
