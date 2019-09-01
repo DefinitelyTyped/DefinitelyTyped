@@ -778,10 +778,10 @@ MyModel.bulkWrite([{foo:'bar'}]).then(r => {
   console.log(r.deletedCount);
 });
 MyModel.bulkWrite([], (err, res) => {
-  console.log(res.modifiedCount)
+  console.log(res.modifiedCount);
 });
 MyModel.bulkWrite([], { ordered: false }, (err, res) => {
-  console.log(res.modifiedCount)
+  console.log(res.modifiedCount);
 });
 doc.populate('path');
 doc.populate({path: 'hello'});
