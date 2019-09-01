@@ -264,23 +264,19 @@ export abstract class Evented<EventMap extends LeafletEventHandlerFnMap> extends
      * Removes a set of type/listener pairs.
      */
     // With an eventMap there are no additional arguments allowed
-    on(eventMap: EventMap): this;
-    /**
-     * Removes all listeners to all events on the object.
-     */
-    off(): this;
+    off(eventMap?: EventMap): this;
 
     /**
      * Fires an event of the specified type. You can optionally provide a data
      * object — the first argument of the listener function will contain its properties.
      * The event might can optionally be propagated to event parents.
      */
-    fire<K extends keyof EventMap>(type: K, data?: any, propagate?: boolean): this;
+    fire(type: EventMap, data?: any, propagate?: boolean): this;
 
     /**
      * Returns true if a particular event type has any listeners attached to it.
      */
-    listens<K extends keyof EventMap>(type: K): boolean;
+    listens(type: EventMap): boolean;
 
     /**
      * Behaves as on(...), except the listener will only get fired once and then removed.
@@ -364,14 +360,14 @@ export abstract class Evented<EventMap extends LeafletEventHandlerFnMap> extends
      * object — the first argument of the listener function will contain its properties.
      * The event might can optionally be propagated to event parents.
      */
-    fireEvent<K extends keyof EventMap>(type: K, data?: any, propagate?: boolean): this;
+    fireEvent(type: EventMap, data?: any, propagate?: boolean): this;
 
     /**
      * Alias for listens(...)
      *
      * Returns true if a particular event type has any listeners attached to it.
      */
-    hasEventListeners<K extends keyof EventMap>(type: K): boolean;
+    hasEventListeners(type: EventMap): boolean;
 }
 
 export interface LayerEventHandlerFnMap extends LeafletEventHandlerFnMap {
@@ -710,9 +706,7 @@ export function imageOverlay(
     options?: ImageOverlayOptions,
 ): ImageOverlay;
 
-export interface SVGOverlayEventHandlerFnMap extends ImageOverlayEventHandlerFnMap {}
-
-export class SVGOverlay extends Layer<SVGOverlayEventHandlerFnMap> {
+export class SVGOverlay extends Layer<ImageOverlayEventHandlerFnMap> {
     /** SVGOverlay doesn't extend ImageOverlay because SVGOverlay.getElement returns SVGElement */
     constructor(svgImage: string | SVGElement, bounds: LatLngBoundsExpression, options?: ImageOverlayOptions);
     setOpacity(opacity: number): this;
@@ -891,7 +885,7 @@ export interface RendererOptions extends LayerOptions {
     padding?: number;
 }
 
-export class Renderer extends Layer<LayerEventHandlerFnMap> {
+export class Renderer extends Layer {
     constructor(options?: RendererOptions);
 
     options: RendererOptions;
@@ -911,14 +905,12 @@ export class Canvas extends Renderer {}
 
 export function canvas(options?: RendererOptions): Canvas;
 
-export interface LayerGroupEventHandlerFnMap extends LayerEventHandlerFnMap {}
-
 /**
  * Used to group several layers and handle them as one.
  * If you add it to the map, any layers added or removed from the group will be
  * added/removed on the map as well. Extends Layer.
  */
-export class LayerGroup<P = any, M extends LayerGroupEventHandlerFnMap = LayerGroupEventHandlerFnMap> extends Layer<M> {
+export class LayerGroup<P = any, M extends LayerEventHandlerFnMap = LayerEventHandlerFnMap> extends Layer<M> {
     constructor(layers?: Layer[], options?: LayerOptions);
 
     /**
@@ -992,7 +984,7 @@ export class LayerGroup<P = any, M extends LayerGroupEventHandlerFnMap = LayerGr
  */
 export function layerGroup(layers?: Layer[], options?: LayerOptions): LayerGroup;
 
-export interface FeatureGroupEventHandlerFnMap extends LayerGroupEventHandlerFnMap {
+export interface FeatureGroupEventHandlerFnMap extends LayerEventHandlerFnMap {
     /**
      * Fired when a layer is added to this FeatureGroup.
      */
@@ -1008,7 +1000,7 @@ export interface FeatureGroupEventHandlerFnMap extends LayerGroupEventHandlerFnM
  * Extended LayerGroup that also has mouse events (propagated from
  * members of the group) and a shared bindPopup method.
  */
-export class FeatureGroup<P = any> extends LayerGroup<P, FeatureGroupEventHandlerFnMap> {
+export class FeatureGroup<P = any> extends LayerGroup<P> {
     /**
      * Sets the given path options to each layer of the group that has a setStyle method.
      */
@@ -1358,9 +1350,7 @@ export interface PopupOptions extends DivOverlayOptions {
 
 export type Content = string | HTMLElement;
 
-export interface PopupEventHandlerFnMap extends LayerEventHandlerFnMap {}
-
-export class Popup extends Layer<PopupEventHandlerFnMap> {
+export class Popup extends Layer {
     constructor(options?: PopupOptions, source?: Layer);
     getLatLng(): LatLng | undefined;
     setLatLng(latlng: LatLngExpression): this;
@@ -1390,9 +1380,7 @@ export interface TooltipOptions extends DivOverlayOptions {
     opacity?: number;
 }
 
-export interface ToolTipEventHandlerFnMap extends LayerEventHandlerFnMap {}
-
-export class Tooltip extends Layer<ToolTipEventHandlerFnMap> {
+export class Tooltip extends Layer {
     constructor(options?: TooltipOptions, source?: Layer);
     setOpacity(val: number): void;
     getLatLng(): LatLng | undefined;
@@ -1588,7 +1576,7 @@ export interface DefaultMapPanes {
     popupPane: HTMLElement;
 }
 
-interface MapEventHandlerFnMap extends LeafletEventHandlerFnMap {
+export interface MapEventHandlerFnMap extends LeafletEventHandlerFnMap {
     // Layer events
     /**
      * Fired when the base layer is changed through the layer control.
