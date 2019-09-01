@@ -63,20 +63,20 @@ braintree.client.create({
     },
     fields: {
       number: {
-        selector: '#card-number'
+        container: '#card-number'
       },
       cvv: {
-        selector: '#cvv',
+        container: '#cvv',
         type: 'password'
       },
       expirationMonth: {
-        selector: '#expiration-month',
+        container: '#expiration-month',
         select: {
           options: ["01 - Jan", "02 - Feb", "03 - Mar", "04 - Apr", "05 - May", "06 - Jun", "07 - Jul", "08 - Aug", "09 - Sep", "10 - Oct", "11 - Nov", "12 - Dec"]
         }
       },
       expirationYear: {
-        selector: '#expiration-year',
+        container: '#expiration-year',
         select: true
       }
     }
@@ -123,6 +123,13 @@ braintree.client.create({
       });
     }, false);
 
+    var blurCallback =  function (event: braintree.HostedFieldsStateObject) {
+        console.log(event.emittedBy, 'has blurred');
+    };
+
+    hostedFieldsInstance.on('blur', blurCallback);
+    hostedFieldsInstance.off('blur', blurCallback);
+
     hostedFieldsInstance.on('focus', function (event: braintree.HostedFieldsStateObject) {
       console.log(event.emittedBy, 'has been focused');
     });
@@ -133,6 +140,28 @@ braintree.client.create({
       } else {
         console.info('Hosted Fields has been torn down!');
       }
+    });
+
+    hostedFieldsInstance.setMonthOptions([
+        "01 - enero",
+        "02 - febrero",
+        "03 - marzo",
+        "04 - abril",
+        "05 - mayo",
+        "06 - junio",
+        "07 - julio",
+        "08 - agosto",
+        "09 - septiembre",
+        "10 - octubre",
+        "11 - noviembre",
+        "12 - diciembre"
+        ],
+        function(monthOptionError: braintree.BraintreeError) {
+            if(monthOptionError) {
+                console.error('Could not set month options');
+            } else {
+                console.log('Month options have be set');
+            }
     });
 
     hostedFieldsInstance.tokenize({
@@ -161,10 +190,14 @@ braintree.client.create({
       hostedFieldsInstance.removeClass('number', 'custom-class');
     });
 
-    hostedFieldsInstance.setPlaceholder('number', '4111 1111 1111 1111', function (placeholderErr: braintree.BraintreeError) {
-      if (placeholderErr) {
-        console.error(placeholderErr);
-      }
+    hostedFieldsInstance.setAttribute({
+        field: 'number',
+        attribute: 'placeholder',
+        value: '4111 1111 1111 1111'
+    }, function (attributeErr) {
+        if (attributeErr) {
+            console.error(attributeErr);
+        }
     });
 
     hostedFieldsInstance.on('cardTypeChange', function (event: braintree.HostedFieldsStateObject) {
@@ -192,7 +225,19 @@ braintree.client.create({
     var state = braintree.hostedFields.getState();
 
     var formValid = Object.keys(state.fields).every(function (key) {
-      return state.fields[key].isValid;
+        const field =  state.fields[key];
+        if (!field.isValid) {
+            hostedFieldsInstance.setMessage({
+                field: key,
+                message: key + ' is invalid'
+            });
+        } else {
+            hostedFieldsInstance.setMessage({
+                field: key,
+                message: ''
+            });
+        }
+      return field.isValid;
     });
   });
 
