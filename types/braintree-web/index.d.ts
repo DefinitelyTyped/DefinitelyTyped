@@ -1,4 +1,4 @@
-// Type definitions for Braintree-web v3.47.0
+// Type definitions for Braintree-web v3.51.0
 // Project: https://github.com/braintree/braintree-web
 // Definitions by: Guy Shahine <https://github.com/chlela>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -484,21 +484,44 @@ interface HostedFieldsFieldMaskInput {
     showLastFour?: boolean;
 }
 
+interface HostedFieldsSupportedCardBrands {
+  visa?:boolean;
+  mastercard?:boolean;
+  "american-express"?:boolean;
+  "diners-club"?:boolean;
+  discover?:boolean;
+  jcb?:boolean;
+  "union-pay"?:boolean;
+  maestro?:boolean;
+  elo?:boolean;
+  mir?:boolean;
+  hiper?:boolean;
+  hipercard?:boolean;
+}
+
 /** @module braintree-web/hosted-fields */
 declare namespace braintree {
   /**
    * Fields used in {@link module:braintree-web/hosted-fields~fieldOptions fields options}
    * @typedef {object} field
-   * @property {string} selector A CSS selector to find the container where the hosted field will be inserted.
+   * @deprecated @property {string} selector Deprecated: Now an alias for `options.container`.
+   * @property {string|HTMLElement} container A DOM node or CSS selector to find the container where the hosted field will be inserted.
    * @property {string} [placeholder] Will be used as the `placeholder` attribute of the input. If `placeholder` is not natively supported by the browser, it will be polyfilled.
    * @property {string} [type] Will be used as the `type` attribute of the input. To mask `cvv` input, for instance, `type: "password"` can be used.
    * @property {boolean} [formatInput=true] - Enable or disable automatic formatting on this field.
    * @property {object|boolean} [select] If truthy, this field becomes a `<select>` dropdown list. This can only be used for `expirationMonth` and `expirationYear` fields.
    * @property {string[]} [select.options] An array of 12 strings, one per month. This can only be used for the `expirationMonth` field. For example, the array can look like `['01 - January', '02 - February', ...]`.
    * @property {boolean | HostedFieldsFieldMaskInput} [maskInput] Enable or disable input masking when input is not focused. If set to `true` instead of an object, the defaults for the `maskInput` parameters will be used.
+   * @property {number} maxCardLength This option applies only to the number field. Allows a limit to the length of the card number, even if the card brand may support numbers of a greater length. If the value passed is greater than the max length for a card brand, the smaller number of the 2 values will be used. For example, is `maxCardLength` is set to 16, but an American Express card is entered (which has a max card length of 15), a max card length of 15 will be used.
+   * @property {number} maxlength	This option applies only to the CVV and postal code fields. Will be used as the `maxlength` attribute of the input if it is less than the default. The primary use cases for the `maxlength` option are: limiting the length of the CVV input for CVV-only verifications when the card type is known and limiting the length of the postal code input when cards are coming from a known region.
+   * @property {number} minlength	This option applies only to the cvv and postal code fields. Will be used as the `minlength`attribute of the input. For postal code fields, the default value is 3, representing the Icelandic postal code length. This option's primary use case is to increase the `minlength`, e.g. for US customers, the postal code `minlength` can be set to 5. For cvv fields, the default value is 3. The `minlength` attribute only applies to integrations capturing a cvv without a number field.
+   * @property {number} prefill	A value to prefill the field with. For example, when creating an update card form, you can prefill the expiration date fields with the old expiration date data.
+   * @deprecated @property {number} [rejectUnsupportedCards=false] Deprecated since version 3.46.0, use supportedCardBrands instead. Only allow card types that your merchant account is able to process. Unsupported card types will invalidate the card form. e.g. if you only process Visa cards, a customer entering a American Express card would get an invalid card field. This can only be used for the `number` field.
+   * @property {object} supportedCardBrands Override card brands that are supported by the card form. Pass `'card-brand-id': true` to override the default in the merchant configuration and enable a card brand. Pass `'card-brand-id': false` to disable a card brand. Unsupported card types will invalidate the card form. e.g. if you only process Visa cards, a customer entering an American Express card would get an invalid card field. This can only be used for the `number` field. (Note: only allow card types that your merchant account is actually able to process.)
    */
   interface HostedFieldsField {
-    selector: string;
+    selector?: string;
+    container: string | HTMLElement
     placeholder?: string;
     type?: string;
     formatInput?: boolean;
@@ -509,6 +532,7 @@ declare namespace braintree {
     minlength?: number;
     prefill?: string;
     rejectUnsupportedCards?: boolean;
+    supportedCardBrands?: HostedFieldsSupportedCardBrands;
   }
 
   /**
@@ -625,23 +649,90 @@ declare namespace braintree {
     fields: HostedFieldsFieldDataFields;
   }
 
+  interface HostedFieldsBinPayload {
+    bin: string;
+  }
+
+  interface HostedFieldsBillingAddress {
+    postalCode?: string;
+    firstName?: string;
+    lastName?: string;
+    company?: string;
+    streetAddress?: string;
+    extendedAddress?: string;
+    locality?: string;
+    region?: string;
+    countryCodeNumeric?: string;
+    countryCodeAlpha2?: string;
+    countryName?: string;
+  }
+
+  interface HostedFieldsTokenizionOptions {
+    vault?: boolean;
+    authenticationInsight?: {merchantAccountId: string};
+    fieldsToTokenize?: string[];
+    cardholderName?: string;
+    billingAddress?: HostedFieldsBillingAddress;
+  }
+
   /**
-   * @property {string} nonce The payment method nonce.
-   * @property {object} details Additional account details.
-   * @property {string} details.cardType Type of card, ex: Visa, MasterCard.
-   * @property {string} details.lastTwo Last two digits of card number.
-   * @property {string} details.lastFour Last four digits of card number.
-   * @property {string} description A human-readable description.
-   * @property {string} type The payment method type, always `CreditCard`.
+   * @property {string} bin The BIN number of the card.
+   * @property {string} cardType Type of card, ex: Visa, MasterCard.
+   * @property {string} expirationMonth The expiration month of the card.
+   * @property {string} expirationYear The expiration year of the card.
+   * @property {string} lastTwo Last two digits of card number.
+   * @property {string} lastFour Last four digits of card number.
    */
   interface HostedFieldsAccountDetails {
+    bin: string;
     cardType: string;
+    expirationMonth: string;
+    expirationYear: string;
     lastTwo: string;
     lastFour: string;
   }
 
+  /**
+   * @property {string} regulationEnvironment	The regulation environment for the tokenized card.
+   */
+  interface HostedFieldsAuthenticationInsight {
+    regulationEnvironment: string;
+  }
+
+  /**
+   * @property {string} commercial Possible values: `'Yes'`, `'No'`, `'Unknown'`.
+   * @property {string} countryOfIssuance The country of issuance.
+   * @property {string} debit Possible values: `'Yes'`, `'No'`, `'Unknown'`.
+   * @property {string} durbinRegulated Possible values: `'Yes'`, `'No'`, `'Unknown'`.
+   * @property {string} healthcare Possible values: `'Yes'`, `'No'`, `'Unknown'`.
+   * @property {string} issuingBank The issuing bank.
+   * @property {string} payroll Possible values: `'Yes'`, `'No'`, `'Unknown'`.
+   * @property {string} prepaid Possible values: `'Yes'`, `'No'`, `'Unknown'`.
+   * @property {string} productId The product id.
+   */
+  interface HostedFieldsBinData {
+    commercial: string;
+    countryOfIssuance: string;
+    debit: string;
+    durbinRegulated: string;
+    healthcare: string;
+    issuingBank: string;
+    payroll: string;
+    prepaid: string;
+    productId: string;
+  }
+
+  /**
+   * @property {string} nonce The payment method nonce.
+   * @property {HostedFieldsAuthenticationInsight} authenticationInsight Info about the regulatory environment of the tokenized card. Only available if `authenticationInsight.merchantAccountId` is passed in the tokenize method options.
+   * @property {HostedFieldsAccountDetails} details Additional account details.
+   * @property {string} description A human-readable description.
+   * @property {string} type The payment method type, always `CreditCard`.
+   * @property {object} binData Information about the card based on the bin.
+   */
   interface HostedFieldsTokenizePayload {
     nonce: string;
+    authenticationInsight: HostedFieldsAuthenticationInsight,
     details: HostedFieldsAccountDetails;
     type: string;
     description: string;
@@ -688,7 +779,6 @@ declare namespace braintree {
      create(options: { client: Client, fields: HostedFieldFieldOptions, styles: any }): Promise<HostedFields>;
      create(options: { client: Client, fields: HostedFieldFieldOptions, styles: any }, callback: callback): void;
 
-
     /**
      * An object that represents CSS that will be applied in each hosted field. This object looks similar to CSS. Typically, these styles involve fonts (such as `font-family` or `color`).
      *
@@ -726,17 +816,53 @@ declare namespace braintree {
     styleOptions: any;
 
     /**
-     * @description The current version of the SDK, i.e. `3.0.2`.
+     * @description The current version of the SDK, i.e. `3.51.0`.
      * @type {string}
      */
     VERSION: string;
+
+    /**
+     * @name HostedFields#off
+     * @function
+     * @param {string} event The name of the event to which you are unsubscribing
+     * @param {function} handler The callback for the event you are unsubscribing from
+     * @description Unsubscribes the handler function to a named event.
+     * @example
+     * <caption>Listening to a Hosted Field event, in this case 'focus'</caption>
+     * hostedFields.create({ ... }, function (createErr, hostedFieldsInstance) {
+     *  var callback = function(event) {
+     *    console.log(event.emittedBy, 'has been focused');
+     *  };
+     *  hostedFieldsInstance.on('focus', callback);
+     *
+     *  // later on
+     *  hostedFieldsInstance.off('focus', callback);
+     * });
+     * @returns {void}
+     */
+    off(event: string, handler: ((event: HostedFieldsStateObject) => void)): void;
+    off(event: string, handler: ((event: HostedFieldsBinPayload) => void)): void;
 
     /**
      * @name HostedFields#on
      * @function
      * @param {string} event The name of the event to which you are subscribing.
      * @param {function} handler A callback to handle the event.
-     * @description Subscribes a handler function to a named event. `event` should be {@link HostedFields#event:blur|blur}, {@link HostedFields#event:focus|focus}, {@link HostedFields#event:empty|empty}, {@link HostedFields#event:notEmpty|notEmpty}, {@link HostedFields#event:cardTypeChange|cardTypeChange}, or {@link HostedFields#event:validityChange|validityChange}. Events will emit a {@link HostedFields~stateObject|stateObject}.
+     * @description Subscribes a handler function to a named event.
+     *
+     *  Events that emit a {@link HostedFields~stateObject|stateObject}
+     *
+     *  {@link HostedFields#event:blur|blur}
+     *  {@link HostedFields#event:focus|focus}
+     *  {@link HostedFields#event:empty|empty}
+     *  {@link HostedFields#event:notEmpty|notEmpty}
+     *  {@link HostedFields#event:cardTypeChange|cardTypeChange}
+     *  {@link HostedFields#event:validityChange|validityChange}
+     *  {@link HostedFields#event:inputSubmitRequest|inputSubmitRequest}
+     *
+     *  Other Events
+     *  {@link HostedFields#event:binAvailable|binAvailable} - emits a {@link HostedFields~binPayload|binPayload}.
+     *
      * @example
      * <caption>Listening to a Hosted Field event, in this case 'focus'</caption>
      * hostedFields.create({ ... }, function (createErr, hostedFieldsInstance) {
@@ -747,6 +873,7 @@ declare namespace braintree {
      * @returns {void}
      */
     on(event: string, handler: ((event: HostedFieldsStateObject) => void)): void;
+    on(event: string, handler: ((event: HostedFieldsBinPayload) => void)): void;
 
     /**
      * Cleanly tear down anything set up by {@link module:braintree-web/hosted-fields.create|create}
@@ -767,9 +894,25 @@ declare namespace braintree {
     /**
      * Tokenizes fields and returns a nonce payload.
      * @public
-     * @param {object} [options] All tokenization options for the Hosted Fields component.
+     * @param {HostedFieldsTokenizionOptions} [options] All tokenization options for the Hosted Fields component.
      * @param {boolean} [options.vault=false] When true, will vault the tokenized card. Cards will only be vaulted when using a client created with a client token that includes a customer ID.
-     * @param {callback} callback The second argument, <code>data</code>, is a {@link HostedFields~tokenizePayload|tokenizePayload}
+     * @param {object} authenticationInsight 	Options for checking authentication insight - the regulatory environment of the tokenized card.
+     * @param {string} [authenticationInsight.merchantAccountId] The Braintree merchant account id to use to look up the authentication insight information.
+     * @param {string[]} fieldsToTokenize By default, all fields will be tokenized. You may specify which fields specifically you wish to tokenize with this property. Valid options are `'number'`, `'cvv'`, `'expirationDate'`, `'expirationMonth'`, `'expirationYear'`, `'postalCode'`.
+     * @param {string} cardholderName When supplied, the cardholder name to be tokenized with the contents of the fields.
+     * @param {string} [billingAddress.postalCode] When supplied, this postal code will be tokenized along with the contents of the fields. If a postal code is provided as part of the Hosted Fields configuration, the value of the field will be tokenized and this value will be ignored.
+     * @param {string} [billingAddress.firstName] When supplied, this customer first name will be tokenized along with the contents of the fields.
+     * @param {string} [billingAddress.lastName] When supplied, this customer last name will be tokenized along with the contents of the fields.
+     * @param {string} [billingAddress.company] When supplied, this company name will be tokenized along with the contents of the fields.
+     * @param {string} [billingAddress.streetAddress] When supplied, this street address will be tokenized along with the contents of the fields.
+     * @param {string} [billingAddress.extendedAddress] When supplied, this extended address will be tokenized along with the contents of the fields.
+     * @param {string} [billingAddress.locality] When supplied, this locality (the city) will be tokenized along with the contents of the fields.
+     * @param {string} [billingAddress.region] When supplied, this region (the state) will be tokenized along with the contents of the fields.
+     * @param {string} [billingAddress.countryCodeNumeric] When supplied, this numeric country code will be tokenized along with the contents of the fields.
+     * @param {string} [billingAddress.countryCodeAlpha2] When supplied, this alpha 2 representation of a country will be tokenized along with the contents of the fields.
+     * @param {string} [billingAddress.countryCodeAlpha3] When supplied, this alpha 3 representation of a country will be tokenized along with the contents of the fields.
+     * @param {string} [billingAddress.countryName] When supplied, this country name will be tokenized along with the contents of the fields.
+     * @param {callback} callback May be used as the only parameter of the function if no options are passed in. The second argument, `data`, is a {@link HostedFields~tokenizePayload|tokenizePayload}. If no callback is provided, `tokenize` returns a function that resolves with a {@link HostedFields~tokenizePayload|tokenizePayload}.
      * @example <caption>Tokenize a card</caption>
      * hostedFieldsInstance.tokenize(function (tokenizeErr, payload) {
      *   if (tokenizeErr) {
@@ -803,11 +946,57 @@ declare namespace braintree {
      *     console.log('Got nonce:', payload.nonce);
      *   }
      * });
+     * @example <caption>Tokenize a card with cardholder name</caption>
+     * hostedFieldsInstance.tokenize({
+     *   cardholderName: 'First Last'
+     * }, function (tokenizeErr, payload) {
+     *   if (tokenizeErr) {
+     *     console.error(tokenizeErr);
+     *   } else {
+     *     console.log('Got nonce:', payload.nonce);
+     *   }
+     * });
+     * @example <caption>Tokenize a card with the postal code option</caption>
+     * hostedFieldsInstance.tokenize({
+     *   billingAddress: {
+     *    postalCode: '11111'
+     *   }
+     * }, function (tokenizeErr, payload) {
+     *   if (tokenizeErr) {
+     *     console.error(tokenizeErr);
+     *   } else {
+     *     console.log('Got nonce:', payload.nonce);
+     *   }
+     * });
+     * @example <caption>Tokenize a card with additional billing address options</caption>
+     * hostedFieldsInstance.tokenize({
+     *   billingAddress: {
+     *    firstName: 'First',
+     *    lastName: 'Last',
+     *    company: 'Company',
+     *    streetAddress: '123 Street',
+     *    extendedAddress: 'Unit 1',
+     *    // passing just one of the country options is sufficient to
+     *    // associate the card details with a particular country
+     *    // valid country names and codes can be found here:
+     *    // https://developers.braintreepayments.com/reference/general/countries/ruby#list-of-countries
+     *    countryName: 'United States',
+     *    countryCodeAlpha2: 'US',
+     *    countryCodeAlpha3: 'USA',
+     *    countryCodeNumeric: '840'
+     *   }
+     * }, function (tokenizeErr, payload) {
+     *   if (tokenizeErr) {
+     *     console.error(tokenizeErr);
+     *   } else {
+     *     console.log('Got nonce:', payload.nonce);
+     *   }
+     * });
      * @returns {void}
      */
-      tokenize(options?: { vault?: boolean, cardholderName?: string, billingAddress?: any }): Promise<HostedFieldsTokenizePayload>;
-      tokenize(options: { vault?: boolean, cardholderName?: string, billingAddress?: any }, callback: callback): void;
-      tokenize(callback: callback): void;
+    tokenize(options?: HostedFieldsTokenizionOptions): Promise<HostedFieldsTokenizePayload>;
+    tokenize(options: HostedFieldsTokenizionOptions, callback: callback): void;
+    tokenize(callback: callback): void;
 
     /**
      * Add a class to a {@link module:braintree-web/hosted-fields~field field}. Useful for updating field styles when events occur elsewhere in your checkout.
@@ -825,6 +1014,55 @@ declare namespace braintree {
      * @returns {void}
      */
     addClass(field: string, classname: string, callback?: callback): void;
+
+    /**
+     * Programmatically focus a {@link module:braintree-web/hosted-fields~field field}.
+     * @public
+     * @param {string} field The field you want to focus. Must be a valid {@link module:braintree-web/hosted-fields~field fieldOption}.
+     * @param {callback} [callback] Callback executed on completion, containing an error if one occurred. No data is returned if the field cleared successfully.
+     *
+     * @example
+     *  hostedFieldsInstance.focus('number', function(focusErr) {
+      *    if (focusErr) {
+      *      console.error(focusErr)
+      *    }
+      *  });
+      *
+      * @example <caption>Using an event listener</caption>
+      * myElement.addEventListener('click', function (e) {
+      *   // In Firefox, the focus method can be suppressed
+      *   //   if the element has a tabindex property or the element
+      *   //   is an anchor link with an href property.
+      *   // In Mobile Safari, the focus method is unable to
+      *   //   programatically open the keyboard, as only
+      *   //   touch events are allowed to do so.
+      *   e.preventDefault();
+      *   hostedFieldsInstance.focus('number');
+      * });
+      * @returns {void}
+      */
+    focus(field: string, callback?: callback): void;
+
+    /**
+     * Removes a supported attribute from a {@link module:braintree-web/hosted-fields~field field}
+     * @public
+     * @param {object} options The options for the attribute you wish to remove.
+     * @param {string} [options.field] The field from which you wish to remove an attribute. Must be a valid {@link module:braintree-web/hosted-fields~field fieldOption}.
+     * @param {string} [options.attribute] The name of the attribute you wish to remove from the field.
+     * @param {callback} [callback] Callback executed on completion, containing an error if one occurred. No data is returned if the attribute is removed successfully.
+     *
+     * @example <caption>Remove the placeholder attribute of a field</caption>
+     * hostedFieldsInstance.removeAttribute({
+     *    field: 'number',
+     *    attribute: 'placeholder'
+     *  }, function (attributeErr) {
+     *    if (attributeErr) {
+     *      console.error(attributeErr);
+     *    }
+     * });
+     * @returns {void}
+     */
+    removeAttribute(options: {field: string, attribute: string}, callback?: callback): void;
 
     /**
      * Removes a class to a {@link module:braintree-web/hosted-fields~field field}. Useful for updating field styles when events occur elsewhere in your checkout.
@@ -848,31 +1086,90 @@ declare namespace braintree {
     removeClass(field: string, classname: string, callback?: callback): void;
 
     /**
-     * Sets the placeholder of a {@link module:braintree-web/hosted-fields~field field}.
+     * Sets an attribute of a {@link module:braintree-web/hosted-fields~field field}. Supported attributes are `aria-invalid`, `aria-required`, `disabled`, and `placeholder`.
+     * @public
+     * @param {object} options The options for the attribute you wish to set.
+     * @param {string} [options.field] The field from which you wish to add an attribute. Must be a valid {@link module:braintree-web/hosted-fields~field fieldOption}.
+     * @param {string} [options.attribute] The name of the attribute you wish to add to the field.
+     * @param {string} [options.value] The value for the attribute
+     * @param {callback} [callback] Callback executed on completion, containing an error if one occurred. No data is returned if the attribute is removed successfully.
+     *
+     * @example <caption>Set the placeholder attribute of a field</caption>
+     * hostedFieldsInstance.setAttribute({
+      *    field: 'number',
+      *    attribute: 'placeholder',
+      *    value: '1111 1111 1111 1111'
+      *  }, function (attributeErr) {
+      *    if (attributeErr) {
+      *      console.error(attributeErr);
+      *    }
+      * });
+      * @example <caption>Set the aria-required attribute of a field</caption>
+      * hostedFieldsInstance.setAttribute({
+      *    field: 'number',
+      *    attribute: 'aria-required',
+      *    value: true
+      *  }, function (attributeErr) {
+      *    if (attributeErr) {
+      *      console.error(attributeErr);
+      *    }
+      * });
+      * @returns {void}
+      */
+    setAttribute(options: {field: string, attribute: string, value: string}, callback?: callback): void;
+
+    /**
+     * Sets a visually hidden message (for screenreaders) on a {@link module:braintree-web/hosted-fields~field field}
+     * @public
+     * @param {object} options The options for the attribute you wish to set.
+     * @param {string} [options.field] The field from which you wish to add an attribute. Must be a valid {@link module:braintree-web/hosted-fields~field fieldOption}.
+     * @param {string} [options.message] The message to set.
+     *
+     * @example <caption>Set an error message on a field</caption>
+     * hostedFieldsInstance.setMessage({
+     *   field: 'number',
+     *   message: 'Invalid card number'
+     * });
+     * @example <caption>Remove the message on a field</caption>
+     * hostedFieldsInstance.setMessage({
+     *   field: 'number',
+     *   message: ''
+     * });
+     * @returns {void}
+     */
+    setMessage(options: {field: string, message: string}): void;
+
+    /**
+     * Sets the month options for the expiration month field when present as a select element.
+     * @public
+     * @param {string[]} options An array of 12 entries corresponding to the 12 months.
+     * @param callback Callback executed on completion, containing an error if one occurred. No data is returned if the options are updated succesfully. Errors if expirationMonth is not configured on the Hosted Fields instance or if the expirationMonth field is not configured to be a select input.
+     *
+     * @example <caption>Update the month options to spanish</caption>
+     * hostedFieldsInstance.setMonthOptions([
+     *  '01 - enero',
+     *  '02 - febrero',
+     *  '03 - marzo',
+     *  '04 - abril',
+     *  '05 - mayo',
+     *  '06 - junio',
+     *  '07 - julio',
+     *  '08 - agosto',
+     *  '09 - septiembre',
+     *  '10 - octubre',
+     *  '11 - noviembre',
+     *  '12 - diciembre'
+     * ]);
+     * @returns {void}
+     */
+    setMonthOptions(options: string[], callback?: callback): void;
+
+    /**
+     * @deprecated since version 3.8.0. Use {@link module:braintree-web/hosted-fields~setAttribute setAttribute} instead.
      * @public
      * @param {string} field The field whose placeholder you wish to change. Must be a valid {@link module:braintree-web/hosted-fields~fieldOptions fieldOption}.
      * @param {string} placeholder Will be used as the `placeholder` attribute of the input.
      * @param {callback} [callback] Callback executed on completion, containing an error if one occurred. No data is returned if the placeholder updated successfully.
-     *
-     * @example
-     * hostedFieldsInstance.setPlaceholder('number', '4111 1111 1111 1111', function (placeholderErr) {
-     *   if (placeholderErr) {
-     *     console.error(placeholderErr);
-     *   }
-     * });
-     *
-     * @example <caption>Update CVV field on card type change</caption>
-     * hostedFieldsInstance.on('cardTypeChange', function (event) {
-     *   // Update the placeholder value if there is only one possible card type
-     *   if (event.cards.length === 1) {
-     *     hostedFields.setPlaceholder('cvv', event.cards[0].code.name, function (placeholderErr) {
-     *       if (placeholderErr) {
-     *         // Handle errors, such as invalid field name
-     *         console.error(placeholderErr);
-     *       }
-     *     });
-     *   }
-     * });
      * @returns {void}
      */
     setPlaceholder(field: string, placeholder: string, callback?: callback): void;
