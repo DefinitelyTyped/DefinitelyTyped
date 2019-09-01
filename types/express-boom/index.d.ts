@@ -1,4 +1,4 @@
-// Type definitions for express-boom
+// Type definitions for express-boom 3.0
 // Project: https://github.com/scottcorgan/express-boom
 // Definitions by: Aurelien Gaston <https://github.com/Nox-404>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -304,7 +304,7 @@ declare global {
       gatewayTimeout<Data = null>(message?: string, data?: Data): BoomError<Data>;
     }
 
-    export interface BoomError<Data> {
+    interface BoomError<Data> {
       data: Data;
       reformat: () => void;
       isBoom: boolean;
@@ -313,7 +313,7 @@ declare global {
       output: Output;
     }
 
-    export interface Output {
+    interface Output {
       /** statusCode - the HTTP status code (typically 4xx or 5xx). */
       statusCode: number;
       /**
@@ -330,7 +330,7 @@ declare global {
       payload: Payload;
     }
 
-    export interface Payload {
+    interface Payload {
       /** statusCode - the HTTP status code, derived from error.output.statusCode. */
       statusCode: number;
       /** error - the HTTP status message (e.g. 'Bad Request', 'Internal Server Error') derived from statusCode. */
@@ -346,7 +346,7 @@ declare global {
       // [anyContent: string]: any;
     }
 
-    export interface Response {
+    interface Response {
       boom: Boom;
     }
   }
