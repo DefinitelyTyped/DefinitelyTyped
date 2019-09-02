@@ -889,6 +889,7 @@ declare namespace braintree {
      * });
      * @returns {void}
      */
+    teardown(): Promise<void>;
     teardown(callback?: callback): void;
 
     /**
@@ -1013,6 +1014,7 @@ declare namespace braintree {
      * });
      * @returns {void}
      */
+    addClass(field: string, classname: string): Promise<void>;
     addClass(field: string, classname: string, callback?: callback): void;
 
     /**
@@ -1023,24 +1025,25 @@ declare namespace braintree {
      *
      * @example
      *  hostedFieldsInstance.focus('number', function(focusErr) {
-      *    if (focusErr) {
-      *      console.error(focusErr)
-      *    }
-      *  });
-      *
-      * @example <caption>Using an event listener</caption>
-      * myElement.addEventListener('click', function (e) {
-      *   // In Firefox, the focus method can be suppressed
-      *   //   if the element has a tabindex property or the element
-      *   //   is an anchor link with an href property.
-      *   // In Mobile Safari, the focus method is unable to
-      *   //   programatically open the keyboard, as only
-      *   //   touch events are allowed to do so.
-      *   e.preventDefault();
-      *   hostedFieldsInstance.focus('number');
-      * });
-      * @returns {void}
-      */
+     *    if (focusErr) {
+     *      console.error(focusErr)
+     *    }
+     *  });
+     *
+     * @example <caption>Using an event listener</caption>
+     * myElement.addEventListener('click', function (e) {
+     *   // In Firefox, the focus method can be suppressed
+     *   //   if the element has a tabindex property or the element
+     *   //   is an anchor link with an href property.
+     *   // In Mobile Safari, the focus method is unable to
+     *   //   programatically open the keyboard, as only
+     *   //   touch events are allowed to do so.
+     *   e.preventDefault();
+     *   hostedFieldsInstance.focus('number');
+     * });
+     * @returns {void}
+     */
+    focus(field: string): Promise<void>;
     focus(field: string, callback?: callback): void;
 
     /**
@@ -1062,6 +1065,7 @@ declare namespace braintree {
      * });
      * @returns {void}
      */
+    removeAttribute(options: {field: string, attribute: string}): Promise<void>;
     removeAttribute(options: {field: string, attribute: string}, callback?: callback): void;
 
     /**
@@ -1083,6 +1087,7 @@ declare namespace braintree {
      * });
      * @returns {void}
      */
+    removeClass(field: string, classname: string): Promise<void>;
     removeClass(field: string, classname: string, callback?: callback): void;
 
     /**
@@ -1096,26 +1101,27 @@ declare namespace braintree {
      *
      * @example <caption>Set the placeholder attribute of a field</caption>
      * hostedFieldsInstance.setAttribute({
-      *    field: 'number',
-      *    attribute: 'placeholder',
-      *    value: '1111 1111 1111 1111'
-      *  }, function (attributeErr) {
-      *    if (attributeErr) {
-      *      console.error(attributeErr);
-      *    }
-      * });
-      * @example <caption>Set the aria-required attribute of a field</caption>
-      * hostedFieldsInstance.setAttribute({
-      *    field: 'number',
-      *    attribute: 'aria-required',
-      *    value: true
-      *  }, function (attributeErr) {
-      *    if (attributeErr) {
-      *      console.error(attributeErr);
-      *    }
-      * });
-      * @returns {void}
-      */
+     *    field: 'number',
+     *    attribute: 'placeholder',
+     *    value: '1111 1111 1111 1111'
+     *  }, function (attributeErr) {
+     *    if (attributeErr) {
+     *      console.error(attributeErr);
+     *    }
+     * });
+     * @example <caption>Set the aria-required attribute of a field</caption>
+     * hostedFieldsInstance.setAttribute({
+     *    field: 'number',
+     *    attribute: 'aria-required',
+     *    value: true
+     *  }, function (attributeErr) {
+     *    if (attributeErr) {
+     *      console.error(attributeErr);
+     *    }
+     * });
+     * @returns {void}
+     */
+    setAttribute(options: {field: string, attribute: string, value: string}): Promise<void>;
     setAttribute(options: {field: string, attribute: string, value: string}, callback?: callback): void;
 
     /**
@@ -1162,6 +1168,7 @@ declare namespace braintree {
      * ]);
      * @returns {void}
      */
+    setMonthOptions(options: string[]): Promise<void>;
     setMonthOptions(options: string[], callback?: callback): void;
 
     /**
@@ -1172,6 +1179,7 @@ declare namespace braintree {
      * @param {callback} [callback] Callback executed on completion, containing an error if one occurred. No data is returned if the placeholder updated successfully.
      * @returns {void}
      */
+    setPlaceholder(field: string, placeholder: string): Promise<void>;
     setPlaceholder(field: string, placeholder: string, callback?: callback): void;
 
     /**
@@ -1192,6 +1200,7 @@ declare namespace braintree {
      * hostedFieldsInstance.clear('cvv');
      * hostedFieldsInstance.clear('expirationDate');
      */
+    clear(field: string): Promise<void>;
     clear(field: string, callback?: callback): void;
 
     /**
