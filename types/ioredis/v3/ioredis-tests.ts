@@ -181,7 +181,6 @@ new Redis.Cluster([], {
     clusterRetryStrategy: (times: number) => 1
 });
 
-const barBuffer = Buffer.from('bar');
-redis.zaddBuffer('foo', 'foo1', barBuffer).then(() => {
+redis.zaddBuffer('foo', 'fooScore1', Buffer.from('bar')).then(() => {
     // sorted set 'foo' now has score 'foo1' containing barBuffer
 });

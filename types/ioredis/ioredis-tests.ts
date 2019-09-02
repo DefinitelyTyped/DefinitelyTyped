@@ -273,7 +273,6 @@ const defineCommandResult = cluster.defineCommand('defineCommand', {
 console.log(defineCommandResult);
 cluster.sendCommand();
 
-const barBuffer = Buffer.from('bar');
-redis.zaddBuffer('foo', 'foo1', barBuffer).then(() => {
+redis.zaddBuffer('foo', 'fooScore1', Buffer.from('bar')).then(() => {
     // sorted set 'foo' now has score 'foo1' containing barBuffer
 });
