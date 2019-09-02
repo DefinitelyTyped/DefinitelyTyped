@@ -1,15 +1,15 @@
-import mta5 from 'mta-h5-analysis';
+import * as Mta5 from 'mta-h5-analysis';
 
-mta5.init({
+Mta5.init({
     sid: 'sid_dusk_',
 });
 
-mta5.pgv();
+Mta5.pgv();
 
-mta5.clickStat('clickStat_dusk_');
+Mta5.clickStat('clickStat_dusk_');
 
-mta5.clickShare('clickShare_dusk_');
+Mta5.clickShare('clickShare_dusk_');
 
-mta5.version;
+Mta5.version;
 
-mta5.conf;
+Mta5.conf;
