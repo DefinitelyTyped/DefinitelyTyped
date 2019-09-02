@@ -16,13 +16,12 @@
 //                 Ethan Setnik <https://github.com/esetnik>
 //                 Walter Barbagallo <https://github.com/bwlt>
 //                 Kota Marusue <https://github.com/mrsekut>
-//                 Andrew Luca <https://github.com/iamandrewluca>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 import {
-    ComponentClass,
-    StatelessComponent,
-    ReactElement
+  ComponentClass,
+  StatelessComponent,
+  ReactElement
 } from "react";
 
 export type FieldType = "Field" | "FieldArray";

@@ -1,13 +1,14 @@
-import Collection, { CollectionEvent } from 'ol/Collection';
-import { Coordinate } from 'ol/coordinate';
-import { EventsKey } from 'ol/events';
-import Event from 'ol/events/Event';
-import Feature from 'ol/Feature';
-import PointerInteraction from 'ol/interaction/Pointer';
-import { ObjectEvent } from 'ol/Object';
-import { Pixel } from 'ol/pixel';
-import PluggableMap from 'ol/PluggableMap';
-import VectorSource, { VectorSourceEvent } from 'ol/source/Vector';
+import Collection, { CollectionEvent } from '../Collection';
+import { Coordinate } from '../coordinate';
+import { EventsKey } from '../events';
+import Event from '../events/Event';
+import Feature from '../Feature';
+import { ObjectEvent } from '../Object';
+import { Pixel } from '../pixel';
+import PluggableMap from '../PluggableMap';
+import VectorSource, { VectorSourceEvent } from '../source/Vector';
+import PointerInteraction from './Pointer';
+
 export interface Options {
     features?: Collection<Feature>;
     edge?: boolean;
@@ -29,9 +30,9 @@ export default class Snap extends PointerInteraction {
     addFeature(feature: Feature, opt_listen?: boolean): void;
     removeFeature(feature: Feature, opt_unlisten?: boolean): void;
     snapTo(pixel: Pixel, pixelCoordinate: Coordinate, map: PluggableMap): Result;
-    on(type: string | string[], listener: ((param0: any) => void)): EventsKey | EventsKey[];
-    once(type: string | string[], listener: ((param0: any) => void)): EventsKey | EventsKey[];
-    un(type: string | string[], listener: ((param0: any) => void)): void;
+    on(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
+    once(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
+    un(type: string | string[], listener: (p0: any) => void): void;
     on(type: 'change', listener: (evt: Event) => void): EventsKey;
     once(type: 'change', listener: (evt: Event) => void): EventsKey;
     un(type: 'change', listener: (evt: Event) => void): void;

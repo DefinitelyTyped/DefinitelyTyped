@@ -3,7 +3,10 @@
         "module": "commonjs",
         "lib": [
             "es6",
-            "dom"
+            "dom",
+            "es2017.intl",
+            "es2018.intl",
+            "esnext.intl"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,

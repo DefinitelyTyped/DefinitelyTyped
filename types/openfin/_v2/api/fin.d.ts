@@ -8,9 +8,11 @@ import InterApplicationBus from './interappbus/interappbus';
 import _NotificationModule from './notification/notification';
 import Clipbpard from './clipboard/clipboard';
 import ExternalApplication from './external-application/external-application';
+import ExternalWindow from './external-window/external-window';
 import _FrameModule from './frame/frame';
 import GlobalHotkey from './global-hotkey';
 import { Identity } from '../identity';
+import { BrowserViewModule } from './browserview/browserview';
 export default class Fin extends EventEmitter {
     private wire;
     System: System;
@@ -20,8 +22,10 @@ export default class Fin extends EventEmitter {
     Notification: _NotificationModule;
     Clipboard: Clipbpard;
     ExternalApplication: ExternalApplication;
+    ExternalWindow: ExternalWindow;
     Frame: _FrameModule;
     GlobalHotkey: GlobalHotkey;
+    BrowserView: BrowserViewModule;
     readonly me: Identity;
     constructor(wire: Transport);
 }

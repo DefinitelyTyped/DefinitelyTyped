@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2019-04-09
+// Type definitions for Google Apps Script 2019-07-30
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -141,7 +141,7 @@ declare namespace GoogleAppsScript {
       getBooleanCondition(): BooleanCondition;
       getGradientCondition(): GradientCondition;
       getRanges(): Range[];
-      setBackground(color: string): ConditionalFormatRuleBuilder;
+      setBackground(color: string | null): ConditionalFormatRuleBuilder;
       setBold(bold: boolean): ConditionalFormatRuleBuilder;
       setFontColor(color: string): ConditionalFormatRuleBuilder;
       setGradientMaxpoint(color: string): ConditionalFormatRuleBuilder;
@@ -1491,6 +1491,8 @@ declare namespace GoogleAppsScript {
       protect(): Protection;
       randomize(): Range;
       removeCheckboxes(): Range;
+      removeDuplicates(): Range;
+      removeDuplicates(columnsToCompare: Integer[]): Range;
       setBackground(color: string): Range;
       setBackgroundRGB(red: Integer, green: Integer, blue: Integer): Range;
       setBackgrounds(color: string[][]): Range;
@@ -1545,6 +1547,7 @@ declare namespace GoogleAppsScript {
       splitTextToColumns(): void;
       splitTextToColumns(delimiter: string): void;
       splitTextToColumns(delimiter: TextToColumnsDelimiter): void;
+      trimWhitespace(): Range;
       uncheck(): Range;
     }
 
@@ -1590,6 +1593,7 @@ declare namespace GoogleAppsScript {
       setVerticalText(isVertical: boolean): RangeList;
       setWrap(isWrapEnabled: boolean): RangeList;
       setWrapStrategy(strategy: WrapStrategy): RangeList;
+      trimWhitespace(): RangeList;
       uncheck(): RangeList;
     }
 
@@ -1809,7 +1813,7 @@ declare namespace GoogleAppsScript {
     /**
      * The different types of sheets that can exist in a spreadsheet.
      */
-    export enum SheetType { GRID, any }
+    export enum SheetType { GRID, OBJECT }
 
     /**
      * Access and modify Google Sheets files. Common operations are adding new sheets and adding
@@ -1857,7 +1861,7 @@ declare namespace GoogleAppsScript {
       getFrozenRows(): Integer;
       getId(): string;
       getImages(): OverGridImage[];
-      getIterativeCalculationConvergenceThreshold(): Number;
+      getIterativeCalculationConvergenceThreshold(): number;
       getLastColumn(): Integer;
       getLastRow(): Integer;
       getMaxIterativeCalculationCycles(): Integer;
@@ -1872,7 +1876,7 @@ declare namespace GoogleAppsScript {
       getRecalculationInterval(): RecalculationInterval;
       getRowHeight(rowPosition: Integer): Integer;
       getSelection(): Selection;
-      getSheetByName(name: string): Sheet;
+      getSheetByName(name: string): Sheet | null;
       getSheetId(): Integer;
       getSheetName(): string;
       getSheetValues(startRow: Integer, startColumn: Integer, numRows: Integer, numColumns: Integer): any[][];
@@ -1909,7 +1913,7 @@ declare namespace GoogleAppsScript {
       isRowHiddenByFilter(rowPosition: Integer): boolean;
       isRowHiddenByUser(rowPosition: Integer): boolean;
       moveActiveSheet(pos: Integer): void;
-      moveChartToanySheet(chart: EmbeddedChart): Sheet;
+      moveChartToObjectSheet(chart: EmbeddedChart): Sheet;
       removeEditor(emailAddress: string): Spreadsheet;
       removeEditor(user: Base.User): Spreadsheet;
       removeMenu(name: string): void;
@@ -1928,7 +1932,7 @@ declare namespace GoogleAppsScript {
       setCurrentCell(cell: Range): Range;
       setFrozenColumns(columns: Integer): void;
       setFrozenRows(rows: Integer): void;
-      setIterativeCalculationConvergenceThreshold(minThreshold: Number): Spreadsheet;
+      setIterativeCalculationConvergenceThreshold(minThreshold: number): Spreadsheet;
       setIterativeCalculationEnabled(isEnabled: boolean): Spreadsheet;
       setMaxIterativeCalculationCycles(maxIterations: Integer): Spreadsheet;
       setNamedRange(name: string, range: Range): void;

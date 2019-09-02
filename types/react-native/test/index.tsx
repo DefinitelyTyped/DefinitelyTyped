@@ -90,6 +90,7 @@ import {
     NetInfo,
     PermissionsAndroid,
     Platform,
+    ProgressBarAndroid,
     PushNotificationIOS,
 } from "react-native";
 
@@ -368,7 +369,9 @@ export class FlatListTest extends React.Component<FlatListProps<number>, {}> {
                 renderItem={this._renderItem}
                 ItemSeparatorComponent={this._renderSeparator}
                 ListFooterComponent={null}
+                ListFooterComponentStyle={{ padding: 8 }}
                 ListHeaderComponent={null}
+                ListHeaderComponentStyle={{ padding: 8 }}
             />
         );
     }
@@ -777,6 +780,7 @@ class AccessibilityTest extends React.Component {
                 onAccessibilityTap={() => {}}
                 accessibilityRole="header"
                 accessibilityStates={["selected"]}
+                accessibilityState={{checked: true}}
                 accessibilityHint="Very importent header"
             >
                 <Text accessibilityTraits={["key", "text"]} accessibilityIgnoresInvertColors>
@@ -935,6 +939,16 @@ const PlatformTest = () => {
         default:
             return Platform.isTV ? 40 : 44;
     }
+};
+
+// ProgressBarAndroid
+const ProgressBarAndroidTest = () => {
+    <ProgressBarAndroid
+        animating
+        color="white"
+        styleAttr="Horizontal"
+        progress={0.42}
+    />
 };
 
 // Push notification

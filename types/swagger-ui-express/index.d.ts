@@ -38,7 +38,7 @@ interface SwaggerUiExpress {
      *
      * @returns Express handlers that process requests and return files for Swagger UI.
      */
-    serve(): RequestHandler[];
+    serve: RequestHandler[];
 
     /**
      * Returns handlers for serving Swagger UI files.

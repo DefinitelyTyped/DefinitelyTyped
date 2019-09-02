@@ -1,10 +1,11 @@
-// Type definitions for Cytoscape.js 3.4
+// Type definitions for Cytoscape.js 3.8
 // Project: http://js.cytoscape.org/
 // Definitions by:  Fabian Schmidt and Fred Eisele <https://github.com/phreed>
 //                  Shenghan Gao <https://github.com/wy193777>
 //                  Yuri Pereira Constante <https://github.com/ypconstante>
 //                  Jan-Niclas Struewer <https://github.com/janniclas>
 //                  Cerberuser <https://github.com/cerberuser>
+//                  Andrej Kirejeŭ <https://github.com/gsbelarus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 //
 // Translation from Objects in help to Typescript interface.
@@ -81,7 +82,7 @@ declare namespace cytoscape {
         /**
          * Scratchpad data (usually temp or nonserialisable data)
          */
-        scatch?: Scratchpad;
+        scratch?: Scratchpad;
         /**
          * The model position of the node (optional on init, mandatory after)
          */
@@ -3806,8 +3807,7 @@ declare namespace cytoscape {
              */
             "edge-distances": "intersection" | "segment-weights" | "node-position";
         }
-        type ArrowShape = "tee" | "triangle" | "triangle-tee" | "triangle-backcurve" | "square" | "circle" | "diamond" | "none";
-
+        type ArrowShape = "tee" | "vee" | "triangle" | "triangle-tee" | "triangle-cross" | "triangle-backcurve" | "square" | "circle" | "diamond" | "chevron" | "none";
         type ArrowFill = "filled" | "hollow";
 
         /**

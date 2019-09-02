@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "scripts": {
     "generate": "ts-node generate-fp",
-    "fp": "ts-node generate-fp",
+    "fp": "ts-node generate-fp"
   },
   "devDependencies": {
     "lodash": "^4.17.11",

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Document, Page } from 'react-pdf';
+import { PDFDocumentProxy } from 'pdfjs-dist';
 
 interface State {
     numPages: number | null;
@@ -15,7 +16,7 @@ export class MyApp extends React.Component<{}, State> {
         };
     }
 
-    onDocumentLoadSuccess = ({ numPages }: { numPages: number }) => {
+    onDocumentLoadSuccess = ({ numPages }: PDFDocumentProxy) => {
         this.setState({ numPages });
     }
 

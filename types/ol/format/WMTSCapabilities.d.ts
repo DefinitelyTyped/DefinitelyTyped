@@ -1,4 +1,5 @@
-import XML from 'ol/format/XML';
+import XML from './XML';
+
 export default class WMTSCapabilities extends XML {
     constructor();
 }

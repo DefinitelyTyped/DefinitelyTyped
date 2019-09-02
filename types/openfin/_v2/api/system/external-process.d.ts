@@ -34,3 +34,6 @@ export interface ExternalProcessInfo {
     pid: number;
     listener?: LaunchExternalProcessListener;
 }
+export interface ServiceConfiguration {
+    name: string;
+}

@@ -1,4 +1,4 @@
-import { createSecureContext, SecureContext, ConnectionOptions, connect, getCiphers, DEFAULT_ECDH_CURVE, createServer, TLSSocket } from "tls";
+import { createSecureContext, SecureContext, ConnectionOptions, connect, getCiphers, DEFAULT_ECDH_CURVE, createServer, TLSSocket, rootCertificates } from "tls";
 import * as fs from "fs";
 
 {
@@ -14,12 +14,16 @@ import * as fs from "fs";
     };
     const tlsSocket = connect(connOpts);
 
+    tlsSocket.enableTrace();
+
     const ciphers: string[] = getCiphers();
     const curve: string = DEFAULT_ECDH_CURVE;
 }
 
 {
-    const _server = createServer();
+    const _server = createServer({
+        enableTrace: true,
+    });
 
     _server.addContext("example", {
         cert: fs.readFileSync("cert_filepath"),
@@ -94,6 +98,11 @@ import * as fs from "fs";
     });
     _server = _server.on("secureConnection", (tlsSocket) => {
         const _tlsSocket: TLSSocket = tlsSocket;
+    });
+
+    _server = _server.on("keylog", (ln, sock) => {
+        const line: Buffer = ln;
+        const socket: TLSSocket = sock;
     });
 
     _server = _server.once("tlsClientError", (err, tlsSocket) => {
@@ -213,4 +222,8 @@ import * as fs from "fs";
     socket = socket.prependOnceListener("secureConnect", () => { });
 
     socket.once('session', (buff: Buffer) => {});
+}
+
+{
+    const r00ts: ReadonlyArray<string> = rootCertificates;
 }

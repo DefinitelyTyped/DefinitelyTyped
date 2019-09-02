@@ -41,7 +41,7 @@ export interface HSVColor {
     source?: string;
 }
 
-export type Color = HEXColor | HSLColor | RGBColor | HSVColor;
+export type Color = string | HEXColor | HSLColor | RGBColor | HSVColor;
 
 export interface ColorState {
     hex: string;
@@ -57,7 +57,7 @@ export interface RenderersProps {
         canvas: any;
     };
 }
-export type ColorChangeHandler = (color: Color) => void;
+export type ColorChangeHandler = (color: ColorState) => void;
 
 export { default as AlphaPicker, AlphaPickerProps } from "./lib/components/alpha/Alpha";
 export { default as BlockPicker, BlockPickerProps } from "./lib/components/block/Block";

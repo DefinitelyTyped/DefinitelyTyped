@@ -1,4 +1,4 @@
-// Type definitions for OverlayScrollbars 1.7
+// Type definitions for OverlayScrollbars 1.9
 // Project: https://kingsora.github.io/OverlayScrollbars
 // Definitions by: KingSora <https://github.com/KingSora>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -21,6 +21,8 @@ declare namespace OverlayScrollbars {
     type Margin = number | boolean;
 
     type Position = number | string;
+
+    type Extensions = string | ReadonlyArray<string> | { [extensionName: string]: {} };
 
     type BasicEventCallback = (this: OverlayScrollbars) => void;
 
@@ -189,6 +191,7 @@ declare namespace OverlayScrollbars {
     }
 
     interface State {
+        destroyed: boolean;
         sleeping: boolean;
         autoUpdate: boolean;
         widthAuto: boolean;
@@ -289,7 +292,7 @@ declare namespace OverlayScrollbars {
         inA<T>(item: T, array: T[]): number;
         isA(obj: any): boolean;
         type(obj: any): string;
-        bind(func: (...args: any[]) => any, thisObj: any, ... args: any[]): any;
+        bind(func: (...args: any[]) => any, thisObj: any, ...args: any[]): any;
     }
 }
 
@@ -334,7 +337,7 @@ interface OverlayScrollbarsStatic {
     (
         element: HTMLElement | Element | JQuery,
         options: OverlayScrollbars.Options,
-        extensions?: string | ReadonlyArray<string> | { [extensionName: string]: {} }
+        extensions?: OverlayScrollbars.Extensions
     ): OverlayScrollbars;
     (
         element: HTMLElement | Element | JQuery | null
@@ -343,7 +346,7 @@ interface OverlayScrollbarsStatic {
     (
         elements: NodeListOf<Element> | ReadonlyArray<Element> | JQuery,
         options: OverlayScrollbars.Options,
-        extensions?: string | ReadonlyArray<string> | { [extensionName: string]: {} }
+        extensions?: OverlayScrollbars.Extensions
     ): OverlayScrollbars | OverlayScrollbars[] | undefined;
     (
         elements: NodeListOf<Element> | ReadonlyArray<Element> | JQuery,
@@ -360,16 +363,18 @@ interface OverlayScrollbarsStatic {
     extension(
         extensionName: string,
         extensionFactory: (this: OverlayScrollbars, defaultOptions: {},
-        compatibility: OverlayScrollbars.Compatibility, framework: any) => OverlayScrollbars.Extension,
+            compatibility: OverlayScrollbars.Compatibility, framework: any) => OverlayScrollbars.Extension,
         defaultOptions?: {}
     ): void;
     extension(extensionName: string, extensionFactory: null | undefined): void;
+
+    valid(osInstance: any): boolean;
 }
 
 interface JQuery {
     overlayScrollbars(
         options: OverlayScrollbars.Options,
-        extensions?: string | ReadonlyArray<string> | { [extensionName: string]: {} }
+        extensions?: OverlayScrollbars.Extensions
     ): JQuery;
     overlayScrollbars(
         filter?: string | ((element: Element, instance: OverlayScrollbars) => boolean)

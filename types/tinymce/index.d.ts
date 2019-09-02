@@ -153,7 +153,7 @@ export interface Settings {
 
   skin_url?: string;
 
-  skin?: string;
+  skin?: false | string;
 
   statusbar?: boolean;
 

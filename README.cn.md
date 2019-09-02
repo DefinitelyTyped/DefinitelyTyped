@@ -6,12 +6,26 @@
 
 *你可以去看其他语言的 README，[英语](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.md)，[西班牙语](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md)，[韩语](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ko.md)，[俄罗斯语](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ru.md)*
 
+## 目录
+
+* [当前状态](#当前状态)
+* [我该如何贡献？](#我该如何贡献)
+    * [测试](#测试)
+    * [发起一个 pull request](#发起一个-pull-request)
+        * [编辑一个现有包](#编辑一个现有包)
+        * [创建一个新的包](#创建一个新的包)
+        * [常见错误](#常见错误)
+        * [删除一个包](#删除一个包)
+        * [Lint](#lint)
+* [FAQ](#faq)
+
 ## 当前状态
 
 这个部分会跟踪仓库和发布过程的运行状况。
 这可能会对在 PRs 和包中遇到任何问题的贡献者有所帮助。
 
-* 所有的包都具有完善的 [类型标注](https://github.com/Microsoft/dtslint)：[![Build Status](https://travis-ci.org/DefinitelyTyped/DefinitelyTyped.svg?branch=master)](https://travis-ci.org/DefinitelyTyped/DefinitelyTyped)
+* 最近的构建都具有完善的 [类型标注](https://github.com/Microsoft/dtslint)：[![Build Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.DefinitelyTyped?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=1&branchName=master)
+* 所有的包基于 typescript@next 版本都有完善的类型标注：[![Build Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.dtslint-runner?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=2&branchName=master)
 * 所有的包都会在1小时内 [发布到 npm](https://github.com/Microsoft/types-publisher): [![Publish Status](https://typescript.visualstudio.com/TypeScript/_apis/build/status/sandersn.types-publisher-watchdog)](https://typescript.visualstudio.com/TypeScript/_build/latest?definitionId=13)
 * [typescript-bot](https://github.com/typescript-bot) 在 DefinitelyTyped 一直处于活跃状态 [![Activity Status](https://typescript.visualstudio.com/TypeScript/_apis/build/status/sandersn.typescript-bot-watchdog)](https://typescript.visualstudio.com/TypeScript/_build/latest?definitionId=14)
 
@@ -113,7 +127,7 @@ npm install --save-dev @types/node
 
 如果你是库作者并且你的包是用 TypeScript 编写的，那么请在你的包里 [捆绑自动生成的声明文件](http://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) 而不是发布到 Definitely Typed.
 
-如果你要为 NPM 包添加类型，清创建具有相同名字的目录。
+如果你要为 NPM 包添加类型，请创建具有相同名字的目录。
 如果你要添加类型的包不再 NPM 上，请确保为它选择的名字不会与 NPM 上面的包名冲突。
 (你可以使用 `npm info foo` 来检查 `foo` 包是否存在。)
 
@@ -138,7 +152,7 @@ Definitely Typed 的成员会定期查看新的 PRs，但是请记住当有许�
 #### 常见错误
 
 * 首先，请遵循 [手册](http://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html) 的建议。
-* 格式化：要么全部使用 tabs，要么始终使用 4 个空格。
+* 格式化：使用4个空格。 对于新代码，这由 Prettier 强制执行。
 * `function sum(nums: number[]): number`: 如果函数没有写入的参数，请使用 `ReadonlyArray`.
 * `interface Foo { new(): Foo; }`:
     这定义了一个可实例化的类型，你可能需要的是 `declare class Foo { constructor(); }`.

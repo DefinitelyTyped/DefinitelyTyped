@@ -1,5 +1,5 @@
 export default class PriorityQueue<T> {
-    constructor(priorityFunction: ((param0: T) => number), keyFunction: ((param0: T) => string));
+    constructor(priorityFunction: (p0: T) => number, keyFunction: (p0: T) => string);
     clear(): void;
     dequeue(): T;
     enqueue(element: T): boolean;

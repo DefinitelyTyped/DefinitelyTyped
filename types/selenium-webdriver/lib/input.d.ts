@@ -1,4 +1,5 @@
-import { Executor, ILocation, WebDriver, WebElement } from '../';
+import { ILocation, WebDriver, WebElement } from '../';
+import { Executor } from './command';
 
 /**
  * Defines the reference point from which to compute offsets for

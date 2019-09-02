@@ -6,6 +6,7 @@ import fetch, {
     Response,
     FetchError
 } from "node-fetch";
+import { URL } from "url";
 import { Agent } from "http";
 
 function test_fetchUrlWithOptions() {
@@ -73,7 +74,7 @@ function test_fetchUrlWithRequestObject() {
     );
     const timeout: number = request.timeout;
     const size: number = request.size;
-    const agent: Agent | undefined = request.agent;
+    const agent: Agent | ((parsedUrl: URL) => Agent) | undefined = request.agent;
     const protocol: string = request.protocol;
 
     handlePromise(fetch(request));

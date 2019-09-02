@@ -1,19 +1,20 @@
-import Collection from 'ol/Collection';
-import { EventsKey } from 'ol/events';
-import { Condition } from 'ol/events/condition';
-import Event from 'ol/events/Event';
-import Feature, { FeatureLike } from 'ol/Feature';
-import Interaction from 'ol/interaction/Interaction';
-import Layer from 'ol/layer/Layer';
-import VectorLayer from 'ol/layer/Vector';
-import MapBrowserEvent from 'ol/MapBrowserEvent';
-import { ObjectEvent } from 'ol/Object';
-import { StyleFunction, StyleLike } from 'ol/style/Style';
-export type FilterFunction = ((param0: FeatureLike, param1: Layer) => boolean);
+import Collection from '../Collection';
+import { EventsKey } from '../events';
+import { Condition } from '../events/condition';
+import Event from '../events/Event';
+import Feature, { FeatureLike } from '../Feature';
+import Layer from '../layer/Layer';
+import VectorLayer from '../layer/Vector';
+import MapBrowserEvent from '../MapBrowserEvent';
+import { ObjectEvent } from '../Object';
+import { StyleFunction, StyleLike } from '../style/Style';
+import Interaction from './Interaction';
+
+export type FilterFunction = (p0: FeatureLike, p1: Layer) => boolean;
 export interface Options {
     addCondition?: Condition;
     condition?: Condition;
-    layers?: Layer[] | ((param0: Layer) => boolean);
+    layers?: Layer[] | ((p0: Layer) => boolean);
     style?: StyleLike;
     removeCondition?: Condition;
     toggleCondition?: Condition;
@@ -23,6 +24,9 @@ export interface Options {
     wrapX?: boolean;
     hitTolerance?: number;
 }
+export enum SelectEventType {
+    SELECT = 'select',
+}
 export default class Select extends Interaction {
     constructor(opt_options?: Options);
     getFeatures(): Collection<Feature>;
@@ -30,9 +34,9 @@ export default class Select extends Interaction {
     getLayer(feature: FeatureLike): VectorLayer;
     getOverlay(): VectorLayer;
     setHitTolerance(hitTolerance: number): void;
-    on(type: string | string[], listener: ((param0: any) => void)): EventsKey | EventsKey[];
-    once(type: string | string[], listener: ((param0: any) => void)): EventsKey | EventsKey[];
-    un(type: string | string[], listener: ((param0: any) => void)): void;
+    on(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
+    once(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
+    un(type: string | string[], listener: (p0: any) => void): void;
     on(type: 'change', listener: (evt: Event) => void): EventsKey;
     once(type: 'change', listener: (evt: Event) => void): EventsKey;
     un(type: 'change', listener: (evt: Event) => void): void;
@@ -51,7 +55,4 @@ export class SelectEvent extends Event {
     deselected: Feature[];
     mapBrowserEvent: MapBrowserEvent;
     selected: Feature[];
-}
-export enum SelectEventType {
-    SELECT = 'select',
 }

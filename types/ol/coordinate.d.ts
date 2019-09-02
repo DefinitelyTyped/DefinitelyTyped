@@ -1,4 +1,7 @@
-import Circle from 'ol/geom/Circle';
+import Circle from './geom/Circle';
+
+export type Coordinate = number[];
+export type CoordinateFormat = (p0: Coordinate | undefined) => string;
 export function add(coordinate: Coordinate, delta: Coordinate): Coordinate;
 export function closestOnCircle(coordinate: Coordinate, circle: Circle): Coordinate;
 export function closestOnSegment(coordinate: Coordinate, segment: Coordinate[]): Coordinate;
@@ -13,5 +16,3 @@ export function squaredDistance(coord1: Coordinate, coord2: Coordinate): number;
 export function squaredDistanceToSegment(coordinate: Coordinate, segment: Coordinate[]): number;
 export function toStringHDMS(coordinate: Coordinate, opt_fractionDigits?: number): string;
 export function toStringXY(coordinate: Coordinate, opt_fractionDigits?: number): string;
-export type Coordinate = number[];
-export type CoordinateFormat = ((param0: Coordinate) => string);

@@ -1,4 +1,6 @@
 import express = require('express');
+import * as http from 'http';
+import { RequestRanges, ParamsArray } from 'express-serve-static-core';
 
 namespace express_tests {
     const app = express();
@@ -117,6 +119,27 @@ namespace express_tests {
         res.render('regular');
     });
 
+    // Params defaults to dictionary
+    router.get('/:foo', req => {
+        req.params.foo; // $ExpectType string
+        req.params[0]; // $ExpectType string
+    });
+
+    // Params can used as an array
+    router.get<ParamsArray>('/*', req => {
+        req.params[0]; // $ExpectType string
+        req.params.length; // $ExpectType number
+    });
+
+    // Params can be a custom type that conforms to constraint
+    router.get<{ foo: string }>('/:foo', req => {
+        req.params.foo; // $ExpectType string
+        req.params.bar; // $ExpectError
+    });
+
+    // Params cannot be a custom type that does not conform to constraint
+    router.get<{ foo: number }>('/:foo', () => {}); // $ExpectError
+
     app.use((req, res, next) => {
         // hacky trick, router is just a handler
         router(req, res, next);
@@ -157,8 +180,6 @@ namespace express_tests {
  * Test with other modules *
  *                         *
  ***************************/
-import * as http from 'http';
-import { RequestRanges } from 'express-serve-static-core';
 
 namespace node_tests {
     {

@@ -1,5 +1,6 @@
-import { Extent } from 'ol/extent';
-import WebGLReplay from 'ol/render/webgl/Replay';
+import { Extent } from '../../extent';
+import WebGLReplay from './Replay';
+
 export interface PolygonSegment {
     p0: PolygonVertex;
     p1: PolygonVertex;

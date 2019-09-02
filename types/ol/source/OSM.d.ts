@@ -1,11 +1,11 @@
-import { EventsKey } from 'ol/events';
-import Event from 'ol/events/Event';
-import { ObjectEvent } from 'ol/Object';
-import { AttributionLike } from 'ol/source/Source';
-import { TileSourceEvent } from 'ol/source/Tile';
-import XYZ from 'ol/source/XYZ';
-import { LoadFunction } from 'ol/Tile';
-export const ATTRIBUTION: string;
+import { EventsKey } from '../events';
+import Event from '../events/Event';
+import { ObjectEvent } from '../Object';
+import { LoadFunction } from '../Tile';
+import { AttributionLike } from './Source';
+import { TileSourceEvent } from './Tile';
+import XYZ from './XYZ';
+
 export interface Options {
     attributions?: AttributionLike;
     cacheSize?: number;
@@ -17,11 +17,12 @@ export interface Options {
     url?: string;
     wrapX?: boolean;
 }
+export const ATTRIBUTION: string;
 export default class OSM extends XYZ {
     constructor(opt_options?: Options);
-    on(type: string | string[], listener: ((param0: any) => void)): EventsKey | EventsKey[];
-    once(type: string | string[], listener: ((param0: any) => void)): EventsKey | EventsKey[];
-    un(type: string | string[], listener: ((param0: any) => void)): void;
+    on(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
+    once(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
+    un(type: string | string[], listener: (p0: any) => void): void;
     on(type: 'change', listener: (evt: Event) => void): EventsKey;
     once(type: 'change', listener: (evt: Event) => void): EventsKey;
     un(type: 'change', listener: (evt: Event) => void): void;

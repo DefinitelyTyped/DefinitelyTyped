@@ -686,7 +686,7 @@ declare namespace Application {
         request: Request;
     }
 
-    type ParameterizedContext<StateT = any, CustomT = {}> = BaseContext & {
+    interface ExtendableContext extends BaseContext {
         app: Application;
         request: Request;
         response: Response;
@@ -695,11 +695,14 @@ declare namespace Application {
         originalUrl: string;
         cookies: Cookies;
         accept: accepts.Accepts;
-        state: StateT;
         /**
          * To bypass Koa's built-in response handling, you may explicitly set `ctx.respond = false;`
          */
         respond?: boolean;
+    }
+
+    type ParameterizedContext<StateT = any, CustomT = {}> = ExtendableContext & {
+        state: StateT;
     } & CustomT;
 
     interface Context extends ParameterizedContext {}

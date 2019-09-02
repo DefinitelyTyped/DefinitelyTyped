@@ -29,6 +29,23 @@ pkgcloud.storage.createClient({
 	projectId: 'projectId'
 });
 
+// Openstack
+pkgcloud.storage.createClient({
+	provider: 'openstack',
+	authUrl: 'http://example.com',
+	username: 'username',
+	password: 'password'
+});
+
+// Rackspace
+pkgcloud.storage.createClient({
+	provider: 'rackspace',
+	username: 'username',
+	apiKey: 'apiKey',
+	region: 'DFW',
+	useInternal: false
+});
+
 // Upload a File
 {
 	const client = pkgcloud.storage.createClient({

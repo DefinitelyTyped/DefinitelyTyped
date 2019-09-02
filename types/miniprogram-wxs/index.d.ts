@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference no-default-lib="true"/>
-/// <reference lib="es5"/>
+/// <reference path="es5.d.ts"/>
 
 /**
  * 生成 regexp 对象需要使用 getRegExp函数。
@@ -36,24 +36,22 @@ declare function getDate(
     ms?: number,
 ): Date;
 
-declare interface DateConstructor {
-    /**
-     * wxs 中禁止使用new来构造 Date
-     * 使用 `getDate` 代替
-     */
-    new(...args: any): never;
-}
-
-declare interface RegExpConstructor {
-    /**
-     * wxs 中禁止使用new来构造 RegExp
-     * 使用 `getRegExp` 代替
-     */
-    new(...args: any): never;
-}
 /**
  * 方法用于在 console 窗口输出信息。它可以接受多个参数，将它们的结果连接起来输出。
  */
 declare const console: {
     log(message?: any, ...optionalParams: any[]): void;
 };
+
+interface Module {
+    /**
+     * 导出内容
+     */
+    exports: any;
+}
+
+/**
+ * 模块
+ */
+declare const module: Module;
+

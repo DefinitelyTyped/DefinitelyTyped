@@ -1,13 +1,20 @@
-import { EventsKey } from 'ol/events';
-import { Condition } from 'ol/events/condition';
-import Event from 'ol/events/Event';
-import DragBox, { DragBoxEvent } from 'ol/interaction/DragBox';
-import { ObjectEvent } from 'ol/Object';
+import { EventsKey } from '../events';
+import { Condition } from '../events/condition';
+import Event from '../events/Event';
+import { ObjectEvent } from '../Object';
+import DragBox, { DragBoxEvent } from './DragBox';
+
+export interface Options {
+    className?: string;
+    condition?: Condition;
+    duration?: number;
+    out?: boolean;
+}
 export default class DragZoom extends DragBox {
     constructor(opt_options?: Options);
-    on(type: string | string[], listener: ((param0: any) => void)): EventsKey | EventsKey[];
-    once(type: string | string[], listener: ((param0: any) => void)): EventsKey | EventsKey[];
-    un(type: string | string[], listener: ((param0: any) => void)): void;
+    on(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
+    once(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
+    un(type: string | string[], listener: (p0: any) => void): void;
     on(type: 'boxdrag', listener: (evt: DragBoxEvent) => void): EventsKey;
     once(type: 'boxdrag', listener: (evt: DragBoxEvent) => void): EventsKey;
     un(type: 'boxdrag', listener: (evt: DragBoxEvent) => void): void;
@@ -26,10 +33,4 @@ export default class DragZoom extends DragBox {
     on(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
     once(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
     un(type: 'propertychange', listener: (evt: ObjectEvent) => void): void;
-}
-export interface Options {
-    className?: string;
-    condition?: Condition;
-    duration?: number;
-    out?: boolean;
 }

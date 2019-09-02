@@ -10,7 +10,7 @@ declare namespace GoogleAppsScript {
     /**
      * A data interchange object for Apps Script services.
      */
-    export interface Blob {
+    export interface Blob extends BlobSource {
       copyBlob(): Blob;
       getAs(contentType: string): Blob;
       getBytes(): Byte[];
@@ -307,15 +307,15 @@ declare namespace GoogleAppsScript {
      */
     export interface console {
       error(): void;
-      error(formatOrObject: object, ...values: object[]): void;
+      error(formatOrObject: object | string, ...values: any[]): void;
       info(): void;
-      info(formatOrObject: object, ...values: object[]): void;
+      info(formatOrObject: object | string, ...values: any[]): void;
       log(): void;
-      log(formatOrObject: object, ...values: object[]): void;
+      log(formatOrObject: object | string, ...values: any[]): void;
       time(label: string): void;
       timeEnd(label: string): void;
       warn(): void;
-      warn(formatOrObject: object, ...values: object[]): void;
+      warn(formatOrObject: object | string, ...values: any[]): void;
     }
     /** 
      * Apps Script has a non-standard Date Class

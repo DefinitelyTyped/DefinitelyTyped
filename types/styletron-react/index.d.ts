@@ -57,7 +57,16 @@ export interface Styletron {
     };
 }
 
-export type StyletronComponent<Props> = React.FC<Props> & {
+export type StyleObjectFn<P extends object> = (props: P) => StyleObject;
+
+export type $StyleProp<P extends object> = StyleObject | StyleObjectFn<P>;
+
+export interface StyletronComponentInjectedProps<P extends object> {
+    $as?: StyletronBase;
+    $style?: $StyleProp<P>;
+}
+
+export type StyletronComponent<P extends object> = React.FC<P & StyletronComponentInjectedProps<P>> & {
     __STYLETRON__: Styletron;
 };
 
@@ -173,6 +182,10 @@ export const withTransform: WithTransformFn;
 
 export const withStyleDeep: WithStyleFn;
 
+/**
+ * Aliases to withStyleDeep()
+ * @deprecated use withStyleDeep()
+ */
 export const withStyle: typeof withStyleDeep;
 
 export const withWrapper: WithWrapperFn;

@@ -60,7 +60,7 @@ export function select<
     >
 >(name: string, options: ReadonlyArray<T>, value: T, groupId?: string): T;
 
-export function date(name: string, value?: Date, groupId?: string): Date;
+export function date(name: string, value?: Date, groupId?: string): number;
 
 export function array<T>(name: string, value: ReadonlyArray<T>, separator?: string, groupId?: string): T[];
 
@@ -84,6 +84,15 @@ export function optionsKnob<T>(
     defaultValue?: T,
     options?: OptionsKnobOptions
 ): T;
+
+export function optionsKnob<T>(
+    label: string,
+    values: {
+        [key: string]: T;
+    },
+    defaultValue?: T[],
+    options?: OptionsKnobOptions
+): T[];
 
 export interface WrapStoryProps {
     context?: object;

@@ -54,6 +54,10 @@ export interface ChartProps<T> {
     yScale?: ScaleFunction;
     xAccessor?: AccessorFunction<T, number>;
     yAccessor?: AccessorFunction<T, number>;
+    yMin?: number;
+    yMax?: number;
+    xMin?: number;
+    xMax?: number;
 }
 
 // Line Chart

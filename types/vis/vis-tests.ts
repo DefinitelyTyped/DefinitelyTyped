@@ -147,6 +147,16 @@ const positiveBalance = dataset.get({
   }
 });
 
+// DataGroup test
+const groups = [
+  {id: "1", content: "group 1", visible: true},
+  {id: "2", content: "group 2", visible: false},
+  {id: "3", content: "parent group", nestedGroups: [ "1", "2" ],  visible: false, showNested: true}
+];
+
+const timelineContainer = <HTMLElement> document.getElementById('timeline');
+const timeline = new vis.Timeline(timelineContainer, [], groups);
+
 //
 // Test code sample from Getting Started http://visjs.org/docs/network/
 //

@@ -1,7 +1,12 @@
 import { Socket, Channel, Presence } from 'phoenix';
 
 function test_socket() {
-  const socket = new Socket('/ws', {params: {userToken: '123'}});
+  const socket = new Socket('/ws', {
+      binaryType: 'arraybuffer',
+      params: { userToken: '123' },
+      reconnectAfterMs: tries => 1000,
+      rejoinAfterMs: tries => 1000,
+  });
   socket.connect();
 }
 

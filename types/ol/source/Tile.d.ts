@@ -1,20 +1,17 @@
-import { EventsKey } from 'ol/events';
-import Event from 'ol/events/Event';
-import { ObjectEvent } from 'ol/Object';
-import { ProjectionLike } from 'ol/proj';
-import Projection from 'ol/proj/Projection';
-import { Size } from 'ol/size';
-import Source, { AttributionLike } from 'ol/source/Source';
-import State from 'ol/source/State';
-import Tile, { Options as Options_1 } from 'ol/Tile';
-import TileCache from 'ol/TileCache';
-import { TileCoord } from 'ol/tilecoord';
-import TileGrid from 'ol/tilegrid/TileGrid';
-import TileRange from 'ol/TileRange';
-export class TileSourceEvent extends Event {
-    constructor();
-    tile: Tile;
-}
+import { EventsKey } from '../events';
+import Event from '../events/Event';
+import { ObjectEvent } from '../Object';
+import { ProjectionLike } from '../proj';
+import Projection from '../proj/Projection';
+import { Size } from '../size';
+import Tile, { Options as Options_1 } from '../Tile';
+import TileCache from '../TileCache';
+import { TileCoord } from '../tilecoord';
+import TileGrid from '../tilegrid/TileGrid';
+import TileRange from '../TileRange';
+import Source, { AttributionLike } from './Source';
+import State from './State';
+
 export interface Options {
     attributions?: AttributionLike;
     attributionsCollapsible?: boolean;
@@ -37,25 +34,29 @@ export default class TileSource extends Source {
     protected getKey(): string;
     protected getTileCacheForProjection(projection: Projection): TileCache;
     protected setKey(key: string): void;
-    getTileGrid(): TileGrid;
-    getTileCoordForTileUrlFunction(tileCoord: TileCoord, opt_projection?: Projection): TileCoord;
+    canExpireCache(): boolean;
     expireCache(projection: Projection, usedTiles: { [key: string]: TileRange }): void;
+    forEachLoadedTile(projection: Projection, z: number, tileRange: TileRange, callback: (p0: Tile) => boolean): boolean;
+    getGutterForProjection(projection: Projection): number;
+    getOpaque(projection: Projection): boolean;
+    getTile(z: number, x: number, y: number, pixelRatio: number, projection: Projection): Tile;
+    getTileCoordForTileUrlFunction(tileCoord: TileCoord, opt_projection?: Projection): TileCoord;
+    getTileGrid(): TileGrid;
     getTileGridForProjection(projection: Projection): TileGrid;
     getTilePixelRatio(pixelRatio: number): number;
     getTilePixelSize(z: number, pixelRatio: number, projection: Projection): Size;
-    getGutterForProjection(projection: Projection): number;
-    canExpireCache(): boolean;
-    getOpaque(projection: Projection): boolean;
-    getTile(z: number, x: number, y: number, pixelRatio: number, projection: Projection): Tile;
-    forEachLoadedTile(projection: Projection, z: number, tileRange: TileRange, callback: ((param0: Tile) => boolean | void)): boolean;
     useTile(z: number, x: number, y: number, projection: Projection): void;
-    on(type: string | string[], listener: ((param0: any) => void)): EventsKey | EventsKey[];
-    once(type: string | string[], listener: ((param0: any) => void)): EventsKey | EventsKey[];
-    un(type: string | string[], listener: ((param0: any) => void)): void;
+    on(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
+    once(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
+    un(type: string | string[], listener: (p0: any) => void): void;
     on(type: 'change', listener: (evt: Event) => void): EventsKey;
     once(type: 'change', listener: (evt: Event) => void): EventsKey;
     un(type: 'change', listener: (evt: Event) => void): void;
     on(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
     once(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
     un(type: 'propertychange', listener: (evt: ObjectEvent) => void): void;
+}
+export class TileSourceEvent extends Event {
+    constructor();
+    tile: Tile;
 }

@@ -21,6 +21,16 @@ export interface ReactImageGalleryItem {
     description?: string;
     srcSet?: string;
     sizes?: string;
+    bulletClass?: string;
+    bulletOnClick?({
+        item,
+        itemIndex,
+        currentIndex,
+    }: {
+        item: ReactImageGalleryItem;
+        itemIndex: number;
+        currentIndex: number;
+    }): void;
 }
 
 export interface ReactImageGalleryProps {

@@ -221,6 +221,14 @@ test = (
   />
 );
 
+test = (
+    <VictoryAxis axisValue={3} />
+);
+
+test = (
+    <VictoryAxis axisValue="series1" />
+);
+
 // VictoryBar test
 test = (
   <VictoryBar
@@ -504,6 +512,14 @@ test = (
     <VictoryBar
       data={[{ x: "a", y: 3 }, { x: "b", y: 2 }, { x: "c", y: 6 }]}
     />
+  </VictoryGroup>
+);
+
+test = (
+  <VictoryGroup color="#46c85e" offset={40} data={commonData2}>
+    <VictoryBar />
+    <VictoryBar />
+    <VictoryBar />
   </VictoryGroup>
 );
 

@@ -1,8 +1,9 @@
-import { Coordinate } from 'ol/coordinate';
-import { Extent } from 'ol/extent';
-import { Size } from 'ol/size';
-import { TileCoord } from 'ol/tilecoord';
-import TileRange from 'ol/TileRange';
+import { Coordinate } from '../coordinate';
+import { Extent } from '../extent';
+import { Size } from '../size';
+import { TileCoord } from '../tilecoord';
+import TileRange from '../TileRange';
+
 export interface Options {
     extent?: Extent;
     minZoom?: number;
@@ -15,8 +16,10 @@ export interface Options {
 }
 export default class TileGrid {
     constructor(options: Options);
-    protected minZoom: number;
     protected maxZoom: number;
+    protected minZoom: number;
+    forEachTileCoord(extent: Extent, zoom: number, callback: (p0: TileCoord) => void): void;
+    forEachTileCoordParentTileRange<T>(tileCoord: TileCoord, callback: (this: T, p0: number, p1: TileRange) => boolean, opt_this?: T, opt_tileRange?: TileRange, opt_extent?: Extent): boolean;
     getExtent(): Extent;
     getFullTileRange(z: number): TileRange;
     getMaxZoom(): number;
@@ -25,7 +28,7 @@ export default class TileGrid {
     getResolution(z: number): number;
     getResolutions(): number[];
     getTileCoordCenter(tileCoord: TileCoord): Coordinate;
-    forEachTileCoordParentTileRange<T>(tileCoord: TileCoord, callback: ((this: T, param1: number, param2: TileRange) => boolean), opt_this?: T, opt_tileRange?: TileRange, opt_extent?: Extent): boolean;
+    getTileCoordChildTileRange(tileCoord: TileCoord, opt_tileRange?: TileRange, opt_extent?: Extent): TileRange;
     getTileCoordExtent(tileCoord: TileCoord, opt_extent?: Extent): Extent;
     getTileCoordForCoordAndResolution(coordinate: Coordinate, resolution: number, opt_tileCoord?: TileCoord): TileCoord;
     getTileCoordForCoordAndZ(coordinate: Coordinate, z: number, opt_tileCoord?: TileCoord): TileCoord;
@@ -34,6 +37,4 @@ export default class TileGrid {
     getTileRangeForExtentAndZ(extent: Extent, z: number, opt_tileRange?: TileRange): TileRange;
     getTileSize(z: number): number | Size;
     getZForResolution(resolution: number, opt_direction?: number): number;
-    forEachTileCoord(extent: Extent, zoom: number, callback: ((param0: TileCoord) => void)): void;
-    getTileCoordChildTileRange(tileCoord: TileCoord, opt_tileRange?: TileRange, opt_extent?: Extent): TileRange;
 }

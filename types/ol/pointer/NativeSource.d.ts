@@ -1,5 +1,6 @@
-import EventSource from 'ol/pointer/EventSource';
-import PointerEventHandler from 'ol/pointer/PointerEventHandler';
+import EventSource from './EventSource';
+import PointerEventHandler from './PointerEventHandler';
+
 export default class NativeSource extends EventSource {
     constructor(dispatcher: PointerEventHandler);
 }

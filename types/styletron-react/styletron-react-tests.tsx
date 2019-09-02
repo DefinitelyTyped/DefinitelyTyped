@@ -56,6 +56,16 @@ const DynamicStyledComplexButton = styled(
 
 <DynamicStyledComplexButton $fraction={Math.random()} isDisabled />;
 
+// Allows $as prop
+<BasicStyled $as="button" />;
+
+// Allows $style prop
+<BasicStyled $style={{ color: 'blue' }} />;
+
+const $styleFn = (props: DynamicStyledProps) => ({ color: props.$fraction < 0.2 ? 'red' : 'green' });
+
+<DynamicStyled $style={$styleFn} $fraction={Math.random()} />;
+
 // withStyle()
 // --------------------------
 

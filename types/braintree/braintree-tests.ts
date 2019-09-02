@@ -1,7 +1,8 @@
 import braintree = require('braintree');
 import { BraintreeGateway, Address, AddressCreateRequest,
     CreditCard, Customer, PayPalAccount, ApplePayCard, AndroidPayCard,
-    VisaCheckoutCard, SamsungPayCard, MasterpassCard, PaymentMethod, Transaction
+    VisaCheckoutCard, SamsungPayCard, MasterpassCard, PaymentMethod,
+    PaymentMethodNonce, Transaction
 } from 'braintree';
 
 /**
@@ -55,6 +56,11 @@ const gateway: BraintreeGateway = new braintree.BraintreeGateway({
     const visaCheckoutCard = <VisaCheckoutCard> response.paymentMethod;
     const samsungPayCard = <SamsungPayCard> response.paymentMethod;
     const masterpassCard = <MasterpassCard> response.paymentMethod;
+})();
+
+(async () => {
+  const response = await gateway.paymentMethodNonce.create('token');
+  const nonce = response.paymentMethodNonce.nonce;
 })();
 
 (async () => {

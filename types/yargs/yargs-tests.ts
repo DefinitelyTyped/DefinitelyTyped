@@ -387,6 +387,35 @@ function Argv$commandModule() {
     const commandArgs3: yargs.Arguments = builder2(yargs).argv;
 }
 
+function Argv$completion_hide() {
+    // no func
+    yargs.completion('completion', false).argv;
+
+    // sync func
+    yargs.completion('complation', false, (current, argv) => {
+        // 'current' is the current command being completed.
+        // 'argv' is the parsed arguments so far.
+        // simply return an array of completions.
+        return ['foo', 'bar'];
+    }).argv;
+
+    // async func
+    yargs.completion('complation', false, (current: string, argv: any, done: (completion: string[]) => void) => {
+        setTimeout(() => {
+            done(['apple', 'banana']);
+        }, 500);
+    }).argv;
+
+    // promise func
+    yargs.completion('complation', false, (current: string, argv: any) => {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve(['apple', 'banana']);
+            }, 10);
+        });
+    }).argv;
+}
+
 function Argv$completion_sync() {
     const argv = yargs
         .completion('completion', (current, argv) => {
@@ -817,6 +846,9 @@ function Argv$scriptName() {
 type Color = "red" | "blue" | "green";
 const colors: ReadonlyArray<Color> = ["red", "blue", "green"];
 
+type Stage = 1 | 2 | 3 | 4;
+const stages: ReadonlyArray<Stage> = [1, 2, 3, 4];
+
 function Argv$inferOptionTypes() {
     // $ExpectType { [x: string]: unknown; a: (string | number)[] | undefined; b: boolean | undefined; c: number; n: number | undefined; s: string | undefined; _: string[]; $0: string; }
     yargs
@@ -842,9 +874,10 @@ function Argv$inferOptionTypes() {
         .option("s", { string: true })
         .argv;
 
-    // $ExpectType { [x: string]: unknown; choices: Color; coerce: Date | undefined; count: number; normalize: string | undefined; _: string[]; $0: string; }
+    // $ExpectType { [x: string]: unknown; choices: Color; numberChoices: Stage; coerce: Date | undefined; count: number; normalize: string | undefined; _: string[]; $0: string; }
     yargs
         .option("choices", { choices: colors, required: true })
+        .option("numberChoices", { choices: stages, demandOption: true })
         .option("coerce", { coerce: () => new Date() })
         .option("count", { count: true })
         .option("normalize", { normalize: true })
@@ -858,6 +891,9 @@ function Argv$inferOptionTypes() {
 
     // $ExpectType "red" | "blue" | "green" | undefined
     yargs.choices("x", colors).argv.x;
+
+    // $ExpectType number | undefined
+    yargs.choices('x', [1, 2, 3, 4]).argv.x;
 
     // $ExpectType number | undefined
     yargs.coerce("x", Date.parse).argv.x;

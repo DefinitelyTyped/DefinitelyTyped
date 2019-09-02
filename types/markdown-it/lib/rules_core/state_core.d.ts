@@ -4,6 +4,9 @@ import Token = require("../token");
 export = StateCore;
 
 declare class StateCore {
+    
+    constructor(src: string, md: MarkdownIt, env: any)
+
     env: any;
     level: number;
 

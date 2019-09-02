@@ -1,4 +1,4 @@
-// Type definitions for react-alice-carousel 1.13
+// Type definitions for react-alice-carousel 1.15
 // Project: https://github.com/maxmarinich/react-alice-carousel
 // Definitions by: endigo <https://github.com/endigo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -138,19 +138,19 @@ export interface Props {
    *
    * Default: false.
    */
-  showSlideInfo?: false;
+  showSlideInfo?: boolean;
   /**
    * Prevent the browser's touchmove event when carousel is swiping
    *
    * Default: false.
    */
-  preventEventOnTouchMove?: false;
+  preventEventOnTouchMove?: boolean;
   /**
-   * Prevent the browser's touchmove event when carousel is swiping
+   * Set auto height for the stage
    *
    * Default: false.
    */
-  autoHeight?: false;
+  autoHeight?: boolean;
   /**
    * Fired when the event object is changing / returns event object
    */
@@ -167,6 +167,18 @@ export interface Props {
    * Fired when the gallery was resized / returns event object
    */
   onResized?: (e: EventObject) => void;
+  /**
+   * Fired during resize event to determine whether the event handler should be called / return boolean
+   */
+  shouldHandleResizeEvent?: (e: any) => boolean;
 }
 
-export default class ReactAliceCarousel extends React.PureComponent<Props> {}
+export function slideTo(index: number): void;
+export function slidePrev(): void;
+export function slideNext(): void;
+
+export default class ReactAliceCarousel extends React.PureComponent<Props> {
+  slideTo(index: number): void;
+  slidePrev(): void;
+  slideNext(): void;
+}

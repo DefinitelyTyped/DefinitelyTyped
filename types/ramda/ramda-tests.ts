@@ -74,14 +74,20 @@ class F2 {
 
     const x1: (a: number, b: number, c: number, d: number) => number = R.curry(addFourNumbers);
     // because of the current way of currying, the following call results in a type error
-    // const x2: Function = R.curry(addFourNumbers)(1,2,4)
+    const x2: (...args: any) => any = R.curry(addFourNumbers)(1, 2, 4);
     const x3: (c: number, d: number) => number = R.curry(addFourNumbers)(1)(2);
     const x4: (d: number) => number = R.curry(addFourNumbers)(1)(2)(3);
-    const y1: number   = R.curry(addFourNumbers)(1)(2)(3)(4);
-    const y2: number   = R.curry(addFourNumbers)(1, 2)(3, 4);
-    const y3: number   = R.curry(addFourNumbers)(1, 2, 3)(4);
-    const y4: number   = R.curry(addTenFixedNumbers)(R.__, 1, 2)(0)(3)(R.__, R.__)(R.__, 5)(4)(6, 7)(R.__)(8, R.__, R.__)(9, 10);
-    const y5: number   = R.curry(addTenFixedNumbers)(R.__, 1, R.__)(R.__, 2)(0, 3)(R.__, 5)(4, R.__)(R.__)(6, R.__, 8, 9, 10)(7);
+    const y1: number = R.curry(addFourNumbers)(1)(2)(3)(4);
+    const y2: number = R.curry(addFourNumbers)(1, 2)(3, 4);
+    const y3: number = R.curry(addFourNumbers)(1, 2, 3)(4);
+    const y4: number = R.curry(addTenFixedNumbers)(R.__, 1, 2)(0)(3)(
+      R.__,
+      R.__,
+    )(R.__, 5)(4)(6, 7)(R.__)(8, R.__, R.__)(9, 10);
+    const y5: number = R.curry(addTenFixedNumbers)(R.__, 1, R.__)(R.__, 2)(
+      0,
+      3,
+    )(R.__, 5)(4, R.__)(R.__)(6, R.__, 8, 9, 10)(7);
 
     R.nAry(0);
     R.nAry(0, takesNoArg);
@@ -455,7 +461,7 @@ class F2 {
     range(3, 4, 9, -3); // => [-3, 9]
 
     const chopped = R.juxt([R.head, R.last]);
-    chopped("longstring"); // => ["l", "g"]
+    chopped([1, 2, 3]); // => [1, 3]
 });
 
 function square(x: number) {
@@ -723,6 +729,11 @@ R.times(i, 5);
 
     R.chain(duplicate, [1, 2, 3]); // => [1, 1, 2, 2, 3, 3]
     R.chain(duplicate)([1, 2, 3]); // => [1, 1, 2, 2, 3, 3]
+    const result1: number[] = R.chain<number, number[], number[]>(R.append, R.head)([
+        1,
+        2,
+        3
+    ]); // => [1, 2, 3, 1]
 };
 
 () => {
@@ -819,6 +830,18 @@ R.times(i, 5);
     const d: number[] = R.pipe(
         R.reject<number, 'array'>(isEven),
     )([0, 1]); // => [1]
+};
+
+() => {
+    const compact = R.filter(Boolean);
+    const objA: R.Dictionary<number> = compact({ a: 0, b: 1 }); // => { b: 1 }
+    const listA: number[] = compact([0, 1]); // => [1]
+
+    const omitEmptyString = R.filter((val: string) => val !== '');
+    const objB: R.Dictionary<string> = omitEmptyString({ a: '', b: 'foo' }); // => { b: 'foo' }
+    const listB: string[] = omitEmptyString(['', 'foo']); // => ['foo']
+
+    const objC = omitEmptyString({ some: 42 }); // $ExpectError
 };
 
 () => {
@@ -920,8 +943,8 @@ interface Obj {
 };
 
 () => {
-    R.flatten([1, 2, [3, 4], 5, [6, [7, 8, [9, [10, 11], 12]]]]);
-    // => [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+    R.flatten([[1, 2], [3, 4], [5, 6]]); // => [1, 2, 3, 4, 5, 6]
+    R.flatten([1, 2, 3, 4, 5, 6]);       // => [1, 2, 3, 4, 5, 6]
 };
 
 () => {
@@ -1421,6 +1444,8 @@ type Pair = KeyValuePair<string, number>;
         "Eugene Wright", "Gerry Mulligan", "Jack Six", "Alan Dawson", "Darius Brubeck", "Chris Brubeck",
         "Dan Brubeck", "Bobby Militello", "Michael Moore", "Randy Jones"];
     const takeFive = R.take(5);
+
+    // $ExpectType string[]
     takeFive(members); // => ["Paul Desmond","Bob Bates","Joe Dodge","Ron Crotty","Lloyd Davis"]
 };
 
@@ -1577,6 +1602,14 @@ type Pair = KeyValuePair<string, number>;
 () => {
     R.zip([1, 2, 3], ["a", "b", "c"]); // => [[1, 'a'], [2, 'b'], [3, 'c']]
     R.zip([1, 2, 3])(["a", "b", "c"]); // => [[1, 'a'], [2, 'b'], [3, 'c']]
+
+    type TNames = string[];
+    const fullNames: TNames[] = R.zip<string, string>(["John", "Juliet", "Melanie"], ["Titor", "Burke", "Cross"]);
+    const fullNames2: TNames[] = R.zip(["John", "Juliet", "Melanie"])(["Titor", "Burke", "Cross"]);
+
+    type TNameAge = [string, number];
+    const namesAndAges: TNameAge[] = R.zip<string, number>(["John", "Juliet", "Melanie"], [21, 22, 23]);
+    const namesAndAges2: TNameAge[] = R.zip(["John", "Juliet", "Melanie"])([21, 22, 23]);
 };
 
 () => {
@@ -1611,6 +1644,7 @@ type Pair = KeyValuePair<string, number>;
 () => {
     type ABC = Record<string, string>;
     const b: ABC = R.compose(R.assoc, R.toString)(3)("c", {1: "a", 2: "b"}); // => {1: "a", 2: "b", 3: "c"}
+    const c: ABC = R.compose(R.assoc, R.toString)(3)("c")({1: "a", 2: "b"}); // => {1: "a", 2: "b", 3: "c"}
 };
 
 () => {
@@ -1965,15 +1999,18 @@ class Rectangle {
 };
 
 () => {
-    const orValue  = "N/A";
+    const orValue  = 11;
+    const orValueStr = "str";
     const testPath = ["x", 0, "y"];
     const testObj  = {x: [{y: 2, z: 3}, {y: 4, z: 5}]};
+    const testObjMiss = {c: {b: 2}};
 
-    R.pathOr(orValue, testPath, testObj); // => 2
-    R.pathOr(orValue, testPath)(testObj); // => 2
-    R.pathOr(orValue)(testPath)(testObj); // => 2
-    R.pathOr(orValue)(testPath, testObj); // => 2
-    R.pathOr(orValue, testPath, {c: {b: 2}}); // => "N/A"
+    R.pathOr<number>(orValue, testPath, testObj); // => 2
+    R.pathOr<number>(orValue, testPath)(testObj); // => 2
+    R.pathOr<number>(orValue)(testPath)(testObj); // => 2
+    R.pathOr<number>(orValue)(testPath, testObj); // => 2
+    R.pathOr<number>(orValue, testPath, testObjMiss); // => 11
+    R.pathOr<number | string>(orValueStr, testPath, testObjMiss); // => "str"
 };
 
 () => {
@@ -2197,6 +2234,7 @@ class Rectangle {
 () => {
     const x: number[] = R.ap([R.multiply(2), R.add(3)], [1, 2, 3]); // => [2, 4, 6, 4, 5, 6]
     const y: number[] = R.ap([R.multiply(2), R.add(3)])([1, 2, 3]); // => [2, 4, 6, 4, 5, 6]
+    const z: string = R.ap<string, string, string>(R.concat, R.toUpper)('Ramda'); // => 'RamdaRAMDA'
 };
 
 () => {
@@ -2211,6 +2249,10 @@ class Rectangle {
         sum: R.add, nested: {mul: R.multiply}
     });
     const result     = getMetrics(2, 4); // => { sum: 6, nested: { mul: 8 } }
+    const record: { s: string; n: number } = R.applySpec({
+        s: (s: string, n: number) => s,
+        n: (s: string, n: number) => n,
+    })('1', 2);
 };
 
 () => {
@@ -2308,17 +2350,18 @@ class Rectangle {
 };
 
 (() => {
-    function Circle(r: number) {
+    function Circle(r: number, colors: string) {
         this.r      = r;
-        this.colors = Array.prototype.slice.call(arguments, 1);
+        this.colors = colors;
     }
 
     Circle.prototype.area = function() { return Math.PI * Math.pow(this.r, 2); };
 
-    const circleN = R.constructN(2, Circle);
-    let c1      = circleN(1, "red");
+    const circleN = R.constructN(1, Circle);
+    circleN(10, "red");
+    circleN(10);
     const circle  = R.construct(Circle);
-    c1          = circle(1, "red");
+    circle(10, "red");
 })();
 
 /*****************************************************************
@@ -2660,7 +2703,7 @@ class Rectangle {
     const l2  = [{a: 3}, {a: 4}, {a: 5}, {a: 6}];
     R.symmetricDifferenceWith(eqA, l1, l2); // => [{a: 1}, {a: 2}, {a: 5}, {a: 6}]
     R.symmetricDifferenceWith(eqA)(l1, l2); // => [{a: 1}, {a: 2}, {a: 5}, {a: 6}]
-    const c: (a: any[]) => any[] = R.symmetricDifferenceWith(eqA)(l1); // => [{a: 1}, {a: 2}, {a: 5}, {a: 6}]
+    // const c: (a: any[]) => any[] = R.symmetricDifferenceWith(eqA)(l1); // => [{a: 1}, {a: 2}, {a: 5}, {a: 6}]
 };
 
 () => {

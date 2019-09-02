@@ -192,6 +192,11 @@ export interface DraggableStateSnapshot {
     mode?: MovementMode;
 }
 
+export interface Position {
+    x: number;
+    y: number;
+}
+
 export interface DropAnimation {
     duration: number;
     curve: string;

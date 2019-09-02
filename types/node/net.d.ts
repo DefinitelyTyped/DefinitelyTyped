@@ -38,8 +38,8 @@ declare module "net" {
         constructor(options?: SocketConstructorOpts);
 
         // Extended base methods
-        write(buffer: Buffer | Uint8Array | string, cb?: (err?: Error) => void): boolean;
-        write(str: Buffer | Uint8Array | string, encoding?: string, cb?: (err?: Error) => void): boolean;
+        write(buffer: Uint8Array | string, cb?: (err?: Error) => void): boolean;
+        write(str: Uint8Array | string, encoding?: string, cb?: (err?: Error) => void): boolean;
 
         connect(options: SocketConnectOpts, connectionListener?: () => void): this;
         connect(port: number, host: string, connectionListener?: () => void): this;
@@ -69,8 +69,8 @@ declare module "net" {
 
         // Extended base methods
         end(cb?: () => void): void;
-        end(buffer: Buffer | Uint8Array | string, cb?: () => void): void;
-        end(str: Buffer | Uint8Array | string, encoding?: string, cb?: () => void): void;
+        end(buffer: Uint8Array | string, cb?: () => void): void;
+        end(str: Uint8Array | string, encoding?: string, cb?: () => void): void;
 
         /**
          * events.EventEmitter

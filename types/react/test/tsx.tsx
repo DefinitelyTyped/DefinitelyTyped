@@ -321,7 +321,7 @@ const ForwardRef3 = React.forwardRef(
 <ForwardRef3 ref={divFnRef}/>;
 <ForwardRef3 ref={divRef}/>;
 
-const Profiler = React.unstable_Profiler;
+const { Profiler } = React;
 
 // 'id' is missing
 <Profiler />; // $ExpectError
@@ -357,8 +357,14 @@ const Profiler = React.unstable_Profiler;
 </Profiler>;
 
 type ImgProps = React.ComponentProps<'img'>;
-// $ExpectType "async" | "auto" | "sync" | undefined
-type ImgPropsDecoding = ImgProps['decoding'];
+const imgProps: ImgProps = {};
+// the order of the strings in the union seems to vary
+// with the typescript version, so test assignment instead
+imgProps.decoding = 'async';
+imgProps.decoding = 'auto';
+imgProps.decoding = 'sync';
+// $ExpectError
+imgProps.decoding = 'nonsense';
 type ImgPropsWithRef = React.ComponentPropsWithRef<'img'>;
 // $ExpectType ((instance: HTMLImageElement | null) => void) | RefObject<HTMLImageElement> | null | undefined
 type ImgPropsWithRefRef = ImgPropsWithRef['ref'];
