@@ -14,11 +14,16 @@
 //                 Moshe Kolodny <https://github.com/kolodny>
 //                 Stephen Farrar <https://github.com/stephenfarrar>
 //                 Mochamad Arfin <https://github.com/ndunks>
+//                 Alex Povar <https://github.com/zvirja>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 // For ddescribe / iit use : https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/karma-jasmine/karma-jasmine.d.ts
 
 type ImplementationCallback = (() => PromiseLike<any>) | (() => void) | ((done: DoneFn) => void);
+type Fn = (...args: any[]) => any;
+// Use trick with prototype to allow abstract classes.
+// More info: https://stackoverflow.com/a/38642922/2009373
+type Constructor = Function & { prototype: any };
 
 /**
  * Create a group of specs (often called a suite).
@@ -174,66 +179,81 @@ declare function spyOnProperty<T>(object: T, property: keyof T, accessType?: 'ge
  * Installs spies on all writable and configurable properties of an object.
  * @param object The object upon which to install the `Spy`s.
  */
-declare function spyOnAllFunctions(object: object): jasmine.Spy;
+declare function spyOnAllFunctions<T>(object: T): jasmine.SpyObj<T>;
 
 declare function runs(asyncMethod: Function): void;
 declare function waitsFor(latchMethod: () => boolean, failureMessage?: string, timeout?: number): void;
 declare function waits(timeout?: number): void;
 
 declare namespace jasmine {
-    type ExpectedRecursive<T> = T | ObjectContaining<T> | AsymmetricMatcher | {
-        [K in keyof T]: ExpectedRecursive<T[K]> | Any;
-    };
-    type Expected<T> = T | ObjectContaining<T> | AsymmetricMatcher | Any | Spy | {
-        [K in keyof T]: ExpectedRecursive<T[K]>;
-    };
+    type DeepMatch<T> =
+        T
+        | ObjectContaining<T>
+        | (T extends Array<infer TElement> ? ArrayContaining<TElement> : never)
+        | AsymmetricMatcher<T>
+        | Spy
+        | { [K in keyof T]: DeepMatch<T[K]>; };
+
+    // Keep for backward compatibility - if somebody already uses this type, they will not be broken.
+    // Should use DeepMatch instead as it better describes the purpose.
+    /**
+     * @deprecated Use {@link DeepMatch} instead.
+     */
+    type Expected<T> = DeepMatch<T>;
+
     type SpyObjMethodNames<T = undefined> =
         T extends undefined ?
-            (ReadonlyArray<string> | {[methodName: string]: any}) :
-            (ReadonlyArray<keyof T> | {[P in keyof T]?: ReturnType<T[P] extends (...args: any[]) => any ? T[P] : any>});
+            (ReadonlyArray<string> | { [methodName: string]: any }) :
+            (ReadonlyArray<keyof T> | { [P in keyof T]?: T[P] extends Fn ? ReturnType<T[P]> : any });
 
     function clock(): Clock;
 
     var matchersUtil: MatchersUtil;
 
-    function any(aclass: any): Any;
+    /**
+     * That will succeed if the actual value being compared is an instance of the specified class/constructor.
+     */
+    function any(aclass: Constructor | Symbol): AsymmetricMatcher<any>;
 
-    function anything(): Any;
+    /**
+     * That will succeed if the actual value being compared is not `null` and not `undefined`.
+     */
+    function anything(): AsymmetricMatcher<any>;
 
     /**
      * That will succeed if the actual value being compared is `true` or anything truthy.
      * @since 3.1.0
      */
-    function truthy(): Truthy;
+    function truthy(): AsymmetricMatcher<any>;
 
     /**
      * That will succeed if the actual value being compared is  `null`, `undefined`, `0`, `false` or anything falsey.
      * @since 3.1.0
      */
-    function falsy(): Falsy;
+    function falsy(): AsymmetricMatcher<any>;
 
     /**
      * That will succeed if the actual value being compared is empty.
      * @since 3.1.0
      */
-    function empty(): Empty;
+    function empty(): AsymmetricMatcher<any>;
 
     /**
      * That will succeed if the actual value being compared is not empty.
      * @since 3.1.0
      */
-    function notEmpty(): NotEmpty;
+    function notEmpty(): AsymmetricMatcher<any>;
 
     function arrayContaining<T>(sample: ArrayLike<T>): ArrayContaining<T>;
     function arrayWithExactContents<T>(sample: ArrayLike<T>): ArrayContaining<T>;
-    function objectContaining<T>(sample: Partial<T>): ObjectContaining<T>;
+    function objectContaining<T>(sample: T): ObjectContaining<T>;
     function createSpy(name?: string, originalFn?: Function): Spy;
 
     function createSpyObj(baseName: string, methodNames: SpyObjMethodNames): any;
     function createSpyObj<T>(baseName: string, methodNames: SpyObjMethodNames<T>): SpyObj<T>;
 
     function createSpyObj(methodNames: SpyObjMethodNames): any;
-    function createSpyObj<T>(methodNames: SpyObjMethodNames): SpyObj<T>;
+    function createSpyObj<T>(methodNames: SpyObjMethodNames<T>): SpyObj<T>;
 
     function pp(value: any): string;
 
@@ -243,27 +263,15 @@ declare namespace jasmine {
 
     function addMatchers(matchers: CustomMatcherFactories): void;
 
-    function stringMatching(str: string | RegExp): Any;
+    function stringMatching(str: string | RegExp): AsymmetricMatcher<string>;
 
     function formatErrorMsg(domain: string, usage: string): (msg: string) => string;
 
-    interface Any {
-        (...params: any[]): any; // jasmine.Any can also be a function
-        new (expectedClass: any): any;
-
-        jasmineMatches(other: any): boolean;
-        jasmineToString(): string;
+    interface AsymmetricMatcher<TValue> {
+        asymmetricMatch(other: TValue): boolean;
+        // Mark it optional to support custom user matchers coming without describe function.
+        jasmineToString?(): string;
     }
-
-    interface AsymmetricMatcher<T extends string = string> {
-        asymmetricMatch(other: any): boolean;
-        jasmineToString?(): T;
-      }
-
-    interface Truthy extends AsymmetricMatcher<'<jasmine.truthy>'> { }
-    interface Falsy extends AsymmetricMatcher<'<jasmine.falsy>'> { }
-    interface Empty extends AsymmetricMatcher<'<jasmine.empty>'> { }
-    interface NotEmpty extends AsymmetricMatcher<'<jasmine.notEmpty>'> { }
 
     // taken from TypeScript lib.core.es6.d.ts, applicable to CustomMatchers.contains()
     interface ArrayLike<T> {
@@ -271,16 +279,22 @@ declare namespace jasmine {
         [n: number]: T;
     }
 
-    interface ArrayContaining<T> extends AsymmetricMatcher {
-        new?(sample: ArrayLike<T>): ArrayLike<T>;
-    }
+    interface ArrayContaining<T> extends AsymmetricMatcher<ArrayLike<T>> { }
 
-    interface ObjectContaining<T> {
-        new?(sample: {[K in keyof T]?: any}): {[K in keyof T]?: any};
+    /**
+     * @deprecated Use AsymmetricMatcher<any> instead.
+     * @see {AsymmetricMatcher<any>}
+     */
+    type Any = AsymmetricMatcher<any>;
 
-        jasmineMatches(other: any, mismatchKeys: any[], mismatchValues: any[]): boolean;
-        jasmineToString?(): string;
-    }
+    type UnwrapAsymmetricMatchers<T> = {
+        [K in keyof T]: T[K] extends AsymmetricMatcher<infer TMatching> ? TMatching : UnwrapAsymmetricMatchers<T[K]>
+    };
+
+    // Current matcher reports the compatible type (type it can match) via AsymmetricMatcher arg.
+    // If any our property is a matcher itself, we should unwrap it, so TS could verify
+    // whether corresponding object property can be actually matched by that matcher.
+    interface ObjectContaining<T> extends AsymmetricMatcher<UnwrapAsymmetricMatchers<T>> { }
 
     interface Block {
         new (env: Env, func: SpecFunction, spec: Spec): any;
@@ -492,18 +506,31 @@ declare namespace jasmine {
         message(): any;
 
         /**
+         * Expect the actual value to be `===` to the expected value.
          *
-         * @param expected the actual value to be === to the expected value.
+         * @param expected - The expected value to compare against.
          * @param expectationFailOutput
+         * @example
+         * expect(thing).toBe(realThing);
          */
-        toBe(expected: Expected<T>, expectationFailOutput?: any): boolean;
+        toBe(expected: T, expectationFailOutput?: any): boolean;
 
         /**
-         *
-         * @param expected the actual value to be equal to the expected, using deep equality comparison.
+         * Expect the actual value to be equal to the expected, using deep equality comparison.
+         * @param expected - Expected value.
          * @param expectationFailOutput
+         * @example
+         * expect(bigObject).toEqual({ "foo": ['bar', 'baz'] });
          */
-        toEqual(expected: Expected<T>, expectationFailOutput?: any): boolean;
+        toEqual(expected: DeepMatch<T>, expectationFailOutput?: any): boolean;
+
+        /**
+         * Expect the actual value to match a regular expression.
+         * @param expected - Value to look for in the string.
+         * @example
+         * expect("my string").toMatch(/string$/);
+         * expect("other string").toMatch("her");
+         */
         toMatch(expected: string | RegExp, expectationFailOutput?: any): boolean;
         toBeDefined(expectationFailOutput?: any): boolean;
         toBeUndefined(expectationFailOutput?: any): boolean;
@@ -527,7 +554,17 @@ declare namespace jasmine {
         toThrowMatching(predicate: (thrown: any) => boolean): boolean;
         toBeNegativeInfinity(expectationFailOutput?: any): boolean;
         toBePositiveInfinity(expectationFailOutput?: any): boolean;
-        toHaveClass(expected: any, expectationFailOutput?: any): boolean;
+
+        /**
+         * Expect the actual value to be a DOM element that has the expected class.
+         * @since 3.0.0
+         * @param expected - The class name to test for.
+         * @example
+         * var el = document.createElement('div');
+         * el.className = 'foo bar baz';
+         * expect(el).toHaveClass('bar');
+         */
+        toHaveClass(expected: string, expectationFailOutput?: any): boolean;
 
         /**
          * Add some context for an expect.
@@ -535,15 +572,24 @@ declare namespace jasmine {
          */
         withContext(message: string): Matchers<T>;
 
+        /**
+         * Invert the matcher following this expect.
+         */
         not: Matchers<T>;
-
-        Any: Any;
     }
 
     interface ArrayLikeMatchers<T> extends Matchers<ArrayLike<T>> {
-        toBe(expected: Expected<ArrayLike<T>> | ArrayContaining<T>, expectationFailOutput?: any): boolean;
-        toEqual(expected: Expected<ArrayLike<T>> | ArrayContaining<T>, expectationFailOutput?: any): boolean;
-        toContain(expected: Expected<T>, expectationFailOutput?: any): boolean;
+        toContain(expected: DeepMatch<T>, expectationFailOutput?: any): boolean;
+
+        /**
+         * Add some context for an expect.
+         * @param message - Additional context to show when the matcher fails.
+         */
+        withContext(message: string): ArrayLikeMatchers<T>;
+
+        /**
+         * Invert the matcher following this expect.
+         */
         not: ArrayLikeMatchers<T>;
     }
 
@@ -568,13 +614,13 @@ declare namespace jasmine {
          * Expect a promise to be resolved to a value equal to the expected, using deep equality comparison.
          * @param expected - Value that the promise is expected to resolve to.
          */
-        toBeResolvedTo(expected: Expected<T>): PromiseLike<void>;
+        toBeResolvedTo(expected: DeepMatch<T>): PromiseLike<void>;
 
         /**
          * Expect a promise to be rejected with a value equal to the expected, using deep equality comparison.
          * @param expected - Value that the promise is expected to be rejected with.
          */
-        toBeRejectedWith(expected: Expected<U>): PromiseLike<void>;
+        toBeRejectedWith(expected: DeepMatch<U>): PromiseLike<void>;
 
         /**
          * Add some context for an expect.
