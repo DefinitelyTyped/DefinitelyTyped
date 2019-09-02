@@ -221,6 +221,8 @@ declare namespace IORedis {
 
         zadd(key: string, ...args: string[]): any;
 
+        zaddBuffer(key: string, score1: string, member1: Buffer): Promise<string | number>;
+
         zincrby(key: string, increment: number, member: string, callback: (err: Error, res: any) => void): void;
         zincrby(key: string, increment: number, member: string): Promise<any>;
 
