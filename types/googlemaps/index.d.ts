@@ -262,13 +262,13 @@ declare namespace google.maps {
      */
     enum MapTypeId {
         /** This map type displays a transparent layer of major streets on satellite images. */
-        HYBRID,
+        HYBRID = 'hybrid',
         /** This map type displays a normal street map. */
-        ROADMAP,
+        ROADMAP = 'roadmap',
         /** This map type displays satellite images. */
-        SATELLITE,
+        SATELLITE = 'satellite',
         /** This map type displays maps with physical features such as terrain and vegetation. */
-        TERRAIN,
+        TERRAIN = 'terrain',
     }
 
     /***** Controls *****/
