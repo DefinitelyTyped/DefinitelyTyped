@@ -1,4 +1,22 @@
-import { events, EVENTS, EnabledElement, CornerstoneEvent, CornerstoneEventData, Viewport, disable, enable, getDefaultViewport, getDefaultViewportForImage, Image, displayImage, setViewport, setToPixelCoordinateSystem, pageToPixel, pixelToCanvas, loadImage } from 'cornerstone-core';
+import {
+  events,
+  EVENTS,
+  EnabledElement,
+  CornerstoneEvent,
+  CornerstoneEventData,
+  Viewport,
+  disable,
+  enable,
+  getDefaultViewport,
+  getDefaultViewportForImage,
+  Image,
+  displayImage,
+  setViewport,
+  setToPixelCoordinateSystem,
+  pageToPixel,
+  pixelToCanvas,
+  loadImage,
+} from 'cornerstone-core';
 
 declare const element: HTMLElement;
 declare const enabledElement: EnabledElement;
@@ -16,7 +34,7 @@ events.addEventListener(EVENTS.IMAGE_RENDERED, (event: CornerstoneEvent) => {
         && eventData.viewport) {
         const currentViewport: Viewport = eventData.viewport;
     }
-})
+});
 
 disable(element);
 enable(element, { renderer: 'webgl' });
@@ -32,7 +50,7 @@ setViewport(element, {
         x: 30,
         y: 50,
     }
-})
+});
 
 image.voiLUT = undefined;
 
