@@ -19,11 +19,11 @@ export interface FormStateMap {
 
 export interface FormState {
     registeredFields: RegisteredFieldState[];
-    fields?: {[name: string]: FieldState};
+    fields?: { [name: string]: FieldState };
     values?: { [fieldName: string]: any };
     active?: string;
     anyTouched?: boolean;
-    error: string;
+    error?: any;
     submitting?: boolean;
     submitErrors?: { [fieldName: string]: string };
     submitFailed?: boolean;
