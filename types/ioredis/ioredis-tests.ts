@@ -85,7 +85,7 @@ redis.subscribe('news', 'music', (err: any, count: any) => {
     // `count` represents the number of channels we are currently subscribed to.
 
     pub.publish('news', 'Hello world!');
-    pub.publish('music', 'Hello again!');
+    pub.publishBuffer('music', Buffer.from('Hello again!'));
 });
 
 redis.on('message', (channel: any, message: any) => {
@@ -272,3 +272,8 @@ const defineCommandResult = cluster.defineCommand('defineCommand', {
 });
 console.log(defineCommandResult);
 cluster.sendCommand();
+
+const barBuffer = Buffer.from('bar');
+redis.zaddBuffer('foo', 'foo1', barBuffer).then(() => {
+    // sorted set 'foo' now has score 'foo1' containing barBuffer
+});
