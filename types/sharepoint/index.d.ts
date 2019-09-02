@@ -2207,7 +2207,7 @@ declare namespace SP {
         get_applicationName(): string;
         set_applicationName(value: string): void;
         get_disableReturnValueCache(): boolean;        
-        set_disableReturnValueCache(value: boolean) :boolean;
+        set_disableReturnValueCache(value: boolean): boolean;
         get_clientTag(): string;
         set_clientTag(value: string): void;
         get_webRequestExecutorFactory(): SP.IWebRequestExecutorFactory;
