@@ -2206,7 +2206,7 @@ declare namespace SP {
         set_formDigestHandlingEnabled(value: boolean): void;
         get_applicationName(): string;
         set_applicationName(value: string): void;
-        get_disableReturnValueCache(): boolean;        
+        get_disableReturnValueCache(): boolean;
         set_disableReturnValueCache(value: boolean): boolean;
         get_clientTag(): string;
         set_clientTag(value: string): void;
