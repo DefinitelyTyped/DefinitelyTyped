@@ -953,6 +953,13 @@ const ProgressBarAndroidTest = () => {
 
 // Push notification
 const PushNotificationTest = () => {
+    PushNotificationIOS.presentLocalNotification({
+        alertBody: "notificatus",
+        userInfo: "informius",
+        alertTitle: "Titulus",
+        alertAction: "view",
+    });
+                          
     PushNotificationIOS.scheduleLocalNotification({
         alertAction: 'view',
         alertBody: 'Look at me!',
