@@ -448,6 +448,8 @@ declare namespace IORedis {
         publish(channel: string, message: string, callback: (err: Error, res: number) => void): void;
         publish(channel: string, message: string): Promise<number>;
 
+        publishBuffer(channel: string, message: Buffer): Promise<number>;
+
         watch(...keys: KeyType[]): any;
 
         unwatch(callback: (err: Error, res: string) => void): void;
