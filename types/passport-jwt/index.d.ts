@@ -42,7 +42,7 @@ export interface VerifiedCallback {
 }
 
 export interface JwtFromRequestFunction {
-    (req: Request): string;
+    (req: Request): string | null;
 }
 
 export declare namespace ExtractJwt {
