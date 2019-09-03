@@ -201,3 +201,6 @@ const chartWithScriptedOptions = new Chart(new CanvasRenderingContext2D(), {
         }],
     }
 });
+
+chartWithScriptedOptions.stop().resize().clear().destroy();
+const legend: string = chartWithScriptedOptions.generateLegend();
