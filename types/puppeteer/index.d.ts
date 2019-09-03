@@ -1140,7 +1140,7 @@ export interface FrameBase extends Evalable, JSEvalable {
   $x(expression: string): Promise<ElementHandle[]>;
 
   /** Adds a `<script>` tag into the page with the desired url or content. */
-  addScriptTag(options: ScriptTagOptions): Promise<void>;
+  addScriptTag(options: ScriptTagOptions): Promise<ElementHandle>;
 
   /** Adds a `<link rel="stylesheet">` tag into the page with the desired url or a `<style type="text/css">` tag with the content. */
   addStyleTag(options: StyleTagOptions): Promise<void>;
