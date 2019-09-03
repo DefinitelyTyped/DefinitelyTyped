@@ -665,7 +665,7 @@ puppeteer.launch().then(async browser => {
 });
 
 // addscriptTag Test
-async () => {
+(async () => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
   function otherFunctionToInject() {
@@ -680,4 +680,4 @@ async () => {
   });
   console.log(data);
   browser.close();
-};
+});
