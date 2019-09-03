@@ -1,10 +1,12 @@
-import { requestIdleCallback, cancelIdleCallback } from 'requestidlecallback';
+import { requestIdleCallback, cancelIdleCallback, IdleRequestOptions, IdleCallbackHandle } from 'requestidlecallback';
 
 // Test requestIdleCallback with default param
-requestIdleCallback(() => console.log('test'));
+requestIdleCallback(() => '1');
 
 // Test requestIdleCallback with default param and optional param
-requestIdleCallback(() => console.log('test'), 1);
+const option: IdleRequestOptions = {timeout: 2000};
+requestIdleCallback(() => '2', option);
 
 // Test cancelIdleCallback with default param
-cancelIdleCallback(1);
+const handle: IdleCallbackHandle = 1;
+cancelIdleCallback(handle);
