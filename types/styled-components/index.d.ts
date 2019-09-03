@@ -67,8 +67,8 @@ export type StyledComponentProps<
     // Distribute O if O is a union type
     O extends object
     ? WithOptionalTheme<
-          Omit<ReactDefaultizedProps<C, React.ComponentPropsWithRef<C>> & O, A> &
-              Partial<Pick<React.ComponentPropsWithRef<C> & O, A>>,
+          LooseOmit<Merge<ReactDefaultizedProps<C, React.ComponentPropsWithRef<C>>, O>, A> &
+              Partial<LoosePick<Merge<React.ComponentPropsWithRef<C>, O>, A>>,
           T
       > &
           WithChildrenIfReactComponentClass<C>
@@ -347,6 +347,11 @@ export type ThemedCssFunction<T extends object> = BaseThemedCssFunction<
 
 // Helper type operators
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
+type Merge<T, U> = Pick<T, Exclude<keyof T, keyof U>> & U;
+type LooseOmit<T, K extends keyof any> = Pick<T, Exclude<keyof T, K>>;
+type LoosePick<T, K extends keyof any> = {
+    [P in Extract<K, keyof T>]: T[P];
+};
 type WithOptionalTheme<P extends { theme?: T }, T> = Omit<P, "theme"> & {
     theme?: T;
 };
