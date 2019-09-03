@@ -7049,6 +7049,11 @@ declare namespace Stripe {
 
         interface ISourceCreationOptions {
             /**
+             * The type of payment source. Should be "bank_account".
+             */
+            object: "bank_account";
+
+            /**
              * The account number for the bank account in string form.
              * Must be a checking account.
              */

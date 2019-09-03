@@ -639,6 +639,7 @@ stripe.customers.createSource(
     "cus_5rfJKDJkuxzh5Q",
     {
         source: {
+            object: 'bank_account',
             country: 'US',
             currency: 'USD',
             account_holder_name: 'Account Holder',
@@ -656,6 +657,7 @@ stripe.customers.createSource(
     "cus_5rfJKDJkuxzh5Q",
     {
         source: {
+            object: 'bank_account',
             country: 'US',
             currency: 'USD',
             account_holder_name: 'Account Holder',

@@ -681,7 +681,6 @@ declare namespace Office {
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
          */
         interface Event {
-            
             /**
              * Information about the control that triggered calling this function.
              * 
@@ -690,15 +689,17 @@ declare namespace Office {
              * This property is only supported in Outlook in {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/outlook-api-requirement-sets | requirement set} Mailbox 1.3 and later.
              */
             source:Source;
+            
             /**
-             * Indicates that the add-in has completed processing that was triggered by an add-in command button or event handler.
+             * Indicates that the add-in has completed processing and will automatically be closed.
              * 
-             * This method must be called at the end of a function which was invoked by an add-in command defined with an Action element with an 
-             * xsi:type attribute set to ExecuteFunction. Calling this method signals the host client that the function is complete and that it can 
-             * clean up any state involved with invoking the function. For example, if the user closes Outlook before this method is called, Outlook 
-             * will warn that a function is still executing.
+             * This method must be called at the end of a function which was invoked by the following.
              * 
-             * This method must be called in an event handler added via Office.context.mailbox.addHandlerAsync after completing processing of the event.
+             * - A UI-less button (i.e., an add-in command defined with an Action element where the xsi:type attribute is set to ExecuteFunction)
+             * 
+             * - An {@link https://docs.microsoft.com/office/dev/add-ins/reference/manifest/event | event} defined in the
+             * {@link https://docs.microsoft.com/office/dev/add-ins/reference/manifest/extensionpoint#events | Events extension point},
+             * e.g., an `ItemSend` event
              * 
              * [Api set: Mailbox 1.3]
              *
@@ -722,7 +723,7 @@ declare namespace Office {
             /**
              * A boolean value. When the completed method is used to signal completion of an event handler, 
              * this value indicates of the handled event should continue execution or be canceled. 
-             * For example, an add-in that handles the `ItemSend` event can set `allowEvent = false` to cancel sending of the message.
+             * For example, an add-in that handles the `ItemSend` event can set `allowEvent` to `false` to cancel sending of the message.
              */
             allowEvent: boolean;
         }
@@ -1772,6 +1773,8 @@ declare namespace Office {
          * The event handler receives an argument of type `Office.EnhancedLocationsChangedEventArgs`.
          * 
          * [Api set: Mailbox Preview]
+         * 
+         * @beta
          */
         EnhancedLocationsChanged,
         /**
@@ -9463,6 +9466,8 @@ declare namespace Office {
          * @param options - An object literal that contains one or more of the following properties.
          *        asyncContext: Developers can provide any object they wish to access in the callback method.
          * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult. 
+         * 
+         * @beta
          */
         getItemIdAsync(options: Office.AsyncContextOptions, callback: (asyncResult: Office.AsyncResult<string>) => void): void;
         /**
@@ -9487,6 +9492,8 @@ declare namespace Office {
          * - `ItemNotSaved`: The id can't be retrieved until the item is saved.
          * 
          * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult. 
+         * 
+         * @beta
          */
         getItemIdAsync(callback: (asyncResult: Office.AsyncResult<string>) => void): void;
         /**
@@ -10829,34 +10836,38 @@ declare namespace Office {
          * Gets the url of the attachment if its type is `MailboxEnums.AttachmentType.Cloud`.
          * 
          * [Api set: Mailbox Preview]
+         * 
+         * @beta
          */
         url: string;
     }
     /**
-     * Provides information about the attachments that raised the `Office.EventType.AttachmentsChanged` event. 
+     * Provides information about the attachments that raised the `Office.EventType.AttachmentsChanged` event.
      * 
-     * [Api set: Mailbox Preview] 
+     * [Api set: Mailbox Preview]
+     * 
+     * @beta
      */ 
     export interface AttachmentsChangedEventArgs { 
         /** 
          * Represents the set of attachments that were added or removed. 
-         * For each such attachment, gets a subset of {@link AttachmentDetails} properties: `id`, `name`, `size`, and `attachmentType`. 
+         * For each such attachment, gets a subset of {@link AttachmentDetails} properties: `id`, `name`, `size`, and `attachmentType`.
          * 
-         * [Api set: Mailbox Preview] 
-         */ 
-        attachmentDetails: object[]; 
-        /** 
-         * Gets whether the attachments were added or removed. See {@link MailboxEnums.AttachmentStatus} for details. 
+         * [Api set: Mailbox Preview]
+         */
+        attachmentDetails: object[];
+        /**
+         * Gets whether the attachments were added or removed. See {@link MailboxEnums.AttachmentStatus} for details.
          * 
-         * [Api set: Mailbox Preview] 
+         * [Api set: Mailbox Preview]
          */ 
-        attachmentStatus: MailboxEnums.AttachmentStatus | string; 
-        /** 
-         * Gets the type of the event. See `Office.EventType` for details. 
+        attachmentStatus: MailboxEnums.AttachmentStatus | string;
+        /**
+         * Gets the type of the event. See `Office.EventType` for details.
          * 
-         * [Api set: Mailbox Preview] 
-         */ 
-        type: "olkAttachmentsChanged"; 
+         * [Api set: Mailbox Preview]
+         */
+        type: "olkAttachmentsChanged";
     }
     /**
      * The body object provides methods for adding and updating the content of the message or appointment. 
@@ -11686,23 +11697,25 @@ declare namespace Office {
         removeAsync(locationIdentifiers: LocationIdentifier[], callback?: (asyncResult: Office.AsyncResultStatus) => void): void;
     }
     /**
-     * Provides the current enhanced locations when the `Office.EventType.EnhancedLocationsChanged` event is raised. 
+     * Provides the current enhanced locations when the `Office.EventType.EnhancedLocationsChanged` event is raised.
      * 
-     * [Api set: Mailbox Preview] 
+     * [Api set: Mailbox Preview]
+     * 
+     * @beta
      */ 
-    export interface EnhancedLocationsChangedEventArgs { 
-        /** 
-         * Gets the set of enhanced locations. 
+    export interface EnhancedLocationsChangedEventArgs {
+        /**
+         * Gets the set of enhanced locations.
          * 
-         * [Api set: Mailbox Preview] 
-         */ 
-        enhancedLocations: LocationDetails[]; 
-        /** 
-         * Gets the type of the event. See `Office.EventType` for details. 
+         * [Api set: Mailbox Preview]
+         */
+        enhancedLocations: LocationDetails[];
+        /**
+         * Gets the type of the event. See `Office.EventType` for details.
          * 
-         * [Api set: Mailbox Preview] 
-         */ 
-        type: "olkEnhancedLocationsChanged"; 
+         * [Api set: Mailbox Preview]
+         */
+        type: "olkEnhancedLocationsChanged";
     }
     /**
      * Represents a collection of entities found in an email message or appointment. Read mode only.
@@ -14945,6 +14958,8 @@ declare namespace Office {
          * @param options - An object literal that contains one or more of the following properties.
          *        asyncContext: Developers can provide any object they wish to access in the callback method.
          * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult. 
+         * 
+         * @beta
          */
         getItemIdAsync(options: Office.AsyncContextOptions, callback: (asyncResult: Office.AsyncResult<string>) => void): void;
         /**
@@ -14969,6 +14984,8 @@ declare namespace Office {
          * - `ItemNotSaved`: The id can't be retrieved until the item is saved.
          * 
          * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult. 
+         * 
+         * @beta
          */
         getItemIdAsync(callback: (asyncResult: Office.AsyncResult<string>) => void): void;
         /**
@@ -16245,23 +16262,25 @@ declare namespace Office {
         replaceAsync(key: string, JSONmessage: NotificationMessageDetails, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
     }
     /**
-     * Provides the updated Office theme that raised the `Office.EventType.OfficeThemeChanged` event. 
+     * Provides the updated Office theme that raised the `Office.EventType.OfficeThemeChanged` event.
      * 
-     * [Api set: Mailbox Preview] 
+     * [Api set: Mailbox Preview]
+     * 
+     * @beta
      */ 
-    export interface OfficeThemeChangedEventArgs { 
-        /** 
-         * Gets the updated Office theme. 
+    export interface OfficeThemeChangedEventArgs {
+        /**
+         * Gets the updated Office theme.
          * 
-         * [Api set: Mailbox Preview] 
-         */ 
-        officeTheme: Office.OfficeTheme; 
-        /** 
-         * Gets the type of the event. See `Office.EventType` for details. 
+         * [Api set: Mailbox Preview]
+         */
+        officeTheme: Office.OfficeTheme;
+        /**
+         * Gets the type of the event. See `Office.EventType` for details.
          * 
-         * [Api set: Mailbox Preview] 
-         */ 
-        type: "officeThemeChanged"; 
+         * [Api set: Mailbox Preview]
+         */
+        type: "officeThemeChanged";
     }
     /**
      * Represents the appointment organizer, even if an alias or a delegate was used to create the appointment. 
