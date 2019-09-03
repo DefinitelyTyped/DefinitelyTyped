@@ -494,6 +494,8 @@ export interface ExecOptions {
 }
 
 export interface ShellOptions {
+    /** An environment to use for the execution of the command. */
+    env?: any;
     /** Set either to `true` to use defaults, a number to specify a specific screen number, or an object containing x11 settings. */
     x11?: boolean | number | X11Options;
 }
