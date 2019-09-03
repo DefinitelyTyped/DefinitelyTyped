@@ -3,7 +3,7 @@ import { ColorPickerProps, ColorResult } from "../../..";
 
 export interface SketchPickerProps extends ColorPickerProps<SketchPicker> {
     disableAlpha?: boolean;
-    presetColors?: string[];
+    presetColors?: string[] | { color: string; title: string; }[];
     width?: string;
     onSwatchHover?(color: ColorResult, event: MouseEvent): void;
 }
