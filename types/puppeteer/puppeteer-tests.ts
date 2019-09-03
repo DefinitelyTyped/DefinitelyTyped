@@ -674,7 +674,7 @@ puppeteer.launch().then(async browser => {
 
   await page.addScriptTag({ content: `${otherFunctionToInject}` });
 
-  const data = await page.evaluate(function() {
+  const data = await page.evaluate(() => {
     console.log('woo I run inside a browser');
     return otherFunctionToInject();
   });
