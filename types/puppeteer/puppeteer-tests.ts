@@ -666,18 +666,18 @@ puppeteer.launch().then(async browser => {
 
 // addscriptTag Test
 async () => {
-    const browser = await puppeteer.launch();
-    const page = await browser.newPage();
-    function otherFunctionToInject() {
-        return 6;
-    }
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+  function otherFunctionToInject() {
+    return 6;
+  }
 
-    await page.addScriptTag({ content: `${otherFunctionToInject}` });
+  await page.addScriptTag({ content: `${otherFunctionToInject}` });
 
-    const data = await page.evaluate(function() {
-        console.log('woo I run inside a browser');
-        return otherFunctionToInject();
-    });
+  const data = await page.evaluate(function() {
+    console.log('woo I run inside a browser');
+    return otherFunctionToInject();
+  });
   console.log(data);
-    browser.close();
+  browser.close();
 };
