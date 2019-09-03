@@ -4,7 +4,7 @@ import { requestIdleCallback, cancelIdleCallback, IdleRequestOptions, IdleCallba
 requestIdleCallback(() => '1');
 
 // Test requestIdleCallback with default param and optional param
-const option: IdleRequestOptions = {timeout: 2000};
+const option: IdleRequestOptions = { timeout: 2000 };
 requestIdleCallback(() => '2', option);
 
 // Test cancelIdleCallback with default param
