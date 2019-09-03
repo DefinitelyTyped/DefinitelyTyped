@@ -28,6 +28,7 @@
 //                 Richard Davison <https://github.com/richarddd>
 //                 Brian Chen <https://github.com/ToucheSir>
 //                 Boris Figovsky <https://github.com/borfig>
+//                 Simon Driscoll <https://github.com/dinodeSimon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -335,6 +336,11 @@ declare module "mongoose" {
       autoIndex?: boolean;
     };
     autoIndex?: boolean;
+
+    /** Before Mongoose builds indexes, it calls Model.createCollection() 
+     * to create the underlying collection in MongoDB if autoCreate 
+     * is set to true.(default: false) */
+    autoCreate?: boolean;
 
     /** Specify a journal write concern (default: false). */
     journal?: boolean;

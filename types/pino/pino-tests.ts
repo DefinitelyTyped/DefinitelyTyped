@@ -71,7 +71,6 @@ if (log.levelVal === 30) {
     console.log('logger level is `info`');
 }
 
-log.addLevel('myLevel', 35);
 log.level = 'myLevel';
 log.myLevel('a message');
 

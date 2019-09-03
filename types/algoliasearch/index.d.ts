@@ -9,6 +9,7 @@
 //                 Luca Pasquale <https://github.com/lucapasquale>
 //                 Alexandre Deve <https://github.com/adeve>
 //                 Dan Grayson <https://github.com/dan-grayson>
+//                 Peter Esenwa <https://github.com/PeterEsenwa>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -1104,7 +1105,7 @@ declare namespace algoliasearch {
      * 'min' Only keep results with the minimum number of typos
      * 'strict' Hits matching with 2 typos are not retrieved if there are some matching without typos.
      */
-    typoTolerance?: boolean;
+    typoTolerance?: boolean | 'min' | 'strict';
     /**
      * If set to false, disables typo tolerance on numeric tokens (numbers).
      * default:

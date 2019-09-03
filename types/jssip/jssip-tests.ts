@@ -11,31 +11,34 @@ const configuration = {
 
 const coolPhone = new JsSIP.UA(configuration);
 
-coolPhone.on('connected', (e: JsSIP.EventValue<JsSIP.UserAgentConnectedEvent>) => {
+coolPhone.on('connected', (e: JsSIP.UserAgentConnectedEvent) => {
   console.log('Connected.');
 });
 
-coolPhone.on('disconnected', (e: JsSIP.EventValue<JsSIP.UserAgentDisconnectedEvent>) => {
+coolPhone.on('disconnected', (e: JsSIP.UserAgentDisconnectedEvent) => {
   console.log('Disconnected');
 });
 
-coolPhone.on('newRTCSession', (e: JsSIP.EventValue<JsSIP.UserAgentNewRtcSessionEvent>) => {
+coolPhone.on('newRTCSession', (e: JsSIP.UserAgentNewRtcSessionEvent) => {
   console.log('New Session');
 });
 
-coolPhone.on('newMessage', (e: JsSIP.EventValue<JsSIP.UserAgentNewMessageEvent>) => {
+coolPhone.on('newMessage', (e: JsSIP.UserAgentNewMessageEvent) => {
   console.log('New Message');
 });
 
-coolPhone.on('registered', (e: JsSIP.EventValue<JsSIP.UserAgentRegisteredEvent>) => {
+coolPhone.on('registered', (e: JsSIP.UserAgentRegisteredEvent) => {
   console.log('Rergistered.');
 });
-coolPhone.on('unregistered', (e: JsSIP.EventValue<JsSIP.UserAgentUnregisteredEvent>) => {
+coolPhone.on('unregistered', (e: JsSIP.UserAgentUnregisteredEvent) => {
   console.log('Unregistered.');
 });
-coolPhone.on('registrationFailed', (e: JsSIP.EventValue<JsSIP.UserAgentRegistrationFailedEvent>) => {
-  console.log('Registration failed');
-});
+coolPhone.on(
+  'registrationFailed',
+  (e: JsSIP.UserAgentRegistrationFailedEvent) => {
+    console.log('Registration failed');
+  },
+);
 
 coolPhone.start();
 
@@ -44,13 +47,13 @@ const eventHandlers = {
   progress: (e: JsSIP.SessionProgressEvent) => {
     console.log('call is in progress');
   },
-  failed: (e: JsSIP.EventValue<JsSIP.SessionFailedEvent>) => {
-    console.log('call failed with cause: ' + e.data.cause);
+  failed: (e: JsSIP.SessionFailedEvent) => {
+    console.log('call failed with cause: ' + e.cause);
   },
-  ended: (e: JsSIP.EventValue<JsSIP.SessionEndedEvent>) => {
-    console.log('call ended with cause: ' + e.data.cause);
+  ended: (e: JsSIP.SessionEndedEvent) => {
+    console.log('call ended with cause: ' + e.cause);
   },
-  confirmed: (e: JsSIP.EventValue<JsSIP.SessionConfirmedEvent>) => {
+  confirmed: (e: JsSIP.SessionConfirmedEvent) => {
     console.log('call confirmed');
   },
 };

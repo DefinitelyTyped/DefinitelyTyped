@@ -18,7 +18,7 @@ export function generate(config: ChartConfiguration): ChartAPI;
 
 export const version: string;
 
-export type Primitive = string | boolean | number | null;
+export type Primitive = string | boolean | number | Date | null;
 export type PrimitiveArray = Primitive[];
 export type ArrayOrSingle<T extends any> = T | T[];
 export type ArrayOrString = ArrayOrSingle<string>;

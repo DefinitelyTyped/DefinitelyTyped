@@ -21,6 +21,7 @@
 //                 Jake Bloom <https://github.com/jakebloom>
 //                 Ceyhun Ozugur <https://github.com/ceyhun>
 //                 Mike Martin <https://github.com/mcmar>
+//                 Theo Henry de Villeneuve <https://github.com/theohdv>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -6926,7 +6927,15 @@ export interface ShareStatic {
     dismissedAction: "dismissedAction";
 }
 
-type AccessibilityEventName = "change" | "announcementFinished";
+type AccessibilityEventName =
+    "change" | // deprecated, maps to screenReaderChanged
+    "boldTextChanged" | // iOS-only Event
+    "grayscaleChanged" | // iOS-only Event
+    "invertColorsChanged" | // iOS-only Event
+    "reduceMotionChanged" |
+    "screenReaderChanged" |
+    "reduceTransparencyChanged" | // iOS-only Event
+    "announcementFinished"; // iOS-only Event
 
 type AccessibilityChangeEvent = boolean;
 
@@ -6942,21 +6951,60 @@ type AccessibilityEvent = AccessibilityChangeEvent | AccessibilityAnnoucementFin
  */
 export interface AccessibilityInfoStatic {
     /**
-     * Query whether a screen reader is currently enabled.
-     * Returns a promise which resolves to a boolean. The result is true when a screen reader is enabled and false otherwise.
+     * Query whether bold text is currently enabled.
+     *
+     * @platform ios
      */
-    fetch: () => Promise<boolean>;
+    isBoldTextEnabled: () => Promise<boolean>;
+
+    /**
+     * Query whether grayscale is currently enabled.
+     *
+     * @platform ios
+     */
+    isGrayscaleEnabled: () => Promise<boolean>;
+
+    /**
+     * Query whether invert colors is currently enabled.
+     *
+     * @platform ios
+     */
+    isInvertColorsEnabled: () => Promise<boolean>;
+
+    /**
+     * Query whether reduce motion is currently enabled.
+     */
+    isReduceMotionEnabled: () => Promise<boolean>;
+
+    /**
+     * Query whether reduce transparency is currently enabled.
+     *
+     * @platform ios
+     */
+    isReduceTransparencyEnabled: () => Promise<boolean>;
+
+    /**
+     * Query whether a screen reader is currently enabled.
+     */
+    isScreenReaderEnabled: () => Promise<boolean>;
+
+    /**
+     * Query whether a screen reader is currently enabled.
+     *
+     * @deprecated use isScreenReaderChanged instead
+     */
+    fetch(): () => Promise<boolean>;
 
     /**
      * Add an event handler. Supported events:
-     *  - change: Fires when the state of the screen reader changes.
-     *            The argument to the event handler is a boolean.
-     *            The boolean is true when a screen reader is enabled and false otherwise.
-     *
      * - announcementFinished: iOS-only event. Fires when the screen reader has finished making an announcement.
      *                         The argument to the event handler is a dictionary with these keys:
      *                          - announcement: The string announced by the screen reader.
      *                          - success: A boolean indicating whether the announcement was successfully made.
+     * - AccessibilityEventName constants other than announcementFinished: Fires on accessibility feature change.
+     *            The argument to the event handler is a boolean.
+     *            The boolean is true when the related event's feature is enabled and false otherwise.
+     *
      */
     addEventListener: (eventName: AccessibilityEventName, handler: (event: AccessibilityEvent) => void) => void;
 
@@ -7958,6 +8006,7 @@ export interface PushNotification {
 type PresentLocalNotificationDetails = {
     alertBody: string;
     alertAction: string;
+    alertTitle?: string;
     soundName?: string;
     category?: string;
     userInfo?: Object;
@@ -8450,6 +8499,19 @@ export interface UIManagerStatic {
         error: () => void, /* currently unused */
         success: (item: string, index: number | undefined) => void
     ): void;
+
+    /**
+     * Used to call a native view method from JavaScript
+     *
+     * reactTag - Id of react view.
+     * commandID - Id of the native method that should be called.
+     * commandArgs - Args of the native method that we can pass from JS to native.
+     */
+    dispatchViewManagerCommand: (
+        reactTag: number | null,
+        commandID: number,
+        commandArgs?: Array<any>,
+    ) => void;
 }
 
 export interface SwitchPropsIOS extends ViewProps {
