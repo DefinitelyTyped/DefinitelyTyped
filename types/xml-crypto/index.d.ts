@@ -12,6 +12,16 @@ export class HashAlgorithm {
     getHash(xml: string): string;
 }
 
+export interface Reference {
+    xpath: string;
+    transforms?: ReadonlyArray<string>;
+    digestAlgorithm?: string;
+    uri?: string;
+    digestValue?: string;
+    inclusiveNamespacesPrefixList?: string;
+    isEmptyUri?: boolean;
+}
+
 export class SignatureAlgorithm {
     getAlgorithmName(): string;
     getSignature(signedInfo: Node, signingKey: Buffer): string;
@@ -28,6 +38,7 @@ export class SignedXml {
     static SignatureAlgorithms: {[uri: string]: new () => SignatureAlgorithm};
     canonicalizationAlgorithm: string;
     keyInfoProvider: FileKeyInfo;
+    references: Reference[];
     signatureAlgorithm: string;
     signingKey: Buffer | string;
     validationErrors: string[];
