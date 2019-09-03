@@ -663,3 +663,21 @@ puppeteer.launch().then(async browser => {
   const isMultiple: boolean = fileChooser.isMultiple();
   await fileChooser.accept(['/foo/bar']);
 });
+
+// addscriptTag Test
+async () => {
+    const browser = await puppeteer.launch();
+    const page = await browser.newPage();
+    function otherFunctionToInject() {
+        return 6;
+    }
+
+    await page.addScriptTag({ content: `${otherFunctionToInject}` });
+
+    const data = await page.evaluate(function() {
+        console.log('woo I run inside a browser');
+        return otherFunctionToInject();
+    });
+  console.log(data);
+    browser.close();
+};
