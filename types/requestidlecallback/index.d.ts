@@ -19,3 +19,8 @@ export interface IdleDeadline {
 export interface IdleRequestOptions {
 	timeout: number;
 }
+
+export interface Window {
+    requestIdleCallback(callback: IdleRequestCallback): number;
+    cancelIdleCallback(handle: number): void;
+}
