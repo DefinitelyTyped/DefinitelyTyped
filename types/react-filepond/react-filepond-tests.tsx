@@ -41,7 +41,7 @@ class App extends React.Component<{}, AppState> {
                         fetch: (url, load, error, progress, abort, headers) => {},
                     }}
                     oninit={() => this.handleInit() }
-                    files={this.files}
+                    files={this.state.files}
                     onupdatefiles={(fileItems) => {
                         // Set current file objects to this.state
                         this.setState({
