@@ -959,7 +959,7 @@ const PushNotificationTest = () => {
         alertTitle: "Titulus",
         alertAction: "view",
     });
-                          
+
     PushNotificationIOS.scheduleLocalNotification({
         alertAction: 'view',
         alertBody: 'Look at me!',
