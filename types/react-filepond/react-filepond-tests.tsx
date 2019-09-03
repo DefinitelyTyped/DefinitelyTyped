@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as filepond from 'react-filepond';
 
 interface AppState {
-    files: File[];
+    files: filepond.File[];
     filenames: string[];
 }
 
