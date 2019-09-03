@@ -52,6 +52,10 @@ declare namespace yargsParser {
         'set-placeholder-key': boolean;
         /** Should a group of short-options be treated as boolean flags? Default is `true` */
         'short-option-groups': boolean;
+        /** Should aliases be removed before returning results? Default is `false` */
+        'strip-aliased': boolean;
+        /** Should dashed keys be removed before returning results? This option has no effect if camel-case-expansion is disabled. Default is `false` */
+        'strip-dashed': boolean;
     }
 
     interface Options {
