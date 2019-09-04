@@ -4,15 +4,15 @@ type FutureOrFutureArray = Future<any> | Future<any>[];
 // In the future we can use this to extend the type of FutureObject if typescript
 // supports dynamic types
 // https://stackoverflow.com/questions/44323441/changing-property-name-in-typescript-mapped-type
-type FutureObjectFunctions<O> = {[K in keyof O]: O[K] extends ((...args: infer P) => infer R) ?
-    (...args: P) => Future<R> : never};
-
-type FutureObjectProperties<O> = {[K in keyof O]: O[K] extends (...args: any) => any ? never: O[K]};
+// type FutureObjectFunctions<O> = {[K in keyof O]: O[K] extends ((...args: infer P) => infer R) ?
+//     (...args: P) => Future<R> : never};
+//
+// type FutureObjectProperties<O> = {[K in keyof O]: O[K] extends (...args: any[]) => any ? never: O[K]};
 
 declare global {
     type FutureObject<T> = T & any;
     type FutureFunction<F, T=any> = F extends ((...args: infer A) => infer R) ?
-        (...args: A) => Future<R> : (...args: any) => Future<T>;
+        (...args: A) => Future<R> : (...args: any[]) => Future<T>;
 
     interface Function {
         /**
@@ -69,7 +69,7 @@ interface FutureConstructor {
      *   // You can safely `wait` on stuff here
      * }).detach();
      */
-    task<T = any>(fn: (...args: any) => T): Future<T>;
+    task<T = any>(fn: (...args: any[]) => T): Future<T>;
     task<T = any>(fn1: Function, fn2: Function, ...fns: Function[]): Future<Array<T>>;
 
     /**
