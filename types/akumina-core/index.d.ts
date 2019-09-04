@@ -1,17 +1,14 @@
 // Type definitions for Akumina 4.5
 // Project: https://github.com/akumina/AkuminaDev
-// Definitions by: Jason Arden <jason.arden@akumina.com>
+// Definitions by: Akumina <https://github.com/akumina>
+//                 Jason Arden <jason.arden@akumina.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
-
-// export as namespace Akumina;
 
 /// <reference types="jquery" />
 
 import IGetListRequest from "./interfaces/IGetListRequest";
 import ISavePageWidgetRequest from "./interfaces/ISavePageWidgetRequest";
-
-export = Akumina;
 
 declare namespace Akumina {
     class BaseWidget {
@@ -540,15 +537,8 @@ declare namespace Akumina.Digispace.Utilities { /* Added */
     class DateTimeManager {
         static LocalToUtc(data: any): Date;
         static UtcToLocal(Date: Date, format: string): string;
-
     }
-
-
 }
-
-
-
-
 
 declare namespace Akumina.Digispace.Data {
     class LanguageManager {
@@ -1498,3 +1488,5 @@ interface IConstants {
     REDIRECTONERROR: boolean;
     LOG_LEVEL: number;
 }
+
+export = Akumina;
