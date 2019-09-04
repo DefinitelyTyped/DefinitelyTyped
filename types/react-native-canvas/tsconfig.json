@@ -1,7 +1,9 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "lib": ["es6", "es2017"],
+        "moduleResolution": "node",
+        "lib": ["es6", "es2017", "esnext"],
+        "skipLibCheck": true,
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
@@ -11,6 +13,7 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
+        "allowSyntheticDefaultImports": true,
         "jsx": "react-native"
     },
     "files": ["index.d.ts", "react-native-canvas-tests.tsx"]
