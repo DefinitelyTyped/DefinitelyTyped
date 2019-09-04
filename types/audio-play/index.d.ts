@@ -2,8 +2,7 @@
 // Project: https://github.com/audiojs/audio-play
 // Definitions by: Jeff Peterson <https://github.com/bdjeffyp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-export = audioPlay;
+// TypeScript Version: 3.0
 
 /**
  * Creates and plays/pauses a sound effect or music.
@@ -12,7 +11,7 @@ export = audioPlay;
  * @param cb A callback that is executed when playback stops
  * @returns a handle to the player, which can then call pause and play functions
  */
-declare function audioPlay(buffer: AudioBuffer, how: Options, cb: () => void): AudioPlayHandle;
+export function audioPlay(buffer: AudioBuffer, how: Options, cb: () => void): AudioPlayHandle;
 
 export interface AudioPlayHandle {
     play: () => any;

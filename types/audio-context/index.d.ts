@@ -2,7 +2,7 @@
 // Project: https://github.com/audiojs/audio-context
 // Definitions by: Jeff Peterson <https://github.com/bdjeffyp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript version 2.2
+// TypeScript Version: 2.2
 
 /**
  * Options for your audio context:

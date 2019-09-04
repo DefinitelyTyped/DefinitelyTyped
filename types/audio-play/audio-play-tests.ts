@@ -1,4 +1,4 @@
-import audioPlay from "audio-play";
+import { audioPlay } from "audio-play";
 
 const buffer = new AudioBuffer({length: 2, sampleRate: 22000});
 const thisSound = audioPlay(buffer, { autoplay: true }, () => console.log('stopped!'));
