@@ -22,6 +22,7 @@
 //                 Ceyhun Ozugur <https://github.com/ceyhun>
 //                 Mike Martin <https://github.com/mcmar>
 //                 Theo Henry de Villeneuve <https://github.com/theohdv>
+//                 Eli White <https://github.com/TheSavior>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
