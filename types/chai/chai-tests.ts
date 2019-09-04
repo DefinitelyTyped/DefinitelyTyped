@@ -608,6 +608,13 @@ function nestedProperty2() {
         .not.have.nested.property('foo.bar', 'baz', 'blah');
 }
 
+function own() {
+  expect('test').to.have.own.property('length');
+  expect('test').to.own.property('length');
+  expect({ length: 12 }).to.have.own.property('length');
+  expect({ length: 12 }).to.not.have.own.property('length', 'blah');
+}
+
 function ownProperty() {
     expect('test').to.have.ownProperty('length');
     'test'.should.have.ownProperty('length');
