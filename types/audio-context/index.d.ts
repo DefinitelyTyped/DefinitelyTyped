@@ -2,15 +2,16 @@
 // Project: https://github.com/audiojs/audio-context
 // Definitions by: Jeff Peterson <https://github.com/bdjeffyp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript version 2.2
 
 /**
  * Options for your audio context:
-@param sampleRate if specified, will set the context sampleRate.
-@param latencyHint if specified, will control latency. One of 'balanced', 'playback', 'interaction' (default) or number.
-@param offline if specified, will create OfflineAudioContext.
-@param length if specified, will set number of frames for offline context.
-@param channels if specified, will set number of channels for offline context.
-@param contextAttributes any other options for the context.
+ * @param sampleRate if specified, will set the context sampleRate.
+ * @param latencyHint if specified, will control latency. One of 'balanced', 'playback', 'interaction' (default) or number.
+ * @param offline if specified, will create OfflineAudioContext.
+ * @param length if specified, will set number of frames for offline context.
+ * @param channels if specified, will set number of channels for offline context.
+ * @param contextAttributes any other options for the context.
  */
 export interface Options {
     sampleRate?: number;
