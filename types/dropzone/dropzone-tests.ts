@@ -141,6 +141,8 @@ const dropzoneWithOptions = new Dropzone(".test", {
 	maxfilesreached: (files: Dropzone.DropzoneFile[]) => console.log("Maxfilesreached"),
 	queuecomplete: () => console.log("Queuecomplete"),
 
+	transformFile: (file, done) => done(file),
+
 	previewTemplate: "<div></div>",
 });
 

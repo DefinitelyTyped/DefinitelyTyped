@@ -54,4 +54,10 @@ map.geoObjects.add(mapMarker);
 
 map.setCenter((mapMarker.geometry as ymaps.IPointGeometry).getCoordinates() || [55.76, 37.64]);
 
+map.layers.each((layer) => {
+	if (layer.getBrightness) {
+		layer.getBrightness();
+    }
+});
+
 map.setZoom(13);

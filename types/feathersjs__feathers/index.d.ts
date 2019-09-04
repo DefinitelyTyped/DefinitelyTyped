@@ -4,9 +4,10 @@
 //                  Abraao Alves <https://github.com/AbraaoAlves>
 //                  Tim Mensch <https://github.com/TimMensch>
 //                  Jordan Tucker <https://github.com/jordanbtucker>
+//                  Desmond Koh <https://github.com/deskoh>
 // Definitions: https://github.com/feathersjs-ecosystem/feathers-typescript
 
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 
@@ -137,9 +138,10 @@ declare namespace feathers {
     }
 
     interface HooksObject {
-        before: Partial<HookMap>;
-        after: Partial<HookMap>;
-        error: Partial<HookMap>;
+        before: Partial<HookMap> | Hook | Hook[];
+        after: Partial<HookMap> | Hook | Hook[];
+        error: Partial<HookMap> | Hook | Hook[];
+        finally?: Partial<HookMap> | Hook | Hook[];
     }
 
     // todo: figure out what to do: These methods don't actually need to be implemented, so they can be undefined at runtime. Yet making them optional gets cumbersome in strict mode.
@@ -158,7 +160,7 @@ declare namespace feathers {
     }
 
     interface SetupMethod {
-        setup(app: Application, path: string): void;
+        setup(app: Application<any>, path: string): void;
     }
 
     interface ServiceOverloads<T> {
@@ -175,7 +177,7 @@ declare namespace feathers {
 
     type Service<T> = ServiceOverloads<T> & ServiceAddons<T> & ServiceMethods<T>;
 
-    interface Application<ServiceTypes = any> extends EventEmitter {
+    interface Application<ServiceTypes = {}> extends EventEmitter {
         get(name: string): any;
 
         set(name: string, value: any): this;
@@ -196,9 +198,9 @@ declare namespace feathers {
 
         service<L extends keyof ServiceTypes>(location: L): Service<ServiceTypes[L]>;
 
-        service(location: string): Service<any>;
+        service(location: string): keyof ServiceTypes extends never ? Service<any> : never;
 
-        use(path: string, service: Partial<ServiceMethods<any> & SetupMethod> | Application, options?: any): this;
+        use(path: string, service: Partial<ServiceMethods<any> & SetupMethod> | Application<any>, options?: any): this;
 
         version: string;
     }

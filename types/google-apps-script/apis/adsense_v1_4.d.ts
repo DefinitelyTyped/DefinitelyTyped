@@ -315,7 +315,7 @@ declare namespace GoogleAppsScript {
         endDate?: string;
         headers?: Adsense.Schema.AdsenseReportsGenerateResponseHeaders[];
         kind?: string;
-        rows?: String[][];
+        rows?: string[][];
         startDate?: string;
         totalMatchedRows?: string;
         totals?: string[];

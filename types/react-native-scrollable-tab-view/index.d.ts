@@ -1,12 +1,13 @@
-// Type definitions for react-native-scrollable-tab-view 0.8
+// Type definitions for react-native-scrollable-tab-view 0.10
 // Project: https://github.com/brentvatne/react-native-scrollable-tab-view
 // Definitions by: CaiHuan <https://github.com/CaiHuan>
 //                 Egor Shulga <https://github.com/egorshulga>
+//                 ydostyle <https://github.com/ydostyle>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
 import * as React from 'react';
-import { Animated, ScrollViewProps, ViewStyle, TextStyle, StyleProp } from 'react-native';
+import { Animated, ScrollViewProps, ViewStyle, TextStyle, StyleProp, LayoutChangeEvent } from 'react-native';
 
 export interface ScrollableTabViewProperties extends React.Props<ScrollableTabView> {
     /**
@@ -129,17 +130,18 @@ export type TabProps<T = {}> = T & {
 };
 
 export interface DefaultTabBarProps {
-    backgroundColor?: string;
-    activeTextColor?: string;
-    inactiveTextColor?: string;
-    textStyle?: TextStyle;
-    tabStyle?: ViewStyle;
-    renderTab?: RenderTabProperties;
-    underlineStyle?: ViewStyle;
+  backgroundColor?: string;
+  activeTextColor?: string;
+  inactiveTextColor?: string;
+  textStyle?: TextStyle;
+  tabStyle?: ViewStyle;
+  renderTab?: RenderTabProperties;
+  underlineStyle?: ViewStyle;
+  style?: ViewStyle;
 }
 
 export type RenderTabProperties =
-    (name: string, pageIndex: number, isTabActive: boolean, goToPage: (pageNumber: number) => void) => JSX.Element;
+    (name: string, pageIndex: number, isTabActive: boolean, onPressHandler: (pageNumber: number) => void, onLayoutHandler?: (event: LayoutChangeEvent) => void) => JSX.Element;
 
 export class DefaultTabBar extends React.Component<TabBarProps<DefaultTabBarProps>> {
 }

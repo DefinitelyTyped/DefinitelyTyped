@@ -13,6 +13,12 @@ export class ReactWebcamTest extends React.Component {
     }
 
     render() {
+        const videoConstraints = {
+            width: 1280,
+            height: 720,
+            facingMode: "user"
+        };
+
         return (
             <div>
                 <Webcam
@@ -21,6 +27,7 @@ export class ReactWebcamTest extends React.Component {
                     ref={this.setRef}
                     screenshotFormat="image/jpeg"
                     width={350}
+                    videoConstraints={videoConstraints}
                 />
                 <button onClick={this.capture}>Capture photo</button>
             </div>

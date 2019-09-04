@@ -119,3 +119,10 @@ gapi.client.request({
 function processResponse(response: any) {
   // Stub
 }
+
+gapi.auth.setToken({
+  access_token: 'dummy-value',
+  error: '',
+  expires_in: '',
+  state: '',
+});

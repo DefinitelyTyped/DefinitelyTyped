@@ -221,6 +221,14 @@ test = (
   />
 );
 
+test = (
+    <VictoryAxis axisValue={3} />
+);
+
+test = (
+    <VictoryAxis axisValue="series1" />
+);
+
 // VictoryBar test
 test = (
   <VictoryBar
@@ -478,9 +486,23 @@ test = (
   </VictoryChart>
 );
 
+test = (
+  <VictoryChart horizontal>
+    <VictoryBar
+      categories={{ x: ['A', 'B', 'C'] }}
+      data={[
+        { y: 5, x: 'A' },
+        { y: 6, x: 'B' },
+        { y: 7, x: 'C' },
+      ]}
+      y0={(d) => d.y - 1}
+    />
+  </VictoryChart>
+);
+
 // VictoryGroup test
 test = (
-  <VictoryGroup offset={40}>
+  <VictoryGroup color="#46c85e" offset={40}>
     <VictoryBar
       data={[{ x: "a", y: 2 }, { x: "b", y: 3 }, { x: "c", y: 5 }]}
     />
@@ -490,6 +512,14 @@ test = (
     <VictoryBar
       data={[{ x: "a", y: 3 }, { x: "b", y: 2 }, { x: "c", y: 6 }]}
     />
+  </VictoryGroup>
+);
+
+test = (
+  <VictoryGroup color="#46c85e" offset={40} data={commonData2}>
+    <VictoryBar />
+    <VictoryBar />
+    <VictoryBar />
   </VictoryGroup>
 );
 

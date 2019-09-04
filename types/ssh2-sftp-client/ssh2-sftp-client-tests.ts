@@ -16,9 +16,7 @@ client.exists('/remote/path').then(() => null);
 
 client.stat('/remote/path').then(() => null);
 
-client.get('/remote/path').then(stream => stream.read(0));
-client.get('/remote/path', true, 'utf8').then(stream => stream.read(0));
-client.get('/remote/path', true, null).then(stream => stream.read(0));
+client.get('/remote/path').then(() => null);
 
 client.fastGet('/remote/path', 'local/path').then(() => null);
 

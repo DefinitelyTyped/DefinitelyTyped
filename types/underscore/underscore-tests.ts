@@ -9,6 +9,7 @@ _.each({ one: 1, two: 2, three: 3 }, (value, key) => alert(value.toString()));
 
 _.map([1, 2, 3], (num) => num * 3);
 _.map({ one: 1, two: 2, three: 3 }, (value, key) => value * 3);
+let plucked: string[] = _.map([{key: 'apples'}, {key: 'oranges'}], 'key');
 
 //var sum = _.reduce([1, 2, 3], (memo, num) => memo + num, 0);	// https://typescript.codeplex.com/workitem/1960
 var sum = _.reduce<number, number>([1, 2, 3], (memo, num) => memo + num, 0);
@@ -208,6 +209,46 @@ _(stooges)
 	.indexBy('age')
 	.value()['40'].age;
 
+let pensioners: string[] = _.chain(stooges)
+    .filter(p => p.age >= 60)
+    .map(p => p.name)
+    .value();
+
+var usersData: _.Dictionary<{ age: number; name: string }> = {
+    'user id': { name: 'moe', age: 40 },
+    'other user Id': { name: 'larry', age: 50 },
+    'fake id': { name: 'curly', age: 60 },
+};
+
+let youngPeopleId: string[] = _.chain(usersData)
+    .map((p, k: string) => k)
+    .value();
+
+let usersTable: { age: number; name: string; id: string }[] = _.chain(usersData)
+    .map<{ age: number; name: string; id: string }>((p, k: string) => {
+        return { id: k, ...p };
+    })
+    .value();
+
+// Test map function with _ChainOfArrays<>
+let usersTable_2 /*: { age: number; name: string; id: string }[][]*/ = _.chain(usersData)
+    .map<{ age: number; name: string; id: string }>((p, k: string) => {
+        return [{ id: k, ...p }];
+    })
+    .value();
+
+let usersTable_3 /*: { score: number; fullName: string; login: string }[][]*/ = _.chain(usersTable)
+    .map<{ score: number; fullName: string; login: string }>(p => {
+        return [
+            {
+                login: p.id,
+                fullName: p.name,
+                score: p.age,
+            },
+        ];
+    })
+    .value();
+
 _.countBy([1, 2, 3, 4, 5], (num) => (num % 2 == 0) ? 'even' : 'odd');
 
 _.shuffle([1, 2, 3, 4, 5, 6]);
@@ -284,6 +325,12 @@ var fibonacci = _.memoize(function (n) {
 	return n < 2 ? n : fibonacci(n - 1) + fibonacci(n - 2);
 });
 
+class MyClass {};
+
+var classMemoized = _.memoize<MyClass>(function (classInstance) {
+	return new classInstance();
+});
+
 var log = _.bind(console.log, console);
 _.delay(log, 1000, 'logged later');
 
@@ -333,7 +380,26 @@ _.functions(_);
 _.extend({ name: 'moe' }, { age: 50 });
 _.extendOwn({ name: 'moe'}, { age: 50 });
 _.assign({ name: 'moe'}, { age: 50 });
-_.pick({ name: 'moe', age: 50, userid: 'moe1' }, 'name', 'age');
+
+_.pick({ name: 'moe', age: 50, userid: 'moe1' }, 'name', 'age').age = 5;
+_.pick({ name: 'moe', age: 50, userid: 'moe1' }, ['name', 'age']).age = 5;
+_.pick({ name: 'moe', age: 50, userid: 'moe1' }, (value, key) => {
+    return key === 'name' || key === 'age';
+}).age = 5;
+
+_({ name: 'moe', age: 50, userid: 'moe1' }).pick('name', 'age').age = 5;
+_({ name: 'moe', age: 50, userid: 'moe1' }).pick(['name', 'age']).age = 5;
+_({ name: 'moe', age: 50, userid: 'moe1' }).pick((value, key) => {
+    return key === 'name' || key === 'age';
+}).age = 5;
+
+_.chain({ name: 'moe', age: 50, userid: 'moe1' }).pick('name', 'age').value().age = 5;
+_.chain({ name: 'moe', age: 50, userid: 'moe1' }).pick(['name', 'age']).value().age = 5;
+_.chain({ name: 'moe', age: 50, userid: 'moe1' }).pick((value, key) => {
+    return key === 'name' || key === 'age';
+}).value().age = 5;
+
+
 _.omit({ name: 'moe', age: 50, userid: 'moe1' }, 'name');
 _.omit({ name: 'moe', age: 50, userid: 'moe1' }, 'name', 'age');
 _.omit({ name: 'moe', age: 50, userid: 'moe1' }, ['name', 'age']);
@@ -380,7 +446,8 @@ _.isObject({});
 _.isObject(1);
 
 _.property('name')(moe);
-
+_.property(['name'])(moe);
+_.property(['luckyNumbers', 2])(moe)
 
 // (() => { return _.isArguments(arguments); })(1, 2, 3);
 _.isArguments([1, 2, 3]);
@@ -489,8 +556,6 @@ _.template("Using 'with': <%= data.answer %>", oldTemplateSettings)({ variable: 
 
 _.template("Using 'with': <%= data.answer %>", { variable: 'data' })({ answer: 'no' });
 
-_(['test', 'test']).pick(['test2', 'test2']);
-
 //////////////// Chain Tests
 function chain_tests() {
 	// https://typescript.codeplex.com/workitem/1960
@@ -547,6 +612,13 @@ function chain_tests() {
     let valuePerYear: number[] = _.chain(yearObject)
         .values()
         .value()
+
+    const arr1: string[] = ['z', 'x', 'y'], query = 'z';
+    let arr2: string[] = ['a', 'b', 'c'];
+    arr2 = _.chain(arr1)
+        .union(arr2)
+        .without(query)
+        .value();
 }
 
 var obj: { [k: string] : number } = {

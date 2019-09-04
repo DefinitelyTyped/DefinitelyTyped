@@ -4,9 +4,7 @@ import * as url from "url";
 import * as util from "util";
 import * as http from "http";
 import * as https from "https";
-import * as vm from "vm";
 import * as console2 from "console";
-import * as string_decoder from "string_decoder";
 import * as timers from "timers";
 import * as dns from "dns";
 import * as async_hooks from "async_hooks";
@@ -82,7 +80,7 @@ import Module = require("module");
     }
 
     {
-        fs.read(1, new DataView(new ArrayBuffer(1)), 0, 1, 0, (err: NodeJS.ErrnoException, bytesRead: number, buffer: DataView) => {});
+        fs.read(1, new DataView(new ArrayBuffer(1)), 0, 1, 0, (err: NodeJS.ErrnoException | null, bytesRead: number, buffer: DataView) => {});
     }
 
     {
@@ -109,6 +107,7 @@ import Module = require("module");
         listS = fs.readdirSync('path', undefined);
         const listDir: fs.Dirent[] = fs.readdirSync('path', { withFileTypes: true });
         const listDir2: Buffer[] = fs.readdirSync('path', { withFileTypes: false, encoding: 'buffer' });
+        const listDir3: fs.Dirent[] = fs.readdirSync('path', { encoding: 'utf8', withFileTypes: true });
 
         let listB: Buffer[];
         listB = fs.readdirSync('path', { encoding: 'buffer' });
@@ -118,8 +117,25 @@ import Module = require("module");
         fs.readdirSync('path', { encoding: enc });
         fs.readdirSync('path', { });
 
-        fs.readdir('path', { withFileTypes: true }, (err: NodeJS.ErrnoException, files: fs.Dirent[]) => {});
+        fs.readdir('path', { withFileTypes: true }, (err: NodeJS.ErrnoException | null, files: fs.Dirent[]) => {});
     }
+
+    async function testPromisify() {
+        const rd = util.promisify(fs.readdir);
+        let listS: string[];
+        listS = await rd('path');
+        listS = await rd('path', 'utf8');
+        listS = await rd('path', null);
+        listS = await rd('path', undefined);
+        listS = await rd('path', { encoding: 'utf8' });
+        listS = await rd('path', { encoding: null });
+        listS = await rd('path', { encoding: null, withFileTypes: false });
+        listS = await rd('path', { encoding: 'utf8', withFileTypes: false });
+        const listDir: fs.Dirent[] = await rd('path', { withFileTypes: true });
+        const listDir2: Buffer[] = await rd('path', { withFileTypes: false, encoding: 'buffer' });
+        const listDir3: fs.Dirent[] = await rd('path', { encoding: 'utf8', withFileTypes: true });
+    }
+
     {
         fs.mkdtemp('/tmp/foo-', (err, folder) => {
             console.log(folder);
@@ -277,6 +293,18 @@ import Module = require("module");
             recursive: true,
             mode: 0o777,
         });
+    }
+
+    {
+        let names: Promise<string[]>;
+        let buffers: Promise<Buffer[]>;
+        let namesOrBuffers: Promise<string[] | Buffer[]>;
+        let entries: Promise<fs.Dirent[]>;
+
+        names = fs.promises.readdir('/path/to/dir', { encoding: 'utf8', withFileTypes: false });
+        buffers = fs.promises.readdir('/path/to/dir', { encoding: 'buffer', withFileTypes: false });
+        namesOrBuffers = fs.promises.readdir('/path/to/dir', { encoding: 'SOME OTHER', withFileTypes: false });
+        entries = fs.promises.readdir('/path/to/dir', { encoding: 'utf8', withFileTypes: true });
     }
 }
 
@@ -517,101 +545,41 @@ import Module = require("module");
     }
 }
 
-////////////////////////////////////////////////////
-/// string_decoder tests : https://nodejs.org/api/string_decoder.html
-////////////////////////////////////////////////////
-
-{
-    const StringDecoder = string_decoder.StringDecoder;
-    const buffer = new Buffer('test');
-    const decoder1 = new StringDecoder();
-    const decoder2 = new StringDecoder('utf8');
-    const part1: string = decoder1.write(new Buffer('test'));
-    const end1: string = decoder1.end();
-    const part2: string = decoder2.write(new Buffer('test'));
-    const end2: string = decoder1.end(new Buffer('test'));
-}
-
-////////////////////////////////////////////////////
-/// vm tests : https://nodejs.org/api/vm.html
-////////////////////////////////////////////////////
-
-{
-    {
-        const sandbox = {
-            animal: 'cat',
-            count: 2
-        };
-
-        const context = vm.createContext(sandbox);
-        console.log(vm.isContext(context));
-        const script = new vm.Script('count += 1; name = "kitty"');
-
-        for (let i = 0; i < 10; ++i) {
-            script.runInContext(context);
-        }
-
-        console.log(util.inspect(sandbox));
-
-        vm.runInNewContext('count += 1; name = "kitty"', sandbox);
-        console.log(util.inspect(sandbox));
-    }
-
-    {
-        const sandboxes = [{}, {}, {}];
-
-        const script = new vm.Script('globalVar = "set"');
-
-        sandboxes.forEach((sandbox) => {
-            script.runInNewContext(sandbox);
-            script.runInThisContext();
-        });
-
-        console.log(util.inspect(sandboxes));
-
-        const localVar = 'initial value';
-        vm.runInThisContext('localVar = "vm";');
-
-        console.log(localVar);
-    }
-
-    {
-        vm.runInThisContext('console.log("hello world"', './my-file.js');
-    }
-
-    {
-        const fn: Function = vm.compileFunction('console.log("test")', [], {
-            parsingContext: vm.createContext(),
-            contextExtensions: [{
-                a: 1,
-            }],
-            produceCachedData: false,
-            cachedData: Buffer.from('nope'),
-        });
-    }
-}
-
 /////////////////////////////////////////////////////
 /// Timers tests : https://nodejs.org/api/timers.html
 /////////////////////////////////////////////////////
 
 {
     {
-        const immediateId = timers.setImmediate(() => { console.log("immediate"); });
-        timers.clearImmediate(immediateId);
+        const immediate = timers
+            .setImmediate(() => {
+                console.log('immediate');
+            })
+            .unref()
+            .ref();
+        const b: boolean = immediate.hasRef();
+        timers.clearImmediate(immediate);
     }
     {
-        const counter = 0;
-        const timeout = timers.setInterval(() => { console.log("interval"); }, 20);
-        timeout.unref();
-        timeout.ref();
+        const timeout = timers
+            .setInterval(() => {
+                console.log('interval');
+            }, 20)
+            .unref()
+            .ref()
+            .refresh();
+        const b: boolean = timeout.hasRef();
         timers.clearInterval(timeout);
     }
     {
-        const counter = 0;
-        const timeout = timers.setTimeout(() => { console.log("timeout"); }, 20);
-        timeout.unref();
-        timeout.ref();
+        const timeout = timers
+            .setTimeout(() => {
+                console.log('timeout');
+            }, 20)
+            .unref()
+            .ref()
+            .refresh();
+        const b: boolean = timeout.hasRef();
         timers.clearTimeout(timeout);
     }
     async function testPromisify() {
@@ -755,22 +723,22 @@ import Module = require("module");
 
 {
     dns.lookup("nodejs.org", (err, address, family) => {
-        const _err: NodeJS.ErrnoException = err;
+        const _err: NodeJS.ErrnoException | null = err;
         const _address: string = address;
         const _family: number = family;
     });
     dns.lookup("nodejs.org", 4, (err, address, family) => {
-        const _err: NodeJS.ErrnoException = err;
+        const _err: NodeJS.ErrnoException | null = err;
         const _address: string = address;
         const _family: number = family;
     });
     dns.lookup("nodejs.org", 6, (err, address, family) => {
-        const _err: NodeJS.ErrnoException = err;
+        const _err: NodeJS.ErrnoException | null = err;
         const _address: string = address;
         const _family: number = family;
     });
     dns.lookup("nodejs.org", {}, (err, address, family) => {
-        const _err: NodeJS.ErrnoException = err;
+        const _err: NodeJS.ErrnoException | null = err;
         const _address: string = address;
         const _family: number = family;
     });
@@ -782,17 +750,17 @@ import Module = require("module");
             all: false
         },
         (err, address, family) => {
-            const _err: NodeJS.ErrnoException = err;
+            const _err: NodeJS.ErrnoException | null = err;
             const _address: string = address;
             const _family: number = family;
         }
     );
     dns.lookup("nodejs.org", { all: true }, (err, addresses) => {
-        const _err: NodeJS.ErrnoException = err;
+        const _err: NodeJS.ErrnoException | null = err;
         const _address: dns.LookupAddress[] = addresses;
     });
     dns.lookup("nodejs.org", { all: true, verbatim: true }, (err, addresses) => {
-        const _err: NodeJS.ErrnoException = err;
+        const _err: NodeJS.ErrnoException | null = err;
         const _address: dns.LookupAddress[] = addresses;
     });
 
@@ -800,13 +768,13 @@ import Module = require("module");
         return Math.random() > 0.5 ? true : false;
     }
     dns.lookup("nodejs.org", { all: trueOrFalse() }, (err, addresses, family) => {
-        const _err: NodeJS.ErrnoException = err;
+        const _err: NodeJS.ErrnoException | null = err;
         const _addresses: string | dns.LookupAddress[] = addresses;
         const _family: number | undefined = family;
     });
 
     dns.lookupService("127.0.0.1", 0, (err, hostname, service) => {
-        const _err: NodeJS.ErrnoException = err;
+        const _err: NodeJS.ErrnoException | null = err;
         const _hostname: string = hostname;
         const _service: string = service;
     });
@@ -1000,7 +968,6 @@ import * as constants from 'constants';
     num = constants.DH_CHECK_P_NOT_PRIME;
     num = constants.DH_UNABLE_TO_CHECK_GENERATOR;
     num = constants.DH_NOT_SUITABLE_GENERATOR;
-    num = constants.NPN_ENABLED;
     num = constants.ALPN_ENABLED;
     num = constants.RSA_PKCS1_PADDING;
     num = constants.RSA_SSLV23_PADDING;
@@ -1078,7 +1045,7 @@ import * as constants from 'constants';
         inspector.open(0, 'localhost');
         inspector.open(0, 'localhost', true);
         inspector.close();
-        const inspectorUrl: string = inspector.url();
+        const inspectorUrl: string | undefined = inspector.url();
 
         const session = new inspector.Session();
         session.connect();

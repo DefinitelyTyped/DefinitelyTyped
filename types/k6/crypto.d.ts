@@ -1,30 +1,233 @@
-export type OutputEncoding = 'hex' | 'base64';
+/*
+ * Cryptography utilities.
+ * https://docs.k6.io/docs/k6crypto
+ */
 
-export function hmac(algorithm: string, secret: string, data: string, outputEncoding: OutputEncoding): string;
+import { bytes } from '.';
 
-export function md4(input: string, outputEncoding: OutputEncoding): string;
+/**
+ * Generate random bytes.
+ * @param size - Number of bytes to generate.
+ * @returns Random bytes.
+ * @public
+ */
+export function randomBytes(size: number): bytes;
 
-export function md5(input: string, outputEncoding: OutputEncoding): string;
+/**
+ * Produce HMAC.
+ * https://docs.k6.io/docs/hmac-algorithm-secret-data-outputencoding
+ * @param algorithm - Hash algorithm.
+ * @param secret - Shared secret.
+ * @param data - Input data.
+ * @param outputEncoding - Output encoding.
+ * @returns Produced HMAC.
+ * @public
+ */
+export function hmac<OE extends OutputEncoding>(
+    algorithm: Algorithm,
+    secret: string,
+    data: string,
+    outputEncoding: OE
+): Output<OE>;
 
-export function sha1(input: string, outputEncoding: OutputEncoding): string;
+/**
+ * Hash with MD4.
+ * https://docs.k6.io/docs/md4-input-outputencoding
+ * @param input - Data to hash.
+ * @param outputEncoding - Output encoding.
+ * @returns MD4 digest.
+ * @public
+ */
+export function md4<OE extends OutputEncoding>(
+    input: string,
+    outputEncoding: OE
+): Output<OE>;
 
-export function sha256(input: string, outputEncoding: OutputEncoding): string;
+/**
+ * Hash with MD5.
+ * https://docs.k6.io/docs/md5-input-outputencoding
+ * @param input - Data to hash.
+ * @param outputEncoding - Output encoding.
+ * @returns MD5 digest.
+ * @public
+ */
+export function md5<OE extends OutputEncoding>(
+    input: string,
+    outputEncoding: OE
+): Output<OE>;
 
-export function sha384(input: string, outputEncoding: OutputEncoding): string;
+/**
+ * Hash with SHA-1.
+ * https://docs.k6.io/docs/sha1-input-outputencoding
+ * @param input - Data to hash.
+ * @param outputEncoding - Output encoding.
+ * @returns SHA-1 digest.
+ * @public
+ */
+export function sha1<OE extends OutputEncoding>(
+    input: string,
+    outputEncoding: OE
+): Output<OE>;
 
-export function sha512(input: string, outputEncoding: OutputEncoding): string;
+/**
+ * Hash with SHA-256.
+ * https://docs.k6.io/docs/sha256-input-outputencoding
+ * @param input - Data to hash.
+ * @param outputEncoding - Output encoding.
+ * @returns SHA-256 digest.
+ * @public
+ */
+export function sha256<OE extends OutputEncoding>(
+    input: string,
+    outputEncoding: OE
+): Output<OE>;
 
-export function sha512_224(input: string, outputEncoding: OutputEncoding): string;
+/**
+ * Hash with SHA-384.
+ * https://docs.k6.io/docs/sha384-input-outputencoding
+ * @param input - Data to hash.
+ * @param outputEncoding - Output encoding.
+ * @returns SHA-384 digest.
+ * @public
+ */
+export function sha384<OE extends OutputEncoding>(
+    input: string,
+    outputEncoding: OE
+): Output<OE>;
 
-export function sha512_256(input: string, outputEncoding: OutputEncoding): string;
+/**
+ * Hash with SHA-512.
+ * https://docs.k6.io/docs/sha512-input-outputencoding
+ * @param input - Data to hash.
+ * @param outputEncoding - Output encoding.
+ * @returns SHA-512 digest.
+ * @public
+ */
+export function sha512<OE extends OutputEncoding>(
+    input: string,
+    outputEncoding: OE
+): Output<OE>;
 
-export function ripemd160(input: string, outputEncoding: OutputEncoding): string;
+/**
+ * Hash with SHA-512/224.
+ * https://docs.k6.io/docs/sha512_224-input-outputencoding
+ * @param input - Data to hash.
+ * @param outputEncoding - Output encoding.
+ * @returns SHA-512/224 digest.
+ * @public
+ */
+export function sha512_224<OE extends OutputEncoding>(
+    input: string,
+    outputEncoding: OE
+): Output<OE>;
 
-export function createHash(algorithm: string): Hasher;
+/**
+ * Hash with SHA-512/256.
+ * https://docs.k6.io/docs/sha512_256-input-outputencoding
+ * @param input - Data to hash.
+ * @param outputEncoding - Output encoding.
+ * @returns SHA-512/256 digest.
+ * @public
+ */
+export function sha512_256<OE extends OutputEncoding>(
+    input: string,
+    outputEncoding: OE
+): Output<OE>;
 
-export function createHMAC(algorithm: string, secret: string): Hasher;
+/**
+ * Hash with RIPEMD-160.
+ * https://docs.k6.io/docs/ripemd160-input-outputencoding
+ * @param input - Data to hash.
+ * @param outputEncoding - Output encoding.
+ * @returns RIPEMD-160 digest.
+ * @public
+ */
+export function ripemd160<OE extends OutputEncoding>(
+    input: string,
+    outputEncoding: OE
+): Output<OE>;
 
-export interface Hasher {
-  update: (input: string) =>  void;
-  digest: (outputEncoding: OutputEncoding) =>  string;
-}
+/**
+ * Create a hashing object.
+ * https://docs.k6.io/docs/createhash-algorithm
+ * @param algorithm - Hash algorithm.
+ * @returns Hashing object.
+ * @public
+ */
+export function createHash(algorithm: Algorithm): Hasher;
+
+/**
+ * Create an HMAC hashing object.
+ * https://docs.k6.io/docs/createhmacalgorithm-secret
+ * @param algorithm - Hash algorithm.
+ * @param secret - Shared secret.
+ * @returns HMAC hashing object.
+ * @public
+ */
+export function createHMAC(algorithm: Algorithm, secret: string): Hasher;
+
+/**
+ * Hash algorithm.
+ * @public
+ */
+export type Algorithm =
+    | 'md4'
+    | 'md5'
+    | 'sha1'
+    | 'sha256'
+    | 'sha384'
+    | 'sha512'
+    | 'sha512_224'
+    | 'sha512_256'
+    | 'ripemd160';
+
+/**
+ * String output encoding.
+ * @public
+ */
+export type StringEncoding = 'hex' | 'base64' | 'base64url' | 'base64rawurl';
+
+/**
+ * Binary output encoding.
+ * @public
+ */
+export type BinaryEncoding = 'binary';
+
+/**
+ * Output encoding.
+ * @public
+ */
+export type OutputEncoding = StringEncoding | BinaryEncoding;
+
+/**
+ * Output type. Varies with output encoding.
+ * @typeParam OE - Output encoding.
+ * @public
+ */
+export type Output<OE extends OutputEncoding> = OE extends StringEncoding
+    ? string
+    : OE extends BinaryEncoding
+    ? bytes
+    : never;
+
+/**
+ * Hashing object.
+ * https://docs.k6.io/docs/hasher-k6crypto
+ * @public
+ */
+export abstract class Hasher {
+           protected __brand: never;
+
+           /**
+            * Add more data to the string we want to create a hash of.
+            * @param input - Data to add.
+            */
+           update(input: string): void;
+
+           /**
+            * Return a digest from the data added so far.
+            * @param outputEncoding - Output encoding.
+            * @returns Digest of data added so far.
+            */
+           digest<OE extends OutputEncoding>(outputEncoding: OE): Output<OE>;
+       }

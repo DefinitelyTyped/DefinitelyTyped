@@ -1,5 +1,5 @@
 // Type definitions for react-instantsearch-core 5.2
-// Project: https://community.algolia.com/react-instantsearch/
+// Project: https://www.algolia.com/doc/guides/building-search-ui/what-is-instantsearch/react, https://community.algolia.com/react-instantsearch/
 // Definitions by: Gordon Burgett <https://github.com/gburgett>
 //                 Justin Powell <https://github.com/jpowell>
 //                 David Furlong <https://github.com/davidfurlong>
@@ -341,10 +341,11 @@ export function connectHitsPerPage(Composed: React.ComponentType<any>): React.Co
 export interface InfiniteHitsProvided<THit = any> {
   /** the records that matched the search */
   hits: THit[];
-  /** a function to toggle the refinement */
-  refine: (...args: any[]) => any;
   /** indicates if there are more pages to load */
   hasMore: boolean;
+  hasPrevious: boolean;
+  refineNext: (...args: any[]) => any;
+  refinePrevious: (...args: any[]) => any;
 }
 
 /**

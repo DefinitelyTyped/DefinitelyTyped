@@ -235,6 +235,9 @@ function test_user() {
     user.set("password", "my pass");
     user.set("email", "email@example.com");
     user.signUp(null, { useMasterKey: true });
+
+    const anotherUser: Parse.User = Parse.User.fromJSON({})
+    anotherUser.set('email', "email@example.com")
 }
 
 async function test_user_currentAsync() {
@@ -375,6 +378,9 @@ function test_cloud_functions() {
     });
 
     Parse.Cloud.afterSave('MyCustomClass', (request: Parse.Cloud.AfterSaveRequest) => {
+        if(!request.context) {
+            throw new Error('Request context should be defined')
+        }
         // result
     });
 
@@ -390,6 +396,7 @@ function test_cloud_functions() {
     const CUSTOM_ERROR_IMMUTABLE_FIELD = 1002
 
     Parse.Cloud.beforeSave('MyCustomClass', async (request: Parse.Cloud.BeforeSaveRequest) => {
+        
             if (request.object.isNew()) {
                 if (!request.object.has('immutable')) throw new Error('Field immutable is required')
             } else {
@@ -401,6 +408,9 @@ function test_cloud_functions() {
                 if (original.get('immutable') !== request.object.get('immutable')) {
                     throw new Parse.Error(CUSTOM_ERROR_IMMUTABLE_FIELD, 'This field cannot be changed')
                 }
+            }
+            if(!request.context) {
+                throw new Error('Request context should be defined')
             }
     });
 

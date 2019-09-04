@@ -1,25 +1,28 @@
+// package: google.protobuf.compiler
+// file: compiler/plugin.proto
+
 import * as jspb from "../../../index";
 import * as google_protobuf_descriptor_pb from "../descriptor_pb";
 
 export class Version extends jspb.Message {
   hasMajor(): boolean;
   clearMajor(): void;
-  getMajor(): number;
+  getMajor(): number | undefined;
   setMajor(value: number): void;
 
   hasMinor(): boolean;
   clearMinor(): void;
-  getMinor(): number;
+  getMinor(): number | undefined;
   setMinor(value: number): void;
 
   hasPatch(): boolean;
   clearPatch(): void;
-  getPatch(): number;
+  getPatch(): number | undefined;
   setPatch(value: number): void;
 
   hasSuffix(): boolean;
   clearSuffix(): void;
-  getSuffix(): string;
+  getSuffix(): string | undefined;
   setSuffix(value: string): void;
 
   serializeBinary(): Uint8Array;
@@ -45,21 +48,21 @@ export class CodeGeneratorRequest extends jspb.Message {
   clearFileToGenerateList(): void;
   getFileToGenerateList(): Array<string>;
   setFileToGenerateList(value: Array<string>): void;
-  addFileToGenerate(value: string, index?: number): void;
+  addFileToGenerate(value: string, index?: number): string;
 
   hasParameter(): boolean;
   clearParameter(): void;
-  getParameter(): string;
+  getParameter(): string | undefined;
   setParameter(value: string): void;
 
   clearProtoFileList(): void;
   getProtoFileList(): Array<google_protobuf_descriptor_pb.FileDescriptorProto>;
   setProtoFileList(value: Array<google_protobuf_descriptor_pb.FileDescriptorProto>): void;
-  addProtoFile(value?: google_protobuf_descriptor_pb.FileDescriptorProto, index?: number): void;
+  addProtoFile(value?: google_protobuf_descriptor_pb.FileDescriptorProto, index?: number): google_protobuf_descriptor_pb.FileDescriptorProto;
 
   hasCompilerVersion(): boolean;
   clearCompilerVersion(): void;
-  getCompilerVersion(): Version;
+  getCompilerVersion(): Version | undefined;
   setCompilerVersion(value?: Version): void;
 
   serializeBinary(): Uint8Array;
@@ -77,20 +80,20 @@ export namespace CodeGeneratorRequest {
     fileToGenerateList: Array<string>,
     parameter?: string,
     protoFileList: Array<google_protobuf_descriptor_pb.FileDescriptorProto.AsObject>,
-    compilerVersion: Version.AsObject,
+    compilerVersion?: Version.AsObject,
   }
 }
 
 export class CodeGeneratorResponse extends jspb.Message {
   hasError(): boolean;
   clearError(): void;
-  getError(): string;
+  getError(): string | undefined;
   setError(value: string): void;
 
   clearFileList(): void;
   getFileList(): Array<CodeGeneratorResponse.File>;
   setFileList(value: Array<CodeGeneratorResponse.File>): void;
-  addFile(value?: CodeGeneratorResponse.File, index?: number): void;
+  addFile(value?: CodeGeneratorResponse.File, index?: number): CodeGeneratorResponse.File;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): CodeGeneratorResponse.AsObject;
@@ -111,17 +114,17 @@ export namespace CodeGeneratorResponse {
   export class File extends jspb.Message {
     hasName(): boolean;
     clearName(): void;
-    getName(): string;
+    getName(): string | undefined;
     setName(value: string): void;
 
     hasInsertionPoint(): boolean;
     clearInsertionPoint(): void;
-    getInsertionPoint(): string;
+    getInsertionPoint(): string | undefined;
     setInsertionPoint(value: string): void;
 
     hasContent(): boolean;
     clearContent(): void;
-    getContent(): string;
+    getContent(): string | undefined;
     setContent(value: string): void;
 
     serializeBinary(): Uint8Array;

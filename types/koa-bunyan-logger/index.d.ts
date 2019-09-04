@@ -36,6 +36,7 @@ declare namespace koaBunyanLogger {
         updateResponseLogFields?: (responseData: ResponseData) => ResponseData;
         formatRequestMessage?: (requestData: RequestData) => string;
         formatResponseMessage?: (responseData: ResponseData) => string;
+        ignorePath?: string[];
     }
 
     function requestLogger(opts?: RequestLoggerOptions): Middleware;

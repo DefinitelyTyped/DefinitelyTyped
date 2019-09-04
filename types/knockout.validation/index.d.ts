@@ -6,6 +6,8 @@
 
 /// <reference types="knockout" />
 
+type KnockoutValidationMessageFunction = (params: any, observable: any) => string;
+
 interface KnockoutValidationGroupingOptions {
     /**
      * indicates whether to walk the ViewModel (or object)
@@ -131,7 +133,7 @@ interface KnockoutValidationAsyncCallback {
 
 interface KnockoutValidationRuleBase
 {
-    message: string;
+    message: string | KnockoutValidationMessageFunction;
 }
 
 interface KnockoutValidationRuleDefinition extends KnockoutValidationRuleBase {
@@ -171,7 +173,7 @@ interface KnockoutValidationRuleDefinitions {
 interface KnockoutValidationRule {
     rule: string;
     params: any;
-    message?: string;
+    message?: string | KnockoutValidationMessageFunction;
     condition?: () => boolean;
 }
 

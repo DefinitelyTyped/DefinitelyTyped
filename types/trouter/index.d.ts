@@ -1,4 +1,4 @@
-// Type definitions for trouter 3.0
+// Type definitions for trouter 3.1
 // Project: https://github.com/lukeed/trouter
 // Definitions by: Markus Lanz <https://github.com/stahlstift>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -48,31 +48,31 @@ declare namespace Trouter {
 }
 
 declare class Trouter<T = any> {
-    use(pattern: string, ...handlers: T[]): this;
+    use(pattern: string | RegExp, ...handlers: T[]): this;
 
     find(method: Trouter.HTTPMethod, url: string): Trouter.FindResult<T>;
 
-    add(method: Trouter.HTTPMethod, pattern: string, ...handlers: T[]): this;
+    add(method: Trouter.HTTPMethod, pattern: string | RegExp, ...handlers: T[]): this;
 
-    all(pattern: string, ...handlers: T[]): this;
+    all(pattern: string | RegExp, ...handlers: T[]): this;
 
-    get(pattern: string, ...handlers: T[]): this;
+    get(pattern: string | RegExp, ...handlers: T[]): this;
 
-    head(pattern: string, ...handlers: T[]): this;
+    head(pattern: string | RegExp, ...handlers: T[]): this;
 
-    patch(pattern: string, ...handlers: T[]): this;
+    patch(pattern: string | RegExp, ...handlers: T[]): this;
 
-    options(pattern: string, ...handlers: T[]): this;
+    options(pattern: string | RegExp, ...handlers: T[]): this;
 
-    connect(pattern: string, ...handlers: T[]): this;
+    connect(pattern: string | RegExp, ...handlers: T[]): this;
 
-    delete(pattern: string, ...handlers: T[]): this;
+    delete(pattern: string | RegExp, ...handlers: T[]): this;
 
-    trace(pattern: string, ...handlers: T[]): this;
+    trace(pattern: string | RegExp, ...handlers: T[]): this;
 
-    post(pattern: string, ...handlers: T[]): this;
+    post(pattern: string | RegExp, ...handlers: T[]): this;
 
-    put(pattern: string, ...handlers: T[]): this;
+    put(pattern: string | RegExp, ...handlers: T[]): this;
 }
 
 export = Trouter;

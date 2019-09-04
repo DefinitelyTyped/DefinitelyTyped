@@ -1,8 +1,8 @@
-import * as breaks from "./cast.framework.breaks";
-import * as events from "./cast.framework.events";
-import * as messages from "./cast.framework.messages";
-import * as system from "./cast.framework.system";
-import * as ui from "./cast.framework.ui";
+import * as breaks from './cast.framework.breaks';
+import * as events from './cast.framework.events';
+import * as messages from './cast.framework.messages';
+import * as system from './cast.framework.system';
+import * as ui from './cast.framework.ui';
 
 export import breaks = breaks;
 export import events = events;
@@ -11,16 +11,17 @@ export import system = system;
 export import messages = messages;
 
 export type HTMLMediaElement = any;
-export as namespace framework
-export type LoggerLevel =
-    | "DEBUG"
-    | "VERBOSE"
-    | "INFO"
-    | "WARNING"
-    | "ERROR"
-    | "NONE";
+export as namespace framework;
+export type LoggerLevel = 'DEBUG' | 'VERBOSE' | 'INFO' | 'WARNING' | 'ERROR' | 'NONE';
 
-export type ContentProtection = "NONE" | "CLEARKEY" | "PLAYREADY" | "WIDEVINE";
+export enum ContentProtection {
+    NONE = 'none',
+    CLEARKEY = 'clearkey',
+    PLAYREADY = 'playready',
+    WIDEVINE = 'widevine',
+    AES_128 = 'aes_128',
+    AES_128_CKP = 'aes_128_ckp',
+}
 
 /**
  * Manages text tracks.
@@ -146,9 +147,7 @@ export class QueueBase {
      * If this returns or resolves to null; our default queueing implementation will create a queue based on queueData.items or the single media
      *  in the load request data.
      */
-    initialize(
-        requestData: messages.LoadRequestData
-    ): messages.QueueData | Promise<messages.QueueData>;
+    initialize(requestData: messages.LoadRequestData): messages.QueueData | Promise<messages.QueueData>;
 
     /**
      * Returns next items after the reference item; often the end of the current queue; called by the receiver MediaManager.
@@ -192,20 +191,12 @@ export class PlayerManager {
     /**
      * Adds an event listener for player event.
      */
-    addEventListener: (
-        eventType: events.EventType | events.EventType[],
-        eventListener: EventHandler
-    ) => void;
+    addEventListener: (eventType: events.EventType | events.EventType[], eventListener: EventHandler) => void;
 
     /**
      * Sends a media status message to all senders (broadcast). Applications use this to send a custom state change.
      */
-    broadcastStatus(
-        includeMedia?: boolean,
-        requestId?: number,
-        customData?: any,
-        includeQueueItems?: boolean
-    ): void;
+    broadcastStatus(includeMedia?: boolean, requestId?: number, customData?: any, includeQueueItems?: boolean): void;
 
     getAudioTracksManager(): AudioTracksManager;
 
@@ -310,10 +301,7 @@ export class PlayerManager {
     /**
      * Removes the event listener added for given player event. If event listener is not added; it will be ignored.
      */
-    removeEventListener(
-        eventType: events.EventType | events.EventType[],
-        eventListener: EventHandler
-    ): void;
+    removeEventListener(eventType: events.EventType | events.EventType[], eventListener: EventHandler): void;
 
     /**
      * Seeks in current media.
@@ -363,10 +351,7 @@ export class PlayerManager {
     /**
      * Sets media information.
      */
-    setMediaInformation(
-        mediaInformation: messages.MediaInformation,
-        opt_broadcast?: boolean
-    ): void;
+    setMediaInformation(mediaInformation: messages.MediaInformation, opt_broadcast?: boolean): void;
 
     /**
      * Sets a handler to return or modify PlaybackConfig; for a specific load request. The handler paramaters are the load request data
@@ -374,19 +359,14 @@ export class PlayerManager {
      *  or null to prevent the media from playing. The return value can be a promise to allow waiting for data from the server.
      */
     setMediaPlaybackInfoHandler(
-        handler: (
-            loadRequestData: messages.LoadRequestData,
-            playbackConfig: PlaybackConfig
-        ) => void
+        handler: (loadRequestData: messages.LoadRequestData, playbackConfig: PlaybackConfig) => void
     ): void;
 
     /**
      * Sets a handler to return the media url for a load request. This handler can be used to avoid having the media content url published as part
      * of the media status. By default the media contentId is used as the content url.
      */
-    setMediaUrlResolver(
-        resolver: (loadRequestData: messages.LoadRequestData) => void
-    ): void;
+    setMediaUrlResolver(resolver: (loadRequestData: messages.LoadRequestData) => void): void;
 
     /**
      * Provide an interceptor of incoming and outgoing messages.
@@ -537,6 +517,12 @@ export class CastReceiverOptions {
     customNamespaces?: any;
 
     /**
+     * If true, the receiver will not set an idle timeout to close receiver if there is no activity.
+     * Should only be used for non media apps.
+     */
+    disableIdleTimeout?: boolean;
+
+    /**
      * Sender id used for local requests. Default value is 'local'.
      */
     localSenderId?: string;
@@ -615,29 +601,17 @@ export class CastReceiverContext {
     /**
      * Sets message listener on custom message channel.
      */
-    addCustomMessageListener(
-        namespace: string,
-        listener: EventHandler
-    ): void;
+    addCustomMessageListener(namespace: string, listener: EventHandler): void;
 
     /**
      * Add listener to cast system events.
      */
-    addEventListener(
-        type: system.EventType | system.EventType[],
-        handler: EventHandler
-    ): void;
+    addEventListener(type: system.EventType | system.EventType[], handler: EventHandler): void;
 
     /**
      * Checks if the given media params of video or audio streams are supported by the platform.
      */
-    canDisplayType(
-        mimeType: string,
-        codecs?: string,
-        width?: number,
-        height?: number,
-        framerate?: number
-    ): boolean;
+    canDisplayType(mimeType: string, codecs?: string, width?: number, height?: number, framerate?: number): boolean;
 
     /**
      * Provides application information once the system is ready; otherwise it will be null.
@@ -695,10 +669,7 @@ export class CastReceiverContext {
     /**
      * Remove a message listener on custom message channel.
      */
-    removeCustomMessageListener(
-        namespace: string,
-        listener: EventHandler
-    ): void;
+    removeCustomMessageListener(namespace: string, listener: EventHandler): void;
 
     /**
      * Remove listener to cast system events.
@@ -708,11 +679,7 @@ export class CastReceiverContext {
     /**
      * Sends a message to a specific sender.
      */
-    sendCustomMessage(
-        namespace: string,
-        senderId: string,
-        message: any
-    ): void;
+    sendCustomMessage(namespace: string, senderId: string, message: any): void;
 
     /**
      * This function should be called in response to the feedbackstarted event if the application

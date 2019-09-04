@@ -36,7 +36,7 @@ io.on('connection', (socket) => {
         socket.handshake.session!['sessionEntry'],
         socket.handshake.session!.anotherSessionEntry
     ];
-    socket.handshake.session!.touch(() => {});
+    socket.handshake.session!.touch();
     socket.handshake.session!.regenerate(() => {});
     socket.handshake.session!.save(() => {});
     socket.handshake.session!.reload(() => {});

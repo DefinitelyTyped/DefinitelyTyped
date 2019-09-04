@@ -31,6 +31,10 @@ declare interface GlobalFetch {
 
 declare function fetch(input: RequestInfo, init?: RequestInit): Promise<Response>;
 
+declare interface WindowOrWorkerGlobalScope {
+    fetch(input: RequestInfo, init?: RequestInit): Promise<Response>;
+}
+
 interface Blob {}
 
 declare class FormData {
@@ -139,6 +143,12 @@ type ResponseType_ = "basic" | "cors" | "default" | "error" | "opaque" | "opaque
 // XMLHttpRequest
 //
 
+declare interface ProgressEvent extends Event {
+    readonly lengthComputable: boolean;
+    readonly loaded: number;
+    readonly total: number;
+}
+
 interface XMLHttpRequestEventMap extends XMLHttpRequestEventTargetEventMap {
     readystatechange: Event;
 }
@@ -193,23 +203,23 @@ declare var XMLHttpRequest: {
 };
 
 interface XMLHttpRequestEventTargetEventMap {
-    abort: Event;
-    error: Event;
-    load: Event;
-    loadend: Event;
-    loadstart: Event;
-    progress: Event;
-    timeout: Event;
+    abort: ProgressEvent;
+    error: ProgressEvent;
+    load: ProgressEvent;
+    loadend: ProgressEvent;
+    loadstart: ProgressEvent;
+    progress: ProgressEvent;
+    timeout: ProgressEvent;
 }
 
 interface XMLHttpRequestEventTarget {
-    onabort: ((this: XMLHttpRequest, ev: Event) => any) | null;
-    onerror: ((this: XMLHttpRequest, ev: Event) => any) | null;
-    onload: ((this: XMLHttpRequest, ev: Event) => any) | null;
-    onloadend: ((this: XMLHttpRequest, ev: Event) => any) | null;
-    onloadstart: ((this: XMLHttpRequest, ev: Event) => any) | null;
-    onprogress: ((this: XMLHttpRequest, ev: Event) => any) | null;
-    ontimeout: ((this: XMLHttpRequest, ev: Event) => any) | null;
+    onabort: ((this: XMLHttpRequest, ev: ProgressEvent) => any) | null;
+    onerror: ((this: XMLHttpRequest, ev: ProgressEvent) => any) | null;
+    onload: ((this: XMLHttpRequest, ev: ProgressEvent) => any) | null;
+    onloadend: ((this: XMLHttpRequest, ev: ProgressEvent) => any) | null;
+    onloadstart: ((this: XMLHttpRequest, ev: ProgressEvent) => any) | null;
+    onprogress: ((this: XMLHttpRequest, ev: ProgressEvent) => any) | null;
+    ontimeout: ((this: XMLHttpRequest, ev: ProgressEvent) => any) | null;
     addEventListener<K extends keyof XMLHttpRequestEventTargetEventMap>(
         type: K,
         listener: (this: XMLHttpRequestEventTarget, ev: XMLHttpRequestEventTargetEventMap[K]) => any
@@ -240,4 +250,25 @@ declare var XMLHttpRequestUpload: {
     new (): XMLHttpRequestUpload;
 };
 
-type XMLHttpRequestResponseType = "" | "arraybuffer" | "blob" | "document" | "json" | "text";
+declare type XMLHttpRequestResponseType = "" | "arraybuffer" | "blob" | "document" | "json" | "text";
+
+/**
+ * Based on definitions of lib.dom and  lib.dom.iteralbe
+ */
+declare class URLSearchParams {
+    constructor(init?: string[][] | Record<string, string> | string | URLSearchParams);
+
+    append(name: string, value: string): void;
+    delete(name: string): void;
+    get(name: string): string | null;
+    getAll(name: string): string[];
+    has(name: string): boolean;
+    set(name: string, value: string): void;
+    sort(): void;
+    forEach(callbackfn: (value: string, key: string, parent: URLSearchParams) => void, thisArg?: any): void;
+    [Symbol.iterator](): IterableIterator<[string, string]>;
+
+    entries(): IterableIterator<[string, string]>;
+    keys(): IterableIterator<string>;
+    values(): IterableIterator<string>;
+}

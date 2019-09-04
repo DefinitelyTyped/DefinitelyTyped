@@ -1,12 +1,13 @@
 import * as React from 'react';
 import { CSSModule } from '../index';
 
-export type InputGroupAddonProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
+export interface InputGroupAddonProps extends React.HTMLAttributes<HTMLElement> {
+  [key: string]: any;
   tag?: React.ReactType;
   className?: string;
   cssModule?: CSSModule;
   addonType: 'prepend' | 'append';
-} & T;
+}
 
-declare class InputGroupAddon<T = {[key: string]: any}> extends React.Component<InputGroupAddonProps<T>> {}
+declare class InputGroupAddon<T = {[key: string]: any}> extends React.Component<InputGroupAddonProps> {}
 export default InputGroupAddon;

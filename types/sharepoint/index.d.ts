@@ -5,6 +5,7 @@
 //                 Vincent Biret <https://github.com/baywet>
 //                 Tero Arvola <https://github.com/teroarvola>
 //                 Dennis George <https://github.com/dennispg>
+//                 SPWizard01 <https://github.com/SPWizard01>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.5
 
@@ -18,7 +19,7 @@ declare function ExecuteOrDelayUntilScriptLoaded(func: () => void, depScriptFile
 declare function ExecuteOrDelayUntilEventNotified(func: (...args: any[]) => void, eventName: string): boolean;
 declare var Strings: any;
 declare const enum Sods {
-    missing =  1,
+    missing = 1,
     loading = 2,
     pending = 3,
     loaded = 4,
@@ -2205,6 +2206,8 @@ declare namespace SP {
         set_formDigestHandlingEnabled(value: boolean): void;
         get_applicationName(): string;
         set_applicationName(value: string): void;
+        get_disableReturnValueCache(): boolean;
+        set_disableReturnValueCache(value: boolean): boolean;
         get_clientTag(): string;
         set_clientTag(value: string): void;
         get_webRequestExecutorFactory(): SP.IWebRequestExecutorFactory;
@@ -8156,6 +8159,7 @@ declare namespace SP {
         class WebPartDefinition extends SP.ClientObject {
             get_id(): SP.Guid;
             get_webPart(): SP.WebParts.WebPart;
+            get_zoneId(): string;
             saveWebPartChanges(): void;
             closeWebPart(): void;
             openWebPart(): void;

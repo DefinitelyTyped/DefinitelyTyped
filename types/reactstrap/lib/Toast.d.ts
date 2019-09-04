@@ -2,7 +2,8 @@ import * as React from "react";
 import { CSSModule } from "../index";
 import { FadeProps } from "./Fade";
 
-export type ToastProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
+export interface ToastProps extends React.HTMLAttributes<HTMLElement> {
+  [key: string]: any;
   tag?: React.ReactType;
   className?: string;
   cssModule?: CSSModule;
@@ -10,7 +11,7 @@ export type ToastProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   isOpen?: boolean;
   fade?: boolean;
   transition?: FadeProps;
-} & T;
+}
 
-declare class Toast<T> extends React.Component<ToastProps<T>> {}
+declare class Toast<T> extends React.Component<ToastProps> {}
 export default Toast;

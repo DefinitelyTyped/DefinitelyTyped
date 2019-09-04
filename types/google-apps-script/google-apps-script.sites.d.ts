@@ -127,15 +127,15 @@ declare namespace GoogleAppsScript {
       createWebPage(title: string, name: string, html: string): Page;
       deletePage(): void;
       getAllDescendants(): Page[];
-      getAllDescendants(options: Object): Page[];
+      getAllDescendants(options: any): Page[];
       getAnnouncements(): Page[];
-      getAnnouncements(optOptions: Object): Page[];
+      getAnnouncements(optOptions: any): Page[];
       getAttachments(): Attachment[];
-      getAttachments(optOptions: Object): Attachment[];
+      getAttachments(optOptions: any): Attachment[];
       getAuthors(): string[];
       getChildByName(name: string): Page;
       getChildren(): Page[];
-      getChildren(options: Object): Page[];
+      getChildren(options: any): Page[];
       getColumns(): Column[];
       getDatePublished(): Date;
       getHtmlContent(): string;
@@ -143,7 +143,7 @@ declare namespace GoogleAppsScript {
       getLastEdited(): Date;
       getLastUpdated(): Date;
       getListItems(): ListItem[];
-      getListItems(optOptions: Object): ListItem[];
+      getListItems(optOptions: any): ListItem[];
       getName(): string;
       getPageType(): PageType;
       getParent(): Page;
@@ -154,7 +154,7 @@ declare namespace GoogleAppsScript {
       isTemplate(): boolean;
       publishAsTemplate(name: string): Page;
       search(query: string): Page[];
-      search(query: string, options: Object): Page[];
+      search(query: string, options: any): Page[];
       setHtmlContent(html: string): Page;
       setIsDraft(draft: boolean): Page;
       setName(name: string): Page;
@@ -162,7 +162,7 @@ declare namespace GoogleAppsScript {
       setTitle(title: string): Page;
       addComment(content: string): Comment;
       getComments(): Comment[];
-      getComments(optOptions: Object): Comment[];
+      getComments(optOptions: any): Comment[];
       getPageName(): string;
       getSelfLink(): string;
     }
@@ -198,10 +198,10 @@ declare namespace GoogleAppsScript {
       createPageFromTemplate(title: string, name: string, template: Page): Page;
       createWebPage(title: string, name: string, html: string): Page;
       getAllDescendants(): Page[];
-      getAllDescendants(options: Object): Page[];
+      getAllDescendants(options: any): Page[];
       getChildByName(name: string): Page;
       getChildren(): Page[];
-      getChildren(options: Object): Page[];
+      getChildren(options: any): Page[];
       getEditors(): Base.User[];
       getName(): string;
       getOwners(): Base.User[];
@@ -218,7 +218,7 @@ declare namespace GoogleAppsScript {
       removeViewer(emailAddress: string): Site;
       removeViewer(user: Base.User): Site;
       search(query: string): Page[];
-      search(query: string, options: Object): Page[];
+      search(query: string, options: any): Page[];
       setSummary(summary: string): Site;
       setTheme(theme: string): Site;
       setTitle(title: string): Site;

@@ -1,9 +1,10 @@
-// Type definitions for tedious 3.0.0
+// Type definitions for tedious 4.0.0
 // Project: http://tediousjs.github.io/tedious/
 // Definitions by: Rogier Schouten <https://github.com/rogierschouten>
 //                 Chris Thompson <https://github.com/cjthompson>
 //                 Suraiya Hameed <https://github.com/v-suhame>
 //                 Guilherme Amorim <https://github.com/guiampm>
+//                 Simon Childs <https://github.com/csharpsi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference types="node" />
@@ -349,7 +350,12 @@ export interface ConnectionOptions {
     trustServerCertificate?: boolean;
 }
 
-export interface ConnectionConfig {
+export interface ConnectionAuthenticationOptions {
+    /**
+     * Once you set domain, driver will connect to SQL Server using domain login.
+     */
+    domain?: string;
+
     /**
      * User name to use for authentication.
      */
@@ -360,6 +366,25 @@ export interface ConnectionConfig {
      */
     password?: string;
 
+    /**
+     * Authentication token used when type is 'azure-active-directory-access-token'
+     */
+    token?: string;
+}
+
+export interface ConnectionAuthentication {
+    /**
+     * Authentication Type. Default value is 'default'.
+     */
+    type?: string;
+
+    /**
+     * Authentication Options
+     */
+    options: ConnectionAuthenticationOptions;
+}
+
+export interface ConnectionConfig {
     /**
      * Hostname to connect to.
      */
@@ -374,6 +399,11 @@ export interface ConnectionConfig {
      * Further options
      */
     options?: ConnectionOptions;
+
+    /**
+     * Authentication Options
+     */
+    authentication?: ConnectionAuthentication;
 }
 
 export interface ParameterOptions {

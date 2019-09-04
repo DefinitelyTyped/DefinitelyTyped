@@ -17,11 +17,16 @@ class ComponentClass extends React.Component<TOwnProps> {
 
 const WithRouterComponentFunction = withRouter(ComponentFunction);
 const WithRouterComponentClass = withRouter(ComponentClass);
+WithRouterComponentClass.WrappedComponent; // $ExpectType typeof ComponentClass
 
 const WithRouterTestFunction = () => (
     <WithRouterComponentFunction username="John" />
 );
-const WithRouterTestClass = () => <WithRouterComponentClass username="John" />;
+const OnWrappedRefFn = (ref: ComponentClass | null) => {};
+const WithRouterTestClass = () => <WithRouterComponentClass username="John" wrappedComponentRef={OnWrappedRefFn} />;
+
+const OnWrappedRef = React.createRef<ComponentClass>();
+const WithRouterTestClass2 = () => <WithRouterComponentClass username="John" wrappedComponentRef={OnWrappedRef} />;
 
 // union props
 {

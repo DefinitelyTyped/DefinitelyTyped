@@ -4,6 +4,7 @@ import DatePicker, {
 	setDefaultLocale,
 	getDefaultLocale,
 } from 'react-datepicker';
+import enUS from 'date-fns/locale/en-US';
 
 registerLocale('en-GB', { options: { weekStartsOn: 1 } });
 setDefaultLocale('en-GB');
@@ -98,6 +99,7 @@ const defaultLocale = getDefaultLocale();
 	showDisabledMonthNavigation
 	showMonthDropdown
 	showMonthYearDropdown
+	showMonthYearPicker
 	showTimeSelect
 	showTimeSelectOnly
 	showWeekNumbers
@@ -130,6 +132,7 @@ const defaultLocale = getDefaultLocale();
     maxDate={null}
     startDate={null}
     endDate={null}
+    locale={enUS}
     onChange={() => null}
 />;
 

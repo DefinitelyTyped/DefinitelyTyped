@@ -1,4 +1,5 @@
 import { ASTNode, FileInfo, API, Transform, Parser } from "jscodeshift";
+import * as testUtils from "jscodeshift/src/testUtils";
 
 // Can define transform with `function`.
 function replaceWithFooTransform(fileInfo: FileInfo, api: API) {
@@ -73,3 +74,13 @@ const transformWithRecastParseOptions: Transform = (file, { j }) => {
         }
     }
 }
+
+// Can define a test
+testUtils.defineTest(
+    "directory",
+    "transformName",
+    { opt: true },
+);
+
+// Can define a test
+testUtils.defineInlineTest(() => {}, { opt: true }, "import test from 'test';", "import test from './test';");
