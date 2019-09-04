@@ -8,6 +8,9 @@ const config: webpack.Configuration = {
             analyzerMode: 'static'
         }),
         new BundleAnalyzerPlugin({
+            analyzerPort: 'auto'
+        }),
+        new BundleAnalyzerPlugin({
             analyzerMode: 'server',
             analyzerHost: '127.0.0.1',
             analyzerPort: 8888,
