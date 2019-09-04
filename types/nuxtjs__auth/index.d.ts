@@ -4,6 +4,9 @@
 //                Daniel Leal <https://github.com/danielgek>
 //                Nick Bolles <https://github.com/NickBolles>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.1
+
+/// <reference path="node_modules/vue/types/index.d.ts" />
 import Vue, { ComponentOptions } from 'vue';
 
 export interface Storage {
