@@ -39,6 +39,40 @@ const App = () => (
   </InstantSearch>
 );
 
+const App2 = () => (
+  <InstantSearch searchClient={{}} indexName="first">
+    <SearchBox />
+    <AllResults>
+      <div>
+        <Index indexName="first">
+          <IndexResults>
+            <div>
+              <div>first: </div>
+              <Hits />
+            </div>
+          </IndexResults>
+        </Index>
+        <Index indexName="second">
+          <IndexResults>
+            <div>
+              <div>second: </div>
+              <Hits />
+            </div>
+          </IndexResults>
+        </Index>
+        <Index indexName="third">
+          <IndexResults>
+            <div>
+              <div>third: </div>
+              <Hits />
+            </div>
+          </IndexResults>
+        </Index>
+      </div>
+    </AllResults>
+  </InstantSearch>
+);
+
 const IndexResults = connectStateResults(
   ({ searchState, searchResults, children }) =>
     searchResults && searchResults.nbHits !== 0 ? (
