@@ -2,6 +2,7 @@
 // Project: https://github.com/jharris4/html-webpack-tags-plugin
 // Definitions by: // Definitions by: 贺师俊 <https://github.com/hax>, Vladimir Grenaderov <https://github.com/VladimirGrenaderov>, Max Boguslavskiy <https://github.com/maxbogus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import { Plugin } from 'webpack';
 
