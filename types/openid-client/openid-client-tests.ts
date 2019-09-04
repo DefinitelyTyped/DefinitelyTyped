@@ -1,7 +1,18 @@
 import { IncomingMessage } from 'http';
-import { Issuer, generators } from 'openid-client';
+import { custom, generators, Issuer } from 'openid-client';
 
 async (req: IncomingMessage) => {
+    // Custom HTTP options on the `Issuer` _c'tor_ (e.g. used for `Issuer.discover()`):
+    Issuer[custom.http_options] = options => {
+        console.log(options.followRedirect, options.timeout, options.retry);
+        return {
+            ...options,
+            followRedirect: true,
+            timeout: 10_000,
+            retry: 3,
+        };
+    };
+
     let issuer = await Issuer.discover('https://accounts.google.com');
     console.log('Discovered issuer %O', issuer.metadata.issuer);
 
@@ -19,7 +30,11 @@ async (req: IncomingMessage) => {
         token_endpoint_auth_methods_supported: ['client_secret_post', 'client_secret_basic'],
     });
 
+    issuer[custom.http_options] = options => ({ ...options, retry: 3 });
+
     //
+
+    issuer.Client[custom.http_options] = options => ({ ...options, retry: 3 });
 
     const client = new issuer.Client({
         client_id: 'c',
@@ -28,6 +43,9 @@ async (req: IncomingMessage) => {
         response_types: ['code'],
     });
     console.log(client.metadata.client_id);
+
+    // Custom HTTP options on the `Client` _instance_
+    client[custom.http_options] = options => ({ ...options, retry: 3 });
 
     //
 
@@ -72,6 +90,7 @@ async (req: IncomingMessage) => {
     //
 
     const introspectResponse = await client.introspect('token');
+    const active: boolean = introspectResponse.active;
     console.log(introspectResponse['some claim name']);
 
     client.introspect('token', 'tokenTypeHint');
@@ -82,4 +101,14 @@ async (req: IncomingMessage) => {
     //
 
     client.endSessionUrl({ id_token_hint: 'id_token_hint' }).substring(0);
+
+    //
+
+    await client.revoke('token', 'hint');
+    client.revoke('token', 'hint', {});
+    client.revoke('token', 'hint', { revokeBody: {}, clientAssertionPayload: {} });
+
+    await client.refresh('token');
+    await client.refresh('token', {});
+    await client.refresh('token', { exchangeBody: {}, clientAssertionPayload: {} });
 };

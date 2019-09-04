@@ -28,7 +28,11 @@ declare namespace stripe {
         createSource(element: elements.Element, options?: { owner?: OwnerInfo }): Promise<SourceResponse>;
         createSource(options: SourceOptions): Promise<SourceResponse>;
         retrieveSource(options: RetrieveSourceOptions): Promise<SourceResponse>;
-        redirectToCheckout(options: StripeCheckoutOptions): Promise<StripeRedirectResponse>;
+        // We use function overloading instead of a union here to ensure that redirectToCheckout can only be
+        // called with either the server options or the client options - not a mix of both.
+        redirectToCheckout(options: StripeClientCheckoutOptions): Promise<StripeRedirectResponse>;
+        // tslint:disable-next-line unified-signatures
+        redirectToCheckout(options: StripeServerCheckoutOptions): Promise<StripeRedirectResponse>;
         paymentRequest(options: paymentRequest.StripePaymentRequestOptions): paymentRequest.StripePaymentRequest;
         createPaymentMethod(
             type: paymentMethod.paymentMethodType,
@@ -75,15 +79,19 @@ declare namespace stripe {
     };
 
     type billingAddressCollectionType = 'required' | 'auto' | '';
-    interface StripeCheckoutOptions {
+
+    interface StripeClientCheckoutOptions {
         items: StripeCheckoutItem[];
         successUrl: string;
         cancelUrl: string;
         clientReferenceId?: string;
         customerEmail?: string;
         billingAddressCollection?: billingAddressCollectionType;
-        sessionId?: string;
         locale?: string;
+    }
+
+    interface StripeServerCheckoutOptions {
+        sessionId: string;
     }
 
     interface StripeCheckoutItem {
@@ -459,6 +467,11 @@ declare namespace stripe {
                 token: string;
             }
         };
+        /**
+         * Instead of payment_method, the ID of a Source may be passed in.
+         * (Note that this is undocumented as of August 2019).
+         */
+       source?: string;
     }
     interface HandleCardSetupOptions {
         /**
@@ -623,12 +636,17 @@ declare namespace stripe {
             source: Source;
         }
 
+        interface StripePaymentMethodPaymentResponse extends StripePaymentResponse {
+            paymentMethod: paymentMethod.PaymentMethod;
+        }
+
         interface StripePaymentRequest {
             canMakePayment(): Promise<{ applePay?: boolean } | null>;
             show(): void;
             update(options: StripePaymentRequestUpdateOptions): void;
             on(event: 'token', handler: (response: StripeTokenPaymentResponse) => void): void;
             on(event: 'source', handler: (response: StripeSourcePaymentResponse) => void): void;
+            on(event: 'paymentmethod', handler: (response: StripePaymentMethodPaymentResponse) => void): void;
             on(event: 'cancel', handler: () => void): void;
             on(event: 'shippingaddresschange', handler: (response: { updateWith: (options: UpdateDetails) => void, shippingAddress: ShippingAddress }) => void): void;
             on(event: 'shippingoptionchange', handler: (response: { updateWith: (options: UpdateDetails) => void, shippingOption: ShippingOption }) => void): void;
@@ -920,6 +938,11 @@ declare namespace stripe {
             on_behalf_of: string | null;
 
             /**
+             * ID of the payment method used in this PaymentIntent.
+             */
+            payment_method: string | null;
+
+            /**
              * The list of payment method types (e.g. card) that this PaymentIntent is allowed to use.
              */
             payment_method_types: string[];
@@ -938,6 +961,13 @@ declare namespace stripe {
              * Shipping information for this PaymentIntent.
              */
             shipping: ShippingDetails | null;
+
+            /**
+             * The ID of a Source (e.g. 'src_abc123' or 'card_abc123').
+             * Will be null unless this PaymentIntent was created with a source
+             * instead of a payment_method. (Undocumented as of August 2019)
+             */
+            source: string | null;
 
             /**
              * Extra information about a PaymentIntent. This will appear on your

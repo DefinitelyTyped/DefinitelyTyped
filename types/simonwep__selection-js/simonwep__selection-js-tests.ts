@@ -10,32 +10,30 @@ const selection = Selection.create({
     startareas: ['html'],
     singleClick: true,
     startThreshold: 10,
-    scrollSpeedDivider: 10,
-    onStart(ev) {
-        ev.originalEvent.currentTarget;
-        ev.changedElements.added.slice();
-        ev.changedElements.removed.slice();
-    },
-    onSelect(ev) {
-        ev.target;
-    },
-    onMove(ev) {
-        ev.selection;
-    },
-
-    validateStart(ev) {
-        return (ev.currentTarget as HTMLElement).matches('.selectable');
-    },
-    onStop(ev) {
-        ev.changedElements.added.slice();
-        ev.changedElements.removed.slice();
-    },
-    selectionFilter(ev) {
-        return ev.element.matches('.selectable');
-    },
+    scrollSpeedDivider: 10
 });
 
 const selectable = document.createElement('div');
+
+selection.on('beforestart', (e) => (e.oe.target as HTMLElement).matches('.selectable'));
+selection.on('move', e => {
+    e.inst.cancel();
+    e.area.matches('.area');
+    e.changed.added;
+    e.changed.removed;
+});
+selection.on('start', () => {});
+selection.on('stop', () => {});
+
+selection.off('beforestart', (e) => (e.oe.target as HTMLElement).matches('.selectable'));
+selection.off('move', e => {
+    e.inst.cancel();
+    e.area.matches('.area');
+    e.changed.added;
+    e.changed.removed;
+});
+selection.off('start', () => {});
+selection.off('stop', () => {});
 
 selection.cancel();
 selection.clearSelection();
@@ -44,8 +42,9 @@ selection.disable();
 selection.enable();
 selection.getSelection();
 selection.keepSelection();
+
 // 2nd args not accept undefined
-// SEE: https://github.com/Simonwep/selection/blob/master/src/selection.js#L528
+// SEE: https://github.com/Simonwep/selection/blob/0f5de7710200bf76b2f31389ab81ff73392c98d1/src/selection.js#L563
 selection.option('class', null);
 selection.option('class', '.selection');
 selection.removeFromSelection(selectable);

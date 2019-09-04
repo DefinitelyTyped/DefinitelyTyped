@@ -92,8 +92,23 @@ class CalendarResource {
             showMultiDayTimes
             defaultDate={new Date(2015, 3, 1)}
             localizer={localizer}
+            selectable={true}
+            resizable={true}
             onEventDrop={console.log}
             onEventResize={console.log}
+            onDragStart={console.log}
+            onDropFromOutside={console.log}
+            draggableAccessor={() => true}
+            resizableAccessor={() => true}
+            elementProps={{ id: 'myCalendar' }}
+            components={{
+                event: Event,
+                agenda: {
+                    event: EventAgenda,
+                },
+                toolbar: Toolbar,
+                eventWrapper: EventWrapper,
+            }}
         />
     );
 

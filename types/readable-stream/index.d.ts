@@ -9,7 +9,7 @@
 import * as events from "events";
 import * as stream from "stream";
 import * as SafeBuffer from "safe-buffer";
-import { NodeStringDecoder } from "string_decoder";
+import { StringDecoder } from "string_decoder";
 
 declare class _Readable extends stream.Readable {
     // static ReadableState: _Readable.ReadableState;
@@ -91,7 +91,7 @@ declare namespace _Readable {
         on(ev: string | symbol, fn: (...args: any[]) => void): this;
 
         _undestroy(): void;
-        [Symbol.asyncIterator](): AsyncIterableIterator<string | Buffer>;
+        [Symbol.asyncIterator](): AsyncIterableIterator<any>;
         // end-Readable
 
         constructor(options?: DuplexOptions);
@@ -134,7 +134,7 @@ declare namespace _Readable {
         awaitDrain: number;
         defaultEncoding: string;
         readingMore: boolean;
-        decoder: NodeStringDecoder | null;
+        decoder: StringDecoder | null;
         encoding: string | null;
 
         // new (options: ReadableStateOptions, stream: _Readable): ReadableState;

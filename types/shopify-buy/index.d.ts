@@ -3,6 +3,7 @@
 // Definitions by: Martin Köhn <https://github.com/openminder>
 //                 Stephen Traiforos <https://github.com/straiforos>
 //                 Rosana Ruiz <https://github.com/totemika>
+//                 Juan Manuel Incaurgarat <https://github.com/kilinkis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.7
 
@@ -84,7 +85,7 @@ declare namespace ShopifyBuy {
         /**
          * Remove a line item from cart based on line item id
          */
-        removeLineItem(
+        removeLineItems(
             checkoutId: string | number,
             lineItemIds: string[]
         ): Promise<Cart>;

@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2019-05-20
+// Type definitions for Google Apps Script 2019-07-30
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -34,7 +34,7 @@ declare namespace GoogleAppsScript {
      */
     export interface BigQueryConfig {
       addQueryParameter(name: string, type: BigQueryParameterType, value: string): BigQueryConfig;
-      build(): Object;
+      build(): object;
       printJson(): string;
       setAccessToken(accessToken: string): BigQueryConfig;
       setBillingProjectId(billingProjectId: string): BigQueryConfig;

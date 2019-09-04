@@ -1,4 +1,4 @@
-// Type definitions for non-npm package frida-gum 13.1
+// Type definitions for non-npm package frida-gum 14.1
 // Project: https://github.com/frida/frida
 // Definitions by: Ole André Vadla Ravnås <https://github.com/oleavr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -1525,8 +1525,10 @@ interface UnixSystemFunctionResult {
 }
 
 declare class NativeCallback extends NativePointer {
-    constructor(func: AnyFunction, retType: NativeType, argTypes: NativeType[]);
+    constructor(func: NativeCallbackImplementation, retType: NativeType, argTypes: NativeType[]);
 }
+
+type NativeCallbackImplementation = (this: InvocationContext | undefined, ...params: any[]) => any;
 
 type NativeArgumentValue = NativePointerValue | UInt64 | Int64 | number | boolean | any[];
 
@@ -2667,24 +2669,24 @@ declare class DebugSymbol {
     address: NativePointer;
 
     /**
-     * Name of the symbol.
+     * Name of the symbol, or `null` if unknown.
      */
-    name: string;
+    name: string | null;
 
     /**
-     * Module name owning this symbol.
+     * Module name owning this symbol, or `null` if unknown.
      */
-    moduleName: string;
+    moduleName: string | null;
 
     /**
-     * File name owning this symbol.
+     * File name owning this symbol, or `null` if unknown.
      */
-    fileName: string;
+    fileName: string | null;
 
     /**
-     * Line number in `fileName`.
+     * Line number in `fileName`, or `null` if unknown.
      */
-    lineNumber: number;
+    lineNumber: number | null;
 
     /**
      * Looks up debug information for `address`.
@@ -3375,7 +3377,7 @@ declare namespace ObjC {
          *
          * You may replace it by assigning to this property. See `ObjC.implement()` for details.
          */
-        implementation: AnyFunction | NativePointer;
+        implementation: NativePointer;
 
         /**
          * Return type name.
@@ -3858,13 +3860,20 @@ declare namespace Java {
     function choose(className: string, callbacks: ChooseCallbacks): void;
 
     /**
+     * Duplicates a JavaScript wrapper for later use outside replacement method.
+     *
+     * @param handle An existing wrapper retrieved from `this` in replacement method.
+     */
+    function retain(obj: Wrapper): Wrapper;
+
+    /**
      * Creates a JavaScript wrapper given the existing instance at `handle` of
      * given class `klass` as returned from `Java.use()`.
      *
      * @param handle An existing wrapper or a JNI handle.
      * @param klass Class wrapper for type to cast to.
      */
-    function cast(handle: any, klass: Wrapper): Wrapper;
+    function cast(handle: Wrapper | NativePointerValue, klass: Wrapper): Wrapper;
 
     /**
      * Creates a Java array with elements of the specified `type`, from a
@@ -3981,6 +3990,11 @@ declare namespace Java {
         $className: string;
 
         /**
+         * Instance used for chaining up to super-class method implementations.
+         */
+        $super: Wrapper;
+
+        /**
          * Methods and fields.
          */
         [name: string]: any;
@@ -4025,9 +4039,11 @@ declare namespace Java {
         handle: NativePointer;
 
         /**
-         * Implementation. Assign to this property to replace it.
+         * Implementation. Assign a new implementation to this property to
+         * replace the original implementation. Assign `null` at a future point
+         * to revert back to the original implementation.
          */
-        implementation: (...params: any[]) => any;
+        implementation: MethodImplementation | null;
 
         /**
          * Method return type.
@@ -4044,6 +4060,8 @@ declare namespace Java {
          */
         canInvokeWith: (...args: any[]) => boolean;
     }
+
+    type MethodImplementation = (this: Wrapper, ...params: any[]) => any;
 
     interface Field {
         /**
@@ -4151,15 +4169,27 @@ declare namespace Java {
         name: string;
 
         /**
+         * Super-class. Omit to inherit from `java.lang.Object`.
+         */
+        superClass?: Wrapper;
+
+        /**
          * Interfaces implemented by this class.
          */
         implements?: Wrapper[];
 
         /**
-         * Methods to implement.
+         * Name and type of each field to expose.
+         */
+        fields?: {
+            [name: string]: string;
+        };
+
+        /**
+         * Methods to implement. Use the special name `$init` to define one or more constructors.
          */
         methods?: {
-            [name: string]: AnyFunction | MethodSpec | MethodSpec[];
+            [name: string]: MethodImplementation | MethodSpec | MethodSpec[];
         };
     }
 
@@ -4177,7 +4207,7 @@ declare namespace Java {
         /**
          * Implementation.
          */
-        implementation: AnyFunction;
+        implementation: MethodImplementation;
     }
 
     interface VM {

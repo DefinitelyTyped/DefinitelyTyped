@@ -6,7 +6,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { Plugin, compilation } from 'webpack';
+import { Plugin, compilation, Compiler } from 'webpack';
 import { AsyncSeriesWaterfallHook } from 'tapable';
 import { Options as HtmlMinifierOptions } from 'html-minifier';
 
@@ -14,6 +14,8 @@ export = HtmlWebpackPlugin;
 
 declare class HtmlWebpackPlugin extends Plugin {
     constructor(options?: HtmlWebpackPlugin.Options);
+
+    apply(compiler: Compiler): void;
 }
 
 declare namespace HtmlWebpackPlugin {

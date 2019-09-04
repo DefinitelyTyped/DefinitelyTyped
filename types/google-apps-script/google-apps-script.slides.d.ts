@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2019-04-09
+// Type definitions for Google Apps Script 2019-07-30
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -118,6 +118,9 @@ declare namespace GoogleAppsScript {
     export interface ColorScheme {
       getConcreteColor(theme: ThemeColorType): Color;
       getThemeColors(): ThemeColorType[];
+      setConcreteColor(type: ThemeColorType, color: Color): ColorScheme;
+      setConcreteColor(type: ThemeColorType, red: Integer, green: Integer, blue: Integer): ColorScheme;
+      setConcreteColor(type: ThemeColorType, hexColor: string): ColorScheme;
     }
 
     /**

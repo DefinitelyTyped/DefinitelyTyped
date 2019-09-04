@@ -492,19 +492,28 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
 
 // _.flattenDeep
 {
+    _.flattenDeep([1, 2, 3]); // $ExpectType number[]
+    _.flattenDeep([[1, 2, 3]]); // $ExpectType number[]
+    _.flattenDeep([1, [2, [3, [4, 5]]]]); // $ExpectType number[]
+    _.flattenDeep({0: 1, 1: [2, [3, [4, 5]]], length: 2}); // $ExpectType number[]
+
     _.flattenDeep<number>([1, 2, 3]); // $ExpectType number[]
+    _.flattenDeep<number>([[1, 2, 3]]); // $ExpectType number[]
     _.flattenDeep<number>([1, [2, [3, [4, 5]]]]); // $ExpectType number[]
     _.flattenDeep<number>({0: 1, 1: [2, [3, [4, 5]]], length: 2}); // $ExpectType number[]
 
     _([1, 2, 3]).flattenDeep(); // $ExpectType Collection<number>
-    _([1, [2, [3, [4, 5]]]]).flattenDeep(); // $ExpectType Collection<number | (number | (number | number[])[])[]>
-    _({0: 1, 1: [2, [3, [4, 5]]], length: 2}).flattenDeep(); // $ExpectType Collection<number | (number | (number | number[])[])[]>
+    _([[1, 2, 3]]).flattenDeep(); // $ExpectType Collection<number>
+    _([1, [2, [3, [4, 5]]]]).flattenDeep(); // $ExpectType Collection<number>
+    _({0: 1, 1: [2, [3, [4, 5]]], length: 2 }).flattenDeep(); // $ExpectType Collection<number>
 
     _.chain([1, 2, 3]).flattenDeep(); // $ExpectType CollectionChain<number>
-    _.chain([1, [2, [3, [4, 5]]]]).flattenDeep(); // $ExpectType CollectionChain<number | (number | (number | number[])[])[]>
-    _.chain({0: 1, 1: [2, [3, [4, 5]]], length: 2}).flattenDeep(); // $ExpectType CollectionChain<number | (number | (number | number[])[])[]>
+    _.chain([[1, 2, 3]]).flattenDeep(); // $ExpectType CollectionChain<number>
+    _.chain([1, [2, [3, [4, 5]]]]).flattenDeep(); // $ExpectType CollectionChain<number>
+    _.chain({0: 1, 1: [2, [3, [4, 5]]], length: 2}).flattenDeep(); // $ExpectType CollectionChain<number>
 
     fp.flattenDeep<number>([1, 2, 3]); // $ExpectType number[]
+    fp.flattenDeep<number>([[1, 2, 3]]); // $ExpectType number[]
     fp.flattenDeep<number>([1, [2, [3, [4, 5]]]]); // $ExpectType number[]
     fp.flattenDeep<number>({0: 1, 1: [2, [3, [4, 5]]], length: 2}); // $ExpectType number[]
 }

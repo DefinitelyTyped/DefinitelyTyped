@@ -38,6 +38,8 @@ import {
     GridProps,
     shadow,
     ShadowProps,
+    overflow,
+    OverflowProps,
 } from 'styled-system';
 
 // tslint:disable-next-line:strict-export-declare-modifiers
@@ -59,7 +61,8 @@ interface BoxProps
         ShadowProps,
         TypographyProps,
         ColorStyleProps,
-        ColorProps {
+        ColorProps,
+        OverflowProps {
     boxStyle?: string;
 }
 
@@ -77,7 +80,8 @@ const boxStyles = compose(
     position,
     shadow,
     colorStyle,
-    boxStyle
+    boxStyle,
+    overflow,
 );
 
 const Box: React.ComponentType<BoxProps> = styled(boxStyles);
@@ -124,6 +128,8 @@ const test = () => (
         <Box color="grays.0" />
         // background color
         <Box bg="tomato" />
+        // opacity
+        <Box opacity={0.5} />
         // responsive width
         <Box width={[1, 1 / 2, 1 / 4]} />
         <Box width={{ sm: 1, md: 1 / 2, lg: 1 / 4 }} />
@@ -322,15 +328,43 @@ const test = () => (
         <Box alignSelf="center" />
         <Box alignSelf={['center']} />
         <Box alignSelf={{ sm: 'center' }} />
+
         <Box border="1px solid" />
-        <Box borderTop="1px solid" />
-        <Box borderRight="1px solid" />
-        <Box borderBottom="1px solid" />
-        <Box borderLeft="1px solid" />
-        // borderColor
+        <Box border={{ sm: '1px solid' }} />
+        <Box borderWidth={15} />
+        <Box borderWidth="10px" />
+        <Box borderWidth={{ sm: 15}} />
         <Box borderColor="blue" />
-        // borderRadius
+        <Box borderColor={{ sm: 'blue' }} />
         <Box borderRadius={4} />
+        <Box borderRadius="1rem" />
+        <Box borderRadius={{ sm: 4 }} />
+        <Box borderTopLeftRadius={4} />
+        <Box borderTopLeftRadius={4} />
+        <Box borderTopRightRadius={{ sm: 5, md: '10px' }} />
+        <Box borderBottomLeftRadius="250px 100px" />
+        <Box borderBottomRightRadius="50%" />
+
+        <Box borderTop="1px solid" />
+        <Box borderTopStyle="dashed" />
+        <Box borderTopWidth="10rem" />
+        <Box borderTopColor="transparent" />
+
+        <Box borderRight="1px solid" />
+        <Box borderRightStyle={{ sm: 'none' }} />
+        <Box borderRightWidth={{ sm: 5, md: 10 }} />
+        <Box borderRightColor={{ sm: 'blue', md: 'green' }} />
+
+        <Box borderBottom="1px solid" />
+        <Box borderBottomStyle="solid" />
+        <Box borderBottomWidth={3} />
+        <Box borderBottomColor="#09c" />
+
+        <Box borderLeft="1px solid" />
+        <Box borderLeftStyle="inset" />
+        <Box borderLeftWidth="10px" />
+        <Box borderLeftColor="rgba(0,0,0,0.25)" />
+
         // position (responsive)
         <Box position="absolute" />
         <Box position={['absolute']} />
@@ -381,6 +415,10 @@ const test = () => (
         <Spacer marginRight={[1, 2, 3]} paddingRight={[1, 2, 3]} />
         <Spacer marginTop={[1, 2, 3]} paddingTop={[1, 2, 3]} />
         <Spacer marginBottom={[1, 2, 3]} paddingBottom={[1, 2, 3]} />
+        // overflow
+        <Box overflow="hidden" />
+        <Box overflowX="auto" />
+        <Box overflowY="scroll" />
     </div>
 );
 

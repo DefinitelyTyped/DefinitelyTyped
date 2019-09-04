@@ -1,0 +1,28 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6",
+            "esnext.asynciterable"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "relay-compiler-tests.ts",
+        "lib/FlattenTransform.d.ts",
+        "lib/InlineFragmentsTransform.d.ts",
+        "lib/RelayApplyFragmentArgumentTransform.d.ts",
+        "lib/SkipRedundantNodesTransform.d.ts"
+    ]
+}

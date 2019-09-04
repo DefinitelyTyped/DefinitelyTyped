@@ -15,6 +15,12 @@ async function initRoom() {
     dominantSpeaker: true,
     networkQuality: true
   });
+  await Video.connect('$TOKEN', {
+    networkQuality: {
+      local: 3,
+      remote: 1
+    }
+  });
   // Create local video track from default input
   localVideoTrack = await Video.createLocalVideoTrack({ name: 'camera' });
   // Create local audio track from default input

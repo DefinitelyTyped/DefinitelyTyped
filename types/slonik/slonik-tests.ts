@@ -1,4 +1,6 @@
 import {
+  createSqlTag,
+  IdentifierNormalizerType,
   CheckIntegrityConstraintViolationError,
   createBenchmarkingInterceptor,
   createBigintTypeParser,
@@ -22,7 +24,8 @@ import {
   SlonikError,
   sql,
   TypeParserType,
-  UniqueIntegrityConstraintViolationError
+  UniqueIntegrityConstraintViolationError,
+  SqlTaggedTemplateType
 } from 'slonik';
 import { ArrayTokenSymbol, TupleListTokenSymbol } from 'slonik/symbols';
 
@@ -281,6 +284,33 @@ createTimestampWithTimeZoneTypeParser();
   const query1 = sql`SELECT ${'baz'} FROM (${query0})`;
 
   await connection.query(sql`
+      SELECT (${sql.json([1, 2, { test: 12, other: 'test' }])})
+  `);
+
+  await connection.query(sql`
+      SELECT (${sql.json('test')})
+  `);
+
+  await connection.query(sql`
+      SELECT (${sql.json(null)})
+  `);
+
+  await connection.query(sql`
+      SELECT (${sql.json(123)})
+  `);
+
+  await connection.query(sql`
+      SELECT (${sql.json({
+        nested: {
+          object: { is: { this: 'test', other: 12, and: new Date('123') } },
+        },
+      })})
+  `);
+
+  // $ExpectError
+  sql`SELECT ${sql.json(undefined)}`;
+
+  await connection.query(sql`
       SELECT (${sql.valueList([1, 2, 3])})
   `);
 
@@ -325,6 +355,33 @@ createTimestampWithTimeZoneTypeParser();
       SELECT ${sql.raw('$1', [1])}
   `;
 })();
+
+//
+// createSQLTag
+// ----------------------------------------------------------------------
+(() => {
+  let sql: SqlTaggedTemplateType;
+
+  sql = createSqlTag();
+
+  sql`
+      SELECT 1;
+  `;
+
+  let normalizeIdentifier: IdentifierNormalizerType;
+
+  normalizeIdentifier = (input: string) =>
+      input
+          .split('')
+          .reverse()
+          .join('');
+
+  sql = createSqlTag({
+      normalizeIdentifier,
+  });
+
+  sql = createSqlTag({});
+});
 
 //
 // ERRORS

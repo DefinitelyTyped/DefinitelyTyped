@@ -23,7 +23,7 @@ export interface Options {
 }
 export interface PanOptions {
     duration?: number;
-    easing?: ((p0: number) => number);
+    easing?: (p0: number) => number;
 }
 export default class Overlay extends BaseObject {
     constructor(options: Options);
@@ -37,7 +37,7 @@ export default class Overlay extends BaseObject {
     protected options: Options;
     protected rendered: any;
     protected stopEvent: boolean;
-    protected getRect(element: HTMLElement, size: Size): Extent;
+    protected getRect(element: HTMLElement | undefined, size: Size | undefined): Extent;
     protected handleElementChanged(): void;
     protected handleMapChanged(): void;
     protected handleOffsetChanged(): void;
@@ -47,22 +47,22 @@ export default class Overlay extends BaseObject {
     protected render(): void;
     protected setVisible(visible: boolean): void;
     protected updatePixelPosition(): void;
-    protected updateRenderedPosition(pixel: Pixel, mapSize: Size): void;
-    getElement(): HTMLElement;
-    getId(): number | string;
-    getMap(): PluggableMap;
+    protected updateRenderedPosition(pixel: Pixel, mapSize: Size | undefined): void;
+    getElement(): HTMLElement | undefined;
+    getId(): number | string | undefined;
+    getMap(): PluggableMap | undefined;
     getOffset(): number[];
     getOptions(): Options;
-    getPosition(): Coordinate;
+    getPosition(): Coordinate | undefined;
     getPositioning(): OverlayPositioning;
-    setElement(element: HTMLElement): void;
-    setMap(map: PluggableMap): void;
+    setElement(element: HTMLElement | undefined): void;
+    setMap(map: PluggableMap | undefined): void;
     setOffset(offset: number[]): void;
-    setPosition(position: Coordinate): void;
+    setPosition(position: Coordinate | undefined): void;
     setPositioning(positioning: OverlayPositioning): void;
-    on(type: string | string[], listener: ((p0: any) => void)): EventsKey | EventsKey[];
-    once(type: string | string[], listener: ((p0: any) => void)): EventsKey | EventsKey[];
-    un(type: string | string[], listener: ((p0: any) => void)): void;
+    on(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
+    once(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
+    un(type: string | string[], listener: (p0: any) => void): void;
     on(type: 'change', listener: (evt: Event) => void): EventsKey;
     once(type: 'change', listener: (evt: Event) => void): EventsKey;
     un(type: 'change', listener: (evt: Event) => void): void;

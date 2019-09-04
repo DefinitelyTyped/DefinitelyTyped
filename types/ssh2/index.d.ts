@@ -486,7 +486,7 @@ export interface ClientErrorExtensions {
 
 export interface ExecOptions {
     /** An environment to use for the execution of the command. */
-    env?: any;
+    env?: NodeJS.ProcessEnv;
     /** Set to `true` to allocate a pseudo-tty with defaults, or an object containing specific pseudo-tty settings. */
     pty?: true | PseudoTtyOptions;
     /** Set either to `true` to use defaults, a number to specify a specific screen number, or an object containing x11 settings. */
@@ -494,6 +494,8 @@ export interface ExecOptions {
 }
 
 export interface ShellOptions {
+    /** An environment to use for the execution of the shell. */
+    env?: NodeJS.ProcessEnv;
     /** Set either to `true` to use defaults, a number to specify a specific screen number, or an object containing x11 settings. */
     x11?: boolean | number | X11Options;
 }

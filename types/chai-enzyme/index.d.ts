@@ -177,7 +177,7 @@ declare module "chai-enzyme" {
     import { ShallowWrapper, ReactWrapper } from "enzyme";
 
     type DebugWrapper = ShallowWrapper<any,any> | Cheerio | ReactWrapper<any, any>;
-    function chaiEnzyMe(wrapper?: (debugWrapper: DebugWrapper) => string): (chai: any) => void;
+    function chaiEnzyMe(wrapper?: (debugWrapper: DebugWrapper) => string): Chai.ChaiPlugin;
 
     module chaiEnzyMe {
     }

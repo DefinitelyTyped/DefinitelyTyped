@@ -108,3 +108,10 @@ function doGet(e: GoogleAppsScript.Events.DoGet) {
 function createFileFromBlob(blob: GoogleAppsScript.Base.Blob){
   const file: GoogleAppsScript.Drive.File = DriveApp.createFile(blob);
 }
+
+// Console
+console.log("log");
+console.info("info");
+console.warn("warn");
+console.error("error");
+console.log("Console can use %s and %d format string.", "hello", 2);

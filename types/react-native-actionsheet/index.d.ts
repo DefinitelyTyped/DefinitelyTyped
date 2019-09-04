@@ -7,16 +7,31 @@
 import * as React from 'react';
 
 export interface ActionSheetProps {
-    options: React.ReactNode[];
+    options: string[];
     onPress: (index: number) => void;
     title?: string;
     message?: string;
     tintColor?: string;
     cancelButtonIndex?: number;
     destructiveButtonIndex?: number;
+}
+
+export interface ActionSheetCustomProps {
+    options: React.ReactNode[];
+    onPress: (index: number) => void;
+    title?: React.ReactNode;
+    message?: string;
+    tintColor?: string;
+    buttonUnderlayColor?: string;
+    cancelButtonIndex?: number;
+    destructiveButtonIndex?: number;
     styles?: object;
 }
 
 export default class ActionSheet extends React.Component<ActionSheetProps> {
+    show: () => void;
+}
+
+export class ActionSheetCustom extends React.Component<ActionSheetCustomProps> {
     show: () => void;
 }

@@ -74,14 +74,20 @@ class F2 {
 
     const x1: (a: number, b: number, c: number, d: number) => number = R.curry(addFourNumbers);
     // because of the current way of currying, the following call results in a type error
-    // const x2: Function = R.curry(addFourNumbers)(1,2,4)
+    const x2: (...args: any) => any = R.curry(addFourNumbers)(1, 2, 4);
     const x3: (c: number, d: number) => number = R.curry(addFourNumbers)(1)(2);
     const x4: (d: number) => number = R.curry(addFourNumbers)(1)(2)(3);
-    const y1: number   = R.curry(addFourNumbers)(1)(2)(3)(4);
-    const y2: number   = R.curry(addFourNumbers)(1, 2)(3, 4);
-    const y3: number   = R.curry(addFourNumbers)(1, 2, 3)(4);
-    const y4: number   = R.curry(addTenFixedNumbers)(R.__, 1, 2)(0)(3)(R.__, R.__)(R.__, 5)(4)(6, 7)(R.__)(8, R.__, R.__)(9, 10);
-    const y5: number   = R.curry(addTenFixedNumbers)(R.__, 1, R.__)(R.__, 2)(0, 3)(R.__, 5)(4, R.__)(R.__)(6, R.__, 8, 9, 10)(7);
+    const y1: number = R.curry(addFourNumbers)(1)(2)(3)(4);
+    const y2: number = R.curry(addFourNumbers)(1, 2)(3, 4);
+    const y3: number = R.curry(addFourNumbers)(1, 2, 3)(4);
+    const y4: number = R.curry(addTenFixedNumbers)(R.__, 1, 2)(0)(3)(
+      R.__,
+      R.__,
+    )(R.__, 5)(4)(6, 7)(R.__)(8, R.__, R.__)(9, 10);
+    const y5: number = R.curry(addTenFixedNumbers)(R.__, 1, R.__)(R.__, 2)(
+      0,
+      3,
+    )(R.__, 5)(4, R.__)(R.__)(6, R.__, 8, 9, 10)(7);
 
     R.nAry(0);
     R.nAry(0, takesNoArg);
@@ -827,6 +833,18 @@ R.times(i, 5);
 };
 
 () => {
+    const compact = R.filter(Boolean);
+    const objA: R.Dictionary<number> = compact({ a: 0, b: 1 }); // => { b: 1 }
+    const listA: number[] = compact([0, 1]); // => [1]
+
+    const omitEmptyString = R.filter((val: string) => val !== '');
+    const objB: R.Dictionary<string> = omitEmptyString({ a: '', b: 'foo' }); // => { b: 'foo' }
+    const listB: string[] = omitEmptyString(['', 'foo']); // => ['foo']
+
+    const objC = omitEmptyString({ some: 42 }); // $ExpectError
+};
+
+() => {
     function lastTwo(val: number, idx: number, list: number[]) {
         return list.length - idx <= 2;
     }
@@ -925,8 +943,8 @@ interface Obj {
 };
 
 () => {
-    R.flatten([1, 2, [3, 4], 5, [6, [7, 8, [9, [10, 11], 12]]]]);
-    // => [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+    R.flatten([[1, 2], [3, 4], [5, 6]]); // => [1, 2, 3, 4, 5, 6]
+    R.flatten([1, 2, 3, 4, 5, 6]);       // => [1, 2, 3, 4, 5, 6]
 };
 
 () => {
@@ -1426,6 +1444,8 @@ type Pair = KeyValuePair<string, number>;
         "Eugene Wright", "Gerry Mulligan", "Jack Six", "Alan Dawson", "Darius Brubeck", "Chris Brubeck",
         "Dan Brubeck", "Bobby Militello", "Michael Moore", "Randy Jones"];
     const takeFive = R.take(5);
+
+    // $ExpectType string[]
     takeFive(members); // => ["Paul Desmond","Bob Bates","Joe Dodge","Ron Crotty","Lloyd Davis"]
 };
 
@@ -2683,7 +2703,7 @@ class Rectangle {
     const l2  = [{a: 3}, {a: 4}, {a: 5}, {a: 6}];
     R.symmetricDifferenceWith(eqA, l1, l2); // => [{a: 1}, {a: 2}, {a: 5}, {a: 6}]
     R.symmetricDifferenceWith(eqA)(l1, l2); // => [{a: 1}, {a: 2}, {a: 5}, {a: 6}]
-    const c: (a: any[]) => any[] = R.symmetricDifferenceWith(eqA)(l1); // => [{a: 1}, {a: 2}, {a: 5}, {a: 6}]
+    // const c: (a: any[]) => any[] = R.symmetricDifferenceWith(eqA)(l1); // => [{a: 1}, {a: 2}, {a: 5}, {a: 6}]
 };
 
 () => {

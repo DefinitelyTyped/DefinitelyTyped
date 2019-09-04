@@ -280,6 +280,14 @@ export interface Connect {
 }
 
 /**
+ * Infers the type of props that a connector will inject into a component.
+ */
+export type ConnectedProps<TConnector> =
+    TConnector extends InferableComponentEnhancerWithProps<infer TInjectedProps, any>
+        ? TInjectedProps
+        : never;
+
+/**
  * The connect function. See {@type Connect} for details.
  */
 export const connect: Connect;

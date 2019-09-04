@@ -13,6 +13,7 @@
 //                 Kosaku Kurino <https://github.com/kousaku-maron>
 //                 Leon Ng <https://github.com/iflp>
 //                 Dave Vedder <https://github.com/veddermatic>
+//                 Konstantin Azizov <https://github.com/g07cha>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -60,6 +61,16 @@ export type PickedCSSStyleDeclarationKeys =
     'markerEnd' | 'markerMid' | 'markerStart' | 'mask' | 'overflow' | 'pointerEvents' |
     'stopColor' | 'strokeDasharray' | 'strokeLinecap' | 'strokeLinejoin' | 'textAnchor' |
     'textDecoration' | 'unicodeBidi' | 'visibility' | 'writingMode' | 'transform';
+
+export interface BoxSize {
+    boxWidth: number;
+    boxHeight: number;
+}
+
+export interface ContainerSize {
+    containerWidth: number;
+    containerHeight: number;
+}
 
 export interface Point {
     x: number;
@@ -398,7 +409,7 @@ export interface LegendProps {
     onBBoxUpdate?: BBoxUpdateCallback;
 }
 
-export class Legend extends React.Component<LegendProps> { }
+export class Legend extends React.Component<LegendProps, BoxSize> {}
 
 export interface LineProps extends EventAttributes, Partial<PresentationAttributes>, Animatable {
     className?: string;
@@ -731,7 +742,7 @@ export interface ResponsiveContainerProps {
     className?: string | number;
 }
 
-export class ResponsiveContainer extends React.Component<ResponsiveContainerProps> { }
+export class ResponsiveContainer extends React.Component<ResponsiveContainerProps, ContainerSize> {}
 
 export interface ScatterPoint {
     cx?: number;
@@ -835,19 +846,20 @@ export interface TooltipProps extends Animatable {
     offset?: number;
     itemStyle?: object;
     labelStyle?: object;
+    contentStyle?: object;
     wrapperStyle?: object;
     cursor?: boolean | object | React.ReactElement | React.StatelessComponent<any>;
     coordinate?: Coordinate;
     position?: Coordinate;
     label?: string | number;
-	  labelFormatter?: LabelFormatter;
+    labelFormatter?: LabelFormatter;
     payload?: TooltipPayload[];
     itemSorter?: ItemSorter<TooltipPayload>;
     filterNull?: boolean;
     useTranslate3d?: boolean;
 }
 
-export class Tooltip extends React.Component<TooltipProps> { }
+export class Tooltip extends React.Component<TooltipProps, BoxSize> {}
 
 export interface TreemapProps extends EventAttributes, Animatable {
     width?: number;

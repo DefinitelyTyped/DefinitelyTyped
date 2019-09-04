@@ -75,10 +75,6 @@ declare module "node-forge" {
         }
         var oids: oids;
 
-        namespace ed25519 {
-            type Key = ArrayBuffer;
-        }
-
         namespace rsa {
             type EncryptionScheme = 'RSAES-PKCS1-V1_5' | 'RSA-OAEP' | 'RAW' | 'NONE' | null;
             type SignatureScheme = 'RSASSA-PKCS1-V1_5' | pss.PSS | 'NONE' | null;
@@ -118,15 +114,25 @@ declare module "node-forge" {
                 algorithm?: string;
             }
 
-            function setPublicKey(n: any, e: any): any;
+            function setPublicKey(n: jsbn.BigInteger, e: jsbn.BigInteger): PublicKey;
 
             function generateKeyPair(bits?: number, e?: number, callback?: (err: Error, keypair: KeyPair) => void): KeyPair;
             function generateKeyPair(options?: GenerateKeyPairOptions, callback?: (err: Error, keypair: KeyPair) => void): KeyPair;
         }
 
         namespace ed25519 {
-
             type NativeBuffer = Buffer | Uint8Array;
+            type Key = NativeBuffer;
+
+            type ToNativeBufferParameters = {
+                message: NativeBuffer | util.ByteBuffer
+            } | {
+                message: string;
+                encoding: 'binary' | 'utf8';
+            };
+
+            // `string`s will be converted by toNativeBuffer with `encoding: 'binary'`
+            type BinaryBuffer = NativeBuffer | util.ByteBuffer | string;
 
             namespace constants {
                 const PUBLIC_KEY_BYTE_LENGTH = 32;
@@ -136,24 +142,21 @@ declare module "node-forge" {
                 const HASH_BYTE_LENGTH = 64;
             }
 
-            function generateKeyPair(options?: { seed?: Buffer | Uint8Array | string }): {
+            // generateKeyPair does not currently accept `util.ByteBuffer` as the seed.
+            function generateKeyPair(options?: { seed?: NativeBuffer | string }): {
                 publicKey: NativeBuffer;
                 privateKey: NativeBuffer;
             };
 
-            function publicKeyFromPrivateKey(options: { privateKey: NativeBuffer }): NativeBuffer;
+            function publicKeyFromPrivateKey(options: { privateKey: BinaryBuffer }): NativeBuffer;
 
-            function sign(options: {
-                message: string,
-                encoding: string,
-                privateKey: NativeBuffer
+            function sign(options: ToNativeBufferParameters & {
+                privateKey: BinaryBuffer
             }): NativeBuffer;
 
-            function verify(options: {
-                message: string,
-                encoding: string,
-                signature: Buffer | Uint8Array | util.ByteBuffer | string,
-                publicKey: NativeBuffer
+            function verify(options: ToNativeBufferParameters & {
+                signature: BinaryBuffer,
+                publicKey: BinaryBuffer
             }): boolean;
         }
 
@@ -311,7 +314,7 @@ declare module "node-forge" {
 
         function publicKeyToRSAPublicKey(publicKey: PublicKey): any;
 
-        function setRsaPublicKey(n: jsbn.BigInteger, e: jsbn.BigInteger): PublicKey;
+        type setRsaPublicKey = typeof rsa.setPublicKey;
 
         function wrapRsaPrivateKey(privateKey: asn1.Asn1): asn1.Asn1;
     }

@@ -28,7 +28,7 @@ export function getBlockMenuDefaultClassName(blockName: string): string;
 export function getSaveContent<T>(
     blockTypeOrName: Block<T> | string,
     attributes: T,
-    innerBlocks?: readonly BlockInstance[]
+    innerBlocks?: BlockInstance[]
 ): string;
 
 /**
@@ -42,7 +42,7 @@ export function getSaveContent<T>(
 export function getSaveElement<T>(
     blockTypeOrName: Block<T> | string,
     attributes: T,
-    innerBlocks?: readonly BlockInstance[]
+    innerBlocks?: BlockInstance[]
 ): ReactChild;
 
 /**
@@ -50,4 +50,4 @@ export function getSaveElement<T>(
  *
  * @param blocks - Block(s) to serialize.
  */
-export function serialize(blocks: readonly BlockInstance[]): string;
+export function serialize(blocks: BlockInstance[]): string;

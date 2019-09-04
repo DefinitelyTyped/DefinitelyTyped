@@ -53,6 +53,7 @@ export interface SignOptions {
     subject?: string;
     issuer?: string;
     jwtid?: string;
+    mutatePayload?: boolean;
     noTimestamp?: boolean;
     header?: object;
     encoding?: string;
@@ -63,10 +64,12 @@ export interface VerifyOptions {
     audience?: string | RegExp | Array<string | RegExp>;
     clockTimestamp?: number;
     clockTolerance?: number;
+    complete?: boolean;
     issuer?: string | string[];
     ignoreExpiration?: boolean;
     ignoreNotBefore?: boolean;
     jwtid?: string;
+    nonce?: string;
     subject?: string;
     /**
      * @deprecated

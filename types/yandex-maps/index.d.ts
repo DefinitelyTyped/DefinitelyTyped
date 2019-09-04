@@ -1,4 +1,4 @@
-// Type definitions for yandex-maps 2.1
+// Type definitions for non-npm package yandex-maps 2.1
 // Project: https://github.com/Delagen/typings-yandex-maps
 // Definitions by: Delagen <https://github.com/Delagen>
 //                 gastwork13 <https://github.com/gastwork13>
@@ -3034,7 +3034,7 @@ declare namespace ymaps {
 
 		group(): IEventGroup;
 
-		//remove(types: string[][] | string[] | string, callback: (event: object | IEvent) => void, context?: object, priority?: number): this;
+		remove(types: string[][] | string[] | string, callback: (event: object | IEvent) => void, context?: object, priority?: number): this;
 
 		setParent(parent: object | null): this;
 	}
@@ -3052,7 +3052,9 @@ declare namespace ymaps {
 	interface IExpandableControlLayout extends ILayout { //tslint:disable-line no-empty-interface no-empty-interfaces
 	}
 
-	interface IFreezable extends IEventManager {
+	interface IFreezable {
+        events: IEventManager;
+
 		freeze(): IFreezable;
 
 		isFrozen(): boolean;

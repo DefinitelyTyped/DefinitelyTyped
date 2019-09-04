@@ -785,6 +785,9 @@ let elementArray = angular.element(document.querySelectorAll('div'));
 let elementReadyFn = angular.element(() => {
     console.log('ready');
 });
+angular.element(window);
+declare let windowService: angular.IWindowService;
+angular.element(windowService);
 
 // $timeout signature tests
 namespace TestTimeout {

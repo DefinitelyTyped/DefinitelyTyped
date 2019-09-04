@@ -135,6 +135,8 @@ declare namespace IORedis {
 
         rpush(key: KeyType, ...values: any[]): any;
 
+        rpushBuffer(key: string, ...values: Buffer[]): any;
+
         lpush(key: KeyType, ...values: any[]): any;
 
         rpushx(key: KeyType, value: any, callback: (err: Error, res: number) => void): void;
@@ -151,6 +153,9 @@ declare namespace IORedis {
 
         lpop(key: KeyType, callback: (err: Error, res: string) => void): void;
         lpop(key: KeyType): Promise<string>;
+
+        lpopBuffer(key: KeyType, callback: (err: Error, res: Buffer) => void): void;
+        lpopBuffer(key: KeyType): Promise<Buffer>;
 
         brpop(...keys: KeyType[]): any;
 
@@ -170,6 +175,9 @@ declare namespace IORedis {
 
         lrange(key: KeyType, start: number, stop: number, callback: (err: Error, res: any) => void): void;
         lrange(key: KeyType, start: number, stop: number): Promise<any>;
+
+        lrangeBuffer(key: KeyType, start: number, stop: number, callback: (err: Error, res: Buffer[]) => void): void;
+        lrangeBuffer(key: KeyType, start: number, stop: number): Promise<Buffer[]>;
 
         ltrim(key: KeyType, start: number, stop: number, callback: (err: Error, res: any) => void): void;
         ltrim(key: KeyType, start: number, stop: number): Promise<any>;
@@ -217,6 +225,8 @@ declare namespace IORedis {
         smembers(key: KeyType): Promise<any>;
 
         zadd(key: KeyType, ...args: string[]): Promise<number | string>;
+
+        zaddBuffer(key: KeyType, score1: number, member1: Buffer): Promise<string | number>;
 
         zincrby(key: KeyType, increment: number, member: string, callback: (err: Error, res: any) => void): void;
         zincrby(key: KeyType, increment: number, member: string): Promise<any>;
@@ -440,6 +450,8 @@ declare namespace IORedis {
         publish(channel: string, message: string, callback: (err: Error, res: number) => void): void;
         publish(channel: string, message: string): Promise<number>;
 
+        publishBuffer(channel: string, message: Buffer): Promise<number>;
+
         watch(...keys: KeyType[]): any;
 
         unwatch(callback: (err: Error, res: string) => void): void;
@@ -579,6 +591,8 @@ declare namespace IORedis {
 
         rpush(key: KeyType, ...values: any[]): Pipeline;
 
+        rpushBuffer(key: string, ...values: Buffer[]): Pipeline;
+
         lpush(key: KeyType, ...values: any[]): Pipeline;
 
         rpushx(key: KeyType, value: any, callback?: (err: Error, res: number) => void): Pipeline;
@@ -590,6 +604,8 @@ declare namespace IORedis {
         rpop(key: KeyType, callback?: (err: Error, res: string) => void): Pipeline;
 
         lpop(key: KeyType, callback?: (err: Error, res: string) => void): Pipeline;
+
+        lpopBuffer(key: KeyType, callback?: (err: Error, res: Buffer) => void): Pipeline;
 
         brpop(...keys: KeyType[]): Pipeline;
 
@@ -604,6 +620,8 @@ declare namespace IORedis {
         lset(key: KeyType, index: number, value: any, callback?: (err: Error, res: any) => void): Pipeline;
 
         lrange(key: KeyType, start: number, stop: number, callback?: (err: Error, res: any) => void): Pipeline;
+
+        lrangeBuffer(key: KeyType, start: number, stop: number, callback?: (err: Error, res: Buffer[]) => void): Pipeline;
 
         ltrim(key: KeyType, start: number, stop: number, callback?: (err: Error, res: any) => void): Pipeline;
 
@@ -782,7 +800,7 @@ declare namespace IORedis {
 
         ttl(key: KeyType, callback?: (err: Error, res: number) => void): Pipeline;
 
-        pttl(key: KeyType, callback: (err: Error, res: number) => void): Pipeline;
+        pttl(key: KeyType, callback?: (err: Error, res: number) => void): Pipeline;
 
         persist(key: KeyType, callback?: (err: Error, res: 0 | 1) => void): Pipeline;
 

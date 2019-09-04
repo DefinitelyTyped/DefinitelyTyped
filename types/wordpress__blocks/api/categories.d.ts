@@ -1,7 +1,9 @@
+import { Dashicon } from '@wordpress/components';
+
 export interface Category {
     slug: string;
     title: string;
-    icon: JSX.Element | null;
+    icon?: JSX.Element | Dashicon.Icon | null;
 }
 
 /**

@@ -81,3 +81,6 @@ testUtils.defineTest(
     "transformName",
     { opt: true },
 );
+
+// Can define a test
+testUtils.defineInlineTest(() => {}, { opt: true }, "import test from 'test';", "import test from './test';");

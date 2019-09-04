@@ -1,8 +1,10 @@
 // Type definitions for libra-core 1.0
 // Project: https://github.com/perfectmak/libra-core#readme
-// Definitions by: mavis.tan <https://github.com/mmsqe>
+// Definitions by: mavis.tan <https://github.com/mmsqe>, morgansliman <https://github.com/morgansliman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
+
+import BigNumber from 'bignumber.js';
 
 export type Signature = Uint8Array;
 
@@ -24,10 +26,10 @@ export type AccountStates = AccountState[];
 
 export class AccountState {
     readonly authenticationKey: Uint8Array;
-    readonly balance: any;
-    readonly receivedEventsCount: any;
-    readonly sentEventsCount: any;
-    readonly sequenceNumber: any;
+    readonly balance: BigNumber;
+    readonly receivedEventsCount: BigNumber;
+    readonly sentEventsCount: BigNumber;
+    readonly sequenceNumber: BigNumber;
 
     static default(address: string): AccountState;
 
@@ -35,6 +37,8 @@ export class AccountState {
 }
 
 export class Account {
+    readonly keyPair: KeyPair;
+
     static fromSecretKeyBytes(secretKeyBytes: Uint8Array): Account;
 
     static fromSecretKey(secretKeyHex: string): Account;
@@ -113,19 +117,19 @@ export class LibraClient {
 
     getAccountTransaction(
         address: AccountAddressLike,
-        sequenceNumber: any,
-        fetchEvents?: boolean,
+        sequenceNumber: BigNumber | string | number,
+        fetchEvents?: boolean
     ): Promise<LibraSignedTransactionWithProof | null>;
 
     mintWithFaucetService(
         receiver: AccountAddress | string,
-        numCoins: any,
-        waitForConfirmation?: boolean,
+        numCoins: BigNumber | string | number,
+        waitForConfirmation?: boolean
     ): Promise<string>;
 
     waitForConfirmation(
         accountAddress: AccountAddress | string,
-        transactionSequenceNumber: any,
+        transactionSequenceNumber: number | string | BigNumber
     ): Promise<void>;
 
     signTransaction(transaction: LibraTransaction, keyPair: KeyPair): Promise<LibraSignedTransaction>;
@@ -133,7 +137,7 @@ export class LibraClient {
     transferCoins(
         sender: Account,
         recipientAddress: string,
-        numCoins: any,
+        numCoins: number | string | BigNumber
     ): Promise<LibraTransactionResponse>;
 
     execute(transaction: LibraTransaction, sender: Account): Promise<LibraTransactionResponse>;
@@ -338,36 +342,37 @@ export enum LibraProgramArgumentType {
 }
 
 export interface LibraGasConstraint {
-    maxGasAmount: any;
-    gasUnitPrice: any;
+    maxGasAmount: BigNumber;
+    gasUnitPrice: BigNumber;
 }
 
 export interface LibraTransaction {
     program: LibraProgram;
     gasConstraint: LibraGasConstraint;
-    expirationTime: any;
+    expirationTime: BigNumber;
     sendersAddress: Uint8Array;
-    sequenceNumber: any;
+    sequenceNumber: BigNumber;
 }
 
 export function LibraTransaction(
     program: LibraProgram,
     gasConstraint: LibraGasConstraint,
-    expirationTime: any,
+    expirationTime: BigNumber,
     sendersAddress: Uint8Array,
-    sequenceNumber: any,
+    sequenceNumber: BigNumber,
 ): void;
 
 export namespace LibraTransaction {
-    function createTransfer(recipientAddress: string, numAccount: any): LibraTransaction;
+    function createTransfer(recipientAddress: string, numAccount: BigNumber): LibraTransaction;
 }
 
 export interface LibraTransactionResponse {
-    signedTransaction: LibraSignedTransaction;
-    validatorId: Uint8Array;
-    acStatus?: LibraAdmissionControlStatus | number;
-    mempoolStatus?: LibraMempoolTransactionStatus | number;
-    vmStatus?: LibraVMStatusError;
+  signedTransaction: LibraSignedTransaction;
+  validatorId: Uint8Array;
+  acStatus?: LibraAdmissionControlStatus | number;
+  mempoolStatus?: LibraMempoolTransactionStatus | number;
+  vmStatus?: LibraVMStatusError;
+  awaitConfirmation(client: LibraClient): Promise<void>;
 }
 
 export function LibraTransactionResponse(
@@ -383,18 +388,20 @@ export namespace LibraTransactionResponse {
 }
 
 export enum LibraAdmissionControlStatus {
+    UNKNOWN = -1,
     ACCEPTED = 0,
     BLACKLISTED = 1,
-    REJECTED = 2,
+    REJECTED = 2
 }
 
 export enum LibraMempoolTransactionStatus {
+    UNKNOWN = -1,
     VALID = 0,
     INSUFFICIENTBALANCE = 1,
     INVALIDSEQNUMBER = 2,
     MEMPOOLISFULL = 3,
     TOOMANYTRANSACTIONS = 4,
-    INVALIDUPDATE = 5,
+    INVALIDUPDATE = 5
 }
 
 export interface LibraSignedTransaction {
@@ -407,7 +414,7 @@ export function LibraSignedTransaction(transaction: LibraTransaction, publicKey:
 
 export interface LibraTransactionEvent {
     data: Uint8Array;
-    sequenceNumber: any;
+    sequenceNumber: BigNumber;
     address?: AccountAddress;
     path?: Uint8Array;
 }
@@ -420,7 +427,7 @@ export interface LibraSignedTransactionWithProof {
 
 export function LibraSignedTransactionWithProof(signedTransaction: LibraSignedTransaction, proof?: object, events?: LibraTransactionEvent[]): void;
 
-export function LibraTransactionEvent(data: Uint8Array, sequenceNumber: any, address?: AccountAddress, path?: Uint8Array): void;
+export function LibraTransactionEvent(data: Uint8Array, sequenceNumber: BigNumber, address?: AccountAddress, path?: Uint8Array): void;
 
 export interface WalletConfig {
     mnemonic?: string;

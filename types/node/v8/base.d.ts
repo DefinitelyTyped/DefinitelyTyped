@@ -492,7 +492,7 @@ declare namespace NodeJS {
     type ExitListener = (code: number) => void;
     type RejectionHandledListener = (promise: Promise<any>) => void;
     type UncaughtExceptionListener = (error: Error) => void;
-    type UnhandledRejectionListener = (reason: any, promise: Promise<any>) => void;
+    type UnhandledRejectionListener = (reason: {} | null | undefined, promise: Promise<any>) => void;
     type WarningListener = (warning: Error) => void;
     type MessageListener = (message: any, sendHandle: any) => void;
     type SignalsListener = () => void;
@@ -4607,6 +4607,7 @@ declare module "fs" {
         mode?: number;
         autoClose?: boolean;
         start?: number;
+        highWaterMark?: number;
     }): WriteStream;
 
     /**
@@ -5228,6 +5229,7 @@ declare module "tls" {
 }
 
 declare module "crypto" {
+    import * as stream from "stream";
     export interface Certificate {
         exportChallenge(spkac: string | Buffer): Buffer;
         exportPublicKey(spkac: string | Buffer): Buffer;
@@ -5260,13 +5262,13 @@ declare module "crypto" {
     type HexBase64BinaryEncoding = "binary" | "base64" | "hex";
     type ECDHKeyFormat = "compressed" | "uncompressed" | "hybrid";
 
-    export interface Hash extends NodeJS.ReadWriteStream {
+    export interface Hash extends stream.Transform {
         update(data: string | Buffer | DataView): Hash;
         update(data: string | Buffer | DataView, input_encoding: Utf8AsciiLatin1Encoding): Hash;
         digest(): Buffer;
         digest(encoding: HexBase64Latin1Encoding): string;
     }
-    export interface Hmac extends NodeJS.ReadWriteStream {
+    export interface Hmac extends stream.Transform {
         update(data: string | Buffer | DataView): Hmac;
         update(data: string | Buffer | DataView, input_encoding: Utf8AsciiLatin1Encoding): Hmac;
         digest(): Buffer;
@@ -5274,7 +5276,7 @@ declare module "crypto" {
     }
     export function createCipher(algorithm: string, password: any): Cipher;
     export function createCipheriv(algorithm: string, key: any, iv: any): Cipher;
-    export interface Cipher extends NodeJS.ReadWriteStream {
+    export interface Cipher extends stream.Transform {
         update(data: Buffer | DataView): Buffer;
         update(data: string, input_encoding: Utf8AsciiBinaryEncoding): Buffer;
         update(data: Buffer | DataView, input_encoding: any, output_encoding: HexBase64BinaryEncoding): string;
@@ -5287,7 +5289,7 @@ declare module "crypto" {
     }
     export function createDecipher(algorithm: string, password: any): Decipher;
     export function createDecipheriv(algorithm: string, key: any, iv: any): Decipher;
-    export interface Decipher extends NodeJS.ReadWriteStream {
+    export interface Decipher extends stream.Transform {
         update(data: Buffer | DataView): Buffer;
         update(data: string, input_encoding: HexBase64BinaryEncoding): Buffer;
         update(data: Buffer | DataView, input_encoding: any, output_encoding: Utf8AsciiBinaryEncoding): string;
