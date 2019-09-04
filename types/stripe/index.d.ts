@@ -1091,6 +1091,8 @@ declare namespace Stripe {
 
             description?: string;
 
+            exchange_rate?: number | null;
+
             /**
              * Fee (in cents/pence) paid for this transaction
              */
@@ -1260,7 +1262,7 @@ declare namespace Stripe {
             /**
              * Details about the dispute if the charge has been disputed.
              */
-            dispute?: disputes.IDispute | null;
+            dispute?: string | disputes.IDispute | null;
 
             /**
              * Error code explaining reason for charge failure if available (see the errors section for a list of
