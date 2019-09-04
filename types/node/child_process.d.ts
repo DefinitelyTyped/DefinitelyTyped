@@ -157,89 +157,51 @@ declare module "child_process" {
         stdio: [Stdin, Stdout, Stderr];
     }
 
-    // overloads of spawn without 'args'
-    function spawn(command: string, options?: SpawnOptionsWithoutStdio): ChildProcessWithoutNullStreams;
+    interface SpawnFunc<Options, Return> {
+        (command: string, options: Options): Return
+        (command: string, args: ReadonlyArray<string>, options: Options): Return
+    }
 
-    function spawn(
-        command: string,
-        options: SpawnOptionsWithStdioTuple<StdioPipe, StdioPipe, StdioPipe>,
-    ): ChildProcessByStdio<Writable, Readable, Readable>;
-    function spawn(
-        command: string,
-        options: SpawnOptionsWithStdioTuple<StdioPipe, StdioPipe, StdioNull>,
-    ): ChildProcessByStdio<Writable, Readable, null>;
-    function spawn(
-        command: string,
-        options: SpawnOptionsWithStdioTuple<StdioPipe, StdioNull, StdioPipe>,
-    ): ChildProcessByStdio<Writable, null, Readable>;
-    function spawn(
-        command: string,
-        options: SpawnOptionsWithStdioTuple<StdioNull, StdioPipe, StdioPipe>,
-    ): ChildProcessByStdio<null, Readable, Readable>;
-    function spawn(
-        command: string,
-        options: SpawnOptionsWithStdioTuple<StdioPipe, StdioNull, StdioNull>,
-    ): ChildProcessByStdio<Writable, null, null>;
-    function spawn(
-        command: string,
-        options: SpawnOptionsWithStdioTuple<StdioNull, StdioPipe, StdioNull>,
-    ): ChildProcessByStdio<null, Readable, null>;
-    function spawn(
-        command: string,
-        options: SpawnOptionsWithStdioTuple<StdioNull, StdioNull, StdioPipe>,
-    ): ChildProcessByStdio<null, null, Readable>;
-    function spawn(
-        command: string,
-        options: SpawnOptionsWithStdioTuple<StdioNull, StdioNull, StdioNull>,
-    ): ChildProcessByStdio<null, null, null>;
+    interface SpawnFuncOptParams<Options, Return> {
+        (command: string, options?: Options): Return
+        (command: string, args?: ReadonlyArray<string>, options?: Options): Return
+    }
 
-    function spawn(command: string, options: SpawnOptions): ChildProcess;
-
-    // overloads of spawn with 'args'
-    function spawn(command: string, args?: ReadonlyArray<string>, options?: SpawnOptionsWithoutStdio): ChildProcessWithoutNullStreams;
-
-    function spawn(
-        command: string,
-        args: ReadonlyArray<string>,
-        options: SpawnOptionsWithStdioTuple<StdioPipe, StdioPipe, StdioPipe>,
-    ): ChildProcessByStdio<Writable, Readable, Readable>;
-    function spawn(
-        command: string,
-        args: ReadonlyArray<string>,
-        options: SpawnOptionsWithStdioTuple<StdioPipe, StdioPipe, StdioNull>,
-    ): ChildProcessByStdio<Writable, Readable, null>;
-    function spawn(
-        command: string,
-        args: ReadonlyArray<string>,
-        options: SpawnOptionsWithStdioTuple<StdioPipe, StdioNull, StdioPipe>,
-    ): ChildProcessByStdio<Writable, null, Readable>;
-    function spawn(
-        command: string,
-        args: ReadonlyArray<string>,
-        options: SpawnOptionsWithStdioTuple<StdioNull, StdioPipe, StdioPipe>,
-    ): ChildProcessByStdio<null, Readable, Readable>;
-    function spawn(
-        command: string,
-        args: ReadonlyArray<string>,
-        options: SpawnOptionsWithStdioTuple<StdioPipe, StdioNull, StdioNull>,
-    ): ChildProcessByStdio<Writable, null, null>;
-    function spawn(
-        command: string,
-        args: ReadonlyArray<string>,
-        options: SpawnOptionsWithStdioTuple<StdioNull, StdioPipe, StdioNull>,
-    ): ChildProcessByStdio<null, Readable, null>;
-    function spawn(
-        command: string,
-        args: ReadonlyArray<string>,
-        options: SpawnOptionsWithStdioTuple<StdioNull, StdioNull, StdioPipe>,
-    ): ChildProcessByStdio<null, null, Readable>;
-    function spawn(
-        command: string,
-        args: ReadonlyArray<string>,
-        options: SpawnOptionsWithStdioTuple<StdioNull, StdioNull, StdioNull>,
-    ): ChildProcessByStdio<null, null, null>;
-
-    function spawn(command: string, args: ReadonlyArray<string>, options: SpawnOptions): ChildProcess;
+    const spawn:
+        SpawnFuncOptParams<SpawnOptionsWithoutStdio, ChildProcessWithoutNullStreams> &
+        SpawnFunc<
+            SpawnOptionsWithStdioTuple<StdioPipe, StdioPipe, StdioPipe>,
+            ChildProcessByStdio<Writable, Readable, Readable>
+        > &
+        SpawnFunc<
+            SpawnOptionsWithStdioTuple<StdioPipe, StdioPipe, StdioNull>,
+            ChildProcessByStdio<Writable, Readable, null>
+        > &
+        SpawnFunc<
+            SpawnOptionsWithStdioTuple<StdioPipe, StdioNull, StdioPipe>,
+            ChildProcessByStdio<Writable, null, Readable>
+        > &
+        SpawnFunc<
+            SpawnOptionsWithStdioTuple<StdioNull, StdioPipe, StdioPipe>,
+            ChildProcessByStdio<null, Readable, Readable>
+        > &
+        SpawnFunc<
+            SpawnOptionsWithStdioTuple<StdioPipe, StdioNull, StdioNull>,
+            ChildProcessByStdio<Writable, null, null>
+        > &
+        SpawnFunc<
+            SpawnOptionsWithStdioTuple<StdioNull, StdioNull, StdioPipe>,
+            ChildProcessByStdio<null, null, Readable>
+        > &
+        SpawnFunc<
+            SpawnOptionsWithStdioTuple<StdioNull, StdioPipe, StdioNull>,
+            ChildProcessByStdio<null, Readable, null>
+        > &
+        SpawnFunc<
+            SpawnOptionsWithStdioTuple<StdioNull, StdioNull, StdioNull>,
+            ChildProcessByStdio<null, null, null>
+        > &
+        SpawnFunc<SpawnOptions, ChildProcess>;
 
     interface ExecOptions extends CommonOptions {
         shell?: string;
