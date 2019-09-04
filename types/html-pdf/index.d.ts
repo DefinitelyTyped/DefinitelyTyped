@@ -28,6 +28,8 @@ declare module 'html-pdf' {
       left?: string;
     };
 
+    paginationOffset?: number;
+
     header?: {
       height?: string;
       contents?: string;
@@ -58,11 +60,29 @@ declare module 'html-pdf' {
     script?: string;
     timeout?: number;
 
+    // Time we should wait after window load
+    renderDelay?: 'manual' | number;
+
     // HTTP Headers that are used for requests
     httpHeaders?: {
       [header: string]: string;
     };
 
+    // To run Node application as Windows service
+    childProcessOptions?: {
+      detached?: boolean;
+    };
+
+    // HTTP Cookies that are used for requests
+    httpCookies?: Array<{
+      name: string;
+      value: string;
+      domain?: string;
+      path: string;
+      httponly?: boolean;
+      secure?: boolean;
+      expires?: number;
+    }>;
   }
 
   export interface FileInfo {
