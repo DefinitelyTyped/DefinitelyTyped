@@ -10,9 +10,4 @@ import Page from './dist/Page';
 import Outline from './dist/Outline';
 import pdfjs from './dist/pdfjs-dist';
 
-export {
-	pdfjs,
-    Document,
-    Page,
-    Outline
-};
+export { pdfjs, Document, Page, Outline };

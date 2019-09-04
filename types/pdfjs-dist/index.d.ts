@@ -6,13 +6,12 @@
 
 /// <reference lib="dom"/>
 
-declare module "pdfjs-dist" {
-    export const version: string;
-    export const GlobalWorkerOptions: GlobalWorkerOptions;
-}
+declare const version: string;
+
+declare const GlobalWorkerOptions: GlobalWorkerOptions;
 
 interface GlobalWorkerOptions {
-    workerSrc: string;
+  workerSrc: string;
 }
 
 interface PDFPromise<T> {

@@ -1,3 +1,3 @@
-import pdfjs from 'pdfjs-dist';
+import * as pdfjs from 'pdfjs-dist';
 
 export default pdfjs;

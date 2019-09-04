@@ -1,6 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "@types/pdfjs-dist": "^2.1.0"
-    }
-}
