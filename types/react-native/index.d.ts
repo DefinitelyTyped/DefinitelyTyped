@@ -639,39 +639,6 @@ export interface ShadowPropTypesIOSStatic {
     shadowRadius: number;
 }
 
-type GeoConfiguration = {
-    skipPermissionRequests: boolean;
-};
-
-type GeoOptions = {
-    timeout?: number;
-    maximumAge?: number;
-    enableHighAccuracy?: boolean;
-    distanceFilter?: number;
-    useSignificantChanges?: boolean;
-};
-
-type GeolocationReturnType = {
-    coords: {
-        latitude: number;
-        longitude: number;
-        altitude: number | null;
-        accuracy: number;
-        altitudeAccuracy: number | null;
-        heading: number | null;
-        speed: number | null;
-    };
-    timestamp: number;
-};
-
-type GeolocationError = {
-    code: number;
-    message: string;
-    PERMISSION_DENIED: number;
-    POSITION_UNAVAILABLE: number;
-    TIMEOUT: number;
-};
-
 interface PerpectiveTransform {
     perspective: number;
 }
@@ -761,7 +728,7 @@ export interface LayoutChangeEvent {
     };
 }
 
-export type FontVariant = 'small-caps' | 'oldstyle-nums' | 'lining-nums' | 'tabular-nums' | 'proportional-nums';
+export type FontVariant = "small-caps" | "oldstyle-nums" | "lining-nums" | "tabular-nums" | "proportional-nums";
 export interface TextStyleIOS extends ViewStyle {
     fontVariant?: FontVariant[];
     letterSpacing?: number;
@@ -1509,7 +1476,7 @@ interface TextInputState {
     currentlyFocusedField(): number;
 
     /**
-     * @deprecated
+     * @deprecated Use ref.focus instead
      * @param TextInputID id of the text field to focus
      * Focuses the specified text field
      * noop if the text field was already focused
@@ -1517,7 +1484,7 @@ interface TextInputState {
     focusTextInput(textFieldID?: number): void;
 
     /**
-     * @deprecated
+     * @deprecated Use ref.blur instead
      * @param textFieldID id of the text field to focus
      * Unfocuses the specified text field
      * noop if it wasn't focused
@@ -1850,43 +1817,43 @@ export type TVParallaxProperties = {
     /**
      * If true, parallax effects are enabled.  Defaults to true.
      */
-    enabled?: boolean,
+    enabled?: boolean;
 
     /**
      * Defaults to 2.0.
      */
-    shiftDistanceX?: number,
+    shiftDistanceX?: number;
 
     /**
      * Defaults to 2.0.
      */
-    shiftDistanceY?: number,
+    shiftDistanceY?: number;
 
     /**
      * Defaults to 0.05.
      */
-    tiltAngle?: number,
+    tiltAngle?: number;
 
     /**
      * Defaults to 1.0
      */
-    magnification?: number,
+    magnification?: number;
 
     /**
      * Defaults to 1.0
      */
-    pressMagnification?: number,
+    pressMagnification?: number;
 
     /**
      * Defaults to 0.3
      */
-    pressDuration?: number,
+    pressDuration?: number;
 
     /**
      * Defaults to 0.3
      */
-    pressDelay?: number,
-}
+    pressDelay?: number;
+};
 
 export interface TVViewPropsIOS {
     /**
@@ -1895,49 +1862,49 @@ export interface TVViewPropsIOS {
      *
      * @platform ios
      */
-    isTVSelectable?: boolean,
+    isTVSelectable?: boolean;
 
     /**
      * *(Apple TV only)* May be set to true to force the Apple TV focus engine to move focus to this view.
      *
      * @platform ios
      */
-    hasTVPreferredFocus?: boolean,
+    hasTVPreferredFocus?: boolean;
 
     /**
      * *(Apple TV only)* Object with properties to control Apple TV parallax effects.
      *
      * @platform ios
      */
-    tvParallaxProperties?: TVParallaxProperties,
+    tvParallaxProperties?: TVParallaxProperties;
 
     /**
      * *(Apple TV only)* May be used to change the appearance of the Apple TV parallax effect when this view goes in or out of focus.  Defaults to 2.0.
      *
      * @platform ios
      */
-    tvParallaxShiftDistanceX?: number,
+    tvParallaxShiftDistanceX?: number;
 
     /**
      * *(Apple TV only)* May be used to change the appearance of the Apple TV parallax effect when this view goes in or out of focus.  Defaults to 2.0.
      *
      * @platform ios
      */
-    tvParallaxShiftDistanceY?: number,
+    tvParallaxShiftDistanceY?: number;
 
     /**
      * *(Apple TV only)* May be used to change the appearance of the Apple TV parallax effect when this view goes in or out of focus.  Defaults to 0.05.
      *
      * @platform ios
      */
-    tvParallaxTiltAngle?: number,
+    tvParallaxTiltAngle?: number;
 
     /**
      * *(Apple TV only)* May be used to change the appearance of the Apple TV parallax effect when this view goes in or out of focus.  Defaults to 1.0.
      *
      * @platform ios
      */
-    tvParallaxMagnification?: number,
+    tvParallaxMagnification?: number;
 }
 
 export interface ViewPropsIOS extends TVViewPropsIOS {
@@ -2110,7 +2077,6 @@ export type AccessibilityRole =
     | "tablist"
     | "timer"
     | "toolbar";
-
 
 export interface AccessibilityPropsAndroid {
     /**
@@ -2403,342 +2369,6 @@ export interface KeyboardAvoidingViewProps extends ViewProps {
 }
 
 /**
- * //FIXME: No documentation extracted from code comment on WebView.ios.js
- */
-export interface NavState {
-    url?: string;
-    title?: string;
-    loading?: boolean;
-    canGoBack?: boolean;
-    canGoForward?: boolean;
-
-    [key: string]: any;
-}
-
-/**
- * Passed data from WebView via window.postMessage.
- */
-export interface WebViewMessageEventData {
-    /**
-     * The data sent from a WebView; can only be a string.
-     */
-    data: string;
-}
-
-export interface WebViewPropsAndroid {
-    /**
-     * Used for android only, JS is enabled by default for WebView on iOS
-     */
-    javaScriptEnabled?: boolean;
-
-    /**
-     * Used on Android only, controls whether DOM Storage is enabled
-     * or not android
-     */
-    domStorageEnabled?: boolean;
-
-    /**
-     * Sets the user-agent for the WebView.
-     */
-    userAgent?: string;
-
-    /**
-    * Specifies the mixed content mode. i.e WebView will allow a secure origin to load content from any other origin.
-Possible values for mixedContentMode are:
-'never' (default) - WebView will not allow a secure origin to load content from an insecure origin.
-'always' - WebView will allow a secure origin to load content from any other origin, even if that origin is insecure.
-'compatibility' - WebView will attempt to be compatible with the approach of a modern web browser with regard to mixed content.
-    */
-    mixedContentMode?: "never" | "always" | "compatibility";
-
-    /**
-     * Controls whether form autocomplete data should be saved
-     */
-    saveFormDataDisabled?: boolean;
-
-    /**
-     * Sets whether the webview allows access to the file system.
-     */
-    allowFileAccess?: boolean;
-}
-
-export interface WebViewIOSLoadRequestEvent extends TargetedEvent {
-    canGoBack: boolean;
-    lockIdentifier: number;
-    loading: boolean;
-    title: string;
-    canGoForward: boolean;
-    navigationType: "click" | "formsubmit" | "backforward" | "reload" | "formresubmit" | "other";
-    url: string;
-}
-
-export interface WebViewPropsIOS {
-    /**
-     * Determines whether HTML5 videos play inline or use the native
-     * full-screen controller. default value false
-     * NOTE : "In order * for video to play inline, not only does
-     * this property need to be set to true, but the video element
-     * in the HTML document must also include the webkit-playsinline
-     * attribute."
-     */
-    allowsInlineMediaPlayback?: boolean;
-
-    /**
-     * Boolean value that determines whether the web view bounces
-     * when it reaches the edge of the content. The default value is `true`.
-     * @platform ios
-     */
-    bounces?: boolean;
-
-    /**
-     * Determines the types of data converted to clickable URLs in
-     * the web view’s content. By default only phone numbers are detected.
-     *
-     * You can provide one type or an array of many types.
-     *
-     * Possible values for `dataDetectorTypes` are:
-     *
-     * - `'phoneNumber'`
-     * - `'link'`
-     * - `'address'`
-     * - `'calendarEvent'`
-     * - `'none'`
-     * - `'all'`
-     */
-    dataDetectorTypes?: DataDetectorTypes | DataDetectorTypes[];
-
-    /**
-     * A floating-point number that determines how quickly the scroll
-     * view decelerates after the user lifts their finger. You may also
-     * use string shortcuts "normal" and "fast" which match the
-     * underlying iOS settings for UIScrollViewDecelerationRateNormal
-     * and UIScrollViewDecelerationRateFast respectively.
-     * - normal: 0.998 - fast: 0.99 (the default for iOS WebView)
-     */
-    decelerationRate?: "normal" | "fast" | number;
-
-    /**
-     * Allows custom handling of any webview requests by a JS handler.
-     * Return true or false from this method to continue loading the
-     * request.
-     */
-    onShouldStartLoadWithRequest?: (event: WebViewIOSLoadRequestEvent) => boolean;
-
-    /**
-     * Boolean value that determines whether scrolling is enabled in the
-     * `WebView`. The default value is `true`.
-     */
-    scrollEnabled?: boolean;
-
-    /**
-     * If `true`, use WKWebView instead of UIWebView.
-     */
-    useWebKit?: boolean;
-}
-
-export interface WebViewUriSource {
-    /*
-     * The URI to load in the WebView. Can be a local or remote file.
-     */
-    uri?: string;
-
-    /*
-     * The HTTP Method to use. Defaults to GET if not specified.
-     * NOTE: On Android, only GET and POST are supported.
-     */
-    method?: "GET" | "POST";
-
-    /*
-     * Additional HTTP headers to send with the request.
-     * NOTE: On Android, this can only be used with GET requests.
-     */
-    headers?: any;
-
-    /*
-     * The HTTP body to send with the request. This must be a valid
-     * UTF-8 string, and will be sent exactly as specified, with no
-     * additional encoding (e.g. URL-escaping or base64) applied.
-     * NOTE: On Android, this can only be used with POST requests.
-     */
-    body?: string;
-}
-
-export interface WebViewHtmlSource {
-    /*
-     * A static HTML page to display in the WebView.
-     */
-    html: string;
-
-    /*
-     * The base URL to be used for any relative links in the HTML.
-     */
-    baseUrl?: string;
-}
-
-export interface WebViewNativeConfig {
-    /*
-     * The native component used to render the WebView.
-     */
-    component?: any;
-
-    /*
-     * Set props directly on the native component WebView. Enables custom props which the
-     * original WebView doesn't pass through.
-     */
-    props?: object;
-
-    /*
-     * Set the ViewManager to use for communication with the native side.
-     * @platform ios
-     */
-    viewManager?: object;
-}
-
-/**
- * @see https://facebook.github.io/react-native/docs/webview.html#props
- */
-export interface WebViewProps extends ViewProps, WebViewPropsAndroid, WebViewPropsIOS {
-    /**
-     * Controls whether to adjust the content inset for web views that are
-     * placed behind a navigation bar, tab bar, or toolbar. The default value
-     * is `true`.
-     */
-    automaticallyAdjustContentInsets?: boolean;
-
-    /**
-     * The amount by which the web view content is inset from the edges of
-     * the scroll view. Defaults to {top: 0, left: 0, bottom: 0, right: 0}.
-     */
-    contentInset?: Insets;
-
-    /**
-     * @deprecated
-     */
-    html?: string;
-
-    /**
-     * Set this to provide JavaScript that will be injected into the web page
-     * when the view loads.
-     */
-    injectedJavaScript?: string;
-
-    /**
-     * Invoked when load fails
-     */
-    onError?: (event: NavState) => void;
-
-    /**
-     * Invoked when load finish
-     */
-    onLoad?: (event: NavState) => void;
-
-    /**
-     * Invoked when load either succeeds or fails
-     */
-    onLoadEnd?: (event: NavState) => void;
-
-    /**
-     * Invoked on load start
-     */
-    onLoadStart?: (event: NavState) => void;
-
-    /**
-     * Invoked when window.postMessage is called from WebView.
-     */
-    onMessage?: (event: NativeSyntheticEvent<WebViewMessageEventData>) => void;
-
-    /**
-     * Function that is invoked when the `WebView` loading starts or ends.
-     */
-    onNavigationStateChange?: (event: NavState) => void;
-
-    /**
-     * Function that returns a view to show if there's an error.
-     */
-    renderError?: () => React.ReactElement<ViewProps>;
-
-    /**
-     * Function that returns a loading indicator.
-     */
-    renderLoading?: () => React.ReactElement<ViewProps>;
-
-    /**
-     * Boolean value that forces the `WebView` to show the loading view
-     * on the first load.
-     */
-    startInLoadingState?: boolean;
-
-    style?: StyleProp<ViewStyle>;
-
-    // Deprecated: Use the `source` prop instead.
-    url?: string;
-
-    source?: WebViewUriSource | WebViewHtmlSource | number;
-
-    /**
-     * Determines whether HTML5 audio & videos require the user to tap
-     * before they can start playing. The default value is false.
-     */
-    mediaPlaybackRequiresUserAction?: boolean;
-
-    /**
-     * sets whether the webpage scales to fit the view and the user can change the scale
-     */
-    scalesPageToFit?: boolean;
-
-    /**
-     * List of origin strings to allow being navigated to.
-     * The strings allow wildcards and get matched against just the origin (not the full URL).
-     * If the user taps to navigate to a new page but the new page is not in this whitelist, the URL will be handled by the OS.
-     * The default whitelisted origins are "http://" and "https://".
-     */
-    originWhitelist?: string[];
-
-    /**
-     * Override the native component used to render the WebView. Enables a custom native
-     * WebView which uses the same JavaScript as the original WebView.
-     */
-    nativeConfig?: WebViewNativeConfig;
-}
-
-export class WebView extends React.Component<WebViewProps> {
-    /**
-     * Go back one page in the webview's history.
-     */
-    goBack: () => void;
-
-    /**
-     * Go forward one page in the webview's history.
-     */
-    goForward: () => void;
-
-    /**
-     * Post a message to the WebView in the form of a string.
-     */
-    postMessage: (message: string) => void;
-
-    /**
-     * Reloads the current page.
-     */
-    reload: () => void;
-
-    /**
-     * Stop loading the current page.
-     */
-    stopLoading(): void;
-
-    /**
-     * Returns the native webview node.
-     */
-    getWebViewHandle: () => any;
-
-    /**
-     * Inject JavaScript to be executed immediately.
-     */
-    injectJavaScript: (script: string) => void;
-}
-
-/**
  * @see https://facebook.github.io/react-native/docs/segmentedcontrolios.html
  * @see SegmentedControlIOS.ios.js
  */
@@ -3025,11 +2655,6 @@ export interface ActivityIndicatorIOSProps extends ViewProps {
 
     style?: StyleProp<ViewStyle>;
 }
-
-/**
- * @Deprecated since version 0.28.0
- */
-export class ActivityIndicatorIOS extends React.Component<ActivityIndicatorIOSProps> {}
 
 export interface DatePickerIOSProps extends ViewProps {
     /**
@@ -4923,8 +4548,9 @@ declare const MaskedViewBase: Constructor<NativeMethodsMixin> & typeof MaskedVie
 export class MaskedViewIOS extends MaskedViewBase {}
 
 export interface ModalBaseProps {
-    // Only `animated` is documented. The JS code says `animated` is
-    // deprecated and `animationType` is preferred.
+    /**
+     * @deprecated Use animationType indead
+     */
     animated?: boolean;
     /**
      * The `animationType` prop controls how the modal animates.
@@ -6676,7 +6302,9 @@ export class ScrollView extends ScrollViewBase {
     // Undocumented
     getInnerViewNode(): any;
 
-    // Deprecated, do not use.
+    /**
+     * @deprecated Use scrollTo instead
+     */
     scrollWithoutAnimationTo?: (y: number, x: number) => void;
 }
 
@@ -7086,87 +6714,7 @@ export interface AlertStatic {
     alert: (title: string, message?: string, buttons?: AlertButton[], options?: AlertOptions) => void;
 }
 
-/**
- * Wrapper around the Android native module.
- */
-export interface AlertAndroidStatic {
-    alert: (title: string, message?: string, buttons?: AlertButton[], options?: AlertOptions) => void;
-}
-
-/**
- * //FIXME: No documentation - inferred from RCTAdSupport.m
- */
-export interface AdSupportIOSStatic {
-    getAdvertisingId: (onSuccess: (deviceId: string) => void, onFailure: (err: Error) => void) => void;
-    getAdvertisingTrackingEnabled: (onSuccess: (hasTracking: boolean) => void, onFailure: (err: Error) => void) => void;
-}
-
-interface AlertIOSButton {
-    text: string;
-    onPress?: (message?: string) => void;
-    style?: "default" | "cancel" | "destructive";
-}
-
 export type AlertType = "default" | "plain-text" | "secure-text" | "login-password";
-
-/**
- * @description
- * `AlertIOS` provides functionality to create an iOS alert dialog with a
- * message or create a prompt for user input.
- *
- * We recommend using the [`Alert.alert`](/docs/alert.html) method for
- * cross-platform support if you don't need to create iOS-only prompts.
- *
- * @see https://facebook.github.io/react-native/docs/alertios.html#content
- */
-export interface AlertIOSStatic {
-    /**
-     * Create and display a popup alert.
-     * @param title The dialog's title.
-     * @param message An optional message that appears below
-     *     the dialog's title.
-     * @param callbackOrButtons This optional argument should
-     *    be either a single-argument function or an array of buttons. If passed
-     *    a function, it will be called when the user taps 'OK'.
-     *
-     *    If passed an array of button configurations, each button should include
-     *    a `text` key, as well as optional `onPress` and `style` keys. `style`
-     *    should be one of 'default', 'cancel' or 'destructive'.
-     * @param type Deprecated, do not use.
-     */
-    alert: (
-        title: string,
-        message?: string,
-        callbackOrButtons?: (() => void) | Array<AlertIOSButton>,
-        type?: AlertType
-    ) => void;
-
-    /**
-     * Create and display a prompt to enter some text.
-     * @param title The dialog's title.
-     * @param message An optional message that appears above the text
-     *    input.
-     * @param callbackOrButtons This optional argument should
-     *    be either a single-argument function or an array of buttons. If passed
-     *    a function, it will be called with the prompt's value when the user
-     *    taps 'OK'.
-     *
-     *    If passed an array of button configurations, each button should include
-     *    a `text` key, as well as optional `onPress` and `style` keys (see
-     *    example). `style` should be one of 'default', 'cancel' or 'destructive'.
-     * @param type This configures the text input. One of 'plain-text',
-     *    'secure-text' or 'login-password'.
-     * @param defaultValue The default text in text input.
-     */
-    prompt: (
-        title: string,
-        message?: string,
-        callbackOrButtons?: ((value: string) => void) | Array<AlertIOSButton>,
-        type?: AlertType,
-        defaultValue?: string,
-        keyboardType?: KeyboardType | KeyboardTypeIOS
-    ) => void;
-}
 
 /**
  * AppStateIOS can tell you if the app is in the foreground or background,
@@ -7277,18 +6825,6 @@ export interface AsyncStorageStatic {
 }
 
 export type BackPressEventName = "hardwareBackPress";
-
-/**
- * Detect hardware back button presses, and programmatically invoke the
- * default back button functionality to exit the app if there are no
- * listeners or if none of the listeners return true.
- * Methods don't have more detailed documentation as of 0.25.
- */
-export interface BackAndroidStatic {
-    exitApp(): void;
-    addEventListener(eventName: BackPressEventName, handler: () => void): void;
-    removeEventListener(eventName: BackPressEventName, handler: () => void): void;
-}
 
 /**
  * Detect hardware back button presses, and programmatically invoke the
@@ -7537,45 +7073,6 @@ export interface DatePickerAndroidStatic {
     dismissedAction: 'dismissedAction';
 }
 
-export interface IntentAndroidStatic {
-    /**
-     * Starts a corresponding external activity for the given URL.
-
-        For example, if the URL is "https://www.facebook.com", the system browser will be opened, or the "choose application" dialog will be shown.
-
-        You can use other URLs, like a location (e.g. "geo:37.484847,-122.148386"), a contact, or any other URL that can be opened with {@code Intent.ACTION_VIEW}.
-
-        NOTE: This method will fail if the system doesn't know how to open the specified URL. If you're passing in a non-http(s) URL, it's best to check {@code canOpenURL} first.
-
-        NOTE: For web URLs, the protocol ("http://", "https://") must be set accordingly!
-
-        @deprecated
-        */
-    openURL(url: string): void;
-
-    /**
-     * Determine whether or not an installed app can handle a given URL.
-
-        You can use other URLs, like a location (e.g. "geo:37.484847,-122.148386"), a contact, or any other URL that can be opened with {@code Intent.ACTION_VIEW}.
-
-        NOTE: For web URLs, the protocol ("http://", "https://") must be set accordingly!
-
-        @param URL the URL to open
-
-        @deprecated
-        */
-    canOpenURL(url: string, callback: (supported: boolean) => void): void;
-
-    /**
-     * If the app launch was triggered by an app link with {@code Intent.ACTION_VIEW}, it will give the link url, otherwise it will give null
-
-        Refer http://developer.android.com/training/app-indexing/deep-linking.html#handling-intents
-
-        @deprecated
-        */
-    getInitialURL(callback: (url: string | null) => void): void;
-}
-
 export interface LinkingStatic extends NativeEventEmitter {
     /**
      * Add a handler to Linking changes by listening to the `url` event type
@@ -7614,143 +7111,6 @@ export interface LinkingStatic extends NativeEventEmitter {
      * Open the Settings app and displays the app’s custom settings, if it has any.
      */
     openSettings(): Promise<void>;
-}
-
-export interface LinkingIOSStatic {
-    /**
-     * Add a handler to LinkingIOS changes by listening to the url event type and providing the handler
-     @deprecated
-     */
-    addEventListener(type: string, handler: (event: { url: string }) => void): void;
-
-    /**
-     * Remove a handler by passing the url event type and the handler
-     @deprecated
-     */
-    removeEventListener(type: string, handler: (event: { url: string }) => void): void;
-
-    /**
-     * Try to open the given url with any of the installed apps.
-     @deprecated
-     */
-    openURL(url: string): void;
-
-    /**
-     * Determine whether or not an installed app can handle a given URL. The callback function will be called with bool supported as the only argument
-     NOTE: As of iOS 9, your app needs to provide the LSApplicationQueriesSchemes key inside Info.plist.
-     @deprecated
-     */
-    canOpenURL(url: string, callback: (supported: boolean) => void): void;
-
-    /**
-     * If the app launch was triggered by an app link, it will pop the link url, otherwise it will return null
-     @deprecated
-     */
-    popInitialURL(): string;
-}
-
-/**
- * NetInfo exposes info about online/offline status
- * @see https://facebook.github.io/react-native/docs/netinfo.html#content
- */
-
-// @Deprecated ConnectionType
-export type ConnectionType =
-    | "none"
-    | "wifi"
-    | "cell"
-    | "unknown"
-    | "NONE"
-    | "MOBILE"
-    | "WIFI"
-    | "MOBILE_MMS"
-    | "MOBILE_SUPL"
-    | "MOBILE_DUN"
-    | "MOBILE_HIPRI"
-    | "WIMAX"
-    | "BLUETOOTH"
-    | "DUMMY"
-    | "ETHERNET"
-    | "MOBILE_FOTA"
-    | "MOBILE_IMS"
-    | "MOBILE_CBS"
-    | "WIFI_P2P"
-    | "MOBILE_IA"
-    | "MOBILE_EMERGENCY"
-    | "PROXY"
-    | "VPN"
-    | "UNKNOWN";
-
-export type EffectiveConnectionType = "2g" | "3g" | "4g" | "unknown";
-
-export interface ConnectionInfo {
-    type: ConnectionType;
-    effectiveType: EffectiveConnectionType;
-}
-
-interface NetInfoEventListener {
-    remove: () => void;
-}
-
-export interface NetInfoStatic {
-    /**
-     * This function is deprecated. Use `getConnectionInfo` instead. Returns a promise that
-     * resolves with one of the deprecated connectivity types listed above.
-     */
-    fetch: () => Promise<ConnectionType>;
-
-    /**
-     * Adds an event handler. Supported events:
-     *
-     * - `connectionChange`: Fires when the network status changes. The argument to the event
-     *   handler is an object with keys:
-     *   - `type`: A `DeprecatedConnectionType` (listed above)
-     *   - `effectiveType`: An `EffectiveConnectionType` (listed above)
-     * - `change`: This event is deprecated. Listen to `connectionChange` instead. Fires when
-     *   the network status changes. The argument to the event handler is one of the deprecated
-     *   connectivity types listed above.
-     */
-    addEventListener: (eventName: string, listener: (result: ConnectionInfo | ConnectionType) => void) => NetInfoEventListener;
-
-    /**
-     * Removes the listener for network status changes.
-     */
-    removeEventListener: (eventName: string, listener: (result: ConnectionInfo | ConnectionType) => void) => void;
-
-    /**
-     * Returns a promise that resolves to an object with `type` and `effectiveType` keys
-     * whose values are a `ConnectionType` and an `EffectiveConnectionType`, (described above),
-     * respectively.
-     */
-    getConnectionInfo: () => Promise<ConnectionInfo>;
-
-    /**
-     * An object with the same methods as above but the listener receives a
-     * boolean which represents the internet connectivity.
-     * Use this if you are only interested with whether the device has internet
-     * connectivity.
-     */
-    isConnected: {
-        fetch: () => Promise<boolean>;
-
-        /**
-         * eventName is expected to be `change`(deprecated) or `connectionChange`
-         */
-        addEventListener: (eventName: string, listener: (result: boolean) => void) => NetInfoEventListener;
-
-        /**
-         * eventName is expected to be `change`(deprecated) or `connectionChange`
-         */
-        removeEventListener: (eventName: string, listener: (result: boolean) => void) => void;
-    };
-
-    /**
-     * Detect if the current active connection is
-     * metered or not. A network is classified as metered when the user is
-     * sensitive to heavy data usage on that connection due to monetary
-     * costs, data limitations or battery/performance issues.
-     */
-    isConnectionExpensive: () => Promise<boolean>;
 }
 
 export interface PanResponderGestureState {
@@ -7923,7 +7283,7 @@ export interface PermissionsAndroidStatic {
     PERMISSIONS: { [key: string]: Permission };
     new (): PermissionsAndroidStatic;
     /**
-     * Deprecated
+     * @deprecated Use check instead
      */
     checkPermission(permission: Permission): Promise<boolean>;
     /**
@@ -7932,7 +7292,7 @@ export interface PermissionsAndroidStatic {
      */
     check(permission: Permission): Promise<boolean>;
     /**
-     * Deprecated
+     * @deprecated Use request instead
      */
     requestPermission(permission: Permission, rationale?: Rationale): Promise<boolean>;
     /**
@@ -8285,8 +7645,7 @@ export class StatusBar extends React.Component<StatusBarProps> {
 }
 
 /**
- * StatusBarIOS is deprecated.
- * Use `StatusBar` for mutating the status bar.
+ * @deprecated Use StatusBar instead
  */
 export interface StatusBarIOSStatic extends NativeEventEmitter {}
 
@@ -8500,6 +7859,12 @@ export interface UIManagerStatic {
         success: (item: string, index: number | undefined) => void
     ): void;
 
+    getViewManagerConfig: (
+        name: string,
+      ) => {
+        Commands: {[key: string]: number};
+      };
+
     /**
      * Used to call a native view method from JavaScript
      *
@@ -8518,21 +7883,21 @@ export interface SwitchPropsIOS extends ViewProps {
     /**
      * Background color when the switch is turned on.
      *
-     * @deprecated
+     * @deprecated use trackColor instead
      */
     onTintColor?: string;
 
     /**
      * Color of the foreground switch grip.
      *
-     * @deprecated
+     * @deprecated use thumbColor instead
      */
     thumbTintColor?: string;
 
     /**
      * Background color when the switch is turned off.
      *
-     * @deprecated
+     * @deprecated use trackColor instead
      */
     tintColor?: string;
 }
@@ -8592,26 +7957,6 @@ export interface SwitchProps extends SwitchPropsIOS {
 declare class SwitchComponent extends React.Component<SwitchProps> {}
 declare const SwitchBase: Constructor<NativeMethodsMixin> & typeof SwitchComponent;
 export class Switch extends SwitchBase {}
-
-/**
- * NOTE: `VibrationIOS` is being deprecated. Use `Vibration` instead.
- *
- * The Vibration API is exposed at VibrationIOS.vibrate().
- * On iOS, calling this function will trigger a one second vibration.
- * The vibration is asynchronous so this method will return immediately.
- *
- * There will be no effect on devices that do not support Vibration, eg. the iOS simulator.
- *
- * Vibration patterns are currently unsupported.
- *
- * @see https://facebook.github.io/react-native/docs/vibrationios.html#content
- */
-export interface VibrationIOSStatic {
-    /**
-     * @deprecated
-     */
-    vibrate(): void;
-}
 
 /**
  * The Vibration API is exposed at `Vibration.vibrate()`.
@@ -9012,38 +8357,6 @@ export interface I18nManagerStatic {
     forceRTL: (forceRTL: boolean) => {};
 }
 
-export interface GeolocationStatic {
-    /**
-     * Invokes the success callback once with the latest location info.  Supported
-     * options: timeout (ms), maximumAge (ms), enableHighAccuracy (bool)
-     * On Android, this can return almost immediately if the location is cached or
-     * request an update, which might take a while.
-     */
-    getCurrentPosition(
-        geo_success: (position: GeolocationReturnType) => void,
-        geo_error?: (error: GeolocationError) => void,
-        geo_options?: GeoOptions
-    ): void;
-
-    /**
-     * Invokes the success callback whenever the location changes.  Supported
-     * options: timeout (ms), maximumAge (ms), enableHighAccuracy (bool), distanceFilter(m)
-     */
-    watchPosition(
-        success: (position: GeolocationReturnType) => void,
-        error?: (error: GeolocationError) => void,
-        options?: GeoOptions
-    ): number;
-
-    clearWatch(watchID: number): void;
-
-    stopObserving(): void;
-
-    requestAuthorization(): void;
-
-    setRNConfiguration(config: GeoConfiguration): void;
-}
-
 export interface OpenCameraDialogOptions {
     /** Defaults to false */
     videoMode?: boolean;
@@ -9307,27 +8620,12 @@ export interface KeyboardStatic extends NativeEventEmitter {
 export const ART: ARTStatic;
 export type ART = ARTStatic;
 
-export const ImagePickerIOS: ImagePickerIOSStatic;
-export type ImagePickerIOS = ImagePickerIOSStatic;
-
-export const LayoutAnimation: LayoutAnimationStatic;
-export type LayoutAnimation = LayoutAnimationStatic;
-
 export const SectionList: SectionListStatic<any>;
 export type SectionList<ItemT> = SectionListStatic<ItemT>;
-
-export const Systrace: SystraceStatic;
-export type Systrace = SystraceStatic;
 
 //////////// APIS //////////////
 export const ActionSheetIOS: ActionSheetIOSStatic;
 export type ActionSheetIOS = ActionSheetIOSStatic;
-
-export const Share: ShareStatic;
-export type Share = ShareStatic;
-
-export const AdSupportIOS: AdSupportIOSStatic;
-export type AdSupportIOS = AdSupportIOSStatic;
 
 export const AccessibilityInfo: AccessibilityInfoStatic;
 export type AccessibilityInfo = AccessibilityInfoStatic;
@@ -9335,27 +8633,22 @@ export type AccessibilityInfo = AccessibilityInfoStatic;
 export const Alert: AlertStatic;
 export type Alert = AlertStatic;
 
-export const AlertAndroid: AlertAndroidStatic;
-export type AlertAndroid = AlertAndroidStatic;
-
-export const AlertIOS: AlertIOSStatic;
-export type AlertIOS = AlertIOSStatic;
-
 export const AppState: AppStateStatic;
 export type AppState = AppStateStatic;
-
-export const AppStateIOS: AppStateStatic;
-export type AppStateIOS = AppStateStatic;
 
 export const AsyncStorage: AsyncStorageStatic;
 export type AsyncStorage = AsyncStorageStatic;
 
-export const BackAndroid: BackAndroidStatic;
-export type BackAndroid = BackAndroidStatic;
-
 export const BackHandler: BackHandlerStatic;
 export type BackHandler = BackHandlerStatic;
 
+/**
+ * CameraRoll has been extracted from react-native core and will be removed in a future release.
+ * "It can now be installed and imported from '@react-native-community/cameraroll' instead of 'react-native'.
+ * See 'https://github.com/react-native-community/react-native-cameraroll',
+ *
+ * @deprecated
+ */
 export const CameraRoll: CameraRollStatic;
 export type CameraRoll = CameraRollStatic;
 
@@ -9365,8 +8658,10 @@ export type Clipboard = ClipboardStatic;
 export const DatePickerAndroid: DatePickerAndroidStatic;
 export type DatePickerAndroid = DatePickerAndroidStatic;
 
-export const Geolocation: GeolocationStatic;
-export type Geolocation = GeolocationStatic;
+export const Dimensions: Dimensions;
+
+export type Easing = EasingStatic;
+export const Easing: EasingStatic;
 
 /** http://facebook.github.io/react-native/blog/2016/08/19/right-to-left-support-for-react-native-apps.html */
 export const I18nManager: I18nManagerStatic;
@@ -9375,21 +8670,21 @@ export type I18nManager = I18nManagerStatic;
 export const ImageEditor: ImageEditorStatic;
 export type ImageEditor = ImageEditorStatic;
 
+export const ImagePickerIOS: ImagePickerIOSStatic;
+export type ImagePickerIOS = ImagePickerIOSStatic;
+
 export const ImageStore: ImageStoreStatic;
 export type ImageStore = ImageStoreStatic;
 
 export const InteractionManager: InteractionManagerStatic;
 
-export const IntentAndroid: IntentAndroidStatic;
-export type IntentAndroid = IntentAndroidStatic;
-
 export const Keyboard: KeyboardStatic;
+
+export const LayoutAnimation: LayoutAnimationStatic;
+export type LayoutAnimation = LayoutAnimationStatic;
 
 export const Linking: LinkingStatic;
 export type Linking = LinkingStatic;
-
-export const LinkingIOS: LinkingIOSStatic;
-export type LinkingIOS = LinkingIOSStatic;
 
 export const NativeMethodsMixin: NativeMethodsMixinStatic;
 export type NativeMethodsMixin = NativeMethodsMixinStatic;
@@ -9397,23 +8692,35 @@ export type NativeMethodsMixin = NativeMethodsMixinStatic;
 export const NativeComponent: NativeMethodsMixinStatic;
 export type NativeComponent = NativeMethodsMixinStatic;
 
-export const NetInfo: NetInfoStatic;
-export type NetInfo = NetInfoStatic;
-
 export const PanResponder: PanResponderStatic;
 export type PanResponder = PanResponderStatic;
 
 export const PermissionsAndroid: PermissionsAndroidStatic;
 export type PermissionsAndroid = PermissionsAndroidStatic;
 
+/**
+ * PushNotificationIOS has been extracted from react-native core and will be removed in a future release.
+ * It can now be installed and imported from '@react-native-community/push-notification-ios' instead of 'react-native'.
+ * See https://github.com/react-native-community/react-native-push-notification-ios'
+ * @deprecated
+ */
 export const PushNotificationIOS: PushNotificationIOSStatic;
 export type PushNotificationIOS = PushNotificationIOSStatic;
 
 export const Settings: SettingsStatic;
 export type Settings = SettingsStatic;
 
+export const Share: ShareStatic;
+export type Share = ShareStatic;
+
+/**
+ * @deprecated Use StatusBar instead
+ */
 export const StatusBarIOS: StatusBarIOSStatic;
 export type StatusBarIOS = StatusBarIOSStatic;
+
+export const Systrace: SystraceStatic;
+export type Systrace = SystraceStatic;
 
 export const TimePickerAndroid: TimePickerAndroidStatic;
 export type TimePickerAndroid = TimePickerAndroidStatic;
@@ -9424,17 +8731,10 @@ export type ToastAndroid = ToastAndroidStatic;
 export const UIManager: UIManagerStatic;
 export type UIManager = UIManagerStatic;
 
-export const VibrationIOS: VibrationIOSStatic;
-export type VibrationIOS = VibrationIOSStatic;
-
 export const Vibration: VibrationStatic;
 export type Vibration = VibrationStatic;
 
-export const Dimensions: Dimensions;
 export const ShadowPropTypesIOS: ShadowPropTypesIOSStatic;
-
-export type Easing = EasingStatic;
-export const Easing: EasingStatic;
 
 //////////// Plugins //////////////
 
