@@ -2225,6 +2225,13 @@ declare module "mongoose" {
     within(val?: any): this;
     within(coordinate: number[], ...coordinatePairs: number[][]): this;
 
+    /**
+     * Returns an asyncIterator for use with for/await/of loops
+     * This function only works for find() queries.
+     * You do not need to call this function explicitly, the JavaScript runtime will call it for you.
+     */
+    [Symbol.asyncIterator](): AsyncIterator<DocType>;
+
     /** Flag to opt out of using $geoWithin. */
     static use$geoWithin: boolean;
   }
