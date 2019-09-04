@@ -66,7 +66,7 @@ export interface UsingManualInfo extends InstantSearchBaseProps  {
     algoliaClient?: any;
 }
 
-export type InstantSearchProps = UsingSearchClient | UsingManualInfo
+export type InstantSearchProps = UsingSearchClient | UsingManualInfo;
 /**
  * <InstantSearch> is the root component of all React InstantSearch implementations. It provides all the connected components (aka widgets) a means to interact with the searchState.
  *
