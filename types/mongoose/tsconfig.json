@@ -2,7 +2,7 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es6"
+            "esnext"
         ],
         "noImplicitAny": true,
         "noImplicitThis": false,
