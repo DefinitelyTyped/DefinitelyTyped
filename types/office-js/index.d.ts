@@ -19831,7 +19831,7 @@ declare namespace Excel {
     interface SearchCriteria {
         /**
          *
-         * Specifies whether the match needs to be complete or partial. A complete match matches the entire contents of the cell. A partial match matches a substring within the content of the cell. Default is false (partial).
+         * Specifies whether the match needs to be complete or partial. A complete match matches the entire contents of the cell. A partial match matches a substring within the content of the cell (`cat` partially matches `caterpillar` and `scatter`). Default is false (partial).
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -19860,7 +19860,7 @@ declare namespace Excel {
     interface WorksheetSearchCriteria {
         /**
          *
-         * Specifies whether the match needs to be complete or partial. A complete match matches the entire contents of the cell. A partial match matches a substring within the content of the cell. Default is false (partial).
+         * Specifies whether the match needs to be complete or partial. A complete match matches the entire contents of the cell. A partial match matches a substring within the content of the cell (`cat` partially matches `caterpillar` and `scatter`). Default is false (partial).
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -19882,7 +19882,7 @@ declare namespace Excel {
     interface ReplaceCriteria {
         /**
          *
-         * Specifies whether the match needs to be complete or partial. A complete match matches the entire contents of the cell. A partial match matches a substring within the content of the cell. Default is false (partial).
+         * Specifies whether the match needs to be complete or partial. A complete match matches the entire contents of the cell. A partial match matches a substring within the content of the cell (`cat` partially matches `caterpillar` and `scatter`). Default is false (partial).
          *
          * [Api set: ExcelApi 1.9]
          */
