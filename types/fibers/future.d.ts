@@ -11,8 +11,7 @@ type FutureOrFutureArray = Future<any> | Future<any>[];
 
 declare global {
     type FutureObject<T> = T & any;
-    type FutureFunction<F, T=any> = F extends ((...args: infer A) => infer R) ?
-        (...args: A) => Future<R> : (...args: any[]) => Future<T>;
+    type FutureFunction<T=any> = (...args: any[]) => Future<T>;
 
     interface Function {
         /**
@@ -26,7 +25,7 @@ declare global {
          *
          * funcy(1).wait(); // returns 2
          */
-        future<T = any>(detach?: boolean): FutureFunction<this, T>;
+        future<T = any>(detach?: boolean): FutureFunction<T>;
     }
 }
 
@@ -52,7 +51,7 @@ interface FutureConstructor {
      *
      * Example usage: Future.wrap(asyncFunction)(arg1).wait()
      */
-    wrap<F extends Function>(fnOrObject: F, multi?: boolean, suffix?: string): FutureFunction<F>;
+    wrap<T = any>(fnOrObject: (...args: any[]) => T, multi?: boolean, suffix?: string): FutureFunction<T>;
     wrap<O extends Object>(fnOrObject: O, multi?: boolean, suffix?: string): FutureObject<O>;
     // wrap<O = object, T = FutureObject>(fnOrObject: O, multi?: boolean, suffix?: string): FutureObject & FunctionProperties<O>;
 
