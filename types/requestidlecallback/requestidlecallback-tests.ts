@@ -1,4 +1,9 @@
-import { requestIdleCallback, cancelIdleCallback, IdleRequestOptions, IdleCallbackHandle } from 'requestidlecallback';
+import {
+  requestIdleCallback,
+  cancelIdleCallback,
+  IdleRequestOptions,
+  IdleCallbackHandle,
+} from 'requestidlecallback';
 
 // Test requestIdleCallback with default param
 requestIdleCallback(() => '1');
