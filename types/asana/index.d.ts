@@ -1449,7 +1449,7 @@ declare namespace asana {
             interface Type extends Resource {
                 created_at: string;
                 modified_at: string;
-                completed_at: string;
+                completed_at: string | null;
                 completed: boolean;
                 due_on: string;
                 due_at: string;
