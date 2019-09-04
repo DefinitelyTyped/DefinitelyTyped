@@ -10,7 +10,7 @@ import BN = require("bn.js");
 export const utils: any;
 export const rand: any;
 
-export type BNInput = string | BN | number | Buffer | number[];
+export type BNInput = string | BN | number | Buffer | Uint8Array | number[];
 
 export const version: number;
 
@@ -252,8 +252,10 @@ export namespace ec {
         constructor(ec: ec, options: KeyPairOptions);
 
         validate(): { readonly result: boolean; readonly reason: string };
-        getPublic(compact: boolean, enc: "hex" | "array"): string | number[];
-        getPublic(enc: "hex" | "array"): string;
+        getPublic(compact: boolean, enc: "hex"): string;
+        getPublic(compact: boolean, enc: "array"): number[];
+        getPublic(enc: "hex"): string;
+        getPublic(enc: "array"): number[];
         getPublic(): curve.base.BasePoint;
         getPrivate(enc: "hex"): string;
         getPrivate(): BN;

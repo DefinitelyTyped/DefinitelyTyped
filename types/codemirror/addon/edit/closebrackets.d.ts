@@ -42,6 +42,6 @@ declare module "codemirror" {
          * By default, it'll auto-close ()[]{}''"", but you can pass it a string similar to that (containing pairs of matching characters),
          * or an object with pairs and optionally explode properties to customize it.
          */
-        autoCloseBrackets?: AutoCloseBrackets | string;
+        autoCloseBrackets?: AutoCloseBrackets | boolean | string;
     }
 }

@@ -413,6 +413,7 @@ authResponse = {
 // CognitoUserPoolEvent
 num = cognitoUserPoolEvent.version;
 cognitoUserPoolEvent.triggerSource === "PreSignUp_SignUp";
+cognitoUserPoolEvent.triggerSource === "PreSignUp_ExternalProvider";
 cognitoUserPoolEvent.triggerSource === "PostConfirmation_ConfirmSignUp";
 cognitoUserPoolEvent.triggerSource === "PreAuthentication_Authentication";
 cognitoUserPoolEvent.triggerSource === "PostAuthentication_Authentication";
@@ -443,6 +444,7 @@ str = cognitoUserPoolEvent.callerContext.clientId;
 str = cognitoUserPoolEvent.request.userAttributes["email"];
 str = cognitoUserPoolEvent.request.validationData!["k1"];
 strOrUndefined = cognitoUserPoolEvent.request.codeParameter;
+strOrUndefined = cognitoUserPoolEvent.request.linkParameter;
 strOrUndefined = cognitoUserPoolEvent.request.usernameParameter;
 boolOrUndefined = cognitoUserPoolEvent.request.newDeviceUsed;
 cognitoUserPoolEvent.request.session![0].challengeName === "CUSTOM_CHALLENGE";
@@ -476,6 +478,31 @@ cognitoUserPoolEvent.response.desiredDeliveryMediums === ["EMAIL"];
 cognitoUserPoolEvent.response.desiredDeliveryMediums === ["SMS"];
 cognitoUserPoolEvent.response.desiredDeliveryMediums === ["SMS", "EMAIL"];
 boolOrUndefined = cognitoUserPoolEvent.response.forceAliasCreation;
+// From AWS examples
+cognitoUserPoolEvent.response = {
+    claimsOverrideDetails: {
+        claimsToAddOrOverride: {
+            attribute_key2: "attribute_value2",
+            attribute_key: "attribute_value"
+        },
+        claimsToSuppress: ["email"]
+    }
+};
+cognitoUserPoolEvent.response = {
+    claimsOverrideDetails: {
+        claimsToAddOrOverride: {
+            attribute_key2: "attribute_value2",
+            attribute_key: "attribute_value"
+        },
+        claimsToSuppress: ["email"],
+        groupOverrideDetails: {
+            groupsToOverride: ["group-A", "group-B", "group-C"],
+            iamRolesToOverride: ["arn:aws:iam::XXXXXXXXXXXX:role/sns_callerA", "arn:aws:iam::XXXXXXXXX:role/sns_callerB", "arn:aws:iam::XXXXXXXXXX:role/sns_callerC"],
+            preferredRole: "arn:aws:iam::XXXXXXXXXXX:role/sns_caller"
+        }
+    }
+};
+cognitoUserPoolEvent.response.claimsOverrideDetails!.groupOverrideDetails = null;
 
 // CloudFormation Custom Resource
 switch (cloudformationCustomResourceEvent.RequestType) {
@@ -544,7 +571,7 @@ str = cloudwatchLogsDecodedData.logEvents[0].extractedFields!["example"];
 
 /* ClientContext */
 clientContextClient = clientCtx.client;
-anyObj = clientCtx.custom;
+anyObj = clientCtx.Custom;
 clientContextEnv = clientCtx.env;
 
 /* ClientContextEnv */

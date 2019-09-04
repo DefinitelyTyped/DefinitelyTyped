@@ -1,0 +1,3 @@
+interface HTMLElement {
+  innerText: string;
+}

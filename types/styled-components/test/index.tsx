@@ -809,11 +809,7 @@ function cssProp() {
     return (
         <>
             <div css="background: blue;" />
-            {/*
-                For some reason $ExpectError doesn't work on this expression.
-                Only strings work, objects crash the plugin.
-                <div css={{ background: "blue" }} />
-            */}
+            <div css={{ background: "blue" }} />
             <div
                 // would be nice to be able to turn this into an error as it also crashes the plugin,
                 // but this is how optional properties work in TypeScript...
@@ -1059,4 +1055,20 @@ function unionTest() {
     // undesired, fix was reverted because of https://github.com/Microsoft/TypeScript/issues/30663
     <StyledReadable kind="book" author="Hejlsberg" />; // $ExpectError
     <StyledReadable kind="magazine" author="Hejlsberg" />; // $ExpectError
+}
+
+function unionTest2() {
+    // Union of two non-overlapping types
+    type Props = {
+        foo: number, bar?: undefined
+    } | {
+        foo?: undefined, bar: string
+    };
+
+    const C = styled.div<Props>``;
+
+    <C foo={123} />;
+    <C bar="foobar" />;
+    <C />; // $ExpectError
+    <C foo={123} bar="foobar" />; // $ExpectError
 }

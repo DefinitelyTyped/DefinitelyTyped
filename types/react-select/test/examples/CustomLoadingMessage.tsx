@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Tooltip } from '../AtlaskitDummy';
-import AsyncSelect from 'react-select/lib/Async';
+import AsyncSelect from 'react-select/async';
 import { colourOptions } from '../data';
 
 const LoadingMessage = (props: any) => {

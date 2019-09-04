@@ -29,11 +29,11 @@ declare namespace GoogleAppsScript {
      */
     export interface Cache {
       get(key: string): string;
-      getAll(keys: string[]): Object;
+      getAll(keys: string[]): any;
       put(key: string, value: string): void;
       put(key: string, value: string, expirationInSeconds: Integer): void;
-      putAll(values: Object): void;
-      putAll(values: Object, expirationInSeconds: Integer): void;
+      putAll(values: any): void;
+      putAll(values: any, expirationInSeconds: Integer): void;
       remove(key: string): void;
       removeAll(keys: string[]): void;
     }

@@ -4,7 +4,9 @@ function createAndSendDocument() {
   var doc = DocumentApp.create('Hello, world!');
 
   // Access the body of the document, then add a paragraph.
-  doc.getBody().appendParagraph('This document was created by Google Apps Script.');
+  doc.getBody().appendParagraph(
+    'This document was created by Google Apps Script.'
+  );
 
   // Get the URL of the document.
   var url = doc.getUrl();
@@ -28,7 +30,7 @@ CalendarApp.GuestStatus.NO;
 
 // test for URLFetchRequestOptions.payload
 import URLFetchRequestOptions = GoogleAppsScript.URL_Fetch.URLFetchRequestOptions;
-const postTest = (payload: Object): string => {
+const postTest = (payload: object): string => {
   const url = 'http://httpbin.org/post';
   const params: URLFetchRequestOptions = {
     method: 'post',
@@ -58,15 +60,15 @@ const createEvent = (): void => {
       dateTime: end.toISOString()
     },
     attendees: [
-      {email: 'alice@example.com'},
-      {email: 'bob@example.com'}
+      { email: 'alice@example.com' },
+      { email: 'bob@example.com' }
     ],
     // Red background. Use Calendar.Colors.get() for the full list.
-    colorId: "11"
+    colorId: '11'
   };
   event = Calendar.Events.insert(event, calendarId);
   Logger.log('Event ID: ' + event.id);
-}
+};
 
 // Admin Directory (Advanced service)
 const listAllUsers = () => {
@@ -89,4 +91,27 @@ const listAllUsers = () => {
     }
     pageToken = page.nextPageToken;
   } while (pageToken);
+};
+
+// doPost function
+function doPost(e: GoogleAppsScript.Events.DoPost) {
+  const data: string = e.postData.contents;
+  Logger.log(JSON.parse(data));
 }
+
+// doGet function
+function doGet(e: GoogleAppsScript.Events.DoGet) {
+  const params: object = e.parameters;
+}
+
+// Base Service
+function createFileFromBlob(blob: GoogleAppsScript.Base.Blob){
+  const file: GoogleAppsScript.Drive.File = DriveApp.createFile(blob);
+}
+
+// Console
+console.log("log");
+console.info("info");
+console.warn("warn");
+console.error("error");
+console.log("Console can use %s and %d format string.", "hello", 2);

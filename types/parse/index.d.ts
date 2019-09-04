@@ -11,6 +11,8 @@
 //                  Diamond Lewis <https://github.com/dplewis>
 //                  Jong Eun Lee <https://github.com/yomybaby>
 //                  Julien Quere <https://github.com/jlnquere>
+//                  Yago Tomé <https://github.com/yagotome>
+//                  Thibault MOCELLIN <https://github.com/tybi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -38,21 +40,21 @@ declare namespace Parse {
     }
 
     interface FullOptions {
-      success?: Function;
-      error?: Function;
-      useMasterKey?: boolean;
-      sessionToken?: string;
-      installationId?: string;
-      progress?: Function;
+        success?: Function;
+        error?: Function;
+        useMasterKey?: boolean;
+        sessionToken?: string;
+        installationId?: string;
+        progress?: Function;
     }
 
     interface RequestOptions {
-      useMasterKey?: boolean;
-      sessionToken?: string;
-      installationId?: string;
-      batchSize?: number;
-      include?: string | string[];
-      progress?: Function;
+        useMasterKey?: boolean;
+        sessionToken?: string;
+        installationId?: string;
+        batchSize?: number;
+        include?: string | string[];
+        progress?: Function;
     }
 
     interface SuccessFailureOptions extends SuccessOption, ErrorOption {
@@ -100,6 +102,10 @@ declare namespace Parse {
 
     interface IBaseObject {
         toJSON(): any;
+    }
+
+    interface AuthData {
+        [key: string]: any
     }
 
     class BaseObject implements IBaseObject {
@@ -295,7 +301,7 @@ declare namespace Parse {
         static fetchAll<T extends Object>(list: T[], options: Object.FetchAllOptions): Promise<T[]>;
         static fetchAllIfNeeded<T extends Object>(list: T[], options: Object.FetchAllOptions): Promise<T[]>;
         static fetchAllWithInclude<T extends Object>(list: T[], keys: string | Array<string | Array<string>>, options: RequestOptions): Promise<T[]>;
-        static fromJSON(json: any, override: boolean): any;
+        static fromJSON<T extends Object>(json: any, override?: boolean): T;
         static pinAll(objects: Object[]): Promise<void>;
         static pinAllWithName(name: string, objects: Object[]): Promise<void>;
         static registerSubclass<T extends Object>(className: string, clazz: new (options?: any) => T): void;
@@ -305,10 +311,10 @@ declare namespace Parse {
         static unPinAllObjectsWithName(name: string): Promise<void>;
         static unPinAllWithName(name: string, objects: Object[]): Promise<void>;
 
-        add(attr: string, item: any): this | boolean;
-        addAll(attr: string, items: any[]): this | boolean;
-        addAllUnique(attr: string, items: any[]): this | boolean;
-        addUnique(attr: string, item: any): this | boolean;
+        add(attr: string, item: any): this | false;
+        addAll(attr: string, items: any[]): this | false;
+        addAllUnique(attr: string, items: any[]): this | false;
+        addUnique(attr: string, item: any): this | false;
         change(options: any): this;
         changedAttributes(diff: any): boolean;
         clear(options: any): any;
@@ -337,15 +343,15 @@ declare namespace Parse {
         previous(attr: string): any;
         previousAttributes(): any;
         relation(attr: string): Relation<this, Object>;
-        remove(attr: string, item: any): this | boolean;
-        removeAll(attr: string, items: any): this | boolean;
+        remove(attr: string, item: any): this | false;
+        removeAll(attr: string, items: any): this | false;
         revert(): void;
         save(attrs?: { [key: string]: any } | null, options?: Object.SaveOptions): Promise<this>;
         save(key: string, value: any, options?: Object.SaveOptions): Promise<this>;
         save(attrs: object, options?: Object.SaveOptions): Promise<this>;
-        set(key: string, value: any, options?: Object.SetOptions): boolean;
-        set(attrs: object, options?: Object.SetOptions): boolean;
-        setACL(acl: ACL, options?: SuccessFailureOptions): boolean;
+        set(key: string, value: any, options?: Object.SetOptions): this | false;
+        set(attrs: object, options?: Object.SetOptions): this | false;
+        setACL(acl: ACL, options?: SuccessFailureOptions): this | false;
         toPointer(): Pointer;
         unPin(): Promise<void>;
         unPinWithName(name: string): Promise<void>;
@@ -471,7 +477,7 @@ declare namespace Parse {
         addDescending(key: string[]): Query<T>;
         ascending(key: string): Query<T>;
         ascending(key: string[]): Query<T>;
-        aggregate(pipeline: Query.AggregationOptions|Query.AggregationOptions[]): Query<T>;
+        aggregate<V = any>(pipeline: Query.AggregationOptions | Query.AggregationOptions[]): Promise<V>;
         containedBy(key: string, values: any[]): Query<T>;
         containedIn(key: string, values: any[]): Query<T>;
         contains(key: string, substring: string): Query<T>;
@@ -483,7 +489,7 @@ declare namespace Parse {
         doesNotExist(key: string): Query<T>;
         doesNotMatchKeyInQuery<U extends Object>(key: string, queryKey: string, query: Query<U>): Query<T>;
         doesNotMatchQuery<U extends Object>(key: string, query: Query<U>): Query<T>;
-        distinct(key: string): Query<T>;
+        distinct<V = any>(key: string): Promise<V>;
         each(callback: Function, options?: Query.EachOptions): Promise<void>;
         endsWith(key: string, suffix: string): Query<T>;
         equalTo(key: string, value: any): Query<T>;
@@ -532,20 +538,20 @@ declare namespace Parse {
 
         // According to http://docs.parseplatform.org/rest/guide/#aggregate-queries
         interface AggregationOptions {
-            group?: { objectId?: string, [key:string]: any };
-            match?: {[key: string]: any};
-            project?: {[key: string]: any};
+            group?: { objectId?: string, [key: string]: any };
+            match?: { [key: string]: any };
+            project?: { [key: string]: any };
             limit?: number;
             skip?: number;
             // Sort documentation https://docs.mongodb.com/v3.2/reference/operator/aggregation/sort/#pipe._S_sort
-            sort?: {[key: string]: 1|-1};
+            sort?: { [key: string]: 1 | -1 };
         }
 
         // According to https://parseplatform.org/Parse-SDK-JS/api/2.1.0/Parse.Query.html#fullText
         interface FullTextOptions {
-          language?: string;
-          caseSensitive?: boolean;
-          diacriticSensitive?: boolean;
+            language?: string;
+            caseSensitive?: boolean;
+            diacriticSensitive?: boolean;
         }
     }
 
@@ -680,7 +686,6 @@ subscription.on('close', () => {});
      * uniqueness.</p>
      */
     class User extends Object {
-
         static allowCustomUserClass(isAllowed: boolean): void;
         static become(sessionToken: string, options?: UseMasterKeyOption): Promise<User>;
         static current(): User | undefined;
@@ -706,6 +711,9 @@ subscription.on('close', () => {});
 
         setPassword(password: string, options?: SuccessFailureOptions): boolean;
         getSessionToken(): string;
+
+        linkWith(user: User, authData: AuthData, options: FullOptions): Promise<User>;
+        _linkWith(provider: any, options: { authData?: AuthData }, saveOpts?: FullOptions): Promise<User>;
     }
 
 
@@ -1004,6 +1012,8 @@ subscription.on('close', () => {});
             badge?: string;
             sound?: string;
             title?: string;
+            notification?: any;
+            content_available?: any;
         }
 
         interface SendOptions extends UseMasterKeyOption {

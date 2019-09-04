@@ -2,16 +2,16 @@ import nock = require('nock');
 import * as fs from 'fs';
 import { URL } from 'url';
 
-let scope: nock.Scope;
+let scope: nock.Scope = nock("http://example.com");
 let inst: nock.Interceptor;
-let str: string;
+let str = "foo";
 let strings: string[];
-let bool: boolean;
+let bool = true;
 let defs: nock.NockDefinition[];
-let options: nock.Options;
+let options: nock.Options = {};
 
 const num = 42;
-const obj: {[k: string]: any} = {};
+const obj: { [k: string]: any } = {};
 const regex = /test/;
 
 inst = scope.head(str);
@@ -244,6 +244,11 @@ nock('http://example.com')
   .query(true)
   .reply(200, {results: [{id: 'pgte'}]});
 
+nock('http://example.com', { encodedQueryParams: true })
+  .get('/users')
+  .query('foo%5Bbar%5D%3Dhello%20world%21')
+  .reply(200, { results: [{ id: 'pgte' }] });
+
 // Specifying replies
 scope = nock('http://myapp.iriscouch.com')
                 .get('/users/1')
@@ -310,6 +315,7 @@ scope = nock('http://www.google.com')
 scope = nock('http://www.google.com')
    .get('/cat-poems')
    .reply(function(uri, requestBody) {
+     str = this.req.path;
      console.log('path:', this.req.path);
      console.log('headers:', this.req.headers);
      // ...

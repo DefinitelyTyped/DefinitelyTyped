@@ -49,3 +49,13 @@ new Koa<{}, {}>()
         ctx.body = "Something";
         await next();
     });
+
+new Koa<{}, {}>()
+    .use(compose([fooMiddleware, barMiddleware, wooMiddleware]))
+    .use(async (ctx, next) => {
+        ctx.state.foo;
+        ctx.state.bar;
+        ctx.state.woo;
+        ctx.body = "Something";
+        await next();
+    });

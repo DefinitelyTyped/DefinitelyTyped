@@ -7,6 +7,7 @@
 //                 Alex Young <https://github.com/alsiola>
 //                 Anton Novik <https://github.com/tehbi4>
 //                 Huw Martin <https://github.com/huwmartin>
+//                 Matt Davis <https://github.com/m-b-davis>
 //                 Ethan Resnick <https://github.com/ethanresnick>
 //                 Tim de Koning <https://github.com/reggino>
 //                 Maddi Joyce <https://github.com/maddijoyce>

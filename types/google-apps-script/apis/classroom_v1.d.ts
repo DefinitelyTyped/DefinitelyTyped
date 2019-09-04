@@ -872,7 +872,7 @@ declare namespace GoogleAppsScript {
         id?: string;
         individualStudentsOptions?: Classroom.Schema.IndividualStudentsOptions;
         materials?: Classroom.Schema.Material[];
-        maxPoints?: Number;
+        maxPoints?: number;
         multipleChoiceQuestion?: Classroom.Schema.MultipleChoiceQuestion;
         scheduledTime?: string;
         state?: string;
@@ -918,8 +918,8 @@ declare namespace GoogleAppsScript {
         actorUserId?: string;
         gradeChangeType?: string;
         gradeTimestamp?: string;
-        maxPoints?: Number;
-        pointsEarned?: Number;
+        maxPoints?: number;
+        pointsEarned?: number;
       }
       export interface Guardian {
         guardianId?: string;
@@ -1046,14 +1046,14 @@ declare namespace GoogleAppsScript {
       }
       export interface StudentSubmission {
         alternateLink?: string;
-        assignedGrade?: Number;
+        assignedGrade?: number;
         assignmentSubmission?: Classroom.Schema.AssignmentSubmission;
         associatedWithDeveloper?: boolean;
         courseId?: string;
         courseWorkId?: string;
         courseWorkType?: string;
         creationTime?: string;
-        draftGrade?: Number;
+        draftGrade?: number;
         id?: string;
         late?: boolean;
         multipleChoiceSubmission?: Classroom.Schema.MultipleChoiceSubmission;

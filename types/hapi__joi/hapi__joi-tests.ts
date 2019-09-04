@@ -6,6 +6,7 @@ let x: any = null;
 declare const value: any;
 let num = 0;
 let str = '';
+let strOrNum: string | number;
 declare const bool: boolean;
 declare const exp: RegExp;
 declare const obj: object;
@@ -86,6 +87,15 @@ let emailOpts: Joi.EmailOptions = {};
 emailOpts = { allowUnicode: bool };
 emailOpts = { tlds: { allow: strArr } };
 emailOpts = { minDomainSegments: num };
+emailOpts = { tlds: false };
+
+// --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+
+let domainOpts: Joi.DomainOptions = {};
+
+domainOpts = { allowUnicode: bool };
+domainOpts = { tlds: { allow: strArr } };
+domainOpts = { minDomainSegments: num };
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
@@ -173,6 +183,14 @@ validErrItem = {
     path: [str],
     options: validOpts,
     context: obj
+};
+
+validErrItem = {
+  message: str,
+  type: str,
+  path: [str, num, str],
+  options: validOpts,
+  context: obj,
 };
 
 validErrFunc = errs => errs;
@@ -828,6 +846,8 @@ strSchema = strSchema.alphanum();
 strSchema = strSchema.token();
 strSchema = strSchema.email();
 strSchema = strSchema.email(emailOpts);
+strSchema = strSchema.domain();
+strSchema = strSchema.domain(domainOpts);
 strSchema = strSchema.ip();
 strSchema = strSchema.ip(ipOpts);
 strSchema = strSchema.uri();
@@ -929,7 +949,7 @@ schema = Joi.lazy(() => schema, { once: true });
         Joi.validate(value, schema, validOpts, (err, value) => {
             x = value;
             str = err.message;
-            str = err.details[0].path[0];
+            strOrNum = err.details[0].path[0];
             str = err.details[0].message;
             str = err.details[0].type;
         });

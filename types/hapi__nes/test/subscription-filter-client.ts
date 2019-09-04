@@ -19,15 +19,15 @@ client.connect({ auth: { headers: { authorization: 'Basic am9objpzZWNyZXQ=' } } 
 
 // Added in addition to nes doc example code
 
-import NesClient = require('@hapi/nes/client');
+import NesClient = require('@hapi/nes/lib/client');
 
-var client = new NesClient('ws://localhost');
+var client = new NesClient.Client('ws://localhost');
 
 // Authenticate as 'john'
 
 client.connect({ auth: { headers: { authorization: 'Basic am9objpzZWNyZXQ=' } } }).then(() => {
 
-    const handler: NesClient.Handler = (update) => {
+    const handler: NesClient.Client.Handler = (update) => {
 
         // First publish is not received (filtered due to updater key)
         // update -> { id: 6, status: 'initial', updater: 'steve' }

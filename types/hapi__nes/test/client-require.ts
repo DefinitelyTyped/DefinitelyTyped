@@ -3,11 +3,11 @@
 // that is not needed for the browser. The browser will only need the nes client.
 // If you are using CommonJS you can load the client with require('nes/client').
 
-import Client = require('@hapi/nes/client');
+import NesClient = require('@hapi/nes/lib/client');
 
-const options: Client.ClientConnectOptions = {
+const options: NesClient.Client.ClientConnectOptions = {
     delay: 3
 }
 
-const client: Client = new Client('ws://localhost', options);
+const client: NesClient.Client = new NesClient.Client('ws://localhost', options);
 client.onDisconnect = (willReconnect) => {}

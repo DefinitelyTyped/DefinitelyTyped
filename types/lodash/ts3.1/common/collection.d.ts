@@ -956,13 +956,13 @@ declare module "../index" {
         /**
          * @see _.groupBy
          */
-        groupBy(iteratee?: ValueIteratee<string>): Object<Dictionary<string>>;
+        groupBy(iteratee?: ValueIteratee<string>): Object<Dictionary<string[]>>;
     }
     interface Collection<T> {
         /**
          * @see _.groupBy
          */
-        groupBy(iteratee?: ValueIteratee<T>): Object<Dictionary<T>>;
+        groupBy(iteratee?: ValueIteratee<T>): Object<Dictionary<T[]>>;
     }
     interface Object<T> {
         /**
@@ -974,7 +974,7 @@ declare module "../index" {
         /**
          * @see _.groupBy
          */
-        groupBy(iteratee?: ValueIteratee<string>): ObjectChain<Dictionary<string>>;
+        groupBy(iteratee?: ValueIteratee<string>): ObjectChain<Dictionary<string[]>>;
     }
     interface StringNullableChain {
         /**
@@ -986,7 +986,7 @@ declare module "../index" {
         /**
          * @see _.groupBy
          */
-        groupBy(iteratee?: ValueIteratee<T>): ObjectChain<Dictionary<T>>;
+        groupBy(iteratee?: ValueIteratee<T>): ObjectChain<Dictionary<T[]>>;
     }
     interface ObjectChain<T> {
         /**
@@ -1018,6 +1018,12 @@ declare module "../index" {
          */
         includes(target: T, fromIndex?: number): boolean;
     }
+    interface String {
+        /**
+         * @see _.includes
+         */
+        includes(target: string, fromIndex?: number): boolean;
+    }
     interface ObjectChain<T> {
         /**
          * @see _.includes
@@ -1029,6 +1035,12 @@ declare module "../index" {
          * @see _.includes
          */
         includes(target: T, fromIndex?: number): PrimitiveChain<boolean>;
+    }
+    interface StringChain {
+        /**
+         * @see _.includes
+         */
+        includes(target: string, fromIndex?: number): PrimitiveChain<boolean>;
     }
     interface LoDashStatic {
         /**
@@ -1330,7 +1342,7 @@ declare module "../index" {
         /**
          * @see _.orderBy
          */
-        orderBy(iteratees?: Many<ListIterator<T, NotVoid>>, orders?: Many<boolean|"asc"|"desc">): Collection<T>;
+        orderBy(iteratees?: Many<ListIterator<T, NotVoid> | PropertyName | PartialShallow<T>>, orders?: Many<boolean|"asc"|"desc">): Collection<T>;
     }
     interface Object<T> {
         /**
@@ -1342,7 +1354,7 @@ declare module "../index" {
         /**
          * @see _.orderBy
          */
-        orderBy(iteratees?: Many<ListIterator<T, NotVoid>>, orders?: Many<boolean|"asc"|"desc">): CollectionChain<T>;
+        orderBy(iteratees?: Many<ListIterator<T, NotVoid> | PropertyName | PartialShallow<T>>, orders?: Many<boolean|"asc"|"desc">): CollectionChain<T>;
     }
     interface ObjectChain<T> {
         /**

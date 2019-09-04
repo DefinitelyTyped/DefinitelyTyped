@@ -18,6 +18,11 @@ declare module "stream" {
         }
 
         class Readable extends Stream implements NodeJS.ReadableStream {
+            /**
+             * A utility method for creating Readable Streams out of iterators.
+             */
+            static from(iterable: Iterable<any> | AsyncIterable<any>, options?: ReadableOptions): Readable;
+
             readable: boolean;
             readonly readableHighWaterMark: number;
             readonly readableLength: number;
@@ -29,7 +34,7 @@ declare module "stream" {
             resume(): this;
             isPaused(): boolean;
             unpipe(destination?: NodeJS.WritableStream): this;
-            unshift(chunk: any): void;
+            unshift(chunk: any, encoding?: BufferEncoding): void;
             wrap(oldStream: NodeJS.ReadableStream): this;
             push(chunk: any, encoding?: string): boolean;
             _destroy(error: Error | null, callback: (error?: Error | null) => void): void;
@@ -110,7 +115,8 @@ declare module "stream" {
         }
 
         class Writable extends Stream implements NodeJS.WritableStream {
-            writable: boolean;
+            readonly writable: boolean;
+            readonly writableFinished: boolean;
             readonly writableHighWaterMark: number;
             readonly writableLength: number;
             constructor(opts?: WritableOptions);
@@ -208,7 +214,8 @@ declare module "stream" {
 
         // Note: Duplex extends both Readable and Writable.
         class Duplex extends Readable implements Writable {
-            writable: boolean;
+            readonly writable: boolean;
+            readonly writableFinished: boolean;
             readonly writableHighWaterMark: number;
             readonly writableLength: number;
             constructor(opts?: DuplexOptions);

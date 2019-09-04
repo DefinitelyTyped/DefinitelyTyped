@@ -1565,6 +1565,8 @@ export namespace key {
          */
         constructor(packetlist: packet.List);
 
+        primaryKey: Key;
+
         /**
          * Transforms packetlist to structured key data
          * @param packetlist The packets that form a key
@@ -4736,8 +4738,8 @@ export function getWorker(): worker.async_proxy.AsyncProxy | null;
 export function destroyWorker(): void;
 
 export interface UserID {
-    name: string;
-    email: string;
+    name?: string;
+    email?: string;
 }
 
 export interface KeyOptions {
@@ -4989,8 +4991,8 @@ export interface DecryptResult {
  *          ]
  *          }
  */
-export function decrypt(options: DecryptOptions & { format: "utf8" }): Promise<DecryptOptions & { data: string | ReadableStream<String> | NodeStream }>
-export function decrypt(options: DecryptOptions & { format: "binary" }): Promise<DecryptOptions & { data: Uint8Array | ReadableStream<Uint8Array> | NodeStream }>
+export function decrypt(options: DecryptOptions & { format: "utf8" }): Promise<DecryptResult & { data: string | ReadableStream<String> | NodeStream }>
+export function decrypt(options: DecryptOptions & { format: "binary" }): Promise<DecryptResult & { data: Uint8Array | ReadableStream<Uint8Array> | NodeStream }>
 export function decrypt(options: DecryptOptions): Promise<DecryptResult>;
 
 export interface SignOptions {

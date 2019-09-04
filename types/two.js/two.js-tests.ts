@@ -75,3 +75,15 @@ import Two = require("two.js");
         group.rotation += t * 4 * Math.PI;
     }).play(); // Finally, start the animation loop
 }
+
+{
+    const two = new Two({ width: 300, height: 500 });
+    const text = new Two.Text('text test', 10, 10);
+    two.add(text);
+}
+
+{
+    const v = new Two.Vector(0, 0);
+    const dist = v.distanceToSquared(new Two.Vector(100, 200));
+    v.x = dist;
+}

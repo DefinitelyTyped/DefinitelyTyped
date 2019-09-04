@@ -248,7 +248,7 @@ export interface Layout {
 	height: number;
 	width: number;
 	hovermode: 'closest' | 'x' | 'y' | false;
-	hoverlabel: Partial<Label>;
+	hoverlabel: Partial<HoverLabel>;
 	calendar: Calendar;
 	'xaxis.range': [Datum, Datum];
 	'xaxis.range[0]': Datum;
@@ -279,6 +279,7 @@ export interface Layout {
 	barmode: "stack" | "group" | "overlay" | "relative";
 	bargap: number;
 	bargroupgap: number;
+	selectdirection: 'h' | 'v' | 'd' | 'any';
 }
 
 export interface Legend extends Label {
@@ -532,13 +533,14 @@ export interface PlotData {
 	'x' | 'x+text' | 'x+name' |
 	'x+y' | 'x+y+text' | 'x+y+name' |
 	'x+y+z' | 'x+y+z+text' | 'x+y+z+name' |
-	'y+name'| 'y+x' | 'y+x+text' | 'y+x+name' |
+	'y+name' | 'y+x' | 'y+text' | 'y+x+text' | 'y+x+name' |
 	'y+z' | 'y+z+text' | 'y+z+name' |
 	'y+x+z' | 'y+x+z+text' | 'y+x+z+name' |
 	'z+x' | 'z+x+text' | 'z+x+name' |
 	'z+y+x' | 'z+y+x+text' | 'z+y+x+name' |
 	'z+x+y' | 'z+x+y+text' | 'z+x+y+name';
-	hoverlabel: Partial<Label>;
+	hoverlabel: Partial<HoverLabel>;
+	hovertemplate: string | string[];
 	textinfo: 'label' | 'label+text' | 'label+value' | 'label+percent' | 'label+text+value'
 	| 'label+text+percent' | 'label+value+percent' | 'text' | 'text+value' | 'text+percent'
 	| 'text+value+percent' | 'value' | 'value+percent' | 'percent' | 'none';
@@ -739,6 +741,15 @@ export interface Edits {
 }
 
 export interface Config {
+	/** override the defaults for the toImageButton */
+	toImageButtonOptions: Partial<{
+		filename: string;
+		scale: number;
+		format: 'png' | 'svg' | 'jpeg' | 'webp';
+		height: number;
+		width: number;
+	}>;
+
 	/** no interactivity, for export or image generation */
 	staticPlot: boolean;
 
@@ -876,9 +887,26 @@ export interface Camera {
 }
 
 export interface Label {
+	/** Sets the background color of all hover labels on graph. */
 	bgcolor: string;
+
+	/** Sets the border color of all hover labels on graph. */
 	bordercolor: string;
+
+	/** Sets the default hover label font used by all traces on the graph. */
 	font: Partial<Font>;
+}
+
+export interface HoverLabel extends Label {
+	/** Sets the horizontal alignment of the text content within hover label box. */
+	align: "left" | "right" | "auto";
+
+	/**
+	 * Sets the default length (in number of characters) (default 15) of the trace name
+	 * in the hover labels for all traces.
+	 * -1 shows the whole name regardless of length.
+	 */
+	namelength: number;
 }
 
 export interface Annotations extends Label {
@@ -1126,7 +1154,7 @@ export interface Annotations extends Label {
 	 */
 	hovertext: string;
 
-	hoverlabel: Partial<Label>;
+	hoverlabel: Partial<HoverLabel>;
 
 	/**
 	 * Determines whether the annotation text box captures mouse move and click events,

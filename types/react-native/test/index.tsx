@@ -88,6 +88,10 @@ import {
     requireNativeComponent,
     Keyboard,
     NetInfo,
+    PermissionsAndroid,
+    Platform,
+    ProgressBarAndroid,
+    PushNotificationIOS,
 } from "react-native";
 
 declare module "react-native" {
@@ -365,7 +369,9 @@ export class FlatListTest extends React.Component<FlatListProps<number>, {}> {
                 renderItem={this._renderItem}
                 ItemSeparatorComponent={this._renderSeparator}
                 ListFooterComponent={null}
+                ListFooterComponentStyle={{ padding: 8 }}
                 ListHeaderComponent={null}
+                ListHeaderComponentStyle={{ padding: 8 }}
             />
         );
     }
@@ -698,10 +704,17 @@ class WebViewTest extends React.Component {
 
 export class ImageTest extends React.Component {
     componentDidMount(): void {
-        const image: ImageResolvedAssetSource = Image.resolveAssetSource({
-            uri: "https://seeklogo.com/images/T/typescript-logo-B29A3F462D-seeklogo.com.png",
-        });
+        const uri = "https://seeklogo.com/images/T/typescript-logo-B29A3F462D-seeklogo.com.png";
+        const image: ImageResolvedAssetSource = Image.resolveAssetSource({ uri });
         console.log(image.width, image.height, image.scale, image.uri);
+
+        Image.queryCache([uri]).then(({ [uri]: status }) => {
+            if (status === undefined) {
+                console.log("Image is not in cache");
+            } else {
+                console.log(`Image is in ${status} cache`);
+            }
+        })
     }
 
     handleOnLoad = (e: NativeSyntheticEvent<ImageLoadEventData>) => {
@@ -767,6 +780,7 @@ class AccessibilityTest extends React.Component {
                 onAccessibilityTap={() => {}}
                 accessibilityRole="header"
                 accessibilityStates={["selected"]}
+                accessibilityState={{checked: true}}
                 accessibilityHint="Very importent header"
             >
                 <Text accessibilityTraits={["key", "text"]} accessibilityIgnoresInvertColors>
@@ -875,4 +889,88 @@ const KeyboardTest = () => {
 const NetInfoTest = () => {
     const subscription = NetInfo.addEventListener('connectionChange', (result) => console.log(result));
     subscription.remove();
+}
+
+const PermissionsAndroidTest = () => {
+    PermissionsAndroid.request('android.permission.CAMERA').then(result => {
+        switch (result) {
+            case 'granted':
+                break;
+            case 'denied':
+                break;
+            case 'never_ask_again':
+                break;
+        }
+    })
+
+    PermissionsAndroid.requestMultiple(['android.permission.CAMERA', 'android.permission.ACCESS_FINE_LOCATION']).then(results => {
+        switch (results['android.permission.CAMERA']) {
+            case 'granted':
+                break;
+            case 'denied':
+                break;
+            case 'never_ask_again':
+                break;
+        }
+        switch (results['android.permission.ACCESS_FINE_LOCATION']) {
+            case 'granted':
+                break;
+            case 'denied':
+                break;
+            case 'never_ask_again':
+                break;
+        }
+    })
+}
+
+// Platform
+const PlatformTest = () => {
+    switch (Platform.OS) {
+        case 'ios':
+            if (!Platform.isPad) {
+                return 32;
+            } else {
+                return 44;
+            }
+        case 'android':
+        case 'macos':
+        case 'windows':
+            return Platform.isTV ? 64 : 56;
+        default:
+            return Platform.isTV ? 40 : 44;
+    }
+};
+
+// ProgressBarAndroid
+const ProgressBarAndroidTest = () => {
+    <ProgressBarAndroid
+        animating
+        color="white"
+        styleAttr="Horizontal"
+        progress={0.42}
+    />
+};
+
+// Push notification
+const PushNotificationTest = () => {
+    PushNotificationIOS.presentLocalNotification({
+        alertBody: "notificatus",
+        userInfo: "informius",
+        alertTitle: "Titulus",
+        alertAction: "view",
+    });
+
+    PushNotificationIOS.scheduleLocalNotification({
+        alertAction: 'view',
+        alertBody: 'Look at me!',
+        alertTitle: 'Hello!',
+        applicationIconBadgeNumber: 999,
+        category: 'engagement',
+        fireDate: (new Date()).toISOString(),
+        isSilent: false,
+        repeatInterval: 'minute',
+        userInfo: {
+            abc: 123,
+        },
+    });
 }

@@ -951,6 +951,14 @@ declare namespace YT
 		 */
 		addEventListener<TEvent extends PlayerEvent>(eventName: keyof Events, listener: (event: TEvent) => void): void;
 
+        /**
+		 * Remove an event listener for the specified event.
+		 *
+		 * @param eventName   Name of the event.
+		 * @param listener   Handler for the event.
+		 */
+		removeEventListener<TEvent extends PlayerEvent>(eventName: keyof Events, listener: (event: TEvent) => void): void;
+        
 		/**
 		 * @returns The DOM node for the embedded <iframe>.
 		 */

@@ -63,6 +63,10 @@ push.send(registrationIds, data, (err, result) => {
 // Or you could use it as a promise and send only a single notifications:
 push.send(registrationIds[0], data)
     .then((results) => {
+        results.forEach((result) => {
+            console.log(result.success);
+            console.log(result.failure);
+        });
         console.log(results);
     })
     .catch((err) => {

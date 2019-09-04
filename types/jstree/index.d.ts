@@ -1360,7 +1360,7 @@ interface JSTree extends JQuery {
     * if set to a function (receiving the current state as argument) the result of that function will be used as state
     * @trigger refresh.jstree
     */
-    refresh: (skip_loading: boolean, forget_state: any) => void;
+    refresh: (skip_loading?: boolean, forget_state?: any) => void;
 
     /**
     * refreshes a node in the tree (reload its children) all opened nodes inside that node are reloaded with calls to `load_node`.

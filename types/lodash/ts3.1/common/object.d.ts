@@ -1041,6 +1041,42 @@ declare module "../index" {
         /**
          * @see _.get
          */
+        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1]>(object: TObject, path: [TKey1, TKey2]): TObject[TKey1][TKey2];
+        /**
+         * @see _.get
+         */
+        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1]>(object: TObject | null | undefined, path: [TKey1, TKey2]): TObject[TKey1][TKey2] | undefined;
+        /**
+         * @see _.get
+         */
+        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TDefault>(object: TObject | null | undefined, path: [TKey1, TKey2], defaultValue: TDefault): Exclude<TObject[TKey1][TKey2], undefined> | TDefault;
+        /**
+         * @see _.get
+         */
+        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2]>(object: TObject, path: [TKey1, TKey2, TKey3]): TObject[TKey1][TKey2][TKey3];
+        /**
+         * @see _.get
+         */
+        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2]>(object: TObject | null | undefined, path: [TKey1, TKey2, TKey3]): TObject[TKey1][TKey2][TKey3] | undefined;
+        /**
+         * @see _.get
+         */
+        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TDefault>(object: TObject | null | undefined, path: [TKey1, TKey2, TKey3], defaultValue: TDefault): Exclude<TObject[TKey1][TKey2][TKey3], undefined> | TDefault;
+        /**
+         * @see _.get
+         */
+        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TKey4 extends keyof TObject[TKey1][TKey2][TKey3]>(object: TObject, path: [TKey1, TKey2, TKey3, TKey4]): TObject[TKey1][TKey2][TKey3][TKey4];
+        /**
+         * @see _.get
+         */
+        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TKey4 extends keyof TObject[TKey1][TKey2][TKey3]>(object: TObject | null | undefined, path: [TKey1, TKey2, TKey3, TKey4]): TObject[TKey1][TKey2][TKey3][TKey4] | undefined;
+        /**
+         * @see _.get
+         */
+        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TKey4 extends keyof TObject[TKey1][TKey2][TKey3], TDefault>(object: TObject | null | undefined, path: [TKey1, TKey2, TKey3, TKey4], defaultValue: TDefault): Exclude<TObject[TKey1][TKey2][TKey3][TKey4], undefined> | TDefault;
+        /**
+         * @see _.get
+         */
         get<T>(object: NumericDictionary<T>, path: number): T;
         /**
          * @see _.get
@@ -1085,6 +1121,30 @@ declare module "../index" {
         /**
          * @see _.get
          */
+        get<TKey1 extends keyof T, TKey2 extends keyof T[TKey1]>(path: [TKey1, TKey2]): T[TKey1][TKey2];
+        /**
+         * @see _.get
+         */
+        get<TKey1 extends keyof T, TKey2 extends keyof T[TKey1], TDefault>(path: [TKey1, TKey2], defaultValue: TDefault): Exclude<T[TKey1][TKey2], undefined> | TDefault;
+        /**
+         * @see _.get
+         */
+        get<TKey1 extends keyof T, TKey2 extends keyof T[TKey1], TKey3 extends keyof T[TKey1][TKey2]>(path: [TKey1, TKey2, TKey3]): T[TKey1][TKey2][TKey3];
+        /**
+         * @see _.get
+         */
+        get<TKey1 extends keyof T, TKey2 extends keyof T[TKey1], TKey3 extends keyof T[TKey1][TKey2], TDefault>(path: [TKey1, TKey2, TKey3], defaultValue: TDefault): Exclude<T[TKey1][TKey2][TKey3], undefined> | TDefault;
+        /**
+         * @see _.get
+         */
+        get<TKey1 extends keyof T, TKey2 extends keyof T[TKey1], TKey3 extends keyof T[TKey1][TKey2], TKey4 extends keyof T[TKey1][TKey2][TKey3]>(path: [TKey1, TKey2, TKey3, TKey4]): T[TKey1][TKey2][TKey3][TKey4];
+        /**
+         * @see _.get
+         */
+        get<TKey1 extends keyof T, TKey2 extends keyof T[TKey1], TKey3 extends keyof T[TKey1][TKey2], TKey4 extends keyof T[TKey1][TKey2][TKey3], TDefault>(path: [TKey1, TKey2, TKey3, TKey4], defaultValue: TDefault): Exclude<T[TKey1][TKey2][TKey3][TKey4], undefined> | TDefault;
+        /**
+         * @see _.get
+         */
         get(path: PropertyPath, defaultValue?: any): any;
     }
     interface Collection<T> {
@@ -1125,7 +1185,47 @@ declare module "../index" {
         /**
          * @see _.get
          */
+        get<TKey extends keyof T>(path: TKey | [TKey], defaultValue: never[]): T[TKey] extends any[] ? ExpChain<Exclude<T[TKey], undefined>> : ExpChain<Exclude<T[TKey], undefined> | never[]>;
+        /**
+         * @see _.get
+         */
         get<TKey extends keyof T, TDefault>(path: TKey | [TKey], defaultValue: TDefault): ExpChain<Exclude<T[TKey], undefined> | TDefault>;
+        /**
+         * @see _.get
+         */
+        get<TKey1 extends keyof T, TKey2 extends keyof T[TKey1]>(path: [TKey1, TKey2]): ExpChain<T[TKey1][TKey2]>;
+        /**
+         * @see _.get
+         */
+        get<TKey1 extends keyof T, TKey2 extends keyof T[TKey1]>(path: [TKey1, TKey2], defaultValue: never[]): T[TKey1][TKey2] extends any[] ? ExpChain<Exclude<T[TKey1][TKey2], undefined>> : ExpChain<Exclude<T[TKey1][TKey2], undefined> | never[]>;
+        /**
+         * @see _.get
+         */
+        get<TKey1 extends keyof T, TKey2 extends keyof T[TKey1], TDefault>(path: [TKey1, TKey2], defaultValue: TDefault): ExpChain<Exclude<T[TKey1][TKey2], undefined> | TDefault>;
+        /**
+         * @see _.get
+         */
+        get<TKey1 extends keyof T, TKey2 extends keyof T[TKey1], TKey3 extends keyof T[TKey1][TKey2]>(path: [TKey1, TKey2, TKey3]): ExpChain<T[TKey1][TKey2][TKey3]>;
+        /**
+         * @see _.get
+         */
+        get<TKey1 extends keyof T, TKey2 extends keyof T[TKey1], TKey3 extends keyof T[TKey1][TKey2]>(path: [TKey1, TKey2, TKey3], defaultValue: never[]): T[TKey1][TKey2][TKey3] extends any[] ? ExpChain<Exclude<T[TKey1][TKey2][TKey3], undefined>> : ExpChain<Exclude<T[TKey1][TKey2][TKey3], undefined> | never[]>;
+        /**
+         * @see _.get
+         */
+        get<TKey1 extends keyof T, TKey2 extends keyof T[TKey1], TKey3 extends keyof T[TKey1][TKey2], TDefault>(path: [TKey1, TKey2, TKey3], defaultValue: TDefault): ExpChain<Exclude<T[TKey1][TKey2][TKey3], undefined> | TDefault>;
+        /**
+         * @see _.get
+         */
+        get<TKey1 extends keyof T, TKey2 extends keyof T[TKey1], TKey3 extends keyof T[TKey1][TKey2], TKey4 extends keyof T[TKey1][TKey2][TKey3]>(path: [TKey1, TKey2, TKey3, TKey4]): ExpChain<T[TKey1][TKey2][TKey3][TKey4]>;
+        /**
+         * @see _.get
+         */
+        get<TKey1 extends keyof T, TKey2 extends keyof T[TKey1], TKey3 extends keyof T[TKey1][TKey2], TKey4 extends keyof T[TKey1][TKey2][TKey3]>(path: [TKey1, TKey2, TKey3, TKey4], defaultValue: never[]): T[TKey1][TKey2][TKey3][TKey4] extends any[] ? ExpChain<Exclude<T[TKey1][TKey2][TKey3][TKey4], undefined>> : ExpChain<Exclude<T[TKey1][TKey2][TKey3][TKey4], undefined> | never[]>;
+        /**
+         * @see _.get
+         */
+        get<TKey1 extends keyof T, TKey2 extends keyof T[TKey1], TKey3 extends keyof T[TKey1][TKey2], TKey4 extends keyof T[TKey1][TKey2][TKey3], TDefault>(path: [TKey1, TKey2, TKey3, TKey4], defaultValue: TDefault): ExpChain<Exclude<T[TKey1][TKey2][TKey3][TKey4], undefined> | TDefault>;
         /**
          * @see _.get
          */
@@ -1416,10 +1516,6 @@ declare module "../index" {
         * @return Returns the new mapped object.
          */
         mapValues<TResult>(obj: string | null | undefined, callback: StringIterator<TResult>): NumericDictionary<TResult>;
-        /**
-         * @see _.mapValues
-         */
-        mapValues<T, TResult>(obj: Dictionary<T> | NumericDictionary<T> | null | undefined, callback: DictionaryIterator<T, TResult>): Dictionary<TResult>;
         /**
          * @see _.mapValues
          */
@@ -1902,7 +1998,7 @@ declare module "../index" {
         /**
          * @see _.pick
          */
-        pick<T>(object: T | null | undefined, ...props: PropertyPath[]): PartialDeep<T>;
+        pick<T>(object: T | null | undefined, ...props: PropertyPath[]): PartialObject<T>;
     }
     interface Object<T> {
         /**

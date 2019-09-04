@@ -6,6 +6,9 @@ wp.pool({minWorkers: 'max'});
 wp.pool({minWorkers: 'max', maxWorkers: 1});
 wp.pool({minWorkers: 1, maxWorkers: 1});
 wp.pool({maxWorkers: 1});
+wp.pool({nodeWorker: 'process'});
+wp.pool({nodeWorker: 'thread'});
+wp.pool({nodeWorker: 'auto'});
 wp.pool({forkArgs: ['foo', 'bar']});
 wp.pool({forkOpts: {cwd: '/tmp'}});
 const pool = wp.pool();
@@ -32,3 +35,10 @@ pool.exec('foo', null)
 
 new wp.Promise.CancellationError();
 new wp.Promise.TimeoutError();
+
+let promises: wp.Promise<any[]> = wp.Promise.all([
+    pool.exec('foo', null),
+    pool.exec('foo', null),
+    pool.exec('foo', null)
+]);
+promises = wp.Promise.all([]);

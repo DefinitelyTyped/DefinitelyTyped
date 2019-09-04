@@ -1,4 +1,4 @@
-// Type definitions for Async 2.4
+// Type definitions for Async 3.0
 // Project: https://github.com/caolan/async, https://caolan.github.io/async
 // Definitions by: Boris Yankov <https://github.com/borisyankov>
 //                 Arseniy Maximov <https://github.com/kern0>
@@ -6,6 +6,8 @@
 //                 Angus Fenying <https://github.com/fenying>
 //                 Pascal Martin <https://github.com/pascalmartin>
 //                 Dmitri Trofimov <https://github.com/Dmitri1337>
+//                 Etienne Rossignon <https://github.com/erossignon>
+//                 Lifeng Zhu <https://github.com/Juliiii>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -57,15 +59,23 @@ export interface AsyncQueue<T> {
     push<R, E = Error>(task: T | T[], callback?: AsyncResultCallback<R, E>): void;
     unshift<E = Error>(task: T | T[], callback?: ErrorCallback<E>): void;
     remove(filter: (node: DataContainer<T>) => boolean): void;
-    saturated: () => any;
-    empty: () => any;
-    drain: () => any;
+
+    saturated(): Promise<void>;
+    saturated(handler: () => void): void;
+    empty(): Promise<void>;
+    empty(handler: () => void): void;
+    drain(): Promise<void>;
+    drain(handler: () => void): void;
+
     paused: boolean;
     pause(): void;
     resume(): void;
     kill(): void;
     workersList<TWorker extends DataContainer<T>, CallbackContainer>(): TWorker[];
-    error(error: Error, data: any): void;
+
+    error(): Promise<void>;
+    error(handler: (error: Error, task: T) => void): void;
+
     unsaturated(): void;
     buffer: number;
 }

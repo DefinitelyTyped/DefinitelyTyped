@@ -5,6 +5,7 @@
 //                 Vincent Biret <https://github.com/baywet>
 //                 Tero Arvola <https://github.com/teroarvola>
 //                 Dennis George <https://github.com/dennispg>
+//                 SPWizard01 <https://github.com/SPWizard01>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.5
 
@@ -8156,6 +8157,7 @@ declare namespace SP {
         class WebPartDefinition extends SP.ClientObject {
             get_id(): SP.Guid;
             get_webPart(): SP.WebParts.WebPart;
+            get_zoneId(): string;
             saveWebPartChanges(): void;
             closeWebPart(): void;
             openWebPart(): void;

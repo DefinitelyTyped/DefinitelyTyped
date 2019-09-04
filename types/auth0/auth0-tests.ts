@@ -5,6 +5,11 @@ const management = new auth0.ManagementClient({
   domain: '{YOUR_ACCOUNT}.auth0.com'
 });
 
+const uManagement = new auth0.ManagementClient<{aTest: string},{uTest: string}>({
+    token: '{YOUR_API_V2_TOKEN}',
+    domain: '{YOUR_ACCOUNT}.auth0.com'
+});
+
 const auth = new auth0.AuthenticationClient({
   domain: '{YOUR_ACCOUNT}.auth0.com',
   clientId: '{OPTIONAL_CLIENT_ID}',
@@ -111,7 +116,7 @@ management
 
 // Link users
 management
-  .createUser({ connection: 'email', email: 'hi@me.co' })
+  .createUser({ connection: 'email', email: 'hi@me.co', user_id: "my_id" })
   .catch(err => console.error('Cannot create E-mail user', err))
   .then((emailUser) => {
     if (!emailUser) return;
@@ -151,6 +156,8 @@ management
 management
   .updateUserMetadata({id: "user_id"}, {"key": "value"});
 
+uManagement.updateAppMetadata({id: "user_id"},{aTest: 'test'});
+
 // Update user metadata with JSON object
 management
     .updateUserMetadata({id: "user_id"}, {
@@ -161,6 +168,7 @@ management
         another: "value"
       }
     });
+uManagement.updateUserMetadata({id: "user_id"}, { uTest: "value"});
 
 // Update user metadata using callback
 management
@@ -269,15 +277,20 @@ const retryableManagementClient = new auth0.ManagementClient({
   }
 });
 
-management.createPasswordChangeTicket({
-  connection_id: 'con_id',
-  email: 'test@me.co',
-  new_password: 'password',
-  result_url: 'https://www.google.com/',
-  ttl_sec: 86400,
-}, (err: Error, data) => {
-  console.log(data.ticket);
-});
+management.createPasswordChangeTicket(
+    {
+        connection_id: 'con_id',
+        email: 'test@me.co',
+        new_password: 'password',
+        result_url: 'https://www.google.com/',
+        ttl_sec: 86400,
+        mark_email_as_verified: true,
+        includeEmailInRedirect: true,
+    },
+    (err: Error, data) => {
+        console.log(data.ticket);
+    }
+);
 
 // Link users
 management.linkUsers('primaryId', { user_id: 'secondaryId' })
@@ -388,14 +401,12 @@ management.sendEmailVerification({
 // Roles
 management.getRoles().then(roles => console.log(roles));
 management.getRoles((err, data) => console.log(data));
-management.getRoles({id: "role_id"}).then(roles => console.log(roles));
-management.getRoles({id: "role_id"}, (err, data) => console.log(data));
-management.getRoles({id: "role_id", name_filter: "Admin"}).then(roles => console.log(roles));
-management.getRoles({id: "role_id", name_filter: "Admin"}, (err, data) => console.log(data));
-management.getRoles({id: "role_id", per_page: 12}).then(roles => console.log(roles));
-management.getRoles({id: "role_id", per_page: 12}, (err, data) => console.log(data));
-management.getRoles({id: "role_id", include_totals: true}).then(rolePage => console.log(rolePage));
-management.getRoles({id: "role_id", include_totals: true}, (err, data) => console.log(data));
+management.getRoles({name_filter: "Admin"}).then(roles => console.log(roles));
+management.getRoles({name_filter: "Admin"}, (err, data) => console.log(data));
+management.getRoles({per_page: 12}).then(roles => console.log(roles));
+management.getRoles({per_page: 12}, (err, data) => console.log(data));
+management.getRoles({include_totals: true}).then(rolePage => console.log(rolePage));
+management.getRoles({include_totals: true}, (err, data) => console.log(data));
 
 management.createRole({
     name: "Admin",
@@ -475,3 +486,22 @@ management.getUsersInRole({id: "role_id", per_page: 8}).then(users => console.lo
 management.getUsersInRole({id: "role_id", per_page: 8}, (err, data) => console.log(data));
 management.getUsersInRole({id: "role_id", include_totals: true}).then(userPage => console.log(userPage));
 management.getUsersInRole({id: "role_id", include_totals: true}, (err, data) => console.log(data));
+
+management.createClient({
+    name: 'client'
+});
+
+management.createClient({
+    name: 'client',
+    grant_types: ['implicit'],
+    jwt_configuration: {
+        lifetime_in_seconds: 300,
+        scopes: {},
+        alg: 'RS256',
+    },
+    encryption_key: {
+        pub: 'pub',
+        cert: 'cert',
+        subject: 'subject',
+    }
+});

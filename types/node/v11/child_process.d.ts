@@ -190,6 +190,7 @@ declare module "child_process" {
         maxBuffer?: number;
         killSignal?: string;
         windowsVerbatimArguments?: boolean;
+        shell?: boolean | string;
     }
     interface ExecFileOptionsWithStringEncoding extends ExecFileOptions {
         encoding: BufferEncoding;
@@ -310,8 +311,8 @@ declare module "child_process" {
         output: string[];
         stdout: T;
         stderr: T;
-        status: number;
-        signal: string;
+        status: number | null;
+        signal: string | null;
         error?: Error;
     }
     function spawnSync(command: string): SpawnSyncReturns<Buffer>;

@@ -69,6 +69,14 @@ class SettingDefaults extends Backbone.Model {
         }
     }
 
+    // will be invoked when the view is first created, before any instantiation logic is run
+    preinitialize() {
+        this.defaults = {
+            name: "Joe"
+        } as any;
+
+    }
+
     constructor(attributes?: any, options?: any) {
         super(attributes, options); // error TS17009: 'super' must be called before accessing 'this' in the constructor of a derived class.
         this.defaults = <any>{
