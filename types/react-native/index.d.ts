@@ -21,6 +21,7 @@
 //                 Jake Bloom <https://github.com/jakebloom>
 //                 Ceyhun Ozugur <https://github.com/ceyhun>
 //                 Mike Martin <https://github.com/mcmar>
+//                 Theo Henry de Villeneuve <https://github.com/theohdv>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -8005,6 +8006,7 @@ export interface PushNotification {
 type PresentLocalNotificationDetails = {
     alertBody: string;
     alertAction: string;
+    alertTitle?: string;
     soundName?: string;
     category?: string;
     userInfo?: Object;
@@ -8497,6 +8499,19 @@ export interface UIManagerStatic {
         error: () => void, /* currently unused */
         success: (item: string, index: number | undefined) => void
     ): void;
+
+    /**
+     * Used to call a native view method from JavaScript
+     *
+     * reactTag - Id of react view.
+     * commandID - Id of the native method that should be called.
+     * commandArgs - Args of the native method that we can pass from JS to native.
+     */
+    dispatchViewManagerCommand: (
+        reactTag: number | null,
+        commandID: number,
+        commandArgs?: Array<any>,
+    ) => void;
 }
 
 export interface SwitchPropsIOS extends ViewProps {
