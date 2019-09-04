@@ -4,12 +4,10 @@
         "interface-name": false,
         "npm-naming": false,
         "dt-header": false,
-        "no-padding": false,
         "jsdoc-format": false,
-        "no-consecutive-blank-lines": false,
         "no-unnecessary-class": false,
-        "unified-signatures": false,
-        "no-mergeable-namespace": false,
-        "export-just-namespace": false
+        "no-padding": false,
+        "unified-signatures": false
     }
 }
+
