@@ -158,13 +158,13 @@ declare module "child_process" {
     }
 
     interface SpawnFunc<Options, Return> {
-        (command: string, options: Options): Return
-        (command: string, args: ReadonlyArray<string>, options: Options): Return
+        (command: string, options: Options): Return;
+        (command: string, args: ReadonlyArray<string>, options: Options): Return;
     }
 
     interface SpawnFuncOptParams<Options, Return> {
-        (command: string, options?: Options): Return
-        (command: string, args?: ReadonlyArray<string>, options?: Options): Return
+        (command: string, options?: Options): Return;
+        (command: string, args?: ReadonlyArray<string>, options?: Options): Return;
     }
 
     const spawn:
