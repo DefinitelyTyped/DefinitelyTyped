@@ -2,6 +2,7 @@
 // Project: https://github.com/brianc/node-pg-pool
 // Definitions by: Leo Liang <https://github.com/aleung>, Nikita Tokarchuk <https://github.com/mainnika>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import * as pg from 'pg';
 
