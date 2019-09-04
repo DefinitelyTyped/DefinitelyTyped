@@ -57,13 +57,13 @@ interface InstantSearchBaseProps {
 }
 
 export interface UsingSearchClient extends InstantSearchBaseProps {
-    searchClient: any
+    searchClient: any;
 }
 
 export interface UsingManualInfo extends InstantSearchBaseProps  {
     apiKey: string;
-    appId:string;
-    algoliaClient?: any
+    appId: string;
+    algoliaClient?: any;
 }
 
 export type InstantSearchProps = UsingSearchClient | UsingManualInfo
