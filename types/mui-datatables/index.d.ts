@@ -25,7 +25,7 @@ interface MUIDataTableStateRows {
     lookup: any;
 }
 
-interface MUIDataTableState {
+export interface MUIDataTableState {
     activeColumn: string | null;
     announceText: string | null;
     expandedRows: MUIDataTableStateRows;
