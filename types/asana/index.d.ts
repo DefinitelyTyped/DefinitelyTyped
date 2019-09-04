@@ -2505,7 +2505,7 @@ declare namespace asana {
 
         interface Membership {
             project: Resource;
-            section: Resource;
+            section: Resource | null;
         }
 
         interface Assignee extends Resource {
