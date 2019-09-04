@@ -8855,17 +8855,6 @@ declare global {
     var console: Console;
 
     /**
-     * Navigator object for accessing location API
-     * @see https://facebook.github.io/react-native/docs/javascript-environment.html#polyfills
-     */
-    interface Navigator {
-        readonly product: string;
-        readonly geolocation: Geolocation;
-    }
-
-    const navigator: Navigator;
-
-    /**
      * This contains the non-native `XMLHttpRequest` object, which you can use if you want to route network requests
      * through DevTools (to trace them):
      *
