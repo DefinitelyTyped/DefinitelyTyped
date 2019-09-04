@@ -1223,17 +1223,71 @@ declare module "mongoose" {
    */
   interface MongooseDocument extends MongooseDocumentOptionals { }
   class MongooseDocument {
+    /** 
+     * Don't run validation on this path or persist changes to this path.
+     * @param path the path to ignore
+     */
+    $ignore(path: string): void;
+    
     /** Checks if a path is set to its default. */
     $isDefault(path?: string): boolean;
+
+    /**
+     * Getter/setter, determines whether the document was removed or not.
+     * @param val Optional, overrides whether mongoose thinks the doc is deleted
+     * @returns whether mongoose thinks this doc is deleted.
+     */
+    $isDeleted(val?: boolean): boolean;
+
+    /**
+     * Returns true if the given path is nullish or only contains empty objects. 
+     * Useful for determining whether this subdoc will get stripped 
+     * out by the [minimize option](https://mongoosejs.com/docs/guide.html#minimize).
+     */
+    $isEmpty(): boolean;
+
+    /**
+     * Empty object that you can use for storing properties on the document. 
+     * This is handy for passing data to middleware without conflicting 
+     * with Mongoose internals.
+     */
+    $locals: any;
+
+    /**
+     * Marks a path as valid, removing existing validation errors.
+     * @param path the field to mark as valid
+     */
+    $markValid(path: string): void;
 
     /** Getter/setter around the session associated with this document. */
     $session(session?: ClientSession): ClientSession;
 
     /**
+     * Alias for set(), used internally to avoid conflicts.
+     * @param path path or object of key/vals to set
+     * @param val the value to set
+     * @param type optionally specify a type for "on-the-fly" attributes
+     * @param options optionally specify options that modify the behavior of the set
+     */
+    $set(path: string | object, val: any, 
+      type?: Schema | string | number | Buffer, options?: object): void;
+
+    /**
      * Takes a populated field and returns it to its unpopulated state.
      * If the path was not populated, this is a no-op.
      */
-    depopulate(path?: string): this;
+    depopulate(path?: string): MongooseDocument;
+
+    /**
+     * Returns the list of paths that have been directly modified. 
+     * A direct modified path is a path that you explicitly set, 
+     * whether via `doc.foo = 'bar'`, `Object.assign(doc, { foo: 'bar' })`, 
+     * or `doc.set('foo', 'bar')`.
+     * 
+     * A path `a` may be in `modifiedPaths()` but not in `directModifiedPaths()`
+     * because a child of `a` was directly modified.
+     */
+    directModifiedPaths(): Array<string>
 
     /**
      * Returns true if the Document stores the same data as doc.
@@ -1244,20 +1298,24 @@ declare module "mongoose" {
     equals(doc: MongooseDocument): boolean;
 
     /**
+     * Hash containing current validation errors.
+     */
+    errors: any;
+
+    /**
      * Explicitly executes population and returns a promise.
      * Useful for ES2015 integration.
      * @returns promise that resolves to the document when population is done
      */
     execPopulate(): Promise<this>;
 
-    /** Checks if path was explicitly selected. If no projection, always returns true. */
-    isDirectSelected(path: string): boolean;
-
     /**
      * Returns the value of a path.
      * @param type optionally specify a type for on-the-fly attributes
+     * @param options.virtuals Apply virtuals before getting this path
+     * @param options.getters If false, skip applying getters and just get the raw value
      */
-    get(path: string, type?: any): any;
+    get(path: string, type?: any, options?: { virtuals?: boolean, getters?: boolean }): any;
 
     /**
      * Initializes the document without setters or marking anything modified.
@@ -1285,6 +1343,9 @@ declare module "mongoose" {
     /** Returns true if path was directly set and modified, else false. */
     isDirectModified(path: string): boolean;
 
+    /** Checks if path was explicitly selected. If no projection, always returns true. */
+    isDirectSelected(path: string): boolean;
+
     /** Checks if path was initialized */
     isInit(path: string): boolean;
 
@@ -1294,6 +1355,11 @@ declare module "mongoose" {
      * chain has been modified.
      */
     isModified(path?: string): boolean;
+
+    /**
+     * Boolean flag specifiying if the document is new.
+     */
+    isNew: boolean;
 
     /** Checks if path was selected in the source query which initialized this document. */
     isSelected(path: string): boolean;
@@ -1305,8 +1371,22 @@ declare module "mongoose" {
      */
     markModified(path: string): void;
 
-    /** Returns the list of paths that have been modified. */
-    modifiedPaths(): string[];
+    /** 
+     * Returns the list of paths that have been modified. 
+     * @param options.includeChildren if true, returns children of modified 
+     * paths as well. For example, if false, the list of modified paths for 
+     * `doc.colors = { primary: 'blue' };` will not contain `colors.primary`. 
+     * If true, `modifiedPaths()` will return an array that contains `colors.primary`.
+     */
+    modifiedPaths(options?: { includeChildren: boolean }): string[];
+
+    /**
+     * Overwrite all values in this document with the values of `obj`, 
+     * except for immutable properties. Behaves similarly to `set()`, 
+     * except for it unsets all properties that aren't in `obj`.
+     * @param obj the object to overwrite this document with
+     */
+    overwrite(obj: object): void;
 
     /**
      * Populates document references, executing the callback when complete.
@@ -1327,6 +1407,9 @@ declare module "mongoose" {
     /** Gets _id(s) used during population of the given path. If the path was not populated, undefined is returned. */
     populated(path: string): any;
 
+    /** Sends an replaceOne command with this document _id as the query selector.  */
+    replaceOne(doc: any, callback?: (err: any, raw: any) => void): Query<any>;
+
     /**
      * Sets the value of a path, or many paths.
      * @param path path or object of key/vals to set
@@ -1337,12 +1420,6 @@ declare module "mongoose" {
     set(path: string, val: any, options?: any): this;
     set(path: string, val: any, type: any, options?: any): this;
     set(value: any): this;
-
-    /**
-     * Overwrite all values, except for immutable properties.
-     * @param obj the object to overwrite this document with
-     */
-    overwrite(obj: any): this;
 
     /**
      * The return value of this method is used in calls to JSON.stringify(doc).
@@ -1366,9 +1443,6 @@ declare module "mongoose" {
      * @param path the path to unmark modified
      */
     unmarkModified(path: string): void;
-
-    /** Sends an replaceOne command with this document _id as the query selector.  */
-    replaceOne(replacement: any, callback?: (err: any, raw: any) => void): Query<any>;
 
     /** Sends an update command with this document _id as the query selector.  */
     update(doc: any, callback?: (err: any, raw: any) => void): Query<any>;
@@ -1396,12 +1470,9 @@ declare module "mongoose" {
      */
     validateSync(pathsToValidate?: string | string[]): Error.ValidationError;
 
-    /** Hash containing current validation errors. */
-    errors: any;
     /** This documents _id. */
     _id: any;
-    /** Boolean flag specifying if the document is new. */
-    isNew: boolean;
+
     /** The documents schema. */
     schema: Schema;
   }
@@ -2236,9 +2307,9 @@ declare module "mongoose" {
 
   interface QueryFindOneAndRemoveOptions {
     /**
-      * if multiple docs are found by the conditions, sets the sort order to choose
-      * which doc to update
-      */
+     * if multiple docs are found by the conditions, sets the sort order to 
+     * choose which doc to update
+     */
     sort?: any;
     /** puts a time limit on the query - requires mongodb >= 2.6.0 */
     maxTimeMS?: number;
@@ -2250,8 +2321,47 @@ declare module "mongoose" {
     rawResult?: boolean;
     /** overwrites the schema's strict mode option for this update */
     strict?: boolean|string;
+    /** Make Mongoose use `findOneAndUpdate()`. */
+    useFindAndModify?: boolean;
   }
-
+  
+  /**
+   * https://mongoosejs.com/docs/api/model.html#model_Model.findOneAndReplace
+   */
+  interface QueryFindOneAndReplaceOptions {
+    // --- mongoose options
+    /**
+     * If truthy, mongoose will return the document as a plain JavaScript 
+     * object rather than a mongoose document. See `Query.lean()`.
+     */
+    lean?: any;
+    /** Overwrites the schema's strict mode option */
+    strict?: boolean;
+    /**
+     * If true, delete any properties whose value is `undefined` when casting an update. 
+     * In other words, if this is set, Mongoose will delete `baz` from the update in 
+     * `Model.updateOne({}, { foo: 'bar', baz: undefined })` before sending the update to the server.
+     */
+    omitUndefined?: boolean;
+    /** If true, returns the raw result from the MongoDB driver */
+    rawResult?: boolean;
+    // --- mongodb options
+    /** 
+     * Like select, it determines which fields to return, 
+     * ex. `{ projection: { _id: 0 } }` 
+     */
+    projection?: object;
+    /** 
+     * If multiple docs are found by the conditions, 
+     * sets the sort order to choose which doc to update 
+     */
+    sort?: object;
+    /** Puts a time limit on the query - requires mongodb >= 2.6.0 */
+    maxTimeMS?: number;
+    upsert?: boolean;
+    returnOriginal?: boolean;
+    collation?: CollationOptions;
+  }
   interface QueryFindOneAndUpdateOptions extends QueryFindOneAndRemoveOptions {
     /** if true, return the modified document rather than the original. defaults to false (changed in 4.0) */
     new?: boolean;
@@ -2270,12 +2380,35 @@ declare module "mongoose" {
      */
     context?: string;
     /**
-     *  by default, mongoose only returns the first error that occurred in casting the query.
-     *  Turn on this option to aggregate all the cast errors.
+     * by default, mongoose only returns the first error that occurred in casting the query.
+     * Turn on this option to aggregate all the cast errors.
      */
-      multipleCastError?: boolean;
+    multipleCastError?: boolean;
     /** Field selection. Equivalent to .select(fields).findOneAndUpdate() */
     fields?: any | string;
+    /**
+     * If truthy, mongoose will return the document as a plain JavaScript 
+     * object rather than a mongoose document. See `Query.lean()` and the 
+     * [Mongoose lean tutorial](https://mongoosejs.com/docs/tutorials/lean.html).
+     */
+    lean?: any;
+    /** 
+     * Overwrites the schema's 
+     * [strict mode option](http://mongoosejs.com/docs/guide.html#strict) 
+     */
+    strict?: boolean;
+    /**
+     * If set timestamps, mongoose assigns `createdAt` and `updatedAt` fields to 
+     * your schema, the type assigned is `Date`.
+     */
+    timestamps?: boolean | SchemaTimestampsConfig;
+    /**
+     * delete any properties whose value is `undefined` when casting an update. 
+     * In other words, if this is set, Mongoose will delete `baz` from the 
+     * update in `Model.updateOne({}, { foo: 'bar', baz: undefined })` before 
+     * sending the update to the server.
+     */
+    omitUndefined?: boolean;
   }
 
   interface QueryUpdateOptions extends ModelUpdateOptions {
@@ -3027,14 +3160,18 @@ declare module "mongoose" {
     exists(filter: any, callback?: (err: any, res: boolean) => void): Promise<boolean>;
 
     /**
-     * Finds documents.
+     * Finds documents. 
+     * 
+     * The `filter` are cast to their respective SchemaTypes before the command 
+     * is sent. See our [query casting tutorial](https://mongoosejs.com/docs/tutorials/query_casting.html) 
+     * for more information on how Mongoose casts `filter`.
      * @param projection optional fields to return
      */
     find(callback?: (err: any, res: T[]) => void): DocumentQuery<T[], T> & QueryHelpers;
     find(conditions: any, callback?: (err: any, res: T[]) => void): DocumentQuery<T[], T> & QueryHelpers;
-    find(conditions: any, projection?: any | null,
+    find(conditions: any, projection?: object | string | null ,
       callback?: (err: any, res: T[]) => void): DocumentQuery<T[], T> & QueryHelpers;
-    find(conditions: any, projection?: any | null, options?: any | null,
+    find(conditions: any, projection?: object | string | null, options?: any,
       callback?: (err: any, res: T[]) => void): DocumentQuery<T[], T> & QueryHelpers;
 
 
@@ -3055,7 +3192,7 @@ declare module "mongoose" {
     findByIdAndRemove(): DocumentQuery<T | null, T> & QueryHelpers;
     findByIdAndRemove(id: any | number | string,
       callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T> & QueryHelpers;
-    findByIdAndRemove(id: any | number | string, options: QueryFindOneAndRemoveOptions,
+    findByIdAndRemove(id: any | number | string, options: { rawResult: true } & QueryFindOneAndRemoveOptions,
       callback?: (err: any, res: mongodb.FindAndModifyWriteOpResultObject<T | null>) => void)
         : Query<mongodb.FindAndModifyWriteOpResultObject<T | null>> & QueryHelpers;
     findByIdAndRemove(id: any | number | string, options: QueryFindOneAndRemoveOptions, callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T> & QueryHelpers;
@@ -3181,6 +3318,38 @@ declare module "mongoose" {
       callback?: (err: any, doc: T | null, res: any) => void): DocumentQuery<T | null, T> & QueryHelpers;
 
     /**
+     * Issue a MongoDB `findOneAndReplace()` command. 
+     * 
+     * Finds a matching document, replaces it with the provided doc, and passes the returned doc to the callback. 
+     * 
+     * Executes the query if `callback` is passed.
+     * 
+     * This function triggers the following query middleware.
+     * 
+     * `findOneAndReplace()`
+     * 
+     * https://mongoosejs.com/docs/api/model.html#model_Model.findOneAndReplace
+     * @param conditions Replace the first document that matches this filter
+     * @param replacement Replace with this document
+     */
+    findOneAndReplace(conditions: any, replacement: any, 
+      callback?: (err: any, doc: T | null) => void): DocumentQuery<T | null, T> & QueryHelpers;
+    findOneAndReplace(conditions: any, replacement: any, 
+      options: { rawResult: true } & { upsert: true, new: true } & QueryFindOneAndReplaceOptions,
+      callback?: (err: any, doc: mongodb.FindAndModifyWriteOpResultObject<T>, res: any) => void)
+      : Query<mongodb.FindAndModifyWriteOpResultObject<T>> & QueryHelpers;
+    findOneAndReplace(conditions: any, replacement: any,
+      options: { upsert: true, new: true } & QueryFindOneAndUpdateOptions,
+      callback?: (err: any, doc: T, res: any) => void): DocumentQuery<T, T> &  QueryHelpers;
+    findOneAndReplace(conditions: any, replacement: any, 
+      options: { rawResult: true } & QueryFindOneAndReplaceOptions,
+      callback?: (err: any, doc: mongodb.FindAndModifyWriteOpResultObject<T | null>, res: any) => void)
+      : Query<mongodb.FindAndModifyWriteOpResultObject<T | null>> & QueryHelpers;
+    findOneAndReplace(conditions: any, replacement: any,
+      options: QueryFindOneAndRemoveOptions,
+      callback?: (err: any, doc: T | null, res: any) => void): DocumentQuery<T | null, T> & QueryHelpers;
+
+    /**
      * Implements $geoSearch functionality for Mongoose
      * @param conditions an object that specifies the match condition (required)
      * @param options for the geoSearch, some (near, maxDistance) are required
@@ -3256,7 +3425,25 @@ declare module "mongoose" {
 
     /** Removes documents from the collection. */
     remove(conditions: any, callback?: (err: any) => void): Query<mongodb.DeleteWriteOpResultObject['result'] & { deletedCount?: number }> & QueryHelpers;
+
+    /**
+     * Deletes the first document that matches `conditions` from the collection.
+     * Behaves like `remove()`, but deletes at most one document regardless of 
+     * the `single` option.
+     * 
+     * @note Like `Model.remove()`, this function does not trigger 
+     * pre('remove') or post('remove') hooks.
+     * @param conditions 
+     * @param callback 
+     */
     deleteOne(conditions: any, callback?: (err: any) => void): Query<mongodb.DeleteWriteOpResultObject['result'] & { deletedCount?: number }> & QueryHelpers;
+    /**
+     * Deletes all of the documents that match `conditions` from the collection.
+     * Behaves like `remove()`, but deletes all documents that match 
+     * conditions regardless of the `single` option.
+     * @param conditions 
+     * @param callback 
+     */
     deleteMany(conditions: any, callback?: (err: any) => void): Query<mongodb.DeleteWriteOpResultObject['result'] & { deletedCount?: number }> & QueryHelpers;
 
     /**
@@ -3419,7 +3606,7 @@ declare module "mongoose" {
      *  by default, mongoose only returns the first error that occurred in casting the query.
      *  Turn on this option to aggregate all the cast errors.
      */
-      multipleCastError?: boolean;
+    multipleCastError?: boolean;
   }
 
   interface ModelMapReduceOption<T, Key, Val> {
