@@ -20,7 +20,7 @@
     "files": [
         "index.d.ts",
         "future.d.ts",
-        "fibers-tests.ts",
-        "futures-tests.ts"
+        "test/fibers.ts",
+        "test/futures.ts"
     ]
 }
