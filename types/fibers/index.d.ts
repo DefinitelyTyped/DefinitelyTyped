@@ -1,9 +1,8 @@
-// Type definitions for node-fibers v3.1.1
+// Type definitions for node-fibers 3.1
 // Project: https://github.com/laverdet/node-fibers
 // Definitions by: Carlos Ballesteros Velasco <https://github.com/soywiz>
 //                 Chigozirim C. <https://github.com/smac89>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // TypeScript Version: 2.3
 
 interface FiberConstructor {

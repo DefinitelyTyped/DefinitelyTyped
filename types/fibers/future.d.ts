@@ -1,10 +1,8 @@
-// TypeScript Version: 2.3
-
 type FutureResolveFunction<T> = (err: Error, val: T) => void;
 type FutureOrFutureArray = Future<any> | Future<any>[];
 
 // In the future we can use this to extend the type of FutureObject if typescript
-// supports dynamic types
+// support for dynamic types improves
 // https://stackoverflow.com/questions/44323441/changing-property-name-in-typescript-mapped-type
 // type FutureObjectFunctions<O> = {[K in keyof O]: O[K] extends ((...args: infer P) => infer R) ?
 //     (...args: P) => Future<R> : never};
