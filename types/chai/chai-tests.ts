@@ -1612,6 +1612,8 @@ suite('assert', () => {
         assert.deepInclude([ 1, { a: 1 }, 3 ], { a: 1 });
         assert.deepInclude({ a: 1, b: { d: 4 }, c: 3 }, { a: 1, b: { d: 4 } });
         assert.deepInclude(new Set([ { a: 1 }, { a: 2 } ]), { a: 2 });
+        // deep include does not support ('cause)[https://github.com/chaijs/chai/blob/7ff12731428ab5d12f1e77e32d6a8d3eb967d082/lib/chai/core/assertions.js#L492]
+        // assert.deepInclude(new WeakSet([ {}, {} ]), {});
         assert.deepInclude(new Map([ [ 'a', { a: 1 } ], [ 'b', { a: 2 } ] ]), { a: 1 });
     });
 
@@ -1620,6 +1622,8 @@ suite('assert', () => {
         assert.notDeepInclude([ 1, { a: 1 }, 3 ], { a: 3 });
         assert.notDeepInclude({ a: 1, b: { d: 4 }, c: 3 }, { a: 1, b: { d: 6 } });
         assert.notDeepInclude(new Set([ { a: 1 }, { a: 2 } ]), { a: 3 });
+        // deep include does not support ('cause)[https://github.com/chaijs/chai/blob/7ff12731428ab5d12f1e77e32d6a8d3eb967d082/lib/chai/core/assertions.js#L492]
+        // assert.notDeepInclude(new WeakSet([ {}, {} ]), {});
         assert.notDeepInclude(new Map([ [ 'a', { a: 1 } ], [ 'b', { a: 2 } ] ]), { a: 8 });
     });
 
