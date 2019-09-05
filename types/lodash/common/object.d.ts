@@ -815,7 +815,7 @@ declare module "../index" {
         defaults<TObject, TSource>(
             object: TObject,
             source: TSource
-        ): TSource & TObject;
+        ): NonNullable<TSource & TObject>;
 
         /**
          * @see _.defaults
@@ -824,7 +824,7 @@ declare module "../index" {
             object: TObject,
             source1: TSource1,
             source2: TSource2
-        ): TSource2 & TSource1 & TObject;
+        ): NonNullable<TSource2 & TSource1 & TObject>;
 
         /**
          * @see _.defaults
@@ -834,7 +834,7 @@ declare module "../index" {
             source1: TSource1,
             source2: TSource2,
             source3: TSource3
-        ): TSource3 & TSource2 & TSource1 & TObject;
+        ): NonNullable<TSource3 & TSource2 & TSource1 & TObject>;
 
         /**
          * @see _.defaults
@@ -845,12 +845,12 @@ declare module "../index" {
             source2: TSource2,
             source3: TSource3,
             source4: TSource4
-        ): TSource4 & TSource3 & TSource2 & TSource1 & TObject;
+        ): NonNullable<TSource4 & TSource3 & TSource2 & TSource1 & TObject>;
 
         /**
          * @see _.defaults
          */
-        defaults<TObject>(object: TObject): TObject;
+        defaults<TObject>(object: TObject): NonNullable<TObject>;
 
         /**
          * @see _.defaults
@@ -858,7 +858,7 @@ declare module "../index" {
         defaults(
             object: any,
             ...sources: any[]
-        ): any;
+        ): NonNullable<any>;
     }
 
     interface LoDashImplicitWrapper<TValue> {
