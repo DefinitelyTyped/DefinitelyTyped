@@ -1260,7 +1260,7 @@ declare namespace Stripe {
             destination?: string | accounts.IAccount | null;
 
             /**
-             * Details about the dispute if the charge has been disputed.
+             * Details about the dispute if the charge has been disputed. [Expandable]
              */
             dispute?: string | disputes.IDispute | null;
 
