@@ -1,6 +1,7 @@
-{ 
+{
   "extends": "dtslint/dt.json",
   "rules": {
+    "array-type": [true, "generic"],
     "no-empty-interface": false
   }
 }
