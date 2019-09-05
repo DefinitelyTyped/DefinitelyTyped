@@ -639,6 +639,7 @@ stripe.customers.createSource(
     "cus_5rfJKDJkuxzh5Q",
     {
         source: {
+            object: 'bank_account',
             country: 'US',
             currency: 'USD',
             account_holder_name: 'Account Holder',
@@ -656,6 +657,7 @@ stripe.customers.createSource(
     "cus_5rfJKDJkuxzh5Q",
     {
         source: {
+            object: 'bank_account',
             country: 'US',
             currency: 'USD',
             account_holder_name: 'Account Holder',
@@ -825,6 +827,42 @@ stripe.customers.deleteSubscriptionDiscount("cus_5rfJKDJkuxzh5Q", "sub_5rfJxnBLG
     // asynchronously called
 });
 stripe.customers.deleteSubscriptionDiscount("cus_5rfJKDJkuxzh5Q", "sub_5rfJxnBLGSwsYp").then((confirmation) => {
+    // asynchronously called
+});
+
+//#endregion
+
+//#region Customer Tax Ids
+// ##################################################################################
+
+stripe.customers.createTaxId(
+    'cus_FhdWgak8aeNfht',
+    {
+        type: 'eu_vat',
+        value: 'DE123456789',
+    },
+    (err, taxId) => {
+        // asynchronously called
+    }
+);
+
+stripe.customers.retrieveTaxId(
+    'cus_FhdWgak8aeNfht',
+    'txi_123456789',
+    (err, taxId) => {
+        // asynchronously called
+    }
+);
+
+stripe.customers.deleteTaxId(
+    'cus_FhdWgak8aeNfht',
+    'txi_123456789',
+    (err, confirmation) => {
+        // asynchronously called
+    }
+);
+
+stripe.customers.listTaxIds('cus_FhdWgak8aeNfht', (err, taxIds) => {
     // asynchronously called
 });
 
@@ -1450,6 +1488,29 @@ stripe.invoices.sendInvoice('in_15fvyXEe31JkLCeQH7QbgZZb').then(invoice => {
 
 //#region Invoice Items tests
 // ##################################################################################
+
+stripe.invoiceItems.list(
+    {
+        customer: 'cus_5rfJKDJkuxzh5Q',
+        invoice: 'in_15fvyXEe31JkLCeQH7QbgZZb',
+        pending: true,
+        limit: 3,
+    },
+    (err, invoiceItems) => {
+        // asynchronously called
+    }
+);
+
+stripe.invoiceItems
+    .list({
+        customer: 'cus_5rfJKDJkuxzh5Q',
+        invoice: 'in_15fvyXEe31JkLCeQH7QbgZZb',
+        pending: true,
+        limit: 3,
+    })
+    .then(invoiceItems => {
+        // asynchronously called
+    });
 
 //#endregion
 

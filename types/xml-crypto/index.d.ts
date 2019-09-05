@@ -1,6 +1,7 @@
 // Type definitions for xml-crypto 1.4
 // Project: https://github.com/yaronn/xml-crypto#readme
 // Definitions by: Eric Heikes <https://github.com/eheikes>
+//                 Max Chehab <https://github.com/maxchehab>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -10,6 +11,16 @@ import { SelectedValue } from 'xpath';
 export class HashAlgorithm {
     getAlgorithmName(): string;
     getHash(xml: string): string;
+}
+
+export interface Reference {
+    xpath: string;
+    transforms?: ReadonlyArray<string>;
+    digestAlgorithm?: string;
+    uri?: string;
+    digestValue?: string;
+    inclusiveNamespacesPrefixList?: string;
+    isEmptyUri?: boolean;
 }
 
 export class SignatureAlgorithm {
@@ -28,6 +39,7 @@ export class SignedXml {
     static SignatureAlgorithms: {[uri: string]: new () => SignatureAlgorithm};
     canonicalizationAlgorithm: string;
     keyInfoProvider: FileKeyInfo;
+    references: Reference[];
     signatureAlgorithm: string;
     signingKey: Buffer | string;
     validationErrors: string[];

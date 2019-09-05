@@ -212,11 +212,7 @@ export class UA {
     on(eventName: "sipEvent", handler: EventHandler<UserAgentSipEvent>): void;
 }
 
-export interface EventValue<T> {
-    data: T;
-}
-
-export type EventHandler<T> = (e: EventValue<T>) => void;
+export type EventHandler<T> = (e: T) => void;
 
 export interface SessionConnectingEvent {
     request: JsSIP.IncomingRequest|JsSIP.OutgoingRequest;
