@@ -1588,10 +1588,14 @@ suite('assert', () => {
     });
 
     test('include', () => {
-        assert.include('foobar', 'bar');
-        assert.include([1, 2, 3], 3);
-        assert.include('foobar', 'baz');
-        assert.include(undefined, 'bar');
+      assert.include('foobar', 'bar');
+      assert.include([ 1, 2, 3 ], 3);
+      assert.include({ a: 1, b: 2, c: 3 }, { a: 1, b: 2 });
+      assert.include(new Set([ 1, 2 ]), 2);
+      assert.include(new Map([[ 'a', 1 ], [ 'b', 2 ]]), 2);
+
+      const a = {};
+      assert.include(new WeakSet([ {}, a ]), a);
     });
 
     test('notInclude', () => {
