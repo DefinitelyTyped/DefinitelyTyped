@@ -858,7 +858,7 @@ declare module "../index" {
         defaults(
             object: any,
             ...sources: any[]
-        ): NonNullable<any>;
+        ): any;
     }
 
     interface LoDashImplicitWrapper<TValue> {
@@ -904,7 +904,7 @@ declare module "../index" {
         /**
          * @see _.defaults
          */
-        defaults(...sources: any[]): LoDashImplicitWrapper<NonNullable<any>>;
+        defaults(...sources: any[]): LoDashImplicitWrapper<any>;
     }
 
     interface LoDashExplicitWrapper<TValue> {
@@ -950,7 +950,7 @@ declare module "../index" {
         /**
          * @see _.defaults
          */
-        defaults(...sources: any[]): LoDashExplicitWrapper<NonNullable<any>>;
+        defaults(...sources: any[]): LoDashExplicitWrapper<any>;
     }
 
     // defaultsDeep
