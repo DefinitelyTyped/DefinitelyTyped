@@ -1,5 +1,5 @@
 // Type definitions for datadog-winston 1.0
-// Project: https://https://github.com/itsfadnis/datadog-winston
+// Project: https://github.com/itsfadnis/datadog-winston
 // Definitions by: Matt Hintzke <https://github.com/mhintzke13>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
