@@ -121,6 +121,6 @@ interface IfVisible {
     setIdleDuration(seconds: number): number;
 }
 
-declare let ifvisible: IfVisible;
+declare const ifvisible: IfVisible;
 
-export default ifvisible;
+export = ifvisible;
