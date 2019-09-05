@@ -56,7 +56,9 @@ declare module 'react-jsonschema-form' {
         acceptcharset?: string;
     }
 
-    export default class Form<T> extends React.Component<FormProps<T>> {}
+    export default class Form<T> extends React.Component<FormProps<T>> {
+                     submit: () => void;
+                   }
 
     export type UiSchema = {
         'ui:field'?: Field | string;
