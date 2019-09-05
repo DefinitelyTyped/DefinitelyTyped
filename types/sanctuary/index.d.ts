@@ -10,6 +10,8 @@ declare var S: Sanctuary.Environment;
 export = S;
 export as namespace S;
 
+type TK = any;  // temporary type used in unfinished type definitions
+
 type Nullable<A> = A | null;
 
 type Pair<A, B> = [A, B];
@@ -98,6 +100,8 @@ declare namespace Sanctuary {
       version: NonNegativeInteger
     };
     is(typeRep: TypeRep): (x: any) => boolean;
+    //  Showable
+    show(tk: TK): TK;
     //  Fantasy Land
     equals<A>(x: Setoid<A>): (y: Setoid<A>) => boolean;
     lt <A>(x: Ord<A>): (y: Ord<A>) => boolean;
@@ -106,6 +110,7 @@ declare namespace Sanctuary {
     gte<A>(x: Ord<A>): (y: Ord<A>) => boolean;
     min<A>(x: Ord<A>): (y: Ord<A>) => A;
     max<A>(x: Ord<A>): (y: Ord<A>) => A;
+    clamp(tk: TK): (tk: TK) => (tk: TK) => TK;
     id<A>(p: TypeRep): Fn<A, A> | Category<any>;
     concat<A>(x: Semigroup<A>): (y: Semigroup<A>) => Semigroup<A>;
     concat<A>(x: ReadonlyArray<A>): (y: ReadonlyArray<A>) => Array<A>;
@@ -119,6 +124,7 @@ declare namespace Sanctuary {
         (q: Functor<A>): Functor<B>;
     };
     bimap<A, B>(p: Fn<A, B>): <C, D>(q: Fn<C, D>) => (r: Bifunctor<A, C>) => Bifunctor<B, D>;
+    mapLeft(tk: TK): (tk: TK) => TK;
     promap<A, B>(p: Fn<A, B>): <C, D>(q: Fn<C, D>) => {
       (r: Fn<B, C>): Fn<A, D>;
       (r: Profunctor<B, C>): Profunctor<A, D>;
@@ -152,6 +158,7 @@ declare namespace Sanctuary {
       <A, B>   (f: Fn <A, ChainRec<Either<A, B>>>): (x: A) => ChainRec<B>;
     };
     extend<A, B>(f: Fn<Extend<A>, B>): (extend_: Extend<A>) => Extend<B>;
+    duplicate(tk: TK): TK;
     extract<A>(comonad: Comonad<A>): A;
     contramap<A, B>(f: Fn<B, A>): {
       <X>(contravariant: Fn<A, X>): Fn<B, X>;
@@ -161,6 +168,7 @@ declare namespace Sanctuary {
       (m: ReadonlyArray<A>): Array<A>;
       (m: Foldable<A>): Foldable<A>;
     };
+    reject(tk: TK): (tk: TK) => TK;
     takeWhile<A>(pred: Predicate<A>): (foldable: Foldable<A>) => Foldable<A>;
     dropWhile<A>(pred: Predicate<A>): (foldable: Foldable<A>) => Foldable<A>;
     //  Combinator
@@ -182,8 +190,10 @@ declare namespace Sanctuary {
     pipe<A, B, C, D, E>(fs: [Fn<A, B>, Fn<B, C>, Fn<C, D>, Fn<D, E>]): (x: A) => E;
     pipe<A, B, C, D, E, F>(fs: [Fn<A, B>, Fn<B, C>, Fn<C, D>, Fn<D, E>, Fn<E, F>]): (x: A) => F;
     pipe(fs: ReadonlyArray<Fn<any, any>>): (x: any) => any;
+    pipeK(tk: TK): (tk: TK) => TK;
     on<A, B, C>(p: Fn2<B, B, C>): (q: Fn<A, B>) => (r: A) => Fn<A, C>;
     // Pair
+    Pair(tk: TK): (tk: TK) => TK;
     pair<A, B, C>(f: Fn2<A, B, C>): (p: Pair<A, B>) => C;
     fst<A>(p: Pair<A, any>): A;
     snd<B>(p: Pair<any, B>): B;
@@ -214,10 +224,12 @@ declare namespace Sanctuary {
     or(p: boolean): (q: boolean) => boolean;
     not(p: boolean): boolean;
     complement<A>(p: Predicate<A>): Predicate<A>;
+    boolean(tk: TK): (tk: TK) => (tk: TK) => TK;
     ifElse<A, B>(p: Predicate<A>): (q: Fn<A, B>) => (r: Fn<A, B>) => Fn<A, B>;
     when<A>(p: Predicate<A>): (q: Fn<A, A>) => Fn<A, A>;
     unless<A>(p: Predicate<A>): (q: Fn<A, A>) => Fn<A, A>;
-    //  List
+    //  Array
+    array(tk: TK): (tk: TK) => (tk: TK) => TK;
     head(xs: string): Maybe<string>;
     head<A>(xs: ReadonlyArray<A>): Maybe<A>;
     last(xs: string): Maybe<string>;
@@ -230,8 +242,9 @@ declare namespace Sanctuary {
     takeLast(n: Integer): ListToMaybeList;
     drop(n: Integer): ListToMaybeList;
     dropLast(n: Integer): ListToMaybeList;
-    //  Array
-    //  TODO: Fantasyland overloads, non-curried versions
+    all(tk: TK): (tk: TK) => TK;
+    any(tk: TK): (tk: TK) => TK;
+    none(tk: TK): (tk: TK) => TK;
     append<A>(x: A): {
       (xs: ReadonlyArray<A>): Array<A>;
       (xs: Applicative<A>): Applicative<A>;
@@ -243,6 +256,7 @@ declare namespace Sanctuary {
     joinWith(p: string): (q: ReadonlyArray<string>) => string;
     elem<A>(p: A): (q: Foldable<A> | StrMap<A> | ReadonlyArray<A>) => boolean;
     find<A>(p: Predicate<A>): (q: ReadonlyArray<A> | StrMap<A> | Foldable<A>) => Maybe<A>;
+    foldMap(tk: TK): (tk: TK) => TK;
     unfoldr<A, B>(f: Fn<B, Maybe<Pair<A, B>>>): (x: B) => Array<A>;
     range(from: Integer): (to: Integer) => Array<Integer>;
     groupBy<A>(f: Fn2<A, A, boolean>): (xs: ReadonlyArray<A>) => Array<Array<A>>;
@@ -262,6 +276,7 @@ declare namespace Sanctuary {
     get(p: Predicate<any>): (q: string) => (r: any) => Maybe<any>;
     gets(p: Predicate<any>): (q: ReadonlyArray<string>) => (r: any) => Maybe<any>;
     //  StrMap
+    value(tk: TK): (tk: TK) => TK;
     keys(p: StrMap<any>): Array<string>;
     values<A>(p: StrMap<A>): Array<A>;
     pairs<A>(p: StrMap<A>): Array<Pair<string, A>>;
@@ -306,5 +321,6 @@ declare namespace Sanctuary {
   interface Environment extends Static {
     env: ReadonlyArray<any>;
     create(opts: {checkTypes: boolean, env: ReadonlyArray<any>}): Static;
+    unchecked: TK;
   }
 }
