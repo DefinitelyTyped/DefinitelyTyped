@@ -493,7 +493,7 @@ declare namespace React {
     type FC<P = {}> = FunctionComponent<P>;
 
     interface FunctionComponent<P = {}> {
-        (props: PropsWithChildren<P>, context?: any): ReactElement | null;
+        (props: Readonly<PropsWithChildren<P>>, context?: any): ReactElement | null;
         propTypes?: WeakValidationMap<P>;
         contextTypes?: ValidationMap<any>;
         defaultProps?: Partial<P>;
@@ -501,7 +501,7 @@ declare namespace React {
     }
 
     interface RefForwardingComponent<T, P = {}> {
-        (props: PropsWithChildren<P>, ref: Ref<T>): ReactElement | null;
+        (props: Readonly<PropsWithChildren<P>>, ref: Ref<T>): ReactElement | null;
         propTypes?: WeakValidationMap<P>;
         contextTypes?: ValidationMap<any>;
         defaultProps?: Partial<P>;
