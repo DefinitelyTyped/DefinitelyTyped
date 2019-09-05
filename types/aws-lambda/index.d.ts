@@ -277,16 +277,16 @@ export interface S3BatchEventTask {
 
 export interface S3BatchEventResponse {
     invocationSchemaVersion: string;
-    treatMissingKeysAs: S3BatchEventResponseResultCodes;
+    treatMissingKeysAs: S3BatchEventResponseResultCode;
     invocationId: string;
     results: S3BatchEventResponseResult[];
 }
 
-export type S3BatchEventResponseResultCodes = "Succeeded" | "TemporaryFailure" | "PermanentFailure";
+export type S3BatchEventResponseResultCode = "Succeeded" | "TemporaryFailure" | "PermanentFailure";
 
 export interface S3BatchEventResponseResult {
     taskId: string;
-    resultCode: S3BatchEventResponseResultCodes;
+    resultCode: S3BatchEventResponseResultCode;
     resultString: string;
 }
 
