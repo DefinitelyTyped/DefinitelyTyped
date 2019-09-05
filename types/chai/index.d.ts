@@ -881,22 +881,35 @@ declare namespace Chai {
         notInclude<T>(haystack: T, needle: Partial<T>, message?: string): void;
 
         /**
-         * Asserts that haystack includes needle. Can be used to assert the inclusion of a value in an array or a subset of properties in an object. Deep equality is used.
+         * Asserts that haystack includes needle. Deep equality is used.
          *
          * @param haystack   Container string.
-         * @param needle   Potential expected substring of haystack.
+         * @param needle   Potential substring of haystack.
          * @param message   Message to display on error.
+         *
+         * @deprecated Does not have any effect on string. Use {@link Assert#include} instead.
          */
         deepInclude(haystack: string, needle: string, message?: string): void;
 
         /**
-         * Asserts that haystack includes needle. Can be used to assert the inclusion of a value in an array or a subset of properties in an object. Deep equality is used.
+         * Asserts that haystack includes needle. Deep equality is used.
          *
-         * @param haystack
-         * @param needle
+         * @type T   Type of values in haystack.
+         * @param haystack   Container array, set or map.
+         * @param needle   Potential value contained in haystack.
          * @param message   Message to display on error.
          */
-        deepInclude<T>(haystack: any, needle: any, message?: string): void;
+        deepInclude<T>(haystack: ReadonlyArray<T> | ReadonlySet<T> | ReadonlyMap<any, T>, needle: T, message?: string): void;
+
+        /**
+         * Asserts that haystack does not includes needle.
+         *
+         * @type T   Type of haystack.
+         * @param haystack   Object.
+         * @param needle   Potential subset of the haystack's properties.
+         * @param message   Message to display on error.
+         */
+        deepInclude<T>(haystack: T, needle: Partial<T>, message?: string): void;
 
         /**
          * Asserts that haystack does not include needle. Can be used to assert the absence of a value in an array or a subset of properties in an object. Deep equality is used.
