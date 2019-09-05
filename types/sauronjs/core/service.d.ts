@@ -1,7 +1,7 @@
 export class Service {
     broadcastSubject: any;
 
-    constructor(pubs: string[], subs: string[]);
+    constructor(pubs: ReadonlyArray<string>, subs: ReadonlyArray<string>);
 
     broadcast(event: string, data: any): void;
 }

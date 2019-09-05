@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs/Subscription';
 
 interface ComponentParameters {
     element: HTMLElement;
+    state?: any;
 }
 
 declare class Component {
@@ -12,11 +13,12 @@ declare class Component {
 
     broadcast(event: string, data: any): void;
     destroy(): void;
-    registerSubscription(subscriptions: Subscription | Subscription[]): void;
-    subscribe<T>(observables: Observable<T> | Array<Observable<T>>): void;
+    registerSubscription(subscriptions: ReadonlyArray<Subscription>): void;
+    subscribe(observables: ReadonlyArray<Observable<any>>): void;
     find(selector: string): HTMLElement;
     findAll(selector: string): HTMLElement[];
-    attr(key: string, value?: string): string | void;
+    attr(key: string): string;
+    attr(key: string, value: string): void;
 }
 
 export { Component };
