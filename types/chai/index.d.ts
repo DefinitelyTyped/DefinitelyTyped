@@ -912,13 +912,35 @@ declare namespace Chai {
         deepInclude<T>(haystack: T, needle: Partial<T>, message?: string): void;
 
         /**
-         * Asserts that haystack does not include needle. Can be used to assert the absence of a value in an array or a subset of properties in an object. Deep equality is used.
+         * Asserts that haystack does not includes needle. Deep equality is used.
          *
-         * @param haystack   Container string or array.
-         * @param needle   Potential expected substring of haystack.
+         * @param haystack   Container string.
+         * @param needle   Potential substring of haystack.
+         * @param message   Message to display on error.
+         *
+         * @deprecated Does not have any effect on string. Use {@link Assert#notInclude} instead.
+         */
+        notDeepInclude(haystack: string, needle: string, message?: string): void;
+
+        /**
+         * Asserts that haystack does not includes needle. Deep equality is used.
+         *
+         * @type T   Type of values in haystack.
+         * @param haystack   Container array, set or map.
+         * @param needle   Potential value contained in haystack.
          * @param message   Message to display on error.
          */
-        notDeepInclude(haystack: string | ReadonlyArray<any>, needle: any, message?: string): void;
+        notDeepInclude<T>(haystack: ReadonlyArray<T> | ReadonlySet<T> | ReadonlyMap<any, T>, needle: T, message?: string): void;
+
+        /**
+         * Asserts that haystack does not includes needle. Deep equality is used.
+         *
+         * @type T   Type of haystack.
+         * @param haystack   Object.
+         * @param needle   Potential subset of the haystack's properties.
+         * @param message   Message to display on error.
+         */
+        notDeepInclude<T>(haystack: T, needle: Partial<T>, message?: string): void;
 
         /**
          * Asserts that ‘haystack’ includes ‘needle’. Can be used to assert the inclusion of a subset of properties in an object.
