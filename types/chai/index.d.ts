@@ -815,21 +815,11 @@ declare namespace Chai {
          * Asserts that haystack includes needle.
          *
          * @type T   Type of values in haystack.
-         * @param haystack   Container array.
+         * @param haystack   Container array, set or map.
          * @param needle   Potential value contained in haystack.
          * @param message   Message to display on error.
          */
-        include<T>(haystack: ReadonlyArray<T>, needle: T, message?: string): void;
-
-        /**
-         * Asserts that haystack includes needle.
-         *
-         * @type T   Type of values in haystack.
-         * @param haystack   Container set.
-         * @param needle   Potential value contained in haystack.
-         * @param message   Message to display on error.
-         */
-        include<T>(haystack: ReadonlySet<T>, needle: T, message?: string): void;
+        include<T>(haystack: ReadonlyArray<T> | ReadonlySet<T> | ReadonlyMap<any, T>, needle: T, message?: string): void;
 
         /**
          * Asserts that haystack includes needle.
@@ -840,16 +830,6 @@ declare namespace Chai {
          * @param message   Message to display on error.
          */
         include<T extends object>(haystack: WeakSet<T>, needle: T, message?: string): void;
-
-        /**
-         * Asserts that haystack includes needle.
-         *
-         * @type T   Type of values in haystack.
-         * @param haystack   Container map.
-         * @param needle   Potential value contained in haystack.
-         * @param message   Message to display on error.
-         */
-        include<T>(haystack: ReadonlyMap<any, T>, needle: T, message?: string): void;
 
         /**
          * Asserts that haystack includes needle.
