@@ -8,11 +8,11 @@ import * as util from './util';
 export { cache, Component, instance, next, Service } from './core';
 
 interface SauronDOM {
-    update(): void;
+  update(): void;
 }
 
 interface SauronEvents {
-    dom: SauronDOM;
+  dom: SauronDOM;
 }
 
 declare const events: SauronEvents;
