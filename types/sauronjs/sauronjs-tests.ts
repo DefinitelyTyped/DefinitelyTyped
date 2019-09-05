@@ -12,7 +12,7 @@ const example = new SomeComponent({ element: new HTMLElement() });
 
 util.insert(new HTMLElement());
 util.ready(() => {
-    "hello";
+    'example';
 });
 
 // $ExpectType Service
@@ -28,7 +28,7 @@ class ExampleService extends Service {
 new ExampleService();
 
 // $ExpectType Cache
-cache("test");
+cache('test');
 
 // $ExpectType void
 cache();
