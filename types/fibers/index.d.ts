@@ -4,6 +4,8 @@
 //                 Chigozirim C. <https://github.com/smac89>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+// TypeScript Version: 2.3
+
 interface FiberConstructor {
     /**
      * Instantiate a new Fiber. You may invoke this either as a function or as

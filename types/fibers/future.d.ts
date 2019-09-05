@@ -1,3 +1,5 @@
+// TypeScript Version: 2.3
+
 type FutureResolveFunction<T> = (err: Error, val: T) => void;
 type FutureOrFutureArray = Future<any> | Future<any>[];
 
