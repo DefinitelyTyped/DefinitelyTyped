@@ -18,7 +18,7 @@ declare namespace facepaint {
     }
 
     interface DynamicStyleFunction {
-        (...args: Arg[]): DynamicStyle;
+        (...args: Arg[]): DynamicStyle[];
     }
 
     interface Options {
