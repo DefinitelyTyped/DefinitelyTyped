@@ -1273,3 +1273,37 @@ const lexEventHandler: AWSLambda.LexHandler = async (
     str = context.functionName;
     return lexResult;
 };
+
+/**
+ * S3 Batch Operations event
+ * https://docs.aws.amazon.com/AmazonS3/latest/dev/batch-ops-invoke-lambda.html
+ */
+const S3BatchEventRequest: AWSLambda.S3BatchEventRequest = {
+    invocationSchemaVersion: "1.0",
+    invocationId: "foo_invocation_id",
+    job: { id: "foo_job_id" },
+    tasks: [{
+        taskId: "11111",
+        s3Key: "example.json",
+        s3BucketArn: "arn:aws:s3:::foo-bucket",
+    }],
+};
+
+const S3BatchEventResponse: AWSLambda.S3BatchEventResponse = {
+    invocationSchemaVersion: "1.0",
+    treatMissingKeysAs: "PermanentFailure",
+    invocationId: "foo_invocation_id",
+    results: [{
+        taskId: "11111",
+        resultCode: "Succeeded",
+        resultString: "foo",
+    }, {
+        taskId: "22222",
+        resultCode: "TemporaryFailure",
+        resultString: "Error: failure",
+    }, {
+        taskId: "33333",
+        resultCode: "PermanentFailure",
+        resultString: "Error: failure",
+    }],
+};

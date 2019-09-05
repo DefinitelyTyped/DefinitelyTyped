@@ -29,6 +29,7 @@
 //                 Roberto Zen <https://github.com/skyzenr>
 //                 Grzegorz Redlicki <https://github.com/redlickigrzegorz>
 //                 Juan Carbonel <https://github.com/juancarbonel>
+//                 Peter McIntyre <https://github.com/pwmcintyre>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -251,6 +252,43 @@ export interface S3Event {
     Records: S3EventRecord[];
 }
 export type S3CreateEvent = S3Event; // old name
+
+/**
+ * S3 Batch Operations event
+ * https://docs.aws.amazon.com/AmazonS3/latest/dev/batch-ops-invoke-lambda.html
+ */
+export interface S3BatchEventRequest {
+    invocationSchemaVersion: string;
+    invocationId: string;
+    job: S3BatchEventJob;
+    tasks: S3BatchEventTask[];
+}
+
+export interface S3BatchEventJob {
+    id: string;
+}
+
+export interface S3BatchEventTask {
+    taskId: string;
+    s3Key: string;
+    s3VersionId?: string;
+    s3BucketArn: string;
+}
+
+export interface S3BatchEventResponse {
+    invocationSchemaVersion: string;
+    treatMissingKeysAs: S3BatchEventResponseResultCodes;
+    invocationId: string;
+    results: S3BatchEventResponseResult[];
+}
+
+export type S3BatchEventResponseResultCodes = "Succeeded" | "TemporaryFailure" | "PermanentFailure";
+
+export interface S3BatchEventResponseResult {
+    taskId: string;
+    resultCode: S3BatchEventResponseResultCodes;
+    resultString: string;
+}
 
 /**
  * Cognito User Pool event
