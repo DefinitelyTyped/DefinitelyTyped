@@ -2158,7 +2158,7 @@ declare namespace Stripe {
                 /**
                  * Use instead of @param line_items when using a subscription
                  */
-                subscription_data?: subscriptions.ISubscription;
+                subscription_data?: subscriptions.ISubscriptionCustCreationOptions;
             }
 
             interface ICheckoutLineItems {
