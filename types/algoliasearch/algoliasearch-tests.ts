@@ -10,6 +10,7 @@ import {
     IndexSettings,
     QueryParameters,
     ApiKey,
+    MultiResponse,
     Client,
 } from 'algoliasearch';
 import * as algoliasearchLite from 'algoliasearch/lite';
@@ -24,6 +25,8 @@ let _algoliaResponse: Response = {
     query: '',
     params: '',
     index: '',
+    exhaustiveFacetsCount: true,
+    exhaustiveNbHits: false,
 };
 
 let _clientOptions: ClientOptions = {
@@ -126,7 +129,7 @@ let _algoliaQueryParameters: QueryParameters = {
     ignorePlurals: false,
     disableTypoToleranceOnAttributes: [''],
     aroundLatLng: '',
-    aroundLatLngViaIP: '',
+    aroundLatLngViaIP: true,
     aroundRadius: 0,
     aroundPrecision: 0,
     minimumAroundRadius: 0,
@@ -226,7 +229,7 @@ client.copyIndex('from', 'to', ['synonyms', 'rules'], () => {});
 
 const liteClient: algoliasearchLite.Client = algoliasearchLite('', '');
 
-liteClient.search([], (err: Error, res: algoliasearch.MultiResponse) => {});
-liteClient.search([]).then((res: algoliasearch.MultiResponse) => {});
+liteClient.search([], (err: Error, res: MultiResponse) => {});
+liteClient.search([]).then((res: MultiResponse) => {});
 type Res = { zipzop: true };
-liteClient.search<Res>([]).then((res: algoliasearch.MultiResponse<Res>) => {});
+liteClient.search<Res>([]).then((res: MultiResponse<Res>) => {});
