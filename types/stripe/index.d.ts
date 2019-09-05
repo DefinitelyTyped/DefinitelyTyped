@@ -4280,6 +4280,11 @@ declare namespace Stripe {
             customer?: string;
 
             /**
+             * Only return invoice items belonging to this invoice. If none is provided, all invoice items will be returned. If specifying an invoice, no customer identifier is needed.
+             */
+            invoice?: string;
+
+            /**
              * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
              */
             limit?: number;
