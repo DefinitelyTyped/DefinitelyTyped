@@ -14,8 +14,6 @@ type TK = any;  // temporary type used in unfinished type definitions
 
 type Nullable<A> = A | null;
 
-type Pair<A, B> = [A, B];
-
 type Thunk<A> = () => A;
 
 type Fn<A, B>                = (a: A) => B;
@@ -31,6 +29,12 @@ type Fn5_<A, B, C, D, E, F>  = (a: A, b: B, c: C, d: D, e: E) => F;
 type Predicate<A> = (a: A) => boolean;
 
 interface StrMap<A> { [k: string]: A; }
+
+interface Pair<A, B> {
+  constructor: {
+    '@@type': 'TK';
+  };
+}
 
 interface Maybe<A> {
   constructor: {
@@ -75,11 +79,6 @@ interface Extend<A> extends Functor<A> {}
 interface Comonad<A> extends Extend<A> {}
 interface Contravariant<A> {}
 
-interface ListToMaybeList {
-  (xs: string): Maybe<string>;
-  <A>(xs: ReadonlyArray<A>): Maybe<Array<A>>;
-}
-
 interface MatchObj {
   match: string;
   groups: ReadonlyArray<Maybe<string>>;
@@ -99,7 +98,7 @@ declare namespace Sanctuary {
       name: string
       version: NonNegativeInteger
     };
-    is(typeRep: TypeRep): (x: any) => boolean;
+    is(tk: TK): (tk: TK) => TK;
     //  Showable
     show(tk: TK): TK;
     //  Fantasy Land
@@ -164,13 +163,10 @@ declare namespace Sanctuary {
       <X>(contravariant: Fn<A, X>): Fn<B, X>;
         (contravariant: Contravariant<A>): Contravariant<B>;
     };
-    filter <A>(pred: Predicate<A>): {
-      (m: ReadonlyArray<A>): Array<A>;
-      (m: Foldable<A>): Foldable<A>;
-    };
+    filter(tk: TK): (tk: TK) => TK;
     reject(tk: TK): (tk: TK) => TK;
-    takeWhile<A>(pred: Predicate<A>): (foldable: Foldable<A>) => Foldable<A>;
-    dropWhile<A>(pred: Predicate<A>): (foldable: Foldable<A>) => Foldable<A>;
+    takeWhile(tk: TK): (tk: TK) => TK;
+    dropWhile(tk: TK): (tk: TK) => TK;
     //  Combinator
     I<A>(x: A): A;
     K<A>(x: A): (y: any) => A;
@@ -180,7 +176,7 @@ declare namespace Sanctuary {
     curry3<A, B, C, D>(f: Fn3_<A, B, C, D>): Fn3<A, B, C, D>;
     curry4<A, B, C, D, E>(f: Fn4_<A, B, C, D, E>): Fn4<A, B, C, D, E>;
     curry5<A, B, C, D, E, F>(f: Fn5_<A, B, C, D, E, F>): Fn5<A, B, C, D, E, F>;
-    flip<A, B, C>(f: Fn2<A, B, C>): Fn2<B, A, C>;
+    flip(tk: TK): (tk: TK) => TK;
     //  Composition
     compose<B, C>(f: Fn<B, C>): <A>(g: Fn<A, B>) => Fn<A, C>;
     compose<B, C>(x: Semigroupoid<B, C>): <A>(y: Semigroupoid<A, B>) => Semigroupoid<A, C>;
@@ -189,7 +185,7 @@ declare namespace Sanctuary {
     pipe<A, B, C, D>(fs: [Fn<A, B>, Fn<B, C>, Fn<C, D>]): (x: A) => D;
     pipe<A, B, C, D, E>(fs: [Fn<A, B>, Fn<B, C>, Fn<C, D>, Fn<D, E>]): (x: A) => E;
     pipe<A, B, C, D, E, F>(fs: [Fn<A, B>, Fn<B, C>, Fn<C, D>, Fn<D, E>, Fn<E, F>]): (x: A) => F;
-    pipe(fs: ReadonlyArray<Fn<any, any>>): (x: any) => any;
+    pipe(tk: TK): (tk: TK) => TK;
     pipeK(tk: TK): (tk: TK) => TK;
     on<A, B, C>(p: Fn2<B, B, C>): (q: Fn<A, B>) => (r: A) => Fn<A, C>;
     // Pair
@@ -206,17 +202,17 @@ declare namespace Sanctuary {
     maybeToNullable<A>(p: Maybe<A>): Nullable<A>;
     maybe<B>(p: B): <A>(q: Fn<A, B>) => (r: Maybe<A>) => B;
     maybe_<B>(p: Thunk<B>): <A>(q: Fn<A, B>) => (r: Maybe<A>) => B;
-    justs<A>(p: ReadonlyArray<Maybe<A>>): Array<A>;
-    mapMaybe<A>(p: Fn<A, Maybe<any>>): (q: Array<A>) => Array<A>;
-    encase<A, B>(p: Fn<A, B>): Fn<A, Maybe<B>>;
+    justs(tk: TK): TK;
+    mapMaybe(tk: TK): (tk: TK) => TK;
+    encase(tk: TK): (tk: TK) => TK;
     maybeToEither<A>(p: A): <B>(q: Maybe<B>) => Either<A, B>;
     //  TODO: Either
     isLeft(p: Either<any, any>): boolean;
     isRight(p: Either<any, any>): boolean;
     fromEither<B>(p: B): (q: Either<any, B>) => B;
     either<A, C>(p: Fn<A, C>): <B>(q: Fn<B, C>) => (r: Either<A, B>) => C;
-    lefts<A>(p: ReadonlyArray<Either<A, any>>): Array<A>;
-    rights<B>(p: ReadonlyArray<Either<any, B>>): Array<B>;
+    lefts(tk: TK): TK;
+    rights(tk: TK): TK;
     tagBy<A>(p: Predicate<A>): (q: A) => Either<A, A>;
     eitherToMaybe<B>(p: Either<any, B>): Maybe<B>;
     //  Logic
@@ -230,18 +226,14 @@ declare namespace Sanctuary {
     unless<A>(p: Predicate<A>): (q: Fn<A, A>) => Fn<A, A>;
     //  Array
     array(tk: TK): (tk: TK) => (tk: TK) => TK;
-    head(xs: string): Maybe<string>;
-    head<A>(xs: ReadonlyArray<A>): Maybe<A>;
-    last(xs: string): Maybe<string>;
-    last<A>(xs: ReadonlyArray<A>): Maybe<A>;
-    tail(xs: string): Maybe<string>;
-    tail<A>(xs: ReadonlyArray<A>): Maybe<Array<A>>;
-    init(xs: string): Maybe<string>;
-    init<A>(xs: ReadonlyArray<A>): Maybe<Array<A>>;
-    take(n: Integer): ListToMaybeList;
-    takeLast(n: Integer): ListToMaybeList;
-    drop(n: Integer): ListToMaybeList;
-    dropLast(n: Integer): ListToMaybeList;
+    head(tk: TK): TK;
+    last(tk: TK): TK;
+    tail(tk: TK): TK;
+    init(tk: TK): TK;
+    take(tk: TK): (tk: TK) => TK;
+    takeLast(tk: TK): (tk: TK) => TK;
+    drop(tk: TK): (tk: TK) => TK;
+    dropLast(tk: TK): (tk: TK) => TK;
     all(tk: TK): (tk: TK) => TK;
     any(tk: TK): (tk: TK) => TK;
     none(tk: TK): (tk: TK) => TK;
