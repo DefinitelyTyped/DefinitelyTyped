@@ -822,13 +822,53 @@ declare namespace Chai {
         include<T>(haystack: ReadonlyArray<T>, needle: T, message?: string): void;
 
         /**
+         * Asserts that haystack includes needle.
+         *
+         * @type T   Type of values in haystack.
+         * @param haystack   Container set.
+         * @param needle   Potential value contained in haystack.
+         * @param message   Message to display on error.
+         */
+        include<T>(haystack: ReadonlySet<T>, needle: T, message?: string): void;
+
+        /**
+         * Asserts that haystack includes needle.
+         *
+         * @type T   Type of values in haystack.
+         * @param haystack   Container WeakSet.
+         * @param needle   Potential value contained in haystack.
+         * @param message   Message to display on error.
+         */
+        include<T extends object>(haystack: WeakSet<T>, needle: T, message?: string): void;
+
+        /**
+         * Asserts that haystack includes needle.
+         *
+         * @type T   Type of values in haystack.
+         * @param haystack   Container map.
+         * @param needle   Potential value contained in haystack.
+         * @param message   Message to display on error.
+         */
+        include<T>(haystack: ReadonlyMap<any, T>, needle: T, message?: string): void;
+
+        /**
+         * Asserts that haystack includes needle.
+         *
+         * @type T   Type of haystack.
+         * @param haystack   Object.
+         * @param needle   Potential subset of the haystack's properties.
+         * @param message   Message to display on error.
+         */
+        include<T>(haystack: T, needle: Partial<T>, message?: string): void;
+
+        /**
          * Asserts that haystack does not include needle.
          *
          * @param haystack   Container string or array.
          * @param needle   Potential expected substring of haystack.
          * @param message   Message to display on error.
          */
-        notInclude(haystack: string | ReadonlyArray<any>, needle: any, message?: string): void;
+        notInclude(haystack: string | ReadonlyArray<any> | ReadonlySet<any> | WeakSet<any> | ReadonlyMap<any, any>, needle: any, message?: string): void;
 
         /**
          * Asserts that haystack includes needle. Can be used to assert the inclusion of a value in an array or a subset of properties in an object. Deep equality is used.
