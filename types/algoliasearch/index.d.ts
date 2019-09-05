@@ -10,6 +10,7 @@
 //                 Alexandre Deve <https://github.com/adeve>
 //                 Dan Grayson <https://github.com/dan-grayson>
 //                 Peter Esenwa <https://github.com/PeterEsenwa>
+//                 Samuel Bodin <https://github.com/bodinsamuel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -1413,7 +1414,7 @@ declare namespace algoliasearch {
 
   interface ApiKey {
     value: string;
-    createdAt: string;
+    createdAt: number;
     acl: (
       | 'search'
       | 'browse'
