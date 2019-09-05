@@ -1,4 +1,4 @@
-import Future from 'fibers/future';
+import Future = require('fibers/future');
 
 const futureWaitTest = () => {
   const meaningOfLife = Future.fromPromise(

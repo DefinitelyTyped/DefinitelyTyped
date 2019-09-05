@@ -1,4 +1,4 @@
-import Fiber from 'fibers';
+import Fiber = require('fibers');
 
 const sleepFiberTest = () => {
   const sleep = (ms: number) => {
