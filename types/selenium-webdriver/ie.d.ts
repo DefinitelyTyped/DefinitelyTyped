@@ -20,7 +20,7 @@ export class Driver extends webdriver.WebDriver {
    * @return {!Driver} A new driver instance.
    */
   static createSession(
-    options: webdriver.Capabilities|Options,
+    options?: webdriver.Capabilities|Options,
     opt_service?: remote.DriverService): Driver;
 
   /**
