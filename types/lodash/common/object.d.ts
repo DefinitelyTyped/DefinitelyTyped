@@ -867,7 +867,7 @@ declare module "../index" {
          */
         defaults<TSource>(
             source: TSource
-        ): LoDashImplicitWrapper<NotNullable<TSource & TValue>>;
+        ): LoDashImplicitWrapper<NonNullable<TSource & TValue>>;
 
         /**
          * @see _.defaults
@@ -875,7 +875,7 @@ declare module "../index" {
         defaults<TSource1, TSource2>(
             source1: TSource1,
             source2: TSource2
-        ): LoDashImplicitWrapper<NotNullable<TSource2 & TSource1 & TValue>>;
+        ): LoDashImplicitWrapper<NonNullable<TSource2 & TSource1 & TValue>>;
 
         /**
          * @see _.defaults
@@ -884,7 +884,7 @@ declare module "../index" {
             source1: TSource1,
             source2: TSource2,
             source3: TSource3
-        ): LoDashImplicitWrapper<NotNullable<TSource3 & TSource2 & TSource1 & TValue>>;
+        ): LoDashImplicitWrapper<NonNullable<TSource3 & TSource2 & TSource1 & TValue>>;
 
         /**
          * @see _.defaults
@@ -894,17 +894,17 @@ declare module "../index" {
             source2: TSource2,
             source3: TSource3,
             source4: TSource4
-        ): LoDashImplicitWrapper<NotNullable<TSource4 & TSource3 & TSource2 & TSource1 & TValue>>;
+        ): LoDashImplicitWrapper<NonNullable<TSource4 & TSource3 & TSource2 & TSource1 & TValue>>;
 
         /**
          * @see _.defaults
          */
-        defaults(): LoDashImplicitWrapper<NotNullable<TValue>>;
+        defaults(): LoDashImplicitWrapper<NonNullable<TValue>>;
 
         /**
          * @see _.defaults
          */
-        defaults(...sources: any[]): LoDashImplicitWrapper<NotNullable<any>>;
+        defaults(...sources: any[]): LoDashImplicitWrapper<NonNullable<any>>;
     }
 
     interface LoDashExplicitWrapper<TValue> {
@@ -913,7 +913,7 @@ declare module "../index" {
          */
         defaults<TSource>(
             source: TSource
-        ): LoDashExplicitWrapper<NotNullable<TSource & TValue>>;
+        ): LoDashExplicitWrapper<NonNullable<TSource & TValue>>;
 
         /**
          * @see _.defaults
@@ -921,7 +921,7 @@ declare module "../index" {
         defaults<TSource1, TSource2>(
             source1: TSource1,
             source2: TSource2
-        ): LoDashExplicitWrapper<NotNullable<TSource2 & TSource1 & TValue>>;
+        ): LoDashExplicitWrapper<NonNullable<TSource2 & TSource1 & TValue>>;
 
         /**
          * @see _.defaults
@@ -930,7 +930,7 @@ declare module "../index" {
             source1: TSource1,
             source2: TSource2,
             source3: TSource3
-        ): LoDashExplicitWrapper<NotNullable<TSource3 & TSource2 & TSource1 & TValue>>;
+        ): LoDashExplicitWrapper<NonNullable<TSource3 & TSource2 & TSource1 & TValue>>;
 
         /**
          * @see _.defaults
@@ -940,17 +940,17 @@ declare module "../index" {
             source2: TSource2,
             source3: TSource3,
             source4: TSource4
-        ): LoDashExplicitWrapper<NotNullable<TSource4 & TSource3 & TSource2 & TSource1 & TValue>>;
+        ): LoDashExplicitWrapper<NonNullable<TSource4 & TSource3 & TSource2 & TSource1 & TValue>>;
 
         /**
          * @see _.defaults
          */
-        defaults(): LoDashExplicitWrapper<NotNullable<TValue>>;
+        defaults(): LoDashExplicitWrapper<NonNullable<TValue>>;
 
         /**
          * @see _.defaults
          */
-        defaults(...sources: any[]): LoDashExplicitWrapper<NotNullable<any>>;
+        defaults(...sources: any[]): LoDashExplicitWrapper<NonNullable<any>>;
     }
 
     // defaultsDeep
