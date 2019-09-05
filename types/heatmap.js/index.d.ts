@@ -359,7 +359,7 @@ declare global {
         V extends string,
         TLat extends string,
         TLng extends string
-    > implements Leaflet.ILayer {
+    > extends Leaflet.Layer {
         /**
          * Initialization function
          */
@@ -379,12 +379,12 @@ declare global {
          * Create DOM elements for an overlay, adding them to map panes and puts
          * listeners on relevant map events
          */
-        onAdd(map: Leaflet.Map): void;
+        onAdd(map: Leaflet.Map): this;
 
         /**
          * Remove the overlay's elements from the DOM and remove listeners
          * previously added by onAdd()
          */
-        onRemove(map: Leaflet.Map): void;
+        onRemove(map: Leaflet.Map): this;
     }
 }
