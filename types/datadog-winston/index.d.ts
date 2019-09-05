@@ -6,16 +6,18 @@
 
 import * as Transport from "winston-transport";
 
-interface DataDogTransportOptions extends Transport.TransportStreamOptions {
-    apiKey: string;
-    hostname?: string;
-    service?: string;
-    ddsource?: string;
-    ddtags?: string;
+declare namespace DatadogWinston {
+    interface DatadogTransportOptions extends Transport.TransportStreamOptions {
+        apiKey: string;
+        hostname?: string;
+        service?: string;
+        ddsource?: string;
+        ddtags?: string;
+    }
 }
 
 declare class DatadogWinston extends Transport {
-    constructor(options: DataDogTransportOptions);
+    constructor(options: DatadogWinston.DatadogTransportOptions);
 
     log?(info: any, next: () => void): void;
 }
