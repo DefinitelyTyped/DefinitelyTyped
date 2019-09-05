@@ -909,7 +909,7 @@ declare namespace Chai {
          * @param needle   Potential subset of the haystack's properties.
          * @param message   Message to display on error.
          */
-        deepInclude<T>(haystack: T, needle: Partial<T>, message?: string): void;
+        deepInclude<T>(haystack: T, needle: T extends WeakSet<any> ? never : Partial<T>, message?: string): void;
 
         /**
          * Asserts that haystack does not includes needle. Deep equality is used.
@@ -940,7 +940,7 @@ declare namespace Chai {
          * @param needle   Potential subset of the haystack's properties.
          * @param message   Message to display on error.
          */
-        notDeepInclude<T>(haystack: T, needle: Partial<T>, message?: string): void;
+        notDeepInclude<T>(haystack: T, needle: T extends WeakSet<any> ? never : Partial<T>, message?: string): void;
 
         /**
          * Asserts that ‘haystack’ includes ‘needle’. Can be used to assert the inclusion of a subset of properties in an object.
