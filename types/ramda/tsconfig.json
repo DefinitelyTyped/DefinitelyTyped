@@ -21,6 +21,7 @@
         "index.d.ts",
         "tools.d.ts",
         "ramda-tests.ts",
-        "test/add-tests.ts"
+        "test/add-tests.ts",
+        "test/addIndex-tests.ts"
     ]
 }
