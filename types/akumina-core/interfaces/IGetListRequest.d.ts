@@ -1,5 +1,6 @@
 import ILanguageRequest from "./ILanguageRequest";
 
+// tslint:disable-next-line interface-name
 export default interface IGetListRequest {
     listName: string;
     selectFields: string;

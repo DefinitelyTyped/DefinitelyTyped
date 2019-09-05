@@ -1,13 +1,14 @@
 // Type definitions for Akumina 4.5
 // Project: https://github.com/akumina/AkuminaDev
 // Definitions by: Akumina <https://github.com/akumina>
-//                 Jason Arden <jason.arden@akumina.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
 /// <reference types="jquery" />
 
+// tslint:disable-next-line interface-name
 import IGetListRequest from "./interfaces/IGetListRequest";
+// tslint:disable-next-line interface-name
 import ISavePageWidgetRequest from "./interfaces/ISavePageWidgetRequest";
 
 declare namespace Akumina {
@@ -776,6 +777,7 @@ declare namespace Akumina {
                  * @param pageId
                  * @returns Resolves with {ReadPermission: bool, EditPermission: bool}
                  */
+                // tslint:disable-next-line unified-signatures
                 UserPermissionsForListItem(pageReferenceList: any, pageId: string): JQueryDeferred<any>;
 
                 /**
@@ -1420,6 +1422,7 @@ declare class Templates {
     BindErrorTemplateForWidgets(errorObj: any): void;
 }
 
+// tslint:disable-next-line interface-name
 interface IConstants {
     LOADER_STEPS_ENABLE_AUTOCLEAR: boolean;
     LOADER_STEPS_ENABLE_FETCHCONFIGCONTEXT: boolean;

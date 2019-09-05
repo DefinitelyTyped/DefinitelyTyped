@@ -1,7 +1,6 @@
 import * as Akumina from 'akumina-core';
 
 class CompanyNewsItemWidget extends Akumina.BaseWidget {
-
     TestProperties() {
         super.GetPropertyValue({}, 'id', {});
         super.RefreshWidget('id');
