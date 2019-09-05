@@ -5,7 +5,7 @@ import { InstantSearch, Index, connectStateResults } from 'react-instantsearch-n
 import { values } from 'lodash';
 
 // https://community.algolia.com/react-instantsearch/guide/Conditional_display.html
-const App = () => (
+const App1 = () => (
   <InstantSearch appId="" apiKey="" indexName="first">
     <SearchBox />
     <AllResults>
