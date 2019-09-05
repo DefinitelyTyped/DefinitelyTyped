@@ -86,12 +86,6 @@ interface MatchObj {
 
 declare namespace Sanctuary {
   interface Static {
-    Maybe: TypeRep;
-    Nothing: Maybe<any>;
-    Just<A>(x: A): Maybe<A>;
-    Either: TypeRep;
-    Left<A>(x: A): Either<A, any>;
-    Right<A>(x: A): Either<any, A>;
     //  Classify
     type(x: any): {
       namespace: Maybe<string>
@@ -116,12 +110,16 @@ declare namespace Sanctuary {
     concat<A>(x: StrMap<A>): (y: StrMap<A>) => StrMap<A>;
     concat(x: string): (y: string) => string;
     empty(p: TypeRep): Monoid<any>;
+    invert(tk: TK): TK;
+    filter(tk: TK): (tk: TK) => TK;
+    reject(tk: TK): (tk: TK) => TK;
     map<A, B>(p: Fn<A, B>): {
       <C>(q: Fn<C, A>): Fn<C, B>;
         (q: ReadonlyArray<A>): Array<B>;
         (q: StrMap<A>): StrMap<B>;
         (q: Functor<A>): Functor<B>;
     };
+    flip(tk: TK): (tk: TK) => TK;
     bimap<A, B>(p: Fn<A, B>): <C, D>(q: Fn<C, D>) => (r: Bifunctor<A, C>) => Bifunctor<B, D>;
     mapLeft(tk: TK): (tk: TK) => TK;
     promap<A, B>(p: Fn<A, B>): <C, D>(q: Fn<C, D>) => {
@@ -163,10 +161,6 @@ declare namespace Sanctuary {
       <X>(contravariant: Fn<A, X>): Fn<B, X>;
         (contravariant: Contravariant<A>): Contravariant<B>;
     };
-    filter(tk: TK): (tk: TK) => TK;
-    reject(tk: TK): (tk: TK) => TK;
-    takeWhile(tk: TK): (tk: TK) => TK;
-    dropWhile(tk: TK): (tk: TK) => TK;
     //  Combinator
     I<A>(x: A): A;
     K<A>(x: A): (y: any) => A;
@@ -176,7 +170,6 @@ declare namespace Sanctuary {
     curry3<A, B, C, D>(f: Fn3_<A, B, C, D>): Fn3<A, B, C, D>;
     curry4<A, B, C, D, E>(f: Fn4_<A, B, C, D, E>): Fn4<A, B, C, D, E>;
     curry5<A, B, C, D, E, F>(f: Fn5_<A, B, C, D, E, F>): Fn5<A, B, C, D, E, F>;
-    flip(tk: TK): (tk: TK) => TK;
     //  Composition
     compose<B, C>(f: Fn<B, C>): <A>(g: Fn<A, B>) => Fn<A, C>;
     compose<B, C>(x: Semigroupoid<B, C>): <A>(y: Semigroupoid<A, B>) => Semigroupoid<A, C>;
@@ -188,13 +181,16 @@ declare namespace Sanctuary {
     pipe(tk: TK): (tk: TK) => TK;
     pipeK(tk: TK): (tk: TK) => TK;
     on<A, B, C>(p: Fn2<B, B, C>): (q: Fn<A, B>) => (r: A) => Fn<A, C>;
-    // Pair
+    //  Pair
     Pair(tk: TK): (tk: TK) => TK;
     pair<A, B, C>(f: Fn2<A, B, C>): (p: Pair<A, B>) => C;
     fst<A>(p: Pair<A, any>): A;
     snd<B>(p: Pair<any, B>): B;
     swap<A, B>(p: Pair<A, B>): Pair<B, A>;
-    //  TODO: Maybe
+    //  Maybe
+    Maybe: TypeRep;
+    Nothing: Maybe<any>;
+    Just<A>(x: A): Maybe<A>;
     isNothing(p: Maybe<any>): boolean;
     isJust(p: Maybe<any>): boolean;
     fromMaybe<A>(p: A): (q: Maybe<A>) => A;
@@ -204,9 +200,11 @@ declare namespace Sanctuary {
     maybe_<B>(p: Thunk<B>): <A>(q: Fn<A, B>) => (r: Maybe<A>) => B;
     justs(tk: TK): TK;
     mapMaybe(tk: TK): (tk: TK) => TK;
-    encase(tk: TK): (tk: TK) => TK;
     maybeToEither<A>(p: A): <B>(q: Maybe<B>) => Either<A, B>;
-    //  TODO: Either
+    //  Either
+    Either: TypeRep;
+    Left<A>(x: A): Either<A, any>;
+    Right<A>(x: A): Either<any, A>;
     isLeft(p: Either<any, any>): boolean;
     isRight(p: Either<any, any>): boolean;
     fromEither<B>(p: B): (q: Either<any, B>) => B;
@@ -214,6 +212,7 @@ declare namespace Sanctuary {
     lefts(tk: TK): TK;
     rights(tk: TK): TK;
     tagBy<A>(p: Predicate<A>): (q: A) => Either<A, A>;
+    encase(tk: TK): (tk: TK) => TK;
     eitherToMaybe<B>(p: Either<any, B>): Maybe<B>;
     //  Logic
     and(p: boolean): (q: boolean) => boolean;
@@ -231,9 +230,12 @@ declare namespace Sanctuary {
     tail(tk: TK): TK;
     init(tk: TK): TK;
     take(tk: TK): (tk: TK) => TK;
-    takeLast(tk: TK): (tk: TK) => TK;
     drop(tk: TK): (tk: TK) => TK;
+    takeLast(tk: TK): (tk: TK) => TK;
     dropLast(tk: TK): (tk: TK) => TK;
+    takeWhile(tk: TK): (tk: TK) => TK;
+    dropWhile(tk: TK): (tk: TK) => TK;
+    size(tk: TK): TK;
     all(tk: TK): (tk: TK) => TK;
     any(tk: TK): (tk: TK) => TK;
     none(tk: TK): (tk: TK) => TK;
@@ -269,9 +271,13 @@ declare namespace Sanctuary {
     gets(p: Predicate<any>): (q: ReadonlyArray<string>) => (r: any) => Maybe<any>;
     //  StrMap
     value(tk: TK): (tk: TK) => TK;
+    singleton(tk: TK): (tk: TK) => TK;
+    insert(tk: TK): (tk: TK) => (tk: TK) => TK;
+    remove(tk: TK): (tk: TK) => TK;
     keys(p: StrMap<any>): Array<string>;
     values<A>(p: StrMap<A>): Array<A>;
     pairs<A>(p: StrMap<A>): Array<Pair<string, A>>;
+    fromPairs(tk: TK): TK;
     //  Number
     negate(n: ValidNumber): ValidNumber;
     add(p: FiniteNumber): (q: FiniteNumber) => FiniteNumber;
@@ -311,8 +317,9 @@ declare namespace Sanctuary {
   }
 
   interface Environment extends Static {
-    env: ReadonlyArray<any>;
+    //  Configure
     create(opts: {checkTypes: boolean, env: ReadonlyArray<any>}): Static;
+    env: ReadonlyArray<any>;
     unchecked: TK;
   }
 }
