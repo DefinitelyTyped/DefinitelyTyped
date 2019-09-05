@@ -1,4 +1,6 @@
-import { Subscriber } from 'rxjs/Subscriber';
+import { Subscription } from 'rxjs/Subscription';
 
-export function next(channels, event, data, id): void;
-export function attachSubject<T>(object): Subscriber<T>;
+import { Service } from './service';
+
+export function next(channels: string[], event: string, data: any, id: string): void;
+export function attachSubject(object: Service): Subscription;
