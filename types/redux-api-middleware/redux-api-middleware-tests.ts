@@ -16,8 +16,8 @@ import {
 
 {
     // RSAA
-    const passRSAA: RSAA = '@@redux-api-middleware/RSAA';
-    const failRSAA: RSAA = '@@redux-api-middleware/RSAA-fail'; // $ExpectError
+    const passRSAA: typeof RSAA = '@@redux-api-middleware/RSAA';
+    const failRSAA: typeof RSAA = '@@redux-api-middleware/RSAA-fail'; // $ExpectError
 }
 
 {

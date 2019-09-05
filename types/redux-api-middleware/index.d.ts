@@ -13,13 +13,14 @@ import {
     applyMiddleware
 } from 'redux';
 
+type TypeOrResolver<Arg, Type> = Type | ((arg: Arg) => Type);
+
 /**
  * This module is also a UMD module that exposes a global variable 'ReduxApiMiddleware'
  * when loaded outside a module loader environment.
  */
 export as namespace ReduxApiMiddleware;
 
-export type RSAA = '@@redux-api-middleware/RSAA';
 export const RSAA = '@@redux-api-middleware/RSAA';
 
 export function isRSAA(action: object): boolean;
@@ -56,7 +57,7 @@ export class ApiError<T extends object = any> extends Error {
 
 export function getJSON(res: Response): Promise<any> | Promise<void>;
 
-export const apiMiddleware: Middleware;
+export function apiMiddleware(api: MiddlewareAPI): ReturnType<Middleware>;
 
 export interface CreateMiddlewareOptions {
     ok?: (res: Response) => boolean;
@@ -65,41 +66,43 @@ export interface CreateMiddlewareOptions {
 
 export function createMiddleware(options?: CreateMiddlewareOptions): Middleware;
 
-export interface RSAARequestTypeDescriptor<S = any, P = any, M = any> {
+export interface RSAARequestTypeDescriptor<State = any, Payload = any, Meta = any> {
     type: string | symbol;
-    payload?: ((action: RSAAAction, state: S) => P) | P;
-    meta?: ((action: RSAAAction, state: S) => M) | M;
+    payload?: ((action: RSAAAction, state: State) => Payload) | Payload;
+    meta?: ((action: RSAAAction, state: State) => Meta) | Meta;
 }
 
-export interface RSAASuccessTypeDescriptor<S = any, P = any, M = any> {
+export interface RSAASuccessTypeDescriptor<State = any, Payload = any, Meta = any> {
     type: string | symbol;
-    payload?: ((action: RSAAAction, state: S, res: any) => P) | P;
-    meta?: ((action: RSAAAction, state: S, res: any) => M) | M;
+    payload?: ((action: RSAAAction, state: State, res: any) => Payload) | Payload;
+    meta?: ((action: RSAAAction, state: State, res: any) => Meta) | Meta;
 }
 
-export interface RSAAFailureTypeDescriptor<S = any, P = any, M = any> {
+export interface RSAAFailureTypeDescriptor<State = any, Payload = any, Meta = any> {
     type: string | symbol;
-    payload?: ((action: RSAAAction, state: S) => P) | P;
-    meta?: ((action: RSAAAction, state: S, res: any) => M) | M;
+    payload?: ((action: RSAAAction, state: State) => Payload) | Payload;
+    meta?: ((action: RSAAAction, state: State, res: any) => Meta) | Meta;
 }
 
-export interface RSAACall<S = any, P = any, M = any> {
-    endpoint: ((state: S) => string) | string;
+export interface RSAACall<State = any, Payload = any, Meta = any> {
+    endpoint: TypeOrResolver<State, string>;
     method: string;
     types: [
-        string | symbol | RSAARequestTypeDescriptor<S, P, M>,
-        string | symbol | RSAASuccessTypeDescriptor<S, P, M>,
-        string | symbol | RSAAFailureTypeDescriptor<S, P, M>
+        string | symbol | RSAARequestTypeDescriptor<State, Payload, Meta>,
+        string | symbol | RSAASuccessTypeDescriptor<State, Payload, Meta>,
+        string | symbol | RSAAFailureTypeDescriptor<State, Payload, Meta>
     ];
-    body?: ((state: S) => BodyInit | null) | BodyInit | null;
-    headers?: ((state: S) => HeadersInit) | HeadersInit;
-    options?: ((state: S) => RequestInit) | RequestInit;
+    body?: TypeOrResolver<State, BodyInit | null>;
+    headers?: TypeOrResolver<State, HeadersInit>;
+    options?: TypeOrResolver<State, RequestInit>;
     credentials?: RequestCredentials;
-    bailout?: ((state: S) => boolean) | boolean;
+    bailout?: TypeOrResolver<State, boolean>;
     fetch?: typeof fetch;
     ok?: (res: Response) => boolean;
 }
 
-export interface RSAAAction<S = any, P = any, M = any> {
-    [RSAA]: RSAACall<S, P, M>;
+export interface RSAAAction<State = any, Payload = any, Meta = any> {
+    [RSAA]: RSAACall<State, Payload, Meta>;
 }
+
+export {};
