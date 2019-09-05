@@ -27,7 +27,7 @@ declare namespace algoliasearch {
     /**
      * Query on multiple index
      */
-    search<T=any>(
+    search<T = any>(
       queries: {
         indexName: string;
         query: string;
@@ -38,7 +38,7 @@ declare namespace algoliasearch {
     /**
      * Query on multiple index
      */
-    search<T=any>(
+    search<T = any>(
       queries: {
         indexName: string;
         query: string;
@@ -139,34 +139,40 @@ declare namespace algoliasearch {
     /**
      * Lists global API Keys
      */
-    listApiKeys(cb: (err: Error, res: any) => void): void;
+    listApiKeys(cb: (err: Error, res: ApiKey[]) => void): void;
     /**
      * Lists global API Keys
      */
-    listApiKeys(): Promise<any>;
+    listApiKeys(): Promise<ApiKey[]>;
     /**
      * Add global API Keys
      */
-    addApiKey(scopes: string[], cb: (err: Error, res: Task) => void): void;
+    addApiKey(
+      scopes: string[],
+      cb: (err: Error, res: AddApiKeyTask) => void
+    ): void;
     /**
      * Add global API Key
      */
     addApiKey(
       scopes: string[],
       options: ApiKeyOptions,
-      cb: (err: Error, res: Task) => void
+      cb: (err: Error, res: AddApiKeyTask) => void
     ): void;
     /**
      * Add global API Keys
      */
-    addApiKey(scopes: string[], options?: ApiKeyOptions): Promise<Task>;
+    addApiKey(
+      scopes: string[],
+      options?: ApiKeyOptions
+    ): Promise<AddApiKeyTask>;
     /**
      * Update global API key
      */
     updateApiKey(
       key: string,
       scopes: string[],
-      cb: (err: Error, res: Task) => void
+      cb: (err: Error, res: UpdateApiKeyTask) => void
     ): void;
     /**
      * Update global API key
@@ -175,7 +181,7 @@ declare namespace algoliasearch {
       key: string,
       scopes: string[],
       options: ApiKeyOptions,
-      cb: (err: Error, res: Task) => void
+      cb: (err: Error, res: UpdateApiKeyTask) => void
     ): void;
     /**
      * Update global API key
@@ -184,23 +190,26 @@ declare namespace algoliasearch {
       key: string,
       scopes: string[],
       options?: ApiKeyOptions
-    ): Promise<Task>;
+    ): Promise<UpdateApiKeyTask>;
     /**
      * Gets the rights of a global key
      */
-    getApiKey(key: string, cb: (err: Error, res: any) => void): void;
+    getApiKey(key: string, cb: (err: Error, res: ApiKey) => void): void;
     /**
      * Gets the rights of a global key
      */
-    getApiKey(key: string): Promise<any>;
+    getApiKey(key: string): Promise<ApiKey>;
     /**
      * Deletes a global key
      */
-    deleteApiKey(key: string, cb: (err: Error, res: Task) => void): void;
+    deleteApiKey(
+      key: string,
+      cb: (err: Error, res: DeleteApiKeyTask) => void
+    ): void;
     /**
      * Deletes a global key
      */
-    deleteApiKey(key: string): Promise<Task>;
+    deleteApiKey(key: string): Promise<DeleteApiKeyTask>;
     /**
      * Get 1000 last events
      */
@@ -256,7 +265,10 @@ declare namespace algoliasearch {
     /**
      * Add list of objects
      */
-    addObjects(objects: {}[], cb: (err: Error, res: MultiObjectTask) => void): void;
+    addObjects(
+      objects: {}[],
+      cb: (err: Error, res: MultiObjectTask) => void
+    ): void;
     /**
      * Add list of objects
      */
@@ -273,12 +285,23 @@ declare namespace algoliasearch {
      * Update parameters of a specific object
      */
     partialUpdateObject(object: {}, cb: (err: Error, res: Task) => void): void;
-    partialUpdateObject(object: {}, createIfNotExists: boolean, cb: (err: Error, res: Task) => void): void;
+    partialUpdateObject(
+      object: {},
+      createIfNotExists: boolean,
+      cb: (err: Error, res: Task) => void
+    ): void;
     /**
      * Update parameters of a list of objects
      */
-    partialUpdateObjects(objects: {}[], cb: (err: Error, res: Task) => void): void;
-    partialUpdateObjects(objects: {}[], createIfNotExists: boolean, cb: (err: Error, res: Task) => void): void;
+    partialUpdateObjects(
+      objects: {}[],
+      cb: (err: Error, res: Task) => void
+    ): void;
+    partialUpdateObjects(
+      objects: {}[],
+      createIfNotExists: boolean,
+      cb: (err: Error, res: Task) => void
+    ): void;
     /**
      * Delete a specific object
      */
@@ -424,18 +447,21 @@ declare namespace algoliasearch {
     /**
      * List index user keys
      */
-    listApiKeys(cb: (err: Error, res: any) => void): void;
+    listApiKeys(cb: (err: Error, res: ApiKey[]) => void): void;
     /**
      * Add key for this index
      */
-    addApiKey(scopes: string[], cb: (err: Error, res: Task) => void): void;
+    addApiKey(
+      scopes: string[],
+      cb: (err: Error, res: AddApiKeyTask) => void
+    ): void;
     /**
      * Add key for this index
      */
     addApiKey(
       scopes: string[],
       options: ApiKeyOptions,
-      cb: (err: Error, res: Task) => void
+      cb: (err: Error, res: AddApiKeyTask) => void
     ): void;
     /**
      * Update a key for this index
@@ -443,7 +469,7 @@ declare namespace algoliasearch {
     updateApiKey(
       key: string,
       scopes: string[],
-      cb: (err: Error, res: Task) => void
+      cb: (err: Error, res: UpdateApiKeyTask) => void
     ): void;
     /**
      * Update a key for this index
@@ -452,16 +478,19 @@ declare namespace algoliasearch {
       key: string,
       scopes: string[],
       options: ApiKeyOptions,
-      cb: (err: Error, res: Task) => void
+      cb: (err: Error, res: UpdateApiKeyTask) => void
     ): void;
     /**
      * Gets the rights of an index specific key
      */
-    getApiKey(key: string, cb: (err: Error, res: any) => void): void;
+    getApiKey(key: string, cb: (err: Error, res: ApiKey) => void): void;
     /**
      * Deletes an index specific key
      */
-    deleteApiKey(key: string, cb: (err: Error, res: Task) => void): void;
+    deleteApiKey(
+      key: string,
+      cb: (err: Error, res: DeleteApiKeyTask) => void
+    ): void;
     /**
      * Gets specific attributes from an object
      */
@@ -495,7 +524,10 @@ declare namespace algoliasearch {
      * Update parameters of a list of objects
      */
     partialUpdateObjects(objects: {}[]): Promise<Task>;
-    partialUpdateObjects(objects: {}[], createIfNotExists?: boolean): Promise<Task>;
+    partialUpdateObjects(
+      objects: {}[],
+      createIfNotExists?: boolean
+    ): Promise<Task>;
     /**
      * Delete a specific object
      */
@@ -523,15 +555,18 @@ declare namespace algoliasearch {
     /**
      * Set an index settings
      */
-    setSettings(settings: IndexSettings, extra?: { forwardToReplicas: boolean }): Promise<Task>;
+    setSettings(
+      settings: IndexSettings,
+      extra?: { forwardToReplicas: boolean }
+    ): Promise<Task>;
     /**
      * Search in an index
      */
-    search<T=any>(params: QueryParameters): Promise<Response<T>>;
+    search<T = any>(params: QueryParameters): Promise<Response<T>>;
     /**
      * Search in an index
      */
-    search<T=any>(
+    search<T = any>(
       params: QueryParameters,
       cb: (err: Error, res: Response<T>) => void
     ): void;
@@ -551,7 +586,11 @@ declare namespace algoliasearch {
     /**
      * Browse an index
      */
-    browse(query: string, parameters: BrowseParameters, cb: (err: Error, res: BrowseResponse) => void): void;
+    browse(
+      query: string,
+      parameters: BrowseParameters,
+      cb: (err: Error, res: BrowseResponse) => void
+    ): void;
     /**
      * Browse an index
      */
@@ -559,7 +598,10 @@ declare namespace algoliasearch {
     /**
      * Browse an index
      */
-    browse(query: string, parameters?: BrowseParameters): Promise<BrowseResponse>;
+    browse(
+      query: string,
+      parameters?: BrowseParameters
+    ): Promise<BrowseResponse>;
     /**
      * Browse an index from a cursor
      */
@@ -630,15 +672,18 @@ declare namespace algoliasearch {
     /**
      * List index user keys
      */
-    listApiKeys(): Promise<any>;
+    listApiKeys(): Promise<ApiKey[]>;
     /**
      * Add key for this index
      */
-    addApiKey(scopes: string[], options?: ApiKeyOptions): Promise<Task>;
+    addApiKey(
+      scopes: string[],
+      options?: ApiKeyOptions
+    ): Promise<AddApiKeyTask>;
     /**
      * Update a key for this index
      */
-    updateApiKey(key: string, scopes: string[]): Promise<Task>;
+    updateApiKey(key: string, scopes: string[]): Promise<UpdateApiKeyTask>;
     /**
      * Update a key for this index
      */
@@ -646,15 +691,15 @@ declare namespace algoliasearch {
       key: string,
       scopes: string[],
       options: ApiKeyOptions
-    ): Promise<Task>;
+    ): Promise<UpdateApiKeyTask>;
     /**
      * Gets the rights of an index specific key
      */
-    getApiKey(key: string): Promise<any>;
+    getApiKey(key: string): Promise<ApiKey>;
     /**
      * Deletes an index specific key
      */
-    deleteApiKey(key: string): Promise<Task>;
+    deleteApiKey(key: string): Promise<DeleteApiKeyTask>;
   }
   /**
    * Interface describing available options when initializing a client
@@ -682,7 +727,7 @@ declare namespace algoliasearch {
     /**
      * enable the experimental feature: caching requests instead of responses
      */
-    _useRequestCache?: boolean
+    _useRequestCache?: boolean;
   }
   /**
    * Interface describing options available for gettings the logs
@@ -861,19 +906,19 @@ declare namespace algoliasearch {
   }
   type BrowseParameters = Omit<
     QueryParameters,
-    | "typoTolerance"
-    | "distinct"
-    | "facets"
-    | "getRankingInfo"
-    | "attributesToHighlight"
-    | "attributesToSnippet"
-  >
+    | 'typoTolerance'
+    | 'distinct'
+    | 'facets'
+    | 'getRankingInfo'
+    | 'attributesToHighlight'
+    | 'attributesToSnippet'
+  >;
   interface Browser {
-    on(type: "error", cb: (err: Error) => void): void
-    on(type: "end", cb: () => void): void
-    on(type: "stop", cb: () => void): void
-    on(type: "result", cb: (content: BrowseResponse) => void): void
-    stop(): void
+    on(type: 'error', cb: (err: Error) => void): void;
+    on(type: 'end', cb: () => void): void;
+    on(type: 'stop', cb: () => void): void;
+    on(type: 'result', cb: (content: BrowseResponse) => void): void;
+    stop(): void;
   }
   /**
    * Describes a synonym object
@@ -999,38 +1044,38 @@ declare namespace algoliasearch {
     userToken?: string;
   }
   interface QueryParameters {
-   /**
-    * Query string used to perform the search
-    * default: ''
-    */
-   query?: string;
-   /**
-    * Filter the query with numeric, facet or/and tag filters
-    * default: ""
-    */
-   filters?: string;
-   /**
-    * A string that contains the list of attributes you want to retrieve in order to minimize the size of the JSON answer.
-    * default: *
-    */
-   attributesToRetrieve?: string[];
-   /**
-    * List of attributes you want to use for textual search
-    * default: attributeToIndex
-    */
-   restrictSearchableAttributes?: string[];
-   /**
-    * You can use facets to retrieve only a part of your attributes declared in attributesForFaceting attributes
-    * default: []
-    */
-   facets?: string[];
     /**
-    * Force faceting to be applied after de-duplication (via the Distinct setting).
-    * When using the distinct setting in combination with faceting, facet counts may be higher than expected.
-    * This is because the engine, by default, computes faceting before applying de-duplication (distinct).
-    * When facetingAfterDistinct is set to true, the engine calculates faceting after the de-duplication has been applied.
-    * default ""
-    */
+     * Query string used to perform the search
+     * default: ''
+     */
+    query?: string;
+    /**
+     * Filter the query with numeric, facet or/and tag filters
+     * default: ""
+     */
+    filters?: string;
+    /**
+     * A string that contains the list of attributes you want to retrieve in order to minimize the size of the JSON answer.
+     * default: *
+     */
+    attributesToRetrieve?: string[];
+    /**
+     * List of attributes you want to use for textual search
+     * default: attributeToIndex
+     */
+    restrictSearchableAttributes?: string[];
+    /**
+     * You can use facets to retrieve only a part of your attributes declared in attributesForFaceting attributes
+     * default: []
+     */
+    facets?: string[];
+    /**
+     * Force faceting to be applied after de-duplication (via the Distinct setting).
+     * When using the distinct setting in combination with faceting, facet counts may be higher than expected.
+     * This is because the engine, by default, computes faceting before applying de-duplication (distinct).
+     * When facetingAfterDistinct is set to true, the engine calculates faceting after the de-duplication has been applied.
+     * default ""
+     */
     facetingAfterDistinct?: boolean;
     /**
      * Limit the number of facet values returned for each facet.
@@ -1159,7 +1204,7 @@ declare namespace algoliasearch {
      * 'prefixLast' Only the last word is interpreted as a prefix (default behavior).
      * 'prefixNone' No query word is interpreted as a prefix. This option is not recommended.
      */
-    queryType?: "prefixAll"|"prefixLast"|"prefixNone";
+    queryType?: 'prefixAll' | 'prefixLast' | 'prefixNone';
     /**
      * Search entries inside a given area defined by a set of points
      * defauly: ''
@@ -1173,7 +1218,11 @@ declare namespace algoliasearch {
      * 'allOptional' When a query does not return any results, a second trial will be made with all words as optional
      * 'none' No specific processing is done when a query does not return any results
      */
-    removeWordsIfNoResults?: "none"|"lastWords"|"firstWords"|"allOptional";
+    removeWordsIfNoResults?:
+      | 'none'
+      | 'lastWords'
+      | 'firstWords'
+      | 'allOptional';
     /**
      * Enables the advanced query syntax
      * default: false
@@ -1190,7 +1239,7 @@ declare namespace algoliasearch {
      * true|false: enable or disable stop words for all 41 supported languages; or
      * a list of language ISO codes (as a comma-separated string) for which stop words should be enable
      */
-    removeStopWords?: boolean|string[];
+    removeStopWords?: boolean | string[];
     /**
      * List of attributes on which you want to disable the computation of exact criteria
      * default: []
@@ -1203,7 +1252,7 @@ declare namespace algoliasearch {
      * 'word': exact set to 1 if the query word is found in the record
      * 'attribute': exact set to 1 if there is an attribute containing a string equals to the query
      */
-    exactOnSingleWordQuery?: "attribute"|"none"|"word";
+    exactOnSingleWordQuery?: 'attribute' | 'none' | 'word';
     /**
      * Specify the list of approximation that should be considered as an exact match in the ranking formula
      * default: ['ignorePlurals', 'singleWordSynonym']
@@ -1211,11 +1260,13 @@ declare namespace algoliasearch {
      * 'singleWordSynonym': single-word synonym (For example "NY" = "NYC")
      * 'multiWordsSynonym': multiple-words synonym
      */
-    alternativesAsExact?: Array<"ignorePlurals"|"singleWordSynonym"|"multiWordsSynonym">;
+    alternativesAsExact?: Array<
+      'ignorePlurals' | 'singleWordSynonym' | 'multiWordsSynonym'
+    >;
     /**
      * If set to 1, enables the distinct feature, disabled by default, if the attributeForDistinct index setting is set.
      */
-    distinct?: number|boolean;
+    distinct?: number | boolean;
     /**
      * If set to true, the result hits will contain ranking information in the _rankingInfo attribute.
      * default: false
@@ -1246,7 +1297,7 @@ declare namespace algoliasearch {
      * Filter the query by a set of facets.
      * Default: []
      */
-    facetFilters?: Array<string|string[]>;
+    facetFilters?: Array<string | string[]>;
     /**
      * If set to false, this query will not be taken into account in the analytics feature.
      * default true
@@ -1356,8 +1407,41 @@ declare namespace algoliasearch {
   }
 
   interface TaskStatus {
-    status: 'published' | 'notPublished',
-    pendingTask: boolean,
+    status: 'published' | 'notPublished';
+    pendingTask: boolean;
+  }
+
+  interface ApiKey {
+    value: string;
+    createdAt: string;
+    acl: (
+      | 'search'
+      | 'browse'
+      | 'addObject'
+      | 'deleteObject'
+      | 'deleteIndex'
+      | 'settings'
+      | 'editSettings'
+      | 'analytics'
+      | 'listIndexes'
+      | 'logs'
+      | 'seeUnretrievableAttributes')[];
+    validity: number;
+    description?: string;
+  }
+
+  interface AddApiKeyTask {
+    key: string;
+    createdAt: string;
+  }
+
+  interface UpdateApiKeyTask {
+    key: string;
+    updatedAt: string;
+  }
+
+  interface DeleteApiKeyTask {
+    deletedAt: string;
   }
 
   interface IndexSettings {
@@ -1546,9 +1630,9 @@ declare namespace algoliasearch {
      * 'multiWordsSynonym': multiple-words synonym
      */
     alternativesAsExact?: (
-      | "ignorePlurals"
-      | "singleWordSynonym"
-      | "multiWordsSynonym")[];
+      | 'ignorePlurals'
+      | 'singleWordSynonym'
+      | 'multiWordsSynonym')[];
     /**
      * The name of the attribute used for the Distinct feature
      * default: null
@@ -1583,7 +1667,7 @@ declare namespace algoliasearch {
      * default: {}
      */
     placeholders?: {
-      [name: string]: string[],
+      [name: string]: string[];
     };
     /**
      * List of attributes on which to do a decomposition of camel case words.
@@ -1597,11 +1681,79 @@ declare namespace algoliasearch {
      * Sets the languages to be used by language-specific settings and functionalities
      * such as ignorePlurals, removeStopWords, and CJK word-detection.
      */
-    queryLanguages?: Array<'af' | 'ar' | 'az' | 'bg' | 'bn' | 'ca' | 'cs' | 'cy' | 'da' | 'de' | 'el' | 'en' | 'eo' | 'es' | 'et' | 'eu' | 'fa' | 'fi' | 'fo' | 'fr' | 'ga' | 'gl' | 'he' | 'hi' | 'hu' | 'hy' | 'id' | 'is' | 'it' | 'ja' | 'ka' | 'kk' | 'ko' | 'ku' | 'ky' | 'lt' | 'lv' | 'mi' | 'mn' | 'mr' | 'ms' | 'mt' | 'nb' | 'nl' | 'no' | 'ns' | 'pl' | 'ps' | 'pt' | 'pt-br' | 'qu' | 'ro' | 'ru' | 'sk' | 'sq' | 'sv' | 'sw' | 'ta' | 'te' | 'th' | 'tl' | 'tn' | 'tr' | 'tt' | 'uk' | 'ur' | 'uz' | 'zh'>;
+    queryLanguages?: Array<
+      | 'af'
+      | 'ar'
+      | 'az'
+      | 'bg'
+      | 'bn'
+      | 'ca'
+      | 'cs'
+      | 'cy'
+      | 'da'
+      | 'de'
+      | 'el'
+      | 'en'
+      | 'eo'
+      | 'es'
+      | 'et'
+      | 'eu'
+      | 'fa'
+      | 'fi'
+      | 'fo'
+      | 'fr'
+      | 'ga'
+      | 'gl'
+      | 'he'
+      | 'hi'
+      | 'hu'
+      | 'hy'
+      | 'id'
+      | 'is'
+      | 'it'
+      | 'ja'
+      | 'ka'
+      | 'kk'
+      | 'ko'
+      | 'ku'
+      | 'ky'
+      | 'lt'
+      | 'lv'
+      | 'mi'
+      | 'mn'
+      | 'mr'
+      | 'ms'
+      | 'mt'
+      | 'nb'
+      | 'nl'
+      | 'no'
+      | 'ns'
+      | 'pl'
+      | 'ps'
+      | 'pt'
+      | 'pt-br'
+      | 'qu'
+      | 'ro'
+      | 'ru'
+      | 'sk'
+      | 'sq'
+      | 'sv'
+      | 'sw'
+      | 'ta'
+      | 'te'
+      | 'th'
+      | 'tl'
+      | 'tn'
+      | 'tr'
+      | 'tt'
+      | 'uk'
+      | 'ur'
+      | 'uz'
+      | 'zh'
+    >;
   }
 
-  interface Response<T=any> {
-
+  interface Response<T = any> {
     /**
      * Contains all the hits matching the query
      */
@@ -1689,7 +1841,7 @@ declare namespace algoliasearch {
      * If a search encounters an index that is being A/B tested, abTestVariantID
      * reports the variant ID of the index used (note, this is the ID not the name).
      * The variant ID is the position in the array of variants (starting at 1).
-     * 
+     *
      * For example, abTestVariantID=1 is variant A (the main index), abTestVariantID=2
      * is variant B (the replica you chose when creating the A/B test , or the queries
      * with the changed query parameters if the A/B test is based on query parameters).
@@ -1717,10 +1869,10 @@ declare namespace algoliasearch {
      */
     facets_stats?: {
       [facetName: string]: {
-        avg: number,
-        max: number,
-        min: number,
-        sum: number,
+        avg: number;
+        max: number;
+        min: number;
+        sum: number;
       };
     };
 
@@ -1762,7 +1914,7 @@ declare namespace algoliasearch {
     queryID?: string;
   }
 
-  interface MultiResponse<T=any> {
+  interface MultiResponse<T = any> {
     results: Response<T>[];
   }
 
@@ -1773,45 +1925,68 @@ declare namespace algoliasearch {
        * Warning: language parameter is case sensitive and should be lowercase otherwise it will fallback to default language.
        * https://community.algolia.com/places/api-clients.html#api-options-language
        */
-      language: string
+      language: string;
     }
 
     interface PlaceInterface {
-        /**
-         * Endpoint to search.
-         * https://community.algolia.com/places/api-clients.html#endpoints
-         */
+      /**
+       * Endpoint to search.
+       * https://community.algolia.com/places/api-clients.html#endpoints
+       */
 
-        /**
-         * If specified, restrict the search results to a single language. You can pass two letters country codes (ISO 639-1).
-         * Warning: language parameter is case sensitive and should be lowercase otherwise it will fallback to default language.
-         * https://community.algolia.com/places/api-clients.html#api-options-language
-         */
+      /**
+       * If specified, restrict the search results to a single language. You can pass two letters country codes (ISO 639-1).
+       * Warning: language parameter is case sensitive and should be lowercase otherwise it will fallback to default language.
+       * https://community.algolia.com/places/api-clients.html#api-options-language
+       */
 
-        search(e: QueryInterface, cb: (err: Error, response: ResultSearchInterface<HitInterface>) => void): void;
-        search(e: QueryInterface & LanguageInterface, cb: (err: Error, response: ResultSearchInterface<LocalizedHitInterface>) => void): void;
+      search(
+        e: QueryInterface,
+        cb: (err: Error, response: ResultSearchInterface<HitInterface>) => void
+      ): void;
+      search(
+        e: QueryInterface & LanguageInterface,
+        cb: (
+          err: Error,
+          response: ResultSearchInterface<LocalizedHitInterface>
+        ) => void
+      ): void;
 
-        /**
-         * Endpoint to search.
-         * https://community.algolia.com/places/api-clients.html#endpoints
-         */
-        search(e: QueryInterface): Promise<ResultSearchInterface<HitInterface>>;
-        search(e: QueryInterface & LanguageInterface): Promise<ResultSearchInterface<LocalizedHitInterface>>;
+      /**
+       * Endpoint to search.
+       * https://community.algolia.com/places/api-clients.html#endpoints
+       */
+      search(e: QueryInterface): Promise<ResultSearchInterface<HitInterface>>;
+      search(
+        e: QueryInterface & LanguageInterface
+      ): Promise<ResultSearchInterface<LocalizedHitInterface>>;
 
-        /**
-         * Reverse geocoding means converting a location (latitude and longitude) to a readable address.
-         * https://community.algolia.com/places/api-clients.html#endpoints
-         */
-        reverse(e: QueryReverseInterface, cb: (err: Error, response: ResultSearchInterface<HitInterface>) => void): void;
-        reverse(e: QueryReverseInterface & LanguageInterface, cb: (err: Error, response: ResultSearchInterface<LocalizedHitInterface>) => void): void;
+      /**
+       * Reverse geocoding means converting a location (latitude and longitude) to a readable address.
+       * https://community.algolia.com/places/api-clients.html#endpoints
+       */
+      reverse(
+        e: QueryReverseInterface,
+        cb: (err: Error, response: ResultSearchInterface<HitInterface>) => void
+      ): void;
+      reverse(
+        e: QueryReverseInterface & LanguageInterface,
+        cb: (
+          err: Error,
+          response: ResultSearchInterface<LocalizedHitInterface>
+        ) => void
+      ): void;
 
-
-        /**
-         * Reverse geocoding means converting a location (latitude and longitude) to a readable address.
-         * https://community.algolia.com/places/api-clients.html#endpoints
-         */
-        reverse(e: QueryReverseInterface): Promise<ResultSearchInterface<HitInterface>>;
-        reverse(e: QueryReverseInterface  & LanguageInterface): Promise<ResultSearchInterface<LocalizedHitInterface>>;
+      /**
+       * Reverse geocoding means converting a location (latitude and longitude) to a readable address.
+       * https://community.algolia.com/places/api-clients.html#endpoints
+       */
+      reverse(
+        e: QueryReverseInterface
+      ): Promise<ResultSearchInterface<HitInterface>>;
+      reverse(
+        e: QueryReverseInterface & LanguageInterface
+      ): Promise<ResultSearchInterface<LocalizedHitInterface>>;
     }
 
     /**
@@ -1819,51 +1994,58 @@ declare namespace algoliasearch {
      * https://community.algolia.com/places/api-clients.html#api-options-type
      */
     interface QueryInterface {
-        /**
-         * Query used to perform the search.
-         */
-        query?: string;
-        /**
-         * Restrict the search results to a specific type.
-         * https://community.algolia.com/places/api-clients.html#api-options-type
-         */
-        type?: "city" | "country" | "address" | "busStop" | "trainStation" | "townhall" | "airport";
-        /**
-         * Restrict the search results to a specific type.
-         * https://community.algolia.com/places/api-clients.html#api-options-type
-         */
-        hitsPerPage?: number;
-        /**
-         * If specified, restrict the search results to a specific list of comma-separated countries. You can pass two letters country codes (ISO 3166-1).
-         * Default: Search on the whole planet.
-         * Warning: country codes must be lower-cased.
-         * https://community.algolia.com/places/api-clients.html#api-options-countries
-         */
-        countries?: string;
-        /**
-         * Force to first search around a specific latitude longitude.
-         * The option value must be provided as a string: latitude,longitude like 12.232,23.1.
-         * The default is to search around the location of the user determined via his IP address (geoip).
-         * https://community.algolia.com/places/api-clients.html#api-options-aroundLatLng
-         */
-        aroundLatLng?: string;
-        /**
-         * Whether or not to first search around the geolocation of the user found via his IP address. This is true by default.
-         * https://community.algolia.com/places/api-clients.html#api-options-aroundLatLngViaIP
-         */
-        aroundLatLngViaIP?: string;
-        /**
-         * Radius in meters to search around the latitude/longitude. Otherwise a default radius is automatically computed given the area density.
-         * https://community.algolia.com/places/api-clients.html#api-options-aroundRadius
-         */
-        aroundRadius?: number;
-        /**
-         * Controls whether the _rankingInfo object should be included in the hits. This defaults to false.
-         * The _rankingInfo object for a Places query is slightly different from a regular Algolia query
-         * and you can read up more about the difference and how to leverage them in our guide.
-         * https://community.algolia.com/places/api-clients.html#api-options-getRankingInfo
-         */
-        getRankingInfo?: boolean;
+      /**
+       * Query used to perform the search.
+       */
+      query?: string;
+      /**
+       * Restrict the search results to a specific type.
+       * https://community.algolia.com/places/api-clients.html#api-options-type
+       */
+      type?:
+        | 'city'
+        | 'country'
+        | 'address'
+        | 'busStop'
+        | 'trainStation'
+        | 'townhall'
+        | 'airport';
+      /**
+       * Restrict the search results to a specific type.
+       * https://community.algolia.com/places/api-clients.html#api-options-type
+       */
+      hitsPerPage?: number;
+      /**
+       * If specified, restrict the search results to a specific list of comma-separated countries. You can pass two letters country codes (ISO 3166-1).
+       * Default: Search on the whole planet.
+       * Warning: country codes must be lower-cased.
+       * https://community.algolia.com/places/api-clients.html#api-options-countries
+       */
+      countries?: string;
+      /**
+       * Force to first search around a specific latitude longitude.
+       * The option value must be provided as a string: latitude,longitude like 12.232,23.1.
+       * The default is to search around the location of the user determined via his IP address (geoip).
+       * https://community.algolia.com/places/api-clients.html#api-options-aroundLatLng
+       */
+      aroundLatLng?: string;
+      /**
+       * Whether or not to first search around the geolocation of the user found via his IP address. This is true by default.
+       * https://community.algolia.com/places/api-clients.html#api-options-aroundLatLngViaIP
+       */
+      aroundLatLngViaIP?: string;
+      /**
+       * Radius in meters to search around the latitude/longitude. Otherwise a default radius is automatically computed given the area density.
+       * https://community.algolia.com/places/api-clients.html#api-options-aroundRadius
+       */
+      aroundRadius?: number;
+      /**
+       * Controls whether the _rankingInfo object should be included in the hits. This defaults to false.
+       * The _rankingInfo object for a Places query is slightly different from a regular Algolia query
+       * and you can read up more about the difference and how to leverage them in our guide.
+       * https://community.algolia.com/places/api-clients.html#api-options-getRankingInfo
+       */
+      getRankingInfo?: boolean;
     }
 
     /**
@@ -1871,55 +2053,57 @@ declare namespace algoliasearch {
      * https://community.algolia.com/places/api-clients.html#reverse-geocoding
      */
     interface QueryReverseInterface {
-        /**
-         * Force to first search around a specific latitude longitude.
-         * The option value must be provided as a string: latitude,longitude like 12.232,23.1.
-         * The default is to search around the location of the user determined via his IP address (geoip).
-         * https://community.algolia.com/places/api-clients.html#api-options-aroundLatLng
-         */
-        aroundLatLng: string;
-        /**
-         * Restrict the search results to a specific type.
-         * https://community.algolia.com/places/api-clients.html#api-options-type
-         */
-        hitsPerPage?: number;
+      /**
+       * Force to first search around a specific latitude longitude.
+       * The option value must be provided as a string: latitude,longitude like 12.232,23.1.
+       * The default is to search around the location of the user determined via his IP address (geoip).
+       * https://community.algolia.com/places/api-clients.html#api-options-aroundLatLng
+       */
+      aroundLatLng: string;
+      /**
+       * Restrict the search results to a specific type.
+       * https://community.algolia.com/places/api-clients.html#api-options-type
+       */
+      hitsPerPage?: number;
     }
 
     /**
      * Result of search.
      * https://community.algolia.com/places/api-clients.html#json-answer
      */
-    interface ResultSearchInterface<T extends HitInterface | LocalizedHitInterface> {
-        /**
-         * Contains all the hits matching the query.
-         * https://community.algolia.com/places/api-clients.html#json-answer
-         */
-        hits: T[];
-        /**
-         * Query fallback if query retrieve any result
-         * https://community.algolia.com/places/api-clients.html#json-answer
-         */
-        degradedQuery: boolean;
-        /**
-         * Number of total hits matching the query.
-         * https://community.algolia.com/places/api-clients.html#json-answer
-         */
-        nbHits: number;
-        /**
-         * GET parameters used to perform the search.
-         * https://community.algolia.com/places/api-clients.html#json-answer
-         */
-        params: string;
-        /**
-         * Engine processing time (excluding network transfer).
-         * https://community.algolia.com/places/api-clients.html#json-answer
-         */
-        processingTimeMS: number;
-        /**
-         * Query used to perform the search.
-         * https://community.algolia.com/places/api-clients.html#json-answer
-         */
-        query: string;
+    interface ResultSearchInterface<
+      T extends HitInterface | LocalizedHitInterface
+    > {
+      /**
+       * Contains all the hits matching the query.
+       * https://community.algolia.com/places/api-clients.html#json-answer
+       */
+      hits: T[];
+      /**
+       * Query fallback if query retrieve any result
+       * https://community.algolia.com/places/api-clients.html#json-answer
+       */
+      degradedQuery: boolean;
+      /**
+       * Number of total hits matching the query.
+       * https://community.algolia.com/places/api-clients.html#json-answer
+       */
+      nbHits: number;
+      /**
+       * GET parameters used to perform the search.
+       * https://community.algolia.com/places/api-clients.html#json-answer
+       */
+      params: string;
+      /**
+       * Engine processing time (excluding network transfer).
+       * https://community.algolia.com/places/api-clients.html#json-answer
+       */
+      processingTimeMS: number;
+      /**
+       * Query used to perform the search.
+       * https://community.algolia.com/places/api-clients.html#json-answer
+       */
+      query: string;
     }
 
     /**
@@ -1927,75 +2111,75 @@ declare namespace algoliasearch {
      * https://community.algolia.com/places/api-clients.html#api-suggestion-name
      */
     interface LocalizedHitInterface {
-        /**
-         * List of associated administrative region names.
-         * https://community.algolia.com/places/api-clients.html#api-suggestion-administrative
-         */
-        administrative?: string[];
-        /**
-         * Associated country name.
-         * https://community.algolia.com/places/api-clients.html#api-suggestion-country
-         */
-        country: string;
-        /**
-         * Two letters country code (ISO 639-1).
-         * https://community.algolia.com/places/api-clients.html#api-suggestion-countryCode
-         */
-        country_code: string;
-        /**
-         * List of the associated county names. If no language parameter is specified, retrieves all of them.
-         * https://community.algolia.com/places/api-clients.html#api-suggestion-county
-         */
-        county?: string[];
-        /**
-         * https://community.algolia.com/places/api-clients.html#api-suggestion-city
-         * List of the associated city names. If no language parameter is specified, retrieves all of them.
-         */
-        city?: string[];
-        /**
-         * List of associated postcodes.
-         * https://community.algolia.com/places/api-clients.html#api-suggestion-postcode
-         */
-        postcode?: string[];
-        /**
-         * Associated population.
-         * https://community.algolia.com/places/api-clients.html#api-suggestion-population
-         */
-        population?: number;
-        /**
-         * Associated list of latitude and longitude.
-         * https://community.algolia.com/places/api-clients.html#api-suggestion-latlng
-         */
-        _geoloc: { lat: number; lng: number };
-        /**
-         * The associated highlighting information.
-         * https://community.algolia.com/places/api-clients.html#api-suggestion-highlightResult
-         */
-        highlightResult: {
-            administrative: highlightResultValueInterface;
-            country: {
-                default: highlightResultValueInterface;
-                [key: string]: highlightResultValueInterface;
-            };
-            county: { default: string; [key: string]: string };
-            locale_names: { default: string[]; [key: string]: string[] };
-            postcode: highlightResultValueInterface[];
-        }
-        /**
-         * https://community.algolia.com/places/api-clients.html#api-suggestion-name
-         * List of names of the place. If no language parameter is specified, retrieves all of them.
-         */
-        locale_names: string[];
-        admin_level: number;
-        district: string;
-        importance: number;
-        is_city: boolean;
-        is_country: boolean;
-        is_highway: boolean;
-        is_popular: boolean;
-        is_suburb: boolean;
-        objectID: string;
-        tags: string[];
+      /**
+       * List of associated administrative region names.
+       * https://community.algolia.com/places/api-clients.html#api-suggestion-administrative
+       */
+      administrative?: string[];
+      /**
+       * Associated country name.
+       * https://community.algolia.com/places/api-clients.html#api-suggestion-country
+       */
+      country: string;
+      /**
+       * Two letters country code (ISO 639-1).
+       * https://community.algolia.com/places/api-clients.html#api-suggestion-countryCode
+       */
+      country_code: string;
+      /**
+       * List of the associated county names. If no language parameter is specified, retrieves all of them.
+       * https://community.algolia.com/places/api-clients.html#api-suggestion-county
+       */
+      county?: string[];
+      /**
+       * https://community.algolia.com/places/api-clients.html#api-suggestion-city
+       * List of the associated city names. If no language parameter is specified, retrieves all of them.
+       */
+      city?: string[];
+      /**
+       * List of associated postcodes.
+       * https://community.algolia.com/places/api-clients.html#api-suggestion-postcode
+       */
+      postcode?: string[];
+      /**
+       * Associated population.
+       * https://community.algolia.com/places/api-clients.html#api-suggestion-population
+       */
+      population?: number;
+      /**
+       * Associated list of latitude and longitude.
+       * https://community.algolia.com/places/api-clients.html#api-suggestion-latlng
+       */
+      _geoloc: { lat: number; lng: number };
+      /**
+       * The associated highlighting information.
+       * https://community.algolia.com/places/api-clients.html#api-suggestion-highlightResult
+       */
+      highlightResult: {
+        administrative: highlightResultValueInterface;
+        country: {
+          default: highlightResultValueInterface;
+          [key: string]: highlightResultValueInterface;
+        };
+        county: { default: string; [key: string]: string };
+        locale_names: { default: string[]; [key: string]: string[] };
+        postcode: highlightResultValueInterface[];
+      };
+      /**
+       * https://community.algolia.com/places/api-clients.html#api-suggestion-name
+       * List of names of the place. If no language parameter is specified, retrieves all of them.
+       */
+      locale_names: string[];
+      admin_level: number;
+      district: string;
+      importance: number;
+      is_city: boolean;
+      is_country: boolean;
+      is_highway: boolean;
+      is_popular: boolean;
+      is_suburb: boolean;
+      objectID: string;
+      tags: string[];
     }
 
     /**
@@ -2003,99 +2187,101 @@ declare namespace algoliasearch {
      * https://community.algolia.com/places/api-clients.html#api-suggestion-name
      */
     interface HitInterface {
-        /**
-         * List of associated administrative region names.
-         * https://community.algolia.com/places/api-clients.html#api-suggestion-administrative
-         */
-        administrative?: string[];
-        /**
-         * Associated country name.
-         * https://community.algolia.com/places/api-clients.html#api-suggestion-country
-         */
-        country: { default: string; [key: string]: string };
-        /**
-         * Two letters country code (ISO 639-1).
-         * https://community.algolia.com/places/api-clients.html#api-suggestion-countryCode
-         */
-        country_code: string;
-        /**
-         * List of the associated county names. If no language parameter is specified, retrieves all of them.
-         * https://community.algolia.com/places/api-clients.html#api-suggestion-county
-         */
-        county?: { default: string[]; [key: string]: string[] };
-        /**
-         * https://community.algolia.com/places/api-clients.html#api-suggestion-city
-         * List of the associated city names. If no language parameter is specified, retrieves all of them.
-         */
-        city?: { default: string[]; [key: string]: string[] };
-        /**
-         * Associated population.
-         * https://community.algolia.com/places/api-clients.html#api-suggestion-population
-         */
-        population?: number;
-        /**
-         * List of associated postcodes.
-         * https://community.algolia.com/places/api-clients.html#api-suggestion-postcode
-         */
-        postcode?: string[];
-        /**
-         * Associated list of latitude and longitude.
-         * https://community.algolia.com/places/api-clients.html#api-suggestion-latlng
-         */
-        _geoloc: { lat: number; lng: number };
-        /**
-         * The associated highlighting information.
-         * https://community.algolia.com/places/api-clients.html#api-suggestion-highlightResult
-         */
-        highlightResult: {
-            administrative: highlightResultValueInterface;
-            country: {
-                default: highlightResultValueInterface;
-                [key: string]: highlightResultValueInterface;
-            };
-            county: { default: string; [key: string]: string };
-            locale_names: { default: string[]; [key: string]: string[] };
-            postcode: highlightResultValueInterface[];
-        }
-        /**
-         * https://community.algolia.com/places/api-clients.html#api-suggestion-name
-         * List of names of the place. If no language parameter is specified, retrieves all of them.
-         */
+      /**
+       * List of associated administrative region names.
+       * https://community.algolia.com/places/api-clients.html#api-suggestion-administrative
+       */
+      administrative?: string[];
+      /**
+       * Associated country name.
+       * https://community.algolia.com/places/api-clients.html#api-suggestion-country
+       */
+      country: { default: string; [key: string]: string };
+      /**
+       * Two letters country code (ISO 639-1).
+       * https://community.algolia.com/places/api-clients.html#api-suggestion-countryCode
+       */
+      country_code: string;
+      /**
+       * List of the associated county names. If no language parameter is specified, retrieves all of them.
+       * https://community.algolia.com/places/api-clients.html#api-suggestion-county
+       */
+      county?: { default: string[]; [key: string]: string[] };
+      /**
+       * https://community.algolia.com/places/api-clients.html#api-suggestion-city
+       * List of the associated city names. If no language parameter is specified, retrieves all of them.
+       */
+      city?: { default: string[]; [key: string]: string[] };
+      /**
+       * Associated population.
+       * https://community.algolia.com/places/api-clients.html#api-suggestion-population
+       */
+      population?: number;
+      /**
+       * List of associated postcodes.
+       * https://community.algolia.com/places/api-clients.html#api-suggestion-postcode
+       */
+      postcode?: string[];
+      /**
+       * Associated list of latitude and longitude.
+       * https://community.algolia.com/places/api-clients.html#api-suggestion-latlng
+       */
+      _geoloc: { lat: number; lng: number };
+      /**
+       * The associated highlighting information.
+       * https://community.algolia.com/places/api-clients.html#api-suggestion-highlightResult
+       */
+      highlightResult: {
+        administrative: highlightResultValueInterface;
+        country: {
+          default: highlightResultValueInterface;
+          [key: string]: highlightResultValueInterface;
+        };
+        county: { default: string; [key: string]: string };
         locale_names: { default: string[]; [key: string]: string[] };
-        admin_level: number;
-        district: string;
-        importance: number;
-        is_city: boolean;
-        is_country: boolean;
-        is_highway: boolean;
-        is_popular: boolean;
-        is_suburb: boolean;
-        objectID: string;
-        tags: string[];
+        postcode: highlightResultValueInterface[];
+      };
+      /**
+       * https://community.algolia.com/places/api-clients.html#api-suggestion-name
+       * List of names of the place. If no language parameter is specified, retrieves all of them.
+       */
+      locale_names: { default: string[]; [key: string]: string[] };
+      admin_level: number;
+      district: string;
+      importance: number;
+      is_city: boolean;
+      is_country: boolean;
+      is_highway: boolean;
+      is_popular: boolean;
+      is_suburb: boolean;
+      objectID: string;
+      tags: string[];
     }
 
     /**
      * Interface use in HitInterface for some key of highlightResult.
      */
     interface highlightResultValueInterface {
-        value: string;
-        matchLevel: string;
-        matchedWords: string[];
+      value: string;
+      matchLevel: string;
+      matchedWords: string[];
     }
   }
-
 }
 
 interface AlgoliasearchInstance {
-    (
-        applicationId: string,
-        apiKey: string,
-        options?: algoliasearch.ClientOptions,
-    ): algoliasearch.Client;
+  (
+    applicationId: string,
+    apiKey: string,
+    options?: algoliasearch.ClientOptions
+  ): algoliasearch.Client;
 }
 
 interface AlgoliaStatic extends AlgoliasearchInstance {
-    initPlaces(apiKey: string, applicationId: string): algoliasearch.Places.PlaceInterface;
+  initPlaces(
+    apiKey: string,
+    applicationId: string
+  ): algoliasearch.Places.PlaceInterface;
 }
 
 declare const algoliasearch: AlgoliaStatic;
