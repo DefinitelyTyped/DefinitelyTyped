@@ -208,6 +208,20 @@ function useEveryHook(ref: React.Ref<{ id: number }>|undefined): () => boolean {
     // make sure setState accepts a function
     setToggle(r => !r);
 
+    // when storing a function in state, don't allow passing a function of such type as the initial value
+    // $ExpectError
+    React.useState<() => number>(() => 42);
+    // But do allow a higher-order function
+    React.useState<() => number>(() => () => 42);
+
+    // when storing a function in state, don't allow passing a function of such type to the state setter
+    const [, setFunction] = React.useState<() => number>(() => () => 42);
+    // $ExpectError
+    setFunction(() => 43);
+
+    // But do allow a higher-order function
+    setFunction(() => () => 43);
+
     // useReducer convenience overload
 
     return React.useCallback(() => didLayout.current, []);
