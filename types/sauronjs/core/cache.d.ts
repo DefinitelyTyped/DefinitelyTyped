@@ -1,12 +1,17 @@
-export function CacheFactory(id: any): void | Cache;
-
-export class Cache {
-  constructor();
-  get(key: string): Cache;
-  exists(key: string): boolean;
-  set(key: string, value: Cache): void;
-  clear(): void;
-  keys(): string[];
-  size(): number;
-  forEach(fn: (key: string, value: Cache) => void): void;
+declare class Cache {
+    constructor();
+    get(key: string): any;
+    exists(key: string): boolean;
+    set(key: string, value: any): void;
+    clear(): void;
+    keys(): string[];
+    size(): number;
+    forEach(fn: (key: string, value: any) => void): void;
 }
+
+declare const CacheFactory: {
+    (id: string): Cache;
+    (): void;
+};
+
+export { CacheFactory as cache };

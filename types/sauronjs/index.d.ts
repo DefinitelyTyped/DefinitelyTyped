@@ -4,5 +4,16 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
-export { attachSubject, Cache, CacheFactory, Component, instance, next } from './core';
-export { insert, ready } from './util';
+import * as util from './util';
+export { cache, Component, instance, next, Service } from './core';
+
+interface SauronDOM {
+    update(): void;
+}
+
+interface SauronEvents {
+    dom: SauronDOM;
+}
+
+declare const events: SauronEvents;
+export { events, util };

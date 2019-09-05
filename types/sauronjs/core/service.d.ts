@@ -1,9 +1,7 @@
-import { Subject } from 'rxjs/Subject';
-
 export class Service {
-    broadcastSubject: any;
+  broadcastSubject: any;
 
-    constructor(pubs: string[], subs: string[]);
+  constructor(pubs: string[], subs: string[]);
 
-    broadcast(event: string, data: any): void;
+  broadcast(event: string, data: any): void;
 }

@@ -17,6 +17,6 @@ interface SauronInstance {
     initCache: (id: string) => void;
 }
 
-declare function instance(componentMap: SauronComponentMap, id: string): SauronInstance;
+declare function instance(componentMap: SauronComponentMap, id?: string): SauronInstance;
 
 export { instance };
