@@ -4,14 +4,17 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
-import * as moment from 'moment';
+import moment = require('moment');
+
+export = Lightpick;
+export as namespace Lightpick;
 
 declare class Lightpick {
     constructor(options: Lightpick.Options);
 
     gotoToday(): void;
 
-    gotoDate(date: Lightpick.InputDate): void;
+    gotoDate(date?: Lightpick.InputDate): void;
 
     gotoMonth(month: number): void;
 
@@ -21,19 +24,19 @@ declare class Lightpick {
 
     nextMonth(): void;
 
-    setStartDate(date: Lightpick.InputDate, preventOnSelect?: boolean): void;
+    setStartDate(date?: Lightpick.InputDate, preventOnSelect?: boolean): void;
 
-    setEndDate(date: Lightpick.InputDate, preventOnSelect?: boolean): void;
+    setEndDate(date?: Lightpick.InputDate, preventOnSelect?: boolean): void;
 
     /**
      * Set date when singleDate is true.
      */
-    setDate(date: Lightpick.InputDate, preventOnSelect?: boolean): void;
+    setDate(date?: Lightpick.InputDate, preventOnSelect?: boolean): void;
 
     /**
      * Set date range.
      */
-    setDateRange(start: Lightpick.InputDate, end: Lightpick.InputDate, preventOnSelect?: boolean): void;
+    setDateRange(start?: Lightpick.InputDate, end?: Lightpick.InputDate, preventOnSelect?: boolean): void;
 
     setDisableDates(dates: ReadonlyArray<Lightpick.DisabledDate>): void;
 
@@ -92,7 +95,7 @@ declare class Lightpick {
 }
 
 declare namespace Lightpick {
-    type InputDate = moment.MomentInput;
+    type InputDate = moment.MomentInput | null;
 
     type OutputDate = moment.Moment | null;
 
@@ -380,5 +383,3 @@ declare namespace Lightpick {
         }
     }
 }
-
-export = Lightpick;
