@@ -1132,7 +1132,7 @@ declare namespace Stripe {
             /**
              * The transfers (if any) for which source is a source_transaction.
              */
-            source_transfers: IList<transfers.ITransfer>;
+            source_transfers?: IList<transfers.ITransfer>;
 
             /**
              * If the transaction's net funds are available in the Stripe balance yet. Either "available" or "pending".
