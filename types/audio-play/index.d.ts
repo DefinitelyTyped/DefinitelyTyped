@@ -14,7 +14,7 @@
 declare function audioPlay(buffer: AudioBuffer, how: audioPlay.Options, cb: () => void): audioPlay.AudioPlayHandle;
 
 declare namespace audioPlay {
-    export interface AudioPlayHandle {
+    interface AudioPlayHandle {
         play: () => any;
         pause: () => any;
     }
@@ -30,7 +30,7 @@ declare namespace audioPlay {
      * @param detune (not implemented) Percentage of fine-tuning. (Default: 0)
      * @param rate (not implemented) Playback rate, in percent, of the audio. (Default: 1)
      */
-    export interface Options {
+    interface Options {
         start?: number;
         end?: number;
         autoplay?: boolean;

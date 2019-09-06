@@ -14,7 +14,7 @@
  * @param contextAttributes any other options for the context.
  */
 declare namespace getContext {
-    export interface Options {
+    interface Options {
         sampleRate?: number;
         latencyHint?: string | number;
         offline?: boolean;
