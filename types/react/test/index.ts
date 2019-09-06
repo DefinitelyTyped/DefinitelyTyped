@@ -213,7 +213,7 @@ function FunctionComponent(props: SCProps) {
 // tslint:disable-next-line:no-namespace
 namespace FunctionComponent {
     export const displayName = "FunctionComponent";
-    export const defaultProps = { foo: 42 };
+    export const defaultProps: Partial<SCProps> = { foo: 42 };
 }
 
 const FunctionComponent2: React.FunctionComponent<SCProps> =
@@ -244,6 +244,13 @@ const LegacyStatelessComponent3: React.SFC<SCProps> =
 
 // allows null as props
 const FunctionComponent4: React.FunctionComponent = props => null;
+
+// disallows prop mutation
+const FunctionComponent5: React.FunctionComponent<SCProps> = props => {
+    // $ExpectError
+    props.foo = 5;
+    return null;
+};
 
 // React.createFactory
 const factory: React.CFactory<Props, ModernComponent> =

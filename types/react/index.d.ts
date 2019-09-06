@@ -309,7 +309,7 @@ declare namespace React {
         /**
          * **NOTE**: Exotic components are not callable.
          */
-        (props: P): (ReactElement|null);
+        (props: Readonly<P>): (ReactElement|null);
         readonly $$typeof: symbol;
     }
 
@@ -386,76 +386,81 @@ declare namespace React {
     // tslint:disable-next-line:no-empty-interface
     interface Component<P = {}, S = {}, SS = any> extends ComponentLifecycle<P, S, SS> { }
     class Component<P, S> {
-        // tslint won't let me format the sample code in a way that vscode likes it :(
-        /**
-         * If set, `this.context` will be set at runtime to the current value of the given Context.
-         *
-         * Usage:
-         *
-         * ```ts
-         * type MyContext = number
-         * const Ctx = React.createContext<MyContext>(0)
-         *
-         * class Foo extends React.Component {
-         *   static contextType = Ctx
-         *   context!: React.ContextType<typeof Ctx>
-         *   render () {
-         *     return <>My context's value: {this.context}</>;
-         *   }
-         * }
-         * ```
-         *
-         * @see https://reactjs.org/docs/context.html#classcontexttype
-         */
-        static contextType?: Context<any>;
+      // tslint won't let me format the sample code in a way that vscode likes it :(
+      /**
+       * If set, `this.context` will be set at runtime to the current value of the given Context.
+       *
+       * Usage:
+       *
+       * ```ts
+       * type MyContext = number
+       * const Ctx = React.createContext<MyContext>(0)
+       *
+       * class Foo extends React.Component {
+       *   static contextType = Ctx
+       *   context!: React.ContextType<typeof Ctx>
+       *   render () {
+       *     return <>My context's value: {this.context}</>;
+       *   }
+       * }
+       * ```
+       *
+       * @see https://reactjs.org/docs/context.html#classcontexttype
+       */
+      static contextType?: Context<any>;
 
-        /**
-         * If using the new style context, re-declare this in your class to be the
-         * `React.ContextType` of your `static contextType`.
-         *
-         * ```ts
-         * static contextType = MyContext
-         * context!: React.ContextType<typeof MyContext>
-         * ```
-         *
-         * @deprecated if used without a type annotation, or without static contextType
-         * @see https://reactjs.org/docs/legacy-context.html
-         */
-        // TODO (TypeScript 3.0): unknown
-        context: any;
+      /**
+       * If using the new style context, re-declare this in your class to be the
+       * `React.ContextType` of your `static contextType`.
+       *
+       * ```ts
+       * static contextType = MyContext
+       * context!: React.ContextType<typeof MyContext>
+       * ```
+       *
+       * @deprecated if used without a type annotation, or without static contextType
+       * @see https://reactjs.org/docs/legacy-context.html
+       */
+      // TODO (TypeScript 3.0): unknown
+      context: any;
 
-        constructor(props: Readonly<P>);
-        /**
-         * @deprecated
-         * @see https://reactjs.org/docs/legacy-context.html
-         */
-        constructor(props: P, context?: any);
+      constructor(props: Readonly<P>);
+      /**
+       * @deprecated
+       * @see https://reactjs.org/docs/legacy-context.html
+       */
+      constructor(props: P, context?: any);
 
-        // We MUST keep setState() as a unified signature because it allows proper checking of the method return type.
-        // See: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/18365#issuecomment-351013257
-        // Also, the ` | S` allows intellisense to not be dumbisense
-        setState<K extends keyof S>(
-            state: ((prevState: Readonly<S>, props: Readonly<P>) => (Pick<S, K> | S | null)) | (Pick<S, K> | S | null),
-            callback?: () => void
-        ): void;
+      // We MUST keep setState() as a unified signature because it allows proper checking of the method return type.
+      // See: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/18365#issuecomment-351013257
+      // Also, the ` | S` allows intellisense to not be dumbisense
+      setState<K extends keyof S>(
+        state:
+          | ((
+              prevState: Readonly<S>,
+              props: Readonly<P>,
+            ) => Pick<S, K> | S | null)
+          | (Pick<S, K> | S | null),
+        callback?: () => void,
+      ): void;
 
-        forceUpdate(callback?: () => void): void;
-        render(): ReactNode;
+      forceUpdate(callback?: () => void): void;
+      render(): ReactNode;
 
-        // React.Props<T> is now deprecated, which means that the `children`
-        // property is not available on `P` by default, even though you can
-        // always pass children as variadic arguments to `createElement`.
-        // In the future, if we can define its call signature conditionally
-        // on the existence of `children` in `P`, then we should remove this.
-        readonly props: Readonly<P> & Readonly<{ children?: ReactNode }>;
-        state: Readonly<S>;
-        /**
-         * @deprecated
-         * https://reactjs.org/docs/refs-and-the-dom.html#legacy-api-string-refs
-         */
-        refs: {
-            [key: string]: ReactInstance
-        };
+      // React.Props<T> is now deprecated, which means that the `children`
+      // property is not available on `P` by default, even though you can
+      // always pass children as variadic arguments to `createElement`.
+      // In the future, if we can define its call signature conditionally
+      // on the existence of `children` in `P`, then we should remove this.
+      readonly props: ReadonlyPropsWithChildren<P>;
+      state: Readonly<S>;
+      /**
+       * @deprecated
+       * https://reactjs.org/docs/refs-and-the-dom.html#legacy-api-string-refs
+       */
+      refs: {
+        [key: string]: ReactInstance;
+      };
     }
 
     class PureComponent<P = {}, S = {}, SS = any> extends Component<P, S, SS> { }
@@ -493,7 +498,7 @@ declare namespace React {
     type FC<P = {}> = FunctionComponent<P>;
 
     interface FunctionComponent<P = {}> {
-        (props: Readonly<PropsWithChildren<P>>, context?: any): ReactElement | null;
+        (props: ReadonlyPropsWithChildren<P>, context?: any): ReactElement | null;
         propTypes?: WeakValidationMap<P>;
         contextTypes?: ValidationMap<any>;
         defaultProps?: Partial<P>;
@@ -501,7 +506,7 @@ declare namespace React {
     }
 
     interface RefForwardingComponent<T, P = {}> {
-        (props: Readonly<PropsWithChildren<P>>, ref: Ref<T>): ReactElement | null;
+        (props: ReadonlyPropsWithChildren<P>, ref: Ref<T>): ReactElement | null;
         propTypes?: WeakValidationMap<P>;
         contextTypes?: ValidationMap<any>;
         defaultProps?: Partial<P>;
@@ -748,6 +753,7 @@ declare namespace React {
             : P;
 
     type PropsWithChildren<P> = P & { children?: ReactNode };
+    type ReadonlyPropsWithChildren<P> = Readonly<P> & { readonly children?: ReactNode };
 
     /**
      * NOTE: prefer ComponentPropsWithRef, if the ref is forwarded,
@@ -774,7 +780,7 @@ declare namespace React {
 
     function memo<P extends object>(
         Component: SFC<P>,
-        propsAreEqual?: (prevProps: Readonly<PropsWithChildren<P>>, nextProps: Readonly<PropsWithChildren<P>>) => boolean
+        propsAreEqual?: (prevProps: ReadonlyPropsWithChildren<P>, nextProps: ReadonlyPropsWithChildren<P>) => boolean
     ): NamedExoticComponent<P>;
     function memo<T extends ComponentType<any>>(
         Component: T,
