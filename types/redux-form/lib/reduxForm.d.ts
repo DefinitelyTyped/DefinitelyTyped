@@ -18,13 +18,13 @@ import {
 } from "../index";
 
 export type FormSubmitHandler<FormData = {}, P = {}, ErrorType = string> =
-    (values: FormData, dispatch: Dispatch<any>, props: P) => void | FormErrors<FormData, ErrorType> | Promise<any>;
+    (values: FormData, dispatch: Dispatch<any>, props: DecoratedFormProps<FormData, P, ErrorType>) => void | FormErrors<FormData, ErrorType> | Promise<any>;
 
 export type GetFormState = (state: any) => FormStateMap;
 export interface SubmitHandler<FormData = {}, P = {}, ErrorType = string> {
     (
         submit: FormSubmitHandler<FormData, P, ErrorType>,
-        props?: InjectedFormProps<FormData, P, ErrorType>,
+        props?: DecoratedFormProps<FormData, P, ErrorType>,
         valid?: boolean,
         asyncValidate?: any,
         fields?: string[]
@@ -34,8 +34,8 @@ export interface SubmitHandler<FormData = {}, P = {}, ErrorType = string> {
 
 export interface ValidateCallback<FormData, P, ErrorType> {
     values: FormData;
-    nextProps: P & InjectedFormProps<FormData, P, ErrorType>;
-    props: P & InjectedFormProps<FormData, P, ErrorType>;
+    nextProps: DecoratedFormProps<FormData, P, ErrorType>;
+    props: DecoratedFormProps<FormData, P, ErrorType>;
     initialRender: boolean;
     structure: any;
 }
@@ -77,6 +77,7 @@ export interface InjectedFormProps<FormData = {}, P = {}, ErrorType = string> {
     blur(field: string, value: any): void;
     change(field: string, value: any): void;
     clearAsyncError(field: string): void;
+    clearSubmit(): void;
     destroy(): void;
     dirty: boolean;
     error: ErrorType;
@@ -95,14 +96,13 @@ export interface InjectedFormProps<FormData = {}, P = {}, ErrorType = string> {
     untouch(...field: string[]): void;
     valid: boolean;
     warning: any;
-    registeredFields: { [name: string]: RegisteredField };
 }
 
 export interface ConfigProps<FormData = {}, P = {}, ErrorType = string> {
     form: string;
     asyncBlurFields?: string[];
     asyncChangeFields?: string[];
-    asyncValidate?(values: FormData, dispatch: Dispatch<any>, props: P & InjectedFormProps<FormData, P, ErrorType>, blurredField: string): Promise<any>;
+    asyncValidate?(values: FormData, dispatch: Dispatch<any>, props: DecoratedFormProps<FormData, P, ErrorType>, blurredField: string): Promise<any>;
     destroyOnUnmount?: boolean;
     enableReinitialize?: boolean;
     forceUnregisterOnUnmount?: boolean;
@@ -111,15 +111,15 @@ export interface ConfigProps<FormData = {}, P = {}, ErrorType = string> {
     initialValues?: Partial<FormData>;
     keepDirtyOnReinitialize?: boolean;
     updateUnregisteredFields?: boolean;
-    onChange?(values: Partial<FormData>, dispatch: Dispatch<any>, props: P & InjectedFormProps<FormData, P, ErrorType>, previousValues: Partial<FormData>): void;
-    onSubmit?: FormSubmitHandler<FormData, P & InjectedFormProps<FormData, P, ErrorType>, ErrorType> | SubmitHandler<FormData, P & InjectedFormProps<FormData, P, ErrorType>, ErrorType>;
+    onChange?(values: Partial<FormData>, dispatch: Dispatch<any>, props: DecoratedFormProps<FormData, P, ErrorType>, previousValues: Partial<FormData>): void;
+    onSubmit?: FormSubmitHandler<FormData, P, ErrorType> | SubmitHandler<FormData, P, ErrorType>;
     onSubmitFail?(
         errors: FormErrors<FormData, ErrorType> | undefined,
         dispatch: Dispatch<any>,
         submitError: any,
-        props: P & InjectedFormProps<FormData, P, ErrorType>
+        props: DecoratedFormProps<FormData, P, ErrorType>
     ): void;
-    onSubmitSuccess?(result: any, dispatch: Dispatch<any>, props: P & InjectedFormProps<FormData, P, ErrorType>): void;
+    onSubmitSuccess?(result: any, dispatch: Dispatch<any>, props: DecoratedFormProps<FormData, P, ErrorType>): void;
     propNamespace?: string;
     pure?: boolean;
     shouldValidate?(params: ValidateCallback<FormData, P, ErrorType>): boolean;
@@ -129,11 +129,11 @@ export interface ConfigProps<FormData = {}, P = {}, ErrorType = string> {
     touchOnBlur?: boolean;
     touchOnChange?: boolean;
     persistentSubmitErrors?: boolean;
-    validate?(values: FormData, props: P & InjectedFormProps<FormData, P, ErrorType>): FormErrors<FormData, ErrorType>;
-    warn?(values: FormData, props: P & InjectedFormProps<FormData, P, ErrorType>): FormWarnings<FormData>;
+    validate?(values: FormData, props: DecoratedFormProps<FormData, P, ErrorType>): FormErrors<FormData, ErrorType>;
+    warn?(values: FormData, props: DecoratedFormProps<FormData, P, ErrorType>): FormWarnings<FormData>;
 }
 
-export interface FormInstance<FormData, P, ErrorType> extends Component<P> {
+export interface FormInstance<FormData, P> extends Component<P> {
     dirty: boolean;
     invalid: boolean;
     pristine: boolean;
@@ -143,22 +143,26 @@ export interface FormInstance<FormData, P, ErrorType> extends Component<P> {
     submit(): Promise<any>;
     valid: boolean;
     values: Partial<FormData>;
-    wrappedInstance: ReactElement<P & InjectedFormProps<FormData, P, ErrorType>>;
+    wrappedInstance?: HTMLElement;
 }
 
-export interface DecoratedComponentClass<FormData, P, ErrorType> {
-    new(props?: P, context?: any): FormInstance<FormData, P, ErrorType>;
+export type DecoratedFormProps<
+  FormData = {},
+  P = {},
+  ErrorType = string
+> = P & Partial<ConfigProps<FormData, P, ErrorType>> & { [key: string]: any };
+
+export interface DecoratedComponentClass<FormData, P> {
+    new(props?: P, context?: any): FormInstance<FormData, P>;
 }
 
-export type FormDecorator<FormData, P, Config, ErrorType = string> =
-    (component: ComponentType<P & InjectedFormProps<FormData, P, ErrorType>>) => DecoratedComponentClass<FormData, P & Config, ErrorType>;
+export type FormDecorator<FormData, P, ErrorType = string> =
+    (component: ComponentType<P & InjectedFormProps<FormData, P, ErrorType>>) => DecoratedComponentClass<FormData, DecoratedFormProps<FormData, P, ErrorType>>;
 
 export declare function reduxForm<FormData = {}, P = {}, ErrorType = string>(
-    config: ConfigProps<FormData, P, ErrorType>
-): FormDecorator<FormData, P, Partial<ConfigProps<FormData, P, ErrorType>>, ErrorType>;
-
-export declare function reduxForm<FormData = {}, P = {}, ErrorType = string>(
-    config: Partial<ConfigProps<FormData, P, ErrorType>>
-): FormDecorator<FormData, P, ConfigProps<FormData, P, ErrorType>, ErrorType>;
+  config:
+    | ConfigProps<FormData, P, ErrorType>
+    | Partial<ConfigProps<FormData, P, ErrorType>>,
+): FormDecorator<FormData, P, ErrorType>;
 
 export default reduxForm;
