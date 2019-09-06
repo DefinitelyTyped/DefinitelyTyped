@@ -1645,7 +1645,7 @@ declare namespace React {
         placeholder?: string;
         slot?: string;
         spellCheck?: boolean;
-        style?: {[K in keyof CSSProperties]: CSSProperties[K] | null};
+        style?: {[K in keyof CSSProperties]: CSSProperties[K] | null} | null;
         tabIndex?: number;
         title?: string;
 
