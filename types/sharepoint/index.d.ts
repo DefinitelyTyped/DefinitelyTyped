@@ -11678,17 +11678,22 @@ declare namespace Srch {
     }
 
     interface RefinementCategory {
-        k: boolean; // Use KQL,
-        m: { [key: string]: string } | null; // token to display value map
-        n: string; // Refiner Name (Mapped property)
+        /** Use KQL */
+        k: boolean;
+        /**  token to display value map */
+        m: { [key: string]: string } | null;
+        /** Refiner Name (Mapped property) */
+        n: string;
         o: string | "and" | "or" | "AND" | "OR";
-        t: string[]; // Values, prefixed by ǂǂ for taxonomy terms
+        /** Values, prefixed by ǂǂ for taxonomy terms */
+        t: string[];
     }
 
     interface RefinerStructure {
         r: RefinementCategory[];
         l: number;
-        k: string; // Keyword
+        /** Keyword */
+        k: string;
     }
 
     interface QueryState {
