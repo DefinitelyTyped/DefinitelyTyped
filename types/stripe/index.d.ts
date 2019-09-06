@@ -6145,7 +6145,7 @@ declare namespace Stripe {
             /**
              * A short one-line description of the product, meant to be displayable to the customer.
              */
-            caption: string;
+            caption: string | null;
 
             /**
              * Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -6175,12 +6175,12 @@ declare namespace Stripe {
              */
             name: string;
 
-            package_dimensions: IPackageDimensions;
+            package_dimensions: IPackageDimensions | null;
 
             /**
              * Whether this product is a shipped good.
              */
-            shippable: boolean;
+            shippable: boolean | null;
 
             /**
              * A sublist of active SKUs associated with this product.
@@ -6193,7 +6193,7 @@ declare namespace Stripe {
              * Extra information about a product which will appear on your customer’s credit card statement. In the case that multiple products are billed
              * at once, the first statement descriptor will be used. Only available on products of type=service.
              */
-            statement_descriptor: string;
+            statement_descriptor: string | null;
 
             /**
              * The type of the product. The product is either of type good, which is eligible for use with Orders and SKUs, or service, which is eligible for
@@ -6205,12 +6205,12 @@ declare namespace Stripe {
              * A label that represents units of this product, such as seat(s), in Stripe and on customers’ receipts and invoices.
              * Only available on products of type=service.
              */
-            unit_label?: string;
+            unit_label?: string | null;
 
             /**
              * A URL of a publicly-accessible webpage for this product.
              */
-            url: string;
+            url: string | null;
         }
 
         interface IProductCreationOptions extends IDataOptionsWithMetadata {
