@@ -1,3 +1,8 @@
+// Type definitions for react-native-awesome-card-io 0.8.2
+// Project: https://github.com/Kerumen/react-native-awesome-card-io
+// Definitions by: Onur Var <https://github.com/OnurVar>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
 declare module 'react-native-awesome-card-io' {
     import { Component } from 'react';
     import { StyleProp, ViewStyle } from 'react-native';
