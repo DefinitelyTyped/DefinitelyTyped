@@ -74,13 +74,13 @@ export interface RSAARequestTypeDescriptor<State = any, Payload = any, Meta = an
 
 export interface RSAASuccessTypeDescriptor<State = any, Payload = any, Meta = any> {
     type: string | symbol;
-    payload?: ((action: RSAAAction, state: State, res: any) => Payload) | Payload;
+    payload?: ((action: RSAAAction, state: State, res: Response) => Payload) | Payload;
     meta?: ((action: RSAAAction, state: State, res: any) => Meta) | Meta;
 }
 
 export interface RSAAFailureTypeDescriptor<State = any, Payload = any, Meta = any> {
     type: string | symbol;
-    payload?: ((action: RSAAAction, state: State) => Payload) | Payload;
+    payload?: ((action: RSAAAction, state: State, res: Response) => Payload) | Payload;
     meta?: ((action: RSAAAction, state: State, res: any) => Meta) | Meta;
 }
 
@@ -103,6 +103,19 @@ export interface RSAACall<State = any, Payload = any, Meta = any> {
 
 export interface RSAAAction<State = any, Payload = any, Meta = any> {
     [RSAA]: RSAACall<State, Payload, Meta>;
+}
+
+/**
+ * Redux behaviour changed by middleware, so overloads here
+ */
+declare module 'redux' {
+    /*
+     * Overload to add api middleware support to Redux's dispatch() function.
+     * Useful for react-redux or any other library which could use this type.
+     */
+    interface Dispatch {
+        (action: RSAAAction): Promise<any>;
+    }
 }
 
 export {};
