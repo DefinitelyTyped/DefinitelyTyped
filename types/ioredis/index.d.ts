@@ -629,6 +629,9 @@ declare namespace IORedis {
 
         rpoplpush(source: string, destination: string, callback?: (err: Error, res: string) => void): Pipeline;
 
+        rpoplpushBuffer(source: string, destination: string, callback: (err: Error, res: Buffer) => void): void;
+        rpoplpushBuffer(source: string, destination: string): Promise<Buffer>;
+
         sadd(key: KeyType, ...members: any[]): Pipeline;
 
         srem(key: KeyType, ...members: any[]): Pipeline;
