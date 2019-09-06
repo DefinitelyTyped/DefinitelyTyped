@@ -675,7 +675,6 @@ declare namespace Office {
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
          */
         interface Event {
-            
             /**
              * Information about the control that triggered calling this function.
              * 
@@ -684,15 +683,17 @@ declare namespace Office {
              * This property is only supported in Outlook in {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/outlook-api-requirement-sets | requirement set} Mailbox 1.3 and later.
              */
             source:Source;
+
             /**
-             * Indicates that the add-in has completed processing that was triggered by an add-in command button or event handler.
+             * Indicates that the add-in has completed processing and will automatically be closed.
              * 
-             * This method must be called at the end of a function which was invoked by an add-in command defined with an Action element with an 
-             * xsi:type attribute set to ExecuteFunction. Calling this method signals the host client that the function is complete and that it can 
-             * clean up any state involved with invoking the function. For example, if the user closes Outlook before this method is called, Outlook 
-             * will warn that a function is still executing.
+             * This method must be called at the end of a function which was invoked by the following.
              * 
-             * This method must be called in an event handler added via Office.context.mailbox.addHandlerAsync after completing processing of the event.
+             * - A UI-less button (i.e., an add-in command defined with an Action element where the xsi:type attribute is set to ExecuteFunction)
+             * 
+             * - An {@link https://docs.microsoft.com/office/dev/add-ins/reference/manifest/event | event} defined in the
+             * {@link https://docs.microsoft.com/office/dev/add-ins/reference/manifest/extensionpoint#events | Events extension point},
+             * e.g., an `ItemSend` event
              * 
              * [Api set: Mailbox 1.3]
              *
@@ -716,7 +717,7 @@ declare namespace Office {
             /**
              * A boolean value. When the completed method is used to signal completion of an event handler, 
              * this value indicates of the handled event should continue execution or be canceled. 
-             * For example, an add-in that handles the `ItemSend` event can set `allowEvent = false` to cancel sending of the message.
+             * For example, an add-in that handles the `ItemSend` event can set `allowEvent` to `false` to cancel sending of the message.
              */
             allowEvent: boolean;
         }
@@ -18875,8 +18876,12 @@ declare namespace Excel {
         set(properties: Excel.Range): void;
         /**
          *
-         * Fills range from the current range to the destination range.
-            The destination range must extend the source either horizontally or vertically. Discontiguous ranges are not supported.
+         * Fills range from the current range to the destination range using the specified AutoFill logic. 
+         * The destination range can be null, or can extend the source either horizontally or vertically. 
+         * If the destination range is null, data is filled out based on the surrounding cells (which is the behavior when double-clicking the UI’s range fill handle). 
+         * Discontiguous ranges are not supported.
+         * 
+         * For more information, read {@link https://support.office.com/article/video-use-autofill-and-flash-fill-2e79a709-c814-4b27-8bc2-c4dc84d49464 | Use AutoFill and Flash Fill}.
          *
          * [Api set: ExcelApi 1.9]
          *
@@ -18886,8 +18891,12 @@ declare namespace Excel {
         autoFill(destinationRange: Range | string, autoFillType?: Excel.AutoFillType): void;
         /**
          *
-         * Fills range from the current range to the destination range.
-            The destination range must extend the source either horizontally or vertically. Discontiguous ranges are not supported.
+         * Fills range from the current range to the destination range using the specified AutoFill logic. 
+         * The destination range can be null, or can extend the source either horizontally or vertically. 
+         * If the destination range is null, data is filled out based on the surrounding cells (which is the behavior when double-clicking the UI’s range fill handle). 
+         * Discontiguous ranges are not supported.
+         * 
+         * For more information, read {@link https://support.office.com/article/video-use-autofill-and-flash-fill-2e79a709-c814-4b27-8bc2-c4dc84d49464 | Use AutoFill and Flash Fill}.
          *
          * [Api set: ExcelApi 1.9]
          *

@@ -29,14 +29,18 @@ ReactDOM.render(
         ) => suggestions}
         handleInputBlur={() => console.log('Blurred')}
         autofocus={false}
+        allowAdditionFromPaste={false}
         allowDeleteFromEmptyInput={false}
         minQueryLength={0}
         removeComponent={null}
         autocomplete={true}
         readOnly={false}
+        resetInputOnDelete={false}
         maxLength={64}
+        inputValue="Some input value"
         inputFieldPosition="top"
         renderSuggestion={({ id, text }: Tag, query: string) => console.log('tag' + id, text)}
+        shouldRenderSuggestions={ q => q !== 'ignore_query' }
         name="react-tags-field"
         id="react-tags-field"
         classNames={{

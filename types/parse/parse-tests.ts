@@ -235,6 +235,9 @@ function test_user() {
     user.set("password", "my pass");
     user.set("email", "email@example.com");
     user.signUp(null, { useMasterKey: true });
+
+    const anotherUser: Parse.User = Parse.User.fromJSON({})
+    anotherUser.set('email', "email@example.com")
 }
 
 async function test_user_currentAsync() {

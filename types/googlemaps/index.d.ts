@@ -262,13 +262,13 @@ declare namespace google.maps {
      */
     enum MapTypeId {
         /** This map type displays a transparent layer of major streets on satellite images. */
-        HYBRID,
+        HYBRID = 'hybrid',
         /** This map type displays a normal street map. */
-        ROADMAP,
+        ROADMAP = 'roadmap',
         /** This map type displays satellite images. */
-        SATELLITE,
+        SATELLITE = 'satellite',
         /** This map type displays maps with physical features such as terrain and vegetation. */
-        TERRAIN,
+        TERRAIN = 'terrain',
     }
 
     /***** Controls *****/
@@ -1977,16 +1977,22 @@ declare namespace google.maps {
         via_waypoints: LatLng[];
     }
 
-    interface DirectionsStep {
+    interface BaseDirectionsStep {
         distance: Distance;
         duration: Duration;
         end_location: LatLng;
         instructions: string;
         path: LatLng[];
         start_location: LatLng;
-        steps: DirectionsStep;
         transit: TransitDetails;
         travel_mode: TravelMode;
+    }
+
+    interface DirectionsStep extends BaseDirectionsStep {
+        /**
+         * This field will only be available if travel_mode is set to TRANSIT.
+         */
+        steps: BaseDirectionsStep[];
     }
 
     interface Distance {

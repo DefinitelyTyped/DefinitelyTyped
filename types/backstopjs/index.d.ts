@@ -14,6 +14,7 @@ export interface Config {
   };
   debugWindow?: boolean;
   debug?: boolean;
+  dockerCommandTemplate?: string;
   engine?: 'chromy' | 'puppeteer';
   engineOptions?: {
     args: string[];

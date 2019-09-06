@@ -28,6 +28,8 @@
 //                 Richard Davison <https://github.com/richarddd>
 //                 Brian Chen <https://github.com/ToucheSir>
 //                 Boris Figovsky <https://github.com/borfig>
+//                 Simon Driscoll <https://github.com/dinodeSimon>
+//                 Anton Kenikh <https://github.com/anthony-kenikh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -335,6 +337,11 @@ declare module "mongoose" {
       autoIndex?: boolean;
     };
     autoIndex?: boolean;
+
+    /** Before Mongoose builds indexes, it calls Model.createCollection() 
+     * to create the underlying collection in MongoDB if autoCreate 
+     * is set to true.(default: false) */
+    autoCreate?: boolean;
 
     /** Specify a journal write concern (default: false). */
     journal?: boolean;
@@ -2870,10 +2877,13 @@ declare module "mongoose" {
      * Mongoose will perform casting on all operations you provide.
      * This function does not trigger any middleware, not save() nor update(). If you need to trigger save() middleware for every document use create() instead.
      * @param writes Operations
+     * @param options Optional settings. See https://mongoosejs.com/docs/api/model.html#model_Model.bulkWrite
      * @param cb callback
      * @return `BulkWriteOpResult` if the operation succeeds
      */
     bulkWrite(writes: any[], cb?: (err: any, res: mongodb.BulkWriteOpResultObject) => void): Promise<mongodb.BulkWriteOpResultObject>;
+    bulkWrite(writes: any[], options?: mongodb.CollectionBulkWriteOptions): Promise<mongodb.BulkWriteOpResultObject>;
+    bulkWrite(writes: any[], options: mongodb.CollectionBulkWriteOptions, cb: (err: any, res: mongodb.BulkWriteOpResultObject) => void): void;
 
     /**
      * Finds a single document by its _id field. findById(id) is almost*

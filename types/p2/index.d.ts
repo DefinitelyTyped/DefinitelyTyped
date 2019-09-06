@@ -753,7 +753,7 @@ declare namespace p2 {
 
     }
 
-    export interface BoxOptions {
+    export interface BoxOptions extends SharedShapeOptions {
 
         width?: number;
         height?: number;

@@ -1092,6 +1092,8 @@ declare namespace Stripe {
 
             description?: string;
 
+            exchange_rate?: number | null;
+
             /**
              * Fee (in cents/pence) paid for this transaction
              */
@@ -1259,9 +1261,9 @@ declare namespace Stripe {
             destination?: string | accounts.IAccount | null;
 
             /**
-             * Details about the dispute if the charge has been disputed.
+             * Details about the dispute if the charge has been disputed. [Expandable]
              */
-            dispute?: disputes.IDispute | null;
+            dispute?: string | disputes.IDispute | null;
 
             /**
              * Error code explaining reason for charge failure if available (see the errors section for a list of
@@ -2159,7 +2161,7 @@ declare namespace Stripe {
                 /**
                  * Use instead of @param line_items when using a subscription
                  */
-                subscription_data?: subscriptions.ISubscription;
+                subscription_data?: subscriptions.ISubscriptionCustCreationOptions;
             }
 
             interface ICheckoutLineItems {
@@ -4279,6 +4281,11 @@ declare namespace Stripe {
              * The identifier of the customer whose invoice items to return. If none is provided, all invoice items will be returned.
              */
             customer?: string;
+
+            /**
+             * Only return invoice items belonging to this invoice. If none is provided, all invoice items will be returned. If specifying an invoice, no customer identifier is needed.
+             */
+            invoice?: string;
 
             /**
              * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.

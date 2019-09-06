@@ -3,7 +3,7 @@
 
 // constructor
 let table = new Tabulator('#test');
-table.copyToClipboard('selection');
+table.copyToClipboard('selected');
 table.searchRows('name', '<', 3);
 table.setFilter('name', '<=', 3);
 table.setFilter([

@@ -179,6 +179,7 @@ declare namespace Chai {
         deep: Deep;
         ordered: Ordered;
         nested: Nested;
+        own: Own;
         any: KeyFilter;
         all: KeyFilter;
         a: TypeComparison;
@@ -294,6 +295,11 @@ declare namespace Chai {
       members: Members;
     }
 
+    interface Own {
+        include: Include;
+        property: Property;
+    }
+
     interface Deep {
         equal: Equal;
         equals: Equal;
@@ -303,6 +309,7 @@ declare namespace Chai {
         members: Members;
         ordered: Ordered;
         nested: Nested;
+        own: Own;
     }
 
     interface Ordered {

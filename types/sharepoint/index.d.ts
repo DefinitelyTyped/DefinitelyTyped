@@ -19,7 +19,7 @@ declare function ExecuteOrDelayUntilScriptLoaded(func: () => void, depScriptFile
 declare function ExecuteOrDelayUntilEventNotified(func: (...args: any[]) => void, eventName: string): boolean;
 declare var Strings: any;
 declare const enum Sods {
-    missing =  1,
+    missing = 1,
     loading = 2,
     pending = 3,
     loaded = 4,
@@ -2206,6 +2206,8 @@ declare namespace SP {
         set_formDigestHandlingEnabled(value: boolean): void;
         get_applicationName(): string;
         set_applicationName(value: string): void;
+        get_disableReturnValueCache(): boolean;
+        set_disableReturnValueCache(value: boolean): boolean;
         get_clientTag(): string;
         set_clientTag(value: string): void;
         get_webRequestExecutorFactory(): SP.IWebRequestExecutorFactory;
