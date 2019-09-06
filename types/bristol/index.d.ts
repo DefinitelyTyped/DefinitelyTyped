@@ -4,13 +4,16 @@
 //                 Elliott Campbell <https://github.com/ElliottCampbellJHA>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export interface LogError {
+// Caveat: Currently, .d.ts files are unable to handle this package fully
+//         as it requires both class and namespace be exported.
+
+interface LogError {
     message?: string;
     reason?: any;
     stack?: any;
 }
 
-export interface LogData {
+interface LogData {
     code?: number;
     id?: string;
     path?: string;
@@ -18,12 +21,16 @@ export interface LogData {
     data?: any;
 }
 
-export class Bristol {
-    addTarget(target: any, opts?: any): any;
-    withFormatter(formatter: string): any;
-    withLowestSeverity(severity: string): any;
-    info(message: string, data: LogData): any;
-    warn(message: string, data: LogData): any;
-    error(message: string, data: LogData): any;
-    debug(message: string, data: LogData): any;
+declare class Bristol {
+  addTarget(target: any, opts?: any): any;
+  withFormatter(formatter: string): any;
+  withLowestSeverity(severity: string): any;
+  info(message: string, data: LogData): any;
+  warn(message: string, data: LogData): any;
+  error(message: string, data: LogData): any;
+  debug(message: string, data: LogData): any;
 }
+
+declare const bristol: Bristol;
+
+export = bristol;

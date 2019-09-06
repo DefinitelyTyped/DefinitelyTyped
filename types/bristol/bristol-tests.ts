@@ -1,14 +1,12 @@
-import * as bristol from 'bristol';
+import bristol = require('bristol');
 
-const log = new bristol.Bristol();
+bristol.addTarget('console');
+bristol.info('Things be working.', {});
 
-log.addTarget('console');
-log.info('Things be working.', {});
+bristol.addTarget('console').withFormatter('human');
+bristol.debug('Hello, world', { code: 404 });
 
-log.addTarget('console').withFormatter('human');
-log.debug('Hello, world', { code: 404 });
-
-const uhoh: bristol.LogData = {
+const uhoh = {
   code: 500,
   error: {
     message: 'Something broke',
@@ -16,4 +14,4 @@ const uhoh: bristol.LogData = {
   },
 };
 
-log.error('Something went wrong', uhoh);
+bristol.error('Something went wrong', uhoh);
