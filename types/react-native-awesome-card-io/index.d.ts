@@ -2,6 +2,7 @@
 // Project: https://github.com/Kerumen/react-native-awesome-card-io
 // Definitions by: Onur Var <https://github.com/OnurVar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.6
 
 declare module 'react-native-awesome-card-io' {
     import { Component } from 'react';
