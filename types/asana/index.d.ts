@@ -4,8 +4,9 @@
 //                 Tasyp <https://github.com/tasyp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.2
+import * as Promise from 'bluebird';
 
-declare module 'asana' {
+declare namespace asana {
     var Client: ClientStatic;
   
     interface ClientStatic {
@@ -22,7 +23,7 @@ declare module 'asana' {
        * @param {String} [redirectUri]  Default redirect URI for this client
        * @param {String} [asanaBaseUrl] Base URL for Asana, for debugging
        */
-      (dispatcher: Dispatcher, options?: ClientOptions): Client;
+      (dispatcher: Dispatcher, options?: ClientOptions): asana.Client;
       /**
        * Creates a new client.
        * @param {Object} options Options for specifying the client, see constructor.
@@ -2632,5 +2633,6 @@ declare module 'asana' {
     }
   
     var VERSION: string;
-  }
-  
+}
+
+export = asana;
