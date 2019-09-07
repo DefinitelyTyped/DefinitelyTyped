@@ -103,8 +103,8 @@ declare namespace Sanctuary {
     gte<A>(x: Ord<A>): (y: Ord<A>) => boolean;
     min<A>(x: Ord<A>): (y: Ord<A>) => A;
     max<A>(x: Ord<A>): (y: Ord<A>) => A;
-    clamp<T = string | number | Date>(a: T): (b: T) => (c: T) => T;
-    clamp<T extends Ord<T>>(a: T): (b: T) => (c: T) => T;
+    clamp<A = string | number | Date>(a: A): (b: A) => (c: A) => A;
+    clamp<A extends Ord<A>>(a: A): (b: A) => (c: A) => A;
     id<A>(p: TypeRep): Fn<A, A> | Category<any>;
     concat<A>(x: Semigroup<A>): (y: Semigroup<A>) => Semigroup<A>;
     concat<A>(x: ReadonlyArray<A>): (y: ReadonlyArray<A>) => Array<A>;
