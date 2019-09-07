@@ -6,13 +6,13 @@
 
 /// <reference types="node" />
 
-declare function imagemin(input: string[], options?: imagemin.Options): Promise<imagemin.Result[]>;
+declare function imagemin(input: ReadonlyArray<string>, options?: imagemin.Options): Promise<imagemin.Result[]>;
 
 declare namespace imagemin {
     type Plugin = (input: Buffer) => Promise<Buffer>;
 
     interface Options {
-        destination?: string;
+        destination: string;
         plugins: ReadonlyArray<Plugin>;
         glob?: boolean;
     }
@@ -23,7 +23,11 @@ declare namespace imagemin {
         destinationPath: string;
     }
 
-    function buffer(buffer: Buffer, options?: Options): Promise<Buffer>;
+    interface BufferOptions {
+        plugins: ReadonlyArray<Plugin>;
+    }
+
+    function buffer(buffer: Buffer, options?: BufferOptions): Promise<Buffer>;
 }
 
 export = imagemin;
