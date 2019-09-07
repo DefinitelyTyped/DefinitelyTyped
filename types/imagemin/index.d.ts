@@ -11,7 +11,7 @@ declare namespace imagemin {
   type Plugin = (input: Buffer) => Promise<Buffer>;
 
   interface Options {
-    destination: string;
+    destination?: string;
     plugins: ReadonlyArray<Plugin>;
     glob?: boolean;
   }
@@ -22,11 +22,7 @@ declare namespace imagemin {
     destinationPath: string;
   }
 
-  interface BufferOptions {
-    plugins: ReadonlyArray<Plugin>;
-  }
-
-  function buffer(buffer: Buffer, options?: BufferOptions): Promise<Buffer>;
+  function buffer(buffer: Buffer, options?: Options): Promise<Buffer>;
 }
 
 export = imagemin;
