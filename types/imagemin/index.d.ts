@@ -12,7 +12,7 @@ declare namespace imagemin {
     type Plugin = (input: Buffer) => Promise<Buffer>;
 
     interface Options {
-        destination?: string;
+        destination: string;
         plugins: ReadonlyArray<Plugin>;
         glob?: boolean;
     }
