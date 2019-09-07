@@ -13,6 +13,7 @@
 //                  Julien Quere <https://github.com/jlnquere>
 //                  Yago Tomé <https://github.com/yagotome>
 //                  Thibault MOCELLIN <https://github.com/tybi>
+//                  Raschid JF Rafaelly <https://github.com/RaschidJFR>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -346,6 +347,8 @@ declare namespace Parse {
         remove(attr: string, item: any): this | false;
         removeAll(attr: string, items: any): this | false;
         revert(): void;
+        revert(keys: string): void;
+        revert(...keys: string[]): void;
         save(attrs?: { [key: string]: any } | null, options?: Object.SaveOptions): Promise<this>;
         save(key: string, value: any, options?: Object.SaveOptions): Promise<this>;
         save(attrs: object, options?: Object.SaveOptions): Promise<this>;
@@ -368,7 +371,10 @@ declare namespace Parse {
 
         interface FetchOptions extends SuccessFailureOptions, ScopeOptions { }
 
-        interface SaveOptions extends SuccessFailureOptions, SilentOption, ScopeOptions, WaitOption { }
+        interface SaveOptions extends SuccessFailureOptions, SilentOption, ScopeOptions, WaitOption {
+            /** If `false`, nested objects will not be saved (default is `true`). */
+            cascadeSave?: boolean;
+        }
 
         interface SaveAllOptions extends BatchSizeOption, ScopeOptions { }
 
@@ -830,10 +836,30 @@ subscription.on('close', () => {});
         function beforeFind(arg1: any, func?: (request: BeforeFindRequest) => Promise<Query> | Query): void;
         function afterFind(arg1: any, func?: (request: AfterFindRequest) => Promise<any> | any): void;
         function define(name: string, func?: (request: FunctionRequest) => Promise<any> | any): void;
+        /**
+         * Gets data for the current set of cloud jobs.
+         * @returns A promise that will be resolved with the result of the function.
+         */
+        function getJobsData(): Promise<any>;
+        /**
+         * Gets job status by Id
+         * @param jobStatusId The Id of Job Status.
+         * @returns Status of Job.
+         */
+        function getJobStatus(jobStatusId: string): Promise<any>;
         function httpRequest(options: HTTPOptions): Promise<HttpResponse>;
         function job(name: string, func?: (request: JobRequest) => Promise<void> | void): HttpResponse;
         function run(name: string, data?: any, options?: RunOptions): Promise<any>;
+        /**
+          * Starts a given cloud job, which will process asynchronously.
+          * @param jobName The function name.
+          * @param data The parameters to send to the cloud function.
+          * @returns A promise that will be resolved with the jobStatusId of the job.
+          */
+        function startJob(jobName: string, data: any): Promise<string>;
         function useMasterKey(): void;
+
+
 
         interface RunOptions extends SuccessFailureOptions, ScopeOptions { }
 
