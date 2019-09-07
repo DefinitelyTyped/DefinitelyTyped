@@ -25,7 +25,7 @@ export default class AsyncEventEmitter<T extends EventMap> {
     removeListener<E extends keyof T>(event: E, listener: T[E]): this;
 
     eventNames(): Array<keyof T>;
-    listeners(event: keyof T): Array<(...args: any[]) => void>;
+    listeners<E extends keyof T>(event: E): Array<T[E]>;
     listenerCount(event: keyof T): number;
 
     getMaxListeners(): number;
