@@ -16,6 +16,7 @@ export default class CardIOExample extends React.Component {
     render() {
         return (
             <CardIOView
+                style={{ flex: 1 }}
                 didScanCard={(card: CardDetails) => {
                     console.log(card);
                 }}

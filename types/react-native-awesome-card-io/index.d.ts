@@ -36,6 +36,7 @@ export interface CardIOCommonProps {
 
 export interface CardIOViewProps extends CardIOCommonProps {
     didScanCard: (card: CardDetails) => void; // This function will be called when the CardIOView completes its work and returns a CreditCard.
+    style?: StyleProp<ViewStyle>; // Style props of CardIOViewProps
 }
 
 export interface CardIOModuleProps extends CardIOCommonProps {
