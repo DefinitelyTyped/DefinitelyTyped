@@ -540,6 +540,7 @@ _.result(object, 'stuff');
 
 var compiled = _.template("hello: <%= name %>");
 compiled({ name: 'moe' });
+let source: string = compiled.source;
 var list2 = "<% _.each(people, function(name) { %> <li><%= name %></li> <% }); %>";
 _.template(list2)({ people: ['moe', 'curly', 'larry'] });
 var template = _.template("<b><%- value %></b>");
@@ -555,6 +556,8 @@ template2({ name: "Mustache" });
 _.template("Using 'with': <%= data.answer %>", oldTemplateSettings)({ variable: 'data' });
 
 _.template("Using 'with': <%= data.answer %>", { variable: 'data' })({ answer: 'no' });
+let template0 = _.template("I don't depend on any variables");
+template0();
 
 //////////////// Chain Tests
 function chain_tests() {
