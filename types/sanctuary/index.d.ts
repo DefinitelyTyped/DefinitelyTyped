@@ -183,7 +183,7 @@ declare namespace Sanctuary {
     pipeK(tk: TK): (tk: TK) => TK;
     on<A, B, C>(p: Fn2<B, B, C>): (q: Fn<A, B>) => (r: A) => Fn<A, C>;
     //  Pair
-    Pair(tk: TK): (tk: TK) => TK;
+    Pair<A>(x: A): <B>(y: B) => Pair<A, B>;
     pair<A, B, C>(f: Fn2<A, B, C>): (p: Pair<A, B>) => C;
     fst<A>(p: Pair<A, any>): A;
     snd<B>(p: Pair<any, B>): B;
