@@ -5,7 +5,7 @@
 
 import { Plugin } from 'imagemin';
 
-declare function imageminMozjpeg(options?: imageminMozjpeg.Options): Plugin
+declare function imageminMozjpeg(options?: imageminMozjpeg.Options): Plugin;
 
 declare namespace imageminMozjpeg {
     interface Options {

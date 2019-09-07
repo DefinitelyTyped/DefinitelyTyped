@@ -1,6 +1,8 @@
 import imagemin = require('imagemin');
 import imageminMozjpeg = require('imagemin-mozjpeg');
 
+imagemin([ '*.jpg' ]);
+/* Comment out since imagemin 8 PR is not yet merged
 imagemin([ '*.jpg' ], {
     destination: 'something',
     plugins: [
@@ -26,3 +28,4 @@ imagemin([ '*.jpg' ], {
         }),
     ],
 });
+*/
