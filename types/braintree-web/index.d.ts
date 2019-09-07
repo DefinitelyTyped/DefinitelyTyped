@@ -780,6 +780,46 @@ declare namespace braintree {
      create(options: { client: Client, fields: HostedFieldFieldOptions, styles: any }, callback: callback): void;
 
     /**
+     * Returns false if input formatting will be automatically disabled due to browser incompatibility. Otherwise, returns true
+     *
+     * @example
+     * var canFormat = braintree.hostedFields.supportsInputFormatting();
+     * var fields = {
+     *   number: {
+     *      container: '#card-number'
+     *   },
+     *  cvv: {
+     *    container: '#cvv'
+     *    }
+     *  };
+     *
+     *  if (canFormat) {
+     *    fields.expirationDate = {
+     *      selection: '#expiration-date'
+     *    };
+     *    functionToCreateAndInsertExpirationDateDivToForm();
+     *  } else {
+     *    fields.expirationMonth = {
+     *      selection: '#expiration-month'
+     *    };
+     *   fields.expirationYear = {
+     *     selection: '#expiration-year'
+     *   };
+     *    functionToCreateAndInsertExpirationMonthAndYearDivsToForm();
+     * }
+     *
+     * braintree.hostedFields.create({
+     *   client: clientInstance,
+     *   styles: {
+     *   // Styles
+     *  },
+     *   fields: fields
+     * }, callback);
+     * @returns {boolean}
+     */
+    supportsInputFormatting(): boolean;
+
+    /**
      * An object that represents CSS that will be applied in each hosted field. This object looks similar to CSS. Typically, these styles involve fonts (such as `font-family` or `color`).
      *
      * These are the CSS properties that Hosted Fields supports. Any other CSS should be specified on your page and outside of any Braintree configuration. Trying to set unsupported properties will fail and put a warning in the console.
