@@ -271,14 +271,14 @@ declare namespace Sanctuary {
     get(p: Predicate<any>): (q: string) => (r: any) => Maybe<any>;
     gets(p: Predicate<any>): (q: ReadonlyArray<string>) => (r: any) => Maybe<any>;
     //  StrMap
-    value(tk: TK): (tk: TK) => TK;
-    singleton(tk: TK): (tk: TK) => TK;
-    insert(tk: TK): (tk: TK) => (tk: TK) => TK;
-    remove(tk: TK): (tk: TK) => TK;
-    keys(p: StrMap<any>): Array<string>;
-    values<A>(p: StrMap<A>): Array<A>;
-    pairs<A>(p: StrMap<A>): Array<Pair<string, A>>;
-    fromPairs(tk: TK): TK;
+    value(k: string): <A>(m: StrMap<A>) => Maybe<A>;
+    singleton(k: string): <A>(v: A) => StrMap<A>;
+    insert(k: string): <A>(v: A) => (m: StrMap<A>) => StrMap<A>;
+    remove(k: string): <A>(m: StrMap<A>) => StrMap<A>;
+    keys(m: StrMap<any>): Array<string>;
+    values<A>(m: StrMap<A>): Array<A>;
+    pairs<A>(m: StrMap<A>): Array<Pair<string, A>>;
+    fromPairs<A>(f: Foldable<Pair<string, A>>): StrMap<A>;
     //  Number
     negate(n: ValidNumber): ValidNumber;
     add(p: FiniteNumber): (q: FiniteNumber) => FiniteNumber;
