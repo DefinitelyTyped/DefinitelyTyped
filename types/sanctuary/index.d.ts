@@ -32,19 +32,19 @@ interface StrMap<A> { [k: string]: A; }
 
 interface Pair<A, B> {
   constructor: {
-    '@@type': 'TK';
+    '@@type': 'sanctuary-pair/Pair@1';
   };
 }
 
 interface Maybe<A> {
   constructor: {
-    '@@type': 'sanctuary/Maybe';
+    '@@type': 'sanctuary-maybe/Maybe@1';
   };
 }
 
 interface Either<A, B> {
   constructor: {
-    '@@type': 'sanctuary/Either';
+    '@@type': 'sanctuary-either/Either@1';
   };
 }
 
