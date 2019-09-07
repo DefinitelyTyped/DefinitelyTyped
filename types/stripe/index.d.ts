@@ -31,6 +31,7 @@
 //                 Chris Zieba <https://github.com/ChrisZieba>
 //                 Jeffery Grajkowski <https://github.com/pushplay>
 //                 Claus Stilborg <https://github.com/stilborg>
+//                 Conor Dockry <https://github.com/cdock1029>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -2100,6 +2101,11 @@ declare namespace Stripe {
                  * URL to redirect to upon success
                  */
                 success_url: string;
+
+                /**
+                 * The mode of the Checkout Session, one of payment, setup, or subscription.
+                 */
+                mode?: 'payment' | 'setup' | 'subscription';
             }
 
             interface ICheckoutCreationOptions {
@@ -2162,6 +2168,11 @@ declare namespace Stripe {
                  * Use instead of @param line_items when using a subscription
                  */
                 subscription_data?: subscriptions.ISubscriptionCustCreationOptions;
+
+                /**
+                 * The mode of the Checkout Session, one of payment, setup, or subscription.
+                 */
+                mode?: 'payment' | 'setup' | 'subscription';
             }
 
             interface ICheckoutLineItems {

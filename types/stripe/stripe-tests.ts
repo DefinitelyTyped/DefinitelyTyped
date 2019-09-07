@@ -363,6 +363,29 @@ stripe.checkout.sessions.create({
     // asynchronously called
 });
 
+// With mode
+stripe.checkout.sessions.create({
+    payment_method_types: ['card'],
+    line_items: [{
+        name: "Cucumber from Roger's Farm",
+        amount: 200,
+        currency: 'sek',
+        quantity: 10,
+    }],
+    payment_intent_data: {
+        application_fee_amount: 200,
+        on_behalf_of: 'acct_17wV8KBoqMA9o2xk',
+        transfer_data: {
+        destination: 'acct_17wV8KBoqMA9o2xk',
+        },
+    },
+    mode: 'setup',
+    success_url: 'https://example.com/success',
+    cancel_url: 'https://example.com/cancel',
+}, (err, session) => {
+    // asynchronously called
+});
+
 //#endregion
 
 //#region CreditNotes tests
