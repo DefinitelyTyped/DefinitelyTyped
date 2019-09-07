@@ -12,19 +12,19 @@ declare namespace imageminMozjpeg {
         /** Compression quality, in range 0 (worst) to 100 (perfect). */
         quality?: number;
 
-        /** 
+        /**
          * false creates baseline JPEG file.
          * @default true
          */
         progressive?: boolean;
 
-        /** 
+        /**
          * Input file is Targa format (usually not needed).
          * @default false
          */
         targa?: boolean;
 
-        /** 
+        /**
          * Revert to standard defaults instead of mozjpeg defaults.
          * @default false
          */
@@ -45,13 +45,14 @@ declare namespace imageminMozjpeg {
          */
         dcScanOpt?: number;
 
-        /** 
-         * Trellis optimization. 
+        /**
+         * Trellis optimization.
          * @default true
-         * */
+         *
+         */
         trellis?: boolean;
 
-        /** 
+        /**
          * Trellis optimization of DC coefficients.
          * @default true
          */
