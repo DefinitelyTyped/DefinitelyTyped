@@ -32,5 +32,7 @@ declare module 'cloudevents-sdk/v03' {
 
     // Cloudevent.event() static constructor
     // https://github.com/cloudevents/sdk-javascript#an-easy-way-to-create-events
-    function event(): CloudEventBuilder;
+    export default {
+        event: () => CloudEventBuilder,
+    };
 }
