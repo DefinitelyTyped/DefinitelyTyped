@@ -1,4 +1,4 @@
-// Type definitions for yt-player 3.3
+// Type definitions for yt-player 3.4
 // Project: https://github.com/feross/yt-player
 // Definitions by: Thomas Röggla <https://github.com/troeggla>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -21,7 +21,9 @@ interface YouTubePlayerOptions {
     playsInline?: boolean;
 }
 
-type YoutubePlayerState = "unstarted" | "ended" | "playing" | "paused" | "buffering" | "cued";
+type YouTubePlayerState = "unstarted" | "ended" | "playing" | "paused" | "buffering" | "cued";
+
+type YouTubePlayerQuality = "small" | "medium" | "large" | "hd720" | "hd1080" | "highres" | "default";
 
 declare class YouTubePlayer extends EventEmitter {
     videoId: string;
@@ -47,18 +49,20 @@ declare class YouTubePlayer extends EventEmitter {
     getPlaybackRate(): number;
     getAvailablePlaybackRates(): number[];
 
+    setPlaybackQuality(suggestedQuality: YouTubePlayerQuality): void;
+
     getDuration(): number;
     getProgress(): number;
-    getState(): YoutubePlayerState;
+    getState(): YouTubePlayerState;
     getCurrentTime(): number;
 
     destroy(): void;
 
     on(event: "timeupdate", callback: (seconds: number) => void): this;
-    on(event: "playbackQualityChange", callback: (quality: number) => void): this;
+    on(event: "playbackQualityChange", callback: (quality: YouTubePlayerQuality) => void): this;
     on(event: "playbackRateChange", callback: (playbackRate: number) => void): this;
 
-    on(event: YoutubePlayerState, callback: () => void): this;
+    on(event: YouTubePlayerState, callback: () => void): this;
 
     on(event: "error", callback: (err: Error) => void): this;
     on(event: "unplayable", callback: (videoId: string) => void): this;
