@@ -5,6 +5,17 @@
 
 // tslint:disable-next-line no-declare-current-package no-single-declare-module cloudevents-sdk/v03 is the documented way to import the cloudevent builder
 declare module 'cloudevents-sdk/v03' {
+    // v03 CloudEvent payload
+    // https://github.com/cloudevents/sdk-javascript/blob/master/lib/specs/spec_0_3.js#L11
+    interface CloudEvent {
+        id: string;
+        datacontenttype: 'application/json';
+        time: string;
+        type: string;
+        source: string;
+        data: {};
+    }
+
     // Cloudevent fluent builder
     // https://github.com/cloudevents/sdk-javascript/blob/master/lib/cloudevent.js
     interface CloudEventBuilder {
@@ -21,20 +32,5 @@ declare module 'cloudevents-sdk/v03' {
 
     // Cloudevent.event() static constructor
     // https://github.com/cloudevents/sdk-javascript#an-easy-way-to-create-events
-    const Cloudevent: {
-        event: () => CloudEventBuilder;
-    };
-
-    export default Cloudevent;
-}
-
-// v03 CloudEvent payload
-// https://github.com/cloudevents/sdk-javascript/blob/master/lib/specs/spec_0_3.js#L11
-interface CloudEvent {
-    id: string;
-    datacontenttype: 'application/json';
-    time: string;
-    type: string;
-    source: string;
-    data: {};
+    function event(): CloudEventBuilder;
 }
