@@ -7689,9 +7689,15 @@ declare namespace Stripe {
             quantity?: number;
 
             /**
-             * Date the subscription started
+             * Date of the last substantial change to this subscription. For example, a change to the items array,
+             * or a change of status, will reset this timestamp.
              */
             start: number;
+
+            /**
+             * Date when the subscription was first created. The date might differ from the created date due to backdating.
+             */
+            start_date: number;
 
             /**
              * Possible values are `incomplete`, `incomplete_expired`, `trialing`, `active`,
