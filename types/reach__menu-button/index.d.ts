@@ -1,6 +1,7 @@
 // Type definitions for @reach/menu-button 0.1
 // Project: https://github.com/reach/reach-ui
 // Definitions by: Harry Hedger <https://github.com/hedgerh>
+//                 Guillaume Amat <https://github.com/GuillaumeAmat>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
