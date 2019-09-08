@@ -347,7 +347,6 @@ declare namespace Parse {
         remove(attr: string, item: any): this | false;
         removeAll(attr: string, items: any): this | false;
         revert(): void;
-        revert(keys: string): void;
         revert(...keys: string[]): void;
         save(attrs?: { [key: string]: any } | null, options?: Object.SaveOptions): Promise<this>;
         save(key: string, value: any, options?: Object.SaveOptions): Promise<this>;
@@ -840,13 +839,13 @@ subscription.on('close', () => {});
          * Gets data for the current set of cloud jobs.
          * @returns A promise that will be resolved with the result of the function.
          */
-        function getJobsData(): Promise<any>;
+        function getJobsData(): Promise<Object>;
         /**
          * Gets job status by Id
          * @param jobStatusId The Id of Job Status.
          * @returns Status of Job.
          */
-        function getJobStatus(jobStatusId: string): Promise<any>;
+        function getJobStatus(jobStatusId: string): Promise<Object>;
         function httpRequest(options: HTTPOptions): Promise<HttpResponse>;
         function job(name: string, func?: (request: JobRequest) => Promise<void> | void): HttpResponse;
         function run(name: string, data?: any, options?: RunOptions): Promise<any>;
