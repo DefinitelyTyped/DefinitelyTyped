@@ -45,9 +45,9 @@ export type ResolvedMenuLinkProps<T> = T extends keyof JSX.IntrinsicElements
   ? JSX.IntrinsicElements[T]
   : T;
 
-export type ResolvedMenuLinkComponent<T> = T extends keyof JSX.IntrinsicElements
-  ? T
-  : React.ComponentType<T>;
+export type ResolvedMenuLinkComponent<T> =
+  | keyof JSX.IntrinsicElements
+  | React.ComponentType<T>;
 
 export type MenuLinkProps<
   T extends SupportedMenuLinkComponent
