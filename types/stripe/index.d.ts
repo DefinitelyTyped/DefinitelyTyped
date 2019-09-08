@@ -10951,8 +10951,9 @@ declare namespace Stripe {
           update(
             id: string,
             data: taxRates.ITaxRateUpdateOptions,
-            response?: IResponseFn<taxRates.ITaxRate>): Promise<taxRates.ITaxRate>;
-            update(
+            response?: IResponseFn<taxRates.ITaxRate>,
+          ): Promise<taxRates.ITaxRate>;
+          update(
             id: string,
             data: taxRates.ITaxRateUpdateOptions,
             options: HeaderOptions,
@@ -10970,7 +10971,7 @@ declare namespace Stripe {
             response?: IResponseFn<taxRates.ITaxRate>,
           ): Promise<taxRates.ITaxRate>;
 
-        /** https://stripe.com/docs/api/tax_rates/list */
+          /** https://stripe.com/docs/api/tax_rates/list */
           list(
             data: taxRates.ItaxRateSearchOptions,
             response?: IResponseFn<IList<taxRates.ITaxRate>>,
