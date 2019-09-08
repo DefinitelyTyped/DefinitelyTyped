@@ -33,7 +33,7 @@ declare class Chart {
     update: ({duration, lazy, easing}?: Chart.ChartUpdateProps) => {};
     render: ({duration, lazy, easing}?: Chart.ChartRenderProps) => {};
     stop: () => this;
-    resize: () => this;
+    resize: () => void;
     clear: () => this;
     toBase64Image: () => string;
     generateLegend: () => string;
