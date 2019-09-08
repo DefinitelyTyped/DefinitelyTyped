@@ -74,6 +74,7 @@ declare class Stripe {
     paymentMethods: Stripe.resources.PaymentMethods;
     payouts: Stripe.resources.Payouts;
     plans: Stripe.resources.Plans;
+    taxRates: Stripe.resources.TaxRates;
     /**
      * @deprecated
      */
@@ -5416,7 +5417,7 @@ declare namespace Stripe {
             /**
              * The data with which to automatically create a Transfer when the payment is finalized. Used with connected accounts.
              */
-            transfer_data?: IpaymentIntentTransferDataOptions;
+            transfer_data?: IPaymentIntentTransferData;
         }
 
         interface IPaymentIntentListOptions extends IListOptionsCreated {
@@ -6744,6 +6745,108 @@ declare namespace Stripe {
         }
     }
 
+    namespace taxRates {
+        interface ITaxRateCreationOptions {
+          /**
+           * The display name of the tax rate, which will be shown to users.
+           */
+            display_name: string;
+          /**
+           * This specifies if the tax rate is inclusive or exclusive.
+           */
+            inclusive: boolean;
+          /**
+           * This represents the tax rate percent out of 100.
+           */
+            percentage: number;
+          /**
+           * Flag determining whether the tax rate is active or inactive. Inactive tax rates continue to work where they are currently applied however they cannot be used for new applications.
+           */
+            active?: boolean;
+          /**
+           * An arbitrary string attached to the tax rate for your internal use only. It will not be visible to your customers.
+           */
+            description?: string;
+          /**
+           * The jurisdiction for the tax rate.
+           */
+          jurisdiction?: string;
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+           * Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to metadata.
+           */
+            metadata?: IMetadata;
+        }
+        interface ITaxRateUpdateOptions {
+          /**
+           * Flag determining whether the tax rate is active or inactive. Inactive tax rates continue to work where they are currently applied however they cannot be used for new applications.
+           */
+            active?: boolean;
+          /**
+           * An arbitrary string attached to the tax rate for your internal use only. It will not be visible to your customers.
+           */
+          description?: string;
+          /**
+           * The display name of the tax rate, which will be shown to users.
+           */
+            display_name?: string;
+          /**
+           * The jurisdiction for the tax rate.
+           */
+          jurisdiction?: string;
+          /**
+           * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+           * Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to metadata.
+           */
+          metadata?: IMetadata;
+        }
+        interface ItaxRateSearchOptions extends IListOptionsCreated {
+            active?: boolean;
+            inclusive?: boolean;
+        }
+        interface ITaxRate extends IResourceObject {
+            /**
+             * String representing the object’s type. Objects of the same type share the same value.
+             */
+            object: 'tax_rate';
+            /**
+             * Defaults to true. When set to false, this tax rate cannot be applied to objects in the API, but will still be applied to subscriptions and invoices that already have it set.
+             */
+            active: boolean;
+            /**
+             * Time at which the object was created. Measured in seconds since the Unix epoch.
+             */
+            created: number;
+            /**
+             * An arbitrary string attached to the tax rate for your internal use only. It will not be visible to your customers.
+             */
+            description: string;
+            /**
+             * The display name of the tax rates as it will appear to your customer on their receipt email, PDF, and the hosted invoice page.
+             */
+            display_name: string;
+            /**
+             * This specifies if the tax rate is inclusive or exclusive.
+             */
+            inclusive: boolean;
+            /**
+             * The jurisdiction for the tax rate.
+             */
+            jurisdiction?: string;
+            /**
+             * Has the value true if the object exists in live mode or the value false if the object exists in test mode.
+             */
+            livemode: boolean;
+            /**
+             * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+             */
+            metadata: IMetadata;
+            /**
+             * This represents the tax rate percent out of 100.
+             */
+            percentage: number;
+        }
+    }
     namespace tokens {
         interface IToken extends ICardToken, IBankAccountToken { }
 
@@ -10827,6 +10930,23 @@ declare namespace Stripe {
             retrieve(id: string, data?: sources.ISourceRetrieveOptions, response?: IResponseFn<sources.ISource>): Promise<sources.ISource>;
         }
 
+        class TaxRates extends StripeResource {
+            /** Create TaxRate: https://stripe.com/docs/api/tax_rates/create */
+            create(data: taxRates.ITaxRateCreationOptions, response?: IResponseFn<taxRates.ITaxRate>): Promise<taxRates.ITaxRate>;
+            create(data: taxRates.ITaxRateCreationOptions, options: HeaderOptions, response?: IResponseFn<taxRates.ITaxRate>): Promise<taxRates.ITaxRate>;
+
+            /** Update TaxRate: https://stripe.com/docs/api/tax_rates/update */
+            update(id: string, data: taxRates.ITaxRateUpdateOptions, response?: IResponseFn<taxRates.ITaxRate>): Promise<taxRates.ITaxRate>;
+            update(id: string, data: taxRates.ITaxRateUpdateOptions, options: HeaderOptions, response?: IResponseFn<taxRates.ITaxRate>): Promise<taxRates.ITaxRate>;
+
+            /** Retieve a TaxRate: https://stripe.com/docs/api/tax_rates/retrieve */
+            retrieve(id: string, response?: IResponseFn<taxRates.ITaxRate>): Promise<taxRates.ITaxRate>;
+            retrieve(id: string, options: HeaderOptions, response?: IResponseFn<taxRates.ITaxRate>): Promise<taxRates.ITaxRate>;
+
+            /** https://stripe.com/docs/api/tax_rates/list */
+            list(data: taxRates.ItaxRateSearchOptions, response?: IResponseFn<IList<taxRates.ITaxRate>>): IListPromise<taxRates.ITaxRate>;
+            list(data: taxRates.ItaxRateSearchOptions, options: HeaderOptions, response?: IResponseFn<IList<taxRates.ITaxRate>>): IListPromise<taxRates.ITaxRate>;
+        }
         class Tokens extends StripeResource {
             /**
              * Creates a single use token that wraps the details of a credit card. This token can be used

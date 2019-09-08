@@ -1989,3 +1989,26 @@ stripe.charges.create({
 
 //#endregion Errors
 // ##################################################################################
+
+//#region TaxRates
+// ##################################################################################
+
+stripe.taxRates.create({
+    display_name: 'VAT',
+    description: 'VAT Germany',
+    jurisdiction: 'DE',
+    percentage: 19.0,
+    inclusive: false,
+}).then(
+    tr => {stripe.taxRates.update(tr.id, { metadata: { order_id: '6735' } })
+        .then(tru => { stripe.taxRates.retrieve(tru.id)
+            .then(trr => {
+                stripe.taxRates.list({ limit: 3 })
+                .then(trl => {
+                });
+            });
+        });
+    });
+
+//#endregion TaxRates
+// ##################################################################################
