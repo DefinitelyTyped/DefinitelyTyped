@@ -32,6 +32,11 @@ declare namespace Parse {
         batchSize?: number;
     }
 
+    interface CascadeSaveOption {
+        /** If `false`, nested objects will not be saved (default is `true`). */
+        cascadeSave?: boolean;
+    }
+
     interface SuccessOption {
         success?: Function;
     }
@@ -370,10 +375,7 @@ declare namespace Parse {
 
         interface FetchOptions extends SuccessFailureOptions, ScopeOptions { }
 
-        interface SaveOptions extends SuccessFailureOptions, SilentOption, ScopeOptions, WaitOption {
-            /** If `false`, nested objects will not be saved (default is `true`). */
-            cascadeSave?: boolean;
-        }
+        interface SaveOptions extends CascadeSaveOption, SuccessFailureOptions, SilentOption, ScopeOptions, WaitOption { }
 
         interface SaveAllOptions extends BatchSizeOption, ScopeOptions { }
 

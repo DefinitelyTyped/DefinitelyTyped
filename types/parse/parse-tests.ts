@@ -22,6 +22,13 @@ function test_object() {
 
     const game = new Game();
 
+    game.save(null, {
+        useMasterKey: true,
+        sessionToken: 'sometoken',
+        cascadeSave: false,
+      })
+      .then(result => result);
+
     if (!game.isNew()) {
         console.error("Game should be new");
     }
