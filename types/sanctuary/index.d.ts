@@ -248,7 +248,7 @@ declare namespace Sanctuary {
     when<A>(p: Predicate<A>): (q: Fn<A, A>) => Fn<A, A>;
     unless<A>(p: Predicate<A>): (q: Fn<A, A>) => Fn<A, A>;
     //  Array
-    array(tk: TK): (tk: TK) => (tk: TK) => TK;
+    array<B>(empty: B): <A>(nonempty: Fn2<A, Array<A>, B>) => (xs: Array<A>) => B;
     head(tk: TK): TK;
     last(tk: TK): TK;
     tail(tk: TK): TK;
