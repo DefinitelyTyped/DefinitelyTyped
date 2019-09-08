@@ -81,7 +81,7 @@ interface Contravariant<A> {}
 
 interface MatchObj {
   match: string;
-  groups: ReadonlyArray<Maybe<string>>;
+  groups: Array<Maybe<string>>;
 }
 
 declare namespace Sanctuary {
@@ -103,13 +103,13 @@ declare namespace Sanctuary {
     gte<A>(x: Ord<A>): (y: Ord<A>) => boolean;
     min<A>(x: Ord<A>): (y: Ord<A>) => A;
     max<A>(x: Ord<A>): (y: Ord<A>) => A;
-    // This is ugly, but makes its job, 
+    // This is ugly, but makes its job,
     // I originally tried to use union:
     // clamp<A extends (Ord<A> | boolean | Date | number | string)>(a: A): (b: A) => (c: A) => A;
     // in which case we would need only three overloads (for simple, array and StrMap)
     // but then the following case fails:
     // clamp(2)(3)
-    // with error "'3' is not assignable to 2". Because of type inference type 
+    // with error "'3' is not assignable to 2". Because of type inference type
     // parameter A was narrowed down to type '2' (type of literal '2')
     // and not to type 'number'. This would force client to provide explicit
     // type parameter each time (to prevent narrowing), e.g. clamp<number>(2)(3)
