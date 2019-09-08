@@ -37,88 +37,93 @@
 /// <reference types="node" />
 
 declare class Stripe {
-    DEFAULT_HOST: string;
-    DEFAULT_PORT: string;
-    DEFAULT_BASE_PATH: string;
-    DEFAULT_API_VERSION: string;
-    DEFAULT_TIMEOUT: number;
-    PACKAGE_VERSION: string;
-    USER_AGENT: {
-        bindings_version: string;
-        lang: string;
-        lang_version: string;
-        platform: string;
-        publisher: string;
-        uname: string;
-    };
-    USER_AGENT_SERIALIZED: string;
+  DEFAULT_HOST: string;
+  DEFAULT_PORT: string;
+  DEFAULT_BASE_PATH: string;
+  DEFAULT_API_VERSION: string;
+  DEFAULT_TIMEOUT: number;
+  PACKAGE_VERSION: string;
+  USER_AGENT: {
+    bindings_version: string;
+    lang: string;
+    lang_version: string;
+    platform: string;
+    publisher: string;
+    uname: string;
+  };
+  USER_AGENT_SERIALIZED: string;
 
-    resources: typeof Stripe.resources;
-    StripeResource: typeof Stripe.StripeResource;
+  resources: typeof Stripe.resources;
+  StripeResource: typeof Stripe.StripeResource;
 
-    constructor(apiKey: string, version?: string);
+  constructor(apiKey: string, version?: string);
 
-    accounts: Stripe.resources.Accounts;
-    balance: Stripe.resources.Balance;
-    balanceTransactions: Stripe.resources.BalanceTransaction;
-    charges: Stripe.resources.Charges;
-    checkout: Stripe.resources.Checkout;
-    coupons: Stripe.resources.Coupons;
-    creditNotes: Stripe.resources.CreditNotes;
-    customers: Stripe.resources.Customers;
-    disputes: Stripe.resources.Disputes;
-    events: Stripe.resources.Events;
-    invoices: Stripe.resources.Invoices;
-    invoiceItems: Stripe.resources.InvoiceItems;
-    paymentIntents: Stripe.resources.PaymentIntents;
-    paymentMethods: Stripe.resources.PaymentMethods;
-    payouts: Stripe.resources.Payouts;
-    plans: Stripe.resources.Plans;
-    taxRates: Stripe.resources.TaxRates;
-    /**
-     * @deprecated
-     */
-    recipientCards: Stripe.resources.RecipientCards;
-    /**
-     * @deprecated
-     */
-    recipients: Stripe.resources.Recipients;
-    subscriptions: Stripe.resources.Subscriptions;
-    subscriptionItems: Stripe.resources.SubscriptionItems;
-    tokens: Stripe.resources.Tokens;
-    transfers: Stripe.resources.Transfers;
-    applicationFees: Stripe.resources.ApplicationFees;
-    fileUploads: Stripe.resources.FileUploads;
-    bitcoinReceivers: Stripe.resources.BitcoinReceivers;
-    refunds: Stripe.resources.Refunds;
-    countrySpecs: Stripe.resources.CountrySpecs;
-    orders: Stripe.resources.Orders;
-    products: Stripe.resources.Products;
-    setupIntents: Stripe.resources.SetupIntents;
-    skus: Stripe.resources.SKUs;
-    webhooks: Stripe.resources.WebHooks;
-    ephemeralKeys: Stripe.resources.EphemeralKeys;
-    usageRecords: Stripe.resources.UsageRecords;
-    usageRecordSummaries: Stripe.resources.UsageRecordSummaries;
-    sources: Stripe.resources.Sources;
+  accounts: Stripe.resources.Accounts;
+  balance: Stripe.resources.Balance;
+  balanceTransactions: Stripe.resources.BalanceTransaction;
+  charges: Stripe.resources.Charges;
+  checkout: Stripe.resources.Checkout;
+  coupons: Stripe.resources.Coupons;
+  creditNotes: Stripe.resources.CreditNotes;
+  customers: Stripe.resources.Customers;
+  disputes: Stripe.resources.Disputes;
+  events: Stripe.resources.Events;
+  invoices: Stripe.resources.Invoices;
+  invoiceItems: Stripe.resources.InvoiceItems;
+  paymentIntents: Stripe.resources.PaymentIntents;
+  paymentMethods: Stripe.resources.PaymentMethods;
+  payouts: Stripe.resources.Payouts;
+  plans: Stripe.resources.Plans;
+  taxRates: Stripe.resources.TaxRates;
+  /**
+   * @deprecated
+   */
+  recipientCards: Stripe.resources.RecipientCards;
+  /**
+   * @deprecated
+   */
+  recipients: Stripe.resources.Recipients;
+  subscriptions: Stripe.resources.Subscriptions;
+  subscriptionItems: Stripe.resources.SubscriptionItems;
+  tokens: Stripe.resources.Tokens;
+  transfers: Stripe.resources.Transfers;
+  applicationFees: Stripe.resources.ApplicationFees;
+  fileUploads: Stripe.resources.FileUploads;
+  bitcoinReceivers: Stripe.resources.BitcoinReceivers;
+  refunds: Stripe.resources.Refunds;
+  countrySpecs: Stripe.resources.CountrySpecs;
+  orders: Stripe.resources.Orders;
+  products: Stripe.resources.Products;
+  setupIntents: Stripe.resources.SetupIntents;
+  skus: Stripe.resources.SKUs;
+  webhooks: Stripe.resources.WebHooks;
+  ephemeralKeys: Stripe.resources.EphemeralKeys;
+  usageRecords: Stripe.resources.UsageRecords;
+  usageRecordSummaries: Stripe.resources.UsageRecordSummaries;
+  sources: Stripe.resources.Sources;
 
-    setHost(host: string): void;
-    setHost(host: string, port: string | number): void;
-    setHost(host: string, port: string | number, protocol: string): void;
+  setHost(host: string): void;
+  setHost(host: string, port: string | number): void;
+  setHost(host: string, port: string | number, protocol: string): void;
 
-    setProtocol(protocol: string): void;
-    setPort(port: string | number): void;
-    setApiVersion(version?: string): void;
-    setApiKey(key?: string): void;
-    setAppInfo(info?: { partner_id?: string; name: string; url?: string; version?: string }): void;
-    setTimeout(timeout?: number): void;
-    setMaxNetworkRetries(maxNetworkRetries: number): void;
-    setTelemetryEnabled(enabled: boolean): void;
-    setHttpAgent(agent: string): void;
-    getConstant(c: string): any;
-    getMaxNetworkRetries(): number;
-    getTelemetryEnabled(): boolean;
-    getClientUserAgent(response: (userAgent: string) => void): void;
+  setProtocol(protocol: string): void;
+  setPort(port: string | number): void;
+  setApiVersion(version?: string): void;
+  setApiKey(key?: string): void;
+  setAppInfo(info?: {
+    partner_id?: string;
+    name: string;
+    url?: string;
+    version?: string;
+  }): void;
+  setTimeout(timeout?: number): void;
+  setMaxNetworkRetries(maxNetworkRetries: number): void;
+  setTelemetryEnabled(enabled: boolean): void;
+  setHttpAgent(agent: string): void;
+  getConstant(c: string): any;
+  getMaxNetworkRetries(): number;
+  getTelemetryEnabled(): boolean;
+  getClientUserAgent(response: (userAgent: string) => void): void;
 }
 export = Stripe;
 
@@ -10931,21 +10936,50 @@ declare namespace Stripe {
         }
 
         class TaxRates extends StripeResource {
-            /** Create TaxRate: https://stripe.com/docs/api/tax_rates/create */
-            create(data: taxRates.ITaxRateCreationOptions, response?: IResponseFn<taxRates.ITaxRate>): Promise<taxRates.ITaxRate>;
-            create(data: taxRates.ITaxRateCreationOptions, options: HeaderOptions, response?: IResponseFn<taxRates.ITaxRate>): Promise<taxRates.ITaxRate>;
+          /** Create TaxRate: https://stripe.com/docs/api/tax_rates/create */
+          create(
+            data: taxRates.ITaxRateCreationOptions,
+            response?: IResponseFn<taxRates.ITaxRate>,
+          ): Promise<taxRates.ITaxRate>;
+          create(
+            data: taxRates.ITaxRateCreationOptions,
+            options: HeaderOptions,
+            response?: IResponseFn<taxRates.ITaxRate>,
+          ): Promise<taxRates.ITaxRate>;
 
-            /** Update TaxRate: https://stripe.com/docs/api/tax_rates/update */
-            update(id: string, data: taxRates.ITaxRateUpdateOptions, response?: IResponseFn<taxRates.ITaxRate>): Promise<taxRates.ITaxRate>;
-            update(id: string, data: taxRates.ITaxRateUpdateOptions, options: HeaderOptions, response?: IResponseFn<taxRates.ITaxRate>): Promise<taxRates.ITaxRate>;
+          /** Update TaxRate: https://stripe.com/docs/api/tax_rates/update */
+          update(
+            id: string,
+            data: taxRates.ITaxRateUpdateOptions,
+            response?: IResponseFn<taxRates.ITaxRate>): Promise<taxRates.ITaxRate>;
+            update(
+            id: string,
+            data: taxRates.ITaxRateUpdateOptions,
+            options: HeaderOptions,
+            response?: IResponseFn<taxRates.ITaxRate>,
+          ): Promise<taxRates.ITaxRate>;
 
-            /** Retieve a TaxRate: https://stripe.com/docs/api/tax_rates/retrieve */
-            retrieve(id: string, response?: IResponseFn<taxRates.ITaxRate>): Promise<taxRates.ITaxRate>;
-            retrieve(id: string, options: HeaderOptions, response?: IResponseFn<taxRates.ITaxRate>): Promise<taxRates.ITaxRate>;
+          /** Retieve a TaxRate: https://stripe.com/docs/api/tax_rates/retrieve */
+          retrieve(
+            id: string,
+            response?: IResponseFn<taxRates.ITaxRate>,
+          ): Promise<taxRates.ITaxRate>;
+          retrieve(
+            id: string,
+            options: HeaderOptions,
+            response?: IResponseFn<taxRates.ITaxRate>,
+          ): Promise<taxRates.ITaxRate>;
 
-            /** https://stripe.com/docs/api/tax_rates/list */
-            list(data: taxRates.ItaxRateSearchOptions, response?: IResponseFn<IList<taxRates.ITaxRate>>): IListPromise<taxRates.ITaxRate>;
-            list(data: taxRates.ItaxRateSearchOptions, options: HeaderOptions, response?: IResponseFn<IList<taxRates.ITaxRate>>): IListPromise<taxRates.ITaxRate>;
+        /** https://stripe.com/docs/api/tax_rates/list */
+          list(
+            data: taxRates.ItaxRateSearchOptions,
+            response?: IResponseFn<IList<taxRates.ITaxRate>>,
+          ): IListPromise<taxRates.ITaxRate>;
+          list(
+            data: taxRates.ItaxRateSearchOptions,
+            options: HeaderOptions,
+            response?: IResponseFn<IList<taxRates.ITaxRate>>,
+          ): IListPromise<taxRates.ITaxRate>;
         }
         class Tokens extends StripeResource {
             /**
