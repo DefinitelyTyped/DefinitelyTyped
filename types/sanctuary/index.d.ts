@@ -244,7 +244,7 @@ declare namespace Sanctuary {
     not(p: boolean): boolean;
     complement<A>(p: Predicate<A>): Predicate<A>;
     boolean<A>(f: A): (t: A) => (b: boolean) => A;
-    ifElse<A, B>(p: Predicate<A>): (q: Fn<A, B>) => (r: Fn<A, B>) => Fn<A, B>;
+    ifElse<A>(p: Predicate<A>): <B>(q: Fn<A, B>) => (r: Fn<A, B>) => Fn<A, B>;
     when<A>(p: Predicate<A>): (q: Fn<A, A>) => Fn<A, A>;
     unless<A>(p: Predicate<A>): (q: Fn<A, A>) => Fn<A, A>;
     //  Array
