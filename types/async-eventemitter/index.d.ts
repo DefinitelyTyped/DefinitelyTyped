@@ -4,15 +4,19 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
 
-export type AsyncListener<T, R> = (data?: T, callback?: (result?: R) => void) => Promise<R> | void;
-export type EventMap = {[event in string | number | symbol]: AsyncListener<any, any>};
+import { EventEmitter } from "events";
 
-export default class AsyncEventEmitter<T extends EventMap> {
-    emit: <K extends keyof T>(event: K, ...args: Parameters<T[K]>) => boolean;
-    first<K extends keyof T>(event: K, listener: T[K]): any;
-    at<K extends keyof T>(event: K, index: number, listener: T[K]): any;
-    before<K extends keyof T>(event: K, target: T[K], listener: T[K]): any;
-    after<K extends keyof T>(event: K, target: T[K], listener: T[K]): any;
+export type AsyncListener<T, R> = (data?: T, callback?: (result?: R) => void) => Promise<R> | void;
+export interface EventMap {
+    [event: string]: AsyncListener<any, any>;
+}
+
+export default class AsyncEventEmitter<T extends EventMap> extends EventEmitter {
+    emit: <E extends keyof T>(event: E, ...args: Parameters<T[E]>) => boolean;
+    first<E extends keyof T>(event: E, listener: T[E]): this;
+    at<E extends keyof T>(event: E, index: number, listener: T[E]): this;
+    before<E extends keyof T>(event: E, target: T[E], listener: T[E]): this;
+    after<E extends keyof T>(event: E, target: T[E], listener: T[E]): this;
 
     // https://github.com/andywer/typed-emitter/blob/master/index.d.ts
     addListener<E extends keyof T>(event: E, listener: T[E]): this;
@@ -22,9 +26,9 @@ export default class AsyncEventEmitter<T extends EventMap> {
     prependOnceListener<E extends keyof T>(event: E, listener: T[E]): this;
 
     removeAllListeners(event?: keyof T): this;
-    removeListener<E extends keyof T>(event: E, listener: T[E]): this;
+    removeListener<E extends (keyof T & string)>(event: E, listener: T[E]): this;
 
-    eventNames(): Array<keyof T>;
+    eventNames(): Array<keyof T & string>;
     listeners<E extends keyof T>(event: E): Array<T[E]>;
     listenerCount(event: keyof T): number;
 

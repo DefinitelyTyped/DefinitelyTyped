@@ -1,7 +1,5 @@
 import AsyncEventEmitter from 'async-eventemitter';
 
-const a: Exclude<object, Promise<any>> = new Promise(() => {});
-
 const ee = new AsyncEventEmitter<{
   sync: (a: string) => void;
   // "sync-multiple": (a: string, b: number) => void,
