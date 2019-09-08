@@ -64,6 +64,11 @@ declare module _ {
         variable?: string;
     }
 
+    interface CompiledTemplate {
+        (data?: any): string;
+        source: string;
+    }
+
     interface Collection<T> { }
 
     // Common interface between Arrays and jQuery objects
@@ -4087,7 +4092,7 @@ declare module _ {
         * @param settings Settings to use while compiling.
         * @return Returns the compiled Underscore HTML template.
         **/
-        template(templateString: string, settings?: _.TemplateSettings): (...data: any[]) => string;
+        template(templateString: string, settings?: _.TemplateSettings): CompiledTemplate;
 
         /**
         * By default, Underscore uses ERB-style template delimiters, change the
@@ -5043,7 +5048,7 @@ declare module _ {
         * Wrapped type `string`.
         * @see _.template
         **/
-        template(settings?: _.TemplateSettings): (...data: any[]) => string;
+        template(settings?: _.TemplateSettings): CompiledTemplate;
 
         /********** *
          * Chaining *
@@ -6009,7 +6014,7 @@ declare module _ {
         * Wrapped type `string`.
         * @see _.template
         **/
-        template(settings?: _.TemplateSettings): (...data: any[]) => _Chain<T>;
+        template(settings?: _.TemplateSettings): _Chain<CompiledTemplate>;
 
         /************* *
         * Array proxy *
