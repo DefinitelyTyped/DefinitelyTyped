@@ -257,8 +257,8 @@ declare namespace Sanctuary {
     drop(tk: TK): (tk: TK) => TK;
     takeLast(tk: TK): (tk: TK) => TK;
     dropLast(tk: TK): (tk: TK) => TK;
-    takeWhile(tk: TK): (tk: TK) => TK;
-    dropWhile(tk: TK): (tk: TK) => TK;
+    takeWhile<A>(p: Predicate<A>): (xs: ReadonlyArray<A>) => Array<A>;
+    dropWhile<A>(p: Predicate<A>): (xs: ReadonlyArray<A>) => Array<A>;
     size(tk: TK): TK;
     all(tk: TK): (tk: TK) => TK;
     any(tk: TK): (tk: TK) => TK;
