@@ -2102,6 +2102,39 @@ declare namespace Stripe {
                 success_url: string;
             }
 
+            interface ICheckOutCreationSubscriptionDataItem {
+                /**
+                 * Plan ID for this item.
+                 */
+                plan: string;
+                /**
+                 * Quantity for this item.
+                 */
+                quantity?: number;
+            }
+            interface ICheckOutCreationSubscriptionData {
+                /**
+                 * A list of items, each with an attached plan, that the customer is subscribing to. Use this parameter for subscriptions. To create one-time payments, use line_items.
+                 */
+                items: ICheckOutCreationSubscriptionDataItem[];
+                /**
+                 * A non-negative decimal between 0 and 100, with at most two decimal places.
+                 * This represents the percentage of the subscription invoice subtotal that will be transferred to the application owner’s Stripe account.
+                 */
+                application_fee_percent?: number;
+                /**
+                 * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+                 */
+                metadata?: IMetadata;
+                /**
+                 * Unix timestamp representing the end of the trial period the customer will get before being charged for the first time. Has to be at least 48 hours in the future.
+                 */
+                trial_end?: number;
+                /**
+                 * Integer representing the number of trial period days before the customer is charged for the first time. Has to be at least 1.
+                 */
+                trial_period_days?: number;
+            }
             interface ICheckoutCreationOptions {
                 /**
                  * The URL to return the customer to if they cancel payment
@@ -2154,14 +2187,30 @@ declare namespace Stripe {
                 locale?: 'auto' | 'da' | 'de' | 'en' | 'es' | 'fi' | 'fr' | 'it' | 'ja' | 'nb' | 'nl' | 'pl' | 'pt' | 'sv' | 'zh';
 
                 /**
+                 * The mode of the Checkout Session, one of payment, setup, or subscription.
+                 */
+                mode?: 'payment' | 'setup' | 'subscription';
+
+                /**
                  * Details for creation of payment intent
                  */
-                payment_intent_data?: paymentIntents.IPaymentIntentCaptureOptions | paymentIntents.IPaymentIntentData;
+                payment_intent_data?: paymentIntents.IPaymentIntentSessionSubset;
+
+                /**
+                 * A subset of parameters to be passed to SetupIntent creation.
+                 */
+                setup_intent_data?: setupIntents.ISetupIntentSessionSubset;
+                /**
+                 * Describes the type of transaction being performed by Checkout in order to customize relevant text on the page, such as the submit button.
+                 * submit_type can only be specified on Checkout Sessions using line items or a SKU, but not Checkout Sessions for subscriptions.
+                 * Supported values are auto, book, donate, or pay.
+                 */
+                submit_type?: 'auto' | 'book' | 'donate' | 'pay';
 
                 /**
                  * Use instead of @param line_items when using a subscription
                  */
-                subscription_data?: subscriptions.ISubscriptionCustCreationOptions;
+                subscription_data?: ICheckOutCreationSubscriptionData;
             }
 
             interface ICheckoutLineItems {
@@ -4807,6 +4856,59 @@ declare namespace Stripe {
     }
 
     namespace paymentIntents {
+        /**
+         * Used in checkout session creation
+         */
+        interface IPaymentIntentSessionSubset {
+            /**
+             * The amount of the application fee (if any) that will be applied to the payment and transferred to the application owner’s Stripe account. To use an application fee, the request must be made on behalf of another account, using the `Stripe-Account` header or an OAuth key.
+             */
+            application_fee_amount?: number;
+
+            /**
+             * Capture method of this PaymentIntent, one of automatic or manual.
+             */
+            capture_method?: PaymentIntentDataCaptureMethodOptions;
+
+            /**
+             * An arbitrary string attached to the object. Often useful for displaying to users. This can be unset by updating the value to null and then saving.
+             */
+            description?: string | null;
+
+            /**
+             * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+             */
+            metadata?: IMetadata;
+
+            /**
+             * The account (if any) for which the funds of the PaymentIntent are intended. Used with connected accounts.
+             */
+            on_behalf_of?: string;
+
+            /**
+             * Email address that the receipt for the resulting payment will be sent to.
+             */
+            receipt_email?: string;
+
+            /**
+             * Indicates that you intend to make future payments with this PaymentIntent’s payment method.
+             * If present, the payment method used with this PaymentIntent can be attached to a Customer, even after the transaction completes.
+             * Use on_session if you intend to only reuse the payment method when your customer is present in your checkout flow. Use off_session if your customer may or may not be in your checkout flow. See Saving card details after a payment to learn more.
+             * Stripe uses setup_future_usage to dynamically optimize your payment flow and comply with regional legislation and network rules. For example, if your customer is impacted by SCA, using off_session will ensure that they are authenticated while processing this PaymentIntent. You will then be able to collect off-session payments for this customer.
+             */
+            setup_future_usage?: PaymentIntendDataFutureUsageOptions;
+
+            /**
+             * Shipping information for this payment.
+             */
+            shipping?: IPaymentIntentDataShipping;
+
+            /**
+             * The data with which to automatically create a Transfer when the payment is finalized. Used with connected accounts.
+             */
+            transfer_data?: IPaymentIntentDataTransferDataOptions;
+        }
+
         type PaymentIntentCancellationReason = 'duplicate' | 'fraudulent' | 'requested_by_customer' | 'failed_invoice';
 
         type PaymentIntentFutureUsageType = 'on_session' | 'off_session';
@@ -5366,7 +5468,7 @@ declare namespace Stripe {
             /**
              * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
              */
-            metadata?: IOptionsMetadata;
+            metadata?: IMetadata;
 
             /**
              * The account (if any) for which the funds of the PaymentIntent are intended. Used with connected accounts.
@@ -5416,7 +5518,7 @@ declare namespace Stripe {
             /**
              * The data with which to automatically create a Transfer when the payment is finalized. Used with connected accounts.
              */
-            transfer_data?: IpaymentIntentTransferDataOptions;
+            transfer_data?: setupIntents.ISetupIntentTransferData;
         }
 
         interface IPaymentIntentListOptions extends IListOptionsCreated {
@@ -5722,6 +5824,21 @@ declare namespace Stripe {
              * Only return SetupIntents associated with the specified payment method.
              */
             payment_method?: string;
+        }
+
+        interface ISetupIntentSessionSubset {
+            /**
+             * An arbitrary string attached to the object. Often useful for displaying to users.
+             */
+            description?: string;
+            /**
+             * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+             */
+            metadata?: IMetadata;
+            /**
+             * The Stripe account for which the setup is intended.
+             */
+            on_behalf_of?: string;
         }
     }
 
@@ -8925,6 +9042,7 @@ declare namespace Stripe {
 
         class Sessions extends StripeResource {
             create(data: checkouts.sessions.ICheckoutCreationOptions, response?: IResponseFn<checkouts.sessions.ICheckoutSession>): Promise<checkouts.sessions.ICheckoutSession>;
+            create(data: checkouts.sessions.ICheckoutCreationOptions, options: HeaderOptions, response?: IResponseFn<checkouts.sessions.ICheckoutSession>): Promise<checkouts.sessions.ICheckoutSession>;
             retrieve(data: string, options: HeaderOptions, response?: IResponseFn<checkouts.sessions.ICheckoutSession>): Promise<checkouts.sessions.ICheckoutSession>;
             retrieve(data: string, response?: IResponseFn<checkouts.sessions.ICheckoutSession>): Promise<checkouts.sessions.ICheckoutSession>;
         }
