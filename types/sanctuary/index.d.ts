@@ -236,7 +236,7 @@ declare namespace Sanctuary {
     lefts(tk: TK): TK;
     rights(tk: TK): TK;
     tagBy<A>(p: Predicate<A>): (q: A) => Either<A, A>;
-    encase(tk: TK): (tk: TK) => TK;
+    encase<A, B>(f: Fn<A, B>): (x: A) => Either<Error, B>;
     eitherToMaybe<B>(p: Either<any, B>): Maybe<B>;
     //  Logic
     and(p: boolean): (q: boolean) => boolean;
