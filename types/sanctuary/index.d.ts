@@ -243,7 +243,7 @@ declare namespace Sanctuary {
     or(p: boolean): (q: boolean) => boolean;
     not(p: boolean): boolean;
     complement<A>(p: Predicate<A>): Predicate<A>;
-    boolean(tk: TK): (tk: TK) => (tk: TK) => TK;
+    boolean<A>(f: A): (t: A) => (b: boolean) => A;
     ifElse<A, B>(p: Predicate<A>): (q: Fn<A, B>) => (r: Fn<A, B>) => Fn<A, B>;
     when<A>(p: Predicate<A>): (q: Fn<A, A>) => Fn<A, A>;
     unless<A>(p: Predicate<A>): (q: Fn<A, A>) => Fn<A, A>;
