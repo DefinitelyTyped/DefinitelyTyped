@@ -356,7 +356,7 @@ declare namespace Sanctuary {
             (s: string) => Maybe<Integer>;
     parseJson(p: Predicate<any>): (q: string) => Maybe<any>;
     //  RegExp
-    regex(p: string): (q: string) => RegExp;
+    regex(flags: '' | 'g' | 'i' | 'm' | 'gi' | 'gm' | 'im' | 'gim'): (s: string) => RegExp;
     regexEscape(s: string): string;
     test(pattern: RegExp): Predicate<string>;
     match(pattern: RegExp): (q: string) => Array<Maybe<MatchObj>>;
