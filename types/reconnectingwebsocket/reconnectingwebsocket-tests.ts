@@ -21,22 +21,32 @@ ReconnectingWebSocket.OPEN = WebSocket.OPEN;
 ReconnectingWebSocket.CLOSING = WebSocket.CLOSING;
 ReconnectingWebSocket.CLOSED = WebSocket.CLOSED;
 
-ws1.onclose = (event: any) => {
+const closeListener = (event: CustomEvent<undefined>) => {
+    console.log(event.type);
+};
+ws1.onclose = closeListener;
+ws2.addEventListener('close', closeListener);
+ws2.removeEventListener('close', closeListener);
+
+ws2.onconnecting = (event) => {
+    console.log('Was clean?', event.wasClean);
 };
 
-ws2.onconnecting = (event: any) => {
-};
-
-ws3.onerror = (event: any) => {
+ws3.onerror = (event) => {
+    console.log(event.type);
 };
 
 ws1.onmessage = (event: any) => {
+    console.log('Got data!', event.data);
 };
 
-ws1.onopen = (event: any) => {
+ws1.onopen = (event) => {
+    console.log('Is reconnect?', event.isReconnect);
 };
 
 ws1.open(true);
+
+ws1.debug = true;
 
 ws1.refresh();
 
