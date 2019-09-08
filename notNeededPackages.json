@@ -2665,6 +2665,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "playcanvas",
+            "typingsPackageName": "playcanvas",
+            "sourceRepoURL": "https://github.com/playcanvas/engine",
+            "asOfVersion": "1.23.0"
+        },
+        {
             "libraryName": "plottable",
             "typingsPackageName": "plottable",
             "sourceRepoURL": "http://plottablejs.org/",
@@ -2951,6 +2957,12 @@
             "typingsPackageName": "react-svg",
             "sourceRepoURL": "https://github.com/tanem/react-svg",
             "asOfVersion": "5.0.0"
+        },
+        {
+            "libraryName": "react-webcam",
+            "typingsPackageName": "react-webcam",
+            "sourceRepoURL": "https://github.com/mozmorris/react-webcam",
+            "asOfVersion": "3.0.0"
         },
         {
             "libraryName": "read-chunk",

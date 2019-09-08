@@ -37,6 +37,8 @@ player.getPlaybackRate();
 player.getAvailablePlaybackRates();
 player.setPlaybackRate(2);
 
+player.setPlaybackQuality("medium");
+
 player.getDuration();
 player.getProgress();
 player.getState();
@@ -49,7 +51,7 @@ player.videoId;
 
 player.on("timeupdate", (sec: number) => {});
 player.on("playbackRateChange", (rate: number) => {});
-player.on("playbackQualityChange", (quality: number) => {});
+player.on("playbackQualityChange", (quality) => {});
 
 player.on("buffering", () => {});
 player.on("unstarted", () => {});
