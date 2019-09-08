@@ -6700,8 +6700,9 @@ declare namespace Stripe {
          * If, for example, a product’s attributes are ["size", "gender"],
          * a valid SKU has the following dictionary of attributes: {"size": "Medium", "gender": "Unisex"}.
          */
-            // tslint:disable-next-line:no-empty-interface
-        interface ISkuAttributes {}
+        interface ISkuAttributes {
+          [key: string]: string;
+        }
     }
 
     namespace ephemeralKeys {
