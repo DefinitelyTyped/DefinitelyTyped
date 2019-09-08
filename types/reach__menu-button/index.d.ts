@@ -52,7 +52,7 @@ export type ResolvedMenuLinkComponent<T> = T extends keyof JSX.IntrinsicElements
 export type MenuLinkProps<
   T extends SupportedMenuLinkComponent
 > = ResolvedMenuLinkProps<T> & {
-  as?: string;
+  as?: ResolvedMenuLinkComponent<T>;
   to?: string;
   onKeyDown?: (e: React.KeyboardEvent<HTMLElement>) => void;
   onClick?: (e: React.MouseEvent<HTMLElement>) => void;
