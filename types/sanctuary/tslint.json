@@ -2,6 +2,7 @@
   "extends": "dtslint/dt.json",
   "rules": {
     "array-type": [true, "generic"],
+    "interface-name": [false],
     "no-empty-interface": [false]
   }
 }

@@ -34,18 +34,24 @@ interface Pair<A, B> {
   constructor: {
     '@@type': 'sanctuary-pair/Pair@1';
   };
+  'fantasy-land/equals'(other: Pair<A, B>): boolean;
+  'fantasy-land/lte'(other: Pair<A, B>): boolean;
 }
 
 interface Maybe<A> {
   constructor: {
     '@@type': 'sanctuary-maybe/Maybe@1';
   };
+  'fantasy-land/equals'(other: Maybe<A>): boolean;
+  'fantasy-land/lte'(other: Maybe<A>): boolean;
 }
 
 interface Either<A, B> {
   constructor: {
     '@@type': 'sanctuary-either/Either@1';
   };
+  'fantasy-land/equals'(other: Either<A, B>): boolean;
+  'fantasy-land/lte'(other: Either<A, B>): boolean;
 }
 
 type ValidNumber            = number;
@@ -56,8 +62,46 @@ type NonNegativeInteger     = number;
 
 interface TypeRep {}
 
-interface Setoid<A> {}
-interface Ord<A> extends Setoid<A> {}
+interface ISetoid<A> {
+  'fantasy-land/equals'(other: A): boolean;
+}
+//  `fantasy-land/equals` implementations are provided for the following
+//  built-in types: Null, Undefined, Boolean, Number, Date, RegExp, String,
+//  Array, Arguments, Error, Object, and Function.
+type Setoid<A>
+  = null
+  | undefined
+  | boolean
+  | number
+  | Date
+  | RegExp
+  | string
+  | ArraySetoid<A>
+  | Error
+  | StrMap<A>
+  // tslint:disable-next-line:ban-types
+  | Function
+  | ISetoid<A>;
+interface ArraySetoid<A> extends Array<Setoid<A>> {}
+
+interface IOrd<A> extends ISetoid<A> {
+  'fantasy-land/lte'(other: A): boolean;
+}
+//  `fantasy-land/lte` implementations are provided for the following
+//  built-in types: Null, Undefined, Boolean, Number, Date, String,
+//  Array, Arguments, and Object.
+type Ord<A>
+  = null
+  | undefined
+  | boolean
+  | number
+  | Date
+  | string
+  | ArrayOrd<A>
+  | StrMap<A>
+  | IOrd<A>;
+interface ArrayOrd<A> extends Array<Ord<A>> {}
+
 interface Semigroupoid<A, B> {}
 interface Category<A> extends Semigroupoid<A, A> {}
 interface Semigroup<A> {}
@@ -96,13 +140,13 @@ declare namespace Sanctuary {
     //  Showable
     show(tk: TK): TK;
     //  Fantasy Land
-    equals<A>(x: Setoid<A>): (y: Setoid<A>) => boolean;
-    lt <A>(x: Ord<A>): (y: Ord<A>) => boolean;
-    lte<A>(x: Ord<A>): (y: Ord<A>) => boolean;
-    gt <A>(x: Ord<A>): (y: Ord<A>) => boolean;
-    gte<A>(x: Ord<A>): (y: Ord<A>) => boolean;
-    min<A>(x: Ord<A>): (y: Ord<A>) => A;
-    max<A>(x: Ord<A>): (y: Ord<A>) => A;
+    equals<A extends Setoid<any>>(x: A): (y: A) => boolean;
+    lt <A extends Ord<any>>(x: A): (y: A) => boolean;
+    lte<A extends Ord<any>>(x: A): (y: A) => boolean;
+    gt <A extends Ord<any>>(x: A): (y: A) => boolean;
+    gte<A extends Ord<any>>(x: A): (y: A) => boolean;
+    min<A extends Ord<any>>(x: A): (y: A) => A;
+    max<A extends Ord<any>>(x: A): (y: A) => A;
     // This is ugly, but makes its job,
     // I originally tried to use union:
     // clamp<A extends (Ord<A> | boolean | Date | number | string)>(a: A): (b: A) => (c: A) => A;
@@ -125,9 +169,9 @@ declare namespace Sanctuary {
     clamp(a: string): (b: string) => (c: string) => string;
     clamp(a: string[]): (b: string[]) => (c: string[]) => string[];
     clamp(a: StrMap<string>): (b: StrMap<string>) => (c: StrMap<string>) => StrMap<string>;
-    clamp<A extends Ord<A>>(a: A): (b: A) => (c: A) => A;
-    clamp<A extends Ord<A>>(a: A[]): (b: A[]) => (c: A[]) => A[];
-    clamp<A extends Ord<A>>(a: StrMap<A>): (b: StrMap<A>) => (c: StrMap<A>) => StrMap<A>;
+    clamp<A extends Ord<any>>(a: A): (b: A) => (c: A) => A;
+    clamp<A extends Ord<any>>(a: A[]): (b: A[]) => (c: A[]) => A[];
+    clamp<A extends Ord<any>>(a: StrMap<A>): (b: StrMap<A>) => (c: StrMap<A>) => StrMap<A>;
     id<A>(p: TypeRep): Fn<A, A> | Category<any>;
     concat<A>(x: Semigroup<A>): (y: Semigroup<A>) => Semigroup<A>;
     concat<A>(x: ReadonlyArray<A>): (y: ReadonlyArray<A>) => Array<A>;
