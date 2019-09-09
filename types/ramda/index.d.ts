@@ -556,7 +556,7 @@ declare namespace R {
 
     type Ord = number | string | boolean | Date;
 
-    type Path = ReadonlyArray<(number | string)>;
+    type Path = Array<(number | string)>;
 
     type KeyValuePair<K, V> = [K, V];
 
@@ -602,15 +602,15 @@ declare namespace R {
 
     interface Filter {
         <T>(fn: (value: T) => boolean): FilterOnceApplied<T>;
-        <T, Kind extends 'array'>(fn: (value: T) => boolean): (list: ReadonlyArray<T>) => T[];
+        <T, Kind extends 'array'>(fn: (value: T) => boolean): (list: Array<T>) => T[];
         <T, Kind extends 'object'>(fn: (value: T) => boolean): (list: Dictionary<T>) => Dictionary<T>;
-        <T>(fn: (value: T) => boolean, list: ReadonlyArray<T>): T[];
+        <T>(fn: (value: T) => boolean, list: Array<T>): T[];
         <T>(fn: (value: T) => boolean, obj: Dictionary<T>): Dictionary<T>;
     }
 
     type FilterOnceApplied<T> =
-        <K extends ReadonlyArray<T> | Dictionary<T>>(source: K) =>
-            K extends ReadonlyArray<infer U> ? U[] :
+        <K extends Array<T> | Dictionary<T>>(source: K) =>
+            K extends Array<infer U> ? U[] :
             K extends Dictionary<infer U> ? Dictionary<U> :
             never;
 
@@ -810,29 +810,29 @@ declare namespace R {
          * Creates a new list iteration function from an existing one by adding two new parameters to its callback
          * function: the current index, and the entire list.
          */
-        addIndex<T, U>(fn: (f: (item: T) => U, list: T[]) => U[]): F.Curry<(a: (item: T, idx: number, list?: T[]) => U, b: ReadonlyArray<T>) => U[]>;
+        addIndex<T, U>(fn: (f: (item: T) => U, list: T[]) => U[]): F.Curry<(a: (item: T, idx: number, list?: T[]) => U, b: Array<T>) => U[]>;
         /* Special case for forEach */
-        addIndex<T>(fn: (f: (item: T) => void, list: T[]) => T[]): F.Curry<(a: (item: T, idx: number, list?: T[]) => void, b: ReadonlyArray<T>) => T[]>;
+        addIndex<T>(fn: (f: (item: T) => void, list: T[]) => T[]): F.Curry<(a: (item: T, idx: number, list?: T[]) => void, b: Array<T>) => T[]>;
         /* Special case for reduce */
-        addIndex<T, U>(fn: (f: (acc: U, item: T) => U, aci: U, list: T[]) => U): F.Curry<(a: (acc: U, item: T, idx: number, list?: T[]) => U, b: U, c: ReadonlyArray<T>) => U>;
+        addIndex<T, U>(fn: (f: (acc: U, item: T) => U, aci: U, list: T[]) => U): F.Curry<(a: (acc: U, item: T, idx: number, list?: T[]) => U, b: U, c: Array<T>) => U>;
 
         /**
          * Applies a function to the value at the given index of an array, returning a new copy of the array with the
          * element at the given index replaced with the result of the function application.
          */
-        adjust<T>(index: number, fn: (a: T) => T, list: ReadonlyArray<T>): T[];
-        adjust<T>(index: number, fn: (a: T) => T): (list: ReadonlyArray<T>) => T[];
+        adjust<T>(index: number, fn: (a: T) => T, list: Array<T>): T[];
+        adjust<T>(index: number, fn: (a: T) => T): (list: Array<T>) => T[];
 
         /**
          * Returns true if all elements of the list match the predicate, false if there are any that don't.
          */
-        all<T>(fn: (a: T) => boolean, list: ReadonlyArray<T>): boolean;
-        all<T>(fn: (a: T) => boolean): (list: ReadonlyArray<T>) => boolean;
+        all<T>(fn: (a: T) => boolean, list: Array<T>): boolean;
+        all<T>(fn: (a: T) => boolean): (list: Array<T>) => boolean;
 
         /**
          * Given a list of predicates, returns a new predicate that will be true exactly when all of them are.
          */
-        allPass(preds: ReadonlyArray<Pred>): Pred;
+        allPass(preds: Array<Pred>): Pred;
 
         /**
          * Returns a function that always returns the given value.
@@ -849,19 +849,19 @@ declare namespace R {
         /**
          * Returns true if at least one of elements of the list match the predicate, false otherwise.
          */
-        any<T>(fn: (a: T) => boolean, list: ReadonlyArray<T>): boolean;
-        any<T>(fn: (a: T) => boolean): (list: ReadonlyArray<T>) => boolean;
+        any<T>(fn: (a: T) => boolean, list: Array<T>): boolean;
+        any<T>(fn: (a: T) => boolean): (list: Array<T>) => boolean;
 
         /**
          * Given a list of predicates returns a new predicate that will be true exactly when any one of them is.
          */
-        anyPass<T>(preds: ReadonlyArray<SafePred<T>>): SafePred<T>;
+        anyPass<T>(preds: Array<SafePred<T>>): SafePred<T>;
 
         /**
          * ap applies a list of functions to a list of values.
          */
-        ap<T, U>(fns: Array<((a: T) => U)>, vs: ReadonlyArray<T>): U[];
-        ap<T, U>(fns: Array<((a: T) => U)>): (vs: ReadonlyArray<T>) => U[];
+        ap<T, U>(fns: Array<((a: T) => U)>, vs: Array<T>): U[];
+        ap<T, U>(fns: Array<((a: T) => U)>): (vs: Array<T>) => U[];
         ap<X0, X1, R>(
             fn: (x1: X1, x0: X0) => R,
             fn1: (x1: X1) => X0
@@ -881,21 +881,21 @@ declare namespace R {
         aperture<T>(n: 8, list: T[]): Array<[T, T, T, T, T, T, T, T]>;
         aperture<T>(n: 9, list: T[]): Array<[T, T, T, T, T, T, T, T, T]>;
         aperture<T>(n: 10, list: T[]): Array<[T, T, T, T, T, T, T, T, T, T]>;
-        aperture<T>(n: number, list: ReadonlyArray<T>): T[][];
-        aperture(n: number): <T>(list: ReadonlyArray<T>) => T[][];
+        aperture<T>(n: number, list: Array<T>): T[][];
+        aperture(n: number): <T>(list: Array<T>) => T[][];
 
         /**
          * Returns a new list containing the contents of the given list, followed by the given element.
          */
-        append<T>(el: T, list: ReadonlyArray<T>): T[];
-        append<T>(el: T): <T>(list: ReadonlyArray<T>) => T[];
+        append<T>(el: T, list: Array<T>): T[];
+        append<T>(el: T): <T>(list: Array<T>) => T[];
 
         /**
          * Applies function fn to the argument list args. This is useful for creating a fixed-arity function from
          * a variadic function. fn should be a bound function if context is significant.
          */
-        apply<T, U, TResult>(fn: (arg0: T, ...args: T[]) => TResult, args: ReadonlyArray<U>): TResult;
-        apply<T, TResult>(fn: (arg0: T, ...args: T[]) => TResult): <U>(args: ReadonlyArray<U>) => TResult;
+        apply<T, U, TResult>(fn: (arg0: T, ...args: T[]) => TResult, args: Array<U>): TResult;
+        apply<T, TResult>(fn: (arg0: T, ...args: T[]) => TResult): <U>(args: Array<U>) => TResult;
 
         /**
          * Given a spec object recursively mapping properties to functions, creates a function producing an object
@@ -972,8 +972,8 @@ declare namespace R {
          * `chain` maps a function over a list and concatenates the results.
          * This implementation is compatible with the Fantasy-land Chain spec
          */
-        chain<T, U>(fn: (n: T) => ReadonlyArray<U>, list: ReadonlyArray<T>): U[];
-        chain<T, U>(fn: (n: T) => ReadonlyArray<U>): (list: ReadonlyArray<T>) => U[];
+        chain<T, U>(fn: (n: T) => Array<U>, list: Array<T>): U[];
+        chain<T, U>(fn: (n: T) => Array<U>): (list: Array<T>) => U[];
         chain<X0, X1, R>(fn: (x0: X0, x1: X1) => R, fn1: (x1: X1) => X0): (x1: X1) => R;
 
         /**
@@ -989,7 +989,7 @@ declare namespace R {
          * Creates a deep copy of the value which may contain (nested) Arrays and Objects, Numbers, Strings, Booleans and Dates.
          */
         clone<T>(value: T): T;
-        clone<T>(value: ReadonlyArray<T>): T[];
+        clone<T>(value: Array<T>): T[];
 
         /**
          * Makes a comparator function out of a function that reports whether the first element is less than the second.
@@ -1141,10 +1141,10 @@ declare namespace R {
          * Returns a new list consisting of the elements of the first list followed by the elements
          * of the second.
          */
-        concat<T>(placeholder: Placeholder): (list2: ReadonlyArray<T>, list1: ReadonlyArray<T>) => T[];
-        concat<T>(placeholder: Placeholder, list2: ReadonlyArray<T>): (list1: ReadonlyArray<T>) => T[];
-        concat<T>(list1: ReadonlyArray<T>, list2: ReadonlyArray<T>): T[];
-        concat<T>(list1: ReadonlyArray<T>): (list2: ReadonlyArray<T>) => T[];
+        concat<T>(placeholder: Placeholder): (list2: Array<T>, list1: Array<T>) => T[];
+        concat<T>(placeholder: Placeholder, list2: Array<T>): (list1: Array<T>) => T[];
+        concat<T>(list1: Array<T>, list2: Array<T>): T[];
+        concat<T>(list1: Array<T>): (list2: Array<T>) => T[];
         concat(list1: string, list2: string): string;
         concat(list1: string): (list2: string) => string;
 
@@ -1154,8 +1154,8 @@ declare namespace R {
          * point fn returns the result of applying its arguments to the corresponding transformer. If none of the predicates
          * matches, fn returns undefined.
          */
-        cond(fns: ReadonlyArray<[Pred, (...a: any[]) => any]>): (...a: any[]) => any;
-        cond<A, B>(fns: ReadonlyArray<[SafePred<A>, (...a: A[]) => B]>): (...a: A[]) => B;
+        cond(fns: Array<[Pred, (...a: any[]) => any]>): (...a: any[]) => any;
+        cond<A, B>(fns: Array<[SafePred<A>, (...a: A[]) => B]>): (...a: A[]) => B;
 
         /**
          * Wraps a constructor function inside a curried function that can be called with the same arguments and returns the same type.
@@ -1179,9 +1179,9 @@ declare namespace R {
         contains(__: Placeholder): (list: string, a: string) => boolean;
         contains<T>(__: Placeholder): (list: T[], a: T) => boolean;
         contains(a: string, list: string): boolean;
-        contains<T>(a: T, list: ReadonlyArray<T>): boolean;
+        contains<T>(a: T, list: Array<T>): boolean;
         contains(a: string): (list: string) => boolean;
-        contains<T>(a: T): (list: ReadonlyArray<T>) => boolean;
+        contains<T>(a: T): (list: Array<T>) => boolean;
 
         /**
          * Accepts a converging function and a list of branching functions and returns a new
@@ -1189,7 +1189,7 @@ declare namespace R {
          * function is applied to those same arguments. The results of each branching function
          * are passed as arguments to the converging function to produce the return value.
          */
-        converge(after: ((...a: any[]) => any), fns: ReadonlyArray<((...a: any[]) => any)>): (...a: any[]) => any;
+        converge(after: ((...a: any[]) => any), fns: Array<((...a: any[]) => any)>): (...a: any[]) => any;
 
         /**
          * Counts the elements of a list according to how many match each value
@@ -1198,8 +1198,8 @@ declare namespace R {
          * the list. Note that all keys are coerced to strings because of how
          * JavaScript objects work.
          */
-        countBy<T>(fn: (a: T) => string | number, list: ReadonlyArray<T>): { [index: string]: number };
-        countBy<T>(fn: (a: T) => string | number): (list: ReadonlyArray<T>) => { [index: string]: number };
+        countBy<T>(fn: (a: T) => string | number, list: Array<T>): { [index: string]: number };
+        countBy<T>(fn: (a: T) => string | number): (list: Array<T>) => { [index: string]: number };
 
         /**
          * Returns a curried equivalent of the provided function. The curried function has two unusual capabilities.
@@ -1234,17 +1234,17 @@ declare namespace R {
         /**
          * Finds the set (i.e. no duplicates) of all elements in the first list not contained in the second list.
          */
-        difference<T>(list1: ReadonlyArray<T>, list2: ReadonlyArray<T>): T[];
-        difference<T>(list1: ReadonlyArray<T>): (list2: ReadonlyArray<T>) => T[];
+        difference<T>(list1: Array<T>, list2: Array<T>): T[];
+        difference<T>(list1: Array<T>): (list2: Array<T>) => T[];
 
         /**
          * Finds the set (i.e. no duplicates) of all elements in the first list not contained in the second list.
          * Duplication is determined according to the value returned by applying the supplied predicate to two list
          * elements.
          */
-        differenceWith<T1, T2>(pred: (a: T1, b: T2) => boolean, list1: ReadonlyArray<T1>, list2: ReadonlyArray<T2>): T1[];
-        differenceWith<T1, T2>(pred: (a: T1, b: T2) => boolean): (list1: ReadonlyArray<T1>, list2: ReadonlyArray<T2>) => T1[];
-        differenceWith<T1, T2>(pred: (a: T1, b: T2) => boolean, list1: ReadonlyArray<T1>): (list2: ReadonlyArray<T2>) => T1[];
+        differenceWith<T1, T2>(pred: (a: T1, b: T2) => boolean, list1: Array<T1>, list2: Array<T2>): T1[];
+        differenceWith<T1, T2>(pred: (a: T1, b: T2) => boolean): (list1: Array<T1>, list2: Array<T2>) => T1[];
+        differenceWith<T1, T2>(pred: (a: T1, b: T2) => boolean, list1: Array<T1>): (list2: Array<T2>) => T1[];
 
         /*
          * Returns a new object that does not contain a prop property.
@@ -1270,20 +1270,20 @@ declare namespace R {
         /**
          * Returns a new list containing all but the first n elements of the given list.
          */
-        drop<T>(n: number, xs: ReadonlyArray<T>): T[];
+        drop<T>(n: number, xs: Array<T>): T[];
         drop(n: number, xs: string): string;
         drop<T>(n: number): {
             (xs: string): string;
-            (xs: ReadonlyArray<T>): T[];
+            (xs: Array<T>): T[];
         };
 
         /**
          * Returns a list containing all but the last n elements of the given list.
          */
-        dropLast<T>(n: number, xs: ReadonlyArray<T>): T[];
+        dropLast<T>(n: number, xs: Array<T>): T[];
         dropLast(n: number, xs: string): string;
         dropLast<T>(n: number): {
-            (xs: ReadonlyArray<T>): T[];
+            (xs: Array<T>): T[];
             (xs: string): string;
         };
 
@@ -1291,28 +1291,28 @@ declare namespace R {
          * Returns a new list containing all but last then elements of a given list, passing each value from the
          * right to the supplied predicate function, skipping elements while the predicate function returns true.
          */
-        dropLastWhile<T>(fn: (a: T) => boolean, list: ReadonlyArray<T>): T[];
-        dropLastWhile<T>(fn: (a: T) => boolean): (list: ReadonlyArray<T>) => T[];
+        dropLastWhile<T>(fn: (a: T) => boolean, list: Array<T>): T[];
+        dropLastWhile<T>(fn: (a: T) => boolean): (list: Array<T>) => T[];
 
         /**
          * Returns a new list without any consecutively repeating elements. R.equals is used to determine equality.
          */
-        dropRepeats<T>(list: ReadonlyArray<T>): T[];
+        dropRepeats<T>(list: Array<T>): T[];
 
         /**
          * Returns a new list without any consecutively repeating elements.
          * Equality is determined by applying the supplied predicate to each pair of consecutive elements.
          * The first element in a series of equal elements will be preserved.
          */
-        dropRepeatsWith<T>(predicate: (left: T, right: T) => boolean, list: ReadonlyArray<T>): T[];
-        dropRepeatsWith<T>(predicate: (left: T, right: T) => boolean): (list: ReadonlyArray<T>) => T[];
+        dropRepeatsWith<T>(predicate: (left: T, right: T) => boolean, list: Array<T>): T[];
+        dropRepeatsWith<T>(predicate: (left: T, right: T) => boolean): (list: Array<T>) => T[];
 
         /**
          * Returns a new list containing the last n elements of a given list, passing each value to the supplied
          * predicate function, skipping elements while the predicate function returns true.
          */
-        dropWhile<T>(fn: (a: T) => boolean, list: ReadonlyArray<T>): T[];
-        dropWhile<T>(fn: (a: T) => boolean): (list: ReadonlyArray<T>) => T[];
+        dropWhile<T>(fn: (a: T) => boolean, list: Array<T>): T[];
+        dropWhile<T>(fn: (a: T) => boolean): (list: Array<T>) => T[];
 
         /**
          * A function wrapping calls to the two functions in an || operation, returning the result of the first
@@ -1334,8 +1334,8 @@ declare namespace R {
          */
         endsWith(a: string, list: string): boolean;
         endsWith(a: string): (list: string) => boolean;
-        endsWith<T>(a: T | ReadonlyArray<T>, list: ReadonlyArray<T>): boolean;
-        endsWith<T>(a: T | ReadonlyArray<T>): (list: ReadonlyArray<T>) => boolean;
+        endsWith<T>(a: T | Array<T>, list: Array<T>): boolean;
+        endsWith<T>(a: T | Array<T>): (list: Array<T>) => boolean;
 
         /**
          * Takes a function and two values in its domain and returns true if the values map to the same value in the
@@ -1379,35 +1379,35 @@ declare namespace R {
          * Returns the first element of the list which matches the predicate, or `undefined` if no
          * element matches.
          */
-        find<T>(fn: (a: T) => boolean, list: ReadonlyArray<T>): T | undefined;
-        find<T>(fn: (a: T) => boolean): (list: ReadonlyArray<T>) => T | undefined;
+        find<T>(fn: (a: T) => boolean, list: Array<T>): T | undefined;
+        find<T>(fn: (a: T) => boolean): (list: Array<T>) => T | undefined;
 
         /**
          * Returns the index of the first element of the list which matches the predicate, or `-1`
          * if no element matches.
          */
-        findIndex<T>(fn: (a: T) => boolean, list: ReadonlyArray<T>): number;
-        findIndex<T>(fn: (a: T) => boolean): (list: ReadonlyArray<T>) => number;
+        findIndex<T>(fn: (a: T) => boolean, list: Array<T>): number;
+        findIndex<T>(fn: (a: T) => boolean): (list: Array<T>) => number;
 
         /**
          * Returns the last element of the list which matches the predicate, or `undefined` if no
          * element matches.
          */
-        findLast<T>(fn: (a: T) => boolean, list: ReadonlyArray<T>): T | undefined;
-        findLast<T>(fn: (a: T) => boolean): (list: ReadonlyArray<T>) => T | undefined;
+        findLast<T>(fn: (a: T) => boolean, list: Array<T>): T | undefined;
+        findLast<T>(fn: (a: T) => boolean): (list: Array<T>) => T | undefined;
 
         /**
          * Returns the index of the last element of the list which matches the predicate, or
          * `-1` if no element matches.
          */
-        findLastIndex<T>(fn: (a: T) => boolean, list: ReadonlyArray<T>): number;
-        findLastIndex<T>(fn: (a: T) => boolean): (list: ReadonlyArray<T>) => number;
+        findLastIndex<T>(fn: (a: T) => boolean, list: Array<T>): number;
+        findLastIndex<T>(fn: (a: T) => boolean): (list: Array<T>) => number;
 
         /**
          * Returns a new list by pulling every item out of it (and all its sub-arrays) and putting
          * them in a new array, depth-first.
          */
-        flatten<T>(x: ReadonlyArray<T[]> | ReadonlyArray<ReadonlyArray<T>> | ReadonlyArray<T>): T[];
+        flatten<T>(x: Array<T[]> | Array<Array<T>> | Array<T>): T[];
 
         /**
          * Returns a new function much like the supplied one, except that the first two arguments'
@@ -1421,8 +1421,8 @@ declare namespace R {
          */
         forEach<T>(fn: (x: T) => void, list: T[]): T[];
         forEach<T>(fn: (x: T) => void): (list: T[]) => T[];
-        forEach<T>(fn: (x: T) => void, list: ReadonlyArray<T>): ReadonlyArray<T>;
-        forEach<T>(fn: (x: T) => void): (list: ReadonlyArray<T>) => ReadonlyArray<T>;
+        forEach<T>(fn: (x: T) => void, list: Array<T>): Array<T>;
+        forEach<T>(fn: (x: T) => void): (list: Array<T>) => Array<T>;
 
         /**
          * Iterate over an input object, calling a provided function fn for each key and value in the object.
@@ -1441,14 +1441,14 @@ declare namespace R {
          * calling a String-returning function
          * on each element, and grouping the results according to values returned.
          */
-        groupBy<T>(fn: (a: T) => string, list: ReadonlyArray<T>): { [index: string]: T[] };
-        groupBy<T>(fn: (a: T) => string): (list: ReadonlyArray<T>) => { [index: string]: T[] };
+        groupBy<T>(fn: (a: T) => string, list: Array<T>): { [index: string]: T[] };
+        groupBy<T>(fn: (a: T) => string): (list: Array<T>) => { [index: string]: T[] };
 
         /**
          * Takes a list and returns a list of lists where each sublist's elements are all "equal" according to the provided equality function
          */
-        groupWith<T>(fn: (x: T, y: T) => boolean): (list: ReadonlyArray<T>) => T[][];
-        groupWith<T>(fn: (x: T, y: T) => boolean, list: ReadonlyArray<T>): T[][];
+        groupWith<T>(fn: (x: T, y: T) => boolean): (list: Array<T>) => T[][];
+        groupWith<T>(fn: (x: T, y: T) => boolean, list: Array<T>): T[][];
         groupWith<T>(fn: (x: T, y: T) => boolean, list: string): string[];
 
         /**
@@ -1484,8 +1484,8 @@ declare namespace R {
         /**
          * Returns whether or not a path exists in an object. Only the object's own properties are checked.
          */
-        hasPath<T>(list: ReadonlyArray<string>, obj: T): boolean;
-        hasPath(list: ReadonlyArray<string>): <T>(obj: T) => boolean;
+        hasPath<T>(list: Array<string>, obj: T): boolean;
+        hasPath(list: Array<string>): <T>(obj: T) => boolean;
 
         /**
          * Returns the first element in a list.
@@ -1493,7 +1493,7 @@ declare namespace R {
          */
         head(str: string): string;
         head(list: []): undefined;
-        head<T extends any>(list: ReadonlyArray<T>): T;
+        head<T extends any>(list: Array<T>): T;
 
         /**
          * Returns true if its arguments are identical, false otherwise. Values are identical if they reference the
@@ -1525,30 +1525,30 @@ declare namespace R {
          * Given a string, this function checks for the string in another string or list and returns
          * a boolean.
          */
-        includes(s: string, list: ReadonlyArray<string> | string): boolean;
-        includes(s: string): (list: ReadonlyArray<string> | string)  => boolean;
-        includes<T>(target: T, list: ReadonlyArray<T>): boolean;
-        includes<T>(target: T): (list: ReadonlyArray<T>) => boolean;
+        includes(s: string, list: Array<string> | string): boolean;
+        includes(s: string): (list: Array<string> | string)  => boolean;
+        includes<T>(target: T, list: Array<T>): boolean;
+        includes<T>(target: T): (list: Array<T>) => boolean;
 
         /**
          * Given a function that generates a key, turns a list of objects into an object indexing the objects
          * by the given key.
          */
-        indexBy<T>(fn: (a: T) => string, list: ReadonlyArray<T>): { [key: string]: T };
-        indexBy<T>(fn: (a: T) => string): (list: ReadonlyArray<T>) => { [key: string]: T };
+        indexBy<T>(fn: (a: T) => string, list: Array<T>): { [key: string]: T };
+        indexBy<T>(fn: (a: T) => string): (list: Array<T>) => { [key: string]: T };
 
         /**
          * Returns the position of the first occurrence of an item in an array
          * (by strict equality),
          * or -1 if the item is not included in the array.
          */
-        indexOf<T>(target: T, list: ReadonlyArray<T>): number;
-        indexOf<T>(target: T): (list: ReadonlyArray<T>) => number;
+        indexOf<T>(target: T, list: Array<T>): number;
+        indexOf<T>(target: T): (list: Array<T>) => number;
 
         /**
          * Returns all but the last element of a list or string.
          */
-        init<T>(list: ReadonlyArray<T>): T[];
+        init<T>(list: Array<T>): T[];
         init(list: string): string;
 
         /**
@@ -1564,31 +1564,31 @@ declare namespace R {
          * not removed, so `xs'` may contain duplicates if `xs` contains duplicates.
          */
 
-        innerJoin<T1, T2>(pred: (a: T1, b: T2) => boolean, list1: ReadonlyArray<T1>, list2: ReadonlyArray<T2>): T1[];
-        innerJoin<T1, T2>(pred: (a: T1, b: T2) => boolean): (list1: ReadonlyArray<T1>, list2: ReadonlyArray<T2>) => T1[];
-        innerJoin<T1, T2>(pred: (a: T1, b: T2) => boolean, list1: ReadonlyArray<T1>): (list2: ReadonlyArray<T2>) => T1[];
+        innerJoin<T1, T2>(pred: (a: T1, b: T2) => boolean, list1: Array<T1>, list2: Array<T2>): T1[];
+        innerJoin<T1, T2>(pred: (a: T1, b: T2) => boolean): (list1: Array<T1>, list2: Array<T2>) => T1[];
+        innerJoin<T1, T2>(pred: (a: T1, b: T2) => boolean, list1: Array<T1>): (list2: Array<T2>) => T1[];
 
         /**
          * Inserts the supplied element into the list, at index index. Note that
          * this is not destructive: it returns a copy of the list with the changes.
          */
-        insert<T>(index: number, elt: T, list: ReadonlyArray<T>): T[];
-        insert<T>(index: number, elt: T): (list: ReadonlyArray<T>) => T[];
-        insert(index: number): <T>(elt: T, list: ReadonlyArray<T>) => T[];
+        insert<T>(index: number, elt: T, list: Array<T>): T[];
+        insert<T>(index: number, elt: T): (list: Array<T>) => T[];
+        insert(index: number): <T>(elt: T, list: Array<T>) => T[];
 
         /**
          * Inserts the sub-list into the list, at index `index`.  _Note  that this
          * is not destructive_: it returns a copy of the list with the changes.
          */
-        insertAll<T>(index: number, elts: ReadonlyArray<T>, list: ReadonlyArray<T>): T[];
-        insertAll<T>(index: number, elts: ReadonlyArray<T>): (list: ReadonlyArray<T>) => T[];
-        insertAll(index: number): <T>(elts: ReadonlyArray<T>, list: ReadonlyArray<T>) => T[];
+        insertAll<T>(index: number, elts: Array<T>, list: Array<T>): T[];
+        insertAll<T>(index: number, elts: Array<T>): (list: Array<T>) => T[];
+        insertAll(index: number): <T>(elts: Array<T>, list: Array<T>) => T[];
 
         /**
          * Combines two lists into a set (i.e. no duplicates) composed of those elements common to both lists.
          */
-        intersection<T>(list1: ReadonlyArray<T>, list2: ReadonlyArray<T>): T[];
-        intersection<T>(list1: ReadonlyArray<T>): (list2: ReadonlyArray<T>) => T[];
+        intersection<T>(list1: Array<T>, list2: Array<T>): T[];
+        intersection<T>(list1: Array<T>): (list2: Array<T>) => T[];
 
         /**
          * Combines two lists into a set (i.e. no duplicates) composed of those
@@ -1596,21 +1596,21 @@ declare namespace R {
          * to the value returned by applying the supplied predicate to two list
          * elements.
          */
-        intersectionWith<T>(pred: (a: T, b: T) => boolean, list1: ReadonlyArray<T>, list2: ReadonlyArray<T>): T[];
+        intersectionWith<T>(pred: (a: T, b: T) => boolean, list1: Array<T>, list2: Array<T>): T[];
 
         /**
          * Creates a new list with the separator interposed between elements.
          */
-        intersperse<T>(separator: T, list: ReadonlyArray<T>): T[];
-        intersperse<T>(separator: T): (list: ReadonlyArray<T>) => T[];
+        intersperse<T>(separator: T, list: Array<T>): T[];
+        intersperse<T>(separator: T): (list: Array<T>) => T[];
 
         /**
          * Transforms the items of the list with the transducer and appends the transformed items to the accumulator
          * using an appropriate iterator function based on the accumulator type.
          */
-        into<T>(acc: any, xf: (...a: any[]) => any, list: ReadonlyArray<T>): T[];
-        into(acc: any, xf: (...a: any[]) => any): <T>(list: ReadonlyArray<T>) => T[];
-        into(acc: any): <T>(xf: (...a: any[]) => any, list: ReadonlyArray<T>) => T[];
+        into<T>(acc: any, xf: (...a: any[]) => any, list: Array<T>): T[];
+        into(acc: any, xf: (...a: any[]) => any): <T>(list: Array<T>) => T[];
+        into(acc: any): <T>(xf: (...a: any[]) => any, list: Array<T>) => T[];
 
         /**
          * Same as R.invertObj, however this accounts for objects with duplicate values by putting the values into an array.
@@ -1662,8 +1662,8 @@ declare namespace R {
          * Returns a string made by inserting the `separator` between each
          * element and concatenating all the elements into a single string.
          */
-        join(x: string, xs: ReadonlyArray<any>): string;
-        join(x: string): (xs: ReadonlyArray<any>) => string;
+        join(x: string, xs: Array<any>): string;
+        join(x: string): (xs: Array<any>) => string;
 
         /**
          * Applies a list of functions to a list of values.
@@ -1692,18 +1692,18 @@ declare namespace R {
          */
         last(str: string): string;
         last(list: []): undefined;
-        last<T extends any>(list: ReadonlyArray<T>): T;
+        last<T extends any>(list: Array<T>): T;
 
         /**
          * Returns the position of the last occurrence of an item (by strict equality) in
          * an array, or -1 if the item is not included in the array.
          */
-        lastIndexOf<T>(target: T, list: ReadonlyArray<T>): number;
+        lastIndexOf<T>(target: T, list: Array<T>): number;
 
         /**
          * Returns the number of elements in the array by returning list.length.
          */
-        length<T>(list: ReadonlyArray<T>): number;
+        length<T>(list: Array<T>): number;
 
         /**
          * Returns a lens for the given getter and setter functions. The getter
@@ -1763,8 +1763,8 @@ declare namespace R {
         /**
          * Returns a new list, constructed by applying the supplied function to every element of the supplied list.
          */
-        map<T, U>(fn: (x: T) => U, list: ReadonlyArray<T>): U[];
-        map<T, U>(fn: (x: T) => U): (list: ReadonlyArray<T>) => U[];
+        map<T, U>(fn: (x: T) => U, list: Array<T>): U[];
+        map<T, U>(fn: (x: T) => U): (list: Array<T>) => U[];
         map<T, U>(fn: (x: T[keyof T & keyof U]) => U[keyof T & keyof U], list: T): U;
         map<T, U>(fn: (x: T[keyof T & keyof U]) => U[keyof T & keyof U]): (list: T) => U;
         map<T, U>(fn: (x: T) => U, obj: Functor<T>): Functor<U>; // used in functors
@@ -1773,16 +1773,16 @@ declare namespace R {
         /**
          * The mapAccum function behaves like a combination of map and reduce.
          */
-        mapAccum<T, U, TResult>(fn: (acc: U, value: T) => [U, TResult], acc: U, list: ReadonlyArray<T>): [U, TResult[]];
-        mapAccum<T, U, TResult>(fn: (acc: U, value: T) => [U, TResult]): (acc: U, list: ReadonlyArray<T>) => [U, TResult[]];
-        mapAccum<T, U, TResult>(fn: (acc: U, value: T) => [U, TResult], acc: U): (list: ReadonlyArray<T>) => [U, TResult[]];
+        mapAccum<T, U, TResult>(fn: (acc: U, value: T) => [U, TResult], acc: U, list: Array<T>): [U, TResult[]];
+        mapAccum<T, U, TResult>(fn: (acc: U, value: T) => [U, TResult]): (acc: U, list: Array<T>) => [U, TResult[]];
+        mapAccum<T, U, TResult>(fn: (acc: U, value: T) => [U, TResult], acc: U): (list: Array<T>) => [U, TResult[]];
 
         /**
          * The mapAccumRight function behaves like a combination of map and reduce.
          */
-        mapAccumRight<T, U, TResult>(fn: (acc: U, value: T) => [U, TResult], acc: U, list: ReadonlyArray<T>): [U, TResult[]];
-        mapAccumRight<T, U, TResult>(fn: (acc: U, value: T) => [U, TResult]): (acc: U, list: ReadonlyArray<T>) => [U, TResult[]];
-        mapAccumRight<T, U, TResult>(fn: (acc: U, value: T) => [U, TResult], acc: U): (list: ReadonlyArray<T>) => [U, TResult[]];
+        mapAccumRight<T, U, TResult>(fn: (acc: U, value: T) => [U, TResult], acc: U, list: Array<T>): [U, TResult[]];
+        mapAccumRight<T, U, TResult>(fn: (acc: U, value: T) => [U, TResult]): (acc: U, list: Array<T>) => [U, TResult[]];
+        mapAccumRight<T, U, TResult>(fn: (acc: U, value: T) => [U, TResult], acc: U): (list: Array<T>) => [U, TResult[]];
 
         /**
          * Like mapObj, but but passes additional arguments to the predicate function.
@@ -1834,12 +1834,12 @@ declare namespace R {
         /**
          * Returns the mean of the given list of numbers.
          */
-        mean(list: ReadonlyArray<number>): number;
+        mean(list: Array<number>): number;
 
         /**
          * Returns the median of the given list of numbers.
          */
-        median(list: ReadonlyArray<number>): number;
+        median(list: Array<number>): number;
 
         /**
          * Creates a new function that, when invoked, caches the result of calling fn for a given argument set and returns the result.
@@ -1862,8 +1862,8 @@ declare namespace R {
         /**
          * Merges a list of objects together into one object.
          */
-        mergeAll<T>(list: ReadonlyArray<T>): T;
-        mergeAll(list: ReadonlyArray<any>): any;
+        mergeAll<T>(list: Array<T>): T;
+        mergeAll(list: Array<any>): any;
 
         /**
          * Creates a new object with the own properties of the first object merged with the own properties of the second object.
@@ -1973,11 +1973,11 @@ declare namespace R {
          * Moves an item, at index `from`, to index `to`, in a `list` of elements.
          * A new list will be created containing the new elements order.
          */
-        move<T>(from: number, to: number, list: ReadonlyArray<T>): T[];
-        move(from: number, to: number): <T>(list: ReadonlyArray<T>) => T[];
+        move<T>(from: number, to: number, list: Array<T>): T[];
+        move(from: number, to: number): <T>(list: Array<T>) => T[];
         move(from: number): {
-            <T>(to: number, list: ReadonlyArray<T>): T[];
-            (to: number): <T>(list: ReadonlyArray<T>) => T[];
+            <T>(to: number, list: Array<T>): T[];
+            (to: number): <T>(list: Array<T>) => T[];
         };
 
         /**
@@ -1995,8 +1995,8 @@ declare namespace R {
         /**
          * Returns true if no elements of the list match the predicate, false otherwise.
          */
-        none<T>(fn: (a: T) => boolean, list: ReadonlyArray<T>): boolean;
-        none<T>(fn: (a: T) => boolean): (list: ReadonlyArray<T>) => boolean;
+        none<T>(fn: (a: T) => boolean, list: Array<T>): boolean;
+        none<T>(fn: (a: T) => boolean): (list: Array<T>) => boolean;
 
         /**
          * A function wrapping a call to the given function in a `!` operation.  It will return `true` when the
@@ -2007,8 +2007,8 @@ declare namespace R {
         /**
          * Returns the nth element in a list.
          */
-        nth<T>(n: number, list: ReadonlyArray<T>): T | undefined;
-        nth(n: number): <T>(list: ReadonlyArray<T>) => T | undefined;
+        nth<T>(n: number, list: Array<T>): T | undefined;
+        nth(n: number): <T>(list: Array<T>) => T | undefined;
 
         /**
          * Returns a function which returns its nth argument.
@@ -2029,8 +2029,8 @@ declare namespace R {
         /**
          * Returns a partial copy of an object omitting the keys specified.
          */
-        omit<T, K extends string>(names: ReadonlyArray<K>, obj: T): Omit<T, K>;
-        omit<K extends string>(names: ReadonlyArray<K>): <T>(obj: T) => Omit<T, K>;
+        omit<T, K extends string>(names: Array<K>, obj: T): Omit<T, K>;
+        omit<K extends string>(names: Array<K>): <T>(obj: T) => Omit<T, K>;
 
         /**
          * Accepts a function fn and returns a function that guards invocation of fn such that fn can only ever be
@@ -2109,10 +2109,10 @@ declare namespace R {
          * Takes a predicate and a list and returns the pair of lists of elements
          * which do and do not satisfy the predicate, respectively.
          */
-        partition(fn: (a: string) => boolean, list: ReadonlyArray<string>): [string[], string[]];
-        partition<T>(fn: (a: T) => boolean, list: ReadonlyArray<T>): [T[], T[]];
-        partition<T>(fn: (a: T) => boolean): (list: ReadonlyArray<T>) => [T[], T[]];
-        partition(fn: (a: string) => boolean): (list: ReadonlyArray<string>) => [string[], string[]];
+        partition(fn: (a: string) => boolean, list: Array<string>): [string[], string[]];
+        partition<T>(fn: (a: T) => boolean, list: Array<T>): [T[], T[]];
+        partition<T>(fn: (a: T) => boolean): (list: Array<T>) => [T[], T[]];
+        partition(fn: (a: string) => boolean): (list: Array<string>) => [string[], string[]];
 
         /**
          * Retrieve the value at a given path.
@@ -2147,14 +2147,14 @@ declare namespace R {
          * Returns a partial copy of an object containing only the keys specified.  If the key does not exist, the
          * property is ignored.
          */
-        pick<T, K extends string>(names: ReadonlyArray<K>, obj: T): Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>;
-        pick<K extends string>(names: ReadonlyArray<K>): <T>(obj: T) => Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>;
+        pick<T, K extends string>(names: Array<K>, obj: T): Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>;
+        pick<K extends string>(names: Array<K>): <T>(obj: T) => Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>;
 
         /**
          * Similar to `pick` except that this one includes a `key: undefined` pair for properties that don't exist.
          */
-        pickAll<T, U>(names: ReadonlyArray<string>, obj: T): U;
-        pickAll(names: ReadonlyArray<string>): <T, U>(obj: T) => U;
+        pickAll<T, U>(names: Array<string>, obj: T): U;
+        pickAll(names: Array<string>): <T, U>(obj: T) => U;
 
         /**
          * Returns a partial copy of an object containing only the keys that satisfy the supplied predicate.
@@ -2515,28 +2515,28 @@ declare namespace R {
         /**
          * Returns a new list by plucking the same named property off all objects in the list supplied.
          */
-        pluck<K extends keyof T, T>(p: K, list: ReadonlyArray<T>): Array<T[K]>;
-        pluck<T>(p: number, list: ReadonlyArray<{ [k: number]: T }>): T[];
-        pluck<P extends string>(p: P): <T>(list: ReadonlyArray<Record<P, T>>) => T[];
-        pluck(p: number): <T>(list: ReadonlyArray<{ [k: number]: T }>) => T[];
+        pluck<K extends keyof T, T>(p: K, list: Array<T>): Array<T[K]>;
+        pluck<T>(p: number, list: Array<{ [k: number]: T }>): T[];
+        pluck<P extends string>(p: P): <T>(list: Array<Record<P, T>>) => T[];
+        pluck(p: number): <T>(list: Array<{ [k: number]: T }>) => T[];
 
         /**
          * Returns a new list with the given element at the front, followed by the contents of the
          * list.
          */
-        prepend<T>(el: T, list: ReadonlyArray<T>): T[];
-        prepend<T>(el: T): (list: ReadonlyArray<T>) => T[];
+        prepend<T>(el: T, list: Array<T>): T[];
+        prepend<T>(el: T): (list: Array<T>) => T[];
 
         /**
          * Multiplies together all the elements of a list.
          */
-        product(list: ReadonlyArray<number>): number;
+        product(list: Array<number>): number;
 
         /**
          * Reasonable analog to SQL `select` statement.
          */
-        project<T, U>(props: ReadonlyArray<string>, objs: ReadonlyArray<T>): U[];
-        project<T, U>(props: ReadonlyArray<string>): (objs: ReadonlyArray<T>) => U[];
+        project<T, U>(props: Array<string>, objs: Array<T>): U[];
+        project<T, U>(props: Array<string>): (objs: Array<T>) => U[];
 
         /**
          * Returns a function that when supplied an object returns the indicated property of that object, if it exists.
@@ -2583,9 +2583,9 @@ declare namespace R {
          * The only difference from `prop` is the parameter order.
          * Note: TS1.9 # replace any by dictionary
          */
-        props<P extends string, T>(ps: ReadonlyArray<P>, obj: Record<P, T>): T[];
-        props<P extends string>(ps: ReadonlyArray<P>): <T>(obj: Record<P, T>) => T[];
-        props<P extends string, T>(ps: ReadonlyArray<P>): (obj: Record<P, T>) => T[];
+        props<P extends string, T>(ps: Array<P>, obj: Record<P, T>): T[];
+        props<P extends string>(ps: Array<P>): <T>(obj: Record<P, T>) => T[];
+        props<P extends string, T>(ps: Array<P>): (obj: Record<P, T>) => T[];
 
         /**
          * Returns true if the specified object property satisfies the given predicate; false otherwise.
@@ -2607,18 +2607,18 @@ declare namespace R {
          * function and passing it an accumulator value and the current value from the array, and
          * then passing the result to the next call.
          */
-        reduce<T, TResult>(fn: (acc: TResult, elem: T) => TResult | Reduced<TResult>, acc: TResult, list: ReadonlyArray<T>): TResult;
-        reduce<T, TResult>(fn: (acc: TResult, elem: T) => TResult | Reduced<TResult>): (acc: TResult, list: ReadonlyArray<T>) => TResult;
-        reduce<T, TResult>(fn: (acc: TResult, elem: T) => TResult | Reduced<TResult>, acc: TResult): (list: ReadonlyArray<T>) => TResult;
+        reduce<T, TResult>(fn: (acc: TResult, elem: T) => TResult | Reduced<TResult>, acc: TResult, list: Array<T>): TResult;
+        reduce<T, TResult>(fn: (acc: TResult, elem: T) => TResult | Reduced<TResult>): (acc: TResult, list: Array<T>) => TResult;
+        reduce<T, TResult>(fn: (acc: TResult, elem: T) => TResult | Reduced<TResult>, acc: TResult): (list: Array<T>) => TResult;
 
         /**
          * Groups the elements of the list according to the result of calling the String-returning function keyFn on each
          * element and reduces the elements of each group to a single value via the reducer function valueFn.
          */
-        reduceBy<T, TResult>(valueFn: (acc: TResult, elem: T) => TResult, acc: TResult, keyFn: (elem: T) => string, list: ReadonlyArray<T>): { [index: string]: TResult };
-        reduceBy<T, TResult>(valueFn: (acc: TResult, elem: T) => TResult, acc: TResult, keyFn: (elem: T) => string): (list: ReadonlyArray<T>) => { [index: string]: TResult };
-        reduceBy<T, TResult>(valueFn: (acc: TResult, elem: T) => TResult, acc: TResult): F.Curry<(a: (elem: T) => string, b: ReadonlyArray<T>) => { [index: string]: TResult }>;
-        reduceBy<T, TResult>(valueFn: (acc: TResult, elem: T) => TResult): F.Curry<(a: TResult, b: (elem: T) => string, c: ReadonlyArray<T>) => { [index: string]: TResult }>;
+        reduceBy<T, TResult>(valueFn: (acc: TResult, elem: T) => TResult, acc: TResult, keyFn: (elem: T) => string, list: Array<T>): { [index: string]: TResult };
+        reduceBy<T, TResult>(valueFn: (acc: TResult, elem: T) => TResult, acc: TResult, keyFn: (elem: T) => string): (list: Array<T>) => { [index: string]: TResult };
+        reduceBy<T, TResult>(valueFn: (acc: TResult, elem: T) => TResult, acc: TResult): F.Curry<(a: (elem: T) => string, b: Array<T>) => { [index: string]: TResult }>;
+        reduceBy<T, TResult>(valueFn: (acc: TResult, elem: T) => TResult): F.Curry<(a: TResult, b: (elem: T) => string, c: Array<T>) => { [index: string]: TResult }>;
 
         /**
          * Returns a value wrapped to indicate that it is the final value of the reduce and
@@ -2632,9 +2632,9 @@ declare namespace R {
          * function and passing it an accumulator value and the current value from the array, and
          * then passing the result to the next call.
          */
-        reduceRight<T, TResult>(fn: (elem: T, acc: TResult) => TResult, acc: TResult, list: ReadonlyArray<T>): TResult;
-        reduceRight<T, TResult>(fn: (elem: T, acc: TResult) => TResult): (acc: TResult, list: ReadonlyArray<T>) => TResult;
-        reduceRight<T, TResult>(fn: (elem: T, acc: TResult) => TResult, acc: TResult): (list: ReadonlyArray<T>) => TResult;
+        reduceRight<T, TResult>(fn: (elem: T, acc: TResult) => TResult, acc: TResult, list: Array<T>): TResult;
+        reduceRight<T, TResult>(fn: (elem: T, acc: TResult) => TResult): (acc: TResult, list: Array<T>) => TResult;
+        reduceRight<T, TResult>(fn: (elem: T, acc: TResult) => TResult, acc: TResult): (list: Array<T>) => TResult;
 
         /**
          * Like reduce, reduceWhile returns a single item by iterating through the list, successively
@@ -2642,10 +2642,10 @@ declare namespace R {
          * each step. If the predicate returns false, it "short-circuits" the iteration and returns
          * the current value of the accumulator.
          */
-        reduceWhile<T, TResult>(predicate: (acc: TResult, elem: T) => boolean, fn: (acc: TResult, elem: T) => TResult, acc: TResult, list: ReadonlyArray<T>): TResult;
-        reduceWhile<T, TResult>(predicate: (acc: TResult, elem: T) => boolean, fn: (acc: TResult, elem: T) => TResult, acc: TResult): (list: ReadonlyArray<T>) => TResult;
-        reduceWhile<T, TResult>(predicate: (acc: TResult, elem: T) => boolean, fn: (acc: TResult, elem: T) => TResult): F.Curry<(a: TResult, b: ReadonlyArray<T>) => TResult>;
-        reduceWhile<T, TResult>(predicate: (acc: TResult, elem: T) => boolean): F.Curry<(a: (acc: TResult, elem: T) => TResult, b: TResult, c: ReadonlyArray<T>) => TResult>;
+        reduceWhile<T, TResult>(predicate: (acc: TResult, elem: T) => boolean, fn: (acc: TResult, elem: T) => TResult, acc: TResult, list: Array<T>): TResult;
+        reduceWhile<T, TResult>(predicate: (acc: TResult, elem: T) => boolean, fn: (acc: TResult, elem: T) => TResult, acc: TResult): (list: Array<T>) => TResult;
+        reduceWhile<T, TResult>(predicate: (acc: TResult, elem: T) => boolean, fn: (acc: TResult, elem: T) => TResult): F.Curry<(a: TResult, b: Array<T>) => TResult>;
+        reduceWhile<T, TResult>(predicate: (acc: TResult, elem: T) => boolean): F.Curry<(a: (acc: TResult, elem: T) => TResult, b: TResult, c: Array<T>) => TResult>;
 
         /**
          * Similar to `filter`, except that it keeps only values for which the given predicate
@@ -2656,9 +2656,9 @@ declare namespace R {
         /**
          * Removes the sub-list of `list` starting at index `start` and containing `count` elements.
          */
-        remove<T>(start: number, count: number, list: ReadonlyArray<T>): T[];
-        remove<T>(start: number): (count: number, list: ReadonlyArray<T>) => T[];
-        remove<T>(start: number, count: number): (list: ReadonlyArray<T>) => T[];
+        remove<T>(start: number, count: number, list: Array<T>): T[];
+        remove<T>(start: number): (count: number, list: Array<T>) => T[];
+        remove<T>(start: number, count: number): (list: Array<T>) => T[];
 
         /**
          * Returns a fixed list of size n containing a specified identical value.
@@ -2676,7 +2676,7 @@ declare namespace R {
         /**
          * Returns a new list with the same elements as the original list, just in the reverse order.
          */
-        reverse<T>(list: ReadonlyArray<T>): T[];
+        reverse<T>(list: Array<T>): T[];
         /**
          * Returns a new string with the characters in reverse order.
          */
@@ -2685,9 +2685,9 @@ declare namespace R {
         /**
          * Scan is similar to reduce, but returns a list of successively reduced values from the left.
          */
-        scan<T, TResult>(fn: (acc: TResult, elem: T) => any, acc: TResult, list: ReadonlyArray<T>): TResult[];
-        scan<T, TResult>(fn: (acc: TResult, elem: T) => any, acc: TResult): (list: ReadonlyArray<T>) => TResult[];
-        scan<T, TResult>(fn: (acc: TResult, elem: T) => any): (acc: TResult, list: ReadonlyArray<T>) => TResult[];
+        scan<T, TResult>(fn: (acc: TResult, elem: T) => any, acc: TResult, list: Array<T>): TResult[];
+        scan<T, TResult>(fn: (acc: TResult, elem: T) => any, acc: TResult): (list: Array<T>) => TResult[];
+        scan<T, TResult>(fn: (acc: TResult, elem: T) => any): (acc: TResult, list: Array<T>) => TResult[];
 
         /**
          * Returns the result of "setting" the portion of the given data structure focused by the given lens to the
@@ -2701,14 +2701,14 @@ declare namespace R {
          * Returns the elements from `xs` starting at `a` and ending at `b - 1`.
          */
         slice(a: number, b: number, list: string): string;
-        slice<T>(a: number, b: number, list: ReadonlyArray<T>): T[];
+        slice<T>(a: number, b: number, list: Array<T>): T[];
         slice(a: number, b: number): {
             (list: string): string;
-            <T>(list: ReadonlyArray<T>): T[];
+            <T>(list: Array<T>): T[];
         };
         slice(a: number): {
             (b: number, list: string): string;
-            <T>(b: number, list: ReadonlyArray<T>): T[];
+            <T>(b: number, list: Array<T>): T[];
         };
 
         /**
@@ -2716,20 +2716,20 @@ declare namespace R {
          * time and return a negative number if the first value is smaller, a positive number if it's larger, and zero
          * if they are equal.
          */
-        sort<T>(fn: (a: T, b: T) => number, list: ReadonlyArray<T>): T[];
-        sort<T>(fn: (a: T, b: T) => number): (list: ReadonlyArray<T>) => T[];
+        sort<T>(fn: (a: T, b: T) => number, list: Array<T>): T[];
+        sort<T>(fn: (a: T, b: T) => number): (list: Array<T>) => T[];
 
         /**
          * Sorts the list according to a key generated by the supplied function.
          */
-        sortBy<T>(fn: (a: T) => Ord, list: ReadonlyArray<T>): T[];
-        sortBy(fn: (a: any) => Ord): <T>(list: ReadonlyArray<T>) => T[];
+        sortBy<T>(fn: (a: T) => Ord, list: Array<T>): T[];
+        sortBy(fn: (a: any) => Ord): <T>(list: Array<T>) => T[];
 
         /**
          * Sorts a list according to a list of comparators.
          */
-        sortWith<T>(fns: ReadonlyArray<((a: T, b: T) => number)>, list: ReadonlyArray<T>): T[];
-        sortWith<T>(fns: ReadonlyArray<((a: T, b: T) => number)>): (list: ReadonlyArray<T>) => T[];
+        sortWith<T>(fns: Array<((a: T, b: T) => number)>, list: Array<T>): T[];
+        sortWith<T>(fns: Array<((a: T, b: T) => number)>): (list: Array<T>) => T[];
 
         /**
          * Splits a string into an array of strings based on the given
@@ -2741,21 +2741,21 @@ declare namespace R {
         /**
          * Splits a given list or string at a given index.
          */
-        splitAt<T>(index: number, list: ReadonlyArray<T>): [T[], T[]];
+        splitAt<T>(index: number, list: Array<T>): [T[], T[]];
         splitAt(index: number, list: string): [string, string];
         splitAt(index: number): {
-            <T>(list: ReadonlyArray<T>): [T[], T[]];
+            <T>(list: Array<T>): [T[], T[]];
             (list: string): [string, string];
         };
 
         /**
          * Splits a collection into slices of the specified length.
          */
-        splitEvery<T>(a: number, list: ReadonlyArray<T>): T[][];
+        splitEvery<T>(a: number, list: Array<T>): T[][];
         splitEvery(a: number, list: string): string[];
         splitEvery(a: number): {
             (list: string): string[];
-            <T>(list: ReadonlyArray<T>): T[][];
+            <T>(list: Array<T>): T[][];
         };
 
         /**
@@ -2764,16 +2764,16 @@ declare namespace R {
          * - none of the elements of the first output list satisfies the predicate; and
          * - if the second output list is non-empty, its first element satisfies the predicate.
          */
-        splitWhen<T, U>(pred: (val: T) => boolean, list: ReadonlyArray<U>): U[][];
-        splitWhen<T>(pred: (val: T) => boolean): <U>(list: ReadonlyArray<U>) => U[][];
+        splitWhen<T, U>(pred: (val: T) => boolean, list: Array<U>): U[][];
+        splitWhen<T>(pred: (val: T) => boolean): <U>(list: Array<U>) => U[][];
 
         /**
          * Checks if a list starts with the provided values
          */
         startsWith(a: string, list: string): boolean;
         startsWith(a: string): (list: string) => boolean;
-        startsWith<T>(a: T | ReadonlyArray<T>, list: ReadonlyArray<T>): boolean;
-        startsWith<T>(a: T | ReadonlyArray<T>): (list: ReadonlyArray<T>) => boolean;
+        startsWith<T>(a: T | Array<T>, list: Array<T>): boolean;
+        startsWith<T>(a: T | Array<T>): (list: Array<T>) => boolean;
 
         /**
          * Subtracts two numbers. Equivalent to `a - b` but curried.
@@ -2786,20 +2786,20 @@ declare namespace R {
         /**
          * Adds together all the elements of a list.
          */
-        sum(list: ReadonlyArray<number>): number;
+        sum(list: Array<number>): number;
 
         /**
          * Finds the set (i.e. no duplicates) of all elements contained in the first or second list, but not both.
          */
-        symmetricDifference<T>(list1: ReadonlyArray<T>, list2: ReadonlyArray<T>): T[];
-        symmetricDifference<T>(list: ReadonlyArray<T>): <T>(list: ReadonlyArray<T>) => T[];
+        symmetricDifference<T>(list1: Array<T>, list2: Array<T>): T[];
+        symmetricDifference<T>(list: Array<T>): <T>(list: Array<T>) => T[];
 
         /**
          * Finds the set (i.e. no duplicates) of all elements contained in the first or second list, but not both.
          * Duplication is determined according to the value returned by applying the supplied predicate to two list elements.
          */
-        symmetricDifferenceWith<T>(pred: (a: T, b: T) => boolean, list1: ReadonlyArray<T>, list2: ReadonlyArray<T>): T[];
-        symmetricDifferenceWith<T>(pred: (a: T, b: T) => boolean): F.Curry<(a: ReadonlyArray<T>, b: ReadonlyArray<T>) => T[]>;
+        symmetricDifferenceWith<T>(pred: (a: T, b: T) => boolean, list1: Array<T>, list2: Array<T>): T[];
+        symmetricDifferenceWith<T>(pred: (a: T, b: T) => boolean): F.Curry<(a: Array<T>, b: Array<T>) => T[]>;
 
         /**
          * A function that always returns true. Any passed in parameters are ignored.
@@ -2810,27 +2810,27 @@ declare namespace R {
          * Returns all but the first element of a list or string.
          */
         tail(list: string): string;
-        tail<T extends any>(list: ReadonlyArray<T>): T[];
+        tail<T extends any>(list: Array<T>): T[];
 
         /**
          * Returns a new list containing the first `n` elements of the given list.  If
          * `n > * list.length`, returns a list of `list.length` elements.
          */
-        take<T>(n: number, xs: ReadonlyArray<T>): T[];
+        take<T>(n: number, xs: Array<T>): T[];
         take(n: number, xs: string): string;
         take(n: number): {
             (xs: string): string;
-            <T>(xs: ReadonlyArray<T>): T[];
+            <T>(xs: Array<T>): T[];
         };
 
         /**
          * Returns a new list containing the last n elements of the given list. If n > list.length,
          * returns a list of list.length elements.
          */
-        takeLast<T>(n: number, xs: ReadonlyArray<T>): T[];
+        takeLast<T>(n: number, xs: Array<T>): T[];
         takeLast(n: number, xs: string): string;
         takeLast(n: number): {
-            <T>(xs: ReadonlyArray<T>): T[];
+            <T>(xs: Array<T>): T[];
             (xs: string): string;
         };
 
@@ -2840,16 +2840,16 @@ declare namespace R {
          * false. Excludes the element that caused the predicate function to fail. The predicate
          * function is passed one argument: (value).
          */
-        takeLastWhile<T>(pred: (a: T) => boolean, list: ReadonlyArray<T>): T[];
-        takeLastWhile<T>(pred: (a: T) => boolean): <T>(list: ReadonlyArray<T>) => T[];
+        takeLastWhile<T>(pred: (a: T) => boolean, list: Array<T>): T[];
+        takeLastWhile<T>(pred: (a: T) => boolean): <T>(list: Array<T>) => T[];
 
         /**
          * Returns a new list containing the first `n` elements of a given list, passing each value
          * to the supplied predicate function, and terminating when the predicate function returns
          * `false`.
          */
-        takeWhile<T>(fn: (x: T) => boolean, list: ReadonlyArray<T>): T[];
-        takeWhile<T>(fn: (x: T) => boolean): (list: ReadonlyArray<T>) => T[];
+        takeWhile<T>(fn: (x: T) => boolean, list: Array<T>): T[];
+        takeWhile<T>(fn: (x: T) => boolean): (list: Array<T>) => T[];
 
         /**
          * The function to call with x. The return value of fn will be thrown away.
@@ -2925,24 +2925,24 @@ declare namespace R {
          * list, successively calling the transformed iterator function and passing it an accumulator value and the
          * current value from the array, and then passing the result to the next call.
          */
-        transduce<T, U>(xf: (arg: T[]) => ReadonlyArray<T>, fn: (acc: U[], val: U) => ReadonlyArray<U>, acc: ReadonlyArray<T>, list: ReadonlyArray<T>): U;
-        transduce<T, U>(xf: (arg: T[]) => ReadonlyArray<T>): (fn: (acc: U[], val: U) => ReadonlyArray<U>, acc: ReadonlyArray<T>, list: ReadonlyArray<T>) => U;
-        transduce<T, U>(xf: (arg: T[]) => ReadonlyArray<T>, fn: (acc: U[], val: U) => ReadonlyArray<U>): (acc: ReadonlyArray<T>, list: ReadonlyArray<T>) => U;
-        transduce<T, U>(xf: (arg: T[]) => ReadonlyArray<T>, fn: (acc: U[], val: U) => ReadonlyArray<U>, acc: ReadonlyArray<T>): (list: ReadonlyArray<T>) => U;
+        transduce<T, U>(xf: (arg: T[]) => Array<T>, fn: (acc: U[], val: U) => Array<U>, acc: Array<T>, list: Array<T>): U;
+        transduce<T, U>(xf: (arg: T[]) => Array<T>): (fn: (acc: U[], val: U) => Array<U>, acc: Array<T>, list: Array<T>) => U;
+        transduce<T, U>(xf: (arg: T[]) => Array<T>, fn: (acc: U[], val: U) => Array<U>): (acc: Array<T>, list: Array<T>) => U;
+        transduce<T, U>(xf: (arg: T[]) => Array<T>, fn: (acc: U[], val: U) => Array<U>, acc: Array<T>): (list: Array<T>) => U;
 
         /**
          * Transposes the rows and columns of a 2D list. When passed a list of n lists of length x, returns a list of x lists of length n.
          */
-        transpose<T>(list: ReadonlyArray<T[]>): T[][];
+        transpose<T>(list: Array<T[]>): T[][];
 
         /**
          * Maps an Applicative-returning function over a Traversable, then uses
          * sequence to transform the resulting Traversable of Applicative into
          * an Applicative of Traversable.
          */
-        traverse<A, B>(of: (a: B) => ReadonlyArray<B>, fn: (t: A) => ReadonlyArray<B>, list: ReadonlyArray<A>): B[][];
-        traverse<A, B>(of: (a: B) => ReadonlyArray<B>, fn: (t: A) => ReadonlyArray<B>): (list: ReadonlyArray<A>) => B[][];
-        traverse<A, B>(of: (a: B) => ReadonlyArray<B>): (fn: (t: A) => ReadonlyArray<B>, list: ReadonlyArray<A>) => B[][];
+        traverse<A, B>(of: (a: B) => Array<B>, fn: (t: A) => Array<B>, list: Array<A>): B[][];
+        traverse<A, B>(of: (a: B) => Array<B>, fn: (t: A) => Array<B>): (list: Array<A>) => B[][];
+        traverse<A, B>(of: (a: B) => Array<B>): (fn: (t: A) => Array<B>, list: Array<A>) => B[][];
 
         /**
          * Removes (strips) whitespace from both ends of the string.
@@ -2997,20 +2997,20 @@ declare namespace R {
          * Combines two lists into a set (i.e. no duplicates) composed of the
          * elements of each list.
          */
-        union<T>(as: ReadonlyArray<T>, bs: ReadonlyArray<T>): T[];
-        union<T>(as: ReadonlyArray<T>): (bs: ReadonlyArray<T>) => T[];
+        union<T>(as: Array<T>, bs: Array<T>): T[];
+        union<T>(as: Array<T>): (bs: Array<T>) => T[];
 
         /**
          * Combines two lists into a set (i.e. no duplicates) composed of the elements of each list.  Duplication is
          * determined according to the value returned by applying the supplied predicate to two list elements.
          */
-        unionWith<T>(pred: (a: T, b: T) => boolean, list1: ReadonlyArray<T>, list2: ReadonlyArray<T>): T[];
-        unionWith<T>(pred: (a: T, b: T) => boolean): F.Curry<(a: ReadonlyArray<T>, b: ReadonlyArray<T>) => T[]>;
+        unionWith<T>(pred: (a: T, b: T) => boolean, list1: Array<T>, list2: Array<T>): T[];
+        unionWith<T>(pred: (a: T, b: T) => boolean): F.Curry<(a: Array<T>, b: Array<T>) => T[]>;
 
         /**
          * Returns a new list containing only one copy of each element in the original list.
          */
-        uniq<T>(list: ReadonlyArray<T>): T[];
+        uniq<T>(list: Array<T>): T[];
 
         /**
          * Returns a new list containing only one copy of each element in the original list,
@@ -3018,15 +3018,15 @@ declare namespace R {
          * Prefers the first item if the supplied function produces the same value on two items.
          * R.equals is used for comparison.
          */
-        uniqBy<T, U>(fn: (a: T) => U, list: ReadonlyArray<T>): T[];
-        uniqBy<T, U>(fn: (a: T) => U): (list: ReadonlyArray<T>) => T[];
+        uniqBy<T, U>(fn: (a: T) => U, list: Array<T>): T[];
+        uniqBy<T, U>(fn: (a: T) => U): (list: Array<T>) => T[];
 
         /**
          * Returns a new list containing only one copy of each element in the original list, based upon the value
          * returned by applying the supplied predicate to two list elements.
          */
-        uniqWith<T, U>(pred: (x: T, y: T) => boolean, list: ReadonlyArray<T>): T[];
-        uniqWith<T, U>(pred: (x: T, y: T) => boolean): (list: ReadonlyArray<T>) => T[];
+        uniqWith<T, U>(pred: (x: T, y: T) => boolean, list: Array<T>): T[];
+        uniqWith<T, U>(pred: (x: T, y: T) => boolean): (list: Array<T>) => T[];
 
         /**
          * Tests the final argument by passing it to the given predicate function. If the predicate is not satisfied,
@@ -3040,7 +3040,7 @@ declare namespace R {
          * Returns a new list by pulling every item at the first level of nesting out, and putting
          * them in a new array.
          */
-        unnest<T>(x: ReadonlyArray<T[]> | ReadonlyArray<ReadonlyArray<T>> | ReadonlyArray<T>): T[];
+        unnest<T>(x: Array<T[]> | Array<Array<T>> | Array<T>): T[];
 
         /**
          * Takes a predicate, a transformation function, and an initial value, and returns a value of the same type as
@@ -3053,8 +3053,8 @@ declare namespace R {
         /**
          * Returns a new copy of the array with the element at the provided index replaced with the given value.
          */
-        update<T>(index: number, value: T, list: ReadonlyArray<T>): T[];
-        update<T>(index: number, value: T): (list: ReadonlyArray<T>) => T[];
+        update<T>(index: number, value: T, list: Array<T>): T[];
+        update<T>(index: number, value: T): (list: Array<T>) => T[];
 
         /**
          * Accepts a function fn and a list of transformer functions and returns a new curried function.
@@ -3125,8 +3125,8 @@ declare namespace R {
          * Returns a new list without values in the first argument. R.equals is used to determine equality.
          * Acts as a transducer if a transformer is given in list position.
          */
-        without<T>(list1: ReadonlyArray<T>, list2: ReadonlyArray<T>): T[];
-        without<T>(list1: ReadonlyArray<T>): (list2: ReadonlyArray<T>) => T[];
+        without<T>(list1: Array<T>, list2: Array<T>): T[];
+        without<T>(list1: Array<T>): (list2: Array<T>) => T[];
 
         /**
          * Wrap a function inside another to allow you to make adjustments to the parameters, or do other processing
@@ -3137,32 +3137,32 @@ declare namespace R {
         /**
          * Creates a new list out of the two supplied by creating each possible pair from the lists.
          */
-        xprod<K, V>(as: ReadonlyArray<K>, bs: ReadonlyArray<V>): Array<KeyValuePair<K, V>>;
-        xprod<K>(as: ReadonlyArray<K>): <V>(bs: ReadonlyArray<V>) => Array<KeyValuePair<K, V>>;
+        xprod<K, V>(as: Array<K>, bs: Array<V>): Array<KeyValuePair<K, V>>;
+        xprod<K>(as: Array<K>): <V>(bs: Array<V>) => Array<KeyValuePair<K, V>>;
 
         /**
          * Creates a new list out of the two supplied by pairing up equally-positioned items from
          * both lists. Note: `zip` is equivalent to `zipWith(function(a, b) { return [a, b] })`.
          */
-        zip<K, V>(list1: ReadonlyArray<K>, list2: ReadonlyArray<V>): Array<KeyValuePair<K, V>>;
-        zip<K>(list1: ReadonlyArray<K>): <V>(list2: ReadonlyArray<V>) => Array<KeyValuePair<K, V>>;
+        zip<K, V>(list1: Array<K>, list2: Array<V>): Array<KeyValuePair<K, V>>;
+        zip<K>(list1: Array<K>): <V>(list2: Array<V>) => Array<KeyValuePair<K, V>>;
 
         /**
          * Creates a new object out of a list of keys and a list of values.
          */
         // TODO: Dictionary<T> as a return value is to specific, any seems to loose
-        zipObj<T>(keys: ReadonlyArray<string>, values: ReadonlyArray<T>): { [index: string]: T };
-        zipObj(keys: ReadonlyArray<string>): <T>(values: ReadonlyArray<T>) => { [index: string]: T };
-        zipObj<T>(keys: ReadonlyArray<number>, values: ReadonlyArray<T>): { [index: number]: T };
-        zipObj(keys: ReadonlyArray<number>): <T>(values: ReadonlyArray<T>) => { [index: number]: T };
+        zipObj<T>(keys: Array<string>, values: Array<T>): { [index: string]: T };
+        zipObj(keys: Array<string>): <T>(values: Array<T>) => { [index: string]: T };
+        zipObj<T>(keys: Array<number>, values: Array<T>): { [index: number]: T };
+        zipObj(keys: Array<number>): <T>(values: Array<T>) => { [index: number]: T };
 
         /**
          * Creates a new list out of the two supplied by applying the function to each
          * equally-positioned pair in the lists.
          */
-        zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult, list1: ReadonlyArray<T>, list2: ReadonlyArray<U>): TResult[];
-        zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult, list1: ReadonlyArray<T>): (list2: ReadonlyArray<U>) => TResult[];
-        zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult): (list1: ReadonlyArray<T>, list2: ReadonlyArray<U>) => TResult[];
+        zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult, list1: Array<T>, list2: Array<U>): TResult[];
+        zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult, list1: Array<T>): (list2: Array<U>) => TResult[];
+        zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult): (list1: Array<T>, list2: Array<U>) => TResult[];
     }
 }
 
