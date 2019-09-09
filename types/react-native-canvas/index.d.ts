@@ -3,7 +3,7 @@
 // Definitions by: hmajid2301 <https://github.com/hmajid2301>
 //                 Kelvin Chu <https://github.com/ragebill>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
+// TypeScript Version: 3.1
 
 import * as React from 'react';
 import { StyleProp, ViewStyle } from 'react-native';
