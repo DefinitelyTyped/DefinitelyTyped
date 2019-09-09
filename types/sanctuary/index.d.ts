@@ -130,6 +130,10 @@ type Radix
   | 26 | 27 | 28 | 29 | 30 | 31 | 32 | 33
   | 34 | 35 | 36
 
+type RegExpFlags
+  = '' | 'g' | 'i' | 'm' | 'gi'
+  | 'gm' | 'im' | 'gim'
+
 interface MatchObj {
   match: string;
   groups: Array<Maybe<string>>;
@@ -372,7 +376,7 @@ declare namespace Sanctuary {
     parseInt(radix: Radix): (s: string) => Maybe<Integer>;
     parseJson(p: Predicate<any>): (q: string) => Maybe<any>;
     //  RegExp
-    regex(flags: '' | 'g' | 'i' | 'm' | 'gi' | 'gm' | 'im' | 'gim'): (s: string) => RegExp;
+    regex(flags: RegExpFlags): (s: string) => RegExp;
     regexEscape(s: string): string;
     test(pattern: RegExp): Predicate<string>;
     match(pattern: RegExp): (q: string) => Array<Maybe<MatchObj>>;
