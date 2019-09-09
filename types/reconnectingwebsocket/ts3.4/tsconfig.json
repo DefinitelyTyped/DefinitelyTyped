@@ -2,5 +2,9 @@
     "compilerOptions": {
         "baseUrl": "../../",
         "typeRoots": ["../../"]
-    }
+    },
+    "files": [
+        "index.d.ts",
+        "reconnectingwebsocket-tests.ts"
+    ]
 }
