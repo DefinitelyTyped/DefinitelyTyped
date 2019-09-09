@@ -117,7 +117,7 @@ export interface MUIDataTableColumnOptions {
     empty?: boolean;
     filter?: boolean;
     filterList?: string[];
-    filterOptions?: string[];
+    filterOptions?: MUIDataTableFilterOptions;
     hint?: string;
     print?: boolean;
     searchable?: boolean;
