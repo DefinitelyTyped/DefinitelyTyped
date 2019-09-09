@@ -159,12 +159,9 @@ declare namespace Sanctuary {
     min<A extends Ord<any>>(x: A): (y: A) => A;
     max<A extends Ord<any>>(x: A): (y: A) => A;
     clamp(a: boolean): (b: boolean) => (c: boolean) => boolean;
-    clamp(a: Date): (b: Date) => (c: Date) => Date;
     clamp(a: number): (b: number) => (c: number) => number;
     clamp(a: string): (b: string) => (c: string) => string;
     clamp<A extends Ord<any>>(a: A): (b: A) => (c: A) => A;
-    clamp<A extends Ord<any>>(a: A[]): (b: A[]) => (c: A[]) => A[];
-    clamp<A extends Ord<any>>(a: StrMap<A>): (b: StrMap<A>) => (c: StrMap<A>) => StrMap<A>;
     id<A>(p: TypeRep): Fn<A, A> | Category<any>;
     concat<A>(x: Semigroup<A>): (y: Semigroup<A>) => Semigroup<A>;
     concat<A>(x: ReadonlyArray<A>): (y: ReadonlyArray<A>) => Array<A>;
