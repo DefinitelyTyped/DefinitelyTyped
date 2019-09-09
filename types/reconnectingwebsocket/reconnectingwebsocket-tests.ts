@@ -29,7 +29,7 @@ ws2.addEventListener('close', closeListener);
 ws2.removeEventListener('close', closeListener);
 
 ws2.onconnecting = (event) => {
-    console.log('Was clean?', event.wasClean);
+    console.log(event.type, 'was clean?', event.wasClean);
 };
 
 ws3.onerror = (event) => {
@@ -37,11 +37,11 @@ ws3.onerror = (event) => {
 };
 
 ws1.onmessage = (event: any) => {
-    console.log('Got data!', event.data);
+    console.log(event.type, event.data);
 };
 
 ws1.onopen = (event) => {
-    console.log('Is reconnect?', event.isReconnect);
+    console.log(event.type, 'is reconnect?', event.isReconnect);
 };
 
 ws1.open(true);
@@ -50,6 +50,6 @@ ws1.debug = true;
 
 ws1.refresh();
 
-ws1.send({});
+ws1.send(JSON.stringify({}));
 
 ws1.close();
