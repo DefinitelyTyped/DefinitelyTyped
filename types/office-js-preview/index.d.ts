@@ -20876,8 +20876,10 @@ declare namespace Excel {
         /**
          *
          * Occurs when left-clicked/tapped operation happens in the worksheet. This event will not be fired when clicking in the following cases:
-                    - The user drags the mouse for multi-selection.
-                    - The user selects a cell in the mode when cell arguments are selected for formula references.
+         * 
+         * - The user drags the mouse for multi-selection.
+         * 
+         * - The user selects a cell in the mode when cell arguments are selected for formula references.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          *
@@ -21123,8 +21125,10 @@ declare namespace Excel {
         /**
          *
          * Occurs when left-clicked/tapped operation happens in the worksheet collection. This event will not be fired when clicking in the following cases:
-                    - The user drags the mouse for multi-selection.
-                    - The user selects a cell in the mode when cell arguments are selected for formula references.
+         * 
+         * - The user drags the mouse for multi-selection.
+         * 
+         * - The user selects a cell in the mode when cell arguments are selected for formula references.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          *
@@ -21665,14 +21669,13 @@ declare namespace Excel {
          * Fills range from the current range to the destination range using the specified AutoFill logic. 
          * The destination range can be null, or can extend the source either horizontally or vertically. 
          * If the destination range is null, data is filled out based on the surrounding cells (which is the behavior when double-clicking the UI’s range fill handle). 
-         * Discontiguous ranges are not supported.
          * 
          * For more information, read {@link https://support.office.com/article/video-use-autofill-and-flash-fill-2e79a709-c814-4b27-8bc2-c4dc84d49464 | Use AutoFill and Flash Fill}.
          *
-         * [Api set: ExcelApi 1.9]
+         * [Api set: ExcelApi 1.9, ExcelApi Preview for null `destinationRange`]
          *
-         * @param destinationRange The destination range to autofill.
-         * @param autoFillType The type of autofill. Specifies how the destination range is to be filled, based on the contents of the current range. Default is "FillDefault".
+         * @param destinationRange The destination range to AutoFill. Discontiguous ranges are not supported.
+         * @param autoFillType The type of AutoFill. Specifies how the destination range is to be filled, based on the contents of the current range. Default is "FillDefault".
          */
         autoFill(destinationRange: Range | string, autoFillType?: Excel.AutoFillType): void;
         /**
@@ -21680,14 +21683,13 @@ declare namespace Excel {
          * Fills range from the current range to the destination range using the specified AutoFill logic. 
          * The destination range can be null, or can extend the source either horizontally or vertically. 
          * If the destination range is null, data is filled out based on the surrounding cells (which is the behavior when double-clicking the UI’s range fill handle). 
-         * Discontiguous ranges are not supported.
          * 
          * For more information, read {@link https://support.office.com/article/video-use-autofill-and-flash-fill-2e79a709-c814-4b27-8bc2-c4dc84d49464 | Use AutoFill and Flash Fill}.
          *
-         * [Api set: ExcelApi 1.9]
+         * [Api set: ExcelApi 1.9, ExcelApi Preview for null `destinationRange`]
          *
-         * @param destinationRange The destination range to autofill.
-         * @param autoFillType The type of autofill. Specifies how the destination range is to be filled, based on the contents of the current range. Default is "FillDefault".
+         * @param destinationRange The destination range to AutoFill. Discontiguous ranges are not supported.
+         * @param autoFillType The type of AutoFill. Specifies how the destination range is to be filled, based on the contents of the current range. Default is "FillDefault".
          */
         autoFill(destinationRange: Range | string, autoFillType?: "FillDefault" | "FillCopy" | "FillSeries" | "FillFormats" | "FillValues" | "FillDays" | "FillWeekdays" | "FillMonths" | "FillYears" | "LinearTrend" | "GrowthTrend" | "FlashFill"): void;
         /**
