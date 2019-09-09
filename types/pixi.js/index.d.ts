@@ -124,8 +124,8 @@ declare namespace PIXI {
     //////////////////////////////////////////////////////////////////////////////
 
     /**
-     * User's customizable globals for overriding the default PIXI settings, such
-     * as a renderer's default resolution, framerate, float percision, etc.
+     * User"s customizable globals for overriding the default PIXI settings, such
+     * as a renderer"s default resolution, framerate, float percision, etc.
      * @example
      * // Use the native window resolution as the default resolution
      * // will support high-density displays when rendering
@@ -463,11 +463,11 @@ declare namespace PIXI {
          * Constants that specify float precision in shaders.
          */
         const PRECISION: {
-            /** 'lowp' */
+            /** "lowp" */
             LOW: string;
-            /** 'mediump' */
+            /** "mediump" */
             MEDIUM: string;
-            /** 'highp' */
+            /** "highp" */
             HIGH: string;
         };
         /**
@@ -519,7 +519,7 @@ declare namespace PIXI {
      * document.body.appendChild(app.view);
      *
      * // ex, add display objects
-     * app.stage.addChild(PIXI.Sprite.fromImage('something.png'));
+     * app.stage.addChild(PIXI.Sprite.fromImage("something.png"));
      */
     class Application {
         constructor(options?: ApplicationOptions);
@@ -556,7 +556,7 @@ declare namespace PIXI {
          */
         render(): void;
         /**
-         * Destroy and don't use after this.
+         * Destroy and don"t use after this.
          * @param [removeView=false] Automatically remove canvas from DOM.
          * @param [stageOptions] - Options parameter. A boolean will act as if all options
          *  have been set to that value
@@ -566,23 +566,25 @@ declare namespace PIXI {
     }
 
     interface DestroyOptions {
-        /** if set to true, all the children will have their destroy method called as well. 'options' will be passed on to those calls. */
+        /** if set to true, all the children will have their destroy method called as well. "options" will be passed on to those calls. */
         children?: boolean;
-        /**  Should it destroy the current texture of the sprite as well
+        /**
+         * It Should it destroy the current texture of the sprite as well
          *
          * Only used for child Sprites if options.children is set to true
          */
         texture?: boolean;
-        /** Should it destroy the base texture of the sprite as well
+        /**
+         * Should it destroy the base texture of the sprite as well
          *
          * Only used for child Sprites if options.children is set to true
          */
         baseTexture?: boolean;
     }
     /**
-     * 'Builder' pattern for bounds rectangles
+     * "Builder" pattern for bounds rectangles
      * Axis-Aligned Bounding Box
-     * It is not a shape! Its mutable thing, no 'EMPTY' or that kind of problems
+     * It is not a shape! Its mutable thing, no "EMPTY" or that kind of problems
      */
     class Bounds {
         minX: number;
@@ -665,12 +667,13 @@ declare namespace PIXI {
     }
     /**
      * A Container represents a collection of display objects.
+     *
      * It is the base class of all display objects that act as a container for other objects.
      *
-     *```js
-     * let container = new PIXI.Container();
-     * container.addChild(sprite);
-     * ```
+     * ```js
+     *  let container = new PIXI.Container();
+     *  container.addChild(sprite);
+     *  ```
      */
     class Container extends DisplayObject {
         // begin extras.getChildByName
@@ -770,18 +773,18 @@ declare namespace PIXI {
         destroy(options?: DestroyOptions | boolean): void;
 
         once(
-            event: interaction.InteractionEventTypes | 'added' | 'removed',
+            event: interaction.InteractionEventTypes | "added" | "removed",
             fn: (event: interaction.InteractionEvent) => void,
             context?: any,
         ): this;
         once(event: string | symbol, fn: (...args: any[]) => any, context?: any): this;
         on(
-            event: interaction.InteractionEventTypes | 'added' | 'removed',
+            event: interaction.InteractionEventTypes | "added" | "removed",
             fn: (event: interaction.InteractionEvent) => void,
             context?: any,
         ): this;
         on(event: string | symbol, fn: (...args: any[]) => any, context?: any): this;
-        off(event: 'added' | 'removed' | string | symbol, fn?: (...args: any[]) => any, context?: any): this;
+        off(event: "added" | "removed" | string | symbol, fn?: (...args: any[]) => any, context?: any): this;
     }
     /**
      * The base class for all objects that are rendered on the screen.
@@ -796,7 +799,7 @@ declare namespace PIXI {
          * Set this to true if you want this display object to be cached as a bitmap.
          * This basically takes a snap shot of the display object as it is at that moment. It can
          * provide a performance benefit for complex static displayObjects.
-         * To remove simply set this property to 'false'
+         * To remove simply set this property to "false"
          *
          * IMPORTANT GOTCHA - make sure that all your textures are preloaded BEFORE setting this property to true
          * as it will take a snapshot of what is currently there. If the textures have not loaded then they will not appear.
@@ -1027,7 +1030,7 @@ declare namespace PIXI {
          */
         updateLocalTransform(): void;
         /**
-         * Updates the values of the object and applies the parent's transform.
+         * Updates the values of the object and applies the parent"s transform.
          *
          * @param parentTransform - The transform of the parent of this object
          */
@@ -1146,7 +1149,7 @@ declare namespace PIXI {
     class Graphics extends Container {
         /**
          * Graphics curves resolution settings. If `adaptive` flag is set to `true`,
-         * the resolution is calculated based on the curve's length to ensure better visual quality.
+         * the resolution is calculated based on the curve"s length to ensure better visual quality.
          * Adaptive draw works with `bezierCurveTo` and `quadraticCurveTo`.
          *
          * @property {boolean} adaptive=false - flag indicating if the resolution should be adaptive
@@ -1435,7 +1438,7 @@ declare namespace PIXI {
         toArray(transpose?: boolean, out?: number[]): number[];
         /**
          * Get a new position with the current transformation applied.
-         * Can be used to go from a child's coordinate space to the world coordinate space. (e.g. rendering)
+         * Can be used to go from a child"s coordinate space to the world coordinate space. (e.g. rendering)
          *
          * @param pos - The origin
          * @param [newPos] - The point that the new position is assigned to (allowed to be same as input)
@@ -1478,7 +1481,7 @@ declare namespace PIXI {
     /**
      * The Point object represents a location in a two-dimensional coordinate system, where x represents
      * the horizontal axis and y represents the vertical axis.
-     * An observable point is a point that triggers a callback when the point's position is changed.
+     * An observable point is a point that triggers a callback when the point"s position is changed.
      */
     class ObservablePoint extends PointLike {
         constructor(cb: () => any, scope?: any, x?: number, y?: number);
@@ -1706,7 +1709,7 @@ declare namespace PIXI {
         /**
          * Parameter passed to webgl context, set to "high-performance" for devices with dual graphics card
          */
-        powerPreference?: 'high-performance';
+        powerPreference?: "high-performance";
     }
     interface ApplicationOptions extends RendererOptions {
         /**
@@ -1776,7 +1779,7 @@ declare namespace PIXI {
     interface CanvasRendererPlugins extends DefaultCanvasRendererPlugins, RendererPlugins {}
     /**
      * The CanvasRenderer draws the scene and all its content onto a 2d canvas. This renderer should
-     * be used for browsers that do not support WebGL. Don't forget to add the CanvasRenderer.view to
+     * be used for browsers that do not support WebGL. Don"t forget to add the CanvasRenderer.view to
      * your DOM or you will not see anything :)
      */
     class CanvasRenderer extends SystemRenderer {
@@ -1834,12 +1837,12 @@ declare namespace PIXI {
         clear(clearColor?: string): void;
         invalidateBlendMode(): void;
 
-        on(event: 'prerender' | 'postrender', fn: () => void, context?: any): this;
-        once(event: 'prerender' | 'postrender', fn: () => void, context?: any): this;
-        removeListener(event: 'prerender' | 'postrender', fn?: () => void, context?: any): this;
-        removeAllListeners(event?: 'prerender' | 'postrender'): this;
-        off(event: 'prerender' | 'postrender', fn?: () => void, context?: any): this;
-        addListener(event: 'prerender' | 'postrender', fn: () => void, context?: any): this;
+        on(event: "prerender" | "postrender", fn: () => void, context?: any): this;
+        once(event: "prerender" | "postrender", fn: () => void, context?: any): this;
+        removeListener(event: "prerender" | "postrender", fn?: () => void, context?: any): this;
+        removeAllListeners(event?: "prerender" | "postrender"): this;
+        off(event: "prerender" | "postrender", fn?: () => void, context?: any): this;
+        addListener(event: "prerender" | "postrender", fn: () => void, context?: any): this;
     }
     /**
      * A set of functions used to handle masking.
@@ -1881,7 +1884,7 @@ declare namespace PIXI {
      * The WebGLRenderer draws the scene and all its content onto a webGL enabled canvas. This renderer
      * should be used for browsers that support webGL. This Render works by automatically managing webGLBatchs.
      * So no need for Sprite Batches or Sprite Clouds.
-     * Don't forget to add the view to your DOM or you will not see anything :)
+     * Don"t forget to add the view to your DOM or you will not see anything :)
      */
     class WebGLRenderer extends SystemRenderer {
         // plugintarget mixin start
@@ -1965,17 +1968,17 @@ declare namespace PIXI {
         handleContextRestored: () => void;
         destroy(removeView?: boolean): void;
 
-        on(event: 'prerender' | 'postrender', fn: () => void, context?: any): this;
-        on(event: 'context', fn: (gl: WebGLRenderingContext) => void, context?: any): this;
-        once(event: 'prerender' | 'postrender', fn: () => void, context?: any): this;
-        once(event: 'context', fn: (gl: WebGLRenderingContext) => void, context?: any): this;
-        removeListener(event: 'prerender' | 'postrender', fn?: () => void, context?: any): this;
-        removeListener(event: 'context', fn?: (gl: WebGLRenderingContext) => void, context?: any): this;
-        removeAllListeners(event?: 'prerender' | 'postrender' | 'context'): this;
-        off(event: 'prerender' | 'postrender', fn?: () => void, context?: any): this;
-        off(event: 'context', fn?: (gl: WebGLRenderingContext) => void, context?: any): this;
-        addListener(event: 'prerender' | 'postrender', fn: () => void, context?: any): this;
-        addListener(event: 'context', fn: (gl: WebGLRenderingContext) => void, context?: any): this;
+        on(event: "prerender" | "postrender", fn: () => void, context?: any): this;
+        on(event: "context", fn: (gl: WebGLRenderingContext) => void, context?: any): this;
+        once(event: "prerender" | "postrender", fn: () => void, context?: any): this;
+        once(event: "context", fn: (gl: WebGLRenderingContext) => void, context?: any): this;
+        removeListener(event: "prerender" | "postrender", fn?: () => void, context?: any): this;
+        removeListener(event: "context", fn?: (gl: WebGLRenderingContext) => void, context?: any): this;
+        removeAllListeners(event?: "prerender" | "postrender" | "context"): this;
+        off(event: "prerender" | "postrender", fn?: () => void, context?: any): this;
+        off(event: "context", fn?: (gl: WebGLRenderingContext) => void, context?: any): this;
+        addListener(event: "prerender" | "postrender", fn: () => void, context?: any): this;
+        addListener(event: "context", fn: (gl: WebGLRenderingContext) => void, context?: any): this;
     }
     /**
      * A WebGL state machines
@@ -2270,7 +2273,7 @@ declare namespace PIXI {
      * A sprite can be created directly from an image like this:
      *
      * ```js
-     * let sprite = new PIXI.Sprite.fromImage('assets/image.png');
+     * let sprite = new PIXI.Sprite.fromImage("assets/image.png");
      * ```
      *
      * The more efficient way to create sprites is using a {@link PIXI.Spritesheet}:
@@ -2611,12 +2614,12 @@ declare namespace PIXI {
         resize(width: number, height: number): void;
         destroy(): void;
 
-        on(event: 'update', fn: (baseRenderTexture: BaseRenderTexture) => void, context?: any): this;
-        once(event: 'update', fn: (baseRenderTexture: BaseRenderTexture) => void, context?: any): this;
-        removeListener(event: 'update', fn?: (baseRenderTexture: BaseRenderTexture) => void, context?: any): this;
-        removeAllListeners(event?: 'update'): this;
-        off(event: 'update', fn?: (baseRenderTexture: BaseRenderTexture) => void, context?: any): this;
-        addListener(event: 'update', fn: (baseRenderTexture: BaseRenderTexture) => void, context?: any): this;
+        on(event: "update", fn: (baseRenderTexture: BaseRenderTexture) => void, context?: any): this;
+        once(event: "update", fn: (baseRenderTexture: BaseRenderTexture) => void, context?: any): this;
+        removeListener(event: "update", fn?: (baseRenderTexture: BaseRenderTexture) => void, context?: any): this;
+        removeAllListeners(event?: "update"): this;
+        off(event: "update", fn?: (baseRenderTexture: BaseRenderTexture) => void, context?: any): this;
+        addListener(event: "update", fn: (baseRenderTexture: BaseRenderTexture) => void, context?: any): this;
     }
     class BaseTexture extends utils.EventEmitter {
         static from(
@@ -2682,28 +2685,28 @@ declare namespace PIXI {
         static removeFromCache(baseTexture: string | BaseTexture): BaseTexture;
 
         on(
-            event: 'update' | 'loaded' | 'error' | 'dispose',
+            event: "update" | "loaded" | "error" | "dispose",
             fn: (baseTexture: BaseTexture) => void,
             context?: any,
         ): this;
         once(
-            event: 'update' | 'loaded' | 'error' | 'dispose',
+            event: "update" | "loaded" | "error" | "dispose",
             fn: (baseTexture: BaseTexture) => void,
             context?: any,
         ): this;
         removeListener(
-            event: 'update' | 'loaded' | 'error' | 'dispose',
+            event: "update" | "loaded" | "error" | "dispose",
             fn?: (baseTexture: BaseTexture) => void,
             context?: any,
         ): this;
-        removeAllListeners(event?: 'update' | 'loaded' | 'error' | 'dispose'): this;
+        removeAllListeners(event?: "update" | "loaded" | "error" | "dispose"): this;
         off(
-            event: 'update' | 'loaded' | 'error' | 'dispose',
+            event: "update" | "loaded" | "error" | "dispose",
             fn?: (baseTexture: BaseTexture) => void,
             context?: any,
         ): this;
         addListener(
-            event: 'update' | 'loaded' | 'error' | 'dispose',
+            event: "update" | "loaded" | "error" | "dispose",
             fn: (baseTexture: BaseTexture) => void,
             context?: any,
         ): this;
@@ -2778,12 +2781,12 @@ declare namespace PIXI {
         static EMPTY: Texture;
         static WHITE: Texture;
 
-        on(event: 'update', fn: (texture: Texture) => void, context?: any): this;
-        once(event: 'update', fn: (texture: Texture) => void, context?: any): this;
-        removeListener(event: 'update', fn?: (texture: Texture) => void, context?: any): this;
-        removeAllListeners(event?: 'update'): this;
-        off(event: 'update', fn?: (texture: Texture) => void, context?: any): this;
-        addListener(event: 'update', fn: (texture: Texture) => void, context?: any): this;
+        on(event: "update", fn: (texture: Texture) => void, context?: any): this;
+        once(event: "update", fn: (texture: Texture) => void, context?: any): this;
+        removeListener(event: "update", fn?: (texture: Texture) => void, context?: any): this;
+        removeAllListeners(event?: "update"): this;
+        off(event: "update", fn?: (texture: Texture) => void, context?: any): this;
+        addListener(event: "update", fn: (texture: Texture) => void, context?: any): this;
     }
     class TextureMatrix {
         constructor(texture: Texture, clampMargin?: number);
@@ -3253,7 +3256,7 @@ declare namespace PIXI {
              * @example
              * const sprite = new PIXI.Sprite(texture);
              * sprite.interactive = true;
-             * sprite.on('tap', (event) => {
+             * sprite.on("tap", (event) => {
              *    //handle event
              * });
              */
@@ -3265,7 +3268,7 @@ declare namespace PIXI {
             interactiveChildren: boolean;
             /**
              * Interaction shape. Children will be hit first, then this shape will be checked.
-             * Setting this will cause this shape to be checked in hit tests rather than the displayObject's bounds.
+             * Setting this will cause this shape to be checked in hit tests rather than the displayObject"s bounds.
              * @example
              * const sprite = new PIXI.Sprite(texture);
              * sprite.interactive = true;
@@ -3274,7 +3277,7 @@ declare namespace PIXI {
             hitArea: PIXI.Rectangle | PIXI.Circle | PIXI.Ellipse | PIXI.Polygon | PIXI.RoundedRectangle | PIXI.HitArea;
             /**
              * If enabled, the mouse cursor use the pointer behavior when hovered over the displayObject if it is interactive
-             * Setting this changes the 'cursor' property to `'pointer'`.
+             * Setting this changes the "cursor" property to `"pointer"`.
              *
              * @example
              * const sprite = new PIXI.Sprite(texture);
@@ -3288,7 +3291,7 @@ declare namespace PIXI {
              * @example
              * const sprite = new PIXI.Sprite(texture);
              * sprite.interactive = true;
-             * sprite.cursor = 'wait';
+             * sprite.cursor = "wait";
              * @see https://developer.mozilla.org/en/docs/Web/CSS/cursor
              */
             cursor: string;
@@ -3337,34 +3340,34 @@ declare namespace PIXI {
             getLocalPosition(displayObject: DisplayObject, point?: Point, globalPos?: Point): Point;
         }
         type InteractionPointerEvents =
-            | 'pointerdown'
-            | 'pointercancel'
-            | 'pointerup'
-            | 'pointertap'
-            | 'pointerupoutside'
-            | 'pointermove'
-            | 'pointerover'
-            | 'pointerout';
+            | "pointerdown"
+            | "pointercancel"
+            | "pointerup"
+            | "pointertap"
+            | "pointerupoutside"
+            | "pointermove"
+            | "pointerover"
+            | "pointerout";
         type InteractionTouchEvents =
-            | 'touchstart'
-            | 'touchcancel'
-            | 'touchend'
-            | 'touchendoutside'
-            | 'touchmove'
-            | 'tap';
+            | "touchstart"
+            | "touchcancel"
+            | "touchend"
+            | "touchendoutside"
+            | "touchmove"
+            | "tap";
         type InteractionMouseEvents =
-            | 'rightdown'
-            | 'mousedown'
-            | 'rightup'
-            | 'mouseup'
-            | 'rightclick'
-            | 'click'
-            | 'rightupoutside'
-            | 'mouseupoutside'
-            | 'mousemove'
-            | 'mouseover'
-            | 'mouseout';
-        type InteractionPixiEvents = 'added' | 'removed';
+            | "rightdown"
+            | "mousedown"
+            | "rightup"
+            | "mouseup"
+            | "rightclick"
+            | "click"
+            | "rightupoutside"
+            | "mouseupoutside"
+            | "mousemove"
+            | "mouseover"
+            | "mouseout";
+        type InteractionPixiEvents = "added" | "removed";
         type InteractionEventTypes =
             | InteractionPointerEvents
             | InteractionTouchEvents
@@ -3574,33 +3577,33 @@ declare namespace PIXI {
 
             // depreciation
 
-            on(event: 'complete', fn: (loader: loaders.Loader, object: any) => void, context?: any): this;
+            on(event: "complete", fn: (loader: loaders.Loader, object: any) => void, context?: any): this;
             on(
-                event: 'error',
+                event: "error",
                 fn: (error: Error, loader: loaders.Loader, resource: Resource) => void,
                 context?: any,
             ): this;
             on(
-                event: 'load' | 'progress',
+                event: "load" | "progress",
                 fn: (loader: loaders.Loader, resource: Resource) => void,
                 context?: any,
             ): this;
-            on(event: 'start', fn: (loader: loaders.Loader) => void, context?: any): this;
+            on(event: "start", fn: (loader: loaders.Loader) => void, context?: any): this;
 
-            once(event: 'complete', fn: (loader: loaders.Loader, object: any) => void, context?: any): this;
+            once(event: "complete", fn: (loader: loaders.Loader, object: any) => void, context?: any): this;
             once(
-                event: 'error',
+                event: "error",
                 fn: (error: Error, loader: loaders.Loader, resource: Resource) => void,
                 context?: any,
             ): this;
             once(
-                event: 'load' | 'progress',
+                event: "load" | "progress",
                 fn: (loader: loaders.Loader, resource: Resource) => void,
                 context?: any,
             ): this;
-            once(event: 'start', fn: (loader: loaders.Loader) => void, context?: any): this;
+            once(event: "start", fn: (loader: loaders.Loader) => void, context?: any): this;
             off(
-                event: 'complete' | 'error' | 'load' | 'progress' | 'start' | string,
+                event: "complete" | "error" | "load" | "progress" | "start" | string,
                 fn?: (...args: any[]) => any,
                 context?: any,
             ): this;
@@ -4718,6 +4721,6 @@ declare namespace pixi {
 }
 
 //tslint:disable-next-line:no-single-declare-module
-declare module 'pixi.js' {
+declare module "pixi.js" {
     export = PIXI;
 }
