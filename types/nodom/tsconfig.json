@@ -1,0 +1,33 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "lib/attributes.d.ts",
+        "lib/classlist.d.ts",
+        "lib/dataset.d.ts",
+        "lib/document.d.ts",
+        "lib/element.d.ts",
+        "lib/navigator.d.ts",
+        "lib/node.d.ts",
+        "lib/render.d.ts",
+        "lib/style.d.ts",
+        "lib/textnode.d.ts",
+        "nodom-tests.ts"
+    ]
+}
