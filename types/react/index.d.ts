@@ -20,6 +20,7 @@
 //                 Saransh Kataria <https://github.com/saranshkataria>
 //                 Kanitkorn Sujautra <https://github.com/lukyth>
 //                 Sebastian Silbermann <https://github.com/eps1lon>
+//                 Staffan Eketorp <https://github.com/staeke>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -77,7 +78,7 @@ declare namespace React {
     type Key = string | number;
 
     interface RefObject<T> {
-        readonly current: T | null;
+        readonly current: T | null | undefined;
     }
 
     type Ref<T> = { bivarianceHack(instance: T | null): void }["bivarianceHack"] | RefObject<T> | null;

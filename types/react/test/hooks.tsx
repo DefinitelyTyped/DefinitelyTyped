@@ -63,11 +63,11 @@ export function App() {
     const birthdayRef = React.useRef<FancyButton>(null);
 
     React.useLayoutEffect(() => {
-        if (birthdayRef.current !== null) {
+        if (birthdayRef.current != null) {
             birthdayRef.current.fancyClick();
         } else {
             // this looks redundant but it ensures the type actually has "null" in it instead of "never"
-            // $ExpectType null
+            // $ExpectType null | undefined
             birthdayRef.current;
         }
     });
