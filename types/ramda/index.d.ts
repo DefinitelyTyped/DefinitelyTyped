@@ -610,7 +610,7 @@ declare namespace R {
 
     type FilterOnceApplied<T> =
         <K extends T[] | Dictionary<T>>(source: K) =>
-            K extends (infer U)[] ? U[] :
+            K extends Array<infer U> ? U[] :
             K extends Dictionary<infer U> ? Dictionary<U> :
             never;
 
@@ -855,7 +855,7 @@ declare namespace R {
         /**
          * Given a list of predicates returns a new predicate that will be true exactly when any one of them is.
          */
-        anyPass<T>(preds: SafePred<T[]>): SafePred<T>;
+        anyPass<T>(preds: SafePred<T>[]): SafePred<T>;
 
         /**
          * ap applies a list of functions to a list of values.
@@ -871,16 +871,16 @@ declare namespace R {
          * Returns a new list, composed of n-tuples of consecutive elements If n is greater than the length of the list,
          * an empty list is returned.
          */
-        aperture<T>(n: 1, list: T[]): [T][];
-        aperture<T>(n: 2, list: T[]): [T, T][];
-        aperture<T>(n: 3, list: T[]): [T, T, T][];
-        aperture<T>(n: 4, list: T[]): [T, T, T, T][];
-        aperture<T>(n: 5, list: T[]): [T, T, T, T, T][];
-        aperture<T>(n: 6, list: T[]): [T, T, T, T, T, T][];
-        aperture<T>(n: 7, list: T[]): [T, T, T, T, T, T, T][];
-        aperture<T>(n: 8, list: T[]): [T, T, T, T, T, T, T, T][];
-        aperture<T>(n: 9, list: T[]): [T, T, T, T, T, T, T, T, T][];
-        aperture<T>(n: 10, list: T[]): [T, T, T, T, T, T, T, T, T, T][];
+        aperture<T>(n: 1, list: T[]): Array<[T]>;
+        aperture<T>(n: 2, list: T[]): Array<[T, T]>;
+        aperture<T>(n: 3, list: T[]): Array<[T, T, T]>;
+        aperture<T>(n: 4, list: T[]): Array<[T, T, T, T]>;
+        aperture<T>(n: 5, list: T[]): Array<[T, T, T, T, T]>;
+        aperture<T>(n: 6, list: T[]): Array<[T, T, T, T, T, T]>;
+        aperture<T>(n: 7, list: T[]): Array<[T, T, T, T, T, T, T]>;
+        aperture<T>(n: 8, list: T[]): Array<[T, T, T, T, T, T, T, T]>;
+        aperture<T>(n: 9, list: T[]): Array<[T, T, T, T, T, T, T, T, T]>;
+        aperture<T>(n: 10, list: T[]): Array<[T, T, T, T, T, T, T, T, T, T]>;
         aperture<T>(n: number, list: T[]): T[][];
         aperture(n: number): <T>(list: T[]) => T[][];
 
@@ -2515,7 +2515,7 @@ declare namespace R {
         /**
          * Returns a new list by plucking the same named property off all objects in the list supplied.
          */
-        pluck<K extends keyof T, T>(p: K, list: T[]): T[K][];
+        pluck<K extends keyof T, T>(p: K, list: T[]): Array<T[K]>;
         pluck<T>(p: number, list: Array<{ [k: number]: T }>): T[];
         pluck<P extends string>(p: P): <T>(list: Array<Record<P, T>>) => T[];
         pluck(p: number): <T>(list: Array<{ [k: number]: T }>) => T[];
@@ -2893,7 +2893,7 @@ declare namespace R {
          * Note that the order of the output array is not guaranteed to be
          * consistent across different JS platforms.
          */
-        toPairs<S>(obj: { [k: string]: S } | { [k: number]: S }): [string, S][];
+        toPairs<S>(obj: { [k: string]: S } | { [k: number]: S }): Array<[string, S]>;
 
         /**
          * Converts an object into an array of key, value arrays.
@@ -2901,7 +2901,7 @@ declare namespace R {
          * Note that the order of the output array is not guaranteed to be
          * consistent across different JS platforms.
          */
-        toPairsIn<S>(obj: { [k: string]: S } | { [k: number]: S }): [string, S][];
+        toPairsIn<S>(obj: { [k: string]: S } | { [k: number]: S }): Array<[string, S]>;
 
         /**
          * Returns the string representation of the given value. eval'ing the output should
@@ -3073,7 +3073,7 @@ declare namespace R {
          * Note that the order of the output array is not guaranteed across
          * different JS platforms.
          */
-        values<T extends object, K extends keyof T>(obj: T): T[K][];
+        values<T extends object, K extends keyof T>(obj: T): Array<T[K]>;
 
         /**
          * Returns a list of all the properties, including prototype properties, of the supplied
