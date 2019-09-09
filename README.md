@@ -16,7 +16,7 @@ Also see the [definitelytyped.org](http://definitelytyped.org) website, although
         * [Create a new package](#create-a-new-package)
         * [Common mistakes](#common-mistakes)
         * [Removing a package](#removing-a-package)
-        * [Lint](#lint)
+        * [Lint / Testing](#lint---testing)
 * [FAQ](#faq)
 
 ## Current status
@@ -205,7 +205,7 @@ When you add a `package.json` to dependents of `foo`, you will also need to open
 
 If a package was never on Definitely Typed, it does not need to be added to `notNeededPackages.json`.
 
-#### Lint
+#### Lint / Testing
 
 All new packages must be linted. To lint a package, add a `tslint.json` to that package containing
 ```js
@@ -240,8 +240,11 @@ f("one");
 
 For more details, see [dtslint](https://github.com/Microsoft/dtslint#write-tests) readme.
 
-Test by running `npm run lint package-name` where `package-name` is the name of your package.
-This script uses [dtslint](https://github.com/Microsoft/dtslint).
+## Running Tests
+
+Test your changes by running `npm run lint package-name` where `package-name` is the name of your package.
+
+This script uses [dtslint](https://github.com/Microsoft/dtslint) to run the TypeScript compiler against your dts files.
 
 
 ## FAQ
