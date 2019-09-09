@@ -431,7 +431,9 @@ export interface FormatErrorParams {
 export type LocaleValue = string | ((params: FormatErrorParams) => string);
 
 type MessageFromParameters<P extends unknown[]> = {
-    [K in keyof P]: P[K] extends TestOptionsMessage<any> ? P[K] : never;
+    [K in keyof P]: Extract<P[K], TestOptionsMessage<any>> extends TestOptionsMessage<any>
+        ? Extract<P[K], TestOptionsMessage<any>>
+        : never;
 }[number];
 
 type MappedLocaleSchema<S extends Schema<any>> = {
@@ -439,7 +441,11 @@ type MappedLocaleSchema<S extends Schema<any>> = {
 };
 
 export interface LocaleObject {
-    mixed?: MappedLocaleSchema<MixedSchema> & { notType?: LocaleValue };
+    // override the "default" method definition, since it is not a validation method
+    // but should still have a locale entry
+    mixed?: MappedLocaleSchema<MixedSchema & { default: (message: TestOptionsMessage) => void }> & {
+        notType?: LocaleValue;
+    };
     string?: MappedLocaleSchema<StringSchema>;
     number?: MappedLocaleSchema<NumberSchema>;
     boolean?: MappedLocaleSchema<BooleanSchema>;
