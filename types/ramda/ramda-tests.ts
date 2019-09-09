@@ -582,10 +582,6 @@ R.times(i, 5);
 })();
 
 (() => {
-    const plus3 = R.add(3);
-})();
-
-(() => {
     const pairs = [["a", 1], ["b", 2], ["c", 3]];
 
     function flattenPairs(pair: [string, number], acc: Array<string|number>): Array<string|number> {
@@ -620,7 +616,6 @@ R.times(i, 5);
 });
 
 (() => {
-    const a: number[]   = R.ap([R.multiply(2), R.add(3)], [1, 2, 3]); // => [2, 4, 6, 4, 5, 6]
     const b: number[][] = R.of([1]); // => [[1]]
     const c: number[]   = R.of(1);
 });
@@ -641,16 +636,8 @@ R.times(i, 5);
         return n % 2 === 0;
     }
 
-    const filterIndexed = R.addIndex(R.filter);
-
     R.filter(isEven, [1, 2, 3, 4]); // => [2, 4]
     R.filter(isEven, { a: 0, b: 1 }); // => { a: 0 }
-
-    function lastTwo(val: number, idx: number, list: number[]) {
-        return list.length - idx <= 2;
-    }
-
-    filterIndexed(lastTwo, [8, 6, 7, 5, 3, 0, 9]); // => [0, 9]
 
     function isOdd(n: number) {
         return n % 2 === 1;
@@ -692,36 +679,6 @@ R.times(i, 5);
 /*********************
  * List category
  */
-() => {
-    const lessThan2 = R.flip(R.lt)(2);
-    const lessThan3 = R.flip(R.lt)(3);
-    R.all(lessThan2)([1, 2]); // => false
-    R.all(lessThan3)([1, 2]); // => true
-};
-
-() => {
-    const lessThan0 = R.flip(R.lt)(0);
-    const lessThan2 = R.flip(R.lt)(2);
-    R.any(lessThan0)([1, 2]); // => false
-    R.any(lessThan2)([1, 2]); // => true
-};
-
-() => {
-    R.aperture(2, [1, 2, 3, 4, 5]); // => [[1, 2], [2, 3], [3, 4], [4, 5]]
-    R.aperture(3, [1, 2, 3, 4, 5]); // => [[1, 2, 3], [2, 3, 4], [3, 4, 5]]
-    R.aperture(7, [1, 2, 3, 4, 5]); // => []
-    R.aperture(7)([1, 2, 3, 4, 5]); // => []
-
-    const res1: Array<[number, number]> = R.aperture(2, [1, 2, 3, 4, 5]);
-    const res2: number[][] = R.aperture(11, [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]);
-};
-
-() => {
-    R.append("tests", ["write", "more"]); // => ['write', 'more', 'tests']
-    R.append("tests")(["write", "more"]); // => ['write', 'more', 'tests']
-    R.append("tests", []); // => ['tests']
-};
-
 () => {
     function duplicate(n: number) {
         return [n, n];
@@ -845,18 +802,6 @@ R.times(i, 5);
 };
 
 () => {
-    function lastTwo(val: number, idx: number, list: number[]) {
-        return list.length - idx <= 2;
-    }
-
-    const filterIndexed = R.addIndex(R.filter);
-
-    filterIndexed(lastTwo, [8, 6, 7, 5, 3, 0, 9]); // => [0, 9]
-    const lastTwoFn = filterIndexed(lastTwo);
-    lastTwoFn([8, 6, 7, 5, 3, 0, 9]);
-};
-
-() => {
     const xs = [{a: 1}, {a: 2}, {a: 3}];
     R.find(R.propEq("a", 2))(xs); // => {a: 2}
     R.find(R.propEq("a", 4))(xs); // => undefined
@@ -957,14 +902,6 @@ interface Obj {
     // -> 6
     // -> 7
     // -> 8
-};
-
-() => {
-    function plusFive(num: number, idx: number, list: number[]) {
-        list[idx] = num + 5;
-    }
-
-    R.addIndex(R.forEach)(plusFive)([1, 2, 3]); // => [6, 7, 8]
 };
 
 () => {
@@ -1185,18 +1122,6 @@ interface Obj {
 };
 
 () => {
-    function squareEnds(elt: number, idx: number, list: number[]) {
-        if (idx === 0 || idx === list.length - 1) {
-            return elt * elt;
-        }
-        return elt;
-    }
-
-    R.addIndex(R.map)(squareEnds, [8, 5, 3, 0, 9]); // => [64, 5, 3, 0, 81]
-    R.addIndex(R.map)(squareEnds)([8, 5, 3, 0, 9]); // => [64, 5, 3, 0, 81]
-};
-
-() => {
     const sampleList = ['a', 'b', 'c', 'd', 'e', 'f'];
 
     R.move<string>(0, 2, sampleList); // => ['b', 'c', 'a', 'd', 'e', 'f']
@@ -1282,20 +1207,6 @@ interface Student {
     // }
 };
 
-() => {
-    const reduceIndexed = R.addIndex(R.reduce);
-    const letters       = ["a", "b", "c"];
-
-    function objectify(accObject: { [elem: string]: number }, elem: string, idx: number, list: string[]) {
-        accObject[elem] = idx;
-        return accObject;
-    }
-
-    reduceIndexed(objectify, {}, letters); // => { 'a': 0, 'b': 1, 'c': 2 }
-    reduceIndexed(objectify)({}, letters); // => { 'a': 0, 'b': 1, 'c': 2 }
-    reduceIndexed(objectify, {})(letters); // => { 'a': 0, 'b': 1, 'c': 2 }
-};
-
 interface KeyValuePair<K, V> extends Array<K | V> {
     0: K;
     1: V;
@@ -1345,16 +1256,6 @@ type Pair = KeyValuePair<string, number>;
 
     R.reject(isOdd, [1, 2, 3, 4]); // => [2, 4]
     R.reject(isOdd)([1, 2, 3, 4]); // => [2, 4]
-};
-
-() => {
-    function lastTwo(val: number, idx: number, list: number[]) {
-        return list.length - idx <= 2;
-    }
-
-    const rejectIndexed = R.addIndex(R.reject);
-    rejectIndexed(lastTwo, [8, 6, 7, 5, 3, 0, 9]); // => [8, 6, 7, 5, 3]
-    rejectIndexed(lastTwo)([8, 6, 7, 5, 3, 0, 9]); // => [8, 6, 7, 5, 3]
 };
 
 () => {
@@ -1632,37 +1533,11 @@ type Pair = KeyValuePair<string, number>;
 /*****************************************************************
  * Object category
  */
-() => {
-    interface ABC { a: number; b: number; c: number; }
-    const a: ABC = R.assoc("c", 3, {a: 1, b: 2}); // => {a: 1, b: 2, c: 3}
-    const b: ABC = R.assoc("c")(3, {a: 1, b: 2}); // => {a: 1, b: 2, c: 3}
-    const c: ABC = R.assoc("c", 3)({a: 1, b: 2}); // => {a: 1, b: 2, c: 3}
-    const d: ABC = R.assoc(R.__, 3, {a: 1, b: 2})("c"); // => {a: 1, b: 2, c: 3}
-    const e: ABC = R.assoc("c", R.__, {a: 1, b: 2})(3); // => {a: 1, b: 2, c: 3}
-};
-
-() => {
-    type ABC = Record<string, string>;
-    const b: ABC = R.compose(R.assoc, R.toString)(3)("c", {1: "a", 2: "b"}); // => {1: "a", 2: "b", 3: "c"}
-    const c: ABC = R.compose(R.assoc, R.toString)(3)("c")({1: "a", 2: "b"}); // => {1: "a", 2: "b", 3: "c"}
-};
 
 () => {
     const a1 = R.dissoc<{ a: number, c: number }>("b", {a: 1, b: 2, c: 3}); // => {a: 1, c: 3}
     const a2 = R.dissoc("b", {a: 1, b: 2, c: 3}); // => {a: 1, c: 3}
     const a4 = R.dissoc("b")<{ a: number, c: number }>({a: 1, b: 2, c: 3}); // => {a: 1, c: 3}
-};
-
-() => {
-    const testPath = ["x", 0, "y"];
-    const testObj  = {x: [{y: 2, z: 3}, {y: 4, z: 5}]};
-
-    R.assocPath(R.__, 42, testObj)(testPath); // => {x: [{y: 42, z: 3}, {y: 4, z: 5}]}
-    R.assocPath(testPath, R.__, testObj)(42); // => {x: [{y: 42, z: 3}, {y: 4, z: 5}]}
-    R.assocPath(testPath, 42, testObj); // => {x: [{y: 42, z: 3}, {y: 4, z: 5}]}
-    R.assocPath(testPath, 42)(testObj); // => {x: [{y: 42, z: 3}, {y: 4, z: 5}]}
-    R.assocPath(testPath)(42)(testObj); // => {x: [{y: 42, z: 3}, {y: 4, z: 5}]}
-    R.assocPath(testPath)(42, testObj); // => {x: [{y: 42, z: 3}, {y: 4, z: 5}]}
 };
 
 () => {
@@ -2213,49 +2088,6 @@ class Rectangle {
 };
 
 () => {
-    const mapIndexed = R.addIndex(R.map);
-    mapIndexed((val: string, idx: number) => `${idx}-${val}`)(["f", "o", "o", "b", "a", "r"]);
-    // => ['0-f', '1-o', '2-o', '3-b', '4-a', '5-r']
-    mapIndexed((rectangle: Rectangle, idx: number): number => rectangle.area() * idx, [new Rectangle(1, 2), new Rectangle(4, 7)]);
-    // => [2, 56]
-};
-
-() => {
-    const reduceIndexed = R.addIndex(R.reduce);
-    reduceIndexed((acc: string, val: string, idx: number) => `${acc},${idx}-${val}`, "", ["f", "o", "o", "b", "a", "r"]);
-    // => ['0-f,1-o,2-o,3-b,4-a,5-r']
-};
-
-() => {
-    const t           = R.always("Tee");
-    const x: string = t(); // => 'Tee'
-};
-
-() => {
-    const x: number[] = R.ap([R.multiply(2), R.add(3)], [1, 2, 3]); // => [2, 4, 6, 4, 5, 6]
-    const y: number[] = R.ap([R.multiply(2), R.add(3)])([1, 2, 3]); // => [2, 4, 6, 4, 5, 6]
-    const z: string = R.ap<string, string, string>(R.concat, R.toUpper)('Ramda'); // => 'RamdaRAMDA'
-};
-
-() => {
-    const nums = [1, 2, 3, -99, 42, 6, 7];
-    R.apply(Math.max, nums); // => 42
-    R.apply(Math.max)(nums); // => 42
-};
-
-() => {
-    interface T { sum: number; nested: { mul: number; }; }
-    const getMetrics = R.applySpec<T>({
-        sum: R.add, nested: {mul: R.multiply}
-    });
-    const result     = getMetrics(2, 4); // => { sum: 6, nested: { mul: 8 } }
-    const record: { s: string; n: number } = R.applySpec({
-        s: (s: string, n: number) => s,
-        n: (s: string, n: number) => n,
-    })('1', 2);
-};
-
-() => {
     function takesThreeArgs(a: number, b: number, c: number) {
         return [a, b, c];
     }
@@ -2503,13 +2335,6 @@ class Rectangle {
     R.startsWith(1)([1, 2, 3]);   // => true
     R.startsWith([1], [1, 2, 3]);   // => true
     R.startsWith([1])([1, 2, 3]);   // => true
-};
-
-() => {
-    R.add(2, 3);       // =>  5
-    R.add(7)(10);      // => 17
-    R.add("Hello", " World");  // =>  "Hello World"
-    R.add("Hello")(" World");  // =>  "Hello World"
 };
 
 () => {
@@ -2777,51 +2602,6 @@ class Rectangle {
 /*****************************************************************
  * Logic category
  */
-() => {
-    function gt10(x: number) {
-        return x > 10;
-    }
-
-    function even(x: number) {
-        return x % 2 === 0;
-    }
-
-    const f = R.allPass([gt10, even]);
-    f(11); // => false
-    f(12); // => true
-};
-
-() => {
-    R.and(false, true); // => false
-    R.and(0, []); // => 0
-    R.and(0)([]); // => 0
-    R.and(null, ""); // => null
-    const Why: any = ((val: boolean) => {
-        const why = {} as any;
-        why.val = val;
-        why.and = function(x: boolean) { return this.val && x; };
-        return Why;
-    })(true);
-    const why      = new Why(true);
-    R.and(why, false); // false
-};
-
-() => {
-    function gt10(x: number) {
-        return x > 10;
-    }
-
-    function even(x: number) {
-        return x % 2 === 0;
-    }
-
-    const f = R.anyPass([gt10, even]);
-    f(11); // => true
-    f(8); // => true
-    f(9); // => false
-
-    const f2 = R.anyPass<number>([gt10, even]);
-};
 
 () => {
     function gt10(x: number) {

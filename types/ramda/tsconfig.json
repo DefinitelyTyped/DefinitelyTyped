@@ -20,6 +20,21 @@
     "files": [
         "index.d.ts",
         "tools.d.ts",
-        "ramda-tests.ts"
+        "ramda-tests.ts",
+        "test/add-tests.ts",
+        "test/addIndex-tests.ts",
+        "test/all-tests.ts",
+        "test/allPass-tests.ts",
+        "test/always-tests.ts",
+        "test/and-tests.ts",
+        "test/any-tests.ts",
+        "test/anyPass-tests.ts",
+        "test/ap-tests.ts",
+        "test/aperture-tests.ts",
+        "test/append-tests.ts",
+        "test/apply-tests.ts",
+        "test/applySpec-tests.ts",
+        "test/assoc-tests.ts",
+        "test/assocPath-tests.ts"
     ]
 }
