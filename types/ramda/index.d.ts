@@ -855,7 +855,7 @@ declare namespace R {
         /**
          * Given a list of predicates returns a new predicate that will be true exactly when any one of them is.
          */
-        anyPass<T>(preds: SafePred<T>[]): SafePred<T>;
+        anyPass<T>(preds: Array<SafePred<T>>): SafePred<T>;
 
         /**
          * ap applies a list of functions to a list of values.
