@@ -158,28 +158,10 @@ declare namespace Sanctuary {
     gte<A extends Ord<any>>(x: A): (y: A) => boolean;
     min<A extends Ord<any>>(x: A): (y: A) => A;
     max<A extends Ord<any>>(x: A): (y: A) => A;
-    // This is ugly, but makes its job,
-    // I originally tried to use union:
-    // clamp<A extends (Ord<A> | boolean | Date | number | string)>(a: A): (b: A) => (c: A) => A;
-    // in which case we would need only three overloads (for simple, array and StrMap)
-    // but then the following case fails:
-    // clamp(2)(3)
-    // with error "'3' is not assignable to 2". Because of type inference type
-    // parameter A was narrowed down to type '2' (type of literal '2')
-    // and not to type 'number'. This would force client to provide explicit
-    // type parameter each time (to prevent narrowing), e.g. clamp<number>(2)(3)
     clamp(a: boolean): (b: boolean) => (c: boolean) => boolean;
-    clamp(a: boolean[]): (b: boolean[]) => (c: boolean[]) => boolean[];
-    clamp(a: StrMap<boolean>): (b: StrMap<boolean>) => (c: StrMap<boolean>) => StrMap<boolean>;
     clamp(a: Date): (b: Date) => (c: Date) => Date;
-    clamp(a: Date[]): (b: Date[]) => (c: Date[]) => Date[];
-    clamp(a: StrMap<Date>): (b: StrMap<Date>) => (c: StrMap<Date>) => StrMap<Date>;
     clamp(a: number): (b: number) => (c: number) => number;
-    clamp(a: number[]): (b: number[]) => (c: number[]) => number[];
-    clamp(a: StrMap<number>): (b: StrMap<number>) => (c: StrMap<number>) => StrMap<number>;
     clamp(a: string): (b: string) => (c: string) => string;
-    clamp(a: string[]): (b: string[]) => (c: string[]) => string[];
-    clamp(a: StrMap<string>): (b: StrMap<string>) => (c: StrMap<string>) => StrMap<string>;
     clamp<A extends Ord<any>>(a: A): (b: A) => (c: A) => A;
     clamp<A extends Ord<any>>(a: A[]): (b: A[]) => (c: A[]) => A[];
     clamp<A extends Ord<any>>(a: StrMap<A>): (b: StrMap<A>) => (c: StrMap<A>) => StrMap<A>;
