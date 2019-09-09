@@ -123,6 +123,13 @@ interface Extend<A> extends Functor<A> {}
 interface Comonad<A> extends Extend<A> {}
 interface Contravariant<A> {}
 
+type Radix
+  = 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+  | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17
+  | 18 | 19 | 20 | 21 | 22 | 23 | 24 | 25
+  | 26 | 27 | 28 | 29 | 30 | 31 | 32 | 33
+  | 34 | 35 | 36
+
 interface MatchObj {
   match: string;
   groups: Array<Maybe<string>>;
@@ -362,42 +369,7 @@ declare namespace Sanctuary {
     //  Parse
     parseDate(s: string): Maybe<Date>;
     parseFloat(s: string): Maybe<number>;
-    parseInt(radix: 2 |
-                    3 |
-                    4 |
-                    5 |
-                    6 |
-                    7 |
-                    8 |
-                    9 |
-                   10 |
-                   11 |
-                   12 |
-                   13 |
-                   14 |
-                   15 |
-                   16 |
-                   17 |
-                   18 |
-                   19 |
-                   20 |
-                   21 |
-                   22 |
-                   23 |
-                   24 |
-                   25 |
-                   26 |
-                   27 |
-                   28 |
-                   29 |
-                   30 |
-                   31 |
-                   32 |
-                   33 |
-                   34 |
-                   35 |
-                   36):
-            (s: string) => Maybe<Integer>;
+    parseInt(radix: Radix): (s: string) => Maybe<Integer>;
     parseJson(p: Predicate<any>): (q: string) => Maybe<any>;
     //  RegExp
     regex(flags: '' | 'g' | 'i' | 'm' | 'gi' | 'gm' | 'im' | 'gim'): (s: string) => RegExp;
