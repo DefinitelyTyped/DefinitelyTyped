@@ -30,28 +30,22 @@ type Predicate<A> = (a: A) => boolean;
 
 interface StrMap<A> { [k: string]: A; }
 
-interface Pair<A, B> {
+interface Pair<A, B> extends IOrd<Pair<A, B>> {
   constructor: {
     '@@type': 'sanctuary-pair/Pair@1';
   };
-  'fantasy-land/equals'(other: Pair<A, B>): boolean;
-  'fantasy-land/lte'(other: Pair<A, B>): boolean;
 }
 
-interface Maybe<A> {
+interface Maybe<A> extends IOrd<Maybe<A>> {
   constructor: {
     '@@type': 'sanctuary-maybe/Maybe@1';
   };
-  'fantasy-land/equals'(other: Maybe<A>): boolean;
-  'fantasy-land/lte'(other: Maybe<A>): boolean;
 }
 
-interface Either<A, B> {
+interface Either<A, B> extends IOrd<Either<A, B>> {
   constructor: {
     '@@type': 'sanctuary-either/Either@1';
   };
-  'fantasy-land/equals'(other: Either<A, B>): boolean;
-  'fantasy-land/lte'(other: Either<A, B>): boolean;
 }
 
 type ValidNumber            = number;
