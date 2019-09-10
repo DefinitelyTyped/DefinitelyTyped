@@ -201,4 +201,12 @@ function startClient(callback) {
         doc.submitOp([{p: ['numClicks'], na: 1}]);
         callback();
     });
+    // sharedb-mongo query object
+    connection.createSubscribeQuery('examples', {numClicks: {$gte: 5}}, null, (err, results) => {
+        console.log(err, results);
+    });
+    // SQL-ish query adapter that takes a string query condition
+    connection.createSubscribeQuery('examples', 'numClicks >= 5', null, (err, results) => {
+        console.log(err, results);
+    });
 }
