@@ -2269,6 +2269,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "openid-client",
+            "typingsPackageName": "openid-client",
+            "sourceRepoURL": "https://github.com/panva/node-openid-client",
+            "asOfVersion": "3.7.0"
+        },
+        {
             "libraryName": "opn",
             "typingsPackageName": "opn",
             "sourceRepoURL": "https://github.com/sindresorhus/opn",
