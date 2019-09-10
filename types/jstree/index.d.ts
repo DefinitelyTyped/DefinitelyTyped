@@ -621,21 +621,21 @@ interface JSTreeStaticDefaultsSearch {
     * @name $.jstree.defaults.search.ajax
     * @plugin search
     */
-    ajax: any;
+    ajax?: any;
 
     /**
     * Indicates if the search should be fuzzy or not (should `chnd3` match `child node 3`). Default is `true`.
     * @name $.jstree.defaults.search.fuzzy
     * @plugin search
     */
-    fuzzy: boolean;
+    fuzzy?: boolean;
 
     /**
     * Indicates if the search should be case sensitive. Default is `false`.
     * @name $.jstree.defaults.search.case_sensitive
     * @plugin search
     */
-    case_sensitive: boolean;
+    case_sensitive?: boolean;
 
     /**
     * Indicates if the tree should be filtered (by default) to show only matching nodes
@@ -644,7 +644,7 @@ interface JSTreeStaticDefaultsSearch {
     * @name $.jstree.defaults.search.show_only_matches
     * @plugin search
     */
-    show_only_matches: boolean;
+    show_only_matches?: boolean;
 
     /**
 	* Indicates if the children of matched element are shown (when show_only_matches is true)
@@ -652,7 +652,7 @@ interface JSTreeStaticDefaultsSearch {
 	* @name $.jstree.defaults.search.show_only_matches_children
 	* @plugin search
 	*/
-	show_only_matches_children: boolean;
+	show_only_matches_children?: boolean;
 
     /**
     * Indicates if all nodes opened to reveal the search result,
@@ -660,14 +660,14 @@ interface JSTreeStaticDefaultsSearch {
     * @name $.jstree.defaults.search.close_opened_onclear
     * @plugin search
     */
-    close_opened_onclear: boolean;
+    close_opened_onclear?: boolean;
 
     /**
     * Indicates if only leaf nodes should be included in search results. Default is `false`.
     * @name $.jstree.defaults.search.search_leaves_only
     * @plugin search
     */
-    search_leaves_only: boolean;
+    search_leaves_only?: boolean;
 
     /**
     * If set to a function it wil be called in the instance's scope with two arguments -
@@ -677,7 +677,7 @@ interface JSTreeStaticDefaultsSearch {
     * @name $.jstree.defaults.search.search_callback
     * @plugin search
     */
-    search_callback: any;
+    search_callback?: any;
 }
 
 interface JSTreeStaticDefaultsState {
