@@ -852,7 +852,12 @@ declare namespace asana {
       namespace Events {
         interface Type {
           data?: EventDataEntity[];
+          errors?: EventError[],
           sync: string;
+        }
+
+        interface EventError {
+            message: string
         }
 
         interface EventResource extends Resource {
