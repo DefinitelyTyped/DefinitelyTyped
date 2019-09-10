@@ -1,4 +1,4 @@
-/// <reference path="index.d.ts" />
+/// <reference types="./index" />
 
 // $ExpectType void
 ineum("key", "key");
@@ -29,9 +29,7 @@ ineum("wrapEventHandlers", true);
 // $ExpectType void
 ineum("wrapTimers", true);
 // $ExpectType void
-ineum("whitelistedOrigins",[/regex/]);
+ineum("whitelistedOrigins", [/regex/]);
 
-// $ExpectType string
-ineum("getPageLoadId");
-// $ExpectType undefined
+// $ExpectType string | undefined
 ineum("getPageLoadId");

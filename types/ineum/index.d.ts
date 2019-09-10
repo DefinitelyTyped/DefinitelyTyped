@@ -2,6 +2,7 @@
 // Project: https://docs.instana.io/products/website_monitoring/api/
 // Definitions by: Enzo Volkmann <https://github.com/evolkmann>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.2
 
 declare function ineum(command: 'key', trackingKey: string): void;
 declare function ineum(command: 'reportingUrl', reportingUrl: string): void;
