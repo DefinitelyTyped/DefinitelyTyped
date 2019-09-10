@@ -50,7 +50,7 @@ declare namespace FBInstant {
      * @returns A promise that resolves when the SDK is ready to use.
      * @throws INVALID_OPERATION
      */
-    function initializeAsync(): Promise<void>;
+    function initializeAsync(): Promise<any>;
 
     /**
      * Report the game's initial loading progress.
