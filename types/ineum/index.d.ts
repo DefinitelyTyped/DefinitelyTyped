@@ -7,7 +7,7 @@
 // Website Monitoring API from Instana (status: 2019-09-10)
 
 declare function ineum(command: 'key' | 'reportingUrl' | 'page' | 'traceId', value: string): void;
-declare function ineum(command: 'user', userId: string, userName: string, userEmail: string): void;
+declare function ineum(command: 'user', userId: string, userName?: string, userEmail?: string): void;
 declare function ineum(command: 'meta', key: string, value: string): void;
 declare function ineum(command: 'autoClearResourceTimings' | 'wrapEventHandlers' | 'wrapTimers', enable: boolean): void;
 declare function ineum(command: 'getPageLoadId'): string | undefined;
