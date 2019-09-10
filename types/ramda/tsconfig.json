@@ -35,6 +35,24 @@
         "test/apply-tests.ts",
         "test/applySpec-tests.ts",
         "test/assoc-tests.ts",
-        "test/assocPath-tests.ts"
+        "test/assocPath-tests.ts",
+        "test/binary-tests.ts",
+        "test/bind-tests.ts",
+        "test/both-tests.ts",
+        "test/chain-tests.ts",
+        "test/clamp-tests.ts",
+        "test/clone-tests.ts",
+        "test/comparator-tests.ts",
+        "test/complement-tests.ts",
+        "test/compose-tests.ts",
+        "test/composeK-tests.ts",
+        "test/composeP-tests.ts",
+        "test/composeWith-tests.ts",
+        "test/concat-tests.ts",
+        "test/cond-tests.ts",
+        "test/construct-tests.ts",
+        "test/constructN-tests.ts",
+        "test/contains-tests.ts",
+        "test/converge-tests.ts"
     ]
 }

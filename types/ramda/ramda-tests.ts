@@ -99,9 +99,6 @@ class F2 {
     const u2: (a: any) => any = R.unary(takesTwoArgs);
     const u3: (a: any) => any = R.unary(takesThreeArgs);
 
-    R.binary(takesTwoArgs);
-    R.binary(takesThreeArgs);
-
     function addTwoNumbers(a: number, b: number) {
         return a + b;
     }
@@ -210,143 +207,6 @@ class F2 {
     );
     const a: string = truncate("12345");         // => '12345'
     const b: string = truncate("0123456789ABC"); // => '0123456789…'
-};
-
-/* compose */
-() => {
-    function double(x: number): number {
-        return x + x;
-    }
-
-    function limit10(x: number): boolean {
-        return x >= 10;
-    }
-
-    const func: (x: number) => boolean = R.compose(limit10, double);
-    const res: boolean                 = R.compose(limit10, double)(10);
-
-    const f0 = (s: string) => +s;      // string -> number
-    const f1 = (n: number) => n === 1; // number -> boolean
-    const f2: (s: string) => boolean = R.compose(f1, f0);      // string -> boolean
-
-    // akward example that bounces types between number and string
-    const g0             = (list: number[]) => R.map(R.inc, list);
-    const g1             = R.dropWhile(R.gt(10));
-    const g2             = R.map((i: number) => i > 5 ? "bigger" : "smaller");
-    const g3             = R.all((i: string) => i === "smaller");
-    const g              = R.compose(g3, g2, g1, g0);
-    const g_res: boolean = g([1, 2, 10, 13]);
-
-    // compose with last function taking no params
-    const f10 = () => 'str';
-    const f11 = (str: string) => str;
-    const f12: () => string = R.compose(f11, f10);
-};
-
-/* composeK */
-() => {
-    const get = (prop: string) => (obj: any): any[] => {
-        const propVal = obj[prop];
-        if (propVal) {
-            return [propVal];
-        } else {
-            return [];
-        }
-    };
-
-    const getStateCode: (input: any) => any[] = R.composeK(
-        R.compose((val) => [val], R.toUpper),
-        get('state'),
-        get('address'),
-        get('user'),
-    );
-    getStateCode({ user: { address: { state: "ny" } } }); // => []
-    getStateCode({}); // => []
-
-    const nextThree = (num: number): number[] => ([num, num + 1, num + 2]);
-    const onlyOverNine = (num: number): number[] => num > 9 ? [num] : [];
-    const toString = (input: any): string[] => [`${input}`];
-    const split = (input: string): string[] => input.split('');
-
-    const composed: (num: number) => string[] = R.composeK(
-        split,
-        toString,
-        onlyOverNine,
-        nextThree,
-    );
-};
-
-() => {
-    const get = (prop: string) => (obj: any): any[] => {
-        const propVal = obj[prop];
-        if (propVal) {
-            return [propVal];
-        } else {
-            return [];
-        }
-    };
-
-    const getStateCode: (input: any) => any[] = R.composeWith(
-        R.chain,
-        [
-            R.compose((val) => [val], R.toUpper),
-            get('state'),
-            get('address'),
-            get('user'),
-        ],
-    );
-    getStateCode({ user: { address: { state: "ny" } } }); // => []
-    getStateCode({}); // => []
-
-    const nextThree = (num: number): number[] => ([num, num + 1, num + 2]);
-    const onlyOverNine = (num: number): number[] => num > 9 ? [num] : [];
-    const toString = (input: any): string[] => [`${input}`];
-    const split = (input: string): string[] => input.split('');
-
-    const composed: (num: number) => string[] = R.composeWith(
-        R.chain,
-        [
-            split,
-            toString,
-            onlyOverNine,
-            nextThree,
-        ],
-    );
-    const composed2: (num: number) => string[] = R.composeWith(R.chain)([
-        split,
-        toString,
-        onlyOverNine,
-        nextThree,
-    ]);
-};
-
-/* composeP */
-() => {
-    interface User {
-        name: string;
-        followers: string[];
-    }
-    interface Db {
-        users: { [index: string]: User };
-    }
-    const db: Db = {
-        users: {
-            JOE: {
-                name: 'Joe',
-                followers: ['STEVE', 'SUZY']
-            }
-        }
-    };
-
-    // We'll pretend to do a db lookup which returns a promise
-    const lookupUser = (userId: string): Promise<User> => Promise.resolve(db.users[userId]);
-    const lookupFollowers = (user: User): Promise<string[]> => Promise.resolve(user.followers);
-    lookupUser('JOE').then(lookupFollowers);
-
-    //  followersForUser :: String -> Promise [UserId]
-    const followersForUser: (input: string) => Promise<string[]> = R.composeP(lookupFollowers, lookupUser);
-    followersForUser('JOE').then(followers => console.log('Followers:', followers));
-    // Followers: ["STEVE","SUZY"]
 };
 
 /* pipe */
@@ -484,8 +344,6 @@ R.useWith(addAll, [double, square]);
     }
 
     R.forEach(printXPlusFive, [1, 2, 3]);
-    R.clone([{}, {}, {}]);
-    R.clone([1, 2, 3]);
 })();
 
 // (() => {
@@ -679,43 +537,6 @@ R.times(i, 5);
 /*********************
  * List category
  */
-() => {
-    function duplicate(n: number) {
-        return [n, n];
-    }
-
-    R.chain(duplicate, [1, 2, 3]); // => [1, 1, 2, 2, 3, 3]
-    R.chain(duplicate)([1, 2, 3]); // => [1, 1, 2, 2, 3, 3]
-    const result1: number[] = R.chain<number, number[], number[]>(R.append, R.head)([
-        1,
-        2,
-        3
-    ]); // => [1, 2, 3, 1]
-};
-
-() => {
-    R.clamp(1, 10, -1); // => 1
-    R.clamp(1, 10)(11); // => 10
-    R.clamp(1)(10, 4);  // => 4
-    R.clamp("a", "d", "e");  // => 'd'
-};
-
-() => {
-    R.concat([], []); // => []
-    R.concat([4, 5, 6], [1, 2, 3]); // => [4, 5, 6, 1, 2, 3]
-    R.concat([4, 5, 6])([1, 2, 3]); // => [4, 5, 6, 1, 2, 3]
-    R.concat("ABC")("DEF"); // 'ABCDEF'
-};
-
-() => {
-    R.contains(3)([1, 2, 3]); // => true
-    R.contains(3, [1, 2, 3]); // => true
-    R.contains(4)([1, 2, 3]); // => false
-    R.contains({})([{}, {}]); // => false
-    const obj = {};
-    R.contains(obj)([{}, obj, {}]); // => true
-};
-
 () => {
     R.drop(3, [1, 2, 3, 4, 5, 6, 7]); // => [4,5,6,7]
     R.drop(3)([1, 2, 3, 4, 5, 6, 7]); // => [4,5,6,7]
@@ -1314,24 +1135,6 @@ type Pair = KeyValuePair<string, number>;
 };
 
 () => {
-    const f = R.cond<number, string>([
-        [x => x === 0, () => "a"],
-        [() => true, () => "b"],
-    ]);
-    f(0); // $ExpectType string
-    f(""); // $ExpectError
-    f(1, 2); // $ExpectType string
-
-    const g = R.cond([
-        [(a, b) => a === b, () => "a"],
-        [() => true, () => "b"],
-    ]);
-    g(0);
-    g("");
-    g(1, "");
-};
-
-() => {
     R.tail(["fi", "fo", "fum"]); // => ['fo', 'fum']
     R.tail([1, 2, 3]); // => [2, 3]
     R.tail("abc");  // => 'bc'
@@ -1551,17 +1354,6 @@ type Pair = KeyValuePair<string, number>;
 
     R.dissocPath(testPath, testObj); // => {x: [{z: 3}, {y: 4, z: 5}]}
     R.dissocPath(testPath)(testObj); // => {x: [{z: 3}, {y: 4, z: 5}]}
-};
-
-() => {
-    const obj1                  = [{}, {}, {}];
-    const obj2                  = [{a: 1}, {a: 2}, {a: 3}];
-    const a1: any[]           = R.clone(obj1);
-    const a2: Array<{ a: number }> = R.clone(obj2);
-    const a3: any             = R.clone({});
-    const a4: number          = R.clone(10);
-    const a5: string          = R.clone("foo");
-    const a6: number          = R.clone(Date.now());
 };
 
 () => {
@@ -2014,9 +1806,6 @@ class Rectangle {
 
 () => {
     R.props(["x", "y"], {x: 1, y: 2}); // => [1, 2]
-
-    const fullName = R.compose(R.join(" "), R.props(["first", "last"]));
-    fullName({last: "Bullet-Tooth", age: 33, first: "Tony"}); // => 'Tony Bullet-Tooth'
 };
 
 () => {
@@ -2088,113 +1877,12 @@ class Rectangle {
 };
 
 () => {
-    function takesThreeArgs(a: number, b: number, c: number) {
-        return [a, b, c];
-    }
-
-    takesThreeArgs.length; // => 3
-    takesThreeArgs(1, 2, 3); // => [1, 2, 3]
-
-    const takesTwoArgs = R.binary(takesThreeArgs);
-    takesTwoArgs.length; // => 2
-    // Only 2 arguments are passed to the wrapped function
-    takesTwoArgs(1, 2, 3); // => [1, 2, undefined]
-};
-
-() => {
-    const indentN = R.pipe(R.times(R.always(" ")),
-        R.join(""),
-        R.replace(/^(?!$)/gm)
-    );
-
-    const format = R.converge(
-        R.call, [
-            R.pipe(R.prop<"indent", number>("indent"), indentN),
-            R.prop("value")
-        ]
-    );
-
-    format({indent: 2, value: "foo\nbar\nbaz\n"}); // => '  foo\n  bar\n  baz\n'
-};
-
-() => {
-    interface T { age: number; }
-    const cmp    = R.comparator((a: T, b: T) => a.age < b.age);
-    const people = [
-        {name: "Agy", age: 33}, {name: "Bib", age: 15}, {name: "Cari", age: 16}
-    ];
-    R.sort(cmp, people);
-};
-
-() => {
     const people = [
         {name: 'Agy', age: 33}, {name: 'Bib', age: 15}, {name: 'Cari', age: 16}
     ];
 
     R.sortWith([R.ascend(R.prop('age')), R.descend(R.prop('name'))], people);
 };
-
-() => {
-    function add(a: number, b: number) {
-        return a + b;
-    }
-
-    function multiply(a: number, b: number) {
-        return a * b;
-    }
-
-    function subtract(a: number, b: number) {
-        return a - b;
-    }
-
-    // ≅ multiply( add(1, 2), subtract(1, 2) );
-    const x: number = R.converge(multiply, [add, subtract])(1, 2); // => -3
-
-    function add3(a: number, b: number, c: number) {
-        return a + b + c;
-    }
-
-    const y: number = R.converge(add3, [multiply, add, subtract])(1, 2); // => 4
-};
-
-() => {
-    const f0         = R.compose(Math.pow);
-    const f1         = R.compose(R.negate, Math.pow);
-    const f2         = R.compose(R.inc, R.negate, Math.pow);
-    const f3         = R.compose(R.inc, R.inc, R.negate, Math.pow);
-    const f4         = R.compose(R.inc, R.inc, R.inc, R.negate, Math.pow);
-    const f5         = R.compose(R.inc, R.inc, R.inc, R.inc, R.negate, Math.pow);
-    const x0: number = f0(3, 4); // -(3^4) + 1
-    const x1: number = f1(3, 4); // -(3^4) + 1
-    const x2: number = f2(3, 4); // -(3^4) + 1
-    const x3: number = f3(3, 4); // -(3^4) + 1
-    const x4: number = f4(3, 4); // -(3^4) + 1
-    const x5: number = f5(3, 4); // -(3^4) + 1
-};
-
-() => {
-    function fn(a: string, b: number, c: string) {
-        return [a, b, c];
-    }
-
-    const gn        = R.compose(R.length, fn);
-    const x: number = gn("Hello", 4, "world");
-};
-
-(() => {
-    function Circle(r: number, colors: string) {
-        this.r      = r;
-        this.colors = colors;
-    }
-
-    Circle.prototype.area = function() { return Math.PI * Math.pow(this.r, 2); };
-
-    const circleN = R.constructN(1, Circle);
-    circleN(10, "red");
-    circleN(10);
-    const circle  = R.construct(Circle);
-    circle(10, "red");
-})();
 
 /*****************************************************************
  * Relation category
@@ -2603,31 +2291,6 @@ class Rectangle {
  * Logic category
  */
 
-() => {
-    function gt10(x: number) {
-        return x > 10;
-    }
-
-    function even(x: number) {
-        return x % 2 === 0;
-    }
-
-    const f = R.both(gt10, even);
-    const g = R.both(gt10)(even);
-    f(100); // => true
-    f(101); // => false
-};
-
-() => {
-    function isEven(n: number) {
-        return n % 2 === 0;
-    }
-
-    const isOdd = R.complement(isEven);
-    isOdd(21); // => true
-    isOdd(42); // => false
-};
-
 (() => {
     R.eqBy(Math.abs, 5, -5); // => true
 });
@@ -2735,10 +2398,6 @@ class Why {
 () => {
     R.intersection([1, 2, 3], [2, 3, 3, 4]); // => [2, 3]
     R.intersection([1, 2, 3])([2, 3, 3, 4]); // => [2, 3]
-};
-
-() => {
-    R.bind(console.log, console);
 };
 
 // Curry tests
