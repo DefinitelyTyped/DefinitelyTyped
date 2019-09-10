@@ -21672,9 +21672,9 @@ declare namespace Excel {
          * 
          * For more information, read {@link https://support.office.com/article/video-use-autofill-and-flash-fill-2e79a709-c814-4b27-8bc2-c4dc84d49464 | Use AutoFill and Flash Fill}.
          *
-         * [Api set: ExcelApi 1.9, ExcelApi Preview for null `destinationRange`]
+         * [Api set: ExcelApi 1.9, ExcelApi BETA (PREVIEW ONLY) for null `destinationRange`]
          *
-         * @param destinationRange The destination range to AutoFill. Discontiguous ranges are not supported.
+         * @param destinationRange The destination range to fill. Discontiguous ranges are not supported.
          * @param autoFillType The type of AutoFill. Specifies how the destination range is to be filled, based on the contents of the current range. Default is "FillDefault".
          */
         autoFill(destinationRange: Range | string, autoFillType?: Excel.AutoFillType): void;
@@ -21686,9 +21686,9 @@ declare namespace Excel {
          * 
          * For more information, read {@link https://support.office.com/article/video-use-autofill-and-flash-fill-2e79a709-c814-4b27-8bc2-c4dc84d49464 | Use AutoFill and Flash Fill}.
          *
-         * [Api set: ExcelApi 1.9, ExcelApi Preview for null `destinationRange`]
+         * [Api set: ExcelApi 1.9, ExcelApi BETA (PREVIEW ONLY) for null `destinationRange`]
          *
-         * @param destinationRange The destination range to AutoFill. Discontiguous ranges are not supported.
+         * @param destinationRange The destination range to fill. Discontiguous ranges are not supported.
          * @param autoFillType The type of AutoFill. Specifies how the destination range is to be filled, based on the contents of the current range. Default is "FillDefault".
          */
         autoFill(destinationRange: Range | string, autoFillType?: "FillDefault" | "FillCopy" | "FillSeries" | "FillFormats" | "FillValues" | "FillDays" | "FillWeekdays" | "FillMonths" | "FillYears" | "LinearTrend" | "GrowthTrend" | "FlashFill"): void;
