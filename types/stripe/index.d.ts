@@ -2107,6 +2107,7 @@ declare namespace Stripe {
                  * Plan ID for this item.
                  */
                 plan: string;
+
                 /**
                  * Quantity for this item.
                  */
@@ -2117,19 +2118,23 @@ declare namespace Stripe {
                  * A list of items, each with an attached plan, that the customer is subscribing to. Use this parameter for subscriptions. To create one-time payments, use line_items.
                  */
                 items: ICheckOutCreationSubscriptionDataItem[];
+
                 /**
                  * A non-negative decimal between 0 and 100, with at most two decimal places.
                  * This represents the percentage of the subscription invoice subtotal that will be transferred to the application owner’s Stripe account.
                  */
                 application_fee_percent?: number;
+
                 /**
                  * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
                  */
                 metadata?: IMetadata;
+
                 /**
                  * Unix timestamp representing the end of the trial period the customer will get before being charged for the first time. Has to be at least 48 hours in the future.
                  */
                 trial_end?: number;
+
                 /**
                  * Integer representing the number of trial period days before the customer is charged for the first time. Has to be at least 1.
                  */
@@ -2162,7 +2167,6 @@ declare namespace Stripe {
                 /**
                  * An optional unique ID to associate with the checkout
                  */
-
                 client_reference_id?: string;
 
                 /**
@@ -2194,12 +2198,13 @@ declare namespace Stripe {
                 /**
                  * Details for creation of payment intent
                  */
-                payment_intent_data?: paymentIntents.IPaymentIntentSessionSubset;
+                payment_intent_data?: paymentIntents.IPaymentIntentSessionSubset | paymentIntents.IPaymentIntentData;
 
                 /**
                  * A subset of parameters to be passed to SetupIntent creation.
                  */
                 setup_intent_data?: setupIntents.ISetupIntentSessionSubset;
+
                 /**
                  * Describes the type of transaction being performed by Checkout in order to customize relevant text on the page, such as the submit button.
                  * submit_type can only be specified on Checkout Sessions using line items or a SKU, but not Checkout Sessions for subscriptions.
@@ -2210,7 +2215,7 @@ declare namespace Stripe {
                 /**
                  * Use instead of @param line_items when using a subscription
                  */
-                subscription_data?: ICheckOutCreationSubscriptionData;
+                subscription_data?: ICheckOutCreationSubscriptionData | subscriptions.ISubscriptionCustCreationOptions;
             }
 
             interface ICheckoutLineItems {
