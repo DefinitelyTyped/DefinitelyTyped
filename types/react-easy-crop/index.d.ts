@@ -1,6 +1,7 @@
-// Type definitions for react-easy-crop 1.13
+// Type definitions for react-easy-crop 1.15
 // Project: https://github.com/ricardo-ch/react-easy-crop
 // Definitions by: Simon Donoghue <https://github.com/smdonoghue>
+// and Per Bergland  <https://github.com/perbergland>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
