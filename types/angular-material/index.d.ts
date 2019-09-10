@@ -524,5 +524,10 @@ declare module 'angular' {
             debounce<T extends Function>(func: T, wait?: number, scope?: any, invokeApply?: boolean): T;
             enableScrolling(): void;
         }
+
+        interface IMenuController {
+            close(skipFocus?: boolean, closeOpts?: {}): void;
+            open(event?: Event): void;
+        }
     }
 }
