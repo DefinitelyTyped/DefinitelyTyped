@@ -20,6 +20,7 @@
 //                 Saransh Kataria <https://github.com/saranshkataria>
 //                 Kanitkorn Sujautra <https://github.com/lukyth>
 //                 Sebastian Silbermann <https://github.com/eps1lon>
+//                 Staffan Eketorp <https://github.com/staeke>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -92,7 +93,7 @@ declare namespace React {
         ref?: Ref<T>;
     }
     interface ClassAttributes<T> extends Attributes {
-        ref?: LegacyRef<T>;
+        ref?: LegacyRef<T | undefined>;
     }
 
     interface ReactElement<P = any, T extends string | JSXElementConstructor<any> = string | JSXElementConstructor<any>> {
@@ -914,6 +915,8 @@ declare namespace React {
     // TODO (TypeScript 3.0): <T extends unknown>
     function useRef<T>(initialValue: T): MutableRefObject<T>;
     // convenience overload for refs given as a ref prop as they typically start with a null value
+    // Note that another very common use case is for non-element refs starting with null. Thus, we 
+    // cannot enforce immutability
     /**
      * `useRef` returns a mutable ref object whose `.current` property is initialized to the passed argument
      * (`initialValue`). The returned object will persist for the full lifetime of the component.
@@ -921,14 +924,11 @@ declare namespace React {
      * Note that `useRef()` is useful for more than the `ref` attribute. It’s handy for keeping any mutable
      * value around similar to how you’d use instance fields in classes.
      *
-     * Usage note: if you need the result of useRef to be directly mutable, include `| null` in the type
-     * of the generic argument.
-     *
      * @version 16.8.0
      * @see https://reactjs.org/docs/hooks-reference.html#useref
      */
     // TODO (TypeScript 3.0): <T extends unknown>
-    function useRef<T>(initialValue: T|null): RefObject<T>;
+    function useRef<T = any>(initialValue: null): MutableRefObject<T|null>;
     // convenience overload for potentially undefined initialValue / call with 0 arguments
     // has a default to stop it from defaulting to {} instead
     /**
@@ -942,7 +942,7 @@ declare namespace React {
      * @see https://reactjs.org/docs/hooks-reference.html#useref
      */
     // TODO (TypeScript 3.0): <T extends unknown>
-    function useRef<T = undefined>(): MutableRefObject<T | undefined>;
+    function useRef<T = any>(): MutableRefObject<T | undefined | null>;
     /**
      * The signature is identical to `useEffect`, but it fires synchronously after all DOM mutations.
      * Use this to read layout from the DOM and synchronously re-render. Updates scheduled inside
