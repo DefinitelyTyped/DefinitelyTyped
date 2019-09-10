@@ -171,7 +171,7 @@ declare namespace Sanctuary {
     };
     flip(tk: TK): (tk: TK) => TK;
     bimap<A, B>(p: Fn<A, B>): <C, D>(q: Fn<C, D>) => (r: Bifunctor<A, C>) => Bifunctor<B, D>;
-    mapLeft(tk: TK): (tk: TK) => TK;
+    mapLeft<A, B, C>(p: Fn<A, B>): (r: Bifunctor<A, C>) => Bifunctor<B, C>;
     promap<A, B>(p: Fn<A, B>): <C, D>(q: Fn<C, D>) => {
       (r: Fn<B, C>): Fn<A, D>;
       (r: Profunctor<B, C>): Profunctor<A, D>;
