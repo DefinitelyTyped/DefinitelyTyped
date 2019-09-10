@@ -18882,7 +18882,7 @@ declare namespace Excel {
          *
          * [Api set: ExcelApi 1.9]
          *
-         * @param destinationRange The destination range to autofill. Discontiguous ranges are not supported.
+         * @param destinationRange The destination range to fill. Discontiguous ranges are not supported.
          * @param autoFillType The type of autofill. Specifies how the destination range is to be filled, based on the contents of the current range. Default is "FillDefault".
          */
         autoFill(destinationRange: Range | string, autoFillType?: Excel.AutoFillType): void;
@@ -18894,7 +18894,7 @@ declare namespace Excel {
          *
          * [Api set: ExcelApi 1.9]
          *
-         * @param destinationRange The destination range to autofill. Discontiguous ranges are not supported.
+         * @param destinationRange The destination range to fill. Discontiguous ranges are not supported.
          * @param autoFillType The type of autofill. Specifies how the destination range is to be filled, based on the contents of the current range. Default is "FillDefault".
          */
         autoFill(destinationRange: Range | string, autoFillType?: "FillDefault" | "FillCopy" | "FillSeries" | "FillFormats" | "FillValues" | "FillDays" | "FillWeekdays" | "FillMonths" | "FillYears" | "LinearTrend" | "GrowthTrend" | "FlashFill"): void;
