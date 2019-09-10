@@ -1,3 +1,4 @@
+import { createStore, Store } from 'redux';
 import {
     RSAA,
     isRSAA,
@@ -16,8 +17,8 @@ import {
 
 {
     // RSAA
-    const passRSAA: RSAA = '@@redux-api-middleware/RSAA';
-    const failRSAA: RSAA = '@@redux-api-middleware/RSAA-fail'; // $ExpectError
+    const passRSAA: typeof RSAA = '@@redux-api-middleware/RSAA';
+    const failRSAA: typeof RSAA = '@@redux-api-middleware/RSAA-fail'; // $ExpectError
 }
 
 {
@@ -133,4 +134,15 @@ import {
         bailout: true;
         types: ['REQ_TYPE', 'SUCCESS_TYPE', 'FAILURE_TYPE'];
     }
+}
+
+{
+    const store: Store = createStore(() => undefined);
+    store.dispatch({
+        [RSAA]: {
+            endpoint: '/test/endpoint',
+            method: 'GET',
+            types: ['REQ_TYPE', 'SUCCESS_TYPE', 'FAILURE_TYPE'],
+        }
+    });
 }
