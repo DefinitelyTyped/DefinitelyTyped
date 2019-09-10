@@ -37,6 +37,21 @@ class KatexTest {
         const range = document.createRange();
         range.selectNode(container);
         const fragment = range.cloneContents();
-        katexReplaceWithTex(fragment).textContent;
+        katexReplaceWithTex(fragment, {
+            inline: ['$', '$'],
+            display: ['$$', '$$'],
+        }).textContent;
+        katexReplaceWithTex(fragment, {
+            inline: ['(', ')'],
+            display: ['[', ']'],
+        }).textContent;
+        katexReplaceWithTex(fragment, {
+            inline: ['$', '$'],
+            display: ['[', ']'],
+        }).textContent;
+        katexReplaceWithTex(fragment, {
+            inline: ['(', ')'],
+            display: ['$$', '$$'],
+        }).textContent;
     }
 }
