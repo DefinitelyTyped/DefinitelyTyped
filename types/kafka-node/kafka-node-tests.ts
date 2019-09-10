@@ -280,3 +280,19 @@ admin.listGroups((err, data) => {
 });
 admin.describeGroups({}, (err, data) => {
 });
+admin.createTopics([{ topic: 'testing' }], (err, data) => {});
+admin.listTopics((err, data) => {
+});
+
+const resource = {
+  resourceType: "",   // 'broker' or 'topic'
+  resourceName: 'my-topic-name',
+  configNames: []           // specific config names, or empty array to return all,
+};
+const payload = {
+  resources: [resource],
+  includeSynonyms: false   // requires kafka 2.0+
+};
+admin.describeConfigs(payload, (err, res) => {
+  console.log(JSON.stringify(res, null, 1));
+});
