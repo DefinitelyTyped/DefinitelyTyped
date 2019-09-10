@@ -111,7 +111,7 @@ export interface Theme extends StyledSystemTheme {
      * fonts, etc.
      */
     styles?: {
-        [P in StyledTags]: SystemStyleObject;
+        [P in StyledTags]?: SystemStyleObject;
     };
 }
 
