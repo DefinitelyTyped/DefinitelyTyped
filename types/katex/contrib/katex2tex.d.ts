@@ -2,7 +2,7 @@ declare module 'katex/contrib/copy-tex/katex2tex' {
     /**
      * Set these to how you want inline and display math to be delimited.
      */
-    interface ICopyDelimiters {
+    export interface CopyDelimiters {
         inline: ['$', '$'] | ['(', ')'];
         display: ['$$', '$$'] | ['[', ']'];
     }
@@ -15,9 +15,6 @@ declare module 'katex/contrib/copy-tex/katex2tex' {
      */
     export default function katexReplaceWithTex(
         fragment: DocumentFragment,
-        copyDelimiters?: ICopyDelimiters,
+        copyDelimiters?: CopyDelimiters,
     ): DocumentFragment;
 }
-
-
-
