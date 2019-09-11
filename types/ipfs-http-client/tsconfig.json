@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es6",
+    "lib": [
+      "es2015",
+      "es2016",
+      "es2076",
+      "dom",
+      "dom.iterable"
+    ],
+    "strict": true,
+    "baseUrl": "../",
+    "typeRoots": [
+      "../"
+    ],
+    "types": [
+      "node",
+      "browser"
+    ],
+    "esModuleInterop": true,
+    "noEmit": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": [
+      "*.ts"
+  ]
+}
