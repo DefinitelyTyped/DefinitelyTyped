@@ -1,4 +1,4 @@
-// Type definitions for netconf 2.0.1
+// Type definitions for netconf 2.0
 // Project: https://github.com/darylturner/node-netconf
 // Definitions by: Leodinas Hao <https://github.com/leodinas-hao>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
