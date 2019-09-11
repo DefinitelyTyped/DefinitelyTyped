@@ -167,7 +167,7 @@ declare namespace stripe {
         };
         sofort?: {
             country: string;
-            preferred_language?: 'de' | 'en' | 'es' | 'it' | 'fr' | 'nl' | 'pl'
+            preferred_language?: 'de' | 'en' | 'es' | 'it' | 'fr' | 'nl' | 'pl';
         }
     }
 
