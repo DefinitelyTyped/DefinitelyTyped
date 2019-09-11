@@ -9,7 +9,6 @@
 //
 // Based on type declarations for mongoose-paginate 5.0.0.
 
-import { QueryPopulateOptions } from 'mongoose';
 declare module 'mongoose' {
   interface CustomLabels {
     totalDocs?: string;
@@ -35,6 +34,21 @@ declare module 'mongoose' {
     offset?: number;
     page?: number;
     limit?: number;
+  }
+
+  interface QueryPopulateOptions {
+    /** space delimited path(s) to populate */
+    path: string;
+    /** optional fields to select */
+    select?: any;
+    /** optional query conditions to match */
+    match?: any;
+    /** optional model to use for population */
+    model?: string | Model<any>;
+    /** optional query options like sort, limit, etc */
+    options?: any;
+    /** deep populate */
+    populate?: QueryPopulateOptions | QueryPopulateOptions[];
   }
 
   interface PaginateResult<T> {
