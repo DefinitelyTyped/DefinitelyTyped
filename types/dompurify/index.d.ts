@@ -12,7 +12,7 @@ interface createDOMPurifyI extends DOMPurifyI {
 }
 
 interface DOMPurifyI {
-    sanitize(source: string | Node): string
+    sanitize(source: string | Node): string | TrustedHTML
     sanitize(source: string | Node, config: Config & { RETURN_DOM_FRAGMENT?: false, RETURN_DOM?: false, }): string
     sanitize(source: string | Node, config: Config & { RETURN_DOM_FRAGMENT: true, }): DocumentFragment
     sanitize(source: string | Node, config: Config & { RETURN_DOM: true, }): HTMLElement
