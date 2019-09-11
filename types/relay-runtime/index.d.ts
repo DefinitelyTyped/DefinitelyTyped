@@ -675,6 +675,7 @@ export interface ReaderScalarField {
 
 export type ReaderSelection =
     | ReaderCondition
+    | ReaderClientExtension
     | ReaderField
     | ReaderFragmentSpread
     | ReaderInlineFragment
@@ -723,6 +724,11 @@ interface ReaderCondition {
     readonly kind: string; // 'Condition';
     readonly passingValue: boolean;
     readonly condition: string;
+    readonly selections: ReadonlyArray<ReaderSelection>;
+}
+
+interface ReaderClientExtension {
+    readonly kind: 'ClientExtension';
     readonly selections: ReadonlyArray<ReaderSelection>;
 }
 
