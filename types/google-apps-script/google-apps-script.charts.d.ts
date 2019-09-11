@@ -1,10 +1,11 @@
-// Type definitions for Google Apps Script 2019-08-09
+// Type definitions for Google Apps Script 2019-09-11
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="google-apps-script.types.d.ts" />
 /// <reference path="google-apps-script.base.d.ts" />
+/// <reference path="google-apps-script.ui.d.ts" />
 
 declare namespace GoogleAppsScript {
   export module Charts {
@@ -177,7 +178,7 @@ declare namespace GoogleAppsScript {
      * These options are immutable.
      */
     export interface ChartOptions {
-      get(option: string): object;
+      get(option: string): any;
     }
 
     /**
@@ -466,7 +467,7 @@ declare namespace GoogleAppsScript {
      */
     export interface DataViewDefinitionBuilder {
       build(): DataViewDefinition;
-      setColumns(columns: object[]): DataViewDefinitionBuilder;
+      setColumns(columns: any[]): DataViewDefinitionBuilder;
     }
 
     /**
