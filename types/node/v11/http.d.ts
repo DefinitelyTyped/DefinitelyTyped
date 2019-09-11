@@ -162,7 +162,7 @@ declare module "http" {
     class ClientRequest extends OutgoingMessage {
         connection: Socket;
         socket: Socket;
-        aborted: number;
+        aborted: boolean;
 
         constructor(url: string | URL | ClientRequestArgs, cb?: (res: IncomingMessage) => void);
 

@@ -108,6 +108,9 @@ import * as net from 'net';
     // abort
     req.abort();
 
+    // aborted
+    const aborted: boolean = req.aborted;
+
     // connection
     req.connection.on('pause', () => { });
 
