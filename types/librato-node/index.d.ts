@@ -26,10 +26,11 @@ export interface LibratoConfig {
     prefix?: string;
     source?: string;
     requestOptions?: LibratoRequestOptions;
+    simulate?: false;
 }
 
 export interface LibratoSimulate {
-    simulate: boolean;
+    simulate: true;
 }
 
 export function configure(config: LibratoConfig | LibratoSimulate): void;

@@ -25,7 +25,8 @@ librato.configure({
     requestOptions: {
         method: 'POST',
         uri: 'https://foo.com',
-    }
+    },
+    simulate: false,
 });
 
 librato.increment(str);
