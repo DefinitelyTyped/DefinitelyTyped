@@ -1,8 +1,9 @@
-// Type definitions for dialogflow 0.9
+// Type definitions for dialogflow 0.11
 // Project: https://github.com/googleapis/nodejs-dialogflow
 // Definitions by: Daniel Dyla <https://github.com/dyladan>
 //                 Tom Carrio <https://github.com/tcarrio>
 //                 Khalil Choudhry <https://github.com/khalilchoudhry>
+//                 Joseph Thibeault <https://github.com/jrthib>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -17,6 +18,11 @@ export namespace v2 {
     getProjectId(): Promise<string>;
     getProjectId(callback?: (error: Error, id: string) => string): void;
 
+    setAgent(
+      request: SetAgentRequest,
+      options?: gax.CallOptions,
+      cb?: (err: Error, agent: Agent) => void
+    ): Promise<[Agent]>;
     getAgent(
       request: GetAgentRequest,
       options?: gax.CallOptions,
@@ -448,6 +454,11 @@ export namespace longrunning {
   }
 }
 
+export interface SetAgentRequest {
+  agent: Agent;
+  updateMask?: any;
+}
+
 export interface GetAgentRequest {
   parent: string;
 }
@@ -859,6 +870,8 @@ export interface Agent {
   enableLogging?: boolean;
   matchMode?: MatchMode;
   classificationThreshold?: number;
+  apiVersion?: ApiVersion;
+  tier?: Tier;
 }
 
 export interface Context {
@@ -891,6 +904,36 @@ export type MatchMode =
   | "MATCH_MODE_UNSPECIFIED"
   | "MATCH_MODE_HYBRID"
   | "MATCH_MODE_ML_ONLY";
+
+// API version for the agent.
+export enum ApiVersion {
+  // Not specified.
+  API_VERSION_UNSPECIFIED,
+
+  // Legacy V1 API.
+  API_VERSION_V1,
+
+  // V2 API.
+  API_VERSION_V2,
+
+  // V2beta1 API.
+  API_VERSION_V2_BETA_1,
+}
+
+// Represents the agent tier.
+export enum Tier {
+  // Not specified. This value should never be used.
+  TIER_UNSPECIFIED,
+
+  // Standard tier.
+  TIER_STANDARD,
+
+  // Enterprise tier (Essentials).
+  TIER_ENTERPRISE,
+
+  // Enterprise tier (Plus).
+  TIER_ENTERPRISE_PLUS,
+}
 
 export interface Credentials {
   client_email: string;
