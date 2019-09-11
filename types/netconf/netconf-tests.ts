@@ -16,6 +16,6 @@ router.open((err) => {
     if (err) {
       throw err;
     }
-    // console.log(JSON.stringify(reply));
+    // console.log(reply);
   });
 });
