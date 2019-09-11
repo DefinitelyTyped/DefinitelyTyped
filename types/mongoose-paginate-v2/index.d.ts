@@ -3,11 +3,13 @@
 // Definitions by: Linus Brolin <https://github.com/linusbrolin>
 //                 simonxca <https://github.com/simonxca>
 //                 woutgg <https://github.com/woutgg>
+//                 oktapodia <https://github.com/oktapodia>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 //
 // Based on type declarations for mongoose-paginate 5.0.0.
 
+import { QueryPopulateOptions } from 'mongoose';
 declare module 'mongoose' {
   interface CustomLabels {
     totalDocs?: string;
@@ -27,7 +29,7 @@ declare module 'mongoose' {
     customLabels?: CustomLabels;
     collation?: CollationOptions;
     /* tslint:disable-next-line: ban-types */
-    populate?: Object[] | string[] | Object | string;
+    populate?: Object[] | string[] | Object | string | QueryPopulateOptions;
     lean?: boolean;
     leanWithId?: boolean;
     offset?: number;
