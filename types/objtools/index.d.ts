@@ -7,7 +7,7 @@
 /**
  * Plain object or boolean data for an ObjectMask instance.
  */
-export type Mask = MaskObj | boolean;
+export type Mask = MaskObj | MaskObj[] | boolean;
 
 /**
  * Plain object data for an ObjectMask instance.

@@ -18,7 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "objtools-tests.ts",
-        "object-mask-tests.ts"
+        "objtools-tests.ts"
     ]
 }
