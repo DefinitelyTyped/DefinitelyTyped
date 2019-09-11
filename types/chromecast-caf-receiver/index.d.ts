@@ -2,6 +2,7 @@
 // Project: https://github.com/googlecast
 // Definitions by: Sergio Arbeo <https://github.com/Serabe>
 //                 Craig Bruce <https://github.com/craigrbruce>
+//                 Brandon Risell <https://github.com/brandonrisell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
