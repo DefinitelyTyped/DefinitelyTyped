@@ -165,6 +165,10 @@ declare namespace stripe {
         three_d_secure?: {
             card: string;
         };
+        sofort?: {
+            country: string;
+            preferred_language?: 'de' | 'en' | 'es' | 'it' | 'fr' | 'nl' | 'pl'
+        }
     }
 
     interface Token {
