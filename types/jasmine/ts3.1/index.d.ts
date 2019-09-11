@@ -21,6 +21,8 @@ type Func = (...args: any[]) => any;
 // More info: https://stackoverflow.com/a/38642922/2009373
 type Constructor = Function & { prototype: any };
 
+type DeepPartial<T> = T extends object ? { [K in keyof T]?: DeepPartial<T[K]>; } : T;
+
 /**
  * Create a group of specs (often called a suite).
  * @param description Textual description of the group
@@ -190,11 +192,15 @@ declare function waits(timeout?: number): void;
 declare namespace jasmine {
     type DeepMatch<T> =
         T
-        | ObjectContaining<T>
-        | (T extends Array<infer TElement> ? ArrayContaining<TElement> : never)
         | AsymmetricMatcher<T>
+        | PartialObjectMatcher<DeepPartial<T>>
+        | (T extends ArrayLike<infer TElement> ? ArrayContainingDeepMatch<TElement> : never)
         | Spy
         | { [K in keyof T]: DeepMatch<T[K]>; };
+
+    // A trick to recursively use `DeepMatch<T>`.
+    // See detailed explanation here: https://github.com/Microsoft/TypeScript/issues/3496#issuecomment-128553540.
+    interface ArrayContainingDeepMatch<T> extends ArrayContaining<DeepMatch<T>> { }
 
     // Keep for backward compatibility - if somebody already uses this type, they will not be broken.
     // Should use DeepMatch instead as it better describes the purpose.
@@ -248,7 +254,7 @@ declare namespace jasmine {
 
     function arrayContaining<T>(sample: ArrayLike<T>): ArrayContaining<T>;
     function arrayWithExactContents<T>(sample: ArrayLike<T>): ArrayContaining<T>;
-    function objectContaining<T>(sample: T): ObjectContaining<T>;
+    function objectContaining<T>(sample: T): PartialObjectMatcher<UnwrapAsymmetricMatchers<T>>;
     function createSpy<Fn extends Func>(name?: string, originalFn?: Fn): Spy<Fn>;
 
     function createSpyObj(baseName: string, methodNames: SpyObjMethodNames): any;
@@ -270,15 +276,9 @@ declare namespace jasmine {
     function formatErrorMsg(domain: string, usage: string): (msg: string) => string;
 
     interface AsymmetricMatcher<TValue> {
-        asymmetricMatch(other: TValue): boolean;
+        asymmetricMatch(other: TValue, customTesters: CustomEqualityTester[]): boolean;
         // Mark it optional to support custom user matchers coming without describe function.
         jasmineToString?(): string;
-    }
-
-    // taken from TypeScript lib.core.es6.d.ts, applicable to CustomMatchers.contains()
-    interface ArrayLike<T> {
-        length: number;
-        [n: number]: T;
     }
 
     interface ArrayContaining<T> extends AsymmetricMatcher<ArrayLike<T>> { }
@@ -289,14 +289,28 @@ declare namespace jasmine {
      */
     type Any = AsymmetricMatcher<any>;
 
-    type UnwrapAsymmetricMatchers<T> = {
-        [K in keyof T]: T[K] extends AsymmetricMatcher<infer TMatching> ? TMatching : UnwrapAsymmetricMatchers<T[K]>
-    };
+    /**
+     * Util to recursively traverse the type and unwrap AsymmetricMatcher occurences with their inner type.
+     * It used to align two types and make them comparable.
+     */
+    type UnwrapAsymmetricMatchers<TUnion> = TUnion extends infer T ?
+        { [K in keyof T]: T[K] extends AsymmetricMatcher<infer TMatching> ? TMatching : UnwrapAsymmetricMatchers<T[K]> }
+        : never;
 
-    // Current matcher reports the compatible type (type it can match) via AsymmetricMatcher arg.
-    // If any our property is a matcher itself, we should unwrap it, so TS could verify
-    // whether corresponding object property can be actually matched by that matcher.
-    interface ObjectContaining<T> extends AsymmetricMatcher<UnwrapAsymmetricMatchers<T>> { }
+    /**
+     * @deprecated Use PartialObjectMatcher<T> instead.
+     * @see {PartialObjectMatcher<T>}
+     */
+    interface ObjectContaining<T> extends AsymmetricMatcher<Partial<T>> { }
+
+    // Create a separate class for this matcher to that this type has its own identity.
+    // This type doesn't perform a strong T match and let's object to match only partially.
+    // This behavior is supported by this matcher only, while other matchers require full T match.
+    class PartialObjectMatcher<T> implements AsymmetricMatcher<T> {
+        constructor(sample: T);
+        asymmetricMatch(other: T, customTesters: CustomEqualityTester[]): boolean;
+        jasmineToString(): string;
+    }
 
     interface Block {
         new (env: Env, func: SpecFunction, spec: Spec): any;

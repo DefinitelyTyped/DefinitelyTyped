@@ -15,23 +15,29 @@ describe("A suite is just a function", () => {
     });
 });
 
-describe("The 'toBe' matcher compares with ===", () => {
-    it("and has a positive case", () => {
-        expect(true).toBe(true);
-    });
-
-    it("and can have a negative case", () => {
-        expect(false).not.toBe(true);
-    });
-});
-
 describe("Included matchers:", () => {
-    it("The 'toBe' matcher compares with ===", () => {
-        const a = 12;
-        const b = a;
+    describe('toBe', () => {
+        it("and has a positive case", () => {
+            expect(true).toBe(true);
+        });
 
-        expect(a).toBe(b);
-        expect(a).not.toBe(24);
+        it("and can have a negative case", () => {
+            expect(false).not.toBe(true);
+        });
+
+        it("the 'toBe' matcher compares with ===", () => {
+            const a = 12;
+            const b = a;
+
+            expect(a).toBe(b);
+            expect(a).not.toBe(24);
+        });
+
+        it('should allow to accept any union type', () => {
+            const value: number | string = null as any;
+
+            expect(value).toBe(12);
+        });
     });
 
     describe("The 'toEqual' matcher", () => {
@@ -734,7 +740,7 @@ describe("Spy for generic method", () => {
 
         const spy = jasmine.createSpyObj<Test>('test', ['method']);
 
-        spy.method.and.returnValue([{ value: 1}, { value: 2}]);
+        spy.method.and.returnValue([{ value: 1 }, { value: 2 }]);
     });
 });
 
@@ -998,6 +1004,19 @@ describe("jasmine.objectContaining", () => {
         });
     });
 
+    it('should work when string value is used as a type ', () => {
+        const foo: { bar: 'bar', baz: 'baz' } | undefined = {} as any;
+
+        // It requires type specification, as by type is generalized.
+        // If it's TS 3.5+ you can use `as const` instead.
+        expect(foo).toEqual(jasmine.objectContaining({ bar: 'bar' as 'bar', baz: 'baz' as 'baz' }));
+        expect(foo).toEqual(jasmine.objectContaining({ bar: 'bar' as 'bar' }));
+
+        // This, unfortunately, fails due to type generalization.
+        // expect(foo).toEqual(jasmine.objectContaining({ bar: 'bar', baz: 'baz' })); // Fails in TS 3.0+ due to generalization.
+        expect(foo).toEqual(jasmine.objectContaining({ bar: '' })); // $ExpectError
+    });
+
     describe("when used with a spy", () => {
         it("is useful for comparing arguments", () => {
             const callback = jasmine.createSpy('callback');
@@ -1027,9 +1046,8 @@ describe("jasmine.arrayContaining", () => {
 
         expect(foo).toBe(jasmine.arrayContaining([3, 1])); // $ExpectError
 
-        // Comment out as it doesn't fail on TS 2.8.
-        // expect(foo).toEqual(jasmine.arrayContaining(["3", "1"])); // $ExpectError
-        // expect(foo).not.toEqual(jasmine.arrayContaining(["6"])); // $ExpectError
+        expect(foo).toEqual(jasmine.arrayContaining(["3", "1"])); // $ExpectError
+        expect(foo).not.toEqual(jasmine.arrayContaining(["6"])); // $ExpectError
     });
 
     it("matches read-only array", () => {
@@ -1040,9 +1058,8 @@ describe("jasmine.arrayContaining", () => {
 
         expect(bar).toBe(jasmine.arrayContaining([3, 1])); // $ExpectError
 
-        // Comment out as it doesn't fail on TS 2.8.
-        // expect(bar).toEqual(jasmine.arrayContaining(["3", "1"])); // $ExpectError
-        // expect(bar).not.toEqual(jasmine.arrayContaining(["6"])); // $ExpectError
+        expect(bar).toEqual(jasmine.arrayContaining(["3", "1"])); // $ExpectError
+        expect(bar).not.toEqual(jasmine.arrayContaining(["6"])); // $ExpectError
     });
 
     describe("when used with a spy", () => {
@@ -1570,10 +1587,87 @@ describe('Static Matcher Test', function() {
             })
         );
 
-        // Keep this sample commented out, as since 3.0 it start to correctly fail.
-        // expect(value).toEqual(
+        // expect(value).toEqual( // Fails on TS 3.0+ only.
         //     jasmine.objectContaining({ inner: { inner: { deep: jasmine.arrayContaining(['2']) } } })
         // );
+    });
+});
+
+describe('Deeply nested type with unions', () => {
+    type TestComplexType = { a: string; b: number | string } |
+                           { c: boolean } |
+                           {
+                               inner: { a: string; b: number | boolean } |
+                                      { c: boolean | string } |
+                                      {
+                                        inner2: {
+                                          a: number;
+                                          z: number | string
+                                        }
+                                      }
+                           } |
+                           { innerArray: Array<number | boolean>; } |
+                           undefined;
+
+    const obj: TestComplexType = {} as any;
+    const arr: TestComplexType[] = [];
+
+    it("jasmine.objectContaining()", () => {
+        expect(obj).toEqual(jasmine.objectContaining({ a: "value" }));
+        expect(obj).toEqual(jasmine.objectContaining({ c: false }));
+        expect(obj).toEqual(jasmine.objectContaining({ inner: jasmine.objectContaining({ a: "forty-two" }) }));
+        expect(obj).toEqual(jasmine.objectContaining({ inner: jasmine.objectContaining({ b: 42 }) }));
+        expect(obj).toEqual(jasmine.objectContaining({ inner: jasmine.objectContaining({ c: true }) }));
+        expect(obj).toEqual(jasmine.objectContaining({ inner: jasmine.objectContaining({ c: "some value" }) }));
+        expect(obj).toEqual(jasmine.objectContaining({ inner: { a: "forty-two", b: jasmine.any(String) } }));
+        expect(obj).toEqual({ inner: jasmine.objectContaining({ b: false }) });
+        expect(obj).toEqual(jasmine.objectContaining({ inner: jasmine.objectContaining({ inner2: jasmine.objectContaining({ z: 42 }) })}));
+
+        // Limitation - we don't prevent usage of unknown properties as long as any property is known.
+        expect(obj).toEqual(jasmine.objectContaining({ c: true, unknownProp: 42 }));
+        // But it still should fail if type is completely unkonwn.
+        expect(obj).toEqual(jasmine.objectContaining({ unknownProp: 42 })); // $ExpectError
+
+        expect(obj).toEqual(jasmine.objectContaining({ a: 42 })); // $ExpectError
+        expect(obj).toEqual(jasmine.objectContaining({ inner: 42 })); // $ExpectError
+        expect(obj).toEqual(jasmine.objectContaining({ inner: jasmine.objectContaining({ b: "str" })})); // $ExpectError
+        expect(obj).toEqual(jasmine.objectContaining({ inner: jasmine.objectContaining({ z: "str" })})); // $ExpectError
+        expect(obj).toEqual(jasmine.objectContaining({ inner: { z: "blah"} })); // $ExpectError
+        expect(obj).toEqual(jasmine.objectContaining({ unknownProp: 42 })); // $ExpectError
+        expect(obj).toEqual(jasmine.objectContaining({ inner: jasmine.objectContaining({ inner2: jasmine.objectContaining({ z: true }) })})); // $ExpectError
+
+        expect(arr).toEqual([jasmine.objectContaining({ a: "forty-two" })]);
+    });
+
+    it("raw toEqual", () => {
+        expect(obj).toEqual({ a: "foo", b: "bar" });
+        expect(obj).toEqual({ a: "foo", b: 12 });
+        expect(obj).toEqual({ c: true });
+        expect(obj).toEqual(undefined);
+        expect(obj).toEqual({ inner: { a: "foo", b: 12 }});
+        expect(obj).toEqual({ inner: { a: "foo", b: false }});
+        expect(obj).toEqual({ inner: { c: true }});
+        expect(obj).toEqual({ inner: { c: "foo" }});
+        expect(obj).toEqual({ inner: { inner2: { a: 12, z: 21 } } });
+        expect(obj).toEqual({ inner: { inner2: { a: 12, z: "foo" } } });
+
+        expect(obj).toEqual({ a: "foo" }); // $ExpectError
+        expect(obj).toEqual({ a: "foo", b: false }); // $ExpectError
+        expect(obj).toEqual(null); // $ExpectError
+        expect(obj).toEqual({ inner: { a: "foo", b: "wrong" }}); // $ExpectError
+        expect(obj).toEqual({ inner: { inner2: { a: 12, z: false } } }); // $ExpectError
+        // expect(obj).toEqual({ a: "foo", b: "bar", c: "wrong-type" }); // Fails on TS 3.4+
+    });
+
+    it("jasmine.arrayContaining()", () => {
+        expect(arr).toEqual(jasmine.arrayContaining([undefined]));
+        expect(arr).toEqual(jasmine.arrayContaining([jasmine.objectContaining({ a: "some value" })]));
+        expect(arr).toEqual(jasmine.arrayContaining([jasmine.objectContaining({ inner: { c: true } })]));
+        expect(arr).toEqual(jasmine.arrayContaining([jasmine.objectContaining({ inner: { c: true } })]));
+        expect(arr).toEqual(jasmine.arrayContaining([jasmine.objectContaining({ inner: { c: jasmine.anything() } })]));
+        expect(arr).toEqual(jasmine.arrayContaining([jasmine.objectContaining({ innerArray: [true] })]));
+
+        expect(arr).toEqual(jasmine.arrayContaining([jasmine.objectContaining({ inner: { c: 42 } })])); // $ExpectError
     });
 });
 
@@ -1584,11 +1678,6 @@ describe("User scenarios", () => {
 
             expect(elements).toEqual([
                 jasmine.objectContaining({ tagName: 'DIV', id: 'find-this' })]);
-
-            // Keep this sample commented out, as since 3.0 it start to correctly fail.
-            // expect(elements).not.toEqual(
-            //     [jasmine.objectContaining({ tagName: 'DIV', id: 'find-this', unknownProp: 42 })]
-            // );
         });
     });
 
