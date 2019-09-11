@@ -15,13 +15,10 @@
 //                 Alex Povar <https://github.com/zvirja>
 // For ddescribe / iit use : https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/karma-jasmine/karma-jasmine.d.ts
 
-type ImplementationCallback = (() => Promise<any>) | (() => void) | ((done: DoneFn) => void);
-type Func = (...args: any[]) => any;
-// Use trick with prototype to allow abstract classes.
-// More info: https://stackoverflow.com/a/38642922/2009373
-type Constructor = Function & { prototype: any };
-
-type DeepPartial<T> = T extends object ? { [K in keyof T]?: DeepPartial<T[K]>; } : T;
+/**
+ * @deprecated Use {@link jasmine.ImplementationCallback} instead.
+ */
+type ImplementationCallback = jasmine.ImplementationCallback;
 
 /**
  * Create a group of specs (often called a suite).
@@ -51,7 +48,7 @@ declare function xdescribe(description: string, specDefinitions: () => void): vo
  * @param assertion Function that contains the code of your test. If not provided the test will be pending.
  * @param timeout Custom timeout for an async spec.
  */
-declare function it(expectation: string, assertion?: ImplementationCallback, timeout?: number): void;
+declare function it(expectation: string, assertion?: jasmine.ImplementationCallback, timeout?: number): void;
 
 /**
  * A focused `it`. If suites or specs are focused, only those that are focused will be executed.
@@ -59,7 +56,7 @@ declare function it(expectation: string, assertion?: ImplementationCallback, tim
  * @param assertion Function that contains the code of your test. If not provided the test will be pending.
  * @param timeout Custom timeout for an async spec.
  */
-declare function fit(expectation: string, assertion?: ImplementationCallback, timeout?: number): void;
+declare function fit(expectation: string, assertion?: jasmine.ImplementationCallback, timeout?: number): void;
 
 /**
  * A temporarily disabled `it`. The spec will report as pending and will not be executed.
@@ -67,7 +64,7 @@ declare function fit(expectation: string, assertion?: ImplementationCallback, ti
  * @param assertion Function that contains the code of your test. If not provided the test will be pending.
  * @param timeout Custom timeout for an async spec.
  */
-declare function xit(expectation: string, assertion?: ImplementationCallback, timeout?: number): void;
+declare function xit(expectation: string, assertion?: jasmine.ImplementationCallback, timeout?: number): void;
 
 /**
  * Mark a spec as pending, expectation results will be ignored.
@@ -81,14 +78,14 @@ declare function pending(reason?: string): void;
  * @param action Function that contains the code to setup your specs.
  * @param timeout Custom timeout for an async beforeEach.
  */
-declare function beforeEach(action: ImplementationCallback, timeout?: number): void;
+declare function beforeEach(action: jasmine.ImplementationCallback, timeout?: number): void;
 
 /**
  * Run some shared teardown after each of the specs in the describe in which it is called.
  * @param action Function that contains the code to teardown your specs.
  * @param timeout Custom timeout for an async afterEach.
  */
-declare function afterEach(action: ImplementationCallback, timeout?: number): void;
+declare function afterEach(action: jasmine.ImplementationCallback, timeout?: number): void;
 
 /**
  * Run some shared setup once before all of the specs in the describe are run.
@@ -96,7 +93,7 @@ declare function afterEach(action: ImplementationCallback, timeout?: number): vo
  * @param action Function that contains the code to setup your specs.
  * @param timeout Custom timeout for an async beforeAll.
  */
-declare function beforeAll(action: ImplementationCallback, timeout?: number): void;
+declare function beforeAll(action: jasmine.ImplementationCallback, timeout?: number): void;
 
 /**
  * Run some shared teardown once before all of the specs in the describe are run.
@@ -104,14 +101,14 @@ declare function beforeAll(action: ImplementationCallback, timeout?: number): vo
  * @param action Function that contains the code to teardown your specs.
  * @param timeout Custom timeout for an async afterAll
  */
-declare function afterAll(action: ImplementationCallback, timeout?: number): void;
+declare function afterAll(action: jasmine.ImplementationCallback, timeout?: number): void;
 
 /**
  * Create an expectation for a spec.
  * @checkReturnValue see https://tsetse.info/check-return-value
  * @param spy
  */
-declare function expect<T extends Func>(spy: T | jasmine.Spy<T>): jasmine.FunctionMatchers<T>;
+declare function expect<T extends jasmine.Func>(spy: T | jasmine.Spy<T>): jasmine.FunctionMatchers<T>;
 
 /**
  * Create an expectation for a spec.
@@ -166,7 +163,7 @@ interface DoneFn extends Function {
 declare function spyOn<T, K extends keyof T = keyof T>(
     object: T, method: T[K] extends Function ? K : never,
 ): jasmine.Spy<
-    T[K] extends Func ? T[K] :
+    T[K] extends jasmine.Func ? T[K] :
     T[K] extends { new (...args: infer A): infer V } ? (...args: A) => V :
     never
 >;
@@ -190,6 +187,15 @@ declare function waitsFor(latchMethod: () => boolean, failureMessage?: string, t
 declare function waits(timeout?: number): void;
 
 declare namespace jasmine {
+    type ImplementationCallback = (() => Promise<any>) | (() => void) | ((done: DoneFn) => void);
+
+    type Func = (...args: any[]) => any;
+    // Use trick with prototype to allow abstract classes.
+    // More info: https://stackoverflow.com/a/38642922/2009373
+    type Constructor = Function & { prototype: any };
+
+    type DeepPartial<T> = T extends object ? { [K in keyof T]?: DeepPartial<T[K]>; } : T;
+
     type DeepMatch<T> =
         T
         | AsymmetricMatcher<T>
@@ -284,8 +290,7 @@ declare namespace jasmine {
     interface ArrayContaining<T> extends AsymmetricMatcher<ArrayLike<T>> { }
 
     /**
-     * @deprecated Use AsymmetricMatcher<any> instead.
-     * @see {AsymmetricMatcher<any>}
+     * @deprecated Use {@link AsymmetricMatcher<any>} instead.
      */
     type Any = AsymmetricMatcher<any>;
 
@@ -298,8 +303,7 @@ declare namespace jasmine {
         : never;
 
     /**
-     * @deprecated Use PartialObjectMatcher<T> instead.
-     * @see {PartialObjectMatcher<T>}
+     * @deprecated Use {@link PartialObjectMatcher<T>} instead.
      */
     interface ObjectContaining<T> extends AsymmetricMatcher<Partial<T>> { }
 
