@@ -5,7 +5,6 @@
 
 /// <reference path="google-apps-script.types.d.ts" />
 /// <reference path="google-apps-script.base.d.ts" />
-/// <reference path="google-apps-script.ui.d.ts" />
 
 declare namespace GoogleAppsScript {
   export module Charts {
