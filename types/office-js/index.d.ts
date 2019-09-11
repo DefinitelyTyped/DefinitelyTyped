@@ -16584,7 +16584,7 @@ declare namespace Excel {
         changeType: Excel.DataChangeType | "Unknown" | "RangeEdited" | "RowInserted" | "RowDeleted" | "ColumnInserted" | "ColumnDeleted" | "CellInserted" | "CellDeleted";
         /**
          *
-         * Represents the information about the change detail. This property can be retrieved when the Changed event is triggered on single cell. If the Changed event is triggered on multiple cells, this property can not be retrieved.
+         * Represents the information about the change detail. This property can be retrieved when the Changed event is triggered on a single cell. If the Changed event is triggered on multiple cells, this property cannot be retrieved.
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -16726,7 +16726,7 @@ declare namespace Excel {
         worksheetId: string;
         /**
          *
-         * Represents the information about the change detail. This property can be retrieved when the Changed event is triggered on single cell. If the Changed event is triggered on multiple cells, this property can not be retrieved.
+         * Represents the information about the change detail. This property can be retrieved when the Changed event is triggered on a single cell. If the Changed event is triggered on multiple cells, this property cannot be retrieved.
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -17452,7 +17452,7 @@ declare namespace Excel {
     /**
      *
      * Workbook is the top level object which contains related workbook objects such as worksheets, tables, ranges, etc.
-     * To learn more about the workbook object model, read {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-workbooks | Work with workbooks using the Excel JavaScript API}.
+            To learn more about the workbook object model, read {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-workbooks | Work with workbooks using the Excel JavaScript API}.
      *
      * [Api set: ExcelApi 1.1]
      */
@@ -17632,14 +17632,14 @@ declare namespace Excel {
         getActiveCell(): Excel.Range;
         /**
          *
-         * Gets the currently active chart in the workbook. If there is no active chart, will throw exception when invoke this statement
+         * Gets the currently active chart in the workbook. If there is no active chart, an `ItemNotFound` exception is thrown.
          *
          * [Api set: ExcelApi 1.9]
          */
         getActiveChart(): Excel.Chart;
         /**
          *
-         * Gets the currently active chart in the workbook. If there is no active chart, will return null object
+         * Gets the currently active chart in the workbook. If there is no active chart, a null object is returned.
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -17810,7 +17810,7 @@ declare namespace Excel {
     /**
      *
      * An Excel worksheet is a grid of cells. It can contain data, tables, charts, etc.
-     * To learn more about the worksheet object model, read {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-worksheets | Work with worksheets using the Excel JavaScript API}.
+            To learn more about the worksheet object model, read {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-worksheets | Work with worksheets using the Excel JavaScript API}.
      *
      * [Api set: ExcelApi 1.1]
      */
@@ -18022,7 +18022,7 @@ declare namespace Excel {
         copy(positionType?: "None" | "Before" | "After" | "Beginning" | "End", relativeTo?: Excel.Worksheet): Excel.Worksheet;
         /**
          *
-         * Deletes the worksheet from the workbook. Note that if the worksheet's visibility is set to "VeryHidden", the delete operation will fail with a GeneralException.
+         * Deletes the worksheet from the workbook. Note that if the worksheet's visibility is set to "VeryHidden", the delete operation will fail with an `InvalidOperation` exception. You should first change its visibility to hidden or visible before deleting it.
          *
          * [Api set: ExcelApi 1.1]
          */
@@ -18648,7 +18648,8 @@ declare namespace Excel {
     /**
      *
      * Range represents a set of one or more contiguous cells such as a cell, a row, a column, block of cells, etc.
-     * To learn more about how ranges are used throughout the API, read {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-ranges | Work with ranges using the Excel JavaScript API} and {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-ranges-advanced | Work with ranges using the Excel JavaScript API (advanced)}.
+            To learn more about how ranges are used throughout the API, read {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-ranges | Work with ranges using the Excel JavaScript API}
+            and {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-ranges-advanced | Work with ranges using the Excel JavaScript API (advanced)}.
      *
      * [Api set: ExcelApi 1.1]
      */
@@ -18801,9 +18802,11 @@ declare namespace Excel {
         numberFormat: any[][];
         /**
          *
-         * Represents Excel's number format code for the given range, based on the language settings of the user.
-            When setting number format local to a range, the value argument can be either a single value (string) or a two-dimensional array. If the argument is a single value, it will be applied to all cells in the range.
-            Excel does not perform any language or format coercion when getting or setting the `numberFormatLocal` property. Any returned text uses the locally-formatted strings based on the language specified in the system settings.
+         * Represents Excel's number format code for the given range, based on the language settings of the user.​
+            When setting number format local to a range, the value argument can be either a single value (string) or a two-dimensional array.
+            If the argument is a single value, it will be applied to all cells in the range.​
+            Excel does not perform any language or format coercion when getting or setting the `numberFormatLocal` property.
+            Any returned text uses the locally-formatted strings based on the language specified in the system settings.
          *
          * [Api set: ExcelApi 1.7]
          */
@@ -18876,27 +18879,23 @@ declare namespace Excel {
         set(properties: Excel.Range): void;
         /**
          *
-         * Fills range from the current range to the destination range using the specified AutoFill logic. 
-         * The destination range can be null, or can extend the source either horizontally or vertically. 
-         * If the destination range is null, data is filled out based on the surrounding cells (which is the behavior when double-clicking the UI’s range fill handle). 
-         * Discontiguous ranges are not supported.
-         * 
-         * For more information, read {@link https://support.office.com/article/video-use-autofill-and-flash-fill-2e79a709-c814-4b27-8bc2-c4dc84d49464 | Use AutoFill and Flash Fill}.
+         * Fills range from the current range to the destination range.
+            The destination range must extend the source either horizontally or vertically.
+
+            For more information, read {@link https://support.office.com/article/video-use-autofill-and-flash-fill-2e79a709-c814-4b27-8bc2-c4dc84d49464 | Use AutoFill and Flash Fill}.
          *
          * [Api set: ExcelApi 1.9]
          *
-         * @param destinationRange The destination range to autofill.
+         * @param destinationRange The destination range to autofill. Discontiguous ranges are not supported.
          * @param autoFillType The type of autofill. Specifies how the destination range is to be filled, based on the contents of the current range. Default is "FillDefault".
          */
         autoFill(destinationRange: Range | string, autoFillType?: Excel.AutoFillType): void;
         /**
          *
-         * Fills range from the current range to the destination range using the specified AutoFill logic. 
-         * The destination range can be null, or can extend the source either horizontally or vertically. 
-         * If the destination range is null, data is filled out based on the surrounding cells (which is the behavior when double-clicking the UI’s range fill handle). 
-         * Discontiguous ranges are not supported.
-         * 
-         * For more information, read {@link https://support.office.com/article/video-use-autofill-and-flash-fill-2e79a709-c814-4b27-8bc2-c4dc84d49464 | Use AutoFill and Flash Fill}.
+         * Fills range from the current range to the destination range. Discontiguous ranges are not supported.
+            The destination range must extend the source either horizontally or vertically.
+
+            For more information, read {@link https://support.office.com/article/video-use-autofill-and-flash-fill-2e79a709-c814-4b27-8bc2-c4dc84d49464 | Use AutoFill and Flash Fill}.
          *
          * [Api set: ExcelApi 1.9]
          *
@@ -18949,11 +18948,11 @@ declare namespace Excel {
         /**
          *
          * Copies cell data or formatting from the source range or RangeAreas to the current range.
-            The destination range can be of different size than the source range or RangeAreas. The destination will be expanded automatically if it is smaller than the source.
+            The destination range can be a different size than the source range or RangeAreas. The destination will be expanded automatically if it is smaller than the source.
          *
          * [Api set: ExcelApi 1.9]
          *
-         * @param sourceRange The source range or RangeAreas to copy from. When the source RangeAreas has multiple ranges, it must in the outline form which can be created by removing full rows or columns from a rectangular range.
+         * @param sourceRange The source range or RangeAreas to copy from. When the source RangeAreas has multiple ranges, their form must be able to be created by removing full rows or columns from a rectangular range.
          * @param copyType The type of cell data or formatting to copy over. Default is "All".
          * @param skipBlanks True if to skip blank cells in the source range. Default is false.
          * @param transpose True if to transpose the cells in the destination range. Default is false.
@@ -18962,11 +18961,11 @@ declare namespace Excel {
         /**
          *
          * Copies cell data or formatting from the source range or RangeAreas to the current range.
-            The destination range can be of different size than the source range or RangeAreas. The destination will be expanded automatically if it is smaller than the source.
+            The destination range can be a different size than the source range or RangeAreas. The destination will be expanded automatically if it is smaller than the source.
          *
          * [Api set: ExcelApi 1.9]
          *
-         * @param sourceRange The source range or RangeAreas to copy from. When the source RangeAreas has multiple ranges, it must in the outline form which can be created by removing full rows or columns from a rectangular range.
+         * @param sourceRange The source range or RangeAreas to copy from. When the source RangeAreas has multiple ranges, their form must be able to be created by removing full rows or columns from a rectangular range.
          * @param copyType The type of cell data or formatting to copy over. Default is "All".
          * @param skipBlanks True if to skip blank cells in the source range. Default is false.
          * @param transpose True if to transpose the cells in the destination range. Default is false.
@@ -19494,7 +19493,7 @@ declare namespace Excel {
     /**
      *
      * RangeAreas represents a collection of one or more rectangular ranges in the same worksheet.
-     * To learn how to use discontinguous ranges, read {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-multiple-ranges | Work with multiple ranges simultaneously in Excel add-ins}.
+            To learn how to use discontinguous ranges, read {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-multiple-ranges | Work with multiple ranges simultaneously in Excel add-ins}.
      *
      * [Api set: ExcelApi 1.9]
      */
@@ -19646,11 +19645,11 @@ declare namespace Excel {
         /**
          *
          * Copies cell data or formatting from the source range or RangeAreas to the current RangeAreas.
-            The destination rangeAreas can be of different size than the source range or RangeAreas. The destination will be expanded automatically if it is smaller than the source.
+            The destination rangeAreas can be a different size than the source range or RangeAreas. The destination will be expanded automatically if it is smaller than the source.
          *
          * [Api set: ExcelApi 1.9]
          *
-         * @param sourceRange The source range or RangeAreas to copy from. When the source RangeAreas has multiple ranges, it must be in the outline form which can be created by removing full rows or columns from a rectangular range.
+         * @param sourceRange The source range or RangeAreas to copy from. When the source RangeAreas has multiple ranges, their form must able to be created by removing full rows or columns from a rectangular range.
          * @param copyType The type of cell data or formatting to copy over. Default is "All".
          * @param skipBlanks True if to skip blank cells in the source range or RangeAreas. Default is false.
          * @param transpose True if to transpose the cells in the destination RangeAreas. Default is false.
@@ -19659,11 +19658,11 @@ declare namespace Excel {
         /**
          *
          * Copies cell data or formatting from the source range or RangeAreas to the current RangeAreas.
-            The destination rangeAreas can be of different size than the source range or RangeAreas. The destination will be expanded automatically if it is smaller than the source.
+            The destination rangeAreas can be a different size than the source range or RangeAreas. The destination will be expanded automatically if it is smaller than the source.
          *
          * [Api set: ExcelApi 1.9]
          *
-         * @param sourceRange The source range or RangeAreas to copy from. When the source RangeAreas has multiple ranges, it must be in the outline form which can be created by removing full rows or columns from a rectangular range.
+         * @param sourceRange The source range or RangeAreas to copy from. When the source RangeAreas has multiple ranges, their form must able to be created by removing full rows or columns from a rectangular range.
          * @param copyType The type of cell data or formatting to copy over. Default is "All".
          * @param skipBlanks True if to skip blank cells in the source range or RangeAreas. Default is false.
          * @param transpose True if to transpose the cells in the destination RangeAreas. Default is false.
@@ -21329,7 +21328,7 @@ declare namespace Excel {
     /**
      *
      * Represents an Excel table.
-     * To learn more about the table object model, read {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-tables | Work with tables using the Excel JavaScript API}.
+            To learn more about the table object model, read {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-tables | Work with tables using the Excel JavaScript API}.
      *
      * [Api set: ExcelApi 1.1]
      */
@@ -21443,7 +21442,7 @@ declare namespace Excel {
         showTotals: boolean;
         /**
          *
-         * Constant value that represents the Table style. Possible values are: TableStyleLight1 thru TableStyleLight21, TableStyleMedium1 thru TableStyleMedium28, TableStyleStyleDark1 thru TableStyleStyleDark11. A custom user-defined style present in the workbook can also be specified.
+         * Constant value that represents the Table style. Possible values are: "TableStyleLight1" through "TableStyleLight21", "TableStyleMedium1" through "TableStyleMedium28", "TableStyleStyleDark1" through "TableStyleStyleDark11". A custom user-defined style present in the workbook can also be specified.
          *
          * [Api set: ExcelApi 1.1]
          */
@@ -21939,7 +21938,7 @@ declare namespace Excel {
     /**
      *
      * Represents the data validation applied to the current range.
-     * To learn more about the data validation object model, read {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-data-validation | Add data validation to Excel ranges}.
+            To learn more about the data validation object model, read {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-data-validation | Add data validation to Excel ranges}.
      *
      * [Api set: ExcelApi 1.8]
      */
@@ -21962,8 +21961,7 @@ declare namespace Excel {
         ignoreBlanks: boolean;
         /**
          *
-         * Prompt when users select a cell. 
-         * The `DataValidationPrompt` object must be set as a JSON object (use `x.prompt = {...}` instead of `x.prompt.message = ...`).
+         * Prompt when users select a cell.
          *
          * [Api set: ExcelApi 1.8]
          */
@@ -23102,7 +23100,7 @@ declare namespace Excel {
     /**
      *
      * Represents a chart object in a workbook.
-     * To learn more about the Chart object model, see {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-charts | Work with charts using the Excel JavaScript API}.
+            To learn more about the Chart object model, see {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-charts | Work with charts using the Excel JavaScript API}.
      *
      * [Api set: ExcelApi 1.1]
      */
@@ -25113,7 +25111,7 @@ declare namespace Excel {
         /**
          *
          * Represents the vertical alignment of chart data label. See Excel.ChartTextVerticalAlignment for details.
-            This property is valid only when TextOrientation of data label is 90, -90 or 180.
+            This property is valid only when TextOrientation of data label is -90, 90, or 180.
          *
          * [Api set: ExcelApi 1.8]
          */
@@ -25199,7 +25197,7 @@ declare namespace Excel {
         /**
          *
          * Represents the horizontal alignment for chart data label. See Excel.ChartTextHorizontalAlignment for details.
-            This property is valid only when TextOrientation of data label is 90, -90 or 180.
+            This property is valid only when TextOrientation of data label is -90, 90, or 180.
          *
          * [Api set: ExcelApi 1.8]
          */
@@ -27154,7 +27152,7 @@ declare namespace Excel {
         /**
          *
          * Represents the horizontal alignment for chart trendline label. See Excel.ChartTextHorizontalAlignment for details.
-            This property is valid only when TextOrientation of trendline label is 90, -90 or 180.
+            This property is valid only when TextOrientation of trendline label is -90, 90, or 180.
          *
          * [Api set: ExcelApi 1.8]
          */
@@ -28412,7 +28410,7 @@ declare namespace Excel {
     /**
      *
      * Represents an Excel PivotTable.
-     * To learn more about the PivotTable object model, read {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-pivottables | Work with PivotTables using the Excel JavaScript API}.
+            To learn more about the PivotTable object model, read {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-pivottables | Work with PivotTables using the Excel JavaScript API}.
      *
      * [Api set: ExcelApi 1.3]
      */
@@ -28732,7 +28730,7 @@ declare namespace Excel {
     }
     /**
      *
-     * Represents a collection of all the PivotTables that are part of the workbook or worksheet.
+     * Represents a collection of all the PivotHierarchies that are part of the PivotTable.
      *
      * [Api set: ExcelApi 1.8]
      */
@@ -28754,7 +28752,7 @@ declare namespace Excel {
          *
          * [Api set: ExcelApi 1.8]
          *
-         * @param name Name of the PivotTable to be retrieved.
+         * @param name Name of the PivotHierarchy to be retrieved.
          */
         getItem(name: string): Excel.PivotHierarchy;
         /**
@@ -28792,7 +28790,7 @@ declare namespace Excel {
     }
     /**
      *
-     * Represents a single pivot hierarchy within a PivotTable.
+     * Represents the Excel PivotHierarchy.
      *
      * [Api set: ExcelApi 1.8]
      */
@@ -28893,7 +28891,7 @@ declare namespace Excel {
          *
          * [Api set: ExcelApi 1.8]
          *
-         * @param name Name of the PivotTable to be retrieved.
+         * @param name Name of the RowColumnPivotHierarchy to be retrieved.
          */
         getItem(name: string): Excel.RowColumnPivotHierarchy;
         /**
@@ -29053,7 +29051,7 @@ declare namespace Excel {
          *
          * [Api set: ExcelApi 1.8]
          *
-         * @param name Name of the PivotTable to be retrieved.
+         * @param name Name of the FilterPivotHierarchy to be retrieved.
          */
         getItem(name: string): Excel.FilterPivotHierarchy;
         /**
@@ -29219,7 +29217,7 @@ declare namespace Excel {
          *
          * [Api set: ExcelApi 1.8]
          *
-         * @param name Name of the PivotTable to be retrieved.
+         * @param name Name of the DataPivotHierarchy to be retrieved.
          */
         getItem(name: string): Excel.DataPivotHierarchy;
         /**
@@ -29396,7 +29394,7 @@ declare namespace Excel {
     }
     /**
      *
-     * A collection of PivotField objects within a PivotHierarchy.
+     * Represents a collection of all the PivotFields that are part of a PivotTable's hierarchy.
      *
      * [Api set: ExcelApi 1.8]
      */
@@ -29418,7 +29416,7 @@ declare namespace Excel {
          *
          * [Api set: ExcelApi 1.8]
          *
-         * @param name Name of the PivotTable to be retrieved.
+         * @param name Name of the PivotField to be retrieved.
          */
         getItem(name: string): Excel.PivotField;
         /**
@@ -29456,7 +29454,7 @@ declare namespace Excel {
     }
     /**
      *
-     * Represents a single pivot field within a PivotHierarchy.
+     * Represents the Excel PivotField.
      *
      * [Api set: ExcelApi 1.8]
      */
@@ -29465,7 +29463,7 @@ declare namespace Excel {
         context: RequestContext; 
         /**
          *
-         * Returns the PivotItems that comprise with the PivotField.
+         * Returns the PivotFields associated with the PivotField.
          *
          * [Api set: ExcelApi 1.8]
          */
@@ -29580,7 +29578,7 @@ declare namespace Excel {
     }
     /**
      *
-     * Represents a collection of all the PivotItem objects related to their parent PivotField.
+     * Represents a collection of all the PivotItems related to their parent PivotField.
      *
      * [Api set: ExcelApi 1.8]
      */
@@ -29591,7 +29589,7 @@ declare namespace Excel {
         readonly items: Excel.PivotItem[];
         /**
          *
-         * Gets the number of pivot items in the collection.
+         * Gets the number of PivotItems in the collection.
          *
          * [Api set: ExcelApi 1.8]
          */
@@ -29602,7 +29600,7 @@ declare namespace Excel {
          *
          * [Api set: ExcelApi 1.8]
          *
-         * @param name Name of the PivotTable to be retrieved.
+         * @param name Name of the PivotItem to be retrieved.
          */
         getItem(name: string): Excel.PivotItem;
         /**
@@ -30384,7 +30382,7 @@ declare namespace Excel {
     /**
      *
      * An object encapsulating a conditional format's range, format, rule, and other properties.
-     * To learn more about the conditional formatting object model, read {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-conditional-formatting | Apply conditional formatting to Excel ranges}.
+            To learn more about the conditional formatting object model, read {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-conditional-formatting | Apply conditional formatting to Excel ranges}.
      *
      * [Api set: ExcelApi 1.6]
      */
@@ -30658,8 +30656,8 @@ declare namespace Excel {
         barDirection: Excel.ConditionalDataBarDirection | "Context" | "LeftToRight" | "RightToLeft";
         /**
          *
-         * The rule for what consistutes the lower bound (and how to calculate it, if applicable) for a data bar. 
-         * The `ConditionalDataBarRule` object must be set as a JSON object (use `x.lowerBoundRule = {...}` instead of `x.lowerBoundRule.formula = ...`).
+         * The rule for what consistutes the lower bound (and how to calculate it, if applicable) for a data bar.
+            The `ConditionalDataBarRule` object must be set as a JSON object (use `x.lowerBoundRule = {...}` instead of `x.lowerBoundRule.formula = ...`).
          *
          * [Api set: ExcelApi 1.6]
          */
@@ -30673,8 +30671,8 @@ declare namespace Excel {
         showDataBarOnly: boolean;
         /**
          *
-         * The rule for what constitutes the upper bound (and how to calculate it, if applicable) for a data bar. 
-         * The `ConditionalDataBarRule` object must be set as a JSON object (use `x.upperBoundRule = {...}` instead of `x.upperBoundRule.formula = ...`).
+         * The rule for what constitutes the upper bound (and how to calculate it, if applicable) for a data bar.
+            The `ConditionalDataBarRule` object must be set as a JSON object (use `x.upperBoundRule = {...}` instead of `x.upperBoundRule.formula = ...`).
          *
          * [Api set: ExcelApi 1.6]
          */
@@ -32298,6 +32296,9 @@ declare namespace Excel {
         toJSON(): Excel.Interfaces.StyleCollectionData;
     }
     /**
+     *
+     * Represents layout and print settings that are not dependent any printer-specific implementation. These settings include margins, orientation, page numbering, title rows, and print area.
+     *
      * [Api set: ExcelApi 1.9]
      */
     class PageLayout extends OfficeExtension.ClientObject {
@@ -32439,7 +32440,7 @@ declare namespace Excel {
         /**
          *
          * Gets or sets the worksheet's print zoom options.
-         * The `PageLayoutZoomOptions` object must be set as a JSON object (use `x.zoom = {...}` instead of `x.zoom.scale = ...`).
+            The `PageLayoutZoomOptions` object must be set as a JSON object (use `x.zoom = {...}` instead of `x.zoom.scale = ...`).
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -33175,7 +33176,7 @@ declare namespace Excel {
     /**
      *
      * Represents a generic shape object in the worksheet. A shape could be a geometric shape, a line, a group of shapes, etc.
-     * To learn more about the shape object model, read {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-shapes | Work with shapes using the Excel JavaScript API}.
+            To learn more about the shape object model, read {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-shapes | Work with shapes using the Excel JavaScript API}.
      *
      * [Api set: ExcelApi 1.9]
      */
@@ -36199,7 +36200,13 @@ declare namespace Excel {
          * WorksheetSingleClicked represents the type of event registered on worksheet, and occurs when cell is left-clicked/tapped.
          *
          */
-        worksheetSingleClicked = "WorksheetSingleClicked"
+        worksheetSingleClicked = "WorksheetSingleClicked",
+        /**
+         *
+         * WorksheetRowHiddenChanged represents the type of event registered on worksheet, and occurs when a row's hidden state is changed.
+         *
+         */
+        worksheetRowHiddenChanged = "WorksheetRowHiddenChanged"
     }
     /**
      * [Api set: ExcelApi 1.7]
@@ -40964,6 +40971,7 @@ declare namespace Excel {
         itemNotFound = "ItemNotFound",
         nonBlankCellOffSheet = "NonBlankCellOffSheet",
         notImplemented = "NotImplemented",
+        rangeExceedsLimit = "RangeExceedsLimit",
         unsupportedOperation = "UnsupportedOperation",
         invalidOperationInCellEditMode = "InvalidOperationInCellEditMode"
     }
@@ -41208,9 +41216,11 @@ declare namespace Excel {
             numberFormat?: any[][];
             /**
              *
-             * Represents Excel's number format code for the given range, based on the language settings of the user.
-                When setting number format local to a range, the value argument can be either a single value (string) or a two-dimensional array. If the argument is a single value, it will be applied to all cells in the range.
-                Excel does not perform any language or format coercion when getting or setting the `numberFormatLocal` property. Any returned text uses the locally-formatted strings based on the language specified in the system settings.
+             * Represents Excel's number format code for the given range, based on the language settings of the user.​
+            When setting number format local to a range, the value argument can be either a single value (string) or a two-dimensional array.
+            If the argument is a single value, it will be applied to all cells in the range.​
+            Excel does not perform any language or format coercion when getting or setting the `numberFormatLocal` property.
+            Any returned text uses the locally-formatted strings based on the language specified in the system settings.
              *
              * [Api set: ExcelApi 1.7]
              */
@@ -41422,7 +41432,7 @@ declare namespace Excel {
             showTotals?: boolean;
             /**
              *
-             * Constant value that represents the Table style. Possible values are: TableStyleLight1 thru TableStyleLight21, TableStyleMedium1 thru TableStyleMedium28, TableStyleStyleDark1 thru TableStyleStyleDark11. A custom user-defined style present in the workbook can also be specified.
+             * Constant value that represents the Table style. Possible values are: "TableStyleLight1" through "TableStyleLight21", "TableStyleMedium1" through "TableStyleMedium28", "TableStyleStyleDark1" through "TableStyleStyleDark11". A custom user-defined style present in the workbook can also be specified.
              *
              * [Api set: ExcelApi 1.1]
              */
@@ -42819,7 +42829,7 @@ declare namespace Excel {
             /**
              *
              * Represents the vertical alignment of chart data label. See Excel.ChartTextVerticalAlignment for details.
-            This property is valid only when TextOrientation of data label is 90, -90 or 180.
+            This property is valid only when TextOrientation of data label is -90, 90, or 180.
              *
              * [Api set: ExcelApi 1.8]
              */
@@ -42851,7 +42861,7 @@ declare namespace Excel {
             /**
              *
              * Represents the horizontal alignment for chart data label. See Excel.ChartTextHorizontalAlignment for details.
-            This property is valid only when TextOrientation of data label is 90, -90 or 180.
+            This property is valid only when TextOrientation of data label is -90, 90, or 180.
              *
              * [Api set: ExcelApi 1.8]
              */
@@ -43586,7 +43596,7 @@ declare namespace Excel {
             /**
              *
              * Represents the horizontal alignment for chart trendline label. See Excel.ChartTextHorizontalAlignment for details.
-            This property is valid only when TextOrientation of trendline label is 90, -90 or 180.
+            This property is valid only when TextOrientation of trendline label is -90, 90, or 180.
              *
              * [Api set: ExcelApi 1.8]
              */
@@ -44256,6 +44266,7 @@ declare namespace Excel {
             /**
              *
              * The rule for what consistutes the lower bound (and how to calculate it, if applicable) for a data bar.
+            The `ConditionalDataBarRule` object must be set as a JSON object (use `x.lowerBoundRule = {...}` instead of `x.lowerBoundRule.formula = ...`).
              *
              * [Api set: ExcelApi 1.6]
              */
@@ -44270,6 +44281,7 @@ declare namespace Excel {
             /**
              *
              * The rule for what constitutes the upper bound (and how to calculate it, if applicable) for a data bar.
+            The `ConditionalDataBarRule` object must be set as a JSON object (use `x.upperBoundRule = {...}` instead of `x.upperBoundRule.formula = ...`).
              *
              * [Api set: ExcelApi 1.6]
              */
@@ -44902,6 +44914,7 @@ declare namespace Excel {
             /**
              *
              * Gets or sets the worksheet's print zoom options.
+            The `PageLayoutZoomOptions` object must be set as a JSON object (use `x.zoom = {...}` instead of `x.zoom.scale = ...`).
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -45896,9 +45909,11 @@ declare namespace Excel {
             numberFormat?: any[][];
             /**
              *
-             * Represents Excel's number format code for the given range, based on the language settings of the user.
-                When setting number format local to a range, the value argument can be either a single value (string) or a two-dimensional array. If the argument is a single value, it will be applied to all cells in the range.
-                Excel does not perform any language or format coercion when getting or setting the `numberFormatLocal` property. Any returned text uses the locally-formatted strings based on the language specified in the system settings.
+             * Represents Excel's number format code for the given range, based on the language settings of the user.​
+            When setting number format local to a range, the value argument can be either a single value (string) or a two-dimensional array.
+            If the argument is a single value, it will be applied to all cells in the range.​
+            Excel does not perform any language or format coercion when getting or setting the `numberFormatLocal` property.
+            Any returned text uses the locally-formatted strings based on the language specified in the system settings.
              *
              * [Api set: ExcelApi 1.7]
              */
@@ -46361,7 +46376,7 @@ declare namespace Excel {
             showTotals?: boolean;
             /**
              *
-             * Constant value that represents the Table style. Possible values are: TableStyleLight1 thru TableStyleLight21, TableStyleMedium1 thru TableStyleMedium28, TableStyleStyleDark1 thru TableStyleStyleDark11. A custom user-defined style present in the workbook can also be specified.
+             * Constant value that represents the Table style. Possible values are: "TableStyleLight1" through "TableStyleLight21", "TableStyleMedium1" through "TableStyleMedium28", "TableStyleStyleDark1" through "TableStyleStyleDark11". A custom user-defined style present in the workbook can also be specified.
              *
              * [Api set: ExcelApi 1.1]
              */
@@ -47909,7 +47924,7 @@ declare namespace Excel {
             /**
              *
              * Represents the vertical alignment of chart data label. See Excel.ChartTextVerticalAlignment for details.
-            This property is valid only when TextOrientation of data label is 90, -90 or 180.
+            This property is valid only when TextOrientation of data label is -90, 90, or 180.
              *
              * [Api set: ExcelApi 1.8]
              */
@@ -47948,7 +47963,7 @@ declare namespace Excel {
             /**
              *
              * Represents the horizontal alignment for chart data label. See Excel.ChartTextHorizontalAlignment for details.
-            This property is valid only when TextOrientation of data label is 90, -90 or 180.
+            This property is valid only when TextOrientation of data label is -90, 90, or 180.
              *
              * [Api set: ExcelApi 1.8]
              */
@@ -48753,7 +48768,7 @@ declare namespace Excel {
             /**
              *
              * Represents the horizontal alignment for chart trendline label. See Excel.ChartTextHorizontalAlignment for details.
-            This property is valid only when TextOrientation of trendline label is 90, -90 or 180.
+            This property is valid only when TextOrientation of trendline label is -90, 90, or 180.
              *
              * [Api set: ExcelApi 1.8]
              */
@@ -49666,6 +49681,7 @@ declare namespace Excel {
             /**
              *
              * The rule for what consistutes the lower bound (and how to calculate it, if applicable) for a data bar.
+            The `ConditionalDataBarRule` object must be set as a JSON object (use `x.lowerBoundRule = {...}` instead of `x.lowerBoundRule.formula = ...`).
              *
              * [Api set: ExcelApi 1.6]
              */
@@ -49680,6 +49696,7 @@ declare namespace Excel {
             /**
              *
              * The rule for what constitutes the upper bound (and how to calculate it, if applicable) for a data bar.
+            The `ConditionalDataBarRule` object must be set as a JSON object (use `x.upperBoundRule = {...}` instead of `x.upperBoundRule.formula = ...`).
              *
              * [Api set: ExcelApi 1.6]
              */
@@ -50312,6 +50329,7 @@ declare namespace Excel {
             /**
              *
              * Gets or sets the worksheet's print zoom options.
+            The `PageLayoutZoomOptions` object must be set as a JSON object (use `x.zoom = {...}` instead of `x.zoom.scale = ...`).
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -51040,6 +51058,7 @@ declare namespace Excel {
         /**
          *
          * Workbook is the top level object which contains related workbook objects such as worksheets, tables, ranges, etc.
+            To learn more about the workbook object model, read {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-workbooks | Work with workbooks using the Excel JavaScript API}.
          *
          * [Api set: ExcelApi 1.1]
          */
@@ -51159,6 +51178,7 @@ declare namespace Excel {
         /**
          *
          * An Excel worksheet is a grid of cells. It can contain data, tables, charts, etc.
+            To learn more about the worksheet object model, read {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-worksheets | Work with worksheets using the Excel JavaScript API}.
          *
          * [Api set: ExcelApi 1.1]
          */
@@ -51422,6 +51442,8 @@ declare namespace Excel {
         /**
          *
          * Range represents a set of one or more contiguous cells such as a cell, a row, a column, block of cells, etc.
+            To learn more about how ranges are used throughout the API, read {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-ranges | Work with ranges using the Excel JavaScript API}
+            and {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-ranges-advanced | Work with ranges using the Excel JavaScript API (advanced)}.
          *
          * [Api set: ExcelApi 1.1]
          */
@@ -51559,9 +51581,11 @@ declare namespace Excel {
             numberFormat?: boolean;
             /**
              *
-             * Represents Excel's number format code for the given range, based on the language settings of the user.
-                When setting number format local to a range, the value argument can be either a single value (string) or a two-dimensional array. If the argument is a single value, it will be applied to all cells in the range.
-                Excel does not perform any language or format coercion when getting or setting the `numberFormatLocal` property. Any returned text uses the locally-formatted strings based on the language specified in the system settings.
+             * Represents Excel's number format code for the given range, based on the language settings of the user.​
+            When setting number format local to a range, the value argument can be either a single value (string) or a two-dimensional array.
+            If the argument is a single value, it will be applied to all cells in the range.​
+            Excel does not perform any language or format coercion when getting or setting the `numberFormatLocal` property.
+            Any returned text uses the locally-formatted strings based on the language specified in the system settings.
              *
              * [Api set: ExcelApi 1.7]
              */
@@ -51622,6 +51646,7 @@ declare namespace Excel {
         /**
          *
          * RangeAreas represents a collection of one or more rectangular ranges in the same worksheet.
+            To learn how to use discontinguous ranges, read {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-multiple-ranges | Work with multiple ranges simultaneously in Excel add-ins}.
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -52260,7 +52285,7 @@ declare namespace Excel {
             showTotals?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: Constant value that represents the Table style. Possible values are: TableStyleLight1 thru TableStyleLight21, TableStyleMedium1 thru TableStyleMedium28, TableStyleStyleDark1 thru TableStyleStyleDark11. A custom user-defined style present in the workbook can also be specified.
+             * For EACH ITEM in the collection: Constant value that represents the Table style. Possible values are: "TableStyleLight1" through "TableStyleLight21", "TableStyleMedium1" through "TableStyleMedium28", "TableStyleStyleDark1" through "TableStyleStyleDark11". A custom user-defined style present in the workbook can also be specified.
              *
              * [Api set: ExcelApi 1.1]
              */
@@ -52381,7 +52406,7 @@ declare namespace Excel {
             showTotals?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: Constant value that represents the Table style. Possible values are: TableStyleLight1 thru TableStyleLight21, TableStyleMedium1 thru TableStyleMedium28, TableStyleStyleDark1 thru TableStyleStyleDark11. A custom user-defined style present in the workbook can also be specified.
+             * For EACH ITEM in the collection: Constant value that represents the Table style. Possible values are: "TableStyleLight1" through "TableStyleLight21", "TableStyleMedium1" through "TableStyleMedium28", "TableStyleStyleDark1" through "TableStyleStyleDark11". A custom user-defined style present in the workbook can also be specified.
              *
              * [Api set: ExcelApi 1.1]
              */
@@ -52390,6 +52415,7 @@ declare namespace Excel {
         /**
          *
          * Represents an Excel table.
+            To learn more about the table object model, read {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-tables | Work with tables using the Excel JavaScript API}.
          *
          * [Api set: ExcelApi 1.1]
          */
@@ -52502,7 +52528,7 @@ declare namespace Excel {
             showTotals?: boolean;
             /**
              *
-             * Constant value that represents the Table style. Possible values are: TableStyleLight1 thru TableStyleLight21, TableStyleMedium1 thru TableStyleMedium28, TableStyleStyleDark1 thru TableStyleStyleDark11. A custom user-defined style present in the workbook can also be specified.
+             * Constant value that represents the Table style. Possible values are: "TableStyleLight1" through "TableStyleLight21", "TableStyleMedium1" through "TableStyleMedium28", "TableStyleStyleDark1" through "TableStyleStyleDark11". A custom user-defined style present in the workbook can also be specified.
              *
              * [Api set: ExcelApi 1.1]
              */
@@ -52655,6 +52681,7 @@ declare namespace Excel {
         /**
          *
          * Represents the data validation applied to the current range.
+            To learn more about the data validation object model, read {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-data-validation | Add data validation to Excel ranges}.
          *
          * [Api set: ExcelApi 1.8]
          */
@@ -53288,6 +53315,7 @@ declare namespace Excel {
         /**
          *
          * Represents a chart object in a workbook.
+            To learn more about the Chart object model, see {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-charts | Work with charts using the Excel JavaScript API}.
          *
          * [Api set: ExcelApi 1.1]
          */
@@ -54866,7 +54894,7 @@ declare namespace Excel {
             /**
              *
              * Represents the vertical alignment of chart data label. See Excel.ChartTextVerticalAlignment for details.
-            This property is valid only when TextOrientation of data label is 90, -90 or 180.
+            This property is valid only when TextOrientation of data label is -90, 90, or 180.
              *
              * [Api set: ExcelApi 1.8]
              */
@@ -54911,7 +54939,7 @@ declare namespace Excel {
             /**
              *
              * Represents the horizontal alignment for chart data label. See Excel.ChartTextHorizontalAlignment for details.
-            This property is valid only when TextOrientation of data label is 90, -90 or 180.
+            This property is valid only when TextOrientation of data label is -90, 90, or 180.
              *
              * [Api set: ExcelApi 1.8]
              */
@@ -55958,7 +55986,7 @@ declare namespace Excel {
             /**
              *
              * Represents the horizontal alignment for chart trendline label. See Excel.ChartTextHorizontalAlignment for details.
-            This property is valid only when TextOrientation of trendline label is 90, -90 or 180.
+            This property is valid only when TextOrientation of trendline label is -90, 90, or 180.
              *
              * [Api set: ExcelApi 1.8]
              */
@@ -56341,6 +56369,7 @@ declare namespace Excel {
         /**
          *
          * Represents an Excel PivotTable.
+            To learn more about the PivotTable object model, read {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-pivottables | Work with PivotTables using the Excel JavaScript API}.
          *
          * [Api set: ExcelApi 1.3]
          */
@@ -56442,7 +56471,7 @@ declare namespace Excel {
         }
         /**
          *
-         * Represents a collection of all the PivotTables that are part of the workbook or worksheet.
+         * Represents a collection of all the PivotHierarchies that are part of the PivotTable.
          *
          * [Api set: ExcelApi 1.8]
          */
@@ -56738,7 +56767,7 @@ declare namespace Excel {
         }
         /**
          *
-         * Represents a collection of all the PivotTables that are part of the workbook or worksheet.
+         * Represents a collection of all the PivotFields that are part of a PivotTable's hierarchy.
          *
          * [Api set: ExcelApi 1.8]
          */
@@ -56812,7 +56841,7 @@ declare namespace Excel {
         }
         /**
          *
-         * Represents a collection of all the Pivot Items related to their parent PivotField.
+         * Represents a collection of all the PivotItems related to their parent PivotField.
          *
          * [Api set: ExcelApi 1.8]
          */
@@ -57193,6 +57222,7 @@ declare namespace Excel {
         /**
          *
          * An object encapsulating a conditional format's range, format, rule, and other properties.
+            To learn more about the conditional formatting object model, read {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-conditional-formatting | Apply conditional formatting to Excel ranges}.
          *
          * [Api set: ExcelApi 1.6]
          */
@@ -57397,6 +57427,7 @@ declare namespace Excel {
             /**
              *
              * The rule for what consistutes the lower bound (and how to calculate it, if applicable) for a data bar.
+            The `ConditionalDataBarRule` object must be set as a JSON object (use `x.lowerBoundRule = {...}` instead of `x.lowerBoundRule.formula = ...`).
              *
              * [Api set: ExcelApi 1.6]
              */
@@ -57411,6 +57442,7 @@ declare namespace Excel {
             /**
              *
              * The rule for what constitutes the upper bound (and how to calculate it, if applicable) for a data bar.
+            The `ConditionalDataBarRule` object must be set as a JSON object (use `x.upperBoundRule = {...}` instead of `x.upperBoundRule.formula = ...`).
              *
              * [Api set: ExcelApi 1.6]
              */
@@ -58188,6 +58220,9 @@ declare namespace Excel {
             wrapText?: boolean;
         }
         /**
+         *
+         * Represents layout and print settings that are not dependent any printer-specific implementation. These settings include margins, orientation, page numbering, title rows, and print area.
+         *
          * [Api set: ExcelApi 1.9]
          */
         interface PageLayoutLoadOptions {
@@ -58328,6 +58363,7 @@ declare namespace Excel {
             /**
              *
              * Gets or sets the worksheet's print zoom options.
+            The `PageLayoutZoomOptions` object must be set as a JSON object (use `x.zoom = {...}` instead of `x.zoom.scale = ...`).
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -58619,9 +58655,11 @@ declare namespace Excel {
             numberFormat?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: Represents Excel's number format code for the given range, based on the language settings of the user.
-                When setting number format local to a range, the value argument can be either a single value (string) or a two-dimensional array. If the argument is a single value, it will be applied to all cells in the range.
-                Excel does not perform any language or format coercion when getting or setting the `numberFormatLocal` property. Any returned text uses the locally-formatted strings based on the language specified in the system settings.
+             * For EACH ITEM in the collection: Represents Excel's number format code for the given range, based on the language settings of the user.​
+            When setting number format local to a range, the value argument can be either a single value (string) or a two-dimensional array.
+            If the argument is a single value, it will be applied to all cells in the range.​
+            Excel does not perform any language or format coercion when getting or setting the `numberFormatLocal` property.
+            Any returned text uses the locally-formatted strings based on the language specified in the system settings.
              *
              * [Api set: ExcelApi 1.7]
              */
@@ -58863,6 +58901,7 @@ declare namespace Excel {
         /**
          *
          * Represents a generic shape object in the worksheet. A shape could be a geometric shape, a line, a group of shapes, etc.
+            To learn more about the shape object model, read {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-shapes | Work with shapes using the Excel JavaScript API}.
          *
          * [Api set: ExcelApi 1.9]
          */
