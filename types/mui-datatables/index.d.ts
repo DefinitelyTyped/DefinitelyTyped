@@ -124,6 +124,7 @@ export interface MUIDataTableColumnOptions {
     setCellProps?: (cellValue: string, rowIndex: number, columnIndex: number) => object;
     sort?: boolean;
     sortDirection?: 'asc' | 'desc';
+    viewColumns?: boolean;
 }
 
 export interface MUIDataTableOptions {
