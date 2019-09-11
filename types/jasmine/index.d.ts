@@ -194,6 +194,20 @@ declare namespace jasmine {
 
     type DeepPartial<T> = T extends object ? { [K in keyof T]?: DeepPartial<T[K]>; } : T;
 
+    /**
+     * Recursively traverses the type and normalizes some entities to later correctly compare type with matchers.
+     */
+    type NormalizedType<TUnion> = TUnion extends infer T
+        ? T extends string ? string // string is ArrayLike
+        : T extends ArrayLike<infer TElement> ? ArrayLikeNormalized<TElement>
+        : T extends object ? { [K in keyof T]: NormalizedType<T[K]> }
+        : T
+        : never;
+
+    // A trick to recursively use `DeepMatch<T>`.
+    // See detailed explanation here: https://github.com/Microsoft/TypeScript/issues/3496#issuecomment-128553540.
+    interface ArrayLikeNormalized<TElement> extends ArrayLike<NormalizedType<TElement>> { }
+
     type DeepMatch<T> =
         T
         | AsymmetricMatcher<T>
@@ -546,7 +560,7 @@ declare namespace jasmine {
          * @example
          * expect(bigObject).toEqual({ "foo": ['bar', 'baz'] });
          */
-        toEqual(expected: DeepMatch<T>, expectationFailOutput?: any): boolean;
+        toEqual(expected: DeepMatch<NormalizedType<T>>, expectationFailOutput?: any): boolean;
 
         /**
          * Expect the actual value to match a regular expression.
@@ -603,7 +617,7 @@ declare namespace jasmine {
     }
 
     interface ArrayLikeMatchers<T> extends Matchers<ArrayLike<T>> {
-        toContain(expected: DeepMatch<T>, expectationFailOutput?: any): boolean;
+        toContain(expected: DeepMatch<NormalizedType<T>>, expectationFailOutput?: any): boolean;
 
         /**
          * Add some context for an expect.
@@ -638,13 +652,13 @@ declare namespace jasmine {
          * Expect a promise to be resolved to a value equal to the expected, using deep equality comparison.
          * @param expected - Value that the promise is expected to resolve to.
          */
-        toBeResolvedTo(expected: DeepMatch<T>): PromiseLike<void>;
+        toBeResolvedTo(expected: DeepMatch<NormalizedType<T>>): PromiseLike<void>;
 
         /**
          * Expect a promise to be rejected with a value equal to the expected, using deep equality comparison.
          * @param expected - Value that the promise is expected to be rejected with.
          */
-        toBeRejectedWith(expected: DeepMatch<U>): PromiseLike<void>;
+        toBeRejectedWith(expected: DeepMatch<NormalizedType<U>>): PromiseLike<void>;
 
         /**
          * Add some context for an expect.

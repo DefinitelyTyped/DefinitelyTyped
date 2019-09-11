@@ -1007,14 +1007,11 @@ describe("jasmine.objectContaining", () => {
     it('should work when string value is used as a type ', () => {
         const foo: { bar: 'bar', baz: 'baz' } | undefined = {} as any;
 
-        // It requires type specification, as by type is generalized.
+        expect(foo).toEqual(jasmine.objectContaining({ bar: 'bar', baz: 'baz' }));
+        expect(foo).toEqual(jasmine.objectContaining({ bar: '' }));
         // If it's TS 3.5+ you can use `as const` instead.
         expect(foo).toEqual(jasmine.objectContaining({ bar: 'bar' as 'bar', baz: 'baz' as 'baz' }));
         expect(foo).toEqual(jasmine.objectContaining({ bar: 'bar' as 'bar' }));
-
-        // This, unfortunately, fails due to type generalization.
-        // expect(foo).toEqual(jasmine.objectContaining({ bar: 'bar', baz: 'baz' })); // Fails in TS 3.0+ due to generalization.
-        expect(foo).toEqual(jasmine.objectContaining({ bar: '' })); // $ExpectError
     });
 
     describe("when used with a spy", () => {
@@ -1611,6 +1608,8 @@ describe('Deeply nested type with unions', () => {
 
     const obj: TestComplexType = {} as any;
     const arr: TestComplexType[] = [];
+    const spyObj: jasmine.Spy = {} as any;
+    const spyArr: jasmine.Spy = {} as any;
 
     it("jasmine.objectContaining()", () => {
         expect(obj).toEqual(jasmine.objectContaining({ a: "value" }));
@@ -1656,7 +1655,7 @@ describe('Deeply nested type with unions', () => {
         expect(obj).toEqual(null); // $ExpectError
         expect(obj).toEqual({ inner: { a: "foo", b: "wrong" }}); // $ExpectError
         expect(obj).toEqual({ inner: { inner2: { a: 12, z: false } } }); // $ExpectError
-        // expect(obj).toEqual({ a: "foo", b: "bar", c: "wrong-type" }); // Fails on TS 3.4+
+        // expect(obj).toEqual({ a: "foo", b: "bar", c: "wrong-type" }); // Fails on TS 3.4+ only.
     });
 
     it("jasmine.arrayContaining()", () => {
@@ -1666,8 +1665,55 @@ describe('Deeply nested type with unions', () => {
         expect(arr).toEqual(jasmine.arrayContaining([jasmine.objectContaining({ inner: { c: true } })]));
         expect(arr).toEqual(jasmine.arrayContaining([jasmine.objectContaining({ inner: { c: jasmine.anything() } })]));
         expect(arr).toEqual(jasmine.arrayContaining([jasmine.objectContaining({ innerArray: [true] })]));
+        expect(arr).toEqual(jasmine.arrayContaining([jasmine.objectContaining({ innerArray: jasmine.arrayContaining([42]) })]));
+        expect(arr).toEqual(jasmine.arrayContaining([jasmine.objectContaining({ innerArray: jasmine.arrayContaining([false]) })]));
 
         expect(arr).toEqual(jasmine.arrayContaining([jasmine.objectContaining({ inner: { c: 42 } })])); // $ExpectError
+        // expect(arr).toEqual(jasmine.arrayContaining([jasmine.objectContaining({ innerArray: jasmine.arrayContaining(["foo"]) })])); // Fails on TS 3.0+
+    });
+
+    it("toContain", () => {
+        expect(arr).toContain(jasmine.objectContaining({ a: "foo" }));
+        expect(arr).toContain(jasmine.objectContaining({ b: "bar" }));
+        expect(arr).toContain(jasmine.objectContaining({ innerArray: jasmine.arrayContaining([true]) }));
+        expect(arr).toContain(jasmine.objectContaining({ innerArray: jasmine.arrayContaining([42]) }));
+        expect(arr).toContain(jasmine.objectContaining({ inner: { inner2: { z: 22 } } }));
+        expect(arr).toContain(jasmine.objectContaining({ inner: { inner2: { z: "twenty two" } } }));
+        // expect(arr).toContain(jasmine.objectContaining({ innerArray: jasmine.arrayContaining(["foo"]) })); // Fails on TS 3.0+
+        expect(arr).toContain(jasmine.objectContaining({ b: false })); // $ExpectError
+        expect(arr).toContain(jasmine.objectContaining({ inner: { inner2: { z: false } } })); // $ExpectError
+    });
+
+    it("spy", () => {
+        expect(spyObj).toHaveBeenCalledWith(jasmine.objectContaining({ a: "value" }));
+        expect(spyObj).toHaveBeenCalledWith(jasmine.objectContaining({ c: false }));
+        expect(spyObj).toHaveBeenCalledWith(jasmine.objectContaining({ inner: jasmine.objectContaining({ a: "forty-two" }) }));
+        expect(spyObj).toHaveBeenCalledWith(jasmine.objectContaining({ inner: jasmine.objectContaining({ b: 42 }) }));
+        expect(spyObj).toHaveBeenCalledWith(jasmine.objectContaining({ inner: jasmine.objectContaining({ c: true }) }));
+        expect(spyObj).toHaveBeenCalledWith(jasmine.objectContaining({ inner: jasmine.objectContaining({ c: "some value" }) }));
+        expect(spyObj).toHaveBeenCalledWith(jasmine.objectContaining({ inner: { a: "forty-two", b: jasmine.any(String) } }));
+        expect(spyObj).toHaveBeenCalledWith({ inner: jasmine.objectContaining({ b: false }) });
+        expect(spyObj).toHaveBeenCalledWith(jasmine.objectContaining({ inner: jasmine.objectContaining({ inner2: jasmine.objectContaining({ z: 42 }) })}));
+
+        expect(spyObj).toHaveBeenCalledWith(jasmine.objectContaining({ a: 42 })); // Fails with TS 3.1 typings
+        expect(spyObj).toHaveBeenCalledWith(jasmine.objectContaining({ inner: 42 })); // Fails with TS 3.1 typings
+        expect(spyObj).toHaveBeenCalledWith(jasmine.objectContaining({ inner: jasmine.objectContaining({ b: "str" })})); // Fails with TS 3.1 typings
+        expect(spyObj).toHaveBeenCalledWith(jasmine.objectContaining({ inner: jasmine.objectContaining({ z: "str" })})); // Fails with TS 3.1 typings
+        expect(spyObj).toHaveBeenCalledWith(jasmine.objectContaining({ inner: { z: "blah"} })); // Fails with TS 3.1 typings
+        expect(spyObj).toHaveBeenCalledWith(jasmine.objectContaining({ unknownProp: 42 })); // Fails with TS 3.1 typings
+        expect(spyObj).toHaveBeenCalledWith(jasmine.objectContaining({ inner: jasmine.objectContaining({ inner2: jasmine.objectContaining({ z: true }) })})); // Fails with TS 3.1 typings
+
+        expect(spyArr).toHaveBeenCalledWith(jasmine.arrayContaining([undefined]));
+        expect(spyArr).toHaveBeenCalledWith(jasmine.arrayContaining([jasmine.objectContaining({ a: "some value" })]));
+        expect(spyArr).toHaveBeenCalledWith(jasmine.arrayContaining([jasmine.objectContaining({ inner: { c: true } })]));
+        expect(spyArr).toHaveBeenCalledWith(jasmine.arrayContaining([jasmine.objectContaining({ inner: { c: true } })]));
+        expect(spyArr).toHaveBeenCalledWith(jasmine.arrayContaining([jasmine.objectContaining({ inner: { c: jasmine.anything() } })]));
+        expect(spyArr).toHaveBeenCalledWith(jasmine.arrayContaining([jasmine.objectContaining({ innerArray: [true] })]));
+        expect(spyArr).toHaveBeenCalledWith(jasmine.arrayContaining([jasmine.objectContaining({ innerArray: jasmine.arrayContaining([42]) })]));
+        expect(spyArr).toHaveBeenCalledWith(jasmine.arrayContaining([jasmine.objectContaining({ innerArray: jasmine.arrayContaining([false]) })]));
+
+        expect(spyArr).toHaveBeenCalledWith(jasmine.arrayContaining([jasmine.objectContaining({ inner: { c: 42 } })])); // Fails with TS 3.1 typings
+        expect(spyArr).toHaveBeenCalledWith(jasmine.arrayContaining([jasmine.objectContaining({ innerArray: jasmine.arrayContaining(["foo"]) })])); // Fails with TS 3.1 typings
     });
 });
 
