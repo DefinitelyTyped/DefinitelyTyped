@@ -1187,7 +1187,7 @@ declare namespace echarts {
                  * Moreover, it can be set as negative number, like `-3`.
                  *
                  * @default null
-                 * @see https://echarts.apache.org/option.html#yAxis.min
+                 * @see https://echarts.apache.org/option.html#yAxis.max
                  */
                  max?: number | string | ((value: { min:number, max:number } ) => number);
 
