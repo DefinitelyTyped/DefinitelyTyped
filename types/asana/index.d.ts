@@ -864,9 +864,16 @@ declare namespace asana {
           resource_type: string;
           resource_subtype: string;
         }
-
+  
+        interface EventSectionResource extends EventResource {
+          project: {
+            gid: string;
+            name: string;
+          };
+        }
+  
         type EventProject = EventResource & Partial<Tasks.Type>;
-        type EventSection = EventResource & Partial<Sections.Type>;
+        type EventSection = EventSectionResource & Partial<Sections.Type>;
         type EventStory = EventResource & Partial<Stories.Type>;
         type EventTask = EventResource & Partial<Tasks.Type>;
 
