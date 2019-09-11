@@ -3092,6 +3092,12 @@ declare namespace Stripe {
             object: "event";
 
             /**
+             * The connected account that originated the event.
+             * CONNECT ONLY
+             */
+            account?: string;
+
+            /**
              * The Stripe API version used to render data.
              * Note: this property is populated for events on or after October 31, 2014.
              */
