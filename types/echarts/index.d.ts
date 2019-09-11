@@ -1170,7 +1170,7 @@ declare namespace echarts {
                  * Moreover, it can be set as negative number, like `-3`.
                  *
                  * @default null
-                 * @see https://echarts.apache.org/zh/option.html#yAxis.min
+                 * @see https://echarts.apache.org/option.html#yAxis.min
                  */
                 min?: number | string | ((value: { min:number, max:number }) => number);
 
@@ -1187,7 +1187,7 @@ declare namespace echarts {
                  * Moreover, it can be set as negative number, like `-3`.
                  *
                  * @default null
-                 * @see https://echarts.apache.org/zh/option.html#yAxis.max
+                 * @see https://echarts.apache.org/option.html#yAxis.min
                  */
                  max?: number | string | ((value: { min:number, max:number } ) => number);
 
