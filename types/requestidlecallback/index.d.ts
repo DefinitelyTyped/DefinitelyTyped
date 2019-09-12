@@ -21,6 +21,6 @@ export interface IdleRequestOptions {
 }
 
 export interface Window {
-  requestIdleCallback(callback: IdleRequestCallback): number;
+  requestIdleCallback(callback: IdleRequestCallback, options?: IdleRequestOptions): IdleCallbackHandle;
   cancelIdleCallback(handle: number): void;
 }
