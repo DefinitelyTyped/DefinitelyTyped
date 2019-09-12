@@ -181,7 +181,7 @@ declare namespace CodeMirror {
         findWordAt(pos: CodeMirror.Position): CodeMirror.Range;
 
         /** Change the configuration of the editor. option should the name of an option, and value should be a valid value for that option. */
-        setOption<K extends keyof EditorConfiguration>(option: string, value: EditorConfiguration[K]): void;
+        setOption<K extends keyof EditorConfiguration>(option: K, value: EditorConfiguration[K]): void;
 
         /** Retrieves the current value of the given option for this editor instance. */
         getOption<K extends keyof EditorConfiguration>(option: K): EditorConfiguration[K];
