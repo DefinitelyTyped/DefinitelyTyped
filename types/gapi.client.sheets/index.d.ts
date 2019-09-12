@@ -2997,6 +2997,8 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
+                /** Request body */
+                resource?: SearchDeveloperMetadataRequest;
             }): client.Request<SearchDeveloperMetadataResponse>;
         }
         interface SheetsResource {
@@ -3031,6 +3033,8 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
+                /** Request body */
+                resource?: CopySheetToAnotherSpreadsheetRequest;
             }): client.Request<SheetProperties>;
         }
         interface ValuesResource {
@@ -3102,6 +3106,8 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** How the input data should be interpreted. */
                 valueInputOption?: string;
+                /** Request body */
+                resource?: ValueRange;
             }): client.Request<AppendValuesResponse>;
             /**
              * Clears one or more ranges of values from a spreadsheet.
@@ -3134,6 +3140,8 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
+                /** Request body */
+                resource?: BatchClearValuesRequest;
             }): client.Request<BatchClearValuesResponse>;
             /**
              * Clears one or more ranges of values from a spreadsheet.
@@ -3167,6 +3175,8 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
+                /** Request body */
+                resource?: BatchClearValuesByDataFilterRequest;
             }): client.Request<BatchClearValuesByDataFilterResponse>;
             /**
              * Returns one or more ranges of values from a spreadsheet.
@@ -3253,6 +3263,8 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
+                /** Request body */
+                resource?: BatchGetValuesByDataFilterRequest;
             }): client.Request<BatchGetValuesByDataFilterResponse>;
             /**
              * Sets values in one or more ranges of a spreadsheet.
@@ -3285,6 +3297,8 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
+                /** Request body */
+                resource?: BatchUpdateValuesRequest;
             }): client.Request<BatchUpdateValuesResponse>;
             /**
              * Sets values in one or more ranges of a spreadsheet.
@@ -3317,6 +3331,8 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
+                /** Request body */
+                resource?: BatchUpdateValuesByDataFilterRequest;
             }): client.Request<BatchUpdateValuesByDataFilterResponse>;
             /**
              * Clears values from a spreadsheet.
@@ -3351,6 +3367,8 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
+                /** Request body */
+                resource?: ClearValuesRequest;
             }): client.Request<ClearValuesResponse>;
             /**
              * Returns a range of values from a spreadsheet.
@@ -3462,6 +3480,8 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** How the input data should be interpreted. */
                 valueInputOption?: string;
+                /** Request body */
+                resource?: ValueRange;
             }): client.Request<UpdateValuesResponse>;
         }
         interface SpreadsheetsResource {
@@ -3511,6 +3531,8 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
+                /** Request body */
+                resource?: BatchUpdateSpreadsheetRequest;
             }): client.Request<BatchUpdateSpreadsheetResponse>;
             /** Creates a spreadsheet, returning the newly created spreadsheet. */
             create(request: {
@@ -3536,6 +3558,8 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
+                /** Request body */
+                resource?: Spreadsheet;
             }): client.Request<Spreadsheet>;
             /**
              * Returns the spreadsheet at the given ID.
@@ -3642,6 +3666,8 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
+                /** Request body */
+                resource?: GetSpreadsheetByDataFilterRequest;
             }): client.Request<Spreadsheet>;
             developerMetadata: DeveloperMetadataResource;
             sheets: SheetsResource;
