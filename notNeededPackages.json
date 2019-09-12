@@ -2173,6 +2173,12 @@
             "asOfVersion": "2.0.1"
         },
         {
+            "libraryName": "nock",
+            "typingsPackageName": "nock",
+            "sourceRepoURL": "https://github.com/nock/nock",
+            "asOfVersion": "11.1.0"
+        },
+        {
             "libraryName": "node-pg-migrate",
             "typingsPackageName": "node-pg-migrate",
             "sourceRepoURL": "https://github.com/theoephraim/node-pg-migrate#readme",
