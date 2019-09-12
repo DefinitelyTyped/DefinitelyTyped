@@ -1317,15 +1317,15 @@ const S3BatchResult: AWSLambda.S3BatchResult = {
     }],
 };
 
-const S3BatchEventHandler: AWSLambda.S3BatchHandler = async (
-  event: AWSLambda.S3BatchEvent,
-  context: AWSLambda.Context,
+const S3BatchHandler: AWSLambda.S3BatchHandler = async (
+    event: AWSLambda.S3BatchEvent,
+    context: AWSLambda.Context,
 ) => {
-  // $ExpectType S3BatchEvent
-  event;
+    // $ExpectType S3BatchEvent
+    event;
 
-  // $ExpectType Context
-  context;
-  str = context.functionName;
-  return S3BatchResult;
+    // $ExpectType Context
+    context;
+    str = context.functionName;
+    return S3BatchResult;
 };
