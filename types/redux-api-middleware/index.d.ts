@@ -155,13 +155,13 @@ declare module 'redux' {
     /*
      * Overload to add api middleware support to Redux's dispatch() function.
      * Useful for react-redux or any other library which could use this type.
-     * `Promise<undefined> is returned in case of RSAA validation errors or user bails out
      */
     interface Dispatch {
-        <Payload = any, Meta = any>(
-            action: RSAAAction
-        ): Promise<RSAASuccessAction<Payload, Meta> | RSAAFailureAction<Payload, Meta> | undefined>;
+        (action: RSAAAction): Promise<RSAASuccessAction>;
+        (action: RSAAAction): Promise<RSAAFailureAction>;
+        // `Promise<undefined> is returned in case of RSAA validation errors or user bails out
+        (action: RSAAAction): Promise<undefined>;
     }
 }
 
-export {};
+export { };
