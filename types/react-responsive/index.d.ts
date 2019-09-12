@@ -87,6 +87,9 @@ export interface MediaQueryProps extends MediaQueryAllQueryable {
 
 declare class MediaQuery extends React.Component<MediaQueryProps> { }
 export function toQuery(matchers: Partial<MediaQueryAllQueryable>): string;
+
+export const Context: React.Context<Partial<MediaQueryAllQueryable>>;
+
 export function useMediaQuery(
     settings: Partial<MediaQueryAllQueryable & { query?: string }>,
     device?: MediaQueryTypes,
