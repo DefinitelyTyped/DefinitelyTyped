@@ -270,28 +270,28 @@ export interface S3BatchEventJob {
 }
 
 export interface S3BatchEventTask {
-  taskId: string;
-  s3Key: string;
-  s3VersionId: string | null;
-  s3BucketArn: string;
+    taskId: string;
+    s3Key: string;
+    s3VersionId: string | null;
+    s3BucketArn: string;
 }
 
 export interface S3BatchResult {
-  invocationSchemaVersion: string;
-  treatMissingKeysAs: S3BatchResultResultCode;
-  invocationId: string;
-  results: S3BatchResultResult[];
+    invocationSchemaVersion: string;
+    treatMissingKeysAs: S3BatchResultResultCode;
+    invocationId: string;
+    results: S3BatchResultResult[];
 }
 
 export type S3BatchResultResultCode =
-  | 'Succeeded'
-  | 'TemporaryFailure'
-  | 'PermanentFailure';
+    | 'Succeeded'
+    | 'TemporaryFailure'
+    | 'PermanentFailure';
 
 export interface S3BatchResultResult {
-  taskId: string;
-  resultCode: S3BatchResultResultCode;
-  resultString: string;
+    taskId: string;
+    resultCode: S3BatchResultResultCode;
+    resultString: string;
 }
 
 /**
