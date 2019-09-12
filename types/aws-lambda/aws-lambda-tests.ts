@@ -1279,20 +1279,23 @@ const lexEventHandler: AWSLambda.LexHandler = async (
  * https://docs.aws.amazon.com/AmazonS3/latest/dev/batch-ops-invoke-lambda.html
  */
 const S3BatchEventRequest: AWSLambda.S3BatchEventRequest = {
-    invocationSchemaVersion: "1.0",
-    invocationId: "foo_invocation_id",
-    job: { id: "foo_job_id" },
-    tasks: [{
-        taskId: "11111",
-        s3Key: "example.json",
-        s3BucketArn: "arn:aws:s3:::foo-bucket",
-        s3VersionId: null,
-    }, {
-        taskId: "11111",
-        s3Key: "example.json",
-        s3BucketArn: "arn:aws:s3:::foo-bucket",
-        s3VersionId: "asdf",
-    }],
+  invocationSchemaVersion: '1.0',
+  invocationId: 'foo_invocation_id',
+  job: { id: 'foo_job_id' },
+  tasks: [
+    {
+      taskId: '11111',
+      s3Key: 'example.json',
+      s3BucketArn: 'arn:aws:s3:::foo-bucket',
+      s3VersionId: null,
+    },
+    {
+      taskId: '11111',
+      s3Key: 'example.json',
+      s3BucketArn: 'arn:aws:s3:::foo-bucket',
+      s3VersionId: 'asdf',
+    },
+  ],
 };
 
 const S3BatchEventResponse: AWSLambda.S3BatchEventResponse = {
@@ -1312,4 +1315,17 @@ const S3BatchEventResponse: AWSLambda.S3BatchEventResponse = {
         resultCode: "PermanentFailure",
         resultString: "Error: failure",
     }],
+};
+
+const S3BatchEventHandler: AWSLambda.S3BatchHandler = async (
+  event: AWSLambda.S3BatchEventRequest,
+  context: AWSLambda.Context,
+) => {
+  // $ExpectType S3BatchEventRequest
+  event;
+
+  // $ExpectType Context
+  context;
+  str = context.functionName;
+  return S3BatchEventResponse;
 };

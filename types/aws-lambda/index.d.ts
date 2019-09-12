@@ -257,6 +257,7 @@ export type S3CreateEvent = S3Event; // old name
  * S3 Batch Operations event
  * https://docs.aws.amazon.com/AmazonS3/latest/dev/batch-ops-invoke-lambda.html
  */
+
 export interface S3BatchEventRequest {
     invocationSchemaVersion: string;
     invocationId: string;
@@ -269,10 +270,10 @@ export interface S3BatchEventJob {
 }
 
 export interface S3BatchEventTask {
-    taskId: string;
-    s3Key: string;
-    s3VersionId: string | null;
-    s3BucketArn: string;
+  taskId: string;
+  s3Key: string;
+  s3VersionId: string | null;
+  s3BucketArn: string;
 }
 
 export interface S3BatchEventResponse {
@@ -1166,5 +1167,8 @@ export type FirehoseTransformationHandler = Handler<FirehoseTransformationEvent,
 
 export type CustomAuthorizerHandler = Handler<CustomAuthorizerEvent, CustomAuthorizerResult>;
 export type CustomAuthorizerCallback = Callback<CustomAuthorizerResult>;
+
+export type S3BatchHandler = Handler<S3BatchEventRequest, S3BatchEventResponse>;
+export type S3BatchCallback = Callback<S3BatchEventResponse>;
 
 export as namespace AWSLambda;
