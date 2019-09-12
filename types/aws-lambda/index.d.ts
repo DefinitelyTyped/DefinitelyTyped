@@ -271,7 +271,7 @@ export interface S3BatchEventJob {
 export interface S3BatchEventTask {
     taskId: string;
     s3Key: string;
-    s3VersionId?: string;
+    s3VersionId: string | null;
     s3BucketArn: string;
 }
 

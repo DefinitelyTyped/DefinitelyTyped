@@ -1286,6 +1286,12 @@ const S3BatchEventRequest: AWSLambda.S3BatchEventRequest = {
         taskId: "11111",
         s3Key: "example.json",
         s3BucketArn: "arn:aws:s3:::foo-bucket",
+        s3VersionId: null,
+    }, {
+        taskId: "11111",
+        s3Key: "example.json",
+        s3BucketArn: "arn:aws:s3:::foo-bucket",
+        s3VersionId: "asdf",
     }],
 };
 
