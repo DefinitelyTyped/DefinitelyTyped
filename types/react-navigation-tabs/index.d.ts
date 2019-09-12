@@ -2,6 +2,7 @@
 // Project: https://github.com/react-navigation/tabs#readme
 // Definitions by: Haseeb Majid <https://github.com/hmajid2301>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 import { NavigationContainer, NavigationRouteConfigMap, TabNavigatorConfig } from 'react-navigation';
 
