@@ -1278,7 +1278,7 @@ const lexEventHandler: AWSLambda.LexHandler = async (
  * S3 Batch Operations event
  * https://docs.aws.amazon.com/AmazonS3/latest/dev/batch-ops-invoke-lambda.html
  */
-const S3BatchEventRequest: AWSLambda.S3BatchEventRequest = {
+const S3BatchEvent: AWSLambda.S3BatchEvent = {
   invocationSchemaVersion: '1.0',
   invocationId: 'foo_invocation_id',
   job: { id: 'foo_job_id' },
@@ -1298,7 +1298,7 @@ const S3BatchEventRequest: AWSLambda.S3BatchEventRequest = {
   ],
 };
 
-const S3BatchEventResponse: AWSLambda.S3BatchEventResponse = {
+const S3BatchResult: AWSLambda.S3BatchResult = {
     invocationSchemaVersion: '1.0',
     treatMissingKeysAs: 'PermanentFailure',
     invocationId: 'foo_invocation_id',
@@ -1318,14 +1318,14 @@ const S3BatchEventResponse: AWSLambda.S3BatchEventResponse = {
 };
 
 const S3BatchEventHandler: AWSLambda.S3BatchHandler = async (
-  event: AWSLambda.S3BatchEventRequest,
+  event: AWSLambda.S3BatchEvent,
   context: AWSLambda.Context,
 ) => {
-  // $ExpectType S3BatchEventRequest
+  // $ExpectType S3BatchEvent
   event;
 
   // $ExpectType Context
   context;
   str = context.functionName;
-  return S3BatchEventResponse;
+  return S3BatchResult;
 };

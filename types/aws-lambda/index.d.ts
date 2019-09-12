@@ -258,7 +258,7 @@ export type S3CreateEvent = S3Event; // old name
  * https://docs.aws.amazon.com/AmazonS3/latest/dev/batch-ops-invoke-lambda.html
  */
 
-export interface S3BatchEventRequest {
+export interface S3BatchEvent {
     invocationSchemaVersion: string;
     invocationId: string;
     job: S3BatchEventJob;
@@ -276,21 +276,21 @@ export interface S3BatchEventTask {
   s3BucketArn: string;
 }
 
-export interface S3BatchEventResponse {
+export interface S3BatchResult {
   invocationSchemaVersion: string;
-  treatMissingKeysAs: S3BatchEventResponseResultCode;
+  treatMissingKeysAs: S3BatchResultResultCode;
   invocationId: string;
-  results: S3BatchEventResponseResult[];
+  results: S3BatchResultResult[];
 }
 
-export type S3BatchEventResponseResultCode =
+export type S3BatchResultResultCode =
   | 'Succeeded'
   | 'TemporaryFailure'
   | 'PermanentFailure';
 
-export interface S3BatchEventResponseResult {
+export interface S3BatchResultResult {
   taskId: string;
-  resultCode: S3BatchEventResponseResultCode;
+  resultCode: S3BatchResultResultCode;
   resultString: string;
 }
 
@@ -1168,7 +1168,7 @@ export type FirehoseTransformationHandler = Handler<FirehoseTransformationEvent,
 export type CustomAuthorizerHandler = Handler<CustomAuthorizerEvent, CustomAuthorizerResult>;
 export type CustomAuthorizerCallback = Callback<CustomAuthorizerResult>;
 
-export type S3BatchHandler = Handler<S3BatchEventRequest, S3BatchEventResponse>;
-export type S3BatchCallback = Callback<S3BatchEventResponse>;
+export type S3BatchHandler = Handler<S3BatchEvent, S3BatchResult>;
+export type S3BatchCallback = Callback<S3BatchResult>;
 
 export as namespace AWSLambda;
