@@ -1172,7 +1172,7 @@ declare namespace echarts {
                  * @default null
                  * @see https://echarts.apache.org/option.html#yAxis.min
                  */
-                min?: number | string | ((value: { min:number, max:number }) => number);
+                min?: number | string | ((value: { min: number, max: number }) => number);
 
                 /**
                  * The maximum value of axis.
@@ -1189,7 +1189,7 @@ declare namespace echarts {
                  * @default null
                  * @see https://echarts.apache.org/option.html#yAxis.max
                  */
-                 max?: number | string | ((value: { min:number, max:number } ) => number);
+                 max?: number | string | ((value: { min: number, max: number } ) => number);
 
                 /**
                  * It is available only in numerical axis, i.e., type: `'value'`.
