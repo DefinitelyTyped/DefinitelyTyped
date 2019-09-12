@@ -1,4 +1,4 @@
-// Type definitions for react-responsive 8.0.0
+// Type definitions for react-responsive 8.0
 // Project: http://github.com/contra/react-responsive
 // Definitions by: Alexey Svetliakov <https://github.com/asvetliakov>
 //                 Alec Hill <https://github.com/alechill>
