@@ -1941,12 +1941,6 @@ export interface TVViewPropsIOS {
 
 export interface ViewPropsIOS extends TVViewPropsIOS {
     /**
-     * A Boolean value indicating whether VoiceOver should ignore the elements within views that are siblings of the receiver.
-     * @platform ios
-     */
-    accessibilityViewIsModal?: boolean;
-
-    /**
      * Whether this view should be rendered as a bitmap before compositing.
      *
      * On iOS, this is useful for animations and interactions that do not modify this component's dimensions nor its children;
@@ -2165,6 +2159,12 @@ export interface AccessibilityPropsIOS {
      * @platform ios
      */
     accessibilityTraits?: AccessibilityTrait | AccessibilityTrait[];
+
+    /**
+     * A Boolean value indicating whether VoiceOver should ignore the elements within views that are siblings of the receiver.
+     * @platform ios
+     */
+    accessibilityViewIsModal?: boolean;
 
     /**
      * When `accessible` is true, the system will try to invoke this function when the user performs accessibility tap gesture.
