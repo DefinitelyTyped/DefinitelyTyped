@@ -1,11 +1,12 @@
 import Serverless = require("../index");
 
-declare abstract class Plugin {
+interface Plugin {
+    // Typical constructor signature:
+    // constructor(serverless: Serverless, options: Serverless.Options)
+
     hooks: {
         [event: string]: () => Promise<any>;
     };
-
-    constructor(serverless: Serverless, options: Serverless.Options)
 }
 
 export = Plugin;
