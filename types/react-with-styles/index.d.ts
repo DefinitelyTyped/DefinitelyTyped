@@ -4,14 +4,13 @@
 //                 Brie Bunge https://github.com/brieb
 //                 Joe Lencioni https://github.com/lencioni
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { CSSProperties } from 'aphrodite';
 
 type Theme = { [key: string]: any };
 
-interface WithStylesProps {
+interface WithStylesProps<T = Theme> {
     /**
      * This function takes styles that were processed by `withStyles()`, plain objects, or arrays
      * of these things. It returns an object with an opaque structure that must be spread into a
@@ -19,7 +18,7 @@ interface WithStylesProps {
      */
     css(...styles: any[]): object;
     styles: { [key: string]: object };
-    theme: Theme;
+    theme: T;
 }
 
 declare const withStylesPropTypes: PropTypes.ValidationMap<WithStylesProps>;
@@ -27,9 +26,9 @@ declare const withStylesPropTypes: PropTypes.ValidationMap<WithStylesProps>;
 type Nullable<T> = T | null | undefined;
 interface Styles {
     [key: string]: Nullable<
-    CSSProperties & {
-        [pseudoSelectorOrMediaQuery: string]: CSSProperties[keyof CSSProperties] | CSSProperties;
-    }
+        CSSProperties & {
+            [pseudoSelectorOrMediaQuery: string]: CSSProperties[keyof CSSProperties] | CSSProperties;
+        }
     >;
 }
 
@@ -40,34 +39,21 @@ interface WithStylesOptions {
 
 type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
 type ComponentClassProps<C> = C extends new (props: infer P, context?: any) => any ? P : never;
-type SFCProps<C> = C extends (
-    props: infer P & { children?: React.ReactNode },
-    context?: any
-) => any
-    ? P
-    : never;
+type SFCProps<C> = C extends (props: infer P & { children?: React.ReactNode }, context?: any) => any ? P : never;
 type ElementProps<C> = C extends React.ComponentClass<any>
     ? ComponentClassProps<C>
-    : C extends React.SFC<any> ? SFCProps<C> : any;
+    : C extends React.SFC<any>
+    ? SFCProps<C>
+    : any;
 type ElementConfig<C> = JSX.LibraryManagedAttributes<C, ElementProps<C>>;
 
-declare function withStyles(
-    styleFn?: ((theme: Theme) => Styles) | null,
-    options?: WithStylesOptions
+declare function withStyles<T = Theme>(
+    styleFn?: ((theme: T) => Styles) | null,
+    options?: WithStylesOptions,
 ): <C extends React.ComponentType<any>>(
-    component: C
-) => React.ComponentClass<Omit<ElementConfig<C>, keyof WithStylesProps>>;
+    component: C,
+) => React.ComponentClass<Omit<ElementConfig<C>, keyof WithStylesProps<T>>>;
 
 declare function css(...styles: any[]): object;
 
-export {
-    css,
-    withStyles,
-    WithStylesProps,
-    withStylesPropTypes,
-    WithStylesOptions,
-    Theme,
-    Styles,
-    CSSProperties,
-};
-
+export { css, withStyles, WithStylesProps, withStylesPropTypes, WithStylesOptions, Theme, Styles, CSSProperties };
