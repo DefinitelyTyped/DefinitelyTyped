@@ -188,6 +188,9 @@ declare namespace IORedis {
         rpoplpush(source: string, destination: string, callback: (err: Error, res: string) => void): void;
         rpoplpush(source: string, destination: string): Promise<string>;
 
+        rpoplpushBuffer(source: string, destination: string, callback: (err: Error, res: Buffer) => void): void;
+        rpoplpushBuffer(source: string, destination: string): Promise<Buffer>;
+
         sadd(key: KeyType, ...members: any[]): any;
 
         srem(key: KeyType, ...members: any[]): any;
@@ -225,6 +228,8 @@ declare namespace IORedis {
         smembers(key: KeyType): Promise<any>;
 
         zadd(key: KeyType, ...args: string[]): Promise<number | string>;
+
+        zaddBuffer(key: KeyType, score1: number, member1: Buffer): Promise<string | number>;
 
         zincrby(key: KeyType, increment: number, member: string, callback: (err: Error, res: any) => void): void;
         zincrby(key: KeyType, increment: number, member: string): Promise<any>;
@@ -447,6 +452,8 @@ declare namespace IORedis {
 
         publish(channel: string, message: string, callback: (err: Error, res: number) => void): void;
         publish(channel: string, message: string): Promise<number>;
+
+        publishBuffer(channel: string, message: Buffer): Promise<number>;
 
         watch(...keys: KeyType[]): any;
 

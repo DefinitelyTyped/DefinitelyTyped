@@ -22,25 +22,25 @@ declare namespace GoogleAppsScript {
      */
     export interface Banding {
       copyTo(range: Range): Banding;
-      getFirstColumnColor(): string;
-      getFirstRowColor(): string;
-      getFooterColumnColor(): string;
-      getFooterRowColor(): string;
-      getHeaderColumnColor(): string;
-      getHeaderRowColor(): string;
+      getFirstColumnColor(): string | null;
+      getFirstRowColor(): string | null;
+      getFooterColumnColor(): string | null;
+      getFooterRowColor(): string | null;
+      getHeaderColumnColor(): string | null;
+      getHeaderRowColor(): string | null;
       getRange(): Range;
-      getSecondColumnColor(): string;
-      getSecondRowColor(): string;
+      getSecondColumnColor(): string | null;
+      getSecondRowColor(): string | null;
       remove(): void;
-      setFirstColumnColor(color: string): Banding;
-      setFirstRowColor(color: string): Banding;
-      setFooterColumnColor(color: string): Banding;
-      setFooterRowColor(color: string): Banding;
-      setHeaderColumnColor(color: string): Banding;
-      setHeaderRowColor(color: string): Banding;
+      setFirstColumnColor(color: string | null): Banding;
+      setFirstRowColor(color: string | null): Banding;
+      setFooterColumnColor(color: string | null): Banding;
+      setFooterRowColor(color: string | null): Banding;
+      setHeaderColumnColor(color: string | null): Banding;
+      setHeaderRowColor(color: string | null): Banding;
       setRange(range: Range): Banding;
-      setSecondColumnColor(color: string): Banding;
-      setSecondRowColor(color: string): Banding;
+      setSecondColumnColor(color: string | null): Banding;
+      setSecondRowColor(color: string | null): Banding;
     }
 
     /**
@@ -86,14 +86,14 @@ declare namespace GoogleAppsScript {
      * criteria evaluates to true, the condition's formatting settings are applied to the cell.
      */
     export interface BooleanCondition {
-      getBackground(): string;
-      getBold(): boolean;
+      getBackground(): string | null;
+      getBold(): boolean | null;
       getCriteriaType(): BooleanCriteria;
       getCriteriaValues(): any[];
-      getFontColor(): string;
-      getItalic(): boolean;
-      getStrikethrough(): boolean;
-      getUnderline(): boolean;
+      getFontColor(): string | null;
+      getItalic(): boolean | null;
+      getStrikethrough(): boolean | null;
+      getUnderline(): boolean | null;
     }
 
     /**
@@ -114,8 +114,8 @@ declare namespace GoogleAppsScript {
      */
     export interface ConditionalFormatRule {
       copy(): ConditionalFormatRuleBuilder;
-      getBooleanCondition(): BooleanCondition;
-      getGradientCondition(): GradientCondition;
+      getBooleanCondition(): BooleanCondition | null;
+      getGradientCondition(): GradientCondition | null;
       getRanges(): Range[];
     }
 
@@ -138,21 +138,21 @@ declare namespace GoogleAppsScript {
     export interface ConditionalFormatRuleBuilder {
       build(): ConditionalFormatRule;
       copy(): ConditionalFormatRuleBuilder;
-      getBooleanCondition(): BooleanCondition;
-      getGradientCondition(): GradientCondition;
+      getBooleanCondition(): BooleanCondition | null;
+      getGradientCondition(): GradientCondition | null;
       getRanges(): Range[];
       setBackground(color: string | null): ConditionalFormatRuleBuilder;
-      setBold(bold: boolean): ConditionalFormatRuleBuilder;
-      setFontColor(color: string): ConditionalFormatRuleBuilder;
+      setBold(bold: boolean): ConditionalFormatRuleBuilder | null;
+      setFontColor(color: string): ConditionalFormatRuleBuilder | null;
       setGradientMaxpoint(color: string): ConditionalFormatRuleBuilder;
       setGradientMaxpointWithValue(color: string, type: InterpolationType, value: string): ConditionalFormatRuleBuilder;
       setGradientMidpointWithValue(color: string, type: InterpolationType, value: string): ConditionalFormatRuleBuilder;
       setGradientMinpoint(color: string): ConditionalFormatRuleBuilder;
       setGradientMinpointWithValue(color: string, type: InterpolationType, value: string): ConditionalFormatRuleBuilder;
-      setItalic(italic: boolean): ConditionalFormatRuleBuilder;
+      setItalic(italic: boolean | null): ConditionalFormatRuleBuilder;
       setRanges(ranges: Range[]): ConditionalFormatRuleBuilder;
-      setStrikethrough(strikethrough: boolean): ConditionalFormatRuleBuilder;
-      setUnderline(underline: boolean): ConditionalFormatRuleBuilder;
+      setStrikethrough(strikethrough: boolean | null): ConditionalFormatRuleBuilder;
+      setUnderline(underline: boolean | null): ConditionalFormatRuleBuilder;
       whenCellEmpty(): ConditionalFormatRuleBuilder;
       whenCellNotEmpty(): ConditionalFormatRuleBuilder;
       whenDateAfter(date: Base.Date): ConditionalFormatRuleBuilder;
@@ -213,7 +213,7 @@ declare namespace GoogleAppsScript {
       getErrorCode(): DataExecutionErrorCode;
       getErrorMessage(): string;
       getExecutionState(): DataExecutionState;
-      getLastRefreshedTime(): Base.Date;
+      getLastRefreshedTime(): Base.Date | null;
       isTruncated(): boolean;
     }
 
@@ -231,7 +231,7 @@ declare namespace GoogleAppsScript {
      */
     export interface DataSourceParameter {
       getName(): string;
-      getSourceCell(): string;
+      getSourceCell(): string | null;
       getType(): DataSourceParameterType;
     }
 
@@ -382,7 +382,7 @@ declare namespace GoogleAppsScript {
       getAllowInvalid(): boolean;
       getCriteriaType(): DataValidationCriteria;
       getCriteriaValues(): any[];
-      getHelpText(): string;
+      getHelpText(): string | null;
       requireCheckbox(): DataValidationBuilder;
       requireCheckbox(checkedValue: any): DataValidationBuilder;
       requireCheckbox(checkedValue: any, uncheckedValue: any): DataValidationBuilder;
@@ -455,7 +455,7 @@ declare namespace GoogleAppsScript {
       getId(): Integer;
       getKey(): string;
       getLocation(): DeveloperMetadataLocation;
-      getValue(): string;
+      getValue(): string | null;
       getVisibility(): DeveloperMetadataVisibility;
       moveToColumn(column: Range): DeveloperMetadata;
       moveToRow(row: Range): DeveloperMetadata;
@@ -486,11 +486,11 @@ declare namespace GoogleAppsScript {
      * Access developer metadata location information.
      */
     export interface DeveloperMetadataLocation {
-      getColumn(): Range;
+      getColumn(): Range | null;
       getLocationType(): DeveloperMetadataLocationType;
-      getRow(): Range;
-      getSheet(): Sheet;
-      getSpreadsheet(): Spreadsheet;
+      getRow(): Range | null;
+      getSheet(): Sheet | null;
+      getSpreadsheet(): Spreadsheet | null;
     }
 
     /**
@@ -638,7 +638,7 @@ declare namespace GoogleAppsScript {
     export interface EmbeddedChart {
       getAs(contentType: string): Base.Blob;
       getBlob(): Base.Blob;
-      getChartId(): Integer;
+      getChartId(): Integer | null;
       getContainerInfo(): ContainerInfo;
       getHiddenDimensionStrategy(): Charts.ChartHiddenDimensionStrategy;
       getId(): string;
@@ -1005,11 +1005,11 @@ declare namespace GoogleAppsScript {
      * Access and modify existing filters. To create a new filter, use Range.createFilter().
      */
     export interface Filter {
-      getColumnFilterCriteria(columnPosition: Integer): FilterCriteria;
+      getColumnFilterCriteria(columnPosition: Integer): FilterCriteria | null;
       getRange(): Range;
       remove(): void;
       removeColumnFilterCriteria(columnPosition: Integer): Filter;
-      setColumnFilterCriteria(columnPosition: Integer, filterCriteria: FilterCriteria): Filter;
+      setColumnFilterCriteria(columnPosition: Integer, filterCriteria: FilterCriteria | null): Filter;
       sort(columnPosition: Integer, ascending: boolean): Filter;
     }
 
@@ -1085,13 +1085,13 @@ declare namespace GoogleAppsScript {
      */
     export interface GradientCondition {
       getMaxColor(): string;
-      getMaxType(): InterpolationType;
+      getMaxType(): InterpolationType | null;
       getMaxValue(): string;
       getMidColor(): string;
-      getMidType(): InterpolationType;
+      getMidType(): InterpolationType | null;
       getMidValue(): string;
       getMinColor(): string;
-      getMinType(): InterpolationType;
+      getMinType(): InterpolationType | null;
       getMinValue(): string;
     }
 
@@ -1157,7 +1157,7 @@ declare namespace GoogleAppsScript {
       getInherentWidth(): Integer;
       getScript(): string;
       getSheet(): Sheet;
-      getUrl(): string;
+      getUrl(): string | null;
       getWidth(): Integer;
       remove(): void;
       replace(blob: Base.BlobSource): OverGridImage;
@@ -1255,7 +1255,7 @@ declare namespace GoogleAppsScript {
      */
     export interface PivotValue {
       getDisplayType(): PivotValueDisplayType;
-      getFormula(): string;
+      getFormula(): string | null;
       getPivotTable(): PivotTable;
       getSummarizedBy(): PivotTableSummarizeFunction;
       setDisplayName(name: string): PivotValue;
@@ -1322,7 +1322,7 @@ declare namespace GoogleAppsScript {
       getEditors(): Base.User[];
       getProtectionType(): ProtectionType;
       getRange(): Range;
-      getRangeName(): string;
+      getRangeName(): string | null;
       getUnprotectedRanges(): Range[];
       isWarningOnly(): boolean;
       remove(): void;
@@ -1414,12 +1414,12 @@ declare namespace GoogleAppsScript {
       getDataSourceUrl(): string;
       getDataTable(): Charts.DataTable;
       getDataTable(firstRowIsHeader: boolean): Charts.DataTable;
-      getDataValidation(): DataValidation;
-      getDataValidations(): DataValidation[][];
+      getDataValidation(): DataValidation | null;
+      getDataValidations(): (DataValidation | null)[][];
       getDeveloperMetadata(): DeveloperMetadata[];
       getDisplayValue(): string;
       getDisplayValues(): string[][];
-      getFilter(): Filter;
+      getFilter(): Filter | null;
       getFontColor(): string;
       getFontColors(): string[][];
       getFontFamilies(): string[][];
@@ -1433,9 +1433,9 @@ declare namespace GoogleAppsScript {
       getFontWeight(): string;
       getFontWeights(): string[][];
       getFormula(): string;
-      getFormulaR1C1(): string;
+      getFormulaR1C1(): string | null;
       getFormulas(): string[][];
-      getFormulasR1C1(): string[][];
+      getFormulasR1C1(): (string | null)[][];
       getGridId(): Integer;
       getHeight(): Integer;
       getHorizontalAlignment(): string;
@@ -1450,13 +1450,13 @@ declare namespace GoogleAppsScript {
       getNumRows(): Integer;
       getNumberFormat(): string;
       getNumberFormats(): string[][];
-      getRichTextValue(): RichTextValue;
+      getRichTextValue(): RichTextValue | null;
       getRichTextValues(): RichTextValue[][];
       getRow(): Integer;
       getRowIndex(): Integer;
       getSheet(): Sheet;
-      getTextDirection(): TextDirection;
-      getTextDirections(): TextDirection[][];
+      getTextDirection(): TextDirection | null;
+      getTextDirections(): (TextDirection | null)[][];
       getTextRotation(): TextRotation;
       getTextRotations(): TextRotation[][];
       getTextStyle(): TextStyle;
@@ -1475,7 +1475,7 @@ declare namespace GoogleAppsScript {
       insertCheckboxes(checkedValue: any): Range;
       insertCheckboxes(checkedValue: any, uncheckedValue: any): Range;
       isBlank(): boolean;
-      isChecked(): boolean;
+      isChecked(): boolean | null;
       isEndColumnBounded(): boolean;
       isEndRowBounded(): boolean;
       isPartOfMerge(): boolean;
@@ -1493,40 +1493,40 @@ declare namespace GoogleAppsScript {
       removeCheckboxes(): Range;
       removeDuplicates(): Range;
       removeDuplicates(columnsToCompare: Integer[]): Range;
-      setBackground(color: string): Range;
+      setBackground(color: string | null): Range;
       setBackgroundRGB(red: Integer, green: Integer, blue: Integer): Range;
-      setBackgrounds(color: string[][]): Range;
-      setBorder(top: boolean, left: boolean, bottom: boolean, right: boolean, vertical: boolean, horizontal: boolean): Range;
-      setBorder(top: boolean, left: boolean, bottom: boolean, right: boolean, vertical: boolean, horizontal: boolean, color: string, style: BorderStyle): Range;
-      setDataValidation(rule: DataValidation): Range;
-      setDataValidations(rules: DataValidation[][]): Range;
-      setFontColor(color: string): Range;
+      setBackgrounds(color: (string | null)[][]): Range;
+      setBorder(top: boolean | null, left: boolean | null, bottom: boolean | null, right: boolean | null, vertical: boolean | null, horizontal: boolean | null): Range;
+      setBorder(top: boolean | null, left: boolean | null, bottom: boolean | null, right: boolean | null, vertical: boolean | null, horizontal: boolean | null, color: string | null, style: BorderStyle | null): Range;
+      setDataValidation(rule: DataValidation | null): Range;
+      setDataValidations(rules: (DataValidation | null)[][]): Range;
+      setFontColor(color: string | null): Range;
       setFontColors(colors: any[][]): Range;
       setFontFamilies(fontFamilies: any[][]): Range;
-      setFontFamily(fontFamily: string): Range;
-      setFontLine(fontLine: string): Range;
-      setFontLines(fontLines: any[][]): Range;
+      setFontFamily(fontFamily: string | null): Range;
+      setFontLine(fontLine: "underline" | "line-through" | "none" | null): Range;
+      setFontLines(fontLines: ("underline" | "line-through" | "none" | null)[][]): Range;
       setFontSize(size: Integer): Range;
       setFontSizes(sizes: any[][]): Range;
-      setFontStyle(fontStyle: string): Range;
-      setFontStyles(fontStyles: any[][]): Range;
-      setFontWeight(fontWeight: string): Range;
-      setFontWeights(fontWeights: any[][]): Range;
+      setFontStyle(fontStyle: "italic" | "normal" | null): Range;
+      setFontStyles(fontStyles: ("italic" | "normal" | null)[][]): Range;
+      setFontWeight(fontWeight: "bold" | "normal" | null): Range;
+      setFontWeights(fontWeights: ("bold" | "normal" | null)[][]): Range;
       setFormula(formula: string): Range;
       setFormulaR1C1(formula: string): Range;
       setFormulas(formulas: string[][]): Range;
       setFormulasR1C1(formulas: string[][]): Range;
-      setHorizontalAlignment(alignment: string): Range;
-      setHorizontalAlignments(alignments: any[][]): Range;
-      setNote(note: string): Range;
+      setHorizontalAlignment(alignment: "left" | "center" | "normal" | null): Range;
+      setHorizontalAlignments(alignments: ("left" | "center" | "normal" | null)[][]): Range;
+      setNote(note: string | null): Range;
       setNotes(notes: any[][]): Range;
       setNumberFormat(numberFormat: string): Range;
       setNumberFormats(numberFormats: any[][]): Range;
       setRichTextValue(value: RichTextValue): Range;
       setRichTextValues(values: RichTextValue[][]): Range;
       setShowHyperlink(showHyperlink: boolean): Range;
-      setTextDirection(direction: TextDirection): Range;
-      setTextDirections(directions: TextDirection[][]): Range;
+      setTextDirection(direction: TextDirection | null): Range;
+      setTextDirections(directions: (TextDirection | null)[][]): Range;
       setTextRotation(degrees: Integer): Range;
       setTextRotation(rotation: TextRotation): Range;
       setTextRotations(rotations: TextRotation[][]): Range;
@@ -1534,8 +1534,8 @@ declare namespace GoogleAppsScript {
       setTextStyles(styles: TextStyle[][]): Range;
       setValue(value: any): Range;
       setValues(values: any[][]): Range;
-      setVerticalAlignment(alignment: string): Range;
-      setVerticalAlignments(alignments: any[][]): Range;
+      setVerticalAlignment(alignment: "top" | "middle" | "bottom" | null): Range;
+      setVerticalAlignments(alignments: ("top" | "middle" | "bottom" | null)[][]): Range;
       setVerticalText(isVertical: boolean): Range;
       setWrap(isWrapEnabled: boolean): Range;
       setWrapStrategies(strategies: WrapStrategy[][]): Range;
@@ -1570,26 +1570,26 @@ declare namespace GoogleAppsScript {
       insertCheckboxes(checkedValue: any): RangeList;
       insertCheckboxes(checkedValue: any, uncheckedValue: any): RangeList;
       removeCheckboxes(): RangeList;
-      setBackground(color: string): RangeList;
+      setBackground(color: string | null): RangeList;
       setBackgroundRGB(red: Integer, green: Integer, blue: Integer): RangeList;
-      setBorder(top: boolean, left: boolean, bottom: boolean, right: boolean, vertical: boolean, horizontal: boolean): RangeList;
-      setBorder(top: boolean, left: boolean, bottom: boolean, right: boolean, vertical: boolean, horizontal: boolean, color: string, style: BorderStyle): RangeList;
-      setFontColor(color: string): RangeList;
-      setFontFamily(fontFamily: string): RangeList;
-      setFontLine(fontLine: string): RangeList;
+      setBorder(top: boolean | null, left: boolean | null, bottom: boolean | null, right: boolean | null, vertical: boolean | null, horizontal: boolean | null): RangeList;
+      setBorder(top: boolean | null, left: boolean | null, bottom: boolean | null, right: boolean | null, vertical: boolean | null, horizontal: boolean | null, color: string | null, style: BorderStyle | null): RangeList;
+      setFontColor(color: string | null): RangeList;
+      setFontFamily(fontFamily: string | null): RangeList;
+      setFontLine(fontLine: "underline" | "line-through" | "none" | null): RangeList;
       setFontSize(size: Integer): RangeList;
-      setFontStyle(fontStyle: string): RangeList;
-      setFontWeight(fontWeight: string): RangeList;
+      setFontStyle(fontStyle: "italic" | "normal" | null): RangeList;
+      setFontWeight(fontWeight: "bold" | "normal" | null): RangeList;
       setFormula(formula: string): RangeList;
       setFormulaR1C1(formula: string): RangeList;
-      setHorizontalAlignment(alignment: string): RangeList;
-      setNote(note: string): RangeList;
+      setHorizontalAlignment(alignment: "left" | "center" | "normal" | null): RangeList;
+      setNote(note: string | null): RangeList;
       setNumberFormat(numberFormat: string): RangeList;
       setShowHyperlink(showHyperlink: boolean): RangeList;
-      setTextDirection(direction: TextDirection): RangeList;
+      setTextDirection(direction: TextDirection | null): RangeList;
       setTextRotation(degrees: Integer): RangeList;
       setValue(value: any): RangeList;
-      setVerticalAlignment(alignment: string): RangeList;
+      setVerticalAlignment(alignment: "top" | "middle" | "bottom" | null): RangeList;
       setVerticalText(isVertical: boolean): RangeList;
       setWrap(isWrapEnabled: boolean): RangeList;
       setWrapStrategy(strategy: WrapStrategy): RangeList;
@@ -1632,8 +1632,8 @@ declare namespace GoogleAppsScript {
     export interface RichTextValueBuilder {
       build(): RichTextValue;
       setText(text: string): RichTextValueBuilder;
-      setTextStyle(startOffset: Integer, endOffset: Integer, textStyle: TextStyle): RichTextValueBuilder;
-      setTextStyle(textStyle: TextStyle): RichTextValueBuilder;
+      setTextStyle(startOffset: Integer, endOffset: Integer, textStyle: TextStyle | null): RichTextValueBuilder;
+      setTextStyle(textStyle: TextStyle | null): RichTextValueBuilder;
     }
 
     /**
@@ -1659,11 +1659,11 @@ declare namespace GoogleAppsScript {
      *     Logger.log('Active Sheet: ' + selection.getActiveSheet().getName());
      */
     export interface Selection {
-      getActiveRange(): Range;
-      getActiveRangeList(): RangeList;
+      getActiveRange(): Range | null;
+      getActiveRangeList(): RangeList | null;
       getActiveSheet(): Sheet;
-      getCurrentCell(): Range;
-      getNextDataRange(direction: Direction): Range;
+      getCurrentCell(): Range | null;
+      getNextDataRange(direction: Direction): Range | null;
     }
 
     /**
@@ -1700,21 +1700,21 @@ declare namespace GoogleAppsScript {
       expandColumnGroupsUpToDepth(groupDepth: Integer): Sheet;
       expandRowGroupsUpToDepth(groupDepth: Integer): Sheet;
       getActiveCell(): Range;
-      getActiveRange(): Range;
-      getActiveRangeList(): RangeList;
+      getActiveRange(): Range | null;
+      getActiveRangeList(): RangeList | null;
       getBandings(): Banding[];
       getCharts(): EmbeddedChart[];
-      getColumnGroup(columnIndex: Integer, groupDepth: Integer): Group;
+      getColumnGroup(columnIndex: Integer, groupDepth: Integer): Group | null;
       getColumnGroupControlPosition(): GroupControlTogglePosition;
       getColumnGroupDepth(columnIndex: Integer): Integer;
       getColumnWidth(columnPosition: Integer): Integer;
       getConditionalFormatRules(): ConditionalFormatRule[];
-      getCurrentCell(): Range;
+      getCurrentCell(): Range | null;
       getDataRange(): Range;
       getDataSourceTables(): DataSourceTable[];
       getDeveloperMetadata(): DeveloperMetadata[];
-      getFilter(): Filter;
-      getFormUrl(): string;
+      getFilter(): Filter | null;
+      getFormUrl(): string | null;
       getFrozenColumns(): Integer;
       getFrozenRows(): Integer;
       getImages(): OverGridImage[];
@@ -1733,7 +1733,7 @@ declare namespace GoogleAppsScript {
       getRange(row: Integer, column: Integer, numRows: Integer, numColumns: Integer): Range;
       getRange(a1Notation: string): Range;
       getRangeList(a1Notations: string[]): RangeList;
-      getRowGroup(rowIndex: Integer, groupDepth: Integer): Group;
+      getRowGroup(rowIndex: Integer, groupDepth: Integer): Group | null;
       getRowGroupControlPosition(): GroupControlTogglePosition;
       getRowGroupDepth(rowIndex: Integer): Integer;
       getRowHeight(rowPosition: Integer): Integer;
@@ -1741,7 +1741,7 @@ declare namespace GoogleAppsScript {
       getSheetId(): Integer;
       getSheetName(): string;
       getSheetValues(startRow: Integer, startColumn: Integer, numRows: Integer, numColumns: Integer): any[][];
-      getTabColor(): string;
+      getTabColor(): string | null;
       getType(): SheetType;
       hasHiddenGridlines(): boolean;
       hideColumn(column: Range): void;
@@ -1795,7 +1795,7 @@ declare namespace GoogleAppsScript {
       setRowGroupControlPosition(position: GroupControlTogglePosition): Sheet;
       setRowHeight(rowPosition: Integer, height: Integer): Sheet;
       setRowHeights(startRow: Integer, numRows: Integer, height: Integer): Sheet;
-      setTabColor(color: string): Sheet;
+      setTabColor(color: string | null): Sheet;
       showColumns(columnIndex: Integer): void;
       showColumns(columnIndex: Integer, numColumns: Integer): void;
       showRows(rowIndex: Integer): void;
@@ -1827,7 +1827,7 @@ declare namespace GoogleAppsScript {
       addEditor(emailAddress: string): Spreadsheet;
       addEditor(user: Base.User): Spreadsheet;
       addEditors(emailAddresses: string[]): Spreadsheet;
-      addMenu(name: string, subMenus: any[]): void;
+      addMenu(name: string, subMenus: ({ name: string, functionName: string } | null)[]): void;
       addViewer(emailAddress: string): Spreadsheet;
       addViewer(user: Base.User): Spreadsheet;
       addViewers(emailAddresses: string[]): Spreadsheet;
@@ -1844,19 +1844,19 @@ declare namespace GoogleAppsScript {
       deleteSheet(sheet: Sheet): void;
       duplicateActiveSheet(): Sheet;
       getActiveCell(): Range;
-      getActiveRange(): Range;
-      getActiveRangeList(): RangeList;
+      getActiveRange(): Range | null;
+      getActiveRangeList(): RangeList | null;
       getActiveSheet(): Sheet;
       getAs(contentType: string): Base.Blob;
       getBandings(): Banding[];
       getBlob(): Base.Blob;
       getColumnWidth(columnPosition: Integer): Integer;
-      getCurrentCell(): Range;
+      getCurrentCell(): Range | null;
       getDataRange(): Range;
       getDataSourceTables(): DataSourceTable[];
       getDeveloperMetadata(): DeveloperMetadata[];
       getEditors(): Base.User[];
-      getFormUrl(): string;
+      getFormUrl(): string | null;
       getFrozenColumns(): Integer;
       getFrozenRows(): Integer;
       getId(): string;
@@ -1868,10 +1868,10 @@ declare namespace GoogleAppsScript {
       getName(): string;
       getNamedRanges(): NamedRange[];
       getNumSheets(): Integer;
-      getOwner(): Base.User;
+      getOwner(): Base.User | null;
       getProtections(type: ProtectionType): Protection[];
       getRange(a1Notation: string): Range;
-      getRangeByName(name: string): Range;
+      getRangeByName(name: string): Range | null;
       getRangeList(a1Notations: string[]): RangeList;
       getRecalculationInterval(): RecalculationInterval;
       getRowHeight(rowPosition: Integer): Integer;
@@ -1945,7 +1945,7 @@ declare namespace GoogleAppsScript {
       sort(columnPosition: Integer, ascending: boolean): Sheet;
       toast(msg: string): void;
       toast(msg: string, title: string): void;
-      toast(msg: string, title: string, timeoutSeconds: number): void;
+      toast(msg: string, title: string, timeoutSeconds: number | null): void;
       unhideColumn(column: Range): void;
       unhideRow(row: Range): void;
       updateMenu(name: string, subMenus: any[]): void;
@@ -2025,9 +2025,9 @@ declare namespace GoogleAppsScript {
      */
     export interface TextFinder {
       findAll(): Range[];
-      findNext(): Range;
-      findPrevious(): Range;
-      getCurrentMatch(): Range;
+      findNext(): Range | null;
+      findPrevious(): Range | null;
+      getCurrentMatch(): Range | null;
       ignoreDiacritics(ignoreDiacritics: boolean): TextFinder;
       matchCase(matchCase: boolean): TextFinder;
       matchEntireCell(matchEntireCell: boolean): TextFinder;
@@ -2055,13 +2055,13 @@ declare namespace GoogleAppsScript {
      */
     export interface TextStyle {
       copy(): TextStyleBuilder;
-      getFontFamily(): string;
-      getFontSize(): Integer;
-      getForegroundColor(): string;
-      isBold(): boolean;
-      isItalic(): boolean;
-      isStrikethrough(): boolean;
-      isUnderline(): boolean;
+      getFontFamily(): string | null;
+      getFontSize(): Integer | null;
+      getForegroundColor(): string | null;
+      isBold(): boolean | null;
+      isItalic(): boolean | null;
+      isStrikethrough(): boolean | null;
+      isUnderline(): boolean | null;
     }
 
     /**

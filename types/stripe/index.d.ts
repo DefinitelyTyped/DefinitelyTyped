@@ -1,4 +1,4 @@
-// Type definitions for stripe 6.31
+// Type definitions for stripe 6.32
 // Project: https://github.com/stripe/stripe-node/
 // Definitions by: William Johnston <https://github.com/wjohnsto>
 //                 Peter Harris <https://github.com/codeanimal>
@@ -30,6 +30,7 @@
 //                 Pavel Ivanov <https://github.com/schfkt>
 //                 Chris Zieba <https://github.com/ChrisZieba>
 //                 Jeffery Grajkowski <https://github.com/pushplay>
+//                 Claus Stilborg <https://github.com/stilborg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -1091,6 +1092,8 @@ declare namespace Stripe {
 
             description?: string;
 
+            exchange_rate?: number | null;
+
             /**
              * Fee (in cents/pence) paid for this transaction
              */
@@ -1129,7 +1132,7 @@ declare namespace Stripe {
             /**
              * The transfers (if any) for which source is a source_transaction.
              */
-            source_transfers: IList<transfers.ITransfer>;
+            source_transfers?: IList<transfers.ITransfer>;
 
             /**
              * If the transaction's net funds are available in the Stripe balance yet. Either "available" or "pending".
@@ -1258,9 +1261,9 @@ declare namespace Stripe {
             destination?: string | accounts.IAccount | null;
 
             /**
-             * Details about the dispute if the charge has been disputed.
+             * Details about the dispute if the charge has been disputed. [Expandable]
              */
-            dispute?: disputes.IDispute | null;
+            dispute?: string | disputes.IDispute | null;
 
             /**
              * Error code explaining reason for charge failure if available (see the errors section for a list of
@@ -2153,12 +2156,12 @@ declare namespace Stripe {
                 /**
                  * Details for creation of payment intent
                  */
-                payment_intent_data?: paymentIntents.IPaymentIntentCaptureOptions;
+                payment_intent_data?: paymentIntents.IPaymentIntentCaptureOptions | paymentIntents.IPaymentIntentData;
 
                 /**
                  * Use instead of @param line_items when using a subscription
                  */
-                subscription_data?: subscriptions.ISubscription;
+                subscription_data?: subscriptions.ISubscriptionCustCreationOptions;
             }
 
             interface ICheckoutLineItems {
@@ -3087,6 +3090,12 @@ declare namespace Stripe {
              * Value is "event"
              */
             object: "event";
+
+            /**
+             * The connected account that originated the event.
+             * CONNECT ONLY
+             */
+            account?: string;
 
             /**
              * The Stripe API version used to render data.
@@ -4280,6 +4289,11 @@ declare namespace Stripe {
             customer?: string;
 
             /**
+             * Only return invoice items belonging to this invoice. If none is provided, all invoice items will be returned. If specifying an invoice, no customer identifier is needed.
+             */
+            invoice?: string;
+
+            /**
              * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
              */
             limit?: number;
@@ -5294,6 +5308,99 @@ declare namespace Stripe {
              * REQUIRED IF USING PUBLISHABLE KEY!
              */
             client_secret: string;
+        }
+
+        interface IPaymentIntentDataTransferDataOptions {
+            /**
+             * A positive integer representing how much to charge in the smallest currency unit.
+             */
+            amount?: number;
+
+            /**
+             * The account (if any) the payment will be attributed to for tax reporting, and where funds from the payment will be transferred to upon payment success.
+             */
+            destination?: string;
+        }
+
+        interface IPaymentIntentDataShipping {
+            /**
+             * Shipping address.
+             */
+            address: IAddress;
+
+            /**
+             * Recipient name. This can be unset by updating the value to null and then saving.
+             */
+            name: string | null;
+
+            /**
+             * The delivery service that shipped a physical product, such as Fedex, UPS, USPS, etc. This can be unset by updating the value to null and then saving.
+             */
+            carrier?: string | null;
+
+            /**
+             * Recipient phone (including extension). This can be unset by updating the value to null and then saving.
+             */
+            phone?: string | null;
+
+            /**
+             * The tracking number for a physical product, obtained from the delivery service. If multiple tracking numbers were generated for this purchase, please separate them with commas. This can be unset by updating the value to null and then saving.
+             */
+            tracking_number?: string | null;
+        }
+
+        type PaymentIntentDataCaptureMethodOptions = 'automatic' | 'manual';
+
+        type PaymentIntendDataFutureUsageOptions = 'on_session' | 'off_session';
+
+        interface IPaymentIntentData {
+            /**
+             * The amount of the application fee (if any) that will be applied to the payment and transferred to the application owner’s Stripe account. To use an application fee, the request must be made on behalf of another account, using the `Stripe-Account` header or an OAuth key.
+             */
+            application_fee_amount?: number;
+
+            /**
+             * Capture method of this PaymentIntent, one of automatic or manual.
+             */
+            capture_method?: PaymentIntentDataCaptureMethodOptions;
+
+            /**
+             * An arbitrary string attached to the object. Often useful for displaying to users. This can be unset by updating the value to null and then saving.
+             */
+            description?: string | null;
+
+            /**
+             * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+             */
+            metadata?: IOptionsMetadata;
+
+            /**
+             * The account (if any) for which the funds of the PaymentIntent are intended. Used with connected accounts.
+             */
+            on_behalf_of?: string;
+
+            /**
+             * Email address that the receipt for the resulting payment will be sent to.
+             */
+            receipt_email?: string;
+
+            /**
+             * Indicates that you intend to make future payments with this PaymentIntent’s payment method.
+             * If present, the payment method used with this PaymentIntent can be attached to a Customer, even after the transaction completes.
+             * Use on_session if you intend to only reuse the payment method when your customer is present in your checkout flow. Use off_session if your customer may or may not be in your checkout flow. See Saving card details after a payment to learn more.
+             * Stripe uses setup_future_usage to dynamically optimize your payment flow and comply with regional legislation and network rules. For example, if your customer is impacted by SCA, using off_session will ensure that they are authenticated while processing this PaymentIntent. You will then be able to collect off-session payments for this customer.
+             */
+            setup_future_usage?: PaymentIntendDataFutureUsageOptions;
+
+            /**
+             * Shipping information for this payment.
+             */
+            shipping?: IPaymentIntentDataShipping;
+
+            /**
+             * The data with which to automatically create a Transfer when the payment is finalized. Used with connected accounts.
+             */
+            transfer_data?: IPaymentIntentDataTransferDataOptions;
         }
 
         interface IPaymentIntentCaptureOptions {
@@ -6599,8 +6706,9 @@ declare namespace Stripe {
          * If, for example, a product’s attributes are ["size", "gender"],
          * a valid SKU has the following dictionary of attributes: {"size": "Medium", "gender": "Unisex"}.
          */
-            // tslint:disable-next-line:no-empty-interface
-        interface ISkuAttributes {}
+        interface ISkuAttributes {
+          [key: string]: string;
+        }
     }
 
     namespace ephemeralKeys {
@@ -7588,9 +7696,15 @@ declare namespace Stripe {
             quantity?: number;
 
             /**
-             * Date the subscription started
+             * Date of the last substantial change to this subscription. For example, a change to the items array,
+             * or a change of status, will reset this timestamp.
              */
             start: number;
+
+            /**
+             * Date when the subscription was first created. The date might differ from the created date due to backdating.
+             */
+            start_date: number;
 
             /**
              * Possible values are `incomplete`, `incomplete_expired`, `trialing`, `active`,

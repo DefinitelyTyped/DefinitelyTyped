@@ -318,6 +318,53 @@ stripe.checkout.sessions.retrieve('ch_test_123', { expand: ['payment_intent'] })
 
 //#endregion
 
+//#region Checkout with connect tests
+// ##################################################################################
+// With destination
+stripe.checkout.sessions.create({
+    payment_method_types: ['card'],
+    line_items: [{
+        name: "Cucumber from Roger's Farm",
+        amount: 200,
+        currency: 'sek',
+        quantity: 10,
+    }],
+    payment_intent_data: {
+        application_fee_amount: 200,
+        transfer_data: {
+        destination: 'acct_17wV8KBoqMA9o2xk',
+        },
+    },
+    success_url: 'https://example.com/success',
+    cancel_url: 'https://example.com/cancel',
+}, (err, session) => {
+    // asynchronously called
+});
+
+// With on_behalf_of
+stripe.checkout.sessions.create({
+    payment_method_types: ['card'],
+    line_items: [{
+        name: "Cucumber from Roger's Farm",
+        amount: 200,
+        currency: 'sek',
+        quantity: 10,
+    }],
+    payment_intent_data: {
+        application_fee_amount: 200,
+        on_behalf_of: 'acct_17wV8KBoqMA9o2xk',
+        transfer_data: {
+        destination: 'acct_17wV8KBoqMA9o2xk',
+        },
+    },
+    success_url: 'https://example.com/success',
+    cancel_url: 'https://example.com/cancel',
+}, (err, session) => {
+    // asynchronously called
+});
+
+//#endregion
+
 //#region CreditNotes tests
 // ##################################################################################
 stripe.creditNotes.create({
@@ -1488,6 +1535,29 @@ stripe.invoices.sendInvoice('in_15fvyXEe31JkLCeQH7QbgZZb').then(invoice => {
 
 //#region Invoice Items tests
 // ##################################################################################
+
+stripe.invoiceItems.list(
+    {
+        customer: 'cus_5rfJKDJkuxzh5Q',
+        invoice: 'in_15fvyXEe31JkLCeQH7QbgZZb',
+        pending: true,
+        limit: 3,
+    },
+    (err, invoiceItems) => {
+        // asynchronously called
+    }
+);
+
+stripe.invoiceItems
+    .list({
+        customer: 'cus_5rfJKDJkuxzh5Q',
+        invoice: 'in_15fvyXEe31JkLCeQH7QbgZZb',
+        pending: true,
+        limit: 3,
+    })
+    .then(invoiceItems => {
+        // asynchronously called
+    });
 
 //#endregion
 

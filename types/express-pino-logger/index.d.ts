@@ -5,9 +5,11 @@
 // TypeScript Version: 2.7
 
 import { Handler } from 'express';
-import { LoggerOptions, Logger } from 'pino';
+import { DestinationStream, LoggerOptions, Logger } from 'pino';
 
-declare function expressPinoLogger(options?: LoggerOptions | { logger?: Logger }): Handler;
+declare function expressPinoLogger(optionsOrStream?: LoggerOptions | DestinationStream | { logger: Logger }): Handler;
+
+declare function expressPinoLogger(options: LoggerOptions, stream: DestinationStream): Handler;
 
 export = expressPinoLogger;
 

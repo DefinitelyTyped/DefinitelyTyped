@@ -1,4 +1,4 @@
-// Type definitions for node-vagrnat.js 1.3
+// Type definitions for node-vagrnat.js 1.4
 // Project: https://github.com/edin-m/node-vagrant
 // Definitions by: Matthew Peveler <https://github.com/MasterOdin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -11,7 +11,7 @@ export type Callback = (err: ErrorArg, out?: string) => void;
 
 export interface Snapshots {
     push(cb?: Callback): void;
-    pop(args?: any, cb?: Callback): void;
+    pop(cb?: Callback): void;
     save(args?: string | string[], cb?: Callback): void;
     restore(args?: string | string[], cb?: Callback): void;
     list(cb?: Callback): void;
@@ -40,9 +40,10 @@ export interface Machine extends MachineEmitter {
     batch: Array<{command: string, cb: (err: ErrorArg, out?: any) => void}>;
     opts: {cwd: string, pwd: NodeJS.ProcessEnv};
 
-    init(image: string | string[], cb: Callback): void;
-    init(image: string | string[], config: any, cb: Callback): void;
+    init(args: string | string[], cb: Callback): void;
+    init(args: string | string[], config: any, cb: Callback): void;
     up(cb?: Callback): void;
+    up(args?: string | string[], cb?: Callback): void;
     status(cb: (err: ErrorArg, out?: Array<{status: string, provider: string}>) => void): void;
     sshConfig(cb: (err: ErrorArg, out?: {host: string | null, port: string | null, hostname: string | null, user: string | null, private_key: string | null}) => void): void;
     provision(cb?: Callback): void;

@@ -22,4 +22,5 @@ import {
     LivejournalIcon, // $ExpectType FunctionComponent<IconComponentProps>
     MailruIcon, // $ExpectType FunctionComponent<IconComponentProps>
     EmailIcon, // $ExpectType FunctionComponent<IconComponentProps>
+    LineIcon, // $ExpectType FunctionComponent<IconComponentProps>
 } from 'react-share';

@@ -148,7 +148,7 @@ declare namespace CodeMirror {
 
     type DOMEvent = 'mousedown' | 'dblclick' | 'touchstart' | 'contextmenu' | 'keydown' | 'keypress' | 'keyup' | 'cut' | 'copy' | 'paste' | 'dragstart' | 'dragenter' | 'dragover' | 'dragleave' | 'drop';
 
-    type CoordsMode = 'window' | 'page' | 'local';
+    type CoordsMode = 'window' | 'page' | 'local' | 'div';
 
     interface Token {
         /** The character(on the given line) at which the token starts. */
@@ -187,10 +187,10 @@ declare namespace CodeMirror {
         findWordAt(pos: CodeMirror.Position): CodeMirror.Range;
 
         /** Change the configuration of the editor. option should the name of an option, and value should be a valid value for that option. */
-        setOption<T = any>(option: string, value: T): void;
+        setOption<K extends keyof EditorConfiguration>(option: K, value: EditorConfiguration[K]): void;
 
         /** Retrieves the current value of the given option for this editor instance. */
-        getOption<T = any>(option: string): T;
+        getOption<K extends keyof EditorConfiguration>(option: K): EditorConfiguration[K];
 
         /** Attach an additional keymap to the editor.
         This is mostly useful for add - ons that need to register some key handlers without trampling on the extraKeys option.
@@ -418,23 +418,9 @@ declare namespace CodeMirror {
         /** Fetches the DOM node that contains the editor gutters. */
         getGutterElement(): Element;
 
-
-
-        /** Events are registered with the on method (and removed with the off method).
-        These are the events that fire on the instance object. The name of the event is followed by the arguments that will be passed to the handler.
-        The instance argument always refers to the editor instance. */
-        on(eventName: string, handler: (instance: CodeMirror.Editor) => void ): void;
-        off(eventName: string, handler: (instance: CodeMirror.Editor) => void ): void;
-
-        /**
-         * Fires every time the content of the editor is changed. The changeObj is a {from, to, text, removed, origin} object containing information
-         * about the changes that occurred as second argument. from and to are the positions (in the pre-change coordinate system) where the change
-         * started and ended (for example, it might be {ch:0, line:18} if the position is at the beginning of line #19). text is an array of strings
-         * representing the text that replaced the changed range (split by line). removed is the text that used to be between from and to, which is
-         * overwritten by this change. This event is fired before the end of an operation, before the DOM updates happen.
-         */
-        on(eventName: 'change', handler: (instance: CodeMirror.Editor, changeObj: CodeMirror.EditorChangeCancellable) => void ): void;
-        off(eventName: 'change', handler: (instance: CodeMirror.Editor, changeObj: CodeMirror.EditorChangeCancellable) => void ): void;
+        /** Fires every time the content of the editor is changed. */
+        on(eventName: 'change', handler: (instance: CodeMirror.Editor, change: CodeMirror.EditorChangeLinkedList) => void ): void;
+        off(eventName: 'change', handler: (instance: CodeMirror.Editor, change: CodeMirror.EditorChangeLinkedList) => void ): void;
 
         /** Like the "change" event, but batched per operation, passing an
          * array containing all the changes that happened in the operation.
@@ -545,15 +531,18 @@ declare namespace CodeMirror {
         on(eventName: 'renderLine', handler: (instance: CodeMirror.Editor, line: CodeMirror.LineHandle, element: Element) => void ): void;
         off(eventName: 'renderLine', handler: (instance: CodeMirror.Editor, line: CodeMirror.LineHandle, element: Element) => void ): void;
 
-        /**
-         * Fired when CodeMirror is handling a DOM event of this type. You can preventDefault the event, or give it a truthy codemirrorIgnore
-         * property, to signal that CodeMirror should do no further handling.
-         */
-        on(eventName: DOMEvent, handler: (instance: CodeMirror.Editor, event: Event) => void ): void;
-        off(eventName: DOMEvent, handler: (instance: CodeMirror.Editor, event: Event) => void ): void;
+        /** Fires when one of the DOM events fires. */
+        on<K extends DOMEvent & keyof GlobalEventHandlersEventMap>(eventName: K, handler: (instance: CodeMirror.Editor, event: GlobalEventHandlersEventMap[K]) => void ): void;
+        off<K extends DOMEvent & keyof GlobalEventHandlersEventMap>(eventName: K, handler: (instance: CodeMirror.Editor, event: GlobalEventHandlersEventMap[K]) => void ): void;
 
         /** Fires when the overwrite flag is flipped. */
         on(eventName: "overwriteToggle", handler: (instance: CodeMirror.Editor, overwrite: boolean) => void): void;
+
+        /** Events are registered with the on method (and removed with the off method).
+        These are the events that fire on the instance object. The name of the event is followed by the arguments that will be passed to the handler.
+        The instance argument always refers to the editor instance. */
+        on(eventName: string, handler: (instance: CodeMirror.Editor) => void ): void;
+        off(eventName: string, handler: (instance: CodeMirror.Editor) => void ): void;
 
         /** Expose the state object, so that the Editor.state.completionActive property is reachable*/
         state: any;

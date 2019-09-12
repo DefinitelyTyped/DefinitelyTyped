@@ -544,6 +544,9 @@ export type PluginTarget = string | object | ((...args: any[]) => any);
 
 export type PluginItem = ConfigItem | PluginObj<any> | PluginTarget | [PluginTarget, PluginOptions] | [PluginTarget, PluginOptions, string | undefined];
 
+export function resolvePlugin(name: string, dirname: string): string | null;
+export function resolvePreset(name: string, dirname: string): string | null;
+
 export interface CreateConfigItemOptions {
     dirname?: string;
     type?: "preset" | "plugin";

@@ -10,14 +10,14 @@ import { ClientRequest } from "http";
 export function createClient(options?: Options): Client;
 
 export interface Options {
-    host?: string;
-    port?: number;
-    core?: string;
-    path?: string;
-    agent?: string;
-    secure?: string;
-    bigint?: string;
-    solrVersion?: string;
+  host?: string;
+  port?: number;
+  core?: string;
+  path?: string;
+  agent?: string;
+  secure?: boolean;
+  bigint?: string;
+  solrVersion?: string;
 }
 
 export interface RangeFilterOption {
