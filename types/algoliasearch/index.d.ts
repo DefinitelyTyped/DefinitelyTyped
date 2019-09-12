@@ -10,6 +10,7 @@
 //                 Alexandre Deve <https://github.com/adeve>
 //                 Dan Grayson <https://github.com/dan-grayson>
 //                 Peter Esenwa <https://github.com/PeterEsenwa>
+//                 Samuel Bodin <https://github.com/bodinsamuel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -139,34 +140,40 @@ declare namespace algoliasearch {
     /**
      * Lists global API Keys
      */
-    listApiKeys(cb: (err: Error, res: any) => void): void;
+    listApiKeys(cb: (err: Error, res: ApiKey[]) => void): void;
     /**
      * Lists global API Keys
      */
-    listApiKeys(): Promise<any>;
+    listApiKeys(): Promise<ApiKey[]>;
     /**
      * Add global API Keys
      */
-    addApiKey(scopes: string[], cb: (err: Error, res: Task) => void): void;
+    addApiKey(
+      scopes: string[],
+      cb: (err: Error, res: AddApiKeyTask) => void
+    ): void;
     /**
      * Add global API Key
      */
     addApiKey(
       scopes: string[],
       options: ApiKeyOptions,
-      cb: (err: Error, res: Task) => void
+      cb: (err: Error, res: AddApiKeyTask) => void
     ): void;
     /**
      * Add global API Keys
      */
-    addApiKey(scopes: string[], options?: ApiKeyOptions): Promise<Task>;
+    addApiKey(
+      scopes: string[],
+      options?: ApiKeyOptions
+    ): Promise<AddApiKeyTask>;
     /**
      * Update global API key
      */
     updateApiKey(
       key: string,
       scopes: string[],
-      cb: (err: Error, res: Task) => void
+      cb: (err: Error, res: UpdateApiKeyTask) => void
     ): void;
     /**
      * Update global API key
@@ -175,7 +182,7 @@ declare namespace algoliasearch {
       key: string,
       scopes: string[],
       options: ApiKeyOptions,
-      cb: (err: Error, res: Task) => void
+      cb: (err: Error, res: UpdateApiKeyTask) => void
     ): void;
     /**
      * Update global API key
@@ -184,23 +191,26 @@ declare namespace algoliasearch {
       key: string,
       scopes: string[],
       options?: ApiKeyOptions
-    ): Promise<Task>;
+    ): Promise<UpdateApiKeyTask>;
     /**
      * Gets the rights of a global key
      */
-    getApiKey(key: string, cb: (err: Error, res: any) => void): void;
+    getApiKey(key: string, cb: (err: Error, res: ApiKey) => void): void;
     /**
      * Gets the rights of a global key
      */
-    getApiKey(key: string): Promise<any>;
+    getApiKey(key: string): Promise<ApiKey>;
     /**
      * Deletes a global key
      */
-    deleteApiKey(key: string, cb: (err: Error, res: Task) => void): void;
+    deleteApiKey(
+      key: string,
+      cb: (err: Error, res: DeleteApiKeyTask) => void
+    ): void;
     /**
      * Deletes a global key
      */
-    deleteApiKey(key: string): Promise<Task>;
+    deleteApiKey(key: string): Promise<DeleteApiKeyTask>;
     /**
      * Get 1000 last events
      */
@@ -424,18 +434,21 @@ declare namespace algoliasearch {
     /**
      * List index user keys
      */
-    listApiKeys(cb: (err: Error, res: any) => void): void;
+    listApiKeys(cb: (err: Error, res: ApiKey[]) => void): void;
     /**
      * Add key for this index
      */
-    addApiKey(scopes: string[], cb: (err: Error, res: Task) => void): void;
+    addApiKey(
+      scopes: string[],
+      cb: (err: Error, res: AddApiKeyTask) => void
+    ): void;
     /**
      * Add key for this index
      */
     addApiKey(
       scopes: string[],
       options: ApiKeyOptions,
-      cb: (err: Error, res: Task) => void
+      cb: (err: Error, res: AddApiKeyTask) => void
     ): void;
     /**
      * Update a key for this index
@@ -443,7 +456,7 @@ declare namespace algoliasearch {
     updateApiKey(
       key: string,
       scopes: string[],
-      cb: (err: Error, res: Task) => void
+      cb: (err: Error, res: UpdateApiKeyTask) => void
     ): void;
     /**
      * Update a key for this index
@@ -452,16 +465,19 @@ declare namespace algoliasearch {
       key: string,
       scopes: string[],
       options: ApiKeyOptions,
-      cb: (err: Error, res: Task) => void
+      cb: (err: Error, res: UpdateApiKeyTask) => void
     ): void;
     /**
      * Gets the rights of an index specific key
      */
-    getApiKey(key: string, cb: (err: Error, res: any) => void): void;
+    getApiKey(key: string, cb: (err: Error, res: ApiKey) => void): void;
     /**
      * Deletes an index specific key
      */
-    deleteApiKey(key: string, cb: (err: Error, res: Task) => void): void;
+    deleteApiKey(
+      key: string,
+      cb: (err: Error, res: DeleteApiKeyTask) => void
+    ): void;
     /**
      * Gets specific attributes from an object
      */
@@ -630,15 +646,18 @@ declare namespace algoliasearch {
     /**
      * List index user keys
      */
-    listApiKeys(): Promise<any>;
+    listApiKeys(): Promise<ApiKey[]>;
     /**
      * Add key for this index
      */
-    addApiKey(scopes: string[], options?: ApiKeyOptions): Promise<Task>;
+    addApiKey(
+      scopes: string[],
+      options?: ApiKeyOptions
+    ): Promise<AddApiKeyTask>;
     /**
      * Update a key for this index
      */
-    updateApiKey(key: string, scopes: string[]): Promise<Task>;
+    updateApiKey(key: string, scopes: string[]): Promise<UpdateApiKeyTask>;
     /**
      * Update a key for this index
      */
@@ -646,15 +665,15 @@ declare namespace algoliasearch {
       key: string,
       scopes: string[],
       options: ApiKeyOptions
-    ): Promise<Task>;
+    ): Promise<UpdateApiKeyTask>;
     /**
      * Gets the rights of an index specific key
      */
-    getApiKey(key: string): Promise<any>;
+    getApiKey(key: string): Promise<ApiKey>;
     /**
      * Deletes an index specific key
      */
-    deleteApiKey(key: string): Promise<Task>;
+    deleteApiKey(key: string): Promise<DeleteApiKeyTask>;
   }
   /**
    * Interface describing available options when initializing a client
@@ -1356,8 +1375,41 @@ declare namespace algoliasearch {
   }
 
   interface TaskStatus {
-    status: 'published' | 'notPublished',
-    pendingTask: boolean,
+    status: 'published' | 'notPublished';
+    pendingTask: boolean;
+  }
+
+  interface ApiKey {
+    value: string;
+    createdAt: number;
+    acl: (
+      | 'search'
+      | 'browse'
+      | 'addObject'
+      | 'deleteObject'
+      | 'deleteIndex'
+      | 'settings'
+      | 'editSettings'
+      | 'analytics'
+      | 'listIndexes'
+      | 'logs'
+      | 'seeUnretrievableAttributes')[];
+    validity: number;
+    description?: string;
+  }
+
+  interface AddApiKeyTask {
+    key: string;
+    createdAt: string;
+  }
+
+  interface UpdateApiKeyTask {
+    key: string;
+    updatedAt: string;
+  }
+
+  interface DeleteApiKeyTask {
+    deletedAt: string;
   }
 
   interface IndexSettings {
@@ -1689,7 +1741,7 @@ declare namespace algoliasearch {
      * If a search encounters an index that is being A/B tested, abTestVariantID
      * reports the variant ID of the index used (note, this is the ID not the name).
      * The variant ID is the position in the array of variants (starting at 1).
-     * 
+     *
      * For example, abTestVariantID=1 is variant A (the main index), abTestVariantID=2
      * is variant B (the replica you chose when creating the A/B test , or the queries
      * with the changed query parameters if the A/B test is based on query parameters).
