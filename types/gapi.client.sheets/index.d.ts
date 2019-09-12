@@ -909,6 +909,7 @@ declare namespace gapi.client {
             /** The sheet ID on which the basic filter should be cleared. */
             sheetId?: number;
         }
+        // tslint:disable-next-line:no-empty-interface
         interface ClearValuesRequest {
         }
         interface ClearValuesResponse {
