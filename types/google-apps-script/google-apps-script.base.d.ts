@@ -257,10 +257,10 @@ declare namespace GoogleAppsScript {
       prompt(prompt: string): PromptResponse;
       prompt(prompt: string, buttons: ButtonSet): PromptResponse;
       prompt(title: string, prompt: string, buttons: ButtonSet): PromptResponse;
-      showModalDialog(userInterface: object, title: string): void;
-      showModelessDialog(userInterface: object, title: string): void;
-      showSidebar(userInterface: object): void;
-      showDialog(userInterface: object): void;
+      showModalDialog(userInterface: HTML.HtmlOutput, title: string): void;
+      showModelessDialog(userInterface: HTML.HtmlOutput, title: string): void;
+      showSidebar(userInterface: HTML.HtmlOutput): void;
+      showDialog(userInterface: HTML.HtmlOutput): void;
     }
 
     /**
