@@ -114,6 +114,11 @@ const optionsObject = {
 };
 select('With object', optionsObject, optionsObject.Apple);
 
+const stringLiteralConstArray = ['Apple', 'Banana', 'Grapes'] as const;
+type StringLiteralConstType = typeof stringLiteralConstArray[number] | undefined
+
+const _Const: StringLiteralConstType = select('With string literal array', stringLiteralConstArray, undefined);
+
 const genericArray = array('With regular array', ['hi', 'there']);
 
 const userInputArray = array('With readonly array', ['hi']);
