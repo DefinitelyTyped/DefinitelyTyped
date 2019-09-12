@@ -14,7 +14,7 @@ declare namespace HtmlWebpackTagsPlugin {
         files?: string | string[];
         append?: boolean;
     }
-} 
+}
 
 declare class HtmlWebpackTagsPlugin extends Plugin {
     constructor(options: HtmlWebpackTagsPlugin.Options);
