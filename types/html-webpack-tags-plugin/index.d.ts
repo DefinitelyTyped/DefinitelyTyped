@@ -8,12 +8,16 @@
 
 import { Plugin } from 'webpack';
 
-export interface Options {
-    tags: string | string[];
-    files?: string | string[];
-    append?: boolean;
+declare namespace HtmlWebpackTagsPlugin {
+    interface Options {
+        tags: string | string[];
+        files?: string | string[];
+        append?: boolean;
+    }
+} 
+
+declare class HtmlWebpackTagsPlugin extends Plugin {
+    constructor(options: HtmlWebpackTagsPlugin.Options);
 }
 
-export default class HtmlWebpackTagsPlugin extends Plugin {
-    constructor(options: Options);
-}
+export = HtmlWebpackTagsPlugin;
