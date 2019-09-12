@@ -1299,21 +1299,21 @@ const S3BatchEventRequest: AWSLambda.S3BatchEventRequest = {
 };
 
 const S3BatchEventResponse: AWSLambda.S3BatchEventResponse = {
-    invocationSchemaVersion: "1.0",
-    treatMissingKeysAs: "PermanentFailure",
-    invocationId: "foo_invocation_id",
+    invocationSchemaVersion: '1.0',
+    treatMissingKeysAs: 'PermanentFailure',
+    invocationId: 'foo_invocation_id',
     results: [{
-        taskId: "11111",
-        resultCode: "Succeeded",
-        resultString: "foo",
+        taskId: '11111',
+        resultCode: 'Succeeded',
+        resultString: 'foo',
     }, {
-        taskId: "22222",
-        resultCode: "TemporaryFailure",
-        resultString: "Error: failure",
+        taskId: '22222',
+        resultCode: 'TemporaryFailure',
+        resultString: 'Error: failure',
     }, {
-        taskId: "33333",
-        resultCode: "PermanentFailure",
-        resultString: "Error: failure",
+        taskId: '33333',
+        resultCode: 'PermanentFailure',
+        resultString: 'Error: failure',
     }],
 };
 
