@@ -56,4 +56,13 @@ declare function withStyles<T = Theme>(
 
 declare function css(...styles: any[]): object;
 
-export { css, withStyles, WithStylesProps, withStylesPropTypes, WithStylesOptions, Theme, Styles, CSSProperties };
+export {
+  css,
+  withStyles,
+  WithStylesProps,
+  withStylesPropTypes,
+  WithStylesOptions,
+  Theme,
+  Styles,
+  CSSProperties,
+};
