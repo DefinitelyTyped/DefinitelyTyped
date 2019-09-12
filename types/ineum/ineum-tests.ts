@@ -1,5 +1,3 @@
-/// <reference types="./index" />
-
 // $ExpectType void
 ineum("key", "key");
 // $ExpectType void
