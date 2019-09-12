@@ -108,16 +108,19 @@ const stringLiteralArray: StringLiteralType[] = ['Apple', 'Banana', 'Grapes'];
 // type of value returned from `select` must be `StringLiteralType`.
 const _: StringLiteralType = select('With string literal array', stringLiteralArray, stringLiteralArray[0]);
 
+type StringLiteralTypeUndefined = StringLiteralType | undefined;
+
+const _Undefined: StringLiteralTypeUndefined = select(
+  'With string literal array',
+  stringLiteralArray,
+  undefined,
+);
+
 const optionsObject = {
   Apple: { taste: 'sweet', color: 'red' },
   Lemon: { taste: 'sour', color: 'yellow' }
 };
 select('With object', optionsObject, optionsObject.Apple);
-
-const stringLiteralConstArray = ['Apple', 'Banana', 'Grapes'] as const;
-type StringLiteralConstType = typeof stringLiteralConstArray[number] | undefined
-
-const _Const: StringLiteralConstType = select('With string literal array', stringLiteralConstArray, undefined);
 
 const genericArray = array('With regular array', ['hi', 'there']);
 

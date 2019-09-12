@@ -52,8 +52,12 @@ export function object<T>(name: string, value: T, groupId?: string): T;
 
 export function radios<T>(name: string, options: { [s: string]: T }, value?: T, groupId?: string): T;
 
-export function select<T>(name: string, options: { [s: string]: T }, value: T, groupId?: string): T;
-export function select<T>(name: string, options: ReadonlyArray<T>, value: T, groupId?: string): T;
+export function select<T>(
+  name: string,
+  options: { [s: string]: T } | ReadonlyArray<T>,
+  value: T,
+  groupId?: string,
+): T;
 export function select<
     T extends Exclude<
         React.OptionHTMLAttributes<HTMLOptionElement>['value'],
