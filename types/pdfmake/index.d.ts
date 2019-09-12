@@ -24,6 +24,8 @@ declare module "pdfmake/build/pdfmake" {
         vfs?: any
     ): TCreatedPdf;
 
+    function addVirtualFileSystem(vfs: any): void;
+
     enum PageSize {
         A0_x_4 = "4A0",
         A0_x_2 = "2A0",
