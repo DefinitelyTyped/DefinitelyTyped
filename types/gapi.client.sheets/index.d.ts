@@ -909,6 +909,8 @@ declare namespace gapi.client {
             /** The sheet ID on which the basic filter should be cleared. */
             sheetId?: number;
         }
+        interface ClearValuesRequest {
+        }
         interface ClearValuesResponse {
             /**
              * The range (in A1 notation) that was cleared.
