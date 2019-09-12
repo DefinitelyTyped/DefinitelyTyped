@@ -437,9 +437,11 @@ declare namespace Office {
         */
         asyncContext: any;
         /**
-        * Gets an object that may provide additional information if an error occurred.
+        * Gets an object that may provide additional information if an {@link Office.Error | error} occurred.
         *
         * @remarks
+        * 
+        * This property returns additional information if the following errors occur with these supported APIs.
         * 
         * *Supported APIs*
         * 
@@ -465,6 +467,7 @@ declare namespace Office {
         * Gets the payload or content of this asynchronous operation, if any.
         * 
         * @remarks
+        * 
         * You access the AsyncResult object in the function passed as the argument to the callback parameter of an "Async" method, such as the 
         * `getSelectedDataAsync` and `setSelectedDataAsync` methods of the {@link Office.Document | Document} object.
         *
@@ -477,7 +480,8 @@ declare namespace Office {
      * Represents the runtime environment of the add-in and provides access to key objects of the API. 
      * The current context exists as a property of Office. It is accessed using `Office.context`.
      *
-     * @remarks 
+     * @remarks
+     * 
      * **Hosts**: Excel, Outlook, PowerPoint, Project, Word
      */     
     interface Context {
@@ -491,6 +495,7 @@ declare namespace Office {
         * True, if the current platform allows the add-in to display a UI for selling or upgrading; otherwise returns False.
         * 
         * @remarks
+        * 
         * **Hosts**: Excel, Word
         * 
         * `commerceAllowed` is only supported in Office on iPad.
@@ -504,6 +509,7 @@ declare namespace Office {
         * Gets the locale (language) specified by the user for editing the document or item.
         * 
         * @remarks
+        * 
         * The `contentLanguage` value reflects the **Editing Language** setting specified with **File \> Options \> Language** in the Office host 
         * application.
         * 
@@ -583,8 +589,7 @@ declare namespace Office {
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: Restricted
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-         * 
-         * 
+         *
          * **Namespaces**:
          *
          * - `diagnostics`: Provides diagnostic information to an Outlook add-in.
@@ -626,6 +631,7 @@ declare namespace Office {
         * True if the add-in is running on a touch device, such as an iPad; false otherwise.
         * 
         * @remarks
+        * 
         * **Hosts**: Excel, PowerPoint, Word
         * 
         * `touchEnabled` is only supported in Office on iPad.
@@ -643,6 +649,7 @@ declare namespace Office {
      * Provides specific information about an error that occurred during an asynchronous data operation.
      *
      * @remarks
+     * 
      * The Error object is accessed from the AsyncResult object that is returned in the function passed as the callback argument of an asynchronous 
      * data operation, such as the `setSelectedDataAsync` method of the Document object.
      */
@@ -666,6 +673,7 @@ declare namespace Office {
          * which button was clicked and to signal the host that it has completed its processing.
          * 
          * @remarks
+         * 
          * See {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/add-in-commands-requirement-sets | Add-in commands requirement sets} for more support information.
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: Restricted
@@ -673,7 +681,6 @@ declare namespace Office {
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
          */
         interface Event {
-            
             /**
              * Information about the control that triggered calling this function.
              * 
@@ -682,15 +689,17 @@ declare namespace Office {
              * This property is only supported in Outlook in {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/outlook-api-requirement-sets | requirement set} Mailbox 1.3 and later.
              */
             source:Source;
+            
             /**
-             * Indicates that the add-in has completed processing that was triggered by an add-in command button or event handler.
+             * Indicates that the add-in has completed processing and will automatically be closed.
              * 
-             * This method must be called at the end of a function which was invoked by an add-in command defined with an Action element with an 
-             * xsi:type attribute set to ExecuteFunction. Calling this method signals the host client that the function is complete and that it can 
-             * clean up any state involved with invoking the function. For example, if the user closes Outlook before this method is called, Outlook 
-             * will warn that a function is still executing.
+             * This method must be called at the end of a function which was invoked by the following.
              * 
-             * This method must be called in an event handler added via Office.context.mailbox.addHandlerAsync after completing processing of the event.
+             * - A UI-less button (i.e., an add-in command defined with an Action element where the xsi:type attribute is set to ExecuteFunction)
+             * 
+             * - An {@link https://docs.microsoft.com/office/dev/add-ins/reference/manifest/event | event} defined in the
+             * {@link https://docs.microsoft.com/office/dev/add-ins/reference/manifest/extensionpoint#events | Events extension point},
+             * e.g., an `ItemSend` event
              * 
              * [Api set: Mailbox 1.3]
              *
@@ -714,7 +723,7 @@ declare namespace Office {
             /**
              * A boolean value. When the completed method is used to signal completion of an event handler, 
              * this value indicates of the handled event should continue execution or be canceled. 
-             * For example, an add-in that handles the `ItemSend` event can set `allowEvent = false` to cancel sending of the message.
+             * For example, an add-in that handles the `ItemSend` event can set `allowEvent` to `false` to cancel sending of the message.
              */
             allowEvent: boolean;
         }
@@ -742,6 +751,7 @@ declare namespace Office {
         * Displays a dialog to show or collect information from the user or to facilitate Web navigation.
         *
         * @remarks
+        * 
         * **Hosts**: Word, Excel, Outlook, PowerPoint
         * 
         * **Requirement sets**: 
@@ -978,15 +988,24 @@ declare namespace Office {
     }
 
     /**
-     * Provides information about what Requirement Sets are supported in current environment.
+     * Provides information about which Requirement Sets are supported in the current environment.
      */
     interface RequirementSetSupport {
-        /**
+       /**
         * Check if the specified requirement set is supported by the host Office application.
-        * @param name - Set name; e.g., "MatrixBindings".
-        * @param minVersion - The minimum required version; e.g., "1.4". Note: String type is recommended data type for this parameter. The use of number type is deprecated and will not be compatible with recent requirement sets.
+        * @param name - The requirement set name (e.g., "ExcelApi").
+        * @param minVersion - The minimum required version (e.g., "1.4").
         */
-       isSetSupported(name: string, minVersion?: string | number): boolean;
+       isSetSupported(name: string, minVersion?: string): boolean;
+
+       /**
+        * Check if the specified requirement set is supported by the host Office application.
+        * @deprecated Use the string overload of `isSetSupported` instead.
+        * @param name - The requirement set name (e.g., "ExcelApi").
+        * @param minVersionNumber - The minimum required version (e.g., 1.4). 
+        * **Warning**: This overload of `isSetSupported` (where `minVersionNumber` is a number) is deprecated. Use the string overload of `isSetSupported` instead.
+        */
+       isSetSupported(name: string, minVersionNumber?: number): boolean;
     }
 
     /**
@@ -1130,6 +1149,7 @@ declare namespace Office {
      * Provides options for how to get the data in a binding.
      *
      * @remarks
+     * 
      * If the rows option is used, the value must be "thisRow".
      */
     interface GetBindingDataOptions {
@@ -1165,6 +1185,10 @@ declare namespace Office {
         filterType?: Office.FilterType | string
         /**
         * Only for table bindings in content add-ins for Access. Specifies the pre-defined string "thisRow" to get data in the currently selected row.
+        * 
+        * **Important**: We no longer recommend that you create and use Access web apps and databases in SharePoint.
+        * As an alternative, we recommend that you use {@link https://powerapps.microsoft.com/ | Microsoft PowerApps}
+        * to build no-code business solutions for web and mobile devices.
         */
         rows?: string
         /**
@@ -1176,6 +1200,7 @@ declare namespace Office {
      * Provides options for how to set the data in a binding.
      *
      * @remarks
+     * 
      * If the rows option is used, the value must be "thisRow".
      */
     interface SetBindingDataOptions {
@@ -1361,6 +1386,7 @@ declare namespace Office {
      * Provides options for whether to select the location that is navigated to.
      *
      * @remarks
+     * 
      * The behavior caused by the {@link Office.SelectionMode | options.selectionMode} option varies by host:
      *
      * In Excel: `Office.SelectionMode.Selected` selects all content in the binding, or named item. `Office.SelectionMode.None` for text bindings, 
@@ -1451,6 +1477,7 @@ declare namespace Office {
      * task pane add-ins.
      * 
      * @remarks
+     * 
      * **Hosts**: Excel, Outlook (in preview), PowerPoint, Word
      * 
      * `OfficeTheme` is only supported in Office on Windows.
@@ -1683,17 +1710,22 @@ declare namespace Office {
          * A Document.ActiveViewChanged event was raised.
          * 
          * @remarks 
+         * 
          * **Hosts**: PowerPoint
          */
         ActiveViewChanged,
         /**
          * Triggers when any date or time of the selected appointment or series is changed in Outlook. Supported with task pane only.
          * 
+         * The event handler receives an argument of type `Office.AppointmentTimeChangedEventArgs`.
+         * 
          * [Api set: Mailbox 1.7]
          */
         AppointmentTimeChanged,
         /**
          * Triggers when an attachment is added to or removed from an item. Supported with task pane only.
+         * 
+         * The event handler receives an argument of type `Office.AttachmentsChangedEventArgs`.
          * 
          * [Api set: Mailbox Preview]
          * 
@@ -1706,6 +1738,7 @@ declare namespace Office {
          * The event handler receives an argument of type {@link Office.BindingDataChangedEventArgs}.
          * 
          * @remarks 
+         * 
          * **Hosts**: Excel, Word
          */
         BindingDataChanged,
@@ -1714,36 +1747,42 @@ declare namespace Office {
          * the addHandlerAsync method of the Binding object. The event handler receives an argument of type {@link Office.BindingSelectionChangedEventArgs}.
          * 
          * @remarks 
+         * 
          * **Hosts**: Excel, Word 
          */
         BindingSelectionChanged,
-        /**
-         * Triggers when Dialog sends a message via MessageParent.
-         */
-        DialogMessageReceived,
         /**
          * Triggers when Dialog has an event, such as dialog closed or dialog navigation failed.
          */
         DialogEventReceived,
         /**
+         * Triggers when Dialog sends a message via MessageParent.
+         */
+        DialogMessageReceived,
+        /**
          * Triggers when a document-level selection happens.
          * 
          * @remarks 
+         * 
          * **Hosts**: Excel, Word
          */
         DocumentSelectionChanged,
+        /**
+         * Triggers when the appointment location is changed in Outlook. Supported with task pane only.
+         * 
+         * The event handler receives an argument of type `Office.EnhancedLocationsChangedEventArgs`.
+         * 
+         * [Api set: Mailbox Preview]
+         * 
+         * @beta
+         */
+        EnhancedLocationsChanged,
         /**
          * Triggers when a different Outlook item is selected for viewing while the task pane is pinned. Supported with task pane only.
          * 
          * [Api set: Mailbox 1.5]
          */
         ItemChanged,
-        /**
-         * Triggers when the appointment location is changed in Outlook. Supported with task pane only.
-         * 
-         * [Api set: Mailbox Preview]
-         */
-        EnhancedLocationsChanged,
         /**
          * Triggers when a customXmlPart node is deleted.
          */
@@ -1759,6 +1798,8 @@ declare namespace Office {
         /**
          * Triggers when the OfficeTheme is changed in Outlook. Supported with task pane only.
          * 
+         * The event handler receives an argument of type `Office.OfficeThemeChangedEventArgs`.
+         * 
          * [Api set: Mailbox Preview]
          * 
          * @beta
@@ -1767,11 +1808,15 @@ declare namespace Office {
         /**
          * Triggers when the recipient list of the selected item or the appointment location is changed in Outlook. Supported with task pane only.
          * 
+         * The event handler receives an argument of type `Office.RecipientsChangedEventArgs`.
+         * 
          * [Api set: Mailbox 1.7]
          */
         RecipientsChanged,
         /**
          * Triggers when the recurrence pattern of the selected series is changed in Outlook. Supported with task pane only.
+         * 
+         * The event handler receives an argument of type `Office.RecurrenceChangedEventArgs`.
          * 
          * [Api set: Mailbox 1.7]
          */
@@ -1784,6 +1829,7 @@ declare namespace Office {
          * A Settings.settingsChanged event was raised.
          * 
          * @remarks 
+         * 
          * **Hosts**: Excel, PowerPoint, Word
          */
         SettingsChanged,
@@ -1800,6 +1846,7 @@ declare namespace Office {
      * Specifies the format in which to return the document.
      *
      * @remarks
+     * 
      * `FileType.Text` is only supported in Word, `FileType.Pdf` is only supported in Word on the web, Windows, and Mac, and PowerPoint.
      */
     enum FileType {
@@ -1898,6 +1945,7 @@ declare namespace Office {
      * Specifies whether values, such as numbers and dates, returned by the invoked method are returned with their formatting applied.
      *
      * @remarks
+     * 
      * For example, if the valueFormat parameter is specified as "formatted", a number formatted as currency, or a date formatted as mm/dd/yy in the 
      * host application will have its formatting preserved. If the valueFormat parameter is specified as "unformatted", a date will be returned in its 
      * underlying sequential serial number form.
@@ -1925,6 +1973,7 @@ declare namespace Office {
     * and table-specific features, such as counting the number of rows and columns.
     *
     * @remarks
+    * 
     * **Hosts**: Excel, Word
     * 
     * **Requirement sets**: 
@@ -1986,7 +2035,7 @@ declare namespace Office {
          * 
          * **Requirement sets**: 
          * 
-         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#htmlcoercion | HtmlCoercion} (when using `Office.CoercionType.Html`),
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#htmlcoercion | HtmlCoercion} (when using `Office.CoercionType.Html`)
          * 
          * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixbindings | MatrixBindings}
          * 
@@ -2299,7 +2348,7 @@ declare namespace Office {
          *     <td>The set of rows and columns are written.You can also specify an array of arrays that contain valid formulas to add them to the bound cells. For example, setting  data to `[["=SUM(A1:A5)","=AVERAGE(A1:A5)"]]` will add those two formulas to a binding that contains two cells. Just as when setting a formula on a single bound cell, you can't read the added formulas (or any pre-existing formulas) from the binding with the `Binding.getDataAsync` method - it returns only the data displayed in the bound cells.</td>
          *   </tr>
          *   <tr>
-         *     <td>An `TableData` object, and the shape of the table matches the bound table.</td>
+         *     <td>A `TableData` object, and the shape of the table matches the bound table.</td>
          *     <td>The specified set of rows and/or headers are written, if no other data in surrounding cells will be overwritten. **Note**: If you specify formulas in the TableData object you pass for the *data* parameter, you might not get the results you expect due to the "calculated columns" feature of Excel, which automatically duplicates formulas within a column. To work around this when you want to write *data* that contains formulas to a bound table, try specifying the data as an array of arrays (instead of a TableData object), and specify the *coercionType* as Microsoft.Office.Matrix or "matrix".</td>
          *   </tr>
          * </table>
@@ -2478,6 +2527,7 @@ declare namespace Office {
          * Creates a binding against a named object in the document.
          *
          * @remarks
+         * 
          * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixbindings | MatrixBindings}, 
          * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#tablebindings | TableBindings}, 
          * {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textbindings | TextBindings}
@@ -2527,6 +2577,7 @@ declare namespace Office {
          * Create a binding by prompting the user to make a selection on the document.
          *
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#methods-that-arent-part-of-a-requirement-set | Not in a set}
          *
          * Adds a binding object of the specified type to the Bindings collection, which will be identified with the supplied id. 
@@ -2692,7 +2743,7 @@ declare namespace Office {
          *
          * @remarks
          * 
-         * **Requirement sets**: 
+         * **Requirement sets**:
          * 
          * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixbindings | MatrixBindings}
          * 
@@ -2711,6 +2762,7 @@ declare namespace Office {
      * Represents an XML node in a tree in a document.
      * 
      * @remarks
+     * 
      * **Hosts**: Word
      */
     interface CustomXmlNode {
@@ -2730,6 +2782,7 @@ declare namespace Office {
          * Gets the nodes associated with the XPath expression.
          *
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param xPath The XPath expression that specifies the nodes to get. Required.
@@ -2742,6 +2795,7 @@ declare namespace Office {
          * Gets the nodes associated with the XPath expression.
          *
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param xPath The XPath expression that specifies the nodes to get. Required.
@@ -2753,6 +2807,7 @@ declare namespace Office {
          * Gets the node value.
          *
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
@@ -2764,6 +2819,7 @@ declare namespace Office {
          * Gets the node value.
          *
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
@@ -2774,6 +2830,7 @@ declare namespace Office {
          * Gets the text of an XML node in a custom XML part.
          *
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
@@ -2785,6 +2842,7 @@ declare namespace Office {
          * Gets the text of an XML node in a custom XML part.
          *
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
@@ -2795,6 +2853,7 @@ declare namespace Office {
          * Gets the node's XML.
          *
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
@@ -2806,6 +2865,7 @@ declare namespace Office {
          * Gets the node's XML.
          *
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
@@ -2816,6 +2876,7 @@ declare namespace Office {
          * Sets the node value.
          *
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param value The value to be set on the node
@@ -2827,6 +2888,7 @@ declare namespace Office {
          * Sets the node value.
          *
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param value The value to be set on the node
@@ -2837,6 +2899,7 @@ declare namespace Office {
          * Asynchronously sets the text of an XML node in a custom XML part.
          *
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param text Required. The text value of the XML node.
@@ -2848,6 +2911,7 @@ declare namespace Office {
          * Asynchronously sets the text of an XML node in a custom XML part.
          *
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param text Required. The text value of the XML node.
@@ -2858,6 +2922,7 @@ declare namespace Office {
          * Sets the node XML.
          *
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param xml The XML to be set on the node
@@ -2869,6 +2934,7 @@ declare namespace Office {
          * Sets the node XML.
          *
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param xml The XML to be set on the node
@@ -2880,6 +2946,7 @@ declare namespace Office {
      * Represents a single CustomXMLPart in an {@link Office.CustomXmlParts} collection.
      * 
      * @remarks
+     * 
      * **Hosts**: Word
      */
     interface CustomXmlPart {
@@ -2899,6 +2966,7 @@ declare namespace Office {
          * Adds an event handler to the object using the specified event type.
          *
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * You can add multiple event handlers for the specified eventType as long as the name of each event handler function is unique.
@@ -2915,6 +2983,7 @@ declare namespace Office {
          * Adds an event handler to the object using the specified event type.
          *
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * You can add multiple event handlers for the specified eventType as long as the name of each event handler function is unique.
@@ -2930,6 +2999,7 @@ declare namespace Office {
          * Deletes the Custom XML Part.
          * 
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
@@ -2940,6 +3010,7 @@ declare namespace Office {
          * Deletes the Custom XML Part.
          * 
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
@@ -2949,6 +3020,7 @@ declare namespace Office {
          * Asynchronously gets any CustomXmlNodes in this custom XML part which match the specified XPath.
          * 
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param xPath An XPath expression that specifies the nodes you want returned. Required.
@@ -2961,6 +3033,7 @@ declare namespace Office {
          * Asynchronously gets any CustomXmlNodes in this custom XML part which match the specified XPath.
          * 
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param xPath An XPath expression that specifies the nodes you want returned. Required.
@@ -2972,6 +3045,7 @@ declare namespace Office {
          * Asynchronously gets the XML inside this custom XML part.
          * 
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
@@ -2983,6 +3057,7 @@ declare namespace Office {
          * Asynchronously gets the XML inside this custom XML part.
          * 
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
@@ -2993,6 +3068,7 @@ declare namespace Office {
          * Removes an event handler for the specified event type.
          * 
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param eventType Specifies the type of event to remove. For a CustomXmlPart object, the eventType parameter can be specified as 
@@ -3006,6 +3082,7 @@ declare namespace Office {
          * Removes an event handler for the specified event type.
          * 
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param eventType Specifies the type of event to remove. For a CustomXmlPart object, the eventType parameter can be specified as 
@@ -3080,6 +3157,7 @@ declare namespace Office {
      * Represents a collection of CustomXmlPart objects.
      * 
      * @remarks
+     * 
      * **Hosts**: Word
      */
     interface CustomXmlParts {
@@ -3087,6 +3165,7 @@ declare namespace Office {
          * Asynchronously adds a new custom XML part to a file.
          * 
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param xml The XML to add to the newly created custom XML part.
@@ -3099,6 +3178,7 @@ declare namespace Office {
          * Asynchronously adds a new custom XML part to a file.
          * 
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param xml The XML to add to the newly created custom XML part.
@@ -3110,6 +3190,7 @@ declare namespace Office {
          * Asynchronously gets the specified custom XML part by its id.
          * 
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param id The GUID of the custom XML part, including opening and closing braces.
@@ -3123,6 +3204,7 @@ declare namespace Office {
          * Asynchronously gets the specified custom XML part by its id.
          * 
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param id The GUID of the custom XML part, including opening and closing braces.
@@ -3135,6 +3217,7 @@ declare namespace Office {
          * Asynchronously gets the specified custom XML part(s) by its namespace.
          * 
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param ns  The namespace URI.
@@ -3147,6 +3230,7 @@ declare namespace Office {
          * Asynchronously gets the specified custom XML part(s) by its namespace.
          * 
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#customxmlparts | CustomXmlParts}
          *
          * @param ns  The namespace URI.
@@ -3159,6 +3243,7 @@ declare namespace Office {
      * Represents a collection of CustomXmlPart objects.
      * 
      * @remarks
+     * 
      * **Hosts**: Word
      */
     interface CustomXmlPrefixMappings {
@@ -3258,6 +3343,7 @@ declare namespace Office {
      * An abstract class that represents the document the add-in is interacting with.
      *
      * @remarks
+     * 
      * **Hosts**: Excel, PowerPoint, Project, Word
      */
     interface Document {
@@ -3265,6 +3351,7 @@ declare namespace Office {
          * Gets an object that provides access to the bindings defined in the document.
          *
          * @remarks
+         * 
          * You don't instantiate the Document object directly in your script. To call members of the Document object to interact with the current 
          * document or worksheet, use `Office.context.document` in your script.
          */
@@ -3289,6 +3376,7 @@ declare namespace Office {
          * Adds an event handler for a Document object event.
          *
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#documentevents | DocumentEvents}
          *
          * You can add multiple event handlers for the specified eventType as long as the name of each event handler function is unique.
@@ -3304,6 +3392,7 @@ declare namespace Office {
          * Adds an event handler for a Document object event.
          *
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#documentevents | DocumentEvents}
          *
          * You can add multiple event handlers for the specified eventType as long as the name of each event handler function is unique.
@@ -3318,6 +3407,7 @@ declare namespace Office {
          * Returns the state of the current view of the presentation (edit or read).
          *
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#activeview | ActiveView}
          *
          * Can trigger an event when the view changes.
@@ -3333,6 +3423,7 @@ declare namespace Office {
          * Returns the state of the current view of the presentation (edit or read).
          *
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#activeview | ActiveView}
          *
          * Can trigger an event when the view changes.
@@ -3416,6 +3507,7 @@ declare namespace Office {
          * Gets file properties of the current document.
          *
          * @remarks
+         * 
          * **Requirement sets**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#methods-that-arent-part-of-a-requirement-set | Not in a set}
          *
          * You get the file's URL with the url property `asyncResult.value.url`.
@@ -3429,6 +3521,7 @@ declare namespace Office {
          * Gets file properties of the current document.
          *
          * @remarks
+         * 
          * **Requirement sets**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#methods-that-arent-part-of-a-requirement-set | Not in a set}
          *
          * You get the file's URL with the url property `asyncResult.value.url`.
@@ -3534,7 +3627,7 @@ declare namespace Office {
          *
          * @remarks
          * 
-         * **Requirement sets**: 
+         * **Requirement sets**:
          * 
          * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#htmlcoercion | HtmlCoercion} (when using `Office.CoercionType.Html`)
          * 
@@ -3622,6 +3715,7 @@ declare namespace Office {
          * Goes to the specified object or location in the document.
          *
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#methods-that-arent-part-of-a-requirement-set | Not in a set}
          *
          * PowerPoint doesn't support the goToByIdAsync method in Master Views.
@@ -3648,6 +3742,7 @@ declare namespace Office {
          * Goes to the specified object or location in the document.
          *
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#methods-that-arent-part-of-a-requirement-set | Not in a set}
          *
          * PowerPoint doesn't support the goToByIdAsync method in Master Views.
@@ -3673,6 +3768,7 @@ declare namespace Office {
          * Removes an event handler for the specified event type.
          *
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#documentevents | DocumentEvents}
          *
          * @param eventType The event type. For document can be 'Document.SelectionChanged' or 'Document.ActiveViewChanged'.
@@ -3684,6 +3780,7 @@ declare namespace Office {
          * Removes an event handler for the specified event type.
          *
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#documentevents | DocumentEvents}
          *
          * @param eventType The event type. For document can be 'Document.SelectionChanged' or 'Document.ActiveViewChanged'.
@@ -4365,6 +4462,7 @@ declare namespace Office {
      * Represents the document file associated with an Office Add-in.
      *
      * @remarks
+     * 
      * Access the File object with the AsyncResult.value property in the callback function passed to the Document.getFileAsync method.
      * 
      */
@@ -4420,6 +4518,7 @@ declare namespace Office {
          * Returns the specified slice.
          * 
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#file | File}
          * 
          * In the callback function passed to the getSliceAsync method, you can use the properties of the AsyncResult object to return the following 
@@ -4464,6 +4563,7 @@ declare namespace Office {
      * Represents a binding in two dimensions of rows and columns.
      *
      * @remarks
+     * 
      * The MatrixBinding object inherits the id property, type property, getDataAsync method, and setDataAsync method from the Binding object.
      */
     interface MatrixBinding extends Binding {
@@ -4480,6 +4580,7 @@ declare namespace Office {
      * Represents custom settings for a task pane or content add-in that are stored in the host document as name/value pairs.
      *
      * @remarks
+     * 
      * **Hosts**: Excel, PowerPoint, Word
      * 
      * The settings created by using the methods of the Settings object are saved per add-in and per document. 
@@ -4501,6 +4602,7 @@ declare namespace Office {
          * spreadsheet (coauthoring). Therefore, effectively the settingsChanged event is supported only in Excel on the web in coauthoring scenarios.
          *
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#methods-that-arent-part-of-a-requirement-set | Not in a set}
          * 
          * You can add multiple event handlers for the specified eventType as long as the name of each event handler function is unique.
@@ -4542,6 +4644,7 @@ declare namespace Office {
          * spreadsheet (coauthoring). Therefore, effectively the settingsChanged event is supported only in Excel on the web in coauthoring scenarios.
          *
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#methods-that-arent-part-of-a-requirement-set | Not in a set}
          * 
          * You can add multiple event handlers for the specified eventType as long as the name of each event handler function is unique.
@@ -4578,6 +4681,7 @@ declare namespace Office {
          * Retrieves the specified setting.
          *
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#settings | Settings}
          *
          * @param settingName The case-sensitive name of the setting to retrieve.
@@ -4588,6 +4692,7 @@ declare namespace Office {
          * Reads all settings persisted in the document and refreshes the content or task pane add-in's copy of those settings held in memory.
          *
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#methods-that-arent-part-of-a-requirement-set | Not in a set}
          * 
          * This method is useful in Excel, Word, and PowerPoint coauthoring scenarios when multiple instances of the same add-in are working against 
@@ -4634,6 +4739,7 @@ declare namespace Office {
          * call the Settings.saveAsync method.
          *
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#settings | Settings}
          * 
          * null is a valid value for a setting. Therefore, assigning null to the setting will not remove it from the settings property bag.
@@ -4645,6 +4751,7 @@ declare namespace Office {
          * Removes an event handler for the settingsChanged event.
          *
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#methods-that-arent-part-of-a-requirement-set | Not in a set}
          * 
          * If the optional handler parameter is omitted when calling the removeHandlerAsync method, all event handlers for the specified eventType 
@@ -4665,6 +4772,7 @@ declare namespace Office {
          * Removes an event handler for the settingsChanged event.
          *
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#methods-that-arent-part-of-a-requirement-set | Not in a set}
          * 
          * If the optional handler parameter is omitted when calling the removeHandlerAsync method, all event handlers for the specified eventType 
@@ -4684,6 +4792,7 @@ declare namespace Office {
          * Persists the in-memory copy of the settings property bag in the document.
          * 
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#settings | Settings}
          * 
          * Any settings previously saved by an add-in are loaded when it is initialized, so during the lifetime of the session you can just use the 
@@ -4726,6 +4835,7 @@ declare namespace Office {
          * Persists the in-memory copy of the settings property bag in the document.
          * 
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#settings | Settings}
          * 
          * Any settings previously saved by an add-in are loaded when it is initialized, so during the lifetime of the session you can just use the 
@@ -4772,6 +4882,7 @@ declare namespace Office {
          * the document.
          *
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#settings | Settings}
          * 
          * The set method creates a new setting of the specified name if it does not already exist, or sets an existing setting of the specified name 
@@ -4857,6 +4968,7 @@ declare namespace Office {
         * Gets the number of rows in the TableBinding, as an integer value.
         *
         * @remarks
+        * 
         * When you insert an empty table by selecting a single row in Excel 2013 and Excel on the web (using Table on the Insert tab), both Office host 
         * applications create a single row of headers followed by a single blank row. However, if your add-in's script creates a binding for this 
         * newly inserted table (for example, by using the {@link Office.Bindings}.addFromSelectionAsync method), and then checks the value of the 
@@ -4995,6 +5107,7 @@ declare namespace Office {
          * Clears formatting on the bound table.
          *
          * @remarks
+         * 
          * See {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-tables#format-a-table | Format tables in add-ins for Excel} for more information.
          *
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
@@ -5005,6 +5118,7 @@ declare namespace Office {
          * Clears formatting on the bound table.
          *
          * @remarks
+         * 
          * See {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-tables#format-a-table | Format tables in add-ins for Excel} for more information.
          *
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
@@ -5318,6 +5432,7 @@ declare namespace Office {
          * Updates table formatting options on the bound table.
          *
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#methods-that-arent-part-of-a-requirement-set | Not in a set}
          * 
          * In the callback function passed to the goToByIdAsync method, you can use the properties of the AsyncResult object to return the following information.
@@ -5355,6 +5470,7 @@ declare namespace Office {
          * Updates table formatting options on the bound table.
          *
          * @remarks
+         * 
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#methods-that-arent-part-of-a-requirement-set | Not in a set}
          * 
          * In the callback function passed to the goToByIdAsync method, you can use the properties of the AsyncResult object to return the following information.
@@ -5516,6 +5632,7 @@ declare namespace Office {
      * Specifies the resource fields that are available as a parameter for the {@link Office.Document | Document}.getResourceFieldAsync method.
      *
      * @remarks
+     * 
      * A ProjectResourceFields constant can be used as a parameter of the {@link Office.Document | Document}.getResourceFieldAsync method.
      *
      * For more information about working with fields in Project, see 
@@ -6329,6 +6446,7 @@ declare namespace Office {
      * Specifies the task fields that are available as a parameter for the {@link Office.Document | Document}.getTaskFieldAsync method.
      *
      * @remarks
+     * 
      * A ProjectTaskFields constant can be used as a parameter of the {@link Office.Document | Document}.getTaskFieldAsync method.
      *
      * For more information about working with fields in Project, see the 
@@ -7480,6 +7598,7 @@ declare namespace Office {
      * Specifies the types of views that the {@link Office.Document | Document}.getSelectedViewAsync method can recognize.
      *
      * @remarks
+     * 
      * The {@link Office.Document | Document}.getSelectedViewAsync method returns the ProjectViewTypes constant value and name that corresponds to the 
      * active view.
      */
@@ -7572,6 +7691,7 @@ declare namespace Office {
          * [Api set: Mailbox Preview]
          * 
          * @remarks
+         * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
          * 
          * @beta
@@ -7603,6 +7723,7 @@ declare namespace Office {
          * [Api set: Mailbox Preview]
          * 
          * @remarks
+         * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
          * 
          * @beta
@@ -7619,6 +7740,29 @@ declare namespace Office {
             Removed = "removed"
         }
         /**
+         * Specifies an attachment's type.
+         *
+         * [Api set: Mailbox 1.0]
+         *
+         * @remarks
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+         */
+        enum AttachmentType {
+            /**
+             * The attachment is a file
+             */
+            File = "file",
+            /**
+             * The attachment is an Exchange item
+             */
+            Item = "item",
+            /**
+             * The attachment is stored in a cloud location, such as OneDrive. The id property of the attachment contains a URL to the file.
+             */
+            Cloud = "cloud"
+        }
+        /**
          * Specifies the category color.
          * 
          * **Note**: The actual color depends on how the Outlook client renders it.
@@ -7627,6 +7771,7 @@ declare namespace Office {
          * [Api set: Mailbox Preview]
          * 
          * @remarks
+         * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
          * 
          * @beta
@@ -7738,33 +7883,12 @@ declare namespace Office {
             Preset24
         }
         /**
-         * Specifies an attachment's type.
-         *
-         * [Api set: Mailbox 1.0]
-         *
-         * @remarks
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-         */
-        enum AttachmentType {
-            /**
-             * The attachment is a file
-             */
-            File = "file",
-            /**
-             * The attachment is an Exchange item
-             */
-            Item = "item",
-            /**
-             * The attachment is stored in a cloud location, such as OneDrive. The id property of the attachment contains a URL to the file.
-             */
-            Cloud = "cloud"
-        }
-        /**
          * Specifies the day of week or type of day.
          *
          * [Api set: Mailbox 1.7]
          *
          * @remarks
+         * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
          */
         enum Days {
@@ -7815,6 +7939,7 @@ declare namespace Office {
          * [Api set: Mailbox Preview]
          *
          * @remarks
+         * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
          * 
          * @beta
@@ -7851,6 +7976,7 @@ declare namespace Office {
          * [Api set: Mailbox 1.0]
          *
          * @remarks
+         * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
          */
         enum EntityType {
@@ -7889,6 +8015,7 @@ declare namespace Office {
          * [Api set: Mailbox 1.3]
          *
          * @remarks
+         * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
          */
         enum ItemNotificationMessageType {
@@ -7911,6 +8038,7 @@ declare namespace Office {
          * [Api set: Mailbox 1.0]
          *
          * @remarks
+         * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
          */
         enum ItemType {
@@ -7929,6 +8057,7 @@ declare namespace Office {
          * [Api set: Mailbox Preview]
          * 
          * @remarks
+         * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
          * 
          * @beta
@@ -7949,6 +8078,7 @@ declare namespace Office {
          * [Api set: Mailbox 1.7]
          *
          * @remarks
+         * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
          */
         enum Month {
@@ -8025,6 +8155,7 @@ declare namespace Office {
          * [Api set: Mailbox 1.1]
          *
          * @remarks
+         * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
          */
         enum RecipientType {
@@ -8051,6 +8182,7 @@ declare namespace Office {
          * [Api set: Mailbox 1.7]
          *
          * @remarks
+         * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
          */
         enum RecurrenceTimeZone {
@@ -8598,15 +8730,14 @@ declare namespace Office {
              * Yakutsk Standard Time
              */
             YakutskStandardTime = "Yakutsk Standard Time"
-            
         }
-
         /**
          * Specifies the type of recurrence.
          * 
          * [Api set: Mailbox 1.7]
          *
          * @remarks
+         * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
          */
         enum RecurrenceType {
@@ -8637,6 +8768,7 @@ declare namespace Office {
          * [Api set: Mailbox 1.0]
          *
          * @remarks
+         * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
          */
         enum ResponseType {
@@ -8667,6 +8799,7 @@ declare namespace Office {
          * [Api set: Mailbox 1.3]
          *
          * @remarks
+         * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
          */
         enum RestVersion {
@@ -8689,6 +8822,7 @@ declare namespace Office {
          * [Api set: Mailbox 1.7]
          *
          * @remarks
+         * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
          */
         enum WeekNumber {
@@ -8728,1292 +8862,6 @@ declare namespace Office {
         Subject
     }
     /**
-     * The AppointmentForm namespace is used to access the currently selected appointment.
-     *
-     * [Api set: Mailbox 1.0]
-     *
-     * @remarks
-     * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: Restricted
-     * 
-     * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-     */
-    interface AppointmentForm {
-        /**
-         * Gets an object that provides methods for manipulating the body of an item.
-         *
-         * [Api set: Mailbox 1.1]
-         *
-         * @remarks
-         *
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-         */
-        body: string;
-        /**
-         * Gets or sets the date and time that the appointment is to end.
-         *
-         * The end property is expressed as a Coordinated Universal Time (UTC) date and time value. You can use the convertToLocalClientTime method to 
-         * convert the end property value to the client's local date and time.
-         *
-         * *Read mode*
-         *
-         * The end property returns a Date object.
-         *
-         * *Compose mode*
-         *
-         * The end property returns a Time object.
-         *
-         * When you use the Time.setAsync method to set the end time, you should use the convertToUtcClientTime method to convert the local time on 
-         * the client to UTC for the server.
-         *
-         * [Api set: Mailbox 1.0]
-         *
-         * @remarks
-         *
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-         */
-        end: Date;
-        /**
-        * Gets or sets the location of an appointment.
-        *
-        * *Read mode*
-        *
-        * The location property returns a string that contains the location of the appointment.
-        *
-        * *Compose mode*
-        *
-        * The location property returns a Location object that provides methods that are used to get and set the location of the appointment.
-        *
-        * [Api set: Mailbox 1.0]
-        *
-        * @remarks
-        *
-        * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-        * 
-        * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-        */
-        location: string;
-        /**
-        * Provides access to the optional attendees of an event. The type of object and level of access depends on the mode of the current item.
-        *
-        * *Read mode*
-        *
-        * The optionalAttendees property returns an array that contains an EmailAddressDetails object for each optional attendee to the meeting.
-        *
-        * *Compose mode*
-        *
-        * The optionalAttendees property returns a Recipients object that provides methods to get or update the optional attendees for a meeting.
-        *
-        * [Api set: Mailbox 1.0]
-        *
-        * @remarks
-        *
-        * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-        * 
-        * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-        */
-       optionalAttendees: string[] | EmailAddressDetails[];
-        /**
-        * Provides access to the resources of an event. Returns an array of strings containing the resources required for the appointment.
-        *
-        * [Api set: Mailbox 1.0]
-        *
-        * @remarks
-        *
-        * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-        * 
-        * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-        */
-       resources: string[];
-        /**
-         * Provides access to the required attendees of an event. The type of object and level of access depends on the mode of the current item.
-         *
-         * *Read mode*
-         *
-         * The requiredAttendees property returns an array that contains an EmailAddressDetails object for each required attendee to the meeting.
-         *
-         * *Compose mode*
-         *
-         * The requiredAttendees property returns a Recipients object that provides methods to get or update the required attendees for a meeting.
-         *
-         * [Api set: Mailbox 1.0]
-         *
-         * @remarks
-         *
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-         */
-        requiredAttendees: string[] | EmailAddressDetails[];
-        /**
-         * Gets or sets the date and time that the appointment is to begin.
-         *
-         * The start property is expressed as a Coordinated Universal Time (UTC) date and time value. You can use the convertToLocalClientTime method 
-         * to convert the value to the client's local date and time.
-         *
-         * *Read mode*
-         *
-         * The start property returns a Date object.
-         *
-         * *Compose mode*
-         *
-         * The start property returns a Time object.
-         *
-         * When you use the Time.setAsync method to set the start time, you should use the convertToUtcClientTime method to convert the local time on 
-         * the client to UTC for the server.
-         *
-         * [Api set: Mailbox 1.0]
-         *
-         * @remarks
-         *
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-         */
-        start: Date;
-        /**
-         * Gets or sets the description that appears in the subject field of an item.
-         *
-         * The subject property gets or sets the entire subject of the item, as sent by the email server.
-         *
-         * *Read mode*
-         *
-         * The subject property returns a string. Use the normalizedSubject property to get the subject minus any leading prefixes such as RE: and FW:.
-         *
-         * *Compose mode*
-         *
-         * The subject property returns a Subject object that provides methods to get and set the subject.
-         *
-         * [Api set: Mailbox 1.0]
-         *
-         * @remarks
-         *
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-         */
-        subject: string;
-    }
-    /**
-     * Represents the content of an attachment on a message or appointment item.
-     *
-     * [Api set: Mailbox Preview]
-     *
-     * @remarks
-     * 
-     * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-     * 
-     * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-     * 
-     * @beta
-     */
-    interface AttachmentContent {
-        /**
-         * The content of an attachment as a string.
-         */
-        content: string;
-        /**
-         * The string format to use for an attachment's content.
-         * 
-         * For file attachments, the formatting is a base64-encoded string.
-         * 
-         * For item attachments that represent messages, the formatting is a string representing an .eml formatted file.
-         * 
-         * For item attachments that represent calendar items, the formatting is a string representing an .icalendar file.
-         * 
-         * For cloud attachments, the formatting is a URL string.
-         */
-        format: MailboxEnums.AttachmentContentFormat | string;
-    }
-    /**
-     * Represents an attachment on an item from the server. Read mode only.
-     *
-     * An array of **AttachmentDetails** objects is returned as the attachments property of an appointment or message item.
-     *
-     * [Api set: Mailbox 1.0]
-     *
-     * @remarks
-     * 
-     * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-     * 
-     * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Read
-     */
-    interface AttachmentDetails {
-        /**
-         * Gets a value that indicates the type of an attachment.
-         */
-        attachmentType: MailboxEnums.AttachmentType | string;
-        /**
-         * Gets the MIME content type of the attachment.
-         */
-        contentType: string;
-        /**
-         * Gets the Exchange attachment ID of the attachment.
-         */
-        id: string;
-        /**
-         * Gets a value that indicates whether the attachment should be displayed in the body of the item.
-         */
-        isInline: boolean;
-        /**
-         * Gets the name of the attachment.
-         */
-        name: string;
-        /**
-         * Gets the size of the attachment in bytes.
-         */
-        size: number;
-        /**
-         * Gets the url of the attachment if its type is `MailboxEnums.AttachmentType.Cloud`.
-         * 
-         * [Api set: Mailbox Preview]
-         */
-        url: string;
-    }
-    /**
-     * The body object provides methods for adding and updating the content of the message or appointment. 
-     * It is returned in the body property of the selected item.
-     *
-     * [Api set: Mailbox 1.1]
-     *
-     * @remarks
-     * 
-     * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-     * 
-     * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-     */
-    interface Body {
-        /**
-         * Returns the current body in a specified format.
-         *
-         * This method returns the entire current body in the format specified by coercionType.
-         *
-         * When working with HTML-formatted bodies, it is important to note that the Body.getAsync and Body.setAsync methods are not idempotent. 
-         * The value returned from the getAsync method will not necessarily be exactly the same as the value that was passed in the setAsync method previously. 
-         * The client may modify the value passed to setAsync in order to make it render efficiently with its rendering engine.
-         *
-         * [Api set: Mailbox 1.3]
-         *
-         * @remarks
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-         * 
-         * @param coercionType - The format for the returned body.
-         * @param options - Optional. An object literal that contains one or more of the following properties:
-         *        asyncContext: Developers can provide any object they wish to access in the callback method.
-         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult. 
-         *                  The body is provided in the requested format in the asyncResult.value property.
-         */
-        getAsync(coercionType: Office.CoercionType | string, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<string>) => void): void;
-        /**
-         * Returns the current body in a specified format.
-         *
-         * This method returns the entire current body in the format specified by coercionType.
-         *
-         * When working with HTML-formatted bodies, it is important to note that the Body.getAsync and Body.setAsync methods are not idempotent. 
-         * The value returned from the getAsync method will not necessarily be exactly the same as the value that was passed in the setAsync method previously. 
-         * The client may modify the value passed to setAsync in order to make it render efficiently with its rendering engine.
-         *
-         * [Api set: Mailbox 1.3]
-         *
-         * @remarks
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-         *
-         * @param coercionType - The format for the returned body.
-         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult.
-         *                  The body is provided in the requested format in the asyncResult.value property.
-         */
-        getAsync(coercionType: Office.CoercionType | string, callback?: (asyncResult: Office.AsyncResult<string>) => void): void;
-        /**
-         * Gets a value that indicates whether the content is in HTML or text format.
-         *
-         * [Api set: Mailbox 1.1]
-         *
-         * @remarks
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
-         *
-         * @param options - Optional. An object literal that contains one or more of the following properties.
-         *        asyncContext: Developers can provide any object they wish to access in the callback method.
-         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult.
-         *                  The content type is returned as one of the CoercionType values in the asyncResult.value property.
-         */
-        getTypeAsync(options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<Office.CoercionType>) => void): void;
-        /**
-         * Gets a value that indicates whether the content is in HTML or text format.
-         *
-         * [Api set: Mailbox 1.1]
-         *
-         * @remarks
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
-         *
-         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult.
-         *                  The content type is returned as one of the CoercionType values in the asyncResult.value property.
-         */
-        getTypeAsync(callback?: (asyncResult: Office.AsyncResult<Office.CoercionType>) => void): void;
-        /**
-         * Adds the specified content to the beginning of the item body.
-         *
-         * The prependAsync method inserts the specified string at the beginning of the item body. 
-         * After insertion, the cursor is returned to its original place, relative to the inserted content.
-         *
-         * When including links in HTML markup, you can disable online link preview by setting the id attribute on the anchor (\<a\>) to "LPNoLP" 
-         * (please see the Examples section for a sample).
-         *
-         * [Api set: Mailbox 1.1]
-         *
-         * @remarks
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadWriteItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
-         * 
-         * **Errors**: 
-         * 
-         * - DataExceedsMaximumSize: The data parameter is longer than 1,000,000 characters.
-         * 
-         * @param data - The string to be inserted at the beginning of the body. The string is limited to 1,000,000 characters.
-         * @param options - Optional. An object literal that contains one or more of the following properties.
-         *        asyncContext: Developers can provide any object they wish to access in the callback method.
-         *        coercionType: The desired format for the body. The string in the data parameter will be converted to this format.
-         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult.
-         *                  Any errors encountered will be provided in the asyncResult.error property.
-         */
-        prependAsync(data: string, options?: Office.AsyncContextOptions & CoercionTypeOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
-        /**
-         * Adds the specified content to the beginning of the item body.
-         *
-         * The prependAsync method inserts the specified string at the beginning of the item body. 
-         * After insertion, the cursor is returned to its original place, relative to the inserted content.
-         *
-         * When including links in HTML markup, you can disable online link preview by setting the id attribute on the anchor (\<a\>) to "LPNoLP" 
-         * (please see the Examples section for a sample).
-         *
-         * [Api set: Mailbox 1.1]
-         *
-         * @remarks
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadWriteItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
-         * 
-         * **Errors**: 
-         * 
-         * - DataExceedsMaximumSize: The data parameter is longer than 1,000,000 characters.
-         *
-         * @param data - The string to be inserted at the beginning of the body. The string is limited to 1,000,000 characters.
-         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult.
-         *                  Any errors encountered will be provided in the asyncResult.error property.
-         */
-        prependAsync(data: string, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
-        /**
-         * Replaces the entire body with the specified text.
-         *
-         * When working with HTML-formatted bodies, it is important to note that the Body.getAsync and Body.setAsync methods are not idempotent. 
-         * The value returned from the getAsync method will not necessarily be exactly the same as the value that was passed in the setAsync method 
-         * previously. The client may modify the value passed to setAsync in order to make it render efficiently with its rendering engine.
-         *
-         * When including links in HTML markup, you can disable online link preview by setting the id attribute on the anchor (\<a\>) to "LPNoLP" 
-         * (please see the Examples section for a sample).
-         *
-         * [Api set: Mailbox 1.3]
-         *
-         * @remarks
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadWriteItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
-         * 
-         * **Errors**: 
-         * 
-         * - DataExceedsMaximumSize: The data parameter is longer than 1,000,000 characters.
-         * 
-         * - InvalidFormatError: The options.coercionType parameter is set to Office.CoercionType.Html and the message body is in plain text.
-         * 
-         * @param data - The string that will replace the existing body. The string is limited to 1,000,000 characters.
-         * @param options - Optional. An object literal that contains one or more of the following properties.
-         *        asyncContext: Developers can provide any object they wish to access in the callback method.
-         *        coercionType: The desired format for the body. The string in the data parameter will be converted to this format.
-         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult.
-         *                  Any errors encountered will be provided in the asyncResult.error property.
-         */
-        setAsync(data: string, options?: Office.AsyncContextOptions & CoercionTypeOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
-        /**
-         * Replaces the entire body with the specified text.
-         *
-         * When working with HTML-formatted bodies, it is important to note that the Body.getAsync and Body.setAsync methods are not idempotent. 
-         * The value returned from the getAsync method will not necessarily be exactly the same as the value that was passed in the setAsync method 
-         * previously. The client may modify the value passed to setAsync in order to make it render efficiently with its rendering engine.
-         *
-         * When including links in HTML markup, you can disable online link preview by setting the id attribute on the anchor (\<a\>) to "LPNoLP" 
-         * (please see the Examples section for a sample).
-         *
-         * [Api set: Mailbox 1.3]
-         *
-         * @remarks
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadWriteItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
-         * 
-         * **Errors**: 
-         * 
-         * - DataExceedsMaximumSize: The data parameter is longer than 1,000,000 characters.
-         * 
-         * - InvalidFormatError: The options.coercionType parameter is set to Office.CoercionType.Html and the message body is in plain text.
-         *
-         * @param data - The string that will replace the existing body. The string is limited to 1,000,000 characters.
-         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult.
-         *                  Any errors encountered will be provided in the asyncResult.error property.
-         */
-        setAsync(data: string, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
-
-        /**
-         * Replaces the selection in the body with the specified text.
-         *
-         * The setSelectedDataAsync method inserts the specified string at the cursor location in the body of the item, or, if text is selected in 
-         * the editor, it replaces the selected text. If the cursor was never in the body of the item, or if the body of the item lost focus in the 
-         * UI, the string will be inserted at the top of the body content. After insertion, the cursor is placed at the end of the inserted content.
-         *
-         * When including links in HTML markup, you can disable online link preview by setting the id attribute on the anchor (\<a\>) to "LPNoLP" 
-         * (please see the Examples section for a sample).
-         *
-         * [Api set: Mailbox 1.1]
-         *
-         * @remarks
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadWriteItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
-         * 
-         * **Errors**: 
-         * 
-         * - DataExceedsMaximumSize: The data parameter is longer than 1,000,000 characters.
-         * 
-         * - InvalidFormatError: The options.coercionType parameter is set to Office.CoercionType.Html and the message body is in plain text.
-         * 
-         * @param data - The string that will replace the existing body. The string is limited to 1,000,000 characters.
-         * @param options - Optional. An object literal that contains one or more of the following properties.
-         *        asyncContext: Developers can provide any object they wish to access in the callback method.
-         *        coercionType: The desired format for the body. The string in the data parameter will be converted to this format.
-         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult.
-         *                  Any errors encountered will be provided in the asyncResult.error property.
-         */
-        setSelectedDataAsync(data: string, options?: Office.AsyncContextOptions & CoercionTypeOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
-        /**
-         * Replaces the selection in the body with the specified text.
-         *
-         * The setSelectedDataAsync method inserts the specified string at the cursor location in the body of the item, or, if text is selected in 
-         * the editor, it replaces the selected text. If the cursor was never in the body of the item, or if the body of the item lost focus in the 
-         * UI, the string will be inserted at the top of the body content. After insertion, the cursor is placed at the end of the inserted content.
-         *
-         * When including links in HTML markup, you can disable online link preview by setting the id attribute on the anchor (\<a\>) to "LPNoLP" 
-         * (please see the Examples section for a sample).
-         *
-         * [Api set: Mailbox 1.1]
-         *
-         * @remarks
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadWriteItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
-         * 
-         * **Errors**: 
-         * 
-         * - DataExceedsMaximumSize: The data parameter is longer than 1,000,000 characters.
-         * 
-         * - InvalidFormatError: The options.coercionType parameter is set to Office.CoercionType.Html and the message body is in plain text.
-         *
-         * @param data - The string that will replace the existing body. The string is limited to 1,000,000 characters.
-         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult.
-         *                  Any errors encountered will be provided in the asyncResult.error property.
-         */
-        setSelectedDataAsync(data: string, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
-    }
-    /**
-     * Represents a contact stored on the server. Read mode only.
-     *
-     * The list of contacts associated with an email message or appointment is returned in the contacts property of the {@link Office.Entities} object 
-     * that is returned by the getEntities or getEntitiesByType method of the active item.
-     *
-     * [Api set: Mailbox 1.0]
-     *
-     * @remarks
-     * 
-     * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: Restricted
-     * 
-     * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Read
-     */
-    interface Contact {
-        /**
-         * An array of strings containing the mailing and street addresses associated with the contact. Nullable.
-         */
-        addresses: string[];
-        /**
-         * A string containing the name of the business associated with the contact. Nullable.
-         */
-        businessName: string;
-        /**
-         * An array of strings containing the SMTP email addresses associated with the contact. Nullable.
-         */
-        emailAddresses: string[];
-        /**
-         * A string containing the name of the person associated with the contact. Nullable.
-         */
-        personName: string;
-        /**
-         * An array containing a PhoneNumber object for each phone number associated with the contact. Nullable.
-         */
-        phoneNumbers: PhoneNumber[];
-        /**
-         * An array of strings containing the Internet URLs associated with the contact. Nullable.
-         */
-        urls: string[];
-    }
-    /**
-     * The CustomProperties object represents custom properties that are specific to a particular item and specific to a mail add-in for Outlook. 
-     * For example, there might be a need for a mail add-in to save some data that is specific to the current email message that activated the add-in. 
-     * If the user revisits the same message in the future and activates the mail add-in again, the add-in will be able to retrieve the data that had 
-     * been saved as custom properties.
-     *
-     * Because Outlook on Mac doesn't cache custom properties, if the user's network goes down, mail add-ins cannot access their custom properties.
-     *
-     * [Api set: Mailbox 1.0]
-     *
-     * @remarks
-     * 
-     * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-     * 
-     * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-     */
-    interface CustomProperties {
-        /**
-         * Returns the value of the specified custom property.
-         * @param name - The name of the custom property to be returned.
-         * @returns The value of the specified custom property.
-         *
-         * [Api set: Mailbox 1.0]
-         *
-         * @remarks
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-         */
-        get(name: string): any;
-        /**
-         * Sets the specified property to the specified value.
-         *
-         * The set method sets the specified property to the specified value. You must use the saveAsync method to save the property to the server.
-         *
-         * The set method creates a new property if the specified property does not already exist; 
-         * otherwise, the existing value is replaced with the new value. 
-         * The value parameter can be of any type; however, it is always passed to the server as a string.
-         *
-         * [Api set: Mailbox 1.0]
-         *
-         * @remarks
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-         *
-         * @param name - The name of the property to be set.
-         * @param value - The value of the property to be set.
-         */
-        set(name: string, value: string): void;
-        /**
-         * Removes the specified property from the custom property collection.
-         *
-         * To make the removal of the property permanent, you must call the saveAsync method of the CustomProperties object.
-         * @param name - The name of the property to be removed.
-         *
-         * [Api set: Mailbox 1.0]
-         *
-         * @remarks
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-         */
-        remove(name: string): void;
-        /**
-         * Saves item-specific custom properties to the server.
-         *
-         * You must call the saveAsync method to persist any changes made with the set method or the remove method of the CustomProperties object. 
-         * The saving action is asynchronous.
-         *
-         * It's a good practice to have your callback function check for and handle errors from saveAsync. 
-         * In particular, a read add-in can be activated while the user is in a connected state in a read form, and subsequently the user becomes 
-         * disconnected. 
-         * If the add-in calls saveAsync while in the disconnected state, saveAsync would return an error. 
-         * Your callback method should handle this error accordingly.
-         *
-         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
-         *                 type Office.AsyncResult.
-         * @param asyncContext - Optional. Any state data that is passed to the callback method.
-         *
-         * [Api set: Mailbox 1.0]
-         *
-         * @remarks
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-         */
-        saveAsync(callback?: (asyncResult: Office.AsyncResult<void>) => void, asyncContext?: any): void;
-    }
-    /**
-     * Provides diagnostic information to an Outlook add-in.
-     *
-     * [Api set: Mailbox 1.0]
-     *
-     * @remarks
-     * 
-     * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-     * 
-     * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-     */
-    interface Diagnostics {
-        /**
-         * Gets a string that represents the name of the host application.
-         *
-         * A string that can be one of the following values: Outlook, Mac Outlook, OutlookIOS, or OutlookWebApp.
-         *
-         * [Api set: Mailbox 1.0]
-         *
-         * @remarks
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-         */
-        hostName: string;
-        /**
-         * Gets a string that represents the version of either the host application or the Exchange Server.
-         *
-         * If the mail add-in is running in Outlook client on the desktop or iOS, the hostVersion property returns the version of the host 
-         * application, Outlook. In Outlook on the web, the property returns the version of the Exchange Server. An example is the string 15.0.468.0.
-         *
-         * [Api set: Mailbox 1.0]
-         *
-         * @remarks
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-         */
-        hostVersion: string;
-        /**
-         * Gets a string that represents the current view of Outlook on the web.
-         *
-         * The returned string can be one of the following values: OneColumn, TwoColumns, or ThreeColumns.
-         *
-         * If the host application is not Outlook on the web, then accessing this property results in undefined.
-         *
-         * Outlook on the web has three views that correspond to the width of the screen and the window, and the number of columns that can be displayed:
-         *
-         * - OneColumn, which is displayed when the screen is narrow. Outlook on the web uses this single-column layout on the entire screen of a 
-         * smartphone.
-         *
-         * - TwoColumns, which is displayed when the screen is wider. Outlook on the web uses this view on most tablets.
-         *
-         * - ThreeColumns, which is displayed when the screen is wide. For example, Outlook on the web uses this view in a full screen window on a 
-         * desktop computer.
-         *
-         * [Api set: Mailbox 1.0]
-         *
-         * @remarks
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-         */
-        OWAView: MailboxEnums.OWAView | "OneColumn" | "TwoColumns" | "ThreeColumns";
-    }
-    /**
-     * Provides the email properties of the sender or specified recipients of an email message or appointment.
-     *
-     * [Api set: Mailbox 1.0]
-     *
-     * @remarks
-     * 
-     * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-     * 
-     * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-     */
-    interface EmailAddressDetails {
-        /**
-         * Gets the SMTP email address.
-         */
-        emailAddress: string;
-        /**
-         * Gets the display name associated with an email address.
-         */
-        displayName: string;
-        /**
-         * Gets the response that an attendee returned for an appointment. 
-         * This property applies to only an attendee of an appointment, as represented by the optionalAttendees or requiredAttendees property. 
-         * This property returns undefined in other scenarios.
-         */
-        appointmentResponse: MailboxEnums.ResponseType | string;
-        /**
-         * Gets the email address type of a recipient.
-         */
-        recipientType: MailboxEnums.RecipientType | string;
-    }
-    /**
-     * Represents an email account on an Exchange Server.
-     *
-     * [Api set: Mailbox 1.0]
-     *
-     * @remarks
-     * 
-     * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-     * 
-     * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Read
-     */
-    interface EmailUser {
-        /**
-         * Gets the display name associated with an email address.
-         */
-        displayName: string;
-        /**
-         * Gets the SMTP email address.
-         */
-        emailAddress: string;
-    }
-    /**
-     * Represents the set of locations on an appointment.
-     * 
-     * [Api set: Mailbox Preview]
-     * 
-     * @remarks
-     * 
-     * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-     * 
-     * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-     * 
-     * @beta
-     */
-    export interface EnhancedLocation {
-        /**
-         * Adds to the set of locations associated with the appointment.
-         * 
-         * [Api set: Mailbox Preview]
-         * 
-         * @remarks
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadWriteItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
-         * 
-         * **Errors**: 
-         * 
-         * - InvalidFormatError: The format of the specified data object is not valid.
-         * 
-         * @param locationIdentifiers The locations to be added to the current list of locations.
-         * @param options Optional. An object literal that contains one or more of the following properties.
-         *        asyncContext: Developers can provide any object they wish to access in the callback method.
-         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
-         *                asyncResult, which is an Office.AsyncResult object. Check the `status` property of asyncResult to determine if the call succeeded.
-         * 
-         * @beta
-         */
-        addAsync(locationIdentifiers: LocationIdentifier[], options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResultStatus) => void): void;
-        /**
-         * Adds to the set of locations associated with the appointment.
-         * 
-         * [Api set: Mailbox Preview]
-         * 
-         * @remarks
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadWriteItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
-         * 
-         * **Errors**: 
-         * 
-         * - InvalidFormatError: The format of the specified data object is not valid.
-         * 
-         * @param locationIdentifiers The locations to be added to the current list of locations.
-         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
-         *                asyncResult, which is an Office.AsyncResult object. Check the `status` property of asyncResult to determine if the call succeeded.
-         * 
-         * @beta
-         */
-        addAsync(locationIdentifiers: LocationIdentifier[], callback?: (asyncResult: Office.AsyncResultStatus) => void): void;
-        /**
-         * Gets the set of locations associated with the appointment.
-         * 
-         * [Api set: Mailbox Preview]
-         * 
-         * @remarks
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-         * 
-         * @param options Optional. An object literal that contains one or more of the following properties.
-         *        asyncContext: Developers can provide any object they wish to access in the callback method.
-         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
-         *                asyncResult, which is an Office.AsyncResult object.
-         * 
-         * @beta
-         */
-        getAsync(options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<LocationDetails[]>) => void): void;
-        /**
-         * Gets the set of locations associated with the appointment.
-         * 
-         * [Api set: Mailbox Preview]
-         * 
-         * @remarks
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-         * 
-         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
-         *                asyncResult, which is an Office.AsyncResult object.
-         * 
-         * @beta
-         */
-        getAsync(callback?: (asyncResult: Office.AsyncResult<LocationDetails[]>) => void): void;
-        /**
-         * Removes the set of locations associated with the appointment.
-         * 
-         * If there are multiple locations with the same name, all matching locations will be removed even if only one was specified in locationIdentifiers.
-         * 
-         * [Api set: Mailbox Preview]
-         * 
-         * @remarks
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadWriteItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
-         * 
-         * @param locationIdentifiers The locations to be removed from the current list of locations.
-         * @param options Optional. An object literal that contains one or more of the following properties.
-         *        asyncContext: Developers can provide any object they wish to access in the callback method.
-         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
-         *                asyncResult, which is an Office.AsyncResult object. Check the `status` property of asyncResult to determine if the call succeeded.
-         * 
-         * @beta
-         */
-        removeAsync(locationIdentifiers: LocationIdentifier[], options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResultStatus) => void): void;
-        /**
-         * Removes the set of locations associated with the appointment.
-         * 
-         * If there are multiple locations with the same name, all matching locations will be removed even if only one was specified in locationIdentifiers.
-         * 
-         * [Api set: Mailbox Preview]
-         * 
-         * @remarks
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadWriteItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
-         * 
-         * @param locationIdentifiers The locations to be removed from the current list of locations.
-         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
-         *                asyncResult, which is an Office.AsyncResult object. Check the `status` property of asyncResult to determine if the call succeeded.
-         * 
-         * @beta
-         */
-        removeAsync(locationIdentifiers: LocationIdentifier[], callback?: (asyncResult: Office.AsyncResultStatus) => void): void;
-    }
-    /**
-     * Represents a collection of entities found in an email message or appointment. Read mode only.
-     *
-     * The Entities object is a container for the entity arrays returned by the getEntities and getEntitiesByType methods when the item 
-     * (either an email message or an appointment) contains one or more entities that have been found by the server. 
-     * You can use these entities in your code to provide additional context information to the viewer, such as a map to an address found in the item, 
-     * or to open a dialer for a phone number found in the item.
-     *
-     * If no entities of the type specified in the property are present in the item, the property associated with that entity is null. 
-     * For example, if a message contains a street address and a phone number, the addresses property and phoneNumbers property would contain 
-     * information, and the other properties would be null.
-     *
-     * To be recognized as an address, the string must contain a United States postal address that has at least a subset of the elements of a street 
-     * number, street name, city, state, and zip code.
-     *
-     * To be recognized as a phone number, the string must contain a North American phone number format.
-     *
-     * Entity recognition relies on natural language recognition that is based on machine learning of large amounts of data. 
-     * The recognition of an entity is non-deterministic and success sometimes relies on the particular context in the item.
-     *
-     * When the property arrays are returned by the getEntitiesByType method, only the property for the specified entity contains data; 
-     * all other properties are null.
-     *
-     * [Api set: Mailbox 1.0]
-     *
-     * @remarks
-     * 
-     * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-     * 
-     * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Read
-     */
-    interface Entities {
-        /**
-         * Gets the physical addresses (street or mailing addresses) found in an email message or appointment.
-         */
-        addresses: string[];
-        /**
-         * Gets the contacts found in an email address or appointment.
-         */
-        contacts: Contact[];
-        /**
-         * Gets the email addresses found in an email message or appointment.
-         */
-        emailAddresses: string[];
-        /**
-         * Gets the meeting suggestions found in an email message.
-         */
-        meetingSuggestions: MeetingSuggestion[];
-        /**
-         * Gets the phone numbers found in an email message or appointment.
-         */
-        phoneNumbers: PhoneNumber[];
-        /**
-         * Gets the task suggestions found in an email message or appointment.
-         */
-        taskSuggestions: string[];
-        /**
-         * Gets the Internet URLs present in an email message or appointment.
-         */
-        urls: string[];
-    }
-
-    /**
-     * Provides a method to get the from value of a message in an Outlook add-in.
-     * 
-     * [Api set: Mailbox 1.7]
-     * 
-     * @remarks
-     * 
-     * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-     * 
-     * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
-     * 
-     */
-    interface From {
-        /**
-         * Gets the from value of a message.
-         * 
-         * The getAsync method starts an asynchronous call to the Exchange server to get the from value of a message.
-         * 
-         * The from value of the item is provided as an {@link Office.EmailAddressDetails} in the asyncResult.value property.
-         * 
-         * [Api set: Mailbox 1.7]
-         * 
-         * @remarks
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
-         * 
-         * @param options - Optional. An object literal that contains one or more of the following properties.
-         *        asyncContext: Developers can provide any object they wish to access in the callback method.
-         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter,
-         *                             asyncResult, which is an Office.AsyncResult object.
-         *                  The `value` property of the result is the item's from value, as an EmailAddressDetails object.
-         */
-        getAsync(options: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<EmailAddressDetails>) => void): void;
-        /**
-         * Gets the from value of a message.
-         * 
-         * The getAsync method starts an asynchronous call to the Exchange server to get the from value of a message.
-         * 
-         * The from value of the item is provided as an {@link Office.EmailAddressDetails} in the asyncResult.value property.
-         * 
-         * [Api set: Mailbox 1.7]
-         * 
-         * @remarks
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
-         * 
-         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter,
-         *                             asyncResult, which is an Office.AsyncResult object.
-         *                  The `value` property of the result is the item's from value, as an EmailAddressDetails object.
-         */
-        getAsync(callback?: (asyncResult: Office.AsyncResult<EmailAddressDetails>) => void): void;
-    }
-
-    /**
-     * The InternetHeaders object represents custom internet headers that are preserved after the message item leaves Exchange and is converted to a MIME message. 
-     * These headers are stored as x-headers in the MIME message.
-     * 
-     * InternetHeaders are stored as key/value pairs on a per-item basis.
-     * 
-     * **Note**: This object is intended for you to set and get your custom headers on a message item.
-     *
-     * [Api set: Mailbox Preview]
-     *
-     * @remarks
-     * 
-     * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-     * 
-     * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-     * 
-     * @beta
-     */
-    interface InternetHeaders {
-        /**
-         * Given an array of internet header names, this method returns a dictionary containing those internet headers and their values. 
-         * If the add-in requests an x-header that is not available, that x-header will not be returned in the results.
-         * 
-         * **Note**: This method is intended to return the values of the custom headers you set using the `setAsync` method.
-         *
-         * [Api set: Mailbox Preview]
-         *
-         * @remarks
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-         * 
-         * @param names - The names of the internet headers to be returned.
-         * @param options - Optional. An object literal that contains one or more of the following properties:
-         *        asyncContext: Developers can provide any object they wish to access in the callback method.
-         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
-         *                asyncResult, which is an Office.AsyncResult object.
-         * 
-         * @beta
-         */
-        getAsync(names: string[], options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<InternetHeaders>) => void): void;
-        /**
-         * Given an array of internet header names, this method returns a dictionary containing those internet headers and their values. 
-         * If the add-in requests an x-header that is not available, that x-header will not be returned in the results.
-         * 
-         * **Note**: This method is intended to return the values of the custom headers you set using the `setAsync` method.
-         *
-         * [Api set: Mailbox Preview]
-         *
-         * @remarks
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-         * 
-         * @param names - The names of the internet headers to be returned.
-         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
-         *                asyncResult, which is an Office.AsyncResult object.
-         * 
-         * @beta
-         */
-        getAsync(names: string[], callback?: (asyncResult: Office.AsyncResult<InternetHeaders>) => void): void;
-        /**
-         * Given an array of internet header names, this method removes the specified headers from the internet header collection.
-         * 
-         * **Note**: This method is intended to remove the custom headers you set using the `setAsync` method.
-         *
-         * [Api set: Mailbox Preview]
-         *
-         * @remarks
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadWriteItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
-         * 
-         * @param names - The names of the internet headers to be removed.
-         * @param options - Optional. An object literal that contains one or more of the following properties:
-         *        asyncContext: Developers can provide any object they wish to access in the callback method.
-         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
-         *                asyncResult, which is an Office.AsyncResult object.
-         * 
-         * @beta
-         */
-        removeAsync(names: string[], options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<InternetHeaders>) => void): void;
-        /**
-         * Given an array of internet header names, this method removes the specified headers from the internet header collection.
-         *
-         * **Note**: This method is intended to remove your custom headers you set using the `setAsync` method.
-         *
-         * [Api set: Mailbox Preview]
-         *
-         * @remarks
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadWriteItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
-         * 
-         * @param names - The names of the internet headers to be removed.
-         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
-         *                asyncResult, which is an Office.AsyncResult object.
-         * 
-         * @beta
-         */
-        removeAsync(names: string[], callback?: (asyncResult: Office.AsyncResult<InternetHeaders>) => void): void;
-        /**
-         * Sets the specified internet headers to the specified values.
-         * 
-         * The setAsync method creates a new header if the specified header doesn't already exist; otherwise, the existing value is replaced with 
-         * the new value.
-         *
-         * **Note**: This method is intended to set the values of your custom headers.
-         *
-         * [Api set: Mailbox Preview]
-         *
-         * @remarks
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadWriteItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
-         *
-         * @param headers - The names and corresponding values of the headers to be set. Should be a dictionary object with keys being the names of the 
-         *                internet headers and values being the values of the internet headers.
-         * @param options - Optional. An object literal that contains one or more of the following properties.
-         *        asyncContext: Developers can provide any object they wish to access in the callback method.
-         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult.
-         *                  Any errors encountered will be provided in the asyncResult.error property.
-         * 
-         * @beta
-         */
-        setAsync(headers: Object, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
-        /**
-         * Sets the specified internet headers to the specified values.
-         * 
-         * The setAsync method creates a new header if the specified header doesn't already exist; otherwise, the existing value is replaced with 
-         * the new value.
-         *
-         * **Note**: This method is intended to set the values of your custom headers.
-         *
-         * [Api set: Mailbox Preview]
-         *
-         * @remarks
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadWriteItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
-         *
-         * @param headers - The names and corresponding values of the headers to be set. Should be a dictionary object with keys being the names of the 
-         *                internet headers and values being the values of the internet headers.
-         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult.
-         *                  Any errors encountered will be provided in the asyncResult.error property.
-         * 
-         * @beta
-         */
-        setAsync(headers: Object, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
-    }
-
-    /**
-     * Represents a location. Read only.
-     * 
-     * [Api set: Mailbox Preview]
-     *
-     * @remarks
-     * 
-     * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-     * 
-     * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-     * 
-     * @beta
-     */
-    export interface LocationDetails {
-        /**
-         * The LocationIdentifier of the location.
-         */
-        locationIdentifier: LocationIdentifier;
-        /**
-         * The location's display name.
-         */
-        displayName: string;
-        /**
-         * The email address associated with the location.
-         */
-        emailAddress: string;
-    }
-
-    /**
-     * Represents the id of a location.
-     * 
-     * [Api set: Mailbox Preview]
-     *
-     * @remarks
-     * 
-     * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-     * 
-     * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-     * 
-     * @beta
-     */
-    interface LocationIdentifier {
-        /**
-         * The location's unique id.
-         * 
-         * For **Room** type, it's the room's email address.
-         * 
-         * For **Custom** type, it's the displayName.
-         */
-        id: string;
-        /**
-         * The location's type.
-         */
-        type: MailboxEnums.LocationType | string;
-    }
-
-    /**
-     * Represents the appointment organizer, even if an alias or a delegate was used to create the appointment. 
-     * This object provides a method to get the organizer value of an appointment in an Outlook add-in.
-     * 
-     * [Api set: Mailbox 1.7]
-     * 
-     * @remarks
-     * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-     * 
-     * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
-     */
-    interface Organizer {
-        /**
-         * Gets the organizer value of an appointment as an {@link Office.EmailAddressDetails} in the asyncResult.value property.
-         * 
-         * [Api set: Mailbox 1.7]
-         * 
-         * @remarks
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
-         * 
-         * @param options - An object literal that contains one or more of the following properties.
-         *        asyncContext: Developers can provide any object they wish to access in the callback method.
-         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter, asyncResult, which is an AsyncResult object.
-         *                  The `value` property of the result is the appointment's organizer value, as an EmailAddressDetails object.
-         */
-        getAsync(options: Office.AsyncContextOptions, callback: (asyncResult: Office.AsyncResult<EmailAddressDetails>) => void): void;
-        /**
-         * Gets the organizer value of an appointment as an {@link Office.EmailAddressDetails} in the asyncResult.value property.
-         * 
-         * [Api set: Mailbox 1.7]
-         * 
-         * @remarks
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
-         * 
-         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter, asyncResult, which is an AsyncResult object.
-         *                  The `value` property of the result is the appointment's organizer value, as an EmailAddressDetails object.
-         */
-        getAsync(callback?: (asyncResult: Office.AsyncResult<EmailAddressDetails>) => void): void;
-    }
-
-    /**
      * The subclass of {@link Office.Item} dealing with appointments.
      * 
      * **Important**: This is an internal Outlook object, not directly exposed through existing interfaces. 
@@ -10036,7 +8884,7 @@ declare namespace Office {
          * [Api set: Mailbox 1.1]
          *
          * @remarks
-         *
+         * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Appointment Organizer
@@ -10247,6 +9095,7 @@ declare namespace Office {
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Appointment Organizer
          */
         subject: Subject;
+
         /**
          * Adds a file to a message or appointment as an attachment.
          *
@@ -10262,7 +9111,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Appointment Organizer
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - AttachmentSizeExceeded: The attachment is larger than allowed.
          * 
@@ -10295,7 +9144,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Appointment Organizer
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - AttachmentSizeExceeded: The attachment is larger than allowed.
          * 
@@ -10325,7 +9174,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Appointment Organizer
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - AttachmentSizeExceeded: The attachment is larger than allowed.
          * 
@@ -10360,7 +9209,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Appointment Organizer
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - AttachmentSizeExceeded: The attachment is larger than allowed.
          * 
@@ -10380,7 +9229,7 @@ declare namespace Office {
         /**
          * Adds an event handler for a supported event. **Note**: Events are available only with task pane.
          * 
-         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
+         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and
          * `Office.EventType.RecurrenceChanged`.
          * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.EnhancedLocationsChanged` are also supported.
          * 
@@ -10444,7 +9293,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Appointment Organizer
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - NumberOfAttachmentsExceeded: The message or appointment has too many attachments.
          * 
@@ -10478,7 +9327,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Appointment Organizer
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - NumberOfAttachmentsExceeded: The message or appointment has too many attachments.
          *
@@ -10610,13 +9459,15 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Appointment Organizer
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - `ItemNotSaved`: The id can't be retrieved until the item is saved.
          * 
          * @param options - An object literal that contains one or more of the following properties.
          *        asyncContext: Developers can provide any object they wish to access in the callback method.
          * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult. 
+         * 
+         * @beta
          */
         getItemIdAsync(options: Office.AsyncContextOptions, callback: (asyncResult: Office.AsyncResult<string>) => void): void;
         /**
@@ -10636,11 +9487,13 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Appointment Organizer
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - `ItemNotSaved`: The id can't be retrieved until the item is saved.
          * 
          * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult. 
+         * 
+         * @beta
          */
         getItemIdAsync(callback: (asyncResult: Office.AsyncResult<string>) => void): void;
         /**
@@ -10685,7 +9538,7 @@ declare namespace Office {
          * The selected data as a string with format determined by coercionType.
          *
          * @remarks
-         *
+         * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadWriteItem
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Appointment Organizer
@@ -10738,7 +9591,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Appointment Organizer
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - InvalidAttachmentId: The attachment identifier does not exist.
          *
@@ -10767,7 +9620,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Appointment Organizer
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - InvalidAttachmentId: The attachment identifier does not exist.
          *
@@ -10777,48 +9630,48 @@ declare namespace Office {
          *                 If removing the attachment fails, the asyncResult.error property will contain an error code with the reason for the failure.
          */
         removeAttachmentAsync(attachmentId: string, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
-       /**
-        * Removes the event handlers for a supported event type. **Note**: Events are available only with task pane.
-        * 
-        * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-        * `Office.EventType.RecurrenceChanged`.
-        * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.EnhancedLocationsChanged` are also supported.
-        * 
-        * [Api set: Mailbox 1.7]
-        *
-        * @remarks
-        *
-        * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-        * 
-        * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Appointment Organizer
-        * 
-        * @param eventType - The event that should revoke the handler.
-        * @param options - Optional. An object literal that contains one or more of the following properties.
-        *        asyncContext: Developers can provide any object they wish to access in the callback method.
-        * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
-        *                asyncResult, which is an Office.AsyncResult object.
-        */
-       removeHandlerAsync(eventType: Office.EventType | string, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
-       /**
-        * Removes the event handlers for a supported event type. **Note**: Events are available only with task pane.
-        * 
-        * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-        * `Office.EventType.RecurrenceChanged`.
-        * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.EnhancedLocationsChanged` are also supported.
-        * 
-        * [Api set: Mailbox 1.7]
-        *
-        * @remarks
-        *
-        * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-        * 
-        * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Appointment Organizer
-        * 
-        * @param eventType - The event that should revoke the handler.
-        * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
-        *                asyncResult, which is an Office.AsyncResult object.
-        */
-       removeHandlerAsync(eventType: Office.EventType | string, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
+        /**
+         * Removes the event handlers for a supported event type. **Note**: Events are available only with task pane.
+         * 
+         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
+         * `Office.EventType.RecurrenceChanged`.
+         * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.EnhancedLocationsChanged` are also supported.
+         * 
+         * [Api set: Mailbox 1.7]
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Appointment Organizer
+         * 
+         * @param eventType - The event that should revoke the handler.
+         * @param options - Optional. An object literal that contains one or more of the following properties.
+         *        asyncContext: Developers can provide any object they wish to access in the callback method.
+         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
+         *                asyncResult, which is an Office.AsyncResult object.
+         */
+        removeHandlerAsync(eventType: Office.EventType | string, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
+        /**
+         * Removes the event handlers for a supported event type. **Note**: Events are available only with task pane.
+         * 
+         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
+         * `Office.EventType.RecurrenceChanged`.
+         * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.EnhancedLocationsChanged` are also supported.
+         * 
+         * [Api set: Mailbox 1.7]
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Appointment Organizer
+         * 
+         * @param eventType - The event that should revoke the handler.
+         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
+         *                asyncResult, which is an Office.AsyncResult object.
+         */
+        removeHandlerAsync(eventType: Office.EventType | string, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
          * Asynchronously saves an item.
          *
@@ -10849,7 +9702,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Appointment Organizer
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - InvalidAttachmentId: The attachment identifier does not exist.
          * 
@@ -10882,12 +9735,12 @@ declare namespace Office {
          * [Api set: Mailbox 1.3]
          *
          * @remarks
-         *
+         * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadWriteItem
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Appointment Organizer
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - InvalidAttachmentId: The attachment identifier does not exist.
          *
@@ -10909,7 +9762,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Appointment Organizer
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - InvalidAttachmentId: The attachment identifier does not exist.
          * 
@@ -10943,7 +9796,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Appointment Organizer
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - InvalidAttachmentId: The attachment identifier does not exist.
          *
@@ -10954,7 +9807,177 @@ declare namespace Office {
          */
         setSelectedDataAsync(data: string, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
     }
-
+    /**
+     * The AppointmentForm namespace is used to access the currently selected appointment.
+     *
+     * [Api set: Mailbox 1.0]
+     *
+     * @remarks
+     * 
+     * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: Restricted
+     * 
+     * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+     */
+    interface AppointmentForm {
+        /**
+         * Gets an object that provides methods for manipulating the body of an item.
+         *
+         * [Api set: Mailbox 1.1]
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+         */
+        body: string;
+        /**
+         * Gets or sets the date and time that the appointment is to end.
+         *
+         * The end property is expressed as a Coordinated Universal Time (UTC) date and time value. You can use the convertToLocalClientTime method to 
+         * convert the end property value to the client's local date and time.
+         *
+         * *Read mode*
+         *
+         * The end property returns a Date object.
+         *
+         * *Compose mode*
+         *
+         * The end property returns a Time object.
+         *
+         * When you use the Time.setAsync method to set the end time, you should use the convertToUtcClientTime method to convert the local time on 
+         * the client to UTC for the server.
+         *
+         * [Api set: Mailbox 1.0]
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+         */
+        end: Date;
+        /**
+        * Gets or sets the location of an appointment.
+        *
+        * *Read mode*
+        *
+        * The location property returns a string that contains the location of the appointment.
+        *
+        * *Compose mode*
+        *
+        * The location property returns a Location object that provides methods that are used to get and set the location of the appointment.
+        *
+        * [Api set: Mailbox 1.0]
+        *
+        * @remarks
+        *
+        * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+        * 
+        * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+        */
+        location: string;
+        /**
+        * Provides access to the optional attendees of an event. The type of object and level of access depends on the mode of the current item.
+        *
+        * *Read mode*
+        *
+        * The optionalAttendees property returns an array that contains an EmailAddressDetails object for each optional attendee to the meeting.
+        *
+        * *Compose mode*
+        *
+        * The optionalAttendees property returns a Recipients object that provides methods to get or update the optional attendees for a meeting.
+        *
+        * [Api set: Mailbox 1.0]
+        *
+        * @remarks
+        *
+        * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+        * 
+        * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+        */
+       optionalAttendees: string[] | EmailAddressDetails[];
+        /**
+        * Provides access to the resources of an event. Returns an array of strings containing the resources required for the appointment.
+        *
+        * [Api set: Mailbox 1.0]
+        *
+        * @remarks
+        *
+        * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+        * 
+        * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+        */
+       resources: string[];
+        /**
+         * Provides access to the required attendees of an event. The type of object and level of access depends on the mode of the current item.
+         *
+         * *Read mode*
+         *
+         * The requiredAttendees property returns an array that contains an EmailAddressDetails object for each required attendee to the meeting.
+         *
+         * *Compose mode*
+         *
+         * The requiredAttendees property returns a Recipients object that provides methods to get or update the required attendees for a meeting.
+         *
+         * [Api set: Mailbox 1.0]
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+         */
+        requiredAttendees: string[] | EmailAddressDetails[];
+        /**
+         * Gets or sets the date and time that the appointment is to begin.
+         *
+         * The start property is expressed as a Coordinated Universal Time (UTC) date and time value. You can use the convertToLocalClientTime method 
+         * to convert the value to the client's local date and time.
+         *
+         * *Read mode*
+         *
+         * The start property returns a Date object.
+         *
+         * *Compose mode*
+         *
+         * The start property returns a Time object.
+         *
+         * When you use the Time.setAsync method to set the start time, you should use the convertToUtcClientTime method to convert the local time on 
+         * the client to UTC for the server.
+         *
+         * [Api set: Mailbox 1.0]
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+         */
+        start: Date;
+        /**
+         * Gets or sets the description that appears in the subject field of an item.
+         *
+         * The subject property gets or sets the entire subject of the item, as sent by the email server.
+         *
+         * *Read mode*
+         *
+         * The subject property returns a string. Use the normalizedSubject property to get the subject minus any leading prefixes such as RE: and FW:.
+         *
+         * *Compose mode*
+         *
+         * The subject property returns a Subject object that provides methods to get and set the subject.
+         *
+         * [Api set: Mailbox 1.0]
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+         */
+        subject: string;
+    }
     /**
      * The appointment attendee mode of {@link Office.Item | Office.context.mailbox.item}.
      * 
@@ -11609,7 +10632,7 @@ declare namespace Office {
          * [Api set: Mailbox 1.6]
          *
          * @remarks
-         *
+         * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Appointment Attendee
@@ -11647,76 +10670,1325 @@ declare namespace Office {
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Appointment Attendee
          */
         getSelectedRegExMatches(): any;
-       /**
-        * Asynchronously loads custom properties for this add-in on the selected item.
-        *
-        * Custom properties are stored as key/value pairs on a per-app, per-item basis. 
-        * This method returns a CustomProperties object in the callback, which provides methods to access the custom properties specific to the 
-        * current item and the current add-in. Custom properties are not encrypted on the item, so this should not be used as secure storage.
-        *
-        * The custom properties are provided as a CustomProperties object in the asyncResult.value property. 
-        * This object can be used to get, set, and remove custom properties from the item and save changes to the custom property set back to 
-        * the server.
-        *
-        * [Api set: Mailbox 1.0]
-        *
-        * @remarks
-        *
-        * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-        * 
-        * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Appointment Attendee
-        *
-        * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
-        *                 type Office.AsyncResult.
-        * @param userContext - Optional. Developers can provide any object they wish to access in the callback function. 
-        *                    This object can be accessed by the asyncResult.asyncContext property in the callback function.
-        */
-       loadCustomPropertiesAsync(callback: (asyncResult: Office.AsyncResult<CustomProperties>) => void, userContext?: any): void;
-
-       /**
-        * Removes the event handlers for a supported event type. **Note**: Events are available only with task pane.
-        * 
-        * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-        * `Office.EventType.RecurrenceChanged`.
-        * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.EnhancedLocationsChanged` are also supported.
-        * 
-        * [Api set: Mailbox 1.7]
-        *
-        * @remarks
-        *
-        * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-        * 
-        * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Appointment Attendee
-        * 
-        * @param eventType - The event that should revoke the handler.
-        * @param options - Optional. An object literal that contains one or more of the following properties.
-        *        asyncContext: Developers can provide any object they wish to access in the callback method.
-        * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
-        *                asyncResult, which is an Office.AsyncResult object.
-        */
-       removeHandlerAsync(eventType: Office.EventType | string, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
-       /**
-        * Removes the event handlers for a supported event type. **Note**: Events are available only with task pane.
-        * 
-        * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-        * `Office.EventType.RecurrenceChanged`.
-        * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.EnhancedLocationsChanged` are also supported.
-        * 
-        * [Api set: Mailbox 1.7]
-        *
-        * @remarks
-        *
-        * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-        * 
-        * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Appointment Attendee
-        * 
-        * @param eventType - The event that should revoke the handler.
-        * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
-        *                asyncResult, which is an Office.AsyncResult object.
-        */
-       removeHandlerAsync(eventType: Office.EventType | string, callback?: (asyncResult: Office.AsyncResult<void>) => void): void; 
+        /**
+         * Asynchronously loads custom properties for this add-in on the selected item.
+         *
+         * Custom properties are stored as key/value pairs on a per-app, per-item basis. 
+         * This method returns a CustomProperties object in the callback, which provides methods to access the custom properties specific to the 
+         * current item and the current add-in. Custom properties are not encrypted on the item, so this should not be used as secure storage.
+         *
+         * The custom properties are provided as a CustomProperties object in the asyncResult.value property. 
+         * This object can be used to get, set, and remove custom properties from the item and save changes to the custom property set back to 
+         * the server.
+         *
+         * [Api set: Mailbox 1.0]
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Appointment Attendee
+         *
+         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
+         *                 type Office.AsyncResult.
+         * @param userContext - Optional. Developers can provide any object they wish to access in the callback function. 
+         *                    This object can be accessed by the asyncResult.asyncContext property in the callback function.
+         */
+        loadCustomPropertiesAsync(callback: (asyncResult: Office.AsyncResult<CustomProperties>) => void, userContext?: any): void;
+        /**
+         * Removes the event handlers for a supported event type. **Note**: Events are available only with task pane.
+         * 
+         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
+         * `Office.EventType.RecurrenceChanged`.
+         * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.EnhancedLocationsChanged` are also supported.
+         * 
+         * [Api set: Mailbox 1.7]
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Appointment Attendee
+         * 
+         * @param eventType - The event that should revoke the handler.
+         * @param options - Optional. An object literal that contains one or more of the following properties.
+         *        asyncContext: Developers can provide any object they wish to access in the callback method.
+         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
+         *                asyncResult, which is an Office.AsyncResult object.
+         */
+        removeHandlerAsync(eventType: Office.EventType | string, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
+        /**
+         * Removes the event handlers for a supported event type. **Note**: Events are available only with task pane.
+         * 
+         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
+         * `Office.EventType.RecurrenceChanged`.
+         * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.EnhancedLocationsChanged` are also supported.
+         * 
+         * [Api set: Mailbox 1.7]
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Appointment Attendee
+         * 
+         * @param eventType - The event that should revoke the handler.
+         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
+         *                asyncResult, which is an Office.AsyncResult object.
+         */
+        removeHandlerAsync(eventType: Office.EventType | string, callback?: (asyncResult: Office.AsyncResult<void>) => void): void; 
     }
-
+    /**
+     * Provides the current dates and times of the appointment that raised the `Office.EventType.AppointmentTimeChanged` event. 
+     * 
+     * [Api set: Mailbox 1.7] 
+     */ 
+    export interface AppointmentTimeChangedEventArgs { 
+        /** 
+         * Gets the appointment end date and time. 
+         * 
+         * [Api set: Mailbox 1.7] 
+         */ 
+        end: Date; 
+        /** 
+         * Gets the appointment start date and time. 
+         * 
+         * [Api set: Mailbox 1.7] 
+         */ 
+        start: Date; 
+        /** 
+         * Gets the type of the event. See `Office.EventType` for details. 
+         * 
+         * [Api set: Mailbox 1.7] 
+         */ 
+        type: "olkAppointmentTimeChanged"; 
+    }
+    /**
+     * Represents the content of an attachment on a message or appointment item.
+     *
+     * [Api set: Mailbox Preview]
+     *
+     * @remarks
+     * 
+     * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+     * 
+     * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+     * 
+     * @beta
+     */
+    interface AttachmentContent {
+        /**
+         * The content of an attachment as a string.
+         */
+        content: string;
+        /**
+         * The string format to use for an attachment's content.
+         * 
+         * For file attachments, the formatting is a base64-encoded string.
+         * 
+         * For item attachments that represent messages, the formatting is a string representing an .eml formatted file.
+         * 
+         * For item attachments that represent calendar items, the formatting is a string representing an .icalendar file.
+         * 
+         * For cloud attachments, the formatting is a URL string.
+         */
+        format: MailboxEnums.AttachmentContentFormat | string;
+    }
+    /**
+     * Represents an attachment on an item from the server. Read mode only.
+     *
+     * An array of **AttachmentDetails** objects is returned as the attachments property of an appointment or message item.
+     *
+     * [Api set: Mailbox 1.0]
+     *
+     * @remarks
+     * 
+     * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+     * 
+     * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Read
+     */
+    interface AttachmentDetails {
+        /**
+         * Gets a value that indicates the type of an attachment.
+         */
+        attachmentType: MailboxEnums.AttachmentType | string;
+        /**
+         * Gets the MIME content type of the attachment.
+         */
+        contentType: string;
+        /**
+         * Gets the Exchange attachment ID of the attachment.
+         */
+        id: string;
+        /**
+         * Gets a value that indicates whether the attachment should be displayed in the body of the item.
+         */
+        isInline: boolean;
+        /**
+         * Gets the name of the attachment.
+         */
+        name: string;
+        /**
+         * Gets the size of the attachment in bytes.
+         */
+        size: number;
+        /**
+         * Gets the url of the attachment if its type is `MailboxEnums.AttachmentType.Cloud`.
+         * 
+         * [Api set: Mailbox Preview]
+         * 
+         * @beta
+         */
+        url: string;
+    }
+    /**
+     * Provides information about the attachments that raised the `Office.EventType.AttachmentsChanged` event.
+     * 
+     * [Api set: Mailbox Preview]
+     * 
+     * @beta
+     */ 
+    export interface AttachmentsChangedEventArgs { 
+        /** 
+         * Represents the set of attachments that were added or removed. 
+         * For each such attachment, gets a subset of {@link AttachmentDetails} properties: `id`, `name`, `size`, and `attachmentType`.
+         * 
+         * [Api set: Mailbox Preview]
+         */
+        attachmentDetails: object[];
+        /**
+         * Gets whether the attachments were added or removed. See {@link MailboxEnums.AttachmentStatus} for details.
+         * 
+         * [Api set: Mailbox Preview]
+         */ 
+        attachmentStatus: MailboxEnums.AttachmentStatus | string;
+        /**
+         * Gets the type of the event. See `Office.EventType` for details.
+         * 
+         * [Api set: Mailbox Preview]
+         */
+        type: "olkAttachmentsChanged";
+    }
+    /**
+     * The body object provides methods for adding and updating the content of the message or appointment. 
+     * It is returned in the body property of the selected item.
+     *
+     * [Api set: Mailbox 1.1]
+     *
+     * @remarks
+     * 
+     * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+     * 
+     * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+     */
+    interface Body {
+        /**
+         * Returns the current body in a specified format.
+         *
+         * This method returns the entire current body in the format specified by coercionType.
+         *
+         * When working with HTML-formatted bodies, it is important to note that the Body.getAsync and Body.setAsync methods are not idempotent. 
+         * The value returned from the getAsync method will not necessarily be exactly the same as the value that was passed in the setAsync method previously. 
+         * The client may modify the value passed to setAsync in order to make it render efficiently with its rendering engine.
+         *
+         * [Api set: Mailbox 1.3]
+         *
+         * @remarks
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+         * 
+         * @param coercionType - The format for the returned body.
+         * @param options - Optional. An object literal that contains one or more of the following properties:
+         *        asyncContext: Developers can provide any object they wish to access in the callback method.
+         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult. 
+         *                  The body is provided in the requested format in the asyncResult.value property.
+         */
+        getAsync(coercionType: Office.CoercionType | string, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<string>) => void): void;
+        /**
+         * Returns the current body in a specified format.
+         *
+         * This method returns the entire current body in the format specified by coercionType.
+         *
+         * When working with HTML-formatted bodies, it is important to note that the Body.getAsync and Body.setAsync methods are not idempotent. 
+         * The value returned from the getAsync method will not necessarily be exactly the same as the value that was passed in the setAsync method previously. 
+         * The client may modify the value passed to setAsync in order to make it render efficiently with its rendering engine.
+         *
+         * [Api set: Mailbox 1.3]
+         *
+         * @remarks
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+         *
+         * @param coercionType - The format for the returned body.
+         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult.
+         *                  The body is provided in the requested format in the asyncResult.value property.
+         */
+        getAsync(coercionType: Office.CoercionType | string, callback?: (asyncResult: Office.AsyncResult<string>) => void): void;
+        /**
+         * Gets a value that indicates whether the content is in HTML or text format.
+         *
+         * [Api set: Mailbox 1.1]
+         *
+         * @remarks
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
+         *
+         * @param options - Optional. An object literal that contains one or more of the following properties.
+         *        asyncContext: Developers can provide any object they wish to access in the callback method.
+         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult.
+         *                  The content type is returned as one of the CoercionType values in the asyncResult.value property.
+         */
+        getTypeAsync(options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<Office.CoercionType>) => void): void;
+        /**
+         * Gets a value that indicates whether the content is in HTML or text format.
+         *
+         * [Api set: Mailbox 1.1]
+         *
+         * @remarks
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
+         *
+         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult.
+         *                  The content type is returned as one of the CoercionType values in the asyncResult.value property.
+         */
+        getTypeAsync(callback?: (asyncResult: Office.AsyncResult<Office.CoercionType>) => void): void;
+        /**
+         * Adds the specified content to the beginning of the item body.
+         *
+         * The prependAsync method inserts the specified string at the beginning of the item body. 
+         * After insertion, the cursor is returned to its original place, relative to the inserted content.
+         *
+         * When including links in HTML markup, you can disable online link preview by setting the id attribute on the anchor (\<a\>) to "LPNoLP" 
+         * (please see the Examples section for a sample).
+         *
+         * [Api set: Mailbox 1.1]
+         *
+         * @remarks
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadWriteItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
+         * 
+         * **Errors**:
+         * 
+         * - DataExceedsMaximumSize: The data parameter is longer than 1,000,000 characters.
+         * 
+         * @param data - The string to be inserted at the beginning of the body. The string is limited to 1,000,000 characters.
+         * @param options - Optional. An object literal that contains one or more of the following properties.
+         *        asyncContext: Developers can provide any object they wish to access in the callback method.
+         *        coercionType: The desired format for the body. The string in the data parameter will be converted to this format.
+         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult.
+         *                  Any errors encountered will be provided in the asyncResult.error property.
+         */
+        prependAsync(data: string, options?: Office.AsyncContextOptions & CoercionTypeOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
+        /**
+         * Adds the specified content to the beginning of the item body.
+         *
+         * The prependAsync method inserts the specified string at the beginning of the item body. 
+         * After insertion, the cursor is returned to its original place, relative to the inserted content.
+         *
+         * When including links in HTML markup, you can disable online link preview by setting the id attribute on the anchor (\<a\>) to "LPNoLP" 
+         * (please see the Examples section for a sample).
+         *
+         * [Api set: Mailbox 1.1]
+         *
+         * @remarks
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadWriteItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
+         * 
+         * **Errors**:
+         * 
+         * - DataExceedsMaximumSize: The data parameter is longer than 1,000,000 characters.
+         * 
+         * @param data - The string to be inserted at the beginning of the body. The string is limited to 1,000,000 characters.
+         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult.
+         *                  Any errors encountered will be provided in the asyncResult.error property.
+         */
+        prependAsync(data: string, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
+        /**
+         * Replaces the entire body with the specified text.
+         *
+         * When working with HTML-formatted bodies, it is important to note that the Body.getAsync and Body.setAsync methods are not idempotent. 
+         * The value returned from the getAsync method will not necessarily be exactly the same as the value that was passed in the setAsync method 
+         * previously. The client may modify the value passed to setAsync in order to make it render efficiently with its rendering engine.
+         *
+         * When including links in HTML markup, you can disable online link preview by setting the id attribute on the anchor (\<a\>) to "LPNoLP" 
+         * (please see the Examples section for a sample).
+         *
+         * [Api set: Mailbox 1.3]
+         *
+         * @remarks
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadWriteItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
+         * 
+         * **Errors**:
+         * 
+         * - DataExceedsMaximumSize: The data parameter is longer than 1,000,000 characters.
+         * 
+         * - InvalidFormatError: The options.coercionType parameter is set to Office.CoercionType.Html and the message body is in plain text.
+         * 
+         * @param data - The string that will replace the existing body. The string is limited to 1,000,000 characters.
+         * @param options - Optional. An object literal that contains one or more of the following properties.
+         *        asyncContext: Developers can provide any object they wish to access in the callback method.
+         *        coercionType: The desired format for the body. The string in the data parameter will be converted to this format.
+         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult.
+         *                  Any errors encountered will be provided in the asyncResult.error property.
+         */
+        setAsync(data: string, options?: Office.AsyncContextOptions & CoercionTypeOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
+        /**
+         * Replaces the entire body with the specified text.
+         *
+         * When working with HTML-formatted bodies, it is important to note that the Body.getAsync and Body.setAsync methods are not idempotent. 
+         * The value returned from the getAsync method will not necessarily be exactly the same as the value that was passed in the setAsync method 
+         * previously. The client may modify the value passed to setAsync in order to make it render efficiently with its rendering engine.
+         *
+         * When including links in HTML markup, you can disable online link preview by setting the id attribute on the anchor (\<a\>) to "LPNoLP" 
+         * (please see the Examples section for a sample).
+         *
+         * [Api set: Mailbox 1.3]
+         *
+         * @remarks
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadWriteItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
+         * 
+         * **Errors**:
+         * 
+         * - DataExceedsMaximumSize: The data parameter is longer than 1,000,000 characters.
+         * 
+         * - InvalidFormatError: The options.coercionType parameter is set to Office.CoercionType.Html and the message body is in plain text.
+         *
+         * @param data - The string that will replace the existing body. The string is limited to 1,000,000 characters.
+         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult.
+         *                  Any errors encountered will be provided in the asyncResult.error property.
+         */
+        setAsync(data: string, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
+        /**
+         * Replaces the selection in the body with the specified text.
+         *
+         * The setSelectedDataAsync method inserts the specified string at the cursor location in the body of the item, or, if text is selected in 
+         * the editor, it replaces the selected text. If the cursor was never in the body of the item, or if the body of the item lost focus in the 
+         * UI, the string will be inserted at the top of the body content. After insertion, the cursor is placed at the end of the inserted content.
+         *
+         * When including links in HTML markup, you can disable online link preview by setting the id attribute on the anchor (\<a\>) to "LPNoLP" 
+         * (please see the Examples section for a sample).
+         *
+         * [Api set: Mailbox 1.1]
+         *
+         * @remarks
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadWriteItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
+         * 
+         * **Errors**:
+         * 
+         * - DataExceedsMaximumSize: The data parameter is longer than 1,000,000 characters.
+         * 
+         * - InvalidFormatError: The options.coercionType parameter is set to Office.CoercionType.Html and the message body is in plain text.
+         * 
+         * @param data - The string that will replace the existing body. The string is limited to 1,000,000 characters.
+         * @param options - Optional. An object literal that contains one or more of the following properties.
+         *        asyncContext: Developers can provide any object they wish to access in the callback method.
+         *        coercionType: The desired format for the body. The string in the data parameter will be converted to this format.
+         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult.
+         *                  Any errors encountered will be provided in the asyncResult.error property.
+         */
+        setSelectedDataAsync(data: string, options?: Office.AsyncContextOptions & CoercionTypeOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
+        /**
+         * Replaces the selection in the body with the specified text.
+         *
+         * The setSelectedDataAsync method inserts the specified string at the cursor location in the body of the item, or, if text is selected in 
+         * the editor, it replaces the selected text. If the cursor was never in the body of the item, or if the body of the item lost focus in the 
+         * UI, the string will be inserted at the top of the body content. After insertion, the cursor is placed at the end of the inserted content.
+         *
+         * When including links in HTML markup, you can disable online link preview by setting the id attribute on the anchor (\<a\>) to "LPNoLP" 
+         * (please see the Examples section for a sample).
+         *
+         * [Api set: Mailbox 1.1]
+         *
+         * @remarks
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadWriteItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
+         * 
+         * **Errors**:
+         * 
+         * - DataExceedsMaximumSize: The data parameter is longer than 1,000,000 characters.
+         * 
+         * - InvalidFormatError: The options.coercionType parameter is set to Office.CoercionType.Html and the message body is in plain text.
+         *
+         * @param data - The string that will replace the existing body. The string is limited to 1,000,000 characters.
+         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult.
+         *                  Any errors encountered will be provided in the asyncResult.error property.
+         */
+        setSelectedDataAsync(data: string, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
+    }
+    /**
+     * Represents the categories on an item.
+     * 
+     * In Outlook, a user can group messages and appointments by using a category to color-code them.
+     * The user defines {@link Office.MasterCategories | categories in a master list} on their mailbox.
+     * They can then apply one or more categories to an item.
+     *
+     * [Api set: Mailbox Preview]
+     *
+     * @remarks
+     * 
+     * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+     * 
+     * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+     * 
+     * @beta
+     */
+    interface Categories {
+        /**
+         * Adds categories to an item. Each category must be in the categories master list on that mailbox and so must have a unique name
+         * but multiple categories can use the same color.
+         *
+         * @param categories - The categories to be added to the item.
+         * @param options - Optional. An object literal that contains one or more of the following properties.
+         *        asyncContext: Developers can provide any object they wish to access in the callback method.
+         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
+         *                 type Office.AsyncResult.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadWriteItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+         * 
+         * **Errors**:
+         * 
+         * - InvalidCategory: Invalid categories were provided.
+         * 
+         * @beta
+         */
+        addAsync(categories: string[], options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
+        /**
+         * Adds categories to an item. Each category must be in the categories master list on that mailbox and so must have a unique name
+         * but multiple categories can use the same color.
+         *
+         * @param categories - The categories to be added to the item.
+         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
+         *                 type Office.AsyncResult. If adding categories fails, the asyncResult.error property will contain an error code.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadWriteItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+         * 
+         * **Errors**:
+         * 
+         * - InvalidCategory: Invalid categories were provided.
+         * 
+         * @beta
+         */
+        addAsync(categories: string[], callback: (asyncResult: Office.AsyncResult<void>) => void): void;
+        /**
+         * Gets an item's categories.
+         *
+         * @param options - An object literal that contains one or more of the following properties.
+         *        asyncContext: Developers can provide any object they wish to access in the callback method.
+         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
+         *                 type Office.AsyncResult. If adding categories fails, the asyncResult.error property will contain an error code.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+         * 
+         * @beta
+         */
+        getAsync(options: Office.AsyncContextOptions, callback: (asyncResult: Office.AsyncResult<CategoryDetails[]>) => void): void;
+        /**
+         * Gets an item's categories.
+         *
+         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
+         *                 type Office.AsyncResult.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+         * 
+         * @beta
+         */
+        getAsync(callback: (asyncResult: Office.AsyncResult<CategoryDetails[]>) => void): void;
+        /**
+         * Removes categories from an item.
+         *
+         * @param categories - The categories to be removed from the item.
+         * @param options - Optional. An object literal that contains one or more of the following properties.
+         *        asyncContext: Developers can provide any object they wish to access in the callback method.
+         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
+         *                 type Office.AsyncResult. If removing categories fails, the asyncResult.error property will contain an error code.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadWriteItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+         * 
+         * @beta
+         */
+        removeAsync(categories: string[], options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
+        /**
+         * Removes categories from an item.
+         *
+         * @param categories - The categories to be removed from the item.
+         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
+         *                 type Office.AsyncResult. If removing categories fails, the asyncResult.error property will contain an error code.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadWriteItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+         * 
+         * @beta
+         */
+        removeAsync(categories: string[], callback: (asyncResult: Office.AsyncResult<void>) => void): void;
+    }
+    /**
+     * Represents a category's details like name and associated color.
+     *
+     * [Api set: Mailbox Preview]
+     *
+     * @remarks
+     * 
+     * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+     * 
+     * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+     * 
+     * @beta
+     */
+    interface CategoryDetails {
+        /**
+         * The name of the category. Maximum length is 255 characters.
+         */
+        displayName: string;
+        /**
+         * The color of the category.
+         */
+        color: MailboxEnums.CategoryColor | string;
+    }
+    /**
+     * Represents a contact stored on the server. Read mode only.
+     *
+     * The list of contacts associated with an email message or appointment is returned in the contacts property of the {@link Office.Entities} object 
+     * that is returned by the getEntities or getEntitiesByType method of the active item.
+     *
+     * [Api set: Mailbox 1.0]
+     *
+     * @remarks
+     * 
+     * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: Restricted
+     * 
+     * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Read
+     */
+    interface Contact {
+        /**
+         * An array of strings containing the mailing and street addresses associated with the contact. Nullable.
+         */
+        addresses: string[];
+        /**
+         * A string containing the name of the business associated with the contact. Nullable.
+         */
+        businessName: string;
+        /**
+         * An array of strings containing the SMTP email addresses associated with the contact. Nullable.
+         */
+        emailAddresses: string[];
+        /**
+         * A string containing the name of the person associated with the contact. Nullable.
+         */
+        personName: string;
+        /**
+         * An array containing a PhoneNumber object for each phone number associated with the contact. Nullable.
+         */
+        phoneNumbers: PhoneNumber[];
+        /**
+         * An array of strings containing the Internet URLs associated with the contact. Nullable.
+         */
+        urls: string[];
+    }
+    /**
+     * The CustomProperties object represents custom properties that are specific to a particular item and specific to a mail add-in for Outlook. 
+     * For example, there might be a need for a mail add-in to save some data that is specific to the current email message that activated the add-in. 
+     * If the user revisits the same message in the future and activates the mail add-in again, the add-in will be able to retrieve the data that had 
+     * been saved as custom properties.
+     *
+     * Because Outlook on Mac doesn't cache custom properties, if the user's network goes down, mail add-ins cannot access their custom properties.
+     *
+     * [Api set: Mailbox 1.0]
+     *
+     * @remarks
+     * 
+     * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+     * 
+     * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+     */
+    interface CustomProperties {
+        /**
+         * Returns the value of the specified custom property.
+         * @param name - The name of the custom property to be returned.
+         * @returns The value of the specified custom property.
+         *
+         * [Api set: Mailbox 1.0]
+         *
+         * @remarks
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+         */
+        get(name: string): any;
+        /**
+         * Sets the specified property to the specified value.
+         *
+         * The set method sets the specified property to the specified value. You must use the saveAsync method to save the property to the server.
+         *
+         * The set method creates a new property if the specified property does not already exist; 
+         * otherwise, the existing value is replaced with the new value. 
+         * The value parameter can be of any type; however, it is always passed to the server as a string.
+         *
+         * [Api set: Mailbox 1.0]
+         *
+         * @remarks
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+         *
+         * @param name - The name of the property to be set.
+         * @param value - The value of the property to be set.
+         */
+        set(name: string, value: string): void;
+        /**
+         * Removes the specified property from the custom property collection.
+         *
+         * To make the removal of the property permanent, you must call the saveAsync method of the CustomProperties object.
+         * @param name - The name of the property to be removed.
+         *
+         * [Api set: Mailbox 1.0]
+         *
+         * @remarks
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+         */
+        remove(name: string): void;
+        /**
+         * Saves item-specific custom properties to the server.
+         *
+         * You must call the saveAsync method to persist any changes made with the set method or the remove method of the CustomProperties object. 
+         * The saving action is asynchronous.
+         *
+         * It's a good practice to have your callback function check for and handle errors from saveAsync. 
+         * In particular, a read add-in can be activated while the user is in a connected state in a read form, and subsequently the user becomes 
+         * disconnected. 
+         * If the add-in calls saveAsync while in the disconnected state, saveAsync would return an error. 
+         * Your callback method should handle this error accordingly.
+         *
+         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
+         *                 type Office.AsyncResult.
+         * @param asyncContext - Optional. Any state data that is passed to the callback method.
+         *
+         * [Api set: Mailbox 1.0]
+         *
+         * @remarks
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+         */
+        saveAsync(callback?: (asyncResult: Office.AsyncResult<void>) => void, asyncContext?: any): void;
+    }
+    /**
+     * Provides diagnostic information to an Outlook add-in.
+     *
+     * [Api set: Mailbox 1.0]
+     *
+     * @remarks
+     * 
+     * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+     * 
+     * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+     */
+    interface Diagnostics {
+        /**
+         * Gets a string that represents the name of the host application.
+         *
+         * A string that can be one of the following values: "Outlook", "OutlookWebApp", "OutlookIOS", or "OutlookAndroid".
+         *
+         * **Note**: The "Outlook" value is returned for Outlook on desktop clients (i.e., Windows and Mac).
+         *
+         * [Api set: Mailbox 1.0]
+         *
+         * @remarks
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+         */
+        hostName: string;
+        /**
+         * Gets a string that represents the version of either the host application or the Exchange Server (e.g., "15.0.468.0").
+         *
+         * If the mail add-in is running in Outlook on a desktop or mobile client, the hostVersion property returns the version of the host 
+         * application, Outlook. In Outlook on the web, the property returns the version of the Exchange Server.
+         *
+         * [Api set: Mailbox 1.0]
+         *
+         * @remarks
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+         */
+        hostVersion: string;
+        /**
+         * Gets a string that represents the current view of Outlook on the web.
+         *
+         * The returned string can be one of the following values: "OneColumn", "TwoColumns", or "ThreeColumns".
+         *
+         * If the host application is not Outlook on the web, then accessing this property results in undefined.
+         *
+         * Outlook on the web has three views that correspond to the width of the screen and the window, and the number of columns that can be displayed:
+         *
+         * - "OneColumn", which is displayed when the screen is narrow. Outlook on the web uses this single-column layout on the entire screen of a 
+         * smartphone.
+         *
+         * - "TwoColumns", which is displayed when the screen is wider. Outlook on the web uses this view on most tablets.
+         *
+         * - "ThreeColumns", which is displayed when the screen is wide. For example, Outlook on the web uses this view in a full screen window on a 
+         * desktop computer.
+         *
+         * [Api set: Mailbox 1.0]
+         *
+         * @remarks
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+         */
+        OWAView: MailboxEnums.OWAView | "OneColumn" | "TwoColumns" | "ThreeColumns";
+    }
+    /**
+     * Provides the email properties of the sender or specified recipients of an email message or appointment.
+     *
+     * [Api set: Mailbox 1.0]
+     *
+     * @remarks
+     * 
+     * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+     * 
+     * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+     */
+    interface EmailAddressDetails {
+        /**
+         * Gets the SMTP email address.
+         */
+        emailAddress: string;
+        /**
+         * Gets the display name associated with an email address.
+         */
+        displayName: string;
+        /**
+         * Gets the response that an attendee returned for an appointment. 
+         * This property applies to only an attendee of an appointment, as represented by the optionalAttendees or requiredAttendees property. 
+         * This property returns undefined in other scenarios.
+         */
+        appointmentResponse: MailboxEnums.ResponseType | string;
+        /**
+         * Gets the email address type of a recipient.
+         */
+        recipientType: MailboxEnums.RecipientType | string;
+    }
+    /**
+     * Represents an email account on an Exchange Server.
+     *
+     * [Api set: Mailbox 1.0]
+     *
+     * @remarks
+     * 
+     * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+     * 
+     * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Read
+     */
+    interface EmailUser {
+        /**
+         * Gets the display name associated with an email address.
+         */
+        displayName: string;
+        /**
+         * Gets the SMTP email address.
+         */
+        emailAddress: string;
+    }
+    /**
+     * Represents the set of locations on an appointment.
+     * 
+     * [Api set: Mailbox Preview]
+     * 
+     * @remarks
+     * 
+     * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+     * 
+     * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+     * 
+     * @beta
+     */
+    export interface EnhancedLocation {
+        /**
+         * Adds to the set of locations associated with the appointment.
+         * 
+         * [Api set: Mailbox Preview]
+         * 
+         * @remarks
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadWriteItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
+         * 
+         * **Errors**:
+         * 
+         * - InvalidFormatError: The format of the specified data object is not valid.
+         * 
+         * @param locationIdentifiers The locations to be added to the current list of locations.
+         * @param options Optional. An object literal that contains one or more of the following properties.
+         *        asyncContext: Developers can provide any object they wish to access in the callback method.
+         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
+         *                asyncResult, which is an Office.AsyncResult object. Check the `status` property of asyncResult to determine if the call succeeded.
+         * 
+         * @beta
+         */
+        addAsync(locationIdentifiers: LocationIdentifier[], options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResultStatus) => void): void;
+        /**
+         * Adds to the set of locations associated with the appointment.
+         * 
+         * [Api set: Mailbox Preview]
+         * 
+         * @remarks
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadWriteItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
+         * 
+         * **Errors**:
+         * 
+         * - InvalidFormatError: The format of the specified data object is not valid.
+         * 
+         * @param locationIdentifiers The locations to be added to the current list of locations.
+         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
+         *                asyncResult, which is an Office.AsyncResult object. Check the `status` property of asyncResult to determine if the call succeeded.
+         * 
+         * @beta
+         */
+        addAsync(locationIdentifiers: LocationIdentifier[], callback?: (asyncResult: Office.AsyncResultStatus) => void): void;
+        /**
+         * Gets the set of locations associated with the appointment.
+         * 
+         * [Api set: Mailbox Preview]
+         * 
+         * @remarks
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+         * 
+         * @param options Optional. An object literal that contains one or more of the following properties.
+         *        asyncContext: Developers can provide any object they wish to access in the callback method.
+         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
+         *                asyncResult, which is an Office.AsyncResult object.
+         * 
+         * @beta
+         */
+        getAsync(options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<LocationDetails[]>) => void): void;
+        /**
+         * Gets the set of locations associated with the appointment.
+         * 
+         * [Api set: Mailbox Preview]
+         * 
+         * @remarks
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+         * 
+         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
+         *                asyncResult, which is an Office.AsyncResult object.
+         * 
+         * @beta
+         */
+        getAsync(callback?: (asyncResult: Office.AsyncResult<LocationDetails[]>) => void): void;
+        /**
+         * Removes the set of locations associated with the appointment.
+         * 
+         * If there are multiple locations with the same name, all matching locations will be removed even if only one was specified in locationIdentifiers.
+         * 
+         * [Api set: Mailbox Preview]
+         * 
+         * @remarks
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadWriteItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
+         * 
+         * @param locationIdentifiers The locations to be removed from the current list of locations.
+         * @param options Optional. An object literal that contains one or more of the following properties.
+         *        asyncContext: Developers can provide any object they wish to access in the callback method.
+         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
+         *                asyncResult, which is an Office.AsyncResult object. Check the `status` property of asyncResult to determine if the call succeeded.
+         * 
+         * @beta
+         */
+        removeAsync(locationIdentifiers: LocationIdentifier[], options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResultStatus) => void): void;
+        /**
+         * Removes the set of locations associated with the appointment.
+         * 
+         * If there are multiple locations with the same name, all matching locations will be removed even if only one was specified in locationIdentifiers.
+         * 
+         * [Api set: Mailbox Preview]
+         * 
+         * @remarks
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadWriteItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
+         * 
+         * @param locationIdentifiers The locations to be removed from the current list of locations.
+         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
+         *                asyncResult, which is an Office.AsyncResult object. Check the `status` property of asyncResult to determine if the call succeeded.
+         * 
+         * @beta
+         */
+        removeAsync(locationIdentifiers: LocationIdentifier[], callback?: (asyncResult: Office.AsyncResultStatus) => void): void;
+    }
+    /**
+     * Provides the current enhanced locations when the `Office.EventType.EnhancedLocationsChanged` event is raised.
+     * 
+     * [Api set: Mailbox Preview]
+     * 
+     * @beta
+     */ 
+    export interface EnhancedLocationsChangedEventArgs {
+        /**
+         * Gets the set of enhanced locations.
+         * 
+         * [Api set: Mailbox Preview]
+         */
+        enhancedLocations: LocationDetails[];
+        /**
+         * Gets the type of the event. See `Office.EventType` for details.
+         * 
+         * [Api set: Mailbox Preview]
+         */
+        type: "olkEnhancedLocationsChanged";
+    }
+    /**
+     * Represents a collection of entities found in an email message or appointment. Read mode only.
+     *
+     * The Entities object is a container for the entity arrays returned by the getEntities and getEntitiesByType methods when the item 
+     * (either an email message or an appointment) contains one or more entities that have been found by the server. 
+     * You can use these entities in your code to provide additional context information to the viewer, such as a map to an address found in the item, 
+     * or to open a dialer for a phone number found in the item.
+     *
+     * If no entities of the type specified in the property are present in the item, the property associated with that entity is null. 
+     * For example, if a message contains a street address and a phone number, the addresses property and phoneNumbers property would contain 
+     * information, and the other properties would be null.
+     *
+     * To be recognized as an address, the string must contain a United States postal address that has at least a subset of the elements of a street 
+     * number, street name, city, state, and zip code.
+     *
+     * To be recognized as a phone number, the string must contain a North American phone number format.
+     *
+     * Entity recognition relies on natural language recognition that is based on machine learning of large amounts of data. 
+     * The recognition of an entity is non-deterministic and success sometimes relies on the particular context in the item.
+     *
+     * When the property arrays are returned by the getEntitiesByType method, only the property for the specified entity contains data; 
+     * all other properties are null.
+     *
+     * [Api set: Mailbox 1.0]
+     *
+     * @remarks
+     * 
+     * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+     * 
+     * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Read
+     */
+    interface Entities {
+        /**
+         * Gets the physical addresses (street or mailing addresses) found in an email message or appointment.
+         */
+        addresses: string[];
+        /**
+         * Gets the contacts found in an email address or appointment.
+         */
+        contacts: Contact[];
+        /**
+         * Gets the email addresses found in an email message or appointment.
+         */
+        emailAddresses: string[];
+        /**
+         * Gets the meeting suggestions found in an email message.
+         */
+        meetingSuggestions: MeetingSuggestion[];
+        /**
+         * Gets the phone numbers found in an email message or appointment.
+         */
+        phoneNumbers: PhoneNumber[];
+        /**
+         * Gets the task suggestions found in an email message or appointment.
+         */
+        taskSuggestions: string[];
+        /**
+         * Gets the Internet URLs present in an email message or appointment.
+         */
+        urls: string[];
+    }
+    /**
+     * Provides a method to get the from value of a message in an Outlook add-in.
+     * 
+     * [Api set: Mailbox 1.7]
+     * 
+     * @remarks
+     * 
+     * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+     * 
+     * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
+     */
+    interface From {
+        /**
+         * Gets the from value of a message.
+         * 
+         * The getAsync method starts an asynchronous call to the Exchange server to get the from value of a message.
+         * 
+         * The from value of the item is provided as an {@link Office.EmailAddressDetails} in the asyncResult.value property.
+         * 
+         * [Api set: Mailbox 1.7]
+         * 
+         * @remarks
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
+         * 
+         * @param options - Optional. An object literal that contains one or more of the following properties.
+         *        asyncContext: Developers can provide any object they wish to access in the callback method.
+         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter,
+         *                             asyncResult, which is an Office.AsyncResult object.
+         *                  The `value` property of the result is the item's from value, as an EmailAddressDetails object.
+         */
+        getAsync(options: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<EmailAddressDetails>) => void): void;
+        /**
+         * Gets the from value of a message.
+         * 
+         * The getAsync method starts an asynchronous call to the Exchange server to get the from value of a message.
+         * 
+         * The from value of the item is provided as an {@link Office.EmailAddressDetails} in the asyncResult.value property.
+         * 
+         * [Api set: Mailbox 1.7]
+         * 
+         * @remarks
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
+         * 
+         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter,
+         *                             asyncResult, which is an Office.AsyncResult object.
+         *                  The `value` property of the result is the item's from value, as an EmailAddressDetails object.
+         */
+        getAsync(callback?: (asyncResult: Office.AsyncResult<EmailAddressDetails>) => void): void;
+    }
+    /**
+     * The InternetHeaders object represents custom internet headers that are preserved after the message item leaves Exchange and is converted to a MIME message. 
+     * These headers are stored as x-headers in the MIME message.
+     * 
+     * InternetHeaders are stored as key/value pairs on a per-item basis.
+     * 
+     * **Note**: This object is intended for you to set and get your custom headers on a message item.
+     *
+     * [Api set: Mailbox Preview]
+     *
+     * @remarks
+     * 
+     * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+     * 
+     * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+     * 
+     * @beta
+     */
+    interface InternetHeaders {
+        /**
+         * Given an array of internet header names, this method returns a dictionary containing those internet headers and their values. 
+         * If the add-in requests an x-header that is not available, that x-header will not be returned in the results.
+         * 
+         * **Note**: This method is intended to return the values of the custom headers you set using the `setAsync` method.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+         * 
+         * @param names - The names of the internet headers to be returned.
+         * @param options - Optional. An object literal that contains one or more of the following properties:
+         *        asyncContext: Developers can provide any object they wish to access in the callback method.
+         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
+         *                asyncResult, which is an Office.AsyncResult object.
+         * 
+         * @beta
+         */
+        getAsync(names: string[], options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<InternetHeaders>) => void): void;
+        /**
+         * Given an array of internet header names, this method returns a dictionary containing those internet headers and their values. 
+         * If the add-in requests an x-header that is not available, that x-header will not be returned in the results.
+         * 
+         * **Note**: This method is intended to return the values of the custom headers you set using the `setAsync` method.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+         * 
+         * @param names - The names of the internet headers to be returned.
+         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
+         *                asyncResult, which is an Office.AsyncResult object.
+         * 
+         * @beta
+         */
+        getAsync(names: string[], callback?: (asyncResult: Office.AsyncResult<InternetHeaders>) => void): void;
+        /**
+         * Given an array of internet header names, this method removes the specified headers from the internet header collection.
+         * 
+         * **Note**: This method is intended to remove the custom headers you set using the `setAsync` method.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadWriteItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
+         * 
+         * @param names - The names of the internet headers to be removed.
+         * @param options - Optional. An object literal that contains one or more of the following properties:
+         *        asyncContext: Developers can provide any object they wish to access in the callback method.
+         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
+         *                asyncResult, which is an Office.AsyncResult object.
+         * 
+         * @beta
+         */
+        removeAsync(names: string[], options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<InternetHeaders>) => void): void;
+        /**
+         * Given an array of internet header names, this method removes the specified headers from the internet header collection.
+         *
+         * **Note**: This method is intended to remove your custom headers you set using the `setAsync` method.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadWriteItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
+         * 
+         * @param names - The names of the internet headers to be removed.
+         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
+         *                asyncResult, which is an Office.AsyncResult object.
+         * 
+         * @beta
+         */
+        removeAsync(names: string[], callback?: (asyncResult: Office.AsyncResult<InternetHeaders>) => void): void;
+        /**
+         * Sets the specified internet headers to the specified values.
+         * 
+         * The setAsync method creates a new header if the specified header doesn't already exist; otherwise, the existing value is replaced with 
+         * the new value.
+         *
+         * **Note**: This method is intended to set the values of your custom headers.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadWriteItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
+         *
+         * @param headers - The names and corresponding values of the headers to be set. Should be a dictionary object with keys being the names of the 
+         *                internet headers and values being the values of the internet headers.
+         * @param options - Optional. An object literal that contains one or more of the following properties.
+         *        asyncContext: Developers can provide any object they wish to access in the callback method.
+         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult.
+         *                  Any errors encountered will be provided in the asyncResult.error property.
+         * 
+         * @beta
+         */
+        setAsync(headers: Object, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
+        /**
+         * Sets the specified internet headers to the specified values.
+         * 
+         * The setAsync method creates a new header if the specified header doesn't already exist; otherwise, the existing value is replaced with 
+         * the new value.
+         *
+         * **Note**: This method is intended to set the values of your custom headers.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadWriteItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
+         *
+         * @param headers - The names and corresponding values of the headers to be set. Should be a dictionary object with keys being the names of the 
+         *                internet headers and values being the values of the internet headers.
+         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult.
+         *                  Any errors encountered will be provided in the asyncResult.error property.
+         * 
+         * @beta
+         */
+        setAsync(headers: Object, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
+    }
     /**
      * The item namespace is used to access the currently selected message, meeting request, or appointment. 
      * You can determine the type of the item by using the `itemType` property.
@@ -11724,6 +11996,7 @@ declare namespace Office {
      * [Api set: Mailbox 1.0]
      *
      * @remarks
+     * 
      * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: Restricted
      * 
      * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
@@ -11782,7 +12055,6 @@ declare namespace Office {
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
          */
         notificationMessages: NotificationMessages;
-
         /**
          * Gets the id of the series that an instance belongs to.
          * 
@@ -11831,7 +12103,6 @@ declare namespace Office {
          *                asyncResult, which is an Office.AsyncResult object.
          */
         addHandlerAsync(eventType: Office.EventType | string, handler: any, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
-
         /**
          * Adds an event handler for a supported event. **Note**: Events are available only with task pane.
          * 
@@ -11854,7 +12125,6 @@ declare namespace Office {
          *                asyncResult, which is an Office.AsyncResult object.
          */
         addHandlerAsync(eventType: Office.EventType | string, handler: any, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
-
         /**
          * Gets an attachment from a message or appointment and returns it as an **AttachmentContent** object.
          * 
@@ -11872,7 +12142,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - InvalidAttachmentId: The attachment identifier does not exist.
          * 
@@ -11886,7 +12156,6 @@ declare namespace Office {
          * @beta
          */
         getAttachmentContentAsync(attachmentId: string, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<AttachmentContent>) => void): void;
-
         /**
          * Gets an attachment from a message or appointment and returns it as an **AttachmentContent** object.
          * 
@@ -11904,7 +12173,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - InvalidAttachmentId: The attachment identifier does not exist.
          * 
@@ -11916,7 +12185,6 @@ declare namespace Office {
          * @beta
          */
         getAttachmentContentAsync(attachmentId: string, callback?: (asyncResult: Office.AsyncResult<AttachmentContent>) => void): void;
-		
         /**
          * Gets initialization data passed when the add-in is {@link https://docs.microsoft.com/outlook/actionable-messages/invoke-add-in-from-actionable-message | activated by an actionable message}.
          * 
@@ -11942,7 +12210,6 @@ declare namespace Office {
          * @beta
          */
         getInitializationContextAsync(options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<string>) => void): void;
-		
         /**
          * Gets initialization data passed when the add-in is {@link https://docs.microsoft.com/outlook/actionable-messages/invoke-add-in-from-actionable-message | activated by an actionable message}.
          * 
@@ -11966,117 +12233,111 @@ declare namespace Office {
          * @beta
          */
         getInitializationContextAsync(callback?: (asyncResult: Office.AsyncResult<string>) => void): void;
-
-       /**
-        * Gets the properties of an appointment or message in a shared folder, calendar, or mailbox.
-        *
-        * [Api set: Mailbox Preview]
-        *
-        * @remarks
-        * 
-        * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-        * 
-        * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-        * 
-        * @param options - An object literal that contains one or more of the following properties.
-        *        asyncContext: Developers can provide any object they wish to access in the callback method.
-        * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
-        *                 type Office.AsyncResult.
-        *                 The `value` property of the result is the properties of the shared item.
-        * 
-        * @beta
-        */
-        getSharedPropertiesAsync(options: Office.AsyncContextOptions, callback: (asyncResult: Office.AsyncResult<SharedProperties>) => void): void;
-
-       /**
-        * Gets the properties of an appointment or message in a shared folder, calendar, or mailbox.
-        *
-        * [Api set: Mailbox Preview]
-        *
-        * @remarks
-        * 
-        * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-        * 
-        * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-        * 
-        * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
-        *                 type Office.AsyncResult.
-        *                 The `value` property of the result is the properties of the shared item.
-        * 
-        * @beta
-        */
-       getSharedPropertiesAsync(callback: (asyncResult: Office.AsyncResult<SharedProperties>) => void): void;
-
-       /**
-        * Asynchronously loads custom properties for this add-in on the selected item.
-        *
-        * Custom properties are stored as key/value pairs on a per-app, per-item basis. 
-        * This method returns a CustomProperties object in the callback, which provides methods to access the custom properties specific to the 
-        * current item and the current add-in. Custom properties are not encrypted on the item, so this should not be used as secure storage.
-        *
-        * The custom properties are provided as a CustomProperties object in the asyncResult.value property. 
-        * This object can be used to get, set, and remove custom properties from the item and save changes to the custom property set back to 
-        * the server.
-        *
-        * [Api set: Mailbox 1.0]
-        *
-        * @remarks
-        *
-        * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-        * 
-        * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-        *
-        * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
-        *                 type Office.AsyncResult.
-        * @param userContext - Optional. Developers can provide any object they wish to access in the callback function. 
-        *                    This object can be accessed by the asyncResult.asyncContext property in the callback function.
-        */
-       loadCustomPropertiesAsync(callback: (asyncResult: Office.AsyncResult<CustomProperties>) => void, userContext?: any): void;
-
-
-       /**
-        * Removes the event handlers for a supported event type. **Note**: Events are available only with task pane.
-        * 
-        * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-        * `Office.EventType.RecurrenceChanged`.
-        * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.EnhancedLocationsChanged` are also supported.
-        * 
-        * [Api set: Mailbox 1.7]
-        *
-        * @remarks
-        *
-        * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-        * 
-        * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-        * 
-        * @param eventType - The event that should revoke the handler.
-        * @param options - Optional. An object literal that contains one or more of the following properties.
-        *        asyncContext: Developers can provide any object they wish to access in the callback method.
-        * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
-        *                asyncResult, which is an Office.AsyncResult object.
-        */
-       removeHandlerAsync(eventType: Office.EventType | string, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
-
-       /**
-        * Removes the event handlers for a supported event type. **Note**: Events are available only with task pane.
-        * 
-        * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-        * `Office.EventType.RecurrenceChanged`.
-        * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.EnhancedLocationsChanged` are also supported.
-        * 
-        * [Api set: Mailbox 1.7]
-        *
-        * @remarks
-        *
-        * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-        * 
-        * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-        * 
-        * @param eventType - The event that should revoke the handler.
-        * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
-        *                asyncResult, which is an Office.AsyncResult object.
-        */
-       removeHandlerAsync(eventType: Office.EventType | string, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
+        /**
+         * Gets the properties of an appointment or message in a shared folder, calendar, or mailbox.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+         * 
+         * @param options - An object literal that contains one or more of the following properties.
+         *        asyncContext: Developers can provide any object they wish to access in the callback method.
+         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
+         *                 type Office.AsyncResult.
+         *                 The `value` property of the result is the properties of the shared item.
+         * 
+         * @beta
+         */
+         getSharedPropertiesAsync(options: Office.AsyncContextOptions, callback: (asyncResult: Office.AsyncResult<SharedProperties>) => void): void;
+        /**
+         * Gets the properties of an appointment or message in a shared folder, calendar, or mailbox.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+         * 
+         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
+         *                 type Office.AsyncResult.
+         *                 The `value` property of the result is the properties of the shared item.
+         * 
+         * @beta
+         */
+        getSharedPropertiesAsync(callback: (asyncResult: Office.AsyncResult<SharedProperties>) => void): void;
+        /**
+         * Asynchronously loads custom properties for this add-in on the selected item.
+         *
+         * Custom properties are stored as key/value pairs on a per-app, per-item basis. 
+         * This method returns a CustomProperties object in the callback, which provides methods to access the custom properties specific to the 
+         * current item and the current add-in. Custom properties are not encrypted on the item, so this should not be used as secure storage.
+         *
+         * The custom properties are provided as a CustomProperties object in the asyncResult.value property. 
+         * This object can be used to get, set, and remove custom properties from the item and save changes to the custom property set back to 
+         * the server.
+         *
+         * [Api set: Mailbox 1.0]
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+         * 
+         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
+         *                 type Office.AsyncResult.
+         * @param userContext - Optional. Developers can provide any object they wish to access in the callback function. 
+         *                    This object can be accessed by the asyncResult.asyncContext property in the callback function.
+         */
+        loadCustomPropertiesAsync(callback: (asyncResult: Office.AsyncResult<CustomProperties>) => void, userContext?: any): void;
+        /**
+         * Removes the event handlers for a supported event type. **Note**: Events are available only with task pane.
+         * 
+         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
+         * `Office.EventType.RecurrenceChanged`.
+         * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.EnhancedLocationsChanged` are also supported.
+         * 
+         * [Api set: Mailbox 1.7]
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+         * 
+         * @param eventType - The event that should revoke the handler.
+         * @param options - Optional. An object literal that contains one or more of the following properties.
+         *        asyncContext: Developers can provide any object they wish to access in the callback method.
+         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
+         *                asyncResult, which is an Office.AsyncResult object.
+         */
+        removeHandlerAsync(eventType: Office.EventType | string, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
+        /**
+         * Removes the event handlers for a supported event type. **Note**: Events are available only with task pane.
+         * 
+         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
+         * `Office.EventType.RecurrenceChanged`.
+         * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.EnhancedLocationsChanged` are also supported.
+         * 
+         * [Api set: Mailbox 1.7]
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+         * 
+         * @param eventType - The event that should revoke the handler.
+         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
+         *                asyncResult, which is an Office.AsyncResult object.
+         */
+        removeHandlerAsync(eventType: Office.EventType | string, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
     }
     /**
      * The compose mode of {@link Office.Item | Office.context.mailbox.item}.
@@ -12118,7 +12379,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - AttachmentSizeExceeded: The attachment is larger than allowed.
          * 
@@ -12169,7 +12430,6 @@ declare namespace Office {
          *                 the error.
          */
         addFileAttachmentAsync(uri: string, attachmentName: string, callback?: (asyncResult: Office.AsyncResult<string>) => void): void;
-
         /**
          * Adds a file to a message or appointment as an attachment.
          *
@@ -12185,7 +12445,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - AttachmentSizeExceeded: The attachment is larger than allowed.
          * 
@@ -12220,7 +12480,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - AttachmentSizeExceeded: The attachment is larger than allowed.
          * 
@@ -12237,7 +12497,6 @@ declare namespace Office {
          * @beta
          */
         addFileAttachmentFromBase64Async(base64File: string, attachmentName: string, callback?: (asyncResult: Office.AsyncResult<string>) => void): void;
-
         /**
          * Adds an Exchange item, such as a message, as an attachment to the message or appointment.
          *
@@ -12259,7 +12518,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - NumberOfAttachmentsExceeded: The message or appointment has too many attachments.
          * 
@@ -12294,7 +12553,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - NumberOfAttachmentsExceeded: The message or appointment has too many attachments.
          *
@@ -12306,7 +12565,6 @@ declare namespace Office {
          *                 the error.
          */
         addItemAttachmentAsync(itemId: any, attachmentName: string, callback?: (asyncResult: Office.AsyncResult<string>) => void): void;
-
         /**
          * Closes the current item that is being composed
          *
@@ -12353,7 +12611,6 @@ declare namespace Office {
          * [Api set: Mailbox Preview]
          *
          * @remarks
-         *
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
          * 
@@ -12488,7 +12745,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - InvalidAttachmentId: The attachment identifier does not exist.
          * 
@@ -12517,7 +12774,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - InvalidAttachmentId: The attachment identifier does not exist.
          *
@@ -12527,7 +12784,6 @@ declare namespace Office {
          *                 If removing the attachment fails, the asyncResult.error property will contain an error code with the reason for the failure.
          */
         removeAttachmentAsync(attachmentId: string, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
-
         /**
          * Asynchronously saves an item.
          *
@@ -12558,7 +12814,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - InvalidAttachmentId: The attachment identifier does not exist.
          * 
@@ -12599,7 +12855,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - InvalidAttachmentId: The attachment identifier does not exist.
          *
@@ -12623,7 +12879,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - InvalidAttachmentId: The attachment identifier does not exist.
          * 
@@ -12657,7 +12913,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - InvalidAttachmentId: The attachment identifier does not exist.
          *
@@ -12782,6 +13038,7 @@ declare namespace Office {
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Read
          */
         subject: string;
+
         /**
          * Displays a reply form that includes the sender and all recipients of the selected message or the organizer and all attendees of the 
          * selected appointment.
@@ -13090,6 +13347,985 @@ declare namespace Office {
         getSelectedRegExMatches(): any;
     }
     /**
+     * Represents a date and time in the local client's time zone. Read mode only.
+     *
+     * [Api set: Mailbox 1.0]
+     *
+     * @remarks
+     *
+     * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+     * 
+     * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Read
+     */
+    interface LocalClientTime {
+        /**
+         * Integer value representing the month, beginning with 0 for January to 11 for December.
+         */
+        month: number;
+        /**
+         * Integer value representing the day of the month.
+         */
+        date: number;
+        /**
+         * Integer value representing the year.
+         */
+        year: number;
+        /**
+         * Integer value representing the hour on a 24-hour clock.
+         */
+        hours: number;
+        /**
+         * Integer value representing the minutes.
+         */
+        minutes: number;
+        /**
+         * Integer value representing the seconds.
+         */
+        seconds: number;
+        /**
+         * Integer value representing the milliseconds.
+         */
+        milliseconds: number;
+        /**
+         * Integer value representing the number of minutes difference between the local time zone and UTC.
+         */
+        timezoneOffset: number;
+    }
+    /**
+     * Provides methods to get and set the location of a meeting in an Outlook add-in.
+     *
+     * [Api set: Mailbox 1.1]
+     *
+     * @remarks
+     * 
+     * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+     * 
+     * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
+     */
+    interface Location {
+        /**
+         * Gets the location of an appointment.
+         *
+         * The getAsync method starts an asynchronous call to the Exchange server to get the location of an appointment. 
+         * The location of the appointment is provided as a string in the asyncResult.value property.
+         *
+         * @param options - An object literal that contains one or more of the following properties.
+         *        asyncContext: Developers can provide any object they wish to access in the callback method.
+         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
+         *                 type Office.AsyncResult.
+         *
+         * [Api set: Mailbox 1.1]
+         *
+         * @remarks
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
+         */
+        getAsync(options: Office.AsyncContextOptions, callback: (asyncResult: Office.AsyncResult<string>) => void): void;
+        /**
+         * Gets the location of an appointment.
+         *
+         * The getAsync method starts an asynchronous call to the Exchange server to get the location of an appointment. 
+         * The location of the appointment is provided as a string in the asyncResult.value property.
+         *
+         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
+         *                 type Office.AsyncResult.
+         *
+         * [Api set: Mailbox 1.1]
+         *
+         * @remarks
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
+         */
+        getAsync(callback: (asyncResult: Office.AsyncResult<string>) => void): void;
+        /**
+         * Sets the location of an appointment.
+         *
+         * The setAsync method starts an asynchronous call to the Exchange server to set the location of an appointment. 
+         * Setting the location of an appointment overwrites the current location.
+         *
+         * @param location - The location of the appointment. The string is limited to 255 characters.
+         * @param options - Optional. An object literal that contains one or more of the following properties.
+         *        asyncContext: Developers can provide any object they wish to access in the callback method.
+         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
+         *                 type Office.AsyncResult. If setting the location fails, the asyncResult.error property will contain an error code.
+         *
+         * [Api set: Mailbox 1.1]
+         *
+         * @remarks
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
+         * 
+         * **Errors**:
+         * 
+         * - DataExceedsMaximumSize: The location parameter is longer than 255 characters.
+         */
+        setAsync(location: string, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
+        /**
+         * Sets the location of an appointment.
+         *
+         * The setAsync method starts an asynchronous call to the Exchange server to set the location of an appointment. 
+         * Setting the location of an appointment overwrites the current location.
+         *
+         * @param location - The location of the appointment. The string is limited to 255 characters.
+         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
+         *                 type Office.AsyncResult. If setting the location fails, the asyncResult.error property will contain an error code.
+         *
+         * [Api set: Mailbox 1.1]
+         *
+         * @remarks
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
+         * 
+         * **Errors**:
+         * 
+         * - DataExceedsMaximumSize: The location parameter is longer than 255 characters.
+         */
+        setAsync(location: string, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
+    }
+    /**
+     * Represents a location. Read only.
+     * 
+     * [Api set: Mailbox Preview]
+     *
+     * @remarks
+     * 
+     * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+     * 
+     * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+     * 
+     * @beta
+     */
+    export interface LocationDetails {
+        /**
+         * The LocationIdentifier of the location.
+         */
+        locationIdentifier: LocationIdentifier;
+        /**
+         * The location's display name.
+         */
+        displayName: string;
+        /**
+         * The email address associated with the location.
+         */
+        emailAddress: string;
+    }
+    /**
+     * Represents the id of a location.
+     * 
+     * [Api set: Mailbox Preview]
+     *
+     * @remarks
+     * 
+     * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+     * 
+     * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+     * 
+     * @beta
+     */
+    interface LocationIdentifier {
+        /**
+         * The location's unique id.
+         * 
+         * For **Room** type, it's the room's email address.
+         * 
+         * For **Custom** type, it's the displayName.
+         */
+        id: string;
+        /**
+         * The location's type.
+         */
+        type: MailboxEnums.LocationType | string;
+    }
+    /**
+     * Provides access to the Outlook Add-in object model for Microsoft Outlook and Microsoft Outlook on the web.
+     *
+     * Namespaces:
+     *
+     * - diagnostics: Provides diagnostic information to an Outlook add-in.
+     *
+     * - item: Provides methods and properties for accessing a message or appointment in an Outlook add-in.
+     *
+     * - userProfile: Provides information about the user in an Outlook add-in.
+     *
+     * [Api set: Mailbox 1.0]
+     *
+     * @remarks
+     * 
+     * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: Restricted
+     * 
+     * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+     */
+    interface Mailbox {
+        /**
+         * Provides diagnostic information to an Outlook add-in.
+         * 
+         * Contains the following members:
+         * 
+         *  - hostName (string): A string that represents the name of the host application. 
+         * It should be one of the following values: "Outlook", "OutlookWebApp", "OutlookIOS", or "OutlookAndroid".
+         * **Note**: The "Outlook" value is returned for Outlook on desktop clients (i.e., Windows and Mac).
+         * 
+         *  - hostVersion (string): A string that represents the version of either the host application or the Exchange Server (e.g., "15.0.468.0"). 
+         * If the mail add-in is running in Outlook on desktop or mobile clients, the hostVersion property returns the version of the 
+         * host application, Outlook. In Outlook on the web, the property returns the version of the Exchange Server.
+         * 
+         *  - OWAView (MailboxEnums.OWAView or string): An enum (or string literal) that represents the current view of Outlook on the web. 
+         * If the host application is not Outlook on the web, then accessing this property results in undefined. 
+         * Outlook on the web has three views ("OneColumn" - displayed when the screen is narrow, "TwoColumns" - displayed when the screen is wider, 
+         * and "ThreeColumns" - displayed when the screen is wide) that correspond to the width of the screen and the window, and the number of columns 
+         * that can be displayed.
+         *
+         *  More information is under {@link Office.Diagnostics}. 
+         *
+         * [Api set: Mailbox 1.0]
+         *
+         * @remarks
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+         */
+        diagnostics: Diagnostics;
+        /**
+         * Gets the URL of the Exchange Web Services (EWS) endpoint for this email account. Read mode only.
+         *
+         * Your app must have the ReadItem permission specified in its manifest to call the ewsUrl member in read mode.
+         *
+         * In compose mode you must call the saveAsync method before you can use the ewsUrl member. 
+         * Your app must have ReadWriteItem permissions to call the saveAsync method.
+         *
+         * [Api set: Mailbox 1.0]
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+         *
+         * The ewsUrl value can be used by a remote service to make EWS calls to the user's mailbox. 
+         * For example, you can create a remote service to {@link https://docs.microsoft.com/outlook/add-ins/get-attachments-of-an-outlook-item | get attachments from the selected item}.
+         *
+         * **Note**: This member is not supported in Outlook on iOS or Android.
+         */
+        ewsUrl: string;
+        /**
+         * The mailbox item.  Depending on the context in which the add-in opened, the item may be of any number of types.
+         * If you want to see IntelliSense for only a specific type, you should cast this item to one of the following:
+         * `ItemCompose`, `ItemRead`, `MessageCompose`, `MessageRead`, `AppointmentCompose`, `AppointmentRead`
+         */
+        item: Item & ItemCompose & ItemRead & MessageRead & MessageCompose & AppointmentRead & AppointmentCompose;
+        /**
+         * Gets an object that provides methods to manage the categories master list associated with a mailbox.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadWriteMailbox
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+         *
+         * @beta
+         */
+        masterCategories: MasterCategories;
+        /**
+         * Gets the URL of the REST endpoint for this email account.
+         *
+         * Your app must have the ReadItem permission specified in its manifest to call the restUrl member in read mode.
+         *
+         * In compose mode you must call the saveAsync method before you can use the restUrl member. 
+         * Your app must have ReadWriteItem permissions to call the saveAsync method.
+         *
+         * [Api set: Mailbox 1.5]
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+         *
+         * The restUrl value can be used to make {@link https://docs.microsoft.com/outlook/rest/ | REST API} calls to the user's mailbox.
+         */
+        restUrl: string;
+        /**
+         * Information about the user associated with the mailbox. This includes their account type, display name, email address, and time zone.
+         * 
+         * More information is under {@link Office.UserProfile}
+         */
+        userProfile: UserProfile;
+
+        /**
+         * Adds an event handler for a supported event. **Note**: Events are available only with task pane.
+         *
+         * Currently, the only supported event type is `Office.EventType.ItemChanged`.
+         * In Preview, `Office.EventType.OfficeThemeChanged` is also supported.
+         *
+         * [Api set: Mailbox 1.5]
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+         *
+         * @param eventType - The event that should invoke the handler.
+         * @param handler - The function to handle the event. The function must accept a single parameter, which is an object literal. 
+         *                The type property on the parameter will match the eventType parameter passed to addHandlerAsync.
+         * @param options - Optional. Provides an option for preserving context data of any type, unchanged, for use in a callback.
+         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
+         *                 type Office.AsyncResult.
+         */
+        addHandlerAsync(eventType: Office.EventType | string, handler: (type: Office.EventType) => void, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
+        /**
+         * Adds an event handler for a supported event. **Note**: Events are available only with task pane.
+         *
+         * Currently, the only supported event type is `Office.EventType.ItemChanged`.
+         * In Preview, `Office.EventType.OfficeThemeChanged` is also supported.
+         *
+         * [Api set: Mailbox 1.5]
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+         *
+         * @param eventType - The event that should invoke the handler.
+         * @param handler - The function to handle the event. The function must accept a single parameter, which is an object literal. 
+         *                The type property on the parameter will match the eventType parameter passed to addHandlerAsync.
+         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
+         *                 type Office.AsyncResult.
+         */
+        addHandlerAsync(eventType: Office.EventType | string, handler: (type: Office.EventType) => void, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
+        /**
+         * Converts an item ID formatted for REST into EWS format.
+         *
+         * Item IDs retrieved via a REST API (such as the Outlook Mail API or the Microsoft Graph) use a different format than the format used by 
+         * Exchange Web Services (EWS). The convertToEwsId method converts a REST-formatted ID into the proper format for EWS.
+         *
+         * **Note**: This method is not supported in Outlook on iOS or Android.
+         *
+         * [Api set: Mailbox 1.3]
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: Restricted
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+         *
+         * @param itemId - An item ID formatted for the Outlook REST APIs.
+         * @param restVersion - A value indicating the version of the Outlook REST API used to retrieve the item ID.
+         */
+        convertToEwsId(itemId: string, restVersion: MailboxEnums.RestVersion | string): string;
+        /**
+         * Gets a dictionary containing time information in local client time.
+         *
+         * The dates and times used by a mail app for Outlook on the web or desktop clients can use different time zones. 
+         * Outlook uses the client computer time zone; Outlook on the web uses the time zone set on the Exchange Admin Center (EAC). 
+         * You should handle date and time values so that the values you display on the user interface are always consistent with the time zone that 
+         * the user expects.
+         *
+         * If the mail app is running in Outlook on desktop clients, the convertToLocalClientTime method will return a dictionary object with the values set to the 
+         * client computer time zone. 
+         * If the mail app is running in Outlook on the web, the convertToLocalClientTime method will return a dictionary object with the values set to 
+         * the time zone specified in the EAC.
+         *
+         * [Api set: Mailbox 1.0]
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+         *
+         * @param timeValue - A Date object.
+         */
+        convertToLocalClientTime(timeValue: Date): LocalClientTime;
+        /**
+         * Converts an item ID formatted for EWS into REST format.
+         *
+         * **Note**: This method is not supported in Outlook on iOS or Android.
+         *
+         * [Api set: Mailbox 1.3]
+         *
+         * @remarks
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: Restricted
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+         *
+         * Item IDs retrieved via EWS or via the itemId property use a different format than the format used by REST APIs (such as the 
+         * {@link https://docs.microsoft.com/previous-versions/office/office-365-api/api/version-2.0/mail-rest-operations | Outlook Mail API} or the {@link https://graph.microsoft.io/ | Microsoft Graph}. 
+         * The convertToRestId method converts an EWS-formatted ID into the proper format for REST.
+         *
+         * @param itemId - An item ID formatted for Exchange Web Services (EWS)
+         * @param restVersion - A value indicating the version of the Outlook REST API that the converted ID will be used with.
+         */
+        convertToRestId(itemId: string, restVersion: MailboxEnums.RestVersion | string): string;
+        /**
+         * Gets a Date object from a dictionary containing time information.
+         *
+         * The convertToUtcClientTime method converts a dictionary containing a local date and time to a Date object with the correct values for the 
+         * local date and time.
+         *
+         * [Api set: Mailbox 1.0]
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+         *
+         * @param input - The local time value to convert.
+         * @returns A Date object with the time expressed in UTC.
+         */
+        convertToUtcClientTime(input: LocalClientTime): Date;
+        /**
+         * Displays an existing calendar appointment.
+         *
+         * The displayAppointmentForm method opens an existing calendar appointment in a new window on the desktop or in a dialog box on 
+         * mobile devices.
+         *
+         * In Outlook on Mac, you can use this method to display a single appointment that is not part of a recurring series, or the 
+         * master appointment of a recurring series, but you cannot display an instance of the series. 
+         * This is because in Outlook on Mac, you cannot access the properties (including the item ID) of instances of a recurring series.
+         *
+         * In Outlook on the web, this method opens the specified form only if the body of the form is less than or equal to 32KB number of characters.
+         *
+         * If the specified item identifier does not identify an existing appointment, a blank pane opens on the client computer or device, and 
+         * no error message will be returned.
+         *
+         * **Note**: This method is not supported in Outlook on iOS or Android.
+         *
+         * [Api set: Mailbox 1.0]
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+         *
+         * @param itemId - The Exchange Web Services (EWS) identifier for an existing calendar appointment.
+         */
+        displayAppointmentForm(itemId: string): void;
+        /**
+         * Displays an existing message.
+         *
+         * The displayMessageForm method opens an existing message in a new window on the desktop or in a dialog box on mobile devices.
+         *
+         * In Outlook on the web, this method opens the specified form only if the body of the form is less than or equal to 32 KB number of characters.
+         *
+         * If the specified item identifier does not identify an existing message, no message will be displayed on the client computer, and 
+         * no error message will be returned.
+         *
+         * Do not use the displayMessageForm with an itemId that represents an appointment. Use the displayAppointmentForm method to display 
+         * an existing appointment, and displayNewAppointmentForm to display a form to create a new appointment.
+         *
+         * **Note**: This method is not supported in Outlook on iOS or Android.
+         *
+         * [Api set: Mailbox 1.0]
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+         *
+         * @param itemId - The Exchange Web Services (EWS) identifier for an existing message.
+         */
+        displayMessageForm(itemId: string): void;
+        /**
+         * Displays a form for creating a new calendar appointment.
+         *
+         * The displayNewAppointmentForm method opens a form that enables the user to create a new appointment or meeting. 
+         * If parameters are specified, the appointment form fields are automatically populated with the contents of the parameters.
+         *
+         * In Outlook on the web, this method always displays a form with an attendees field. 
+         * If you do not specify any attendees as input arguments, the method displays a form with a Save button. 
+         * If you have specified attendees, the form would include the attendees and a Send button.
+         *
+         * In the Outlook rich client and Outlook RT, if you specify any attendees or resources in the requiredAttendees, optionalAttendees, or 
+         * resources parameter, this method displays a meeting form with a Send button. 
+         * If you don't specify any recipients, this method displays an appointment form with a Save & Close button.
+         *
+         * If any of the parameters exceed the specified size limits, or if an unknown parameter name is specified, an exception is thrown.
+         *
+         * **Note**: This method is not supported in Outlook on iOS or Android.
+         *
+         * [Api set: Mailbox 1.0]
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Read
+         *
+         * @param parameters - An AppointmentForm describing the new appointment. All properties are optional.
+         */
+        displayNewAppointmentForm(parameters: AppointmentForm): void;
+        /**
+         * Displays a form for creating a new message.
+         *
+         * The displayNewMessageForm method opens a form that enables the user to create a new message. If parameters are specified, the message form 
+         * fields are automatically populated with the contents of the parameters.
+         *
+         * If any of the parameters exceed the specified size limits, or if an unknown parameter name is specified, an exception is thrown.
+         *
+         * [Api set: Mailbox 1.6]
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Read
+         *
+         * @param parameters - A dictionary containing all values to be filled in for the user in the new form. All parameters are optional.
+         * 
+         *        toRecipients: An array of strings containing the email addresses or an array containing an {@link Office.EmailAddressDetails} object 
+         *        for each of the recipients on the To line. The array is limited to a maximum of 100 entries.
+         * 
+         *        ccRecipients: An array of strings containing the email addresses or an array containing an {@link Office.EmailAddressDetails} object 
+         *        for each of the recipients on the Cc line. The array is limited to a maximum of 100 entries.
+         * 
+         *        bccRecipients: An array of strings containing the email addresses or an array containing an {@link Office.EmailAddressDetails} object 
+         *        for each of the recipients on the Bcc line. The array is limited to a maximum of 100 entries.
+         * 
+         *        subject: A string containing the subject of the message. The string is limited to a maximum of 255 characters.
+         * 
+         *        htmlBody: The HTML body of the message. The body content is limited to a maximum size of 32 KB.
+         * 
+         *        attachments: An array of JSON objects that are either file or item attachments.
+         * 
+         *        attachments.type: Indicates the type of attachment. Must be file for a file attachment or item for an item attachment.
+         * 
+         *        attachments.name: A string that contains the name of the attachment, up to 255 characters in length.
+         * 
+         *        attachments.url: Only used if type is set to file. The URI of the location for the file.
+         * 
+         *        attachments.isInline: Only used if type is set to file. If true, indicates that the attachment will be shown inline in the 
+         *        message body, and should not be displayed in the attachment list.
+         * 
+         *        attachments.itemId: Only used if type is set to item. The EWS item id of the existing e-mail you want to attach to the new message. 
+         *        This is a string up to 100 characters.
+         */
+        displayNewMessageForm(parameters: any): void;
+        /**
+         * Gets a string that contains a token used to call REST APIs or Exchange Web Services.
+         *
+         * The getCallbackTokenAsync method makes an asynchronous call to get an opaque token from the Exchange Server that hosts the user's mailbox. 
+         * The lifetime of the callback token is 5 minutes.
+         *
+         * The token is returned as a string in the `asyncResult.value` property.
+         *
+         * *REST Tokens*
+         *
+         * When a REST token is requested (options.isRest = true), the resulting token will not work to authenticate Exchange Web Services calls. 
+         * The token will be limited in scope to read-only access to the current item and its attachments, unless the add-in has specified the 
+         * ReadWriteMailbox permission in its manifest. 
+         * If the ReadWriteMailbox permission is specified, the resulting token will grant read/write access to mail, calendar, and contacts, 
+         * including the ability to send mail.
+         *
+         * The add-in should use the restUrl property to determine the correct URL to use when making REST API calls.
+         *
+         * *EWS Tokens*
+         *
+         * When an EWS token is requested (options.isRest = false), the resulting token will not work to authenticate REST API calls. 
+         * The token will be limited in scope to accessing the current item.
+         *
+         * The add-in should use the ewsUrl property to determine the correct URL to use when making EWS calls.
+         *
+         * **Note**: It is recommended that add-ins use the REST APIs instead of Exchange Web Services whenever possible.
+         *
+         * [Api set: Mailbox 1.5]
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+         * 
+         * **Errors**:
+         * 
+         * - HTTPRequestFailure: The request has failed. Please look at the diagnostics object for the HTTP error code.
+         * 
+         * - InternalServerError: The Exchange server returned an error. Please look at the diagnostics object for more information.
+         * 
+         * - NetworkError: The user is no longer connected to the network. Please check your network connection and try again.
+         * 
+         * @param options - An object literal that contains one or more of the following properties.
+         *        isRest: Determines if the token provided will be used for the Outlook REST APIs or Exchange Web Services. Default value is false.
+         *        asyncContext: Any state data that is passed to the asynchronous method.
+         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
+         *                 type Office.AsyncResult. The token is returned as a string in the `asyncResult.value` property.
+         *                 If there was an error, the `asyncResult.error` and `asyncResult.diagnostics` properties may provide additional information.
+         */
+        getCallbackTokenAsync(options: Office.AsyncContextOptions & { isRest?: boolean }, callback: (asyncResult: Office.AsyncResult<string>) => void): void;
+        /**
+         * Gets a string that contains a token used to get an attachment or item from an Exchange Server.
+         *
+         * The getCallbackTokenAsync method makes an asynchronous call to get an opaque token from the Exchange Server that hosts the user's mailbox. 
+         * The lifetime of the callback token is 5 minutes.
+         *
+         * The token is returned as a string in the `asyncResult.value` property.
+         *
+         * You can pass the token and an attachment identifier or item identifier to a third-party system. 
+         * The third-party system uses the token as a bearer authorization token to call the Exchange Web Services (EWS) GetAttachment or 
+         * GetItem operation to return an attachment or item. For example, you can create a remote service to get attachments from the selected item.
+         *
+         * Your app must have the ReadItem permission specified in its manifest to call the getCallbackTokenAsync method in read mode.
+         *
+         * In compose mode you must call the saveAsync method to get an item identifier to pass to the getCallbackTokenAsync method. 
+         * Your app must have ReadWriteItem permissions to call the saveAsync method.
+         *
+         * [Api set: Mailbox 1.0]
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+         *
+         * **Errors**:
+         * 
+         * - HTTPRequestFailure: The request has failed. Please look at the diagnostics object for the HTTP error code.
+         * 
+         * - InternalServerError: The Exchange server returned an error. Please look at the diagnostics object for more information.
+         * 
+         * - NetworkError: The user is no longer connected to the network. Please check your network connection and try again.
+         * 
+         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
+         *                 type Office.AsyncResult. The token is returned as a string in the `asyncResult.value` property.
+         *                 If there was an error, the `asyncResult.error` and `asyncResult.diagnostics` properties may provide additional information.
+         * @param userContext - Optional. Any state data that is passed to the asynchronous method.
+         */
+        getCallbackTokenAsync(callback: (asyncResult: Office.AsyncResult<string>) => void, userContext?: any): void;
+        /**
+         * Gets a token identifying the user and the Office Add-in.
+         *
+         * The token is returned as a string in the `asyncResult.value` property.
+         *
+         * [Api set: Mailbox 1.0]
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+         *
+         * The getUserIdentityTokenAsync method returns a token that you can use to identify and 
+         * {@link https://docs.microsoft.com/outlook/add-ins/authentication | authenticate the add-in and user with a third-party system}.
+         *
+         * **Errors**:
+         * 
+         * - HTTPRequestFailure: The request has failed. Please look at the diagnostics object for the HTTP error code.
+         * 
+         * - InternalServerError: The Exchange server returned an error. Please look at the diagnostics object for more information.
+         * 
+         * - NetworkError: The user is no longer connected to the network. Please check your network connection and try again.
+         * 
+         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
+         *                 type Office.AsyncResult.
+         *                 The token is returned as a string in the `asyncResult.value` property.
+         *                 If there was an error, the `asyncResult.error` and `asyncResult.diagnostics` properties may provide additional information.
+         * @param userContext - Optional. Any state data that is passed to the asynchronous method.
+         */
+        getUserIdentityTokenAsync(callback: (asyncResult: Office.AsyncResult<string>) => void, userContext?: any): void;
+        /**
+         * Makes an asynchronous request to an Exchange Web Services (EWS) service on the Exchange server that hosts the user's mailbox.
+         *
+         * In these cases, add-ins should use REST APIs to access the user's mailbox instead.
+         *
+         * The makeEwsRequestAsync method sends an EWS request on behalf of the add-in to Exchange.
+         *
+         * You cannot request Folder Associated Items with the makeEwsRequestAsync method.
+         *
+         * The XML request must specify UTF-8 encoding. \<?xml version="1.0" encoding="utf-8"?\>
+         *
+         * Your add-in must have the ReadWriteMailbox permission to use the makeEwsRequestAsync method. 
+         * For information about using the ReadWriteMailbox permission and the EWS operations that you can call with the makeEwsRequestAsync method, 
+         * see {@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Specify permissions for mail add-in access to the user's mailbox}.
+         *
+         * The XML result of the EWS call is provided as a string in the asyncResult.value property. 
+         * If the result exceeds 1 MB in size, an error message is returned instead.
+         *
+         * **Note**: This method is not supported in the following scenarios:
+         * 
+         * - In Outlook on iOS or Android.
+         * 
+         * - When the add-in is loaded in a Gmail mailbox.
+         *
+         * **Note**: The server administrator must set OAuthAuthentication to true on the Client Access Server EWS directory to enable the 
+         * makeEwsRequestAsync method to make EWS requests.
+         *
+         * *Version differences*
+         *
+         * When you use the makeEwsRequestAsync method in mail apps running in Outlook versions earlier than version 15.0.4535.1004, you should set 
+         * the encoding value to ISO-8859-1.
+         *
+         * `<?xml version="1.0" encoding="iso-8859-1"?>`
+         *
+         * You do not need to set the encoding value when your mail app is running in Outlook on the web. 
+         * You can determine whether your mail app is running in Outlook or Outlook on the web by using the mailbox.diagnostics.hostName property. 
+         * You can determine what version of Outlook is running by using the mailbox.diagnostics.hostVersion property.
+         *
+         * [Api set: Mailbox 1.0]
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadWriteMailbox
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+         *
+         * @param data - The EWS request.
+         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult.
+         *                 The `value` property of the result is the XML of the EWS request provided as a string. 
+         *                 If the result exceeds 1 MB in size, an error message is returned instead.
+         * @param userContext - Optional. Any state data that is passed to the asynchronous method.
+         */
+        makeEwsRequestAsync(data: any, callback: (asyncResult: Office.AsyncResult<string>) => void, userContext?: any): void;
+        /**
+         * Removes the event handlers for a supported event type. **Note**: Events are available only with task pane.
+         *
+         * Currently, the only supported event type is `Office.EventType.ItemChanged`.
+         * In Preview, `Office.EventType.OfficeThemeChanged` is also supported.
+         *
+         * [Api set: Mailbox 1.5]
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+         *
+         * @param eventType - The event that should revoke the handler.
+         * @param options - Optional. Provides an option for preserving context data of any type, unchanged, for use in a callback.
+         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
+         *                 type Office.AsyncResult.
+         */
+        removeHandlerAsync(eventType: Office.EventType | string, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
+        /**
+         * Removes the event handlers for a supported event type. **Note**: Events are available only with task pane.
+         *
+         * Currently, the only supported event type is `Office.EventType.ItemChanged`.
+         * In Preview, `Office.EventType.OfficeThemeChanged` is also supported.
+         *
+         * [Api set: Mailbox 1.5]
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+         *
+         * @param eventType - The event that should revoke the handler.
+         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
+         *                 type Office.AsyncResult.
+         */
+        removeHandlerAsync(eventType: Office.EventType | string, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
+    }
+    /**
+     * Represents the categories master list on the mailbox.
+     * 
+     * In Outlook, a user can group messages and appointments by using a category to color-code them.
+     * The user defines categories in a master list on their mailbox. They can then apply one or more categories to an item.
+     *
+     * [Api set: Mailbox Preview]
+     *
+     * @remarks
+     * 
+     * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadMailbox
+     * 
+     * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+     * 
+     * @beta
+     */
+    interface MasterCategories {
+        /**
+         * Adds categories to the master list on a mailbox. Each category must have a unique name but multiple categories can use the same color.
+         *
+         * @param categories - The categories to be added to the master list on the mailbox.
+         * @param options - Optional. An object literal that contains one or more of the following properties.
+         *        asyncContext: Developers can provide any object they wish to access in the callback method.
+         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
+         *                 type Office.AsyncResult.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadWriteMailbox
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+         * 
+         * **Errors**:
+         * 
+         * - DuplicateCategory: One of the categories provided is already in the master category list.
+         * 
+         * - PermissionDenied: The user does not have permission to perform this action.
+         * 
+         * @beta
+         */
+        addAsync(categories: CategoryDetails[], options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
+        /**
+         * Adds categories to the master list on a mailbox. Each category must have a unique name but multiple categories can use the same color.
+         *
+         * @param categories - The categories to be added to the master list on the mailbox.
+         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
+         *                 type Office.AsyncResult. If adding categories fails, the asyncResult.error property will contain an error code.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadWriteMailbox
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+         * 
+         * **Errors**:
+         * 
+         * - DuplicateCategory: One of the categories provided is already in the master category list.
+         * 
+         * - PermissionDenied: The user does not have permission to perform this action.
+         * 
+         * @beta
+         */
+        addAsync(categories: CategoryDetails[], callback: (asyncResult: Office.AsyncResult<void>) => void): void;
+        /**
+         * Gets the master list of categories on a mailbox.
+         *
+         * @param options - An object literal that contains one or more of the following properties.
+         *        asyncContext: Developers can provide any object they wish to access in the callback method.
+         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
+         *                 type Office.AsyncResult. If adding categories fails, the asyncResult.error property will contain an error code.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadMailbox
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+         * 
+         * @beta
+         */
+        getAsync(options: Office.AsyncContextOptions, callback: (asyncResult: Office.AsyncResult<CategoryDetails[]>) => void): void;
+        /**
+         * Gets the master list of categories on a mailbox.
+         *
+         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
+         *                 type Office.AsyncResult.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadMailbox
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+         * 
+         * @beta
+         */
+        getAsync(callback: (asyncResult: Office.AsyncResult<CategoryDetails[]>) => void): void;
+        /**
+         * Removes categories from the master list on a mailbox.
+         *
+         * @param categories - The categories to be removed from the master list on the mailbox.
+         * @param options - Optional. An object literal that contains one or more of the following properties.
+         *        asyncContext: Developers can provide any object they wish to access in the callback method.
+         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
+         *                 type Office.AsyncResult. If removing categories fails, the asyncResult.error property will contain an error code.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadWriteMailbox
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+         * 
+         * **Errors**:
+         * 
+         * - PermissionDenied: The user does not have permission to perform this action.
+         * 
+         * @beta
+         */
+        removeAsync(categories: string[], options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
+        /**
+         * Removes categories from the master list on a mailbox.
+         *
+         * @param categories - The categories to be removed from the master list on the mailbox.
+         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
+         *                 type Office.AsyncResult. If removing categories fails, the asyncResult.error property will contain an error code.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadWriteMailbox
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+         * 
+         * **Errors**:
+         * 
+         * - PermissionDenied: The user does not have permission to perform this action.
+         * 
+         * @beta
+         */
+        removeAsync(categories: string[], callback: (asyncResult: Office.AsyncResult<void>) => void): void;
+    }
+    /**
+     * Represents a suggested meeting found in an item. Read mode only.
+     *
+     * The list of meetings suggested in an email message is returned in the meetingSuggestions property of the Entities object that is returned when 
+     * the getEntities or getEntitiesByType method is called on the active item.
+     *
+     * The start and end values are string representations of a Date object that contains the date and time at which the suggested meeting is to 
+     * begin and end. 
+     * The values are in the default time zone specified for the current user.
+     *
+     * [Api set: Mailbox 1.0]
+     *
+     * @remarks
+     * 
+     * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+     * 
+     * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Read
+     */
+    interface MeetingSuggestion {
+        /**
+         * Gets the attendees for a suggested meeting.
+         */
+        attendees: EmailUser[];
+        /**
+         * Gets the date and time that a suggested meeting is to end.
+         */
+        end: string;
+        /**
+         * Gets the location of a suggested meeting.
+         */
+        location: string;
+        /**
+         * Gets a string that was identified as a meeting suggestion.
+         */
+        meetingString: string;
+        /**
+         * Gets the date and time that a suggested meeting is to begin.
+         */
+        start: string;
+        /**
+         * Gets the subject of a suggested meeting.
+         */
+        subject: string;
+    }
+    /**
      * A subclass of {@link Office.Item} for messages.
      * 
      * **Important**: This is an internal Outlook object, not directly exposed through existing interfaces. 
@@ -13117,7 +14353,6 @@ declare namespace Office {
          */
         conversationId: string;
     }
-
      /**
      * The message compose mode of {@link Office.Item | Office.context.mailbox.item}.
      * 
@@ -13329,7 +14564,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Message Compose
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - AttachmentSizeExceeded: The attachment is larger than allowed.
          * 
@@ -13364,7 +14599,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Message Compose
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - AttachmentSizeExceeded: The attachment is larger than allowed.
          * 
@@ -13395,7 +14630,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Message Compose
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - AttachmentSizeExceeded: The attachment is larger than allowed.
          * 
@@ -13430,7 +14665,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Message Compose
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - AttachmentSizeExceeded: The attachment is larger than allowed.
          * 
@@ -13514,7 +14749,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Message Compose
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - NumberOfAttachmentsExceeded: The message or appointment has too many attachments.
          * 
@@ -13549,7 +14784,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Message Compose
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - NumberOfAttachmentsExceeded: The message or appointment has too many attachments.
          *
@@ -13716,13 +14951,15 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Message Compose
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - `ItemNotSaved`: The id can't be retrieved until the item is saved.
          * 
          * @param options - An object literal that contains one or more of the following properties.
          *        asyncContext: Developers can provide any object they wish to access in the callback method.
          * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult. 
+         * 
+         * @beta
          */
         getItemIdAsync(options: Office.AsyncContextOptions, callback: (asyncResult: Office.AsyncResult<string>) => void): void;
         /**
@@ -13742,11 +14979,13 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Message Compose
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - `ItemNotSaved`: The id can't be retrieved until the item is saved.
          * 
          * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult. 
+         * 
+         * @beta
          */
         getItemIdAsync(callback: (asyncResult: Office.AsyncResult<string>) => void): void;
         /**
@@ -13817,7 +15056,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Message Compose
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - InvalidAttachmentId: The attachment identifier does not exist.
          * 
@@ -13846,7 +15085,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Message Compose
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - InvalidAttachmentId: The attachment identifier does not exist.
          *
@@ -13928,7 +15167,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Message Compose
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - InvalidAttachmentId: The attachment identifier does not exist.
          * 
@@ -13968,7 +15207,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Message Compose
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - InvalidAttachmentId: The attachment identifier does not exist.
          *
@@ -13991,7 +15230,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Message Compose
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - InvalidAttachmentId: The attachment identifier does not exist.
          * 
@@ -14024,7 +15263,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Message Compose
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - InvalidAttachmentId: The attachment identifier does not exist.
          *
@@ -14814,1070 +16053,6 @@ declare namespace Office {
          */
         removeHandlerAsync(eventType: Office.EventType | string, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
     }
-
-    /**
-     * Represents a date and time in the local client's time zone. Read mode only.
-     *
-     * [Api set: Mailbox 1.0]
-     *
-     * @remarks
-     *
-     * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-     * 
-     * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Read
-     */
-    interface LocalClientTime {
-        /**
-         * Integer value representing the month, beginning with 0 for January to 11 for December.
-         */
-        month: number;
-        /**
-         * Integer value representing the day of the month.
-         */
-        date: number;
-        /**
-         * Integer value representing the year.
-         */
-        year: number;
-        /**
-         * Integer value representing the hour on a 24-hour clock.
-         */
-        hours: number;
-        /**
-         * Integer value representing the minutes.
-         */
-        minutes: number;
-        /**
-         * Integer value representing the seconds.
-         */
-        seconds: number;
-        /**
-         * Integer value representing the milliseconds.
-         */
-        milliseconds: number;
-        /**
-         * Integer value representing the number of minutes difference between the local time zone and UTC.
-         */
-        timezoneOffset: number;
-    }
-    /**
-     * Provides methods to get and set the location of a meeting in an Outlook add-in.
-     *
-     * [Api set: Mailbox 1.1]
-     *
-     * @remarks
-     * 
-     * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-     * 
-     * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
-     */
-    interface Location {
-        /**
-         * Gets the location of an appointment.
-         *
-         * The getAsync method starts an asynchronous call to the Exchange server to get the location of an appointment. 
-         * The location of the appointment is provided as a string in the asyncResult.value property.
-         *
-         * @param options - An object literal that contains one or more of the following properties.
-         *        asyncContext: Developers can provide any object they wish to access in the callback method.
-         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
-         *                 type Office.AsyncResult.
-         *
-         * [Api set: Mailbox 1.1]
-         *
-         * @remarks
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
-         */
-        getAsync(options: Office.AsyncContextOptions, callback: (asyncResult: Office.AsyncResult<string>) => void): void;
-        /**
-         * Gets the location of an appointment.
-         *
-         * The getAsync method starts an asynchronous call to the Exchange server to get the location of an appointment. 
-         * The location of the appointment is provided as a string in the asyncResult.value property.
-         *
-         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
-         *                 type Office.AsyncResult.
-         *
-         * [Api set: Mailbox 1.1]
-         *
-         * @remarks
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
-         */
-        getAsync(callback: (asyncResult: Office.AsyncResult<string>) => void): void;
-        /**
-         * Sets the location of an appointment.
-         *
-         * The setAsync method starts an asynchronous call to the Exchange server to set the location of an appointment. 
-         * Setting the location of an appointment overwrites the current location.
-         *
-         * @param location - The location of the appointment. The string is limited to 255 characters.
-         * @param options - Optional. An object literal that contains one or more of the following properties.
-         *        asyncContext: Developers can provide any object they wish to access in the callback method.
-         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
-         *                 type Office.AsyncResult. If setting the location fails, the asyncResult.error property will contain an error code.
-         *
-         * [Api set: Mailbox 1.1]
-         *
-         * @remarks
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
-         * 
-         * **Errors**: 
-         * 
-         * - DataExceedsMaximumSize: The location parameter is longer than 255 characters.
-         */
-        setAsync(location: string, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
-        /**
-         * Sets the location of an appointment.
-         *
-         * The setAsync method starts an asynchronous call to the Exchange server to set the location of an appointment. 
-         * Setting the location of an appointment overwrites the current location.
-         *
-         * @param location - The location of the appointment. The string is limited to 255 characters.
-         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
-         *                 type Office.AsyncResult. If setting the location fails, the asyncResult.error property will contain an error code.
-         *
-         * [Api set: Mailbox 1.1]
-         *
-         * @remarks
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
-         * 
-         * **Errors**: 
-         * 
-         * - DataExceedsMaximumSize: The location parameter is longer than 255 characters.
-         */
-        setAsync(location: string, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
-    }
-    /**
-     * Provides access to the Outlook Add-in object model for Microsoft Outlook and Microsoft Outlook on the web.
-     *
-     * Namespaces:
-     *
-     * - diagnostics: Provides diagnostic information to an Outlook add-in.
-     *
-     * - item: Provides methods and properties for accessing a message or appointment in an Outlook add-in.
-     *
-     * - userProfile: Provides information about the user in an Outlook add-in.
-     *
-     * [Api set: Mailbox 1.0]
-     *
-     * @remarks
-     * 
-     * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: Restricted
-     * 
-     * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-     */
-    interface Mailbox {
-        /**
-         * Provides diagnostic information to an Outlook add-in.
-         * 
-         * Contains the following members:
-         * 
-         *  - hostName (string): A string that represents the name of the host application. 
-         * It be one of the following values: Outlook, Mac Outlook, OutlookIOS, or OutlookWebApp.
-         * 
-         *  - hostVersion (string): A string that represents the version of either the host application or the Exchange Server. 
-         * If the mail add-in is running in Outlook on desktop clients or iOS, the hostVersion property returns the version of the 
-         * host application, Outlook. In Outlook on the web, the property returns the version of the Exchange Server. An example is the string 15.0.468.0.
-         * 
-         *  - OWAView (MailboxEnums.OWAView or string): An enum (or string literal) that represents the current view of Outlook on the web. 
-         * If the host application is not Outlook on the web, then accessing this property results in undefined. 
-         * Outlook on the web has three views (OneColumn - displayed when the screen is narrow, TwoColumns - displayed when the screen is wider, 
-         * and ThreeColumns - displayed when the screen is wide) that correspond to the width of the screen and the window, and the number of columns 
-         * that can be displayed.
-         *
-         *  More information is under {@link Office.Diagnostics}. 
-         *
-         * [Api set: Mailbox 1.0]
-         *
-         * @remarks
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-         */
-        diagnostics: Diagnostics;
-        /**
-         * Gets the URL of the Exchange Web Services (EWS) endpoint for this email account. Read mode only.
-         *
-         * Your app must have the ReadItem permission specified in its manifest to call the ewsUrl member in read mode.
-         *
-         * In compose mode you must call the saveAsync method before you can use the ewsUrl member. 
-         * Your app must have ReadWriteItem permissions to call the saveAsync method.
-         *
-         * [Api set: Mailbox 1.0]
-         *
-         * @remarks
-         *
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-         *
-         * The ewsUrl value can be used by a remote service to make EWS calls to the user's mailbox. 
-         * For example, you can create a remote service to {@link https://docs.microsoft.com/outlook/add-ins/get-attachments-of-an-outlook-item | get attachments from the selected item}.
-         *
-         * **Note**: This member is not supported in Outlook on iOS or Android.
-         */
-        ewsUrl: string;
-        /**
-         * The mailbox item.  Depending on the context in which the add-in opened, the item may be of any number of types.
-         * If you want to see IntelliSense for only a specific type, you should cast this item to one of the following:
-         * `ItemCompose`, `ItemRead`, `MessageCompose`, `MessageRead`, `AppointmentCompose`, `AppointmentRead`
-         */
-        item: Item & ItemCompose & ItemRead & MessageRead & MessageCompose & AppointmentRead & AppointmentCompose;
-        /**
-         * Gets an object that provides methods to manage the categories master list associated with a mailbox.
-         *
-         * [Api set: Mailbox Preview]
-         *
-         * @remarks
-         *
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadWriteMailbox
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-         *
-         * @beta
-         */
-        masterCategories: MasterCategories;
-        /**
-         * Gets the URL of the REST endpoint for this email account.
-         *
-         * Your app must have the ReadItem permission specified in its manifest to call the restUrl member in read mode.
-         *
-         * In compose mode you must call the saveAsync method before you can use the restUrl member. 
-         * Your app must have ReadWriteItem permissions to call the saveAsync method.
-         *
-         * [Api set: Mailbox 1.5]
-         *
-         * @remarks
-         *
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-         *
-         * The restUrl value can be used to make {@link https://docs.microsoft.com/outlook/rest/ | REST API} calls to the user's mailbox.
-         */
-        restUrl: string;
-        /**
-         * Information about the user associated with the mailbox. This includes their account type, display name, email address, and time zone.
-         * 
-         * More information is under {@link Office.UserProfile}
-         */
-        userProfile: UserProfile;
-        /**
-         * Adds an event handler for a supported event. **Note**: Events are available only with task pane.
-         *
-         * Currently, the only supported event type is `Office.EventType.ItemChanged`.
-         * In Preview, `Office.EventType.OfficeThemeChanged` is also supported.
-         *
-         * [Api set: Mailbox 1.5]
-         *
-         * @remarks
-         *
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-         *
-         * @param eventType - The event that should invoke the handler.
-         * @param handler - The function to handle the event. The function must accept a single parameter, which is an object literal. 
-         *                The type property on the parameter will match the eventType parameter passed to addHandlerAsync.
-         * @param options - Optional. Provides an option for preserving context data of any type, unchanged, for use in a callback.
-         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
-         *                 type Office.AsyncResult.
-         */
-        addHandlerAsync(eventType: Office.EventType | string, handler: (type: Office.EventType) => void, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
-        /**
-         * Adds an event handler for a supported event. **Note**: Events are available only with task pane.
-         *
-         * Currently, the only supported event type is `Office.EventType.ItemChanged`.
-         * In Preview, `Office.EventType.OfficeThemeChanged` is also supported.
-         *
-         * [Api set: Mailbox 1.5]
-         *
-         * @remarks
-         *
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-         *
-         * @param eventType - The event that should invoke the handler.
-         * @param handler - The function to handle the event. The function must accept a single parameter, which is an object literal. 
-         *                The type property on the parameter will match the eventType parameter passed to addHandlerAsync.
-         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
-         *                 type Office.AsyncResult.
-         */
-        addHandlerAsync(eventType: Office.EventType | string, handler: (type: Office.EventType) => void, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
-        /**
-         * Converts an item ID formatted for REST into EWS format.
-         *
-         * Item IDs retrieved via a REST API (such as the Outlook Mail API or the Microsoft Graph) use a different format than the format used by 
-         * Exchange Web Services (EWS). The convertToEwsId method converts a REST-formatted ID into the proper format for EWS.
-         *
-         * **Note**: This method is not supported in Outlook on iOS or Android.
-         *
-         * [Api set: Mailbox 1.3]
-         *
-         * @remarks
-         *
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: Restricted
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-         *
-         * @param itemId - An item ID formatted for the Outlook REST APIs.
-         * @param restVersion - A value indicating the version of the Outlook REST API used to retrieve the item ID.
-         */
-        convertToEwsId(itemId: string, restVersion: MailboxEnums.RestVersion | string): string;
-        /**
-         * Gets a dictionary containing time information in local client time.
-         *
-         * The dates and times used by a mail app for Outlook on the web or desktop clients can use different time zones. 
-         * Outlook uses the client computer time zone; Outlook on the web uses the time zone set on the Exchange Admin Center (EAC). 
-         * You should handle date and time values so that the values you display on the user interface are always consistent with the time zone that 
-         * the user expects.
-         *
-         * If the mail app is running in Outlook on desktop clients, the convertToLocalClientTime method will return a dictionary object with the values set to the 
-         * client computer time zone. 
-         * If the mail app is running in Outlook on the web, the convertToLocalClientTime method will return a dictionary object with the values set to 
-         * the time zone specified in the EAC.
-         *
-         * [Api set: Mailbox 1.0]
-         *
-         * @remarks
-         *
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-         *
-         * @param timeValue - A Date object.
-         */
-        convertToLocalClientTime(timeValue: Date): LocalClientTime;
-        /**
-         * Converts an item ID formatted for EWS into REST format.
-         *
-         * **Note**: This method is not supported in Outlook on iOS or Android.
-         *
-         * [Api set: Mailbox 1.3]
-         *
-         * @remarks
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: Restricted
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-         *
-         * Item IDs retrieved via EWS or via the itemId property use a different format than the format used by REST APIs (such as the 
-         * {@link https://docs.microsoft.com/previous-versions/office/office-365-api/api/version-2.0/mail-rest-operations | Outlook Mail API} or the {@link https://graph.microsoft.io/ | Microsoft Graph}. 
-         * The convertToRestId method converts an EWS-formatted ID into the proper format for REST.
-         *
-         * @param itemId - An item ID formatted for Exchange Web Services (EWS)
-         * @param restVersion - A value indicating the version of the Outlook REST API that the converted ID will be used with.
-         */
-        convertToRestId(itemId: string, restVersion: MailboxEnums.RestVersion | string): string;
-        /**
-         * Gets a Date object from a dictionary containing time information.
-         *
-         * The convertToUtcClientTime method converts a dictionary containing a local date and time to a Date object with the correct values for the 
-         * local date and time.
-         *
-         * [Api set: Mailbox 1.0]
-         *
-         * @remarks
-         *
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-         *
-         * @param input - The local time value to convert.
-         * @returns A Date object with the time expressed in UTC.
-         */
-        convertToUtcClientTime(input: LocalClientTime): Date;
-        /**
-         * Displays an existing calendar appointment.
-         *
-         * The displayAppointmentForm method opens an existing calendar appointment in a new window on the desktop or in a dialog box on 
-         * mobile devices.
-         *
-         * In Outlook on Mac, you can use this method to display a single appointment that is not part of a recurring series, or the 
-         * master appointment of a recurring series, but you cannot display an instance of the series. 
-         * This is because in Outlook on Mac, you cannot access the properties (including the item ID) of instances of a recurring series.
-         *
-         * In Outlook on the web, this method opens the specified form only if the body of the form is less than or equal to 32KB number of characters.
-         *
-         * If the specified item identifier does not identify an existing appointment, a blank pane opens on the client computer or device, and 
-         * no error message will be returned.
-         *
-         * **Note**: This method is not supported in Outlook on iOS or Android.
-         *
-         * [Api set: Mailbox 1.0]
-         *
-         * @remarks
-         *
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-         *
-         * @param itemId - The Exchange Web Services (EWS) identifier for an existing calendar appointment.
-         */
-        displayAppointmentForm(itemId: string): void;
-        /**
-         * Displays an existing message.
-         *
-         * The displayMessageForm method opens an existing message in a new window on the desktop or in a dialog box on mobile devices.
-         *
-         * In Outlook on the web, this method opens the specified form only if the body of the form is less than or equal to 32 KB number of characters.
-         *
-         * If the specified item identifier does not identify an existing message, no message will be displayed on the client computer, and 
-         * no error message will be returned.
-         *
-         * Do not use the displayMessageForm with an itemId that represents an appointment. Use the displayAppointmentForm method to display 
-         * an existing appointment, and displayNewAppointmentForm to display a form to create a new appointment.
-         *
-         * **Note**: This method is not supported in Outlook on iOS or Android.
-         *
-         * [Api set: Mailbox 1.0]
-         *
-         * @remarks
-         *
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-         *
-         * @param itemId - The Exchange Web Services (EWS) identifier for an existing message.
-         */
-        displayMessageForm(itemId: string): void;
-        /**
-         * Displays a form for creating a new calendar appointment.
-         *
-         * The displayNewAppointmentForm method opens a form that enables the user to create a new appointment or meeting. 
-         * If parameters are specified, the appointment form fields are automatically populated with the contents of the parameters.
-         *
-         * In Outlook on the web, this method always displays a form with an attendees field. 
-         * If you do not specify any attendees as input arguments, the method displays a form with a Save button. 
-         * If you have specified attendees, the form would include the attendees and a Send button.
-         *
-         * In the Outlook rich client and Outlook RT, if you specify any attendees or resources in the requiredAttendees, optionalAttendees, or 
-         * resources parameter, this method displays a meeting form with a Send button. 
-         * If you don't specify any recipients, this method displays an appointment form with a Save & Close button.
-         *
-         * If any of the parameters exceed the specified size limits, or if an unknown parameter name is specified, an exception is thrown.
-         *
-         * **Note**: This method is not supported in Outlook on iOS or Android.
-         *
-         * [Api set: Mailbox 1.0]
-         *
-         * @remarks
-         *
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Read
-         *
-         * @param parameters - An AppointmentForm describing the new appointment. All properties are optional.
-         */
-        displayNewAppointmentForm(parameters: AppointmentForm): void;
-        /**
-         * Displays a form for creating a new message.
-         *
-         * The displayNewMessageForm method opens a form that enables the user to create a new message. If parameters are specified, the message form 
-         * fields are automatically populated with the contents of the parameters.
-         *
-         * If any of the parameters exceed the specified size limits, or if an unknown parameter name is specified, an exception is thrown.
-         *
-         * [Api set: Mailbox 1.6]
-         *
-         * @remarks
-         *
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Read
-         *
-         * @param parameters - A dictionary containing all values to be filled in for the user in the new form. All parameters are optional.
-         * 
-         *        toRecipients: An array of strings containing the email addresses or an array containing an {@link Office.EmailAddressDetails} object 
-         *        for each of the recipients on the To line. The array is limited to a maximum of 100 entries.
-         * 
-         *        ccRecipients: An array of strings containing the email addresses or an array containing an {@link Office.EmailAddressDetails} object 
-         *        for each of the recipients on the Cc line. The array is limited to a maximum of 100 entries.
-         * 
-         *        bccRecipients: An array of strings containing the email addresses or an array containing an {@link Office.EmailAddressDetails} object 
-         *        for each of the recipients on the Bcc line. The array is limited to a maximum of 100 entries.
-         * 
-         *        subject: A string containing the subject of the message. The string is limited to a maximum of 255 characters.
-         * 
-         *        htmlBody: The HTML body of the message. The body content is limited to a maximum size of 32 KB.
-         * 
-         *        attachments: An array of JSON objects that are either file or item attachments.
-         * 
-         *        attachments.type: Indicates the type of attachment. Must be file for a file attachment or item for an item attachment.
-         * 
-         *        attachments.name: A string that contains the name of the attachment, up to 255 characters in length.
-         * 
-         *        attachments.url: Only used if type is set to file. The URI of the location for the file.
-         * 
-         *        attachments.isInline: Only used if type is set to file. If true, indicates that the attachment will be shown inline in the 
-         *        message body, and should not be displayed in the attachment list.
-         * 
-         *        attachments.itemId: Only used if type is set to item. The EWS item id of the existing e-mail you want to attach to the new message. 
-         *        This is a string up to 100 characters.
-         */
-        displayNewMessageForm(parameters: any): void;
-        /**
-         * Gets a string that contains a token used to call REST APIs or Exchange Web Services.
-         *
-         * The getCallbackTokenAsync method makes an asynchronous call to get an opaque token from the Exchange Server that hosts the user's mailbox. 
-         * The lifetime of the callback token is 5 minutes.
-         *
-         * *REST Tokens*
-         *
-         * When a REST token is requested (options.isRest = true), the resulting token will not work to authenticate Exchange Web Services calls. 
-         * The token will be limited in scope to read-only access to the current item and its attachments, unless the add-in has specified the 
-         * ReadWriteMailbox permission in its manifest. 
-         * If the ReadWriteMailbox permission is specified, the resulting token will grant read/write access to mail, calendar, and contacts, 
-         * including the ability to send mail.
-         *
-         * The add-in should use the restUrl property to determine the correct URL to use when making REST API calls.
-         *
-         * *EWS Tokens*
-         *
-         * When an EWS token is requested (options.isRest = false), the resulting token will not work to authenticate REST API calls. 
-         * The token will be limited in scope to accessing the current item.
-         *
-         * The add-in should use the ewsUrl property to determine the correct URL to use when making EWS calls.
-         *
-         * **Note**: It is recommended that add-ins use the REST APIs instead of Exchange Web Services whenever possible.
-         *
-         * [Api set: Mailbox 1.5]
-         *
-         * @remarks
-         *
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-         * 
-         * @param options - An object literal that contains one or more of the following properties.
-         *        isRest: Determines if the token provided will be used for the Outlook REST APIs or Exchange Web Services. Default value is false.
-         *        asyncContext: Any state data that is passed to the asynchronous method.
-         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
-         *                 type Office.AsyncResult. The token is provided as a string in the `asyncResult.value` property.
-         *                 If there was an error, then the `asyncResult.error` and `asyncResult.diagnostics` properties may provide additional information.
-         */
-        getCallbackTokenAsync(options: Office.AsyncContextOptions & { isRest?: boolean }, callback: (asyncResult: Office.AsyncResult<string>) => void): void;
-        /**
-         * Gets a string that contains a token used to get an attachment or item from an Exchange Server.
-         *
-         * The getCallbackTokenAsync method makes an asynchronous call to get an opaque token from the Exchange Server that hosts the user's mailbox. 
-         * The lifetime of the callback token is 5 minutes.
-         *
-         * You can pass the token and an attachment identifier or item identifier to a third-party system. 
-         * The third-party system uses the token as a bearer authorization token to call the Exchange Web Services (EWS) GetAttachment or 
-         * GetItem operation to return an attachment or item. For example, you can create a remote service to get attachments from the selected item.
-         *
-         * Your app must have the ReadItem permission specified in its manifest to call the getCallbackTokenAsync method in read mode.
-         *
-         * In compose mode you must call the saveAsync method to get an item identifier to pass to the getCallbackTokenAsync method. 
-         * Your app must have ReadWriteItem permissions to call the saveAsync method.
-         *
-         * [Api set: Mailbox 1.3]
-         *
-         * @remarks
-         *
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-         *
-         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
-         *                 type Office.AsyncResult. The token is provided as a string in the `asyncResult.value` property.
-         *                 If there was an error, then the `asyncResult.error` and `asyncResult.diagnostics` properties may provide additional information.
-         * @param userContext - Optional. Any state data that is passed to the asynchronous method.
-         */
-        getCallbackTokenAsync(callback: (asyncResult: Office.AsyncResult<string>) => void, userContext?: any): void;
-        /**
-         * Gets a token identifying the user and the Office Add-in.
-         *
-         * The token is provided as a string in the asyncResult.value property.
-         *
-         * [Api set: Mailbox 1.0]
-         *
-         * @remarks
-         *
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-         *
-         * The getUserIdentityTokenAsync method returns a token that you can use to identify and 
-         * {@link https://docs.microsoft.com/outlook/add-ins/authentication | authenticate the add-in and user with a third-party system}.
-         *
-         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
-         *                 type Office.AsyncResult.
-         *                 The token is provided as a string in the `asyncResult.value` property.
-         *                 If there was an error, then the `asyncResult.error` and `asyncResult.diagnostics` properties may provide additional information.
-         * @param userContext - Optional. Any state data that is passed to the asynchronous method.
-         */
-        getUserIdentityTokenAsync(callback: (asyncResult: Office.AsyncResult<string>) => void, userContext?: any): void;
-        /**
-         * Makes an asynchronous request to an Exchange Web Services (EWS) service on the Exchange server that hosts the user's mailbox.
-         *
-         * In these cases, add-ins should use REST APIs to access the user's mailbox instead.
-         *
-         * The makeEwsRequestAsync method sends an EWS request on behalf of the add-in to Exchange.
-         *
-         * You cannot request Folder Associated Items with the makeEwsRequestAsync method.
-         *
-         * The XML request must specify UTF-8 encoding. \<?xml version="1.0" encoding="utf-8"?\>
-         *
-         * Your add-in must have the ReadWriteMailbox permission to use the makeEwsRequestAsync method. 
-         * For information about using the ReadWriteMailbox permission and the EWS operations that you can call with the makeEwsRequestAsync method, 
-         * see {@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Specify permissions for mail add-in access to the user's mailbox}.
-         *
-         * The XML result of the EWS call is provided as a string in the asyncResult.value property. 
-         * If the result exceeds 1 MB in size, an error message is returned instead.
-         *
-         * **Note**: This method is not supported in the following scenarios:
-         * 
-         * - In Outlook on iOS or Android.
-         * 
-         * - When the add-in is loaded in a Gmail mailbox.
-         *
-         * **Note**: The server administrator must set OAuthAuthentication to true on the Client Access Server EWS directory to enable the 
-         * makeEwsRequestAsync method to make EWS requests.
-         *
-         * *Version differences*
-         *
-         * When you use the makeEwsRequestAsync method in mail apps running in Outlook versions earlier than version 15.0.4535.1004, you should set 
-         * the encoding value to ISO-8859-1.
-         *
-         * `<?xml version="1.0" encoding="iso-8859-1"?>`
-         *
-         * You do not need to set the encoding value when your mail app is running in Outlook on the web. 
-         * You can determine whether your mail app is running in Outlook or Outlook on the web by using the mailbox.diagnostics.hostName property. 
-         * You can determine what version of Outlook is running by using the mailbox.diagnostics.hostVersion property.
-         *
-         * [Api set: Mailbox 1.0]
-         *
-         * @remarks
-         *
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadWriteMailbox
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-         *
-         * @param data - The EWS request.
-         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult.
-         *                 The `value` property of the result is the XML of the EWS request provided as a string. 
-         *                 If the result exceeds 1 MB in size, an error message is returned instead.
-         * @param userContext - Optional. Any state data that is passed to the asynchronous method.
-         */
-        makeEwsRequestAsync(data: any, callback: (asyncResult: Office.AsyncResult<string>) => void, userContext?: any): void;
-        /**
-         * Removes the event handlers for a supported event type. **Note**: Events are available only with task pane.
-         *
-         * Currently, the only supported event type is `Office.EventType.ItemChanged`.
-         * In Preview, `Office.EventType.OfficeThemeChanged` is also supported.
-         *
-         * [Api set: Mailbox 1.5]
-         *
-         * @remarks
-         *
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-         *
-         * @param eventType - The event that should revoke the handler.
-         * @param options - Optional. Provides an option for preserving context data of any type, unchanged, for use in a callback.
-         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
-         *                 type Office.AsyncResult.
-         */
-        removeHandlerAsync(eventType: Office.EventType | string, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
-        /**
-         * Removes the event handlers for a supported event type. **Note**: Events are available only with task pane.
-         *
-         * Currently, the only supported event type is `Office.EventType.ItemChanged`.
-         * In Preview, `Office.EventType.OfficeThemeChanged` is also supported.
-         *
-         * [Api set: Mailbox 1.5]
-         *
-         * @remarks
-         *
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-         *
-         * @param eventType - The event that should revoke the handler.
-         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
-         *                 type Office.AsyncResult.
-         */
-        removeHandlerAsync(eventType: Office.EventType | string, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
-    }
-
-    /**
-     * Represents the categories on an item.
-     * 
-     * In Outlook, a user can group messages and appointments by using a category to color-code them.
-     * The user defines {@link Office.MasterCategories | categories in a master list} on their mailbox.
-     * They can then apply one or more categories to an item.
-     *
-     * [Api set: Mailbox Preview]
-     *
-     * @remarks
-     * 
-     * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-     * 
-     * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-     * 
-     * @beta
-     */
-    interface Categories {
-        /**
-         * Adds categories to an item. Each category must be in the categories master list on that mailbox and so must have a unique name
-         * but multiple categories can use the same color.
-         *
-         * @param categories - The categories to be added to the item.
-         * @param options - Optional. An object literal that contains one or more of the following properties.
-         *        asyncContext: Developers can provide any object they wish to access in the callback method.
-         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
-         *                 type Office.AsyncResult.
-         *
-         * [Api set: Mailbox Preview]
-         *
-         * @remarks
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadWriteItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-         * 
-         * **Errors**: 
-         * 
-         * - InvalidCategory: Invalid categories were provided.
-         * 
-         * @beta
-         */
-        addAsync(categories: string[], options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
-        /**
-         * Adds categories to an item. Each category must be in the categories master list on that mailbox and so must have a unique name
-         * but multiple categories can use the same color.
-         *
-         * @param categories - The categories to be added to the item.
-         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
-         *                 type Office.AsyncResult. If adding categories fails, the asyncResult.error property will contain an error code.
-         *
-         * [Api set: Mailbox Preview]
-         *
-         * @remarks
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadWriteItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-         * 
-         * **Errors**: 
-         * 
-         * - InvalidCategory: Invalid categories were provided.
-         * 
-         * @beta
-         */
-        addAsync(categories: string[], callback: (asyncResult: Office.AsyncResult<void>) => void): void;
-        /**
-         * Gets an item's categories.
-         *
-         * @param options - An object literal that contains one or more of the following properties.
-         *        asyncContext: Developers can provide any object they wish to access in the callback method.
-         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
-         *                 type Office.AsyncResult. If adding categories fails, the asyncResult.error property will contain an error code.
-         *
-         * [Api set: Mailbox Preview]
-         *
-         * @remarks
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-         * 
-         * @beta
-         */
-        getAsync(options: Office.AsyncContextOptions, callback: (asyncResult: Office.AsyncResult<CategoryDetails[]>) => void): void;
-        /**
-         * Gets an item's categories.
-         *
-         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
-         *                 type Office.AsyncResult.
-         *
-         * [Api set: Mailbox Preview]
-         *
-         * @remarks
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-         * 
-         * @beta
-         */
-        getAsync(callback: (asyncResult: Office.AsyncResult<CategoryDetails[]>) => void): void;
-        /**
-         * Removes categories from an item.
-         *
-         * @param categories - The categories to be removed from the item.
-         * @param options - Optional. An object literal that contains one or more of the following properties.
-         *        asyncContext: Developers can provide any object they wish to access in the callback method.
-         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
-         *                 type Office.AsyncResult. If removing categories fails, the asyncResult.error property will contain an error code.
-         *
-         * [Api set: Mailbox Preview]
-         *
-         * @remarks
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadWriteItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-         * 
-         * @beta
-         */
-        removeAsync(categories: string[], options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
-        /**
-         * Removes categories from an item.
-         *
-         * @param categories - The categories to be removed from the item.
-         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
-         *                 type Office.AsyncResult. If removing categories fails, the asyncResult.error property will contain an error code.
-         *
-         * [Api set: Mailbox Preview]
-         *
-         * @remarks
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadWriteItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-         * 
-         * @beta
-         */
-        removeAsync(categories: string[], callback: (asyncResult: Office.AsyncResult<void>) => void): void;
-    }
-
-    /**
-     * Represents a category's details like name and associated color.
-     *
-     * [Api set: Mailbox Preview]
-     *
-     * @remarks
-     * 
-     * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-     * 
-     * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-     * 
-     * @beta
-     */
-    interface CategoryDetails {
-        /**
-         * The name of the category. Maximum length is 255 characters.
-         */
-        displayName: string;
-        /**
-         * The color of the category.
-         */
-        color: MailboxEnums.CategoryColor | string;
-    }
-
-    /**
-     * Represents the categories master list on the mailbox.
-     * 
-     * In Outlook, a user can group messages and appointments by using a category to color-code them.
-     * The user defines categories in a master list on their mailbox. They can then apply one or more categories to an item.
-     *
-     * [Api set: Mailbox Preview]
-     *
-     * @remarks
-     * 
-     * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadMailbox
-     * 
-     * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-     * 
-     * @beta
-     */
-    interface MasterCategories {
-        /**
-         * Adds categories to the master list on a mailbox. Each category must have a unique name but multiple categories can use the same color.
-         *
-         * @param categories - The categories to be added to the master list on the mailbox.
-         * @param options - Optional. An object literal that contains one or more of the following properties.
-         *        asyncContext: Developers can provide any object they wish to access in the callback method.
-         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
-         *                 type Office.AsyncResult.
-         *
-         * [Api set: Mailbox Preview]
-         *
-         * @remarks
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadWriteMailbox
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-         * 
-         * **Errors**: 
-         * 
-         * - DuplicateCategory: One of the categories provided is already in the master category list.
-         * 
-         * - PermissionDenied: The user does not have permission to perform this action.
-         * 
-         * @beta
-         */
-        addAsync(categories: CategoryDetails[], options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
-        /**
-         * Adds categories to the master list on a mailbox. Each category must have a unique name but multiple categories can use the same color.
-         *
-         * @param categories - The categories to be added to the master list on the mailbox.
-         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
-         *                 type Office.AsyncResult. If adding categories fails, the asyncResult.error property will contain an error code.
-         *
-         * [Api set: Mailbox Preview]
-         *
-         * @remarks
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadWriteMailbox
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-         * 
-         * **Errors**: 
-         * 
-         * - DuplicateCategory: One of the categories provided is already in the master category list.
-         * 
-         * - PermissionDenied: The user does not have permission to perform this action.
-         * 
-         * @beta
-         */
-        addAsync(categories: CategoryDetails[], callback: (asyncResult: Office.AsyncResult<void>) => void): void;
-        /**
-         * Gets the master list of categories on a mailbox.
-         *
-         * @param options - An object literal that contains one or more of the following properties.
-         *        asyncContext: Developers can provide any object they wish to access in the callback method.
-         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
-         *                 type Office.AsyncResult. If adding categories fails, the asyncResult.error property will contain an error code.
-         *
-         * [Api set: Mailbox Preview]
-         *
-         * @remarks
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadMailbox
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-         * 
-         * @beta
-         */
-        getAsync(options: Office.AsyncContextOptions, callback: (asyncResult: Office.AsyncResult<CategoryDetails[]>) => void): void;
-        /**
-         * Gets the master list of categories on a mailbox.
-         *
-         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
-         *                 type Office.AsyncResult.
-         *
-         * [Api set: Mailbox Preview]
-         *
-         * @remarks
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadMailbox
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-         * 
-         * @beta
-         */
-        getAsync(callback: (asyncResult: Office.AsyncResult<CategoryDetails[]>) => void): void;
-        /**
-         * Removes categories from the master list on a mailbox.
-         *
-         * @param categories - The categories to be removed from the master list on the mailbox.
-         * @param options - Optional. An object literal that contains one or more of the following properties.
-         *        asyncContext: Developers can provide any object they wish to access in the callback method.
-         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
-         *                 type Office.AsyncResult. If removing categories fails, the asyncResult.error property will contain an error code.
-         *
-         * [Api set: Mailbox Preview]
-         *
-         * @remarks
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadWriteMailbox
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-         * 
-         * **Errors**: 
-         * 
-         * - PermissionDenied: The user does not have permission to perform this action.
-         * 
-         * @beta
-         */
-        removeAsync(categories: string[], options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
-        /**
-         * Removes categories from the master list on a mailbox.
-         *
-         * @param categories - The categories to be removed from the master list on the mailbox.
-         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
-         *                 type Office.AsyncResult. If removing categories fails, the asyncResult.error property will contain an error code.
-         *
-         * [Api set: Mailbox Preview]
-         *
-         * @remarks
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadWriteMailbox
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
-         * 
-         * **Errors**: 
-         * 
-         * - PermissionDenied: The user does not have permission to perform this action.
-         * 
-         * @beta
-         */
-        removeAsync(categories: string[], callback: (asyncResult: Office.AsyncResult<void>) => void): void;
-    }
-
-    /**
-     * Represents a suggested meeting found in an item. Read mode only.
-     *
-     * The list of meetings suggested in an email message is returned in the meetingSuggestions property of the Entities object that is returned when 
-     * the getEntities or getEntitiesByType method is called on the active item.
-     *
-     * The start and end values are string representations of a Date object that contains the date and time at which the suggested meeting is to 
-     * begin and end. 
-     * The values are in the default time zone specified for the current user.
-     *
-     * [Api set: Mailbox 1.0]
-     *
-     * @remarks
-     * 
-     * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-     * 
-     * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Read
-     */
-    interface MeetingSuggestion {
-        /**
-         * Gets the attendees for a suggested meeting.
-         */
-        attendees: EmailUser[];
-        /**
-         * Gets the date and time that a suggested meeting is to end.
-         */
-        end: string;
-        /**
-         * Gets the location of a suggested meeting.
-         */
-        location: string;
-        /**
-         * Gets a string that was identified as a meeting suggestion.
-         */
-        meetingString: string;
-        /**
-         * Gets the date and time that a suggested meeting is to begin.
-         */
-        start: string;
-        /**
-         * Gets the subject of a suggested meeting.
-         */
-        subject: string;
-    }
     /**
      * An array of NotificationMessageDetails objects are returned by the NotificationMessages.getAllAsync method.
      *
@@ -16087,6 +16262,73 @@ declare namespace Office {
         replaceAsync(key: string, JSONmessage: NotificationMessageDetails, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
     }
     /**
+     * Provides the updated Office theme that raised the `Office.EventType.OfficeThemeChanged` event.
+     * 
+     * [Api set: Mailbox Preview]
+     * 
+     * @beta
+     */ 
+    export interface OfficeThemeChangedEventArgs {
+        /**
+         * Gets the updated Office theme.
+         * 
+         * [Api set: Mailbox Preview]
+         */
+        officeTheme: Office.OfficeTheme;
+        /**
+         * Gets the type of the event. See `Office.EventType` for details.
+         * 
+         * [Api set: Mailbox Preview]
+         */
+        type: "officeThemeChanged";
+    }
+    /**
+     * Represents the appointment organizer, even if an alias or a delegate was used to create the appointment. 
+     * This object provides a method to get the organizer value of an appointment in an Outlook add-in.
+     * 
+     * [Api set: Mailbox 1.7]
+     * 
+     * @remarks
+     * 
+     * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+     * 
+     * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
+     */
+    interface Organizer {
+        /**
+         * Gets the organizer value of an appointment as an {@link Office.EmailAddressDetails} in the asyncResult.value property.
+         * 
+         * [Api set: Mailbox 1.7]
+         * 
+         * @remarks
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
+         * 
+         * @param options - An object literal that contains one or more of the following properties.
+         *        asyncContext: Developers can provide any object they wish to access in the callback method.
+         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter, asyncResult, which is an AsyncResult object.
+         *                  The `value` property of the result is the appointment's organizer value, as an EmailAddressDetails object.
+         */
+        getAsync(options: Office.AsyncContextOptions, callback: (asyncResult: Office.AsyncResult<EmailAddressDetails>) => void): void;
+        /**
+         * Gets the organizer value of an appointment as an {@link Office.EmailAddressDetails} in the asyncResult.value property.
+         * 
+         * [Api set: Mailbox 1.7]
+         * 
+         * @remarks
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
+         * 
+         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter, asyncResult, which is an AsyncResult object.
+         *                  The `value` property of the result is the appointment's organizer value, as an EmailAddressDetails object.
+         */
+        getAsync(callback?: (asyncResult: Office.AsyncResult<EmailAddressDetails>) => void): void;
+    }
+    /**
      * Represents a phone number identified in an item. Read mode only.
      *
      * An array of PhoneNumber objects containing the phone numbers found in an email message is returned in the phoneNumbers property of the 
@@ -16143,7 +16385,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - NumberOfRecipientsExceeded: The number of recipients exceeded 100 entries.
          * 
@@ -16173,7 +16415,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - NumberOfRecipientsExceeded: The number of recipients exceeded 100 entries.
          *
@@ -16241,7 +16483,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - NumberOfRecipientsExceeded: The number of recipients exceeded 100 entries.
          * 
@@ -16275,7 +16517,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - NumberOfRecipientsExceeded: The number of recipients exceeded 100 entries.
          *
@@ -16287,7 +16529,50 @@ declare namespace Office {
          */
         setAsync(recipients: (string | EmailUser | EmailAddressDetails)[], callback: (asyncResult: Office.AsyncResult<void>) => void): void;
     }
-
+    /**
+     * Provides change status of recipients fields when the `Office.EventType.RecipientsChanged` event is raised. 
+     * 
+     * [Api set: Mailbox 1.7] 
+     */ 
+    export interface RecipientsChangedEventArgs { 
+        /** 
+         * Gets an object that indicates change state of recipients fields. 
+         * 
+         * [Api set: Mailbox 1.7] 
+         */ 
+        changedRecipientsFields: RecipientsChangedFields; 
+        /** 
+         * Gets the type of the event. See `Office.EventType` for details. 
+         * 
+         * [Api set: Mailbox 1.7] 
+         */ 
+        type: "olkRecipientsChanged"; 
+    } 
+    /**
+     * Represents `RecipientsChangedEventArgs.changedRecipientsFields` object. 
+     * 
+     * [Api set: Mailbox 1.7] 
+     */ 
+    interface RecipientsChangedFields { 
+        /** 
+         * Gets if optional attendees were changed. 
+         * 
+         * [Api set: Mailbox 1.7] 
+         */ 
+        optionalAttendees: boolean; 
+        /** 
+         * Gets if required attendees were changed. 
+         * 
+         * [Api set: Mailbox 1.7] 
+         */ 
+        requiredAttendees: boolean; 
+        /** 
+         * Gets if resources were changed. 
+         * 
+         * [Api set: Mailbox 1.7] 
+         */ 
+        resources: boolean; 
+    }
     /**
      * The recurrence object provides methods to get and set the recurrence pattern of appointments but only get the recurrence pattern of 
      * meeting requests. 
@@ -16349,7 +16634,6 @@ declare namespace Office {
          * 
          * @remarks
          * 
-         * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
@@ -16367,7 +16651,6 @@ declare namespace Office {
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
          */
         recurrenceTimeZone: RecurrenceTimeZone;
-
         /**
          * Gets or sets the type of the recurring appointment series.
          * 
@@ -16380,7 +16663,6 @@ declare namespace Office {
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
          */
         recurrenceType: MailboxEnums.RecurrenceType | string;
-
         /**
          * The {@link Office.SeriesTime} object enables you to manage the start and end dates of the recurring appointment series and the usual start 
          * and end times of instances. **This object is not in UTC time.** 
@@ -16416,7 +16698,6 @@ declare namespace Office {
          *                 The `value` property of the result is a Recurrence object.
          */
         getAsync(options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<Recurrence>) => void): void;
-
         /**
          * Returns the current recurrence object of an appointment series.
          * 
@@ -16435,7 +16716,6 @@ declare namespace Office {
          *                 The `value` property of the result is a Recurrence object.
          */
         getAsync(callback?: (asyncResult: Office.AsyncResult<Recurrence>) => void): void;
-
         /**
          * Sets the recurrence pattern of an appointment series.
          * 
@@ -16449,7 +16729,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - InvalidEndTime: The appointment end time is before its start time.
          * 
@@ -16460,7 +16740,6 @@ declare namespace Office {
          *                asyncResult, which is an Office.AsyncResult object.
          */
         setAsync(recurrencePattern: Recurrence, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
-
         /**
          * Sets the recurrence pattern of an appointment series.
          * 
@@ -16474,7 +16753,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - InvalidEndTime: The appointment end time is before its start time.
          * 
@@ -16484,7 +16763,25 @@ declare namespace Office {
          */
         setAsync(recurrencePattern: Recurrence, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
     }
-
+    /**
+     * Provides updated recurrence object that raised the `Office.EventType.RecurrenceChanged` event. 
+     * 
+     * [Api set: Mailbox 1.7] 
+     */ 
+    export interface RecurrenceChangedEventArgs { 
+        /** 
+         * Gets the updated recurrence object. 
+         * 
+         * [Api set: Mailbox 1.7] 
+         */ 
+        recurrence: Recurrence; 
+        /** 
+         * Gets the type of the event. See `Office.EventType` for details. 
+         * 
+         * [Api set: Mailbox 1.7] 
+         */ 
+        type: "olkRecurrenceChanged"; 
+    }
     /**
      * Represents the properties of the recurrence.
      * 
@@ -16527,7 +16824,6 @@ declare namespace Office {
          */
         firstDayOfWeek: MailboxEnums.Days | string;
     }
-
     /**
      * Represents the time zone of the recurrence.
      * 
@@ -16550,7 +16846,6 @@ declare namespace Office {
          */
         offset: number;
     }
-
     /**
      * A file or item attachment. Used when displaying a reply form.
      */
@@ -16577,7 +16872,6 @@ declare namespace Office {
          */
         itemId?: string;
     }
-
     /**
      * A ReplyFormData object that contains body or attachment data and a callback function. Used when displaying a reply form.
      */
@@ -16622,7 +16916,7 @@ declare namespace Office {
      * 
      * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
      */
-    interface RoamingSettings {
+    export interface RoamingSettings {
         /**
          * Retrieves the specified setting.
          *
@@ -16694,7 +16988,6 @@ declare namespace Office {
          */
         set(name: string, value: any): void;
     }
-
     /**
      * The SeriesTime object provides methods to get and set the dates and times of appointments in a recurring series and get the dates and times of 
      * meeting requests in a recurring series.
@@ -16720,7 +17013,6 @@ declare namespace Office {
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
          */
         getDuration(): number;
-
         /**
          * Gets the end date of a recurrence pattern in the following {@link https://www.iso.org/iso-8601-date-and-time-format.html | ISO 8601} date format: "YYYY-MM-DD"
          * 
@@ -16733,7 +17025,6 @@ declare namespace Office {
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
          */
         getEndDate(): string;
-
         /**
          * Gets the end time of a usual appointment or meeting request instance of a recurrence pattern in whichever time zone that the user or 
          * add-in set the recurrence pattern using the following {@link https://www.iso.org/iso-8601-date-and-time-format.html | ISO 8601} format: 
@@ -16748,7 +17039,6 @@ declare namespace Office {
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
          */
         getEndTime(): string;
-
         /**
          * Gets the start date of a recurrence pattern in the following {@link https://www.iso.org/iso-8601-date-and-time-format.html | ISO 8601} date format: "YYYY-MM-DD"
          * 
@@ -16761,7 +17051,6 @@ declare namespace Office {
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
          */
         getStartDate(): string;
-
         /**
          * Gets the start time of a usual appointment instance of a recurrence pattern in whichever time zone that the user/add-in set the 
          * recurrence pattern using the following {@link https://www.iso.org/iso-8601-date-and-time-format.html | ISO 8601} format: "THH:mm:ss:mmm"
@@ -16775,7 +17064,6 @@ declare namespace Office {
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
          */
         getStartTime(): string;
-
         /**
          * Sets the duration of all appointments in a recurrence pattern. This will also change the end time of the recurrence pattern.
          * 
@@ -16783,14 +17071,13 @@ declare namespace Office {
          *
          * @remarks
          * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadWriteItem         
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadWriteItem
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
          * 
          * @param minutes - The length of the appointment in minutes.
          */
         setDuration(minutes: number): void;
-
         /**
          * Sets the end date of a recurring appointment series.
          * 
@@ -16837,7 +17124,6 @@ declare namespace Office {
          * @param day - The day value of the start date.
          */
         setStartDate(year:number, month:number, day:number): void;
-
         /**
          * Sets the start date of a recurring appointment series.
          * 
@@ -16852,7 +17138,6 @@ declare namespace Office {
          * @param date - Start date of the recurring appointment series represented in the {@link https://www.iso.org/iso-8601-date-and-time-format.html | ISO 8601} date format: "YYYY-MM-DD".
          */
         setStartDate(date:string): void;
-
         /**
          * Sets the start time of all instances of a recurring appointment series in whichever time zone the recurrence pattern is set 
          * (the item's time zone is used by default).
@@ -16869,7 +17154,6 @@ declare namespace Office {
          * @param minutes - The minute value of the start time. Valid range: 0-59.
          */
         setStartTime(hours: number, minutes: number): void;
-
         /**
          * Sets the start time of all instances of a recurring appointment series in whichever time zone the recurrence pattern is set 
          * (the item's time zone is used by default).
@@ -16886,7 +17170,6 @@ declare namespace Office {
          */
         setStartTime(time: string): void;
     }
-
     /**
      * Represents the properties of an appointment or message in a shared folder, mailbox, or calendar.
      *
@@ -16923,7 +17206,6 @@ declare namespace Office {
          */
         delegatePermissions: MailboxEnums.DelegatePermissions;
     }
-
     /**
      * Provides methods to get and set the subject of an appointment or message in an Outlook add-in.
      *
@@ -16987,7 +17269,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - DataExceedsMaximumSize: The subject parameter is longer than 255 characters.
          * 
@@ -17012,7 +17294,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - DataExceedsMaximumSize: The subject parameter is longer than 255 characters.
          *
@@ -17021,7 +17303,6 @@ declare namespace Office {
          *                 type Office.AsyncResult. If setting the subject fails, the asyncResult.error property will contain an error code.
          */
         setAsync(data: string, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
-
     }
     /**
      * Represents a suggested task identified in an item. Read mode only.
@@ -17113,7 +17394,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - InvalidEndTime: The appointment end time is before the appointment start time.
          * 
@@ -17141,7 +17422,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
          * 
-         * **Errors**: 
+         * **Errors**:
          * 
          * - InvalidEndTime: The appointment end time is before the appointment start time.
          *
@@ -17151,7 +17432,6 @@ declare namespace Office {
          *                 If setting the date and time fails, the asyncResult.error property will contain an error code.
          */
         setAsync(dateTime: Date, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
-
     }
     /**
      * Information about the user associated with the mailbox. This includes their account type, display name, email address, and time zone.
@@ -18628,7 +18908,7 @@ declare namespace Excel {
         address: string;
         /**
          *
-         * Gets the change type that represents how the Changed event is triggered. See Excel.RowHiddenChangeType for details.
+         * Gets the change type that represents how the RowHiddenChanged event is triggered. See Excel.RowHiddenChangeType for details.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -18961,7 +19241,7 @@ declare namespace Excel {
         address: string;
         /**
          *
-         * The distance, in points, from the left-clicked/tapped point to the left (right for RTL) gridline edge of the left-clicked/tapped cell.
+         * The distance, in points, from the left-clicked/tapped point to the left (or right for RTL) gridline edge of the left-clicked/tapped cell.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -20464,6 +20744,21 @@ declare namespace Excel {
          */
         replaceAll(text: string, replacement: string, criteria: Excel.ReplaceCriteria): OfficeExtension.ClientResult<number>;
         /**
+         *
+         * Shows row or column groups by their outline levels.
+            Outlines group and summarize a list of data in the worksheet.
+            The `rowLevels` and `columnLevels` parameters specify how many levels of the outline will be displayed.
+            The acceptable argument range is between 0 and 8.
+            A value of 0 does not change the current display. A value greater than the current number of levels displays all the levels.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         *
+         * @param rowLevels The number of row levels of an outline to display.
+         * @param columnLevels The number of column levels of an outline to display.
+         */
+        showOutlineLevels(rowLevels: number, columnLevels: number): void;
+        /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          *
          * @remarks
@@ -20580,7 +20875,11 @@ declare namespace Excel {
         readonly onSelectionChanged: OfficeExtension.EventHandlers<Excel.WorksheetSelectionChangedEventArgs>;
         /**
          *
-         * Occurs when left-clicked/tapped operation happens in the worksheet.
+         * Occurs when left-clicked/tapped operation happens in the worksheet. This event will not be fired when clicking in the following cases:
+         * 
+         * - The user drags the mouse for multi-selection.
+         * 
+         * - The user selects a cell in the mode when cell arguments are selected for formula references.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          *
@@ -20825,7 +21124,11 @@ declare namespace Excel {
         readonly onSelectionChanged: OfficeExtension.EventHandlers<Excel.WorksheetSelectionChangedEventArgs>;
         /**
          *
-         * Occurs when left-clicked/tapped operation happens in the worksheet collection.
+         * Occurs when left-clicked/tapped operation happens in the worksheet collection. This event will not be fired when clicking in the following cases:
+         * 
+         * - The user drags the mouse for multi-selection.
+         * 
+         * - The user selects a cell in the mode when cell arguments are selected for formula references.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          *
@@ -21262,8 +21565,9 @@ declare namespace Excel {
         numberFormat: any[][];
         /**
          *
-         * Represents Excel's number format code for the given range as a string in the language of the user.
+         * Represents Excel's number format code for the given range, based on the language settings of the user.
             When setting number format local to a range, the value argument can be either a single value (string) or a two-dimensional array. If the argument is a single value, it will be applied to all cells in the range.
+            Excel does not perform any language or format coercion when getting or setting the `numberFormatLocal` property. Any returned text uses the locally-formatted strings based on the language specified in the system settings.
          *
          * [Api set: ExcelApi 1.7]
          */
@@ -21362,24 +21666,30 @@ declare namespace Excel {
         set(properties: Excel.Range): void;
         /**
          *
-         * Fills range from the current range to the destination range.
-            The destination range must extend the source either horizontally or vertically. Discontiguous ranges are not supported.
+         * Fills range from the current range to the destination range using the specified AutoFill logic. 
+         * The destination range can be null, or can extend the source either horizontally or vertically. 
+         * If the destination range is null, data is filled out based on the surrounding cells (which is the behavior when double-clicking the UI’s range fill handle). 
+         * 
+         * For more information, read {@link https://support.office.com/article/video-use-autofill-and-flash-fill-2e79a709-c814-4b27-8bc2-c4dc84d49464 | Use AutoFill and Flash Fill}.
          *
-         * [Api set: ExcelApi 1.9]
+         * [Api set: ExcelApi 1.9, ExcelApi BETA (PREVIEW ONLY) for null `destinationRange`]
          *
-         * @param destinationRange The destination range to autofill.
-         * @param autoFillType The type of autofill. Specifies how the destination range is to be filled, based on the contents of the current range. Default is "FillDefault".
+         * @param destinationRange The destination range to fill. Discontiguous ranges are not supported.
+         * @param autoFillType The type of AutoFill. Specifies how the destination range is to be filled, based on the contents of the current range. Default is "FillDefault".
          */
         autoFill(destinationRange: Range | string, autoFillType?: Excel.AutoFillType): void;
         /**
          *
-         * Fills range from the current range to the destination range.
-            The destination range must extend the source either horizontally or vertically. Discontiguous ranges are not supported.
+         * Fills range from the current range to the destination range using the specified AutoFill logic. 
+         * The destination range can be null, or can extend the source either horizontally or vertically. 
+         * If the destination range is null, data is filled out based on the surrounding cells (which is the behavior when double-clicking the UI’s range fill handle). 
+         * 
+         * For more information, read {@link https://support.office.com/article/video-use-autofill-and-flash-fill-2e79a709-c814-4b27-8bc2-c4dc84d49464 | Use AutoFill and Flash Fill}.
          *
-         * [Api set: ExcelApi 1.9]
+         * [Api set: ExcelApi 1.9, ExcelApi BETA (PREVIEW ONLY) for null `destinationRange`]
          *
-         * @param destinationRange The destination range to autofill.
-         * @param autoFillType The type of autofill. Specifies how the destination range is to be filled, based on the contents of the current range. Default is "FillDefault".
+         * @param destinationRange The destination range to fill. Discontiguous ranges are not supported.
+         * @param autoFillType The type of AutoFill. Specifies how the destination range is to be filled, based on the contents of the current range. Default is "FillDefault".
          */
         autoFill(destinationRange: Range | string, autoFillType?: "FillDefault" | "FillCopy" | "FillSeries" | "FillFormats" | "FillValues" | "FillDays" | "FillWeekdays" | "FillMonths" | "FillYears" | "LinearTrend" | "GrowthTrend" | "FlashFill"): void;
         /**
@@ -21814,6 +22124,50 @@ declare namespace Excel {
         getVisibleView(): Excel.RangeView;
         /**
          *
+         * Groups columns and rows for an outline.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         *
+         * @param groupOption Specifies how the range can be grouped by rows or columns.
+            An `InvalidArgument` error is thrown when the group option differs from the range's
+            `isEntireRow` or `isEntireColumn` property (i.e., `range.isEntireRow` is true and `groupOption` is "ByColumns"
+            or `range.isEntireColumn` is true and `groupOption` is "ByRows").
+         */
+        group(groupOption: Excel.GroupOption): void;
+        /**
+         *
+         * Groups columns and rows for an outline.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         *
+         * @param groupOption Specifies how the range can be grouped by rows or columns.
+            An `InvalidArgument` error is thrown when the group option differs from the range's
+            `isEntireRow` or `isEntireColumn` property (i.e., `range.isEntireRow` is true and `groupOption` is "ByColumns"
+            or `range.isEntireColumn` is true and `groupOption` is "ByRows").
+         */
+        group(groupOption: "ByRows" | "ByColumns"): void;
+        /**
+         *
+         * Hide details of the row or column group.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         *
+         * @param groupOption Specifies whether to hide details of grouped rows or grouped columns.
+         */
+        hideGroupDetails(groupOption: Excel.GroupOption): void;
+        /**
+         *
+         * Hide details of the row or column group.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         *
+         * @param groupOption Specifies whether to hide details of grouped rows or grouped columns.
+         */
+        hideGroupDetails(groupOption: "ByRows" | "ByColumns"): void;
+        /**
+         *
          * Inserts a cell or a range of cells into the worksheet in place of this range, and shifts the other cells to make space. Returns a new Range object at the now blank space.
          *
          * [Api set: ExcelApi 1.1]
@@ -21910,6 +22264,44 @@ declare namespace Excel {
          * [Api set: ExcelApi 1.7]
          */
         showCard(): void;
+        /**
+         *
+         * Show details of the row or column group.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         *
+         * @param groupOption Specifies whether to show details of grouped rows or grouped columns.
+         */
+        showGroupDetails(groupOption: Excel.GroupOption): void;
+        /**
+         *
+         * Show details of the row or column group.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         *
+         * @param groupOption Specifies whether to show details of grouped rows or grouped columns.
+         */
+        showGroupDetails(groupOption: "ByRows" | "ByColumns"): void;
+        /**
+         *
+         * Ungroups columns and rows for an outline.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         *
+         * @param groupOption Specifies how the range can be ungrouped by rows or columns.
+         */
+        ungroup(groupOption: Excel.GroupOption): void;
+        /**
+         *
+         * Ungroups columns and rows for an outline.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         *
+         * @param groupOption Specifies how the range can be ungrouped by rows or columns.
+         */
+        ungroup(groupOption: "ByRows" | "ByColumns"): void;
         /**
          *
          * Unmerge the range cells into separate cells.
@@ -22343,7 +22735,7 @@ declare namespace Excel {
     interface SearchCriteria {
         /**
          *
-         * Specifies whether the match needs to be complete or partial. A complete match matches the entire contents of the cell. Default is false (partial).
+         * Specifies whether the match needs to be complete or partial. A complete match matches the entire contents of the cell. A partial match matches a substring within the content of the cell (e.g., `cat` partially matches `caterpillar` and `scatter`). Default is false (partial).
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -22372,7 +22764,7 @@ declare namespace Excel {
     interface WorksheetSearchCriteria {
         /**
          *
-         * Specifies whether the match needs to be complete or partial. A complete match matches the entire contents of the cell. Default is false (partial).
+         * Specifies whether the match needs to be complete or partial. A complete match matches the entire contents of the cell. A partial match matches a substring within the content of the cell (e.g., `cat` partially matches `caterpillar` and `scatter`). Default is false (partial).
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -22394,7 +22786,7 @@ declare namespace Excel {
     interface ReplaceCriteria {
         /**
          *
-         * Specifies whether the match needs to be complete or partial. Default is false (partial).
+         * Specifies whether the match needs to be complete or partial. A complete match matches the entire contents of the cell. A partial match matches a substring within the content of the cell (e.g., `cat` partially matches `caterpillar` and `scatter`). Default is false (partial).
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -31292,7 +31684,7 @@ declare namespace Excel {
     }
     /**
      *
-     * Represents a collection of all the PivotTables that are part of the workbook or worksheet.
+     * Represents a collection of all the PivotHierarchies that are part of the PivotTable.
      *
      * [Api set: ExcelApi 1.8]
      */
@@ -31314,7 +31706,7 @@ declare namespace Excel {
          *
          * [Api set: ExcelApi 1.8]
          *
-         * @param name Name of the PivotTable to be retrieved.
+         * @param name Name of the PivotHierarchy to be retrieved.
          */
         getItem(name: string): Excel.PivotHierarchy;
         /**
@@ -31453,7 +31845,7 @@ declare namespace Excel {
          *
          * [Api set: ExcelApi 1.8]
          *
-         * @param name Name of the PivotTable to be retrieved.
+         * @param name Name of the RowColumnPivotHierarchy to be retrieved.
          */
         getItem(name: string): Excel.RowColumnPivotHierarchy;
         /**
@@ -31613,7 +32005,7 @@ declare namespace Excel {
          *
          * [Api set: ExcelApi 1.8]
          *
-         * @param name Name of the PivotTable to be retrieved.
+         * @param name Name of the FilterPivotHierarchy to be retrieved.
          */
         getItem(name: string): Excel.FilterPivotHierarchy;
         /**
@@ -31779,7 +32171,7 @@ declare namespace Excel {
          *
          * [Api set: ExcelApi 1.8]
          *
-         * @param name Name of the PivotTable to be retrieved.
+         * @param name Name of the DataPivotHierarchy to be retrieved.
          */
         getItem(name: string): Excel.DataPivotHierarchy;
         /**
@@ -31956,7 +32348,7 @@ declare namespace Excel {
     }
     /**
      *
-     * Represents a collection of all the PivotTables that are part of the workbook or worksheet.
+     * Represents a collection of all the PivotFields that are part of a PivotTable's hierarchy.
      *
      * [Api set: ExcelApi 1.8]
      */
@@ -31967,27 +32359,27 @@ declare namespace Excel {
         readonly items: Excel.PivotField[];
         /**
          *
-         * Gets the number of pivot hierarchies in the collection.
+         * Gets the number of pivot fields in the collection.
          *
          * [Api set: ExcelApi 1.8]
          */
         getCount(): OfficeExtension.ClientResult<number>;
         /**
          *
-         * Gets a PivotHierarchy by its name or id.
+         * Gets a PivotField by its name or id.
          *
          * [Api set: ExcelApi 1.8]
          *
-         * @param name Name of the PivotTable to be retrieved.
+         * @param name Name of the PivotField to be retrieved.
          */
         getItem(name: string): Excel.PivotField;
         /**
          *
-         * Gets a PivotHierarchy by name. If the PivotHierarchy does not exist, will return a null object.
+         * Gets a PivotField by name. If the PivotField does not exist, will return a null object.
          *
          * [Api set: ExcelApi 1.8]
          *
-         * @param name Name of the PivotHierarchy to be retrieved.
+         * @param name Name of the PivotField to be retrieved.
          */
         getItemOrNullObject(name: string): Excel.PivotField;
         /**
@@ -32140,7 +32532,7 @@ declare namespace Excel {
     }
     /**
      *
-     * Represents a collection of all the Pivot Items related to their parent PivotField.
+     * Represents a collection of all the PivotItems related to their parent PivotField.
      *
      * [Api set: ExcelApi 1.8]
      */
@@ -32151,27 +32543,27 @@ declare namespace Excel {
         readonly items: Excel.PivotItem[];
         /**
          *
-         * Gets the number of pivot hierarchies in the collection.
+         * Gets the number of PivotItems in the collection.
          *
          * [Api set: ExcelApi 1.8]
          */
         getCount(): OfficeExtension.ClientResult<number>;
         /**
          *
-         * Gets a PivotHierarchy by its name or id.
+         * Gets a PivotItem by its name or id.
          *
          * [Api set: ExcelApi 1.8]
          *
-         * @param name Name of the PivotTable to be retrieved.
+         * @param name Name of the PivotItem to be retrieved.
          */
         getItem(name: string): Excel.PivotItem;
         /**
          *
-         * Gets a PivotHierarchy by name. If the PivotHierarchy does not exist, will return a null object.
+         * Gets a PivotItem by name. If the PivotItem does not exist, will return a null object.
          *
          * [Api set: ExcelApi 1.8]
          *
-         * @param name Name of the PivotHierarchy to be retrieved.
+         * @param name Name of the PivotItem to be retrieved.
          */
         getItemOrNullObject(name: string): Excel.PivotItem;
         /**
@@ -34974,7 +35366,7 @@ declare namespace Excel {
         name: string;
         /**
          *
-         * Specifies if this TableStyle object is read-only. Read-only.
+         * Specifies whether this TableStyle object is read-only. Read-only.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -35155,7 +35547,7 @@ declare namespace Excel {
         name: string;
         /**
          *
-         * Specifies if this PivotTableStyle object is read-only. Read-only.
+         * Specifies whether this PivotTableStyle object is read-only. Read-only.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -35336,7 +35728,7 @@ declare namespace Excel {
         name: string;
         /**
          *
-         * Specifies if this SlicerStyle object is read-only. Read-only.
+         * Specifies whether this SlicerStyle object is read-only. Read-only.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -35517,7 +35909,7 @@ declare namespace Excel {
         name: string;
         /**
          *
-         * Specifies if this TimelineStyle object is read-only. Read-only.
+         * Specifies whether this TimelineStyle object is read-only. Read-only.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -36391,7 +36783,7 @@ declare namespace Excel {
         getItemAt(index: number): Excel.Comment;
         /**
          *
-         * Gets the comment from the specified cell.
+         * Gets the comment from the specifed cell.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -36491,6 +36883,14 @@ declare namespace Excel {
          * @beta
          */
         readonly id: string;
+        /**
+         *
+         * Gets or sets the comment thread status. A value of "true" means the comment thread is in the resolved state.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        resolved: boolean;
         /** Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.
          *
          * @remarks
@@ -36684,6 +37084,14 @@ declare namespace Excel {
          * @beta
          */
         readonly id: string;
+        /**
+         *
+         * Gets or sets the comment reply status. A value of "true" means the comment reply is in the resolved state.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly resolved: boolean;
         /** Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.
          *
          * @remarks
@@ -40771,6 +41179,24 @@ declare namespace Excel {
         linearTrend = "LinearTrend",
         growthTrend = "GrowthTrend",
         flashFill = "FlashFill"
+    }
+    /**
+     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+     * @beta
+     */
+    enum GroupOption {
+        /**
+         *
+         * Group by rows.
+         *
+         */
+        byRows = "ByRows",
+        /**
+         *
+         * Group by columns.
+         *
+         */
+        byColumns = "ByColumns"
     }
     /**
      * [Api set: ExcelApi 1.9]
@@ -45455,8 +45881,9 @@ declare namespace Excel {
             numberFormat?: any[][];
             /**
              *
-             * Represents Excel's number format code for the given range as a string in the language of the user.
-            When setting number format local to a range, the value argument can be either a single value (string) or a two-dimensional array. If the argument is a single value, it will be applied to all cells in the range.
+             * Represents Excel's number format code for the given range, based on the language settings of the user.
+                When setting number format local to a range, the value argument can be either a single value (string) or a two-dimensional array. If the argument is a single value, it will be applied to all cells in the range.
+                Excel does not perform any language or format coercion when getting or setting the `numberFormatLocal` property. Any returned text uses the locally-formatted strings based on the language specified in the system settings.
              *
              * [Api set: ExcelApi 1.7]
              */
@@ -49346,6 +49773,14 @@ declare namespace Excel {
              * @beta
              */
             content?: string;
+            /**
+             *
+             * Gets or sets the comment thread status. A value of "true" means the comment thread is in the resolved state.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            resolved?: boolean;
         }
         /** An interface for updating data on the CommentReplyCollection object, for use in "commentReplyCollection.set({ ... })". */
         interface CommentReplyCollectionUpdateData {
@@ -50454,8 +50889,9 @@ declare namespace Excel {
             numberFormat?: any[][];
             /**
              *
-             * Represents Excel's number format code for the given range as a string in the language of the user.
-            When setting number format local to a range, the value argument can be either a single value (string) or a two-dimensional array. If the argument is a single value, it will be applied to all cells in the range.
+             * Represents Excel's number format code for the given range, based on the language settings of the user.
+                When setting number format local to a range, the value argument can be either a single value (string) or a two-dimensional array. If the argument is a single value, it will be applied to all cells in the range.
+                Excel does not perform any language or format coercion when getting or setting the `numberFormatLocal` property. Any returned text uses the locally-formatted strings based on the language specified in the system settings.
              *
              * [Api set: ExcelApi 1.7]
              */
@@ -50484,8 +50920,8 @@ declare namespace Excel {
             /**
              *
              * Represents if ALL the cells would be saved as an array formula.
-            Returns true if ALL cells would be saved as an array, or false if ALL cells would NOT be saved as an array formula.
-            Returns null if there is a mixture of cells that would and would not be saved as an array formula.
+             * Returns true if ALL cells would be saved as an array, or false if ALL cells would NOT be saved as an array formula.
+             * Returns null if there is a mixture of cells that would and would not be saved as an array formula.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -54781,7 +55217,7 @@ declare namespace Excel {
             name?: string;
             /**
              *
-             * Specifies if this TableStyle object is read-only. Read-only.
+             * Specifies whether this TableStyle object is read-only. Read-only.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -54804,7 +55240,7 @@ declare namespace Excel {
             name?: string;
             /**
              *
-             * Specifies if this PivotTableStyle object is read-only. Read-only.
+             * Specifies whether this PivotTableStyle object is read-only. Read-only.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -54827,7 +55263,7 @@ declare namespace Excel {
             name?: string;
             /**
              *
-             * Specifies if this SlicerStyle object is read-only. Read-only.
+             * Specifies whether this SlicerStyle object is read-only. Read-only.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -54850,7 +55286,7 @@ declare namespace Excel {
             name?: string;
             /**
              *
-             * Specifies if this TimelineStyle object is read-only. Read-only.
+             * Specifies whether this TimelineStyle object is read-only. Read-only.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -55182,6 +55618,14 @@ declare namespace Excel {
              * @beta
              */
             id?: string;
+            /**
+             *
+             * Gets or sets the comment thread status. A value of "true" means the comment thread is in the resolved state.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            resolved?: boolean;
         }
         /** An interface describing the data returned by calling "commentReplyCollection.toJSON()". */
         interface CommentReplyCollectionData {
@@ -55229,6 +55673,14 @@ declare namespace Excel {
              * @beta
              */
             id?: string;
+            /**
+             *
+             * Gets or sets the comment reply status. A value of "true" means the comment reply is in the resolved state.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            resolved?: boolean;
         }
         /** An interface describing the data returned by calling "shapeCollection.toJSON()". */
         interface ShapeCollectionData {
@@ -56542,8 +56994,9 @@ declare namespace Excel {
             numberFormat?: boolean;
             /**
              *
-             * Represents Excel's number format code for the given range as a string in the language of the user.
-            When setting number format local to a range, the value argument can be either a single value (string) or a two-dimensional array. If the argument is a single value, it will be applied to all cells in the range.
+             * Represents Excel's number format code for the given range, based on the language settings of the user.
+                When setting number format local to a range, the value argument can be either a single value (string) or a two-dimensional array. If the argument is a single value, it will be applied to all cells in the range.
+                Excel does not perform any language or format coercion when getting or setting the `numberFormatLocal` property. Any returned text uses the locally-formatted strings based on the language specified in the system settings.
              *
              * [Api set: ExcelApi 1.7]
              */
@@ -56572,8 +57025,8 @@ declare namespace Excel {
             /**
              *
              * Represents if ALL the cells would be saved as an array formula.
-            Returns true if ALL cells would be saved as an array, or false if ALL cells would NOT be saved as an array formula.
-            Returns null if there is a mixture of cells that would and would not be saved as an array formula.
+             * Returns true if ALL cells would be saved as an array, or false if ALL cells would NOT be saved as an array formula.
+             * Returns null if there is a mixture of cells that would and would not be saved as an array formula.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -61458,7 +61911,7 @@ declare namespace Excel {
         }
         /**
          *
-         * Represents a collection of all the PivotTables that are part of the workbook or worksheet.
+         * Represents a collection of all the PivotHierarchies that are part of the PivotTable.
          *
          * [Api set: ExcelApi 1.8]
          */
@@ -61754,7 +62207,7 @@ declare namespace Excel {
         }
         /**
          *
-         * Represents a collection of all the PivotTables that are part of the workbook or worksheet.
+         * Represents a collection of all the PivotFields that are part of a PivotTable's hierarchy.
          *
          * [Api set: ExcelApi 1.8]
          */
@@ -61828,7 +62281,7 @@ declare namespace Excel {
         }
         /**
          *
-         * Represents a collection of all the Pivot Items related to their parent PivotField.
+         * Represents a collection of all the PivotItems related to their parent PivotField.
          *
          * [Api set: ExcelApi 1.8]
          */
@@ -63222,7 +63675,7 @@ declare namespace Excel {
             name?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: Specifies if this TableStyle object is read-only. Read-only.
+             * For EACH ITEM in the collection: Specifies whether this TableStyle object is read-only. Read-only.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -63248,7 +63701,7 @@ declare namespace Excel {
             name?: boolean;
             /**
              *
-             * Specifies if this TableStyle object is read-only. Read-only.
+             * Specifies whether this TableStyle object is read-only. Read-only.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -63274,7 +63727,7 @@ declare namespace Excel {
             name?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: Specifies if this PivotTableStyle object is read-only. Read-only.
+             * For EACH ITEM in the collection: Specifies whether this PivotTableStyle object is read-only. Read-only.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -63300,7 +63753,7 @@ declare namespace Excel {
             name?: boolean;
             /**
              *
-             * Specifies if this PivotTableStyle object is read-only. Read-only.
+             * Specifies whether this PivotTableStyle object is read-only. Read-only.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -63326,7 +63779,7 @@ declare namespace Excel {
             name?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: Specifies if this SlicerStyle object is read-only. Read-only.
+             * For EACH ITEM in the collection: Specifies whether this SlicerStyle object is read-only. Read-only.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -63352,7 +63805,7 @@ declare namespace Excel {
             name?: boolean;
             /**
              *
-             * Specifies if this SlicerStyle object is read-only. Read-only.
+             * Specifies whether this SlicerStyle object is read-only. Read-only.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -63378,7 +63831,7 @@ declare namespace Excel {
             name?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: Specifies if this TimelineStyle object is read-only. Read-only.
+             * For EACH ITEM in the collection: Specifies whether this TimelineStyle object is read-only. Read-only.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -63404,7 +63857,7 @@ declare namespace Excel {
             name?: boolean;
             /**
              *
-             * Specifies if this TimelineStyle object is read-only. Read-only.
+             * Specifies whether this TimelineStyle object is read-only. Read-only.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -63869,8 +64322,9 @@ declare namespace Excel {
             numberFormat?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: Represents Excel's number format code for the given range as a string in the language of the user.
-            When setting number format local to a range, the value argument can be either a single value (string) or a two-dimensional array. If the argument is a single value, it will be applied to all cells in the range.
+             * For EACH ITEM in the collection: Represents Excel's number format code for the given range, based on the language settings of the user.
+                When setting number format local to a range, the value argument can be either a single value (string) or a two-dimensional array. If the argument is a single value, it will be applied to all cells in the range.
+                Excel does not perform any language or format coercion when getting or setting the `numberFormatLocal` property. Any returned text uses the locally-formatted strings based on the language specified in the system settings.
              *
              * [Api set: ExcelApi 1.7]
              */
@@ -63899,8 +64353,8 @@ declare namespace Excel {
             /**
              *
              * For EACH ITEM in the collection: Represents if ALL the cells would be saved as an array formula.
-            Returns true if ALL cells would be saved as an array, or false if ALL cells would NOT be saved as an array formula.
-            Returns null if there is a mixture of cells that would and would not be saved as an array formula.
+             * Returns true if ALL cells would be saved as an array, or false if ALL cells would NOT be saved as an array formula.
+             * Returns null if there is a mixture of cells that would and would not be saved as an array formula.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -64003,6 +64457,14 @@ declare namespace Excel {
              * @beta
              */
             id?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Gets or sets the comment thread status. A value of "true" means the comment thread is in the resolved state.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            resolved?: boolean;
         }
         /**
          *
@@ -64053,6 +64515,14 @@ declare namespace Excel {
              * @beta
              */
             id?: boolean;
+            /**
+             *
+             * Gets or sets the comment thread status. A value of "true" means the comment thread is in the resolved state.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            resolved?: boolean;
         }
         /**
          *
@@ -64103,6 +64573,14 @@ declare namespace Excel {
              * @beta
              */
             id?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Gets or sets the comment reply status. A value of "true" means the comment reply is in the resolved state.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            resolved?: boolean;
         }
         /**
          *
@@ -64153,6 +64631,14 @@ declare namespace Excel {
              * @beta
              */
             id?: boolean;
+            /**
+             *
+             * Gets or sets the comment reply status. A value of "true" means the comment reply is in the resolved state.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            resolved?: boolean;
         }
         /**
          *
@@ -67577,7 +68063,7 @@ declare namespace Word {
         readonly revisionNumber: string;
         /**
          *
-         * Gets the security of the document. Read only.
+         * Gets security settings of the document. Read only. Some are access restrictions on the file on disk. Others are Document Protection settings. Some possible values are 0 = File on disk is read/write; 1 = Protect Document: File is encrypted and requires a password to open; 2 = Protect Document: Always Open as Read-Only; 3 = Protect Document: Both #1 and #2; 4 = File on disk is read only; 5 = Both #1 and #4; 6 = Both #2 and #4; 7 = All of #1, #2, and #4; 8 = Protect Document: Restrict Edit to read-only; 9 = Both #1 and #8; 10 = Both #2 and #8; 11 = All of #1, #2, and #8; 12 = Both #4 and #8; 13 = All of #1, #4, and #8; 14 = All of #2, #4, and #8; 15 = All of #1, #2, #4, and #8.
          *
          * [Api set: WordApi 1.3]
          */
@@ -73998,7 +74484,7 @@ declare namespace Word {
             revisionNumber?: string;
             /**
              *
-             * Gets the security of the document. Read only.
+             * Gets security settings of the document. Read only. Some are access restrictions on the file on disk. Others are Document Protection settings. Some possible values are 0 = File on disk is read/write; 1 = Protect Document: File is encrypted and requires a password to open; 2 = Protect Document: Always Open as Read-Only; 3 = Protect Document: Both #1 and #2; 4 = File on disk is read only; 5 = Both #1 and #4; 6 = Both #2 and #4; 7 = All of #1, #2, and #4; 8 = Protect Document: Restrict Edit to read-only; 9 = Both #1 and #8; 10 = Both #2 and #8; 11 = All of #1, #2, and #8; 12 = Both #4 and #8; 13 = All of #1, #4, and #8; 14 = All of #2, #4, and #8; 15 = All of #1, #2, #4, and #8.
              *
              * [Api set: WordApi 1.3]
              */
@@ -75556,7 +76042,7 @@ declare namespace Word {
             revisionNumber?: boolean;
             /**
              *
-             * Gets the security of the document. Read only.
+             * Gets security settings of the document. Read only. Some are access restrictions on the file on disk. Others are Document Protection settings. Some possible values are 0 = File on disk is read/write; 1 = Protect Document: File is encrypted and requires a password to open; 2 = Protect Document: Always Open as Read-Only; 3 = Protect Document: Both #1 and #2; 4 = File on disk is read only; 5 = Both #1 and #4; 6 = Both #2 and #4; 7 = All of #1, #2, and #4; 8 = Protect Document: Restrict Edit to read-only; 9 = Both #1 and #8; 10 = Both #2 and #8; 11 = All of #1, #2, and #8; 12 = Both #4 and #8; 13 = All of #1, #4, and #8; 14 = All of #2, #4, and #8; 15 = All of #1, #2, #4, and #8.
              *
              * [Api set: WordApi 1.3]
              */

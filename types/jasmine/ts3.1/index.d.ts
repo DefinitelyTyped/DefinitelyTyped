@@ -10,6 +10,8 @@
 //                 Domas Trijonis <https://github.com/fdim>
 //                 Peter Safranek <https://github.com/pe8ter>
 //                 Moshe Kolodny <https://github.com/kolodny>
+//                 Stephen Farrar <https://github.com/stephenfarrar>
+//                 Mochamad Arfin <https://github.com/ndunks>
 // For ddescribe / iit use : https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/karma-jasmine/karma-jasmine.d.ts
 
 type ImplementationCallback = (() => Promise<any>) | ((done: DoneFn) => void);
@@ -182,10 +184,10 @@ declare function waitsFor(latchMethod: () => boolean, failureMessage?: string, t
 declare function waits(timeout?: number): void;
 
 declare namespace jasmine {
-    type ExpectedRecursive<T> = T | ObjectContaining<T> | {
+    type ExpectedRecursive<T> = T | ObjectContaining<T> | AsymmetricMatcher | {
         [K in keyof T]: ExpectedRecursive<T[K]> | Any;
     };
-    type Expected<T> = T | ObjectContaining<T> | Any | Spy | {
+    type Expected<T> = T | ObjectContaining<T> | AsymmetricMatcher | Any | Spy | {
         [K in keyof T]: ExpectedRecursive<T[K]>;
     };
     type SpyObjMethodNames<T = undefined> =
@@ -206,6 +208,30 @@ declare namespace jasmine {
     function any(aclass: any): Any;
 
     function anything(): Any;
+
+    /**
+     * That will succeed if the actual value being compared is `true` or anything truthy.
+     * @since 3.1.0
+     */
+    function truthy(): Truthy;
+
+    /**
+     * That will succeed if the actual value being compared is  `null`, `undefined`, `0`, `false` or anything falsey.
+     * @since 3.1.0
+     */
+    function falsy(): Falsy;
+
+    /**
+     * That will succeed if the actual value being compared is empty.
+     * @since 3.1.0
+     */
+    function empty(): Empty;
+
+    /**
+     * That will succeed if the actual value being compared is not empty.
+     * @since 3.1.0
+     */
+    function notEmpty(): NotEmpty;
 
     function arrayContaining<T>(sample: ArrayLike<T>): ArrayContaining<T>;
     function arrayWithExactContents<T>(sample: ArrayLike<T>): ArrayContaining<T>;
@@ -238,21 +264,28 @@ declare namespace jasmine {
         jasmineToString(): string;
     }
 
+    interface AsymmetricMatcher<T extends string = string> {
+      asymmetricMatch(other: any): boolean;
+      jasmineToString?(): T;
+    }
+
+    interface Truthy extends AsymmetricMatcher<'<jasmine.truthy>'> { }
+    interface Falsy extends AsymmetricMatcher<'<jasmine.falsy>'> { }
+    interface Empty extends AsymmetricMatcher<'<jasmine.empty>'> { }
+    interface NotEmpty extends AsymmetricMatcher<'<jasmine.notEmpty>'> { }
+
     // taken from TypeScript lib.core.es6.d.ts, applicable to CustomMatchers.contains()
     interface ArrayLike<T> {
         length: number;
         [n: number]: T;
     }
 
-    interface ArrayContaining<T> {
+    interface ArrayContaining<T> extends AsymmetricMatcher {
         new?(sample: ArrayLike<T>): ArrayLike<T>;
-
-        asymmetricMatch(other: any): boolean;
-        jasmineToString?(): string;
     }
 
     interface ObjectContaining<T> {
-        new?(sample: Partial<T>): Partial<T>;
+        new?(sample: {[K in keyof T]?: any}): {[K in keyof T]?: any};
 
         jasmineMatches(other: any, mismatchKeys: any[], mismatchValues: any[]): boolean;
         jasmineToString?(): string;

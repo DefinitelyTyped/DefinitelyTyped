@@ -1,4 +1,4 @@
-import { Component } from "react";
+import { Component, ReactNode } from "react";
 
 export type EndHandler = (node: HTMLElement, done: () => void) => void;
 export type EnterHandler = (node: HTMLElement, isAppearing: boolean) => void;
@@ -37,7 +37,7 @@ export type TransitionStatus =
     typeof EXITING |
     typeof EXITED |
     typeof UNMOUNTED;
-export type TransitionChildren = React.ReactNode | ((status: TransitionStatus) => React.ReactNode);
+export type TransitionChildren = ReactNode | ((status: TransitionStatus) => ReactNode);
 export interface TransitionProps extends TransitionActions {
     /**
      * Show the component; triggers the enter or exit states

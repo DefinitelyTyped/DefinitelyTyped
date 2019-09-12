@@ -284,6 +284,33 @@ createTimestampWithTimeZoneTypeParser();
   const query1 = sql`SELECT ${'baz'} FROM (${query0})`;
 
   await connection.query(sql`
+      SELECT (${sql.json([1, 2, { test: 12, other: 'test' }])})
+  `);
+
+  await connection.query(sql`
+      SELECT (${sql.json('test')})
+  `);
+
+  await connection.query(sql`
+      SELECT (${sql.json(null)})
+  `);
+
+  await connection.query(sql`
+      SELECT (${sql.json(123)})
+  `);
+
+  await connection.query(sql`
+      SELECT (${sql.json({
+        nested: {
+          object: { is: { this: 'test', other: 12, and: new Date('123') } },
+        },
+      })})
+  `);
+
+  // $ExpectError
+  sql`SELECT ${sql.json(undefined)}`;
+
+  await connection.query(sql`
       SELECT (${sql.valueList([1, 2, 3])})
   `);
 

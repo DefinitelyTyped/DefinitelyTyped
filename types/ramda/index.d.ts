@@ -11,7 +11,6 @@
 //                 Samson Keung <https://github.com/samsonkeung>
 //                 Angelo Ocana <https://github.com/angeloocana>
 //                 Rayner Pupo <https://github.com/raynerd>
-//                 Miika Hänninen <https://github.com/googol>
 //                 Nikita Moshensky <https://github.com/moshensky>
 //                 Ethan Resnick <https://github.com/ethanresnick>
 //                 Jack Leigh <https://github.com/leighman>
@@ -30,7 +29,7 @@
 //                 Aram Kharazyan <https://github.com/nemo108>
 //                 Jituan Lin <https://github.com/jituanlin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.3
+// TypeScript Version: 3.5
 
 /// <reference path="./es/add.d.ts" />
 /// <reference path="./es/addIndex.d.ts" />
@@ -543,6 +542,8 @@
 /// <reference path="./src/zipWith.d.ts" />
 /// <reference path="./src/includes.d.ts" />
 
+import { A, F, T } from "ts-toolbelt";
+
 declare let R: R.Static;
 
 declare namespace R {
@@ -639,7 +640,7 @@ declare namespace R {
         T extends Evolver ? Evolvable<T> :
         never;
 
-    interface Placeholder { __isRamdaPlaceholder__: true; }
+    type Placeholder = A.x & {'@@functional/placeholder': true};
 
     interface Reduced<T> {
         '@@transducer/value': T;
@@ -809,11 +810,11 @@ declare namespace R {
          * Creates a new list iteration function from an existing one by adding two new parameters to its callback
          * function: the current index, and the entire list.
          */
-        addIndex<T, U>(fn: (f: (item: T) => U, list: T[]) => U[]): Curry.Curry<(a: (item: T, idx: number, list?: T[]) => U, b: ReadonlyArray<T>) => U[]>;
+        addIndex<T, U>(fn: (f: (item: T) => U, list: T[]) => U[]): F.Curry<(a: (item: T, idx: number, list?: T[]) => U, b: ReadonlyArray<T>) => U[]>;
         /* Special case for forEach */
-        addIndex<T>(fn: (f: (item: T) => void, list: T[]) => T[]): Curry.Curry<(a: (item: T, idx: number, list?: T[]) => void, b: ReadonlyArray<T>) => T[]>;
+        addIndex<T>(fn: (f: (item: T) => void, list: T[]) => T[]): F.Curry<(a: (item: T, idx: number, list?: T[]) => void, b: ReadonlyArray<T>) => T[]>;
         /* Special case for reduce */
-        addIndex<T, U>(fn: (f: (acc: U, item: T) => U, aci: U, list: T[]) => U): Curry.Curry<(a: (acc: U, item: T, idx: number, list?: T[]) => U, b: U, c: ReadonlyArray<T>) => U>;
+        addIndex<T, U>(fn: (f: (acc: U, item: T) => U, aci: U, list: T[]) => U): F.Curry<(a: (acc: U, item: T, idx: number, list?: T[]) => U, b: U, c: ReadonlyArray<T>) => U>;
 
         /**
          * Applies a function to the value at the given index of an array, returning a new copy of the array with the
@@ -938,7 +939,7 @@ declare namespace R {
         assocPath<T, U>(path: Path, __: Placeholder, obj: U): (val: T) => U;
         assocPath<T, U>(path: Path, val: T, obj: U): U;
         assocPath<T, U>(path: Path, val: T): (obj: U) => U;
-        assocPath<T, U>(path: Path): Curry.Curry<(a: T, b: U) => U>;
+        assocPath<T, U>(path: Path): F.Curry<(a: T, b: U) => U>;
 
         /**
          * Wraps a function of any arity (including nullary) in a function that accepts exactly 2
@@ -1204,7 +1205,7 @@ declare namespace R {
          * Returns a curried equivalent of the provided function. The curried function has two unusual capabilities.
          * First, its arguments needn't be provided one at a time.
          */
-        curry<F extends (...args: any) => any>(f: F): Curry.Curry<F>;
+        curry<F extends (...args: any) => any>(f: F): F.Curry<F>;
 
         /**
          * Returns a curried equivalent of the provided function, with the specified arity. The curried function has
@@ -1342,7 +1343,7 @@ declare namespace R {
          */
         eqBy<T, U = T>(fn: (a: T) => U, a: T, b: T): boolean;
         eqBy<T, U = T>(fn: (a: T) => U, a: T): (b: T) => boolean;
-        eqBy<T, U = T>(fn: (a: T) => U): Curry.Curry<(a: T, b: T) => boolean>;
+        eqBy<T, U = T>(fn: (a: T) => U): F.Curry<(a: T, b: T) => boolean>;
 
         /**
          * Reports whether two functions have the same value for the specified property.
@@ -1413,7 +1414,7 @@ declare namespace R {
          * order is reversed.
          */
         flip<T, U, TResult>(fn: (arg0: T, arg1: U) => TResult): (arg1: U, arg0?: T) => TResult;
-        flip<T, U, TResult>(fn: (arg0: T, arg1: U, ...args: any[]) => TResult): (arg1: U, arg0?: T, ...args: any[]) => TResult;
+        flip<F extends (...args: any) => any, P extends F.Parameters<F>>(fn: F): F.Curry<(...args: T.Merge<[P[1], P[0]], P>) => F.Return<F>>;
 
         /**
          * Iterate over an input list, calling a provided function fn for each element in the list.
@@ -1828,7 +1829,7 @@ declare namespace R {
          */
         maxBy<T>(keyFn: (a: T) => Ord, a: T, b: T): T;
         maxBy<T>(keyFn: (a: T) => Ord, a: T): (b: T) => T;
-        maxBy<T>(keyFn: (a: T) => Ord): Curry.Curry<(a: T, b: T) => T>;
+        maxBy<T>(keyFn: (a: T) => Ord): F.Curry<(a: T, b: T) => T>;
 
         /**
          * Returns the mean of the given list of numbers.
@@ -1949,7 +1950,7 @@ declare namespace R {
          */
         minBy<T>(keyFn: (a: T) => Ord, a: T, b: T): T;
         minBy<T>(keyFn: (a: T) => Ord, a: T): (b: T) => T;
-        minBy<T>(keyFn: (a: T) => Ord): Curry.Curry<(a: T, b: T) => T>;
+        minBy<T>(keyFn: (a: T) => Ord): F.Curry<(a: T, b: T) => T>;
 
         /**
          * Divides the second parameter by the first and returns the remainder.
@@ -2125,7 +2126,7 @@ declare namespace R {
          */
         pathEq(path: Path, val: any, obj: any): boolean;
         pathEq(path: Path, val: any): (obj: any) => boolean;
-        pathEq(path: Path): Curry.Curry<(a: any, b: any) => boolean>;
+        pathEq(path: Path): F.Curry<(a: any, b: any) => boolean>;
 
         /**
          * If the given, non-null object has a value at the given path, returns the value at that path.
@@ -2133,14 +2134,14 @@ declare namespace R {
          */
         pathOr<T>(defaultValue: T, path: Path, obj: any): T;
         pathOr<T>(defaultValue: T, path: Path): (obj: any) => T;
-        pathOr<T>(defaultValue: T): Curry.Curry<(a: Path, b: any) => T>;
+        pathOr<T>(defaultValue: T): F.Curry<(a: Path, b: any) => T>;
 
         /**
          * Returns true if the specified object property at given path satisfies the given predicate; false otherwise.
          */
         pathSatisfies<T, U>(pred: (val: T) => boolean, path: Path, obj: U): boolean;
         pathSatisfies<T, U>(pred: (val: T) => boolean, path: Path): (obj: U) => boolean;
-        pathSatisfies<T, U>(pred: (val: T) => boolean): Curry.Curry<(a: Path, b: U) => boolean>;
+        pathSatisfies<T, U>(pred: (val: T) => boolean): F.Curry<(a: Path, b: U) => boolean>;
 
         /**
          * Returns a partial copy of an object containing only the keys specified.  If the key does not exist, the
@@ -2591,7 +2592,7 @@ declare namespace R {
          */
         propSatisfies<T, U>(pred: (val: T) => boolean, name: string, obj: U): boolean;
         propSatisfies<T, U>(pred: (val: T) => boolean, name: string): (obj: U) => boolean;
-        propSatisfies<T, U>(pred: (val: T) => boolean): Curry.Curry<(a: string, b: U) => boolean>;
+        propSatisfies<T, U>(pred: (val: T) => boolean): F.Curry<(a: string, b: U) => boolean>;
 
         /**
          * Returns a list of numbers from `from` (inclusive) to `to`
@@ -2616,8 +2617,8 @@ declare namespace R {
          */
         reduceBy<T, TResult>(valueFn: (acc: TResult, elem: T) => TResult, acc: TResult, keyFn: (elem: T) => string, list: ReadonlyArray<T>): { [index: string]: TResult };
         reduceBy<T, TResult>(valueFn: (acc: TResult, elem: T) => TResult, acc: TResult, keyFn: (elem: T) => string): (list: ReadonlyArray<T>) => { [index: string]: TResult };
-        reduceBy<T, TResult>(valueFn: (acc: TResult, elem: T) => TResult, acc: TResult): Curry.Curry<(a: (elem: T) => string, b: ReadonlyArray<T>) => { [index: string]: TResult }>;
-        reduceBy<T, TResult>(valueFn: (acc: TResult, elem: T) => TResult): Curry.Curry<(a: TResult, b: (elem: T) => string, c: ReadonlyArray<T>) => { [index: string]: TResult }>;
+        reduceBy<T, TResult>(valueFn: (acc: TResult, elem: T) => TResult, acc: TResult): F.Curry<(a: (elem: T) => string, b: ReadonlyArray<T>) => { [index: string]: TResult }>;
+        reduceBy<T, TResult>(valueFn: (acc: TResult, elem: T) => TResult): F.Curry<(a: TResult, b: (elem: T) => string, c: ReadonlyArray<T>) => { [index: string]: TResult }>;
 
         /**
          * Returns a value wrapped to indicate that it is the final value of the reduce and
@@ -2643,8 +2644,8 @@ declare namespace R {
          */
         reduceWhile<T, TResult>(predicate: (acc: TResult, elem: T) => boolean, fn: (acc: TResult, elem: T) => TResult, acc: TResult, list: ReadonlyArray<T>): TResult;
         reduceWhile<T, TResult>(predicate: (acc: TResult, elem: T) => boolean, fn: (acc: TResult, elem: T) => TResult, acc: TResult): (list: ReadonlyArray<T>) => TResult;
-        reduceWhile<T, TResult>(predicate: (acc: TResult, elem: T) => boolean, fn: (acc: TResult, elem: T) => TResult): Curry.Curry<(a: TResult, b: ReadonlyArray<T>) => TResult>;
-        reduceWhile<T, TResult>(predicate: (acc: TResult, elem: T) => boolean): Curry.Curry<(a: (acc: TResult, elem: T) => TResult, b: TResult, c: ReadonlyArray<T>) => TResult>;
+        reduceWhile<T, TResult>(predicate: (acc: TResult, elem: T) => boolean, fn: (acc: TResult, elem: T) => TResult): F.Curry<(a: TResult, b: ReadonlyArray<T>) => TResult>;
+        reduceWhile<T, TResult>(predicate: (acc: TResult, elem: T) => boolean): F.Curry<(a: (acc: TResult, elem: T) => TResult, b: TResult, c: ReadonlyArray<T>) => TResult>;
 
         /**
          * Similar to `filter`, except that it keeps only values for which the given predicate
@@ -2798,7 +2799,7 @@ declare namespace R {
          * Duplication is determined according to the value returned by applying the supplied predicate to two list elements.
          */
         symmetricDifferenceWith<T>(pred: (a: T, b: T) => boolean, list1: ReadonlyArray<T>, list2: ReadonlyArray<T>): T[];
-        symmetricDifferenceWith<T>(pred: (a: T, b: T) => boolean): Curry.Curry<(a: ReadonlyArray<T>, b: ReadonlyArray<T>) => T[]>;
+        symmetricDifferenceWith<T>(pred: (a: T, b: T) => boolean): F.Curry<(a: ReadonlyArray<T>, b: ReadonlyArray<T>) => T[]>;
 
         /**
          * A function that always returns true. Any passed in parameters are ignored.
@@ -2872,7 +2873,7 @@ declare namespace R {
          * Creates a thunk out of a function.
          * A thunk delays a calculation until its result is needed, providing lazy evaluation of arguments.
          */
-        thunkify<F extends (...args: any[]) => any>(fn: F): Curry.Curry<(...args: Parameters<F>) => (() => ReturnType<F>)>;
+        thunkify<F extends (...args: any[]) => any>(fn: F): F.Curry<(...args: Parameters<F>) => (() => ReturnType<F>)>;
 
         /**
          * Calls an input function `n` times, returning an array containing the results of those
@@ -3004,7 +3005,7 @@ declare namespace R {
          * determined according to the value returned by applying the supplied predicate to two list elements.
          */
         unionWith<T>(pred: (a: T, b: T) => boolean, list1: ReadonlyArray<T>, list2: ReadonlyArray<T>): T[];
-        unionWith<T>(pred: (a: T, b: T) => boolean): Curry.Curry<(a: ReadonlyArray<T>, b: ReadonlyArray<T>) => T[]>;
+        unionWith<T>(pred: (a: T, b: T) => boolean): F.Curry<(a: ReadonlyArray<T>, b: ReadonlyArray<T>) => T[]>;
 
         /**
          * Returns a new list containing only one copy of each element in the original list.

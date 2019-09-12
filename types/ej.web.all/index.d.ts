@@ -1,4 +1,4 @@
-// Type definitions for non-npm package ej.web.all 17.1
+// Type definitions for non-npm package ej.web.all 17.2
 // Project: http://help.syncfusion.com/js/typescript
 // Definitions by: Syncfusion <https://github.com/syncfusion>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -8,7 +8,7 @@
 
 /*!
 *  filename: ej.web.all.d.ts
-*  version : 17.1.0.47
+*  version : 17.2.0.46
 *  Copyright Syncfusion Inc. 2001 - 2019. All rights reserved.
 *  Use of this code is subject to the terms of our license.
 *  A copy of the current license can be obtained at any time by e-mailing
@@ -6924,6 +6924,11 @@ declare namespace ej {
              */
             buttonText?: ButtonText;
 
+            /** Disable the list of specified date value.
+             * @Default {{}}
+             */
+            blackoutDates?: any;
+
             /** Set the root class for DateTimePicker theme. This cssClass API helps to use custom skinning option for DateTimePicker control.
              */
             cssClass?: string;
@@ -6942,6 +6947,11 @@ declare namespace ej {
              * See ej.DatePicker.Level
              */
             depthLevel?: ej.DatePicker.Level|string;
+
+            /** Specifies the list of time range to be disabled.
+             * @Default {{}}
+             */
+            disableTimeRanges?: any;
 
             /** Enable or disable the animation effect in DateTimePicker.
              * @Default {true}
@@ -7028,6 +7038,11 @@ declare namespace ej {
              * @Default {false}
              */
             showRoundedCorner?: boolean;
+
+            /** Specifies the special dates in DateTimePicker.
+             * @Default {null}
+             */
+            specialDates?: any;
 
             /** Specifies the start day of the week in datepicker inside the DateTimePicker popup.
              * @Default {1}
@@ -37679,6 +37694,10 @@ declare namespace ej {
              */
             toolbarSettings?: ToolbarSettings;
 
+            /** Specifies the parameter settings.
+             */
+            parameterSettings?: ParameterSettings;
+
             /** Gets or sets the zoom factor for report viewer.
              * @Default {1}
              */
@@ -38210,6 +38229,26 @@ declare namespace ej {
             customGroups?: any[];
         }
 
+        export interface ParameterSettings {
+
+            /** Sets the separator when the multiSelectMode with delimiter option or checkbox is enabled with the dropdown. When you enter the delimiter value, the texts after the delimiter are
+             * considered as a separate word or query. The delimiter string is a single character and must be a symbol. Mostly, the delimiter symbol is used as comma (,) or semi-colon (;) or
+             * any other special character.
+             * @Default {,}
+             */
+            delimiterChar?: string;
+
+            /** Specifies the height of the combobox parameter popup list. By default, the popup height value is &quot;152px&quot;.
+             * @Default {152px}
+             */
+            popupHeight?: string;
+
+            /** Specifies the width of the combobox parameter popup list. By default, the popup width sets based on the width of the component.
+             * @Default {auto}
+             */
+            popupWidth?: string;
+        }
+
         enum ExportOptions {
 
             ///Specifies the All property in ExportOptions to get all available options.
@@ -38697,11 +38736,6 @@ declare namespace ej {
          * @returns {void}
          */
         updateResponsiveMinWidth(width: string): void;
-
-        /** To delete a selected row in TreeGrid.
-         * @returns {void}
-         */
-        deleteRow(): void;
     }
     export namespace TreeGrid {
 
@@ -44627,9 +44661,10 @@ declare namespace ej {
              * @param {string} Pass the location range
              * @param {string} Pass the sparkline chart type
              * @param {Spreadsheet.SparklineOptions} Pass Object SparklineOptions.
+             * @param {number} Pass the sheetIndex
              * @returns {void}
              */
-            createSparkline(dataRange: string, locationRange: string, type: string, options: Spreadsheet.SparklineOptions): void;
+            createSparkline(dataRange: string, locationRange: string, type: string, options: Spreadsheet.SparklineOptions, sheetIndex: number): void;
 
             /** This method used to change the sparkline color and marker point color in the spreadsheet.
              * @param {string} Pass the sparkline ID
@@ -49388,6 +49423,34 @@ declare namespace ej {
         model: ReportDesigner.Model;
         defaults: ReportDesigner.Model;
 
+        /** Add a dataset to the report at runtime.
+         * @param {any} a JSON to define a connection properties for dataset.
+         * @returns {void}
+         */
+        addDataSet(dataset: any): void;
+
+        /** Add a datasource to the report at runtime.
+         * @param {any} a JSON to define a connection properties for datasource.
+         * @returns {void}
+         */
+        addDataSource(datasource: any): void;
+
+        /** Add a report item to the report at runtime.
+         * @param {any} JSON for the new report item to be added
+         * @returns {void}
+         */
+        addReportItem(item: any): void;
+
+        /** Visually move the selected report item over its closest intersected report items.
+         * @returns {void}
+         */
+        bringForward(): void;
+
+        /** Visually move the selected report item over all other intersected report items.
+         * @returns {void}
+         */
+        bringToFront(): void;
+
         /** Determines whether a copy operation is possible.
          * @returns {boolean}
          */
@@ -49398,57 +49461,64 @@ declare namespace ej {
          */
         canCut(): boolean;
 
-        /** Determines whether a delete operation is possible.
-         * @returns {boolean}
-         */
-        canRemove(): boolean;
-
         /** Determines whether a paste operation is possible.
          * @returns {boolean}
          */
         canPaste(): boolean;
 
-        /** Returns the bool value indicating whether the user can redo the previous action in the report.
+        /** Returns the boolean value indicating whether the user can redo the previous action in the report.
          * @returns {boolean}
          */
         canRedo(): boolean;
 
-        /** Returns a bool value indicating whether the user can undo the previous action in the report.
+        /** Determines whether a delete operation is possible.
+         * @returns {boolean}
+         */
+        canRemove(): boolean;
+
+        /** Returns a boolean value indicating whether the user can undo the previous action in the report.
          * @returns {boolean}
          */
         canUndo(): boolean;
 
-        /** Copies the selected ReportItem from design panel to Report Designer internal clipboard.
+        /** Clone the existing dataset in the report at runtime.
+         * @param {string} Name of the existing dataset.
+         * @returns {void}
+         */
+        cloneDataSet(name: string): void;
+
+        /** Clone the existing datasource in the report at runtime.
+         * @param {string} Name of the existing datasource.
+         * @returns {void}
+         */
+        cloneDataSource(name: string): void;
+
+        /** Copies the selected report item from design panel to the Report Designer internal clipboard.
          * @returns {void}
          */
         copy(): void;
 
-        /** Cuts the selected ReportItem from design panel to Report Designer internal clipboard.
+        /** Cuts the selected report item from design panel to the Report Designer internal clipboard.
          * @returns {void}
          */
         cut(): void;
 
-        /** Deletes the selected item from the report.
-         * @returns {void}
-         */
-        remove(): void;
-
-        /** Returns the bool value that specifies whether the report has changes or not.
+        /** Returns the boolean value that specifies whether the report has changes or not.
          * @returns {boolean}
          */
         hasReportChanges(): boolean;
 
-        /** Returns the bool value that specifies whether the currently processing report is a new report or not.
+        /** Returns the boolean value that specifies whether the currently processing report is a new report or not.
          * @returns {boolean}
          */
         isNewReport(): boolean;
 
-        /** Returns the bool value that specifies whether the currently processing report is a new server report or not.
+        /** Returns the boolean value that specifies whether the currently processing report is a new server report or not.
          * @returns {boolean}
          */
         isNewServerReport(): boolean;
 
-        /** Returns the bool value that specifies whether the currently processing report is obtained from the server or local.
+        /** Returns the boolean value that specifies whether the currently processing report is obtained from the server or local.
          * @returns {boolean}
          */
         isServerReport(): boolean;
@@ -49463,22 +49533,22 @@ declare namespace ej {
          */
         newServerReport(): void;
 
-        /** This method opens the report from the ReportServer.
+        /** This method opens the report from the server.
          * @returns {void}
          */
         openReport(): void;
 
-        /** To open the report client browse dialog.
+        /** Opens the client browse dialog to browse the report.
          * @returns {void}
          */
         openReportFromDevice(): void;
 
-        /** To open the report open server browse dialog.
+        /** Opens the report designer browse dialog to browse the available reports in the reportserver.
          * @returns {void}
          */
         openServerReportDialog(): void;
 
-        /** Pastes the selected ReportItem from Report Designer internal clipboard to design panel.
+        /** Pastes the selected report item from the Report Designer internal clipboard to design panel.
          * @returns {void}
          */
         paste(): void;
@@ -49488,12 +49558,35 @@ declare namespace ej {
          */
         redo(): void;
 
-        /** This method saves the report into the ReportServer.
+        /** Deletes the selected report item from the report.
+         * @returns {void}
+         */
+        remove(): void;
+
+        /** Remove a dataset from the report at runtime.
+         * @param {string} Name of the dataset.
+         * @returns {void}
+         */
+        removeDataSet(dataset: string): void;
+
+        /** Remove a datasource from the report at runtime.
+         * @param {string} Name of the datasource.
+         * @returns {void}
+         */
+        removeDatasource(datasource: string): void;
+
+        /** Remove the given report item from the report.
+         * @param {string} Name of the report item to be removed from report
+         * @returns {void}
+         */
+        removeReportItem(itemName: string): void;
+
+        /** This method saves the report into the server.
          * @returns {void}
          */
         saveReport(): void;
 
-        /** To open the report save server browse dialog.
+        /** Opens the report designer browse dialog to save the report into server.
          * @returns {void}
          */
         saveServerReportDialog(): void;
@@ -49503,7 +49596,23 @@ declare namespace ej {
          */
         saveToDevice(): void;
 
-        /** To show the report design.
+        /** Update the selection to report item at runtime.
+         * @param {string} Name of the report item.
+         * @returns {void}
+         */
+        selectReportItem(itemName: string): void;
+
+        /** Visually move the selected report item behind its closest intersected report item.
+         * @returns {void}
+         */
+        sendBackward(): void;
+
+        /** Visually move the selected report item behind all other intersected report items.
+         * @returns {void}
+         */
+        sendToBack(): void;
+
+        /** Performs switch action from viewer to designer at runtime.
          * @returns {void}
          */
         showDesign(): void;
@@ -49518,7 +49627,7 @@ declare namespace ej {
          */
         showOpenSaveReportDialog(): void;
 
-        /** To show the report preview.
+        /** Performs switch action from designer to viewer at runtime.
          * @returns {void}
          */
         showPreview(): void;
@@ -49527,22 +49636,51 @@ declare namespace ej {
          * @returns {void}
          */
         undo(): void;
+
+        /** Update the dataset in the report at runtime.
+         * @param {string} Name of the existing dataset.
+         * @param {any} a JSON to define a connection properties for dataset.
+         * @returns {void}
+         */
+        updateDataset(datasetName: string, dataset: any): void;
+
+        /** Update the datasource in the report at runtime.
+         * @param {string} Name of the existing datasource.
+         * @param {any} a JSON to define a connection properties for datasource.
+         * @returns {void}
+         */
+        updateDatasource(datasourceName: string, datasource: any): void;
     }
     export namespace ReportDesigner {
 
         export interface Model {
+
+            /** Shows or hides the items of configuration pane in ReportDesigner control.
+             * @Default {ej.ReportDesigner.ConfigureItems.All}
+             */
+            configurePaneSettings?: ConfigurePaneSettings;
 
             /** Specifies the locale for report designer.
              * @Default {en-US}
              */
             locale?: string;
 
-            /** Gets or Sets the report path of server.
+            /** Gets or sets the list of custom data extension items.
+             * @Default {[]}
+             */
+            reportDataExtensions?: ReportDataExtension[];
+
+            /** Gets or sets the list of custom report items.
+             * @Default {[]}
+             */
+            reportItemExtensions?: ReportItemExtension[];
+
+            /** Gets or sets the report path of server.
              * @Default {null}
              */
             reportPath?: string;
 
-            /** Gets or Sets the reports server URL.
+            /** Gets or sets the reports server URL.
              * @Default {null}
              */
             reportServerUrl?: string;
@@ -49552,12 +49690,17 @@ declare namespace ej {
              */
             serviceAuthorizationToken?: string;
 
-            /** Gets or Sets the URL of the  WebAPI service; it will be used for processing the report.
+            /** Gets or sets the URL of the  WebAPI service; it will be used for processing the report.
              * @Default {null}
              */
             serviceUrl?: string;
 
-            /** Specifies the toolbar settings.
+            /** Gets or sets the tenant name of the user groups; it will be used when integrating report designer with server.
+             * @Default {null}
+             */
+            tenantName?: string;
+
+            /** Defines the settings of the ReportDesigner toolbar.
              */
             toolbarSettings?: ToolbarSettings;
 
@@ -49608,6 +49751,10 @@ declare namespace ej {
             /** This event will be triggered on rendering the Report Designer toolbar.
              */
             toolbarRendering?(e: ToolbarRenderingEventArgs): void;
+
+            /** This event will be triggered on locale change action in report designer.
+             */
+            extensionLocaleChanged?(e: ExtensionLocaleChangedEventArgs): void;
         }
 
         export interface AjaxBeforeLoadEventArgs {
@@ -49714,6 +49861,73 @@ declare namespace ej {
         export interface ToolbarRenderingEventArgs {
         }
 
+        export interface ExtensionLocaleChangedEventArgs {
+        }
+
+        export interface ConfigurePaneSettings {
+
+            /** Shows or hides the configuration pane in ReportDesigner control.
+             * @Default {true}
+             */
+            showConfigurePane?: boolean;
+        }
+
+        export interface ReportDataExtension {
+
+            /** Gets or sets the name of the datasource type.
+             * @Default {empty}
+             */
+            name?: string;
+
+            /** Gets or sets the class name of the data extension.
+             * @Default {empty}
+             */
+            className?: string;
+
+            /** Gets or sets the image class name to load image in data pane tile.
+             * @Default {empty}
+             */
+            imageClass?: string;
+
+            /** Gets or sets the name for data extension item to display in the data pane tile.
+             * @Default {empty}
+             */
+            displayName?: string;
+        }
+
+        export interface ReportItemExtension {
+
+            /** Gets or sets the name for the report item.
+             * @Default {empty}
+             */
+            name?: string;
+
+            /** Gets or sets the class name of the report item.
+             * @Default {empty}
+             */
+            className?: string;
+
+            /** Gets or sets the image class name to load image in widgets pane tile.
+             * @Default {empty}
+             */
+            imageClass?: string;
+
+            /** Gets or sets the name for custom report item to display in the widgets pane tile.
+             * @Default {empty}
+             */
+            displayName?: string;
+
+            /** Gets or sets the category name for the report item.
+             * @Default {empty}
+             */
+            category?: string;
+
+            /** Gets information to provide content for custom report item tooltip.
+             * @Default {null}
+             */
+            toolTip?: any;
+        }
+
         export interface ToolbarSettings {
 
             /** Shows or hides the grouped items in the toolbar with the help of enum ej.ReportDesigner.ToolbarItems.
@@ -49775,6 +49989,18 @@ declare namespace ej {
 
             ///Enables footer area in the report.
             Footer,
+
+            ///Visually move the selected report item behind its closest intersected report item.
+            SendBackward,
+
+            ///Visually move the selected report item over its closest intersected report items.
+            BringForward,
+
+            ///Visually move the selected report item behind all other intersected report items.
+            SendToBack,
+
+            ///Visually move the selected report item over all other intersected report items.
+            BringToFront,
 
             ///Switches from preview to design view of the report.
             EditDesign,

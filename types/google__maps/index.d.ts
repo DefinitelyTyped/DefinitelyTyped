@@ -575,7 +575,7 @@ export interface DirectionsRequest {
      *    This option is only available if the request contains a valid API key, or a valid Google Maps APIs Premium Plan client ID
      *    and signature. The `departure_time` must be set to the current time or some time in the future. It cannot be in the past.
      */
-    departure_time?: Date | number;
+    departure_time?: Date | number | 'now';
     /**
      * Specifies the assumptions to use when calculating time in traffic.
      * This setting affects the value returned in the `duration_in_traffic` field in the response, which contains the predicted time
@@ -1985,7 +1985,7 @@ export interface GeocodingRequest {
  */
 export interface GeocodingComponents {
     /** matches `postal_code` and `postal_code_prefix`. */
-    postalCode?: string;
+    postal_code?: string;
     /**
      * matches a country name or a two letter [ISO 3166-1](https://en.wikipedia.org/wiki/ISO_3166-1) country code.
      * **Note:** The API follows the ISO standard for defining countries, and the filtering works best when using
@@ -1997,7 +1997,7 @@ export interface GeocodingComponents {
     /** matches against `locality` and `sublocality` types. */
     locality?: string;
     /** matches all the administrative_area levels. */
-    administrativeArea?: string;
+    administrative_area?: string;
 }
 
 export interface GeocodingResponse<STATUSES = GeocodingResponseStatus> {

@@ -16,6 +16,7 @@ export {
     OIDCStrategy,
     IOIDCStrategyOption,
     IOIDCStrategyOptionWithRequest,
+    IOIDCStrategyOptionWithoutRequest,
     IProfile,
     VerifyOIDCFunction,
     VerifyOIDCFunctionWithReq

@@ -14,6 +14,7 @@
 //                 Mark Nelissen <https://github.com/marknelissen>
 //                 Eric Kenney <https://github.com/KenneyE>
 //                 Paito Anderson <https://github.com/PaitoAnderson>
+//                 Jan Michalak <https://github.com/michalak111>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 import { Validator } from 'prop-types';
@@ -137,7 +138,6 @@ export interface Components<TEvent extends object = Event> {
     event?: React.ComponentType<EventProps<TEvent>>;
     eventWrapper?: React.ComponentType<EventWrapperProps<TEvent>>;
     eventContainerWrapper?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
-    dayWrapper?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
     dateCellWrapper?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
     timeSlotWrapper?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
     timeGutterHeader?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
@@ -301,7 +301,7 @@ export interface CalendarProps<TEvent extends object = Event, TResource extends 
     resourceAccessor?: keyof TEvent | ((event: TEvent) => any);
     resources?: TResource[];
     resourceIdAccessor?: keyof TResource | ((resource: TResource) => any);
-    resourceTitleAccessor?: keyof TResource | ((resource: TResource) => string);
+    resourceTitleAccessor?: keyof TResource | ((resource: TResource) => any);
     defaultView?: View;
     defaultDate?: Date;
     className?: string;
@@ -326,7 +326,6 @@ export class Calendar<
 
 export interface components {
     dateCellWrapper: React.ComponentType;
-    dayWrapper: React.ComponentType;
     eventWrapper: React.ComponentType<Event>;
 }
 export function globalizeLocalizer(globalizeInstance: object): DateLocalizer;

@@ -1,4 +1,4 @@
-// Type definitions for Chart.js 2.7
+// Type definitions for Chart.js 2.8
 // Project: https://github.com/nnnick/Chart.js, https://www.chartjs.org
 // Definitions by: Alberto Nuti <https://github.com/anuti>
 //                 Fabien Lavocat <https://github.com/FabienLavocat>
@@ -17,6 +17,7 @@
 //                 Adrián Caballero <https://github.com/adripanico>
 //                 wertzui <https://github.com/wertzui>
 //                 Martin Trobäck <https://github.com/lekoaf>
+//                 Elian Cordoba <https://github.com/ElianCordoba>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -133,6 +134,12 @@ declare namespace Chart {
         'easeInOutSine' | 'easeInExpo' | 'easeOutExpo' | 'easeInOutExpo' | 'easeInCirc' | 'easeOutCirc' | 'easeInOutCirc' | 'easeInElastic' |
         'easeOutElastic' | 'easeInOutElastic' | 'easeInBack' | 'easeOutBack' | 'easeInOutBack' | 'easeInBounce' | 'easeOutBounce' | 'easeInOutBounce';
 
+    type TextAlignment = 'left' | 'center' | 'right';
+
+    type BorderAlignment = 'center' | 'inner';
+
+    type BorderWidth = number | { [key in PositionType]?: number };
+
     interface ChartArea {
         top: number;
         right: number;
@@ -213,9 +220,9 @@ declare namespace Chart {
         datasets?: ChartDataSets[];
     }
 
-	interface RadialChartOptions extends ChartOptions {
-		scale?: RadialLinearScale;
-	}
+    interface RadialChartOptions extends ChartOptions {
+        scale?: RadialLinearScale;
+    }
 
     interface ChartSize {
         height: number;
@@ -239,6 +246,7 @@ declare namespace Chart {
         animation?: ChartAnimationOptions;
         elements?: ChartElementsOptions;
         layout?: ChartLayoutOptions;
+        scale?: { display?: boolean };
         scales?: ChartScales;
         showLines?: boolean;
         spanGaps?: boolean;
@@ -296,17 +304,20 @@ declare namespace Chart {
         mode?: InteractionMode;
         intersect?: boolean;
         backgroundColor?: ChartColor;
+        titleAlign?: TextAlignment;
         titleFontFamily?: string;
         titleFontSize?: number;
         titleFontStyle?: string;
         titleFontColor?: ChartColor;
         titleSpacing?: number;
         titleMarginBottom?: number;
+        bodyAlign?: TextAlignment;
         bodyFontFamily?: string;
         bodyFontSize?: number;
         bodyFontStyle?: string;
         bodyFontColor?: ChartColor;
         bodySpacing?: number;
+        footerAlign?: TextAlignment;
         footerFontFamily?: string;
         footerFontSize?: number;
         footerFontStyle?: string;
@@ -320,7 +331,7 @@ declare namespace Chart {
         multiKeyBackground?: string;
         callbacks?: ChartTooltipCallback;
         filter?(item: ChartTooltipItem, data: ChartData): boolean;
-        itemSort?(itemA: ChartTooltipItem, itemB: ChartTooltipItem): number;
+        itemSort?(itemA: ChartTooltipItem, itemB: ChartTooltipItem, data?: ChartData): number;
         position?: string;
         caretPadding?: number;
         displayColors?: boolean;
@@ -452,7 +463,7 @@ declare namespace Chart {
 
     interface TickOptions extends NestedTickOptions {
         minor?: NestedTickOptions | false;
-        major?: NestedTickOptions | false;
+        major?: MajorTickOptions | false;
     }
 
     interface NestedTickOptions {
@@ -485,6 +496,10 @@ declare namespace Chart {
         suggestedMin?: number;
     }
 
+    interface MajorTickOptions extends NestedTickOptions {
+        enabled?: boolean;
+    }
+
     interface AngleLineOptions {
         display?: boolean;
         color?: ChartColor;
@@ -513,34 +528,46 @@ declare namespace Chart {
 
     type ChartColor = string | CanvasGradient | CanvasPattern | string[];
 
+    type Scriptable<T> = (ctx: {
+        chart?: Chart;
+        dataIndex?: number;
+        dataset?: ChartDataSets
+        datasetIndex?: number;
+    }) => T;
+
     interface ChartDataSets {
         cubicInterpolationMode?: 'default' | 'monotone';
-        backgroundColor?: ChartColor | ChartColor[];
-        borderWidth?: number | number[];
-        borderColor?: ChartColor | ChartColor[];
+        backgroundColor?: ChartColor | ChartColor[] | Scriptable<ChartColor>;
+        borderAlign?: BorderAlignment | BorderAlignment[] | Scriptable<BorderAlignment>;
+        borderWidth?: BorderWidth | BorderWidth[] | Scriptable<BorderWidth>;
+        borderColor?: ChartColor | ChartColor[] | Scriptable<ChartColor>;
         borderCapStyle?: 'butt' | 'round' | 'square';
         borderDash?: number[];
         borderDashOffset?: number;
         borderJoinStyle?: 'bevel' | 'round' | 'miter';
-        borderSkipped?: PositionType;
+        borderSkipped?: PositionType | PositionType[] | Scriptable<PositionType>;
         data?: Array<number | null | undefined> | ChartPoint[];
         fill?: boolean | number | string;
-        hoverBackgroundColor?: ChartColor | ChartColor[];
-        hoverBorderColor?: ChartColor | ChartColor[];
-        hoverBorderWidth?: number | number[];
+        hitRadius?: number | number[] | Scriptable<number>;
+        hoverBackgroundColor?: ChartColor | ChartColor[] | Scriptable<ChartColor>;
+        hoverBorderColor?: ChartColor | ChartColor[] | Scriptable<ChartColor>;
+        hoverBorderWidth?: number | number[] | Scriptable<number>;
         label?: string;
         lineTension?: number;
         steppedLine?: 'before' | 'after' | 'middle' | boolean;
-        pointBorderColor?: ChartColor | ChartColor[];
-        pointBackgroundColor?: ChartColor | ChartColor[];
-        pointBorderWidth?: number | number[];
-        pointRadius?: number | number[];
-        pointHoverRadius?: number | number[];
-        pointHitRadius?: number | number[];
-        pointHoverBackgroundColor?: ChartColor | ChartColor[];
-        pointHoverBorderColor?: ChartColor | ChartColor[];
-        pointHoverBorderWidth?: number | number[];
-        pointStyle?: PointStyle | HTMLImageElement | HTMLCanvasElement | Array<PointStyle | HTMLImageElement | HTMLCanvasElement>;
+        pointBorderColor?: ChartColor | ChartColor[] | Scriptable<ChartColor>;
+        pointBackgroundColor?: ChartColor | ChartColor[] | Scriptable<ChartColor>;
+        pointBorderWidth?: number | number[] | Scriptable<number>;
+        pointRadius?: number | number[] | Scriptable<number>;
+        pointRotation?: number | number[] | Scriptable<number>;
+        pointHoverRadius?: number | number[] | Scriptable<number>;
+        pointHitRadius?: number | number[] | Scriptable<number>;
+        pointHoverBackgroundColor?: ChartColor | ChartColor[] | Scriptable<ChartColor>;
+        pointHoverBorderColor?: ChartColor | ChartColor[] | Scriptable<ChartColor>;
+        pointHoverBorderWidth?: number | number[] | Scriptable<number>;
+        pointStyle?: PointStyle | HTMLImageElement | HTMLCanvasElement | Array<PointStyle | HTMLImageElement | HTMLCanvasElement> | Scriptable<PointStyle | HTMLImageElement | HTMLCanvasElement>;
+        radius?: number | number[] | Scriptable<number>;
+        rotation?: number | number[] | Scriptable<number>;
         xAxisID?: string;
         yAxisID?: string;
         type?: ChartType | string;
@@ -573,6 +600,7 @@ declare namespace Chart {
         gridLines?: GridLineOptions;
         barThickness?: number | "flex";
         maxBarThickness?: number;
+        minBarLength?: number;
         scaleLabel?: ScaleTitleOptions;
         time?: TimeScale;
         offset?: boolean;

@@ -44,6 +44,7 @@ class Book extends Model<typeof Book, BookFields> {
     static options = {
         idAttribute: 'title' as const
     };
+
     static reducer(action: RootAction, Book: ModelType<Book>) {
         switch (action.type) {
             case 'CREATE_BOOK':
@@ -380,11 +381,7 @@ const sessionFixture = () => {
 
     type TestSelector = (state: RootState) => Ref<Book>;
 
-    const selector0 = createOrmSelector(
-        orm,
-        s => s.db,
-        session => session.Book.first()!.ref
-    ) as TestSelector;
+    const selector0 = createOrmSelector(orm, s => s.db, session => session.Book.first()!.ref) as TestSelector;
 
     const selector1 = createOrmSelector(
         orm,
@@ -504,3 +501,6 @@ const sessionFixture = () => {
     Book.create({ title: 'foo', publisher: 'error' }); // $ExpectError
     Book.create({ title: 'foo', publisher, coverArt: 'bar', authors: [3, author] }); // $ExpectError
 })();
+
+// redux-orm-types#18
+(() => many({ to: 'Bar', relatedName: 'foos', through: 'FooBar', throughFields: ['foo', 'bar'] }))();

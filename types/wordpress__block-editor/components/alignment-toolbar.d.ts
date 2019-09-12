@@ -9,8 +9,8 @@ declare namespace AlignmentToolbar {
             title: string;
         }>;
         children?: never;
-        value: string;
-        onChange(newValue?: string): void;
+        value: string | undefined;
+        onChange(newValue: string | undefined): void;
     }
 }
 

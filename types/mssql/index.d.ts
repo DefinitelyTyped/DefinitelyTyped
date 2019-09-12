@@ -1,4 +1,4 @@
-// Type definitions for mssql 4.0.5
+// Type definitions for mssql 4.3.0
 // Project: https://www.npmjs.com/package/mssql
 // Definitions by: COLSA Corporation <http://www.colsa.com/>
 //                 Ben Farr <https://github.com/jaminfarr>
@@ -10,7 +10,7 @@
 //                 Jeff Wooden <https://github.com/woodenconsulting>
 //                 Cahil Foley <https://github.com/cahilfoley>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.9
 
 /// <reference types="node" />
 
@@ -209,7 +209,16 @@ export declare class ConnectionPool extends events.EventEmitter {
     public driver: string;
     public constructor(config: config, callback?: (err?: any) => void);
     public constructor(connectionString: string, callback?: (err?: any) => void);
+    public query(command: string): Promise<IResult<any>>;
     public query(strings: TemplateStringsArray, ...interpolations: any[]): Promise<IResult<any>>;
+    public query<Entity>(command: string): Promise<IResult<Entity>>;
+    public query<Entity>(strings: TemplateStringsArray, ...interpolations: any[]): Promise<IResult<Entity>>;
+    public query<Entity>(command: string, callback: (err?: Error, recordset?: IResult<Entity>) => void): void;
+    public batch(batch: string): Promise<IResult<any>>;
+    public batch(strings: TemplateStringsArray, ...interpolations: any[]): Promise<IResult<any>>;
+    public batch(batch: string, callback: (err?: Error, recordset?: IResult<any>) => void): void;    
+    public batch<Entity>(batch: string): Promise<IResult<Entity>>;
+    public batch<Entity>(strings: TemplateStringsArray, ...interpolations: any[]): Promise<IResult<Entity>>;
     public connect(): Promise<ConnectionPool>;
     public connect(callback: (err: any) => void): void;
     public close(): Promise<void>;
@@ -309,8 +318,10 @@ export declare class Request extends events.EventEmitter {
     public query<Entity>(command: TemplateStringsArray, ...interpolations: any[]): Promise<IResult<Entity>>;
     public query<Entity>(command: string, callback: (err?: Error, recordset?: IResult<Entity>) => void): void;
     public batch(batch: string): Promise<IResult<any>>;
+    public batch(strings: TemplateStringsArray, ...interpolations: any[]): Promise<IResult<any>>;
+    public batch(batch: string, callback: (err?: Error, recordset?: IResult<any>) => void): void;    
     public batch<Entity>(batch: string): Promise<IResult<Entity>>;
-    public batch(batch: string, callback: (err?: Error, recordset?: IResult<any>) => void): void;
+    public batch<Entity>(strings: TemplateStringsArray, ...interpolations: any[]): Promise<IResult<Entity>>;
     public batch<Entity>(batch: string, callback: (err?: any, recordset?: IResult<Entity>) => void): void;
     public bulk(table: Table): Promise<IBulkResult>;
     public bulk(table: Table, options: IBulkOptions): Promise<IBulkResult>;

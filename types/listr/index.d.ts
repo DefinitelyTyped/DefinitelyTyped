@@ -25,6 +25,7 @@ declare namespace Listr {
 
     interface ListrEvent {
         type: string;
+        data?: string | boolean;
     }
 
     interface ListrTask<Ctx = ListrContext> {
@@ -42,12 +43,12 @@ declare namespace Listr {
         subtasks: ReadonlyArray<ListrTaskWrapper<Ctx>>;
         state: string;
         check: (ctx: Ctx) => void;
-        hasSubtasks: boolean;
-        isPending: boolean;
-        isSkipped: boolean;
-        isCompleted: boolean;
-        isEnabled: boolean;
-        hasFailed: boolean;
+        hasSubtasks(): boolean;
+        isPending(): boolean;
+        isSkipped(): boolean;
+        isCompleted(): boolean;
+        isEnabled(): boolean;
+        hasFailed(): boolean;
         run: (ctx: Ctx, wrapper: ListrTaskWrapper<Ctx>) => Promise<void>;
     }
 

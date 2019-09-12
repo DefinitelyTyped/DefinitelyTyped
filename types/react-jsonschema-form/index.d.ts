@@ -9,6 +9,7 @@
 //                 Mehdi Lahlou <https://github.com/medfreeman>
 //                 Saad Tazi <https://github.com/saadtazi>
 //                 Agustin N. R. Ramirez <https://github.com/agustin107>
+//                 Chancellor Clark <https://github.com/chanceaclark>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
 
@@ -56,7 +57,9 @@ declare module 'react-jsonschema-form' {
         acceptcharset?: string;
     }
 
-    export default class Form<T> extends React.Component<FormProps<T>> {}
+    export default class Form<T> extends React.Component<FormProps<T>> {
+                     submit: () => void;
+                   }
 
     export type UiSchema = {
         'ui:field'?: Field | string;
@@ -247,6 +250,22 @@ declare module 'react-jsonschema-form' {
         onClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
         disabled: boolean;
     };
+}
+
+declare module 'react-jsonschema-form/lib/components/fields/SchemaField' {
+    import { JSONSchema6 } from 'json-schema';
+    import { FieldProps, UiSchema, IdSchema, FormValidation } from 'react-jsonschema-form';
+
+    export interface SchemaFieldProps<T = any> {
+      schema: JSONSchema6;
+      uiSchema: UiSchema;
+      idSchema: IdSchema;
+      formData: T;
+      errorSchema: FormValidation;
+      registry: FieldProps['registry'];
+    }
+
+    export class SchemaField<T> extends React.Component<SchemaFieldProps<T>> {}
 }
 
 declare module 'react-jsonschema-form/lib/utils' {

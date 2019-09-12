@@ -41,7 +41,8 @@ export type BuiltInParserName =
     | 'html'
     | 'angular'
     | 'mdx'
-    | 'yaml';
+    | 'yaml'
+    | 'lwc';
 
 export type CustomParser = (text: string, parsers: Record<BuiltInParserName, BuiltInParser>, options: Options) => AST;
 
@@ -266,15 +267,15 @@ export interface SupportLanguage {
     since?: string;
     parsers: BuiltInParserName[] | string[];
     group?: string;
-    tmScope: string;
-    aceMode: string;
-    codemirrorMode: string;
-    codemirrorMimeType: string;
+    tmScope?: string;
+    aceMode?: string;
+    codemirrorMode?: string;
+    codemirrorMimeType?: string;
     aliases?: string[];
-    extensions: string[];
+    extensions?: string[];
     filenames?: string[];
-    linguistLanguageId: number;
-    vscodeLanguageIds: string[];
+    linguistLanguageId?: number;
+    vscodeLanguageIds?: string[];
 }
 
 export interface SupportOptionDefault {

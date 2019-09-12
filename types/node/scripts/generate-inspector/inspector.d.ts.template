@@ -5,6 +5,8 @@
 // Please see https://github.com/DefinitelyTyped/DefinitelyTyped/pull/19330
 // for more information.
 
+// tslint:disable:max-line-length
+
 /**
  * The inspector module provides an API for interacting with the V8 inspector.
  */
@@ -76,4 +78,11 @@ declare module "inspector" {
      * Return the URL of the active inspector, or `undefined` if there is none.
      */
     function url(): string | undefined;
+
+    /**
+     * Blocks until a client (existing or connected later) has sent
+     * `Runtime.runIfWaitingForDebugger` command.
+     * An exception will be thrown if there is no active inspector.
+     */
+    waitForDebugger();
 }

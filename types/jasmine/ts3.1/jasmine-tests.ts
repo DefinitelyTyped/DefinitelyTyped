@@ -849,6 +849,7 @@ describe('custom asymmetry', function() {
 
     it('dives in deep', function() {
         expect('foo,bar,baz,quux').toEqual(tester);
+        expect(123).not.toEqual(tester);
     });
 
     describe('when used with a spy', function() {
@@ -1396,6 +1397,49 @@ describe("createSpyObj", function() {
         }).toThrow("createSpyObj requires a non-empty array or object of method names to create spies for");
     });
 });
+
+describe('Static Matcher Test', function() {
+    it('Falsy', () => {
+      expect({ value: null }).toEqual(
+        jasmine.objectContaining({
+          value: jasmine.falsy(),
+        })
+      );
+    });
+    it('Truthy', () => {
+      expect({ value: null }).toEqual(
+        jasmine.objectContaining({
+          value: jasmine.truthy(),
+        })
+      );
+    });
+    it('Empty', () => {
+      expect({ value: null }).toEqual(
+        jasmine.objectContaining({
+          value: jasmine.empty(),
+        })
+      );
+    });
+    it('NotEmpty', () => {
+      expect({ value: null }).toEqual(
+        jasmine.objectContaining({
+          value: jasmine.notEmpty(),
+        })
+      );
+    });
+    it('Partial should OK', () => {
+      expect({ value: null, label: 'abcd' }).toEqual(
+        jasmine.objectContaining({
+          value: jasmine.anything(),
+        })
+      );
+      expect({ value: null }).toEqual(
+          jasmine.objectContaining({
+            value: 'any value should ok',
+          })
+        );
+    });
+  });
 
 (() => {
     // from boot.js

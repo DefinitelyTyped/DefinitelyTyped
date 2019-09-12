@@ -61,14 +61,14 @@ export interface WriteTransactionOptions {
 }
 export default class WFS extends XMLFeature {
     constructor(opt_options?: Options);
-    getFeatureType(): string[] | string;
-    readFeatureCollectionMetadata(source: Document | Element | object | string): FeatureCollectionMetadata;
-    readFeatureCollectionMetadataFromDocument(doc: Document): FeatureCollectionMetadata;
-    readFeatureCollectionMetadataFromNode(node: Element): FeatureCollectionMetadata;
-    readTransactionResponse(source: Document | Element | object | string): TransactionResponse;
-    readTransactionResponseFromDocument(doc: Document): TransactionResponse;
-    readTransactionResponseFromNode(node: Element): TransactionResponse;
-    setFeatureType(featureType: string[] | string): void;
+    getFeatureType(): string[] | string | undefined;
+    readFeatureCollectionMetadata(source: Document | Element | object | string): FeatureCollectionMetadata | undefined;
+    readFeatureCollectionMetadataFromDocument(doc: Document): FeatureCollectionMetadata | undefined;
+    readFeatureCollectionMetadataFromNode(node: Element): FeatureCollectionMetadata | undefined;
+    readTransactionResponse(source: Document | Element | object | string): TransactionResponse | undefined;
+    readTransactionResponseFromDocument(doc: Document): TransactionResponse | undefined;
+    readTransactionResponseFromNode(node: Element): TransactionResponse | undefined;
+    setFeatureType(featureType: string[] | string | undefined): void;
     writeGetFeature(options: WriteGetFeatureOptions): Node;
     writeTransaction(inserts: Feature[], updates: Feature[], deletes: Feature[], options: WriteTransactionOptions): Node;
 }

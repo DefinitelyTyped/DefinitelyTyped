@@ -7,14 +7,16 @@
 //                 Behind The Math <https://github.com/BehindTheMath>
 //                 Claas Ahlrichs <https://github.com/claasahl>
 //                 Grzegorz Redlicki <https://github.com/redlickigrzegorz>
+//                 Ryan Ling <https://github.com/72636c>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node"/>
 import { EventEmitter } from 'events';
 import * as processors from './lib/processors';
 
-export function parseString(xml: convertableToString, callback: (err: Error, result: any) => void): void;
-export function parseString(xml: convertableToString, options: OptionsV2, callback: (err: Error, result: any) => void): void;
+export function parseString(str: convertableToString, callback: (err: Error, result: any) => void): void;
+export function parseString(str: convertableToString, options: OptionsV2, callback: (err: Error, result: any) => void): void;
+export function parseStringPromise(str: convertableToString, options?: OptionsV2): Promise<any>;
 
 export const defaults: {
     '0.1': Options;
@@ -29,6 +31,7 @@ export class Builder {
 export class Parser extends EventEmitter {
     constructor(options?: OptionsV2);
     parseString(str: convertableToString, cb?: Function): void;
+    parseStringPromise(str: convertableToString): Promise<any>;
     reset(): void;
 }
 
