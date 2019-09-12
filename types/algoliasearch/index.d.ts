@@ -1650,6 +1650,12 @@ declare namespace algoliasearch {
      * such as ignorePlurals, removeStopWords, and CJK word-detection.
      */
     queryLanguages?: Array<'af' | 'ar' | 'az' | 'bg' | 'bn' | 'ca' | 'cs' | 'cy' | 'da' | 'de' | 'el' | 'en' | 'eo' | 'es' | 'et' | 'eu' | 'fa' | 'fi' | 'fo' | 'fr' | 'ga' | 'gl' | 'he' | 'hi' | 'hu' | 'hy' | 'id' | 'is' | 'it' | 'ja' | 'ka' | 'kk' | 'ko' | 'ku' | 'ky' | 'lt' | 'lv' | 'mi' | 'mn' | 'mr' | 'ms' | 'mt' | 'nb' | 'nl' | 'no' | 'ns' | 'pl' | 'ps' | 'pt' | 'pt-br' | 'qu' | 'ro' | 'ru' | 'sk' | 'sq' | 'sv' | 'sw' | 'ta' | 'te' | 'th' | 'tl' | 'tn' | 'tr' | 'tt' | 'uk' | 'ur' | 'uz' | 'zh'>;
+    /**
+     * Set the maximum number of hits accessible via pagination.
+     * We set the max number of *hits*, not max number of pages.
+     * Works with the page and hitsByPage settings to establish the full paging logic.
+     */
+    paginationLimitedTo?: number
   }
 
   interface Response<T=any> {
