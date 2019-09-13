@@ -2100,6 +2100,7 @@ declare namespace Stripe {
                  * URL to redirect to upon success
                  */
                 success_url: string;
+
                 /**
                  * The mode of the Checkout Session, one of payment, setup, or subscription.
                  */
