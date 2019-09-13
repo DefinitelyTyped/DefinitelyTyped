@@ -1,9 +1,10 @@
-// Type definitions for nightwatch 1.1
+// Type definitions for nightwatch 1.2
 // Project: http://nightwatchjs.org
 // Definitions by: Rahul Kavalapara <https://github.com/rkavalap>
 //                 Connor Schlesiger <https://github.com/schlesiger>
 //                 Clayton Astrom <https://github.com/ClaytonAstrom>
 //                 Lukas Beranek <https://github.com/lloiser>
+//                 Aleksandar Dimitrov <https://github.com/adimit>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -1078,6 +1079,46 @@ export interface NightwatchClient {
     assertion: NightwatchAssert;
 }
 
+/**
+ * A selector is either a string or an object which allows to pass several options to the selection process.
+ */
+export type NightwatchSelector = string | NightwatchSelectorObject;
+
+export interface NightwatchSelectorObject {
+    /**
+     * No default.
+     * The element selector name (e.g.: `@searchBar`)
+     */
+    selector: string;
+    /**
+     * Default: `false`.
+     * Some element commands like `.click()` or `.getText()` will throw a `NoSuchElement` error if the element cannot be located,
+     * causing the test to fail. If this option is set to true then this error is ignored.
+     */
+    suppressNotFoundErrors?: boolean;
+    /**
+     * Used to overwrite the default retry interval for when using `waitForElement*` commands or assertions
+     */
+    retryInterval?: number;
+    /*
+     * Used to overwrite the default timeout for when using `waitForElement*` commands or assertions
+     */
+    timeout?: number;
+    /*
+     * e.g. `'css selector'`
+     */
+    locateStrategy?: LocateStrategy;
+    /*
+     * Used to target a specific element in a query that results in multiple elements returned. Normally, only the first element is
+     * used (`index = 0`) but using the `index` property, you can specify any element within the result.
+     */
+    index?: number;
+    /*
+     * Used to overwrite this setting when using `waitForElement*` commands
+     */
+    abortOnFailure?: boolean;
+}
+
 export interface Nightwatch {
     api: NightwatchAPI;
     client: NightwatchClient;
@@ -1548,7 +1589,7 @@ export interface ElementCommands {
      *
      * @see elementIdClear
      */
-    clearValue(selector: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void): this;
+    clearValue(selector: NightwatchSelector, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void): this;
 
     /**
      * Simulates a click event on the given DOM element. Uses `elementIdClick` protocol action internally.
@@ -1563,7 +1604,7 @@ export interface ElementCommands {
      *
      * @see elementIdClick
      */
-    click(selector: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void): this;
+    click(selector: NightwatchSelector, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void): this;
 
     /**
      * Retrieve the value of an attribute for a given DOM element. Uses `elementIdAttribute` protocol command.
@@ -1579,7 +1620,7 @@ export interface ElementCommands {
      *
      * @see elementIdAttribute
      */
-    getAttribute(selector: string, attribute: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string | null>) => void): this;
+    getAttribute(selector: NightwatchSelector, attribute: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string | null>) => void): this;
 
     /**
      * Retrieve the value of a css property for a given DOM element. Uses `elementIdCssProperty` protocol command.
@@ -1595,7 +1636,7 @@ export interface ElementCommands {
      *
      * @see elementIdCssProperty
      */
-    getCssProperty(selector: string, cssProperty: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void): this;
+    getCssProperty(selector: NightwatchSelector, cssProperty: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void): this;
 
     /**
      * Determine an element's size in pixels. Uses `elementIdSize` protocol command.
@@ -1612,7 +1653,7 @@ export interface ElementCommands {
      *
      * @see elementIdSize
      */
-    getElementSize(selector: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<{ width: number; height: number }>) => void): this;
+    getElementSize(selector: NightwatchSelector, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<{ width: number; height: number }>) => void): this;
 
     /**
      * Determine an element's location on the page. The point (0, 0) refers to the upper-left corner of the page.
@@ -1631,7 +1672,7 @@ export interface ElementCommands {
      *
      * @see elementIdLocation
      */
-    getLocation(selector: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<{ x: number; y: number }>) => void): this;
+    getLocation(selector: NightwatchSelector, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<{ x: number; y: number }>) => void): this;
 
     /**
      * Determine an element's location on the screen once it has been scrolled into view. Uses `elementIdLocationInView` protocol command.
@@ -1648,7 +1689,7 @@ export interface ElementCommands {
      *
      * @see elementIdLocationInView
      */
-    getLocationInView(selector: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<{ x: number; y: number }>) => void): this;
+    getLocationInView(selector: NightwatchSelector, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<{ x: number; y: number }>) => void): this;
 
     /**
      * Query for an element's tag name. Uses `elementIdName` protocol command.
@@ -1664,7 +1705,7 @@ export interface ElementCommands {
      *
      * @see elementIdName
      */
-    getTagName(selector: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void): this;
+    getTagName(selector: NightwatchSelector, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void): this;
 
     /**
      * Returns the visible text for the element. Uses `elementIdText` protocol command.
@@ -1680,7 +1721,7 @@ export interface ElementCommands {
      *
      * @see elementIdText
      */
-    getText(selector: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void): this;
+    getText(selector: NightwatchSelector, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void): this;
 
     /**
      * Returns a form element current value. Uses `elementIdValue` protocol command.
@@ -1696,7 +1737,7 @@ export interface ElementCommands {
      *
      * @see elementIdValue
      */
-    getValue(selector: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void): this;
+    getValue(selector: NightwatchSelector, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void): this;
 
     /**
      * Determine if an element is currently displayed. Uses `elementIdDisplayed` protocol command.
@@ -1712,7 +1753,7 @@ export interface ElementCommands {
      *
      * @see elementIdDisplayed
      */
-    isVisible(selector: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<boolean>) => void): this;
+    isVisible(selector: NightwatchSelector, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<boolean>) => void): this;
 
     /**
      * Move the mouse by an offset of the specified element. If an element is provided but no offset, the mouse will be moved to the center of the element.
@@ -1725,7 +1766,7 @@ export interface ElementCommands {
      *
      * @see moveTo
      */
-    moveToElement(selector: string, xoffset: number, yoffset: number, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void): this;
+    moveToElement(selector: NightwatchSelector, xoffset: number, yoffset: number, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void): this;
 
     /**
      * Sends some text to an element. Can be used to set the value of a form element or to send a sequence of key strokes to an element. Any UTF-8 character may be specified.
@@ -1748,7 +1789,7 @@ export interface ElementCommands {
      *
      * @see elementIdValue
      */
-    setValue(selector: string, inputValue: string | string[], callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void): this;
+    setValue(selector: NightwatchSelector, inputValue: string | string[], callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void): this;
     /**
      * Alias for `setValue`.
      * @see setValue
@@ -1765,7 +1806,7 @@ export interface ElementCommands {
      *
      * @see submit
      */
-    submitForm(selector: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void): this;
+    submitForm(selector: NightwatchSelector, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void): this;
 
     /**
      * Opposite of `waitForElementPresent`. Waits a given time in milliseconds for an element to be not present (i.e. removed)
@@ -1785,7 +1826,13 @@ export interface ElementCommands {
      * @see waitForElementPresent
      * @since v0.4.0
      */
-    waitForElementNotPresent(selector: string, time?: number, abortOnFailure?: boolean, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void, message?: string): this;
+    waitForElementNotPresent(
+      selector: NightwatchSelector,
+      time?: number,
+      abortOnFailure?: boolean,
+      callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
+      message?: string
+    ): this;
 
     /**
      * Opposite of `waitForElementVisible`. Waits a given time in milliseconds for an element to be not visible (i.e. hidden but existing)
@@ -1805,7 +1852,13 @@ export interface ElementCommands {
      * @since v0.4.0
      * @see waitForElementVisible
      */
-    waitForElementNotVisible(selector: string, time?: number, abortOnFailure?: boolean, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void, message?: string): this;
+    waitForElementNotVisible(
+        selector: NightwatchSelector,
+        time?: number,
+        abortOnFailure?: boolean,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
+        message?: string
+    ): this;
 
     /**
      * Waits a given time in milliseconds for an element to be present in the page before performing any other commands or assertions.
@@ -1831,7 +1884,13 @@ export interface ElementCommands {
      *   browser.waitForElementPresent('body', 1000, false, function() {}, 'elemento %s no era presente en %d ms');
      * };
      */
-    waitForElementPresent(selector: string, time?: number, abortOnFailure?: boolean, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void, message?: string): this;
+    waitForElementPresent(
+        selector: NightwatchSelector,
+        time?: number,
+        abortOnFailure?: boolean,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
+        message?: string
+    ): this;
 
     /**
      * Waits a given time in milliseconds for an element to be visible in the page before performing any other commands or assertions.
@@ -1857,7 +1916,13 @@ export interface ElementCommands {
      *   browser.waitForElementVisible('body', 1000, false, function() {}, 'elemento %s no era visible en %d ms');
      * };
      */
-    waitForElementVisible(selector: string, time?: number, abortOnFailure?: boolean, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void, message?: string): this;
+    waitForElementVisible(
+        selector: NightwatchSelector,
+        time?: number,
+        abortOnFailure?: boolean,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
+        message?: string
+    ): this;
 }
 
 export interface WebDriverProtocol extends

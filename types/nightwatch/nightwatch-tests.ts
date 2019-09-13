@@ -51,7 +51,11 @@ const testGeneral: NightwatchTests = {
 
   'step two: click input': (browser: NightwatchBrowser) => {
     browser
-      .click('input[name=btnK]')
+      .click({
+        selector: 'input[name=btnK]',
+        suppressNotFoundErrors: true,
+        locateStrategy: 'css selector',
+      })
       .pause(1000)
       .assert.containsText('#main', 'Night Watch')
       .end();
