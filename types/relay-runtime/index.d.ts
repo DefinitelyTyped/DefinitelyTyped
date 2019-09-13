@@ -465,6 +465,11 @@ export interface NormalizationDefer {
     readonly selections: ReadonlyArray<NormalizationSelection>;
 }
 
+export interface NormalizationClientExtension {
+    kind: string; // 'ClientExtension';
+    selections: ReadonlyArray<NormalizationSelection>;
+}
+
 export type NormalizationField = NormalizationScalarField | NormalizationLinkedField | NormalizationMatchField;
 
 export interface NormalizationLinkedField {
@@ -509,6 +514,7 @@ export interface NormalizationScalarField {
 
 export type NormalizationSelection =
     | NormalizationCondition
+    | NormalizationClientExtension
     | NormalizationField
     | NormalizationHandle
     | NormalizationInlineFragment
@@ -728,7 +734,7 @@ interface ReaderCondition {
 }
 
 interface ReaderClientExtension {
-    readonly kind: 'ClientExtension';
+    readonly kind: string; // 'ClientExtension';
     readonly selections: ReadonlyArray<ReaderSelection>;
 }
 
