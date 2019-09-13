@@ -20,9 +20,14 @@ export namespace v2 {
 
     setAgent(
       request: SetAgentRequest,
+      cb?: (err: Error, agent: Agent) => void
+    ): Promise<[Agent]>;
+    setAgent(
+      request: SetAgentRequest,
       options?: gax.CallOptions,
       cb?: (err: Error, agent: Agent) => void
     ): Promise<[Agent]>;
+
     getAgent(
       request: GetAgentRequest,
       options?: gax.CallOptions,
@@ -906,34 +911,18 @@ export type MatchMode =
   | "MATCH_MODE_ML_ONLY";
 
 // API version for the agent.
-export enum ApiVersion {
-  // Not specified.
-  API_VERSION_UNSPECIFIED,
-
-  // Legacy V1 API.
-  API_VERSION_V1,
-
-  // V2 API.
-  API_VERSION_V2,
-
-  // V2beta1 API.
-  API_VERSION_V2_BETA_1,
-}
+export type ApiVersion =
+  | 'API_VERSION_UNSPECIFIED'
+  | 'API_VERSION_V1'
+  | 'API_VERSION_V2'
+  | 'API_VERSION_V2_BETA_1';
 
 // Represents the agent tier.
-export enum Tier {
-  // Not specified. This value should never be used.
-  TIER_UNSPECIFIED,
-
-  // Standard tier.
-  TIER_STANDARD,
-
-  // Enterprise tier (Essentials).
-  TIER_ENTERPRISE,
-
-  // Enterprise tier (Plus).
-  TIER_ENTERPRISE_PLUS,
-}
+export type Tier =
+  | 'TIER_UNSPECIFIED'
+  | 'TIER_STANDARD'
+  | 'TIER_ENTERPRISE'
+  | 'TIER_ENTERPRISE_PLUS';
 
 export interface Credentials {
   client_email: string;
