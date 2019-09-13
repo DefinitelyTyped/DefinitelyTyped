@@ -14,6 +14,7 @@
 //                 Moshe Kolodny <https://github.com/kolodny>
 //                 Stephen Farrar <https://github.com/stephenfarrar>
 //                 Mochamad Arfin <https://github.com/ndunks>
+//                 Alex Povar <https://github.com/zvirja>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 // For ddescribe / iit use : https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/karma-jasmine/karma-jasmine.d.ts
@@ -745,7 +746,7 @@ declare namespace jasmine {
     }
 
     type SpyObj<T> = T & {
-        [k in keyof T]: T[k] extends Function ? T[k] & Spy : T[k];
+        [K in keyof T]: T[K] extends Function ? T[K] & Spy : T[K];
     };
 
     interface SpyAnd {

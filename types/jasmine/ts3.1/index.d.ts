@@ -12,10 +12,10 @@
 //                 Moshe Kolodny <https://github.com/kolodny>
 //                 Stephen Farrar <https://github.com/stephenfarrar>
 //                 Mochamad Arfin <https://github.com/ndunks>
+//                 Alex Povar <https://github.com/zvirja>
 // For ddescribe / iit use : https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/karma-jasmine/karma-jasmine.d.ts
 
 type ImplementationCallback = (() => Promise<any>) | ((done: DoneFn) => void);
-type InferableFunction = (...args: any[]) => any;
 
 /**
  * Create a group of specs (often called a suite).
@@ -160,9 +160,9 @@ interface DoneFn extends Function {
 declare function spyOn<T, K extends keyof T = keyof T>(
     object: T, method: T[K] extends Function ? K : never,
 ): jasmine.Spy<
-    T[K] extends InferableFunction ? T[K] :
-    T[K] extends {new (...args: infer A): infer V} ? (...args: A) => V :
-    T[K] extends Function ? InferableFunction : never
+    T[K] extends jasmine.Func ? T[K] :
+    T[K] extends { new (...args: infer A): infer V } ? (...args: A) => V :
+    never
 >;
 
 /**
@@ -184,6 +184,8 @@ declare function waitsFor(latchMethod: () => boolean, failureMessage?: string, t
 declare function waits(timeout?: number): void;
 
 declare namespace jasmine {
+    type Func = (...args: any[]) => any;
+
     type ExpectedRecursive<T> = T | ObjectContaining<T> | AsymmetricMatcher | {
         [K in keyof T]: ExpectedRecursive<T[K]> | Any;
     };
@@ -193,12 +195,12 @@ declare namespace jasmine {
     type SpyObjMethodNames<T = undefined> =
         T extends undefined ?
             (ReadonlyArray<string> | {[methodName: string]: any}) :
-            (ReadonlyArray<keyof T> | {[P in keyof T]?: ReturnType<T[P] extends InferableFunction ? T[P] : any>});
+            (ReadonlyArray<keyof T> | {[P in keyof T]?: ReturnType<T[P] extends Func ? T[P] : any>});
 
     type AnyMethods<T> = {
         [K in {
             [K in keyof T]: T[K] extends Function ? K : never
-        }[keyof T]]: InferableFunction
+        }[keyof T]]: Func
     };
 
     function clock(): Clock;
@@ -236,7 +238,7 @@ declare namespace jasmine {
     function arrayContaining<T>(sample: ArrayLike<T>): ArrayContaining<T>;
     function arrayWithExactContents<T>(sample: ArrayLike<T>): ArrayContaining<T>;
     function objectContaining<T>(sample: Partial<T>): ObjectContaining<T>;
-    function createSpy<Fun extends InferableFunction>(name?: string, originalFn?: Fun): Spy<Fun>;
+    function createSpy<Fn extends Func>(name?: string, originalFn?: Fn): Spy<Fn>;
 
     function createSpyObj(baseName: string, methodNames: SpyObjMethodNames): any;
     function createSpyObj<T>(baseName: string, methodNames: SpyObjMethodNames<T>): SpyObj<T>;
@@ -745,7 +747,7 @@ declare namespace jasmine {
         execute(): void;
     }
 
-    interface Spy<Fn extends InferableFunction = InferableFunction> {
+    interface Spy<Fn extends Func = Func> {
         (...params: any[]): any;
 
         and: SpyAnd<Fn>;
@@ -754,52 +756,52 @@ declare namespace jasmine {
     }
 
     type SpyObj<T> = T & {
-        [k in keyof T]: T[k] extends InferableFunction ? T[k] & Spy<T[k]> : T[k];
+        [K in keyof T]: T[K] extends Func ? T[K] & Spy<T[K]> : T[K];
     };
 
-    interface SpyAnd<Fun extends InferableFunction> {
+    interface SpyAnd<Fn extends Func> {
         identity: string;
 
         /** By chaining the spy with and.callThrough, the spy will still track all calls to it but in addition it will delegate to the actual implementation. */
-        callThrough(): Spy<Fun>;
+        callThrough(): Spy<Fn>;
         /** By chaining the spy with and.returnValue, all calls to the function will return a specific value. */
-        returnValue(val: ReturnType<Fun>): Spy<Fun>;
+        returnValue(val: ReturnType<Fn>): Spy<Fn>;
         /** By chaining the spy with and.returnValues, all calls to the function will return specific values in order until it reaches the end of the return values list. */
-        returnValues(...values: Array<ReturnType<Fun>>): Spy<Fun>;
+        returnValues(...values: Array<ReturnType<Fn>>): Spy<Fn>;
         /** By chaining the spy with and.callFake, all calls to the spy will delegate to the supplied function. */
-        callFake(fn: Fun): Spy<Fun>;
+        callFake(fn: Fn): Spy<Fn>;
         /** By chaining the spy with and.throwError, all calls to the spy will throw the specified value. */
         throwError(msg: string): Spy;
         /** When a calling strategy is used for a spy, the original stubbing behavior can be returned at any time with and.stub. */
         stub(): Spy;
     }
 
-    interface Calls<Fun extends InferableFunction> {
+    interface Calls<Fn extends Func> {
         /** By chaining the spy with calls.any(), will return false if the spy has not been called at all, and then true once at least one call happens. */
         any(): boolean;
         /** By chaining the spy with calls.count(), will return the number of times the spy was called */
         count(): number;
         /** By chaining the spy with calls.argsFor(), will return the arguments passed to call number index */
-        argsFor(index: number): Parameters<Fun>;
+        argsFor(index: number): Parameters<Fn>;
         /** By chaining the spy with calls.allArgs(), will return the arguments to all calls */
-        allArgs(): Array<Parameters<Fun>>;
+        allArgs(): Array<Parameters<Fn>>;
         /** By chaining the spy with calls.all(), will return the context (the this) and arguments passed all calls */
-        all(): Array<CallInfo<Fun>>;
+        all(): Array<CallInfo<Fn>>;
         /** By chaining the spy with calls.mostRecent(), will return the context (the this) and arguments for the most recent call */
-        mostRecent(): CallInfo<Fun>;
+        mostRecent(): CallInfo<Fn>;
         /** By chaining the spy with calls.first(), will return the context (the this) and arguments for the first call */
-        first(): CallInfo<Fun>;
+        first(): CallInfo<Fn>;
         /** By chaining the spy with calls.reset(), will clears all tracking for a spy */
         reset(): void;
     }
 
-    interface CallInfo<Fun extends InferableFunction> {
+    interface CallInfo<Fn extends Func> {
         /** The context (the this) for the call */
         object: any;
         /** All arguments passed to the call */
-        args: Parameters<Fun>;
+        args: Parameters<Fn>;
         /** The return value of the call */
-        returnValue: ReturnType<Fun>;
+        returnValue: ReturnType<Fn>;
     }
 
     interface Util {
