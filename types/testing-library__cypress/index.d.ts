@@ -1,7 +1,7 @@
-// Type definitions for @testing-library/cypress 4.2
+// Type definitions for @testing-library/cypress 5.0
 // Project: https://github.com/testing-library/cypress-testing-library
 // Definitions by: Aaron Mc Adam <https://github.com/aaronmcadam>
-//                 Basti Buck <https://github.com/ppi-buck>
+//                 Basti Buck <https://github.com/bastibuck>
 //                 Stefano Magni <https://github.com/NoriSte>
 //                 Justin Hall <https://github.com/wKovacs64>
 //                 Brian Ng <https://github.com/existentialism>
@@ -20,7 +20,8 @@ import {
 import * as JQuery from 'jquery';
 
 export interface CTLMatcherOptions {
-    timeout?: number;
+  timeout?: number;
+  container?: JQuery;
 }
 
 export type MatcherOptions = DTLMatcherOptions | CTLMatcherOptions;
@@ -32,8 +33,8 @@ declare global {
             /**
              * dom-testing-library helpers for Cypress
              *
-             * `getBy*` APIs search for an element and throw an error if nothing found
-             * `getAllBy*` APIs search for all elements and an error if nothing found
+             * `findBy*` APIs search for an element and throw an error if nothing found
+             * `findAllBy*` APIs search for all elements and an error if nothing found
              * `queryBy*` APIs search for an element and returns null if nothing found
              * `queryAllBy*` APIs search for all elements and return empty array if nothing found
              *
@@ -52,8 +53,8 @@ declare global {
             /**
              * dom-testing-library helpers for Cypress
              *
-             * `getBy*` APIs search for an element and throw an error if nothing found
-             * `getAllBy*` APIs search for all elements and an error if nothing found
+             * `findBy*` APIs search for an element and throw an error if nothing found
+             * `findAllBy*` APIs search for all elements and an error if nothing found
              * `queryBy*` APIs search for an element and returns null if nothing found
              * `queryAllBy*` APIs search for all elements and return empty array if nothing found
              *
@@ -72,19 +73,19 @@ declare global {
             /**
              * dom-testing-library helpers for Cypress
              *
-             * `getBy*` APIs search for an element and throw an error if nothing found
-             * `getAllBy*` APIs search for all elements and an error if nothing found
+             * `findBy*` APIs search for an element and throw an error if nothing found
+             * `findAllBy*` APIs search for all elements and an error if nothing found
              * `queryBy*` APIs search for an element and returns null if nothing found
              * `queryAllBy*` APIs search for all elements and return empty array if nothing found
              *
              * @see https://github.com/testing-library/cypress-testing-library#usage
              * @see https://github.com/testing-library/dom-testing-library#table-of-contents
              */
-            getByPlaceholderText<E extends Node = HTMLElement>(
+            findByPlaceholderText<E extends Node = HTMLElement>(
                 id: Matcher,
                 options?: MatcherOptions,
             ): Chainable<JQuery<E>>;
-            getByPlaceholderText<K extends keyof HTMLElementTagNameMap>(
+            findByPlaceholderText<K extends keyof HTMLElementTagNameMap>(
                 id: Matcher,
                 options?: MatcherOptions,
             ): Chainable<JQuery<HTMLElementTagNameMap[K]>>;
@@ -92,19 +93,19 @@ declare global {
             /**
              * dom-testing-library helpers for Cypress
              *
-             * `getBy*` APIs search for an element and throw an error if nothing found
-             * `getAllBy*` APIs search for all elements and an error if nothing found
+             * `findBy*` APIs search for an element and throw an error if nothing found
+             * `findAllBy*` APIs search for all elements and an error if nothing found
              * `queryBy*` APIs search for an element and returns null if nothing found
              * `queryAllBy*` APIs search for all elements and return empty array if nothing found
              *
              * @see https://github.com/testing-library/cypress-testing-library#usage
              * @see https://github.com/testing-library/dom-testing-library#table-of-contents
              */
-            getAllByPlaceholderText<E extends Node = HTMLElement>(
+            findAllByPlaceholderText<E extends Node = HTMLElement>(
                 id: Matcher,
                 options?: MatcherOptions,
             ): Chainable<JQuery<E>>;
-            getAllByPlaceholderText<K extends keyof HTMLElementTagNameMap>(
+            findAllByPlaceholderText<K extends keyof HTMLElementTagNameMap>(
                 id: Matcher,
                 options?: MatcherOptions,
             ): Chainable<JQuery<HTMLElementTagNameMap[K]>>;
@@ -112,8 +113,8 @@ declare global {
             /**
              * dom-testing-library helpers for Cypress
              *
-             * `getBy*` APIs search for an element and throw an error if nothing found
-             * `getAllBy*` APIs search for all elements and an error if nothing found
+             * `findBy*` APIs search for an element and throw an error if nothing found
+             * `findAllBy*` APIs search for all elements and an error if nothing found
              * `queryBy*` APIs search for an element and returns null if nothing found
              * `queryAllBy*` APIs search for all elements and return empty array if nothing found
              *
@@ -132,8 +133,8 @@ declare global {
             /**
              * dom-testing-library helpers for Cypress
              *
-             * `getBy*` APIs search for an element and throw an error if nothing found
-             * `getAllBy*` APIs search for all elements and an error if nothing found
+             * `findBy*` APIs search for an element and throw an error if nothing found
+             * `findAllBy*` APIs search for all elements and an error if nothing found
              * `queryBy*` APIs search for an element and returns null if nothing found
              * `queryAllBy*` APIs search for all elements and return empty array if nothing found
              *
@@ -152,16 +153,16 @@ declare global {
             /**
              * dom-testing-library helpers for Cypress
              *
-             * `getBy*` APIs search for an element and throw an error if nothing found
-             * `getAllBy*` APIs search for all elements and an error if nothing found
+             * `findBy*` APIs search for an element and throw an error if nothing found
+             * `findAllBy*` APIs search for all elements and an error if nothing found
              * `queryBy*` APIs search for an element and returns null if nothing found
              * `queryAllBy*` APIs search for all elements and return empty array if nothing found
              *
              * @see https://github.com/testing-library/cypress-testing-library#usage
              * @see https://github.com/testing-library/dom-testing-library#table-of-contents
              */
-            getBySelectText<E extends Node = HTMLElement>(id: Matcher, options?: MatcherOptions): Chainable<JQuery<E>>;
-            getBySelectText<K extends keyof HTMLElementTagNameMap>(
+            findBySelectText<E extends Node = HTMLElement>(id: Matcher, options?: MatcherOptions): Chainable<JQuery<E>>;
+            findBySelectText<K extends keyof HTMLElementTagNameMap>(
                 id: Matcher,
                 options?: MatcherOptions,
             ): Chainable<JQuery<HTMLElementTagNameMap[K]>>;
@@ -169,16 +170,16 @@ declare global {
             /**
              * dom-testing-library helpers for Cypress
              *
-             * `getBy*` APIs search for an element and throw an error if nothing found
-             * `getAllBy*` APIs search for all elements and an error if nothing found
+             * `findBy*` APIs search for an element and throw an error if nothing found
+             * `findAllBy*` APIs search for all elements and an error if nothing found
              * `queryBy*` APIs search for an element and returns null if nothing found
              * `queryAllBy*` APIs search for all elements and return empty array if nothing found
              *
              * @see https://github.com/testing-library/cypress-testing-library#usage
              * @see https://github.com/testing-library/dom-testing-library#table-of-contents
              */
-            getAllBySelectText<E extends Node = HTMLElement>(id: Matcher, options?: MatcherOptions): Chainable<E[]>;
-            getAllBySelectText<K extends keyof HTMLElementTagNameMap>(
+            findAllBySelectText<E extends Node = HTMLElement>(id: Matcher, options?: MatcherOptions): Chainable<E[]>;
+            findAllBySelectText<K extends keyof HTMLElementTagNameMap>(
                 id: Matcher,
                 options?: MatcherOptions,
             ): Chainable<Array<HTMLElementTagNameMap[K]>>;
@@ -186,8 +187,8 @@ declare global {
             /**
              * dom-testing-library helpers for Cypress
              *
-             * `getBy*` APIs search for an element and throw an error if nothing found
-             * `getAllBy*` APIs search for all elements and an error if nothing found
+             * `findBy*` APIs search for an element and throw an error if nothing found
+             * `findAllBy*` APIs search for all elements and an error if nothing found
              * `queryBy*` APIs search for an element and returns null if nothing found
              * `queryAllBy*` APIs search for all elements and return empty array if nothing found
              *
@@ -206,8 +207,8 @@ declare global {
             /**
              * dom-testing-library helpers for Cypress
              *
-             * `getBy*` APIs search for an element and throw an error if nothing found
-             * `getAllBy*` APIs search for all elements and an error if nothing found
+             * `findBy*` APIs search for an element and throw an error if nothing found
+             * `findAllBy*` APIs search for all elements and an error if nothing found
              * `queryBy*` APIs search for an element and returns null if nothing found
              * `queryAllBy*` APIs search for all elements and return empty array if nothing found
              *
@@ -226,19 +227,19 @@ declare global {
             /**
              * dom-testing-library helpers for Cypress
              *
-             * `getBy*` APIs search for an element and throw an error if nothing found
-             * `getAllBy*` APIs search for all elements and an error if nothing found
+             * `findBy*` APIs search for an element and throw an error if nothing found
+             * `findAllBy*` APIs search for all elements and an error if nothing found
              * `queryBy*` APIs search for an element and returns null if nothing found
              * `queryAllBy*` APIs search for all elements and return empty array if nothing found
              *
              * @see https://github.com/testing-library/cypress-testing-library#usage
              * @see https://github.com/testing-library/dom-testing-library#table-of-contents
              */
-            getByText<E extends Node = HTMLElement>(
+            findByText<E extends Node = HTMLElement>(
                 id: Matcher,
                 options?: SelectorMatcherOptions,
             ): Chainable<JQuery<E>>;
-            getByText<K extends keyof HTMLElementTagNameMap>(
+            findByText<K extends keyof HTMLElementTagNameMap>(
                 id: Matcher,
                 options?: SelectorMatcherOptions,
             ): Chainable<JQuery<HTMLElementTagNameMap[K]>>;
@@ -246,16 +247,16 @@ declare global {
             /**
              * dom-testing-library helpers for Cypress
              *
-             * `getBy*` APIs search for an element and throw an error if nothing found
-             * `getAllBy*` APIs search for all elements and an error if nothing found
+             * `findBy*` APIs search for an element and throw an error if nothing found
+             * `findAllBy*` APIs search for all elements and an error if nothing found
              * `queryBy*` APIs search for an element and returns null if nothing found
              * `queryAllBy*` APIs search for all elements and return empty array if nothing found
              *
              * @see https://github.com/testing-library/cypress-testing-library#usage
              * @see https://github.com/testing-library/dom-testing-library#table-of-contents
              */
-            getAllByText<E extends Node = HTMLElement>(id: Matcher, options?: SelectorMatcherOptions): Chainable<E[]>;
-            getAllByText<K extends keyof HTMLElementTagNameMap>(
+            findAllByText<E extends Node = HTMLElement>(id: Matcher, options?: SelectorMatcherOptions): Chainable<E[]>;
+            findAllByText<K extends keyof HTMLElementTagNameMap>(
                 id: Matcher,
                 options?: SelectorMatcherOptions,
             ): Chainable<Array<HTMLElementTagNameMap[K]>>;
@@ -263,8 +264,8 @@ declare global {
             /**
              * dom-testing-library helpers for Cypress
              *
-             * `getBy*` APIs search for an element and throw an error if nothing found
-             * `getAllBy*` APIs search for all elements and an error if nothing found
+             * `findBy*` APIs search for an element and throw an error if nothing found
+             * `findAllBy*` APIs search for all elements and an error if nothing found
              * `queryBy*` APIs search for an element and returns null if nothing found
              * `queryAllBy*` APIs search for all elements and return empty array if nothing found
              *
@@ -283,8 +284,8 @@ declare global {
             /**
              * dom-testing-library helpers for Cypress
              *
-             * `getBy*` APIs search for an element and throw an error if nothing found
-             * `getAllBy*` APIs search for all elements and an error if nothing found
+             * `findBy*` APIs search for an element and throw an error if nothing found
+             * `findAllBy*` APIs search for all elements and an error if nothing found
              * `queryBy*` APIs search for an element and returns null if nothing found
              * `queryAllBy*` APIs search for all elements and return empty array if nothing found
              *
@@ -303,19 +304,19 @@ declare global {
             /**
              * dom-testing-library helpers for Cypress
              *
-             * `getBy*` APIs search for an element and throw an error if nothing found
-             * `getAllBy*` APIs search for all elements and an error if nothing found
+             * `findBy*` APIs search for an element and throw an error if nothing found
+             * `findAllBy*` APIs search for all elements and an error if nothing found
              * `queryBy*` APIs search for an element and returns null if nothing found
              * `queryAllBy*` APIs search for all elements and return empty array if nothing found
              *
              * @see https://github.com/testing-library/cypress-testing-library#usage
              * @see https://github.com/testing-library/dom-testing-library#table-of-contents
              */
-            getByLabelText<E extends Node = HTMLElement>(
+            findByLabelText<E extends Node = HTMLElement>(
                 id: Matcher,
                 options?: SelectorMatcherOptions,
             ): Chainable<JQuery<E>>;
-            getByLabelText<K extends keyof HTMLElementTagNameMap>(
+            findByLabelText<K extends keyof HTMLElementTagNameMap>(
                 id: Matcher,
                 options?: SelectorMatcherOptions,
             ): Chainable<JQuery<HTMLElementTagNameMap[K]>>;
@@ -323,19 +324,19 @@ declare global {
             /**
              * dom-testing-library helpers for Cypress
              *
-             * `getBy*` APIs search for an element and throw an error if nothing found
-             * `getAllBy*` APIs search for all elements and an error if nothing found
+             * `findBy*` APIs search for an element and throw an error if nothing found
+             * `findAllBy*` APIs search for all elements and an error if nothing found
              * `queryBy*` APIs search for an element and returns null if nothing found
              * `queryAllBy*` APIs search for all elements and return empty array if nothing found
              *
              * @see https://github.com/testing-library/cypress-testing-library#usage
              * @see https://github.com/testing-library/dom-testing-library#table-of-contents
              */
-            getAllByLabelText<E extends Node = HTMLElement>(
+            findAllByLabelText<E extends Node = HTMLElement>(
                 id: Matcher,
                 options?: SelectorMatcherOptions,
             ): Chainable<E[]>;
-            getAllByLabelText<K extends keyof HTMLElementTagNameMap>(
+            findAllByLabelText<K extends keyof HTMLElementTagNameMap>(
                 id: Matcher,
                 options?: SelectorMatcherOptions,
             ): Chainable<Array<HTMLElementTagNameMap[K]>>;
@@ -343,8 +344,8 @@ declare global {
             /**
              * dom-testing-library helpers for Cypress
              *
-             * `getBy*` APIs search for an element and throw an error if nothing found
-             * `getAllBy*` APIs search for all elements and an error if nothing found
+             * `findBy*` APIs search for an element and throw an error if nothing found
+             * `findAllBy*` APIs search for all elements and an error if nothing found
              * `queryBy*` APIs search for an element and returns null if nothing found
              * `queryAllBy*` APIs search for all elements and return empty array if nothing found
              *
@@ -360,8 +361,8 @@ declare global {
             /**
              * dom-testing-library helpers for Cypress
              *
-             * `getBy*` APIs search for an element and throw an error if nothing found
-             * `getAllBy*` APIs search for all elements and an error if nothing found
+             * `findBy*` APIs search for an element and throw an error if nothing found
+             * `findAllBy*` APIs search for all elements and an error if nothing found
              * `queryBy*` APIs search for an element and returns null if nothing found
              * `queryAllBy*` APIs search for all elements and return empty array if nothing found
              *
@@ -380,16 +381,16 @@ declare global {
             /**
              * dom-testing-library helpers for Cypress
              *
-             * `getBy*` APIs search for an element and throw an error if nothing found
-             * `getAllBy*` APIs search for all elements and an error if nothing found
+             * `findBy*` APIs search for an element and throw an error if nothing found
+             * `findAllBy*` APIs search for all elements and an error if nothing found
              * `queryBy*` APIs search for an element and returns null if nothing found
              * `queryAllBy*` APIs search for all elements and return empty array if nothing found
              *
              * @see https://github.com/testing-library/cypress-testing-library#usage
              * @see https://github.com/testing-library/dom-testing-library#table-of-contents
              */
-            getByAltText<E extends Node = HTMLElement>(id: Matcher, options?: MatcherOptions): Chainable<JQuery<E>>;
-            getByAltText<K extends keyof HTMLElementTagNameMap>(
+            findByAltText<E extends Node = HTMLElement>(id: Matcher, options?: MatcherOptions): Chainable<JQuery<E>>;
+            findByAltText<K extends keyof HTMLElementTagNameMap>(
                 id: Matcher,
                 options?: MatcherOptions,
             ): Chainable<JQuery<HTMLElementTagNameMap[K]>>;
@@ -397,16 +398,16 @@ declare global {
             /**
              * dom-testing-library helpers for Cypress
              *
-             * `getBy*` APIs search for an element and throw an error if nothing found
-             * `getAllBy*` APIs search for all elements and an error if nothing found
+             * `findBy*` APIs search for an element and throw an error if nothing found
+             * `findAllBy*` APIs search for all elements and an error if nothing found
              * `queryBy*` APIs search for an element and returns null if nothing found
              * `queryAllBy*` APIs search for all elements and return empty array if nothing found
              *
              * @see https://github.com/testing-library/cypress-testing-library#usage
              * @see https://github.com/testing-library/dom-testing-library#table-of-contents
              */
-            getAllByAltText<E extends Node = HTMLElement>(id: Matcher, options?: MatcherOptions): Chainable<E[]>;
-            getAllByAltText<K extends keyof HTMLElementTagNameMap>(
+            findAllByAltText<E extends Node = HTMLElement>(id: Matcher, options?: MatcherOptions): Chainable<E[]>;
+            findAllByAltText<K extends keyof HTMLElementTagNameMap>(
                 id: Matcher,
                 options?: MatcherOptions,
             ): Chainable<Array<HTMLElementTagNameMap[K]>>;
@@ -414,8 +415,8 @@ declare global {
             /**
              * dom-testing-library helpers for Cypress
              *
-             * `getBy*` APIs search for an element and throw an error if nothing found
-             * `getAllBy*` APIs search for all elements and an error if nothing found
+             * `findBy*` APIs search for an element and throw an error if nothing found
+             * `findAllBy*` APIs search for all elements and an error if nothing found
              * `queryBy*` APIs search for an element and returns null if nothing found
              * `queryAllBy*` APIs search for all elements and return empty array if nothing found
              *
@@ -431,8 +432,8 @@ declare global {
             /**
              * dom-testing-library helpers for Cypress
              *
-             * `getBy*` APIs search for an element and throw an error if nothing found
-             * `getAllBy*` APIs search for all elements and an error if nothing found
+             * `findBy*` APIs search for an element and throw an error if nothing found
+             * `findAllBy*` APIs search for all elements and an error if nothing found
              * `queryBy*` APIs search for an element and returns null if nothing found
              * `queryAllBy*` APIs search for all elements and return empty array if nothing found
              *
@@ -448,16 +449,16 @@ declare global {
             /**
              * dom-testing-library helpers for Cypress
              *
-             * `getBy*` APIs search for an element and throw an error if nothing found
-             * `getAllBy*` APIs search for all elements and an error if nothing found
+             * `findBy*` APIs search for an element and throw an error if nothing found
+             * `findAllBy*` APIs search for all elements and an error if nothing found
              * `queryBy*` APIs search for an element and returns null if nothing found
              * `queryAllBy*` APIs search for all elements and return empty array if nothing found
              *
              * @see https://github.com/testing-library/cypress-testing-library#usage
              * @see https://github.com/testing-library/dom-testing-library#table-of-contents
              */
-            getByTestId<E extends Node = HTMLElement>(id: Matcher, options?: MatcherOptions): Chainable<JQuery<E>>;
-            getByTestId<K extends keyof HTMLElementTagNameMap>(
+            findByTestId<E extends Node = HTMLElement>(id: Matcher, options?: MatcherOptions): Chainable<JQuery<E>>;
+            findByTestId<K extends keyof HTMLElementTagNameMap>(
                 id: Matcher,
                 options?: MatcherOptions,
             ): Chainable<JQuery<HTMLElementTagNameMap[K]>>;
@@ -465,16 +466,16 @@ declare global {
             /**
              * dom-testing-library helpers for Cypress
              *
-             * `getBy*` APIs search for an element and throw an error if nothing found
-             * `getAllBy*` APIs search for all elements and an error if nothing found
+             * `findBy*` APIs search for an element and throw an error if nothing found
+             * `findAllBy*` APIs search for all elements and an error if nothing found
              * `queryBy*` APIs search for an element and returns null if nothing found
              * `queryAllBy*` APIs search for all elements and return empty array if nothing found
              *
              * @see https://github.com/testing-library/cypress-testing-library#usage
              * @see https://github.com/testing-library/dom-testing-library#table-of-contents
              */
-            getAllByTestId<E extends Node = HTMLElement>(id: Matcher, options?: MatcherOptions): Chainable<E[]>;
-            getAllByTestId<K extends keyof HTMLElementTagNameMap>(
+            findAllByTestId<E extends Node = HTMLElement>(id: Matcher, options?: MatcherOptions): Chainable<E[]>;
+            findAllByTestId<K extends keyof HTMLElementTagNameMap>(
                 id: Matcher,
                 options?: MatcherOptions,
             ): Chainable<Array<HTMLElementTagNameMap[K]>>;
@@ -482,8 +483,8 @@ declare global {
             /**
              * dom-testing-library helpers for Cypress
              *
-             * `getBy*` APIs search for an element and throw an error if nothing found
-             * `getAllBy*` APIs search for all elements and an error if nothing found
+             * `findBy*` APIs search for an element and throw an error if nothing found
+             * `findAllBy*` APIs search for all elements and an error if nothing found
              * `queryBy*` APIs search for an element and returns null if nothing found
              * `queryAllBy*` APIs search for all elements and return empty array if nothing found
              *
@@ -499,8 +500,8 @@ declare global {
             /**
              * dom-testing-library helpers for Cypress
              *
-             * `getBy*` APIs search for an element and throw an error if nothing found
-             * `getAllBy*` APIs search for all elements and an error if nothing found
+             * `findBy*` APIs search for an element and throw an error if nothing found
+             * `findAllBy*` APIs search for all elements and an error if nothing found
              * `queryBy*` APIs search for an element and returns null if nothing found
              * `queryAllBy*` APIs search for all elements and return empty array if nothing found
              *
@@ -516,16 +517,16 @@ declare global {
             /**
              * dom-testing-library helpers for Cypress
              *
-             * `getBy*` APIs search for an element and throw an error if nothing found
-             * `getAllBy*` APIs search for all elements and an error if nothing found
+             * `findBy*` APIs search for an element and throw an error if nothing found
+             * `findAllBy*` APIs search for all elements and an error if nothing found
              * `queryBy*` APIs search for an element and returns null if nothing found
              * `queryAllBy*` APIs search for all elements and return empty array if nothing found
              *
              * @see https://github.com/testing-library/cypress-testing-library#usage
              * @see https://github.com/testing-library/dom-testing-library#table-of-contents
              */
-            getByTitle<E extends Node = HTMLElement>(id: Matcher, options?: MatcherOptions): Chainable<JQuery<E>>;
-            getByTitle<K extends keyof HTMLElementTagNameMap>(
+            findByTitle<E extends Node = HTMLElement>(id: Matcher, options?: MatcherOptions): Chainable<JQuery<E>>;
+            findByTitle<K extends keyof HTMLElementTagNameMap>(
                 id: Matcher,
                 options?: MatcherOptions,
             ): Chainable<JQuery<HTMLElementTagNameMap[K]>>;
@@ -533,16 +534,16 @@ declare global {
             /**
              * dom-testing-library helpers for Cypress
              *
-             * `getBy*` APIs search for an element and throw an error if nothing found
-             * `getAllBy*` APIs search for all elements and an error if nothing found
+             * `findBy*` APIs search for an element and throw an error if nothing found
+             * `findAllBy*` APIs search for all elements and an error if nothing found
              * `queryBy*` APIs search for an element and returns null if nothing found
              * `queryAllBy*` APIs search for all elements and return empty array if nothing found
              *
              * @see https://github.com/testing-library/cypress-testing-library#usage
              * @see https://github.com/testing-library/dom-testing-library#table-of-contents
              */
-            getAllByTitle<E extends Node = HTMLElement>(id: Matcher, options?: MatcherOptions): Chainable<E[]>;
-            getAllByTitle<K extends keyof HTMLElementTagNameMap>(
+            findAllByTitle<E extends Node = HTMLElement>(id: Matcher, options?: MatcherOptions): Chainable<E[]>;
+            findAllByTitle<K extends keyof HTMLElementTagNameMap>(
                 id: Matcher,
                 options?: MatcherOptions,
             ): Chainable<Array<HTMLElementTagNameMap[K]>>;
@@ -550,8 +551,8 @@ declare global {
             /**
              * dom-testing-library helpers for Cypress
              *
-             * `getBy*` APIs search for an element and throw an error if nothing found
-             * `getAllBy*` APIs search for all elements and an error if nothing found
+             * `findBy*` APIs search for an element and throw an error if nothing found
+             * `findAllBy*` APIs search for all elements and an error if nothing found
              * `queryBy*` APIs search for an element and returns null if nothing found
              * `queryAllBy*` APIs search for all elements and return empty array if nothing found
              *
@@ -570,8 +571,8 @@ declare global {
             /**
              * dom-testing-library helpers for Cypress
              *
-             * `getBy*` APIs search for an element and throw an error if nothing found
-             * `getAllBy*` APIs search for all elements and an error if nothing found
+             * `findBy*` APIs search for an element and throw an error if nothing found
+             * `findAllBy*` APIs search for all elements and an error if nothing found
              * `queryBy*` APIs search for an element and returns null if nothing found
              * `queryAllBy*` APIs search for all elements and return empty array if nothing found
              *
@@ -590,19 +591,19 @@ declare global {
             /**
              * dom-testing-library helpers for Cypress
              *
-             * `getBy*` APIs search for an element and throw an error if nothing found
-             * `getAllBy*` APIs search for all elements and an error if nothing found
+             * `findBy*` APIs search for an element and throw an error if nothing found
+             * `findAllBy*` APIs search for all elements and an error if nothing found
              * `queryBy*` APIs search for an element and returns null if nothing found
              * `queryAllBy*` APIs search for all elements and return empty array if nothing found
              *
              * @see https://github.com/testing-library/cypress-testing-library#usage
              * @see https://github.com/testing-library/dom-testing-library#table-of-contents
              */
-            getByDisplayValue<E extends Node = HTMLElement>(
+            findByDisplayValue<E extends Node = HTMLElement>(
                 id: Matcher,
                 options?: MatcherOptions,
             ): Chainable<JQuery<E>>;
-            getByDisplayValue<K extends keyof HTMLElementTagNameMap>(
+            findByDisplayValue<K extends keyof HTMLElementTagNameMap>(
                 id: Matcher,
                 options?: MatcherOptions,
             ): Chainable<JQuery<HTMLElementTagNameMap[K]>>;
@@ -610,16 +611,16 @@ declare global {
             /**
              * dom-testing-library helpers for Cypress
              *
-             * `getBy*` APIs search for an element and throw an error if nothing found
-             * `getAllBy*` APIs search for all elements and an error if nothing found
+             * `findBy*` APIs search for an element and throw an error if nothing found
+             * `findAllBy*` APIs search for all elements and an error if nothing found
              * `queryBy*` APIs search for an element and returns null if nothing found
              * `queryAllBy*` APIs search for all elements and return empty array if nothing found
              *
              * @see https://github.com/testing-library/cypress-testing-library#usage
              * @see https://github.com/testing-library/dom-testing-library#table-of-contents
              */
-            getAllByDisplayValue<E extends Node = HTMLElement>(id: Matcher, options?: MatcherOptions): Chainable<E[]>;
-            getAllByDisplayValue<K extends keyof HTMLElementTagNameMap>(
+            findAllByDisplayValue<E extends Node = HTMLElement>(id: Matcher, options?: MatcherOptions): Chainable<E[]>;
+            findAllByDisplayValue<K extends keyof HTMLElementTagNameMap>(
                 id: Matcher,
                 options?: MatcherOptions,
             ): Chainable<Array<HTMLElementTagNameMap[K]>>;
@@ -627,8 +628,8 @@ declare global {
             /**
              * dom-testing-library helpers for Cypress
              *
-             * `getBy*` APIs search for an element and throw an error if nothing found
-             * `getAllBy*` APIs search for all elements and an error if nothing found
+             * `findBy*` APIs search for an element and throw an error if nothing found
+             * `findAllBy*` APIs search for all elements and an error if nothing found
              * `queryBy*` APIs search for an element and returns null if nothing found
              * `queryAllBy*` APIs search for all elements and return empty array if nothing found
              *
@@ -644,8 +645,8 @@ declare global {
             /**
              * dom-testing-library helpers for Cypress
              *
-             * `getBy*` APIs search for an element and throw an error if nothing found
-             * `getAllBy*` APIs search for all elements and an error if nothing found
+             * `findBy*` APIs search for an element and throw an error if nothing found
+             * `findAllBy*` APIs search for all elements and an error if nothing found
              * `queryBy*` APIs search for an element and returns null if nothing found
              * `queryAllBy*` APIs search for all elements and return empty array if nothing found
              *
@@ -661,16 +662,16 @@ declare global {
             /**
              * dom-testing-library helpers for Cypress
              *
-             * `getBy*` APIs search for an element and throw an error if nothing found
-             * `getAllBy*` APIs search for all elements and an error if nothing found
+             * `findBy*` APIs search for an element and throw an error if nothing found
+             * `findAllBy*` APIs search for all elements and an error if nothing found
              * `queryBy*` APIs search for an element and returns null if nothing found
              * `queryAllBy*` APIs search for all elements and return empty array if nothing found
              *
              * @see https://github.com/testing-library/cypress-testing-library#usage
              * @see https://github.com/testing-library/dom-testing-library#table-of-contents
              */
-            getByRole<E extends Node = HTMLElement>(id: Matcher, options?: MatcherOptions): Chainable<JQuery<E>>;
-            getByRole<K extends keyof HTMLElementTagNameMap>(
+            findByRole<E extends Node = HTMLElement>(id: Matcher, options?: MatcherOptions): Chainable<JQuery<E>>;
+            findByRole<K extends keyof HTMLElementTagNameMap>(
                 id: Matcher,
                 options?: MatcherOptions,
             ): Chainable<JQuery<HTMLElementTagNameMap[K]>>;
@@ -678,16 +679,16 @@ declare global {
             /**
              * dom-testing-library helpers for Cypress
              *
-             * `getBy*` APIs search for an element and throw an error if nothing found
-             * `getAllBy*` APIs search for all elements and an error if nothing found
+             * `findBy*` APIs search for an element and throw an error if nothing found
+             * `findAllBy*` APIs search for all elements and an error if nothing found
              * `queryBy*` APIs search for an element and returns null if nothing found
              * `queryAllBy*` APIs search for all elements and return empty array if nothing found
              *
              * @see https://github.com/testing-library/cypress-testing-library#usage
              * @see https://github.com/testing-library/dom-testing-library#table-of-contents
              */
-            getAllByRole<E extends Node = HTMLElement>(id: Matcher, options?: MatcherOptions): Chainable<E[]>;
-            getAllByRole<K extends keyof HTMLElementTagNameMap>(
+            findAllByRole<E extends Node = HTMLElement>(id: Matcher, options?: MatcherOptions): Chainable<E[]>;
+            findAllByRole<K extends keyof HTMLElementTagNameMap>(
                 id: Matcher,
                 options?: MatcherOptions,
             ): Chainable<Array<HTMLElementTagNameMap[K]>>;
