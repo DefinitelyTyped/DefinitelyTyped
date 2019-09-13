@@ -28,23 +28,53 @@ export namespace v2 {
       cb?: (err: Error, agent: Agent) => void
     ): Promise<[Agent]>;
 
+    deleteAgent(
+      request: DeleteAgentRequest,
+      cb?: (err: Error, agent: Agent) => void
+    ): Promise<void>;
+    deleteAgent(
+      request: DeleteAgentRequest,
+      options?: gax.CallOptions,
+      cb?: (err: Error, agent: Agent) => void
+    ): Promise<void>;
+
+    getAgent(
+      request: GetAgentRequest,
+      cb?: (err: Error, agent: Agent) => void
+    ): Promise<[Agent]>;
     getAgent(
       request: GetAgentRequest,
       options?: gax.CallOptions,
       cb?: (err: Error, agent: Agent) => void
     ): Promise<[Agent]>;
+
+    searchAgents(
+      request: SearchAgentRequest,
+      cb?: (err: Error, agent: Agent) => void
+    ): Promise<Agent[]>;
     searchAgents(
       request: SearchAgentRequest,
       options?: gax.CallOptions,
       cb?: (err: Error, agents: Agent[], arg3: any, response: any) => void
     ): Promise<Agent[]>;
+
     searchAgentsStream(
       request: SearchAgentRequest,
       options?: gax.CallOptions
     ): any;
+
+    trainAgent(
+      request: TrainAgentRequest,
+      cb?: (err: Error, operation: gax.Operation) => void
+    ): Promise<[gax.Operation]>;
     trainAgent(
       request: TrainAgentRequest,
       options?: gax.CallOptions,
+      cb?: (err: Error, operation: gax.Operation) => void
+    ): Promise<[gax.Operation]>;
+
+    exportAgent(
+      request: ExportAgentRequest,
       cb?: (err: Error, operation: gax.Operation) => void
     ): Promise<[gax.Operation]>;
     exportAgent(
@@ -52,9 +82,19 @@ export namespace v2 {
       options?: gax.CallOptions,
       cb?: (err: Error, operation: gax.Operation) => void
     ): Promise<[gax.Operation]>;
+
+    importAgent(
+      request: ImportAgentRequest,
+      cb?: (err: Error, operation: gax.Operation) => void
+    ): Promise<[gax.Operation]>;
     importAgent(
       request: ImportAgentRequest,
       options?: gax.CallOptions,
+      cb?: (err: Error, operation: gax.Operation) => void
+    ): Promise<[gax.Operation]>;
+
+    restoreAgent(
+      request: RestoreAgentRequest,
       cb?: (err: Error, operation: gax.Operation) => void
     ): Promise<[gax.Operation]>;
     restoreAgent(
@@ -62,6 +102,10 @@ export namespace v2 {
       options?: gax.CallOptions,
       cb?: (err: Error, operation: gax.Operation) => void
     ): Promise<[gax.Operation]>;
+
+    projectPath(project: string): string;
+
+    matchProjectFromProjectName(projectName: string): string;
   }
 
   class ContextsClient {
@@ -462,6 +506,10 @@ export namespace longrunning {
 export interface SetAgentRequest {
   agent: Agent;
   updateMask?: any;
+}
+
+export interface DeleteAgentRequest {
+  parent: string;
 }
 
 export interface GetAgentRequest {
