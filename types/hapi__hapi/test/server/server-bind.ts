@@ -4,8 +4,13 @@ import { Lifecycle, Plugin, Request, ResponseToolkit, Server, ServerRegisterOpti
 const server = new Server({
     port: 8000,
 });
+
+interface MyContext {
+    message: string;
+}
+
 const handler: Lifecycle.Method = (request, h) => {
-    return h.context.message;    // Or h.context.message
+    return (<MyContext> h.context).message;    // Or h.context.message
 };
 
 const plugin: Plugin<any> = {

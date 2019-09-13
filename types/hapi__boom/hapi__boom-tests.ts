@@ -148,7 +148,7 @@ const isBoomError = new Boom('test');
 
 Boom.isBoom(isBoomError);
 
-const maybeBoom = <any> new Boom('test');
+const maybeBoom = <unknown> new Boom('test');
 if (Boom.isBoom(maybeBoom)) {
     // isBoom is a type guard that allows accessing these properties:
     maybeBoom.output.headers;

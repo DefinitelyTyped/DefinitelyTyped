@@ -3,7 +3,7 @@
 // Definitions by: feinoujc <https://github.com/feinoujc>
 //                 Silas Rech <https://github.com/lenovouser>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 3.1
 
 export function charset(charsetHeader?: string, preferences?: string[]): string;
 export function charsets(charsetHeader?: string): string[];

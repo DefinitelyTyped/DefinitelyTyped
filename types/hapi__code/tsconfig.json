@@ -15,6 +15,9 @@
         "paths": {
             "@hapi/code": [
                 "hapi__code"
+            ],
+            "@hapi/hoek": [
+                "hapi__hoek"
             ]
         },
         "types": [],

@@ -3,7 +3,7 @@
 // Definitions by: Silas Rech <https://github.com/lenovouser>
 //                 Simon Schick <https://github.com/SimonSchick>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.1
 
 import { Request, Plugin, ResponseToolkit, ServerStateCookieOptions } from '@hapi/hapi';
 

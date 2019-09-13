@@ -4,7 +4,7 @@
 //                 Rafael Souza Fijalkowski <https://github.com/rafaelsouzaf>
 //                 Silas Rech <https://github.com/lenovouser>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 3.1
 
 /// <reference types="node" />
 

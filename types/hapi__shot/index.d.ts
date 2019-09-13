@@ -4,7 +4,7 @@
 //                 Simon Schick <https://github.com/SimonSchick>
 //                 Silas Rech <https://github.com/lenovouser>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 3.1
 
 /// <reference types="node" />
 
@@ -23,7 +23,7 @@ export function inject(dispatchFunc: Listener, options: RequestOptions): Promise
  * Checks if given object obj is a Shot Request object.
  * @see {@link https://github.com/hapijs/shot/blob/master/API.md#shotisinjectionobj}
  */
-export function isInjection(obj: any): boolean;
+export function isInjection(obj: unknown): boolean;
 
 /**
  * listener function. The same as you would pass to Http.createServer when making a node HTTP server. Has the signature function (req, res) where:
@@ -104,5 +104,5 @@ export interface ResponseObject {
     /** the raw payload as a Buffer. */
     rawPayload: Buffer;
     /** an object containing the response trailers. */
-    trailers: {[index: string]: any};
+    trailers: { [index: string]: unknown };
 }

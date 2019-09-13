@@ -3,14 +3,14 @@
 // Definitions by: BendingBender <https://github.com/BendingBender>
 //                 Silas Rech <https://github.com/lenovouser>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.1
 
 export = Topo;
 
 /**
  * The Topo object is the container for topologically sorting a list of nodes with non-circular interdependencies.
  */
-declare class Topo<TNode = any, TGroup = string> {
+declare class Topo<TNode = unknown, TGroup = string> {
     /**
      * An array of the topologically sorted nodes. This list is renewed upon each call to `topo.add()`.
      */

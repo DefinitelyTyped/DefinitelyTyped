@@ -3,6 +3,9 @@
 // Definitions by: Prashant Tiwari <https://github.com/prashaantt>
 //                 Silas Rech <https://github.com/lenovouser>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.1
+
+import { DeepEqualOptions } from '@hapi/hoek';
 
 /** Generates an assertion object. */
 export function expect<T>(value: T | T[], prefix?: string): AssertionChain<T>;
@@ -79,7 +82,7 @@ export interface Types<T> {
     /** Asserts that the reference value is a Date. */
     date(): AssertionChain<T>;
     /** Asserts that the reference value is an error. */
-    error(type?: any, message?: string | RegExp): AssertionChain<T>;
+    error(type?: unknown, message?: string | RegExp): AssertionChain<T>;
     /** Asserts that the reference value is a function. */
     function(): AssertionChain<T>;
     /** Asserts that the reference value is a number. */
@@ -126,9 +129,9 @@ export interface Values<T> {
     /** Asserts that the reference value has a length property matching the provided size or an object with the specified number of keys. */
     length(size: number): AssertionChain<T>;
     /** Asserts that the reference value equals the provided value. */
-    equal(value: T | T[], options?: any): AssertionChain<T>;
+    equal(value: T | T[], options?: DeepEqualOptions): AssertionChain<T>;
     /** Asserts that the reference value equals the provided value. */
-    equals(value: T | T[], options?: any): AssertionChain<T>;
+    equals(value: T | T[], options?: DeepEqualOptions): AssertionChain<T>;
     /** Asserts that the reference value is greater than (>) the provided value. */
     above(value: T): AssertionChain<T>;
     /** Asserts that the reference value is greater than (>) the provided value. */
@@ -154,25 +157,25 @@ export interface Values<T> {
     /** Asserts that the reference value is about the provided value within a delta margin of difference. */
     about(value: number, delta: number): AssertionChain<T>;
     /** Asserts that the reference value has the provided instanceof value. */
-    instanceof(type: any): AssertionChain<T>;
+    instanceof(type: unknown): AssertionChain<T>;
     /** Asserts that the reference value has the provided instanceof value. */
-    instanceOf(type: any): AssertionChain<T>;
+    instanceOf(type: unknown): AssertionChain<T>;
     /** Asserts that the reference value's toString() representation matches the provided regular expression. */
     match(regex: RegExp): AssertionChain<T>;
     /** Asserts that the reference value's toString() representation matches the provided regular expression. */
     matches(regex: RegExp): AssertionChain<T>;
     /** Asserts that the Promise reference value rejects with an exception when called */
-    reject(type?: any, message?: string | RegExp): AssertionChain<T>;
+    reject(type?: unknown, message?: string | RegExp): AssertionChain<T>;
     /** Asserts that the Promise reference value rejects with an exception when called */
-    rejects(type?: any, message?: string | RegExp): AssertionChain<T>;
+    rejects(type?: unknown, message?: string | RegExp): AssertionChain<T>;
     /** Asserts that the reference value satisfies the provided validator function. */
     satisfy(validator: (value: T) => boolean): AssertionChain<T>;
     /** Asserts that the reference value satisfies the provided validator function. */
     satisfies(validator: (value: T) => boolean): AssertionChain<T>;
     /** Asserts that the function reference value throws an exception when called. */
-    throw(type?: any, message?: string | RegExp): AssertionChain<T>;
+    throw(type?: unknown, message?: string | RegExp): AssertionChain<T>;
     /** Asserts that the function reference value throws an exception when called. */
-    throws(type?: any, message?: string | RegExp): AssertionChain<T>;
+    throws(type?: unknown, message?: string | RegExp): AssertionChain<T>;
 }
 
 export interface Settings {

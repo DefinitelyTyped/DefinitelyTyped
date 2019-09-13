@@ -3,6 +3,7 @@
 // Definitions by: Alex Wendland <https://github.com/awendland>
 //                 Silas Rech <https://github.com/lenovouser>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.1
 
 /**
  * Returns a cryptographically strong pseudo-random data string. Takes a size argument for the length of the string.

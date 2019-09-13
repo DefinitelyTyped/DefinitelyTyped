@@ -1,13 +1,14 @@
-// Type definitions for @hapi/lab 18.1
+// Type definitions for @hapi/lab 20.2
 // Project: https://github.com/hapijs/lab
 // Definitions by: Prashant Tiwari <https://github.com/prashaantt>
 //                 Silas Rech <https://github.com/lenovouser>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.1
 
 /** The test script. */
 export function script(options?: ScriptOptions): Lab & ExperimentAlt & TestAlt;
 /** Access the configured assertion library. */
-export const assertions: any;
+export const assertions: unknown;
 
 interface Lab {
     /** Organise tests into an experiment */
@@ -133,7 +134,9 @@ interface ScriptOptions {
     schedule?: boolean;
 
     /** Pass Lab CLI options */
-    cli?: any;
+    cli?: {
+        [key: string]: unknown;
+    };
 }
 
 interface ExperimentOptions {
@@ -173,11 +176,11 @@ type CleanupFunction = (func: (next: Function) => void) => void;
 
 type TestCallback = (done: DoneFunction & DoneNote, onCleanup?: CleanupFunction) => void;
 
-type TestPromise = () => Promise<any>;
+type TestPromise = () => Promise<unknown>;
 
 type AsyncCallback = (done: DoneFunction) => void;
 
-type AsyncPromise = () => Promise<any>;
+type AsyncPromise = () => Promise<unknown>;
 
 type ExperimentArgs = (desc: string, cb: EmptyCallback) => {};
 

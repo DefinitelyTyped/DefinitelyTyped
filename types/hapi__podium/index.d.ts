@@ -3,7 +3,7 @@
 // Definitions by: AJP <https://github.com/AJamesPhillips>
 //                 Silas Rech <https://github.com/lenovouser>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 3.1
 
 /**
  * Podium
@@ -176,7 +176,7 @@ declare namespace Podium {
      * @see {@link https://github.com/hapijs/podium/blob/master/API.md#podiumoncriteria-listener}
      */
     export interface Listener {
-    (data: any, tags?: Tags, callback?: () => void): void;
+        (data: unknown, tags?: Tags, callback?: () => void): void;
     }
 
     export type Tags = {[tag: string]: boolean};

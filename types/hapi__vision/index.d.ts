@@ -4,7 +4,7 @@
 //                 Alexander James Phillips <https://github.com/AJamesPhillips>
 //                 Silas Rech <https://github.com/lenovouser>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.1
 
 import {
     Plugin,
@@ -131,7 +131,7 @@ declare namespace vision {
 
     type ServerViewCompile = ServerViewCompileSync | ServerViewCompileAsync;
 
-    type ServerViewCompileNext = (err: Error | null, compiled: (context: any, options: any, callback: (err: null | Error, rendered: string | null) => void) => void) => void;
+    type ServerViewCompileNext = (err: Error | null, compiled: (context: unknown, options: unknown, callback: (err: null | Error, rendered: string | null) => void) => void) => void;
 
     /**
      * The npm module used for rendering the templates. The module object must contain the compile() function
@@ -156,7 +156,7 @@ declare namespace vision {
          * Registers a helper for use during template rendering.
          * The name is the name that templates should use to reference the helper and helper is the function that will be invoked when the helper is called.
          */
-        registerHelper?(name: string, helper: (...args: any[]) => any): void;
+        registerHelper?(name: string, helper: (...args: unknown[]) => unknown): void;
     }
 
     type EngineConfigurationObject = object;
@@ -182,7 +182,7 @@ declare namespace vision {
          * @param helper
          * @see {@link https://github.com/hapijs/vision/blob/master/API.md#managerregisterhelpername-helper}
          */
-        registerHelper(name: string, helper: (...args: any[]) => any): void;
+        registerHelper(name: string, helper: (...args: unknown[]) => unknown): void;
         /**
          * Renders a template. This is typically not needed and it is usually more convenient to use server.render().
          * @see {@link https://github.com/hapijs/vision/blob/master/API.md#managerrendertemplate-context-options-callback}
@@ -249,7 +249,7 @@ declare module '@hapi/hapi' {
          *                 Cannot override isCached, partialsPath, or helpersPath which are only loaded at initialization.
          * @see {@link https://github.com/hapijs/vision/blob/master/API.md#replyviewtemplate-context-options}
          */
-        view(templatePath: string, context?: any, options?: vision.ViewHandlerOrReplyOptions): ResponseObject;
+        view(templatePath: string, context?: object, options?: vision.ViewHandlerOrReplyOptions): ResponseObject;
         /**
          * Returns the closest views manager to your realm (either on your realm or inherited from an ancestor realm)
          *

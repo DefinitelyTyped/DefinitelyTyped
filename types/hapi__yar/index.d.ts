@@ -3,8 +3,7 @@
 // Definitions by: Simon Schick <https://github.com/SimonSchick>
 //                 Silas Rech <https://github.com/lenovouser>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-// From https://github.com/hapijs/yar/blob/master/API.md
+// TypeScript Version: 3.1
 
 import {
     Server,
@@ -44,7 +43,7 @@ declare namespace yar {
         /**
          * hapi cache options which includes (among other options):
          */
-        cache?: CachePolicyOptions<any>;
+        cache?: CachePolicyOptions<unknown>;
 
         /**
          * the configuration for cookie-specific features:
@@ -124,14 +123,14 @@ declare namespace yar {
          */
         set<T>(key: string, value: T): T;
         /**
-         *  assigns values to multiple keys using each 'keysObject' top-level property. Returns the keysObject.
+         * Assigns values to multiple keys using each 'keysObject' top-level property. Returns the keysObject.
          */
-        set<T extends { [key: string]: any }>(keysObject: T): T;
+        set<T extends { [key: string]: unknown }>(keysObject: T): T;
 
         /**
          * retrieve value using a key. If 'clear' is 'true', key is cleared on return.
          */
-        get(key: string, clear?: boolean): any;
+        get(key: string, clear?: boolean): unknown;
         /**
          * clears key.
          */
@@ -149,7 +148,7 @@ declare namespace yar {
          * 'isOverride' used to indicate that the message provided should replace
          * any existing value instead of being appended to it (defaults to false).
          */
-        flash(type: string, message?: any, isOverride?: boolean): any[];
+        flash(type: string, message?: unknown, isOverride?: boolean): unknown[];
 
         /**
          * if set to 'true', enables lazy mode.

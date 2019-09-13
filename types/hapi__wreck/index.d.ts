@@ -5,7 +5,7 @@
 //                 Silas Rech <https://github.com/lenovouser>
 //                 Geoff Goodman <https://github.com/ggoodman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 3.1
 
 /// <reference types="node" />
 
@@ -19,16 +19,16 @@ import * as Url from "url";
 interface RequestOptions {
     baseUrl?: string;
     socketPath? : string;
-    payload?: any;
-    headers?: { [key: string]: any };
+    payload?: string | Buffer | stream.Readable | object;
+    headers?: { [key: string]: string | number };
     redirects?: number;
     redirect303?: boolean;
-    beforeRedirect?: (redirectMethod: string, statusCode: number, location: string, resHeaders: { [key: string]: any }, redirectOptions: any, next: () => {}) => void;
+    beforeRedirect?: (redirectMethod: string, statusCode: number, location: string, resHeaders: { [key: string]: unknown }, redirectOptions: RequestOptions, next: () => {}) => void;
     redirected?: (statusCode: number, location: string, req: http.ClientRequest) => void;
     timeout?: number;
     maxBytes?: number;
     rejectUnauthorized?: boolean;
-    downstreamRes?: any;
+    downstreamRes?: http.ServerResponse;
     agent?: http.Agent | false;
     secureProtocol?: string;
     ciphers?: string;
@@ -43,11 +43,11 @@ interface ReadOptions {
 }
 
 interface RequestResponse {
-    res: http.IncomingMessage,
-    payload: any,
+    res: http.IncomingMessage;
+    payload: Buffer | object;
 }
 
-declare type RequestCallback = (uri: string, options: RequestOptions & { payload?: any }) => void;
+declare type RequestCallback = (uri: string, options: RequestOptions & { payload?: Buffer | object }) => void;
 declare type ResponseCallback = (err: Boom | undefined, details: { req: http.ClientRequest, res: http.IncomingMessage | undefined, start: number, url: Url.URL }) => void;
 
 declare class WreckEventEmitter extends events.EventEmitter {
@@ -60,7 +60,7 @@ interface WreckObject {
 
     request: (method: string, uri: string, options: RequestOptions) => Promise<http.IncomingMessage> & { req: http.ClientRequest };
 
-    read: (response: http.IncomingMessage, options: ReadOptions) => Promise<any>;
+    read: (response: http.IncomingMessage, options: ReadOptions) => Promise<unknown>;
 
     get: (uri: string, options: RequestOptions & ReadOptions) => Promise<RequestResponse>;
     post: (uri: string, options: RequestOptions & ReadOptions) => Promise<RequestResponse>;
@@ -68,9 +68,9 @@ interface WreckObject {
     put: (uri: string, options: RequestOptions & ReadOptions) => Promise<RequestResponse>;
     delete: (uri: string, options: RequestOptions & ReadOptions) => Promise<RequestResponse>;
 
-    toReadableStream: (payload: any, encoding?: string) => stream.Readable;
+    toReadableStream: (payload: string | Buffer, encoding?: string) => stream.Readable;
 
-    parseCacheControl: (field: string) => any;
+    parseCacheControl: (field: string) => { [key: string]: string };
 
     agents: {
         http: http.Agent,

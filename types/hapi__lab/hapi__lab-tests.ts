@@ -1,8 +1,21 @@
 import { script, assertions } from "@hapi/lab";
 
 const { experiment, describe, suite, test, it, before, beforeEach, after, afterEach } = script();
-const expect = assertions.expect;
-const fail = assertions.fail;
+
+interface Chain {
+    to: Chain;
+    be: Chain;
+    equal(val: unknown): void;
+    true(): void;
+}
+
+interface Assertions {
+    expect(val: unknown): Chain;
+    fail(stuff: unknown): never;
+}
+
+const expect = (<Assertions>assertions).expect;
+const fail = (<Assertions>assertions).fail;
 
 experiment('math', () => {
 

@@ -3,7 +3,7 @@
 // Definitions by: Simon Schick <https://github.com/SimonSchick>
 //                 Silas Rech <https://github.com/lenovouser>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.1
 
 // tslint:disable-next-line
 declare module '@hapi/catbox-redis' {

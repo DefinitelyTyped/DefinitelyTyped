@@ -5,7 +5,7 @@
 //                 Rodrigo Saboya <https://github.com/saboya>
 //                 Silas Rech <https://github.com/lenovouser>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.1
 
 /**
  * Client
@@ -48,7 +48,7 @@ export class Client<T> implements ClientApi<T> {
     validateSegmentName(segment: string): null | Error;
 }
 
-export type EnginePrototypeOrObject = EnginePrototype<any> | ClientApi<any>;
+export type EnginePrototypeOrObject = EnginePrototype<unknown> | ClientApi<unknown>;
 
 /**
  * A prototype CatBox engine function

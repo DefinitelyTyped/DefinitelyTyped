@@ -6,17 +6,7 @@
 //                 Rodrigo Saboya <https://github.com/saboya>
 //                 Silas Rech <https://github.com/lenovouser>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-/* + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + +
- +                                                                           +
- +                                                                           +
- +                                                                           +
- +                      WARNING: BACKWARDS INCOMPATIBLE                      +
- +                                                                           +
- +                                                                           +
- +                                                                           +
- + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + */
+// TypeScript Version: 3.1
 
 /// <reference types='node' />
 
@@ -97,28 +87,6 @@ export interface PluginsStates {
 export interface PluginSpecificConfiguration {
 }
 
-export interface PluginNameVersion {
-    /**
-     * (required) the plugin name string. The name is used as a unique key. Published plugins (e.g. published in the npm
-     * registry) should use the same name as the name field in their 'package.json' file. Names must be
-     * unique within each application.
-     */
-    name: string;
-
-    /**
-     * optional plugin version. The version is only used informatively to enable other plugins to find out the versions loaded. The version should be the same as the one specified in the plugin's
-     * 'package.json' file.
-     */
-    version?: string;
-}
-
-export interface PluginPackage {
-    /**
-     * Alternatively, the name and version can be included via the pkg property containing the 'package.json' file for the module which already has the name and version included
-     */
-    pkg: any;
-}
-
 /**
  * Plugins provide a way to organize application code by splitting the server logic into smaller components. Each
  * plugin can manipulate the server through the standard server interface, but with the added ability to sandbox
@@ -128,7 +96,7 @@ export interface PluginPackage {
  *
  * The type T is the type of the plugin options.
  */
-export interface PluginBase<T> {
+export interface Plugin<T = void> {
     /**
      * (required) the registration function with the signature async function(server, options) where:
      * * server - the server object with a plugin-specific server.realm.
@@ -153,9 +121,20 @@ export interface PluginBase<T> {
 
     /** once - (optional) if true, will only register the plugin once per server. If set, overrides the once option passed to server.register(). Defaults to no override. */
     once?: boolean;
-}
 
-export type Plugin<T> = PluginBase<T> & (PluginNameVersion | PluginPackage);
+    /**
+     * (required) the plugin name string. The name is used as a unique key. Published plugins (e.g. published in the npm
+     * registry) should use the same name as the name field in their 'package.json' file. Names must be
+     * unique within each application.
+     */
+    name: string;
+
+    /**
+     * optional plugin version. The version is only used informatively to enable other plugins to find out the versions loaded. The version should be the same as the one specified in the plugin's
+     * 'package.json' file.
+     */
+    version?: string;
+}
 
 /* + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + +
  +                                                                           +
@@ -503,7 +482,7 @@ export interface Request extends Podium {
      * An object where each key is the name assigned by a route pre-handler methods function. The values are the raw values provided to the continuation function as argument. For the wrapped response
      * object, use responses.
      */
-    readonly pre: Util.Dictionary<any>;
+    readonly pre: Util.Dictionary<unknown>;
 
     /**
      * Access: read / write (see limitations below).
@@ -516,7 +495,7 @@ export interface Request extends Podium {
     /**
      * Same as pre but represented as the response object created by the pre method.
      */
-    readonly preResponses: Util.Dictionary<any>;
+    readonly preResponses: Util.Dictionary<unknown>;
 
     /**
      * By default the object outputted from node's URL parse() method.
@@ -549,7 +528,7 @@ export interface Request extends Podium {
     /**
      * An object containing parsed HTTP state information (cookies) where each key is the cookie name and value is the matching cookie content after processing using any registered cookie definition.
      */
-    readonly state: Util.Dictionary<any>;
+    readonly state: Util.Dictionary<unknown>;
 
     /**
      * The parsed request URI.
@@ -1004,7 +983,7 @@ export interface ResponseToolkit {
      * A response symbol. Provides access to the route or server context set via the route [bind](https://github.com/hapijs/hapi/blob/master/API.md#route.options.bind)
      * option or [server.bind()](https://github.com/hapijs/hapi/blob/master/API.md#server.bind()).
      */
-    readonly context: any;
+    readonly context: unknown;
 
     /**
      * A response symbol. When returned by a lifecycle method, the request lifecycle continues without changing the response.
@@ -2748,7 +2727,7 @@ export interface ServerInjectResponse extends Shot.ResponseObject {
  * * * ttl - 0 if result is valid but cannot be cached. Defaults to cache policy.
  * For reference [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-servermethodname-method-options)
  */
-export type ServerMethod = (...args: any[]) => any;
+export type ServerMethod = (...args: unknown[]) => unknown;
 
 /**
  * The same cache configuration used in server.cache().
@@ -2785,7 +2764,7 @@ export interface ServerMethodOptions {
      * unique key if the function's arguments are all of types 'string', 'number', or 'boolean'. However if the method uses other types of arguments, a key generation function must be provided which
      * takes the same arguments as the function and returns a unique string (or null if no key can be generated).
      */
-    generateKey?(...args: any[]): string | null;
+    generateKey?(...args: unknown[]): string | null;
 }
 
 /**
@@ -2810,8 +2789,8 @@ export interface ServerMethodConfigurationObject {
     options?: ServerMethodOptions;
 }
 
-export type CacheProvider<T extends ClientOptions = ClientOptions> = EnginePrototype<any> | {
-    constructor: EnginePrototype<any>;
+export type CacheProvider<T extends ClientOptions = ClientOptions> = EnginePrototype<unknown> | {
+    constructor: EnginePrototype<unknown>;
     options?: T;
 };
 
@@ -2820,9 +2799,9 @@ export type CacheProvider<T extends ClientOptions = ClientOptions> = EngineProto
  * MongoDB, Memcached, Riak, among others). Caching is only utilized if methods and plugins explicitly store their state in the cache.
  * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-cache)
  */
-export interface ServerOptionsCache extends PolicyOptions<any> {
+export interface ServerOptionsCache extends PolicyOptions<unknown> {
     /** catbox engine object. */
-    engine?: ClientApi<any>;
+    engine?: ClientApi<unknown>;
 
     /**
      * a class or a prototype function
@@ -2842,7 +2821,7 @@ export interface ServerOptionsCache extends PolicyOptions<any> {
     partition?: string;
 
     /** other options passed to the catbox strategy used. Other options are only passed to catbox when engine above is a class or function and ignored if engine is a catbox engine object). */
-    [s: string]: any;
+    [s: string]: unknown;
 }
 
 export interface ServerOptionsCompression {
@@ -3059,7 +3038,7 @@ export interface ServerOptions {
          * the method must return an object where each key is a parameter and matching value is the parameter value.
          * If the method throws, the error is used as the response or returned when `request.setUrl` is called.
          */
-        parser(raw: Util.Dictionary<string>): Util.Dictionary<any>;
+        parser(raw: Util.Dictionary<string>): Util.Dictionary<unknown>;
     };
 }
 
@@ -3156,23 +3135,6 @@ export interface ServerRegisterPluginObject<T> extends ServerRegisterOptions {
      * options passed to the plugin during registration.
      */
     options?: T;
-}
-
-export interface ServerRegisterPluginObjectArray<T, U, V, W, X, Y, Z> extends Array<ServerRegisterPluginObject<T>
-                                                                                    | ServerRegisterPluginObject<U>
-                                                                                    | ServerRegisterPluginObject<V>
-                                                                                    | ServerRegisterPluginObject<W>
-                                                                                    | ServerRegisterPluginObject<X>
-                                                                                    | ServerRegisterPluginObject<Y>
-                                                                                    | ServerRegisterPluginObject<Z>
-                                                                                    | undefined> {
-    0: ServerRegisterPluginObject<T>;
-    1?: ServerRegisterPluginObject<U>;
-    2?: ServerRegisterPluginObject<V>;
-    3?: ServerRegisterPluginObject<W>;
-    4?: ServerRegisterPluginObject<X>;
-    5?: ServerRegisterPluginObject<Y>;
-    6?: ServerRegisterPluginObject<Z>;
 }
 
 /* tslint:disable-next-line:no-empty-interface */
@@ -3292,7 +3254,7 @@ export interface ServerStateCookieOptions {
     /** if false, allows any cookie value including values in violation of RFC 6265. Defaults to true. */
     strictHeader?: boolean;
     /** used by proxy plugins (e.g. h2o2). */
-    passThrough?: any;
+    passThrough?: unknown;
 }
 
 /**
@@ -3368,14 +3330,14 @@ export interface ServerState {
  * If the property is set to a function, the function uses the signature function(method) and returns the route default configuration.
  */
 export interface HandlerDecorationMethod {
-    (route: RouteOptions, options: any): Lifecycle.Method;
-    defaults?: RouteOptions | ((method: any) => RouteOptions);
+    (route: RouteOptions, options: unknown): Lifecycle.Method;
+    defaults?: RouteOptions | ((method: HandlerDecorationMethod) => RouteOptions);
 }
 
 /**
  * The general case for decorators added via server.decorate.
  */
-export type DecorationMethod<T> = (this: T, ...args: any[]) => any;
+export type DecorationMethod<T> = (this: T, ...args: unknown[]) => unknown;
 
 /**
  * An empty interface to allow typings of custom plugin properties.
@@ -3385,6 +3347,12 @@ export interface PluginProperties {
 }
 
 export type DecorateName = string | symbol;
+
+export interface Mimes {
+    path(fileName: string): {
+        type: string;
+    };
+}
 
 /**
  * The server object is the main application container. The server manages all incoming requests along with all
@@ -3541,7 +3509,7 @@ export class Server {
      * modified directly but only through the [mime](https://github.com/hapijs/hapi/blob/master/API.md#server.options.mime) server setting.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-servermime)
      */
-    mime: any;
+    mime: Mimes;
 
     /**
      * An object containing the values exposed by each registered plugin where each key is a plugin name and the values
@@ -3640,12 +3608,17 @@ export class Server {
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverdecoratetype-property-method-options)
      */
     decorate(type: 'handler', property: DecorateName, method: HandlerDecorationMethod, options?: {apply?: boolean, extend?: boolean}): void;
-    decorate(type: 'request', property: DecorateName, method: (existing: ((...args: any[]) => any)) => (request: Request) => DecorationMethod<Request>, options: {apply: true, extend: true}): void;
+    decorate(
+        type: 'request',
+        property: DecorateName,
+        method: (existing: ((...args: unknown[]) => unknown)) => (request: Request) => DecorationMethod<Request>,
+        options: {apply: true, extend: true}
+    ): void;
     decorate(type: 'request', property: DecorateName, method: (request: Request) => DecorationMethod<Request>, options: {apply: true, extend?: boolean}): void;
     decorate(type: 'request', property: DecorateName, method: DecorationMethod<Request>, options?: {apply?: boolean, extend?: boolean}): void;
-    decorate(type: 'toolkit', property: DecorateName, method: (existing: ((...args: any[]) => any)) => DecorationMethod<ResponseToolkit>, options: {apply?: boolean, extend: true}): void;
+    decorate(type: 'toolkit', property: DecorateName, method: (existing: ((...args: unknown[]) => unknown)) => DecorationMethod<ResponseToolkit>, options: {apply?: boolean, extend: true}): void;
     decorate(type: 'toolkit', property: DecorateName, method: DecorationMethod<ResponseToolkit>, options?: {apply?: boolean, extend?: boolean}): void;
-    decorate(type: 'server', property: DecorateName, method: (existing: ((...args: any[]) => any)) => DecorationMethod<Server>, options: {apply?: boolean, extend: true}): void;
+    decorate(type: 'server', property: DecorateName, method: (existing: ((...args: unknown[]) => unknown)) => DecorationMethod<Server>, options: {apply?: boolean, extend: true}): void;
     decorate(type: 'server', property: DecorateName, method: DecorationMethod<Server>, options?: {apply?: boolean, extend?: boolean}): void;
 
     /**
@@ -3679,7 +3652,7 @@ export class Server {
      * @return Return value: none.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverexposekey-value)
      */
-    expose(key: string, value: any): void;
+    expose(key: string, value: unknown): void;
 
     /**
      * Merges an object into to the existing content of server.plugins[name] where:
@@ -3786,7 +3759,7 @@ export class Server {
      * @return Return value: none.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverlogtags-data-timestamp)
      */
-    log(tags: string | string[], data?: string | object | (() => any), timestamp?: number): void;
+    log(tags: string | string[], data?: string | object | (() => unknown), timestamp?: number): void;
 
     /**
      * Looks up a route configuration where:
@@ -3867,13 +3840,20 @@ export class Server {
      * @return Return value: none.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-await-serverregisterplugins-options)
      */
-     /* tslint:disable-next-line:no-unnecessary-generics */
-    register<T>(plugin: ServerRegisterPluginObject<T>, options?: ServerRegisterOptions): Promise<void>;
-    /* tslint:disable-next-line:no-unnecessary-generics */
-    register<T, U, V, W, X, Y, Z>(plugins: ServerRegisterPluginObjectArray<T, U, V, W, X, Y, Z>, options?: ServerRegisterOptions): Promise<void>;
-    register(plugins: Array<ServerRegisterPluginObject<any>>, options?: ServerRegisterOptions): Promise<void>;
-    /* tslint:disable-next-line:unified-signatures */
-    register(plugins: Plugin<any> | Array<Plugin<any>>, options?: ServerRegisterOptions): Promise<void>;
+    register<T>(plugin: Plugin<T> | ServerRegisterPluginObject<T>, options?: ServerRegisterOptions): Promise<void>;
+    register(plugins: Array<ServerRegisterPluginObject<unknown>>, options?: ServerRegisterOptions): Promise<void>;
+    register<A, B, C, D, E, F, G, H, I, J>(
+        plugins: [
+            Plugin<A>, Plugin<B>?, Plugin<C>?, Plugin<D>?, Plugin<E>?,
+            Plugin<F>?, Plugin<G>?, Plugin<H>?, Plugin<I>?, Plugin<J>?
+        ] | [
+            ServerRegisterPluginObject<A>, ServerRegisterPluginObject<B>?, ServerRegisterPluginObject<C>?,
+            ServerRegisterPluginObject<D>?, ServerRegisterPluginObject<E>?, ServerRegisterPluginObject<F>?,
+            ServerRegisterPluginObject<G>?, ServerRegisterPluginObject<H>?, ServerRegisterPluginObject<I>?,
+            ServerRegisterPluginObject<J>?
+        ],
+        options?: ServerRegisterOptions
+    ): Promise<void>;
 
     /**
      * Adds a route where:
@@ -3995,7 +3975,7 @@ export namespace Json {
     /**
      * @see {@link https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify#The_replacer_parameter}
      */
-    type StringifyReplacer = ((key: string, value: any) => any) | Array<(string | number)> | undefined;
+    type StringifyReplacer = ((key: string, value: unknown) => unknown) | Array<(string | number)> | undefined;
 
     /**
      * Any value greater than 10 is truncated.

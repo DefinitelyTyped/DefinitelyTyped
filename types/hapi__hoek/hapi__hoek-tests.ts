@@ -8,7 +8,7 @@ import * as Hoek from "@hapi/hoek";
 
 // clone(obj)
 
-let nestedObj = {
+const nestedObj = {
     w: /^something$/ig,
     x: {
         a: [1, 2, 3],
@@ -19,28 +19,13 @@ let nestedObj = {
     z: new Date()
 };
 
-let copy = Hoek.clone(nestedObj);
+const copy = Hoek.clone(nestedObj);
 
 copy.x.b = 100;
 
 console.log(copy.y);        // results in 'y'
 console.log(nestedObj.x.b); // results in 123456
 console.log(copy.x.b);      // results in 100
-
-// cloneWithShallow(obj, keys)
-
-nestedObj = {
-    w: /^something$/ig,
-    x: {
-        a: [1, 2, 3],
-        b: 123456,
-        c: new Date()
-    },
-    y: 'y',
-    z: new Date()
-};
-
-copy = Hoek.cloneWithShallow(nestedObj, ['x']);
 
 copy.x.b = 100;
 
@@ -76,8 +61,6 @@ const options1 = { host: null, port: 8080 };
 
 config = Hoek.applyToDefaults(defaults, options1, true); // results in { host: null, port: 8080 }
 
-// applyToDefaultsWithShallow(defaults, options, keys)
-
 const defaults1 = {
     server: {
         host: "localhost",
@@ -87,8 +70,6 @@ const defaults1 = {
 };
 
 const options2 = { server: { port: 8080 } };
-
-const config1 = Hoek.applyToDefaultsWithShallow(defaults1, options2, ['server']); // results in { server: { port: 8080 }, name: 'example' }
 
 // deepEqual(b, a, [options])
 
@@ -102,17 +83,9 @@ let array = [1, 2, 2, 3, 3, 4, 5, 6];
 
 const newArray = Hoek.unique(array);    // results in [1,2,3,4,5,6]
 
-let array1 = [{ id: 1 }, { id: 1 }, { id: 2 }];
+const array1 = [{ id: 1 }, { id: 1 }, { id: 2 }];
 
 const newArray1 = Hoek.unique(array1, "id");  // results in [{id: 1}, {id: 2}]
-
-// mapToObject(array, key)
-
-array = [1, 2, 3];
-let newObject = Hoek.mapToObject(array);   // results in {"1": true, "2": true, "3": true}
-
-array1 = [{ id: 1 }, { id: 2 }];
-newObject = Hoek.mapToObject(array1, "id"); // results in {"1": true, "2": true}
 
 // intersect(array1, array2)
 
@@ -120,6 +93,7 @@ array = [1, 2, 3];
 const array2 = [1, 4, 5];
 
 const newArray2 = Hoek.intersect(array, array2); // results in [1]
+const common: number = Hoek.intersect(array, array2, { first: true });
 
 // contain(ref, values, [options])
 
@@ -169,52 +143,16 @@ const source1 = {
     state: 'CA'
 };
 
-let result = Hoek.transform(source1, {
-    'person.address.lineOne': 'address.one',
-    'person.address.lineTwo': 'address.two',
-    title: 'title',
-    'person.address.region': 'state'
-});
-// Results in
-// {
-//     person: {
-//         address: {
-//             lineOne: '123 main street',
-//             lineTwo: 'PO Box 1234',
-//             region: 'CA'
-//         }
-//     },
-//     title: 'Warehouse'
-// }
-
-// shallow(obj)
-
-const shallow = Hoek.shallow({ a: { b: 1 } });
-
 // stringify(obj)
 
 let a: any = {};
 a.b = a;
 Hoek.stringify(a);      // Returns '[Cannot display object: Converting circular structure to JSON]'
 
-// Timer
-
-const timerObj = new Hoek.Timer();
-console.log("Time is now: " + timerObj.ts);
-console.log(`Elapsed time from initialization: ${timerObj.elapsed()}milliseconds`);
-
 // Bench
 
 const benchObj = new Hoek.Bench();
 console.log(`Elapsed time from initialization: ${benchObj.elapsed()}milliseconds`);
-
-// base64urlEncode(value)
-
-Hoek.base64urlEncode("hoek");
-
-// base64urlDecode(value)
-
-Hoek.base64urlDecode("aG9law==");
 
 // escapeHtml(string)
 
@@ -242,35 +180,9 @@ Hoek.assert(x === y, new Error('x should equal y')); // Throws the given error o
 
 Hoek.abort("Error message");
 
-// displayStack(slice)
-
-const stack = Hoek.displayStack();
-console.log(stack);
-
-// callStack(slice)
-
-const stack2 = Hoek.callStack();
-console.log(stack2);
-
-// nextTick(fn)
-
-let myFn = () => {
-    console.log('Do this later');
-};
-
-const nextFn = Hoek.nextTick(myFn);
-
-nextFn();
-console.log('Do this first');
-
-// Results in:
-//
-// Do this first
-// Do this later
-
 // once(fn)
 
-myFn = () => {
+const myFn = () => {
     console.log('Ran myFn');
 };
 
@@ -282,10 +194,6 @@ onceFn(); // results in undefined
 
 Hoek.ignore();
 
-// uniqueFilename(path, extension)
+const waited: Promise<void> = Hoek.wait(123);
 
-const result1 = Hoek.uniqueFilename('./test/modules', 'txt'); // results in "full/path/test/modules/{random}.txt"
-
-// isInteger(value)
-
-result = Hoek.isInteger('23');
+const nevar: Promise<never> = Hoek.block();

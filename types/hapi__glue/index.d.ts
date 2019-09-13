@@ -3,14 +3,14 @@
 // Definitions by: Gareth Parker <https://github.com/garfty>
 //                 Silas Rech <https://github.com/lenovouser>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.1
 
 import { Server, ServerOptions } from "@hapi/hapi";
 
 export interface Options {
   relativeTo: string;
-  preConnections?: (Server: Server, next: (err: any) => void) => void;
-  preRegister?: (Server: Server, next: (err: any) => void) => void;
+  preConnections?: (Server: Server, next: (err: unknown) => void) => void;
+  preRegister?: (Server: Server, next: (err: unknown) => void) => void;
 }
 
 export interface Plugin {

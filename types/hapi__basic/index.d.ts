@@ -4,18 +4,18 @@
 //                 Rodrigo Saboya <https://github.com/saboya>
 //                 Silas Rech <https://github.com/lenovouser>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.1
 
-import { Plugin, Request, ResponseToolkit } from '@hapi/hapi';
+import { Plugin, Request, ResponseToolkit, Lifecycle } from '@hapi/hapi';
 
 declare namespace Basic {
     interface ValidateCustomResponse {
-        response: any,
+        response: Lifecycle.ReturnValue;
     }
 
     interface ValidateResponse {
-        isValid: boolean,
-        credentials?: any,
+        isValid: boolean;
+        credentials?: unknown;
     }
 
     interface Validate {
@@ -23,6 +23,6 @@ declare namespace Basic {
     }
 }
 
-declare var Basic: Plugin<{}>;
+declare var Basic: Plugin;
 
 export = Basic;

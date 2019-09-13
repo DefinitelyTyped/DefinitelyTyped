@@ -7,14 +7,14 @@
 //                 Daniel Machado <https://github.com/danielmachado>
 //                 Silas Rech <https://github.com/lenovouser>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 3.1
 
  export = Boom;
 /**
  * boom provides a set of utilities for returning HTTP errors. Each utility returns a Boom error response object (instance of Error) which includes the following properties:
  * @see {@link https://github.com/hapijs/boom#boom}
  */
-declare class Boom<Data = any> extends Error {
+declare class Boom<Data = unknown> extends Error {
     /** Creates a new Boom object using the provided message and then calling boomify() to decorate the error with the Boom properties. */
     constructor(message?: string | Error, options?: Boom.Options<Data>);
     /** isBoom - if true, indicates this is a Boom object instance. */
@@ -45,7 +45,7 @@ declare namespace Boom {
         /** decorate - an option with extra properties to set on the error object. */
         decorate?: object;
         /** ctor - constructor reference used to crop the exception call stack output. */
-        ctor?: any;
+        ctor?: unknown;
         /** message - error message string. If the error already has a message, the provided message is added as a prefix. Defaults to no message. */
         message?: string;
         /**
@@ -84,9 +84,10 @@ declare namespace Boom {
          * "Every key/value pair will be included ... in the response payload under the attributes key."
          * [see docs](https://github.com/hapijs/boom#boomunauthorizedmessage-scheme-attributes)
          */
-        attributes?: any;
+        attributes?: string | {
+            [key: string]: unknown;
+        };
         // Excluded this to aid typing of the other values.  See tests for example casting to a custom interface to manipulate the payload
-        // [anyContent: string]: any;
     }
 
     /**
@@ -101,7 +102,7 @@ declare namespace Boom {
      * Identifies whether an error is a Boom object. Same as calling instanceof Boom.
      * @param error the error object to identify.
      */
-    function isBoom(error: Error): error is Boom;
+    function isBoom(error: unknown): error is Boom;
 
     // 4xx
     /**

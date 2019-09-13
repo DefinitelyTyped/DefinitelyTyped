@@ -83,7 +83,7 @@ async function main() {
 
                 async onResponse(err, res, request, h, settings, ttl) {
                     console.log('receiving the response from the upstream.');
-                    const payload = await wreck.read(res, { json: true });
+                    const payload = <object>await wreck.read(res, { json: true });
 
                     console.log('some payload manipulation if you want to.')
                     let response = h.response(payload);

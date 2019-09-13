@@ -1,8 +1,10 @@
-// Type definitions for @hapi/hoek 6.2
+// Type definitions for @hapi/hoek 8.2
 // Project: https://github.com/hapijs/hoek
 // Definitions by: Prashant Tiwari <https://github.com/prashaantt>
 //                 Silas Rech <https://github.com/lenovouser>
+//                 Simon Schick <https://github.com/SimonSchick>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.1
 
 export interface ContainOptions {
     /** Perform a deep comparison of the values? */
@@ -19,11 +21,44 @@ export interface ReachOptions {
     /** String to split chain path on. Defaults to ".". */
     separator?: string;
     /** Value to return if the path or value is not present. Default is undefined. */
-    default?: any;
+    default?: unknown;
     /** Throw an error on missing member? Default is false. */
     strict?: boolean;
     /** Allow traversing functions for properties? */
     functions?: boolean;
+}
+
+export interface DeepEqualOptions {
+    /**
+     * When true, function values are deep compared using their source code and object properties.
+     * @default false
+     */
+    deepFunction?: boolean;
+    /**
+     * When true, allows a partial match where some of b is present in a. Defaults to false.
+     * prototype - when false, prototype comparisons are skipped.
+     * @default true
+     */
+    part?: boolean;
+
+    /**
+     * When false, prototype comparisons are skipped.
+     * @default true
+     */
+    prototype?: boolean;
+
+    /**
+     * An array of key name strings to skip comparing.
+     * The keys can be found in any level of the object.
+     * Note that both values must contain the key - only the value comparison is skipped.
+     * Only applies to plain objects and deep functions (not to map, sets, etc.).
+     */
+    skip?: string[];
+    /**
+     * When false, symbol properties are ignored.
+     * @default true
+     */
+    symbols?: boolean;
 }
 
 // Object
@@ -32,11 +67,6 @@ export interface ReachOptions {
  * Clone an object or an array.
  */
 export function clone<T>(obj: T): T;
-
-/**
- * Clone an object or array.
- */
-export function cloneWithShallow(obj: any, keys: string[]): any;
 
 /**
  * Merge all the properties of source into target.
@@ -49,14 +79,9 @@ export function merge<T1, T2>(target: T1, source: T2, isNullOverride?: boolean, 
 export function applyToDefaults<T1, T2>(defaults: T1, options: T2, isNullOverride?: boolean): T1 & T2;
 
 /**
- * Apply options to a copy of the defaults.
- */
-export function applyToDefaultsWithShallow<T1, T2>(defaults: T1, options: T2, keys?: string[]): T1 & T2;
-
-/**
  * Perform a deep comparison of the two values.
  */
-export function deepEqual<T>(b: T, a: T, options?: any): T;
+export function deepEqual<T>(b: T, a: T, options?: DeepEqualOptions): T;
 
 /**
  * Remove duplicate items from Array.
@@ -64,61 +89,37 @@ export function deepEqual<T>(b: T, a: T, options?: any): T;
 export function unique<T>(array: T[], key?: string): T[];
 
 /**
- * Convert an Array into an Object.
- */
-export function mapToObject(array: any[], key?: string): any;
-
-/**
  * Find the common unique items in two arrays.
  */
-export function intersect(array1: any[], array2: any[]): any;
+export function intersect<T>(array1: T[], array2: T[]): T[];
+export function intersect<T>(array1: T[], array2: T[], options: { first: true }): T;
+export function intersect<T>(array1: T[], array2: T[], options: { first: boolean }): T | T[];
 
 /**
  * Test if the reference value contains the provided values.
  */
-export function contain(ref: any, values: any, options?: ContainOptions): boolean;
+export function contain(ref: unknown[] | object, values: unknown | unknown[], options?: ContainOptions): boolean;
+export function contain(ref: string, values: string | string[], options?: ContainOptions): boolean;
 
 /**
  * Flatten an array.
  */
-export function flatten(array: any[], target?: any[]): any[];
+export function flatten(array: unknown[], target?: unknown[]): unknown[];
 
 /**
  * Convert an object key chain string to reference.
  */
-export function reach(obj: any, chain: any, options?: ReachOptions): any;
+export function reach(obj: unknown, chain: string | Array<string | number>, options?: ReachOptions): unknown;
 
 /**
  * Replace string parameters ({name}) with their corresponding object key values.
  */
-export function reachTemplate(obj: any, template: string, options?: ReachOptions): any;
-
-/**
- * Transform an existing object into a new one based on the supplied obj and transform map.
- */
-export function transform(obj: any, transform: any, options?: ReachOptions): any;
-
-/**
- * Perform a shallow copy by copying the references of all the top level children.
- */
-export function shallow(obj: any): any;
+export function reachTemplate(obj: unknown, template: string, options?: ReachOptions): unknown;
 
 /**
  * Convert an object to string. Any errors are caught and reported back in the form of the returned string.
  */
-export function stringify(obj: any): string;
-
-// Timer
-
-/**
- * A Timer object.
- */
-export class Timer {
-    /** The number of milliseconds elapsed since the epoch. */
-    ts: number;
-    /** The time (ms) elapsed since the timer was created. */
-    elapsed(): number;
-}
+export function stringify(obj: unknown): string;
 
 // Bench
 
@@ -131,18 +132,6 @@ export class Bench {
     /** The time (ms) elapsed since the timer was created. */
     elapsed(): number;
 }
-
-// Binary Encoding/Decoding
-
-/**
- * Encode value of string or buffer type in Base64 or URL encoding.
- */
-export function base64urlEncode(value: string): string;
-
-/**
- * Decode string into Base64 or URL encoding.
- */
-export function base64urlDecode(value: string): string;
 
 // Escaping Characters
 
@@ -173,41 +162,26 @@ export function assert(condition: boolean, message: string | Error): void | Erro
  */
 export function abort(message: string | Error): void;
 
-/**
- * Display the trace stack.
- */
-export function displayStack(slice?: any): string[];
-
-/**
- * Return a trace stack array.
- */
-export function callStack(slice?: any): any[];
-
 // Function
-
-/**
- * Wrap fn in process.nextTick.
- */
-export function nextTick(fn: () => void): () => void;
 
 /**
  * Make sure fn is only run once.
  */
-export function once(fn: () => void): () => void;
+export function once<TArgs extends unknown[]>(fn: (...args: TArgs) => unknown): (...args: TArgs) => void;
 
 /**
  * A simple no-op function.
  */
 export function ignore(): void;
 
-// Miscellaneous
+/**
+ * Resolve the promise after timeout.
+ * @param timeout In milliseconds
+ */
+export function wait(timeout: number): Promise<void>;
 
 /**
- * path to prepend to a randomly generated file name.
+ * A no-op Promise.
+ * Never resolves.
  */
-export function uniqueFilename(path: string, extension?: string): string;
-
-/**
- * Check value to see if it is an integer.
- */
-export function isInteger(value: any): boolean;
+export function block(): Promise<never>;

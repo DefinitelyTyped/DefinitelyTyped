@@ -4,7 +4,7 @@
 //                 Simon Schick <https://github.com/SimonSchick>
 //                 Matt Erickson <https://github.com/Mutmatt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.1
 
 import { Request, ResponseObject, Plugin, ResponseToolkit, AuthCredentials, ServerStateCookieOptions } from '@hapi/hapi';
 
@@ -82,6 +82,6 @@ declare namespace hapiAuthCookie {
     }
 }
 
-declare const hapiAuthCookie: Plugin<void>;
+declare const hapiAuthCookie: Plugin;
 
 export = hapiAuthCookie;

@@ -4,7 +4,7 @@
 //                 Rodrigo Saboya <https://github.com/saboya>
 //                 Silas Rech <https://github.com/lenovouser>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.1
 
 /* + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + +
  +                                                                           +
@@ -132,6 +132,6 @@ interface NesClassExports {
     };
 }
 
-declare var nes: NesClassExports & Plugin<{}>;
+declare var nes: NesClassExports & Plugin;
 
 export = nes;

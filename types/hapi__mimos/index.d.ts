@@ -3,7 +3,7 @@
 // Definitions by: AJP <https://github.com/AJamesPhillips>
 //                 Silas Rech <https://github.com/lenovouser>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 3.1
 
 import { DataStructure as MimeDbDataStructure } from 'mime-db';
 
