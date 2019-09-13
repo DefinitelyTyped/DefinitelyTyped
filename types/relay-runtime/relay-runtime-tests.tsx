@@ -1,4 +1,5 @@
 import {
+    ConcreteRequest,
     Environment,
     Network,
     RecordSource,
@@ -75,3 +76,78 @@ commitLocalUpdate(environment, store => {
     const root = store.get(ROOT_ID)!;
     root.setValue('foo', 'localKey');
 });
+
+// ~~~~~~~~~~~~~~~~~~~~~
+// ConcreteRequest
+// ~~~~~~~~~~~~~~~~~~~~~
+
+/*
+# client schema
+extend type Query {
+  foo: Boolean!
+}
+*/
+
+/*
+// component
+graphql`
+  query FooQuery {
+    __typename
+    foo
+  }
+`;
+*/
+
+/*
+query FooQuery {
+  __typename
+}
+*/
+
+const node: ConcreteRequest = (function() {
+    var v0 = [
+        {
+            kind: 'ScalarField',
+            alias: null,
+            name: '__typename',
+            args: null,
+            storageKey: null,
+        },
+        {
+            kind: 'ClientExtension',
+            selections: [
+                {
+                    kind: 'ScalarField',
+                    alias: null,
+                    name: 'foo',
+                    args: null,
+                    storageKey: null,
+                },
+            ],
+        },
+    ];
+    return {
+        kind: 'Request',
+        fragment: {
+            kind: 'Fragment',
+            name: 'FooQuery',
+            type: 'Query',
+            metadata: null,
+            argumentDefinitions: [],
+            selections: v0 /*: any*/,
+        },
+        operation: {
+            kind: 'Operation',
+            name: 'FooQuery',
+            argumentDefinitions: [],
+            selections: v0 /*: any*/,
+        },
+        params: {
+            operationKind: 'query',
+            name: 'FooQuery',
+            id: null,
+            text: 'query FooQuery {\n  __typename\n}\n',
+            metadata: {},
+        },
+    };
+})();
