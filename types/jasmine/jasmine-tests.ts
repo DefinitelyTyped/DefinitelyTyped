@@ -786,13 +786,19 @@ describe("multiple spies, when created with spyOnAllFunctions", () => {
             y: (a: number) => a,
         };
 
-        spyOnAllFunctions(obj);
+        const spy = spyOnAllFunctions(obj);
+
+        spy.x.and.returnValue(42);
+        spy.y.and.returnValue(24);
+        spy.z; // $ExpectError
 
         obj.x(0);
         obj.y(1);
 
         expect(obj.x).toHaveBeenCalled();
         expect(obj.y).toHaveBeenCalledWith(1);
+        expect(spy.y).toHaveBeenCalledWith(1);
+        expect(spy.y).toHaveBeenCalledWith("one");
     });
 });
 

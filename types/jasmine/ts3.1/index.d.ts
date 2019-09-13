@@ -180,7 +180,7 @@ declare function spyOnProperty<T>(object: T, property: keyof T, accessType?: 'ge
  * Installs spies on all writable and configurable properties of an object.
  * @param object The object upon which to install the `Spy`s.
  */
-declare function spyOnAllFunctions(object: object): jasmine.Spy;
+declare function spyOnAllFunctions<T>(object: T): jasmine.SpyObj<T>;
 
 declare function runs(asyncMethod: Function): void;
 declare function waitsFor(latchMethod: () => boolean, failureMessage?: string, timeout?: number): void;
