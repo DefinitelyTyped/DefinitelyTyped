@@ -104,6 +104,7 @@ query FooQuery {
 }
 */
 
+/* tslint:disable:only-arrow-functions no-var-keyword prefer-const */
 const node: ConcreteRequest = (function() {
     var v0 = [
         {
@@ -151,3 +152,4 @@ const node: ConcreteRequest = (function() {
         },
     };
 })();
+/* tslint:enable:only-arrow-functions no-var-keyword prefer-const */

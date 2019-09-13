@@ -465,10 +465,10 @@ export interface NormalizationDefer {
     readonly selections: ReadonlyArray<NormalizationSelection>;
 }
 
-export type NormalizationClientExtension = {
+export interface NormalizationClientExtension {
     kind: string; // 'ClientExtension';
     selections: ReadonlyArray<NormalizationSelection>;
-};
+}
 
 export type NormalizationField = NormalizationScalarField | NormalizationLinkedField | NormalizationMatchField;
 
