@@ -33,25 +33,30 @@ declare class Pubnub {
 
   publish(
     params: Pubnub.PublishParameters,
-    callback: (status: Pubnub.PublishStatus, response: Pubnub.PublishResponse) => void
+    callback: (
+      status: Pubnub.PublishStatus,
+      response: Pubnub.PublishResponse,
+    ) => void,
   ): void;
 
-  publish(
-    params: Pubnub.PublishParameters
-  ): Promise<Pubnub.PublishResponse>;
+  publish(params: Pubnub.PublishParameters): Promise<Pubnub.PublishResponse>;
 
   fire(
     params: Pubnub.FireParameters,
-    callback: (status: Pubnub.PublishStatus, response: Pubnub.PublishResponse) => void
+    callback: (
+      status: Pubnub.PublishStatus,
+      response: Pubnub.PublishResponse,
+    ) => void,
   ): void;
 
-  fire(
-    params: Pubnub.FireParameters
-  ): Promise<Pubnub.PublishResponse>;
+  fire(params: Pubnub.FireParameters): Promise<Pubnub.PublishResponse>;
 
   history(
     params: Pubnub.HistoryParameters,
-    callback: (status: Pubnub.HistoryStatus, response: Pubnub.HistoryResponse) => void
+    callback: (
+      status: Pubnub.HistoryStatus,
+      response: Pubnub.HistoryResponse,
+    ) => void,
   ): void;
 
   subscribe(params: Pubnub.SubscribeParameters): void;
@@ -68,48 +73,50 @@ declare class Pubnub {
 
   hereNow(
     params: Pubnub.HereNowParameters,
-    callback: (status: Pubnub.HereNowStatus, response: Pubnub.HereNowResponse) => void
+    callback: (
+      status: Pubnub.HereNowStatus,
+      response: Pubnub.HereNowResponse,
+    ) => void,
   ): void;
 
-  hereNow(
-    params: Pubnub.HereNowParameters
-  ): Promise<Pubnub.HereNowResponse>;
+  hereNow(params: Pubnub.HereNowParameters): Promise<Pubnub.HereNowResponse>;
 
   whereNow(
     params: Pubnub.WhereNowParameters,
-    callback: (status: Pubnub.WhereNowStatus, response: Pubnub.WhereNowResponse) => void
+    callback: (
+      status: Pubnub.WhereNowStatus,
+      response: Pubnub.WhereNowResponse,
+    ) => void,
   ): void;
 
-  whereNow(
-    params: Pubnub.WhereNowParameters
-  ): Promise<Pubnub.WhereNowResponse>;
+  whereNow(params: Pubnub.WhereNowParameters): Promise<Pubnub.WhereNowResponse>;
 
   getState(
     params: Pubnub.GetStateParameters,
-    callback: (status: Pubnub.GetStateStatus, state: Pubnub.GetStateResponse) => void
+    callback: (
+      status: Pubnub.GetStateStatus,
+      state: Pubnub.GetStateResponse,
+    ) => void,
   ): void;
 
-  getState(
-    params: Pubnub.GetStateParameters
-  ): Promise<Pubnub.GetStateResponse>;
+  getState(params: Pubnub.GetStateParameters): Promise<Pubnub.GetStateResponse>;
 
   setState(
     params: Pubnub.SetStateParameters,
-    callback: (status: Pubnub.SetStateStatus, state: Pubnub.SetStateResponse) => void
+    callback: (
+      status: Pubnub.SetStateStatus,
+      state: Pubnub.SetStateResponse,
+    ) => void,
   ): void;
 
-  setState(
-    params: Pubnub.SetStateParameters
-  ): Promise<Pubnub.SetStateResponse>;
+  setState(params: Pubnub.SetStateParameters): Promise<Pubnub.SetStateResponse>;
 
   grant(
     params: Pubnub.GrantParameters,
-    callback: (status: Pubnub.GrantStatus, response: {}) => void
+    callback: (status: Pubnub.GrantStatus, response: {}) => void,
   ): void;
 
-  grant(
-    params: Pubnub.GrantParameters
-  ): Promise<{}>;
+  grant(params: Pubnub.GrantParameters): Promise<{}>;
 
   encrypt(
     data: string,
@@ -120,7 +127,7 @@ declare class Pubnub {
   decrypt(
     data: string | object,
     customCipherKey?: string,
-    options?: Pubnub.CryptoParameters
+    options?: Pubnub.CryptoParameters,
   ): any;
 
   time(): Promise<Pubnub.FetchTimeResponse>;
