@@ -20,8 +20,8 @@ import {
 import * as JQuery from 'jquery';
 
 export interface CTLMatcherOptions {
-  timeout?: number;
-  container?: JQuery;
+    timeout?: number;
+    container?: JQuery;
 }
 
 export type MatcherOptions = DTLMatcherOptions | CTLMatcherOptions;
@@ -109,80 +109,6 @@ declare global {
                 id: Matcher,
                 options?: MatcherOptions,
             ): Chainable<JQuery<HTMLElementTagNameMap[K]>>;
-
-            /**
-             * dom-testing-library helpers for Cypress
-             *
-             * `findBy*` APIs search for an element and throw an error if nothing found
-             * `findAllBy*` APIs search for all elements and an error if nothing found
-             * `queryBy*` APIs search for an element and returns null if nothing found
-             * `queryAllBy*` APIs search for all elements and return empty array if nothing found
-             *
-             * @see https://github.com/testing-library/cypress-testing-library#usage
-             * @see https://github.com/testing-library/dom-testing-library#table-of-contents
-             */
-            queryBySelectText<E extends Node = HTMLElement>(
-                id: Matcher,
-                options?: MatcherOptions,
-            ): Chainable<JQuery<E>>;
-            queryBySelectText<K extends keyof HTMLElementTagNameMap>(
-                id: Matcher,
-                options?: MatcherOptions,
-            ): Chainable<JQuery<HTMLElementTagNameMap[K]>>;
-
-            /**
-             * dom-testing-library helpers for Cypress
-             *
-             * `findBy*` APIs search for an element and throw an error if nothing found
-             * `findAllBy*` APIs search for all elements and an error if nothing found
-             * `queryBy*` APIs search for an element and returns null if nothing found
-             * `queryAllBy*` APIs search for all elements and return empty array if nothing found
-             *
-             * @see https://github.com/testing-library/cypress-testing-library#usage
-             * @see https://github.com/testing-library/dom-testing-library#table-of-contents
-             */
-            queryAllBySelectText<E extends Node = HTMLElement>(
-                id: Matcher,
-                options?: MatcherOptions,
-            ): Chainable<JQuery<E>>;
-            queryAllBySelectText<K extends keyof HTMLElementTagNameMap>(
-                id: Matcher,
-                options?: MatcherOptions,
-            ): Chainable<JQuery<HTMLElementTagNameMap[K]>>;
-
-            /**
-             * dom-testing-library helpers for Cypress
-             *
-             * `findBy*` APIs search for an element and throw an error if nothing found
-             * `findAllBy*` APIs search for all elements and an error if nothing found
-             * `queryBy*` APIs search for an element and returns null if nothing found
-             * `queryAllBy*` APIs search for all elements and return empty array if nothing found
-             *
-             * @see https://github.com/testing-library/cypress-testing-library#usage
-             * @see https://github.com/testing-library/dom-testing-library#table-of-contents
-             */
-            findBySelectText<E extends Node = HTMLElement>(id: Matcher, options?: MatcherOptions): Chainable<JQuery<E>>;
-            findBySelectText<K extends keyof HTMLElementTagNameMap>(
-                id: Matcher,
-                options?: MatcherOptions,
-            ): Chainable<JQuery<HTMLElementTagNameMap[K]>>;
-
-            /**
-             * dom-testing-library helpers for Cypress
-             *
-             * `findBy*` APIs search for an element and throw an error if nothing found
-             * `findAllBy*` APIs search for all elements and an error if nothing found
-             * `queryBy*` APIs search for an element and returns null if nothing found
-             * `queryAllBy*` APIs search for all elements and return empty array if nothing found
-             *
-             * @see https://github.com/testing-library/cypress-testing-library#usage
-             * @see https://github.com/testing-library/dom-testing-library#table-of-contents
-             */
-            findAllBySelectText<E extends Node = HTMLElement>(id: Matcher, options?: MatcherOptions): Chainable<E[]>;
-            findAllBySelectText<K extends keyof HTMLElementTagNameMap>(
-                id: Matcher,
-                options?: MatcherOptions,
-            ): Chainable<Array<HTMLElementTagNameMap[K]>>;
 
             /**
              * dom-testing-library helpers for Cypress

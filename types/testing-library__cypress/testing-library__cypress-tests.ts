@@ -4,7 +4,6 @@ configure({ testIdAttribute: 'data-myown-testid' });
 
 // findBy*
 Cypress.findByPlaceholderText('foo');
-Cypress.findBySelectText('foo');
 Cypress.findByText('foo');
 Cypress.findByLabelText('foo');
 Cypress.findByAltText('foo');
@@ -15,7 +14,6 @@ Cypress.findByRole('foo');
 
 // findAllBy*
 Cypress.findAllByPlaceholderText('foo');
-Cypress.findAllBySelectText('foo');
 Cypress.findAllByText('foo');
 Cypress.findAllByLabelText('foo');
 Cypress.findAllByAltText('foo');
@@ -26,7 +24,6 @@ Cypress.findAllByRole('foo');
 
 // queryBy*
 Cypress.queryByPlaceholderText('foo');
-Cypress.queryBySelectText('foo');
 Cypress.queryByText('foo');
 Cypress.queryByLabelText('foo');
 Cypress.queryByAltText('foo');
@@ -37,7 +34,6 @@ Cypress.queryByRole('foo');
 
 // queryAllBy*
 Cypress.queryAllByPlaceholderText('foo');
-Cypress.queryAllBySelectText('foo');
 Cypress.queryAllByText('foo');
 Cypress.queryAllByLabelText('foo');
 Cypress.queryAllByAltText('foo');
