@@ -1910,25 +1910,6 @@ export interface TVViewPropsIOS {
 
 export interface ViewPropsIOS extends TVViewPropsIOS {
     /**
-     * A Boolean value indicating whether VoiceOver should ignore the elements within views that are siblings of the receiver.
-     * @platform ios
-     */
-    accessibilityViewIsModal?: boolean;
-
-    /**
-     * Provides an array of custom actions available for accessibility.
-     * @platform ios
-     */
-    accessibilityActions?: Array<string>;
-
-    /**
-     * When `accessible` is true, the system will try to invoke this function
-     * when the user performs an accessibility custom action.
-     * @platform ios
-     */
-    onAccessibilityAction?: () => void;
-
-    /**
      * Whether this view should be rendered as a bitmap before compositing.
      *
      * On iOS, this is useful for animations and interactions that do not modify this component's dimensions nor its children;
@@ -1992,6 +1973,11 @@ export interface AccessibilityProps extends AccessibilityPropsAndroid, Accessibi
     accessible?: boolean;
 
     /**
+     * Provides an array of custom actions available for accessibility.
+     */
+    accessibilityActions?: ReadonlyArray<AccessibilityActionInfo>;
+
+    /**
      * Overrides the text that's read by the screen reader when the user interacts with the element. By default, the
      * label is constructed by traversing all the children and accumulating all the Text nodes separated by space.
      */
@@ -2014,7 +2000,23 @@ export interface AccessibilityProps extends AccessibilityPropsAndroid, Accessibi
      * An accessibility hint helps users understand what will happen when they perform an action on the accessibility element when that result is not obvious from the accessibility label.
      */
     accessibilityHint?: string;
+
+    /**
+     * When `accessible` is true, the system will try to invoke this function when the user performs an accessibility custom action.
+     */
+    onAccessibilityAction?: (event: AccessibilityActionEvent) => void;
 }
+
+export type AccessibilityActionInfo = Readonly<{
+    name: string;
+    label?: string;
+}>;
+
+export type AccessibilityActionEvent = NativeSyntheticEvent<
+    Readonly<{
+        actionName: string;
+    }>
+>;
 
 // @deprecated: use AccessibilityState available in 0.60+
 export type AccessibilityStates =
@@ -2125,6 +2127,12 @@ export interface AccessibilityPropsIOS {
      * @platform ios
      */
     accessibilityTraits?: AccessibilityTrait | AccessibilityTrait[];
+
+    /**
+     * A Boolean value indicating whether VoiceOver should ignore the elements within views that are siblings of the receiver.
+     * @platform ios
+     */
+    accessibilityViewIsModal?: boolean;
 
     /**
      * When `accessible` is true, the system will try to invoke this function when the user performs accessibility tap gesture.
