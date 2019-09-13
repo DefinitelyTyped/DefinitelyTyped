@@ -1,3 +1,4 @@
+// TypeScript Version: 3.1
 import CodeMirror = require("codemirror");
 
 // Init variables
@@ -10,13 +11,19 @@ const position: CodeMirror.Position = { line: 0, ch: 0 };
 const position1: CodeMirror.Position = { line: 1, ch: 0 };
 
 // Check events
-editor.on("change", (instance: CodeMirror.Editor, changeObj: CodeMirror.EditorChangeCancellable) => {
+editor.on(
+  'change',
+  (
+    instance: CodeMirror.Editor,
+    changeObj: CodeMirror.EditorChangeLinkedList,
+  ) => {
     changeObj.from;
     changeObj.to;
     changeObj.text;
     changeObj.removed;
     changeObj.origin;
-});
+  },
+);
 editor.on("changes", (instance: CodeMirror.Editor, changes: CodeMirror.EditorChangeLinkedList[]) => {
     changes.forEach(change => {
         change.from;
@@ -53,15 +60,15 @@ editor.on("optionChange", (instance: CodeMirror.Editor, option: string) => {});
 editor.on("scrollCursorIntoView", (instance: CodeMirror.Editor, event: Event) => {});
 editor.on("update", (instance: CodeMirror.Editor) => {});
 editor.on("renderLine", (instance: CodeMirror.Editor, line: CodeMirror.LineHandle, element: Element) => {});
-editor.on("mousedown", (instance: CodeMirror.Editor, event: Event) => {});
+editor.on("mousedown", (instance: CodeMirror.Editor, event: MouseEvent) => {});
 
 // Check methods
 const focus: boolean = editor.hasFocus();
 const posH: { line: number; ch: number; hitSide?: boolean } = editor.findPosH(position, 0, "char", true);
 const posV: { line: number; ch: number; hitSide?: boolean } = editor.findPosV(position, 0, "page");
 const word: CodeMirror.Range = editor.findWordAt(position);
-editor.setOption<boolean>("test", true);
-const option: boolean = editor.getOption<boolean>("test");
+editor.setOption('theme', 'default');
+const option: string | undefined = editor.getOption('theme');
 editor.addKeyMap("default", true);
 editor.removeKeyMap("default");
 editor.addOverlay("javascript", {
