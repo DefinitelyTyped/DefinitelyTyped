@@ -108,7 +108,7 @@ declare function afterAll(action: jasmine.ImplementationCallback, timeout?: numb
  * @checkReturnValue see https://tsetse.info/check-return-value
  * @param spy
  */
-declare function expect(spy: Function): jasmine.Matchers<any>;
+declare function expect<T extends jasmine.Func>(spy: T | jasmine.Spy<T>): jasmine.FunctionMatchers<T>;
 
 /**
  * Create an expectation for a spec.
@@ -527,7 +527,7 @@ declare namespace jasmine {
         toBeTruthy(expectationFailOutput?: any): boolean;
         toBeFalsy(expectationFailOutput?: any): boolean;
         toHaveBeenCalled(): boolean;
-        toHaveBeenCalledBefore(expected: Spy): boolean;
+        toHaveBeenCalledBefore(expected: Func): boolean;
         toHaveBeenCalledWith(...params: any[]): boolean;
         toHaveBeenCalledTimes(expected: number): boolean;
         toContain(expected: any, expectationFailOutput?: any): boolean;
@@ -560,6 +560,26 @@ declare namespace jasmine {
         toEqual(expected: Expected<ArrayLike<T>> | ArrayContaining<T>, expectationFailOutput?: any): boolean;
         toContain(expected: Expected<T>, expectationFailOutput?: any): boolean;
         not: ArrayLikeMatchers<T>;
+    }
+
+    type MatchableArgs<Fn> = Fn extends (...args: infer P) => any ? { [K in keyof P]: P[K] | AsymmetricMatcher<any> } : never;
+
+    interface FunctionMatchers<Fn extends Func> extends Matchers<any> {
+        toHaveBeenCalled(): boolean;
+        toHaveBeenCalledBefore(expected: Func): boolean;
+        toHaveBeenCalledTimes(expected: number): boolean;
+        toHaveBeenCalledWith(...params: MatchableArgs<Fn>): boolean;
+
+        /**
+         * Add some context for an expect.
+         * @param message - Additional context to show when the matcher fails.
+         */
+        withContext(message: string): FunctionMatchers<Fn>;
+
+        /**
+         * Invert the matcher following this expect.
+         */
+        not: FunctionMatchers<Fn>;
     }
 
     interface NothingMatcher {
@@ -752,11 +772,11 @@ declare namespace jasmine {
     }
 
     interface Spy<Fn extends Func = Func> {
-        (...params: any[]): any;
+        (...params: Parameters<Fn>): ReturnType<Fn>;
 
         and: SpyAnd<Fn>;
         calls: Calls<Fn>;
-        withArgs(...args: any[]): Spy<Fn>;
+        withArgs(...args: Parameters<Fn>): Spy<Fn>;
     }
 
     type SpyObj<T> = T & {
@@ -788,9 +808,9 @@ declare namespace jasmine {
         /** By chaining the spy with calls.argsFor(), will return the arguments passed to call number index */
         argsFor(index: number): Parameters<Fn>;
         /** By chaining the spy with calls.allArgs(), will return the arguments to all calls */
-        allArgs(): Array<Parameters<Fn>>;
+        allArgs(): ReadonlyArray<Parameters<Fn>>;
         /** By chaining the spy with calls.all(), will return the context (the this) and arguments passed all calls */
-        all(): Array<CallInfo<Fn>>;
+        all(): ReadonlyArray<CallInfo<Fn>>;
         /** By chaining the spy with calls.mostRecent(), will return the context (the this) and arguments for the most recent call */
         mostRecent(): CallInfo<Fn>;
         /** By chaining the spy with calls.first(), will return the context (the this) and arguments for the first call */

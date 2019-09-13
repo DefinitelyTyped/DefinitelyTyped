@@ -398,22 +398,19 @@ describe("A spy, when configured to call through", () => {
 });
 
 describe("A spy, when configured to fake a return value", () => {
-    var foo: any, bar: any, fetchedBar: any;
+    var bar: number;
+    const foo = {
+        setBar: (value: number) => {
+            bar = value;
+        },
+        getBar: () => {
+            return bar;
+        }
+    };
 
-    beforeEach(() => {
-        foo = {
-            setBar: (value: any) => {
-                bar = value;
-            },
-            getBar: () => {
-                return bar;
-            }
-        };
-
+    it("verifies return value type", () => {
         spyOn(foo, "getBar").and.returnValue(745);
-
-        foo.setBar(123);
-        fetchedBar = foo.getBar();
+        spyOn(foo, "getBar").and.returnValue("42"); // $ExpectError
     });
 
     it("tracks that the spy was called", () => {
@@ -425,6 +422,8 @@ describe("A spy, when configured to fake a return value", () => {
     });
 
     it("when called returns the requested value", () => {
+        const fetchedBar = foo.getBar();
+
         expect(fetchedBar).toEqual(745);
     });
 });
@@ -722,6 +721,22 @@ describe("A spy, when created manually", () => {
     });
 });
 
+describe("Spy for generic method", () => {
+    it("should allow to configure generic method", () => {
+        interface Test {
+            method<T>(): Array<Box<T>>;
+        }
+
+        interface Box<T> {
+            value: T;
+        }
+
+        const spy = jasmine.createSpyObj<Test>('test', ['method']);
+
+        spy.method.and.returnValue([{ value: 1 }, { value: 2 }]);
+    });
+});
+
 describe("Multiple spies, when created manually", () => {
     class Tape {
         private rewindTo: number;
@@ -772,6 +787,12 @@ describe("Multiple spies, when created manually", () => {
 
     it("tracks all the arguments of its calls", () => {
         expect(tape.rewind).toHaveBeenCalledWith(0);
+        expect(tape.rewind).toHaveBeenCalledWith('42'); // $ExpectError
+        expect(tape.rewind).toHaveBeenCalledWith(jasmine.anything());
+        expect(tape.rewind).toHaveBeenCalledWith(jasmine.falsy());
+        expect(tape.rewind).not.toHaveBeenCalledWith(1);
+        expect(tape.rewind).not.toHaveBeenCalledWith('42'); // $ExpectError
+        expect(tape.rewind).not.toHaveBeenCalledWith(jasmine.truthy());
     });
 
     it("read isPlaying property", () => {
@@ -926,7 +947,7 @@ describe("jasmine.objectContaining", () => {
 
     describe("when used with a spy", () => {
         it("is useful for comparing arguments", () => {
-            const callback = jasmine.createSpy('callback');
+            const callback = jasmine.createSpy<(arg: { bar: string }) => void>('callback');
 
             callback({
                 bar: "baz"
@@ -959,7 +980,7 @@ describe("jasmine.arrayContaining", () => {
 
     describe("when used with a spy", () => {
         it("is useful when comparing arguments", () => {
-            const callback = jasmine.createSpy('callback');
+            const callback = jasmine.createSpy<(numbers: number[]) => void>('callback');
 
             callback([1, 2, 3, 4]);
 
@@ -986,7 +1007,7 @@ describe("jasmine.arrayWithExactContents", () => {
 
     describe("when used with a spy", () => {
         it("is useful when comparing arguments", () => {
-            const callback = jasmine.createSpy('callback');
+            const callback = jasmine.createSpy<(arg: number[]) => void>('callback');
 
             callback([1, 2, 3, 4]);
 
