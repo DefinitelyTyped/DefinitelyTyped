@@ -19,6 +19,8 @@ declare class Pubnub {
 
   static generateUUID(): string;
 
+  channelGroups: Pubnub.ChannelGroups;
+
   setUUID(uuid: string): void;
 
   getUUID(): string;
@@ -120,6 +122,8 @@ declare class Pubnub {
     customCipherKey?: string,
     options?: Pubnub.CryptoParameters
   ): any;
+
+  time(): Promise<Pubnub.FetchTimeResponse>;
 }
 
 declare namespace Pubnub {
@@ -269,6 +273,84 @@ declare namespace Pubnub {
     channelGroups?: string[];
   }
 
+  // channelGroups
+  interface ChannelGroups {
+    addChannels(
+      params: AddChannelParameters,
+      callback: (status: ChannelGroupStatus) => void
+    ): void;
+
+    addChannels(
+      params: AddChannelParameters
+    ): Promise<{}>;
+
+    removeChannels(
+      params: RemoveChannelParameters,
+      callback: (status: ChannelGroupStatus) => void
+    ): void;
+
+    removeChannels(
+      params: RemoveChannelParameters
+    ): Promise<{}>;
+
+    listChannels(
+      params: ListChannelsParameters,
+      callback: (status: ChannelGroupStatus, response: ListChannelsResponse) => void
+    ): void;
+
+    listChannels(
+      params: ListChannelsParameters
+    ): Promise<ListChannelsResponse>;
+
+    listGroups(
+      callback: (status: ChannelGroupStatus, response: ListAllGroupsResponse) => void
+    ): void;
+
+    listGroups(): Promise<ListAllGroupsResponse>;
+
+    deleteGroup(
+      params: DeleteGroupParameters,
+      callback: (status: ChannelGroupStatus) => void
+    ): void;
+
+    deleteGroup(
+      params: DeleteGroupParameters
+    ): Promise<{}>;
+  }
+
+  interface AddChannelParameters {
+    channels: string[];
+    channelGroup: string;
+  }
+
+  interface RemoveChannelParameters {
+    channels: string[];
+    channelGroup: string;
+  }
+
+  interface ListChannelsParameters {
+    channelGroup: string;
+  }
+
+  interface DeleteGroupParameters {
+    channelGroup: string;
+  }
+
+  interface ListAllGroupsResponse {
+    groups: string[];
+  }
+
+  interface ListChannelsResponse {
+    channels: string[];
+  }
+
+  interface ChannelGroupStatus {
+    error: boolean;
+    errorData?: Error;
+    operation: string; // see Pubnub.Operations
+    statusCode?: number;
+  }
+
   // addListener
   interface ListenerParameters {
     status?(statusEvent: StatusEvent): void;
@@ -381,6 +463,11 @@ declare namespace Pubnub {
     keyEncoding?: string;
     keyLength?: number;
     mode?: string;
+  }
+
+  // fetch time
+  interface FetchTimeResponse {
+    timetoken: number;
   }
 
   interface Categories {
