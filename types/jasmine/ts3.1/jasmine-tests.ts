@@ -863,6 +863,15 @@ describe("jasmine.any", () => {
 
             expect(foo).toHaveBeenCalledWith(jasmine.any(Number), jasmine.any(Function));
         });
+
+        it("is useful for comparing arguments for typed spy", () => {
+            const foo = jasmine.createSpy<(num: number, fn: () => boolean) => void>('foo');
+            foo(12, () => {
+                return true;
+            });
+
+            expect(foo).toHaveBeenCalledWith(jasmine.any(Number), jasmine.any(Function));
+        });
     });
 });
 

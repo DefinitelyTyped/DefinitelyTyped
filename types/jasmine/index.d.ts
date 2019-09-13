@@ -187,10 +187,10 @@ declare function waits(timeout?: number): void;
 declare namespace jasmine {
     type ImplementationCallback = (() => PromiseLike<any>) | ((done: DoneFn) => void);
 
-    type ExpectedRecursive<T> = T | ObjectContaining<T> | AsymmetricMatcher | {
+    type ExpectedRecursive<T> = T | ObjectContaining<T> | AsymmetricMatcher<any> | {
         [K in keyof T]: ExpectedRecursive<T[K]> | Any;
     };
-    type Expected<T> = T | ObjectContaining<T> | AsymmetricMatcher | Any | Spy | {
+    type Expected<T> = T | ObjectContaining<T> | AsymmetricMatcher<any> | Any | Spy | {
         [K in keyof T]: ExpectedRecursive<T[K]>;
     };
     type SpyObjMethodNames<T = undefined> =
@@ -210,25 +210,25 @@ declare namespace jasmine {
      * That will succeed if the actual value being compared is `true` or anything truthy.
      * @since 3.1.0
      */
-    function truthy(): Truthy;
+    function truthy(): AsymmetricMatcher<any>;
 
     /**
      * That will succeed if the actual value being compared is  `null`, `undefined`, `0`, `false` or anything falsey.
      * @since 3.1.0
      */
-    function falsy(): Falsy;
+    function falsy(): AsymmetricMatcher<any>;
 
     /**
      * That will succeed if the actual value being compared is empty.
      * @since 3.1.0
      */
-    function empty(): Empty;
+    function empty(): AsymmetricMatcher<any>;
 
     /**
      * That will succeed if the actual value being compared is not empty.
      * @since 3.1.0
      */
-    function notEmpty(): NotEmpty;
+    function notEmpty(): AsymmetricMatcher<any>;
 
     function arrayContaining<T>(sample: ArrayLike<T>): ArrayContaining<T>;
     function arrayWithExactContents<T>(sample: ArrayLike<T>): ArrayContaining<T>;
@@ -249,11 +249,11 @@ declare namespace jasmine {
 
     function addMatchers(matchers: CustomMatcherFactories): void;
 
-    function stringMatching(str: string | RegExp): Any;
+    function stringMatching(str: string | RegExp): AsymmetricMatcher<string>;
 
     function formatErrorMsg(domain: string, usage: string): (msg: string) => string;
 
-    interface Any {
+    interface Any extends AsymmetricMatcher<any> {
         (...params: any[]): any; // jasmine.Any can also be a function
         new (expectedClass: any): any;
 
@@ -261,15 +261,10 @@ declare namespace jasmine {
         jasmineToString(): string;
     }
 
-    interface AsymmetricMatcher<T extends string = string> {
-        asymmetricMatch(other: any): boolean;
-        jasmineToString?(): T;
-      }
-
-    interface Truthy extends AsymmetricMatcher<'<jasmine.truthy>'> { }
-    interface Falsy extends AsymmetricMatcher<'<jasmine.falsy>'> { }
-    interface Empty extends AsymmetricMatcher<'<jasmine.empty>'> { }
-    interface NotEmpty extends AsymmetricMatcher<'<jasmine.notEmpty>'> { }
+    interface AsymmetricMatcher<TValue> {
+      asymmetricMatch(other: TValue, customTesters: ReadonlyArray<CustomEqualityTester>): boolean;
+      jasmineToString?(): string;
+    }
 
     // taken from TypeScript lib.core.es6.d.ts, applicable to CustomMatchers.contains()
     interface ArrayLike<T> {
@@ -277,11 +272,11 @@ declare namespace jasmine {
         [n: number]: T;
     }
 
-    interface ArrayContaining<T> extends AsymmetricMatcher {
+    interface ArrayContaining<T> extends AsymmetricMatcher<any> {
         new?(sample: ArrayLike<T>): ArrayLike<T>;
     }
 
-    interface ObjectContaining<T> {
+    interface ObjectContaining<T> extends AsymmetricMatcher<any> {
         new?(sample: {[K in keyof T]?: any}): {[K in keyof T]?: any};
 
         jasmineMatches(other: any, mismatchKeys: any[], mismatchValues: any[]): boolean;
