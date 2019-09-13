@@ -1439,7 +1439,7 @@ describe('Static Matcher Test', function() {
           })
         );
     });
-  });
+});
 
 (() => {
     // from boot.js

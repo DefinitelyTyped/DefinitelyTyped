@@ -176,8 +176,10 @@ describe("Included matchers:", () => {
     it("async matchers", async () => {
         const badness = new Error("badness");
         await expectAsync(Promise.resolve()).toBeResolved();
+        await expectAsync(Promise.resolve()).toBeResolved("good job");
         await expectAsync(Promise.resolve(true)).toBeResolvedTo(true);
         await expectAsync(Promise.reject(badness)).toBeRejected();
+        await expectAsync(Promise.reject(badness)).toBeRejected("bad mojo");
         await expectAsync(Promise.reject(badness)).toBeRejectedWith(badness);
         await expectAsync(Promise.resolve()).withContext("additional info").toBeResolved();
     });
@@ -1206,6 +1208,85 @@ describe("Custom matcher: 'toBeGoofy'", () => {
     });
 });
 
+describe('better typed spys', () => {
+    describe('a typed spy', () => {
+        const spy = jasmine.createSpy('spy', (num: number, str: string) => {
+            return `${num} and ${str}`;
+        });
+        it('has a typed returnValue', () => {
+            // $ExpectType (val: any) => Spy
+            spy.and.returnValue;
+        });
+        it('has a typed calls property', () => {
+            spy.calls.first().args; // $ExpectType any[]
+            spy.calls.first().returnValue; // $ExpectType any
+        });
+        it('has a typed callFake', () => {
+            // $ExpectType (fn: Function) => Spy
+            spy.and.callFake;
+        });
+    });
+    describe('spyOn', () => {
+        it('only works on methods', () => {
+            const foo = {
+                method() {
+                    return 'baz';
+                },
+                value: 'value',
+            };
+            const spy = spyOn(foo, 'method');
+            const spy2 = spyOn(foo, 'value'); // Is an error with TS 3.1+ typings.
+
+             // $ExpectType any
+            spy.calls.first().returnValue;
+        });
+        it('works on constructors', () => {
+            class MyClass {
+                constructor(readonly foo: string) {}
+            }
+            const namespace = { MyClass };
+            const spy = spyOn(namespace, 'MyClass');
+            spy.and.returnValue({foo: 'test'});
+            spy.and.returnValue({}); // Is an error with TS 3.1+ typings.
+            spy.and.returnValue({foo: 123}); // Is an error with TS 3.1+ typings.
+        });
+        it('can allows overriding the generic', () => {
+            class Base {
+                service() {}
+            }
+            class Super extends Base {
+                service2() {}
+            }
+            spyOn<Base>(new Super(), 'service');
+            spyOn<Base>(new Super(), 'service2'); // $ExpectError
+        });
+    });
+    describe('createSpyObj', () => {
+        it('returns the correct spy types', () => {
+            const foo = {
+                method() {
+                    return 'baz';
+                },
+                value: 'value',
+            };
+            const spyObj = jasmine.createSpyObj<typeof foo>('foo', ['method']);
+
+            // $ExpectType (val: any) => Spy
+            spyObj.method.and.returnValue;
+        });
+
+        it('has a way to opt out of inferred function types', () => {
+            interface I {
+                f(): string;
+                f(x: any): number;
+              }
+
+            const spyObject = jasmine.createSpyObj<I>("spyObject", ["f"]);
+            spyObject.f.and.returnValue("a string - working");
+        });
+    });
+});
+
 // test based on http://jasmine.github.io/2.5/custom_reporter.html
 var myReporter: jasmine.CustomReporter = {
     jasmineStarted: (suiteInfo: jasmine.SuiteInfo) => {
@@ -1318,46 +1399,46 @@ describe("createSpyObj", function() {
 });
 
 describe('Static Matcher Test', function() {
-  it('Falsy', () => {
-    expect({ value: null }).toEqual(
-      jasmine.objectContaining({
-        value: jasmine.falsy(),
-      })
-    );
-  });
-  it('Truthy', () => {
-    expect({ value: null }).toEqual(
-      jasmine.objectContaining({
-        value: jasmine.truthy(),
-      })
-    );
-  });
-  it('Empty', () => {
-    expect({ value: null }).toEqual(
-      jasmine.objectContaining({
-        value: jasmine.empty(),
-      })
-    );
-  });
-  it('NotEmpty', () => {
-    expect({ value: null }).toEqual(
-      jasmine.objectContaining({
-        value: jasmine.notEmpty(),
-      })
-    );
-  });
-  it('Partial should OK', () => {
-    expect({ value: null, label: 'abcd' }).toEqual(
-      jasmine.objectContaining({
-        value: jasmine.anything(),
-      })
-    );
-    expect({ value: null }).toEqual(
+    it('Falsy', () => {
+      expect({ value: null }).toEqual(
         jasmine.objectContaining({
-          value: 'any value should ok',
+          value: jasmine.falsy(),
         })
       );
-  });
+    });
+    it('Truthy', () => {
+      expect({ value: null }).toEqual(
+        jasmine.objectContaining({
+          value: jasmine.truthy(),
+        })
+      );
+    });
+    it('Empty', () => {
+      expect({ value: null }).toEqual(
+        jasmine.objectContaining({
+          value: jasmine.empty(),
+        })
+      );
+    });
+    it('NotEmpty', () => {
+      expect({ value: null }).toEqual(
+        jasmine.objectContaining({
+          value: jasmine.notEmpty(),
+        })
+      );
+    });
+    it('Partial should OK', () => {
+      expect({ value: null, label: 'abcd' }).toEqual(
+        jasmine.objectContaining({
+          value: jasmine.anything(),
+        })
+      );
+      expect({ value: null }).toEqual(
+          jasmine.objectContaining({
+            value: 'any value should ok',
+          })
+        );
+    });
 });
 
 (() => {
