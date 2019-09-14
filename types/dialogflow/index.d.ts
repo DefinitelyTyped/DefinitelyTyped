@@ -960,17 +960,17 @@ export type MatchMode =
 
 // API version for the agent.
 export type ApiVersion =
-  | 'API_VERSION_UNSPECIFIED'
-  | 'API_VERSION_V1'
-  | 'API_VERSION_V2'
-  | 'API_VERSION_V2_BETA_1';
+  | "API_VERSION_UNSPECIFIED"
+  | "API_VERSION_V1"
+  | "API_VERSION_V2"
+  | "API_VERSION_V2_BETA_1";
 
 // Represents the agent tier.
 export type Tier =
-  | 'TIER_UNSPECIFIED'
-  | 'TIER_STANDARD'
-  | 'TIER_ENTERPRISE'
-  | 'TIER_ENTERPRISE_PLUS';
+  | "TIER_UNSPECIFIED"
+  | "TIER_STANDARD"
+  | "TIER_ENTERPRISE"
+  | "TIER_ENTERPRISE_PLUS";
 
 export interface Credentials {
   client_email: string;
