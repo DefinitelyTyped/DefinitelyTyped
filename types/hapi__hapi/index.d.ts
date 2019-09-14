@@ -219,7 +219,10 @@ export interface RequestAuth {
     /** an artifact object received from the authentication strategy and used in authentication-related actions. */
     artifacts: object;
     /** the credential object received during the authentication process. The presence of an object does not mean successful authentication. */
-    credentials: AuthCredentials;
+    credentials: AuthCredentials & {
+        /** Query parameters from the initial request are passed back here */
+        query: RequestQuery;
+    };
     /** the authentication error is failed and mode set to 'try'. */
     error: Error;
     /** true if the request has been successfully authenticated, otherwise false. */
