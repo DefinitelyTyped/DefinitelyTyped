@@ -1,0 +1,28 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "extract.d.ts",
+        "index.d.ts",
+        "manifest.d.ts",
+        "packument.d.ts",
+        "pacote-tests.ts",
+        "prefetch.d.ts",
+        "tarball.d.ts"
+    ]
+}
