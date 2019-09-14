@@ -101,11 +101,14 @@ export interface WorkerPoolOptions {
     nodeWorker?: 'process' | 'thread' | 'auto';
 
     /**
-    * - In case of `'auto'` (default), workerpool will automatically pick a suitable type of worker: when in a browser environment, `'web'` will be used. When in a node.js environment, `worker_threads` will be used if available (Node.js >= 11.7.0), else `child_process` will be used.
-    * - In case of `'web'`, a Web Worker will be used. Only available in a browser environment.
-    * - In case of `'process'`, `child_process` will be used. Only available in a node.js environment.
-    * - In case of `'thread'`, `worker_threads` will be used. If `worker_threads` are not available, an error is thrown. Only available in a node.js environment.
-    */
+     * - In case of `'auto'` (default), workerpool will automatically pick a suitable type of worker:
+     *   when in a browser environment, `'web'` will be used. When in a node.js environment, `worker_threads` will be used
+     *   if available (Node.js >= 11.7.0), else `child_process` will be used.
+     * - In case of `'web'`, a Web Worker will be used. Only available in a browser environment.
+     * - In case of `'process'`, `child_process` will be used. Only available in a node.js environment.
+     * - In case of `'thread'`, `worker_threads` will be used. If `worker_threads` are not available, an error is thrown.
+     *   Only available in a node.js environment.
+     */
     workerType?: 'auto' | 'web' | 'process' | 'thread';
 
     /** 2nd argument to pass to childProcess.fork() */
