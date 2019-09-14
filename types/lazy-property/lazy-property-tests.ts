@@ -1,11 +1,10 @@
-/// <reference path="index.d.ts"
 import addLazyProperty = require('lazy-property');
 
 const obj: { foo?: string } = {};
 
-addLazyProperty(obj, 'foo', function() {
+addLazyProperty(obj, 'foo', () => {
   return 'bar';
 });
 
-//Access the property
+// Access the property
 obj.foo;
