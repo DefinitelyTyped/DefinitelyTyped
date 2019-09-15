@@ -493,19 +493,33 @@ declare namespace jasmine {
         message(): any;
 
         /**
+         * Expect the actual value to be `===` to the expected value.
          *
-         * @param expected the actual value to be === to the expected value.
+         * @param expected - The expected value to compare against.
          * @param expectationFailOutput
+         * @example
+         * expect(thing).toBe(realThing);
          */
         toBe(expected: Expected<T>, expectationFailOutput?: any): boolean;
 
         /**
-         *
-         * @param expected the actual value to be equal to the expected, using deep equality comparison.
+         * Expect the actual value to be equal to the expected, using deep equality comparison.
+         * @param expected - Expected value.
          * @param expectationFailOutput
+         * @example
+         * expect(bigObject).toEqual({ "foo": ['bar', 'baz'] });
          */
         toEqual(expected: Expected<T>, expectationFailOutput?: any): boolean;
+
+        /**
+         * Expect the actual value to match a regular expression.
+         * @param expected - Value to look for in the string.
+         * @example
+         * expect("my string").toMatch(/string$/);
+         * expect("other string").toMatch("her");
+         */
         toMatch(expected: string | RegExp, expectationFailOutput?: any): boolean;
+
         toBeDefined(expectationFailOutput?: any): boolean;
         toBeUndefined(expectationFailOutput?: any): boolean;
         toBeNull(expectationFailOutput?: any): boolean;
@@ -528,7 +542,17 @@ declare namespace jasmine {
         toThrowMatching(predicate: (thrown: any) => boolean): boolean;
         toBeNegativeInfinity(expectationFailOutput?: any): boolean;
         toBePositiveInfinity(expectationFailOutput?: any): boolean;
-        toHaveClass(expected: any, expectationFailOutput?: any): boolean;
+
+        /**
+         * Expect the actual value to be a DOM element that has the expected class.
+         * @since 3.0.0
+         * @param expected - The class name to test for.
+         * @example
+         * var el = document.createElement('div');
+         * el.className = 'foo bar baz';
+         * expect(el).toHaveClass('bar');
+         */
+        toHaveClass(expected: string, expectationFailOutput?: any): boolean;
 
         /**
          * Add some context for an expect.
@@ -536,15 +560,45 @@ declare namespace jasmine {
          */
         withContext(message: string): Matchers<T>;
 
+        /**
+         * Invert the matcher following this expect.
+         */
         not: Matchers<T>;
 
         Any: Any;
     }
 
     interface ArrayLikeMatchers<T> extends Matchers<ArrayLike<T>> {
+        /**
+         * Expect the actual value to be `===` to the expected value.
+         *
+         * @param expected - The expected value to compare against.
+         * @param expectationFailOutput
+         * @example
+         * expect(thing).toBe(realThing);
+         */
         toBe(expected: Expected<ArrayLike<T>> | ArrayContaining<T>, expectationFailOutput?: any): boolean;
+
+        /**
+         * Expect the actual value to be equal to the expected, using deep equality comparison.
+         * @param expected - Expected value.
+         * @param expectationFailOutput
+         * @example
+         * expect(bigObject).toEqual({ "foo": ['bar', 'baz'] });
+         */
         toEqual(expected: Expected<ArrayLike<T>> | ArrayContaining<T>, expectationFailOutput?: any): boolean;
+
         toContain(expected: Expected<T>, expectationFailOutput?: any): boolean;
+
+        /**
+         * Add some context for an expect.
+         * @param message - Additional context to show when the matcher fails.
+         */
+        withContext(message: string): ArrayLikeMatchers<T>;
+
+        /**
+         * Invert the matcher following this expect.
+         */
         not: ArrayLikeMatchers<T>;
     }
 

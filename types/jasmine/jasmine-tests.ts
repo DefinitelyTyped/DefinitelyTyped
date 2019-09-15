@@ -15,23 +15,29 @@ describe("A suite is just a function", () => {
     });
 });
 
-describe("The 'toBe' matcher compares with ===", () => {
-    it("and has a positive case", () => {
-        expect(true).toBe(true);
-    });
-
-    it("and can have a negative case", () => {
-        expect(false).not.toBe(true);
-    });
-});
-
 describe("Included matchers:", () => {
-    it("The 'toBe' matcher compares with ===", () => {
-        const a = 12;
-        const b = a;
+    describe('toBe', () => {
+        it("and has a positive case", () => {
+            expect(true).toBe(true);
+        });
 
-        expect(a).toBe(b);
-        expect(a).not.toBe(24);
+        it("and can have a negative case", () => {
+            expect(false).not.toBe(true);
+        });
+
+        it("the 'toBe' matcher compares with ===", () => {
+            const a = 12;
+            const b = a;
+
+            expect(a).toBe(b);
+            expect(a).not.toBe(24);
+        });
+
+        it('should allow to accept any union type', () => {
+            const value: number | string = null as any;
+
+            expect(value).toBe(12);
+        });
     });
 
     describe("The 'toEqual' matcher", () => {
@@ -211,7 +217,9 @@ describe("toBePositiveInfinity", () => {
 });
 
 describe("toHaveClass", () => {
-    expect("").toHaveClass(Array);
+    const element: HTMLElement = null!;
+    expect(element).toHaveClass("some-class");
+    expect(element).toHaveClass(Element); // $ExpectError
 });
 
 describe("A spec", () => {
@@ -985,6 +993,15 @@ describe("jasmine.arrayContaining", () => {
 
         expect(foo).toBe(jasmine.arrayContaining([3, 1]));
         expect(foo).not.toBe(jasmine.arrayContaining([6]));
+    });
+
+    it("matches read-only array", () => {
+        const bar: ReadonlyArray<number> = [1, 2, 3, 4];
+
+        expect(bar).toEqual(jasmine.arrayContaining([3, 1]));
+        expect(bar).not.toEqual(jasmine.arrayContaining([6]));
+
+        expect(bar).toBe(jasmine.arrayContaining([3, 1]));
     });
 
     describe("when used with a spy", () => {
