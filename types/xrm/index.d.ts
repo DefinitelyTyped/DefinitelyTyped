@@ -850,7 +850,7 @@ declare namespace Xrm {
          * If you do not specifiy this parameter, by default false is passed.
          * @remarks This method does not work with Microsoft Dynamics CRM for tablets.
          */
-        refreshRibbon(refreshAll? :boolean): void;
+        refreshRibbon(refreshAll?: boolean): void;
 
         /**
          * The business process flow API, used to interact with the business process flow control in a form.
