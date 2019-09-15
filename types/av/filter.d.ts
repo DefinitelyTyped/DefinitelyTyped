@@ -1,14 +1,17 @@
-import { TypedArray } from "./baseTypes";
+/// <reference path="./baseTypes.d.ts" />
 
-export class Filter {
-	constructor();
-	constructor(context: object, key: string);
+declare namespace AV {
+	class Filter {
+		constructor();
+		constructor(context: { }, key: string);
 
-	process(buffer: TypedArray): void;
-}
+		process(buffer: TypedArray): void;
+	}
 
-export class VolumeFilter extends Filter {
-}
+	class VolumeFilter extends Filter {
+	}
 
-export class BalanceFilter extends Filter {
+	class BalanceFilter extends Filter {
+	}
+
 }
