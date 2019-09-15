@@ -4,7 +4,7 @@
 
 declare namespace AV {
 	class Player {
-		static fromURL(url: string): Player;
+		static fromURL(url: string, opts?: HttpSourceOpts): Player;
 		static fromFile(file: File): Player;
 		static fromBuffer(buffer: BufferFormats): Player;
 

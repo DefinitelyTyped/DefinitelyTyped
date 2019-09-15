@@ -2,8 +2,8 @@
 
 declare namespace AV {
 	class AudioDevice {
-		register(device: DeviceConstructor): void;
-		create(sampleRate: number, channels: number): Device | null;
+		static register(device: DeviceConstructor): void;
+		static create(sampleRate: number, channels: number): Device | null;
 
 		constructor(sampleRate: number, channels: number);
 

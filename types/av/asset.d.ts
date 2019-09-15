@@ -6,7 +6,7 @@
 
 declare namespace AV {
 	class Asset {
-		static fromURL(url: string): Asset;
+		static fromURL(url: string, opts?: HttpSourceOpts): Asset;
 		static fromFile(file: File): Asset;
 		static fromBuffer(buffer: BufferFormats): Asset;
 
