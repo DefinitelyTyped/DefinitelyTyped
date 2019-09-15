@@ -185,6 +185,10 @@ declare function waitsFor(latchMethod: () => boolean, failureMessage?: string, t
 declare function waits(timeout?: number): void;
 
 declare namespace jasmine {
+    // Use trick with prototype to allow abstract classes.
+    // More info: https://stackoverflow.com/a/38642922/2009373
+    type Constructor = Function & { prototype: any };
+
     type ImplementationCallback = (() => PromiseLike<any>) | ((done: DoneFn) => void);
 
     type ExpectedRecursive<T> = T | ObjectContaining<T> | AsymmetricMatcher<any> | {
@@ -202,9 +206,15 @@ declare namespace jasmine {
 
     var matchersUtil: MatchersUtil;
 
-    function any(aclass: any): Any;
+    /**
+     * That will succeed if the actual value being compared is an instance of the specified class/constructor.
+     */
+    function any(aclass: Constructor | Symbol): AsymmetricMatcher<any>;
 
-    function anything(): Any;
+    /**
+     * That will succeed if the actual value being compared is not `null` and not `undefined`.
+     */
+    function anything(): AsymmetricMatcher<any>;
 
     /**
      * That will succeed if the actual value being compared is `true` or anything truthy.

@@ -841,6 +841,9 @@ describe("jasmine.any", () => {
     it("matches any value", () => {
         expect({}).toEqual(jasmine.any(Object));
         expect(12).toEqual(jasmine.any(Number));
+        expect(42).toEqual(jasmine.any(42)); // $ExpectError
+        expect({}).toEqual(jasmine.any({})); // $ExpectError
+        expect(() => null).toEqual(jasmine.any(Function));
     });
 
     it("matches any function", () => {
@@ -854,12 +857,35 @@ describe("jasmine.any", () => {
             fn2: (param1: number) => param1,
         };
 
-        const expected: Test = {
+        const expected = {
             fn1: jasmine.any(Function),
             fn2: jasmine.any(Function),
         };
 
         expect(a).toEqual(expected);
+    });
+
+    it("matches custom types", () => {
+        class Test { }
+
+        const obj = new Test();
+
+        expect(obj).toEqual(jasmine.any(Test));
+    });
+
+    it("matches base abstract class", () => {
+        abstract class TestClassBase { }
+        class TestClass extends TestClassBase { }
+        const obj = new TestClass();
+
+        expect(obj).toEqual(jasmine.any(TestClass));
+        expect(obj).toEqual(jasmine.any(TestClassBase));
+    });
+
+    it("matches symbols", () => {
+        const sym = Symbol('test symbol');
+
+        expect(sym).toEqual(jasmine.any(sym));
     });
 
     describe("when used with a spy", () => {
