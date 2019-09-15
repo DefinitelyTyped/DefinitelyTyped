@@ -1,16 +1,14 @@
-/// <reference path="./baseTypes.d.ts" />
+import { TypedArray } from "./baseTypes";
 
-declare namespace AV {
-	class Buffer {
-		static allocate(size: number): Buffer;
+export class Buffer {
+	static allocate(size: number): Buffer;
 
-		constructor(data: TypedArray);
+	constructor(data: TypedArray);
 
-		length: number;
+	length: number;
 
-		copy(): Buffer;
-		slice(offset: number, length: number): Buffer;
-		toBlob(): Blob;
-		toBlobURL(): string;
-	}
+	copy(): Buffer;
+	slice(offset: number, length: number): Buffer;
+	toBlob(): Blob;
+	toBlobURL(): string;
 }

@@ -1,23 +1,20 @@
-/// <reference types="node" />
-/// <reference path="./buffer.d.ts" />
-/// <reference path="./bufferList.d.ts" />
+import { BufferList } from "./bufferList";
+import { Buffer } from "./buffer";
 
-declare namespace AV {
-	interface Format {
-		formatID: string;
-		sampleRate: number;
-		channelsPerFrame: number;
-		bitsPerChannel: number;
-	}
+export interface Format {
+	formatID: string;
+	sampleRate: number;
+	channelsPerFrame: number;
+	bitsPerChannel: number;
+}
 
-	type TypedArray = Int8Array | Uint8Array | Uint8ClampedArray | Int16Array | Uint16Array | Int32Array | Uint32Array | Float32Array | Float64Array;
+export type TypedArray = Int8Array | Uint8Array | Uint8ClampedArray | Int16Array | Uint16Array | Int32Array | Uint32Array | Float32Array | Float64Array;
 
-	type Metadata = object;
+export type Metadata = object;
 
-	type BufferFormats = Buffer | TypedArray | ArrayBuffer | Buffer | BufferList;
+export type BufferFormats = Buffer | TypedArray | ArrayBuffer | BufferList;
 
-	type Encoding = "ascii" | "utf8" | "utf16-be" | "utf16-le" | "utf16-bom";
+export type Encoding = "ascii" | "utf8" | "utf16-be" | "utf16-le" | "utf16-bom";
 
-	class UnderflowError extends Error {
-	}
+export class UnderflowError extends Error {
 }
