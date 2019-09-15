@@ -1,50 +1,52 @@
-import { Buffer } from "./buffer";
+/// <reference path="./buffer.d.ts" />
 
-export class AudioDevice {
-	register(device: DeviceConstructor): void;
-	create(sampleRate: number, channels: number): Device | null;
+declare namespace AV {
+	class AudioDevice {
+		register(device: DeviceConstructor): void;
+		create(sampleRate: number, channels: number): Device | null;
 
-	constructor(sampleRate: number, channels: number);
+		constructor(sampleRate: number, channels: number);
 
-	playing: boolean;
-	currentTime: number;
+		playing: boolean;
+		currentTime: number;
 
-	start(): void;
-	stop(): void;
-	seek(time: number): void;
+		start(): void;
+		stop(): void;
+		seek(time: number): void;
 
-	on(event: "refill", fn: (buffer: Buffer) => void): void;
-	on(event: "timeUpdate", fn: (msecs: number) => void): void;
+		on(event: "refill", fn: (buffer: Buffer) => void): void;
+		on(event: "timeUpdate", fn: (msecs: number) => void): void;
 
-	off(event: "refill", fn: (buffer: Buffer) => void): void;
-	off(event: "timeUpdate", fn: (msecs: number) => void): void;
+		off(event: "refill", fn: (buffer: Buffer) => void): void;
+		off(event: "timeUpdate", fn: (msecs: number) => void): void;
 
-	once(event: "refill", fn: (buffer: Buffer) => void): void;
-	once(event: "timeUpdate", fn: (msecs: number) => void): void;
+		once(event: "refill", fn: (buffer: Buffer) => void): void;
+		once(event: "timeUpdate", fn: (msecs: number) => void): void;
 
-	emit(event: "refill", fn: (buffer: Buffer) => void): void;
-	emit(event: "timeUpdate", fn: (msecs: number) => void): void;
-}
+		emit(event: "refill", fn: (buffer: Buffer) => void): void;
+		emit(event: "timeUpdate", fn: (msecs: number) => void): void;
+	}
 
-export interface DeviceConstructor {
-	new (sampleRate: number, channels: number): Device;
-}
+	interface DeviceConstructor {
+		new (sampleRate: number, channels: number): Device;
+	}
 
-export interface Device {
-	supported: boolean;
+	interface Device {
+		supported: boolean;
 
-	destroy(): void;
-	getDeviceTime(): number;
+		destroy(): void;
+		getDeviceTime(): number;
 
-	on(event: "refill", fn: (buffer: Buffer) => void): void;
-	on(event: "timeUpdate", fn: (msecs: number) => void): void;
+		on(event: "refill", fn: (buffer: Buffer) => void): void;
+		on(event: "timeUpdate", fn: (msecs: number) => void): void;
 
-	off(event: "refill", fn: (buffer: Buffer) => void): void;
-	off(event: "timeUpdate", fn: (msecs: number) => void): void;
+		off(event: "refill", fn: (buffer: Buffer) => void): void;
+		off(event: "timeUpdate", fn: (msecs: number) => void): void;
 
-	once(event: "refill", fn: (buffer: Buffer) => void): void;
-	once(event: "timeUpdate", fn: (msecs: number) => void): void;
+		once(event: "refill", fn: (buffer: Buffer) => void): void;
+		once(event: "timeUpdate", fn: (msecs: number) => void): void;
 
-	emit(event: "refill", fn: (buffer: Buffer) => void): void;
-	emit(event: "timeUpdate", fn: (msecs: number) => void): void;
+		emit(event: "refill", fn: (buffer: Buffer) => void): void;
+		emit(event: "timeUpdate", fn: (msecs: number) => void): void;
+	}
 }

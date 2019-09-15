@@ -1,15 +1,17 @@
-import { Buffer } from "./buffer";
+/// <reference path="./buffer.d.ts" />
 
-export class BufferList {
-	availableBytes: number;
-	availableBuffers: number;
-	numBuffers: number;
-	first: Buffer | null;
-	last: Buffer | null;
+declare namespace AV {
+	class BufferList {
+		availableBytes: number;
+		availableBuffers: number;
+		numBuffers: number;
+		first: Buffer | null;
+		last: Buffer | null;
 
-	copy(): BufferList;
-	append(buffer: Buffer): void;
-	advance(): boolean;
-	rewind(): boolean;
-	reset(): void;
+		copy(): BufferList;
+		append(buffer: Buffer): void;
+		advance(): boolean;
+		rewind(): boolean;
+		reset(): void;
+	}
 }
