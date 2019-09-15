@@ -730,16 +730,23 @@ describe("A spy, when created manually", () => {
 });
 
 describe("Spy for generic method", () => {
+    interface Test {
+        method<T>(): Array<Box<T>>;
+    }
+
+    interface Box<T> {
+        value: T;
+    }
+
     it("should allow to configure generic method", () => {
-        interface Test {
-            method<T>(): Array<Box<T>>;
-        }
-
-        interface Box<T> {
-            value: T;
-        }
-
         const spy = jasmine.createSpyObj<Test>('test', ['method']);
+
+        spy.method.and.returnValue([{ value: 1 }, { value: 2 }]);
+    });
+
+    it("should allow to configure generic method with non-named spy", () => {
+        const spy = jasmine.createSpyObj<Test>(['method']);
+        jasmine.createSpyObj<Test>(['methodUnknown']); // $ExpectError
 
         spy.method.and.returnValue([{ value: 1 }, { value: 2 }]);
     });
