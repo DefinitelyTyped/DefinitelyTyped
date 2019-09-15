@@ -4,13 +4,12 @@
 
 declare namespace AV {
 	abstract class Demuxer {
-		static register(demuxer: new () => Demuxer): void;
+		static register(demuxer: DemuxerConstructor): void;
 		static find(buffer: Buffer): Demuxer | null;
 
 		stream: Stream;
 
-		abstract probe(stream: Stream): boolean;
-		abstract readChunk(): void;
+		readChunk(): void;
 
 		init(): void;
 
@@ -41,5 +40,11 @@ declare namespace AV {
 		emit(event: "cookie", fn: (buffer: Buffer) => void): void;
 		emit(event: "data", fn: (buffer: Buffer, isLastBuffer: boolean) => void): void;
 		emit(event: "error", fn: (err: Error) => void): void;
+	}
+
+	interface DemuxerConstructor {
+		new (): Demuxer;
+
+		probe(stream: Stream): boolean;
 	}
 }

@@ -13,8 +13,9 @@ declare namespace AV {
 		decode(): boolean;
 		seek(timestamp: number): number;
 
-		abstract setCookie(cookie: Buffer): void;
-		abstract readChunk(): TypedArray;
+		init(): void;
+		setCookie(cookie: Buffer): void;
+		readChunk(): TypedArray;
 
 		on(event: "data", fn: (data: TypedArray, isLastBuffer: boolean) => void): void;
 		on(event: "end", fn: () => void): void;

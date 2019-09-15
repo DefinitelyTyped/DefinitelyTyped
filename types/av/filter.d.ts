@@ -13,5 +13,4 @@ declare namespace AV {
 
 	class BalanceFilter extends Filter {
 	}
-
 }

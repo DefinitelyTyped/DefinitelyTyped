@@ -28,7 +28,11 @@ declare namespace AV {
 		emit(event: "end", fn: () => void): void;
 	}
 
-	const HTTPSource: { new(url: string, opts?: { length?: number }): Source; };
+	interface HttpSourceOpts {
+		length?: number;
+	}
+
+	const HTTPSource: { new(url: string, opts?: HttpSourceOpts): Source; };
 	const FileSource: { new(file: File): Source; };
 	const BufferSource: { new(input: BufferFormats): Source; };
 }
