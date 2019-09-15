@@ -118,9 +118,11 @@ export interface WorkerPoolOptions {
 }
 
 /**
- * When a script argument is provided, the provided script will be started as a dedicated worker.
- * When no script argument is provided, a default worker is started which can be used to offload functions dynamically via Pool.exec.
- * Note that on node.js, script must be an absolute file path like __dirname + '/myWorker.js'.
+ * When a `script` argument is provided, the provided script will be started as a dedicated worker.
+ * When no `script` argument is provided, a default worker is started which can be used to offload functions dynamically via `Pool.exec`.
+ * Note that on node.js, `script` must be an absolute file path like `__dirname + '/myWorker.js'`.
+ * In a browser environment, `script` can also be a data URL like `'data:application/javascript;base64,...'`.
+ * This allows embedding the bundled code of a worker in your main application. See `examples/embeddedWorker` for a demo.
  */
 export function pool(pathToScript?: string, options?: WorkerPoolOptions): WorkerPool;
 
