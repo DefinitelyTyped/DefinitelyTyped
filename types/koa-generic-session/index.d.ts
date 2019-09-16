@@ -37,6 +37,7 @@ declare namespace koaSession {
             maxAge?: number;
             secure?: boolean;
             httpOnly?: boolean;
+            sameSite?: string;
         };
         allowEmpty?: boolean;
         defer?: boolean;
