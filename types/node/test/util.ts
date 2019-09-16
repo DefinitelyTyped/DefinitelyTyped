@@ -162,6 +162,8 @@ import { readFile } from 'fs';
     const teEncoding: string = te.encoding;
     const teEncodeRes: Uint8Array = te.encode("TextEncoder");
 
+    const encIntoRes: util.EncodeIntoResult = te.encodeInto('asdf', new Uint8Array(16));
+
     // util.types
     let b: boolean;
     b = util.types.isBigInt64Array(15);
