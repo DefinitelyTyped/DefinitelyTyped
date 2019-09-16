@@ -545,8 +545,8 @@ yup.setLocale({
 });
 
 yup.setLocale({
-    // $ExpectError
     string: {
+        // $ExpectError
         nullable: 'message',
     },
 });
