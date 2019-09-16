@@ -206,12 +206,6 @@ declare namespace jasmine {
             (ReadonlyArray<string> | {[methodName: string]: any}) :
             (ReadonlyArray<keyof T> | {[P in keyof T]?: ReturnType<T[P] extends Func ? T[P] : any>});
 
-    type AnyMethods<T> = {
-        [K in {
-            [K in keyof T]: T[K] extends Function ? K : never
-        }[keyof T]]: Func
-    };
-
     function clock(): Clock;
 
     var matchersUtil: MatchersUtil;
@@ -842,6 +836,12 @@ declare namespace jasmine {
     type SpyObj<T> = T & {
         [K in keyof T]: T[K] extends Func ? T[K] & Spy<T[K]> : T[K];
     };
+
+    /**
+     * It's like SpyObj, but doesn't verify argument/return types for functions.
+     * Useful if TS cannot correctly infer type for complex objects.
+     */
+    type NonTypedSpyObj<T> = SpyObj<{ [K in keyof T]: T[K] extends Func ? Func : T[K] }>;
 
     interface SpyAnd<Fn extends Func> {
         identity: string;

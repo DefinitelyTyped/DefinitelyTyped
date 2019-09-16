@@ -1360,16 +1360,6 @@ describe('better typed spys', () => {
             // $ExpectType (val: string) => Spy<() => string>
             spyObj.method.and.returnValue;
         });
-
-        it('has a way to opt out of inferred function types', () => {
-            interface I {
-                f(): string;
-                f(x: any): number;
-              }
-
-            const spyObject = jasmine.createSpyObj<jasmine.AnyMethods<I>>("spyObject", ["f"]);
-            spyObject.f.and.returnValue("a string - working");
-        });
     });
 });
 
@@ -1524,6 +1514,33 @@ describe('Static Matcher Test', function() {
             value: 'any value should ok',
           })
         );
+    });
+});
+
+describe("User scenarios", () => {
+    describe("https://github.com/DefinitelyTyped/DefinitelyTyped/issues/34080", () => {
+        interface Test {
+            f(): string;
+            f(x: any): number;
+        }
+
+        it("has a way to opt out of inferred function types", () => {
+            const spyObject: jasmine.NonTypedSpyObj<Test> = jasmine.createSpyObj<Test>("spyObject", ["f"]);
+            spyObject.f.and.returnValue("a string - working");
+
+            const spy2 = jasmine.createSpyObj<Test>(['f']);
+            spy2.f.and.returnValue("can return string" as any);
+        });
+
+        it("should be possible to opt out for spyOn", () => {
+            const obj: Test = null!;
+
+            const spy1: jasmine.Spy = spyOn(obj, "f");
+            spy1.and.returnValue("can return string");
+
+            const spy2 = spyOn(obj, "f");
+            spy2.and.returnValue("can return string" as any);
+        });
     });
 });
 
