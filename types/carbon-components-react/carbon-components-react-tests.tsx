@@ -9,7 +9,7 @@ import {
     TableRow,
 } from 'carbon-components-react';
 import Link from 'carbon-components-react/lib/components/UIShell/Link';
-import { ReactAnchorAttr } from "./typings/shared";
+import { ReactAnchorAttr } from './typings/shared';
 
 interface Row1 extends DataTableRow {
     rowProp: string;
@@ -142,6 +142,27 @@ const t4 = (
 );
 
 // UIShell - Link
+interface ITestComp1Props {
+    someProp: number,
+}
+
+class TestComp1 extends React.Component<ITestComp1Props> {
+    render() {
+        return (<div/>);
+    }
+}
+
+const TestComp2 = (props: ITestComp1Props) => (<div/>);
+
 const uisLinkT1 = (
     <Link href="#test">Test</Link>
+);
+const uisLinkT2 = (
+    <Link<React.ImgHTMLAttributes<HTMLElement>> element="img" src="src"/>
+);
+const uisLinkT3 = (
+    <Link<ITestComp1Props> element={TestComp1} someProp={2}>ASDF</Link>
+);
+const uisLinkT4 = (
+    <Link<ITestComp1Props> element={TestComp2} someProp={2}>ASDF</Link>
 );
