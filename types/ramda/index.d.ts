@@ -1778,6 +1778,13 @@ declare namespace R {
         /**
          * Like mapObj, but but passes additional arguments to the predicate function.
          */
+        mapObjIndexed<T, TResult, TKey extends string>(
+            fn: (value: T, key: TKey, obj?: Record<TKey, T>) => TResult,
+            obj: Record<TKey, T>
+        ): Record<TKey, TResult>;
+        mapObjIndexed<T, TResult, TKey extends string>(
+            fn: (value: T, key: TKey, obj?: Record<TKey, T>) => TResult
+        ): (obj: Record<TKey, T>) =>  Record<TKey, TResult>;
         mapObjIndexed<T, TResult>(
             fn: (value: T, key: string, obj?: {
                 [key: string]: T
