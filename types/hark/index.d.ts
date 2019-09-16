@@ -31,5 +31,3 @@ declare namespace hark {
         on(event: 'state_change', listener: (state: AudioContextState) => void): void;
     }
 }
-
-// TypeScript Version: 2.3
