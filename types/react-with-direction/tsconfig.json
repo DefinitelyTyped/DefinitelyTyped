@@ -1,0 +1,27 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "dist/proptypes/direction.d.ts",
+        "dist/AutoDirectionProvider.d.ts",
+        "dist/DirectionProvider.d.ts",
+        "dist/constants.d.ts",
+        "index.d.ts",
+        "react-with-direction-tests.ts"
+    ]
+}
