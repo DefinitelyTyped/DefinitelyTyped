@@ -203,8 +203,8 @@ declare namespace jasmine {
     };
     type SpyObjMethodNames<T = undefined> =
         T extends undefined ?
-            (ReadonlyArray<string> | {[methodName: string]: any}) :
-            (ReadonlyArray<keyof T> | {[P in keyof T]?: ReturnType<T[P] extends Func ? T[P] : any>});
+            (ReadonlyArray<string> | { [methodName: string]: any }) :
+            (ReadonlyArray<keyof T> | { [P in keyof T]?: T[P] extends Func ? ReturnType<T[P]> : any });
 
     function clock(): Clock;
 

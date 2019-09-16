@@ -185,6 +185,8 @@ declare function waitsFor(latchMethod: () => boolean, failureMessage?: string, t
 declare function waits(timeout?: number): void;
 
 declare namespace jasmine {
+    type Func = (...args: any[]) => any;
+
     // Use trick with prototype to allow abstract classes.
     // More info: https://stackoverflow.com/a/38642922/2009373
     type Constructor = Function & { prototype: any };
@@ -199,8 +201,8 @@ declare namespace jasmine {
     };
     type SpyObjMethodNames<T = undefined> =
         T extends undefined ?
-            (ReadonlyArray<string> | {[methodName: string]: any}) :
-            (ReadonlyArray<keyof T> | {[P in keyof T]?: ReturnType<T[P] extends (...args: any[]) => any ? T[P] : any>});
+            (ReadonlyArray<string> | { [methodName: string]: any }) :
+            (ReadonlyArray<keyof T> | { [P in keyof T]?: T[P] extends Func ? ReturnType<T[P]> : any });
 
     function clock(): Clock;
 
