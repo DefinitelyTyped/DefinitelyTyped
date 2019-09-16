@@ -2,8 +2,11 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import Cropper, { Area, Location, CropperProps } from 'react-easy-crop';
 
+// To avoid TS 3.5 dependency
+type Omit<T, K extends keyof any> = Pick<T, Exclude<keyof T, K>>;
+
 const App = () => {
-  const [state, setState] = React.useState<Omit<CropperProps,"onCropChange">>({
+  const [state, setState] = React.useState<Omit<CropperProps, "onCropChange">>({
       image:
         'https://img.huffingtonpost.com/asset/5ab4d4ac2000007d06eb2c56.jpeg?cache=sih0jwle4e&ops=1910_1000',
       crop: { x: 0, y: 0 },
