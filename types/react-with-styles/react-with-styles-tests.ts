@@ -7,4 +7,3 @@ const Component: React.FC<WithStylesProps> = ({ styles }) =>
 const StyledComponent = withStyles(({ unit }) => ({
   wrapper: { borderRadius: unit },
 }))(Component);
-

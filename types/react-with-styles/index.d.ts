@@ -4,12 +4,13 @@
 //                 Brie Bunge <https://github.com/brieb>
 //                 Joe Lencioni <https://github.com/lencioni>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { CSSProperties } from 'aphrodite';
 
-type Theme = { [key: string]: any };
+interface Theme { [key: string]: any; }
 
 interface WithStylesProps<T = Theme> {
     /**
