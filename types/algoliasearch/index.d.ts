@@ -1,5 +1,5 @@
-// Type definitions for algoliasearch-client-js 3.30.2
-// Project: https://github.com/algolia/algoliasearch-client-js
+// Type definitions for algoliasearch-client-javascript 3.34.0
+// Project: https://github.com/algolia/algoliasearch-client-javascript
 // Definitions by: Baptiste Coquelle <https://github.com/cbaptiste>
 //                 Haroen Viaene <https://github.com/haroenv>
 //                 Samuel Vaillant <https://github.com/samouss>
@@ -11,6 +11,7 @@
 //                 Dan Grayson <https://github.com/dan-grayson>
 //                 Peter Esenwa <https://github.com/PeterEsenwa>
 //                 Samuel Bodin <https://github.com/bodinsamuel>
+//                 Richard Scotten <https://github.com/rscotten>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -2023,14 +2024,11 @@ declare namespace algoliasearch {
          * The associated highlighting information.
          * https://community.algolia.com/places/api-clients.html#api-suggestion-highlightResult
          */
-        highlightResult: {
+        _highlightResult: {
             administrative: highlightResultValueInterface;
-            country: {
-                default: highlightResultValueInterface;
-                [key: string]: highlightResultValueInterface;
-            };
-            county: { default: string; [key: string]: string };
-            locale_names: { default: string[]; [key: string]: string[] };
+            country: highlightResultValueInterface;
+            county?: highlightResultValueInterface;
+            locale_names: highlightResultValueInterface[];
             postcode: highlightResultValueInterface[];
         }
         /**
@@ -2039,7 +2037,7 @@ declare namespace algoliasearch {
          */
         locale_names: string[];
         admin_level: number;
-        district: string;
+        district?: string;
         importance: number;
         is_city: boolean;
         is_country: boolean;
@@ -2047,7 +2045,7 @@ declare namespace algoliasearch {
         is_popular: boolean;
         is_suburb: boolean;
         objectID: string;
-        tags: string[];
+        _tags: string[];
     }
 
     /**
@@ -2099,23 +2097,20 @@ declare namespace algoliasearch {
          * The associated highlighting information.
          * https://community.algolia.com/places/api-clients.html#api-suggestion-highlightResult
          */
-        highlightResult: {
-            administrative: highlightResultValueInterface;
-            country: {
-                default: highlightResultValueInterface;
-                [key: string]: highlightResultValueInterface;
-            };
-            county: { default: string; [key: string]: string };
-            locale_names: { default: string[]; [key: string]: string[] };
-            postcode: highlightResultValueInterface[];
-        }
+        _highlightResult: {
+          administrative: highlightResultValueInterface;
+          country: highlightResultValueInterface;
+          county?: highlightResultValueInterface;
+          locale_names: highlightResultValueInterface[];
+          postcode: highlightResultValueInterface[];
+      }
         /**
          * https://community.algolia.com/places/api-clients.html#api-suggestion-name
          * List of names of the place. If no language parameter is specified, retrieves all of them.
          */
         locale_names: { default: string[]; [key: string]: string[] };
         admin_level: number;
-        district: string;
+        district?: string;
         importance: number;
         is_city: boolean;
         is_country: boolean;
@@ -2123,16 +2118,17 @@ declare namespace algoliasearch {
         is_popular: boolean;
         is_suburb: boolean;
         objectID: string;
-        tags: string[];
+        _tags: string[];
     }
 
     /**
      * Interface use in HitInterface for some key of highlightResult.
      */
     interface highlightResultValueInterface {
-        value: string;
-        matchLevel: string;
-        matchedWords: string[];
+      fullyHighlighted?: boolean;
+      matchLevel: string;
+      matchedWords: string[];
+      value: string;
     }
   }
 
