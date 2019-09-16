@@ -36,7 +36,7 @@ export interface MapOptions {
   minZoom?: number;
   maxZoom?: number;
   noClear?: boolean;
-  options?:(maps: Maps) => Props;
+  options?: (maps: Maps) => Props;
   panControl?: boolean;
   panControlOptions?: { position: number };
   rotateControl?: boolean;
