@@ -578,8 +578,6 @@ declare namespace jasmine {
          * Invert the matcher following this expect.
          */
         not: Matchers<T>;
-
-        Any: Any;
     }
 
     interface ArrayLikeMatchers<T> extends Matchers<ArrayLike<T>> {
