@@ -1654,6 +1654,7 @@ declare namespace algoliasearch {
      * Set the maximum number of hits accessible via pagination.
      * We set the max number of *hits*, not max number of pages.
      * Works with the page and hitsByPage settings to establish the full paging logic.
+     * https://www.algolia.com/doc/api-reference/api-parameters/paginationLimitedTo/?language=javascript
      */
     paginationLimitedTo?: number
   }
