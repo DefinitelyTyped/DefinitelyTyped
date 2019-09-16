@@ -50,3 +50,7 @@ const a: NodeJS.TypedArray = new Buffer(123);
     writableFinished = writable.writableFinished;
     writable.destroyed;
 }
+
+{
+    const res: Promise<Array<PromiseSettlement<number>>> = Promise.allSettled([Promise.resolve(1)]);
+}

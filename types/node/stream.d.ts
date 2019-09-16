@@ -24,6 +24,7 @@ declare module "stream" {
             static from(iterable: Iterable<any> | AsyncIterable<any>, options?: ReadableOptions): Readable;
 
             readable: boolean;
+            readonly readableEnded: boolean;
             readonly readableHighWaterMark: number;
             readonly readableLength: number;
             readonly readableObjectMode: boolean;
@@ -119,6 +120,7 @@ declare module "stream" {
         class Writable extends Stream implements NodeJS.WritableStream {
             readonly writable: boolean;
             readonly writableFinished: boolean;
+            readonly writableEnded: boolean;
             readonly writableHighWaterMark: number;
             readonly writableLength: number;
             readonly writableObjectMode: boolean;
@@ -220,6 +222,7 @@ declare module "stream" {
         class Duplex extends Readable implements Writable {
             readonly writable: boolean;
             readonly writableFinished: boolean;
+            readonly writableEnded: boolean;
             readonly writableHighWaterMark: number;
             readonly writableLength: number;
             readonly writableObjectMode: boolean;
@@ -228,8 +231,8 @@ declare module "stream" {
             _writev?(chunks: Array<{ chunk: any, encoding: string }>, callback: (error?: Error | null) => void): void;
             _destroy(error: Error | null, callback: (error: Error | null) => void): void;
             _final(callback: (error?: Error | null) => void): void;
-            write(chunk: any, encoding?: string, cb?: (error: Error | null | undefined) => void): boolean;
             write(chunk: any, cb?: (error: Error | null | undefined) => void): boolean;
+            write(chunk: any, encoding?: string, cb?: (error: Error | null | undefined) => void): boolean;
             setDefaultEncoding(encoding: string): this;
             end(cb?: () => void): void;
             end(chunk: any, cb?: () => void): void;

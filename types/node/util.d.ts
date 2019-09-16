@@ -153,13 +153,26 @@ declare module "util" {
           options?: { fatal?: boolean; ignoreBOM?: boolean }
         );
         decode(
-          input?: NodeJS.TypedArray | DataView | ArrayBuffer | null,
+          input?: NodeJS.ArrayBufferView | ArrayBuffer | null,
           options?: { stream?: boolean }
         ): string;
+    }
+
+    interface EncodeIntoResult {
+        /**
+         * The read Unicode code units of input.
+         */
+
+        read: number;
+        /**
+         * The written UTF-8 bytes of output.
+         */
+        written: number;
     }
 
     class TextEncoder {
         readonly encoding: string;
         encode(input?: string): Uint8Array;
+        encodeInto(input: string, output: Uint8Array): EncodeIntoResult;
     }
 }
