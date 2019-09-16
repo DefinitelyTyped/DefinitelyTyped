@@ -551,8 +551,14 @@ declare namespace R {
     type Omit<T, K extends string> = Pick<T, Exclude<keyof T, K>>;
 
     type CommonKeys<T1, T2> = keyof T1 & keyof T2;
+
+    type PropsThatAreArrays<T, K extends keyof T> = K extends keyof T ? T[K] extends ReadonlyArray<any> ? K : never : never;
+    type PropsThatAreObjectsButNotArrays<T, K extends keyof T> = K extends keyof T ? T[K] extends ReadonlyArray<any> ? never : T[K] extends object ? K : never : never;
     type PropsThatAreObjects<T, K extends keyof T> = K extends keyof T ? T[K] extends object ? K : never : never;
+
+    type CommonPropsThatAreArrays<T1, T2> = PropsThatAreArrays<T1, keyof T1> & PropsThatAreArrays<T2, keyof T2>;
     type CommonPropsThatAreObjects<T1, T2> = PropsThatAreObjects<T1, keyof T1> & PropsThatAreObjects<T2, keyof T2>;
+    type CommonPropsThatAreObjectsButNotArrays<T1, T2> = PropsThatAreObjectsButNotArrays<T1, keyof T1> & PropsThatAreObjectsButNotArrays<T2, keyof T2>;
 
     type Ord = number | string | boolean | Date;
 
@@ -782,7 +788,9 @@ declare namespace R {
     ];
 
     type Merge<Primary, Secondary> = { [K in keyof Primary]: Primary[K] } & { [K in Exclude<keyof Secondary, CommonKeys<Primary, Secondary>>]: Secondary[K] };
-    type MergeDeep<Primary, Secondary> = { [K in CommonPropsThatAreObjects<Primary, Secondary>]: MergeDeep<Primary[K], Secondary[K]> } &
+    type MergeDeep<Primary, Secondary> =
+        { [K in CommonPropsThatAreArrays<Primary, Secondary>]: Secondary[K] } &
+        { [K in CommonPropsThatAreObjectsButNotArrays<Primary, Secondary>]: MergeDeep<Primary[K], Secondary[K]> } &
         { [K in Exclude<keyof Primary, CommonPropsThatAreObjects<Primary, Secondary>>]: Primary[K] } &
         { [K in Exclude<keyof Secondary, CommonKeys<Primary, Secondary>>]: Secondary[K] };
 

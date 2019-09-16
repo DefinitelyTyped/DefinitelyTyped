@@ -1424,11 +1424,19 @@ class Rectangle {
 };
 
 () => {
-    const a = R.mergeDeepLeft({foo: {bar: 1}}, {foo: {bar: 2}}); // => {foo: {bar: 1}}
+  const a = R.mergeDeepLeft({ foo: { bar: 1 } }, { foo: { bar: 2 } }); // => {foo: {bar: 1}}
+  const b: { foo: { bar: number; baz: number[] } } = R.mergeDeepLeft(
+    { foo: { bar: 1, baz: [1, 2] } },
+    { foo: { bar: 2, baz: [3, 4] } },
+  ); // => {foo: {bar: 2, baz: [1, 2]}}
 };
 
 () => {
-    const a = R.mergeDeepRight({foo: {bar: 1}}, {foo: {bar: 2}}); // => {foor: bar: 2}}
+  const a = R.mergeDeepRight({ foo: { bar: 1 } }, { foo: { bar: 2 } }); // => {foo: {bar: 2}}
+  const b: { foo: { bar: number; baz: number[] } } = R.mergeDeepRight(
+    { foo: { bar: 1, baz: [1, 2] } },
+    { foo: { bar: 2, baz: [3, 4] } },
+  ); // => {foo: {bar: 2, baz: [3, 4]}}
 };
 
 () => {
