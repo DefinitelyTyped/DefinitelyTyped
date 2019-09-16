@@ -2,7 +2,7 @@ import * as React from "react";
 import { ReactAnchorAttr, ShapeOf } from "../../../typings/shared";
 
 type InnerElementProps<P> = Omit<P, "element">;
-export interface LinkPropsBase<P = any> {
+export interface LinkPropsBase<P = ReactAnchorAttr> {
     element?: string | React.JSXElementConstructor<InnerElementProps<P>>, // required but has default value
 }
 

@@ -8,6 +8,8 @@ import {
     TableHeader,
     TableRow,
 } from 'carbon-components-react';
+import Link from 'carbon-components-react/lib/components/UIShell/Link';
+import { ReactAnchorAttr } from "./typings/shared";
 
 interface Row1 extends DataTableRow {
     rowProp: string;
@@ -137,4 +139,9 @@ const t4 = (
             return <div />;
         }}
     />
+);
+
+// UIShell - Link
+const uisLinkT1 = (
+    <Link href="#test">Test</Link>
 );
