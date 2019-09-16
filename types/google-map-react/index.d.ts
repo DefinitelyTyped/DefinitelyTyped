@@ -28,6 +28,7 @@ export interface MapOptions {
   fullscreenControlOptions?: {position: number};
   gestureHandling?: string;
   heading?: number;
+  heatmapLibrary?: boolean;
   keyboardShortcuts?: boolean;
   mapTypeControl?: boolean;
   mapTypeControlOptions?: any;
