@@ -11,6 +11,7 @@
 //                 Dan Grayson <https://github.com/dan-grayson>
 //                 Peter Esenwa <https://github.com/PeterEsenwa>
 //                 Samuel Bodin <https://github.com/bodinsamuel>
+//                 Richard Scotten <https://github.com/rscotten>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
