@@ -107,5 +107,5 @@ declare namespace RateLimit {
 declare var RateLimit: {
     new (options: RateLimit.Options): RateLimit.Instance;
     (options: RateLimit.Options): RateLimit.Instance;
-}
+};
 export = RateLimit;
