@@ -153,7 +153,7 @@ declare module "util" {
           options?: { fatal?: boolean; ignoreBOM?: boolean }
         );
         decode(
-          input?: NodeJS.TypedArray | DataView | ArrayBuffer | null,
+          input?: NodeJS.ArrayBufferView | ArrayBuffer | null,
           options?: { stream?: boolean }
         ): string;
     }

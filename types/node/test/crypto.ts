@@ -4,7 +4,8 @@ import { promisify } from 'util';
 
 {
     // crypto_hash_string_test
-    const hashResult: string = crypto.createHash('md5').update('world').digest('hex');
+    let hashResult: string = crypto.createHash('md5').update('world').digest('hex');
+    hashResult = crypto.createHash('shake256', { outputLength: 16 }).update('world').digest('hex');
 }
 
 {

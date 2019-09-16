@@ -39,3 +39,7 @@ const a: NodeJS.TypedArray = new Buffer(123);
     const stderr: Writable = process.stderr;
     writableFinished = process.stderr.writableFinished;
 }
+
+{
+    const res: Promise<Array<PromiseSettlement<number>>> = Promise.allSettled([Promise.resolve(1)]);
+}

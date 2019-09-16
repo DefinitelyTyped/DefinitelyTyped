@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Node.js 12.7
+// Type definitions for non-npm package Node.js 12.10
 // Project: http://nodejs.org/
 // Definitions by: Microsoft TypeScript <https://github.com/Microsoft>
 //                 DefinitelyTyped <https://github.com/DefinitelyTyped>
@@ -85,6 +85,16 @@ declare var Symbol: SymbolConstructor;
 interface SharedArrayBuffer {
     readonly byteLength: number;
     slice(begin?: number, end?: number): SharedArrayBuffer;
+}
+
+interface PromiseSettlement<T> {
+    status: 'rejected' | 'fulfilled';
+    reason?: any;
+    value?: T;
+}
+
+interface PromiseConstructor {
+    allSettled<R>(iterable: Iterable<R | PromiseLike<R>>): Promise<Array<PromiseSettlement<R>>>;
 }
 
 declare module "util" {
