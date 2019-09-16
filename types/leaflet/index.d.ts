@@ -1217,6 +1217,7 @@ export interface TooltipOptions extends DivOverlayOptions {
 
 export class Tooltip extends DivOverlay {
     constructor(options?: TooltipOptions, source?: Layer);
+    setOpacity(val: number): void;
 
     options: TooltipOptions;
 }
