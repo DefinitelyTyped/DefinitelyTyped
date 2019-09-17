@@ -9,6 +9,12 @@ const ComponentFunction = (props: TOwnProps) => (
     <h2>Welcome {props.username}</h2>
 );
 
+const FunctionComponent: React.FunctionComponent<TOwnProps> = props => (
+  <h2>Welcome {props.username}</h2>
+);
+
+declare const Component: React.ComponentType<TOwnProps>;
+
 class ComponentClass extends React.Component<TOwnProps> {
     render() {
         return <h2>Welcome {this.props.username}</h2>;
@@ -16,6 +22,8 @@ class ComponentClass extends React.Component<TOwnProps> {
 }
 
 const WithRouterComponentFunction = withRouter(ComponentFunction);
+const WithRouterFunctionComponent = withRouter(FunctionComponent);
+const WithRouterComponent = withRouter(Component);
 const WithRouterComponentClass = withRouter(ComponentClass);
 WithRouterComponentClass.WrappedComponent; // $ExpectType typeof ComponentClass
 
