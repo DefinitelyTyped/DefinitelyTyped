@@ -12,10 +12,6 @@ declare namespace VueTheMaskPlugin {
     }
 }
 
-declare module 'vue/types/vue' {
-    interface Vue {}
-}
-
 interface VueTheMaskPlugin extends PluginObject<void> {
     mask: DirectiveFunction,
     TheMask: Component
