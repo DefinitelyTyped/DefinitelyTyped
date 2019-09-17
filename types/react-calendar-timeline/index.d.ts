@@ -340,14 +340,7 @@ declare module 'react-calendar-timeline' {
         style?: React.CSSProperties;
         className?: string;
         unit?: Unit | 'primaryHeader';
-        labelFormat?:
-            | string
-            | ((
-                  [startTime, endTime]: [Moment, Moment],
-                  unit: Unit,
-                  labelWidth: number,
-                  formatOptions: TimelineHeaderLabelFormat,
-              ) => string);
+        labelFormat?: string | (([startTime, endTime]: [Moment, Moment], unit: Unit, labelWidth: number) => string);
         intervalRenderer?: (props?: IntervalRenderer<Data>) => React.ReactNode;
         headerData?: Data;
         children?: (props: SidebarHeaderChildrenFnProps<Data>) => React.ReactNode;
