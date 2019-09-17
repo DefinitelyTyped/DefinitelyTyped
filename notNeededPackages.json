@@ -3433,6 +3433,12 @@
             "asOfVersion": "5.1.1"
         },
         {
+            "libraryName": "@storybook/addon-actions",
+            "typingsPackageName": "storybook__addon-actions",
+            "sourceRepoURL": "https://github.com/storybooks/storybook",
+            "asOfVersion": "5.2.0"
+        },
+        {
             "libraryName": "@storybook/addon-notes",
             "typingsPackageName": "storybook__addon-notes",
             "sourceRepoURL": "https://github.com/storybooks/storybook",
