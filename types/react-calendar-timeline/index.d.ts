@@ -366,7 +366,7 @@ declare module 'react-calendar-timeline' {
         timelineContext: TimelineContext;
         headerContext: HeaderContext;
         getIntervalProps: (props?: GetIntervalProps) => Required<GetIntervalProps> & { key: string | number };
-        getRootProps: () => any;
+        getRootProps: (propsToOverride?: { style: React.CSSProperties }) => { style: React.CSSProperties };
         showPeriod: (startDate: Moment | number, endDate: Moment | number) => void;
         data: Data;
     }
