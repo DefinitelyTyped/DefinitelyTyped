@@ -13,6 +13,7 @@ import { ResponsiveStyleValue, SystemStyleObject } from '@styled-system/css';
 import * as React from "react";
 import * as StyledComponents from "styled-components";
 import * as StyledSystem from "styled-system";
+import { CSSObject } from '@emotion/serialize'
 
 export {};
 
@@ -21,6 +22,7 @@ type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
 export interface BaseProps extends React.RefAttributes<any> {
     as?: React.ElementType;
     css?:
+        | CSSObject
         | StyledComponents.CSSObject
         | StyledComponents.FlattenSimpleInterpolation
         | string;
