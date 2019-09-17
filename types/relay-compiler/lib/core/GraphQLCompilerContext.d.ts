@@ -1,6 +1,6 @@
 import { GraphQLSchema } from 'graphql';
 import { Root, Fragment, SplitOperation, Location } from './GraphQLIR';
-import { GraphQLReporter } from './GraphQLReporter';
+import { GraphQLReporter } from '../reporters/GraphQLReporter';
 
 export type IRTransform = (
   context: GraphQLCompilerContext,
