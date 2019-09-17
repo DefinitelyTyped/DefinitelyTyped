@@ -79,22 +79,6 @@ declare module 'react-calendar-timeline' {
         width: boolean;
     }
 
-    export interface TimelineHeaderLabelFormat {
-        yearShort: string;
-        yearLong: string;
-        monthShort: string;
-        monthMedium: string;
-        monthMediumLong: string;
-        monthLong: string;
-        dayShort: string;
-        dayLong: string;
-        hourShort: string;
-        hourMedium: string;
-        hourMediumLong: string;
-        hourLong: string;
-        time: string;
-    }
-
     export interface TimeFormat {
         long: string;
         mediumLong: string;
