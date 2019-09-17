@@ -3,6 +3,7 @@
 // Definitions by: Wassim Chegham <https://github.com/manekinekko>
 //                 Phetsinorath William <https://github.com/shikanime>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.0
 
 type SketchMSFillTypeEnum = 0 | 1 | 4 | 5;
 type SketchMSBorderPositionEnum = 0 | 1 | 2 | 3;
