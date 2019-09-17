@@ -1164,6 +1164,7 @@ export interface DivOverlayOptions {
 }
 
 export abstract class DivOverlay extends Layer {
+    constructor(options?: DivOverlayOptions, source?: Layer);
     getLatLng(): LatLng | undefined;
     setLatLng(latlng: LatLngExpression): this;
     getContent(): Content | ((source: Layer) => Content) | undefined;
