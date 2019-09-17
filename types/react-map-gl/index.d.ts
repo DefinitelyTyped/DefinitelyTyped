@@ -335,6 +335,7 @@ export interface GeolocateControlProps extends BaseControlProps {
     showUserLocation?: boolean;
     onViewStateChange?: ViewStateChangeHandler;
     onViewportChange?: ViewportChangeHandler;
+    style?: React.CSSProperties;
 }
 
 export class GeolocateControl extends BaseControl<GeolocateControlProps, HTMLDivElement> {}
