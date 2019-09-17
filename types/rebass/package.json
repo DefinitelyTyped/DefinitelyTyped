@@ -1,6 +1,6 @@
 {
     "private": true,
     "dependencies": {
-        "@emotion/core": "^10.0.17"
+        "@emotion/core": "*"
     }
 }
