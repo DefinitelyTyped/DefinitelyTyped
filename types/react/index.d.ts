@@ -309,7 +309,7 @@ declare namespace React {
         /**
          * **NOTE**: Exotic components are not callable.
          */
-        (props: P): (ReactElement|null);
+        (props: PropsWithChildren<P>): (ReactElement|null);
         readonly $$typeof: symbol;
     }
 
