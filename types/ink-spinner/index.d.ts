@@ -6,7 +6,7 @@
 
 import { Chalk } from 'chalk';
 import * as cliSpinners from 'cli-spinners';
-import { Component } from 'ink';
+import { Component } from 'react';
 
 type StringifyPartial<T> = {
     [P in keyof T]?: string;
