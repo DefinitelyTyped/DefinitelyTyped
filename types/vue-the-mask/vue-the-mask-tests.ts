@@ -11,6 +11,3 @@ new Vue({
     <input mask="##.##.####" type="text">
 `,
 });
-
-
-
