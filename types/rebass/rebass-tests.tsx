@@ -1,5 +1,6 @@
 import * as React from "react";
 import styled, { css } from "styled-components";
+import { css as emotionCss } from '@emotion/core'
 import { Box, Flex, Text, Heading, Button, Link, Image, Card, BoxProps } from "rebass";
 import "styled-components/macro";
 
@@ -23,7 +24,13 @@ const boxCss = css`
     color: white;
 `;
 
+const emotionCss = css`
+    background: purple;
+    color: white;
+`;
+
 const CssBox = () => <Box css={boxCss} />;
+const EmotionCssBox = () => <Box css={emotionCss} />;
 
 export default () => (
     <Box width={1} css={{ height: "100vh" }} py={[1, 2, 3]} ml="1em">
@@ -77,6 +84,7 @@ export default () => (
             </Box>
 
             <CssBox />
+            <EmotionCssBox/>
         </Flex>
     </Box>
 );
