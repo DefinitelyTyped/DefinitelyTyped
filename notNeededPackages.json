@@ -3451,6 +3451,12 @@
             "asOfVersion": "5.2.0"
         },
         {
+            "libraryName": "@storybook/addon-jest",
+            "typingsPackageName": "storybook__addon-jest",
+            "sourceRepoURL": "https://github.com/storybooks/storybook",
+            "asOfVersion": "5.2.0"
+        },
+        {
             "libraryName": "@storybook/addon-notes",
             "typingsPackageName": "storybook__addon-notes",
             "sourceRepoURL": "https://github.com/storybooks/storybook",
