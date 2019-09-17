@@ -3499,6 +3499,12 @@
             "asOfVersion": "5.2.0"
         },
         {
+            "libraryName": "@storybook/html",
+            "typingsPackageName": "storybook__html",
+            "sourceRepoURL": "https://github.com/storybooks/storybook",
+            "asOfVersion": "5.2.0"
+        },
+        {
             "libraryName": "stream-mock",
             "typingsPackageName": "stream-mock",
             "sourceRepoURL": "https://github.com/b4nst/stream-mock",
