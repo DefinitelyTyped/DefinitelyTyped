@@ -13,8 +13,8 @@ declare namespace VueTheMaskPlugin {
 }
 
 interface VueTheMaskPlugin extends PluginObject<void> {
-    mask: DirectiveFunction,
-    TheMask: Component
+    mask: DirectiveFunction;
+    TheMask: Component;
 }
 
 declare const VueTheMask: VueTheMaskPlugin;
