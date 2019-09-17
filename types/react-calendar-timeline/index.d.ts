@@ -4,7 +4,7 @@
 //				         Alex Maclean <https://github.com/acemac>
 //				         Andrii Los <https://github.com/rip21>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
+// TypeScript Version: 3.5.2
 
 import * as React from 'react';
 import { Moment } from 'moment';
@@ -26,7 +26,7 @@ declare module 'react-calendar-timeline' {
         canResize?: boolean | 'left' | 'right' | 'both';
         canChangeGroup?: boolean;
         className?: string;
-        style: React.CSSProperties;
+        style?: React.CSSProperties;
         itemProps?: React.HTMLAttributes<HTMLDivElement>;
     }
 
@@ -165,7 +165,7 @@ declare module 'react-calendar-timeline' {
             onContextMenu: React.ReactEventHandler;
             style: React.CSSProperties;
         };
-        getResizeProps: (propsOverride: GetResizeProps) => ItemRendererGetResizePropsReturnType;
+        getResizeProps: (propsOverride?: GetResizeProps) => ItemRendererGetResizePropsReturnType;
     }
 
     export interface ReactCalendarGroupRendererProps<CustomGroup extends TimelineGroupBase = TimelineGroupBase> {
@@ -264,11 +264,7 @@ declare module 'react-calendar-timeline' {
         horizontalLineClassNamesForGroup?: (group: CustomGroup) => string[];
 
         // Fields that are in propTypes but not documented
-        stickyHeader?: boolean;
         headerRef?: React.Ref<any>;
-        showCursorLine?: boolean;
-        headerLabelFormats?: TimelineHeaderLabelFormat;
-        subHeaderLabelFormats?: TimelineHeaderLabelFormat;
     }
 
     export interface TimelineTimeSteps {
@@ -385,8 +381,6 @@ declare module 'react-calendar-timeline' {
     export const defaultKeys: TimelineKeys;
     export const defaultTimeSteps: TimelineTimeSteps;
     export const defaultHeaderFormats: LabelFormat;
-    export const defaultHeaderLabelFormats: TimelineHeaderLabelFormat;
-    export const defaultSubHeaderLabelFormats: TimelineHeaderLabelFormat;
 
     export default class ReactCalendarTimeline<
         CustomItem extends TimelineItemBase<any> = TimelineItemBase<number>,
