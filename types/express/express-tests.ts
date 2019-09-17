@@ -1,6 +1,6 @@
 import express = require('express');
 import * as http from 'http';
-import { RequestRanges, ParamsArray } from 'express-serve-static-core';
+import { Request, RequestRanges, ParamsArray } from 'express-serve-static-core';
 
 namespace express_tests {
     const app = express();
@@ -131,8 +131,32 @@ namespace express_tests {
         req.params.length; // $ExpectType number
     });
 
+    // Params can used as an array
+    router.get('/*', (req: Request<ParamsArray>) => {
+        req.params[0]; // $ExpectType string
+        req.params.length; // $ExpectType number
+    });
+
+    // Params can used as an array
+    router.get('/*', (req: express.Request<ParamsArray>) => {
+        req.params[0]; // $ExpectType string
+        req.params.length; // $ExpectType number
+    });
+
     // Params can be a custom type that conforms to constraint
     router.get<{ foo: string }>('/:foo', req => {
+        req.params.foo; // $ExpectType string
+        req.params.bar; // $ExpectError
+    });
+
+    // Params can be a custom type that conforms to constraint
+    router.get('/:foo', (req: Request<{ foo: string }>) => {
+        req.params.foo; // $ExpectType string
+        req.params.bar; // $ExpectError
+    });
+
+    // Params can be a custom type that conforms to constraint
+    router.get('/:foo', (req: express.Request<{ foo: string }>) => {
         req.params.foo; // $ExpectType string
         req.params.bar; // $ExpectError
     });
