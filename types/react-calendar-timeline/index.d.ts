@@ -1,10 +1,10 @@
-// Type definitions for react-calendar-timeline v0.26.4
+// Type definitions for react-calendar-timeline v0.26.6
 // Project: https://github.com/namespace-ee/react-calendar-timeline
 // Definitions by: Rajab Shakirov <https://github.com/radziksh>
 //				         Alex Maclean <https://github.com/acemac>
 //				         Andrii Los <https://github.com/rip21>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5.2
+// TypeScript Version: 3.5
 
 import * as React from 'react';
 import { Moment } from 'moment';
