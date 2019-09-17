@@ -3508,7 +3508,7 @@
             "libraryName": "@storybook/preact",
             "typingsPackageName": "storybook__preact",
             "sourceRepoURL": "https://github.com/storybooks/storybook",
-            "asOfVersion": "5.2.0"
+            "asOfVersion": "5.2.1"
         },
         {
             "libraryName": "@storybook/react",
