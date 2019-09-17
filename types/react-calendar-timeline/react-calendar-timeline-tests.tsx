@@ -311,7 +311,6 @@ const Basic: React.FC = () => {
             itemTouchSendsClick={false}
             stackItems
             itemHeightRatio={0.75}
-            showCursorLine
             canMove={false}
             canResize={false}
             defaultTimeStart={defaultTimeStart}
