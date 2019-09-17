@@ -77,6 +77,13 @@ test = (
     </VictoryLabel>
 );
 
+test = (
+    <VictoryLabel
+        text={['some', 'text', 'strings']}
+        style={[{ fill: '#ff0000' }, { fill: '#00ff00' }, { fill: '#0000ff' }]}
+    />
+);
+
 // VictoryArea test
 test = <VictoryArea data={commonData1} x={'amount'} y={data => data.yield + data.error} />;
 

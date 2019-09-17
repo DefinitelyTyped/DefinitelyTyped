@@ -214,7 +214,7 @@ declare module 'victory' {
         /**
          * The style prop applies CSS properties to the rendered `<text>` element.
          */
-        style?: React.CSSProperties;
+        style?: React.CSSProperties | React.CSSProperties[];
         /**
          * The text prop defines the text VictoryLabel will render. The text prop may be given as a string, number, a function of datum,
          * or an array of any of these. Strings may include newline characters, which VictoryLabel will split into separate
