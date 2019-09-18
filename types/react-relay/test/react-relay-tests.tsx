@@ -5,19 +5,19 @@ import * as React from 'react';
 import { Environment, Network, RecordSource, Store, ConnectionHandler } from 'relay-runtime';
 
 import {
-    commitMutation,
-    createFragmentContainer,
-    createPaginationContainer,
-    createRefetchContainer,
-    FragmentOrRegularProp,
-    graphql,
-    QueryRenderer,
-    ReactRelayContext,
-    readInlineData,
-    RelayPaginationProp,
-    RelayProp,
-    RelayRefetchProp,
-    requestSubscription,
+  commitMutation,
+  createFragmentContainer,
+  createPaginationContainer,
+  createRefetchContainer,
+  FragmentOrRegularProp,
+  graphql,
+  QueryRenderer,
+  ReactRelayContext,
+  readInlineData,
+  RelayPaginationProp,
+  RelayProp,
+  RelayRefetchProp,
+  requestSubscription,
 } from 'react-relay';
 
 // ~~~~~~~~~~~~~~~~~~~~~
@@ -600,8 +600,10 @@ function markNotificationAsRead(source: string, storyID: string) {
 // readInlineData
 // ~~~~~~~~~~~~~~~~~~~~~
 
-function functionWithInline(storyRef: FragmentOrRegularProp<Story_story>): Story_story {
-    return readInlineData<Story_story>(graphql``, storyRef)
+function functionWithInline(
+  storyRef: FragmentOrRegularProp<Story_story>,
+): Story_story {
+  return readInlineData<Story_story>(graphql``, storyRef);
 }
 
 functionWithInline({ ' $fragmentRefs': _Story_story$ref });
