@@ -246,7 +246,7 @@ declare namespace Chart {
         animation?: ChartAnimationOptions;
         elements?: ChartElementsOptions;
         layout?: ChartLayoutOptions;
-        scale?: { display?: boolean };
+        scale?: ChartScale;
         scales?: ChartScales;
         showLines?: boolean;
         spanGaps?: boolean;
@@ -576,6 +576,11 @@ declare namespace Chart {
         showLine?: boolean;
         stack?: string;
         spanGaps?: boolean;
+    }
+
+    interface ChartScale {
+        display?: boolean;
+        ticks?: TickOptions;
     }
 
     interface ChartScales {
