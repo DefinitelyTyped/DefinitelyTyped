@@ -47,7 +47,7 @@ export interface FullTree {
 export interface NodeData extends TreeNode, TreePath, TreeIndex { }
 
 export interface FlatDataItem extends TreeNode, TreePath {
-    lowerSiblingsCounts: number[];
+    lowerSiblingCounts: number[];
     parentNode: TreeItem;
 }
 
@@ -57,7 +57,7 @@ export interface SearchData extends NodeData {
 
 export interface ExtendedNodeData extends NodeData {
     parentNode: TreeItem;
-    lowerSiblingsCounts: number[];
+    lowerSiblingCounts: number[];
     isSearchMatch: boolean;
     isSearchFocus: boolean;
 }

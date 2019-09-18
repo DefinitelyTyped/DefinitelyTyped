@@ -1,4 +1,4 @@
-import { GraphQLCompilerContext } from '../';
+import { GraphQLCompilerContext } from '../core/GraphQLCompilerContext';
 
 export interface FlattenOptions {
   flattenAbstractTypes?: boolean;

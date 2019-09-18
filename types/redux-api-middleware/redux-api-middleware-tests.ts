@@ -163,7 +163,12 @@ import {
             types: ['REQ_TYPE', 'SUCCESS_TYPE', 'FAILURE_TYPE'],
         },
     };
+
     store.dispatch(action);
+    store.dispatch(action).then((action: RSAASuccessAction) => Promise.resolve());
+    store.dispatch(action).then(() => Promise.resolve());
+    store.dispatch(action).then((action: string) => Promise.resolve()); // $ExpectError
+    store.dispatch(action).catch((action: RSAAFailureAction) => Promise.reject());
 }
 
 {

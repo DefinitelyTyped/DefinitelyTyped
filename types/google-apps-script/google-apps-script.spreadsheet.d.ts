@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2019-07-30
+// Type definitions for Google Apps Script 2019-09-11
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -142,8 +142,8 @@ declare namespace GoogleAppsScript {
       getGradientCondition(): GradientCondition | null;
       getRanges(): Range[];
       setBackground(color: string | null): ConditionalFormatRuleBuilder;
-      setBold(bold: boolean): ConditionalFormatRuleBuilder | null;
-      setFontColor(color: string): ConditionalFormatRuleBuilder | null;
+      setBold(bold: boolean | null): ConditionalFormatRuleBuilder;
+      setFontColor(color: string | null): ConditionalFormatRuleBuilder;
       setGradientMaxpoint(color: string): ConditionalFormatRuleBuilder;
       setGradientMaxpointWithValue(color: string, type: InterpolationType, value: string): ConditionalFormatRuleBuilder;
       setGradientMidpointWithValue(color: string, type: InterpolationType, value: string): ConditionalFormatRuleBuilder;
@@ -1384,7 +1384,7 @@ declare namespace GoogleAppsScript {
       canEdit(): boolean;
       check(): Range;
       clear(): Range;
-      clear(options: any): Range;
+      clear(options: { commentsOnly?: boolean; contentsOnly?: boolean; formatOnly?: boolean; validationsOnly?: boolean; skipFilteredRows?: boolean }): Range;
       clearContent(): Range;
       clearDataValidations(): Range;
       clearFormat(): Range;
@@ -1394,7 +1394,7 @@ declare namespace GoogleAppsScript {
       copyFormatToRange(sheet: Sheet, column: Integer, columnEnd: Integer, row: Integer, rowEnd: Integer): void;
       copyTo(destination: Range): void;
       copyTo(destination: Range, copyPasteType: CopyPasteType, transposed: boolean): void;
-      copyTo(destination: Range, options: any): void;
+      copyTo(destination: Range, options: { formatOnly?: boolean; contentsOnly?: boolean }): void;
       copyValuesToRange(gridId: Integer, column: Integer, columnEnd: Integer, row: Integer, rowEnd: Integer): void;
       copyValuesToRange(sheet: Sheet, column: Integer, columnEnd: Integer, row: Integer, rowEnd: Integer): void;
       createDeveloperMetadataFinder(): DeveloperMetadataFinder;
@@ -1452,7 +1452,7 @@ declare namespace GoogleAppsScript {
       getNumberFormat(): string;
       getNumberFormats(): string[][];
       getRichTextValue(): RichTextValue | null;
-      getRichTextValues(): RichTextValue[][];
+      getRichTextValues(): (RichTextValue | null)[][];
       getRow(): Integer;
       getRowIndex(): Integer;
       getSheet(): Sheet;
@@ -1503,12 +1503,12 @@ declare namespace GoogleAppsScript {
       setDataValidations(rules: (DataValidation | null)[][]): Range;
       setFontColor(color: string | null): Range;
       setFontColors(colors: any[][]): Range;
-      setFontFamilies(fontFamilies: any[][]): Range;
+      setFontFamilies(fontFamilies: (string | null)[][]): Range;
       setFontFamily(fontFamily: string | null): Range;
       setFontLine(fontLine: "underline" | "line-through" | "none" | null): Range;
       setFontLines(fontLines: ("underline" | "line-through" | "none" | null)[][]): Range;
       setFontSize(size: Integer): Range;
-      setFontSizes(sizes: any[][]): Range;
+      setFontSizes(sizes: Integer[][]): Range;
       setFontStyle(fontStyle: "italic" | "normal" | null): Range;
       setFontStyles(fontStyles: ("italic" | "normal" | null)[][]): Range;
       setFontWeight(fontWeight: "bold" | "normal" | null): Range;
@@ -1520,9 +1520,9 @@ declare namespace GoogleAppsScript {
       setHorizontalAlignment(alignment: "left" | "center" | "normal" | null): Range;
       setHorizontalAlignments(alignments: ("left" | "center" | "normal" | null)[][]): Range;
       setNote(note: string | null): Range;
-      setNotes(notes: any[][]): Range;
+      setNotes(notes: (string | null)[][]): Range;
       setNumberFormat(numberFormat: string): Range;
-      setNumberFormats(numberFormats: any[][]): Range;
+      setNumberFormats(numberFormats: string[][]): Range;
       setRichTextValue(value: RichTextValue): Range;
       setRichTextValues(values: RichTextValue[][]): Range;
       setShowHyperlink(showHyperlink: boolean): Range;
@@ -1541,7 +1541,7 @@ declare namespace GoogleAppsScript {
       setWrap(isWrapEnabled: boolean): Range;
       setWrapStrategies(strategies: WrapStrategy[][]): Range;
       setWrapStrategy(strategy: WrapStrategy): Range;
-      setWraps(isWrapEnabled: any[][]): Range;
+      setWraps(isWrapEnabled: boolean[][]): Range;
       shiftColumnGroupDepth(delta: Integer): Range;
       shiftRowGroupDepth(delta: Integer): Range;
       sort(sortSpecObj: any): Range;
@@ -1561,7 +1561,7 @@ declare namespace GoogleAppsScript {
       breakApart(): RangeList;
       check(): RangeList;
       clear(): RangeList;
-      clear(options: any): RangeList;
+      clear(options: { commentsOnly?: boolean; contentsOnly?: boolean; formatOnly?: boolean; validationsOnly?: boolean; skipFilteredRows?: boolean }): RangeList;
       clearContent(): RangeList;
       clearDataValidations(): RangeList;
       clearFormat(): RangeList;
@@ -1682,7 +1682,7 @@ declare namespace GoogleAppsScript {
       autoResizeColumns(startColumn: Integer, numColumns: Integer): Sheet;
       autoResizeRows(startRow: Integer, numRows: Integer): Sheet;
       clear(): Sheet;
-      clear(options: any): Sheet;
+      clear(options: { formatOnly?: boolean; contentsOnly?: boolean }): Sheet;
       clearConditionalFormatRules(): void;
       clearContents(): Sheet;
       clearFormats(): Sheet;
@@ -1807,7 +1807,9 @@ declare namespace GoogleAppsScript {
       unhideColumn(column: Range): void;
       unhideRow(row: Range): void;
       updateChart(chart: EmbeddedChart): void;
+      /** @deprecated DO NOT USE */
       getSheetProtection(): PageProtection;
+      /** @deprecated DO NOT USE */
       setSheetProtection(permissions: PageProtection): void;
     }
 
@@ -1902,12 +1904,12 @@ declare namespace GoogleAppsScript {
       insertRowsBefore(beforePosition: Integer, howMany: Integer): Sheet;
       insertSheet(): Sheet;
       insertSheet(sheetIndex: Integer): Sheet;
-      insertSheet(sheetIndex: Integer, options: any): Sheet;
-      insertSheet(options: any): Sheet;
+      insertSheet(sheetIndex: Integer, options: { template?: Sheet }): Sheet;
+      insertSheet(options: { template?: Sheet }): Sheet;
       insertSheet(sheetName: string): Sheet;
       insertSheet(sheetName: string, sheetIndex: Integer): Sheet;
-      insertSheet(sheetName: string, sheetIndex: Integer, options: any): Sheet;
-      insertSheet(sheetName: string, options: any): Sheet;
+      insertSheet(sheetName: string, sheetIndex: Integer, options: { template?: Sheet }): Sheet;
+      insertSheet(sheetName: string, options: { template?: Sheet }): Sheet;
       insertSheetWithDataSourceTable(spec: DataSourceSpec): Sheet;
       isColumnHiddenByUser(columnPosition: Integer): boolean;
       isIterativeCalculationEnabled(): boolean;
@@ -1941,7 +1943,7 @@ declare namespace GoogleAppsScript {
       setRowHeight(rowPosition: Integer, height: Integer): Sheet;
       setSpreadsheetLocale(locale: string): void;
       setSpreadsheetTimeZone(timezone: string): void;
-      show(userInterface: any): void;
+      show(userInterface: HTML.HtmlOutput): void;
       sort(columnPosition: Integer): Sheet;
       sort(columnPosition: Integer, ascending: boolean): Sheet;
       toast(msg: string): void;
@@ -1949,11 +1951,16 @@ declare namespace GoogleAppsScript {
       toast(msg: string, title: string, timeoutSeconds: number | null): void;
       unhideColumn(column: Range): void;
       unhideRow(row: Range): void;
-      updateMenu(name: string, subMenus: any[]): void;
+      updateMenu(name: string, subMenus: { name: string, functionName: string }[]): void;
+      /** @deprecated DO NOT USE */
       getSheetProtection(): PageProtection;
+      /** @deprecated DO NOT USE */
       isAnonymousView(): boolean;
+      /** @deprecated DO NOT USE */
       isAnonymousWrite(): boolean;
+      /** @deprecated DO NOT USE */
       setAnonymousAccess(anonymousReadAllowed: boolean, anonymousWriteAllowed: boolean): void;
+      /** @deprecated DO NOT USE */
       setSheetProtection(permissions: PageProtection): void;
     }
 

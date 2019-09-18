@@ -1705,6 +1705,13 @@ export interface OpeningHours {
     open_now: boolean;
     /** is an array of opening periods covering seven days, starting from Sunday, in chronological order. */
     periods: OpeningPeriod[];
+    /**
+     * is an array of seven strings representing the formatted opening hours for each day of the week.
+     * If a `language` parameter was specified in the Place Details request, the Places Service will format
+     * and localize the opening hours appropriately for that language. The ordering of the elements in this array
+     * depends on the `language` parameter. Some languages start the week on Monday while others start on Sunday.
+     */
+    weekday_text: string[];
 }
 
 export interface OpeningPeriod {
@@ -1717,13 +1724,6 @@ export interface OpeningPeriod {
      * and `time` with value 0000, and no `close`.
      */
     close?: OpeningHoursTime;
-    /**
-     * is an array of seven strings representing the formatted opening hours for each day of the week.
-     * If a `language` parameter was specified in the Place Details request, the Places Service will format
-     * and localize the opening hours appropriately for that language. The ordering of the elements in this array
-     * depends on the `language` parameter. Some languages start the week on Monday while others start on Sunday.
-     */
-    weekday_text: string[];
 }
 
 export interface OpeningHoursTime {
@@ -2620,7 +2620,7 @@ export interface PlaceDetailsResult {
      * but not the province/state, postal code, or country. For example, Google's Sydney, Australia office
      * has a `vicinity` value of `48 Pirrama Road, Pyrmont`.
      */
-    vicinity: number;
+    vicinity: string;
     /** lists the authoritative website for this place, such as a business' homepage. */
     website: string;
 }
