@@ -143,12 +143,8 @@ export interface WithRouterStatics<C extends React.ComponentType<any>> {
 // they are decorating. Due to this, if you are using @withRouter decorator in your code,
 // you will see a bunch of errors from TypeScript. The current workaround is to use withRouter() as a function call
 // on a separate line instead of as a decorator.
-export function withRouter<C extends React.ComponentType<RouteComponentProps>>(
-  component: C,
-): React.ComponentClass<
-  Omit<React.ComponentProps<C>, keyof RouteComponentProps> & WithRouterProps<C>,
-  never
-> &
-  WithRouterStatics<C>;
+export function withRouter<P extends RouteComponentProps<any>, C extends React.ComponentType<P>>(
+  component: C & React.ComponentType<P>,
+): React.ComponentClass<Omit<P, keyof RouteComponentProps<any>> & WithRouterProps<C>> & WithRouterStatics<C>;
 
 export const __RouterContext: React.Context<RouteComponentProps>;
