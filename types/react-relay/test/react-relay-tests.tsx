@@ -9,6 +9,7 @@ import {
     createFragmentContainer,
     createPaginationContainer,
     createRefetchContainer,
+    FragmentOrRegularProp,
     graphql,
     QueryRenderer,
     ReactRelayContext,
@@ -17,7 +18,6 @@ import {
     RelayProp,
     RelayRefetchProp,
     requestSubscription,
-    _FragmentRefs,
 } from 'react-relay';
 
 // ~~~~~~~~~~~~~~~~~~~~~
@@ -600,11 +600,11 @@ function markNotificationAsRead(source: string, storyID: string) {
 // readInlineData
 // ~~~~~~~~~~~~~~~~~~~~~
 
-function functionWithInline(storyRef: _FragmentRefs<Story_story>): Story_story {
-    return readInlineData(graphql``, storyRef)
+function functionWithInline(storyRef: FragmentOrRegularProp<Story_story>): Story_story {
+    return readInlineData<Story_story>(graphql``, storyRef)
 }
 
-functionWithInline({ ' $fragmentRefs': 1 as any });
+functionWithInline({ ' $fragmentRefs': _Story_story$ref });
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // Modern Subscriptions

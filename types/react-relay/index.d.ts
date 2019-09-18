@@ -140,9 +140,9 @@ interface ConnectionData {
     pageInfo?: Partial<PageInfo> | null;
 }
 
-export function readInlineData<T>(
+export function readInlineData<T extends _RefType<any>>(
     fragment: GraphQLTaggedNode,
-    ref: _FragmentRefs<T>,
+    ref: FragmentOrRegularProp<T>,
 ): T;
 
 type FragmentVariablesGetter = (prevVars: Variables, totalCount: number) => Variables;
