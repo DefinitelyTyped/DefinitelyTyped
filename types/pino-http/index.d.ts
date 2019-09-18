@@ -40,6 +40,6 @@ declare module 'http' {
         log: Logger;
     }
     interface ServerResponse {
-        err: Error;
+        err?: Error;
     }
 }

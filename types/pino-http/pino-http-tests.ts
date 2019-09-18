@@ -9,7 +9,7 @@ const httpLogger = pinoHttp();
 function handle(req: http.IncomingMessage, res: http.ServerResponse) {
   httpLogger(req, res);
   req.log.info('something else');
-  const err: Error = res.err;
+  const err: Error | undefined = res.err;
 }
 
 pinoHttp({ logger });
