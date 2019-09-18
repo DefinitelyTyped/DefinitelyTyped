@@ -668,15 +668,13 @@ test = (
 
 const emptyTheme: VictoryThemeDefinition = {};
 
-type RecursiveRequired<T> = Required<
-    {
-        [P in keyof T]: T[P] extends (infer U)[]
-            ? RecursiveRequired<U>[]
-            : T[P] extends object
-            ? RecursiveRequired<T[P]>
-            : T[P];
-    }
->;
+type RecursiveRequired<T> = {
+    [P in keyof T]-?: T[P] extends (infer U)[]
+        ? RecursiveRequired<U>[]
+        : T[P] extends object
+        ? RecursiveRequired<T[P]>
+        : T[P];
+};
 
 // tslint:disable-next-line: no-object-literal-type-assertion
 const cssProps: Required<React.CSSProperties> = {} as Required<React.CSSProperties>;
