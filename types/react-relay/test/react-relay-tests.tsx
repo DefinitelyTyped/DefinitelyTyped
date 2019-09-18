@@ -5,17 +5,19 @@ import * as React from 'react';
 import { Environment, Network, RecordSource, Store, ConnectionHandler } from 'relay-runtime';
 
 import {
-    graphql,
     commitMutation,
     createFragmentContainer,
     createPaginationContainer,
     createRefetchContainer,
-    requestSubscription,
+    graphql,
     QueryRenderer,
     ReactRelayContext,
-    RelayRefetchProp,
+    readInlineData,
     RelayPaginationProp,
     RelayProp,
+    RelayRefetchProp,
+    requestSubscription,
+    _FragmentRefs,
 } from 'react-relay';
 
 // ~~~~~~~~~~~~~~~~~~~~~
@@ -593,6 +595,16 @@ function markNotificationAsRead(source: string, storyID: string) {
         },
     });
 }
+
+// ~~~~~~~~~~~~~~~~~~~~~
+// readInlineData
+// ~~~~~~~~~~~~~~~~~~~~~
+
+function functionWithInline(storyRef: _FragmentRefs<Story_story>): Story_story {
+    return readInlineData(graphql``, storyRef)
+}
+
+functionWithInline({ ' $fragmentRefs': 1 as any });
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // Modern Subscriptions
