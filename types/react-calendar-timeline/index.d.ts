@@ -20,8 +20,8 @@ declare module 'react-calendar-timeline' {
         id: number;
         group: number;
         title?: React.ReactNode;
-        start: DateType;
-        end: DateType;
+        start_time: DateType;
+        end_time: DateType;
         canMove?: boolean;
         canResize?: boolean | 'left' | 'right' | 'both';
         canChangeGroup?: boolean;

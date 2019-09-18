@@ -16,9 +16,9 @@ import { Moment } from 'moment';
 const groups1 = [{ id: 1, title: 'group 1' }, { id: 2, title: 'group 2' }] as TimelineGroupBase[];
 
 const items1 = [
-    { id: 1, group: 1, title: 'item 1', start: moment(), end: moment().add(1, 'hour') },
-    { id: 2, group: 2, title: 'item 2', start: moment().add(-0.5, 'hour'), end: moment().add(0.5, 'hour') },
-    { id: 3, group: 1, title: 'item 3', start: moment().add(2, 'hour'), end: moment().add(3, 'hour') },
+    { id: 1, group: 1, title: 'item 1', start_time: moment(), end_time: moment().add(1, 'hour') },
+    { id: 2, group: 2, title: 'item 2', start_time: moment().add(-0.5, 'hour'), end_time: moment().add(0.5, 'hour') },
+    { id: 3, group: 1, title: 'item 3', start_time: moment().add(2, 'hour'), end_time: moment().add(3, 'hour') },
 ] as TimelineItemBase<Moment>[];
 
 class ExampleOfUsingReactCalendarTimeline extends React.Component {
@@ -46,21 +46,21 @@ const groups2 = [
 ] as TimelineGroupCustom[];
 
 const items2 = [
-    { id: 1, group: 1, title: 'item 1', start: moment(), end: moment().add(1, 'hour'), data: '1' },
+    { id: 1, group: 1, title: 'item 1', start_time: moment(), end_time: moment().add(1, 'hour'), data: '1' },
     {
         id: 2,
         group: 2,
         title: 'item 2',
-        start: moment().add(-0.5, 'hour'),
-        end: moment().add(0.5, 'hour'),
+        start_time: moment().add(-0.5, 'hour'),
+        end_time: moment().add(0.5, 'hour'),
         data: '1',
     },
     {
         id: 3,
         group: 1,
         title: 'item 3',
-        start: moment().add(2, 'hour'),
-        end: moment().add(3, 'hour'),
+        start_time: moment().add(2, 'hour'),
+        end_time: moment().add(3, 'hour'),
         data: '1',
     },
 ] as TimelineItemCustom[];
@@ -129,23 +129,10 @@ const Example: React.FC = () => (
 const groups = [{ id: 1, title: 'group 1' }, { id: 2, title: 'group 2' }] as TimelineGroupBase[];
 
 const items = [
-    { id: 1, group: 1, title: 'item 1', start: 1, end: 1 },
-    { id: 2, group: 2, title: 'item 2', start: 1, end: 1 },
-    { id: 3, group: 1, title: 'item 3', start: 1, end: 1 },
+    { id: 1, group: 1, title: 'item 1', start_time: 1, end_time: 1 },
+    { id: 2, group: 2, title: 'item 2', start_time: 1, end_time: 1 },
+    { id: 3, group: 1, title: 'item 3', start_time: 1, end_time: 1 },
 ] as TimelineItemBase<number>[];
-
-var keys = {
-    groupIdKey: 'id',
-    groupTitleKey: 'title',
-    groupRightTitleKey: 'rightTitle',
-    itemIdKey: 'id',
-    itemTitleKey: 'title',
-    itemDivTitleKey: 'title',
-    itemGroupKey: 'group',
-    itemTimeStartKey: 'start',
-    itemTimeEndKey: 'end',
-    groupLabelKey: 'title',
-};
 
 const defaultTimeStart = moment()
     .startOf('day')
@@ -162,7 +149,6 @@ const Resize = () => {
         <Timeline
             groups={groups}
             items={items}
-            keys={keys}
             itemTouchSendsClick={false}
             stackItems
             itemHeightRatio={0.75}
@@ -179,8 +165,8 @@ const Resize = () => {
                             ? {
                                   ...item,
                                   ...{
-                                      start: dragTime,
-                                      end: dragTime + (item.end - item.start),
+                                      start_time: dragTime,
+                                      end_time: dragTime + (item.end_time - item.start_time),
                                       group: group.id,
                                   },
                               }
@@ -197,8 +183,8 @@ const Resize = () => {
                             ? {
                                   ...item,
                                   ...{
-                                      start: edge === 'left' ? time : item.start,
-                                      end: edge === 'left' ? item.end : time,
+                                      start_time: edge === 'left' ? time : item.start_time,
+                                      end_time: edge === 'left' ? item.end_time : time,
                                   },
                               }
                             : item,
@@ -222,7 +208,6 @@ const TimelineDragTest = () => {
             <Timeline
                 groups={groups}
                 items={items}
-                keys={keys}
                 itemTouchSendsClick={false}
                 stackItems
                 itemHeightRatio={0.75}
@@ -239,8 +224,8 @@ const TimelineDragTest = () => {
                                 ? {
                                       ...item,
                                       ...{
-                                          start: dragTime,
-                                          end: dragTime + (item.end - item.start),
+                                          start_time: dragTime,
+                                          end_time: dragTime + (item.end_time - item.start_time),
                                           group: group.id,
                                       },
                                   }
@@ -257,8 +242,8 @@ const TimelineDragTest = () => {
                                 ? {
                                       ...item,
                                       ...{
-                                          start: edge === 'left' ? time : item.start,
-                                          end: edge === 'left' ? item.end : time,
+                                          start_time: edge === 'left' ? time : item.start_time,
+                                          end_time: edge === 'left' ? item.end_time : time,
                                       },
                                   }
                                 : item,
@@ -306,7 +291,6 @@ const Basic: React.FC = () => {
         <Timeline
             groups={groups}
             items={items}
-            keys={keys}
             sidebarContent={<div>Above The Left</div>}
             itemTouchSendsClick={false}
             stackItems
