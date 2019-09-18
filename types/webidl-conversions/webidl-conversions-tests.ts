@@ -2,7 +2,10 @@ import conversions = require("webidl-conversions");
 
 const any: any = void 0;
 const unknown: unknown = void 0;
-const options: conversions.Options = {}; // $ExpectType Options
+// $ExpectType Options
+const options: conversions.Options = ((): conversions.Options => {
+	return {};
+})();
 
 conversions.any(any); // $ExpectType any
 conversions.any(unknown); // $ExpectType unknown
@@ -62,6 +65,6 @@ conversions.Function(any, options); // $ExpectType any
 conversions.Function(unknown, options); // $ExpectType Function
 conversions.Function((arg: any) => true, options); // $ExpectType (arg: any) => true
 
-conversions.VoidFunction(any, options); // $ExpectType Function | ((arg: any) => void)
+conversions.VoidFunction(any, options); // $ExpectType Function | ((...args: unknown[]) => void)
 conversions.VoidFunction(unknown, options); // $ExpectType Function
 conversions.VoidFunction((arg: any) => true, options); // $ExpectType (arg: any) => void
