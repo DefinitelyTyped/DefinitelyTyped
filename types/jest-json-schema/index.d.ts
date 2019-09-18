@@ -1,4 +1,4 @@
-// Type definitions for jest-json-schema 1.2
+// Type definitions for jest-json-schema 2.1.0
 // Project: https://github.com/americanexpress/jest-json-schema#readme
 // Definitions by: Igor Korolev <https://github.com/deadNightTiger>
 //                 Matt Scheurich <https://github.com/lvl99>
