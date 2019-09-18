@@ -429,7 +429,7 @@ export interface RequestAuthorization {
     };
 }
 
-export interface Request extends http.IncomingMessage {
+export interface Request<TBody = any> extends http.IncomingMessage {
     /**
      * Builds an absolute URI for the request.
      */
@@ -636,7 +636,7 @@ export interface Request extends http.IncomingMessage {
     query?: any;
 
     /** available when bodyParser plugin is used. */
-    body?: any;
+    body?: TBody;
 
     /** available when queryParser or bodyParser plugin is used with mapParams enabled. */
     params?: any;
