@@ -1026,10 +1026,10 @@ type Pair = KeyValuePair<string, number>;
  */
 
 () => {
-    const objKeys = R.keys({a: 1, b: 2, c: 3}); // => ['a', 'b', 'c']
-    const numberKeys = R.keys(1);
-    const arrayKeys = R.keys([]);
-    const stringKeys = R.keys('foo');
+    const objKeys = R.keys({a: 1, b: 2, c: 3}); // $ExpectType ("a" | "b" | "c")[]
+    const numberKeys = R.keys(1); // $ExpectType string[]
+    const arrayKeys = R.keys([]); // List of array members
+    const stringKeys = R.keys('foo'); // $ExpectType string[]
 };
 
 () => {
