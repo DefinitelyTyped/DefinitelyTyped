@@ -2,7 +2,7 @@
 // Project: https://github.com/orientechnologies/orientjs
 // Definitions by: [Saeed Tabrizi] <https://github.com/saeedtabrizi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.6.2
 // Last Update  : 19-09-2019
 // Developed in www.nowcando.com
 
@@ -1072,13 +1072,10 @@ declare namespace orientjs {
         shutdown(): Promise<any>;
     }
 
-   
-
     class OConnection {
     }
 
     namespace Topology {
-
         class OServerNode extends events.EventEmitter {
             acquireConnection(): Promise<OConnection>;
             connect(): Promise<OServerNode>;
@@ -1094,11 +1091,10 @@ declare namespace orientjs {
             constructor(config?: OClusterConfig)
             acquireFrom(selection: (cluster: OCluster) => OServerNode): Promise<OServerNode>;
             connect(): Promise<OServerNode>;
-    
+
             close(): Promise<void>;
         }
     }
-   
 
     class ODatabase extends ODB {
         constructor(config?: {
@@ -1132,9 +1128,7 @@ declare namespace orientjs {
         destroy(db: ODatabase): Promise<void>;
     }
 
-    class ODatabaseSessionPool extends BasePool<ODatabasePoolFactory> {
-        
-    }
+    class ODatabaseSessionPool extends BasePool<ODatabasePoolFactory> {}
     class SessionManager {
         client: any;
         config: any;
@@ -1289,10 +1283,8 @@ declare namespace orientjs {
     }
 
     class LiveQuery extends Readable {
-        unsubscribe():Promise<any>;
-
+        unsubscribe(): Promise<any>;
     }
-
     interface OServerConfig {
         host?: string;
         port?: number;
