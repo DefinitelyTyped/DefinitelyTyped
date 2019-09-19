@@ -7,7 +7,7 @@
 
 export interface TextNode {
     type: 'text';
-    value?: string|boolean|number;
+    value?: string | boolean | number;
 }
 
 export interface ElementNode {
