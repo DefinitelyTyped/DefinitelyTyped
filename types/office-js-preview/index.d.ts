@@ -20871,7 +20871,9 @@ declare namespace Excel {
         /**
          *
          * Occurs when left-clicked/tapped operation happens in the worksheet. This event will not be fired when clicking in the following cases:
+         * 
                     - The user drags the mouse for multi-selection.
+                    
                     - The user selects a cell in the mode when cell arguments are selected for formula references.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
@@ -21118,7 +21120,9 @@ declare namespace Excel {
         /**
          *
          * Occurs when left-clicked/tapped operation happens in the worksheet collection. This event will not be fired when clicking in the following cases:
+         * 
                     - The user drags the mouse for multi-selection.
+
                     - The user selects a cell in the mode when cell arguments are selected for formula references.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
