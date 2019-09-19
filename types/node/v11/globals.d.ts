@@ -820,7 +820,7 @@ declare namespace NodeJS {
         emitWarning(warning: string | Error, name?: string, ctor?: Function): void;
         env: ProcessEnv;
         exit(code?: number): never;
-        exitCode: number;
+        exitCode?: number;
         getgid(): number;
         setgid(id: number | string): void;
         getuid(): number;

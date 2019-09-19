@@ -9,4 +9,7 @@ app.configure(feathersSocketIO({}, io => {}));
 app.configure(feathersSocketIO(1337, io => {}));
 app.configure(feathersSocketIO(1337, {}, io => {}));
 
+app.channel('');
+app.publish('', () => undefined);
+
 const key = SOCKET_KEY;

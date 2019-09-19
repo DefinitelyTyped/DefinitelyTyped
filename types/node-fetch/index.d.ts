@@ -1,4 +1,4 @@
-// Type definitions for node-fetch 2.3
+// Type definitions for node-fetch 2.5
 // Project: https://github.com/bitinn/node-fetch
 // Definitions by: Torsten Werner <https://github.com/torstenwerner>
 //                 Niklas Lindgren <https://github.com/nikcorg>
@@ -17,7 +17,7 @@ import { URLSearchParams, URL } from "url";
 import { AbortSignal } from "./externals";
 
 export class Request extends Body {
-    constructor(input: string | { href: string } | Request, init?: RequestInit);
+    constructor(input: RequestInfo, init?: RequestInit);
     clone(): Request;
     context: RequestContext;
     headers: Headers;
@@ -163,6 +163,7 @@ export class Response extends Body {
     clone(): Response;
     headers: Headers;
     ok: boolean;
+    redirected: boolean;
     status: number;
     statusText: string;
     type: ResponseType;
@@ -186,6 +187,10 @@ export interface ResponseInit {
     url?: string;
 }
 
+interface URLLike {
+    href: string;
+}
+
 export type HeadersInit = Headers | string[][] | { [key: string]: string };
 // HeaderInit is exported to support backwards compatibility. See PR #34382
 export type HeaderInit = HeadersInit;
@@ -195,7 +200,7 @@ export type BodyInit =
     | NodeJS.ReadableStream
     | string
     | URLSearchParams;
-export type RequestInfo = string | Request;
+export type RequestInfo = string | URLLike | Request;
 
 declare function fetch(
     url: RequestInfo,

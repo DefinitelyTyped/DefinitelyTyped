@@ -2184,8 +2184,8 @@ async function asyncStreamPipelineFinished() {
 ////////////////////////////////////////////////////
 
 {
-    const rs: tty.ReadStream = new tty.ReadStream();
-    const ws: tty.WriteStream = new tty.WriteStream();
+    const rs: tty.ReadStream = new tty.ReadStream(0);
+    const ws: tty.WriteStream = new tty.WriteStream(1);
 
     const rsIsRaw: boolean = rs.isRaw;
     rs.setRawMode(true);

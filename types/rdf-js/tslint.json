@@ -1,6 +1,7 @@
 {
-  "extends": "dtslint/dt.json",
-  "rules": {
-    "no-angle-bracket-type-assertion": false
-  }
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "no-angle-bracket-type-assertion": false,
+        "npm-naming": false
+    }
 }

@@ -40,7 +40,7 @@ class MyMap extends React.Component<{}, State> {
                     ref={this.setRefInteractive}
                 >
                     <FullscreenControl className="test-class" container={document.querySelector('body')} />
-                    <GeolocateControl className="test-class" />
+                    <GeolocateControl className="test-class" style={{ marginTop: "8px" }} />
                     <CanvasOverlay
                         redraw={opts => {
                             const {

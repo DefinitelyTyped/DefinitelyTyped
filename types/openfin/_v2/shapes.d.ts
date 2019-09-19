@@ -31,12 +31,12 @@ export interface Bounds {
     right?: number;
     bottom?: number;
 }
-export declare interface RGB {
+export interface RGB {
     red: number;
     blue: number;
     green: number;
 }
-export declare interface ContextMenuSettings {
+export interface ContextMenuSettings {
     enable?: boolean;
     devtools?: boolean;
     reload?: boolean;

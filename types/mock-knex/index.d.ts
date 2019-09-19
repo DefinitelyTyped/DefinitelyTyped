@@ -1,6 +1,7 @@
 // Type definitions for mock-knex 0.4
 // Project: https://github.com/colonyamerican/mock-knex
 // Definitions by: Jesse Zhang <https://github.com/jessezhang91>
+//                 Scott Cooper <https://github.com/scttcper>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 

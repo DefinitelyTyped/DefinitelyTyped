@@ -1,4 +1,4 @@
-// Type definitions for parse 2.2.1
+// Type definitions for parse 2.2.9
 // Project: https://parseplatform.org/
 // Definitions by:  Ullisen Media Group <http://ullisenmedia.com>
 //                  David Poetzsch-Heffter <https://github.com/dpoetzsch>
@@ -13,6 +13,7 @@
 //                  Julien Quere <https://github.com/jlnquere>
 //                  Yago Tomé <https://github.com/yagotome>
 //                  Thibault MOCELLIN <https://github.com/tybi>
+//                  Raschid JF Rafaelly <https://github.com/RaschidJFR>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -29,6 +30,11 @@ declare namespace Parse {
 
     interface BatchSizeOption {
         batchSize?: number;
+    }
+
+    interface CascadeSaveOption {
+        /** If `false`, nested objects will not be saved (default is `true`). */
+        cascadeSave?: boolean;
     }
 
     interface SuccessOption {
@@ -301,7 +307,7 @@ declare namespace Parse {
         static fetchAll<T extends Object>(list: T[], options: Object.FetchAllOptions): Promise<T[]>;
         static fetchAllIfNeeded<T extends Object>(list: T[], options: Object.FetchAllOptions): Promise<T[]>;
         static fetchAllWithInclude<T extends Object>(list: T[], keys: string | Array<string | Array<string>>, options: RequestOptions): Promise<T[]>;
-        static fromJSON(json: any, override?: boolean): Object;
+        static fromJSON<T extends Object>(json: any, override?: boolean): T;
         static pinAll(objects: Object[]): Promise<void>;
         static pinAllWithName(name: string, objects: Object[]): Promise<void>;
         static registerSubclass<T extends Object>(className: string, clazz: new (options?: any) => T): void;
@@ -346,6 +352,7 @@ declare namespace Parse {
         remove(attr: string, item: any): this | false;
         removeAll(attr: string, items: any): this | false;
         revert(): void;
+        revert(...keys: string[]): void;
         save(attrs?: { [key: string]: any } | null, options?: Object.SaveOptions): Promise<this>;
         save(key: string, value: any, options?: Object.SaveOptions): Promise<this>;
         save(attrs: object, options?: Object.SaveOptions): Promise<this>;
@@ -368,7 +375,7 @@ declare namespace Parse {
 
         interface FetchOptions extends SuccessFailureOptions, ScopeOptions { }
 
-        interface SaveOptions extends SuccessFailureOptions, SilentOption, ScopeOptions, WaitOption { }
+        interface SaveOptions extends CascadeSaveOption, SuccessFailureOptions, SilentOption, ScopeOptions, WaitOption { }
 
         interface SaveAllOptions extends BatchSizeOption, ScopeOptions { }
 
@@ -830,10 +837,30 @@ subscription.on('close', () => {});
         function beforeFind(arg1: any, func?: (request: BeforeFindRequest) => Promise<Query> | Query): void;
         function afterFind(arg1: any, func?: (request: AfterFindRequest) => Promise<any> | any): void;
         function define(name: string, func?: (request: FunctionRequest) => Promise<any> | any): void;
+        /**
+         * Gets data for the current set of cloud jobs.
+         * @returns A promise that will be resolved with the result of the function.
+         */
+        function getJobsData(): Promise<Object>;
+        /**
+         * Gets job status by Id
+         * @param jobStatusId The Id of Job Status.
+         * @returns Status of Job.
+         */
+        function getJobStatus(jobStatusId: string): Promise<Object>;
         function httpRequest(options: HTTPOptions): Promise<HttpResponse>;
         function job(name: string, func?: (request: JobRequest) => Promise<void> | void): HttpResponse;
         function run(name: string, data?: any, options?: RunOptions): Promise<any>;
+        /**
+          * Starts a given cloud job, which will process asynchronously.
+          * @param jobName The function name.
+          * @param data The parameters to send to the cloud function.
+          * @returns A promise that will be resolved with the jobStatusId of the job.
+          */
+        function startJob(jobName: string, data: any): Promise<string>;
         function useMasterKey(): void;
+
+
 
         interface RunOptions extends SuccessFailureOptions, ScopeOptions { }
 

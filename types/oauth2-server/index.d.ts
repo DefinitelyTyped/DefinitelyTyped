@@ -5,7 +5,7 @@
 //                  Daniel Fischer <https://github.com/d-fischer>,
 //                  Vitor Santos <https://github.com/rvitorsantos>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 import Express = require("express");
 

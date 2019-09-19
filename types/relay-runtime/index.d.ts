@@ -14,14 +14,9 @@ export interface ConnectionMetadata {
     count: string | null | undefined;
 }
 
-// ./handlers/connection/RelayConnectionInterface
-export interface Record {
-    [key: string]: unknown;
-}
-
-export interface EdgeRecord extends Record {
+export interface EdgeRecord extends Record<string, unknown> {
     cursor: unknown;
-    node: Record;
+    node: Record<DataID, unknown>;
 }
 
 export interface PageInfo {
@@ -294,7 +289,7 @@ export type MissingFieldHandler =
           kind: 'scalar';
           handle: (
               field: NormalizationScalarField,
-              record: Record | null | undefined,
+              record: Record<string, unknown> | null | undefined,
               args: Variables,
               store: ReadonlyRecordSourceProxy
           ) => unknown;
@@ -303,7 +298,7 @@ export type MissingFieldHandler =
           kind: 'linked';
           handle: (
               field: NormalizationLinkedField,
-              record: Record | null | undefined,
+              record: Record<string, unknown> | null | undefined,
               args: Variables,
               store: ReadonlyRecordSourceProxy
           ) => DataID | null | undefined;
@@ -312,7 +307,7 @@ export type MissingFieldHandler =
           kind: 'pluralLinked';
           handle: (
               field: NormalizationLinkedField,
-              record: Record | null | undefined,
+              record: Record<string, unknown> | null | undefined,
               args: Variables,
               store: ReadonlyRecordSourceProxy
           ) => ReadonlyArray<DataID | null | undefined> | null | undefined;
@@ -416,12 +411,13 @@ interface ReadonlyRecordProxy {
 }
 
 interface RecordSource {
-    get(dataID: DataID): Record | null | undefined;
+    get(dataID: DataID): Record<string, unknown> | null | undefined;
     getRecordIDs(): ReadonlyArray<DataID>;
     getStatus(dataID: DataID): RecordState;
     has(dataID: DataID): boolean;
-    load(dataID: DataID, callback: (error: Error | null | undefined, record: Record | null | undefined) => void): void;
+    load(dataID: DataID, callback: (error: Error | null | undefined, record: Record<string, unknown> | null | undefined) => void): void;
     size(): number;
+    toJSON(): Record<string, unknown>;
 }
 export { RecordSource as IRecordSource };
 
@@ -440,7 +436,7 @@ export interface MutableRecordSource extends RecordSource {
     clear(): void;
     delete(dataID: DataID): void;
     remove(dataID: DataID): void;
-    set(dataID: DataID, record: Record): void;
+    set(dataID: DataID, record: Record<string, unknown>): void;
 }
 
 type Scheduler = (callback: () => void) => void;
@@ -467,6 +463,11 @@ export interface NormalizationDefer {
     readonly label: string;
     readonly metadata: { readonly [key: string]: unknown } | null | undefined;
     readonly selections: ReadonlyArray<NormalizationSelection>;
+}
+
+export interface NormalizationClientExtension {
+    kind: string; // 'ClientExtension';
+    selections: ReadonlyArray<NormalizationSelection>;
 }
 
 export type NormalizationField = NormalizationScalarField | NormalizationLinkedField | NormalizationMatchField;
@@ -513,6 +514,7 @@ export interface NormalizationScalarField {
 
 export type NormalizationSelection =
     | NormalizationCondition
+    | NormalizationClientExtension
     | NormalizationField
     | NormalizationHandle
     | NormalizationInlineFragment
@@ -679,6 +681,7 @@ export interface ReaderScalarField {
 
 export type ReaderSelection =
     | ReaderCondition
+    | ReaderClientExtension
     | ReaderField
     | ReaderFragmentSpread
     | ReaderInlineFragment
@@ -700,6 +703,7 @@ interface ReaderLiteral {
 interface ReaderVariable {
     readonly kind: string; // 'Variable';
     readonly name: string;
+    readonly type?: string | null;
     readonly variableName: string;
 }
 
@@ -726,6 +730,11 @@ interface ReaderCondition {
     readonly kind: string; // 'Condition';
     readonly passingValue: boolean;
     readonly condition: string;
+    readonly selections: ReadonlyArray<ReaderSelection>;
+}
+
+interface ReaderClientExtension {
+    readonly kind: string; // 'ClientExtension';
     readonly selections: ReadonlyArray<ReaderSelection>;
 }
 
@@ -860,7 +869,7 @@ export interface Props {
 
 interface RecordMap {
     // theoretically, this should be `[dataID: DataID]`, but `DataID` is a string.
-    [dataID: string]: Record | undefined;
+    [dataID: string]: Record<string, unknown> | undefined;
 }
 export interface SelectorData {
     [key: string]: unknown;
@@ -1018,14 +1027,19 @@ declare class RelayInMemoryRecordSource implements MutableRecordSource {
     constructor(records?: RecordMap);
     clear(): void;
     delete(dataID: DataID): void;
-    get(dataID: DataID): Record | null | undefined;
+    get(dataID: DataID): Record<string, unknown> | null | undefined;
     getRecordIDs(): ReadonlyArray<DataID>;
     getStatus(dataID: DataID): RecordState;
     has(dataID: DataID): boolean;
-    load(dataID: DataID, callback: (error: Error | null | undefined, record: Record | null | undefined) => void): void;
+    load(
+        dataID: DataID,
+
+        callback: (error: Error | null | undefined, record: Record<string, unknown> | null | undefined) => void
+    ): void;
     remove(dataID: DataID): void;
-    set(dataID: DataID, record: Record): void;
+    set(dataID: DataID, record: Record<string, unknown>): void;
     size(): number;
+    toJSON(): Record<string, unknown>;
 }
 export { RelayInMemoryRecordSource as RecordSource };
 

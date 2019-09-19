@@ -1,6 +1,6 @@
-// Type definitions for follow-redirects 1.5
+// Type definitions for follow-redirects 1.8
 // Project: https://github.com/follow-redirects/follow-redirects
-// Definitions by: Emily Klassen <https://github.com/forivall>
+// Definitions by: Emily Klassen <https://github.com/forivall>, Claas Ahlrichs <https://github.com/claasahl>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -70,19 +70,26 @@ export interface RedirectableRequest<Request extends WrappableRequest, Response>
 
 export interface RedirectScheme<Options, Request extends WrappableRequest, Response> {
     request(
-        options: string | Options & FollowOptions,
+        options: string | Options & FollowOptions<Options>,
         callback?: (res: Response & FollowResponse) => void
     ): RedirectableRequest<Request, Response>;
     get(
-        options: string | Options & FollowOptions,
+        options: string | Options & FollowOptions<Options>,
         callback?: (res: Response & FollowResponse) => void
     ): RedirectableRequest<Request, Response>;
 }
 
 export type Override<T, U> = Pick<T, Exclude<keyof T, keyof U>> & U;
-export interface FollowOptions {
+export interface FollowOptions<Options> {
+    followRedirects?: boolean;
     maxRedirects?: number;
     maxBodyLength?: number;
+    beforeRedirect?: (options: Options & FollowOptions<Options>) => void;
+    agents?: {
+        http?: coreHttp.Agent;
+        https?: coreHttps.Agent;
+    };
+    trackRedirects?: boolean;
 }
 
 export interface FollowResponse {

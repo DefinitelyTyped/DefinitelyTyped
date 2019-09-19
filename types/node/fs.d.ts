@@ -8,7 +8,7 @@ declare module "fs" {
      */
     type PathLike = string | Buffer | URL;
 
-    type BinaryData = Buffer | DataView | NodeJS.TypedArray;
+    type BinaryData = DataView | NodeJS.TypedArray;
     class Stats {
         isFile(): boolean;
         isDirectory(): boolean;
@@ -1724,6 +1724,7 @@ declare module "fs" {
         mode?: number;
         autoClose?: boolean;
         start?: number;
+        highWaterMark?: number;
     }): WriteStream;
 
     /**
@@ -1846,7 +1847,7 @@ declare module "fs" {
              * @param length The number of bytes to read.
              * @param position The offset from the beginning of the file from which data should be read. If `null`, data will be read from the current position.
              */
-            read<TBuffer extends Buffer | Uint8Array>(buffer: TBuffer, offset?: number | null, length?: number | null, position?: number | null): Promise<{ bytesRead: number, buffer: TBuffer }>;
+            read<TBuffer extends Uint8Array>(buffer: TBuffer, offset?: number | null, length?: number | null, position?: number | null): Promise<{ bytesRead: number, buffer: TBuffer }>;
 
             /**
              * Asynchronously reads the entire contents of a file. The underlying file will _not_ be closed automatically.
@@ -1898,7 +1899,7 @@ declare module "fs" {
              * @param length The number of bytes to write. If not supplied, defaults to `buffer.length - offset`.
              * @param position The offset from the beginning of the file where this data should be written. If not supplied, defaults to the current position.
              */
-            write<TBuffer extends Buffer | Uint8Array>(buffer: TBuffer, offset?: number | null, length?: number | null, position?: number | null): Promise<{ bytesWritten: number, buffer: TBuffer }>;
+            write<TBuffer extends Uint8Array>(buffer: TBuffer, offset?: number | null, length?: number | null, position?: number | null): Promise<{ bytesWritten: number, buffer: TBuffer }>;
 
             /**
              * Asynchronously writes `string` to the file.
@@ -1967,7 +1968,7 @@ declare module "fs" {
          * @param position The offset from the beginning of the file from which data should be read. If
          * `null`, data will be read from the current position.
          */
-        function read<TBuffer extends Buffer | Uint8Array>(
+        function read<TBuffer extends Uint8Array>(
             handle: FileHandle,
             buffer: TBuffer,
             offset?: number | null,
@@ -1985,7 +1986,7 @@ declare module "fs" {
          * @param length The number of bytes to write. If not supplied, defaults to `buffer.length - offset`.
          * @param position The offset from the beginning of the file where this data should be written. If not supplied, defaults to the current position.
          */
-        function write<TBuffer extends Buffer | Uint8Array>(
+        function write<TBuffer extends Uint8Array>(
             handle: FileHandle,
             buffer: TBuffer,
             offset?: number | null,

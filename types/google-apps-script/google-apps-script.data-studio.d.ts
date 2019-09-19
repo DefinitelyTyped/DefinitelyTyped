@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2019-05-20
+// Type definitions for Google Apps Script 2019-09-11
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -34,7 +34,7 @@ declare namespace GoogleAppsScript {
      */
     export interface BigQueryConfig {
       addQueryParameter(name: string, type: BigQueryParameterType, value: string): BigQueryConfig;
-      build(): Object;
+      build(): Config;
       printJson(): string;
       setAccessToken(accessToken: string): BigQueryConfig;
       setBillingProjectId(billingProjectId: string): BigQueryConfig;
@@ -105,7 +105,7 @@ declare namespace GoogleAppsScript {
      *       .setHelpText("This connector can connect to multiple data endpoints.");
      */
     export interface Config {
-      build(): any;
+      build(): Config;
       newCheckbox(): Checkbox;
       newInfo(): Info;
       newOptionBuilder(): OptionBuilder;
@@ -221,7 +221,7 @@ declare namespace GoogleAppsScript {
      *     }
      */
     export interface GetAuthTypeResponse {
-      build(): any;
+      build(): GetAuthTypeResponse;
       printJson(): string;
       setAuthType(authType: AuthType): GetAuthTypeResponse;
       setHelpUrl(helpUrl: string): GetAuthTypeResponse;

@@ -2965,6 +2965,7 @@ declare module "fs" {
         mode?: number;
         autoClose?: boolean;
         start?: number;
+        highWaterMark?: number;
     }): WriteStream;
     export function fdatasync(fd: number, callback: Function): void;
     export function fdatasyncSync(fd: number): void;
