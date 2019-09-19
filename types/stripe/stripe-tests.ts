@@ -877,6 +877,68 @@ stripe.customers.deleteSubscriptionDiscount("cus_5rfJKDJkuxzh5Q", "sub_5rfJxnBLG
     // asynchronously called
 });
 
+stripe.customers.createBalanceTransaction(
+    "cus_5rfJKDJkuxzh5Q",
+    {amount: -1000, currency: 'usd'},
+    (err: Stripe.IStripeError, transaction: Stripe.customerBalanceTransactions.ICustomerBalanceTransaction) => {
+        // asynchronously called
+        transaction.id;
+    },
+);
+
+stripe.customers.createBalanceTransaction(
+    "cus_5rfJKDJkuxzh5Q",
+    {amount: -1000, currency: 'usd'},
+).then(transaction => {
+    // asynchronously called
+});
+
+stripe.customers.updateBalanceTransaction(
+    "cus_5rfJKDJkuxzh5Q",
+    "cbtxn_1FKTaPJzPJMCPpdPMDh9CxBe",
+    {description: 'Some description'},
+    (err: Stripe.IStripeError, transaction: Stripe.customerBalanceTransactions.ICustomerBalanceTransaction) => {
+        // asynchronously called
+        transaction.id;
+    },
+);
+
+stripe.customers.updateBalanceTransaction(
+    "cus_5rfJKDJkuxzh5Q",
+    "cbtxn_1FKTaPJzPJMCPpdPMDh9CxBe",
+    {description: 'Some description'},
+).then(transaction => {
+    // asynchronously called
+});
+
+stripe.customers.retrieveBalanceTransaction(
+    "cus_5rfJKDJkuxzh5Q",
+    "cbtxn_1FKTaPJzPJMCPpdPMDh9CxBe",
+    (err, transaction) => {
+        // asynchronously called
+    }
+);
+
+stripe.customers.retrieveBalanceTransaction("cus_5rfJKDJkuxzh5Q", "cbtxn_1FKTaPJzPJMCPpdPMDh9CxBe").then((transaction) => {
+    // asynchronously called
+});
+
+stripe.customers.listBalanceTransactions('cu_15fvyVEe31JkLCeQvr155iqc', null, (err, transactions) => {
+    // asynchronously called
+});
+
+stripe.customers.listBalanceTransactions('cu_15fvyVEe31JkLCeQvr155iqc', null).then((transactions) => {
+    // asynchronously called
+});
+
+stripe.customers.listBalanceTransactions('cu_15fvyVEe31JkLCeQvr155iqc', (err, transactions) => {
+    // asynchronously called
+});
+
+stripe.customers.listBalanceTransactions('cu_15fvyVEe31JkLCeQvr155iqc').then((transactions) => {
+    // asynchronously called
+});
+
 //#endregion
 
 //#region Customer Tax Ids
