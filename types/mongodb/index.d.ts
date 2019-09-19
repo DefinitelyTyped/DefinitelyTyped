@@ -621,9 +621,8 @@ export class Db extends EventEmitter {
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Db.html#admin */
     admin(): Admin;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Db.html#collection */
-    collection<TSchema = Default>(name: string): Collection<TSchema>;
-    collection<TSchema = Default>(name: string, callback: MongoCallback<Collection<TSchema>>): Collection<TSchema>;
-    collection<TSchema = Default>(name: string, options: DbCollectionOptions, callback: MongoCallback<Collection<TSchema>>): Collection<TSchema>;
+    collection<TSchema = Default>(name: string, callback?: MongoCallback<Collection<TSchema>>): Collection<TSchema>;
+    collection<TSchema = Default>(name: string, options: DbCollectionOptions, callback?: MongoCallback<Collection<TSchema>>): Collection<TSchema>;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Db.html#collections */
     collections(): Promise<Array<Collection<Default>>>;
     collections(callback: MongoCallback<Array<Collection<Default>>>): void;
