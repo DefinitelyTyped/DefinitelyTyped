@@ -20873,7 +20873,7 @@ declare namespace Excel {
          * Occurs when left-clicked/tapped operation happens in the worksheet. This event will not be fired when clicking in the following cases:
          * 
                     - The user drags the mouse for multi-selection.
-                    
+
                     - The user selects a cell in the mode when cell arguments are selected for formula references.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
@@ -21664,8 +21664,10 @@ declare namespace Excel {
         set(properties: Excel.Range): void;
         /**
          *
-         * Fills range from the current range to the destination range.
-            The destination range must extend the source either horizontally or vertically. Discontiguous ranges are not supported.
+         * Fills range from the current range to the destination range using the specified AutoFill logic.
+The destination range can be null, or can extend the source either horizontally or vertically. If the destination range is null, data is filled out based on the surrounding cells (which is the behavior when double-clicking the UI’s range fill handle). 
+Discontiguous ranges are not supported.
+For more information, read {@link https://support.office.com/article/video-use-autofill-and-flash-fill-2e79a709-c814-4b27-8bc2-c4dc84d49464 | Use AutoFill and Flash Fill}.
          *
          * [Api set: ExcelApi 1.9]
          *
@@ -21675,8 +21677,10 @@ declare namespace Excel {
         autoFill(destinationRange: Range | string, autoFillType?: Excel.AutoFillType): void;
         /**
          *
-         * Fills range from the current range to the destination range.
-            The destination range must extend the source either horizontally or vertically. Discontiguous ranges are not supported.
+         * Fills range from the current range to the destination range using the specified AutoFill logic.
+The destination range can be null, or can extend the source either horizontally or vertically. If the destination range is null, data is filled out based on the surrounding cells (which is the behavior when double-clicking the UI’s range fill handle). 
+Discontiguous ranges are not supported.
+For more information, read {@link https://support.office.com/article/video-use-autofill-and-flash-fill-2e79a709-c814-4b27-8bc2-c4dc84d49464 | Use AutoFill and Flash Fill}.
          *
          * [Api set: ExcelApi 1.9]
          *
