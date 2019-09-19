@@ -542,17 +542,13 @@
 /// <reference path="./src/zipWith.d.ts" />
 /// <reference path="./src/includes.d.ts" />
 
-import { A, F, T } from "ts-toolbelt";
+import { A, F, T, O } from "ts-toolbelt";
 
 declare let R: R.Static;
 
 declare namespace R {
     import ValueOfRecord = Tools.ValueOfRecord;
     type Omit<T, K extends string> = Pick<T, Exclude<keyof T, K>>;
-
-    type CommonKeys<T1, T2> = keyof T1 & keyof T2;
-    type PropsThatAreObjects<T, K extends keyof T> = K extends keyof T ? T[K] extends object ? K : never : never;
-    type CommonPropsThatAreObjects<T1, T2> = PropsThatAreObjects<T1, keyof T1> & PropsThatAreObjects<T2, keyof T2>;
 
     type Ord = number | string | boolean | Date;
 
@@ -780,11 +776,6 @@ declare namespace R {
         (x: any) => any,
         (x: V0) => any
     ];
-
-    type Merge<Primary, Secondary> = { [K in keyof Primary]: Primary[K] } & { [K in Exclude<keyof Secondary, CommonKeys<Primary, Secondary>>]: Secondary[K] };
-    type MergeDeep<Primary, Secondary> = { [K in CommonPropsThatAreObjects<Primary, Secondary>]: MergeDeep<Primary[K], Secondary[K]> } &
-        { [K in Exclude<keyof Primary, CommonPropsThatAreObjects<Primary, Secondary>>]: Primary[K] } &
-        { [K in Exclude<keyof Secondary, CommonKeys<Primary, Secondary>>]: Secondary[K] };
 
     interface AssocPartialOne<K extends keyof any> {
         <T>(val: T): <U>(obj: U) => Record<K, T> & U;
@@ -1854,10 +1845,10 @@ declare namespace R {
          *
          * @deprecated since 0.26 in favor of mergeRight
          */
-        merge<T2>(__: Placeholder, b: T2): <T1>(a: T1) => Merge<T2, T1>;
-        merge(__: Placeholder): <T1, T2>(b: T2, a: T1) => Merge<T2, T1>;
-        merge<T1, T2>(a: T1, b: T2): Merge<T2, T1>;
-        merge<T1>(a: T1): <T2>(b: T2) => Merge<T2, T1>;
+        merge<T2 extends object>(__: Placeholder, b: T2): <T1 extends object>(a: T1) => O.MergeUp<T2, T1>;
+        merge(__: Placeholder): <T1 extends object, T2 extends object>(b: T2, a: T1) => O.MergeUp<T2, T1>;
+        merge<T1 extends object, T2 extends object>(a: T1, b: T2): O.MergeUp<T2, T1>;
+        merge<T1 extends object>(a: T1): <T2 extends object>(b: T2) => O.MergeUp<T2, T1>;
 
         /**
          * Merges a list of objects together into one object.
@@ -1871,8 +1862,8 @@ declare namespace R {
          * and both values are objects, the two values will be recursively merged
          * otherwise the value from the first object will be used.
          */
-        mergeDeepLeft<T1, T2>(a: T1, b: T2): MergeDeep<T1, T2>;
-        mergeDeepLeft<T1>(a: T1): <T2>(b: T2) => MergeDeep<T1, T2>;
+        mergeDeepLeft<T1 extends object, T2 extends object>(a: T1, b: T2): O.MergeUp<T1, T2, 'deep'>;
+        mergeDeepLeft<T1 extends object>(a: T1): <T2 extends object>(b: T2) => O.MergeUp<T1, T2, 'deep'>;
 
         /**
          * Creates a new object with the own properties of the first object merged with the own properties of the second object.
@@ -1880,8 +1871,8 @@ declare namespace R {
          * and both values are objects, the two values will be recursively merged
          * otherwise the value from the second object will be used.
          */
-        mergeDeepRight<A, B>(a: A, b: B): MergeDeep<B, A>;
-        mergeDeepRight<A>(a: A): <B>(b: B) => MergeDeep<B, A>;
+        mergeDeepRight<A extends object, B extends object>(a: A, b: B): O.MergeUp<B, A>;
+        mergeDeepRight<A extends object>(a: A): <B extends object>(b: B) => O.MergeUp<B, A>;
 
         /**
          * Creates a new object with the own properties of the two provided objects. If a key exists in both objects:
@@ -1908,15 +1899,15 @@ declare namespace R {
          * Create a new object with the own properties of the first object merged with the own properties of the second object.
          * If a key exists in both objects, the value from the first object will be used.
          */
-        mergeLeft<T1, T2>(a: T1, b: T2): Merge<T1, T2>;
-        mergeLeft<T1>(a: T1): <T2>(b: T2) => Merge<T1, T2>;
+        mergeLeft<T1 extends object, T2 extends object>(a: T1, b: T2): O.MergeUp<T1, T2>;
+        mergeLeft<T1 extends object>(a: T1): <T2 extends object>(b: T2) => O.MergeUp<T1, T2>;
 
         /**
          * Create a new object with the own properties of the first object merged with the own properties of the second object.
          * If a key exists in both objects, the value from the second object will be used.
          */
-        mergeRight<T1, T2>(a: T1, b: T2): Merge<T2, T1>;
-        mergeRight<T1>(a: T1): <T2>(b: T2) => Merge<T2, T1>;
+        mergeRight<T1 extends object, T2 extends object>(a: T1, b: T2): O.MergeUp<T2, T1>;
+        mergeRight<T1 extends object>(a: T1): <T2 extends object>(b: T2) => O.MergeUp<T2, T1>;
 
         /**
          * Creates a new object with the own properties of the two provided objects. If a key exists in both objects,
