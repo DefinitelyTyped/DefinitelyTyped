@@ -2,10 +2,11 @@ import spawn = require('cross-spawn');
 import * as cp from 'child_process';
 
 const p1: cp.ChildProcess = spawn('my-cmd', ['foo', 'bar']);
+const p2: cp.ChildProcess = spawn.spawn('my-cmd', ['foo', 'bar']);
 const pw: cp.ChildProcess = spawn('my-cmd', ['foo', 'bar'], {env: process.env});
 
 pw.on('error', (err: Error) => {
-    console.log(err);
+	console.log(err);
 });
 
 const r1: Error | undefined = spawn.sync('foo').error;
