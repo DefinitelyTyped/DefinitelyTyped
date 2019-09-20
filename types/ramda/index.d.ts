@@ -1398,7 +1398,11 @@ declare namespace R {
          * Returns a new list by pulling every item out of it (and all its sub-arrays) and putting
          * them in a new array, depth-first.
          */
-        flatten<T>(x: T[][] | T[][] | T[]): T[];
+        flatten<T extends any[]>(x: T): T extends Array<infer ST>
+                                        ? A.Extends<ST, any[]> extends 1
+                                          ? ST
+                                          : T
+                                        : never
 
         /**
          * Returns a new function much like the supplied one, except that the first two arguments'
