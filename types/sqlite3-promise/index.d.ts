@@ -1,4 +1,4 @@
-// Type definitions for node-sqlite3-promise 1.0
+// Type definitions for sqlite3-promise 1.0
 // Project: https://github.com/Aminadav/node-sqlite3-promise
 // Definitions by: Jonathan Bredin <https://github.com/jonathanlb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
