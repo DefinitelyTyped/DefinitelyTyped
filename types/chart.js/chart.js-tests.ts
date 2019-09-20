@@ -1,4 +1,4 @@
-import { Chart, ChartData, Point, ChartColor } from 'chart.js';
+import { BorderWidth, Chart, ChartData, Point, ChartColor } from 'chart.js';
 
 // alternative:
 // import chartjs = require('chart.js');
@@ -14,7 +14,7 @@ const chart: Chart = new Chart(ctx, {
     type: 'bar',
     plugins: [plugin, plugin],
     data: {
-        labels: ['group 1'],
+        labels: ['group 1', 'group 2'],
         datasets: [
             {
                 backgroundColor: '#000000',
@@ -24,6 +24,12 @@ const chart: Chart = new Chart(ctx, {
                 label: 'test',
                 data: [1, null, 3],
             },
+            {
+                backgroundColor: '#ff0000',
+                borderWidth: { top: 1, right: 1, bottom: 0, left: 1 },
+                label: 'test',
+                data: [1, 3, 5],
+            }
         ],
     },
     options: {
@@ -197,6 +203,12 @@ const chartWithScriptedOptions = new Chart(new CanvasRenderingContext2D(), {
                     return "black";
                 }
                 return value > 3 ? "red" : "green";
+            },
+            borderWidth: ({ dataset, dataIndex }): BorderWidth => {
+                if (dataset === undefined || dataset.data === undefined || dataIndex === undefined) {
+                    return 1;
+                }
+                return { top: 1, right: 1, bottom: 0, left: 1 };
             }
         }],
     }

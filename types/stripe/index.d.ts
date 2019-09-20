@@ -1,4 +1,4 @@
-// Type definitions for stripe 6.31
+// Type definitions for stripe 6.32
 // Project: https://github.com/stripe/stripe-node/
 // Definitions by: William Johnston <https://github.com/wjohnsto>
 //                 Peter Harris <https://github.com/codeanimal>
@@ -3096,6 +3096,12 @@ declare namespace Stripe {
              * Value is "event"
              */
             object: "event";
+
+            /**
+             * The connected account that originated the event.
+             * CONNECT ONLY
+             */
+            account?: string;
 
             /**
              * The Stripe API version used to render data.
@@ -6716,8 +6722,9 @@ declare namespace Stripe {
          * If, for example, a product’s attributes are ["size", "gender"],
          * a valid SKU has the following dictionary of attributes: {"size": "Medium", "gender": "Unisex"}.
          */
-            // tslint:disable-next-line:no-empty-interface
-        interface ISkuAttributes {}
+        interface ISkuAttributes {
+          [key: string]: string;
+        }
     }
 
     namespace ephemeralKeys {
@@ -7647,6 +7654,112 @@ declare namespace Stripe {
         }
     }
 
+    namespace customerBalanceTransactions {
+        type CustomerBalanceTransactionType = "adjustment" | "applied_to_invoice" | "credit_note" | "initial" | "invoice_too_large" | "invoice_too_small" | "unspent_receiver_credit";
+        interface ICustomerBalanceTransaction extends IResourceObject {
+            /**
+             * Value is "customer_balance_transaction"
+             */
+            object: "customer_balance_transaction";
+
+            /**
+             * The amount of the transaction. A negative value is a credit for the customer’s balance, and a positive
+             * value is a debit to the customer’s balance.
+             */
+            amount: number;
+
+            /**
+             * Time at which the object was created. Measured in seconds since the Unix epoch.
+             */
+            created: number;
+
+            /**
+             * The ID of the credit note (if any) related to the transaction. [Expandable]
+             */
+            credit_note: string | null;
+
+            /**
+             * Three-letter ISO currency code, in lowercase. Must be a supported currency.
+             */
+            currency: string;
+
+            /**
+             * The ID of the customer the transaction belongs to. [Expandable]
+             */
+            customer: string;
+
+            /**
+             * An arbitrary string attached to the object. Often useful for displaying to users.
+             */
+            description: string | null;
+
+            /**
+             * The customer’s balance after the transaction was applied. A negative value decreases the amount due
+             * on the customer’s next invoice. A positive value increases the amount due on the customer’s next invoice.
+             */
+            ending_balance: number;
+
+            /**
+             * The ID of the invoice (if any) related to the transaction. [Expandable]
+             */
+            invoice: string | null;
+
+            /**
+             * Has the value true if the object exists in live mode or the value false if the object exists in test mode.
+             */
+            livemode: boolean;
+
+            /**
+             * Set of key-value pairs that you can attach to an object. This can be useful for storing additional
+             * information about the object in a structured format.
+             */
+            metadata: IMetadata | null;
+
+            /**
+             * Transaction type. See the Customer Balance page to learn more about transaction types.
+             */
+            type: CustomerBalanceTransactionType;
+        }
+
+        interface ICustomerBalanceTransactionCreationOptions {
+            /**
+             * The integer amount in cents to apply to the customer’s balance. Pass a negative amount to credit the
+             * customer’s balance, and pass in a positive amount to debit the customer’s balance.
+             */
+            amount: number;
+
+            /**
+             * Three-letter ISO currency code, in lowercase. Must be a supported currency. If the customer’s currency
+             * is set, this value must match it. If the customer’s currency is not set, it will be updated to this value.
+             */
+            currency: string;
+
+            /**
+             * An arbitrary string attached to the object. Often useful for displaying to users.
+             */
+            description?: string;
+
+            /**
+             * Set of key-value pairs that you can attach to an object. This can be useful for storing additional
+             * information about the object in a structured format.
+             */
+            metadata?: IMetadata;
+        }
+
+        interface ICustomerBalanceTransactionUpdateOptions {
+            /**
+             * An arbitrary string attached to the object. Often useful for displaying to users.
+             */
+            description?: string;
+
+            /**
+             * Set of key-value pairs that you can attach to an object. This can be useful for storing additional
+             * information about the object in a structured format.
+             */
+            metadata?: IMetadata;
+        }
+    }
+
     namespace subscriptions {
         type SubscriptionStatus = "incomplete" | "incomplete_expired" | "trialing" | "active" | "past_due" | "canceled" | "unpaid";
         type SubscriptionBilling = "charge_automatically" | "send_invoice";
@@ -7807,9 +7920,15 @@ declare namespace Stripe {
             quantity?: number;
 
             /**
-             * Date the subscription started
+             * Date of the last substantial change to this subscription. For example, a change to the items array,
+             * or a change of status, will reset this timestamp.
              */
             start: number;
+
+            /**
+             * Date when the subscription was first created. The date might differ from the created date due to backdating.
+             */
+            start_date: number;
 
             /**
              * Possible values are `incomplete`, `incomplete_expired`, `trialing`, `active`,
@@ -9860,6 +9979,32 @@ declare namespace Stripe {
 
             deleteTaxId(customerId: string, taxId: string, options: HeaderOptions, response?: IResponseFn<IDeleteConfirmation>): Promise<IDeleteConfirmation>;
             deleteTaxId(customerId: string, taxId: string, response?: IResponseFn<IDeleteConfirmation>): Promise<IDeleteConfirmation>;
+
+            /**
+             * Creates an immutable transaction that updates the customer’s balance.
+             */
+            createBalanceTransaction(customerId: string, data: customerBalanceTransactions.ICustomerBalanceTransactionCreationOptions, options: HeaderOptions, response?: IResponseFn<customerBalanceTransactions.ICustomerBalanceTransaction>): Promise<customerBalanceTransactions.ICustomerBalanceTransaction>;
+            createBalanceTransaction(customerId: string, data: customerBalanceTransactions.ICustomerBalanceTransactionCreationOptions, response?: IResponseFn<customerBalanceTransactions.ICustomerBalanceTransaction>): Promise<customerBalanceTransactions.ICustomerBalanceTransaction>;
+
+            /**
+             * Retrieves a specific transaction that updated the customer’s balance.
+             */
+            retrieveBalanceTransaction(customerId: string, transactionId: string, options: HeaderOptions, response?: IResponseFn<customerBalanceTransactions.ICustomerBalanceTransaction>): Promise<customerBalanceTransactions.ICustomerBalanceTransaction>;
+            retrieveBalanceTransaction(customerId: string, transactionId: string, response?: IResponseFn<customerBalanceTransactions.ICustomerBalanceTransaction>): Promise<customerBalanceTransactions.ICustomerBalanceTransaction>;
+
+            /**
+             * Most customer balance transaction fields are immutable, but you may update its description and metadata.
+             */
+            updateBalanceTransaction(customerId: string, transactionId: string, data: customerBalanceTransactions.ICustomerBalanceTransactionUpdateOptions, options: HeaderOptions, response?: IResponseFn<customerBalanceTransactions.ICustomerBalanceTransaction>): Promise<customerBalanceTransactions.ICustomerBalanceTransaction>;
+            updateBalanceTransaction(customerId: string, transactionId: string, data: customerBalanceTransactions.ICustomerBalanceTransactionUpdateOptions, response?: IResponseFn<customerBalanceTransactions.ICustomerBalanceTransaction>): Promise<customerBalanceTransactions.ICustomerBalanceTransaction>;
+
+            /**
+             * Returns a list of transactions that updated the customer’s balance.
+             */
+            listBalanceTransactions(customerId: string, data: IListOptions, options: HeaderOptions, response?: IResponseFn<IList<customerBalanceTransactions.ICustomerBalanceTransaction>>): IListPromise<customerBalanceTransactions.ICustomerBalanceTransaction>;
+            listBalanceTransactions(customerId: string, data: IListOptions, response?: IResponseFn<IList<customerBalanceTransactions.ICustomerBalanceTransaction>>): IListPromise<customerBalanceTransactions.ICustomerBalanceTransaction>;
+            listBalanceTransactions(customerId: string, options: HeaderOptions, response?: IResponseFn<IList<customerBalanceTransactions.ICustomerBalanceTransaction>>): IListPromise<customerBalanceTransactions.ICustomerBalanceTransaction>;
+            listBalanceTransactions(customerId: string, response?: IResponseFn<IList<customerBalanceTransactions.ICustomerBalanceTransaction>>): IListPromise<customerBalanceTransactions.ICustomerBalanceTransaction>;
         }
 
         class SubscriptionsBase extends StripeResource {
