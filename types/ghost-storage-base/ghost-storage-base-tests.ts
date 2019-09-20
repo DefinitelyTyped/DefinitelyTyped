@@ -1,5 +1,6 @@
 import StorageBase, { Image, ReadOptions } from 'ghost-storage-base';
 import { Request, Response, NextFunction } from 'express';
+import { Params } from 'express-serve-static-core';
 
 class MyCustomAdapter extends StorageBase {
     constructor() {
@@ -15,7 +16,7 @@ class MyCustomAdapter extends StorageBase {
     }
 
     serve() {
-        return (req: Request, res: Response, next: NextFunction) => next();
+        return (req: Request<Params>, res: Response, next: NextFunction) => next();
     }
 
     async delete(fileName: string, targetDir?: string) {
@@ -41,5 +42,5 @@ storage.getSanitizedFileName('IMAGE.jpg'); // $ExpectType string
 
 storage.exists('tmp/123456.jpg', '/'); // $ExpectType Promise<boolean>
 storage.save(image, '/'); // $ExpectType Promise<string>
-storage.serve(); // $ExpectType (req: Request, res: Response, next: NextFunction) => void
+storage.serve(); // $ExpectType (req: Request<Params>, res: Response, next: NextFunction) => void
 storage.delete('tmp/123456.jpg', '/'); // $ExpectType Promise<boolean>

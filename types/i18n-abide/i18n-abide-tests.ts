@@ -11,9 +11,9 @@ const fullAbideOptions: i18n.AbideOptions = {
     logger: { warn(msg: string) {}, error(msg: string) {} },
 };
 
-i18n.abide(); // $ExpectType RequestHandler
-i18n.abide(emptyAbideOptions); // $ExpectType RequestHandler
-i18n.abide(fullAbideOptions); // $ExpectType RequestHandler
+i18n.abide(); // $ExpectType RequestHandler<Dictionary<string>>
+i18n.abide(emptyAbideOptions); // $ExpectType RequestHandler<Dictionary<string>>
+i18n.abide(fullAbideOptions); // $ExpectType RequestHandler<Dictionary<string>>
 
 i18n.parseAcceptLanguage(""); // $ExpectType { lang: string; quality: number; }[]
 
