@@ -1,39 +1,49 @@
-// Type definitions for argparse v1.0.3
+// Type definitions for argparse 1.0
 // Project: https://github.com/nodeca/argparse
-// Definitions by: Andrew Schurman <http://github.com/arcticwaters>
+// Definitions by: Andrew Schurman <https://github.com/arcticwaters>
+//                 Tomasz Łaziuk <https://github.com/tlaziuk>
+//                 Sebastian Silbermann <https://github.com/eps1lon>
+//                 Kannan Goundan <https://github.com/cakoose>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
-
-export declare class ArgumentParser extends ArgumentGroup {
+export class ArgumentParser extends ArgumentGroup {
     constructor(options?: ArgumentParserOptions);
-
     addSubparsers(options?: SubparserOptions): SubParser;
-    parseArgs(args?: string[], ns?: Namespace | Object): any;
+    parseArgs(args?: string[], ns?: Namespace | object): any;
     printUsage(): void;
     printHelp(): void;
     formatUsage(): string;
     formatHelp(): string;
-    parseKnownArgs(args?: string[], ns?: Namespace | Object): any[];
+    parseKnownArgs(args?: string[], ns?: Namespace | object): any[];
     convertArgLineToArg(argLine: string): string[];
     exit(status: number, message: string): void;
     error(err: string | Error): void;
 }
 
-interface Namespace { }
+export class Namespace {
+    constructor(options: object);
+    get<K extends keyof this, D extends any>(key: K, defaultValue?: D): this[K] | D;
+    isset(key: keyof this): boolean;
+    set<K extends keyof this>(key: K, value: this[K]): this;
+    set<K extends string, V extends any>(key: K, value: V): this & Record<K, V>;
+    set<K extends object>(obj: K): this & K;
+    unset<K extends keyof this, D extends any>(key: K, defaultValue?: D): this[K] | D;
+}
 
-declare class SubParser {
+export class SubParser {
     addParser(name: string, options?: SubArgumentParserOptions): ArgumentParser;
 }
 
-declare class ArgumentGroup {
-    addArgument(args: string[], options?: ArgumentOptions): void;
+export class ArgumentGroup {
+    addArgument(args: string[] | string, options?: ArgumentOptions): void;
     addArgumentGroup(options?: ArgumentGroupOptions): ArgumentGroup;
     addMutuallyExclusiveGroup(options?: { required: boolean }): ArgumentGroup;
     setDefaults(options?: {}): void;
     getDefault(dest: string): any;
 }
 
-interface SubparserOptions {
+export interface SubparserOptions {
     title?: string;
     description?: string;
     prog?: string;
@@ -44,12 +54,12 @@ interface SubparserOptions {
     metavar?: string;
 }
 
-interface SubArgumentParserOptions extends ArgumentParserOptions {
+export interface SubArgumentParserOptions extends ArgumentParserOptions {
     aliases?: string[];
     help?: string;
 }
 
-interface ArgumentParserOptions {
+export interface ArgumentParserOptions {
     description?: string;
     epilog?: string;
     addHelp?: boolean;
@@ -60,28 +70,41 @@ interface ArgumentParserOptions {
     prog?: string;
     usage?: string;
     version?: string;
+    debug?: boolean;
 }
 
-interface ArgumentGroupOptions {
+export interface ArgumentGroupOptions {
     prefixChars?: string;
     argumentDefault?: any;
     title?: string;
     description?: string;
 }
 
-export declare class HelpFormatter { }
-export declare class ArgumentDefaultsHelpFormatter { }
-export declare class RawDescriptionHelpFormatter { }
-export declare class RawTextHelpFormatter { }
+export abstract class Action {
+    protected dest: string;
+    constructor(options: ActionConstructorOptions);
+    abstract call(parser: ArgumentParser, namespace: Namespace, values: string | string[], optionString: string | null): void;
+}
 
-interface ArgumentOptions {
-    action?: string;
+// Passed to the Action constructor.  Subclasses are just expected to relay this to
+// the super() constructor, so using an "opaque type" pattern is probably fine.
+// Someone may want to fill this out in the future.
+export type ActionConstructorOptions = number & {_: 'ActionConstructorOptions'};
+
+export class HelpFormatter { }
+export class ArgumentDefaultsHelpFormatter { }
+export class RawDescriptionHelpFormatter { }
+export class RawTextHelpFormatter { }
+
+export interface ArgumentOptions {
+    action?: string | { new(options: ActionConstructorOptions): Action };
     optionStrings?: string[];
     dest?: string;
     nargs?: string | number;
     constant?: any;
     defaultValue?: any;
-    type?: string | Function;
+    // type may be a string (primitive) or a Function (constructor)
+    type?: string | Function; // tslint:disable-line:ban-types
     choices?: string | string[];
     required?: boolean;
     help?: string;

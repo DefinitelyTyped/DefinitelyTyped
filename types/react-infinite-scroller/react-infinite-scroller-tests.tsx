@@ -1,11 +1,11 @@
 import * as React from 'react';
-import InfiniteScroll from 'react-infinite-scroller';
+import InfiniteScroll = require('react-infinite-scroller');
 
-class Test1 extends React.Component<{}, {}> {
-    public render() {
+class Test1 extends React.Component {
+    render() {
         return (
             <InfiniteScroll
-                loadMore={() => {}}
+                loadMore={(page) => {}}
             >
                 <div>Test 1</div>
             </InfiniteScroll>
@@ -13,11 +13,11 @@ class Test1 extends React.Component<{}, {}> {
     }
 }
 
-class Test2 extends React.Component<{}, {}> {
-    public render() {
+class Test2 extends React.Component {
+    render() {
         return (
             <InfiniteScroll
-                loadMore={() => {}}
+                loadMore={(page) => {}}
                 element='section'
                 hasMore
                 initialLoad={false}
@@ -27,8 +27,38 @@ class Test2 extends React.Component<{}, {}> {
                 useCapture
                 useWindow={false}
             >
-                <div>Test 1</div>
+                <div>Test 2</div>
             </InfiniteScroll>
         );
+    }
+}
+
+class Test3 extends React.Component {
+    inputRef = React.createRef<HTMLDivElement>();
+
+    render() {
+        return (
+            <div ref={this.inputRef}>
+                <InfiniteScroll
+                  loadMore={(page) => {}}
+                  getScrollParent={() => this.inputRef.current}
+                >
+                    <div>Test 3</div>
+                </InfiniteScroll>
+            </div>
+        );
+    }
+}
+
+class InfiniteScrollOverride extends InfiniteScroll {
+    getParentElement(el: HTMLElement) {
+        if (document.getElementById("scroll-header")) {
+            return document.getElementById("scroll-header");
+        }
+        return super.getParentElement(el);
+    }
+
+    render() {
+        return super.render();
     }
 }

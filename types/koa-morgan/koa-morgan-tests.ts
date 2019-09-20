@@ -1,5 +1,6 @@
-import * as Koa from 'koa';
-import * as morgan from 'koa-morgan';
+import { IncomingMessage, ServerResponse } from 'http';
+import Koa = require('koa');
+import morgan = require('koa-morgan');
 
 const app = new Koa();
 
@@ -10,6 +11,21 @@ app.use(morgan('short'));
 app.use(morgan('tiny'));
 app.use(morgan(':remote-addr :method :url'));
 
+const tokenCallback: morgan.TokenCallbackFn = (req: IncomingMessage, res: ServerResponse): string => {
+    const rqid = req.headers['request-id'];
+    if (rqid) {
+        if (Array.isArray(rqid)) {
+            return rqid.join(';');
+        } else {
+            return rqid;
+        }
+    } else {
+        return '-';
+    }
+};
+
+morgan.token('id', tokenCallback);
+
 const stream: morgan.StreamOptions = {
     write: (str: string) => {
         console.log(str);
@@ -19,7 +35,7 @@ const stream: morgan.StreamOptions = {
 app.use(morgan('combined', {
     buffer: true,
     immediate: true,
-    skip: (req: Koa.Request, res: Koa.Response) => res.status < 400,
+    skip: (req: IncomingMessage, res: ServerResponse) => res.statusCode < 400,
     stream
 }));
 
@@ -41,10 +57,10 @@ interface ExtendedFormatFn extends morgan.FormatFn {
     memoizer?: FormatFnIndexer;
 }
 
-const developmentExtendedFormatLine: ExtendedFormatFn = (tokens, req: Koa.Request, res: Koa.Response): string => {
+const developmentExtendedFormatLine: ExtendedFormatFn = (tokens, req: IncomingMessage, res: ServerResponse): string => {
     // get the status code if response written
-    const status = res.status
-        ? res.status
+    const status = res.statusCode
+        ? res.statusCode
         : undefined;
 
     // get status color
@@ -62,8 +78,8 @@ const developmentExtendedFormatLine: ExtendedFormatFn = (tokens, req: Koa.Reques
             developmentExtendedFormatLine.memoizer = {};
         }
 
-        fn = developmentExtendedFormatLine.memoizer[color] = morgan.compile('\x1b[0m:method :url \x1b['
-            + color + 'm:status \x1b[0m:response-time ms - :res[content-length]\x1b[0m :user-agent');
+        fn = developmentExtendedFormatLine.memoizer[color] = morgan.compile(
+            `\x1b[0m:method :url \x1b[${color}m:status \x1b[0m:response-time ms - :res[content-length]\x1b[0m :user-agent`);
     }
 
     return fn(tokens, req, res);

@@ -1,8 +1,8 @@
-// Type definitions for bookshelfjs v0.9.3
+// Type definitions for bookshelfjs v0.13.0
 // Project: http://bookshelfjs.org/
-// Definitions by: Andrew Schurman <http://github.com/arcticwaters>, Vesa Poikajärvi <https://github.com/vesse>
+// Definitions by: Andrew Schurman <https://github.com/arcticwaters>, Vesa Poikajärvi <https://github.com/vesse>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 3.2
 
 import Knex = require('knex');
 import knex = require('knex');
@@ -17,7 +17,7 @@ interface Bookshelf extends Bookshelf.Events<any> {
 	Collection: typeof Bookshelf.Collection;
 
 	plugin(name: string | string[] | Function, options?: any): Bookshelf;
-	transaction<T>(callback: (transaction: knex.Transaction) => BlueBird<T>): BlueBird<T>;
+	transaction<T>(callback: (transaction: knex.Transaction) => PromiseLike<T>): BlueBird<T>;
 }
 
 declare function Bookshelf(knex: knex): Bookshelf;
@@ -40,7 +40,8 @@ declare namespace Bookshelf {
 		tableName?: string;
 	}
 
-	abstract class ModelBase<T extends Model<any>> extends Events<T | Collection<T>> implements IModelBase {
+        interface ModelBase<T extends Model<any>> extends IModelBase { }
+	abstract class ModelBase<T extends Model<any>> extends Events<T | Collection<T>> {
 		/** If overriding, must use a getter instead of a plain property. */
 		idAttribute: string;
 
@@ -83,20 +84,24 @@ declare namespace Bookshelf {
 		values(): any[];
 	}
 
+	interface ModelSubclass {
+		new(): Model<any>;
+	}
+
 	class Model<T extends Model<any>> extends ModelBase<T> {
 		static collection<T extends Model<any>>(models?: T[], options?: CollectionOptions<T>): Collection<T>;
-		static count(column?: string, options?: SyncOptions): BlueBird<number>;
+		static count(column?: string, options?: SyncOptions): BlueBird<number | string>;
 		/** @deprecated use Typescript classes */
 		static extend<T extends Model<any>>(prototypeProperties?: any, classProperties?: any): Function; // should return a type
 		static fetchAll<T extends Model<any>>(): BlueBird<Collection<T>>;
 		/** @deprecated should use `new` objects instead. */
 		static forge<T>(attributes?: any, options?: ModelOptions): T;
 		static where<T>(properties: { [key: string]: any }): T;
-		static where<T>(key: string, operatorOrValue: string | number | boolean, valueIfOperator?: string | number | boolean): T;
+		static where<T>(key: string, operatorOrValue: string | number | boolean, valueIfOperator?: string | string[] | number | number[] | boolean): T;
 
 		belongsTo<R extends Model<any>>(target: { new (...args: any[]): R }, foreignKey?: string, foreignKeyTarget?: string): R;
-		belongsToMany<R extends Model<any>>(target: { new (...args: any[]): R }, table?: string, foreignKey?: string, otherKey?: string): Collection<R>;
-		count(column?: string, options?: SyncOptions): BlueBird<number>;
+		belongsToMany<R extends Model<any>>(target: { new (...args: any[]): R }, table?: string, foreignKey?: string, otherKey?: string, foreignKeyTarget?: string, otherKeyTarget?: string): Collection<R>;
+		count(column?: string, options?: SyncOptions): BlueBird<number | string>;
 		destroy(options?: DestroyOptions): BlueBird<T>;
 		fetch(options?: FetchOptions): BlueBird<T>;
 		fetchAll(options?: FetchAllOptions): BlueBird<Collection<T>>;
@@ -105,8 +110,8 @@ declare namespace Bookshelf {
 		load(relations: string | string[], options?: LoadOptions): BlueBird<T>;
 		morphMany<R extends Model<any>>(target: { new (...args: any[]): R }, name?: string, columnNames?: string[], morphValue?: string): Collection<R>;
 		morphOne<R extends Model<any>>(target: { new (...args: any[]): R }, name?: string, columnNames?: string[], morphValue?: string): R;
-		morphTo(name: string, columnNames?: string[], ...target: typeof Model[]): T;
-		morphTo(name: string, ...target: typeof Model[]): T;
+		morphTo(name: string, columnNames?: string[], ...target: ModelSubclass[]): T;
+		morphTo(name: string, ...target: ModelSubclass[]): T;
 		orderBy(column: string, order?: SortOrder): T;
 
 		// Declaration order matters otherwise TypeScript gets confused between query() and query(...query: string[])
@@ -119,9 +124,9 @@ declare namespace Bookshelf {
 		resetQuery(): T;
 		save(key?: string, val?: any, options?: SaveOptions): BlueBird<T>;
 		save(attrs?: { [key: string]: any }, options?: SaveOptions): BlueBird<T>;
-		through<R extends Model<any>>(interim: typeof Model, throughForeignKey?: string, otherKey?: string): R;
+		through<R extends Model<any>>(interim: ModelSubclass, throughForeignKey?: string, otherKey?: string): R;
 		where(properties: { [key: string]: any }): T;
-		where(key: string, operatorOrValue: string | number | boolean, valueIfOperator?: string | number | boolean): T;
+		where(key: string, operatorOrValue: string | number | boolean, valueIfOperator?: string | string[] | number | number[] | boolean): T;
 
 		// See https://github.com/tgriesser/bookshelf/blob/0.9.4/src/errors.js
 		// See https://github.com/tgriesser/bookshelf/blob/0.9.4/src/model.js#L1280
@@ -239,13 +244,13 @@ declare namespace Bookshelf {
 		static forge<T>(attributes?: any, options?: ModelOptions): T;
 
 		attach(ids: any | any[], options?: SyncOptions): BlueBird<Collection<T>>;
-		count(column?: string, options?: SyncOptions): BlueBird<number>;
+		count(column?: string, options?: SyncOptions): BlueBird<number | string>;
 		create(model: { [key: string]: any }, options?: CollectionCreateOptions): BlueBird<T>;
 		detach(ids: any[], options?: SyncOptions): BlueBird<any>;
 		detach(options?: SyncOptions): BlueBird<any>;
 		fetchOne(options?: CollectionFetchOneOptions): BlueBird<T>;
 		load(relations: string | string[], options?: SyncOptions): BlueBird<Collection<T>>;
-		orderBy(column: string, order?: SortOrder): T;
+		orderBy(column: string, order?: SortOrder): Collection<T>;
 
 		// Declaration order matters otherwise TypeScript gets confused between query() and query(...query: string[])
 		query(): Knex.QueryBuilder;
@@ -254,7 +259,7 @@ declare namespace Bookshelf {
 		query(query: { [key: string]: any }): Collection<T>;
 
 		resetQuery(): Collection<T>;
-		through<R extends Model<any>>(interim: typeof Model, throughForeignKey?: string, otherKey?: string): Collection<R>;
+		through<R extends Model<any>>(interim: ModelSubclass, throughForeignKey?: string, otherKey?: string): Collection<R>;
 		updatePivot(attributes: any, options?: PivotOptions): BlueBird<number>;
 		withPivot(columns: string[]): Collection<T>;
 
@@ -312,6 +317,7 @@ declare namespace Bookshelf {
 	interface SyncOptions {
 		transacting?: Knex.Transaction;
 		debug?: boolean;
+		withSchema?: string;
 	}
 
 	interface CollectionOptions<T> {

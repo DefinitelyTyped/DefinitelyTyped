@@ -1,36 +1,18 @@
-// Type definitions for Angular UI Bootstrap 0.13.3
+// Type definitions for Angular UI Bootstrap 1.0.0
 // Project: https://github.com/angular-ui/bootstrap
-// Definitions by: Brian Surowiec <https://github.com/xt0rted>, Ryan Southgate <https://github.com/ry8806>
+// Definitions by:  Brian Surowiec <https://github.com/xt0rted>,
+//                  Ryan Southgate <https://github.com/ry8806>
+//                  Alfie Johnson <https://github.com/alfiej>
+//                  Igor Oleinikov <https://github.com/Igorbek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="angular" />
 
 import * as angular from 'angular';
 
-export type IAccordionConfig = angular.ui.bootstrap.IAccordionConfig;
-export type IButtonConfig = angular.ui.bootstrap.IButtonConfig;
-export type IDatepickerConfig = angular.ui.bootstrap.IDatepickerConfig;
-export type IDatepickerPopupConfig = angular.ui.bootstrap.IDatepickerPopupConfig;
-export type IDropdownConfig = angular.ui.bootstrap.IDropdownConfig;
-export type IModalProvider = angular.ui.bootstrap.IModalProvider;
-export type IModalService = angular.ui.bootstrap.IModalService;
-export type IModalServiceInstance = angular.ui.bootstrap.IModalServiceInstance;
-export type IModalInstanceService = angular.ui.bootstrap.IModalInstanceService;
-export type IModalScope = angular.ui.bootstrap.IModalScope;
-export type IModalSettings = angular.ui.bootstrap.IModalSettings;
-export type IModalStackService = angular.ui.bootstrap.IModalStackService;
-export type IModalStackedMapKeyValuePair = angular.ui.bootstrap.IModalStackedMapKeyValuePair;
-export type IPaginationConfig = angular.ui.bootstrap.IPaginationConfig;
-export type IPagerConfig = angular.ui.bootstrap.IPagerConfig;
-export type IPositionCoordinates = angular.ui.bootstrap.IPositionCoordinates;
-export type IPositionService = angular.ui.bootstrap.IPositionService;
-export type IProgressConfig = angular.ui.bootstrap.IProgressConfig;
-export type IRatingConfig = angular.ui.bootstrap.IRatingConfig;
-export type ITimepickerConfig = angular.ui.bootstrap.ITimepickerConfig;
-export type ITooltipOptions = angular.ui.bootstrap.ITooltipOptions;
-export type ITooltipProvider = angular.ui.bootstrap.ITooltipProvider;
-export type ITransitionService = angular.ui.bootstrap.ITransitionService;
-export type ITransitionServiceOptions = angular.ui.bootstrap.ITransitionServiceOptions;
+declare const moduleName: 'ui.bootstrap';
+export = moduleName;
 
 declare module 'angular' {
     export namespace ui.bootstrap {
@@ -59,6 +41,15 @@ declare module 'angular' {
         interface IDropdownConfigNgOptions extends angular.INgModelOptions {
             allowInvalid?: boolean;
             timezone?: string;
+        }
+
+        type DatepickerCallback<T> = (args: IDatepickerCellArgs) => T;
+
+        type DatepickerMode = "day" | "month" | "year";
+
+        interface IDatepickerCellArgs {
+            date: Date;
+            mode: DatepickerMode;
         }
 
         interface IDatepickerConfig {
@@ -109,7 +100,7 @@ declare module 'angular' {
              *
              * @default 'day'
              */
-            datepickerMode?: string;
+            datepickerMode?: DatepickerMode;
 
             /**
              * Set a lower limit for mode.
@@ -200,10 +191,24 @@ declare module 'angular' {
              *
              * @default {}
              */
-            ngModelOptions?: IDropdownConfigNgOptions
+            ngModelOptions?: IDropdownConfigNgOptions;
+
+            /**
+             * Defines an optional expression to disable visible options based on passing an object with date and current mode properties.
+             *
+             * @default null
+             */
+            dateDisabled?: DatepickerCallback<boolean>;
+            
+            /**
+             * Defines an optional expression to add classes based on passing an object with date and current mode properties.
+             *
+             * @default null
+             */
+            customClass?: DatepickerCallback<string>;
         }
 
-        interface IDatepickerPopupConfig {
+        interface IDatepickerPopupConfig extends IDatepickerConfig {
 
             /**
              * A list of alternate formats acceptable for manual entry.
@@ -311,7 +316,7 @@ declare module 'angular' {
             openClass?: string;
         }
 
-        interface IModalProvider extends IServiceProvider {
+        interface IModalProvider extends angular.IServiceProvider {
             /**
              * Default options all modals will use.
              */
@@ -319,6 +324,11 @@ declare module 'angular' {
         }
 
         interface IModalService {
+            /**
+             * @returns {IPromise}
+             */
+            getPromiseChain(): IPromise<any>;
+
             /**
              * @param {IModalSettings} options
              * @returns {IModalInstanceService}
@@ -388,7 +398,7 @@ declare module 'angular' {
             /**
              * inline template representing the modal's content
              */
-            template?: string;
+            template?: string | (() => string);
 
             /**
              * a scope instance to be used for the modal's content (actually the $modal service is going to create a child scope of a provided scope).
@@ -875,7 +885,7 @@ declare module 'angular' {
             useContentExp?: boolean;
         }
 
-        interface ITooltipProvider extends IServiceProvider {
+        interface ITooltipProvider extends angular.IServiceProvider {
             /**
              * Provide a set of defaults for certain tooltip and popover attributes.
              */

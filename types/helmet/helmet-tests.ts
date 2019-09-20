@@ -25,9 +25,10 @@ function helmetTest() {
  */
 function contentSecurityPolicyTest() {
     const emptyArray: string[] =  [];
-    const config = {
+    const config: helmet.IHelmetContentSecurityPolicyConfiguration = {
         directives: {
             baseUri: ['base.example.com'],
+            blockAllMixedContent: true,
             childSrc: ['child.example.com'],
             connectSrc: ['connect.example.com'],
             defaultSrc: ['*'],
@@ -37,27 +38,42 @@ function contentSecurityPolicyTest() {
             frameSrc: emptyArray,
             imgSrc: ['images.example.com'],
             mediaSrc: ['media.example.com'],
+            manifestSrc: ['manifest.example.com'],
             objectSrc: ['objects.example.com'],
             pluginTypes: emptyArray,
+            prefetchSrc: ['prefetch.example.com'],
             reportUri: '/some-url',
-            sandbox: emptyArray,
+            reportTo: 'report.example.com',
+            requireSriFor: emptyArray,
+            sandbox: ['allow-presentation'],
             scriptSrc: ['scripts.example.com', function (req: express.Request, res: express.Response) {
               return "'nonce-abc123'";
             }],
-            styleSrc: ['css.example.com']
+            styleSrc: ['css.example.com'],
+            upgradeInsecureRequests: true,
+            workerSrc: ['worker.example.com']
         },
         reportOnly: false,
         setAllHeaders: false,
         disableAndroid: false
     };
 
+    function reportUriCb(req: express.Request, res: express.Response) { return '/some-uri'; }
+    function reportOnlyCb(req: express.Request, res: express.Response) { return false; }
+
     app.use(helmet.contentSecurityPolicy());
     app.use(helmet.contentSecurityPolicy({}));
     app.use(helmet.contentSecurityPolicy(config));
     app.use(helmet.contentSecurityPolicy({
         directives: {
-            defaultSrc: ["'self'"]
+            defaultSrc: ["'self'"],
+            reportUri: reportUriCb,
+            'report-uri': reportUriCb,
+            reportTo: reportUriCb,
+            'report-to': reportUriCb
         },
+        reportOnly: reportOnlyCb,
+        loose: false,
         setAllHeaders: true
     }));
 }
@@ -106,13 +122,20 @@ function hpkpTest() {
     app.use(helmet.hpkp({
         maxAge: 7776000000,
         sha256s: ['AbCdEf123=', 'ZyXwVu456='],
+        includeSubDomains: false
+    }));
+
+    // Deprecated: Use includeSubDomains instead. (Uppercase "D")
+    app.use(helmet.hpkp({
+        maxAge: 7776000000,
+        sha256s: ['AbCdEf123=', 'ZyXwVu456='],
         includeSubdomains: false
     }));
 
     app.use(helmet.hpkp({
         maxAge: 7776000000,
         sha256s: ['AbCdEf123=', 'ZyXwVu456='],
-        includeSubdomains: true
+        includeSubDomains: true
     }));
 
     app.use(helmet.hpkp({
@@ -146,6 +169,12 @@ function hstsTest() {
       maxAge: 7776000000,
     }));
 
+    app.use(helmet.hsts({
+      maxAge: 7776000000,
+      includeSubDomains: true
+    }));
+
+    // Deprecated: Use includeSubDomains instead. (Uppercase "D")
     app.use(helmet.hsts({
       maxAge: 7776000000,
       includeSubdomains: true
@@ -205,4 +234,13 @@ function xssFilterTest() {
     app.use(helmet.xssFilter({}));
     app.use(helmet.xssFilter({ setOnOldIE: false }));
     app.use(helmet.xssFilter({ setOnOldIE: true }));
+}
+
+/**
+ * @summary Test for {@see helmet#permittedCrossDomainPolicies} function.
+ */
+function permittedCrossDomainPoliciesTest() {
+    app.use(helmet.permittedCrossDomainPolicies());
+    app.use(helmet.permittedCrossDomainPolicies({}));
+    app.use(helmet.permittedCrossDomainPolicies({ permittedPolicies: 'none' }));
 }

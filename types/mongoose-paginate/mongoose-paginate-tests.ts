@@ -1,5 +1,3 @@
-/// <reference types="express" />
-
 /**
  * Created by Linus Brolin <https://github.com/linusbrolin/>.
  */
@@ -12,7 +10,7 @@ import {
     PaginateResult,
     Document
 } from 'mongoose';
-import * as mongoosePaginate from 'mongoose-paginate';
+import mongoosePaginate = require('mongoose-paginate');
 import { Router, Request, Response } from 'express';
 
 
@@ -42,7 +40,7 @@ let router: Router = Router();
 
 router.get('/users.json', function(req: Request, res: Response) {
     let descending: boolean = true;
-    let options: PaginateOptions = <PaginateOptions>{};
+    let options: PaginateOptions = {} as PaginateOptions;
     options.select = 'email username';
     options.sort = { 'username': (descending ? -1 : 1) };
     options.populate = '';

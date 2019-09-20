@@ -1,7 +1,8 @@
-// Type definitions for Express 4.x
+// Type definitions for Express 4.17
 // Project: http://expressjs.com
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>
+// Definitions by: Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /* =================== USAGE ===================
 
@@ -13,7 +14,8 @@
 /// <reference types="express-serve-static-core" />
 /// <reference types="serve-static" />
 
-import * as serveStatic from "serve-static";
+import * as bodyParser from "body-parser";
+import serveStatic = require("serve-static");
 import * as core from "express-serve-static-core";
 
 /**
@@ -22,11 +24,41 @@ import * as core from "express-serve-static-core";
 declare function e(): core.Express;
 
 declare namespace e {
+    /**
+     * This is a built-in middleware function in Express. It parses incoming requests with JSON payloads and is based on body-parser.
+     * @since 4.16.0
+     */
+    var json: typeof bodyParser.json;
 
     /**
-     * This is the only built-in middleware function in Express. It serves static files and is based on serve-static.
+     * This is a built-in middleware function in Express. It parses incoming requests with Buffer payloads and is based on body-parser.
+     * @since 4.17.0
+     */
+    var raw: typeof bodyParser.raw;
+
+    /**
+     * This is a built-in middleware function in Express. It parses incoming requests with text payloads and is based on body-parser.
+     * @since 4.17.0
+     */
+    var text: typeof bodyParser.text;
+
+    /**
+     * These are the exposed prototypes.
+     */
+    var application: Application;
+    var request: Request;
+    var response: Response;
+
+    /**
+     * This is a built-in middleware function in Express. It serves static files and is based on serve-static.
      */
     var static: typeof serveStatic;
+
+    /**
+     * This is a built-in middleware function in Express. It parses incoming requests with urlencoded payloads and is based on body-parser.
+     * @since 4.16.0
+     */
+    var urlencoded: typeof bodyParser.urlencoded;
 
     export function Router(options?: RouterOptions): core.Router;
 
@@ -59,7 +91,7 @@ declare namespace e {
     interface Handler extends core.Handler { }
     interface IRoute extends core.IRoute { }
     interface IRouter<T> extends core.IRouter { }
-    interface IRouterHandler<T> extends core.IRouterHandler<T> { }    
+    interface IRouterHandler<T> extends core.IRouterHandler<T> { }
     interface IRouterMatcher<T> extends core.IRouterMatcher<T> { }
     interface MediaType extends core.MediaType { }
     interface NextFunction extends core.NextFunction { }

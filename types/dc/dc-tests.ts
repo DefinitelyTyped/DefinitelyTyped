@@ -1,3 +1,8 @@
+import * as crossfilter from 'crossfilter';
+import * as d3 from "d3";
+import * as dc from "dc";
+
+
 interface IYelpData {
     city: string;
     review_count: number;

@@ -1,5 +1,4 @@
-
-/// <reference types="node" />
+import EachReq = require("each");
 
 function testEach() {
 	var EachStaticClass: EachStatic = function (array: any[]) {
@@ -36,6 +35,5 @@ function testEach() {
 
 	var each: Each = EachStaticClass([1, 2, 3]);
 
-	var EachReq: EachStatic = require("each");
 	var each: Each = EachReq([4, 5, 6]);
 }

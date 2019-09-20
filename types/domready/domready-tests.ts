@@ -1,5 +1,5 @@
 import domready = require("domready");
 
-domready(function () {
+domready(() => {
   // dom is loaded!
-})
+});

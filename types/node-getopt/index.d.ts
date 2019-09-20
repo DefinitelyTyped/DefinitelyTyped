@@ -8,8 +8,8 @@
  */
 
 
-interface StringMap {
-    [index: string]: string;
+interface OptionMap {
+    [index: string]: string | string[] | boolean;
 }
 
 /**
@@ -17,14 +17,14 @@ interface StringMap {
  */
 declare class ParsedOption {
     public argv: string[];
-    public options: StringMap;
+    public options: OptionMap;
 
-    constructor(argv: string[], options: StringMap);
+    constructor(argv: string[], options: OptionMap);
     public empty(): boolean;
 }
 
 interface EventCallback {
-    (args: string[], options: StringMap): void;
+    (args: string[], options: OptionMap): void;
 }
 
 interface ErrorFunc {
@@ -122,7 +122,7 @@ declare class Getopt {
      * equals new Getopt(options)
      * @param options
      */
-    static create(options: string[]): Getopt;
+    static create(options: string[][]): Getopt;
 }
 
 export = Getopt;

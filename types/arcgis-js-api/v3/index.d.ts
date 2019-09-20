@@ -1,6 +1,7 @@
-// Type definitions for ArcGIS API for JavaScript 3.20
+// Type definitions for ArcGIS API for JavaScript 3.29
 // Project: https://developers.arcgis.com/javascript/3/
 // Definitions by: Esri <https://github.com/Esri>
+//                 Bjorn Svensson <https://github.com/bsvensson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "esri" {
@@ -18,6 +19,7 @@ declare module "esri" {
   import BasemapLayer = require("esri/dijit/BasemapLayer");
   import Symbol = require("esri/symbols/Symbol");
   import BookmarkItem = require("esri/dijit/BookmarkItem");
+  import TimeInfo = require("esri/layers/TimeInfo");
   import Color = require("esri/Color");
   import LocationProviderBase = require("esri/tasks/locationproviders/LocationProviderBase");
   import PictureMarkerSymbol = require("esri/symbols/PictureMarkerSymbol");
@@ -29,6 +31,7 @@ declare module "esri" {
   import LayerSource = require("esri/layers/LayerSource");
   import GraphicsLayer = require("esri/layers/GraphicsLayer");
   import SpatialReference = require("esri/SpatialReference");
+  import GeographicTransformationStep = require("esri/geometry/GeographicTransformationStep");
   import Layer = require("esri/layers/layer");
   import SimpleFillSymbol = require("esri/symbols/SimpleFillSymbol");
   import ArcGISImageServiceLayer = require("esri/layers/ArcGISImageServiceLayer");
@@ -41,6 +44,8 @@ declare module "esri" {
   import FillSymbol = require("esri/symbols/FillSymbol");
   import PrintTemplate = require("esri/tasks/PrintTemplate");
   import QueryTask = require("esri/tasks/QueryTask");
+  import DataProviderGE = require("esri/dijit/geoenrichment/ReportPlayer/DataProviderGE");
+  import PlayerThemes = require("esri/dijit/geoenrichment/ReportPlayer/PlayerThemes");
   import TextSymbol = require("esri/symbols/TextSymbol");
   import StandardGeographyQueryTask = require("esri/tasks/geoenrichment/StandardGeographyQueryTask");
   import WCSConnection = require("esri/layers/WCSConnection");
@@ -109,7 +114,10 @@ declare module "esri" {
     resourceInfo?: any;
     /** When true, the layer's attribution is displayed on the map. */
     showAttribution?: boolean;
-    /** By default, images are exported in MIME format, and the image is streamed to the client. */
+    /**
+     * By default, images are exported in MIME format, and the image is streamed to the client.
+     * @deprecated
+     */
     useMapImage?: boolean;
     /** When true, the layer will update its content based on the map's time extent. */
     useMapTime?: boolean;
@@ -213,6 +221,8 @@ declare module "esri" {
     isReference?: boolean;
     /** Initial opacity or transparency of the basemap layer. */
     opacity?: number;
+    /** A url to a JSON file containing the stylesheet information to render the VectorTileLayer. */
+    styleUrl?: string;
     /** Specify subDomains where tiles are served to speed up tile retrieval (using subDomains gets around the browser limit of the max number of concurrent requests to a domain). */
     subDomains?: string[];
     /** The URL template used to retrieve the tiles. */
@@ -221,7 +231,7 @@ declare module "esri" {
     tileInfo?: TileInfo;
     /** Define additional tile server domains for the layer. */
     tileServer?: string[];
-    /** The type of layer, valid values are "BingMapsAerial", "BingMapsHybrid", "BingMapsRoad", "OpenStreetMap", or "WebTiledLayer". */
+    /** The type of layer. */
     type?: string;
     /** URL to the ArcGIS Server REST resource that represents a map or image service. */
     url?: string;
@@ -281,6 +291,8 @@ declare module "esri" {
     columnDelimiter?: string;
     /** Copyright information for the layer. */
     copyright?: string;
+    /** Enables feature reduction (for example clustering) on point layers. */
+    featureReduction?: any;
     /** The fields property contains objects with "name", "alias" and "type" String properties. */
     fields?: any[];
     /** The latitude field name. */
@@ -293,6 +305,8 @@ declare module "esri" {
     outFields?: string[];
     /** Refresh interval of the layer in minutes. */
     refreshInterval?: number;
+    /** Time information for the layer, such as start time field, end time field, track id field, layers time extent and the draw time interval. */
+    timeInfo?: TimeInfo;
     /** Visibility of the layer. */
     visible?: boolean;
   }
@@ -471,20 +485,24 @@ declare module "esri" {
     zoomOptions?: any;
   }
   export interface ColorPickerOptions {
+    /** Indicates whether the widget displays collapsed. */
+    collapsed?: boolean;
+    /** Indicates whether the widget can be collapsed. */
+    collapsible?: boolean;
     /** The selected color. */
     color: Color;
     /** The row size of the palette. */
-    colorsPerRow: number;
+    colorsPerRow?: number;
     /** The set of available color options. */
-    palette: Color[];
+    palette?: Color[];
     /** Array of recent colors to show in the recent colors row. */
-    recentColors: Color[];
+    recentColors?: Color[];
     /** Toggles color selection being required. */
-    required: boolean;
+    required?: boolean;
     /** Toggles the recent color row. */
-    showRecentColors: boolean;
+    showRecentColors?: boolean;
     /** Toggles the transparency slider. */
-    showTransparencySlider: boolean;
+    showTransparencySlider?: boolean;
   }
   export interface ConnectOriginsToDestinationsOptions {
     /** The URL to the GPServer used to execute an analysis job. */
@@ -542,7 +560,7 @@ declare module "esri" {
     /** An array of driving time break values. */
     breakValues?: number[];
     /** The point feature layer around which drive-time areas will be drawn. */
-    inputLayer: FeatureLayer;
+    inputLayers: FeatureLayer[];
     /** The geometry type of the input layer. */
     inputType?: string;
     /** Reference to the map object. */
@@ -603,13 +621,13 @@ declare module "esri" {
     locationProvider: LocationProviderBase;
   }
   export interface DataBrowserOptions {
-    /** Whether or not to display the hierarchy dropdown for countries with multiple hierarchies (e.g. */
+    /** Whether or not to display the hierarchy dropdown for countries with multiple hierarchies (for example USA has both Census and Landscape, Germany has both Census and Nexiga). */
     allowHierarchies?: boolean;
     /** Show/hide country drop down. */
     countryBox?: boolean;
     /** Two-digit country code selected in the country drop down. */
     countryID?: string;
-    /** The hierarchy to load for a country (e.g. */
+    /** The hierarchy to load for a country (for example 'Census' or 'Landscape' for USA). */
     hierarchyID?: string;
     /** Text string to display on the back button on the second and third pages of the Data Browser. */
     pageBackButton?: string;
@@ -879,6 +897,8 @@ declare module "esri" {
     showSelectFolder?: boolean;
   }
   export interface FeatureLayerOptions {
+    /** Indicates whether attribute features containing m-values can be edited. */
+    allowUpdateWithoutMValues?: boolean;
     /** Enable or disable the auto generalization of features from a non-editable layer in on-demand mode. */
     autoGeneralize?: boolean;
     /** Class attribute to set for the layer's node. */
@@ -889,6 +909,8 @@ declare module "esri" {
     displayOnPan?: boolean;
     /** Set a callback function that will be invoked by  FeatureLayer.getEditSummary. */
     editSummaryCallback?: Function;
+    /** Enables feature reduction (for example clustering) on point layers. */
+    featureReduction?: any;
     /** Specify the geodatabase version to display. */
     gdbVersion?: string;
     /** Unique ID to assign to the layer. */
@@ -925,6 +947,8 @@ declare module "esri" {
     useMapTime?: boolean;
     /** Initial visibility of the layer. */
     visible?: boolean;
+    /** Indicates if the layer will enable WebGL for rendering. */
+    webglEnabled?: boolean;
   }
   export interface FeatureLayerStatisticsOptions {
     /** The feature layer that will be the source for calculating statistics. */
@@ -1134,6 +1158,16 @@ declare module "esri" {
     /** Scale to zoom to when geocoder does not return an extent. */
     zoomScale?: number;
   }
+  export interface GeographicTransformationOptions {
+    /** Geographic transformation steps. */
+    steps?: GeographicTransformationStep[];
+  }
+  export interface GeographicTransformationStepOptions {
+    /** The well-known id (wkid) that represents a known geographic transformation. */
+    wkid?: number;
+    /** The well-known text (wkt) that represents a known geographic transformation. */
+    wkt?: string;
+  }
   export interface GeometryLocationProviderOptions {
     /** The attribute field in the graphic object that contains the JSON string representing the geometry. */
     geometryField: string;
@@ -1165,7 +1199,7 @@ declare module "esri" {
     remove(): void;
   }
   export interface HeatmapRendererOptions {
-    /** The radius (in pixels) of the circle over which the majority of each points value is spread out over. */
+    /** The radius (in pixels) of the circle over which the majority of each point's value is spread out. */
     blurRadius?: number;
     /** An array of CSS color strings (#RGB, #RRGGBB, rgb(r,g,b), rgba(r,g,b,a)). */
     colors: string[];
@@ -1317,6 +1351,8 @@ declare module "esri" {
     clip?: number;
     /** If the widget is enabled and layers can be swiped. */
     enabled?: boolean;
+    /** Indicates whether layer placement should be inverted (switched). */
+    invertPlacement?: boolean;
     /** The layers to be swiped. */
     layers: Layer[];
     /** The number of pixels to place the tool from the left of the map. */
@@ -1401,6 +1437,22 @@ declare module "esri" {
     force3DTransforms?: boolean;
     /** By default the map creates and uses an out-of-the-box esri/dijit/Popup. */
     infoWindow?: InfoWindowBase;
+    /** Indicates whether to enable double-click on a map to recenter and zoom in a level by using SHIFT + Click. */
+    isClickRecenter?: boolean;
+    /** Indicates whether double-clicking on map zooms in on extent. */
+    isDoubleClickZoom?: boolean;
+    /** Indicates whether to enable navigation of the map using a keyboard's arrow keys. */
+    isKeyboardNavigation?: boolean;
+    /** Indicates whether all map navigation is enabled. */
+    isMapNavigation?: boolean;
+    /** Indicates whether panning is enabled within the map. */
+    isPan?: boolean;
+    /** Indicates whether pinch zoom navigation is enabled on touch-enabled devices. */
+    isPinchZoom?: boolean;
+    /** Indicates whether to enable a mouse drag to zoom into to a specific region on the map. */
+    isRubberBandZoom?: boolean;
+    /** (Added at version 3.21). */
+    isScrollWheel?: boolean;
     /** If provided, the map is initialized with the specified levels of detail. */
     lods?: LOD[];
     /** Display the esri logo on the map. */
@@ -1441,6 +1493,8 @@ declare module "esri" {
     sliderStyle?: string;
     /** When true, for Apple computers with a trackpad or magic mouse use, swipe pans instead of zooming. */
     smartNavigation?: boolean;
+    /** Indicates whether to enable WebGL rendering for FeatureLayers in the map. */
+    webglEnabled?: boolean;
     /** When true, supports continuous pan across the dateline. */
     wrapAround180?: boolean;
     /** Initial zoom level of the map. */
@@ -1547,8 +1601,6 @@ declare module "esri" {
     popupWindowFeatures?: string;
     /** The ArcGIS for Portal URL. */
     portalUrl?: string;
-    /** Indicates whether to display social logins such as Google/Facebook. */
-    showSocialLogins?: boolean;
   }
   export interface ObliqueViewerOptions {
     /** Azimuth angle value for which to display oblique images. */
@@ -1697,7 +1749,7 @@ declare module "esri" {
     pixels: number[][];
     /** Pixel type. */
     pixelType?: string;
-    /** Array of objects containing numeric statistical properties (e.g. */
+    /** Array of objects containing numeric statistical properties (for example minValue, maxValue, noDataValue, etc.). */
     statistics?: any[];
     /** Number of columns. */
     width: number;
@@ -1765,6 +1817,8 @@ declare module "esri" {
   export interface PrintOptions {
     /** Set to true if the print service is an asynchronous geoprocessing service. */
     async?: boolean;
+    /** Additional parameters for the print service. */
+    extraParameters?: any;
     /** The map to  print. */
     map?: Map;
     /** An optional array of user-defined templates. */
@@ -1803,8 +1857,10 @@ declare module "esri" {
     whereFields: any;
   }
   export interface QueryTaskOptions {
-    /** Specify the geodatabase version to display. */
+    /** The geodatabase version to display. */
     gdbVersion?: string;
+    /** The dynamic layer or table source. */
+    source?: LayerSource;
   }
   export interface RasterLayerOptions {
     /** Sets the layer's draw mode. */
@@ -1833,12 +1889,39 @@ declare module "esri" {
     primaryHandle?: number;
     /** Toggle for showing the black handle bars. */
     showHandles?: boolean;
-    /** Flexible toggle for showing labels (e.g. */
+    /** Flexible toggle for showing labels (for example ["data", "handle"]). */
     showLabels?: boolean | string[];
     /** Toggle for showing the horizontal line indicators from the center of the handle. */
     showTicks?: boolean;
     /** Stores positions represented as numbers that fall between minimum and maximum. */
     values: number[];
+  }
+  export interface ReportPlayerOptions {
+    /** Indicates whether left and right arrows key can be used to paginate when viewMode is set to PlayerViewModes.PANELS_IN_SLIDES. */
+    allowKeyboardNavigation?: boolean;
+    /** As of version 3.26 Configuration to specify the location of the JavaScript API to use when exporting an Infographic to Dynamic HTML. */
+    config?: any;
+    /** Specifies which export options are available for the report. */
+    dataProvider?: DataProviderGE;
+    /** Specifies how the ReportPlayer should zoom by default. */
+    defaultZoomBehavior?: string;
+    /** Indicates whether interactive experience for panels should be enabled. */
+    enableDataDrilling?: boolean;
+    /** Specifies the resize mode of the ReportPlayer. */
+    resizeMode?: string;
+    /** If true, indicates that panels should scale to fit the window. */
+    scaleSlidesToFitWindow?: boolean;
+    /** Indicates whether the analysis area title will be shown in the toolbar. */
+    showAreaTitle?: boolean;
+    /** Indicates whether the toolbar will be shown in a compact popup view. */
+    showToolbarInPopup?: boolean;
+    /** Specifies the theme of the ReportPlayer. */
+    theme?: PlayerThemes;
+    /**
+     * Specifies the display of the report in full page view, slide view, or stacked panel view.
+     * @deprecated
+     */
+    viewMode?: string;
   }
   export interface RingBufferOptions {
     /** The radii to use to create ring buffers */
@@ -1891,8 +1974,6 @@ declare module "esri" {
     expanded?: boolean;
     /** This the specified graphicsLayer to use for the highlightGraphic and labelGraphic instead of map.graphics. */
     graphicsLayer?: Layer;
-    /** The symbol used for highlightGraphic. */
-    highlightSymbol?: Symbol;
     /** A customized infoTemplate for the selected feature. */
     infoTemplate?: InfoTemplate;
     /** The text symbol for the label graphic. */
@@ -2125,14 +2206,20 @@ declare module "esri" {
   export interface SymbolStylerOptions {
     /** Added at v. */
     portal?: string | any;
-    /** Self response of Portal used as symbol provider. */
+    /**
+     * Self response of Portal used as symbol provider.
+     * @deprecated
+     */
     portalSelf?: any;
-    /** URL to Portal used as symbol provider. */
+    /**
+     * URL to Portal used as symbol provider.
+     * @deprecated
+     */
     portalUrl?: string;
   }
   export interface TemplatePickerOptions {
     /** Number of visible columns. */
-    columns?: number;
+    columns?: number | string;
     /** Defines the text to be displayed when the template picker does not have any templates to display. */
     emptyMessage?: string;
     /** Array of input feature layers. */
@@ -2144,7 +2231,7 @@ declare module "esri" {
     /** Length of label description. */
     maxLabelLength?: number;
     /** Number of visible rows. */
-    rows?: number;
+    rows?: number | string;
     /** Tooltip content contains the template name and description. */
     showTooltip?: boolean;
     /** HTML style attributes for the widget. */
@@ -2447,7 +2534,7 @@ declare module "esri/Credential" {
   class Credential {
     /** Token expiration time specified as number of milliseconds since 1 January 1970 00:00:00 UTC. */
     expires: number;
-    /** Indicates whether this credential belongs to a user with admin privileges. */
+    /** Indicates that this credential was created to access the ArcGIS REST Admin service */
     isAdmin: boolean;
     /** The Identity Manager's  setOAuthRedirectionHandler returns an object that contains a "state" parameter. */
     oAuthState: any;
@@ -2513,6 +2600,14 @@ declare module "esri/IdentityManagerBase" {
   class IdentityManagerBase {
     /** The suggested lifetime of the token in minutes. */
     tokenValidity: number;
+    /** If your application is on the same domain as *.arcgis.com or ArcGIS Enterprise Server, the IdentityManager will redirect the user to its sign-in page. */
+    useSignInPage: boolean;
+    /**
+     * Returns a Credential object if the user has already signed in to access the given resource and is allowed to do so when using the given application id.
+     * @param resUrl The resource URL.
+     * @param appId The registered OAuth application id.
+     */
+    checkAppAccess(resUrl: string, appId: string): any;
     /**
      * Returns the credential (via Deferred) if the user has already signed in to access the given resource.
      * @param resUrl The resource URL.
@@ -2528,7 +2623,7 @@ declare module "esri/IdentityManagerBase" {
     findCredential(url: string, userId?: string): Credential;
     /**
      * Returns the OAuth configuration for the passed in Portal server URL.
-     * @param url The URL to the Portal.
+     * @param url The ArcGIS for Portal URL, for example "https://www.arcgis.com" for ArcGIS Online and "https://www.example.com/portal" for your in-house portal.
      */
     findOAuthInfo(url: string): OAuthInfo;
     /**
@@ -2553,7 +2648,7 @@ declare module "esri/IdentityManagerBase" {
      * Call this method (during your application initialization) with JSON previously obtained from toJson method to re-hydrate the state of identity manager.
      * @param json The JSON obtained from the toJson method.
      */
-    initialize(json: Object): any;
+    initialize(json: Object): void;
     /** Returns true if the identity manager is busy accepting user input, i.e., the user has invoked signIn and is waiting for a response. */
     isBusy(): boolean;
     /**
@@ -2576,7 +2671,7 @@ declare module "esri/IdentityManagerBase" {
     registerServers(serverInfos: ServerInfo[]): void;
     /**
      * Registers the given OAuth2 access token with the identity manager.
-     * @param properties See the object specifications table below for the structure of the  properties  object.
+     * @param properties See the object specifications table below for the structure of the properties object.
      */
     registerToken(properties: any): void;
     /**
@@ -2585,7 +2680,7 @@ declare module "esri/IdentityManagerBase" {
      */
     setProtocolErrorHandler(handlerFunction: Function): void;
     /**
-     * When accessing secure resources from ArcGIS.com or one of its sub-domains the IdentityManager redirects the user to the ArcGIS.com sign-in page.
+     * If your application is on the same domain as *.arcgis.com or ArcGIS Enterprise Server, the IdentityManager will redirect the user to its sign-in page.
      * @param handlerFunction When called, the function passed to setRedirectionHandler receives an object containing redirection properties.
      */
     setRedirectionHandler(handlerFunction: Function): void;
@@ -2804,7 +2899,7 @@ declare module "esri/SnappingManager" {
 }
 
 declare module "esri/SpatialReference" {
-  /** The spatial reference of a map, layer, or inputs to and outputs from a task. */
+  /** Defines the spatial reference of a map, layer, or task parameters. */
   class SpatialReference {
     /** The well-known ID of a spatial reference. */
     wkid: number;
@@ -2866,6 +2961,54 @@ declare module "esri/TimeExtent" {
   export = TimeExtent;
 }
 
+declare module "esri/arcadeProfiles/fieldCalculateProfile" {
+  /** Module that implements the Arcade field calculate profile in web apps that calculate field values using Arcade expressions. */
+  var fieldCalculateProfile: {
+    /**
+     * Initializes the field calculate profile for the given Arcade expressions.
+     * @param expressions An array of Arcade expressions intended for use in the calculate profile.
+     */
+    initialize(expressions: string[]): any;
+  };
+  export = fieldCalculateProfile;
+}
+
+declare module "esri/arcadeProfiles/labelingProfile" {
+  /** Module that implements the Arcade labeling profile in web apps that label features using Arcade expressions. */
+  var labelingProfile: {
+    /**
+     * Initializes the labeling profile for the given Arcade expressions.
+     * @param expressions An array of Arcade expressions intended for use in a label class.
+     */
+    initialize(expressions: string[]): any;
+  };
+  export = labelingProfile;
+}
+
+declare module "esri/arcadeProfiles/popupProfile" {
+  /** Module that implements the Arcade popup profile for web apps that contain popups that reference Arcade expressions. */
+  var popupProfile: {
+    /**
+     * Initializes the popup profile for the given Arcade expressions.
+     * @param expressions An array of Arcade expressions intended for use in a popup template.
+     */
+    initialize(expressions: string[]): any;
+  };
+  export = popupProfile;
+}
+
+declare module "esri/arcadeProfiles/visualizationProfile" {
+  /** Module that implements the Arcade visualization profile in web apps that render features using Arcade expressions. */
+  var visualizationProfile: {
+    /**
+     * Initializes the visualization profile for the given Arcade expressions.
+     * @param expressions An array of Arcade expressions intended for use in a renderer.
+     */
+    initialize(expressions: string[]): any;
+  };
+  export = visualizationProfile;
+}
+
 declare module "esri/arcgis/OAuthInfo" {
   import esri = require("esri");
 
@@ -2889,8 +3032,6 @@ declare module "esri/arcgis/OAuthInfo" {
     popupWindowFeatures: string;
     /** The ArcGIS for Portal URL. */
     portalUrl: string;
-    /** Indicates whether to display social logins like Google/Facebook. */
-    showSocialLogins: boolean;
     /**
      * Creates a new OAuthInfo given the specified parameters.
      * @param params Various options to configure the OAuthInfo object.
@@ -2947,6 +3088,8 @@ declare module "esri/arcgis/Portal" {
     defaultBasemap: any;
     /** The default extent for the map the portal displays in the map viewer. */
     defaultExtent: any;
+    /** The default vector basemap to use for the portal. */
+    defaultVectorBasemap: any;
     /** A description of the organization / portal. */
     description: string;
     /** The featured groups for the portal. */
@@ -2957,6 +3100,8 @@ declare module "esri/arcgis/Portal" {
     featuredItemsGroupQuery: string;
     /** The query that identifies the group containing features items for the gallery. */
     galleryTemplatesGroupQuery: string;
+    /** Helper services provided by the portal. */
+    helperServices: any;
     /** The group that contains featured content to be displayed on the home page. */
     homePageFeaturedContent: string;
     /** The number of featured items that can be displayed on the home page. */
@@ -2991,7 +3136,7 @@ declare module "esri/arcgis/Portal" {
     portalProperties: any;
     /** The URL to the thumbnail of the portal. */
     portalThumbnail: string;
-    /** URL to the portal. */
+    /** The REST URL for the portal, for example "https://www.arcgis.com/sharing/rest/" for ArcGIS Online and "https://www.example.com/arcgis/sharing/rest/" for your in-house portal. */
     portalUrl: string;
     /** The region for the organization. */
     region: string;
@@ -3013,7 +3158,7 @@ declare module "esri/arcgis/Portal" {
     thumbnailUrl: string;
     /** Sets the units of measure for the organization's users. */
     units: string;
-    /** The portal url. */
+    /** The ArcGIS for Portal URL, for example "https://www.arcgis.com" for ArcGIS Online and "https://www.example.com/arcgis" for your in-house portal. */
     url: string;
     /** The prefix selected by the organization's administrator to be used with the customBaseURL. */
     urlKey: string;
@@ -3021,9 +3166,13 @@ declare module "esri/arcgis/Portal" {
     user: PortalUser;
     /** If true, only simple where clauses that are complaint with SQL92 can be used when querying layers and tables. */
     useStandardizedQuery: boolean;
+    /** Whether an organization has opted in to use the vector tile basemaps. */
+    useVectorBasemaps: boolean;
+    /** The query that defines the vector tiles basemaps that should be displayed in the Basemap Gallery when useVectorBasemaps is true. */
+    vectorBasemapGalleryGroupQuery: string;
     /**
      * Creates a new Portal object.
-     * @param url URL to the ArcGIS.com site or in-house portal.
+     * @param url The ArcGIS for Portal URL, for example "https://www.arcgis.com" for ArcGIS Online and "https://www.example.com/arcgis" for your in-house portal.
      */
     constructor(url: string);
     /** Returns a PortalUser object that describes the user currently signed in to the portal. */
@@ -3112,6 +3261,11 @@ declare module "esri/arcgis/Portal" {
     /** Get the current members for the group. */
     getMembers(): any;
     /**
+     * Get the URL to the thumbnail image for the portal group.
+     * @param width The desired image width.
+     */
+    getThumbnailUrl(width?: number): string;
+    /**
      * Execute a query against the group to return a deferred that when resolved returns PortalQueryResult that contain a results array of PortalItem objects that match the input query.
      * @param queryParams The input query parameters.
      */
@@ -3197,6 +3351,11 @@ declare module "esri/arcgis/Portal" {
     /** Returns the rating (if any) given to the item. */
     getRating(): any;
     /**
+     * Get the URL to the thumbnail image for the portal item.
+     * @param width The desired image width.
+     */
+    getThumbnailUrl(width?: number): string;
+    /**
      * Updates an item comment.
      * @param comment A PortalComment that contains the comment updates.
      */
@@ -3274,6 +3433,11 @@ declare module "esri/arcgis/Portal" {
     getNotifications(): any;
     /** Access the tag objects that have been created by the portal user. */
     getTags(): any;
+    /**
+     * Get the URL to the thumbnail image for the portal user.
+     * @param width The desired image width.
+     */
+    getThumbnailUrl(width?: number): string;
   }
 }
 
@@ -3313,19 +3477,19 @@ declare module "esri/basemaps" {
   var basemaps: {
     /** The Light Gray Canvas basemap is designed to be used as a neutral background map for overlaying and emphasizing other map layers. */
     gray: any;
-    /** The World Imagery map is a detailed imagery map layer and labels that is designed to be used as a basemap for various maps and applications. */
+    /** The World Imagery with Labels map is a detailed imagery map layer and labels that is designed to be used as a basemap for various maps and applications: https://services.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer   https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer */
     hybrid: any;
     /** The Ocean Basemap is designed to be used as a basemap by marine GIS professionals and as a reference map by anyone interested in ocean data. */
     oceans: any;
     /** The OpenStreetMap is a community map layer that is designed to be used as a basemap for various maps and applications. */
     osm: any;
-    /** The World Imagery map is a detailed imagery map layer that is designed to be used as a basemap for various maps and applications. */
+    /** The World Imagery map is a detailed imagery map layer that is designed to be used as a basemap for various maps and applications:  https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer. */
     satellite: any;
-    /** The Streets basemap presents a multiscale street map for the world. */
+    /** The Streets basemap presents a multiscale street map for the world: https://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer. */
     streets: any;
     /** The Terrain with Labels basemap is designed to be used to overlay and emphasize other thematic map layers. */
     terrain: any;
-    /** The Topographic map includes boundaries, cities, water features, physiographic features, parks, landmarks, transportation, and buildings. */
+    /** The Topographic map includes boundaries, cities, water features, physiographic features, parks, landmarks, transportation, and buildings: https://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer */
     topo: any;
   };
   export = basemaps;
@@ -3400,7 +3564,7 @@ declare module "esri/dijit/Attribution" {
     /**
      * Creates a new Attribution object.
      * @param options An object that defines the attribution options.
-     * @param srcNodeRef HTML element where the time slider should be rendered.
+     * @param srcNodeRef HTML element where the attribution widget should be rendered.
      */
     constructor(options: esri.AttributionOptions, srcNodeRef: Node | string);
     /** Destroy the attribution widget. */
@@ -3440,13 +3604,13 @@ declare module "esri/dijit/BasemapGallery" {
   import esri = require("esri");
   import Basemap = require("esri/dijit/Basemap");
 
-  /** The BasemapGallery dijit displays a collection basemaps from ArcGIS.com or a user-defined set of map or image services. */
+  /** The BasemapGallery dijit displays a collection of basemaps from ArcGIS.com or a user-defined set of map or image services. */
   class BasemapGallery {
     /** List of basemaps displayed in the BasemapGallery. */
     basemaps: Basemap[];
     /** This value is true after the BasemapGallery retrieves the ArcGIS.com basemaps. */
     loaded: boolean;
-    /** Optional parameter to pass in a portal URL, including the instance name, used to access the group containing the basemap gallery items. */
+    /** Optional parameter to pass in a portal URL, including the instance name, used to access the group containing the basemap gallery items, for example www.myportal.com/myInstance or http://www.myportal.com/myInstance. */
     portalUrl: string;
     /**
      * Creates a new BasemapGallery dijit.
@@ -3508,6 +3672,8 @@ declare module "esri/dijit/BasemapLayer" {
     fullExtent: Extent;
     /** The initial extent of the layer. */
     initialExtent: Extent;
+    /** A url to a JSON file containing the stylesheet information to render the VectorTileLayer. */
+    styleUrl: string;
     /** The subDomains where tiles are served to speed up tile retrieval (using subDomains gets around the browser limit of the max number of concurrent requests to a domain). */
     subDomains: string[];
     /** The tile info for the layer including lods, rows, cols, origin and spatial reference. */
@@ -3673,9 +3839,11 @@ declare module "esri/dijit/ClassedColorSlider" {
     startup(): void;
     /** Fires when the ClassedColorSlider widget properties change. */
     on(type: "change", listener: (event: { breakInfos: any; target: ClassedColorSlider }) => void): esri.Handle;
-    /** Fires when  minValue or  maxValue of the ClassedColorSlider changes. */
+    /** Fires during slide and slide stop, and when a handle or the  minValue or  maxValue of the slider are updated via text box. */
+    on(type: "data-change", listener: (event: { breakInfos: any[]; maxValue: number; minValue: number; target: ClassedColorSlider }) => void): esri.Handle;
+    /** Fires when  minValue or  maxValue are updated via textbox. */
     on(type: "data-value-change", listener: (event: { breakInfos: any; maxValue: number; minValue: number; target: ClassedColorSlider }) => void): esri.Handle;
-    /** Fires when a ClassedColorSlider handle is moved. */
+    /** Fires on slide stop and when a handle is updated via textbox. */
     on(type: "handle-value-change", listener: (event: { breakInfos: any; target: ClassedColorSlider }) => void): esri.Handle;
     on(type: string, listener: (event: any) => void): esri.Handle;
   }
@@ -3726,9 +3894,11 @@ declare module "esri/dijit/ClassedSizeSlider" {
     constructor(params: esri.ClassedSizeSliderOptions, srcNodeRef: Node | string);
     /** Fires when ClassedSizeSlider changes. */
     on(type: "change", listener: (event: { breakInfos: any; target: ClassedSizeSlider }) => void): esri.Handle;
-    /** Fires when  minValue or  maxValue of the ClassedSizeSlider changes. */
+    /** Fires during slide and slide stop, and when a handle or the  minValue or  maxValue of the slider are updated via text box. */
+    on(type: "data-change", listener: (event: { breakInfos: any[]; maxValue: number; minValue: number; target: ClassedSizeSlider }) => void): esri.Handle;
+    /** Fires when  minValue or  maxValue are updated via textbox. */
     on(type: "data-value-change", listener: (event: { breakInfos: any; maxValue: number; minValue: number; target: ClassedSizeSlider }) => void): esri.Handle;
-    /** Fires when a ClassedSizeSlider handle is moved. */
+    /** Fires on slide stop and when a handle is updated via textbox. */
     on(type: "handle-value-change", listener: (event: { breakInfos: any; target: ClassedSizeSlider }) => void): esri.Handle;
     on(type: string, listener: (event: any) => void): esri.Handle;
   }
@@ -3787,9 +3957,11 @@ declare module "esri/dijit/ColorInfoSlider" {
     startup(): void;
     /** Fires when ColorInfoSlider changes. */
     on(type: "change", listener: (event: { colorInfo: any; target: ColorInfoSlider }) => void): esri.Handle;
-    /** Fires when  minValue or  maxValue of the ColorInfoSlider changes. */
+    /** Fires during slide and slide stop, and when a handle or the  minValue or  maxValue of the ColorInfoSlider are updated via text box. */
+    on(type: "data-change", listener: (event: { colorInfo: any; maxValue: number; minValue: number; target: ColorInfoSlider }) => void): esri.Handle;
+    /** Fires when  minValue or  maxValue of the ColorInfoSlider are updated via text box. */
     on(type: "data-value-change", listener: (event: { colorInfo: any; maxValue: number; minValue: number; target: ColorInfoSlider }) => void): esri.Handle;
-    /** Fires when a ColorInfoSlider handle is moved. */
+    /** Fires on slide stop and when a handle is updated via textbox. */
     on(type: "handle-value-change", listener: (event: { colorInfo: any; target: ColorInfoSlider }) => void): esri.Handle;
     /** Fires when the zoom state changes. */
     on(type: "zoomed", listener: (event: { zoomed: boolean; target: ColorInfoSlider }) => void): esri.Handle;
@@ -3804,6 +3976,10 @@ declare module "esri/dijit/ColorPicker" {
 
   /** A widget to assist choosing a color from a color palette. */
   class ColorPicker {
+    /** Indicates whether the widget displays collapsed. */
+    collapsed: boolean;
+    /** Indicates whether the widget is collapsible. */
+    collapsible: boolean;
     /** The selected color. */
     color: Color;
     /** The set of available color options. */
@@ -3873,7 +4049,10 @@ declare module "esri/dijit/Directions" {
      * @param srcNodeRef Reference or id of a HTML element that this dijit is rendered into.
      */
     constructor(options: esri.DirectionsOptions, srcNodeRef: Node | string);
-    /** Deprecated at v3.13. */
+    /**
+     * Deprecated at v3.13.
+     * @deprecated
+     */
     activate(): void;
     /**
      * Add a stop to the directions widget at the specified index location.
@@ -3894,7 +4073,10 @@ declare module "esri/dijit/Directions" {
     centerAtSegmentStart(index: number): void;
     /** Remove the route directions from the directions list. */
     clearDirections(): void;
-    /** Deprecated at v3.13. */
+    /**
+     * Deprecated at v3.13.
+     * @deprecated
+     */
     deactivate(): void;
     /** Destroy the Directions widget. */
     destroy(): void;
@@ -3996,7 +4178,7 @@ declare module "esri/dijit/ElevationProfile" {
   import esri = require("esri");
   import Geometry = require("esri/geometry/Geometry");
 
-  /** (Currently in beta)The Elevation Profile widget allows a user to create an elevation profile based on a polyline geometry input parameter or existing features.NOTE: Currently there is a known issue when creating an elevation profile that crosses the international dateline multiple times. */
+  /** (Currently in beta)The Elevation Profile widget allows a user to create an elevation profile based on a polyline geometry input parameter or existing features. */
   class ElevationProfile {
     /** The measurement unit of the polyline geometry. */
     measureUnits: string;
@@ -4058,7 +4240,10 @@ declare module "esri/dijit/FeatureTable" {
     featureLayer: FeatureLayer;
     /** An array of objects representing field information. */
     fieldInfos: any[];
-    /** Reference to the dGrid. */
+    /**
+     * Reference to the dGrid.
+     * @deprecated
+     */
     grid: any;
     /** Reference to the 'Options' drop-down menu. */
     gridMenu: any;
@@ -4376,7 +4561,7 @@ declare module "esri/dijit/HeatmapSlider" {
     constructor(params: esri.HeatmapSliderOptions, srcNodeRef: Node | string);
     /** Fires when HeatmapSlider changes. */
     on(type: "change", listener: (event: { colorStops: any; target: HeatmapSlider }) => void): esri.Handle;
-    /** Fires when HeatmapSlider handle is moved. */
+    /** Fires on slide stop and when a handle is updated via textbox. */
     on(type: "handle-value-change", listener: (event: { colorStops: any; target: HeatmapSlider }) => void): esri.Handle;
     on(type: string, listener: (event: any) => void): esri.Handle;
   }
@@ -4523,8 +4708,8 @@ declare module "esri/dijit/InfoWindow" {
     /** Determines whether the InfoWindow is currently shown on the map. */
     isShowing: boolean;
     /**
-     * Create a new Info Window.
-     * @param params Optional parameters.
+     * Create a new InfoWindow.
+     * @param params Specify optional parameters used to create the InfoWindow.
      * @param srcNodeRef Reference or id of the HTML element where the widget should be rendered.
      */
     constructor(params: any, srcNodeRef: Node | string);
@@ -4589,6 +4774,12 @@ declare module "esri/dijit/InfoWindowLite" {
     fixedAnchor: string;
     /** Determines whether the InfoWindowLite is currently shown on the map. */
     isShowing: boolean;
+    /**
+     * Create a new InfoWindowLite.
+     * @param params Specify optional parameters used to create the InfoWindowLite.
+     * @param srcNodeRef Reference or id of the HTML element where the widget should be rendered.
+     */
+    constructor(params: any, srcNodeRef: Node | string);
     /** Hides the InfoWindow. */
     hide(): void;
     /**
@@ -4692,6 +4883,8 @@ declare module "esri/dijit/LayerSwipe" {
     clip: number;
     /** If the widget is enabled and layers can be swiped. */
     enabled: boolean;
+    /** Indicates whether layer placement should be inverted (switched). */
+    invertPlacement: boolean;
     /** The layers to be swiped. */
     layers: Layer[];
     /** The number of pixels to place the tool from the left of the map. */
@@ -5030,7 +5223,7 @@ declare module "esri/dijit/OpacitySlider" {
     on(type: "change", listener: (event: { opacityInfo: any; target: OpacitySlider }) => void): esri.Handle;
     /** Fires when  minValue or  maxValue of the OpacitySlider changes. */
     on(type: "data-value-change", listener: (event: { maxValue: number; minValue: number; opacityInfo: any; target: OpacitySlider }) => void): esri.Handle;
-    /** Fires when an OpacitySlider handle is moved. */
+    /** Fires on slide stop and when a handle is updated via textbox. */
     on(type: "handle-value-change", listener: (event: { opacityInfo: any; target: OpacitySlider }) => void): esri.Handle;
     /** Fires when the zoom state changes. */
     on(type: "zoomed", listener: (event: { zoomed: boolean; target: OpacitySlider }) => void): esri.Handle;
@@ -5073,16 +5266,18 @@ declare module "esri/dijit/OverviewMap" {
 declare module "esri/dijit/Popup" {
   import esri = require("esri");
   import InfoWindowBase = require("esri/InfoWindowBase");
-  import Graphic = require("esri/graphic");
   import FillSymbol = require("esri/symbols/FillSymbol");
+  import Graphic = require("esri/graphic");
   import LineSymbol = require("esri/symbols/LineSymbol");
   import Point = require("esri/geometry/Point");
-  import MarkerSymbol = require("esri/symbols/MarkerSymbol");
+  import SimpleMarkerSymbol = require("esri/symbols/SimpleMarkerSymbol");
 
   /** The Popup class is an implementation of InfoWindow that inherits from InfoWindowBase to provide additional capabilities. */
   class Popup extends InfoWindowBase {
     /** Controls the placement of the popup window with respect to the geographic location. */
     anchor: string;
+    /** Visualizes the extent of the points summarized by the cluster graphic when the user selects the "Browse Features" action in the cluster popup. */
+    clusterFillSymbol: FillSymbol;
     /** The number of features associated with the info window. */
     count: number;
     /** An array of  pending deferreds, null if there are not any pending deferreds. */
@@ -5110,7 +5305,7 @@ declare module "esri/dijit/Popup" {
     /** Specify the margin (in pixels) to leave at the top of the popup window when it is maximized. */
     marginTop: number;
     /** Define the marker symbol used to highlight point features. */
-    markerSymbol: MarkerSymbol;
+    markerSymbol: SimpleMarkerSymbol;
     /** Specify the x-offset (in pixels) used when positioning the popup. */
     offsetX: number;
     /** Specify the y-offset (in pixels) used when positioning the popup. */
@@ -5135,16 +5330,28 @@ declare module "esri/dijit/Popup" {
      * @param srcNodeRef Reference or id of the HTML element where the widget should be rendered.
      */
     constructor(options: esri.PopupOptions, srcNodeRef: Node | string);
+    /**
+     * Creates links for the specified actions at the bottom of the popup window.
+     * @param actions An array of action objects that define the behavior for actions included in the popup.
+     */
+    addActions(actions: any[]): any[];
     /** Removes all features and destroys any pending deferreds. */
     clearFeatures(): void;
     /** Destroy the popup. */
     destroy(): void;
+    /** Returns the current placement of the popup window. */
+    getCurrentAnchor(): string;
     /** Get the currently selected feature. */
     getSelectedFeature(): Graphic;
     /** Hide the info window. */
     hide(): void;
     /** Maximize the info window. */
     maximize(): void;
+    /**
+     * Removes the specified actions from the popup window.
+     * @param actionInfos An array of objects that describe actions  created with addActions().
+     */
+    removeActions(actionInfos: any[]): void;
     /** Re-calculates the popup's position with respect to the map location it is pointing to. */
     reposition(): void;
     /**
@@ -5178,8 +5385,9 @@ declare module "esri/dijit/Popup" {
     /**
      * Associate an array of features or an array of deferreds that return features with the info window.
      * @param features An array of features or deferreds.
+     * @param options Additional options for setting features in the popup.
      */
-    setFeatures(features: Graphic[] | any[]): void;
+    setFeatures(features: Graphic[] | any[], options?: any): void;
     /**
      * Sets the info window title.
      * @param title The text for the title.
@@ -5353,7 +5561,7 @@ declare module "esri/dijit/RendererSlider" {
     precision: number;
     /** Toggle for showing the black handle bars. */
     showHandles: boolean;
-    /** Flexible toggle for showing labels e.g. */
+    /** Flexible toggle for showing labels, for example ["data","handle"]. */
     showLabels: boolean | string[];
     /** Toggle for showing the horizontal line indicators from the center of the handle. */
     showTicks: boolean;
@@ -5603,9 +5811,11 @@ declare module "esri/dijit/SizeInfoSlider" {
     startup(): void;
     /** Fires when the SizeInfoSlider properties change. */
     on(type: "change", listener: (event: { sizeInfo: any; target: SizeInfoSlider }) => void): esri.Handle;
+    /** Fires during slide and slide stop, and when a handle or the  minValue or  maxValue of the SizeInfoSlider are updated via text box. */
+    on(type: "data-change", listener: (event: { maxValue: number; minValue: number; sizeInfo: any; target: SizeInfoSlider }) => void): esri.Handle;
     /** Fires when  minValue or  maxValue of the SizeInfoSlider changes. */
     on(type: "data-value-change", listener: (event: { maxValue: number; minValue: number; sizeInfo: any; target: SizeInfoSlider }) => void): esri.Handle;
-    /** Fires when a SizeInfoSlider handle is moved. */
+    /** Fires on slide stop and when a handle is updated via textbox. */
     on(type: "handle-value-change", listener: (event: { sizeInfo: any; target: SizeInfoSlider }) => void): esri.Handle;
     /** Fires when the zoom state changes. */
     on(type: "zoomed", listener: (event: { zoomed: boolean; target: SizeInfoSlider }) => void): esri.Handle;
@@ -5640,6 +5850,9 @@ declare module "esri/dijit/SymbolStyler" {
     startup(): void;
     /** Saves the recent fill and outline colors. */
     storeColors(): void;
+    /** Fired every time an edit is committed. */
+    on(type: "style-update", listener: (event: { target: SymbolStyler }) => void): esri.Handle;
+    on(type: string, listener: (event: any) => void): esri.Handle;
   }
   export = SymbolStyler;
 }
@@ -5865,7 +6078,7 @@ declare module "esri/dijit/analysis/AnalysisBase" {
     checkJobStatus(jobId: string): void;
     /**
      * Starts an analysis tool.
-     * @param params See the object specifications table below for the structure of the  params  object.
+     * @param params See the object specifications table below for the structure of the params object.
      */
     execute(params: string): void;
     /**
@@ -6130,7 +6343,7 @@ declare module "esri/dijit/analysis/CreateDriveTimeAreas" {
     /** An array of driving time break values. */
     breakValues: number[];
     /** The point feature layer around which drive-time areas will be drawn. */
-    inputLayer: FeatureLayer;
+    inputLayers: FeatureLayer[];
     /** The geometry type of the input layer. */
     inputType: string;
     /** Reference to the map object. */
@@ -7354,6 +7567,135 @@ declare module "esri/dijit/geoenrichment/InfographicsOptionsItem" {
   export = InfographicsOptionsItem;
 }
 
+declare module "esri/dijit/geoenrichment/ReportPlayer/DataProviderGE" {
+  import PlayerCommands = require("esri/dijit/geoenrichment/ReportPlayer/PlayerCommands");
+
+  /** Data Provider for the ReportPlayer which allows you to specify which export options are available when running the report. */
+  class DataProviderGE {
+    /**
+     * Registers a export option which can be performed.
+     * @param playerCommand The export option to register to make available to the Report Player.
+     * @param label The display name of the export option.
+     */
+    registerCommand(playerCommand: PlayerCommands, label?: string): void;
+  }
+  export = DataProviderGE;
+}
+
+declare module "esri/dijit/geoenrichment/ReportPlayer/PlayerCommands" {
+  /** Enumerator of available export options that are available for the Report Player. */
+  class PlayerCommands {
+    /** Generates a stand-alone HTML file which displays dynamic content, including interactive map and infographic panels for the run infographic report. */
+    static DYNAMIC_HTML: any;
+    /** Generates a stand-alone HTML file without the dynamic interactivity of the DYNAMIC_HTML option for the run infographic report. */
+    static HTML: any;
+    /** Generates an image of the run infographic report. */
+    static IMAGE: any;
+    /** Generates a PDF file of the run infographic report. */
+    static PDF: any;
+    /** Displays a print dialog for the run infographic report for printing directly from the web browser. */
+    static PRINT: any;
+  }
+  export = PlayerCommands;
+}
+
+declare module "esri/dijit/geoenrichment/ReportPlayer/PlayerResizeModes" {
+  /** Enumerator of available player resize mode options for the Report Player widget. */
+  class PlayerResizeModes {
+    /** The Report Player will be auto-resizable for the pagination view, the size of the player will change to fit the content. */
+    static AUTO: any;
+    /** The Report Player will be stretched and constrained to the browser window size. */
+    static FIT_WINDOW: any;
+    /** The Report Player dimensions (height and width) will need to be set manually in CSS. */
+    static MANUAL: any;
+  }
+  export = PlayerResizeModes;
+}
+
+declare module "esri/dijit/geoenrichment/ReportPlayer/PlayerThemes" {
+  /** Enumerator of available theme options for displaying the Report Player. */
+  class PlayerThemes {
+    /** Report Player will display in a dark theme. */
+    static DARK: any;
+    /** Report Player will display in a light theme. */
+    static LIGHT: any;
+  }
+  export = PlayerThemes;
+}
+
+declare module "esri/dijit/geoenrichment/ReportPlayer/PlayerViewModes" {
+  /** An enumerator of available view modes displaying the Report Player. */
+  class PlayerViewModes {
+    /** Displays one full page at a time. */
+    static FULL_PAGES: any;
+    /** Panels will be shown in the slides view mode. */
+    static PANELS_IN_SLIDES: any;
+    /** Panels will be shown in a single stack. */
+    static PANELS_IN_STACK: any;
+  }
+  export = PlayerViewModes;
+}
+
+declare module "esri/dijit/geoenrichment/ReportPlayer/ReportPlayer" {
+  import esri = require("esri");
+  import DataProviderGE = require("esri/dijit/geoenrichment/ReportPlayer/DataProviderGE");
+
+  /** The ReportPlayer widget runs infographic report templates for a provided analysis area. */
+  class ReportPlayer {
+    /** Indicates whether left and right arrows key can be used to paginate when viewMode is set to PlayerViewModes.PANELS_IN_SLIDES. */
+    allowKeyboardNavigation: boolean;
+    /** Configuration to specify the location of the JavaScript API to use when exporting an Infographic to Dynamic HTML. */
+    config: any;
+    /** Data Provider for the ReportPlayer which allows you to specify which export options are available when running the report. */
+    dataProvider: DataProviderGE;
+    /** Specifies how the ReportPlayer should zoom by default. */
+    defaultZoomBehavior: string;
+    /** Indicates whether interactive experience for panels should be enabled. */
+    enableDataDrilling: boolean;
+    /** Specifies the resize mode of the ReportPlayer. */
+    resizeMode: string;
+    /** If true, indicates that panels should scale to fit the window. */
+    scaleSlidesToFitWindow: boolean;
+    /** Indicates whether the analysis area title will be shown in the toolbar. */
+    showAreaTitle: boolean;
+    /** Indicates whether the toolbar will be shown in a compact popup view. */
+    showToolbarInPopup: boolean;
+    /** Specifies the theme of the ReportPlayer. */
+    theme: string;
+    /** Specifies the display of the report in full page view, slide view, or stacked panel view. */
+    viewMode: string;
+    /**
+     * Creates a new ReportPlayer dijit using the given DOM node.
+     * @param params Various parameters that can be used to configure the ReportPlayer.
+     * @param srcNode Reference or id of the HTML element where the widget should be rendered.
+     */
+    constructor(params?: esri.ReportPlayerOptions, srcNode?: Node | string);
+    /**
+     * Generates the report for the supplied parameters.
+     * @param dataProviderParams See the object specifications table below for the structure of the dataProviderParams object.
+     * @param playParams See the object specifications table below for the structure of the playParams object.
+     */
+    playReport(dataProviderParams: any, playParams?: any): any;
+    /**
+     * Sets the width and height of the ReportPlayer when resizeMode is set to PlayerResizeModes.MANUAL.
+     * @param width The width in pixels.
+     * @param height The height in pixels.
+     */
+    resize(width?: number, height?: number): any;
+    /**
+     * Sets the maximum height for the Report Player.
+     * @param number The height in pixels.
+     */
+    setMaxHeight(number: number): number;
+    /**
+     * Sets the maximum width for the Report Player.
+     * @param number The width in pixels.
+     */
+    setMaxWidth(number: number): number;
+  }
+  export = ReportPlayer;
+}
+
 declare module "esri/dijit/util/busyIndicator" {
   /** This module provides the ability to create a busy indicator for a target. */
   var busyIndicator: {
@@ -7510,6 +7852,47 @@ declare module "esri/geometry/Extent" {
     update(xmin: number, ymin: number, xmax: number, ymax: number, spatialReference: SpatialReference): Extent;
   }
   export = Extent;
+}
+
+declare module "esri/geometry/GeographicTransformation" {
+  import esri = require("esri");
+  import GeographicTransformationStep = require("esri/geometry/GeographicTransformationStep");
+
+  /** Projecting your data between coordinate systems sometimes requires transforming between geographic coordinate systems. */
+  class GeographicTransformation {
+    /** Geographic transformation steps. */
+    steps: GeographicTransformationStep[];
+    /**
+     * Creates a new GeographicTransformation object.
+     * @param params See options descriptions for further information.
+     */
+    constructor(params?: esri.GeographicTransformationOptions);
+    /** Returns the inverse of the geographic transformation, calling this method or null if the transformation is not invertible. */
+    getInverse(): GeographicTransformation;
+  }
+  export = GeographicTransformation;
+}
+
+declare module "esri/geometry/GeographicTransformationStep" {
+  import esri = require("esri");
+
+  /** Represents a step in the process of transforming coordinates from one geographic coordinate system to another. */
+  class GeographicTransformationStep {
+    /** Indicates whether the geographic transformation is inverted. */
+    isInverse: boolean;
+    /** The well-known id (wkid) that represents a known geographic transformation. */
+    wkid: number;
+    /** The well-known text (wkt) hat represents a known geographic transformation. */
+    wkt: string;
+    /**
+     * Creates a new GeographicTransformationStep object.
+     * @param params See the params table for additional information.
+     */
+    constructor(params?: esri.GeographicTransformationStepOptions);
+    /** Returns the inverse of the geographic transformation calling this method or null if the transformation is not invertible. */
+    getInverse(): GeographicTransformationStep;
+  }
+  export = GeographicTransformationStep;
 }
 
 declare module "esri/geometry/Geometry" {
@@ -7887,6 +8270,77 @@ declare module "esri/geometry/ScreenPoint" {
   export = ScreenPoint;
 }
 
+declare module "esri/geometry/coordinateFormatter" {
+  import SpatialReference = require("esri/SpatialReference");
+  import Point = require("esri/geometry/Point");
+
+  /** This module converts between points and formatted coordinate notation strings such as: decimal degrees degrees, minutes, and secondsU.S. */
+  var coordinateFormatter: {
+    /**
+     * Parses coordinates in latitude/longitude notation, and returns a Point representing that location.
+     * @param coordinates The latitude/longitude notation string for the coordinates.
+     * @param spatialReference A spatial reference for a geographic coordinate system that defines the datum and ellipsoid referenced by the latitude-longitude coordinates.
+     */
+    fromLatitudeLongitude(coordinates: string, spatialReference?: SpatialReference): Point;
+    /**
+     * Parses coordinates in Military Grid Reference System (MGRS) notation, and returns a Point representing that location.
+     * @param coordinates The MGRS notation string for the coordinates.
+     * @param spatialReference A spatial reference for a geographic coordinate system that defines the datum and ellipsoid referenced by the MGRS coordinates.
+     * @param conversionMode The mode used by the given MGRS coordinates.
+     */
+    fromMgrs(coordinates: string, spatialReference: SpatialReference, conversionMode: string): Point;
+    /**
+     * Parses coordinates in United States National Grid (USNG) notation, and returns a Point representing that location.
+     * @param coordinates The USNG notation string for the coordinates.
+     * @param spatialReference A spatial reference for a geographic coordinate system that defines the datum and ellipsoid referenced by the USNG coordinates.
+     */
+    fromUsng(coordinates: string, spatialReference?: SpatialReference): Point;
+    /**
+     * Parses coordinates in Universal Transverse Mercator (UTM) notation, and returns a Point representing that location.
+     * @param coordinates The UTM notation string for the coordinates.
+     * @param spatialReference A spatial reference for a geographic coordinate system that defines the datum and ellipsoid referenced by the UTM coordinates.
+     * @param conversionMode The latitude notation scheme used by the given UTM coordinates, either a latitudinal band, or a hemisphere designator.
+     */
+    fromUtm(coordinates: string, spatialReference: SpatialReference, conversionMode: string): Point;
+    /** Indicates if all dependencies of this module have been loaded. */
+    isLoaded(): boolean;
+    /** Indicates if this module is supported in the current browser. */
+    isSupported(): boolean;
+    /** Loads this module's dependencies. */
+    load(): any;
+    /**
+     * Returns formatted coordinates in latitude/longitude notation representing the given point's location.
+     * @param point The location to be represented as a formatted latitude/longitude string.
+     * @param format The mode to use when formatting the latitude/longitude string.
+     * @param decimalPlaces The number of decimal places to use, it should be an integer from 0 to 16.
+     */
+    toLatitudeLongitude(point: Point, format: string, decimalPlaces?: number): string;
+    /**
+     * Returns formatted coordinates in Military Grid Reference System (MGRS) notation representing the given point's location.
+     * @param point The location to be represented in MGRS notation.
+     * @param conversionMode The mode to use for the returned MGRS notation string.
+     * @param precision The precision with which to represent the coordinates.
+     * @param addSpaces Indicates whether the generated strings contain no spaces.
+     */
+    toMgrs(point: Point, conversionMode: string, precision?: number, addSpaces?: boolean): string;
+    /**
+     * Returns formatted coordinates in United States National Grid (USNG) notation representing the given point's location.
+     * @param point The location to be represented in USNG notation.
+     * @param precision The precision with which to represent the coordinates.
+     * @param addSpaces Indicates whether the generated strings contain no spaces.
+     */
+    toUsng(point: Point, precision?: number, addSpaces?: boolean): string;
+    /**
+     * Returns formatted coordinates in Universal Transverse Mercator (UTM) notation representing the given point's location.
+     * @param point The location to be represented in UTM notation.
+     * @param conversionMode The latitude notation scheme to use in the returned UTM notation string, either a latitudinal band, or a hemisphere designator.
+     * @param addSpaces Indicates whether the generated strings contain no spaces.
+     */
+    toUtm(point: Point, conversionMode: string, addSpaces?: boolean): string;
+  };
+  export = coordinateFormatter;
+}
+
 declare module "esri/geometry/geodesicUtils" {
   import Polygon = require("esri/geometry/Polygon");
   import Geometry = require("esri/geometry/Geometry");
@@ -7942,10 +8396,10 @@ declare module "esri/geometry/geometryEngine" {
     clip(geometry: Geometry, envelope: Extent): Geometry;
     /**
      * Indicates if one geometry contains another geometry.
-     * @param geometry1 The geometry that is tested for the contains relationship to the other geometry.
-     * @param geometry2 The geometry that is tested for within relationship to the other geometry.
+     * @param containerGeometry The geometry that is tested for the "contains" relationship to the other geometry.
+     * @param insideGeometry The geometry that is tested for the "within" relationship to the containerGeometry.
      */
-    contains(geometry1: Geometry, geometry2: Geometry): boolean;
+    contains(containerGeometry: Geometry, insideGeometry: Geometry): boolean;
     /**
      * Calculates the convex hull of the input geometry.
      * @param geometry The input geometry.
@@ -8086,9 +8540,9 @@ declare module "esri/geometry/geometryEngine" {
      */
     nearestVertices(geometry: Geometry, inputPoint: Point, searchRadius: number, maxVertexCountToReturn: number): any[];
     /**
-     * Creates offset version of the input geometry.
+     * The offset operation creates a geometry that is a constant planar distance from an input polyline or polygon.
      * @param geometry The geometries to offset.
-     * @param offsetDistance The offset distance for the Geometries.
+     * @param offsetDistance The planar distance to offset from the input geometry.
      * @param offsetUnit Measurement unit for the offset.
      * @param joinType The join type.
      * @param bevelRatio Applicable to MITER, bevelRatio is multiplied by the offset distance and the result determines how far a mitered offset intersection can be located before it is beveled.
@@ -8151,10 +8605,10 @@ declare module "esri/geometry/geometryEngine" {
     union(geometries: Geometry[]): Geometry;
     /**
      * Indicates if one geometry is within another geometry.
-     * @param geometry1 The base geometry that is tested for within relationship to the other geometry.
-     * @param geometry2 The comparison geometry that is tested for the contains relationship to the other geometry.
+     * @param innerGeometry The base geometry that is tested for within relationship to the other geometry.
+     * @param outerGeometry The comparison geometry that is tested for the contains relationship to the other geometry.
      */
-    within(geometry1: Geometry, geometry2: Geometry): boolean;
+    within(innerGeometry: Geometry, outerGeometry: Geometry): boolean;
   };
   export = geometryEngine;
 }
@@ -8185,10 +8639,10 @@ declare module "esri/geometry/geometryEngineAsync" {
     clip(geometry: Geometry, envelope: Extent): any;
     /**
      * Indicates if one geometry contains another geometry.
-     * @param geometry1 The geometry that is tested for the contains relationship to the other geometry.
-     * @param geometry2 The geometry that is tested for within relationship to the other geometry.
+     * @param containerGeometry The geometry that is tested for the "contains" relationship to the other geometry.
+     * @param insideGeometry The geometry that is tested for the "within" relationship to the containerGeometry.
      */
-    contains(geometry1: Geometry, geometry2: Geometry): any;
+    contains(containerGeometry: Geometry, insideGeometry: Geometry): any;
     /**
      * Calculates the convex hull of the input geometry.
      * @param geometry The input geometry.
@@ -8329,9 +8783,9 @@ declare module "esri/geometry/geometryEngineAsync" {
      */
     nearestVertices(geometry: Geometry, inputPoint: Point, searchRadius: number, maxVertexCountToReturn: number): any;
     /**
-     * Creates offset version of the input geometry.
+     * The offset operation creates a geometry that is a constant planar distance from an input polyline or polygon.
      * @param geometry The geometries to offset.
-     * @param offsetDistance The offset distance for the Geometries.
+     * @param offsetDistance The planar distance to offset from the input geometry.
      * @param offsetUnit Measurement unit for the offset.
      * @param joinType The join type.
      * @param bevelRatio Applicable to MITER, bevelRatio is multiplied by the offset distance and the result determines how far a mitered offset intersection can be located before it is beveled.
@@ -8394,10 +8848,10 @@ declare module "esri/geometry/geometryEngineAsync" {
     union(geometries: Geometry[]): any;
     /**
      * Indicates if one geometry is within another geometry.
-     * @param geometry1 The base geometry that is tested for within relationship to the other geometry.
-     * @param geometry2 The comparison geometry that is tested for the contains relationship to the other geometry.
+     * @param innerGeometry The base geometry that is tested for within relationship to the other geometry.
+     * @param outerGeometry The comparison geometry that is tested for the contains relationship to the other geometry.
      */
-    within(geometry1: Geometry, geometry2: Geometry): any;
+    within(innerGeometry: Geometry, outerGeometry: Geometry): any;
   };
   export = geometryEngineAsync;
 }
@@ -8462,6 +8916,45 @@ declare module "esri/geometry/normalizeUtils" {
   export = normalizeUtils;
 }
 
+declare module "esri/geometry/projection" {
+  import SpatialReference = require("esri/SpatialReference");
+  import Extent = require("esri/geometry/Extent");
+  import GeographicTransformation = require("esri/geometry/GeographicTransformation");
+  import Geometry = require("esri/geometry/Geometry");
+
+  /** A client-side projection engine for converting geometries from one SpatialReference to another. */
+  var projection: {
+    /**
+     * Gets the default geographic transformation used to convert the geometry from the input spatial reference to the output spatial reference.
+     * @param inSpatialReference The input spatial reference from which to project geometries.
+     * @param outSpatialReference The spatial reference to which you are converting the geometries.
+     * @param extent An extent used to determine the suitability of the returned transformation.
+     */
+    getTransformation(inSpatialReference: SpatialReference, outSpatialReference: SpatialReference, extent?: Extent): GeographicTransformation;
+    /**
+     * Returns a list of all geographic transformations suitable to convert geometries from the input spatial reference to the specified output spatial reference.
+     * @param inSpatialReference The spatial reference that the geometries are currently using.
+     * @param outSpatialReference The spatial reference to which you are converting the geometries to.
+     * @param extent An extent used to determine the suitability of the returned transformations.
+     */
+    getTransformations(inSpatialReference: SpatialReference, outSpatialReference: SpatialReference, extent?: Extent): GeographicTransformation[];
+    /** Indicates if all dependencies of this module have been loaded. */
+    isLoaded(): boolean;
+    /** Indicates if this module is supported in the browser. */
+    isSupported(): boolean;
+    /** Load this module's dependencies. */
+    load(): any;
+    /**
+     * Projects a geometry or an array of geometries to the specified output spatial reference.
+     * @param geometry The geometry or geometries to project.
+     * @param outSpatialReference The spatial reference to which you are converting the geometries' coordinates.
+     * @param geographicTransformation The geographic transformation used to transform the geometries.
+     */
+    project(geometry: Geometry | Geometry[], outSpatialReference: SpatialReference, geographicTransformation?: GeographicTransformation): Geometry | Geometry[];
+  };
+  export = projection;
+}
+
 declare module "esri/geometry/scaleUtils" {
   import Map = require("esri/map");
   import Extent = require("esri/geometry/Extent");
@@ -8511,6 +9004,7 @@ declare module "esri/geometry/screenUtils" {
      * @param width The current width of the map in screen units.
      * @param height The current height of the map in screen units.
      * @param screenPoint The screenPoint to convert from screen to map units.
+     * @deprecated
      */
     toMapPoint(extent: Extent, width: number, height: number, screenPoint: ScreenPoint): Point;
     /**
@@ -8527,6 +9021,7 @@ declare module "esri/geometry/screenUtils" {
      * @param width The current width of the map in screen units.
      * @param height The current height of the map in screen units.
      * @param mapPoint The point to convert from map to screen units.
+     * @deprecated
      */
     toScreenPoint(extent: Extent, width: number, height: number, mapPoint: Point): ScreenPoint;
   };
@@ -8615,11 +9110,18 @@ declare module "esri/graphic" {
      * @param value The value of the attribute.
      */
     attr(name: string, value: string): Graphic;
+    /** Creates a deep clone of the graphic object. */
+    clone(): Graphic;
     /** Draws the graphic. */
     draw(): Graphic;
+    /** Returns the graphics summarized by an aggregate graphic in a clustering or feature reduction visualization. */
+    getChildGraphics(): Graphic[];
     /** Returns the content string based on attributes and infoTemplate values. */
     getContent(): string;
-    /** Returns the dojo/gfx/shape.Shape of the Esri graphic. */
+    /**
+     * Returns the dojo/gfx/shape.Shape of the Esri graphic.
+     * @deprecated
+     */
     getDojoShape(): any;
     /** Returns the info template associated with the graphic. */
     getInfoTemplate(): InfoTemplate;
@@ -8629,14 +9131,20 @@ declare module "esri/graphic" {
     getNode(): any;
     /** Returns one or more DOM nodes used to draw the graphic. */
     getNodes(): any;
+    /** Applicable to label graphics. */
+    getParentGraphic(): Graphic;
     /** Returns the dojox/gfx/shape.Shape of the Esri graphic. */
     getShape(): any;
     /** Returns one or more dojox/gfx/shape.Shape used to draw the graphic. */
     getShapes(): any[];
+    /** In contrast to the getLayer method, getSouceLayer does not change when a graphic is added to another layer. */
+    getSourceLayer(): Layer;
     /** Returns the title string based on attributes and infoTemplate values. */
     getTitle(): string;
     /** Hides the graphic. */
     hide(): void;
+    /** Indicates if the graphic represents a cluster of features. */
+    isAggregate(): boolean;
     /**
      * Defines the attributes of the graphic.
      * @param attributes The name value pairs of fields and field values associated with the graphic.
@@ -8719,9 +9227,9 @@ declare module "esri/lang" {
      * A wrapper around dojo.string.substitute that can also handle wildcard substitution.
      * @param data The data object used in the substitution.
      * @param template The template used for the substitution.
-     * @param first When true, returns only the first property found in the data object.
+     * @param options Object containing a format object used in the substitution.
      */
-    substitute(data: any, template?: string, first?: boolean): string;
+    substitute(data: any, template?: string, options?: any): string;
     /**
      * Iterates through the argument array and searches for the identifier to which the argument value matches.
      * @param array The argument array for testing.
@@ -8797,7 +9305,10 @@ declare module "esri/layers/ArcGISDynamicMapServiceLayer" {
     timeInfo: TimeInfo;
     /** Default units of the layer as defined by the service. */
     units: string;
-    /** When true, the image is saved to the server, and a JSON formatted response is sent to the client with the URL location of the image. */
+    /**
+     * When true, the image is saved to the server, and a JSON formatted response is sent to the client with the URL location of the image.
+     * @deprecated
+     */
     useMapImage: boolean;
     /** The version of ArcGIS Server where the map service is published. */
     version: number;
@@ -9004,7 +9515,7 @@ declare module "esri/layers/ArcGISImageServiceLayer" {
     timeInfo: TimeInfo;
     /** By default, images are exported in MIME format, and the image is streamed to the client. */
     useMapImage: boolean;
-    /** The version of ArcGIS Server the image service is published to, e.g. */
+    /** The version of ArcGIS Server the image service is published to, such as 9.3, 9.31, 10, 10.41. */
     version: number;
     /**
      * Creates a new ArcGISImageServiceLayer object.
@@ -9022,7 +9533,7 @@ declare module "esri/layers/ArcGISImageServiceLayer" {
     getDefinitionExpression(): string;
     /** Get key properties of an ImageService including information such as the band names associated with the imagery. */
     getKeyProperties(): any;
-    /** Asynchronously returns the raster attribute table of an ImageService which returns categorical mapping of pixel values (e.g. */
+    /** Asynchronously returns the raster attribute table of an ImageService which returns categorical mapping of pixel values (for example a class, group, category, or membership). */
     getRasterAttributeTable(): any;
     /** Gets the currently visible rasters. */
     getVisibleRasters(): Graphic[];
@@ -9471,6 +9982,8 @@ declare module "esri/layers/FeatureLayer" {
     advancedQueryCapabilities: any;
     /** Returns true if the geometry of the features in the layer can be edited, false otherwise. */
     allowGeometryUpdates: boolean;
+    /** Indicates whether attribute features containing m-values can be edited. */
+    allowUpdateWithoutMValues: boolean;
     /** The URL, when available, where the layer's attribution data is stored. */
     attributionDataUrl: string;
     /** Information about the capabilities enabled for this layer. */
@@ -9487,6 +10000,8 @@ declare module "esri/layers/FeatureLayer" {
     displayField: string;
     /** Indicates the field names for the editor fields. */
     editFieldsInfo: any;
+    /** Applicable to ArcGIS Online hosted feature services. */
+    editingInfo: any;
     /** The array of fields in the layer. */
     fields: Field[];
     /** The full extent of the layer. */
@@ -9499,6 +10014,8 @@ declare module "esri/layers/FeatureLayer" {
     globalIdField: string;
     /** Array of features in the layer. */
     graphics: Graphic[];
+    /** Indicates whether the layer displays all features intersecting the current view. */
+    hasAllFeatures: boolean;
     /** True if attachments are enabled on the feature layer. */
     hasAttachments: boolean;
     /** When true, the layer has attribution data. */
@@ -9541,6 +10058,8 @@ declare module "esri/layers/FeatureLayer" {
     supportsAttachmentsByUploadId: boolean;
     /** When true, the layer supports the Calculate REST operation when updating features. */
     supportsCalculate: boolean;
+    /** If true, the layer supports a user-defined field description. */
+    supportsFieldDescription: boolean;
     /** When true, the layer supports statistical functions in query operations. */
     supportsStatistics: boolean;
     /** When true, the layer is suspended. */
@@ -9559,6 +10078,8 @@ declare module "esri/layers/FeatureLayer" {
     version: number;
     /** When true, the layer is visible at the current map scale. */
     visibleAtMapScale: boolean;
+    /** Indicates if WebGL is enabled on the layer. */
+    webglEnabled: boolean;
     /**
      * Creates a new instance of a feature layer object from the ArcGIS Server REST resource identified by the input URL.
      * @param url URL to the ArcGIS Server REST resource that represents a feature service.
@@ -9581,7 +10102,7 @@ declare module "esri/layers/FeatureLayer" {
     addAttachment(objectId: number, formNode: HTMLFormElement, callback?: Function, errback?: Function): any;
     /**
      * Apply edits to the feature layer.
-     * @param adds Array of features to add to the layer in the feature service.
+     * @param adds Array of features to add to the layer.
      * @param updates Array of features whose geometry and/or attributes have changed.
      * @param deletes Array of features to delete.
      * @param callback This function will be called when the operation is complete.
@@ -9598,6 +10119,12 @@ declare module "esri/layers/FeatureLayer" {
      * @param errback An error object is returned if an error occurs.
      */
     deleteAttachments(objectId: number, attachmentIds: number[], callback?: Function, errback?: Function): any;
+    /** Disables feature reduction (for example clustering) on the layer. */
+    disableFeatureReduction(): void;
+    /** Enables feature reduction (for example clustering) on the layer using the options set in setFeatureReduction(). */
+    enableFeatureReduction(): void;
+    /** Returns graphics representing the aggregation of several point features clustered together. */
+    getAggregateGraphics(): Graphic[];
     /** Asynchrously returns custom data for the layer when available. */
     getAttributionData(): any;
     /** Returns the current definition expression. */
@@ -9625,6 +10152,8 @@ declare module "esri/layers/FeatureLayer" {
      * @param options See the object specifications table below for the structure of the  options  object.
      */
     getEditSummary(feature: Graphic, options?: any): string;
+    /** Returns the options used to reduce the number of features visualized by the layer (for example clustering). */
+    getFeatureReduction(): any;
     /**
      * Returns the Field given the specified field name.
      * @param fieldName Name of the attribute field.
@@ -9638,6 +10167,8 @@ declare module "esri/layers/FeatureLayer" {
     getSelectedFeatures(): Graphic[];
     /** Gets the current selection symbol. */
     getSelectionSymbol(): Symbol;
+    /** Returns graphics from the layer that are not represented by aggregate graphics when feature reduction (such as clustering) is enabled. */
+    getSingleGraphics(): Graphic[];
     /** Get the current time definition applied to the feature layer. */
     getTimeDefinition(): TimeExtent;
     /**
@@ -9645,10 +10176,18 @@ declare module "esri/layers/FeatureLayer" {
      * @param feature A feature from this layer.
      */
     getType(feature: Graphic): FeatureType;
+    /** Indicates whether an error is thrown after the layer updates. */
+    hasUpdateError(): void;
+    /** Indicates if the layer is rendered in WebGL. */
+    hasWebGLSurface(): boolean;
     /** Returns true if geometryType is esriGeometryMultipatch and multipatchOption is xyFootprint. */
     hasXYFootprint(): boolean;
     /** Returns true if the FeatureLayer is editable. */
     isEditable(): boolean;
+    /** Indicates if feature reduction (for example clustering) is active in the view. */
+    isFeatureReductionActive(): boolean;
+    /** Indicates if feature reduction (for example clustering) is enabled. */
+    isFeatureReductionEnabled(): boolean;
     /**
      * Returns true if the layer is visible at the given scale.
      * @param scale The scale at which to check if the layer is visible.
@@ -9726,6 +10265,11 @@ declare module "esri/layers/FeatureLayer" {
      */
     setEditable(editable: boolean): FeatureLayer;
     /**
+     * Sets feature reduction options on the layer (for example clustering options).
+     * @param options Options for reducing (or aggregating) the features in the map.
+     */
+    setFeatureReduction(options: any): void;
+    /**
      * Set the layer's data source to the specified geodatabase version.
      * @param versionName The name of the geodatabase version to use as the layer's data source.
      */
@@ -9797,6 +10341,11 @@ declare module "esri/layers/FeatureLayer" {
      * @param update When false the layer will not update its content based on the map's time extent.
      */
     setUseMapTime(update: boolean): void;
+    /**
+     * Toggles WebGL rendering on/off on the layer.
+     * @param enable Indicates whether to enable WebGL on the layer.
+     */
+    setWebGLEnabled(enable: boolean): void;
     /** Suspends layer drawing. */
     suspend(): void;
     /** Returns an easily serializable object representation of the layer. */
@@ -9831,6 +10380,8 @@ declare module "esri/layers/FeatureLayer" {
     on(type: "query-limit-exceeded", listener: (event: { target: FeatureLayer }) => void): esri.Handle;
     /** Fires when queryRelatedFeatures() is complete. */
     on(type: "query-related-features-complete", listener: (event: { relatedFeatures: any; target: FeatureLayer }) => void): esri.Handle;
+    /** Fires right before the actual refresh kicks in for the layer, and only fires when the refresh is triggered by the refreshInterval. */
+    on(type: "refresh-tick", listener: (event: { target: FeatureLayer }) => void): esri.Handle;
     /** Fires when a layer resumes drawing. */
     on(type: "resume", listener: (event: { target: FeatureLayer }) => void): esri.Handle;
     /** Fires when a layer's minScale and/or maxScale is changed. */
@@ -9923,6 +10474,10 @@ declare module "esri/layers/Field" {
   class Field {
     /** The alias name for the field. */
     alias: string;
+    /** A string that describes the default value set for a field. */
+    defaultValue: string;
+    /** Contains information describing the purpose of each field and the various types of data each field contains. */
+    description: any;
     /** Domain associated with the field. */
     domain: Domain;
     /** Indicates whether the field is editable. */
@@ -10279,12 +10834,16 @@ declare module "esri/layers/KMLLayer" {
     getFeature(featureInfo: any): any;
     /** Get an array of map layers that were created to draw placemarks, ground and screen overlays. */
     getLayers(): Layer[];
+    /** Refreshes the features in the KML Layer. */
+    refresh(): void;
     /**
      * Set the visibility for the specified folder.
      * @param folder A KML folder.
      * @param isVisible The visibility of the folder and all kml features within the folder.
      */
     setFolderVisibility(folder: KMLFolder, isVisible: boolean): void;
+    /** Fires when one or more of the layer's network link children fail to load. */
+    on(type: "network-link-error", listener: (event: { error: Error; target: KMLLayer }) => void): esri.Handle;
     /** Fired after the layer is refreshed. */
     on(type: "refresh", listener: (event: { target: KMLLayer }) => void): esri.Handle;
     on(type: string, listener: (event: any) => void): esri.Handle;
@@ -10637,11 +11196,11 @@ declare module "esri/layers/PixelBlock" {
     height: number;
     /** An array of nodata mask. */
     mask: any[];
-    /** A two dimensional array. */
+    /** A two dimensional array representing the pixels from the Image Service displayed on the client. */
     pixels: number[][];
     /** Pixel type. */
     pixelType: string;
-    /** Array of objects containing numeric statistical properties (e.g. */
+    /** Array of objects containing numeric statistical properties (for example minValue, maxValue, noDataValue, etc.). */
     statistics: any[];
     /** Number of columns. */
     width: number;
@@ -10655,7 +11214,7 @@ declare module "esri/layers/PixelBlock" {
      * @param planeData Must have two properties set: pixels and statistics.
      */
     addData(planeData: any): void;
-    /** Returns pixels and masks using a single array in bip format (e.g. */
+    /** Returns pixels and masks using a single array in bip format (for example [p_00_r, p_00_g, p_00_b, p_00_a, p_10_r, p_10_g, p_10_b, p_10_a, .....]). */
     getAsRGBA(): any[];
     /** Similar to getAsRGBA, but returns floating point data. */
     getAsRGBAFloat(): any[];
@@ -10728,7 +11287,10 @@ declare module "esri/layers/RasterDataSource" {
 declare module "esri/layers/RasterFunction" {
   /** Specifies the processing to be done to the image service. */
   class RasterFunction {
-    /** Deprecated at v3.10, use functionArguments instead. */
+    /**
+     * Deprecated at v3.10, use functionArguments instead.
+     * @deprecated
+     */
     arguments: any;
     /** The arguments for the raster function. */
     functionArguments: any;
@@ -11030,10 +11592,14 @@ declare module "esri/layers/VectorTileLayer" {
 
   /** A VectorTileLayer renders cached tiles of data. */
   class VectorTileLayer extends Layer {
+    /** The current style information of the VectorTileLayer. */
+    currentStyleInfo: any;
     /** The full extent of the layer. */
     fullExtent: Extent;
     /** The initial extent of the layer. */
     initialExtent: Extent;
+    /** Name of the vector tile layer. */
+    name: string;
     /** The spatial reference of the layer. */
     spatialReference: SpatialReference;
     /** Contains information about the tiling scheme for the layer. */
@@ -11055,6 +11621,10 @@ declare module "esri/layers/VectorTileLayer" {
     setStyle(styleUrl: string | any): void;
     /** Fires when the style is changed on the layer. */
     on(type: "style-change", listener: (event: { style: any; target: VectorTileLayer }) => void): esri.Handle;
+    /** Fires when the layer has finished updating its content. */
+    on(type: "update-end", listener: (event: { target: VectorTileLayer }) => void): esri.Handle;
+    /** Fires when the layer begins to update its content. */
+    on(type: "update-start", listener: (event: { target: VectorTileLayer }) => void): esri.Handle;
     on(type: string, listener: (event: any) => void): esri.Handle;
   }
   export = VectorTileLayer;
@@ -11169,7 +11739,7 @@ declare module "esri/layers/WCSLayer" {
   import Point = require("esri/geometry/Point");
   import Layer = require("esri/layers/layer");
 
-  /** (Currently in beta) The WCSLayer works with OGC Web Coverage Services. */
+  /** The WCSLayer works with OGC Web Coverage Services. */
   class WCSLayer {
     /** Resamples pixel by bilinear interpolation. */
     static INTERPOLATION_BILINEAR: any;
@@ -11773,12 +12343,18 @@ declare module "esri/map" {
     isDoubleClickZoom: boolean;
     /** When true, keyboard navigation is enabled. */
     isKeyboardNavigation: boolean;
+    /** Indicates whether all map navigation is enabled. */
+    isMapNavigation: boolean;
     /** When true, map panning is enabled using the mouse. */
     isPan: boolean;
     /** When true, pan arrows are displayed around the edge of the map. */
     isPanArrows: boolean;
+    /** Indicates whether pinch zoom navigation is enabled on touch-enabled devices. */
+    isPinchZoom: boolean;
     /** When true, rubberband zoom is enabled. */
     isRubberBandZoom: boolean;
+    /** It indicates whether map navigation based on mouse scroll wheel is enabled. */
+    isScrollWheel: boolean;
     /** When true, the mouse scroll wheel zoom is enabled. */
     isScrollWheelZoom: boolean;
     /** When true, shift double click zoom is enabled. */
@@ -11805,6 +12381,8 @@ declare module "esri/map" {
     timeExtent: TimeExtent;
     /** Indicates whether map is visible. */
     visible: boolean;
+    /** Indicates if WebGL is enabled for rendering FeatureLayers in the map. */
+    webglEnabled: boolean;
     /** Current width of the map in screen pixels. */
     width: number;
     /**
@@ -11853,8 +12431,11 @@ declare module "esri/map" {
     disableMapNavigation(): void;
     /** Disallows panning a map using the mouse. */
     disablePan(): void;
+    disablePinchZoom(): void;
     /** Disallows zooming in or out on a map using a bounding box. */
     disableRubberBandZoom(): void;
+    /** Disables navigation of the map based on mouse scroll wheel. */
+    disableScrollWheel(): void;
     /** Disallows zooming in or out on a map using the mouse scroll wheel. */
     disableScrollWheelZoom(): void;
     /** Disallows shift double clicking on a map to zoom in a level and center the map. */
@@ -11871,8 +12452,12 @@ declare module "esri/map" {
     enableMapNavigation(): void;
     /** Permits users to pan a map using the mouse. */
     enablePan(): void;
+    /** Enables the user to work with pinch zoom navigation for touch-enabled devices. */
+    enablePinchZoom(): void;
     /** Permits users to zoom in or out on a map using a bounding box. */
     enableRubberBandZoom(): void;
+    /** Enables the user to navigate the map based on mouse scroll wheel. */
+    enableScrollWheel(): void;
     /** Permits users to zoom in or out on a map using the mouse scroll wheel. */
     enableScrollWheelZoom(): void;
     /** Permits users to shift double click on a map to zoom in a level and center the map. */
@@ -11906,7 +12491,7 @@ declare module "esri/map" {
     getMinScale(): number;
     /** Returns the minimum zoom level of the map. */
     getMinZoom(): number;
-    /** Returns the current map scale. */
+    /** Returns the map scale at the center of the view. */
     getScale(): number;
     /** Returns the current zoom level of the map. */
     getZoom(): number;
@@ -11952,7 +12537,7 @@ declare module "esri/map" {
     resize(immediate?: boolean): void;
     /**
      * Change the background color of the map.
-     * @param color Color specified using either a named string (e.g.
+     * @param color Color specified using either a named string (for example red), hex string (for example #FF0000), array of rgba values with "a" in the 0-1 range (for example [255,0,0,0.75]), or an instance of esri/Color.
      */
     setBackgroundColor(color: Color | string): void;
     /**
@@ -12001,6 +12586,11 @@ declare module "esri/map" {
      * @param visible If true, map will be visible.
      */
     setVisibility(visible: boolean): Map;
+    /**
+     * Toggles WebGL rendering on/off for all FeatureLayers in the map.
+     * @param enable Indicates whether to enable WebGL rendering on the FeatureLayers in the map.
+     */
+    setWebGLEnabled(enable: boolean): void;
     /**
      * Set the map zoom level to the given value.
      * @param zoom A valid zoom level value.
@@ -12099,503 +12689,6 @@ declare module "esri/map" {
     on(type: string, listener: (event: any) => void): esri.Handle;
   }
   export = Map;
-}
-
-declare module "esri/opsdashboard/DataSourceProxy" {
-  import Field = require("esri/layers/Field");
-  import FeatureType = require("esri/layers/FeatureType");
-  import Query = require("esri/tasks/query");
-  import Graphic = require("esri/graphic");
-
-  /** DataSourceProxy is a proxy class that represents a operations dashboard data source. */
-  class DataSourceProxy {
-    /** Read-only: The name of the display field. */
-    displayFieldName: string;
-    /** Read-only: The collection of fields. */
-    fields: Field[];
-    /** Read-only: The geometry type. */
-    geometryType: string;
-    /** Read-only: The id of the data source. */
-    id: string;
-    /** Read-only: Indicates if the last query failed and the data source is in a broken state. */
-    isBroken: boolean;
-    /** Read-only: The mapWidgetId of the data source. */
-    mapWidgetId: string;
-    /** Read-only: The name of the data source. */
-    name: string;
-    /** Read-only: The name of the object id field. */
-    objectIdFieldName: string;
-    /** Read-only: Indicates if the data source supports selections. */
-    supportsSelection: boolean;
-    /** Read-only: The name of the type id field. */
-    typeIdFieldName: string;
-    /** Read-only: The collection of feature types. */
-    types: FeatureType[];
-    /** Clear the selection. */
-    clearSelection(): void;
-    /**
-     * Executes a query and get the result.
-     * @param query The query object to apply.
-     */
-    executeQuery(query: Query): any;
-    /** An object that contains service level metadata about whether or not the layer supports queries using statistics, order by fields, DISTINCT, pagination, query with distance, and returning queries with extents. */
-    getAdvancedQueryCapabilities(): any;
-    /** Retrieve the associated id of the data source that supports selection. */
-    getAssociatedSelectionDataSourceId(): any;
-    /** Get the associated popupInfo for the data source if any available. */
-    getPopupInfo(): any;
-    /** Get the associated render object for the data source if any available. */
-    getRenderer(): any;
-    /**
-     * Get the feature type from a feature coming from the data source.
-     * @param feature A feature coming from the data source
-     */
-    getTypeFromFeature(feature: Graphic): any;
-    /**
-     * Returns the value corresponding to a field name from a feature coming from the data source.
-     * @param feature A feature coming from the data source
-     * @param fieldName The name of the field for which the value should be returned.
-     */
-    getValueFromFeature(feature: Graphic, fieldName: string): number | string;
-    /**
-     * Select features in the data source using a query.
-     * @param query The query object to apply
-     */
-    selectFeatures(query: Query): void;
-    /**
-     * Select features in the data source using a collection of object ids.
-     * @param objectIds The collection of object ids of the features to select.
-     */
-    selectFeaturesByObjectIds(objectIds: number[]): void;
-  }
-  export = DataSourceProxy;
-}
-
-declare module "esri/opsdashboard/ExtensionBase" {
-  import esri = require("esri");
-  import MapWidgetProxy = require("esri/opsdashboard/MapWidgetProxy");
-
-  /** ExtensionBase is a base class used by all the extension proxies. */
-  class ExtensionBase {
-    /** "circle" */
-    static CIRCLE: any;
-    /** "extent" */
-    static EXTENT: any;
-    /** "freehandpolygon" */
-    static FREEHAND_POLYGON: any;
-    /** "freehandpolyline" */
-    static FREEHAND_POLYLINE: any;
-    /** "line" */
-    static LINE: any;
-    /** "point" */
-    static POINT: any;
-    /** "polygon" */
-    static POLYGON: any;
-    /** "polyline" */
-    static POLYLINE: any;
-    /** Read-only: Indicates if the host application is the Windows Operations Dashboard. */
-    isNative: boolean;
-    /** Read-only: It will list all of the Portal helper services. */
-    portalHelperServices: any;
-    /** Read-only: The URL to the ArcGIS.com site or in-house portal that you are currently signed in to. */
-    portalUrl: string;
-    /** Get the collection of data sources from the host application. */
-    getDataSourceProxies(): any;
-    /**
-     * Get the data source corresponding to the data source id from the host application.
-     * @param dataSourceId The data source id
-     */
-    getDataSourceProxy(dataSourceId: string): any;
-    /** Get the collection of map widgets from the host application. */
-    getMapWidgetProxies(): any;
-    /**
-     * Get the map widget corresponding to the map widget id from the host application.
-     * @param mapWidgetId A map widget id
-     */
-    getMapWidgetProxy(mapWidgetId: string): any;
-    /**
-     * Called when an error occurred during the initialization process with the host application.
-     * @param err The error that occurred.
-     */
-    hostInitializationError(err: Error): void;
-    /** Called by the host application when the relationship has been established with the extension. */
-    hostReady(): void;
-    /**
-     * Called by the host application when a map widget has been added to the current view.
-     * @param mapWidgetProxy A map widget id.
-     */
-    mapWidgetAdded(mapWidgetProxy: MapWidgetProxy): void;
-    /**
-     * Called by the host application when a map widget has been removed from the current view.
-     * @param mapWidgetId A map widget id.
-     */
-    mapWidgetRemoved(mapWidgetId: string): void;
-    /** Event indicating that a new data source has been added into the host operation view. */
-    on(type: "data-source-added", listener: (event: { dataSourceProxy: any; target: ExtensionBase }) => void): esri.Handle;
-    /** Event indicating that a data source has been removed from the host operation view. */
-    on(type: "data-source-removed", listener: (event: { dataSourceId: string; target: ExtensionBase }) => void): esri.Handle;
-    /** Event indicating that the initialization process was successful. */
-    on(type: "host-ready", listener: (event: { target: ExtensionBase }) => void): esri.Handle;
-    /** Event indicating that the initialization process encountered an error. */
-    on(type: "initialization-error", listener: (event: { error: Error; target: ExtensionBase }) => void): esri.Handle;
-    /** Event indicating that a new map widget has been added into the host operation view. */
-    on(type: "map-widget-added", listener: (event: { mapWidgetProxy: MapWidgetProxy; target: ExtensionBase }) => void): esri.Handle;
-    /** Event indicating that a map widget has been removed from the host operation view. */
-    on(type: "map-widget-removed", listener: (event: { mapWidgetId: string; target: ExtensionBase }) => void): esri.Handle;
-    on(type: string, listener: (event: any) => void): esri.Handle;
-  }
-  export = ExtensionBase;
-}
-
-declare module "esri/opsdashboard/ExtensionConfigurationBase" {
-  import ExtensionBase = require("esri/opsdashboard/ExtensionBase");
-
-  /** ExtensionConfigurationBase is a base class used by all the extension configuration proxies. */
-  class ExtensionConfigurationBase extends ExtensionBase {
-    /** The object that will store the Widget/MapTool/FeatureAction configuration. */
-    config: any;
-    /**
-     * Indicates if the configuration is ready to be persisted or not.
-     * @param ready Indicates that the configuration is ready to be persisted or not.
-     */
-    readyToPersistConfig(ready: boolean): void;
-  }
-  export = ExtensionConfigurationBase;
-}
-
-declare module "esri/opsdashboard/FeatureActionConfigurationProxy" {
-  import ExtensionConfigurationBase = require("esri/opsdashboard/ExtensionConfigurationBase");
-
-  /** FeatureActionConfigurationProxy is a class used to provide the configuration user experience for an operations dashboard extension feature action. */
-  class FeatureActionConfigurationProxy extends ExtensionConfigurationBase {
-  }
-  export = FeatureActionConfigurationProxy;
-}
-
-declare module "esri/opsdashboard/FeatureActionFeatures" {
-  import DataSourceProxy = require("esri/opsdashboard/DataSourceProxy");
-  import Graphic = require("esri/graphic");
-
-  /** FeatureActionFeatures is a specialized collection of features used by WidgetProxy to hold the collection of features for the associated feature actions. */
-  class FeatureActionFeatures {
-    /** The DataSourceProxy from which the collection of features belongs to. */
-    dataSourceProxy: DataSourceProxy;
-    /**
-     * Add a feature to the host collection.
-     * @param featureOrObjectId
-     */
-    addFeature(featureOrObjectId: Graphic | number): void;
-    /**
-     * Add a collection of features or collection of object id in the host collection.
-     * @param featuresOrObjectIds
-     */
-    addFeatures(featuresOrObjectIds: Graphic[] | number[]): void;
-    /** Remove all the features from the host collection. */
-    clear(): void;
-    /**
-     * Test if a feature exists in the host collection.
-     * @param featureOrObjectId Feature to test existance for.
-     */
-    contains(featureOrObjectId: Graphic | number): boolean;
-    /**
-     * Returns the index of a feature in the host collection.
-     * @param featureOrObjectId Feature to return index from.
-     */
-    indexOf(featureOrObjectId: Graphic | number): number;
-    /**
-     * Remove a collection of features from the host collection.
-     * @param featureOrObjectId Feature to remove.
-     */
-    removeFeature(featureOrObjectId: Graphic | number): void;
-    /**
-     * Remove a feature from the host collection.
-     * @param featuresOrObjectIds Features to remove.
-     */
-    removeFeatures(featuresOrObjectIds: Graphic[] | number[]): void;
-  }
-  export = FeatureActionFeatures;
-}
-
-declare module "esri/opsdashboard/GraphicsLayerProxy" {
-  import Renderer = require("esri/renderers/Renderer");
-  import Graphic = require("esri/graphic");
-
-  /** GraphicsLayerProxy is a proxy class that represents a graphics layer in a map widget in the host application. */
-  class GraphicsLayerProxy {
-    /** Read-only: The current host graphics layer maximum visible scale. */
-    maxScale: number;
-    /** Read-only: The current host graphics layer minimum visible scale. */
-    minScale: number;
-    /** Read-only: The current host graphics layer opacity ratio. */
-    opacity: number;
-    /** Read-only: The current renderer used by the host graphics layer. */
-    renderer: Renderer;
-    /** Read-only: The current host graphics layer visibility. */
-    visible: boolean;
-    /**
-     * Update a graphic in the host graphics layer with a new version.
-     * @param graphic The graphic to update in the host graphics layer.
-     */
-    addOrUpdateGraphic(graphic: Graphic): void;
-    /**
-     * Update graphics in the host graphics layer with a new version.
-     * @param graphics The graphics to update in the host graphics layer.
-     */
-    addOrUpdateGraphics(graphics: Graphic[]): void;
-    /** Removes all the graphics from the host graphics layer. */
-    clear(): void;
-    /**
-     * Removes from the host graphics layer a graphic.
-     * @param graphic The graphic to remove from the host graphics layer.
-     */
-    removeGraphic(graphic: Graphic): void;
-    /**
-     * Sets the host graphics layer maximum scale.
-     * @param maxScale
-     */
-    setMaxScale(maxScale: number): void;
-    /**
-     * Sets the host graphics layer minimum scale.
-     * @param minScale
-     */
-    setMinScale(minScale: number): void;
-    /**
-     * Sets the host graphics layer opacity ratio.
-     * @param opacity An opacity ratio between 0 and 1.
-     */
-    setOpacity(opacity: number): void;
-    /**
-     * Sets the host graphics layer renderer.
-     * @param renderer Since the Windows operations dashboard is built using ArcGIS Runtime SDK for WPF, only renderers supported by the WPF should be used, such as SimpleRenderer, UniqueValueRenderer and ClassBreaksRenderer.
-     */
-    setRenderer(renderer: Renderer): void;
-    /**
-     * Set the visibility of the host graphics layer.
-     * @param visibility The new visibility value.
-     */
-    setVisibility(visibility: boolean): void;
-  }
-  export = GraphicsLayerProxy;
-}
-
-declare module "esri/opsdashboard/MapToolConfigurationProxy" {
-  import ExtensionConfigurationBase = require("esri/opsdashboard/ExtensionConfigurationBase");
-
-  /** MapToolConfigurationProxy is a class used to provide the configuration user experience for an operations dashboard extension map tool. */
-  class MapToolConfigurationProxy extends ExtensionConfigurationBase {
-  }
-  export = MapToolConfigurationProxy;
-}
-
-declare module "esri/opsdashboard/MapToolProxy" {
-  import esri = require("esri");
-  import MapWidgetProxy = require("esri/opsdashboard/MapWidgetProxy");
-  import Geometry = require("esri/geometry/Geometry");
-
-  /** MapToolProxy is a class used to define an operations dashboard extension map tool. */
-  class MapToolProxy {
-    /** Read-only: The available size for the map tool user experience on the host map widget. */
-    availableDisplaySize: number;
-    /** Read-only: The map tool user experience size in pixels. */
-    displaySize: any;
-    /** Read-only: The map widget that is hosting the map tool user experience. */
-    mapWidgetProxy: MapWidgetProxy;
-    /** Read-only: The previous map tool user experience state that was passed the last time the map tool was deactivated. */
-    previousState: any;
-    /**
-     * Activates a drawing activity on the host map widget.
-     * @param options Drawing options.
-     */
-    activateMapDrawing(options: any): void;
-    /**
-     * Called by the host application when the available size for the map tool user experience has changed (user resizes the application or the map widget).
-     * @param availableSize The size available on the host map widget for the map tool user experience.
-     */
-    availableDisplaySizeChanged(availableSize: any): void;
-    /** Deactivates the drawing activity on the host map widget. */
-    deactivateMapDrawing(): void;
-    /**
-     * Deactivate the map tool user experience.
-     * @param state A JSON object that needs to be persisted in the host until the next activation of the map tool user experience.
-     */
-    deactivateMapTool(state: any): void;
-    /**
-     * Called by the host application when the user has completed the drawing activity on the map.
-     * @param geometry The geometry captured by the user during the drawing activity.
-     */
-    mapDrawComplete(geometry: Geometry): void;
-    /**
-     * Change the size of the user experience area in the host application for this map tool user experience.
-     * @param size The new size for the user experience.
-     */
-    setDisplaySize(size: any): any;
-    /** Event indicating that the available display size for the map tool user experience has changed. */
-    on(type: "available-display-size-changed", listener: (event: { size: any; target: MapToolProxy }) => void): esri.Handle;
-    /** Event indicating that a previously activate drawing activity has been completed by the user. */
-    on(type: "draw-complete", listener: (event: { geometry: Geometry; target: MapToolProxy }) => void): esri.Handle;
-    on(type: string, listener: (event: any) => void): esri.Handle;
-  }
-  export = MapToolProxy;
-}
-
-declare module "esri/opsdashboard/MapWidgetProxy" {
-  import esri = require("esri");
-  import SpatialReference = require("esri/SpatialReference");
-  import GraphicsLayerProxy = require("esri/opsdashboard/GraphicsLayerProxy");
-  import Point = require("esri/geometry/Point");
-  import Extent = require("esri/geometry/Extent");
-
-  /** MapWidgetProxy is a proxy class that represents a operations dashboard map widget. */
-  class MapWidgetProxy {
-    /** Read-only: The map id. */
-    id: string;
-    /** Read-only: The name of the map. */
-    name: string;
-    /** Read-only: The spatial reference of the map. */
-    spatialReference: SpatialReference;
-    /**
-     * Creates a graphics layer in the host map.
-     * @param options The options for the new graphics layer
-     */
-    createGraphicsLayerProxy(options?: any): any;
-    /**
-     * Destroys in the host map a host graphics layer.
-     * @param graphicsLayerProxy The host graphics layer to destroy.
-     */
-    destroyGraphicsLayerProxy(graphicsLayerProxy: GraphicsLayerProxy): void;
-    /** Gets the current host map extent. */
-    getMapExtent(): any;
-    /**
-     * Pans the map to a new location.
-     * @param mapPoint A new location with the same spatial reference as the host map.
-     */
-    panTo(mapPoint: Point): void;
-    /**
-     * Sets an extent on the host map extent.
-     * @param extent A new map extent.
-     */
-    setExtent(extent: Extent): void;
-    /** Subscribes to the host map events. */
-    subscribeToMapEvents(): void;
-    /** Unsubscribes from the host map events. */
-    unsubscribeFromMapEvents(): void;
-    /** Event indicating that the host map extent has changed. */
-    on(type: "map-extent-change", listener: (event: { extent: Extent; target: MapWidgetProxy }) => void): esri.Handle;
-    on(type: string, listener: (event: any) => void): esri.Handle;
-  }
-  export = MapWidgetProxy;
-}
-
-declare module "esri/opsdashboard/WidgetConfigurationProxy" {
-  import esri = require("esri");
-  import ExtensionConfigurationBase = require("esri/opsdashboard/ExtensionConfigurationBase");
-  import DataSourceProxy = require("esri/opsdashboard/DataSourceProxy");
-  import MapWidgetProxy = require("esri/opsdashboard/MapWidgetProxy");
-
-  /** WidgetConfigurationProxy is a class used to provide the configuration user experience for an operations dashboard extension widget. */
-  class WidgetConfigurationProxy extends ExtensionConfigurationBase {
-    /**
-     * Called by the host application when the user has changed the selected data source in the data source selector.
-     * @param dataSourceProxy The selected data source.
-     * @param dataSourceConfig The associated data source config.
-     */
-    dataSourceSelectionChanged(dataSourceProxy: DataSourceProxy, dataSourceConfig: any): void;
-    /**
-     * Get the data source config for a data source.
-     * @param dataSourceProxyOrDataSourceId A data source or a data source id.
-     */
-    getDataSourceConfig(dataSourceProxyOrDataSourceId: DataSourceProxy | string): any;
-    /**
-     * Called by the host application when the user has changed the selected map widget in the map widget selector.
-     * @param mapWidgetProxy The selected map widget.
-     */
-    mapWidgetSelectionChanged(mapWidgetProxy: MapWidgetProxy): void;
-    /** Event indicating the user has changed the selected data source for the configuration. */
-    on(type: "data-source-selection-changed", listener: (event: { dataSourceConfig: any; dataSourceProxy: DataSourceProxy; target: WidgetConfigurationProxy }) => void): esri.Handle;
-    /** Event indicating the user has changed the selected map widget for the configuration. */
-    on(type: "map-widget-selection-changed", listener: (event: { mapWidgetProxy: MapWidgetProxy; target: WidgetConfigurationProxy }) => void): esri.Handle;
-    on(type: string, listener: (event: any) => void): esri.Handle;
-  }
-  export = WidgetConfigurationProxy;
-}
-
-declare module "esri/opsdashboard/WidgetProxy" {
-  import esri = require("esri");
-  import ExtensionBase = require("esri/opsdashboard/ExtensionBase");
-  import FeatureActionFeatures = require("esri/opsdashboard/FeatureActionFeatures");
-  import MapWidgetProxy = require("esri/opsdashboard/MapWidgetProxy");
-  import DataSourceProxy = require("esri/opsdashboard/DataSourceProxy");
-  import Graphic = require("esri/graphic");
-  import Geometry = require("esri/geometry/Geometry");
-
-  /** WidgetProxy is a class used to define an operations dashboard extension widget. */
-  class WidgetProxy extends ExtensionBase {
-    /** Read-only: If the widget was configured to consume data sources, the dataSourceConfig array will hold a collection of dataSourceConfig objects. */
-    dataSourceConfigs: any[];
-    /** Read-only: The host collection of features used by the widget feature actions. */
-    featureActionFeatures: FeatureActionFeatures;
-    /** Read-only: Indicates if the widget has a default feature action associated with. */
-    hasDefaultFeatureAction: boolean;
-    /** Read-only: Indicates if the widget has feature actions associated with it. */
-    hasFeatureActions: boolean;
-    /**
-     * Activate a drawing toolbar on a map widget.
-     * @param options
-     * @param mapWidgetProxy The target map widget.
-     */
-    activateDrawingToolbar(options?: any, mapWidgetProxy?: MapWidgetProxy): any;
-    /**
-     * Called by the host application when a data source state has expired.
-     * @param dataSourceProxy
-     * @param associated dataSourceConfig
-     */
-    dataSourceExpired(dataSourceProxy: DataSourceProxy, associated?: any): void;
-    /**
-     * Deactivate the drawing toolbar on the map widget.
-     * @param mapWidgetProxy The target map widget.
-     */
-    deactivateDrawingToolbar(mapWidgetProxy?: MapWidgetProxy): void;
-    /** Called by the host application when the user has canceled the drawing activity. */
-    drawingToolbarDeactivated(): void;
-    /**
-     * Execute the default feature action.
-     * @param featuresOrObjectIds
-     */
-    executeDefaultFeatureAction(featuresOrObjectIds: Graphic[] | number[]): void;
-    /**
-     * Get the data source config for a data source.
-     * @param dataSourceProxyOrDataSourceId A data source or a data source id.
-     */
-    getDataSourceConfig(dataSourceProxyOrDataSourceId: DataSourceProxy | string): any;
-    /**
-     * Called by the host application when the user has finished the drawing activity.
-     * @param geometry
-     */
-    toolbarDrawComplete(geometry: Geometry): void;
-    /** Event indicating that a data source validity has expired. */
-    on(type: "data-source-expired", listener: (event: { dataSourceConfig: any; dataSourceProxy: DataSourceProxy; target: WidgetProxy }) => void): esri.Handle;
-    /** Event indicating that the user has deactivated the previously activated drawing toolbar on the map widget. */
-    on(type: "drawing-toolbar-deactivated", listener: (event: { target: WidgetProxy }) => void): esri.Handle;
-    /** Event indicating the user has finished a drawing activity with the previously activated drawing toolbar. */
-    on(type: "toolbar-draw-complete", listener: (event: { geometry: Geometry; target: WidgetProxy }) => void): esri.Handle;
-    on(type: string, listener: (event: any) => void): esri.Handle;
-  }
-  export = WidgetProxy;
-}
-
-declare module "esri/opsdashboard/featureActionProxy" {
-  import esri = require("esri");
-  import ExtensionBase = require("esri/opsdashboard/ExtensionBase");
-  import DataSourceProxy = require("esri/opsdashboard/DataSourceProxy");
-  import FeatureSet = require("esri/tasks/FeatureSet");
-
-  /** featureActionProxy is a singleton object that allows implementing an operations dashboard Feature Action extension. */
-  class featureActionProxy extends ExtensionBase {
-    /** Event raised when the feature action should execute for a set of features. */
-    on(type: "execute", listener: (event: { config: any; dataSourceProxy: DataSourceProxy; featureSet: FeatureSet; target: featureActionProxy }) => void): esri.Handle;
-    on(type: string, listener: (event: any) => void): esri.Handle;
-  }
-  export = featureActionProxy;
 }
 
 declare module "esri/plugins/FeatureLayerStatistics" {
@@ -12827,7 +12920,10 @@ declare module "esri/renderers/ClassBreaksRenderer" {
     attributeField: string;
     /** To symbolize polygon features with graduated symbols, use backgroundFillSymbol to specify a simple fill symbol to represent polygon features, and use marker symbols of varying sizes in class breaks to indicate the quantity. */
     backgroundFillSymbol: FillSymbol;
-    /** Deprecated at v2.0, use infos instead. */
+    /**
+     * Deprecated at v2.0, use infos instead.
+     * @deprecated
+     */
     breaks: any[];
     /** The classification method used to generate class breaks. */
     classificationMethod: string;
@@ -12947,9 +13043,9 @@ declare module "esri/renderers/HeatmapRenderer" {
   import esri = require("esri");
   import Renderer = require("esri/renderers/Renderer");
 
-  /** The HeatmapRenderer renders point data into a raster visualization that emphasizes areas of higher density or weighted values. */
+  /** The HeatmapRenderer renders feature layer point data into a raster visualization that emphasizes areas of higher density or weighted values. */
   class HeatmapRenderer extends Renderer {
-    /** The radius (in pixels) of the circle over which the majority of each points value is spread out over. */
+    /** The radius (in pixels) of the circle over which the majority of each point's value is spread out. */
     blurRadius: number;
     /** An array of CSS color strings (#RGB, #RRGGBB, rgb(r,g,b), rgba(r,g,b,a)). */
     colors: string[];
@@ -13009,13 +13105,25 @@ declare module "esri/renderers/Renderer" {
 
   /** The base class for the renderers - SimpleRenderer, ClassBreaksRenderer, UniqueValueRenderer, DotDensityRenderer, ScaleDependentRenderer, TemporalRenderer, HeatmapRenderer, and VectorFieldRenderer used with a GraphicsLayer and FeatureLayer. */
   class Renderer {
-    /** Deprecated. */
+    /**
+     * Deprecated.
+     * @deprecated
+     */
     colorInfo: any;
-    /** Deprecated. */
+    /**
+     * Deprecated.
+     * @deprecated
+     */
     opacityInfo: any;
-    /** Deprecated. */
+    /**
+     * Deprecated.
+     * @deprecated
+     */
     rotationInfo: any;
-    /** Deprecated. */
+    /**
+     * Deprecated.
+     * @deprecated
+     */
     sizeInfo: any;
     /** This property allows you to define how to render values in a layer. */
     visualVariables: any[];
@@ -13052,27 +13160,31 @@ declare module "esri/renderers/Renderer" {
      * Returns the visual variable of the specified type.
      * @param type The type of visual variable desired.
      */
-    getVisualVariablesForType(type: string): any;
+    getVisualVariablesForType(type: string): any[];
     /** Indicates if the renderer has defined visualVariables. */
     hasVisualVariables(): boolean;
     /**
      * Deprecated.
      * @param info An info object that defines the color.
+     * @deprecated
      */
     setColorInfo(info: any): Renderer;
     /**
      * Deprecated.
      * @param info The info parameter is an object with the same properties as opacityInfo.
+     * @deprecated
      */
     setOpacityInfo(info: any): Renderer;
     /**
      * Deprecated.
      * @param info An object with the same properties as rotationInfo.
+     * @deprecated
      */
     setRotationInfo(info: any): Renderer;
     /**
      * Deprecated.
      * @param info An object with the same properties as sizeInfo.
+     * @deprecated
      */
     setSizeInfo(info: any): Renderer;
     /**
@@ -13262,6 +13374,7 @@ declare module "esri/renderers/TimeRampAger" {
 
 declare module "esri/renderers/UniqueValueRenderer" {
   import Renderer = require("esri/renderers/Renderer");
+  import FillSymbol = require("esri/symbols/FillSymbol");
   import Symbol = require("esri/symbols/Symbol");
   import Graphic = require("esri/graphic");
 
@@ -13273,6 +13386,8 @@ declare module "esri/renderers/UniqueValueRenderer" {
     attributeField2: string;
     /** If needed, specify an additional attribute field the renderer uses to match values. */
     attributeField3: string;
+    /** A symbol used for polygon features as a background if the renderer uses point symbols, for example for bivariate types & size rendering. */
+    backgroundFillSymbol: FillSymbol;
     /** Label for the default symbol used to draw unspecified values. */
     defaultLabel: string;
     /** Default symbol used when a value or break cannot be matched. */
@@ -13287,7 +13402,10 @@ declare module "esri/renderers/UniqueValueRenderer" {
     valueExpression: string;
     /** The title identifying and describing the associated Arcade expression as defined in the valueExpression property. */
     valueExpressionTitle: string;
-    /** Deprecated at v2.0, use infos instead. */
+    /**
+     * Deprecated at v2.0, use infos instead.
+     * @deprecated
+     */
     values: string[];
     /**
      * Creates a new UniqueValueRenderer object.
@@ -13417,6 +13535,11 @@ declare module "esri/renderers/smartMapping" {
      */
     createPredominanceRenderer(params: any): any;
     /**
+     * Creates a renderer for exploring the relationship between two numeric attributes.
+     * @param params See the object specifications table below for the structure of the params object.
+     */
+    createRelationshipRenderer(params: any): any;
+    /**
      * Defines the size of the symbol where feature size is proportional to data value.
      * @param params See the object specifications table below for the structure of the params object.
      */
@@ -13432,7 +13555,7 @@ declare module "esri/renderers/smartMapping" {
      */
     createTypeRenderer(params: any): any;
     /**
-     * Searches the fields of an input layer or array of field objects for field names commonly used in rendering based on usage (e.g.
+     * Searches the fields of an input layer or array of field objects for field names commonly used in rendering based on usage (e.g., RANK, TOTAL, AVERAGE, NAME, etc).
      * @param params See the object specifications table below for details about the params object.
      */
     getSuggestedField(params: any): any;
@@ -13456,6 +13579,122 @@ declare module "esri/request" {
     setRequestPreCallback(callbackFunction: Function): void;
   };
   export = request;
+}
+
+declare module "esri/styles/basic" {
+  /** This module contains a collection of themes suitable for basic visualization of features i.e. */
+  var basic: {
+    /**
+     * Returns available themes.
+     * @param basemap Specify the basemap name if you only want themes applicable to a specific basemap, for example:  Example: streets, gray, topo, terrain, national-geographic, oceans, osm, satellite, hybrid, dark-gray.
+     */
+    getAvailableThemes(basemap?: string): any[];
+    /**
+     * Returns schemes matching the given parameters.
+     * @param params Parameters used to determine the returned scheme type.
+     */
+    getSchemes(params: any): any;
+  };
+  export = basic;
+}
+
+declare module "esri/styles/choropleth" {
+  /** This module contains a collection of themes suitable for unclassed and classed choropleth mapping. */
+  var choropleth: {
+    /**
+     * Returns available themes.
+     * @param basemap Specify the basemap name if you only want themes applicable to a specific basemap, for example:  Example: streets, gray, topo, terrain, national-geographic, oceans, osm, satellite, hybrid, dark-gray.
+     */
+    getAvailableThemes(basemap?: string): any[];
+    /**
+     * Returns schemes matching the given parameters.
+     * @param params Parameters used to determine the returned scheme type.
+     */
+    getSchemes(params: any): any;
+  };
+  export = choropleth;
+}
+
+declare module "esri/styles/heatmap" {
+  /** This module contains a collection of themes suitable for visualizing features using a heatmap. */
+  var heatmap: {
+    /**
+     * Returns available themes.
+     * @param basemap Specify the basemap name if you only want themes applicable to a specific basemap, for example:  Example: streets, gray, topo, terrain, national-geographic, oceans, osm, satellite, hybrid, dark-gray.
+     */
+    getAvailableThemes(basemap?: string): any[];
+    /**
+     * Returns schemes matching the given parameters.
+     * @param params Parameters used to determine the returned scheme type.
+     */
+    getSchemes(params: any): any;
+  };
+  export = heatmap;
+}
+
+declare module "esri/styles/relationship" {
+  /** This module contains a collection of color schemes suitable for creating relationship (or bivariate choropleth) visualizations. */
+  var relationship: {
+    /**
+     * Returns themes available for the given basemap.
+     * @param basemap Specifies the basemap name if you only want themes applicable to a specific basemap, for example: streets, gray, topo,  terrain, national-geographic, oceans, osm, satellite, hybrid, dark-gray.
+     */
+    getAvailableThemes(basemap: string): any[];
+    /**
+     * Returns the primary and secondary color schemes for the given theme, basemap, and geometry type.
+     * @param params See the params Object Specifications table below for a description of the method parameters.
+     */
+    getSchemes(params: any): any;
+  };
+  export = relationship;
+}
+
+declare module "esri/styles/size" {
+  /** This module contains a collection of themes useful for visualizing points and lines by varying their size to show data. */
+  var size: {
+    /**
+     * Returns available themes.
+     * @param basemap Specify the basemap name if you only want themes applicable to a specific basemap, for example:  Example: streets, gray, topo, terrain, national-geographic, oceans, osm, satellite, hybrid, dark-gray.
+     */
+    getAvailableThemes(basemap?: string): any[];
+    /**
+     * Returns schemes matching the given parameters.
+     * @param params Parameters used to determine the returned scheme type.
+     */
+    getSchemes(params: any): any;
+  };
+  export = size;
+}
+
+declare module "esri/styles/type" {
+  /** This module contains a collection of themes suitable for visualizing features by their type. */
+  var type: {
+    /**
+     * Returns available themes.
+     * @param basemap Specify the basemap name if you only want themes applicable to a specific basemap, for example:  Example: streets, gray, topo, terrain, national-geographic, oceans, osm, satellite, hybrid, dark-gray.
+     */
+    getAvailableThemes(basemap?: string): any[];
+    /**
+     * Returns schemes matching the given parameters.
+     * @param params Parameters used to determine the returned scheme type.
+     */
+    getSchemes(params: any): any;
+  };
+  export = type;
+}
+
+declare module "esri/support/expressionUtils" {
+  /** A utility module that allows you to enable geometry operations referenced inside Arcade expressions. */
+  var expressionUtils: {
+    /** Loads all geometry operations for use in any Arcade expression within the given application. */
+    enableGeometryOperations(): any;
+    /**
+     * Indicates if the given Arcade expression contains one or more geometry operations.
+     * @param expression The Arcade expression to evaluate for the presence of one or more geometry operations.
+     */
+    hasGeometryOperations(expression: string): boolean;
+  };
+  export = expressionUtils;
 }
 
 declare module "esri/symbols/CartographicLineSymbol" {
@@ -13588,7 +13827,10 @@ declare module "esri/symbols/Font" {
     size: number;
     /** Text style. */
     style: string;
-    /** Text variant. */
+    /**
+     * Text variant (deprecated).
+     * @deprecated
+     */
     variant: string;
     /** Text weight. */
     weight: string;
@@ -13629,8 +13871,9 @@ declare module "esri/symbols/Font" {
      */
     setStyle(style: string): Font;
     /**
-     * Sets the font variant.
+     * Sets the font variant (deprecated).
      * @param variant Font variant.
+     * @deprecated
      */
     setVariant(variant: string): Font;
     /**
@@ -13888,6 +14131,8 @@ declare module "esri/symbols/SimpleLineSymbol" {
     static STYLE_SHORTDOT: any;
     /** The line is solid. */
     static STYLE_SOLID: any;
+    /** Indicates marker symbols present at the beginning and/or end of a SimpleLineSymbol. */
+    marker: any;
     /** The line style. */
     style: string;
     /** Creates a new empty SimpleLineSymbol object. */
@@ -13904,6 +14149,11 @@ declare module "esri/symbols/SimpleLineSymbol" {
      * @param json JSON object representing the SimpleLineSymbol.
      */
     constructor(json: Object);
+    /**
+     * Sets marker symbols at the beginning and/or end of a SimpleLineSymbol.
+     * @param options The options defining the marker style and placement.
+     */
+    setMarker(options: any): void;
     /**
      * Sets the line symbol style.
      * @param style Line style.
@@ -14013,11 +14263,17 @@ declare module "esri/symbols/TextSymbol" {
     static DECORATION_OVERLINE: any;
     /** Text is underlined. */
     static DECORATION_UNDERLINE: any;
-    /** The text alignment in relation to the point. */
+    /**
+     * The text alignment in relation to the point.
+     * @deprecated
+     */
     align: string;
     /** Text angle. */
     angle: number;
-    /** The decoration on the text. */
+    /**
+     * The decoration on the text.
+     * @deprecated
+     */
     decoration: string;
     /** Font for displaying text. */
     font: Font;
@@ -14059,6 +14315,7 @@ declare module "esri/symbols/TextSymbol" {
     /**
      * Sets the alignment of the text.
      * @param align The text alignment.
+     * @deprecated
      */
     setAlign(align: string): TextSymbol;
     /**
@@ -14069,6 +14326,7 @@ declare module "esri/symbols/TextSymbol" {
     /**
      * Sets the decoration for the text.
      * @param decoration The decoration on the text.
+     * @deprecated
      */
     setDecoration(decoration: string): TextSymbol;
     /**
@@ -14873,7 +15131,7 @@ declare module "esri/tasks/GeometryService" {
     distance(params: DistanceParameters, callback?: Function, errback?: Function): any;
     /**
      * Converts an array of well-known strings into xy-coordinates based on the conversion type and spatial reference supplied by the user.
-     * @param params See the object specifications table below for the structure of the  params  object.
+     * @param params See the object specifications table below for the structure of the params object.
      * @param callback The function to call when the method has completed.
      * @param errback An error object is returned if an error occurs during task execution.
      */
@@ -14908,7 +15166,7 @@ declare module "esri/tasks/GeometryService" {
      */
     lengths(lengthsParameter: LengthsParameters, callback?: Function, errback?: Function): any;
     /**
-     * Constructs the offset of the input geometries.
+     * Constructs the offset of the input geometries based on a planar distance.
      * @param params Set the geometries to offset, distance and units.
      * @param callback The function to call when the method has completed.
      * @param errback An error object is returned if an error occurs during task execution.
@@ -14945,7 +15203,7 @@ declare module "esri/tasks/GeometryService" {
     simplify(geometries: Geometry[], callback?: Function, errback?: Function): any;
     /**
      * Converts an array of xy-coordinates into well-known strings based on the conversion type and spatial reference supplied by the user.
-     * @param params See the object specifications table below for the structure of the  params  object.
+     * @param params See the object specifications table below for the structure of the params object.
      * @param callback The function to call when the method has completed.
      * @param errback An error object is returned if an error occurs during task execution.
      */
@@ -15020,7 +15278,10 @@ declare module "esri/tasks/Geoprocessor" {
 
   /** Represents a GP Task resource exposed by the ArcGIS Server REST API. */
   class Geoprocessor {
-    /** Deprecated at v2.0, use outSpatialReference instead. */
+    /**
+     * Deprecated at v2.0, use outSpatialReference instead.
+     * @deprecated
+     */
     outputSpatialReference: SpatialReference;
     /** The spatial reference of the output geometries. */
     outSpatialReference: SpatialReference;
@@ -15089,6 +15350,7 @@ declare module "esri/tasks/Geoprocessor" {
     /**
      * Deprecated at v2.0, use setOutSpatialReference instead.
      * @param spatialReference The well-known ID of a spatial reference.
+     * @deprecated
      */
     setOutputSpatialReference(spatialReference: SpatialReference): void;
     /**
@@ -15173,8 +15435,12 @@ declare module "esri/tasks/IdentifyParameters" {
     mapExtent: Extent;
     /** The maximum allowable offset used for generalizing geometries returned by the identify operation. */
     maxAllowableOffset: number;
+    /** If true, field names will be returned instead of field aliases. */
+    returnFieldName: boolean;
     /** If "true", the result set includes the geometry associated with each result. */
     returnGeometry: boolean;
+    /** If true, the values in the result will not be formatted i.e. */
+    returnUnformattedValues: boolean;
     /** The spatial reference of the input and output geometries as well as of the mapExtent. */
     spatialReference: SpatialReference;
     /** Specify the time extent used by the identify task. */
@@ -15248,6 +15514,8 @@ declare module "esri/tasks/ImageServiceIdentifyParameters" {
   class ImageServiceIdentifyParameters {
     /** Input geometry that defines the location to be identified. */
     geometry: Geometry;
+    /** If the returnCatalogItems parameter is set to true, this parameter will take effect. */
+    maxItemCount: number;
     /** Specifies the mosaic rules defining the image sorting order. */
     mosaicRule: MosaicRule;
     /** The pixel or RGB color value representing no information. */
@@ -15266,6 +15534,8 @@ declare module "esri/tasks/ImageServiceIdentifyParameters" {
     returnCatalogItems: boolean;
     /** When true, each feature in the catalog items includes the geometry. */
     returnGeometry: boolean;
+    /** If true, returns the pixel values of all mosaicked raster catalog items under the requested geometry. */
+    returnPixelValues: boolean;
     /** Specify a time extent. */
     timeExtent: TimeExtent;
     /** Creates a new ImageServiceIdentifyParameters object. */
@@ -15546,7 +15816,7 @@ declare module "esri/tasks/OffsetParameters" {
     bevelRatio: number;
     /** The array of geometries to be offset. */
     geometries: Geometry[];
-    /** Specifies the distance for constructing an offset based on the input geometries. */
+    /** Specifies the planar distance for constructing an offset based on the input geometries. */
     offsetDistance: number;
     /** Options that determine how the ends intersect. */
     offsetHow: string;
@@ -15628,6 +15898,8 @@ declare module "esri/tasks/PrintTemplate" {
   class PrintTemplate {
     /** Define the map width, height and dpi. */
     exportOptions: any;
+    /** When true, the feature's attributes are included in feature collection layers even when they are not needed for rendering. */
+    forceFeatureAttributes: boolean;
     /** The print output format. */
     format: string;
     /** The text that appears on the Print widget's print button. */
@@ -15672,12 +15944,17 @@ declare module "esri/tasks/ProjectParameters" {
 
 declare module "esri/tasks/QueryTask" {
   import esri = require("esri");
+  import LayerSource = require("esri/layers/LayerSource");
   import Query = require("esri/tasks/query");
   import RelationshipQuery = require("esri/tasks/RelationshipQuery");
   import FeatureSet = require("esri/tasks/FeatureSet");
 
   /** Executes a query operation on a layer resource of a map service exposed by the ArcGIS Server REST API. */
   class QueryTask {
+    /** The geodatabase version to display. */
+    gdbVersion: string;
+    /** The dynamic layer or table source. */
+    source: LayerSource;
     /** URL to the ArcGIS Server REST resource that represents a map service layer. */
     url: string;
     /**
@@ -15890,7 +16167,7 @@ declare module "esri/tasks/RouteParameters" {
     startTimeIsUTC: boolean;
     /** The set of stops loaded as network locations during analysis. */
     stops: any;
-    /** If true , the TimeWindowStart and TimeWindowEnd attributes of a stop are in UTC time (milliseconds). */
+    /** If true, the TimeWindowStart and TimeWindowEnd attributes of a stop are in UTC time (milliseconds). */
     timeWindowsAreUTC: boolean;
     /** Travel modes define how a pedestrian, car, truck or other medium of transportation moves through the street network. */
     travelMode: any;
@@ -17172,7 +17449,7 @@ declare module "esri/tasks/locator" {
      */
     constructor(url: string);
     /**
-     * Find address candidates for the input addresses.
+     * Find address candidates for multiple input addresses.
      * @param params The input addresses in the format supported by the geocoding service.
      * @param callback The function to call when the method has completed.
      * @param errback The function to call if an error occurs on the server during task execution.
@@ -17180,7 +17457,7 @@ declare module "esri/tasks/locator" {
     addressesToLocations(params: any, callback: Function, errback: Function): any;
     /**
      * Sends a request to the ArcGIS REST geocode resource to find candidates for a single address specified in the address parameter.
-     * @param params Specify the address and optionally specify the outFields and searchExtent.
+     * @param params Specify at least the address and optionally other properties.
      * @param callback The function to call when the method has completed.
      * @param errback An error object is returned if an error occurs on the Server during task execution.
      */
@@ -17919,5 +18196,18 @@ declare module "esri/workers/WorkerClient" {
     terminate(): void;
   }
   export = WorkerClient;
+}
+
+declare module "sri/dijit/geoenrichment/ReportPlayer/PlayerZoomBehaviors" {
+  /** Enumerator of available zoom behavior options for the ReportPlayer. */
+  class PlayerZoomBehaviors {
+    /** The Report Player zooms in to fit a full page in the viewable area. */
+    static FIT_PAGE: any;
+    /** The Report Player zooms to fit the full page's width in the viewable area. */
+    static FIT_PAGE_WIDTH: any;
+    /** The zoom will be set to 100% (not zoomed). */
+    static RESET: any;
+  }
+  export = PlayerZoomBehaviors;
 }
 

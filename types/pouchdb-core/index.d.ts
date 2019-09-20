@@ -1,29 +1,123 @@
-// Type definitions for pouchdb-core v6.1.2
-// Project: https://pouchdb.com/
-// Definitions by: Simon Paulger <https://github.com/spaulg>, Jakub Navratil <https://github.com/trubit>, Brian Geppert <https://github.com/geppy>, Frederico Galvão <https://github.com/fredgalvao>
+// Type definitions for pouchdb-core 7.0
+// Project: https://pouchdb.com/, https://github.com/pouchdb/pouchdb
+// Definitions by: Simon Paulger <https://github.com/spaulg>, Jakub Navratil <https://github.com/trubit>,
+//                 Brian Geppert <https://github.com/geppy>, Frederico Galvão <https://github.com/fredgalvao>,
+//                 Tobias Bales <https://github.com/TobiasBales>, Sebastián Ramírez <https://github.com/tiangolo>,
+//                 Katy Moe <https://github.com/kmoe>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
-/// <reference types="node" />
 /// <reference types="debug" />
+/// <reference types="pouchdb-find" />
+/// <reference types="node-fetch" />
+
+interface Blob {
+    readonly size: number;
+    readonly type: string;
+    slice(start?: number, end?: number, contentType?: string): Blob;
+}
+
+interface Buffer extends Uint8Array {
+    write(string: string, offset?: number, length?: number, encoding?: string): number;
+    toString(encoding?: string, start?: number, end?: number): string;
+    toJSON(): { type: 'Buffer', data: any[] };
+    equals(otherBuffer: Buffer): boolean;
+    compare(otherBuffer: Buffer, targetStart?: number, targetEnd?: number, sourceStart?: number, sourceEnd?: number): number;
+    copy(targetBuffer: Buffer, targetStart?: number, sourceStart?: number, sourceEnd?: number): number;
+    slice(start?: number, end?: number): Buffer;
+    writeUIntLE(value: number, offset: number, byteLength: number, noAssert?: boolean): number;
+    writeUIntBE(value: number, offset: number, byteLength: number, noAssert?: boolean): number;
+    writeIntLE(value: number, offset: number, byteLength: number, noAssert?: boolean): number;
+    writeIntBE(value: number, offset: number, byteLength: number, noAssert?: boolean): number;
+    readUIntLE(offset: number, byteLength: number, noAssert?: boolean): number;
+    readUIntBE(offset: number, byteLength: number, noAssert?: boolean): number;
+    readIntLE(offset: number, byteLength: number, noAssert?: boolean): number;
+    readIntBE(offset: number, byteLength: number, noAssert?: boolean): number;
+    readUInt8(offset: number, noAssert?: boolean): number;
+    readUInt16LE(offset: number, noAssert?: boolean): number;
+    readUInt16BE(offset: number, noAssert?: boolean): number;
+    readUInt32LE(offset: number, noAssert?: boolean): number;
+    readUInt32BE(offset: number, noAssert?: boolean): number;
+    readInt8(offset: number, noAssert?: boolean): number;
+    readInt16LE(offset: number, noAssert?: boolean): number;
+    readInt16BE(offset: number, noAssert?: boolean): number;
+    readInt32LE(offset: number, noAssert?: boolean): number;
+    readInt32BE(offset: number, noAssert?: boolean): number;
+    readFloatLE(offset: number, noAssert?: boolean): number;
+    readFloatBE(offset: number, noAssert?: boolean): number;
+    readDoubleLE(offset: number, noAssert?: boolean): number;
+    readDoubleBE(offset: number, noAssert?: boolean): number;
+    swap16(): Buffer;
+    swap32(): Buffer;
+    swap64(): Buffer;
+    writeUInt8(value: number, offset: number, noAssert?: boolean): number;
+    writeUInt16LE(value: number, offset: number, noAssert?: boolean): number;
+    writeUInt16BE(value: number, offset: number, noAssert?: boolean): number;
+    writeUInt32LE(value: number, offset: number, noAssert?: boolean): number;
+    writeUInt32BE(value: number, offset: number, noAssert?: boolean): number;
+    writeInt8(value: number, offset: number, noAssert?: boolean): number;
+    writeInt16LE(value: number, offset: number, noAssert?: boolean): number;
+    writeInt16BE(value: number, offset: number, noAssert?: boolean): number;
+    writeInt32LE(value: number, offset: number, noAssert?: boolean): number;
+    writeInt32BE(value: number, offset: number, noAssert?: boolean): number;
+    writeFloatLE(value: number, offset: number, noAssert?: boolean): number;
+    writeFloatBE(value: number, offset: number, noAssert?: boolean): number;
+    writeDoubleLE(value: number, offset: number, noAssert?: boolean): number;
+    writeDoubleBE(value: number, offset: number, noAssert?: boolean): number;
+    fill(value: any, offset?: number, end?: number): this;
+    indexOf(value: string | number | Buffer, byteOffset?: number, encoding?: string): number;
+    lastIndexOf(value: string | number | Buffer, byteOffset?: number, encoding?: string): number;
+    entries(): IterableIterator<[number, number]>;
+    includes(value: string | number | Buffer, byteOffset?: number, encoding?: string): boolean;
+    keys(): IterableIterator<number>;
+    values(): IterableIterator<number>;
+}
+
+interface EventEmitter {
+    addListener(event: string | symbol, listener: Function): this;
+    on(event: string | symbol, listener: Function): this;
+    once(event: string | symbol, listener: Function): this;
+    removeListener(event: string | symbol, listener: Function): this;
+    removeAllListeners(event?: string | symbol): this;
+    setMaxListeners(n: number): this;
+    getMaxListeners(): number;
+    listeners(event: string | symbol): Function[];
+    emit(event: string | symbol, ...args: any[]): boolean;
+    listenerCount(type: string | symbol): number;
+    prependListener(event: string | symbol, listener: Function): this;
+    prependOnceListener(event: string | symbol, listener: Function): this;
+    eventNames(): Array<string | symbol>;
+}
+
+type Fetch = (
+    url: string | Request,
+    opts?: RequestInit
+) => Promise<Response>;
 
 declare namespace PouchDB {
     namespace Core {
         interface Error {
+            /**
+             * HTTP Status Code during HTTP or HTTP-like operations
+             */
+            status?: number;
+            name?: string;
+            message?: string;
+            reason?: string;
+            error?: string | boolean;
+            id?: string;
+            rev?: RevisionId;
         }
-        interface Callback<E, R> {
-            (error: E | void, result: R | void): void;
-        }
-        type AnyCallback = Callback<any, any>;
+        type Callback<R> = (error: Error | null, result: R | null) => void;
         type DocumentId = string;
         type DocumentKey = string;
         type AttachmentId = string;
         type RevisionId = string;
         type Availability = 'available' | 'compacted' | 'not compacted' | 'missing';
-        type Encodable = { [propertyName: string]: any };
-        type Attachment = string | Blob | Buffer;
+        type AttachmentData = string | Blob | Buffer;
 
         interface Options {
-          ajax?: Configuration.RemoteRequesterConfiguration;
+          fetch?: Fetch;
         }
 
         interface BasicResponse {
@@ -48,7 +142,7 @@ declare namespace PouchDB {
             update_seq: number | string;
         }
 
-        interface Revision<Content> {
+        interface Revision<Content extends {}> {
             ok: Document<Content> & RevisionIdMeta;
         }
         interface RevisionInfo {
@@ -56,14 +150,14 @@ declare namespace PouchDB {
             status: Availability;
         }
         interface RevisionDiffOptions {
-            [DocumentId : string]: string[];
+            [DocumentId: string]: string[];
         }
         interface RevisionDiff {
             missing?: string[];
             possible_ancestors?: string[];
         }
         interface RevisionDiffResponse {
-            [DocumentId : string]: RevisionDiff
+            [DocumentId: string]: RevisionDiff;
         }
 
         interface IdMeta {
@@ -73,77 +167,104 @@ declare namespace PouchDB {
             _rev: RevisionId;
         }
         interface GetMeta {
-            /** Conflicting leaf revisions.
+            /**
+             * Conflicting leaf revisions.
              *
              * Only present if `GetOptions.conflicts` is `true`
              */
             _conflicts?: RevisionId[];
-            _rev?: RevisionId;
+            _rev: RevisionId;
             /** Only present if `GetOptions.revs` is `true` */
             _revs_info?: RevisionInfo[];
             /** Only present if `GetOptions.revs_info` is `true` */
             _revisions?: {
                 ids: RevisionId[];
                 start: number;
-            }
+            };
 
             /** Attachments where index is attachmentId */
             _attachments?: Attachments;
         }
 
-        interface AttachmentResponse {
+        /**
+         * Stub attachments are returned by PouchDB by default (attachments option set to false)
+         */
+        interface StubAttachment {
+            /**
+             * Mime type of the attachment
+             */
             content_type: string;
 
-            /** MD5 hash, starts with "md5-" prefix */
+            /**
+             * Database digest of the attachment
+             */
             digest: string;
 
-            /** Only present if `attachments` was `false`. */
-            stub?: boolean;
-
-            /** Only present if `attachments` was `false`. */
-            length?: number;
+            /**
+             * Attachment is a stub
+             */
+            stub: true;
 
             /**
-             * Only present if `attachments` was `true`.
+             * Length of the attachment
+             */
+            length: number;
+        }
+
+        /**
+         * Full attachments are used to create new attachments or returned when the attachments option
+         * is true.
+         */
+        interface FullAttachment {
+            /**
+             * Mime type of the attachment
+             */
+            content_type: string;
+
+            /** MD5 hash, starts with "md5-" prefix; populated by PouchDB for new attachments */
+            digest?: string;
+
+            /**
              * {string} if `binary` was `false`
              * {Blob|Buffer} if `binary` was `true`
              */
-            data?: Attachment;
+            data: AttachmentData;
         }
+
+        type Attachment = StubAttachment | FullAttachment;
 
         interface Attachments {
-            [attachmentId: string]: AttachmentResponse;
+            [attachmentId: string]: Attachment;
         }
 
-        type NewDocument<Content extends Encodable> = Content;
-        type Document<Content extends Encodable> = Content & IdMeta;
-        type ExistingDocument<Content extends Encodable> =
+        type NewDocument<Content extends {}> = Content;
+        type Document<Content extends {}> = Content & IdMeta;
+        type ExistingDocument<Content extends {}> =
                 Document<Content> & RevisionIdMeta;
 
         /** Existing doc or just object with `_id` and `_rev` */
-        type RemoveDocument = Encodable & IdMeta & RevisionIdMeta;
+        type RemoveDocument = IdMeta & RevisionIdMeta;
 
-        type PostDocument<Content extends Encodable> = NewDocument<Content> & {
+        type PostDocument<Content extends {}> = NewDocument<Content> & {
             filters?: {[filterName: string]: string};
-            views?: {[viewName: string]: string};
+            views?: {[viewName: string]: {
+                map: string,
+                reduce?: string
+            }};
 
             /** You can update an existing doc using _rev */
             _rev?: RevisionId;
 
-            _attachments?: {[attachmentId: string]: PutAttachment};
+            _attachments?: Attachments;
         };
 
-        type PutDocument<Content extends Encodable> = PostDocument<Content> & ChangesMeta & {
+        type PutDocument<Content extends {}> = PostDocument<Content> & ChangesMeta & {
             _id?: DocumentId;
         };
 
-        interface PutAttachment {
-            content_type: string;
-            data: Attachment;
-        }
-
         interface AllDocsOptions extends Options {
-            /** Include attachment data for each document.
+            /**
+             * Include attachment data for each document.
              *
              * Requires `include_docs` to be `true`.
              *
@@ -151,14 +272,18 @@ declare namespace PouchDB {
              * @see binary
              */
             attachments?: boolean;
-            /** Return attachments as Buffers.
+            /**
+             * Return attachments as Buffers.
              *
              * Requires `include_docs` to be `true`.
-             * Requires `attachments` to be `true`. */
+             * Requires `attachments` to be `true`.
+             */
             binary?: boolean;
-            /** Include conflict information for each document.
+            /**
+             * Include conflict information for each document.
              *
-             * Requires `include_docs` to be `true`. */
+             * Requires `include_docs` to be `true`.
+             */
             conflicts?: boolean;
             /** Reverse ordering of results. */
             descending?: boolean;
@@ -166,9 +291,11 @@ declare namespace PouchDB {
             include_docs?: boolean;
             /** Maximum number of documents to return. */
             limit?: number;
-            /** Number of documents to skip before returning.
+            /**
+             * Number of documents to skip before returning.
              *
-             * Causes poor performance on IndexedDB and LevelDB. */
+             * Causes poor performance on IndexedDB and LevelDB.
+             */
             skip?: number;
         }
         interface AllDocsWithKeyOptions extends AllDocsOptions {
@@ -184,43 +311,51 @@ declare namespace PouchDB {
             startkey: DocumentKey;
             /** High end of range, or low end if `descending` is `true`. */
             endkey: DocumentKey;
-            /** Include any documents identified by `endkey`.
+            /**
+             * Include any documents identified by `endkey`.
              *
-             * Defaults to `true`. */
+             * Defaults to `true`.
+             */
             inclusive_end?: boolean;
         }
         interface AllDocsMeta {
-
             /** Only present if `conflicts` is `true` */
             _conflicts?: RevisionId[];
 
             _attachments?: Attachments;
         }
-        interface AllDocsResponse<Content extends Core.Encodable> {
+        interface AllDocsResponse<Content extends {}> {
             /** The `skip` if provided, or in CouchDB the actual offset */
             offset: number;
             total_rows: number;
-            rows: {
+            rows: Array<{
                 /** Only present if `include_docs` was `true`. */
-                doc?: Document<Content & AllDocsMeta>;
+                doc?: ExistingDocument<Content & AllDocsMeta>;
                 id: DocumentId;
                 key: DocumentKey;
                 value: {
                     rev: RevisionId;
                     deleted?: boolean;
                 }
-            }[];
+            }>;
         }
 
-        interface BulkDocsOptions extends PutOptions {
+        interface BulkDocsOptions extends Options {
             new_edits?: boolean;
         }
 
         interface BulkGetOptions extends Options {
-            docs: any,
-            revs?: boolean,
-            attachments?: boolean,
-            binary?: boolean
+            docs: Array<{ id: string; rev: RevisionId }>;
+            revs?: boolean;
+            attachments?: boolean;
+            binary?: boolean;
+        }
+
+        interface BulkGetResponse<Content extends {}> {
+            results: Array<{
+                id: string,
+                docs: Array<{ ok: Content & GetMeta } | { error: Error }>
+            }>;
         }
 
         interface ChangesMeta {
@@ -276,7 +411,7 @@ declare namespace PouchDB {
              * To use a view function, pass '_view' here and provide a reference to the view function in options.view.
              * See filtered changes for details.
              */
-            filter?: string | {(doc: any, params: any): any};
+            filter?: string | ((doc: any, params: any) => any);
 
             /** Only show changes for docs with these ids (array of strings). */
             doc_ids?: string[];
@@ -294,31 +429,63 @@ declare namespace PouchDB {
              * Note: options.filter must be set to '_view' for this option to work.
              */
             view?: string;
+
+            /**
+             * Filter using a query/pouchdb-find selector. Note: Selectors are not supported in CouchDB 1.x.
+             * Cannot be used in combination with the filter option.
+             */
+            selector?: Find.Selector;
+
+            /**
+             * (previously options.returnDocs): Is available for non-http databases and defaults to true.
+             * Passing false prevents the changes feed from keeping all the documents in memory – in other
+             * words complete always has an empty results array, and the change event is the only way to get the event.
+             * Useful for large change sets where otherwise you would run out of memory.
+             */
+            return_docs?: boolean;
+
+            /**
+             * Only available for http databases, this configures how many changes to fetch at a time.
+             * Increasing this can reduce the number of requests made. Default is 25.
+             */
+            batch_size?: number;
+
+            /**
+             * Specifies how many revisions are returned in the changes array.
+             * The default, 'main_only', will only return the current “winning” revision;
+             * 'all_docs' will return all leaf revisions (including conflicts and deleted former conflicts).
+             * Most likely you won’t need this unless you’re writing a replicator.
+             */
+            style?: 'main_only' | 'all_docs';
+
+            /**
+             * Only available for http databases. Specifies that seq information only be generated every N changes.
+             * Larger values can improve changes throughput with CouchDB 2.0 and later.
+             * Note that last_seq is always populated regardless.
+             */
+            seq_interval?: number;
         }
 
-        interface ChangesResponseChange<Content extends Core.Encodable> {
+        interface ChangesResponseChange<Content extends {}> {
             id: string;
             seq: number | string;
-            changes: { rev: string }[];
+            changes: Array<{ rev: string }>;
             deleted?: boolean;
             doc?: ExistingDocument<Content & ChangesMeta>;
         }
 
-        interface ChangesResponse<Content extends Core.Encodable> {
+        interface ChangesResponse<Content extends {}> {
             status: string;
             last_seq: number | string;
-            results: ChangesResponseChange<Content>[];
+            results: Array<ChangesResponseChange<Content>>;
         }
 
-        interface Changes<Content extends Core.Encodable> extends EventEmitter, Promise<ChangesResponse<Content>> {
+        interface Changes<Content extends {}> extends EventEmitter, Promise<ChangesResponse<Content>> {
             on(event: 'change', listener: (value: ChangesResponseChange<Content>) => any): this;
             on(event: 'complete', listener: (value: ChangesResponse<Content>) => any): this;
             on(event: 'error', listener: (value: any) => any): this;
 
             cancel(): void;
-        }
-
-        interface DestroyOptions extends Options {
         }
 
         interface GetOptions extends Options {
@@ -328,8 +495,10 @@ declare namespace PouchDB {
             rev?: RevisionId;
             /** Include revision history of the document. */
             revs?: boolean;
-            /** Include a list of revisions of the document, and their
-             * availability. */
+            /**
+             * Include a list of revisions of the document, and their
+             * availability.
+             */
             revs_info?: boolean;
 
             /** Include attachment data. */
@@ -343,33 +512,35 @@ declare namespace PouchDB {
         }
 
         interface GetOpenRevisions extends Options {
-            /** Fetch all leaf revisions if open_revs="all" or fetch all leaf
+            /**
+             * Fetch all leaf revisions if open_revs="all" or fetch all leaf
              * revisions specified in open_revs array. Leaves will be returned
-             * in the same order as specified in input array. */
-            open_revs: 'all' | Core.RevisionId[];
+             * in the same order as specified in input array.
+             */
+            open_revs: 'all' | RevisionId[];
 
             /** Include revision history of the document. */
             revs?: boolean;
         }
 
-        interface PutOptions extends Options {
-        }
-        interface PostOptions extends PutOptions {
-        }
-
-        interface CompactOptions extends Core.Options {
+        interface CompactOptions extends Options {
           interval?: number;
         }
 
+        interface PutOptions extends Options {
+          force?: boolean;
+        }
+
         interface RemoveAttachmentResponse extends BasicResponse {
-            rev: Core.RevisionId;
+            id: DocumentId;
+            rev: RevisionId;
         }
     }
 
     /**
      * Pass this to `PouchDB.plugin()`.
      */
-    export type Plugin = 'This should be passed to PouchDB.plugin()';
+    type Plugin = 'This should be passed to PouchDB.plugin()';
 
     namespace Configuration {
         interface CommonDatabaseConfiguration {
@@ -399,40 +570,26 @@ declare namespace PouchDB {
              * How many old revisions we keep track (not a copy) of.
              */
             revs_limit?: number;
-        }
-
-        interface RemoteRequesterConfiguration {
             /**
-             * Time before HTTP requests time out (in ms).
+             * Size of the database (Most significant for Safari)
+             * option to set the max size in MB that Safari will grant to the local database. Valid options are: 10, 50, 100, 500 and 1000
+             * ex_ new PouchDB("dbName", {size:100});
              */
-            timeout?: number;
+            size?: number;
             /**
-             * Appends a random string to the end of all HTTP GET requests to avoid
-             * them being cached on IE. Set this to true to prevent this happening.
+             * A special constructor option, which appends a prefix to the database name
+             * and can be helpful for URL-based or file-based LevelDOWN path names.
              */
-            cache?: boolean;
-            /**
-             * HTTP headers to add to requests.
-             */
-            headers?: {
-                [name: string]: string;
-            }
-
-            /**
-             * Enables transferring cookies and HTTP Authorization information.
-             *
-             * Defaults to true.
-             */
-            withCredentials?: boolean;
+            prefix?: string;
         }
 
         interface RemoteDatabaseConfiguration extends CommonDatabaseConfiguration {
-            ajax?: RemoteRequesterConfiguration;
+            fetch?: Fetch;
 
             auth?: {
                 username?: string;
                 password?: string;
-            }
+            };
             /**
              * Disables automatic creation of databases.
              */
@@ -443,51 +600,37 @@ declare namespace PouchDB {
                 RemoteDatabaseConfiguration;
     }
 
-    /** @todo: remove nodejs dep. */
-    interface EventEmitter extends NodeJS.EventEmitter {
-
-    }
-
     interface Static extends EventEmitter {
         plugin(plugin: Plugin): Static;
 
         version: string;
 
-        on(event: 'created', listener: (dbName: string) => any): this;
-        on(event: 'destroyed', listener: (dbName: string) => any): this;
+        fetch: Fetch;
+
+        on(event: 'created' | 'destroyed', listener: (dbName: string) => any): this;
 
         debug: debug.IDebug;
 
-        new<Content extends Core.Encodable>(name?: string,
-            options?: Configuration.DatabaseConfiguration): Database<Content>;
+        new<Content extends {} = {}>(name?: string,
+                                     options?: Configuration.DatabaseConfiguration): Database<Content>;
 
         /**
          * The returned object is a constructor function that works the same as PouchDB,
          * except that whenever you invoke it (e.g. with new), the given options will be passed in by default.
          */
         defaults(options: Configuration.DatabaseConfiguration): {
-            new<Content extends Core.Encodable>(name?: string,
-                options?: Configuration.DatabaseConfiguration): Database<Content>;
-        }
+            new<Content extends {} = {}>(name?: string,
+                                         options?: Configuration.DatabaseConfiguration): Database<Content>;
+        };
     }
 
-    interface Database<Content extends Core.Encodable>  {
+    interface Database<Content extends {} = {}> extends EventEmitter {
+        /** The name passed to the PouchDB constructor and unique identifier of the database. */
+        name: string;
 
-        /** Fetch all documents matching the given key. */
-        allDocs(options: Core.AllDocsWithKeyOptions):
-            Promise<Core.AllDocsResponse<Content>>;
-
-        /** Fetch all documents matching any of the given keys. */
-        allDocs(options: Core.AllDocsWithKeysOptions):
-            Promise<Core.AllDocsResponse<Content>>;
-
-        /** Fetch all documents matching the given key range. */
-        allDocs(options: Core.AllDocsWithinRangeOptions):
-            Promise<Core.AllDocsResponse<Content>>;
-
-        /** Fetch all documents. */
-        allDocs(options?: Core.AllDocsOptions):
-            Promise<Core.AllDocsResponse<Content>>;
+        /** Fetch all documents matching the given options. */
+        allDocs<Model>(options?: Core.AllDocsWithKeyOptions | Core.AllDocsWithKeysOptions | Core.AllDocsWithinRangeOptions | Core.AllDocsOptions):
+            Promise<Core.AllDocsResponse<Content & Model>>;
 
         /**
          * Create, update or delete multiple documents. The docs argument is an array of documents.
@@ -496,9 +639,9 @@ declare namespace PouchDB {
          * which should match the ID and revision of the document on which to base your updates.
          * Finally, to delete a document, include a _deleted parameter with the value true.
          */
-        bulkDocs(docs: Core.PutDocument<Content>[],
-                 options: Core.BulkDocsOptions | null,
-                 callback: Core.Callback<Core.Error, Core.Response[]>): void;
+        bulkDocs<Model>(docs: Array<Core.PutDocument<Content & Model>>,
+                        options: Core.BulkDocsOptions | null,
+                        callback: Core.Callback<Array<Core.Response | Core.Error>>): void;
 
         /**
          * Create, update or delete multiple documents. The docs argument is an array of documents.
@@ -507,47 +650,47 @@ declare namespace PouchDB {
          * which should match the ID and revision of the document on which to base your updates.
          * Finally, to delete a document, include a _deleted parameter with the value true.
          */
-        bulkDocs(docs: Core.PutDocument<Content>[],
-                 options?: Core.BulkDocsOptions): Promise<Core.Response[]>;
+        bulkDocs<Model>(docs: Array<Core.PutDocument<Content & Model>>,
+                        options?: Core.BulkDocsOptions): Promise<Array<Core.Response | Core.Error >>;
 
         /** Compact the database */
         compact(options?: Core.CompactOptions): Promise<Core.Response>;
 
         /** Compact the database */
         compact(options: Core.CompactOptions,
-                callback: Core.Callback<Core.Error, Core.Response>): void;
+                callback: Core.Callback<Core.Response>): void;
 
         /** Destroy the database */
-        destroy(options: Core.DestroyOptions | void,
-            callback: Core.AnyCallback): void;
+        destroy(options: Core.Options | null,
+                callback: Core.Callback<any>): void;
 
         /** Destroy the database */
-        destroy(options?: Core.DestroyOptions | void): Promise<void>;
+        destroy(options?: Core.Options | null): Promise<void>;
 
         /** Fetch a document */
-        get(docId: Core.DocumentId,
-            options: Core.GetOptions | null,
-            callback: Core.Callback<any, Core.Document<Content> & Core.GetMeta>
-            ): void;
+        get<Model>(docId: Core.DocumentId,
+                   options: Core.GetOptions | null,
+                   callback: Core.Callback<Core.Document<Content & Model> & Core.GetMeta>
+                  ): void;
 
         /** Fetch a document */
-        get(docId: Core.DocumentId,
-            options: Core.GetOptions
-            ): Promise<Core.Document<Content> & Core.GetMeta>;
+        get<Model>(docId: Core.DocumentId,
+                   options: Core.GetOpenRevisions,
+                   callback: Core.Callback<Array<Core.Revision<Content & Model>>>
+                  ): void;
 
         /** Fetch a document */
-        get(docId: Core.DocumentId): Promise<Core.Document<Content> & Core.GetMeta>;
+        get<Model>(docId: Core.DocumentId,
+                   options?: Core.GetOptions
+                  ): Promise<Core.Document<Content & Model> & Core.GetMeta>;
 
-        /** Fetch document open revs */
-        get(docId: Core.DocumentId,
-            options: Core.GetOpenRevisions,
-            callback: Core.Callback<any, Core.Revision<Content>[]>): void;
+        /** Fetch a document */
+        get<Model>(docId: Core.DocumentId,
+                   options: Core.GetOpenRevisions
+                  ): Promise<Array<Core.Revision<Content & Model>>>;
 
-        /** Fetch document open revs */
-        get(docId: Core.DocumentId,
-            options: Core.GetOpenRevisions): Promise<Core.Revision<Content>[]>;
-
-        /** Create a new document without providing an id.
+        /**
+         * Create a new document without providing an id.
          *
          * You should prefer put() to post(), because when you post(), you are
          * missing an opportunity to use allDocs() to sort documents by _id
@@ -555,11 +698,12 @@ declare namespace PouchDB {
          *
          * @see {@link https://pouchdb.com/2014/06/17/12-pro-tips-for-better-code-with-pouchdb.html|PouchDB Pro Tips}
          */
-        post(doc: Core.PostDocument<Content>,
-            options: Core.PostOptions | null,
-            callback: Core.Callback<Core.Error, Core.Response>): void;
+        post<Model>(doc: Core.PostDocument<Content & Model>,
+                    options: Core.Options | null,
+                    callback: Core.Callback<Core.Response>): void;
 
-        /** Create a new document without providing an id.
+        /**
+         * Create a new document without providing an id.
          *
          * You should prefer put() to post(), because when you post(), you are
          * missing an opportunity to use allDocs() to sort documents by _id
@@ -567,10 +711,11 @@ declare namespace PouchDB {
          *
          * @see {@link https://pouchdb.com/2014/06/17/12-pro-tips-for-better-code-with-pouchdb.html|PouchDB Pro Tips}
          */
-        post(doc: Core.PostDocument<Content>,
-            options?: Core.PostOptions): Promise<Core.Response>;
+        post<Model>(doc: Core.PostDocument<Content & Model>,
+                    options?: Core.Options): Promise<Core.Response>;
 
-        /** Create a new document or update an existing document.
+        /**
+         * Create a new document or update an existing document.
          *
          * If the document already exists, you must specify its revision _rev,
          * otherwise a conflict will occur.
@@ -578,11 +723,12 @@ declare namespace PouchDB {
          * If you try to store non-JSON data (for instance Date objects) you may
          * see inconsistent results.
          */
-        put(doc: Core.PutDocument<Content>,
-            options: Core.PutOptions | null,
-            callback: Core.Callback<Core.Error, Core.Response>): void;
+        put<Model>(doc: Core.PutDocument<Content & Model>,
+                   options: Core.PutOptions | null,
+                   callback: Core.Callback<Core.Response>): void;
 
-        /** Create a new document or update an existing document.
+        /**
+         * Create a new document or update an existing document.
          *
          * If the document already exists, you must specify its revision _rev,
          * otherwise a conflict will occur.
@@ -590,19 +736,19 @@ declare namespace PouchDB {
          * If you try to store non-JSON data (for instance Date objects) you may
          * see inconsistent results.
          */
-        put(doc: Core.PutDocument<Content>,
-            options?: Core.PutOptions): Promise<Core.Response>;
+        put<Model>(doc: Core.PutDocument<Content & Model>,
+                   options?: Core.PutOptions): Promise<Core.Response>;
 
         /** Remove a doc from the database */
         remove(doc: Core.RemoveDocument,
                options: Core.Options,
-               callback: Core.Callback<Core.Error, Core.Response>): void;
+               callback: Core.Callback<Core.Response>): void;
 
         /** Remove a doc from the database */
         remove(docId: Core.DocumentId,
                revision: Core.RevisionId,
                options: Core.Options,
-               callback: Core.Callback<Core.Error, Core.Response>): void;
+               callback: Core.Callback<Core.Response>): void;
 
         /** Remove a doc from the database */
         remove(doc: Core.RemoveDocument,
@@ -614,7 +760,7 @@ declare namespace PouchDB {
                options?: Core.Options): Promise<Core.Response>;
 
         /** Get database information */
-        info(callback: Core.Callback<any, Core.DatabaseInfo>): void;
+        info(callback: Core.Callback<Core.DatabaseInfo>): void;
 
         /** Get database information */
         info(): Promise<Core.DatabaseInfo>;
@@ -627,8 +773,8 @@ declare namespace PouchDB {
          * a 'complete' event when all the changes have been processed, and an 'error' event when an error occurs.
          * Calling cancel() will unsubscribe all event listeners automatically.
          */
-        changes(options: Core.ChangesOptions | null,
-            callback: Core.Callback<any, Core.Changes<Content>>): void;
+        changes<Model>(options: Core.ChangesOptions | null,
+                       callback: Core.Callback<Core.Changes<Content & Model>>): void;
 
         /**
          * A list of changes made to documents in the database, in the order they were made.
@@ -638,10 +784,10 @@ declare namespace PouchDB {
          * a 'complete' event when all the changes have been processed, and an 'error' event when an error occurs.
          * Calling cancel() will unsubscribe all event listeners automatically.
          */
-        changes(options?: Core.ChangesOptions): Core.Changes<Content>;
+        changes<Model>(options?: Core.ChangesOptions): Core.Changes<Content & Model>;
 
         /** Close the database */
-        close(callback: Core.AnyCallback): void;
+        close(callback: Core.Callback<any>): void;
 
         /** Close the database */
         close(): Promise<void>;
@@ -652,91 +798,88 @@ declare namespace PouchDB {
          * If the document doesn’t already exist, then this method will create an empty document containing the attachment.
          */
         putAttachment(docId: Core.DocumentId,
-            attachmentId: Core.AttachmentId,
-            rev: Core.RevisionId,
-            attachment: Core.Attachment,
-            type: string,
-            callback: Core.Callback<Core.Error, Core.Response>): void;
+                      attachmentId: Core.AttachmentId,
+                      rev: Core.RevisionId,
+                      attachment: Core.AttachmentData,
+                      type: string,
+                      callback: Core.Callback<Core.Response>): void;
 
          /**
-         * Attaches a binary object to a document.
-         * This method will update an existing document to add the attachment, so it requires a rev if the document already exists.
-         * If the document doesn’t already exist, then this method will create an empty document containing the attachment.
-         */
+          * Attaches a binary object to a document.
+          * This method will update an existing document to add the attachment, so it requires a rev if the document already exists.
+          * If the document doesn’t already exist, then this method will create an empty document containing the attachment.
+          */
         putAttachment(docId: Core.DocumentId,
-            attachmentId: Core.AttachmentId,
-            rev: Core.RevisionId,
-            attachment: Core.Attachment,
-            type: string): Promise<Core.Response>;
+                      attachmentId: Core.AttachmentId,
+                      rev: Core.RevisionId,
+                      attachment: Core.AttachmentData,
+                      type: string): Promise<Core.Response>;
 
          /**
-         * Attaches a binary object to a document.
-         * This method will update an existing document to add the attachment, so it requires a rev if the document already exists.
-         * If the document doesn’t already exist, then this method will create an empty document containing the attachment.
-         */
+          * Attaches a binary object to a document.
+          * This method will update an existing document to add the attachment, so it requires a rev if the document already exists.
+          * If the document doesn’t already exist, then this method will create an empty document containing the attachment.
+          */
         putAttachment(docId: Core.DocumentId,
-            attachmentId: Core.AttachmentId,
-            attachment: Core.Attachment,
-            type: string,
-            callback: Core.Callback<Core.Error, Core.Response>): void;
+                      attachmentId: Core.AttachmentId,
+                      attachment: Core.AttachmentData,
+                      type: string,
+                      callback: Core.Callback<Core.Response>): void;
 
          /**
-         * Attaches a binary object to a document.
-         * This method will update an existing document to add the attachment, so it requires a rev if the document already exists.
-         * If the document doesn’t already exist, then this method will create an empty document containing the attachment.
-         */
+          * Attaches a binary object to a document.
+          * This method will update an existing document to add the attachment, so it requires a rev if the document already exists.
+          * If the document doesn’t already exist, then this method will create an empty document containing the attachment.
+          */
         putAttachment(docId: Core.DocumentId,
-            attachmentId: Core.AttachmentId,
-            attachment: Core.Attachment,
-            type: string): Promise<Core.Response>;
+                      attachmentId: Core.AttachmentId,
+                      attachment: Core.AttachmentData,
+                      type: string): Promise<Core.Response>;
 
         /** Get attachment data */
         getAttachment(docId: Core.DocumentId,
-            attachmentId: Core.AttachmentId,
-            options: { rev?: Core.RevisionId},
-            callback: Core.Callback<Core.Error, Blob | Buffer>): void;
+                      attachmentId: Core.AttachmentId,
+                      options: { rev?: Core.RevisionId},
+                      callback: Core.Callback<Blob | Buffer>): void;
 
         /** Get attachment data */
         getAttachment(docId: Core.DocumentId,
-            attachmentId: Core.AttachmentId,
-            options: { rev?: Core.RevisionId}): Promise<Blob | Buffer>;
+                      attachmentId: Core.AttachmentId,
+                      options?: { rev?: Core.RevisionId}): Promise<Blob | Buffer>;
 
         /** Get attachment data */
         getAttachment(docId: Core.DocumentId,
-            attachmentId: Core.AttachmentId,
-            callback: Core.Callback<Core.Error, Blob | Buffer>): void;
-
-        /** Get attachment data */
-        getAttachment(docId: Core.DocumentId,
-            attachmentId: Core.AttachmentId): Promise<Blob | Buffer>;
+                      attachmentId: Core.AttachmentId,
+                      callback: Core.Callback<Blob | Buffer>): void;
 
         /** Delete an attachment from a doc. You must supply the rev of the existing doc. */
         removeAttachment(docId: Core.DocumentId,
-            attachmentId: Core.AttachmentId,
-            rev: Core.RevisionId,
-            callback: Core.Callback<Core.Error, Core.RemoveAttachmentResponse>): void;
+                         attachmentId: Core.AttachmentId,
+                         rev: Core.RevisionId,
+                         callback: Core.Callback<Core.RemoveAttachmentResponse>): void;
 
         /** Delete an attachment from a doc. You must supply the rev of the existing doc. */
         removeAttachment(docId: Core.DocumentId,
-            attachmentId: Core.AttachmentId,
-            rev: Core.RevisionId): Promise<Core.RemoveAttachmentResponse>;
+                         attachmentId: Core.AttachmentId,
+                         rev: Core.RevisionId): Promise<Core.RemoveAttachmentResponse>;
 
         /** Given a set of document/revision IDs, returns the document bodies (and, optionally, attachment data) for each ID/revision pair specified. */
-        bulkGet(options: Core.BulkGetOptions,
-            callback: Core.Callback<any, any>): void;
+        bulkGet<Model>(options: Core.BulkGetOptions,
+                       callback: Core.Callback<Core.BulkGetResponse<Content & Model>>): void;
 
         /** Given a set of document/revision IDs, returns the document bodies (and, optionally, attachment data) for each ID/revision pair specified. */
-        bulkGet(options: Core.BulkGetOptions): Promise<any>;
+        bulkGet<Model>(options: Core.BulkGetOptions): Promise<Core.BulkGetResponse<Content & Model>>;
 
         /** Given a set of document/revision IDs, returns the subset of those that do not correspond to revisions stored in the database */
-        revsDiff(diff : Core.RevisionDiffOptions,
-            callback: Core.Callback<Core.Error, Core.RevisionDiffResponse>): void;
+        revsDiff(diff: Core.RevisionDiffOptions,
+                 callback: Core.Callback<Core.RevisionDiffResponse>): void;
 
         /** Given a set of document/revision IDs, returns the subset of those that do not correspond to revisions stored in the database */
-        revsDiff(diff : Core.RevisionDiffOptions): Promise<Core.RevisionDiffResponse>;
+        revsDiff(diff: Core.RevisionDiffOptions): Promise<Core.RevisionDiffResponse>;
     }
 }
 
+//
 declare module 'pouchdb-core' {
   const PouchDb: PouchDB.Static;
   export = PouchDb;

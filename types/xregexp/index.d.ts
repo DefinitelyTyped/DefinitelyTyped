@@ -2,6 +2,7 @@
 // Project: http://xregexp.com
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>,
 //                 Johannes Fahrenkrug <https://github.com/jfahrenkrug>
+//                 Mateusz Jagiełło <https://github.com/sigo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
@@ -48,7 +49,7 @@ declare namespace OuterXRegExp {
     // begin API definitions
     function addToken(regex: RegExp, handler: (matchArr: RegExpExecArray, scope: string) => string, options?: TokenOpts): void;
 
-    function build(pattern: string, subs: string[], flags?: string): RegExp;
+    function build(pattern: string, subs: string[] | {[name: string]: RegExp}, flags?: string): RegExp;
     function cache(pattern: string, flags?: string): RegExp;
     function escape(str: string): string;
     function exec(str: string, regex: RegExp, pos?: number, sticky?: boolean): RegExpExecArray;
@@ -83,7 +84,7 @@ declare namespace OuterXRegExp {
     function uninstall(options: Object): void;
     function uninstall(options: string): void;
 
-    function union(patterns: string[], flags?: string): RegExp;
+    function union(patterns: (string | RegExp)[], flags?: string): RegExp;
     var version: string;
     // end API definitions
 
@@ -91,7 +92,7 @@ declare namespace OuterXRegExp {
         // begin API definitions
         function addToken(regex: RegExp, handler: (matchArr: RegExpExecArray, scope: string) => string, options?: TokenOpts): void;
 
-        function build(pattern: string, subs: string[], flags?: string): RegExp;
+        function build(pattern: string, subs: string[] | {[name: string]: RegExp}, flags?: string): RegExp;
         function cache(pattern: string, flags?: string): RegExp;
         function escape(str: string): string;
         function exec(str: string, regex: RegExp, pos?: number, sticky?: boolean): RegExpExecArray;
@@ -126,7 +127,7 @@ declare namespace OuterXRegExp {
         function uninstall(options: Object): void;
         function uninstall(options: string): void;
 
-        function union(patterns: string[], flags?: string): RegExp;
+        function union(patterns: (string | RegExp)[], flags?: string): RegExp;
         var version: string;
         // end API definitions
     }

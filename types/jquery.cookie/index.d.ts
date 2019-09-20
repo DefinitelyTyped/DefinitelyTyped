@@ -1,7 +1,8 @@
 // Type definitions for jQuery Cookie Plugin 1.4.1
 // Project: https://github.com/carhartl/jquery-cookie
-// Definitions by: Roy Goode <https://github.com/RoyGoode/>, Ben Lorantfy <https://github.com/BenLorantfy/>
+// Definitions by: Roy Goode <https://github.com/RoyGoode>, Ben Lorantfy <https://github.com/BenLorantfy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 ///<reference types="jquery" />
 
@@ -91,7 +92,7 @@ interface JQueryStatic {
     /**
      * A simple, lightweight jQuery plugin for reading, writing and deleting cookies.
      */
-    cookie?: JQueryCookieStatic;
+    cookie: JQueryCookieStatic;
     /**
      * Deletes a cookie
      * @param name Name of cookie to delete

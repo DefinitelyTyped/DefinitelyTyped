@@ -1,6 +1,17 @@
 
-
 import Loki = require("lokijs");
+
+
+interface EarthLocation {
+    longitude: number;
+    latitude: number;
+}
+
+interface User {
+    name: string;
+    age: number;
+}
+
 
 class Ant {
     static uniqueId = 1;
@@ -37,10 +48,12 @@ class QueenAnt extends Ant {
 
 
 class AntColony {
-    ants: LokiCollection<Ant>;
-    queens: LokiCollection<QueenAnt>;
+    location: EarthLocation;
+    ants: Loki.Collection<Ant>;
+    queens: Loki.Collection<QueenAnt>;
 
-    constructor(ants?: LokiCollection<Ant>, queens?: LokiCollection<QueenAnt>) {
+    constructor(location: EarthLocation, ants: Loki.Collection<Ant>, queens: Loki.Collection<QueenAnt>) {
+        this.location = location;
         this.ants = ants;
         this.queens = queens;
     }
@@ -73,15 +86,104 @@ class Test {
             throw new Error("queen object's '.$loki' property lookup failed");
         }
 
-        var anotherColl = new Loki.Collection("anotherCollection");
+        Test.events(lokiInst);
+        Test.insertUpdateRemove(lokiInst);
+        Test.dynamicViews(lokiInst);
+        Test.transform(lokiInst);
+    }
 
+
+    static events(lokiInst: Loki) {
+        var coll = new Loki.Collection<Ant>("anotherCollection", {});
+        var onUpdate: (t: any) => void;
+
+        coll.on("update", onUpdate = function (target) {
+            console.log("update", target);
+        });
+
+        coll.on("error", function (target) {
+            console.log("error", target);
+        });
+
+        coll.emit("update", { data: "abc" });
+
+        coll.removeListener("update", onUpdate);
+    }
+
+
+    static insertUpdateRemove(lokiInst: Loki) {
+        var coll = new Loki.Collection<Ant>("anotherCollection", {
+            unique: <["id"]>["id"],
+            indices: <["dob"]>["dob"],
+            autoupdate: true
+        });
+
+        coll.insert({
+            id: 127,
+            dob: new Date(2012, 9, 1),
+            health: 1.0,
+            lengthMm: 3.5,
+            weightMg: 0.4,
+        });
+
+        var doc = coll.by("id", 127);
+        if (doc) doc.health -= 0.25;
+
+        // untyped collection (collection type should default to 'any')
+        var tmpColl = lokiInst.addCollection("_temp");
+        tmpColl.insert(coll.find());
+        var res = tmpColl.findOne({ id: 127 });
+        if (res) res.health -= 0.25;
+
+        coll.clear({ removeIndices: true });
+
+        tmpColl.removeWhere({ id: 127 });
+
+        if(doc) coll.add(doc);
+
+        coll.remove(1);
+        coll.removeDataOnly();
+    }
+
+
+    static dynamicViews(lokiInst: Loki) {
+        var users = lokiInst.addCollection<User>("users");
+
+        users.insert({ name: "joe", age: 39 });
+        users.insert({ name: "jack", age: 20 });
+        users.insert({ name: "jim", age: 40 });
+        users.insert([
+            { name: "dave", age: 33 },
+            { name: "eric", age: 29 },
+            { name: "dave", age: 21 }
+        ]);
+
+        var dv = users.addDynamicView("testview");
+        dv.applyWhere(function (obj) {
+            return obj.name.length > 3;
+        });
+
+        console.log("expect 2 == " + dv.data().length);
+
+        users.removeWhere(function (obj: User) {
+            return obj.age > 35;
+        });
+
+        console.log("expect 0 == " + dv.data().length);
+    }
+
+
+    static transform(lokiInst: Loki) {
+        var ants = lokiInst.addCollection<Ant>("tmpAnts");
+        var len = ants.chain().transform(<Transform[]>[{ property: "id" }]).data().length;
+        ants.addTransform("tmpAnts", [{ type: "map", mapFun: (a: any) => a, desc: true }]);
     }
 
 
     static createAntColony(lokiInst: Loki, antCount: number, queenCount: number = 1) {
         var ants = lokiInst.addCollection<Ant>("ants", { indices: "id" });
         var queens = lokiInst.addCollection<QueenAnt>("queenAnts", { indices: "id" });
-        var antColony = new AntColony(ants, queens);
+        var antColony = new AntColony({ latitude: 0, longitude: 0 }, ants, queens);
 
         for (var i = 0; i < antCount; i++) {
             ants.add(Ant.createAnt());

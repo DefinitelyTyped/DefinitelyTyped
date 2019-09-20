@@ -8,11 +8,15 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": false,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
         "jsx": "react",
         "typeRoots": [
             "../"
         ],
+        "paths": {
+            "@styled-system/css": ["styled-system__css"]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

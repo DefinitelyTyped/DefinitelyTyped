@@ -1,9 +1,14 @@
-interface Props {
+import * as React from 'react';
+import { CSSModule } from '../index';
+
+export interface BadgeProps extends React.HTMLAttributes<HTMLElement> {
+  [key: string]: any;
   color?: string;
   pill?: boolean;
   tag?: React.ReactType;
   className?: string;
+  cssModule?: CSSModule;
 }
 
-declare var Badge: React.StatelessComponent<Props>;
+declare class Badge<T = {[key: string]: any}> extends React.Component<BadgeProps> {}
 export default Badge;

@@ -1,11 +1,11 @@
 import validUrl = require('valid-url');
 
 function testIsUri() {
-    validUrl.isUri("http://github.com/");
+    validUrl.isUri("https://github.com/");
 }
 
 function testIsHttpUri() {
-    validUrl.isHttpUri("http://github.com/");
+    validUrl.isHttpUri("https://github.com/");
 }
 
 function testIsHttpsUri() {

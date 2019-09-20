@@ -1,35 +1,33 @@
-// Type definitions for Leaflet.fullscreen v1.3.0
+// Type definitions for Leaflet.fullscreen 1.3
 // Project: https://github.com/brunob/leaflet.fullscreen
 // Definitions by: William Comartin <https://github.com/wcomartin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
-/// <reference types="leaflet" />
+import * as L from 'leaflet';
 
-declare namespace L {
-
+declare module 'leaflet' {
   namespace Control {
-
-    export class Fullscreen extends L.Control {
-      constructor(options?: Control.FullscreenOptions);
+    class Fullscreen extends Control {
+      constructor(options?: FullscreenOptions);
       options: FullscreenOptions;
     }
-    export interface FullscreenOptions {
-      content?: string,
-      position?: L.ControlPosition,
-      title?: string,
-      titleCancel?: string,
-      forceSeparateButton?: boolean,
-      forcePseudoFullscreen?: boolean,
-      pseudoFullscreen?:boolean
+
+    interface FullscreenOptions {
+      content?: string;
+      position?: ControlPosition;
+      title?: string;
+      titleCancel?: string;
+      forceSeparateButton?: boolean;
+      forcePseudoFullscreen?: boolean;
+      pseudoFullscreen?: boolean;
     }
   }
 
   namespace control {
-
     /**
      * Creates a fullscreen control.
      */
-    export function fullscreen(options?: Control.FullscreenOptions): L.Control.Fullscreen;
-
+    function fullscreen(options?: Control.FullscreenOptions): Control.Fullscreen;
   }
 }

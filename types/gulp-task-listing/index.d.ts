@@ -1,6 +1,6 @@
 // Type definitions for gulp-task-listing
 // Project: https://github.com/OverZealous/gulp-task-listing
-// Definitions by: Joe Skeen <http://github.com/joeskeen>
+// Definitions by: Joe Skeen <https://github.com/joeskeen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /** 

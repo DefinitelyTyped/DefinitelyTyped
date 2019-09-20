@@ -1,10 +1,10 @@
-// Type definitions for jQueryUI 1.11
+// Type definitions for jQueryUI 1.12
 // Project: http://jqueryui.com/
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>, John Reilly <https://github.com/johnnyreilly>
+// Definitions by: Boris Yankov <https://github.com/borisyankov>, John Reilly <https://github.com/johnnyreilly>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
-
-/// <reference types="jquery"/>
+/// <reference types="jquery" />
 
 declare namespace JQueryUI {
     // Accordion //////////////////////////////////////////////////
@@ -51,6 +51,12 @@ declare namespace JQueryUI {
         minLength?: number;
         position?: any; // object
         source?: any; // [], string or ()
+        classes?: AutocompleteClasses;
+    }
+
+    interface AutocompleteClasses {
+        "ui-autocomplete"?: string;
+        "ui-autocomplete-input"?: string;
     }
 
     interface AutocompleteUIParams {
@@ -58,6 +64,7 @@ declare namespace JQueryUI {
          * The item selected from the menu, if any. Otherwise the property is null
          */
         item?: any;
+        content?: any;
     }
 
     interface AutocompleteEvent {
@@ -353,6 +360,7 @@ declare namespace JQueryUI {
         autoOpen?: boolean;
         buttons?: { [buttonText: string]: (event?: Event) => void } | DialogButtonOptions[];
         closeOnEscape?: boolean;
+        classes?: DialogClasses;
         closeText?: string;
         appendTo?: string;
         dialogClass?: string;
@@ -375,6 +383,20 @@ declare namespace JQueryUI {
 
 		open?: DialogEvent;
         close?: DialogEvent;
+    }
+
+    interface DialogClasses {
+        "ui-dialog"?: string;
+        "ui-dialog-content"?: string;
+        "ui-dialog-dragging"?: string;
+        "ui-dialog-resizing"?: string;
+        "ui-dialog-buttons"?: string;
+        "ui-dialog-titlebar"?: string;
+        "ui-dialog-title"?: string;
+        "ui-dialog-titlebar-close"?: string;
+        "ui-dialog-buttonpane"?: string;
+        "ui-dialog-buttonset"?: string;
+        "ui-widget-overlay"?: string;
     }
 
     interface DialogButtonOptions {
@@ -603,7 +625,7 @@ declare namespace JQueryUI {
         resize?: ResizableEvent;
         start?: ResizableEvent;
         stop?: ResizableEvent;
-        create?: ResizableEvents;
+        create?: ResizableEvent;
     }
 
     interface Resizable extends Widget, ResizableOptions {
@@ -677,6 +699,17 @@ declare namespace JQueryUI {
         value?: number;
         values?: number[];
         highlight?: boolean;
+        classes? : SliderClasses;
+    }
+
+    interface SliderClasses {
+        "ui-slider"?: string;
+        "ui-slider-horizontal"?: string;
+        "ui-slider-vertical"?: string;
+        "ui-slider-handle"?: string;
+        "ui-slider-range"?: string;
+        "ui-slider-range-min"?: string;
+        "ui-slider-range-max"?: string;
     }
 
     interface SliderUIParams {
@@ -705,6 +738,7 @@ declare namespace JQueryUI {
 
     interface SortableOptions extends SortableEvents {
         appendTo?: any; // jQuery, Element, Selector or string
+        attribute?: string;
         axis?: string;
         cancel?: any; // Selector
         connectWith?: any; // Selector
@@ -802,12 +836,24 @@ declare namespace JQueryUI {
 
     interface TabsOptions extends TabsEvents {
         active?: any; // boolean or number
+        classes?: TabClasses;
         collapsible?: boolean;
         disabled?: any; // boolean or []
         event?: string;
         heightStyle?: string;
         hide?: any; // boolean, number, string or object
         show?: any; // boolean, number, string or object
+    }
+
+    interface TabClasses {
+        "ui-tabs"?: string;
+        "ui-tabs-collapsible"?: string;
+        "ui-tabs-nav"?: string;
+        "ui-tabs-tab"?: string;
+        "ui-tabs-active"?: string;
+        "ui-tabs-loading"?: string;
+        "ui-tabs-anchor"?: string;
+        "ui-tabs-panel"?: string;
     }
 
     interface TabsActivationUIParams {
@@ -1010,6 +1056,7 @@ declare namespace JQueryUI {
         keyCode: KeyCode;
         menu: Menu;
         progressbar: Progressbar;
+        selectmenu: SelectMenu;
         slider: Slider;
         spinner: Spinner;
         tabs: Tabs;
@@ -1026,6 +1073,17 @@ declare namespace JQueryUI {
         show?: any;
     }
 
+    interface WidgetCommonProperties {
+        element: JQuery;
+        defaultElement : string;
+        document: Document;
+        namespace: string;
+        uuid: string;
+        widgetEventPrefix: string;
+        widgetFullName: string;
+        window: Window;
+    }
+
     interface Widget {
         (methodName: string): JQuery;
         (options: WidgetOptions): JQuery;
@@ -1034,8 +1092,8 @@ declare namespace JQueryUI {
         (optionLiteral: string, options: WidgetOptions): any;
         (optionLiteral: string, optionName: string, optionValue: any): JQuery;
 
-        (name: string, prototype: any): JQuery;
-        (name: string, base: Function, prototype: any): JQuery;
+        <T>(name: string, prototype: T & ThisType<T & WidgetCommonProperties>): JQuery;
+        <T>(name: string, base: Function, prototype: T & ThisType<T & WidgetCommonProperties> ): JQuery;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1357,8 +1415,8 @@ interface JQuery {
       * @param optionName 'autohide'
       */
       datepicker(methodName: 'option', optionName: 'autohide'): boolean;
-    
-   
+
+
       /**
       * Get the endDate after initialization
       *
@@ -1772,7 +1830,7 @@ interface JQuery {
     sortable(methodName: 'disable'): void;
     sortable(methodName: 'enable'): void;
     sortable(methodName: 'widget'): JQuery;
-    sortable(methodName: 'toArray'): string[];
+    sortable(methodName: 'toArray', options?: { attribute?: string; }): string[];
     sortable(methodName: string): JQuery;
     sortable(options: JQueryUI.SortableOptions): JQuery;
     sortable(optionLiteral: string, optionName: string): any;
@@ -1800,10 +1858,13 @@ interface JQuery {
     tabs(): JQuery;
     tabs(methodName: 'destroy'): void;
     tabs(methodName: 'disable'): void;
+    tabs(methodName: 'disable', index: number): void;
     tabs(methodName: 'enable'): void;
+    tabs(methodName: 'enable', index: number): void;
     tabs(methodName: 'load', index: number): void;
     tabs(methodName: 'refresh'): void;
     tabs(methodName: 'widget'): JQuery;
+    tabs(methodName: 'select', index: number): JQuery;
     tabs(methodName: string): JQuery;
     tabs(options: JQueryUI.TabsOptions): JQuery;
     tabs(optionLiteral: string, optionName: string): any;

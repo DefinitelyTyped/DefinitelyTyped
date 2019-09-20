@@ -1,6 +1,7 @@
-import sql = require('mssql');
+import * as sql from 'mssql';
+import * as msnodesqlv8 from 'mssql/msnodesqlv8';
 
-interface Entity{
+interface Entity {
     value: number;
 }
 
@@ -12,6 +13,14 @@ var config: sql.config = {
     connectionTimeout: 10000,
     options: {
         encrypt: true
+    },
+    pool: {
+        autostart: true
+    },
+    beforeConnect: conn => {
+        conn.on('debug', message => console.info(message));
+        conn.on('error', err => console.error(err));
+        conn.removeAllListeners();
     }
 }
 
@@ -26,26 +35,27 @@ var connection: sql.ConnectionPool = new sql.ConnectionPool(config, function (er
         console.warn("Issue with connecting to SQL Server!");
     }
     else {
-        connection.query`SELECT ${1} as value`.then(res => {    });
+        connection.query`SELECT ${1} as value`.then(res => { });
         var requestQuery = new sql.Request(connection);
 
         var getArticlesQuery = "SELECT * FROM TABLE";
 
         requestQuery.query(getArticlesQuery, function (err, result) {
             if (err) {
-                console.error('Error happened calling Query: ' + err.name + " " + err.message);
-
+                console.error(`Error happened calling Query: ${err.name} ${err.message}`);
             }
             // checking to see if the articles returned as at least one.
             else if (result.recordset.length > 0) {
             }
         });
 
+        requestQuery.query`SELECT * FROM TABLE`.then(res => { });
+
         getArticlesQuery = "SELECT 1 as value FROM TABLE";
 
         requestQuery.query<Entity>(getArticlesQuery, function (err, result) {
             if (err) {
-                console.error('Error happened calling Query: ' + err.name + " " + err.message);
+                console.error(`Error happened calling Query: ${err.name} ${err.message}`);
 
             }
             // checking to see if the articles returned as at least one.
@@ -63,7 +73,7 @@ var connection: sql.ConnectionPool = new sql.ConnectionPool(config, function (er
 
         requestStoredProcedure.execute('StoredProcedureName', function (err, recordsets, returnValue) {
             if (err != null) {
-                console.error('Error happened calling Query: ' + err.name + " " + err.message);
+                console.error(`Error happened calling Query: ${err.name} ${err.message}`);
             }
             else {
                 console.info(returnValue);
@@ -72,7 +82,7 @@ var connection: sql.ConnectionPool = new sql.ConnectionPool(config, function (er
 
         requestStoredProcedure.execute<Entity>('StoredProcedureName', function (err, recordsets, returnValue) {
             if (err != null) {
-                console.error('Error happened calling Query: ' + err.name + " " + err.message);
+                console.error(`Error happened calling Query: ${err.name} ${err.message}`);
             }
             else {
                 console.info(returnValue);
@@ -97,7 +107,7 @@ var connection: sql.ConnectionPool = new sql.ConnectionPool(config, function (er
 
         requestStoredProcedure.execute('StoredProcedureName', function (err, recordsets, returnValue) {
             if (err != null) {
-                console.error('Error happened calling Query: ' + err.name + " " + err.message);
+                console.error(`Error happened calling Query: ${err.name} ${err.message}`);
             }
             else {
                 console.info(requestStoredProcedureWithOutput.parameters['output'].value);
@@ -106,7 +116,7 @@ var connection: sql.ConnectionPool = new sql.ConnectionPool(config, function (er
 
         requestStoredProcedure.execute<Entity>('StoredProcedureName', function (err, recordsets, returnValue) {
             if (err != null) {
-                console.error('Error happened calling Query: ' + err.name + " " + err.message);
+                console.error(`Error happened calling Query: ${err.name} ${err.message}`);
             }
             else {
                 console.info(requestStoredProcedureWithOutput.parameters['output'].value);
@@ -128,12 +138,38 @@ function test_table() {
     table.rows.add('name2', 7, 3.14);
 }
 
+function test_table2() {
+    var table = new sql.Table('#temp_table2');
+
+    table.create = true;
+
+    ([
+        { name: 'name', type: { typeName: 'VarChar', length: sql.MAX }, nullable: false },
+        { name: 'type', type: { typeName: 'Int' }, nullable: false },
+        { name: 'type', type: { typeName: 'Decimal', precision: 7, scale: 2 }, nullable: false }
+    ] as any[])
+        .forEach((col: sql.IColumn) =>
+            table.columns.add(col.name, _getSqlType(col.type), { nullable: col.nullable }));
+
+    [['name', 42, 3.50], ['name2', 7, 3.14]].forEach((row: sql.IRow) => table.rows.add(...row));
+}
+
+function _getSqlType(type: any): sql.ISqlType {
+    return sql.TYPES[type.typeName](type.length | type.precision, type.scale);
+}
 
 function test_promise_returns() {
     // Methods return a promises if the callback is omitted.
     var connection: sql.ConnectionPool = new sql.ConnectionPool(config);
     connection.connect().then(() => { });
     connection.close().then(() => { });
+    connection.query('SELECT 1').then((recordset) => { });
+    connection.query<Entity>('SELECT 1 as value').then(res => { });
+    connection.query`SELECT ${1}`.then((recordset) => { });
+    connection.batch('create procedure #temporary as select * from table').then((recordset) => { });
+    connection.batch<Entity>('create procedure #temporary as select * from table;select 1 as value').then((recordset) => { });
+    connection.batch`create procedure #temporary as select ${1} from table`.then((recordset) => { });
+    connection.batch<Entity>`create procedure #temporary as select ${1} from table`.then((recordset) => { });
 
     var preparedStatment = new sql.PreparedStatement(connection);
     preparedStatment.prepare("SELECT @myValue").then(() => { });
@@ -146,11 +182,16 @@ function test_promise_returns() {
     transaction.rollback().then(() => { });
 
     var request = new sql.Request();
-    request.batch('create procedure #temporary as select * from table').then((recordset) => { });
+    request.batch('create procedure #temporary as select * from table;select 1 as value').then((recordset) => { });
     request.batch<Entity>('create procedure #temporary as select * from table;select 1 as value').then((recordset) => { });
+    request.batch`create procedure #temporary as select * from table;select ${1} as value`.then((recordset) => { });
+    request.batch<Entity>`create procedure #temporary as select * from table;select ${1} as value`.then((recordset) => { });
     request.bulk(new sql.Table("table_name")).then(() => { });
     request.query('SELECT 1').then((recordset) => { });
-    request.query<Entity>('SELECT 1 as value').then(res => {    });
+    request.query`SELECT ${1} as value`.then(res => { });
+    request.query<Entity>('SELECT 1 as value').then(res => { });
+    request.query`SELECT ${1}`.then((recordset) => { });
+    request.query<Entity>`SELECT ${1}`.then((recordset) => { });
     request.execute('procedure_name').then((recordset) => { });
 }
 
@@ -167,6 +208,16 @@ function test_request_constructor() {
     var request4 = new sql.Request();
 }
 
+function test_prepared_statement_constructor() {
+    // Request can be constructed with a connection, preparedStatment, transaction or no arguments
+    var connection: sql.ConnectionPool = new sql.ConnectionPool(config);
+    var preparedStatment = new sql.PreparedStatement(connection);
+    var transaction = new sql.Transaction(connection);
+
+    var preparedSatement1 = new sql.PreparedStatement(connection);
+    var preparedSatement2 = new sql.PreparedStatement(transaction);
+}
+
 function test_classes_extend_eventemitter() {
     var connection: sql.ConnectionPool = new sql.ConnectionPool(config);
     var transaction = new sql.Transaction();
@@ -181,4 +232,11 @@ function test_classes_extend_eventemitter() {
     request.on('error', () => { });
 
     preparedStatment.on('error', () => { })
+}
+
+async function test_msnodesqlv8() {
+    const connection = new msnodesqlv8.ConnectionPool({ server: "localhost", database: "master", options: { trustedConnection: true } });
+    await connection.connect();
+    const result = await connection.query`SELECT * FROM sys.databases`;
+    await connection.close();
 }

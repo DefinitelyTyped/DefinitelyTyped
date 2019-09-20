@@ -1,14 +1,12 @@
 // Type definitions for bootstrap-notify v3.1.3
 // Project: http://bootstrap-notify.remabledesigns.com/
-// Definitions by: Blake Niemyjski <https://github.com/niemyjski/>, Robert McIntosh <https://github.com/mouse0270>, Robert Voica <https://github.com/robert-voica>
+// Definitions by: Blake Niemyjski <https://github.com/niemyjski>, Robert McIntosh <https://github.com/mouse0270>, Robert Voica <https://github.com/robert-voica>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="jquery" />
 
-/* tslint:disable: interface-name no-any */
-
 interface JQueryStatic {
-	/* tslint:enable: interface-name */
     notify(message: string): NotifyReturn;
 	notify(opts: NotifyOptions, settings?: NotifySettings): NotifyReturn;
 	notifyDefaults(settings: NotifySettings): void;
@@ -50,16 +48,16 @@ interface NotifySettings {
 		enter?: string;
 		exit?: string;
 	};
-	onShow?: () => void;
-	onShown?: () => void;
-	onClose?: () => void;
-	onClosed?: () => void;
+	onShow?: ($ele: JQuery) => void;
+	onShown?: ($ele: JQuery) => void;
+	onClose?: ($ele: JQuery) => void;
+	onClosed?: ($ele: JQuery) => void;
 	icon_type?: string;
 	template?: string;
 }
 
 interface NotifyReturn {
-	$ele: JQueryStatic;
+	$ele: JQuery;
 	close: () => void;
 	update: (command: string, update: any) => void;
 }

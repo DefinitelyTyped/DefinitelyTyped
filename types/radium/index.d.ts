@@ -1,13 +1,12 @@
-// Type definitions for radium 0.18.1
+// Type definitions for radium 0.24.0
 // Project: https://github.com/formidablelabs/radium
-// Definitions by: Alex Gorbatchev <https://github.com/alexgorbatchev/>, Philipp Holzer <https://github.com/nupplaphil/>, Alexey Svetliakov <https://github.com/asvetliakov/>, Mikael Hermansson <https://github.com/mihe/>
+// Definitions by: Alex Gorbatchev <https://github.com/alexgorbatchev>, Philipp Holzer <https://github.com/nupplaphil>, Alexey Svetliakov <https://github.com/asvetliakov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.8
 
-import React = require('react');
-import ReactComponent = React.Component;
+import * as React from 'react';
 
-export = Radium;
+export default Radium;
 
 // @Radium decorator
 declare function Radium<TElement extends Function>(component: TElement): TElement;
@@ -37,7 +36,7 @@ declare namespace Radium {
     /**
      * <Style />
      */
-    export class Style extends React.Component<StyleProps, any> {
+    export class Style extends React.Component<StyleProps> {
     }
 
     /**
@@ -49,7 +48,7 @@ declare namespace Radium {
     /**
      * <StyleRoot />
      */
-    export class StyleRoot extends React.Component<StyleRootProps, any> {
+    export class StyleRoot extends React.Component<StyleRootProps> {
     }
 
     /**

@@ -2,6 +2,7 @@
 // Project: https://github.com/spion/blue-tape
 // Definitions by: Haoqun Jiang <https://github.com/sodatea>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.2
 
 /// <reference types="node" />
 

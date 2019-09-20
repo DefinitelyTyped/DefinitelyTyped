@@ -1,13 +1,16 @@
-// Type definitions for pouchdb-upsert v2.0.1
-// Project: https://github.com/pouchdb/upsert
-// Definitions by: Keith D. Moore <https://github.com/keithdmoore>, Andrew Mitchell <https://github.com/hotforfeature>
+// Type definitions for pouchdb-upsert 2.2
+// Project: https://github.com/pouchdb/upsert, https://github.com/nolanlawson/pouchdb-upsert
+// Definitions by: Keith D. Moore <https://github.com/keithdmoore>
+//                 Andrew Mitchell <https://github.com/hotforfeature>
+//                 Eddie Hsu <https://github.com/apolkingg8>
+//                 John McLaughlin <https://github.com/zamb3zi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="pouchdb-core" />
 
 declare namespace PouchDB {
-
-  interface Database<Content extends Core.Encodable> {
+  interface Database<Content extends {} = {}> {
     /**
      * Perform an upsert (update or insert) operation. Returns a Promise.
      *
@@ -17,7 +20,7 @@ declare namespace PouchDB {
      * If the document does not already exist, then {} will be the input to diffFunc.
      *
      */
-    upsert(docId: Core.DocumentId, diffFun: UpsertDiffCallback<Content>): Promise<Core.Response>;
+    upsert<Model>(docId: Core.DocumentId, diffFun: UpsertDiffCallback<Content & Model>): Promise<UpsertResponse>;
 
     /**
      * Perform an upsert (update or insert) operation. If a callback is not provided, the Promise based version
@@ -29,8 +32,8 @@ declare namespace PouchDB {
      * If the document does not already exist, then {} will be the input to diffFunc.
      * @param callback - called with the results after operation is completed.
      */
-    upsert(docId: Core.DocumentId, diffFun: UpsertDiffCallback<Content>,
-           callback: Core.Callback<Core.Error, Core.Response>): void;
+    upsert<Model>(docId: Core.DocumentId, diffFun: UpsertDiffCallback<Content & Model>,
+                  callback: Core.Callback<UpsertResponse>): void;
 
     /**
      * Put a new document with the given docId, if it doesn't already exist. Returns a Promise.
@@ -38,7 +41,7 @@ declare namespace PouchDB {
      * @param doc - the document to insert. Should contain an _id if docId is not specified
      * If the document already exists, then the Promise will just resolve immediately.
      */
-    putIfNotExists(doc: Core.Document<Content>): Promise<Core.Response>;
+    putIfNotExists<Model>(doc: Core.Document<Content & Model>): Promise<UpsertResponse>;
 
     //
     /**
@@ -51,12 +54,20 @@ declare namespace PouchDB {
      * If you don't specify a callback, then the Promise version of this function will be invoked and it
      * will return a Promise.
      */
-    putIfNotExists(doc: Core.Document<Content>,
-                   callback: Core.Callback<Core.Error, Core.Response>): void;
+    putIfNotExists<Model>(doc: Core.Document<Content & Model>,
+                          callback: Core.Callback<UpsertResponse>): void;
   }
 
-  interface UpsertDiffCallback<Content extends Core.Encodable> {
-    (doc: Core.Document<Content>): Core.Document<Content>|boolean;
+  type CancelUpsert = '' | 0 | false | null | undefined; // falsey values
+  // `Partial<Core.Document<Content>>` seems more useful than
+  // `{} | Core.Document<Content>` since there isn't an easy way to narrow
+  // `{} | Core.Document<Content>` to `Core.Document<Content>`.
+  type UpsertDiffCallback<Content extends {}> = (doc: Partial<Core.Document<Content>>) => Content & Partial<Core.IdMeta> | CancelUpsert;
+
+  interface UpsertResponse {
+    id: Core.DocumentId;
+    rev: Core.RevisionId;
+    updated: boolean;
   }
 }
 

@@ -1,7 +1,9 @@
 // Type definitions for swagger-express-middleware 1.x
 // Project: https://github.com/BigstickCarpet/swagger-express-middleware
-// Definitions by: Alexandre Roba <https://github.com/alexandreroba/>
+// Definitions by: Alexandre Roba <https://github.com/alexandreroba>
+//                 Tromgy <https://github.com/tromgy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /* =================== USAGE ===================
 import * as express from "express";
@@ -29,7 +31,8 @@ app.listen(8000, function () {
 /// <reference types="express" />
 
 declare module "swagger-express-middleware" {
-    import {Application, Router, RequestHandler, Request, Response} from "express";
+    import { Application, Router, RequestHandler, Request, Response } from "express";
+    import SwaggerParser = require("swagger-parser");
 
     let s: s.SwaggerMiddlewareConstructor;
 
@@ -38,8 +41,9 @@ declare module "swagger-express-middleware" {
             (apiDefinitionPathOrObject: string | SwaggerObject, appOrRouter: Application | Router, cb: SwaggerMiddlewareConstructorCallback): SwaggerMiddleware;
         }
         interface SwaggerMiddlewareConstructorCallback {
-            (err: any, middleware: SwaggerMiddleware): void;
+            (err: any, middleware: SwaggerMiddleware, api: SwaggerObject, parser: SwaggerParser): void;
         }
+
         export interface SwaggerMiddleware {
             /**
             * Annotates the HTTP request (the `req` object) with Swagger metadata.

@@ -1,7 +1,11 @@
-// Type definitions for babel-types v6.7
-// Project: https://github.com/babel/babel/tree/master/packages/babel-types
-// Definitions by: Troy Gerwien <https://github.com/yortus>, Sam Baxter <https://github.com/baxtersa>
+// Type definitions for babel-types 7.0
+// Project: https://github.com/babel/babel/tree/master/packages/babel-types, https://babeljs.io
+// Definitions by: Troy Gerwien <https://github.com/yortus>
+//                 Sam Baxter <https://github.com/baxtersa>
+//                 Marvin Hagemeister <https://github.com/marvinhagemeister>
+//                 Boris Cherny <https://github.com/bcherny>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export interface Comment {
     value: string;
@@ -32,9 +36,9 @@ export interface SourceLocation {
 
 export interface Node {
     type: string;
-    leadingComments?: Array<Comment>;
-    innerComments?: Array<Comment>;
-    trailingComments?: Array<Comment>;
+    leadingComments?: Comment[];
+    innerComments?: Comment[];
+    trailingComments?: Comment[];
     start: number;
     end: number;
     loc: SourceLocation;
@@ -42,7 +46,7 @@ export interface Node {
 
 export interface ArrayExpression extends Node {
     type: "ArrayExpression";
-    elements: Array<Expression | SpreadElement>;
+    elements: Array<null | Expression | SpreadElement>;
 }
 
 export interface AssignmentExpression extends Node {
@@ -148,7 +152,7 @@ export interface ForStatement extends Node {
 export interface FunctionDeclaration extends Node {
     type: "FunctionDeclaration";
     id: Identifier;
-    params: Array<LVal>;
+    params: LVal[];
     body: BlockStatement;
     generator: boolean;
     async: boolean;
@@ -159,7 +163,7 @@ export interface FunctionDeclaration extends Node {
 export interface FunctionExpression extends Node {
     type: "FunctionExpression";
     id: Identifier;
-    params: Array<LVal>;
+    params: LVal[];
     body: BlockStatement;
     generator: boolean;
     async: boolean;
@@ -252,7 +256,7 @@ export interface ObjectMethod extends Node {
     value: Expression;
     decorators?: Decorator[];
     id: Identifier;
-    params: Array<LVal>;
+    params: LVal[];
     body: BlockStatement;
     generator: boolean;
     async: boolean;
@@ -359,14 +363,14 @@ export interface AssignmentPattern extends Node {
 
 export interface ArrayPattern extends Node {
     type: "ArrayPattern";
-    elements: Array<Expression>;
+    elements: Expression[];
     typeAnnotation?: TypeAnnotation;
 }
 
 export interface ArrowFunctionExpression extends Node {
     type: "ArrowFunctionExpression";
     id: Identifier;
-    params: Array<LVal>;
+    params: LVal[];
     body: BlockStatement | Expression;
     generator: boolean;
     async: boolean;
@@ -418,7 +422,7 @@ export interface ExportNamedDeclaration extends Node {
     type: "ExportNamedDeclaration";
     declaration: Declaration;
     specifiers: ExportSpecifier[];
-    source: StringLiteral;
+    source: StringLiteral | null;
 }
 
 export interface ExportSpecifier extends Node {
@@ -472,7 +476,7 @@ export interface ClassMethod extends Node {
     static: boolean;
     decorators?: Decorator[];
     id: Identifier;
-    params: Array<LVal>;
+    params: LVal[];
     body: BlockStatement;
     generator: boolean;
     async: boolean;
@@ -708,6 +712,13 @@ export interface TypeCastExpression extends Node {
     typeAnnotation: FlowTypeAnnotation;
 }
 
+export interface TypeParameter extends Node {
+    type: "TypeParameterDeclaration";
+    bound: TypeAnnotation | null;
+    default: Flow | null;
+    name: string | null;
+}
+
 export interface TypeParameterDeclaration extends Node {
     type: "TypeParameterDeclaration";
     params: Identifier[];
@@ -761,7 +772,7 @@ export interface VoidTypeAnnotation extends Node {
 export interface JSXAttribute extends Node {
     type: "JSXAttribute";
     name: JSXIdentifier | JSXNamespacedName;
-    value: JSXElement | StringLiteral | JSXExpressionContainer;
+    value: JSXElement | StringLiteral | JSXExpressionContainer | null;
 }
 
 export interface JSXClosingElement extends Node {
@@ -870,12 +881,366 @@ export interface SpreadProperty extends Node {
     argument: Expression;
 }
 
-export type Expression = ArrayExpression | AssignmentExpression | BinaryExpression | CallExpression | ConditionalExpression | FunctionExpression | Identifier | StringLiteral | NumericLiteral | BooleanLiteral | NullLiteral | RegExpLiteral | LogicalExpression | MemberExpression | NewExpression | ObjectExpression | SequenceExpression | ThisExpression | UnaryExpression | UpdateExpression | ArrowFunctionExpression | ClassExpression | MetaProperty | Super | TaggedTemplateExpression | TemplateLiteral | YieldExpression | TypeCastExpression | JSXElement | JSXEmptyExpression | JSXIdentifier | JSXMemberExpression | ParenthesizedExpression | AwaitExpression | BindExpression | DoExpression;
+export interface TSAnyKeyword extends Node {
+    type: "TSAnyKeyword";
+}
+
+export interface TSArrayType extends Node {
+    type: "TSArrayType";
+    elementType: TSType;
+}
+
+export interface TSAsExpression extends Node {
+    type: "TSAsExpression";
+    expression: Expression;
+    typeAnnotation: TSType;
+}
+
+export interface TSBooleanKeyword extends Node {
+    type: "TSBooleanKeyword";
+}
+
+export interface TSCallSignatureDeclaration extends Node {
+    type: "TSCallSignatureDeclaration";
+    typeParameters: TypeParameterDeclaration | null;
+    parameters: Array<Identifier | RestElement> | null;
+    typeAnnotation: TSTypeAnnotation | null;
+}
+
+export interface TSConstructSignatureDeclaration extends Node {
+    type: "TSConstructSignatureDeclaration";
+    typeParameters: TypeParameterDeclaration | null;
+    parameters: Array<Identifier | RestElement> | null;
+    typeAnnotation: TSTypeAnnotation | null;
+}
+
+export interface TSConstructorType extends Node {
+    type: "TSConstructorType";
+    typeParameters: TypeParameterDeclaration | null;
+    typeAnnotation: TSTypeAnnotation | null;
+    parameters: Array<Identifier | RestElement> | null;
+}
+
+export interface TSDeclareFunction extends Node {
+    type: "TSDeclareFunction";
+    id: Identifier | null;
+    typeParameters: TypeParameterDeclaration | Noop | null;
+    params: LVal[];
+    returnType: TypeAnnotation | TSTypeAnnotation | Noop | null;
+    async: boolean;
+    declare: boolean | null;
+    generator: boolean;
+}
+
+export interface TSDeclareMethod extends Node {
+    type: "TSDeclareMethod";
+    decorators: Decorator[] | null;
+    key: Expression;
+    typeParameters: TypeParameterDeclaration | Noop | null;
+    params: LVal[];
+    returnType: TypeAnnotation | TSTypeAnnotation | Noop | null;
+    abstract: boolean | null;
+    access: "public" | "private" | "protected" | null;
+    accessibility: "public" | "private" | "protected" | null;
+    async: boolean;
+    computed: boolean;
+    generator: boolean;
+    kind: "get" | "set" | "method" | "constructor";
+    optional: boolean | null;
+    static: boolean | null;
+}
+
+export interface TSEnumDeclaration extends Node {
+    type: "TSEnumDeclaration";
+    id: Identifier;
+    members: TSEnumMember[];
+    const: boolean | null;
+    declare: boolean | null;
+    initializer: Expression | null;
+}
+
+export interface TSEnumMember extends Node {
+    type: "TSEnumMember";
+    id: Identifier | StringLiteral;
+    initializer: Expression | null;
+}
+
+export interface TSExportAssignment extends Node {
+    type: "TSExportAssignment";
+    expression: Expression;
+}
+
+export interface TSExpressionWithTypeArguments extends Node {
+    type: "TSExpressionWithTypeArguments";
+    expression: TSEntityName;
+    typeParameters: TypeParameterInstantiation | null;
+}
+
+export interface TSExternalModuleReference extends Node {
+    type: "TSExternalModuleReference";
+    expression: StringLiteral;
+}
+
+export interface TSFunctionType extends Node {
+    type: "TSFunctionType";
+    typeParameters: TypeParameterDeclaration | null;
+    typeAnnotation: TSTypeAnnotation | null;
+    parameters: Array<Identifier | RestElement> | null;
+}
+
+export interface TSImportEqualsDeclaration extends Node {
+    type: "TSImportEqualsDeclaration";
+    id: Identifier;
+    moduleReference: TSEntityName | TSExternalModuleReference;
+    isExport: boolean | null;
+}
+
+export interface TSIndexSignature extends Node {
+    type: "TSIndexSignature";
+    parameters: Identifier[];
+    typeAnnotation: TSTypeAnnotation | null;
+    readonly: boolean | null;
+}
+
+export interface TSIndexedAccessType extends Node {
+    type: "TSIndexedAccessType";
+    objectType: TSType;
+    indexType: TSType;
+}
+
+export interface TSInterfaceBody extends Node {
+    type: "TSInterfaceBody";
+    body: TSTypeElement[];
+}
+
+export interface TSInterfaceDeclaration extends Node {
+    type: "TSInterfaceDeclaration";
+    id: Identifier;
+    typeParameters: TypeParameterDeclaration | null;
+    extends: TSExpressionWithTypeArguments[] | null;
+    body: TSInterfaceBody;
+    declare: boolean | null;
+}
+
+export interface TSIntersectionType extends Node {
+    type: "TSIntersectionType";
+    types: TSType[];
+}
+
+export interface TSLiteralType extends Node {
+    type: "TSLiteralType";
+    literal: NumericLiteral | StringLiteral | BooleanLiteral;
+}
+
+export interface TSMappedType extends Node {
+    type: "TSMappedType";
+    typeParameter: TypeParameter;
+    typeAnnotation: TSType | null;
+    optional: boolean | null;
+    readonly: boolean | null;
+}
+
+export interface TSMethodSignature extends Node {
+    type: "TSMethodSignature";
+    key: Expression;
+    typeParameters: TypeParameterDeclaration | null;
+    parameters: Array<Identifier | RestElement> | null;
+    typeAnnotation: TSTypeAnnotation | null;
+    computed: boolean | null;
+    optional: boolean | null;
+}
+
+export interface TSModuleBlock extends Node {
+    type: "TSModuleBlock";
+    body: Statement[];
+}
+
+export interface TSModuleDeclaration extends Node {
+    type: "TSModuleDeclaration";
+    id: Identifier | StringLiteral;
+    body: TSModuleBlock | TSModuleDeclaration;
+    declare: boolean | null;
+    global: boolean | null;
+}
+
+export interface TSNamespaceExportDeclaration extends Node {
+    type: "TSNamespaceExportDeclaration";
+    id: Identifier;
+}
+
+export interface TSNeverKeyword extends Node {
+    type: "TSNeverKeyword";
+}
+
+export interface TSNonNullExpression extends Node {
+    type: "TSNonNullExpression";
+    expression: Expression;
+}
+
+export interface TSNullKeyword extends Node {
+    type: "TSNullKeyword";
+}
+
+export interface TSNumberKeyword extends Node {
+    type: "TSNumberKeyword";
+}
+
+export interface TSObjectKeyword extends Node {
+    type: "TSObjectKeyword";
+}
+
+export interface TSParameterProperty extends Node {
+    type: "TSParameterProperty";
+    parameter: Identifier | AssignmentPattern;
+    accessibility: 'public' | 'private' | 'protected' | null;
+    readonly: boolean | null;
+}
+
+export interface TSParenthesizedType extends Node {
+    type: "TSParenthesizedType";
+    typeAnnotation: TSType;
+}
+
+export interface TSPropertySignature extends Node {
+    type: "TSPropertySignature";
+    key: Expression;
+    typeAnnotation: TSTypeAnnotation | null;
+    initializer: Expression | null;
+    computed: boolean | null;
+    optional: boolean | null;
+    readonly: boolean | null;
+}
+
+export interface TSQualifiedName extends Node {
+    type: "TSQualifiedName";
+    left: TSEntityName;
+    right: Identifier;
+}
+
+export interface TSStringKeyword extends Node {
+    type: "TSStringKeyword";
+}
+
+export interface TSSymbolKeyword extends Node {
+    type: "TSSymbolKeyword";
+}
+
+export interface TSThisType extends Node {
+    type: "TSThisType";
+}
+
+export interface TSTupleType extends Node {
+    type: "TSTupleType";
+    elementTypes: TSType[];
+}
+
+export interface TSTypeAliasDeclaration extends Node {
+    type: "TSTypeAliasDeclaration";
+    id: Identifier;
+    typeParameters: TypeParameterDeclaration | null;
+    typeAnnotation: TSType;
+    declare: boolean | null;
+}
+
+export interface TSTypeAnnotation extends Node {
+    type: "TSTypeAnnotation";
+    typeAnnotation: TSType;
+}
+
+export interface TSTypeAssertion extends Node {
+    type: "TSTypeAssertion";
+    typeAnnotation: TSType;
+    expression: Expression;
+}
+
+export interface TSTypeLiteral extends Node {
+    type: "TSTypeLiteral";
+    members: TSTypeElement[];
+}
+
+export interface TSTypeOperator extends Node {
+    type: "TSTypeOperator";
+    typeAnnotation: TSType;
+    operator: string | null;
+}
+
+export interface TSTypeParameter extends Node {
+    type: "TSTypeParameter";
+    constraint: TSType | null;
+    default: TSType | null;
+    name: string | null;
+}
+
+export interface TSTypeParameterDeclaration extends Node {
+    type: "TSTypeParameterDeclaration";
+    params: TSTypeParameter[];
+}
+
+export interface TSTypeParameterInstantiation extends Node {
+    type: "TSTypeParameterInstantiation";
+    params: TSType[];
+}
+
+export interface TSTypePredicate extends Node {
+    type: "TSTypePredicate";
+    parameterName: Identifier | TSThisType;
+    typeAnnotation: TSTypeAnnotation;
+}
+
+export interface TSTypeQuery extends Node {
+    type: "TSTypeQuery";
+    exprName: TSEntityName;
+}
+
+export interface TSTypeReference extends Node {
+    type: "TSTypeReference";
+    typeName: TSEntityName;
+    typeParameters: TypeParameterInstantiation | null;
+}
+
+export interface TSUndefinedKeyword extends Node {
+    type: "TSUndefinedKeyword";
+}
+
+export interface TSUnionType extends Node {
+    type: "TSUnionType";
+    types: TSType[];
+}
+
+export interface TSVoidKeyword extends Node {
+    type: "TSVoidKeyword";
+}
+
+export type Expression = ArrayExpression | AssignmentExpression | BinaryExpression | CallExpression
+    | ConditionalExpression | FunctionExpression | Identifier | StringLiteral | NumericLiteral | BooleanLiteral
+    | NullLiteral | RegExpLiteral | LogicalExpression | MemberExpression | NewExpression | ObjectExpression
+    | SequenceExpression | ThisExpression | UnaryExpression | UpdateExpression | ArrowFunctionExpression
+    | ClassExpression | MetaProperty | Super | TaggedTemplateExpression | TemplateLiteral | YieldExpression
+    | TypeCastExpression | JSXElement | JSXEmptyExpression | JSXIdentifier | JSXMemberExpression
+    | ParenthesizedExpression | AwaitExpression | BindExpression | DoExpression | TSAsExpression
+    | TSNonNullExpression | TSTypeAssertion;
+
 export type Binary = BinaryExpression | LogicalExpression;
-export type Scopable = BlockStatement | CatchClause | DoWhileStatement | ForInStatement | ForStatement | FunctionDeclaration | FunctionExpression | Program | ObjectMethod | SwitchStatement | WhileStatement | ArrowFunctionExpression | ClassDeclaration | ClassExpression | ForOfStatement | ClassMethod;
-export type BlockParent = BlockStatement | DoWhileStatement | ForInStatement | ForStatement | FunctionDeclaration | FunctionExpression | Program | ObjectMethod | SwitchStatement | WhileStatement | ArrowFunctionExpression | ForOfStatement | ClassMethod;
+
+export type Scopable = BlockStatement | CatchClause | DoWhileStatement | ForInStatement | ForStatement
+    | FunctionDeclaration | FunctionExpression | Program | ObjectMethod | SwitchStatement | WhileStatement
+    | ArrowFunctionExpression | ClassDeclaration | ClassExpression | ForOfStatement | ClassMethod;
+
+export type BlockParent = BlockStatement | DoWhileStatement | ForInStatement | ForStatement | FunctionDeclaration
+    | FunctionExpression | Program | ObjectMethod | SwitchStatement | WhileStatement | ArrowFunctionExpression
+    | ForOfStatement | ClassMethod;
+
 export type Block = BlockStatement | Program;
-export type Statement = BlockStatement | BreakStatement | ContinueStatement | DebuggerStatement | DoWhileStatement | EmptyStatement | ExpressionStatement | ForInStatement | ForStatement | FunctionDeclaration | IfStatement | LabeledStatement | ReturnStatement | SwitchStatement | ThrowStatement | TryStatement | VariableDeclaration | WhileStatement | WithStatement | ClassDeclaration | ExportAllDeclaration | ExportDefaultDeclaration | ExportNamedDeclaration | ForOfStatement | ImportDeclaration | DeclareClass | DeclareFunction | DeclareInterface | DeclareModule | DeclareTypeAlias | DeclareVariable | InterfaceDeclaration | TypeAlias;
+
+export type Statement = BlockStatement | BreakStatement | ContinueStatement | DebuggerStatement | DoWhileStatement
+    | EmptyStatement | ExpressionStatement | ForInStatement | ForStatement | FunctionDeclaration | IfStatement
+    | LabeledStatement | ReturnStatement | SwitchStatement | ThrowStatement | TryStatement | VariableDeclaration
+    | WhileStatement | WithStatement | ClassDeclaration | ExportAllDeclaration | ExportDefaultDeclaration
+    | ExportNamedDeclaration | ForOfStatement | ImportDeclaration | DeclareClass | DeclareFunction | DeclareInterface
+    | DeclareModule | DeclareTypeAlias | DeclareVariable | InterfaceDeclaration | TypeAlias | TSDeclareFunction
+    | TSEnumDeclaration | TSExportAssignment | TSImportEqualsDeclaration | TSInterfaceDeclaration
+    | TSModuleDeclaration | TSNamespaceExportDeclaration | TSTypeAliasDeclaration;
+
 export type Terminatorless = BreakStatement | ContinueStatement | ReturnStatement | ThrowStatement | YieldExpression | AwaitExpression;
 export type CompletionStatement = BreakStatement | ContinueStatement | ReturnStatement | ThrowStatement;
 export type Conditional = ConditionalExpression | IfStatement;
@@ -887,8 +1252,14 @@ export type ForXStatement = ForInStatement | ForOfStatement;
 export type Function = FunctionDeclaration | FunctionExpression | ObjectMethod | ArrowFunctionExpression | ClassMethod;
 export type FunctionParent = FunctionDeclaration | FunctionExpression | Program | ObjectMethod | ArrowFunctionExpression | ClassMethod;
 export type Pureish = FunctionDeclaration | FunctionExpression | StringLiteral | NumericLiteral | BooleanLiteral | NullLiteral | ArrowFunctionExpression | ClassDeclaration | ClassExpression;
-export type Declaration = FunctionDeclaration | VariableDeclaration | ClassDeclaration | ExportAllDeclaration | ExportDefaultDeclaration | ExportNamedDeclaration | ImportDeclaration | DeclareClass | DeclareFunction | DeclareInterface | DeclareModule | DeclareTypeAlias | DeclareVariable | InterfaceDeclaration | TypeAlias;
-export type LVal = Identifier | MemberExpression | RestElement | AssignmentPattern | ArrayPattern | ObjectPattern;
+
+export type Declaration = FunctionDeclaration | VariableDeclaration | ClassDeclaration | ExportAllDeclaration
+    | ExportDefaultDeclaration | ExportNamedDeclaration | ImportDeclaration | DeclareClass | DeclareFunction
+    | DeclareInterface | DeclareModule | DeclareTypeAlias | DeclareVariable | InterfaceDeclaration | TypeAlias
+    | TSDeclareFunction | TSEnumDeclaration | TSInterfaceDeclaration | TSModuleDeclaration | TSTypeAliasDeclaration;
+
+export type LVal = Identifier | MemberExpression | RestElement | AssignmentPattern | ArrayPattern | ObjectPattern
+    | TSParameterProperty;
 export type Literal = StringLiteral | NumericLiteral | BooleanLiteral | NullLiteral | RegExpLiteral | TemplateLiteral;
 export type Immutable = StringLiteral | NumericLiteral | BooleanLiteral | NullLiteral | JSXAttribute | JSXClosingElement | JSXElement | JSXExpressionContainer | JSXOpeningElement;
 export type UserWhitespacable = ObjectMethod | ObjectProperty | ObjectTypeCallProperty | ObjectTypeIndexer | ObjectTypeProperty;
@@ -901,15 +1272,47 @@ export type Class = ClassDeclaration | ClassExpression;
 export type ModuleDeclaration = ExportAllDeclaration | ExportDefaultDeclaration | ExportNamedDeclaration | ImportDeclaration;
 export type ExportDeclaration = ExportAllDeclaration | ExportDefaultDeclaration | ExportNamedDeclaration;
 export type ModuleSpecifier = ExportSpecifier | ImportDefaultSpecifier | ImportNamespaceSpecifier | ImportSpecifier | ExportDefaultSpecifier | ExportNamespaceSpecifier;
-export type Flow = AnyTypeAnnotation | ArrayTypeAnnotation | BooleanTypeAnnotation | BooleanLiteralTypeAnnotation | ClassImplements | ClassProperty | DeclareClass | DeclareFunction | DeclareInterface | DeclareModule | DeclareTypeAlias | DeclareVariable | ExistentialTypeParam | FunctionTypeAnnotation | FunctionTypeParam | GenericTypeAnnotation | InterfaceExtends | InterfaceDeclaration | IntersectionTypeAnnotation | MixedTypeAnnotation | NullableTypeAnnotation | NumericLiteralTypeAnnotation | NumberTypeAnnotation | StringLiteralTypeAnnotation | StringTypeAnnotation | ThisTypeAnnotation | TupleTypeAnnotation | TypeofTypeAnnotation | TypeAlias | TypeAnnotation | TypeCastExpression | TypeParameterDeclaration | TypeParameterInstantiation | ObjectTypeAnnotation | ObjectTypeCallProperty | ObjectTypeIndexer | ObjectTypeProperty | QualifiedTypeIdentifier | UnionTypeAnnotation | VoidTypeAnnotation;
-export type FlowTypeAnnotation = AnyTypeAnnotation | ArrayTypeAnnotation | BooleanTypeAnnotation | BooleanLiteralTypeAnnotation | FunctionTypeAnnotation | GenericTypeAnnotation | IntersectionTypeAnnotation | MixedTypeAnnotation | NullableTypeAnnotation | NumericLiteralTypeAnnotation | NumberTypeAnnotation | StringLiteralTypeAnnotation | StringTypeAnnotation | ThisTypeAnnotation | TupleTypeAnnotation | TypeofTypeAnnotation | TypeAnnotation | ObjectTypeAnnotation | UnionTypeAnnotation | VoidTypeAnnotation;
+
+export type Flow = AnyTypeAnnotation | ArrayTypeAnnotation | BooleanTypeAnnotation | BooleanLiteralTypeAnnotation
+    | ClassImplements | ClassProperty | DeclareClass | DeclareFunction | DeclareInterface | DeclareModule
+    | DeclareTypeAlias | DeclareVariable | ExistentialTypeParam | FunctionTypeAnnotation | FunctionTypeParam
+    | GenericTypeAnnotation | InterfaceExtends | InterfaceDeclaration | IntersectionTypeAnnotation
+    | MixedTypeAnnotation | NullableTypeAnnotation | NumericLiteralTypeAnnotation | NumberTypeAnnotation
+    | StringLiteralTypeAnnotation | StringTypeAnnotation | ThisTypeAnnotation | TupleTypeAnnotation
+    | TypeofTypeAnnotation | TypeAlias | TypeAnnotation | TypeCastExpression | TypeParameterDeclaration
+    | TypeParameterInstantiation | ObjectTypeAnnotation | ObjectTypeCallProperty | ObjectTypeIndexer
+    | ObjectTypeProperty | QualifiedTypeIdentifier | UnionTypeAnnotation | VoidTypeAnnotation;
+
+export type FlowTypeAnnotation = AnyTypeAnnotation | ArrayTypeAnnotation | BooleanTypeAnnotation
+    | BooleanLiteralTypeAnnotation | FunctionTypeAnnotation | GenericTypeAnnotation | IntersectionTypeAnnotation
+    | MixedTypeAnnotation | NullableTypeAnnotation | NumericLiteralTypeAnnotation | NumberTypeAnnotation
+    | StringLiteralTypeAnnotation | StringTypeAnnotation | ThisTypeAnnotation | TupleTypeAnnotation
+    | TypeofTypeAnnotation | TypeAnnotation | ObjectTypeAnnotation | UnionTypeAnnotation | VoidTypeAnnotation;
+
 export type FlowBaseAnnotation = AnyTypeAnnotation | BooleanTypeAnnotation | MixedTypeAnnotation | NumberTypeAnnotation | StringTypeAnnotation | ThisTypeAnnotation | VoidTypeAnnotation;
 export type FlowDeclaration = DeclareClass | DeclareFunction | DeclareInterface | DeclareModule | DeclareTypeAlias | DeclareVariable | InterfaceDeclaration | TypeAlias;
-export type JSX = JSXAttribute | JSXClosingElement | JSXElement | JSXEmptyExpression | JSXExpressionContainer | JSXIdentifier | JSXMemberExpression | JSXNamespacedName | JSXOpeningElement | JSXSpreadAttribute | JSXText;
 
-export function arrayExpression(elements?: Array<Expression | SpreadElement>): ArrayExpression;
+export type JSX = JSXAttribute | JSXClosingElement | JSXElement | JSXEmptyExpression | JSXExpressionContainer
+    | JSXIdentifier | JSXMemberExpression | JSXNamespacedName | JSXOpeningElement | JSXSpreadAttribute | JSXText;
+
+export type TSType = TSAnyKeyword | TSArrayType | TSBooleanKeyword | TSConstructorType | TSExpressionWithTypeArguments
+    | TSFunctionType | TSIndexedAccessType | TSIntersectionType | TSLiteralType | TSMappedType | TSNeverKeyword
+    | TSNullKeyword | TSNumberKeyword | TSObjectKeyword | TSParenthesizedType | TSStringKeyword | TSSymbolKeyword
+    | TSThisType | TSTupleType | TSTypeLiteral | TSTypeOperator | TSTypePredicate | TSTypeQuery | TSTypeReference
+    | TSUndefinedKeyword | TSUnionType | TSVoidKeyword;
+
+export type TSEntityName = Identifier | TSQualifiedName;
+
+export type TSTypeElement = TSCallSignatureDeclaration | TSConstructSignatureDeclaration | TSIndexSignature
+    | TSMethodSignature | TSPropertySignature;
+
+export function arrayExpression(elements?: Array<null | Expression | SpreadElement>): ArrayExpression;
 export function assignmentExpression(operator?: string, left?: LVal, right?: Expression): AssignmentExpression;
-export function binaryExpression(operator?: "+" | "-" | "/" | "%" | "*" | "**" | "&" | "|" | ">>" | ">>>" | "<<" | "^" | "==" | "===" | "!=" | "!==" | "in" | "instanceof" | ">" | "<" | ">=" | "<=", left?: Expression, right?: Expression): BinaryExpression;
+export function binaryExpression(
+    operator?: "+" | "-" | "/" | "%" | "*" | "**" | "&" | "|" | ">>" | ">>>" | "<<" | "^" | "==" | "===" | "!=" | "!==" | "in" | "instanceof" | ">" | "<" | ">=" | "<=",
+    left?: Expression,
+    right?: Expression
+): BinaryExpression;
 export function directive(value?: DirectiveLiteral): Directive;
 export function directiveLiteral(value?: string): DirectiveLiteral;
 export function blockStatement(body?: Statement[], directives?: Directive[]): BlockStatement;
@@ -925,8 +1328,8 @@ export function expressionStatement(expression?: Expression): ExpressionStatemen
 export function file(program?: Program, comments?: Comment[], tokens?: any[]): File;
 export function forInStatement(left?: VariableDeclaration | LVal, right?: Expression, body?: Statement): ForInStatement;
 export function forStatement(init?: VariableDeclaration | Expression, test?: Expression, update?: Expression, body?: Statement): ForStatement;
-export function functionDeclaration(id?: Identifier, params?: Array<LVal>, body?: BlockStatement, generator?: boolean, async?: boolean): FunctionDeclaration;
-export function functionExpression(id?: Identifier, params?: Array<LVal>, body?: BlockStatement, generator?: boolean, async?: boolean): FunctionExpression;
+export function functionDeclaration(id?: Identifier, params?: LVal[], body?: BlockStatement, generator?: boolean, async?: boolean): FunctionDeclaration;
+export function functionExpression(id?: Identifier, params?: LVal[], body?: BlockStatement, generator?: boolean, async?: boolean): FunctionExpression;
 export function identifier(name?: string): Identifier;
 export function ifStatement(test?: Expression, consequent?: Statement, alternate?: Statement): IfStatement;
 export function labeledStatement(label?: Identifier, body?: Statement): LabeledStatement;
@@ -940,7 +1343,7 @@ export function memberExpression(object?: Expression | Super, property?: Express
 export function newExpression(callee?: Expression | Super, _arguments?: Array<Expression | SpreadElement>): NewExpression;
 export function program(body?: Array<Statement | ModuleDeclaration>, directives?: Directive[]): Program;
 export function objectExpression(properties?: Array<ObjectProperty | ObjectMethod | SpreadProperty>): ObjectExpression;
-export function objectMethod(kind?: "get" | "set" | "method", key?: Expression, params?: Array<LVal>, body?: BlockStatement, computed?: boolean): ObjectMethod;
+export function objectMethod(kind?: "get" | "set" | "method", key?: Expression, params?: LVal[], body?: BlockStatement, computed?: boolean): ObjectMethod;
 export function objectProperty(key?: Expression, value?: Expression, computed?: boolean, shorthand?: boolean, decorators?: Decorator[]): ObjectProperty;
 export function restElement(argument?: LVal, typeAnnotation?: TypeAnnotation): RestElement;
 export function returnStatement(argument?: Expression): ReturnStatement;
@@ -957,8 +1360,8 @@ export function variableDeclarator(id?: LVal, init?: Expression): VariableDeclar
 export function whileStatement(test?: Expression, body?: BlockStatement | Statement): WhileStatement;
 export function withStatement(object?: Expression, body?: BlockStatement | Statement): WithStatement;
 export function assignmentPattern(left?: Identifier, right?: Expression): AssignmentPattern;
-export function arrayPattern(elements?: Array<Expression>, typeAnnotation?: TypeAnnotation): ArrayPattern;
-export function arrowFunctionExpression(params?: Array<LVal>, body?: BlockStatement | Expression, async?: boolean): ArrowFunctionExpression;
+export function arrayPattern(elements?: Expression[], typeAnnotation?: TypeAnnotation): ArrayPattern;
+export function arrowFunctionExpression(params?: LVal[], body?: BlockStatement | Expression, async?: boolean): ArrowFunctionExpression;
 export function classBody(body?: Array<ClassMethod | ClassProperty>): ClassBody;
 export function classDeclaration(id?: Identifier, superClass?: Expression, body?: ClassBody, decorators?: Decorator[]): ClassDeclaration;
 export function classExpression(id?: Identifier, superClass?: Expression, body?: ClassBody, decorators?: Decorator[]): ClassExpression;
@@ -972,11 +1375,11 @@ export function importDefaultSpecifier(local?: Identifier): ImportDefaultSpecifi
 export function importNamespaceSpecifier(local?: Identifier): ImportNamespaceSpecifier;
 export function importSpecifier(local?: Identifier, imported?: Identifier): ImportSpecifier;
 export function metaProperty(meta?: string, property?: string): MetaProperty;
-export function classMethod(kind?: "constructor" | "method" | "get" | "set", key?: Expression, params?: Array<LVal>, body?: BlockStatement, computed?: boolean, _static?: boolean): ClassMethod;
+export function classMethod(kind?: "constructor" | "method" | "get" | "set", key?: Expression, params?: LVal[], body?: BlockStatement, computed?: boolean, _static?: boolean): ClassMethod;
 export function objectPattern(properties?: Array<AssignmentProperty | RestProperty>, typeAnnotation?: TypeAnnotation): ObjectPattern;
 export function spreadElement(argument?: Expression): SpreadElement;
 export function taggedTemplateExpression(tag?: Expression, quasi?: TemplateLiteral): TaggedTemplateExpression;
-export function templateElement(value?: {cooked?: string; raw?: string;}, tail?: boolean): TemplateElement;
+export function templateElement(value?: { cooked?: string; raw?: string; }, tail?: boolean): TemplateElement;
 export function templateLiteral(quasis?: TemplateElement[], expressions?: Expression[]): TemplateLiteral;
 export function yieldExpression(argument?: Expression, delegate?: boolean): YieldExpression;
 export function anyTypeAnnotation(): AnyTypeAnnotation;
@@ -1011,6 +1414,7 @@ export function typeofTypeAnnotation(argument?: FlowTypeAnnotation): TypeofTypeA
 export function typeAlias(id?: Identifier, typeParameters?: TypeParameterDeclaration, right?: FlowTypeAnnotation): TypeAlias;
 export function typeAnnotation(typeAnnotation?: FlowTypeAnnotation): TypeAnnotation;
 export function typeCastExpression(expression?: Expression, typeAnnotation?: FlowTypeAnnotation): TypeCastExpression;
+export function typeParameter(bound?: TypeAnnotation, default_?: Flow): TypeParameter;
 export function typeParameterDeclaration(params?: Identifier[]): TypeParameterDeclaration;
 export function typeParameterInstantiation(params?: FlowTypeAnnotation[]): TypeParameterInstantiation;
 export function objectTypeAnnotation(properties?: ObjectTypeProperty[], indexers?: ObjectTypeIndexer[], callProperties?: ObjectTypeCallProperty[]): ObjectTypeAnnotation;
@@ -1020,7 +1424,7 @@ export function objectTypeProperty(key?: Expression, value?: FlowTypeAnnotation)
 export function qualifiedTypeIdentifier(id?: Identifier, qualification?: Identifier | QualifiedTypeIdentifier): QualifiedTypeIdentifier;
 export function unionTypeAnnotation(types?: FlowTypeAnnotation[]): UnionTypeAnnotation;
 export function voidTypeAnnotation(): VoidTypeAnnotation;
-export function jSXAttribute(name?: JSXIdentifier | JSXNamespacedName, value?: JSXElement | StringLiteral | JSXExpressionContainer): JSXAttribute;
+export function jSXAttribute(name?: JSXIdentifier | JSXNamespacedName, value?: JSXElement | StringLiteral | JSXExpressionContainer | null): JSXAttribute;
 export function jSXClosingElement(name?: JSXIdentifier | JSXMemberExpression): JSXClosingElement;
 export function jSXElement(openingElement?: JSXOpeningElement, closingElement?: JSXClosingElement, children?: Array<JSXElement | JSXExpressionContainer | JSXText>, selfClosing?: boolean): JSXElement;
 export function jSXEmptyExpression(): JSXEmptyExpression;
@@ -1042,360 +1446,547 @@ export function exportNamespaceSpecifier(exported?: Identifier): ExportNamespace
 export function restProperty(argument?: LVal): RestProperty;
 export function spreadProperty(argument?: Expression): SpreadProperty;
 
-export function isArrayExpression(node: Object, opts?: Object): node is ArrayExpression;
-export function isAssignmentExpression(node: Object, opts?: Object): node is AssignmentExpression;
-export function isBinaryExpression(node: Object, opts?: Object): node is BinaryExpression;
-export function isDirective(node: Object, opts?: Object): node is Directive;
-export function isDirectiveLiteral(node: Object, opts?: Object): node is DirectiveLiteral;
-export function isBlockStatement(node: Object, opts?: Object): node is BlockStatement;
-export function isBreakStatement(node: Object, opts?: Object): node is BreakStatement;
-export function isCallExpression(node: Object, opts?: Object): node is CallExpression;
-export function isCatchClause(node: Object, opts?: Object): node is CatchClause;
-export function isConditionalExpression(node: Object, opts?: Object): node is ConditionalExpression;
-export function isContinueStatement(node: Object, opts?: Object): node is ContinueStatement;
-export function isDebuggerStatement(node: Object, opts?: Object): node is DebuggerStatement;
-export function isDoWhileStatement(node: Object, opts?: Object): node is DoWhileStatement;
-export function isEmptyStatement(node: Object, opts?: Object): node is EmptyStatement;
-export function isExpressionStatement(node: Object, opts?: Object): node is ExpressionStatement;
-export function isFile(node: Object, opts?: Object): node is File;
-export function isForInStatement(node: Object, opts?: Object): node is ForInStatement;
-export function isForStatement(node: Object, opts?: Object): node is ForStatement;
-export function isFunctionDeclaration(node: Object, opts?: Object): node is FunctionDeclaration;
-export function isFunctionExpression(node: Object, opts?: Object): node is FunctionExpression;
-export function isIdentifier(node: Object, opts?: Object): node is Identifier;
-export function isIfStatement(node: Object, opts?: Object): node is IfStatement;
-export function isLabeledStatement(node: Object, opts?: Object): node is LabeledStatement;
-export function isStringLiteral(node: Object, opts?: Object): node is StringLiteral;
-export function isNumericLiteral(node: Object, opts?: Object): node is NumericLiteral;
-export function isNullLiteral(node: Object, opts?: Object): node is NullLiteral;
-export function isBooleanLiteral(node: Object, opts?: Object): node is BooleanLiteral;
-export function isRegExpLiteral(node: Object, opts?: Object): node is RegExpLiteral;
-export function isLogicalExpression(node: Object, opts?: Object): node is LogicalExpression;
-export function isMemberExpression(node: Object, opts?: Object): node is MemberExpression;
-export function isNewExpression(node: Object, opts?: Object): node is NewExpression;
-export function isProgram(node: Object, opts?: Object): node is Program;
-export function isObjectExpression(node: Object, opts?: Object): node is ObjectExpression;
-export function isObjectMethod(node: Object, opts?: Object): node is ObjectMethod;
-export function isObjectProperty(node: Object, opts?: Object): node is ObjectProperty;
-export function isRestElement(node: Object, opts?: Object): node is RestElement;
-export function isReturnStatement(node: Object, opts?: Object): node is ReturnStatement;
-export function isSequenceExpression(node: Object, opts?: Object): node is SequenceExpression;
-export function isSwitchCase(node: Object, opts?: Object): node is SwitchCase;
-export function isSwitchStatement(node: Object, opts?: Object): node is SwitchStatement;
-export function isThisExpression(node: Object, opts?: Object): node is ThisExpression;
-export function isThrowStatement(node: Object, opts?: Object): node is ThrowStatement;
-export function isTryStatement(node: Object, opts?: Object): node is TryStatement;
-export function isUnaryExpression(node: Object, opts?: Object): node is UnaryExpression;
-export function isUpdateExpression(node: Object, opts?: Object): node is UpdateExpression;
-export function isVariableDeclaration(node: Object, opts?: Object): node is VariableDeclaration;
-export function isVariableDeclarator(node: Object, opts?: Object): node is VariableDeclarator;
-export function isWhileStatement(node: Object, opts?: Object): node is WhileStatement;
-export function isWithStatement(node: Object, opts?: Object): node is WithStatement;
-export function isAssignmentPattern(node: Object, opts?: Object): node is AssignmentPattern;
-export function isArrayPattern(node: Object, opts?: Object): node is ArrayPattern;
-export function isArrowFunctionExpression(node: Object, opts?: Object): node is ArrowFunctionExpression;
-export function isClassBody(node: Object, opts?: Object): node is ClassBody;
-export function isClassDeclaration(node: Object, opts?: Object): node is ClassDeclaration;
-export function isClassExpression(node: Object, opts?: Object): node is ClassExpression;
-export function isExportAllDeclaration(node: Object, opts?: Object): node is ExportAllDeclaration;
-export function isExportDefaultDeclaration(node: Object, opts?: Object): node is ExportDefaultDeclaration;
-export function isExportNamedDeclaration(node: Object, opts?: Object): node is ExportNamedDeclaration;
-export function isExportSpecifier(node: Object, opts?: Object): node is ExportSpecifier;
-export function isForOfStatement(node: Object, opts?: Object): node is ForOfStatement;
-export function isImportDeclaration(node: Object, opts?: Object): node is ImportDeclaration;
-export function isImportDefaultSpecifier(node: Object, opts?: Object): node is ImportDefaultSpecifier;
-export function isImportNamespaceSpecifier(node: Object, opts?: Object): node is ImportNamespaceSpecifier;
-export function isImportSpecifier(node: Object, opts?: Object): node is ImportSpecifier;
-export function isMetaProperty(node: Object, opts?: Object): node is MetaProperty;
-export function isClassMethod(node: Object, opts?: Object): node is ClassMethod;
-export function isObjectPattern(node: Object, opts?: Object): node is ObjectPattern;
-export function isSpreadElement(node: Object, opts?: Object): node is SpreadElement;
-export function isSuper(node: Object, opts?: Object): node is Super;
-export function isTaggedTemplateExpression(node: Object, opts?: Object): node is TaggedTemplateExpression;
-export function isTemplateElement(node: Object, opts?: Object): node is TemplateElement;
-export function isTemplateLiteral(node: Object, opts?: Object): node is TemplateLiteral;
-export function isYieldExpression(node: Object, opts?: Object): node is YieldExpression;
-export function isAnyTypeAnnotation(node: Object, opts?: Object): node is AnyTypeAnnotation;
-export function isArrayTypeAnnotation(node: Object, opts?: Object): node is ArrayTypeAnnotation;
-export function isBooleanTypeAnnotation(node: Object, opts?: Object): node is BooleanTypeAnnotation;
-export function isBooleanLiteralTypeAnnotation(node: Object, opts?: Object): node is BooleanLiteralTypeAnnotation;
-export function isNullLiteralTypeAnnotation(node: Object, opts?: Object): node is NullLiteralTypeAnnotation;
-export function isClassImplements(node: Object, opts?: Object): node is ClassImplements;
-export function isClassProperty(node: Object, opts?: Object): node is ClassProperty;
-export function isDeclareClass(node: Object, opts?: Object): node is DeclareClass;
-export function isDeclareFunction(node: Object, opts?: Object): node is DeclareFunction;
-export function isDeclareInterface(node: Object, opts?: Object): node is DeclareInterface;
-export function isDeclareModule(node: Object, opts?: Object): node is DeclareModule;
-export function isDeclareTypeAlias(node: Object, opts?: Object): node is DeclareTypeAlias;
-export function isDeclareVariable(node: Object, opts?: Object): node is DeclareVariable;
-export function isExistentialTypeParam(node: Object, opts?: Object): node is ExistentialTypeParam;
-export function isFunctionTypeAnnotation(node: Object, opts?: Object): node is FunctionTypeAnnotation;
-export function isFunctionTypeParam(node: Object, opts?: Object): node is FunctionTypeParam;
-export function isGenericTypeAnnotation(node: Object, opts?: Object): node is GenericTypeAnnotation;
-export function isInterfaceExtends(node: Object, opts?: Object): node is InterfaceExtends;
-export function isInterfaceDeclaration(node: Object, opts?: Object): node is InterfaceDeclaration;
-export function isIntersectionTypeAnnotation(node: Object, opts?: Object): node is IntersectionTypeAnnotation;
-export function isMixedTypeAnnotation(node: Object, opts?: Object): node is MixedTypeAnnotation;
-export function isNullableTypeAnnotation(node: Object, opts?: Object): node is NullableTypeAnnotation;
-export function isNumericLiteralTypeAnnotation(node: Object, opts?: Object): node is NumericLiteralTypeAnnotation;
-export function isNumberTypeAnnotation(node: Object, opts?: Object): node is NumberTypeAnnotation;
-export function isStringLiteralTypeAnnotation(node: Object, opts?: Object): node is StringLiteralTypeAnnotation;
-export function isStringTypeAnnotation(node: Object, opts?: Object): node is StringTypeAnnotation;
-export function isThisTypeAnnotation(node: Object, opts?: Object): node is ThisTypeAnnotation;
-export function isTupleTypeAnnotation(node: Object, opts?: Object): node is TupleTypeAnnotation;
-export function isTypeofTypeAnnotation(node: Object, opts?: Object): node is TypeofTypeAnnotation;
-export function isTypeAlias(node: Object, opts?: Object): node is TypeAlias;
-export function isTypeAnnotation(node: Object, opts?: Object): node is TypeAnnotation;
-export function isTypeCastExpression(node: Object, opts?: Object): node is TypeCastExpression;
-export function isTypeParameterDeclaration(node: Object, opts?: Object): node is TypeParameterDeclaration;
-export function isTypeParameterInstantiation(node: Object, opts?: Object): node is TypeParameterInstantiation;
-export function isObjectTypeAnnotation(node: Object, opts?: Object): node is ObjectTypeAnnotation;
-export function isObjectTypeCallProperty(node: Object, opts?: Object): node is ObjectTypeCallProperty;
-export function isObjectTypeIndexer(node: Object, opts?: Object): node is ObjectTypeIndexer;
-export function isObjectTypeProperty(node: Object, opts?: Object): node is ObjectTypeProperty;
-export function isQualifiedTypeIdentifier(node: Object, opts?: Object): node is QualifiedTypeIdentifier;
-export function isUnionTypeAnnotation(node: Object, opts?: Object): node is UnionTypeAnnotation;
-export function isVoidTypeAnnotation(node: Object, opts?: Object): node is VoidTypeAnnotation;
-export function isJSXAttribute(node: Object, opts?: Object): node is JSXAttribute;
-export function isJSXClosingElement(node: Object, opts?: Object): node is JSXClosingElement;
-export function isJSXElement(node: Object, opts?: Object): node is JSXElement;
-export function isJSXEmptyExpression(node: Object, opts?: Object): node is JSXEmptyExpression;
-export function isJSXExpressionContainer(node: Object, opts?: Object): node is JSXExpressionContainer;
-export function isJSXIdentifier(node: Object, opts?: Object): node is JSXIdentifier;
-export function isJSXMemberExpression(node: Object, opts?: Object): node is JSXMemberExpression;
-export function isJSXNamespacedName(node: Object, opts?: Object): node is JSXNamespacedName;
-export function isJSXOpeningElement(node: Object, opts?: Object): node is JSXOpeningElement;
-export function isJSXSpreadAttribute(node: Object, opts?: Object): node is JSXSpreadAttribute;
-export function isJSXText(node: Object, opts?: Object): node is JSXText;
-export function isNoop(node: Object, opts?: Object): node is Noop;
-export function isParenthesizedExpression(node: Object, opts?: Object): node is ParenthesizedExpression;
-export function isAwaitExpression(node: Object, opts?: Object): node is AwaitExpression;
-export function isBindExpression(node: Object, opts?: Object): node is BindExpression;
-export function isDecorator(node: Object, opts?: Object): node is Decorator;
-export function isDoExpression(node: Object, opts?: Object): node is DoExpression;
-export function isExportDefaultSpecifier(node: Object, opts?: Object): node is ExportDefaultSpecifier;
-export function isExportNamespaceSpecifier(node: Object, opts?: Object): node is ExportNamespaceSpecifier;
-export function isRestProperty(node: Object, opts?: Object): node is RestProperty;
-export function isSpreadProperty(node: Object, opts?: Object): node is SpreadProperty;
-export function isExpression(node: Object, opts?: Object): node is Expression;
-export function isBinary(node: Object, opts?: Object): node is Binary;
-export function isScopable(node: Object, opts?: Object): node is Scopable;
-export function isBlockParent(node: Object, opts?: Object): node is BlockParent;
-export function isBlock(node: Object, opts?: Object): node is Block;
-export function isStatement(node: Object, opts?: Object): node is Statement;
-export function isTerminatorless(node: Object, opts?: Object): node is Terminatorless;
-export function isCompletionStatement(node: Object, opts?: Object): node is CompletionStatement;
-export function isConditional(node: Object, opts?: Object): node is Conditional;
-export function isLoop(node: Object, opts?: Object): node is Loop;
-export function isWhile(node: Object, opts?: Object): node is While;
-export function isExpressionWrapper(node: Object, opts?: Object): node is ExpressionWrapper;
-export function isFor(node: Object, opts?: Object): node is For;
-export function isForXStatement(node: Object, opts?: Object): node is ForXStatement;
-export function isFunction(node: Object, opts?: Object): node is Function;
-export function isFunctionParent(node: Object, opts?: Object): node is FunctionParent;
-export function isPureish(node: Object, opts?: Object): node is Pureish;
-export function isDeclaration(node: Object, opts?: Object): node is Declaration;
-export function isLVal(node: Object, opts?: Object): node is LVal;
-export function isLiteral(node: Object, opts?: Object): node is Literal;
-export function isImmutable(node: Object, opts?: Object): node is Immutable;
-export function isUserWhitespacable(node: Object, opts?: Object): node is UserWhitespacable;
-export function isMethod(node: Object, opts?: Object): node is Method;
-export function isObjectMember(node: Object, opts?: Object): node is ObjectMember;
-export function isProperty(node: Object, opts?: Object): node is Property;
-export function isUnaryLike(node: Object, opts?: Object): node is UnaryLike;
-export function isPattern(node: Object, opts?: Object): node is Pattern;
-export function isClass(node: Object, opts?: Object): node is Class;
-export function isModuleDeclaration(node: Object, opts?: Object): node is ModuleDeclaration;
-export function isExportDeclaration(node: Object, opts?: Object): node is ExportDeclaration;
-export function isModuleSpecifier(node: Object, opts?: Object): node is ModuleSpecifier;
-export function isFlow(node: Object, opts?: Object): node is Flow;
-export function isFlowBaseAnnotation(node: Object, opts?: Object): node is FlowBaseAnnotation;
-export function isFlowDeclaration(node: Object, opts?: Object): node is FlowDeclaration;
-export function isJSX(node: Object, opts?: Object): node is JSX;
-export function isNumberLiteral(node: Object, opts?: Object): node is NumericLiteral;
-export function isRegexLiteral(node: Object, opts?: Object): node is RegExpLiteral;
+export function TSAnyKeyword(): TSAnyKeyword;
+export function TSArrayType(elementType: TSType): TSArrayType;
+export function TSAsExpression(expression: Expression, typeAnnotation: TSType): TSAsExpression;
+export function TSBooleanKeyword(): TSBooleanKeyword;
+export function TSCallSignatureDeclaration(typeParameters?: TypeParameterDeclaration, parameters?: Array<Identifier | RestElement>, typeAnnotation?: TSTypeAnnotation): TSCallSignatureDeclaration;
+export function TSConstructSignatureDeclaration(typeParameters?: TypeParameterDeclaration, parameters?: Array<Identifier | RestElement>, typeAnnotation?: TSTypeAnnotation): TSTypeElement;
+export function TSConstructorType(typeParameters?: TypeParameterDeclaration, typeAnnotation?: TSTypeAnnotation): TSConstructorType;
+export function TSDeclareFunction(
+    id: Identifier | undefined | null,
+    typeParameters: TypeParameterDeclaration | Noop | undefined | null,
+    params: LVal[],
+    returnType: TypeAnnotation | TSTypeAnnotation | Noop | undefined | null): TSDeclareFunction;
+export function TSDeclareMethod(
+    decorators: Decorator[] | undefined | null,
+    key: Expression,
+    typeParameters: TypeParameterDeclaration | Noop | undefined | null,
+    params: LVal[],
+    returnType?: TypeAnnotation | TSTypeAnnotation | Noop): TSDeclareMethod;
+export function TSEnumDeclaration(id: Identifier, members: TSEnumMember[]): TSEnumDeclaration;
+export function TSEnumMember(id: Identifier | StringLiteral, initializer?: Expression): TSEnumMember;
+export function TSExportAssignment(expression: Expression): TSExportAssignment;
+export function TSExpressionWithTypeArguments(expression: TSEntityName, typeParameters?: TypeParameterInstantiation): TSExpressionWithTypeArguments;
+export function TSExternalModuleReference(expression: StringLiteral): TSExternalModuleReference;
+export function TSFunctionType(typeParameters?: TypeParameterDeclaration, typeAnnotation?: TSTypeAnnotation): TSFunctionType;
+export function TSImportEqualsDeclaration(id: Identifier, moduleReference: TSEntityName | TSExternalModuleReference): TSImportEqualsDeclaration;
+export function TSIndexSignature(parameters: Identifier[], typeAnnotation?: TSTypeAnnotation): TSIndexSignature;
+export function TSIndexedAccessType(objectType: TSType, indexType: TSType): TSIndexedAccessType;
+export function TSInterfaceBody(body: TSTypeElement[]): TSInterfaceBody;
+export function TSInterfaceDeclaration(
+    id: Identifier,
+    typeParameters: TypeParameterDeclaration | undefined | null,
+    extends_: TSExpressionWithTypeArguments[] | undefined | null,
+    body: TSInterfaceBody): TSInterfaceDeclaration;
+export function TSIntersectionType(types: TSType[]): TSIntersectionType;
+export function TSLiteralType(literal: NumericLiteral | StringLiteral | BooleanLiteral): TSLiteralType;
+export function TSMappedType(typeParameter: TypeParameter, typeAnnotation?: TSType): TSMappedType;
+export function TSMethodSignature(key: Expression, typeParameters?: TypeParameterDeclaration, parameters?: Array<Identifier | RestElement>, typeAnnotation?: TSTypeAnnotation): TSMethodSignature;
+export function TSModuleBlock(body: Statement[]): TSModuleBlock;
+export function TSModuleDeclaration(id: Identifier | StringLiteral, body: TSModuleBlock | TSModuleDeclaration): TSModuleDeclaration;
+export function TSNamespaceExportDeclaration(id: Identifier): TSNamespaceExportDeclaration;
+export function TSNeverKeyword(): TSNeverKeyword;
+export function TSNonNullExpression(expression: Expression): TSNonNullExpression;
+export function TSNullKeyword(): TSNullKeyword;
+export function TSNumberKeyword(): TSNumberKeyword;
+export function TSObjectKeyword(): TSObjectKeyword;
+export function TSParameterProperty(parameter: Identifier | AssignmentPattern): TSParameterProperty;
+export function TSParenthesizedType(typeAnnotation: TSType): TSParenthesizedType;
+export function TSPropertySignature(key: Expression, typeAnnotation?: TSTypeAnnotation, initializer?: Expression): TSPropertySignature;
+export function TSQualifiedName(left: TSEntityName, right: Identifier): TSQualifiedName;
+export function TSStringKeyword(): TSStringKeyword;
+export function TSSymbolKeyword(): TSSymbolKeyword;
+export function TSThisType(): TSThisType;
+export function TSTupleType(elementTypes: TSType[]): TSTupleType;
+export function TSTypeAliasDeclaration(id: Identifier, typeParameters: TypeParameterDeclaration | undefined | null, typeAnnotation: TSType): TSTypeAliasDeclaration;
+export function TSTypeAnnotation(typeAnnotation: TSType): TSTypeAnnotation;
+export function TSTypeAssertion(typeAnnotation: TSType, expression: Expression): TSTypeAssertion;
+export function TSTypeLiteral(members: TSTypeElement[]): TSTypeLiteral;
+export function TSTypeOperator(typeAnnotation: TSType): TSTypeOperator;
+export function TSTypeParameter(constraint?: TSType, default_?: TSType): TSTypeParameter;
+export function TSTypeParameterDeclaration(params: TSTypeParameter[]): TSTypeParameterDeclaration;
+export function TSTypeParameterInstantiation(params: TSType[]): TSTypeParameterInstantiation;
+export function TSTypePredicate(parameterName: Identifier | TSThisType, typeAnnotation: TSTypeAnnotation): TSTypePredicate;
+export function TSTypeQuery(exprName: TSEntityName): TSTypeQuery;
+export function TSTypeReference(typeName: TSEntityName, typeParameters?: TSTypeParameterInstantiation): TSTypeReference;
+export function TSUndefinedKeyword(): TSUndefinedKeyword;
+export function TSUnionType(types: TSType[]): TSUnionType;
+export function TSVoidKeyword(): TSVoidKeyword;
 
-export function isReferencedIdentifier(node: Object, opts?: Object): boolean;
-export function isReferencedMemberExpression(node: Object, opts?: Object): boolean;
-export function isBindingIdentifier(node: Object, opts?: Object): boolean;
-export function isScope(node: Object, opts?: Object): boolean;
-export function isReferenced(node: Object, opts?: Object): boolean;
-export function isBlockScoped(node: Object, opts?: Object): boolean;
-export function isVar(node: Object, opts?: Object): boolean;
-export function isUser(node: Object, opts?: Object): boolean;
-export function isGenerated(node: Object, opts?: Object): boolean;
-export function isPure(node: Object, opts?: Object): boolean;
+export function isArrayExpression(node: object | null | undefined, opts?: object): node is ArrayExpression;
+export function isAssignmentExpression(node: object | null | undefined, opts?: object): node is AssignmentExpression;
+export function isBinaryExpression(node: object | null | undefined, opts?: object): node is BinaryExpression;
+export function isDirective(node: object | null | undefined, opts?: object): node is Directive;
+export function isDirectiveLiteral(node: object | null | undefined, opts?: object): node is DirectiveLiteral;
+export function isBlockStatement(node: object | null | undefined, opts?: object): node is BlockStatement;
+export function isBreakStatement(node: object | null | undefined, opts?: object): node is BreakStatement;
+export function isCallExpression(node: object | null | undefined, opts?: object): node is CallExpression;
+export function isCatchClause(node: object | null | undefined, opts?: object): node is CatchClause;
+export function isConditionalExpression(node: object | null | undefined, opts?: object): node is ConditionalExpression;
+export function isContinueStatement(node: object | null | undefined, opts?: object): node is ContinueStatement;
+export function isDebuggerStatement(node: object | null | undefined, opts?: object): node is DebuggerStatement;
+export function isDoWhileStatement(node: object | null | undefined, opts?: object): node is DoWhileStatement;
+export function isEmptyStatement(node: object | null | undefined, opts?: object): node is EmptyStatement;
+export function isExpressionStatement(node: object | null | undefined, opts?: object): node is ExpressionStatement;
+export function isFile(node: object | null | undefined, opts?: object): node is File;
+export function isForInStatement(node: object | null | undefined, opts?: object): node is ForInStatement;
+export function isForStatement(node: object | null | undefined, opts?: object): node is ForStatement;
+export function isFunctionDeclaration(node: object | null | undefined, opts?: object): node is FunctionDeclaration;
+export function isFunctionExpression(node: object | null | undefined, opts?: object): node is FunctionExpression;
+export function isIdentifier(node: object | null | undefined, opts?: object): node is Identifier;
+export function isIfStatement(node: object | null | undefined, opts?: object): node is IfStatement;
+export function isLabeledStatement(node: object | null | undefined, opts?: object): node is LabeledStatement;
+export function isStringLiteral(node: object | null | undefined, opts?: object): node is StringLiteral;
+export function isNumericLiteral(node: object | null | undefined, opts?: object): node is NumericLiteral;
+export function isNullLiteral(node: object | null | undefined, opts?: object): node is NullLiteral;
+export function isBooleanLiteral(node: object | null | undefined, opts?: object): node is BooleanLiteral;
+export function isRegExpLiteral(node: object | null | undefined, opts?: object): node is RegExpLiteral;
+export function isLogicalExpression(node: object | null | undefined, opts?: object): node is LogicalExpression;
+export function isMemberExpression(node: object | null | undefined, opts?: object): node is MemberExpression;
+export function isNewExpression(node: object | null | undefined, opts?: object): node is NewExpression;
+export function isProgram(node: object | null | undefined, opts?: object): node is Program;
+export function isObjectExpression(node: object | null | undefined, opts?: object): node is ObjectExpression;
+export function isObjectMethod(node: object | null | undefined, opts?: object): node is ObjectMethod;
+export function isObjectProperty(node: object | null | undefined, opts?: object): node is ObjectProperty;
+export function isRestElement(node: object | null | undefined, opts?: object): node is RestElement;
+export function isReturnStatement(node: object | null | undefined, opts?: object): node is ReturnStatement;
+export function isSequenceExpression(node: object | null | undefined, opts?: object): node is SequenceExpression;
+export function isSwitchCase(node: object | null | undefined, opts?: object): node is SwitchCase;
+export function isSwitchStatement(node: object | null | undefined, opts?: object): node is SwitchStatement;
+export function isThisExpression(node: object | null | undefined, opts?: object): node is ThisExpression;
+export function isThrowStatement(node: object | null | undefined, opts?: object): node is ThrowStatement;
+export function isTryStatement(node: object | null | undefined, opts?: object): node is TryStatement;
+export function isUnaryExpression(node: object | null | undefined, opts?: object): node is UnaryExpression;
+export function isUpdateExpression(node: object | null | undefined, opts?: object): node is UpdateExpression;
+export function isVariableDeclaration(node: object | null | undefined, opts?: object): node is VariableDeclaration;
+export function isVariableDeclarator(node: object | null | undefined, opts?: object): node is VariableDeclarator;
+export function isWhileStatement(node: object | null | undefined, opts?: object): node is WhileStatement;
+export function isWithStatement(node: object | null | undefined, opts?: object): node is WithStatement;
+export function isAssignmentPattern(node: object | null | undefined, opts?: object): node is AssignmentPattern;
+export function isArrayPattern(node: object | null | undefined, opts?: object): node is ArrayPattern;
+export function isArrowFunctionExpression(node: object | null | undefined, opts?: object): node is ArrowFunctionExpression;
+export function isClassBody(node: object | null | undefined, opts?: object): node is ClassBody;
+export function isClassDeclaration(node: object | null | undefined, opts?: object): node is ClassDeclaration;
+export function isClassExpression(node: object | null | undefined, opts?: object): node is ClassExpression;
+export function isExportAllDeclaration(node: object | null | undefined, opts?: object): node is ExportAllDeclaration;
+export function isExportDefaultDeclaration(node: object | null | undefined, opts?: object): node is ExportDefaultDeclaration;
+export function isExportNamedDeclaration(node: object | null | undefined, opts?: object): node is ExportNamedDeclaration;
+export function isExportSpecifier(node: object | null | undefined, opts?: object): node is ExportSpecifier;
+export function isForOfStatement(node: object | null | undefined, opts?: object): node is ForOfStatement;
+export function isImportDeclaration(node: object | null | undefined, opts?: object): node is ImportDeclaration;
+export function isImportDefaultSpecifier(node: object | null | undefined, opts?: object): node is ImportDefaultSpecifier;
+export function isImportNamespaceSpecifier(node: object | null | undefined, opts?: object): node is ImportNamespaceSpecifier;
+export function isImportSpecifier(node: object | null | undefined, opts?: object): node is ImportSpecifier;
+export function isMetaProperty(node: object | null | undefined, opts?: object): node is MetaProperty;
+export function isClassMethod(node: object | null | undefined, opts?: object): node is ClassMethod;
+export function isObjectPattern(node: object | null | undefined, opts?: object): node is ObjectPattern;
+export function isSpreadElement(node: object | null | undefined, opts?: object): node is SpreadElement;
+export function isSuper(node: object | null | undefined, opts?: object): node is Super;
+export function isTaggedTemplateExpression(node: object | null | undefined, opts?: object): node is TaggedTemplateExpression;
+export function isTemplateElement(node: object | null | undefined, opts?: object): node is TemplateElement;
+export function isTemplateLiteral(node: object | null | undefined, opts?: object): node is TemplateLiteral;
+export function isYieldExpression(node: object | null | undefined, opts?: object): node is YieldExpression;
+export function isAnyTypeAnnotation(node: object | null | undefined, opts?: object): node is AnyTypeAnnotation;
+export function isArrayTypeAnnotation(node: object | null | undefined, opts?: object): node is ArrayTypeAnnotation;
+export function isBooleanTypeAnnotation(node: object | null | undefined, opts?: object): node is BooleanTypeAnnotation;
+export function isBooleanLiteralTypeAnnotation(node: object | null | undefined, opts?: object): node is BooleanLiteralTypeAnnotation;
+export function isNullLiteralTypeAnnotation(node: object | null | undefined, opts?: object): node is NullLiteralTypeAnnotation;
+export function isClassImplements(node: object | null | undefined, opts?: object): node is ClassImplements;
+export function isClassProperty(node: object | null | undefined, opts?: object): node is ClassProperty;
+export function isDeclareClass(node: object | null | undefined, opts?: object): node is DeclareClass;
+export function isDeclareFunction(node: object | null | undefined, opts?: object): node is DeclareFunction;
+export function isDeclareInterface(node: object | null | undefined, opts?: object): node is DeclareInterface;
+export function isDeclareModule(node: object | null | undefined, opts?: object): node is DeclareModule;
+export function isDeclareTypeAlias(node: object | null | undefined, opts?: object): node is DeclareTypeAlias;
+export function isDeclareVariable(node: object | null | undefined, opts?: object): node is DeclareVariable;
+export function isExistentialTypeParam(node: object | null | undefined, opts?: object): node is ExistentialTypeParam;
+export function isFunctionTypeAnnotation(node: object | null | undefined, opts?: object): node is FunctionTypeAnnotation;
+export function isFunctionTypeParam(node: object | null | undefined, opts?: object): node is FunctionTypeParam;
+export function isGenericTypeAnnotation(node: object | null | undefined, opts?: object): node is GenericTypeAnnotation;
+export function isInterfaceExtends(node: object | null | undefined, opts?: object): node is InterfaceExtends;
+export function isInterfaceDeclaration(node: object | null | undefined, opts?: object): node is InterfaceDeclaration;
+export function isIntersectionTypeAnnotation(node: object | null | undefined, opts?: object): node is IntersectionTypeAnnotation;
+export function isMixedTypeAnnotation(node: object | null | undefined, opts?: object): node is MixedTypeAnnotation;
+export function isNullableTypeAnnotation(node: object | null | undefined, opts?: object): node is NullableTypeAnnotation;
+export function isNumericLiteralTypeAnnotation(node: object | null | undefined, opts?: object): node is NumericLiteralTypeAnnotation;
+export function isNumberTypeAnnotation(node: object | null | undefined, opts?: object): node is NumberTypeAnnotation;
+export function isStringLiteralTypeAnnotation(node: object | null | undefined, opts?: object): node is StringLiteralTypeAnnotation;
+export function isStringTypeAnnotation(node: object | null | undefined, opts?: object): node is StringTypeAnnotation;
+export function isThisTypeAnnotation(node: object | null | undefined, opts?: object): node is ThisTypeAnnotation;
+export function isTupleTypeAnnotation(node: object | null | undefined, opts?: object): node is TupleTypeAnnotation;
+export function isTypeofTypeAnnotation(node: object | null | undefined, opts?: object): node is TypeofTypeAnnotation;
+export function isTypeAlias(node: object | null | undefined, opts?: object): node is TypeAlias;
+export function isTypeAnnotation(node: object | null | undefined, opts?: object): node is TypeAnnotation;
+export function isTypeCastExpression(node: object | null | undefined, opts?: object): node is TypeCastExpression;
+export function isTypeParameter(node: object | null | undefined, opts?: object): node is TypeParameter;
+export function isTypeParameterDeclaration(node: object | null | undefined, opts?: object): node is TypeParameterDeclaration;
+export function isTypeParameterInstantiation(node: object | null | undefined, opts?: object): node is TypeParameterInstantiation;
+export function isObjectTypeAnnotation(node: object | null | undefined, opts?: object): node is ObjectTypeAnnotation;
+export function isObjectTypeCallProperty(node: object | null | undefined, opts?: object): node is ObjectTypeCallProperty;
+export function isObjectTypeIndexer(node: object | null | undefined, opts?: object): node is ObjectTypeIndexer;
+export function isObjectTypeProperty(node: object | null | undefined, opts?: object): node is ObjectTypeProperty;
+export function isQualifiedTypeIdentifier(node: object | null | undefined, opts?: object): node is QualifiedTypeIdentifier;
+export function isUnionTypeAnnotation(node: object | null | undefined, opts?: object): node is UnionTypeAnnotation;
+export function isVoidTypeAnnotation(node: object | null | undefined, opts?: object): node is VoidTypeAnnotation;
+export function isJSXAttribute(node: object | null | undefined, opts?: object): node is JSXAttribute;
+export function isJSXClosingElement(node: object | null | undefined, opts?: object): node is JSXClosingElement;
+export function isJSXElement(node: object | null | undefined, opts?: object): node is JSXElement;
+export function isJSXEmptyExpression(node: object | null | undefined, opts?: object): node is JSXEmptyExpression;
+export function isJSXExpressionContainer(node: object | null | undefined, opts?: object): node is JSXExpressionContainer;
+export function isJSXIdentifier(node: object | null | undefined, opts?: object): node is JSXIdentifier;
+export function isJSXMemberExpression(node: object | null | undefined, opts?: object): node is JSXMemberExpression;
+export function isJSXNamespacedName(node: object | null | undefined, opts?: object): node is JSXNamespacedName;
+export function isJSXOpeningElement(node: object | null | undefined, opts?: object): node is JSXOpeningElement;
+export function isJSXSpreadAttribute(node: object | null | undefined, opts?: object): node is JSXSpreadAttribute;
+export function isJSXText(node: object | null | undefined, opts?: object): node is JSXText;
+export function isNoop(node: object | null | undefined, opts?: object): node is Noop;
+export function isParenthesizedExpression(node: object | null | undefined, opts?: object): node is ParenthesizedExpression;
+export function isAwaitExpression(node: object | null | undefined, opts?: object): node is AwaitExpression;
+export function isBindExpression(node: object | null | undefined, opts?: object): node is BindExpression;
+export function isDecorator(node: object | null | undefined, opts?: object): node is Decorator;
+export function isDoExpression(node: object | null | undefined, opts?: object): node is DoExpression;
+export function isExportDefaultSpecifier(node: object | null | undefined, opts?: object): node is ExportDefaultSpecifier;
+export function isExportNamespaceSpecifier(node: object | null | undefined, opts?: object): node is ExportNamespaceSpecifier;
+export function isRestProperty(node: object | null | undefined, opts?: object): node is RestProperty;
+export function isSpreadProperty(node: object | null | undefined, opts?: object): node is SpreadProperty;
+export function isExpression(node: object | null | undefined, opts?: object): node is Expression;
+export function isBinary(node: object | null | undefined, opts?: object): node is Binary;
+export function isScopable(node: object | null | undefined, opts?: object): node is Scopable;
+export function isBlockParent(node: object | null | undefined, opts?: object): node is BlockParent;
+export function isBlock(node: object | null | undefined, opts?: object): node is Block;
+export function isStatement(node: object | null | undefined, opts?: object): node is Statement;
+export function isTerminatorless(node: object | null | undefined, opts?: object): node is Terminatorless;
+export function isCompletionStatement(node: object | null | undefined, opts?: object): node is CompletionStatement;
+export function isConditional(node: object | null | undefined, opts?: object): node is Conditional;
+export function isLoop(node: object | null | undefined, opts?: object): node is Loop;
+export function isWhile(node: object | null | undefined, opts?: object): node is While;
+export function isExpressionWrapper(node: object | null | undefined, opts?: object): node is ExpressionWrapper;
+export function isFor(node: object | null | undefined, opts?: object): node is For;
+export function isForXStatement(node: object | null | undefined, opts?: object): node is ForXStatement;
+// tslint:disable-next-line ban-types
+export function isFunction(node: object | null | undefined, opts?: object): node is Function;
+export function isFunctionParent(node: object | null | undefined, opts?: object): node is FunctionParent;
+export function isPureish(node: object | null | undefined, opts?: object): node is Pureish;
+export function isDeclaration(node: object | null | undefined, opts?: object): node is Declaration;
+export function isLVal(node: object | null | undefined, opts?: object): node is LVal;
+export function isLiteral(node: object | null | undefined, opts?: object): node is Literal;
+export function isImmutable(node: object | null | undefined, opts?: object): node is Immutable;
+export function isUserWhitespacable(node: object | null | undefined, opts?: object): node is UserWhitespacable;
+export function isMethod(node: object | null | undefined, opts?: object): node is Method;
+export function isObjectMember(node: object | null | undefined, opts?: object): node is ObjectMember;
+export function isProperty(node: object | null | undefined, opts?: object): node is Property;
+export function isUnaryLike(node: object | null | undefined, opts?: object): node is UnaryLike;
+export function isPattern(node: object | null | undefined, opts?: object): node is Pattern;
+export function isClass(node: object | null | undefined, opts?: object): node is Class;
+export function isModuleDeclaration(node: object | null | undefined, opts?: object): node is ModuleDeclaration;
+export function isExportDeclaration(node: object | null | undefined, opts?: object): node is ExportDeclaration;
+export function isModuleSpecifier(node: object | null | undefined, opts?: object): node is ModuleSpecifier;
+export function isFlow(node: object | null | undefined, opts?: object): node is Flow;
+export function isFlowBaseAnnotation(node: object | null | undefined, opts?: object): node is FlowBaseAnnotation;
+export function isFlowDeclaration(node: object | null | undefined, opts?: object): node is FlowDeclaration;
+export function isJSX(node: object | null | undefined, opts?: object): node is JSX;
+export function isNumberLiteral(node: object | null | undefined, opts?: object): node is NumericLiteral;
+export function isRegexLiteral(node: object | null | undefined, opts?: object): node is RegExpLiteral;
 
-export function assertArrayExpression(node: Object, opts?: Object): void;
-export function assertAssignmentExpression(node: Object, opts?: Object): void;
-export function assertBinaryExpression(node: Object, opts?: Object): void;
-export function assertDirective(node: Object, opts?: Object): void;
-export function assertDirectiveLiteral(node: Object, opts?: Object): void;
-export function assertBlockStatement(node: Object, opts?: Object): void;
-export function assertBreakStatement(node: Object, opts?: Object): void;
-export function assertCallExpression(node: Object, opts?: Object): void;
-export function assertCatchClause(node: Object, opts?: Object): void;
-export function assertConditionalExpression(node: Object, opts?: Object): void;
-export function assertContinueStatement(node: Object, opts?: Object): void;
-export function assertDebuggerStatement(node: Object, opts?: Object): void;
-export function assertDoWhileStatement(node: Object, opts?: Object): void;
-export function assertEmptyStatement(node: Object, opts?: Object): void;
-export function assertExpressionStatement(node: Object, opts?: Object): void;
-export function assertFile(node: Object, opts?: Object): void;
-export function assertForInStatement(node: Object, opts?: Object): void;
-export function assertForStatement(node: Object, opts?: Object): void;
-export function assertFunctionDeclaration(node: Object, opts?: Object): void;
-export function assertFunctionExpression(node: Object, opts?: Object): void;
-export function assertIdentifier(node: Object, opts?: Object): void;
-export function assertIfStatement(node: Object, opts?: Object): void;
-export function assertLabeledStatement(node: Object, opts?: Object): void;
-export function assertStringLiteral(node: Object, opts?: Object): void;
-export function assertNumericLiteral(node: Object, opts?: Object): void;
-export function assertNullLiteral(node: Object, opts?: Object): void;
-export function assertBooleanLiteral(node: Object, opts?: Object): void;
-export function assertRegExpLiteral(node: Object, opts?: Object): void;
-export function assertLogicalExpression(node: Object, opts?: Object): void;
-export function assertMemberExpression(node: Object, opts?: Object): void;
-export function assertNewExpression(node: Object, opts?: Object): void;
-export function assertProgram(node: Object, opts?: Object): void;
-export function assertObjectExpression(node: Object, opts?: Object): void;
-export function assertObjectMethod(node: Object, opts?: Object): void;
-export function assertObjectProperty(node: Object, opts?: Object): void;
-export function assertRestElement(node: Object, opts?: Object): void;
-export function assertReturnStatement(node: Object, opts?: Object): void;
-export function assertSequenceExpression(node: Object, opts?: Object): void;
-export function assertSwitchCase(node: Object, opts?: Object): void;
-export function assertSwitchStatement(node: Object, opts?: Object): void;
-export function assertThisExpression(node: Object, opts?: Object): void;
-export function assertThrowStatement(node: Object, opts?: Object): void;
-export function assertTryStatement(node: Object, opts?: Object): void;
-export function assertUnaryExpression(node: Object, opts?: Object): void;
-export function assertUpdateExpression(node: Object, opts?: Object): void;
-export function assertVariableDeclaration(node: Object, opts?: Object): void;
-export function assertVariableDeclarator(node: Object, opts?: Object): void;
-export function assertWhileStatement(node: Object, opts?: Object): void;
-export function assertWithStatement(node: Object, opts?: Object): void;
-export function assertAssignmentPattern(node: Object, opts?: Object): void;
-export function assertArrayPattern(node: Object, opts?: Object): void;
-export function assertArrowFunctionExpression(node: Object, opts?: Object): void;
-export function assertClassBody(node: Object, opts?: Object): void;
-export function assertClassDeclaration(node: Object, opts?: Object): void;
-export function assertClassExpression(node: Object, opts?: Object): void;
-export function assertExportAllDeclaration(node: Object, opts?: Object): void;
-export function assertExportDefaultDeclaration(node: Object, opts?: Object): void;
-export function assertExportNamedDeclaration(node: Object, opts?: Object): void;
-export function assertExportSpecifier(node: Object, opts?: Object): void;
-export function assertForOfStatement(node: Object, opts?: Object): void;
-export function assertImportDeclaration(node: Object, opts?: Object): void;
-export function assertImportDefaultSpecifier(node: Object, opts?: Object): void;
-export function assertImportNamespaceSpecifier(node: Object, opts?: Object): void;
-export function assertImportSpecifier(node: Object, opts?: Object): void;
-export function assertMetaProperty(node: Object, opts?: Object): void;
-export function assertClassMethod(node: Object, opts?: Object): void;
-export function assertObjectPattern(node: Object, opts?: Object): void;
-export function assertSpreadElement(node: Object, opts?: Object): void;
-export function assertSuper(node: Object, opts?: Object): void;
-export function assertTaggedTemplateExpression(node: Object, opts?: Object): void;
-export function assertTemplateElement(node: Object, opts?: Object): void;
-export function assertTemplateLiteral(node: Object, opts?: Object): void;
-export function assertYieldExpression(node: Object, opts?: Object): void;
-export function assertAnyTypeAnnotation(node: Object, opts?: Object): void;
-export function assertArrayTypeAnnotation(node: Object, opts?: Object): void;
-export function assertBooleanTypeAnnotation(node: Object, opts?: Object): void;
-export function assertBooleanLiteralTypeAnnotation(node: Object, opts?: Object): void;
-export function assertNullLiteralTypeAnnotation(node: Object, opts?: Object): void;
-export function assertClassImplements(node: Object, opts?: Object): void;
-export function assertClassProperty(node: Object, opts?: Object): void;
-export function assertDeclareClass(node: Object, opts?: Object): void;
-export function assertDeclareFunction(node: Object, opts?: Object): void;
-export function assertDeclareInterface(node: Object, opts?: Object): void;
-export function assertDeclareModule(node: Object, opts?: Object): void;
-export function assertDeclareTypeAlias(node: Object, opts?: Object): void;
-export function assertDeclareVariable(node: Object, opts?: Object): void;
-export function assertExistentialTypeParam(node: Object, opts?: Object): void;
-export function assertFunctionTypeAnnotation(node: Object, opts?: Object): void;
-export function assertFunctionTypeParam(node: Object, opts?: Object): void;
-export function assertGenericTypeAnnotation(node: Object, opts?: Object): void;
-export function assertInterfaceExtends(node: Object, opts?: Object): void;
-export function assertInterfaceDeclaration(node: Object, opts?: Object): void;
-export function assertIntersectionTypeAnnotation(node: Object, opts?: Object): void;
-export function assertMixedTypeAnnotation(node: Object, opts?: Object): void;
-export function assertNullableTypeAnnotation(node: Object, opts?: Object): void;
-export function assertNumericLiteralTypeAnnotation(node: Object, opts?: Object): void;
-export function assertNumberTypeAnnotation(node: Object, opts?: Object): void;
-export function assertStringLiteralTypeAnnotation(node: Object, opts?: Object): void;
-export function assertStringTypeAnnotation(node: Object, opts?: Object): void;
-export function assertThisTypeAnnotation(node: Object, opts?: Object): void;
-export function assertTupleTypeAnnotation(node: Object, opts?: Object): void;
-export function assertTypeofTypeAnnotation(node: Object, opts?: Object): void;
-export function assertTypeAlias(node: Object, opts?: Object): void;
-export function assertTypeAnnotation(node: Object, opts?: Object): void;
-export function assertTypeCastExpression(node: Object, opts?: Object): void;
-export function assertTypeParameterDeclaration(node: Object, opts?: Object): void;
-export function assertTypeParameterInstantiation(node: Object, opts?: Object): void;
-export function assertObjectTypeAnnotation(node: Object, opts?: Object): void;
-export function assertObjectTypeCallProperty(node: Object, opts?: Object): void;
-export function assertObjectTypeIndexer(node: Object, opts?: Object): void;
-export function assertObjectTypeProperty(node: Object, opts?: Object): void;
-export function assertQualifiedTypeIdentifier(node: Object, opts?: Object): void;
-export function assertUnionTypeAnnotation(node: Object, opts?: Object): void;
-export function assertVoidTypeAnnotation(node: Object, opts?: Object): void;
-export function assertJSXAttribute(node: Object, opts?: Object): void;
-export function assertJSXClosingElement(node: Object, opts?: Object): void;
-export function assertJSXElement(node: Object, opts?: Object): void;
-export function assertJSXEmptyExpression(node: Object, opts?: Object): void;
-export function assertJSXExpressionContainer(node: Object, opts?: Object): void;
-export function assertJSXIdentifier(node: Object, opts?: Object): void;
-export function assertJSXMemberExpression(node: Object, opts?: Object): void;
-export function assertJSXNamespacedName(node: Object, opts?: Object): void;
-export function assertJSXOpeningElement(node: Object, opts?: Object): void;
-export function assertJSXSpreadAttribute(node: Object, opts?: Object): void;
-export function assertJSXText(node: Object, opts?: Object): void;
-export function assertNoop(node: Object, opts?: Object): void;
-export function assertParenthesizedExpression(node: Object, opts?: Object): void;
-export function assertAwaitExpression(node: Object, opts?: Object): void;
-export function assertBindExpression(node: Object, opts?: Object): void;
-export function assertDecorator(node: Object, opts?: Object): void;
-export function assertDoExpression(node: Object, opts?: Object): void;
-export function assertExportDefaultSpecifier(node: Object, opts?: Object): void;
-export function assertExportNamespaceSpecifier(node: Object, opts?: Object): void;
-export function assertRestProperty(node: Object, opts?: Object): void;
-export function assertSpreadProperty(node: Object, opts?: Object): void;
-export function assertExpression(node: Object, opts?: Object): void;
-export function assertBinary(node: Object, opts?: Object): void;
-export function assertScopable(node: Object, opts?: Object): void;
-export function assertBlockParent(node: Object, opts?: Object): void;
-export function assertBlock(node: Object, opts?: Object): void;
-export function assertStatement(node: Object, opts?: Object): void;
-export function assertTerminatorless(node: Object, opts?: Object): void;
-export function assertCompletionStatement(node: Object, opts?: Object): void;
-export function assertConditional(node: Object, opts?: Object): void;
-export function assertLoop(node: Object, opts?: Object): void;
-export function assertWhile(node: Object, opts?: Object): void;
-export function assertExpressionWrapper(node: Object, opts?: Object): void;
-export function assertFor(node: Object, opts?: Object): void;
-export function assertForXStatement(node: Object, opts?: Object): void;
-export function assertFunction(node: Object, opts?: Object): void;
-export function assertFunctionParent(node: Object, opts?: Object): void;
-export function assertPureish(node: Object, opts?: Object): void;
-export function assertDeclaration(node: Object, opts?: Object): void;
-export function assertLVal(node: Object, opts?: Object): void;
-export function assertLiteral(node: Object, opts?: Object): void;
-export function assertImmutable(node: Object, opts?: Object): void;
-export function assertUserWhitespacable(node: Object, opts?: Object): void;
-export function assertMethod(node: Object, opts?: Object): void;
-export function assertObjectMember(node: Object, opts?: Object): void;
-export function assertProperty(node: Object, opts?: Object): void;
-export function assertUnaryLike(node: Object, opts?: Object): void;
-export function assertPattern(node: Object, opts?: Object): void;
-export function assertClass(node: Object, opts?: Object): void;
-export function assertModuleDeclaration(node: Object, opts?: Object): void;
-export function assertExportDeclaration(node: Object, opts?: Object): void;
-export function assertModuleSpecifier(node: Object, opts?: Object): void;
-export function assertFlow(node: Object, opts?: Object): void;
-export function assertFlowBaseAnnotation(node: Object, opts?: Object): void;
-export function assertFlowDeclaration(node: Object, opts?: Object): void;
-export function assertJSX(node: Object, opts?: Object): void;
-export function assertNumberLiteral(node: Object, opts?: Object): void;
-export function assertRegexLiteral(node: Object, opts?: Object): void;
+export function isReferencedIdentifier(node: object | null | undefined, opts?: object): node is Identifier | JSXIdentifier;
+export function isReferencedMemberExpression(node: object | null | undefined, opts?: object): node is MemberExpression;
+export function isBindingIdentifier(node: object | null | undefined, opts?: object): node is Identifier;
+export function isScope(node: object | null | undefined, opts?: object): node is Scopable;
+export function isReferenced(node: object | null | undefined, opts?: object): boolean;
+export function isBlockScoped(node: object | null | undefined, opts?: object): node is FunctionDeclaration | ClassDeclaration | VariableDeclaration;
+export function isVar(node: object | null | undefined, opts?: object): node is VariableDeclaration;
+export function isUser(node: object | null | undefined, opts?: object): boolean;
+export function isGenerated(node: object | null | undefined, opts?: object): boolean;
+export function isPure(node: object | null | undefined, opts?: object): boolean;
 
+export function isTSAnyKeyword(node: object | null | undefined, opts?: object): node is TSAnyKeyword;
+export function isTSArrayType(node: object | null | undefined, opts?: object): node is TSArrayType;
+export function isTSAsExpression(node: object | null | undefined, opts?: object): node is TSAsExpression;
+export function isTSBooleanKeyword(node: object | null | undefined, opts?: object): node is TSBooleanKeyword;
+export function isTSCallSignatureDeclaration(node: object | null | undefined, opts?: object): node is TSCallSignatureDeclaration;
+export function isTSConstructSignatureDeclaration(node: object | null | undefined, opts?: object): node is TSTypeElement;
+export function isTSConstructorType(node: object | null | undefined, opts?: object): node is TSConstructorType;
+export function isTSDeclareFunction(node: object | null | undefined, opts?: object): node is TSDeclareFunction;
+export function isTSDeclareMethod(node: object | null | undefined, opts?: object): node is TSDeclareMethod;
+export function isTSEnumDeclaration(node: object | null | undefined, opts?: object): node is TSEnumDeclaration;
+export function isTSEnumMember(node: object | null | undefined, opts?: object): node is TSEnumMember;
+export function isTSExportAssignment(node: object | null | undefined, opts?: object): node is TSExportAssignment;
+export function isTSExpressionWithTypeArguments(node: object | null | undefined, opts?: object): node is TSExpressionWithTypeArguments;
+export function isTSExternalModuleReference(node: object | null | undefined, opts?: object): node is TSExternalModuleReference;
+export function isTSFunctionType(node: object | null | undefined, opts?: object): node is TSFunctionType;
+export function isTSImportEqualsDeclaration(node: object | null | undefined, opts?: object): node is TSImportEqualsDeclaration;
+export function isTSIndexSignature(node: object | null | undefined, opts?: object): node is TSIndexSignature;
+export function isTSIndexedAccessType(node: object | null | undefined, opts?: object): node is TSIndexedAccessType;
+export function isTSInterfaceBody(node: object | null | undefined, opts?: object): node is TSInterfaceBody;
+export function isTSInterfaceDeclaration(node: object | null | undefined, opts?: object): node is TSInterfaceDeclaration;
+export function isTSIntersectionType(node: object | null | undefined, opts?: object): node is TSIntersectionType;
+export function isTSLiteralType(node: object | null | undefined, opts?: object): node is TSLiteralType;
+export function isTSMappedType(node: object | null | undefined, opts?: object): node is TSMappedType;
+export function isTSMethodSignature(node: object | null | undefined, opts?: object): node is TSMethodSignature;
+export function isTSModuleBlock(node: object | null | undefined, opts?: object): node is TSModuleBlock;
+export function isTSModuleDeclaration(node: object | null | undefined, opts?: object): node is TSModuleDeclaration;
+export function isTSNamespaceExportDeclaration(node: object | null | undefined, opts?: object): node is TSNamespaceExportDeclaration;
+export function isTSNeverKeyword(node: object | null | undefined, opts?: object): node is TSNeverKeyword;
+export function isTSNonNullExpression(node: object | null | undefined, opts?: object): node is TSNonNullExpression;
+export function isTSNullKeyword(node: object | null | undefined, opts?: object): node is TSNullKeyword;
+export function isTSNumberKeyword(node: object | null | undefined, opts?: object): node is TSNumberKeyword;
+export function isTSObjectKeyword(node: object | null | undefined, opts?: object): node is TSObjectKeyword;
+export function isTSParameterProperty(node: object | null | undefined, opts?: object): node is TSParameterProperty;
+export function isTSParenthesizedType(node: object | null | undefined, opts?: object): node is TSParenthesizedType;
+export function isTSPropertySignature(node: object | null | undefined, opts?: object): node is TSPropertySignature;
+export function isTSQualifiedName(node: object | null | undefined, opts?: object): node is TSQualifiedName;
+export function isTSStringKeyword(node: object | null | undefined, opts?: object): node is TSStringKeyword;
+export function isTSSymbolKeyword(node: object | null | undefined, opts?: object): node is TSSymbolKeyword;
+export function isTSThisType(node: object | null | undefined, opts?: object): node is TSThisType;
+export function isTSTupleType(node: object | null | undefined, opts?: object): node is TSTupleType;
+export function isTSTypeAliasDeclaration(node: object | null | undefined, opts?: object): node is TSTypeAliasDeclaration;
+export function isTSTypeAnnotation(node: object | null | undefined, opts?: object): node is TSTypeAnnotation;
+export function isTSTypeAssertion(node: object | null | undefined, opts?: object): node is TSTypeAssertion;
+export function isTSTypeLiteral(node: object | null | undefined, opts?: object): node is TSTypeLiteral;
+export function isTSTypeOperator(node: object | null | undefined, opts?: object): node is TSTypeOperator;
+export function isTSTypeParameter(node: object | null | undefined, opts?: object): node is TSTypeParameter;
+export function isTSTypeParameterDeclaration(node: object | null | undefined, opts?: object): node is TSTypeParameterDeclaration;
+export function isTSTypeParameterInstantiation(node: object | null | undefined, opts?: object): node is TSTypeParameterInstantiation;
+export function isTSTypePredicate(node: object | null | undefined, opts?: object): node is TSTypePredicate;
+export function isTSTypeQuery(node: object | null | undefined, opts?: object): node is TSTypeQuery;
+export function isTSTypeReference(node: object | null | undefined, opts?: object): node is TSTypeReference;
+export function isTSUndefinedKeyword(node: object | null | undefined, opts?: object): node is TSUndefinedKeyword;
+export function isTSUnionType(node: object | null | undefined, opts?: object): node is TSUnionType;
+export function isTSVoidKeyword(node: object | null | undefined, opts?: object): node is TSVoidKeyword;
+
+// React specific
+export interface ReactHelpers {
+    isCompatTag(tagName?: string): boolean;
+    buildChildren(node: object): Node[];
+}
+export const react: ReactHelpers;
+
+export function assertArrayExpression(node: object | null | undefined, opts?: object): void;
+export function assertAssignmentExpression(node: object | null | undefined, opts?: object): void;
+export function assertBinaryExpression(node: object | null | undefined, opts?: object): void;
+export function assertDirective(node: object | null | undefined, opts?: object): void;
+export function assertDirectiveLiteral(node: object | null | undefined, opts?: object): void;
+export function assertBlockStatement(node: object | null | undefined, opts?: object): void;
+export function assertBreakStatement(node: object | null | undefined, opts?: object): void;
+export function assertCallExpression(node: object | null | undefined, opts?: object): void;
+export function assertCatchClause(node: object | null | undefined, opts?: object): void;
+export function assertConditionalExpression(node: object | null | undefined, opts?: object): void;
+export function assertContinueStatement(node: object | null | undefined, opts?: object): void;
+export function assertDebuggerStatement(node: object | null | undefined, opts?: object): void;
+export function assertDoWhileStatement(node: object | null | undefined, opts?: object): void;
+export function assertEmptyStatement(node: object | null | undefined, opts?: object): void;
+export function assertExpressionStatement(node: object | null | undefined, opts?: object): void;
+export function assertFile(node: object | null | undefined, opts?: object): void;
+export function assertForInStatement(node: object | null | undefined, opts?: object): void;
+export function assertForStatement(node: object | null | undefined, opts?: object): void;
+export function assertFunctionDeclaration(node: object | null | undefined, opts?: object): void;
+export function assertFunctionExpression(node: object | null | undefined, opts?: object): void;
+export function assertIdentifier(node: object | null | undefined, opts?: object): void;
+export function assertIfStatement(node: object | null | undefined, opts?: object): void;
+export function assertLabeledStatement(node: object | null | undefined, opts?: object): void;
+export function assertStringLiteral(node: object | null | undefined, opts?: object): void;
+export function assertNumericLiteral(node: object | null | undefined, opts?: object): void;
+export function assertNullLiteral(node: object | null | undefined, opts?: object): void;
+export function assertBooleanLiteral(node: object | null | undefined, opts?: object): void;
+export function assertRegExpLiteral(node: object | null | undefined, opts?: object): void;
+export function assertLogicalExpression(node: object | null | undefined, opts?: object): void;
+export function assertMemberExpression(node: object | null | undefined, opts?: object): void;
+export function assertNewExpression(node: object | null | undefined, opts?: object): void;
+export function assertProgram(node: object | null | undefined, opts?: object): void;
+export function assertObjectExpression(node: object | null | undefined, opts?: object): void;
+export function assertObjectMethod(node: object | null | undefined, opts?: object): void;
+export function assertObjectProperty(node: object | null | undefined, opts?: object): void;
+export function assertRestElement(node: object | null | undefined, opts?: object): void;
+export function assertReturnStatement(node: object | null | undefined, opts?: object): void;
+export function assertSequenceExpression(node: object | null | undefined, opts?: object): void;
+export function assertSwitchCase(node: object | null | undefined, opts?: object): void;
+export function assertSwitchStatement(node: object | null | undefined, opts?: object): void;
+export function assertThisExpression(node: object | null | undefined, opts?: object): void;
+export function assertThrowStatement(node: object | null | undefined, opts?: object): void;
+export function assertTryStatement(node: object | null | undefined, opts?: object): void;
+export function assertUnaryExpression(node: object | null | undefined, opts?: object): void;
+export function assertUpdateExpression(node: object | null | undefined, opts?: object): void;
+export function assertVariableDeclaration(node: object | null | undefined, opts?: object): void;
+export function assertVariableDeclarator(node: object | null | undefined, opts?: object): void;
+export function assertWhileStatement(node: object | null | undefined, opts?: object): void;
+export function assertWithStatement(node: object | null | undefined, opts?: object): void;
+export function assertAssignmentPattern(node: object | null | undefined, opts?: object): void;
+export function assertArrayPattern(node: object | null | undefined, opts?: object): void;
+export function assertArrowFunctionExpression(node: object | null | undefined, opts?: object): void;
+export function assertClassBody(node: object | null | undefined, opts?: object): void;
+export function assertClassDeclaration(node: object | null | undefined, opts?: object): void;
+export function assertClassExpression(node: object | null | undefined, opts?: object): void;
+export function assertExportAllDeclaration(node: object | null | undefined, opts?: object): void;
+export function assertExportDefaultDeclaration(node: object | null | undefined, opts?: object): void;
+export function assertExportNamedDeclaration(node: object | null | undefined, opts?: object): void;
+export function assertExportSpecifier(node: object | null | undefined, opts?: object): void;
+export function assertForOfStatement(node: object | null | undefined, opts?: object): void;
+export function assertImportDeclaration(node: object | null | undefined, opts?: object): void;
+export function assertImportDefaultSpecifier(node: object | null | undefined, opts?: object): void;
+export function assertImportNamespaceSpecifier(node: object | null | undefined, opts?: object): void;
+export function assertImportSpecifier(node: object | null | undefined, opts?: object): void;
+export function assertMetaProperty(node: object | null | undefined, opts?: object): void;
+export function assertClassMethod(node: object | null | undefined, opts?: object): void;
+export function assertObjectPattern(node: object | null | undefined, opts?: object): void;
+export function assertSpreadElement(node: object | null | undefined, opts?: object): void;
+export function assertSuper(node: object | null | undefined, opts?: object): void;
+export function assertTaggedTemplateExpression(node: object | null | undefined, opts?: object): void;
+export function assertTemplateElement(node: object | null | undefined, opts?: object): void;
+export function assertTemplateLiteral(node: object | null | undefined, opts?: object): void;
+export function assertYieldExpression(node: object | null | undefined, opts?: object): void;
+export function assertAnyTypeAnnotation(node: object | null | undefined, opts?: object): void;
+export function assertArrayTypeAnnotation(node: object | null | undefined, opts?: object): void;
+export function assertBooleanTypeAnnotation(node: object | null | undefined, opts?: object): void;
+export function assertBooleanLiteralTypeAnnotation(node: object | null | undefined, opts?: object): void;
+export function assertNullLiteralTypeAnnotation(node: object | null | undefined, opts?: object): void;
+export function assertClassImplements(node: object | null | undefined, opts?: object): void;
+export function assertClassProperty(node: object | null | undefined, opts?: object): void;
+export function assertDeclareClass(node: object | null | undefined, opts?: object): void;
+export function assertDeclareFunction(node: object | null | undefined, opts?: object): void;
+export function assertDeclareInterface(node: object | null | undefined, opts?: object): void;
+export function assertDeclareModule(node: object | null | undefined, opts?: object): void;
+export function assertDeclareTypeAlias(node: object | null | undefined, opts?: object): void;
+export function assertDeclareVariable(node: object | null | undefined, opts?: object): void;
+export function assertExistentialTypeParam(node: object | null | undefined, opts?: object): void;
+export function assertFunctionTypeAnnotation(node: object | null | undefined, opts?: object): void;
+export function assertFunctionTypeParam(node: object | null | undefined, opts?: object): void;
+export function assertGenericTypeAnnotation(node: object | null | undefined, opts?: object): void;
+export function assertInterfaceExtends(node: object | null | undefined, opts?: object): void;
+export function assertInterfaceDeclaration(node: object | null | undefined, opts?: object): void;
+export function assertIntersectionTypeAnnotation(node: object | null | undefined, opts?: object): void;
+export function assertMixedTypeAnnotation(node: object | null | undefined, opts?: object): void;
+export function assertNullableTypeAnnotation(node: object | null | undefined, opts?: object): void;
+export function assertNumericLiteralTypeAnnotation(node: object | null | undefined, opts?: object): void;
+export function assertNumberTypeAnnotation(node: object | null | undefined, opts?: object): void;
+export function assertStringLiteralTypeAnnotation(node: object | null | undefined, opts?: object): void;
+export function assertStringTypeAnnotation(node: object | null | undefined, opts?: object): void;
+export function assertThisTypeAnnotation(node: object | null | undefined, opts?: object): void;
+export function assertTupleTypeAnnotation(node: object | null | undefined, opts?: object): void;
+export function assertTypeofTypeAnnotation(node: object | null | undefined, opts?: object): void;
+export function assertTypeAlias(node: object | null | undefined, opts?: object): void;
+export function assertTypeAnnotation(node: object | null | undefined, opts?: object): void;
+export function assertTypeCastExpression(node: object | null | undefined, opts?: object): void;
+export function assertTypeParameter(node: object | null | undefined, opts?: object): void;
+export function assertTypeParameterDeclaration(node: object | null | undefined, opts?: object): void;
+export function assertTypeParameterInstantiation(node: object | null | undefined, opts?: object): void;
+export function assertObjectTypeAnnotation(node: object | null | undefined, opts?: object): void;
+export function assertObjectTypeCallProperty(node: object | null | undefined, opts?: object): void;
+export function assertObjectTypeIndexer(node: object | null | undefined, opts?: object): void;
+export function assertObjectTypeProperty(node: object | null | undefined, opts?: object): void;
+export function assertQualifiedTypeIdentifier(node: object | null | undefined, opts?: object): void;
+export function assertUnionTypeAnnotation(node: object | null | undefined, opts?: object): void;
+export function assertVoidTypeAnnotation(node: object | null | undefined, opts?: object): void;
+export function assertJSXAttribute(node: object | null | undefined, opts?: object): void;
+export function assertJSXClosingElement(node: object | null | undefined, opts?: object): void;
+export function assertJSXElement(node: object | null | undefined, opts?: object): void;
+export function assertJSXEmptyExpression(node: object | null | undefined, opts?: object): void;
+export function assertJSXExpressionContainer(node: object | null | undefined, opts?: object): void;
+export function assertJSXIdentifier(node: object | null | undefined, opts?: object): void;
+export function assertJSXMemberExpression(node: object | null | undefined, opts?: object): void;
+export function assertJSXNamespacedName(node: object | null | undefined, opts?: object): void;
+export function assertJSXOpeningElement(node: object | null | undefined, opts?: object): void;
+export function assertJSXSpreadAttribute(node: object | null | undefined, opts?: object): void;
+export function assertJSXText(node: object | null | undefined, opts?: object): void;
+export function assertNoop(node: object | null | undefined, opts?: object): void;
+export function assertParenthesizedExpression(node: object | null | undefined, opts?: object): void;
+export function assertAwaitExpression(node: object | null | undefined, opts?: object): void;
+export function assertBindExpression(node: object | null | undefined, opts?: object): void;
+export function assertDecorator(node: object | null | undefined, opts?: object): void;
+export function assertDoExpression(node: object | null | undefined, opts?: object): void;
+export function assertExportDefaultSpecifier(node: object | null | undefined, opts?: object): void;
+export function assertExportNamespaceSpecifier(node: object | null | undefined, opts?: object): void;
+export function assertRestProperty(node: object | null | undefined, opts?: object): void;
+export function assertSpreadProperty(node: object | null | undefined, opts?: object): void;
+export function assertExpression(node: object | null | undefined, opts?: object): void;
+export function assertBinary(node: object | null | undefined, opts?: object): void;
+export function assertScopable(node: object | null | undefined, opts?: object): void;
+export function assertBlockParent(node: object | null | undefined, opts?: object): void;
+export function assertBlock(node: object | null | undefined, opts?: object): void;
+export function assertStatement(node: object | null | undefined, opts?: object): void;
+export function assertTerminatorless(node: object | null | undefined, opts?: object): void;
+export function assertCompletionStatement(node: object | null | undefined, opts?: object): void;
+export function assertConditional(node: object | null | undefined, opts?: object): void;
+export function assertLoop(node: object | null | undefined, opts?: object): void;
+export function assertWhile(node: object | null | undefined, opts?: object): void;
+export function assertExpressionWrapper(node: object | null | undefined, opts?: object): void;
+export function assertFor(node: object | null | undefined, opts?: object): void;
+export function assertForXStatement(node: object | null | undefined, opts?: object): void;
+export function assertFunction(node: object | null | undefined, opts?: object): void;
+export function assertFunctionParent(node: object | null | undefined, opts?: object): void;
+export function assertPureish(node: object | null | undefined, opts?: object): void;
+export function assertDeclaration(node: object | null | undefined, opts?: object): void;
+export function assertLVal(node: object | null | undefined, opts?: object): void;
+export function assertLiteral(node: object | null | undefined, opts?: object): void;
+export function assertImmutable(node: object | null | undefined, opts?: object): void;
+export function assertUserWhitespacable(node: object | null | undefined, opts?: object): void;
+export function assertMethod(node: object | null | undefined, opts?: object): void;
+export function assertObjectMember(node: object | null | undefined, opts?: object): void;
+export function assertProperty(node: object | null | undefined, opts?: object): void;
+export function assertUnaryLike(node: object | null | undefined, opts?: object): void;
+export function assertPattern(node: object | null | undefined, opts?: object): void;
+export function assertClass(node: object | null | undefined, opts?: object): void;
+export function assertModuleDeclaration(node: object | null | undefined, opts?: object): void;
+export function assertExportDeclaration(node: object | null | undefined, opts?: object): void;
+export function assertModuleSpecifier(node: object | null | undefined, opts?: object): void;
+export function assertFlow(node: object | null | undefined, opts?: object): void;
+export function assertFlowBaseAnnotation(node: object | null | undefined, opts?: object): void;
+export function assertFlowDeclaration(node: object | null | undefined, opts?: object): void;
+export function assertJSX(node: object | null | undefined, opts?: object): void;
+export function assertNumberLiteral(node: object | null | undefined, opts?: object): void;
+export function assertRegexLiteral(node: object | null | undefined, opts?: object): void;
+
+export function assertTSAnyKeyword(node: object | null | undefined, opts?: object): void;
+export function assertTSArrayType(node: object | null | undefined, opts?: object): void;
+export function assertTSAsExpression(node: object | null | undefined, opts?: object): void;
+export function assertTSBooleanKeyword(node: object | null | undefined, opts?: object): void;
+export function assertTSCallSignatureDeclaration(node: object | null | undefined, opts?: object): void;
+export function assertTSConstructSignatureDeclaration(node: object | null | undefined, opts?: object): void;
+export function assertTSConstructorType(node: object | null | undefined, opts?: object): void;
+export function assertTSDeclareFunction(node: object | null | undefined, opts?: object): void;
+export function assertTSDeclareMethod(node: object | null | undefined, opts?: object): void;
+export function assertTSEnumDeclaration(node: object | null | undefined, opts?: object): void;
+export function assertTSEnumMember(node: object | null | undefined, opts?: object): void;
+export function assertTSExportAssignment(node: object | null | undefined, opts?: object): void;
+export function assertTSExpressionWithTypeArguments(node: object | null | undefined, opts?: object): void;
+export function assertTSExternalModuleReference(node: object | null | undefined, opts?: object): void;
+export function assertTSFunctionType(node: object | null | undefined, opts?: object): void;
+export function assertTSImportEqualsDeclaration(node: object | null | undefined, opts?: object): void;
+export function assertTSIndexSignature(node: object | null | undefined, opts?: object): void;
+export function assertTSIndexedAccessType(node: object | null | undefined, opts?: object): void;
+export function assertTSInterfaceBody(node: object | null | undefined, opts?: object): void;
+export function assertTSInterfaceDeclaration(node: object | null | undefined, opts?: object): void;
+export function assertTSIntersectionType(node: object | null | undefined, opts?: object): void;
+export function assertTSLiteralType(node: object | null | undefined, opts?: object): void;
+export function assertTSMappedType(node: object | null | undefined, opts?: object): void;
+export function assertTSMethodSignature(node: object | null | undefined, opts?: object): void;
+export function assertTSModuleBlock(node: object | null | undefined, opts?: object): void;
+export function assertTSModuleDeclaration(node: object | null | undefined, opts?: object): void;
+export function assertTSNamespaceExportDeclaration(node: object | null | undefined, opts?: object): void;
+export function assertTSNeverKeyword(node: object | null | undefined, opts?: object): void;
+export function assertTSNonNullExpression(node: object | null | undefined, opts?: object): void;
+export function assertTSNullKeyword(node: object | null | undefined, opts?: object): void;
+export function assertTSNumberKeyword(node: object | null | undefined, opts?: object): void;
+export function assertTSObjectKeyword(node: object | null | undefined, opts?: object): void;
+export function assertTSParameterProperty(node: object | null | undefined, opts?: object): void;
+export function assertTSParenthesizedType(node: object | null | undefined, opts?: object): void;
+export function assertTSPropertySignature(node: object | null | undefined, opts?: object): void;
+export function assertTSQualifiedName(node: object | null | undefined, opts?: object): void;
+export function assertTSStringKeyword(node: object | null | undefined, opts?: object): void;
+export function assertTSSymbolKeyword(node: object | null | undefined, opts?: object): void;
+export function assertTSThisType(node: object | null | undefined, opts?: object): void;
+export function assertTSTupleType(node: object | null | undefined, opts?: object): void;
+export function assertTSTypeAliasDeclaration(node: object | null | undefined, opts?: object): void;
+export function assertTSTypeAnnotation(node: object | null | undefined, opts?: object): void;
+export function assertTSTypeAssertion(node: object | null | undefined, opts?: object): void;
+export function assertTSTypeLiteral(node: object | null | undefined, opts?: object): void;
+export function assertTSTypeOperator(node: object | null | undefined, opts?: object): void;
+export function assertTSTypeParameter(node: object | null | undefined, opts?: object): void;
+export function assertTSTypeParameterDeclaration(node: object | null | undefined, opts?: object): void;
+export function assertTSTypeParameterInstantiation(node: object | null | undefined, opts?: object): void;
+export function assertTSTypePredicate(node: object | null | undefined, opts?: object): void;
+export function assertTSTypeQuery(node: object | null | undefined, opts?: object): void;
+export function assertTSTypeReference(node: object | null | undefined, opts?: object): void;
+export function assertTSUndefinedKeyword(node: object | null | undefined, opts?: object): void;
+export function assertTSUnionType(node: object | null | undefined, opts?: object): void;
+export function assertTSVoidKeyword(node: object | null | undefined, opts?: object): void;

@@ -1,12 +1,17 @@
 import tedious = require("tedious");
 
 var config: tedious.ConnectionConfig = {
-	userName: "rogier",
-	password: "rogiers password",
 	server: "127.0.0.1",
 	options: {
 		database: "somedb",
 		instanceName: "someinstance",
+	},
+	authentication: {
+		type: "default",
+		options: {
+			userName: "rogier",
+			password: "rogiers password"
+		}
 	}
 };
 
@@ -31,4 +36,12 @@ request.on("row", (row: tedious.ColumnValue[]): void => {
 });
 connection.execSql(request);
 
+var requestError = new tedious.RequestError();
+requestError.message = 'test';
+requestError.code = "ETIMEOUT";
+requestError = new tedious.RequestError('test', "ETIMEOUT");
 
+var connectionError = new tedious.ConnectionError();
+connectionError.message = 'test';
+connectionError.code = "ETIMEOUT";
+connectionError = new tedious.ConnectionError('test', "ETIMEOUT");

@@ -21,6 +21,11 @@ function test() {
         startcap: cap, endcap: cap, forward: bezier, back: bezier, bbox: bbox, intersections: function (shape) { return [[0]]; }
     };
     var split: BezierJs.Split = { left: bezier, right: bezier, span: [point] };
+    var quadratic: BezierJs.Bezier = BezierJs.Bezier.quadraticFromPoints({ x: 0, y: 0 }, { x: 1, y: 1 }, { x: 2, y: 2 }, 0.5);
+    var quadratic: BezierJs.Bezier = BezierJs.Bezier.quadraticFromPoints({ x: 0, y: 0 }, { x: 1, y: 1 }, { x: 2, y: 2 });
+    var cubic: BezierJs.Bezier = BezierJs.Bezier.cubicFromPoints({ x: 0, y: 0 }, { x: 1, y: 1 }, { x: 2, y: 2 }, 0.5, 2);
+    var cubic: BezierJs.Bezier = BezierJs.Bezier.cubicFromPoints({ x: 0, y: 0 }, { x: 1, y: 1 }, { x: 2, y: 2 }, 0.5);
+    var cubic: BezierJs.Bezier = BezierJs.Bezier.cubicFromPoints({ x: 0, y: 0 }, { x: 1, y: 1 }, { x: 2, y: 2 });
 
     bezier.arcs();
     bezier.clockwise;

@@ -2,6 +2,7 @@
 // Project: https://github.com/mimo84/bootstrap-maxlength
 // Definitions by: Dan Manastireanu <https://github.com/danmana>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="jquery" />
 
@@ -112,7 +113,7 @@ declare namespace BootstrapMaxlength {
          */
         message?: string | ((currentText : string, maxLength: Number) => string),
         /**
-         * If true the input will count using utf8 bytesize/encoding. For example: the '�' character is counted as two characters.
+         * If true the input will count using utf8 bytesize/encoding. For example: the '¢' character is counted as two characters.
          * @default false
          */
         utf8?: boolean,

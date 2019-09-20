@@ -8,6 +8,7 @@ import TokenOpts = X.TokenOpts;
 var exp: RegExp;
 var expArr: RegExp[];
 var expArrArr: RegExp[][];
+var strOrExpArr: (string | RegExp)[];
 var chain: RegExp[];
 var groupChain: { regex: RegExp; backref: string }[];
 var groupChain1: { regex: RegExp; backref: number }[];
@@ -21,6 +22,7 @@ var bool: boolean;
 var strArr: string[];
 var strArrArr: string[][];
 var pattern: string;
+var subs: { [name: string]: RegExp };
 var flags: string;
 var right: string;
 var left: string;
@@ -67,6 +69,8 @@ XRegExp.addToken(regex, (arr, scope) => {
 
 regex = XRegExp.build(pattern, strArr, flags);
 regex = XRegExp.build(pattern, strArr);
+regex = XRegExp.build(pattern, subs, flags);
+regex = XRegExp.build(pattern, subs);
 regex = XRegExp.cache(pattern);
 regex = XRegExp.cache(pattern, flags);
 
@@ -145,5 +149,9 @@ XRegExp.uninstall(str);
 
 regex = XRegExp.union(strArr, flags);
 regex = XRegExp.union(strArr);
+regex = XRegExp.union(expArr, flags);
+regex = XRegExp.union(expArr);
+regex = XRegExp.union(strOrExpArr, flags);
+regex = XRegExp.union(strOrExpArr);
 
 // --  --  --  --  --  --  --  --  --  --  --  --  --

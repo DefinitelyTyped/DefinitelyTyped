@@ -2,7 +2,7 @@
 // Project: https://github.com/goatslacker/alt
 // Definitions by: Michael Shearer <https://github.com/Shearerbeard>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.8
 
 ///<reference types="react"/>
 
@@ -54,12 +54,12 @@ declare namespace AltJS {
   export type Source = {[name:string]: () => SourceModel<any>};
 
   export interface SourceModel<S> {
-    local(state:any, ...args: any[]):any;
+    local?(state:any, ...args: any[]):any;
     remote(state:any, ...args: any[]):Promise<S>;
     shouldFetch?(fetchFn:(...args:Array<any>) => boolean):void;
     loading?:(args:any) => void;
-    success?:(state:S) => void;
-    error?:(args:any) => void;
+    success:(state:S) => void;
+    error:(args:any) => void;
     interceptResponse?(response:any, action:Action<any>, ...args:Array<any>):any;
   }
 
@@ -141,18 +141,18 @@ declare module "alt/utils/chromeDebug" {
 
 declare module "alt/AltContainer" {
 
-  import React = require("react");
+  import * as React from "react";
 
   interface ContainerProps {
     store?:AltJS.AltStore<any>;
     stores?:Array<AltJS.AltStore<any>>;
     inject?:{[key:string]:any};
     actions?:{[key:string]:Object};
-    render?:(...props:Array<any>) => React.ReactElement<any>;
+    render?:(...props:Array<any>) => React.ReactElement;
     flux?:AltJS.Alt;
     transform?:(store:AltJS.AltStore<any>, actions:any) => any;
     shouldComponentUpdate?:(props:any) => boolean;
-    component?:React.Component<any, any>;
+    component?:React.Component<any>;
   }
 
   type AltContainer = React.ReactElement<ContainerProps>;

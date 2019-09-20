@@ -39,6 +39,19 @@ function create() {
 
   job.save();
 
+  kue.Job.get(job.id, function (err: any, _job: kue.Job) {
+    console.log('get job', _job);
+
+    _job.created_at;
+    _job.promote_at;
+    _job.updated_at;
+    _job.failed_at;
+    _job.started_at;
+  });
+  kue.Job.get(job.id, 'video conversion', function (err: any, _job: kue.Job) {
+    console.log('get job', _job);
+  });
+
   setTimeout( create, Math.random() * 2000 | 0 );
 }
 
@@ -46,25 +59,36 @@ create();
 
 // process video conversion jobs, 1 at a time.
 
-jobs.process('video conversion', 1, function(job: kue.Job, done: Function) {
+var processCb = function(job: kue.Job, done: kue.DoneCallback) {
   var frames: number = job.data.frames;
 
   function next(i: number) {
     // pretend we are doing some work
-    convertFrame(i, function(err: Error) {
+    convertFrame(i, function(err: Error, result: any) {
       if (err) return done(err);
       // report progress, i/frames complete
       job.progress(i, frames);
-      if (i >= frames) done();
+      if (i >= frames) done(null, result);
       else next(i + Math.random() * 10);
     } );
   }
 
   next(0);
-} );
+}
+
+jobs.process('video conversion', 1, processCb);
+jobs.process('video conversion', processCb);
+
+// Use of WorkerCtx, https://github.com/Automattic/kue#pause-processing
+jobs.process('email', function(job, ctx, done) {
+    ctx.pause(5000, function (err) {
+        console.log('Worker is paused...');
+        setTimeout(function() { ctx.resume(); }, 10000);
+    });
+});
 
 function convertFrame(i: number, fn: Function) {
-  setTimeout(fn, Math.random() * 50);
+  setTimeout(() => fn(null, Math.random()), Math.random() * 50);
 }
 
 // one minute
@@ -77,6 +101,7 @@ var email = jobs.create('email', {
   .priority('high')
   .save();
 
+console.log('email job priority: ', email.priority());
 
 email.on('promotion', function() {
   console.log('renewal job promoted');

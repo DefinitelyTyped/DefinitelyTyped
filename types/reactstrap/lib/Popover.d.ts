@@ -1,31 +1,30 @@
-/// <reference types='tether' />
+import * as React from 'react';
+import * as Popper from 'popper.js';
+import { CSSModule } from '../index';
 
-type Placement
-  = 'top'
-  | 'bottom'
-  | 'left'
-  | 'right'
-  | 'top left'
-  | 'top center'
-  | 'top right'
-  | 'right top'
-  | 'right middle'
-  | 'right bottom'
-  | 'bottom right'
-  | 'bottom center'
-  | 'bottom left'
-  | 'left top'
-  | 'left middle'
-  | 'left bottom';
-
-interface Props {
-  placement?: Placement;
-  target: string;
+export interface PopoverProps extends React.HTMLAttributes<HTMLElement> {
+  [key: string]: any;
   isOpen?: boolean;
-  tether?: Tether.ITetherOptions;
-  className?: string;
   toggle?: () => void;
+  target: string | HTMLElement;
+  container?: string | HTMLElement;
+  boundariesElement?: Popper.Boundary | Element;
+  className?: string;
+  placement?: Popper.Placement;
+  innerClassName?: string;
+  disabled?: boolean;
+  hideArrow?: boolean;
+  placementPrefix?: string;
+  delay?: number | {show: number, hide: number};
+  modifiers?: Popper.Modifiers;
+  cssModule?: CSSModule;
+  fade?: boolean;
+  flip?: boolean;
 }
 
-declare var Popover: React.StatelessComponent<Props>;
+export interface UncontrolledPopoverProps extends PopoverProps {
+    defaultOpen?: boolean;
+}
+
+declare class Popover<T> extends React.Component<PopoverProps> {}
 export default Popover;

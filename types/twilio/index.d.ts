@@ -2,6 +2,7 @@
 // Project: https://github.com/twilio/twilio-node
 // Definitions by: nickiannone <https://github.com/nickiannone>, Ashley Brener <https://github.com/ashleybrener>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="node" />
 
@@ -50,7 +51,7 @@ declare namespace twilio {
     toPayload(): GrantPayload;
   }
 
-  export interface RequestCallback { (err: any, data: any, response: Http.ClientResponse): void; }
+  export interface RequestCallback { (err: any, data: any, response: Http.IncomingMessage): void; }
 
   export interface RestMethod {
     (callback: RequestCallback): Q.Promise<any>;

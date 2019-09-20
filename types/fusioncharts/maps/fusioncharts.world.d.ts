@@ -1,4 +1,4 @@
-import { FusionChartStatic } from "fusioncharts";
+import { FusionChartStatic } from "..";
 
 declare function world(H: FusionChartStatic): FusionChartStatic;
 export = world;

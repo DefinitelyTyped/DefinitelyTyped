@@ -35,12 +35,7 @@ revalidator.validate(someObject, {
           properties: {
             title: {
               type: 'string',
-              maxLength: 140,
-              conditions: {
-                optional: function () {
-                  return !this.published;
-                }
-              }
+              maxLength: 140
             },
             date: { type: 'string', format: 'date', messages: { format: "must be a valid %{expected} and nothing else" } },
             body: { type: 'string' },

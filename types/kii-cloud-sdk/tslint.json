@@ -1,6 +1,10 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "dt-header": false
+        // TODOs
+        "dt-header": false,
+        "npm-naming": false,
+        "no-unnecessary-class": false,
+        "no-unnecessary-generics": false
     }
 }

@@ -2,6 +2,7 @@
 // Project: https://github.com/balderdashy/waterline
 // Definitions by: Alexandro Libertino <https://github.com/arvitaly>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.2
 
 /// <reference types="node" />
 

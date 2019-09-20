@@ -1,12 +1,10 @@
-/// <reference types="express" />
-
 /**
  * Based on the examples on: https://github.com/ramiel/mongoose-sequence
  * Created by Linus Brolin <https://github.com/linusbrolin/>.
  */
 
 import { SequenceDocument, SequenceOptions, SequenceSchema, Document, Schema, Model, model } from 'mongoose';
-import * as mongooseSequence from 'mongoose-sequence';
+import mongooseSequence = require('mongoose-sequence');
 
 //#region Test Models
 interface User extends SequenceDocument {
@@ -21,7 +19,7 @@ const UserSchema: SequenceSchema = new Schema({
     country: String,
     city: String,
     inhabitant_number: Number
-});
+}) as SequenceSchema;
 
 let seqOpts: SequenceOptions = { id: 'inhabitant_seq', inc_field: 'inhabitant_number', reference_fields: ['country', 'city'] };
 UserSchema.plugin(mongooseSequence, seqOpts);

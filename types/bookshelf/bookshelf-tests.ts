@@ -1,6 +1,6 @@
-import * as Knex from 'knex';
-import * as Bookshelf from 'bookshelf';
-import * as assert from 'assert';
+import Knex = require('knex');
+import Bookshelf = require('bookshelf');
+import assert = require('assert');
 import * as express from 'express';
 import * as _ from "lodash";
 
@@ -182,10 +182,10 @@ exports.down = (knex: Knex) => {
 
 {
 	class Site extends bookshelf.Model<Site> {
-	get tableName() { return 'sites'; }
-		photo(): Photo {
-		return this.morphOne(Photo, 'imageable');
-	}
+		get tableName() { return 'sites'; }
+			photo(): Photo {
+			return this.morphOne(Photo, 'imageable');
+		}
 	}
 
 	class Post extends bookshelf.Model<Post> {
@@ -867,6 +867,10 @@ model.where('favorite_color', 'red').fetch().then(() => {
 model.where({favorite_color: 'red', shoe_size: 12}).fetch().then(() => {
 	//...
 });
+// or
+model.where('favorite_color', 'in', ['red', 'green']).fetch().then(() => {
+	// ...
+});
 
 /* Lodash methods, see http://bookshelfjs.org/#Model-subsection-lodash-methods */
 
@@ -1120,7 +1124,7 @@ ships.on('fetched', (collection, response) => {
 	User.collection()
 		.orderBy('-name')
 		.fetch()
-		.then((users: Bookshelf.Collection<User>) => {
+		.then((users: Bookshelf.Collection<Bookshelf.Model<User>>) => {
 			console.log(users);
 		})
 }
@@ -1196,6 +1200,13 @@ ships.trigger('fetched');
 /* collection.updatePivot(), see http://bookshelfjs.org/#Collection-instance-updatePivot */
 
 /* collection.where(), see http://bookshelfjs.org/#Collection-instance-where */
+
+(new Author())
+	.where('first_name', 'in', ['User', 'Resu'])
+	.fetchAll()
+	.then(() => {
+		// ...
+	})
 
 /* collection.withPivot(), see http://bookshelfjs.org/#Collection-instance-withPivot */
 

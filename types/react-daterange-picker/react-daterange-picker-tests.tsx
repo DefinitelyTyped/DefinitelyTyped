@@ -1,22 +1,37 @@
-// Test app from https://github.com/onefinestay/react-daterange-picker/blob/master/example/index.jsx
+// test app from https://github.com/onefinestay/react-daterange-picker/blob/master/example/index.jsx
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import * as moment from 'moment-range';
 import DateRangePicker from "react-daterange-picker";
 import * as ReactDateRangePicker from "react-daterange-picker";
 
-interface AppProps extends ReactDateRangePicker.Props {
+import * as MomentRange from "moment-range";
+import Moment = require("moment");
+
+const moment = MomentRange.extendMoment(Moment);
+
+type AppProps = ReactDateRangePicker.Props;
+
+const CustomSFCPaginationArrow: React.SFC<ReactDateRangePicker.PaginationArrowProps> = (props) => {
+    return (
+        <div onClick={ props.onTrigger }>
+        { (props.direction === 'next') ? '<' : '>' }
+        </div>
+    );
+};
+
+class CustomComponentClassPaginationArrow extends React.Component<ReactDateRangePicker.PaginationArrowProps> {
+    render() {
+        return (
+            <div onClick={ this.props.onTrigger }>
+            { (this.props.direction === 'next') ? '<' : '>' }
+            </div>
+        );
+    }
 }
 
 class App extends React.Component<AppProps, any> {
-    constructor(props: AppProps, context: any) {
-        super(props, context);
-
-        this.state = {};
-    }
-
-    handleSelect(value: AppProps, states: any): void {
-        this.setState({value, states});
+    handleSelect(value: ReactDateRangePicker.OnSelectCallbackParam, states: any): void {
+        this.setState({ value, states });
     }
 
     render(): any {
@@ -29,8 +44,8 @@ class App extends React.Component<AppProps, any> {
                     <input type="text"
                         value={this.state.value ? this.state.value.start.format('LL') : ""}
                         readOnly={true}
-                        placeholder="Start date"/>
-                  <input type="text"
+                        placeholder="Start date" />
+                    <input type="text"
                         value={this.state.value ? this.state.value.end.format('LL') : ""}
                         readOnly={true}
                         placeholder="End date" />
@@ -41,33 +56,26 @@ class App extends React.Component<AppProps, any> {
 }
 
 class DateSinglePicker extends React.Component<AppProps, any> {
-    constructor(props : AppProps, context: any) {
-        super(props, context);
-
-        this.state = {};
-    }
-
-    handleSelect(value: AppProps) {
-        this.setState({value: value});
+    handleSelect(value: ReactDateRangePicker.OnSelectCallbackParam) {
+        this.setState({ value });
     }
 
     render() {
         return (
             <div>
                 <DateRangePicker {...this.props} onSelect={this.handleSelect.bind(this)}
-                  value={this.state.value} />
+                    value={this.state.value} />
                 <div>
-                  <input type="text"
-                    value={this.state.value ? this.state.value.format('LL') : ""}
-                    readOnly={true} />
+                    <input type="text"
+                        value={this.state.value ? this.state.value.format('LL') : ""}
+                        readOnly={true} />
                 </div>
             </div>
         );
     }
 }
 
-export class Main extends React.Component<any, any> {
-
+export class Main extends React.Component {
     render() {
         const stateDefinitions: ReactDateRangePicker.StateDefinitions = {
             available: {
@@ -159,6 +167,18 @@ export class Main extends React.Component<any, any> {
                             numberOfCalendars={2}
                             selectionType="single"
                             minimumDate={new Date()}
+                        />
+                    </div>
+                    <div className="example">
+                        <h4>With custom SFC paginationArrowComponent</h4>
+                        <DateSinglePicker
+                            paginationArrowComponent={ CustomSFCPaginationArrow }
+                        />
+                    </div>
+                    <div className="example">
+                        <h4>With custom ComponentClass paginationArrowComponent</h4>
+                        <DateSinglePicker
+                            paginationArrowComponent={ CustomComponentClassPaginationArrow }
                         />
                     </div>
                 </div>

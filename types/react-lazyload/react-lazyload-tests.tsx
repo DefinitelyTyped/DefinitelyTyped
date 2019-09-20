@@ -1,25 +1,32 @@
 import * as React from "react";
-import LazyLoad from "react-lazyload";
+import LazyLoad, { forceCheck } from "react-lazyload";
 
 interface State {
     arr: string[];
 }
 
 class Normal extends React.Component<{}, State> {
-    constructor() {
-        super();
-        let arr: string[] = [];
-        for (let i = 0; i < 200; i++) {
+    static createArray = (items= 200) => {
+        const arr: string[] = [];
+        for (let i = 0; i < items; i++) {
             arr.push(`${i}`);
         }
-        this.state = { arr };
+        return arr;
     }
+    state = {
+        arr: Normal.createArray()
+    };
+
+    componentDidMount() {
+        forceCheck();
+    }
+
     render() {
         return (
             <div>
                 {this.state.arr.map((el, index) => {
                     return (
-                        <LazyLoad once={true} key={index} height={200} offset={50}>
+                        <LazyLoad once={true} resize={true} key={index} height={200} offset={50}>
                             <p id={`${index}`}  >
                                 count={index + 1}
                             </p>

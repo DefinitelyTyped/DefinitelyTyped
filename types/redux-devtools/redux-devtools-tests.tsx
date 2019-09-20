@@ -1,25 +1,27 @@
 import * as React from 'react'
-import { compose, createStore, Reducer, Store, StoreEnhancerStoreCreator } from 'redux'
+import { compose, createStore, Reducer, Store, StoreEnhancer } from 'redux'
 import { Provider } from 'react-redux'
 import { createDevTools, persistState } from 'redux-devtools'
 
-declare var reducer: Reducer<any>
+declare var reducer: Reducer
 
-class DevToolsMonitor extends React.Component<any, any> {
+class DevToolsMonitor extends React.Component {
 }
 
 const DevTools = createDevTools(
   <DevToolsMonitor />
 )
 
-const finalCreateStore = compose(
+const storeEnhancer = compose(
   DevTools.instrument(),
   persistState('test-session')
-)(createStore)
+) as StoreEnhancer
 
-const store: Store<any> = finalCreateStore(reducer)
+const finalCreateStore = storeEnhancer(createStore)
 
-class App extends React.Component<any, any> {
+const store = finalCreateStore(reducer)
+
+class App extends React.Component {
   render() {
     return (
       <Provider store={store}>

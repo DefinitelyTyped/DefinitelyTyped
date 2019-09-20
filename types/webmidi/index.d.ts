@@ -1,5 +1,5 @@
 // Type definitions for Web MIDI API 2.0
-// Project: http://www.w3.org/TR/webmidi/
+// Project: http://www.w3.org/TR/webmidi/, https://github.com/djipco/webmidi
 // Definitions by: six a <https://github.com/lostfictions>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -145,7 +145,7 @@ declare namespace WebMidi {
      * to zero (or another time in the past), the data is to be sent as soon as
      * possible.
      */
-    send(data: number[], timestamp?: number): void;
+    send(data: number[] | Uint8Array, timestamp?: number): void;
 
     /**
      * Clears any pending send data that has not yet been sent from the MIDIOutput 's

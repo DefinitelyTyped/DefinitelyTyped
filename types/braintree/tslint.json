@@ -1,0 +1,8 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "export-just-namespace": false,
+        "no-empty-interface": false,
+        "strict-export-declare-modifiers": false
+    }
+}

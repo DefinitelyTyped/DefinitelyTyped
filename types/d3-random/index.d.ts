@@ -1,5 +1,5 @@
 // Type definitions for D3JS d3-random module 1.1
-// Project: https://github.com/d3/d3-random/
+// Project: https://github.com/d3/d3-random/, https://d3js.org/d3-random
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -57,7 +57,7 @@ export const randomNormal: RandomNormal;
  */
 export interface RandomLogNormal extends RandomNumberGenerationSource {
     /**
-     * Returns a function for generating random numbers with a log-normal distribution. The expected value of the random variable’s natural logrithm is mu,
+     * Returns a function for generating random numbers with a log-normal distribution. The expected value of the random variable’s natural logarithm is mu,
      * with the given standard deviation sigma. If mu is not specified, it defaults to 0; if sigma is not specified, it defaults to 1.
      *
      * @param mu Expected value, defaults to 0.

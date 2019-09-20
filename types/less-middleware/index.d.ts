@@ -1,7 +1,8 @@
 // Type definitions for less-middleware 2.0.1
 // Project: https://github.com/emberfeather/less.js-middleware
-// Definitions by: Federico Bond <https://github.com/federicobond/>
+// Definitions by: Federico Bond <https://github.com/federicobond>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /* =================== USAGE ===================
 
@@ -98,7 +99,7 @@ declare function lessMiddleware(source: string, options?: {
      * Path to a JSON file that will be used to cache less data across server restarts.
      * This can greatly speed up initial load time after a server restart - if the less
      * files haven't changed and the css files still exist, specifying this option will
-     * mean that the less files don't need to be recompiled after a server restart.  
+     * mean that the less files don't need to be recompiled after a server restart.
      */
     cacheFile?: string;
 

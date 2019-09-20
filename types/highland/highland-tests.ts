@@ -1,5 +1,3 @@
-
-
 // Note: try to maintain the ordering and separators
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -23,6 +21,7 @@ var numArr: string[];
 var funcArr: Function[];
 
 var readable: NodeJS.ReadableStream;
+var readwritable: NodeJS.ReadWriteStream;
 var writable: NodeJS.WritableStream;
 var emitter: NodeJS.EventEmitter;
 
@@ -48,18 +47,18 @@ var anyArrStream: Highland.Stream<any[]>;
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 interface Foo {
-	foo(): string;
+  foo(): string;
 }
 interface Bar {
-	bar(): string;
+  bar(): string;
 }
 
 interface StrFooArrMap {
-	[key:string]: Foo[];
+  [key: string]: Foo[];
 }
 
 interface StrBarArrMap {
-	[key:string]: Bar[];
+  [key: string]: Bar[];
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -85,17 +84,17 @@ var barStreamArr: Highland.Stream<Bar>[];
 var strFooArrMapStream: Highland.Stream<StrFooArrMap>;
 var strBarArrMapStream: Highland.Stream<StrBarArrMap>;
 
-var fooThen: Highland.Thenable<Foo>;
-var barThen: Highland.Thenable<Bar>;
+var fooThen: PromiseLike<Foo>;
+var barThen: PromiseLike<Bar>;
 
-var fooArrThen: Highland.Thenable<Foo[]>;
-var barArrThen: Highland.Thenable<Bar[]>;
+var fooArrThen: PromiseLike<Foo[]>;
+var barArrThen: PromiseLike<Bar[]>;
 
-var fooThenArr: Highland.Thenable<Foo>[];
-var barThenArr: Highland.Thenable<Bar>[];
+var fooThenArr: PromiseLike<Foo>[];
+var barThenArr: PromiseLike<Bar>[];
 
-var fooStreamThen: Highland.Thenable<Highland.Stream<Foo>>;
-var barStreamThen: Highland.Thenable<Highland.Stream<Bar>>;
+var fooStreamThen: PromiseLike<Highland.Stream<Foo>>;
+var barStreamThen: PromiseLike<Highland.Stream<Bar>>;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -127,14 +126,29 @@ fooStream = streamRedirect.to;
 fooStream = _<Foo>();
 fooStream = _(fooArr);
 fooStream = _<Foo>((push, next) => {
-	push(null, foo);
-	push(err);
-	next();
+  push(null, foo);
+  push(err);
+  next();
 });
 
 fooStream = _(fooStream);
 fooStream = _<Foo>(readable);
-fooStream = _<Foo>(emitter);
+fooStream = _<Foo>(readable, (r, cb) => {
+    return;
+});
+fooStream = _<Foo>(readable, (r, cb) => {
+    return () => { return; }
+});
+fooStream = _<Foo>(readable, (r, cb) => {
+    return { continueOnError: true };
+});
+fooStream = _<Foo>(readable, (r, cb) => {
+    return { onDestroy: () => { return; } };
+});
+fooStream = _<Foo>(str, emitter);
+fooStream = _<Foo>(str, emitter, num);
+fooStream = _<Foo>(str, emitter, strArr);
+fooStream = _<Foo>(str, emitter, f);
 
 fooStream = _(fooStreamThen);
 fooStream = _(fooThen);
@@ -142,30 +156,206 @@ fooStream = _(fooThen);
 fooArrStream = _(fooArrThen);
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-obj = _.nil;
-
+// STREAM OBJECTS
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-f = _.curry(fn, foo);
-f = _.curry(fn, foo, bar);
+fooStream.destroy();
 
-f = _.ncurry(num, fn, foo);
-f = _.ncurry(num, fn, foo, bar);
+fooStream.end();
 
-f = _.partial(f, foo);
-f = _.partial(f, foo, bar);
+fooStream.pause();
 
-f = _.flip(fn, foo);
-f = _.flip(fn, foo, bar);
+fooStream.resume();
 
-f = _.compose(f);
-f = _.compose(f, f);
-
-f = _.seq(f);
-f = _.seq(f, f);
+bool = fooStream.write(foo);
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// TRANSFORMS
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+fooStream = fooStream.append(foo);
+
+fooArrStream = fooStream.batch(2);
+
+fooArrStream = fooStream.batchWithTimeOrCount(10, 2);
+
+fooArrStream = fooStream.collect();
+
+fooStream = fooStream.compact();
+
+barStream = fooStream.consume(
+  (
+    err: Error,
+    x: Foo | Highland.Nil,
+    push: (err: Error, value?: Bar | Highland.Nil) => void,
+    next: () => void
+  ) => {
+    push(err);
+    push(null, bar);
+    next();
+  }
+);
+
+barStream = fooStream.consume<Bar>((err, x, push, next) => {
+  push(err);
+  push(null, bar);
+  next();
+});
+
+fooStream = fooStream.debounce(num);
+
+fooStream = fooStream.doto((x: Foo) => {});
+
+fooStream = fooStream.drop(2);
+
+fooStream = fooStream.errors(
+  (err: Error, push: (e: Error, x?: Foo) => void) => {
+    push(err);
+    push(null, x);
+    push(null, foo);
+  }
+);
+
+fooStream = fooStream.errors((err, push) => {
+  push(err);
+  push(null, x);
+  push(null, foo);
+});
+
+fooStream = fooStream.filter((x: Foo) => {
+  return bool;
+});
+
+fooStream = fooStream.find((x: Foo) => {
+  return bool;
+});
+
+fooStream = fooStream.findWhere(obj);
+
+strFooArrMapStream = fooStream.group((x: Foo) => {
+  return str;
+});
+strFooArrMapStream = fooStream.group(str);
+
+fooStream = fooStream.head();
+
+barStream = fooStream.invoke<Bar>(str, anyArr);
+
+fooStream = fooStream.last();
+
+fooStream = fooStream.latest();
+
+barStream = fooStream.map((x: Foo) => {
+  return bar;
+});
+
+barStream = fooStream.pluck<Bar>(str);
+
+fooStream = fooStream.ratelimit(3, 1000);
+
+barStream = fooStream.reduce(bar, (memo: Bar, x: Foo) => {
+  return memo;
+});
+
+barStream = fooStream.reduce1(bar, (memo: Bar, x: Foo) => {
+  return memo;
+});
+
+fooStream = fooStream.reject((x: Foo) => {
+  return bool;
+});
+
+barStream = fooStream.scan(bar, (memo: Bar, x: Foo) => {
+  return memo;
+});
+
+//missing scan1
+
+fooStream = fooStream.stopOnError((e: Error) => {});
+
+fooStream = fooStream.take(num);
+
+fooStream.tap((x: Foo) => {});
+
+fooStream = fooStream.throttle(num);
+
+fooStream = fooStream.where(obj);
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// HIGHER-ORDER STREAMS
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+fooStream = fooStream.concat(fooStream);
+
+fooStream = fooStream.concat(fooArr);
+
+fooStream = fooStream.flatFilter((x: Foo) => {
+  return boolStream;
+});
+
+barStream = fooStream.flatMap((x: Foo) => {
+  return barStream;
+});
+
+barStream = fooStream.flatMap((x: Foo) => {
+  return bar;
+});
+
+barStream = fooStream.flatten<Bar>();
+
+fooStream = fooStream.fork();
+
+fooStream = fooStreamStream.merge();
+
+fooStream = fooStream.observe();
+
+fooStream = fooStream.otherwise(fooStream);
+
+fooStream = fooStreamStream.parallel(num);
+
+barStream = barStreamStream.sequence();
+
+barStream = fooStream.series<Bar>();
+
+bar = fooStream.through(x => bar);
+barStream = fooStream.through(readwritable);
+
+fooStream = fooStream.zip(fooStream);
+fooStream = fooStream.zip([foo, foo]);
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// CONSUMPTION
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+fooStream.apply(func);
+
+fooStream.done(() => {});
+
+fooStream.each((x: Foo) => {});
+
+fooStream = fooStream.pipe(fooStream);
+barStream = fooStream.pipe(barStream);
+
+fooStream.pull((err: Error, x: Foo) => {});
+
+fooStream.pull((err, x) => {});
+
+fooStream.toArray((arr: Foo[]) => {});
+
+fooStream.toCallback((err: Error, x: Foo) => {});
+fooStream.toCallback((err: Error) => {});
+
+fooStream.toNodeStream();
+fooStream.toNodeStream({objectMode: false});
+fooStream.toNodeStream({objectMode: true});
+
+fooStream.toPromise(Promise);
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// UTILS
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+bool = _.isNil(x);
 
 bool = _.isStream(x);
 bool = _.isStream(fooStream);
@@ -176,232 +366,64 @@ bool = _.isStreamError(fooStream);
 bool = _.isStreamRedirect(x);
 bool = _.isStreamRedirect(fooStream);
 
+_.log(str);
+_.log(str, num, foo);
+
+obj = _.nil;
+
+f = _.wrapCallback(func);
+f = _.wrapCallback(func, num);
+f = _.wrapCallback(func, strArr);
+f = _.wrapCallback(func, fn);
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// OBJECTS
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-anyStream = _.values(obj);
-fooStream = _.values(fooArr);
+obj = _.extend(obj, obj);
+objCurObj = _.extend(obj);
+
+x = _.get(str, obj);
+objCurObj = _.get(str);
 
 strStream = _.keys(obj);
 
 anyArrStream = _.pairs(obj);
 anyArrStream = _.pairs(fooArr);
 
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-obj = _.extend(obj, obj);
-
-objCurObj = _.extend(obj);
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-x = _.get(str, obj);
-
-objCurObj = _.get(str);
-
 obj = _.set(str, foo, obj);
-
 objCurAny = _.set(str, foo);
 
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-_.log(str);
-_.log(str, num, foo);
+anyStream = _.values(obj);
+fooStream = _.values(fooArr);
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-f = _.wrapCallback(func);
-
+// FUNCTIONS
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+f = _.compose(f);
+f = _.compose(f, f);
+
+f = _.curry(fn, foo);
+f = _.curry(fn, foo, bar);
+
+f = _.flip(fn, foo);
+f = _.flip(fn, foo, bar);
+
+f = _.ncurry(num, fn, foo);
+f = _.ncurry(num, fn, foo, bar);
+
+f = _.partial(f, foo);
+f = _.partial(f, foo, bar);
+
+f = _.seq(f);
+f = _.seq(f, f);
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// OPERATORS
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 num = _.add(num, num);
 
 numCurNum = _.add(num);
 
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-// instance methods
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-fooStream.pause();
-fooStream.resume();
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-fooStream.end();
-
-fooStream = fooStream.pipe(fooStream);
-barStream = fooStream.pipe(barStream);
-
-fooStream.destroy();
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-barStream = fooStream.consume((err: Error, x: Foo, push: (err: Error, value?: Bar) => void, next: () => void) => {
-	push(err);
-	push(null, bar);
-	next();
-});
-
-barStream = fooStream.consume<Bar>((err, x, push, next) => {
-	push(err);
-	push(null, bar);
-	next();
-});
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-fooStream.pull((err: Error, x: Foo) => {
-
-});
-
-fooStream.pull((err, x) => {
-
-});
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-bool = fooStream.write(foo);
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-fooStream = fooStream.fork();
-
-fooStream = fooStream.observe();
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-fooStream = fooStream.errors((err: Error, push: (e: Error, x?: Foo) => void) => {
-	push(err);
-	push(null, x);
-	push(null, foo);
-});
-
-fooStream = fooStream.errors((err, push) => {
-	push(err);
-	push(null, x);
-	push(null, foo);
-});
-
-fooStream = fooStream.stopOnError((e: Error) => {
-
-});
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-fooStream.each((x: Foo) => {
-
-});
-
-fooStream.apply(func);
-
-fooStream.toArray((arr: Foo[]) => {
-
-});
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-barStream = fooStream.map((x: Foo) => {
-	return bar;
-});
-
-barStream = fooStream.flatMap((x: Foo) => {
-	return barStream;
-});
-
-barStream = fooStream.flatMap((x: Foo) => {
-	return bar;
-});
-
-barStream = fooStream.pluck<Bar>(str);
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-fooStream = fooStream.filter((x: Foo) => {
-	return bool;
-});
-
-fooStream = fooStream.flatFilter((x: Foo) => {
-	return boolStream;
-});
-
-fooStream = fooStream.reject((x: Foo) => {
-	return bool;
-});
-
-fooStream = fooStream.find((x: Foo) => {
-	return bool;
-});
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-strFooArrMapStream = fooStream.group((x: Foo) => {
-	return str;
-});
-strFooArrMapStream = fooStream.group(str);
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-fooStream = fooStream.compact();
-
-fooStream = fooStream.where(obj);
-
-fooStream = fooStream.zip(fooStream);
-fooStream = fooStream.zip([foo, foo]);
-
-fooStream = fooStream.head();
-fooStream = fooStream.take(num);
-
-fooStream = fooStream.last();
-
-barStream = fooStream.sequence<Bar>();
-
-barStream = fooStream.series<Bar>();
-
-barStream = fooStream.flatten<Bar>();
-
-fooStream = fooStream.parallel(num);
-
-fooStream = fooStream.otherwise(fooStream);
-
-fooStream = fooStream.append(foo);
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-barStream = fooStream.reduce(bar, (memo: Bar, x: Foo) => {
-	return memo;
-});
-
-barStream = fooStream.reduce1(bar, (memo: Bar, x: Foo) => {
-	return memo;
-});
-
-fooArrStream = fooStream.collect();
-
-barStream = fooStream.scan(bar, (memo: Bar, x: Foo) => {
-	return memo;
-});
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-fooStream = fooStream.concat(fooStream);
-
-fooStream = fooStream.concat(fooArr);
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-fooStream = fooStream.merge(fooStreamStream);
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-barStream = fooStream.invoke<Bar>(str, anyArr);
-
-fooStream = fooStream.throttle(num);
-
-fooStream = fooStream.debounce(num);
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-fooStream = fooStream.latest();
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+//missing not

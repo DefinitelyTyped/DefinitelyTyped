@@ -1,5 +1,5 @@
-import * as autosni from "auto-sni";
-let a = autosni({
+import autosni = require("auto-sni");
+const a = autosni({
 	agreeTos: true,
 	email: '',
 	domains: ['']

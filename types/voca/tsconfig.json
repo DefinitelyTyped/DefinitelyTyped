@@ -1,4 +1,3 @@
-
 {
     "compilerOptions": {
         "module": "commonjs",
@@ -8,6 +7,7 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
+        "strictFunctionTypes": false,
         "baseUrl": "../",
         "typeRoots": [
             "../"

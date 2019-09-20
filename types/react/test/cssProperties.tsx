@@ -3,6 +3,9 @@ import * as React from 'react';
 const initialStyle: React.CSSProperties = { fontWeight: 'initial' };
 const initialStyleTest = <div style={initialStyle} />;
 
+const borderRadiusStyle: React.CSSProperties = { borderRadius: 5, borderTopRightRadius: '20%' };
+const borderRadiusStyleTest = <div style={borderRadiusStyle} />;
+
 const backgroundAttachmentStyle: React.CSSProperties = { backgroundAttachment: 'fixed' };
 const backgroundAttachmentStyleTest = <div style={backgroundAttachmentStyle} />;
 

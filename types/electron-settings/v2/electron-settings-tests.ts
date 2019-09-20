@@ -1,4 +1,4 @@
-import * as settings from 'electron-settings';
+import settings = require('electron-settings');
 
 function test_configure() {
     settings.configure({
@@ -59,6 +59,7 @@ async function test_clear() {
 function test_clearSync() {
     settings.clearSync() === undefined;
 }
+
 async function test_applyDefaults() {
     await settings.applyDefaults({ overwrite: true }) === undefined;
 }
@@ -99,4 +100,24 @@ function test_on_write() {
     settings.on('write', () => {
         console.log();
     }) === settings;
+}
+
+function test_settings_type_annotation(s: typeof settings) {
+    s.getSettingsFilePath();
+}
+
+function test_observer_type_annotation(observer: settings.Observer) {
+    observer.dispose();
+}
+
+function test_options_type_annotation(options: settings.Options) {
+    options.atomicSaving;
+}
+
+function test_applyDefaultOptions_type_annotation(options: settings.ApplyDefaultsOptions) {
+    options.overwrite;
+}
+
+function test_changeEvent_type_annotation(e: settings.ChangeEvent) {
+    e.oldValue === e.newValue;
 }

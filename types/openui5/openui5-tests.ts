@@ -11,7 +11,7 @@ sap.ui.getCore().attachInit(function () {
 });
 
 class Ctrl extends sap.ui.core.mvc.Controller {
-    constructor(private JSONModel: typeof sap.ui.model.json.JSONModel) {
+    constructor(private readonly JSONModel: typeof sap.ui.model.json.JSONModel) {
         super(undefined);
     }
 

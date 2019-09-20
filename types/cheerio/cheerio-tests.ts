@@ -1,6 +1,4 @@
-
-
-import * as cheerio from 'cheerio';
+import cheerio = require('cheerio');
 
 /*
  * LOADING
@@ -25,6 +23,8 @@ const $fromElement = cheerio.load($("ul").get(0));
 if ($fromElement("ul > li").length !== 3) {
   throw new Error("Expecting 3 elements when passing `CheerioElement` to `load()`");
 }
+
+$ = cheerio.load(Buffer.from(html));
 
 $ = cheerio.load(html, {
     normalizeWhitespace: true,
@@ -52,8 +52,12 @@ var $multiEl = $('selector', 'selector', 'selector');
  */
 
 // attr
+$el.attr();
 $el.attr('id');
 $el.attr('id', 'favorite').html();
+$el.attr('id', (el, i, attr) => el.tagName + i * 2 + attr).html();
+$el.attr('id', el => el.tagName).html();
+$el.attr({ id: 'uniq', class: 'big' }).html();
 
 // props
 $el.prop('style')
@@ -266,8 +270,7 @@ $el.text();
 $el.text('text');
 
 // .wrap( content )
-// See https://github.com/cheeriojs/cheerio/issues/731
-// $el.wrap($('<div class="red-fruit"></div>')).html();
+$el.wrap($('<div class="red-fruit"></div>')).html();
 
 // .css
 $el.css('width');
@@ -306,3 +309,5 @@ $.parseHTML(html, null, true);
  * Not in doc
  */
 $el.toArray();
+
+cheerio.html($el);

@@ -1,8 +1,8 @@
-// Type definitions for Google API Client 0.0
-// Project: https://code.google.com/p/google-api-javascript-client/
-// Definitions by: Frank M <https://github.com/sgtfrankieboy>
+// Type definitions for Google API Client
+// Project: https://github.com/google/google-api-javascript-client
+// Definitions by: Frank M <https://github.com/sgtfrankieboy>, grant <https://github.com/grant>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 /**
  * The OAuth 2.0 token object represents the OAuth 2.0 token and any associated data.
@@ -20,10 +20,17 @@ interface GoogleApiOAuth2TokenObject {
      * The duration, in seconds, the token is valid for. Only present in successful responses
      */
     expires_in: string;
+    session_state?: GoogleApiOAuth2TokenSessionState;
     /**
      * The Google API scopes related to this token
      */
     state: string;
+}
+
+interface GoogleApiOAuth2TokenSessionState {
+    extraQueryParams: {
+        authuser: string,
+    };
 }
 
 /**
@@ -35,10 +42,20 @@ interface GoogleApiOAuth2TokenObject {
  */
 declare namespace gapi {
 
+    type LoadCallback = (...args: any[]) => void;
+    type LoadConfig = {
+      callback: LoadCallback,
+      onerror?: Function,
+      timeout?: number,
+      ontimeout?: Function,
+    };
+    type CallbackOrConfig = LoadConfig | LoadCallback;
+
     /**
      * Pragmatically initialize gapi class member.
+     * Reference: https://developers.google.com/api-client-library/javascript/reference/referencedocs#gapiloadlibraries-callbackorconfig
      */
-    export function load(apiName: string, callback: () => void): void;
+    export function load(apiName: string, callback: CallbackOrConfig): void;
 
 }
 
@@ -149,7 +166,7 @@ declare namespace gapi.client {
          * The scopes to request, as a space-delimited string.
          */
         scope?: string,
-                          
+
         hosted_domain?: string;
     }): Promise<void>;
 
@@ -178,6 +195,13 @@ declare namespace gapi.client {
          * If supplied, the request is executed immediately and no gapi.client.HttpRequest object is returned
          */
         callback?: () => any;
+    }
+
+    interface TokenObject {
+        /**
+         * The access token to use in requests.
+         */
+        access_token: string;
     }
 
     /**
@@ -213,6 +237,18 @@ declare namespace gapi.client {
      * @param apiKey The API key to set
      */
     export function setApiKey(apiKey: string): void;
+    /**
+     * Retrieves the OAuth 2.0 token for the application.
+     * @return The OAuth 2.0 token.
+     */
+    export function getToken(): GoogleApiOAuth2TokenObject;
+    /**
+     * Sets the authentication token to use in requests.
+     * @param token The token to set.
+     *
+     * Reference: https://developers.google.com/api-client-library/javascript/reference/referencedocs#gapiclientsettokentokenobject
+     */
+    export function setToken(token: TokenObject|null): void;
 
     interface HttpRequestFulfilled<T> {
         result: T;
@@ -223,11 +259,7 @@ declare namespace gapi.client {
     }
 
     interface HttpRequestRejected {
-        result: {
-            error: {
-                message: string;
-            }
-        };
+        result: any | boolean;
         body: string;
         headers?: any[];
         status?: number;
@@ -237,17 +269,14 @@ declare namespace gapi.client {
     /**
      * HttpRequest supports promises.
      * See Google API Client JavaScript Using Promises https://developers.google.com/api-client-library/javascript/features/promises
-     *
-     * TODO This should be updated when TypeScript 2.3 is released
-     * See https://github.com/Microsoft/TypeScript/issues/12409
-     * See https://github.com/Microsoft/TypeScript/blob/65da012527937a3074c62655d60ee08fee809f7f/lib/lib.es5.d.ts#L1339
      */
      class HttpRequestPromise<T> {
-        then<TResult>(
-             opt_onFulfilled?: ((response: HttpRequestFulfilled<T>) => void) | null,
-             opt_onRejected?: ((reason: HttpRequestRejected) => void) | null,
-             opt_context?: any
-        ): Promise<TResult>;
+        // Taken and adapted from https://github.com/Microsoft/TypeScript/blob/v2.3.1/lib/lib.es5.d.ts#L1343
+        then<TResult1 = T, TResult2 = never>(
+            onfulfilled?: ((response: HttpRequestFulfilled<T>) => TResult1 | PromiseLike<TResult1>) | undefined | null,
+            onrejected?: ((reason: HttpRequestRejected) => TResult2 | PromiseLike<TResult2>) | undefined | null,
+            opt_context?: any
+        ): Promise<TResult1 | TResult2>;
     }
 
     /**

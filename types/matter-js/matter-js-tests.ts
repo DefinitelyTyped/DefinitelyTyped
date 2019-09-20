@@ -6,9 +6,14 @@ var Engine = Matter.Engine,
 	Composites = Matter.Composites,
 	Constraint = Matter.Constraint,
 	Events = Matter.Events,
-	Query = Matter.Query;
-	
-	
+	Query = Matter.Query,
+    Plugin = Matter.Plugin,
+    Render = Matter.Render;
+    
+
+Matter.use('matter-attractors');
+Plugin.use(Matter, ["matter-wrap"]);
+
 var engine = Engine.create();
 
 //Bodies
@@ -38,7 +43,8 @@ World.add(engine.world, stack);
 var constraint1 = Constraint.create({
 	bodyA: box1,
 	bodyB: box2,
-	stiffness: 0.02
+	stiffness: 0.02,
+	damping: 0.01
 });
 
 //Query 
@@ -54,3 +60,18 @@ Events.on(engine, "beforeTick", (e:Matter.IEventTimestamped<Matter.Engine>)=>{
 
 
 Engine.run(engine);
+
+//Renderer
+var render = Render.create({
+	engine: engine,
+	bounds: {
+		min: {
+			x: -500,
+			y: -500
+		},
+		max: {
+			x: 500,
+			y: 500
+		}
+	}
+})

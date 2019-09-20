@@ -118,6 +118,8 @@ declare namespace CanvasGauges {
         barProgress?: boolean,
         barShadow?: number
     }
+        
+    export const GenericOptions: GenericOptions;
 
     export interface RadialGaugeOptions extends GenericOptions {
         ticksAngle?: number,

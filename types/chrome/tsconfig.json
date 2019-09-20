@@ -8,6 +8,7 @@
         "noImplicitAny": false,
         "noImplicitThis": false,
         "strictNullChecks": true,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
@@ -18,9 +19,7 @@
     },
     "files": [
         "index.d.ts",
-        "chrome-app.d.ts",
-        "chrome-cast.d.ts",
-        "test/index.ts",
-        "test/chrome-app.ts"
+        "chrome-cast/index.d.ts",
+        "test/index.ts"
     ]
 }

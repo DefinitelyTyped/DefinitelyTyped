@@ -1,5 +1,3 @@
-/// <reference types="jquery" />
-
 declare var hiddenField: ASPxClientHiddenField;
 declare var mainCallbackPanel: ASPxClientCallbackPanel;
 declare var loginPopup: ASPxClientPopupControl;

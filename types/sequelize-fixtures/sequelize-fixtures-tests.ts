@@ -17,3 +17,4 @@ sequelize.transaction(function (tx) {
 
 SequelizeFixtures.loadFixtures([], {}).then(() => { });
 SequelizeFixtures.loadFixtures([], {}, { transformFixtureDataFn: (data) => { return data; } }).then(() => { });
+SequelizeFixtures.loadFixtures([], {}, { modifyFixtureDataFn: (data) => { return data; } }).then(() => { });

@@ -2,6 +2,7 @@
 // Project: https://github.com/beevelop/ng-stomp
 // Definitions by: Lukasz Potapczuk <https://github.com/lpotapczuk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="angular" />
 

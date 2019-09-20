@@ -1,7 +1,10 @@
 // Type definitions for Koa 2.x
 // Project: http://koajs.com
-// Definitions by: DavidCai1993 <https://github.com/DavidCai1993>, jKey Lu <https://github.com/jkeylu>
+// Definitions by: DavidCai1993 <https://github.com/DavidCai1993>
+//                 jKey Lu <https://github.com/jkeylu>
+//                 Brice Bernard <https://github.com/brikou>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /* =================== USAGE ===================
 
@@ -14,20 +17,23 @@
 
  =============================================== */
 /// <reference types="node" />
-import { EventEmitter } from 'events';
-import { IncomingMessage, ServerResponse, Server } from 'http';
-import { Socket, ListenOptions } from 'net';
-import * as compose from 'koa-compose';
-import * as Keygrip from 'keygrip';
-import * as httpAssert from 'http-assert';
-import * as Cookies from 'cookies';
-import * as accepts from 'accepts';
+import * as accepts from "accepts";
+import * as Cookies from "cookies";
+import { EventEmitter } from "events";
+import { IncomingMessage, ServerResponse, Server } from "http";
+import { Http2ServerRequest, Http2ServerResponse } from 'http2';
+import httpAssert = require("http-assert");
+import * as Keygrip from "keygrip";
+import * as compose from "koa-compose";
+import { Socket, ListenOptions } from "net";
+import * as url from "url";
 
 declare interface ContextDelegatedRequest {
     /**
      * Return request header.
      */
     header: any;
+
     /**
      * Return request header, alias as request.header
      */
@@ -79,7 +85,6 @@ declare interface ContextDelegatedRequest {
      */
     search: string;
 
-
     /**
      * Parse the "Host" header field host
      * and support X-Forwarded-Host when a
@@ -93,6 +98,11 @@ declare interface ContextDelegatedRequest {
      * proxy is enabled.
      */
     hostname: string;
+
+    /**
+     * Get WHATWG parsed URL object.
+     */
+    URL: url.URL;
 
     /**
      * Check if the request is fresh, aka
@@ -134,6 +144,11 @@ declare interface ContextDelegatedRequest {
      *    this.protocol == 'https'
      */
     secure: boolean;
+
+    /**
+     * Request remote address. Supports X-Forwarded-For when app.proxy is true.
+     */
+    ip: string;
 
     /**
      * When `app.proxy` is `true`, parse
@@ -382,7 +397,7 @@ declare interface ContextDelegatedResponse {
      *    this.set('Accept', 'application/json');
      *    this.set({ Accept: 'text/plain', 'X-API-Key': 'tobi' });
      */
-    set(field: { [key: string]: string; }): void;
+    set(field: { [key: string]: string }): void;
     set(field: string, val: string | string[]): void;
 
     /**
@@ -416,12 +431,12 @@ declare interface ContextDelegatedResponse {
     flushHeaders(): void;
 }
 
-declare class Application extends EventEmitter {
+declare class Application<StateT = any, CustomT = {}> extends EventEmitter {
     proxy: boolean;
-    middleware: Application.Middleware[];
+    middleware: Application.Middleware<StateT, CustomT>[];
     subdomainOffset: number;
     env: string;
-    context: Application.BaseContext;
+    context: Application.BaseContext & CustomT;
     request: Application.BaseRequest;
     response: Application.BaseResponse;
     silent: boolean;
@@ -434,17 +449,36 @@ declare class Application extends EventEmitter {
      *
      *    http.createServer(app.callback()).listen(...)
      */
-    listen(port?: number, hostname?: string, backlog?: number, listeningListener?: () => void): Server;
-    listen(port: number, hostname?: string, listeningListener?: () => void): Server;
-    /* tslint:disable:unified-signatures */
-    listen(port: number, backlog?: number, listeningListener?: () => void): Server;
+    listen(
+        port?: number,
+        hostname?: string,
+        backlog?: number,
+        listeningListener?: () => void,
+    ): Server;
+    listen(
+        port: number,
+        hostname?: string,
+        listeningListener?: () => void,
+    ): Server;
+    listen(
+        port: number,
+        backlog?: number,
+        listeningListener?: () => void,
+    ): Server;
     listen(port: number, listeningListener?: () => void): Server;
-    listen(path: string, backlog?: number, listeningListener?: () => void): Server;
+    listen(
+        path: string,
+        backlog?: number,
+        listeningListener?: () => void,
+    ): Server;
     listen(path: string, listeningListener?: () => void): Server;
     listen(options: ListenOptions, listeningListener?: () => void): Server;
-    listen(handle: any, backlog?: number, listeningListener?: () => void): Server;
+    listen(
+        handle: any,
+        backlog?: number,
+        listeningListener?: () => void,
+    ): Server;
     listen(handle: any, listeningListener?: () => void): Server;
-    /* tslint:enable:unified-signatures*/
 
     /**
      * Return JSON representation.
@@ -463,20 +497,25 @@ declare class Application extends EventEmitter {
      *
      * Old-style middleware will be converted.
      */
-    use(middleware: Application.Middleware): this;
+    use<NewStateT = {}, NewCustomT = {}>(
+        middleware: Application.Middleware<StateT & NewStateT, CustomT & NewCustomT>,
+    ): Application<StateT & NewStateT, CustomT & NewCustomT>;
 
     /**
      * Return a request handler callback
-     * for node's native http server.
+     * for node's native http/http2 server.
      */
-    callback(): (req: IncomingMessage, res: ServerResponse) => void;
+    callback(): (req: IncomingMessage | Http2ServerRequest, res: ServerResponse | Http2ServerResponse) => void;
 
     /**
      * Initialize a new context.
      *
      * @api private
      */
-    createContext(req: IncomingMessage, res: ServerResponse): Application.Context;
+    createContext<StateT = any>(
+        req: IncomingMessage,
+        res: ServerResponse,
+    ): Application.ParameterizedContext<StateT>;
 
     /**
      * Default error handler.
@@ -487,7 +526,7 @@ declare class Application extends EventEmitter {
 }
 
 declare namespace Application {
-    type Middleware = compose.Middleware<Context>;
+    type Middleware<StateT = any, CustomT = {}> = compose.Middleware<ParameterizedContext<StateT, CustomT>>;
 
     interface BaseRequest extends ContextDelegatedRequest {
         /**
@@ -572,7 +611,9 @@ declare namespace Application {
         toJSON(): any;
     }
 
-    interface BaseContext extends ContextDelegatedRequest, ContextDelegatedResponse {
+    interface BaseContext
+        extends ContextDelegatedRequest,
+            ContextDelegatedResponse {
         /**
          * util.inspect() implementation, which
          * just returns the JSON output.
@@ -620,6 +661,10 @@ declare namespace Application {
          * Default error handling.
          */
         onerror(err: Error): void;
+        /**
+         * Custom properties.
+         */
+        [key: string]: any;
     }
 
     interface Request extends BaseRequest {
@@ -641,7 +686,7 @@ declare namespace Application {
         request: Request;
     }
 
-    interface Context extends BaseContext {
+    interface ExtendableContext extends BaseContext {
         app: Application;
         request: Request;
         response: Response;
@@ -650,12 +695,17 @@ declare namespace Application {
         originalUrl: string;
         cookies: Cookies;
         accept: accepts.Accepts;
-        state: any;
         /**
          * To bypass Koa's built-in response handling, you may explicitly set `ctx.respond = false;`
          */
         respond?: boolean;
     }
+
+    type ParameterizedContext<StateT = any, CustomT = {}> = ExtendableContext & {
+        state: StateT;
+    } & CustomT;
+
+    interface Context extends ParameterizedContext {}
 }
 
 export = Application;

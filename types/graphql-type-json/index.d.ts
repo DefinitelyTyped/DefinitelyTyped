@@ -1,8 +1,12 @@
-// Type definitions for graphql-type-json 0.1
+// Type definitions for graphql-type-json 0.3
 // Project: https://github.com/taion/graphql-type-json#readme
 // Definitions by: Pavel Ivanov <https://github.com/schfkt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-import {GraphQLScalarType} from "graphql";
+// TypeScript Version: 2.6
 
-declare const GraphQLJSON: GraphQLScalarType;
-export = GraphQLJSON;
+import { GraphQLScalarType } from "graphql";
+
+export const GraphQLJSONObject: GraphQLScalarType;
+
+export const GraphQLJSON: GraphQLScalarType;
+export default GraphQLJSON;

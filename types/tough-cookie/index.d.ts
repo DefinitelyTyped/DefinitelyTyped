@@ -1,6 +1,8 @@
 // Type definitions for tough-cookie 2.3
 // Project: https://github.com/salesforce/tough-cookie
 // Definitions by: Leonard Thieu <https://github.com/leonard-thieu>
+//                 LiJinyao <https://github.com/LiJinyao>
+//                 Michael Wei <https://github.com/no2chem>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -28,7 +30,7 @@ export function canonicalDomain(str: string): string;
  * The str is the "current" domain-name and the domStr is the "cookie" domain-name.
  * Matches according to RFC6265 Section 5.1.3, but it helps to think of it as a "suffix match".
  *
- * The canonicalize parameter will run the other two paramters through canonicalDomain or not.
+ * The canonicalize parameter will run the other two parameters through canonicalDomain or not.
  */
 export function domainMatch(str: string, domStr: string, canonicalize?: boolean): boolean;
 
@@ -65,24 +67,22 @@ export function permutePath(path: string): string[];
 // region Cookie
 
 export class Cookie {
-    static parse(cookieString: string, options?: Cookie.ParseOptions | object): Cookie | undefined;
+    static parse(cookieString: string, options?: Cookie.ParseOptions): Cookie | undefined;
 
     static fromJSON(strOrObj: string | object): Cookie | null;
 
-    constructor(properties?: Cookie.Properties | object);
-
-    // TODO: Some of the following properties might actually be nullable.
+    constructor(properties?: Cookie.Properties);
 
     key: string;
     value: string;
-    expires: Date;
+    expires: Date | 'Infinity';
     maxAge: number | 'Infinity' | '-Infinity';
-    domain: string;
-    path: string;
+    domain: string | null;
+    path: string | null;
     secure: boolean;
     httpOnly: boolean;
-    extensions: string[];
-    creation: Date;
+    extensions: string[] | null;
+    creation: Date | null;
     creationIndex: number;
 
     hostOnly: boolean | null;
@@ -115,34 +115,26 @@ export class Cookie {
 }
 
 export namespace Cookie {
-    interface ParseOptions extends Pick<ParseOptions._Impl, keyof ParseOptions._Impl> { }
-
-    namespace ParseOptions {
-        interface _Impl {
-            loose: boolean;
-        }
+    interface ParseOptions {
+        loose?: boolean;
     }
 
-    interface Properties extends Pick<Properties._Impl, keyof Properties._Impl> { }
+    interface Properties {
+        key?: string;
+        value?: string;
+        expires?: Date;
+        maxAge?: number | 'Infinity' | '-Infinity';
+        domain?: string;
+        path?: string;
+        secure?: boolean;
+        httpOnly?: boolean;
+        extensions?: string[];
+        creation?: Date;
+        creationIndex?: number;
 
-    namespace Properties {
-        interface _Impl {
-            key: string;
-            value: string;
-            expires: Date;
-            maxAge: number | 'Infinity' | '-Infinity';
-            domain: string;
-            path: string;
-            secure: boolean;
-            httpOnly: boolean;
-            extensions: string[];
-            creation: Date;
-            creationIndex: number;
-
-            hostOnly: boolean;
-            pathIsDefault: boolean;
-            lastAccessed: Date;
-        }
+        hostOnly?: boolean;
+        pathIsDefault?: boolean;
+        lastAccessed?: Date;
     }
 
     interface Serialized {
@@ -158,31 +150,31 @@ export class CookieJar {
     static deserialize(serialized: CookieJar.Serialized | string, store: Store, cb: (err: Error | null, object: CookieJar) => void): void;
     static deserialize(serialized: CookieJar.Serialized | string, cb: (err: Error | null, object: CookieJar) => void): void;
 
-    static deserializeSync(serialized: CookieJar.Serialized | string): CookieJar;
+    static deserializeSync(serialized: CookieJar.Serialized | string, store?: Store): CookieJar;
 
     static fromJSON(string: string): CookieJar;
 
-    constructor(store?: Store, options?: CookieJar.Options | object);
+    constructor(store?: Store, options?: CookieJar.Options);
 
-    setCookie(cookieOrString: Cookie | string, currentUrl: string, options: CookieJar.SetCookieOptions | object, cb: (err: Error | null, cookie: Cookie) => void): void;
+    setCookie(cookieOrString: Cookie | string, currentUrl: string, options: CookieJar.SetCookieOptions, cb: (err: Error | null, cookie: Cookie) => void): void;
     setCookie(cookieOrString: Cookie | string, currentUrl: string, cb: (err: Error, cookie: Cookie) => void): void;
 
-    setCookieSync(cookieOrString: Cookie | string, currentUrl: string, options: CookieJar.SetCookieOptions | object): void;
+    setCookieSync(cookieOrString: Cookie | string, currentUrl: string, options?: CookieJar.SetCookieOptions): void;
 
-    getCookies(currentUrl: string, options: CookieJar.GetCookiesOptions | object, cb: (err: Error | null, cookies: Cookie[]) => void): void;
+    getCookies(currentUrl: string, options: CookieJar.GetCookiesOptions, cb: (err: Error | null, cookies: Cookie[]) => void): void;
     getCookies(currentUrl: string, cb: (err: Error | null, cookies: Cookie[]) => void): void;
 
-    getCookiesSync(currentUrl: string, options?: CookieJar.GetCookiesOptions | object): Cookie[];
+    getCookiesSync(currentUrl: string, options?: CookieJar.GetCookiesOptions): Cookie[];
 
-    getCookieString(currentUrl: string, options: CookieJar.GetCookiesOptions | object, cb: (err: Error | null, cookies: string) => void): void;
+    getCookieString(currentUrl: string, options: CookieJar.GetCookiesOptions, cb: (err: Error | null, cookies: string) => void): void;
     getCookieString(currentUrl: string, cb: (err: Error | null, cookies: string) => void): void;
 
-    getCookieStringSync(currentUrl: string, options?: CookieJar.GetCookiesOptions | object): string;
+    getCookieStringSync(currentUrl: string, options?: CookieJar.GetCookiesOptions): string;
 
-    getSetCookieStrings(currentUrl: string, options: CookieJar.GetCookiesOptions | object, cb: (err: Error | null, cookies: string) => void): void;
+    getSetCookieStrings(currentUrl: string, options: CookieJar.GetCookiesOptions, cb: (err: Error | null, cookies: string) => void): void;
     getSetCookieStrings(currentUrl: string, cb: (err: Error | null, cookies: string) => void): void;
 
-    getSetCookieStringsSync(currentUrl: string, options?: CookieJar.GetCookiesOptions | object): string;
+    getSetCookieStringsSync(currentUrl: string, options?: CookieJar.GetCookiesOptions): string;
 
     serialize(cb: (err: Error | null, serializedObject: CookieJar.Serialized) => void): void;
 
@@ -197,36 +189,24 @@ export class CookieJar {
 }
 
 export namespace CookieJar {
-    interface Options extends Pick<Options._Impl, keyof Options._Impl> { }
-
-    namespace Options {
-        interface _Impl {
-            rejectPublicSuffixes: boolean;
-            looseMode: boolean;
-        }
+    interface Options {
+        rejectPublicSuffixes?: boolean;
+        looseMode?: boolean;
     }
 
-    interface SetCookieOptions extends Pick<SetCookieOptions._Impl, keyof SetCookieOptions._Impl> { }
-
-    namespace SetCookieOptions {
-        interface _Impl {
-            http: boolean;
-            secure: boolean;
-            now: Date;
-            ignoreError: boolean;
-        }
+    interface SetCookieOptions {
+        http?: boolean;
+        secure?: boolean;
+        now?: Date;
+        ignoreError?: boolean;
     }
 
-    interface GetCookiesOptions extends Pick<GetCookiesOptions._Impl, keyof GetCookiesOptions._Impl> { }
-
-    namespace GetCookiesOptions {
-        interface _Impl {
-            http: boolean;
-            secure: boolean;
-            date: Date;
-            expire: boolean;
-            allPoints: boolean;
-        }
+    interface GetCookiesOptions {
+        http?: boolean;
+        secure?: boolean;
+        date?: Date;
+        expire?: boolean;
+        allPoints?: boolean;
     }
 
     interface Serialized {

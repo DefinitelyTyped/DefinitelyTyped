@@ -1,8 +1,7 @@
-import {trust, parseQueryString, buildQueryString} from 'mithril';
+import { trust, parseQueryString, buildQueryString } from 'mithril';
 import * as h from 'mithril/hyperscript';
-import {render} from 'mithril/render';
-import {redraw} from 'mithril/redraw';
-import * as withAttr from 'mithril/withAttr';
+import { render } from 'mithril/render';
+import { redraw } from 'mithril/redraw';
 
 const vnode = trust('Some <strong>bold</strong> text.');
 
@@ -19,5 +18,4 @@ render(document.body, [
 
 redraw();
 
-const handler = withAttr("value", (value) => {});
-handler({currentTarget: {value: 10}});
+redraw.sync();

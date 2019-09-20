@@ -9,7 +9,6 @@ export interface StackFrame {
     getFunctionName(): string;
     getMethodName(): string;
     getFileName(): string;
-    getTypeName(): string;
     getLineNumber(): number;
     getColumnNumber(): number;
     isNative(): boolean;

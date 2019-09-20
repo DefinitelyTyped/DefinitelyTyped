@@ -1,14 +1,16 @@
 // Type definitions for react-router-redux 5.0
-// Project: https://github.com/ReactTraining/react-router/tree/master/packages/react-router-redux
+// Project: https://github.com/reactjs/react-router-redux
 // Definitions by: Huy Nguyen <https://github.com/huy-nguyen>
+//                 Shoya Tanaka <https://github.com/8398a7>
+//                 Mykolas <https://github.com/mykolas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 3.0
 
 import {
     Store,
     Dispatch,
-    Action,
-    Middleware
+    Middleware,
+    Reducer
 } from 'redux';
 import {
     History,
@@ -18,22 +20,23 @@ import {
     LocationDescriptor
 } from 'history';
 import * as React from 'react';
+import { match } from 'react-router';
 
 export interface ConnectedRouterProps<State> {
     store?: Store<State>;
-    history?: History;
+    history: History;
 }
-export class ConnectedRouter<State> extends React.Component<ConnectedRouterProps<State>, {}> {}
+export class ConnectedRouter<State> extends React.Component<ConnectedRouterProps<State>> {}
 
-export const LOCATION_CHANGE: string;
+export const LOCATION_CHANGE = '@@router/LOCATION_CHANGE';
 
 export interface RouterState {
     location: Location | null;
 }
 
-export function routerReducer(state?: RouterState, action?: RouterAction): RouterState;
+export const routerReducer: Reducer<RouterState>;
 
-export const CALL_HISTORY_METHOD: string;
+export const CALL_HISTORY_METHOD = '@@router/CALL_HISTORY_METHOD';
 
 export function push(location: LocationDescriptor, state?: LocationState): RouterAction;
 export function replace(location: LocationDescriptor, state?: LocationState): RouterAction;
@@ -54,12 +57,12 @@ export interface LocationActionPayload {
     args?: any[];
 }
 
-export interface RouterAction extends Action {
+export interface RouterAction {
     type: typeof CALL_HISTORY_METHOD;
     payload: LocationActionPayload;
 }
 
-export interface LocationChangeAction extends Action {
+export interface LocationChangeAction {
     type: typeof LOCATION_CHANGE;
     payload: Location & {
         props?: {
@@ -76,3 +79,5 @@ export interface LocationChangeAction extends Action {
 }
 
 export function routerMiddleware(history: History): Middleware;
+
+export function createMatchSelector(path: string): (state: { router: RouterState }) => match | null;

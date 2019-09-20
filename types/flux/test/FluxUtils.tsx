@@ -38,11 +38,9 @@ interface State {
 }
 
 class CounterContainer extends React.Component<Props, State> {
-    static getStores() {
+    static getStores(): Container.StoresList {
         return [Store];
     }
-
-    static a: string = "asd";
 
     static calculateState(prevState: State, props: Props): State {
         return {
@@ -67,14 +65,14 @@ const ContainerComponent3 = Container.create<Props, State>(CounterContainer, { w
 <ContainerComponent3 a="string" b={false} />;
 
 // Functional flux container with Store
-const FunctionalContainerComponent = Container.createFunctional<Props, State>(
-    (props) => {
+const FunctionalContainerComponent = Container.createFunctional(
+    (props: State) => {
         return <div>
-            {props.a} {props.b}
+            {props.counter}
         </div>;
     },
-    () => [Store],
-    (prevState) => ({ counter: Store.getState() })
+    (props: Props) => [Store],
+    (prevState: State, props: Props) => ({ counter: Store.getState() })
 );
 
-<FunctionalContainerComponent a="string" b={true} />;
+<FunctionalContainerComponent a="string" b={false} />;

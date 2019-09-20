@@ -8,6 +8,7 @@
 (() => {
   microsoftTeams.getContext(context => {
     const { upn, channelId } = context;
+    context.isFullScreen = true;
   });
 
   microsoftTeams.settings.getSettings(settings => {
@@ -32,5 +33,13 @@
     width: 200,
     url: '',
     successCallback: done => { }
+  });
+
+  microsoftTeams.getTabInstances(tabInfo => {
+    const tabInstances: microsoftTeams.TabInstance[] = tabInfo.teamTabs;
+  });
+
+  microsoftTeams.getMruTabInstances(tabInfo => {
+    const tabInstances: microsoftTeams.TabInstance[] = tabInfo.teamTabs;
   });
 })();

@@ -5,8 +5,7 @@
 // Tests taken from documentation samples.
 
 import { I2cBus, open, openSync } from "i2c-bus";
-import * as asnc from "async";
-
+import * as async from "async";
 
 function toCelsius(rawTemp: number): number {
     const halfDegrees = ((rawTemp & 0xff) << 1) + (rawTemp >> 15);

@@ -1,6 +1,0 @@
-Microsoft.Maps.AdvancedShapes.d.ts
-Microsoft.Maps.Directions.d.ts
-Microsoft.Maps.Search.d.ts
-Microsoft.Maps.Themes.BingTheme.d.ts
-Microsoft.Maps.Traffic.d.ts
-Microsoft.Maps.VenueMaps.d.ts

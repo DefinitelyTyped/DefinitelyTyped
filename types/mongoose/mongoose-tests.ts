@@ -1,9 +1,5 @@
 import * as mongoose from 'mongoose';
 
-// test compatibility with other libraries
-import * as _ from 'lodash';
-var fs = require('fs');
-
 // dummy variables
 var cb = function () {};
 
@@ -20,39 +16,50 @@ var cb = function () {};
  * http://mongoosejs.com/docs/api.html#index-js
  */
 var connectUri = 'mongodb://user:pass@localhost:port/database';
-mongoose.connect(connectUri).then(cb).catch(cb);
-mongoose.connect(connectUri, {
+const connection1: Promise<mongoose.Mongoose> = mongoose.connect(connectUri);
+const connection2: Promise<mongoose.Mongoose> = mongoose.connect(connectUri, {
   user: 'larry',
   pass: 'housan',
   config: {
-    autoIndex: true
+    autoIndex: true,
   },
-  mongos: true
-}).then(cb);
-mongoose.connect(connectUri, function (error) {
+  mongos: true,
+  bufferCommands: false,
+  useNewUrlParser: true,
+  useFindAndModify: true,
+  useCreateIndex: true,
+  autoIndex: true,
+  autoCreate: true,
+});
+const connection3 = mongoose.connect(connectUri, function (error) {
   error.stack;
 });
+
 var mongooseConnection: mongoose.Connection = mongoose.createConnection();
-mongoose.createConnection(connectUri).open('');
+mongooseConnection.dropDatabase().then(()=>{});
+mongooseConnection.dropCollection('foo').then(()=>{});
+mongoose.createConnection(connectUri).then((conn)=> {
+  return conn.collections;
+}, () => {
+
+var connections: mongoose.Connection[] = mongoose.connections;
+
+});
+mongoose.createConnection(connectUri).openUri('');
 mongoose.createConnection(connectUri, {
   db: {
     native_parser: true
   }
-}).open('');
-mongoose.createConnection('localhost', 'database', 3000).open('');
-mongoose.createConnection('localhost', 'database', 3000, {
-  user: 'larry',
-  config: {
-    autoIndex: false
-  }
-}).open('');
-mongoose.disconnect(cb).then(cb);
+}).openUri('');
+const dcWithCallback: void = mongoose.disconnect(cb);
+const dcPromise: Promise<void> = mongoose.disconnect();
 mongoose.get('test');
 mongoose.model('Actor', new mongoose.Schema({
   name: String
 }), 'collectionName', true).find({});
 mongoose.model('Actor').find({});
 mongoose.modelNames()[0].toLowerCase();
+mongoose.models.Actor.findOne({}).exec();
 new (new mongoose.Mongoose(9, 8, 7)).Mongoose(1, 2, 3).connect('');
 mongoose.plugin(cb, {}).connect('');
 mongoose.set('test', 'value');
@@ -63,32 +70,29 @@ new mongoose.mongo.MongoError('error').stack;
 mongoose.SchemaTypes.String;
 mongoose.SchemaTypes.ObjectId;
 mongoose.SchemaTypes.Decimal128;
+mongoose.SchemaTypes.Map;
 mongoose.Types.ObjectId;
 mongoose.Types.Decimal128;
 mongoose.version.toLowerCase();
 
-/*
- * section querystream.js
- * http://mongoosejs.com/docs/api.html#querystream-js
- */
-var querystream: mongoose.QueryStream;
-querystream.destroy(new Error());
-querystream.pause();
-querystream.pipe(process.stdout, {end: true}).end();
-querystream.resume();
-querystream.paused;
-querystream.readable;
-/* inherited properties */
-querystream.getMaxListeners();
-/* practical examples */
-var QSModel: typeof mongoose.Model;
-var QSStream: mongoose.QueryStream = QSModel.find().stream();
-QSStream.on('data', function (doc: any) {
-  doc.save();
-}).on('error', function (err: any) {
-  throw err;
-}).on('close', cb);
-QSModel.where('created').gte(20000).stream().pipe(process.stdout);
+const sslConnections: {[key: string]: mongoose.Connection} = {
+  basic: mongoose.createConnection(connectUri, {ssl: true}),
+  customCA: mongoose.createConnection(
+    connectUri,
+    {
+      ssl: true,
+      sslCA: [new Buffer('ca string')],
+      sslCRL: [new Buffer('crl buffer')],
+      sslCert: 'ssl cert',
+      sslKey: new Buffer('ssl private key'),
+      sslPass: 'ssl password',
+      servername: 'localhost',
+      checkServerIdentity: true,
+      ciphers: 'ciphers',
+      ecdhCurve: 'ecdhCurve',
+    }
+  ),
+};
 
 /*
  * section collection.js
@@ -97,7 +101,7 @@ QSModel.where('created').gte(20000).stream().pipe(process.stdout);
  * section drivers/node-mongodb-native/collection.js
  * http://mongoosejs.com/docs/api.html#drivers-node-mongodb-native-collection-js
  */
-var coll1: mongoose.Collection;
+var coll1 = <mongoose.Collection> {};
 coll1.$format(999).toLowerCase();
 coll1.$print('name', 'i', [1, 2, 3]);
 coll1.getIndexes();
@@ -109,7 +113,7 @@ coll1.ensureIndex();
 coll1.find({});
 coll1.insert({}, {});
 
-var coll2 = new mongoose.Collection('', new mongoose.Connection(null));
+var coll2 = new mongoose.Collection('', new mongoose.Connection(mongoose));
 coll2.$format(999).toLowerCase();
 /* inherited properties */
 coll2.initializeOrderedBulkOp;
@@ -124,19 +128,14 @@ coll2.indexExists;
  */
 var conn1: mongoose.Connection = mongoose.createConnection('mongodb://user:pass@localhost:port/database');
 conn1 = new mongoose.Connection(mongoose);
-conn1.open('mongodb://localhost/test', 'myDb', 27017, {
-  replset: null,
-  config: {
-    autoIndex: false
-  }
-}, function (err) {}).open('');
-conn1.openSet('mongodb://localhost/test', 'db', {
-  replset: null,
-  mongos: true
-}, function (err) {}).then(cb).catch(cb);
-conn1.close().catch(function (err) {});
+conn1.close().then(function () {}).catch(function (err) {});
+conn1.close(true).then(function () {}).catch(function (err) {});
+conn1.close(function (err) {});
+conn1.close(true, function (err) {});
 conn1.collection('name').$format(999);
 conn1.model('myModel', new mongoose.Schema({}), 'myCol').find();
+conn1.deleteModel('myModel');
+conn1.models.myModel.findOne().exec();
 interface IStatics {
   staticMethod1: (a: number) => string;
 }
@@ -151,34 +150,120 @@ mongoose.Connection.STATES.hasOwnProperty('');
 conn1.on('data', cb);
 conn1.addListener('close', cb);
 
-/*
- * section error/validation.js
- * http://mongoosejs.com/docs/api.html#error-validation-js
- */
-var validationError: mongoose.ValidationError;
-validationError.toString().toLowerCase();
-/* inherited properties */
-validationError.stack;
-validationError.message;
+// The connection returned by useDb is *not* thenable.
+// From https://github.com/DefinitelyTyped/DefinitelyTyped/pull/26057#issuecomment-396150819
+const getDB = async (tenant: string)=> {
+  return conn1.useDb(tenant);
+};
 
 /*
  * section error.js
  * http://mongoosejs.com/docs/api.html#error-js
  */
 var mongooseError: mongoose.Error = new mongoose.Error('error');
+mongooseError.name;
 /* inherited properties */
 mongooseError.message;
-mongooseError.name;
 mongooseError.stack;
 /* static properties */
 mongoose.Error.messages.hasOwnProperty('');
 mongoose.Error.Messages.hasOwnProperty('');
 
 /*
+ * section error/cast.js
+ * https://mongoosejs.com/docs/api.html#mongooseerror_MongooseError.CastError
+ */
+var castError: mongoose.Error.CastError = new mongoose.Error.CastError('', '', '');
+castError.name;
+castError.stringValue;
+castError.kind;
+castError.path;
+castError.value;
+castError.setModel('foo');
+/* inherited properties */
+castError.message;
+castError.stack;
+
+/*
+ * section error/validator.js
+ * https://mongoosejs.com/docs/api.html#mongooseerror_MongooseError.ValidatorError
+ */
+var validatorError: mongoose.Error.ValidatorError = new mongoose.Error.ValidatorError({ message: 'bar' })
+validatorError.name;
+validatorError.properties;
+validatorError.kind;
+validatorError.path;
+validatorError.value;
+validatorError.toString().toLowerCase();
+validatorError.formatMessage('foo', {});
+validatorError.formatMessage('foo', (bar: any)=>{ return bar; });
+/* inherited properties */
+validatorError.message;
+validatorError.stack;
+
+/*
+ * section error/validation.js
+ * https://mongoosejs.com/docs/api.html#mongooseerror_MongooseError.ValidationError
+ */
+var doc = <mongoose.MongooseDocument> {};
+var validationError: mongoose.Error.ValidationError = new mongoose.Error.ValidationError(doc);
+validationError.name;
+validationError.toString().toLowerCase();
+validationError.inspect();
+validationError.toJSON().hasOwnProperty('');
+validationError.addError('foo', validatorError)
+/* inherited properties */
+validationError.message;
+validationError.stack;
+
+/*
+ * section error/parallelSave.js
+ * https://mongoosejs.com/docs/api.html#mongooseerror_MongooseError.ParallelSaveError
+ */
+var parallelSaveError: mongoose.Error.ParallelSaveError = new mongoose.Error.ParallelSaveError(doc);
+parallelSaveError.name;
+/* inherited properties */
+parallelSaveError.message;
+parallelSaveError.stack;
+
+/*
+ * section error/overwriteModel.js
+ * https://mongoosejs.com/docs/api.html#mongooseerror_MongooseError.OverwriteModelError
+ */
+var overwriteModelError: mongoose.Error.OverwriteModelError = new mongoose.Error.OverwriteModelError('foo');
+overwriteModelError.name;
+/* inherited properties */
+overwriteModelError.message;
+overwriteModelError.stack;
+
+/*
+ * section error/missingSchema.js
+ * https://mongoosejs.com/docs/api.html#mongooseerror_MongooseError.MissingSchemaError
+ */
+var missingSchemaError: mongoose.Error.MissingSchemaError = new mongoose.Error.MissingSchemaError('foo');
+missingSchemaError.name;
+/* inherited properties */
+missingSchemaError.message;
+missingSchemaError.stack;
+
+/*
+ * section error/divergentArray.js
+ * https://mongoosejs.com/docs/api.html#mongooseerror_MongooseError.MissingSchemaError
+ */
+var divergentArrayError: mongoose.Error.DivergentArrayError = new mongoose.Error.DivergentArrayError(['foo','bar']);
+missingSchemaError.name;
+/* inherited properties */
+missingSchemaError.message;
+missingSchemaError.stack;
+
+const pluralize = mongoose.pluralize();
+const plural: string = pluralize('foo');
+
+/*
  * section querycursor.js
  * http://mongoosejs.com/docs/api.html#querycursor-js
  */
-var querycursor: mongoose.QueryCursor<any>;
+var querycursor = <mongoose.QueryCursor<any>> {};
 querycursor.close(function (error, result) {
   result.execPopulate();
 }).catch(cb);
@@ -209,6 +294,16 @@ querycursor.map(function (doc) {
   console.log(doc.foo);
 });
 
+QCModel.watch().once('change', (change: any) => {
+  console.log(change);
+});
+
+QCModel.watch({
+  maxAwaitTimeMS: 10
+}).once('change', (change: any) => {
+  console.log(change);
+});
+
 /*
  * section virtualtype.js
  * http://mongoosejs.com/docs/api.html#virtualtype-js
@@ -224,25 +319,29 @@ virtualtype.set(cb).set(cb);
  * http://mongoosejs.com/docs/api.html#schema-js
  */
 var schema: mongoose.Schema = new mongoose.Schema({
-  name:    String,
-  binary:  Buffer,
-  living:  Boolean,
+  name: String,
+  binary: Buffer,
+  living: Boolean,
   updated: { type: Date, default: Date.now },
-  age:     { type: Number, min: 18, max: 65 },
-  mixed:   mongoose.Schema.Types.Mixed,
+  age: { type: Number, min: 18, max: 65 },
+  mixed: mongoose.Schema.Types.Mixed,
   _someId: mongoose.Schema.Types.ObjectId,
-  someDecimal:mongoose.Schema.Types.Decimal128,
-  array:      [],
-  ofString:   [String],
-  ofNumber:   [Number],
-  ofDates:    [Date],
-  ofBuffer:   [Buffer],
-  ofBoolean:  [Boolean],
-  ofMixed:    [mongoose.Schema.Types.Mixed],
+  someDecimal: mongoose.Schema.Types.Decimal128,
+  array: [],
+  ofString: [String],
+  ofNumber: [Number],
+  ofDates: [Date],
+  ofBuffer: [Buffer],
+  ofBoolean: [Boolean],
+  ofMixed: [mongoose.Schema.Types.Mixed],
   ofObjectId: [mongoose.Schema.Types.ObjectId],
+  map: {
+    type: Map,
+    of: String,
+  },
   nested: {
-    stuff: { type: String, lowercase: true, trim: true }
-  }
+    stuff: { type: String, lowercase: true, trim: true },
+  },
 });
 schema.add({
   mixedArray: {
@@ -266,18 +365,132 @@ schema.method('name', cb).method({
 });
 schema.path('a', mongoose.Schema.Types.Buffer).path('a');
 schema.pathType('m1').toLowerCase();
-schema.plugin(function (schema, opts) {
-schema.get('path');
-  opts.hasOwnProperty('');
+schema.plugin(function (schema: mongoose.Schema, opts?: any) {
+  schema.get('path');
+  if (opts) {
+    opts.hasOwnProperty('');
+  }
 }).plugin(cb, {opts: true});
 
+/* `.pre` hook tests */
+
+interface PreHookTestDocumentInterface extends mongoose.Document {}
+interface PreHookTestQueryInterface<T> extends mongoose.Query<T> {}
+interface PreHookTestAggregateInterface<T> extends mongoose.Aggregate<T> {}
+interface PreHookTestModelInterface<T extends mongoose.Document> extends mongoose.Model<T> {}
+
+// it is used to ensure that all testing cases return a value of mongoose.Schema type
+const preHookTestSchemaArr: mongoose.Schema[] = [];
+
+// testing order:
+//   serial with default value and returning void
+//   serial with a type argument and returning a promise
+//   parallel with default value and returning void
+//   parallel with a type argument and returning a promise
+
+// Document
+preHookTestSchemaArr.push(
+  schema.pre("init", function (next) {
+    const isDefaultType: mongoose.Document = this;
+  }, err => {})
+);
+preHookTestSchemaArr.push(
+  schema.pre<PreHookTestDocumentInterface>("init", function (next) {
+    const isSpecificType: PreHookTestDocumentInterface = this;
+    return Promise.resolve("");
+  }, err => {})
+);
+preHookTestSchemaArr.push(
+  schema.pre("init", true, function (next, done) {
+    const isDefaultType: mongoose.Document = this;
+  }, err => {})
+);
+preHookTestSchemaArr.push(
+  schema.pre<PreHookTestDocumentInterface>("init", true, function (next, done) {
+    const isSpecificType: PreHookTestDocumentInterface = this;
+    return Promise.resolve("");
+  }, err => {})
+);
+
+// Query
+preHookTestSchemaArr.push(
+  schema.pre("count", function (next) {
+    const isDefaultType: mongoose.Query<any> = this;
+  }, err => {})
+);
+preHookTestSchemaArr.push(
+  schema.pre<PreHookTestQueryInterface<number>>("count", function (next) {
+    const isSpecificType: PreHookTestQueryInterface<number> = this;
+    return Promise.resolve("");
+  }, err => {})
+);
+preHookTestSchemaArr.push(
+  schema.pre("count", true, function (next, done) {
+    const isDefaultType: mongoose.Query<any> = this;
+  }, err => {})
+);
+preHookTestSchemaArr.push(
+  schema.pre<PreHookTestQueryInterface<number>>("count", true, function (next, done) {
+    const isSpecificType: PreHookTestQueryInterface<number> = this;
+    return Promise.resolve("");
+  }, err => {})
+);
+
+// Aggregate
+preHookTestSchemaArr.push(
+  schema.pre("aggregate", function(next) {
+    const isDefaultType: mongoose.Aggregate<any> = this;
+  }, err => {})
+);
+preHookTestSchemaArr.push(
+  schema.pre<PreHookTestAggregateInterface<number>>("aggregate", function(next) {
+    const isSpecificType: PreHookTestAggregateInterface<number> = this;
+    return Promise.resolve("")
+  }, err => {})
+);
+preHookTestSchemaArr.push(
+  schema.pre("aggregate", true, function(next, done) {
+    const isDefaultType: mongoose.Aggregate<any> = this;
+  }, err => {})
+);
+preHookTestSchemaArr.push(
+  schema.pre<PreHookTestAggregateInterface<number>>("aggregate", true, function(next, done) {
+    const isSpecificType: PreHookTestAggregateInterface<number> = this;
+    return Promise.resolve("")
+  }, err => {})
+);
+
+// Model<Document>
+preHookTestSchemaArr.push(
+  schema.pre("insertMany", function(next, docs) {
+    const isDefaultType: mongoose.Model<mongoose.Document> = this;
+  }, err => {})
+);
+preHookTestSchemaArr.push(
+  schema.pre<PreHookTestModelInterface<PreHookTestDocumentInterface>>("insertMany", function(next, docs) {
+    const isSpecificType: PreHookTestModelInterface<PreHookTestDocumentInterface> = this;
+    return Promise.resolve("")
+  }, err => {})
+);
+preHookTestSchemaArr.push(
+  schema.pre("insertMany", true, function(next, done, docs) {
+    const isDefaultType: mongoose.Model<mongoose.Document> = this;
+  }, err => {})
+);
+preHookTestSchemaArr.push(
+  schema.pre<PreHookTestModelInterface<PreHookTestDocumentInterface>>("insertMany", true, function(next, done, docs) {
+    const isSpecificType: PreHookTestModelInterface<PreHookTestDocumentInterface> = this;
+    return Promise.resolve("")
+  }, err => {})
+);
+
 schema
-.post('save', function (error, doc, next) {
+.post('save', function (error: mongoose.Error, doc: mongoose.Document, next: (err?: mongoose.NativeError) => void) {
   error.stack;
   doc.model;
   next.apply;
 })
-.post('save', function (doc: mongoose.Document, next: Function) {
+.post('save', function (doc: mongoose.Document, next: (err?: mongoose.NativeError) => void) {
   doc.model;
   next(new Error());
 })
@@ -288,7 +501,7 @@ schema.queue('m1', [1, 2, 3]).queue('m2', [[]]);
 schema.remove('path');
 schema.remove(['path1', 'path2', 'path3']);
 schema.requiredPaths(true)[0].toLowerCase();
-schema.set('key', 999).set('key');
+schema.set('id', true).set('id');
 schema.static('static', cb).static({
   s1: cb,
   s2: cb
@@ -301,12 +514,15 @@ mongoose.Schema.reserved.hasOwnProperty('');
 /* inherited properties */
 schema.addListener('e', cb);
 /* practical examples */
-var animalSchema = new mongoose.Schema({
+interface Animal {
+  findSimilarTypes(cb: any): Promise<Animal>
+}
+var animalSchema = new mongoose.Schema<Animal>({
   name: String,
   type: String
 });
-animalSchema.methods.findSimilarTypes = function (cb: any) {
-  return this.model('Aminal').find({ type: this.type }, cb);
+animalSchema.methods.findSimilarTypes = function (cb) {
+  return this.model('Animal').find({ type: this.type }, cb);
 };
 var Animal: any = mongoose.model('Animal', animalSchema);
 var dog: any = new Animal({type: 'dog'});
@@ -366,9 +582,32 @@ new mongoose.Schema({d: {type: Date, min: [
 new mongoose.Schema({
   integerOnly: {
     type: Number,
-    get: v => Math.round(v),
-    set: v => Math.round(v)
-  }
+    get: (v: number) => Math.round(v),
+    set: (v: number) => Math.round(v),
+    validate: {
+      isAsync: false,
+      validator: (val: number): boolean => {
+        return false;
+      }
+    }
+  },
+  asyncValidated: {
+    type: Number,
+    validate: {
+      isAsync: true,
+      validator: (val: number, done): void => {
+        setImmediate(done, true);
+      }
+    }
+  },
+  promiseValidated: {
+    type: Number,
+    validate: {
+      validator: async (val: number) => {
+        return val === 2;
+      }
+    }
+  },
 });
 new mongoose.Schema({ name: { type: String, validate: [
   { validator: () => {return true}, msg: 'uh oh' },
@@ -383,8 +622,14 @@ Animal['findByName']('fido', function(err: any, animals: any) {
 animalSchema.virtual('name.full').get(function () {
   return this.name.first + ' ' + this.name.last;
 });
-new mongoose.Schema({
-  child: new mongoose.Schema({ name: String })
+var childSchema = new mongoose.Schema({ name: String });
+var parentSchema = new mongoose.Schema({
+  children: [childSchema],
+  child: childSchema,
+  name: {
+    index: true,
+    required: true
+  }
 });
 new mongoose.Schema({
   eggs: {
@@ -402,40 +647,78 @@ new mongoose.Schema({
   }
 });
 
-(new mongoose.Schema({})).plugin(function (schema: any, options: any) {
+(new mongoose.Schema({})).plugin<any>(function (schema: mongoose.Schema, options: any) {
   schema.add({ lastMod: Date })
   schema.pre('save', function (next: Function) {
-    this.lastMod = new Date
+    (this as any).lastMod = new Date
     next()
   })
   if (options && options['index']) {
     schema.path('lastMod').index(options['index'])
   }
-}, { index: true }).plugin(function (schema: any, options: any) {
+}, { index: true }).plugin<any>(function (schema: mongoose.Schema, options: any) {
   schema.add({ lastMod: Date })
   schema.pre('save', function (next: Function) {
-    this.lastMod = new Date
+    (this as any).lastMod = new Date
     next()
   })
   if (options && options['index']) {
     schema.path('lastMod').index(options['index'])
   }
-});
+}, {index: true});
+
+new mongoose.Schema({foo: String}, {strict: 'throw'});
+
+export default function(schema: mongoose.Schema) {
+  schema.pre('init', function(this: mongoose.Document, next: (err?: Error) => void): void {
+     console.log('success!');
+  });
+}
+
+// plugins
+function MyPlugin(schema: mongoose.Schema, opts?: string) {
+}
+new mongoose.Schema({})
+    .plugin(MyPlugin)
+
+interface PluginOption {
+    modelName: string;
+    timestamp: string;
+}
+
+function logger(modelName: string, timestamp: string) {
+    // call special logger with options
+}
+
+function AwesomeLoggerPlugin(schema: mongoose.Schema, options: PluginOption) {
+    if (options) {
+        schema.pre('save', function (next: Function) {
+            logger(options.modelName, options.timestamp)
+        })
+    }
+}
+
+new mongoose.Schema({})
+    .plugin<PluginOption>(AwesomeLoggerPlugin, {modelName: 'Executive', timestamp: 'yyyy/MM/dd'})
+
+mongoose.plugin<PluginOption>(AwesomeLoggerPlugin, {modelName: 'Executive', timestamp: 'yyyy/MM/dd'})
+
 
 /*
  * section document.js
  * http://mongoosejs.com/docs/api.html#document-js
  */
-var doc: mongoose.MongooseDocument;
+var doc = <mongoose.MongooseDocument> {};
 doc.$isDefault('path').valueOf();
-doc.depopulate('path');
+const docDotDepopulate: mongoose.MongooseDocument = doc.depopulate('path');
 doc.equals(doc).valueOf();
 doc.execPopulate().then(function (arg) {
   arg.execPopulate();
 }).catch(function (err) {});
 doc.get('path', Number);
-doc.init(doc, cb).init(doc, {}, cb);
+doc.init(doc).init(doc, {});
 doc.inspect();
+doc.invalidate('path', new Error('hi')).toString();
 doc.invalidate('path', new Error('hi'), 999).toString();
 doc.isDirectModified('path').valueOf();
 doc.isInit('path').valueOf();
@@ -454,6 +737,7 @@ doc.populate(function (err, doc) {
 });
 doc.populated('path');
 doc.set('path', 999, {}).set({ path: 999 });
+doc.overwrite({path: 999});
 doc.toJSON({
   getters: true,
   virtuals: false
@@ -477,13 +761,27 @@ doc.validateSync(['path1', 'path2']).stack;
 var MyModel = mongoose.model('test', new mongoose.Schema({
   name: {
     type: String,
+    alias: 'foo',
     default: 'Val '
   }
 }));
 doc = new MyModel();
 doc.$isDefault('name');
 MyModel.findOne().populate('author').exec(function (err, doc) {
-  doc.depopulate('author');
+  if (doc) {
+    doc.depopulate('author');
+  }
+});
+MyModel.replaceOne({foo: 'bar'}, {qux: 'baz'}).where();
+MyModel.replaceOne({foo: 'bar'}, {qux: 'baz'}, (err, raw) => {})
+MyModel.bulkWrite([{foo:'bar'}]).then(r => {
+  console.log(r.deletedCount);
+});
+MyModel.bulkWrite([], (err, res) => {
+  console.log(res.modifiedCount);
+});
+MyModel.bulkWrite([], { ordered: false }, (err, res) => {
+  console.log(res.modifiedCount);
 });
 doc.populate('path');
 doc.populate({path: 'hello'});
@@ -492,6 +790,57 @@ doc.populate({path: 'hello'}, cb);
 doc.populate(cb);
 doc.populate({path: 'hello'}).execPopulate().catch(cb);
 doc.update({$inc: {wheels:1}}, { w: 1 }, cb);
+
+const ImageSchema = new mongoose.Schema({
+  name: {type: String, required: true},
+  id: {type: Number, unique: true, required: true, index: true},
+}, { id: false });
+
+const clonedSchema: mongoose.Schema = new mongoose.Schema().clone();
+
+interface ImageDoc extends mongoose.Document {
+  name: string,
+  id: number
+}
+
+const ImageModel = mongoose.model<ImageDoc>('image', ImageSchema);
+
+ImageModel.findOne({}, function(err, doc) {
+  if (doc) {
+    doc.name;
+    doc.id;
+  }
+});
+
+/* Using flatten maps example */
+interface Submission extends mongoose.Document {
+  name: string;
+  fields: Record<string,string>;
+}
+var SubmissionSchema = new mongoose.Schema({
+  name: String,
+  fields: {
+    type: Map,
+    of: String
+  }
+});
+const SubmissionModel = mongoose.model<Submission>('Submission', SubmissionSchema);
+const submission = new SubmissionModel({
+  name: "Submission Name",
+  fields: {
+    extra: "Value",
+    other: "Thing"
+  }
+});
+submission.save()
+.then(result => {
+  console.log(result.toObject({
+    flattenMaps: true
+  }));
+})
+.catch(() => {
+  console.log("Flatten maps error");
+});
 
 /*
  * section types/subdocument.js
@@ -540,10 +889,11 @@ interface MySubEntity extends mongoose.Types.Subdocument {
 interface MyEntity extends mongoose.Document {
   sub: mongoose.Types.Array<MySubEntity>
 }
-var myEntity: MyEntity;
-var subDocArray = _.filter(myEntity.sub, function (sd) {
+var myEntity = <MyEntity> {};
+var subDocArray = myEntity.sub.filter(sd => {
   sd.property1;
   sd.property2.toLowerCase();
+  return true;
 });
 
 
@@ -570,7 +920,7 @@ interface MySubEntity1 extends mongoose.Types.Subdocument {
 interface MyEntity1 extends mongoose.Document {
   sub: mongoose.Types.DocumentArray<MySubEntity>
 }
-var newEnt: MyEntity1;
+var newEnt = <MyEntity1> {};
 var newSub: MySubEntity1 = newEnt.sub.create({ property1: "example", property2: "example" });
 
 /*
@@ -641,11 +991,22 @@ embeddedDocument.markModified('path');
 /* inherited properties */
 embeddedDocument.execPopulate();
 
+/**
+ * section types/map.js
+ * https://mongoosejs.com/docs/schematypes.html#maps
+ */
+var map: mongoose.Types.Map<string> = new mongoose.Types.Map<string>();
+map.get('key');
+map.set('key', 'value');
+map.delete('key');
+map.toObject().delete;
+map.toObject({ flattenMaps: true }).key;
+
 /*
  * section query.js
  * http://mongoosejs.com/docs/api.html#query-js
  */
-var query: mongoose.Query<mongoose.MongooseDocument[]>;
+var query = <mongoose.Query<mongoose.MongooseDocument[]>> {};
 query.$where('').$where(cb);
 query.all(99).all('path', 99);
 query.and([{ color: 'green' }, { status: 'ok' }]).and([]);
@@ -695,18 +1056,19 @@ query.findOne(function (err, res) {
   res.execPopulate();
 }).findOne();
 query.findOneAndRemove({name: 'aa'}, {
-  passRawResult: true
+  rawResult: true
 }, function (err, doc) {
-  doc.execPopulate();
+    doc.lastErrorObject
 }).findOneAndRemove();
 query.findOneAndUpdate({name: 'aa'}, {name: 'bb'}, {
 
 });
 query.findOneAndUpdate({name: 'aa'}, {name: 'bb'}, {
-  passRawResult: true
+  rawResult: true
 }, cb);
 query.findOneAndUpdate({name: 'aa'}, {name: 'bb'}, cb);
 query.findOneAndUpdate({name: 'aa'}, {name: 'bb'});
+query.findOneAndUpdate({}, {}, { upsert: true, new: true });
 query.findOneAndUpdate({name: 'bb'}, cb);
 query.findOneAndUpdate({name: 'bb'});
 query.findOneAndUpdate(cb);
@@ -745,6 +1107,7 @@ query.find().lt('age', 21);
 query.find().where('age').lte(21);
 query.find().lte('age', 21);
 query.maxDistance('path', 21).maxDistance(21);
+query.maxTimeMS(1000);
 query.maxscan(100).maxScan(100);
 query.maxScan(100).maxScan(100);
 query.merge(query).merge({});
@@ -760,6 +1123,7 @@ query.find().where('age').in([20, 21]);
 query.find().in('age', [20, 21]);
 query.nor([{ color: 'green' }, { status: 'ok' }]).nor([]);
 query.or([{ color: 'red' }, { status: 'emergency' }]).or([]);
+query.find({ color: 'blue' }).orFail();
 query.where('loc').within().polygon([10,20], [13, 25], [7,15]);
 query.polygon('loc', [10,20], [13, 25], [7,15]);
 query.findOne().populate('owner').exec(function (err, kitten) {
@@ -777,6 +1141,7 @@ query.find().populate('owner', 'name', null, {sort: { name: -1 }}).exec(function
   kittens[0].execPopulate();
 });
 query.read('primary', []).read('primary');
+query.readConcern('majority').readConcern('m');
 query.regex(/re/).regex('path', /re/);
 query.remove({}, cb);
 query.remove({});
@@ -795,6 +1160,7 @@ query.setOptions({
   batchSize: true,
   lean: false
 });
+query.setQuery({ age: 5 });
 query.size(0).size('age', 0);
 query.skip(100).skip(100);
 query.slaveOk().slaveOk(false);
@@ -806,10 +1172,6 @@ query.where('comments').slice([-10, 5]);
 query.snapshot().snapshot(true);
 query.sort({ field: 'asc', test: -1 });
 query.sort('field -test');
-query.stream().on('data', function (doc: any) {
-}).on('error', function (err: any) {
-}).on('close', function () {
-});
 query.tailable().tailable(false);
 query.then(cb).catch(cb);
 (new (query.toConstructor())(1, 2, 3)).toConstructor();
@@ -861,6 +1223,12 @@ query.
   sort('-occupation').
   select('name occupation').
   exec(cb).then(cb).catch(cb);
+/**
+ * https://mongoosejs.com/docs/api.html#query_Query-lean
+ */
+query.lean() // true
+query.lean(false)
+query.lean({})
 
 /*
  * section schema/array.js
@@ -877,7 +1245,7 @@ schemaArray.sparse(true);
  * section schema/string.js
  * http://mongoosejs.com/docs/api.html#schema-string-js
  */
-var MongoDocument: mongoose.Document;
+var MongoDocument = <mongoose.Document> {};
 var schemastring: mongoose.Schema.Types.String = new mongoose.Schema.Types.String('hello');
 schemastring.checkRequired(234, MongoDocument).valueOf();
 schemastring.enum(['hi', 'a', 'b']).enum('hi').enum({});
@@ -901,6 +1269,8 @@ var documentarray: mongoose.Schema.Types.DocumentArray = new mongoose.Schema.Typ
 mongoose.Schema.Types.DocumentArray.schemaName.toLowerCase();
 /* inherited properties */
 documentarray.sparse(true);
+/* http://thecodebarbarian.com/mongoose-4.8-embedded-discriminators */
+documentarray.discriminator('name', new mongoose.Schema({ foo: String }));
 
 /*
  * section schema/number.js
@@ -987,7 +1357,7 @@ schemaembedded.sparse(true);
  * http://mongoosejs.com/docs/api.html#aggregate-js
  */
 var aggregate: mongoose.Aggregate<Object[]>;
-aggregate = mongoose.model('ex').aggregate({ $match: { age: { $gte: 21 }}});
+aggregate = mongoose.model('ex').aggregate([{ $match: { age: { $gte: 21 }}}]);
 aggregate = new mongoose.Aggregate<Object[]>();
 aggregate = new mongoose.Aggregate<Object[]>({ $project: { a: 1, b: 1 } });
 aggregate = new mongoose.Aggregate<Object[]>({ $project: { a: 1, b: 1 } }, { $skip: 5 });
@@ -997,8 +1367,12 @@ aggregate.allowDiskUse(true).allowDiskUse(false, []);
 aggregate.append({ $project: { field: 1 }}, { $limit: 2 });
 aggregate.append([{ $match: { daw: 'Logic Audio X' }} ]);
 aggregate.collation({ locale: 'en_US', strength: 1 });
+aggregate.count('countName');
+aggregate.facet({ fieldA: [{ a: 1 }], fieldB: [{ b: 1 }] });
 aggregate.cursor({ batchSize: 1000 }).exec().each(cb);
 aggregate.exec().then(cb).catch(cb);
+aggregate.option({foo: 'bar'}).exec();
+const aggregateDotPipeline: any[] = aggregate.pipeline();
 aggregate.explain(cb).then(cb).catch(cb);
 aggregate.group({ _id: "$department" }).group({ _id: "$department" });
 aggregate.limit(10).limit(10);
@@ -1032,6 +1406,8 @@ aggregate.project({
 })
 aggregate.project({ salary_k: { $divide: [ "$salary", 1000 ]}});
 aggregate.read('primaryPreferred').read('pp');
+aggregate.replaceRoot("user");
+aggregate.replaceRoot({x: {$concat: ['$this', '$that']}});
 aggregate.sample(3).sample(3);
 aggregate.skip(10).skip(10);
 aggregate.sort({ field: 'asc', test: -1 });
@@ -1161,7 +1537,9 @@ mongoose.model('')
   .findOne({})
   .exec()
   .then(function (arg) {
-    arg.save;
+    if (arg) {
+      arg.save;
+    }
     return 1;
   }).then(function (num) {
     num.toFixed;
@@ -1172,7 +1550,9 @@ mongoose.model('')
     str.toLowerCase
     return (mongoose.model('')).findOne({}).exec();
   }).then(function (arg) {
-    arg.save;
+    if (arg) {
+      arg.save;
+    }
     return 1;
   }).catch(function (err) {
     return 1;
@@ -1188,7 +1568,9 @@ mongoose.model('')
 
 mongoose.model('').findOne({})
   .then(function (arg) {
-    arg.save;
+    if (arg) {
+      arg.save;
+    }
     return 2;
   }).then(function (num) {
     num.toFixed;
@@ -1199,7 +1581,7 @@ mongoose.model('').findOne({})
     str.toLowerCase;
   });
 
-mongoose.model('').aggregate()
+mongoose.model('').aggregate([])
   .then(function (arg) {
     return 2;
   }).then(function (num) {
@@ -1220,6 +1602,18 @@ mongoose.Promise.all;
 mongoose.model('').findOne()
   .exec().then(cb);
 
+function testPromise_all() {
+  interface IUser extends mongoose.Document {
+    name: string;
+  }
+
+  const User = mongoose.model<IUser>('User', new mongoose.Schema({name: String}))
+
+  const dc: mongoose.DocumentQuery<IUser|null, IUser> = User.findOne({});
+  const dc2: PromiseLike<IUser|null> = dc;
+  Promise.all([dc])
+}
+
 /*
  * section model.js
  * http://mongoosejs.com/docs/api.html#model-js
@@ -1231,12 +1625,16 @@ var MongoModel = mongoose.model('MongoModel', new mongoose.Schema({
     required: true
   }
 }), 'myCollection', true);
+MongoModel.init().then(cb);
 MongoModel.find({}).$where('indexOf("val") !== -1').exec(function (err, docs) {
   docs[0].save();
   docs[0].__v;
 });
 MongoModel.findById(999, function (err, doc) {
-  var handleSave = function(err: Error, product: mongoose.Document, numAffected: number) {};
+  var handleSave = function(err: Error, product: mongoose.Document) {};
+  if (!doc) {
+    return;
+  }
   doc.increment();
   doc.save(handleSave).then(cb).catch(cb);
   doc.save({ validateBeforeSave: false }, handleSave).then(cb).catch(cb);
@@ -1245,9 +1643,9 @@ MongoModel.findById(999, function (err, doc) {
   doc.save({ safe: { w: 'majority', wtimeout: 10000 } }, handleSave).then(cb).catch(cb);
 
   // test if Typescript can infer the types of (err, product, numAffected)
-  doc.save(function(err, product, numAffected) { product.save(); })
+  doc.save(function(err, product) { product.save(); })
     .then(function(p) { p.save() }).catch(cb);
-  doc.save({ validateBeforeSave: false }, function(err, product, numAffected) {
+  doc.save({ validateBeforeSave: false }, function(err, product) {
     product.save();
   }).then(function(p) { p.save() }).catch(cb);
 });
@@ -1256,17 +1654,23 @@ var mongoModel = new MongoModel();
 mongoModel.remove(function (err, product) {
   if (err) throw(err);
   MongoModel.findById(product._id, function (err, product) {
-    product.remove();
+    if (product) {
+      product.id.toLowerCase();
+      product.remove();
+    }
   });
 });
 mongoModel.save().then(function (product) {
   product.save().then(cb).catch(cb);
 });
 MongoModel.aggregate(
-    { $group: { _id: null, maxBalance: { $max: '$balance' }}}
-  , { $project: { _id: 0, maxBalance: 1 }}
-  , cb);
-MongoModel.aggregate()
+  [
+    { $group: { _id: null, maxBalance: { $max: '$balance' }}},
+    { $project: { _id: 0, maxBalance: 1 }}
+  ],
+  cb
+);
+MongoModel.aggregate([])
   .group({ _id: null, maxBalance: { $max: '$balance' } })
   .exec(cb);
 MongoModel.count({ type: 'jungle' }, function (err, count) {
@@ -1288,9 +1692,16 @@ MongoModel.create([{ type: 'jelly bean' }, {
   arg[0].save();
   arg[1].save();
 });
+MongoModel.createCollection().then(() => {});
+MongoModel.createCollection({ capped: true, max: 42 }).then(() => {});
+MongoModel.createCollection({ capped: true, max: 42 }, err => {});
 MongoModel.distinct('url', { clicks: {$gt: 100}}, function (err, result) {
 });
 MongoModel.distinct('url').exec(cb);
+MongoModel.syncIndexes({});
+MongoModel.syncIndexes({}, cb);
+MongoModel.listIndexes();
+MongoModel.listIndexes(cb);
 MongoModel.ensureIndexes({}, cb);
 MongoModel.find({ name: 'john', age: { $gte: 18 }});
 MongoModel.find({ name: 'john', age: { $gte: 18 }}, function (err, docs) {
@@ -1304,11 +1715,15 @@ MongoModel.find({ name: /john/i }, null, { skip: 10 }).exec(function (err, docs)
 MongoModel.findById(999, function (err, adventure) {});
 MongoModel.findById(999).exec(cb);
 MongoModel.findById(999, 'name length', function (err, adventure) {
-  adventure.save();
+  if (adventure) {
+    adventure.save();
+  }
 });
 MongoModel.findById(999, 'name length').exec(cb);
 MongoModel.findById(999, '-length').exec(function (err, adventure) {
-  adventure.addListener('click', cb);
+  if (adventure) {
+    adventure.addListener('click', cb);
+  }
 });
 MongoModel.findById(999, 'name', { lean: true }, function (err, doc) {});
 MongoModel.findById(999, 'name').lean().exec(function (err, doc) {});
@@ -1319,6 +1734,7 @@ MongoModel.findByIdAndRemove(999);
 MongoModel.findByIdAndRemove();
 MongoModel.findByIdAndUpdate(999, {}, {}, cb);
 MongoModel.findByIdAndUpdate(999, {}, {});
+MongoModel.findByIdAndUpdate(999, {}, { upsert: true, new: true });
 MongoModel.findByIdAndUpdate(999, {}, cb);
 MongoModel.findByIdAndUpdate(999, {});
 MongoModel.findByIdAndUpdate();
@@ -1329,6 +1745,17 @@ MongoModel.findOne({ type: 'iphone' }, 'name').exec(function (err, adventure) {}
 MongoModel.findOne({ type: 'iphone' }, 'name', { lean: true }, cb);
 MongoModel.findOne({ type: 'iphone' }, 'name', { lean: true }).exec(cb);
 MongoModel.findOne({ type: 'iphone' }).select('name').lean().exec(cb);
+interface ModelUser {
+  _id: any;
+  name: string;
+  abctest: string;
+}
+MongoModel.findOne({ type: 'iphone' }).select('name').lean().exec()
+.then(function(doc: ModelUser) {
+  doc._id;
+  doc.name;
+  doc.abctest;
+});
 MongoModel.findOneAndRemove({}, {}, cb);
 MongoModel.findOneAndRemove({}, {});
 MongoModel.findOneAndRemove({}, cb);
@@ -1336,17 +1763,10 @@ MongoModel.findOneAndRemove({});
 MongoModel.findOneAndRemove();
 MongoModel.findOneAndUpdate({}, {}, {}, cb);
 MongoModel.findOneAndUpdate({}, {}, {});
+MongoModel.findOneAndUpdate({}, {}, { upsert: true, new: true });
 MongoModel.findOneAndUpdate({}, {}, cb);
 MongoModel.findOneAndUpdate({}, {});
 MongoModel.findOneAndUpdate();
-MongoModel.geoNear([1,3], { maxDistance : 5, spherical : true }, function(err, results, stats) {
-   results[0].on('data', cb);
-});
-MongoModel.geoNear({ type : "Point", coordinates : [9,9] }, {
-  maxDistance : 5, spherical : true
-}, function(err, results, stats) {
-   console.log(results);
-});
 MongoModel.geoSearch({ type : "house" }, {
   near: [10, 10], maxDistance: 5
 }, function(err, res) {
@@ -1372,6 +1792,9 @@ MongoModel.mapReduce({
    console.log(docs);
 }).then(null, cb);
 MongoModel.findById(999, function (err, user) {
+  if (!user) {
+    return;
+  }
   var opts = [
       { path: 'company', match: { x: 1 }, select: 'name' }
     , { path: 'notes', options: { limit: 10 }, model: 'override' }
@@ -1400,16 +1823,21 @@ MongoModel.populate(users, { path: 'weapon' }, function (err, users) {
 });
 MongoModel.remove({ title: 'baby born from alien father' }, cb);
 MongoModel.remove({_id: '999'}).exec().then(cb).catch(cb);
+MongoModel.remove({_id: '999'}).exec().then(res=>console.log(res.ok));
+MongoModel.deleteOne({_id: '999'}).then(res=>console.log(res.ok));
+MongoModel.deleteOne({_id: '999'}).exec().then(res=>console.log(res.ok));
+MongoModel.deleteMany({_id: '999'}).then(res=>console.log('Success?',!!res.ok, 'deleted count', res.n));
+MongoModel.deleteMany({_id: '999'}).exec().then(res=>console.log(res.ok));
 MongoModel.update({ age: { $gt: 18 } }, { oldEnough: true }, cb);
 MongoModel.update({ name: 'Tobi' }, { ferret: true }, { multi: true }, cb);
 MongoModel.where('age').gte(21).lte(65).exec(cb);
 MongoModel.where('age').gte(21).lte(65).where('name', /^b/i);
 new (mongoModel.base.model(''))();
-mongoModel.baseModelName.toLowerCase();
+mongoModel.baseModelName && mongoModel.baseModelName.toLowerCase();
 mongoModel.collection.$format(99);
 mongoModel.collection.initializeOrderedBulkOp;
 mongoModel.collection.findOne;
-mongoModel.db.openSet('');
+mongoModel.db.openUri('');
 mongoModel.discriminators;
 mongoModel.modelName.toLowerCase();
 MongoModel = mongoModel.base.model('new', mongoModel.schema);
@@ -1425,7 +1853,9 @@ mongoModel.addListener('event', cb);
 MongoModel.findOne({ title: /timex/i })
   .populate('_creator', 'name')
   .exec(function (err, story) {
-    story.execPopulate();
+    if (story) {
+      story.execPopulate();
+    }
   });
 MongoModel.find({
   id: 999
@@ -1460,6 +1890,9 @@ var LocModel = mongoose.model<Location>("Location", locationSchema);
 LocModel.findById(999)
   .select("-reviews -rating")
   .exec(function (err, location) {
+    if (!location) {
+      return;
+    }
     location.name = 'blah';
     location.address = 'blah';
     location.reviews.forEach(review => {});
@@ -1496,18 +1929,43 @@ LocModel.distinct('')
   .then(cb).catch(cb);
 LocModel.findByIdAndRemove()
   .exec(function (err, doc) {
+    if (!doc) {
+      return;
+    }
     doc.addListener;
     doc.openingTimes;
   });
 LocModel.findByIdAndUpdate()
   .select({})
   .exec(function (err, location) {
-    location.reviews;
+    if (location) {
+      location.reviews;
+    }
   });
-LocModel.findOne({}, function (err, doc) { doc.openingTimes; });
+LocModel.findOne({}, function (err, doc) {
+  if (doc) {
+    doc.openingTimes;
+  }
+});
 LocModel.findOneAndRemove()
-  .exec(function (err, location) { location.name; });
-LocModel.findOneAndUpdate().exec().then(function (arg) { arg.openingTimes; });
+  .exec(function (err, location) {
+    if (location) {
+      location.name;
+    }
+  });
+LocModel.findOneAndUpdate().exec().then(function (arg) {
+  if (arg) {
+    arg.openingTimes;
+  }
+});
+LocModel.findOneAndUpdate(
+    // find a document with that filter
+    {name: "aa"},
+    // document to insert when nothing was found
+    { $set: {name: "bb"} },
+    // options
+    {upsert: true, new: true, runValidators: true,
+        rawResult: true, multipleCastError: true });
 LocModel.geoSearch({}, {
   near: [1, 2],
   maxDistance: 22
@@ -1528,7 +1986,7 @@ interface ModelStruct {
   model: MyModel;
   method1: (callback: (model: MyModel, doc: MyDocument) => void) => MyModel;
 }
-var modelStruct1: ModelStruct;
+var modelStruct1 = <ModelStruct> {};
 var myModel1: MyModel;
 var myDocument1: MyDocument;
 modelStruct1.method1(function (myModel1, myDocument1) {
@@ -1555,9 +2013,188 @@ final2.method;interface ibase extends mongoose.Document {
 interface extended extends ibase {
   email: string;
 }
-const base: mongoose.Model<ibase> = mongoose.model<ibase>('testfour', null)
-const extended: mongoose.Model<extended> = base.discriminator<extended>('extendedS', null);
+const base: mongoose.Model<ibase> = mongoose.model<ibase>('testfour')
+const extended: mongoose.Model<extended> = base.discriminator<extended>('extendedS', schema);
 const x = new extended({
   username: 'hi',     // required in baseSchema
   email: 'beddiw',    // required in extededSchema
+});
+// Setting a different value for `discriminatorKey`
+const extended2: mongoose.Model<extended> = base.discriminator<extended>('extendedS', schema, 'extended');
+
+new mongoose.Schema({}, {
+  timestamps: {
+    createdAt: 'foo',
+    updatedAt: 'bar'
+  }
+});
+
+new mongoose.Schema({}, {
+  collation: {
+    strength: 1,
+    locale: 'en_US'
+  }
+});
+
+new mongoose.Schema({}, {
+  toObject: {
+    versionKey: false
+  },
+  toJSON: {
+    depopulate: true
+  }
+})
+
+const aggregatePrototypeGraphLookup: mongoose.Aggregate<any> = MyModel.aggregate([]).graphLookup({});
+const addFieldsAgg: mongoose.Aggregate<any> = aggregatePrototypeGraphLookup.addFields({})
+
+MyModel.findById('foo').then((doc: mongoose.Document) => {
+  const a: boolean = doc.isDirectSelected('bar');
+  const b: boolean = doc.$isDeleted();
+  doc.$isDeleted(true);
+});
+
+MyModel.translateAliases({});
+
+const queryPrototypeError: Error | null = MyModel.findById({}).error();
+const queryProrotypeErrorSetUnset: mongoose.Query<any> = MyModel.findById({}).error(null).error(new Error('foo'));
+
+MyModel.createIndexes().then(() => {});
+MyModel.createIndexes((err: any): void => {}).then(() => {});
+
+mongoose.connection.createCollection('foo').then(() => {});
+mongoose.connection.createCollection('foo', {wtimeout: 5}).then(() => {});
+mongoose.connection.createCollection('foo', {wtimeout: 5}, (err: Error, coll): void => {coll.collectionName}).then(() => {});
+
+const db = mongoose.connection;
+const User = mongoose.model('User', new mongoose.Schema({ name: String }));
+
+let session: mongoose.ClientSession;
+mongoose.connection.createCollection('users').
+  then(() => db.startSession()).
+  then(_session => {
+    session = _session;
+    session.startTransaction();
+    User.findOne({ name: 'foo' }).session(session);
+    session.commitTransaction();
+    return User.create({ name: 'foo' });
+  });
+
+const Event = db.model('Event', new mongoose.Schema({ createdAt: Date }), 'Event');
+
+db.createCollection('users').
+  then(() => db.startSession()).
+  then(_session => {
+    session = _session;
+    return User.create({ name: 'foo' });
+  }).
+  then(() => {
+    session.startTransaction();
+    return User.findOne({ name: 'foo' }).session(session).exec();
+  }).
+  then(() => {
+    session.commitTransaction();
+    return User.findOne({ name: 'bar' }).exec();
+  }).
+  catch(() => {
+    session.abortTransaction();
+  });
+  db.createCollection('Event').
+  then(() => db.startSession()).
+  then(_session => {
+    session = _session;
+    session.startTransaction();
+    return Event.insertMany([
+      { createdAt: new Date('2018-06-01') },
+      { createdAt: new Date('2018-06-02') },
+      { createdAt: new Date('2017-06-01') },
+      { createdAt: new Date('2017-05-31') }
+    ], { session: session });
+  }).
+  then(() => Event.aggregate([
+    {
+      $group: {
+        _id: {
+          month: { $month: '$createdAt' },
+          year: { $year: '$createdAt' }
+        },
+        count: { $sum: 1 }
+      }
+    },
+    { $sort: { count: -1, '_id.year': -1, '_id.month': -1 } }
+  ]).session(session).exec()).
+  then((res: any) => {
+    session.commitTransaction();
+  });
+
+/** https://mongoosejs.com/docs/transactions.html */
+
+const Customer = db.model('Customer', new mongoose.Schema({ name: String }));
+
+db.createCollection('customers').
+  then(() => db.startSession()).
+  then(_session => {
+    session = _session;
+    // Start a transaction
+    session.startTransaction();
+    // This `create()` is part of the transaction because of the `session`
+    // option.
+    return Customer.create([{ name: 'Test' }], { session: session });
+  }).
+  // Transactions execute in isolation, so unless you pass a `session`
+  // to `findOne()` you won't see the document until the transaction
+  // is committed.
+  then((customer: mongoose.Document[]) => Customer.findOne({ name: 'Test' }).exec()).
+  // This `findOne()` will return the doc, because passing the `session`
+  // means this `findOne()` will run as part of the transaction.
+  then(() => Customer.findOne({ name: 'Test' }).session(session).exec()).
+  // Once the transaction is committed, the write operation becomes
+  // visible outside of the transaction.
+  then(() => session.commitTransaction()).
+  then(() => Customer.findOne({ name: 'Test' }).exec())
+
+/**
+ * https://mongoosejs.com/docs/guide.html#writeConcern
+ */
+new mongoose.Schema({ name: String }, {
+  writeConcern: {
+    w: 'majority',
+    j: true,
+    wtimeout: 1000
+  }
+});
+
+/**
+ * https://mongoosejs.com/docs/guide.html#shardKey
+ */
+new mongoose.Schema({name: String}, {
+  shardKey: {
+    tag: 1, name: 1
+  }
+})
+
+/* Query helpers: https://mongoosejs.com/docs/guide.html#query-helpers */
+
+interface Animal2 extends mongoose.Document {
+  name: string;
+  type: string;
+  tags: string[];
+}
+var animal2Schema = new mongoose.Schema({
+  name: String,
+  type: String,
+  tags: { type: [String], index: true } // field level
+});
+let animal2QueryHelpers = {
+  byName<Q extends mongoose.DocumentQuery<any, Animal2>>(this: Q, name: string) {
+    return this.where({ name: new RegExp(name, 'i') });
+  }
+};
+animal2Schema.query = animal2QueryHelpers;
+var Animal2 = mongoose.model<Animal2, mongoose.Model<Animal2, typeof animal2QueryHelpers>>('Animal', animal2Schema);
+Animal2.find().byName('fido').exec(function(err, animals) {
+  console.log(animals);
+});
+Animal2.findOne().byName('fido').exec(function(err, animal) {
+  console.log(animal);
 });

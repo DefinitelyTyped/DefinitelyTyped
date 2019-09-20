@@ -1,21 +1,24 @@
 // Type definitions for YouTube
 // Project: https://developers.google.com/youtube/
-// Definitions by: Daz Wilkin <https://github.com/DazWilkin/>,
+// Definitions by: Daz Wilkin <https://github.com/DazWilkin>,
 //                 Ian Obermiller <http://ianobermiller.com>,
-//                 Josh Goldberg <https://gitub.com/JoshuaKGoldberg>
+//                 Josh Goldberg <https://github.com/JoshuaKGoldberg>
+//                 Eliot Fallon <https://github.com/eliotfallon213>
+//                 Terry Mun <https://github.com/terrymun>
+//                 Paul Hobbel <https://github.com/paulhobbel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
 /**
  * @see https://developers.google.com/youtube/iframe_api_reference
- * @see https://developers.google.com/YouTube/player_parameters
+ * @see https://developers.google.com/youtube/player_parameters
  */
 declare namespace YT
 {
 	/**
 	 * State of a video player.
 	 */
-	export enum PlayerState
+	export const enum PlayerState
 	{
 		UNSTARTED = -1,
 		ENDED = 0,
@@ -252,6 +255,22 @@ declare namespace YT
 	}
 
 	/**
+	 * Whether to playback video inline or full-screen in an HTML5 player on iOS
+	 */
+	export const enum PlaysInline
+	{
+		/**
+		 * Playback in fullscreen.
+		 */
+		Fullscreen = 0,
+
+		/**
+		 * Playback inline
+		 */
+		Inline = 1
+	}
+
+	/**
 	 * Whether to show related videos after the video finishes.
 	 */
 	export const enum RelatedVideos
@@ -356,17 +375,17 @@ declare namespace YT
 		/**
 		 * Player width.
 		 */
-		width?: number;
+		width?: string | number;
 
 		/**
 		 * Player height
 		 */
-		height?: number;
+		height?: string | number;
 
 		/**
 		 * ID of the video to load.
 		 */
-		videoId: string;
+		videoId?: string;
 
 		/**
 		 * Player parameters.
@@ -377,6 +396,11 @@ declare namespace YT
 		 * Handlers for events fired by the player.
 		 */
 		events?: Events;
+
+		/**
+		 * Points host to correct origin for CORS
+		 */
+		host?: string;
 	}
 
 	/**
@@ -518,6 +542,11 @@ declare namespace YT
 		 * Comma separated list of video IDs to play after the URL path's video.
 		 */
 		playlist?: string;
+
+		/**
+		 * Whether videos play inline or fullscreen in an HTML5 player on iOS. (currently by default, Fullscreen).
+		 */
+		playsinline?: PlaysInline;
 
 		/**
 		 * Whether to show related videos after the video finishes (by default, Show).
@@ -922,6 +951,14 @@ declare namespace YT
 		 */
 		addEventListener<TEvent extends PlayerEvent>(eventName: keyof Events, listener: (event: TEvent) => void): void;
 
+        /**
+		 * Remove an event listener for the specified event.
+		 *
+		 * @param eventName   Name of the event.
+		 * @param listener   Handler for the event.
+		 */
+		removeEventListener<TEvent extends PlayerEvent>(eventName: keyof Events, listener: (event: TEvent) => void): void;
+        
 		/**
 		 * @returns The DOM node for the embedded <iframe>.
 		 */
