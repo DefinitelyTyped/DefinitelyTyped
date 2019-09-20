@@ -212,6 +212,9 @@ declare class HammerInput
 
   /** Reference to the srcEvent.preventDefault() method. Only for experts! */
   preventDefault:Function;
+    
+  /** Additional event(panleft, panright, pinchin, pinchout...) */
+  additionalEvent: string;
 }
 
 declare class MouseInput extends HammerInput
