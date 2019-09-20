@@ -2,7 +2,7 @@ import evaluate = require('static-eval');
 import esprima = require('esprima');
 import * as ESTree from 'estree';
 
-var parse = esprima.parse;
+var parse = esprima.parseScript;
 
 
 var src = '[1,2,3+4*10+n,foo(3+5),obj[""+"x"].y]';

@@ -1,4 +1,4 @@
-import * as tilereduce from 'tile-reduce'
+import tilereduce = require('tile-reduce');
 import { BBox, Tile, Source, Types } from 'tile-reduce'
 
 global.mapOptions

@@ -1,3 +1,5 @@
+import $ = require('jquery');
+
 declare function alert(a: any): void;
 
 interface IHttp {

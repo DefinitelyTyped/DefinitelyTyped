@@ -8,7 +8,7 @@ declare class UndertakerRegistry {
      * Returns the task with that name or undefined if no task is registered with that name.
      * Useful for custom task storage.
      * Custom registries can override this method when inheriting from this default registry.
-     * @param taskName {string} - Name of task.
+     * @param taskName - Name of task.
      */
     get<TTaskFunction>(taskName: string): TTaskFunction;
 
@@ -16,7 +16,7 @@ declare class UndertakerRegistry {
      * No-op method that receives the undertaker instance.
      * Useful to set pre-defined tasks using the undertaker.task(taskName, fn) method.
      * Custom registries can override this method when inheriting from this default registry.
-     * @param taker {any} - Instance of undertaker.
+     * @param taker - Instance of undertaker.
      */
     init(taker: any): void;
 
@@ -25,8 +25,8 @@ declare class UndertakerRegistry {
      * If set modifies a task, it should return the new task so Undertaker can properly maintain metadata for the task.
      * Useful for adding custom behavior to every task as it is registered in the system.
      * Custom registries can override this method when inheriting from this default registry.
-     * @param taskName {string} - Name of task.
-     * @param fn {UndertakerRegistry.TaskFunction} - Task function.
+     * @param taskName - Name of task.
+     * @param fn - Task function.
      */
     set<TTaskFunction>(taskName: string, fn: TTaskFunction): TTaskFunction;
 

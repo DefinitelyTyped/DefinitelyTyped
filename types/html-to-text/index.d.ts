@@ -1,6 +1,6 @@
 // Type definitions for html-to-text v1.4.0
 // Project: https://github.com/werk85/node-html-to-text
-// Definitions by: Eryk Warren <https://github.com/erykwarren/>
+// Definitions by: Eryk Warren <https://github.com/erykwarren>
 // Definitions: https://github.com/DefinitelyTyped/html-to-text
 
 interface HtmlToTextStatic {
@@ -75,6 +75,29 @@ interface HtmlToTextOptions {
      *  Ignore all document images if true.
      */
     ignoreImage?: boolean;
+    
+    /**
+     *  Dont print brackets around the link if true
+     */
+    noLinkBrackets?: boolean;
+    
+    /**
+     *  By default, any newlines \n in a block of text will be removed.
+     *  If true, these newlines will not be removed.
+     */
+    preserveNewlines?: boolean;
+    
+    /**
+     *  By default, headings (<h1>, <h2>, etc) are uppercased.
+     *  Set to false to leave headings as they are.
+     */
+    uppercaseHeadings?: boolean;
+    
+    /**
+     *  By default, paragraphs are converted with two newlines (\n\n).
+     *  Set to true to convert to a single newline.
+     */
+    singleNewLineParagraphs?: boolean;
 }
 
 declare module "html-to-text" {

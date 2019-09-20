@@ -1,5 +1,5 @@
-import { jsdom, JSDOM } from 'jsdom';
-import { CookieJar, MemoryCookieStore } from 'tough-cookie';
+import { JSDOM, VirtualConsole, CookieJar, FromUrlOptions, FromFileOptions, DOMWindow, ResourceLoader, FetchOptions, ConstructorOptions } from 'jsdom';
+import { CookieJar as ToughCookieJar, MemoryCookieStore } from 'tough-cookie';
 import { Script } from 'vm';
 
 function test_basic_usage() {
@@ -37,7 +37,7 @@ function test_executing_scripts3() {
 }
 
 function test_virtualConsole() {
-    const virtualConsole = new jsdom.VirtualConsole();
+    const virtualConsole = new VirtualConsole();
     const dom = new JSDOM(``, { virtualConsole });
 
     virtualConsole.on('error', () => { });
@@ -54,10 +54,11 @@ function test_virtualConsole() {
 
 function test_cookieJar() {
     const store = {} as MemoryCookieStore;
-    const options = {} as CookieJar.Options;
+    const options = {} as ToughCookieJar.Options;
 
-    const cookieJar = new jsdom.CookieJar(store, options);
-    const dom = new JSDOM(``, { cookieJar });
+    const cookieJar: CookieJar = new CookieJar(store, options);
+    const constructorOptions: ConstructorOptions = { cookieJar };
+    const dom = new JSDOM(``, constructorOptions);
 }
 
 function test_beforeParse() {
@@ -68,13 +69,22 @@ function test_beforeParse() {
     });
 }
 
+function test_storageQuota() {
+    new JSDOM('', { storageQuota: 1337 });
+}
+
+function test_pretendToBeVisual() {
+    new JSDOM('', { pretendToBeVisual: true });
+}
+
 function test_serialize() {
     const dom = new JSDOM(`<!DOCTYPE html>hello`);
 
     dom.serialize() === '<!DOCTYPE html><html><head></head><body>hello</body></html>';
 
     // Contrast with:
-    dom.window.document.documentElement.outerHTML === '<html><head></head><body>hello</body></html>';
+    // tslint:disable-next-line no-unnecessary-type-assertion
+    dom.window.document.documentElement!.outerHTML === '<html><head></head><body>hello</body></html>';
 }
 
 function test_nodeLocation() {
@@ -111,11 +121,11 @@ function test_runVMScript() {
     dom.runVMScript(s);
     dom.runVMScript(s);
 
-    dom.window.ran === 3;
+    (dom.window as any).ran === 3;
 }
 
 function test_reconfigure() {
-    const myFakeTopForTesting = {} as Window;
+    const myFakeTopForTesting = {} as DOMWindow;
 
     const dom = new JSDOM();
 
@@ -129,15 +139,21 @@ function test_reconfigure() {
 }
 
 function test_fromURL() {
-    const options = {} as jsdom.FromUrlOptions;
+    const options = {} as FromUrlOptions;
 
     JSDOM.fromURL('https://example.com/', options).then(dom => {
         console.log(dom.serialize());
     });
+
+    function pretendToBeVisual() {
+        JSDOM.fromURL("https://github.com", {
+            pretendToBeVisual: true
+        });
+    }
 }
 
 function test_fromFile() {
-    const options = {} as jsdom.Options;
+    const options = {} as FromFileOptions;
 
     JSDOM.fromFile('stuff.html', options).then(dom => {
         console.log(dom.serialize());
@@ -159,4 +175,17 @@ function test_fragment_serialization() {
             console.log(frag.firstChild.outerHTML); // logs "<p>Hello</p>"
         }
     }
+}
+
+function test_custom_resource_loader() {
+    class CustomResourceLoader extends ResourceLoader {
+        fetch(url: string, options: FetchOptions) {
+          if (options.element) {
+            console.log(`Element ${options.element.localName} is requesting the url ${url}`);
+          }
+
+          return super.fetch(url, options);
+        }
+    }
+    new JSDOM('', { resources: new CustomResourceLoader() });
 }

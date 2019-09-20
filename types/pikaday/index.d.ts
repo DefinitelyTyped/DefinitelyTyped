@@ -1,7 +1,10 @@
-// Type definitions for pikaday
-// Project: https://github.com/dbushell/Pikaday
-// Definitions by: Rudolph Gottesheim <http://midnight-design.at/>
+// Type definitions for pikaday 1.7
+// Project: https://github.com/dbushell/Pikaday, https://pikaday.com
+// Definitions by: Rudolph Gottesheim <https://github.com/MidnightDesign>
+//                 Åke Wivänge <https://github.com/wake42>
+//                 Istvan Mezo <https://github.com/mezoistvan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import * as moment from 'moment';
 
@@ -18,7 +21,7 @@ declare class Pikaday {
      * Extends the existing configuration options for Pikaday object with the options provided.
      * Can be used to change/extend the configurations on runtime.
      * @param options full/partial configuration options.
-     * @returns {} extended configurations.
+     * @returns extended configurations.
      */
     config(options: Pikaday.PikadayOptions): Pikaday.PikadayOptions;
 
@@ -33,7 +36,7 @@ declare class Pikaday {
      * Returns a JavaScript Date object for the selected day, or null if
      * no date is selected.
      */
-    getDate(): Date;
+    getDate(): Date | null;
 
     /**
      * Set the current selection. This will be restricted within the bounds
@@ -41,18 +44,18 @@ declare class Pikaday {
      * can optionally be passed as the second parameter to prevent triggering
      * of the onSelect callback, allowing the date to be set silently.
      */
-    setDate(date: string | Date, triggerOnSelect?: boolean): void;
+    setDate(date: string | Date | null, preventOnSelect?: boolean): void;
 
     /**
      * Returns a Moment.js object for the selected date (Moment must be
      * loaded before Pikaday).
      */
-    getMoment(): moment.Moment;
+    getMoment(): moment.Moment | null;
 
     /**
      * Set the current selection with a Moment.js object (see setDate).
      */
-    setMoment(moment: any): void;
+    setMoment(moment: any, preventOnSelect?: boolean): void;
 
     /**
      * Change the current view to see a specific date.
@@ -87,24 +90,24 @@ declare class Pikaday {
     /**
      * Update the minimum/earliest date that can be selected.
      */
-    setMinDate(date: Date): void;
+    setMinDate(date: Date | null): void;
 
     /**
      * Update the maximum/latest date that can be selected.
      */
-    setMaxDate(date: Date): void;
+    setMaxDate(date: Date | null): void;
 
     /**
      * Update the range start date. For using two Pikaday instances to
      * select a date range.
      */
-    setStartRange(date: Date): void;
+    setStartRange(date: Date | null): void;
 
     /**
      * Update the range end date. For using two Pikaday instances to select
      * a date range.
      */
-    setEndRange(date: Date): void;
+    setEndRange(date: Date | null): void;
 
     /**
      * Update the HTML.
@@ -135,6 +138,11 @@ declare class Pikaday {
      * Hide the picker and remove all event listeners - no going back!
      */
     destroy(): void;
+
+    /**
+     * Clear and reset the date
+     */
+    clear(): void;
 }
 
 // merge the Pikaday class declaration with a module
@@ -151,7 +159,7 @@ declare namespace Pikaday {
         /**
          * Bind the datepicker to a form field.
          */
-        field?: HTMLElement;
+        field?: HTMLElement | null;
 
         /**
          * The default output format for toString() and field value.
@@ -163,13 +171,18 @@ declare namespace Pikaday {
          * Use a different element to trigger opening the datepicker.
          * Default: field element.
          */
-        trigger?: HTMLElement;
+        trigger?: HTMLElement | null;
 
         /**
          * Automatically show/hide the datepicker on field focus.
          * Default: true if field is set.
          */
         bound?: boolean;
+
+        /**
+         * Data-attribute on the input field with an aria assistance test (only applied when bound is set)
+         */
+        ariaLabel?: string;
 
         /**
          * Preferred position of the datepicker relative to the form field
@@ -188,7 +201,7 @@ declare namespace Pikaday {
          * DOM node to render calendar into, see container example.
          * Default: undefined.
          */
-        container?: HTMLElement;
+        container?: HTMLElement | null;
 
         /**
          * The initial date to view when first opened.
@@ -226,7 +239,7 @@ declare namespace Pikaday {
          * Callback function that gets passed a Date object for each day
          * in view. Should return true to disable selection of that day.
          */
-        disableDayFn?: (date: Date) => boolean;
+        disableDayFn?(date: Date): boolean;
 
         /**
          * Number of years either side (e.g. 10) or array of upper/lower range
@@ -238,6 +251,11 @@ declare namespace Pikaday {
          * Show the ISO week number at the head of the row. Default: false.
          */
         showWeekNumber?: boolean;
+
+        /**
+         * Select a whole week instead of a day (default false)
+         */
+        pickWholeWeek?: boolean;
 
         /**
          * Reverse the calendar for right-to-left languages. Default: false.
@@ -258,11 +276,16 @@ declare namespace Pikaday {
          * Render the month after the year in the title. Default: false.
          */
         showMonthAfterYear?: boolean;
-		
+
         /**
          * Render days of the calendar grid that fall in the next or previous months to the current month instead of rendering an empty table cell. Default: false.
          */
         showDaysInNextAndPreviousMonths?: boolean;
+
+        /**
+         * Allows user to select date that is in the next or previous months (default: false)
+         */
+        enableSelectionDaysInNextAndPreviousMonths?: boolean;
 
         /**
          * Number of visible calendars.
@@ -277,30 +300,61 @@ declare namespace Pikaday {
         mainCalendar?: string;
 
         /**
+         * Array of dates that you would like to differentiate from regular days (e.g. ['Sat Jun 28 2017', 'Sun Jun 29 2017', 'Tue Jul 01 2017',])
+         */
+        events?: string[];
+
+        /**
          * Define a class name that can be used as a hook for styling different
          * themes. Default: null.
          */
         theme?: string;
 
         /**
+         * Defines if the field is blurred when a date is selected (default true)
+         */
+        blurFieldOnSelect?: boolean;
+
+        /**
+         * The default flag for moment's strict date parsing (requires Moment.js for custom formatting). Default: false
+         */
+        formatStrict?: boolean;
+
+        /**
+         * Function which will be used for formatting date object to string.
+         * This function will take precedence over moment.
+         */
+        toString?(date: Date, format?: string): string;
+
+        /**
+         * Function which will be used for parsing input string and getting a date object from it.
+         * This function will take precedence over moment.
+         */
+        parse?(date: string, format: string): Date | null;
+
+        /**
          * Callback function for when a date is selected.
          */
-        onSelect?: (date: Date) => void;
+        onSelect?(this: Pikaday, date: Date): void;
 
         /**
          * Callback function for when the picker becomes visible.
          */
-        onOpen?: () => void;
+        onOpen?(): void;
 
         /**
          * Callback function for when the picker is hidden.
          */
-        onClose?: () => void;
+        onClose?(): void;
 
         /**
          * Callback function for when the picker draws a new month.
          */
-        onDraw?: () => void;
+        onDraw?(): void;
+
+        /**
+         * Enable keyboard input support. Default: true
+         */
+        keyboardInput?: boolean;
     }
 }
-

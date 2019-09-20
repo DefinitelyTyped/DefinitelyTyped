@@ -7,10 +7,14 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": false,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
         ],
+        "paths": {
+            "lru-cache": ["lru-cache/v4"]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

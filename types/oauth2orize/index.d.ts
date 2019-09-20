@@ -1,48 +1,38 @@
 // Type definitions for oauth2orize 1.8
 // Project: https://github.com/jaredhanson/oauth2orize/
-// Definitions by: Wonshik Kim <https://github.com/wokim/>, Kei Son <https://github.com/heycalmdown>, Steve Hipwell <https://github.com/stevehipwell>
+// Definitions by: Wonshik Kim <https://github.com/wokim>, Kei Son <https://github.com/heycalmdown>, Steve Hipwell <https://github.com/stevehipwell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="node" />
 /// <reference types="express" />
 
-import { ServerRequest, ServerResponse } from "http";
+import { IncomingMessage, ServerResponse } from "http";
 
-interface OAuth2 {
+export interface OAuth2 {
   client: any;
-
   user: any;
-
   transactionID: string;
-
   redirectURI: string;
-
   req: OAuth2Req;
-
   info: OAuth2Info;
 }
 
-interface OAuth2Req {
+export interface OAuth2Req {
   clientID: string;
-
   redirectURI: string;
-
   scope: string;
-
   state: string;
-
   type: string;
-
   transactionID: string;
 }
 
-interface OAuth2Info {
+export interface OAuth2Info {
   scope: string;
 }
 
-export interface MiddlewareRequest extends ServerRequest {
+export interface MiddlewareRequest extends IncomingMessage {
   oauth2?: OAuth2;
-
   user?: any;
 }
 
@@ -51,7 +41,7 @@ export interface ServerOptions {
   loadTransaction: boolean;
 }
 
-export const createServer: (options?: ServerOptions) => OAuth2Server;
+export function createServer(options?: ServerOptions): OAuth2Server;
 
 export interface AuthorizeOptions {
   idLength?: number;
@@ -68,33 +58,87 @@ export interface ErrorHandlerOptions {
   mode?: string;
 }
 
-type MiddlewareFunction = (req: MiddlewareRequest, res: ServerResponse, next: MiddlewareNextFunction) => void;
+export class OAuth2Error extends Error {
+    code: string;
+    status: number;
+    uri?: string;
 
-type MiddlewareErrorFunction = (err: Error, req: MiddlewareRequest, res: ServerResponse, next: MiddlewareNextFunction) => void;
+    /**
+     * @param code Defaults to *server_error*.
+     * @param status Defaults to 500.
+     */
+    constructor(message?: string, code?: string, uri?: string, status?: number);
+}
 
-type MiddlewareNextFunction = (err?: Error) => void;
+export type AuthorizationErrorCode = 'invalid_request'
+    | 'unauthorized_client'
+    | 'access_denied'
+    | 'unsupported_response_type'
+    | 'invalid_scope'
+    | 'temporarily_unavailable';
 
-type ValidateFunction = (clientId: string, redirectURI: string, validated: (err: Error | null, client?: any, redirectURI?: string) => void) => void;
+export class AuthorizationError extends OAuth2Error {
+    /**
+     * @param code The code sets the status unless status is present. Mapping:
+     * invalid_request = 400
+     * unauthorized_client = 403
+     * access_denied = 403
+     * unsupported_response_type = 501
+     * invalid_scope = 400
+     * temporarily_unavailable = 503
+     * Defaults to *server_error*.
+     * @param status Defaults to 500 if code is not specified.
+     */
+    constructor(message?: string, code?: AuthorizationErrorCode | string, uri?: string, status?: number);
+}
 
-type ImmediateFunction = (client: any, user: any, scope: string[], type: string, areq: any, done: (err: Error | null, allow: boolean, info: any, locals: any) => void) => void;
+export type TokenErrorCode = 'invalid_request'
+    | 'invalid_client'
+    | 'invalid_grant'
+    | 'unauthorized_client'
+    | 'unsupported_grant_type'
+    | 'invalid_scope';
 
-type DecisionParseFunction = (req: MiddlewareRequest, done: (err: Error | null, params: any) => void) => void;
+export class TokenError extends OAuth2Error {
+    /**
+     * @param code The code sets the status unless status is present. Mapping:
+     * invalid_request = 400
+     * invalid_client = 401
+     * invalid_grant = 403
+     * unauthorized_client = 403
+     * unsupported_grant_type = 501
+     * invalid_scope = 400
+     * Defaults to server_error.
+     * @param status Defaults to 500 if code is not specified.
+     */
+    constructor(message?: string, code?: TokenErrorCode | string, uri?: string, status?: number);
+}
 
-type SerializeClientFunction = (client: any, done: SerializeClientDoneFunction) => void;
-type SerializeClientDoneFunction = (err: Error | null, id: string) => void;
+export type MiddlewareFunction = (req: MiddlewareRequest, res: ServerResponse, next: MiddlewareNextFunction) => void;
 
-type DeserializeClientFunction = (id: string, done: DeserializeClientDoneFunction) => void;
-type DeserializeClientDoneFunction = (err: Error | null, client?: any | boolean) => void;
+export type MiddlewareErrorFunction = (err: Error, req: MiddlewareRequest, res: ServerResponse, next: MiddlewareNextFunction) => void;
 
-type IssueGrantCodeFunction = (client: any, redirectUri: string, user: any, res: any, issued: (err: Error | null, code?: string) => void) => void;
+export type MiddlewareNextFunction = (err?: Error) => void;
 
-type IssueGrantTokenFunction = (client: any, user: any, ares: any, issued: (err: Error | null, code?: string, params?: any) => void) => void;
+export type ValidateFunction = (clientId: string, redirectURI: string, validated: (err: Error | null, client?: any, redirectURI?: string) => void) => void;
 
+export type ImmediateFunction = (client: any, user: any, scope: string[], type: string, areq: any, done: (err: Error | null, allow: boolean, info: any, locals: any) => void) => void;
 
-type IssueExchangeCodeFunction = (client: any, code: string, redirectURI: string, issued: ExchangeDoneFunction) => void;
+export type DecisionParseFunction = (req: MiddlewareRequest, done: (err: Error | null, params: any) => void) => void;
 
-type ExchangeDoneFunction = (err: Error | null, accessToken?: string | boolean, refreshToken?: string, params?: any) => void;
+export type SerializeClientFunction = (client: any, done: SerializeClientDoneFunction) => void;
+export type SerializeClientDoneFunction = (err: Error | null, id: string) => void;
 
+export type DeserializeClientFunction = (id: string, done: DeserializeClientDoneFunction) => void;
+export type DeserializeClientDoneFunction = (err: Error | null, client?: any | boolean) => void;
+
+export type IssueGrantCodeFunction = (client: any, redirectUri: string, user: any, res: any, issued: (err: Error | null, code?: string) => void) => void;
+
+export type IssueGrantTokenFunction = (client: any, user: any, ares: any, issued: (err: Error | null, code?: string, params?: any) => void) => void;
+
+export type IssueExchangeCodeFunction = (client: any, code: string, redirectURI: string, issued: ExchangeDoneFunction) => void;
+
+export type ExchangeDoneFunction = (err: Error | null, accessToken?: string | boolean, refreshToken?: string, params?: any) => void;
 
 export class OAuth2Server {
   grant(type: string, fn: MiddlewareFunction): OAuth2Server;
@@ -111,6 +155,7 @@ export class OAuth2Server {
 
   decision(options: DecisionOptions, parse: DecisionParseFunction): MiddlewareFunction;
   decision(parse: DecisionParseFunction): MiddlewareFunction;
+  decision(): MiddlewareFunction;
 
   token(options?: any): MiddlewareFunction;
 

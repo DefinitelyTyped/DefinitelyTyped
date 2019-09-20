@@ -1,70 +1,69 @@
+/// <reference types="node" />
+import gamepad = require('gamepad');
 
+// Initialize the library
+gamepad.init();
 
+// List the state of all currently attached devices
+for (let i = 0, l = gamepad.numDevices(); i < l; i++) {
+    console.log(i, gamepad.deviceAtIndex(i));
+}
 
-()=>{
-    function runAnimation()
-    {
-        window.requestAnimationFrame(runAnimation);
+// Create a game loop and poll for events
+setInterval(gamepad.processEvents, 16);
+// Scan for new gamepads as a slower rate
+setInterval(gamepad.detectDevices, 500);
 
-        var gamepads = navigator.getGamepads();
-
-        for (var i = 0; i < gamepads.length; ++i)
-        {
-            var pad = gamepads[i];
-            // todo; simple demo of displaying pad.axes and pad.buttons
+// Listen for new gamepads being attached
+gamepad.on('attach', (deviceID, device) => {
+    console.log('attach', {
+        deviceID,
+        device: {
+            deviceID: device.deviceID,
+            description: device.description,
+            vendorID: device.vendorID,
+            productID: device.productID,
+            axisStates: device.axisStates,
+            buttonStates: device.buttonStates,
         }
-    }
+    });
+});
 
-    window.requestAnimationFrame(runAnimation);
-};
+// Listen for new gamepads being removed
+gamepad.on('remove', deviceID => {
+    console.log('remove', {
+        deviceID
+    });
+});
 
-(()=>{
-    var gamepadconnected = (e: Gamepad.GamepadEvent) => {
-        console.log('Gamepad ' + e.gamepad.index + ' connected!');
-        if(e.gamepad.mapping == 'standard'){
-            console.log("The Gamepad's controls have been mapped to the Standard Gamepad layout.");
-        }
-    };
-    var gamepaddisconnected = (e: Gamepad.GamepadEvent) => {
-        console.log('Gamepad ' + e.gamepad.index + ' disconnected!');
-    };
+// Listen for button down events on all gamepads
+gamepad.on('up', (deviceID, buttonID, timestamp) => {
+    console.log('up', {
+        deviceID,
+        buttonID,
+        timestamp
+    });
+});
 
-    window.addEventListener('GamepadConnected', gamepadconnected, false);
-    window.addEventListener('GamepadDisconnected', gamepaddisconnected, false);
-    window.addEventListener('webkitGamepadConnected', gamepadconnected, false);
-    window.addEventListener('webkitGamepadDisconnected', gamepaddisconnected, false);
-    window.addEventListener('mozGamepadConnected', gamepadconnected, false);
-    window.addEventListener('mozGamepadDisconnected', gamepaddisconnected, false);
+// Listen for button down events on all gamepads
+gamepad.on('down', (deviceID, buttonID, timestamp) => {
+    console.log('down', {
+        deviceID,
+        buttonID,
+        timestamp
+    });
+});
 
-    var requestAnimationFrame = window.requestAnimationFrame || (<any>window).mozRequestAnimationFrame;
-    var getGamepads = navigator.getGamepads || navigator.webkitGetGamepads;
-    if(getGamepads){
-        function runAnimation()
-        {
-            requestAnimationFrame.call(window, runAnimation);
+// Listen for move events on all gamepads
+gamepad.on('move', (deviceID, axisID, value, lastValue, timestamp) => {
+    console.log('move', {
+        deviceID,
+        axisID,
+        value,
+        lastValue,
+        timestamp
+    });
+});
 
-            var gamepads: Gamepad.Gamepad[] = getGamepads.call(navigator);
-            for(var i = 0; i < gamepads.length; i++){
-                var pad: Gamepad.Gamepad = gamepads[i];
-                if(pad && pad.connected){
-                    for (var k = 0; k < pad.buttons.length; k++)
-                    {   
-                        var button: Gamepad.GamepadButton = pad.buttons[k];
-                        if(button.pressed){
-                            console.log('pad[' + pad.index + ']: ' + 'time=' + pad.timestamp + ' id="' + pad.id + '" button[' + k + '] = ' + button.value);
-                        }
-                    }
-                    for (var k = 0; k < pad.axes.length; k++)
-                    {   
-                        var axis = pad.axes[k]; 
-                        if(Math.abs(axis) > 0.1){
-                            console.log('pad[' + pad.index + ']: ' + 'time=' + pad.timestamp + ' id="' + pad.id + '" axis[' + k + '] = ' + axis);
-                        }
-                    }
-                }
-            }
-        }
-
-        runAnimation();
-    }
-})();
+// Shutdown the library
+gamepad.shutdown();

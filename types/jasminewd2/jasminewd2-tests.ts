@@ -1,6 +1,4 @@
-let promise = new Promise<void>((resolve, reject) => {
-  resolve();
-});
+const promise = Promise.resolve();
 
 describe('jasminewd', () => {
   describe('global it, fit, xit, before and after', () => {
@@ -30,6 +28,34 @@ describe('jasminewd', () => {
 
     afterAll(() => {
       return promise;
+    });
+
+    it('should be able to use DoneFn', done => {
+      promise.then(done, done.fail);
+    });
+
+    fit('should be able to use DoneFn', done => {
+      promise.then(done, done.fail);
+    });
+
+    xit('should be able to use DoneFn', done => {
+      promise.then(done, done.fail);
+    });
+
+    beforeEach(done => {
+      promise.then(done, done.fail);
+    });
+
+    afterEach(done => {
+      promise.then(done, done.fail);
+    });
+
+    beforeAll(done => {
+      promise.then(done, done.fail);
+    });
+
+    afterAll(done => {
+      promise.then(done, done.fail);
     });
   });
 

@@ -1,7 +1,13 @@
-// Type definitions for Microsoft SharePoint: 2013.1
+// Type definitions for Microsoft SharePoint: 2016.1
 // Project: https://msdn.microsoft.com/en-us/library/office/jj193034.aspx
-// Definitions by: Stanislav Vyshchepan <http:// blog.gandjustas.ru>, Andrey Markeev <http:// markeev.com>
-// Definitions: https:// github.com/DefinitelyTyped/DefinitelyTyped
+// Definitions by: Stanislav Vyshchepan <https://github.com/gandjustas>
+//                 Andrey Markeev <https://github.com/andrei-markeev>
+//                 Vincent Biret <https://github.com/baywet>
+//                 Tero Arvola <https://github.com/teroarvola>
+//                 Dennis George <https://github.com/dennispg>
+//                 SPWizard01 <https://github.com/SPWizard01>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.5
 
 /// <reference types="microsoft-ajax" />
 
@@ -12,26 +18,139 @@ declare function ExecuteOrDelayUntilBodyLoaded(initFunc: () => void): void;
 declare function ExecuteOrDelayUntilScriptLoaded(func: () => void, depScriptFileName: string): boolean;
 declare function ExecuteOrDelayUntilEventNotified(func: (...args: any[]) => void, eventName: string): boolean;
 declare var Strings: any;
+declare const enum Sods {
+    missing = 1,
+    loading = 2,
+    pending = 3,
+    loaded = 4,
+    error = 5
+}
 
+declare function GetThemedImageUrl(image: string): string;
+declare function $urlHtmlEncodeString(string: string): string;
+declare var SPClientRenderer: SPClientRenderer;
+declare var MSOWebPartPageFormName: string;
+declare var HP: HP;
+
+interface SPClientRenderer {
+    AddCallStackInfoToErrors: boolean;
+    AddPostRenderCallback: (context: any, callback: () => void) => void;
+    CoreRender: () => void;
+    GlobalDebugMode: boolean;
+    IsDebugMode: () => boolean;
+    ParseTemplateString: (template: string) => () => string;
+    ParseTemplateStringWorker: (template: string) => () => string;
+    Render: () => void;
+    RenderCore: () => void;
+    RenderErrors: boolean;
+    RenderReplace: () => void;
+    ReplaceUrlTokens: (url: string) => () => string;
+    _ExecuteRenderCallbacks: () => void;
+    _ExecuteRenderCallbacksWorker: () => void;
+}
+
+interface HPIds {
+    close: string;
+    follow: string;
+    post: string;
+    title: string;
+    fileType: string;
+    size: string;
+    header: string;
+    body: string;
+    actions: string;
+    viewsLifeTime: string;
+    viewsRecent: string;
+    inner: string;
+    content: string;
+    arrowBorder: string;
+    arrow: string;
+    modifiedDate: string;
+    author: string;
+    viewDuplicates: string;
+    parentLink: string;
+    send: string;
+    openClient: string;
+    open: string;
+    preview: string;
+    dimensions: string;
+    dateCreated: string;
+    viewer: string;
+    sectionName: string;
+    siteLogo: string;
+    siteDescription: string;
+    noData: string;
+    summary: string;
+    peopleSkills: string;
+    peoplePastProjects: string;
+    peopleInterests: string;
+    peopleSchools: string;
+    peopleSummary: string;
+    peopleMemberships: string;
+}
+
+interface HP {
+    Close: () => void;
+    CommonActions: string;
+    CommonBody: string;
+    CommonHeader: string;
+    Follow: () => void;
+    GetAuthorsHtml: () => string;
+    GetBodySectionContent: () => string;
+    GetBodySectionHeading: () => string;
+    GetEmailLink: (title: string, path: string, client: string, url: string) => string;
+    GetFriendlyNameForFileType: (fileType: any) => string;
+    GetNowDateTimeDifference: () => string;
+    GetPeopleFollowingControl: () => string;
+    Hide: () => void;
+    Init: () => void;
+    InitPostLoad: () => void;
+    IsNumeric: () => boolean;
+    Resize: () => void;
+    SetPreviewOnHideCallback: () => void;
+    SetWidth: (width: number) => void;
+    Show: () => void;
+    ViewDuplicates: () => boolean;
+    getDateString: () => string;
+    getStringFromDate: () => string;
+    ids: HPIds;
+    loadSiteViewer: (id: string, idinner: string, idviewer: string, path: string, idglass: string) => void;
+    loadViewer: (id: string, idinner: string, idviewer: string, idpreview: string, embedUrl: string, previewUrl: string) => void;
+    postActionEventName: string;
+}
+
+interface Sod {
+    url: string;
+    key: string;
+    loaded: boolean;
+    depkeys?: string[];
+    state: Sods;
+    qfn?: any[];
+    reset?: boolean;
+}
+
+declare var _v_dictSod: { [address: string]: Sod };
 declare namespace SP {
-    class SOD {
-        static execute(fileName: string, functionName: string, ...args: any[]): void;
-        static executeFunc(fileName: string, typeName: string, fn: () => void): void;
-        static executeOrDelayUntilEventNotified(func: (...args: any[]) => void, eventName: string): boolean;
-        static executeOrDelayUntilScriptLoaded(func: () => void, depScriptFileName: string): boolean;
-        static notifyScriptLoadedAndExecuteWaitingJobs(scriptFileName: string): void;
-        static notifyEventAndExecuteWaitingJobs(eventName: string, args?: any[]): void;
-        static registerSod(fileName: string, url: string): void;
-        static registerSodDep(fileName: string, dependentFileName: string): void;
-        static loadMultiple(keys: string[], fn: () => void, bSync?: boolean): void;
-        static delayUntilEventNotified(func: (...args: any[]) => void, eventName: string): void;
+    interface SOD {
+        execute(fileName: string, functionName: string, ...args: any[]): void;
+        executeFunc(fileName: string, typeName: string, fn: () => void): void;
+        executeOrDelayUntilEventNotified(func: (...args: any[]) => void, eventName: string): boolean;
+        executeOrDelayUntilScriptLoaded(func: () => void, depScriptFileName: string): boolean;
+        notifyScriptLoadedAndExecuteWaitingJobs(scriptFileName: string): void;
+        notifyEventAndExecuteWaitingJobs(eventName: string, args?: any[]): void;
+        registerSod(fileName: string, url: string): void;
+        registerSodDep(fileName: string, dependentFileName: string): void;
+        loadMultiple(keys: string[], fn: () => void, bSync?: boolean): void;
+        delayUntilEventNotified(func: (...args: any[]) => void, eventName: string): void;
 
-        static get_prefetch(): boolean;
-        static set_prefetch(value: boolean): void;
+        get_prefetch(): boolean;
+        set_prefetch(value: boolean): void;
 
-        static get_ribbonImagePrefetchEnabled(): boolean;
-        static set_ribbonImagePrefetchEnabled(value: boolean): void;
+        get_ribbonImagePrefetchEnabled(): boolean;
+        set_ribbonImagePrefetchEnabled(value: boolean): void;
     }
+
+    let SOD: SOD;
 
     enum ListLevelPermissionMask {
         viewListItems, // : 1,
@@ -85,6 +204,7 @@ declare namespace SP {
     }
 
     class PageContextInfo {
+        constructor();
         static get_siteServerRelativeUrl(): string;
         static get_webServerRelativeUrl(): string;
         static get_webAbsoluteUrl(): string;
@@ -92,6 +212,7 @@ declare namespace SP {
         static get_siteAbsoluteUrl(): string;
         static get_webTitle(): string;
         static get_tenantAppVersion(): string;
+        static get_isAppWeb(): boolean;
         static get_webLogoUrl(): string;
         static get_webLanguage(): number;
         static get_currentLanguage(): number;
@@ -103,9 +224,8 @@ declare namespace SP {
         static get_clientServerTimeDelta(): number;
         static get_userLoginName(): string;
         static get_webTemplate(): string;
-        get_pagePersonalizationScope(): string;
+        static get_pagePersonalizationScope(): string;
     }
-
     class ContextPermissions {
         has(perm: number): boolean;
         hasPermissions(high: number, low: number): boolean;
@@ -150,34 +270,100 @@ declare class JSRequest {
     static PathName: string;
 }
 
-declare class _spPageContextInfo {
-    static alertsEnabled: boolean; // true
-    static allowSilverlightPrompt: string; // "True"
-    static clientServerTimeDelta: number; // -182
-    static crossDomainPhotosEnabled: boolean; // true
-    static currentCultureName: string; // "ru-RU"
-    static currentLanguage: number; // 1049
-    static currentUICultureName: string; // "ru-RU"
-    static layoutsUrl: string;  // "_layouts/15"
-    static pageListId: string;  // "{06ee6d96-f27f-4160-b6bb-c18f187b18a7}"
-    static pageItemId: number;
-    static pagePersonalizationScope: string; // 1
-    static serverRequestPath: string; // "/SPTypeScript/Lists/ConditionalFormattingTasksList/AllItems.aspx"
-    static siteAbsoluteUrl: string; // "https:// gandjustas-7b20d3715e8ed4.sharepoint.com"
-    static siteClientTag: string; // "0$$15.0.4454.1021"
-    static siteServerRelativeUrl: string; // "/"
-    static systemUserKey: string; // "i:0h.f|membership|10033fff84e7cb2b@live.com"
-    static tenantAppVersion: string; // "0"
-    static userId: number; // 12
-    static webAbsoluteUrl: string; // "https:// gandjustas-7b20d3715e8ed4.sharepoint.com/SPTypeScript"
-    static webLanguage: number; // 1049
-    static webLogoUrl: string; // "/_layouts/15/images/siteIcon.png?rev=23"
-    static webPermMasks: { High: number; Low: number; };
-    static webServerRelativeUrl: string; // "/SPTypeScript"
-    static webTemplate: string; // "17"
-    static webTitle: string; // "SPTypeScript"
-    static webUIVersion: number; // 15
+interface _spPageContextInfo {
+    alertsEnabled: boolean; // true
+    allowSilverlightPrompt: string; // "True"
+    blockDownloadsExperienceEnabled: boolean; // true
+    canUserCreateMicrosoftForm: boolean; // true
+    cdnPrefix: string; // "static.sharepointonline.com/bld"
+    clientServerTimeDelta: number; // -182
+    CorrelationId: string; // "6161f99d-10e5-4000-ad30-1016270fe31d"
+    crossDomainPhotosEnabled: boolean; // true
+    currentCultureName: string; // "ru-RU"
+    currentLanguage: number; // 1049
+    currentUICultureName: string; // "ru-RU"
+    disableAppViews: boolean; // true
+    disableFlows: boolean; // true
+    env: string; // "prod"
+    farmLabel: string; // "US_4_Content"
+    formDigestValue: string; // "0x5F3FE84E7EE9089C7D11DCDAFFB9E69CF8241E68B9EF071FA92CD419E878AC4F7C16E34696EFA667EFD0712FC1DF4945DDC0D09B5D23153A698A727AF076B5DE,07 Jun 2017 18:55:22 -0000"
+    formDigestTimeoutSeconds: number; // 1800
+    groupColor: string; // "#d40ac7"
+    groupHasHomepage: boolean; // true
+    groupId: string; //
+    guestsEnabled: boolean; // true
+    hasManageWebPermissions: boolean; // true
+    isAnonymousGuestUser: boolean; // true
+    isAppWeb: boolean; // true
+    isExternalGuestUser: boolean; // true
+    isNoScriptEnabled: boolean; // true
+    isSiteAdmin: boolean; // true
+    isSPO: boolean; // true
+    isTenantDevSite: boolean; // true
+    isWebWelcomePage: boolean; // true
+    layoutsUrl: string;  // "_layouts/15"
+    listBaseTemplate: number; // 119
+    listId: string; // "{06ee6d96-f27f-4160-b6bb-c18f187b18a7}"
+    listPermsMask: { High: number; Low: number; };
+    listTitle: string; // "Site Pages"
+    listUrl: string; // "/sites/site/list"
+    maximumFileSize: number; // 15360
+    openInClient: boolean; // true
+    pageListId: string;  // "{06ee6d96-f27f-4160-b6bb-c18f187b18a7}"
+    pageItemId: number;
+    pagePermsMask: { High: number; Low: number; };
+    pagePersonalizationScope: string; // 1
+    PreviewFeaturesEnabled: boolean; // true
+    preferUserTimeZone: boolean; // false
+    ProfileUrl: string; // "https://tenant-my.sharepoint.com/person.aspx"
+    PublishingFeatureOn: boolean; // true
+    RecycleBinItemCount: number; // -1
+    serverRedirectedUrl: string;
+    serverRequestPath: string; // "/SPTypeScript/Lists/ConditionalFormattingTasksList/AllItems.aspx"
+    serverTime: string; // "2017-06-07T18:55:22.3499459Z"
+    siteAbsoluteUrl: string; // "https:// gandjustas-7b20d3715e8ed4.sharepoint.com"
+    siteClassification: string; //
+    siteClientTag: string; // "0$$15.0.4454.1021"
+    siteColor: string; // "#d40ac7"
+    siteId: string; // "{3e09a056-f68f-44a3-8e0f-ff2c123b82cb}"
+    sitePagesEnabled: boolean; // true
+    siteServerRelativeUrl: string; // "/"
+    siteSubscriptionId: string; // 4eedf5f3-f71f-4e73-82ee-e19081363c8c
+    supportPoundStorePath: boolean; // true
+    supportPercentStorePath: boolean; // true
+    systemUserKey: string; // "i:0h.f|membership|10033fff84e7cb2b@live.com"
+    tenantAppVersion: string; // "0"
+    themeCacheToken: string; // "/sites/site::0:16.0.6525.1206"
+    themedCssFolderUrl: string;
+    themedImageFileNames: string;
+    updateFormDigestPageLoaded: string; // "2017-06-07T18:55:25.821Z"
+    userDisplayName: string; // "John Doe"
+    userEmail: string; // "john.doe@fabrikam.onmicrosoft.com"
+    userId: number; // 12
+    userLoginName: string; // "john.doe@fabrikam.onmicrosoft.com"
+    userPrincipalName: string;
+    viewOnlyExperienceEnabled: boolean; // true
+    viewId: string; // "{06ee6d96-f27f-4160-b6bb-c18f187b18a7}"
+    webAbsoluteUrl: string; // "https:// gandjustas-7b20d3715e8ed4.sharepoint.com/SPTypeScript"
+    webDescription: string; // "Some description"
+    webId: string; // "{06ee6d96-f27f-4160-b6bb-c18f187b18a7}"
+    webLanguage: number; // 1049
+    webLogoUrl: string; // "/_layouts/15/images/siteIcon.png?rev=23"
+    webPermMasks: { High: number; Low: number; };
+    webServerRelativeUrl: string; // "/SPTypeScript"
+    webTemplate: string; // "17"
+    webTitle: string; // "SPTypeScript"
+    webUIVersion: number; // 15
 }
+declare var _spPageContextInfo: _spPageContextInfo;
+
+interface _spFriendlyUrlPageContextInfo {
+    termId: string;
+    termSetId: string;
+    termStoreId: string;
+    title: string;
+}
+declare var _spFriendlyUrlPageContextInfo: _spFriendlyUrlPageContextInfo;
 
 declare function STSHtmlEncode(value: string): string;
 declare function STSHtmlDecode(value: string): string;
@@ -256,6 +442,7 @@ interface ContextInfo extends SPClientTemplates.RenderContext {
     ContentTypesEnabled: boolean;
     CurrentSelectedItems: boolean;
     CurrentUserId: number;
+    CurrentUserIsSiteAdmin: boolean;
     EnableMinorVersions: boolean;
     ExternalDataList: boolean;
     HasRelatedCascadeLists: boolean;
@@ -265,6 +452,7 @@ interface ContextInfo extends SPClientTemplates.RenderContext {
     LastSelectedItemIID: number;
     LastRowIndexSelected: number;
     RowFocusTimerID: number;
+    ListTitle: string;
     ListData: any; // SPClientTemplates.ListData_InView | SPClientTemplates.ListData_InForm
     ListSchema: SPClientTemplates.ListSchema;
     ModerationStatus: number;
@@ -273,6 +461,7 @@ interface ContextInfo extends SPClientTemplates.RenderContext {
     SelectAllCbx: HTMLElement;
     SendToLocationName: string;
     SendToLocationUrl: string;
+    SiteTitle: string;
     StateInitDone: boolean;
     TableCbxFocusHandler(instance: any, eventArgs: any): void;
     TableMouseoverHandler(instance: any, eventArgs: any): void;
@@ -1111,6 +1300,7 @@ declare namespace SPClientTemplates {
         ctxType: any; // not in View
         CurrentUserId: number;
         CurrentUserIsSiteAdmin: boolean;
+        LastSelectedItemIID: any;
         dictSel: any;
         /** Absolute path for the list display form */
         displayFormUrl: string;
@@ -1304,10 +1494,10 @@ declare namespace SPClientTemplates {
         /** Template overrides */
         Templates?: TemplateOverrides;
 
-        /** �allbacks called before rendering starts. Can be function (ctx: RenderContext) => void or array of functions.*/
+        /** Callbacks called before rendering starts. Can be function (ctx: RenderContext) => void or array of functions.*/
         OnPreRender?: RenderCallback | RenderCallback[];
 
-        /** �allbacks called after rendered html inserted into DOM. Can be function (ctx: RenderContext) => void or array of functions.*/
+        /** Callbacks called after rendered html inserted into DOM. Can be function (ctx: RenderContext) => void or array of functions.*/
         OnPostRender?: RenderCallback | RenderCallback[];
 
         /** View style (SPView.StyleID) for which the templates should be applied.
@@ -2043,6 +2233,7 @@ declare namespace SP {
     }
     /** Provides a base class for a collection of objects on a remote client. */
     class ClientObjectCollection<T> extends SP.ClientObject implements IEnumerable<T> {
+        constructor();
         get_areItemsAvailable(): boolean;
         /** Gets the data for all of the items in the collection. */
         retrieveItems(): SP.ClientObjectPrototype;
@@ -2055,7 +2246,6 @@ declare namespace SP {
         getItemAtIndex(index: number): T;
         fromJson(obj: any): void;
     }
-
     class ClientObjectList<T> extends SP.ClientObjectCollection<T> {
         constructor(context: SP.ClientRuntimeContext, objectPath: SP.ObjectPath, childItemType: any);
         fromJson(initValue: any): void;
@@ -2113,6 +2303,8 @@ declare namespace SP {
         set_formDigestHandlingEnabled(value: boolean): void;
         get_applicationName(): string;
         set_applicationName(value: string): void;
+        get_disableReturnValueCache(): boolean;
+        set_disableReturnValueCache(value: boolean): boolean;
         get_clientTag(): string;
         set_clientTag(value: string): void;
         get_webRequestExecutorFactory(): SP.IWebRequestExecutorFactory;
@@ -2344,10 +2536,10 @@ declare namespace SP {
     }
     class ClientContext extends SP.ClientRuntimeContext {
         constructor(serverRelativeUrlOrFullUrl?: string);
-        static get_current(): SP.ClientContext;
         get_web(): SP.Web;
         get_site(): SP.Site;
         get_serverVersion(): string;
+        static get_current(): SP.ClientContext;
     }
     enum ULSTraceLevel {
         verbose,
@@ -2486,7 +2678,7 @@ declare namespace SP {
         get_serverRelativeUrl(): string;
         deleteObject(): void;
     }
-    class AttachmentCollection extends SP.ClientObjectCollection<Attachment> {
+    interface AttachmentCollection extends SP.ClientObjectCollection<Attachment> {
         itemAt(index: number): SP.Attachment;
         get_item(index: number): SP.Attachment;
         getByFileName(fileName: string): SP.Attachment;
@@ -2583,7 +2775,7 @@ declare namespace SP {
         get_alertId(): SP.Guid;
         get_webId(): SP.Guid;
     }
-    class ChangeCollection extends SP.ClientObjectCollection<Change> {
+    interface ChangeCollection extends SP.ClientObjectCollection<Change> {
         itemAt(index: number): SP.Change;
         get_item(index: number): SP.Change;
     }
@@ -2803,7 +2995,7 @@ declare namespace SP {
         update(updateChildren: boolean): void;
         deleteObject(): void;
     }
-    class ContentTypeCollection extends SP.ClientObjectCollection<ContentType> {
+    interface ContentTypeCollection extends SP.ClientObjectCollection<ContentType> {
         itemAt(index: number): SP.ContentType;
         get_item(index: number): SP.ContentType;
         getById(contentTypeId: string): SP.ContentType;
@@ -2861,7 +3053,7 @@ declare namespace SP {
         update(): void;
         deleteObject(): void;
     }
-    class EventReceiverDefinitionCollection extends SP.ClientObjectCollection<EventReceiverDefinition> {
+    interface EventReceiverDefinitionCollection extends SP.ClientObjectCollection<EventReceiverDefinition> {
         itemAt(index: number): SP.EventReceiverDefinition;
         get_item(index: number): SP.EventReceiverDefinition;
         getById(eventReceiverId: SP.Guid): SP.EventReceiverDefinition;
@@ -2972,7 +3164,7 @@ declare namespace SP {
     class Feature extends SP.ClientObject {
         get_definitionId(): SP.Guid;
     }
-    class FeatureCollection extends SP.ClientObjectCollection<Feature> {
+    interface FeatureCollection extends SP.ClientObjectCollection<Feature> {
         itemAt(index: number): SP.Feature;
         get_item(index: number): SP.Feature;
         getById(featureId: SP.Guid): SP.Feature;
@@ -3032,7 +3224,7 @@ declare namespace SP {
         set_validationFormula(value: string): void;
         get_validationMessage(): string;
         set_validationMessage(value: string): void;
-        validateSetValue(item: SP.ListItem, value: string): void;
+        validateSetValue<T = any>(item: SP.ListItem<T>, value: string): void;
         updateAndPushChanges(pushChangesToLists: boolean): void;
         update(): void;
         deleteObject(): void;
@@ -3065,7 +3257,7 @@ declare namespace SP {
         get_editFormat(): SP.ChoiceFormatType;
         set_editFormat(value: SP.ChoiceFormatType): void;
     }
-    class FieldCollection extends SP.ClientObjectCollection<Field> {
+    interface FieldCollection extends SP.ClientObjectCollection<Field> {
         itemAt(index: number): SP.Field;
         get_item(index: number): SP.Field;
         get_schemaXml(): string;
@@ -3124,7 +3316,7 @@ declare namespace SP {
         set_required(value: boolean): void;
         deleteObject(): void;
     }
-    class FieldLinkCollection extends SP.ClientObjectCollection<FieldLink> {
+    interface FieldLinkCollection extends SP.ClientObjectCollection<FieldLink> {
         itemAt(index: number): SP.FieldLink;
         get_item(index: number): SP.FieldLink;
         getById(id: SP.Guid): SP.FieldLink;
@@ -3296,7 +3488,7 @@ declare namespace SP {
         get_length(): number;
         get_level(): SP.FileLevel;
         /** Specifies the SPListItem corresponding to this file if this file belongs to a doclib. Values for all fields are returned also. */
-        get_listItemAllFields(): SP.ListItem;
+        get_listItemAllFields<T = any>(): SP.ListItem<T>;
         /** Returns the user that owns the current lock on the file. MUST return null if there is no lock. */
         get_lockedByUser(): SP.User;
         /** Specifies the major version of the file. */
@@ -3337,7 +3529,7 @@ declare namespace SP {
         recycle(): SP.GuidResult;
         checkOut(): void;
     }
-    class FileCollection extends SP.ClientObjectCollection<File> {
+    interface FileCollection extends SP.ClientObjectCollection<File> {
         itemAt(index: number): SP.File;
         get_item(index: number): SP.File;
         getByUrl(url: string): SP.File;
@@ -3390,7 +3582,7 @@ declare namespace SP {
         get_versionLabel(): string;
         deleteObject(): void;
     }
-    class FileVersionCollection extends SP.ClientObjectCollection<FileVersion> {
+    interface FileVersionCollection extends SP.ClientObjectCollection<FileVersion> {
         itemAt(index: number): SP.FileVersion;
         get_item(index: number): SP.FileVersion;
         getById(versionid: number): SP.FileVersion;
@@ -3402,7 +3594,7 @@ declare namespace SP {
     class Folder extends SP.ClientObject {
         get_contentTypeOrder(): SP.ContentTypeId[];
         get_files(): SP.FileCollection;
-        get_listItemAllFields(): SP.ListItem;
+        get_listItemAllFields<T = any>(): SP.ListItem<T>;
         get_itemCount(): number;
         get_name(): string;
         get_parentFolder(): SP.Folder;
@@ -3417,7 +3609,7 @@ declare namespace SP {
         deleteObject(): void;
         recycle(): SP.GuidResult;
     }
-    class FolderCollection extends SP.ClientObjectCollection<Folder> {
+    interface FolderCollection extends SP.ClientObjectCollection<Folder> {
         itemAt(index: number): SP.Folder;
         get_item(index: number): SP.Folder;
         getByUrl(url: string): SP.Folder;
@@ -3428,7 +3620,7 @@ declare namespace SP {
         get_serverRelativeUrl(): string;
         get_formType(): SP.PageType;
     }
-    class FormCollection extends SP.ClientObjectCollection<Form> {
+    interface FormCollection extends SP.ClientObjectCollection<Form> {
         itemAt(index: number): SP.Form;
         get_item(index: number): SP.Form;
         getByPageType(formType: SP.PageType): SP.Form;
@@ -3464,7 +3656,7 @@ declare namespace SP {
         get_users(): SP.UserCollection;
         update(): void;
     }
-    class GroupCollection extends SP.ClientObjectCollection<Group> {
+    interface GroupCollection extends SP.ClientObjectCollection<Group> {
         itemAt(index: number): SP.Group;
         get_item(index: number): SP.Group;
         getByName(name: string): SP.Group;
@@ -3538,16 +3730,16 @@ declare namespace SP {
         newMode
     }
     /** Represents a list on a SharePoint Web site. */
-    class List extends SP.SecurableObject {
+    class List<T = any> extends SP.SecurableObject {
         /** Gets item by id. */
-        getItemById(id: number): SP.ListItem;
+        getItemById(id: number): SP.ListItem<T>;
         /** Gets a value that specifies whether the list supports content types. */
         get_allowContentTypes(): boolean;
         /** Gets the list definition type on which the list is based. For lists based on OOTB list definitions, return value corresponds the SP.ListTemplateType enumeration. */
         get_baseTemplate(): number;
         /** Gets base type for the list. */
         get_baseType(): SP.BaseType;
-        /** Gets a value that specifies the override of the web application�s BrowserFileHandling property at the list level. */
+        /** Gets a value that specifies the override of the web application's BrowserFileHandling property at the list level. */
         get_browserFileHandling(): SP.BrowserFileHandling;
         /** Gets the content types that are associated with the list. */
         get_contentTypes(): SP.ContentTypeCollection;
@@ -3750,20 +3942,20 @@ declare namespace SP {
         /** Sends the list to the site recycle bin. */
         recycle(): SP.GuidResult;
         /** Returns collection of list items based on the specified CAML query. */
-        getItems(query: SP.CamlQuery): SP.ListItemCollection;
+        getItems(query: SP.CamlQuery): SP.ListItemCollection<T>;
         /** Creates a new list item in the list. */
-        addItem(parameters: SP.ListItemCreationInformation): SP.ListItem;
+        addItem(parameters: SP.ListItemCreationInformation): SP.ListItem<T>;
     }
     /** Represents a collection of SP.List objects */
-    class ListCollection extends SP.ClientObjectCollection<List> {
+    interface ListCollection extends SP.ClientObjectCollection<List> {
         /** Gets the list at the specified index in the collection. */
-        itemAt(index: number): SP.List;
+        itemAt<T = any>(index: number): SP.List<T>;
         /** Gets the list at the specified index in the collection. */
-        get_item(index: number): SP.List;
+        get_item<T = any>(index: number): SP.List<T>;
         /** Returns the list with the specified title from the collection. */
-        getByTitle(title: string): SP.List;
+        getByTitle<T = any>(title: string): SP.List<T>;
         /** Returns the list with the specified list identifier. */
-        getById(id: string | SP.Guid): SP.List;
+        getById<T = any>(id: string | SP.Guid): SP.List<T>;
         /** Creates a new list or a document library. */
         add(parameters: SP.ListCreationInformation): SP.List;
         /** Gets a list that is the default location for wiki pages. */
@@ -3830,12 +4022,12 @@ declare namespace SP {
         textField,
     }
     /** Represents an item or row in a list. */
-    class ListItem extends SP.SecurableObject {
-        get_fieldValues(): any;
+    class ListItem<T = any> extends SP.SecurableObject {
+        get_fieldValues(): T;
         /** Gets the specified field value for the list item. Field value is returned as string, but it can be casted to a specific field value type, e.g. SP.LookupFieldValue, etc. */
-        get_item(fieldInternalName: string): any;
+        get_item<K extends keyof T>(fieldInternalName: K): T[K];
         /** Sets the specified field value for the list item. Consider using parseAndSetFieldValue instead. */
-        set_item(fieldInternalName: string, value: any): void;
+        set_item<K extends keyof T>(fieldInternalName: K, value: T[K]): void;
         /** Gets collection of objects that represent attachments for the list item. */
         get_attachmentFiles(): SP.AttachmentCollection;
         /** Gets the content type of the item. */
@@ -3878,10 +4070,10 @@ declare namespace SP {
         /** Validates form values specified for the list item. Errors are returned through hasException and errorMessage properties of the ListItemFormUpdateValue objects */
         validateUpdateListItem(formValues: SP.ListItemFormUpdateValue[], bNewDocumentUpdate: boolean): SP.ListItemFormUpdateValue[];
     }
-    class ListItemCollection extends SP.ClientObjectCollection<ListItem> {
-        itemAt(index: number): SP.ListItem;
-        get_item(index: number): SP.ListItem;
-        getById(id: number | string): SP.ListItem;
+    interface ListItemCollection<T = any> extends SP.ClientObjectCollection<ListItem<T>> {
+        itemAt(index: number): SP.ListItem<T>;
+        get_item(index: number): SP.ListItem<T>;
+        getById(id: number | string): SP.ListItem<T>;
         get_listItemCollectionPosition(): SP.ListItemCollectionPosition;
     }
     class ListItemCollectionPosition extends SP.ClientValueObject {
@@ -3906,9 +4098,9 @@ declare namespace SP {
         writeToXml(writer: SP.XmlWriter, serializationContext: SP.SerializationContext): void;
         constructor();
     }
-    class ListItemEntityCollection extends SP.ClientObjectCollection<ListItem> {
-        itemAt(index: number): SP.ListItem;
-        get_item(index: number): SP.ListItem;
+    interface ListItemEntityCollection<T> extends SP.ClientObjectCollection<ListItem<T>> {
+        itemAt(index: number): SP.ListItem<T>;
+        get_item(index: number): SP.ListItem<T>;
     }
     class ListItemFormUpdateValue extends SP.ClientValueObject {
         get_errorMessage(): string;
@@ -3937,7 +4129,7 @@ declare namespace SP {
         get_listTemplateTypeKind(): number;
         get_unique(): boolean;
     }
-    class ListTemplateCollection extends SP.ClientObjectCollection<ListTemplate> {
+    interface ListTemplateCollection extends SP.ClientObjectCollection<ListTemplate> {
         itemAt(index: number): SP.ListTemplate;
         get_item(index: number): SP.ListTemplate;
         getByName(name: string): SP.ListTemplate;
@@ -4031,7 +4223,7 @@ declare namespace SP {
         update(): void;
         deleteObject(): void;
     }
-    class NavigationNodeCollection extends SP.ClientObjectCollection<NavigationNode> {
+    interface NavigationNodeCollection extends SP.ClientObjectCollection<NavigationNode> {
         itemAt(index: number): SP.NavigationNode;
         get_item(index: number): SP.NavigationNode;
         add(parameters: SP.NavigationNodeCreationInformation): SP.NavigationNode;
@@ -4121,7 +4313,7 @@ declare namespace SP {
         get_user(): SP.User;
         update(): void;
     }
-    class PushNotificationSubscriberCollection extends SP.ClientObjectCollection<PushNotificationSubscriber> {
+    interface PushNotificationSubscriberCollection extends SP.ClientObjectCollection<PushNotificationSubscriber> {
         itemAt(index: number): SP.PushNotificationSubscriber;
         get_item(index: number): SP.PushNotificationSubscriber;
         getByStoreId(id: string): SP.PushNotificationSubscriber;
@@ -4145,7 +4337,7 @@ declare namespace SP {
         deleteObject(): void;
         restore(): void;
     }
-    class RecycleBinItemCollection extends SP.ClientObjectCollection<RecycleBinItem> {
+    interface RecycleBinItemCollection extends SP.ClientObjectCollection<RecycleBinItem> {
         itemAt(index: number): SP.RecycleBinItem;
         get_item(index: number): SP.RecycleBinItem;
         getById(id: SP.Guid): SP.RecycleBinItem;
@@ -4210,7 +4402,7 @@ declare namespace SP {
         get_relationshipDeleteBehavior(): SP.RelationshipDeleteBehaviorType;
         get_webId(): SP.Guid;
     }
-    class RelatedFieldCollection extends SP.ClientObjectCollection<RelatedField> {
+    interface RelatedFieldCollection extends SP.ClientObjectCollection<RelatedField> {
         itemAt(index: number): SP.RelatedField;
         get_item(index: number): SP.RelatedField;
     }
@@ -4222,7 +4414,7 @@ declare namespace SP {
         get_toolTipDescription(): string;
         get_webId(): SP.Guid;
     }
-    class RelatedFieldExtendedDataCollection extends SP.ClientObjectCollection<RelatedFieldExtendedData> {
+    interface RelatedFieldExtendedDataCollection extends SP.ClientObjectCollection<RelatedFieldExtendedData> {
         itemAt(index: number): SP.RelatedFieldExtendedData;
         get_item(index: number): SP.RelatedFieldExtendedData;
     }
@@ -4271,7 +4463,7 @@ declare namespace SP {
         update(): void;
         deleteObject(): void;
     }
-    class RoleAssignmentCollection extends SP.ClientObjectCollection<RoleAssignment> {
+    interface RoleAssignmentCollection extends SP.ClientObjectCollection<RoleAssignment> {
         itemAt(index: number): SP.RoleAssignment;
         get_item(index: number): SP.RoleAssignment;
         get_groups(): SP.GroupCollection;
@@ -4295,15 +4487,15 @@ declare namespace SP {
         deleteObject(): void;
     }
     class RoleDefinitionBindingCollection extends SP.ClientObjectCollection<RoleDefinition> {
+        constructor(context: SP.ClientRuntimeContext);
         itemAt(index: number): SP.RoleDefinition;
         get_item(index: number): SP.RoleDefinition;
-        constructor(context: SP.ClientRuntimeContext);
-        static newObject(context: SP.ClientRuntimeContext): SP.RoleDefinitionBindingCollection;
         add(roleDefinition: SP.RoleDefinition): void;
         remove(roleDefinition: SP.RoleDefinition): void;
         removeAll(): void;
+        static newObject(context: SP.ClientRuntimeContext): SP.RoleDefinitionBindingCollection;
     }
-    class RoleDefinitionCollection extends SP.ClientObjectCollection<RoleDefinition> {
+    interface RoleDefinitionCollection extends SP.ClientObjectCollection<RoleDefinition> {
         itemAt(index: number): SP.RoleDefinition;
         get_item(index: number): SP.RoleDefinition;
         getByName(name: string): SP.RoleDefinition;
@@ -4416,7 +4608,7 @@ declare namespace SP {
         localTimeToUTC(date: Date): SP.DateTimeResult;
         utcToLocalTime(date: Date): SP.DateTimeResult;
     }
-    class TimeZoneCollection extends SP.ClientObjectCollection<TimeZone> {
+    interface TimeZoneCollection extends SP.ClientObjectCollection<TimeZone> {
         itemAt(index: number): SP.TimeZone;
         get_item(index: number): SP.TimeZone;
         getById(id: number): SP.TimeZone;
@@ -4485,7 +4677,7 @@ declare namespace SP {
         get_userId(): SP.UserIdInfo;
         update(): void;
     }
-    class UserCollection extends SP.ClientObjectCollection<User> {
+    interface UserCollection extends SP.ClientObjectCollection<User> {
         itemAt(index: number): SP.User;
         get_item(index: number): SP.User;
         getByLoginName(loginName: string): SP.User;
@@ -4543,7 +4735,7 @@ declare namespace SP {
         update(): void;
         deleteObject(): void;
     }
-    class UserCustomActionCollection extends SP.ClientObjectCollection<UserCustomAction> {
+    interface UserCustomActionCollection extends SP.ClientObjectCollection<UserCustomAction> {
         itemAt(index: number): SP.UserCustomAction;
         get_item(index: number): SP.UserCustomAction;
         getById(id: SP.Guid): SP.UserCustomAction;
@@ -4636,7 +4828,7 @@ declare namespace SP {
         renderAsHtml(): SP.StringResult;
         update(): void;
     }
-    class ViewCollection extends SP.ClientObjectCollection<View> {
+    interface ViewCollection extends SP.ClientObjectCollection<View> {
         itemAt(index: number): SP.View;
         get_item(index: number): SP.View;
         getByTitle(strTitle: string): SP.View;
@@ -4664,7 +4856,7 @@ declare namespace SP {
         writeToXml(writer: SP.XmlWriter, serializationContext: SP.SerializationContext): void;
         constructor();
     }
-    class ViewFieldCollection extends SP.ClientObjectCollection<string> {
+    interface ViewFieldCollection extends SP.ClientObjectCollection<string> {
         itemAt(index: number): string;
         get_item(index: number): string;
         get_schemaXml(): string;
@@ -4796,7 +4988,7 @@ declare namespace SP {
         /** Available after March 2015 CU for SharePoint 2013*/
         getList(url: string): List;
     }
-    class WebCollection extends SP.ClientObjectCollection<Web> {
+    interface WebCollection extends SP.ClientObjectCollection<Web> {
         itemAt(index: number): SP.Web;
         get_item(index: number): SP.Web;
         add(parameters: SP.WebCreationInformation): SP.Web;
@@ -4869,7 +5061,7 @@ declare namespace SP {
         get_name(): string;
         get_title(): string;
     }
-    class WebTemplateCollection extends SP.ClientObjectCollection<WebTemplate> {
+    interface WebTemplateCollection extends SP.ClientObjectCollection<WebTemplate> {
         itemAt(index: number): SP.WebTemplate;
         get_item(index: number): SP.WebTemplate;
         getByName(name: string): SP.WebTemplate;
@@ -5199,11 +5391,11 @@ declare namespace Microsoft.SharePoint.Client.Search {
 
         class StringCollection extends SP.ClientObjectCollection<string> {
             constructor(context: SP.ClientContext);
-            itemAt: (index: number) => string;
-            get_item: (index: number) => string;
-            get_childItemType: () => typeof String;
-            add: (property: string) => void;
-            clear: () => void;
+            itemAt(index: number): string;
+            get_item(index: number): string;
+            get_childItemType(): typeof String;
+            add(property: string): void;
+            clear(): void;
         }
 
         class QueryPersonalizationData extends SP.ClientObject {
@@ -5278,12 +5470,12 @@ declare namespace Microsoft.SharePoint.Client.Search {
             static getQueryPropertyValueType: (val: QueryPropertyValue) => QueryPropertyValueType;
             static queryPropertyValueToObject: (val: QueryPropertyValue) => any;
         }
-        class ReorderingRuleCollection extends SP.ClientObjectCollection<ReorderingRule> {
-            itemAt: (index: number) => ReorderingRule;
-            get_item: (index: number) => ReorderingRule;
-            get_childItemType: () => typeof ReorderingRule;
-            add: (property: ReorderingRule) => void;
-            clear: () => void;
+        interface ReorderingRuleCollection extends SP.ClientObjectCollection<ReorderingRule> {
+            itemAt(index: number): ReorderingRule;
+            get_item(index: number): ReorderingRule;
+            get_childItemType(): typeof ReorderingRule;
+            add(property: ReorderingRule): void;
+            clear(): void;
         }
 
         enum ReorderingRuleMatchType {
@@ -5309,12 +5501,12 @@ declare namespace Microsoft.SharePoint.Client.Search {
             set_matchValue: (value: string) => void;
         }
 
-        class SortCollection extends SP.ClientObjectCollection<Sort> {
-            itemAt: (index: number) => Sort;
-            get_item: (index: number) => Sort;
-            get_childItemType: () => typeof Sort;
-            add: (strProperty: string, sortDirection: SortDirection) => void;
-            clear: () => void;
+        interface SortCollection extends SP.ClientObjectCollection<Sort> {
+            itemAt(index: number): Sort;
+            get_item(index: number): Sort;
+            get_childItemType(): typeof Sort;
+            add(strProperty: string, sortDirection: SortDirection): void;
+            clear(): void;
         }
 
         enum SortDirection {
@@ -5555,9 +5747,9 @@ declare namespace Microsoft.SharePoint.Client.Search {
         }
 
         class UsageAnalytics extends SP.ClientObject {
-            getAnalyticsItemData: (eventType: number, listItem: SP.ListItem) => AnalyticsItemData;
+            getAnalyticsItemData: <T = any>(eventType: number, listItem: SP.ListItem<T>) => AnalyticsItemData;
 
-            getAnalyticsItemDataForApplicationEventType: (appEventType: SP.Guid, listItem: SP.ListItem) => AnalyticsItemData;
+            getAnalyticsItemDataForApplicationEventType: <T = any>(appEventType: SP.Guid, listItem: SP.ListItem<T>) => AnalyticsItemData;
 
             deleteStandardEventUsageData: (eventType: number) => void;
 
@@ -5643,7 +5835,7 @@ declare namespace SP {
         class MethodExecutionResult extends SP.ClientObject {
             get_returnParameterCollection(): SP.BusinessData.ReturnParameterCollection;
         }
-        class ReturnParameterCollection extends SP.ClientObjectCollection<SP.BusinessData.Runtime.EntityFieldValueDictionary> {
+        interface ReturnParameterCollection extends SP.ClientObjectCollection<SP.BusinessData.Runtime.EntityFieldValueDictionary> {
             itemAt(index: number): SP.BusinessData.Runtime.EntityFieldValueDictionary;
             get_item(index: number): SP.BusinessData.Runtime.EntityFieldValueDictionary;
         }
@@ -5662,28 +5854,28 @@ declare namespace SP {
             getParentTypeDescriptor(): SP.BusinessData.TypeDescriptor;
         }
         namespace Collections {
-            class EntityFieldCollection extends SP.ClientObjectCollection<SP.BusinessData.EntityField> {
+            interface EntityFieldCollection extends SP.ClientObjectCollection<SP.BusinessData.EntityField> {
                 itemAt(index: number): SP.BusinessData.EntityField;
                 get_item(index: number): SP.BusinessData.EntityField;
             }
-            class EntityIdentifierCollection extends SP.ClientObjectCollection<SP.BusinessData.EntityIdentifier> {
+            interface EntityIdentifierCollection extends SP.ClientObjectCollection<SP.BusinessData.EntityIdentifier> {
                 itemAt(index: number): SP.BusinessData.EntityIdentifier;
                 get_item(index: number): SP.BusinessData.EntityIdentifier;
             }
-            class EntityInstanceCollection extends SP.ClientObjectCollection<SP.BusinessData.Runtime.EntityInstance> {
+            interface EntityInstanceCollection extends SP.ClientObjectCollection<SP.BusinessData.Runtime.EntityInstance> {
                 itemAt(index: number): SP.BusinessData.Runtime.EntityInstance;
                 get_item(index: number): SP.BusinessData.Runtime.EntityInstance;
             }
-            class FilterCollection extends SP.ClientObjectCollection<SP.BusinessData.Filter> {
+            interface FilterCollection extends SP.ClientObjectCollection<SP.BusinessData.Filter> {
                 itemAt(index: number): SP.BusinessData.Filter;
                 get_item(index: number): SP.BusinessData.Filter;
                 setFilterValue(inputFilterName: string, valueIndex: number, value: any): void;
             }
-            class LobSystemInstanceCollection extends SP.ClientObjectCollection<SP.BusinessData.LobSystemInstance> {
+            interface LobSystemInstanceCollection extends SP.ClientObjectCollection<SP.BusinessData.LobSystemInstance> {
                 itemAt(index: number): SP.BusinessData.LobSystemInstance;
                 get_item(index: number): SP.BusinessData.LobSystemInstance;
             }
-            class TypeDescriptorCollection extends SP.ClientObjectCollection<SP.BusinessData.TypeDescriptor> {
+            interface TypeDescriptorCollection extends SP.ClientObjectCollection<SP.BusinessData.TypeDescriptor> {
                 itemAt(index: number): SP.BusinessData.TypeDescriptor;
                 get_item(index: number): SP.BusinessData.TypeDescriptor;
             }
@@ -6053,10 +6245,10 @@ declare namespace SP {
             get_name(): string;
             /** Provides the attachment name. */
             set_name(value: string): string;
-            /** Specifies the URI of the attachment�s preview thumbnail.
+            /** Specifies the URI of the attachment's preview thumbnail.
                 This property is only present if the AttachmentKind is Document or Video. */
             get_previewUri(): string;
-            /** Specifies the URI of the attachment�s preview thumbnail.
+            /** Specifies the URI of the attachment's preview thumbnail.
                 This property is only present if the AttachmentKind is Document or Video. */
             set_previewUri(value: string): string;
             /** Provides the attachment URI. */
@@ -6316,10 +6508,10 @@ declare namespace SP {
             set_attachment(value: SocialAttachment): SocialAttachment;
             /** Specifies an array consisting of social tags, user mentions, links to documents, links to sites, and generic links.
                 Each element in the array is inserted into the ContentText string if there is a substitution reference to the array element in the string. */
-            get_contentItems(): SocialDataItem;
+            get_contentItems(): SocialDataItem[];
             /** Specifies an array consisting of social tags, user mentions, links to documents, links to sites, and generic links.
                 Each element in the array is inserted into the ContentText string if there is a substitution reference to the array element in the string. */
-            set_contentItems(value: SocialDataItem): SocialDataItem;
+            set_contentItems(value: SocialDataItem[]): SocialDataItem[];
             /** Contains the text body of the post. */
             get_contentText(): string;
             /** Contains the text body of the post.
@@ -6492,7 +6684,7 @@ declare namespace SP {
             getDefaultSiteCollectionTermStore(): TermStore;
         }
 
-        class TermStoreCollection extends SP.ClientObjectCollection<TermStore> {
+        interface TermStoreCollection extends SP.ClientObjectCollection<TermStore> {
             itemAt(index: number): TermStore;
             get_item(index: number): TermStore;
             getById(id: SP.Guid): TermStore;
@@ -6553,7 +6745,7 @@ declare namespace SP {
             deleteObject(): void;
         }
 
-        class TermGroupCollection extends SP.ClientObjectCollection<TermGroup> {
+        interface TermGroupCollection extends SP.ClientObjectCollection<TermGroup> {
             itemAt(index: number): TermGroup;
             get_item(index: number): TermGroup;
             getById(id: SP.Guid): TermGroup;
@@ -6590,7 +6782,7 @@ declare namespace SP {
             setCustomProperty(name: string, value: string): void;
         }
 
-        class TermSetCollection extends SP.ClientObjectCollection<TermSet> {
+        interface TermSetCollection extends SP.ClientObjectCollection<TermSet> {
             itemAt(index: number): TermSet;
             get_item(index: number): TermSet;
             getById(id: SP.Guid): TermSet;
@@ -6620,7 +6812,7 @@ declare namespace SP {
             move(targetGroup: TermGroup): void;
         }
 
-        class TermCollection extends SP.ClientObjectCollection<Term> {
+        interface TermCollection extends SP.ClientObjectCollection<Term> {
             itemAt(index: number): Term;
             get_item(index: number): Term;
             getById(id: SP.Guid): Term;
@@ -6674,7 +6866,7 @@ declare namespace SP {
             getPath(lcid: number): SP.StringResult;
         }
 
-        class LabelCollection extends SP.ClientObjectCollection<Label> {
+        interface LabelCollection extends SP.ClientObjectCollection<Label> {
             itemAt(index: number): Label;
             get_item(index: number): Label;
             getByValue(name: string): Label;
@@ -6737,7 +6929,7 @@ declare namespace SP {
             set_withinTimeSpan(value: number): void;
         }
 
-        class ChangedItemCollection extends SP.ClientObjectCollection<ChangedItem> {
+        interface ChangedItemCollection extends SP.ClientObjectCollection<ChangedItem> {
             itemAt(index: number): ChangedItem;
             get_item(index: number): ChangedItem;
         }
@@ -6805,11 +6997,11 @@ declare namespace SP {
             getFieldValueAsText(value: TaxonomyFieldValue): SP.StringResult;
             getFieldValueAsTaxonomyFieldValue(value: string): TaxonomyFieldValue;
             getFieldValueAsTaxonomyFieldValueCollection(value: string): TaxonomyFieldValueCollection;
-            setFieldValueByTerm(listItem: SP.ListItem, term: Term, lcid: number): void;
-            setFieldValueByTermCollection(listItem: SP.ListItem, terms: TermCollection, lcid: number): void;
-            setFieldValueByCollection(listItem: SP.ListItem, terms: Term[], lcid: number): void;
-            setFieldValueByValue(listItem: SP.ListItem, taxValue: TaxonomyFieldValue): void;
-            setFieldValueByValueCollection(listItem: SP.ListItem, taxValueCollection: TaxonomyFieldValueCollection): void;
+            setFieldValueByTerm<T = any>(listItem: SP.ListItem<T>, term: Term, lcid: number): void;
+            setFieldValueByTermCollection<T = any>(listItem: SP.ListItem<T>, terms: TermCollection, lcid: number): void;
+            setFieldValueByCollection<T = any>(listItem: SP.ListItem<T>, terms: Term[], lcid: number): void;
+            setFieldValueByValue<T = any>(listItem: SP.ListItem<T>, taxValue: TaxonomyFieldValue): void;
+            setFieldValueByValueCollection<T = any>(listItem: SP.ListItem<T>, taxValueCollection: TaxonomyFieldValueCollection): void;
             getFieldValueAsHtml(value: TaxonomyFieldValue): SP.StringResult;
             getValidatedString(value: TaxonomyFieldValue): SP.StringResult;
         }
@@ -6877,7 +7069,7 @@ declare namespace SP {
             static createVideo(context: ClientContext, parentFolder: Folder, name: string, ctid: ContentTypeId): StringResult;
             static uploadVideo(context: ClientContext, list: List, fileName: string, file: any[], overwriteIfExists: boolean, parentFolderPath: string): StringResult;
             static getEmbedCode(context: ClientContext, videoPath: string, properties: EmbedCodeConfiguration): StringResult;
-            static migrateVideo(context: ClientContext, videoFile: File): SP.ListItem;
+            static migrateVideo<T = any>(context: ClientContext, videoFile: File): SP.ListItem<T>;
         }
     }
 }
@@ -7438,7 +7630,7 @@ declare namespace SP {
             get_useCount(): number;
         }
 
-        class HashTagCollection extends SP.ClientObjectCollection<HashTag> {
+        interface HashTagCollection extends SP.ClientObjectCollection<HashTag> {
             itemAt(index: number): HashTag;
             get_item(index: number): HashTag;
         }
@@ -7464,7 +7656,7 @@ declare namespace SP {
 
         /** Provides methods for operations related to people.
             Note: The SocialFollowingManager object is the recommended object for performing Following People and Following Content tasks.
-            However, PeopleManager provides some methods that SocialFollowingManager doesn�t. */
+            However, PeopleManager provides some methods that SocialFollowingManager doesn't. */
         class PeopleManager extends SP.ClientObject {
             constructor(context: SP.ClientRuntimeContext);
             static getTrendingTags(context: SP.ClientRuntimeContext): HashTagCollection;
@@ -7858,8 +8050,8 @@ declare namespace SP {
             static logCustomAppError(context: SP.ClientRuntimeContext, error: string): SP.IntResult;
             static logCustomRemoteAppError(context: SP.ClientRuntimeContext, productId: SP.Guid, error: string): SP.IntResult;
             static getLocalizedString(context: SP.ClientRuntimeContext, source: string, defaultResourceFile: string, language: number): SP.StringResult;
-            static createNewDiscussion(context: SP.ClientRuntimeContext, list: SP.List, title: string): SP.ListItem;
-            static createNewDiscussionReply(context: SP.ClientRuntimeContext, parent: SP.ListItem): SP.ListItem;
+            static createNewDiscussion<T>(context: SP.ClientRuntimeContext, list: SP.List, title: string): SP.ListItem<T>;
+            static createNewDiscussionReply<T>(context: SP.ClientRuntimeContext, parent: SP.ListItem<T>): SP.ListItem<T>;
             static markDiscussionAsFeatured(context: SP.ClientRuntimeContext, listID: string, topicIDs: string): void;
             static unmarkDiscussionAsFeatured(context: SP.ClientRuntimeContext, listID: string, topicIDs: string): void;
             static searchPrincipals(context: SP.ClientRuntimeContext, web: SP.Web, input: string, scopes: SP.Utilities.PrincipalType, sources: SP.Utilities.PrincipalSource, usersContainer: SP.UserCollection, maxCount: number): SP.Utilities.PrincipalInfo[];
@@ -8064,13 +8256,14 @@ declare namespace SP {
         class WebPartDefinition extends SP.ClientObject {
             get_id(): SP.Guid;
             get_webPart(): SP.WebParts.WebPart;
+            get_zoneId(): string;
             saveWebPartChanges(): void;
             closeWebPart(): void;
             openWebPart(): void;
             deleteWebPart(): void;
             moveWebPartTo(zoneID: string, zoneIndex: number): void;
         }
-        class WebPartDefinitionCollection extends SP.ClientObjectCollection<WebPartDefinition> {
+        interface WebPartDefinitionCollection extends SP.ClientObjectCollection<WebPartDefinition> {
             itemAt(index: number): SP.WebParts.WebPartDefinition;
             get_item(index: number): SP.WebParts.WebPartDefinition;
             getById(id: SP.Guid): SP.WebParts.WebPartDefinition;
@@ -8112,7 +8305,7 @@ declare namespace SP {
             update(): void;
             deleteObject(): void;
         }
-        class WorkflowAssociationCollection extends SP.ClientObjectCollection<WorkflowAssociation> {
+        interface WorkflowAssociationCollection extends SP.ClientObjectCollection<WorkflowAssociation> {
             itemAt(index: number): SP.Workflow.WorkflowAssociation;
             get_item(index: number): SP.Workflow.WorkflowAssociation;
             getById(associationId: SP.Guid): SP.Workflow.WorkflowAssociation;
@@ -8147,7 +8340,7 @@ declare namespace SP {
             get_name(): string;
             get_permissionsManual(): SP.BasePermissions;
         }
-        class WorkflowTemplateCollection extends SP.ClientObjectCollection<WorkflowTemplate> {
+        interface WorkflowTemplateCollection extends SP.ClientObjectCollection<WorkflowTemplate> {
             itemAt(index: number): SP.Workflow.WorkflowTemplate;
             get_item(index: number): SP.Workflow.WorkflowTemplate;
             getById(templateId: SP.Guid): SP.Workflow.WorkflowTemplate;
@@ -8236,14 +8429,14 @@ declare namespace SP.WorkflowServices {
         get_xaml(): string;
         /** XAML definition of the workflow */
         set_xaml(value: string): string;
-        /** This method adds a key-value pair (propertyName, value) to the workflow definition object�s property bag.  */
+        /** This method adds a key-value pair (propertyName, value) to the workflow definition object's property bag.  */
         setProperty(propertyName: string, value: string): void;
         /** This method is internal and is not intended to be used in your code. */
         initPropertiesFromJson(parentNode: any): void;
     }
 
     /** Represents a collection of WorkflowDefinition objects */
-    class WorkflowDefinitionCollection extends SP.ClientObjectCollection<WorkflowDefinition> {
+    interface WorkflowDefinitionCollection extends SP.ClientObjectCollection<WorkflowDefinition> {
         itemAt(index: number): WorkflowDefinition;
         get_item(index: number): WorkflowDefinition;
         /** returns SP.WorkflowDefinition class */
@@ -8320,7 +8513,7 @@ declare namespace SP.WorkflowServices {
     }
 
     /** Represents a collection of WorkflowInstance objects */
-    class WorkflowInstanceCollection extends SP.ClientObjectCollection<WorkflowInstance> {
+    interface WorkflowInstanceCollection extends SP.ClientObjectCollection<WorkflowInstance> {
         itemAt(index: number): WorkflowInstance;
         get_item(index: number): WorkflowInstance;
         /** returns SP.WorkflowInstance class */
@@ -8433,7 +8626,7 @@ declare namespace SP.WorkflowServices {
     }
 
     /** Represents a collection of WorkflowSubscription objects */
-    class WorkflowSubscriptionCollection extends SP.ClientObjectCollection<WorkflowSubscription> {
+    interface WorkflowSubscriptionCollection extends SP.ClientObjectCollection<WorkflowSubscription> {
         itemAt(index: number): WorkflowSubscription;
         get_item(index: number): WorkflowSubscription;
         /** returns SP.WorkflowInstance class */
@@ -8701,7 +8894,7 @@ declare namespace SP {
                 getResolvedDisplayUrl(browserQueryString: string): StringResult;
             }
 
-            class NavigationTermCollection extends ClientObjectCollection<NavigationTerm> {
+            interface NavigationTermCollection extends ClientObjectCollection<NavigationTerm> {
             }
 
             class NavigationTerm extends NavigationTermSetItem {
@@ -8789,7 +8982,7 @@ declare namespace SP {
                 static getAsResolvedByView(context: ClientContext, termSet: Taxonomy.TermSet, view: NavigationTermSetView): NavigationTermSet;
             }
 
-            class NavigationTermProviderNameCollection extends ClientObjectCollection<string> {
+            interface NavigationTermProviderNameCollection extends ClientObjectCollection<string> {
                 Add(item: string): void;
                 Clear(): void;
                 Remove(item: string): BooleanResult;
@@ -11078,6 +11271,31 @@ declare namespace Srch {
         local
     }
 
+    interface RefinementInfo {
+        Culture: string;
+        DisplayName: string;
+        Entropy: number;
+        HitCount: number;
+        Max: number;
+        Mean: number;
+        Min: number;
+        Modifier: string;
+        NonZeroCount: number;
+        PartitionId: SP.Guid;
+        Ratio: number;
+        RefinementCount: number;
+        RefinementName: string;
+        RefinementToken: string;
+        RefinementValue: string;
+        RefinerName: string;
+        RenderTemplateId: string;
+        Score: number;
+        Sum: number;
+        Type: string;
+        UniqueCount: number;
+        UrlZone: number;
+    }
+
     class ClientControl extends Sys.UI.Control {
         constructor(elem: Element);
 
@@ -11192,7 +11410,7 @@ declare namespace Srch {
         set_totalRows(value: number): number;
         get_rowCount(): number;
         set_rowCount(value: number): number;
-        get_refinementInfo(): any;
+        get_refinementInfo(): { [key: string]: RefinementInfo[] };
         get_entityInfo(): any;
         get_enableStemming(): boolean;
         set_enableStemming(value: boolean): boolean;
@@ -11297,7 +11515,7 @@ declare namespace Srch {
         static submitMultiRefinement(name: string, control: Refinement, useContains: boolean, useKQL: boolean): void;
         static ensureUserSpecifiedRefinerValueHasWhiteSpaceQuotes(inputText: string): string;
         static getRefinementLocalizedTitle(propertyName: string): string;
-        static getRefinementTitle(currentRefinemntControl: Refinement): string;
+        static getRefinementTitle(currentRefinemntControl: RefinementControl): string;
         /** Gets expanded state of the specified filter from cookie */
         static getExpanded(filterName: string): string;
         /** Save expanded state of the specified filter to cookie */
@@ -11352,6 +11570,24 @@ declare namespace Srch {
         alternateRenderContext: any;
         countDisplay: string;
         deepHits: number;
+    }
+
+    interface CSRFilter {
+        IsSelected: boolean;
+        RefinementCount: number;
+        RefinementName: string;
+        RefinementToken: string;
+    }
+
+    interface CSRRefinementControl extends RefinementControl {
+        csr_displayTitle: string;
+        csr_filters: CSRFilter[];
+        csr_isExpanded: string;
+        csr_propertyName: string;
+        csr_renderEmptyContainer: boolean;
+        csr_showCounts: boolean;
+        csr_useContains: boolean;
+        csr_useKQL: boolean;
     }
 
     class Result extends DisplayControl {
@@ -11424,6 +11660,46 @@ declare namespace Srch {
         viewDuplicates(docId: number): void;
         /** Returns true if the specified table has results and is enabled to be shown by this control */
         shouldShowTable(resultTable: Microsoft.SharePoint.Client.Search.Query.ResultTable): boolean;
+
+        setAriaCollapsed: (element: HTMLElement) => void;
+        get_showQuerySuggestions: () => boolean;
+        get_showNavigation: () => boolean;
+        get_initialPrompt: () => string;
+        get_currentTerm: () => string;
+        handleClickOnCategoryLink: (id: string) => void;
+        get_advancedSearchPageAddress: () => string;
+        get_emptyRefinementMessageId: () => string;
+        get_selectedRefinementControls: () => CSRRefinementControl[];
+        activate: (prompt: string,
+            searchBoxId: string, searchBoxDivId: string,
+            navButtonId: string, suggestionsListId: string,
+            navListId: string, searchBoxLinkId: string,
+            searchBoxProgressClass: string, searchBoxPromptClass: string) => void;
+    }
+
+    interface RefinementCategory {
+        /** Use KQL */
+        k: boolean;
+        /**  token to display value map */
+        m: { [key: string]: string } | null;
+        /** Refiner Name (Mapped property) */
+        n: string;
+        o: string | "and" | "or" | "AND" | "OR";
+        /** Values, prefixed by ǂǂ for taxonomy terms */
+        t: string[];
+    }
+
+    interface RefinerStructure {
+        r: RefinementCategory[];
+        l: number;
+        /** Keyword */
+        k: string;
+    }
+
+    interface QueryState {
+        e: number;
+        k: string;
+        r: RefinementCategory[];
     }
 
     /** Represents the search box control */
@@ -11590,6 +11866,12 @@ declare namespace Srch {
         activate(prompt: string, searchBoxInputId: string, searchBoxContainerId: string, navigationButtonId: string, suggestionsListId: string, navigationListId: string, searchBoxLinkId: string, searchBoxProgressClass: string, searchBoxPromptClass: string): void;
         activateDefaultNavigationBehavior(): void;
         activateDefaultQuerySuggestionBehavior(): void;
+    }
+
+    class RefinementUtil {
+        static stringValueToEqualsToken(x: string): string;
+        static peoplePickerApplyIdPrefix(control: Srch.ClientControl | Srch.RefinementControl): string;
+        static peoplePickerPrep(id: string, refiner: Srch.RefinementControl, clientControl: Srch.Refinement): string;
     }
 
     type RenderFunction = (ctx: any) => string;
@@ -11800,7 +12082,7 @@ declare namespace Srch {
         static registerLoadedScripts(scripts: string[]): void;
 
         /** Returns HTML for collapsible refiner title */
-        static collapsibleRefinerTitle(propertyName: string, idPrefix: string, title: string, iconClass: string, customOnClick: string): string;
+        static collapsibleRefinerTitle(propertyName: string, idPrefix: string, title: string, iconClass: string, customOnClick: string | null, isExpanded: string): string;
         /** Returns true if current page is osssearchresults.aspx */
         static isDefaultSiteSearchPage(): boolean;
         /** Replaces tokens {searchcenterurl}, {contexturl}, {resultsurl}, {defaultpageslistname}, {Locale} and others, and converts URL to server-relative */
@@ -11834,6 +12116,8 @@ declare namespace Srch {
         static getCalendarType(): any;
 
         static htmlEncodeNonBase64ImageUrl(url: string): string;
+
+        static createFileIconAltText(container: boolean, b: any): string;
 
         static hitHighlightingOpenTag: string;
         static hitHighlightingCloseTag: string;
@@ -11905,6 +12189,13 @@ declare namespace Srch {
         }
     }
 
+    interface QueryGroup {
+        dataProvider: DataProvider;
+        displays: DisplayControl[];
+        name: string;
+        searchBoxes: Refinement[];
+    }
+
     class ScriptApplicationManager {
         static get_current(): ScriptApplicationManager;
         static get_clientRuntimeContext(): SP.ClientRuntimeContext;
@@ -11957,6 +12248,15 @@ declare namespace Srch {
 
         /** Gets the current search session ID from the cookies (if session ID does not exist in the cookies yet - it will be added) */
         get_searchSessionID(): void;
+
+        getNavigationNodes(): HTMLCollection;
+
+        queryGroups: { [key: string]: QueryGroup };
+
+        states: {
+            openDocumentsInClient: boolean;
+            contextTitle: string
+        };
     }
 
     class Res {
@@ -11975,6 +12275,7 @@ declare namespace Srch {
         static qs_PersonalResultTitleSingular: string;
         static qs_PersonalResultTitlePlural: string;
         static qs_NameSuggestionsTitle: string;
+        static qs_SuggestionListAriaLabel: string;
         static dp_ScriptLoadFailed: string;
         static rf_EmptyRefinement: string;
         static rf_RefinementTitle: string;

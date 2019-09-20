@@ -84,7 +84,7 @@ class AccessToken extends Nodal.Model {
 
           new AccessToken({
             user_id: user.get('id'),
-            access_token: this.generateAccessTokenString(user.get('id'), user.get('email'), new Date().valueOf()),
+            access_token: AccessToken.generateAccessTokenString(user.get('id'), user.get('email'), new Date().valueOf()),
             token_type: 'bearer',
             expires_at: (new Date(new Date().valueOf() + (30 * 24 * 60 * 60 * 1000))),
             ip_address: params.ip_address
@@ -94,7 +94,7 @@ class AccessToken extends Nodal.Model {
   }
 
   public static verify (params: any, callback: Function) {
-    this.query()
+    AccessToken.query()
       .join('user')
       .where({
         access_token: params.auth.access_token,
@@ -116,7 +116,7 @@ class AccessToken extends Nodal.Model {
   }
 
   public static logout (params: any, callback: Function) {
-    this.verify(params, (err: Error, accessToken: AccessToken) => {
+    AccessToken.verify(params, (err: Error, accessToken: AccessToken) => {
       if (err) {
         return callback(err);
       }

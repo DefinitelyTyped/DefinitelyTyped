@@ -1,7 +1,12 @@
 /// <reference types="gapi.people" />
 /// <reference types="gapi.plus" />
 
-/* Examples taken from https://developers.google.com/api-client-library/javascript/start/start-js */
+/*
+Examples taken from
+https://developers.google.com/api-client-library/javascript/start/start-js
+and
+https://developers.google.com/api-client-library/javascript/reference/referencedocs#gapiloadlibraries-callbackorconfig
+*/
 
 {
   function start1() {
@@ -15,7 +20,8 @@
     }).then(function() {
       // 3. Initialize and make the API request.
       return gapi.client.people.people.get({
-        resourceName: 'people/me'
+        resourceName: 'people/me',
+        personFields: 'name'
       });
     }).then(function(response) {
       console.log(response.result);
@@ -48,6 +54,24 @@
   };
   // 1. Load the JavaScript client library.
   gapi.load('client', start2);
+}
+
+{
+  gapi.load('client', {
+    callback: function() {
+      // Handle gapi.client initialization.
+      console.log('callback');
+    },
+    onerror: function() {
+      // Handle loading error.
+      console.log('gapi.client failed to load!');
+    },
+    timeout: 5000, // 5 seconds.
+    ontimeout: function() {
+      // Handle timeout.
+      console.log('gapi.client could not load in a timely manner!');
+    }
+  });
 }
 
 
@@ -95,3 +119,10 @@ gapi.client.request({
 function processResponse(response: any) {
   // Stub
 }
+
+gapi.auth.setToken({
+  access_token: 'dummy-value',
+  error: '',
+  expires_in: '',
+  state: '',
+});

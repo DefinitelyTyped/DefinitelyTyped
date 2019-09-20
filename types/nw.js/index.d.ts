@@ -372,7 +372,7 @@ declare module NWJS_Helpers {
          * The paper size spec
          * example: 'mediaSize':{'name': 'CUSTOM', 'width_microns': 279400, 'height_microns': 215900, 'custom_display_name':'Letter', 'is_default': true}
          */
-        mediaSize: JSON;
+        mediaSize: any;
 
         /**
          * Whether to print CSS backgrounds
@@ -1072,9 +1072,9 @@ declare module NWJS_Helpers {
          * Enumerate the printers in the system.
          *
          * @param callback {function(dev_win?)} callback with the native window of the DevTools window.
-         * - (optional) printers {JSON[]} An array of JSON objects for the printer information.
+         * - (optional) printers {any[]} An array of json objects for the printer information.
          */
-        getPrinters( callback: ( printers?: JSON[] ) => void ): void;
+        getPrinters( callback: ( printers?: any[] ) => void ): void;
 
         /**
          * Query the status of devtools window.
@@ -1084,9 +1084,9 @@ declare module NWJS_Helpers {
         /**
          * Print the web contents in the window without the need for user’s interaction.
          *
-         * @param options {Object} Specify whether to close the window forcely and bypass close event.
+         * @param options {any | PrintOption} Specify whether to close the window forcely and bypass close event.
          */
-        print( options: JSON | PrintOption ): void;
+        print( options: any | PrintOption ): void;
 
         /**
          * Set window's maximum size.
@@ -1381,9 +1381,9 @@ declare namespace nw {
         dataPath: string;
 
         /**
-         * Get the JSON object of the manifest file.
+         * Get the json object of the manifest file.
          */
-        manifest: JSON;
+        manifest: any;
 
         /**
          * Clear the HTTP cache in memory and the one on disk. This method call is synchronized.
@@ -1428,7 +1428,7 @@ declare namespace nw {
         /**
          * Add an entry to the whitelist used for controlling cross-origin access.
          *
-         * @param sourceOrigin {string} The source origin. e.g. http://github.com/
+         * @param sourceOrigin {string} The source origin. e.g. https://github.com/
          * @param destinationProtocol {string} The destination protocol where the sourceOrigin can access to. e.g. app
          * @param destinationHost {string} The destination host where the sourceOrigin can access to. e.g. myapp
          * @param allowDestinationSubdomains {Boolean} If set to true, the sourceOrigin is allowed to access subdomains of
@@ -1441,7 +1441,7 @@ declare namespace nw {
         /**
          * Remove an entry from the whitelist used for controlling cross-origin access.
          *
-         * @param sourceOrigin {string} The source origin. e.g. http://github.com/
+         * @param sourceOrigin {string} The source origin. e.g. https://github.com/
          * @param destinationProtocol {string} The destination protocol where the sourceOrigin can access to. e.g. app
          * @param destinationHost {string} The destination host where the sourceOrigin can access to. e.g. myapp
          * @param allowDestinationSubdomains {Boolean} If set to true, the sourceOrigin is allowed to access subdomains of

@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import Swiper, { SwiperState } from 'react-native-swiper';
 
-class SwiperTest extends React.Component<{}, {}> {
+class SwiperTest extends React.Component {
   constructor(props: {}) {
     super(props);
   }
@@ -20,7 +20,7 @@ class SwiperTest extends React.Component<{}, {}> {
   ) => {
     console.log(this.callback.name, event, state, context);
   }
-  render(): React.ReactElement<any> {
+  render(): React.ReactElement {
     return (
       <Swiper
         horizontal

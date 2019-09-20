@@ -1,7 +1,8 @@
 // Type definitions for underscore.string
 // Project: https://github.com/epeli/underscore.string
-// Definitions by: Ry Racherbaumer <http://github.com/rygine>
+// Definitions by: Ry Racherbaumer <https://github.com/rygine>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 import * as _ from 'underscore';
 
@@ -90,6 +91,13 @@ declare module 'underscore' {
          * @param str
          */
         clean(str: string): string;
+
+        /**
+         * Replace diacritic characters with closest ASCII equivalents.
+         * cleanDiacritics('ääkkönen') => 'aakkonen'
+         * @param str
+         */
+        cleanDiacritics(str: string): string;
 
         /**
          * Count occurences of a sub string.
@@ -200,7 +208,7 @@ declare module 'underscore' {
          * ('-moz-transform') => 'MozTransform'
          * @param str
          */
-        camelize(str: string): string;
+        camelize(str: string, decapitalize?: boolean): string;
 
         /**
          * Converts a camelized or dasherized string into an underscored one.

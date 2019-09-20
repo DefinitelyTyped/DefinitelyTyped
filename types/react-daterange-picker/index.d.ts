@@ -1,16 +1,20 @@
-// Type definitions for React Daterange Picker v1.1.0
+// Type definitions for React Daterange Picker 2.0
 // Project: https://github.com/onefinestay/react-daterange-picker
-// Definitions by: UNCOVER TRUTH Inc. <https://github.com/uncovertruth/>
+// Definitions by: UNCOVER TRUTH Inc. <https://github.com/uncovertruth>
+//                 MartynasZilinskas <https://github.com/MartynasZilinskas>
+//                 Donald Ford <https://github.com/donaldtf>
+//                 Vlad Florescu <https://github.com/vladflorescu94>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.8
 
 import * as React from "react";
-import * as moment from "moment-range";
+import * as moment from "moment";
+import * as momentRange from "moment-range";
 
-export default class DateRangePicker extends React.Component<Props, {}> {}
+export default class DateRangePicker extends React.Component<Props> { }
 export as namespace ReactDateRangePicker;
 
-interface Props extends React.Props<{}> {
+export interface Props<T = DateRangePicker> extends React.Props<T> {
     bemBlock?: string;
     bemNamespace?: string;
     dateStates?: DateState[];
@@ -29,38 +33,39 @@ interface Props extends React.Props<{}> {
     numberOfCalendars?: number;
     onHighlightDate?(date: Date): void;
     onHighlightRange?(date: Date): void;
-    onSelect?(value: Props): void;
-    onSelectStart?(value: moment.Moment): void;
-    paginationArrowComponent?: PaginationArrow;
+    onSelect?(value: OnSelectCallbackParam): void;
+    onSelectStart?(value: momentRange.MomentRangeExtends): void;
+    paginationArrowComponent?: React.ComponentClass<PaginationArrowProps> | React.SFC<PaginationArrowProps>;
     selectedLabel?: string;
-    selectionType?: 'single' |'range';
+    selectionType?: 'single' | 'range';
     singleDateRange?: boolean;
     showLegend?: boolean;
     stateDefinitions?: StateDefinitions;
-    value?: moment.Moment | moment.Range;
+    value?: momentRange.MomentRangeExtends | momentRange.DateRange | moment.Moment;
 }
 
-interface DateState {
+export interface DateState {
     state: string;
-    range: moment.Range;
+    range: momentRange.DateRange;
 }
 
-interface StateDefinitions {
+export interface StateDefinitions {
     [key: string]: StateDefinition;
 }
 
-interface StateDefinition {
+export interface StateDefinition {
     color: string;
     label: string;
     selectable?: boolean;
 }
 
-interface PaginationArrowProps extends React.Props<{}> {
+export interface PaginationArrowProps<T = {}> extends React.Props<T> {
     disabled?: boolean;
     onTrigger?(): void;
     direction?: 'next' | 'previous';
 }
 
-declare class PaginationArrow extends React.Component<PaginationArrowProps, {}> {
+export interface OnSelectCallbackParam {
+    start: moment.Moment;
+    end: moment.Moment;
 }
-

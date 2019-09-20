@@ -2,15 +2,13 @@
 // Not intended to be run; only to compile & check types.
 
 import * as m from 'mithril';
-import * as stream from 'mithril/stream';
+import * as Stream from 'mithril/stream';
 
 const FRAME_BUDGET = 100;
 
 {
 	const vnode = m("div");
 	console.assert(vnode.tag === "div");
-	console.assert(typeof m.version === "string");
-	console.assert(m.version.indexOf(".") > -1);
 }
 
 {
@@ -20,17 +18,21 @@ const FRAME_BUDGET = 100;
 {
 	const vnode = m.fragment({key: 123}, [m("div")]);
 	console.assert((vnode.children as Array<m.Vnode<any, any>>).length === 1);
-	console.assert(vnode.children![0].tag === 'div');
-}
-
-{
-	const handler = m.withAttr("value", (value) => {});
-	handler({currentTarget: {value: 10}});
+	console.assert((vnode.children as Array<m.Vnode<any, any>>)[0].tag === 'div');
 }
 
 {
 	const params = m.parseQueryString("?a=1&b=2");
 	const query = m.buildQueryString({a: 1, b: 2});
+}
+
+{
+	const {params, path} = m.parsePathname('/api/user/1');
+	console.assert(params != null);
+	console.assert(typeof path === 'string');
+
+	const url = m.buildPathname('/api/user/:id', {id: 1});
+	console.assert(url.endsWith('/1'));
 }
 
 {
@@ -60,7 +62,7 @@ const FRAME_BUDGET = 100;
 
 {
 	const root = window.document.createElement("div");
-	m.route.prefix("#");
+	m.route.prefix = "#";
 	m.route(root, "/a", {
 		"/a": { view: () => m("div") }
 	});
@@ -116,7 +118,7 @@ const FRAME_BUDGET = 100;
 
 {
 	// define a component
-	const Greeter: m.Comp<{ style: string }, {}> = {
+	const Greeter: m.Comp<{ style: string }> = {
 		view(vnode) {
 			return m("div", vnode.attrs, ["Hello ", vnode.children]);
 		}
@@ -191,7 +193,7 @@ const FRAME_BUDGET = 100;
 ////////////////////////////////////////////////////////////////////////////////
 
 {
-	const Fader: m.Comp<{}, {}> = {
+	const Fader: m.Comp = {
 		onbeforeremove(vnode) {
 			vnode.dom.classList.add("fade-out");
 			return new Promise(resolve => {
@@ -227,19 +229,24 @@ const FRAME_BUDGET = 100;
 		}
 	};
 
-	const Form: m.Comp<{term: string}, {}> = {
+	const Form: m.Comp<{term: string}> = {
 		oninit(vnode) {
 			state.term = vnode.attrs.term || ""; // populated from the `history.state` property if the user presses the back button
 		},
 		view() {
-			return m("form", [
-				m("input[placeholder='Search']", { oninput: m.withAttr("value", v => { state.term = v; }), value: state.term }),
-				m("button", { onclick: state.search }, "Search")
-			]);
+			return m('form', [
+                m("input[placeholder='Search']", {
+                    oninput: (e: { currentTarget: HTMLInputElement }) => {
+                        state.term = e.currentTarget.value;
+                    },
+                    value: state.term,
+                }),
+                m('button', { onclick: state.search }, 'Search'),
+            ]);
 		}
 	};
 
-	const Layout: m.Comp<{}, {}> = {
+	const Layout: m.Comp = {
 		view(vnode) {
 			return m(".layout", vnode.children);
 		}
@@ -346,7 +353,7 @@ const FRAME_BUDGET = 100;
 		m.request({
 			method: "POST",
 			url: "/api/v1/upload",
-			data,
+			body: data,
 			config: xhr => {
 				xhr.addEventListener("progress", e => {
 					progress = e.loaded / e.total;
@@ -366,13 +373,13 @@ const FRAME_BUDGET = 100;
 	class User {
 		name: string;
 		constructor(data: any) {
-			this.name = data.firstName + " " + data.lastName;
+			this.name = `${data.firstName} ${data.lastName}`;
 		}
 	}
 	// End rewrite to TypeScript
 
 	// function User(data) {
-	// 	this.name = data.firstName + " " + data.lastName
+	// 	this.name = `${data.firstName} ${data.lastName}`
 	// }
 
 	m.request<User[]>({
@@ -407,7 +414,7 @@ const FRAME_BUDGET = 100;
 {
 	m.jsonp({
 		url: "/api/v1/users/:id",
-		data: { id: 1 },
+		params: { id: 1 },
 		callbackKey: "callback",
 	})
 	.then(result => {
@@ -441,9 +448,9 @@ const FRAME_BUDGET = 100;
 ////////////////////////////////////////////////////////////////////////////////
 
 {
-	const firstName = stream("John");
-	const lastName = stream("Doe");
-	const fullName = stream.merge([firstName, lastName]).map(values => {
+	const firstName = Stream("John");
+	const lastName = Stream("Doe");
+	const fullName = Stream.merge([firstName, lastName]).map(values => {
 		return values.join(" ");
 	});
 
@@ -459,11 +466,11 @@ const FRAME_BUDGET = 100;
 ////////////////////////////////////////////////////////////////////////////////
 
 {
-	const halted = stream(1).map(value => {
-		return stream.HALT;
+	const skipped = Stream(1).map(value => {
+		return Stream.SKIP;
 	});
 
-	halted.map(() => {
+	skipped.map(() => {
 		// never runs
 	});
 }
@@ -473,10 +480,10 @@ const FRAME_BUDGET = 100;
 ////////////////////////////////////////////////////////////////////////////////
 
 {
-	const a = stream(5);
-	const b = stream(7);
+	const a = Stream(5);
+	const b = Stream(7);
 
-	const added = stream.combine((a: stream.Stream<number>, b: stream.Stream<number>) => {
+	const added = Stream.combine((a: Stream<number>, b: Stream<number>) => {
 		return a() + b();
 	}, [a, b]);
 
@@ -488,7 +495,7 @@ const FRAME_BUDGET = 100;
 ////////////////////////////////////////////////////////////////////////////////
 
 {
-	const value = stream<number>();
+	const value = Stream<number>();
 	const doubled = value.map(value => value * 2);
 
 	value.end(true); // set to ended state
@@ -513,7 +520,7 @@ const FRAME_BUDGET = 100;
 
 	const view = () => m(".container", cells.map(i =>
 		m(".slice", {
-			style: {backgroundPosition: (i % 10 * 11) + "% " + (Math.floor(i / 10) * 11) + "%"},
+			style: {backgroundPosition: `${i % 10 * 11}% ${Math.floor(i / 10) * 11}%`},
 			onbeforeremove: exit
 		})));
 
@@ -558,12 +565,14 @@ const FRAME_BUDGET = 100;
 	const Editor = {
 		view() {
 			return [
-				m("textarea.input", {
-					oninput: m.withAttr("value", state.update),
-					value: state.text
-				}),
-				m(".preview", m.trust(marked(state.text))),
-			];
+                m('textarea.input', {
+                    oninput: (e: { currentTarget: HTMLTextAreaElement }) => {
+                        state.update(e.currentTarget.value);
+                    },
+                    value: state.text,
+                }),
+                m('.preview', m.trust(marked(state.text))),
+            ];
 		}
 	};
 
@@ -684,7 +693,7 @@ const FRAME_BUDGET = 100;
 					m("label[for='toggle-all']", {onclick: ui.toggleAll}, "Mark all as complete"),
 					m("ul#todo-list", [
 						state.todosByStatus.map((todo: any) => {
-							return m("li", {class: (todo.completed ? "completed" : "") + " " + (todo === state.editing ? "editing" : "")}, [
+							return m("li", {class: `${todo.completed ? "completed" : ""} ${todo === state.editing ? "editing" : ""}`}, [
 								m(".view", [
 									m("input.toggle[type='checkbox']", { checked: todo.completed, onclick: () => { ui.toggle(todo); } }),
 									m("label", { ondblclick: () => { state.dispatch("edit", [todo]); } }, todo.title),
@@ -701,9 +710,12 @@ const FRAME_BUDGET = 100;
 						state.remaining === 1 ? " item left" : " items left",
 					]),
 					m("ul#filters", [
-						m("li", m("a[href='/']", {oncreate: m.route.link, class: state.showing === "" ? "selected" : ""}, "All")),
-						m("li", m("a[href='/active']", {oncreate: m.route.link, class: state.showing === "active" ? "selected" : ""}, "Active")),
-						m("li", m("a[href='/completed']", {oncreate: m.route.link, class: state.showing === "completed" ? "selected" : ""}, "Completed")),
+						// m("li", m("a[href='/']", {oncreate: m.route.link, class: state.showing === "" ? "selected" : ""}, "All")),
+						// m("li", m("a[href='/active']", {oncreate: m.route.link, class: state.showing === "active" ? "selected" : ""}, "Active")),
+						// m("li", m("a[href='/completed']", {oncreate: m.route.link, class: state.showing === "completed" ? "selected" : ""}, "Completed")),
+						m(m.route.Link, {href: "/"}, "All"),
+						m(m.route.Link, {href: "/active"}, "Active"),
+						m(m.route.Link, {href: "/completed"}, "Completed")
 					]),
 					m("button#clear-completed", { onclick: () => { state.dispatch("clear"); } }, "Clear completed"),
 				]) : null,

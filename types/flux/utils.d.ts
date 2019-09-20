@@ -1,7 +1,7 @@
-import * as Container from "./lib/FluxContainer";
-import * as Mixin from "./lib/FluxMixinLegacy";
-import * as ReduceStore from "./lib/FluxReduceStore";
-import * as Store from "./lib/FluxStore";
+import Container = require("./lib/FluxContainer");
+import Mixin = require("./lib/FluxMixinLegacy");
+import ReduceStore = require("./lib/FluxReduceStore");
+import Store = require("./lib/FluxStore");
 
 export {
     Container,

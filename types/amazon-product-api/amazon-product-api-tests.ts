@@ -1,9 +1,9 @@
-
-/// <reference types="node"/>
+declare var console: { log(s: string): void };
+declare var process: { env: any };
 
 import amazon = require('amazon-product-api');
 
-var client = amazon.createClient({
+let client = amazon.createClient({
     awsId: process.env.AWS_ACCESS_KEY_ID,
     awsSecret: process.env.AWS_SECRET,
     awsTag: process.env.AWS_ASSOCIATE_TAG
@@ -12,7 +12,7 @@ var client = amazon.createClient({
 
 // Item Search
 
-var searchQuery = {
+let searchQuery = {
     director: 'Quentin Tarantino',
     actor: 'Samuel L. Jackson',
     searchIndex: 'DVD',
@@ -37,11 +37,11 @@ client.itemSearch(searchQuery, (err, results) => {
 
 // Item Lookup
 
-var lookupQuery = {
+let lookupQuery = {
     itemId: 'B00008OE6I',
     idType: 'ASIN',
     responseGroup: 'OfferFull',
-    Condition: 'All'
+    condition: 'All'
 };
 
 client.itemLookup(lookupQuery).then((results) => {
@@ -58,9 +58,22 @@ client.itemLookup(lookupQuery, (err, results) => {
     console.log(getResultCount(results) + " lookup results");
 });
 
+let lookupQueryWithItemIdArray = {
+    itemId: ['B00008OE6I', 'B00008OE6E'],
+    idType: 'ASIN',
+    responseGroup: 'OfferFull',
+    condition: 'All'
+};
+
+client.itemLookup(lookupQueryWithItemIdArray).then((results) => {
+    console.log(getResultCount(results) + " lookup results");
+}).catch(function(err){
+    console.log(err);
+});
+
 // Browse Node Lookup
 
-var nodeLookupQuery = {
+let nodeLookupQuery = {
     browseNodeId: '2625373011'
 };
 

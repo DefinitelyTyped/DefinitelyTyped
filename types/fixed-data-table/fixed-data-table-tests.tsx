@@ -1,9 +1,9 @@
 import * as React from "react";
-import {Table, Cell, Column, CellProps} from "fixed-data-table";
+import { Table, Cell, Column, CellProps } from "fixed-data-table";
 
 // create your Table
-class MyTable1 extends React.Component<{}, {}> {
-    render(): React.ReactElement<any> {
+class MyTable1 extends React.Component {
+    render(): React.ReactElement {
         return (
             <Table
                 rowsCount={100}
@@ -17,8 +17,8 @@ class MyTable1 extends React.Component<{}, {}> {
 }
 
 // create your Columns
-class MyTable2 extends React.Component<{}, {}> {
-    render(): React.ReactElement<any> {
+class MyTable2 extends React.Component {
+    render(): React.ReactElement {
         return (
             <Table
                 rowsCount={100}
@@ -36,26 +36,22 @@ class MyTable2 extends React.Component<{}, {}> {
 
 // provide Custom Data
 interface MyTable3State {
-    myTableData: [{name: string}];
+    myTableData: {name: string}[];
 }
 
 class MyTable3 extends React.Component<{}, MyTable3State> {
 
-      constructor(props: {}) {
-        super(props);
+    state = {
+        myTableData: [
+            {name: "Rylan"},
+            {name: "Amelia"},
+            {name: "Estevan"},
+            {name: "Florence"},
+            {name: "Tressa"},
+        ]
+    };
 
-        this.state = {
-            myTableData: [
-                {name: "Rylan"},
-                {name: "Amelia"},
-                {name: "Estevan"},
-                {name: "Florence"},
-                {name: "Tressa"},
-            ]
-        };
-    }
-
-    render(): React.ReactElement<any> {
+    render(): React.ReactElement {
         return (
             <Table
                 rowsCount={this.state.myTableData.length}
@@ -88,8 +84,8 @@ interface MyCellProps extends CellProps {
     myData: RowData[];
 }
 
-class MyTextCell extends React.Component<MyCellProps, {}> {
-    render(): React.ReactElement<any> {
+class MyTextCell extends React.Component<MyCellProps> {
+    render(): React.ReactElement {
         const {rowIndex, field, myData} = this.props;
 
         return (
@@ -104,8 +100,8 @@ class MyTextCell extends React.Component<MyCellProps, {}> {
     }
 }
 
-class MyLinkCell extends React.Component<MyCellProps, {}> {
-    render(): React.ReactElement<any> {
+class MyLinkCell extends React.Component<MyCellProps> {
+    render(): React.ReactElement {
         const {rowIndex, field, myData} = this.props;
         const link: string = myData[rowIndex][field];
 
@@ -127,20 +123,17 @@ interface MyTable4State {
 
 class MyTable4 extends React.Component<{}, MyTable4State> {
 
-    constructor(props: {}) {
-        super(props);
-        this.state = {
-            tableData: [
-                {name: "Rylan", email: "Angelita_Weimann42@gmail.com"},
-                {name: "Amelia", email: "Dexter.Trantow57@hotmail.com"},
-                {name: "Estevan", email: "Aimee7@hotmail.com"},
-                {name: "Florence", email: "Jarrod.Bernier13@yahoo.com"},
-                {name: "Tressa", email: "Yadira1@hotmail.com"}
-            ]
-        };
-    }
+    state = {
+        tableData: [
+            {name: "Rylan", email: "Angelita_Weimann42@gmail.com"},
+            {name: "Amelia", email: "Dexter.Trantow57@hotmail.com"},
+            {name: "Estevan", email: "Aimee7@hotmail.com"},
+            {name: "Florence", email: "Jarrod.Bernier13@yahoo.com"},
+            {name: "Tressa", email: "Yadira1@hotmail.com"}
+        ]
+    };
 
-    render(): React.ReactElement<any> {
+    render(): React.ReactElement {
         return (
             <Table
                 rowsCount={this.state.tableData.length}
@@ -168,8 +161,8 @@ class MyTable4 extends React.Component<{}, MyTable4State> {
 }
 
 // Listen for events
-class MyTable5 extends React.Component<{}, {}> {
-    render(): React.ReactElement<any> {
+class MyTable5 extends React.Component {
+    render(): React.ReactElement {
         return (
             <Table
                 rowsCount={100}

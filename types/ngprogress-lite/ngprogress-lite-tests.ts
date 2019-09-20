@@ -4,7 +4,7 @@ app.config(
     ['ngProgressLiteProvider',
         (ngProgressLiteProvider: ng.progressLite.INgProgressLiteProvider) => {
             ngProgressLiteProvider.settings.ease = 'ease';
-            ngProgressLiteProvider.settings.minimum = 0.08,
+            ngProgressLiteProvider.settings.minimum = 0.08;
             ngProgressLiteProvider.settings.speed = 300;
             ngProgressLiteProvider.settings.trickleRate = 0.02;
             ngProgressLiteProvider.settings.trickleSpeed = 500;

@@ -2,8 +2,11 @@
 // Project: https://github.com/ericmbarnard/Knockout-Validation
 // Definitions by: Dan Ludwig <https://github.com/danludwig>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="knockout" />
+
+type KnockoutValidationMessageFunction = (params: any, observable: any) => string;
 
 interface KnockoutValidationGroupingOptions {
     /**
@@ -95,6 +98,11 @@ interface KnockoutValidationConfiguration {
      * that ko observable's are bound to
      */
     writeInputAttributes?: boolean;
+    /**
+     * Supply the HTML5 input types validation will be
+     * added to. Defaults to ["email", "number", "date"]
+     */
+    html5InputTypes?: string[];
 }
 
 interface KnockoutValidationUtils {
@@ -125,7 +133,7 @@ interface KnockoutValidationAsyncCallback {
 
 interface KnockoutValidationRuleBase
 {
-    message: string;
+    message: string | KnockoutValidationMessageFunction;
 }
 
 interface KnockoutValidationRuleDefinition extends KnockoutValidationRuleBase {
@@ -158,12 +166,14 @@ interface KnockoutValidationRuleDefinitions {
     required: KnockoutValidationRuleDefinition;
     step: KnockoutValidationRuleDefinition;
     unique: KnockoutValidationRuleDefinition;
+    [ruleName: string]: KnockoutValidationRuleDefinition |
+                        KnockoutValidationAsyncRuleDefinition;
 }
 
 interface KnockoutValidationRule {
     rule: string;
     params: any;
-    message?: string;
+    message?: string | KnockoutValidationMessageFunction;
     condition?: () => boolean;
 }
 

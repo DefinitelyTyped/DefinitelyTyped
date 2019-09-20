@@ -1,6 +1,5 @@
-
 import * as deepExtend from 'deep-extend';
-var obj1 = {
+const obj1 = {
   a: 1,
   b: 2,
   d: {
@@ -13,7 +12,7 @@ var obj1 = {
   i: 321,
   j: [1, 2]
 };
-var obj2 = {
+const obj2 = {
   b: 3,
   c: 5,
   d: {
@@ -22,14 +21,12 @@ var obj2 = {
   },
   e: { one: 1, two: 2 },
   f: [42],
-  g: function(){},
+  g() {},
   h: /abc/g,
-  i: null as {aaa: boolean},
+  i: null,
   j: [3, 4]
 };
 
 deepExtend(obj1, obj2);
 deepExtend(obj1, obj2, {ccc: 3});
 deepExtend(obj1, obj2, {ccc: 3}, {ddd: 4});
-
-

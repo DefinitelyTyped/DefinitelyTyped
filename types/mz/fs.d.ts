@@ -274,6 +274,30 @@ export function mkdir(path: string | Buffer, callback: (err?: NodeJS.ErrnoExcept
 export function mkdir(path: string | Buffer, mode?: string | number): Promise<void>;
 
 /**
+ * Creates a unique temporary directory.
+ *
+ * @param prefix temp dir prefix
+ * @param options "$encoding" or {encoding: "$encoding"}
+ */
+export function mkdtemp(prefix: string, options: string | {encoding: string}, callback: (err: NodeJS.ErrnoException | undefined, folder: string) => void): void
+
+/**
+ * Creates a unique temporary directory.
+ *
+ * @param prefix temp dir prefix
+ * @param options "$encoding" or {encoding: "$encoding"}
+ */
+export function mkdtemp(prefix: string, callback: (err: NodeJS.ErrnoException | undefined, folder: string) => void): void;
+
+/**
+ * Creates a unique temporary directory.
+ *
+ * @param prefix temp dir prefix
+ * @param options "$encoding" or {encoding: "$encoding"}
+ */
+export function mkdtemp(prefix: string, options: string | {encoding: string}): Promise<string>
+
+/**
  * Asynchronous `readdir(3)`.
  *
  * Reads the contents of a directory.

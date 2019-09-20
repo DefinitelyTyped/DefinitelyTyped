@@ -22,8 +22,8 @@ $(function() {
   $('#focus-example [title]').tipsy({trigger: 'focus', gravity: 'w'});
 });
 
-function onclickExample1() { $("#manual-example a[rel=tipsy]").tipsy("show"); return false; }
-function onclickExample2() { $("#manual-example a[rel=tipsy]").tipsy("hide"); return false; }
+function onclickExample1() { $("#manual-example a[rel=tipsy]").tipsy({ title: "show" }); return false; }
+function onclickExample2() { $("#manual-example a[rel=tipsy]").tipsy({ title: "hide" }); return false; }
 $('#manual-example a[rel=tipsy]').tipsy({trigger: 'manual'});
 
 $('a.live-tipsy').tipsy({live: true});

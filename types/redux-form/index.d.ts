@@ -1,45 +1,65 @@
-// Type definitions for redux-form 6.6
-// Project: https://github.com/erikras/redux-form
-// Definitions by: Carson Full <https://github.com/carsonf>, Daniel Lytkin <https://github.com/aikoven>, Karol Janyst <https://github.com/LKay>
+// Type definitions for redux-form 8.1
+// Project: https://github.com/erikras/redux-form, https://redux-form.com
+// Definitions by: Carson Full <https://github.com/carsonf>
+//                 Daniel Lytkin <https://github.com/aikoven>
+//                 Karol Janyst <https://github.com/LKay>
+//                 Luka Zakrajsek <https://github.com/bancek>
+//                 Alex Young <https://github.com/alsiola>
+//                 Anton Novik <https://github.com/tehbi4>
+//                 Huw Martin <https://github.com/huwmartin>
+//                 Matt Davis <https://github.com/m-b-davis>
+//                 Ethan Resnick <https://github.com/ethanresnick>
+//                 Tim de Koning <https://github.com/reggino>
+//                 Maddi Joyce <https://github.com/maddijoyce>
+//                 Kamil Wojcik <https://github.com/smifun>
+//                 Mohamed Shaaban <https://github.com/mshaaban088>
+//                 Ethan Setnik <https://github.com/esetnik>
+//                 Walter Barbagallo <https://github.com/bwlt>
+//                 Kota Marusue <https://github.com/mrsekut>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
+// TypeScript Version: 3.0
 import {
   ComponentClass,
   StatelessComponent,
   ReactElement
 } from "react";
 
-export type FieldValue = any;
-
 export type FieldType = "Field" | "FieldArray";
 
-export interface DataShape {
-    [fieldName: string]: FieldValue
+export interface ErrorOther<T = string> {
+    _error?: T;
 }
 
-export type FormErrors<FormData extends DataShape> = {
-    [P in keyof FormData]?: ReactElement<any> | string;
-} & { _error?: string };
+export type FormErrors<FormData = {}, T = string> = {
+    [P in keyof FormData]?: ReactElement | T;
+} & ErrorOther<T>;
 
-export type FormWarnings<FormData extends DataShape> = {
-    [P in keyof FormData]?: ReactElement<any> | string;
-} & { _warning?: string };
+export interface WarningOther<T = void> {
+    _warning?: T;
+}
 
-/**
- * A component class or stateless function component.
- * Workaround for: ComponentClass<P> | SFC<P> which does
- * not resolve due to a bug in TypeScript.
- * https://github.com/Microsoft/TypeScript/pull/8674
- */
-export type ComponentConstructor<P> = ComponentClass<P> | StatelessComponent<P>;
+export type FormWarnings<FormData = {}, T = void> = {
+    [P in keyof FormData]?: ReactElement | string | WarningOther<T>;
+};
+
+export interface RegisteredFieldState {
+    name: string;
+    type: FieldType;
+}
+
+export type Omit<T, K extends keyof T> = Pick<T, ({ [P in keyof T]: P } & { [P in K]: never } & { [x: string]: never, [x: number]: never })[keyof T]>;
 
 export * from "./lib/reduxForm";
 export * from "./lib/Field";
 export * from "./lib/Fields";
 export * from "./lib/FieldArray";
 export * from "./lib/Form";
+export * from "./lib/FormName";
 export * from "./lib/FormSection";
-export * from "./lib/actions";
+export * from "./lib/formValues";
+export * from "./lib/formValueSelector";
 export * from "./lib/reducer";
+export * from "./lib/SubmissionError";
+export * from "./lib/actions";
+export * from "./lib/actionTypes";
 export * from "./lib/selectors";

@@ -100,7 +100,7 @@ declare var jPromise: JQueryPromise<string>;
 
 // if jQuery promises definition supported generics, this could be more interesting example
 Q<string>(jPromise).then(str => str.split(','));
-jPromise.then<number>(returnsNumPromise);
+jPromise.then(returnsNumPromise);
 
 // watch the typing flow through from jQueryPromise to Q.Promise
 Q(jPromise).then(str => str.split(','));
@@ -144,7 +144,7 @@ Q.nfbind(nodeStyle)('foo').done((result: string) => {});
 
 
 class Repo {
-    private items: any[] = [
+    private readonly items: any[] = [
         { name: 'Max', cute: false },
         { name: 'Annie', cute: true }
     ];
@@ -220,7 +220,9 @@ var y2 = Q().then(() => {
     return <[typeof s, typeof n]>[s, n];
 });
 
+var p1: Q.Promise<[string, number]> = y1.all();
 var p2: Q.Promise<[string, number]> = y1.then(val => Q.all(val));
 var p3: Q.Promise<[string, number]> = Q.all(y1);
+var p4: Q.Promise<[string, number]> = y2.all();
 var p5: Q.Promise<[string, number]> = y2.then(val => Q.all(val));
 var p6: Q.Promise<[string, number]> = Q.all(y2);

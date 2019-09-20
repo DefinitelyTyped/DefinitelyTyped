@@ -1,7 +1,12 @@
 // Type definitions for TinyMCE 4.5
-// Project: https://github.com/tinymce/tinymce
-// Definitions by: Martin Duparc <https://github.com/martinduparc/>, Poul Poulsen <https://github.com/ipoul>
+// Project: https://github.com/tinymce/tinymce, https://github.com/tinymce/tinymce-dist
+// Definitions by: Martin Duparc <https://github.com/martinduparc>
+//                 Poul Poulsen <https://github.com/ipoul>
+//                 Nico Hartto <https://github.com/nicohartto>
+//                 Tyler Romeo <https://github.com/Parent5446>
+//                 Ashley Workman <https://github.com/CymruKakashi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 // Work In Progress
 
@@ -51,8 +56,36 @@ export function walk(o: {}, f: () => void, n?: string, s?: string): void;
 
 export function init(settings: Settings): void;
 
+export function triggerSave(): void;
+
+export function get(id: string | number): Editor;
+
 export interface Settings {
-  table_toolbar?: boolean;
+  table_toolbar?: string;
+
+  table_appearance_options?: boolean;
+
+  table_clone_elements?: string;
+
+  table_grid?: boolean;
+
+  table_tab_navigation?: boolean;
+
+  table_default_attributes?: object | string;
+
+  table_default_styles?: object | string;
+
+  table_class_list?: object[];
+
+  table_cell_class_list?: object[];
+
+  table_row_class_list?: object[];
+
+  table_advtab?: boolean;
+
+  table_cell_advtab?: boolean;
+
+  table_row_advtab?: boolean;
 
   auto_focus?: string;
 
@@ -64,6 +97,10 @@ export interface Settings {
 
   hidden_input?: boolean;
 
+  paste_data_images?: boolean;
+
+  advlist_number_styles?: string;
+
   init_instance_callback?(editor: Editor): void;
 
   plugins?: string | string[];
@@ -74,7 +111,11 @@ export interface Settings {
 
   target?: Element;
 
+  branding?: boolean;
+
   color_picker_callback?(callback: (hexColor: string) => void, value: string): void;
+
+  custom_ui_selector?: string;
 
   elementpath?: boolean;
 
@@ -82,7 +123,7 @@ export interface Settings {
 
   fixed_toolbar_container?: string;
 
-  height?: number;
+  height?: number | string;
 
   inline?: boolean;
 
@@ -98,9 +139,9 @@ export interface Settings {
 
   menubar?: string | boolean;
 
-  min_height?: number;
+  min_height?: number | string;
 
-  min_width?: number;
+  min_width?: number | string;
 
   preview_styles?: boolean | string;
 
@@ -112,7 +153,7 @@ export interface Settings {
 
   skin_url?: string;
 
-  skin?: string;
+  skin?: false | string;
 
   statusbar?: boolean;
 
@@ -122,15 +163,17 @@ export interface Settings {
 
   toolbar?: boolean | string | string[];
 
-  width?: number;
+  width?: number | string;
 
   body_class?: string;
 
   body_id?: string;
 
-  content_css?: string;
+  content_css?: string | string[];
 
   content_style?: string;
+
+  inline_boundaries?: boolean;
 
   visual_anchor_class?: string;
 
@@ -275,17 +318,39 @@ export interface Settings {
   autosave_restore_when_empty?: boolean;
 
   autosave_retention?: string;
+
+  imagetools_cors_hosts?: string[];
+
+  imagetools_proxy?: string;
+
+  imagetools_toolbar?: string;
+
+  imagetools_api_key?: string;
+
+  spellchecker_rpc_url?: string;
+
+  spellchecker_language?: string;
+
+  spellchecker_languages?: string;
+
+  spellchecker_dialog?: boolean;
+
+  spellchecker_whitelist?: string[];
+
+  spellchecker_on_load?: boolean;
+
+  spellchecker_active?: boolean;
 }
 
 export namespace settings {
   interface Menu {
-    file: MenuItem;
-    edit: MenuItem;
-    insert: MenuItem;
-    view: MenuItem;
-    format: MenuItem;
-    table: MenuItem;
-    tools: MenuItem;
+    file?: MenuItem;
+    edit?: MenuItem;
+    insert?: MenuItem;
+    view?: MenuItem;
+    format?: MenuItem;
+    table?: MenuItem;
+    tools?: MenuItem;
   }
 
   interface MenuItem {
@@ -343,13 +408,13 @@ export class Editor extends util.Observable {
 
   undoManager: UndoManager;
 
-  WindowManager: WindowManager;
+  windowManager: WindowManager;
 
   addButton(name: string, settings: {}): void;
 
   addCommand(name: string, callback: (ui: boolean, value: {}) => boolean, scope?: {}): void;
 
-  addContextToolbar(predicate: () => void, items: string): void;
+  addContextToolbar(predicate: ((el: Node) => boolean) | string, items: string): void;
 
   addMenuItem(name: string, settings: {}): void;
 
@@ -369,7 +434,7 @@ export class Editor extends util.Observable {
 
   execCallback(name: string): {};
 
-  execCommand(cmd: string, ui: boolean, value?: any, args?: {}): void;
+  execCommand(cmd: string, ui?: boolean, value?: any, args?: {}): void;
 
   focus(skipFocus: boolean): void;
 
@@ -654,6 +719,8 @@ export interface UndoManager {
 
   hasUndo(): boolean;
 
+  ignore(callback: () => void): void;
+
   redo(): {};
 
   transact(callback: () => void): {};
@@ -687,7 +754,7 @@ export interface notificationManager {
 
 export namespace ui {
   interface ControlSettings {
-    menu: ui.Menu;
+    menu: Menu;
   }
 
   interface Collection {}
@@ -713,7 +780,7 @@ export namespace ui {
     constructor();
 
     $el: JQuery;
-    on(name: string, callback: string): ui.Control;
+    on(name: string, callback: string): Control;
     tooltip(): Control;
     settings: ControlSettings;
     disabled(state: boolean): void;
@@ -791,7 +858,7 @@ export namespace dom {
 
     insertAfter<T>(node: Element, referenceNode: Element): Element | T[];
 
-    is(elm: Node, selector: string): void;
+    is(elm: Node, selector: string): boolean;
 
     isBlock(node: Node): boolean;
 
@@ -805,7 +872,7 @@ export namespace dom {
 
     parseStyle(cssText: string): {};
 
-    remove<T>(node: string, keepChildren?: boolean): Element | T[];
+    remove<T>(node: string | Element, keepChildren?: boolean): Element | T[];
 
     removeAllAttribs(e: Element): void;
 
@@ -1025,7 +1092,7 @@ export namespace dom {
 
     setContent(content: string, args?: {}): void;
 
-    setCursorLocation(node?: html.Node, offset?: number): void;
+    setCursorLocation(node?: Node, offset?: number): void;
 
     setNode(elm: Element): Element;
 
@@ -1091,13 +1158,13 @@ export namespace html {
 
     addNodeFilter(attributes: string, callback: () => void): void;
 
-    filterNode(node: html.Node): html.Node;
+    filterNode(node: Node): Node;
 
-    parse(html: string, args?: {}): html.Node;
+    parse(html: string, args?: {}): Node;
   }
 
   class DomParser implements DomParser {
-    constructor(settings: {}, schema: html.Schema);
+    constructor(settings: {}, schema: Schema);
   }
 
   interface Entities {
@@ -1115,31 +1182,31 @@ export namespace html {
   }
 
   interface Node {
-    append(node: html.Node): html.Node;
+    append(node: Node): Node;
 
-    attr(name: string, value?: string): string | html.Node;
+    attr(name: string, value?: string): string | Node;
 
-    clone(): html.Node;
+    clone(): Node;
 
     create(name: string, attrs: {}): void;
 
-    empty(): html.Node;
+    empty(): Node;
 
-    getAll(name: string): html.Node[];
+    getAll(name: string): Node[];
 
-    insert(node: html.Node, ref_node: html.Node, before?: boolean): html.Node;
+    insert(node: Node, ref_node: Node, before?: boolean): Node;
 
     isEmpty(elements: {}): boolean;
 
-    remove(): html.Node;
+    remove(): Node;
 
-    replace(node: html.Node): html.Node;
+    replace(node: Node): Node;
 
     unwrap(): void;
 
-    walk(prev?: boolean): html.Node;
+    walk(prev?: boolean): Node;
 
-    wrap(wrapperNode: html.Node): html.Node;
+    wrap(wrapperNode: Node): Node;
   }
 
   class Node implements Node {
@@ -1151,7 +1218,7 @@ export namespace html {
   }
 
   class SaxParser implements SaxParser {
-    constructor(settings: {}, schema: html.Schema);
+    constructor(settings: {}, schema: Schema);
   }
 
   interface Schema {
@@ -1161,35 +1228,35 @@ export namespace html {
 
     addValidElements(valid_elements: string): void;
 
-    getBlockElements(): {};
+    getBlockElements(): {[name: string]: {}};
 
-    getBoolAttrs(): {};
+    getBoolAttrs(): {[name: string]: {}};
 
-    getCustomElements(): {};
+    getCustomElements(): {[name: string]: {}};
 
     getElementRule(name: string): {};
 
     getInvalidStyles(): void;
 
-    getMoveCaretBeforeOnEnterElements(): {};
+    getMoveCaretBeforeOnEnterElements(): {[name: string]: {}};
 
-    getNonEmptyElements(): {};
+    getNonEmptyElements(): {[name: string]: {}};
 
-    getSelfClosingElements(): {};
+    getSelfClosingElements(): {[name: string]: {}};
 
-    getShortEndedElements(): {};
+    getShortEndedElements(): {[name: string]: {}};
 
-    getSpecialElements(): {};
+    getSpecialElements(): {[name: string]: {}};
 
-    getTextBlockElements(): {};
+    getTextBlockElements(): {[name: string]: {}};
 
-    getTextInlineElements(): {};
+    getTextInlineElements(): {[name: string]: {}};
 
     getValidClasses(): void;
 
     getValidStyles(): void;
 
-    getWhiteSpaceElements(): {};
+    getWhiteSpaceElements(): {[name: string]: {}};
 
     isValid(name: string, attr?: string): boolean;
 
@@ -1203,11 +1270,11 @@ export namespace html {
   }
 
   interface Serializer {
-    serialize(node: html.Node): string;
+    serialize(node: Node): string;
   }
 
   class Serializer implements Serializer {
-    constructor(settings: {}, schema: html.Schema);
+    constructor(settings: {}, schema: Schema);
   }
 
   interface Styles {
@@ -1243,7 +1310,7 @@ export class Writer implements Writer {
 
 export namespace util {
   interface Color {
-    parse(value: {}): util.Color;
+    parse(value: {}): Color;
 
     toHex(): string;
 
@@ -1371,7 +1438,7 @@ export namespace util {
   interface URI {
     getURI(noProtoHost: boolean): URI;
 
-    isSameOrigin(uri: util.URI): boolean;
+    isSameOrigin(uri: URI): boolean;
 
     setPath(path: string): void;
 

@@ -1,6 +1,7 @@
-// Type definitions for Couchbase Node.js SDK 2.1.2
+// Type definitions for Couchbase Node.js SDK 2.4.5
 // Project: https://github.com/couchbase/couchnode
 // Definitions by: Marwan Aouida <https://github.com/maouida>
+//      Brian Crowell <https://github.com/fluggo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node"/>
@@ -145,9 +146,74 @@ declare enum errors {
 }
 
 /**
+ * Virtual base for authenticators.
+ */
+declare interface Authenticator {
+    username: string;
+    password: string;
+}
+
+/**
+ * Authenticator for using classic authentication.
+ */
+declare class ClassicAuthenticator implements Authenticator {
+    /**
+     * Create a new instance of the ClassicAuthenticator class.
+     * @param buckets Map of bucket names to passwords.
+     * @param username Cluster administration username.
+     * @param password Cluster administration password.
+     */
+    constructor(buckets: {[key: string]: string}, username: string, password: string);
+
+    username: string;
+    password: string;
+}
+
+/**
+ * Authenticator for using role-based authentication.
+ */
+declare class PasswordAuthenticator implements Authenticator {
+    /**
+     * Create a new instance of the PasswordAuthenticator class.
+     * @param username RBAC username.
+     * @param password RBAC password.
+     */
+    constructor(username: string, password: string);
+
+    username: string;
+    password: string;
+}
+
+/**
+ * Authenticator for performing certificate-based authentication.
+ */
+declare class CertAuthenticator implements Authenticator {
+    /**
+     * Create a new instance of the CertAuthenticator class.
+     */
+    constructor();
+
+    username: string;
+    password: string;
+}
+
+/**
  * Represents a singular cluster containing your buckets.
  */
 declare class Cluster {
+    /**
+     * Authenticate to the cluster using role-based authentication.
+     * @param username RBAC username.
+     * @param password RBAC password.
+     */
+    authenticate(username: string, password: string): void;
+
+    /**
+     * Authenticate to the cluster using a specific authentication type.
+     * @param auther
+     */
+    authenticate(auther: Authenticator): void;
+
     /**
      * Create a new instance of the Cluster class.
      * @param cnstr The connection string for your cluster.
@@ -255,7 +321,17 @@ interface CouchbaseError extends Error {
     /**
      * The error code for this error.
      */
-    code: errors;
+    code?: errors;
+
+    /**
+     * Possible response body included with the error.
+     */
+    responseBody?: any;
+
+    /**
+     * Possible inner error for this error.
+     */
+    innerError?: CouchbaseError;
 }
 
 interface AppendOptions {
@@ -352,10 +428,198 @@ interface InsertOptions {
     replicate_to?: number;
 }
 
+interface CreateIndexOptions {
+    /**
+     * If a secondary index already exists, an error will be thrown unless this is set to true.
+     */
+    ignoreIfExists?: boolean;
+
+    /**
+     * True to defer building of the index until buildDeferredIndexes is called (or a direct call to the corresponding query service API).
+     */
+    deferred?: boolean;
+}
+
+interface CreatePrimaryIndexOptions {
+    /**
+     * The custom name for the primary index.
+     */
+    name?: string;
+
+    /**
+     * If a primary index already exists, an error will be thrown unless this is set to true.
+     */
+    ignoreIfExists?: boolean;
+
+    /**
+     * True to defer building of the index until buildDeferredIndexes is called (or a direct call to the corresponding query service API).
+     */
+    deferred?: boolean;
+}
+
+interface DropIndexOptions {
+    /**
+     * If true, attempting to drop on a bucket without the specified index won't cause an error to be thrown.
+     */
+    ignoreIfNotExists?: boolean;
+}
+
+interface DropPrimaryIndexOptions {
+    /**
+     * The custom name for the primary index.
+     */
+    name?: string;
+
+    /**
+     * If true, attempting to drop on a bucket without the specified index won't cause an error to be thrown.
+     */
+    ignoreIfNotExists?: boolean;
+}
+
+interface CreatePrimaryIndexOptions {
+    /**
+     * The custom name for the primary index.
+     */
+    name?: string;
+
+    /**
+     * If a primary index already exists, an error will be thrown unless this is set to true.
+     */
+    ignoreIfExists?: boolean;
+
+    /**
+     * True to defer building of the index until buildDeferredIndexes is called (or a direct call to the corresponding query service API).
+     */
+    deferred?: boolean;
+}
+
+interface IndexInfo {
+    /**
+     * ID for the index.
+     */
+    id: string;
+
+    /**
+     * Name for the index.
+     */
+    name: string;
+
+    /**
+     * List of index keys.
+     */
+    index_key: string[];
+
+    /**
+     * True if this is a primary index.
+     */
+    is_primary: boolean;
+
+    /**
+     * ID for the keyspace to which the index belongs.
+     */
+    keyspace_id: string;
+
+    /**
+     * ID for the namespace to which the index belongs.
+     */
+    namespace_id: string;
+
+    /**
+     * ID for the datastore to which the index belongs.
+     */
+    store_id: string;
+
+    /**
+     * The current state of the index.
+     *
+     * Values include `online` and `pending`.
+     */
+    state: string;
+
+    /**
+     * The type of view, which will always be `gsi`.
+     */
+    using: 'gsi';
+}
+
+interface WatchIndexesOptions {
+    /**
+     * Timeout for the operation in milliseconds.
+     */
+    timeout?: number;
+}
+
 /**
  * A class for performing management operations against a bucket. This class should not be instantiated directly, but instead through the use of the Bucket#manager method instead.
  */
 interface BucketManager {
+    /**
+     * Builds any indexes that were previously created with the deferred attribute.
+     * @param callback The callback function.
+     */
+    buildDeferredIndexes(callback: (err: CouchbaseError | null, deferredIndexes: string[]) => void): void;
+
+    /**
+     * Creates a non-primary GSI index with an optional name.
+     * @param indexName The name of the index.
+     * @param fields The JSON fields to index.
+     * @param options
+     * @param callback The callback function.
+     */
+    createIndex(indexName: string, fields: string[], callback: (err: CouchbaseError | null) => void): void;
+
+    /**
+     * Creates a non-primary GSI index with an optional name.
+     * @param indexName The name of the index.
+     * @param fields The JSON fields to index.
+     * @param options
+     * @param callback The callback function.
+     */
+    createIndex(indexName: string, fields: string[], options: CreateIndexOptions, callback: (err: CouchbaseError | null) => void): void;
+
+    /**
+     * Creates a primary GSI index with an optional name.
+     * @param options
+     * @param callback The callback function.
+     */
+    createPrimaryIndex(callback: (err: CouchbaseError | null) => void): void;
+
+    /**
+     * Creates a primary GSI index with an optional name.
+     * @param options
+     * @param callback The callback function.
+     */
+    createPrimaryIndex(options: CreateIndexOptions, callback: (err: CouchbaseError | null) => void): void;
+
+    /**
+     * Drops a specific GSI index by name.
+     * @param indexName The name of the index.
+     * @param options
+     * @param callback The callback function.
+     */
+    dropIndex(indexName: string, callback: (err: CouchbaseError | null) => void): void;
+
+    /**
+     * Drops a specific GSI index by name.
+     * @param indexName The name of the index.
+     * @param options
+     * @param callback The callback function.
+     */
+    dropIndex(indexName: string, options: DropIndexOptions, callback: (err: CouchbaseError | null) => void): void;
+
+    /**
+     * Drops a primary GSI index.
+     * @param options
+     * @param callback The callback function.
+     */
+    dropPrimaryIndex(callback: (err: CouchbaseError | null) => void): void;
+
+    /**
+     * Drops a primary GSI index.
+     * @param options
+     * @param callback The callback function.
+     */
+    dropPrimaryIndex(options: DropPrimaryIndexOptions, callback: (err: CouchbaseError | null) => void): void;
 
     /**
      * Flushes the cluster, deleting all data stored within this bucket. Note that this method requires the Flush permission to be enabled on the bucket from the management console before it will work.
@@ -375,6 +639,12 @@ interface BucketManager {
      * @param callback The callback function.
      */
     getDesignDocuments(callback: Function): void;
+
+    /**
+     * Retrieves a list of the indexes currently configured on the cluster.
+     * @param callback The callback function.
+     */
+    getIndexes(callback: (err: CouchbaseError | null, indexes: IndexInfo[] | null) => void): void;
 
     /**
      * Registers a design document to this bucket, failing if it already exists.
@@ -401,6 +671,21 @@ interface BucketManager {
      * @returns {}
      */
     upsertDesignDocument(name: string, data: any, callback: Function): void;
+
+    /**
+     * Watches a list of indexes, waiting for them to become available for use.
+     * @param watchList List of indexes to watch.
+     * @param callback The callback function.
+     */
+    watchIndexes(watchList: string[], callback: (err: Error | null) => void): void;
+
+    /**
+     * Watches a list of indexes, waiting for them to become available for use.
+     * @param watchList List of indexes to watch.
+     * @param options
+     * @param callback The callback function.
+     */
+    watchIndexes(watchList: string[], options: WatchIndexesOptions, callback: (err: Error | null) => void): void;
 }
 
 /**
@@ -571,6 +856,9 @@ declare namespace ViewQuery {
  * Class for dynamically construction of N1QL queries. This class should never be constructed directly, instead you should use the N1qlQuery.fromString static method to instantiate a N1qlStringQuery.
  */
 declare class N1qlQuery {
+    // Private declaration to avoid other queries being misstaken for N1qlQuery
+    private __nominal: void;
+
     /**
      * Creates a query object directly from the passed query string.
      * @param str
@@ -703,10 +991,654 @@ declare namespace SpatialQuery {
     }
 }
 
+declare abstract class SearchQuery {
+    /**
+     * Creates a new search query from an index name and search query definition.
+     * @param indexName The FTS index to search in.
+     * @param query The body of the FTS query.
+     */
+    static new(indexName: string, query: SearchQuery.Query): SearchQuery;
+
+    /**
+     * Creates a compound BooleanQuery composed of several other query objects.
+     */
+    static boolean(): SearchQuery.BooleanQuery;
+
+    /**
+     * Creates a BooleanFieldQuery for searching boolean fields in an index.
+     */
+    static booleanField(val: boolean): SearchQuery.BooleanFieldQuery;
+
+    /**
+     * Creates a query for matches all of a list of subqueries in an index.
+     */
+    static conjuncts(queries: ReadonlyArray<SearchQuery.Query>): SearchQuery.ConjunctionQuery;
+
+    /**
+     * Creates a query for matches all of a list of subqueries in an index.
+     */
+    static conjuncts(...queries: SearchQuery.Query[]): SearchQuery.ConjunctionQuery;
+
+    /**
+     * Creates a search query for matching date ranges in an index.
+     */
+    static dateRange(): SearchQuery.DateRangeQuery;
+
+    /**
+     * Creates a query for matches any of a list of subqueries in an index.
+     */
+    static disjuncts(queries: ReadonlyArray<SearchQuery.Query>): SearchQuery.DisjunctionQuery;
+
+    /**
+     * Creates a query for matches any of a list of subqueries in an index.
+     */
+    static disjuncts(...queries: SearchQuery.Query[]): SearchQuery.DisjunctionQuery;
+
+    /**
+     * Creates a query which allows you to match a list of document IDs in an index.
+     */
+    static docIds(ids: ReadonlyArray<string>): SearchQuery.DocIdQuery;
+
+    /**
+     * Creates a query which allows you to match a list of document IDs in an index.
+     */
+    static docIds(...ids: string[]): SearchQuery.DocIdQuery;
+
+    /**
+     * Creates a geographical bounding-box based query.
+     * @param tl_lat Top-left latitude.
+     * @param tl_lon Top-left longitude.
+     * @param br_lat Bottom-right latitude.
+     * @param br_lon Bottom-right longitude.
+     */
+    static geoBoundingBoxQuery(tl_lat: number, tl_lon: number, br_lat: number, br_lon: number): SearchQuery.GeoBoundingBoxQuery;
+
+    /**
+     * Creates a geographical distance based query.
+     */
+    static geoDistanceQuery(): SearchQuery.GeoDistanceQuery;
+
+    /**
+     * Creates a search query for matching text.
+     */
+    static match(match: string): SearchQuery.MatchQuery;
+
+    /**
+     * Creates a search query which matches anything.
+     */
+    static matchAll(): SearchQuery.MatchAllQuery;
+
+    /**
+     * Creates a search query which matches nothing.
+     */
+    static matchNone(): SearchQuery.MatchAllQuery;
+
+    /**
+     * Creates a search query for matching phrases in an index.
+     */
+    static matchPhrase(phrase: string): SearchQuery.MatchPhraseQuery;
+
+    /**
+     * Creates a search query for matching numeric ranges in an index.
+     */
+    static numericRange(): SearchQuery.NumericRangeQuery;
+
+    /**
+     * Creates a search query for a prefix in an index.
+     */
+    static phrase(terms: ReadonlyArray<string>): SearchQuery.PhraseQuery;
+
+    /**
+     * Creates a search query for a prefix in an index.
+     */
+    static prefix(prefix: string): SearchQuery.PrefixQuery;
+    /**
+     * Creates a query for matches any of a list of subqueries in an index.
+     */
+
+    /**
+     * Creates a search query for matching string.
+     */
+    static queryString(query: string): SearchQuery.QueryStringQuery;
+
+    /**
+     * Creates a search query for matching against a regexp query in an index.
+     */
+    static regexp(regexp: string): SearchQuery.RegexpQuery;
+
+    /**
+     * Creates a search query for searching terms in an index.
+     */
+    static term(term: string): SearchQuery.TermQuery;
+
+    /**
+     * Creates a search query for matching term ranges in the index.
+     */
+    static termRange(): SearchQuery.TermRangeQuery;
+
+    /**
+     * Creates a search query for matching a string with wildcards in an index.
+     */
+    static wildcard(wildcard: string): SearchQuery.WildcardQuery;
+
+    /**
+     * Adds a SearchFacet object to return information about as part of the execution of this query.
+     */
+    addFacet(name: string, facet: SearchFacet): this;
+
+    /**
+     * Specify the consistency level for this query.
+     */
+    consistency(val: SearchQuery.Consistency): this;
+
+    /**
+     * Includes information about the internal search semantics used to execute your query.
+     */
+    explain(explain: boolean): this;
+
+    /**
+     * Specifies the fields you wish to receive in the result set.
+     */
+    fields(fields: ReadonlyArray<string>): this;
+
+    /**
+     * Specifies the fields you wish to receive in the result set.
+     */
+    fields(...fields: string[]): this;
+
+    /**
+     * Request a particular highlight style and field list for this query.
+     */
+    highlight(style: SearchQuery.HighlightStyle, fields: ReadonlyArray<string>): this;
+
+    /**
+     * Request a particular highlight style and field list for this query.
+     */
+    highlight(style: SearchQuery.HighlightStyle, ...fields: string[]): this;
+
+    /**
+     * Specifies the maximum number of results to return.
+     * @param limit Maximum number of results to return.
+     */
+    limit(limit: number): this;
+
+    /**
+     * Specifies how many results to skip from the beginning of the result set.
+     * @param skip How many results to skip from the beginning of the result set.
+     */
+    skip(skip: number): this;
+
+    /**
+     * Specifies the fields you wish to sort by in your result set.
+     */
+    sort(fields: ReadonlyArray<string | SearchSort>): this;
+
+    /**
+     * Specifies the fields you wish to sort by in your result set.
+     */
+    sort(...fields: (string | SearchSort)[]): this;
+
+    /**
+     * Specifies the maximum time to wait for this query to complete.
+     * @param timeout Maximum time to wait (in milliseconds) for this query to complete.
+     */
+    timeout(timeout: number): this;
+}
+
+declare namespace SearchQuery {
+    abstract class Query {
+    }
+
+    abstract class BooleanQuery extends Query {
+        /**
+         * Specifies a predicate query which must match.
+         * @param query
+         */
+        must(query: Query): this;
+
+        /**
+         * Specifies a predicate query which must not match.
+         * @param query
+         */
+        mustNot(query: Query): this;
+
+        /**
+         * Specifies a predicate query which should match.
+         * @param query
+         */
+        should(query: Query): this;
+
+        /**
+         * Specifies the minimum score for should predicate matches.
+         * @param shouldMin
+         */
+        shouldMin(shouldMin: number): this;
+
+        /**
+         * Defines the amount to boost the query.
+         * @param boost Amount to boost the query.
+         */
+        boost(boost: number): this;
+    }
+
+    abstract class BooleanFieldQuery extends Query {
+        /**
+         * Defines the amount to boost the query.
+         * @param boost Amount to boost the query.
+         */
+        boost(boost: number): this;
+
+        /**
+         * Specifies the field to query.
+         * @param boost The field to query.
+         */
+        field(field: string): this;
+    }
+
+    abstract class ConjunctionQuery extends Query {
+        /**
+         * Specifies additional predicate queries.
+         * @param queries Additional predicate queries.
+         */
+        and(queries: ReadonlyArray<SearchQuery.Query>): this;
+
+        /**
+         * Specifies additional predicate queries.
+         * @param queries Additional predicate queries.
+         */
+        and(...queries: SearchQuery.Query[]): this;
+
+        /**
+         * Defines the amount to boost the query.
+         * @param boost Amount to boost the query.
+         */
+        boost(boost: number): this;
+    }
+
+    abstract class DateRangeQuery extends Query {
+        /**
+         * Defines the lower bound of the date range query.
+         * @param start The lower bound of the query.
+         * @param inclusive True to set an inclusive bound. Defaults to true.
+         */
+        start(start: Date | string, inclusive?: boolean): this;
+
+        /**
+         * Defines the upper bound of the date range query.
+         * @param end The upper bound of the query.
+         * @param inclusive True to set an inclusive bound. Defaults to false.
+         */
+        end(end: Date | string, inclusive?: boolean): this;
+
+        /**
+         * Defines the amount to boost the query.
+         * @param boost Amount to boost the query.
+         */
+        boost(boost: number): this;
+
+        /**
+         * Specifies the field to query.
+         * @param field The field to query.
+         */
+        field(field: string): this;
+    }
+
+    abstract class DisjunctionQuery extends Query {
+        /**
+         * Specifies additional predicate queries.
+         * @param queries Additional predicate queries.
+         */
+        or(queries: ReadonlyArray<SearchQuery.Query>): this;
+
+        /**
+         * Specifies additional predicate queries.
+         * @param queries Additional predicate queries.
+         */
+        or(...queries: SearchQuery.Query[]): this;
+
+        /**
+         * Defines the amount to boost the query.
+         * @param boost Amount to boost the query.
+         */
+        boost(boost: number): this;
+    }
+
+    abstract class DocIdQuery extends Query {
+        /**
+         * Defines the amount to boost the query.
+         * @param boost Amount to boost the query.
+         */
+        boost(boost: number): this;
+
+        /**
+         * Specifies the field to query.
+         * @param field The field to query.
+         */
+        field(field: string): this;
+    }
+
+    abstract class GeoBoundingBoxQuery extends Query {
+        /**
+         * Defines the amount to boost the query.
+         * @param boost Amount to boost the query.
+         */
+        boost(boost: number): this;
+
+        /**
+         * Specifies the field to query.
+         * @param field The field to query.
+         */
+        field(field: string): this;
+    }
+
+    abstract class GeoDistanceQuery extends Query {
+        /**
+         * Defines the amount to boost the query.
+         * @param boost Amount to boost the query.
+         */
+        boost(boost: number): this;
+
+        /**
+         * Specifies the field to query.
+         * @param field The field to query.
+         */
+        field(field: string): this;
+    }
+
+    abstract class MatchAllQuery extends Query {
+    }
+
+    abstract class MatchNoneQuery extends Query {
+    }
+
+    abstract class MatchPhraseQuery extends Query {
+        /**
+         * Defines the amount to boost the query.
+         * @param boost Amount to boost the query.
+         */
+        boost(boost: number): this;
+
+        /**
+         * Specifies the field to query.
+         * @param field The field to query.
+         */
+        field(field: string): this;
+
+        /**
+         * Specifies the analyzer to use for the query.
+         * @param analyzer Analyzer to use for the query.
+         */
+        analyzer(analyzer: string): this;
+    }
+
+    abstract class MatchQuery extends Query {
+        /**
+         * Defines the amount to boost the query.
+         * @param boost Amount to boost the query.
+         */
+        boost(boost: number): this;
+
+        /**
+         * Specifies the field to query.
+         * @param field The field to query.
+         */
+        field(field: string): this;
+
+        /**
+         * Defines the level of fuzziness for the query.
+         * @param fuzziness Level of fuzziness for the query.
+         */
+        fuzziness(fuzziness: number): this;
+
+        /**
+         * Specifies the prefix length to consider for the query.
+         * @param prefixLength Prefix length to consider for the query.
+         */
+        prefixLength(prefixLength: number): this;
+
+        /**
+         * Specifies the analyzer to use for the query.
+         * @param analyzer Analyzer to use for the query.
+         */
+        analyzer(analyzer: string): this;
+    }
+
+    abstract class NumericRangeQuery extends Query {
+        /**
+         * Defines the lower bound of the numeric range query.
+         * @param min The lower bound of the query.
+         * @param inclusive True to set an inclusive bound. Defaults to true.
+         */
+        min(min: number, inclusive?: boolean): this;
+
+        /**
+         * Defines the upper bound of the numeric range query.
+         * @param max The upper bound of the query.
+         * @param inclusive True to set an inclusive bound. Defaults to false.
+         */
+        max(max: number, inclusive?: boolean): this;
+
+        /**
+         * Defines the amount to boost the query.
+         * @param boost Amount to boost the query.
+         */
+        boost(boost: number): this;
+
+        /**
+         * Specifies the field to query.
+         * @param field The field to query.
+         */
+        field(field: string): this;
+    }
+
+    abstract class PhraseQuery extends Query {
+        /**
+         * Defines the amount to boost the query.
+         * @param boost Amount to boost the query.
+         */
+        boost(boost: number): this;
+
+        /**
+         * Specifies the field to query.
+         * @param field The field to query.
+         */
+        field(field: string): this;
+    }
+
+    abstract class PrefixQuery extends Query {
+        /**
+         * Defines the amount to boost the query.
+         * @param boost Amount to boost the query.
+         */
+        boost(boost: number): this;
+
+        /**
+         * Specifies the field to query.
+         * @param field The field to query.
+         */
+        field(field: string): this;
+    }
+
+    abstract class QueryStringQuery extends Query {
+        /**
+         * Defines the amount to boost the query.
+         * @param boost Amount to boost the query.
+         */
+        boost(boost: number): this;
+    }
+
+    abstract class RegexpQuery extends Query {
+        /**
+         * Defines the amount to boost the query.
+         * @param boost Amount to boost the query.
+         */
+        boost(boost: number): this;
+
+        /**
+         * Specifies the field to query.
+         * @param field The field to query.
+         */
+        field(field: string): this;
+    }
+
+    abstract class TermQuery extends Query {
+        /**
+         * Defines the amount to boost the query.
+         * @param boost Amount to boost the query.
+         */
+        boost(boost: number): this;
+
+        /**
+         * Specifies the field to query.
+         * @param field The field to query.
+         */
+        field(field: string): this;
+
+        /**
+         * Defines the level of fuzziness for the query.
+         * @param fuzziness Level of fuzziness for the query.
+         */
+        fuzziness(fuzziness: number): this;
+
+        /**
+         * Specifies the prefix length to consider for the query.
+         * @param prefixLength Prefix length to consider for the query.
+         */
+        prefixLength(prefixLength: number): this;
+    }
+
+    abstract class TermRangeQuery extends Query {
+        /**
+         * Defines the lower bound of the term range query.
+         * @param min The lower bound of the query.
+         * @param inclusive True to set an inclusive bound. Defaults to true.
+         */
+        min(min: string, inclusive?: boolean): this;
+
+        /**
+         * Defines the upper bound of the term range query.
+         * @param max The upper bound of the query.
+         * @param inclusive True to set an inclusive bound. Defaults to false.
+         */
+        max(max: string, inclusive?: boolean): this;
+
+        /**
+         * Defines the amount to boost the query.
+         * @param boost Amount to boost the query.
+         */
+        boost(boost: number): this;
+
+        /**
+         * Specifies the field to query.
+         * @param field The field to query.
+         */
+        field(field: string): this;
+    }
+
+    abstract class WildcardQuery extends Query {
+        /**
+         * Defines the amount to boost the query.
+         * @param boost Amount to boost the query.
+         */
+        boost(boost: number): this;
+
+        /**
+         * Specifies the field to query.
+         * @param boost The field to query.
+         */
+        field(field: string): this;
+    }
+
+    /**
+     * Enumeration for specifying FTS consistency semantics.
+     */
+    enum Consistency {
+        /**
+         * This is the default (for single-statement requests).
+         */
+        NOT_BOUNDED,
+    }
+
+    /**
+     * Enumeration for specifying FTS highlight styling.
+     */
+    enum HighlightStyle {
+        /**
+         * This causes hits to be highlighted using the default style.
+         */
+        DEFAULT,
+
+        /**
+         * This causes hits to be highlighted using HTML tags.
+         */
+        HTML,
+
+        /**
+         * This causes hits to be highlighted with ANSI character codes.
+         */
+        ANSI,
+    }
+}
+
+declare class SearchFacet {
+}
+
+declare namespace SearchFacet {
+    class TermFacet extends SearchFacet {
+    }
+
+    function term(field: string, size: number): TermFacet;
+
+    class NumericFacet extends SearchFacet {
+        addRange(name: string, min: number, max: number): this;
+    }
+
+    function numeric(field: string, size: number): NumericFacet;
+
+    class DateFacet extends SearchFacet {
+        addRange(name: string, start: string, end: string): this;
+    }
+
+    function date(field: string, size: number): DateFacet;
+}
+
+declare class SearchSort {
+    /**
+     * Specifies whether to sort descending or not.
+     */
+    descending(descending: boolean): this;
+}
+
+declare namespace SearchSort {
+    class ScoreSort extends SearchSort {
+    }
+
+    function score(): ScoreSort;
+
+    class IdSort extends SearchSort {
+    }
+
+    function id(): IdSort;
+
+    class FieldSort extends SearchSort {
+        type(type: string): this;
+        mode(mode: string): this;
+        missing(missing: string): this;
+    }
+
+    function field(field: string): FieldSort;
+
+    class GeoDistanceSort extends SearchSort {
+        unit(unit: string): this;
+    }
+
+    function geoDistance(field: string, lat: number, lon: number): GeoDistanceSort;
+}
+
 /**
  * The Bucket class represents a connection to a Couchbase bucket. Never instantiate this class directly. Instead use the Cluster#openBucket method instead.
  */
-interface Bucket {
+interface Bucket extends events.EventEmitter {
     /**
      * Returns the version of the Node.js library as a string.
      */
@@ -763,7 +1695,7 @@ interface Bucket {
      * @param fragment The document's contents to append.
      * @param callback The callback function.
      */
-    append(key: any | Buffer, fragment: any, callback: Bucket.OpCallback): void;
+    append(key: string | Buffer, fragment: any, callback: Bucket.OpCallback): void;
 
     /**
      *
@@ -772,7 +1704,7 @@ interface Bucket {
      * @param options The options object.
      * @param callback The callback function.
      */
-    append(key: any | Buffer, fragment: any, options: AppendOptions, callback: Bucket.OpCallback): void;
+    append(key: string | Buffer, fragment: any, options: AppendOptions, callback: Bucket.OpCallback): void;
 
     /**
      * Increments or decrements a key's numeric value.
@@ -781,7 +1713,7 @@ interface Bucket {
      * @param delta The amount to add or subtract from the counter value. This value may be any non-zero integer.
      * @param callback The callback function.
      */
-    counter(key: any | Buffer, delta: number, callback: Bucket.OpCallback): void;
+    counter(key: string | Buffer, delta: number, callback: Bucket.OpCallback): void;
 
     /**
      *
@@ -790,7 +1722,7 @@ interface Bucket {
      * @param options The options object.
      * @param callback The callback function.
      */
-    counter(key: any | Buffer, delta: number, options: CounterOptions, callback: Bucket.OpCallback): void;
+    counter(key: string | Buffer, delta: number, options: CounterOptions, callback: Bucket.OpCallback): void;
 
     /**
      * Shuts down this connection.
@@ -808,14 +1740,14 @@ interface Bucket {
      * @param key The target document key.
      * @param callback The callback function.
      */
-    get(key: any | Buffer, callback: Bucket.OpCallback): void;
+    get(key: string | Buffer, callback: Bucket.OpCallback): void;
 
     /**
      * @param key The target document key.
      * @param options The options object.
      * @param callback The callback function.
      */
-    get(key: any | Buffer, options: any, callback: Bucket.OpCallback): void;
+    get(key: string | Buffer, options: any, callback: Bucket.OpCallback): void;
 
     /**
      * Lock the document on the server and retrieve it. When an document is locked, its CAS changes and subsequent operations on the document (without providing the current CAS) will fail until the lock is no longer held.
@@ -824,7 +1756,7 @@ interface Bucket {
      * @param key The target document key.
      * @param callback The callback function.
      */
-    getAndLock(key: any, callback: Bucket.OpCallback): void;
+    getAndLock(key: string, callback: Bucket.OpCallback): void;
 
     /**
      * Lock the document on the server and retrieve it. When an document is locked, its CAS changes and subsequent operations on the document (without providing the current CAS) will fail until the lock is no longer held.
@@ -835,7 +1767,7 @@ interface Bucket {
      * @param callback The callback function.
      * @returns {}
      */
-    getAndLock(key: any, options: GetAndLockOptions, callback: Bucket.OpCallback): void;
+    getAndLock(key: string, options: GetAndLockOptions, callback: Bucket.OpCallback): void;
 
     /**
      * Retrieves a document and updates the expiry of the item at the same time.
@@ -844,7 +1776,7 @@ interface Bucket {
      * @param options The options object.
      * @param callback The callback function.
      */
-    getAndTouch(key: any | Buffer, expiry: number, options: any, callback: Bucket.OpCallback): void;
+    getAndTouch(key: string | Buffer, expiry: number, options: any, callback: Bucket.OpCallback): void;
 
     /**
      * Retrieves a document and updates the expiry of the item at the same time.
@@ -852,21 +1784,21 @@ interface Bucket {
      * @param expiry The expiration time to use. If a value of 0 is provided, then the current expiration time is cleared and the key is set to never expire. Otherwise, the key is updated to expire in the time provided (in seconds).
      * @param callback The callback function.
      */
-    getAndTouch(key: any | Buffer, expiry: number, callback: Bucket.OpCallback): void;
+    getAndTouch(key: string | Buffer, expiry: number, callback: Bucket.OpCallback): void;
 
     /**
      * Retrieves a list of keys
      * @param keys The target document keys.
      * @param callback The callback function.
      */
-    getMulti(key: any[] | Buffer[], callback: Bucket.MultiGetCallback): void;
+    getMulti(key: ReadonlyArray<string | Buffer>, callback: Bucket.MultiGetCallback): void;
 
     /**
      * Get a document from a replica server in your cluster.
      * @param key The target document key.
      * @param callback The callback function.
      */
-    getReplica(key: any | Buffer, callback: Bucket.OpCallback): void;
+    getReplica(key: string | Buffer, callback: Bucket.OpCallback): void;
 
     /**
     * Get a document from a replica server in your cluster.
@@ -874,7 +1806,7 @@ interface Bucket {
     * @param options The options object.
     * @param callback The callback function.
     */
-    getReplica(key: any | Buffer, options: GetReplicaOptions, callback: Bucket.OpCallback): void;
+    getReplica(key: string | Buffer, options: GetReplicaOptions, callback: Bucket.OpCallback): void;
 
     /**
      * Identical to Bucket#upsert but will fail if the document already exists.
@@ -882,7 +1814,7 @@ interface Bucket {
      * @param value The document's contents.
      * @param callback The callback function.
      */
-    insert(key: any | Buffer, value: any, callback: Bucket.OpCallback): void;
+    insert(key: string | Buffer, value: any, callback: Bucket.OpCallback): void;
 
     /**
      * Identical to Bucket#upsert but will fail if the document already exists.
@@ -891,7 +1823,7 @@ interface Bucket {
      * @param options The options object.
      * @param callback The callback function.
      */
-    insert(key: any | Buffer, value: any, options: InsertOptions, callback: Bucket.OpCallback): void;
+    insert(key: string | Buffer, value: any, options: InsertOptions, callback: Bucket.OpCallback): void;
 
     /**
      * Returns an instance of a BuckerManager for performing management operations against a bucket.
@@ -904,7 +1836,7 @@ interface Bucket {
      * @param fragment The document's contents to prepend.
      * @param callback The callback function.
      */
-    prepend(key: any, fragment: any, callback: Bucket.OpCallback): void;
+    prepend(key: string, fragment: any, callback: Bucket.OpCallback): void;
 
     /**
      * Like Bucket#append, but prepends data to the existing value.
@@ -913,31 +1845,43 @@ interface Bucket {
      * @param options The options object.
      * @param callback The callback function.
      */
-    prepend(key: any, fragment: any, options: PrependOptions, callback: Bucket.OpCallback): void;
+    prepend(key: string, fragment: any, options: PrependOptions, callback: Bucket.OpCallback): void;
 
     /**
-     * Executes a previously prepared query object. This could be a ViewQuery or a N1qlQuery.
-     * Note: N1qlQuery queries are currently an uncommitted interface and may be subject to change in 2.0.0's final release.
+     * Executes a previously prepared query object.
      * @param query The query to execute.
      * @param callback The callback function.
      */
-    query(query: ViewQuery | N1qlQuery, callback: Bucket.QueryCallback): Bucket.ViewQueryResponse | Bucket.N1qlQueryResponse;
+    query(query: ViewQuery | SpatialQuery, callback?: Bucket.QueryCallback): Bucket.ViewQueryResponse;
 
     /**
-     * Executes a previously prepared query object. This could be a ViewQuery or a N1qlQuery.
-     * Note: N1qlQuery queries are currently an uncommitted interface and may be subject to change in 2.0.0's final release.
+     * Executes a previously prepared query object.
+     * @param query The query to execute.
+     * @param callback The callback function.
+     */
+    query(query: N1qlQuery, callback?: Bucket.N1qlQueryCallback): Bucket.N1qlQueryResponse;
+
+    /**
+     * Executes a previously prepared query object.
+     * @param query The query to execute.
+     * @param callback The callback function.
+     */
+    query(query: SearchQuery, callback?: Bucket.FtsQueryCallback): Bucket.FtsQueryResponse;
+
+    /**
+     * Executes a previously prepared query object.
      * @param query The query to execute.
      * @param params A list or map to do replacements on a N1QL query.
      * @param callback The callback function.
      */
-    query(query: ViewQuery | N1qlQuery, params: Object | Array<any>, callback: Bucket.QueryCallback): Bucket.ViewQueryResponse | Bucket.N1qlQueryResponse;
+    query(query: N1qlQuery, params: {[param: string]: any} | any[], callback?: Bucket.N1qlQueryCallback): Bucket.N1qlQueryResponse;
 
     /**
      * Deletes a document on the server.
      * @param key The target document key.
      * @param callback The callback function.
      */
-    remove(key: any | Buffer, callback: Bucket.OpCallback): void;
+    remove(key: string | Buffer, callback: Bucket.OpCallback): void;
 
     /**
      * Deletes a document on the server.
@@ -945,7 +1889,7 @@ interface Bucket {
      * @param options The options object.
      * @param callback The callback function.
      */
-    remove(key: any | Buffer, options: RemoveOptions, callback: Bucket.OpCallback): void;
+    remove(key: string | Buffer, options: RemoveOptions, callback: Bucket.OpCallback): void;
 
     /**
      * Identical to Bucket#upsert, but will only succeed if the document exists already (i.e. the inverse of Bucket#insert).
@@ -953,7 +1897,7 @@ interface Bucket {
      * @param value The document's contents.
      * @param callback The callback function.
      */
-    replace(key: any | Buffer, value: any, callback: Bucket.OpCallback): void;
+    replace(key: string | Buffer, value: any, callback: Bucket.OpCallback): void;
 
     /**
      * Identical to Bucket#upsert, but will only succeed if the document exists already (i.e. the inverse of Bucket#insert).
@@ -962,7 +1906,7 @@ interface Bucket {
      * @param options The options object.
      * @param callback The callback function.
      */
-    replace(key: any | Buffer, value: any, options: ReplaceOptions, callback: Bucket.OpCallback): void;
+    replace(key: string | Buffer, value: any, options: ReplaceOptions, callback: Bucket.OpCallback): void;
 
     /**
      * Configures a custom set of transcoder functions for encoding and decoding values that are being stored or retreived from the server.
@@ -978,7 +1922,7 @@ interface Bucket {
      * @param options The options object.
      * @param callback The callback function.
      */
-    touch(key: any | Buffer, expiry: number, options: TouchOptions, callback: Bucket.OpCallback): void;
+    touch(key: string | Buffer, expiry: number, options: TouchOptions, callback: Bucket.OpCallback): void;
 
     /**
      * Unlock a previously locked document on the server. See the Bucket#lock method for more details on locking.
@@ -986,7 +1930,7 @@ interface Bucket {
      * @param cas The CAS value returned when the key was locked. This operation will fail if the CAS value provided does not match that which was the result of the original lock operation.
      * @param callback The callback function.
      */
-    unlock(key: any | Buffer, cas: Bucket.CAS, callback: Bucket.OpCallback): void;
+    unlock(key: string | Buffer, cas: Bucket.CAS, callback: Bucket.OpCallback): void;
 
     /**
      * Unlock a previously locked document on the server. See the Bucket#lock method for more details on locking.
@@ -995,7 +1939,7 @@ interface Bucket {
      * @param options The options object.
      * @param callback The callback function.
      */
-    unlock(key: any | Buffer, cas: Bucket.CAS, options: any, callback: Bucket.OpCallback): void;
+    unlock(key: string | Buffer, cas: Bucket.CAS, options: any, callback: Bucket.OpCallback): void;
 
     /**
      * Stores a document to the bucket.
@@ -1003,7 +1947,7 @@ interface Bucket {
      * @param value The document's contents.
      * @param callback The callback function.
      */
-    upsert(key: any | Buffer, value: any, callback: Bucket.OpCallback): void;
+    upsert(key: string | Buffer, value: any, callback: Bucket.OpCallback): void;
 
     /**
      * Stores a document to the bucket.
@@ -1012,13 +1956,28 @@ interface Bucket {
      * @param options The options object.
      * @param callback The callback function.
      */
-    upsert(key: any | Buffer, value: any, options: UpsertOptions, callback: Bucket.OpCallback): void;
+    upsert(key: string | Buffer, value: any, options: UpsertOptions, callback: Bucket.OpCallback): void;
+
+    addListener(event: 'connect', listener: () => void): this;
+    addListener(event: 'error', listener: (error: CouchbaseError) => void): this;
+
+    on(event: 'connect', listener: () => void): this;
+    on(event: 'error', listener: (error: CouchbaseError) => void): this;
+
+    once(event: 'connect', listener: () => void): this;
+    once(event: 'error', listener: (error: CouchbaseError) => void): this;
+
+    prependListener(event: 'connect', listener: () => void): this;
+    prependListener(event: 'error', listener: (error: CouchbaseError) => void): this;
+
+    prependOnceListener(event: 'connect', listener: () => void): this;
+    prependOnceListener(event: 'error', listener: (error: CouchbaseError) => void): this;
 }
 
 declare namespace Bucket {
 
     /**
-     * his is used as a callback from executed queries. It is a shortcut method that automatically subscribes to the rows and error events of the Bucket.ViewQueryResponse.
+     * This is used as a callback from executed queries. It is a shortcut method that automatically subscribes to the rows and error events of the Bucket.ViewQueryResponse.
      */
     interface QueryCallback {
         /**
@@ -1026,7 +1985,31 @@ declare namespace Bucket {
          * @param rows The rows returned from the query.
          * @param meta The metadata returned by the query.
          */
-        (error: CouchbaseError, rows: any[], meta: Bucket.ViewQueryResponse.Meta): void;
+        (error: CouchbaseError | null, rows: any[] | null, meta: Bucket.ViewQueryResponse.Meta): void;
+    }
+
+    /**
+     * This is used as a callback from executed queries. It is a shortcut method that automatically subscribes to the rows and error events of the Bucket.ViewQueryResponse.
+     */
+    interface N1qlQueryCallback {
+        /**
+         * @param error The error for the operation. This can either be an Error object or a falsy value.
+         * @param rows The rows returned from the query.
+         * @param meta The metadata returned by the query.
+         */
+        (error: CouchbaseError | null, rows: any[] | null, meta: Bucket.N1qlQueryResponse.Meta): void;
+    }
+
+    /**
+     * This is used as a callback from executed queries. It is a shortcut method that automatically subscribes to the rows and error events of the Bucket.ViewQueryResponse.
+     */
+    interface FtsQueryCallback {
+        /**
+         * @param error The error for the operation. This can either be an Error object or a falsy value.
+         * @param rows The rows returned from the query.
+         * @param meta The metadata returned by the query.
+         */
+        (error: CouchbaseError | null, rows: any[] | null, meta: Bucket.FtsQueryResponse.Meta): void;
     }
 
     /**
@@ -1036,10 +2019,10 @@ declare namespace Bucket {
      */
     interface OpCallback {
         /**
-         * @param error The error for the operation. This can either be an Error object or a value which evaluates to false (null, undefined, 0 or false).
+         * @param error The error for the operation. This can either be an Error object or a value which evaluates to false.
          * @param result The result of the operation that was executed. This usually contains at least a cas property, and on some operations will contain a value property as well.
          */
-        (error: CouchbaseError | number, result: any): void;
+        (error: CouchbaseError | null, result: any): void;
     }
 
     /**
@@ -1081,7 +2064,7 @@ declare namespace Bucket {
 
     /**
      * The CAS value is a special object that indicates the current state of the item on the server. Each time an object is mutated on the server, the value is changed. CAS objects can be used in conjunction with mutation operations to ensure that the value on the server matches the local value retrieved by the client. This is useful when doing document updates on the server as you can ensure no changes were applied by other clients while you were in the process of mutating the document locally.
-     * In the Node.js SDK, the CAS is represented as an opaque value. As such,y ou cannot generate CAS objects, but should rather use the values returned from a Bucket.OpCallback.
+     * In the Node.js SDK, the CAS is represented as an opaque value. As such, you cannot generate CAS objects, but should rather use the values returned from a Bucket.OpCallback.
      */
     interface CAS {
 
@@ -1091,7 +2074,30 @@ declare namespace Bucket {
      * An event emitter allowing you to bind to various query result set events.
      */
     interface N1qlQueryResponse extends events.EventEmitter {
+        addListener(event: 'end', listener: (meta: N1qlQueryResponse.Meta) => void): this;
+        addListener(event: 'error', listener: (error: CouchbaseError) => void): this;
+        addListener(event: 'row', listener: (row: any, meta: N1qlQueryResponse.Meta) => void): this;
+        addListener(event: 'rows', listener: (rows: any[], meta: N1qlQueryResponse.Meta) => void): this;
 
+        on(event: 'end', listener: (meta: N1qlQueryResponse.Meta) => void): this;
+        on(event: 'error', listener: (error: CouchbaseError) => void): this;
+        on(event: 'row', listener: (row: any, meta: N1qlQueryResponse.Meta) => void): this;
+        on(event: 'rows', listener: (rows: any[], meta: N1qlQueryResponse.Meta) => void): this;
+
+        once(event: 'end', listener: (meta: N1qlQueryResponse.Meta) => void): this;
+        once(event: 'error', listener: (error: CouchbaseError) => void): this;
+        once(event: 'row', listener: (row: any, meta: N1qlQueryResponse.Meta) => void): this;
+        once(event: 'rows', listener: (rows: any[], meta: N1qlQueryResponse.Meta) => void): this;
+
+        prependListener(event: 'end', listener: (meta: N1qlQueryResponse.Meta) => void): this;
+        prependListener(event: 'error', listener: (error: CouchbaseError) => void): this;
+        prependListener(event: 'row', listener: (row: any, meta: N1qlQueryResponse.Meta) => void): this;
+        prependListener(event: 'rows', listener: (rows: any[], meta: N1qlQueryResponse.Meta) => void): this;
+
+        prependOnceListener(event: 'end', listener: (meta: N1qlQueryResponse.Meta) => void): this;
+        prependOnceListener(event: 'error', listener: (error: CouchbaseError) => void): this;
+        prependOnceListener(event: 'row', listener: (row: any, meta: N1qlQueryResponse.Meta) => void): this;
+        prependOnceListener(event: 'rows', listener: (rows: any[], meta: N1qlQueryResponse.Meta) => void): this;
     }
 
     namespace N1qlQueryResponse {
@@ -1118,7 +2124,30 @@ declare namespace Bucket {
      * An event emitter allowing you to bind to various query result set events.
      */
     interface ViewQueryResponse extends events.EventEmitter {
+        addListener(event: 'end', listener: (meta: ViewQueryResponse.Meta) => void): this;
+        addListener(event: 'error', listener: (error: CouchbaseError) => void): this;
+        addListener(event: 'row', listener: (row: any, meta: ViewQueryResponse.Meta) => void): this;
+        addListener(event: 'rows', listener: (rows: any[], meta: ViewQueryResponse.Meta) => void): this;
 
+        on(event: 'end', listener: (meta: ViewQueryResponse.Meta) => void): this;
+        on(event: 'error', listener: (error: CouchbaseError) => void): this;
+        on(event: 'row', listener: (row: any, meta: ViewQueryResponse.Meta) => void): this;
+        on(event: 'rows', listener: (rows: any[], meta: ViewQueryResponse.Meta) => void): this;
+
+        once(event: 'end', listener: (meta: ViewQueryResponse.Meta) => void): this;
+        once(event: 'error', listener: (error: CouchbaseError) => void): this;
+        once(event: 'row', listener: (row: any, meta: ViewQueryResponse.Meta) => void): this;
+        once(event: 'rows', listener: (rows: any[], meta: ViewQueryResponse.Meta) => void): this;
+
+        prependListener(event: 'end', listener: (meta: ViewQueryResponse.Meta) => void): this;
+        prependListener(event: 'error', listener: (error: CouchbaseError) => void): this;
+        prependListener(event: 'row', listener: (row: any, meta: ViewQueryResponse.Meta) => void): this;
+        prependListener(event: 'rows', listener: (rows: any[], meta: ViewQueryResponse.Meta) => void): this;
+
+        prependOnceListener(event: 'end', listener: (meta: ViewQueryResponse.Meta) => void): this;
+        prependOnceListener(event: 'error', listener: (error: CouchbaseError) => void): this;
+        prependOnceListener(event: 'row', listener: (row: any, meta: ViewQueryResponse.Meta) => void): this;
+        prependOnceListener(event: 'rows', listener: (rows: any[], meta: ViewQueryResponse.Meta) => void): this;
     }
 
     namespace ViewQueryResponse {
@@ -1130,6 +2159,75 @@ declare namespace Bucket {
              * The total number of rows available in the index of the view that was queried.
              */
             total_rows: number;
+        }
+    }
+
+    /**
+     * An event emitter allowing you to bind to various query result set events.
+     */
+    interface FtsQueryResponse extends events.EventEmitter {
+        addListener(event: 'end', listener: (meta: FtsQueryResponse.Meta) => void): this;
+        addListener(event: 'error', listener: (error: CouchbaseError) => void): this;
+        addListener(event: 'row', listener: (row: any, meta: FtsQueryResponse.Meta) => void): this;
+        addListener(event: 'rows', listener: (rows: any[], meta: FtsQueryResponse.Meta) => void): this;
+
+        on(event: 'end', listener: (meta: FtsQueryResponse.Meta) => void): this;
+        on(event: 'error', listener: (error: CouchbaseError) => void): this;
+        on(event: 'row', listener: (row: any, meta: FtsQueryResponse.Meta) => void): this;
+        on(event: 'rows', listener: (rows: any[], meta: FtsQueryResponse.Meta) => void): this;
+
+        once(event: 'end', listener: (meta: FtsQueryResponse.Meta) => void): this;
+        once(event: 'error', listener: (error: CouchbaseError) => void): this;
+        once(event: 'row', listener: (row: any, meta: FtsQueryResponse.Meta) => void): this;
+        once(event: 'rows', listener: (rows: any[], meta: FtsQueryResponse.Meta) => void): this;
+
+        prependListener(event: 'end', listener: (meta: FtsQueryResponse.Meta) => void): this;
+        prependListener(event: 'error', listener: (error: CouchbaseError) => void): this;
+        prependListener(event: 'row', listener: (row: any, meta: FtsQueryResponse.Meta) => void): this;
+        prependListener(event: 'rows', listener: (rows: any[], meta: FtsQueryResponse.Meta) => void): this;
+
+        prependOnceListener(event: 'end', listener: (meta: FtsQueryResponse.Meta) => void): this;
+        prependOnceListener(event: 'error', listener: (error: CouchbaseError) => void): this;
+        prependOnceListener(event: 'row', listener: (row: any, meta: FtsQueryResponse.Meta) => void): this;
+        prependOnceListener(event: 'rows', listener: (rows: any[], meta: FtsQueryResponse.Meta) => void): this;
+    }
+
+    namespace FtsQueryResponse {
+        /**
+         * The meta-information available from a search query response.
+         */
+        interface Meta {
+            /**
+             * The status information for this query, includes properties
+             * such as total, failed, and successful.
+             */
+            status: any;
+
+            /**
+             * Any non-fatal errors that occurred during query processing.
+             */
+            errors: any;
+
+            /**
+             * The total number of hits that were available for this search query.
+             */
+            totalHits: number;
+
+            /**
+             * The resulting facet information for any facets that were specified
+             * in the search query.
+             */
+            facets: any;
+
+            /**
+             * The time spent processing this query.
+             */
+            took: number;
+
+            /**
+             * The maximum score out of all the results in this query.
+             */
+            maxScore: number;
         }
     }
 }

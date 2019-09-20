@@ -23,8 +23,8 @@ declare namespace dojox {
          *
          *
          */
-        class object {
-            constructor();
+        const object: { new(): objectInstance };
+        interface objectInstance {
             /**
              * multiplies the existing matrix with an argument on left side
              * (matrix * this.matrix)
@@ -2529,7 +2529,7 @@ declare namespace dojox {
              * @param outline
              */
             class BinarySearchTree {
-                constructor(obj: dojox.gfx3d.object, outline: any);
+                constructor(obj: dojox.gfx3d.objectInstance, outline: any);
                 /**
                  *
                  * @param obj
@@ -3240,7 +3240,7 @@ declare module "dojox/gfx3d" {
     export=exp;
 }
 declare module "dojox/gfx3d/object" {
-    var exp: dojox.gfx3d.object
+    var exp: dojox.gfx3d.objectInstance;
     export=exp;
 }
 declare module "dojox/gfx3d/gradient" {

@@ -2,6 +2,7 @@
 // Project: https://github.com/expressjs/timeout
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="express" />
 
@@ -13,10 +14,9 @@ declare namespace Express {
         clearTimeout(): void;
 
         /**
-         *
-         * @return {boolean} true if timeout fired; false otherwise.
+         * @summary true if timeout fired; false otherwise.
          */
-        timedout(event: string, message: string): boolean;
+        timedout: boolean;
     }
 }
 

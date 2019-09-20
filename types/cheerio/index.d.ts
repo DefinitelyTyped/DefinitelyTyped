@@ -1,7 +1,19 @@
 // Type definitions for Cheerio v0.22.0
 // Project: https://github.com/cheeriojs/cheerio
-// Definitions by: Bret Little <https://github.com/blittle>, VILIC VANE <http://vilic.info>, Wayne Maurer <https://github.com/wmaurer>, Umar Nizamani <https://github.com/umarniz>
+// Definitions by: Bret Little <https://github.com/blittle>
+//                 VILIC VANE <http://vilic.info>
+//                 Wayne Maurer <https://github.com/wmaurer>
+//                 Umar Nizamani <https://github.com/umarniz>
+//                 LiJinyao <https://github.com/LiJinyao>
+//                 Chennakrishna <https://github.com/chennakrishna8>
+//                 AzSiAz <https://github.com/AzSiAz>
+//                 Ryo Ota <https://github.com/nwtgck>
+//                 Rebecca Turner <https://github.com/9999years>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+/// <reference types="node" />
+
+declare type AttrFunction = (el: CheerioElement, i: number, currentValue: string) => any;
 
 interface Cheerio {
     // Document References
@@ -13,8 +25,16 @@ interface Cheerio {
 
     // Attributes
 
+    attr(): {[attr: string]: string};
     attr(name: string): string;
-    attr(name: string, value: any): Cheerio;
+    attr(name: string, value: AttrFunction): Cheerio;
+    // `value` *can* be `any` here but:
+    // 1. That makes type-checking the function-type useless
+    // 2. It's converted to a string anyways
+    attr(name: string, value: string): Cheerio;
+    // The map's values *can* be `any` but they'll all be cast to strings
+    // regardless.
+    attr(map: {[key: string]: any}): Cheerio;
 
     data(): any;
     data(name: string): any;
@@ -110,9 +130,8 @@ interface Cheerio {
 
     eq(index: number): Cheerio;
 
-    get(): string[];
-    get(): CheerioElement[];
-    get(index: number): CheerioElement;
+    get(): any[];
+    get(index: number): any;
 
     index(): number;
     index(selector: string): number;
@@ -171,16 +190,15 @@ interface Cheerio {
 
     empty(): Cheerio;
 
-    html(): string;
+    html(): string | null;
     html(html: string): Cheerio;
 
     text(): string;
     text(text: string): Cheerio;
 
-    // See https://github.com/cheeriojs/cheerio/issues/731
-    /*wrap(content: string): Cheerio;
+    wrap(content: string): Cheerio;
     wrap(content: Document): Cheerio;
-    wrap(content: Cheerio): Cheerio;*/
+    wrap(content: Cheerio): Cheerio;
 
     css(propertyName: string): string;
     css(propertyNames: string[]): string[];
@@ -214,6 +232,7 @@ interface CheerioOptionsInterface {
     recognizeCDATA?: boolean;
     recognizeSelfClosing?: boolean;
     normalizeWhitespace?: boolean;
+    ignoreWhitespace?: boolean;
 }
 
 interface CheerioSelector {
@@ -254,6 +273,7 @@ interface CheerioElement {
     children: CheerioElement[];
     childNodes: CheerioElement[];
     lastChild: CheerioElement;
+    firstChild: CheerioElement;
     next: CheerioElement;
     nextSibling: CheerioElement;
     prev: CheerioElement;
@@ -261,12 +281,16 @@ interface CheerioElement {
     parent: CheerioElement;
     parentNode: CheerioElement;
     nodeValue: string;
+    data?: string;
+    startIndex?: number;
 }
 
-interface CheerioAPI extends CheerioSelector {
-  load(html: string, options?: CheerioOptionsInterface): CheerioStatic;
+interface CheerioAPI extends CheerioSelector, CheerioStatic {
+  load(html: string | Buffer, options?: CheerioOptionsInterface): CheerioStatic;
   load(element: CheerioElement, options?: CheerioOptionsInterface): CheerioStatic;
 }
+
+interface Document { }
 
 declare var cheerio:CheerioAPI;
 

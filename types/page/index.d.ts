@@ -1,7 +1,9 @@
-// Type definitions for page v1.5.0
+// Type definitions for page v1.8.6
 // Project: http://visionmedia.github.io/page.js/
 // Definitions by: Alan Norbauer <http://alan.norbauer.com/>
+//                 James Garbutt <https://github.com/43081j>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 declare namespace PageJS {
     interface Static {
@@ -26,6 +28,17 @@ declare namespace PageJS {
          *  Links that are not of the same origin are disregarded and will not be dispatched.
          */
         (path: string, ...callbacks: Callback[]): void;
+        /**
+         *  Defines a route mapping path to the given callback(s).
+         *
+         *      page('/', user.list)
+         *      page('/user/:id', user.load, user.show)
+         *      page('/user/:id/edit', user.load, user.edit)
+         *      page('*', notfound)
+         *
+         *  Links that are not of the same origin are disregarded and will not be dispatched.
+         */
+        (path: RegExp, ...callbacks: Callback[]): void;
         /**
          * This is equivalent to page('*', callback) for generic "middleware".
          */
@@ -53,7 +66,7 @@ declare namespace PageJS {
          *
          * If you wish to load serve initial content from the server you likely will want to set dispatch to false.
          */
-        (options: Options): void;
+        (options: Partial<Options>): void;
         /**
          * Register page's popstate / click bindings. If you're doing selective binding you'll like want to pass { click: false } to specify this yourself. The following options are available:
          *
@@ -114,7 +127,7 @@ declare namespace PageJS {
          *
          * Identical to page([options]).
          */
-        start(options: Options): void;
+        start(options: Partial<Options>): void;
         /**
          * Register page's popstate / click bindings. If you're doing selective binding you'll like want to pass { click: false } to specify this yourself. The following options are available:
          *
@@ -194,19 +207,23 @@ declare namespace PageJS {
         /**
          * bind to click events (default = true)
          */
-        click?: boolean;
+        click: boolean;
         /**
          * bind to popstate (default = true)
          */
-        popstate?: boolean;
+        popstate: boolean;
         /**
          * perform initial dispatch (default = true)
          */
-        dispatch?: boolean;
+        dispatch: boolean;
         /**
          * add #!before urls (default = false)
          */
-        hashbang?: boolean;
+        hashbang: boolean;
+        /**
+         * remove URL encoding frfrom path components
+         */
+        decodeURLComponents: boolean;
     }
 
     interface Callback {
@@ -268,8 +285,8 @@ declare namespace PageJS {
 }
 
 declare module "page" {
-    var page: PageJS.Static;
-    export = page;
+    const page: PageJS.Static;
+    export default page;
 }
 
 declare var page: PageJS.Static;

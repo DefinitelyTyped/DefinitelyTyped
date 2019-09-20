@@ -1,7 +1,7 @@
 import * as gulp from 'gulp';
-import * as revReplace from 'gulp-rev-replace';
-import * as rev from 'gulp-rev';
-import * as useref from 'gulp-useref';
+import revReplace = require('gulp-rev-replace');
+import rev = require('gulp-rev');
+import useref = require('gulp-useref');
 
 gulp.task("index", () => {
     return gulp.src("src/index.html")
@@ -17,21 +17,21 @@ var opt = {
     distFolder: 'dist'
 }
 
-gulp.task("revision", ["dist:css", "dist:js"], () =>
+gulp.task("revision", gulp.parallel("dist:css", "dist:js", () =>
     gulp.src(["dist/**/*.css", "dist/**/*.js"])
         .pipe(rev())
         .pipe(gulp.dest(opt.distFolder))
         .pipe(rev.manifest())
         .pipe(gulp.dest(opt.distFolder))
-);
+));
 
-gulp.task("revreplace", ["revision"], () => {
+gulp.task("revreplace", gulp.parallel("revision", () => {
     var manifest = gulp.src("./" + opt.distFolder + "/rev-manifest.json");
 
     return gulp.src(opt.srcFolder + "/index.html")
-        .pipe(revReplace({manifest: manifest}))
+        .pipe(revReplace({ manifest: manifest }))
         .pipe(gulp.dest(opt.distFolder));
-});
+}));
 
 
 function replaceJsIfMap(filename: string): string {
@@ -41,7 +41,7 @@ function replaceJsIfMap(filename: string): string {
     return filename;
 }
 
-gulp.task("revreplace", ["revision"], () => {
+gulp.task("revreplace", gulp.parallel("revision", () => {
     var manifest = gulp.src("./" + opt.distFolder + "/rev-manifest.json");
 
     return gulp.src(opt.distFolder + '**/*.js')
@@ -51,4 +51,4 @@ gulp.task("revreplace", ["revision"], () => {
             modifyReved: replaceJsIfMap
         }))
         .pipe(gulp.dest(opt.distFolder));
-});
+}));

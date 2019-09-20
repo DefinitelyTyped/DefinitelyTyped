@@ -1,12 +1,19 @@
 // Type definitions for NeDB 1.8
 // Project: https://github.com/louischatriot/nedb
 // Definitions by: Stefan Steinhart <https://github.com/reppners>
+//                 Anthony Nichols <https://github.com/anthonynichols>
+//                 Alejandro Fernandez Haro <https://github.com/afharo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
+
+/// <reference types="node" />
+
+import { EventEmitter } from 'events';
 
 export = Nedb;
 export as namespace Nedb;
 
-declare class Nedb {
+declare class Nedb<G = any> extends EventEmitter {
     constructor(pathOrOptions?: string | Nedb.DataStoreOptions);
 
     persistence: Nedb.Persistence;
@@ -30,37 +37,33 @@ declare class Nedb {
      * Ensure an index is kept for this field. Same parameters as lib/indexes
      * For now this function is synchronous, we need to test how much time it takes
      * We use an async API for consistency with the rest of the code
-     * @param {String} options.fieldName
-     * @param {Boolean} options.unique
-     * @param {Boolean} options.sparse
-     * @param {Function} cb Optional callback, signature: err
+     * @param cb Optional callback, signature: err
      */
     ensureIndex(options: Nedb.EnsureIndexOptions, cb?: (err: Error) => void): void;
 
     /**
      * Remove an index
-     * @param {String} fieldName
-     * @param {Function} cb Optional callback, signature: err
+     * @param cb Optional callback, signature: err
      */
     removeIndex(fieldName: string, cb?: (err: Error) => void): void;
 
     /**
      * Add one or several document(s) to all indexes
      */
-    addToIndexes<T>(doc: T | T[]): void;
+    addToIndexes<T extends G>(doc: T | T[]): void;
 
     /**
      * Remove one or several document(s) from all indexes
      */
-    removeFromIndexes<T>(doc: T | T[]): void;
+    removeFromIndexes<T extends G>(doc: T | T[]): void;
 
     /**
      * Update one or several documents in all indexes
      * To update multiple documents, oldDoc must be an array of { oldDoc, newDoc } pairs
      * If one update violates a constraint, all changes are rolled back
      */
-    updateIndexes<T>(oldDoc: T, newDoc: T): void;
-    updateIndexes<T>(updates: Array<{ oldDoc: T; newDoc: T }>): void;
+    updateIndexes<T extends G>(oldDoc: T, newDoc: T): void;
+    updateIndexes<T extends G>(updates: Array<{ oldDoc: T; newDoc: T }>): void;
 
     /**
      * Return the list of candidates for a given query
@@ -74,14 +77,15 @@ declare class Nedb {
     getCandidates(query: any): void;
 
     /**
-     * Insert a new document
-     * @param {Function} cb Optional callback, signature: err, insertedDoc
+     * Insert one or more new documents
+     * @param cb Optional callback, signature: err, insertedDoc
      */
-    insert<T>(newDoc: T, cb?: (err: Error, document: T) => void): void;
+    insert<T extends G>(newDoc: T, cb?: (err: Error, document: T) => void): void;
+    insert<T extends G>(newDocs: T[], cb?: (err: Error, documents: T[]) => void): void;
 
     /**
      * Count all documents matching the query
-     * @param {any} query MongoDB-style query
+     * @param query MongoDB-style query
      */
     count(query: any, callback: (err: Error, n: number) => void): void;
     count(query: any): Nedb.CursorCount;
@@ -89,41 +93,39 @@ declare class Nedb {
     /**
      * Find all documents matching the query
      * If no callback is passed, we return the cursor so that user can limit, skip and finally exec
-     * @param {any} query MongoDB-style query
-     * @param {any} projection MongoDB-style projection
+     * @param query MongoDB-style query
+     * @param projection MongoDB-style projection
      */
-    find<T>(query: any, projection: T, callback: (err: Error, documents: T[]) => void): void;
-    find<T>(query: any, projection?: T): Nedb.Cursor<T>;
+    find<T extends G>(query: any, projection: T, callback: (err: Error, documents: T[]) => void): void;
+    find<T extends G>(query: any, projection?: T): Nedb.Cursor<T>;
 
     /**
      * Find all documents matching the query
      * If no callback is passed, we return the cursor so that user can limit, skip and finally exec
      * * @param {any} query MongoDB-style query
      */
-    find<T>(query: any, callback: (err: Error, documents: T[]) => void): void;
+    find<T extends G>(query: any, callback: (err: Error, documents: T[]) => void): void;
 
     /**
      * Find one document matching the query
-     * @param {any} query MongoDB-style query
-     * @param {any} projection MongoDB-style projection
+     * @param query MongoDB-style query
+     * @param projection MongoDB-style projection
      */
-    findOne<T>(query: any, projection: T, callback: (err: Error, document: T) => void): void;
+    findOne<T extends G>(query: any, projection: T, callback: (err: Error, document: T) => void): void;
 
     /**
      * Find one document matching the query
-     * @param {any} query MongoDB-style query
+     * @param query MongoDB-style query
      */
-    findOne<T>(query: any, callback: (err: Error, document: T) => void): void;
+    findOne<T extends G>(query: any, callback: (err: Error, document: T) => void): void;
 
     /**
      * Update all docs matching query v1.7.4 and prior signature.
      * For now, very naive implementation (recalculating the whole database)
-     * @param {any} query
-     * @param {any} updateQuery
-     * @param {Object} options Optional options
+     * @param options Optional options
      *                 options.multi If true, can update multiple documents (defaults to false)
      *                 options.upsert If true, document is inserted if the query doesn't match anything
-     * @param {Function} cb Optional callback, signature: err,
+     * @param cb Optional callback, signature: err,
      *                                                    numReplaced,
      *                                                    upsert (set to true if the update was in fact an upsert)
      *
@@ -134,32 +136,40 @@ declare class Nedb {
     /**
      * Update all docs matching query v1.8 signature.
      * For now, very naive implementation (recalculating the whole database)
-     * @param {any} query
-     * @param {any} updateQuery
-     * @param {Object} options Optional options
+     * @param options Optional options
      *                 options.multi If true, can update multiple documents (defaults to false)
      *                 options.upsert If true, document is inserted if the query doesn't match anything
-     * @param {Function} cb Optional callback, signature: err,
+     * @param cb Optional callback, signature: err,
      *                                                    numAffected,
      *                                                    affectedDocuments (when returnUpdatedDocs is set to true), obj or array
      *                                                    upsert (set to true if the update was in fact an upsert)
      *
      * @api private Use Datastore.update which has the same signature
      */
-    update<T>(query: any, updateQuery: any, options?: Nedb.UpdateOptions, cb?: (err: Error, numberOfUpdated: number, affectedDocuments: any, upsert: boolean) => void): void;
+    update<T extends G>(query: any, updateQuery: any, options?: Nedb.UpdateOptions, cb?: (err: Error, numberOfUpdated: number, affectedDocuments: any, upsert: boolean) => void): void;
 
     /**
      * Remove all docs matching the query
      * For now very naive implementation (similar to update)
-     * @param {Object} query
-     * @param {Object} options Optional options
+     * @param options Optional options
      *                 options.multi If true, can update multiple documents (defaults to false)
-     * @param {Function} cb Optional callback, signature: err, numRemoved
+     * @param cb Optional callback, signature: err, numRemoved
      *
      * @api private Use Datastore.remove which has the same signature
      */
     remove(query: any, options: Nedb.RemoveOptions, cb?: (err: Error, n: number) => void): void;
     remove(query: any, cb?: (err: Error, n: number) => void): void;
+
+    addListener(event: 'compaction.done', listener: () => void): this;
+    on(event: 'compaction.done', listener: () => void): this;
+    once(event: 'compaction.done', listener: () => void): this;
+    prependListener(event: 'compaction.done', listener: () => void): this;
+    prependOnceListener(event: 'compaction.done', listener: () => void): this;
+    removeListener(event: 'compaction.done', listener: () => void): this;
+    off(event: 'compaction.done', listener: () => void): this;
+    listeners(event: 'compaction.done'): Array<() => void>;
+    rawListeners(event: 'compaction.done'): Array<() => void>;
+    listenerCount(type: 'compaction.done'): number;
 }
 
 declare namespace Nedb {
@@ -197,6 +207,9 @@ declare namespace Nedb {
         // (optional): between 0 and 1, defaults to 10%. NeDB will refuse to start if more than this percentage of the datafile is corrupt.
         // 0 means you don't tolerate any corruption, 1 means you don't care
         corruptAlertThreshold?: number;
+        // (optional, defaults to false)
+        // timestamp the insertion and last update of all documents, with the fields createdAt and updatedAt. User-specified values override automatic generation, usually useful for testing.
+        timestampData?: boolean;
     }
 
     /**
@@ -220,6 +233,7 @@ declare namespace Nedb {
         fieldName: string;
         unique?: boolean;
         sparse?: boolean;
+        expireAfterSeconds?: number;
     }
 
     interface Persistence {

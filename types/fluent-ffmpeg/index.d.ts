@@ -1,6 +1,9 @@
 // Type definitions for node-fluent-ffmpeg 2.1
 // Project: https://github.com/fluent-ffmpeg/node-fluent-ffmpeg
-// Definitions by: KIM Jaesuck a.k.a. gim tcaesvk <http://github.com/tcaesvk/>, DingWeizhe <https://github.com/DingWeizhe>
+// Definitions by: KIM Jaesuck a.k.a. gim tcaesvk <https://github.com/tcaesvk>
+//                 DingWeizhe <https://github.com/DingWeizhe>
+//                 Mounir Abid <https://github.com/mabidina>
+//                 Doyoung Ha <https://github.com/hados99>
 // Definitions: https://github.com/DefinitelyType/DefinitelyTyped
 
 /// <reference types="node" />
@@ -11,7 +14,7 @@ import * as stream from "stream";
 declare namespace Ffmpeg {
     interface FfmpegCommandLogger {
         error(...data: any[]): void;
-        warning(...data: any[]): void;
+        warn(...data: any[]): void;
         info(...data: any[]): void;
         debug(...data: any[]): void;
     }
@@ -29,8 +32,8 @@ declare namespace Ffmpeg {
 
     interface FilterSpecification {
         filter: string;
-        inputs: string | string[];
-        outputs: string | string[];
+        inputs?: string | string[];
+        outputs?: string | string[];
         options?: any | string | any[];
     }
 
@@ -90,7 +93,7 @@ declare namespace Ffmpeg {
     type FormatsCallback = (err: Error, formats: Formats) => void;
 
     interface FfprobeData {
-        stream: any[];
+        streams: any[];
         format: any;
         chapters: any[];
     }
@@ -104,6 +107,24 @@ declare namespace Ffmpeg {
         fastSeek?: boolean;
         size?: string;
     }
+
+    interface AudioVideoFilter {
+        filter: string;
+        options: string | string[] | {};
+    }
+
+    // static methods
+    function setFfmpegPath(path: string): FfmpegCommand;
+    function setFfprobePath(path: string): FfmpegCommand;
+    function setFlvtoolPath(path: string): FfmpegCommand;
+    function availableFilters(callback: FiltersCallback): void;
+    function getAvailableFilters(callback: FiltersCallback): void;
+    function availableCodecs(callback: CodecsCallback): void;
+    function getAvailableCodecs(callback: CodecsCallback): void;
+    function availableEncoders(callback: EncodersCallback): void;
+    function getAvailableEncoders(callback: EncodersCallback): void;
+    function availableFormats(callback: FormatsCallback): void;
+    function getAvailableFormats(callback: FormatsCallback): void;
 
     class FfmpegCommand extends events.EventEmitter {
         constructor(options?: FfmpegCommandOptions);
@@ -144,10 +165,10 @@ declare namespace Ffmpeg {
         audioFrequency(freq: number): FfmpegCommand;
         withAudioQuality(quality: number): FfmpegCommand;
         audioQuality(quality: number): FfmpegCommand;
-        withAudioFilter(filters: { filter: string, options: any }): FfmpegCommand;
-        withAudioFilters(filters: { filter: string, options: any }): FfmpegCommand;
-        audioFilter(filters: { filter: string, options: any }): FfmpegCommand;
-        audioFilters(filters: { filter: string, options: any }): FfmpegCommand;
+        withAudioFilter(filters: string | string[] | AudioVideoFilter[]): FfmpegCommand;
+        withAudioFilters(filters: string | string[] | AudioVideoFilter[]): FfmpegCommand;
+        audioFilter(filters: string | string[] | AudioVideoFilter[]): FfmpegCommand;
+        audioFilters(filters: string | string[] | AudioVideoFilter[]): FfmpegCommand;
 
         // options/video;
         withNoVideo(): FfmpegCommand;
@@ -156,10 +177,10 @@ declare namespace Ffmpeg {
         videoCodec(codec: string): FfmpegCommand;
         withVideoBitrate(bitrate: string | number): FfmpegCommand;
         videoBitrate(bitrate: string | number): FfmpegCommand;
-        withVideoFilter(filters: { filter: string, options: any }): FfmpegCommand;
-        withVideoFilters(filters: { filter: string, options: any }): FfmpegCommand;
-        videoFilter(filters: { filter: string, options: any }): FfmpegCommand;
-        videoFilters(filters: { filter: string, options: any }): FfmpegCommand;
+        withVideoFilter(filters: string | string[] | AudioVideoFilter[]): FfmpegCommand;
+        withVideoFilters(filters: string | string[] | AudioVideoFilter[]): FfmpegCommand;
+        videoFilter(filters: string | string[] | AudioVideoFilter[]): FfmpegCommand;
+        videoFilters(filters: string | string[] | AudioVideoFilter[]): FfmpegCommand;
         withOutputFps(fps: number): FfmpegCommand;
         withOutputFPS(fps: number): FfmpegCommand;
         withFpsOutput(fps: number): FfmpegCommand;
@@ -251,8 +272,8 @@ declare namespace Ffmpeg {
         outputOption(...options: string[]): FfmpegCommand;
         outputOptions(options: string[]): FfmpegCommand;
         outputOptions(...options: string[]): FfmpegCommand;
-        filterGraph(spec: string | FilterSpecification[], map: string[]): FfmpegCommand;
-        complexFilter(spec: string | FilterSpecification[], map: string[]): FfmpegCommand;
+        filterGraph(spec: string | FilterSpecification | Array<string | FilterSpecification>, map: string[]): FfmpegCommand;
+        complexFilter(spec: string | FilterSpecification | Array<string | FilterSpecification>, map: string[]): FfmpegCommand;
 
         // options/misc
         usingPreset(proset: string | GetPreset): FfmpegCommand;
@@ -261,6 +282,7 @@ declare namespace Ffmpeg {
         // processor
         renice(niceness: number): FfmpegCommand;
         kill(signal: string): FfmpegCommand;
+        _getArguments(): string[];
 
         // capabilities
         setFfmpegPath(path: string): FfmpegCommand;
@@ -276,18 +298,16 @@ declare namespace Ffmpeg {
         getAvailableFormats(callback: FormatsCallback): void;
 
         // ffprobe
-        /* tslint:disable:unified-signatures */
-        ffprobe(callback: (err: any, data: FfprobeData) => void): (err: any, data: FfprobeData) => void;
-        ffprobe(index: number, callback: (err: any, data: FfprobeData) => void): (err: any, data: FfprobeData) => void;
-        ffprobe(options: string[], callback: (err: any, data: FfprobeData) => void): (err: any, data: FfprobeData) => void;
-        ffprobe(index: number, options: string[], callback: (err: any, data: FfprobeData) => void): (err: any, data: FfprobeData) => void;
-        /* tslint:enable:unified-signatures */
+        ffprobe(callback: (err: any, data: FfprobeData) => void): void;
+        ffprobe(index: number, callback: (err: any, data: FfprobeData) => void): void;
+        ffprobe(options: string[], callback: (err: any, data: FfprobeData) => void): void; // tslint:disable-line unified-signatures
+        ffprobe(index: number, options: string[], callback: (err: any, data: FfprobeData) => void): void;
 
         // recipes
         saveToFile(output: string): FfmpegCommand;
         save(output: string): FfmpegCommand;
         writeToStream(stream: stream.Writable, options?: { end?: boolean }): stream.Writable;
-        pipe(stream: stream.Writable, options?: { end?: boolean }): stream.Writable;
+        pipe(stream?: stream.Writable, options?: { end?: boolean }): stream.Writable|stream.PassThrough;
         stream(stream: stream.Writable, options?: { end?: boolean }): stream.Writable;
         takeScreenshots(config: number | ScreenshotsConfig, folder?: string): FfmpegCommand;
         thumbnail(config: number | ScreenshotsConfig, folder?: string): FfmpegCommand;
@@ -300,6 +320,11 @@ declare namespace Ffmpeg {
         clone(): FfmpegCommand;
         run(): void;
     }
+
+    function ffprobe(file: string, callback: (err: any, data: FfprobeData) => void): void;
+    function ffprobe(file: string, index: number, callback: (err: any, data: FfprobeData) => void): void;
+    function ffprobe(file: string, options: string[], callback: (err: any, data: FfprobeData) => void): void; // tslint:disable-line unified-signatures
+    function ffprobe(file: string, index: number, options: string[], callback: (err: any, data: FfprobeData) => void): void;
 }
 declare function Ffmpeg(options?: Ffmpeg.FfmpegCommandOptions): Ffmpeg.FfmpegCommand;
 declare function Ffmpeg(input?: string | stream.Readable, options?: Ffmpeg.FfmpegCommandOptions): Ffmpeg.FfmpegCommand;

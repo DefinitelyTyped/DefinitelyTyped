@@ -2,14 +2,12 @@
  * Created by stefansteinhart on 31.01.15.
  */
 
-/// <reference types="node" />
-
 import * as es6styleimport from 'nedb';
 
 import nedb = require('nedb');
 
 class BaseCollection<T> {
-    private dataStore: nedb;
+    private readonly dataStore: nedb;
 
     constructor(dataStore: nedb) {
         this.dataStore = dataStore;
@@ -165,8 +163,7 @@ db = new Datastore({ filename: 'path/to/datafile', autoload: true });
 
 // Type 4: Persistent datastore for a Node Webkit app called 'nwtest'
 // For example on Linux, the datafile will be ~/.config/nwtest/nedb-data/something.db
-import path = require('path');
-db = new Datastore({ filename: path.join(require('nw.gui').App.dataPath, 'something.db') });
+db = new Datastore({ filename: 'something.db' });
 
 // Of course you can create multiple datastores if you need several
 // collections. In this case it's usually a good idea to use autoload for all collections.
@@ -499,6 +496,11 @@ db.ensureIndex({ fieldName: 'somefield', unique: true }, (err: Error) => {
 db.ensureIndex({ fieldName: 'somefield', unique: true, sparse: true }, (err: Error) => {
 });
 
+// Example of using expireAfterSeconds to remove documents 1 hour
+// after their creation (db's timestampData option is true here)
+db.ensureIndex({ fieldName: 'somefield', expireAfterSeconds: 3600 }, (err: Error) => {
+});
+
 // Format of the error message when the unique constraint is not met
 db.insert({ somefield: 'nedb' }, (err: Error) => {
     // err is null
@@ -512,3 +514,14 @@ db.insert({ somefield: 'nedb' }, (err: Error) => {
 // Remove index on field somefield
 db.removeIndex('somefield', (err: Error) => {
 });
+
+db.addListener("compaction.done", () => {});
+db.on("compaction.done", () => {});
+db.once("compaction.done", () => {});
+db.prependListener("compaction.done", () => {});
+db.prependOnceListener("compaction.done", () => {});
+db.removeListener("compaction.done", () => {});
+db.off("compaction.done", () => {});
+db.listeners("compaction.done"); // $ExpectType (() => void)[]
+db.rawListeners("compaction.done"); // $ExpectType (() => void)[]
+db.listenerCount("compaction.done"); // $ExpectType number

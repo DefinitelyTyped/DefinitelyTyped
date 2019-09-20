@@ -1,7 +1,7 @@
 import * as React from "react";
 import { default as Slider, Settings, CustomArrowProps } from "react-slick";
 
-class LeftNavArrow extends React.Component<CustomArrowProps, {}> {
+class LeftNavArrow extends React.Component<CustomArrowProps> {
   render() {
     return <button onClick={this.props.onClick}>Next</button>;
   }
@@ -9,11 +9,13 @@ class LeftNavArrow extends React.Component<CustomArrowProps, {}> {
 
 function RightNavArrow(props: CustomArrowProps): JSX.Element {
   const { className, style, onClick } = props;
-  return <div
-    className={className}
-    style={Object.assign(style, { display: 'block', background: 'green' })}
-    onClick={onClick}
-  ></div>;
+  return (
+    <div
+      className={className}
+      style={{ ...style, display: 'block', background: 'green' }}
+      onClick={onClick}
+    />
+  );
 }
 
 const defaultSettings: Settings = {
@@ -38,7 +40,7 @@ const defaultSettings: Settings = {
   focusOnSelect: false,
   infinite: true,
   initialSlide: 0,
-  lazyLoad: false,
+  lazyLoad: "progressive",
   pauseOnHover: true,
   responsive: [{ breakpoint: 1000, settings: "unslick" }, { breakpoint: 2000, settings: { arrows: false } }],
   rtl: false,
@@ -53,17 +55,18 @@ const defaultSettings: Settings = {
   useCSS: true,
   variableWidth: false,
   vertical: false,
+  verticalSwiping: false,
   waitForAnimate: true,
   afterChange: (currentSlide: number) => { },
   beforeChange: (currentSlide: number, nextSlide: number) => { },
-  edgeEvent: (swipeDirection: string) => { },
-  init: () => { },
+  onEdge: (swipeDirection: string) => { },
+  onInit: () => { },
   swipeEvent: (swipeDirection: string) => { },
   nextArrow: <LeftNavArrow />,
   prevArrow: <RightNavArrow />
 };
 
-class SliderTest extends React.Component<{}, {}> {
+class SliderTest extends React.Component {
   private slider: Slider;
   render() {
     return <div>

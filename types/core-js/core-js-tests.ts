@@ -59,7 +59,7 @@ let dictOfAny: Dict<any>;
 //          es6.object.to-string, es6.function.name and es6.function.has-instance.
 // #############################################################################################
 
-point = Object.assign(point, point);
+point = Object.assign(point, point); // tslint:disable-line prefer-object-spread
 b = Object.is(point, point);
 Object.setPrototypeOf(point, point);
 s = f.name;
@@ -83,6 +83,8 @@ arrayOfPoint3D = Array.from(arrayOfPoint, point => point3d, a);
 arrayOfPoint3D = Array.from(iterableOfPoint, point => point3d);
 arrayOfPoint3D = Array.from(iterableOfPoint, point => point3d, a);
 arrayOfPoint = Array.of(point, point);
+b = Array.isArray([]);
+b = Array.isArray({});
 
 // #############################################################################################
 // ECMAScript 6: String & RegExp
@@ -113,7 +115,7 @@ b = Number.isSafeInteger(i);
 i = Number.MAX_SAFE_INTEGER;
 i = Number.MIN_SAFE_INTEGER;
 i = Number.parseFloat(s);
-i = Number.parseInt(s);
+i = Number.parseInt(s); // tslint:disable-line radix
 i = Number.parseInt(s, i);
 i = Math.clz32(i);
 i = Math.imul(i, i);
@@ -243,15 +245,15 @@ promiseLikeOfPoint = promiseLikeOfPoint.then(p => promiseLikeOfPoint);
 promiseLikeOfPoint = promiseLikeOfPoint.then(p => point, e => point);
 promiseLikeOfPoint = promiseLikeOfPoint.then(p => promiseLikeOfPoint, e => point);
 promiseLikeOfPoint = promiseLikeOfPoint.then(p => point, e => promiseLikeOfPoint);
-promiseLikeOfPoint = promiseLikeOfPoint.then(p => point, e => { });
-promiseLikeOfPoint = promiseLikeOfPoint.then(p => promiseLikeOfPoint, e => { });
+promiseLikeOfPoint = promiseLikeOfPoint.then(p => point, e => { throw e; });
+promiseLikeOfPoint = promiseLikeOfPoint.then(p => promiseLikeOfPoint, e => { throw e; });
 promiseLikeOfPoint3D = promiseLikeOfPoint.then(p => point3d);
 promiseLikeOfPoint3D = promiseLikeOfPoint.then(p => promiseLikeOfPoint3D);
 promiseLikeOfPoint3D = promiseLikeOfPoint.then(p => point3d, e => point3d);
 promiseLikeOfPoint3D = promiseLikeOfPoint.then(p => promiseLikeOfPoint3D, e => point3d);
 promiseLikeOfPoint3D = promiseLikeOfPoint.then(p => point3d, e => promiseLikeOfPoint3D);
-promiseLikeOfPoint3D = promiseLikeOfPoint.then(p => point3d, e => { });
-promiseLikeOfPoint3D = promiseLikeOfPoint.then(p => promiseLikeOfPoint3D, e => { });
+promiseLikeOfPoint3D = promiseLikeOfPoint.then(p => point3d, e => { throw e; });
+promiseLikeOfPoint3D = promiseLikeOfPoint.then(p => promiseLikeOfPoint3D, e => { throw e; });
 promiseOfPoint.then((point: Point) => { });
 promiseOfPoint = promiseOfPoint.then();
 promiseOfPoint = promiseOfPoint.then(p => point);
@@ -262,9 +264,9 @@ promiseOfPoint = promiseOfPoint.then(p => promiseOfPoint, e => point);
 promiseOfPoint = promiseOfPoint.then(p => promiseLikeOfPoint, e => point);
 promiseOfPoint = promiseOfPoint.then(p => point, e => promiseOfPoint);
 promiseOfPoint = promiseOfPoint.then(p => point, e => promiseLikeOfPoint);
-promiseOfPoint = promiseOfPoint.then(p => point, e => { });
-promiseOfPoint = promiseOfPoint.then(p => promiseOfPoint, e => { });
-promiseOfPoint = promiseOfPoint.then(p => promiseLikeOfPoint, e => { });
+promiseOfPoint = promiseOfPoint.then(p => point, e => { throw e; });
+promiseOfPoint = promiseOfPoint.then(p => promiseOfPoint, e => { throw e; });
+promiseOfPoint = promiseOfPoint.then(p => promiseLikeOfPoint, e => { throw e; });
 promiseOfPoint3D = promiseOfPoint.then(p => point3d);
 promiseOfPoint3D = promiseOfPoint.then(p => promiseOfPoint3D);
 promiseOfPoint3D = promiseOfPoint.then(p => promiseLikeOfPoint3D);
@@ -273,16 +275,16 @@ promiseOfPoint3D = promiseOfPoint.then(p => promiseOfPoint3D, e => point3d);
 promiseOfPoint3D = promiseOfPoint.then(p => promiseLikeOfPoint3D, e => point3d);
 promiseOfPoint3D = promiseOfPoint.then(p => point3d, e => promiseOfPoint3D);
 promiseOfPoint3D = promiseOfPoint.then(p => point3d, e => promiseLikeOfPoint3D);
-promiseOfPoint3D = promiseOfPoint.then(p => point3d, e => { });
-promiseOfPoint3D = promiseOfPoint.then(p => promiseOfPoint3D, e => { });
-promiseOfPoint3D = promiseOfPoint.then(p => promiseLikeOfPoint3D, e => { });
+promiseOfPoint3D = promiseOfPoint.then(p => point3d, e => { throw e; });
+promiseOfPoint3D = promiseOfPoint.then(p => promiseOfPoint3D, e => { throw e; });
+promiseOfPoint3D = promiseOfPoint.then(p => promiseLikeOfPoint3D, e => { throw e; });
 promiseOfPoint = promiseOfPoint.catch(e => point);
 promiseOfPoint = promiseOfPoint.catch(e => promiseOfPoint);
 promiseOfPoint = promiseOfPoint.catch(e => promiseLikeOfPoint);
-promiseOfPoint = promiseOfPoint.catch(e => { });
-promiseOfPoint3D = promiseOfPoint.catch(e => point3d);
-promiseOfPoint3D = promiseOfPoint.catch(e => promiseOfPoint3D);
-promiseOfPoint3D = promiseOfPoint.catch(e => promiseLikeOfPoint3D);
+promiseOfPoint = promiseOfPoint.catch(e => { throw e; });
+promiseOfPoint3D = promiseOfPoint.then(p2d => ({ ...p2d, z: 0 })).catch(e => point3d);
+promiseOfPoint3D = promiseOfPoint.then(p2d => ({ ...p2d, z: 0 })).catch(e => promiseOfPoint3D);
+promiseOfPoint3D = promiseOfPoint.then(p2d => ({ ...p2d, z: 0 })).catch(e => promiseLikeOfPoint3D);
 promiseOfPoint = new Promise<Point>((resolve, reject) => resolve(point));
 promiseOfPoint = new Promise<Point>((resolve, reject) => resolve(promiseOfPoint));
 promiseOfPoint = new Promise<Point>((resolve, reject) => resolve(promiseLikeOfPoint));
@@ -398,17 +400,6 @@ point = Object.define(point, a);
 point = Object.make(point, a);
 
 // #############################################################################################
-// Console - https://github.com/zloirock/core-js/#console
-// Modules: core.log
-// #############################################################################################
-
-// Non-standard
-log(a, a, a);
-log.log(a, a, a);
-log.enable();
-log.disable();
-
-// #############################################################################################
 // Dict - https://github.com/zloirock/core-js/#dict
 // Modules: core.dict
 // #############################################################################################
@@ -416,7 +407,7 @@ log.disable();
 // Non-standard
 point = dictOfPoint[s];
 point = dictOfPoint[i];
-point = dictOfPoint[sym];
+// point = dictOfPoint[sym];
 dictOfPoint = new Dict(dictOfPoint);
 dictOfAny = new Dict(point);
 dictOfPoint = Dict(dictOfPoint);

@@ -2,8 +2,6 @@
  * Created by Joe Vanderstelt 2017-02-22.
  */
 
-/// <reference types="node" />
-
 import * as es6styleimport from 'nedb-logger';
 
 import nedblogger = require('nedb-logger');

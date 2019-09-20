@@ -1,4 +1,3 @@
-/* tslint:disable */
 import * as chrome from 'selenium-webdriver/chrome';
 import * as remote from 'selenium-webdriver/remote';
 import * as webdriver from 'selenium-webdriver';
@@ -10,7 +9,7 @@ function TestChromeDriver() {
         new remote.DriverService('executable', new chrome.Options()),
         new webdriver.promise.ControlFlow());
 
-    var baseDriver: webdriver.WebDriver = driver;
+    const baseDriver: webdriver.WebDriver = driver;
 }
 
 function TestChromeOptions() {
@@ -44,7 +43,7 @@ function TestServiceBuilder() {
     var builder: chrome.ServiceBuilder = new chrome.ServiceBuilder();
     builder = new chrome.ServiceBuilder('exe');
 
-    var anything: any = builder.build();
+    const anything: any = builder.build();
     builder = builder.usingPort(8080);
     builder = builder.setAdbPort(5037);
     builder = builder.loggingTo('path');
@@ -57,6 +56,6 @@ function TestServiceBuilder() {
 }
 
 function TestChromeModule() {
-    var service: any = chrome.getDefaultService();
+    const service: any = chrome.getDefaultService();
     chrome.setDefaultService(new remote.DriverService('executable', new chrome.Options()));
 }

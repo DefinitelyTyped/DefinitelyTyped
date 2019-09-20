@@ -23,7 +23,7 @@ declare class bigi {
     clamp(): void;
     clearBit(n: number): bigi;
     clone(): bigi;
-    compareTo(a: bigi): bigi;
+    compareTo(a: bigi): number;
     copyTo(r: any): void;
     dAddOffset(n: any, w: any): void;
     dMultiply(n: number): void;
@@ -87,7 +87,7 @@ declare class bigi {
     static fromDERInteger(byteArray?: any): number;
     static fromHex(hex: string): bigi;
     static isBigInteger(obj: any, check_ver: any): obj is bigi;
-    static valueOf(i: any): number;
+    static valueOf(i: any): bigi;
 }
 declare namespace bigi {
     interface Constants {

@@ -2,6 +2,7 @@
 // Project: https://github.com/jaredhanson/passport-http-bearer
 // Definitions by: Isman Usoh <https://github.com/isman-usoh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="passport"/>
 /// <reference types="express" />
@@ -33,5 +34,5 @@ declare class Strategy implements passport.Strategy {
     constructor(options: IStrategyOptions, verify: VerifyFunctionWithRequest);
 
     name: string;
-    authenticate: (req: express.Request, options?: Object) => void;
+    authenticate(req: express.Request, options?: Object): void;
 }

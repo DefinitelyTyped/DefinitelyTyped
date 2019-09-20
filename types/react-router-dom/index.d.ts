@@ -1,78 +1,74 @@
-// Type definitions for React Router 4.0
+// Type definitions for React Router 4.3
 // Project: https://github.com/ReactTraining/react-router
-// Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
-//                 Huy Nguyen <https://github.com/huy-nguyen>
+// Definitions by: Huy Nguyen <https://github.com/huy-nguyen>
+//                 Philip Jackson <https://github.com/p-jackson>
+//                 John Reilly <https://github.com/johnnyreilly>
+//                 Sebastian Silbermann <https://github.com/eps1lon>
+//                 Daniel Nixon <https://github.com/danielnixon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.8
 
-declare module 'react-router-dom' {
-  import {
+import { match } from "react-router";
+import * as React from 'react';
+import * as H from 'history';
+
+export {
+    generatePath,
     Prompt,
     MemoryRouter,
+    RedirectProps,
     Redirect,
     RouteComponentProps,
     RouteProps,
     Route,
     Router,
     StaticRouter,
+    SwitchProps,
     Switch,
     match,
     matchPath,
     withRouter,
     RouterChildContext
-  } from 'react-router';
-  import * as React from 'react';
-  import * as H from 'history';
+} from 'react-router';
 
-  interface BrowserRouterProps {
+export interface BrowserRouterProps {
     basename?: string;
-    getUserConfirmation?(): void;
+    getUserConfirmation?: ((message: string, callback: (ok: boolean) => void) => void);
     forceRefresh?: boolean;
     keyLength?: number;
-  }
-  class BrowserRouter extends React.Component<BrowserRouterProps, void> {}
-
-  interface HashRouterProps {
-    basename?: string;
-    getUserConfirmation?(): void;
-    hashType?: 'slash' | 'noslash' | 'hashbang';
-  }
-  class HashRouter extends React.Component<HashRouterProps, void> {}
-
-  interface LinkProps extends React.HTMLAttributes<HTMLAnchorElement> {
-    to: H.LocationDescriptor;
-    replace?: boolean;
-  }
-  class Link extends React.Component<LinkProps, void> {}
-
-  interface NavLinkProps extends LinkProps {
-    activeClassName?: string;
-    activeStyle?: React.CSSProperties;
-    exact?: boolean;
-    strict?: boolean;
-    isActive?<P>(match: match<P>, location: H.Location): boolean;
-  }
-  class NavLink extends React.Component<NavLinkProps, void> {}
-
-  export {
-    BrowserRouter,
-    HashRouter,
-    LinkProps, // TypeScript specific, not from React Router itself
-    NavLinkProps, // TypeScript specific, not from React Router itself
-    Link,
-    NavLink,
-    Prompt,
-    MemoryRouter,
-    Redirect,
-    RouteComponentProps, // TypeScript specific, not from React Router itself
-    RouteProps, // TypeScript specific, not from React Router itself
-    Route,
-    Router,
-    StaticRouter,
-    Switch,
-    match, // TypeScript specific, not from React Router itself
-    matchPath,
-    withRouter,
-    RouterChildContext
-  };
 }
+export class BrowserRouter extends React.Component<BrowserRouterProps, any> {}
+
+export interface HashRouterProps {
+    basename?: string;
+    getUserConfirmation?: ((message: string, callback: (ok: boolean) => void) => void);
+    hashType?: 'slash' | 'noslash' | 'hashbang';
+}
+export class HashRouter extends React.Component<HashRouterProps, any> {}
+
+export interface LinkProps<S = H.LocationState>
+  extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
+  to: H.LocationDescriptor<S>;
+  replace?: boolean;
+  innerRef?: React.Ref<HTMLAnchorElement>;
+}
+export class Link<S = H.LocationState> extends React.Component<
+  LinkProps<S>,
+  any
+> {}
+
+export interface NavLinkProps<S = H.LocationState> extends LinkProps<S> {
+  activeClassName?: string;
+  activeStyle?: React.CSSProperties;
+  exact?: boolean;
+  strict?: boolean;
+  isActive?<Params extends { [K in keyof Params]?: string }>(
+    match: match<Params>,
+    location: H.Location<S>,
+  ): boolean;
+  location?: H.Location<S>;
+}
+export class NavLink<S = H.LocationState> extends React.Component<
+  NavLinkProps<S>,
+  any
+> {}

@@ -2,6 +2,7 @@
 // Project: https://github.com/sciactive/pnotify
 // Definitions by: David Sichau <https://github.com/DavidSichau>, Robin Maenhaut <https://github.com/FUNExtreme>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="jquery"/>
 
@@ -28,7 +29,6 @@ interface PNotifyLabel {
     close?: string;
     stick?: string;
 }
-
 
 interface PNotifyconfirmButton {
     text?: string;
@@ -134,6 +134,10 @@ interface PNotifyOptions {
      */
     text_escape?: boolean;
     /**
+    * Support for PNotifyconfirm options
+    */
+    confirm?: PNotifyconfirm
+    /**
      * What styling classes to use. (Can be either "brighttheme", "jqueryui", "bootstrap2", "bootstrap3", "fontawesome" or a custom style object)
      */
     styling?: StylingOptions;
@@ -187,9 +191,10 @@ interface PNotifyOptions {
      */
     icon?: any;
     /**
-     * The animation to use when displaying and hiding the notice. "none", "show", "fade", and "slide" are built in to jQuery. Others require jQuery UI. Use an object with effect_in and effect_out to use different effects.
-     */
-    animation?: any;
+     * The animation to use when displaying and hiding the notice. "none" and "fade" are supported through CSS. 
+     * Others are supported through the Animate module and Animate.css.
+     */ 
+    animation?: string;
     /**
      * Speed at which the notice animates in and out. "slow", "def" or "normal", "fast" or number of milliseconds.
      */
@@ -318,8 +323,22 @@ interface PNotify {
 
 interface PNotifyConstructor {
     new (options?: PNotifyOptions): PNotify;
-
+    
+    /**
+     * Remove all notices.
+     */
     removeAll(): void;
+
+    /**
+     * Remove all the notices in a stack.
+     * @param stack 
+     */
+    removeStack(stack: PNotifyStack): void;
+    
+    /**
+     * Reposition the notices, optionally animating their movement.
+     */
+    positionAll(animate?: boolean): void
 }
 
 declare var PNotify: PNotifyConstructor;

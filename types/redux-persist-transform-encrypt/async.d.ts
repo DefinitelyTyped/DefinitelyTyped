@@ -1,3 +1,7 @@
-import createAsyncEncryptor from "redux-persist-transform-encrypt";
+import { Transform } from "redux-persist";
 
-export default createAsyncEncryptor;
+export interface AsyncEncryptorConfig {
+    secretKey: string;
+}
+
+export default function createAsyncEncryptor<State, Raw>(config: AsyncEncryptorConfig): Transform<State, Raw>;

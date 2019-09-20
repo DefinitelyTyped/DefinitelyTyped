@@ -1,3 +1,5 @@
+declare const htmlElement: HTMLElement;
+
 interface MyData extends Slick.SlickData {
 	title: string;
 	duration: string;
@@ -62,7 +64,7 @@ $('.newSelection');
 grid.setSelectedRows([0, 1, 2]);
 
 class SingleCellSelectionModel extends Slick.SelectionModel<MyData, Slick.Range[]> {
-	private self: SingleCellSelectionModel = null;
+	private readonly self: SingleCellSelectionModel;
 	private _grid: Slick.Grid<MyData>;
 
 	constructor() {
@@ -101,7 +103,7 @@ sortable ? console.log("It's sortable!") : console.log("It's not sortable!");
 
 var data2 = grid.getColumns();
 data2[0].name = "First";
-grid.setColumns(data);
+grid.setColumns(data2);
 
 grid.updateColumnHeader("FirstName", "A First Name");
 
@@ -120,15 +122,15 @@ grid.canCellBeActive(5, 10);
 grid.canCellBeSelected(5, 10);
 
 grid.editActiveCell(new Slick.Editors.Date<MyData>({
-	column: cols,
-	container: undefined,
+	column: cols[0],
+	container: htmlElement,
 	grid: grid
 }));
 
 grid.setActiveCell(0, 0);
 grid.editActiveCell(new Slick.Editors.Date<MyData>({
-	column: cols,
-	container: undefined,
+	column: cols[0],
+	container: htmlElement,
 	grid: grid
 }));
 
@@ -203,10 +205,20 @@ columns.forEach(column => {
 });
 
 grid.onSort.subscribe((e, args) => {
-    var sortCol:string = args.sortCols[0].sortCol.field;
+    if (!args.sortCols) return;
+    var sortCol: string | undefined = args.sortCols[0].sortCol.field;
 });
 
 grid.onMouseEnter.subscribe((e: DOMEvent, args: Slick.OnMouseEnterEventArgs<MyData>) => {
 	let cell: Slick.Cell = args.grid.getCellFromEvent(e);
 	if (!cell) { return; }
 });
+
+// EventHandler tests
+var eventHandler = new Slick.EventHandler();
+var onClickHandlerFn = (e: Slick.EventData, args: Slick.OnClickEventArgs<MyData>): void => {
+    return undefined;
+};
+eventHandler.subscribe(grid.onClick, onClickHandlerFn);
+eventHandler.unsubscribe(grid.onClick, onClickHandlerFn);
+eventHandler.unsubscribeAll();

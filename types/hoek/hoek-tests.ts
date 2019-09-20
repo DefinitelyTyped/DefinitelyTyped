@@ -201,12 +201,12 @@ Hoek.stringify(a);      // Returns '[Cannot display object: Converting circular 
 
 const timerObj = new Hoek.Timer();
 console.log("Time is now: " + timerObj.ts);
-console.log("Elapsed time from initialization: " + timerObj.elapsed() + 'milliseconds');
+console.log(`Elapsed time from initialization: ${timerObj.elapsed()}milliseconds`);
 
 // Bench
 
 const benchObj = new Hoek.Bench();
-console.log("Elapsed time from initialization: " + benchObj.elapsed() + 'milliseconds');
+console.log(`Elapsed time from initialization: ${benchObj.elapsed()}milliseconds`);
 
 // base64urlEncode(value)
 

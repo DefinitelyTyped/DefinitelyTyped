@@ -1,9 +1,9 @@
 import * as React from "react";
-import { StyleRoot, Style } from "radium";
-import * as Radium from 'radium';
+import Radium from "radium";
+
 
 @Radium
-class TestComponent extends React.Component<{ a: number }, any> {
+class TestComponent extends React.Component<{ a: number }> {
 
     render() {
         return (
@@ -24,12 +24,12 @@ TestStatelessComponent = Radium(TestStatelessComponent);
     userAgent: "test",
     matchMedia: window.matchMedia
 })
-class TestComponentWithConfig extends React.Component<{ a?: number }, {}> {
+class TestComponentWithConfig extends React.Component<{ a?: number }> {
     render() {
         return (
             <div>
                 <Radium.StyleRoot >
-                    <Style scopeSelector="test"
+                    <Radium.Style scopeSelector="test"
                         rules={{
                             a: {
                                 background: "green"
@@ -39,13 +39,13 @@ class TestComponentWithConfig extends React.Component<{ a?: number }, {}> {
                             }
                         }}
                     >
-                    </Style>
-                    <Style scopeSelector="test"
+                    </Radium.Style>
+                    <Radium.Style scopeSelector="test"
                         rules={{
                             background: "green"
                         }}
                     >
-                    </Style>
+                    </Radium.Style>
                 </Radium.StyleRoot>
             </div>
         )
@@ -54,7 +54,7 @@ class TestComponentWithConfig extends React.Component<{ a?: number }, {}> {
 <TestComponentWithConfig a={5} />
 
 class TestComponentWithConfigInStyleRoot
-    extends React.Component<{ a?: number }, {}> {
+    extends React.Component<{ a?: number }> {
     render() {
         return (
             <div>
@@ -62,7 +62,7 @@ class TestComponentWithConfigInStyleRoot
                     userAgent: "test",
                     matchMedia: window.matchMedia
                 }} >
-                    <Style scopeSelector="test"
+                    <Radium.Style scopeSelector="test"
                         rules={{
                             a: {
                                 background: "green"
@@ -72,13 +72,13 @@ class TestComponentWithConfigInStyleRoot
                             }
                         }}
                     >
-                    </Style>
-                    <Style scopeSelector="test"
+                    </Radium.Style>
+                    <Radium.Style scopeSelector="test"
                         rules={{
                             background: "green"
                         }}
                     >
-                    </Style>
+                    </Radium.Style>
                 </Radium.StyleRoot>
             </div>
         )

@@ -4,9 +4,11 @@
         "lib": [
             "es6"
         ],
+        "target": "es2015",
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
+        "strictFunctionTypes": true,
         "baseUrl": "../../",
         "typeRoots": [
             "../../"

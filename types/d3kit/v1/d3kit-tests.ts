@@ -1,5 +1,9 @@
-/// <reference types="mocha" />
 /// <reference types="chai" />
+
+// Stub mocha functions
+const {describe, it, before, after, beforeEach, afterEach} = null as any as {
+    [s: string]: ((s: string, cb: (done: any) => void) => void) & ((cb: (done: any) => void) => void) & {only: any, skip: any};
+};
 
 var expect = chai.expect;
 describe('Skeleton', function(){
@@ -376,8 +380,8 @@ describe('Skeleton', function(){
           b: 2
         });
         expect(skeleton).to.include.keys(['a', 'b']);
-        expect((<any>skeleton).a).to.equal(1);
-        expect((<any>skeleton).b).to.equal(2);
+        expect((skeleton as any).a).to.equal(1);
+        expect((skeleton as any).b).to.equal(2);
       });
       it('should overwrite existing fields', function(){
         skeleton.mixin({
@@ -387,7 +391,7 @@ describe('Skeleton', function(){
           b: 3
         });
         expect(skeleton).to.include.keys(['b']);
-        expect((<any>skeleton).b).to.equal(3);
+        expect((skeleton as any).b).to.equal(3);
       });
       it('should keep original fields if not overwritten', function(){
         skeleton.mixin({
@@ -399,9 +403,9 @@ describe('Skeleton', function(){
           b: 3
         });
         expect(skeleton).to.include.keys(['a', 'b', 'c']);
-        expect((<any>skeleton).a).to.equal(1);
-        expect((<any>skeleton).b).to.equal(3);
-        expect((<any>skeleton).c).to.equal(20);
+        expect((skeleton as any).a).to.equal(1);
+        expect((skeleton as any).b).to.equal(3);
+        expect((skeleton as any).c).to.equal(20);
       });
     });
 
@@ -716,7 +720,7 @@ describe('Chartlet', function(){
   beforeEach(function(done){
     ChildChartlet = function() {
       var chartlet = new d3kit.Chartlet(callback, callback, callback);
-      (<any>chartlet).runTest = function (testFunction: any) {
+      (chartlet as any).runTest = function (testFunction: any) {
         testFunction(chartlet);
       };
       return chartlet;
@@ -726,7 +730,7 @@ describe('Chartlet', function(){
       var chartlet = new d3kit.Chartlet(callback, callback, callback);
       var child = ChildChartlet();
       configureFunction(chartlet, child);
-      (<any>chartlet).runTest = (<any>child).runTest;
+      (chartlet as any).runTest = (child as any).runTest;
       return chartlet;
     };
 
@@ -846,7 +850,7 @@ describe('Chartlet', function(){
         })
         .property('foo', function(d:number) {return 2 * d;});
 
-      (<any>parent).runTest(function(child: d3kit.Chartlet) {
+      (parent as any).runTest(function(child: d3kit.Chartlet) {
         expect(child.getPropertyValue('bar', 4, 0)).to.be.equal(8);
       });
     });
@@ -858,7 +862,7 @@ describe('Chartlet', function(){
         })
         .property('foo', function(d:number) {return 2 * d;});
 
-      (<any>parent).runTest(function(child: d3kit.Chartlet) {
+      (parent as any).runTest(function(child: d3kit.Chartlet) {
         expect(child.getPropertyValue('foo', 4, 0)).to.be.equal(8);
       });
     });
@@ -874,7 +878,7 @@ describe('Chartlet', function(){
         .property('bar', function(d:number) {return 3 * d;})
         .property('baz', function(d:number) {return 4 * d;});
 
-      (<any>parent).runTest(function(child: d3kit.Chartlet) {
+      (parent as any).runTest(function(child: d3kit.Chartlet) {
         expect(child.getPropertyValue('foo-x', 1, 0)).to.be.equal(2);
         expect(child.getPropertyValue('bar-x', 1, 0)).to.be.equal(3);
         expect(child.getPropertyValue('baz-x', 1, 0)).to.be.equal(4);
@@ -890,7 +894,7 @@ describe('Chartlet', function(){
         .property('bar', function(d:number) {return 3 * d;})
         .property('baz', function(d:number) {return 4 * d;});
 
-      (<any>parent).runTest(function(child: d3kit.Chartlet) {
+      (parent as any).runTest(function(child: d3kit.Chartlet) {
         expect(child.getPropertyValue('foo', 1, 0)).to.be.equal(2);
         expect(child.getPropertyValue('bar', 1, 0)).to.be.equal(3);
         expect(child.getPropertyValue('baz', 1, 0)).to.be.equal(4);
@@ -910,7 +914,7 @@ describe('Chartlet', function(){
       var child = new d3kit.Chartlet(callback, callback, callback, ['foo'])
         .publishEventsTo(parent.getDispatcher());
 
-      (<any>child.getDispatcher()).foo(99);
+      (child.getDispatcher() as any).foo(99);
     });
   });
 });

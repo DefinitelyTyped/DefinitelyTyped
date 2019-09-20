@@ -1,6 +1,8 @@
-// Type definitions for undertaker 1.1
-// Project: https://github.com/phated/undertaker
-// Definitions by: Qubo <https://github.com/tkqubo>, Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>
+// Type definitions for undertaker 1.2
+// Project: https://github.com/gulpjs/undertaker
+// Definitions by: Qubo <https://github.com/tkqubo>
+//                 Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>
+//                 Evan Yamanishi <https://github.com/sh0ji>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as Registry from "undertaker-registry";
@@ -9,15 +11,28 @@ import { EventEmitter } from "events";
 
 declare namespace Undertaker {
     interface TaskFunctionParams {
-        name?: string;
+        readonly name?: string;
         displayName?: string;
+        description?: string;
+        flags?: TaskFlags;
     }
 
-    interface TaskFunction extends TaskFunctionParams {
-        (done?: (error?: any) => void): void | Duplex | NodeJS.Process | Promise<never> | any;
+    interface TaskFlags {
+        [arg: string]: string;
     }
+
+    interface TaskFunctionBase {
+        (done: (error?: any) => void): void | Duplex | NodeJS.Process | Promise<never> | any;
+    }
+
+    interface TaskFunction extends TaskFunctionBase, TaskFunctionParams {}
 
     type Task = string | TaskFunction;
+
+    interface TaskFunctionWrapped extends TaskFunctionBase {
+        displayName: string;
+        unwrap(): TaskFunction;
+    }
 
     interface TreeOptions {
         /**
@@ -44,21 +59,21 @@ declare class Undertaker extends EventEmitter {
     constructor(registry?: Registry);
 
     /**
-     * Returns the registered function.
-     * @param {string} taskName - Task name.
+     * Returns the wrapped registered function.
+     * @param taskName - Task name.
      */
-    task(taskName: string): Undertaker.TaskFunction;
+    task(taskName: string): Undertaker.TaskFunctionWrapped;
 
     /**
      * Register the task by the taskName.
-     * @param {string} taskName - Task name.
-     * @param {TaskFunction} fn - Task function.
+     * @param taskName - Task name.
+     * @param fn - Task function.
      */
     task(taskName: string, fn: Undertaker.TaskFunction): void;
 
     /**
      * Register the task by the name property of the function.
-     * @param {TaskFunction} fn - Task function.
+     * @param fn - Task function.
      */
     task(fn: Undertaker.TaskFunction): void;
 
@@ -69,7 +84,7 @@ declare class Undertaker extends EventEmitter {
      *
      * When the returned function is executed, the tasks or functions will be executed in series,
      * each waiting for the prior to finish. If an error occurs, execution will stop.
-     * @param {...Undertaker.Task[]} tasks - List of tasks.
+     * @param tasks - List of tasks.
      */
     series(...tasks: Undertaker.Task[]): Undertaker.TaskFunction;
 
@@ -80,7 +95,7 @@ declare class Undertaker extends EventEmitter {
      *
      * When the returned function is executed, the tasks or functions will be executed in series,
      * each waiting for the prior to finish. If an error occurs, execution will stop.
-     * @param {Undertaker.Task[]} tasks - List of tasks.
+     * @param tasks - List of tasks.
      */
     series(tasks: Undertaker.Task[]): Undertaker.TaskFunction;
 
@@ -91,7 +106,7 @@ declare class Undertaker extends EventEmitter {
      *
      * When the returned function is executed, the tasks or functions will be executed in parallel,
      * all being executed at the same time. If an error occurs, all execution will complete.
-     * @param {...Undertaker.Task[]} tasks - list of tasks.
+     * @param tasks - list of tasks.
      */
     parallel(...tasks: Undertaker.Task[]): Undertaker.TaskFunction;
 
@@ -102,7 +117,7 @@ declare class Undertaker extends EventEmitter {
      *
      * When the returned function is executed, the tasks or functions will be executed in parallel,
      * all being executed at the same time. If an error occurs, all execution will complete.
-     * @param {Undertaker.Task[]} tasks - list of tasks.
+     * @param tasks - list of tasks.
      */
     parallel(tasks: Undertaker.Task[]): Undertaker.TaskFunction;
 
@@ -114,21 +129,21 @@ declare class Undertaker extends EventEmitter {
     /**
      * The tasks from the current registry will be transferred to it
      * and the current registry will be replaced with the new registry.
-     * @param {Registry} registry - Instance of registry.
+     * @param registry - Instance of registry.
      */
     registry(registry: Registry): void;
 
     /**
      * Optionally takes an object (options) and returns an object representing the tree of registered tasks.
-     * @param {Undertaker.TreeOptions} options - Tree options.
+     * @param options - Tree options.
      */
     tree(options?: Undertaker.TreeOptions): Undertaker.TreeResult;
 
     /**
      * Takes a string or function (task) and returns a timestamp of the last time the task was run successfully.
      * The time will be the time the task started.  Returns undefined if the task has not been run.
-     * @param {Undertaker.Task} task - Task.
-     * @param {number} [timeResolution] - Time resolution.
+     * @param task - Task.
+     * @param [timeResolution] - Time resolution.
      */
     lastRun(task: Undertaker.Task, timeResolution?: number): number;
 }

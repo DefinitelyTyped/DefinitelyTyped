@@ -1,4 +1,4 @@
-import {Connection} from 'node-xmpp-core';
+import { Connection } from 'node-xmpp-core';
 
 const con = new Connection();
 con.on('online', () => {

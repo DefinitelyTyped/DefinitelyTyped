@@ -1,12 +1,34 @@
-// Type definitions for react-native 0.44
+// Type definitions for react-native 0.60
 // Project: https://github.com/facebook/react-native
-// Definitions by: Eloy Durán <https://github.com/alloy>, Fedor Nezhivoi <https://github.com/gyzerok>, HuHuanming <https://github.com/huhuanming>, Jeremi Stadler <https://github.com/jeremistadler>
+// Definitions by: Eloy Durán <https://github.com/alloy>
+//                 HuHuanming <https://github.com/huhuanming>
+//                 Kyle Roach <https://github.com/iRoachie>
+//                 Simon Knott <https://github.com/skn0tt>
+//                 Tim Wang <https://github.com/timwangdev>
+//                 Kamal Mahyuddin <https://github.com/kamal>
+//                 Alex Dunne <https://github.com/alexdunne>
+//                 Manuel Alabor <https://github.com/swissmanu>
+//                 Michele Bombardi <https://github.com/bm-software>
+//                 Alexander T. <https://github.com/a-tarasyuk>
+//                 Martin van Dam <https://github.com/mvdam>
+//                 Kacper Wiszczuk <https://github.com/esemesek>
+//                 Ryan Nickel <https://github.com/mrnickel>
+//                 Souvik Ghosh <https://github.com/souvik-ghosh>
+//                 Cheng Gibson <https://github.com/nossbigg>
+//                 Saransh Kataria <https://github.com/saranshkataria>
+//                 Francesco Moro <https://github.com/franzmoro>
+//                 Wojciech Tyczynski <https://github.com/tykus160>
+//                 Jake Bloom <https://github.com/jakebloom>
+//                 Ceyhun Ozugur <https://github.com/ceyhun>
+//                 Mike Martin <https://github.com/mcmar>
+//                 Theo Henry de Villeneuve <https://github.com/theohdv>
+//                 Eli White <https://github.com/TheSavior>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.8
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-// USING: these definitions are meant to be used with the TSC compiler target set to ES6
+// USING: these definitions are meant to be used with the TSC compiler target set to at least ES2015.
 //
 // USAGE EXAMPLES: check the RNTSExplorer project at https://github.com/bgrieder/RNTSExplorer
 //
@@ -16,51 +38,49 @@
 //
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-/// <reference types="react" />
+/// <reference path="globals.d.ts" />
+/// <reference path="legacy-properties.d.ts" />
+/// <reference path="BatchedBridge.d.ts" />
+/// <reference path="Devtools.d.ts" />
+/// <reference path="LaunchScreen.d.ts" />
+
+import * as PropTypes from 'prop-types';
+import * as React from 'react';
+
+type Constructor<T> = new (...args: any[]) => T;
 
 export type MeasureOnSuccessCallback = (
-        x: number,
-        y: number,
-        width: number,
-        height: number,
-        pageX: number,
-        pageY: number
-    ) => void
+    x: number,
+    y: number,
+    width: number,
+    height: number,
+    pageX: number,
+    pageY: number,
+) => void;
 
-export type MeasureInWindowOnSuccessCallback = (
-        x: number,
-        y: number,
-        width: number,
-        height: number
-    ) => void
+export type MeasureInWindowOnSuccessCallback = (x: number, y: number, width: number, height: number) => void;
 
-export type MeasureLayoutOnSuccessCallback = (
-        left: number,
-        top: number,
-        width: number,
-        height: number
-    ) => void
+export type MeasureLayoutOnSuccessCallback = (left: number, top: number, width: number, height: number) => void;
 
 /**
  * EventSubscription represents a subscription to a particular event. It can
  * remove its own subscription.
  */
 interface EventSubscription {
-
     eventType: string;
     key: number;
     subscriber: EventSubscriptionVendor;
 
     /**
-     * @param {EventSubscriptionVendor} subscriber the subscriber that controls
+     * @param subscriber the subscriber that controls
      *   this subscription.
      */
-    new(subscriber: EventSubscriptionVendor): EventSubscription
+    new (subscriber: EventSubscriptionVendor): EventSubscription;
 
     /**
      * Removes this subscription from the subscriber that controls it.
      */
-    remove(): void
+    remove(): void;
 }
 
 /**
@@ -68,32 +88,28 @@ interface EventSubscription {
  * subscribed to a particular event type.
  */
 interface EventSubscriptionVendor {
-
-    constructor(): EventSubscriptionVendor
+    constructor(): EventSubscriptionVendor;
 
     /**
      * Adds a subscription keyed by an event type.
      *
-     * @param {string} eventType
-     * @param {EventSubscription} subscription
      */
-    addSubscription(eventType: string, subscription: EventSubscription): EventSubscription
+    addSubscription(eventType: string, subscription: EventSubscription): EventSubscription;
 
     /**
      * Removes a bulk set of the subscriptions.
      *
-     * @param {?string} eventType - Optional name of the event type whose
+     * @param eventType - Optional name of the event type whose
      *   registered supscriptions to remove, if null remove all subscriptions.
      */
-    removeAllSubscriptions(eventType?: string): void
+    removeAllSubscriptions(eventType?: string): void;
 
     /**
      * Removes a specific subscription. Instead of calling this function, call
      * `subscription.remove()` directly.
      *
-     * @param {object} subscription
      */
-    removeSubscription(subscription: any): void
+    removeSubscription(subscription: any): void;
 
     /**
      * Returns the array of subscriptions that are currently registered for the
@@ -102,31 +118,34 @@ interface EventSubscriptionVendor {
      * Note: This array can be potentially sparse as subscriptions are deleted
      * from it when they are removed.
      *
-     * @param {string} eventType
-     * @returns {?array}
      */
-    getSubscriptionsForType(eventType: string): EventSubscription[]
+    getSubscriptionsForType(eventType: string): EventSubscription[];
 }
 
 /**
  * EmitterSubscription represents a subscription with listener and context data.
  */
 interface EmitterSubscription extends EventSubscription {
-    emitter: EventEmitter
-    listener: () => any
-    context: any
+    emitter: EventEmitter;
+    listener: () => any;
+    context: any;
 
     /**
-     * @param {EventEmitter} emitter - The event emitter that registered this
+     * @param emitter - The event emitter that registered this
      *   subscription
-     * @param {EventSubscriptionVendor} subscriber - The subscriber that controls
+     * @param subscriber - The subscriber that controls
      *   this subscription
-     * @param {function} listener - Function to invoke when the specified event is
+     * @param listener - Function to invoke when the specified event is
      *   emitted
-     * @param {*} context - Optional context object to use when invoking the
+     * @param context - Optional context object to use when invoking the
      *   listener
      */
-    new(emitter: EventEmitter, subscriber: EventSubscriptionVendor, listener: () => any, context: any): EmitterSubscription
+    new (
+        emitter: EventEmitter,
+        subscriber: EventSubscriptionVendor,
+        listener: () => any,
+        context: any,
+    ): EmitterSubscription;
 
     /**
      * Removes this subscription from the emitter that registered it.
@@ -134,7 +153,7 @@ interface EmitterSubscription extends EventSubscription {
      * but deliberately not calling `super.remove()` as the responsibility
      * for removing the subscription lies with the EventEmitter.
      */
-    remove(): void
+    remove(): void;
 }
 
 interface EventEmitterListener {
@@ -143,44 +162,43 @@ interface EventEmitterListener {
      * emitted. An optional calling context may be provided. The data arguments
      * emitted will be passed to the listener function.
      *
-     * @param {string} eventType - Name of the event to listen to
-     * @param {function} listener - Function to invoke when the specified event is
+     * @param eventType - Name of the event to listen to
+     * @param listener - Function to invoke when the specified event is
      *   emitted
-     * @param {*} context - Optional context object to use when invoking the
+     * @param context - Optional context object to use when invoking the
      *   listener
      */
-    addListener(eventType: string, listener: (...args: any[]) => any, context?: any): EmitterSubscription
+    addListener(eventType: string, listener: (...args: any[]) => any, context?: any): EmitterSubscription;
 }
 
 interface EventEmitter extends EventEmitterListener {
     /**
-     * @constructor
      *
-     * @param {EventSubscriptionVendor} subscriber - Optional subscriber instance
+     * @param subscriber - Optional subscriber instance
      *   to use. If omitted, a new subscriber will be created for the emitter.
      */
-    new(subscriber?: EventSubscriptionVendor): EventEmitter
+    new (subscriber?: EventSubscriptionVendor): EventEmitter;
 
     /**
      * Similar to addListener, except that the listener is removed after it is
      * invoked once.
      *
-     * @param {string} eventType - Name of the event to listen to
-     * @param {function} listener - Function to invoke only once when the
+     * @param eventType - Name of the event to listen to
+     * @param listener - Function to invoke only once when the
      *   specified event is emitted
-     * @param {*} context - Optional context object to use when invoking the
+     * @param context - Optional context object to use when invoking the
      *   listener
      */
-    once(eventType: string, listener: (...args: any[]) => any, context: any): EmitterSubscription
+    once(eventType: string, listener: (...args: any[]) => any, context: any): EmitterSubscription;
 
     /**
      * Removes all of the registered listeners, including those registered as
      * listener maps.
      *
-     * @param {?string} eventType - Optional name of the event whose registered
+     * @param eventType - Optional name of the event whose registered
      *   listeners to remove
      */
-    removeAllListeners(eventType?: string): void
+    removeAllListeners(eventType?: string): void;
 
     /**
      * Provides an API that can be called during an eventing cycle to remove the
@@ -193,7 +211,7 @@ interface EventEmitter extends EventEmitterListener {
      * @throws {Error} When called not during an eventing cycle
      *
      * @example
-     *   var subscription = emitter.addListenerMap({
+     *   const subscription = emitter.addListenerMap({
      *     someEvent: function(data, event) {
      *       console.log(data);
      *       emitter.removeCurrentListener();
@@ -203,29 +221,28 @@ interface EventEmitter extends EventEmitterListener {
      *   emitter.emit('someEvent', 'abc'); // logs 'abc'
      *   emitter.emit('someEvent', 'def'); // does not log anything
      */
-    removeCurrentListener(): void
+    removeCurrentListener(): void;
 
     /**
      * Removes a specific subscription. Called by the `remove()` method of the
      * subscription itself to ensure any necessary cleanup is performed.
      */
-    removeSubscription(subscription: EmitterSubscription): void
+    removeSubscription(subscription: EmitterSubscription): void;
 
     /**
      * Returns an array of listeners that are currently registered for the given
      * event.
      *
-     * @param {string} eventType - Name of the event to query
-     * @returns {array}
+     * @param eventType - Name of the event to query
      */
-    listeners(eventType: string): EmitterSubscription[]
+    listeners(eventType: string): EmitterSubscription[];
 
     /**
      * Emits an event of the given type with the given data. All handlers of that
      * particular type will be notified.
      *
-     * @param {string} eventType - Name of the event to emit
-     * @param {...*} Arbitrary arguments to be passed to each registered listener
+     * @param eventType - Name of the event to emit
+     * @param Arbitrary arguments to be passed to each registered listener
      *
      * @example
      *   emitter.addListener('someEvent', function(message) {
@@ -234,13 +251,13 @@ interface EventEmitter extends EventEmitterListener {
      *
      *   emitter.emit('someEvent', 'abc'); // logs 'abc'
      */
-    emit(eventType: string, ...params: any[]): void
+    emit(eventType: string, ...params: any[]): void;
 
     /**
      * Removes the given listener for event of specific type.
      *
-     * @param {string} eventType - Name of the event to emit
-     * @param {function} listener - Function to invoke when the specified event is
+     * @param eventType - Name of the event to emit
+     * @param listener - Function to invoke when the specified event is
      *   emitted
      *
      * @example
@@ -249,7 +266,7 @@ interface EventEmitter extends EventEmitterListener {
      *   }); // removes the listener if already registered
      *
      */
-    removeListener(eventType: string, listener: (...args: any[]) => any): void
+    removeListener(eventType: string, listener: (...args: any[]) => any): void;
 }
 
 /** NativeMethodsMixin provides methods to access the underlying native component directly.
@@ -308,8 +325,8 @@ export interface NativeMethodsMixinStatic {
      */
     measureLayout(
         relativeToNativeNode: number,
-    onSuccess: MeasureLayoutOnSuccessCallback,
-        onFail: () => void /* currently unused */
+        onSuccess: MeasureLayoutOnSuccessCallback,
+        onFail: () => void /* currently unused */,
     ): void;
 
     /**
@@ -332,7 +349,7 @@ export interface NativeMethodsMixinStatic {
     blur(): void;
 
     refs: {
-        [key: string]: React.Component<any, any>
+        [key: string]: React.Component<any, any>;
     };
 }
 
@@ -340,89 +357,79 @@ export interface NativeMethodsMixinStatic {
 export function createElement<P>(
     type: React.ReactType,
     props?: P,
-    ...children: React.ReactNode[]): React.ReactElement<P>;
-
+    ...children: React.ReactNode[]
+): React.ReactElement<P>;
 
 export type Runnable = (appParameters: any) => void;
 
+type Task = (taskData: any) => Promise<void>;
+type TaskProvider = () => Task;
+
+type NodeHandle = number;
 
 // Similar to React.SyntheticEvent except for nativeEvent
-interface NativeSyntheticEvent<T> {
-    bubbles: boolean
-    cancelable: boolean
-    currentTarget: EventTarget
-    defaultPrevented: boolean
-    eventPhase: number
-    isTrusted: boolean
-    nativeEvent: T
-    preventDefault(): void
-    stopPropagation(): void
-    target: EventTarget
-    timeStamp: Date
-    type: string
-}
+export interface NativeSyntheticEvent<T> extends React.BaseSyntheticEvent<T, NodeHandle, NodeHandle> {}
 
 export interface NativeTouchEvent {
     /**
      * Array of all touch events that have changed since the last event
      */
-    changedTouches: NativeTouchEvent[]
+    changedTouches: NativeTouchEvent[];
 
     /**
      * The ID of the touch
      */
-    identifier: string
+    identifier: string;
 
     /**
      * The X position of the touch, relative to the element
      */
-    locationX: number
+    locationX: number;
 
     /**
      * The Y position of the touch, relative to the element
      */
-    locationY: number
+    locationY: number;
 
     /**
      * The X position of the touch, relative to the screen
      */
-    pageX: number
+    pageX: number;
 
     /**
      * The Y position of the touch, relative to the screen
      */
-    pageY: number
+    pageY: number;
 
     /**
      * The node id of the element receiving the touch event
      */
-    target: string
+    target: string;
 
     /**
      * A time identifier for the touch, useful for velocity calculation
      */
-    timestamp: number
+    timestamp: number;
 
     /**
      * Array of all current touches on the screen
      */
-    touches: NativeTouchEvent[]
+    touches: NativeTouchEvent[];
 }
 
-export interface GestureResponderEvent extends NativeSyntheticEvent<NativeTouchEvent> {
-}
+export interface GestureResponderEvent extends NativeSyntheticEvent<NativeTouchEvent> {}
 
-
-export interface PointProperties {
-    x: number
-    y: number
+// See https://facebook.github.io/react-native/docs/scrollview.html#contentoffset
+export interface PointPropType {
+    x: number;
+    y: number;
 }
 
 export interface Insets {
-    top?: number
-    left?: number
-    bottom?: number
-    right?: number
+    top?: number;
+    left?: number;
+    bottom?: number;
+    right?: number;
 }
 
 /**
@@ -430,20 +437,20 @@ export interface Insets {
  * @see React.DOMAtributes
  */
 export interface Touchable {
-    onTouchStart?: (event: GestureResponderEvent) => void
-    onTouchMove?: (event: GestureResponderEvent) => void
-    onTouchEnd?: (event: GestureResponderEvent) => void
-    onTouchCancel?: (event: GestureResponderEvent) => void
-    onTouchEndCapture?: (event: GestureResponderEvent) => void
+    onTouchStart?: (event: GestureResponderEvent) => void;
+    onTouchMove?: (event: GestureResponderEvent) => void;
+    onTouchEnd?: (event: GestureResponderEvent) => void;
+    onTouchCancel?: (event: GestureResponderEvent) => void;
+    onTouchEndCapture?: (event: GestureResponderEvent) => void;
 }
 
-export type ComponentProvider = () => React.ComponentClass<any>
+export type ComponentProvider = () => React.ComponentType<any>;
 
 export type AppConfig = {
     appKey: string;
-    component?: ComponentProvider
+    component?: ComponentProvider;
     run?: Runnable;
-}
+};
 
 // https://github.com/facebook/react-native/blob/master/Libraries/AppRegistry/AppRegistry.js
 /**
@@ -461,47 +468,52 @@ export type AppConfig = {
  * sure the JS execution environment is setup before other modules are
  * `require`d.
  */
-export class AppRegistry {
-    static registerConfig(config: AppConfig[]): void;
+export namespace AppRegistry {
+    function registerConfig(config: AppConfig[]): void;
 
-    static registerComponent( appKey: string, getComponentFunc: ComponentProvider ): string;
+    function registerComponent(appKey: string, getComponentFunc: ComponentProvider): string;
 
-    static registerRunnable(appKey: string, func: Runnable): string;
+    function registerRunnable(appKey: string, func: Runnable): string;
 
-    static getAppKeys(): string[];
+    function getAppKeys(): string[];
 
-    static unmountApplicationComponentAtRootTag(rootTag: number): void;
+    function unmountApplicationComponentAtRootTag(rootTag: number): void;
 
-    static runApplication(appKey: string, appParameters: any): void;
+    function runApplication(appKey: string, appParameters: any): void;
+
+    function registerHeadlessTask(appKey: string, task: TaskProvider): void;
+
+    function getRunnable(appKey: string): Runnable | undefined;
 }
 
 export interface LayoutAnimationTypes {
-    spring: string
-    linear: string
-    easeInEaseOut: string
-    easeIn: string
-    easeOut: string
+    spring: string;
+    linear: string;
+    easeInEaseOut: string;
+    easeIn: string;
+    easeOut: string;
+    keyboard: string;
 }
 
 export interface LayoutAnimationProperties {
-    opacity: string
-    scaleXY: string
+    opacity: string;
+    scaleXY: string;
 }
 
 export interface LayoutAnimationAnim {
-    duration?: number
-    delay?: number
-    springDamping?: number
-    initialVelocity?: number
-    type?: string //LayoutAnimationTypes
-    property?: string //LayoutAnimationProperties
+    duration?: number;
+    delay?: number;
+    springDamping?: number;
+    initialVelocity?: number;
+    type?: string; //LayoutAnimationTypes
+    property?: string; //LayoutAnimationProperties
 }
 
 export interface LayoutAnimationConfig {
-    duration: number
-    create?: LayoutAnimationAnim
-    update?: LayoutAnimationAnim
-    delete?: LayoutAnimationAnim
+    duration: number;
+    create?: LayoutAnimationAnim;
+    update?: LayoutAnimationAnim;
+    delete?: LayoutAnimationAnim;
 }
 
 /** Automatically animates views to their new positions when the next layout happens.
@@ -515,77 +527,88 @@ export interface LayoutAnimationStatic {
      * `update`, config for animating views that have been updated (see Anim type)
      * @param onAnimationDidEnd Called when the animation finished. Only supported on iOS.
      */
-    configureNext: ( config: LayoutAnimationConfig, onAnimationDidEnd?: () => void ) => void
+    configureNext: (config: LayoutAnimationConfig, onAnimationDidEnd?: () => void) => void;
     /** Helper for creating a config for configureNext. */
-    create: (duration: number, type?: string, creationProp?: string) => LayoutAnimationConfig
-    Types: LayoutAnimationTypes
-    Properties: LayoutAnimationProperties
-    configChecker: (shapeTypes: {[key: string]: any}) => any
+    create: (duration: number, type?: string, creationProp?: string) => LayoutAnimationConfig;
+    Types: LayoutAnimationTypes;
+    Properties: LayoutAnimationProperties;
+    configChecker: (shapeTypes: { [key: string]: any }) => any;
     Presets: {
-        easeInEaseOut: LayoutAnimationConfig
-        linear: LayoutAnimationConfig
-        spring: LayoutAnimationConfig
-    }
-    easeInEaseOut: (config: LayoutAnimationConfig, onAnimationDidEnd?: () => void) => void
-    linear: (config: LayoutAnimationConfig, onAnimationDidEnd?: () => void) => void
-    spring: (config: LayoutAnimationConfig, onAnimationDidEnd?: () => void) => void
+        easeInEaseOut: LayoutAnimationConfig;
+        linear: LayoutAnimationConfig;
+        spring: LayoutAnimationConfig;
+    };
+    easeInEaseOut: (onAnimationDidEnd?: () => void) => void;
+    linear: (onAnimationDidEnd?: () => void) => void;
+    spring: (onAnimationDidEnd?: () => void) => void;
 }
 
-type FlexAlignType = "flex-start" | "flex-end" | "center" | "stretch" | "baseline";
+type FlexAlignType = 'flex-start' | 'flex-end' | 'center' | 'stretch' | 'baseline';
 
 /**
  * Flex Prop Types
  * @see https://facebook.github.io/react-native/docs/flexbox.html#proptypes
- * @see LayoutPropTypes.js
+ * @see https://facebook.github.io/react-native/docs/layout-props.html
+ * @see https://github.com/facebook/react-native/blob/master/Libraries/StyleSheet/LayoutPropTypes.js
  */
 export interface FlexStyle {
-    alignContent?: "flex-start" | "flex-end" | "center" | "stretch" | "space-between" | "space-around"
-    alignItems?: FlexAlignType
-    alignSelf?: "auto" | FlexAlignType
-    borderBottomWidth?: number
-    borderLeftWidth?: number
-    borderRightWidth?: number
-    borderTopWidth?: number
-    borderWidth?: number
-    bottom?: number | string
-    flex?: number
-    flexBasis?: number | string
-    flexDirection?: "row" | "column" | "row-reverse" | "column-reverse"
-    flexGrow?: number
-    flexShrink?: number
-    flexWrap?: "wrap" | "nowrap"
-    height?: number | string
-    justifyContent?: "flex-start" | "flex-end" | "center" | "space-between" | "space-around"
-    left?: number | string
-    margin?: number | string
-    marginBottom?: number | string
-    marginHorizontal?: number | string
-    marginLeft?: number | string
-    marginRight?: number | string
-    marginTop?: number | string
-    marginVertical?: number | string
-    maxHeight?: number | string
-    maxWidth?: number | string
-    minHeight?: number | string
-    minWidth?: number | string
-    overflow?: "visible" | "hidden" | "scroll"
-    padding?: number | string
-    paddingBottom?: number | string
-    paddingHorizontal?: number | string
-    paddingLeft?: number | string
-    paddingRight?: number | string
-    paddingTop?: number | string
-    paddingVertical?: number | string
-    position?: "absolute" | "relative"
-    right?: number | string
-    top?: number | string
-    width?: number | string
-    zIndex?: number
+    alignContent?: 'flex-start' | 'flex-end' | 'center' | 'stretch' | 'space-between' | 'space-around';
+    alignItems?: FlexAlignType;
+    alignSelf?: 'auto' | FlexAlignType;
+    aspectRatio?: number;
+    borderBottomWidth?: number;
+    borderEndWidth?: number | string;
+    borderLeftWidth?: number;
+    borderRightWidth?: number;
+    borderStartWidth?: number | string;
+    borderTopWidth?: number;
+    borderWidth?: number;
+    bottom?: number | string;
+    display?: 'none' | 'flex';
+    end?: number | string;
+    flex?: number;
+    flexBasis?: number | string;
+    flexDirection?: 'row' | 'column' | 'row-reverse' | 'column-reverse';
+    flexGrow?: number;
+    flexShrink?: number;
+    flexWrap?: 'wrap' | 'nowrap' | 'wrap-reverse';
+    height?: number | string;
+    justifyContent?: 'flex-start' | 'flex-end' | 'center' | 'space-between' | 'space-around' | 'space-evenly';
+    left?: number | string;
+    margin?: number | string;
+    marginBottom?: number | string;
+    marginEnd?: number | string;
+    marginHorizontal?: number | string;
+    marginLeft?: number | string;
+    marginRight?: number | string;
+    marginStart?: number | string;
+    marginTop?: number | string;
+    marginVertical?: number | string;
+    maxHeight?: number | string;
+    maxWidth?: number | string;
+    minHeight?: number | string;
+    minWidth?: number | string;
+    overflow?: 'visible' | 'hidden' | 'scroll';
+    padding?: number | string;
+    paddingBottom?: number | string;
+    paddingEnd?: number | string;
+    paddingHorizontal?: number | string;
+    paddingLeft?: number | string;
+    paddingRight?: number | string;
+    paddingStart?: number | string;
+    paddingTop?: number | string;
+    paddingVertical?: number | string;
+    position?: 'absolute' | 'relative';
+    right?: number | string;
+    start?: number | string;
+    top?: number | string;
+    width?: number | string;
+    zIndex?: number;
 
     /**
      * @platform ios
      */
-    direction?: 'inherit' | 'ltr' | 'rtl'
+    direction?: 'inherit' | 'ltr' | 'rtl';
 }
 
 /**
@@ -596,52 +619,25 @@ export interface ShadowPropTypesIOSStatic {
      * Sets the drop shadow color
      * @platform ios
      */
-    shadowColor: string
+    shadowColor: string;
 
     /**
      * Sets the drop shadow offset
      * @platform ios
      */
-    shadowOffset: { width: number, height: number }
+    shadowOffset: { width: number; height: number };
 
     /**
      * Sets the drop shadow opacity (multiplied by the color's alpha component)
      * @platform ios
      */
-    shadowOpacity: number
+    shadowOpacity: number;
 
     /**
      * Sets the drop shadow blur radius
      * @platform ios
      */
-    shadowRadius: number
-}
-
-type GetCurrentPositionOptions = {
-    timeout: number
-    maximumAge: number
-    enableHighAccuracy: boolean
-    distanceFilter: number
-}
-
-type WatchPositionOptions = {
-    timeout: number
-    maximumAge: number
-    enableHighAccuracy: boolean
-    distanceFilter: number
-}
-
-type GeolocationReturnType = {
-    coords: {
-        latitude: number
-        longitude: number
-        altitude?: number
-        accuracy?: number
-        altitudeAccuracy?: number
-        heading?: number
-        speed?: number
-    }
-    timestamp: number
+    shadowRadius: number;
 }
 
 interface PerpectiveTransform {
@@ -694,31 +690,29 @@ interface SkewYTransform {
 
 export interface TransformsStyle {
     transform?: (
-        PerpectiveTransform |
-        RotateTransform |
-        RotateXTransform |
-        RotateYTransform |
-        RotateZTransform |
-        ScaleTransform |
-        ScaleXTransform |
-        ScaleYTransform |
-        TranslateXTransform |
-        TranslateYTransform |
-        SkewXTransform |
-        SkewYTransform
-    )[]
-    transformMatrix?: Array<number>
-    rotation?: number
-    scaleX?: number
-    scaleY?: number
-    translateX?: number
-    translateY?: number
+        | PerpectiveTransform
+        | RotateTransform
+        | RotateXTransform
+        | RotateYTransform
+        | RotateZTransform
+        | ScaleTransform
+        | ScaleXTransform
+        | ScaleYTransform
+        | TranslateXTransform
+        | TranslateYTransform
+        | SkewXTransform
+        | SkewYTransform)[];
+    transformMatrix?: Array<number>;
+    rotation?: number;
+    scaleX?: number;
+    scaleY?: number;
+    translateX?: number;
+    translateY?: number;
 }
 
-
 export interface StyleSheetProperties {
-    hairlineWidth: number
-    flatten<T extends string>(style: T): T
+    hairlineWidth: number;
+    flatten<T extends string>(style: T): T;
 }
 
 export interface LayoutRectangle {
@@ -728,107 +722,95 @@ export interface LayoutRectangle {
     height: number;
 }
 
-// @see TextProperties.onLayout
+// @see TextProps.onLayout
 export interface LayoutChangeEvent {
     nativeEvent: {
-        layout: LayoutRectangle
-    }
+        layout: LayoutRectangle;
+    };
 }
 
+export type FontVariant = 'small-caps' | 'oldstyle-nums' | 'lining-nums' | 'tabular-nums' | 'proportional-nums';
 export interface TextStyleIOS extends ViewStyle {
-    letterSpacing?: number
-    textDecorationColor?: string
-    textDecorationStyle?: "solid" | "double" | "dotted" | "dashed"
-    writingDirection?: "auto" | "ltr" | "rtl"
+    fontVariant?: FontVariant[];
+    letterSpacing?: number;
+    textDecorationColor?: string;
+    textDecorationStyle?: 'solid' | 'double' | 'dotted' | 'dashed';
+    textTransform?: 'none' | 'capitalize' | 'uppercase' | 'lowercase';
+    writingDirection?: 'auto' | 'ltr' | 'rtl';
 }
 
 export interface TextStyleAndroid extends ViewStyle {
-    textAlignVertical?: "auto" | "top" | "bottom" | "center"
-    includeFontPadding?: boolean
+    textAlignVertical?: 'auto' | 'top' | 'bottom' | 'center';
+    includeFontPadding?: boolean;
 }
 
 // @see https://facebook.github.io/react-native/docs/text.html#style
 export interface TextStyle extends TextStyleIOS, TextStyleAndroid, ViewStyle {
-    color?: string
-    fontFamily?: string
-    fontSize?: number
-    fontStyle?: "normal" | "italic"
+    color?: string;
+    fontFamily?: string;
+    fontSize?: number;
+    fontStyle?: 'normal' | 'italic';
     /**
      * Specifies font weight. The values 'normal' and 'bold' are supported
      * for most fonts. Not all fonts have a variant for each of the numeric
      * values, in that case the closest one is chosen.
      */
-    fontWeight?: "normal" | "bold" | "100" | "200" | "300" | "400" | "500" | "600" | "700" | "800" | "900"
-    letterSpacing?: number
-    lineHeight?: number
-    /**
-     * Specifies text alignment.
-     * The value 'justify' is only supported on iOS.
-     */
-    textAlign?: "auto" | "left" | "right" | "center"
-    textDecorationLine?: "none" | "underline" | "line-through" | "underline line-through"
-    textDecorationStyle?: "solid" | "double" | "dotted" | "dashed"
-    textDecorationColor?: string
-    textShadowColor?: string
-    textShadowOffset?: { width: number, height: number }
-    textShadowRadius?: number
-    testID?: string
+    fontWeight?: 'normal' | 'bold' | '100' | '200' | '300' | '400' | '500' | '600' | '700' | '800' | '900';
+    letterSpacing?: number;
+    lineHeight?: number;
+    textAlign?: 'auto' | 'left' | 'right' | 'center' | 'justify';
+    textDecorationLine?: 'none' | 'underline' | 'line-through' | 'underline line-through';
+    textDecorationStyle?: 'solid' | 'double' | 'dotted' | 'dashed';
+    textDecorationColor?: string;
+    textShadowColor?: string;
+    textShadowOffset?: { width: number; height: number };
+    textShadowRadius?: number;
+    testID?: string;
 }
 
-export interface TextPropertiesIOS {
-    /**
-     * Specifies whether fonts should scale to respect Text Size accessibility setting on iOS. The
-     * default is `true`.
-     */
-    allowFontScaling?: boolean
-
+export interface TextPropsIOS {
     /**
      * Specifies whether font should be scaled down automatically to fit given style constraints.
      */
-    adjustsFontSizeToFit?: boolean
+    adjustsFontSizeToFit?: boolean;
 
     /**
      * Specifies smallest possible scale a font can reach when adjustsFontSizeToFit is enabled. (values 0.01-1.0).
      */
-    minimumFontScale?: number
+    minimumFontScale?: number;
 
     /**
      * When `true`, no visual change is made when text is pressed down. By
      * default, a gray oval highlights the text on press down.
      */
-    suppressHighlighting?: boolean
+    suppressHighlighting?: boolean;
 }
 
-export interface TextPropertiesAndroid {
+export interface TextPropsAndroid {
     /**
      * Lets the user select text, to use the native copy and paste functionality.
      */
-    selectable?: boolean
+    selectable?: boolean;
 
     /**
      * The highlight color of the text.
      */
-    selectionColor?: string
+    selectionColor?: string;
 
     /**
      * Set text break strategy on Android API Level 23+
      * default is `highQuality`.
      */
-    textBreakStrategy?: "simple" | "highQuality" | "balanced"
+    textBreakStrategy?: 'simple' | 'highQuality' | 'balanced';
 }
 
 // https://facebook.github.io/react-native/docs/text.html#props
-export interface TextProperties extends TextPropertiesIOS, TextPropertiesAndroid {
-
+export interface TextProps extends TextPropsIOS, TextPropsAndroid, AccessibilityProps {
     /**
-     * When set to `true`, indicates that the view is an accessibility element. The default value
-     * for a `Text` element is `true`.
-     *
-     * See the
-     * [Accessibility guide](/react-native/docs/accessibility.html#accessible-ios-android)
-     * for more information.
+     * Specifies whether fonts should scale to respect Text Size accessibility settings.
+     * The default is `true`.
      */
-    accessible?: boolean
+    allowFontScaling?: boolean;
 
     /**
      * This can be one of the following values:
@@ -847,13 +829,13 @@ export interface TextProperties extends TextPropertiesIOS, TextPropertiesAndroid
      *
      * > `clip` is working only for iOS
      */
-    ellipsizeMode?: 'head' | 'middle' | 'tail' | 'clip'
+    ellipsizeMode?: 'head' | 'middle' | 'tail' | 'clip';
 
     /**
      * Line Break mode. Works only with numberOfLines.
      * clip is working only for iOS
      */
-    lineBreakMode?: 'head' | 'middle' | 'tail' | 'clip'
+    lineBreakMode?: 'head' | 'middle' | 'tail' | 'clip';
 
     /**
      * Used to truncate the text with an ellipsis after computing the text
@@ -862,44 +844,57 @@ export interface TextProperties extends TextPropertiesIOS, TextPropertiesAndroid
      *
      * This prop is commonly used with `ellipsizeMode`.
      */
-    numberOfLines?: number
+    numberOfLines?: number;
 
     /**
      * Invoked on mount and layout changes with
      *
      * {nativeEvent: { layout: {x, y, width, height}}}.
      */
-    onLayout?: (event: LayoutChangeEvent) => void
+    onLayout?: (event: LayoutChangeEvent) => void;
 
     /**
      * This function is called on press.
      * Text intrinsically supports press handling with a default highlight state (which can be disabled with suppressHighlighting).
      */
-    onPress?: () => void
+    onPress?: (event: GestureResponderEvent) => void;
 
     /**
      * This function is called on long press.
      * e.g., `onLongPress={this.increaseSize}>``
      */
-    onLongPress?: () => void
+    onLongPress?: (event: GestureResponderEvent) => void;
 
     /**
      * @see https://facebook.github.io/react-native/docs/text.html#style
      */
-    style?: TextStyle
+    style?: StyleProp<TextStyle>;
 
     /**
      * Used to locate this view in end-to-end tests.
      */
-    testID?: string
+    testID?: string;
+
+    /**
+     * Used to reference react managed views from native code.
+     */
+    nativeID?: string;
+
+    /**
+     * Specifies largest possible scale a font can reach when allowFontScaling is enabled. Possible values:
+     * - null/undefined (default): inherit from the parent node or the global default (0)
+     * - 0: no max, ignore parent/global default
+     * - >= 1: sets the maxFontSizeMultiplier of this node to this value
+     */
+    maxFontSizeMultiplier?: number | null;
 }
 
 /**
  * A React component for displaying text which supports nesting, styling, and touch handling.
  */
-export interface TextStatic extends NativeMethodsMixin, React.ClassicComponentClass<TextProperties> {
-
-}
+declare class TextComponent extends React.Component<TextProps> {}
+declare const TextBase: Constructor<NativeMethodsMixin> & typeof TextComponent;
+export class Text extends TextBase {}
 
 type DataDetectorTypes = 'phoneNumber' | 'link' | 'address' | 'calendarEvent' | 'none' | 'all';
 
@@ -913,55 +908,50 @@ type DataDetectorTypes = 'phoneNumber' | 'link' | 'address' | 'calendarEvent' | 
  * components re-render.
  */
 export interface DocumentSelectionState extends EventEmitter {
-    new(anchor: number, focus: number): DocumentSelectionState
+    new (anchor: number, focus: number): DocumentSelectionState;
 
     /**
      * Apply an update to the state. If either offset value has changed,
      * set the values and emit the `change` event. Otherwise no-op.
      *
-     * @param {number} anchor
-     * @param {number} focus
      */
-    update(anchor: number, focus: number): void
+    update(anchor: number, focus: number): void;
 
     /**
      * Given a max text length, constrain our selection offsets to ensure
      * that the selection remains strictly within the text range.
      *
-     * @param {number} maxLength
      */
-    constrainLength(maxLength: number): void
+    constrainLength(maxLength: number): void;
 
-    focus(): void
-    blur(): void
-    hasFocus(): boolean
-    isCollapsed(): boolean
-    isBackward(): boolean
+    focus(): void;
+    blur(): void;
+    hasFocus(): boolean;
+    isCollapsed(): boolean;
+    isBackward(): boolean;
 
-    getAnchorOffset(): number
-    getFocusOffset(): number
-    getStartOffset(): number
-    getEndOffset(): number
-    overlaps(start: number, end: number): boolean
+    getAnchorOffset(): number;
+    getFocusOffset(): number;
+    getStartOffset(): number;
+    getEndOffset(): number;
+    overlaps(start: number, end: number): boolean;
 }
-
 
 /**
  * IOS Specific properties for TextInput
  * @see https://facebook.github.io/react-native/docs/textinput.html#props
  */
-export interface TextInputIOSProperties {
-
+export interface TextInputIOSProps {
     /**
      * enum('never', 'while-editing', 'unless-editing', 'always')
      * When the clear button should appear on the right side of the text view
      */
-    clearButtonMode?: 'never' | 'while-editing' | 'unless-editing' | 'always'
+    clearButtonMode?: 'never' | 'while-editing' | 'unless-editing' | 'always';
 
     /**
      * If true, clears the text field automatically when editing begins
      */
-    clearTextOnFocus?: boolean
+    clearTextOnFocus?: boolean;
 
     /**
      * Determines the types of data converted to clickable URLs in the text input.
@@ -979,82 +969,291 @@ export interface TextInputIOSProperties {
      * - `'none'`
      * - `'all'`
      */
-    dataDetectorTypes?: DataDetectorTypes | DataDetectorTypes[]
+    dataDetectorTypes?: DataDetectorTypes | DataDetectorTypes[];
 
     /**
      * If true, the keyboard disables the return key when there is no text and automatically enables it when there is text.
      * The default value is false.
      */
-    enablesReturnKeyAutomatically?: boolean
+    enablesReturnKeyAutomatically?: boolean;
 
     /**
      * Determines the color of the keyboard.
      */
-    keyboardAppearance?: 'default' | 'light' | 'dark'
-
-    /**
-     * Callback that is called when a key is pressed.
-     * Pressed key value is passed as an argument to the callback handler.
-     * Fires before onChange callbacks.
-     */
-    onKeyPress?: (key: string) => void
+    keyboardAppearance?: 'default' | 'light' | 'dark';
 
     /**
      * See DocumentSelectionState.js, some state that is responsible for maintaining selection information for a document
      */
-    selectionState?: DocumentSelectionState
+    selectionState?: DocumentSelectionState;
 
     /**
      * If false, disables spell-check style (i.e. red underlines). The default value is inherited from autoCorrect
      */
-    spellCheck?: boolean
+    spellCheck?: boolean;
+
+    /**
+     * Give the keyboard and the system information about the expected
+     * semantic meaning for the content that users enter.
+     *
+     * For iOS 11+ you can set `textContentType` to `username` or `password` to
+     * enable autofill of login details from the device keychain.
+     *
+     * For iOS 12+ `newPassword` can be used to indicate a new password input the
+     * user may want to save in the keychain, and `oneTimeCode` can be used to indicate
+     * that a field can be autofilled by a code arriving in an SMS.
+     *
+     * To disable autofill, set textContentType to `none`.
+     *
+     * Possible values for `textContentType` are:
+     *
+     *  - `'none'`
+     *  - `'URL'`
+     *  - `'addressCity'`
+     *  - `'addressCityAndState'`
+     *  - `'addressState'`
+     *  - `'countryName'`
+     *  - `'creditCardNumber'`
+     *  - `'emailAddress'`
+     *  - `'familyName'`
+     *  - `'fullStreetAddress'`
+     *  - `'givenName'`
+     *  - `'jobTitle'`
+     *  - `'location'`
+     *  - `'middleName'`
+     *  - `'name'`
+     *  - `'namePrefix'`
+     *  - `'nameSuffix'`
+     *  - `'nickname'`
+     *  - `'organizationName'`
+     *  - `'postalCode'`
+     *  - `'streetAddressLine1'`
+     *  - `'streetAddressLine2'`
+     *  - `'sublocality'`
+     *  - `'telephoneNumber'`
+     *  - `'username'`
+     *  - `'password'`
+     *  - `'newPassword'`
+     *  - `'oneTimeCode'`
+     *
+     */
+    textContentType?:
+        | 'none'
+        | 'URL'
+        | 'addressCity'
+        | 'addressCityAndState'
+        | 'addressState'
+        | 'countryName'
+        | 'creditCardNumber'
+        | 'emailAddress'
+        | 'familyName'
+        | 'fullStreetAddress'
+        | 'givenName'
+        | 'jobTitle'
+        | 'location'
+        | 'middleName'
+        | 'name'
+        | 'namePrefix'
+        | 'nameSuffix'
+        | 'nickname'
+        | 'organizationName'
+        | 'postalCode'
+        | 'streetAddressLine1'
+        | 'streetAddressLine2'
+        | 'sublocality'
+        | 'telephoneNumber'
+        | 'username'
+        | 'password'
+        | 'newPassword'
+        | 'oneTimeCode';
+
+    /**
+     * If false, scrolling of the text view will be disabled. The default value is true. Only works with multiline={true}
+     */
+    scrollEnabled?: boolean;
 }
 
 /**
  * Android Specific properties for TextInput
  * @see https://facebook.github.io/react-native/docs/textinput.html#props
  */
-export interface TextInputAndroidProperties {
+export interface TextInputAndroidProps {
+    /**
+     * Determines which content to suggest on auto complete, e.g.`username`.
+     * To disable auto complete, use `off`.
+     *
+     * *Android Only*
+     *
+     * The following values work on Android only:
+     *
+     * - `username`
+     * - `password`
+     * - `email`
+     * - `name`
+     * - `tel`
+     * - `street-address`
+     * - `postal-code`
+     * - `cc-number`
+     * - `cc-csc`
+     * - `cc-exp`
+     * - `cc-exp-month`
+     * - `cc-exp-year`
+     * - `off`
+     */
+    autoCompleteType?:
+        | 'cc-csc'
+        | 'cc-exp'
+        | 'cc-exp-month'
+        | 'cc-exp-year'
+        | 'cc-number'
+        | 'email'
+        | 'name'
+        | 'password'
+        | 'postal-code'
+        | 'street-address'
+        | 'tel'
+        | 'username'
+        | 'off';
+
+    /**
+     * When false, if there is a small amount of space available around a text input (e.g. landscape orientation on a phone),
+     *   the OS may choose to have the user edit the text inside of a full screen text input mode.
+     * When true, this feature is disabled and users will always edit the text directly inside of the text input.
+     * Defaults to false.
+     */
+    disableFullscreenUI?: boolean;
 
     /**
      * If defined, the provided image resource will be rendered on the left.
      */
-    inlineImageLeft?: string
+    inlineImageLeft?: string;
 
     /**
      * Padding between the inline image, if any, and the text input itself.
      */
-    inlineImagePadding?: number
+    inlineImagePadding?: number;
 
     /**
      * Sets the number of lines for a TextInput.
      * Use it with multiline set to true to be able to fill the lines.
      */
-    numberOfLines?: number
+    numberOfLines?: number;
 
     /**
      * Sets the return key to the label. Use it instead of `returnKeyType`.
      * @platform android
      */
-    returnKeyLabel?: string
+    returnKeyLabel?: string;
+
+    /**
+     * Set text break strategy on Android API Level 23+, possible values are simple, highQuality, balanced
+     * The default value is simple.
+     */
+    textBreakStrategy?: 'simple' | 'highQuality' | 'balanced';
 
     /**
      * The color of the textInput underline.
      */
-    underlineColorAndroid?: string
+    underlineColorAndroid?: string;
+
+    /**
+     * Vertically align text when `multiline` is set to true
+     */
+    textAlignVertical?: 'auto' | 'top' | 'bottom' | 'center';
 }
 
-export type KeyboardType = "default" | "email-address" | "numeric" | "phone-pad"
-export type KeyboardTypeIOS = "ascii-capable" | "numbers-and-punctuation" | "url" | "number-pad" | "name-phone-pad" | "decimal-pad" | "twitter" | "web-search"
+export type KeyboardType = 'default' | 'email-address' | 'numeric' | 'phone-pad';
+export type KeyboardTypeIOS =
+    | 'ascii-capable'
+    | 'numbers-and-punctuation'
+    | 'url'
+    | 'number-pad'
+    | 'name-phone-pad'
+    | 'decimal-pad'
+    | 'twitter'
+    | 'web-search';
+export type KeyboardTypeAndroid = 'visible-password';
+export type KeyboardTypeOptions = KeyboardType | KeyboardTypeAndroid | KeyboardTypeIOS;
 
-export type ReturnKeyType = "done" | "go" | "next" | "search" | "send"
-export type ReturnKeyTypeAndroid = "none" | "previous"
-export type ReturnKeyTypeIOS = "default" | "google" | "join" | "route" | "yahoo" | "emergency-call"
+export type ReturnKeyType = 'done' | 'go' | 'next' | 'search' | 'send';
+export type ReturnKeyTypeAndroid = 'none' | 'previous';
+export type ReturnKeyTypeIOS = 'default' | 'google' | 'join' | 'route' | 'yahoo' | 'emergency-call';
+export type ReturnKeyTypeOptions = ReturnKeyType | ReturnKeyTypeAndroid | ReturnKeyTypeIOS;
+
+export interface TargetedEvent {
+    target: number;
+}
+
+/**
+ * @see TextInputProps.onFocus
+ */
+export interface TextInputFocusEventData extends TargetedEvent {
+    text: string;
+    eventCount: number;
+}
+
+/**
+ * @see TextInputProps.onScroll
+ */
+export interface TextInputScrollEventData {
+    contentOffset: { x: number; y: number };
+}
+
+/**
+ * @see TextInputProps.onSelectionChange
+ */
+export interface TextInputSelectionChangeEventData extends TargetedEvent {
+    selection: {
+        start: number;
+        end: number;
+    };
+}
+
+/**
+ * @see TextInputProps.onKeyPress
+ */
+export interface TextInputKeyPressEventData {
+    key: string;
+}
+
+/**
+ * @see TextInputProps.onChange
+ */
+export interface TextInputChangeEventData extends TargetedEvent {
+    eventCount: number;
+    text: string;
+}
+
+/**
+ * @see TextInputProps.onContentSizeChange
+ */
+export interface TextInputContentSizeChangeEventData {
+    contentSize: { width: number; height: number };
+}
+
+/**
+ * @see TextInputProps.onEndEditing
+ */
+export interface TextInputEndEditingEventData {
+    text: string;
+}
+
+/**
+ * @see TextInputProps.onSubmitEditing
+ */
+export interface TextInputSubmitEditingEventData {
+    text: string;
+}
 
 /**
  * @see https://facebook.github.io/react-native/docs/textinput.html#props
  */
-export interface TextInputProperties extends ViewProperties, TextInputIOSProperties, TextInputAndroidProperties {
+export interface TextInputProps extends ViewProps, TextInputIOSProps, TextInputAndroidProps, AccessibilityProps {
+    /**
+     * Specifies whether fonts should scale to respect Text Size accessibility settings.
+     * The default is `true`.
+     */
+    allowFontScaling?: boolean;
 
     /**
      * Can tell TextInput to automatically capitalize certain characters.
@@ -1065,71 +1264,84 @@ export interface TextInputProperties extends ViewProperties, TextInputIOSPropert
      *
      * https://facebook.github.io/react-native/docs/textinput.html#autocapitalize
      */
-    autoCapitalize?: "none" | "sentences" | "words" | "characters"
+    autoCapitalize?: 'none' | 'sentences' | 'words' | 'characters';
 
     /**
      * If false, disables auto-correct.
      * The default value is true.
      */
-    autoCorrect?: boolean
+    autoCorrect?: boolean;
 
     /**
      * If true, focuses the input on componentDidMount.
      * The default value is false.
      */
-    autoFocus?: boolean
+    autoFocus?: boolean;
 
     /**
      * If true, the text field will blur when submitted.
      * The default value is true.
      */
-    blurOnSubmit?: boolean
+    blurOnSubmit?: boolean;
+
+    /**
+     * If true, caret is hidden. The default value is false.
+     */
+    caretHidden?: boolean;
+
+    /**
+     * If true, context menu is hidden. The default value is false.
+     */
+    contextMenuHidden?: boolean;
 
     /**
      * Provides an initial value that will change when the user starts typing.
      * Useful for simple use-cases where you don't want to deal with listening to events
      * and updating the value prop to keep the controlled state in sync.
      */
-    defaultValue?: string
+    defaultValue?: string;
 
     /**
      * If false, text is not editable. The default value is true.
      */
-    editable?: boolean
+    editable?: boolean;
 
     /**
-     * enum("default", 'numeric', 'email-address', "ascii-capable", 'numbers-and-punctuation', 'url', 'number-pad', 'phone-pad', 'name-phone-pad', 'decimal-pad', 'twitter', 'web-search')
+     * enum("default", 'numeric', 'email-address', "ascii-capable", 'numbers-and-punctuation', 'url', 'number-pad', 'phone-pad', 'name-phone-pad',
+     * 'decimal-pad', 'twitter', 'web-search', 'visible-password')
      * Determines which keyboard to open, e.g.numeric.
      * The following values work across platforms: - default - numeric - email-address - phone-pad
+     * The following values work on iOS: - ascii-capable - numbers-and-punctuation - url - number-pad - name-phone-pad - decimal-pad - twitter - web-search
+     * The following values work on Android: - visible-password
      */
-    keyboardType?: KeyboardType | KeyboardTypeIOS
+    keyboardType?: KeyboardTypeOptions;
 
     /**
      * Limits the maximum number of characters that can be entered.
      * Use this instead of implementing the logic in JS to avoid flicker.
      */
-    maxLength?: number
+    maxLength?: number;
 
     /**
      * If true, the text input can be multiple lines. The default value is false.
      */
-    multiline?: boolean
+    multiline?: boolean;
 
     /**
      * Callback that is called when the text input is blurred
      */
-    onBlur?: () => void
+    onBlur?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void;
 
     /**
      * Callback that is called when the text input's text changes.
      */
-    onChange?: (event: { nativeEvent: { text: string, contentSize: { width: number, height: number }, target: number, eventCount: number } }) => void
+    onChange?: (e: NativeSyntheticEvent<TextInputChangeEventData>) => void;
 
     /**
      * Callback that is called when the text input's text changes.
      * Changed text is passed as an argument to the callback handler.
      */
-    onChangeText?: (text: string) => void
+    onChangeText?: (text: string) => void;
 
     /**
      * Callback that is called when the text input's content size changes.
@@ -1138,75 +1350,101 @@ export interface TextInputProperties extends ViewProperties, TextInputIOSPropert
      *
      * Only called for multiline text inputs.
      */
-    onContentSizeChange?: ( event: {nativeEvent: {contentSize: { width: number, height: number}}} ) => void
+    onContentSizeChange?: (e: NativeSyntheticEvent<TextInputContentSizeChangeEventData>) => void;
 
     /**
      * Callback that is called when text input ends.
      */
-    onEndEditing?: (event: { nativeEvent: { text: string } }) => void
+    onEndEditing?: (e: NativeSyntheticEvent<TextInputEndEditingEventData>) => void;
 
     /**
      * Callback that is called when the text input is focused
      */
-    onFocus?: () => void
+    onFocus?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void;
 
     /**
      * Callback that is called when the text input selection is changed.
      */
-    onSelectionChange?: (event: { nativeEvent: { selection: { start: number, end: number }, target: number } }) => void
+    onSelectionChange?: (e: NativeSyntheticEvent<TextInputSelectionChangeEventData>) => void;
 
     /**
      * Callback that is called when the text input's submit button is pressed.
      */
-    onSubmitEditing?: (event: { nativeEvent: { text: string } }) => void
+    onSubmitEditing?: (e: NativeSyntheticEvent<TextInputSubmitEditingEventData>) => void;
+
+    /**
+     * Invoked on content scroll with
+     *  `{ nativeEvent: { contentOffset: { x, y } } }`.
+     *
+     * May also contain other properties from ScrollEvent but on Android contentSize is not provided for performance reasons.
+     */
+    onScroll?: (e: NativeSyntheticEvent<TextInputScrollEventData>) => void;
+
+    /**
+     * Callback that is called when a key is pressed.
+     * This will be called with
+     *  `{ nativeEvent: { key: keyValue } }`
+     * where keyValue is 'Enter' or 'Backspace' for respective keys and the typed-in character otherwise including ' ' for space.
+     *
+     * Fires before onChange callbacks.
+     * Note: on Android only the inputs from soft keyboard are handled, not the hardware keyboard inputs.
+     */
+    onKeyPress?: (e: NativeSyntheticEvent<TextInputKeyPressEventData>) => void;
 
     /**
      * The string that will be rendered before text input has been entered
      */
-    placeholder?: string
+    placeholder?: string;
 
     /**
      * The text color of the placeholder string
      */
-    placeholderTextColor?: string
+    placeholderTextColor?: string;
 
     /**
      * enum('default', 'go', 'google', 'join', 'next', 'route', 'search', 'send', 'yahoo', 'done', 'emergency-call')
      * Determines how the return key should look.
      */
-    returnKeyType?: ReturnKeyType | ReturnKeyTypeAndroid | ReturnKeyTypeIOS
+    returnKeyType?: ReturnKeyTypeOptions;
 
     /**
      * If true, the text input obscures the text entered so that sensitive text like passwords stay secure.
      * The default value is false.
      */
-    secureTextEntry?: boolean
+    secureTextEntry?: boolean;
 
     /**
      * If true, all text will automatically be selected on focus
      */
-    selectTextOnFocus?: boolean
+    selectTextOnFocus?: boolean;
 
     /**
      * The start and end of the text input's selection. Set start and end to
      * the same value to position the cursor.
      */
-    selection?: { start: number, end?: number }
+    selection?: { start: number; end?: number };
 
     /**
      * The highlight (and cursor on ios) color of the text input
      */
-    selectionColor?: string
+    selectionColor?: string;
 
     /**
      * Styles
      */
-    style?: TextStyle
+    style?: StyleProp<TextStyle>;
 
     /**
      * Used to locate this view in end-to-end tests
      */
-    testID?: string
+    testID?: string;
+
+    /**
+     * Used to connect to an InputAccessoryView. Not part of react-natives documentation, but present in examples and
+     * code.
+     * See https://facebook.github.io/react-native/docs/inputaccessoryview.html for more information.
+     */
+    inputAccessoryViewID?: string;
 
     /**
      * The value to show for the text input. TextInput is a controlled component,
@@ -1215,7 +1453,15 @@ export interface TextInputProperties extends ViewProperties, TextInputIOSPropert
      * In addition to simply setting the same value, either set editable={false},
      * or set/update maxLength to prevent unwanted edits without flicker.
      */
-    value?: string
+    value?: string;
+
+    /**
+     * Specifies largest possible scale a font can reach when allowFontScaling is enabled. Possible values:
+     * - null/undefined (default): inherit from the parent node or the global default (0)
+     * - 0: no max, ignore parent/global default
+     * - >= 1: sets the maxFontSizeMultiplier of this node to this value
+     */
+    maxFontSizeMultiplier?: number | null;
 }
 
 /**
@@ -1228,64 +1474,70 @@ interface TextInputState {
      * Returns the ID of the currently focused text field, if one exists
      * If no text field is focused it returns null
      */
-    currentlyFocusedField(): number
+    currentlyFocusedField(): number;
 
     /**
-     * @param {number} TextInputID id of the text field to focus
+     * @deprecated Use ref.focus instead
+     * @param TextInputID id of the text field to focus
      * Focuses the specified text field
      * noop if the text field was already focused
      */
-    focusTextInput(textFieldID?: number): void
+    focusTextInput(textFieldID?: number): void;
 
     /**
-     * @param {number} textFieldID id of the text field to focus
+     * @deprecated Use ref.blur instead
+     * @param textFieldID id of the text field to focus
      * Unfocuses the specified text field
      * noop if it wasn't focused
      */
-    blurTextInput(textFieldID?: number): void
+    blurTextInput(textFieldID?: number): void;
 }
 
 /**
  * @see https://facebook.github.io/react-native/docs/textinput.html#methods
  */
-export interface TextInputStatic extends NativeMethodsMixin, TimerMixin, React.ComponentClass<TextInputProperties> {
-    State: TextInputState
+declare class TextInputComponent extends React.Component<TextInputProps> {}
+declare const TextInputBase: Constructor<NativeMethodsMixin> & Constructor<TimerMixin> & typeof TextInputComponent;
+export class TextInput extends TextInputBase {
+    /**
+     * Access the current focus state.
+     */
+    static State: TextInputState;
 
     /**
      * Returns if the input is currently focused.
      */
-    isFocused: () => boolean
+    isFocused: () => boolean;
 
     /**
      * Removes all text from the input.
      */
-    clear: () => void
+    clear: () => void;
 }
 
 export type ToolbarAndroidAction = {
     /**
      *  title: required, the title of this action
      */
-    title: string
+    title: string;
 
     /**
      * icon: the icon for this action, e.g. require('./some_icon.png')
      */
-    icon?: ImageURISource
+    icon?: ImageURISource;
 
     /**
      * show: when to show this action as an icon or hide it in the overflow menu: always, ifRoom or never
      */
-    show?: "always" | "ifRoom" | "never"
+    show?: 'always' | 'ifRoom' | 'never';
 
     /**
      * showWithText: boolean, whether to show text alongside the icon or not
      */
-    showWithText?: boolean
-}
+    showWithText?: boolean;
+};
 
-export interface ToolbarAndroidProperties extends ViewProperties {
-
+export interface ToolbarAndroidProps extends ViewProps {
     /**
      * Sets possible actions on the toolbar as part of the action menu. These are displayed as icons
      * or text on the right side of the widget. If they don't fit they are placed in an 'overflow'
@@ -1299,7 +1551,7 @@ export interface ToolbarAndroidProperties extends ViewProperties {
      * `ifRoom` or `never`
      * * `showWithText`: boolean, whether to show text alongside the icon or not
      */
-    actions?: ToolbarAndroidAction[]
+    actions?: ToolbarAndroidAction[];
 
     /**
      * Sets the content inset for the toolbar ending edge.
@@ -1308,7 +1560,7 @@ export interface ToolbarAndroidProperties extends ViewProperties {
      * margin for these components and can be used to effectively align
      * Toolbar content along well-known gridlines.
      */
-    contentInsetEnd?: number
+    contentInsetEnd?: number;
 
     /**
      * Sets the content inset for the toolbar starting edge.
@@ -1317,34 +1569,34 @@ export interface ToolbarAndroidProperties extends ViewProperties {
      * minimum margin for these components and can be used to effectively
      * align Toolbar content along well-known gridlines.
      */
-    contentInsetStart?: number
+    contentInsetStart?: number;
 
     /**
      * Sets the toolbar logo.
      */
-    logo?: ImageURISource
+    logo?: ImageURISource;
 
     /**
      * Sets the navigation icon.
      */
-    navIcon?: ImageURISource
+    navIcon?: ImageURISource;
 
     /**
      * Callback that is called when an action is selected. The only
      * argument that is passed to the callback is the position of the
      * action in the actions array.
      */
-    onActionSelected?: (position: number) => void
+    onActionSelected?: (position: number) => void;
 
     /**
      * Callback called when the icon is selected.
      */
-    onIconClicked?: () => void
+    onIconClicked?: () => void;
 
     /**
      * Sets the overflow icon.
      */
-    overflowIcon?: ImageURISource
+    overflowIcon?: ImageURISource;
 
     /**
      * Used to set the toolbar direction to RTL.
@@ -1354,32 +1606,32 @@ export interface ToolbarAndroidProperties extends ViewProperties {
      * setLayoutDirection(LayoutDirection.RTL) in your MainActivity
      * onCreate method.
      */
-    rtl?: boolean
+    rtl?: boolean;
 
     /**
      * Sets the toolbar subtitle.
      */
-    subtitle?: string
+    subtitle?: string;
 
     /**
      * Sets the toolbar subtitle color.
      */
-    subtitleColor?: string
+    subtitleColor?: string;
 
     /**
      * Used to locate this view in end-to-end tests.
      */
-    testID?: string
+    testID?: string;
 
     /**
      * Sets the toolbar title.
      */
-    title?: string
+    title?: string;
 
     /**
      * Sets the toolbar title color.
      */
-    titleColor?: string
+    titleColor?: string;
 }
 
 /**
@@ -1398,10 +1650,9 @@ export interface ToolbarAndroidProperties extends ViewProperties {
  *
  * [0]: https://developer.android.com/reference/android/support/v7/widget/Toolbar.html
  */
-export interface ToolbarAndroidStatic extends NativeMethodsMixin, React.ComponentClass<ToolbarAndroidProperties> {
-
-}
-
+declare class ToolbarAndroidComponent extends React.Component<ToolbarAndroidProps> {}
+declare const ToolbarAndroidBase: Constructor<NativeMethodsMixin> & typeof ToolbarAndroidComponent;
+export class ToolbarAndroid extends ToolbarAndroidBase {}
 
 /**
  * Gesture recognition on mobile devices is much more complicated than web.
@@ -1429,7 +1680,6 @@ export interface ToolbarAndroidStatic extends NativeMethodsMixin, React.Componen
  * Use TouchableHighlight anywhere where you would use a button or link on web.
  */
 export interface GestureResponderHandlers {
-
     /**
      * A view can become the touch responder by implementing the correct negotiation methods.
      * There are two methods to ask the view if it wants to become responder:
@@ -1438,29 +1688,29 @@ export interface GestureResponderHandlers {
     /**
      * Does this view want to become responder on the start of a touch?
      */
-    onStartShouldSetResponder?: (event: GestureResponderEvent) => boolean
+    onStartShouldSetResponder?: (event: GestureResponderEvent) => boolean;
 
     /**
      * Called for every touch move on the View when it is not the responder: does this view want to "claim" touch responsiveness?
      */
-    onMoveShouldSetResponder?: (event: GestureResponderEvent) => boolean
+    onMoveShouldSetResponder?: (event: GestureResponderEvent) => boolean;
 
     /**
      * If the View returns true and attempts to become the responder, one of the following will happen:
      */
 
-    onResponderEnd?: ( event: GestureResponderEvent ) => void
+    onResponderEnd?: (event: GestureResponderEvent) => void;
 
     /**
      * The View is now responding for touch events.
      * This is the time to highlight and show the user what is happening
      */
-    onResponderGrant?: (event: GestureResponderEvent) => void
+    onResponderGrant?: (event: GestureResponderEvent) => void;
 
     /**
      * Something else is the responder right now and will not release it
      */
-    onResponderReject?: (event: GestureResponderEvent) => void
+    onResponderReject?: (event: GestureResponderEvent) => void;
 
     /**
      * If the view is responding, the following handlers can be called:
@@ -1469,27 +1719,27 @@ export interface GestureResponderHandlers {
     /**
      * The user is moving their finger
      */
-    onResponderMove?: (event: GestureResponderEvent) => void
+    onResponderMove?: (event: GestureResponderEvent) => void;
 
     /**
      * Fired at the end of the touch, ie "touchUp"
      */
-    onResponderRelease?: (event: GestureResponderEvent) => void
+    onResponderRelease?: (event: GestureResponderEvent) => void;
 
-    onResponderStart?: ( event: GestureResponderEvent ) => void
+    onResponderStart?: (event: GestureResponderEvent) => void;
 
     /**
      *  Something else wants to become responder.
      *  Should this view release the responder? Returning true allows release
      */
-    onResponderTerminationRequest?: (event: GestureResponderEvent) => boolean
+    onResponderTerminationRequest?: (event: GestureResponderEvent) => boolean;
 
     /**
      * The responder has been taken from the View.
      * Might be taken by other views after a call to onResponderTerminationRequest,
      * or might be taken by the OS without asking (happens with control center/ notification center on iOS)
      */
-    onResponderTerminate?: (event: GestureResponderEvent) => void
+    onResponderTerminate?: (event: GestureResponderEvent) => void;
 
     /**
      * onStartShouldSetResponder and onMoveShouldSetResponder are called with a bubbling pattern,
@@ -1504,7 +1754,7 @@ export interface GestureResponderHandlers {
      * So if a parent View wants to prevent the child from becoming responder on a touch start,
      * it should have a onStartShouldSetResponderCapture handler which returns true.
      */
-    onStartShouldSetResponderCapture?: (event: GestureResponderEvent) => boolean
+    onStartShouldSetResponderCapture?: (event: GestureResponderEvent) => boolean;
 
     /**
      * onStartShouldSetResponder and onMoveShouldSetResponder are called with a bubbling pattern,
@@ -1519,47 +1769,146 @@ export interface GestureResponderHandlers {
      * So if a parent View wants to prevent the child from becoming responder on a touch start,
      * it should have a onStartShouldSetResponderCapture handler which returns true.
      */
-    onMoveShouldSetResponderCapture?: () => void;
-
+    onMoveShouldSetResponderCapture?: (event: GestureResponderEvent) => boolean;
 }
 
-// @see https://facebook.github.io/react-native/docs/view.html#style
-export interface ViewStyle extends FlexStyle, TransformsStyle {
-    backfaceVisibility?: "visible" | "hidden"
+/**
+ * @see https://facebook.github.io/react-native/docs/view.html#style
+ * @see https://github.com/facebook/react-native/blob/master/Libraries/Components/View/ViewStylePropTypes.js
+ */
+export interface ViewStyle extends FlexStyle, ShadowStyleIOS, TransformsStyle {
+    backfaceVisibility?: 'visible' | 'hidden';
     backgroundColor?: string;
     borderBottomColor?: string;
+    borderBottomEndRadius?: number;
     borderBottomLeftRadius?: number;
     borderBottomRightRadius?: number;
+    borderBottomStartRadius?: number;
     borderBottomWidth?: number;
     borderColor?: string;
+    borderEndColor?: string;
     borderLeftColor?: string;
+    borderLeftWidth?: number;
     borderRadius?: number;
     borderRightColor?: string;
     borderRightWidth?: number;
-    borderStyle?: "solid" | "dotted" | "dashed"
+    borderStartColor?: string;
+    borderStyle?: 'solid' | 'dotted' | 'dashed';
     borderTopColor?: string;
+    borderTopEndRadius?: number;
     borderTopLeftRadius?: number;
     borderTopRightRadius?: number;
-    borderTopWidth?: number
+    borderTopStartRadius?: number;
+    borderTopWidth?: number;
+    borderWidth?: number;
     opacity?: number;
-    overflow?: "visible" | "hidden"
-    shadowColor?: string;
-    shadowOffset?: { width: number, height: number };
-    shadowOpacity?: number;
-    shadowRadius?: number;
-    elevation?: number;
     testID?: string;
+    /**
+     * Sets the elevation of a view, using Android's underlying
+     * [elevation API](https://developer.android.com/training/material/shadows-clipping.html#Elevation).
+     * This adds a drop shadow to the item and affects z-order for overlapping views.
+     * Only supported on Android 5.0+, has no effect on earlier versions.
+     *
+     * @platform android
+     */
+    elevation?: number;
 }
 
-
-export interface ViewPropertiesIOS {
+export type TVParallaxProperties = {
+    /**
+     * If true, parallax effects are enabled.  Defaults to true.
+     */
+    enabled?: boolean;
 
     /**
-     * Provides additional traits to screen reader.
-     * By default no traits are provided unless specified otherwise in element
+     * Defaults to 2.0.
      */
-    accessibilityTraits?: ViewAccessibilityTraits | ViewAccessibilityTraits[];
+    shiftDistanceX?: number;
 
+    /**
+     * Defaults to 2.0.
+     */
+    shiftDistanceY?: number;
+
+    /**
+     * Defaults to 0.05.
+     */
+    tiltAngle?: number;
+
+    /**
+     * Defaults to 1.0
+     */
+    magnification?: number;
+
+    /**
+     * Defaults to 1.0
+     */
+    pressMagnification?: number;
+
+    /**
+     * Defaults to 0.3
+     */
+    pressDuration?: number;
+
+    /**
+     * Defaults to 0.3
+     */
+    pressDelay?: number;
+};
+
+export interface TVViewPropsIOS {
+    /**
+     * *(Apple TV only)* When set to true, this view will be focusable
+     * and navigable using the Apple TV remote.
+     *
+     * @platform ios
+     */
+    isTVSelectable?: boolean;
+
+    /**
+     * *(Apple TV only)* May be set to true to force the Apple TV focus engine to move focus to this view.
+     *
+     * @platform ios
+     */
+    hasTVPreferredFocus?: boolean;
+
+    /**
+     * *(Apple TV only)* Object with properties to control Apple TV parallax effects.
+     *
+     * @platform ios
+     */
+    tvParallaxProperties?: TVParallaxProperties;
+
+    /**
+     * *(Apple TV only)* May be used to change the appearance of the Apple TV parallax effect when this view goes in or out of focus.  Defaults to 2.0.
+     *
+     * @platform ios
+     */
+    tvParallaxShiftDistanceX?: number;
+
+    /**
+     * *(Apple TV only)* May be used to change the appearance of the Apple TV parallax effect when this view goes in or out of focus.  Defaults to 2.0.
+     *
+     * @platform ios
+     */
+    tvParallaxShiftDistanceY?: number;
+
+    /**
+     * *(Apple TV only)* May be used to change the appearance of the Apple TV parallax effect when this view goes in or out of focus.  Defaults to 0.05.
+     *
+     * @platform ios
+     */
+    tvParallaxTiltAngle?: number;
+
+    /**
+     * *(Apple TV only)* May be used to change the appearance of the Apple TV parallax effect when this view goes in or out of focus.  Defaults to 1.0.
+     *
+     * @platform ios
+     */
+    tvParallaxMagnification?: number;
+}
+
+export interface ViewPropsIOS extends TVViewPropsIOS {
     /**
      * Whether this view should be rendered as a bitmap before compositing.
      *
@@ -1570,46 +1919,16 @@ export interface ViewPropertiesIOS {
      * Rasterization incurs an off-screen drawing pass and the bitmap consumes memory.
      * Test and measure when using this property.
      */
-    shouldRasterizeIOS?: boolean
+    shouldRasterizeIOS?: boolean;
 }
 
-export interface ViewPropertiesAndroid {
-
-    /**
-     * Indicates to accessibility services to treat UI component like a native one.
-     * Works for Android only.
-     */
-    accessibilityComponentType?: 'none' | 'button' | 'radiobutton_checked' | 'radiobutton_unchecked'
-
-
-    /**
-     * Indicates to accessibility services whether the user should be notified when this view changes.
-     * Works for Android API >= 19 only.
-     * See http://developer.android.com/reference/android/view/View.html#attr_android:accessibilityLiveRegion for references.
-     */
-    accessibilityLiveRegion?: 'none' | 'polite' | 'assertive'
-
+export interface ViewPropsAndroid {
     /**
      * Views that are only used to layout their children or otherwise don't draw anything
      * may be automatically removed from the native hierarchy as an optimization.
      * Set this property to false to disable this optimization and ensure that this View exists in the native view hierarchy.
      */
-    collapsable?: boolean
-
-
-    /**
-     * Controls how view is important for accessibility which is if it fires accessibility events
-     * and if it is reported to accessibility services that query the screen.
-     * Works for Android only. See http://developer.android.com/reference/android/R.attr.html#importantForAccessibility for references.
-     *
-     * Possible values:
-     *      'auto' - The system determines whether the view is important for accessibility - default (recommended).
-     *      'yes' - The view is important for accessibility.
-     *      'no' - The view is not important for accessibility.
-     *      'no-hide-descendants' - The view is not important for accessibility, nor are any of its descendant views.
-     */
-    importantForAccessibility?: 'auto' | 'yes' | 'no' | 'no-hide-descendants'
-
+    collapsable?: boolean;
 
     /**
      * Whether this view needs to rendered offscreen and composited with an alpha in order to preserve 100% correct colors and blending behavior.
@@ -1625,8 +1944,7 @@ export interface ViewPropertiesAndroid {
      * If that property is enabled, this View will be rendered off-screen once,
      * saved in a hardware texture, and then composited onto the screen with an alpha each frame without having to switch rendering targets on the GPU.
      */
-    needsOffscreenAlphaCompositing?: boolean
-
+    needsOffscreenAlphaCompositing?: boolean;
 
     /**
      * Whether this view should render itself (and all of its children) into a single hardware texture on the GPU.
@@ -1636,13 +1954,28 @@ export interface ViewPropertiesAndroid {
      * re-used and re-composited with different parameters. The downside is that this can use up limited video memory, so this prop should be set back to false at the end of the interaction/animation.
      */
     renderToHardwareTextureAndroid?: boolean;
-
 }
 
+type Falsy = undefined | null | false;
+interface RecursiveArray<T> extends Array<T | RecursiveArray<T>> {}
+/** Keep a brand of 'T' so that calls to `StyleSheet.flatten` can take `RegisteredStyle<T>` and return `T`. */
+type RegisteredStyle<T> = number & { __registeredStyleBrand: T };
+export type StyleProp<T> = T | RegisteredStyle<T> | RecursiveArray<T | RegisteredStyle<T> | Falsy> | Falsy;
+
 /**
- * @see https://facebook.github.io/react-native/docs/view.html#props
+ * @see https://facebook.github.io/react-native/docs/accessibility.html#accessibility-properties
  */
-export interface ViewProperties extends ViewPropertiesAndroid, ViewPropertiesIOS, GestureResponderHandlers, Touchable {
+export interface AccessibilityProps extends AccessibilityPropsAndroid, AccessibilityPropsIOS {
+    /**
+     * When true, indicates that the view is an accessibility element.
+     * By default, all the touchable elements are accessible.
+     */
+    accessible?: boolean;
+
+    /**
+     * Provides an array of custom actions available for accessibility.
+     */
+    accessibilityActions?: ReadonlyArray<AccessibilityActionInfo>;
 
     /**
      * Overrides the text that's read by the screen reader when the user interacts with the element. By default, the
@@ -1651,28 +1984,214 @@ export interface ViewProperties extends ViewPropertiesAndroid, ViewPropertiesIOS
     accessibilityLabel?: string;
 
     /**
-     * When true, indicates that the view is an accessibility element.
-     * By default, all the touchable elements are accessible.
+     * Accessibility Role tells a person using either VoiceOver on iOS or TalkBack on Android the type of element that is focused on.
      */
-    accessible?: boolean;
+    accessibilityRole?: AccessibilityRole;
+    /**
+     * Accessibility State tells a person using either VoiceOver on iOS or TalkBack on Android the state of the element currently focused on.
+     * @deprecated: accessibilityState available in 0.60+
+     */
+    accessibilityStates?: AccessibilityStates[];
+    /**
+     * Accessibility State tells a person using either VoiceOver on iOS or TalkBack on Android the state of the element currently focused on.
+     */
+    accessibilityState?: AccessibilityState;
+    /**
+     * An accessibility hint helps users understand what will happen when they perform an action on the accessibility element when that result is not obvious from the accessibility label.
+     */
+    accessibilityHint?: string;
 
     /**
-    * This defines how far a touch event can start away from the view.
-    * Typical interface guidelines recommend touch targets that are at least
-    * 30 - 40 points/density-independent pixels. If a Touchable view has
-    * a height of 20 the touchable height can be extended to 40 with
-    * hitSlop={{top: 10, bottom: 10, left: 0, right: 0}}
-    * NOTE The touch area never extends past the parent view bounds and
-    * the Z-index of sibling views always takes precedence if a touch
-    * hits two overlapping views.
-    */
+     * When `accessible` is true, the system will try to invoke this function when the user performs an accessibility custom action.
+     */
+    onAccessibilityAction?: (event: AccessibilityActionEvent) => void;
+}
 
-    hitSlop?: Insets
+export type AccessibilityActionInfo = Readonly<{
+    name: string;
+    label?: string;
+}>;
+
+export type AccessibilityActionEvent = NativeSyntheticEvent<
+    Readonly<{
+        actionName: string;
+    }>
+>;
+
+// @deprecated: use AccessibilityState available in 0.60+
+export type AccessibilityStates =
+    | 'disabled'
+    | 'selected'
+    | 'checked'
+    | 'unchecked'
+    | 'busy'
+    | 'expanded'
+    | 'collapsed'
+    | 'hasPopup';
+
+export interface AccessibilityState {
+    /**
+     * When true, informs accessible tools if the element is disabled
+     */
+    disabled?: boolean;
+    /**
+     * When true, informs accessible tools if the element is selected
+     */
+    selected?: boolean;
+    /**
+     * For items like Checkboxes and Toggle switches, reports their state to accessible tools
+     */
+    checked?: boolean | 'mixed';
+    /**
+     *  When present, informs accessible tools if the element is busy
+     */
+    busy?: boolean;
+    /**
+     *  When present, informs accessible tools the element is expanded or collapsed
+     */
+    expanded?: boolean;
+}
+
+export type AccessibilityRole =
+    | 'none'
+    | 'button'
+    | 'link'
+    | 'search'
+    | 'image'
+    | 'keyboardkey'
+    | 'text'
+    | 'adjustable'
+    | 'imagebutton'
+    | 'header'
+    | 'summary'
+    | 'alert'
+    | 'checkbox'
+    | 'combobox'
+    | 'menu'
+    | 'menubar'
+    | 'menuitem'
+    | 'progressbar'
+    | 'radio'
+    | 'radiogroup'
+    | 'scrollbar'
+    | 'spinbutton'
+    | 'switch'
+    | 'tab'
+    | 'tablist'
+    | 'timer'
+    | 'toolbar';
+
+export interface AccessibilityPropsAndroid {
+    /**
+     * In some cases, we also want to alert the end user of the type of selected component (i.e., that it is a “button”).
+     * If we were using native buttons, this would work automatically. Since we are using javascript, we need to
+     * provide a bit more context for TalkBack. To do so, you must specify the ‘accessibilityComponentType’ property
+     * for any UI component. For instances, we support ‘button’, ‘radiobutton_checked’ and ‘radiobutton_unchecked’ and so on.
+     * @platform android
+     */
+    accessibilityComponentType?: 'none' | 'button' | 'radiobutton_checked' | 'radiobutton_unchecked';
+
+    /**
+     * Indicates to accessibility services whether the user should be notified when this view changes.
+     * Works for Android API >= 19 only.
+     * See http://developer.android.com/reference/android/view/View.html#attr_android:accessibilityLiveRegion for references.
+     * @platform android
+     */
+    accessibilityLiveRegion?: 'none' | 'polite' | 'assertive';
+
+    /**
+     * Controls how view is important for accessibility which is if it fires accessibility events
+     * and if it is reported to accessibility services that query the screen.
+     * Works for Android only. See http://developer.android.com/reference/android/R.attr.html#importantForAccessibility for references.
+     *
+     * Possible values:
+     *      'auto' - The system determines whether the view is important for accessibility - default (recommended).
+     *      'yes' - The view is important for accessibility.
+     *      'no' - The view is not important for accessibility.
+     *      'no-hide-descendants' - The view is not important for accessibility, nor are any of its descendant views.
+     */
+    importantForAccessibility?: 'auto' | 'yes' | 'no' | 'no-hide-descendants';
+}
+
+export interface AccessibilityPropsIOS {
+    /**
+     * A Boolean value indicating whether the accessibility elements contained within this accessibility element
+     * are hidden to the screen reader.
+     * @platform ios
+     */
+    accessibilityElementsHidden?: boolean;
+
+    /**
+     * Accessibility traits tell a person using VoiceOver what kind of element they have selected.
+     * Is this element a label? A button? A header? These questions are answered by accessibilityTraits.
+     * @platform ios
+     */
+    accessibilityTraits?: AccessibilityTrait | AccessibilityTrait[];
+
+    /**
+     * A Boolean value indicating whether VoiceOver should ignore the elements within views that are siblings of the receiver.
+     * @platform ios
+     */
+    accessibilityViewIsModal?: boolean;
 
     /**
      * When `accessible` is true, the system will try to invoke this function when the user performs accessibility tap gesture.
+     * @platform ios
      */
-    onAcccessibilityTap?: () => void;
+    onAccessibilityTap?: () => void;
+
+    /**
+     * When accessible is true, the system will invoke this function when the user performs the magic tap gesture.
+     * @platform ios
+     */
+    onMagicTap?: () => void;
+
+    /**
+     * https://facebook.github.io/react-native/docs/accessibility#accessibilityignoresinvertcolorsios
+     * @platform ios
+     */
+    accessibilityIgnoresInvertColors?: boolean;
+}
+
+type AccessibilityTrait =
+    | 'none'
+    | 'button'
+    | 'link'
+    | 'header'
+    | 'search'
+    | 'image'
+    | 'selected'
+    | 'plays'
+    | 'key'
+    | 'text'
+    | 'summary'
+    | 'disabled'
+    | 'frequentUpdates'
+    | 'startsMedia'
+    | 'adjustable'
+    | 'allowsDirectInteraction'
+    | 'pageTurn';
+
+/**
+ * @see https://facebook.github.io/react-native/docs/view.html#props
+ */
+export interface ViewProps
+    extends ViewPropsAndroid,
+        ViewPropsIOS,
+        GestureResponderHandlers,
+        Touchable,
+        AccessibilityProps {
+    /**
+     * This defines how far a touch event can start away from the view.
+     * Typical interface guidelines recommend touch targets that are at least
+     * 30 - 40 points/density-independent pixels. If a Touchable view has
+     * a height of 20 the touchable height can be extended to 40 with
+     * hitSlop={{top: 10, bottom: 10, left: 0, right: 0}}
+     * NOTE The touch area never extends past the parent view bounds and
+     * the Z-index of sibling views always takes precedence if a touch
+     * hits two overlapping views.
+     */
+    hitSlop?: Insets;
 
     /**
      * Invoked on mount and layout changes with
@@ -1680,11 +2199,6 @@ export interface ViewProperties extends ViewPropertiesAndroid, ViewPropertiesIOS
      * {nativeEvent: { layout: {x, y, width, height}}}.
      */
     onLayout?: (event: LayoutChangeEvent) => void;
-
-    /**
-     * When accessible is true, the system will invoke this function when the user performs the magic tap gesture.
-     */
-    onMagicTap?: () => void;
 
     /**
      *
@@ -1709,7 +2223,7 @@ export interface ViewProperties extends ViewPropertiesAndroid, ViewPropertiesIOS
      * But since pointerEvents does not affect layout/appearance, and we are already deviating from the spec by adding additional modes,
      * we opt to not include pointerEvents on style. On some platforms, we would need to implement it as a className anyways. Using style or not is an implementation detail of the platform.
      */
-    pointerEvents?: "box-none" | "none" | "box-only" | "auto"
+    pointerEvents?: 'box-none' | 'none' | 'box-only' | 'auto';
 
     /**
      *
@@ -1717,14 +2231,19 @@ export interface ViewProperties extends ViewPropertiesAndroid, ViewPropertiesIOS
      * most of which are offscreen. For this property to be effective, it must be applied to a view that contains many subviews that extend outside its bound.
      * The subviews must also have overflow: hidden, as should the containing view (or one of its superviews).
      */
-    removeClippedSubviews?: boolean
+    removeClippedSubviews?: boolean;
 
-    style?: ViewStyle;
+    style?: StyleProp<ViewStyle>;
 
     /**
      * Used to locate this view in end-to-end tests.
      */
     testID?: string;
+
+    /**
+     * Used to reference react managed views from native code.
+     */
+    nativeID?: string;
 }
 
 /**
@@ -1733,45 +2252,19 @@ export interface ViewProperties extends ViewPropertiesAndroid, ViewPropertiesIOS
  * View maps directly to the native view equivalent on whatever platform React is running on,
  * whether that is a UIView, <div>, android.view, etc.
  */
-export interface ViewStatic extends NativeMethodsMixin, React.ClassicComponentClass<ViewProperties> {
-    AccessibilityTraits: [
-        'none',
-        'button',
-        'link',
-        'header',
-        'search',
-        'image',
-        'selected',
-        'plays',
-        'key',
-        'text',
-        'summary',
-        'disabled',
-        'frequentUpdates',
-        'startsMedia',
-        'adjustable',
-        'allowsDirectInteraction',
-        'pageTurn'
-    ]
-
-    AccessibilityComponentType: [
-        'none',
-        'button',
-        'radiobutton_checked',
-        'radiobutton_unchecked'
-    ],
-
+declare class ViewComponent extends React.Component<ViewProps> {}
+declare const ViewBase: Constructor<NativeMethodsMixin> & typeof ViewComponent;
+export class View extends ViewBase {
     /**
      * Is 3D Touch / Force Touch available (i.e. will touch events include `force`)
      * @platform ios
      */
-    forceTouchAvailable: boolean,
+    static forceTouchAvailable: boolean;
 }
 
 /**
  * @see https://facebook.github.io/react-native/docs/viewpagerandroid.html#props
  */
-
 
 export interface ViewPagerAndroidOnPageScrollEventData {
     position: number;
@@ -1782,7 +2275,7 @@ export interface ViewPagerAndroidOnPageSelectedEventData {
     position: number;
 }
 
-export interface ViewPagerAndroidProperties extends ViewProperties {
+export interface ViewPagerAndroidProps extends ViewProps {
     /**
      * Index of initial page that should be selected. Use `setPage` method to
      * update the page, and `onPageSelected` to monitor page changes
@@ -1822,377 +2315,144 @@ export interface ViewPagerAndroidProperties extends ViewProperties {
      * - settling, meaning that there was an interaction with the page scroller, and the
      *   page scroller is now finishing it's closing or opening animation
      */
-    onPageScrollStateChanged?: (state: "Idle" | "Dragging" | "Settling") => void
+    onPageScrollStateChanged?: (state: 'Idle' | 'Dragging' | 'Settling') => void;
 
     /**
      * Determines whether the keyboard gets dismissed in response to a drag.
      *   - 'none' (the default), drags do not dismiss the keyboard.
      *   - 'on-drag', the keyboard is dismissed when a drag begins.
      */
-    keyboardDismissMode?: "none" | "on-drag"
+    keyboardDismissMode?: 'none' | 'on-drag';
 
     /**
      * Blank space to show between pages. This is only visible while scrolling, pages are still
      * edge-to-edge.
      */
-    pageMargin?: number
+    pageMargin?: number;
 }
 
-export interface ViewPagerAndroidStatic extends NativeMethodsMixin, React.ComponentClass<ViewPagerAndroidProperties> {
+declare class ViewPagerAndroidComponent extends React.Component<ViewPagerAndroidProps> {}
+declare const ViewPagerAndroidBase: Constructor<NativeMethodsMixin> & typeof ViewPagerAndroidComponent;
+export class ViewPagerAndroid extends ViewPagerAndroidBase {
     /**
      * A helper function to scroll to a specific page in the ViewPager.
      * The transition between pages will be animated.
      */
-    setPage(selectedPage: number): void
+    setPage(selectedPage: number): void;
 
     /**
      * A helper function to scroll to a specific page in the ViewPager.
      * The transition between pages will *not* be animated.
      */
-    setPageWithoutAnimation(selectedPage: number): void
+    setPageWithoutAnimation(selectedPage: number): void;
 }
 
 /**
  * It is a component to solve the common problem of views that need to move out of the way of the virtual keyboard.
  * It can automatically adjust either its position or bottom padding based on the position of the keyboard.
  */
-export interface KeyboardAvoidingViewStatic extends TimerMixin, React.ClassicComponentClass<KeyboardAvoidingViewProps> {
+declare class KeyboardAvoidingViewComponent extends React.Component<KeyboardAvoidingViewProps> {}
+declare const KeyboardAvoidingViewBase: Constructor<TimerMixin> & typeof KeyboardAvoidingViewComponent;
+export class KeyboardAvoidingView extends KeyboardAvoidingViewBase {}
 
-}
-
-export interface KeyboardAvoidingViewProps extends ViewProperties {
-
-    behavior?: 'height' | 'position' | 'padding'
+export interface KeyboardAvoidingViewProps extends ViewProps {
+    behavior?: 'height' | 'position' | 'padding';
 
     /**
      * The style of the content container(View) when behavior is 'position'.
      */
-    contentContainerStyle?: ViewStyle
+    contentContainerStyle?: StyleProp<ViewStyle>;
 
     /**
      * This is the distance between the top of the user screen and the react native view,
      * may be non-zero in some use cases.
      */
-    keyboardVerticalOffset?: number
+    keyboardVerticalOffset?: number;
+
+    /**
+     * Enables or disables the KeyboardAvoidingView.
+     *
+     * Default is true
+     */
+    enabled?: boolean;
 }
-
-/**
- * //FIXME: No documentation extracted from code comment on WebView.ios.js
- */
-export interface NavState {
-
-    url?: string
-    title?: string
-    loading?: boolean
-    canGoBack?: boolean
-    canGoForward?: boolean;
-
-    [key: string]: any
-}
-
-/**
- * Passed data from WebView via window.postMessage.
- */
-export interface WebViewMessageEventData {
-/**
- * The data sent from a WebView; can only be a string.
- */
-data: string
-}
-
-export interface WebViewPropertiesAndroid {
-
-    /**
-     * Used for android only, JS is enabled by default for WebView on iOS
-     */
-    javaScriptEnabled?: boolean
-
-    /**
-     * Used on Android only, controls whether DOM Storage is enabled
-     * or not android
-     */
-    domStorageEnabled?: boolean,
-
-    /**
-     * Sets the user-agent for the WebView.
-     */
-    userAgent?: string
-}
-
-export interface WebViewIOSLoadRequestEvent {
-    target: number
-    canGoBack: boolean
-    lockIdentifier: number
-    loading: boolean
-    title: string
-    canGoForward: boolean
-    navigationType: 'other' | 'click'
-    url: string
-}
-
-export interface WebViewPropertiesIOS {
-
-    /**
-     * Determines whether HTML5 videos play inline or use the native
-     * full-screen controller. default value false
-     * NOTE : "In order * for video to play inline, not only does
-     * this property need to be set to true, but the video element
-     * in the HTML document must also include the webkit-playsinline
-     * attribute."
-     */
-    allowsInlineMediaPlayback?: boolean
-
-    /**
-     * Boolean value that determines whether the web view bounces
-     * when it reaches the edge of the content. The default value is `true`.
-     * @platform ios
-     */
-    bounces?: boolean
-
-    /**
-     * A floating-point number that determines how quickly the scroll
-     * view decelerates after the user lifts their finger. You may also
-     * use string shortcuts "normal" and "fast" which match the
-     * underlying iOS settings for UIScrollViewDecelerationRateNormal
-     * and UIScrollViewDecelerationRateFast respectively.
-     * - normal: 0.998 - fast: 0.99 (the default for iOS WebView)
-     */
-    decelerationRate?: "normal" | "fast" | number
-
-    /**
-     * Allows custom handling of any webview requests by a JS handler.
-     * Return true or false from this method to continue loading the
-     * request.
-     */
-    onShouldStartLoadWithRequest?: (event: WebViewIOSLoadRequestEvent) => boolean
-
-    /**
-     * Boolean value that determines whether scrolling is enabled in the
-     * `WebView`. The default value is `true`.
-     */
-    scrollEnabled?: boolean
-}
-
-export interface WebViewUriSource {
-
-    /*
-        * The URI to load in the WebView. Can be a local or remote file.
-        */
-    uri?: string;
-
-    /*
-        * The HTTP Method to use. Defaults to GET if not specified.
-        * NOTE: On Android, only GET and POST are supported.
-        */
-    method?: string;
-
-    /*
-        * Additional HTTP headers to send with the request.
-        * NOTE: On Android, this can only be used with GET requests.
-        */
-    headers?: any;
-
-    /*
-        * The HTTP body to send with the request. This must be a valid
-        * UTF-8 string, and will be sent exactly as specified, with no
-        * additional encoding (e.g. URL-escaping or base64) applied.
-        * NOTE: On Android, this can only be used with POST requests.
-        */
-    body?: string;
-}
-
-export interface WebViewHtmlSource {
-
-    /*
-        * A static HTML page to display in the WebView.
-        */
-    html: string;
-
-    /*
-        * The base URL to be used for any relative links in the HTML.
-        */
-    baseUrl?: string;
-}
-
-/**
- * @see https://facebook.github.io/react-native/docs/webview.html#props
- */
-export interface WebViewProperties extends ViewProperties, WebViewPropertiesAndroid, WebViewPropertiesIOS {
-
-    /**
-     * Controls whether to adjust the content inset for web views that are
-     * placed behind a navigation bar, tab bar, or toolbar. The default value
-     * is `true`.
-     */
-    automaticallyAdjustContentInsets?: boolean
-
-    /**
-     * The amount by which the web view content is inset from the edges of
-     * the scroll view. Defaults to {top: 0, left: 0, bottom: 0, right: 0}.
-     */
-    contentInset?: Insets
-
-    /**
-     * @deprecated
-     */
-    html?: string
-
-    /**
-     * Set this to provide JavaScript that will be injected into the web page
-     * when the view loads.
-     */
-    injectedJavaScript?: string
-
-    /**
-     * Invoked when load fails
-     */
-    onError?: (event: NavState) => void
-
-    /**
-     * Invoked when load finish
-     */
-    onLoad?: (event: NavState) => void
-
-    /**
-     * Invoked when load either succeeds or fails
-     */
-    onLoadEnd?: (event: NavState) => void
-
-    /**
-     * Invoked on load start
-     */
-    onLoadStart?: (event: NavState) => void
-
-    /**
-     * Invoked when window.postMessage is called from WebView.
-     */
-    onMessage?: ( event: NativeSyntheticEvent<WebViewMessageEventData> ) => void
-
-    /**
-     * Function that is invoked when the `WebView` loading starts or ends.
-     */
-    onNavigationStateChange?: ( event: NavState ) => void
-
-    /**
-     * Function that returns a view to show if there's an error.
-     */
-    renderError?: () => React.ReactElement<ViewProperties>
-
-    /**
-     * Function that returns a loading indicator.
-     */
-    renderLoading?: () => React.ReactElement<ViewProperties>
-
-    /**
-     * Boolean value that forces the `WebView` to show the loading view
-     * on the first load.
-     */
-    startInLoadingState?: boolean
-
-    style?: ViewStyle
-
-    // Deprecated: Use the `source` prop instead.
-    url?: string
-
-    source?: WebViewUriSource | WebViewHtmlSource | number
-
-    /**
-     * Determines whether HTML5 audio & videos require the user to tap
-     * before they can start playing. The default value is false.
-     */
-    mediaPlaybackRequiresUserAction?: boolean
-
-    /**
-     * sets whether the webpage scales to fit the view and the user can change the scale
-     */
-    scalesPageToFit?: boolean
-}
-
-
-export interface WebViewStatic extends React.ClassicComponentClass<WebViewProperties> {
-
-    /**
-     * Go back one page in the webview's history.
-     */
-    goBack: () => void
-
-    /**
-     * Go forward one page in the webview's history.
-     */
-    goForward: () => void
-
-/**
- * Post a message to the WebView in the form of a string.
- */
-postMessage: (message: string) => void
-
-    /**
-     * Reloads the current page.
-     */
-    reload: () => void
-
-    /**
-     * Stop loading the current page.
-     */
-    stopLoading(): void
-
-    /**
-         * Returns the native webview node.
-     */
-    getWebViewHandle: () => any
-}
-
 
 /**
  * @see https://facebook.github.io/react-native/docs/segmentedcontrolios.html
  * @see SegmentedControlIOS.ios.js
  */
-export interface NativeSegmentedControlIOSChangeEvent {
-    value: string
-    selectedSegmentIndex: number
-    target: number
+export interface NativeSegmentedControlIOSChangeEvent extends TargetedEvent {
+    value: string;
+    selectedSegmentIndex: number;
 }
 
-export interface SegmentedControlIOSProperties extends ViewProperties {
-
+export interface SegmentedControlIOSProps extends ViewProps {
     /**
      * If false the user won't be able to interact with the control. Default value is true.
      */
-    enabled?: boolean
+    enabled?: boolean;
 
     /**
      * If true, then selecting a segment won't persist visually.
      * The onValueChange callback will still work as expected.
      */
-    momentary?: boolean
+    momentary?: boolean;
 
     /**
      * Callback that is called when the user taps a segment;
      * passes the event as an argument
-     * @param event
      */
-    onChange?: (event: NativeSyntheticEvent<NativeSegmentedControlIOSChangeEvent>) => void
+    onChange?: (event: NativeSyntheticEvent<NativeSegmentedControlIOSChangeEvent>) => void;
 
     /**
      * Callback that is called when the user taps a segment; passes the segment's value as an argument
-     * @param value
      */
-    onValueChange?: (value: string) => void
+    onValueChange?: (value: string) => void;
 
     /**
      * The index in props.values of the segment to be (pre)selected.
      */
-    selectedIndex?: number
+    selectedIndex?: number;
 
     /**
      * Accent color of the control.
      */
-    tintColor?: string
+    tintColor?: string;
 
     /**
      * The labels for the control's segment buttons, in order.
      */
-    values?: string[]
+    values?: string[];
+}
+
+/**
+ * Renders nested content and automatically applies paddings reflect the portion of the view
+ * that is not covered by navigation bars, tab bars, toolbars, and other ancestor views.
+ * Moreover, and most importantly, Safe Area's paddings reflect physical limitation of the screen,
+ * such as rounded corners or camera notches (aka sensor housing area on iPhone X).
+ */
+declare class SafeAreaViewComponent extends React.Component<ViewProps> {}
+declare const SafeAreaViewBase: Constructor<NativeMethodsMixin> & typeof SafeAreaViewComponent;
+export class SafeAreaView extends SafeAreaViewBase {}
+
+/**
+ * A component which enables customization of the keyboard input accessory view on iOS. The input accessory view is
+ * displayed above the keyboard whenever a TextInput has focus. This component can be used to create custom toolbars.
+ *
+ * To use this component wrap your custom toolbar with the InputAccessoryView component, and set a nativeID. Then, pass
+ * that nativeID as the inputAccessoryViewID of whatever TextInput you desire.
+ */
+export class InputAccessoryView extends React.Component<InputAccessoryViewProps> {}
+
+export interface InputAccessoryViewProps {
+    backgroundColor?: string;
+
+    /**
+     * An ID which is used to associate this InputAccessoryView to specified TextInput(s).
+     */
+    nativeID?: string;
+
+    style?: StyleProp<ViewStyle>;
 }
 
 /**
@@ -2215,28 +2475,27 @@ export interface SegmentedControlIOSProperties extends ViewProperties {
  * />
  * ````
  */
-export interface SegmentedControlIOSStatic extends NativeMethodsMixin, React.ClassicComponentClass<SegmentedControlIOSProperties> {
+declare class SegmentedControlIOSComponent extends React.Component<SegmentedControlIOSProps> {}
+declare const SegmentedControlIOSBase: Constructor<NativeMethodsMixin> & typeof SegmentedControlIOSComponent;
+export class SegmentedControlIOS extends SegmentedControlIOSBase {}
 
-}
-
-
-export interface NavigatorIOSProperties {
+export interface NavigatorIOSProps {
     /**
      * The default background color of the navigation bar.
      */
-    barTintColor?: string
+    barTintColor?: string;
 
     /**
      * NavigatorIOS uses "route" objects to identify child views, their props, and navigation bar configuration.
      * "push" and all the other navigation operations expect routes to be like this
      */
-    initialRoute: Route
+    initialRoute: Route;
 
     /**
      * The default wrapper style for components in the navigator.
      * A common use case is to set the backgroundColor for every page
      */
-    itemWrapperStyle?: ViewStyle
+    itemWrapperStyle?: StyleProp<ViewStyle>;
 
     /**
      * Boolean value that indicates whether the interactive pop gesture is
@@ -2249,37 +2508,37 @@ export interface NavigatorIOSProperties {
      * `interactivePopGestureEnabled` prop, you can never restore the default
      * behavior.
      */
-    interactivePopGestureEnabled?: boolean
+    interactivePopGestureEnabled?: boolean;
 
     /**
      * A Boolean value that indicates whether the navigation bar is hidden
      */
-    navigationBarHidden?: boolean
+    navigationBarHidden?: boolean;
 
     /**
      * A Boolean value that indicates whether to hide the 1px hairline shadow
      */
-    shadowHidden?: boolean
+    shadowHidden?: boolean;
 
     /**
      * The color used for buttons in the navigation bar
      */
-    tintColor?: string
+    tintColor?: string;
 
     /**
      * The text color of the navigation bar title
      */
-    titleTextColor?: string
+    titleTextColor?: string;
 
     /**
      * A Boolean value that indicates whether the navigation bar is translucent
      */
-    translucent?: boolean
+    translucent?: boolean;
 
     /**
      * NOT IN THE DOC BUT IN THE EXAMPLES
      */
-    style?: ViewStyle
+    style?: StyleProp<ViewStyle>;
 }
 
 /**
@@ -2290,76 +2549,71 @@ export interface NavigatorIOSProperties {
  *
  * @see https://facebook.github.io/react-native/docs/navigatorios.html#navigator
  */
-export interface NavigationIOS {
+export class NavigatorIOS extends React.Component<NavigatorIOSProps> {
     /**
      * Navigate forward to a new route
      */
-    push: (route: Route) => void
+    push: (route: Route) => void;
 
     /**
      * Go back one page
      */
-    pop: () => void
+    pop: () => void;
 
     /**
      * Go back N pages at once. When N=1, behavior matches pop()
      */
-    popN: (n: number) => void
+    popN: (n: number) => void;
 
     /**
      * Replace the route for the current page and immediately load the view for the new route
      */
-    replace: (route: Route) => void
+    replace: (route: Route) => void;
 
     /**
      * Replace the route/view for the previous page
      */
-    replacePrevious: (route: Route) => void
+    replacePrevious: (route: Route) => void;
 
     /**
      * Replaces the previous route/view and transitions back to it
      */
-    replacePreviousAndPop: (route: Route) => void
+    replacePreviousAndPop: (route: Route) => void;
 
     /**
      * Replaces the top item and popToTop
      */
-    resetTo: (route: Route) => void
+    resetTo: (route: Route) => void;
 
     /**
      * Go back to the item for a particular route object
      */
-    popToRoute(route: Route): void
+    popToRoute(route: Route): void;
 
     /**
      * Go back to the top item
      */
-    popToTop(): void
+    popToTop(): void;
 }
-
-export interface NavigatorIOSStatic extends NavigationIOS, React.ComponentClass<NavigatorIOSProperties> {
-}
-
 
 /**
  * @see https://facebook.github.io/react-native/docs/activityindicator.html#props
  */
-export interface ActivityIndicatorProperties extends ViewProperties {
-
+export interface ActivityIndicatorProps extends ViewProps {
     /**
      * Whether to show the indicator (true, the default) or hide it (false).
      */
-    animating?: boolean
+    animating?: boolean;
 
     /**
      * The foreground color of the spinner (default is gray).
      */
-    color?: string
+    color?: string;
 
     /**
      * Whether the indicator should hide when not animating (true by default).
      */
-    hidesWhenStopped?: boolean
+    hidesWhenStopped?: boolean;
 
     /**
      * Size of the indicator.
@@ -2367,39 +2621,38 @@ export interface ActivityIndicatorProperties extends ViewProperties {
      *
      * enum('small', 'large')
      */
-    size?: number | 'small' | 'large'
+    size?: number | 'small' | 'large';
 
-    style?: ViewStyle
+    style?: StyleProp<ViewStyle>;
 }
 
-export interface ActivityIndicatorStatic extends NativeMethodsMixin, React.ClassicComponentClass<ActivityIndicatorProperties> {
-}
-
+declare class ActivityIndicatorComponent extends React.Component<ActivityIndicatorProps> {}
+declare const ActivityIndicatorBase: Constructor<NativeMethodsMixin> & typeof ActivityIndicatorComponent;
+export class ActivityIndicator extends ActivityIndicatorBase {}
 
 /**
  * @see https://facebook.github.io/react-native/docs/activityindicatorios.html#props
  */
-export interface ActivityIndicatorIOSProperties extends ViewProperties {
-
+export interface ActivityIndicatorIOSProps extends ViewProps {
     /**
      * Whether to show the indicator (true, the default) or hide it (false).
      */
-    animating?: boolean
+    animating?: boolean;
 
     /**
      * The foreground color of the spinner (default is gray).
      */
-    color?: string
+    color?: string;
 
     /**
      * Whether the indicator should hide when not animating (true by default).
      */
-    hidesWhenStopped?: boolean
+    hidesWhenStopped?: boolean;
 
     /**
      * Invoked on mount and layout changes with
      */
-    onLayout?: (event: { nativeEvent: { layout: { x: number, y: number, width: number, height: number } } }) => void
+    onLayout?: (event: { nativeEvent: { layout: { x: number; y: number; width: number; height: number } } }) => void;
 
     /**
      * Size of the indicator.
@@ -2407,76 +2660,71 @@ export interface ActivityIndicatorIOSProperties extends ViewProperties {
      *
      * enum('small', 'large')
      */
-    size?: 'small' | 'large'
+    size?: 'small' | 'large';
 
-    style?: ViewStyle
+    style?: StyleProp<ViewStyle>;
 }
 
-/**
- * @Deprecated since version 0.28.0
- */
-export interface ActivityIndicatorIOSStatic extends React.ComponentClass<ActivityIndicatorIOSProperties> {
-}
-
-
-export interface DatePickerIOSProperties extends ViewProperties {
-
+export interface DatePickerIOSProps extends ViewProps {
     /**
      * The currently selected date.
      */
-    date: Date
+    date: Date;
 
+    /**
+     * The date picker locale.
+     */
+    locale?: string;
 
     /**
      * Maximum date.
      * Restricts the range of possible date/time values.
      */
-    maximumDate?: Date
+    maximumDate?: Date;
 
     /**
      * Maximum date.
      * Restricts the range of possible date/time values.
      */
-    minimumDate?: Date
+    minimumDate?: Date;
 
     /**
      *  enum(1, 2, 3, 4, 5, 6, 10, 12, 15, 20, 30)
      *  The interval at which minutes can be selected.
      */
-    minuteInterval?: number
+    minuteInterval?: 1 | 2 | 3 | 4 | 5 | 6 | 10 | 12 | 15 | 20 | 30;
 
     /**
      *  enum('date', 'time', 'datetime')
      *  The date picker mode.
      */
-    mode?: "date" | "time" | "datetime"
+    mode?: 'date' | 'time' | 'datetime';
 
     /**
      * Date change handler.
      * This is called when the user changes the date or time in the UI.
      * The first and only argument is a Date object representing the new date and time.
      */
-    onDateChange: ( newDate: Date ) => void
+    onDateChange: (newDate: Date) => void;
 
     /**
      * Timezone offset in minutes.
      * By default, the date picker will use the device's timezone. With this parameter, it is possible to force a certain timezone offset.
      * For instance, to show times in Pacific Standard Time, pass -7 * 60.
      */
-    timeZoneOffsetInMinutes?: number
+    timeZoneOffsetInMinutes?: number;
 }
 
-export interface DatePickerIOSStatic extends NativeMethodsMixin, React.ComponentClass<DatePickerIOSProperties> {
-}
+declare class DatePickerIOSComponent extends React.Component<DatePickerIOSProps> {}
+declare const DatePickerIOSBase: Constructor<NativeMethodsMixin> & typeof DatePickerIOSComponent;
+export class DatePickerIOS extends DatePickerIOSBase {}
 
-export interface DrawerSlideEvent extends NativeSyntheticEvent<NativeTouchEvent> {
-}
+export interface DrawerSlideEvent extends NativeSyntheticEvent<NativeTouchEvent> {}
 
 /**
  * @see DrawerLayoutAndroid.android.js
  */
-export interface DrawerLayoutAndroidProperties extends ViewProperties {
-
+export interface DrawerLayoutAndroidProps extends ViewProps {
     /**
      * Specifies the background color of the drawer. The default value
      * is white. If you want to set the opacity of the drawer, use rgba.
@@ -2502,7 +2750,7 @@ export interface DrawerLayoutAndroidProperties extends ViewProperties {
      *   not respond to gestures. The drawer may still be opened and
      *   closed programmatically (openDrawer/closeDrawer).
      */
-    drawerLockMode?: "unlocked" | "locked-closed" | "locked-open";
+    drawerLockMode?: 'unlocked' | 'locked-closed' | 'locked-open';
 
     /**
      * Specifies the side of the screen from which the drawer will slide in.
@@ -2521,23 +2769,22 @@ export interface DrawerLayoutAndroidProperties extends ViewProperties {
      * - 'none' (the default), drags do not dismiss the keyboard.
      * - 'on-drag', the keyboard is dismissed when a drag begins.
      */
-    keyboardDismissMode?: "none" | "on-drag"
+    keyboardDismissMode?: 'none' | 'on-drag';
 
     /**
      * Function called whenever the navigation view has been closed.
      */
-    onDrawerClose?: () => void
+    onDrawerClose?: () => void;
 
     /**
      * Function called whenever the navigation view has been opened.
      */
-    onDrawerOpen?: () => void
+    onDrawerOpen?: () => void;
 
     /**
      * Function called whenever there is an interaction with the navigation view.
-     * @param event
      */
-    onDrawerSlide?: (event: DrawerSlideEvent) => void
+    onDrawerSlide?: (event: DrawerSlideEvent) => void;
 
     /**
      * Function called when the drawer state has changed.
@@ -2549,91 +2796,87 @@ export interface DrawerLayoutAndroidProperties extends ViewProperties {
      * - settling, meaning that there was an interaction with the
      *   navigation view, and the navigation view is now finishing
      *   it's closing or opening animation
-     * @param event
      */
-    onDrawerStateChanged?: (event: "Idle" | "Dragging" | "Settling") => void
+    onDrawerStateChanged?: (event: 'Idle' | 'Dragging' | 'Settling') => void;
 
     /**
      * The navigation view that will be rendered to the side of the
      * screen and can be pulled in.
      */
-    renderNavigationView: () => JSX.Element
+    renderNavigationView: () => JSX.Element;
 
     /**
      * Make the drawer take the entire screen and draw the background of
      * the status bar to allow it to open over the status bar. It will
      * only have an effect on API 21+.
      */
-    statusBarBackgroundColor?: string
+    statusBarBackgroundColor?: string;
 }
 
 interface DrawerPosition {
-    Left: number
-    Right: number
+    Left: number;
+    Right: number;
 }
 
-export interface DrawerLayoutAndroidStatic extends NativeMethodsMixin, React.ClassicComponentClass<DrawerLayoutAndroidProperties> {
-
+declare class DrawerLayoutAndroidComponent extends React.Component<DrawerLayoutAndroidProps> {}
+declare const DrawerLayoutAndroidBase: Constructor<NativeMethodsMixin> & typeof DrawerLayoutAndroidComponent;
+export class DrawerLayoutAndroid extends DrawerLayoutAndroidBase {
     /**
      * drawer's positions.
      */
-    positions: DrawerPosition
+    positions: DrawerPosition;
 
     /**
      * Opens the drawer.
      */
-    openDrawer(): void
+    openDrawer(): void;
 
     /**
      * Closes the drawer.
      */
-    closeDrawer(): void
+    closeDrawer(): void;
 }
 
 /**
  * @see PickerIOS.ios.js
  */
-export interface PickerIOSItemProperties {
-    value?: string | number
-    label?: string
+export interface PickerIOSItemProps {
+    value?: string | number;
+    label?: string;
 }
 
 /**
  * @see PickerIOS.ios.js
  */
-export interface PickerIOSItemStatic extends React.ComponentClass<PickerIOSItemProperties> {
-}
+export class PickerIOSItem extends React.Component<PickerIOSItemProps> {}
 
 /**
  * @see Picker.js
  */
-export interface PickerItemProperties {
-    testID?: string
-    color?: string
-    label: string
-    value?: any
+export interface PickerItemProps {
+    testID?: string;
+    color?: string;
+    label: string;
+    value?: any;
 }
 
-export interface PickerItem extends React.ComponentClass<PickerItemProperties> {
-}
+export class PickerItem extends React.Component<PickerItemProps> {}
 
-export interface PickerPropertiesIOS extends ViewProperties {
-
+export interface PickerPropsIOS extends ViewProps {
     /**
      * Style to apply to each of the item labels.
      * @platform ios
      */
-    itemStyle?: ViewStyle,
+    itemStyle?: StyleProp<TextStyle>;
 }
 
-export interface PickerPropertiesAndroid extends ViewProperties {
-
+export interface PickerPropsAndroid extends ViewProps {
     /**
      * If set to false, the picker will be disabled, i.e. the user will not be able to make a
      * selection.
      * @platform android
      */
-    enabled?: boolean
+    enabled?: boolean;
 
     /**
      * On Android, specifies how to display the selection items when the user taps on the picker:
@@ -2643,89 +2886,85 @@ export interface PickerPropertiesAndroid extends ViewProperties {
      *
      * @platform android
      */
-    mode?: "dialog" | "dropdown"
+    mode?: 'dialog' | 'dropdown';
 
     /**
      * Prompt string for this picker, used on Android in dialog mode as the title of the dialog.
      * @platform android
      */
-    prompt?: string
+    prompt?: string;
 }
 
 /**
  * @see https://facebook.github.io/react-native/docs/picker.html
  * @see Picker.js
  */
-export interface PickerProperties extends PickerPropertiesIOS, PickerPropertiesAndroid {
-
+export interface PickerProps extends PickerPropsIOS, PickerPropsAndroid {
     /**
      * Callback for when an item is selected. This is called with the
      * following parameters:
      * - itemValue: the value prop of the item that was selected
      * - itemPosition: the index of the selected item in this picker
-     * @param itemValue
-     * @param itemPosition
      */
-    onValueChange?: (itemValue: any, itemPosition: number) => void
+    onValueChange?: (itemValue: any, itemPosition: number) => void;
 
     /**
      * Value matching value of one of the items.
      * Can be a string or an integer.
      */
-    selectedValue?: any
+    selectedValue?: any;
 
-    style?: ViewStyle
+    style?: StyleProp<ViewStyle>;
 
     /**
      * Used to locate this view in end-to-end tests.
      */
-    testId?: string
+    testId?: string;
 }
 
 /**
  * @see https://facebook.github.io/react-native/docs/picker.html
  * @see Picker.js
  */
-export interface PickerStatic extends React.ComponentClass<PickerProperties> {
-
+export class Picker extends React.Component<PickerProps> {
     /**
      * On Android, display the options in a dialog.
      */
-    MODE_DIALOG: string
+    static MODE_DIALOG: string;
+
     /**
      * On Android, display the options in a dropdown (this is the default).
      */
-    MODE_DROPDOWN: string
+    static MODE_DROPDOWN: string;
 
-    Item: PickerItem
+    static Item: typeof PickerItem;
 }
 
 /**
  * @see https://facebook.github.io/react-native/docs/pickerios.html
  * @see PickerIOS.ios.js
  */
-export interface PickerIOSProperties extends ViewProperties {
-
-    itemStyle?: TextStyle
-    onValueChange?: ( value: string | number ) => void
-    selectedValue?: string | number
+export interface PickerIOSProps extends ViewProps {
+    itemStyle?: StyleProp<TextStyle>;
+    onValueChange?: (value: string | number) => void;
+    selectedValue?: string | number;
 }
 
 /**
  * @see https://facebook.github.io/react-native/docs/pickerios.html
  * @see PickerIOS.ios.js
  */
-export interface PickerIOSStatic extends NativeMethodsMixin, React.ClassicComponentClass<PickerIOSProperties> {
-
-    Item: PickerIOSItemStatic
+declare class PickerIOSComponent extends React.Component<PickerIOSProps> {}
+declare const PickerIOSBase: Constructor<NativeMethodsMixin> & typeof PickerIOSComponent;
+export class PickerIOS extends PickerIOSBase {
+    static Item: typeof PickerIOSItem;
 }
 
 /**
  * @see https://facebook.github.io/react-native/docs/progressbarandroid.html
  * @see ProgressBarAndroid.android.js
  */
-export interface ProgressBarAndroidProperties extends ViewProperties {
-
+export interface ProgressBarAndroidProps extends ViewProps {
     /**
      * Style of the ProgressBar. One of:
          Horizontal
@@ -2736,133 +2975,136 @@ export interface ProgressBarAndroidProperties extends ViewProperties {
          SmallInverse
          LargeInverse
      */
-    styleAttr?: "Horizontal" | "Normal" | "Small" | "Large" | "Inverse" | "SmallInverse" | "LargeInverse"
+    styleAttr?: 'Horizontal' | 'Normal' | 'Small' | 'Large' | 'Inverse' | 'SmallInverse' | 'LargeInverse';
 
     /**
      * If the progress bar will show indeterminate progress.
      * Note that this can only be false if styleAttr is Horizontal.
      */
-    indeterminate?: boolean
+    indeterminate?: boolean;
 
     /**
      * The progress value (between 0 and 1).
      */
-    progress?: number
+    progress?: number;
+
+    /**
+     * Whether to show the ProgressBar (true, the default) or hide it (false).
+     */
+    animating?: boolean;
 
     /**
      * Color of the progress bar.
      */
-    color?: string
+    color?: string;
 
     /**
      * Used to locate this view in end-to-end tests.
      */
-    testID?: string
+    testID?: string;
 }
 /**
  * React component that wraps the Android-only `ProgressBar`. This component is used to indicate
  * that the app is loading or there is some activity in the app.
-*/
-export interface ProgressBarAndroidStatic extends NativeMethodsMixin, React.ClassicComponentClass<ProgressBarAndroidProperties> {
-}
+ */
+declare class ProgressBarAndroidComponent extends React.Component<ProgressBarAndroidProps> {}
+declare const ProgressBarAndroidBase: Constructor<NativeMethodsMixin> & typeof ProgressBarAndroidComponent;
+export class ProgressBarAndroid extends ProgressBarAndroidBase {}
 
 /**
  * @see https://facebook.github.io/react-native/docs/progressviewios.html
  * @see ProgressViewIOS.ios.js
  */
-export interface ProgressViewIOSProperties extends ViewProperties {
-
+export interface ProgressViewIOSProps extends ViewProps {
     /**
      * The progress bar style.
      */
-    progressViewStyle?: "default" | "bar"
+    progressViewStyle?: 'default' | 'bar';
 
     /**
      * The progress value (between 0 and 1).
      */
-    progress?: number
+    progress?: number;
 
     /**
      * The tint color of the progress bar itself.
      */
-    progressTintColor?: string
+    progressTintColor?: string;
 
     /**
      * The tint color of the progress bar track.
      */
-    trackTintColor?: string
+    trackTintColor?: string;
 
     /**
      * A stretchable image to display as the progress bar.
      */
-    progressImage?: ImageURISource | ImageURISource[]
+    progressImage?: ImageURISource | ImageURISource[];
 
     /**
      * A stretchable image to display behind the progress bar.
      */
-    trackImage?: ImageURISource | ImageURISource[]
+    trackImage?: ImageURISource | ImageURISource[];
 }
-export interface ProgressViewIOSStatic extends NativeMethodsMixin, React.ClassicComponentClass<ProgressViewIOSProperties> {
-}
+declare class ProgressViewIOSComponent extends React.Component<ProgressViewIOSProps> {}
+declare const ProgressViewIOSBase: Constructor<NativeMethodsMixin> & typeof ProgressViewIOSComponent;
+export class ProgressViewIOS extends ProgressViewIOSBase {}
 
-export interface RefreshControlPropertiesIOS extends ViewProperties {
-
+export interface RefreshControlPropsIOS extends ViewProps {
     /**
      * The color of the refresh indicator.
      */
-    tintColor?: string
+    tintColor?: string;
 
     /**
      * The title displayed under the refresh indicator.
      */
-    title?: string
+    title?: string;
 
     /**
      * Title color.
      */
-    titleColor?: string
+    titleColor?: string;
 }
 
-export interface RefreshControlPropertiesAndroid extends ViewProperties {
-
+export interface RefreshControlPropsAndroid extends ViewProps {
     /**
      * The colors (at least one) that will be used to draw the refresh indicator.
      */
-    colors?: string[]
+    colors?: string[];
 
     /**
      * Whether the pull to refresh functionality is enabled.
      */
-    enabled?: boolean
+    enabled?: boolean;
 
     /**
      * The background color of the refresh indicator.
      */
-    progressBackgroundColor?: string
+    progressBackgroundColor?: string;
 
     /**
      * Size of the refresh indicator, see RefreshControl.SIZE.
      */
-    size?: number
+    size?: number;
 
     /**
      * Progress view top offset
      * @platform android
      */
-    progressViewOffset?: number
+    progressViewOffset?: number;
 }
 
-export interface RefreshControlProperties extends RefreshControlPropertiesIOS, RefreshControlPropertiesAndroid {
-
+export interface RefreshControlProps extends RefreshControlPropsIOS, RefreshControlPropsAndroid {
     /**
      * Called when the view starts refreshing.
      */
-    onRefresh?: () => void
+    onRefresh?: () => void;
 
     /**
      * Whether the view should be indicating an active refresh.
      */
-    refreshing: boolean
+    refreshing: boolean;
 }
 
 /**
@@ -2873,12 +3115,13 @@ export interface RefreshControlProperties extends RefreshControlPropertiesIOS, R
  * __Note:__ `refreshing` is a controlled prop, this is why it needs to be set to true
  * in the `onRefresh` function otherwise the refresh indicator will stop immediately.
  */
-export interface RefreshControlStatic extends NativeMethodsMixin, React.ClassicComponentClass<RefreshControlProperties> {
-    SIZE: Object // Undocumented
+declare class RefreshControlComponent extends React.Component<RefreshControlProps> {}
+declare const RefreshControlBase: Constructor<NativeMethodsMixin> & typeof RefreshControlComponent;
+export class RefreshControl extends RefreshControlBase {
+    static SIZE: Object; // Undocumented
 }
 
-export interface RecyclerViewBackedScrollViewProperties extends ScrollViewProperties {
-}
+export interface RecyclerViewBackedScrollViewProps extends ScrollViewProps {}
 
 /**
  * Wrapper around android native recycler view.
@@ -2894,8 +3137,10 @@ export interface RecyclerViewBackedScrollViewProperties extends ScrollViewProper
  * use it pass this component as `renderScrollComponent` to the list view. For
  * now only horizontal scrolling is supported.
  */
-export interface RecyclerViewBackedScrollViewStatic extends ScrollResponderMixin, React.ClassicComponentClass<RecyclerViewBackedScrollViewProperties> {
-
+declare class RecyclerViewBackedScrollViewComponent extends React.Component<RecyclerViewBackedScrollViewProps> {}
+declare const RecyclerViewBackedScrollViewBase: Constructor<ScrollResponderMixin> &
+    typeof RecyclerViewBackedScrollViewComponent;
+export class RecyclerViewBackedScrollView extends RecyclerViewBackedScrollViewBase {
     /**
      * A helper function to scroll to a specific point  in the scrollview.
      * This is currently used to help focus on child textviews, but can also
@@ -2907,11 +3152,7 @@ export interface RecyclerViewBackedScrollViewStatic extends ScrollResponderMixin
      * the function also accepts separate arguments as as alternative to the options object.
      * This is deprecated due to ambiguity (y before x), and SHOULD NOT BE USED.
      */
-    scrollTo(
-        y?: number | { x?: number, y?: number, animated?: boolean },
-        x?: number,
-        animated?: boolean
-    ): void;
+    scrollTo(y?: number | { x?: number; y?: number; animated?: boolean }, x?: number, animated?: boolean): void;
 
     /**
      * Returns a reference to the underlying scroll responder, which supports
@@ -2922,96 +3163,92 @@ export interface RecyclerViewBackedScrollViewStatic extends ScrollResponderMixin
     getScrollResponder(): JSX.Element;
 }
 
-export interface SliderPropertiesAndroid extends ViewProperties {
+export interface SliderPropsAndroid extends ViewProps {
     /**
      * Color of the foreground switch grip.
      */
-    thumbTintColor?: string,
+    thumbTintColor?: string;
 }
 
-export interface SliderPropertiesIOS extends ViewProperties {
-
+export interface SliderPropsIOS extends ViewProps {
     /**
      * Assigns a maximum track image. Only static images are supported.
      * The leftmost pixel of the image will be stretched to fill the track.
      */
-    maximumTrackImage?: ImageURISource
+    maximumTrackImage?: ImageURISource;
 
     /**
      * Assigns a minimum track image. Only static images are supported.
      * The rightmost pixel of the image will be stretched to fill the track.
      */
-    minimumTrackImage?: ImageURISource
+    minimumTrackImage?: ImageURISource;
 
     /**
      * Sets an image for the thumb. Only static images are supported.
      */
-    thumbImage?: ImageURISource
+    thumbImage?: ImageURISource;
 
     /**
      * Assigns a single image for the track. Only static images
      * are supported. The center pixel of the image will be stretched
      * to fill the track.
      */
-    trackImage?: ImageURISource
+    trackImage?: ImageURISource;
 }
 
-export interface SliderProperties extends SliderPropertiesIOS, SliderPropertiesAndroid {
-
+export interface SliderProps extends SliderPropsIOS, SliderPropsAndroid {
     /**
      * If true the user won't be able to move the slider.
      * Default value is false.
      */
-    disabled?: boolean
+    disabled?: boolean;
 
     /**
      * The color used for the track to the right of the button.
      * Overrides the default blue gradient image.
      */
-    maximumTrackTintColor?: string
+    maximumTrackTintColor?: string;
 
     /**
      * Initial maximum value of the slider. Default value is 1.
      */
-    maximumValue?: number
+    maximumValue?: number;
 
     /**
      * The color used for the track to the left of the button.
      * Overrides the default blue gradient image.
      */
-    minimumTrackTintColor?: string
+    minimumTrackTintColor?: string;
 
     /**
      * Initial minimum value of the slider. Default value is 0.
      */
-    minimumValue?: number
+    minimumValue?: number;
 
     /**
      * Callback called when the user finishes changing the value (e.g. when the slider is released).
-     * @param value
      */
-    onSlidingComplete?: (value: number) => void
+    onSlidingComplete?: (value: number) => void;
 
     /**
      * Callback continuously called while the user is dragging the slider.
-     * @param value
      */
-    onValueChange?: (value: number) => void
+    onValueChange?: (value: number) => void;
 
     /**
      * Step value of the slider. The value should be between 0 and (maximumValue - minimumValue). Default value is 0.
      */
-    step?: number
+    step?: number;
 
     /**
      * Used to style and layout the Slider. See StyleSheet.js and ViewStylePropTypes.js for more info.
      */
-    style?: ViewStyle
+    style?: StyleProp<ViewStyle>;
 
     /**
      * Used to locate this view in UI automation tests.
      */
-    testID?: string
+    testID?: string;
 
     /**
      * Initial value of the slider. The value should be between minimumValue
@@ -3020,50 +3257,50 @@ export interface SliderProperties extends SliderPropertiesIOS, SliderPropertiesA
      * This is not a controlled component, you don't need to update
      * the value during dragging.
      */
-    value?: number
+    value?: number;
 }
 
 /**
  * A component used to select a single value from a range of values.
  */
-export interface SliderStatic extends NativeMethodsMixin, React.ClassicComponentClass<SliderProperties> {
-
-}
+declare class SliderComponent extends React.Component<SliderProps> {}
+declare const SliderBase: Constructor<NativeMethodsMixin> & typeof SliderComponent;
+export class Slider extends SliderBase {}
+export type SliderIOS = Slider;
 
 /**
  * https://facebook.github.io/react-native/docs/switchios.html#props
  */
-export interface SwitchIOSProperties extends ViewProperties {
-
+export interface SwitchIOSProps extends ViewProps {
     /**
      * If true the user won't be able to toggle the switch. Default value is false.
      */
-    disabled?: boolean
+    disabled?: boolean;
 
     /**
      * Background color when the switch is turned on.
      */
-    onTintColor?: string
+    onTintColor?: string;
 
     /**
      * Callback that is called when the user toggles the switch.
      */
-    onValueChange?: (value: boolean) => void
+    onValueChange?: (value: boolean) => void;
 
     /**
      * Background color for the switch round button.
      */
-    thumbTintColor?: string
+    thumbTintColor?: string;
 
     /**
      * Background color when the switch is turned off.
      */
-    tintColor?: string
+    tintColor?: string;
 
     /**
      * The value of the switch, if true the switch will be turned on. Default value is false.
      */
-    value?: boolean
+    value?: boolean;
 }
 
 /**
@@ -3075,11 +3312,9 @@ export interface SwitchIOSProperties extends ViewProperties {
  *
  * @see https://facebook.github.io/react-native/docs/switchios.html
  */
-export interface SwitchIOSStatic extends React.ComponentClass<SwitchIOSProperties> {
+export class SwitchIOS extends React.Component<SwitchIOSProps> {}
 
-}
-
-export type ImageResizeMode =  "contain" | "cover" | "stretch" | "center" | "repeat"
+export type ImageResizeMode = 'cover' | 'contain' | 'stretch' | 'repeat' | 'center';
 
 /**
  * @see ImageResizeMode.js
@@ -3089,58 +3324,59 @@ export interface ImageResizeModeStatic {
      * contain - The image will be resized such that it will be completely
      * visible, contained within the frame of the View.
      */
-    contain: ImageResizeMode
+    contain: ImageResizeMode;
     /**
      * cover - The image will be resized such that the entire area of the view
      * is covered by the image, potentially clipping parts of the image.
      */
-    cover: ImageResizeMode
+    cover: ImageResizeMode;
     /**
      * stretch - The image will be stretched to fill the entire frame of the
      * view without clipping.  This may change the aspect ratio of the image,
      * distoring it.  Only supported on iOS.
      */
-    stretch: ImageResizeMode
+    stretch: ImageResizeMode;
     /**
      * center - The image will be scaled down such that it is completely visible,
      * if bigger than the area of the view.
      * The image will not be scaled up.
      */
-    center: ImageResizeMode,
+    center: ImageResizeMode;
 
     /**
      * repeat - The image will be repeated to cover the frame of the View. The
      * image will keep it's size and aspect ratio.
      */
-    repeat: ImageResizeMode,
+    repeat: ImageResizeMode;
 }
 
 export interface ShadowStyleIOS {
-    shadowColor?: string
-    shadowOffset?: {width: number, height: number}
-    shadowOpacity?: number
-    shadowRadius?: number
+    shadowColor?: string;
+    shadowOffset?: { width: number; height: number };
+    shadowOpacity?: number;
+    shadowRadius?: number;
 }
 
 /**
  * Image style
  * @see https://facebook.github.io/react-native/docs/image.html#style
+ * @see https://github.com/facebook/react-native/blob/master/Libraries/Image/ImageStylePropTypes.js
  */
-export interface ImageStyle extends FlexStyle, TransformsStyle, ShadowStyleIOS {
-    resizeMode?: ImageResizeMode
-    backfaceVisibility?: "visible" | "hidden"
-    borderBottomLeftRadius?: number
-    borderBottomRightRadius?: number
-    backgroundColor?: string
-    borderColor?: string
-    borderWidth?: number
-    borderRadius?: number
-    borderTopLeftRadius?: number
-    borderTopRightRadius?: number
-    overflow?: "visible" | "hidden"
-    overlayColor?: string
-    tintColor?: string
-    opacity?: number
+export interface ImageStyle extends FlexStyle, ShadowStyleIOS, TransformsStyle {
+    resizeMode?: ImageResizeMode;
+    backfaceVisibility?: 'visible' | 'hidden';
+    borderBottomLeftRadius?: number;
+    borderBottomRightRadius?: number;
+    backgroundColor?: string;
+    borderColor?: string;
+    borderWidth?: number;
+    borderRadius?: number;
+    borderTopLeftRadius?: number;
+    borderTopRightRadius?: number;
+    overflow?: 'visible' | 'hidden';
+    overlayColor?: string;
+    tintColor?: string;
+    opacity?: number;
 }
 
 /*
@@ -3153,22 +3389,22 @@ export interface ImageURISource {
      * resource (which should be wrapped in the `require('./path/to/image.png')`
      * function).
      */
-    uri?: string,
+    uri?: string;
     /**
      * `bundle` is the iOS asset bundle which the image is included in. This
      * will default to [NSBundle mainBundle] if not set.
      * @platform ios
      */
-    bundle?: string,
+    bundle?: string;
     /**
      * `method` is the HTTP Method to use. Defaults to GET if not specified.
      */
-    method?: string,
+    method?: string;
     /**
      * `headers` is an object representing the HTTP headers to send along with the
      * request for a remote image.
      */
-    headers?: {[key: string]: string},
+    headers?: { [key: string]: string };
     /**
      * `cache` determines how the requests handles potentially cached
      * responses.
@@ -3189,42 +3425,42 @@ export interface ImageURISource {
      *
      * @platform ios
      */
-    cache?: 'default' | 'reload' | 'force-cache' | 'only-if-cached',
+    cache?: 'default' | 'reload' | 'force-cache' | 'only-if-cached';
     /**
      * `body` is the HTTP body to send with the request. This must be a valid
      * UTF-8 string, and will be sent exactly as specified, with no
      * additional encoding (e.g. URL-escaping or base64) applied.
      */
-    body?: string,
+    body?: string;
     /**
      * `width` and `height` can be specified if known at build time, in which case
      * these will be used to set the default `<Image/>` component dimensions.
      */
-    width?: number,
-    height?: number,
+    width?: number;
+    height?: number;
     /**
      * `scale` is used to indicate the scale factor of the image. Defaults to 1.0 if
      * unspecified, meaning that one image pixel equates to one display point / DIP.
      */
-    scale?: number,
+    scale?: number;
 }
 
-export interface ImagePropertiesIOS {
-    /**
-     * The text that's read by the screen reader when the user interacts with the image.
-     */
-    accessibilityLabel?: string;
+export type ImageRequireSource = number;
 
-    /**
-     * When true, indicates the image is an accessibility element.
-     */
-    accessible?: boolean;
+/**
+ * @see ImagePropsIOS.onProgress
+ */
+export interface ImageProgressEventDataIOS {
+    loaded: number;
+    total: number;
+}
 
+export interface ImagePropsIOS {
     /**
-    * blurRadius: the blur radius of the blur filter added to the image
-    * @platform ios
-    */
-    blurRadius?: number,
+     * blurRadius: the blur radius of the blur filter added to the image
+     * @platform ios
+     */
+    blurRadius?: number;
 
     /**
      * When the image is resized, the corners of the size specified by capInsets will stay a fixed size,
@@ -3232,17 +3468,12 @@ export interface ImagePropertiesIOS {
      * This is useful for creating resizable rounded buttons, shadows, and other resizable assets.
      * More info on Apple documentation
      */
-    capInsets?: Insets
-
-    /**
-     * A static image to display while downloading the final image off the network.
-     */
-    defaultSource?: ImageURISource | number
+    capInsets?: Insets;
 
     /**
      * Invoked on download progress with {nativeEvent: {loaded, total}}
      */
-    onProgress?: (event: { nativeEvent: { loaded: number, total: number }}) => void
+    onProgress?: (event: NativeSyntheticEvent<ImageProgressEventDataIOS>) => void;
 
     /**
      * Invoked when a partial load of the image is complete. The definition of
@@ -3250,10 +3481,10 @@ export interface ImagePropertiesIOS {
      * for progressive JPEG loads.
      * @platform ios
      */
-    onPartialLoad?: () => void,
+    onPartialLoad?: () => void;
 }
 
-interface ImagePropertiesAndroid {
+interface ImagePropsAndroid {
     /**
      * The mechanism that should be used to resize the image when the image's dimensions
      * differ from the image view's dimensions. Defaults to auto.
@@ -3267,43 +3498,107 @@ interface ImagePropertiesAndroid {
      * and produces higher quality images. This should be used if the image is smaller than the view.
      * It should also be used if the image is slightly bigger than the view.
      */
-    resizeMethod?: 'auto' | 'resize' | 'scale'
+    resizeMethod?: 'auto' | 'resize' | 'scale';
+
+    /**
+     * Duration of fade in animation in ms. Defaults to 300
+     *
+     * @platform android
+     */
+    fadeDuration?: number;
+
+    /**
+     * Required if loading images via 'uri' from drawable folder on Android.
+     * Explanation: https://medium.com/@adamjacobb/react-native-performance-images-adf5843e120
+     */
+    width?: number;
+
+    /**
+     * Required if loading images via 'uri' from drawable folder on Android
+     * Explanation: https://medium.com/@adamjacobb/react-native-performance-images-adf5843e120
+     */
+    height?: number;
+}
+
+/**
+ * @see https://facebook.github.io/react-native/docs/image.html#source
+ */
+export type ImageSourcePropType = ImageURISource | ImageURISource[] | ImageRequireSource;
+
+/**
+ * @see ImagePropsBase.onLoad
+ */
+export interface ImageLoadEventDataAndroid {
+    uri?: string;
+}
+
+export interface ImageLoadEventData extends ImageLoadEventDataAndroid {
+    source: {
+        height: number;
+        width: number;
+        url: string;
+    };
+}
+
+export interface ImageErrorEventData {
+    error: any;
+}
+
+/**
+ * @see https://facebook.github.io/react-native/docs/image.html#resolveassetsource
+ */
+export interface ImageResolvedAssetSource {
+    height: number;
+    width: number;
+    scale: number;
+    uri: string;
 }
 
 /**
  * @see https://facebook.github.io/react-native/docs/image.html
  */
-export interface ImageProperties extends ImagePropertiesIOS, ImagePropertiesAndroid {
+export interface ImagePropsBase extends ImagePropsIOS, ImagePropsAndroid, AccessibilityProps {
     /**
      * onLayout function
      *
      * Invoked on mount and layout changes with
      *
-     * {nativeEvent: { layout: {x, y, width, height}}}.
+     * {nativeEvent: { layout: {x, y, width, height} }}.
      */
     onLayout?: (event: LayoutChangeEvent) => void;
 
     /**
      * Invoked on load error with {nativeEvent: {error}}
      */
-    onError?: (error: { nativeEvent: any }) => void
+    onError?: (error: NativeSyntheticEvent<ImageErrorEventData>) => void;
 
     /**
      * Invoked when load completes successfully
+     * { source: { url, height, width } }.
      */
-    onLoad?: () => void
+    onLoad?: (event: NativeSyntheticEvent<ImageLoadEventData>) => void;
 
     /**
      * Invoked when load either succeeds or fails
      */
-    onLoadEnd?: () => void
+    onLoadEnd?: () => void;
 
     /**
      * Invoked on load start
      */
-    onLoadStart?: () => void
+    onLoadStart?: () => void;
 
-    progressiveRenderingEnabled?: boolean
+    progressiveRenderingEnabled?: boolean;
+
+    borderRadius?: number;
+
+    borderTopLeftRadius?: number;
+
+    borderTopRightRadius?: number;
+
+    borderBottomLeftRadius?: number;
+
+    borderBottomRightRadius?: number;
 
     /**
      * Determines how to resize the image when the frame doesn't match the raw
@@ -3327,7 +3622,7 @@ export interface ImageProperties extends ImagePropertiesIOS, ImagePropertiesAndr
      * if bigger than the area of the view.
      * The image will not be scaled up.
      */
-    resizeMode?: 'cover' | 'contain' | 'stretch' | 'repeat' | 'center'
+    resizeMode?: ImageResizeMode;
 
     /**
      * The mechanism that should be used to resize the image when the image's dimensions
@@ -3348,17 +3643,18 @@ export interface ImageProperties extends ImagePropertiesIOS, ImagePropertiesAndr
      *
      * @platform android
      */
-    resizeMethod?: 'auto' | 'resize' | 'scale'
+    resizeMethod?: 'auto' | 'resize' | 'scale';
 
     /**
-     * `uri` is a string representing the resource identifier for the image, which
-     * could be an http address, a local file path, or a static image
-     * resource (which should be wrapped in the `require('./path/to/image.png')` function).
-     * This prop can also contain several remote `uri`, specified together with
-     * their width and height. The native side will then choose the best `uri` to display
-     * based on the measured size of the image container.
+     * The image source (either a remote URL or a local file resource).
+     *
+     * This prop can also contain several remote URLs, specified together with their width and height and potentially with scale/other URI arguments.
+     * The native side will then choose the best uri to display based on the measured size of the image container.
+     * A cache property can be added to control how networked request interacts with the local cache.
+     *
+     * The currently supported formats are png, jpg, jpeg, bmp, gif, webp (Android only), psd (iOS only).
      */
-    source: ImageURISource | ImageURISource[]
+    source: ImageSourcePropType;
 
     /**
      * similarly to `source`, this property represents the resource used to render
@@ -3368,24 +3664,52 @@ export interface ImageProperties extends ImagePropertiesIOS, ImagePropertiesAndr
     loadingIndicatorSource?: ImageURISource;
 
     /**
-     *
-     * Style
-     */
-    style?: ImageStyle;
-
-    /**
      * A unique identifier for this element to be used in UI Automation testing scripts.
      */
     testID?: string;
 
+    /**
+     * A static image to display while downloading the final image off the network.
+     */
+    defaultSource?: ImageURISource | number;
 }
 
-export interface ImageStatic extends NativeMethodsMixin, React.ComponentClass<ImageProperties> {
-    resizeMode: ImageResizeMode
-    getSize(uri: string, success: (width: number, height: number) => void, failure: (error: any) => void): any
-    prefetch(url: string): any
-    abortPrefetch?(requestId: number): void
-    queryCache?(urls: string[]): Promise<Map<string, 'memory' | 'disk'>>
+export interface ImageProps extends ImagePropsBase {
+    /**
+     *
+     * Style
+     */
+    style?: StyleProp<ImageStyle>;
+}
+
+declare class ImageComponent extends React.Component<ImageProps> {}
+declare const ImageBase: Constructor<NativeMethodsMixin> & typeof ImageComponent;
+export class Image extends ImageBase {
+    static getSize(uri: string, success: (width: number, height: number) => void, failure: (error: any) => void): any;
+    static prefetch(url: string): any;
+    static abortPrefetch?(requestId: number): void;
+    static queryCache?(urls: string[]): Promise<{ [url: string]: 'memory' | 'disk' | 'disk/memory' }>;
+
+    /**
+     * @see https://facebook.github.io/react-native/docs/image.html#resolveassetsource
+     */
+    static resolveAssetSource(source: ImageSourcePropType): ImageResolvedAssetSource;
+}
+
+export interface ImageBackgroundProps extends ImagePropsBase {
+    imageStyle?: StyleProp<ImageStyle>;
+    style?: StyleProp<ViewStyle>;
+    imageRef?(image: Image): void;
+}
+
+declare class ImageBackgroundComponent extends React.Component<ImageBackgroundProps> {}
+declare const ImageBackgroundBase: Constructor<NativeMethodsMixin> & typeof ImageBackgroundComponent;
+export class ImageBackground extends ImageBackgroundBase {
+    resizeMode: ImageResizeMode;
+    getSize(uri: string, success: (width: number, height: number) => void, failure: (error: any) => void): any;
+    prefetch(url: string): any;
+    abortPrefetch?(requestId: number): void;
+    queryCache?(urls: string[]): Promise<{ [url: string]: 'memory' | 'disk' | 'disk/memory' }>;
 }
 
 export interface ViewToken {
@@ -3413,7 +3737,7 @@ export interface ViewabilityConfig {
     viewAreaCoveragePercentThreshold?: number;
 
     /**
-     * Similar to `viewAreaPercentThreshold`, but considers the percent of the item that is visible,
+     * Similar to `viewAreaCoveragePercentThreshold`, but considers the percent of the item that is visible,
      * rather than the fraction of the viewable area it covers.
      */
     itemVisiblePercentThreshold?: number;
@@ -3425,51 +3749,89 @@ export interface ViewabilityConfig {
     waitForInteraction?: boolean;
 }
 
+export interface ViewabilityConfigCallbackPair {
+    viewabilityConfig: ViewabilityConfig;
+    onViewableItemsChanged: ((info: { viewableItems: Array<ViewToken>; changed: Array<ViewToken> }) => void) | null;
+}
+
+export type ViewabilityConfigCallbackPairs = ViewabilityConfigCallbackPair[];
+
 /**
  * @see https://facebook.github.io/react-native/docs/flatlist.html#props
  */
-export interface FlatListProperties<ItemT> extends ScrollViewProperties {
 
+export interface ListRenderItemInfo<ItemT> {
+    item: ItemT;
+
+    index: number;
+
+    separators: {
+        highlight: () => void;
+        unhighlight: () => void;
+        updateProps: (select: 'leading' | 'trailing', newProps: any) => void;
+    };
+}
+
+export type ListRenderItem<ItemT> = (info: ListRenderItemInfo<ItemT>) => React.ReactElement | null;
+
+export interface FlatListProps<ItemT> extends VirtualizedListProps<ItemT> {
     /**
      * Rendered in between each item, but not at the top or bottom
      */
-    ItemSeparatorComponent?: React.ComponentClass<any> | null
+    ItemSeparatorComponent?: React.ComponentType<any> | null;
+
+    /**
+     * Rendered when the list is empty.
+     */
+    ListEmptyComponent?: React.ComponentType<any> | React.ReactElement | null;
 
     /**
      * Rendered at the very end of the list.
      */
-    ListFooterComponent?: React.ComponentClass<any> | (() => React.ReactElement<any>) | null
+    ListFooterComponent?: React.ComponentType<any> | React.ReactElement | null;
+
+    /**
+     * Styling for internal View for ListFooterComponent
+     */
+    ListFooterComponentStyle?: ViewStyle | null;
 
     /**
      * Rendered at the very beginning of the list.
      */
-    ListHeaderComponent?: React.ComponentClass<any> | (() => React.ReactElement<any>) | null
+    ListHeaderComponent?: React.ComponentType<any> | React.ReactElement | null;
+
+    /**
+     * Styling for internal View for ListHeaderComponent
+     */
+    ListHeaderComponentStyle?: ViewStyle | null;
 
     /**
      * Optional custom style for multi-item rows generated when numColumns > 1
      */
-    columnWrapperStyle?: ViewStyle
+    columnWrapperStyle?: StyleProp<ViewStyle>;
 
     /**
-     * When false tapping outside of the focused text input when the keyboard
-     * is up dismisses the keyboard. When true the scroll view will not catch
-     * taps and the keyboard will not dismiss automatically. The default value
-     * is false.
+     * Determines when the keyboard should stay visible after a tap.
+     * - 'never' (the default), tapping outside of the focused text input when the keyboard is up dismisses the keyboard. When this happens, children won't receive the tap.
+     * - 'always', the keyboard will not dismiss automatically, and the scroll view will not catch taps, but children of the scroll view can catch taps.
+     * - 'handled', the keyboard will not dismiss automatically when the tap was handled by a children, (or captured by an ancestor).
+     * - false, deprecated, use 'never' instead
+     * - true, deprecated, use 'always' instead
      */
-    keyboardShouldPersistTaps?: boolean | 'always' | 'never' | 'handled'
+    keyboardShouldPersistTaps?: boolean | 'always' | 'never' | 'handled';
 
     /**
      * For simplicity, data is just a plain array. If you want to use something else,
      * like an immutable list, use the underlying VirtualizedList directly.
      */
-    data: ItemT[] | null;
+    data: ReadonlyArray<ItemT> | null;
 
     /**
      * A marker property for telling the list to re-render (since it implements PureComponent).
      * If any of your `renderItem`, Header, Footer, etc. functions depend on anything outside of the `data` prop,
      * stick it here and treat it immutably.
      */
-    extraData?: any
+    extraData?: any;
 
     /**
      * `getItemLayout` is an optional optimization that lets us skip measurement of dynamic
@@ -3483,32 +3845,45 @@ export interface FlatListProperties<ItemT> extends ScrollViewProperties {
      * Remember to include separator length (height or width) in your offset calculation if you specify
      * `ItemSeparatorComponent`.
      */
-    getItemLayout?: (data: Array<ItemT> | null, index: number) => {length: number, offset: number, index: number}
+    getItemLayout?: (data: Array<ItemT> | null, index: number) => { length: number; offset: number; index: number };
 
     /**
      * If true, renders items next to each other horizontally instead of stacked vertically.
      */
-    horizontal?: boolean
+    horizontal?: boolean;
+
+    /**
+     * How many items to render in the initial batch
+     */
+    initialNumToRender?: number;
+
+    /**
+     * Instead of starting at the top with the first item, start at initialScrollIndex
+     */
+    initialScrollIndex?: number;
 
     /**
      * Used to extract a unique key for a given item at the specified index. Key is used for caching
      * and as the react key to track item re-ordering. The default extractor checks `item.key`, then
      * falls back to using the index, like React does.
      */
-    keyExtractor?: (item: ItemT, index: number) => string
+    keyExtractor?: (item: ItemT, index: number) => string;
 
-    legacyImplementation?: boolean
+    /**
+     * Uses legacy MetroListView instead of default VirtualizedSectionList
+     */
+    legacyImplementation?: boolean;
 
     /**
      * Multiple columns can only be rendered with `horizontal={false}` and will zig-zag like a `flexWrap` layout.
      * Items should all be the same height - masonry layouts are not supported.
      */
-    numColumns?: number
+    numColumns?: number;
 
     /**
      * Called once when the scroll position gets within onEndReachedThreshold of the rendered content.
      */
-    onEndReached?: ((info: {distanceFromEnd: number}) => void) | null
+    onEndReached?: ((info: { distanceFromEnd: number }) => void) | null;
 
     /**
      * How far from the end (in units of visible length of the list) the bottom edge of the
@@ -3516,30 +3891,30 @@ export interface FlatListProperties<ItemT> extends ScrollViewProperties {
      * Thus a value of 0.5 will trigger `onEndReached` when the end of the content is
      * within half the visible length of the list.
      */
-    onEndReachedThreshold?: number | null
+    onEndReachedThreshold?: number | null;
 
     /**
      * If provided, a standard RefreshControl will be added for "Pull to Refresh" functionality.
      * Make sure to also set the refreshing prop correctly.
      */
-    onRefresh?: (() => void) | null
+    onRefresh?: (() => void) | null;
 
     /**
      * Called when the viewability of rows changes, as defined by the `viewablePercentThreshold` prop.
      */
-    onViewableItemsChanged?: ((info: {viewableItems: Array<ViewToken>, changed: Array<ViewToken>}) => void) | null
+    onViewableItemsChanged?: ((info: { viewableItems: Array<ViewToken>; changed: Array<ViewToken> }) => void) | null;
 
     /**
      * Set this true while waiting for new data from a refresh.
      */
-    refreshing?: boolean | null
+    refreshing?: boolean | null;
 
     /**
      * Takes an item from data and renders it into the list. Typical usage:
      * ```
      * _renderItem = ({item}) => (
      *   <TouchableOpacity onPress={() => this._onPress(item)}>
-     *     <Text>{item.title}}</Text>
+     *     <Text>{item.title}</Text>
      *   <TouchableOpacity/>
      * );
      * ...
@@ -3547,166 +3922,442 @@ export interface FlatListProperties<ItemT> extends ScrollViewProperties {
      * ```
      * Provides additional metadata like `index` if you need it.
      */
-    renderItem: (info: ItemT) => React.ReactElement<any> | null
+    renderItem: ListRenderItem<ItemT>;
 
     /**
      * See `ViewabilityHelper` for flow type and further documentation.
      */
-    viewabilityConfig?: any
+    viewabilityConfig?: any;
 
     /**
      * Note: may have bugs (missing content) in some circumstances - use at your own risk.
      *
      * This may improve scroll performance for large lists.
      */
-    removeClippedSubviews?: boolean
+    removeClippedSubviews?: boolean;
 }
 
-export interface FlatListStatic<ItemT> extends React.ComponentClass<FlatListProperties<ItemT>> {
-
+export class FlatList<ItemT> extends React.Component<FlatListProps<ItemT>> {
     /**
      * Exports some data, e.g. for perf investigations or analytics.
      */
     getMetrics: () => {
-        contentLength: number,
-        totalRows: number,
-        renderedRows: number,
-        visibleRows: number,
-    }
+        contentLength: number;
+        totalRows: number;
+        renderedRows: number;
+        visibleRows: number;
+    };
 
     /**
      * Scrolls to the end of the content. May be janky without `getItemLayout` prop.
      */
-    scrollToEnd: (params?: {animated?: boolean}) => void
+    scrollToEnd: (params?: { animated?: boolean }) => void;
 
     /**
-     * Scrolls to the item at a the specified index such that it is positioned in the viewable area
-     * such that `viewPosition` 0 places it at the top, 1 at the bottom, and 0.5 centered in the middle.
-     * May be janky without `getItemLayout` prop.
+     * Scrolls to the item at the specified index such that it is positioned in the viewable area
+     * such that viewPosition 0 places it at the top, 1 at the bottom, and 0.5 centered in the middle.
+     * Cannot scroll to locations outside the render window without specifying the getItemLayout prop.
      */
-    scrollToIndex: (params: {animated?: boolean, index: number, viewPosition?: number}) => void
+    scrollToIndex: (params: { animated?: boolean; index: number; viewOffset?: number; viewPosition?: number }) => void;
 
     /**
      * Requires linear scan through data - use `scrollToIndex` instead if possible.
      * May be janky without `getItemLayout` prop.
      */
-    scrollToItem: (params: {animated?: boolean, index: number, viewPosition?: number}) => void
+    scrollToItem: (params: { animated?: boolean; item: ItemT; viewPosition?: number }) => void;
 
     /**
      * Scroll to a specific content pixel offset, like a normal `ScrollView`.
      */
-    scrollToOffset: (params: {animated?: boolean, offset: number}) => void
+    scrollToOffset: (params: { animated?: boolean; offset: number }) => void;
 
     /**
      * Tells the list an interaction has occured, which should trigger viewability calculations,
      * e.g. if waitForInteractions is true and the user has not scrolled. This is typically called
      * by taps on items or by navigation actions.
      */
-    recordInteraction: () => void
-}
+    recordInteraction: () => void;
 
-export interface SectionListData<ItemT> {
-
-    data: ItemT[]
-
-    key: string
-
-    renderItem?: (info: {item: ItemT, index: number}) => React.ReactElement<any> | null
-
-    keyExtractor?: (item: ItemT, index: number) => string
+    /**
+     * Displays the scroll indicators momentarily.
+     */
+    flashScrollIndicators: () => void;
 }
 
 /**
  * @see https://facebook.github.io/react-native/docs/sectionlist.html
  */
-export interface SectionListProperties<ItemT> extends ScrollViewProperties {
+export interface SectionBase<ItemT> {
+    data: ReadonlyArray<ItemT>;
 
+    key?: string;
+
+    renderItem?: SectionListRenderItem<ItemT>;
+
+    ItemSeparatorComponent?: React.ComponentType<any> | null;
+
+    keyExtractor?: (item: ItemT, index: number) => string;
+}
+
+export interface SectionListData<ItemT> extends SectionBase<ItemT> {
+    [key: string]: any;
+}
+
+/**
+ * @see https://facebook.github.io/react-native/docs/sectionlist.html#props
+ */
+
+export interface SectionListRenderItemInfo<ItemT> extends ListRenderItemInfo<ItemT> {
+    section: SectionListData<ItemT>;
+}
+
+export type SectionListRenderItem<ItemT> = (info: SectionListRenderItemInfo<ItemT>) => React.ReactElement | null;
+
+export interface SectionListProps<ItemT> extends VirtualizedListWithoutRenderItemProps<ItemT> {
     /**
      * Rendered in between adjacent Items within each section.
      */
-    ItemSeparatorComponent?: React.ComponentClass<any> | null
+    ItemSeparatorComponent?: React.ComponentType<any> | null;
+
+    /**
+     * Rendered when the list is empty.
+     */
+    ListEmptyComponent?: React.ComponentType<any> | React.ReactElement | null;
 
     /**
      * Rendered at the very end of the list.
      */
-    ListFooterComponent?: React.ComponentClass<any> | (() => React.ReactElement<any>) | null
+    ListFooterComponent?: React.ComponentType<any> | React.ReactElement | null;
 
     /**
      * Rendered at the very beginning of the list.
      */
-    ListHeaderComponent?: React.ComponentClass<any> | (() => React.ReactElement<any>) | null
+    ListHeaderComponent?: React.ComponentType<any> | React.ReactElement | null;
 
     /**
      * Rendered in between each section.
      */
-    SectionSeparatorComponent?: React.ComponentClass<any> | null
+    SectionSeparatorComponent?: React.ComponentType<any> | React.ReactElement | null;
 
     /**
      * A marker property for telling the list to re-render (since it implements PureComponent).
      * If any of your `renderItem`, Header, Footer, etc. functions depend on anything outside of the `data` prop,
      * stick it here and treat it immutably.
      */
-    extraData?: any
+    extraData?: any;
+
+    /**
+     * `getItemLayout` is an optional optimization that lets us skip measurement of dynamic
+     * content if you know the height of items a priori. getItemLayout is the most efficient,
+     * and is easy to use if you have fixed height items, for example:
+     * ```
+     * getItemLayout={(data, index) => (
+     *   {length: ITEM_HEIGHT, offset: ITEM_HEIGHT * index, index}
+     * )}
+     * ```
+     */
+    getItemLayout?: (
+        data: SectionListData<ItemT>[] | null,
+        index: number,
+    ) => { length: number; offset: number; index: number };
+
+    /**
+     * How many items to render in the initial batch
+     */
+    initialNumToRender?: number;
+
+    /**
+     * Reverses the direction of scroll. Uses scale transforms of -1.
+     */
+    inverted?: boolean;
 
     /**
      * Used to extract a unique key for a given item at the specified index. Key is used for caching
      * and as the react key to track item re-ordering. The default extractor checks `item.key`, then
      * falls back to using the index, like React does.
      */
-    keyExtractor?: (item: ItemT, index: number) => string
+    keyExtractor?: (item: ItemT, index: number) => string;
+
+    /**
+     * Called once when the scroll position gets within onEndReachedThreshold of the rendered content.
+     */
+    onEndReached?: ((info: { distanceFromEnd: number }) => void) | null;
+
+    /**
+     * How far from the end (in units of visible length of the list) the bottom edge of the
+     * list must be from the end of the content to trigger the `onEndReached` callback.
+     * Thus a value of 0.5 will trigger `onEndReached` when the end of the content is
+     * within half the visible length of the list.
+     */
+    onEndReachedThreshold?: number | null;
 
     /**
      * If provided, a standard RefreshControl will be added for "Pull to Refresh" functionality.
      * Make sure to also set the refreshing prop correctly.
      */
-    onRefresh?: (() => void) | null
+    onRefresh?: (() => void) | null;
+
+    /**
+     * Used to handle failures when scrolling to an index that has not been measured yet.
+     * Recommended action is to either compute your own offset and `scrollTo` it, or scroll as far
+     * as possible and then try again after more items have been rendered.
+     */
+    onScrollToIndexFailed?: (info: {
+        index: number;
+        highestMeasuredFrameIndex: number;
+        averageItemLength: number;
+    }) => void;
 
     /**
      * Set this true while waiting for new data from a refresh.
      */
-    refreshing?: boolean | null
+    refreshing?: boolean | null;
 
     /**
      * Default renderer for every item in every section. Can be over-ridden on a per-section basis.
      */
-    renderItem?: (info: {item: ItemT, index: number}) => React.ReactElement<any> | null
+    renderItem?: SectionListRenderItem<ItemT>;
 
     /**
      * Rendered at the top of each section. Sticky headers are not yet supported.
      */
-    renderSectionHeader?: (info: {section: SectionListData<ItemT>}) => React.ReactElement<any> | null
+    renderSectionHeader?: (info: { section: SectionListData<ItemT> }) => React.ReactElement | null;
+
+    /**
+     * Rendered at the bottom of each section.
+     */
+    renderSectionFooter?: (info: { section: SectionListData<ItemT> }) => React.ReactElement | null;
 
     /**
      * An array of objects with data for each section.
      */
-    sections: SectionListData<ItemT>[]
+    sections: ReadonlyArray<SectionListData<ItemT>>;
 
     /**
      * Render a custom scroll component, e.g. with a differently styled `RefreshControl`.
      */
-    renderScrollComponent?: (props: ScrollViewProperties) => React.ReactElement<ScrollViewProperties>
+    renderScrollComponent?: (props: ScrollViewProps) => React.ReactElement<ScrollViewProps>;
 
     /**
      * Note: may have bugs (missing content) in some circumstances - use at your own risk.
      *
      * This may improve scroll performance for large lists.
-    */
-    removeClippedSubviews?: boolean
+     */
+    removeClippedSubviews?: boolean;
+
+    /**
+     * Makes section headers stick to the top of the screen until the next one pushes it off.
+     * Only enabled by default on iOS because that is the platform standard there.
+     */
+    stickySectionHeadersEnabled?: boolean;
+
+    /**
+     * Uses legacy MetroListView instead of default VirtualizedSectionList
+     */
+    legacyImplementation?: boolean;
 }
 
-export interface SectionListStatic<SectionT> extends React.ComponentClass<SectionListProperties<SectionT>> {
+export interface SectionListScrollParams {
+    animated?: boolean;
+    itemIndex: number;
+    sectionIndex: number;
+    viewOffset?: number;
+    viewPosition?: number;
+}
 
+export interface SectionListStatic<SectionT> extends React.ComponentClass<SectionListProps<SectionT>> {
+    /**
+     * Scrolls to the item at the specified sectionIndex and itemIndex (within the section)
+     * positioned in the viewable area such that viewPosition 0 places it at the top
+     * (and may be covered by a sticky header), 1 at the bottom, and 0.5 centered in the middle.
+     */
+    scrollToLocation?(params: SectionListScrollParams): void;
+}
+
+/**
+ * @see https://facebook.github.io/react-native/docs/virtualizedlist.html#props
+ */
+export interface VirtualizedListProps<ItemT> extends VirtualizedListWithoutRenderItemProps<ItemT> {
+    renderItem: ListRenderItem<ItemT>;
+}
+
+export interface VirtualizedListWithoutRenderItemProps<ItemT> extends ScrollViewProps {
+    /**
+     * Rendered when the list is empty. Can be a React Component Class, a render function, or
+     * a rendered element.
+     */
+    ListEmptyComponent?: React.ComponentType<any> | React.ReactElement | null;
+
+    /**
+     * Rendered at the bottom of all the items. Can be a React Component Class, a render function, or
+     * a rendered element.
+     */
+    ListFooterComponent?: React.ComponentType<any> | React.ReactElement | null;
+
+    /**
+     * Rendered at the top of all the items. Can be a React Component Class, a render function, or
+     * a rendered element.
+     */
+    ListHeaderComponent?: React.ComponentType<any> | React.ReactElement | null;
+
+    /**
+     * The default accessor functions assume this is an Array<{key: string}> but you can override
+     * getItem, getItemCount, and keyExtractor to handle any type of index-based data.
+     */
+    data?: any;
+
+    /**
+     * `debug` will turn on extra logging and visual overlays to aid with debugging both usage and
+     * implementation, but with a significant perf hit.
+     */
+    debug?: boolean;
+
+    /**
+     * DEPRECATED: Virtualization provides significant performance and memory optimizations, but fully
+     * unmounts react instances that are outside of the render window. You should only need to disable
+     * this for debugging purposes.
+     */
+    disableVirtualization?: boolean;
+
+    /**
+     * A marker property for telling the list to re-render (since it implements `PureComponent`). If
+     * any of your `renderItem`, Header, Footer, etc. functions depend on anything outside of the
+     * `data` prop, stick it here and treat it immutably.
+     */
+    extraData?: any;
+
+    /**
+     * A generic accessor for extracting an item from any sort of data blob.
+     */
+    getItem?: (data: any, index: number) => ItemT;
+
+    /**
+     * Determines how many items are in the data blob.
+     */
+    getItemCount?: (data: any) => number;
+
+    getItemLayout?: (
+        data: any,
+        index: number,
+    ) => {
+        length: number;
+        offset: number;
+        index: number;
+    };
+
+    horizontal?: boolean;
+
+    /**
+     * How many items to render in the initial batch. This should be enough to fill the screen but not
+     * much more. Note these items will never be unmounted as part of the windowed rendering in order
+     * to improve perceived performance of scroll-to-top actions.
+     */
+    initialNumToRender?: number;
+
+    /**
+     * Instead of starting at the top with the first item, start at `initialScrollIndex`. This
+     * disables the "scroll to top" optimization that keeps the first `initialNumToRender` items
+     * always rendered and immediately renders the items starting at this initial index. Requires
+     * `getItemLayout` to be implemented.
+     */
+    initialScrollIndex?: number;
+
+    /**
+     * Reverses the direction of scroll. Uses scale transforms of -1.
+     */
+    inverted?: boolean;
+
+    keyExtractor?: (item: ItemT, index: number) => string;
+
+    listKey?: string;
+
+    /**
+     * The maximum number of items to render in each incremental render batch. The more rendered at
+     * once, the better the fill rate, but responsiveness my suffer because rendering content may
+     * interfere with responding to button taps or other interactions.
+     */
+    maxToRenderPerBatch?: number;
+
+    onEndReached?: ((info: { distanceFromEnd: number }) => void) | null;
+
+    onEndReachedThreshold?: number | null;
+
+    onLayout?: (event: LayoutChangeEvent) => void;
+
+    /**
+     * If provided, a standard RefreshControl will be added for "Pull to Refresh" functionality. Make
+     * sure to also set the `refreshing` prop correctly.
+     */
+    onRefresh?: (() => void) | null;
+
+    /**
+     * Used to handle failures when scrolling to an index that has not been measured yet.
+     * Recommended action is to either compute your own offset and `scrollTo` it, or scroll as far
+     * as possible and then try again after more items have been rendered.
+     */
+    onScrollToIndexFailed?: (info: {
+        index: number;
+        highestMeasuredFrameIndex: number;
+        averageItemLength: number;
+    }) => void;
+
+    /**
+     * Called when the viewability of rows changes, as defined by the
+     * `viewabilityConfig` prop.
+     */
+    onViewableItemsChanged?: ((info: { viewableItems: Array<ViewToken>; changed: Array<ViewToken> }) => void) | null;
+
+    /**
+     * Set this when offset is needed for the loading indicator to show correctly.
+     * @platform android
+     */
+    progressViewOffset?: number;
+
+    /**
+     * Set this true while waiting for new data from a refresh.
+     */
+    refreshing?: boolean | null;
+
+    /**
+     * Note: may have bugs (missing content) in some circumstances - use at your own risk.
+     *
+     * This may improve scroll performance for large lists.
+     */
+    removeClippedSubviews?: boolean;
+
+    /**
+     * Render a custom scroll component, e.g. with a differently styled `RefreshControl`.
+     */
+    renderScrollComponent?: (props: ScrollViewProps) => React.ReactElement<ScrollViewProps>;
+
+    /**
+     * Amount of time between low-pri item render batches, e.g. for rendering items quite a ways off
+     * screen. Similar fill rate/responsiveness tradeoff as `maxToRenderPerBatch`.
+     */
+    updateCellsBatchingPeriod?: number;
+
+    viewabilityConfig?: ViewabilityConfig;
+
+    viewabilityConfigCallbackPairs?: ViewabilityConfigCallbackPairs;
+
+    /**
+     * Determines the maximum number of items rendered outside of the visible area, in units of
+     * visible lengths. So if your list fills the screen, then `windowSize={21}` (the default) will
+     * render the visible screen area plus up to 10 screens above and 10 below the viewport. Reducing
+     * this number will reduce memory consumption and may improve performance, but will increase the
+     * chance that fast scrolling may reveal momentary blank areas of unrendered content.
+     */
+    windowSize?: number;
 }
 
 /**
  * @see https://facebook.github.io/react-native/docs/listview.html#props
  */
-export interface ListViewProperties extends ScrollViewProperties {
-
+export interface ListViewProps extends ScrollViewProps {
     /**
      * An instance of [ListView.DataSource](docs/listviewdatasource.html) to use
      */
-    dataSource: ListViewDataSource
+    dataSource: ListViewDataSource;
 
     /**
      * Flag indicating whether empty section headers should be rendered.
@@ -3715,14 +4366,14 @@ export interface ListViewProperties extends ScrollViewProperties {
      * desired to be rendered their indices should be excluded from
      * sectionID object.
      */
-    enableEmptySections?: boolean
+    enableEmptySections?: boolean;
 
     /**
      * How many rows to render on initial component mount.  Use this to make
      * it so that the first screen worth of data apears at one time instead of
      * over the course of multiple frames.
      */
-    initialListSize?: number
+    initialListSize?: number;
 
     /**
      * (visibleRows, changedRows) => void
@@ -3733,31 +4384,34 @@ export interface ListViewProperties extends ScrollViewProperties {
      * that have changed their visibility, with true indicating visible, and
      * false indicating the view has moved out of view.
      */
-    onChangeVisibleRows?: (visibleRows: Array<{ [sectionId: string]: { [rowID: string]: boolean } }>, changedRows: Array<{ [sectionId: string]: { [rowID: string]: boolean } }>) => void
+    onChangeVisibleRows?: (
+        visibleRows: Array<{ [sectionId: string]: { [rowID: string]: boolean } }>,
+        changedRows: Array<{ [sectionId: string]: { [rowID: string]: boolean } }>,
+    ) => void;
 
     /**
      * Called when all rows have been rendered and the list has been scrolled
      * to within onEndReachedThreshold of the bottom.  The native scroll
      * event is provided.
      */
-    onEndReached?: () => void
+    onEndReached?: () => void;
 
     /**
      * Threshold in pixels for onEndReached.
      */
-    onEndReachedThreshold?: number
+    onEndReachedThreshold?: number;
 
     /**
      * Number of rows to render per event loop.
      */
-    pageSize?: number
+    pageSize?: number;
 
     /**
      * A performance optimization for improving scroll perf of
      * large lists, used in conjunction with overflow: 'hidden' on the row
      * containers.  Use at your own risk.
      */
-    removeClippedSubviews?: boolean
+    removeClippedSubviews?: boolean;
 
     /**
      * () => renderable
@@ -3767,7 +4421,7 @@ export interface ListViewProperties extends ScrollViewProperties {
      * in StaticContainer or other mechanism as appropriate.  Footer is always
      * at the bottom of the list, and header at the top, on every render pass.
      */
-    renderFooter?: () => React.ReactElement<any>
+    renderFooter?: () => React.ReactElement;
 
     /**
      * () => renderable
@@ -3777,7 +4431,7 @@ export interface ListViewProperties extends ScrollViewProperties {
      * in StaticContainer or other mechanism as appropriate.  Footer is always
      * at the bottom of the list, and header at the top, on every render pass.
      */
-    renderHeader?: () => React.ReactElement<any>
+    renderHeader?: () => React.ReactElement;
 
     /**
      * (rowData, sectionID, rowID) => renderable
@@ -3786,14 +4440,18 @@ export interface ListViewProperties extends ScrollViewProperties {
      * is exactly what was put into the data source, but it's also possible to
      * provide custom extractors.
      */
-    renderRow: ( rowData: any, sectionID: string | number, rowID: string | number, highlightRow?: boolean ) => React.ReactElement<any>
-
+    renderRow: (
+        rowData: any,
+        sectionID: string | number,
+        rowID: string | number,
+        highlightRow?: boolean,
+    ) => React.ReactElement;
 
     /**
      * A function that returns the scrollable component in which the list rows are rendered.
      * Defaults to returning a ScrollView with the given props.
      */
-    renderScrollComponent?: (props: ScrollViewProperties) => React.ReactElement<ScrollViewProperties>
+    renderScrollComponent?: (props: ScrollViewProps) => React.ReactElement<ScrollViewProps>;
 
     /**
      * (sectionData, sectionID) => renderable
@@ -3804,8 +4462,7 @@ export interface ListViewProperties extends ScrollViewProperties {
      * stick to the top until it is pushed off the screen by the next section
      * header.
      */
-    renderSectionHeader?: (sectionData: any, sectionId: string | number) => React.ReactElement<any>
-
+    renderSectionHeader?: (sectionData: any, sectionId: string | number) => React.ReactElement;
 
     /**
      * (sectionID, rowID, adjacentRowHighlighted) => renderable
@@ -3813,13 +4470,17 @@ export interface ListViewProperties extends ScrollViewProperties {
      * but not the last row if there is a section header below.
      * Take a sectionID and rowID of the row above and whether its adjacent row is highlighted.
      */
-    renderSeparator?: (sectionID: string | number, rowID: string | number, adjacentRowHighlighted?: boolean) => React.ReactElement<any>
+    renderSeparator?: (
+        sectionID: string | number,
+        rowID: string | number,
+        adjacentRowHighlighted?: boolean,
+    ) => React.ReactElement;
 
     /**
      * How early to start rendering rows before they come on screen, in
      * pixels.
      */
-    scrollRenderAheadDistance?: number
+    scrollRenderAheadDistance?: number;
 
     /**
      * An array of child indices determining which children get docked to the
@@ -3829,225 +4490,73 @@ export interface ListViewProperties extends ScrollViewProperties {
      * with `horizontal={true}`.
      * @platform ios
      */
-    stickyHeaderIndices?: number[]
-}
+    stickyHeaderIndices?: number[];
 
+    /**
+     * Makes the sections headers sticky. The sticky behavior means that it will scroll with the
+     * content at the top of the section until it reaches the top of the screen, at which point it
+     * will stick to the top until it is pushed off the screen by the next section header. This
+     * property is not supported in conjunction with `horizontal={true}`. Only enabled by default
+     * on iOS because of typical platform standards.
+     */
+    stickySectionHeadersEnabled?: boolean;
+}
 
 interface TimerMixin {
-    setTimeout: typeof setTimeout,
-    clearTimeout: typeof clearTimeout,
-    setInterval: typeof setInterval,
-    clearInterval: typeof clearInterval,
-    setImmediate: typeof setImmediate,
-    clearImmediate: typeof clearImmediate,
-    requestAnimationFrame: typeof requestAnimationFrame,
-    cancelAnimationFrame: typeof cancelAnimationFrame,
+    setTimeout: typeof setTimeout;
+    clearTimeout: typeof clearTimeout;
+    setInterval: typeof setInterval;
+    clearInterval: typeof clearInterval;
+    setImmediate: typeof setImmediate;
+    clearImmediate: typeof clearImmediate;
+    requestAnimationFrame: typeof requestAnimationFrame;
+    cancelAnimationFrame: typeof cancelAnimationFrame;
 }
 
-export interface ListViewStatic extends ScrollResponderMixin, TimerMixin, React.ComponentClass<ListViewProperties> {
-    DataSource: ListViewDataSource;
+declare class ListViewComponent extends React.Component<ListViewProps> {}
+declare const ListViewBase: Constructor<ScrollResponderMixin> & Constructor<TimerMixin> & typeof ListViewComponent;
+export class ListView extends ListViewBase {
+    static DataSource: ListViewDataSource;
 
     /**
      * Exports some data, e.g. for perf investigations or analytics.
      */
     getMetrics: () => {
-        contentLength: number,
-        totalRows: number,
-        renderedRows: number,
-        visibleRows: number,
-    }
+        contentLength: number;
+        totalRows: number;
+        renderedRows: number;
+        visibleRows: number;
+    };
 
     /**
      * Provides a handle to the underlying scroll responder.
      */
-    getScrollResponder: () => any,
+    getScrollResponder: () => any;
 
     /**
      * Scrolls to a given x, y offset, either immediately or with a smooth animation.
      *
      * See `ScrollView#scrollTo`.
      */
-    scrollTo: ( y?: number | { x?: number, y?: number, animated?: boolean } , x?: number, animated?: boolean ) => void,
+    scrollTo: (y?: number | { x?: number; y?: number; animated?: boolean }, x?: number, animated?: boolean) => void;
 }
 
-
-export interface MapViewAnnotation {
-    latitude: number
-    longitude: number
-    animateDrop?: boolean
-    draggable?: boolean
-    onDragStateChange?: () => any,
-    onFocus?: () => any,
-    onBlur?: () => any,
-    title?: string
-    subtitle?: string
-    leftCalloutView?: React.ReactElement<any>
-    rightCalloutView?: React.ReactElement<any>
-    detailCalloutView?: React.ReactElement<any>
-    tintColor?: string
-    image?: ImageURISource
-    view?: React.ReactElement<any>
-    hasLeftCallout?: boolean
-    hasRightCallout?: boolean
-    onLeftCalloutPress?: () => void
-    onRightCalloutPress?: () => void
-    id?: string
-}
-
-export interface MapViewRegion {
-    latitude: number
-    longitude: number
-    latitudeDelta?: number
-    longitudeDelta?: number
-}
-
-export interface MapViewOverlay {
-    coordinates: ({ latitude: number, longitude: number })[]
-    lineWidth?: number
-    strokeColor?: string
-    fillColor?: string
-    id?: string
-}
-
-export interface MapViewProperties extends ViewProperties {
-
-    /**
-     * If false points of interest won't be displayed on the map.
-     * Default value is true.
-     */
-    showsPointsOfInterest?: boolean
-
-    /**
-     * Map annotations with title/subtitle.
-     */
-    annotations?: MapViewAnnotation[]
-
-    /**
-     * If true the map will follow the user's location whenever it changes.
-     * Note that this has no effect unless showsUserLocation is enabled.
-     * Default value is true.
-     */
-    followUserLocation?: boolean
-
-    /**
-     * Insets for the map's legal label, originally at bottom left of the map. See EdgeInsetsPropType.js for more information.
-     */
-    legalLabelInsets?: Insets
-
-    /**
-     * The map type to be displayed.
-     *     standard: standard road map (default)
-     *     satellite: satellite view
-     *     hybrid: satellite view with roads and points of interest overlayed
-     *
-     * enum('standard', 'satellite', 'hybrid')
-     */
-    mapType?: 'standard' |'satellite' |'hybrid'
-
-    /**
-     * Maximum size of area that can be displayed.
-     */
-    maxDelta?: number
-
-    /**
-     * Minimum size of area that can be displayed.
-     */
-    minDelta?: number
-
-    /**
-     * Map overlays
-     */
-    overlays?: MapViewOverlay[]
-
-    /**
-     * If false compass won't be displayed on the map.
-     * Default value is true.
-     */
-    showsCompass?: boolean
-
-    /**
-     * Callback that is called once, when the user taps an annotation.
-     */
-    onAnnotationPress?: () => void
-
-    /**
-     * Callback that is called continuously when the user is dragging the map.
-     */
-    onRegionChange?: (region: MapViewRegion) => void
-
-    /**
-     * Callback that is called once, when the user is done moving the map.
-     */
-    onRegionChangeComplete?: (region: MapViewRegion) => void
-
-    /**
-     * When this property is set to true and a valid camera is associated with the map,
-     * the camera’s pitch angle is used to tilt the plane of the map.
-     *
-     * When this property is set to false, the camera’s pitch angle is ignored and
-     * the map is always displayed as if the user is looking straight down onto it.
-     */
-    pitchEnabled?: boolean
-
-    /**
-     * The region to be displayed by the map.
-     * The region is defined by the center coordinates and the span of coordinates to display.
-     */
-    region?: MapViewRegion
-
-    /**
-     * When this property is set to true and a valid camera is associated with the map,
-     * the camera’s heading angle is used to rotate the plane of the map around its center point.
-     *
-     * When this property is set to false, the camera’s heading angle is ignored and the map is always oriented
-     * so that true north is situated at the top of the map view
-     */
-    rotateEnabled?: boolean
-
-    /**
-     * If false the user won't be able to change the map region being displayed.
-     * Default value is true.
-     */
-    scrollEnabled?: boolean
-
-    /**
-     * If true the app will ask for the user's location and focus on it.
-     * Default value is false.
-     *
-     * NOTE: You need to add NSLocationWhenInUseUsageDescription key in Info.plist to enable geolocation,
-     * otherwise it is going to fail silently!
-     */
-    showsUserLocation?: boolean
-
-    /**
-     * Used to style and layout the MapView.
-     * See StyleSheet.js and ViewStylePropTypes.js for more info.
-     */
-    style?: ViewStyle
-
-    /**
-     * If false the user won't be able to pinch/zoom the map.
-     * Default value is true.
-     */
-    zoomEnabled?: boolean
+interface MaskedViewIOSProps extends ViewProps {
+    maskElement: React.ReactElement;
 }
 
 /**
- * @see https://facebook.github.io/react-native/docs/mapview.html#content
+ * @see https://facebook.github.io/react-native/docs/maskedviewios.html
  */
-export interface MapViewStatic extends NativeMethodsMixin, React.ComponentClass<MapViewProperties> {
-    PinColors: {
-        RED: string,
-        GREEN: string,
-        PURPLE: string
-    }
-}
+declare class MaskedViewComponent extends React.Component<MaskedViewIOSProps> {}
+declare const MaskedViewBase: Constructor<NativeMethodsMixin> & typeof MaskedViewComponent;
+export class MaskedViewIOS extends MaskedViewBase {}
 
-export interface ModalProperties {
-
-    // Only `animated` is documented. The JS code says `animated` is
-    // deprecated and `animationType` is preferred.
-    animated?: boolean
+export interface ModalBaseProps {
+    /**
+     * @deprecated Use animationType indead
+     */
+    animated?: boolean;
     /**
      * The `animationType` prop controls how the modal animates.
      *
@@ -4055,54 +4564,74 @@ export interface ModalProperties {
      * - `fade` fades into view
      * - `none` appears without an animation
      */
-    animationType?: "none" | "slide" | "fade"
+    animationType?: 'none' | 'slide' | 'fade';
     /**
      * The `transparent` prop determines whether your modal will fill the entire view.
      * Setting this to `true` will render the modal over a transparent background.
      */
-    transparent?: boolean
+    transparent?: boolean;
     /**
      * The `visible` prop determines whether your modal is visible.
      */
-    visible?: boolean
+    visible?: boolean;
     /**
      * The `onRequestClose` prop allows passing a function that will be called once the modal has been dismissed.
      * _On the Android platform, this is a required function._
      */
-    onRequestClose?: () => void
+    onRequestClose?: () => void;
     /**
      * The `onShow` prop allows passing a function that will be called once the modal has been shown.
      */
-    onShow?: (event: NativeSyntheticEvent<any>) => void
+    onShow?: (event: NativeSyntheticEvent<any>) => void;
+}
+
+export interface ModalPropsIOS {
+    /**
+     * The `presentationStyle` determines the style of modal to show
+     */
+    presentationStyle?: 'fullScreen' | 'pageSheet' | 'formSheet' | 'overFullScreen';
+
     /**
      * The `supportedOrientations` prop allows the modal to be rotated to any of the specified orientations.
      * On iOS, the modal is still restricted by what's specified in your app's Info.plist's UISupportedInterfaceOrientations field.
-     * @platform ios
      */
-    supportedOrientations?: ('portrait' | 'portrait-upside-down' | 'landscape' | 'landscape-left' | 'landscape-right')[]
+    supportedOrientations?: Array<
+        'portrait' | 'portrait-upside-down' | 'landscape' | 'landscape-left' | 'landscape-right'
+    >;
+
+    /**
+     * The `onDismiss` prop allows passing a function that will be called once the modal has been dismissed.
+     */
+    onDismiss?: () => void;
+
     /**
      * The `onOrientationChange` callback is called when the orientation changes while the modal is being displayed.
      * The orientation provided is only 'portrait' or 'landscape'. This callback is also called on initial render, regardless of the current orientation.
-     * @platform ios
      */
-    onOrientationChange?: () => void
+    onOrientationChange?: (event: NativeSyntheticEvent<any>) => void;
 }
 
-export interface ModalStatic extends React.ComponentClass<ModalProperties> {
-
+export interface ModalPropsAndroid {
+    /**
+     *  Controls whether to force hardware acceleration for the underlying window.
+     */
+    hardwareAccelerated?: boolean;
 }
+
+export type ModalProps = ModalBaseProps & ModalPropsIOS & ModalPropsAndroid;
+
+export class Modal extends React.Component<ModalProps> {}
 
 /**
  * @see https://github.com/facebook/react-native/blob/0.34-stable\Libraries\Components\Touchable\Touchable.js
  */
 interface TouchableMixin {
-
     /**
      * Invoked when the item should be highlighted. Mixers should implement this
      * to visually distinguish the `VisualRect` so that the user knows that
      * releasing a touch will result in a "selection" (analog to click).
      */
-    touchableHandleActivePressIn(e: Event): void
+    touchableHandleActivePressIn(e: GestureResponderEvent): void;
 
     /**
      * Invoked when the item is "active" (in that it is still eligible to become
@@ -4113,14 +4642,14 @@ interface TouchableMixin {
      * event will not fire on an `touchEnd/mouseUp` event, only move events while
      * the user is depressing the mouse/touch.
      */
-    touchableHandleActivePressOut(e: Event): void
+    touchableHandleActivePressOut(e: GestureResponderEvent): void;
 
     /**
      * Invoked when the item is "selected" - meaning the interaction ended by
      * letting up while the item was either in the state
      * `RESPONDER_ACTIVE_PRESS_IN` or `RESPONDER_INACTIVE_PRESS_IN`.
      */
-    touchableHandlePress(e: Event): void
+    touchableHandlePress(e: GestureResponderEvent): void;
 
     /**
      * Invoked when the item is long pressed - meaning the interaction ended by
@@ -4132,82 +4661,54 @@ interface TouchableMixin {
      * to return false. As a result, `touchableHandlePress` will be called when
      * lifting up, even if `touchableHandleLongPress` has also been called.
      */
-    touchableHandleLongPress(e: Event): void
+    touchableHandleLongPress(e: GestureResponderEvent): void;
 
     /**
      * Returns the amount to extend the `HitRect` into the `PressRect`. Positive
      * numbers mean the size expands outwards.
      */
-    touchableGetPressRectOffset(): Insets
+    touchableGetPressRectOffset(): Insets;
 
     /**
      * Returns the number of millis to wait before triggering a highlight.
      */
-    touchableGetHighlightDelayMS(): number
+    touchableGetHighlightDelayMS(): number;
 
     // These methods are undocumented but still being used by TouchableMixin internals
-    touchableGetLongPressDelayMS(): number
-    touchableGetPressOutDelayMS(): number
-    touchableGetHitSlop(): Insets
+    touchableGetLongPressDelayMS(): number;
+    touchableGetPressOutDelayMS(): number;
+    touchableGetHitSlop(): Insets;
 }
 
-export interface TouchableWithoutFeedbackAndroidProperties {
-
+export interface TouchableWithoutFeedbackPropsIOS {
     /**
-     * Indicates to accessibility services to treat UI component like a native one.
-     * Works for Android only.
+     * *(Apple TV only)* TV preferred focus (see documentation for the View component).
      *
-     * @enum('none', 'button', 'radiobutton_checked', 'radiobutton_unchecked' )
+     * @platform ios
      */
-    accessibilityComponentType?: 'none' | 'button' | 'radiobutton_checked' | 'radiobutton_unchecked'
-}
-
-type ViewAccessibilityTraits =
-    'none' |
-    'button' |
-    'link' |
-    'header' |
-    'search' |
-    'image' |
-    'selected' |
-    'plays' |
-    'key' |
-    'text' |
-    'summary' |
-    'disabled' |
-    'frequentUpdates' |
-    'startsMedia' |
-    'adjustable' |
-    'allowsDirectInteraction' |
-    'pageTurn'
-
-export interface TouchableWithoutFeedbackIOSProperties {
+    hasTVPreferredFocus?: boolean;
 
     /**
-     * Provides additional traits to screen reader.
-     * By default no traits are provided unless specified otherwise in element
+     * *(Apple TV only)* Object with properties to control Apple TV parallax effects.
+     *
+     * enabled: If true, parallax effects are enabled.  Defaults to true.
+     * shiftDistanceX: Defaults to 2.0.
+     * shiftDistanceY: Defaults to 2.0.
+     * tiltAngle: Defaults to 0.05.
+     * magnification: Defaults to 1.0.
+     * pressMagnification: Defaults to 1.0.
+     * pressDuration: Defaults to 0.3.
+     * pressDelay: Defaults to 0.0.
+     *
+     * @platform ios
      */
-    accessibilityTraits?: ViewAccessibilityTraits | ViewAccessibilityTraits[]
-
+    tvParallaxProperties?: TVParallaxProperties;
 }
 
 /**
  * @see https://facebook.github.io/react-native/docs/touchablewithoutfeedback.html#props
  */
-export interface TouchableWithoutFeedbackProperties extends TouchableWithoutFeedbackAndroidProperties, TouchableWithoutFeedbackIOSProperties {
-
-    /**
-     * Overrides the text that's read by the screen reader when the user interacts with the element. By default, the
-     * label is constructed by traversing all the children and accumulating all the Text nodes separated by space.
-     */
-    accessibilityLabel?: string;
-
-    /**
-     * When true, indicates that the view is an accessibility element.
-     * By default, all the touchable elements are accessible.
-     */
-    accessible?: boolean;
-
+export interface TouchableWithoutFeedbackProps extends TouchableWithoutFeedbackPropsIOS, AccessibilityProps {
     /**
      * Delay in ms, from onPressIn, before onLongPress is called.
      */
@@ -4226,7 +4727,7 @@ export interface TouchableWithoutFeedbackProperties extends TouchableWithoutFeed
     /**
      * If true, disable all interactions for this component.
      */
-    disabled?: boolean
+    disabled?: boolean;
 
     /**
      * This defines how far your touch can start away from the button.
@@ -4235,30 +4736,44 @@ export interface TouchableWithoutFeedbackProperties extends TouchableWithoutFeed
      * the Z-index of sibling views always takes precedence if a touch hits
      * two overlapping views.
      */
-    hitSlop?: Insets
+    hitSlop?: Insets;
+
+    /**
+     * When `accessible` is true (which is the default) this may be called when
+     * the OS-specific concept of "blur" occurs, meaning the element lost focus.
+     * Some platforms may not have the concept of blur.
+     */
+    onBlur?: (e: NativeSyntheticEvent<TargetedEvent>) => void;
+
+    /**
+     * When `accessible` is true (which is the default) this may be called when
+     * the OS-specific concept of "focus" occurs. Some platforms may not have
+     * the concept of focus.
+     */
+    onFocus?: (e: NativeSyntheticEvent<TargetedEvent>) => void;
 
     /**
      * Invoked on mount and layout changes with
      * {nativeEvent: {layout: {x, y, width, height}}}
      */
-    onLayout?: (event: LayoutChangeEvent) => void
+    onLayout?: (event: LayoutChangeEvent) => void;
 
-    onLongPress?: () => void;
+    onLongPress?: (event: GestureResponderEvent) => void;
 
     /**
      * Called when the touch is released,
      * but not if cancelled (e.g. by a scroll that steals the responder lock).
      */
-    onPress?: () => void;
+    onPress?: (event: GestureResponderEvent) => void;
 
-    onPressIn?: () => void;
+    onPressIn?: (event: GestureResponderEvent) => void;
 
-    onPressOut?: () => void;
+    onPressOut?: (event: GestureResponderEvent) => void;
 
     /**
      * //FIXME: not in doc but available in examples
      */
-    style?: ViewStyle
+    style?: StyleProp<ViewStyle>;
 
     /**
      * When the scroll view is disabled, this defines how far your
@@ -4268,17 +4783,12 @@ export interface TouchableWithoutFeedbackProperties extends TouchableWithoutFeed
      * while the scroll view is disabled. Ensure you pass in a constant
      * to reduce memory allocations.
      */
-    pressRetentionOffset?: Insets
+    pressRetentionOffset?: Insets;
 
     /**
      * Used to locate this view in end-to-end tests.
      */
-    testID?: string
-}
-
-
-export interface TouchableWithoutFeedbackProps extends TouchableWithoutFeedbackProperties {
-
+    testID?: string;
 }
 
 /**
@@ -4288,41 +4798,41 @@ export interface TouchableWithoutFeedbackProps extends TouchableWithoutFeedbackP
  *
  * @see https://facebook.github.io/react-native/docs/touchablewithoutfeedback.html
  */
-export interface TouchableWithoutFeedbackStatic extends TimerMixin, TouchableMixin, React.ClassicComponentClass<TouchableWithoutFeedbackProps> {
-
-}
+declare class TouchableWithoutFeedbackComponent extends React.Component<TouchableWithoutFeedbackProps> {}
+declare const TouchableWithoutFeedbackBase: Constructor<TimerMixin> &
+    Constructor<TouchableMixin> &
+    typeof TouchableWithoutFeedbackComponent;
+export class TouchableWithoutFeedback extends TouchableWithoutFeedbackBase {}
 
 /**
  * @see https://facebook.github.io/react-native/docs/touchablehighlight.html#props
  */
-export interface TouchableHighlightProperties extends TouchableWithoutFeedbackProperties {
-
+export interface TouchableHighlightProps extends TouchableWithoutFeedbackProps {
     /**
      * Determines what the opacity of the wrapped view should be when touch is active.
      */
-    activeOpacity?: number
+    activeOpacity?: number;
 
     /**
      *
      * Called immediately after the underlay is hidden
      */
-    onHideUnderlay?: () => void
+    onHideUnderlay?: () => void;
 
     /**
      * Called immediately after the underlay is shown
      */
-    onShowUnderlay?: () => void
+    onShowUnderlay?: () => void;
 
     /**
      * @see https://facebook.github.io/react-native/docs/view.html#style
      */
-    style?: ViewStyle
-
+    style?: StyleProp<ViewStyle>;
 
     /**
      * The color of the underlay that will show through when the touch is active.
      */
-    underlayColor?: string
+    underlayColor?: string;
 }
 
 /**
@@ -4338,19 +4848,22 @@ export interface TouchableHighlightProperties extends TouchableWithoutFeedbackPr
  *
  * @see https://facebook.github.io/react-native/docs/touchablehighlight.html
  */
-export interface TouchableHighlightStatic extends NativeMethodsMixin, TimerMixin, TouchableMixin, React.ClassicComponentClass<TouchableHighlightProperties> {
-}
-
+declare class TouchableHighlightComponent extends React.Component<TouchableHighlightProps> {}
+declare const TouchableHighlightBase: Constructor<NativeMethodsMixin> &
+    Constructor<TimerMixin> &
+    Constructor<TouchableMixin> &
+    typeof TouchableHighlightComponent;
+export class TouchableHighlight extends TouchableHighlightBase {}
 
 /**
  * @see https://facebook.github.io/react-native/docs/touchableopacity.html#props
  */
-export interface TouchableOpacityProperties extends TouchableWithoutFeedbackProperties {
+export interface TouchableOpacityProps extends TouchableWithoutFeedbackProps {
     /**
      * Determines what the opacity of the wrapped view should be when touch is active.
      * Defaults to 0.2
      */
-    activeOpacity?: number
+    activeOpacity?: number;
 }
 
 /**
@@ -4361,34 +4874,39 @@ export interface TouchableOpacityProperties extends TouchableWithoutFeedbackProp
  *
  * @see https://facebook.github.io/react-native/docs/touchableopacity.html
  */
-export interface TouchableOpacityStatic extends TimerMixin, TouchableMixin, NativeMethodsMixin, React.ClassicComponentClass<TouchableOpacityProperties> {
+declare class TouchableOpacityComponent extends React.Component<TouchableOpacityProps> {}
+declare const TouchableOpacityBase: Constructor<TimerMixin> &
+    Constructor<TouchableMixin> &
+    Constructor<NativeMethodsMixin> &
+    typeof TouchableOpacityComponent;
+export class TouchableOpacity extends TouchableOpacityBase {
     /**
      * Animate the touchable to a new opacity.
      */
-    setOpacityTo: (value: number) => void
+    setOpacityTo: (value: number) => void;
 }
 
 interface BaseBackgroundPropType {
-    type: string
+    type: string;
 }
 
 interface RippleBackgroundPropType extends BaseBackgroundPropType {
-    type: 'RippleAndroid'
-    color?: number,
-    borderless?: boolean
+    type: 'RippleAndroid';
+    color?: number;
+    borderless?: boolean;
 }
 
 interface ThemeAttributeBackgroundPropType extends BaseBackgroundPropType {
-    type: 'ThemeAttrAndroid'
-    attribute: string
+    type: 'ThemeAttrAndroid';
+    attribute: string;
 }
 
-type BackgroundPropType = RippleBackgroundPropType | ThemeAttributeBackgroundPropType
+type BackgroundPropType = RippleBackgroundPropType | ThemeAttributeBackgroundPropType;
 
 /**
  * @see https://facebook.github.io/react-native/docs/touchableopacity.html#props
  */
-export interface TouchableNativeFeedbackProperties extends TouchableWithoutFeedbackProperties {
+export interface TouchableNativeFeedbackProps extends TouchableWithoutFeedbackProps {
     /**
      * Determines the type of background drawable that's going to be used to display feedback.
      * It takes an object with type property and extra data depending on the type.
@@ -4403,7 +4921,8 @@ export interface TouchableNativeFeedbackProperties extends TouchableWithoutFeedb
      *         outside of the view bounds (see native actionbar buttons as an example of that behavior). This background
      *         type is available on Android API level 21+
      */
-    background?: BackgroundPropType
+    background?: BackgroundPropType;
+    useForeground?: boolean;
 }
 
 /**
@@ -4416,20 +4935,21 @@ export interface TouchableNativeFeedbackProperties extends TouchableWithoutFeedb
  *
  * @see https://facebook.github.io/react-native/docs/touchablenativefeedback.html#content
  */
-export interface TouchableNativeFeedbackStatic extends TouchableMixin, React.ClassicComponentClass<TouchableNativeFeedbackProperties> {
-
+declare class TouchableNativeFeedbackComponent extends React.Component<TouchableNativeFeedbackProps> {}
+declare const TouchableNativeFeedbackBase: Constructor<TouchableMixin> & typeof TouchableNativeFeedbackComponent;
+export class TouchableNativeFeedback extends TouchableNativeFeedbackBase {
     /**
      * Creates an object that represents android theme's default background for
      * selectable elements (?android:attr/selectableItemBackground).
      */
-    SelectableBackground(): ThemeAttributeBackgroundPropType
+    static SelectableBackground(): ThemeAttributeBackgroundPropType;
 
     /**
      * Creates an object that represent android theme's default background for borderless
      * selectable elements (?android:attr/selectableItemBackgroundBorderless).
      * Available on android API level 21+.
      */
-    SelectableBackgroundBorderless(): ThemeAttributeBackgroundPropType
+    static SelectableBackgroundBorderless(): ThemeAttributeBackgroundPropType;
 
     /**
      * Creates an object that represents ripple drawable with specified color (as a
@@ -4441,185 +4961,37 @@ export interface TouchableNativeFeedbackStatic extends TouchableMixin, React.Cla
      * @param color The ripple color
      * @param borderless If the ripple can render outside it's bounds
      */
-    Ripple( color: string, borderless?: boolean ): RippleBackgroundPropType
-}
-
-
-export interface LeftToRightGesture {
-    // If the gesture can end and restart during one continuous touch
-    isDetachable: boolean;
-    // How far the swipe must drag to start transitioning
-    gestureDetectMovement: number;
-    // Amplitude of release velocity that is considered still
-    notMoving: number;
-    // Fraction of directional move required.
-    directionRatio: number;
-    // Velocity to transition with when the gesture release was "not moving"
-    snapVelocity: number;
-    // Region that can trigger swipe. iOS default is 30px from the left edge
-    edgeHitWidth: number;
-    // Ratio of gesture completion when non-velocity release will cause action
-    stillCompletionRatio: number;
-    fullDistance: any;
-    direction: string;
-}
-
-export interface JumpGesture extends LeftToRightGesture {
-    overswipe: {
-        frictionConstant: number
-        frictionByDistance: number
-    }
-}
-
-// see /NavigatorSceneConfigs.js
-export interface SceneConfig {
-    // A list of all gestures that are enabled on this scene
-    gestures?: {
-        pop?: LeftToRightGesture,
-    },
-
-    // Rebound spring parameters when transitioning FROM this scene
-    springFriction: number;
-    springTension: number;
-
-    // Velocity to start at when transitioning without gesture
-    defaultTransitionVelocity: number;
-
-    // Animation interpolators for horizontal transitioning:
-    animationInterpolators: {
-        into: () => boolean,
-        out: () => boolean
-    };
-}
-
-export interface JumpSceneConfig extends SceneConfig {
-    gestures: {
-        jumpBack: JumpGesture
-        jumpForward: JumpGesture
-    }
-}
-
-// see /NavigatorSceneConfigs.js
-export interface SceneConfigs {
-    PushFromRight: SceneConfig;
-    PushFromLeft: SceneConfig;
-    FloatFromRight: SceneConfig;
-    FloatFromLeft: SceneConfig;
-    FloatFromBottom: SceneConfig;
-    FloatFromBottomAndroid: SceneConfig;
-    FadeAndroid: SceneConfig;
-    HorizontalSwipeJump: SceneConfig;
-    HorizontalSwipeJumpFromRight: SceneConfig;
-    VerticalUpSwipeJump: SceneConfig;
-    VerticalDownSwipeJump: SceneConfig;
+    static Ripple(color: string, borderless?: boolean): RippleBackgroundPropType;
+    static canUseNativeForeground(): boolean;
 }
 
 export interface Route {
-    component?: React.ComponentClass<ViewProperties>
-    id?: string
-    title?: string
+    component?: React.ComponentType<any>;
+    id?: string;
+    title?: string;
     passProps?: Object;
 
     //anything else
-    [key: string]: any
+    [key: string]: any;
 
     //Commonly found properties
-    backButtonTitle?: string
-    content?: string
+    backButtonTitle?: string;
+    content?: string;
     message?: string;
-    index?: number
-    onRightButtonPress?: () => void
-    rightButtonTitle?: string
-    sceneConfig?: SceneConfig
-    wrapperStyle?: any
-}
-
-
-/**
- * @see https://facebook.github.io/react-native/docs/navigator.html#content
- */
-export interface NavigatorProperties {
-    /**
-     * Optional function that allows configuration about scene animations and gestures.
-     * Will be invoked with `route` and `routeStack` parameters, where `route`
-     * corresponds to the current scene being rendered by the `Navigator` and
-     * `routeStack` is the set of currently mounted routes that the navigator
-     *  could transition to. The function should return a scene configuration object.
-     * @param route
-     * @param routeStack
-     */
-    configureScene?: (route: Route, routeStack: Route[]) => SceneConfig
-    /**
-     * Specify a route to start on.
-     * A route is an object that the navigator will use to identify each scene to render.
-     * initialRoute must be a route in the initialRouteStack if both props are provided.
-     * The initialRoute will default to the last item in the initialRouteStack.
-     */
-    initialRoute?: Route
-    /**
-     * Provide a set of routes to initially mount.
-     * Required if no initialRoute is provided.
-     * Otherwise, it will default to an array containing only the initialRoute
-     */
-    initialRouteStack?: Route[]
-
-    /**
-     * Optionally provide a navigation bar that persists across scene transitions
-     */
-    navigationBar?: React.ReactElement<NavigatorStatic.NavigationBarProperties>
-
-    /**
-     * Optionally provide the navigator object from a parent Navigator
-     */
-    navigator?: Navigator
-
-    /**
-     * @deprecated Use navigationContext.addListener('willfocus', callback) instead.
-     */
-    onDidFocus?: () => any
-
-    /**
-     * @deprecated Use navigationContext.addListener('willfocus', callback) instead.
-     */
-    onWillFocus?: () => any
-
-    /**
-     * Required function which renders the scene for a given route.
-     * Will be invoked with the route and the navigator object
-     * @param route
-     * @param navigator
-     */
-    renderScene: ( route: Route, navigator: Navigator ) => React.ReactElement<ViewProperties>
-
-    /**
-     * Styles to apply to the container of each scene
-     */
-    sceneStyle?: ViewStyle
-
-}
-
-/**
- * Class that contains the info and methods for app navigation.
- */
-export interface NavigationContext {
-    parent: NavigationContext;
-    top: NavigationContext;
-    currentRoute: any;
-    appendChild(childContext: NavigationContext): void;
-    addListener(eventType: string, listener: () => void, useCapture?: boolean): NativeEventSubscription;
-    emit(eventType: string, data: any, didEmitCallback?: () => void): void;
-    dispose(): void;
+    index?: number;
+    onRightButtonPress?: () => void;
+    rightButtonTitle?: string;
+    wrapperStyle?: any;
 }
 
 interface InteractionMixin {
-    createInteractionHandle(): number
-    clearInteractionHandle(clearHandle: number): void
+    createInteractionHandle(): number;
+    clearInteractionHandle(clearHandle: number): void;
     /**
      * Schedule work for after all interactions have completed.
      *
-     * @param {function} callback
      */
-    runAfterInteractions(callback: () => any): void
+    runAfterInteractions(callback: () => any): void;
 }
 
 interface SubscribableMixin {
@@ -4631,231 +5003,22 @@ interface SubscribableMixin {
      * the subscription and therefore can guarantee it is retained in a way that
      * will be cleaned up.
      *
-     * @param {EventEmitter} eventEmitter emitter to subscribe to.
-     * @param {string} eventType Type of event to listen to.
-     * @param {function} listener Function to invoke when event occurs.
-     * @param {object} context Object to use as listener context.
+     * @param eventEmitter emitter to subscribe to.
+     * @param eventType Type of event to listen to.
+     * @param listener Function to invoke when event occurs.
+     * @param context Object to use as listener context.
      */
-    addListenerOn( eventEmitter: any, eventType: string, listener: () => any, context: any ): void
-}
-
-/**
- * Use Navigator to transition between different scenes in your app.
- * To accomplish this, provide route objects to the navigator to identify each scene,
- * and also a renderScene function that the navigator can use to render the scene for a given route.
- *
- * To change the animation or gesture properties of the scene, provide a configureScene prop to get the config object for a given route.
- * See Navigator.SceneConfigs for default animations and more info on scene config options.
- * @see https://facebook.github.io/react-native/docs/navigator.html
- */
-export interface NavigatorStatic extends TimerMixin, InteractionMixin, SubscribableMixin, React.ComponentClass<NavigatorProperties> {
-    SceneConfigs: SceneConfigs;
-    NavigationBar: NavigatorStatic.NavigationBarStatic;
-    BreadcrumbNavigationBar: NavigatorStatic.BreadcrumbNavigationBarStatic;
-
-    navigationContext: NavigationContext;
-
-    /**
-     * returns the current list of routes
-     */
-    getCurrentRoutes(): Route[];
-
-    /**
-     * Jump backward without unmounting the current scen
-     */
-    jumpBack(): void;
-
-    /**
-     * Jump forward to the next scene in the route stack
-     */
-    jumpForward(): void;
-
-    /**
-     * Transition to an existing scene without unmounting
-     */
-    jumpTo(route: Route): void;
-
-    /**
-     * Navigate forward to a new scene, squashing any scenes that you could jumpForward to
-     */
-    push(route: Route): void;
-
-    /**
-     * Transition back and unmount the current scene
-     */
-    pop(): void;
-
-    /**
-     * Go back N scenes at once. When N=1, behavior matches `pop()`.
-     * When N is invalid(negative or bigger than current routes count), do nothing.
-     * @param {number} n The number of scenes to pop. Should be an integer.
-     */
-    popN(n: number): void
-
-    /**
-     * Replace the current scene with a new route
-     */
-    replace(route: Route): void;
-
-    /**
-     * Replace a scene as specified by an index
-     */
-    replaceAtIndex(route: Route, index: number): void;
-
-    /**
-     *  Replace the previous scene
-     */
-    replacePrevious(route: Route): void;
-
-    /**
-     * Reset every scene with an array of routes
-     */
-    immediatelyResetRouteStack(routes: Route[]): void;
-
-    /**
-     * Pop to a particular scene, as specified by its route. All scenes after it will be unmounted
-     */
-    popToRoute(route: Route): void;
-
-    /**
-     * Pop to the first scene in the stack, unmounting every other scene
-     */
-    popToTop(): void;
-
-    /**
-     *  Replace the previous scene and pop to it.
-     */
-    replacePreviousAndPop( route: Route ): void;
-
-    /**
-     * Navigate to a new scene and reset route stack.
-     */
-    resetTo( route: Route ): void;
-
-}
-
-export namespace NavigatorStatic {
-
-
-    export interface NavState {
-        routeStack: Route[]
-        presentedIndex: number
-    }
-
-    // @see NavigationBarStyle.ios.js
-    export interface NavigationBarStyle {
-        General: {
-            NavBarHeight: number
-            StatusBarHeight: number
-            TotalNavHeight: number
-        },
-        Interpolators: {
-            // Animating *into* the center stage from the right
-            RightToCenter: () => boolean
-            // Animating out of the center stage, to the left
-            CenterToLeft: () => boolean
-            // Both stages (animating *past* the center stage)
-            RightToLeft: () => boolean
-        },
-        Stages: {
-            Left: {
-                Title: FlexStyle
-                LeftButton: FlexStyle
-                RightButton: FlexStyle
-            },
-            Center: {
-                Title: FlexStyle
-                LeftButton: FlexStyle
-                RightButton: FlexStyle
-            },
-            Right: {
-                Title: FlexStyle
-                LeftButton: FlexStyle
-                RightButton: FlexStyle
-            },
-        }
-    }
-
-
-    export interface NavigationBarRouteMapper {
-        Title: (route: Route, nav: Navigator, index: number, navState: NavState) => JSX.Element | null;
-        LeftButton: (route: Route, nav: Navigator, index: number, navState: NavState) => JSX.Element | null;
-        RightButton: (route: Route, nav: Navigator, index: number, navState: NavState) => JSX.Element | null;
-    }
-
-    /**
-     * @see NavigatorNavigationBar.js
-     */
-    export interface NavigationBarProperties {
-        navigator?: Navigator
-        routeMapper?: NavigationBarRouteMapper
-        navState?: NavState
-        navigationStyles?: NavigationBarStyle
-        style?: ViewStyle
-    }
-
-    export interface NavigationBarStatic extends React.ComponentClass<NavigationBarProperties> {
-        Styles: NavigationBarStyle
-        StylesAndroid: NavigationBarStyle;
-        StylesIOS: NavigationBarStyle;
-
-        /**
-         * Stop transtion, immediately resets the cached state and re-render the
-         * whole view.
-         */
-        immediatelyRefresh(): void;
-    }
-
-    export type NavigationBar = NavigationBarStatic
-    export var NavigationBar: NavigationBarStatic
-
-
-    export interface BreadcrumbNavigationBarStyle {
-        //TODO &see NavigatorBreadcrumbNavigationBar.js
-    }
-
-    export interface BreadcrumbNavigationBarRouteMapper {
-        rightContentForRoute: (route: Route, navigator: Navigator) => React.ReactElement<any>
-        titleContentForRoute: (route: Route, navigator: Navigator) => React.ReactElement<any>
-        iconForRoute: (route: Route, navigator: Navigator) => React.ReactElement<any>
-        //in samples...
-        separatorForRoute: (route: Route, navigator: Navigator) => React.ReactElement<any>
-    }
-
-    /**
-     * @see NavigatorNavigationBar.js
-     */
-    export interface BreadcrumbNavigationBarProperties {
-        navigator?: Navigator
-        routeMapper?: BreadcrumbNavigationBarRouteMapper
-        navState?: NavState
-        style?: ViewStyle
-    }
-
-    export interface BreadcrumbNavigationBarStatic extends React.ComponentClass<BreadcrumbNavigationBarProperties> {
-        Styles: BreadcrumbNavigationBarStyle
-
-        immediatelyRefresh(): void
-    }
-
-    export type BreadcrumbNavigationBar = BreadcrumbNavigationBarStatic
-    var BreadcrumbNavigationBar: BreadcrumbNavigationBarStatic
-
+    addListenerOn(eventEmitter: any, eventType: string, listener: () => any, context: any): void;
 }
 
 // @see https://github.com/facebook/react-native/blob/0.34-stable\Libraries\StyleSheet\StyleSheetTypes.js
 export namespace StyleSheet {
-
-    type Style = ViewStyle | TextStyle | ImageStyle
-
-    type NamedStyles<T> = {
-        [P in keyof T]: Style;
-    }
+    type NamedStyles<T> = { [P in keyof T]: ViewStyle | TextStyle | ImageStyle };
 
     /**
      * Creates a StyleSheet style reference from the given object.
      */
-    export function create<T extends NamedStyles<T>>( styles: T ): T;
+    export function create<T extends NamedStyles<T> | NamedStyles<any>>(styles: T | NamedStyles<T>): T;
 
     /**
      * Flattens an array of style objects, into one aggregated style object.
@@ -4870,7 +5033,7 @@ export namespace StyleSheet {
      *
      * Example:
      * ```
-     * var styles = StyleSheet.create({
+     * const styles = StyleSheet.create({
      *   listItem: {
      *     flex: 1,
      *     fontSize: 16,
@@ -4896,7 +5059,18 @@ export namespace StyleSheet {
      * their respective objects, merged as one and then returned. This also explains
      * the alternative use.
      */
-    export function flatten(style?: Style | Style[]): Style
+    export function flatten<T>(style?: StyleProp<T>): T;
+
+    /**
+     * WARNING: EXPERIMENTAL. Breaking changes will probably happen a lot and will
+     * not be reliably announced. The whole thing might be deleted, who knows? Use
+     * at your own risk.
+     *
+     * Sets a function to use to pre-process a style property value. This is used
+     * internally to process color and transform values. You should not use this
+     * unless you really know what you are doing and have exhausted other options.
+     */
+    export function setStyleAttributePreprocessor(property: string, process: (nextProp: any) => any): void;
 
     /**
      * This is defined as the width of a thin line on the platform. It can be
@@ -4915,14 +5089,15 @@ export namespace StyleSheet {
      * constant size, because on different platforms and screen densities its
      * value may be calculated differently.
      */
-    export var hairlineWidth: number
+    export const hairlineWidth: number;
 
-    /**
-     * A very common pattern is to create overlays with position absolute and zero positioning,
-     * so `absoluteFill` can be used for convenience and to reduce duplication of these repeated
-     * styles.
-     */
-    export var absoluteFill: number
+    interface AbsoluteFillStyle {
+        position: 'absolute';
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+    }
 
     /**
      * Sometimes you may want `absoluteFill` but with a couple tweaks - `absoluteFillObject` can be
@@ -4936,89 +5111,79 @@ export namespace StyleSheet {
      *     },
      *   });
      */
-    export var absoluteFillObject: {
-        position: string
-        left: number
-        right: number
-        top: number
-        bottom: number
-    }
+    export const absoluteFillObject: AbsoluteFillStyle;
+
+    /**
+     * A very common pattern is to create overlays with position absolute and zero positioning,
+     * so `absoluteFill` can be used for convenience and to reduce duplication of these repeated
+     * styles.
+     */
+    export const absoluteFill: RegisteredStyle<AbsoluteFillStyle>;
 }
 
 export interface RelayProfiler {
-    attachProfileHandler(
-        name: string,
-        handler: (name: string, state?: any) => () => void
-    ): void,
+    attachProfileHandler(name: string, handler: (name: string, state?: any) => () => void): void;
 
-    attachAggregateHandler(
-        name: string,
-        handler: (name: string, callback: () => void) => void
-    ): void,
+    attachAggregateHandler(name: string, handler: (name: string, callback: () => void) => void): void;
 }
 
 export interface SystraceStatic {
-    setEnabled(enabled: boolean): void
+    setEnabled(enabled: boolean): void;
 
     /**
      * beginEvent/endEvent for starting and then ending a profile within the same call stack frame
      **/
-    beginEvent(profileName?: any, args?: any): void
-    endEvent(): void
+    beginEvent(profileName?: any, args?: any): void;
+    endEvent(): void;
 
     /**
      * beginAsyncEvent/endAsyncEvent for starting and then ending a profile where the end can either
      * occur on another thread or out of the current stack frame, eg await
      * the returned cookie variable should be used as input into the endAsyncEvent call to end the profile
      **/
-    beginAsyncEvent(profileName?: any): any
-    endAsyncEvent(profileName?: any, cookie?: any): void
+    beginAsyncEvent(profileName?: any): any;
+    endAsyncEvent(profileName?: any, cookie?: any): void;
 
     /**
      * counterEvent registers the value to the profileName on the systrace timeline
      **/
-    counterEvent(profileName?: any, value?: any): void
+    counterEvent(profileName?: any, value?: any): void;
 
     /**
      * Relay profiles use await calls, so likely occur out of current stack frame
      * therefore async variant of profiling is used
      **/
-    attachToRelayProfiler(relayProfiler: RelayProfiler): void
+    attachToRelayProfiler(relayProfiler: RelayProfiler): void;
 
     /* This is not called by default due to perf overhead but it's useful
         if you want to find traces which spend too much time in JSON. */
-    swizzleJSON(): void
+    swizzleJSON(): void;
 
     /**
      * Measures multiple methods of a class. For example, you can do:
      * Systrace.measureMethods(JSON, 'JSON', ['parse', 'stringify']);
      *
-     * @param object
-     * @param objectName
      * @param methodNames Map from method names to method display names.
      */
-    measureMethods(object: any, objectName: string, methodNames: Array<string>): void
+    measureMethods(object: any, objectName: string, methodNames: Array<string>): void;
 
     /**
      * Returns an profiled version of the input function. For example, you can:
      * JSON.parse = Systrace.measure('JSON', 'parse', JSON.parse);
      *
-     * @param objName
-     * @param fnName
-     * @param {function} func
-     * @return {function} replacement function
+     * @return replacement function
      */
-    measure<T extends Function>(objName: string, fnName: string, func: T): T
+    measure<T extends Function>(objName: string, fnName: string, func: T): T;
 }
 
 /**
  * //FIXME: Could not find docs. Inferred from examples and jscode : ListViewDataSource.js
  */
 export interface DataSourceAssetCallback {
-    rowHasChanged?: (r1: any, r2: any) => boolean
-    sectionHeaderHasChanged?: (h1: any, h2: any) => boolean
-    getRowData?: <T>(dataBlob: any, sectionID: number | string, rowID: number | string) => T
-    getSectionHeaderData?: <T>(dataBlob: any, sectionID: number | string) => T
+    rowHasChanged?: (r1: any, r2: any) => boolean;
+    sectionHeaderHasChanged?: (h1: any, h2: any) => boolean;
+    getRowData?: (dataBlob: any, sectionID: number | string, rowID: number | string) => any;
+    getSectionHeaderData?: (dataBlob: any, sectionID: number | string) => any;
 }
 
 /**
@@ -5078,7 +5243,10 @@ export interface ListViewDataSource {
      * handle merging of old and new data separately and then pass that into
      * this function as the `dataBlob`.
      */
-    cloneWithRows<T>(dataBlob: Array<any> | { [key: string]: any }, rowIdentities?: Array<string | number>): ListViewDataSource
+    cloneWithRows(
+        dataBlob: Array<any> | { [key: string]: any },
+        rowIdentities?: Array<string | number>,
+    ): ListViewDataSource;
 
     /**
      * This performs the same function as the `cloneWithRows` function but here
@@ -5091,97 +5259,99 @@ export interface ListViewDataSource {
      *
      * Note: this returns a new object!
      */
-    cloneWithRowsAndSections(dataBlob: Array<any> | { [key: string]: any }, sectionIdentities?: Array<string | number>, rowIdentities?: Array<Array<string | number>>): ListViewDataSource
+    cloneWithRowsAndSections(
+        dataBlob: Array<any> | { [key: string]: any },
+        sectionIdentities?: Array<string | number>,
+        rowIdentities?: Array<Array<string | number>>,
+    ): ListViewDataSource;
 
-    getRowCount(): number
-    getRowAndSectionCount(): number
+    getRowCount(): number;
+    getRowAndSectionCount(): number;
 
     /**
      * Returns if the row is dirtied and needs to be rerendered
      */
-    rowShouldUpdate(sectionIndex: number, rowIndex: number): boolean
+    rowShouldUpdate(sectionIndex: number, rowIndex: number): boolean;
 
     /**
      * Gets the data required to render the row.
      */
-    getRowData(sectionIndex: number, rowIndex: number): any
+    getRowData(sectionIndex: number, rowIndex: number): any;
 
     /**
      * Gets the rowID at index provided if the dataSource arrays were flattened,
      * or null of out of range indexes.
      */
-    getRowIDForFlatIndex(index: number): string
+    getRowIDForFlatIndex(index: number): string;
 
     /**
      * Gets the sectionID at index provided if the dataSource arrays were flattened,
      * or null for out of range indexes.
      */
-    getSectionIDForFlatIndex(index: number): string
+    getSectionIDForFlatIndex(index: number): string;
 
     /**
      * Returns an array containing the number of rows in each section
      */
-    getSectionLengths(): Array<number>
+    getSectionLengths(): Array<number>;
 
     /**
      * Returns if the section header is dirtied and needs to be rerendered
      */
-    sectionHeaderShouldUpdate(sectionIndex: number): boolean
+    sectionHeaderShouldUpdate(sectionIndex: number): boolean;
 
     /**
      * Gets the data required to render the section header
      */
-    getSectionHeaderData(sectionIndex: number): any
+    getSectionHeaderData(sectionIndex: number): any;
 }
-
 
 /**
  * @see https://facebook.github.io/react-native/docs/tabbarios-item.html#props
  */
-export interface TabBarItemProperties extends ViewProperties {
-
+export interface TabBarIOSItemProps extends ViewProps {
     /**
      * Little red bubble that sits at the top right of the icon.
      */
-    badge?: string | number
+    badge?: string | number;
 
     /**
      * Background color for the badge. Available since iOS 10.
      */
-    badgeColor?: string
+    badgeColor?: string;
 
     /**
      * A custom icon for the tab. It is ignored when a system icon is defined.
      */
-    icon?: ImageURISource
+    icon?: ImageURISource;
 
     /**
      * Callback when this tab is being selected,
      * you should change the state of your component to set selected={true}.
      */
-    onPress?: () => void
+    onPress?: () => void;
 
     /**
      * If set to true it renders the image as original,
      * it defaults to being displayed as a template
      */
-    renderAsOriginal?: boolean
+    renderAsOriginal?: boolean;
 
     /**
      * It specifies whether the children are visible or not. If you see a blank content, you probably forgot to add a selected one.
      */
-    selected?: boolean
+    selected?: boolean;
 
     /**
      * A custom icon when the tab is selected.
      * It is ignored when a system icon is defined. If left empty, the icon will be tinted in blue.
      */
-    selectedIcon?: ImageURISource
+    selectedIcon?: ImageURISource;
 
     /**
      * React style object.
      */
-    style?: ViewStyle
+    style?: StyleProp<ViewStyle>;
 
     /**
      * Items comes with a few predefined system icons.
@@ -5189,26 +5359,36 @@ export interface TabBarItemProperties extends ViewProperties {
      *
      *  enum('bookmarks', 'contacts', 'downloads', 'favorites', 'featured', 'history', 'more', 'most-recent', 'most-viewed', 'recents', 'search', 'top-rated')
      */
-    systemIcon?: "bookmarks" | "contacts" | "downloads" | "favorites" | "featured" | "history" | "more" | "most-recent" | "most-viewed" | "recents" | "search" | "top-rated"
+    systemIcon?:
+        | 'bookmarks'
+        | 'contacts'
+        | 'downloads'
+        | 'favorites'
+        | 'featured'
+        | 'history'
+        | 'more'
+        | 'most-recent'
+        | 'most-viewed'
+        | 'recents'
+        | 'search'
+        | 'top-rated';
 
     /**
      * Text that appears under the icon. It is ignored when a system icon is defined.
      */
-    title?: string
+    title?: string;
 }
 
-export interface TabBarItemStatic extends React.ComponentClass<TabBarItemProperties> {
-}
+export class TabBarIOSItem extends React.Component<TabBarIOSItemProps> {}
 
 /**
  * @see https://facebook.github.io/react-native/docs/tabbarios.html#props
  */
-export interface TabBarIOSProperties extends ViewProperties {
-
+export interface TabBarIOSProps extends ViewProps {
     /**
      * Background color of the tab bar
      */
-    barTintColor?: string
+    barTintColor?: string;
 
     /**
      * Specifies tab bar item positioning. Available values are:
@@ -5219,36 +5399,34 @@ export interface TabBarIOSProperties extends ViewProperties {
      * this value defaults to `fill`, in a horizontally regular one (e.g. iPad)
      * it defaults to center.
      */
-    itemPositioning?: 'fill' | 'center' | 'auto'
+    itemPositioning?: 'fill' | 'center' | 'auto';
 
     /**
      * Color of the currently selected tab icon
      */
-    tintColor?: string
+    tintColor?: string;
 
     /**
      * A Boolean value that indicates whether the tab bar is translucent
      */
-    translucent?: boolean
+    translucent?: boolean;
 
     /**
      * Color of text on unselected tabs
      */
-    unselectedTintColor?: string
+    unselectedTintColor?: string;
 
     /**
      * Color of unselected tab icons. Available since iOS 10.
      */
-    unselectedItemTintColor?: string
+    unselectedItemTintColor?: string;
 }
 
-export interface TabBarIOSStatic extends React.ComponentClass<TabBarIOSProperties> {
-    Item: TabBarItemStatic;
+export class TabBarIOS extends React.Component<TabBarIOSProps> {
+    static Item: typeof TabBarIOSItem;
 }
-
 
 export interface PixelRatioStatic {
-
     /*
         Returns the device pixel density. Some examples:
             PixelRatio.get() === 1
@@ -5279,14 +5457,13 @@ export interface PixelRatioStatic {
         preference set in Settings > Display > Font size,
         on iOS it will always return the default pixel ratio.
         */
-    getFontScale(): number
+    getFontScale(): number;
 
     /**
      * Converts a layout size (dp) to pixel size (px).
      * Guaranteed to return an integer number.
-     * @param layoutSize
      */
-    getPixelSizeForLayoutSize(layoutSize: number): number
+    getPixelSizeForLayoutSize(layoutSize: number): number;
 
     /**
      * Rounds a layout size (dp) to the nearest layout size that
@@ -5294,29 +5471,50 @@ export interface PixelRatioStatic {
      * on a device with a PixelRatio of 3,
      * PixelRatio.roundToNearestPixel(8.4) = 8.33,
      * which corresponds to exactly (8.33 * 3) = 25 pixels.
-     * @param layoutSize
      */
-    roundToNearestPixel(layoutSize: number): number
+    roundToNearestPixel(layoutSize: number): number;
 
     /**
      * No-op for iOS, but used on the web. Should not be documented. [sic]
      */
-    startDetecting(): void
+    startDetecting(): void;
 }
 
 /**
  * @see https://facebook.github.io/react-native/docs/platform-specific-code.html#content
  */
-export type PlatformOSType = 'ios' | 'android' | 'windows'
+export type PlatformOSType = 'ios' | 'android' | 'macos' | 'windows' | 'web';
 
 interface PlatformStatic {
-    OS: PlatformOSType
-    Version: number
+    isTV: boolean;
+    Version: number | string;
 
     /**
      * @see https://facebook.github.io/react-native/docs/platform-specific-code.html#content
      */
-    select<T>( specifics: { ios?: T, android?: T} ): T;
+    select<T>(specifics: { [platform in PlatformOSType | 'default']?: T }): T;
+}
+
+interface PlatformIOSStatic extends PlatformStatic {
+    OS: 'ios';
+    isPad: boolean;
+    isTVOS: boolean;
+}
+
+interface PlatformAndroidStatic extends PlatformStatic {
+    OS: 'android';
+}
+
+interface PlatformMacOSStatic extends PlatformStatic {
+    OS: 'macos';
+}
+
+interface PlatformWindowsOSStatic extends PlatformStatic {
+    OS: 'windows';
+}
+
+interface PlatformWebStatic extends PlatformStatic {
+    OS: 'web';
 }
 
 /**
@@ -5324,9 +5522,9 @@ interface PlatformStatic {
  * adding all event listeners directly to RCTDeviceEventEmitter.
  */
 interface DeviceEventEmitterStatic extends EventEmitter {
-    sharedSubscriber: EventSubscriptionVendor
-    new(): DeviceEventEmitterStatic;
-    addListener<T>( type: string, listener: ( data: T ) => void, context?: any ): EmitterSubscription;
+    sharedSubscriber: EventSubscriptionVendor;
+    new (): DeviceEventEmitterStatic;
+    addListener(type: string, listener: (data: any) => void, context?: any): EmitterSubscription;
 }
 
 // Used by Dimensions below
@@ -5347,10 +5545,10 @@ export interface ScaledSize {
  * than caching the value (for example, using inline styles rather than
  * setting a value in a `StyleSheet`).
  *
- * Example: `var {height, width} = Dimensions.get('window');`
+ * Example: `const {height, width} = Dimensions.get('window');`
  *
- * @param {string} dim Name of dimension as defined when calling `set`.
- * @returns {Object?} Value for the dimension.
+ * @param dim Name of dimension as defined when calling `set`.
+ * @returns Value for the dimension.
  * @see https://facebook.github.io/react-native/docs/dimensions.html#content
  */
 export interface Dimensions {
@@ -5364,101 +5562,95 @@ export interface Dimensions {
      * function on every render, rather than caching the value (for
      * example, using inline styles rather than setting a value in a
      * StyleSheet).
-     * Example: var {height, width} = Dimensions.get('window');
-     @param {string} dim Name of dimension as defined when calling set.
-     @returns {Object?} Value for the dimension.
+     * Example: const {height, width} = Dimensions.get('window');
+     @param dim Name of dimension as defined when calling set.
+     @returns Value for the dimension.
      */
-    get(dim: "window" | "screen"): ScaledSize;
+    get(dim: 'window' | 'screen'): ScaledSize;
 
     /**
      * This should only be called from native code by sending the didUpdateDimensions event.
-     * @param {object} dims Simple string-keyed object of dimensions to set
+     * @param dims Simple string-keyed object of dimensions to set
      */
-    set( dims: {[key: string]: any} ): void
+    set(dims: { [key: string]: any }): void;
+
+    /**
+     * Add an event listener for dimension changes
+     *
+     * @param type the type of event to listen to
+     * @param handler the event handler
+     */
+    addEventListener(
+        type: 'change',
+        handler: ({ window, screen }: { window: ScaledSize; screen: ScaledSize }) => void,
+    ): void;
+
+    /**
+     * Remove an event listener
+     *
+     * @param type the type of event
+     * @param handler the event handler
+     */
+    removeEventListener(
+        type: 'change',
+        handler: ({ window, screen }: { window: ScaledSize; screen: ScaledSize }) => void,
+    ): void;
 }
 
 export type SimpleTask = {
-    name: string
-    gen: () => void
-}
+    name: string;
+    gen: () => void;
+};
 export type PromiseTask = {
-    name: string
-    gen: () => Promise<any>
-}
+    name: string;
+    gen: () => Promise<any>;
+};
 
-export type Handle = number
+export type Handle = number;
 
 export interface InteractionManagerStatic extends EventEmitterListener {
     Events: {
-        interactionStart: string
-        interactionComplete: string
-    }
+        interactionStart: string;
+        interactionComplete: string;
+    };
 
     /**
      * Schedule a function to run after all interactions have completed.
      * Returns a cancellable
-     * @param fn
      */
-    runAfterInteractions(task?: (() => any) | SimpleTask | PromiseTask): {
-        then: (onfulfilled?: () => any, onrejected?: () => any) => Promise<any>,
-        done: (...args: any[]) => any,
-        cancel: () => void,
-    }
+    runAfterInteractions(
+        task?: (() => any) | SimpleTask | PromiseTask,
+    ): {
+        then: (onfulfilled?: () => any, onrejected?: () => any) => Promise<any>;
+        done: (...args: any[]) => any;
+        cancel: () => void;
+    };
 
     /**
      * Notify manager that an interaction has started.
      */
-    createInteractionHandle(): Handle
+    createInteractionHandle(): Handle;
 
     /**
      * Notify manager that an interaction has completed.
      */
-    clearInteractionHandle(handle: Handle): void
+    clearInteractionHandle(handle: Handle): void;
 
     /**
      * A positive number will use setTimeout to schedule any tasks after
      * the eventLoopRunningTime hits the deadline value, otherwise all
      * tasks will be executed in one setImmediate batch (default).
      */
-    setDeadline(deadline: number): void
+    setDeadline(deadline: number): void;
 }
 
-
-export interface ScrollViewStyle extends FlexStyle, TransformsStyle {
-
-    backfaceVisibility?: "visible" | "hidden"
-    backgroundColor?: string
-    borderColor?: string
-    borderTopColor?: string
-    borderRightColor?: string
-    borderBottomColor?: string
-    borderLeftColor?: string
-    borderRadius?: number
-    borderTopLeftRadius?: number
-    borderTopRightRadius?: number
-    borderBottomLeftRadius?: number
-    borderBottomRightRadius?: number
-    borderStyle?: "solid" | "dotted" | "dashed"
-    borderWidth?: number
-    borderTopWidth?: number
-    borderRightWidth?: number
-    borderBottomWidth?: number
-    borderLeftWidth?: number
-    opacity?: number
-    overflow?: "visible" | "hidden"
-    shadowColor?: string
-    shadowOffset?: { width: number; height: number }
-    shadowOpacity?: number
-    shadowRadius?: number
-    elevation?: number
-}
-
+export interface ScrollResponderEvent extends NativeSyntheticEvent<NativeTouchEvent> {}
 
 interface ScrollResponderMixin extends SubscribableMixin {
     /**
      * Invoke this from an `onScroll` event.
      */
-    scrollResponderHandleScrollShouldSetResponder(): boolean
+    scrollResponderHandleScrollShouldSetResponder(): boolean;
 
     /**
      * Merely touch starting is not sufficient for a scroll view to become the
@@ -5485,7 +5677,7 @@ interface ScrollResponderMixin extends SubscribableMixin {
      *   true.
      *
      */
-    scrollResponderHandleStartShouldSetResponder(): boolean
+    scrollResponderHandleStartShouldSetResponder(): boolean;
 
     /**
      * There are times when the scroll view wants to become the responder
@@ -5498,7 +5690,7 @@ interface ScrollResponderMixin extends SubscribableMixin {
      *
      * Invoke this from an `onStartShouldSetResponderCapture` event.
      */
-    scrollResponderHandleStartShouldSetResponderCapture(e: Event): boolean
+    scrollResponderHandleStartShouldSetResponderCapture(e: ScrollResponderEvent): boolean;
 
     /**
      * Invoke this from an `onResponderReject` event.
@@ -5510,7 +5702,7 @@ interface ScrollResponderMixin extends SubscribableMixin {
      * altogether. To improve this, find a way to disable the `UIScrollView` after
      * a touch has already started.
      */
-    scrollResponderHandleResponderReject(): any
+    scrollResponderHandleResponderReject(): any;
 
     /**
      * We will allow the scroll view to give up its lock iff it acquired the lock
@@ -5527,26 +5719,26 @@ interface ScrollResponderMixin extends SubscribableMixin {
      *   navigation of a swipe gesture higher in the view hierarchy, should be
      *   rejected.
      */
-    scrollResponderHandleTerminationRequest(): boolean
+    scrollResponderHandleTerminationRequest(): boolean;
 
     /**
      * Invoke this from an `onTouchEnd` event.
      *
-     * @param {SyntheticEvent} e Event.
+     * @param e Event.
      */
-    scrollResponderHandleTouchEnd(e: Event): void
+    scrollResponderHandleTouchEnd(e: ScrollResponderEvent): void;
 
     /**
      * Invoke this from an `onResponderRelease` event.
      */
-    scrollResponderHandleResponderRelease(e: Event): void
+    scrollResponderHandleResponderRelease(e: ScrollResponderEvent): void;
 
-    scrollResponderHandleScroll(e: Event): void
+    scrollResponderHandleScroll(e: ScrollResponderEvent): void;
 
     /**
      * Invoke this from an `onResponderGrant` event.
      */
-    scrollResponderHandleResponderGrant(e: Event): void
+    scrollResponderHandleResponderGrant(e: ScrollResponderEvent): void;
 
     /**
      * Unfortunately, `onScrollBeginDrag` also fires when *stopping* the scroll
@@ -5555,22 +5747,22 @@ interface ScrollResponderMixin extends SubscribableMixin {
      *
      * Invoke this from an `onScrollBeginDrag` event.
      */
-    scrollResponderHandleScrollBeginDrag(e: Event): void
+    scrollResponderHandleScrollBeginDrag(e: ScrollResponderEvent): void;
 
     /**
      * Invoke this from an `onScrollEndDrag` event.
      */
-    scrollResponderHandleScrollEndDrag(e: Event): void
+    scrollResponderHandleScrollEndDrag(e: ScrollResponderEvent): void;
 
     /**
      * Invoke this from an `onMomentumScrollBegin` event.
      */
-    scrollResponderHandleMomentumScrollBegin(e: Event): void
+    scrollResponderHandleMomentumScrollBegin(e: ScrollResponderEvent): void;
 
     /**
      * Invoke this from an `onMomentumScrollEnd` event.
      */
-    scrollResponderHandleMomentumScrollEnd(e: Event): void
+    scrollResponderHandleMomentumScrollEnd(e: ScrollResponderEvent): void;
 
     /**
      * Invoke this from an `onTouchStart` event.
@@ -5581,9 +5773,9 @@ interface ScrollResponderMixin extends SubscribableMixin {
      * responder). The `onResponderReject` won't fire in that case - it only
      * fires when a *current* responder rejects our request.
      *
-     * @param {SyntheticEvent} e Touch Start event.
+     * @param e Touch Start event.
      */
-    scrollResponderHandleTouchStart(e: Event): void
+    scrollResponderHandleTouchStart(e: ScrollResponderEvent): void;
 
     /**
      * Invoke this from an `onTouchMove` event.
@@ -5594,23 +5786,23 @@ interface ScrollResponderMixin extends SubscribableMixin {
      * responder). The `onResponderReject` won't fire in that case - it only
      * fires when a *current* responder rejects our request.
      *
-     * @param {SyntheticEvent} e Touch Start event.
+     * @param e Touch Start event.
      */
-    scrollResponderHandleTouchMove(e: Event): void
+    scrollResponderHandleTouchMove(e: ScrollResponderEvent): void;
 
     /**
      * A helper function for this class that lets us quickly determine if the
      * view is currently animating. This is particularly useful to know when
      * a touch has just started or ended.
      */
-    scrollResponderIsAnimating(): boolean
+    scrollResponderIsAnimating(): boolean;
 
     /**
      * Returns the node that represents native view that can be scrolled.
      * Components can pass what node to use by defining a `getScrollableNode`
      * function otherwise `this` is used.
      */
-    scrollResponderGetScrollableNode(): any
+    scrollResponderGetScrollableNode(): any;
 
     /**
      * A helper function to scroll to a specific point  in the scrollview.
@@ -5623,7 +5815,11 @@ interface ScrollResponderMixin extends SubscribableMixin {
      * the function also accepts separate arguments as as alternative to the options object.
      * This is deprecated due to ambiguity (y before x), and SHOULD NOT BE USED.
      */
-    scrollResponderScrollTo( x?: number | { x?: number, y?: number, animated?: boolean }, y?: number, animated?: boolean ): void,
+    scrollResponderScrollTo(
+        x?: number | { x?: number; y?: number; animated?: boolean },
+        y?: number,
+        animated?: boolean,
+    ): void;
 
     /**
      * A helper function to zoom to a specific rect in the scrollview. The argument has the shape
@@ -5632,35 +5828,39 @@ interface ScrollResponderMixin extends SubscribableMixin {
      * @platform ios
      */
     scrollResponderZoomTo(
-        rect: { x: number, y: number, width: number, height: number, animated?: boolean },
-        animated?: boolean // deprecated, put this inside the rect argument instead
-    ): void
+        rect: { x: number; y: number; width: number; height: number; animated?: boolean },
+        animated?: boolean, // deprecated, put this inside the rect argument instead
+    ): void;
 
     /**
      * This method should be used as the callback to onFocus in a TextInputs'
      * parent view. Note that any module using this mixin needs to return
      * the parent view's ref in getScrollViewRef() in order to use this method.
-     * @param {any} nodeHandle The TextInput node handle
-     * @param {number} additionalOffset The scroll view's top "contentInset".
+     * @param nodeHandle The TextInput node handle
+     * @param additionalOffset The scroll view's top "contentInset".
      *        Default is 0.
-     * @param {bool} preventNegativeScrolling Whether to allow pulling the content
+     * @param preventNegativeScrolling Whether to allow pulling the content
      *        down to make it meet the keyboard's top. Default is false.
      */
-    scrollResponderScrollNativeHandleToKeyboard(nodeHandle: any, additionalOffset?: number, preventNegativeScrollOffset?: boolean): void
+    scrollResponderScrollNativeHandleToKeyboard(
+        nodeHandle: any,
+        additionalOffset?: number,
+        preventNegativeScrollOffset?: boolean,
+    ): void;
 
     /**
      * The calculations performed here assume the scroll view takes up the entire
      * screen - even if has some content inset. We then measure the offsets of the
      * keyboard, and compensate both for the scroll view's "contentInset".
      *
-     * @param {number} left Position of input w.r.t. table view.
-     * @param {number} top Position of input w.r.t. table view.
-     * @param {number} width Width of the text input.
-     * @param {number} height Height of the text input.
+     * @param left Position of input w.r.t. table view.
+     * @param top Position of input w.r.t. table view.
+     * @param width Width of the text input.
+     * @param height Height of the text input.
      */
-    scrollResponderInputMeasureAndScrollToKeyboard(left: number, top: number, width: number, height: number): void
+    scrollResponderInputMeasureAndScrollToKeyboard(left: number, top: number, width: number, height: number): void;
 
-    scrollResponderTextInputFocusError(e: Event): void
+    scrollResponderTextInputFocusError(e: ScrollResponderEvent): void;
 
     /**
      * `componentWillMount` is the closest thing to a  standard "constructor" for
@@ -5668,7 +5868,7 @@ interface ScrollResponderMixin extends SubscribableMixin {
      *
      * The `keyboardWillShow` is called before input focus.
      */
-    componentWillMount(): void
+    componentWillMount(): void;
 
     /**
      * Warning, this may be called several times for a single keyboard opening.
@@ -5698,35 +5898,34 @@ interface ScrollResponderMixin extends SubscribableMixin {
      * relevant to you. (For example, only if you receive these callbacks after
      * you had explicitly focused a node etc).
      */
-    scrollResponderKeyboardWillShow(e: Event): void
+    scrollResponderKeyboardWillShow(e: ScrollResponderEvent): void;
 
-    scrollResponderKeyboardWillHide(e: Event): void
+    scrollResponderKeyboardWillHide(e: ScrollResponderEvent): void;
 
-    scrollResponderKeyboardDidShow(e: Event): void
+    scrollResponderKeyboardDidShow(e: ScrollResponderEvent): void;
 
-    scrollResponderKeyboardDidHide(e: Event): void
+    scrollResponderKeyboardDidHide(e: ScrollResponderEvent): void;
 }
 
-export interface ScrollViewPropertiesIOS {
-
+export interface ScrollViewPropsIOS {
     /**
      * When true the scroll view bounces horizontally when it reaches the end
      * even if the content is smaller than the scroll view itself. The default
      * value is true when `horizontal={true}` and false otherwise.
      */
-    alwaysBounceHorizontal?: boolean
+    alwaysBounceHorizontal?: boolean;
     /**
      * When true the scroll view bounces vertically when it reaches the end
      * even if the content is smaller than the scroll view itself. The default
      * value is false when `horizontal={true}` and true otherwise.
      */
-    alwaysBounceVertical?: boolean
+    alwaysBounceVertical?: boolean;
 
     /**
      * Controls whether iOS should automatically adjust the content inset for scroll views that are placed behind a navigation bar or tab bar/ toolbar.
      * The default value is true.
      */
-    automaticallyAdjustContentInsets?: boolean // true
+    automaticallyAdjustContentInsets?: boolean; // true
 
     /**
      * When true the scroll view bounces when it reaches the end of the
@@ -5734,19 +5933,19 @@ export interface ScrollViewPropertiesIOS {
      * the scroll direction. When false it disables all bouncing even if
      * the `alwaysBounce*` props are true. The default value is true.
      */
-    bounces?: boolean
+    bounces?: boolean;
     /**
      * When true gestures can drive zoom past min/max and the zoom will animate
      * to the min/max value at gesture end otherwise the zoom will not exceed
      * the limits.
      */
-    bouncesZoom?: boolean
+    bouncesZoom?: boolean;
 
     /**
      * When false once tracking starts won't try to drag if the touch moves.
      * The default value is true.
      */
-    canCancelContentTouches?: boolean
+    canCancelContentTouches?: boolean;
 
     /**
      * When true the scroll view automatically centers the content when the
@@ -5754,19 +5953,25 @@ export interface ScrollViewPropertiesIOS {
      * larger than the scroll view this property has no effect. The default
      * value is false.
      */
-    centerContent?: boolean
+    centerContent?: boolean;
 
     /**
      * The amount by which the scroll view content is inset from the edges of the scroll view.
      * Defaults to {0, 0, 0, 0}.
      */
-    contentInset?: Insets // zeros
+    contentInset?: Insets; // zeros
 
     /**
      * Used to manually set the starting scroll offset.
      * The default value is {x: 0, y: 0}
      */
-    contentOffset?: PointProperties // zeros
+    contentOffset?: PointPropType; // zeros
+
+    /**
+     * This property specifies how the safe area insets are used to modify the content area of the scroll view.
+     * The default value of this property must be 'automatic'. But the default value is 'never' until RN@0.51.
+     */
+    contentInsetAdjustmentBehavior?: 'automatic' | 'scrollableAxes' | 'never' | 'always';
 
     /**
      * A floating-point number that determines how quickly the scroll view
@@ -5774,13 +5979,13 @@ export interface ScrollViewPropertiesIOS {
      *   - Normal: 0.998 (the default)
      *   - Fast: 0.9
      */
-    decelerationRate?: "fast" | "normal" | number
+    decelerationRate?: 'fast' | 'normal' | number;
 
     /**
      * When true the ScrollView will try to lock to only vertical or horizontal
      * scrolling while dragging.  The default value is false.
      */
-    directionalLockEnabled?: boolean
+    directionalLockEnabled?: boolean;
 
     /**
      * The style of the scroll indicators.
@@ -5790,22 +5995,28 @@ export interface ScrollViewPropertiesIOS {
      * - white, scroll indicator is white. This style is good against
      *   a black content background.
      */
-    indicatorStyle?: "default" | "black" | "white"
+    indicatorStyle?: 'default' | 'black' | 'white';
 
     /**
      * The maximum allowed zoom scale. The default value is 1.0.
      */
-    maximumZoomScale?: number
+    maximumZoomScale?: number;
 
     /**
      * The minimum allowed zoom scale. The default value is 1.0.
      */
-    minimumZoomScale?: number
+    minimumZoomScale?: number;
 
     /**
      * Called when a scrolling animation ends.
      */
-    onScrollAnimationEnd?: () => void
+    onScrollAnimationEnd?: () => void;
+
+    /**
+     * When true, ScrollView allows use of pinch gestures to zoom in and out.
+     * The default value is true.
+     */
+    pinchGestureEnabled?: boolean;
 
     /**
      * This controls how often the scroll event will be fired while scrolling (in events per seconds).
@@ -5813,35 +6024,20 @@ export interface ScrollViewPropertiesIOS {
      * but can lead to scroll performance problems due to the volume of information being send over the bridge.
      * The default value is zero, which means the scroll event will be sent only once each time the view is scrolled.
      */
-    scrollEventThrottle?: number // null
+    scrollEventThrottle?: number; // null
 
     /**
      * The amount by which the scroll view indicators are inset from the edges of the scroll view.
      * This should normally be set to the same value as the contentInset.
      * Defaults to {0, 0, 0, 0}.
      */
-    scrollIndicatorInsets?: Insets //zeroes
+    scrollIndicatorInsets?: Insets; //zeroes
 
     /**
      * When true the scroll view scrolls to top when the status bar is tapped.
      * The default value is true.
      */
-    scrollsToTop?: boolean
-
-    /**
-     * When snapToInterval is set, snapToAlignment will define the relationship of the the snapping to the scroll view.
-     *      - start (the default) will align the snap at the left (horizontal) or top (vertical)
-     *      - center will align the snap in the center
-     *      - end will align the snap at the right (horizontal) or bottom (vertical)
-     */
-    snapToAlignment?: "start" | "center" | "end"
-
-    /**
-     * When set, causes the scroll view to stop at multiples of the value of snapToInterval.
-     * This can be used for paginating through children that have lengths smaller than the scroll view.
-     * Used in combination with snapToAlignment.
-     */
-    snapToInterval?: number
+    scrollsToTop?: boolean;
 
     /**
      * An array of child indices determining which children get docked to the
@@ -5850,16 +6046,15 @@ export interface ScrollViewPropertiesIOS {
      * top of the scroll view. This property is not supported in conjunction
      * with `horizontal={true}`.
      */
-    stickyHeaderIndices?: number[]
+    stickyHeaderIndices?: number[];
 
     /**
      * The current scale of the scroll view content. The default value is 1.0.
      */
-    zoomScale?: number
+    zoomScale?: number;
 }
 
-export interface ScrollViewPropertiesAndroid {
-
+export interface ScrollViewPropsAndroid {
     /**
      * Sometimes a scrollview takes up more space than its content fills.
      * When this is the case, this prop will fill the rest of the
@@ -5867,7 +6062,7 @@ export interface ScrollViewPropertiesAndroid {
      * unnecessary overdraw. This is an advanced optimization that is not
      * needed in the general case.
      */
-    endFillColor?: string
+    endFillColor?: string;
 
     /**
      * Tag used to log scroll performance on this scroll view. Will force
@@ -5876,7 +6071,7 @@ export interface ScrollViewPropertiesAndroid {
      * FpsListener for it to be useful.
      * @platform android
      */
-    scrollPerfTag?: string
+    scrollPerfTag?: string;
 
     /**
      * Used to override default value of overScroll mode.
@@ -5886,11 +6081,15 @@ export interface ScrollViewPropertiesAndroid {
         *   - 'always' - Always allow a user to over-scroll this view.
         *   - 'never' - Never allow a user to over-scroll this view.
         */
-    overScrollMode?: 'auto' | 'always' | 'never'
+    overScrollMode?: 'auto' | 'always' | 'never';
+
+    /**
+     * Enables nested scrolling for Android API level 21+. Nested scrolling is supported by default on iOS.
+     */
+    nestedScrollEnabled?: boolean;
 }
 
-export interface ScrollViewProperties extends ViewProperties, ScrollViewPropertiesIOS, ScrollViewPropertiesAndroid, Touchable {
-
+export interface ScrollViewProps extends ViewProps, ScrollViewPropsIOS, ScrollViewPropsAndroid, Touchable {
     /**
      * These styles will be applied to the scroll view content container which
      * wraps all of the child views. Example:
@@ -5900,19 +6099,25 @@ export interface ScrollViewProperties extends ViewProperties, ScrollViewProperti
      *     </ScrollView>
      *   );
      *   ...
-     *   var styles = StyleSheet.create({
+     *   const styles = StyleSheet.create({
      *     contentContainer: {
      *       paddingVertical: 20
      *     }
      *   });
      */
-    contentContainerStyle?: ViewStyle
+    contentContainerStyle?: StyleProp<ViewStyle>;
 
     /**
      * When true the scroll view's children are arranged horizontally in a row
      * instead of vertically in a column. The default value is false.
      */
-    horizontal?: boolean
+    horizontal?: boolean;
+
+    /**
+     * If sticky headers should stick at the bottom instead of the top of the
+     * ScrollView. This is usually used with inverted ScrollViews.
+     */
+    invertStickyHeaders?: boolean;
 
     /**
      * Determines whether the keyboard gets dismissed in response to a drag.
@@ -5922,15 +6127,17 @@ export interface ScrollViewProperties extends ViewProperties, ScrollViewProperti
      *     and moves in synchrony with the touch; dragging upwards cancels the
      *     dismissal.
      */
-    keyboardDismissMode?: 'none' | 'interactive' | 'on-drag'
+    keyboardDismissMode?: 'none' | 'interactive' | 'on-drag';
 
     /**
-     * When false tapping outside of the focused text input when the keyboard
-     * is up dismisses the keyboard. When true the scroll view will not catch
-     * taps and the keyboard will not dismiss automatically. The default value
-     * is false.
+     * Determines when the keyboard should stay visible after a tap.
+     * - 'never' (the default), tapping outside of the focused text input when the keyboard is up dismisses the keyboard. When this happens, children won't receive the tap.
+     * - 'always', the keyboard will not dismiss automatically, and the scroll view will not catch taps, but children of the scroll view can catch taps.
+     * - 'handled', the keyboard will not dismiss automatically when the tap was handled by a children, (or captured by an ancestor).
+     * - false, deprecated, use 'never' instead
+     * - true, deprecated, use 'always' instead
      */
-    keyboardShouldPersistTaps?: boolean | 'always' | 'never' | 'handled'
+    keyboardShouldPersistTaps?: boolean | 'always' | 'never' | 'handled';
 
     /**
      * Called when scrollable content view of the ScrollView changes.
@@ -5938,45 +6145,45 @@ export interface ScrollViewProperties extends ViewProperties, ScrollViewProperti
      * It's implemented using onLayout handler attached to the content container which this ScrollView renders.
      *
      */
-    onContentSizeChange?: (w: number, h: number) => void
+    onContentSizeChange?: (w: number, h: number) => void;
 
     /**
      * Fires at most once per frame during scrolling.
      * The frequency of the events can be contolled using the scrollEventThrottle prop.
      */
-    onScroll?: (event?: NativeSyntheticEvent<NativeScrollEvent>) => void
+    onScroll?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
 
     /**
      * Fires if a user initiates a scroll gesture.
      */
-    onScrollBeginDrag?: (event?: NativeSyntheticEvent<NativeScrollEvent>) => void
+    onScrollBeginDrag?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
 
-/**
+    /**
      * Fires when a user has finished scrolling.
      */
-    onScrollEndDrag?: (event?: NativeSyntheticEvent<NativeScrollEvent>) => void
+    onScrollEndDrag?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
 
-/**
+    /**
      * Fires when scroll view has finished moving
      */
-    onMomentumScrollEnd?: (event?: NativeSyntheticEvent<NativeScrollEvent>) => void
+    onMomentumScrollEnd?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
 
     /**
      * Fires when scroll view has begun moving
      */
-    onMomentumScrollBegin?: (event?: NativeSyntheticEvent<NativeScrollEvent>) => void
+    onMomentumScrollBegin?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
 
     /**
      * When true the scroll view stops on multiples of the scroll view's size
      * when scrolling. This can be used for horizontal pagination. The default
      * value is false.
      */
-    pagingEnabled?: boolean
+    pagingEnabled?: boolean;
 
     /**
      * When false, the content does not scroll. The default value is true
      */
-    scrollEnabled?: boolean // true
+    scrollEnabled?: boolean; // true
 
     /**
      * Experimental: When true offscreen child views (whose `overflow` value is
@@ -5984,35 +6191,87 @@ export interface ScrollViewProperties extends ViewProperties, ScrollViewProperti
      * This canimprove scrolling performance on long lists. The default value is
      * false.
      */
-    removeClippedSubviews?: boolean
+    removeClippedSubviews?: boolean;
 
     /**
      * When true, shows a horizontal scroll indicator.
      */
-    showsHorizontalScrollIndicator?: boolean
+    showsHorizontalScrollIndicator?: boolean;
 
     /**
      * When true, shows a vertical scroll indicator.
      */
-    showsVerticalScrollIndicator?: boolean
+    showsVerticalScrollIndicator?: boolean;
 
     /**
      * Style
      */
-    style?: ScrollViewStyle
+    style?: StyleProp<ViewStyle>;
 
     /**
      * A RefreshControl component, used to provide pull-to-refresh
      * functionality for the ScrollView.
      */
-    refreshControl?: React.ReactElement<RefreshControlProperties>
+    refreshControl?: React.ReactElement<RefreshControlProps>;
+
+    /**
+     * When `snapToInterval` is set, `snapToAlignment` will define the relationship of the the snapping to the scroll view.
+     *      - `start` (the default) will align the snap at the left (horizontal) or top (vertical)
+     *      - `center` will align the snap in the center
+     *      - `end` will align the snap at the right (horizontal) or bottom (vertical)
+     */
+    snapToAlignment?: 'start' | 'center' | 'end';
+
+    /**
+     * When set, causes the scroll view to stop at multiples of the value of `snapToInterval`.
+     * This can be used for paginating through children that have lengths smaller than the scroll view.
+     * Used in combination with `snapToAlignment` and `decelerationRate="fast"`. Overrides less
+     * configurable `pagingEnabled` prop.
+     */
+    snapToInterval?: number;
+
+    /**
+     * When set, causes the scroll view to stop at the defined offsets. This can be used for
+     * paginating through variously sized children that have lengths smaller than the scroll view.
+     * Typically used in combination with `decelerationRate="fast"`. Overrides less configurable
+     * `pagingEnabled` and `snapToInterval` props.
+     */
+    snapToOffsets?: number[];
+
+    /**
+     * Use in conjuction with `snapToOffsets`. By default, the beginning of the list counts as a
+     * snap offset. Set `snapToStart` to false to disable this behavior and allow the list to scroll
+     * freely between its start and the first `snapToOffsets` offset. The default value is true.
+     */
+    snapToStart?: boolean;
+
+    /**
+     * Use in conjuction with `snapToOffsets`. By default, the end of the list counts as a snap
+     * offset. Set `snapToEnd` to false to disable this behavior and allow the list to scroll freely
+     * between its end and the last `snapToOffsets` offset. The default value is true.
+     */
+    snapToEnd?: boolean;
+
+    /**
+     * When true, the scroll view stops on the next index (in relation to scroll position at release)
+     * regardless of how fast the gesture is. This can be used for horizontal pagination when the page
+     * is less than the width of the ScrollView. The default value is false.
+     */
+    disableIntervalMomentum?: boolean;
+
+    /**
+     * When true, the default JS pan responder on the ScrollView is disabled, and full control over
+     * touches inside the ScrollView is left to its child components. This is particularly useful
+     * if `snapToInterval` is enabled, since it does not follow typical touch patterns. Do not use
+     * this on regular ScrollView use cases without `snapToInterval` as it may cause unexpected
+     * touches to occur while scrolling. The default value is false.
+     */
+    disableScrollViewPanResponder?: boolean;
 }
 
-export interface ScrollViewProps extends ScrollViewProperties {
-}
-
-interface ScrollViewStatic extends ScrollResponderMixin, React.ComponentClass<ScrollViewProps> {
-
+declare class ScrollViewComponent extends React.Component<ScrollViewProps> {}
+declare const ScrollViewBase: Constructor<ScrollResponderMixin> & typeof ScrollViewComponent;
+export class ScrollView extends ScrollViewBase {
     /**
      * Scrolls to a given x, y offset, either immediately or with a smooth animation.
      * Syntax:
@@ -6023,11 +6282,7 @@ interface ScrollViewStatic extends ScrollResponderMixin, React.ComponentClass<Sc
      * the function also accepts separate arguments as as alternative to the options object.
      * This is deprecated due to ambiguity (y before x), and SHOULD NOT BE USED.
      */
-    scrollTo(
-        y?: number | { x?: number, y?: number, animated?: boolean },
-        x?: number,
-        animated?: boolean
-    ): void;
+    scrollTo(y?: number | { x?: number; y?: number; animated?: boolean }, x?: number, animated?: boolean): void;
 
     /**
      * A helper function that scrolls to the end of the scrollview;
@@ -6037,7 +6292,7 @@ interface ScrollViewStatic extends ScrollResponderMixin, React.ComponentClass<Sc
      * The options object has an animated prop, that enables the scrolling animation or not.
      * The animated prop defaults to true
      */
-    scrollToEnd(options?: {animated: boolean}): void;
+    scrollToEnd(options?: { animated: boolean }): void;
 
     /**
      * Returns a reference to the underlying scroll responder, which supports
@@ -6052,10 +6307,11 @@ interface ScrollViewStatic extends ScrollResponderMixin, React.ComponentClass<Sc
     // Undocumented
     getInnerViewNode(): any;
 
-    // Deprecated, do not use.
-    scrollWithoutAnimationTo?: (y: number, x: number) => void
+    /**
+     * @deprecated Use scrollTo instead
+     */
+    scrollWithoutAnimationTo?: (y: number, x: number) => void;
 }
-
 
 export interface NativeScrollRectangle {
     left: number;
@@ -6065,6 +6321,11 @@ export interface NativeScrollRectangle {
 }
 
 export interface NativeScrollPoint {
+    x: number;
+    y: number;
+}
+
+export interface NativeScrollVelocity {
     x: number;
     y: number;
 }
@@ -6079,19 +6340,21 @@ export interface NativeScrollEvent {
     contentOffset: NativeScrollPoint;
     contentSize: NativeScrollSize;
     layoutMeasurement: NativeScrollSize;
+    velocity?: NativeScrollVelocity;
     zoomScale: number;
 }
 
-export interface SnapshotViewIOSProperties extends ViewProperties {
-
+export interface SnapshotViewIOSProps extends ViewProps {
     // A callback when the Snapshot view is ready to be compared
-    onSnapshotReady(): any,
+    onSnapshotReady(): any;
 
     // A name to identify the individual instance to the SnapshotView
-    testIdentifier: string,
+    testIdentifier: string;
 }
 
-export interface SnapshotViewIOSStatic extends NativeMethodsMixin, React.ComponentClass<SnapshotViewIOSProperties> {}
+declare class SnapshotViewIOSComponent extends React.Component<SnapshotViewIOSProps> {}
+declare const SnapshotViewIOSBase: Constructor<NativeMethodsMixin> & typeof SnapshotViewIOSComponent;
+export class SnapshotViewIOS extends SnapshotViewIOSBase {}
 
 // Deduced from
 // https://github.com/facebook/react-native/commit/052cd7eb8afa7a805ef13e940251be080499919c
@@ -6105,37 +6368,43 @@ export interface SnapshotViewIOSStatic extends NativeMethodsMixin, React.Compone
  * ListViewDataSource is not subclassed.
  */
 export interface SwipeableListViewDataSource {
-    cloneWithRowsAndSections(dataBlob: any,
-                                sectionIdentities?: Array<string>,
-                                rowIdentities?: Array<Array<string>>): SwipeableListViewDataSource
-    getDataSource(): ListViewDataSource
-    getOpenRowID(): string
-    getFirstRowID(): string
-    setOpenRowID(rowID: string): SwipeableListViewDataSource
+    cloneWithRowsAndSections(
+        dataBlob: any,
+        sectionIdentities?: Array<string>,
+        rowIdentities?: Array<Array<string>>,
+    ): SwipeableListViewDataSource;
+    getDataSource(): ListViewDataSource;
+    getOpenRowID(): string;
+    getFirstRowID(): string;
+    setOpenRowID(rowID: string): SwipeableListViewDataSource;
 }
 
 export interface SwipeableListViewProps {
-
     /**
      * To alert the user that swiping is possible, the first row can bounce
      * on component mount.
      */
-    bounceFirstRowOnMount: boolean
+    bounceFirstRowOnMount: boolean;
 
     /**
      * Use `SwipeableListView.getNewDataSource()` to get a data source to use,
      * then use it just like you would a normal ListView data source
      */
-    dataSource: SwipeableListViewDataSource
+    dataSource: SwipeableListViewDataSource;
 
     // Maximum distance to open to after a swipe
-    maxSwipeDistance: number
+    maxSwipeDistance: number;
 
     // Callback method to render the swipeable view
-    renderRow: (rowData: any, sectionID: string | number, rowID: string | number, highlightRow?: boolean) => React.ReactElement<any>
+    renderRow: (
+        rowData: any,
+        sectionID: string | number,
+        rowID: string | number,
+        highlightRow?: boolean,
+    ) => React.ReactElement;
 
     // Callback method to render the view that will be unveiled on swipe
-    renderQuickActions(rowData: any, sectionID: string | number, rowID: string | number): React.ReactElement<any>
+    renderQuickActions(rowData: any, sectionID: string | number, rowID: string | number): React.ReactElement;
 }
 
 /**
@@ -6156,10 +6425,9 @@ export interface SwipeableListViewProps {
  * - It can bounce the 1st row of the list so users know it's swipeable
  * - More to come
  */
-export interface SwipeableListViewStatic extends React.ComponentClass<SwipeableListViewProps> {
-    getNewDataSource(): SwipeableListViewDataSource
+export class SwipeableListView extends React.Component<SwipeableListViewProps> {
+    static getNewDataSource(): SwipeableListViewDataSource;
 }
-
 
 //////////////////////////////////////////////////////////////////////////
 //
@@ -6171,21 +6439,23 @@ export interface SwipeableListViewStatic extends React.ComponentClass<SwipeableL
  * @see: http://facebook.github.io/react-native/docs/actionsheetios.html#content
  */
 export interface ActionSheetIOSOptions {
-    title?: string
-    options: string[]
-    cancelButtonIndex?: number
-    destructiveButtonIndex?: number
-    message?: string
+    title?: string;
+    options: string[];
+    cancelButtonIndex?: number;
+    destructiveButtonIndex?: number;
+    message?: string;
+    anchor?: number;
+    tintColor?: string;
 }
 
 export interface ShareActionSheetIOSOptions {
-    message?: string
-    url?: string
-    subject?: string
+    message?: string;
+    url?: string;
+    subject?: string;
     /** The activities to exclude from the ActionSheet.
      * For example: ['com.apple.UIKit.activity.PostToTwitter']
      */
-    excludedActivityTypes?: string[]
+    excludedActivityTypes?: string[];
 }
 
 /**
@@ -6201,7 +6471,7 @@ export interface ActionSheetIOSStatic {
      * - `title` (string) - a title to show above the action sheet
      * - `message` (string) - a message to show below the title
      */
-    showActionSheetWithOptions: (options: ActionSheetIOSOptions, callback: (buttonIndex: number) => void) => void
+    showActionSheetWithOptions: (options: ActionSheetIOSOptions, callback: (buttonIndex: number) => void) => void;
 
     /**
      * Display the iOS share sheet. The `options` object should contain
@@ -6217,22 +6487,40 @@ export interface ActionSheetIOSStatic {
      * uri, the file it points to will be loaded and shared directly.
      * In this way, you can share images, videos, PDF files, etc.
      */
-    showShareActionSheetWithOptions: (options: ShareActionSheetIOSOptions, failureCallback: (error: Error) => void, successCallback: (success: boolean, method: string) => void) => void
+    showShareActionSheetWithOptions: (
+        options: ShareActionSheetIOSOptions,
+        failureCallback: (error: Error) => void,
+        successCallback: (success: boolean, method: string) => void,
+    ) => void;
 }
 
-export type ShareContent = {
-    title?: string
-    message: string
-} | {
-    title?: string
-    url: string
-}
+export type ShareContent =
+    | {
+          title?: string;
+          message: string;
+      }
+    | {
+          title?: string;
+          url: string;
+      };
 
 export type ShareOptions = {
-    dialogTitle?: string
-    excludeActivityTypes?: Array<string>
-    tintColor?: string
-}
+    dialogTitle?: string;
+    excludedActivityTypes?: Array<string>;
+    tintColor?: string;
+    subject?: string;
+};
+
+export type ShareSharedAction = {
+    action: 'sharedAction';
+    activityType?: string;
+};
+
+export type ShareDismissedAction = {
+    action: 'dismissedAction';
+};
+
+export type ShareAction = ShareSharedAction | ShareDismissedAction;
 
 export interface ShareStatic {
     /**
@@ -6267,23 +6555,126 @@ export interface ShareStatic {
      * - `dialogTitle`
      *
      */
-    share(content: ShareContent, options: ShareOptions): Promise<Object>
-    sharedAction: string
-    dismissedAction: string
+    share(content: ShareContent, options?: ShareOptions): Promise<ShareAction>;
+    sharedAction: 'sharedAction';
+    dismissedAction: 'dismissedAction';
+}
+
+type AccessibilityEventName =
+    | 'change' // deprecated, maps to screenReaderChanged
+    | 'boldTextChanged' // iOS-only Event
+    | 'grayscaleChanged' // iOS-only Event
+    | 'invertColorsChanged' // iOS-only Event
+    | 'reduceMotionChanged'
+    | 'screenReaderChanged'
+    | 'reduceTransparencyChanged' // iOS-only Event
+    | 'announcementFinished'; // iOS-only Event
+
+type AccessibilityChangeEvent = boolean;
+
+type AccessibilityAnnoucementFinishedEvent = {
+    announcement: string;
+    success: boolean;
+};
+
+type AccessibilityEvent = AccessibilityChangeEvent | AccessibilityAnnoucementFinishedEvent;
+
+/**
+ * @see https://facebook.github.io/react-native/docs/accessibilityinfo.html
+ */
+export interface AccessibilityInfoStatic {
+    /**
+     * Query whether bold text is currently enabled.
+     *
+     * @platform ios
+     */
+    isBoldTextEnabled: () => Promise<boolean>;
+
+    /**
+     * Query whether grayscale is currently enabled.
+     *
+     * @platform ios
+     */
+    isGrayscaleEnabled: () => Promise<boolean>;
+
+    /**
+     * Query whether invert colors is currently enabled.
+     *
+     * @platform ios
+     */
+    isInvertColorsEnabled: () => Promise<boolean>;
+
+    /**
+     * Query whether reduce motion is currently enabled.
+     */
+    isReduceMotionEnabled: () => Promise<boolean>;
+
+    /**
+     * Query whether reduce transparency is currently enabled.
+     *
+     * @platform ios
+     */
+    isReduceTransparencyEnabled: () => Promise<boolean>;
+
+    /**
+     * Query whether a screen reader is currently enabled.
+     */
+    isScreenReaderEnabled: () => Promise<boolean>;
+
+    /**
+     * Query whether a screen reader is currently enabled.
+     *
+     * @deprecated use isScreenReaderChanged instead
+     */
+    fetch(): () => Promise<boolean>;
+
+    /**
+     * Add an event handler. Supported events:
+     * - announcementFinished: iOS-only event. Fires when the screen reader has finished making an announcement.
+     *                         The argument to the event handler is a dictionary with these keys:
+     *                          - announcement: The string announced by the screen reader.
+     *                          - success: A boolean indicating whether the announcement was successfully made.
+     * - AccessibilityEventName constants other than announcementFinished: Fires on accessibility feature change.
+     *            The argument to the event handler is a boolean.
+     *            The boolean is true when the related event's feature is enabled and false otherwise.
+     *
+     */
+    addEventListener: (eventName: AccessibilityEventName, handler: (event: AccessibilityEvent) => void) => void;
+
+    /**
+     * Remove an event handler.
+     */
+    removeEventListener: (eventName: AccessibilityEventName, handler: (event: AccessibilityEvent) => void) => void;
+
+    /**
+     * Set acessibility focus to a react component.
+     *
+     * @platform ios
+     */
+    setAccessibilityFocus: (reactTag: number) => void;
+
+    /**
+     * Post a string to be announced by the screen reader.
+     *
+     * @platform ios
+     */
+    announceForAccessibility: (announcement: string) => void;
 }
 
 /**
  * @see https://facebook.github.io/react-native/docs/alert.html#content
  */
 export interface AlertButton {
-    text?: string
-    onPress?: () => void
-    style?: "default" | "cancel" | "destructive"
+    text?: string;
+    onPress?: () => void;
+    style?: 'default' | 'cancel' | 'destructive';
 }
 
 interface AlertOptions {
     /** @platform android */
     cancelable?: boolean;
+    /** @platform android */
+    onDismiss?: () => void;
 }
 
 /**
@@ -6325,83 +6716,10 @@ interface AlertOptions {
  * ```
  */
 export interface AlertStatic {
-    alert: (title: string, message?: string, buttons?: AlertButton[], options?: AlertOptions, type?: string) => void
+    alert: (title: string, message?: string, buttons?: AlertButton[], options?: AlertOptions) => void;
 }
 
-/**
- * Wrapper around the Android native module.
- */
-export interface AlertAndroidStatic {
-    alert: (title: string, message?: string, buttons?: AlertButton[], options?: AlertOptions) => void
-}
-
-/**
- * //FIXME: No documentation - inferred from RCTAdSupport.m
- */
-export interface AdSupportIOSStatic {
-    getAdvertisingId: (onSuccess: (deviceId: string) => void, onFailure: (err: Error) => void) => void
-    getAdvertisingTrackingEnabled: (onSuccess: (hasTracking: boolean) => void, onFailure: (err: Error) => void) => void
-}
-
-interface AlertIOSButton {
-    text: string
-    onPress?: (message?: string) => void
-    style?: "default" | "cancel" | "destructive"
-}
-
-export type AlertType = "default" | "plain-text" | "secure-text" | "login-password"
-
-/**
- * @description
- * `AlertIOS` provides functionality to create an iOS alert dialog with a
- * message or create a prompt for user input.
- *
- * We recommend using the [`Alert.alert`](/docs/alert.html) method for
- * cross-platform support if you don't need to create iOS-only prompts.
- *
- * @see https://facebook.github.io/react-native/docs/alertios.html#content
- */
-export interface AlertIOSStatic {
-
-    /**
-     * Create and display a popup alert.
-     * @static
-     * @method alert
-     * @param title The dialog's title.
-     * @param message An optional message that appears below
-     *     the dialog's title.
-     * @param callbackOrButtons This optional argument should
-     *    be either a single-argument function or an array of buttons. If passed
-     *    a function, it will be called when the user taps 'OK'.
-     *
-     *    If passed an array of button configurations, each button should include
-     *    a `text` key, as well as optional `onPress` and `style` keys. `style`
-     *    should be one of 'default', 'cancel' or 'destructive'.
-     * @param type Deprecated, do not use.
-     */
-    alert: ( title: string, message?: string, callbackOrButtons?: (() => void) | Array<AlertIOSButton>, type?: AlertType ) => void
-
-    /**
-     * Create and display a prompt to enter some text.
-     * @static
-     * @method prompt
-     * @param title The dialog's title.
-     * @param message An optional message that appears above the text
-     *    input.
-     * @param callbackOrButtons This optional argument should
-     *    be either a single-argument function or an array of buttons. If passed
-     *    a function, it will be called with the prompt's value when the user
-     *    taps 'OK'.
-     *
-     *    If passed an array of button configurations, each button should include
-     *    a `text` key, as well as optional `onPress` and `style` keys (see
-     *    example). `style` should be one of 'default', 'cancel' or 'destructive'.
-     * @param type This configures the text input. One of 'plain-text',
-     *    'secure-text' or 'login-password'.
-     * @param defaultValue The default text in text input.
-     */
-    prompt: ( title: string, message?: string, callbackOrButtons?: ((value: string) => void) | Array<AlertIOSButton>, type?: AlertType, defaultValue?: string ) => void
-}
+export type AlertType = 'default' | 'plain-text' | 'secure-text' | 'login-password';
 
 /**
  * AppStateIOS can tell you if the app is in the foreground or background,
@@ -6419,23 +6737,22 @@ export interface AlertIOSStatic {
  *
  * @see https://facebook.github.io/react-native/docs/appstateios.html#content
  */
-export type AppStateEvent = "change" | "memoryWarning"
-export type AppStateStatus = "active" | "background" | "inactive"
+export type AppStateEvent = 'change' | 'memoryWarning';
+export type AppStateStatus = 'active' | 'background' | 'inactive';
 
 export interface AppStateStatic {
-
-    currentState: string
+    currentState: AppStateStatus;
 
     /**
      * Add a handler to AppState changes by listening to the change event
      * type and providing the handler
      */
-    addEventListener(type: AppStateEvent, listener: (state: AppStateStatus) => void): void
+    addEventListener(type: AppStateEvent, listener: (state: AppStateStatus) => void): void;
 
     /**
      * Remove a handler by passing the change event type and the handler
      */
-    removeEventListener(type: AppStateEvent, listener: (state: AppStateStatus) => void): void
+    removeEventListener(type: AppStateEvent, listener: (state: AppStateStatus) => void): void;
 }
 
 /**
@@ -6454,52 +6771,54 @@ export interface AppStateStatic {
  * @see https://facebook.github.io/react-native/docs/asyncstorage.html#content
  */
 export interface AsyncStorageStatic {
-
     /**
      * Fetches key and passes the result to callback, along with an Error if there is any.
      */
-    getItem(key: string, callback?: (error?: Error, result?: string) => void): Promise<string>
+    getItem(key: string, callback?: (error?: Error, result?: string) => void): Promise<string | null>;
 
     /**
      * Sets value for key and calls callback on completion, along with an Error if there is any
      */
-    setItem(key: string, value: string, callback?: (error?: Error) => void): Promise<void>
+    setItem(key: string, value: string, callback?: (error?: Error) => void): Promise<void>;
 
-    removeItem(key: string, callback?: (error?: Error) => void): Promise<void>
+    removeItem(key: string, callback?: (error?: Error) => void): Promise<void>;
 
     /**
      * Merges existing value with input value, assuming they are stringified json. Returns a Promise object.
      * Not supported by all native implementation
      */
-    mergeItem(key: string, value: string, callback?: (error?: Error) => void): Promise<void>
+    mergeItem(key: string, value: string, callback?: (error?: Error) => void): Promise<void>;
 
     /**
      * Erases all AsyncStorage for all clients, libraries, etc. You probably don't want to call this.
      * Use removeItem or multiRemove to clear only your own keys instead.
      */
-    clear(callback?: (error?: Error) => void): Promise<void>
+    clear(callback?: (error?: Error) => void): Promise<void>;
 
     /**
      * Gets all keys known to the app, for all callers, libraries, etc
      */
-    getAllKeys(callback?: (error?: Error, keys?: string[]) => void): Promise<string[]>
+    getAllKeys(callback?: (error?: Error, keys?: string[]) => void): Promise<string[]>;
 
     /**
      * multiGet invokes callback with an array of key-value pair arrays that matches the input format of multiSet
      */
-    multiGet(keys: string[], callback?: (errors?: Error[], result?: [string, string][]) => void): Promise<[string, string][]>
+    multiGet(
+        keys: string[],
+        callback?: (errors?: Error[], result?: [string, string][]) => void,
+    ): Promise<[string, string][]>;
 
     /**
      * multiSet and multiMerge take arrays of key-value array pairs that match the output of multiGet,
      *
      * multiSet([['k1', 'val1'], ['k2', 'val2']], cb);
      */
-    multiSet(keyValuePairs: string[][], callback?: (errors?: Error[]) => void): Promise<void>
+    multiSet(keyValuePairs: string[][], callback?: (errors?: Error[]) => void): Promise<void>;
 
     /**
      * Delete all the keys in the keys array.
      */
-    multiRemove(keys: string[], callback?: (errors?: Error[]) => void): Promise<void>
+    multiRemove(keys: string[], callback?: (errors?: Error[]) => void): Promise<void>;
 
     /**
      * Merges existing values with input values, assuming they are stringified json.
@@ -6507,22 +6826,10 @@ export interface AsyncStorageStatic {
      *
      * Not supported by all native implementations.
      */
-    multiMerge(keyValuePairs: string[][], callback?: (errors?: Error[]) => void): Promise<void>
+    multiMerge(keyValuePairs: string[][], callback?: (errors?: Error[]) => void): Promise<void>;
 }
 
-export type BackPressEventName = "hardwareBackPress"
-
-/**
- * Detect hardware back button presses, and programmatically invoke the
- * default back button functionality to exit the app if there are no
- * listeners or if none of the listeners return true.
- * Methods don't have more detailed documentation as of 0.25.
- */
-export interface BackAndroidStatic {
-    exitApp(): void;
-    addEventListener(eventName: BackPressEventName, handler: () => void): void;
-    removeEventListener(eventName: BackPressEventName, handler: () => void): void;
-}
+export type BackPressEventName = 'hardwareBackPress';
 
 /**
  * Detect hardware back button presses, and programmatically invoke the
@@ -6532,30 +6839,34 @@ export interface BackAndroidStatic {
  */
 export interface BackHandlerStatic {
     exitApp(): void;
-    addEventListener(eventName: BackPressEventName, handler: () => void): void;
+    addEventListener(eventName: BackPressEventName, handler: () => void): NativeEventSubscription;
     removeEventListener(eventName: BackPressEventName, handler: () => void): void;
 }
 
-export interface ButtonProperties {
+export interface ButtonProps {
     title: string;
-    onPress: () => any;
+    onPress: (ev: NativeSyntheticEvent<NativeTouchEvent>) => void;
     color?: string;
     accessibilityLabel?: string;
     disabled?: boolean;
+
+    /**
+     * Used to locate this button in end-to-end tests.
+     */
+    testID?: string;
 }
 
-export interface ButtonStatic extends React.ComponentClass<ButtonProperties> {
-}
+export class Button extends React.Component<ButtonProps> {}
 
-export type CameraRollGroupType = "Album" | "All" | "Event" | "Faces" | "Library" | "PhotoStream" | "SavedPhotos";
-export type CameraRollAssetType = "All" | "Videos" | "Photos";
+export type CameraRollGroupType = 'Album' | 'All' | 'Event' | 'Faces' | 'Library' | 'PhotoStream' | 'SavedPhotos';
+export type CameraRollAssetType = 'All' | 'Videos' | 'Photos';
 
 export interface CameraRollFetchParams {
     first: number;
     after?: string;
-    groupTypes?: CameraRollGroupType
-    groupName?: string
-    assetType?: CameraRollAssetType
+    groupTypes?: CameraRollGroupType;
+    groupName?: string;
+    assetType?: CameraRollAssetType;
 }
 
 export interface CameraRollNodeInfo {
@@ -6578,41 +6889,42 @@ export interface CameraRollAssetInfo {
 }
 
 export interface GetPhotosParamType {
-    first: number
-    after?: string
-    groupTypes?: CameraRollGroupType
-    groupName?: string
-    assetType?: CameraRollAssetType
-    mimeTypes?: string[]
+    first: number;
+    after?: string;
+    groupTypes?: CameraRollGroupType;
+    groupName?: string;
+    assetType?: CameraRollAssetType;
+    mimeTypes?: string[];
 }
 
 export interface GetPhotosReturnType {
     edges: {
         node: {
-            type: string
-            group_name: string
+            type: string;
+            group_name: string;
             image: {
-                uri: string
-                height: number
-                width: number
-                isStored?: boolean
-            }
-            timestamp: number
+                uri: string;
+                height: number;
+                width: number;
+                playableDuration: number;
+                isStored?: boolean;
+            };
+            timestamp: number;
             location: {
-            latitude: number
-            longitude: number
-            altitude: number
-            heading: number
-            speed: number
-            }
-        }
-    }[]
+                latitude: number;
+                longitude: number;
+                altitude: number;
+                heading: number;
+                speed: number;
+            };
+        };
+    }[];
 
     page_info: {
-        has_next_page: boolean
-        start_cursor?: string
-        end_cursor?: string
-    }
+        has_next_page: boolean;
+        start_cursor?: string;
+        end_cursor?: string;
+    };
 }
 
 /**
@@ -6621,9 +6933,8 @@ export interface GetPhotosReturnType {
  * You can refer to (Linking)[https://facebook.github.io/react-native/docs/linking-libraries-ios.html] for help.
  */
 export interface CameraRollStatic {
-
-    GroupTypesOptions: CameraRollGroupType[] //'Album','All','Event','Faces','Library','PhotoStream','SavedPhotos'
-    AssetTypeOptions: CameraRollAssetType[] // "All", "Videos", "Photos"
+    GroupTypesOptions: CameraRollGroupType[]; //'Album','All','Event','Faces','Library','PhotoStream','SavedPhotos'
+    AssetTypeOptions: CameraRollAssetType[]; // "All", "Videos", "Photos"
 
     /**
      * Saves the image to the camera roll / gallery.
@@ -6636,7 +6947,7 @@ export interface CameraRollStatic {
      *
      * @deprecated use saveToCameraRoll instead
      */
-    saveImageWithTag(tag: string): Promise<string>
+    saveImageWithTag(tag: string): Promise<string>;
 
     /**
      * Saves the photo or video to the camera roll / gallery.
@@ -6652,7 +6963,7 @@ export interface CameraRollStatic {
      *
      * Returns a Promise which will resolve with the new URI.
      */
-    saveToCameraRoll(tag: string, type?: 'photo' | 'video'): Promise<string>
+    saveToCameraRoll(tag: string, type?: 'photo' | 'video'): Promise<string>;
 
     /**
      * Saves the photo or video to the camera roll / gallery.
@@ -6668,15 +6979,45 @@ export interface CameraRollStatic {
      *
      * Returns a Promise which will resolve with the new URI.
      */
-    saveToCameraRoll(tag: string, type?: 'photo' | 'video'): Promise<string>
+    saveToCameraRoll(tag: string, type?: 'photo' | 'video'): Promise<string>;
 
     /**
      * Invokes callback with photo identifier objects from the local camera roll of the device matching shape defined by getPhotosReturnChecker.
      *
-     * @param {object} params See getPhotosParamChecker.
+     * @param params See getPhotosParamChecker.
      */
     getPhotos(params: GetPhotosParamType): Promise<GetPhotosReturnType>;
 }
+
+// https://facebook.github.io/react-native/docs/checkbox.html
+export interface CheckBoxProps extends ViewProps {
+    /**
+     * If true the user won't be able to toggle the checkbox. Default value is false.
+     */
+    disabled?: boolean;
+
+    /**
+     * Used in case the props change removes the component.
+     */
+    onChange?: (value: boolean) => void;
+
+    /**
+     * Invoked with the new value when the value changes.
+     */
+    onValueChange?: (value: boolean) => void;
+
+    /**
+     * Used to locate this view in end-to-end tests.
+     */
+    testID?: string;
+
+    /**
+     * The value of the checkbox. If true the checkbox will be turned on. Default value is false.
+     */
+    value?: boolean;
+}
+
+export class CheckBox extends React.Component<CheckBoxProps> {}
 
 /** Clipboard gives you an interface for setting and getting content from Clipboard on both iOS and Android */
 export interface ClipboardStatic {
@@ -6684,103 +7025,57 @@ export interface ClipboardStatic {
     setString(content: string): void;
 }
 
-export interface DatePickerAndroidOpenOption {
-    date?: Date | number
-    minDate?: Date | number
-    maxDate?: Date | number
-    mode?: 'calendar' | 'spinner' | 'default'
+export interface DatePickerAndroidOpenOptions {
+    date?: Date | number;
+    minDate?: Date | number;
+    maxDate?: Date | number;
+    mode?: 'calendar' | 'spinner' | 'default';
 }
 
 // Deduced from DatePickerAndroid.android.js
-export interface DatePickerAndroidOpenReturn {
-    action: string // "dateSetAction" | "dismissedAction"
-    year?: number
-    month?: number
-    day?: number
+export interface DatePickerAndroidDateSetAction {
+    action: 'dateSetAction';
+    year: number;
+    month: number;
+    day: number;
 }
 
+export interface DatePickerAndroidDismissedAction {
+    action: 'dismissedAction';
+}
+
+export type DatePickerAndroidOpenReturn = DatePickerAndroidDateSetAction | DatePickerAndroidDismissedAction;
+
 export interface DatePickerAndroidStatic {
-    /*
-        Opens the standard Android date picker dialog.
-
-        The available keys for the options object are:
-        * date (Date object or timestamp in milliseconds) - date to show by default
-        * minDate (Date object or timestamp in milliseconds) - minimum date that can be selected
-        * maxDate (Date object or timestamp in milliseconds) - maximum date that can be selected
-
-        Returns a Promise which will be invoked an object containing action, year, month (0-11), day if the user picked
-        a date. If the user dismissed the dialog, the Promise will still be resolved with action being
-        DatePickerAndroid.dismissedAction and all the other keys being undefined. Always check whether the action before
-        reading the values.
-
-        Note the native date picker dialog has some UI glitches on Android 4 and lower when using the minDate and maxDate options.
-        */
-    open(options?: DatePickerAndroidOpenOption): Promise<DatePickerAndroidOpenReturn>
+    /**
+     * Opens the standard Android date picker dialog.
+     *
+     * The available keys for the options object are:
+     * - date (Date object or timestamp in milliseconds) - date to show by default
+     * - minDate (Date or timestamp in milliseconds) - minimum date that can be selected
+     * - maxDate (Date object or timestamp in milliseconds) - maximum date that can be selected
+     * - mode (enum('calendar', 'spinner', 'default')) - To set the date-picker mode to calendar/spinner/default
+     *  - 'calendar': Show a date picker in calendar mode.
+     *  - 'spinner': Show a date picker in spinner mode.
+     *  - 'default': Show a default native date picker(spinner/calendar) based on android versions.
+     *
+     * Returns a Promise which will be invoked an object containing action, year, month (0-11), day if the user picked a date.
+     * If the user dismissed the dialog, the Promise will still be resolved with action being DatePickerAndroid.dismissedAction and all the other keys being undefined.
+     * Always check whether the action before reading the values.
+     *
+     * Note the native date picker dialog has some UI glitches on Android 4 and lower when using the minDate and maxDate options.
+     */
+    open(options?: DatePickerAndroidOpenOptions): Promise<DatePickerAndroidOpenReturn>;
 
     /**
      * A date has been selected.
      */
-    dateSetAction: string
+    dateSetAction: 'dateSetAction';
 
     /**
      * The dialog has been dismissed.
      */
-    dismissedAction: string
-}
-
-export interface FetchableListenable<T> {
-    fetch: () => Promise<T>
-
-    /**
-     * eventName is expected to be `change`
-     * //FIXME: No doc - inferred from NetInfo.js
-     */
-    addEventListener: (eventName: string, listener: (result: T) => void) => void
-
-    /**
-     * eventName is expected to be `change`
-     * //FIXME: No doc - inferred from NetInfo.js
-     */
-    removeEventListener: (eventName: string, listener: (result: T) => void) => void
-}
-
-export interface IntentAndroidStatic {
-    /**
-     * Starts a corresponding external activity for the given URL.
-
-        For example, if the URL is "https://www.facebook.com", the system browser will be opened, or the "choose application" dialog will be shown.
-
-        You can use other URLs, like a location (e.g. "geo:37.484847,-122.148386"), a contact, or any other URL that can be opened with {@code Intent.ACTION_VIEW}.
-
-        NOTE: This method will fail if the system doesn't know how to open the specified URL. If you're passing in a non-http(s) URL, it's best to check {@code canOpenURL} first.
-
-        NOTE: For web URLs, the protocol ("http://", "https://") must be set accordingly!
-
-        @deprecated
-        */
-    openURL(url: string): void
-
-    /**
-     * Determine whether or not an installed app can handle a given URL.
-
-        You can use other URLs, like a location (e.g. "geo:37.484847,-122.148386"), a contact, or any other URL that can be opened with {@code Intent.ACTION_VIEW}.
-
-        NOTE: For web URLs, the protocol ("http://", "https://") must be set accordingly!
-
-        @param URL the URL to open
-
-        @deprecated
-        */
-    canOpenURL(url: string, callback: (supported: boolean) => void): void
-
-    /**
-     * If the app launch was triggered by an app link with {@code Intent.ACTION_VIEW}, it will give the link url, otherwise it will give null
-
-        Refer http://developer.android.com/training/app-indexing/deep-linking.html#handling-intents
-
-        @deprecated
-        */
-    getInitialURL(callback: (url: string) => void): void
+    dismissedAction: 'dismissedAction';
 }
 
 export interface LinkingStatic extends NativeEventEmitter {
@@ -6788,12 +7083,12 @@ export interface LinkingStatic extends NativeEventEmitter {
      * Add a handler to Linking changes by listening to the `url` event type
      * and providing the handler
      */
-    addEventListener(type: string, handler: (event: { url: string }) => void): void
+    addEventListener(type: string, handler: (event: { url: string }) => void): void;
 
     /**
      * Remove a handler by passing the `url` event type and the handler
      */
-    removeEventListener(type: string, handler: (event: { url: string }) => void): void
+    removeEventListener(type: string, handler: (event: { url: string }) => void): void;
 
     /**
      * Try to open the given url with any of the installed apps.
@@ -6801,7 +7096,7 @@ export interface LinkingStatic extends NativeEventEmitter {
      * NOTE: This method will fail if the system doesn't know how to open the specified URL. If you're passing in a non-http(s) URL, it's best to check {@code canOpenURL} first.
      * NOTE: For web URLs, the protocol ("http://", "https://") must be set accordingly!
      */
-    openURL(url: string): Promise<any>
+    openURL(url: string): Promise<any>;
 
     /**
      * Determine whether or not an installed app can handle a given URL.
@@ -6809,166 +7104,97 @@ export interface LinkingStatic extends NativeEventEmitter {
      * NOTE: As of iOS 9, your app needs to provide the LSApplicationQueriesSchemes key inside Info.plist.
      * @param URL the URL to open
      */
-    canOpenURL(url: string): Promise<boolean>
+    canOpenURL(url: string): Promise<boolean>;
 
     /**
      * If the app launch was triggered by an app link with, it will give the link url, otherwise it will give null
      * NOTE: To support deep linking on Android, refer http://developer.android.com/training/app-indexing/deep-linking.html#handling-intents
      */
-    getInitialURL(): Promise<string>
+    getInitialURL(): Promise<string | null>;
+
+    /**
+     * Open the Settings app and displays the app’s custom settings, if it has any.
+     */
+    openSettings(): Promise<void>;
 }
-
-export interface LinkingIOSStatic {
-    /**
-     * Add a handler to LinkingIOS changes by listening to the url event type and providing the handler
-     @deprecated
-     */
-    addEventListener(type: string, handler: (event: { url: string }) => void): void
-
-    /**
-     * Remove a handler by passing the url event type and the handler
-     @deprecated
-     */
-    removeEventListener(type: string, handler: (event: { url: string }) => void): void
-
-    /**
-     * Try to open the given url with any of the installed apps.
-     @deprecated
-     */
-    openURL(url: string): void
-
-    /**
-     * Determine whether or not an installed app can handle a given URL. The callback function will be called with bool supported as the only argument
-     NOTE: As of iOS 9, your app needs to provide the LSApplicationQueriesSchemes key inside Info.plist.
-     @deprecated
-     */
-    canOpenURL(url: string, callback: (supported: boolean) => void): void
-
-    /**
-     * If the app launch was triggered by an app link, it will pop the link url, otherwise it will return null
-     @deprecated
-     */
-    popInitialURL(): string;
-}
-
-
-/**
- * NetInfo exposes info about online/offline status
- *
- * Asynchronously determine if the device is online and on a cellular network.
- *
- * - `none` - device is offline
- * - `wifi` - device is online and connected via wifi, or is the iOS simulator
- * - `cell` - device is connected via Edge, 3G, WiMax, or LTE
- * - `unknown` - error case and the network status is unknown
- * @see https://facebook.github.io/react-native/docs/netinfo.html#content
- */
-
-// This is from code, a few items more than documentation@0.25
-export type NetInfoReturnType = "none" | "wifi" | "cell" | "unknown" |
-    "NONE" | "MOBILE" | "WIFI" | "MOBILE_MMS" | "MOBILE_SUPL" | "MOBILE_DUN" |
-    "MOBILE_HIPRI" | "WIMAX" | "BLUETOOTH" | "DUMMY" | "ETHERNET" | "MOBILE_FOTA" |
-    "MOBILE_IMS" | "MOBILE_CBS" | "WIFI_P2P" | "MOBILE_IA" | "MOBILE_EMERGENCY" |
-    "PROXY" | "VPN" | "UNKNOWN"
-
-export interface NetInfoStatic extends FetchableListenable<NetInfoReturnType> {
-
-    /**
-     *
-     * Available on all platforms.
-     * Asynchronously fetch a boolean to determine internet connectivity.
-     */
-    isConnected: FetchableListenable<boolean>
-
-    /**
-     * Available on Android. Detect if the current active connection is
-     * metered or not. A network is classified as metered when the user is
-     * sensitive to heavy data usage on that connection due to monetary
-     * costs, data limitations or battery/performance issues.
-     */
-    isConnectionExpensive: Promise<boolean>
-}
-
 
 export interface PanResponderGestureState {
-
     /**
      *  ID of the gestureState- persisted as long as there at least one touch on
      */
-    stateID: number
+    stateID: number;
 
     /**
      *  the latest screen coordinates of the recently-moved touch
      */
-    moveX: number
+    moveX: number;
 
     /**
      *  the latest screen coordinates of the recently-moved touch
      */
-    moveY: number
+    moveY: number;
 
     /**
      * the screen coordinates of the responder grant
      */
-    x0: number
+    x0: number;
 
     /**
      * the screen coordinates of the responder grant
      */
-    y0: number
+    y0: number;
 
     /**
      * accumulated distance of the gesture since the touch started
      */
-    dx: number
+    dx: number;
 
     /**
      * accumulated distance of the gesture since the touch started
      */
-    dy: number
+    dy: number;
 
     /**
      * current velocity of the gesture
      */
-    vx: number
+    vx: number;
 
     /**
      * current velocity of the gesture
      */
-    vy: number
+    vy: number;
 
     /**
      * Number of touches currently on screen
      */
-    numberActiveTouches: number
-
+    numberActiveTouches: number;
 
     // All `gestureState` accounts for timeStamps up until:
-    _accountsForMovesUpTo: number
+    _accountsForMovesUpTo: number;
 }
-
 
 /**
  * @see documentation of GestureResponderHandlers
  */
 export interface PanResponderCallbacks {
-    onMoveShouldSetPanResponder?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => boolean
-    onStartShouldSetPanResponder?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => void
-    onPanResponderGrant?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => void
-    onPanResponderMove?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => void
-    onPanResponderRelease?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => void
-    onPanResponderTerminate?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => void
+    onMoveShouldSetPanResponder?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => boolean;
+    onStartShouldSetPanResponder?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => boolean;
+    onPanResponderGrant?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => void;
+    onPanResponderMove?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => void;
+    onPanResponderRelease?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => void;
+    onPanResponderTerminate?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => void;
 
-    onMoveShouldSetPanResponderCapture?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => boolean
-    onStartShouldSetPanResponderCapture?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => boolean
-    onPanResponderReject?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => void
-    onPanResponderStart?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => void
-    onPanResponderEnd?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => void
-    onPanResponderTerminationRequest?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => boolean
+    onMoveShouldSetPanResponderCapture?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => boolean;
+    onStartShouldSetPanResponderCapture?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => boolean;
+    onPanResponderReject?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => void;
+    onPanResponderStart?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => void;
+    onPanResponderEnd?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => void;
+    onPanResponderTerminationRequest?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => boolean;
+    onShouldBlockNativeResponder?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => boolean;
 }
 
 export interface PanResponderInstance {
-    panHandlers: GestureResponderHandlers
+    panHandlers: GestureResponderHandlers;
 }
 
 /**
@@ -6999,6 +7225,7 @@ export interface PanResponderStatic {
      *  - `onPanResponderMove: (e, gestureState) => {...}`
      *  - `onPanResponderTerminate: (e, gestureState) => {...}`
      *  - `onPanResponderTerminationRequest: (e, gestureState) => {...}`
+     *  - `onShouldBlockNativeResponder: (e, gestureState) => {...}`
      *
      *  In general, for events that have capture equivalents, we update the
      *  gestureState once in the capture phase and can use it in the bubble phase
@@ -7011,65 +7238,68 @@ export interface PanResponderStatic {
      *  accordingly. (numberActiveTouches) may not be totally accurate unless you
      *  are the responder.
      */
-    create(config: PanResponderCallbacks): PanResponderInstance
+    create(config: PanResponderCallbacks): PanResponderInstance;
 }
 
 export interface Rationale {
-    title: string
-    message: string
+    title: string;
+    message: string;
+    buttonPositive: string;
+    buttonNegative?: string;
+    buttonNeutral?: string;
 }
 
 export type Permission =
-    "android.permission.READ_CALENDAR" |
-    "android.permission.WRITE_CALENDAR" |
-    "android.permission.CAMERA" |
-    "android.permission.READ_CONTACTS" |
-    "android.permission.WRITE_CONTACTS" |
-    "android.permission.GET_ACCOUNTS" |
-    "android.permission.ACCESS_FINE_LOCATION" |
-    "android.permission.ACCESS_COARSE_LOCATION" |
-    "android.permission.RECORD_AUDIO" |
-    "android.permission.READ_PHONE_STATE" |
-    "android.permission.CALL_PHONE" |
-    "android.permission.READ_CALL_LOG" |
-    "android.permission.WRITE_CALL_LOG" |
-    "com.android.voicemail.permission.ADD_VOICEMAIL" |
-    "android.permission.USE_SIP" |
-    "android.permission.PROCESS_OUTGOING_CALLS" |
-    "android.permission.BODY_SENSORS" |
-    "android.permission.SEND_SMS" |
-    "android.permission.RECEIVE_SMS" |
-    "android.permission.READ_SMS" |
-    "android.permission.RECEIVE_WAP_PUSH" |
-    "android.permission.RECEIVE_MMS" |
-    "android.permission.READ_EXTERNAL_STORAGE" |
-    "android.permission.WRITE_EXTERNAL_STORAGE"
+    | 'android.permission.READ_CALENDAR'
+    | 'android.permission.WRITE_CALENDAR'
+    | 'android.permission.CAMERA'
+    | 'android.permission.READ_CONTACTS'
+    | 'android.permission.WRITE_CONTACTS'
+    | 'android.permission.GET_ACCOUNTS'
+    | 'android.permission.ACCESS_FINE_LOCATION'
+    | 'android.permission.ACCESS_COARSE_LOCATION'
+    | 'android.permission.RECORD_AUDIO'
+    | 'android.permission.READ_PHONE_STATE'
+    | 'android.permission.CALL_PHONE'
+    | 'android.permission.READ_CALL_LOG'
+    | 'android.permission.WRITE_CALL_LOG'
+    | 'com.android.voicemail.permission.ADD_VOICEMAIL'
+    | 'android.permission.USE_SIP'
+    | 'android.permission.PROCESS_OUTGOING_CALLS'
+    | 'android.permission.BODY_SENSORS'
+    | 'android.permission.SEND_SMS'
+    | 'android.permission.RECEIVE_SMS'
+    | 'android.permission.READ_SMS'
+    | 'android.permission.RECEIVE_WAP_PUSH'
+    | 'android.permission.RECEIVE_MMS'
+    | 'android.permission.READ_EXTERNAL_STORAGE'
+    | 'android.permission.WRITE_EXTERNAL_STORAGE';
 
-export type PermissionStatus = "granted" | "denied" | "never_ask_again"
+export type PermissionStatus = 'granted' | 'denied' | 'never_ask_again';
 
 export interface PermissionsAndroidStatic {
     /**
      * A list of permission results that are returned
      */
-    RESULTS: {[key: string]: PermissionStatus}
+    RESULTS: { [key: string]: PermissionStatus };
     /**
      * A list of specified "dangerous" permissions that require prompting the user
      */
-    PERMISSIONS: {[key: string]: Permission}
-    new(): PermissionsAndroidStatic
+    PERMISSIONS: { [key: string]: Permission };
+    new (): PermissionsAndroidStatic;
     /**
-     * Deprecated
+     * @deprecated Use check instead
      */
-    checkPermission(permission: Permission): Promise<boolean>
+    checkPermission(permission: Permission): Promise<boolean>;
     /**
      * Returns a promise resolving to a boolean value as to whether the specified
      * permissions has been granted
      */
-    check(permission: Permission): Promise<boolean>
+    check(permission: Permission): Promise<boolean>;
     /**
-     * Deprecated
+     * @deprecated Use request instead
      */
-    requestPermission(permission: Permission, rationale?: Rationale): Promise<boolean>
+    requestPermission(permission: Permission, rationale?: Rationale): Promise<boolean>;
     /**
      * Prompts the user to enable a permission and returns a promise resolving to a
      * string value indicating whether the user allowed or denied the request
@@ -7080,72 +7310,94 @@ export interface PermissionsAndroidStatic {
      * (https://developer.android.com/training/permissions/requesting.html#explain)
      * and then shows the system permission dialog
      */
-    request(permission: Permission, rationale?: Rationale): Promise<string>
+    request(permission: Permission, rationale?: Rationale): Promise<PermissionStatus>;
     /**
      * Prompts the user to enable multiple permissions in the same dialog and
      * returns an object with the permissions as keys and strings as values
      * indicating whether the user allowed or denied the request
      */
-    requestMultiple(permissions: Array<string>): Promise<{[permission: string]: PermissionStatus}>
+    requestMultiple(permissions: Array<Permission>): Promise<{ [key in Permission]: PermissionStatus }>;
 }
 
 export interface PushNotificationPermissions {
-    alert?: boolean
-    badge?: boolean
-    sound?: boolean
+    alert?: boolean;
+    badge?: boolean;
+    sound?: boolean;
 }
 
 export interface PushNotification {
-
-
     /**
      * An alias for `getAlert` to get the notification's main message string
      */
-    getMessage(): string | Object
+    getMessage(): string | Object;
 
     /**
      * Gets the sound string from the `aps` object
      */
-    getSound(): string
+    getSound(): string;
+
+    /**
+     * Gets the category string from the `aps` object
+     */
+    getCategory(): string;
 
     /**
      * Gets the notification's main message from the `aps` object
      */
-    getAlert(): string | Object
+    getAlert(): string | Object;
+
+    /**
+     * Gets the content-available number from the `aps` object
+     */
+    getContentAvailable(): number;
 
     /**
      * Gets the badge count number from the `aps` object
      */
-    getBadgeCount(): number
+    getBadgeCount(): number;
 
     /**
      * Gets the data object on the notif
      */
-    getData(): Object
+    getData(): Object;
 
+    /**
+     * iOS Only
+     * Signifies remote notification handling is complete
+     */
+    finish(result: string): void;
 }
-
 
 type PresentLocalNotificationDetails = {
-    alertBody: string
-    alertAction: string
-    soundName?: string
-    category?: string
-    userInfo?: Object
-    applicationIconBadgeNumber?: number
-}
+    alertBody: string;
+    alertAction: string;
+    alertTitle?: string;
+    soundName?: string;
+    category?: string;
+    userInfo?: Object;
+    applicationIconBadgeNumber?: number;
+};
 
 type ScheduleLocalNotificationDetails = {
-    fireDate: Date
-    alertBody: string
-    alertAction: string
-    soundName?: string
-    category?: string
-    userInfo?: Object
-    applicationIconBadgeNumber?: number
-}
+    alertAction?: string;
+    alertBody?: string;
+    alertTitle?: string;
+    applicationIconBadgeNumber?: number;
+    category?: string;
+    fireDate?: number | string;
+    isSilent?: boolean;
+    repeatInterval?: 'year' | 'month' | 'week' | 'day' | 'hour' | 'minute';
+    soundName?: string;
+    userInfo?: Object;
+};
 
-export type PushNotificationEventName = "notification" | "localNotification" | "register" | "registrationError"
+export type PushNotificationEventName = 'notification' | 'localNotification' | 'register' | 'registrationError';
+
+type FetchResult = {
+    NewData: 'UIBackgroundFetchResultNewData';
+    NoData: 'UIBackgroundFetchResultNoData';
+    ResultFailed: 'UIBackgroundFetchResultFailed';
+};
 
 /**
  * Handle push notifications for your app, including permission handling and icon badge number.
@@ -7154,7 +7406,6 @@ export type PushNotificationEventName = "notification" | "localNotification" | "
  * //FIXME: BGR: The documentation seems completely off compared to the actual js implementation. I could never get the example to run
  */
 export interface PushNotificationIOSStatic {
-
     /**
      * Schedules the localNotification for immediate presentation.
      * details is an object containing:
@@ -7165,7 +7416,7 @@ export interface PushNotificationIOSStatic {
      * userInfo : An optional object containing additional notification data.
      * applicationIconBadgeNumber (optional) : The number to display as the app's icon badge. The default value of this property is 0, which means that no badge is displayed.
      */
-    presentLocalNotification(details: PresentLocalNotificationDetails): void
+    presentLocalNotification(details: PresentLocalNotificationDetails): void;
 
     /**
      * Schedules the localNotification for future presentation.
@@ -7178,33 +7429,33 @@ export interface PushNotificationIOSStatic {
      * userInfo : An optional object containing additional notification data.
      * applicationIconBadgeNumber (optional) : The number to display as the app's icon badge. Setting the number to 0 removes the icon badge.
      */
-    scheduleLocalNotification(details: ScheduleLocalNotificationDetails): void
+    scheduleLocalNotification(details: ScheduleLocalNotificationDetails): void;
 
     /**
      * Cancels all scheduled localNotifications
      */
-    cancelAllLocalNotifications(): void
+    cancelAllLocalNotifications(): void;
 
     /**
      * Cancel local notifications.
      * Optionally restricts the set of canceled notifications to those notifications whose userInfo fields match the corresponding fields in the userInfo argument.
      */
-    cancelLocalNotifications(userInfo: Object): void
+    cancelLocalNotifications(userInfo: Object): void;
 
     /**
      * Sets the badge number for the app icon on the home screen
      */
-    setApplicationIconBadgeNumber(number: number): void
+    setApplicationIconBadgeNumber(number: number): void;
 
     /**
      * Gets the current badge number for the app icon on the home screen
      */
-    getApplicationIconBadgeNumber(callback: (badge: number) => void): void
+    getApplicationIconBadgeNumber(callback: (badge: number) => void): void;
 
     /**
      * Gets the local notifications that are currently scheduled.
      */
-    getScheduledLocalNotifications(callback: (notifications: ScheduleLocalNotificationDetails[]) => void): void
+    getScheduledLocalNotifications(callback: (notifications: ScheduleLocalNotificationDetails[]) => void): void;
 
     /**
      * Attaches a listener to remote notifications while the app is running in the
@@ -7214,25 +7465,56 @@ export interface PushNotificationIOSStatic {
      *
      * The type MUST be 'notification'
      */
-    addEventListener(type: PushNotificationEventName, handler: (notification: PushNotification) => void): void
+    addEventListener(
+        type: 'notification' | 'localNotification',
+        handler: (notification: PushNotification) => void,
+    ): void;
+
+    /**
+     * Fired when the user registers for remote notifications.
+     *
+     * The handler will be invoked with a hex string representing the deviceToken.
+     *
+     * The type MUST be 'register'
+     */
+    addEventListener(type: 'register', handler: (deviceToken: string) => void): void;
+
+    /**
+     * Fired when the user fails to register for remote notifications.
+     * Typically occurs when APNS is having issues, or the device is a simulator.
+     *
+     * The handler will be invoked with {message: string, code: number, details: any}.
+     *
+     * The type MUST be 'registrationError'
+     */
+    addEventListener(
+        type: 'registrationError',
+        handler: (error: { message: string; code: number; details: any }) => void,
+    ): void;
 
     /**
      * Removes the event listener. Do this in `componentWillUnmount` to prevent
      * memory leaks
      */
-    removeEventListener(type: PushNotificationEventName, handler: (notification: PushNotification) => void): void
+    removeEventListener(
+        type: PushNotificationEventName,
+        handler:
+            | ((notification: PushNotification) => void)
+            | ((deviceToken: string) => void)
+            | ((error: { message: string; code: number; details: any }) => void),
+    ): void;
 
     /**
      * Requests all notification permissions from iOS, prompting the user's
      * dialog box.
      */
-    requestPermissions(permissions?: PushNotificationPermissions[]): void
+    requestPermissions(permissions?: PushNotificationPermissions[]): void;
 
     /**
      * Requests all notification permissions from iOS, prompting the user's
      * dialog box.
      */
-    requestPermissions(permissions?: PushNotificationPermissions): Promise<PushNotificationPermissions>
+    requestPermissions(permissions?: PushNotificationPermissions): Promise<PushNotificationPermissions>;
 
     /**
      * Unregister for all remote notifications received via Apple Push
@@ -7244,7 +7526,7 @@ export interface PushNotificationIOSStatic {
      * Settings app. Apps unregistered through this method can always
      * re-register.
      */
-    abandonPermissions(): void
+    abandonPermissions(): void;
 
     /**
      * See what push permissions are currently enabled. `callback` will be
@@ -7254,86 +7536,85 @@ export interface PushNotificationIOSStatic {
      *  - `badge` :boolean
      *  - `sound` :boolean
      */
-    checkPermissions(callback: (permissions: PushNotificationPermissions) => void): void
+    checkPermissions(callback: (permissions: PushNotificationPermissions) => void): void;
 
     /**
      * This method returns a promise that resolves to either the notification
      * object if the app was launched by a push notification, or `null` otherwise.
      */
-    getInitialNotification(): Promise<PushNotification>
+    getInitialNotification(): Promise<PushNotification | null>;
+
+    /**
+     * iOS fetch results that best describe the result of a finished remote notification handler.
+     * For a list of possible values, see `PushNotificationIOS.FetchResult`.
+     */
+    FetchResult: FetchResult;
 }
 
 export interface SettingsStatic {
-    get(key: string): any
-    set(settings: Object): void
-    watchKeys(keys: string | Array<string>, callback: (() => void)): number
-    clearWatch(watchId: number): void
+    get(key: string): any;
+    set(settings: Object): void;
+    watchKeys(keys: string | Array<string>, callback: () => void): number;
+    clearWatch(watchId: number): void;
 }
 
+export type StatusBarStyle = 'default' | 'light-content' | 'dark-content';
 
-/**
- * @enum('default', 'light-content')
- */
-export type StatusBarStyle = "default" | "light-content"
+export type StatusBarAnimation = 'none' | 'fade' | 'slide';
 
-/**
- * @enum('fade', 'slide')
- */
-export type StatusBarAnimation = "none" | "fade" | "slide"
-
-export interface StatusBarPropertiesIOS {
+export interface StatusBarPropsIOS {
     /**
      * Sets the color of the status bar text.
      */
-    barStyle?: StatusBarStyle
+    barStyle?: StatusBarStyle;
 
     /**
      * If the network activity indicator should be visible.
      */
-    networkActivityIndicatorVisible?: boolean
+    networkActivityIndicatorVisible?: boolean;
 
     /**
      * The transition effect when showing and hiding the status bar using
      * the hidden prop. Defaults to 'fade'.
      */
-    showHideTransition?: "fade" | "slide"
+    showHideTransition?: 'fade' | 'slide';
 }
 
-export interface StatusBarPropertiesAndroid {
+export interface StatusBarPropsAndroid {
     /**
      * The background color of the status bar.
+     *
+     * @platform android
      */
-    backgroundColor?: string
+    backgroundColor?: string;
 
     /**
      * If the status bar is translucent. When translucent is set to true,
      * the app will draw under the status bar. This is useful when using a
      * semi transparent status bar color.
      */
-    translucent?: boolean
+    translucent?: boolean;
 }
 
-export interface StatusBarProperties extends StatusBarPropertiesIOS, StatusBarPropertiesAndroid {
-
+export interface StatusBarProps extends StatusBarPropsIOS, StatusBarPropsAndroid {
     /**
      * If the transition between status bar property changes should be
      * animated. Supported for backgroundColor, barStyle and hidden.
      */
-    animated?: boolean
+    animated?: boolean;
 
     /**
      * If the status bar is hidden.
      */
-    hidden?: boolean
+    hidden?: boolean;
 }
 
-export interface StatusBarStatic extends React.ComponentClass<StatusBarProperties> {
-
+export class StatusBar extends React.Component<StatusBarProps> {
     /**
      * The current height of the status bar on the device.
      * @platform android
      */
-    currentHeight?: number
+    static currentHeight?: number;
 
     /**
      * Show or hide the status bar
@@ -7341,47 +7622,58 @@ export interface StatusBarStatic extends React.ComponentClass<StatusBarPropertie
      * @param animation Optional animation when
      *    changing the status bar hidden property.
      */
-    setHidden: (hidden: boolean, animation?: StatusBarAnimation) => void
+    static setHidden: (hidden: boolean, animation?: StatusBarAnimation) => void;
 
     /**
      * Set the status bar style
      * @param style Status bar style to set
      * @param animated Animate the style change.
      */
-    setBarStyle: (style: StatusBarStyle, animated?: boolean) => void
+    static setBarStyle: (style: StatusBarStyle, animated?: boolean) => void;
 
     /**
      * Control the visibility of the network activity indicator
      * @param visible Show the indicator.
      */
-    setNetworkActivityIndicatorVisible: (visible: boolean) => void
+    static setNetworkActivityIndicatorVisible: (visible: boolean) => void;
 
     /**
      * Set the background color for the status bar
      * @param color Background color.
      * @param animated Animate the style change.
      */
-    setBackgroundColor: (color: string, animated?: boolean) => void
+    static setBackgroundColor: (color: string, animated?: boolean) => void;
 
     /**
      * Control the translucency of the status bar
      * @param translucent Set as translucent.
      */
-    setTranslucent: (translucent: boolean) => void
+    static setTranslucent: (translucent: boolean) => void;
 }
 
 /**
- * StatusBarIOS is deprecated.
- * Use `StatusBar` for mutating the status bar.
+ * @deprecated Use StatusBar instead
  */
-export interface StatusBarIOSStatic extends NativeEventEmitter {
+export interface StatusBarIOSStatic extends NativeEventEmitter {}
+
+export interface TimePickerAndroidOpenOptions {
+    hour?: number;
+    minute?: number;
+    is24Hour?: boolean;
+    mode?: 'clock' | 'spinner' | 'default';
 }
 
-type TimePickerAndroidOpenOptions = {
-    hour?: number
-    minute?: number
-    is24Hour?: boolean
+export interface TimePickerAndroidTimeSetAction {
+    action: 'timeSetAction';
+    hour: number;
+    minute: number;
 }
+
+export interface TimePickerAndroidDismissedAction {
+    action: 'dismissedAction';
+}
+
+export type TimePickerAndroidOpenReturn = TimePickerAndroidTimeSetAction | TimePickerAndroidDismissedAction;
 
 /**
  * Opens the standard Android time picker dialog.
@@ -7404,7 +7696,6 @@ type TimePickerAndroidOpenOptions = {
  * ```
  */
 export interface TimePickerAndroidStatic {
-
     /**
      * Opens the standard Android time picker dialog.
      *
@@ -7414,23 +7705,27 @@ export interface TimePickerAndroidStatic {
      *   * `is24Hour` (boolean) - If `true`, the picker uses the 24-hour format. If `false`,
      *     the picker shows an AM/PM chooser. If undefined, the default for the current locale
      *     is used.
+     *   * `mode` (enum('clock', 'spinner', 'default')) - set the time picker mode
+     *     * 'clock': Show a time picker in clock mode.
+     *     * 'spinner': Show a time picker in spinner mode.
+     *     * 'default': Show a default time picker based on Android versions.
      *
      * Returns a Promise which will be invoked an object containing `action`, `hour` (0-23),
      * `minute` (0-59) if the user picked a time. If the user dismissed the dialog, the Promise will
      * still be resolved with action being `TimePickerAndroid.dismissedAction` and all the other keys
      * being undefined. **Always** check whether the `action` before reading the values.
      */
-    open(options: TimePickerAndroidOpenOptions): Promise<{ action: string, hour: number, minute: number }>
+    open(options: TimePickerAndroidOpenOptions): Promise<TimePickerAndroidOpenReturn>;
 
     /**
      * A time has been selected.
      */
-    timeSetAction: string
+    timeSetAction: 'timeSetAction';
 
     /**
      * The dialog has been dismissed.
      */
-    dismissedAction: string
+    dismissedAction: 'dismissedAction';
 }
 
 /**
@@ -7449,20 +7744,16 @@ export interface ToastAndroidStatic {
      * int duration: The duration of the toast.
      * May be ToastAndroid.SHORT or ToastAndroid.LONG
      */
-    show(message: string, duration: number): void
+    show(message: string, duration: number): void;
     /** `gravity` may be ToastAndroid.TOP, ToastAndroid.BOTTOM, ToastAndroid.CENTER */
-    showWithGravity(
-        message: string,
-        duration: number,
-        gravity: number
-    ): void
+    showWithGravity(message: string, duration: number, gravity: number): void;
     // Toast duration constants
-    SHORT: number
-    LONG: number
+    SHORT: number;
+    LONG: number;
     // Toast gravity constants
-    TOP: number
-    BOTTOM: number
-    CENTER: number
+    TOP: number;
+    BOTTOM: number;
+    CENTER: number;
 }
 
 export interface UIManagerStatic {
@@ -7484,14 +7775,14 @@ export interface UIManagerStatic {
      * @platform ios
      */
     takeSnapshot: (
-        view ?: 'window' | React.ReactElement<any> | number,
-        options ?: {
-            width ?: number,
-            height ?: number,
-            format ?: 'png' | 'jpeg',
-            quality ?: number,
-        }
-    ) => Promise<string>
+        view?: 'window' | React.ReactElement | number,
+        options?: {
+            width?: number;
+            height?: number;
+            format?: 'png' | 'jpeg';
+            quality?: number;
+        },
+    ) => Promise<string>;
 
     /**
      * Determines the location on screen, width, and height of the given view and
@@ -7540,8 +7831,8 @@ export interface UIManagerStatic {
     measureLayout(
         node: number,
         relativeToNativeNode: number,
-        onFail: () => void, /* currently unused */
-        onSuccess: MeasureLayoutOnSuccessCallback
+        onFail: () => void /* currently unused */,
+        onSuccess: MeasureLayoutOnSuccessCallback,
     ): void;
 
     /**
@@ -7555,50 +7846,107 @@ export interface UIManagerStatic {
      *     UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
      */
     setLayoutAnimationEnabledExperimental(value: boolean): void;
-}
-
-export interface SwitchPropertiesIOS extends ViewProperties {
 
     /**
-     * Background color when the switch is turned on.
+     * Used to display an Android PopupMenu. If a menu item is pressed, the success callback will
+     * be called with the following arguments:
+     *
+     *  - item - the menu item.
+     *  - index - index of the pressed item in array. Returns `undefined` if cancelled.
+     *
+     * To obtain a native node handle for a component, you can use
+     * `React.findNodeHandle(component)`.
+     *
+     * Note that this works only on Android
      */
-    onTintColor?: string
+    showPopupMenu(
+        node: number,
+        items: string[],
+        error: () => void /* currently unused */,
+        success: (item: string, index: number | undefined) => void,
+    ): void;
+
+    getViewManagerConfig: (
+        name: string,
+    ) => {
+        Commands: { [key: string]: number };
+    };
+
+    /**
+     * Used to call a native view method from JavaScript
+     *
+     * reactTag - Id of react view.
+     * commandID - Id of the native method that should be called.
+     * commandArgs - Args of the native method that we can pass from JS to native.
+     */
+    dispatchViewManagerCommand: (reactTag: number | null, commandID: number, commandArgs?: Array<any>) => void;
+}
+
+export interface SwitchPropsIOS extends ViewProps {
+    /**
+     * Background color when the switch is turned on.
+     *
+     * @deprecated use trackColor instead
+     */
+    onTintColor?: string;
 
     /**
      * Color of the foreground switch grip.
+     *
+     * @deprecated use thumbColor instead
      */
-    thumbTintColor?: string
+    thumbTintColor?: string;
 
     /**
      * Background color when the switch is turned off.
+     *
+     * @deprecated use trackColor instead
      */
-    tintColor?: string
+    tintColor?: string;
 }
 
-export interface SwitchProperties extends SwitchPropertiesIOS {
+export interface SwitchProps extends SwitchPropsIOS {
+    /**
+     * Color of the foreground switch grip.
+     */
+    thumbColor?: string;
+
+    /**
+     * Custom colors for the switch track
+     *
+     * Color when false and color when true
+     */
+    trackColor?: { false: string; true: string };
 
     /**
      * If true the user won't be able to toggle the switch.
      * Default value is false.
      */
-    disabled?: boolean
+    disabled?: boolean;
 
     /**
      * Invoked with the new value when the value changes.
      */
-    onValueChange?: (value: boolean) => void
+    onValueChange?: (value: boolean) => void;
 
     /**
      * Used to locate this view in end-to-end tests.
      */
-    testID?: string
+    testID?: string;
 
     /**
      * The value of the switch. If true the switch will be turned on.
      * Default value is false.
      */
-    value?: boolean
-    style?: ViewStyle
+    value?: boolean;
+
+    /**
+     * On iOS, custom color for the background.
+     * Can be seen when the switch value is false or when the switch is disabled.
+     */
+    ios_backgroundColor?: string;
+
+    style?: StyleProp<ViewStyle>;
 }
 
 /**
@@ -7609,29 +7957,9 @@ export interface SwitchProperties extends SwitchPropertiesIOS {
  * If the `value` prop is not updated, the component will continue to render
  * the supplied `value` prop instead of the expected result of any user actions.
  */
-export interface SwitchStatic extends NativeMethodsMixin, React.ClassicComponentClass<SwitchProperties> {
-
-}
-
-/**
- * NOTE: `VibrationIOS` is being deprecated. Use `Vibration` instead.
- *
- * The Vibration API is exposed at VibrationIOS.vibrate().
- * On iOS, calling this function will trigger a one second vibration.
- * The vibration is asynchronous so this method will return immediately.
- *
- * There will be no effect on devices that do not support Vibration, eg. the iOS simulator.
- *
- * Vibration patterns are currently unsupported.
- *
- * @see https://facebook.github.io/react-native/docs/vibrationios.html#content
- */
-export interface VibrationIOSStatic {
-    /**
-     * @deprecated
-     */
-    vibrate(): void
-}
+declare class SwitchComponent extends React.Component<SwitchProps> {}
+declare const SwitchBase: Constructor<NativeMethodsMixin> & typeof SwitchComponent;
+export class Switch extends SwitchBase {}
 
 /**
  * The Vibration API is exposed at `Vibration.vibrate()`.
@@ -7657,12 +7985,12 @@ export interface VibrationIOSStatic {
  * V(fixed) --wait(1s)--> V(fixed) --wait(2s)--> V(fixed) --wait(3s)--> V(fixed)
  */
 export interface VibrationStatic {
-    vibrate(pattern: number | number[], repeat: boolean): void
+    vibrate(pattern: number | number[], repeat?: boolean): void;
 
     /**
      * Stop vibration
      */
-    cancel(): void
+    cancel(): void;
 }
 
 /**
@@ -7678,25 +8006,21 @@ export interface EasingStatic {
     ease: EasingFunction;
     quad: EasingFunction;
     cubic: EasingFunction;
-    poly: EasingFunction;
+    poly(n: number): EasingFunction;
     sin: EasingFunction;
     circle: EasingFunction;
     exp: EasingFunction;
-    elastic: EasingFunction;
+    elastic(bounciness: number): EasingFunction;
     back(s: number): EasingFunction;
     bounce: EasingFunction;
-    bezier(x1: number,
-        y1: number,
-        x2: number,
-        y2: number): EasingFunction;
+    bezier(x1: number, y1: number, x2: number, y2: number): EasingFunction;
     in(easing: EasingFunction): EasingFunction;
     out(easing: EasingFunction): EasingFunction;
     inOut(easing: EasingFunction): EasingFunction;
 }
 
 export namespace Animated {
-    // Most (all?) functions where AnimatedValue is used any subclass of Animated can be used as well.
-    type AnimatedValue = Animated;
+    type AnimatedValue = Value;
     type AnimatedValueXY = ValueXY;
 
     type Base = Animated;
@@ -7717,8 +8041,8 @@ export namespace Animated {
 
     type InterpolationConfigType = {
         inputRange: number[];
-        outputRange: (number[] | string[]);
-        easing?: ((input: number) => number);
+        outputRange: number[] | string[];
+        easing?: (input: number) => number;
         extrapolate?: ExtrapolateType;
         extrapolateLeft?: ExtrapolateType;
         extrapolateRight?: ExtrapolateType;
@@ -7735,10 +8059,10 @@ export namespace Animated {
     export class Value extends AnimatedWithChildren {
         constructor(value: number);
 
-    /**
-     * Directly set the value.  This will stop any animations running on the value
-     * and update all the bound properties.
-     */
+        /**
+         * Directly set the value.  This will stop any animations running on the value
+         * and update all the bound properties.
+         */
         setValue(value: number): void;
 
         /**
@@ -7753,6 +8077,12 @@ export namespace Animated {
          * The final output of the value is unchanged.
          */
         flattenOffset(): void;
+
+        /**
+         * Sets the offset value to the base value, and resets the base value to zero.
+         * The final output of the value is unchanged.
+         */
+        extractOffset(): void;
 
         /**
          * Adds an asynchronous listener to the value so you can observe updates from
@@ -7796,9 +8126,11 @@ export namespace Animated {
 
         setOffset(offset: { x: number; y: number }): void;
 
-        flattenOffset(): void
+        flattenOffset(): void;
 
-    stopAnimation(callback?: (value: {x: number, y: number}) => void): void;
+        extractOffset(): void;
+
+        stopAnimation(callback?: (value: { x: number; y: number }) => void): void;
 
         addListener(callback: ValueXYListenerCallback): string;
 
@@ -7811,7 +8143,7 @@ export namespace Animated {
          *  style={this.state.anim.getLayout()}
          *```
          */
-    getLayout(): { [key: string]: AnimatedValue };
+        getLayout(): { [key: string]: AnimatedValue };
 
         /**
          * Converts `{x, y}` into a useable translation transform, e.g.
@@ -7823,13 +8155,12 @@ export namespace Animated {
          *```
          */
         getTranslateTransform(): { [key: string]: AnimatedValue }[];
-
     }
 
     type EndResult = { finished: boolean };
     type EndCallback = (result: EndResult) => void;
 
-    interface CompositeAnimation {
+    export interface CompositeAnimation {
         start: (callback?: EndCallback) => void;
         stop: () => void;
     }
@@ -7843,13 +8174,10 @@ export namespace Animated {
      * Animates a value from an initial velocity to zero based on a decay
      * coefficient.
      */
-    export function decay(
-        value: AnimatedValue | AnimatedValueXY,
-        config: DecayAnimationConfig
-    ): CompositeAnimation;
+    export function decay(value: AnimatedValue | AnimatedValueXY, config: DecayAnimationConfig): CompositeAnimation;
 
     interface DecayAnimationConfig extends AnimationConfig {
-        velocity: number | { x: number, y: number };
+        velocity: number | { x: number; y: number };
         deceleration?: number;
     }
 
@@ -7857,62 +8185,74 @@ export namespace Animated {
      * Animates a value along a timed easing curve.  The `Easing` module has tons
      * of pre-defined curves, or you can use your own function.
      */
-    export var timing: (
-        value: AnimatedValue | AnimatedValueXY,
-        config: TimingAnimationConfig
-    ) => CompositeAnimation;
+    export const timing: (value: AnimatedValue | AnimatedValueXY, config: TimingAnimationConfig) => CompositeAnimation;
 
     interface TimingAnimationConfig extends AnimationConfig {
-        toValue: number | AnimatedValue | { x: number, y: number } | AnimatedValueXY;
+        toValue: number | AnimatedValue | { x: number; y: number } | AnimatedValueXY;
         easing?: (value: number) => number;
         duration?: number;
         delay?: number;
     }
 
     interface SpringAnimationConfig extends AnimationConfig {
-        toValue: number | AnimatedValue | { x: number, y: number } | AnimatedValueXY;
+        toValue: number | AnimatedValue | { x: number; y: number } | AnimatedValueXY;
         overshootClamping?: boolean;
         restDisplacementThreshold?: number;
         restSpeedThreshold?: number;
-        velocity?: number | { x: number, y: number };
+        velocity?: number | { x: number; y: number };
         bounciness?: number;
         speed?: number;
         tension?: number;
         friction?: number;
+        stiffness?: number;
+        mass?: number;
+        damping?: number;
+        delay?: number;
+    }
+
+    interface LoopAnimationConfig {
+        iterations?: number; // default -1 for infinite
     }
 
     /**
      * Creates a new Animated value composed from two Animated values added
      * together.
      */
-    export function add(
-        a: Animated,
-        b: Animated
-    ): AnimatedAddition;
+    export function add(a: Animated, b: Animated): AnimatedAddition;
 
-    class AnimatedAddition extends AnimatedInterpolation { }
+    class AnimatedAddition extends AnimatedInterpolation {}
+
+    /**
+     * Creates a new Animated value composed by subtracting the second Animated
+     * value from the first Animated value.
+     */
+    export function subtract(a: Animated, b: Animated): AnimatedSubtraction;
+
+    class AnimatedSubtraction extends AnimatedInterpolation {}
+
+    /**
+     * Creates a new Animated value composed by dividing the first Animated
+     * value by the second Animated value.
+     */
+    export function divide(a: Animated, b: Animated): AnimatedDivision;
+
+    class AnimatedDivision extends AnimatedInterpolation {}
 
     /**
      * Creates a new Animated value composed from two Animated values multiplied
      * together.
      */
-    export function multiply(
-        a: Animated,
-        b: Animated
-    ): AnimatedMultiplication;
+    export function multiply(a: Animated, b: Animated): AnimatedMultiplication;
 
-    class AnimatedMultiplication extends AnimatedInterpolation { }
+    class AnimatedMultiplication extends AnimatedInterpolation {}
 
     /**
      * Creates a new Animated value that is the (non-negative) modulo of the
      * provided Animated value
      */
-    export function modulo(
-        a: Animated,
-        modulus: number
-    ): AnimatedModulo;
+    export function modulo(a: Animated, modulus: number): AnimatedModulo;
 
-    class AnimatedModulo extends AnimatedInterpolation { }
+    class AnimatedModulo extends AnimatedInterpolation {}
 
     /**
      * Create a new Animated value that is limited between 2 values. It uses the
@@ -7937,46 +8277,45 @@ export namespace Animated {
      * before starting the next.  If the current running animation is stopped, no
      * following animations will be started.
      */
-    export function sequence(
-        animations: Array<CompositeAnimation>
-    ): CompositeAnimation;
+    export function sequence(animations: Array<CompositeAnimation>): CompositeAnimation;
 
     /**
      * Array of animations may run in parallel (overlap), but are started in
      * sequence with successive delays.  Nice for doing trailing effects.
      */
 
-    export function stagger(
-        time: number,
-        animations: Array<CompositeAnimation>
-    ): CompositeAnimation
+    export function stagger(time: number, animations: Array<CompositeAnimation>): CompositeAnimation;
+
+    /**
+     * Loops a given animation continuously, so that each time it reaches the end,
+     * it resets and begins again from the start. Can specify number of times to
+     * loop using the key 'iterations' in the config. Will loop without blocking
+     * the UI thread if the child animation is set to 'useNativeDriver'.
+     */
+
+    export function loop(animation: CompositeAnimation, config?: LoopAnimationConfig): CompositeAnimation;
 
     /**
      * Spring animation based on Rebound and Origami.  Tracks velocity state to
      * create fluid motions as the `toValue` updates, and can be chained together.
      */
-    export function spring(
-        value: AnimatedValue | AnimatedValueXY,
-        config: SpringAnimationConfig
-    ): CompositeAnimation;
+    export function spring(value: AnimatedValue | AnimatedValueXY, config: SpringAnimationConfig): CompositeAnimation;
 
     type ParallelConfig = {
         stopTogether?: boolean; // If one is stopped, stop all.  default: true
-    }
+    };
 
     /**
      * Starts an array of animations all at the same time.  By default, if one
      * of the animations is stopped, they will all be stopped.  You can override
      * this with the `stopTogether` flag.
      */
-    export function parallel(
-        animations: Array<CompositeAnimation>,
-        config?: ParallelConfig
-    ): CompositeAnimation;
+    export function parallel(animations: Array<CompositeAnimation>, config?: ParallelConfig): CompositeAnimation;
 
     type Mapping = { [key: string]: Mapping } | AnimatedValue;
-    interface EventConfig {
-        listener?: ValueListenerCallback
+    interface EventConfig<T> {
+        listener?: (event: NativeSyntheticEvent<T>) => void;
+        useNativeDriver?: boolean;
     }
 
     /**
@@ -7995,10 +8334,7 @@ export namespace Animated {
      *  ]),
      *```
      */
-    export function event(
-        argMapping: Mapping[],
-        config?: EventConfig
-    ): (...args: any[]) => void;
+    export function event<T>(argMapping: Array<Mapping | null>, config?: EventConfig<T>): (...args: any[]) => void;
 
     /**
      * Make any React component Animatable.  Used to create `Animated.View`, etc.
@@ -8009,423 +8345,93 @@ export namespace Animated {
      * Animated variants of the basic native views. Accepts Animated.Value for
      * props and style.
      */
-    export var View: any;
-    export var Image: any;
-    export var Text: any;
+    export const View: any;
+    export const Image: any;
+    export const Text: any;
+    export const ScrollView: any;
+    export const FlatList: any;
+    export const SectionList: any;
 }
 
 // tslint:disable-next-line:interface-name
 export interface I18nManagerStatic {
-    isRTL: boolean
-    allowRTL: (allowRTL: boolean) => {}
-    forceRTL: (forceRTL: boolean) => {}
-}
-
-export interface GeolocationStatic {
-    /*
-        * Invokes the success callback once with the latest location info.  Supported
-        * options: timeout (ms), maximumAge (ms), enableHighAccuracy (bool)
-        * On Android, this can return almost immediately if the location is cached or
-        * request an update, which might take a while.
-        */
-    getCurrentPosition(geo_success: (position: GeolocationReturnType) => void, geo_error?: (error: Error) => void, geo_options?: GetCurrentPositionOptions): void
-
-    /*
-        * Invokes the success callback whenever the location changes.  Supported
-        * options: timeout (ms), maximumAge (ms), enableHighAccuracy (bool), distanceFilter(m)
-        */
-    watchPosition(success: (position: Geolocation) => void, error?: (error: Error) => void, options?: WatchPositionOptions): void
-
-    clearWatch(watchID: number): void
-
-    stopObserving(): void
+    isRTL: boolean;
+    allowRTL: (allowRTL: boolean) => {};
+    forceRTL: (forceRTL: boolean) => {};
 }
 
 export interface OpenCameraDialogOptions {
     /** Defaults to false */
-    videoMode?: boolean
+    videoMode?: boolean;
 }
 
 export interface OpenSelectDialogOptions {
     /** Defaults to true */
-    showImages?: boolean
+    showImages?: boolean;
     /** Defaults to false */
-    showVideos?: boolean
+    showVideos?: boolean;
 }
 
 /** [imageURL|tempImageTag, height, width] */
-export type ImagePickerResult = [string, number, number]
+export type ImagePickerResult = [string, number, number];
 
 export interface ImagePickerIOSStatic {
-    canRecordVideos(callback: (value: boolean) => void): void
-    canUseCamera(callback: (value: boolean) => void): void
-    openCameraDialog(config: OpenCameraDialogOptions, successCallback: (args: ImagePickerResult) => void, cancelCallback: (args: any[]) => void): void
-    openSelectDialog(config: OpenSelectDialogOptions, successCallback: (args: ImagePickerResult) => void, cancelCallback: (args: any[]) => void): void
+    canRecordVideos(callback: (value: boolean) => void): void;
+    canUseCamera(callback: (value: boolean) => void): void;
+    openCameraDialog(
+        config: OpenCameraDialogOptions,
+        successCallback: (args: ImagePickerResult) => void,
+        cancelCallback: (args: any[]) => void,
+    ): void;
+    openSelectDialog(
+        config: OpenSelectDialogOptions,
+        successCallback: (args: ImagePickerResult) => void,
+        cancelCallback: (args: any[]) => void,
+    ): void;
 }
 
 export interface ImageStoreStatic {
-        /**
-         * Check if the ImageStore contains image data for the specified URI.
-         * @platform ios
-         */
-        hasImageForTag(uri: string, callback: (hasImage: boolean) => void): void
-        /**
-         * Delete an image from the ImageStore. Images are stored in memory and
-         * must be manually removed when you are finished with them, otherwise they
-         * will continue to use up RAM until the app is terminated. It is safe to
-         * call `removeImageForTag()` without first calling `hasImageForTag()`, it
-         * will simply fail silently.
-         * @platform ios
-         */
-        removeImageForTag(uri: string): void
-        /**
-         * Stores a base64-encoded image in the ImageStore, and returns a URI that
-         * can be used to access or display the image later. Images are stored in
-         * memory only, and must be manually deleted when you are finished with
-         * them by calling `removeImageForTag()`.
-         *
-         * Note that it is very inefficient to transfer large quantities of binary
-         * data between JS and native code, so you should avoid calling this more
-         * than necessary.
-         * @platform ios
-         */
-        addImageFromBase64(
-            base64ImageData: string,
-            success: (uri: string) => void,
-            failure: (error: any) => void
-        ): void
-        /**
-         * Retrieves the base64-encoded data for an image in the ImageStore. If the
-         * specified URI does not match an image in the store, the failure callback
-         * will be called.
-         *
-         * Note that it is very inefficient to transfer large quantities of binary
-         * data between JS and native code, so you should avoid calling this more
-         * than necessary. To display an image in the ImageStore, you can just pass
-         * the URI to an `<Image/>` component; there is no need to retrieve the
-         * base64 data.
-         */
-        getBase64ForTag(
-            uri: string,
-            success: (base64ImageData: string) => void,
-            failure: (error: any) => void
-        ): void
-}
-
-// Network Polyfill
-// TODO: Add proper support for fetch
-export type fetch = (url: string, options?: Object) => Promise<any>
-export const fetch: fetch;
-
-// Timers polyfill
-export type timedScheduler = (fn: string | (() => any), delay?: number) => number
-export type setTimeout = timedScheduler
-export type setInterval = timedScheduler
-export type setImmediate = (fn: () => any) => number
-export type requestAnimationFrame = (fn: (time: number) => any) => number
-
-export type schedulerCanceller = (id: number) => void
-export type clearTimeout = schedulerCanceller
-export type clearInterval = schedulerCanceller
-export type clearImmediate = schedulerCanceller
-export type cancelAnimationFrame = schedulerCanceller
-
-
-export interface TabsReducerStatic {
-    JumpToAction(index: number): any;
-}
-
-export type TabsReducerFunction = (params: any) => any;
-
-export interface NavigationTab {
-    key: string;
-}
-
-export interface NavigationAction {
-    type: string;
-}
-
-export interface NavigationRoute {
-    key: string;
-    title?: string;
-}
-
-export interface NavigationState extends NavigationRoute {
-    index: number;
-    routes: NavigationRoute[];
-}
-
-export type NavigationRenderer = (
-    route: NavigationState,
-    onNavigate: (action: NavigationAction) => boolean
-) => JSX.Element;
-
-interface SubViewProps extends NavigationSceneRendererProps {
-    onNavigateBack?(): void;
-}
-
-type SubViewRenderer = (subViewProps: SubViewProps) => JSX.Element | null;
-
-export interface NavigationHeaderProps extends NavigationSceneRendererProps {
-    onNavigateBack?(): void,
-    renderLeftComponent?: SubViewRenderer,
-    renderRightComponent?: SubViewRenderer,
-    renderTitleComponent?: SubViewRenderer,
-    style?: ViewStyle,
-    viewProps?: any,
-    statusBarHeight?: number | NavigationAnimatedValue
-}
-
-export interface NavigationHeaderStatic extends React.ComponentClass<NavigationHeaderProps> {
-    Title: NavigationHeaderTitleStatic
-    HEIGHT: number
-}
-
-export interface NavigationHeaderTitleProps {
-    children?: JSX.Element,
-    style?: ViewStyle,
-    textStyle?: TextStyle,
-    viewProps?: any
-}
-
-export interface NavigationHeaderTitleStatic extends React.ComponentClass<NavigationHeaderTitleProps> {
-}
-
-export interface NavigationCardStackProps {
     /**
-     * Custom style applied to the card.
+     * Check if the ImageStore contains image data for the specified URI.
+     * @platform ios
      */
-    cardStyle?: ViewStyle
+    hasImageForTag(uri: string, callback: (hasImage: boolean) => void): void;
+
     /**
-     * Custom style interpolator for the card.
+     * Delete an image from the ImageStore. Images are stored in memory and
+     * must be manually removed when you are finished with them, otherwise they
+     * will continue to use up RAM until the app is terminated. It is safe to
+     * call `removeImageForTag()` without first calling `hasImageForTag()`, it
+     * will simply fail silently.
+     * @platform ios
      */
-    cardStyleInterpolator?: (props: NavigationSceneRendererProps) => ViewStyle;
+    removeImageForTag(uri: string): void;
+
     /**
-     * Direction of the cards movement. Value could be `horizontal` or
-     * `vertical`. Default value is `horizontal`.
-     */
-    direction?: 'horizontal' | 'vertical'
-    /**
-     * The distance from the edge of the card which gesture response can start
-     * for. Defaults value is `30`.
-     */
-    gestureResponseDistance?: number
-    /**
-     * Enable gestures. Default value is true
-     */
-    enableGestures?: boolean,
-    /**
-     * The controlled navigation state. Typically, the navigation state
-     * look like this:
+     * Stores a base64-encoded image in the ImageStore, and returns a URI that
+     * can be used to access or display the image later. Images are stored in
+     * memory only, and must be manually deleted when you are finished with
+     * them by calling `removeImageForTag()`.
      *
-     * ```js
-     * const navigationState = {
-     *   index: 0, // the index of the selected route.
-     *   routes: [ // A list of routes.
-     *     {key: 'page 1'}, // The 1st route.
-     *     {key: 'page 2'}, // The second route.
-     *   ],
-     * };
-     * ```
+     * Note that it is very inefficient to transfer large quantities of binary
+     * data between JS and native code, so you should avoid calling this more
+     * than necessary.
+     * @platform ios
      */
-    navigationState: NavigationState,
+    addImageFromBase64(base64ImageData: string, success: (uri: string) => void, failure: (error: any) => void): void;
+
     /**
-     * Callback that is called when the "back" action is performed.
-     * This happens when the back button is pressed or the back gesture is
-     * performed.
+     * Retrieves the base64-encoded data for an image in the ImageStore. If the
+     * specified URI does not match an image in the store, the failure callback
+     * will be called.
+     *
+     * Note that it is very inefficient to transfer large quantities of binary
+     * data between JS and native code, so you should avoid calling this more
+     * than necessary. To display an image in the ImageStore, you can just pass
+     * the URI to an `<Image/>` component; there is no need to retrieve the
+     * base64 data.
      */
-    onNavigateBack?: () => any,
-    /**
-     * Function that renders the header.
-     */
-    renderHeader?: NavigationSceneRenderer,
-    /**
-     * Function that renders the a scene for a route.
-     */
-    renderScene: NavigationSceneRenderer,
-    /**
-     * Custom style applied to the cards stack.
-     */
-    style?: ViewStyle,
-}
-
-// Object Instances
-
-export type NavigationAnimatedValue = Animated.Value;
-
-// Value  & Structs.
-
-export type NavigationGestureDirection = 'horizontal' | 'vertical';
-
-export type NavigationLayout = {
-    height: NavigationAnimatedValue,
-    initHeight: number,
-    initWidth: number,
-    isMeasured: boolean,
-    width: NavigationAnimatedValue,
-};
-
-export type NavigationScene = {
-    index: number,
-    isActive: boolean,
-    isStale: boolean,
-    key: string,
-    route: NavigationRoute,
-};
-
-// Similar to `NavigationTransitionProps`, except that the prop `scene`
-// represents the scene for the renderer to render.
-export interface NavigationSceneRendererProps {
-    layout: NavigationLayout,
-    navigationState: NavigationState,
-    position: NavigationAnimatedValue,
-    progress: NavigationAnimatedValue,
-    scenes: Array<NavigationScene>,
-    scene: NavigationScene,
-    gestureResponseDistance?: number,
-}
-
-export interface NavigationSceneRenderer extends React.StatelessComponent<NavigationSceneRendererProps> {
-}
-
-export interface NavigationPropTypes {
-    // helpers
-    extractSceneRendererProps(props: NavigationSceneRendererProps): NavigationSceneRendererProps
-
-    // Bundled propTypes.
-    SceneRendererProps: {
-        layout: string,
-        navigationState: string,
-        position: string,
-        progress: string,
-        scene: string,
-        scenes: NavigationScene[],
-    }
-
-    // propTypes
-    SceneRenderer: any, // TODO: fix this
-    action: NavigationAction,
-    navigationState: NavigationState,
-    navigationRoute: NavigationRoute,
-    panHandlers: GestureResponderHandlers,
-}
-
-export interface NavigationCardProps extends React.ComponentClass<NavigationSceneRendererProps> {
-    onComponentRef: (ref: any) => void,
-    onNavigateBack?: () => any,
-    panHandlers?: GestureResponderHandlers,
-    pointerEvents: string,
-    renderScene: NavigationSceneRenderer,
-    style?: ViewStyle,
-}
-
-export interface NavigationCardStackStatic extends React.ComponentClass<NavigationCardStackProps> {
-}
-
-export interface NavigationCardStatic extends React.ComponentClass<NavigationCardProps> {
-}
-
-/**
- * Utilities to perform atomic operation with navigate state and routes.
- *
- * ```javascript
- * const state1 = {key: 'page 1'};
- * const state2 = NavigationStateUtils.push(state1, {key: 'page 2'});
- * ```
- */
-export interface NavigationStateUtils {
-    get(state: NavigationState, key: string): NavigationRoute
-    indexOf(state: NavigationState, key: string): number
-    has(state: NavigationState, key: string): boolean
-    push(state: NavigationState, route: NavigationRoute): NavigationState
-    pop(state: NavigationState): NavigationState
-    jumpToIndex(state: NavigationState, index: number): NavigationState
-    jumpTo(state: NavigationState, key: string): NavigationState
-    back(state: NavigationState): NavigationState
-    forward(state: NavigationState): NavigationState
-    replaceAt(
-        state: NavigationState,
-        key: string,
-        route: NavigationRoute
-    ): NavigationState
-    replaceAtIndex(
-        state: NavigationState,
-        index: number,
-        route: NavigationRoute
-    ): NavigationState
-    reset(
-        state: NavigationState,
-        routes: Array<NavigationRoute>,
-        index?: number
-    ): NavigationState
-}
-
-export type NavigationTransitionProps = {
-    // The layout of the transitioner of the scenes.
-    layout: NavigationLayout,
-
-    // The navigation state of the transitioner.
-    navigationState: NavigationState,
-
-    // The progressive index of the transitioner's navigation state.
-    position: NavigationAnimatedValue,
-
-    // The value that represents the progress of the transition when navigation
-    // state changes from one to another. Its numberic value will range from 0
-    // to 1.
-    //  progress.__getAnimatedValue() < 1 : transtion is happening.
-    //  progress.__getAnimatedValue() == 1 : transtion completes.
-    progress: NavigationAnimatedValue,
-
-    // All the scenes of the transitioner.
-    scenes: Array<NavigationScene>,
-
-    // The active scene, corresponding to the route at
-    // `navigationState.routes[navigationState.index]`.
-    scene: NavigationScene,
-
-    // The gesture distance for `horizontal` and `vertical` transitions
-    gestureResponseDistance?: number,
-}
-export type NavigationTransitionSpec = {
-    duration?: number,
-    // An easing function from `Easing`.
-    easing?: EasingFunction,
-    // A timing function such as `Animated.timing`.
-    timing?: (value: NavigationAnimatedValue, config: any) => any,
-}
-export interface NavigationTransitionerProps {
-    configureTransition?: (
-        a: NavigationTransitionProps,
-        b?: NavigationTransitionProps
-    ) => NavigationTransitionSpec,
-    navigationState: NavigationState,
-    onTransitionEnd?: () => void,
-    onTransitionStart?: () => void,
-    render: (a: NavigationTransitionProps, b?: NavigationTransitionProps) => any,
-    style: any,
-}
-
-export interface NavigationTransitioner extends React.ComponentClass<NavigationTransitionerProps> {
-}
-
-export interface NavigationCard extends React.ComponentClass<NavigationCardProps> {
-}
-
-export interface NavigationExperimentalStatic {
-    // Core
-    StateUtils: NavigationStateUtils
-
-    // Views
-    Transitioner: NavigationTransitioner,
-
-    //AnimatedView: NavigationAnimatedViewStatic;
-    // CustomComponents:
-    Card: NavigationCard,
-    CardStack: NavigationCardStackStatic;
-    Header: NavigationHeaderStatic;
-
-    PropTypes: NavigationPropTypes,
+    getBase64ForTag(uri: string, success: (base64ImageData: string) => void, failure: (error: any) => void): void;
 }
 
 //
@@ -8447,7 +8453,7 @@ export interface NativeEventSubscription {
  * @see https://github.com/facebook/react-native/blob/0.34-stable\Libraries\EventEmitter\RCTNativeAppEventEmitter.js
  * @see https://facebook.github.io/react-native/docs/native-modules-ios.html#sending-events-to-javascript
  */
-type RCTNativeAppEventEmitter = DeviceEventEmitterStatic
+type RCTNativeAppEventEmitter = DeviceEventEmitterStatic;
 
 interface ImageCropData {
     /**
@@ -8457,7 +8463,7 @@ interface ImageCropData {
     offset: {
         x: number;
         y: number;
-    }
+    };
 
     /**
      * The size (dimensions) of the cropped image, specified in the original
@@ -8466,18 +8472,18 @@ interface ImageCropData {
     size: {
         width: number;
         height: number;
-    }
+    };
 
     /**
      * (Optional) size to scale the cropped image to.
      */
-    displaySize?: { width: number, height: number }
+    displaySize?: { width: number; height: number };
 
     /**
      * (Optional) the resizing mode to use when scaling the image. If the
      * `displaySize` param is not specified, this has no effect.
      */
-    resizeMode?: 'contain' | 'cover' | 'stretch'
+    resizeMode?: 'contain' | 'cover' | 'stretch';
 }
 
 interface ImageEditorStatic {
@@ -8491,35 +8497,111 @@ interface ImageEditorStatic {
      * callback will point to the image in the store. Remember to delete the
      * cropped image from the ImageStore when you are done with it.
      */
-    cropImage( uri: string, cropData: ImageCropData, success: (uri: string) => void, failure: (error: Object) => void ): void
+    cropImage(
+        uri: string,
+        cropData: ImageCropData,
+        success: (uri: string) => void,
+        failure: (error: Object) => void,
+    ): void;
 }
 
-export interface ARTShapeProps {
-    d: string,
-    strokeWidth: number,
-    strokeDash?: number[],
-    stroke: string
+export interface ARTNodeMixin {
+    opacity?: number;
+    originX?: number;
+    originY?: number;
+    scaleX?: number;
+    scaleY?: number;
+    scale?: number;
+    title?: string;
+    x?: number;
+    y?: number;
+    visible?: boolean;
+}
+
+export interface ARTGroupProps extends ARTNodeMixin {
+    width?: number;
+    height?: number;
+}
+
+export interface ARTClippingRectangleProps extends ARTNodeMixin {
+    width?: number;
+    height?: number;
+}
+
+export interface ARTRenderableMixin extends ARTNodeMixin {
+    fill?: string;
+    stroke?: string;
+    strokeCap?: 'butt' | 'square' | 'round';
+    strokeDash?: number[];
+    strokeJoin?: 'bevel' | 'miter' | 'round';
+    strokeWidth?: number;
+}
+
+export interface ARTShapeProps extends ARTRenderableMixin {
+    d: string;
+    width?: number;
+    height?: number;
+}
+
+export interface ARTTextProps extends ARTRenderableMixin {
+    font?: string;
+    alignment?: string;
 }
 
 export interface ARTSurfaceProps {
-    style: ViewStyle,
-    width: number,
-    height: number
+    style?: StyleProp<ViewStyle>;
+    width: number;
+    height: number;
 }
 
-export interface ShapeStatic extends React.ComponentClass<ARTShapeProps> {
-}
+export class ClippingRectangle extends React.Component<ARTClippingRectangleProps> {}
 
-export interface SurfaceStatic extends React.ComponentClass<ARTSurfaceProps> {
-}
+export class Group extends React.Component<ARTGroupProps> {}
+
+export class Shape extends React.Component<ARTShapeProps> {}
+
+export class Surface extends React.Component<ARTSurfaceProps> {}
+
+export class ARTText extends React.Component<ARTTextProps> {}
 
 export interface ARTStatic {
-    Shape: ShapeStatic,
-    Surface: SurfaceStatic
+    ClippingRectangle: typeof ClippingRectangle;
+    Group: typeof Group;
+    Shape: typeof Shape;
+    Surface: typeof Surface;
+    Text: typeof ARTText;
 }
 
+export type KeyboardEventName =
+    | 'keyboardWillShow'
+    | 'keyboardDidShow'
+    | 'keyboardWillHide'
+    | 'keyboardDidHide'
+    | 'keyboardWillChangeFrame'
+    | 'keyboardDidChangeFrame';
+
+export type KeyboardEventEasing = 'easeIn' | 'easeInEaseOut' | 'easeOut' | 'linear' | 'keyboard';
+
+type ScreenRect = {
+    screenX: number;
+    screenY: number;
+    width: number;
+    height: number;
+};
+
+export interface KeyboardEvent {
+    duration: number;
+    easing: KeyboardEventEasing;
+    endCoordinates: ScreenRect;
+    startCoordinates: ScreenRect;
+    isEventFromThisApp: boolean;
+}
+
+type KeyboardEventListener = (event: KeyboardEvent) => void;
+
 export interface KeyboardStatic extends NativeEventEmitter {
-    dismiss: () => void
+    dismiss: () => void;
+    addListener(eventType: KeyboardEventName, listener: KeyboardEventListener): EmitterSubscription;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -8530,270 +8612,148 @@ export interface KeyboardStatic extends NativeEventEmitter {
 
 // TODO: The following components need to be added
 // - [ ] ART
-export var ART: ARTStatic
-export type ART = ARTStatic
+export const ART: ARTStatic;
+export type ART = ARTStatic;
 
-export var ActivityIndicator: ActivityIndicatorStatic
-export type ActivityIndicator = ActivityIndicatorStatic
-
-export var ActivityIndicatorIOS: ActivityIndicatorIOSStatic
-export type ActivityIndicatorIOS = ActivityIndicatorIOSStatic
-
-export var DatePickerIOS: DatePickerIOSStatic
-export type DatePickerIOS = DatePickerIOSStatic
-
-export var DrawerLayoutAndroid: DrawerLayoutAndroidStatic
-export type DrawerLayoutAndroid = DrawerLayoutAndroidStatic
-
-export var Image: ImageStatic
-export type Image = ImageStatic
-
-export var ImagePickerIOS: ImagePickerIOSStatic
-export type ImagePickerIOS = ImagePickerIOSStatic
-
-export var FlatList: FlatListStatic<any>
-export type FlatList<ItemT> = FlatListStatic<ItemT>
-
-export var LayoutAnimation: LayoutAnimationStatic
-export type LayoutAnimation = LayoutAnimationStatic
-
-export var ListView: ListViewStatic
-export type ListView = ListViewStatic
-
-export var MapView: MapViewStatic
-export type MapView = MapViewStatic
-
-export var Modal: ModalStatic
-export type Modal = ModalStatic
-
-export var Navigator: NavigatorStatic
-export type Navigator = NavigatorStatic
-
-export var NavigatorIOS: NavigatorIOSStatic
-export type NavigatorIOS = NavigatorIOSStatic
-
-export var Picker: PickerStatic
-export type Picker = PickerStatic
-
-export var PickerIOS: PickerIOSStatic
-export type PickerIOS = PickerIOSStatic
-
-export var ProgressBarAndroid: ProgressBarAndroidStatic
-export type ProgressBarAndroid = ProgressBarAndroidStatic
-
-export var ProgressViewIOS: ProgressViewIOSStatic
-export type ProgressViewIOS = ProgressViewIOSStatic
-
-export var RefreshControl: RefreshControlStatic
-export type RefreshControl = RefreshControlStatic
-
-export var RecyclerViewBackedScrollView: RecyclerViewBackedScrollViewStatic
-export type RecyclerViewBackedScrollView = RecyclerViewBackedScrollViewStatic
-
-export var SegmentedControlIOS: SegmentedControlIOSStatic
-export type SegmentedControlIOS = SegmentedControlIOSStatic
-
-export var Slider: SliderStatic
-export type Slider = SliderStatic
-
-export var SliderIOS: SliderStatic
-export type SliderIOS = SliderStatic
-
-export var StatusBar: StatusBarStatic
-export type StatusBar = StatusBarStatic
-
-export var ScrollView: ScrollViewStatic
-export type ScrollView = ScrollViewStatic
-
-export var SectionList: SectionListStatic<any>
-export type SectionList<ItemT> = SectionListStatic<ItemT>
-
-export var SnapshotViewIOS: SnapshotViewIOSStatic
-export type SnapshotViewIOS = SnapshotViewIOSStatic
-
-export var Systrace: SystraceStatic
-export type Systrace = SystraceStatic
-
-export var SwipeableListView: SwipeableListViewStatic
-export type SwipeableListView = SwipeableListViewStatic
-
-export var Switch: SwitchStatic
-export type Switch = SwitchStatic
-
-export var SwitchIOS: SwitchIOSStatic
-export type SwitchIOS = SwitchIOSStatic
-
-export var TabBarIOS: TabBarIOSStatic
-export type TabBarIOS = TabBarIOSStatic
-
-export var Text: TextStatic
-export type Text = TextStatic
-
-export var TextInput: TextInputStatic
-export type TextInput = TextInputStatic
-
-export var ToolbarAndroid: ToolbarAndroidStatic
-export type ToolbarAndroid = ToolbarAndroidStatic
-
-export var TouchableHighlight: TouchableHighlightStatic
-export type TouchableHighlight = TouchableHighlightStatic
-
-export var TouchableNativeFeedback: TouchableNativeFeedbackStatic
-export type TouchableNativeFeedback = TouchableNativeFeedbackStatic
-
-export var TouchableOpacity: TouchableOpacityStatic
-export type TouchableOpacity = TouchableOpacityStatic
-
-export var TouchableWithoutFeedback: TouchableWithoutFeedbackStatic
-export type TouchableWithoutFeedback = TouchableWithoutFeedbackStatic
-
-export var View: ViewStatic
-export type View = ViewStatic
-
-export var ViewPagerAndroid: ViewPagerAndroidStatic
-export type ViewPagerAndroid = ViewPagerAndroidStatic
-
-export var WebView: WebViewStatic
-export type WebView = WebViewStatic
-
+export const SectionList: SectionListStatic<any>;
+export type SectionList<ItemT> = SectionListStatic<ItemT>;
 
 //////////// APIS //////////////
-export var ActionSheetIOS: ActionSheetIOSStatic
-export type ActionSheetIOS = ActionSheetIOSStatic
+export const ActionSheetIOS: ActionSheetIOSStatic;
+export type ActionSheetIOS = ActionSheetIOSStatic;
 
-export var Share: ShareStatic
-export type Share = ShareStatic
+export const AccessibilityInfo: AccessibilityInfoStatic;
+export type AccessibilityInfo = AccessibilityInfoStatic;
 
-export var AdSupportIOS: AdSupportIOSStatic
-export type AdSupportIOS = AdSupportIOSStatic
+export const Alert: AlertStatic;
+export type Alert = AlertStatic;
 
-export var Alert: AlertStatic
-export type Alert = AlertStatic
-
-export var AlertAndroid: AlertAndroidStatic
-export type AlertAndroid = AlertAndroidStatic
-
-export var AlertIOS: AlertIOSStatic
-export type AlertIOS = AlertIOSStatic
-
-export var AppState: AppStateStatic;
+export const AppState: AppStateStatic;
 export type AppState = AppStateStatic;
 
-export var AppStateIOS: AppStateStatic
-export type AppStateIOS = AppStateStatic
+export const AsyncStorage: AsyncStorageStatic;
+export type AsyncStorage = AsyncStorageStatic;
 
-export var AsyncStorage: AsyncStorageStatic
-export type AsyncStorage = AsyncStorageStatic
+export const BackHandler: BackHandlerStatic;
+export type BackHandler = BackHandlerStatic;
 
-export var BackAndroid: BackAndroidStatic
-export type BackAndroid = BackAndroidStatic
+/**
+ * CameraRoll has been extracted from react-native core and will be removed in a future release.
+ * "It can now be installed and imported from '@react-native-community/cameraroll' instead of 'react-native'.
+ * See 'https://github.com/react-native-community/react-native-cameraroll',
+ *
+ * @deprecated
+ */
+export const CameraRoll: CameraRollStatic;
+export type CameraRoll = CameraRollStatic;
 
-export var BackHandler: BackHandlerStatic
-export type BackHandler = BackHandlerStatic
+export const Clipboard: ClipboardStatic;
+export type Clipboard = ClipboardStatic;
 
-export var Button: ButtonStatic
-export type Button = ButtonStatic
+export const DatePickerAndroid: DatePickerAndroidStatic;
+export type DatePickerAndroid = DatePickerAndroidStatic;
 
-export var CameraRoll: CameraRollStatic
-export type CameraRoll = CameraRollStatic
-
-export var Clipboard: ClipboardStatic
-export type Clipboard = ClipboardStatic
-
-export var DatePickerAndroid: DatePickerAndroidStatic
-export type DatePickerAndroid = DatePickerAndroidStatic
-
-export var Geolocation: GeolocationStatic
-export type Geolocation = GeolocationStatic
-
-/** http://facebook.github.io/react-native/blog/2016/08/19/right-to-left-support-for-react-native-apps.html */
-export var I18nManager: I18nManagerStatic
-export type I18nManager = I18nManagerStatic
-
-export var ImageEditor: ImageEditorStatic
-export type ImageEditor = ImageEditorStatic
-
-export var ImageStore: ImageStoreStatic
-export type ImageStore = ImageStoreStatic
-
-export var InteractionManager: InteractionManagerStatic
-
-export var IntentAndroid: IntentAndroidStatic
-export type IntentAndroid = IntentAndroidStatic
-
-export var Keyboard: KeyboardStatic
-
-export var KeyboardAvoidingView: KeyboardAvoidingViewStatic
-export type KeyboardAvoidingView = KeyboardAvoidingViewStatic
-
-export var Linking: LinkingStatic
-export type Linking = LinkingStatic
-
-export var LinkingIOS: LinkingIOSStatic
-export type LinkingIOS = LinkingIOSStatic
-
-export var NativeMethodsMixin: NativeMethodsMixinStatic
-export type NativeMethodsMixin = NativeMethodsMixinStatic
-
-export var NativeComponent: NativeMethodsMixinStatic
-export type NativeComponent = NativeMethodsMixinStatic
-
-export var NetInfo: NetInfoStatic
-export type NetInfo = NetInfoStatic
-
-export var PanResponder: PanResponderStatic
-export type PanResponder = PanResponderStatic
-
-export var PermissionsAndroid: PermissionsAndroidStatic
-export type PermissionsAndroid = PermissionsAndroidStatic
-
-export var PushNotificationIOS: PushNotificationIOSStatic
-export type PushNotificationIOS = PushNotificationIOSStatic
-
-export var Settings: SettingsStatic
-export type Settings = SettingsStatic
-
-export var StatusBarIOS: StatusBarIOSStatic
-export type StatusBarIOS = StatusBarIOSStatic
-
-export var TimePickerAndroid: TimePickerAndroidStatic
-export type TimePickerAndroid = TimePickerAndroidStatic
-
-export var ToastAndroid: ToastAndroidStatic
-export type ToastAndroid = ToastAndroidStatic
-
-export var UIManager: UIManagerStatic
-export type UIManager = UIManagerStatic
-
-export var VibrationIOS: VibrationIOSStatic
-export type VibrationIOS = VibrationIOSStatic
-
-export var Vibration: VibrationStatic
-export type Vibration = VibrationStatic
-
-export var Dimensions: Dimensions;
-export var ShadowPropTypesIOS: ShadowPropTypesIOSStatic;
-
-export type NavigationExperimental = NavigationExperimentalStatic;
-export var NavigationExperimental: NavigationExperimentalStatic;
+export const Dimensions: Dimensions;
 
 export type Easing = EasingStatic;
-export var Easing: EasingStatic;
+export const Easing: EasingStatic;
+
+/** http://facebook.github.io/react-native/blog/2016/08/19/right-to-left-support-for-react-native-apps.html */
+export const I18nManager: I18nManagerStatic;
+export type I18nManager = I18nManagerStatic;
+
+export const ImageEditor: ImageEditorStatic;
+export type ImageEditor = ImageEditorStatic;
+
+export const ImagePickerIOS: ImagePickerIOSStatic;
+export type ImagePickerIOS = ImagePickerIOSStatic;
+
+export const ImageStore: ImageStoreStatic;
+export type ImageStore = ImageStoreStatic;
+
+export const InteractionManager: InteractionManagerStatic;
+
+export const Keyboard: KeyboardStatic;
+
+export const LayoutAnimation: LayoutAnimationStatic;
+export type LayoutAnimation = LayoutAnimationStatic;
+
+export const Linking: LinkingStatic;
+export type Linking = LinkingStatic;
+
+export const NativeMethodsMixin: NativeMethodsMixinStatic;
+export type NativeMethodsMixin = NativeMethodsMixinStatic;
+
+export const NativeComponent: NativeMethodsMixinStatic;
+export type NativeComponent = NativeMethodsMixinStatic;
+
+export const PanResponder: PanResponderStatic;
+export type PanResponder = PanResponderStatic;
+
+export const PermissionsAndroid: PermissionsAndroidStatic;
+export type PermissionsAndroid = PermissionsAndroidStatic;
+
+/**
+ * PushNotificationIOS has been extracted from react-native core and will be removed in a future release.
+ * It can now be installed and imported from '@react-native-community/push-notification-ios' instead of 'react-native'.
+ * See https://github.com/react-native-community/react-native-push-notification-ios'
+ * @deprecated
+ */
+export const PushNotificationIOS: PushNotificationIOSStatic;
+export type PushNotificationIOS = PushNotificationIOSStatic;
+
+export const Settings: SettingsStatic;
+export type Settings = SettingsStatic;
+
+export const Share: ShareStatic;
+export type Share = ShareStatic;
+
+/**
+ * @deprecated Use StatusBar instead
+ */
+export const StatusBarIOS: StatusBarIOSStatic;
+export type StatusBarIOS = StatusBarIOSStatic;
+
+export const Systrace: SystraceStatic;
+export type Systrace = SystraceStatic;
+
+export const TimePickerAndroid: TimePickerAndroidStatic;
+export type TimePickerAndroid = TimePickerAndroidStatic;
+
+export const ToastAndroid: ToastAndroidStatic;
+export type ToastAndroid = ToastAndroidStatic;
+
+export const UIManager: UIManagerStatic;
+export type UIManager = UIManagerStatic;
+
+export const Vibration: VibrationStatic;
+export type Vibration = VibrationStatic;
+
+export const ShadowPropTypesIOS: ShadowPropTypesIOSStatic;
 
 //////////// Plugins //////////////
 
-export var DeviceEventEmitter: DeviceEventEmitterStatic
+export const DeviceEventEmitter: DeviceEventEmitterStatic;
 /**
  * Abstract base class for implementing event-emitting modules. This implements
  * a subset of the standard EventEmitter node module API.
  */
 export interface NativeEventEmitter extends EventEmitter {}
-export var NativeEventEmitter: NativeEventEmitter
+export const NativeEventEmitter: NativeEventEmitter;
 /**
  * Deprecated - subclass NativeEventEmitter to create granular event modules instead of
  * adding all event listeners directly to RCTNativeAppEventEmitter.
  */
-export var NativeAppEventEmitter: RCTNativeAppEventEmitter
+export const NativeAppEventEmitter: RCTNativeAppEventEmitter;
+
+/**
+ * Interface for NativeModules which allows to augment NativeModules with type informations.
+ * See react-native-sensor-manager for example.
+ */
+interface NativeModulesStatic {
+    [name: string]: any;
+}
+
 /**
  * Native Modules written in ObjectiveC/Swift/Java exposed via the RCTBridge
  * Define lazy getters for each module. These will return the module if already loaded, or load it if not.
@@ -8801,40 +8761,35 @@ export var NativeAppEventEmitter: RCTNativeAppEventEmitter
  * Use:
  * <code>const MyModule = NativeModules.ModuleName</code>
  */
-export var NativeModules: any
-export var Platform: PlatformStatic
-export var PixelRatio: PixelRatioStatic
-
-export interface ComponentInterface<P> {
-    name?: string;
-    displayName?: string;
-    propTypes: P
-}
+export const NativeModules: NativeModulesStatic;
+export const Platform:
+    | PlatformIOSStatic
+    | PlatformAndroidStatic
+    | PlatformWindowsOSStatic
+    | PlatformMacOSStatic
+    | PlatformWebStatic;
+export const PixelRatio: PixelRatioStatic;
 
 /**
- * Used to create React components that directly wrap native component
- * implementations.  Config information is extracted from data exported from the
- * UIManager module.  You should also wrap the native component in a
- * hand-written component with full propTypes definitions and other
- * documentation - pass the hand-written component in as `componentInterface` to
- * verify all the native props are documented via `propTypes`.
+ * Creates values that can be used like React components which represent native
+ * view managers. You should create JavaScript modules that wrap these values so
+ * that the results are memoized. Example:
  *
- * If some native props shouldn't be exposed in the wrapper interface, you can
- * pass null for `componentInterface` and call `verifyPropTypes` directly
- * with `nativePropsToIgnore`;
+ *   const View = requireNativeComponent('RCTView');
  *
- * Common types are lined up with the appropriate prop differs with
- * `TypeToDifferMap`.  Non-scalar types not in the map default to `deepDiffer`.
+ * The concrete return type of `requireNativeComponent` is a string, but the declared type is
+ * `any` because TypeScript assumes anonymous JSX intrinsics (`string` instead of `"div", for
+ * example) not to have any props.
  */
-export function requireNativeComponent<P>(
-    viewName: string,
-    componentInterface?: ComponentInterface<P>,
-    extraConfig?: {nativeOnly?: any}
-): React.ComponentClass<P>;
+export function requireNativeComponent(viewName: string): any;
 
-export function findNodeHandle(componentOrHandle: null | number | React.Component<any, any> | React.ComponentClass<any>): null | number;
+export function findNodeHandle(
+    componentOrHandle: null | number | React.Component<any, any> | React.ComponentClass<any>,
+): null | number;
 
 export function processColor(color: any): number;
+
+export const YellowBox: React.Component<any, any> & { ignoreWarnings: (warnings: string[]) => void };
 
 //////////////////////////////////////////////////////////////////////////
 //
@@ -8851,15 +8806,53 @@ export interface ErrorUtils {
     getGlobalHandler: () => ErrorHandlerCallback;
 }
 
-export interface GlobalStatic {
+//
+// Add-Ons
+//
+export namespace addons {
+    //FIXME: Documentation ?
+    export interface TestModuleStatic {
+        verifySnapshot: (done: (indicator?: any) => void) => void;
+        markTestPassed: (indicator: any) => void;
+        markTestCompleted: () => void;
+    }
+
+    export const TestModule: TestModuleStatic;
+    export type TestModule = TestModuleStatic;
+}
+
+//
+// Prop Types
+//
+export const ColorPropType: React.Validator<string>;
+export const EdgeInsetsPropType: React.Validator<Insets>;
+export const PointPropType: React.Validator<PointPropType>;
+export const ViewPropTypes: React.ValidationMap<ViewProps>;
+
+declare global {
+    interface NodeRequire {
+        (id: string): any;
+    }
+
+    var require: NodeRequire;
 
     /**
-     * Accepts a function as its only argument and calls that function before the next repaint.
-     * It is an essential building block for animations that underlies all of the JavaScript-based animation APIs.
-     * In general, you shouldn't need to call this yourself - the animation API's will manage frame updates for you.
-     * @see https://facebook.github.io/react-native/docs/animations.html#requestanimationframe
+     * Console polyfill
+     * @see https://facebook.github.io/react-native/docs/javascript-environment.html#polyfills
      */
-    requestAnimationFrame(fn: () => void): void;
+    interface Console {
+        error(message?: any, ...optionalParams: any[]): void;
+        info(message?: any, ...optionalParams: any[]): void;
+        log(message?: any, ...optionalParams: any[]): void;
+        warn(message?: any, ...optionalParams: any[]): void;
+        trace(message?: any, ...optionalParams: any[]): void;
+        debug(message?: any, ...optionalParams: any[]): void;
+        table(...data: any[]): void;
+        disableYellowBox: boolean;
+        ignoredYellowBox: string[];
+    }
+
+    var console: Console;
 
     /**
      * This contains the non-native `XMLHttpRequest` object, which you can use if you want to route network requests
@@ -8869,45 +8862,17 @@ export interface GlobalStatic {
      *
      * @see https://github.com/facebook/react-native/issues/934
      */
-    originalXMLHttpRequest: Object;
-    XMLHttpRequest: Object;
+    const originalXMLHttpRequest: any;
 
-    __BUNDLE_START_TIME__: number;
-    ErrorUtils: ErrorUtils;
-}
-
-//
-// Add-Ons
-//
-export namespace addons {
-
-    //FIXME: Documentation ?
-    export interface TestModuleStatic {
-
-        verifySnapshot: (done: (indicator?: any) => void) => void
-        markTestPassed: (indicator: any) => void
-        markTestCompleted: () => void
-    }
-
-    export var TestModule: TestModuleStatic
-    export type TestModule = TestModuleStatic
-}
-
-//
-// Prop Types
-//
-export var ColorPropType: React.Requireable<any>
-export var EdgeInsetsPropType: React.Requireable<any>
-export var PointPropType: React.Requireable<any>
-
-declare global {
-    const global: GlobalStatic;
-    function require(name: string): any;
+    const __BUNDLE_START_TIME__: number;
+    const ErrorUtils: ErrorUtils;
 
     /**
      * This variable is set to true when react-native is running in Dev mode
      * Typical usage:
      * <code> if (__DEV__) console.log('Running in dev mode')</code>
      */
-    var __DEV__: boolean
+    const __DEV__: boolean;
+
+    const HermesInternal: null | {};
 }

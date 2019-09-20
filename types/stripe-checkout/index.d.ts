@@ -1,9 +1,9 @@
-// Type definitions for Stripe Checkout
-// Project: https://stripe.com/checkout
+// Type definitions for Stripe Checkout 1.0
+// Project: https://stripe.com/checkout, https://github.com/matthewmueller/stripe-checkout
 // Definitions by: Chris Wrench <https://github.com/cgwrench>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="stripe"/>
+/// <reference types="stripe-v3"/>
 
 interface StripeCheckoutStatic {
     configure(options: StripeCheckoutOptions): StripeCheckoutHandler;
@@ -16,7 +16,8 @@ interface StripeCheckoutHandler {
 
 interface StripeCheckoutOptions {
     key?: string;
-    token?: (token: StripeTokenResponse) => void;
+    token?(token: stripe.Token): void;
+    source?(source: stripe.Source): void;
     image?: string;
     name?: string;
     description?: string;
@@ -33,8 +34,8 @@ interface StripeCheckoutOptions {
     bitcoin?: boolean;
     alipay?: boolean | 'auto';
     alipayReusable?: boolean;
-    opened?: () => void;
-    closed?: () => void;
+    opened?(): void;
+    closed?(): void;
 }
 
 declare var StripeCheckout: StripeCheckoutStatic;

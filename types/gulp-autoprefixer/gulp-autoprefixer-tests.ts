@@ -1,5 +1,5 @@
 import * as gulp from "gulp";
-import * as autoprefixer from "gulp-autoprefixer";
+import autoprefixer = require("gulp-autoprefixer");
 
 gulp.src("test.css")
     .pipe(autoprefixer())

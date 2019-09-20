@@ -1,19 +1,23 @@
-// Type definitions for react-grid-layout 0.14
+// Type definitions for react-grid-layout 0.16
 // Project: https://github.com/STRML/react-grid-layout
-// Definitions by: Andrew Birkholz <https://github.com/abirkholz>, Ali Taheri <https://github.com/alitaheri>
+// Definitions by: Andrew Birkholz <https://github.com/abirkholz>,
+//                 Ali Taheri <https://github.com/alitaheri>,
+//                 Zheyang Song <https://github.com/ZheyangSong>,
+//                 Andrew Hathaway <https://github.com/andrewhathaway>
+//                 Manav Mishra <https://github.com/manav-m>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.8
 
 import * as React from "react";
 
 export as namespace ReactGridLayout;
 export = ReactGridLayout;
 
-declare class ReactGridLayout extends React.Component<ReactGridLayout.ReactGridLayoutProps, any> { }
+declare class ReactGridLayout extends React.Component<
+    ReactGridLayout.ReactGridLayoutProps
+> {}
 
 declare namespace ReactGridLayout {
-    type Breakpoints = 'lg' | 'md' | 'sm' | 'xs' | 'xxs';
-
     interface Layout {
         /**
          * A string corresponding to the component key.
@@ -62,6 +66,11 @@ declare namespace ReactGridLayout {
         maxH?: number;
 
         /**
+         * set by DragEvents (onDragStart, onDrag, onDragStop) and ResizeEvents (onResizeStart, onResize, onResizeStop)
+         */
+        moved?: boolean;
+
+        /**
          * If true, equal to `isDraggable: false` and `isResizable: false`.
          */
         static?: boolean;
@@ -77,9 +86,9 @@ declare namespace ReactGridLayout {
         isResizable?: boolean;
     }
 
-    type Layouts = {
-        [P in Breakpoints]: Layout;
-    };
+    interface Layouts {
+        [P: string]: Layout[];
+    }
 
     type ItemCallback = (
         layout: Layout[],
@@ -130,6 +139,11 @@ declare namespace ReactGridLayout {
         verticalCompact?: boolean;
 
         /**
+         * Compaction type.
+         */
+        compactType?: "vertical" | "horizontal" | null;
+
+        /**
          * This allows setting the initial width on the server side.
          * This is required unless using the HOC <WidthProvider> or similar.
          */
@@ -159,6 +173,16 @@ declare namespace ReactGridLayout {
          * If set to false it will disable resizing on all children.
          */
         isResizable?: boolean;
+
+        /**
+         * Enable or disable grid rearrangement when dragging/resizing an element.
+         */
+        isRearrangeable?: boolean;
+
+        /**
+         * If true, grid items won't change position when being dragged over.
+         */
+        preventCollision?: boolean;
 
         /**
          * Uses CSS3 `translate()` instead of position top/left.
@@ -240,17 +264,17 @@ declare namespace ReactGridLayout {
          *
          * Breakpoint names are arbitrary but must match in the cols and layouts objects.
          */
-        breakpoints?: {[P in Breakpoints]: number };
+        breakpoints?: { [P: string]: number };
 
         /**
          * Number of cols. This is a breakpoint -> cols map, e.g. `{lg: 12, md: 10, ...}`.
          */
-        cols?: {[P in Breakpoints]: number };
+        cols?: { [P: string]: number };
 
         /**
          * layouts is an object mapping breakpoints to layouts.
          *
-         * e.g. `{lg: Layout, md: Layout, ...}`
+         * e.g. `{lg: Layout[], md: Layout[], ...}`
          */
         layouts?: Layouts;
 
@@ -262,7 +286,7 @@ declare namespace ReactGridLayout {
         /**
          * Callback so you can save the layout.
          */
-        onLayoutChange?(currentLayout: Layout, allLayouts: Layouts): void;
+        onLayoutChange?(currentLayout: Layout[], allLayouts: Layouts): void;
 
         /**
          * Callback when the width changes, so you can modify the layout as needed.
@@ -275,7 +299,7 @@ declare namespace ReactGridLayout {
         ): void;
     }
 
-    class Responsive extends React.Component<ResponsiveProps, any> { }
+    class Responsive extends React.Component<ResponsiveProps> {}
 
     interface WidthProviderProps {
         /**

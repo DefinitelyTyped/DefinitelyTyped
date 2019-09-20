@@ -1,11 +1,16 @@
-// Type definitions for angular-local-storage v0.1.6
+// Type definitions for angular-local-storage v0.6.0
 // Project: https://github.com/grevory/angular-local-storage
-// Definitions by: Ken Fukuyama <https://github.com/kenfdev>
+// Definitions by: Ken Fukuyama <https://github.com/kenfdev>, Davide Donadello <https://github.com/dona278>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="angular" />
 
 import * as angular from 'angular';
+
+export type ILocalStorageServiceProvider = angular.local.storage.ILocalStorageServiceProvider;
+export type ILocalStorageService = angular.local.storage.ILocalStorageService;
+export type ICookie = angular.local.storage.ICookie;
 
 declare module 'angular' {
     export namespace local.storage {
@@ -27,11 +32,17 @@ declare module 'angular' {
              */
             setStorageType(storageType: string): ILocalStorageServiceProvider;
             /**
+             * If localStorage is not supported, the library will default to cookies instead. This behavior can be disabled
+             * @param shouldDefault default: true
+             */
+            setDefaultToCookie(shouldDefault: boolean): ILocalStorageServiceProvider;
+            /**
              * Setter for cookie config
              * @param exp number of days before cookies expire (0 = does not expire). default: 30
              * @param path the web path the cookie represents. default: '/'
+             * @param secure to store cookies as secure. default: false
              */
-            setStorageCookie(exp: number, path: string): ILocalStorageServiceProvider;
+            setStorageCookie(exp: number, path: string, secure: boolean): ILocalStorageServiceProvider;
             /**
              * Set the cookie domain, since this runs inside a the config() block, only providers and constants can be injected. As a result, $location service can't be used here, use a hardcoded string or window.location.
              * No default value
@@ -118,13 +129,17 @@ declare module 'angular' {
              * Returns: value from local storage
              */
             keys(storageType?: StorageType): string[];
-            /**
-             * Remove an item from local storage by key.
+          /**
+             * Remove a list of items from the local storage by their given keys.
+             * The last item in the variable argument list can optionally be the StorageType.
+             * Which specifies whether to remove from the session storage or the local storage.
+             * If the last argument is not a valid storage type it is considered to be a key, 
+             * and localStorage is used by default .
              * If local storage is not supported, use cookies instead.
              * Returns: Boolean
              * @param key
              */
-            remove(key: string): boolean;
+            remove(...args: string[]): boolean;
             /**
              * Remove all data for this app from local storage.
              * If local storage is not supported, use cookies instead.

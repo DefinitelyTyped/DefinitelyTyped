@@ -1,5 +1,5 @@
-import * as xmlpoke from 'xmlpoke';
-import * as assert from 'assert';
+import xmlpoke = require('xmlpoke');
+import assert = require('assert');
 
 let result: string;
 
@@ -76,3 +76,7 @@ result = xmlpoke('<test><x><![CDATA[hello]]></x></test>', xml =>
             return 'y';
        }));
 assert.equal(result, '<test><x>y</x></test>');
+
+// ensure
+result = xmlpoke('</a>', xml => xml.ensure('a/b'));
+assert.equal(result, '<a><b/></a>');

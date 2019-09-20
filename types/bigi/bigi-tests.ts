@@ -7,3 +7,13 @@ const b3 = b1.multiply(b2);
 
 console.log(b3.toHex());
 // => ae499bfe762edfb416d0ce71447af67ff33d1760cbebd70874be1d7a5564b0439a59808cb1856a91974f7023f72132
+
+const b4 = BigInteger.valueOf(42);
+const b5 = BigInteger.valueOf(10);
+const b6 = b4.multiply(b5);
+
+console.log(b6);
+// => BigInteger { '0': 420, '1': 0, t: 1, s: 0 }
+
+console.log(b1.compareTo(b2));
+// => 70

@@ -2,19 +2,38 @@
 // Project: https://github.com/nfl/react-helmet
 // Definitions by: Evan Bremer <https://github.com/evanbb>, Isman Usoh <https://github.com/isman-usoh>, François Nguyen <https://github.com/lith-light-g>, Kok Sam <https://github.com/sammkj>, Yui T. <https://github.com/yuit>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.8
 
 import * as React from "react";
 
-interface HelmetProps {
+type LinkProps = JSX.IntrinsicElements['link'];
+
+type MetaProps = JSX.IntrinsicElements['meta'];
+
+export interface HelmetTags {
+    baseTag: Array<any>;
+    linkTags: Array<HTMLLinkElement>;
+    metaTags: Array<HTMLMetaElement>;
+    noscriptTags: Array<any>;
+    scriptTags: Array<HTMLScriptElement>;
+    styleTags: Array<HTMLStyleElement>;
+}
+
+export interface HelmetProps {
+    async?: boolean;
     base?: any;
     bodyAttributes?: Object;
     defaultTitle?: string;
+    defer?: boolean;
     encodeSpecialCharacters?: boolean;
     htmlAttributes?: any;
-    onChangeClientState?: (newState: any) => void;
-    link?: Array<any>;
-    meta?: Array<any>;
+    onChangeClientState?: (
+        newState: any,
+        addedTags: HelmetTags,
+        removedTags: HelmetTags,
+    ) => void;
+    link?: LinkProps[];
+    meta?: MetaProps[];
     noscript?: Array<any>;
     script?: Array<any>;
     style?: Array<any>;
@@ -23,7 +42,7 @@ interface HelmetProps {
     titleTemplate?: string;
 }
 
-export class Helmet extends React.Component<HelmetProps, any> {
+export class Helmet extends React.Component<HelmetProps> {
     static peek(): HelmetData;
     static rewind(): HelmetData;
     static renderStatic(): HelmetData;
@@ -45,7 +64,7 @@ export interface HelmetData {
 
 export interface HelmetDatum {
     toString(): string;
-    toComponent(): React.Component<any, any>;
+    toComponent(): React.Component<any>;
 }
 
 export interface HelmetHTMLBodyDatum {

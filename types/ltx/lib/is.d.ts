@@ -1,3 +1,5 @@
-export declare function isNode(el: any): boolean;
-export declare function isElement(el: any): boolean;
-export declare function isText(el: any): boolean;
+import { Element, Node } from './Element';
+
+export function isNode(el: any): el is Node;
+export function isElement(el: any): el is Element;
+export function isText(el: any): el is string;

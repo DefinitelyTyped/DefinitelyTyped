@@ -13,6 +13,8 @@ _.chop('whitespace', 3);
 
 _.clean(' foo    bar   ');
 
+_.cleanDiacritics('ääkkönen');
+
 _.chars('Hello');
 
 _.swapCase('hELLO');
@@ -50,6 +52,7 @@ _.succ('A');
 _.titleize('my name is epeli');
 
 _.camelize('-moz-transform');
+_.camelize('-moz-transform', true);
 
 _.classify('some_class_name');
 

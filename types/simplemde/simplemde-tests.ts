@@ -57,7 +57,8 @@ function testSimplemde() {
                 codeSyntaxHighlighting: true
             },
             shortcuts: {
-                drawTable: "Cmd-Alt-T"
+                drawTable: "Cmd-Alt-T",
+                toggleCodeBlock: null
             },
             showIcons: ["code", "table"],
             spellChecker: false,

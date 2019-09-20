@@ -1,6 +1,7 @@
-// Type definitions for username v1.0.1
+// Type definitions for username v3.0.0
 // Project: https://www.npmjs.com/package/username
 // Definitions by: Klaus Reimer <https://github.com/kayahr>
+//                 Akos Krivachy <https://github.com/krivachy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
@@ -9,9 +10,9 @@
  * Falls back to `id -un` on OS X / Linux and `whoami` on Windows in the rare case none of the environment
  * variables are set. The result is cached.
  *
- * @param callback The callback function to call asynchronously with the result.
+ * @return Promise<string> A promise containing the username or empty string if not found.
  */
-declare function username(callback: (err: Error, result: string) => void): void;
+declare function username(): Promise<string>;
 
 declare namespace username {
     /**

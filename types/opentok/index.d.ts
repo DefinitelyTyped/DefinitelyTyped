@@ -1,6 +1,8 @@
 // Type definitions for opentok v2.3.2
 // Project: https://github.com/opentok/opentok-node
 // Definitions by: Seth Westphal <https://github.com/westy92>
+//                 Anthony Messerschmidt <https://github.com/CatGuardian>
+//                 Andrej Mihajlov <https://github.com/pronebird>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module 'opentok' {
@@ -32,6 +34,18 @@ declare module 'opentok' {
       hasAudio?: boolean;
       hasVideo?: boolean;
       outputMode?: OutputMode;
+      layout?: ArchiveLayoutOptions;
+    }
+
+    export type ArchiveLayoutOptions = PredefinedArchiveLayoutOptions | CustomArchiveLayoutOptions;
+
+    export interface PredefinedArchiveLayoutOptions {
+      type: 'bestFit' | 'pip' | 'verticalPresentation' | 'horizontalPresentation';
+    }
+
+    export interface CustomArchiveLayoutOptions {
+      type: 'custom';
+      stylesheet: string;
     }
 
     export type MediaMode = 'relayed' | 'routed';
@@ -61,19 +75,20 @@ declare module 'opentok' {
     export interface ListArchivesOptions {
       count?: number;
       offset?: number;
+      sessionId?: string;
     }
   }
 
   class OpenTok {
     constructor(apiKey: string, apiSecret: string);
 
-    public createSession(options: OpenTok.SessionOptions, callback: (err: Error, session: OpenTok.Session) => void): void;
+    public createSession(options: OpenTok.SessionOptions, callback: (error: Error | null, session?: OpenTok.Session) => void): void;
     public generateToken(sessionId: string, options: OpenTok.TokenOptions): OpenTok.Token;
-    public startArchive(sessionId: string, options: OpenTok.ArchiveOptions, callback: (err: Error, archive: OpenTok.Archive) => void): void;
-    public stopArchive(archiveId: string, callback: (err: Error, archive: OpenTok.Archive) => void): void;
-    public getArchive(archiveId: string, callback: (err: Error, archive: OpenTok.Archive) => void): void;
-    public deleteArchive(archiveId: string, callback: (err: Error) => void): void;
-    public listArchives(options: OpenTok.ListArchivesOptions, callback: (err: Error, archives: OpenTok.Archive[], totalCount: number) => void): void;
+    public startArchive(sessionId: string, options: OpenTok.ArchiveOptions, callback: (error: Error | null, archive?: OpenTok.Archive) => void): void;
+    public stopArchive(archiveId: string, callback: (error: Error | null, archive?: OpenTok.Archive) => void): void;
+    public getArchive(archiveId: string, callback: (error: Error | null, archive?: OpenTok.Archive) => void): void;
+    public deleteArchive(archiveId: string, callback: (error: Error | null) => void): void;
+    public listArchives(options: OpenTok.ListArchivesOptions, callback: (error: Error | null, archives?: OpenTok.Archive[], totalCount?: number) => void): void;
   }
 
   export = OpenTok;

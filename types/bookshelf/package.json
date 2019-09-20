@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "dependencies": {
+        "knex": "^0.17.0"
+    }
+}

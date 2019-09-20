@@ -4,7 +4,7 @@ import stream = require("stream");
 import Q = require('q');
 import Orchestrator = require('orchestrator');
 
-var orchestrator = new Orchestrator();
+const orchestrator = new Orchestrator();
 
 // API:
 
@@ -21,13 +21,13 @@ orchestrator.add('mytask', ['array', 'of', 'task', 'names'], function() {
     // Do stuff
 });
 orchestrator.add('thing2', function(callback){
-    var err: any = null;
+    const err: any = null;
     // do stuff
     callback(err);
 });
 
 orchestrator.add('thing3', function(){
-    var deferred = Q.defer<void>();
+    const deferred = Q.defer<void>();
 
     // do async stuff
     setTimeout(function() {
@@ -38,7 +38,7 @@ orchestrator.add('thing3', function(){
 });
 
 orchestrator.add('thing4', function(){
-    var stm = new stream.Stream();
+    const stm = new stream.Stream();
     // do stream stuff
     return stm;
 });
@@ -61,7 +61,7 @@ orchestrator.task('task3', ['task1', 'task2'], function() {
 // orchestrator.hasTask(name);
 //
 
-var hasThing1: boolean = orchestrator.hasTask('thing1');
+const hasThing1: boolean = orchestrator.hasTask('thing1');
 
 //
 // orchestrator.start(tasks...[, cb]);
@@ -70,7 +70,7 @@ var hasThing1: boolean = orchestrator.hasTask('thing1');
 orchestrator.start('thing1', 'thing2', 'thing3', 'thing4', function(err: any) {
     // all done
 }).start(['thing1', 'thing2'], ['thing3', 'thing4'], "thing5", function(err) {
-    var res: any = err;
+    const res: any = err;
 });
 
 //
@@ -90,14 +90,14 @@ orchestrator.reset();
 //
 
 orchestrator.on('task_start', function(e) {
-    var message: string = e.message;
-    var task: string = e.task;
-    var err: any = e.err;
+    const message: string = e.message;
+    const task: string = e.task;
+    const err: any = e.err;
 });
 orchestrator.on('task_stop', function(e) {
-    var message: string = e.message;
-    var task: string = e.task;
-    var duration: number = e.duration;
+    const message: string = e.message;
+    const task: string = e.task;
+    const duration: number = e.duration;
 });
 
 //
@@ -105,8 +105,8 @@ orchestrator.on('task_stop', function(e) {
 //
 
 orchestrator.onAll(function(e) {
-    var message: string = e.message;
-    var task: string = e.task;
-    var err: any = e.err;
-    var src: string = e.src;
+    const message: string = e.message;
+    const task: string = e.task;
+    const err: any = e.err;
+    const src: string = e.src;
 });

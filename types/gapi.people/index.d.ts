@@ -1,7 +1,9 @@
 // Type definitions for Google People API 1.0
 // Project: https://developers.google.com/people/
 // Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
+//                 Joshua O'Brien <https://github.com/joshuaobrien>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="gapi" />
 
@@ -12,7 +14,7 @@ declare namespace gapi.client.people {
       resourceName: string;
 
       // Query parameters
-      requestMask?: RequestMask;
+      personFields: string;
     }
 
     function get(parameters: GetParameters): HttpRequest<Person>;
@@ -20,7 +22,7 @@ declare namespace gapi.client.people {
     interface GetBatchGetParameters {
       // Query parameters
       resourcesName?: string;
-      requestMask?: RequestMask;
+      personFields: string;
     }
 
     function getBatchGet(parameters: GetBatchGetParameters): HttpRequest<BatchGetResponse>;
@@ -48,7 +50,7 @@ declare namespace gapi.client.people {
         pageSize?: number;
         sortOrder?: SortOrder;
         syncToken?: string;
-        requestMask?: RequestMask;
+        personFields: string;
       }
 
       interface Response {
@@ -57,10 +59,6 @@ declare namespace gapi.client.people {
         nextSyncToken: string;
       }
     }
-  }
-
-  interface RequestMask {
-    includeField: string;
   }
 
   type SourceType = 'SOURCE_TYPE_UNSPECIFIED' | 'ACCOUNT' | 'PROFILE' | 'DOMAIN_PROFILE' | 'CONTACT';
@@ -117,7 +115,7 @@ declare namespace gapi.client.people {
     value: string;
     type: NicknameType;
   }
-  
+
   interface CoverPhoto {
     metadata: FieldMetadata;
     url: string;
@@ -135,6 +133,15 @@ declare namespace gapi.client.people {
   }
 
   interface Birthday {
+    metadata: FieldMetadata;
+    date: Date;
+    text: string;
+  }
+
+  interface Date {
+    day: number;
+    month: number;
+    year: number;
   }
 
   interface Event {

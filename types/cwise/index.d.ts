@@ -2,6 +2,7 @@
 // Project: https://github.com/scijs/cwise#readme
 // Definitions by: taoqf <https://github.com/taoqf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import { ArgType } from "cwise-compiler";
 import * as ndarray from "ndarray";

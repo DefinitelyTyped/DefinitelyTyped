@@ -1,7 +1,9 @@
-// Type definitions for react-native-drawer 2.3
-// Project: https://github.com/root-two/react-native-drawer
+// Type definitions for react-native-drawer 2.5
+// Project: https://github.com/root-two/react-native-drawer, https://github.com/rt2zz/react-native-drawer
 // Definitions by: jnbt <https://github.com/jnbt>
+//                 suniahk <https://github.com/suniahk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 import * as React from 'react';
 import { ViewStyle, ScaledSize } from 'react-native';
@@ -108,6 +110,10 @@ export interface DrawerProperties {
      */
     onOpenStart?(): void;
     /**
+     * Callback fired when a drag gesture starts.
+     */
+    onDragStart?(): void;
+    /**
      * Will be called immediately after the drawer has entered the closed state
      */
     onClose?(): void;
@@ -136,6 +142,10 @@ export interface DrawerProperties {
      * disable the drawer while still allowing programmatic control
      */
     acceptPan?: boolean;
+    /**
+     * Allow Pan when drawer is 'open'
+     */
+    acceptPanOnDrawer?: boolean;
     /**
      * Same as acceptTap, except only for close
      */
@@ -166,7 +176,7 @@ export interface DrawerProperties {
     /**
      * which side the drawer should be on.
      */
-    side?: 'left' | 'right';
+    side?: 'left' | 'right' | 'top' | 'bottom';
     /**
      * if true will run InteractionManager for open/close animations.
      */
@@ -177,4 +187,4 @@ export interface DrawerProperties {
     elevation?: number;
 }
 
-export default class Drawer extends React.Component<DrawerProperties, {}> { }
+export default class Drawer extends React.Component<DrawerProperties> { }

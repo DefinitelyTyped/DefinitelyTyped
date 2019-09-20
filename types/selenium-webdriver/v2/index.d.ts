@@ -3,7 +3,6 @@
 // Definitions by: Bill Armstrong <https://github.com/BillArmstrong>, Yuki Kokubun <https://github.com/Kuniwak>, Craig Nishina <https://github.com/cnishina>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
-/* tslint:disable */
 
 import * as chrome from './chrome';
 import * as edge from './edge';

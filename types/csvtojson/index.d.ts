@@ -17,6 +17,12 @@ declare namespace csvtojson {
      * Converter options
      */
     interface ConverterOptions {
+       /**
+        * Whether to construct final json object in memory which will be populated in "end_parsed"
+        * event. Set to false if deal with huge csv data. default: true.
+        */
+        constructResult?: boolean;
+
         /**
          * Delimiter used for seperating columns. Use "auto" if delimiter is unknown in advance,
          * in this case, delimiter will be auto-detected (by best attempt). Use an array to give
@@ -173,50 +179,50 @@ declare namespace csvtojson {
     class Converter extends stream.Transform {
         /**
          * Initializes a new instance of a Converter
-         * @param {ConverterOptions} options       converter options
-         * @param {StreamOptions}    streamOptions stream options
+         * @param options       converter options
+         * @param    streamOptions stream options
          */
         constructor(options?: ConverterOptions, streamOptions?: StreamOptions);
 
         /**
          * Reads in a CSV from a string.
-         * @param {string} str the string to convert
-         * @return {Converter} returns this object for chaining
+         * @param str the string to convert
+         * @return returns this object for chaining
          */
         fromString(str: string): this;
 
         /**
          * Reads in a CSV from a string.
-         * @param {string}             str      the string to convert
-         * @param {ParseResultHandler} callback callback function to handle result or error
+         * @param             str      the string to convert
+         * @param callback callback function to handle result or error
          */
         fromString(str: string, callback: ParseResultHandler): void;
 
         /**
          * Reads in a CSV from a file.
-         * @param {string} filePath the path to the CSV file
-         * @return {Converter} returns this object for chaining
+         * @param filePath the path to the CSV file
+         * @return returns this object for chaining
          */
         fromFile(filePath: string): this;
 
         /**
          * Reads in a CSV from a file.
-         * @param {string}             filePath the path to the CSV file
-         * @param {ParseResultHandler} callback callback function to handle result or error
+         * @param             filePath the path to the CSV file
+         * @param callback callback function to handle result or error
          */
         fromFile(filePath: string, callback: ParseResultHandler): void;
 
         /**
          * Reads in a CSV from a stream.
-         * @param {Stream} stream the stream
-         * @return {Converter} returns this object for chaining
+         * @param stream the stream
+         * @return returns this object for chaining
          */
         fromStream(stream: NodeJS.ReadableStream): this;
 
         /**
          * Reads in a CSV from a stream.
-         * @param {Stream}             stream   the stream
-         * @param {ParseResultHandler} callback callback function to handle result or error
+         * @param             stream   the stream
+         * @param callback callback function to handle result or error
          */
         fromStream(stream: stream.Stream, callback: ParseResultHandler): void;
 
@@ -231,9 +237,9 @@ declare namespace csvtojson {
          * - end
          * - end_parsed
          * - done
-         * @param  {Event}   event    name of event
-         * @param  {Function} listener listener function
-         * @return {this} returns this object for chaining
+         * @param    event    name of event
+         * @param  listener listener function
+         * @return returns this object for chaining
          */
         // tslint:disable-next-line ban-types
         on(event: string, listener: Function | JsonEventHandler | CsvEventHandler | DataEventHandler | ErrorEventHandler
@@ -241,22 +247,22 @@ declare namespace csvtojson {
 
         /**
          * Transform objects after CSV parsing but before result being emitted or pushed downstream.
-         * @param  {Function} callback transform function
-         * @return {this} returns this object for chaining
+         * @param  callback transform function
+         * @return returns this object for chaining
          */
         transf(callback: (jsonObj: any, csvRow: string[], rowNumber: number) => void): this;
 
         /**
          * The function in preRawData will be called directly with the string from upper stream.
-         * @param  {Function} callback callback function
-         * @return {this} returns this object for chaining
+         * @param  callback callback function
+         * @return returns this object for chaining
          */
         preRawData(callback: (csvRawData: string, cb: (newData: any) => void) => void): this;
 
         /**
          * The function is called each time a file line being found in csv stream.
-         * @param  {Function} callback callback function
-         * @return {this} returns this object for chaining
+         * @param  callback callback function
+         * @return returns this object for chaining
          */
         preFileLine(callback: (line: string, rowNumber: number) => string): this;
     }
@@ -264,9 +270,9 @@ declare namespace csvtojson {
 
 /**
  * Factory function which creates an instance of a Converter object.
- * @param {ConverterOptions} options       converter options
- * @param {StreamOptions}    streamOptions stream options
- * @return {csvtojson.Converter} Converter object
+ * @param options       converter options
+ * @param    streamOptions stream options
+ * @return Converter object
  */
 declare function csvtojson(options?: csvtojson.ConverterOptions, streamOptions?: csvtojson.StreamOptions): csvtojson.Converter;
 

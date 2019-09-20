@@ -1,8 +1,11 @@
 // Type definitions for websocket
 // Project: https://github.com/theturtle32/WebSocket-Node
 // Definitions by: Paul Loyd <https://github.com/loyd>,
-//                 Kay Schecker <https://github.com/flynetworks>
+//                 Kay Schecker <https://github.com/flynetworks>,
+//                 Zhao Lei <https://github.com/zhaoleimxd>
+//                 Sheng Chen <https://github.com/jdneo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 /// <reference types="node" />
 
@@ -59,8 +62,8 @@ export interface IConfig {
 }
 
 export interface IServerConfig extends IConfig {
-    /** The http server instance to attach to */
-    httpServer: http.Server;
+    /** The http or https server instance(s) to attach to */
+    httpServer: http.Server | https.Server | (http.Server | https.Server)[];
 
     /**
      * The maximum allowed received frame size in bytes.
@@ -181,7 +184,7 @@ export interface IExtension {
 
 export declare class request extends events.EventEmitter {
     /** A reference to the original Node HTTP request object */
-    httpRequest: http.ClientRequest;
+    httpRequest: http.IncomingMessage;
     /** This will include the port number if a non-standard port is used */
     host: string;
     /** A string containing the path that was requested by the client */
@@ -222,7 +225,7 @@ export declare class request extends events.EventEmitter {
     requestedProtocols: string[];
     protocolFullCaseMap: { [key: string]: string };
 
-    constructor(socket: net.Socket, httpRequest: http.ClientRequest, config: IServerConfig);
+    constructor(socket: net.Socket, httpRequest: http.IncomingMessage, config: IServerConfig);
 
     /**
      * After inspecting the `request` properties, call this function on the
@@ -563,10 +566,16 @@ declare class client extends events.EventEmitter {
      *                 any scripting content that caused the connection to be requested.
      * @param requestUrl should be a standard websocket url
      */
-    connect(requestUrl: url.Url, protocols?: string[], origin?: string, headers?: any[]): void;
-    connect(requestUrl: string, protocols?: string[], origin?: string, headers?: any[]): void;
-    connect(requestUrl: url.Url, protocols?: string, origin?: string, headers?: any[]): void;
-    connect(requestUrl: string, protocols?: string, origin?: string, headers?: any[]): void;
+    connect(requestUrl: url.Url, protocols?: string[], origin?: string, headers?: object, extraRequestOptions?: http.RequestOptions): void;
+    connect(requestUrl: string, protocols?: string[], origin?: string, headers?: object, extraRequestOptions?: http.RequestOptions): void;
+    connect(requestUrl: url.Url, protocols?: string, origin?: string, headers?: object, extraRequestOptions?: http.RequestOptions): void;
+    connect(requestUrl: string, protocols?: string, origin?: string, headers?: object, extraRequestOptions?: http.RequestOptions): void;
+
+    /**
+     * Will cancel an in-progress connection request before either the `connect` event or the `connectFailed` event has been emitted.
+     * If the `connect` or `connectFailed` event has already been emitted, calling `abort()` will do nothing.
+     */
+    abort(): void;
 
     // Events
     on(event: string, listener: () => void): this;
@@ -580,7 +589,7 @@ declare class client extends events.EventEmitter {
 declare class routerRequest extends events.EventEmitter {
 
     /** A reference to the original Node HTTP request object */
-    httpRequest: http.ClientRequest;
+    httpRequest: http.IncomingMessage;
     /** A string containing the path that was requested by the client */
     resource: string;
     /** Parsed resource, including the query string parameters */
@@ -659,6 +668,37 @@ declare class router extends events.EventEmitter {
     unmount(path: string, protocol?: string): void;
     unmount(path: RegExp, protocol?: string): void;
 
+}
+
+declare class w3cwebsocket {
+    static CONNECTING: number;
+    static OPEN: number;
+    static CLOSING: number;
+    static CLOSED: number;
+
+    url: string;
+    readyState: number;
+    protocol?: string;
+    extensions: IExtension[];
+    bufferedAmount: number;
+
+    binaryType: "arraybuffer";
+
+    CONNECTING: number;
+    OPEN: number;
+    CLOSING: number;
+    CLOSED: number;
+
+    onopen: () => void;
+    onerror: (error: Error) => void;
+    onclose: () => void;
+    onmessage: (message: any) => void;
+
+    constructor(url: string, protocols?: string | string[], origin?: string, headers?: any[], requestOptions?: object, clientConfig?: IClientConfig);
+
+    send(data: Buffer): void;
+    send(data: IStringified): void;
+    close(code?: number, reason?: string): void;
 }
 
 export declare var version: string;

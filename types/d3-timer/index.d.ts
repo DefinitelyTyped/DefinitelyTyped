@@ -1,9 +1,12 @@
 // Type definitions for d3JS d3-timer module 1.0
-// Project: https://github.com/d3/d3-timer/
-// Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
+// Project: https://github.com/d3/d3-timer/, https://d3js.org/d3-timer
+// Definitions by: Tom Wanzek <https://github.com/tomwanzek>
+//                 Alex Ford <https://github.com/gustavderdrache>
+//                 Boris Yankov <https://github.com/borisyankov>
+//                 denisname <https://github.com/denisname>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// Last module patch version validated against: 1.0.2
+// Last module patch version validated against: 1.0.7
 
 /**
  * Returns the current time as defined by performance.now if available, and Date.now if not.
@@ -44,7 +47,7 @@ export interface Timer {
 export function timer(callback: (elapsed: number) => void, delay?: number, time?: number): Timer;
 
 /**
- * Immediately invoke any eligible timer callbacks
+ * Immediately invoke any eligible timer callbacks.
  */
 export function timerFlush(): void;
 
