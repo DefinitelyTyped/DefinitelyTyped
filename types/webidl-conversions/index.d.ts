@@ -34,19 +34,19 @@ declare const WebIDLConversions: {
 	octet(V: any, opts?: WebIDLConversions.IntegerOptions): number;
 
 	short(V: any, opts?: WebIDLConversions.IntegerOptions): number;
-	["unsigned short"](V: any, opts?: WebIDLConversions.IntegerOptions): number;
+	['unsigned short'](V: any, opts?: WebIDLConversions.IntegerOptions): number;
 
 	long(V: any, opts?: WebIDLConversions.IntegerOptions): number;
-	["unsigned long"](V: any, opts?: WebIDLConversions.IntegerOptions): number;
+	['unsigned long'](V: any, opts?: WebIDLConversions.IntegerOptions): number;
 
-	["long long"](V: any, opts?: WebIDLConversions.IntegerOptions): number;
-	["unsigned long long"](V: any, opts?: WebIDLConversions.IntegerOptions): number;
+	['long long'](V: any, opts?: WebIDLConversions.IntegerOptions): number;
+	['unsigned long long'](V: any, opts?: WebIDLConversions.IntegerOptions): number;
 
 	double(V: any, opts?: WebIDLConversions.Options): number;
-	["unrestricted double"](V: any, opts?: WebIDLConversions.Options): number;
+	['unrestricted double'](V: any, opts?: WebIDLConversions.Options): number;
 
 	float(V: any, opts?: WebIDLConversions.Options): number;
-	["unrestricted float"](V: any, opts?: WebIDLConversions.Options): number;
+	['unrestricted float'](V: any, opts?: WebIDLConversions.Options): number;
 
 	DOMString(V: any, opts?: WebIDLConversions.StringOptions): string;
 	ByteString(V: any, opts?: WebIDLConversions.StringOptions): string;
@@ -76,7 +76,10 @@ declare const WebIDLConversions: {
 	DOMTimeStamp(V: any, opts?: WebIDLConversions.Options): number;
 	// tslint:disable:ban-types
 	Function<V>(V: V, opts?: WebIDLConversions.Options): V extends ((...args: any[]) => any) ? V : Function;
-	VoidFunction<V>(V: V, opts?: WebIDLConversions.Options): V extends ((...args: any[]) => any) ? (...args: Parameters<V>) => void : Function;
+	VoidFunction<V>(
+		V: V,
+		opts?: WebIDLConversions.Options,
+	): V extends ((...args: any[]) => any) ? (...args: Parameters<V>) => void : Function;
 };
 
 // This can't use ES6 style exports, as those can't have spaces in export names.

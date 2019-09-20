@@ -1,4 +1,4 @@
-import conversions = require("webidl-conversions");
+import conversions = require('webidl-conversions');
 
 const any: any = void 0;
 const unknown: unknown = void 0;
@@ -20,19 +20,19 @@ conversions.byte(any); // $ExpectType number
 conversions.octet(any); // $ExpectType number
 
 conversions.short(any); // $ExpectType number
-conversions["unsigned short"](any); // $ExpectType number
+conversions['unsigned short'](any); // $ExpectType number
 
 conversions.long(any); // $ExpectType number
-conversions["unsigned long"](any); // $ExpectType number
+conversions['unsigned long'](any); // $ExpectType number
 
-conversions["long long"](any); // $ExpectType number
-conversions["unsigned long long"](any); // $ExpectType number
+conversions['long long'](any); // $ExpectType number
+conversions['unsigned long long'](any); // $ExpectType number
 
 conversions.double(any); // $ExpectType number
-conversions["unrestricted double"](any); // $ExpectType number
+conversions['unrestricted double'](any); // $ExpectType number
 
 conversions.float(any); // $ExpectType number
-conversions["unrestricted float"](any); // $ExpectType number
+conversions['unrestricted float'](any); // $ExpectType number
 
 conversions.DOMString(any, options); // $ExpectType string
 conversions.ByteString(any, options); // $ExpectType string
