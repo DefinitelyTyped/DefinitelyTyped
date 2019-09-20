@@ -164,7 +164,7 @@ export interface AriaModalProps {
      * That also makes it easier to create your own "close modal" buttons; because you
      * have the function that closes the modal right there, written by you, at your disposal.
      */
-    onExit(): any;
+    onExit?(): any;
 
     /**
      * If true, the modal dialog's focus trap will be paused.

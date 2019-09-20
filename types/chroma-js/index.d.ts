@@ -62,6 +62,8 @@ declare namespace chroma {
          */
         hex(color: string): Color;
 
+        valid(color: any): boolean;
+
         hsl(h: number, s: number, l: number): Color;
 
         hsv(h: number, s: number, v: number): Color;
@@ -215,7 +217,8 @@ declare namespace chroma {
         /**
          * Get and set the color opacity.
          */
-        alpha(a?: number): Color;
+        alpha(a: number): Color;
+        alpha(): number;
 
         darken(f?: number): Color;
 

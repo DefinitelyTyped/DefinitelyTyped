@@ -926,7 +926,7 @@ export interface LazyOptions {
  */
 
 export interface FadeEffectOptions {
-    crossfade?: boolean;
+    crossFade?: boolean;
 }
 
 export interface CoverflowEffectOptions {

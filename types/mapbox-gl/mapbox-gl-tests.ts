@@ -31,6 +31,7 @@ let map = new mapboxgl.Map({
 	boxZoom: true,
 	dragRotate: false,
 	dragPan: true,
+	antialias: true,
 });
 
 /**

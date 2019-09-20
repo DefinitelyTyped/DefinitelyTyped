@@ -250,6 +250,12 @@ declare namespace mapboxgl {
     }
 
     export interface MapboxOptions {
+        /**
+         * If  true, the gl context will be created with MSA antialiasing, which can be useful for antialiasing custom layers. 
+         * This is false by default as a performance optimization.
+         */
+        antialias?: boolean;
+        
         /** If true, an attribution control will be added to the map. */
         attributionControl?: boolean;
 

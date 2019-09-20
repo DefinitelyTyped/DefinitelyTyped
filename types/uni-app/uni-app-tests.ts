@@ -29,6 +29,10 @@ uni.createSelectorQuery().select('.test').context(res => {
     });
 });
 
+uni.createSelectorQuery().select(".test").boundingClientRect(data => {
+    console.log(data);
+}).exec();
+
 const px: number = uni.upx2px(750);
 
 uni.canvasToTempFilePath({
@@ -45,3 +49,58 @@ uni.canvasToTempFilePath({
         console.log('canvasToTempFilePath success');
     }
 });
+
+const videoContext = uni.createVideoContext('test');
+videoContext.play();
+
+uni.onKeyboardHeightChange(({ height }) => {
+    console.log(height);
+});
+
+uni.checkSession({
+    success() {
+        console.log('success');
+    }
+});
+
+const mapContext = uni.createMapContext('map');
+mapContext.getCenterLocation({
+    success(res) {
+        console.log(res.longitude);
+    }
+});
+mapContext.moveToLocation();
+mapContext.translateMarker({
+    markerId: 1,
+    destination: {
+        latitude: 100,
+        longitude: 100
+    },
+    autoRotate: false,
+    rotate: 0,
+    animationEnd() {
+        console.log('animationEnd');
+    }
+});
+mapContext.includePoints({
+    points: [{
+        latitude: 100,
+        longitude: 100
+    }],
+    padding: [0]
+});
+mapContext.getRegion({
+    success(res) {
+        console.log(res.northeast);
+    }
+});
+mapContext.getScale({
+    success(res) {
+        console.log(res.scale);
+    }
+});
+
+const systemInfo = uni.getSystemInfoSync();
+console.log(systemInfo.swanNativeVersion);
+const safeArea = <SafeAreaResult> systemInfo.safeArea;
+console.log(safeArea.top);

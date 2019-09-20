@@ -16,6 +16,7 @@
 //                 Silas Rech <https://github.com/lenovouser>
 //                 DoYoung Ha <https://github.com/hados99>
 //                 Borys Kupar <https://github.com/borys-kupar>
+//                 Remko Klein <https://github.com/remko79>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -439,6 +440,7 @@ declare namespace Bull {
     endDate?: number;
     tz?: string;
     cron: string;
+    every: number;
     next: number;
   }
 

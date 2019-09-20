@@ -4,7 +4,7 @@ import DatePicker, {
 	setDefaultLocale,
 	getDefaultLocale,
 } from 'react-datepicker';
-import * as enUS from 'date-fns/locale/en-US';
+import enUS from 'date-fns/locale/en-US';
 
 registerLocale('en-GB', { options: { weekStartsOn: 1 } });
 setDefaultLocale('en-GB');
@@ -33,7 +33,7 @@ const defaultLocale = getDefaultLocale();
 	filterDate={date => true}
 	fixedHeight
 	forceShowMonthNavigation
-	formatWeekDay={date => ''}
+	formatWeekDay={formattedDate => formattedDate[0]}
 	formatWeekNumber={date => 0}
 	highlightDates={[{ someClassName: [new Date()]}]}
 	id=""

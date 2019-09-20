@@ -176,6 +176,8 @@ declare namespace Flexmonster {
             rows?: RowSize[];
         };
         localization?: object | string;
+        version?: string;
+        creationDate?: string;
     }
 
     interface DataSource {
@@ -589,6 +591,39 @@ declare namespace Flexmonster {
         fieldsHandler: () => void;
         // Fullscreen tab
         fullscreenHandler: () => void;
+        icons: {
+            connect: string,
+            connect_csv: string,
+            connect_csv_remote: string,
+            connect_json_remote: string,
+            connect_olap: string,
+            open: string,
+            open_local: string,
+            open_remote: string,
+            save: string,
+            export: string,
+            export_print: string,
+            export_html: string,
+            export_csv: string,
+            export_excel: string,
+            export_image: string,
+            export_pdf: string,
+            grid: string,
+            charts: string,
+            charts_bar: string,
+            charts_line: string,
+            charts_scatter: string,
+            charts_pie: string,
+            charts_stacked_column: string,
+            charts_column_line: string,
+            format: string,
+            format_number: string,
+            format_conditional: string,
+            options: string,
+            fields: string,
+            fullscreen: string,
+            minimize: string
+        };
     }
 
     interface ToolbarTab {

@@ -257,6 +257,18 @@ describe("Stripe elements", () => {
                 console.log(result.paymentIntent.shipping && result.paymentIntent.shipping.address);
             }
         });
+
+        stripe
+          .handleCardPayment('{PAYMENT_INTENT_CLIENT_SECRET}', {
+            source: '{SOURCE_ID}',
+          })
+          .then(result => {
+            if (result.error) {
+              console.error(result.error.message);
+            } else if (result.paymentIntent) {
+              console.log(result.paymentIntent.source);
+            }
+          });
     });
 
     it("should handle card setup", () => {

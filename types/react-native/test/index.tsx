@@ -16,9 +16,6 @@ import * as React from "react";
 import {
     Alert,
     AppState,
-    AppStateIOS,
-    AlertIOS,
-    BackAndroid,
     BackHandler,
     Button,
     CheckBox,
@@ -79,7 +76,6 @@ import {
     TextInputContentSizeChangeEventData,
     TextInputEndEditingEventData,
     TextInputSubmitEditingEventData,
-    WebView,
     KeyboardAvoidingView,
     Modal,
     TimePickerAndroid,
@@ -87,7 +83,6 @@ import {
     ViewPropTypes,
     requireNativeComponent,
     Keyboard,
-    NetInfo,
     PermissionsAndroid,
     Platform,
     ProgressBarAndroid,
@@ -122,8 +117,6 @@ function testDimensions() {
 }
 
 BackHandler.addEventListener("hardwareBackPress", () => {}).remove();
-
-BackAndroid.addEventListener("hardwareBackPress", () => {});
 
 interface LocalStyles {
     container: ViewStyle;
@@ -308,11 +301,6 @@ function appStateListener(state: string) {
 function appStateTest() {
     console.log("Current state: " + AppState.currentState);
     AppState.addEventListener("change", appStateListener);
-}
-
-function appStateIOSTest() {
-    console.log("Current state: " + AppStateIOS.currentState);
-    AppStateIOS.addEventListener("change", appStateListener);
 }
 
 // ViewPagerAndroid
@@ -687,21 +675,6 @@ class StatusBarTest extends React.Component {
     }
 }
 
-class WebViewTest extends React.Component {
-    render() {
-        return (
-            <WebView
-                nativeConfig={{ component: "test", props: {}, viewManager: {} }}
-                onShouldStartLoadWithRequest={event => event.navigationType !== "formresubmit"}
-                originWhitelist={["https://origin.test"]}
-                saveFormDataDisabled={false}
-                useWebKit={true}
-                allowFileAccess={true}
-            />
-        );
-    }
-}
-
 export class ImageTest extends React.Component {
     componentDidMount(): void {
         const uri = "https://seeklogo.com/images/T/typescript-logo-B29A3F462D-seeklogo.com.png";
@@ -794,27 +767,6 @@ class AccessibilityTest extends React.Component {
 
 const KeyboardAvoidingViewTest = () => <KeyboardAvoidingView enabled />;
 
-const AlertIOSTest = () => {
-    AlertIOS.prompt(
-        "My Prompt",
-        "Enter your email",
-        [
-            {
-                text: "Cancel",
-                style: "cancel",
-            },
-            {
-                text: "Add",
-                onPress: (value: string) => {
-                    console.log(value);
-                },
-            },
-        ],
-        "default",
-        "email-address"
-    );
-};
-
 const ModalTest = () => <Modal hardwareAccelerated />;
 
 const TimePickerAndroidTest = () => {
@@ -886,11 +838,6 @@ const KeyboardTest = () => {
     subscriber.remove();
 }
 
-const NetInfoTest = () => {
-    const subscription = NetInfo.addEventListener('connectionChange', (result) => console.log(result));
-    subscription.remove();
-}
-
 const PermissionsAndroidTest = () => {
     PermissionsAndroid.request('android.permission.CAMERA').then(result => {
         switch (result) {
@@ -953,6 +900,13 @@ const ProgressBarAndroidTest = () => {
 
 // Push notification
 const PushNotificationTest = () => {
+    PushNotificationIOS.presentLocalNotification({
+        alertBody: "notificatus",
+        userInfo: "informius",
+        alertTitle: "Titulus",
+        alertAction: "view",
+    });
+
     PushNotificationIOS.scheduleLocalNotification({
         alertAction: 'view',
         alertBody: 'Look at me!',

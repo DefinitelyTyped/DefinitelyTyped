@@ -949,6 +949,12 @@
             "asOfVersion": "1.1.0"
         },
         {
+            "libraryName": "express-graphql",
+            "typingsPackageName": "express-graphql",
+            "sourceRepoURL": "https://github.com/graphql/express-graphql",
+            "asOfVersion": "0.9.0"
+        },
+        {
             "libraryName": "express-validator",
             "typingsPackageName": "express-validator",
             "sourceRepoURL": "https://github.com/ctavan/express-validator",
@@ -1229,6 +1235,12 @@
             "typingsPackageName": "graphene-pk11",
             "sourceRepoURL": "https://github.com/PeculiarVentures/graphene",
             "asOfVersion": "2.0.31"
+        },
+        {
+            "libraryName": "graphql",
+            "typingsPackageName": "graphql",
+            "sourceRepoURL": "https://github.com/graphql/graphql-js",
+            "asOfVersion": "14.5.0"
         },
         {
             "libraryName": "gravatar-url",
@@ -2161,6 +2173,12 @@
             "asOfVersion": "2.0.1"
         },
         {
+            "libraryName": "nock",
+            "typingsPackageName": "nock",
+            "sourceRepoURL": "https://github.com/nock/nock",
+            "asOfVersion": "11.1.0"
+        },
+        {
             "libraryName": "node-pg-migrate",
             "typingsPackageName": "node-pg-migrate",
             "sourceRepoURL": "https://github.com/theoephraim/node-pg-migrate#readme",
@@ -2255,6 +2273,12 @@
             "typingsPackageName": "open-editor",
             "sourceRepoURL": "https://github.com/sindresorhus/open-editor",
             "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "openid-client",
+            "typingsPackageName": "openid-client",
+            "sourceRepoURL": "https://github.com/panva/node-openid-client",
+            "asOfVersion": "3.7.0"
         },
         {
             "libraryName": "opn",
@@ -2653,6 +2677,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "playcanvas",
+            "typingsPackageName": "playcanvas",
+            "sourceRepoURL": "https://github.com/playcanvas/engine",
+            "asOfVersion": "1.23.0"
+        },
+        {
             "libraryName": "plottable",
             "typingsPackageName": "plottable",
             "sourceRepoURL": "http://plottablejs.org/",
@@ -2699,6 +2729,12 @@
             "typingsPackageName": "pretty-bytes",
             "sourceRepoURL": "https://github.com/sindresorhus/pretty-bytes",
             "asOfVersion": "5.2.0"
+        },
+        {
+            "libraryName": "pretty-format",
+            "typingsPackageName": "pretty-format",
+            "sourceRepoURL": "https://github.com/facebook/jest/tree/master/packages/pretty-format",
+            "asOfVersion": "24.3.0"
         },
         {
             "libraryName": "pretty-ms",
@@ -2935,6 +2971,12 @@
             "asOfVersion": "5.0.0"
         },
         {
+            "libraryName": "react-webcam",
+            "typingsPackageName": "react-webcam",
+            "sourceRepoURL": "https://github.com/mozmorris/react-webcam",
+            "asOfVersion": "3.0.0"
+        },
+        {
             "libraryName": "read-chunk",
             "typingsPackageName": "read-chunk",
             "sourceRepoURL": "https://github.com/sindresorhus/read-chunk",
@@ -3161,6 +3203,12 @@
             "typingsPackageName": "samchon-library",
             "sourceRepoURL": "https://github.com/samchon/framework",
             "asOfVersion": "0.1.0"
+        },
+        {
+            "libraryName": "sanitize-filename",
+            "typingsPackageName": "sanitize-filename",
+            "sourceRepoURL": "https://github.com/parshap/node-sanitize-filename",
+            "asOfVersion": "1.6.3"
         },
         {
             "libraryName": "node-scanf",

@@ -1,4 +1,4 @@
-// Type definitions for stripe 6.31
+// Type definitions for stripe 6.32
 // Project: https://github.com/stripe/stripe-node/
 // Definitions by: William Johnston <https://github.com/wjohnsto>
 //                 Peter Harris <https://github.com/codeanimal>
@@ -29,6 +29,8 @@
 //                 Ethan Setnik <https://github.com/esetnik>
 //                 Pavel Ivanov <https://github.com/schfkt>
 //                 Chris Zieba <https://github.com/ChrisZieba>
+//                 Jeffery Grajkowski <https://github.com/pushplay>
+//                 Claus Stilborg <https://github.com/stilborg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -58,7 +60,7 @@ declare class Stripe {
 
     accounts: Stripe.resources.Accounts;
     balance: Stripe.resources.Balance;
-    balanceTransaction: Stripe.resources.BalanceTransaction;
+    balanceTransactions: Stripe.resources.BalanceTransaction;
     charges: Stripe.resources.Charges;
     checkout: Stripe.resources.Checkout;
     coupons: Stripe.resources.Coupons;
@@ -129,6 +131,9 @@ declare namespace Stripe {
     type IStripeSource = cards.ICard | bitcoinReceivers.IBitcoinReceiver | bankAccounts.IBankAccount | sources.ISource;
 
     namespace accounts {
+        // Helper
+        type IExternalAccount = bankAccounts.IBankAccount | cards.ICard;
+
         interface IAccount extends IResourceObject, IAccountShared {
             /**
              * Value is "account"
@@ -206,11 +211,11 @@ declare namespace Stripe {
              */
             individual?: IIndividual;
 
-             /**
-              * External accounts (bank accounts and debit cards) currently
-              * attached to this account
-              */
-            external_accounts?: IList<cards.ICard | bankAccounts.IBankAccount>;
+            /**
+             * External accounts (bank accounts and debit cards) currently
+             * attached to this account
+             */
+            external_accounts?: IList<IExternalAccount>;
         }
 
         interface IAccountCreationOptions extends IAccountUpdateOptions {
@@ -1087,6 +1092,8 @@ declare namespace Stripe {
 
             description?: string;
 
+            exchange_rate?: number | null;
+
             /**
              * Fee (in cents/pence) paid for this transaction
              */
@@ -1125,7 +1132,7 @@ declare namespace Stripe {
             /**
              * The transfers (if any) for which source is a source_transaction.
              */
-            source_transfers: IList<transfers.ITransfer>;
+            source_transfers?: IList<transfers.ITransfer>;
 
             /**
              * If the transaction's net funds are available in the Stripe balance yet. Either "available" or "pending".
@@ -1203,10 +1210,26 @@ declare namespace Stripe {
             application_fee?: string | applicationFees.IApplicationFee | null;
 
             /**
+             * The amount of the application fee (if any) for the charge. See the Connect
+             * documentation for details.
+             */
+            application_fee_amount?: number | null;
+
+            /**
              * ID of the balance transaction that describes the impact of this charge on
              * your account balance (not including refunds or disputes). [Expandable]
              */
             balance_transaction: string | balance.IBalanceTransaction;
+
+            /**
+             * Billing information associated with the payment method at the time of the transaction.
+             */
+            billing_details?: {
+                address?: IAddress;
+                email?: string;
+                name?: string;
+                phone?: string;
+            } | null;
 
             /**
              * If the charge was created without capturing, this boolean represents whether or not it is
@@ -1238,9 +1261,9 @@ declare namespace Stripe {
             destination?: string | accounts.IAccount | null;
 
             /**
-             * Details about the dispute if the charge has been disputed.
+             * Details about the dispute if the charge has been disputed. [Expandable]
              */
-            dispute?: disputes.IDispute | null;
+            dispute?: string | disputes.IDispute | null;
 
             /**
              * Error code explaining reason for charge failure if available (see the errors section for a list of
@@ -1375,6 +1398,14 @@ declare namespace Stripe {
             statement_descriptor: string | null;
 
             /**
+             * Provides information about the charge that customers see on their statements.
+             * Concatenated with the prefix (shortened descriptor) or statement descriptor that’s
+             * set on the account to form the complete statement descriptor. Maximum 22 characters
+             * for the concatenated descriptor.
+             */
+            statement_descriptor_suffix?: string | null;
+
+            /**
              * The status of the payment is either "succeeded", "pending", or "failed".
              */
             status: "succeeded" | "pending" | "failed";
@@ -1384,6 +1415,24 @@ declare namespace Stripe {
              * charge was created using the destination parameter). [Expandable]
              */
             transfer?: string | transfers.ITransfer;
+
+            /**
+             * An optional dictionary including the account to automatically transfer
+             * to as part of a destination charge. See the Connect documentation for details.
+             */
+            transfer_data?: {
+                /**
+                 * The amount transferred to the destination account, if specified. By
+                 * default, the entire charge amount is transferred to the destination account.
+                 */
+                amount?: number | null;
+
+                /**
+                 * ID of an existing, connected Stripe account to transfer funds to if
+                 * transfer_data was specified in the charge request.
+                 */
+                destination: string;
+            } | null;
 
             /**
              * A string that identifies this transaction as part of a group.
@@ -1484,17 +1533,19 @@ declare namespace Stripe {
             source?: string | cards.ICardSourceCreationOptions;
 
             /**
-             * An arbitrary string to be displayed on your customer's credit card
-             * statement. This may be up to 22 characters. As an example, if your
-             * website is RunClub and the item you're charging for is a race ticket, you
-             * may want to specify a statement_descriptor of
-             * RunClub 5K race ticket. The statement description may not include
-             * <>"' characters, and will appear on your customer's statement in capital
-             * letters. Non-ASCII characters are automatically stripped. While most
-             * banks display this information consistently, some may display it
-             * incorrectly or not at all.
+             * For card charges, use statement_descriptor_suffix instead. Otherwise, you
+             * can use this value as the complete description of a charge on your customers’
+             * statements. Must contain at least one letter, maximum 22 characters.
              */
             statement_descriptor?: string;
+
+            /**
+             * Provides information about the charge that customers see on their statements.
+             * Concatenated with the prefix (shortened descriptor) or statement descriptor
+             * that’s set on the account to form the complete statement descriptor. Maximum
+             * 22 characters for the concatenated descriptor.
+             */
+            statement_descriptor_suffix?: string;
 
             /**
              * An optional dictionary including the account to automatically transfer
@@ -1599,6 +1650,14 @@ declare namespace Stripe {
              * In the event of an error in the evaluation, this field will have the value unknown.
              */
             risk_level?: string | null;
+
+            /**
+             * Stripe’s evaluation of the riskiness of the payment. Possible values for evaluated
+             * payments are between 0 and 100. For non-card payments, card-based payments predating
+             * the public assignment of risk scores, or in the event of an error during evaluation,
+             * this field will not be present. This field is only available with Radar for Fraud Teams.
+             */
+            risk_score?: number | null;
 
             /**
              * The ID of the Radar rule that matched the payment, if applicable. [Expandable]
@@ -2097,12 +2156,12 @@ declare namespace Stripe {
                 /**
                  * Details for creation of payment intent
                  */
-                payment_intent_data?: paymentIntents.IPaymentIntentCaptureOptions;
+                payment_intent_data?: paymentIntents.IPaymentIntentCaptureOptions | paymentIntents.IPaymentIntentData;
 
                 /**
                  * Use instead of @param line_items when using a subscription
                  */
-                subscription_data?: subscriptions.ISubscription;
+                subscription_data?: subscriptions.ISubscriptionCustCreationOptions;
             }
 
             interface ICheckoutLineItems {
@@ -2140,12 +2199,12 @@ declare namespace Stripe {
     }
 
     namespace creditNotes {
-      /**
-       * Credit notes are documents that decrease the amount owed on a specified invoice.
-       * Credit notes are the only way to adjust the amount of an invoice once it's been finalized
-       * (other than voiding and recreating the invoice from scratch).
-       */
-      interface ICreditNote extends IResourceObject {
+        /**
+         * Credit notes are documents that decrease the amount owed on a specified invoice.
+         * Credit notes are the only way to adjust the amount of an invoice once it's been finalized
+         * (other than voiding and recreating the invoice from scratch).
+         */
+        interface ICreditNote extends IResourceObject {
             /**
              * Value is "credit_note"
              */
@@ -2229,57 +2288,57 @@ declare namespace Stripe {
              * A post_payment credit note means it was issued when the invoice was paid.
              */
             type: "post_payment" | "pre_payment";
-      }
+        }
 
-      interface ICreditNoteCreationOptions extends IDataOptionsWithMetadata {
-        amount: number;
-        invoice: string;
+        interface ICreditNoteCreationOptions extends IDataOptionsWithMetadata {
+            amount: number;
+            invoice: string;
+
+            /**
+             * The amount to credit the customer’s balance.
+             * It will be automatically applied to their next invoice.
+             */
+            credit_amount?: number;
+
+            /**
+             * The credit note’s memo appears on the credit note PDF. This can be unset by updating the value to nil and then saving.
+             */
+            memo?: string;
+
+            /**
+             * Reason for issuing this credit note, one of duplicate, fraudulent, order_change, or product_unsatisfactory.
+             */
+            reason?: CreditNoteReason;
+
+            /**
+             * ID of an existing refund to link this credit note to.
+             */
+            refund?: string;
+
+            /**
+             * The amount to refund. If set, a refund will be created for the charge associated with the invoice.
+             */
+            refund_amount?: number;
+        }
+
+        interface ICreditNoteUpdateOptions extends IDataOptionsWithMetadata {
+            /**
+             * Credit note memo. This can be unset by updating the value to nil and then saving.
+             */
+            memo?: string;
+        }
+
+        interface ICreditNoteListOptions extends IListOptions {
+            /**
+             * ID of the invoice.
+             */
+            invoice?: string;
+        }
 
         /**
-         * The amount to credit the customer’s balance.
-         * It will be automatically applied to their next invoice.
+         * Reason for issuing a credit note, one of duplicate, fraudulent, order_change, or product_unsatisfactory
          */
-        credit_amount?: number;
-
-        /**
-         * The credit note’s memo appears on the credit note PDF. This can be unset by updating the value to nil and then saving.
-         */
-        memo?: string;
-
-        /**
-         * Reason for issuing this credit note, one of duplicate, fraudulent, order_change, or product_unsatisfactory.
-         */
-        reason?: CreditNoteReason;
-
-        /**
-         * ID of an existing refund to link this credit note to.
-         */
-        refund?: string;
-
-        /**
-         * The amount to refund. If set, a refund will be created for the charge associated with the invoice.
-         */
-        refund_amount?: number;
-      }
-
-      interface ICreditNoteUpdateOptions extends IDataOptionsWithMetadata {
-        /**
-         * Credit note memo. This can be unset by updating the value to nil and then saving.
-         */
-        memo?: string;
-      }
-
-      interface ICreditNoteListOptions extends IListOptions {
-        /**
-         * ID of the invoice.
-         */
-        invoice?: string;
-      }
-
-      /**
-       * Reason for issuing a credit note, one of duplicate, fraudulent, order_change, or product_unsatisfactory
-       */
-      type CreditNoteReason = "duplicate" | "fraudulent" | "order_change" | "product_unsatisfactory";
+        type CreditNoteReason = "duplicate" | "fraudulent" | "order_change" | "product_unsatisfactory";
     }
 
     namespace customers {
@@ -2295,14 +2354,21 @@ declare namespace Stripe {
             object: "customer";
 
             /**
-             * Current balance, if any, being stored on the customer's account. If negative, the customer has credit to apply to
-             * the next invoice. If positive, the customer has an amount owed that will be added to the next invoice. The balance
-             * does not refer to any unpaid invoices; it solely takes into account amounts that have yet to be successfully applied
-             * to any invoice. This balance is only taken into account for recurring charges.
+             * This field has been renamed to balance and will be removed in a future API version.
+             * @deprecated
              */
             account_balance?: number;
 
             address: IAddress | null;
+
+            /**
+             * Current balance, if any, being stored on the customer. If negative, the customer has credit
+             * to apply to their next invoice. If positive, the customer has an amount owed that will be
+             * added to their next invoice. The balance does not refer to any unpaid invoices; it solely
+             * takes into account amounts that have yet to be successfully applied to any invoice. This
+             * balance is only taken into account as invoices are finalized.
+             */
+            balance?: number;
 
             created: number;
 
@@ -2331,6 +2397,11 @@ declare namespace Stripe {
             email?: string;
 
             /**
+             * The prefix for the customer used to generate unique invoice numbers.
+             */
+            invoice_prefix?: string;
+
+            /**
              * Default invoice settings for this customer.
              */
             invoice_settings?: ICustomerInvoiceSettings | null;
@@ -2350,6 +2421,11 @@ declare namespace Stripe {
             phone?: string;
 
             /**
+             * The customer’s preferred locales (languages), ordered by preference.
+             */
+            preferred_locales?: string[];
+
+            /**
              * Shipping information associated with the customer.
              */
             shipping: IShippingInformation | null;
@@ -2365,18 +2441,46 @@ declare namespace Stripe {
              * The customer's current subscriptions, if any
              */
             subscriptions: ICustomerSubscriptions;
+
+            /**
+             * Describes the customer’s tax exemption status. One of none, exempt, or reverse.
+             * When set to reverse, invoice and receipt PDFs include the text “Reverse charge”.
+             */
+            tax_exempt?: "none" | "exempt" | "reverse";
+
+            /**
+             * The customer’s tax IDs.
+             */
+            tax_ids?: IList<customerTaxIds.ITaxId>;
+
+            /**
+             * @deprecated
+             */
+            tax_info?: any;
+
+            /**
+             * @deprecated
+             */
+            tax_info_verification?: any;
         }
 
         interface ICustomerSubscriptions extends IList<subscriptions.ISubscription>, resources.CustomerSubscriptions {}
 
         interface ICustomerCreationOptions extends IDataOptionsWithMetadata {
             /**
-             * An integer amount in cents that is the starting account balance for your customer. A negative amount represents a credit that
-             * will be used before attempting any charges to the customer's card; a positive amount will be added to the next invoice.
+             * This field has been renamed to balance and will be removed in a future API version.
+             * @deprecated
              */
             account_balance?: number;
 
             address?: IAddress;
+
+            /***
+             * An integer amount in cents that represents the customer’s current balance, which affect the
+             * customer’s future invoices. A negative amount represents a credit that decreases the amount
+             * due on an invoice; a positive amount increases the amount due on an invoice.
+             */
+            balance?: number;
 
             /**
              * If you provide a coupon code, the customer will have a discount applied on all recurring charges. Charges you create through the
@@ -2397,9 +2501,24 @@ declare namespace Stripe {
             email?: string;
 
             /**
+             * The prefix for the customer used to generate unique invoice numbers. Must be 3–12 uppercase letters or numbers.
+             */
+            invoice_prefix?: string;
+
+            /**
+             * Default invoice settings for this customer.
+             */
+            invoice_settings?: ICustomerInvoiceSettings | null;
+
+            /**
              * The customer’s full name or business name. This can be unset by updating the value to null and then saving.
              */
             name?: string;
+
+            /**
+             * The ID of the PaymentMethod to attach to the customer.
+             */
+            payment_method?: string;
 
             /**
              * The customer’s phone number. This can be unset by updating the value to null and then saving.
@@ -2412,6 +2531,11 @@ declare namespace Stripe {
              * valid card as well.
              */
             plan?: string;
+
+            /**
+             * Customer’s preferred languages, ordered by preference. This can be unset by updating the value to null and then saving.
+             */
+            preferred_locales?: string[];
 
             /**
              * The quantity you'd like to apply to the subscription you're creating (if you pass in a plan). For example, if your plan is
@@ -2427,6 +2551,31 @@ declare namespace Stripe {
              * a dictionary containing a user’s credit card details.
              */
             source?: string | cards.ICardSourceCreationOptionsExtended;
+
+            /**
+             * The customer’s tax exemption. One of none, exempt, or reverse.
+             */
+            tax_exempt?: "none" | "exempt" | "reverse";
+
+            /**
+             * The customer’s tax IDs.
+             */
+            tax_id_data?: {
+                /**
+                 * Type of the tax ID, one of au_abn, eu_vat, in_gst, no_vat, or nz_gst.
+                 */
+                type: customerTaxIds.TaxIdType;
+
+                /**
+                 * Value of the tax ID.
+                 */
+                value: string;
+            };
+
+            /**
+             * @deprecated
+             */
+            tax_info?: any;
 
             /**
              * A positive decimal (with at most two decimal places) between 1 and 100.
@@ -2447,12 +2596,19 @@ declare namespace Stripe {
 
         interface ICustomerUpdateOptions extends IDataOptionsWithMetadata {
             /**
-             * An integer amount in cents that is the starting account balance for your customer. A negative amount represents a credit that
-             * will be used before attempting any charges to the customer's card; a positive amount will be added to the next invoice.
+             * This field has been renamed to balance and will be removed in a future API version.
+             * @deprecated
              */
             account_balance?: number;
 
             address?: IAddress;
+
+            /**
+             * An integer amount in cents that represents the customer’s current balance, which affect the
+             * customer’s future invoices. A negative amount represents a credit that decreases the amount
+             * due on an invoice; a positive amount increases the amount due on an invoice.
+             */
+            balance?: number;
 
             /**
              * If you provide a coupon code, the customer will have a discount applied on all recurring charges. Charges you create through the
@@ -2497,6 +2653,12 @@ declare namespace Stripe {
              */
             phone?: string;
 
+            /**
+             * Customer’s preferred languages, ordered by preference. This can be unset by updating
+             * the value to null and then saving.
+             */
+            preferred_locales?: string[] | null;
+
             shipping?: IShippingInformation;
 
             /**
@@ -2509,6 +2671,16 @@ declare namespace Stripe {
              * customer, Stripe will automatically validate the card.
              */
             source?: string | cards.ICardSourceCreationOptionsExtended;
+
+            /**
+             * The customer’s tax exemption. One of none, exempt, or reverse.
+             */
+            tax_exempt?: "none" | "exempt" | "reverse";
+
+            /**
+             * @deprecated
+             */
+            tax_info?: any;
         }
 
         interface ICustomerListOptions extends IListOptionsCreated {
@@ -2526,7 +2698,7 @@ declare namespace Stripe {
              * dictionary containing a user’s credit card details (with the options shown
              * below). Stripe will automatically validate the card.
              */
-            source: string | cards.ICardSourceCreationOptions;
+            source: string | cards.ICardSourceCreationOptions | bankAccounts.ISourceCreationOptions;
         }
 
         interface ICustomerInvoiceSettings {
@@ -2557,6 +2729,10 @@ declare namespace Stripe {
             footer?: string;
         }
 
+        interface ICustomerBankAccountSourceCreationOptions extends ICustomerSourceCreationOptions {
+            source: bankAccounts.ISourceCreationOptions;
+        }
+
         interface ICustomerCardSourceCreationOptions extends ICustomerSourceCreationOptions {
             source: cards.ICardSourceCreationOptions;
         }
@@ -2571,6 +2747,87 @@ declare namespace Stripe {
 
         interface ISourceListOptions extends IListOptions {
             object: "source";
+        }
+    }
+
+    namespace customerTaxIds {
+        interface ITaxId {
+            /**
+             * Unique identifier for the object.
+             */
+            id: string;
+
+            /**
+             * String representing the object’s type. Objects of the same type share the same value.
+             */
+            object: "tax_id";
+
+            /**
+             * Two-letter ISO code representing the country of the tax ID.
+             */
+            country: "string";
+
+            /**
+             * Time at which the object was created. Measured in seconds since the Unix epoch.
+             */
+            created: number;
+
+            /**
+             * ID of the customer.
+             */
+            customer: string;
+
+            /**
+             * Has the value true if the object exists in live mode or the value false if the
+             * object exists in test mode.
+             */
+            livemode: boolean;
+
+            /**
+             * Type of the tax ID, one of au_abn, eu_vat, in_gst, no_vat, nz_gst, or unknown.
+             */
+            type: TaxIdType;
+
+            /**
+             * Value of the tax ID.
+             */
+            value: string;
+
+            /**
+             * Tax ID verification information.
+             */
+            verification: ITaxIdVerification;
+        }
+
+        interface ITaxIdVerification {
+            /**
+             * Verification status, one of pending, unavailable, unverified, or verified.
+             */
+            status: "pending" | "unavailable" | "unverified" | "verified";
+
+            /**
+             * Verified address.
+             */
+            verified_address: string;
+
+            /**
+             * Verified name.
+             */
+            verified_name: string;
+        }
+
+        type TaxIdType =  "au_abn" | "eu_vat" | "in_gst" | "no_vat" | "nz_gst" | "unknown";
+
+        interface ITaxIdCreationOptions {
+            /**
+             * Type of the tax ID, one of au_abn, eu_vat, in_gst, no_vat, or nz_gst
+             */
+            type: TaxIdType;
+
+            /**
+             * Value of the tax ID.
+             */
+            value: string;
         }
     }
 
@@ -2835,6 +3092,12 @@ declare namespace Stripe {
             object: "event";
 
             /**
+             * The connected account that originated the event.
+             * CONNECT ONLY
+             */
+            account?: string;
+
+            /**
              * The Stripe API version used to render data.
              * Note: this property is populated for events on or after October 31, 2014.
              */
@@ -2897,7 +3160,7 @@ declare namespace Stripe {
              */
             type: string;
         }
-     }
+    }
 
     namespace fileUploads {
         interface IFileUpdate extends IResourceObject {
@@ -2953,7 +3216,7 @@ declare namespace Stripe {
         }
 
         type IPurpose = "business_logo" | "dispute_evidence" | "identity_document" | "incorporation_article" | "incorporation_document";
-     }
+    }
 
     namespace invoices {
         /**
@@ -4026,6 +4289,11 @@ declare namespace Stripe {
             customer?: string;
 
             /**
+             * Only return invoice items belonging to this invoice. If none is provided, all invoice items will be returned. If specifying an invoice, no customer identifier is needed.
+             */
+            invoice?: string;
+
+            /**
              * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
              */
             limit?: number;
@@ -5042,6 +5310,99 @@ declare namespace Stripe {
             client_secret: string;
         }
 
+        interface IPaymentIntentDataTransferDataOptions {
+            /**
+             * A positive integer representing how much to charge in the smallest currency unit.
+             */
+            amount?: number;
+
+            /**
+             * The account (if any) the payment will be attributed to for tax reporting, and where funds from the payment will be transferred to upon payment success.
+             */
+            destination?: string;
+        }
+
+        interface IPaymentIntentDataShipping {
+            /**
+             * Shipping address.
+             */
+            address: IAddress;
+
+            /**
+             * Recipient name. This can be unset by updating the value to null and then saving.
+             */
+            name: string | null;
+
+            /**
+             * The delivery service that shipped a physical product, such as Fedex, UPS, USPS, etc. This can be unset by updating the value to null and then saving.
+             */
+            carrier?: string | null;
+
+            /**
+             * Recipient phone (including extension). This can be unset by updating the value to null and then saving.
+             */
+            phone?: string | null;
+
+            /**
+             * The tracking number for a physical product, obtained from the delivery service. If multiple tracking numbers were generated for this purchase, please separate them with commas. This can be unset by updating the value to null and then saving.
+             */
+            tracking_number?: string | null;
+        }
+
+        type PaymentIntentDataCaptureMethodOptions = 'automatic' | 'manual';
+
+        type PaymentIntendDataFutureUsageOptions = 'on_session' | 'off_session';
+
+        interface IPaymentIntentData {
+            /**
+             * The amount of the application fee (if any) that will be applied to the payment and transferred to the application owner’s Stripe account. To use an application fee, the request must be made on behalf of another account, using the `Stripe-Account` header or an OAuth key.
+             */
+            application_fee_amount?: number;
+
+            /**
+             * Capture method of this PaymentIntent, one of automatic or manual.
+             */
+            capture_method?: PaymentIntentDataCaptureMethodOptions;
+
+            /**
+             * An arbitrary string attached to the object. Often useful for displaying to users. This can be unset by updating the value to null and then saving.
+             */
+            description?: string | null;
+
+            /**
+             * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+             */
+            metadata?: IOptionsMetadata;
+
+            /**
+             * The account (if any) for which the funds of the PaymentIntent are intended. Used with connected accounts.
+             */
+            on_behalf_of?: string;
+
+            /**
+             * Email address that the receipt for the resulting payment will be sent to.
+             */
+            receipt_email?: string;
+
+            /**
+             * Indicates that you intend to make future payments with this PaymentIntent’s payment method.
+             * If present, the payment method used with this PaymentIntent can be attached to a Customer, even after the transaction completes.
+             * Use on_session if you intend to only reuse the payment method when your customer is present in your checkout flow. Use off_session if your customer may or may not be in your checkout flow. See Saving card details after a payment to learn more.
+             * Stripe uses setup_future_usage to dynamically optimize your payment flow and comply with regional legislation and network rules. For example, if your customer is impacted by SCA, using off_session will ensure that they are authenticated while processing this PaymentIntent. You will then be able to collect off-session payments for this customer.
+             */
+            setup_future_usage?: PaymentIntendDataFutureUsageOptions;
+
+            /**
+             * Shipping information for this payment.
+             */
+            shipping?: IPaymentIntentDataShipping;
+
+            /**
+             * The data with which to automatically create a Transfer when the payment is finalized. Used with connected accounts.
+             */
+            transfer_data?: IPaymentIntentDataTransferDataOptions;
+        }
+
         interface IPaymentIntentCaptureOptions {
             /**
              * The amount to capture (in cents) from the PaymentIntent, which must be less than or equal to the original amount. Any additional amount will be automatically refunded. Defaults to the full `amount_capturable` if not provided.
@@ -5149,8 +5510,8 @@ declare namespace Stripe {
              * If present, this property tells you what actions you need to take in order for your customer to continue payment setup.
              */
             next_action:
-            | ISetupIntentNextActionUseStripeSdk
-            | ISetupIntentNextActionRedirectToUrl;
+                | ISetupIntentNextActionUseStripeSdk
+                | ISetupIntentNextActionRedirectToUrl;
 
             /**
              * The account (if any) for which the setup is intended. [Expandable]
@@ -5176,12 +5537,12 @@ declare namespace Stripe {
              * The several states the SetupIntent goes through until it it either canceled or succeeds.
              */
             status:
-            | 'requires_payment_method'
-            | 'requires_confirmation'
-            | 'requires_action'
-            | 'processing'
-            | 'canceled'
-            | 'succeeded';
+                | 'requires_payment_method'
+                | 'requires_confirmation'
+                | 'requires_action'
+                | 'processing'
+                | 'canceled'
+                | 'succeeded';
 
             /**
              * Indicates how the payment method is intended to be used in the future.
@@ -5198,10 +5559,10 @@ declare namespace Stripe {
              * The account (if any) the payment will be attributed to for tax reporting, and where funds from the payment will be transferred to upon payment success. [Expandable]
              */
             destination:
-            | string
-            | bankAccounts.IBankAccount
-            | cards.ICardHash
-            | accounts.IAccountCreationOptions;
+                | string
+                | bankAccounts.IBankAccount
+                | cards.ICardHash
+                | accounts.IAccountCreationOptions;
         }
 
         interface ISetupIntentNextActionRedirectToUrl {
@@ -5617,16 +5978,16 @@ declare namespace Stripe {
             /**
              * A flat fee for the tier to be added into the total amount
              */
-            flat_amount: number;
+            flat_amount: number | null;
 
             /**
              * Up to and including to this quantity will be contained in the tier.
              */
-            up_to: number;
+            up_to: number | null;
             /**
              * Per unit price for units relevant to the tier.
              */
-            unit_amount: number;
+            unit_amount: number | null;
         }
 
         interface ITransformUsage {
@@ -5664,7 +6025,7 @@ declare namespace Stripe {
             /**
              * The amount in cents to be charged on the interval specified
              */
-            amount: number;
+            amount: number | null;
 
             /**
              * Describes how to compute the price per period. Either `per_unit` or `tiered`. `per_unit` indicates that the fixed amount (specified in `amount`) will be charged per unit in `quantity` (for plans with `usage_type=licensed`), or per unit of total usage (for plans with `usage_type=metered`). `tiered` indicates that the unit pricing will be computed using a tiering strategy as defined using the `tiers` and `tiers_mode` attributes.
@@ -5729,7 +6090,7 @@ declare namespace Stripe {
             /**
              * Default number of trial days when subscribing a customer to this plan using `trial_from_plan=true`.
              */
-            trial_period_days: number;
+            trial_period_days: number | null;
 
             /**
              * Configures how the quantity per period should be determined, can be either `metered` or `licensed`. `licensed` will automatically bill the `quantity` set for a plan when adding it to a subscription, `metered` will aggregate the total usage based on usage records. Defaults to `licensed`.
@@ -6158,7 +6519,7 @@ declare namespace Stripe {
         // tslint:disable-next-line:no-empty-interface
         interface IRecipient extends IResourceObject {
         }
-     }
+    }
 
     namespace skus {
         interface ISku extends IResourceObject {
@@ -6345,8 +6706,9 @@ declare namespace Stripe {
          * If, for example, a product’s attributes are ["size", "gender"],
          * a valid SKU has the following dictionary of attributes: {"size": "Medium", "gender": "Unisex"}.
          */
-        // tslint:disable-next-line:no-empty-interface
-        interface ISkuAttributes {}
+        interface ISkuAttributes {
+          [key: string]: string;
+        }
     }
 
     namespace ephemeralKeys {
@@ -6795,6 +7157,11 @@ declare namespace Stripe {
 
         interface ISourceCreationOptions {
             /**
+             * The type of payment source. Should be "bank_account".
+             */
+            object: "bank_account";
+
+            /**
              * The account number for the bank account in string form.
              * Must be a checking account.
              */
@@ -7169,6 +7536,112 @@ declare namespace Stripe {
         }
     }
 
+    namespace customerBalanceTransactions {
+        type CustomerBalanceTransactionType = "adjustment" | "applied_to_invoice" | "credit_note" | "initial" | "invoice_too_large" | "invoice_too_small" | "unspent_receiver_credit";
+        interface ICustomerBalanceTransaction extends IResourceObject {
+            /**
+             * Value is "customer_balance_transaction"
+             */
+            object: "customer_balance_transaction";
+
+            /**
+             * The amount of the transaction. A negative value is a credit for the customer’s balance, and a positive
+             * value is a debit to the customer’s balance.
+             */
+            amount: number;
+
+            /**
+             * Time at which the object was created. Measured in seconds since the Unix epoch.
+             */
+            created: number;
+
+            /**
+             * The ID of the credit note (if any) related to the transaction. [Expandable]
+             */
+            credit_note: string | null;
+
+            /**
+             * Three-letter ISO currency code, in lowercase. Must be a supported currency.
+             */
+            currency: string;
+
+            /**
+             * The ID of the customer the transaction belongs to. [Expandable]
+             */
+            customer: string;
+
+            /**
+             * An arbitrary string attached to the object. Often useful for displaying to users.
+             */
+            description: string | null;
+
+            /**
+             * The customer’s balance after the transaction was applied. A negative value decreases the amount due
+             * on the customer’s next invoice. A positive value increases the amount due on the customer’s next invoice.
+             */
+            ending_balance: number;
+
+            /**
+             * The ID of the invoice (if any) related to the transaction. [Expandable]
+             */
+            invoice: string | null;
+
+            /**
+             * Has the value true if the object exists in live mode or the value false if the object exists in test mode.
+             */
+            livemode: boolean;
+
+            /**
+             * Set of key-value pairs that you can attach to an object. This can be useful for storing additional
+             * information about the object in a structured format.
+             */
+            metadata: IMetadata | null;
+
+            /**
+             * Transaction type. See the Customer Balance page to learn more about transaction types.
+             */
+            type: CustomerBalanceTransactionType;
+        }
+
+        interface ICustomerBalanceTransactionCreationOptions {
+            /**
+             * The integer amount in cents to apply to the customer’s balance. Pass a negative amount to credit the
+             * customer’s balance, and pass in a positive amount to debit the customer’s balance.
+             */
+            amount: number;
+
+            /**
+             * Three-letter ISO currency code, in lowercase. Must be a supported currency. If the customer’s currency
+             * is set, this value must match it. If the customer’s currency is not set, it will be updated to this value.
+             */
+            currency: string;
+
+            /**
+             * An arbitrary string attached to the object. Often useful for displaying to users.
+             */
+            description?: string;
+
+            /**
+             * Set of key-value pairs that you can attach to an object. This can be useful for storing additional
+             * information about the object in a structured format.
+             */
+            metadata?: IMetadata;
+        }
+
+        interface ICustomerBalanceTransactionUpdateOptions {
+            /**
+             * An arbitrary string attached to the object. Often useful for displaying to users.
+             */
+            description?: string;
+
+            /**
+             * Set of key-value pairs that you can attach to an object. This can be useful for storing additional
+             * information about the object in a structured format.
+             */
+            metadata?: IMetadata;
+        }
+    }
+
     namespace subscriptions {
         type SubscriptionStatus = "incomplete" | "incomplete_expired" | "trialing" | "active" | "past_due" | "canceled" | "unpaid";
         type SubscriptionBilling = "charge_automatically" | "send_invoice";
@@ -7186,14 +7659,20 @@ declare namespace Stripe {
              * A positive decimal that represents the fee percentage of the subscription invoice amount that will be transferred to
              * the application owner's Stripe account each billing period.
              */
-            application_fee_percent: number;
+            application_fee_percent: number | null;
+
+            /**
+             * Either `charge_automatically`, or `send_invoice`.
+             * This field has been renamed to collection_method and will be removed in a future API version.
+             */
+            billing: SubscriptionBilling;
 
             /**
              * Either "charge_automatically", or "send_invoice". When charging automatically, Stripe will attempt to pay this subscription at the
              * end of the cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an
              * invoice with payment instructions.
              */
-            billing: SubscriptionBilling;
+            collection_method: SubscriptionBilling;
 
             /**
              * Determines the date of the first full invoice, and, for plans with month or year intervals, the day of the month
@@ -7221,7 +7700,7 @@ declare namespace Stripe {
             /**
              * A date in the future at which the subscription will automatically get canceled.
              */
-            cancel_at: number;
+            cancel_at: number | null;
 
             /**
              * If the subscription has been canceled with the at_period_end flag set to true, cancel_at_period_end on the
@@ -7274,7 +7753,7 @@ declare namespace Stripe {
              * It must belong to the customer associated with the subscription and be in a chargeable state.
              * If not set, defaults to the customer’s default source. [Expandable]
              */
-            default_source: string;
+            default_source: string | null;
 
             /**
              * Describes the current discount applied to this subscription, if there is one. When billing, a discount applied to a
@@ -7323,9 +7802,15 @@ declare namespace Stripe {
             quantity?: number;
 
             /**
-             * Date the subscription started
+             * Date of the last substantial change to this subscription. For example, a change to the items array,
+             * or a change of status, will reset this timestamp.
              */
             start: number;
+
+            /**
+             * Date when the subscription was first created. The date might differ from the created date due to backdating.
+             */
+            start_date: number;
 
             /**
              * Possible values are `incomplete`, `incomplete_expired`, `trialing`, `active`,
@@ -7357,7 +7842,7 @@ declare namespace Stripe {
             /**
              * If provided, each invoice created by this subscription will apply the tax rate, increasing the amount billed to the customer.
              */
-            tax_percent: number;
+            tax_percent: number | null;
 
             /**
              * If the subscription has a trial, the end of that trial.
@@ -7707,7 +8192,7 @@ declare namespace Stripe {
             /**
              * The quantity of the plan to which the customer should be subscribed.
              */
-            quantity: number;
+            quantity?: number;
 
             /**
              * The subscription this subscription_item belongs to.
@@ -7818,7 +8303,7 @@ declare namespace Stripe {
              */
             currency: string;
 
-            description: string;
+            description?: string;
 
             /**
              * A set of key/value pairs that you can attach to the object. It can be useful
@@ -7837,10 +8322,22 @@ declare namespace Stripe {
             receipt_number: string;
 
             /**
+             * The transfer reversal that is associated with the refund. Only present if the charge
+             * came from another Stripe account. See the Connect documentation for details.
+             */
+            source_transfer_reversal?: string | null;
+
+            /**
              * Status of the refund. For credit card refunds, this can be succeeded or failed.
              * For other types of refunds, it can be pending, succeeded, failed, or canceled.
              */
             status: "pending" | "succeeded" | "failed" | "canceled";
+
+            /**
+             * If the accompanying transfer was reversed, the transfer reversal object. Only
+             * applicable if the charge was created using the destination parameter.
+             */
+            transfer_reversal?: string | null;
 
             /**
              * If the refund failed, the reason for refund failure if known.
@@ -8149,28 +8646,28 @@ declare namespace Stripe {
         type IUsageRecordAction = "increment" | "set";
 
         interface IUsageRecordCreationOptions {
-          /**
-           * The usage quantity for the specified timestamp
-           */
-          quantity: number;
-          /**
-           * The timestamp for the usage event. This timestamp must be within the current billing period of the subscription of the provided subscription_item
-           */
-          timestamp: number;
-          /**
-           * Valid values are increment (default) or set. When using increment the specified quantity will be added to the usage at the specified
-           * timestamp. The set action will overwrite the usage quantity at that timestamp.
-           */
-          action?: IUsageRecordAction;
+            /**
+             * The usage quantity for the specified timestamp
+             */
+            quantity: number;
+            /**
+             * The timestamp for the usage event. This timestamp must be within the current billing period of the subscription of the provided subscription_item
+             */
+            timestamp: number;
+            /**
+             * Valid values are increment (default) or set. When using increment the specified quantity will be added to the usage at the specified
+             * timestamp. The set action will overwrite the usage quantity at that timestamp.
+             */
+            action?: IUsageRecordAction;
         }
 
         interface IUsageRecord extends IObject {
-          object: 'usage_record';
-          id: string;
-          livemode: boolean;
-          quantity: number;
-          subscription_item: string;
-          timestamp: number;
+            object: 'usage_record';
+            id: string;
+            livemode: boolean;
+            quantity: number;
+            subscription_item: string;
+            timestamp: number;
         }
     }
 
@@ -9096,6 +9593,18 @@ declare namespace Stripe {
             listCards(customerId: string, response?: IResponseFn<IList<cards.ICard>>): IListPromise<cards.ICard>;
 
             /**
+             * When adding a bank account to a customer, the parameter name is source. When
+             * adding to an account, the parameter name is external_account. The
+             * value can either be a token, like the ones returned by our Stripe.js, or a
+             * dictionary containing a user’s bank account details.
+             *
+             * @returns Returns the bank account object.
+             *
+             * @param customerId The customer ID to which to add the bank account.
+             */
+            createSource(customerId: string, data: customers.ICustomerBankAccountSourceCreationOptions, options: HeaderOptions, response?: IResponseFn<bankAccounts.IBankAccount>): Promise<bankAccounts.IBankAccount>;
+            createSource(customerId: string, data: customers.ICustomerBankAccountSourceCreationOptions, response?: IResponseFn<bankAccounts.IBankAccount>): Promise<bankAccounts.IBankAccount>;
+            /**
              * When adding a card to a customer, the parameter name is source. When
              * adding to an account, the parameter name is external_account. The
              * value can either be a token, like the ones returned by our Stripe.js, or a
@@ -9109,15 +9618,15 @@ declare namespace Stripe {
             createSource(customerId: string, data: customers.ICustomerCardSourceCreationOptions, options: HeaderOptions, response?: IResponseFn<cards.ICard>): Promise<cards.ICard>;
             createSource(customerId: string, data: customers.ICustomerCardSourceCreationOptions, response?: IResponseFn<cards.ICard>): Promise<cards.ICard>;
             /**
-             * When adding a card to a customer, the parameter name is source. When
+             * When adding a card or bank account to a customer, the parameter name is source. When
              * adding to an account, the parameter name is external_account. The
              * value can either be a token, like the ones returned by our Stripe.js, or a
-             * dictionary containing a user’s credit card details.
+             * dictionary containing a user’s credit card or bank account details.
              * Stripe will automatically validate the card.
              *
              * @returns Returns the card or bank account object.
              *
-             * @param customerId The customer ID to which to add the card.
+             * @param customerId The customer ID to which to add the card or bank account.
              */
             createSource(customerId: string, data: customers.ICustomerSourceCreationOptions, options: HeaderOptions, response?: IResponseFn<IStripeSource>): Promise<IStripeSource>;
             createSource(customerId: string, data: customers.ICustomerSourceCreationOptions, response?: IResponseFn<IStripeSource>): Promise<IStripeSource>;
@@ -9338,6 +9847,46 @@ declare namespace Stripe {
              */
             deleteSubscriptionDiscount(customerId: string, subscriptionId: string, options: HeaderOptions, response?: IResponseFn<IDeleteConfirmation>): Promise<IDeleteConfirmation>;
             deleteSubscriptionDiscount(customerId: string, subscriptionId: string, response?: IResponseFn<IDeleteConfirmation>): Promise<IDeleteConfirmation>;
+
+            createTaxId(customerId: string, data: customerTaxIds.ITaxIdCreationOptions, options: HeaderOptions, response?: IResponseFn<subscriptions.ISubscription>): Promise<customerTaxIds.ITaxId>;
+            createTaxId(customerId: string, data: customerTaxIds.ITaxIdCreationOptions, response?: IResponseFn<subscriptions.ISubscription>): Promise<customerTaxIds.ITaxId>;
+
+            listTaxIds(customerId: string, data: IListOptions, options: HeaderOptions, response?: IResponseFn<IList<sources.ISource>>): IListPromise<sources.ISource>;
+            listTaxIds(customerId: string, data: IListOptions, response?: IResponseFn<IList<sources.ISource>>): IListPromise<sources.ISource>;
+            listTaxIds(customerId: string, options: HeaderOptions, response?: IResponseFn<IList<subscriptions.ISubscription>>): IListPromise<subscriptions.ISubscription>;
+            listTaxIds(customerId: string, response?: IResponseFn<IList<subscriptions.ISubscription>>): IListPromise<subscriptions.ISubscription>;
+
+            retrieveTaxId(customerId: string, taxId: string, options: HeaderOptions, response?: IResponseFn<IStripeSource>): Promise<IStripeSource>;
+            retrieveTaxId(customerId: string, taxId: string, response?: IResponseFn<IStripeSource>): Promise<IStripeSource>;
+
+            deleteTaxId(customerId: string, taxId: string, options: HeaderOptions, response?: IResponseFn<IDeleteConfirmation>): Promise<IDeleteConfirmation>;
+            deleteTaxId(customerId: string, taxId: string, response?: IResponseFn<IDeleteConfirmation>): Promise<IDeleteConfirmation>;
+
+            /**
+             * Creates an immutable transaction that updates the customer’s balance.
+             */
+            createBalanceTransaction(customerId: string, data: customerBalanceTransactions.ICustomerBalanceTransactionCreationOptions, options: HeaderOptions, response?: IResponseFn<customerBalanceTransactions.ICustomerBalanceTransaction>): Promise<customerBalanceTransactions.ICustomerBalanceTransaction>;
+            createBalanceTransaction(customerId: string, data: customerBalanceTransactions.ICustomerBalanceTransactionCreationOptions, response?: IResponseFn<customerBalanceTransactions.ICustomerBalanceTransaction>): Promise<customerBalanceTransactions.ICustomerBalanceTransaction>;
+
+            /**
+             * Retrieves a specific transaction that updated the customer’s balance.
+             */
+            retrieveBalanceTransaction(customerId: string, transactionId: string, options: HeaderOptions, response?: IResponseFn<customerBalanceTransactions.ICustomerBalanceTransaction>): Promise<customerBalanceTransactions.ICustomerBalanceTransaction>;
+            retrieveBalanceTransaction(customerId: string, transactionId: string, response?: IResponseFn<customerBalanceTransactions.ICustomerBalanceTransaction>): Promise<customerBalanceTransactions.ICustomerBalanceTransaction>;
+
+            /**
+             * Most customer balance transaction fields are immutable, but you may update its description and metadata.
+             */
+            updateBalanceTransaction(customerId: string, transactionId: string, data: customerBalanceTransactions.ICustomerBalanceTransactionUpdateOptions, options: HeaderOptions, response?: IResponseFn<customerBalanceTransactions.ICustomerBalanceTransaction>): Promise<customerBalanceTransactions.ICustomerBalanceTransaction>;
+            updateBalanceTransaction(customerId: string, transactionId: string, data: customerBalanceTransactions.ICustomerBalanceTransactionUpdateOptions, response?: IResponseFn<customerBalanceTransactions.ICustomerBalanceTransaction>): Promise<customerBalanceTransactions.ICustomerBalanceTransaction>;
+
+            /**
+             * Returns a list of transactions that updated the customer’s balance.
+             */
+            listBalanceTransactions(customerId: string, data: IListOptions, options: HeaderOptions, response?: IResponseFn<IList<customerBalanceTransactions.ICustomerBalanceTransaction>>): IListPromise<customerBalanceTransactions.ICustomerBalanceTransaction>;
+            listBalanceTransactions(customerId: string, data: IListOptions, response?: IResponseFn<IList<customerBalanceTransactions.ICustomerBalanceTransaction>>): IListPromise<customerBalanceTransactions.ICustomerBalanceTransaction>;
+            listBalanceTransactions(customerId: string, options: HeaderOptions, response?: IResponseFn<IList<customerBalanceTransactions.ICustomerBalanceTransaction>>): IListPromise<customerBalanceTransactions.ICustomerBalanceTransaction>;
+            listBalanceTransactions(customerId: string, response?: IResponseFn<IList<customerBalanceTransactions.ICustomerBalanceTransaction>>): IListPromise<customerBalanceTransactions.ICustomerBalanceTransaction>;
         }
 
         class SubscriptionsBase extends StripeResource {

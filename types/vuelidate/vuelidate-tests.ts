@@ -166,6 +166,12 @@ export class ValidComponent extends Vue {
     get isRepoValid() {
         return !this.$v.$invalid
     }
+
+    get isPasswordLengthOk() {
+        if (this.$v.password) {
+            return !this.$v.password.minLength
+        } else return false
+    }
 }
 
 @Component({
