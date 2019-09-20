@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { CSSModule } from '../index';
 
-export type CardProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
+export interface CardProps extends React.HTMLAttributes<HTMLElement> {
+  [key: string]: any;
   tag?: React.ReactType;
   inverse?: boolean;
   color?: string;
@@ -10,7 +11,7 @@ export type CardProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   className?: string;
   cssModule?: CSSModule;
   style?: React.CSSProperties;
-} & T;
+}
 
-declare class Card<T = {[key: string]: any}> extends React.Component<CardProps<T>> {}
+declare class Card<T = {[key: string]: any}> extends React.Component<CardProps> {}
 export default Card;

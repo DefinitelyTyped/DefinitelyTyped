@@ -8,6 +8,7 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
+        "experimentalDecorators": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"

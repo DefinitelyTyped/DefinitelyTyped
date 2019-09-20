@@ -20,12 +20,12 @@ type BoundingBox = [number, number, number, number];
 type Projection = 'WGS84' | '900913';
 
 declare class SphericalMercator {
-    constructor(options: { size: number })
+    constructor(options: { size?: number })
     px(ll: LatLngPoint, zoom: number): XYPoint;
     ll(px: XYPoint, zoom: number): LatLngPoint;
-    bbox(x: number, y: number, zoom: number, tms_style: boolean, srs: Projection): BoundingBox;
-    xyz(bbox: BoundingBox, zoom: number, tms_style: boolean, srs: Projection): XYBounds;
-    convert(bbox: BoundingBox, to: Projection): BoundingBox;
+    bbox(x: number, y: number, zoom: number, tms_style?: boolean, srs?: Projection): BoundingBox;
+    xyz(bbox: BoundingBox, zoom: number, tms_style?: boolean, srs?: Projection): XYBounds;
+    convert(bbox: BoundingBox, to?: Projection): BoundingBox;
     forward(ll: LatLngPoint): XYPoint;
     inverse(xy: XYPoint): LatLngPoint;
 }

@@ -1,6 +1,7 @@
 import expressWinston = require('express-winston');
 import * as winston from 'winston';
 import express = require('express');
+import { Format } from 'logform';
 
 const app = express();
 
@@ -12,6 +13,7 @@ app.use(expressWinston.logger({
   colorize: true,
   dynamicMeta: (req, res, err) => ({ foo: 'bar' }),
   expressFormat: true,
+  format: new Format(),
   ignoreRoute: (req, res) => true,
   ignoredRoutes: ['foo'],
   level: (req, res) => 'level',
@@ -45,6 +47,7 @@ app.use(expressWinston.logger({
 app.use(expressWinston.errorLogger({
   baseMeta: { foo: 'foo', nested: { bar: 'baz' } },
   dynamicMeta: (req, res, err) => ({ foo: 'bar' }),
+  format: new Format(),
   level: (req, res) => 'level',
   metaField: 'metaField',
   msg: 'msg',
@@ -64,6 +67,19 @@ app.use(expressWinston.errorLogger({
 
 // Error Logger with min options (winstonInstance)
 app.use(expressWinston.errorLogger({
+  winstonInstance: logger,
+}));
+
+// Request and error logger with function type msg
+app.use(expressWinston.logger({
+  msg: (req, res) => `HTTP ${req.method} ${req.url} - ${res.statusCode}`,
+  transports: [
+    new winston.transports.Console({})
+  ],
+}));
+
+app.use(expressWinston.errorLogger({
+  msg: (req, res) => `HTTP ${req.method} ${req.url} - ${res.statusCode}`,
   winstonInstance: logger,
 }));
 

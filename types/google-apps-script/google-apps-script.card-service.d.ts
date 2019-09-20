@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2019-04-09
+// Type definitions for Google Apps Script 2019-09-11
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -20,7 +20,8 @@ declare namespace GoogleAppsScript {
     export interface Action {
       setFunctionName(functionName: string): Action;
       setLoadIndicator(loadIndicator: LoadIndicator): Action;
-      setParameters(parameters: Object): Action;
+      setParameters(parameters: { [key: string]: string }): Action;
+      /** @deprecated DO NOT USE */
       setMethodName(functionName: string): Action;
     }
 
@@ -388,7 +389,7 @@ declare namespace GoogleAppsScript {
      *     var multilineKeyValue = CardService.newKeyValue()
      *         .setTopLabel("Top label - single line)")
      *         .setContent("Content can be multiple lines")
-     *     .setMultiline(true)
+     *         .setMultiline(true)
      *         .setBottomLabel("Bottom label - single line");
      */
     export interface KeyValue {
@@ -443,11 +444,6 @@ declare namespace GoogleAppsScript {
     export interface Notification {
       setText(text: string): Notification;
     }
-
-    /**
-     * Type of notification to show.
-     */
-    export enum NotificationType { INFO, ERROR, WARNING }
 
     /**
      * An enum that specifies what to do when a URL opened through an OpenLink is closed.
@@ -519,7 +515,7 @@ declare namespace GoogleAppsScript {
      *         .addItem("radio button three title", "radio_three_value", false);
      */
     export interface SelectionInput {
-      addItem(text: Object, value: Object, selected: boolean): SelectionInput;
+      addItem(text: any, value: any, selected: boolean): SelectionInput;
       setFieldName(fieldName: string): SelectionInput;
       setOnChangeAction(action: Action): SelectionInput;
       setTitle(title: string): SelectionInput;
@@ -541,7 +537,7 @@ declare namespace GoogleAppsScript {
      */
     export interface Suggestions {
       addSuggestion(suggestion: string): Suggestions;
-      addSuggestions(suggestions: Object[]): Suggestions;
+      addSuggestions(suggestions: string[]): Suggestions;
     }
 
     /**
@@ -673,7 +669,7 @@ declare namespace GoogleAppsScript {
      */
     export interface UniversalActionResponseBuilder {
       build(): UniversalActionResponse;
-      displayAddOnCards(cardObjects: Object[]): UniversalActionResponseBuilder;
+      displayAddOnCards(cardObjects: Card[]): UniversalActionResponseBuilder;
       setOpenLink(openLink: OpenLink): UniversalActionResponseBuilder;
     }
 

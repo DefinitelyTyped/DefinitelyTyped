@@ -1,4 +1,4 @@
-// Type definitions for react-map-gl 4.1
+// Type definitions for react-map-gl 5.0
 // Project: https://github.com/uber/react-map-gl#readme
 // Definitions by: Robert Imig <https://github.com/rimig>
 //                 Fabio Berta <https://github.com/fnberta>
@@ -9,6 +9,7 @@
 import * as React from 'react';
 import * as MapboxGL from 'mapbox-gl';
 import * as GeoJSON from 'geojson';
+import WebMercatorViewport from 'viewport-mercator-project';
 
 export interface ViewState {
     latitude: number;
@@ -30,6 +31,11 @@ export interface MapRequest {
     credentials?: string;
 }
 
+export interface MapLoadEvent {
+    type: string;
+    target: MapboxGL.Map;
+}
+
 export interface MapboxProps extends Partial<ViewState> {
     container?: object;
     gl?: object;
@@ -41,7 +47,7 @@ export interface MapboxProps extends Partial<ViewState> {
     mapOptions?: object;
     mapStyle?: string | object;
     visible?: boolean;
-    onLoad?: () => void;
+    onLoad?: (event: MapLoadEvent) => void;
     onError?: (e: MapError) => void;
     reuseMap?: boolean;
     width: number | string;
@@ -68,7 +74,7 @@ export interface QueryRenderedFeaturesParams {
     filter?: any[];
 }
 
-export class StaticMap extends React.Component<StaticMapProps> {
+export class StaticMap extends React.PureComponent<StaticMapProps> {
     getMap(): MapboxGL.Map;
     queryRenderedFeatures(geometry?: MapboxGL.PointLike | MapboxGL.PointLike[], parameters?: QueryRenderedFeaturesParams): Array<GeoJSON.Feature<GeoJSON.GeometryObject>>;
 }
@@ -82,8 +88,10 @@ export interface PositionInput {
     pos: [number, number];
 }
 
+export type ViewportChangeHandler = (viewState: ViewState) => void;
+
 export interface MapControllerOptions {
-    onViewportChange?: (viewState: ViewState) => void;
+    onViewportChange?: ViewportChangeHandler;
     onStateChange?: (state: MapState) => void;
     eventManager?: any;
     isInteractive: boolean;
@@ -188,7 +196,8 @@ export type EasingFunction = (t: number) => number;
 export enum TRANSITION_EVENTS {
     BREAK = 1,
     SNAP_TO_END = 2,
-    IGNORE = 3
+    IGNORE = 3,
+    UPDATE = 4
 }
 
 export class TransitionInterpolator {}
@@ -203,13 +212,15 @@ export interface ViewStateChangeInfo {
     viewState: ViewState;
 }
 
+export type ViewStateChangeHandler = (info: ViewStateChangeInfo) => void;
+
 export interface InteractiveMapProps extends StaticMapProps {
     maxZoom?: number;
     minZoom?: number;
     maxPitch?: number;
     minPitch?: number;
-    onViewStateChange?: (info: ViewStateChangeInfo) => void;
-    onViewportChange?: (viewState: ViewState) => void;
+    onViewStateChange?: ViewStateChangeHandler;
+    onViewportChange?: ViewportChangeHandler;
     onInteractionStateChange?: (state: ExtraState) => void;
     transitionDuration?: number;
     transitionInterpolator?: TransitionInterpolator;
@@ -247,12 +258,27 @@ export interface InteractiveMapProps extends StaticMapProps {
     controller?: MapController;
 }
 
-export class InteractiveMap extends React.Component<InteractiveMapProps> {
+export class InteractiveMap extends React.PureComponent<InteractiveMapProps> {
     getMap(): MapboxGL.Map;
     queryRenderedFeatures(geometry?: MapboxGL.PointLike | MapboxGL.PointLike[], parameters?: QueryRenderedFeaturesParams): Array<GeoJSON.Feature<GeoJSON.GeometryObject>>;
 }
 
 export default InteractiveMap;
+
+// class EventManager from mjolnir.js
+export type EventManager = any;
+
+export interface MapContextProps {
+    viewport?: WebMercatorViewport;
+    map?: MapboxGL.Map;
+    mapContainer: HTMLElement | null;
+    onViewStateChange?: ViewStateChangeHandler;
+    onViewportChange?: ViewportChangeHandler;
+    isDragging: boolean;
+    eventManager?: EventManager;
+}
+
+export const _MapContext: React.Context<MapContextProps>;
 
 export interface BaseControlProps {
     captureScroll?: boolean;
@@ -261,26 +287,10 @@ export interface BaseControlProps {
     captureDoubleClick?: boolean;
 }
 
-export class BaseControl<T extends BaseControlProps> extends React.Component<T> {}
-
-export interface DragEvent {
-    lngLat: [number, number];
-    [key: string]: any;
+export class BaseControl<T extends BaseControlProps, S extends Element> extends React.PureComponent<T> {
+    _containerRef: React.RefObject<S>;
+    _context: MapContextProps;
 }
-
-export interface MarkerProps extends BaseControlProps {
-    className?: string;
-    longitude: number;
-    latitude: number;
-    offsetLeft?: number;
-    offsetTop?: number;
-    draggable?: boolean;
-    onDrag?: (event: DragEvent) => void;
-    onDragEnd?: (event: DragEvent) => void;
-    onDragStart?: (event: DragEvent) => void;
-}
-
-export class Marker extends BaseControl<MarkerProps> {}
 
 export interface PopupProps extends BaseControlProps {
     className?: string;
@@ -298,24 +308,24 @@ export interface PopupProps extends BaseControlProps {
     onClose?: () => void;
 }
 
-export class Popup extends BaseControl<PopupProps> {}
+export class Popup extends BaseControl<PopupProps, HTMLDivElement> {}
 
 export interface NavigationControlProps extends BaseControlProps {
     className?: string;
-    onViewStateChange?: (info: ViewStateChangeInfo) => void;
-    onViewportChange?: (viewport: ViewState) => void;
+    onViewStateChange?: ViewStateChangeHandler;
+    onViewportChange?: ViewportChangeHandler;
     showCompass?: boolean;
     showZoom?: boolean;
 }
 
-export class NavigationControl extends BaseControl<NavigationControlProps> {}
+export class NavigationControl extends BaseControl<NavigationControlProps, HTMLDivElement> {}
 
 export interface FullscreenControlProps extends BaseControlProps {
     className?: string;
     container?: HTMLElement | null;
 }
 
-export class FullscreenControl extends BaseControl<FullscreenControlProps> {}
+export class FullscreenControl extends BaseControl<FullscreenControlProps, HTMLDivElement> {}
 
 export interface GeolocateControlProps extends BaseControlProps {
     className?: string;
@@ -323,11 +333,17 @@ export interface GeolocateControlProps extends BaseControlProps {
     fitBoundsOptions?: MapboxGL.FitBoundsOptions;
     trackUserLocation?: boolean;
     showUserLocation?: boolean;
-    onViewStateChange?: (info: ViewStateChangeInfo) => void;
-    onViewportChange?: (viewState: ViewState) => void;
+    onViewStateChange?: ViewStateChangeHandler;
+    onViewportChange?: ViewportChangeHandler;
+    style?: React.CSSProperties;
 }
 
-export class GeolocateControl extends BaseControl<GeolocateControlProps> {}
+export class GeolocateControl extends BaseControl<GeolocateControlProps, HTMLDivElement> {}
+
+export interface DragEvent {
+    lngLat: [number, number];
+    [key: string]: any;
+}
 
 export interface DraggableControlProps extends BaseControlProps {
     draggable?: boolean;
@@ -336,7 +352,17 @@ export interface DraggableControlProps extends BaseControlProps {
     onDragStart?: (event: DragEvent) => void;
 }
 
-export class DraggableControl extends BaseControl<DraggableControlProps> {}
+export class DraggableControl<T extends DraggableControlProps> extends BaseControl<T, HTMLDivElement> {}
+
+export interface MarkerProps extends DraggableControlProps {
+    className?: string;
+    longitude: number;
+    latitude: number;
+    offsetLeft?: number;
+    offsetTop?: number;
+}
+
+export class Marker extends DraggableControl<MarkerProps> {}
 
 export interface HTMLRedrawOptions {
     width: number;
@@ -350,7 +376,7 @@ export interface HTMLOverlayProps extends BaseControlProps {
     style?: React.CSSProperties;
 }
 
-export class HTMLOverlay extends BaseControl<HTMLOverlayProps> {}
+export class HTMLOverlay extends BaseControl<HTMLOverlayProps, HTMLDivElement> {}
 
 export interface CanvasRedrawOptions extends HTMLRedrawOptions {
     ctx: CanvasRenderingContext2D;
@@ -360,7 +386,7 @@ export interface CanvasOverlayProps extends BaseControlProps {
     redraw: (opts: CanvasRedrawOptions) => void;
 }
 
-export class CanvasOverlay extends BaseControl<CanvasOverlayProps> {}
+export class CanvasOverlay extends BaseControl<CanvasOverlayProps, HTMLCanvasElement> {}
 
 export type SVGRedrawOptions = HTMLRedrawOptions;
 
@@ -369,4 +395,4 @@ export interface SVGOverlayProps extends BaseControlProps {
     style?: React.CSSProperties;
 }
 
-export class SVGOverlay extends BaseControl<SVGOverlayProps> {}
+export class SVGOverlay extends BaseControl<SVGOverlayProps, Element> {}

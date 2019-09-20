@@ -12,7 +12,7 @@ import { RVMInfo } from './rvm';
 import { RuntimeInfo } from './runtime-info';
 import { Entity, EntityInfo } from './entity';
 import { HostSpecs } from './host-specs';
-import { ExternalProcessRequestType, TerminateExternalRequestType, ExternalConnection, ExternalProcessInfo } from './external-process';
+import { ExternalProcessRequestType, TerminateExternalRequestType, ExternalConnection, ExternalProcessInfo, ServiceConfiguration } from './external-process';
 import Transport from '../../transport/transport';
 import { CookieInfo, CookieOption } from './cookie';
 import { RegistryInfo } from './registry-info';
@@ -297,6 +297,7 @@ import { SystemEvents } from '../events/system';
  * @property { nubmer } port The runtime websocket port
  * @property { string } securityRealm The runtime security realm
  * @property { string } version The runtime version
+ * @property { object } args the command line argument used to start the Runtime
  */
 /**
  * RVMInfo interface
@@ -370,6 +371,14 @@ import { SystemEvents } from '../events/system';
  * @property { WindowDetail } mainWindow The main window detail
  * @property { string } uuid The uuid of the application
  */
+/**
+* Service identifier
+* @typedef { object } ServiceIdentifier
+* @property { string } name The name of the service
+*/
+interface ServiceIdentifier {
+    name: string;
+}
 /**
  * An object representing the core of OpenFin Runtime. Allows the developer
  * to perform system-level actions, such as accessing logs, viewing processes,
@@ -552,6 +561,12 @@ export default class System extends EmitterBase<SystemEvents> {
      */
     getFocusedWindow(): Promise<WindowInfo>;
     /**
+     * Get currently focused external window.
+     * @return {Promise.<Identity>}
+     * @experimental
+     */
+    getFocusedExternalWindow(): Promise<Identity>;
+    /**
      * Retrieves the contents of the log with the specified filename.
      * @param { GetLogRequestType } options A object that id defined by the GetLogRequestType interface
      * @return {Promise.<string>}
@@ -709,6 +724,13 @@ export default class System extends EmitterBase<SystemEvents> {
      */
     getAllExternalApplications(): Promise<Array<Identity>>;
     /**
+     * Retrieves an array of objects representing information about currently
+     * running user-friendly native windows on the system.
+     * @return {Promise.Array.<Identity>}
+     * @experimental
+     */
+    getAllExternalWindows(): Promise<Array<Identity>>;
+    /**
      * Retrieves app asset information.
      * @param { AppAssetRequest } options
      * @return {Promise.<AppAssetInfo>}
@@ -761,4 +783,14 @@ export default class System extends EmitterBase<SystemEvents> {
      * @tutorial System.registerExternalConnection
      */
     registerExternalConnection(uuid: string): Promise<ExternalConnection>;
+    /**
+     * Returns the json blob found in the [desktop owner settings](https://openfin.co/documentation/desktop-owner-settings/)
+     * for the specified service.
+     * More information about desktop services can be found [here](https://developers.openfin.co/docs/desktop-services).
+     * @param { ServiceIdentifier } serviceIdentifier An object containing a name key that identifies the service.
+     * @return {Promise.<ServiceConfiguration>}
+     * @tutorial System.getServiceConfiguration
+     */
+    getServiceConfiguration(serviceIdentifier: ServiceIdentifier): Promise<ServiceConfiguration>;
 }
+export {};

@@ -22,6 +22,13 @@ function test_object() {
 
     const game = new Game();
 
+    game.save(null, {
+        useMasterKey: true,
+        sessionToken: 'sometoken',
+        cascadeSave: false,
+      })
+      .then(result => result);
+
     if (!game.isNew()) {
         console.error("Game should be new");
     }
@@ -235,6 +242,9 @@ function test_user() {
     user.set("password", "my pass");
     user.set("email", "email@example.com");
     user.signUp(null, { useMasterKey: true });
+
+    const anotherUser: Parse.User = Parse.User.fromJSON({})
+    anotherUser.set('email', "email@example.com")
 }
 
 async function test_user_currentAsync() {
@@ -283,6 +293,8 @@ function test_user_acl_roles() {
     game.save({ score: '10' }, { useMasterKey: true }).then(function (game) {
         // Update game then revert it to the last saved state.
         game.set("score", '20');
+        game.revert('score');
+        game.revert('score', 'ACL');
         game.revert();
     }, function (error) {
         // The save failed
@@ -375,6 +387,9 @@ function test_cloud_functions() {
     });
 
     Parse.Cloud.afterSave('MyCustomClass', (request: Parse.Cloud.AfterSaveRequest) => {
+        if(!request.context) {
+            throw new Error('Request context should be defined')
+        }
         // result
     });
 
@@ -390,6 +405,7 @@ function test_cloud_functions() {
     const CUSTOM_ERROR_IMMUTABLE_FIELD = 1002
 
     Parse.Cloud.beforeSave('MyCustomClass', async (request: Parse.Cloud.BeforeSaveRequest) => {
+
             if (request.object.isNew()) {
                 if (!request.object.has('immutable')) throw new Error('Field immutable is required')
             } else {
@@ -401,6 +417,9 @@ function test_cloud_functions() {
                 if (original.get('immutable') !== request.object.get('immutable')) {
                     throw new Parse.Error(CUSTOM_ERROR_IMMUTABLE_FIELD, 'This field cannot be changed')
                 }
+            }
+            if(!request.context) {
+                throw new Error('Request context should be defined')
             }
     });
 
@@ -442,6 +461,12 @@ function test_cloud_functions() {
     Parse.Cloud.job('AJob', (request: Parse.Cloud.JobRequest) => {
         request.message('Message to associate with this job run');
     });
+
+    Parse.Cloud.startJob('AJob', {}).then(v => v);
+
+    Parse.Cloud.getJobStatus('AJob').then(v => v);
+
+    Parse.Cloud.getJobsData().then(v => v);
 }
 
 class PlaceObject extends Parse.Object { }

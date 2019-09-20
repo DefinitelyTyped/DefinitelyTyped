@@ -2,7 +2,7 @@
 // Project: https://github.com/nfriedly/express-rate-limit
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>, makepost <https://github.com/makepost>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 import express = require("express");
 
@@ -36,7 +36,11 @@ declare namespace RateLimit {
         onLimitReached?(req: express.Request, res: express.Response, optionsUsed: Options): void;
         windowMs?: number;
     }
+
+    interface Instance extends express.RequestHandler {
+        resetKey(key: string): void;
+    }
 }
 
-declare var RateLimit: new (options: RateLimit.Options) => express.RequestHandler;
+declare var RateLimit: new (options: RateLimit.Options) => RateLimit.Instance;
 export = RateLimit;

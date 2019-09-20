@@ -118,14 +118,14 @@ declare module "crypto" {
     type HexBase64BinaryEncoding = "binary" | "base64" | "hex";
     type ECDHKeyFormat = "compressed" | "uncompressed" | "hybrid";
 
-    class Hash extends stream.Duplex {
+    class Hash extends stream.Transform {
         private constructor();
         update(data: BinaryLike): Hash;
         update(data: string, input_encoding: Utf8AsciiLatin1Encoding): Hash;
         digest(): Buffer;
         digest(encoding: HexBase64Latin1Encoding): string;
     }
-    class Hmac extends stream.Duplex {
+    class Hmac extends stream.Transform {
         private constructor();
         update(data: BinaryLike): Hmac;
         update(data: string, input_encoding: Utf8AsciiLatin1Encoding): Hmac;
@@ -145,6 +145,11 @@ declare module "crypto" {
     class KeyObject {
         private constructor();
         asymmetricKeyType?: KeyType;
+        /**
+         * For asymmetric keys, this property represents the size of the embedded key in
+         * bytes. This property is `undefined` for symmetric keys.
+         */
+        asymmetricKeySize?: number;
         export(options: KeyExportOptions<'pem'>): string | Buffer;
         export(options?: KeyExportOptions<'der'>): Buffer;
         symmetricSize?: number;
@@ -154,7 +159,7 @@ declare module "crypto" {
     type CipherCCMTypes = 'aes-128-ccm' | 'aes-192-ccm' | 'aes-256-ccm';
     type CipherGCMTypes = 'aes-128-gcm' | 'aes-192-gcm' | 'aes-256-gcm';
 
-    type Binary = Buffer | NodeJS.TypedArray | DataView;
+    type Binary = NodeJS.TypedArray | DataView;
     type BinaryLike = string | Binary;
 
     type CipherKey = BinaryLike | KeyObject;
@@ -188,7 +193,7 @@ declare module "crypto" {
         algorithm: string, key: CipherKey, iv: BinaryLike | null, options?: stream.TransformOptions
     ): Cipher;
 
-    class Cipher extends stream.Duplex {
+    class Cipher extends stream.Transform {
         private constructor();
         update(data: BinaryLike): Buffer;
         update(data: string, input_encoding: Utf8AsciiBinaryEncoding): Buffer;
@@ -229,7 +234,7 @@ declare module "crypto" {
     ): DecipherGCM;
     function createDecipheriv(algorithm: string, key: BinaryLike, iv: BinaryLike | null, options?: stream.TransformOptions): Decipher;
 
-    class Decipher extends stream.Duplex {
+    class Decipher extends stream.Transform {
         private constructor();
         update(data: Binary): Buffer;
         update(data: string, input_encoding: HexBase64BinaryEncoding): Buffer;
@@ -269,9 +274,15 @@ declare module "crypto" {
 
     function createSign(algorithm: string, options?: stream.WritableOptions): Signer;
 
-    interface SignPrivateKeyInput extends PrivateKeyInput {
+    interface SigningOptions {
+        /**
+         * @See crypto.constants.RSA_PKCS1_PADDING
+         */
         padding?: number;
         saltLength?: number;
+    }
+
+    interface SignPrivateKeyInput extends PrivateKeyInput, SigningOptions {
     }
 
     type KeyLike = string | Buffer | KeyObject;
@@ -285,7 +296,7 @@ declare module "crypto" {
         sign(private_key: SignPrivateKeyInput | KeyLike, output_format: HexBase64Latin1Encoding): string;
     }
 
-    function createVerify(algorith: string, options?: stream.WritableOptions): Verify;
+    function createVerify(algorithm: string, options?: stream.WritableOptions): Verify;
     class Verify extends stream.Writable {
         private constructor();
 
@@ -412,8 +423,8 @@ declare module "crypto" {
 
     interface BasePrivateKeyEncodingOptions<T extends KeyFormat> {
         format: T;
-        cipher: string;
-        passphrase: string;
+        cipher?: string;
+        passphrase?: string;
     }
 
     interface KeyPairKeyObjectResult {
@@ -565,4 +576,27 @@ declare module "crypto" {
         function __promisify__(type: "ec", options: ECKeyPairOptions<'der', 'der'>): Promise<{ publicKey: Buffer, privateKey: Buffer }>;
         function __promisify__(type: "ec", options: ECKeyPairKeyObjectOptions): Promise<KeyPairKeyObjectResult>;
     }
+
+    /**
+     * Calculates and returns the signature for `data` using the given private key and
+     * algorithm. If `algorithm` is `null` or `undefined`, then the algorithm is
+     * dependent upon the key type (especially Ed25519 and Ed448).
+     *
+     * If `key` is not a [`KeyObject`][], this function behaves as if `key` had been
+     * passed to [`crypto.createPrivateKey()`][].
+     */
+    function sign(algorithm: string | null | undefined, data: Binary, key: KeyLike | SignPrivateKeyInput): Buffer;
+
+    interface VerifyKeyWithOptions extends KeyObject, SigningOptions {
+    }
+
+    /**
+     * Calculates and returns the signature for `data` using the given private key and
+     * algorithm. If `algorithm` is `null` or `undefined`, then the algorithm is
+     * dependent upon the key type (especially Ed25519 and Ed448).
+     *
+     * If `key` is not a [`KeyObject`][], this function behaves as if `key` had been
+     * passed to [`crypto.createPublicKey()`][].
+     */
+    function verify(algorithm: string | null | undefined, data: Binary, key: KeyLike | VerifyKeyWithOptions, signature: Binary): Buffer;
 }

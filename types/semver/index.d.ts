@@ -31,6 +31,11 @@ export function clean(version: string, optionsOrLoose?: boolean | Options): stri
  * Return the version incremented by the release type (major, minor, patch, or prerelease), or null if it's not valid.
  */
 export function inc(v: string | SemVer, release: ReleaseType, optionsOrLoose?: boolean | Options, identifier?: string): string | null;
+export function inc(
+  v: string | SemVer,
+  release: ReleaseType,
+  identifier?: string,
+): string | null;
 /**
  * Return the major version number.
  */
@@ -173,7 +178,7 @@ export class SemVer {
     patch: number;
     version: string;
     build: ReadonlyArray<string>;
-    prerelease: ReadonlyArray<string>;
+    prerelease: ReadonlyArray<string | number>;
 
     compare(other: string | SemVer): 1 | 0 | -1;
     compareMain(other: string | SemVer): 1 | 0 | -1;

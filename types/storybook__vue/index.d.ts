@@ -1,5 +1,5 @@
 // Type definitions for @storybook/vue 5.0
-// Project: https://github.com/storybooks/storybook, https://github.com/storybooks/storybook/tree/master/app/vue
+// Project: https://github.com/storybookjs/storybook, https://github.com/storybookjs/storybook/tree/master/app/vue
 // Definitions by: Punit Gupta <https://github.com/pntgupta>
 //                 Jurgis Rudaks <https://github.com/jurgisrudaks>
 //                 Yoyo Young <https://github.com/yoyoys>

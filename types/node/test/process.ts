@@ -64,3 +64,7 @@ import { EventEmitter } from "events";
         r = process.send({ msg: "foo"}, {}, { swallowErrors: true }, (err: Error | null) => {});
     }
 }
+
+{
+    const usage: NodeJS.ResourceUsage = process.resourceUsage();
+}

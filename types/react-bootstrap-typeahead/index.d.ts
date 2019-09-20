@@ -334,7 +334,7 @@ export class TypeaheadInputMulti<T extends TypeaheadModel> extends React.Compone
 --------------------------------------------------------------------------- */
 export interface HighligherProps {
     children: React.ReactNode;
-    search: string;
+    search?: string;
 }
 
 export class Highlighter extends React.PureComponent<HighligherProps> { }

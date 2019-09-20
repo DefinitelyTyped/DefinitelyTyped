@@ -2,7 +2,8 @@ import * as React from 'react';
 import * as Popper from 'popper.js';
 import { CSSModule } from '../index';
 
-export type UncontrolledProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
+export interface UncontrolledTooltipProps extends React.HTMLAttributes<HTMLElement> {
+  [key: string]: any;
   target: string | HTMLElement;
   container?: string | HTMLElement;
   delay?: number | {show: number, hide: number};
@@ -14,13 +15,12 @@ export type UncontrolledProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   cssModule?: CSSModule;
   fade?: boolean;
   flip?: boolean;
-} & T;
-export type UncontrolledTooltipProps<T = {}> = UncontrolledProps<T>;
+}
 
-export type TooltipProps<T = {}> = UncontrolledTooltipProps<T> & {
+export interface TooltipProps extends UncontrolledTooltipProps {
   toggle?: () => void;
   isOpen?: boolean;
-};
+}
 
-declare class Tooltip<T> extends React.Component<TooltipProps<T>> {}
+declare class Tooltip<T> extends React.Component<TooltipProps> {}
 export default Tooltip;

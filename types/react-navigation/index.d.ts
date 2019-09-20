@@ -972,6 +972,7 @@ export interface TabViewConfig {
     activeBackgroundColor?: string;
     inactiveTintColor?: string;
     inactiveBackgroundColor?: string;
+    keyboardHidesTabBar?: boolean;
     showLabel?: boolean;
     style?: StyleProp<ViewStyle>;
     labelStyle?: StyleProp<TextStyle>;
@@ -1002,6 +1003,7 @@ export interface BottomTabNavigatorConfig
   extends NavigationBottomTabRouterConfig,
   TabViewConfig {
   lazy?: boolean;
+  resetOnBlur?: boolean;
   removeClippedSubviews?: boolean;
   initialLayout?: { height: number; width: number };
 }

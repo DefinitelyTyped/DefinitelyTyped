@@ -17,6 +17,8 @@
 //                 Simon Schick <https://github.com/SimonSchick>
 //                 Alejandro Fernandez Haro <https://github.com/afharo>
 //                 Silas Rech <https://github.com/lenovouser>
+//                 Anand Chowdhary <https://github.com/AnandChowdhary>
+//                 Miro Yovchev <https://github.com/myovchev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -97,17 +99,66 @@ export interface RenameOptions {
 
 export interface EmailOptions {
     /**
-     * Numerical threshold at which an email address is considered invalid
+     * If `true`, Unicode characters are permitted
+     *
+     * @default true
      */
-    errorLevel?: number | boolean;
+    allowUnicode?: boolean;
     /**
-     * Specifies a list of acceptable TLDs.
+     * Options for TLD (top level domain) validation. By default, the TLD must be a valid name listed on the [IANA registry](http://data.iana.org/TLD/tlds-alpha-by-domain.txt)
+     *
+     * @default { allow: true }
      */
-    tldWhitelist?: string[] | object;
+    tlds?: {
+        /**
+         * - `true` to use the IANA list of registered TLDs. This is the default value.
+         * - `false` to allow any TLD not listed in the `deny` list, if present.
+         * - A `Set` or array of the allowed TLDs. Cannot be used together with `deny`.
+         */
+        allow?: Set<string> | string[] | boolean;
+        /**
+         * - A `Set` or array of the forbidden TLDs. Cannot be used together with a custom `allow` list.
+         */
+        deny?: Set<string> | string[];
+    } | false;
     /**
-     * Number of atoms required for the domain. Be careful since some domains, such as io, directly allow email.
+     * Number of segments required for the domain. Be careful since some domains, such as `io`, directly allow email.
+     *
+     * @default 2
      */
-    minDomainAtoms?: number;
+    minDomainSegments?: number;
+}
+
+export interface DomainOptions {
+    /**
+     * If `true`, Unicode characters are permitted
+     *
+     * @default true
+     */
+    allowUnicode?: boolean;
+    /**
+     * Options for TLD (top level domain) validation. By default, the TLD must be a valid name listed on the [IANA registry](http://data.iana.org/TLD/tlds-alpha-by-domain.txt)
+     *
+     * @default { allow: true }
+     */
+    tlds?: {
+        /**
+         * - `true` to use the IANA list of registered TLDs. This is the default value.
+         * - `false` to allow any TLD not listed in the `deny` list, if present.
+         * - A `Set` or array of the allowed TLDs. Cannot be used together with `deny`.
+         */
+        allow?: Set<string> | string[] | boolean;
+        /**
+         * - A `Set` or array of the forbidden TLDs. Cannot be used together with a custom `allow` list.
+         */
+        deny?: Set<string> | string[];
+    };
+    /**
+     * Number of segments required for the domain.
+     *
+     * @default 2
+     */
+    minDomainSegments?: number;
 }
 
 export interface HexOptions {
@@ -231,11 +282,11 @@ export interface ValidationError extends Error, JoiObject {
 }
 
 export interface ValidationErrorItem {
-    message: string;
-    type: string;
-    path: string[];
-    options?: ValidationOptions;
-    context?: Context;
+  message: string;
+  type: string;
+  path: Array<string | number>;
+  options?: ValidationOptions;
+  context?: Context;
 }
 
 export type ValidationErrorFunction = (errors: ValidationErrorItem[]) => string | ValidationErrorItem | ValidationErrorItem[] | Error;
@@ -638,6 +689,11 @@ export interface StringSchema extends AnySchema {
      * Requires the string value to be a valid email address.
      */
     email(options?: EmailOptions): this;
+
+    /**
+     * Requires the string value to be a valid domain.
+     */
+    domain(options?: DomainOptions): this;
 
     /**
      * Requires the string value to be a valid ip address.

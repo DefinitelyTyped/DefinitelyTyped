@@ -4,7 +4,11 @@ import fs = require('fs');
 
 xml2js.parseString('<root>Hello xml2js!</root>', (err: Error, result: any) => { });
 
+xml2js.parseStringPromise('<root>Hello xml2js!</root>');
+
 xml2js.parseString('<root>Hello xml2js!</root>', {trim: true}, (err: Error, result: any) => { });
+
+xml2js.parseStringPromise('<root>Hello xml2js!</root>', {trim: true});
 
 xml2js.parseString('<root>Hello xml2js!</root>', {
     attrkey: '$',
@@ -83,6 +87,11 @@ v2Defaults.chunkSize = 20000;
 fs.readFile(__dirname + '/foo.xml', (err, data) => {
     parser.parseString(data, (err: Error, result: any) => {
         console.dir(result);
-        console.log('Done');
+        console.log('Done parseString');
+    });
+
+    parser.parseStringPromise(data).then(result => {
+        console.dir(result);
+        console.log('Done parseStringPromise');
     });
 });

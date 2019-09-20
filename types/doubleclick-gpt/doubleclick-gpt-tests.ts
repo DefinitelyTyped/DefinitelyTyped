@@ -291,6 +291,18 @@ googletag.pubads().addEventListener("impressionViewable", (event) => {
     }
 });
 
+googletag.pubads().addEventListener("slotRequested", (event) => {
+    if (event.slot === targetSlot) {
+        // Slot specific logic.
+    }
+});
+
+googletag.pubads().addEventListener("slotResponseReceived", (event) => {
+    if (event.slot === targetSlot) {
+        // Slot specific logic.
+    }
+});
+
 googletag.pubads().addEventListener("slotVisibilityChanged", (event) => {
     if (event.slot === targetSlot) {
         console.log(event.inViewPercentage);
@@ -453,6 +465,9 @@ slot.setTargeting("interests", ["sports", "music", "movies"]);
 
 // googletag.display accepts a div element as well as a div ID.
 googletag.display(new HTMLElement());
+
+// googletag.display accepts a slot
+googletag.display(slot);
 
 // pubads.display accepts a div element.
 googletag.pubads().display("/1234567/science", [300, 250], new HTMLElement());

@@ -1,9 +1,11 @@
-// Type definitions for Leaflet.js 1.4
+// Type definitions for Leaflet.js 1.5
 // Project: https://github.com/Leaflet/Leaflet
 // Definitions by: Alejandro Sánchez <https://github.com/alejo90>
 //                 Arne Schubert <https://github.com/atd-schubert>
 //                 Michael Auer <https://github.com/mcauer>
 //                 Roni Karilkar <https://github.com/ronikar>
+//                 Sandra Frischmuth <https://github.com/sanfrisc>
+//                 Vladimir Dashukevich <https://github.com/life777>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -484,6 +486,8 @@ export class GridLayer extends Layer {
 export function gridLayer(options?: GridLayerOptions): GridLayer;
 
 export interface TileLayerOptions extends GridLayerOptions {
+    id?: string;
+    accessToken?: string;
     minZoom?: number;
     maxZoom?: number;
     maxNativeZoom?: number;
@@ -587,12 +591,40 @@ export class ImageOverlay extends Layer {
 
 export function imageOverlay(imageUrl: string, bounds: LatLngBoundsExpression, options?: ImageOverlayOptions): ImageOverlay;
 
-export interface VideoOverlayOptions extends ImageOverlayOptions {
-    autoplay?: boolean;
-    loop?: boolean;
+export class SVGOverlay extends Layer { /** SVGOverlay doesn't extend ImageOverlay because SVGOverlay.getElement returns SVGElement */
+    constructor(svgImage: string | SVGElement, bounds: LatLngBoundsExpression, options?: ImageOverlayOptions);
+    setOpacity(opacity: number): this;
+    bringToFront(): this;
+    bringToBack(): this;
+    setUrl(url: string): this;
+
+    /** Update the bounds that this SVGOverlay covers */
+    setBounds(bounds: LatLngBounds): this;
+
+    /** Changes the zIndex of the image overlay */
+    setZIndex(value: number): this;
+
+    /** Get the bounds that this SVGOverlay covers */
+    getBounds(): LatLngBounds;
+
+    /** Get the img element that represents the SVGOverlay on the map */
+    getElement(): SVGElement | undefined;
+
+    options: ImageOverlayOptions;
 }
 
-export class VideoOverlay extends Layer { /** VideoOverlay doesn't extend ImageOverlay because ImageOverlay.getElement returns HTMLImageElement */
+export function svgOverlay(svgImage: string | SVGElement, bounds: LatLngBoundsExpression, options?: ImageOverlayOptions): SVGOverlay;
+
+export interface VideoOverlayOptions extends ImageOverlayOptions {
+    /** Whether the video starts playing automatically when loaded. */
+    autoplay?: boolean;
+    /** Whether the video will loop back to the beginning when played. */
+    loop?: boolean;
+    /** Whether the video will save aspect ratio after the projection. */
+    keepAspectRatio?: boolean;
+}
+
+export class VideoOverlay extends Layer { /** VideoOverlay doesn't extend ImageOverlay because VideoOverlay.getElement returns HTMLImageElement */
     constructor(video: string | string[] | HTMLVideoElement, bounds: LatLngBoundsExpression, options?: VideoOverlayOptions);
     setOpacity(opacity: number): this;
     bringToFront(): this;
@@ -1041,6 +1073,7 @@ export interface ControlOptions {
 }
 
 export class Control extends Class {
+    static extend<T extends object>(props: T): {new(...args: any[]): T} & typeof Control;
     constructor(options?: ControlOptions);
     getPosition(): ControlPosition;
     setPosition(position: ControlPosition): this;
@@ -1392,7 +1425,7 @@ export class Map extends Evented {
     fitBounds(bounds: LatLngBoundsExpression, options?: FitBoundsOptions): this;
     fitWorld(options?: FitBoundsOptions): this;
     panTo(latlng: LatLngExpression, options?: PanOptions): this;
-    panBy(offset: PointExpression): this;
+    panBy(offset: PointExpression, options?: PanOptions): this;
     setMaxBounds(bounds: LatLngBoundsExpression): this;
     setMinZoom(zoom: number): this;
     setMaxZoom(zoom: number): this;
@@ -1510,7 +1543,7 @@ export namespace Icon {
 export function icon(options: IconOptions): Icon;
 
 export interface DivIconOptions extends BaseIconOptions {
-    html?: string | false;
+    html?: string | HTMLElement | false;
     bgPos?: PointExpression;
     iconSize?: PointExpression;
     iconAnchor?: PointExpression;
@@ -1526,18 +1559,30 @@ export function divIcon(options?: DivIconOptions): DivIcon;
 
 export interface MarkerOptions extends InteractiveLayerOptions {
     icon?: Icon | DivIcon;
-    clickable?: boolean;
+    /** Whether the marker is draggable with mouse/touch or not. */
     draggable?: boolean;
+    /** Whether the marker can be tabbed to with a keyboard and clicked by pressing enter. */
     keyboard?: boolean;
+    /** Text for the browser tooltip that appear on marker hover (no tooltip by default). */
     title?: string;
+    /** Text for the `alt` attribute of the icon image (useful for accessibility). */
     alt?: string;
+    /** Option for putting the marker on top of all others (or below). */
     zIndexOffset?: number;
+    /** The opacity of the marker. */
     opacity?: number;
+    /** If `true`, the marker will get on top of others when you hover the mouse over it. */
     riseOnHover?: boolean;
+    /** The z-index offset used for the `riseOnHover` feature. */
     riseOffset?: number;
+    /** `Map pane` where the markers shadow will be added. */
+    shadowPane?: string;
+    /** Whether to pan the map when dragging this marker near its edge or not. */
     autoPan?: boolean;
-    autoPanSpeed?: number;
+    /** Distance (in pixels to the left/right and to the top/bottom) of the map edge to start panning the map. */
     autoPanPadding?: PointExpression;
+    /** Number of pixels the map should pan by. */
+    autoPanSpeed?: number;
 }
 
 export class Marker<P = any> extends Layer {
@@ -1546,6 +1591,7 @@ export class Marker<P = any> extends Layer {
     getLatLng(): LatLng;
     setLatLng(latlng: LatLngExpression): this;
     setZIndexOffset(offset: number): this;
+    getIcon(): Icon | DivIcon;
     setIcon(icon: Icon | DivIcon): this;
     setOpacity(opacity: number): this;
     getElement(): HTMLElement | undefined;
@@ -1559,33 +1605,36 @@ export class Marker<P = any> extends Layer {
 export function marker(latlng: LatLngExpression, options?: MarkerOptions): Marker;
 
 export namespace Browser {
+    // sorting according to https://leafletjs.com/reference-1.5.0.html#browser
     const ie: boolean;
     const ielt9: boolean;
     const edge: boolean;
     const webkit: boolean;
-    const gecko: boolean;
     const android: boolean;
     const android23: boolean;
+    const androidStock: boolean;
+    const opera: boolean;
     const chrome: boolean;
+    const gecko: boolean;
     const safari: boolean;
+    const opera12: boolean;
     const win: boolean;
     const ie3d: boolean;
     const webkit3d: boolean;
     const gecko3d: boolean;
-    const opera12: boolean;
     const any3d: boolean;
     const mobile: boolean;
     const mobileWebkit: boolean;
     const mobileWebkit3d: boolean;
-    const mobileOpera: boolean;
-    const mobileGecko: boolean;
-    const touch: boolean;
     const msPointer: boolean;
     const pointer: boolean;
+    const touch: boolean;
+    const mobileOpera: boolean;
+    const mobileGecko: boolean;
     const retina: boolean;
     const canvas: boolean;
-    const vml: boolean;
     const svg: boolean;
+    const vml: boolean;
 }
 
 export namespace Util {

@@ -35,9 +35,7 @@ import { types } from 'util';
     process.allowedNodeEnvironmentFlags.has('asdf');
 }
 
-//////////////////////////////////////////////////////////
-/// Util Tests                                         ///
-//////////////////////////////////////////////////////////
+// Util Tests
 {
     const value: BigInt64Array | BigUint64Array | number = [] as any;
     if (types.isBigInt64Array(value)) {
@@ -50,4 +48,18 @@ import { types } from 'util';
         // $ExpectType number
         const b = value;
     }
+}
+
+// Global Tests
+
+{
+    const a = Buffer.alloc(1000);
+    a.writeBigInt64BE(123n);
+    a.writeBigInt64LE(123n);
+    a.writeBigUInt64BE(123n);
+    a.writeBigUInt64LE(123n);
+    let b: bigint = a.readBigInt64BE(123);
+    b = a.readBigInt64LE(123);
+    b = a.readBigUInt64LE(123);
+    b = a.readBigUInt64BE(123);
 }

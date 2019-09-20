@@ -1,6 +1,7 @@
 /// <reference types="jquery"/>
 let sliderInputElement = $('<input />');
 sliderInputElement.ionRangeSlider({
+    skin: 'round',
     decorate_both: true,
     disable: false,
     drag_interval: false,

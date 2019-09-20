@@ -1,8 +1,8 @@
 import * as React from 'react';
 
 import Select from 'react-select';
-import AsyncSelect from 'react-select/lib/Async';
-import CreatableSelect from 'react-select/lib/Creatable';
+import AsyncSelect from 'react-select/async';
+import CreatableSelect from 'react-select/creatable';
 import { Note } from '../styled-components';
 import { ColourOption, colourOptions } from '../data';
 

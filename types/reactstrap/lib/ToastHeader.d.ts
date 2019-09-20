@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { CSSModule } from '../index';
 
-export type ToastHeaderProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
+export interface ToastHeaderProps extends React.HTMLAttributes<HTMLElement> {
+  [key: string]: any;
   tag?: React.ReactType;
   className?: string;
   cssModule?: CSSModule;
@@ -11,7 +12,7 @@ export type ToastHeaderProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   close?: React.ReactNode;
   charCode?: string | number;
   closeAriaLabel?: string;
-} & T;
+}
 
-declare class ToastHeader<T = {[key: string]: any}> extends React.Component<ToastHeaderProps<T>> {}
+declare class ToastHeader<T = {[key: string]: any}> extends React.Component<ToastHeaderProps> {}
 export default ToastHeader;
