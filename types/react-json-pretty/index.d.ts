@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { ComponentClass, HTMLAttributes } from "react";
+import { ComponentClass, HTMLAttributes } from 'react';
 
 export as namespace JSONPretty;
 
