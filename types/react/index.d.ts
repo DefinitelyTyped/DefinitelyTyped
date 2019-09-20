@@ -93,7 +93,7 @@ declare namespace React {
         ref?: Ref<T>;
     }
     interface ClassAttributes<T> extends Attributes {
-        ref?: LegacyRef<T> | Ref<undefined>;
+        ref?: LegacyRef<T> | RefObject<undefined>;
     }
 
     interface ReactElement<P = any, T extends string | JSXElementConstructor<any> = string | JSXElementConstructor<any>> {
@@ -916,8 +916,8 @@ declare namespace React {
     function useRef<T>(initialValue: T): MutableRefObject<T>;
     // convenience overload for refs given as a ref prop as they typically start with a null value
     /**
-     * Usage note: Note that this overload is for setting the ref attribute on an element. If you 
-     * need the result of useRef to be directly mutable, include `| null` in the type
+     * Usage note: Note that this overload is for setting the ref attribute on an element. If you
+     *  need the result of useRef to be directly mutable, include `| null` in the type
      * of the generic argument.
      *
      * `useRef` returns a ref object whose `.current` property is initialized to the passed argument

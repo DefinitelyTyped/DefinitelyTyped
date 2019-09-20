@@ -366,7 +366,7 @@ imgProps.decoding = 'sync';
 // $ExpectError
 imgProps.decoding = 'nonsense';
 type ImgPropsWithRef = React.ComponentPropsWithRef<'img'>;
-// $ExpectType ((instance: HTMLImageElement | null) => void) | RefObject<HTMLImageElement> | null | undefined
+// $ExpectType RefObject<undefined> | ((instance: HTMLImageElement | null) => void) | RefObject<HTMLImageElement> | null | undefined
 type ImgPropsWithRefRef = ImgPropsWithRef['ref'];
 type ImgPropsWithoutRef = React.ComponentPropsWithoutRef<'img'>;
 // $ExpectType false
