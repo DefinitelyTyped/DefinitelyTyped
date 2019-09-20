@@ -64,31 +64,6 @@ class F2 {
         return [a, b, c];
     }
 
-    function addFourNumbers(a: number, b: number, c: number, d: number): number {
-        return a + b + c + d;
-    }
-
-    function addTenFixedNumbers(a: 0, b: 1, c: 2, d: 3, e: 4, f: 5, g: 6, h: 7, i: 8, k: 9, l: 10): number {
-        return a + b + c + d;
-    }
-
-    const x1: (a: number, b: number, c: number, d: number) => number = R.curry(addFourNumbers);
-    // because of the current way of currying, the following call results in a type error
-    const x2: (...args: any) => any = R.curry(addFourNumbers)(1, 2, 4);
-    const x3: (c: number, d: number) => number = R.curry(addFourNumbers)(1)(2);
-    const x4: (d: number) => number = R.curry(addFourNumbers)(1)(2)(3);
-    const y1: number = R.curry(addFourNumbers)(1)(2)(3)(4);
-    const y2: number = R.curry(addFourNumbers)(1, 2)(3, 4);
-    const y3: number = R.curry(addFourNumbers)(1, 2, 3)(4);
-    const y4: number = R.curry(addTenFixedNumbers)(R.__, 1, 2)(0)(3)(
-      R.__,
-      R.__,
-    )(R.__, 5)(4)(6, 7)(R.__)(8, R.__, R.__)(9, 10);
-    const y5: number = R.curry(addTenFixedNumbers)(R.__, 1, R.__)(R.__, 2)(
-      0,
-      3,
-    )(R.__, 5)(4, R.__)(R.__)(6, R.__, 8, 9, 10)(7);
-
     R.nAry(0);
     R.nAry(0, takesNoArg);
     R.nAry(0, takesOneArg);
@@ -98,40 +73,6 @@ class F2 {
     const u1: (a: any) => any = R.unary(takesOneArg);
     const u2: (a: any) => any = R.unary(takesTwoArgs);
     const u3: (a: any) => any = R.unary(takesThreeArgs);
-
-    function addTwoNumbers(a: number, b: number) {
-        return a + b;
-    }
-
-    const addTwoNumbersCurried = R.curry(addTwoNumbers);
-
-    const inc        = addTwoNumbersCurried(1);
-    const z1: number = inc(2);
-    const z2: number = addTwoNumbersCurried(2, 3);
-};
-
-() => {
-    interface Car { speed?: number;
-    }
-    interface FastCar { speed: number;
-    }
-
-    function typeGuard(a: number, b: number, c: number, d: number, e: number, car: Car): car is FastCar {
-        return car.speed !== undefined;
-    }
-
-    const typeGuardCurried = R.curry(typeGuard);
-
-    function drive(fastCar: FastCar) {
-    }
-
-    const cars: Car[] = [{speed: 65}, {}];
-    for (const car of cars) {
-        if (typeGuardCurried(1)(2)(3)(4)(5)(car)) {
-            drive(car); // $ExpectError
-            // Generic Curry solved a previously non reported issue
-        }
-    }
 };
 
 /** R.__ */
@@ -478,13 +419,6 @@ R.times(i, 5);
     const c: number[]   = R.of(1);
 });
 
-() => {
-    const a1 = R.empty([1, 2, 3, 4, 5]); // => []
-    const a2 = R.empty([1, 2, 3]);     // => []
-    const a3 = R.empty("unicorns");    // => ''
-    const a4 = R.empty({x: 1, y: 2});  // => {}
-};
-
 (() => {
     R.length([1, 2, 3]); // => 3
 });
@@ -537,43 +471,6 @@ R.times(i, 5);
 /*********************
  * List category
  */
-() => {
-    R.drop(3, [1, 2, 3, 4, 5, 6, 7]); // => [4,5,6,7]
-    R.drop(3)([1, 2, 3, 4, 5, 6, 7]); // => [4,5,6,7]
-    R.drop(3, "ramda"); // => 'ram'
-    R.drop(3)("ramda"); // => 'ram'
-};
-
-(() => {
-    R.dropLast(1, ["foo", "bar", "baz"]); // => ['foo', 'bar']
-    R.dropLast(2)(["foo", "bar", "baz"]); // => ['foo']
-    R.dropLast(3, "ramda");               // => 'ra'
-    R.dropLast(3)("ramda");               // => 'ra'
-});
-
-(() => {
-    const lteThree = (x: number) => x <= 3;
-    R.dropLastWhile(lteThree, [1, 2, 3, 4, 3, 2, 1]); // => [1, 2, 3, 4]
-});
-
-(() => {
-    R.dropRepeats([1, 1, 1, 2, 3, 4, 4, 2, 2]); // => [1, 2, 3, 4, 2]
-});
-
-(() => {
-    const l = [1, -1, 1, 3, 4, -4, -4, -5, 5, 3, 3];
-    const x: number[] = R.dropRepeatsWith(R.eqBy(Math.abs), l); // => [1, 3, 4, -5, 3]
-});
-
-() => {
-    function lteTwo(x: number) {
-        return x <= 2;
-    }
-
-    R.dropWhile(lteTwo, [1, 2, 3, 4]); // => [3, 4]
-    R.dropWhile(lteTwo)([1, 2, 3, 4]); // => [3, 4]
-};
-
 () => {
     function isEven(n: number) {
         return n % 2 === 0;
@@ -1294,11 +1191,6 @@ type Pair = KeyValuePair<string, number>;
 };
 
 () => {
-    R.equals(R.unnest([1, [2], [[3]]]), [1, 2, [3]]); // => true
-    R.equals(R.unnest<number>([[1, 2], [3, 4], [5, 6]]), [1, 2, 3, 4, 5, 6]); // => true
-};
-
-() => {
     R.xprod([1, 2], ["a", "b"]); // => [[1, 'a'], [1, 'b'], [2, 'a'], [2, 'b']]
     R.xprod([1, 2])(["a", "b"]); // => [[1, 'a'], [1, 'b'], [2, 'a'], [2, 'b']]
 };
@@ -1336,86 +1228,6 @@ type Pair = KeyValuePair<string, number>;
 /*****************************************************************
  * Object category
  */
-
-() => {
-    const a1 = R.dissoc<{ a: number, c: number }>("b", {a: 1, b: 2, c: 3}); // => {a: 1, c: 3}
-    const a2 = R.dissoc("b", {a: 1, b: 2, c: 3}); // => {a: 1, c: 3}
-    const a4 = R.dissoc("b")<{ a: number, c: number }>({a: 1, b: 2, c: 3}); // => {a: 1, c: 3}
-};
-
-() => {
-    const a1 = R.dissocPath(["a", "b", "c"], {a: {b: {c: 42}}}); // => {a: {b: {}}}
-    // optionally specify return type
-    const a2 = R.dissocPath<{ a: { b: number } }>(["a", "b", "c"], {a: {b: {c: 42}}}); // => {a: {b: {}}}
-    const a3 = R.dissocPath(["a", "b", "c"])({a: {b: {c: 42}}}); // => {a: {b: {}}}
-
-    const testPath = ["x", 0, "y"];
-    const testObj  = {x: [{y: 2, z: 3}, {y: 4, z: 5}]};
-
-    R.dissocPath(testPath, testObj); // => {x: [{z: 3}, {y: 4, z: 5}]}
-    R.dissocPath(testPath)(testObj); // => {x: [{z: 3}, {y: 4, z: 5}]}
-};
-
-() => {
-    const o1                                        = {a: 1, b: 2, c: 3, d: 4};
-    const o2                                        = {a: 10, b: 20, c: 3, d: 40};
-    const a1                                      = R.eqProps("a", o1, o2); // => false
-    const a2                                      = R.eqProps("c", o1, o2); // => true
-    const a3: <T extends { c: any }, U extends { c: any }>(obj1: T, obj2: U) => boolean = R.eqProps("c");
-    const a4: <U>(obj2: U) => boolean             = R.eqProps("c", o1);
-};
-
-() => {
-    // No type transformation
-
-    const a1 = R.evolve({ elapsed: R.add(1), remaining: R.add(-1) }, { name: "Tomato", elapsed: 100, remaining: 1400 });
-
-    const a1Test: { elapsed: number, remaining: number, name: string } = a1;
-
-    const a2 = R.evolve({ elapsed: R.add(1), remaining: R.add(-1) })({ name: "Tomato", elapsed: 100, remaining: 1400 });
-
-    const a2Test: { elapsed: number, remaining: number, name: string } = a2;
-
-    // Object doesn't have all evolver keys
-
-    const a3 = R.evolve({ age: R.add(1), name: R.trim }, { name: "Potato", elapsed: 100 });
-
-    const a3Test: { name: string, elapsed: number } = a3;
-
-    // Flat transformation
-
-    const ex0 = R.evolve({ a: parseInt }, { a: '10', b: 1 });
-
-    const ex0Test: { a: number, b: number } = ex0;
-
-    // Nested transformation:
-
-    const ex1 = R.evolve(
-        { a: { b: R.toString, d: { e: R.toString } } },
-        { a: { b: 1, c: null, d: { e: 2 } } },
-    );
-
-    const ex1Test: { a: { b: string, c: null, d: { e: string } } } = ex1;
-
-    // Mapping a nested object with a single function
-
-    const ex2 = R.evolve(
-        { a: (obj: { foo: string }) => ({ bar: 1, baz: 2 }) },
-        { a: { foo: 'a', skipped: 3 }, b: null },
-    );
-
-    const ex2Test: { a: { bar: number, baz: number }, b: null } = ex2;
-
-    // Nested curried:
-
-    const ex3 = R.evolve(
-        { a: { b: R.toString, d: { e: R.toString } } },
-    )(
-        { a: { b: 1, c: null, d: { e: 2 } } }
-    );
-
-    const ex3Test: { a: { b: string, c: null, d: { e: string } } } = ex3;
-};
 
 () => {
     const hasName     = R.has("name");
@@ -1888,50 +1700,6 @@ class Rectangle {
  * Relation category
  */
 () => {
-    const numbers = [1.0, 1.1, 1.2, 2.0, 3.0, 2.2];
-    const letters = R.split("", "abcABCaaaBBc");
-    R.countBy(Math.floor)(numbers);    // => {'1': 3, '2': 2, '3': 1}
-    R.countBy(R.toLower)(letters);   // => {'a': 5, 'b': 4, 'c': 3}
-};
-
-() => {
-    R.difference([1, 2, 3, 4], [7, 6, 5, 4, 3]); // => [1,2]
-    R.difference([7, 6, 5, 4, 3], [1, 2, 3, 4]); // => [7,6,5]
-};
-
-() => {
-    function cmp1(x: any, y: any) {
-        return x.a === y.a;
-    }
-
-    function cmp2(x: any, y: any) {
-        return x.a === y.b;
-    }
-
-    const l1 = [{a: 1}, {a: 2}, {a: 3}];
-    const l2 = [{a: 3}, {a: 4}];
-    const l3 = [{b: 3}, {b: 4}];
-    R.differenceWith(cmp1, l1, l2); // => [{a: 1}, {a: 2}]
-
-    const differenceWithCurried1 = R.differenceWith(cmp1);
-    differenceWithCurried1(l1, l2); // =>[{a: 1}, {a: 2}]
-
-    R.differenceWith(cmp2, l1, l3); // => [{a: 1}, {a: 2}]
-};
-
-() => {
-    R.equals(1, 1); // => true
-    R.equals("2", "1"); // => false
-    R.equals([1, 2, 3], [1, 2, 3]); // => true
-
-    const a: any = {};
-    a.v        = a;
-    const b: any = {};
-    b.v        = b;
-    R.equals(a, b); // => true
-};
-
-() => {
     const a1 = R.identity(1); // => 1
     const obj  = {};
     const a2 = R.identity([1, 2, 3]);
@@ -2026,17 +1794,8 @@ class Rectangle {
 };
 
 () => {
-    R.dec(42); // => 41
-};
-
-() => {
-    R.divide(71, 100); // => 0.71
-
     const half = R.flip(R.divide)(2);
     half(42); // => 21
-
-    const reciprocal = R.divide(1);
-    reciprocal(4);   // => 0.25
 };
 
 () => {
@@ -2291,38 +2050,6 @@ class Rectangle {
  * Logic category
  */
 
-(() => {
-    R.eqBy(Math.abs, 5, -5); // => true
-});
-
-() => {
-    const defaultTo42 = R.defaultTo(42);
-    defaultTo42(null);  // => 42
-    defaultTo42(undefined);  // => 42
-    defaultTo42("Ramda");  // => 'Ramda'
-
-    const valueOrUndefined = 2 as number | undefined;
-    defaultTo42(valueOrUndefined) - 2; // => 0
-
-    const valueOrNull = 2 as number | null;
-    defaultTo42(valueOrNull) - 2; // => 0
-};
-
-() => {
-    function gt10(x: number) {
-        return x > 10;
-    }
-
-    function even(x: number) {
-        return x % 2 === 0;
-    }
-
-    const f = R.either(gt10, even);
-    const g = R.either(gt10)(even);
-    f(101); // => true
-    f(8); // => true
-};
-
 () => {
     // Flatten all arrays in the list but leave other values alone.
     const flattenArrays = R.map(R.ifElse(Array.isArray, R.flatten, R.identity));
@@ -2349,15 +2076,6 @@ class Rectangle {
     R.isEmpty(null); // => false
     R.isEmpty({}); // =>true
     R.isEmpty({a: 1}); // => false
-};
-
-() => {
-    R.endsWith("c", "abc");   // => true
-    R.endsWith("c")("abc");   // => true
-    R.endsWith(3, [1, 2, 3]);   // => true
-    R.endsWith(3)([1, 2, 3]);   // => true
-    R.endsWith([3], [1, 2, 3]);   // => true
-    R.endsWith([3])([1, 2, 3]);   // => true
 };
 
 () => {

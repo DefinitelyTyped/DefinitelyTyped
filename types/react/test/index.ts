@@ -22,7 +22,7 @@ interface Console {
     log(...args: any[]): void;
 }
 
-interface Props extends React.Attributes {
+interface Props {
     hello: string;
     world?: string | null;
     foo: number;
@@ -132,8 +132,7 @@ class ModernComponent extends React.Component<Props, State, Snapshot>
     static propTypes: React.ValidationMap<Props> = {
         hello: PropTypes.string.isRequired,
         world: PropTypes.string,
-        foo: PropTypes.number.isRequired,
-        key: PropTypes.oneOfType([PropTypes.number, PropTypes.string]) as PropTypes.Validator<string | number | undefined>
+        foo: PropTypes.number.isRequired
     };
 
     static contextTypes: React.ValidationMap<Context> = {

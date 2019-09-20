@@ -12,7 +12,13 @@ import {
     createMiddleware,
     apiMiddleware,
     RSAAAction,
-    RSAACall
+    RSAACall,
+    RSAARequestTypeDescriptor,
+    RSAASuccessTypeDescriptor,
+    RSAAFailureTypeDescriptor,
+    RSAARequestAction,
+    RSAASuccessAction,
+    RSAAFailureAction,
 } from 'redux-api-middleware';
 
 {
@@ -75,7 +81,9 @@ import {
     new ApiError(200, 'OK', {}).response; // $ExpectType {}
     new ApiError(); // $ExpectError
 
-    interface Response { data: number; }
+    interface Response {
+        data: number;
+    }
     new ApiError<Response>(200, 'OK', { data: 0 }); // $ExpectType ApiError<Response>
     new ApiError<Response>(200, 'OK', { data: 0 }).name; // $ExpectType "ApiError"
     new ApiError<Response>(200, 'OK', { data: 0 }).status; // $ExpectType number
@@ -117,11 +125,21 @@ import {
     }
 
     class StateDrivenRSAACall implements RSAACall<State> {
-        endpoint(state: State) { return state.path; }
-        headers(state: State) { return state.headers; }
-        options(state: State) { return state.options; }
-        body(state: State) { return state.body; }
-        bailout(state: State) { return state.bailout; }
+        endpoint(state: State) {
+            return state.path;
+        }
+        headers(state: State) {
+            return state.headers;
+        }
+        options(state: State) {
+            return state.options;
+        }
+        body(state: State) {
+            return state.body;
+        }
+        bailout(state: State) {
+            return state.bailout;
+        }
         method: 'GET';
         types: ['REQ_TYPE', 'SUCCESS_TYPE', 'FAILURE_TYPE'];
     }
@@ -138,11 +156,84 @@ import {
 
 {
     const store: Store = createStore(() => undefined);
-    store.dispatch({
+    const action: RSAAAction = {
         [RSAA]: {
             endpoint: '/test/endpoint',
             method: 'GET',
             types: ['REQ_TYPE', 'SUCCESS_TYPE', 'FAILURE_TYPE'],
-        }
-    });
+        },
+    };
+
+    store.dispatch(action);
+    store.dispatch(action).then((action: RSAASuccessAction) => Promise.resolve());
+    store.dispatch(action).then(() => Promise.resolve());
+    store.dispatch(action).then((action: string) => Promise.resolve()); // $ExpectError
+    store.dispatch(action).catch((action: RSAAFailureAction) => Promise.reject());
+}
+
+{
+    const requestDescriptor0: RSAARequestTypeDescriptor<number, number, number> = {
+        type: '',
+        payload: 0,
+        meta: 0,
+    };
+    const requestDescriptor1: RSAARequestTypeDescriptor<number, number, number> = {
+        type: Symbol(),
+        payload: (action: RSAAAction, state: number) => state,
+        meta: (action: RSAAAction, state: number) => state,
+    };
+    const requestDescriptor2: RSAARequestTypeDescriptor<number, number, number> = {
+        type: 0, // $ExpectError
+        payload: '', // $ExpectError
+        meta: (action: RSAAAction, state: number) => '', // $ExpectError
+    };
+
+    const successDescriptor0: RSAASuccessTypeDescriptor<number, number, number> = {
+        type: '',
+        payload: 0,
+        meta: 0,
+    };
+    const successDescriptor1: RSAASuccessTypeDescriptor<number, number, number> = {
+        type: Symbol(),
+        payload: (action: RSAAAction, state: number, res: Response) => state,
+        meta: (action: RSAAAction, state: number, res: Response) => state,
+    };
+    const successDescriptor2: RSAASuccessTypeDescriptor<number, number, number> = {
+        type: 0, // $ExpectError
+        payload: '', // $ExpectError
+        meta: (action: RSAAAction, state: number) => '', // $ExpectError
+    };
+
+    const failureDescriptor0: RSAAFailureTypeDescriptor<number, number, number> = {
+        type: '',
+        payload: 0,
+        meta: 0,
+    };
+    const failureDescriptor1: RSAAFailureTypeDescriptor<number, number, number> = {
+        type: Symbol(),
+        payload: (action: RSAAAction, state: number, res: Response) => state,
+        meta: (action: RSAAAction, state: number, res: Response) => state,
+    };
+    const failureDescriptor2: RSAAFailureTypeDescriptor<number, number, number> = {
+        type: 0, // $ExpectError
+        payload: '', // $ExpectError
+        meta: (action: RSAAAction, state: number) => '', // $ExpectError
+    };
+}
+
+{
+    const requestAction0: RSAARequestAction<number, number> = {
+        type: ''
+    };
+
+    const successAction0: RSAASuccessAction<number, number> = {
+        type: '',
+        payload: 6
+    };
+
+    const failureAction0: RSAAFailureAction<number, number> = {
+        type: '',
+        payload: new ApiError(500, '', 1),
+        error: true
+    };
 }

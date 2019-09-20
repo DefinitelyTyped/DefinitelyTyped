@@ -1,5 +1,15 @@
 import * as React from "react";
-import Form, { UiSchema, ErrorListProps, WidgetProps, ErrorSchema, withTheme } from 'react-jsonschema-form';
+import Form, {
+  UiSchema,
+  ErrorListProps,
+  WidgetProps,
+  ErrorSchema,
+  withTheme,
+} from 'react-jsonschema-form';
+import {
+  SchemaField,
+  SchemaFieldProps,
+} from 'react-jsonschema-form/lib/components/fields/SchemaField';
 import { JSONSchema6 } from "json-schema";
 
 import { ADDITIONAL_PROPERTY_FLAG } from 'react-jsonschema-form/lib/utils';
@@ -108,6 +118,16 @@ export class Example extends React.Component<any, IExampleState> {
                 }
             </div>
         );
+    }
+}
+
+export class ExampleSchemaField extends React.Component<SchemaFieldProps> {
+    constructor(props: SchemaFieldProps) {
+        super(props);
+    }
+
+    public render() {
+        return <SchemaField {...this.props} />;
     }
 }
 

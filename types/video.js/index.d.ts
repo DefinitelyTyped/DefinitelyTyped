@@ -6704,6 +6704,7 @@ declare namespace videojs {
         inactivityTimeout?: number;
         language?: string;
         languages?: { [code: string]: videojs.LanguageTranslations };
+        liveui?: boolean;
         loop?: boolean;
         muted?: boolean;
         nativeControlsForTouch?: boolean;

@@ -1,5 +1,5 @@
-// Type definitions for algoliasearch-client-js 3.30.2
-// Project: https://github.com/algolia/algoliasearch-client-js
+// Type definitions for algoliasearch-client-javascript 3.34.0
+// Project: https://github.com/algolia/algoliasearch-client-javascript
 // Definitions by: Baptiste Coquelle <https://github.com/cbaptiste>
 //                 Haroen Viaene <https://github.com/haroenv>
 //                 Samuel Vaillant <https://github.com/samouss>
@@ -10,6 +10,8 @@
 //                 Alexandre Deve <https://github.com/adeve>
 //                 Dan Grayson <https://github.com/dan-grayson>
 //                 Peter Esenwa <https://github.com/PeterEsenwa>
+//                 Samuel Bodin <https://github.com/bodinsamuel>
+//                 Richard Scotten <https://github.com/rscotten>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -139,34 +141,40 @@ declare namespace algoliasearch {
     /**
      * Lists global API Keys
      */
-    listApiKeys(cb: (err: Error, res: any) => void): void;
+    listApiKeys(cb: (err: Error, res: ApiKey[]) => void): void;
     /**
      * Lists global API Keys
      */
-    listApiKeys(): Promise<any>;
+    listApiKeys(): Promise<ApiKey[]>;
     /**
      * Add global API Keys
      */
-    addApiKey(scopes: string[], cb: (err: Error, res: Task) => void): void;
+    addApiKey(
+      scopes: string[],
+      cb: (err: Error, res: AddApiKeyTask) => void
+    ): void;
     /**
      * Add global API Key
      */
     addApiKey(
       scopes: string[],
       options: ApiKeyOptions,
-      cb: (err: Error, res: Task) => void
+      cb: (err: Error, res: AddApiKeyTask) => void
     ): void;
     /**
      * Add global API Keys
      */
-    addApiKey(scopes: string[], options?: ApiKeyOptions): Promise<Task>;
+    addApiKey(
+      scopes: string[],
+      options?: ApiKeyOptions
+    ): Promise<AddApiKeyTask>;
     /**
      * Update global API key
      */
     updateApiKey(
       key: string,
       scopes: string[],
-      cb: (err: Error, res: Task) => void
+      cb: (err: Error, res: UpdateApiKeyTask) => void
     ): void;
     /**
      * Update global API key
@@ -175,7 +183,7 @@ declare namespace algoliasearch {
       key: string,
       scopes: string[],
       options: ApiKeyOptions,
-      cb: (err: Error, res: Task) => void
+      cb: (err: Error, res: UpdateApiKeyTask) => void
     ): void;
     /**
      * Update global API key
@@ -184,23 +192,26 @@ declare namespace algoliasearch {
       key: string,
       scopes: string[],
       options?: ApiKeyOptions
-    ): Promise<Task>;
+    ): Promise<UpdateApiKeyTask>;
     /**
      * Gets the rights of a global key
      */
-    getApiKey(key: string, cb: (err: Error, res: any) => void): void;
+    getApiKey(key: string, cb: (err: Error, res: ApiKey) => void): void;
     /**
      * Gets the rights of a global key
      */
-    getApiKey(key: string): Promise<any>;
+    getApiKey(key: string): Promise<ApiKey>;
     /**
      * Deletes a global key
      */
-    deleteApiKey(key: string, cb: (err: Error, res: Task) => void): void;
+    deleteApiKey(
+      key: string,
+      cb: (err: Error, res: DeleteApiKeyTask) => void
+    ): void;
     /**
      * Deletes a global key
      */
-    deleteApiKey(key: string): Promise<Task>;
+    deleteApiKey(key: string): Promise<DeleteApiKeyTask>;
     /**
      * Get 1000 last events
      */
@@ -424,18 +435,21 @@ declare namespace algoliasearch {
     /**
      * List index user keys
      */
-    listApiKeys(cb: (err: Error, res: any) => void): void;
+    listApiKeys(cb: (err: Error, res: ApiKey[]) => void): void;
     /**
      * Add key for this index
      */
-    addApiKey(scopes: string[], cb: (err: Error, res: Task) => void): void;
+    addApiKey(
+      scopes: string[],
+      cb: (err: Error, res: AddApiKeyTask) => void
+    ): void;
     /**
      * Add key for this index
      */
     addApiKey(
       scopes: string[],
       options: ApiKeyOptions,
-      cb: (err: Error, res: Task) => void
+      cb: (err: Error, res: AddApiKeyTask) => void
     ): void;
     /**
      * Update a key for this index
@@ -443,7 +457,7 @@ declare namespace algoliasearch {
     updateApiKey(
       key: string,
       scopes: string[],
-      cb: (err: Error, res: Task) => void
+      cb: (err: Error, res: UpdateApiKeyTask) => void
     ): void;
     /**
      * Update a key for this index
@@ -452,16 +466,19 @@ declare namespace algoliasearch {
       key: string,
       scopes: string[],
       options: ApiKeyOptions,
-      cb: (err: Error, res: Task) => void
+      cb: (err: Error, res: UpdateApiKeyTask) => void
     ): void;
     /**
      * Gets the rights of an index specific key
      */
-    getApiKey(key: string, cb: (err: Error, res: any) => void): void;
+    getApiKey(key: string, cb: (err: Error, res: ApiKey) => void): void;
     /**
      * Deletes an index specific key
      */
-    deleteApiKey(key: string, cb: (err: Error, res: Task) => void): void;
+    deleteApiKey(
+      key: string,
+      cb: (err: Error, res: DeleteApiKeyTask) => void
+    ): void;
     /**
      * Gets specific attributes from an object
      */
@@ -630,15 +647,18 @@ declare namespace algoliasearch {
     /**
      * List index user keys
      */
-    listApiKeys(): Promise<any>;
+    listApiKeys(): Promise<ApiKey[]>;
     /**
      * Add key for this index
      */
-    addApiKey(scopes: string[], options?: ApiKeyOptions): Promise<Task>;
+    addApiKey(
+      scopes: string[],
+      options?: ApiKeyOptions
+    ): Promise<AddApiKeyTask>;
     /**
      * Update a key for this index
      */
-    updateApiKey(key: string, scopes: string[]): Promise<Task>;
+    updateApiKey(key: string, scopes: string[]): Promise<UpdateApiKeyTask>;
     /**
      * Update a key for this index
      */
@@ -646,15 +666,15 @@ declare namespace algoliasearch {
       key: string,
       scopes: string[],
       options: ApiKeyOptions
-    ): Promise<Task>;
+    ): Promise<UpdateApiKeyTask>;
     /**
      * Gets the rights of an index specific key
      */
-    getApiKey(key: string): Promise<any>;
+    getApiKey(key: string): Promise<ApiKey>;
     /**
      * Deletes an index specific key
      */
-    deleteApiKey(key: string): Promise<Task>;
+    deleteApiKey(key: string): Promise<DeleteApiKeyTask>;
   }
   /**
    * Interface describing available options when initializing a client
@@ -1356,8 +1376,41 @@ declare namespace algoliasearch {
   }
 
   interface TaskStatus {
-    status: 'published' | 'notPublished',
-    pendingTask: boolean,
+    status: 'published' | 'notPublished';
+    pendingTask: boolean;
+  }
+
+  interface ApiKey {
+    value: string;
+    createdAt: number;
+    acl: (
+      | 'search'
+      | 'browse'
+      | 'addObject'
+      | 'deleteObject'
+      | 'deleteIndex'
+      | 'settings'
+      | 'editSettings'
+      | 'analytics'
+      | 'listIndexes'
+      | 'logs'
+      | 'seeUnretrievableAttributes')[];
+    validity: number;
+    description?: string;
+  }
+
+  interface AddApiKeyTask {
+    key: string;
+    createdAt: string;
+  }
+
+  interface UpdateApiKeyTask {
+    key: string;
+    updatedAt: string;
+  }
+
+  interface DeleteApiKeyTask {
+    deletedAt: string;
   }
 
   interface IndexSettings {
@@ -1598,6 +1651,13 @@ declare namespace algoliasearch {
      * such as ignorePlurals, removeStopWords, and CJK word-detection.
      */
     queryLanguages?: Array<'af' | 'ar' | 'az' | 'bg' | 'bn' | 'ca' | 'cs' | 'cy' | 'da' | 'de' | 'el' | 'en' | 'eo' | 'es' | 'et' | 'eu' | 'fa' | 'fi' | 'fo' | 'fr' | 'ga' | 'gl' | 'he' | 'hi' | 'hu' | 'hy' | 'id' | 'is' | 'it' | 'ja' | 'ka' | 'kk' | 'ko' | 'ku' | 'ky' | 'lt' | 'lv' | 'mi' | 'mn' | 'mr' | 'ms' | 'mt' | 'nb' | 'nl' | 'no' | 'ns' | 'pl' | 'ps' | 'pt' | 'pt-br' | 'qu' | 'ro' | 'ru' | 'sk' | 'sq' | 'sv' | 'sw' | 'ta' | 'te' | 'th' | 'tl' | 'tn' | 'tr' | 'tt' | 'uk' | 'ur' | 'uz' | 'zh'>;
+    /**
+     * Set the maximum number of hits accessible via pagination.
+     * We set the max number of *hits*, not max number of pages.
+     * Works with the page and hitsByPage settings to establish the full paging logic.
+     * https://www.algolia.com/doc/api-reference/api-parameters/paginationLimitedTo/?language=javascript
+     */
+    paginationLimitedTo?: number
   }
 
   interface Response<T=any> {
@@ -1689,7 +1749,7 @@ declare namespace algoliasearch {
      * If a search encounters an index that is being A/B tested, abTestVariantID
      * reports the variant ID of the index used (note, this is the ID not the name).
      * The variant ID is the position in the array of variants (starting at 1).
-     * 
+     *
      * For example, abTestVariantID=1 is variant A (the main index), abTestVariantID=2
      * is variant B (the replica you chose when creating the A/B test , or the queries
      * with the changed query parameters if the A/B test is based on query parameters).
@@ -1971,14 +2031,11 @@ declare namespace algoliasearch {
          * The associated highlighting information.
          * https://community.algolia.com/places/api-clients.html#api-suggestion-highlightResult
          */
-        highlightResult: {
+        _highlightResult: {
             administrative: highlightResultValueInterface;
-            country: {
-                default: highlightResultValueInterface;
-                [key: string]: highlightResultValueInterface;
-            };
-            county: { default: string; [key: string]: string };
-            locale_names: { default: string[]; [key: string]: string[] };
+            country: highlightResultValueInterface;
+            county?: highlightResultValueInterface;
+            locale_names: highlightResultValueInterface[];
             postcode: highlightResultValueInterface[];
         }
         /**
@@ -1987,7 +2044,7 @@ declare namespace algoliasearch {
          */
         locale_names: string[];
         admin_level: number;
-        district: string;
+        district?: string;
         importance: number;
         is_city: boolean;
         is_country: boolean;
@@ -1995,7 +2052,7 @@ declare namespace algoliasearch {
         is_popular: boolean;
         is_suburb: boolean;
         objectID: string;
-        tags: string[];
+        _tags: string[];
     }
 
     /**
@@ -2047,23 +2104,20 @@ declare namespace algoliasearch {
          * The associated highlighting information.
          * https://community.algolia.com/places/api-clients.html#api-suggestion-highlightResult
          */
-        highlightResult: {
-            administrative: highlightResultValueInterface;
-            country: {
-                default: highlightResultValueInterface;
-                [key: string]: highlightResultValueInterface;
-            };
-            county: { default: string; [key: string]: string };
-            locale_names: { default: string[]; [key: string]: string[] };
-            postcode: highlightResultValueInterface[];
-        }
+        _highlightResult: {
+          administrative: highlightResultValueInterface;
+          country: highlightResultValueInterface;
+          county?: highlightResultValueInterface;
+          locale_names: highlightResultValueInterface[];
+          postcode: highlightResultValueInterface[];
+      }
         /**
          * https://community.algolia.com/places/api-clients.html#api-suggestion-name
          * List of names of the place. If no language parameter is specified, retrieves all of them.
          */
         locale_names: { default: string[]; [key: string]: string[] };
         admin_level: number;
-        district: string;
+        district?: string;
         importance: number;
         is_city: boolean;
         is_country: boolean;
@@ -2071,16 +2125,17 @@ declare namespace algoliasearch {
         is_popular: boolean;
         is_suburb: boolean;
         objectID: string;
-        tags: string[];
+        _tags: string[];
     }
 
     /**
      * Interface use in HitInterface for some key of highlightResult.
      */
     interface highlightResultValueInterface {
-        value: string;
-        matchLevel: string;
-        matchedWords: string[];
+      fullyHighlighted?: boolean;
+      matchLevel: string;
+      matchedWords: string[];
+      value: string;
     }
   }
 

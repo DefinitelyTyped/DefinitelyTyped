@@ -10,7 +10,7 @@ interface InheritedProps {
 }
 
 export interface HeaderMenuProps extends InheritedProps {
-    menuLinkName: string,
+    menuLinkName?: string,
     renderMenuContent?: React.FC,
 }
 

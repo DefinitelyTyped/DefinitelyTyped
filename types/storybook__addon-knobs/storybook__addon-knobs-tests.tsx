@@ -108,6 +108,14 @@ const stringLiteralArray: StringLiteralType[] = ['Apple', 'Banana', 'Grapes'];
 // type of value returned from `select` must be `StringLiteralType`.
 const _: StringLiteralType = select('With string literal array', stringLiteralArray, stringLiteralArray[0]);
 
+type StringLiteralTypeUndefined = StringLiteralType | undefined;
+
+const _Undefined: StringLiteralTypeUndefined = select(
+  'With string literal array',
+  stringLiteralArray,
+  undefined,
+);
+
 const optionsObject = {
   Apple: { taste: 'sweet', color: 'red' },
   Lemon: { taste: 'sour', color: 'yellow' }

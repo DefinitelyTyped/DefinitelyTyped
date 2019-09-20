@@ -379,7 +379,7 @@ declare namespace Chai {
     }
 
     interface PropertyChange {
-        (object: Object, property: string, message?: string): Assertion;
+        (object: Object, property?: string, message?: string): Assertion;
     }
 
     export interface Assert {

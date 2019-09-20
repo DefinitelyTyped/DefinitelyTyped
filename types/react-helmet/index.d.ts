@@ -10,7 +10,7 @@ type LinkProps = JSX.IntrinsicElements['link'];
 
 type MetaProps = JSX.IntrinsicElements['meta'];
 
-interface TagUpdates {
+export interface HelmetTags {
     baseTag: Array<any>;
     linkTags: Array<HTMLLinkElement>;
     metaTags: Array<HTMLMetaElement>;
@@ -27,7 +27,11 @@ export interface HelmetProps {
     defer?: boolean;
     encodeSpecialCharacters?: boolean;
     htmlAttributes?: any;
-    onChangeClientState?: (newState: any, addedTags: TagUpdates, removedTags: TagUpdates) => void;
+    onChangeClientState?: (
+        newState: any,
+        addedTags: HelmetTags,
+        removedTags: HelmetTags,
+    ) => void;
     link?: LinkProps[];
     meta?: MetaProps[];
     noscript?: Array<any>;

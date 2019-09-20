@@ -2,6 +2,7 @@
 // Project: https://github.com/WICG/trusted-types
 // Definitions by: Jakub Vrana <https://github.com/vrana>,
 //                 Damien Engels <https://github.com/engelsdamien>
+//                 Emanuel Tesar <https://github.com/siegrift>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -42,13 +43,30 @@ declare class TrustedTypePolicyFactory {
         policyOptions: Pick<TrustedTypePolicyOptions, Keys>,
         expose?: boolean,
         ): Pick<TrustedTypePolicy, 'name'|Keys>;
-    getExposedPolicy(name: string): TrustedTypePolicy|null;
     getPolicyNames(): string[];
 
     isHTML(value: any): value is TrustedHTML;
     isScript(value: any): value is TrustedScript;
     isScriptURL(value: any): value is TrustedScriptURL;
     isURL(value: any): value is TrustedURL;
+    getAttributeType(tagName: string, attrName: string, elemNs?: string, attrNs?: string): string|null;
+    getPropertyType(tagName: string, propName: string, elemNs?: string): string|null;
+    defaultPolicy?: TrustedTypePolicy;
+    emptyHTML: TrustedHTML;
 }
 
-declare const TrustedTypes: TrustedTypePolicyFactory;
+declare const trustedTypes: TrustedTypePolicyFactory;
+
+declare global {
+    interface Window {
+        trustedTypes: TrustedTypePolicyFactory;
+        TrustedHTML: TrustedHTML;
+        TrustedScript: TrustedScript;
+        TrustedScriptURL: TrustedScriptURL;
+        TrustedURL: TrustedURL;
+        TrustedTypePolicyOptions: TrustedTypePolicyOptions;
+        TrustedTypePolicyFactory: TrustedTypePolicyFactory;
+    }
+}
+
+export default trustedTypes;
