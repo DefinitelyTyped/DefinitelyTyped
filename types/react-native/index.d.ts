@@ -7879,7 +7879,7 @@ export interface UIManagerStatic {
      * commandID - Id of the native method that should be called.
      * commandArgs - Args of the native method that we can pass from JS to native.
      */
-    dispatchViewManagerCommand: (reactTag: number | null, commandID: number, commandArgs?: Array<any>) => void;
+    dispatchViewManagerCommand: (reactTag: number | null, commandID: number, commandArgs: Array<any> | undefined) => void;
 }
 
 export interface SwitchPropsIOS extends ViewProps {

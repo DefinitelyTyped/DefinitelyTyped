@@ -23,6 +23,7 @@
         "test/init-example.tsx",
         "test/ART.tsx",
         "test/legacy-properties.tsx",
-        "test/stylesheet-create.tsx"
+        "test/stylesheet-create.tsx",
+        "test/ui-manager.tsx"
     ]
 }
