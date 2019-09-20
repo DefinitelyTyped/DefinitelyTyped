@@ -1402,7 +1402,7 @@ declare namespace R {
                                         ? A.Extends<ST, any[]> extends 1
                                           ? ST
                                           : T
-                                        : never
+                                        : never;
 
         /**
          * Returns a new function much like the supplied one, except that the first two arguments'
