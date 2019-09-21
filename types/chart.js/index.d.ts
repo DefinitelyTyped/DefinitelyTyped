@@ -138,6 +138,8 @@ declare namespace Chart {
 
     type BorderAlignment = 'center' | 'inner';
 
+    type BorderWidth = number | { [key in PositionType]?: number };
+
     interface ChartArea {
         top: number;
         right: number;
@@ -218,9 +220,9 @@ declare namespace Chart {
         datasets?: ChartDataSets[];
     }
 
-	interface RadialChartOptions extends ChartOptions {
-		scale?: RadialLinearScale;
-	}
+    interface RadialChartOptions extends ChartOptions {
+        scale?: RadialLinearScale;
+    }
 
     interface ChartSize {
         height: number;
@@ -537,7 +539,7 @@ declare namespace Chart {
         cubicInterpolationMode?: 'default' | 'monotone';
         backgroundColor?: ChartColor | ChartColor[] | Scriptable<ChartColor>;
         borderAlign?: BorderAlignment | BorderAlignment[] | Scriptable<BorderAlignment>;
-        borderWidth?: number | number[] | Scriptable<number>;
+        borderWidth?: BorderWidth | BorderWidth[] | Scriptable<BorderWidth>;
         borderColor?: ChartColor | ChartColor[] | Scriptable<ChartColor>;
         borderCapStyle?: 'butt' | 'round' | 'square';
         borderDash?: number[];

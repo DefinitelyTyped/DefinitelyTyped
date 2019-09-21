@@ -1170,9 +1170,9 @@ declare namespace echarts {
                  * Moreover, it can be set as negative number, like `-3`.
                  *
                  * @default null
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#yAxis.min
+                 * @see https://echarts.apache.org/option.html#yAxis.min
                  */
-                min?: number | string;
+                min?: number | string | ((value: { min: number, max: number }) => number);
 
                 /**
                  * The maximum value of axis.
@@ -1187,9 +1187,9 @@ declare namespace echarts {
                  * Moreover, it can be set as negative number, like `-3`.
                  *
                  * @default null
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#yAxis.max
+                 * @see https://echarts.apache.org/option.html#yAxis.max
                  */
-                max?: number | string;
+                 max?: number | string | ((value: { min: number, max: number } ) => number);
 
                 /**
                  * It is available only in numerical axis, i.e., type: `'value'`.

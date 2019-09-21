@@ -33,7 +33,7 @@ const defaultLocale = getDefaultLocale();
 	filterDate={date => true}
 	fixedHeight
 	forceShowMonthNavigation
-	formatWeekDay={date => ''}
+	formatWeekDay={formattedDate => formattedDate[0]}
 	formatWeekNumber={date => 0}
 	highlightDates={[{ someClassName: [new Date()]}]}
 	id=""

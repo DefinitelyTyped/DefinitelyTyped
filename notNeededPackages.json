@@ -2173,6 +2173,12 @@
             "asOfVersion": "2.0.1"
         },
         {
+            "libraryName": "nock",
+            "typingsPackageName": "nock",
+            "sourceRepoURL": "https://github.com/nock/nock",
+            "asOfVersion": "11.1.0"
+        },
+        {
             "libraryName": "node-pg-migrate",
             "typingsPackageName": "node-pg-migrate",
             "sourceRepoURL": "https://github.com/theoephraim/node-pg-migrate#readme",
@@ -2267,6 +2273,12 @@
             "typingsPackageName": "open-editor",
             "sourceRepoURL": "https://github.com/sindresorhus/open-editor",
             "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "openid-client",
+            "typingsPackageName": "openid-client",
+            "sourceRepoURL": "https://github.com/panva/node-openid-client",
+            "asOfVersion": "3.7.0"
         },
         {
             "libraryName": "opn",
@@ -2665,6 +2677,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "playcanvas",
+            "typingsPackageName": "playcanvas",
+            "sourceRepoURL": "https://github.com/playcanvas/engine",
+            "asOfVersion": "1.23.0"
+        },
+        {
             "libraryName": "plottable",
             "typingsPackageName": "plottable",
             "sourceRepoURL": "http://plottablejs.org/",
@@ -2711,6 +2729,12 @@
             "typingsPackageName": "pretty-bytes",
             "sourceRepoURL": "https://github.com/sindresorhus/pretty-bytes",
             "asOfVersion": "5.2.0"
+        },
+        {
+            "libraryName": "pretty-format",
+            "typingsPackageName": "pretty-format",
+            "sourceRepoURL": "https://github.com/facebook/jest/tree/master/packages/pretty-format",
+            "asOfVersion": "24.3.0"
         },
         {
             "libraryName": "pretty-ms",
@@ -2945,6 +2969,12 @@
             "typingsPackageName": "react-svg",
             "sourceRepoURL": "https://github.com/tanem/react-svg",
             "asOfVersion": "5.0.0"
+        },
+        {
+            "libraryName": "react-webcam",
+            "typingsPackageName": "react-webcam",
+            "sourceRepoURL": "https://github.com/mozmorris/react-webcam",
+            "asOfVersion": "3.0.0"
         },
         {
             "libraryName": "read-chunk",

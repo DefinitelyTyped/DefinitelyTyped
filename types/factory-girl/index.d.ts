@@ -3,6 +3,7 @@
 // Definitions by: Stack Builders <https://github.com/stackbuilders>
 //                 Sebastián Estrella <https://github.com/sestrella>
 //                 Luis Fernando Alvarez <https://github.com/elcuy>
+//                 Olivier Kamers <https://github.com/OlivierKamers>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -84,11 +85,19 @@ declare namespace factory {
          * Generate values sequentially inside a factory
          */
         seq<T>(name: string, fn: (sequence: number) => T): Generator<T>;
+        sequence<T>(name: string, fn: (sequence: number) => T): Generator<T>;
 
         /**
          * Register an adapter, either as default or tied to a specific model
          */
         setAdapter(adapter: any, name?: string): void;
+
+        /**
+         *  Reset sequence generator with the given name
+         *  or all generators if no name is given.
+         */
+        resetSequence(name?: string): void;
+        resetSeq(name?: string): void;
     }
 
     interface Options<T> {

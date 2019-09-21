@@ -431,10 +431,15 @@ export interface InterceptorType {
         queryContext: QueryContextType,
         query: QueryType
     ) => MaybePromiseType<QueryResultType<QueryResultRowType> | undefined>;
+    queryExecutionError?: (
+        queryContext: QueryContextType,
+        query: QueryType,
+        error: SlonikError
+    ) => MaybePromiseType<void>;
     transformQuery?: (
         queryContext: QueryContextType,
         query: QueryType
-    ) => MaybePromiseType<QueryType>;
+    ) => QueryType;
     transformRow?: (
         queryContext: QueryContextType,
         query: QueryType,

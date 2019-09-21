@@ -49,7 +49,7 @@ declare namespace google.maps {
         getCenter(): LatLng;
         getDiv(): Element;
         getHeading(): number;
-        getMapTypeId(): MapTypeId | string;
+        getMapTypeId(): MapTypeId;
         getProjection(): Projection | null;
         getStreetView(): StreetViewPanorama;
         getTilt(): number;
@@ -149,7 +149,7 @@ declare namespace google.maps {
         /** The initial display options for the Map type control. */
         mapTypeControlOptions?: MapTypeControlOptions;
         /** The initial Map mapTypeId. Defaults to ROADMAP. */
-        mapTypeId?: MapTypeId;
+        mapTypeId?: MapTypeId | string;
         /**
          * The maximum zoom level which will be displayed on the map. If omitted, or
          * set to null, the maximum zoom from the current map type is used instead.
@@ -262,13 +262,13 @@ declare namespace google.maps {
      */
     enum MapTypeId {
         /** This map type displays a transparent layer of major streets on satellite images. */
-        HYBRID,
+        HYBRID = 'hybrid',
         /** This map type displays a normal street map. */
-        ROADMAP,
+        ROADMAP = 'roadmap',
         /** This map type displays satellite images. */
-        SATELLITE,
+        SATELLITE = 'satellite',
         /** This map type displays maps with physical features such as terrain and vegetation. */
-        TERRAIN,
+        TERRAIN = 'terrain',
     }
 
     /***** Controls *****/
