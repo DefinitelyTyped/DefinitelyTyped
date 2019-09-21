@@ -27,3 +27,6 @@ function prettyRoleRelation(relation: ARIARoleRelation) {
         );
     }
 }
+
+const [selectElement] = Array.from(roleElements.get('combobox')!);
+const selectRoles: string[] = Array.from(elementRoles.get(selectElement)!);
