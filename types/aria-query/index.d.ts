@@ -156,14 +156,14 @@ export interface ARIARoleDefinition {
     /* Abstract roles may not be used in HTML. */
     abstract: boolean;
     /* The concepts in related domains that inform behavior mappings. */
-    baseConcepts: Array<ARIARoleRelation>;
+    baseConcepts: ARIARoleRelation[];
     /* Child presentational roles strip child nodes of roles and flatten the
      * content to text. */
     childrenPresentational: boolean;
     /* aria-* properties and states allowed on this role. */
     props: ARIAPropertyMap;
     /* The concepts in related domains that inform behavior mappings. */
-    relatedConcepts: Array<ARIARoleRelation>;
+    relatedConcepts: ARIARoleRelation[];
     /* aria-* properties and states required on this role. */
     requiredProps: ARIAPropertyMap;
     /* An array or super class "stacks." Each stack contains a LIFO list of
@@ -244,7 +244,7 @@ export interface ARIAPropertyMap {
     'aria-colindex'?: unknown;
     'aria-colspan'?: unknown;
     'aria-controls'?: unknown;
-    'aria-current'?: ARIAPropertyCurrent | undefined | null;
+    'aria-current'?: ARIAPropertyCurrent | null;
     'aria-describedat'?: unknown;
     'aria-describedby'?: unknown;
     'aria-details'?: unknown;
@@ -297,7 +297,7 @@ export interface ARIARoleRelation {
  * and ARIA to name a few. */
 export interface ARIARoleRelationConcept {
     name: string;
-    attributes?: Array<ARIARoleRelationConceptAttribute>;
+    attributes?: ARIARoleRelationConceptAttribute[];
 }
 
 export interface ARIARoleRelationConceptAttribute {

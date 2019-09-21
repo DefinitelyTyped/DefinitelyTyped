@@ -4,21 +4,17 @@ function prettRole(roleName: ARIARoleDefintionKey) {
     const role = roles.get(roleName)!;
     console.log(`required props: ${Object.keys(role.requiredProps).join(', ')}`);
     console.log(`props: ${Object.keys(role.props).join(', ')}`);
-    console.log(`Is ${role.abstract === false ? 'not abstract' : 'abstract'}`);
+    console.log(`Is ${!role.abstract ? 'not abstract' : 'abstract'}`);
     console.log(
-        `${
-            role.childrenPresentational === true
-                ? 'Has Child Presentational characteristics'
-                : 'No special cahracteristics'
-        }`,
+        `${role.childrenPresentational ? 'Has Child Presentational characteristics' : 'No special cahracteristics'}`,
     );
     console.log('baseConcepts:');
-    console.log(role.baseConcepts.forEach(prettyRoleRelation));
+    role.baseConcepts.forEach(prettyRoleRelation);
     console.log('relatedConcepts:');
-    console.log(role.relatedConcepts.forEach(prettyRoleRelation));
+    role.relatedConcepts.forEach(prettyRoleRelation);
 }
 
-function prettyRoleRelation(relation: ARIARoleRelation) {
+function prettyRoleRelation(relation: ARIARoleRelation): void {
     console.log(`module: ${relation.module}`);
     console.log(`concept: ${relation.concept !== undefined ? relation.concept.name : 'none'}`);
     if (relation.concept !== undefined) {
