@@ -1,11 +1,10 @@
-import { elementRoles, roleElements, roles, ARIARoleDefintionKey } from 'aria-query';
+import { elementRoles, roleElements, roles, ARIARoleDefintionKey, ARIARoleRelation } from 'aria-query';
 
 function prettRole(roleName: ARIARoleDefintionKey) {
-    let role = roles.get(roleName)!;
-    console.log(`required props: ${role.requiredProps.join(', ')}`);
-    console.log(`props: ${role.props.join(', ')}`);
+    const role = roles.get(roleName)!;
+    console.log(`required props: ${Object.keys(role.requiredProps).join(', ')}`);
+    console.log(`props: ${Object.keys(role.props).join(', ')}`);
     console.log(`Is ${role.abstract === false ? 'not abstract' : 'abstract'}`);
-    console.log(`Is ${role.interactive === false ? 'not interactive' : 'interactive'}`);
     console.log(
         `${
             role.childrenPresentational === true
@@ -21,6 +20,10 @@ function prettRole(roleName: ARIARoleDefintionKey) {
 
 function prettyRoleRelation(relation: ARIARoleRelation) {
     console.log(`module: ${relation.module}`);
-    console.log(`concept: ${relation.concept.name}`);
-    console.log(`attributes: ${relation.concept.attributes.map(({ name, value }) => `name=${value}`).join(', ')}`);
+    console.log(`concept: ${relation.concept !== undefined ? relation.concept.name : 'none'}`);
+    if (relation.concept !== undefined) {
+        console.log(
+            `attributes: ${(relation.concept.attributes || []).map(({ name, value }) => `name=${value}`).join(', ')}`,
+        );
+    }
 }
