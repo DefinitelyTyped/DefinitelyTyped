@@ -1,8 +1,9 @@
-// Type definitions for relay-runtime 5.0
+// Type definitions for relay-runtime 6.0
 // Project: https://github.com/facebook/relay, https://facebook.github.io/relay
 // Definitions by: Matt Martin <https://github.com/voxmatt>
 //                 Eloy Durán <https://github.com/alloy>
 //                 Cameron Knight <https://github.com/ckknight>
+//                 Renan Machado <https://github.com/renanmav>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -114,7 +115,28 @@ export interface MutationConfig<TOperation extends OperationType> {
 // ./network/RelayNetworkLoggerTransaction
 export interface RelayNetworkLog {
     label: string;
-    values: ReadonlyArray<unknown>;
+    values: ReadonlyArray<any>;
+}
+export type LoggerTransactionConfig = {
+    request: RequestParameters,
+    variables: Variables,
+    cacheConfig: CacheConfig,
+    uploadables?: UploadableMap,
+}
+declare class RelayNetworkLoggerTransaction {
+    constructor(config: LoggerTransactionConfig);
+    addLog(label: string, ...values: Array<any>): void;
+    commitLogs(error: Error, payload: GraphQLResponse, status?: string): void;
+    flushLogs(error: Error, payload: GraphQLResponse, status?: string): void;
+    markCommitted(): void;
+    getCacheConfig(): CacheConfig;
+    getIdentifier(): string;
+    getLogsToPrint(): Array<RelayNetworkLog>;
+    getRequest(): RequestParameters;
+    getUploadables(): UploadableMap;
+    getVariables(): Variables;
+    timerStart(): void;
+    timerEnd(): void;
 }
 
 // ./network/RelayNetworkTypes
@@ -214,6 +236,19 @@ export interface Subscription {
 
 // ./network/createRelayNetworkLogger
 export type GraphiQLPrinter = (request: RequestParameters, variables: Variables) => string;
+export type NetworkLogger = {
+    wrapFetch: (
+        fetch: FetchFunction,
+        graphiQLPrinter?: GraphiQLPrinter,
+    ) => FetchFunction,
+    wrapSubscribe: (
+        subscribe: SubscribeFunction,
+        graphiQLPrinter?: GraphiQLPrinter,
+    ) => SubscribeFunction,
+};
+declare function createRelayNetworkLogger(
+    LoggerTransaction: RelayNetworkLoggerTransaction,
+): NetworkLogger
 
 // ./query/RelayModernGraphQLTag
 export type GraphQLTaggedNode =
