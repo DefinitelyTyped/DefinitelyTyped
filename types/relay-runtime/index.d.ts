@@ -248,8 +248,9 @@ export type NetworkLogger = {
     ) => SubscribeFunction,
 };
 declare function createRelayNetworkLogger(
-    LoggerTransaction: RelayNetworkLoggerTransaction,
+    LoggerTransaction: typeof RelayNetworkLoggerTransaction,
 ): NetworkLogger;
+export { createRelayNetworkLogger };
 
 // ./query/RelayModernGraphQLTag
 export type GraphQLTaggedNode =
