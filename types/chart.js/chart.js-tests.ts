@@ -120,14 +120,42 @@ const tickOptions: Chart.LinearTickOptions = {
     beginAtZero: true,
 };
 const scaleOptions: Chart.RadialLinearScale = {
-    ticks: tickOptions,
-    lineArc: false,
-    display: false,
-    scaleLabel: {
-        display: false,
-        lineHeight: 1,
-        padding: 0,
+    animate: false,
+    position: 'chartArea',
+    angleLines: {
+        display: true,
+        color: 'rgba(0, 0, 0, 0.1)',
+        lineWidth: 1,
+        borderDash: [],
+        borderDashOffset: 0.0
     },
+    pointLabels: {
+        callback: () => 'pointLabels callback',
+        fontColor: '#666',
+        fontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+        fontSize: 10,
+        fontStyle: 'normal',
+        lineHeight: 1.2
+    },
+    ticks: tickOptions,
+    display: false,
+    gridLines: {
+        display: true,
+        circular: false,
+        color: 'rgba(0, 0, 0, 0.1)',
+        borderDash: [],
+        borderDashOffset: 0.0,
+        lineWidth: 1,
+        drawBorder: true,
+        drawOnChartArea: true,
+        drawTicks: true,
+        tickMarkLength: 10,
+        zeroLineWidth: 1,
+        zeroLineColor: 'rgba(0, 0, 0, 0.25)',
+        zeroLineBorderDash: [],
+        zeroLineBorderDashOffset: 0.0,
+        offsetGridLines: false
+    }
 };
 const radarChartOptions: Chart.RadialChartOptions = {
     legend: { display: false },
