@@ -4,9 +4,20 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.6
 
-import * as React from "react";
+import * as React from 'react';
 
-export type VerticalAlign = "baseline" | "length" | "sub" | "super" | "top" | "text-top" | "middle" | "bottom" | "text-bottom" | "initial" | "inherit";
+export type VerticalAlign =
+  | 'baseline'
+  | 'length'
+  | 'sub'
+  | 'super'
+  | 'top'
+  | 'text-top'
+  | 'middle'
+  | 'bottom'
+  | 'text-bottom'
+  | 'initial'
+  | 'inherit';
 
 export interface HalogenCommonProps {
   loading?: boolean;
@@ -17,40 +28,40 @@ export interface HalogenCommonProps {
 }
 
 export interface SizeLoaderProps extends HalogenCommonProps {
-  size?: string;
+  size?: number | string;
 }
 
-export interface MarginLoaderProps<T> extends HalogenCommonProps {
-  margin?: T;
-  size?: T;
+export interface MarginLoaderProps extends HalogenCommonProps {
+  margin?: number | string;
+  size?: number | string;
 }
 
-export interface RadiusLoaderProps extends MarginLoaderProps<string> {
-  height?: string;
-  width?: string;
-  radius?: string;
+export interface RadiusLoaderProps extends MarginLoaderProps {
+  height?: number | string;
+  width?: number | string;
+  radius?: number | string;
 }
 
 /**
  * React components
  */
-export type PulseLoader = React.Component<MarginLoaderProps<string>>;
-export const PulseLoader: React.ComponentClass<MarginLoaderProps<string>>;
+export type PulseLoader = React.Component<MarginLoaderProps>;
+export const PulseLoader: React.ComponentClass<MarginLoaderProps>;
 
-export type RotateLoader = React.Component<MarginLoaderProps<string>>;
-export const RotateLoader: React.ComponentClass<MarginLoaderProps<string>>;
+export type RotateLoader = React.Component<MarginLoaderProps>;
+export const RotateLoader: React.ComponentClass<MarginLoaderProps>;
 
-export type BeatLoader = React.Component<MarginLoaderProps<string>>;
-export const BeatLoader: React.ComponentClass<MarginLoaderProps<string>>;
+export type BeatLoader = React.Component<MarginLoaderProps>;
+export const BeatLoader: React.ComponentClass<MarginLoaderProps>;
 
-export type RiseLoader = React.Component<MarginLoaderProps<string>>;
-export const RiseLoader: React.ComponentClass<MarginLoaderProps<string>>;
+export type RiseLoader = React.Component<MarginLoaderProps>;
+export const RiseLoader: React.ComponentClass<MarginLoaderProps>;
 
-export type SyncLoader = React.Component<MarginLoaderProps<string>>;
-export const SyncLoader: React.ComponentClass<MarginLoaderProps<string>>;
+export type SyncLoader = React.Component<MarginLoaderProps>;
+export const SyncLoader: React.ComponentClass<MarginLoaderProps>;
 
-export type GridLoader = React.Component<MarginLoaderProps<string>>;
-export const GridLoader: React.ComponentClass<MarginLoaderProps<string>>;
+export type GridLoader = React.Component<MarginLoaderProps>;
+export const GridLoader: React.ComponentClass<MarginLoaderProps>;
 
 export type ClipLoader = React.Component<SizeLoaderProps>;
 export const ClipLoader: React.ComponentClass<SizeLoaderProps>;
@@ -61,8 +72,8 @@ export const SquareLoader: React.ComponentClass<SizeLoaderProps>;
 export type DotLoader = React.Component<SizeLoaderProps>;
 export const DotLoader: React.ComponentClass<SizeLoaderProps>;
 
-export type PacmanLoader = React.Component<MarginLoaderProps<number>>;
-export const PacmanLoader: React.ComponentClass<MarginLoaderProps<number>>;
+export type PacmanLoader = React.Component<MarginLoaderProps>;
+export const PacmanLoader: React.ComponentClass<MarginLoaderProps>;
 
 export type MoonLoader = React.Component<SizeLoaderProps>;
 export const MoonLoader: React.ComponentClass<SizeLoaderProps>;
