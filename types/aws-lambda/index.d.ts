@@ -383,6 +383,7 @@ export interface CloudFormationCustomResourceResponseCommon {
     Data?: {
         [Key: string]: any;
     };
+    NoEcho?: boolean;
 }
 
 export interface CloudFormationCustomResourceSuccessResponse extends CloudFormationCustomResourceResponseCommon {
