@@ -118,33 +118,8 @@ export interface MutationConfig<TOperation extends OperationType> {
     updater?: SelectorStoreUpdater<TOperation['response']> | null;
 }
 
-// ./network/RelayNetworkLoggerTransaction
-export interface RelayNetworkLog {
-    label: string;
-    values: ReadonlyArray<any>;
-}
-export interface LoggerTransactionConfig {
-    request: RequestParameters,
-    variables: Variables,
-    cacheConfig: CacheConfig,
-    uploadables?: UploadableMap,
-};
-declare class RelayNetworkLoggerTransaction {
-    constructor(config: LoggerTransactionConfig);
-    addLog(label: string, ...values: any[]): void;
-    commitLogs(error: Error, payload: GraphQLResponse, status?: string): void;
-    flushLogs(error: Error, payload: GraphQLResponse, status?: string): void;
-    markCommitted(): void;
-    getCacheConfig(): CacheConfig;
-    getIdentifier(): string;
-    getLogsToPrint(): RelayNetworkLog[];
-    getRequest(): RequestParameters;
-    getUploadables(): UploadableMap;
-    getVariables(): Variables;
-    timerStart(): void;
-    timerEnd(): void;
-}
-export { RelayNetworkLoggerTransaction }
+// ./lib/network/RelayNetworkLoggerTransaction
+export { RelayNetworkLoggerTransaction } from './lib/network/RelayNetworkLoggerTransaction';
 
 // ./network/RelayNetworkTypes
 export type ExecuteFunction = (
@@ -241,22 +216,8 @@ export interface Subscription {
     readonly closed: boolean;
 }
 
-// ./network/createRelayNetworkLogger
-export type GraphiQLPrinter = (request: RequestParameters, variables: Variables) => string;
-export type NetworkLogger = {
-    wrapFetch: (
-        fetch: FetchFunction,
-        graphiQLPrinter?: GraphiQLPrinter,
-    ) => FetchFunction,
-    wrapSubscribe: (
-        subscribe: SubscribeFunction,
-        graphiQLPrinter?: GraphiQLPrinter,
-    ) => SubscribeFunction,
-};
-declare function createRelayNetworkLogger(
-    LoggerTransaction: typeof RelayNetworkLoggerTransaction,
-): NetworkLogger;
-export { createRelayNetworkLogger };
+// ./lib/network/createRelayNetworkLogger
+export { createRelayNetworkLogger } from './lib/network/createRelayNetworkLogger';
 
 // ./query/RelayModernGraphQLTag
 export type GraphQLTaggedNode =
