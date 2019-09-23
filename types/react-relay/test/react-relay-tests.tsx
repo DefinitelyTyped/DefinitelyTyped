@@ -600,10 +600,18 @@ function markNotificationAsRead(source: string, storyID: string) {
 // readInlineData
 // ~~~~~~~~~~~~~~~~~~~~~
 
+const storyFragment = graphql`
+    fragment Story_story on Todo {
+        id
+        text
+        isPublished
+    }
+`;
+
 function functionWithInline(
-  storyRef: FragmentOrRegularProp<Story_story>,
+    storyRef: FragmentOrRegularProp<Story_story>,
 ): Story_story {
-  return readInlineData<Story_story>(graphql``, storyRef);
+    return readInlineData<Story_story>(storyFragment, storyRef);
 }
 
 functionWithInline({ ' $fragmentRefs': _Story_story$ref });
