@@ -1283,10 +1283,10 @@ declare namespace webpack {
 
         interface ChunkGroup {
             assets: string[];
-            chunks: number[];
+            chunks: Array<number | string>;
             children: Record<string, {
                 assets: string[];
-                chunks: number[];
+                chunks: Array<number | string>;
                 name: string;
             }>;
             childAssets: Record<string, string[]>;
@@ -1349,7 +1349,7 @@ declare namespace webpack {
             assets?: string[];
             built: boolean;
             cacheable: boolean;
-            chunks: number[];
+            chunks: Array<number | string>;
             depth?: number;
             errors: number;
             failed: boolean;
@@ -1380,11 +1380,12 @@ declare namespace webpack {
             usedExports?: boolean;
             warnings: number;
         }
+
         interface ToJsonOutput {
             _showErrors: boolean;
             _showWarnings: boolean;
             assets?: Array<{
-                chunks: number[];
+                chunks: Array<number | string>;
                 chunkNames: string[];
                 emitted: boolean;
                 isOverSizeLimit?: boolean;
