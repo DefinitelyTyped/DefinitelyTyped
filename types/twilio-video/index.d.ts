@@ -476,12 +476,13 @@ export interface ConnectOptions {
     iceServersTimeout?: number;
     iceTransportPolicy?: RTCIceTransportPolicy;
     insights?: boolean;
-    maxAudioBitRate?: number | null;
-    maxVideoBitRate?: number | null;
+    maxAudioBitrate?: number | null;
+    maxVideoBitrate?: number | null;
     name?: string | null;
     networkQuality?: boolean | NetworkQualityConfiguration;
     preferredAudioCodecs?: AudioCodec[];
     preferredVideoCodecs?: VideoCodec[] | VideoCodecSettings[];
+    region: 'au1' | 'br1' | 'ie1' | 'de1' | 'jp1' | 'sg1' | 'us1' | 'us2' | 'gll' | 'us1-ix' | 'us2-ix' | 'ie1-ix' | 'de1-ix' | 'sg1-ix';
     logLevel?: LogLevel | LogLevels;
     tracks?: LocalTrack[] | MediaStreamTrack[];
     video?: boolean | CreateLocalTrackOptions;
