@@ -5,17 +5,19 @@ import * as React from 'react';
 import { Environment, Network, RecordSource, Store, ConnectionHandler } from 'relay-runtime';
 
 import {
-    graphql,
-    commitMutation,
-    createFragmentContainer,
-    createPaginationContainer,
-    createRefetchContainer,
-    requestSubscription,
-    QueryRenderer,
-    ReactRelayContext,
-    RelayRefetchProp,
-    RelayPaginationProp,
-    RelayProp,
+  commitMutation,
+  createFragmentContainer,
+  createPaginationContainer,
+  createRefetchContainer,
+  FragmentOrRegularProp,
+  graphql,
+  QueryRenderer,
+  ReactRelayContext,
+  readInlineData,
+  RelayPaginationProp,
+  RelayProp,
+  RelayRefetchProp,
+  requestSubscription,
 } from 'react-relay';
 
 // ~~~~~~~~~~~~~~~~~~~~~
@@ -593,6 +595,26 @@ function markNotificationAsRead(source: string, storyID: string) {
         },
     });
 }
+
+// ~~~~~~~~~~~~~~~~~~~~~
+// readInlineData
+// ~~~~~~~~~~~~~~~~~~~~~
+
+const storyFragment = graphql`
+    fragment Story_story on Todo {
+        id
+        text
+        isPublished
+    }
+`;
+
+function functionWithInline(
+    storyRef: FragmentOrRegularProp<Story_story>,
+): Story_story {
+    return readInlineData<Story_story>(storyFragment, storyRef);
+}
+
+functionWithInline({ ' $fragmentRefs': _Story_story$ref });
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // Modern Subscriptions
