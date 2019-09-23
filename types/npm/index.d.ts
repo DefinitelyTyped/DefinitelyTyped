@@ -129,10 +129,17 @@ declare namespace NPM {
         visnup: CommandFunction;
 
     }
-
-    export interface CommandFunction {
+    
+    export interface ShortCommandFunction {
         (args: string[], callback: CommandCallback): void;
     }
+
+    export interface SilentCommandFunction {
+        (args: string[], silent: boolean, callback: CommandCallback): void;
+    }
+
+
+    export type CommandFunction = ShortCommandFunction | SilentCommandFunction;
 
     export interface CommandCallback {
         (err?: Error, result?: any, result2?: any, result3?: any, result4?: any): void;
