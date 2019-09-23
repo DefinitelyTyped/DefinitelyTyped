@@ -401,6 +401,8 @@ export interface Commands<R> {
      */
     flushdb(cb?: Callback<'OK'>): R;
     FLUSHDB(cb?: Callback<'OK'>): R;
+    flushdb(async: "ASYNC", cb?: Callback<string>): R;
+    FLUSHDB(async: 'ASYNC', cb?: Callback<string>): R;
 
     /**
      * Add one or more geospatial items in the geospatial index represented using a sorted set.
