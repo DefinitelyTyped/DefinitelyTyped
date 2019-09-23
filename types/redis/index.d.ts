@@ -393,6 +393,8 @@ export interface Commands<R> {
      */
     flushall(cb?: Callback<string>): R;
     FLUSHALL(cb?: Callback<string>): R;
+    flushall(async: "ASYNC", cb?: Callback<string>): R;
+    FLUSHALL(async: 'ASYNC', cb?: Callback<string>): R;
 
     /**
      * Remove all keys from the current database.
