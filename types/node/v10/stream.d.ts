@@ -33,7 +33,7 @@ declare module "stream" {
             push(chunk: any, encoding?: string): boolean;
             _destroy(error: Error | null, callback: (error: Error | null) => void): void;
             destroy(error?: Error): void;
-
+            destroyed: boolean;
             /**
              * Event emitter
              * The defined events on documents including:
@@ -123,7 +123,7 @@ declare module "stream" {
             cork(): void;
             uncork(): void;
             destroy(error?: Error): void;
-
+            destroyed: boolean;
             /**
              * Event emitter
              * The defined events on documents including:

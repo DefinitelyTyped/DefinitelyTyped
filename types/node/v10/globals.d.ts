@@ -684,6 +684,7 @@ declare namespace NodeJS {
         cork(): void;
         uncork(): void;
         destroy(error?: Error): void;
+        destroyed: boolean;
     }
     interface ReadStream extends Socket {
         readonly readableHighWaterMark: number;
@@ -694,6 +695,7 @@ declare namespace NodeJS {
         _destroy(err: Error | null, callback: Function): void;
         push(chunk: any, encoding?: string): boolean;
         destroy(error?: Error): void;
+        destroyed: boolean;
     }
 
     interface HRTime {
