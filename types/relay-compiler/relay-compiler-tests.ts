@@ -11,9 +11,9 @@ import * as RelayApplyFragmentArgumentTransform from 'relay-compiler/lib/transfo
 import * as FlattenTransform from 'relay-compiler/lib/transforms/FlattenTransform';
 import * as ConnectionFieldTransform from 'relay-compiler/lib/transforms/ConnectionFieldTransform';
 import { getLanguagePlugin } from 'relay-compiler/lib/bin/RelayCompilerMain';
+import { visit } from 'relay-compiler/lib/core/GraphQLIRVisitor';
 
 import { GraphQLSchema, DefinitionNode } from 'graphql';
-import { visit } from './lib/core/GraphQLIRVisitor';
 
 const documentAsts: DefinitionNode[] = [];
 const schema: GraphQLSchema = (undefined as any) as GraphQLSchema;

@@ -15,13 +15,13 @@ import { ScalarTypeMapping } from './javascript/RelayFlowTypeTransformers';
  * This interface describes the details relay-compiler requires to be able to
  * use the plugin and is expected to be returned by a {PluginInitializer}.
  */
-export type PluginInterface = {
+export interface PluginInterface {
     inputExtensions: string[];
     outputExtension: string;
     findGraphQLTags: GraphQLTagFinder;
     formatModule: FormatModule;
     typeGenerator: TypeGenerator;
-};
+}
 
 /**
  * The plugin is expected to have as its main default export a function that
@@ -31,7 +31,7 @@ export type PluginInterface = {
  */
 export type PluginInitializer = () => PluginInterface;
 
-export type GraphQLTag = {
+export interface GraphQLTag {
     /**
      * Should hold the string content of the `graphql` tagged template literal,
      * which is either an operation or fragment.
@@ -78,15 +78,15 @@ export type GraphQLTag = {
          */
         column: number;
     };
-};
+}
 
 /**
  * This function is responsible for extracting `GraphQLTag` objects from source
  * files.
  *
- * @param  {string} text       The source file contents.
- * @param  {string} filePath   The path to the source file on disk.
- * @return {Array<GraphQLTag>} All extracted `GraphQLTag` objects.
+ * @param  text       The source file contents.
+ * @param  filePath   The path to the source file on disk.
+ * @return All extracted `GraphQLTag` objects.
  *
  * @see {@link javascript/FindGraphQLTags.js}
  */
@@ -161,7 +161,7 @@ export type FormatModule = (options: {
  * The options that will be passed to the `generate` function of your plugin’s
  * type generator.
  */
-export type TypeGeneratorOptions = {
+export interface TypeGeneratorOptions {
     /**
      * A map of custom scalars to scalars that the plugin knows about and emits
      * type information for.
@@ -223,7 +223,7 @@ export type TypeGeneratorOptions = {
      * Optional normalization IR for generating raw response
      */
     readonly normalizationIR?: Root;
-};
+}
 
 /**
  * This object should hold the implementation required to generate types for the
@@ -231,7 +231,7 @@ export type TypeGeneratorOptions = {
  *
  * @see {@link javascript/RelayFlowGenerator.js}
  */
-export type TypeGenerator = {
+export interface TypeGenerator {
     /**
      * Transforms that should be applied to the intermediate representation of the
      * GraphQL document before passing to the `generate` function.
@@ -244,4 +244,4 @@ export type TypeGenerator = {
      * content such as importing other files, including other artifacts.
      */
     generate: (node: Root | Fragment, options: TypeGeneratorOptions) => string;
-};
+}

@@ -4,9 +4,9 @@ import { ScalarTypeMapping } from '../language/javascript/RelayFlowTypeTransform
 export interface Config {
     schema: string;
     src: string;
-    extensions: Array<string>;
-    include: Array<string>;
-    exclude: Array<string>;
+    extensions: string[];
+    include: string[];
+    exclude: string[];
     verbose: boolean;
     watchman: boolean;
     watch?: boolean | null;

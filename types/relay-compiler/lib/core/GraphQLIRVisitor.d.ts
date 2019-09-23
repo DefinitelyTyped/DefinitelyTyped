@@ -45,14 +45,17 @@ export type VisitNode =
     | Stream
     | Variable;
 
-type EnterLeave<T> = { readonly enter?: T; readonly leave?: T };
+export interface EnterLeave<T> {
+    readonly enter?: T;
+    readonly leave?: T;
+}
 
 export type VisitFn<T extends VisitNode> = (
     node: T, // node we're visiting
     key?: any, // index/key to node from parent array/object
-    parent?: null | VisitNode | Array<VisitNode>, // Object immediately above node
-    path?: Array<any>, // keys to get from root: [keyForChild, ..., keyForParent]
-    ancestors?: Array<VisitNode | Array<VisitNode>>, // [root, child1, ..., grandparent]
+    parent?: null | VisitNode | VisitNode[], // Object immediately above node
+    path?: any[], // keys to get from root: [keyForChild, ..., keyForParent]
+    ancestors?: Array<VisitNode | VisitNode[]>, // [root, child1, ..., grandparent]
 ) => // Note: ancestors includes arrays which contain the visited node
 // These correspond to array indices in `path`.
 any;
