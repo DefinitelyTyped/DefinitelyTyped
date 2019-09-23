@@ -47,6 +47,7 @@ export interface ReactInfiniteCalendarProps {
         todayHelperRowOffset?: number;
     };
     locale?: {
+        locale?: any;
         blank?: string;
         headerFormat?: string;
         todayLabel?: {
