@@ -279,19 +279,6 @@ function addAll() {
 // Basic example
 R.useWith(addAll, [double, square]);
 
-(() => {
-    function printXPlusFive(x: number) {
-        console.log(x + 5);
-    }
-
-    R.forEach(printXPlusFive, [1, 2, 3]);
-})();
-
-// (() => {
-//   function printXPlusFive(x, i) { console.log(i + 5); }
-//   R.forEach.idx(printXPlusFive, [{name: 1}, {name: 2}, {name: 3}]);
-// })();
-
 function i(x: number) {
     return x;
 }
@@ -424,13 +411,6 @@ R.times(i, 5);
 });
 
 (() => {
-    function isEven(n: number) {
-        return n % 2 === 0;
-    }
-
-    R.filter(isEven, [1, 2, 3, 4]); // => [2, 4]
-    R.filter(isEven, { a: 0, b: 1 }); // => { a: 0 }
-
     function isOdd(n: number) {
         return n % 2 === 1;
     }
@@ -455,18 +435,6 @@ R.times(i, 5);
     const b = R.unfold(f); // => [-10, -20, -30, -40, -50]
     const c = b(10);
 });
-/*****************************************************************
- * Function category
- */
-() => {
-    function mergeThree(a: number, b: number, c: number): number[] {
-        return (new Array<number>()).concat(a, b, c);
-    }
-
-    mergeThree(1, 2, 3); // => [1, 2, 3]
-    const flipped = R.flip(mergeThree);
-    flipped(1, 2, 3); // => [2, 1, 3]
-};
 
 /*********************
  * List category
@@ -475,11 +443,6 @@ R.times(i, 5);
     function isEven(n: number) {
         return n % 2 === 0;
     }
-
-    const filterEven = R.filter(isEven);
-    const objA: R.Dictionary<number> = filterEven({ a: 0, b: 1 }); // => { a: 0 }
-    const listA: number[] = filterEven([0, 1]); // => [0]
-
     const rejectEven = R.reject(isEven);
     const objB: R.Dictionary<number> = rejectEven({ a: 0, b: 1 }); // => { b: 1 }
     const listB: number[] = rejectEven([0, 1]); // => [1]
@@ -508,45 +471,6 @@ R.times(i, 5);
 };
 
 () => {
-    const compact = R.filter(Boolean);
-    const objA: R.Dictionary<number> = compact({ a: 0, b: 1 }); // => { b: 1 }
-    const listA: number[] = compact([0, 1]); // => [1]
-
-    const omitEmptyString = R.filter((val: string) => val !== '');
-    const objB: R.Dictionary<string> = omitEmptyString({ a: '', b: 'foo' }); // => { b: 'foo' }
-    const listB: string[] = omitEmptyString(['', 'foo']); // => ['foo']
-
-    const objC = omitEmptyString({ some: 42 }); // $ExpectError
-};
-
-() => {
-    const xs = [{a: 1}, {a: 2}, {a: 3}];
-    R.find(R.propEq("a", 2))(xs); // => {a: 2}
-    R.find(R.propEq("a", 4))(xs); // => undefined
-};
-
-() => {
-    const xs = [{a: 1}, {a: 2}, {a: 3}];
-    R.findIndex(R.propEq("a", 2))(xs); // => 1
-    R.findIndex(R.propEq("a", 4))(xs); // => -1
-
-    R.findIndex((x: number) => x === 1, [1, 2, 3]);
-};
-
-() => {
-    const xs = [{a: 1, b: 0}, {a: 1, b: 1}];
-    R.findLast(R.propEq("a", 1))(xs); // => {a: 1, b: 1}
-    R.findLast(R.propEq("a", 4))(xs); // => undefined
-};
-
-() => {
-    const xs = [{a: 1, b: 0}, {a: 1, b: 1}];
-    R.findLastIndex(R.propEq("a", 1))(xs); // => 1
-    R.findLastIndex(R.propEq("a", 4))(xs); // => -1
-    R.findLastIndex((x: number) => x === 1, [1, 2, 3]);
-};
-
-() => {
     const testPath = ["x", 0, "y"];
     const testObj  = {x: [{y: 2, z: 3}, {y: 4, z: 5}]};
 
@@ -554,20 +478,6 @@ R.times(i, 5);
     R.pathEq(testPath, 2)(testObj); // => true
     R.pathEq(testPath)(2)(testObj); // => true
     R.pathEq(testPath)(2, testObj); // => true
-
-    const user1    = {address: {zipCode: 90210}};
-    const user2    = {address: {zipCode: 55555}};
-    const user3    = {name: "Bob"};
-    const users    = [user1, user2, user3];
-    const isFamous = R.pathEq(["address", "zipCode"], 90210);
-    R.filter(isFamous, users); // => [ user1 ]
-};
-
-() => {
-    const coll = [{ type: 'BUY' }, { type: 'SELL' }, { type: 'BUY' }];
-    const typeIs = R.propEq('type');
-    const isBuy = typeIs('BUY');
-    R.filter(isBuy, coll); // [{ type: 'BUY' }, { type: 'BUY' }]
 };
 
 () => {
@@ -606,37 +516,6 @@ interface Obj {
 };
 
 () => {
-    R.flatten([[1, 2], [3, 4], [5, 6]]); // => [1, 2, 3, 4, 5, 6]
-    R.flatten([1, 2, 3, 4, 5, 6]);       // => [1, 2, 3, 4, 5, 6]
-};
-
-() => {
-    function printXPlusFive(x: number) {
-        console.log(x + 5);
-    }
-
-    R.forEach(printXPlusFive, [1, 2, 3]); // => [1, 2, 3]
-    R.forEach(printXPlusFive)([1, 2, 3]); // => [1, 2, 3]
-    // -> 6
-    // -> 7
-    // -> 8
-};
-
-() => {
-    const byGrade  = R.groupBy((student: { score: number; name: string }) => {
-        const score = student.score;
-        return score < 65 ? "F" :
-            score < 70 ? "D" :
-                score < 80 ? "C" :
-                    score < 90 ? "B" : "A";
-    });
-    const students = [{name: "Abby", score: 84},
-        {name: "Eddy", score: 58},
-        {name: "Jack", score: 69}];
-    byGrade(students);
-};
-
-() => {
     interface MyObject {
         id: string;
         quantity: number;
@@ -664,28 +543,6 @@ interface Obj {
         id: combined[0].id,
         quantity: combined[0].quantity
     };
-};
-
-() => {
-    R.groupWith(R.equals)([0, 1, 1, 2, 3, 5, 8, 13, 21]);
-
-    R.groupWith(R.equals, [0, 1, 1, 2, 3, 5, 8, 13, 21]);
-    // [[0], [1, 1], [2, 3, 5, 8, 13, 21]]
-
-    R.groupWith((a: number, b: number) => a % 2 === b % 2, [0, 1, 1, 2, 3, 5, 8, 13, 21]);
-    // [[0], [1, 1], [2], [3, 5], [8], [13, 21]]
-
-    const isVowel = (a: string) => R.contains(a, "aeiou") ? a : "";
-    R.groupWith(R.eqBy<string>(isVowel), "aestiou");
-    // ['ae', 'st', 'iou']
-};
-
-() => {
-    R.head(["fi", "fo", "fum"]); // => 'fi'
-    R.head([10, "ten"]); // => 10
-    R.head(["10", 10]); // => '10'
-    R.head("abc"); // => 'a'
-    R.head(""); // => ''
 };
 
 (() => {
@@ -1230,47 +1087,6 @@ type Pair = KeyValuePair<string, number>;
  */
 
 () => {
-    const hasName     = R.has("name");
-    const a1: boolean = hasName({name: "alice"});   // => true
-    const a2: boolean = hasName({name: "bob"});     // => true
-    const a3: boolean = hasName({});                // => false
-
-    const point       = {x: 0, y: 0};
-    const pointHas    = R.flip(R.has)(point);
-    const b1: boolean = pointHas("x");  // => true
-    const b2: boolean = pointHas("y");  // => true
-    const b3: boolean = pointHas("z");  // => false
-};
-
-class Rectangle {
-    constructor(public width: number, public height: number) {
-        this.width  = width;
-        this.height = height;
-    }
-
-    area(): number {
-        return this.width * this.height;
-    }
-}
-
-() => {
-    const square = new Rectangle(2, 2);
-    R.hasIn("width", square);  // => true
-    R.hasIn("area", square);  // => true
-    R.flip(R.hasIn)(square)("area");  // => true
-};
-
-() => {
-    R.hasPath(['a', 'b'], {a: {b: 2}});         // true
-    R.hasPath(['a', 'b'], {a: {b: undefined}}); // => true
-    R.hasPath(['a', 'b'], {a: {c: 2}});         // => false
-    R.hasPath(['a', 'b'], {});                  // => false
-
-    const hasPathCurried = R.hasPath(['a', 'b']);
-    hasPathCurried({a: {b: 2}}); // true
-};
-
-() => {
     const raceResultsByFirstName = {
         first : "alice",
         second: "jake",
@@ -1410,9 +1226,6 @@ class Rectangle {
 () => {
     R.merge({name: "fred", age: 10}, {age: 40});
     // => { 'name': 'fred', 'age': 40 }
-
-    const resetToDefault = R.flip(R.merge)({x: 0});
-    resetToDefault({x: 5, y: 2}); // => {x: 0, y: 2}
 };
 
 () => {
@@ -1543,10 +1356,6 @@ class Rectangle {
 };
 
 () => {
-    R.fromPairs([["a", 1], ["b", 2], ["c", 3]]); // => {a: 1, b: 2, c: 3}
-};
-
-() => {
     R.pair("foo", "bar"); // => ['foo', 'bar']
     const p         = R.pair("foo", 1); // => ['foo', 'bar']
     const x: string = p[0];
@@ -1668,10 +1477,6 @@ class Rectangle {
     };
     R.where(spec2, {x: 2, y: 7}); // => false
     R.where(spec2, {x: 3, y: 8}); // => true
-
-    const xs = [{x: 2, y: 1}, {x: 10, y: 2}, {x: 8, y: 3}, {x: 10, y: 4}];
-    R.filter(R.where({x: 10}), xs); // ==> [{x: 10, y: 2}, {x: 10, y: 4}]
-    R.filter(R.where({x: 10}))(xs); // ==> [{x: 10, y: 2}, {x: 10, y: 4}]
 };
 
 () => {
@@ -1794,27 +1599,6 @@ class Rectangle {
 };
 
 () => {
-    const half = R.flip(R.divide)(2);
-    half(42); // => 21
-};
-
-() => {
-    R.gt(2, 6); // => false
-    R.gt(2, 0); // => true
-    R.gt(2, 2); // => false
-    R.flip(R.gt)(2)(10); // => true
-    R.gt(2)(10); // => false
-};
-
-() => {
-    R.gte(2, 6); // => false
-    R.gte(2, 0); // => true
-    R.gte(2, 2); // => false
-    R.flip(R.gte)(2)(10); // => true
-    R.gte(2)(10); // => false
-};
-
-() => {
     R.isNaN(NaN);        // => true
     R.isNaN(undefined);  // => false
     R.isNaN({});         // => false
@@ -1825,14 +1609,12 @@ class Rectangle {
     R.lt(2, 0); // => false
     R.lt(2, 2); // => false
     R.lt(5)(10); // => true
-    R.flip(R.lt)(5)(10); // => false // right-sectioned currying
 };
 
 () => {
     R.lte(2, 6); // => true
     R.lte(2, 0); // => false
     R.lte(2, 2); // => true
-    R.flip(R.lte)(2)(1); // => true
     R.lte(2)(10); // => true
 };
 
@@ -1844,25 +1626,8 @@ class Rectangle {
     R.mathMod(17.2, 5); // => NaN
     R.mathMod(17, 5.3); // => NaN
 
-    const clock = R.flip(R.mathMod)(12);
-    clock(15); // => 3
-    clock(24); // => 0
-
     const seventeenMod = R.mathMod(17);
     seventeenMod(3);  // => 2
-};
-
-() => {
-    const hasName = R.has("name");
-    hasName({name: "alice"});   // => true
-    hasName({name: "bob"});     // => true
-    hasName({});                // => false
-
-    const point    = {x: 0, y: 0};
-    const pointHas = R.flip(R.has)(point);
-    pointHas("x");  // => true
-    pointHas("y");  // => true
-    pointHas("z");  // => false
 };
 
 () => {
@@ -1927,10 +1692,6 @@ class Rectangle {
     // JS behavior:
     R.modulo(-17, 3); // => -2
     R.modulo(17, -3); // => 2
-
-    const isOdd = R.flip(R.modulo)(2);
-    isOdd(42); // => 0
-    isOdd(21); // => 1
 };
 
 () => {
@@ -1951,9 +1712,6 @@ class Rectangle {
 
 () => {
     R.subtract(10, 8); // => 2
-
-    const minus5 = R.flip(R.subtract)(5);
-    minus5(17); // => 12
 
     const complementaryAngle = R.subtract(90);
     complementaryAngle(30); // => 60

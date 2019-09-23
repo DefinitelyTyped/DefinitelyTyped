@@ -75,6 +75,23 @@
         "test/eqBy-tests.ts",
         "test/eqProps-tests.ts",
         "test/equals-tests.ts",
-        "test/evolve-tests.ts"
+        "test/evolve-tests.ts",
+        "test/filter-tests.ts",
+        "test/find-tests.ts",
+        "test/findIndex-tests.ts",
+        "test/findLast-tests.ts",
+        "test/findLastIndex-tests.ts",
+        "test/flatten-tests.ts",
+        "test/flip-tests.ts",
+        "test/forEach-tests.ts",
+        "test/fromPairs-tests.ts",
+        "test/groupBy-tests.ts",
+        "test/groupWith-tests.ts",
+        "test/gt-tests.ts",
+        "test/gte-tests.ts",
+        "test/has-tests.ts",
+        "test/hasIn-tests.ts",
+        "test/hasPath-tests.ts",
+        "test/head-tests.ts"
     ]
 }
