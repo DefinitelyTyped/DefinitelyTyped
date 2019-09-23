@@ -497,7 +497,7 @@ export type ScatterData = PlotData;
 export interface PlotData {
 	type: 'bar' | 'box' | 'candlestick' | 'choropleth' | 'contour' | 'heatmap' | 'histogram' | 'mesh3d' |
 		'ohlc' | 'parcoords' | 'pie' | 'pointcloud' | 'scatter' | 'scatter3d' | 'scattergeo' | 'scattergl' |
-		'scatterpolar' | 'scatterternary' | 'surface';
+		'scatterpolar' | 'scatterternary' | 'surface' | 'indicator';
 	x: Datum[] | Datum[][] | TypedArray;
 	y: Datum[] | Datum[][] | TypedArray;
 	z: Datum[] | Datum[][] | Datum[][][] | TypedArray;
@@ -527,7 +527,7 @@ export interface PlotData {
 	'marker.showscale': boolean;
 	'marker.line': Partial<ScatterMarkerLine>;
 	'marker.colorbar': {}; // TODO
-	mode: 'lines' | 'markers' | 'text' | 'lines+markers' | 'text+markers' | 'text+lines' | 'text+lines+markers' | 'none';
+	mode: 'lines' | 'markers' | 'text' | 'lines+markers' | 'text+markers' | 'text+lines' | 'text+lines+markers' | 'gauge' | 'none';
 	hoveron: 'points' | 'fills';
 	hoverinfo: 'all' | 'name' | 'none' | 'skip' | 'text' |
 	'x' | 'x+text' | 'x+name' |
