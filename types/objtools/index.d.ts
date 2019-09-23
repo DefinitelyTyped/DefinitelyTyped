@@ -106,16 +106,18 @@ export class ObjectMask {
      * Combines two or more masks such that the result mask matches fields
      * matched by any of the combined masks.
      * @param masks - Mask data or ObjectMask instances ot add.
-     * @returns The result of adding together the component masks
+     * @returns The result of adding together the component masks. Will be
+     *   `true` if either of the masks is `true` or an ObjectMask wrapping
+     *   `true`.
      */
-    static addMasks(...masks: Array<ObjectMask|Mask>): ObjectMask;
+    static addMasks(...masks: Array<ObjectMask|Mask>): ObjectMask|true;
 
     /**
      * Combines two or more masks such that the result mask matches fields
      * matched by the first mask but not the second
      * @param min - the minuend
      * @param sub - the subtrahend
-     * @returns The result of subtracting the second mask from thefirst
+     * @returns The result of subtracting the second mask from the first
      */
     static subtractMasks(
         min: ObjectMask|Mask,
@@ -142,9 +144,10 @@ export class ObjectMask {
      * logical OR (as in addMasks). IE, a field must be allowed in all given
      * masks to be in the result mask.
      * @param masks - Mask data or ObjectMask instances.
-     * @returns The result of ANDing together the component masks
+     * @returns The result of ANDing together the component masks. Will be
+     *   `false` if the result would be an empty mask.
      */
-    static andMasks(...masks: Array<ObjectMask|Mask>): ObjectMask;
+    static andMasks(...masks: Array<ObjectMask|Mask>): ObjectMask|false;
 
     /**
      * Subtracts a mask.

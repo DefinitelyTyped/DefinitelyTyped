@@ -31,8 +31,11 @@ mask = new ObjectMask(fooObj);
 // Try out ObjectMask static methods.
 mask = ObjectMask.createMaskFromFieldList(['foo', 'bar']);
 
-mask = ObjectMask.addMasks({ foo: true }, { _: true, bar: false });
-mask = ObjectMask.addMasks(
+let maskOrTrue: ObjectMask|true = ObjectMask.addMasks(
+    { foo: true },
+    { _: true, bar: false },
+);
+maskOrTrue = ObjectMask.addMasks(
   new ObjectMask({ foo: true }),
   new ObjectMask({ _: true, bar: false }),
 );
@@ -49,8 +52,11 @@ mask = ObjectMask.invertMask(new ObjectMask({ _: true, bar: false }));
 let checkResult: boolean = ObjectMask.isObjectMask({ foo: true });
 checkResult = ObjectMask.isObjectMask(new ObjectMask({ _: true, bar: false }));
 
-mask = ObjectMask.andMasks({ foo: true }, { _: true, bar: false });
-mask = ObjectMask.andMasks(
+let maskOrFalse: ObjectMask|false = ObjectMask.andMasks(
+    { foo: true },
+    { _: true, bar: false },
+);
+maskOrFalse = ObjectMask.andMasks(
   new ObjectMask({ foo: true }),
   new ObjectMask({ _: true, bar: false }),
 );
