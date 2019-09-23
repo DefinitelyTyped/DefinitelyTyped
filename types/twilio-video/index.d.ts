@@ -379,10 +379,10 @@ export class StatsReport {
     remoteVideoTrackStats: RemoteVideoTrackStats[];
 }
 export namespace Track {
-  type Kind = 'audio' | 'video' | 'data';
-  type Priority = 'low' | 'standard' | 'high';
-  type ID = string;
-  type SID = string;
+    type Kind = 'audio' | 'video' | 'data';
+    type Priority = 'low' | 'standard' | 'high';
+    type ID = string;
+    type SID = string;
 }
 export class Track extends EventEmitter {
     kind: Track.Kind;
@@ -471,76 +471,42 @@ export function rewriteLocalTrackIds(room: Room, trackStats: LocalTrackStats[]):
 export type AudioLevel = number;
 export type AudioTrackPublication = LocalAudioTrackPublication | RemoteAudioTrackPublication;
 export interface ConnectOptions {
-abortOnIceServersTimeout?: boolean;
-  audio?: boolean | CreateLocalTrackOptions;
-automaticSubscription?: boolean;
- bandwidthProfile?: BandwidthProfileOptions;
-  dominantSpeaker?: boolean;
-dscpTagging?: boolean;
- enableDscp?: boolean;
-  iceServers?: RTCIceServer[];
-iceServersTimeout?: number;
- iceTransportPolicy?: RTCIceTransportPolicy;
-  insights?: boolean;
-maxAudioBitrate?: number | null;
- maxVideoBitrate?: number | null;
-name?: string | null;
- networkQuality?: boolean | NetworkQualityConfiguration;
-  region?:
-    | 'au1'
-    | 'br1'
-    | 'ie1'
-    | 'de1'
-   
-   
-    | 'j
-   p1
-
-      '
-   
-    | 'sg1'
-    | 'us1'
-   
-    | 'us2'
-   
-
-  
-       
-    | 'gll'
-   
-    | 'us1-ix'
-   
-   
-    | 'us2-ix'
-   
-   
-    | 'ie1-ix'
-   
-   
-    | 'de1-ix'
-
-      
-    | 'sg1-ix';
-  preferredAudioCodecs?: AudioCodec[];
-  preferredVideoCodecs?: VideoCodec[] | VideoCodecSettings[];
-logLevel?: LogLevel | LogLevels;
-  tracks?: LocalTrack[] | MediaStreamTrack[];
-  video?: boolean | CreateLocalTrackOptions;
+    abortOnIceServersTimeout?: boolean;
+    audio?: boolean | CreateLocalTrackOptions;
+    automaticSubscription?: boolean;
+    bandwidthProfile?: BandwidthProfileOptions;
+    dominantSpeaker?: boolean;
+    dscpTagging?: boolean;
+    enableDscp?: boolean;
+    iceServers?: RTCIceServer[];
+    iceServersTimeout?: number;
+    iceTransportPolicy?: RTCIceTransportPolicy;
+    insights?: boolean;
+    maxAudioBitrate?: number | null;
+    maxVideoBitrate?: number | null;
+    name?: string | null;
+    networkQuality?: boolean | NetworkQualityConfiguration;
+    region?: 'au1' | 'br1' | 'ie1' | 'de1' | 'jp1' | 'sg1' | 'us1' | 'us2' | 'gll' | 'us1-ix' | 'us2-ix' | 'ie1-ix' | 'de1-ix' | 'sg1-ix';
+    preferredAudioCodecs?: AudioCodec[];
+    preferredVideoCodecs?: VideoCodec[] | VideoCodecSettings[];
+    logLevel?: LogLevel | LogLevels;
+    tracks?: LocalTrack[] | MediaStreamTrack[];
+    video?: boolean | CreateLocalTrackOptions;
 }
 export interface BandwidthProfileOptions {
-  video?: VideoBandwidthProfileOptions;
+    video?: VideoBandwidthProfileOptions;
 }
 export interface VideoBandwidthProfileOptions {
-  dominantSpeakerPriority?: Track.Priority;
-  maxSubscriptionBitrate?: number;
-  maxTracks?: number;
-  mode?: BandwidthProfileMode;
-  renderDimensions?: VideoRenderDimensions;
+    dominantSpeakerPriority?: Track.Priority;
+    maxSubscriptionBitrate?: number;
+    maxTracks?: number;
+    mode?: BandwidthProfileMode;
+    renderDimensions?: VideoRenderDimensions;
 }
 export interface VideoRenderDimensions {
-  high?: VideoTrack.Dimensions;
-  low?: VideoTrack.Dimensions;
-  standard?: VideoTrack.Dimensions;
+    high?: VideoTrack.Dimensions;
+    low?: VideoTrack.Dimensions;
+    standard?: VideoTrack.Dimensions;
 }
 
 export type BandwidthProfileMode = 'grid' | 'collaboration' | 'presentation';
