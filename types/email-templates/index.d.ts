@@ -1,4 +1,4 @@
-// Type definitions for node-email-templates 3.5
+// Type definitions for node-email-templates 6.0
 // Project: https://github.com/niftylettuce/email-templates
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
 //                 Matus Gura <https://github.com/gurisko>
@@ -33,7 +33,7 @@ interface EmailConfig {
     /**
      * Pass a custom render function if necessary
      */
-    render?: { view: string, locals: any };
+    render?: (view: string, locals: any) => Promise<any>;
     /**
      * force text-only rendering of template (disregards template folder)
      */

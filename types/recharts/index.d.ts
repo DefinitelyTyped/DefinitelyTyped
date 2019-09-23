@@ -1,19 +1,19 @@
 // Type definitions for Recharts 1.1
 // Project: http://recharts.org/, https://github.com/recharts/recharts
-// Definitions by: Maarten Mulders <https://github.com/mthmulders>
-//                 Raphael Mueller <https://github.com/rapmue>
+// Definitions by: Raphael Mueller <https://github.com/rapmue>
 //                 Roy Xue <https://github.com/royxue>
 //                 Zheyang Song <https://github.com/ZheyangSong>
 //                 Rich Baird <https://github.com/richbai90>
 //                 Dan Torberg <https://github.com/caspeco-dan>
 //                 Peter Keuter <https://github.com/pkeuter>
 //                 Jamie Saunders <https://github.com/jrsaunde>
-//                 Paul Melnikow <https://github.com/paulmelnikow>
 //                 Harry Cruse <https://github.com/crusectrl>
 //                 Andrew Palugniok <https://github.com/apalugniok>
 //                 Robert Stigsson <https://github.com/RobertStigsson>
 //                 Kosaku Kurino <https://github.com/kousaku-maron>
 //                 Leon Ng <https://github.com/iflp>
+//                 Dave Vedder <https://github.com/veddermatic>
+//                 Konstantin Azizov <https://github.com/g07cha>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -50,6 +50,7 @@ export type LineType =
     'monotoneX' | 'monotoneY' | 'monotone' | 'step' | 'stepBefore' | 'stepAfter' | CurveFactory;
 export type IfOverflowType = 'hidden' | 'visible' | 'discard' | 'extendDomain';
 export type AxisInterval = number | 'preserveStart' | 'preserveEnd' | 'preserveStartEnd';
+export type BaseValueType = number | 'auto' | 'dataMin' | 'dataMax';
 
 export type PickedCSSStyleDeclarationKeys =
     'alignmentBaseline' | 'baselineShift' | 'clip' | 'clipPath' | 'clipRule' | 'color' |
@@ -60,6 +61,16 @@ export type PickedCSSStyleDeclarationKeys =
     'markerEnd' | 'markerMid' | 'markerStart' | 'mask' | 'overflow' | 'pointerEvents' |
     'stopColor' | 'strokeDasharray' | 'strokeLinecap' | 'strokeLinejoin' | 'textAnchor' |
     'textDecoration' | 'unicodeBidi' | 'visibility' | 'writingMode' | 'transform';
+
+export interface BoxSize {
+    boxWidth: number;
+    boxHeight: number;
+}
+
+export interface ContainerSize {
+    containerWidth: number;
+    containerHeight: number;
+}
 
 export interface Point {
     x: number;
@@ -90,7 +101,7 @@ export interface CategoricalChartWrapper<L = LayoutType> {
     compact?: boolean;
     width?: number;
     height?: number;
-    data?: object[];
+    data?: ReadonlyArray<object>;
     layout?: L;
     stackOffset?: StackOffsetType;
     throttleDelay?: number;
@@ -98,6 +109,7 @@ export interface CategoricalChartWrapper<L = LayoutType> {
     barCategoryGap?: number | string;
     barGap?: number | string;
     barSize?: number | string;
+    baseValue?: BaseValueType;
     maxBarSize?: number;
     style?: object;
     className?: string;
@@ -397,7 +409,7 @@ export interface LegendProps {
     onBBoxUpdate?: BBoxUpdateCallback;
 }
 
-export class Legend extends React.Component<LegendProps> { }
+export class Legend extends React.Component<LegendProps, BoxSize> {}
 
 export interface LineProps extends EventAttributes, Partial<PresentationAttributes>, Animatable {
     className?: string;
@@ -418,7 +430,7 @@ export interface LineProps extends EventAttributes, Partial<PresentationAttribut
     left?: number;
     width?: number;
     height?: number;
-    data?: object[];
+    data?: ReadonlyArray<object>;
     dataKey: DataKey; // As the source code states, dataKey will replace valueKey in 1.1.0 and it'll be required (it's already required in current implementation).
     label?: boolean | object | React.ReactElement | ContentRenderer<any>;
     points?: Point[];
@@ -445,7 +457,7 @@ export interface PieProps extends EventAttributes, Partial<PresentationAttribute
     cornerRadius?: number | string;
     nameKey?: string | number | ((dataObject: any) => number);
     valueKey?: string | number | ((dataObject: any) => number);
-    data?: object[];
+    data?: ReadonlyArray<object>;
     minAngle?: number;
     legendType?: LegendType;
     maxRadius?: number;
@@ -576,6 +588,7 @@ export interface RadarPoint {
 
 export interface RadarProps extends EventAttributes, Partial<PresentationAttributes>, Animatable {
     className?: string;
+    name?: string;
     dataKey: DataKey; // As the source code states, dataKey will replace valueKey in 1.1.0 and it'll be required (it's already required in current implementation).
     points?: RadarPoint[];
     shape?: React.ReactElement | ContentRenderer<RadarProps>;
@@ -729,7 +742,7 @@ export interface ResponsiveContainerProps {
     className?: string | number;
 }
 
-export class ResponsiveContainer extends React.Component<ResponsiveContainerProps> { }
+export class ResponsiveContainer extends React.Component<ResponsiveContainerProps, ContainerSize> {}
 
 export interface ScatterPoint {
     cx?: number;
@@ -756,7 +769,7 @@ export interface ScatterProps extends EventAttributes, Partial<PresentationAttri
     shape?: 'circle' | 'cross' | 'diamond' | 'square' | 'star' | 'triangle' | 'wye' | React.ReactElement | ContentRenderer<any>;
     points?: ScatterPoint[];
     hide?: boolean;
-    data?: object[];
+    data?: ReadonlyArray<object>;
     name?: string | number;
 }
 
@@ -833,19 +846,20 @@ export interface TooltipProps extends Animatable {
     offset?: number;
     itemStyle?: object;
     labelStyle?: object;
+    contentStyle?: object;
     wrapperStyle?: object;
     cursor?: boolean | object | React.ReactElement | React.StatelessComponent<any>;
     coordinate?: Coordinate;
     position?: Coordinate;
     label?: string | number;
-	  labelFormatter?: LabelFormatter;
+    labelFormatter?: LabelFormatter;
     payload?: TooltipPayload[];
     itemSorter?: ItemSorter<TooltipPayload>;
     filterNull?: boolean;
     useTranslate3d?: boolean;
 }
 
-export class Tooltip extends React.Component<TooltipProps> { }
+export class Tooltip extends React.Component<TooltipProps, BoxSize> {}
 
 export interface TreemapProps extends EventAttributes, Animatable {
     width?: number;

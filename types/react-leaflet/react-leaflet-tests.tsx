@@ -30,7 +30,8 @@ import {
     ZoomControl,
     LeafletProvider,
     withLeaflet,
-    Viewport
+    Viewport,
+    useLeaflet,
 } from 'react-leaflet';
 const { BaseLayer, Overlay } = LayersControl;
 
@@ -634,17 +635,18 @@ export class VectorLayersExample extends Component<undefined, undefined> {
 }
 
 // viewport.js
-
-const viewportCenter: [number, number] = [51.505, -0.09];
-
-const DEFAULT_VIEWPORT = {
-    center: viewportCenter,
-    zoom: 13
+const DEFAULT_VIEWPORT: Viewport = {
+    center: [51.505, -0.09],
+    zoom: 13,
 };
 
-export class ViewportExample extends Component<undefined, { viewport: Viewport }> {
+interface ViewportExampleState {
+    viewport: Viewport;
+}
+
+class ViewportExample extends Component<undefined, ViewportExampleState> {
     state = {
-        viewport: DEFAULT_VIEWPORT
+        viewport: DEFAULT_VIEWPORT,
     };
 
     onClickReset = () => {
@@ -657,15 +659,15 @@ export class ViewportExample extends Component<undefined, { viewport: Viewport }
 
     render() {
         return (
-          <Map
-            onClick={this.onClickReset}
-            onViewportChanged={this.onViewportChanged}
-            viewport={this.state.viewport}>
-            <TileLayer
-              attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            />
-          </Map>
+            <Map
+                onClick={this.onClickReset}
+                onViewportChanged={this.onViewportChanged}
+                viewport={this.state.viewport}>
+                <TileLayer
+                    attribution="&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                />
+            </Map>
         );
     }
 }
@@ -811,4 +813,7 @@ class CustomPolygon extends Path<PolygonProps, L.Polygon> {
         );
     }
 }
-const leafletComponent =  withLeaflet<PolygonProps>(CustomPolygon);
+const leafletComponent = withLeaflet<PolygonProps>(CustomPolygon);
+
+// $ExpectType LeafletContext
+useLeaflet();

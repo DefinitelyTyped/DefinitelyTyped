@@ -1,142 +1,16 @@
 import assert = require("assert");
 import * as fs from "fs";
-import * as events from "events";
-import events2 = require("events");
-import * as zlib from "zlib";
 import * as url from "url";
 import * as util from "util";
-import * as tls from "tls";
 import * as http from "http";
 import * as https from "https";
-import * as querystring from "querystring";
-import * as path from "path";
-import * as cluster from "cluster";
-import * as os from "os";
-import * as vm from "vm";
 import * as console2 from "console";
-import * as string_decoder from "string_decoder";
 import * as timers from "timers";
-import * as v8 from "v8";
 import * as dns from "dns";
 import * as async_hooks from "async_hooks";
 import * as inspector from "inspector";
 import * as trace_events from "trace_events";
 import Module = require("module");
-
-//////////////////////////////////////////////////////////
-/// Assert Tests : https://nodejs.org/api/assert.html ///
-//////////////////////////////////////////////////////////
-
-{
-    {
-        assert(1 + 1 - 2 === 0, "The universe isn't how it should.");
-
-        assert.deepEqual({ x: { y: 3 } }, { x: { y: 3 } }, "DEEP WENT DERP");
-
-        assert.deepStrictEqual({ a: 1 }, { a: 1 }, "uses === comparator");
-
-        assert.doesNotThrow(() => {
-            const b = false;
-            if (b) { throw new Error("a hammer at your face"); }
-        }, () => 1, "What the...*crunch*");
-
-        assert.equal(3, "3", "uses == comparator");
-
-        assert.fail('stuff broke');
-
-        assert.fail('actual', 'expected', 'message');
-
-        assert.fail(1, 2, undefined, '>');
-
-        assert.ifError(0);
-
-        assert.notDeepStrictEqual({ x: { y: "3" } }, { x: { y: 3 } }, "uses !== comparator");
-
-        assert.notEqual(1, 2, "uses != comparator");
-
-        assert.notStrictEqual(2, "2", "uses === comparator");
-
-        assert.ok(true);
-        assert.ok(1);
-
-        assert.strictEqual(1, 1, "uses === comparator");
-
-        assert.throws(() => { throw new Error("a hammer at your face"); }, Error, "DODGED IT");
-
-        assert.strict.strict.deepEqual([[[1, 2, 3]], 4, 5], [[[1, 2, '3']], 4, 5]);
-    }
-}
-
-////////////////////////////////////////////////////
-/// Events tests : http://nodejs.org/api/events.html
-////////////////////////////////////////////////////
-
-{
-    const emitter: events.EventEmitter = new events.EventEmitter();
-    const event: string | symbol = '';
-    const listener: (...args: any[]) => void = () => {};
-    const any: any = 1;
-
-    {
-        let result: events.EventEmitter;
-
-        result = emitter.addListener(event, listener);
-        result = emitter.on(event, listener);
-        result = emitter.once(event, listener);
-        result = emitter.prependListener(event, listener);
-        result = emitter.prependOnceListener(event, listener);
-        result = emitter.removeListener(event, listener);
-        result = emitter.off(event, listener);
-        result = emitter.removeAllListeners();
-        result = emitter.removeAllListeners(event);
-        result = emitter.setMaxListeners(42);
-    }
-
-    {
-        let result: number;
-
-        result = events.EventEmitter.defaultMaxListeners;
-        result = events.EventEmitter.listenerCount(emitter, event); // deprecated
-
-        result = emitter.getMaxListeners();
-        result = emitter.listenerCount(event);
-    }
-
-    {
-        let result: Function[];
-
-        result = emitter.listeners(event);
-    }
-
-    {
-        let result: boolean;
-
-        result = emitter.emit(event);
-        result = emitter.emit(event, any);
-        result = emitter.emit(event, any, any);
-        result = emitter.emit(event, any, any, any);
-    }
-
-    {
-        let result: Array<string | symbol>;
-
-        result = emitter.eventNames();
-    }
-
-    {
-        class Networker extends events.EventEmitter {
-            constructor() {
-                super();
-
-                this.emit("mingling");
-            }
-        }
-    }
-
-    {
-        new events2();
-    }
-}
 
 ////////////////////////////////////////////////////
 /// File system tests : http://nodejs.org/api/fs.html
@@ -206,7 +80,7 @@ import Module = require("module");
     }
 
     {
-        fs.read(1, new DataView(new ArrayBuffer(1)), 0, 1, 0, (err: NodeJS.ErrnoException, bytesRead: number, buffer: DataView) => {});
+        fs.read(1, new DataView(new ArrayBuffer(1)), 0, 1, 0, (err: NodeJS.ErrnoException | null, bytesRead: number, buffer: DataView) => {});
     }
 
     {
@@ -233,6 +107,7 @@ import Module = require("module");
         listS = fs.readdirSync('path', undefined);
         const listDir: fs.Dirent[] = fs.readdirSync('path', { withFileTypes: true });
         const listDir2: Buffer[] = fs.readdirSync('path', { withFileTypes: false, encoding: 'buffer' });
+        const listDir3: fs.Dirent[] = fs.readdirSync('path', { encoding: 'utf8', withFileTypes: true });
 
         let listB: Buffer[];
         listB = fs.readdirSync('path', { encoding: 'buffer' });
@@ -242,8 +117,25 @@ import Module = require("module");
         fs.readdirSync('path', { encoding: enc });
         fs.readdirSync('path', { });
 
-        fs.readdir('path', { withFileTypes: true }, (err: NodeJS.ErrnoException, files: fs.Dirent[]) => {});
+        fs.readdir('path', { withFileTypes: true }, (err: NodeJS.ErrnoException | null, files: fs.Dirent[]) => {});
     }
+
+    async function testPromisify() {
+        const rd = util.promisify(fs.readdir);
+        let listS: string[];
+        listS = await rd('path');
+        listS = await rd('path', 'utf8');
+        listS = await rd('path', null);
+        listS = await rd('path', undefined);
+        listS = await rd('path', { encoding: 'utf8' });
+        listS = await rd('path', { encoding: null });
+        listS = await rd('path', { encoding: null, withFileTypes: false });
+        listS = await rd('path', { encoding: 'utf8', withFileTypes: false });
+        const listDir: fs.Dirent[] = await rd('path', { withFileTypes: true });
+        const listDir2: Buffer[] = await rd('path', { withFileTypes: false, encoding: 'buffer' });
+        const listDir3: fs.Dirent[] = await rd('path', { encoding: 'utf8', withFileTypes: true });
+    }
+
     {
         fs.mkdtemp('/tmp/foo-', (err, folder) => {
             console.log(folder);
@@ -401,6 +293,18 @@ import Module = require("module");
             recursive: true,
             mode: 0o777,
         });
+    }
+
+    {
+        let names: Promise<string[]>;
+        let buffers: Promise<Buffer[]>;
+        let namesOrBuffers: Promise<string[] | Buffer[]>;
+        let entries: Promise<fs.Dirent[]>;
+
+        names = fs.promises.readdir('/path/to/dir', { encoding: 'utf8', withFileTypes: false });
+        buffers = fs.promises.readdir('/path/to/dir', { encoding: 'buffer', withFileTypes: false });
+        namesOrBuffers = fs.promises.readdir('/path/to/dir', { encoding: 'SOME OTHER', withFileTypes: false });
+        entries = fs.promises.readdir('/path/to/dir', { encoding: 'utf8', withFileTypes: true });
     }
 }
 
@@ -616,503 +520,28 @@ import Module = require("module");
             foo: string;
         }
 
-        let server = new https.Server({ IncomingMessage: MyIncomingMessage});
+        let server: https.Server;
+
+        server = new https.Server();
+        server = new https.Server(reqListener);
+        server = new https.Server({ IncomingMessage: MyIncomingMessage});
 
         server = new https.Server({
             IncomingMessage: MyIncomingMessage,
             ServerResponse: MyServerResponse
         }, reqListener);
 
+        server = https.createServer();
+        server = https.createServer(reqListener);
         server = https.createServer({ IncomingMessage: MyIncomingMessage });
         server = https.createServer({ ServerResponse: MyServerResponse }, reqListener);
 
         const timeout: number = server.timeout;
         const listening: boolean = server.listening;
         const keepAliveTimeout: number = server.keepAliveTimeout;
+        const maxHeadersCount: number | null = server.maxHeadersCount;
+        const headersTimeout: number = server.headersTimeout;
         server.setTimeout().setTimeout(1000).setTimeout(() => {}).setTimeout(100, () => {});
-    }
-}
-
-////////////////////////////////////////////////////
-/// Querystring tests : https://nodejs.org/api/querystring.html
-////////////////////////////////////////////////////
-
-{
-    interface SampleObject { a: string; }
-
-    {
-        const obj: SampleObject = { a: "" };
-        const sep = '';
-        const eq = '';
-        const options: querystring.StringifyOptions = {};
-        let result: string;
-
-        result = querystring.stringify(obj);
-        result = querystring.stringify(obj, sep);
-        result = querystring.stringify(obj, sep, eq);
-        result = querystring.stringify(obj, sep, eq);
-        result = querystring.stringify(obj, sep, eq, options);
-    }
-
-    {
-        const str = '';
-        const sep = '';
-        const eq = '';
-        const options: querystring.ParseOptions = {};
-        let result: querystring.ParsedUrlQuery;
-
-        result = querystring.parse(str);
-        result = querystring.parse(str, sep);
-        result = querystring.parse(str, sep, eq);
-        result = querystring.parse(str, sep, eq, options);
-    }
-
-    {
-        const str = '';
-        let result: string;
-
-        result = querystring.escape(str);
-        result = querystring.unescape(str);
-    }
-}
-
-////////////////////////////////////////////////////
-/// path tests : http://nodejs.org/api/path.html
-////////////////////////////////////////////////////
-
-{
-    path.normalize('/foo/bar//baz/asdf/quux/..');
-
-    path.join('/foo', 'bar', 'baz/asdf', 'quux', '..');
-    // returns
-    // '/foo/bar/baz/asdf'
-
-    try {
-        path.join('foo', 'bar');
-    } catch (error) { }
-
-    path.resolve('foo/bar', '/tmp/file/', '..', 'a/../subfile');
-    // Is similar to:
-    //
-    // cd foo/bar
-    // cd /tmp/file/
-    // cd ..
-    //    cd a/../subfile
-    // pwd
-
-    path.resolve('/foo/bar', './baz');
-    // returns
-    //    '/foo/bar/baz'
-
-    path.resolve('/foo/bar', '/tmp/file/');
-    // returns
-    //    '/tmp/file'
-
-    path.resolve('wwwroot', 'static_files/png/', '../gif/image.gif');
-    // if currently in /home/myself/node, it returns
-    //    '/home/myself/node/wwwroot/static_files/gif/image.gif'
-
-    path.isAbsolute('/foo/bar'); // true
-    path.isAbsolute('/baz/..');  // true
-    path.isAbsolute('qux/');     // false
-    path.isAbsolute('.');        // false
-
-    path.isAbsolute('//server');  // true
-    path.isAbsolute('C:/foo/..'); // true
-    path.isAbsolute('bar\\baz');   // false
-    path.isAbsolute('.');         // false
-
-    path.relative('C:\\orandea\\test\\aaa', 'C:\\orandea\\impl\\bbb');
-    // returns
-    //    '..\\..\\impl\\bbb'
-
-    path.relative('/data/orandea/test/aaa', '/data/orandea/impl/bbb');
-    // returns
-    //    '../../impl/bbb'
-
-    path.dirname('/foo/bar/baz/asdf/quux');
-    // returns
-    //    '/foo/bar/baz/asdf'
-
-    path.basename('/foo/bar/baz/asdf/quux.html');
-    // returns
-    //    'quux.html'
-
-    path.basename('/foo/bar/baz/asdf/quux.html', '.html');
-    // returns
-    //    'quux'
-
-    path.extname('index.html');
-    // returns
-    //    '.html'
-
-    path.extname('index.coffee.md');
-    // returns
-    //    '.md'
-
-    path.extname('index.');
-    // returns
-    //    '.'
-
-    path.extname('index');
-    // returns
-    //    ''
-
-    'foo/bar/baz'.split(path.sep);
-    // returns
-    //        ['foo', 'bar', 'baz']
-
-    'foo\\bar\\baz'.split(path.sep);
-    // returns
-    //        ['foo', 'bar', 'baz']
-
-    process.env["PATH"]; // $ExpectType string | undefined
-
-    path.parse('/home/user/dir/file.txt');
-    // returns
-    //    {
-    //        root : "/",
-    //        dir : "/home/user/dir",
-    //        base : "file.txt",
-    //        ext : ".txt",
-    //        name : "file"
-    //    }
-
-    path.parse('C:\\path\\dir\\index.html');
-    // returns
-    //    {
-    //        root : "C:\",
-    //        dir : "C:\path\dir",
-    //        base : "index.html",
-    //        ext : ".html",
-    //        name : "index"
-    //    }
-
-    path.format({
-        root: "/",
-        dir: "/home/user/dir",
-        base: "file.txt",
-        ext: ".txt",
-        name: "file"
-    });
-    // returns
-    //    '/home/user/dir/file.txt'
-
-    path.format({
-        root: "/",
-        dir: "/home/user/dir",
-        ext: ".txt",
-        name: "file"
-    });
-    // returns
-    //    '/home/user/dir/file.txt'
-
-    path.format({
-        dir: "/home/user/dir",
-        base: "file.txt"
-    });
-    // returns
-    //    '/home/user/dir/file.txt'
-
-    path.posix.format({
-        root: "/",
-        dir: "/home/user/dir",
-        base: "file.txt",
-        ext: ".txt",
-        name: "file"
-    });
-    // returns
-    //    '/home/user/dir/file.txt'
-
-    path.posix.format({
-        dir: "/home/user/dir",
-        base: "file.txt"
-    });
-    // returns
-    //    '/home/user/dir/file.txt'
-
-    path.win32.format({
-        root: "C:\\",
-        dir: "C:\\home\\user\\dir",
-        ext: ".txt",
-        name: "file"
-    });
-    // returns
-    //    'C:\home\user\dir\file.txt'
-
-    path.win32.format({
-        dir: "C:\\home\\user\\dir",
-        base: "file.txt"
-    });
-    // returns
-    //    'C:\home\user\dir\file.txt'
-}
-
-////////////////////////////////////////////////////
-/// string_decoder tests : https://nodejs.org/api/string_decoder.html
-////////////////////////////////////////////////////
-
-{
-    const StringDecoder = string_decoder.StringDecoder;
-    const buffer = new Buffer('test');
-    const decoder1 = new StringDecoder();
-    const decoder2 = new StringDecoder('utf8');
-    const part1: string = decoder1.write(new Buffer('test'));
-    const end1: string = decoder1.end();
-    const part2: string = decoder2.write(new Buffer('test'));
-    const end2: string = decoder1.end(new Buffer('test'));
-}
-
-//////////////////////////////////////////////////////////////////////
-/// cluster tests: https://nodejs.org/api/cluster.html ///
-//////////////////////////////////////////////////////////////////////
-
-{
-    {
-        cluster.fork();
-        Object.keys(cluster.workers).forEach(key => {
-            const worker = cluster.workers[key];
-            if (worker && worker.isDead()) {
-                console.log('worker %d is dead', worker.process.pid);
-            }
-        });
-    }
-}
-
-////////////////////////////////////////////////////
-/// os tests : https://nodejs.org/api/os.html
-////////////////////////////////////////////////////
-
-{
-    {
-        let result: string;
-
-        result = os.tmpdir();
-        result = os.homedir();
-        result = os.endianness();
-        result = os.hostname();
-        result = os.type();
-        result = os.arch();
-        result = os.release();
-        result = os.EOL;
-    }
-
-    {
-        let result: number;
-
-        result = os.uptime();
-        result = os.totalmem();
-        result = os.freemem();
-    }
-
-    {
-        let result: number[];
-
-        result = os.loadavg();
-    }
-
-    {
-        let result: os.CpuInfo[];
-
-        result = os.cpus();
-    }
-
-    {
-        let result: { [index: string]: os.NetworkInterfaceInfo[] };
-
-        result = os.networkInterfaces();
-    }
-
-    {
-        let result: number;
-
-        result = os.constants.signals.SIGHUP;
-        result = os.constants.signals.SIGINT;
-        result = os.constants.signals.SIGQUIT;
-        result = os.constants.signals.SIGILL;
-        result = os.constants.signals.SIGTRAP;
-        result = os.constants.signals.SIGABRT;
-        result = os.constants.signals.SIGIOT;
-        result = os.constants.signals.SIGBUS;
-        result = os.constants.signals.SIGFPE;
-        result = os.constants.signals.SIGKILL;
-        result = os.constants.signals.SIGUSR1;
-        result = os.constants.signals.SIGSEGV;
-        result = os.constants.signals.SIGUSR2;
-        result = os.constants.signals.SIGPIPE;
-        result = os.constants.signals.SIGALRM;
-        result = os.constants.signals.SIGTERM;
-        result = os.constants.signals.SIGCHLD;
-        result = os.constants.signals.SIGSTKFLT;
-        result = os.constants.signals.SIGCONT;
-        result = os.constants.signals.SIGSTOP;
-        result = os.constants.signals.SIGTSTP;
-        result = os.constants.signals.SIGTTIN;
-        result = os.constants.signals.SIGTTOU;
-        result = os.constants.signals.SIGURG;
-        result = os.constants.signals.SIGXCPU;
-        result = os.constants.signals.SIGXFSZ;
-        result = os.constants.signals.SIGVTALRM;
-        result = os.constants.signals.SIGPROF;
-        result = os.constants.signals.SIGWINCH;
-        result = os.constants.signals.SIGIO;
-        result = os.constants.signals.SIGPOLL;
-        result = os.constants.signals.SIGPWR;
-        result = os.constants.signals.SIGSYS;
-        result = os.constants.signals.SIGUNUSED;
-    }
-
-    {
-        let result: number;
-
-        result = os.constants.errno.E2BIG;
-        result = os.constants.errno.EACCES;
-        result = os.constants.errno.EADDRINUSE;
-        result = os.constants.errno.EADDRNOTAVAIL;
-        result = os.constants.errno.EAFNOSUPPORT;
-        result = os.constants.errno.EAGAIN;
-        result = os.constants.errno.EALREADY;
-        result = os.constants.errno.EBADF;
-        result = os.constants.errno.EBADMSG;
-        result = os.constants.errno.EBUSY;
-        result = os.constants.errno.ECANCELED;
-        result = os.constants.errno.ECHILD;
-        result = os.constants.errno.ECONNABORTED;
-        result = os.constants.errno.ECONNREFUSED;
-        result = os.constants.errno.ECONNRESET;
-        result = os.constants.errno.EDEADLK;
-        result = os.constants.errno.EDESTADDRREQ;
-        result = os.constants.errno.EDOM;
-        result = os.constants.errno.EDQUOT;
-        result = os.constants.errno.EEXIST;
-        result = os.constants.errno.EFAULT;
-        result = os.constants.errno.EFBIG;
-        result = os.constants.errno.EHOSTUNREACH;
-        result = os.constants.errno.EIDRM;
-        result = os.constants.errno.EILSEQ;
-        result = os.constants.errno.EINPROGRESS;
-        result = os.constants.errno.EINTR;
-        result = os.constants.errno.EINVAL;
-        result = os.constants.errno.EIO;
-        result = os.constants.errno.EISCONN;
-        result = os.constants.errno.EISDIR;
-        result = os.constants.errno.ELOOP;
-        result = os.constants.errno.EMFILE;
-        result = os.constants.errno.EMLINK;
-        result = os.constants.errno.EMSGSIZE;
-        result = os.constants.errno.EMULTIHOP;
-        result = os.constants.errno.ENAMETOOLONG;
-        result = os.constants.errno.ENETDOWN;
-        result = os.constants.errno.ENETRESET;
-        result = os.constants.errno.ENETUNREACH;
-        result = os.constants.errno.ENFILE;
-        result = os.constants.errno.ENOBUFS;
-        result = os.constants.errno.ENODATA;
-        result = os.constants.errno.ENODEV;
-        result = os.constants.errno.ENOENT;
-        result = os.constants.errno.ENOEXEC;
-        result = os.constants.errno.ENOLCK;
-        result = os.constants.errno.ENOLINK;
-        result = os.constants.errno.ENOMEM;
-        result = os.constants.errno.ENOMSG;
-        result = os.constants.errno.ENOPROTOOPT;
-        result = os.constants.errno.ENOSPC;
-        result = os.constants.errno.ENOSR;
-        result = os.constants.errno.ENOSTR;
-        result = os.constants.errno.ENOSYS;
-        result = os.constants.errno.ENOTCONN;
-        result = os.constants.errno.ENOTDIR;
-        result = os.constants.errno.ENOTEMPTY;
-        result = os.constants.errno.ENOTSOCK;
-        result = os.constants.errno.ENOTSUP;
-        result = os.constants.errno.ENOTTY;
-        result = os.constants.errno.ENXIO;
-        result = os.constants.errno.EOPNOTSUPP;
-        result = os.constants.errno.EOVERFLOW;
-        result = os.constants.errno.EPERM;
-        result = os.constants.errno.EPIPE;
-        result = os.constants.errno.EPROTO;
-        result = os.constants.errno.EPROTONOSUPPORT;
-        result = os.constants.errno.EPROTOTYPE;
-        result = os.constants.errno.ERANGE;
-        result = os.constants.errno.EROFS;
-        result = os.constants.errno.ESPIPE;
-        result = os.constants.errno.ESRCH;
-        result = os.constants.errno.ESTALE;
-        result = os.constants.errno.ETIME;
-        result = os.constants.errno.ETIMEDOUT;
-        result = os.constants.errno.ETXTBSY;
-        result = os.constants.errno.EWOULDBLOCK;
-        result = os.constants.errno.EXDEV;
-    }
-
-    {
-        const prio = os.getPriority();
-        os.setPriority(prio + 1);
-
-        const prio2 = os.getPriority(1);
-        os.setPriority(2, prio + 1);
-
-        os.setPriority(os.constants.priority.PRIORITY_LOW);
-    }
-}
-
-////////////////////////////////////////////////////
-/// vm tests : https://nodejs.org/api/vm.html
-////////////////////////////////////////////////////
-
-{
-    {
-        const sandbox = {
-            animal: 'cat',
-            count: 2
-        };
-
-        const context = vm.createContext(sandbox);
-        console.log(vm.isContext(context));
-        const script = new vm.Script('count += 1; name = "kitty"');
-
-        for (let i = 0; i < 10; ++i) {
-            script.runInContext(context);
-        }
-
-        console.log(util.inspect(sandbox));
-
-        vm.runInNewContext('count += 1; name = "kitty"', sandbox);
-        console.log(util.inspect(sandbox));
-    }
-
-    {
-        const sandboxes = [{}, {}, {}];
-
-        const script = new vm.Script('globalVar = "set"');
-
-        sandboxes.forEach((sandbox) => {
-            script.runInNewContext(sandbox);
-            script.runInThisContext();
-        });
-
-        console.log(util.inspect(sandboxes));
-
-        const localVar = 'initial value';
-        vm.runInThisContext('localVar = "vm";');
-
-        console.log(localVar);
-    }
-
-    {
-        vm.runInThisContext('console.log("hello world"', './my-file.js');
-    }
-
-    {
-        const fn: Function = vm.compileFunction('console.log("test")', [], {
-            parsingContext: vm.createContext(),
-            contextExtensions: [{
-                a: 1,
-            }],
-            produceCachedData: false,
-            cachedData: Buffer.from('nope'),
-        });
     }
 }
 
@@ -1122,21 +551,35 @@ import Module = require("module");
 
 {
     {
-        const immediateId = timers.setImmediate(() => { console.log("immediate"); });
-        timers.clearImmediate(immediateId);
+        const immediate = timers
+            .setImmediate(() => {
+                console.log('immediate');
+            })
+            .unref()
+            .ref();
+        const b: boolean = immediate.hasRef();
+        timers.clearImmediate(immediate);
     }
     {
-        const counter = 0;
-        const timeout = timers.setInterval(() => { console.log("interval"); }, 20);
-        timeout.unref();
-        timeout.ref();
+        const timeout = timers
+            .setInterval(() => {
+                console.log('interval');
+            }, 20)
+            .unref()
+            .ref()
+            .refresh();
+        const b: boolean = timeout.hasRef();
         timers.clearInterval(timeout);
     }
     {
-        const counter = 0;
-        const timeout = timers.setTimeout(() => { console.log("timeout"); }, 20);
-        timeout.unref();
-        timeout.ref();
+        const timeout = timers
+            .setTimeout(() => {
+                console.log('timeout');
+            }, 20)
+            .unref()
+            .ref()
+            .refresh();
+        const b: boolean = timeout.hasRef();
         timers.clearTimeout(timeout);
     }
     async function testPromisify() {
@@ -1181,57 +624,6 @@ import Module = require("module");
         const isEval: boolean = frame.isEval();
         const isNative: boolean = frame.isNative();
         const isConstr: boolean = frame.isConstructor();
-    }
-}
-
-///////////////////////////////////////////////////////////
-/// Process Tests : https://nodejs.org/api/process.html ///
-///////////////////////////////////////////////////////////
-
-import * as p from "process";
-{
-    {
-        let eventEmitter: events.EventEmitter;
-        eventEmitter = process;                // Test that process implements EventEmitter...
-
-        let _p: NodeJS.Process = process;
-        _p = p;
-    }
-    {
-        assert(process.argv[0] === process.argv0);
-    }
-    {
-        let module: NodeModule | undefined;
-        module = process.mainModule;
-    }
-    {
-        process.on("message", (req: any) => { });
-        process.addListener("beforeExit", (code: number) => { });
-        process.once("disconnect", () => { });
-        process.prependListener("exit", (code: number) => { });
-        process.prependOnceListener("rejectionHandled", (promise: Promise<any>) => { });
-        process.on("uncaughtException", (error: Error) => { });
-        process.addListener("unhandledRejection", (reason: {} | null | undefined, promise: Promise<any>) => { });
-        process.once("warning", (warning: Error) => { });
-        process.prependListener("message", (message: any, sendHandle: any) => { });
-        process.prependOnceListener("SIGBREAK", () => { });
-        process.on("newListener", (event: string | symbol, listener: Function) => { });
-        process.once("removeListener", (event: string | symbol, listener: Function) => { });
-        process.on("multipleResolves", (type: NodeJS.MultipleResolveType, prom: Promise<any>, value: any) => {});
-
-        const listeners = process.listeners('uncaughtException');
-        const oldHandler = listeners[listeners.length - 1];
-        process.addListener('uncaughtException', oldHandler);
-    }
-    {
-        function myCb(err: Error): void {
-        }
-        process.setUncaughtExceptionCaptureCallback(myCb);
-        process.setUncaughtExceptionCaptureCallback(null);
-        const b: boolean = process.hasUncaughtExceptionCaptureCallback();
-    }
-    {
-        // process.allowedNodeEnvironmentFlags.has('asdf');
     }
 }
 
@@ -1331,22 +723,22 @@ import * as p from "process";
 
 {
     dns.lookup("nodejs.org", (err, address, family) => {
-        const _err: NodeJS.ErrnoException = err;
+        const _err: NodeJS.ErrnoException | null = err;
         const _address: string = address;
         const _family: number = family;
     });
     dns.lookup("nodejs.org", 4, (err, address, family) => {
-        const _err: NodeJS.ErrnoException = err;
+        const _err: NodeJS.ErrnoException | null = err;
         const _address: string = address;
         const _family: number = family;
     });
     dns.lookup("nodejs.org", 6, (err, address, family) => {
-        const _err: NodeJS.ErrnoException = err;
+        const _err: NodeJS.ErrnoException | null = err;
         const _address: string = address;
         const _family: number = family;
     });
     dns.lookup("nodejs.org", {}, (err, address, family) => {
-        const _err: NodeJS.ErrnoException = err;
+        const _err: NodeJS.ErrnoException | null = err;
         const _address: string = address;
         const _family: number = family;
     });
@@ -1358,17 +750,17 @@ import * as p from "process";
             all: false
         },
         (err, address, family) => {
-            const _err: NodeJS.ErrnoException = err;
+            const _err: NodeJS.ErrnoException | null = err;
             const _address: string = address;
             const _family: number = family;
         }
     );
     dns.lookup("nodejs.org", { all: true }, (err, addresses) => {
-        const _err: NodeJS.ErrnoException = err;
+        const _err: NodeJS.ErrnoException | null = err;
         const _address: dns.LookupAddress[] = addresses;
     });
     dns.lookup("nodejs.org", { all: true, verbatim: true }, (err, addresses) => {
-        const _err: NodeJS.ErrnoException = err;
+        const _err: NodeJS.ErrnoException | null = err;
         const _address: dns.LookupAddress[] = addresses;
     });
 
@@ -1376,13 +768,13 @@ import * as p from "process";
         return Math.random() > 0.5 ? true : false;
     }
     dns.lookup("nodejs.org", { all: trueOrFalse() }, (err, addresses, family) => {
-        const _err: NodeJS.ErrnoException = err;
+        const _err: NodeJS.ErrnoException | null = err;
         const _addresses: string | dns.LookupAddress[] = addresses;
         const _family: number | undefined = family;
     });
 
     dns.lookupService("127.0.0.1", 0, (err, hostname, service) => {
-        const _err: NodeJS.ErrnoException = err;
+        const _err: NodeJS.ErrnoException | null = err;
         const _hostname: string = hostname;
         const _service: string = service;
     });
@@ -1576,7 +968,6 @@ import * as constants from 'constants';
     num = constants.DH_CHECK_P_NOT_PRIME;
     num = constants.DH_UNABLE_TO_CHECK_GENERATOR;
     num = constants.DH_NOT_SUITABLE_GENERATOR;
-    num = constants.NPN_ENABLED;
     num = constants.ALPN_ENABLED;
     num = constants.RSA_PKCS1_PADDING;
     num = constants.RSA_SSLV23_PADDING;
@@ -1589,19 +980,6 @@ import * as constants from 'constants';
     num = constants.POINT_CONVERSION_HYBRID;
     str = constants.defaultCoreCipherList;
     str = constants.defaultCipherList;
-}
-
-////////////////////////////////////////////////////
-/// v8 tests : https://nodejs.org/api/v8.html
-////////////////////////////////////////////////////
-
-{
-    const heapStats = v8.getHeapStatistics();
-    const heapSpaceStats = v8.getHeapSpaceStatistics();
-
-    const zapsGarbage: number = heapStats.does_zap_garbage;
-
-    v8.setFlagsFromString('--collect_maps');
 }
 
 ////////////////////////////////////////////////////
@@ -1655,27 +1033,6 @@ import * as constants from 'constants';
     });
 }
 
-////////////////////////////////////////////////////
-/// zlib tests : http://nodejs.org/api/zlib.html ///
-////////////////////////////////////////////////////
-
-{
-    {
-        const gzipped = zlib.gzipSync('test');
-        const unzipped = zlib.gunzipSync(gzipped.toString());
-    }
-
-    {
-        const deflate = zlib.deflateSync('test');
-        const inflate = zlib.inflateSync(deflate.toString());
-    }
-
-    {
-        const gzip = zlib.createGzip();
-        const written: number = gzip.bytesWritten;
-    }
-}
-
 ///////////////////////////////////////////////////////////
 /// Inspector Tests                                     ///
 ///////////////////////////////////////////////////////////
@@ -1688,7 +1045,7 @@ import * as constants from 'constants';
         inspector.open(0, 'localhost');
         inspector.open(0, 'localhost', true);
         inspector.close();
-        const inspectorUrl: string = inspector.url();
+        const inspectorUrl: string | undefined = inspector.url();
 
         const session = new inspector.Session();
         session.connect();

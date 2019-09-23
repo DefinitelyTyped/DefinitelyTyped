@@ -1,4 +1,4 @@
-// Type definitions for React (react-dom) 16.8
+// Type definitions for React (react-dom) 16.9
 // Project: http://facebook.github.io/react/
 // Definitions by: Asana <https://asana.com>
 //                 AssureSign <http://www.assuresign.com>
@@ -91,11 +91,4 @@ export interface Renderer {
         container: Element | null,
         callback?: () => void
     ): Component<any, ComponentState> | Element | void;
-
-    (
-        parentComponent: Component<any> | Array<Component<any>>,
-        element: SFCElement<any>,
-        container: Element,
-        callback?: () => void
-    ): void;
 }

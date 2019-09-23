@@ -1,4 +1,4 @@
-import SphericalMercator from '@mapbox/sphericalmercator';
+import SphericalMercator = require('@mapbox/sphericalmercator');
 
 const sm = new SphericalMercator({ size: 100 });
 

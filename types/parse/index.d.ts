@@ -1,4 +1,4 @@
-// Type definitions for parse 2.1.0
+// Type definitions for parse 2.2.9
 // Project: https://parseplatform.org/
 // Definitions by:  Ullisen Media Group <http://ullisenmedia.com>
 //                  David Poetzsch-Heffter <https://github.com/dpoetzsch>
@@ -8,6 +8,12 @@
 //                  Otherwise SAS <https://github.com/owsas>
 //                  Andrew Goldis <https://github.com/agoldis>
 //                  Alexandre Hétu Rivard <https://github.com/AlexandreHetu>
+//                  Diamond Lewis <https://github.com/dplewis>
+//                  Jong Eun Lee <https://github.com/yomybaby>
+//                  Julien Quere <https://github.com/jlnquere>
+//                  Yago Tomé <https://github.com/yagotome>
+//                  Thibault MOCELLIN <https://github.com/tybi>
+//                  Raschid JF Rafaelly <https://github.com/RaschidJFR>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -22,12 +28,39 @@ declare namespace Parse {
     let liveQueryServerURL: string;
     let VERSION: string;
 
+    interface BatchSizeOption {
+        batchSize?: number;
+    }
+
+    interface CascadeSaveOption {
+        /** If `false`, nested objects will not be saved (default is `true`). */
+        cascadeSave?: boolean;
+    }
+
     interface SuccessOption {
         success?: Function;
     }
 
     interface ErrorOption {
         error?: Function;
+    }
+
+    interface FullOptions {
+        success?: Function;
+        error?: Function;
+        useMasterKey?: boolean;
+        sessionToken?: string;
+        installationId?: string;
+        progress?: Function;
+    }
+
+    interface RequestOptions {
+        useMasterKey?: boolean;
+        sessionToken?: string;
+        installationId?: string;
+        batchSize?: number;
+        include?: string | string[];
+        progress?: Function;
     }
 
     interface SuccessFailureOptions extends SuccessOption, ErrorOption {
@@ -75,6 +108,10 @@ declare namespace Parse {
 
     interface IBaseObject {
         toJSON(): any;
+    }
+
+    interface AuthData {
+        [key: string]: any
     }
 
     class BaseObject implements IBaseObject {
@@ -264,19 +301,26 @@ declare namespace Parse {
         constructor(className?: string, options?: any);
         constructor(attributes?: string[], options?: any);
 
-        static extend(className: string, protoProps?: any, classProps?: any): any;
-        static fromJSON(json: any, override: boolean): any;
-
+        static createWithoutData<T extends Object>(id: string): T;
+        static destroyAll<T extends Object>(list: T[], options?: Object.DestroyAllOptions): Promise<T[]>;
+        static extend(className: string | { className: string }, protoProps?: any, classProps?: any): any;
         static fetchAll<T extends Object>(list: T[], options: Object.FetchAllOptions): Promise<T[]>;
         static fetchAllIfNeeded<T extends Object>(list: T[], options: Object.FetchAllOptions): Promise<T[]>;
-        static destroyAll<T>(list: T[], options?: Object.DestroyAllOptions): Promise<T[]>;
-        static saveAll<T extends Object>(list: T[], options?: Object.SaveAllOptions): Promise<T[]>;
+        static fetchAllWithInclude<T extends Object>(list: T[], keys: string | Array<string | Array<string>>, options: RequestOptions): Promise<T[]>;
+        static fromJSON<T extends Object>(json: any, override?: boolean): T;
+        static pinAll(objects: Object[]): Promise<void>;
+        static pinAllWithName(name: string, objects: Object[]): Promise<void>;
         static registerSubclass<T extends Object>(className: string, clazz: new (options?: any) => T): void;
-        static createWithoutData<T extends Object>(id: string): T;
+        static saveAll<T extends Object>(list: T[], options?: Object.SaveAllOptions): Promise<T[]>;
+        static unPinAll(objects: Object[]): Promise<void>;
+        static unPinAllObjects(): Promise<void>;
+        static unPinAllObjectsWithName(name: string): Promise<void>;
+        static unPinAllWithName(name: string, objects: Object[]): Promise<void>;
 
-        initialize(): void;
-        add(attr: string, item: any): this;
-        addUnique(attr: string, item: any): any;
+        add(attr: string, item: any): this | false;
+        addAll(attr: string, items: any[]): this | false;
+        addAllUnique(attr: string, items: any[]): this | false;
+        addUnique(attr: string, item: any): this | false;
         change(options: any): this;
         changedAttributes(diff: any): boolean;
         clear(options: any): any;
@@ -284,29 +328,40 @@ declare namespace Parse {
         destroy(options?: Object.DestroyOptions): Promise<this>;
         dirty(attr?: string): boolean;
         dirtyKeys(): string[];
+        equals(other: any): boolean;
         escape(attr: string): string;
         existed(): boolean;
         fetch(options?: Object.FetchOptions): Promise<this>;
+        fetchFromLocalDatastore(): Promise<this> | void;
+        fetchWithInclude(keys: string | Array<string | Array<string>>, options?: RequestOptions): Promise<this>;
         get(attr: string): any | undefined;
         getACL(): ACL | undefined;
         has(attr: string): boolean;
         hasChanged(attr: string): boolean;
         increment(attr: string, amount?: number): any;
+        initialize(): void;
         isNew(): boolean;
+        isPinned(): Promise<boolean>;
         isValid(): boolean;
         op(attr: string): any;
+        pin(): Promise<void>;
+        pinWithName(name: string): Promise<void>;
         previous(attr: string): any;
         previousAttributes(): any;
         relation(attr: string): Relation<this, Object>;
-        remove(attr: string, item: any): any;
+        remove(attr: string, item: any): this | false;
+        removeAll(attr: string, items: any): this | false;
         revert(): void;
+        revert(...keys: string[]): void;
         save(attrs?: { [key: string]: any } | null, options?: Object.SaveOptions): Promise<this>;
         save(key: string, value: any, options?: Object.SaveOptions): Promise<this>;
         save(attrs: object, options?: Object.SaveOptions): Promise<this>;
-        set(key: string, value: any, options?: Object.SetOptions): boolean;
-        set(attrs: object, options?: Object.SetOptions): boolean;
-        setACL(acl: ACL, options?: SuccessFailureOptions): boolean;
+        set(key: string, value: any, options?: Object.SetOptions): this | false;
+        set(attrs: object, options?: Object.SetOptions): this | false;
+        setACL(acl: ACL, options?: SuccessFailureOptions): this | false;
         toPointer(): Pointer;
+        unPin(): Promise<void>;
+        unPinWithName(name: string): Promise<void>;
         unset(attr: string, options?: any): any;
         validate(attrs: any, options?: SuccessFailureOptions): boolean;
     }
@@ -314,21 +369,26 @@ declare namespace Parse {
     namespace Object {
         interface DestroyOptions extends SuccessFailureOptions, WaitOption, ScopeOptions { }
 
-        interface DestroyAllOptions extends SuccessFailureOptions, ScopeOptions { }
+        interface DestroyAllOptions extends BatchSizeOption, ScopeOptions { }
 
         interface FetchAllOptions extends SuccessFailureOptions, ScopeOptions { }
 
         interface FetchOptions extends SuccessFailureOptions, ScopeOptions { }
 
-        interface SaveOptions extends SuccessFailureOptions, SilentOption, ScopeOptions, WaitOption { }
+        interface SaveOptions extends CascadeSaveOption, SuccessFailureOptions, SilentOption, ScopeOptions, WaitOption { }
 
-        interface SaveAllOptions extends SuccessFailureOptions, ScopeOptions { }
+        interface SaveAllOptions extends BatchSizeOption, ScopeOptions { }
 
         interface SetOptions extends ErrorOption, SilentOption {
             promise?: any;
         }
     }
 
+    class Polygon extends BaseObject {
+        constructor(arg1: GeoPoint[] | number[][]);
+        containsPoint(point: GeoPoint): boolean;
+        equals(other: Polygon | any): boolean;
+    }
     /**
      * Every Parse application installed on a device registered for
      * push notifications has an associated Installation object.
@@ -413,37 +473,46 @@ declare namespace Parse {
         constructor(objectClass: string);
         constructor(objectClass: new (...args: any[]) => T);
 
+        static and<U extends Object>(...args: Query<U>[]): Query<U>;
+        static fromJSON<U extends Object>(className: string, json: any): Query<U>;
+        static nor<U extends Object>(...args: Query<U>[]): Query<U>;
         static or<U extends Object>(...var_args: Query<U>[]): Query<U>;
 
-        aggregate(pipeline: Query.AggregationOptions|Query.AggregationOptions[]): Query<T>;
         addAscending(key: string): Query<T>;
         addAscending(key: string[]): Query<T>;
         addDescending(key: string): Query<T>;
         addDescending(key: string[]): Query<T>;
         ascending(key: string): Query<T>;
         ascending(key: string[]): Query<T>;
+        aggregate<V = any>(pipeline: Query.AggregationOptions | Query.AggregationOptions[]): Promise<V>;
+        containedBy(key: string, values: any[]): Query<T>;
         containedIn(key: string, values: any[]): Query<T>;
         contains(key: string, substring: string): Query<T>;
         containsAll(key: string, values: any[]): Query<T>;
+        containsAllStartingWith(key: string, values: any[]): Query<T>;
         count(options?: Query.CountOptions): Promise<number>;
         descending(key: string): Query<T>;
         descending(key: string[]): Query<T>;
         doesNotExist(key: string): Query<T>;
         doesNotMatchKeyInQuery<U extends Object>(key: string, queryKey: string, query: Query<U>): Query<T>;
         doesNotMatchQuery<U extends Object>(key: string, query: Query<U>): Query<T>;
-        distinct(key: string): Query<T>;
+        distinct<V = any>(key: string): Promise<V>;
         each(callback: Function, options?: Query.EachOptions): Promise<void>;
         endsWith(key: string, suffix: string): Query<T>;
         equalTo(key: string, value: any): Query<T>;
         exists(key: string): Query<T>;
         find(options?: Query.FindOptions): Promise<T[]>;
         first(options?: Query.FirstOptions): Promise<T | undefined>;
+        fromLocalDatastore(): void;
+        fromPin(): void;
+        fromPinWithName(name: string): void;
         fullText(key: string, value: string, options?: Query.FullTextOptions): Query<T>;
         get(objectId: string, options?: Query.GetOptions): Promise<T>;
         greaterThan(key: string, value: any): Query<T>;
         greaterThanOrEqualTo(key: string, value: any): Query<T>;
         include(key: string): Query<T>;
         include(keys: string[]): Query<T>;
+        includeAll(): Query<T>;
         lessThan(key: string, value: any): Query<T>;
         lessThanOrEqualTo(key: string, value: any): Query<T>;
         limit(n: number): Query<T>;
@@ -453,13 +522,17 @@ declare namespace Parse {
         near(key: string, point: GeoPoint): Query<T>;
         notContainedIn(key: string, values: any[]): Query<T>;
         notEqualTo(key: string, value: any): Query<T>;
+        polygonContains(key: string, point: GeoPoint): Query<T>;
         select(...keys: string[]): Query<T>;
         skip(n: number): Query<T>;
+        sortByTextScore(): this;
         startsWith(key: string, prefix: string): Query<T>;
         subscribe(): LiveQuerySubscription;
+        withJSON(json: any): this;
         withinGeoBox(key: string, southwest: GeoPoint, northeast: GeoPoint): Query<T>;
         withinKilometers(key: string, point: GeoPoint, maxDistance: number): Query<T>;
         withinMiles(key: string, point: GeoPoint, maxDistance: number): Query<T>;
+        withinPolygon(key: string, points: GeoPoint[]): Query<T>;
         withinRadians(key: string, point: GeoPoint, maxDistance: number): Query<T>;
     }
 
@@ -472,20 +545,20 @@ declare namespace Parse {
 
         // According to http://docs.parseplatform.org/rest/guide/#aggregate-queries
         interface AggregationOptions {
-            group?: { objectId?: string, [key:string]: any };
-            match?: {[key: string]: any};
-            project?: {[key: string]: any};
+            group?: { objectId?: string, [key: string]: any };
+            match?: { [key: string]: any };
+            project?: { [key: string]: any };
             limit?: number;
             skip?: number;
             // Sort documentation https://docs.mongodb.com/v3.2/reference/operator/aggregation/sort/#pipe._S_sort
-            sort?: {[key: string]: 1|-1};
+            sort?: { [key: string]: 1 | -1 };
         }
 
         // According to https://parseplatform.org/Parse-SDK-JS/api/2.1.0/Parse.Query.html#fullText
         interface FullTextOptions {
-          language?: string;
-          caseSensitive?: boolean;
-          diacriticSensitive?: boolean;
+            language?: string;
+            caseSensitive?: boolean;
+            diacriticSensitive?: boolean;
         }
     }
 
@@ -597,6 +670,7 @@ subscription.on('close', () => {});
     class Config extends Object {
         static get(options?: SuccessFailureOptions): Promise<Config>;
         static current(): Config;
+        static save(attr: any): Promise<Config>;
 
         get(attr: string): any;
         escape(attr: string): any;
@@ -619,17 +693,19 @@ subscription.on('close', () => {});
      * uniqueness.</p>
      */
     class User extends Object {
-
+        static allowCustomUserClass(isAllowed: boolean): void;
+        static become(sessionToken: string, options?: UseMasterKeyOption): Promise<User>;
         static current(): User | undefined;
+        static currentAsync(): Promise<User | null>;
         static signUp(username: string, password: string, attrs: any, options?: SignUpOptions): Promise<User>;
         static logIn(username: string, password: string, options?: SuccessFailureOptions): Promise<User>;
         static logOut(): Promise<User>;
-        static allowCustomUserClass(isAllowed: boolean): void;
-        static become(sessionToken: string, options?: SuccessFailureOptions): Promise<User>;
         static requestPasswordReset(email: string, options?: SuccessFailureOptions): Promise<User>;
         static extend(protoProps?: any, classProps?: any): any;
+        static hydrate(userJSON: any): Promise<User>;
+        static enableUnsafeCurrentUser(): void;
 
-        signUp(attrs: any, options?: SignUpOptions): Promise<this>;
+        signUp(attrs?: any, options?: SignUpOptions): Promise<this>;
         logIn(options?: SuccessFailureOptions): Promise<this>;
         authenticated(): boolean;
         isCurrent(): boolean;
@@ -642,6 +718,9 @@ subscription.on('close', () => {});
 
         setPassword(password: string, options?: SuccessFailureOptions): boolean;
         getSessionToken(): string;
+
+        linkWith(user: User, authData: AuthData, options: FullOptions): Promise<User>;
+        _linkWith(provider: any, options: { authData?: AuthData }, saveOpts?: FullOptions): Promise<User>;
     }
 
 
@@ -721,10 +800,14 @@ subscription.on('close', () => {});
             original?: Parse.Object;
         }
 
-        interface AfterSaveRequest extends TriggerRequest { }
+        interface AfterSaveRequest extends TriggerRequest {
+            context: object;
+        }
         interface AfterDeleteRequest extends TriggerRequest { }
         interface BeforeDeleteRequest extends TriggerRequest { }
-        interface BeforeSaveRequest extends TriggerRequest { }
+        interface BeforeSaveRequest extends TriggerRequest {
+            context: object;
+        }
 
         // Read preference describes how MongoDB driver route read operations to the members of a replica set.
         enum ReadPreferenceOption {
@@ -754,10 +837,30 @@ subscription.on('close', () => {});
         function beforeFind(arg1: any, func?: (request: BeforeFindRequest) => Promise<Query> | Query): void;
         function afterFind(arg1: any, func?: (request: AfterFindRequest) => Promise<any> | any): void;
         function define(name: string, func?: (request: FunctionRequest) => Promise<any> | any): void;
+        /**
+         * Gets data for the current set of cloud jobs.
+         * @returns A promise that will be resolved with the result of the function.
+         */
+        function getJobsData(): Promise<Object>;
+        /**
+         * Gets job status by Id
+         * @param jobStatusId The Id of Job Status.
+         * @returns Status of Job.
+         */
+        function getJobStatus(jobStatusId: string): Promise<Object>;
         function httpRequest(options: HTTPOptions): Promise<HttpResponse>;
         function job(name: string, func?: (request: JobRequest) => Promise<void> | void): HttpResponse;
         function run(name: string, data?: any, options?: RunOptions): Promise<any>;
+        /**
+          * Starts a given cloud job, which will process asynchronously.
+          * @param jobName The function name.
+          * @param data The parameters to send to the cloud function.
+          * @returns A promise that will be resolved with the jobStatusId of the job.
+          */
+        function startJob(jobName: string, data: any): Promise<string>;
         function useMasterKey(): void;
+
+
 
         interface RunOptions extends SuccessFailureOptions, ScopeOptions { }
 
@@ -936,6 +1039,8 @@ subscription.on('close', () => {});
             badge?: string;
             sound?: string;
             title?: string;
+            notification?: any;
+            content_available?: any;
         }
 
         interface SendOptions extends UseMasterKeyOption {
@@ -959,6 +1064,23 @@ subscription.on('close', () => {});
      */
     function setAsyncStorage(AsyncStorage: any): void;
 
+    /**
+     * Gets all contents from Local Datastore.
+     */
+    function dumpLocalDatastore(): Promise<{ [key: string]: any }>;
+
+    /**
+     * Enable pinning in your application.
+     * This must be called before your application can use pinning.
+     */
+    function enableLocalDatastore(): void;
+
+    /**
+     * Flag that indicates whether Local Datastore is enabled.
+     */
+    function isLocalDatastoreEnabled(): boolean;
+
+    function setLocalDatastoreController(controller: any): void;
 }
 
 declare module "parse/node" {

@@ -9,6 +9,13 @@ class PlatformTouchableExample extends React.Component {
         <Touchable
           onPress={() => {}}
           style={{ backgroundColor: "#eee", padding: 30 }}
+          foreground={Touchable.Ripple("pink", false)}
+        >
+          <Text>Hello there!</Text>
+        </Touchable>
+        <Touchable
+          onPress={() => {}}
+          style={{ backgroundColor: "#eee", padding: 30 }}
           background={Touchable.Ripple("pink", false)}
         >
           <Text>Hello there!</Text>

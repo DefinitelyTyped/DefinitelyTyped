@@ -1,6 +1,7 @@
-// Type definitions for cloneable-readable 1.1
+// Type definitions for cloneable-readable 2.0
 // Project: https://github.com/mcollina/cloneable-readable#readme
 // Definitions by: Nikita Volodin <https://github.com/qlonik>
+//                 Oleg Vaskevich <https://github.com/vaskevich>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -8,10 +9,15 @@
 
 import { Readable } from 'stream';
 
-type Cloneable<T> = T & { clone(): Cloneable<T> };
-interface CloneableFn {
-    <T extends Readable>(x: T): Cloneable<T>;
-    isCloneable(x: Readable): boolean;
+declare namespace cloneable {
+    type Cloneable<T extends Readable> = T & { clone(): Cloneable<T> };
 }
+
+interface CloneableFn {
+    <T extends Readable>(x: T): cloneable.Cloneable<T>;
+    isCloneable(x: Readable): x is cloneable.Cloneable<Readable>;
+}
+
 declare const cloneable: CloneableFn;
+
 export = cloneable;

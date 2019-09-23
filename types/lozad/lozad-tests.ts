@@ -26,3 +26,5 @@ if (elementsCollection) lozad(elementsCollection);
 
 const nodeList = document.querySelectorAll('.images');
 if (nodeList) lozad(nodeList);
+
+observer.observer.disconnect();

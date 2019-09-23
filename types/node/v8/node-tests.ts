@@ -1,3 +1,11 @@
+// NOTE: Disabled to preserve existing tests file:
+// tslint:disable:no-namespace
+// tslint:disable:no-duplicate-variable
+// tslint:disable:no-duplicate-imports
+// tslint:disable:no-var-keyword
+// tslint:disable:no-inferrable-types
+// tslint:disable:prefer-const
+// tslint:disable:max-line-length
 import assert = require("assert");
 import * as fs from "fs";
 import * as events from "events";
@@ -800,14 +808,14 @@ namespace util_tests {
             }
 
             static test(): void {
-                var cfn = util.callbackify(this.fn);
-                var cfnE = util.callbackify(this.fnE);
-                var cfnT1 = util.callbackify(this.fnT1);
-                var cfnT1E = util.callbackify(this.fnT1E);
-                var cfnTResult = util.callbackify(this.fnTResult);
-                var cfnTResultE = util.callbackify(this.fnTResultE);
-                var cfnT1TResult = util.callbackify(this.fnT1TResult);
-                var cfnT1TResultE = util.callbackify(this.fnT1TResultE);
+                var cfn = util.callbackify(callbackifyTest.fn);
+                var cfnE = util.callbackify(callbackifyTest.fnE);
+                var cfnT1 = util.callbackify(callbackifyTest.fnT1);
+                var cfnT1E = util.callbackify(callbackifyTest.fnT1E);
+                var cfnTResult = util.callbackify(callbackifyTest.fnTResult);
+                var cfnTResultE = util.callbackify(callbackifyTest.fnTResultE);
+                var cfnT1TResult = util.callbackify(callbackifyTest.fnT1TResult);
+                var cfnT1TResultE = util.callbackify(callbackifyTest.fnT1TResultE);
 
                 cfn((err: NodeJS.ErrnoException, ...args: string[]) => assert(err === null && args.length === 1 && args[0] === undefined));
                 cfnE((err: NodeJS.ErrnoException, ...args: string[]) => assert(err.message === 'fail' && args.length === 0));
@@ -3686,8 +3694,7 @@ namespace http2_tests {
             paddingStrategy: 0,
             peerMaxConcurrentStreams: 0,
             selectPadding: (frameLen: number, maxFrameLen: number) => 0,
-            settings,
-            allowHTTP1: true
+            settings
         };
         // tslint:disable-next-line prefer-object-spread (ts2.1 feature)
         let secureServerOptions: http2.SecureServerOptions = Object.assign({}, serverOptions);
@@ -4034,7 +4041,7 @@ namespace inspector_tests {
         inspector.open(0, 'localhost');
         inspector.open(0, 'localhost', true);
         inspector.close();
-        const inspectorUrl: string = inspector.url();
+        const inspectorUrl: string | undefined = inspector.url();
 
         const session = new inspector.Session();
         session.connect();

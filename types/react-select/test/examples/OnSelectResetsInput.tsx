@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Select from 'react-select';
 import { colourOptions } from '../data';
-import { InputActionMeta } from 'react-select/lib/types';
+import { InputActionMeta } from 'react-select/src/types';
 
 export default class OnSelectResetsInput extends React.Component {
   state = {

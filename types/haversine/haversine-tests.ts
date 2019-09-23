@@ -1,13 +1,14 @@
 import haversine = require('haversine');
+import { Feature, Point } from 'geojson';
 
 const start: haversine.CoordinateLongitudeLatitude = {
   longitude: 48.1548256,
   latitude: 11.4017529
 };
 
-const end: haversine.CoordinateLongitudeLatitude = {
-  longitude: 52.5065133,
-  latitude: 13.1445551
+const end = {
+    longitude: 52.5065133,
+    latitude: 13.1445551,
 };
 
 const options: haversine.Options = {
@@ -15,7 +16,12 @@ const options: haversine.Options = {
   threshold: 1
 };
 
-haversine(start, end, options);
+haversine(start, end, options);  // $ExpectType number
+haversine(start, end, { unit: 'km', threshold: 1 });  // $ExpectType boolean
+
+haversine(start, end, {format: '[lat,lon]'});  // $ExpectError
+haversine(start, end, {format: '[lon,lat]'});  // $ExpectError
+haversine(start, end, {format: '{lat,lng}'});  // $ExpectError
 
 const startShort: haversine.CoordinateLonLat = {
   lon: 48.1548256,
@@ -27,40 +33,65 @@ const endShort: haversine.CoordinateLonLat = {
   lat: 13.1445551
 };
 
-const optionsShort: haversine.Options = {
-  format: '{lon,lat}'
+haversine(startShort, endShort);  // $ExpectError
+
+haversine(startShort, endShort, { format: '{lon,lat}' });  // $ExpectType number
+haversine(startShort, endShort, { format: '{lon,lat}', threshold: 1 });  // $ExpectType boolean
+
+const startLatLng = {
+    lat: 11.4017529,
+    lng: 48.1548256,
 };
 
-haversine(startShort, endShort, optionsShort);
+const endLatLng = {
+    lat: 13.1445551,
+    lng: 52.5065133,
+};
+
+const optionsLatLng: haversine.Options = {
+    format: '{lat,lng}',
+};
+
+haversine(startLatLng, endLatLng, optionsLatLng);  // $ExpectType number
+
+// not actually valid, but the type of optionsLatLng.format is widened to string
+haversine(start, end, optionsLatLng);  // $ExpectType number
+haversine(start, end, { format: '{lat,lng}' });  // $ExpectError
 
 const startLatLon: haversine.LatLonTuple = [11.4017529, 48.1548256];
 
 const endLatLon: haversine.LatLonTuple = [13.1445551, 52.5065133];
 
 const optionsLatLon: haversine.Options = {
-  format: '[lat,lon]'
+    format: '[lat,lon]',
 };
 
 haversine(startLatLon, endLatLon, optionsLatLon);
 
 const startGeoJSON = {
-  type: "Feature",
-  geometry: {
-    type: "LineString",
-    coordinates: startLatLon
-  }
+    type: 'Feature',
+    geometry: {
+        type: 'Point',
+        coordinates: startLatLon,
+    },
 };
 
-const endGeoJSON = {
-  type: "Feature",
-  geometry: {
-    type: "LineString",
-    coordinates: endLatLon
-  }
+// Ensure that types/haversine is compatible with types/geojson.
+const endGeoJSON: Feature<Point> = {
+    type: 'Feature',
+    geometry: {
+        type: 'Point',
+        coordinates: endLatLon,
+    },
+    properties: {},
 };
 
 const optionsGeoJSON: haversine.Options = {
-  format: 'geojson'
+    format: 'geojson',
 };
 
-haversine(startGeoJSON, endGeoJSON, optionsGeoJSON);
+haversine(startGeoJSON, endGeoJSON, optionsGeoJSON);  // $ExpectType number
+haversine(startGeoJSON, endGeoJSON, { format: 'geojson', unit: 'nmi'});  // $ExpectType number
+haversine(startGeoJSON, endGeoJSON, { format: 'geojson', unit: 'nmi', threshold: 2});  // $ExpectType boolean
+
+haversine(start, end, { format: 'geojson' });  // $ExpectError

@@ -65,7 +65,7 @@ interface TreeDraggableProvided {
     // will be null if the draggable is disabled
     dragHandleProps?: DraggableProvidedDragHandleProps;
     // The following props will be removed once we move to react 16
-    innerRef: (element?: HTMLElement) => void;
+    innerRef: (element?: HTMLElement | null) => void;
 }
 
 export interface RenderItemParams {

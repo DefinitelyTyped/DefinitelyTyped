@@ -12,3 +12,7 @@ sonic.reopen();
 sonic.end();
 
 sonic.destroy();
+
+const extraSonic = new SonicBoom(1, 0, true);
+
+extraSonic.write('extra sonic\n');

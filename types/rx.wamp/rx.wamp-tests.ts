@@ -8,7 +8,7 @@ function nodeJS(session: autobahn.Session) {
 }
 
 function connection() {
-    var connectionSubscription = Rx.Observable.fromConnection({ url: "ws://localhost:9000" })
+    var connectionSubscription = Rx.Observable.fromConnection({ url: "ws://localhost:9000", realm: "realm1" })
         .subscribe(session => console.log("A new session was created"));
 
     //Close our current connection and don't retry
@@ -32,11 +32,11 @@ function subscribe_to_topics(session: autobahn.Session, options: autobahn.ISubsc
 }
 
 function new_in_version3(onResult: Rx.Observer<autobahn.ISubscription>) {
-    Rx.Observable.subscribeAsObservable(Rx.Observable.fromConnection({ url: "ws://myconnectionurl:9090" }), "wamp.my.foo", undefined, onResult);
+    Rx.Observable.subscribeAsObservable(Rx.Observable.fromConnection({ url: "ws://myconnectionurl:9090", realm: "realm1" }), "wamp.my.foo", undefined, onResult);
 }
 
 function new_in_version5(fooObserver: Rx.Observer<IWampEvent>) {
-    var connection = Rx.Observable.fromConnection({ url: "ws://myconnectionurl:9090" });
+    var connection = Rx.Observable.fromConnection({ url: "ws://myconnectionurl:9090", realm: "realm1" });
 
     //You can subscribe to as many items as you want
     var subscriber =

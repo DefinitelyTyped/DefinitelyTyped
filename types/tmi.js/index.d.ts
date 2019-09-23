@@ -1,11 +1,11 @@
-// Type definitions for tmi.js 1.3
+// Type definitions for tmi.js 1.4
 // Project: https://github.com/tmijs/tmi.js
 // Definitions by: William Papsco <https://github.com/wpapsco>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.3
 
 // Twitch IRC docs: https://dev.twitch.tv/docs/irc/
-// Last updated: 2019/2/27
+// Last updated: 2019/3/06
 
 import { StrictEventEmitter } from "./strict-event-emitter-types";
 
@@ -16,6 +16,7 @@ export interface Actions {
     color(color: string): Promise<[string]>;
     commercial(channel: string, seconds: number): Promise<[string, number]>;
     connect(): Promise<[string, number]>;
+    deletemessage(channel: string, messageUUID: string): Promise<[string]>;
     disconnect(): Promise<[string, number]>;
     emoteonly(channel: string): Promise<[string]>;
     emoteonlyoff(channel: string): Promise<[string]>;
@@ -39,11 +40,15 @@ export interface Actions {
     unban(channel: string, username: string): Promise<[string, string]>;
     unhost(channel: string): Promise<[string]>;
     unmod(channel: string, username: string): Promise<[string, string]>;
+    unvip(channel: string, username: string): Promise<[string, string]>;
+    vip(channel: string, username: string): Promise<[string, string]>;
+    vips(channel: string): Promise<string[]>;
     whisper(username: string, message: string): Promise<[string, string]>;
 }
 
 export interface Events {
     action(channel: string, userstate: ChatUserstate, message: string, self: boolean): void;
+    anongiftpaidupgrade(channel: string, username: string, userstate: AnonSubGiftUpgradeUserstate): void;
     ban(channel: string, username: string, reason: string): void;
     chat(channel: string, userstate: ChatUserstate, message: string, self: boolean): void;
     cheer(channel: string, userstate: ChatUserstate, message: string): void;
@@ -54,11 +59,13 @@ export interface Events {
     emoteonly(channel: string, enabled: boolean): void;
     emotesets(sets: string, obj: EmoteObj): void;
     followersonly(channel: string, enabled: boolean, length: number): void;
+    giftpaidupgrade(channel: string, username: string, sender: string, userstate: SubGiftUpgradeUserstate): void;
     hosted(channel: string, username: string, viewers: number, autohost: boolean): void;
     hosting(channel: string, target: string, viewers: number): void;
     join(channel: string, username: string, self: boolean): void;
     logon(): void;
     message(channel: string, userstate: ChatUserstate, message: string, self: boolean): void;
+    messagedeleted(channel: string, username: string, deletedMessage: string, userstate: DeleteUserstate): void;
     mod(channel: string, username: string): void;
     mods(channel: string, mods: string[]): void;
     notice(channel: string, msgid: MsgID, message: string): void;
@@ -66,16 +73,21 @@ export interface Events {
     ping(): void;
     pong(latency: number): void;
     r9kbeta(channel: string, enabled: boolean): void;
+    raided(channel: string, username: string, viewers: number): void;
+    "raw_message": (messageCloned: { [property: string]: any }, message: { [property: string]: any }) => void;
     reconnect(): void;
-    resub(channel: string, username: string, months: number, message: string, userstate: SubUserstate, methods: ResubMethod): void;
+    resub(channel: string, username: string, months: number, message: string, userstate: SubUserstate, methods: SubMethods): void;
     roomstate(channel: string, state: RoomState): void;
     serverchange(channel: string): void;
     slowmode(channel: string, enabled: boolean, length: number): void;
+    subgift(channel: string, username: string, streakMonths: number, recipient: string, methods: SubMethods, userstate: SubGiftUserstate): void;
+    submysterygift(channel: string, username: string, numbOfSubs: number, methods: SubMethods, userstate: SubMysteryGiftUserstate): void;
     subscribers(channel: string, enabled: boolean): void;
-    subscription(channel: string, username: string, method: ResubMethod, message: string, userstate: SubUserstate): void;
+    subscription(channel: string, username: string, methods: SubMethods, message: string, userstate: SubUserstate): void;
     timeout(channel: string, username: string, reason: string, duration: number): void;
     unhost(channel: string, viewers: number): void;
     unmod(channel: string, username: string): void;
+    vips(channel: string, vips: string[]): void;
     whisper(from: string, userstate: ChatUserstate, message: string, self: boolean): void;
 }
 
@@ -108,6 +120,18 @@ export interface Badges {
     premium?: string;
 }
 
+export interface SubMethods {
+    prime?: boolean;
+    plan?: SubMethod;
+    planName?: string;
+}
+
+export interface DeleteUserstate {
+    login?: string;
+    message?: string;
+    "target-msg-id"?: string;
+}
+
 export interface CommonUserstate {
     badges?: Badges;
     color?: string;
@@ -124,6 +148,7 @@ export interface CommonUserstate {
     "user-id"?: string;
     "tmi-sent-ts"?: string;
     flags?: string;
+    [paramater: string]: any;
 }
 
 export interface UserNoticeState extends CommonUserstate {
@@ -133,8 +158,15 @@ export interface UserNoticeState extends CommonUserstate {
 }
 
 export interface CommonSubUserstate extends UserNoticeState {
-    "msg-param-sub-plan"?: ResubMethod;
+    "msg-param-sub-plan"?: SubMethod;
     "msg-param-sub-plan-name"?: string;
+}
+
+export interface CommonGiftSubUserstate extends CommonSubUserstate {
+    "msg-param-recipient-display-name"?: string;
+    "msg-param-recipient-id"?: string;
+    "msg-param-recipient-user-name"?: string;
+    "msg-param-months"?: boolean | string;
 }
 
 export interface ChatUserstate extends CommonUserstate {
@@ -150,11 +182,28 @@ export interface SubUserstate extends CommonSubUserstate {
     "msg-param-streak-months"?: string | boolean;
 }
 
-export interface SubGiftUserstate extends CommonSubUserstate {
-    'message-type'?: "subgift" | "anonsubgift";
-    "msg-param-recipient-display-name"?: string;
-    "msg-param-recipient-id"?: string;
-    "msg-param-recipient-user-name"?: string;
+export interface SubMysteryGiftUserstate extends CommonSubUserstate {
+    'message-type'?: "submysterygift";
+    "msg-param-sender-count"?: string | boolean;
+}
+
+export interface SubGiftUserstate extends CommonGiftSubUserstate {
+    'message-type'?: "subgift";
+    "msg-param-sender-count"?: string | boolean;
+}
+
+export interface AnonSubGiftUserstate extends CommonGiftSubUserstate {
+    "message-type"?: "anonsubgift";
+}
+
+export interface SubGiftUpgradeUserstate extends CommonSubUserstate {
+    "message-type"?: "giftpaidupgrade";
+    "msg-param-sender-name"?: string;
+    "msg-param-sender-login"?: string;
+}
+
+export interface AnonSubGiftUpgradeUserstate extends CommonSubUserstate {
+    "message-type"?: "anongiftpaidupgrade";
 }
 
 export interface RaidUserstate extends UserNoticeState {
@@ -169,7 +218,15 @@ export interface RitualUserstate extends UserNoticeState {
     "msg-param-ritual-name"?: "new_chatter";
 }
 
-export type Userstate = ChatUserstate | SubGiftUserstate | SubUserstate | RaidUserstate | RitualUserstate;
+export type Userstate = ChatUserstate |
+    SubUserstate |
+    SubGiftUserstate |
+    SubGiftUpgradeUserstate |
+    AnonSubGiftUserstate |
+    SubMysteryGiftUserstate |
+    AnonSubGiftUpgradeUserstate |
+    RaidUserstate |
+    RitualUserstate;
 
 export interface EmoteObj {
     [id: string]: [{
@@ -251,7 +308,7 @@ export type MsgID = "already_banned" |
     "whisper_limit_per_sec" |
     "whisper_restricted_recipient";
 
-export type ResubMethod = "Prime" | "1000" | "2000" | "3000";
+export type SubMethod = "Prime" | "1000" | "2000" | "3000";
 
 export interface RoomState {
     "broadcaster-lang"?: string;

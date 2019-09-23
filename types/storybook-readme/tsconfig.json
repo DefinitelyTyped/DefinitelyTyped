@@ -19,6 +19,8 @@
     "files": [
         "index.d.ts",
         "components/Marked.d.ts",
+        "registerWithPanelTitle/index.d.ts",
+        "html/index.d.ts",
         "storybook-readme-tests.tsx"
     ]
 }

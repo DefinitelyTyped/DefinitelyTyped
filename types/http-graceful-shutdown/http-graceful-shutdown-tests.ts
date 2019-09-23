@@ -6,8 +6,8 @@ const opts: GracefulShutdown.Options = {
     signals: "SIGINT SIGTERM",
     timeout: 1337,
     development: false,
-    onShutdown: () => {
-        console.log('fake shutdown handler');
+    onShutdown: (signal) => {
+        console.log('fake shutdown handler', signal);
         return Promise.resolve();
     },
     finally: () => {

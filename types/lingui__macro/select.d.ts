@@ -1,11 +1,13 @@
+import { MessageDescriptor } from "@lingui/core";
+
 export interface PluralForms {
-    zero?: string;
-    one?: string;
-    two?: string;
-    few?: string;
-    many?: string;
-    other: string;
-    [exact: number]: string;
+    zero?: string | MessageDescriptor;
+    one?: string | MessageDescriptor;
+    two?: string | MessageDescriptor;
+    few?: string | MessageDescriptor;
+    many?: string | MessageDescriptor;
+    other: string | MessageDescriptor;
+    [exact: number]: string | MessageDescriptor;
 }
 
 export interface PluralProps extends PluralForms {
@@ -15,6 +17,6 @@ export interface PluralProps extends PluralForms {
 
 export interface SelectProps {
     value: string;
-    other: string;
-    [selectForm: string]: string;
+    other: string | MessageDescriptor;
+    [selectForm: string]: string | MessageDescriptor;
 }

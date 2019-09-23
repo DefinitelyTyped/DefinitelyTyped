@@ -1,4 +1,4 @@
-// Type definitions for react-leaflet 1.1
+// Type definitions for react-leaflet 1.9
 // Project: https://github.com/PaulLeCam/react-leaflet
 // Definitions by: Dave Leaver <https://github.com/danzel>, David Schneider <https://github.com/davschne>, Yui T. <https://github.com/yuit>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -11,6 +11,11 @@ import * as React from 'react';
 // which already declares things with some of the same names
 
 export type Children = React.ReactNode | React.ReactNode[];
+
+export interface Viewport {
+    center: [number, number] | null | undefined;
+    zoom: number | null | undefined;
+}
 
 export interface MapEvents {
     onclick?(event: Leaflet.LeafletMouseEvent): void;
@@ -140,18 +145,42 @@ export interface MapProps extends MapEvents, Leaflet.MapOptions, Leaflet.LocateO
     minZoom?: number;
     style?: React.CSSProperties;
     useFlyTo?: boolean;
+    viewport?: Viewport;
+    whenReady?: () => void;
     zoom?: number;
+    onViewportChange?: (viewport: Viewport) => void;
+    onViewportChanged?: (viewport: Viewport) => void;
 }
 
 export class Map<P extends MapProps = MapProps, E extends Leaflet.Map = Leaflet.Map> extends MapComponent<P, E> {
     className?: string;
     container: HTMLDivElement;
+    viewport: Viewport;
     getChildContext(): { layerContainer: E, map: E };
     createLeafletElement(props: P): E;
     updateLeafletElement(fromProps: P, toProps: P): void;
     bindContainer(container: HTMLDivElement): void;
     shouldUpdateCenter(next: Leaflet.LatLngExpression, prev: Leaflet.LatLngExpression): boolean;
     shouldUpdateBounds(next: Leaflet.LatLngBoundsExpression, prev: Leaflet.LatLngBoundsExpression): boolean;
+    onViewportChange: () => void;
+    onViewportChanged: () => void;
+}
+
+export interface DivOverlayProps extends Leaflet.DivOverlayOptions {
+    children: Children;
+    onClose?: () => void;
+    onOpen?: () => void;
+}
+
+export interface DivOverlayTypes extends Leaflet.Evented {
+    isOpen: () => boolean;
+    update: () => void;
+}
+
+export class DivOverlay<P extends DivOverlayProps, E extends DivOverlayTypes> extends MapComponent<P, E> {
+    onClose: () => void;
+    onOpen: () => void;
+    onRender: () => void;
 }
 
 export interface PaneProps {
@@ -210,6 +239,19 @@ export interface ImageOverlayProps extends Leaflet.ImageOverlayOptions {
     url: string;
 }
 export class ImageOverlay<P extends ImageOverlayProps = ImageOverlayProps, E extends Leaflet.ImageOverlay = Leaflet.ImageOverlay> extends MapLayer<P, E> {
+    getChildContext(): { popupContainer: E };
+}
+
+export interface VideoOverlayProps extends Leaflet.VideoOverlayOptions {
+    attribution?: string;
+    children?: Children;
+    bounds: Leaflet.LatLngBoundsExpression;
+    opacity?: number;
+    play?: boolean;
+    url: string | string[] | HTMLVideoElement;
+    zIndex?: number;
+}
+export class VideoOverlay<P extends VideoOverlayProps = VideoOverlayProps, E extends Leaflet.VideoOverlay = Leaflet.VideoOverlay> extends MapLayer<P, E> {
     getChildContext(): { popupContainer: E };
 }
 
@@ -284,10 +326,10 @@ export interface RectangleProps extends PathEvents, Leaflet.PolylineOptions {
 }
 export class Rectangle<P extends RectangleProps = RectangleProps, E extends Leaflet.Rectangle = Leaflet.Rectangle> extends Path<P, E> { }
 
-export interface PopupProps extends Leaflet.PopupOptions {
-    children?: Children;
+export interface PopupProps extends DivOverlayProps, Leaflet.PopupOptions {
     position?: Leaflet.LatLngExpression;
 }
+
 export class Popup<P extends PopupProps = PopupProps, E extends Leaflet.Popup = Leaflet.Popup> extends MapComponent<P, E> {
     onPopupOpen(arg: { popup: E }): void;
     onPopupClose(arg: { popup: E }): void;
@@ -295,9 +337,9 @@ export class Popup<P extends PopupProps = PopupProps, E extends Leaflet.Popup = 
     removePopupContent(): void;
 }
 
-export interface TooltipProps extends Leaflet.TooltipOptions {
-    children?: Children;
+export interface TooltipProps extends DivOverlayProps, Leaflet.TooltipOptions {
 }
+
 export class Tooltip<P extends TooltipProps = TooltipProps, E extends Leaflet.Tooltip = Leaflet.Tooltip> extends MapComponent<P, E> {
     onTooltipOpen(arg: { tooltip: E }): void;
     onTooltipClose(arg: { tooltip: E }): void;

@@ -1,0 +1,6 @@
+{
+  "private": true,
+  "dependencies": {
+      "nock": "^11.1.0"
+  }
+}

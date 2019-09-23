@@ -3,6 +3,7 @@
 // Definitions by: Theodore Brown <https://github.com/theodorejb>
 //                 BendingBender <https://github.com/BendingBender>
 //                 Antoine Lépée <https://github.com/alepee>
+//                 Yuto Doi <https://github.com/yutod>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -88,7 +89,7 @@ declare namespace Cookies {
          * will run the converter first for each cookie. The returned
          * string will be used as the cookie value.
          */
-        withConverter<TConv extends object>(converter: CookieReadConverter | { write: CookieWriteConverter<TConv>; read: CookieReadConverter; }): CookiesStatic<TConv>;
+        withConverter<TConv extends object>(converter: CookieReadConverter | { write?: CookieWriteConverter<TConv>; read?: CookieReadConverter; }): CookiesStatic<TConv>;
     }
 
     type CookieWriteConverter<T extends object> = (value: string | T, name: string) => string;

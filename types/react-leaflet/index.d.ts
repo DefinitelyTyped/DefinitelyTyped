@@ -1,6 +1,9 @@
-// Type definitions for react-leaflet 2.2
+// Type definitions for react-leaflet 2.4
 // Project: https://github.com/PaulLeCam/react-leaflet
-// Definitions by: Dave Leaver <https://github.com/danzel>, David Schneider <https://github.com/davschne>, Yui T. <https://github.com/yuit>
+// Definitions by: Dave Leaver <https://github.com/danzel>
+//                 David Schneider <https://github.com/davschne>
+//                 Yui T. <https://github.com/yuit>
+//                 Jeroen Claassens <https://github.com/favna>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -137,6 +140,8 @@ export class MapComponent<P extends MapComponentProps, E extends Leaflet.Evented
 
 export interface MapProps extends MapEvents, Leaflet.MapOptions, Leaflet.LocateOptions, Leaflet.FitBoundsOptions {
     animate?: boolean;
+    duration?: number;
+    noMoveStart?: boolean;
     bounds?: Leaflet.LatLngBoundsExpression;
     boundsOptions?: Leaflet.FitBoundsOptions;
     children: Children;
@@ -146,6 +151,8 @@ export interface MapProps extends MapEvents, Leaflet.MapOptions, Leaflet.LocateO
     useFlyTo?: boolean;
     viewport?: Viewport;
     whenReady?: () => void;
+    onViewportChange?: (viewport: Viewport) => void;
+    onViewportChanged?: (viewport: Viewport) => void;
 }
 
 export class Map<P extends MapProps = MapProps, E extends Leaflet.Map = Leaflet.Map> extends MapEvented<P, E> {
@@ -155,8 +162,8 @@ export class Map<P extends MapProps = MapProps, E extends Leaflet.Map = Leaflet.
     viewport: Viewport;
     createLeafletElement(props: P): E;
     updateLeafletElement(fromProps: P, toProps: P): void;
-    onViewportChange: (viewport: Viewport | null) => void;
-    onViewportChanged: (viewport: Viewport | null) => void;
+    onViewportChange: () => void;
+    onViewportChanged: () => void;
     bindContainer(container: HTMLDivElement | null | undefined): void;
     shouldUpdateCenter(next: Leaflet.LatLngExpression, prev: Leaflet.LatLngExpression): boolean;
     shouldUpdateBounds(next: Leaflet.LatLngBoundsExpression, prev: Leaflet.LatLngBoundsExpression): boolean;
@@ -272,6 +279,19 @@ export interface ImageOverlayProps extends MapLayerProps, Leaflet.ImageOverlayOp
     zIndex?: number;
 }
 export class ImageOverlay<P extends ImageOverlayProps = ImageOverlayProps, E extends Leaflet.ImageOverlay = Leaflet.ImageOverlay> extends MapLayer<P, E> {
+    createLeafletElement(props: P): E;
+    updateLeafletElement(fromProps: P, toProps: P): void;
+}
+
+export interface VideoOverlayProps extends Leaflet.VideoOverlayOptions, MapComponentProps {
+    attribution?: string;
+    bounds: Leaflet.LatLngBoundsExpression;
+    opacity?: number;
+    play?: boolean;
+    url: string | string[] | HTMLVideoElement;
+    zIndex?: number;
+}
+export class VideoOverlay<P extends VideoOverlayProps = VideoOverlayProps, E extends Leaflet.VideoOverlay = Leaflet.VideoOverlay> extends MapLayer<P, E> {
     createLeafletElement(props: P): E;
     updateLeafletElement(fromProps: P, toProps: P): void;
 }
@@ -449,3 +469,4 @@ export interface ContextProps {
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 
 export function withLeaflet<T extends ContextProps>(WrappedComponent: React.ComponentType<T>): React.ComponentType<Omit<T, 'leaflet'>>;
+export function useLeaflet(): LeafletContext;

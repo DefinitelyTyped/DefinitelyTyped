@@ -1,11 +1,15 @@
-/// <reference types="node/v0" />
-
 import * as util from 'util';
-import * as fs from "fs";
+import * as fs from 'fs';
 import promisify = require('util.promisify');
 
-// tslint:disable-next-line ban-types
-let readFile: Function = promisify(fs.readFile);
+import 'util.promisify/auto';
 
-promisify.shim();
+let readFile = promisify(fs.readFile);
 readFile = util.promisify(fs.readFile);
+
+let implementation = promisify.getPolyfill();
+implementation = promisify.shim();
+implementation = promisify.implementation;
+
+import promisifyShim = require('util.promisify/shim');
+promisifyShim();

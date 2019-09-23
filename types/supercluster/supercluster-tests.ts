@@ -1,4 +1,4 @@
-import Supercluster, { PointFeature, ClusterProperties } from 'supercluster';
+import Supercluster = require('supercluster');
 
 //
 // Test 1: strictly typed
@@ -12,7 +12,7 @@ interface TestClusterProps {
 	myTestClusterName: string;
 }
 
-const points: Array<PointFeature<TestPointProps>> = [
+const points: Array<Supercluster.PointFeature<TestPointProps>> = [
 	{
 		type: 'Feature',
 		properties: { myTestFeatureName: 'a' },
@@ -50,8 +50,8 @@ index.load(points);
 const clusters = index.getClusters([-180, -85, 180, 85], 2);
 const firstProps = clusters[0].properties; // Either cluster or point properties
 // Generic cluster properties
-(<ClusterProperties> firstProps).cluster;
-(<ClusterProperties> firstProps).point_count;
+(<Supercluster.ClusterProperties> firstProps).cluster;
+(<Supercluster.ClusterProperties> firstProps).point_count;
 // Custom cluster properties
 (<TestClusterProps> firstProps).myTestClusterName;
 // Custom point properties
@@ -62,8 +62,8 @@ const tile = index.getTile(0, 0, 0);
 if (tile) {
 	const tileProps = tile.features[0].tags; // Either cluster or point properties
 	// Generic cluster properties
-	(<ClusterProperties> tileProps).cluster;
-	(<ClusterProperties> tileProps).point_count;
+	(<Supercluster.ClusterProperties> tileProps).cluster;
+	(<Supercluster.ClusterProperties> tileProps).point_count;
 	// Custom cluster properties
 	(<TestClusterProps> tileProps).myTestClusterName;
 	// Custom point properties
@@ -96,6 +96,6 @@ index2.load([
 ]);
 const clusters2 = index2.getClusters([-180, -85, 180, 85], 2);
 const firstProps2 = clusters2[0].properties;
-(<ClusterProperties> firstProps2).cluster_id;
+(<Supercluster.ClusterProperties> firstProps2).cluster_id;
 firstProps2.testPropertyA;
 firstProps2.testPropertyB;

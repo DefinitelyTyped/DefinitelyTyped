@@ -1,4 +1,4 @@
-// Type definitions for webpack (module API) 1.13
+// Type definitions for webpack (module API) 1.14
 // Project: https://github.com/webpack/webpack
 // Definitions by: use-strict <https://github.com/use-strict>
 //                 rhonsby <https://github.com/rhonsby>
@@ -15,6 +15,8 @@ declare namespace __WebpackModuleApi {
         (id: string): any;
         <T>(id: string): T;
         resolve(id: string): string;
+        /** The module id of the context module. This may be useful for module.hot.accept. */
+        id: string;
     }
 
     interface RequireFunction {
@@ -122,13 +124,13 @@ declare namespace __WebpackModuleApi {
          * @param dependencies
          * @param callback
          */
-        accept(dependencies: string[], callback: (updatedDependencies: ModuleId[]) => void): void;
+        accept(dependencies: string[], callback?: (updatedDependencies: ModuleId[]) => void): void;
         /**
          * Accept code updates for the specified dependencies. The callback is called when dependencies were replaced.
          * @param dependency
          * @param callback
          */
-        accept(dependency: string, callback: () => void): void;
+        accept(dependency: string, callback?: () => void): void;
         /**
          * Accept code updates for this module without notification of parents.
          * This should only be used if the module doesn’t export anything.

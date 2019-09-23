@@ -1,4 +1,4 @@
-import buble from 'rollup-plugin-buble';
+import buble = require('rollup-plugin-buble');
 
 // No options (default)
 (() => {

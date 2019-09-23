@@ -1,6 +1,7 @@
 import * as changelog from 'generate-changelog';
 
 changelog.generate({
+    allowUnknown: true,
     exclude: ['chore'],
     minor: true,
     repoUrl: 'https://github.com/lob/generate-changelog',

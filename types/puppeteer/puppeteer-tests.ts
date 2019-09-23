@@ -9,6 +9,7 @@ import * as Devices from "puppeteer/DeviceDescriptors";
   const page = await browser.newPage();
   const snap = await page.accessibility.snapshot({
     interestingOnly: true,
+    root: undefined,
   });
   for (const child of snap.children) {
     console.log(child.name);
@@ -121,6 +122,7 @@ puppeteer.launch().then(async browser => {
 
   await page.emulateMedia("screen");
   await page.emulate(Devices['test']);
+  await page.emulate(puppeteer.devices['test']);
   await page.pdf({ path: "page.pdf" });
 
   await page.setRequestInterception(true);
@@ -617,4 +619,47 @@ puppeteer.launch().then(async browser => {
       reHandle
   );
   console.log('there are', numMatchingEls, 'banana paragaphs');
+});
+
+(async () => {
+  const rev = '630727';
+  const defaultFetcher = puppeteer.createBrowserFetcher();
+  const options: puppeteer.FetcherOptions = {
+    host: 'https://storage.googleapis.com',
+    path: '/tmp/.local-chromium',
+    platform: 'linux',
+  };
+  const browserFetcher = puppeteer.createBrowserFetcher(options);
+  const canDownload = await browserFetcher.canDownload(rev);
+  if (canDownload) {
+      const revisionInfo = await browserFetcher.download(rev);
+      const localRevisions = await browserFetcher.localRevisions();
+      const browser = await puppeteer.launch({executablePath: revisionInfo.executablePath});
+      browser.close();
+      if (localRevisions.includes(rev)) {
+        await browserFetcher.remove(rev);
+      }
+      await browserFetcher.download(rev, (download, total) => {
+        console.log('downloadBytes:', download, 'totalBytes:', total);
+      });
+      await browserFetcher.remove(rev);
+    }
+});
+
+(async () => {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+  const url = page.workers()[0].url();
+  if (page.target().type() === 'shared_worker') {
+      const a: number = await (await page.target().worker())!.evaluate(() => 1);
+  }
+});
+
+(async () => {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+  const fileChooser = await page.waitForFileChooser({ timeout: 999 });
+  await fileChooser.cancel();
+  const isMultiple: boolean = fileChooser.isMultiple();
+  await fileChooser.accept(['/foo/bar']);
 });

@@ -1,4 +1,17 @@
-import { DateTime, Duration, Interval, Info, Settings, IANAZone, Zone, ZoneOffsetOptions } from 'luxon';
+import {
+    DateTime,
+    Duration,
+    Interval,
+    Info,
+    Settings,
+    InvalidZone,
+    LocalZone,
+    FixedOffsetZone,
+    IANAZone,
+    Zone,
+    ZoneOffsetOptions,
+    ZoneOffsetFormat,
+} from 'luxon';
 
 /* DateTime */
 const dt = DateTime.local(2017, 5, 15, 8, 30);
@@ -10,13 +23,33 @@ const fromObject = DateTime.fromObject({
     day: 22,
     hour: 12,
     zone: 'America/Los_Angeles',
-    numberingSystem: 'beng'
+    numberingSystem: 'beng',
 });
 
 const ianaZone = new IANAZone('America/Los_Angeles');
+const testIanaZone = IANAZone.create('Europe/London');
+IANAZone.isValidSpecifier('Europe/London');
+IANAZone.isValidZone('Europe/London');
+IANAZone.resetCache();
+testIanaZone.formatOffset(dt.toMillis()); // $ExpectError
+testIanaZone.formatOffset(dt.toMillis(), 'narrow'); // $ExpectType string
+testIanaZone.formatOffset(dt.toMillis(), 'short'); // $ExpectType string
+testIanaZone.formatOffset(dt.toMillis(), 'techie'); // $ExpectType string
+testIanaZone.formatOffset(dt.toMillis(), 'other_string'); // $ExpectError
+testIanaZone.offsetName(dt.toMillis()); // $ExpectError
+testIanaZone.offsetName(dt.toMillis(), { format: 'short'}); // $ExpectType string
+testIanaZone.offsetName(dt.toMillis(), { format: 'long'}); // $ExpectType string
+testIanaZone.offsetName(dt.toMillis(), { format: 'other_string'}); // $ExpectError
+testIanaZone.offsetName(dt.toMillis(), { format: 'short', locale: 'en-us'}); // $ExpectType string
+testIanaZone.offsetName(dt.toMillis(), { locale: 'en-gb'}); // $ExpectType string
 const ianaZoneTest = DateTime.fromObject({
-    zone: ianaZone
+    zone: ianaZone,
 });
+
+FixedOffsetZone.utcInstance;
+
+FixedOffsetZone.instance(60);
+FixedOffsetZone.parseSpecifier('UTC+6');
 
 const fromIso = DateTime.fromISO('2017-05-15'); // => May 15, 2017 at midnight
 const fromIso2 = DateTime.fromISO('2017-05-15T08:30:00'); // => May 15, 2017 at midnight
@@ -65,7 +98,7 @@ dt.toRelative({
     base: DateTime.local(),
     locale: 'fr',
     style: 'long',
-    unit: 'day',
+    unit: 'days',
     round: true,
     padding: 10,
     numberingSystem: 'bali',
@@ -75,7 +108,7 @@ dt.toRelative({
 dt.toRelativeCalendar({
     base: DateTime.local(),
     locale: 'fr',
-    unit: 'day',
+    unit: 'days',
     numberingSystem: 'bali',
 });
 
@@ -138,8 +171,8 @@ const i = Interval.fromDateTimes(now, later);
 i.length(); // $ExpectType number
 i.length('years'); // $ExpectType number
 i.contains(DateTime.local(2019)); // $ExpectType boolean
-i.set({end: DateTime.local(2020)}); // $ExpectType Interval
-i.mapEndpoints((d) => d); // $ExpectType Interval
+i.set({ end: DateTime.local(2020) }); // $ExpectType Interval
+i.mapEndpoints(d => d); // $ExpectType Interval
 i.intersection(i); // $ExpectType Interval | null
 
 i.toISO(); // $ExpectType string
@@ -153,7 +186,11 @@ if (Interval.isInterval(anything)) {
 
 /* Info */
 Info.months();
+// $ExpectError
+Info.months('2-digit', { outputCalendar: 'unknown' });
 Info.weekdays('long');
+// $ExpectError
+Info.weekdays('2-digit');
 Info.features().intl;
 Info.features().intlTokens;
 Info.features().zones;
@@ -174,33 +211,34 @@ Settings.defaultZone = Settings.defaultZone;
 // http://moment.github.io/luxon/docs/manual/
 
 /* Intl */
-DateTime.local().setLocale("el").toLocaleString(DateTime.DATE_FULL); // $ExpectType string
+// prettier-ignore
+DateTime.local().setLocale('el').toLocaleString(DateTime.DATE_FULL); // $ExpectType string
 dt.locale; // $ExpectType string
-DateTime.local().setLocale("fr").locale; // $ExpectType string
-DateTime.local().reconfigure({ locale: "fr" }).locale; // $ExpectType string
+DateTime.local().setLocale('fr').locale; // $ExpectType string
+DateTime.local().reconfigure({ locale: 'fr' }).locale; // $ExpectType string
 
-Settings.defaultLocale = "fr";
+Settings.defaultLocale = 'fr';
 DateTime.local().locale; // $ExpectType string
 
 Settings.defaultLocale = DateTime.local().resolvedLocaleOpts().locale;
 
-dt.setLocale("fr").toLocaleString(DateTime.DATE_FULL); // $ExpectType string
-dt.toLocaleString({ locale: "es", ...DateTime.DATE_FULL }); // $ExpectType string
-dt.setLocale("fr").toFormat("MMMM dd, yyyy GG"); // $ExpectType string
+dt.setLocale('fr').toLocaleString(DateTime.DATE_FULL); // $ExpectType string
+dt.toLocaleString({ locale: 'es', ...DateTime.DATE_FULL }); // $ExpectType string
+dt.setLocale('fr').toFormat('MMMM dd, yyyy GG'); // $ExpectType string
 
-DateTime.fromFormat("septembre 25, 2017 après Jésus-Christ", "MMMM dd, yyyy GG", { locale: "fr" });
+DateTime.fromFormat('septembre 25, 2017 après Jésus-Christ', 'MMMM dd, yyyy GG', { locale: 'fr' });
 
-Info.months("long", { locale: "fr" }); // $ExpectType string[]
-Info.weekdays("long", { locale: "fr" }); // $ExpectType string[]
-Info.eras("long", { locale: "fr" }); // $ExpectType string[]
+Info.months('long', { locale: 'fr' }); // $ExpectType string[]
+Info.weekdays('long', { locale: 'fr' }); // $ExpectType string[]
+Info.eras('long', { locale: 'fr' }); // $ExpectType string[]
 
-DateTime.local().reconfigure({ locale: "it", numberingSystem: "beng" });
-Settings.defaultNumberingSystem = "beng";
+DateTime.local().reconfigure({ locale: 'it', numberingSystem: 'beng' });
+Settings.defaultNumberingSystem = 'beng';
 
 /* Time zones and offsets */
 Info.features().zones; // $ExpectType boolean
 
-const bogus = DateTime.local().setZone("America/Bogus");
+const bogus = DateTime.local().setZone('America/Bogus');
 bogus.isValid; // $ExpectType boolean
 bogus.invalidReason; // $ExpectType string | null
 bogus.invalidExplanation; // $ExpectType string | null
@@ -208,19 +246,20 @@ bogus.invalidExplanation; // $ExpectType string | null
 const local = DateTime.local(2017, 5, 15, 09, 10, 23);
 local.zoneName; // $ExpectType string
 local.toString(); // $ExpectType string
-local.setZone("America/Los_Angeles"); // $ExpectType DateTime
-local.setZone("America/Los_Angeles", { keepLocalTime: true }); // $ExpectType DateTime
+local.setZone('America/Los_Angeles'); // $ExpectType DateTime
+local.setZone('America/Los_Angeles', { keepLocalTime: true }); // $ExpectType DateTime
 
-const iso = DateTime.fromISO("2017-05-15T09:10:23");
+const iso = DateTime.fromISO('2017-05-15T09:10:23');
 iso.zoneName; // $ExpectType string
 iso.toString(); // $ExpectType string
 
-DateTime.fromISO("2017-05-15T09:10:23", { zone: "Europe/Paris", setZone: true }); // $ExpectType DateTime
-DateTime.fromFormat("2017-05-15T09:10:23 Europe/Paris", "yyyy-MM-dd'T'HH:mm:ss z"); // $ExpectType DateTime
+DateTime.fromISO('2017-05-15T09:10:23', { zone: 'Europe/Paris', setZone: true }); // $ExpectType DateTime
+DateTime.fromFormat('2017-05-15T09:10:23 Europe/Paris', "yyyy-MM-dd'T'HH:mm:ss z"); // $ExpectType DateTime
 
-Settings.defaultZoneName = "Asia/Tokyo";
+Settings.defaultZoneName = 'Asia/Tokyo';
 
 /* Calendars */
+// prettier-ignore
 DateTime.fromISO('2017-W23-3').plus({ weeks: 1, days: 2 }).toISOWeekDate(); // $ExpectType string
 
 const dtHebrew = DateTime.local().reconfigure({ outputCalendar: 'hebrew' });
@@ -245,11 +284,13 @@ DateTime.fromSeconds(1542674993); // $ExpectType DateTime
 DateTime.fromFormat('May 25 1982', 'LLLL dd yyyy'); // $ExpectType DateTime
 DateTime.fromFormat('mai 25 1982', 'LLLL dd yyyy', { locale: 'fr' }); // $ExpectType DateTime
 
-DateTime.fromFormatExplain("Aug 6 1982", "MMMM d yyyy").regex;
+DateTime.fromFormatExplain('Aug 6 1982', 'MMMM d yyyy').regex;
 
 /* Math */
 const d1: DateTime = DateTime.local(2017, 2, 13).plus({ days: 30 });
-const d2: DateTime = DateTime.fromISO('2017-04-30').plus({days: 1}).plus({months: 1});
+const d2: DateTime = DateTime.fromISO('2017-04-30')
+    .plus({ days: 1 })
+    .plus({ months: 1 });
 
 if (d1 < d2 || +d1 === +d2) {
     //
@@ -262,7 +303,8 @@ d1.hasSame(d2, 'year'); // $ExpectType boolean
 dur.toObject().days; // $ExpectType number | undefined
 dur.as('minutes'); // $ExpectType number
 dur.shiftTo('minutes').toObject().minutes; // $ExpectType number | undefined
-DateTime.fromISO("2017-05-15").plus(dur).toISO(); // $ExpectType string
+// prettier-ignore
+DateTime.fromISO('2017-05-15').plus(dur).toISO(); // $ExpectType string
 
 const end = DateTime.fromISO('2017-03-13');
 const start = DateTime.fromISO('2017-02-13');
@@ -290,18 +332,21 @@ i.toDuration(['years', 'months', 'days']); // $ExpectType Duration
 
 /* Sample Zone Implementation */
 class SampleZone extends Zone {
-  readonly isValid = false;
-  readonly name = 'Sample';
-  readonly type = 'Example';
-  readonly universal = true;
+    readonly isValid = false;
+    readonly name = 'Sample';
+    readonly type = 'Example';
+    readonly universal = true;
 
-  offsetName(ts: number, options?: ZoneOffsetOptions) {
-    return 'SampleZone';
-  }
-  equals(other: Zone) {
-    return other.name === this.name;
-  }
-  offset(ts: number) {
-    return 0;
-  }
+    offsetName(ts: number, options?: ZoneOffsetOptions) {
+        return 'SampleZone';
+    }
+    formatOffset(ts: number, format: ZoneOffsetFormat) {
+        return '+6';
+    }
+    equals(other: Zone) {
+        return other.name === this.name;
+    }
+    offset(ts: number) {
+        return 0;
+    }
 }

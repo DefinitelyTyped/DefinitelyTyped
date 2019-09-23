@@ -1,0 +1,30 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "baseUrl": "../../",
+        "typeRoots": [
+            "../../"
+        ],
+        "types": [],
+        "paths": {
+            "wouter": [
+                "wouter/v1"
+            ]
+        },
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "jsx": "react",
+        "strictFunctionTypes": true
+    },
+    "files": [
+        "index.d.ts",
+        "wouter-tests.tsx"
+    ]
+}

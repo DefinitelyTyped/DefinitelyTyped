@@ -53,3 +53,15 @@ const PHPCookies = Cookies.withConverter<object>({
             .replace(/(%[0-9A-Z]{2})+/g, decodeURIComponent);
     }
 });
+
+const BlankConverterCookies = Cookies.withConverter({
+    read(value, name) {
+        if (name === 'hoge') {
+            return value.replace('hoge', 'fuga');
+        }
+        return value;
+    }
+});
+
+document.cookie = 'hoge=hogehoge';
+BlankConverterCookies.get('hoge');

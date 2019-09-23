@@ -1,4 +1,4 @@
-// Type definitions for gc-stats 1.2
+// Type definitions for gc-stats 1.4
 // Project: https://github.com/dainis/node-gcstats#readme
 // Definitions by: Vitor Fernandes <https://github.com/vfernandestoptal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -13,8 +13,10 @@ declare namespace GCStats {
         heapSizeLimit: number;
         totalPhysicalSize: number;
         totalAvailableSize: number;
-        mallocedMemory: number;
-        peakMallocedMemory: number;
+        mallocedMemory?: number; // became available with node 7+
+        peakMallocedMemory?: number; // became available with node 7+
+        numberOfNativeContexts?: number; // became available with node 10+
+        numberOfDetachedContexts?: number; // became available with node 10+
     }
 
     interface GCStatistics {
@@ -27,8 +29,16 @@ declare namespace GCStats {
         after: MemoryStatistics;
         diff: MemoryStatistics;
     }
+
+    type GCStatsListener = (stats: GCStatistics) => void;
+
+    interface GCStatsEventEmitter extends EventEmitter {
+        on(event: "stats", listener: GCStatsListener): this;
+        addListener(event: "stats", listener: GCStatsListener): this;
+        once(event: "stats", listener: GCStatsListener): this;
+    }
 }
 
-declare function GCStats(): EventEmitter;
+declare function GCStats(): GCStats.GCStatsEventEmitter;
 
 export = GCStats;

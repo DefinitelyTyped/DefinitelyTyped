@@ -41,7 +41,8 @@ import {
     Updates,
     MediaLibrary,
     Haptic,
-    Constants
+    Constants,
+    SplashScreen
 } from 'expo';
 
 const reverseGeocode: Promise<Location.GeocodeData[]> = Location.reverseGeocodeAsync({
@@ -950,4 +951,9 @@ async () => {
     const linkingUri = Constants.linkingUri;
     const userAgent: string = await Constants.getWebViewUserAgentAsync();
 };
+// #endregion
+
+// #region SplashScreen
+SplashScreen.hide();
+SplashScreen.preventAutoHide();
 // #endregion

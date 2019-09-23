@@ -4,6 +4,7 @@ import DatePicker, {
 	setDefaultLocale,
 	getDefaultLocale,
 } from 'react-datepicker';
+import enUS from 'date-fns/locale/en-US';
 
 registerLocale('en-GB', { options: { weekStartsOn: 1 } });
 setDefaultLocale('en-GB');
@@ -32,7 +33,7 @@ const defaultLocale = getDefaultLocale();
 	filterDate={date => true}
 	fixedHeight
 	forceShowMonthNavigation
-	formatWeekDay={date => ''}
+	formatWeekDay={formattedDate => formattedDate[0]}
 	formatWeekNumber={date => 0}
 	highlightDates={[{ someClassName: [new Date()]}]}
 	id=""
@@ -98,6 +99,7 @@ const defaultLocale = getDefaultLocale();
 	showDisabledMonthNavigation
 	showMonthDropdown
 	showMonthYearDropdown
+	showMonthYearPicker
 	showTimeSelect
 	showTimeSelectOnly
 	showWeekNumbers
@@ -116,10 +118,23 @@ const defaultLocale = getDefaultLocale();
 	weekLabel=""
 	withPortal
 	yearDropdownItemNumber={1}
+	timeInputLabel=""
+	inlineFocusSelectedMonth={false}
+	onDayMouseEnter={(date: Date) => {}}
+	onMonthMouseLeave={() => {}}
 >
 	<div />
 	<span />
 </DatePicker>;
+
+<DatePicker
+    minDate={null}
+    maxDate={null}
+    startDate={null}
+    endDate={null}
+    locale={enUS}
+    onChange={() => null}
+/>;
 
 function handleRef(ref: DatePicker | null) {
     if (ref) {

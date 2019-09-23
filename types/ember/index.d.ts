@@ -1,4 +1,4 @@
-// Type definitions for Ember.js 3.0
+// Type definitions for Ember.js 3.1
 // Project: http://emberjs.com/, https://github.com/emberjs/ember
 // Definitions by: Jed Mao <https://github.com/jedmao>
 //                 bttf <https://github.com/bttf>
@@ -498,7 +498,6 @@ export namespace Ember {
     // TODO: replace with an es6 reexport when declare module 'ember' is removed
     /**
      * Copy properties from a source object to a target object.
-     * @deprecated Use Object.assign
      */
     const assign: typeof EmberPolyfillsNs.assign;
     /**
