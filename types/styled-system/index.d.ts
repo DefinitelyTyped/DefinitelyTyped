@@ -840,15 +840,16 @@ export const grid: styleFn;
  * - Array values are converted into responsive values.
  */
 export interface LayoutProps
-    extends WidthProps,
-        HeightProps,
-        MinWidthProps,
-        MinHeightProps,
-        MaxWidthProps,
-        MaxHeightProps,
-        DisplayProps,
-        VerticalAlignProps,
-        SizeProps {}
+  extends WidthProps,
+    HeightProps,
+    MinWidthProps,
+    MinHeightProps,
+    MaxWidthProps,
+    MaxHeightProps,
+    DisplayProps,
+    VerticalAlignProps,
+    SizeProps,
+    OverflowProps {}
 
 export const layout: styleFn;
 
