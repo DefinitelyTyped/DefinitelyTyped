@@ -1402,7 +1402,7 @@ declare namespace webpack {
                 files: string[];
                 filteredModules?: boolean;
                 hash: string | undefined;
-                id: number;
+                id: number | string;
                 initial: boolean;
                 modules?: FnModules[];
                 names: string[];
