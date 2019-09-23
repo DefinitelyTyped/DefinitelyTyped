@@ -172,6 +172,21 @@ map.on('load', function() {
 			"line-width": 8
 		}
 	});
+
+	// Add a custom layer
+	map.addLayer({
+		id: 'custom',
+		type: 'custom',
+		renderingMode: '3d',
+		onRemove: function(map, gl) {
+			map;  // $ExpectType Map
+			gl;  // $ExpectType WebGLRenderingContext
+		},
+		render: function(gl, matrix) {
+			gl;  // $ExpectType WebGLRenderingContext
+			matrix;  // $ExpectType number[]
+		},
+	});
 });
 
 // FlyTo

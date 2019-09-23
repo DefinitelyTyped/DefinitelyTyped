@@ -1,8 +1,9 @@
-// Type definitions for eslint 4.16
+// Type definitions for eslint 6.1
 // Project: https://eslint.org
 // Definitions by: Pierre-Marie Dartus <https://github.com/pmdartus>
 //                 Jed Fox <https://github.com/j-f1>
 //                 Saad Quadri <https://github.com/saadq>
+//                 Jason Kwok <https://github.com/JasonHK>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -292,6 +293,7 @@ export namespace Rule {
         fixable?: 'code' | 'whitespace';
         schema?: JSONSchema4 | JSONSchema4[];
         deprecated?: boolean;
+        type?: 'problem' | 'suggestion' | 'layout';
     }
 
     interface RuleContext {
@@ -319,7 +321,9 @@ export namespace Rule {
 
     type ReportDescriptor = ReportDescriptorMessage & ReportDescriptorLocation & ReportDescriptorOptions;
     type ReportDescriptorMessage = { message: string } | { messageId: string };
-    type ReportDescriptorLocation = { node: ESTree.Node } | { loc: AST.SourceLocation | { line: number, column: number } };
+    type ReportDescriptorLocation =
+        | { node: ESTree.Node }
+        | { loc: AST.SourceLocation | { line: number; column: number } };
     interface ReportDescriptorOptions {
         data?: { [key: string]: string };
 
@@ -379,16 +383,28 @@ export namespace Linter {
     interface RuleLevelAndOptions extends Array<any> {
         0: RuleLevel;
     }
-
-    interface Config {
+    interface HasRules {
         rules?: {
             [name: string]: RuleLevel | RuleLevelAndOptions
         };
+    }
+
+    interface RuleOverride extends HasRules {
+        excludedFiles?: string[];
+        files?: string[];
+    }
+
+    interface Config extends HasRules {
         parser?: string;
         parserOptions?: ParserOptions;
         settings?: { [name: string]: any };
         env?: { [name: string]: boolean };
         globals?: { [name: string]: boolean };
+        extends?: string | string[];
+        overrides?: RuleOverride[];
+        processor?: string;
+        plugins?: string[];
+        root?: boolean;
     }
 
     interface ParserOptions {

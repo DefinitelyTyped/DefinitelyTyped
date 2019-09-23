@@ -1,6 +1,10 @@
 // Type definitions for flexmonster 2.7
 // Project: https://flexmonster.com/
-// Definitions by:  Flexmonster <https://github.com/flexmonster>
+// Definitions by:  Dima Zvazhii <https://github.com/Uaman>
+//                  Ian Sadovy <https://github.com/iansadovy>
+//                  Flexmonster Team (Admin) <https://github.com/flexmonsterowner>
+//                  Flexmonster Team <https://github.com/flexmonsterteam>
+//                  Iryna Kulchytska <https://github.com/irakulchytska>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
@@ -175,12 +179,13 @@ declare namespace Flexmonster {
     }
 
     interface DataSource {
+    	type?: string;
+        dataSourceType?: string;
         browseForFile?: boolean;
         catalog?: string;
         cube?: string;
         data?: object[];
         dataSourceInfo?: string;
-        dataSourceType?: string;
         fieldSeparator?: string;
         thousandSeparator?: string;
         filename?: string;
@@ -343,17 +348,19 @@ declare namespace Flexmonster {
         isTotal?: boolean;
         isTotalColumn?: boolean;
         isTotalRow?: boolean;
-        member?: Member;
-        width?: number;
-        x?: number;
-        y?: number;
         label?: string;
         level?: number;
         measure?: MeasureObject;
+        member?: Member;
+        recordId?: string | string[];
+        rowData?: CellData[];
         rowIndex?: number;
         rows?: object[];
         type?: string;
         value?: number;
+        width?: number;
+        x?: number;
+        y?: number;
     }
 
     interface ExportOptions {
@@ -379,6 +386,7 @@ declare namespace Flexmonster {
         sortName?: string;
         sortOrder?: string[];
         uniqueName?: string;
+        levels?: Level[];
     }
 
     interface Filter {
@@ -604,5 +612,10 @@ declare namespace Flexmonster {
         dataHeight: number;
         dataWidth: number;
         errorMessage: string;
+    }
+
+    interface Level {
+        caption: string;
+        uniqueName: string;
     }
 }

@@ -1,132 +1,121 @@
-import {
-    RequestData,
-    MediaInformation,
-    Track,
-    MediaStatus
-} from "./cast.framework.messages";
-import * as category from "./cast.framework.events.category";
+import { RequestData, MediaInformation, Track, MediaStatus } from './cast.framework.messages';
+import * as category from './cast.framework.events.category';
 
 export import category = category;
 
 export as namespace events;
 export type EventType =
-    | "ALL"
-    | "ABORT"
-    | "CAN_PLAY"
-    | "CAN_PLAY_THROUGH"
-    | "DURATION_CHANGE"
-    | "EMPTIED"
-    | "ENDED"
-    | "LOADED_DATA"
-    | "LOADED_METADATA"
-    | "LOAD_START"
-    | "PAUSE"
-    | "PLAY"
-    | "PLAYING"
-    | "PROGRESS"
-    | "RATE_CHANGE"
-    | "SEEKED"
-    | "SEEKING"
-    | "STALLED"
-    | "TIME_UPDATE"
-    | "SUSPEND"
-    | "WAITING"
-    | "BITRATE_CHANGED"
-    | "BREAK_STARTED"
-    | "BREAK_ENDED"
-    | "BREAK_CLIP_LOADING"
-    | "BREAK_CLIP_STARTED"
-    | "BREAK_CLIP_ENDED"
-    | "BUFFERING"
-    | "CACHE_LOADED"
-    | "CACHE_HIT"
-    | "CACHE_INSERTED"
-    | "CLIP_STARTED"
-    | "CLIP_ENDED"
-    | "EMSG"
-    | "ERROR"
-    | "ID3"
-    | "MEDIA_STATUS"
-    | "MEDIA_FINISHED"
-    | "PLAYER_PRELOADING"
-    | "PLAYER_PRELOADING_CANCELLED"
-    | "PLAYER_LOAD_COMPLETE"
-    | "PLAYER_LOADING"
-    | "SEGMENT_DOWNLOADED"
-    | "REQUEST_SEEK"
-    | "REQUEST_LOAD"
-    | "REQUEST_STOP"
-    | "REQUEST_PAUSE"
-    | "REQUEST_PLAY"
-    | "REQUEST_PLAY_AGAIN"
-    | "REQUEST_PLAYBACK_RATE_CHANGE"
-    | "REQUEST_SKIP_AD"
-    | "REQUEST_VOLUME_CHANGE"
-    | "REQUEST_EDIT_TRACKS_INFO"
-    | "REQUEST_EDIT_AUDIO_TRACKS"
-    | "REQUEST_SET_CREDENTIALS"
-    | "REQUEST_LOAD_BY_ENTITY"
-    | "REQUEST_USER_ACTION"
-    | "REQUEST_DISPLAY_STATUS"
-    | "REQUEST_CUSTOM_COMMAND"
-    | "REQUEST_FOCUS_STATE"
-    | "REQUEST_QUEUE_LOAD"
-    | "REQUEST_QUEUE_INSERT"
-    | "REQUEST_QUEUE_UPDATE"
-    | "REQUEST_QUEUE_REMOVE"
-    | "REQUEST_QUEUE_REORDER"
-    | "REQUEST_QUEUE_GET_ITEM_RANGE"
-    | "REQUEST_QUEUE_GET_ITEMS"
-    | "REQUEST_QUEUE_GET_ITEM_IDS"
-    | "REQUEST_PRECACHE";
+    | 'ALL'
+    | 'ABORT'
+    | 'CAN_PLAY'
+    | 'CAN_PLAY_THROUGH'
+    | 'DURATION_CHANGE'
+    | 'EMPTIED'
+    | 'ENDED'
+    | 'LOADED_DATA'
+    | 'LOADED_METADATA'
+    | 'LOAD_START'
+    | 'PAUSE'
+    | 'PLAY'
+    | 'PLAYING'
+    | 'PROGRESS'
+    | 'RATE_CHANGE'
+    | 'SEEKED'
+    | 'SEEKING'
+    | 'STALLED'
+    | 'TIME_UPDATE'
+    | 'SUSPEND'
+    | 'WAITING'
+    | 'BITRATE_CHANGED'
+    | 'BREAK_STARTED'
+    | 'BREAK_ENDED'
+    | 'BREAK_CLIP_LOADING'
+    | 'BREAK_CLIP_STARTED'
+    | 'BREAK_CLIP_ENDED'
+    | 'BUFFERING'
+    | 'CACHE_LOADED'
+    | 'CACHE_HIT'
+    | 'CACHE_INSERTED'
+    | 'CLIP_STARTED'
+    | 'CLIP_ENDED'
+    | 'EMSG'
+    | 'ERROR'
+    | 'ID3'
+    | 'MEDIA_STATUS'
+    | 'MEDIA_FINISHED'
+    | 'PLAYER_PRELOADING'
+    | 'PLAYER_PRELOADING_CANCELLED'
+    | 'PLAYER_LOAD_COMPLETE'
+    | 'PLAYER_LOADING'
+    | 'SEGMENT_DOWNLOADED'
+    | 'REQUEST_SEEK'
+    | 'REQUEST_LOAD'
+    | 'REQUEST_STOP'
+    | 'REQUEST_PAUSE'
+    | 'REQUEST_PLAY'
+    | 'REQUEST_PLAY_AGAIN'
+    | 'REQUEST_PLAYBACK_RATE_CHANGE'
+    | 'REQUEST_SKIP_AD'
+    | 'REQUEST_VOLUME_CHANGE'
+    | 'REQUEST_EDIT_TRACKS_INFO'
+    | 'REQUEST_EDIT_AUDIO_TRACKS'
+    | 'REQUEST_SET_CREDENTIALS'
+    | 'REQUEST_LOAD_BY_ENTITY'
+    | 'REQUEST_USER_ACTION'
+    | 'REQUEST_DISPLAY_STATUS'
+    | 'REQUEST_CUSTOM_COMMAND'
+    | 'REQUEST_FOCUS_STATE'
+    | 'REQUEST_QUEUE_LOAD'
+    | 'REQUEST_QUEUE_INSERT'
+    | 'REQUEST_QUEUE_UPDATE'
+    | 'REQUEST_QUEUE_REMOVE'
+    | 'REQUEST_QUEUE_REORDER'
+    | 'REQUEST_QUEUE_GET_ITEM_RANGE'
+    | 'REQUEST_QUEUE_GET_ITEMS'
+    | 'REQUEST_QUEUE_GET_ITEM_IDS'
+    | 'REQUEST_PRECACHE';
 
 export type DetailedErrorCode =
-    | "MEDIA_UNKNOWN"
-    | "MEDIA_ABORTED"
-    | "MEDIA_DECODE"
-    | "MEDIA_NETWORK"
-    | "MEDIA_SRC_NOT_SUPPORTED"
-    | "SOURCE_BUFFER_FAILURE"
-    | "MEDIAKEYS_UNKNOWN"
-    | "MEDIAKEYS_NETWORK"
-    | "MEDIAKEYS_UNSUPPORTED"
-    | "MEDIAKEYS_WEBCRYPTO"
-    | "NETWORK_UNKNOWN"
-    | "SEGMENT_NETWORK"
-    | "HLS_NETWORK_MASTER_PLAYLIST"
-    | "HLS_NETWORK_PLAYLIST"
-    | "HLS_NETWORK_NO_KEY_RESPONSE"
-    | "HLS_NETWORK_KEY_LOAD"
-    | "HLS_NETWORK_INVALID_SEGMENT"
-    | "HLS_SEGMENT_PARSING"
-    | "DASH_NETWORK"
-    | "DASH_NO_INIT"
-    | "SMOOTH_NETWORK"
-    | "SMOOTH_NO_MEDIA_DATA"
-    | "MANIFEST_UNKNOWN"
-    | "HLS_MANIFEST_MASTER"
-    | "HLS_MANIFEST_PLAYLIST"
-    | "DASH_MANIFEST_UNKNOWN"
-    | "DASH_MANIFEST_NO_PERIODS"
-    | "DASH_MANIFEST_NO_MIMETYPE"
-    | "DASH_INVALID_SEGMENT_INFO"
-    | "SMOOTH_MANIFEST"
-    | "SEGMENT_UNKNOWN"
-    | "TEXT_UNKNOWN"
-    | "APP"
-    | "BREAK_CLIP_LOADING_ERROR"
-    | "BREAK_SEEK_INTERCEPTOR_ERROR"
-    | "IMAGE_ERROR"
-    | "LOAD_INTERRUPTED"
-    | "GENERIC";
+    | 'MEDIA_UNKNOWN'
+    | 'MEDIA_ABORTED'
+    | 'MEDIA_DECODE'
+    | 'MEDIA_NETWORK'
+    | 'MEDIA_SRC_NOT_SUPPORTED'
+    | 'SOURCE_BUFFER_FAILURE'
+    | 'MEDIAKEYS_UNKNOWN'
+    | 'MEDIAKEYS_NETWORK'
+    | 'MEDIAKEYS_UNSUPPORTED'
+    | 'MEDIAKEYS_WEBCRYPTO'
+    | 'NETWORK_UNKNOWN'
+    | 'SEGMENT_NETWORK'
+    | 'HLS_NETWORK_MASTER_PLAYLIST'
+    | 'HLS_NETWORK_PLAYLIST'
+    | 'HLS_NETWORK_NO_KEY_RESPONSE'
+    | 'HLS_NETWORK_KEY_LOAD'
+    | 'HLS_NETWORK_INVALID_SEGMENT'
+    | 'HLS_SEGMENT_PARSING'
+    | 'DASH_NETWORK'
+    | 'DASH_NO_INIT'
+    | 'SMOOTH_NETWORK'
+    | 'SMOOTH_NO_MEDIA_DATA'
+    | 'MANIFEST_UNKNOWN'
+    | 'HLS_MANIFEST_MASTER'
+    | 'HLS_MANIFEST_PLAYLIST'
+    | 'DASH_MANIFEST_UNKNOWN'
+    | 'DASH_MANIFEST_NO_PERIODS'
+    | 'DASH_MANIFEST_NO_MIMETYPE'
+    | 'DASH_INVALID_SEGMENT_INFO'
+    | 'SMOOTH_MANIFEST'
+    | 'SEGMENT_UNKNOWN'
+    | 'TEXT_UNKNOWN'
+    | 'APP'
+    | 'BREAK_CLIP_LOADING_ERROR'
+    | 'BREAK_SEEK_INTERCEPTOR_ERROR'
+    | 'IMAGE_ERROR'
+    | 'LOAD_INTERRUPTED'
+    | 'GENERIC';
 
-export type EndedReason =
-    | "END_OF_STREAM"
-    | "ERROR"
-    | "STOPPED"
-    | "INTERRUPTED"
-    | "SKIPPED"
-    | "BREAK_SWITCH";
+export type EndedReason = 'END_OF_STREAM' | 'ERROR' | 'STOPPED' | 'INTERRUPTED' | 'SKIPPED' | 'BREAK_SWITCH';
 
 /**
  * Event data for @see{@link EventType.SEGMENT_DOWNLOADED} event.
@@ -204,7 +193,7 @@ export class MediaFinishedEvent extends Event {
     /**
      * The time when the media finished (in seconds). For an item in a queue; this value represents the time in the currently playing queue item ( where 0 means the queue item has just started).
      */
-    currentTime?: number;
+    currentMediaTime?: number;
 
     /**
      * The reason the media finished.
@@ -366,7 +355,7 @@ export class BreaksEvent extends Event {
         whenSkippable?: number,
         endedReason?: EndedReason,
         breakClipId?: string,
-        breakId?: string
+        breakId?: string,
     );
 
     /**

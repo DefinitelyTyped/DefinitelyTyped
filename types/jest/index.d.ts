@@ -22,6 +22,7 @@
 //                 Gregor Stamać <https://github.com/gstamac>
 //                 ExE Boss <https://github.com/ExE-Boss>
 //                 Alex Bolenok <https://github.com/quassnoi>
+//                 Mario Beltrán Alarcón <https://github.com/Belco90>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -96,6 +97,10 @@ declare namespace jest {
      * to execute in the future.
      */
     function clearAllTimers(): typeof jest;
+    /**
+     * Returns the number of fake timers still left to run.
+     */
+    function getTimerCount(): number;
     /**
      * Indicates that the module system should never return a mocked version
      * of the specified module, including all of the specificied module's dependencies.
@@ -198,6 +203,12 @@ declare namespace jest {
      * will be executed.
      */
     function advanceTimersByTime(msToRun: number): typeof jest;
+    /**
+     * Advances all timers by the needed milliseconds so that only the next
+     * timeouts/intervals will run. Optionally, you can provide steps, so it
+     * will run steps amount of next timeouts/intervals.
+     */
+    function advanceTimersToNextTimer(step?: number): void;
     /**
      * Explicitly supplies the mock object that the module system should return
      * for the specified module.
@@ -1612,11 +1623,13 @@ declare namespace jest {
 
     interface FakeTimers {
         clearAllTimers(): void;
+        getTimerCount(): number;
         runAllImmediates(): void;
         runAllTicks(): void;
         runAllTimers(): void;
         runTimersToTime(msToRun: number): void;
         advanceTimersByTime(msToRun: number): void;
+        advanceTimersToNextTimer(steps?: number): void;
         runOnlyPendingTimers(): void;
         runWithRealTimers(callback: any): void;
         useFakeTimers(): void;

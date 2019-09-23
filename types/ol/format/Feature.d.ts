@@ -20,8 +20,8 @@ export default class FeatureFormat {
     constructor();
     protected dataProjection: Projection;
     protected defaultFeatureProjection: Projection;
-    protected adaptOptions(options: WriteOptions | ReadOptions): WriteOptions | ReadOptions;
-    protected getReadOptions(source: Document | Node | object | string, opt_options?: ReadOptions): ReadOptions;
+    protected adaptOptions(options: WriteOptions | ReadOptions | undefined): WriteOptions | ReadOptions | undefined;
+    protected getReadOptions(source: Document | Node | object | string, opt_options?: ReadOptions): ReadOptions | undefined;
     getLastExtent(): Extent;
     getType(): FormatType;
     readFeature(source: Document | Node | object | string, opt_options?: ReadOptions): FeatureLike;

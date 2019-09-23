@@ -738,6 +738,7 @@ export interface DbSignUpOptions {
     email: string;
     password: string;
     connection: string;
+    /** User desired username. Required if you use a database connection and you have enabled `Requires Username` */
     username?: string;
     scope?: string;
     user_metadata?: any;

@@ -986,6 +986,7 @@ declare namespace __MaterialUI {
             inputStyle?: React.CSSProperties;
             onBlur?: React.FocusEventHandler<{}>;
             onKeyDown?: React.KeyboardEventHandler<{}>;
+            openToYearSelection?: boolean;
             rows?: number;
             rowsMax?: number;
             name?: string;

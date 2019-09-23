@@ -105,4 +105,10 @@ async (req: IncomingMessage) => {
     //
 
     client.endSessionUrl({ id_token_hint: 'id_token_hint' }).substring(0);
+
+    //
+
+    await client.revoke('token', 'hint');
+    client.revoke('token', 'hint', {});
+    client.revoke('token', 'hint', { revokeBody: {}, clientAssertionPayload: {} });
 };

@@ -1351,10 +1351,22 @@
             "asOfVersion": "2.1.0"
         },
         {
+            "libraryName": "i18next",
+            "typingsPackageName": "i18next",
+            "sourceRepoURL": "https://github.com/i18next/i18next",
+            "asOfVersion": "13.0.0"
+        },
+        {
             "libraryName": "i18next-browser-languagedetector",
             "typingsPackageName": "i18next-browser-languagedetector",
             "sourceRepoURL": "https://github.com/i18next/i18next-browser-languagedetector",
             "asOfVersion": "3.0.0"
+        },
+        {
+            "libraryName": "i18next-express-middleware",
+            "typingsPackageName": "i18next-express-middleware",
+            "sourceRepoURL": "https://github.com/i18next/i18next-express-middleware",
+            "asOfVersion": "1.7.0"
         },
         {
             "libraryName": "i18next-xhr-backend",
@@ -1709,6 +1721,12 @@
             "typingsPackageName": "jointjs",
             "sourceRepoURL": "http://www.jointjs.com/",
             "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "jpeg-js",
+            "typingsPackageName": "jpeg-js",
+            "sourceRepoURL": "https://github.com/eugeneware/jpeg-js",
+            "asOfVersion": "0.3.6"
         },
         {
             "libraryName": "jpush-react-native",
@@ -2851,6 +2869,12 @@
             "asOfVersion": "3.0.0"
         },
         {
+            "libraryName": "react-intl",
+            "typingsPackageName": "react-intl",
+            "sourceRepoURL": "https://github.com/formatjs/react-intl",
+            "asOfVersion": "3.0.0"
+        },
+        {
             "libraryName": "react-monaco-editor",
             "typingsPackageName": "react-monaco-editor",
             "sourceRepoURL": "https://github.com/superRaytin/react-monaco-editor",
@@ -3301,6 +3325,12 @@
             "asOfVersion": "1.1.2"
         },
         {
+            "libraryName": "snoowrap",
+            "typingsPackageName": "snoowrap",
+            "sourceRepoURL": "https://github.com/not-an-aardvark/snoowrap",
+            "asOfVersion": "1.19.0"
+        },
+        {
             "libraryName": "soap",
             "typingsPackageName": "soap",
             "sourceRepoURL": "https://www.npmjs.com/package/soap",
@@ -3347,6 +3377,12 @@
             "typingsPackageName": "ss-utils",
             "sourceRepoURL": "https://servicestack.net/",
             "asOfVersion": "0.1.5"
+        },
+        {
+            "libraryName": "@storybook/addon-a11y",
+            "typingsPackageName": "storybook__addon-a11y",
+            "sourceRepoURL": "https://github.com/storybooks/storybook",
+            "asOfVersion": "5.1.1"
         },
         {
             "libraryName": "@storybook/addon-notes",
@@ -3575,6 +3611,12 @@
             "typingsPackageName": "trim-newlines",
             "sourceRepoURL": "https://github.com/sindresorhus/trim-newlines",
             "asOfVersion": "3.0.0"
+        },
+        {
+            "libraryName": "ts3-nodejs-library",
+            "typingsPackageName": "ts3-nodejs-library",
+            "sourceRepoURL": "https://github.com/Multivit4min/TS3-NodeJS-Library",
+            "asOfVersion": "2.0.0"
         },
         {
             "libraryName": "TsMonad",

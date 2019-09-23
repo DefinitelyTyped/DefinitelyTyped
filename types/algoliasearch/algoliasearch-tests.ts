@@ -9,8 +9,9 @@ import {
   Response,
   IndexSettings,
   QueryParameters,
-  Client
+  Client,
 } from 'algoliasearch';
+import * as algoliasearchLite from 'algoliasearch/lite';
 
 let _algoliaResponse: Response = {
   hits: [{}, {}],
@@ -141,14 +142,14 @@ let _algoliaQueryParameters: QueryParameters = {
   removeStopWords: [''],
   disableExactOnAttributes: [''],
   exactOnSingleWordQuery: 'attribute',
-  alternativesAsExact: ["ignorePlurals"],
+  alternativesAsExact: ['ignorePlurals'],
   distinct: 0,
   getRankingInfo: false,
   numericAttributesToIndex: [''],
   numericAttributesForFiltering: [''],
   numericFilters: [''],
   tagFilters: [''],
-  facetFilters: ['',['']],
+  facetFilters: ['', ['']],
   analytics: false,
   clickAnalytics: true,
   analyticsTags: [''],
@@ -177,14 +178,14 @@ index.partialUpdateObjects([{}], false, () => {});
 index.partialUpdateObjects([{}]).then(() => {});
 index.partialUpdateObjects([{}], false).then(() => {});
 
-let indexName : string = index.indexName;
+let indexName: string = index.indexName;
 
 // complete copy
-client.copyIndex('from', 'to').then(()=>{});
-client.copyIndex('from', 'to', ()=> {});
+client.copyIndex('from', 'to').then(() => {});
+client.copyIndex('from', 'to', () => {});
 // with scope
-client.copyIndex('from', 'to', ['settings']).then(()=>{});
-client.copyIndex('from', 'to', ['synonyms', 'rules'], ()=> {});
+client.copyIndex('from', 'to', ['settings']).then(() => {});
+client.copyIndex('from', 'to', ['synonyms', 'rules'], () => {});
 
 // Browsing
 const browser = index.browseAll();
@@ -200,7 +201,7 @@ browser.on('result', function onResult(content) {
 });
 
 browser.on('end', function onEnd() {
-  const _message = `We got ${hits.length} hits`
+  const _message = `We got ${hits.length} hits`;
 });
 
 browser.on('error', function onError(err) {
@@ -209,14 +210,23 @@ browser.on('error', function onError(err) {
 
 browser.stop();
 
-index.setSettings({ hitsPerPage: 10 }, () => {})
-index.setSettings({ hitsPerPage: 10 }, { forwardToReplicas: true }, () => {})
-index.setSettings({ hitsPerPage: 10 }).then(() => {})
-index.setSettings({ hitsPerPage: 10 }, { forwardToReplicas: true }).then(() => {})
+index.setSettings({ hitsPerPage: 10 }, () => {});
+index.setSettings({ hitsPerPage: 10 }, { forwardToReplicas: true }, () => {});
+index.setSettings({ hitsPerPage: 10 }).then(() => {});
+index
+  .setSettings({ hitsPerPage: 10 }, { forwardToReplicas: true })
+  .then(() => {});
 
-index.browse("", {
+index.browse('', {
   advancedSyntax: false,
-  attributesToRetrieve: ['dogs']
+  attributesToRetrieve: ['dogs'],
 });
-client.copyIndex('from', 'to', ['settings']).then(()=>{});
-client.copyIndex('from', 'to', ['synonyms', 'rules'], ()=> {});
+client.copyIndex('from', 'to', ['settings']).then(() => {});
+client.copyIndex('from', 'to', ['synonyms', 'rules'], () => {});
+
+const liteClient: algoliasearchLite.Client = algoliasearchLite('', '');
+
+liteClient.search([], (err: Error, res: algoliasearch.MultiResponse) => {});
+liteClient.search([]).then((res: algoliasearch.MultiResponse) => {});
+type Res = { zipzop: true };
+liteClient.search<Res>([]).then((res: algoliasearch.MultiResponse<Res>) => {});

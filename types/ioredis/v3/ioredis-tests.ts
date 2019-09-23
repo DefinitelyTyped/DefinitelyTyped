@@ -34,6 +34,23 @@ redis.setBuffer('key', '100', 'NX', 'EX', 10, (err, data) => {});
 redis.exists('foo').then(result => result * 1);
 redis.exists('foo', ((err, data) => data * 1));
 
+const listData = ['foo', 'bar', 'baz'];
+listData.forEach(value => {
+    redis.rpushBuffer('bufferlist', Buffer.from(value));
+});
+redis.lpopBuffer('bufferlist', (err, result) => {
+    if (result.toString() !== listData[0]) {
+        console.log(result.toString());
+    }
+});
+redis.lrangeBuffer('bufferlist', 0, listData.length - 2, (err, results) => {
+    results.forEach((value, index) => {
+        if (value.toString() !== listData[index + 1]) {
+            console.log(value.toString());
+        }
+    });
+});
+
 new Redis();       // Connect to 127.0.0.1:6379
 new Redis(6380);   // 127.0.0.1:6380
 new Redis(6379, '192.168.1.1');       // 192.168.1.1:6379

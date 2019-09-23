@@ -18,6 +18,10 @@ declare global {
             [key: string]:
                 | undefined
                 | string
+                | number
+                | boolean
+                | Collaborator
+                | ReadonlyArray<Collaborator>
                 | ReadonlyArray<string>
                 | ReadonlyArray<Attachment>;
         }
@@ -45,13 +49,27 @@ declare global {
             destroy(...args: any[]): Promise<any>;
         }
 
+        interface SortParameter {
+          field: string;
+          direction?: 'asc' | 'desc';
+        }
+
         interface SelectOptions {
+            fields?: string[];
+            filterByFormula?: string;
+            maxRecords?: number;
+            pageSize?: number;
+            sort?: SortParameter[];
             view?: string;
+            cellFormat?: 'json' | 'string';
+            timeZone?: string;
+            userLocale?: string;
         }
 
         interface Query<TFields extends object> {
             all(): Promise<Response<TFields>>;
             firstPage(): Promise<Response<TFields>>;
+            eachPage(pageCallback: (records: Response<TFields>, next: () => void) => void): Promise<void>;
         }
 
         type Response<TFields> = ReadonlyArray<Row<TFields>>;
@@ -78,6 +96,12 @@ declare global {
             url: string;
             width: number;
             height: number;
+        }
+
+        interface Collaborator {
+          id: string;
+          email: string;
+          name: string;
         }
     }
 }

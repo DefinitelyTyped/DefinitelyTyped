@@ -114,7 +114,7 @@ declare module "node-forge" {
                 algorithm?: string;
             }
 
-            function setPublicKey(n: any, e: any): any;
+            function setPublicKey(n: jsbn.BigInteger, e: jsbn.BigInteger): PublicKey;
 
             function generateKeyPair(bits?: number, e?: number, callback?: (err: Error, keypair: KeyPair) => void): KeyPair;
             function generateKeyPair(options?: GenerateKeyPairOptions, callback?: (err: Error, keypair: KeyPair) => void): KeyPair;
@@ -314,7 +314,7 @@ declare module "node-forge" {
 
         function publicKeyToRSAPublicKey(publicKey: PublicKey): any;
 
-        function setRsaPublicKey(n: jsbn.BigInteger, e: jsbn.BigInteger): PublicKey;
+        type setRsaPublicKey = typeof rsa.setPublicKey;
 
         function wrapRsaPrivateKey(privateKey: asn1.Asn1): asn1.Asn1;
     }

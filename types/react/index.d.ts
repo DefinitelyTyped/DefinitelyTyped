@@ -1,4 +1,4 @@
-// Type definitions for React 16.8
+// Type definitions for React 16.9
 // Project: http://facebook.github.io/react/
 // Definitions by: Asana <https://asana.com>
 //                 AssureSign <http://www.assuresign.com>
@@ -9,7 +9,6 @@
 //                 Digiguru <https://github.com/digiguru>
 //                 Eric Anderson <https://github.com/ericanderson>
 //                 Dovydas Navickas <https://github.com/DovydasNavickas>
-//                 Stéphane Goetz <https://github.com/onigoetz>
 //                 Josh Rutherford <https://github.com/theruther4d>
 //                 Guilherme Hübner <https://github.com/guilhermehubner>
 //                 Ferdy Budhidharma <https://github.com/ferdaber>
@@ -349,13 +348,6 @@ declare namespace React {
 
         /** A fallback react tree to show when a Suspense child (like React.lazy) suspends */
         fallback: NonNullable<ReactNode>|null;
-
-        // I tried looking at the code but I have no idea what it does.
-        // https://github.com/facebook/react/issues/13206#issuecomment-432489986
-        /**
-         * Not implemented yet, requires unstable_ConcurrentMode
-         */
-        // maxDuration?: number;
     }
     /**
      * This feature is not yet available for server-side rendering.
@@ -382,7 +374,7 @@ declare namespace React {
         onRender: ProfilerOnRenderCallback;
     }
 
-    const unstable_Profiler: ExoticComponent<ProfilerProps>;
+    const Profiler: ExoticComponent<ProfilerProps>;
 
     //
     // Component API
@@ -447,7 +439,7 @@ declare namespace React {
             callback?: () => void
         ): void;
 
-        forceUpdate(callBack?: () => void): void;
+        forceUpdate(callback?: () => void): void;
         render(): ReactNode;
 
         // React.Props<T> is now deprecated, which means that the `children`
@@ -2172,6 +2164,7 @@ declare namespace React {
         headers?: string;
         rowSpan?: number;
         scope?: string;
+        valign?: "top" | "middle" | "bottom" | "baseline";
     }
 
     interface ThHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -2199,6 +2192,7 @@ declare namespace React {
         playsInline?: boolean;
         poster?: string;
         width?: number | string;
+        disablePictureInPicture?: boolean;
     }
 
     // this list is "complete" in that it contains every SVG attribute

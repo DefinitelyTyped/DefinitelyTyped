@@ -300,7 +300,7 @@ class HandleCardSetup extends React.Component<InjectedStripeProps> {
     testHandleCardSetup = () => {
         this.props
             .stripe!.handleCardSetup('clientSecret')
-            .then((response) => response.paymentIntent);
+            .then((response) => response.setupIntent);
     }
 
     testHandleCardSetupWithData = () => {
@@ -312,7 +312,7 @@ class HandleCardSetup extends React.Component<InjectedStripeProps> {
                     }
                 },
             })
-            .then((response) => response.paymentIntent);
+            .then((response) => response.setupIntent);
     }
 
     testHandleCardSetupWithError = () => {

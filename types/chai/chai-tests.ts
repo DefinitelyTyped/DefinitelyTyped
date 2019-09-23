@@ -999,17 +999,91 @@ function _throw() {
 }
 
 function use() {
-    chai.use((_chai) => {
-        _chai.can.use.any();
-    });
+                   // Modified from:
+                   //   https://www.npmjs.com/package/chai-subset
+                   // But with added type annotations and some modifications to make the
+                   // linter whine less, and also a method (chai.assert.containSubset) removed
+                   // because we can't take advantage of namespace-declaration-merging here.
+                   function chaiSubset(chai: Chai.ChaiStatic, utils: Chai.ChaiUtils) {
+                       const Assertion = chai.Assertion;
+                       const assertionPrototype = Assertion.prototype;
 
-    const expect = chai
-        .use((_chai, util) => {
-        })
-        .use((_chai, util) => {
-        })
-        .expect;
-}
+                       Assertion.addMethod('containSubset', function(expected: Object) {
+                           const actual = utils.flag(this, 'object');
+                           const showDiff = chai.config.showDiff;
+
+                           assertionPrototype.assert.call(
+                               this,
+                               compare(expected, actual),
+                               'expected #{act} to contain subset #{exp}',
+                               'expected #{act} to not contain subset #{exp}',
+                               expected,
+                               actual,
+                               showDiff
+                           );
+                       });
+
+                       Assertion.addMethod('containSubset', function(expected: Object) {
+                           const actual = utils.flag(this, 'object');
+                           const showDiff = chai.config.showDiff;
+
+                           assertionPrototype.assert.call(
+                               this,
+                               compare(expected, actual),
+                               'expected #{act} to contain subset #{exp}',
+                               'expected #{act} to not contain subset #{exp}',
+                               expected,
+                               actual,
+                               showDiff
+                           );
+                       });
+
+                       function compare(expected: Object, actual: Object): boolean {
+                           if (expected === actual) {
+                               return true;
+                           }
+                           if (typeof actual !== typeof expected) {
+                               return false;
+                           }
+                           if (typeof expected !== 'object' || expected === null) {
+                               return expected === actual;
+                           }
+                           if (!!expected && !actual) {
+                               return false;
+                           }
+
+                           if (Array.isArray(expected) && Array.isArray(actual)) {
+                               if (typeof actual.length !== 'number') {
+                                   return false;
+                               }
+                               const aa = Array.prototype.slice.call(actual);
+                               return expected.every((exp: Object) => aa.some((act: Object) => compare(exp, act)));
+                           }
+
+                           if (expected instanceof Date) {
+                               if (actual instanceof Date) {
+                                   return expected.getTime() === actual.getTime();
+                               } else {
+                                   return false;
+                               }
+                           }
+
+                           return Object.keys(expected).every((key: string): boolean => {
+                               const eo = (expected as { [key: string]: Object })[key];
+                               const ao = (actual as { [key: string]: Object })[key];
+                               if (typeof eo === 'object' && eo !== null && ao !== null) {
+                                   return compare(eo, ao);
+                               }
+                               if (typeof eo === 'function') {
+                                   return eo(ao);
+                               }
+                               return ao === eo;
+                           });
+                       }
+                   }
+
+                   chai.use(chaiSubset);
+               }
 
 class Klass {
     val: number;
