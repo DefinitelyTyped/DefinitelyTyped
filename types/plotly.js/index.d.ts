@@ -527,7 +527,8 @@ export interface PlotData {
 	'marker.showscale': boolean;
 	'marker.line': Partial<ScatterMarkerLine>;
 	'marker.colorbar': {}; // TODO
-	mode: 'lines' | 'markers' | 'text' | 'lines+markers' | 'text+markers' | 'text+lines' | 'text+lines+markers' | 'gauge' | 'none';
+	mode: 'lines' | 'markers' | 'text' | 'lines+markers' | 'text+markers'
+          | 'text+lines' | 'text+lines+markers' | 'gauge' | 'gauge+number' | 'none';
 	hoveron: 'points' | 'fills';
 	hoverinfo: 'all' | 'name' | 'none' | 'skip' | 'text' |
 	'x' | 'x+text' | 'x+name' |
