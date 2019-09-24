@@ -9,6 +9,19 @@
 export { ConcreteRequest, GeneratedNode, RequestParameters } from './lib/util/RelayConcreteNode';
 export { ConnectionMetadata } from './lib/handlers/connection/RelayConnectionHandler';
 export { EdgeRecord, PageInfo } from './lib/handlers/connection/RelayConnectionInterface';
+export {
+    ReaderArgument,
+    ReaderArgumentDefinition,
+    ReaderField,
+    ReaderFragment,
+    ReaderInlineDataFragment,
+    ReaderLinkedField,
+    ReaderPaginationMetadata,
+    ReaderRefetchableFragment,
+    ReaderRefetchMetadata,
+    ReaderScalarField,
+    ReaderSelection,
+} from './lib/util/ReaderNode';
 
 import RelayConcreteNode, { RequestParameters, ConcreteRequest } from './lib/util/RelayConcreteNode';
 import * as ConnectionHandler from './lib/handlers/connection/RelayConnectionHandler';
