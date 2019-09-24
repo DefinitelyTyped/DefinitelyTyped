@@ -495,7 +495,7 @@ export function shallowEqual(left: any, right: any): boolean;
  *
  * @example
  *
- * import React, { useCallback } from 'react'
+ * import React from 'react'
  * import { useDispatch } from 'react-redux'
  *
  * export const CounterComponent = ({ value }) => {
