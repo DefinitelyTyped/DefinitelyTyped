@@ -25,8 +25,6 @@ zip.file('Hello.txt', 'Hello World\n')
     .remove('css');
 
 zip.load('content', { decodeFileName: bytes => 'encoding' });
-zip.generate({ type: 'uint8array', encodeFileName: string => new Buffer('') });
-zip.generate({ type: 'blob', mimeType: 'application/ods', compression: 'DEFLATE' });
 zip.file(/file/).map(z => z);
 zip.folder(/^vid/).map(z => z);
 zip.filter((relativePath, file) => true).map(z => z);
@@ -35,10 +33,19 @@ zip.folder('subfolder').load('data');
 const file = zip.file('');
 
 if (file) {
-    file.name.split('');
-    file.asText();
-    file.asArrayBuffer();
-    file.asUint8Array();
-    file.asNodeBuffer();
-    file.asText();
+    const nameTest: string = file.name;
+    const textTest: string = file.asText();
+    const binaryTest: string = file.asBinary();
+    const arrBufTest: ArrayBuffer = file.asArrayBuffer();
+    const uint8Test: Uint8Array = file.asUint8Array();
+    const bufTest: Buffer = file.asNodeBuffer();
 }
+
+const noOptionsTest: string = zip.generate();
+const noTypeTest: string = zip.generate({ base64: true });
+const b64Test: string = zip.generate({ type: 'base64', compression: 'DEFLATE' });
+const stringTest: string = zip.generate({ type: 'string', encodeFileName: s => new Buffer(s) });
+const arrBufTest: ArrayBuffer = zip.generate({ type: 'arraybuffer', mimeType: '' });
+const blobTest: Blob = zip.generate({ type: 'blob', compressionOptions: { level: 1 } });
+const bufTest: Buffer = zip.generate({ type: 'nodebuffer', platform: 'DOS' });
+const unit8Test: Uint8Array = zip.generate({ type: 'uint8array', base64: true });
