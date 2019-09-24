@@ -117,7 +117,7 @@ console.error("error");
 console.log("Console can use %s and %d format string.", "hello", 2);
 
 // Data Studio Request
-var request : GoogleAppsScript.Data_Studio.Request<any> = {
+const request : GoogleAppsScript.Data_Studio.Request<any> = {
   configParams: {
     my_param: 'my_param_value'
   },
