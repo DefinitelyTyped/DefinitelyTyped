@@ -13,8 +13,9 @@ export = CopyToClipboard;
 
 declare namespace CopyToClipboard {
   interface Options {
-    debug: boolean;
-    message: string;
+    debug?: boolean;
+    format?: "text/html" | "text/plain";
+    message?: string;
   }
 
   interface Props {
