@@ -3513,7 +3513,6 @@ declare module "fs" {
         destroy(): void;
         bytesRead: number;
         path: string | Buffer;
-        destroyed: boolean;
 
         /**
          * events.EventEmitter
@@ -3545,7 +3544,6 @@ declare module "fs" {
         close(): void;
         bytesWritten: number;
         path: string | Buffer;
-        destroyed: boolean;
 
         /**
          * events.EventEmitter
@@ -5829,7 +5827,6 @@ declare module "stream" {
             push(chunk: any, encoding?: string): boolean;
             _destroy(error: Error | null, callback: (error?: Error) => void): void;
             destroy(error?: Error): void;
-            destroyed: boolean;
             /**
              * Event emitter
              * The defined events on documents including:
@@ -5917,7 +5914,6 @@ declare module "stream" {
             cork(): void;
             uncork(): void;
             destroy(error?: Error): void;
-            destroyed: boolean;
             /**
              * Event emitter
              * The defined events on documents including:
