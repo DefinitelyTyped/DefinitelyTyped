@@ -38,7 +38,7 @@ export type OptionalKeys<V> = Exclude<keyof V, RequiredKeys<V>>;
 export type InferPropsInner<V> = { [K in keyof V]-?: InferType<V[K]>; };
 
 export interface Validator<T> {
-    (props: object, propName: string, componentName: string, location: string, propFullName: string): Error | null;
+    (props: { [key: string]: any }, propName: string, componentName: string, location: string, propFullName: string): Error | null;
     [nominalTypeHack]?: {
         type: T;
     };
