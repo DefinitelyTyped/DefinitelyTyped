@@ -1,5 +1,5 @@
 // Type definitions for svg-parser 2.0
-// Project: https://gitlab.com/Rich-Harris/svg-parser#README
+// Project: https://github.com/Rich-Harris/svg-parser
 // Definitions by: mrmlnc <https://github.com/mrmlnc>
 //                 Joel Shinness <https://github.com/JoelCodes>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -11,9 +11,9 @@ export interface TextNode {
 }
 
 export interface ElementNode {
-    type: string;
+    type: 'element';
     tagName?: string;
-    properties?: {};
+    properties?: Record<string, string|number>;
     children: Array<Node | string>;
     value?: string;
     metadata?: string;
@@ -21,4 +21,9 @@ export interface ElementNode {
 
 export type Node = TextNode | ElementNode;
 
-export function parse(source: string): Node;
+export interface RootNode {
+    type: 'root';
+    children: Node;
+}
+
+export function parse(source: string): RootNode;
