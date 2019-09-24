@@ -25,13 +25,6 @@ class F2 {
 }
 
 (() => {
-    let x: boolean;
-    x = R.isArrayLike("a");
-    x = R.isArrayLike([1, 2, 3]);
-    x = R.isArrayLike([]);
-});
-
-(() => {
     R.propIs(Number, "x", {x: 1, y: 2});  // => true
     R.propIs(Number, "x")({x: 1, y: 2});  // => true
     R.propIs(Number)("x", {x: 1, y: 2});  // => true
@@ -250,11 +243,6 @@ class F2 {
     };
     const followersForUser: (userName: string) => Promise<string[]> = R.pipeWith(R.then, [db.getUserById, db.getFollowers]);
     const followersForUser2: (userName: string) => Promise<string[]> = R.pipeWith(R.then)([db.getUserById, db.getFollowers]);
-};
-
-() => {
-    R.invoker(1, "slice")(6, "abcdefghijklm");
-    R.invoker(2, "slice")(6)(8, "abcdefghijklm");
 };
 
 (() => {
@@ -551,60 +539,11 @@ interface Obj {
         title: string;
     }
     const list: Book[] = [{id: "xyz", title: "A"}, {id: "abc", title: "B"}];
-    const a1 = R.indexBy(R.prop("id"), list);
-    // Typescript 3.3 incorrectly gives `a2: {}`, 3.4 gives an error instead.
-    // const a2 = R.indexBy(R.prop("id"))(list);
-    const a3 = R.indexBy<{ id: string }>(R.prop("id"))(list);
-    const a4 = R.indexBy(R.prop<"id", string>("id"))(list);
-    const a5 = R.indexBy<{ id: string }>(R.prop<"id", string>("id"))(list);
-
     const titlesIndexedByTitles: { [k: string]: string } = R.pipe(
         R.map((x: Book) => x.title),
         R.indexBy(x => x),
     )(list);
 });
-
-() => {
-    R.includes('ba', 'banana'); // => true
-    R.includes('ba')('kiwi'); // => false
-    R.includes('ma', ['ma', 'ng', 'o']); // => true
-    R.includes('ma')(['li', 'me']); // => false
-    R.includes(8, [1, 8, 9, 17]); // => true
-    R.includes(1)([2, 3, 5, 8]); // => false
-};
-
-() => {
-    R.indexOf(3, [1, 2, 3, 4]); // => 2
-    R.indexOf(10)([1, 2, 3, 4]); // => -1
-};
-
-() => {
-    R.init(["fi", "fo", "fum"]); // => ['fi', 'fo']
-    R.init("abc"); // => 'ab'
-    R.init(""); // => ''
-};
-
-() => {
-    R.insert(2, 5, [1, 2, 3, 4]); // => [1,2,5,3,4]
-    R.insert(2)(5, [1, 2, 3, 4]); // => [1,2,5,3,4]
-    R.insert(2, 5)([1, 2, 3, 4]); // => [1,2,5,3,4]
-};
-
-() => {
-    R.insertAll(2, [10, 11, 12], [1, 2, 3, 4]);
-    R.insertAll(2)([10, 11, 12], [1, 2, 3, 4]);
-    R.insertAll(2, [10, 11, 12])([1, 2, 3, 4]);
-};
-
-() => {
-    const numbers    = [1, 2, 3, 4];
-    const transducer = R.compose(R.map(R.add(1)), R.take(2));
-
-    R.into([], transducer, numbers); // => [2, 3]
-
-    const intoArray = R.into([]);
-    intoArray(transducer, numbers); // => [2, 3]
-};
 
 () => {
     const spacer = R.join(" ");
@@ -1087,30 +1026,6 @@ type Pair = KeyValuePair<string, number>;
  */
 
 () => {
-    const raceResultsByFirstName = {
-        first : "alice",
-        second: "jake",
-        third : "alice",
-    };
-    R.invert(raceResultsByFirstName);
-    // => { 'alice': ['first', 'third'], 'jake':['second'] }
-};
-
-() => {
-    const raceResults0 = {
-        first : "alice",
-        second: "jake"
-    };
-    R.invertObj(raceResults0);
-    // => { 'alice': 'first', 'jake':'second' }
-
-    // Alternatively:
-    const raceResults1 = ["alice", "jake"];
-    R.invertObj(raceResults1);
-    // => { 'alice': '0', 'jake':'1' }
-};
-
-() => {
     const objKeys = R.keys({a: 1, b: 2, c: 3}); // => ['a', 'b', 'c']
     const numberKeys = R.keys(1);
     const arrayKeys = R.keys([]);
@@ -1505,24 +1420,6 @@ type Pair = KeyValuePair<string, number>;
  * Relation category
  */
 () => {
-    const a1 = R.identity(1); // => 1
-    const obj  = {};
-    const a2 = R.identity([1, 2, 3]);
-    const a3 = R.identity(["a", "b", "c"]);
-    const a4 = R.identity(obj) === obj; // => true
-};
-
-() => {
-    const o = {};
-    R.identical(o, o); // => true
-    R.identical(1, 1); // => true
-    R.identical("2", "1"); // => false
-    R.identical([], []); // => false
-    R.identical(0, -0); // => false
-    R.identical(NaN, NaN); // => true
-};
-
-() => {
     const testPath = ["x", 0, "y"];
     const testObj  = {x: [{y: 2, z: 3}, {y: 4, z: 5}]};
 
@@ -1596,12 +1493,6 @@ type Pair = KeyValuePair<string, number>;
     R.startsWith(1)([1, 2, 3]);   // => true
     R.startsWith([1], [1, 2, 3]);   // => true
     R.startsWith([1])([1, 2, 3]);   // => true
-};
-
-() => {
-    R.isNaN(NaN);        // => true
-    R.isNaN(undefined);  // => false
-    R.isNaN({});         // => false
 };
 
 () => {
@@ -1744,24 +1635,6 @@ type Pair = KeyValuePair<string, number>;
     R.symmetricDifferenceWith(eqL)(l1, l2); // => ['dddd', 'c']
 };
 
-() => {
-    const list1 = [
-        {id: 1, name: 'One'},
-        {id: 2, name: 'Two'},
-        {id: 3, name: 'Three'},
-        {id: 4, name: 'Four'},
-        {id: 5, name: 'Five'}
-    ];
-
-    const list2 = [5, 4, 6];
-    const matchId = (record: { id: number, name: string }, id: number): boolean => record.id === id;
-
-    R.innerJoin(matchId, list1, list2); // [{"id": 4, "name": "Four"}, {"id": 5, "name": "Five"}]
-
-    const innerJoinCurried = R.innerJoin(matchId);
-    innerJoinCurried(list1, list2); // [{"id": 4, "name": "Four"}, {"id": 5, "name": "Five"}]
-};
-
 /*****************************************************************
  * String category
  */
@@ -1783,28 +1656,6 @@ type Pair = KeyValuePair<string, number>;
 };
 
 /*****************************************************************
- * Is category
- */
-() => {
-    R.is(Object, {}); // => true
-    R.is(Object)({}); // => true
-    R.is(Number, 1); // => true
-    R.is(Number)(1); // => true
-    R.is(Object, 1); // => false
-    R.is(Object)(1); // => false
-    R.is(String, "s"); // => true
-    R.is(String)("s"); // => true
-    R.is(String, new String("")); // => true
-    R.is(String)(new String("")); // => true
-    R.is(Object, new String("")); // => true
-    R.is(Object)(new String("")); // => true
-    R.is(Object, "s"); // => false
-    R.is(Object)("s"); // => false
-    R.is(Number, {}); // => false
-    R.is(Number)({}); // => false
-};
-
-/*****************************************************************
  * Logic category
  */
 
@@ -1814,26 +1665,6 @@ type Pair = KeyValuePair<string, number>;
 
     flattenArrays([[0], [[10], [8]], 1234, {}]); // => [[0], [10, 8], 1234, {}]
     flattenArrays([[[10], 123], [8, [10]], "hello"]); // => [[10, 123], [8, 10], "hello"]
-};
-
-() => {
-    const incCount = R.ifElse(
-        R.has('count'),
-        R.over(R.lensProp('count'), R.inc),
-        R.assoc('count', 1)
-      );
-      incCount({});           // => { count: 1 }
-      incCount({ count: 1 }); // => { count: 2 }
-      R.ifElse(R.identical, R.add as (a: number, b: number) => number, R.always(""))(2, 2); // https://goo.gl/CVUSs9
-};
-
-() => {
-    R.isEmpty([1, 2, 3]); // => false
-    R.isEmpty([]); // => true
-    R.isEmpty(""); // => true
-    R.isEmpty(null); // => false
-    R.isEmpty({}); // =>true
-    R.isEmpty({a: 1}); // => false
 };
 
 () => {
@@ -1863,17 +1694,6 @@ class Why {
     const why = new Why(true);
     why.or(true);
     const x4: Why | boolean = R.or(why, false); // false
-};
-
-() => {
-    R.intersperse(",", ["foo", "bar"]); // => ['foo', ',', 'bar']
-    R.intersperse(0, [1, 2]); // => [1, 0, 2]
-    R.intersperse(0, [1]); // => [1]
-};
-
-() => {
-    R.intersection([1, 2, 3], [2, 3, 3, 4]); // => [2, 3]
-    R.intersection([1, 2, 3])([2, 3, 3, 4]); // => [2, 3]
 };
 
 // Curry tests
