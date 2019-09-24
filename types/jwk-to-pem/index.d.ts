@@ -3,7 +3,11 @@
 // Definitions by: Erik Silkensen <https://github.com/esilkensen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare namespace jwkToPem {
+export = jwkToBuffer;
+
+declare function jwkToBuffer(jwk: jwkToBuffer.JWK, opts?: jwkToBuffer.Options): string;
+
+declare namespace jwkToBuffer {
     interface Options {
         private: boolean;
     }
@@ -36,9 +40,4 @@ declare namespace jwkToPem {
     }
 
     type JWK = EC | ECPrivate | RSA;
-
-    type jwkToBuffer = (jwk: JWK, opts?: Options) => string;
 }
-
-declare const jwkToPem: jwkToPem.jwkToBuffer;
-export = jwkToPem;
