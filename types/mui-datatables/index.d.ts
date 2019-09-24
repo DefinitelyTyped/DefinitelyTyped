@@ -194,6 +194,7 @@ export interface MUIDataTableOptions {
     rowsExpanded?: any[];
     rowsSelected?: any[];
     search?: boolean;
+    searchPlaceholder?: string;
     searchText?: string;
     selectableRows?: SelectableRows;
     selectableRowsOnClick?: boolean;
