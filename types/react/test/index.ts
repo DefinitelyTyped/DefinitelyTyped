@@ -402,6 +402,9 @@ const ForwardingRefComponent = React.forwardRef((props: {}, ref: React.Ref<RefCo
     return React.createElement(RefComponent, { ref });
 });
 
+const ForwardingRefComponentPropTypes: React.WeakValidationMap<Props> = {};
+ForwardingRefComponent.propTypes = ForwardingRefComponentPropTypes;
+
 function RefCarryingComponent() {
     const ref: React.RefObject<RefComponent> = React.createRef();
     // Without the explicit type argument, TypeScript infers `{ref: React.RefObject<RefComponent>}`
