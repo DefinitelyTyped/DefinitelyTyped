@@ -1,4 +1,4 @@
-// Type definitions for React Router 4.3
+// Type definitions for React Router 5.1
 // Project: https://github.com/ReactTraining/react-router
 // Definitions by: Huy Nguyen <https://github.com/huy-nguyen>
 //                 Philip Jackson <https://github.com/p-jackson>
@@ -28,7 +28,11 @@ export {
     match,
     matchPath,
     withRouter,
-    RouterChildContext
+    RouterChildContext,
+    useHistory,
+    useLocation,
+    useParams,
+    useRouteMatch,
 } from 'react-router';
 
 export interface BrowserRouterProps {
