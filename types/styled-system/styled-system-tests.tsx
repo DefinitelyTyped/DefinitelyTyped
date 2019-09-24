@@ -38,8 +38,6 @@ import {
     GridProps,
     shadow,
     ShadowProps,
-    overflow,
-    OverflowProps,
 } from 'styled-system';
 
 // tslint:disable-next-line:strict-export-declare-modifiers
@@ -80,7 +78,6 @@ const boxStyles = compose(
     shadow,
     colorStyle,
     boxStyle,
-    overflow,
 );
 
 const Box: React.ComponentType<BoxProps> = styled(boxStyles);
