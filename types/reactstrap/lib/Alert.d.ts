@@ -11,8 +11,9 @@ export interface UncontrolledAlertProps extends React.HTMLAttributes<HTMLElement
   transition?: FadeProps;
 }
 export interface AlertProps extends UncontrolledAlertProps {
-  isOpen?: boolean;
-  toggle?: () => void;
+    isOpen?: boolean;
+
+    toggle?: React.KeyboardEventHandler<any> | React.MouseEventHandler<any>;
 }
 
 declare class Alert<T = {[key: string]: any}> extends React.Component<AlertProps> {}

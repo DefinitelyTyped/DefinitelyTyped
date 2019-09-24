@@ -22,13 +22,14 @@ export interface CollapseProps extends React.HTMLProps<HTMLElement> {
 }
 
 export interface UncontrolledCollapseProps extends React.HTMLProps<HTMLElement> {
-  [key: string]: any;
-  isOpen?: boolean;
-  className?: string;
-  cssModule?: CSSModule;
-  tag?: React.ReactType;
-  navbar?: boolean;
-  toggle?: () => void;
+    [key: string]: any;
+    isOpen?: boolean;
+    className?: string;
+    cssModule?: CSSModule;
+    tag?: React.ReactType;
+    navbar?: boolean;
+
+    toggle?: React.KeyboardEventHandler<any> | React.MouseEventHandler<any>;
 }
 
 declare class Collapse<T = {[key: string]: any}> extends React.Component<CollapseProps> {}

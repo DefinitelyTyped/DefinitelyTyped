@@ -8,14 +8,16 @@ export type Direction =
   | "right";
 
 export interface UncontrolledDropdownProps extends React.HTMLAttributes<HTMLElement> {
-  [key: string]: any;
-  isOpen?: boolean;
-  toggle?: () => void;
-  className?: string;
-  cssModule?: CSSModule;
-  nav?: boolean;
-  inNavbar?: boolean;
-  setActiveFromChild?: boolean;
+    [key: string]: any;
+    isOpen?: boolean;
+
+    toggle?: React.KeyboardEventHandler<any> | React.MouseEventHandler<any>;
+
+    className?: string;
+    cssModule?: CSSModule;
+    nav?: boolean;
+    inNavbar?: boolean;
+    setActiveFromChild?: boolean;
 }
 
 export interface DropdownProps extends UncontrolledDropdownProps {
