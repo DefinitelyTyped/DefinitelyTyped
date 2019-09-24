@@ -3,6 +3,12 @@ import { customers } from 'stripe';
 
 const stripe = new Stripe("sk_test_BF573NobVn98OiIsPAv7A04K");
 
+import { Agent as HttpAgent } from 'http';
+import { Agent as HttpsAgent } from 'https';
+
+stripe.setHttpAgent(new HttpAgent());
+stripe.setHttpAgent(new HttpsAgent());
+
 stripe.setApiVersion('2019-05-16');
 
 stripe.setAppInfo(); // $ExpectType void

@@ -36,6 +36,8 @@
 
 /// <reference types="node" />
 
+import { Agent } from 'http';
+
 declare class Stripe {
     DEFAULT_HOST: string;
     DEFAULT_PORT: string;
@@ -113,7 +115,7 @@ declare class Stripe {
     setTimeout(timeout?: number): void;
     setMaxNetworkRetries(maxNetworkRetries: number): void;
     setTelemetryEnabled(enabled: boolean): void;
-    setHttpAgent(agent: string): void;
+    setHttpAgent(agent: Agent): void;
     getConstant(c: string): any;
     getMaxNetworkRetries(): number;
     getTelemetryEnabled(): boolean;
