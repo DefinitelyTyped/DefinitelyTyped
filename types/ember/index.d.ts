@@ -28,6 +28,7 @@
 /// <reference types="ember__application" />
 /// <reference types="ember__test" />
 /// <reference types="ember__service" />
+/// <reference types="ember__template" />
 
 import {
     Objectify, Fix, UnwrapComputedPropertySetters,
