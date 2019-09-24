@@ -14,4 +14,5 @@ const schema = {
 };
 
 const validate = ajv.compile(schema);
-const moduleCode = pack(ajv, validate); // $ExpectType string
+pack(ajv, validate); // $ExpectType string
+pack.instance(ajv); // $ExpectType pack.AjvPack
