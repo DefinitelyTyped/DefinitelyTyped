@@ -21,6 +21,9 @@ declare namespace createHash {
     interface HashAlgorithm {
         update(data: string): void;
         digest(target?: encoding): string;
+        write(data: string): void;
+        end(): void;
+        read(): void;
     }
 }
 
