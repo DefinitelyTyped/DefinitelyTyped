@@ -214,7 +214,7 @@ type BasicType<T> = T extends boolean ? boolean : T extends number ? number : T 
  *
  * https://support.rollout.io/docs/javascript-browser-api#section--rox-overrides-
  */
-export interface RoxOverrides {
+export namespace overrides {
   /**
    * Sets an override value on a specific flag, this function accepts two parameters flag name (
    * full flag name including namespace) and desired value (from type String).
@@ -225,49 +225,45 @@ export interface RoxOverrides {
    *
    * Note that for boolean flag we still give the value as a string.
    */
-  setOverride(nameSpacedFlagName: string, value: string): void;
+  function setOverride(nameSpacedFlagName: string, value: string): void;
 
   /**
    * Clears the override value from the flag (and the disk).
    *
    * https://support.rollout.io/docs/javascript-browser-api#section--rox-overrides-clearoverride-
    */
-  clearOverride(nameSpacedFlagName: string): void;
+  function clearOverride(nameSpacedFlagName: string): void;
 
   /**
    * Clears all override values
    */
-  clearAllOverrides(): void;
+  function clearAllOverrides(): void;
 
-  getOriginalValue(nameSpacedFlagName: string): string;
+  function getOriginalValue(nameSpacedFlagName: string): string;
 
   /**
    * full flag name including namespace
    *
    * https://support.rollout.io/docs/javascript-browser-api#section--rox-overrides-hasoverride-
    */
-  hasOverride(nameSpacedFlagName: string): boolean;
+  function hasOverride(nameSpacedFlagName: string): boolean;
 }
-
-export const overrides: RoxOverrides;
 
 /**
  * Dynamic API is an alternative to Rollout static API for defining flags on the
  * different container objects and accessing them from that container object.
  * https://support.rollout.io/docs/dynamic-api
  */
-export class DynamicApi {
+export namespace dynamicApi {
   /**
    * Getting boolean value of a flag
    */
-  isEnabled(nameSpacedFlagName: string, defaultValue: boolean, context?: unknown): boolean;
+  function isEnabled(nameSpacedFlagName: string, defaultValue: boolean, context?: unknown): boolean;
 
   /**
    * Getting string value of a Variant flag
    */
-  value(nameSpacedFlagName: string, defaultValue: string, context?: unknown): string;
+  function value(nameSpacedFlagName: string, defaultValue: string, context?: unknown): string;
 }
-
-export const dynamicApi: DynamicApi;
 
 export const flags: ReadonlyArray<Flag>;
