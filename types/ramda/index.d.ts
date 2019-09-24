@@ -1398,7 +1398,7 @@ declare namespace R {
          * Returns a new list by pulling every item out of it (and all its sub-arrays) and putting
          * them in a new array, depth-first.
          */
-        flatten<T extends readonly any[]>(list: T): T.Flatten<T>
+        flatten<T extends readonly any[]>(list: T): T.Flatten<T>;
 
         /**
          * Returns a new function much like the supplied one, except that the first two arguments'
@@ -3031,7 +3031,7 @@ declare namespace R {
          * Returns a new list by pulling every item at the first level of nesting out, and putting
          * them in a new array.
          */
-        unnest<T extends readonly any[]>(list: T): T.UnNest<T>
+        unnest<T extends readonly any[]>(list: T): T.UnNest<T>;
 
         /**
          * Takes a predicate, a transformation function, and an initial value, and returns a value of the same type as
