@@ -46,7 +46,7 @@ export interface LowLevelStyleFunctionArguments<N, S> {
 
 export function style<N = string | number, S = Scale>(
     // tslint:disable-next-line no-unnecessary-generics
-    args: LowLevelStyleFunctionArguments<N, S>
+    args: LowLevelStyleFunctionArguments<N, S>,
 ): {
     [cssProp: string]: string;
 };
@@ -840,16 +840,16 @@ export const grid: styleFn;
  * - Array values are converted into responsive values.
  */
 export interface LayoutProps
-  extends WidthProps,
-    HeightProps,
-    MinWidthProps,
-    MinHeightProps,
-    MaxWidthProps,
-    MaxHeightProps,
-    DisplayProps,
-    VerticalAlignProps,
-    SizeProps,
-    OverflowProps {}
+    extends WidthProps,
+        HeightProps,
+        MinWidthProps,
+        MinHeightProps,
+        MaxWidthProps,
+        MaxHeightProps,
+        DisplayProps,
+        VerticalAlignProps,
+        SizeProps,
+        OverflowProps {}
 
 export const layout: styleFn;
 
