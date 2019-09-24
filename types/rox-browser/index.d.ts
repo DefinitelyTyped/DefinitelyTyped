@@ -11,8 +11,6 @@
  *
  */
 
-export {};
-
 export interface RoxContainer {
   [key: string]: Flag | Configuration<any> | Variant;
 }
@@ -201,7 +199,7 @@ export class Configuration<T extends number | boolean | string> {
  * Ensure that TypeScript properly types things with a basic type.
  * For example, if T is true, returnedtype shall be boolean, not true
  */
-type BasicType<T> = T extends boolean ? boolean : T extends number ? number : T extends string ? string : never;
+export type BasicType<T> = T extends boolean ? boolean : T extends number ? number : T extends string ? string : never;
 
 /**
  * Override: Should only be used for development purposes (QA - Feature dev - e2e)
