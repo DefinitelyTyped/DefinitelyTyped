@@ -5,7 +5,8 @@ const polly = new Polly('test recording', {
 	mode: MODES.PASSTHROUGH,
 	recordFailedRequests: true,
 	adapters: ['xhr', 'fetch'],
-	persister: 'rest',
+    persister: 'rest',
+    expiryStrategy: 'error',
 	timing: Timing.relative(3),
 	matchRequestsBy: {
 		method: true,

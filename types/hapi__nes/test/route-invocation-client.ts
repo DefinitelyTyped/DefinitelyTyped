@@ -10,9 +10,9 @@ client.connect().then(() => {
 
 // Added in addition to nes doc example code
 
-import NesClient = require('@hapi/nes/client');
+import NesClient = require('@hapi/nes/lib/client');
 
-var client = new NesClient('ws://localhost');
+var client = new NesClient.Client('ws://localhost');
 client.connect().then(() => {
 
     return client.request('hello');

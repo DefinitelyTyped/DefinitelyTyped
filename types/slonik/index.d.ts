@@ -1,4 +1,4 @@
-// Type definitions for slonik 16.16
+// Type definitions for slonik 18.6
 // Project: https://github.com/gajus/slonik#readme
 // Definitions by: Sebastian Sebald <https://github.com/sebald>
 //                 Misha Kaletsky <https://github.com/mmkal>
@@ -25,6 +25,22 @@ export type LogicalBooleanOperatorType = 'AND' | 'OR';
 //
 // EXPRESSIONS AND TOKENS
 // ----------------------------------------------------------------------
+
+export type SerializableValueType =
+    | string
+    | number
+    | boolean
+    | null
+    | object
+    | SerializableValueObject
+    | SerializableValueArray;
+
+export interface SerializableValueObject {
+  [x: string]: SerializableValueType;
+}
+
+export interface SerializableValueArray
+  extends ReadonlyArray<SerializableValueType> {}
 
 export interface IdentifierTokenType {
     names: ReadonlyArray<string>;
@@ -58,6 +74,11 @@ export interface ArraySqlTokenType {
     memberType: string;
     type: typeof SlonikSymbol.ArrayTokenSymbol;
     values: PrimitiveValueExpressionType[];
+}
+
+export interface JsonSqlTokenType {
+    value: SerializableValueType;
+    type: typeof SlonikSymbol.JsonTokenSymbol;
 }
 
 export interface TupleSqlTokenType {
@@ -101,6 +122,7 @@ export type SqlTokenType =
     AssignmentListTokenType |
     IdentifierTokenType |
     IdentifierListTokenType |
+    JsonSqlTokenType |
     RawSqlTokenType |
     SqlSqlTokenType<any> |
     TupleListSqlTokenType |
@@ -292,6 +314,14 @@ export interface TaggedTemplateLiteralInvocationType<Result = QueryResultRowType
 
 export const sql: SqlTaggedTemplateType;
 
+export type IdentifierNormalizerType = (identifierName: string) => string;
+
+export interface SqlTagConfigurationType {
+    normalizeIdentifier?: IdentifierNormalizerType;
+}
+
+export function createSqlTag(configuration?: SqlTagConfigurationType): SqlTaggedTemplateType;
+
 export interface SqlTaggedTemplateType {
     // tslint:disable-next-line no-unnecessary-generics (the sql<Foo>`select foo` is cleaner in this case than casting with 'as')
     <T = QueryResultRowType>(template: TemplateStringsArray, ...vals: ValueExpressionType[]): SqlSqlTokenType<T>;
@@ -317,6 +347,9 @@ export interface SqlTaggedTemplateType {
     identifierList: (
         identifiers: IdentifierListMemberType[]
     ) => IdentifierListTokenType;
+    json: (
+        value: SerializableValueType
+    ) => JsonSqlTokenType;
     raw: (
         rawSql: string,
         values?: PrimitiveValueExpressionType[]
@@ -398,10 +431,15 @@ export interface InterceptorType {
         queryContext: QueryContextType,
         query: QueryType
     ) => MaybePromiseType<QueryResultType<QueryResultRowType> | undefined>;
+    queryExecutionError?: (
+        queryContext: QueryContextType,
+        query: QueryType,
+        error: SlonikError
+    ) => MaybePromiseType<void>;
     transformQuery?: (
         queryContext: QueryContextType,
         query: QueryType
-    ) => MaybePromiseType<QueryType>;
+    ) => QueryType;
     transformRow?: (
         queryContext: QueryContextType,
         query: QueryType,
@@ -489,9 +527,24 @@ export interface ClientUserConfigurationType extends ClientConfigurationType {}
 // ERRORS
 // ----------------------------------------------------------------------
 export class SlonikError extends Error {}
+export class InvalidInputError extends SlonikError {}
+export class UnexpectedStateError extends SlonikError {}
+export class ConnectionError extends SlonikError {}
+export class QueryCancelledError extends SlonikError {
+  originalError: Error;
+  constructor(error: Error);
+}
+export class BackendTerminatedError extends SlonikError {
+  originalError: Error;
+  constructor(error: Error)
+}
 export class NotFoundError extends SlonikError {}
 export class DataIntegrityError extends SlonikError {}
-export class IntegrityConstraintViolationError extends SlonikError {}
+export class IntegrityConstraintViolationError extends SlonikError {
+  constraint: string;
+  originalError: Error;
+  constructor(error: Error, constraint: string);
+}
 export class NotNullIntegrityConstraintViolationError extends IntegrityConstraintViolationError {}
 export class ForeignKeyIntegrityConstraintViolationError extends IntegrityConstraintViolationError {}
 export class UniqueIntegrityConstraintViolationError extends IntegrityConstraintViolationError {}

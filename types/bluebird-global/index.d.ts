@@ -2,7 +2,7 @@
 // Project: https://github.com/kaatt/bluebird-global
 // Definitions by: d-ph <https://github.com/d-ph>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.2
 
 /*
  * 1. Why use `bluebird-global` instead of `bluebird`?

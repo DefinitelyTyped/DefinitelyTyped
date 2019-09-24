@@ -13,6 +13,12 @@
             "asOfVersion": "1.0.0"
         },
         {
+            "libraryName": "active-win",
+            "typingsPackageName": "active-win",
+            "sourceRepoURL": "https://github.com/sindresorhus/active-win",
+            "asOfVersion": "5.1.0"
+        },
+        {
             "libraryName": "ag-grid",
             "typingsPackageName": "ag-grid",
             "sourceRepoURL": "https://github.com/ceolter/ag-grid",
@@ -217,6 +223,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "baseui",
+            "typingsPackageName": "baseui",
+            "sourceRepoURL": "https://github.com/uber-web/baseui",
+            "asOfVersion": "8.0.0"
+        },
+        {
             "libraryName": "beeper",
             "typingsPackageName": "beeper",
             "sourceRepoURL": "https://github.com/sindresorhus/beeper",
@@ -383,6 +395,12 @@
             "typingsPackageName": "cli-cursor",
             "sourceRepoURL": "https://github.com/sindresorhus/cli-cursor",
             "asOfVersion": "3.0.0"
+        },
+        {
+            "libraryName": "cli-truncate",
+            "typingsPackageName": "cli-truncate",
+            "sourceRepoURL": "https://github.com/sindresorhus/cli-truncate",
+            "asOfVersion": "2.0.0"
         },
         {
             "libraryName": "clipboardy",
@@ -583,6 +601,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "csv-parse",
+            "typingsPackageName": "csv-parse",
+            "sourceRepoURL": "https://github.com/adaltas/node-csv-parse",
+            "asOfVersion": "1.2.2"
+        },
+        {
             "libraryName": "cycled",
             "typingsPackageName": "cycled",
             "sourceRepoURL": "https://github.com/sindresorhus/cycled",
@@ -665,6 +689,12 @@
             "typingsPackageName": "detect-browser",
             "sourceRepoURL": "https://github.com/DamonOehlman/detect-browser",
             "asOfVersion": "4.0.0"
+        },
+        {
+            "libraryName": "detect-indent",
+            "typingsPackageName": "detect-indent",
+            "sourceRepoURL": "https://github.com/sindresorhus/detect-indent",
+            "asOfVersion": "6.0.0"
         },
         {
             "libraryName": "detect-newline",
@@ -895,6 +925,12 @@
             "asOfVersion": "2.0.2"
         },
         {
+            "libraryName": "execa",
+            "typingsPackageName": "execa",
+            "sourceRepoURL": "https://github.com/sindresorhus/execa",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "execall",
             "typingsPackageName": "execall",
             "sourceRepoURL": "https://github.com/sindresorhus/execall",
@@ -911,6 +947,12 @@
             "typingsPackageName": "expr-eval",
             "sourceRepoURL": "https://github.com/silentmatt/expr-eval",
             "asOfVersion": "1.1.0"
+        },
+        {
+            "libraryName": "express-graphql",
+            "typingsPackageName": "express-graphql",
+            "sourceRepoURL": "https://github.com/graphql/express-graphql",
+            "asOfVersion": "0.9.0"
         },
         {
             "libraryName": "express-validator",
@@ -1015,6 +1057,12 @@
             "asOfVersion": "0.1.1"
         },
         {
+            "libraryName": "find-up",
+            "typingsPackageName": "find-up",
+            "sourceRepoURL": "https://github.com/sindresorhus/find-up",
+            "asOfVersion": "4.0.0"
+        },
+        {
             "libraryName": "find-versions",
             "typingsPackageName": "find-versions",
             "sourceRepoURL": "https://github.com/sindresorhus/find-versions",
@@ -1061,6 +1109,12 @@
             "typingsPackageName": "fork-ts-checker-webpack-plugin",
             "sourceRepoURL": "https://github.com/Realytics/fork-ts-checker-webpack-plugin",
             "asOfVersion": "0.4.5"
+        },
+        {
+            "libraryName": "form-data",
+            "typingsPackageName": "form-data",
+            "sourceRepoURL": "https://github.com/form-data/form-data",
+            "asOfVersion": "2.5.0"
         },
         {
             "libraryName": "Foundation Sites",
@@ -1153,10 +1207,22 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "global-dirs",
+            "typingsPackageName": "global-dirs",
+            "sourceRepoURL": "https://github.com/sindresorhus/global-dirs",
+            "asOfVersion": "1.0.0"
+        },
+        {
             "libraryName": "globby",
             "typingsPackageName": "globby",
             "sourceRepoURL": "https://github.com/sindresorhus/globby",
             "asOfVersion": "9.1.0"
+        },
+        {
+            "libraryName": "@google-cloud/pubsub",
+            "typingsPackageName": "google-cloud__pubsub",
+            "sourceRepoURL": "https://github.com/googleapis/nodejs-pubsub",
+            "asOfVersion": "0.26.0"
         },
         {
             "libraryName": "Google Cloud Storage",
@@ -1169,6 +1235,12 @@
             "typingsPackageName": "graphene-pk11",
             "sourceRepoURL": "https://github.com/PeculiarVentures/graphene",
             "asOfVersion": "2.0.31"
+        },
+        {
+            "libraryName": "graphql",
+            "typingsPackageName": "graphql",
+            "sourceRepoURL": "https://github.com/graphql/graphql-js",
+            "asOfVersion": "14.5.0"
         },
         {
             "libraryName": "gravatar-url",
@@ -1217,6 +1289,12 @@
             "typingsPackageName": "handsontable",
             "sourceRepoURL": "https://handsontable.com/",
             "asOfVersion": "0.35.0"
+        },
+        {
+            "libraryName": "hapi-auth-jwt2",
+            "typingsPackageName": "hapi-auth-jwt2",
+            "sourceRepoURL": "https://github.com/dwyl/hapi-auth-jwt2/",
+            "asOfVersion": "8.6.1"
         },
         {
             "libraryName": "hard-rejection",
@@ -1285,10 +1363,22 @@
             "asOfVersion": "2.1.0"
         },
         {
+            "libraryName": "i18next",
+            "typingsPackageName": "i18next",
+            "sourceRepoURL": "https://github.com/i18next/i18next",
+            "asOfVersion": "13.0.0"
+        },
+        {
             "libraryName": "i18next-browser-languagedetector",
             "typingsPackageName": "i18next-browser-languagedetector",
             "sourceRepoURL": "https://github.com/i18next/i18next-browser-languagedetector",
             "asOfVersion": "3.0.0"
+        },
+        {
+            "libraryName": "i18next-express-middleware",
+            "typingsPackageName": "i18next-express-middleware",
+            "sourceRepoURL": "https://github.com/i18next/i18next-express-middleware",
+            "asOfVersion": "1.7.0"
         },
         {
             "libraryName": "i18next-xhr-backend",
@@ -1349,6 +1439,24 @@
             "typingsPackageName": "internal-ip",
             "sourceRepoURL": "https://github.com/sindresorhus/internal-ip",
             "asOfVersion": "4.1.0"
+        },
+        {
+            "libraryName": "intl-locales-supported",
+            "typingsPackageName": "intl-locales-supported",
+            "sourceRepoURL": "https://github.com/formatjs/formatjs",
+            "asOfVersion": "1.0.6"
+        },
+        {
+            "libraryName": "intl-messageformat",
+            "typingsPackageName": "intl-messageformat",
+            "sourceRepoURL": "https://github.com/formatjs/formatjs",
+            "asOfVersion": "3.0.0"
+        },
+        {
+            "libraryName": "intl-relativeformat",
+            "typingsPackageName": "intl-relativeformat",
+            "sourceRepoURL": "https://github.com/formatjs/formatjs",
+            "asOfVersion": "3.0.1"
         },
         {
             "libraryName": "into-stream",
@@ -1463,6 +1571,12 @@
             "typingsPackageName": "is-image",
             "sourceRepoURL": "https://github.com/sindresorhus/is-image",
             "asOfVersion": "3.0.0"
+        },
+        {
+            "libraryName": "is-installed-globally",
+            "typingsPackageName": "is-installed-globally",
+            "sourceRepoURL": "https://github.com/sindresorhus/is-installed-globally.git",
+            "asOfVersion": "0.2.0"
         },
         {
             "libraryName": "is-ip",
@@ -1597,6 +1711,12 @@
             "asOfVersion": "3.8.1"
         },
         {
+            "libraryName": "jdenticon",
+            "typingsPackageName": "jdenticon",
+            "sourceRepoURL": "https://github.com/dmester/jdenticon",
+            "asOfVersion": "2.2.0"
+        },
+        {
             "libraryName": "jimp",
             "typingsPackageName": "jimp",
             "sourceRepoURL": "https://github.com/oliver-moran/jimp#readme",
@@ -1613,6 +1733,12 @@
             "typingsPackageName": "jointjs",
             "sourceRepoURL": "http://www.jointjs.com/",
             "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "jpeg-js",
+            "typingsPackageName": "jpeg-js",
+            "sourceRepoURL": "https://github.com/eugeneware/jpeg-js",
+            "asOfVersion": "0.3.6"
         },
         {
             "libraryName": "jpush-react-native",
@@ -1759,6 +1885,12 @@
             "asOfVersion": "3.0.0"
         },
         {
+            "libraryName": "line-column-path",
+            "typingsPackageName": "line-column-path",
+            "sourceRepoURL": "https://github.com/sindresorhus/line-column-path",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "linkify-issues",
             "typingsPackageName": "linkify-issues",
             "sourceRepoURL": "https://github.com/sindresorhus/linkify-issues",
@@ -1849,6 +1981,12 @@
             "asOfVersion": "2.3.5"
         },
         {
+            "libraryName": "loglevel",
+            "typingsPackageName": "loglevel",
+            "sourceRepoURL": "https://github.com/pimterry/loglevel/",
+            "asOfVersion": "1.6.2"
+        },
+        {
             "libraryName": "loud-rejection",
             "typingsPackageName": "loud-rejection",
             "sourceRepoURL": "https://github.com/sindresorhus/loud-rejection",
@@ -1879,10 +2017,22 @@
             "asOfVersion": "0.9.2"
         },
         {
+            "libraryName": "map-obj",
+            "typingsPackageName": "map-obj",
+            "sourceRepoURL": "https://github.com/sindresorhus/map-obj",
+            "asOfVersion": "3.1.0"
+        },
+        {
             "libraryName": "maquette",
             "typingsPackageName": "maquette",
             "sourceRepoURL": "http://maquettejs.org/",
             "asOfVersion": "2.1.6"
+        },
+        {
+            "libraryName": "matcher",
+            "typingsPackageName": "matcher",
+            "sourceRepoURL": "https://github.com/sindresorhus/matcher",
+            "asOfVersion": "2.0.0"
         },
         {
             "libraryName": "maxmind",
@@ -1913,6 +2063,12 @@
             "typingsPackageName": "microgears",
             "sourceRepoURL": "https://github.com/marcusdb/microgears",
             "asOfVersion": "4.0.5"
+        },
+        {
+            "libraryName": "mnemonic-words",
+            "typingsPackageName": "mnemonic-words",
+            "sourceRepoURL": "https://github.com/sindresorhus/mnemonic-words",
+            "asOfVersion": "1.1.0"
         },
         {
             "libraryName": "mobile-detect",
@@ -1951,6 +2107,12 @@
             "asOfVersion": "6.0.0"
         },
         {
+            "libraryName": "month-days",
+            "typingsPackageName": "month-days",
+            "sourceRepoURL": "https://github.com/sindresorhus/month-days",
+            "asOfVersion": "3.0.0"
+        },
+        {
             "libraryName": "move-file",
             "typingsPackageName": "move-file",
             "sourceRepoURL": "https://github.com/sindresorhus/move-file",
@@ -1961,6 +2123,12 @@
             "typingsPackageName": "mqtt",
             "sourceRepoURL": "https://github.com/mqttjs/MQTT.js",
             "asOfVersion": "2.5.0"
+        },
+        {
+            "libraryName": "multimatch",
+            "typingsPackageName": "multimatch",
+            "sourceRepoURL": "https://github.com/sindresorhus/multimatch",
+            "asOfVersion": "4.0.0"
         },
         {
             "libraryName": "nano",
@@ -1975,10 +2143,40 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "negative-array",
+            "typingsPackageName": "negative-array",
+            "sourceRepoURL": "https://github.com/sindresorhus/negative-array",
+            "asOfVersion": "2.1.0"
+        },
+        {
+            "libraryName": "negative-zero",
+            "typingsPackageName": "negative-zero",
+            "sourceRepoURL": "https://github.com/sindresorhus/negative-zero",
+            "asOfVersion": "3.0.0"
+        },
+        {
+            "libraryName": "new-github-issue-url",
+            "typingsPackageName": "new-github-issue-url",
+            "sourceRepoURL": "https://github.com/sindresorhus/new-github-issue-url",
+            "asOfVersion": "0.2.1"
+        },
+        {
+            "libraryName": "new-github-release-url",
+            "typingsPackageName": "new-github-release-url",
+            "sourceRepoURL": "https://github.com/sindresorhus/new-github-release-url",
+            "asOfVersion": "1.0.0"
+        },
+        {
             "libraryName": "ng-table",
             "typingsPackageName": "ng-table",
             "sourceRepoURL": "https://github.com/esvit/ng-table",
             "asOfVersion": "2.0.1"
+        },
+        {
+            "libraryName": "nock",
+            "typingsPackageName": "nock",
+            "sourceRepoURL": "https://github.com/nock/nock",
+            "asOfVersion": "11.1.0"
         },
         {
             "libraryName": "node-pg-migrate",
@@ -2053,10 +2251,34 @@
             "asOfVersion": "1.1.0"
         },
         {
+            "libraryName": "onetime",
+            "typingsPackageName": "onetime",
+            "sourceRepoURL": "https://github.com/sindresorhus/onetime",
+            "asOfVersion": "4.0.0"
+        },
+        {
             "libraryName": "Onsen UI",
             "typingsPackageName": "onsenui",
             "sourceRepoURL": "http://onsen.io",
             "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "open",
+            "typingsPackageName": "open",
+            "sourceRepoURL": "https://github.com/sindresorhus/open",
+            "asOfVersion": "6.2.0"
+        },
+        {
+            "libraryName": "open-editor",
+            "typingsPackageName": "open-editor",
+            "sourceRepoURL": "https://github.com/sindresorhus/open-editor",
+            "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "openid-client",
+            "typingsPackageName": "openid-client",
+            "sourceRepoURL": "https://github.com/panva/node-openid-client",
+            "asOfVersion": "3.7.0"
         },
         {
             "libraryName": "opn",
@@ -2069,6 +2291,12 @@
             "typingsPackageName": "ora",
             "sourceRepoURL": "https://github.com/sindresorhus/ora",
             "asOfVersion": "3.2.0"
+        },
+        {
+            "libraryName": "os-locale",
+            "typingsPackageName": "os-locale",
+            "sourceRepoURL": "https://github.com/sindresorhus/os-locale",
+            "asOfVersion": "4.0.0"
         },
         {
             "libraryName": "os-name",
@@ -2329,6 +2557,24 @@
             "asOfVersion": "1.1.2"
         },
         {
+            "libraryName": "park-miller",
+            "typingsPackageName": "park-miller",
+            "sourceRepoURL": "https://github.com/sindresorhus/park-miller",
+            "asOfVersion": "1.1.0"
+        },
+        {
+            "libraryName": "parse-columns",
+            "typingsPackageName": "parse-columns",
+            "sourceRepoURL": "https://github.com/sindresorhus/parse-columns",
+            "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "parse-ms",
+            "typingsPackageName": "parse-ms",
+            "sourceRepoURL": "https://github.com/sindresorhus/parse-ms",
+            "asOfVersion": "2.1.0"
+        },
+        {
             "libraryName": "pascal-case",
             "typingsPackageName": "pascal-case",
             "sourceRepoURL": "https://github.com/blakeembrey/pascal-case",
@@ -2345,6 +2591,12 @@
             "typingsPackageName": "path-case",
             "sourceRepoURL": "https://github.com/blakeembrey/path-case",
             "asOfVersion": "1.1.2"
+        },
+        {
+            "libraryName": "path-exists",
+            "typingsPackageName": "path-exists",
+            "sourceRepoURL": "https://github.com/sindresorhus/path-exists",
+            "asOfVersion": "4.0.0"
         },
         {
             "libraryName": "path-key",
@@ -2425,6 +2677,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "playcanvas",
+            "typingsPackageName": "playcanvas",
+            "sourceRepoURL": "https://github.com/playcanvas/engine",
+            "asOfVersion": "1.23.0"
+        },
+        {
             "libraryName": "plottable",
             "typingsPackageName": "plottable",
             "sourceRepoURL": "http://plottablejs.org/",
@@ -2455,10 +2713,34 @@
             "asOfVersion": "1.11.0"
         },
         {
+            "libraryName": "positive-zero",
+            "typingsPackageName": "positive-zero",
+            "sourceRepoURL": "https://github.com/sindresorhus/positive-zero",
+            "asOfVersion": "3.0.0"
+        },
+        {
             "libraryName": "Prando",
             "typingsPackageName": "prando",
             "sourceRepoURL": "https://github.com/zeh/prando",
             "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "pretty-bytes",
+            "typingsPackageName": "pretty-bytes",
+            "sourceRepoURL": "https://github.com/sindresorhus/pretty-bytes",
+            "asOfVersion": "5.2.0"
+        },
+        {
+            "libraryName": "pretty-format",
+            "typingsPackageName": "pretty-format",
+            "sourceRepoURL": "https://github.com/facebook/jest/tree/master/packages/pretty-format",
+            "asOfVersion": "24.3.0"
+        },
+        {
+            "libraryName": "pretty-ms",
+            "typingsPackageName": "pretty-ms",
+            "sourceRepoURL": "https://github.com/sindresorhus/pretty-ms",
+            "asOfVersion": "5.0.0"
         },
         {
             "libraryName": "ProtoBuf.js",
@@ -2477,6 +2759,18 @@
             "typingsPackageName": "ps-list",
             "sourceRepoURL": "https://github.com/sindresorhus/ps-list",
             "asOfVersion": "6.2.1"
+        },
+        {
+            "libraryName": "public-ip",
+            "typingsPackageName": "public-ip",
+            "sourceRepoURL": "https://github.com/sindresorhus/public-ip",
+            "asOfVersion": "3.1.0"
+        },
+        {
+            "libraryName": "pupa",
+            "typingsPackageName": "pupa",
+            "sourceRepoURL": "https://github.com/sindresorhus/pupa",
+            "asOfVersion": "2.0.0"
         },
         {
             "libraryName": "qiniu",
@@ -2533,6 +2827,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "randoma",
+            "typingsPackageName": "randoma",
+            "sourceRepoURL": "https://github.com/sindresorhus/randoma",
+            "asOfVersion": "1.3.0"
+        },
+        {
             "libraryName": "Raven JS",
             "typingsPackageName": "raven-js",
             "sourceRepoURL": "https://github.com/getsentry/raven-js",
@@ -2575,6 +2875,12 @@
             "asOfVersion": "3.0.2"
         },
         {
+            "libraryName": "react-dropzone",
+            "typingsPackageName": "react-dropzone",
+            "sourceRepoURL": "https://github.com/react-dropzone/react-dropzone",
+            "asOfVersion": "5.1.0"
+        },
+        {
             "libraryName": "react-flip-move",
             "typingsPackageName": "react-flip-move",
             "sourceRepoURL": "https://github.com/joshwcomeau/react-flip-move",
@@ -2596,6 +2902,12 @@
             "libraryName": "React Icons",
             "typingsPackageName": "react-icons",
             "sourceRepoURL": "https://www.npmjs.com/package/react-icons",
+            "asOfVersion": "3.0.0"
+        },
+        {
+            "libraryName": "react-intl",
+            "typingsPackageName": "react-intl",
+            "sourceRepoURL": "https://github.com/formatjs/react-intl",
             "asOfVersion": "3.0.0"
         },
         {
@@ -2659,16 +2971,40 @@
             "asOfVersion": "5.0.0"
         },
         {
+            "libraryName": "react-webcam",
+            "typingsPackageName": "react-webcam",
+            "sourceRepoURL": "https://github.com/mozmorris/react-webcam",
+            "asOfVersion": "3.0.0"
+        },
+        {
             "libraryName": "read-chunk",
             "typingsPackageName": "read-chunk",
             "sourceRepoURL": "https://github.com/sindresorhus/read-chunk",
             "asOfVersion": "3.1.0"
         },
         {
+            "libraryName": "read-pkg",
+            "typingsPackageName": "read-pkg",
+            "sourceRepoURL": "https://github.com/sindresorhus/read-pkg",
+            "asOfVersion": "5.1.0"
+        },
+        {
+            "libraryName": "read-pkg-up",
+            "typingsPackageName": "read-pkg-up",
+            "sourceRepoURL": "https://github.com/sindresorhus/read-pkg-up",
+            "asOfVersion": "6.0.0"
+        },
+        {
             "libraryName": "realm",
             "typingsPackageName": "realm",
             "sourceRepoURL": "https://github.com/realm/realm-js",
             "asOfVersion": "1.13.0"
+        },
+        {
+            "libraryName": "redent",
+            "typingsPackageName": "redent",
+            "sourceRepoURL": "https://github.com/sindresorhus/redent",
+            "asOfVersion": "3.0.0"
         },
         {
             "libraryName": "Redux",
@@ -2731,10 +3067,28 @@
             "asOfVersion": "0.1.0"
         },
         {
+            "libraryName": "replace-string",
+            "typingsPackageName": "replace-string",
+            "sourceRepoURL": "https://github.com/sindresorhus/replace-string",
+            "asOfVersion": "3.0.0"
+        },
+        {
+            "libraryName": "import-cwd",
+            "typingsPackageName": "req-cwd",
+            "sourceRepoURL": "https://github.com/sindresorhus/import-cwd",
+            "asOfVersion": "3.0.0"
+        },
+        {
             "libraryName": "reselect",
             "typingsPackageName": "reselect",
             "sourceRepoURL": "https://github.com/rackt/reselect",
             "asOfVersion": "2.2.0"
+        },
+        {
+            "libraryName": "resolve-cwd",
+            "typingsPackageName": "resolve-cwd",
+            "sourceRepoURL": "https://github.com/sindresorhus/resolve-cwd",
+            "asOfVersion": "3.0.0"
         },
         {
             "libraryName": "resolve-from",
@@ -2761,6 +3115,24 @@
             "asOfVersion": "4.1.0"
         },
         {
+            "libraryName": "restore-cursor",
+            "typingsPackageName": "restore-cursor",
+            "sourceRepoURL": "https://github.com/sindresorhus/restore-cursor",
+            "asOfVersion": "3.1.0"
+        },
+        {
+            "libraryName": "rev-hash",
+            "typingsPackageName": "rev-hash",
+            "sourceRepoURL": "https://github.com/sindresorhus/rev-hash",
+            "asOfVersion": "3.0.0"
+        },
+        {
+            "libraryName": "rgb-hex",
+            "typingsPackageName": "rgb-hex",
+            "sourceRepoURL": "https://github.com/sindresorhus/rgb-hex",
+            "asOfVersion": "3.0.0"
+        },
+        {
             "libraryName": "rollup",
             "typingsPackageName": "rollup",
             "sourceRepoURL": "https://github.com/rollup/rollup",
@@ -2783,6 +3155,12 @@
             "typingsPackageName": "rollup-plugin-node-resolve",
             "sourceRepoURL": "https://github.com/rollup/rollup-plugin-node-resolve",
             "asOfVersion": "4.1.0"
+        },
+        {
+            "libraryName": "round-to",
+            "typingsPackageName": "round-to",
+            "sourceRepoURL": "https://github.com/sindresorhus/round-to",
+            "asOfVersion": "4.0.0"
         },
         {
             "libraryName": "route-recognizer",
@@ -2827,6 +3205,12 @@
             "asOfVersion": "0.1.0"
         },
         {
+            "libraryName": "sanitize-filename",
+            "typingsPackageName": "sanitize-filename",
+            "sourceRepoURL": "https://github.com/parshap/node-sanitize-filename",
+            "asOfVersion": "1.6.3"
+        },
+        {
             "libraryName": "node-scanf",
             "typingsPackageName": "scanf",
             "sourceRepoURL": "https://github.com/Lellansin/node-scanf",
@@ -2843,6 +3227,24 @@
             "typingsPackageName": "sdbm",
             "sourceRepoURL": "https://github.com/sindresorhus/sdbm",
             "asOfVersion": "1.1.0"
+        },
+        {
+            "libraryName": "semver-diff",
+            "typingsPackageName": "semver-diff",
+            "sourceRepoURL": "https://github.com/sindresorhus/semver-diff",
+            "asOfVersion": "3.0.0"
+        },
+        {
+            "libraryName": "semver-regex",
+            "typingsPackageName": "semver-regex",
+            "sourceRepoURL": "https://github.com/sindresorhus/semver-regex",
+            "asOfVersion": "3.1.0"
+        },
+        {
+            "libraryName": "semver-truncate",
+            "typingsPackageName": "semver-truncate",
+            "sourceRepoURL": "https://github.com/sindresorhus/semver-truncate",
+            "asOfVersion": "2.0.0"
         },
         {
             "libraryName": "sendgrid",
@@ -2869,6 +3271,12 @@
             "asOfVersion": "0.1.3"
         },
         {
+            "libraryName": "shebang-regex",
+            "typingsPackageName": "shebang-regex",
+            "sourceRepoURL": "https://github.com/sindresorhus/shebang-regex",
+            "asOfVersion": "3.0.0"
+        },
+        {
             "libraryName": "Shopify Prime",
             "typingsPackageName": "shopify-prime",
             "sourceRepoURL": "https://github.com/nozzlegear/shopify-prime",
@@ -2885,6 +3293,12 @@
             "typingsPackageName": "simplesignal",
             "sourceRepoURL": "https://github.com/zeh/simplesignal",
             "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "@sindresorhus/class-names",
+            "typingsPackageName": "sindresorhus__class-names",
+            "sourceRepoURL": "https://github.com/sindresorhus/class-names",
+            "asOfVersion": "1.1.0"
         },
         {
             "libraryName": "@sindresorhus/df",
@@ -2929,6 +3343,18 @@
             "asOfVersion": "0.12.0"
         },
         {
+            "libraryName": "skin-tone",
+            "typingsPackageName": "skin-tone",
+            "sourceRepoURL": "https://github.com/sindresorhus/skin-tone",
+            "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "slash",
+            "typingsPackageName": "slash",
+            "sourceRepoURL": "https://github.com/sindresorhus/slash",
+            "asOfVersion": "3.0.0"
+        },
+        {
             "libraryName": "smooth-scrollbar",
             "typingsPackageName": "smooth-scrollbar",
             "sourceRepoURL": "https://github.com/idiotWu/smooth-scrollbar",
@@ -2947,6 +3373,12 @@
             "asOfVersion": "1.1.2"
         },
         {
+            "libraryName": "snoowrap",
+            "typingsPackageName": "snoowrap",
+            "sourceRepoURL": "https://github.com/not-an-aardvark/snoowrap",
+            "asOfVersion": "1.19.0"
+        },
+        {
             "libraryName": "soap",
             "typingsPackageName": "soap",
             "sourceRepoURL": "https://www.npmjs.com/package/soap",
@@ -2957,6 +3389,12 @@
             "typingsPackageName": "source-map",
             "sourceRepoURL": "https://github.com/mozilla/source-map",
             "asOfVersion": "0.5.7"
+        },
+        {
+            "libraryName": "sparkly",
+            "typingsPackageName": "sparkly",
+            "sourceRepoURL": "https://github.com/sindresorhus/sparkly",
+            "asOfVersion": "5.0.0"
         },
         {
             "libraryName": "Spectacle",
@@ -2977,16 +3415,34 @@
             "asOfVersion": "0.21.0"
         },
         {
+            "libraryName": "srcset",
+            "typingsPackageName": "srcset",
+            "sourceRepoURL": "https://github.com/sindresorhus/srcset",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "ServiceStack Utils",
             "typingsPackageName": "ss-utils",
             "sourceRepoURL": "https://servicestack.net/",
             "asOfVersion": "0.1.5"
         },
         {
+            "libraryName": "@storybook/addon-a11y",
+            "typingsPackageName": "storybook__addon-a11y",
+            "sourceRepoURL": "https://github.com/storybooks/storybook",
+            "asOfVersion": "5.1.1"
+        },
+        {
             "libraryName": "@storybook/addon-notes",
             "typingsPackageName": "storybook__addon-notes",
             "sourceRepoURL": "https://github.com/storybooks/storybook",
             "asOfVersion": "5.0.0"
+        },
+        {
+            "libraryName": "stream-mock",
+            "typingsPackageName": "stream-mock",
+            "sourceRepoURL": "https://github.com/b4nst/stream-mock",
+            "asOfVersion": "2.0.1"
         },
         {
             "libraryName": "string-length",
@@ -2999,6 +3455,12 @@
             "typingsPackageName": "string-width",
             "sourceRepoURL": "https://github.com/sindresorhus/string-width",
             "asOfVersion": "4.0.0"
+        },
+        {
+            "libraryName": "stringify-attributes",
+            "typingsPackageName": "stringify-attributes",
+            "sourceRepoURL": "https://github.com/sindresorhus/stringify-attributes",
+            "asOfVersion": "2.0.0"
         },
         {
             "libraryName": "strip-ansi",
@@ -3016,6 +3478,12 @@
             "libraryName": "strip-indent",
             "typingsPackageName": "strip-indent",
             "sourceRepoURL": "https://github.com/sindresorhus/strip-indent",
+            "asOfVersion": "3.0.0"
+        },
+        {
+            "libraryName": "strip-json-comments",
+            "typingsPackageName": "strip-json-comments",
+            "sourceRepoURL": "https://github.com/sindresorhus/strip-json-comments",
             "asOfVersion": "3.0.0"
         },
         {
@@ -3061,6 +3529,12 @@
             "asOfVersion": "2.3.1"
         },
         {
+            "libraryName": "swagger-parser",
+            "typingsPackageName": "swagger-parser",
+            "sourceRepoURL": "https://apidevtools.org/swagger-parser/",
+            "asOfVersion": "7.0.0"
+        },
+        {
             "libraryName": "swap-case",
             "typingsPackageName": "swap-case",
             "sourceRepoURL": "https://github.com/blakeembrey/swap-case",
@@ -3091,10 +3565,46 @@
             "asOfVersion": "2.6.0"
         },
         {
+            "libraryName": "temp-dir",
+            "typingsPackageName": "temp-dir",
+            "sourceRepoURL": "https://github.com/sindresorhus/temp-dir",
+            "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "temp-write",
+            "typingsPackageName": "temp-write",
+            "sourceRepoURL": "https://github.com/sindresorhus/temp-write",
+            "asOfVersion": "4.0.0"
+        },
+        {
+            "libraryName": "tempfile",
+            "typingsPackageName": "tempfile",
+            "sourceRepoURL": "https://github.com/sindresorhus/tempfile",
+            "asOfVersion": "3.0.0"
+        },
+        {
             "libraryName": "tempy",
             "typingsPackageName": "tempy",
             "sourceRepoURL": "https://github.com/sindresorhus/tempy",
             "asOfVersion": "0.3.0"
+        },
+        {
+            "libraryName": "term-size",
+            "typingsPackageName": "term-size",
+            "sourceRepoURL": "https://github.com/sindresorhus/term-size",
+            "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "terminal-image",
+            "typingsPackageName": "terminal-image",
+            "sourceRepoURL": "https://github.com/sindresorhus/terminal-image",
+            "asOfVersion": "0.2.0"
+        },
+        {
+            "libraryName": "terminal-link",
+            "typingsPackageName": "terminal-link",
+            "sourceRepoURL": "https://github.com/sindresorhus/terminal-link",
+            "asOfVersion": "1.2.0"
         },
         {
             "libraryName": "terser",
@@ -3107,6 +3617,12 @@
             "typingsPackageName": "three",
             "sourceRepoURL": "https://github.com/mrdoob/three.js",
             "asOfVersion": "0.103.0"
+        },
+        {
+            "libraryName": "tildify",
+            "typingsPackageName": "tildify",
+            "sourceRepoURL": "https://github.com/sindresorhus/tildify",
+            "asOfVersion": "2.0.0"
         },
         {
             "libraryName": "time-span",
@@ -3145,6 +3661,12 @@
             "asOfVersion": "3.0.0"
         },
         {
+            "libraryName": "ts3-nodejs-library",
+            "typingsPackageName": "ts3-nodejs-library",
+            "sourceRepoURL": "https://github.com/Multivit4min/TS3-NodeJS-Library",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "TsMonad",
             "typingsPackageName": "tsmonad",
             "sourceRepoURL": "https://github.com/cbowdon/TsMonad",
@@ -3175,6 +3697,18 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "ua-string",
+            "typingsPackageName": "ua-string",
+            "sourceRepoURL": "https://github.com/sindresorhus/ua-string",
+            "asOfVersion": "3.0.0"
+        },
+        {
+            "libraryName": "ui-box",
+            "typingsPackageName": "ui-box",
+            "sourceRepoURL": "https://github.com/segmentio/ui-box",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "uk.co.workingedge.phonegap.plugin.istablet",
             "typingsPackageName": "uk.co.workingedge.phonegap.plugin.istablet",
             "sourceRepoURL": "https://github.com/dpa99c/phonegap-istablet",
@@ -3199,10 +3733,22 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "unique-string",
+            "typingsPackageName": "unique-string",
+            "sourceRepoURL": "https://github.com/sindresorhus/unique-string",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "Universal Router",
             "typingsPackageName": "universal-router",
             "sourceRepoURL": "https://github.com/kriasoft/universal-router",
             "asOfVersion": "8.0.0"
+        },
+        {
+            "libraryName": "untildify",
+            "typingsPackageName": "untildify",
+            "sourceRepoURL": "https://github.com/sindresorhus/untildify",
+            "asOfVersion": "4.0.0"
         },
         {
             "libraryName": "unused-filename",
@@ -3275,6 +3821,12 @@
             "typingsPackageName": "vue-router",
             "sourceRepoURL": "https://github.com/vuejs/vue-router",
             "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "vue-scrollto",
+            "typingsPackageName": "vue-scrollto",
+            "sourceRepoURL": "https://github.com/rigor789/vue-scrollto",
+            "asOfVersion": "2.17.1"
         },
         {
             "libraryName": "typescript",
@@ -3355,10 +3907,22 @@
             "asOfVersion": "0.1.25"
         },
         {
+            "libraryName": "word-list",
+            "typingsPackageName": "word-list-json",
+            "sourceRepoURL": "https://github.com/sindresorhus/word-list",
+            "asOfVersion": "3.0.0"
+        },
+        {
             "libraryName": "write-json-file",
             "typingsPackageName": "write-json-file",
             "sourceRepoURL": "https://github.com/sindresorhus/write-json-file",
             "asOfVersion": "3.2.0"
+        },
+        {
+            "libraryName": "write-pkg",
+            "typingsPackageName": "write-pkg",
+            "sourceRepoURL": "https://github.com/sindresorhus/write-pkg",
+            "asOfVersion": "4.0.0"
         },
         {
             "libraryName": "x2js",
@@ -3371,6 +3935,12 @@
             "typingsPackageName": "xadesjs",
             "sourceRepoURL": "https://github.com/PeculiarVentures/xadesjs",
             "asOfVersion": "2.0.2"
+        },
+        {
+            "libraryName": "xdg-basedir",
+            "typingsPackageName": "xdg-basedir",
+            "sourceRepoURL": "https://github.com/sindresorhus/xdg-basedir",
+            "asOfVersion": "4.0.0"
         },
         {
             "libraryName": "xhr-mock",
@@ -3406,6 +3976,12 @@
             "libraryName": "xterm.js",
             "typingsPackageName": "xterm",
             "sourceRepoURL": "https://github.com/sourcelair/xterm.js/",
+            "asOfVersion": "3.0.0"
+        },
+        {
+            "libraryName": "year-days",
+            "typingsPackageName": "year-days",
+            "sourceRepoURL": "https://github.com/sindresorhus/year-days",
             "asOfVersion": "3.0.0"
         },
         {

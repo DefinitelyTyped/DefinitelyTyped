@@ -479,7 +479,7 @@ export interface ConnectOptions {
     maxAudioBitRate?: number | null;
     maxVideoBitRate?: number | null;
     name?: string | null;
-    networkQuality?: boolean;
+    networkQuality?: boolean | NetworkQualityConfiguration;
     preferredAudioCodecs?: AudioCodec[];
     preferredVideoCodecs?: VideoCodec[] | VideoCodecSettings[];
     logLevel?: LogLevel | LogLevels;
@@ -520,6 +520,11 @@ export interface LogLevels {
     webrtc: LogLevel;
 }
 export type NetworkQualityLevel = number;
+export type NetworkQualityVerbosity = 0 | 1 | 2 | 3;
+export interface NetworkQualityConfiguration {
+    local?: NetworkQualityVerbosity;
+    remote?: NetworkQualityVerbosity;
+}
 export type RemoteTrack = RemoteAudioTrack | RemoteVideoTrack | RemoteDataTrack;
 export interface RemoteTrackPublicationOptions {
     logLevel: LogLevel | LogLevels;

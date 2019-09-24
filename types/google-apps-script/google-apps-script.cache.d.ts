@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2019-01-23
+// Type definitions for Google Apps Script 2019-09-11
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -29,11 +29,11 @@ declare namespace GoogleAppsScript {
      */
     export interface Cache {
       get(key: string): string;
-      getAll(keys: string[]): Object;
+      getAll(keys: string[]): { [key: string]: any };
       put(key: string, value: string): void;
       put(key: string, value: string, expirationInSeconds: Integer): void;
-      putAll(values: Object): void;
-      putAll(values: Object, expirationInSeconds: Integer): void;
+      putAll(values: { [key: string]: any }): void;
+      putAll(values: { [key: string]: any }, expirationInSeconds: Integer): void;
       remove(key: string): void;
       removeAll(keys: string[]): void;
     }

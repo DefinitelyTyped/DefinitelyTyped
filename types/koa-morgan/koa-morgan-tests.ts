@@ -12,11 +12,12 @@ app.use(morgan('tiny'));
 app.use(morgan(':remote-addr :method :url'));
 
 const tokenCallback: morgan.TokenCallbackFn = (req: IncomingMessage, res: ServerResponse): string => {
-    if (req.headers['request-id']) {
-        if (Array.isArray(req.headers['request-id'])) {
-            return (req.headers['request-id'] as string[]).join(';');
+    const rqid = req.headers['request-id'];
+    if (rqid) {
+        if (Array.isArray(rqid)) {
+            return rqid.join(';');
         } else {
-            return req.headers['request-id'] as string;
+            return rqid;
         }
     } else {
         return '-';

@@ -1,4 +1,4 @@
-// Type definitions for fetch-mock 7.2
+// Type definitions for fetch-mock 7.3
 // Project: https://github.com/wheresrhys/fetch-mock, http://www.wheresrhys.co.uk/fetch-mock
 // Definitions by: Alexey Svetliakov <https://github.com/asvetliakov>
 //                 Tamir Duberstein <https://github.com/tamird>
@@ -9,6 +9,7 @@
 //                 Fumiaki Matsushima <https://github.com/mtsmfm>
 //                 Colin Doig <https://github.com/captain-igloo>
 //                 Felix Chen <https://github.com/ChenNima>
+//                 Katsuya Hino <https://github.com/dobogo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -141,12 +142,22 @@ declare namespace fetchMock {
         /**
          * key/value map of headers to match
          */
-        headers?: { [key: string]: string };
+        headers?: { [key: string]: string | number };
 
         /**
          * key/value map of query strings to match, in any order
          */
         query?: { [key: string]: string };
+
+        /**
+         * key/value map of express style path params to match
+         */
+        params?: { [key: string]: string };
+
+        /**
+         * A function for arbitrary matching
+         */
+        functionMatcher?: MockMatcherFunction;
 
         /**
          * as specified above
@@ -175,7 +186,7 @@ declare namespace fetchMock {
         repeat?: number;
 
         /**
-         * Convert objects into JSON before delivering as stub reponses. Can
+         * Convert objects into JSON before delivering as stub responses. Can
          * be useful to set to false globally if e.g. dealing with a lot of
          * array buffers. If true, will also add content-type: application/json
          * header.
@@ -268,7 +279,7 @@ declare namespace fetchMock {
          * @param response Configures the http response returned by the mock
          * @param [options] Additional properties defining the route to mock
          */
-        get(matcher: MockMatcher, reponse: MockResponse | MockResponseFunction, options?: MockOptionsMethodGet): this;
+        get(matcher: MockMatcher, response: MockResponse | MockResponseFunction, options?: MockOptionsMethodGet): this;
 
         /**
          * Replaces fetch() with a stub which records its calls, grouped by
@@ -280,7 +291,7 @@ declare namespace fetchMock {
          * @param response Configures the http response returned by the mock
          * @param [options] Additional properties defining the route to mock
          */
-        getOnce(matcher: MockMatcher, reponse: MockResponse | MockResponseFunction, options?: MockOptionsMethodGet): this;
+        getOnce(matcher: MockMatcher, response: MockResponse | MockResponseFunction, options?: MockOptionsMethodGet): this;
 
         /**
          * Replaces fetch() with a stub which records its calls, grouped by
@@ -291,7 +302,7 @@ declare namespace fetchMock {
          * @param response Configures the http response returned by the mock
          * @param [options] Additional properties defining the route to mock
          */
-        post(matcher: MockMatcher, reponse: MockResponse | MockResponseFunction, options?: MockOptionsMethodPost): this;
+        post(matcher: MockMatcher, response: MockResponse | MockResponseFunction, options?: MockOptionsMethodPost): this;
 
         /**
          * Replaces fetch() with a stub which records its calls, grouped by
@@ -303,7 +314,7 @@ declare namespace fetchMock {
          * @param response Configures the http response returned by the mock
          * @param [options] Additional properties defining the route to mock
          */
-        postOnce(matcher: MockMatcher, reponse: MockResponse | MockResponseFunction, options?: MockOptionsMethodPost): this;
+        postOnce(matcher: MockMatcher, response: MockResponse | MockResponseFunction, options?: MockOptionsMethodPost): this;
 
         /**
          * Replaces fetch() with a stub which records its calls, grouped by
@@ -314,7 +325,7 @@ declare namespace fetchMock {
          * @param response Configures the http response returned by the mock
          * @param [options] Additional properties defining the route to mock
          */
-        put(matcher: MockMatcher, reponse: MockResponse | MockResponseFunction, options?: MockOptionsMethodPut): this;
+        put(matcher: MockMatcher, response: MockResponse | MockResponseFunction, options?: MockOptionsMethodPut): this;
 
         /**
          * Replaces fetch() with a stub which records its calls, grouped by
@@ -326,7 +337,7 @@ declare namespace fetchMock {
          * @param response Configures the http response returned by the mock
          * @param [options] Additional properties defining the route to mock
          */
-        putOnce(matcher: MockMatcher, reponse: MockResponse | MockResponseFunction, options?: MockOptionsMethodPut): this;
+        putOnce(matcher: MockMatcher, response: MockResponse | MockResponseFunction, options?: MockOptionsMethodPut): this;
 
         /**
          * Replaces fetch() with a stub which records its calls, grouped by
@@ -337,7 +348,7 @@ declare namespace fetchMock {
          * @param response Configures the http response returned by the mock
          * @param [options] Additional properties defining the route to mock
          */
-        delete(matcher: MockMatcher, reponse: MockResponse | MockResponseFunction, options?: MockOptionsMethodDelete): this;
+        delete(matcher: MockMatcher, response: MockResponse | MockResponseFunction, options?: MockOptionsMethodDelete): this;
 
         /**
          * Replaces fetch() with a stub which records its calls, grouped by
@@ -349,7 +360,7 @@ declare namespace fetchMock {
          * @param response Configures the http response returned by the mock
          * @param [options] Additional properties defining the route to mock
          */
-        deleteOnce(matcher: MockMatcher, reponse: MockResponse | MockResponseFunction, options?: MockOptionsMethodDelete): this;
+        deleteOnce(matcher: MockMatcher, response: MockResponse | MockResponseFunction, options?: MockOptionsMethodDelete): this;
 
         /**
          * Replaces fetch() with a stub which records its calls, grouped by
@@ -360,7 +371,7 @@ declare namespace fetchMock {
          * @param response Configures the http response returned by the mock
          * @param [options] Additional properties defining the route to mock
          */
-        head(matcher: MockMatcher, reponse: MockResponse | MockResponseFunction, options?: MockOptionsMethodHead): this;
+        head(matcher: MockMatcher, response: MockResponse | MockResponseFunction, options?: MockOptionsMethodHead): this;
 
         /**
          * Replaces fetch() with a stub which records its calls, grouped by
@@ -372,7 +383,7 @@ declare namespace fetchMock {
          * @param response Configures the http response returned by the mock
          * @param [options] Additional properties defining the route to mock
          */
-        headOnce(matcher: MockMatcher, reponse: MockResponse | MockResponseFunction, options?: MockOptionsMethodHead): this;
+        headOnce(matcher: MockMatcher, response: MockResponse | MockResponseFunction, options?: MockOptionsMethodHead): this;
 
         /**
          * Replaces fetch() with a stub which records its calls, grouped by
@@ -383,7 +394,7 @@ declare namespace fetchMock {
          * @param response Configures the http response returned by the mock
          * @param [options] Additional properties defining the route to mock
          */
-        patch(matcher: MockMatcher, reponse: MockResponse | MockResponseFunction, options?: MockOptionsMethodHead): this;
+        patch(matcher: MockMatcher, response: MockResponse | MockResponseFunction, options?: MockOptionsMethodHead): this;
 
         /**
          * Replaces fetch() with a stub which records its calls, grouped by
@@ -395,7 +406,7 @@ declare namespace fetchMock {
          * @param response Configures the http response returned by the mock
          * @param [options] Additional properties defining the route to mock
          */
-        patchOnce(matcher: MockMatcher, reponse: MockResponse | MockResponseFunction, options?: MockOptionsMethodHead): this;
+        patchOnce(matcher: MockMatcher, response: MockResponse | MockResponseFunction, options?: MockOptionsMethodHead): this;
 
         /**
          * Chainable method that defines how to respond to calls to fetch that
@@ -525,7 +536,7 @@ declare namespace fetchMock {
 
         config: {
             /**
-             * Convert objects into JSON before delivering as stub reponses.
+             * Convert objects into JSON before delivering as stub responses.
              * Can be useful to set to false globally if e.g. dealing with a
              * lot of array buffers. If true, will also add
              * content-type: application/json header.

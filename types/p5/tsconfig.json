@@ -34,6 +34,7 @@
         "src/core/shape/vertex.d.ts",
         "src/core/structure.d.ts",
         "src/core/transform.d.ts",
+        "src/data/local_storage.d.ts",
         "src/data/p5.TypedDict.d.ts",
         "src/events/acceleration.d.ts",
         "src/events/keyboard.d.ts",

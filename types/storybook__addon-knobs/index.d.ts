@@ -1,5 +1,5 @@
 // Type definitions for @storybook/addon-knobs 5.0
-// Project: https://github.com/storybooks/storybook, https://github.com/storybooks/storybook/tree/master/addons/knobs
+// Project: https://github.com/storybookjs/storybook, https://github.com/storybookjs/storybook/tree/master/addons/knobs
 // Definitions by: Joscha Feth <https://github.com/joscha>
 //                 Martynas Kadisa <https://github.com/martynaskadisa>
 //                 A.MacLeay <https://github.com/amacleay>
@@ -52,7 +52,12 @@ export function object<T>(name: string, value: T, groupId?: string): T;
 
 export function radios<T>(name: string, options: { [s: string]: T }, value?: T, groupId?: string): T;
 
-export function select<T>(name: string, options: { [s: string]: T }, value: T, groupId?: string): T;
+export function select<T>(
+  name: string,
+  options: { [s: string]: T } | ReadonlyArray<T>,
+  value: T,
+  groupId?: string,
+): T;
 export function select<
     T extends Exclude<
         React.OptionHTMLAttributes<HTMLOptionElement>['value'],
@@ -60,7 +65,7 @@ export function select<
     >
 >(name: string, options: ReadonlyArray<T>, value: T, groupId?: string): T;
 
-export function date(name: string, value?: Date, groupId?: string): Date;
+export function date(name: string, value?: Date, groupId?: string): number;
 
 export function array<T>(name: string, value: ReadonlyArray<T>, separator?: string, groupId?: string): T[];
 
@@ -84,6 +89,15 @@ export function optionsKnob<T>(
     defaultValue?: T,
     options?: OptionsKnobOptions
 ): T;
+
+export function optionsKnob<T>(
+    label: string,
+    values: {
+        [key: string]: T;
+    },
+    defaultValue?: T[],
+    options?: OptionsKnobOptions
+): T[];
 
 export interface WrapStoryProps {
     context?: object;

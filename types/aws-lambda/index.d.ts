@@ -28,6 +28,7 @@
 //                 Loïk Gaonac'h <https://github.com/loikg>
 //                 Roberto Zen <https://github.com/skyzenr>
 //                 Grzegorz Redlicki <https://github.com/redlickigrzegorz>
+//                 Juan Carbonel <https://github.com/juancarbonel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -39,6 +40,7 @@ export interface APIGatewayEventRequestContext {
     connectedAt?: number;
     connectionId?: string;
     domainName?: string;
+    domainPrefix?: string;
     eventType?: string;
     extendedRequestId?: string;
     httpMethod: string;
@@ -258,6 +260,7 @@ export interface CognitoUserPoolTriggerEvent {
     version: number;
     triggerSource:
     | "PreSignUp_SignUp"
+    | "PreSignUp_ExternalProvider"
     | "PostConfirmation_ConfirmSignUp"
     | "PreAuthentication_Authentication"
     | "PostAuthentication_Authentication"
@@ -291,6 +294,7 @@ export interface CognitoUserPoolTriggerEvent {
         userAttributes: { [key: string]: string };
         validationData?: { [key: string]: string };
         codeParameter?: string;
+        linkParameter?: string;
         usernameParameter?: string;
         newDeviceUsed?: boolean;
         session?: Array<{
@@ -305,6 +309,8 @@ export interface CognitoUserPoolTriggerEvent {
     };
     response: {
         autoConfirmUser?: boolean;
+        autoVerifyPhone?: boolean;
+        autoVerifyEmail?: boolean;
         smsMessage?: string;
         emailMessage?: string;
         emailSubject?: string;
@@ -320,6 +326,15 @@ export interface CognitoUserPoolTriggerEvent {
         messageAction?: "SUPPRESS";
         desiredDeliveryMediums?: Array<"EMAIL" | "SMS">;
         forceAliasCreation?: boolean;
+        claimsOverrideDetails?: {
+            claimsToAddOrOverride?: { [key: string]: string };
+            claimsToSuppress?: string[];
+            groupOverrideDetails?: null | {
+                groupsToOverride?: string[];
+                iamRolesToOverride?: string[];
+                preferredRole?: string;
+            };
+        };
     };
 }
 export type CognitoUserPoolEvent = CognitoUserPoolTriggerEvent;
@@ -368,6 +383,7 @@ export interface CloudFormationCustomResourceResponseCommon {
     Data?: {
         [Key: string]: any;
     };
+    NoEcho?: boolean;
 }
 
 export interface CloudFormationCustomResourceSuccessResponse extends CloudFormationCustomResourceResponseCommon {
@@ -459,7 +475,7 @@ export interface CognitoIdentity {
 
 export interface ClientContext {
     client: ClientContextClient;
-    custom?: any;
+    Custom?: any;
     env: ClientContextEnv;
 }
 
@@ -627,7 +643,7 @@ export interface CodePipelineEvent {
  * https://docs.aws.amazon.com/codepipeline/latest/userguide/detect-state-changes-cloudwatch-events.html
  *
  * The above CodePipelineEvent is when a lambda is invoked by a CodePipeline.
- * These events are when you subsribe to CodePipeline events in CloudWatch.
+ * These events are when you subscribe to CodePipeline events in CloudWatch.
  *
  * Their documentation says that detail.version is a string, but it is actually an integer
  */

@@ -134,13 +134,12 @@ const explicitTypesRenderResponseTwo = renderPage<PageInitialProps, ProcessedIni
     App => ({ foo, bar }) => <App fooLength={foo.length} bar={!!bar} />
 );
 
-class MyDocumentWithCustomContext extends Document<{ example: string }> {
-    static async getInitialProps(
-        ctx: NextDocumentContext<DefaultQuery, { customField: "custom value" }>
-    ) {
+class MyDocumentWithCustomContext extends Document<{ example: string; url: string }> {
+    static async getInitialProps(ctx: NextDocumentContext<DefaultQuery, { customField: 'custom value' }>) {
         const initialProps = await Document.getInitialProps(ctx);
         const example = ctx.req ? ctx.req.customField : undefined;
-        return { ...initialProps, example };
+        const url = ctx.req ? ctx.req.url : undefined;
+        return { ...initialProps, example, url };
     }
 
     render() {
@@ -151,6 +150,7 @@ class MyDocumentWithCustomContext extends Document<{ example: string }> {
                 </Head>
                 <body className="custom_class">
                     <h1>{this.props.example}</h1>
+                    <h2>{this.props.url}</h2>
                     <Main />
                     <NextScript />
                 </body>

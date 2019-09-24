@@ -1,12 +1,13 @@
-// Type definitions for @babel/generator 7.0
+// Type definitions for @babel/generator 7.6
 // Project: https://github.com/babel/babel/tree/master/packages/babel-generator, https://babeljs.io
 // Definitions by: Troy Gerwien <https://github.com/yortus>
 //                 Johnny Estilles <https://github.com/johnnyestilles>
 //                 Melvin Groenhoff <https://github.com/mgroenhoff>
+//                 Cameron Yan <https://github.com/khell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
-import * as t from "@babel/types";
+import * as t from '@babel/types';
 
 export interface GeneratorOptions {
     /**
@@ -33,6 +34,12 @@ export interface GeneratorOptions {
     retainLines?: boolean;
 
     /**
+     * Retain parens around function expressions (could be used to change engine parsing behavior)
+     * Defaults to `false`.
+     */
+    retainFunctionParens?: boolean;
+
+    /**
      * Should comments be included in output? Defaults to `true`.
      */
     comments?: boolean;
@@ -40,7 +47,7 @@ export interface GeneratorOptions {
     /**
      * Set to true to avoid adding whitespace for formatting. Defaults to the value of `opts.minified`.
      */
-    compact?: boolean | "auto";
+    compact?: boolean | 'auto';
 
     /**
      * Should the output be minified. Defaults to `false`.
@@ -53,11 +60,6 @@ export interface GeneratorOptions {
     concise?: boolean;
 
     /**
-     * The type of quote to use in the output. If omitted, autodetects based on `ast.tokens`.
-     */
-    quotes?: "single" | "double";
-
-    /**
      * Used in warning messages
      */
     filename?: string;
@@ -66,11 +68,6 @@ export interface GeneratorOptions {
      * Enable generating source maps. Defaults to `false`.
      */
     sourceMaps?: boolean;
-
-    /**
-     * The filename of the generated code that the source map will be associated with.
-     */
-    sourceMapTarget?: string;
 
     /**
      * A root for all relative URLs in the source map.
@@ -87,6 +84,28 @@ export interface GeneratorOptions {
      * Set to true to run jsesc with "json": true to print "\u00A9" vs. "©";
      */
     jsonCompatibleStrings?: boolean;
+
+    /**
+     * Set to true to enable support for experimental decorators syntax before module exports.
+     * Defaults to `false`.
+     */
+    decoratorsBeforeExport?: boolean;
+
+    /**
+     * Options for outputting jsesc representation.
+     */
+    jsescOption?: {
+        /**
+         * The type of quote to use in the output. If omitted, autodetects based on `ast.tokens`.
+         */
+        quotes?: 'single' | 'double';
+
+        /**
+         * When enabled, the output is a valid JavaScript string literal wrapped in quotes. The type of quotes can be specified through the quotes setting.
+         * Defaults to `true`.
+         */
+        wrap?: boolean;
+    };
 }
 
 export class CodeGenerator {
@@ -101,7 +120,11 @@ export class CodeGenerator {
  * @param code - the original source code, used for source maps.
  * @returns - an object containing the output code and source map.
  */
-export default function generate(ast: t.Node, opts?: GeneratorOptions, code?: string | { [filename: string]: string; }): GeneratorResult;
+export default function generate(
+    ast: t.Node,
+    opts?: GeneratorOptions,
+    code?: string | { [filename: string]: string },
+): GeneratorResult;
 
 export interface GeneratorResult {
     code: string;

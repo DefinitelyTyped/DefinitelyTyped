@@ -20,3 +20,6 @@ invariant('', 'Some other error');
 
 // handles extra variables
 invariant(true, 'Error, error, read all about it', 37, {}, 'hello');
+
+// $ExpectType {}
+({} as {} | undefined) || invariant(false, 'a is undefined');

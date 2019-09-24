@@ -3,9 +3,8 @@
   "name": "lodash-scripts",
   "version": "0.0.1",
   "scripts": {
-    "generate": "ts-node generate-fp && ts-node generate-lowdb",
-    "fp": "ts-node generate-fp",
-    "lowdb": "ts-node generate-lowdb"
+    "generate": "ts-node generate-fp",
+    "fp": "ts-node generate-fp"
   },
   "devDependencies": {
     "lodash": "^4.17.4",

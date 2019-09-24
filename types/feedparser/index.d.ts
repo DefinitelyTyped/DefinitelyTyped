@@ -149,6 +149,12 @@ declare namespace FeedParser {
         categories: string[];
     }
 
+    interface Enclosure {
+       length?: string;
+       type?: string;
+       url: string;
+    }
+
     interface Item {
         title: string;
         description: string;
@@ -162,7 +168,7 @@ declare namespace FeedParser {
         comments: string;
         image: Image;
         categories: string[];
-        enclosures: string[];
+        enclosures: Enclosure[];
         meta: Meta;
     }
 }

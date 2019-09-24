@@ -154,6 +154,7 @@ export class Icon extends React.Component<IconProps, any> {
     size?: number,
     color?: string,
   ): Promise<ImageSource>;
+  static getRawGlyphMap(): { [name: string]: number };
   static loadFont(
     file?: string
   ): Promise<void>;

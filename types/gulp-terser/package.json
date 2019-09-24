@@ -1,0 +1,7 @@
+{
+    "private": true,
+    "dependencies": {
+      "terser": "^4.0.0"
+    }
+  }
+  

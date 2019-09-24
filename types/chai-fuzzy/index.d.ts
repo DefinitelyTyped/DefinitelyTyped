@@ -2,6 +2,7 @@
 // Project: http://chaijs.com/plugins/chai-fuzzy
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.0
 
 /// <reference types="chai" />
 
@@ -71,6 +72,6 @@ declare global {
 	}
 }
 
-declare function chaiFuzzy(chai: any, utils: any): void;
+declare const chaiFuzzy: Chai.ChaiPlugin;
 export = chaiFuzzy;
 

@@ -36,6 +36,12 @@ export interface LoadError {
   };
 }
 
+export interface OnSeekData {
+  currentTime: number;
+  seekTime: number;
+  target?: number;
+}
+
 export const TextTrackType: {
   SRT: 'application/x-subrip';
   TTML: 'application/ttml+xml';
@@ -47,6 +53,8 @@ export interface VideoProperties extends ViewProps {
   src?: any;
   seek?: number;
   fullscreen?: boolean;
+  fullscreenOrientation?: 'all' | 'landscape' | 'portrait';
+  fullscreenAutorotate?: boolean;
   onVideoLoadStart?(): void;
   onVideoLoad?(): void;
   onVideoBuffer?(): void;
@@ -87,7 +95,7 @@ export interface VideoProperties extends ViewProps {
   onBuffer?(): void;
   onError?(error: LoadError): void;
   onProgress?(data: OnProgressData): void;
-  onSeek?(): void;
+  onSeek?(data: OnSeekData): void;
   onEnd?(): void;
   onFullscreenPlayerWillPresent?(): void;
   onFullscreenPlayerDidPresent?(): void;

@@ -26,7 +26,7 @@ declare class Boom<Data = any> extends Error {
     /** output - the formatted response. Can be directly manipulated after object construction to return a custom error response. Allowed root keys: */
     output: Boom.Output;
     /** reformat() - rebuilds error.output using the other object properties. */
-    reformat(): string;
+    reformat(debug?: boolean): string;
     /**
      * "If message is unset, the 'error' segment of the header will not be present and
      * isMissing will be true on the error object." mentioned in

@@ -1,4 +1,4 @@
-const fetchCopy: GlobalFetch["fetch"] = fetch;
+const fetchCopy: WindowOrWorkerGlobalScope["fetch"] = fetch;
 
 const myHeaders = new Headers();
 myHeaders.append("Content-Type", "image/jpeg");
@@ -34,3 +34,5 @@ xmlRequest.addEventListener("load", (ev) => {
     console.log(ev.loaded)
     console.log(ev.total)
 });
+
+const test = new URLSearchParams();

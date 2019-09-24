@@ -94,6 +94,7 @@ declare namespace ReactTooltip {
         html?: boolean;
         delayHide?: number;
         delayShow?: number;
+        delayUpdate?: number;
         insecure?: boolean;
         border?: boolean;
         getContent?: GetContent;

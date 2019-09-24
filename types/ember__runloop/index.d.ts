@@ -16,7 +16,7 @@ export interface RunNamespace {
    * end.
    */
   <Ret>(method: (...args: any[]) => Ret): Ret;
-  <Target, Ret>(target: Target, method: RunMethod<Target, Ret>): Ret;
+  <Target, Ret>(target: Target, method: RunMethod<Target, Ret>, ...args: any[]): Ret;
   /**
    * If no run-loop is present, it creates a new one. If a run loop is
    * present it will queue itself to run on the existing run-loops action
