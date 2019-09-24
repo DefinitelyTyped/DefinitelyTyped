@@ -26,7 +26,7 @@ declare module 'vue/types/vue' {
     }
 }
 
-interface VueMoment extends PluginObject<void> {}
+interface VueMoment extends PluginObject<undefined> {}
 
 declare const VueMoment: VueMoment;
 export = VueMoment;
