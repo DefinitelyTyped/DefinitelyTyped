@@ -6,14 +6,16 @@
 
 /// <reference types="node" />
 
+import { Readable } from 'stream';
 import npmFetch = require('npm-registry-fetch');
 
-export import extract = require('./extract');
-export import manifest = require('./manifest');
-export import packument = require('./packument');
-export import prefetch = require('./prefetch');
-export import tarball = require('./tarball');
-import { Readable } from 'stream';
+import extract = require('./extract');
+import manifest = require('./manifest');
+import packument = require('./packument');
+import prefetch = require('./prefetch');
+import tarball = require('./tarball');
+
+export { extract, manifest, packument, prefetch, tarball };
 
 /**
  * This utility function can be used to force pacote to release its references
