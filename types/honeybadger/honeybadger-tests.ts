@@ -1,4 +1,4 @@
-import Honeybadger from "honeybadger";
+import Honeybadger = require("honeybadger");
 
 Honeybadger.configure({
     apiKey: "abcdef"

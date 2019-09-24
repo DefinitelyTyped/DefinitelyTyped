@@ -2,46 +2,46 @@
 // Project: https://github.com/honeybadger-io/honeybadger-node
 // Definitions by: Ryan Skrzypek <https://github.com/rskrz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
+// TypeScript Version: 2.9
 
-declare module "honeybadger" {
-  import { RequestHandler, ErrorRequestHandler } from "express";
-  interface ConfigureOptions {
-    apiKey: string;
-    endpoint?: string;
-    hostname?: string;
-    environment?: string;
-    projectRoot?: string;
-    logger?: object;
-    developmentEnvironment?: string[];
-    filters?: string[];
-  }
-  interface metadata {
-    name?: string;
-    message?: string;
-    context?: object;
-    session?: object;
-    headers?: object;
-    params?: object;
-    cgiData?: object;
-    url?: string;
-    component?: string;
-    action?: string;
-    fingerprint?: string;
-  }
-  interface HoneyBadger {
-    configure: (options: ConfigureOptions) => void;
-    notify: (error: any, options?: object) => void;
-    setContext: (context: object) => void;
-    resetContext: (context?: object) => void;
-    factory: (options?: object) => HoneyBadger;
-    errorHandler: ErrorRequestHandler;
-    requestHandler: RequestHandler;
-    lambdaHandler: (handler: RequestHandler) => () => any;
-    onUncaughtException: (func: (error: Error) => void) => void;
-    emit: (event: object) => void;
-  }
-  const honeybadger: HoneyBadger;
-
-  export default honeybadger;
+import { RequestHandler, ErrorRequestHandler } from "express";
+import { EventEmitter } from "events";
+interface ConfigureOptions {
+  apiKey: string;
+  endpoint?: string;
+  hostname?: string;
+  environment?: string;
+  projectRoot?: string;
+  logger?: Console;
+  developmentEnvironment?: ReadonlyArray<string>;
+  filters?: ReadonlyArray<string>;
 }
+interface metadata {
+  name?: string;
+  message?: string;
+  context?: object;
+  session?: object;
+  headers?: object;
+  params?: object;
+  cgiData?: object;
+  url?: string;
+  component?: string;
+  action?: string;
+  fingerprint?: string;
+}
+type CallbackFunction = (err: Error | null, notice: object | null) => void;
+type LambdaHandler = (event: object, context: object) => void;
+interface HoneyBadgerInstance extends EventEmitter {
+  configure: (options: ConfigureOptions) => void;
+  notify: (err?: any, name?: any, extra?: CallbackFunction | metadata, callback?: CallbackFunction) => void;
+  setContext: (context: object) => void;
+  resetContext: (context?: object) => void;
+  factory: (options?: ConfigureOptions) => HoneyBadgerInstance;
+  errorHandler: ErrorRequestHandler;
+  requestHandler: RequestHandler;
+  lambdaHandler: (handler: LambdaHandler) => LambdaHandler;
+  onUncaughtException: (func: (error: Error) => void) => void;
+}
+declare const honeybadger: HoneyBadgerInstance;
+
+export = honeybadger;
