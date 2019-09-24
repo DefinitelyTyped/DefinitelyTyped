@@ -24,6 +24,8 @@
 // when all parameters are optional and more than one
 
 declare namespace yargs {
+    type BuilderCallback = ((args: Argv) => Argv) | ((args: Argv) => void);
+
     interface Argv {
         (): Arguments;
         (args: string[], cwd?: string): Arguments;
@@ -54,10 +56,10 @@ declare namespace yargs {
          * Can also be a function. This function is executed with a yargs instance, and can be used to provide advanced command specific help.
          * @param [handler] Function, which will be executed with the parsed `argv` object.
          */
-        command(command: string | string[], description: string, builder?: (args: Argv) => Argv | void, handler?: (args: Arguments) => void): Argv;
+        command(command: string | string[], description: string, builder?: BuilderCallback, handler?: (args: Arguments) => void): Argv;
         command(command: string | string[], description: string, builder?: { [key: string]: Options }, handler?: (args: Arguments) => void): Argv;
         command(command: string | string[], description: string, module: CommandModule): Argv;
-        command(command: string | string[], showInHelp: false, builder?: (args: Argv) => Argv | void, handler?: (args: Arguments) => void): Argv;
+        command(command: string | string[], showInHelp: false, builder?: BuilderCallback, handler?: (args: Arguments) => void): Argv;
         command(command: string | string[], showInHelp: false, builder?: { [key: string]: Options }, handler?: (args: Arguments) => void): Argv;
         command(command: string | string[], showInHelp: false, module: CommandModule): Argv;
         command(module: CommandModule): Argv;
