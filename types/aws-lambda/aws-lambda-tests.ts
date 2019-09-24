@@ -530,6 +530,7 @@ strOrUndefined = cloudformationCustomResourceResponse.Reason;
 str = cloudformationCustomResourceResponse.RequestId;
 str = cloudformationCustomResourceResponse.StackId;
 str = cloudformationCustomResourceResponse.Status;
+boolOrUndefined = cloudformationCustomResourceResponse.NoEcho;
 
 /* ScheduledEvent */
 str = scheduledEvent.account;

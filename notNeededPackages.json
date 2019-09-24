@@ -3823,6 +3823,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "vue-scrollto",
+            "typingsPackageName": "vue-scrollto",
+            "sourceRepoURL": "https://github.com/rigor789/vue-scrollto",
+            "asOfVersion": "2.17.1"
+        },
+        {
             "libraryName": "typescript",
             "typingsPackageName": "w3c-permissions",
             "sourceRepoURL": "https://www.w3.org/TR/permissions/",

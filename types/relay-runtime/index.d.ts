@@ -1,4 +1,4 @@
-// Type definitions for relay-runtime 5.0
+// Type definitions for relay-runtime 6.0
 // Project: https://github.com/facebook/relay, https://facebook.github.io/relay
 // Definitions by: Matt Martin <https://github.com/voxmatt>
 //                 Eloy Durán <https://github.com/alloy>
@@ -6,25 +6,44 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
-// ./handlers/connection/RelayConnectionHandler
-export interface ConnectionMetadata {
-    path: ReadonlyArray<string> | null | undefined;
-    direction: string | null | undefined; // 'forward' | 'backward' | 'bidirectional' | null | undefined;
-    cursor: string | null | undefined;
-    count: string | null | undefined;
-}
+export { ConcreteRequest, GeneratedNode, RequestParameters } from './lib/util/RelayConcreteNode';
+export { ConnectionMetadata } from './lib/handlers/connection/RelayConnectionHandler';
+export { EdgeRecord, PageInfo } from './lib/handlers/connection/RelayConnectionInterface';
+export {
+    ReaderArgument,
+    ReaderArgumentDefinition,
+    ReaderField,
+    ReaderFragment,
+    ReaderInlineDataFragment,
+    ReaderLinkedField,
+    ReaderPaginationMetadata,
+    ReaderRefetchableFragment,
+    ReaderRefetchMetadata,
+    ReaderScalarField,
+    ReaderSelection,
+} from './lib/util/ReaderNode';
 
-export interface EdgeRecord extends Record<string, unknown> {
-    cursor: unknown;
-    node: Record<DataID, unknown>;
-}
+import RelayConcreteNode, { RequestParameters, ConcreteRequest } from './lib/util/RelayConcreteNode';
+import * as ConnectionHandler from './lib/handlers/connection/RelayConnectionHandler';
+import ConnectionInterface from './lib/handlers/connection/RelayConnectionInterface';
 
-export interface PageInfo {
-    endCursor: string | null | undefined;
-    hasNextPage: boolean;
-    hasPreviousPage: boolean;
-    startCursor: string | null | undefined;
-}
+export { ConnectionHandler, ConnectionInterface, RelayConcreteNode };
+
+import {
+    ReaderFragment,
+    ReaderSelectableNode,
+    ReaderPaginationFragment,
+    ReaderRefetchableFragment,
+    ReaderField,
+} from './lib/util/ReaderNode';
+import {
+    NormalizationSelectableNode,
+    NormalizationScalarField,
+    NormalizationLinkedField,
+    NormalizationSplitOperation,
+    NormalizationField,
+    NormalizationHandle,
+} from './lib/util/NormalizationNode';
 
 // ./mutations/RelayDeclarativeMutationConfig
 interface RangeAddConfig {
@@ -122,14 +141,14 @@ export type ExecuteFunction = (
     request: RequestParameters,
     variables: Variables,
     cacheConfig: CacheConfig,
-    uploadables?: UploadableMap | null
+    uploadables?: UploadableMap | null,
 ) => RelayObservable<GraphQLResponse>;
 
 export type FetchFunction = (
     request: RequestParameters,
     variables: Variables,
     cacheConfig: CacheConfig,
-    uploadables?: UploadableMap | null
+    uploadables?: UploadableMap | null,
 ) => ObservableFromValue<GraphQLResponse>;
 
 export type GraphQLResponse =
@@ -172,7 +191,7 @@ export type SubscribeFunction = (
     request: RequestParameters,
     variables: Variables,
     cacheConfig: CacheConfig,
-    observer?: LegacyObserver<GraphQLResponse>
+    observer?: LegacyObserver<GraphQLResponse>,
 ) => RelayObservable<GraphQLResponse> | Disposable;
 
 export type Uploadable = File | Blob;
@@ -291,7 +310,7 @@ export type MissingFieldHandler =
               field: NormalizationScalarField,
               record: Record<string, unknown> | null | undefined,
               args: Variables,
-              store: ReadonlyRecordSourceProxy
+              store: ReadonlyRecordSourceProxy,
           ) => unknown;
       }
     | {
@@ -300,7 +319,7 @@ export type MissingFieldHandler =
               field: NormalizationLinkedField,
               record: Record<string, unknown> | null | undefined,
               args: Variables,
-              store: ReadonlyRecordSourceProxy
+              store: ReadonlyRecordSourceProxy,
           ) => DataID | null | undefined;
       }
     | {
@@ -309,7 +328,7 @@ export type MissingFieldHandler =
               field: NormalizationLinkedField,
               record: Record<string, unknown> | null | undefined,
               args: Variables,
-              store: ReadonlyRecordSourceProxy
+              store: ReadonlyRecordSourceProxy,
           ) => ReadonlyArray<DataID | null | undefined> | null | undefined;
       };
 
@@ -352,7 +371,7 @@ export interface RecordProxy {
     getLinkedRecord(name: string, args?: Variables | null): RecordProxy | null | undefined;
     getLinkedRecords(
         name: string,
-        args?: Variables | null
+        args?: Variables | null,
     ): ReadonlyArray<RecordProxy | null | undefined> | null | undefined;
     getOrCreateLinkedRecord(name: string, typeName: string, args?: Variables | null): RecordProxy;
     getType(): string;
@@ -361,7 +380,7 @@ export interface RecordProxy {
     setLinkedRecords(
         records: Array<RecordProxy | null | undefined>,
         name: string,
-        args?: Variables | null
+        args?: Variables | null,
     ): RecordProxy;
     setValue(value: unknown, name: string, args?: Variables | null): RecordProxy;
 }
@@ -399,12 +418,12 @@ interface ReadonlyRecordSourceProxy {
     getRoot(): ReadonlyRecordProxy;
 }
 
-interface ReadonlyRecordProxy {
+export interface ReadonlyRecordProxy {
     getDataID(): DataID;
     getLinkedRecord(name: string, args?: Variables | null): RecordProxy | null | undefined;
     getLinkedRecords(
         name: string,
-        args?: Variables | null
+        args?: Variables | null,
     ): ReadonlyArray<RecordProxy | null | undefined> | null | undefined;
     getType(): string;
     getValue(name: string, args?: Variables | null): unknown;
@@ -415,7 +434,10 @@ interface RecordSource {
     getRecordIDs(): ReadonlyArray<DataID>;
     getStatus(dataID: DataID): RecordState;
     has(dataID: DataID): boolean;
-    load(dataID: DataID, callback: (error: Error | null | undefined, record: Record<string, unknown> | null | undefined) => void): void;
+    load(
+        dataID: DataID,
+        callback: (error: Error | null | undefined, record: Record<string, unknown> | null | undefined) => void,
+    ): void;
     size(): number;
     toJSON(): Record<string, unknown>;
 }
@@ -452,315 +474,6 @@ export interface GraphQLSubscriptionConfig<TSubscriptionPayload> {
     updater?: SelectorStoreUpdater;
 }
 
-// ./util/NormalizationNode
-export type NormalizationArgument = NormalizationLiteral | NormalizationVariable;
-
-export type NormalizationArgumentDefinition = NormalizationLocalArgument | NormalizationRootArgument;
-
-export interface NormalizationDefer {
-    readonly if: string | null;
-    readonly kind: 'Defer';
-    readonly label: string;
-    readonly metadata: { readonly [key: string]: unknown } | null | undefined;
-    readonly selections: ReadonlyArray<NormalizationSelection>;
-}
-
-export interface NormalizationClientExtension {
-    kind: string; // 'ClientExtension';
-    selections: ReadonlyArray<NormalizationSelection>;
-}
-
-export type NormalizationField = NormalizationScalarField | NormalizationLinkedField | NormalizationMatchField;
-
-export interface NormalizationLinkedField {
-    readonly kind: string; // 'LinkedField';
-    readonly alias: string | null | undefined;
-    readonly name: string;
-    readonly storageKey: string | null | undefined;
-    readonly args: ReadonlyArray<NormalizationArgument>;
-    readonly concreteType: string | null | undefined;
-    readonly plural: boolean;
-    readonly selections: ReadonlyArray<NormalizationSelection>;
-}
-
-export interface NormalizationMatchField {
-    readonly kind: string; // 'MatchField';
-    readonly alias: string | null | undefined;
-    readonly name: string;
-    readonly storageKey: string | null | undefined;
-    readonly args: ReadonlyArray<NormalizationArgument>;
-    readonly matchesByType: {
-        readonly [key: string]: {
-            readonly fragmentPropName: string;
-            readonly fragmentName: string;
-        };
-    };
-}
-
-export interface NormalizationOperation {
-    readonly kind: string; // 'Operation';
-    readonly name: string;
-    readonly argumentDefinitions: ReadonlyArray<NormalizationLocalArgument>;
-    readonly selections: ReadonlyArray<NormalizationSelection>;
-}
-
-export interface NormalizationScalarField {
-    readonly kind: string; // 'ScalarField';
-    readonly alias: string | null | undefined;
-    readonly name: string;
-    readonly args: ReadonlyArray<NormalizationArgument> | null | undefined;
-    readonly storageKey: string | null | undefined;
-}
-
-export type NormalizationSelection =
-    | NormalizationCondition
-    | NormalizationClientExtension
-    | NormalizationField
-    | NormalizationHandle
-    | NormalizationInlineFragment
-    | NormalizationMatchField;
-
-export interface NormalizationSplitOperation {
-    readonly kind: string; // 'SplitOperation';
-    readonly name: string;
-    readonly metadata: { readonly [key: string]: unknown } | null | undefined;
-    readonly selections: ReadonlyArray<NormalizationSelection>;
-}
-
-export interface NormalizationStream {
-    readonly if: string | null;
-    readonly kind: string; // 'Stream';
-    readonly label: string;
-    readonly metadata: { readonly [key: string]: unknown } | null | undefined;
-    readonly selections: ReadonlyArray<NormalizationSelection>;
-}
-
-interface NormalizationLiteral {
-    readonly kind: string; // 'Literal';
-    readonly name: string;
-    readonly type?: string | null;
-    readonly value: unknown;
-}
-
-interface NormalizationVariable {
-    readonly kind: string; // 'Variable';
-    readonly name: string;
-    readonly type?: string | null;
-    readonly variableName: string;
-}
-
-interface NormalizationLocalArgument {
-    readonly kind: string; // 'LocalArgument';
-    readonly name: string;
-    readonly type: string;
-    readonly defaultValue: unknown;
-}
-
-interface NormalizationRootArgument {
-    readonly kind: string; // 'RootArgument';
-    readonly name: string;
-    readonly type: string | null | undefined;
-}
-
-interface NormalizationCondition {
-    readonly kind: string; // 'Condition';
-    readonly passingValue: boolean;
-    readonly condition: string;
-    readonly selections: ReadonlyArray<NormalizationSelection>;
-}
-
-type NormalizationHandle = NormalizationScalarHandle | NormalizationLinkedHandle;
-
-interface NormalizationLinkedHandle {
-    readonly kind: string; // 'LinkedHandle';
-    readonly alias: string | null | undefined;
-    readonly name: string;
-    readonly args: ReadonlyArray<NormalizationArgument> | null | undefined;
-    readonly handle: string;
-    readonly key: string;
-    readonly filters: ReadonlyArray<string> | null | undefined;
-}
-
-interface NormalizationScalarHandle {
-    readonly kind: string; // 'ScalarHandle';
-    readonly alias: string | null | undefined;
-    readonly name: string;
-    readonly args: ReadonlyArray<NormalizationArgument> | null | undefined;
-    readonly handle: string;
-    readonly key: string;
-    readonly filters: ReadonlyArray<string> | null | undefined;
-}
-
-interface NormalizationInlineFragment {
-    readonly kind: string; // 'InlineFragment';
-    readonly selections: ReadonlyArray<NormalizationSelection>;
-    readonly type: string;
-}
-
-type NormalizationSelectableNode =
-    | NormalizationDefer
-    | NormalizationOperation
-    | NormalizationSplitOperation
-    | NormalizationStream;
-
-// ./util/ReaderNode
-export type ReaderArgument = ReaderLiteral | ReaderVariable;
-
-export type ReaderArgumentDefinition = ReaderLocalArgument | ReaderRootArgument;
-
-export type ReaderField = ReaderScalarField | ReaderLinkedField | ReaderMatchField;
-
-export interface ReaderFragment {
-    readonly kind: string; // 'Fragment';
-    readonly name: string;
-    readonly type: string;
-    readonly metadata:
-        | {
-              readonly connection?: ReadonlyArray<ConnectionMetadata>;
-              readonly mask?: boolean;
-              readonly plural?: boolean;
-              readonly refetch?: ReaderRefetchMetadata;
-          }
-        | null
-        | undefined;
-    readonly argumentDefinitions: ReadonlyArray<ReaderArgumentDefinition>;
-    readonly selections: ReadonlyArray<ReaderSelection>;
-}
-
-export interface ReaderLinkedField {
-    readonly kind: string; // 'LinkedField';
-    readonly alias: string | null | undefined;
-    readonly name: string;
-    readonly storageKey: string | null | undefined;
-    readonly args: ReadonlyArray<ReaderArgument>;
-    readonly concreteType: string | null | undefined;
-    readonly plural: boolean;
-    readonly selections: ReadonlyArray<ReaderSelection>;
-}
-
-export interface ReaderMatchField {
-    readonly kind: string; // 'MatchField';
-    readonly alias: string | null | undefined;
-    readonly name: string;
-    readonly storageKey: string | null | undefined;
-    readonly args: ReadonlyArray<ReaderArgument> | null | undefined;
-    readonly matchesByType: {
-        readonly [key: string]: {
-            readonly fragmentPropName: string;
-            readonly fragmentName: string;
-        };
-    };
-}
-
-export interface ReaderPaginationMetadata {
-    readonly backward: {
-        readonly count: string;
-        readonly cursor: string;
-    } | null;
-    readonly forward: {
-        readonly count: string;
-        readonly cursor: string;
-    } | null;
-    readonly path: ReadonlyArray<string>;
-}
-
-export interface ReaderRefetchableFragment extends ReaderFragment {
-    readonly metadata: {
-        readonly connection?: [ConnectionMetadata];
-        readonly refetch: ReaderRefetchMetadata;
-    };
-}
-
-export interface ReaderScalarField {
-    readonly kind: string; // 'ScalarField';
-    readonly alias: string | null | undefined;
-    readonly name: string;
-    readonly args: ReadonlyArray<ReaderArgument> | null | undefined;
-    readonly storageKey: string | null | undefined;
-}
-
-export type ReaderSelection =
-    | ReaderCondition
-    | ReaderClientExtension
-    | ReaderField
-    | ReaderFragmentSpread
-    | ReaderInlineFragment
-    | ReaderMatchField;
-
-export interface ReaderSplitOperation {
-    readonly kind: string; // 'SplitOperation';
-    readonly name: string;
-    readonly metadata: { readonly [key: string]: unknown } | null | undefined;
-    readonly selections: ReadonlyArray<ReaderSelection>;
-}
-
-interface ReaderLiteral {
-    readonly kind: string; // 'Literal';
-    readonly name: string;
-    readonly value: unknown;
-}
-
-interface ReaderVariable {
-    readonly kind: string; // 'Variable';
-    readonly name: string;
-    readonly type?: string | null;
-    readonly variableName: string;
-}
-
-interface ReaderLocalArgument {
-    readonly kind: string; // 'LocalArgument';
-    readonly name: string;
-    readonly type: string;
-    readonly defaultValue: unknown;
-}
-
-interface ReaderRootArgument {
-    readonly kind: string; // 'RootArgument';
-    readonly name: string;
-    readonly type: string | null | undefined;
-}
-
-interface ReaderRefetchMetadata {
-    readonly connection: ReaderPaginationMetadata | null | undefined;
-    readonly operation: string | ConcreteRequest;
-    readonly fragmentPathInResult: ReadonlyArray<string>;
-}
-
-interface ReaderCondition {
-    readonly kind: string; // 'Condition';
-    readonly passingValue: boolean;
-    readonly condition: string;
-    readonly selections: ReadonlyArray<ReaderSelection>;
-}
-
-interface ReaderClientExtension {
-    readonly kind: string; // 'ClientExtension';
-    readonly selections: ReadonlyArray<ReaderSelection>;
-}
-
-interface ReaderFragmentSpread {
-    readonly kind: string; // 'FragmentSpread';
-    readonly name: string;
-    readonly args: ReadonlyArray<ReaderArgument> | null | undefined;
-}
-
-interface ReaderInlineFragment {
-    readonly kind: string; // 'InlineFragment';
-    readonly selections: ReadonlyArray<ReaderSelection>;
-    readonly type: string;
-}
-
-type ReaderSelectableNode = ReaderFragment | ReaderSplitOperation;
-
-interface ReaderPaginationFragment extends ReaderFragment {
-    readonly metadata: {
-        readonly connection: [ConnectionMetadata];
-        readonly refetch: ReaderRefetchMetadata & {
-            connection: ReaderPaginationMetadata;
-        };
-    };
-}
-
 // ./util/RelayCombinedEnvironmentTypes
 export interface CEnvironment<
     TEnvironment,
@@ -775,14 +488,14 @@ export interface CEnvironment<
     check(selector: CNormalizationSelector<TNormalizationNode>): boolean;
 
     lookup(
-        selector: CReaderSelector<TReaderNode>
+        selector: CReaderSelector<TReaderNode>,
     ): CSnapshot<TReaderNode, COperationDescriptor<TReaderNode, TNormalizationNode, TRequest>>;
 
     subscribe(
         snapshot: CSnapshot<TReaderNode, COperationDescriptor<TReaderNode, TNormalizationNode, TRequest>>,
         callback: (
-            snapshot: CSnapshot<TReaderNode, COperationDescriptor<TReaderNode, TNormalizationNode, TRequest>>
-        ) => void
+            snapshot: CSnapshot<TReaderNode, COperationDescriptor<TReaderNode, TNormalizationNode, TRequest>>,
+        ) => void,
     ): Disposable;
 
     retain(selector: CNormalizationSelector<TNormalizationNode>): Disposable;
@@ -873,24 +586,6 @@ interface RecordMap {
 }
 export interface SelectorData {
     [key: string]: unknown;
-}
-
-// ./util/RelayConcreteNode
-export interface ConcreteRequest {
-    readonly kind: string; // 'Request';
-    readonly fragment: ReaderFragment;
-    readonly operation: NormalizationOperation;
-    readonly params: RequestParameters;
-}
-
-export type GeneratedNode = ConcreteRequest | ReaderFragment | NormalizationSplitOperation;
-
-export interface RequestParameters {
-    readonly name: string;
-    readonly operationKind: string; // 'mutation' | 'query' | 'subscription';
-    readonly id: string | null | undefined;
-    readonly text: string | null | undefined;
-    readonly metadata: { [key: string]: unknown };
 }
 
 // ./util/RelayRuntimeTypes
@@ -988,7 +683,7 @@ declare class RelayObservable<T> implements Subscribable<T> {
     static from<V>(obj: ObservableFromValue<V>): RelayObservable<V>;
 
     static fromLegacy<V>(
-        callback: (observer: LegacyObserver<V>) => Disposable | RelayObservable<V>
+        callback: (observer: LegacyObserver<V>) => Disposable | RelayObservable<V>,
     ): RelayObservable<V>;
 
     catch<U>(fn: (error: Error) => RelayObservable<U>): RelayObservable<T | U>;
@@ -1034,7 +729,7 @@ declare class RelayInMemoryRecordSource implements MutableRecordSource {
     load(
         dataID: DataID,
 
-        callback: (error: Error | null | undefined, record: Record<string, unknown> | null | undefined) => void
+        callback: (error: Error | null | undefined, record: Record<string, unknown> | null | undefined) => void,
     ): void;
     remove(dataID: DataID): void;
     set(dataID: DataID, record: Record<string, unknown>): void;
@@ -1062,25 +757,25 @@ export function areEqualSelectors(thisSelector: OwnedReaderSelector, thatSelecto
 
 export function getDataIDsFromObject(
     fragments: { [key: string]: ReaderFragment },
-    object: { [key: string]: unknown }
+    object: { [key: string]: unknown },
 ): { [key: string]: DataID | ReadonlyArray<DataID> | null | undefined };
 
 export function getSelector(
     operationVariables: Variables,
     fragment: ReaderFragment,
-    item: unknown
+    item: unknown,
 ): OwnedReaderSelector | null | undefined;
 
 export function getSelectorList(
     operationVariables: Variables,
     fragment: ReaderFragment,
-    items: ReadonlyArray<unknown>
+    items: ReadonlyArray<unknown>,
 ): ReadonlyArray<OwnedReaderSelector> | null | undefined;
 
 export function getSelectorsFromObject(
     operationVariables: Variables,
     fragments: { [key: string]: ReaderFragment },
-    object: { [key: string]: unknown }
+    object: { [key: string]: unknown },
 ): {
     [key: string]: OwnedReaderSelector | ReadonlyArray<OwnedReaderSelector> | null | undefined;
 };
@@ -1088,7 +783,7 @@ export function getSelectorsFromObject(
 export function getVariablesFromObject(
     operationVariables: Variables,
     fragments: { [key: string]: ReaderFragment },
-    object: { [key: string]: unknown }
+    object: { [key: string]: unknown },
 ): Variables;
 
 // ./store/RelayModernOperationDescriptor via ./store/RelayCore
@@ -1100,20 +795,20 @@ export function createFragmentSpecResolver(
     containerName: string,
     fragments: FragmentMap,
     props: Props,
-    callback?: () => void
+    callback?: () => void,
 ): FragmentSpecResolver;
 
 // ./query/RelayModernGraphQLTag
 export function getFragment(taggedNode: GraphQLTaggedNode): ReaderFragment;
 export function getFragmentOwner(
     fragmentNode: ReaderFragment,
-    fragmentRef: FragmentPointer | ReadonlyArray<FragmentPointer | null | undefined> | null | undefined
+    fragmentRef: FragmentPointer | ReadonlyArray<FragmentPointer | null | undefined> | null | undefined,
 ): OperationDescriptor | null;
 export function getFragmentOwners(
     fragmentNodes: { [key: string]: ReaderFragment },
     fragmentRefs: {
         [key: string]: FragmentPointer | ReadonlyArray<FragmentPointer | null | undefined> | null | undefined;
-    }
+    },
 ): { [key: string]: OperationDescriptor | null };
 export function getPaginationFragment(taggedNode: GraphQLTaggedNode): ReaderPaginationFragment | null;
 export function getRefetchableFragment(taggedNode: GraphQLTaggedNode): ReaderRefetchableFragment | null;
@@ -1123,7 +818,7 @@ export function graphql(strings: ReadonlyArray<string>): GraphQLTaggedNode;
 // ./store/RelayStoreUtils
 export function getStorageKey(
     field: NormalizationField | NormalizationHandle | ReaderField,
-    variables: Variables
+    variables: Variables,
 ): string;
 export function getModuleComponentKey(documentName: string): string;
 export function getModuleOperationKey(documentName: string): string;
@@ -1160,23 +855,6 @@ export const TYPENAME_KEY: string;
 declare function RelayDefaultHandlerProvider(handle: string): Handler;
 export { RelayDefaultHandlerProvider as DefaultHandlerProvider };
 
-// ./handlers/connection/RelayConnectionHandler
-interface RelayConnectionHandler {
-    buildConnectionEdge(
-        store: RecordSourceProxy,
-        connection: RecordProxy,
-        edge: RecordProxy | null | undefined
-    ): RecordProxy | null | undefined;
-    createEdge(store: RecordSourceProxy, record: RecordProxy, node: RecordProxy, edgeType: string): RecordProxy;
-    deleteNode(record: RecordProxy, nodeID: DataID): void;
-    getConnection(record: ReadonlyRecordProxy, key: string, filters?: Variables | null): RecordProxy | null | undefined;
-    insertEdgeAfter(record: RecordProxy, newEdge: RecordProxy, cursor?: string | null): void;
-    insertEdgeBefore(record: RecordProxy, newEdge: RecordProxy, cursor?: string | null): void;
-    update(store: RecordSourceProxy, payload: HandleFieldPayload): void;
-}
-declare const RelayConnectionHandler: RelayConnectionHandler;
-export { RelayConnectionHandler as ConnectionHandler };
-
 // ./handlers/viewer/RelayViewerHandler
 interface RelayViewerHandler {
     readonly VIEWER_ID: DataID;
@@ -1190,7 +868,7 @@ export { RelayViewerHandler as ViewerHandler };
 // ./mutations/applyRelayModernOptimisticMutation
 declare function applyRelayModernOptimisticMutation(
     environment: Environment,
-    config: OptimisticMutationConfig
+    config: OptimisticMutationConfig,
 ): Disposable;
 export { applyRelayModernOptimisticMutation as applyOptimisticMutation };
 
@@ -1201,7 +879,7 @@ export function commitLocalUpdate(environment: Environment, updater: StoreUpdate
 declare function commitRelayModernMutation<TOperation extends OperationType = OperationType>(
     environment: Environment,
     // tslint:disable-next-line no-unnecessary-generics
-    config: MutationConfig<TOperation>
+    config: MutationConfig<TOperation>,
 ): Disposable;
 export { commitRelayModernMutation as commitMutation };
 
@@ -1210,7 +888,7 @@ declare function fetchRelayModernQuery<T extends OperationType>(
     environment: RelayModernEnvironment,
     taggedNode: GraphQLTaggedNode,
     variables: T['variables'],
-    cacheConfig?: CacheConfig | null
+    cacheConfig?: CacheConfig | null,
 ): Promise<T['response']>;
 export { fetchRelayModernQuery as fetchQuery };
 
@@ -1220,24 +898,6 @@ export function isRelayModernEnvironment(environment: any): environment is Relay
 // ./subscription/requestRelaySubscription
 declare function requestRelaySubscription(environment: Environment, config: GraphQLSubscriptionConfig<{}>): Disposable;
 export { requestRelaySubscription as requestSubscription };
-
-// Configuration interface for legacy or special uses
-// ./handlers/connection/RelayConnectionInterface
-export const ConnectionInterface: {
-    get(): {
-        CLIENT_MUTATION_ID: 'clientMutationId';
-        CURSOR: 'cursor';
-        EDGES_HAVE_SOURCE_FIELD: boolean;
-        EDGES: 'edges';
-        END_CURSOR: 'endCursor';
-        HAS_NEXT_PAGE: 'hasNextPage';
-        HAS_PREV_PAGE: 'hasPreviousPage';
-        NODE: 'node';
-        PAGE_INFO_TYPE: 'PageInfo';
-        PAGE_INFO: 'pageInfo';
-        START_CURSOR: 'startCursor';
-    };
-};
 
 // Utilities
 interface Handler {
