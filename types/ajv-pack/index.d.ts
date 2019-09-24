@@ -37,7 +37,7 @@ declare namespace AjvPack {
         addKeyword: Ajv['addKeyword'];
     }
 
-    function instance(ajv: Ajv): AjvPack.AjvPack;
+    function instance(ajv: Ajv): AjvPack;
 }
 
 declare function AjvPack(ajv: Ajv, validate: ValidateFunction): string;

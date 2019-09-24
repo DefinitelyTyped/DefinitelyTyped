@@ -15,4 +15,4 @@ const schema = {
 
 const validate = ajv.compile(schema);
 pack(ajv, validate); // $ExpectType string
-pack.instance(ajv); // $ExpectType pack.AjvPack
+pack.instance(ajv); // $ExpectType AjvPack
