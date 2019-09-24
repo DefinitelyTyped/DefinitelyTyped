@@ -21,6 +21,7 @@ declare namespace CopyToClipboard {
     text: string;
     onCopy?(a: string, b: boolean): void;
     options?: Options;
+    children: React.ReactNode
   }
 }
 
