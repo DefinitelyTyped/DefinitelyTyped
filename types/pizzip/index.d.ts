@@ -5,6 +5,131 @@
 
 /// <reference types="node" />
 
+export as namespace PizZip;
+
+export = PizZip;
+
+declare class PizZip {
+    /**
+     * If the browser supports them, PizZip can take advantage of some "new" features : ArrayBuffer, Blob, Uint8Array.
+     * To know if PizZip can use them, you can check the PizZip.support object.
+     */
+     static support: {
+        /**
+         * true if PizZip can read and generate ArrayBuffer, false otherwise.
+         */
+        arraybuffer: boolean;
+        /**
+         * true if PizZip can read and generate Uint8Array, false otherwise.
+         */
+        uint8array: boolean;
+        /**
+         * true if PizZip can read and generate Blob, false otherwise.
+         */
+        blob: boolean;
+        /**
+         * true if PizZip can read and generate nodejs Buffer, false otherwise.
+         */
+        nodebuffer: boolean;
+    };
+
+    /**
+     * the ZipObjects inside the zip with the name as key.
+     */
+     files: { [key: string]: PizZip.ZipObject };
+
+    /**
+     * the comment of the zip file.
+     */
+     comment: string;
+
+    constructor();
+
+    /**
+     * Specifying data & options is a shortcut for new PizZip().load(data, options);
+     *
+     * @param data the zip file
+     * @param options the options to load the zip file
+     */
+    // tslint:disable-next-line unified-signatures new (undefined, {options}) is not an acceptable input
+    constructor(data: PizZip.LoadData, options?: PizZip.LoadOptions);
+
+    /**
+     * Read an existing zip and merge the data in the current PizZip object at the current folder level.
+     * This technique has some limitations, see https://github.com/open-xml-templating/pizzip/blob/master/documentation/limitations.md
+     * You shouldn't update the data given to this method : it is kept as it so any update will impact the stored data.
+     * Throws an exception if the loaded data is not valid zip data or if it uses features (multi volume, password protected, etc).
+     * @param data the zip file
+     * @param options the options to load the zip file
+     */
+    load(data: PizZip.LoadData, options?: PizZip.LoadOptions): this;
+
+    /**
+     * Add (or update) a file to the zip file.
+     * You shouldn't update the data given to this method : it is kept as it so any update will impact the stored data.
+     * Throws an exception if the data is not in a supported format.
+     * @param name the name of the file. You can specify folders in the name : the folder separator is a forward slash ("/").
+     * @param data the content of the file.
+     * @param options the options.
+     */
+    file(name: string, data: PizZip.Data, options?: PizZip.FileOptions): this;
+
+    /**
+     * Get a file with the specified name. You can specify folders in the name : the folder separator is a forward slash ("/").
+     * @param name the name of the file.
+     */
+    file(name: string): PizZip.ZipObject | null;
+
+    /**
+     * Search a file in the current folder and subfolders with a regular expression. The regex is tested against the relative filename.
+     * @param regex the regex to use.
+     */
+    file(regex: RegExp): PizZip.ZipObject[];
+
+    /**
+     * Filter nested files/folders with the specified function. The predicate must return true if the file should be included, false otherwise.
+     * @param predicate the predicate to use.
+     */
+    filter(
+        predicate: (
+            /**
+             * the filename and its path, reliatively to the current folder.
+             */
+            relativePath: string,
+            /**
+             * the file being tested
+             */
+            file: PizZip.ZipObject,
+        ) => boolean,
+    ): PizZip.ZipObject[];
+
+    /**
+     * Create a directory if it doesn't exist, return a new PizZip object with the new folder as root.
+     * @param name the name of the directory.
+     */
+    folder(name: string): this;
+
+    /**
+     * Search a subdirectory in the current directory with a regular expression. The regex is tested against the relative path.
+     * @param regex the regex to use.
+     */
+    folder(regex: RegExp): PizZip.ZipObject[];
+
+    /**
+     * Generates the complete zip file.
+     * Throws an exception if the asked type is not available in the browser,
+     * see https://github.com/open-xml-templating/pizzip/blob/master/documentation/api_pizzip/support.md
+     * @param options the options to generate the zip file
+     */
+    generate(options: PizZip.GenerateOptions): PizZip.ZipObject;
+
+    /**
+     * Delete a file or folder (recursively).
+     * @param name the name of the file/folder to delete.
+     */
+    remove(name: string): this;
+}
+
 declare namespace PizZip {
     type Compression = 'STORE' | 'DEFLATE';
     type Data = string | ArrayBuffer | Uint8Array | Buffer;
@@ -58,10 +183,29 @@ declare namespace PizZip {
             compression: Compression;
         };
 
+        /**
+         * the content as an unicode string.
+         */
         asText(): string;
+
+        /**
+         * the content as binary string.
+         */
         asBinary(): string;
+
+        /**
+         * need a compatible browser. https://github.com/open-xml-templating/pizzip/blob/master/documentation/api_pizzip/support.md
+         */
         asArrayBuffer(): ArrayBuffer;
+
+        /**
+         * need a compatible browser. https://github.com/open-xml-templating/pizzip/blob/master/documentation/api_pizzip/support.md
+         */
         asUint8Array(): Uint8Array;
+
+        /**
+         * need nodejs. https://github.com/open-xml-templating/pizzip/blob/master/documentation/api_pizzip/support.md
+         */
         asNodeBuffer(): Buffer;
     }
 
@@ -235,119 +379,4 @@ declare namespace PizZip {
          */
         encodeFileName?(name: string): Buffer;
     }
-
-    interface PizZip {
-        /**
-         * Read an existing zip and merge the data in the current PizZip object at the current folder level.
-         * This technique has some limitations, see https://github.com/open-xml-templating/pizzip/blob/master/documentation/limitations.md
-         * You shouldn't update the data given to this method : it is kept as it so any update will impact the stored data.
-         * Throws an exception if the loaded data is not valid zip data or if it uses features (multi volume, password protected, etc).
-         * @param data the zip file
-         * @param options the options to load the zip file
-         */
-        load(data: LoadData, options?: LoadOptions): this;
-
-        /**
-         * Add (or update) a file to the zip file.
-         * You shouldn't update the data given to this method : it is kept as it so any update will impact the stored data.
-         * Throws an exception if the data is not in a supported format.
-         * @param name the name of the file. You can specify folders in the name : the folder separator is a forward slash ("/").
-         * @param data the content of the file.
-         * @param options the options.
-         */
-        file(name: string, data: Data, options?: FileOptions): this;
-
-        /**
-         * Get a file with the specified name. You can specify folders in the name : the folder separator is a forward slash ("/").
-         * @param name the name of the file.
-         */
-        file(name: string): ZipObject | null;
-
-        /**
-         * Search a file in the current folder and subfolders with a regular expression. The regex is tested against the relative filename.
-         * @param regex the regex to use.
-         */
-        file(regex: RegExp): ZipObject[];
-
-        /**
-         * Filter nested files/folders with the specified function. The predicate must return true if the file should be included, false otherwise.
-         * @param predicate the predicate to use.
-         */
-        filter(
-            predicate: (
-                /**
-                 * the filename and its path, reliatively to the current folder.
-                 */
-                relativePath: string,
-                /**
-                 * the file being tested
-                 */
-                file: ZipObject,
-            ) => boolean,
-        ): ZipObject[];
-
-        /**
-         * Create a directory if it doesn't exist, return a new PizZip object with the new folder as root.
-         * @param name the name of the directory.
-         */
-        folder(name: string): this;
-
-        /**
-         * Search a subdirectory in the current directory with a regular expression. The regex is tested against the relative path.
-         * @param regex the regex to use.
-         */
-        folder(regex: RegExp): ZipObject[];
-
-        /**
-         * Generates the complete zip file.
-         * Throws an exception if the asked type is not available in the browser,
-         * see https://github.com/open-xml-templating/pizzip/blob/master/documentation/api_pizzip/support.md
-         * @param options the options to generate the zip file
-         */
-        generate(options: GenerateOptions): ZipObject;
-
-        /**
-         * Delete a file or folder (recursively).
-         * @param name the name of the file/folder to delete.
-         */
-        remove(name: string): this;
-    }
 }
-
-declare const PizZip: {
-    /**
-     * If the browser supports them, PizZip can take advantage of some "new" features : ArrayBuffer, Blob, Uint8Array.
-     * To know if PizZip can use them, you can check the PizZip.support object.
-     */
-    support: {
-        /**
-         * true if PizZip can read and generate ArrayBuffer, false otherwise.
-         */
-        arraybuffer: boolean;
-        /**
-         * true if PizZip can read and generate Uint8Array, false otherwise.
-         */
-        uint8array: boolean;
-        /**
-         * true if PizZip can read and generate Blob, false otherwise.
-         */
-        blob: boolean;
-        /**
-         * true if PizZip can read and generate nodejs Buffer, false otherwise.
-         */
-        nodebuffer: boolean;
-    };
-
-    new (): PizZip.PizZip;
-
-    /**
-     * Specifying data & options is a shortcut for new PizZip().load(data, options);
-     *
-     * @param data the zip file
-     * @param options the options to load the zip file
-     */
-    // tslint:disable-next-line unified-signatures new (undefined, {options}) is not an acceptable input
-    new (data: PizZip.LoadData, options?: PizZip.LoadOptions): PizZip.PizZip;
-};
-
-export = PizZip;
