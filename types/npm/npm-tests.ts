@@ -19,14 +19,8 @@ npm.load({}, function (er) {
         // command succeeded, and data might have some info
     });
 
-    // silent: true
-    npm.commands.view(["some", "args"], true, function (er, data) {
-        if (er) {
-            return console.error(er);
-        }
-
-        // command succeeded, and data might have some info
-    });
+    npm.commands.view(["some", "args"], true, function () {}); // silent: true
+    npm.commands.view(["some", "args"], function () {});
 
     npm.on("log", function (message: string) {
         console.log(message);
