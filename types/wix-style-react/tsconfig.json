@@ -19,6 +19,10 @@
         "Text.d.ts",
         "test/Text-tests.tsx",
         "Button.d.ts",
-        "test/Button-tests.tsx"
+        "test/Button-tests.tsx",
+        "Loader.d.ts",
+        "test/Loader-tests.tsx",
+        "BaseComponents.d.ts",
+        "test/BaseComponents-tests.tsx"
     ]
 }
