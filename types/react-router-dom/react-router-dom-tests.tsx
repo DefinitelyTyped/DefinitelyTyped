@@ -39,6 +39,9 @@ const Component: React.SFC<OtherProps> = props => {
 
 <Link to="/url" />;
 
+<Link to={location => ({ ...location, pathname: '/pizza' })} />;
+<NavLink to={location => ({ ...location, pathname: '/pizza' })} />;
+
 const refCallback: React.Ref<HTMLAnchorElement> = node => {};
 <Link to="/url" replace={true} innerRef={refCallback} />;
 const ref = React.createRef<HTMLAnchorElement>();

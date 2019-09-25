@@ -50,11 +50,10 @@ export interface HashRouterProps {
 }
 export class HashRouter extends React.Component<HashRouterProps, any> {}
 
-export interface LinkProps<S = H.LocationState>
-  extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
-  to: H.LocationDescriptor<S>;
-  replace?: boolean;
-  innerRef?: React.Ref<HTMLAnchorElement>;
+export interface LinkProps<S = H.LocationState> extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
+    to: H.LocationDescriptor<S> | ((location: H.Location<S>) => H.LocationDescriptor<S>);
+    replace?: boolean;
+    innerRef?: React.Ref<HTMLAnchorElement>;
 }
 export class Link<S = H.LocationState> extends React.Component<
   LinkProps<S>,
