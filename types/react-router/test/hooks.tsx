@@ -5,16 +5,20 @@ interface Params {
     id: string;
 }
 
+interface LocationState {
+    s: string;
+}
+
 const HooksTest: React.FC = () => {
-    const history = useHistory();
-    const location = useLocation();
+    const history = useHistory<LocationState>();
+    const location = useLocation<LocationState>();
     const { id } = useParams();
     const params = useParams<Params>();
     const match1 = useRouteMatch<Params>('/:id');
     const match2 = useRouteMatch<Params>({ path: '/:id', exact: true });
 
-    history.action;
-    location.key;
+    history.location.state.s;
+    location.state.s;
     id && id.replace;
     params.id.replace;
     match1 && match1.params.id.replace;
