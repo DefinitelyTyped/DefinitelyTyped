@@ -13,7 +13,7 @@
  */
 
 export interface RoxContainer {
-    [key: string]: Flag | Configuration | Variant;
+    [key: string]: Flag | Configuration<any> | Variant;
 }
 
 /**
@@ -124,7 +124,7 @@ export class Flag {
     constructor(defaultValue: boolean, options?: RoxFlagOptions);
 
     // The name of the Flag
-    name: string;
+    readonly name: string;
 
     // Returns true when the flag is enabled
     isEnabled(): boolean;
@@ -142,10 +142,10 @@ export class Variant<T extends string = string> {
     constructor(defaultValue: T, options: T[], name?: string);
 
     // The name of the Flag
-    name: string;
+    readonly name: string;
 
     // Returns the current value of the Variant, accounting for value overrides
-    getValue(): T;
+    getValue(): BasicType<T>;
 
     // Unlock the Flag value from changes from the last time it was freezed
     unfreeze(): void;
@@ -161,14 +161,21 @@ export class Configuration<T extends string | boolean | number = string> {
     constructor(defaultValue: T);
 
     // The name of the Configuration
-    name: string;
+    readonly name: string;
 
     // Returns the current value of the Configuration, accounting for value overrides
-    getValue(): T;
+    getValue(): BasicType<T>;
 
     // Unlock the Configuration value from changes from the last time it was freezed
     unfreeze(): void;
 }
+
+/**
+ * Ensure that TypeScript properly types things with a basic type.
+ * For example, if T is true, returned type shall be boolean, not true
+ */
+export type BasicType<T> = T extends boolean ? boolean : T extends number ? number : T extends string ? string : never;
+
 
 /**
  * Override: Should only be used for development purposes (QA - Feature dev - e2e)
