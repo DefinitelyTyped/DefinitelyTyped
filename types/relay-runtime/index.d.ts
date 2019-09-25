@@ -781,10 +781,5 @@ export const RelayProfiler: RelayProfiler;
 // Internal API
 export function deepFreeze<T extends object>(value: T): T;
 
-// ./utils/RelayFeatureFlags
-
-interface FeatureFlags {
-    ENABLE_VARIABLE_CONNECTION_KEY: boolean;
-}
-
-export const RelayFeatureFlags: FeatureFlags;
+// ./util/RelayFeatureFlags
+export { RelayFeatureFlags } from './lib/util/RelayFeatureFlags';
