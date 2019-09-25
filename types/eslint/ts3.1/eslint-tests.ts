@@ -393,6 +393,7 @@ linter.verify(SOURCE, {
     rules: { 'no-console': 'error' },
     overrides: [
         {
+            extends: ['eslint-config-bad-guy'],
             excludedFiles: ['*-test.js', '*.spec.js'],
             files: ['*-test.js', '*.spec.js'],
             rules: {

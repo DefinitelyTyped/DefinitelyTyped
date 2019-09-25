@@ -390,6 +390,7 @@ export namespace Linter {
     }
 
     interface RuleOverride extends HasRules {
+        extends?: string | string[];
         excludedFiles?: string[];
         files?: string[];
     }
