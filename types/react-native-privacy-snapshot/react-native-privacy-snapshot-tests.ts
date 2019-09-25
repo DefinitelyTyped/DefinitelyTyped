@@ -1,4 +1,4 @@
-import PrivacySnapshot from "react-native-privacy-snapshot";
+import PrivacySnapshot = require('react-native-privacy-snapshot');
 
 PrivacySnapshot.enabled(true);
 PrivacySnapshot.enabled(false);

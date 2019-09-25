@@ -9,4 +9,4 @@ interface PrivacySnapshot {
 
 declare const PrivacySnapshot: PrivacySnapshot;
 
-export default PrivacySnapshot;
+export = PrivacySnapshot;
