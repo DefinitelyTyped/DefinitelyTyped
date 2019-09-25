@@ -115,6 +115,7 @@ export class Decoration {
        * Determines how the right side of the decoration is mapped.
        */
       inclusiveEnd?: boolean | null
+      [key: string]: any;
     }
   ): Decoration;
   /**
