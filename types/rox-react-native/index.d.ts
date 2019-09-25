@@ -45,6 +45,8 @@ export interface RoxSetupOptions {
     freeze?: FreezeOptions;
     disableNetworkFetch?: boolean;
     devModeSecret?: string;
+    // https://support.rollout.io/docs/reactnative#section--asyncstorage-
+    AsyncStorage?: any; // AsyncStorage from 'react-native' package
 }
 
 export enum RoxFetcherStatus {
