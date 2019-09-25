@@ -50,14 +50,9 @@ import {
 import { DeclarativeMutationConfig } from './lib/mutations/RelayDeclarativeMutationConfig';
 export * from './lib/mutations/RelayDeclarativeMutationConfig';
 
-// ./mutations/applyRelayModernOptimisticMutation
-export interface OptimisticMutationConfig {
-    configs?: ReadonlyArray<DeclarativeMutationConfig> | null;
-    mutation: GraphQLTaggedNode;
-    variables: Variables;
-    optimisticUpdater?: SelectorStoreUpdater | null;
-    optimisticResponse?: object;
-}
+// ./lib/mutations/applyRelayModernOptimisticMutation
+import { OptimisticMutationConfig } from './lib/mutations/applyOptimisticMutation';
+export * from './lib/mutations/applyOptimisticMutation';
 
 // ./mutations/commitRelayModernMutation
 export interface MutationConfig<TOperation extends OperationType> {
