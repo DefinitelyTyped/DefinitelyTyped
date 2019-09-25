@@ -3,10 +3,4 @@
 // Definitions by: Matthew Bajorek <https://github.com/mattbajorek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-interface PrivacySnapshot {
-    enabled: (isEnabled: boolean) => void;
-}
-
-declare const PrivacySnapshot: PrivacySnapshot;
-
-export = PrivacySnapshot;
+export function enabled(isEnabled: boolean): void;
