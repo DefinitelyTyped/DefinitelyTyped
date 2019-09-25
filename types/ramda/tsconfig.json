@@ -92,6 +92,26 @@
         "test/has-tests.ts",
         "test/hasIn-tests.ts",
         "test/hasPath-tests.ts",
-        "test/head-tests.ts"
+        "test/head-tests.ts",
+        "test/identical-tests.ts",
+        "test/identity-tests.ts",
+        "test/ifElse-tests.ts",
+        "test/includes-tests.ts",
+        "test/indexBy-tests.ts",
+        "test/indexOf-tests.ts",
+        "test/init-tests.ts",
+        "test/innerJoin-tests.ts",
+        "test/insert-tests.ts",
+        "test/insertAll-tests.ts",
+        "test/intersection-tests.ts",
+        "test/intersperse-tests.ts",
+        "test/into-tests.ts",
+        "test/invert-tests.ts",
+        "test/invertObj-tests.ts",
+        "test/invoker-tests.ts",
+        "test/is-tests.ts",
+        "test/isArrayLike-tests.ts",
+        "test/isEmpty-tests.ts",
+        "test/isNaN-tests.ts"
     ]
 }
