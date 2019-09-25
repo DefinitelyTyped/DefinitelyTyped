@@ -59,7 +59,7 @@ export interface FactOptions {
 }
 
 export interface DefinitionFunction {
-    (params: Event["params"], almanac: Almanac): void;
+    (params: Event['params'], almanac: Almanac): void;
 }
 
 export interface OperatorEvaluateFunction {
@@ -73,7 +73,16 @@ export interface EngineEventFunction {
 export class Rule {
     constructor(options: RuleOptions | JSON);
     fact: string;
-    operator: "equal" | "notEqual" | "lessThan" | "greaterThan" | "greaterThanInclusive" | "in" | "notIn" | "contains" | "doesNotContain";
+    operator:
+        | 'equal'
+        | 'notEqual'
+        | 'lessThan'
+        | 'greaterThan'
+        | 'greaterThanInclusive'
+        | 'in'
+        | 'notIn'
+        | 'contains'
+        | 'doesNotContain';
     value: number | string | string[] | number[];
     path?: string;
     setConditions?: (conditions: Conditions) => void;
@@ -91,6 +100,6 @@ export class Engine {
     addOperator(name: string, definitionFunc: OperatorEvaluateFunction): void;
     removeOperator(id: string): void;
     stop(): Engine;
-    on(eventName: "success" | "failure", engineEvent: EngineEventFunction):void;
+    on(eventName: 'success' | 'failure', engineEvent: EngineEventFunction): void;
     run<T>(facts: T): Promise<EngineResult>;
 }
