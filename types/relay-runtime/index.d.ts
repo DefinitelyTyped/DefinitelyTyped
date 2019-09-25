@@ -597,14 +597,8 @@ type HandlerProvider = (name: string) => Handler | null | undefined;
 import { RelayNetwork } from './lib/network/RelayNetwork';
 export { RelayNetwork as Network };
 
-// ./networks/RelayQueryResponseCache
-declare class RelayQueryResponseCache {
-    constructor(config: { size: number; ttl: number });
-    clear(): void;
-    get(queryID: string, variables: Variables): GraphQLResponse | null;
-    set(queryID: string, variables: Variables, payload: GraphQLResponse): void;
-}
-export { RelayQueryResponseCache as QueryResponseCache };
+// ./lib/network/RelayQueryResponseCache
+export { RelayQueryResponseCache as QueryResponseCache } from './lib/network/RelayQueryResponseCache';
 
 // ./store/RelayInMemoryRecordSource
 declare class RelayInMemoryRecordSource implements MutableRecordSource {
