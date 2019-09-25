@@ -124,8 +124,6 @@ export class Flag {
     // Returns true when the flag is enabled
     isEnabled(): boolean;
 
-    getNameDetails(): RoxNameDetails;
-
     // Unlock the Flag value from changes from the last time it was freezed
     unfreeze(): void;
 }
@@ -144,15 +142,8 @@ export class Variant<T extends string = string> {
     // Returns the current value of the Variant, accounting for value overrides
     getValue(): T;
 
-    getNameDetails(): RoxNameDetails;
-
     // Unlock the Flag value from changes from the last time it was freezed
     unfreeze(): void;
-}
-
-export interface RoxNameDetails {
-    name: string;
-    namespace: string;
 }
 
 /**
