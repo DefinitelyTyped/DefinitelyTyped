@@ -29,7 +29,7 @@ declare namespace fetch {
      * response as JSON, and returns it as its final value. This is a utility
      * shorthand for `fetch(url).then(res => res.json())`.
      */
-    function json(url: string, opts?: Options): Record<string, unknown>;
+    function json(url: string, opts?: Options): Promise<Record<string, unknown>>;
 
     namespace json {
         /**
