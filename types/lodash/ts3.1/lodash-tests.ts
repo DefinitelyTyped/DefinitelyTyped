@@ -3525,6 +3525,15 @@ fp.now(); // $ExpectType number
     const memoizedFn = _.memoize(memoizeFn);
     memoizedFn.cache = new WeakMap();
     memoizedFn.cache = new Map();
+
+    {
+        type MemoizedResultFn = (a1: string, a2: number) => boolean;
+        let beforeMemoize: MemoizedResultFn & {otherKey: number};
+        let result: MemoizedResultFn;
+
+        beforeMemoize = _.assign(memoizeFn, {otherKey: 1});
+        result = _.memoize(beforeMemoize);
+    }
 }
 
 // _.overArgs
