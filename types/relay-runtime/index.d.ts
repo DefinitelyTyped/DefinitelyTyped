@@ -593,10 +593,8 @@ export { RelayModernEnvironment as Environment };
 
 type HandlerProvider = (name: string) => Handler | null | undefined;
 
-// ./network/RelayNetwork
-declare const RelayNetwork: {
-    create(fetchFn: FetchFunction, subscribeFn?: SubscribeFunction): Network;
-};
+// ./lib/network/RelayNetwork
+import { RelayNetwork } from './lib/network/RelayNetwork';
 export { RelayNetwork as Network };
 
 // ./networks/RelayQueryResponseCache
