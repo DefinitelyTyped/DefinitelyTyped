@@ -15,7 +15,7 @@ export interface GettextOptions {
 }
 
 export interface JsonDataHeader {
-  locale: string;
+  language: string;
   "plural-forms": string;
 }
 
