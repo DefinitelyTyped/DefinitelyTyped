@@ -105,10 +105,11 @@ export {
     requestSubscription,
 } from 'relay-runtime';
 
-export type DataFrom = 'NETWORK_ONLY' | 'STORE_THEN_NETWORK';
+export type FetchPolicy = 'store-and-network' | 'network-only';
+
 declare class ReactRelayQueryRenderer<TOperation extends OperationType> extends React.Component<{
     cacheConfig?: CacheConfig | null;
-    dataFrom?: DataFrom;
+    fetchPolicy?: FetchPolicy;
     environment: Environment;
     query: GraphQLTaggedNode | null | undefined;
     render: (renderProps: {
