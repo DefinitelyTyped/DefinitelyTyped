@@ -92,7 +92,7 @@ export class Rule {
 }
 
 export class Engine {
-    constructor(rules: Rule[], options?: EngineOptions);
+    constructor(rules?: Rule[], options?: EngineOptions);
     addRule(rules: RuleEngine): void;
     removeRule(rule: Rule): void;
     addFact(id: string, definitionFunc: DefinitionFunction, options: FactOptions): void;
