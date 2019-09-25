@@ -17,17 +17,14 @@ import { EventEmitter } from "events";
  * - Interupt the callback chain in async listeners by calling the callback with the error as the first parameter; in sync listeners by throwing an Error.
  * @see https://www.npmjs.com/package/async-eventemitter#important-differences-between-asynceventemitter-the-native-eventemitter
  */
-export type AsyncListener<T, R> = (data?: T, callback?: (result?: R) => void) => Promise<R> | void;
-export interface EventMap {
-    [event: string]: AsyncListener<any, any>;
-}
+export = AsyncEventEmitter;
 
 /**
  * An EventEmitter that supports serial execution of asynchronous event listeners.
  * It also supports event listeners without callbacks (synchronous), as well as
  * interrupting the call-chain (similar to the DOM's e.stopPropagation()).
  */
-export default class AsyncEventEmitter<T extends EventMap> extends EventEmitter {
+declare class AsyncEventEmitter<T extends AsyncEventEmitter.EventMap> extends EventEmitter {
     /**
      * Executes all listeners for the event in order with the supplied data argument.
      * The optional callback is called when all of the listeners are done.
@@ -84,4 +81,11 @@ export default class AsyncEventEmitter<T extends EventMap> extends EventEmitter 
 
     getMaxListeners(): number;
     setMaxListeners(maxListeners: number): this;
+}
+
+declare namespace AsyncEventEmitter {
+    type AsyncListener<T, R> = (data?: T, callback?: (result?: R) => void) => Promise<R> | void;
+    interface EventMap {
+        [event: string]: AsyncListener<any, any>;
+    }
 }
