@@ -3739,6 +3739,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "unist-util-is",
+            "typingsPackageName": "unist-util-is",
+            "sourceRepoURL": "https://github.com/syntax-tree/unist-util-is",
+            "asOfVersion": "4.0.0"
+        },
+        {
             "libraryName": "Universal Router",
             "typingsPackageName": "universal-router",
             "sourceRepoURL": "https://github.com/kriasoft/universal-router",
