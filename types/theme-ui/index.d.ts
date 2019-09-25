@@ -3,6 +3,7 @@
 // Definitions by: Erik Stockmeier <https://github.com/erikdstock>
 //                 Ifiok Jr. <https://github.com/ifiokjr>
 //                 Brian Andrews <https://github.com/sbardian>
+//                 Rodrigo Pombo <https://github.com/pomber>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
