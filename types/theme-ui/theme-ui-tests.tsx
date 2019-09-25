@@ -96,3 +96,19 @@ const incompleteThemeColorModes: Theme = {
         },
     },
 };
+
+const themeWithStyles: Theme = {
+    colors: {
+        text: '#000',
+        background: '#fff',
+        primary: '#07c',
+    },
+    styles: {
+        h1: {
+            fontSize: 32,
+            color: 'primary',
+            mt: 4,
+            mb: 2,
+        },
+    },
+};
