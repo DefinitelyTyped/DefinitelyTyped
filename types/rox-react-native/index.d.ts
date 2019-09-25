@@ -126,7 +126,7 @@ export interface RoxFlagOptions {
  * https://support.rollout.io/docs/reactnative#section--rox-freezeoptions-
  */
 export class Flag {
-    constructor(defaultValue: boolean, options?: RoxFlagOptions);
+    constructor(defaultValue?: boolean, options?: RoxFlagOptions);
 
     // The name of the Flag
     readonly name: string;
