@@ -135,71 +135,25 @@ export interface MutationConfig<TOperation extends OperationType> {
 export { RelayNetworkLoggerTransaction } from './lib/network/RelayNetworkLoggerTransaction';
 
 // ./network/RelayNetworkTypes
-export type ExecuteFunction = (
-    request: RequestParameters,
-    variables: Variables,
-    cacheConfig: CacheConfig,
-    uploadables?: UploadableMap | null,
-) => RelayObservable<GraphQLResponse>;
-
-export type FetchFunction = (
-    request: RequestParameters,
-    variables: Variables,
-    cacheConfig: CacheConfig,
-    uploadables?: UploadableMap | null,
-) => ObservableFromValue<GraphQLResponse>;
-
-export type GraphQLResponse =
-    | {
-          data: PayloadData;
-          errors?: ReadonlyArray<PayloadError>;
-          extensions?: PayloadExtensions;
-      }
-    | {
-          data?: PayloadData | null;
-          errors: ReadonlyArray<PayloadError>;
-          extensions?: PayloadExtensions;
-      };
-
-export interface LegacyObserver<T> {
-    onCompleted?: () => void;
-    onError?: (error: Error) => void;
-    onNext?: (data: T) => void;
-}
-
-interface Network {
-    execute: ExecuteFunction;
-}
-export { Network as INetwork };
-
-export interface PayloadData {
-    [key: string]: unknown;
-}
-
-export interface PayloadError {
-    message: string;
-    locations?: ReadonlyArray<{
-        line: number;
-        column: number;
-    }>;
-    severity?: 'CRITICAL' | 'ERROR' | 'WARNING'; // Not officially part of the spec, but used at Facebook
-}
-
-export type SubscribeFunction = (
-    request: RequestParameters,
-    variables: Variables,
-    cacheConfig: CacheConfig,
-    observer?: LegacyObserver<GraphQLResponse>,
-) => RelayObservable<GraphQLResponse> | Disposable;
-
-export type Uploadable = File | Blob;
-export interface UploadableMap {
-    [key: string]: Uploadable;
-}
-
-interface PayloadExtensions {
-    [key: string]: unknown;
-}
+import {
+    GraphQLResponse,
+    Network,
+    FetchFunction,
+    PayloadData,
+    PayloadError,
+    UploadableMap,
+    LegacyObserver,
+    SubscribeFunction,
+} from './lib/network/RelayNetworkTypes';
+export {
+    ExecuteFunction,
+    SubscribeFunction,
+    GraphQLResponse,
+    FetchFunction,
+    Network as INetwork,
+    Uploadable,
+    UploadableMap,
+} from './lib/network/RelayNetworkTypes';
 
 // ./network/RelayObservable
 export type ObservableFromValue<T> = Subscribable<T> | Promise<T> | T;
