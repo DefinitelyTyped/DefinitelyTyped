@@ -1,4 +1,4 @@
-// Type definitions for non-npm package OpenFin API 43.0
+// Type definitions for non-npm package OpenFin API 45.0
 // Project: https://openfin.co/
 // Definitions by: Chris Barker <https://github.com/chrisbarker>
 //                 Ricardo de Pena <https://github.com/rdepena>
