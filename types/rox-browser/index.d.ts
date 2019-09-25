@@ -81,9 +81,9 @@ export interface RoxExperiment {
  * Note that you might have to call unfreeze after setting custom properties such as email after login
  * https://support.rollout.io/docs/custom-properties
  */
-export function setCustomNumberProperty(name: string, value: number | (() => number)): void;
-export function setCustomStringProperty(name: string, value: string | (() => string)): void;
-export function setCustomBooleanProperty(name: string, value: boolean | (() => boolean)): void;
+export function setCustomNumberProperty(name: string, value: number | ((context?: unknown) => number)): void;
+export function setCustomStringProperty(name: string, value: string | ((context?: unknown) => string)): void;
+export function setCustomBooleanProperty(name: string, value: boolean | ((context?: unknown) => boolean)): void;
 export function setDynamicCustomPropertyRule(
   handler: (propName: string, context: unknown) => number | string | boolean
 ): void;
@@ -146,7 +146,7 @@ export class Flag {
   readonly defaultValue: boolean;
 
   // Returns true when the flag is enabled
-  isEnabled(): boolean;
+  isEnabled(context?: unknown): boolean;
 
   // Unlock the Flag value from changes from the last time it was freezed
   unfreeze(): void;
@@ -167,7 +167,7 @@ export class Variant<T extends string = string> {
   readonly defaultValue: BasicType<T>;
 
   // Returns the current value of the Variant, accounting for value overrides
-  getValue(): BasicType<T>;
+  getValue(context?: unknown): BasicType<T>;
 
   // Unlock the Variant value from changes from the last time it was freezed
   unfreeze(): void;
@@ -189,7 +189,7 @@ export class Configuration<T extends number | boolean | string> {
   readonly defaultValue: BasicType<T>;
 
   // Returns the current value of the Configuration, accounting for value overrides
-  getValue(): BasicType<T>;
+  getValue(context?: unknown): BasicType<T>;
 
   // Unlock the Configuration value from changes from the last time it was freezed
   unfreeze(): void;
