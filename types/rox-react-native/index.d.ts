@@ -47,12 +47,15 @@ export interface RoxSetupOptions {
     devModeSecret?: string;
 }
 
+export enum RoxFetcherStatus {
+    AppliedFromEmbedded = 'APPLIED_FROM_EMBEDDED',
+    AppliedFromCache = 'APPLIED_FROM_CACHE',
+    AppliedFromNetwork = 'APPLIED_FROM_NETWORK',
+    ErrorFetchFailed = 'ERROR_FETCH_FAILED',
+}
+
 export interface RoxFetcherResult {
-    fetcherStatus:
-        | 'APPLIED_FROM_EMBEDDED'
-        | 'APPLIED_FROM_CACHE'
-        | 'APPLIED_FROM_NETWORK'
-        | 'ERROR_FETCH_FAILED';
+    fetcherStatus: RoxFetcherStatus;
     creationDate: Date;
     hasChanges: boolean;
     errorDetails?: string;
