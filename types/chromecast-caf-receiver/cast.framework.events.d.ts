@@ -1,79 +1,89 @@
-import { RequestData, MediaInformation, Track, MediaStatus } from './cast.framework.messages';
+import { RequestData, MediaInformation, Track, MediaStatus, LiveSeekableRange } from './cast.framework.messages';
 import * as category from './cast.framework.events.category';
 
 export import category = category;
 
 export as namespace events;
-export type EventType =
-    | 'ALL'
-    | 'ABORT'
-    | 'CAN_PLAY'
-    | 'CAN_PLAY_THROUGH'
-    | 'DURATION_CHANGE'
-    | 'EMPTIED'
-    | 'ENDED'
-    | 'LOADED_DATA'
-    | 'LOADED_METADATA'
-    | 'LOAD_START'
-    | 'PAUSE'
-    | 'PLAY'
-    | 'PLAYING'
-    | 'PROGRESS'
-    | 'RATE_CHANGE'
-    | 'SEEKED'
-    | 'SEEKING'
-    | 'STALLED'
-    | 'TIME_UPDATE'
-    | 'SUSPEND'
-    | 'WAITING'
-    | 'BITRATE_CHANGED'
-    | 'BREAK_STARTED'
-    | 'BREAK_ENDED'
-    | 'BREAK_CLIP_LOADING'
-    | 'BREAK_CLIP_STARTED'
-    | 'BREAK_CLIP_ENDED'
-    | 'BUFFERING'
-    | 'CACHE_LOADED'
-    | 'CACHE_HIT'
-    | 'CACHE_INSERTED'
-    | 'CLIP_STARTED'
-    | 'CLIP_ENDED'
-    | 'EMSG'
-    | 'ERROR'
-    | 'ID3'
-    | 'MEDIA_STATUS'
-    | 'MEDIA_FINISHED'
-    | 'PLAYER_PRELOADING'
-    | 'PLAYER_PRELOADING_CANCELLED'
-    | 'PLAYER_LOAD_COMPLETE'
-    | 'PLAYER_LOADING'
-    | 'SEGMENT_DOWNLOADED'
-    | 'REQUEST_SEEK'
-    | 'REQUEST_LOAD'
-    | 'REQUEST_STOP'
-    | 'REQUEST_PAUSE'
-    | 'REQUEST_PLAY'
-    | 'REQUEST_PLAY_AGAIN'
-    | 'REQUEST_PLAYBACK_RATE_CHANGE'
-    | 'REQUEST_SKIP_AD'
-    | 'REQUEST_VOLUME_CHANGE'
-    | 'REQUEST_EDIT_TRACKS_INFO'
-    | 'REQUEST_EDIT_AUDIO_TRACKS'
-    | 'REQUEST_SET_CREDENTIALS'
-    | 'REQUEST_LOAD_BY_ENTITY'
-    | 'REQUEST_USER_ACTION'
-    | 'REQUEST_DISPLAY_STATUS'
-    | 'REQUEST_CUSTOM_COMMAND'
-    | 'REQUEST_FOCUS_STATE'
-    | 'REQUEST_QUEUE_LOAD'
-    | 'REQUEST_QUEUE_INSERT'
-    | 'REQUEST_QUEUE_UPDATE'
-    | 'REQUEST_QUEUE_REMOVE'
-    | 'REQUEST_QUEUE_REORDER'
-    | 'REQUEST_QUEUE_GET_ITEM_RANGE'
-    | 'REQUEST_QUEUE_GET_ITEMS'
-    | 'REQUEST_QUEUE_GET_ITEM_IDS'
-    | 'REQUEST_PRECACHE';
+
+/**
+ * Player event types for @see{@link framework.PlayerManager}.
+ * https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.events#.EventType
+ */
+export enum EventType {
+    ALL = '*',
+    ABORT = 'ABORT',
+    CAN_PLAY = 'CAN_PLAY',
+    CAN_PLAY_THROUGH = 'CAN_PLAY_THROUGH',
+    DURATION_CHANGE = 'DURATION_CHANGE',
+    EMPTIED = 'EMPTIED',
+    ENDED = 'ENDED',
+    LOADED_DATA = 'LOADED_DATA',
+    LOADED_METADATA = 'LOADED_METADATA',
+    LOAD_START = 'LOAD_START',
+    PAUSE = 'PAUSE',
+    PLAY = 'PLAY',
+    PLAYING = 'PLAYING',
+    PROGRESS = 'PROGRESS',
+    RATE_CHANGE = 'RATE_CHANGE',
+    SEEKED = 'SEEKED',
+    SEEKING = 'SEEKING',
+    STALLED = 'STALLED',
+    TIME_UPDATE = 'TIME_UPDATE',
+    SUSPEND = 'SUSPEND',
+    WAITING = 'WAITING',
+    BITRATE_CHANGED = 'BITRATE_CHANGED',
+    BREAK_STARTED = 'BREAK_STARTED',
+    BREAK_ENDED = 'BREAK_ENDED',
+    BREAK_CLIP_LOADING = 'BREAK_CLIP_LOADING',
+    BREAK_CLIP_STARTED = 'BREAK_CLIP_STARTED',
+    BREAK_CLIP_ENDED = 'BREAK_CLIP_ENDED',
+    BUFFERING = 'BUFFERING',
+    CACHE_LOADED = 'CACHE_LOADED',
+    CACHE_HIT = 'CACHE_HIT',
+    CACHE_INSERTED = 'CACHE_INSERTED',
+    CLIP_STARTED = 'CLIP_STARTED',
+    CLIP_ENDED = 'CLIP_ENDED',
+    EMSG = 'EMSG',
+    ERROR = 'ERROR',
+    ID3 = 'ID3',
+    MEDIA_STATUS = 'MEDIA_STATUS',
+    CUSTOM_STATE = 'CUSTOM_STATE',
+    MEDIA_INFORMATION_CHANGED = 'MEDIA_INFORMATION_CHANGED',
+    MEDIA_FINISHED = 'MEDIA_FINISHED',
+    PLAYER_PRELOADING = 'PLAYER_PRELOADING',
+    PLAYER_PRELOADING_CANCELLED = 'PLAYER_PRELOADING_CANCELLED',
+    PLAYER_LOAD_COMPLETE = 'PLAYER_LOAD_COMPLETE',
+    PLAYER_LOADING = 'PLAYER_LOADING',
+    SEGMENT_DOWNLOADED = 'SEGMENT_DOWNLOADED',
+    REQUEST_SEEK = 'REQUEST_SEEK',
+    REQUEST_LOAD = 'REQUEST_LOAD',
+    REQUEST_STOP = 'REQUEST_STOP',
+    REQUEST_PAUSE = 'REQUEST_PAUSE',
+    REQUEST_PLAY = 'REQUEST_PLAY',
+    REQUEST_PLAY_AGAIN = 'REQUEST_PLAY_AGAIN',
+    REQUEST_PLAYBACK_RATE_CHANGE = 'REQUEST_PLAYBACK_RATE_CHANGE',
+    REQUEST_SKIP_AD = 'REQUEST_SKIP_AD',
+    REQUEST_VOLUME_CHANGE = 'REQUEST_VOLUME_CHANGE',
+    REQUEST_EDIT_TRACKS_INFO = 'REQUEST_EDIT_TRACKS_INFO',
+    REQUEST_EDIT_AUDIO_TRACKS = 'REQUEST_EDIT_AUDIO_TRACKS',
+    REQUEST_SET_CREDENTIALS = 'REQUEST_SET_CREDENTIALS',
+    REQUEST_LOAD_BY_ENTITY = 'REQUEST_LOAD_BY_ENTITY',
+    REQUEST_USER_ACTION = 'REQUEST_USER_ACTION',
+    REQUEST_DISPLAY_STATUS = 'REQUEST_DISPLAY_STATUS',
+    REQUEST_CUSTOM_COMMAND = 'REQUEST_CUSTOM_COMMAND',
+    REQUEST_FOCUS_STATE = 'REQUEST_FOCUS_STATE',
+    REQUEST_QUEUE_LOAD = 'REQUEST_QUEUE_LOAD',
+    REQUEST_QUEUE_INSERT = 'REQUEST_QUEUE_INSERT',
+    REQUEST_QUEUE_UPDATE = 'REQUEST_QUEUE_UPDATE',
+    REQUEST_QUEUE_REMOVE = 'REQUEST_QUEUE_REMOVE',
+    REQUEST_QUEUE_REORDER = 'REQUEST_QUEUE_REORDER',
+    REQUEST_QUEUE_GET_ITEM_RANGE = 'REQUEST_QUEUE_GET_ITEM_RANGE',
+    REQUEST_QUEUE_GET_ITEMS = 'REQUEST_QUEUE_GET_ITEMS',
+    REQUEST_QUEUE_GET_ITEM_IDS = 'REQUEST_QUEUE_GET_ITEM_IDS',
+    REQUEST_PRECACHE = 'REQUEST_PRECACHE',
+    LIVE_IS_MOVING_WINDOW_CHANGED = 'LIVE_IS_MOVING_WINDOW_CHANGED',
+    LIVE_ENDED = 'LIVE_ENDED',
+}
 
 export type DetailedErrorCode =
     | 'MEDIA_UNKNOWN'
@@ -236,12 +246,17 @@ export class InbandTrackAddedEvent {
 
 /** Event data for @see{@link EventType.ID3} event. */
 export class Id3Event extends Event {
-    constructor(segmentData: Uint8Array);
+    constructor(segmentData: Uint8Array, timestamp: number);
 
     /**
      * The segment data.
      */
     segmentData: Uint8Array;
+
+    /**
+     * The timestamp in seconds.
+     */
+    timestamp: number;
 }
 /**
  * Event data for @see{@link EventType.EMSG} event.
@@ -404,9 +419,54 @@ export class BitrateChangedEvent {
     totalBitrate: number;
 }
 
+/**
+ * Event data for @see{@link EventType.ERROR} event.
+ */
 export class ErrorEvent extends Event {
-    constructor(detailedErrorCode: DetailedErrorCode, error?: any);
+    constructor(detailedErrorCode?: DetailedErrorCode, error?: any, reason?: cast.framework.messages.ErrorReason);
 
-    detailedErrorCode: DetailedErrorCode;
+    /**
+     * An error code representing the cause of the error.
+     */
+    detailedErrorCode?: DetailedErrorCode;
+
+    /**
+     * The error object. This could be an Error object (e.g., if an Error was thrown in an event handler) or an object with error information (e.g., if the receiver received an invalid command).
+     */
     error?: any;
+
+    /**
+     * Optional error reason.
+     */
+    reason?: cast.framework.messages.ErrorReason;
+}
+
+/**
+ * Event data for @see{@link EventType.CUSTOM_STATE} event.
+ */
+export class CustomStateEvent extends Event {
+    constructor(state: any);
+
+    state: any;
+}
+
+/**
+ * Event data for @see{@link EventType.MEDIA_INFORMATION_CHANGED} event.
+ */
+export class MediaInformationChangedEvent extends Event {
+    constructor(media?: MediaInformation);
+
+    media?: MediaInformation;
+}
+
+/**
+ * Event data for @see{@link EventType.LIVE_ENDED} and @see{@link EventType.LIVE_IS_MOVING_WINDOW_CHANGED} events.
+ */
+export class LiveStatusEvent extends Event {
+    constructor(type: EventType, liveSeekableRange: LiveSeekableRange);
+
+    /**
+     * Updated live status.
+     */
+    liveSeekableRange: LiveSeekableRange;
 }

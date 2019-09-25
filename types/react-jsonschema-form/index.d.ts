@@ -256,16 +256,19 @@ declare module 'react-jsonschema-form/lib/components/fields/SchemaField' {
     import { JSONSchema6 } from 'json-schema';
     import { FieldProps, UiSchema, IdSchema, FormValidation } from 'react-jsonschema-form';
 
-    export interface SchemaFieldProps<T = any> {
-      schema: JSONSchema6;
-      uiSchema: UiSchema;
-      idSchema: IdSchema;
-      formData: T;
-      errorSchema: FormValidation;
-      registry: FieldProps['registry'];
-    }
+    export type SchemaFieldProps<T = any> = Pick<
+      FieldProps<T>,
+      | 'schema'
+      | 'uiSchema'
+      | 'idSchema'
+      | 'formData'
+      | 'errorSchema'
+      | 'registry'
+    >;
 
-    export class SchemaField<T> extends React.Component<SchemaFieldProps<T>> {}
+    export default class SchemaField extends React.Component<
+      SchemaFieldProps
+    > {}
 }
 
 declare module 'react-jsonschema-form/lib/utils' {

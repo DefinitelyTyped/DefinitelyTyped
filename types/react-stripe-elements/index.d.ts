@@ -8,6 +8,7 @@
 //                 Piotr Dabrowski <https://github.com/yhnavein>
 //                 Victor Irzak <https://github.com/virzak>
 //                 Alex Price <https://github.com/remotealex>
+//                 Maciej Dabek <https://github.com/bombek92>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -81,6 +82,10 @@ export namespace ReactStripeElements {
 
         onReady?(el: HTMLStripeElement): void;
     }
+
+	interface PaymentRequestButtonElementProps extends ElementProps {
+		onClick?(event: any): void;
+	}
 }
 
 export class StripeProvider extends React.Component<ReactStripeElements.StripeProviderProps> {}
@@ -105,7 +110,7 @@ export class CardCVCElement extends CardCvcElement {}
 
 export class PostalCodeElement extends React.Component<ReactStripeElements.ElementProps> {}
 
-export class PaymentRequestButtonElement extends React.Component<ReactStripeElements.ElementProps> {}
+export class PaymentRequestButtonElement extends React.Component<ReactStripeElements.PaymentRequestButtonElementProps> {}
 
 export class IbanElement extends React.Component<ReactStripeElements.ElementProps> {}
 
