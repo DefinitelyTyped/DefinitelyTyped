@@ -7,38 +7,90 @@ export interface Event {
     type: string;
     params: {
         message: string;
+        [key: string]: string;
     };
-}
-
-export interface Rule {
-    fact: string;
-    operator: string;
-    value: number;
 }
 
 export interface RuleEngine {
-    conditions: {
-        any: AnyRule[];
-    };
+    conditions: Conditions;
     event: Event;
+    name?: any[];
+    priority?: number;
+    onSuccess?: (evt: Event, almanac: Almanac) => Object;
+}
+
+export interface Conditions {
+    any: AnyRule[];
 }
 
 export interface AnyRule {
     all: Rule[];
 }
 
-export interface EngineResult<T> {
+export interface EngineResult {
     events: Event[];
-    almanac: Almanac<T>;
+    almanac: Almanac;
 }
 
-export interface Almanac<U> {
-    factMap: Map<string | "success-events", U>;
-    factResultCache: Map<number, Promise<U>>;
+export interface Almanac {
+    factMap: Map<string | 'success-events', Event>;
+    factResultCache: Map<number, Promise<Event>>;
+    allowUndefinedFacts: boolean;
+    factValue: (fact: Object, params: Object, path: string) => Promise<Object>;
+    addRuntimeFact: (factId: string, value: any) => void;
+}
+
+export interface EngineOptions {
     allowUndefinedFacts: boolean;
 }
 
+export interface RuleOptions {
+    conditions: Conditions;
+    events: Event[];
+    priority?: number;
+    name?: any[];
+    onSuccess?: DefinitionFunction;
+    onFailure?: DefinitionFunction;
+}
+
+export interface FactOptions {
+    cache: boolean;
+    priority: number;
+}
+
+export interface DefinitionFunction {
+    (params: Event["params"], almanac: Almanac): void;
+}
+
+export interface OperatorEvaluateFunction {
+    (factValue: string, jsonValue: JSON): void;
+}
+
+export interface EngineEventFunction {
+    (event: Event, almanac: Almanac, ruleResult: Object): void;
+}
+
+export class Rule {
+    constructor(options: RuleOptions | JSON);
+    fact: string;
+    operator: "equal" | "notEqual" | "lessThan" | "greaterThan" | "greaterThanInclusive" | "in" | "notIn" | "contains" | "doesNotContain";
+    value: number | string | string[] | number[];
+    path?: string;
+    setConditions?: (conditions: Conditions) => void;
+    setEvent?: (event: Event) => void;
+    setPriority?: (priority: number) => void;
+    toJSON?: (stringify?: boolean) => void;
+}
+
 export class Engine {
+    constructor(rules: Rule[], options?: EngineOptions);
     addRule(rules: RuleEngine): void;
-    run<T>(facts: T): Promise<EngineResult<T>>;
+    removeRule(rule: Rule): void;
+    addFact(id: string, definitionFunc: DefinitionFunction, options: FactOptions): void;
+    removeFact(id: string): void;
+    addOperator(name: string, definitionFunc: OperatorEvaluateFunction): void;
+    removeOperator(id: string): void;
+    stop(): Engine;
+    on(eventName: "success" | "failure", engineEvent: EngineEventFunction):void;
+    run<T>(facts: T): Promise<EngineResult>;
 }
