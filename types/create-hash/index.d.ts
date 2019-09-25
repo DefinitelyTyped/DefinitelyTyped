@@ -30,4 +30,4 @@ declare namespace createHash {
 
 declare function createHash(algorithm: createHash.algorithm, options?: any): createHash.HashAlgorithm;
 
-export = createHash
+export = createHash;
