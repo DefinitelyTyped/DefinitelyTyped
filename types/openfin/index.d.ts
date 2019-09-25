@@ -8,7 +8,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
-// based on v12.69.43.15
+// based on v13.76.45.9
 // see https://openfin.co/support/technical-faq/#what-do-the-numbers-in-the-runtime-version-mean
 
 /**
@@ -626,6 +626,11 @@ declare namespace fin {
          * Retrieves system information.
          */
         getHostSpecs(callback?: (info: HostSpecs) => void, errorCallback?: (reason: string) => void): void;
+        /**
+         *
+         * Returns an array of version numbers of the runtimes installed. Requires RVM 5.2+
+         */
+        getInstalledRuntimes(): Promise<string[]>;
         /**
          * Retrieves the contents of the log with the specified filename.
          */
