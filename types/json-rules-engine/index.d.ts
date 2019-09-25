@@ -2,6 +2,7 @@
 // Project: https://github.com/cachecontrol/json-rules-engine
 // Definitions by: Scott Jones <https://github.com/scottdj92>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 export interface Event {
     type: string;
@@ -16,7 +17,7 @@ export interface RuleEngine {
     event: Event;
     name?: any[];
     priority?: number;
-    onSuccess?: (evt: Event, almanac: Almanac) => Object;
+    onSuccess?: (evt: Event, almanac: Almanac) => void;
 }
 
 export interface Conditions {
@@ -36,7 +37,7 @@ export interface Almanac {
     factMap: Map<string | 'success-events', Event>;
     factResultCache: Map<number, Promise<Event>>;
     allowUndefinedFacts: boolean;
-    factValue: (fact: Object, params: Object, path: string) => Promise<Object>;
+    factValue: (fact: object, params: object, path: string) => Promise<void>;
     addRuntimeFact: (factId: string, value: any) => void;
 }
 
@@ -67,7 +68,7 @@ export interface OperatorEvaluateFunction {
 }
 
 export interface EngineEventFunction {
-    (event: Event, almanac: Almanac, ruleResult: Object): void;
+    (event: Event, almanac: Almanac, ruleResult: object): void;
 }
 
 export class Rule {
@@ -101,5 +102,5 @@ export class Engine {
     removeOperator(id: string): void;
     stop(): Engine;
     on(eventName: 'success' | 'failure', engineEvent: EngineEventFunction): void;
-    run<T>(facts: T): Promise<EngineResult>;
+    run(facts: object): Promise<EngineResult>;
 }

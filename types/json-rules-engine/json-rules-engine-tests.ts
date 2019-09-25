@@ -45,7 +45,6 @@ const facts: PlayerStats = {
     personalFoulCount: 40,
 };
 
-engine.run<PlayerStats>(facts)
-    .then((results) => {
-        results.events.map((event) => event.params.message);
-    });
+engine.run(facts).then(results => {
+    results.events.map(event => event.params.message);
+});
