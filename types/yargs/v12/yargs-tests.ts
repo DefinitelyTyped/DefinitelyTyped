@@ -987,10 +987,10 @@ function Argv$inferArrayOptionTypes() {
     // $ExpectType string[] | undefined
     yargs.option("a", { normalize: true, type: "array" }).argv.a;
 
-    // $ExpectType string[] | undefined
+    // $ExpectType string[] | undefined || ToArray<string | undefined>
     yargs.string("a").array("a").argv.a;
 
-    // $ExpectType string[] | undefined
+    // $ExpectType string[] | undefined || ToString<(string | number)[] | undefined>
     yargs.array("a").string("a").argv.a;
 
     // $ExpectType string[]
