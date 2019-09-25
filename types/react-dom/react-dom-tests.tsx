@@ -54,6 +54,49 @@ describe('ReactDOM', () => {
 
         ReactDOM.render(<ClassComponent />, rootElement);
     });
+
+    it('unstable_createRoot', () => {
+      const container = document.body;
+      const root = ReactDOM.unstable_createRoot(container);
+      root
+        .render(<div>initial render</div>, () => {
+          console.log('callback');
+        })
+        .then(() => {
+          console.log('onCommit');
+          const batch = root.createBatch();
+
+          batch.render(<div>Batch 1</div>).then(() => {
+            console.log('committed first batch');
+          });
+          batch.render(<div>Batch 2</div>).then(() => {
+            console.log('committed second batch');
+          });
+
+          batch.then(() => {
+            console.log('batch completed');
+            batch.commit();
+          });
+        });
+    });
+
+    it('unstable_createSyncRoot', () => {
+      const container = document.body;
+      const root = ReactDOM.unstable_createSyncRoot(container, {
+        hydrate: true,
+      });
+      root
+        .render(<div>initial render</div>, () => {
+          console.log('callback');
+        })
+        .then(() => {
+          console.log('onCommit');
+          // $ExpectError
+          const batch = root.createBatch();
+
+          root.unmount(() => console.log('unmounted'));
+        });
+    });
 });
 
 describe('ReactDOMServer', () => {
