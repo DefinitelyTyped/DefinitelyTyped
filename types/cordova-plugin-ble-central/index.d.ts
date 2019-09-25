@@ -54,7 +54,7 @@ declare namespace BLECentralPlugin {
         /* Automatically connect to a device when it is in range of the phone
            [iOS] background notifications on ios must be enabled if you want to run in the background
            [Android] this relies on the autoConnect argument of BluetoothDevice.connectGatt(). Not all Android devices implement this feature correctly. */
-        autoConnect(device_id:string, success: (data: PeripheralDataExtended) => any, failure: (error: string|BLEError) => any): void;
+        autoConnect(device_id:string, connectCallback: (data: PeripheralDataExtended) => any, disconnectCallback: (error: string|BLEError) => any): void;
 
         disconnect(device_id:string, success?: () => any, failure?: (error: string|BLEError) => any): void;
 
