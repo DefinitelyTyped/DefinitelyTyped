@@ -7,6 +7,7 @@
         "no-single-declare-module": false,
         "no-unnecessary-generics": false,
         "no-var-keyword": false,
+        "npm-naming": false,
         "one-variable-per-declaration": false,
         "only-arrow-functions": false,
         "await-promise": [true, "PromiseLike"]
