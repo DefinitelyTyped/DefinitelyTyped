@@ -19,13 +19,13 @@ type Algorithm =
     | 'sha512';
 
 export namespace createHash {
-export interface HashAlgorithm {
-update(data: string): void;
- digest(target?: encoding): string;
-   write(data: string): void;
-end(): void;
-  read(): void;
-}
+    interface HashAlgorithm {
+        update(data: string): void;
+        digest(target?: encoding): string;
+        write(data: string): void;
+        end(): void;
+        read(): void;
+    }
 
-export function createHash(algo: Algorithm): createHash.HashAlgorithm;
+    export function createHash(algo: Algorithm): createHash.HashAlgorithm;
 }
