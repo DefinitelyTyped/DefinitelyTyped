@@ -54,20 +54,9 @@ export * from './lib/mutations/RelayDeclarativeMutationConfig';
 import { OptimisticMutationConfig } from './lib/mutations/applyOptimisticMutation';
 export * from './lib/mutations/applyOptimisticMutation';
 
-// ./mutations/commitRelayModernMutation
-export interface MutationConfig<TOperation extends OperationType> {
-    configs?: ReadonlyArray<DeclarativeMutationConfig>;
-    mutation: GraphQLTaggedNode;
-    variables: TOperation['variables'];
-    uploadables?: UploadableMap;
-    onCompleted?:
-        | ((response: TOperation['response'], errors: ReadonlyArray<PayloadError> | null | undefined) => void)
-        | null;
-    onError?: ((error: Error) => void) | null;
-    optimisticUpdater?: SelectorStoreUpdater | null;
-    optimisticResponse?: TOperation['response'] | null;
-    updater?: SelectorStoreUpdater<TOperation['response']> | null;
-}
+// ./lib/mutations/commitMutation
+import { MutationConfig } from './lib/mutations/commitMutation';
+export * from './lib/mutations/commitMutation';
 
 // ./lib/network/RelayNetworkLoggerTransaction
 export { RelayNetworkLoggerTransaction } from './lib/network/RelayNetworkLoggerTransaction';
