@@ -1,6 +1,17 @@
 import * as React from "react";
-import Form, { UiSchema, ErrorListProps, WidgetProps, ErrorSchema } from "react-jsonschema-form";
+import Form, {
+  UiSchema,
+  ErrorListProps,
+  WidgetProps,
+  ErrorSchema,
+  withTheme,
+} from 'react-jsonschema-form';
+import SchemaField, {
+  SchemaFieldProps,
+} from 'react-jsonschema-form/lib/components/fields/SchemaField';
 import { JSONSchema6 } from "json-schema";
+
+import { ADDITIONAL_PROPERTY_FLAG } from 'react-jsonschema-form/lib/utils';
 
 // example taken from the react-jsonschema-form playground:
 // https://github.com/mozilla-services/react-jsonschema-form/blob/fedd830294417969d88e38fb9f6b3a85e6ad105e/playground/samples/simple.js
@@ -109,6 +120,16 @@ export class Example extends React.Component<any, IExampleState> {
     }
 }
 
+export class ExampleSchemaField extends React.Component<SchemaFieldProps> {
+    constructor(props: SchemaFieldProps) {
+        super(props);
+    }
+
+    public render() {
+        return <SchemaField {...this.props} />;
+    }
+}
+
 interface FuncExampleProps {
     formData: object;
     onError: (e: ErrorSchema) => void;
@@ -128,7 +149,7 @@ export const FuncExample = (props: FuncExampleProps) => {
             ErrorList={ErrorListExample}
             onChange={(formData, errorSchema) => {
                 onChange(formData);
-                onError(errorSchema)
+                errorSchema && onError(errorSchema);
             }}
         />
     );
@@ -157,3 +178,29 @@ export const NullCustomWidget: React.SFC<WidgetProps> = (props) =>
         onFocus={()=> props.onFocus('id', null)}
         onBlur={()=> props.onFocus('id', null)}
     />
+
+export const withThemeExample = () => {
+    const Form = withTheme({
+        showErrorList: false,
+        noValidate: false,
+        noHtml5Validate: false,
+    });
+
+    return <Form schema={schema} />;
+};
+
+export const additionalPropertyFlagExample = () => {
+    return ADDITIONAL_PROPERTY_FLAG;
+};
+
+export const ExternalFormSubmissionExample = () => {
+  const formRef = React.useRef<Form<any>>(null);
+
+  return (
+    <Form schema={schema} ref={formRef}>
+      <button onClick={formRef.current ? formRef.current.submit : undefined}>
+        FancySubmitButton
+      </button>
+    </Form>
+  );
+};

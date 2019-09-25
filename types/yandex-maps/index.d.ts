@@ -1,4 +1,4 @@
-// Type definitions for yandex-maps 2.1
+// Type definitions for non-npm package yandex-maps 2.1
 // Project: https://github.com/Delagen/typings-yandex-maps
 // Definitions by: Delagen <https://github.com/Delagen>
 //                 gastwork13 <https://github.com/gastwork13>
@@ -466,7 +466,7 @@ declare namespace ymaps {
 
 			add(control: IControl | ControlKey, options?: IManagerControlOptions): this;
 
-			each(callback: (control: IControl) => void, context: object): this;
+			each(callback: (control: IControl) => void, context?: object): this;
 
 			get(index: number | string): IControl | null;
 
@@ -1385,6 +1385,8 @@ declare namespace ymaps {
 
 				add(object: object): this;
 
+				each(callback: (layer: ILayer) => void, context?: object): void;
+
 				getIterator(): IIterator;
 
 				remove(object: object): this;
@@ -1523,7 +1525,7 @@ declare namespace ymaps {
 
 			add(child: IGeoObject, index?: number): this;
 
-			each(callback: (object: IGeoObject) => void, context: object): void;
+			each(callback: (object: IGeoObject) => void, context?: object): void;
 
 			get(index: number): IGeoObject;
 
@@ -2532,7 +2534,7 @@ declare namespace ymaps {
 
 		add(child: IGeoObject, index?: number): this;
 
-		each(callback: (object: IGeoObject) => void, context: object): void;
+		each(callback: (object: IGeoObject) => void, context?: object): void;
 
 		get(index: number): IGeoObject;
 
@@ -3032,7 +3034,7 @@ declare namespace ymaps {
 
 		group(): IEventGroup;
 
-		//remove(types: string[][] | string[] | string, callback: (event: object | IEvent) => void, context?: object, priority?: number): this;
+		remove(types: string[][] | string[] | string, callback: (event: object | IEvent) => void, context?: object, priority?: number): this;
 
 		setParent(parent: object | null): this;
 	}
@@ -3050,7 +3052,9 @@ declare namespace ymaps {
 	interface IExpandableControlLayout extends ILayout { //tslint:disable-line no-empty-interface no-empty-interfaces
 	}
 
-	interface IFreezable extends IEventManager {
+	interface IFreezable {
+        events: IEventManager;
+
 		freeze(): IFreezable;
 
 		isFrozen(): boolean;
@@ -3116,7 +3120,7 @@ declare namespace ymaps {
 	interface IGeoObjectCollection extends ICustomizable, IEventEmitter, IParentOnMap {
 		add(child: IGeoObject, index?: number): this;
 
-		each(callback: (object: IGeoObject) => void, context: object): void;
+		each(callback: (object: IGeoObject) => void, context?: object): void;
 
 		get(index: number): IGeoObject;
 
@@ -3588,3 +3592,6 @@ declare namespace ymaps {
     	removeAll(): Monitor;
 	}
 }
+
+export = ymaps;
+export as namespace ymaps;

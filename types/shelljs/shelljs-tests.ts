@@ -196,3 +196,9 @@ shell
 	.ls("dir")
 	.grep(/^stuff/)
 	.head({"-n": 5}).stdout;
+
+const foo = new shell.ShellString('hello world');
+const farr = new shell.ShellString(['hello', 'world']);
+
+const boo = shell.ShellString('hello world');
+const barr = shell.ShellString(['hello', 'world']);

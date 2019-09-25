@@ -117,7 +117,7 @@ class DemoOne extends React.Component<{}, DemoOneState> {
 ReactDOM.render(<DemoOne />, document.getElementById("demo-one"));
 
 closeMenu("");
-closeMenu("", { focusMenu: true });
+closeMenu("", { focusButton: true });
 
 openMenu("");
 openMenu("", { focusMenu: true });

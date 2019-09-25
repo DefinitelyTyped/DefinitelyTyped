@@ -139,9 +139,8 @@ export declare class CronJob {
     public addCallback(callback: Function): void;
 }
 
-export declare var job:
-    ((cronTime: string | Date | Moment, onTick: () => void, onComplete?: CronCommand, start?: boolean, timeZone?: string, context?: any, runOnInit?: boolean, utcOffset?: string | number, unrefTimeout?: boolean) => CronJob)
-    | ((options: CronJobParameters) => CronJob);
-export declare var time: (source: string | Date | Moment, zone?: string) => CronTime;
-export declare var sendAt: (cronTime: string | Date | Moment) => Moment;
-export declare var timeout: (cronTime: string | Date | Moment) => number;
+export declare function job(options: CronJobParameters): CronJob;
+export declare function job(cronTime: string | Date | Moment, onTick: () => void, onComplete?: CronCommand, start?: boolean, timeZone?: string, context?: any, runOnInit?: boolean, utcOffset?: string | number, unrefTimeout?: boolean): CronJob;
+export declare function time(source: string | Date | Moment, zone?: string): CronTime;
+export declare function sendAt(cronTime: string | Date | Moment): Moment;
+export declare function timeout(cronTime: string | Date | Moment): number;

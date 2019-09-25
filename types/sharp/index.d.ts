@@ -201,21 +201,6 @@ declare namespace sharp {
         //#region Composite functions
 
         /**
-         * Overlay (composite) an image over the processed (resized, extracted etc.) image.
-         *
-         * The overlay image must be the same size or smaller than the processed image.
-         * If both top and left options are provided, they take precedence over gravity.
-         *
-         * If the overlay image contains an alpha channel then composition with premultiplication will occur.
-         * @param image Buffer containing image data or String containing the path to an image file.
-         * @param options overlay options
-         * @throws {Error} Invalid parameters
-         * @returns A sharp instance that can be used to chain operations
-         * @deprecated
-         */
-        overlayWith(image?: string | Buffer, options?: OverlayOptions): Sharp;
-
-        /**
          * Composite image(s) over the processed (resized, extracted etc.) image.
          *
          * The images to composite must be the same size or smaller than the processed image.
@@ -433,6 +418,13 @@ declare namespace sharp {
          * @returns A sharp instance that can be used to chain operations
          */
         recomb(inputMatrix: Matrix3x3): Sharp;
+
+        /**
+         * Transforms the image using brightness, saturation and hue rotation.
+         * @param options describes the modulation
+         * @returns A sharp instance that can be used to chain operations
+         */
+        modulate(options?: { brightness?: number, saturation?: number, hue?: number }): Sharp;
 
         //#endregion
 

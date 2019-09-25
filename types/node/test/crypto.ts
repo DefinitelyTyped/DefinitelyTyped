@@ -337,6 +337,21 @@ import { promisify } from 'util';
         },
     });
 
+    const rsaResNoPassphrase: {
+        publicKey: Buffer;
+        privateKey: string;
+    } = crypto.generateKeyPairSync('rsa', {
+        modulusLength: 123,
+        publicKeyEncoding: {
+            format: 'der',
+            type: 'pkcs1',
+        },
+        privateKeyEncoding: {
+            format: 'pem',
+            type: 'pkcs8',
+        },
+    });
+
     const dsaRes: {
         publicKey: string;
         privateKey: Buffer;
@@ -355,6 +370,22 @@ import { promisify } from 'util';
         },
     });
 
+    const dsaResNoPassphrase: {
+        publicKey: string;
+        privateKey: Buffer;
+    } = crypto.generateKeyPairSync('dsa', {
+        modulusLength: 123,
+        divisorLength: 123,
+        publicKeyEncoding: {
+            format: 'pem',
+            type: 'spki',
+        },
+        privateKeyEncoding: {
+            format: 'der',
+            type: 'pkcs8',
+        },
+    });
+
     const ecRes: {
         publicKey: string;
         privateKey: string;
@@ -368,6 +399,21 @@ import { promisify } from 'util';
             cipher: 'some-cipher',
             format: 'pem',
             passphrase: 'secret',
+            type: 'pkcs8',
+        },
+    });
+
+    const ecResNoPassphrase: {
+        publicKey: string;
+        privateKey: string;
+    } = crypto.generateKeyPairSync('ec', {
+        namedCurve: 'curve',
+        publicKeyEncoding: {
+            format: 'pem',
+            type: 'pkcs1',
+        },
+        privateKeyEncoding: {
+            format: 'pem',
             type: 'pkcs8',
         },
     });
@@ -593,4 +639,9 @@ import { promisify } from 'util';
 
     str = crypto.constants.defaultCoreCipherList;
     str = crypto.constants.defaultCipherList;
+}
+
+{
+    const sig: Buffer = crypto.sign('md5', Buffer.from(''), 'mykey');
+    const correct: Buffer = crypto.verify('md5', sig, 'mykey', sig);
 }

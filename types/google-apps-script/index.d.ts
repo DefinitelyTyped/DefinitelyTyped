@@ -35,10 +35,12 @@
 /// <reference path="google-apps-script.optimization.d.ts"/>
 /// <reference path="google-apps-script.properties.d.ts"/>
 /// <reference path="google-apps-script.script.d.ts"/>
-/// <reference path="google-apps-script.ui.d.ts"/>
 /// <reference path="google-apps-script.url-fetch.d.ts"/>
 /// <reference path="google-apps-script.utilities.d.ts"/>
 /// <reference path="google-apps-script.xml-service.d.ts"/>
+
+// Events
+/// <reference path="google-apps-script-events.d.ts"/>
 
 // API Types (Advanced Google Services)
 /// <reference path="apis/adsense_v1_4.d.ts"/>

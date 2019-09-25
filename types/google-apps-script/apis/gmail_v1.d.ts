@@ -5,24 +5,24 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace GoogleAppsScript {
-  namespace Gmail_v1 {
+  namespace Gmail {
     namespace Collection {
       namespace Users {
         namespace Messages {
           export interface AttachmentsCollection {
             // Gets the specified message attachment.
-            get(userId: string, messageId: string, id: string): Gmail_v1.Schema.MessagePartBody;
+            get(userId: string, messageId: string, id: string): Gmail.Schema.MessagePartBody;
           }
         }
         namespace Settings {
           namespace SendAs {
             export interface SmimeInfoCollection {
               // Gets the specified S/MIME config for the specified send-as alias.
-              get(userId: string, sendAsEmail: string, id: string): Gmail_v1.Schema.SmimeInfo;
+              get(userId: string, sendAsEmail: string, id: string): Gmail.Schema.SmimeInfo;
               // Insert (upload) the given S/MIME config for the specified send-as alias. Note that pkcs12 format is required for the key.
-              insert(resource: Schema.SmimeInfo, userId: string, sendAsEmail: string): Gmail_v1.Schema.SmimeInfo;
+              insert(resource: Schema.SmimeInfo, userId: string, sendAsEmail: string): Gmail.Schema.SmimeInfo;
               // Lists S/MIME configs for the specified send-as alias.
-              list(userId: string, sendAsEmail: string): Gmail_v1.Schema.ListSmimeInfoResponse;
+              list(userId: string, sendAsEmail: string): Gmail.Schema.ListSmimeInfoResponse;
               // Deletes the specified S/MIME config for the specified send-as alias.
               remove(userId: string, sendAsEmail: string, id: string): void;
               // Sets the default S/MIME config for the specified send-as alias.
@@ -35,14 +35,14 @@ declare namespace GoogleAppsScript {
             // Note that a delegate user must be referred to by their primary email address, and not an email alias.
             // Also note that when a new delegate is created, there may be up to a one minute delay before the new delegate is available for use.
             // This method is only available to service account clients that have been delegated domain-wide authority.
-            create(resource: Schema.Delegate, userId: string): Gmail_v1.Schema.Delegate;
+            create(resource: Schema.Delegate, userId: string): Gmail.Schema.Delegate;
             // Gets the specified delegate.
             // Note that a delegate user must be referred to by their primary email address, and not an email alias.
             // This method is only available to service account clients that have been delegated domain-wide authority.
-            get(userId: string, delegateEmail: string): Gmail_v1.Schema.Delegate;
+            get(userId: string, delegateEmail: string): Gmail.Schema.Delegate;
             // Lists the delegates for the specified account.
             // This method is only available to service account clients that have been delegated domain-wide authority.
-            list(userId: string): Gmail_v1.Schema.ListDelegatesResponse;
+            list(userId: string): Gmail.Schema.ListDelegatesResponse;
             // Removes the specified delegate (which can be of any verification status), and revokes any verification that may have been required for using it.
             // Note that a delegate user must be referred to by their primary email address, and not an email alias.
             // This method is only available to service account clients that have been delegated domain-wide authority.
@@ -50,44 +50,44 @@ declare namespace GoogleAppsScript {
           }
           export interface FiltersCollection {
             // Creates a filter.
-            create(resource: Schema.Filter, userId: string): Gmail_v1.Schema.Filter;
+            create(resource: Schema.Filter, userId: string): Gmail.Schema.Filter;
             // Gets a filter.
-            get(userId: string, id: string): Gmail_v1.Schema.Filter;
+            get(userId: string, id: string): Gmail.Schema.Filter;
             // Lists the message filters of a Gmail user.
-            list(userId: string): Gmail_v1.Schema.ListFiltersResponse;
+            list(userId: string): Gmail.Schema.ListFiltersResponse;
             // Deletes a filter.
             remove(userId: string, id: string): void;
           }
           export interface ForwardingAddressesCollection {
             // Creates a forwarding address. If ownership verification is required, a message will be sent to the recipient and the resource's verification status will be set to pending; otherwise, the resource will be created with verification status set to accepted.
             // This method is only available to service account clients that have been delegated domain-wide authority.
-            create(resource: Schema.ForwardingAddress, userId: string): Gmail_v1.Schema.ForwardingAddress;
+            create(resource: Schema.ForwardingAddress, userId: string): Gmail.Schema.ForwardingAddress;
             // Gets the specified forwarding address.
-            get(userId: string, forwardingEmail: string): Gmail_v1.Schema.ForwardingAddress;
+            get(userId: string, forwardingEmail: string): Gmail.Schema.ForwardingAddress;
             // Lists the forwarding addresses for the specified account.
-            list(userId: string): Gmail_v1.Schema.ListForwardingAddressesResponse;
+            list(userId: string): Gmail.Schema.ListForwardingAddressesResponse;
             // Deletes the specified forwarding address and revokes any verification that may have been required.
             // This method is only available to service account clients that have been delegated domain-wide authority.
             remove(userId: string, forwardingEmail: string): void;
           }
           export interface SendAsCollection {
-            SmimeInfo?: Gmail_v1.Collection.Users.Settings.SendAs.SmimeInfoCollection;
+            SmimeInfo?: Gmail.Collection.Users.Settings.SendAs.SmimeInfoCollection;
             // Creates a custom "from" send-as alias. If an SMTP MSA is specified, Gmail will attempt to connect to the SMTP service to validate the configuration before creating the alias. If ownership verification is required for the alias, a message will be sent to the email address and the resource's verification status will be set to pending; otherwise, the resource will be created with verification status set to accepted. If a signature is provided, Gmail will sanitize the HTML before saving it with the alias.
             // This method is only available to service account clients that have been delegated domain-wide authority.
-            create(resource: Schema.SendAs, userId: string): Gmail_v1.Schema.SendAs;
+            create(resource: Schema.SendAs, userId: string): Gmail.Schema.SendAs;
             // Gets the specified send-as alias. Fails with an HTTP 404 error if the specified address is not a member of the collection.
-            get(userId: string, sendAsEmail: string): Gmail_v1.Schema.SendAs;
+            get(userId: string, sendAsEmail: string): Gmail.Schema.SendAs;
             // Lists the send-as aliases for the specified account. The result includes the primary send-as address associated with the account as well as any custom "from" aliases.
-            list(userId: string): Gmail_v1.Schema.ListSendAsResponse;
+            list(userId: string): Gmail.Schema.ListSendAsResponse;
             // Updates a send-as alias. If a signature is provided, Gmail will sanitize the HTML before saving it with the alias.
             // Addresses other than the primary address for the account can only be updated by service account clients that have been delegated domain-wide authority. This method supports patch semantics.
-            patch(resource: Schema.SendAs, userId: string, sendAsEmail: string): Gmail_v1.Schema.SendAs;
+            patch(resource: Schema.SendAs, userId: string, sendAsEmail: string): Gmail.Schema.SendAs;
             // Deletes the specified send-as alias. Revokes any verification that may have been required for using it.
             // This method is only available to service account clients that have been delegated domain-wide authority.
             remove(userId: string, sendAsEmail: string): void;
             // Updates a send-as alias. If a signature is provided, Gmail will sanitize the HTML before saving it with the alias.
             // Addresses other than the primary address for the account can only be updated by service account clients that have been delegated domain-wide authority.
-            update(resource: Schema.SendAs, userId: string, sendAsEmail: string): Gmail_v1.Schema.SendAs;
+            update(resource: Schema.SendAs, userId: string, sendAsEmail: string): Gmail.Schema.SendAs;
             // Sends a verification email to the specified send-as alias address. The verification status must be pending.
             // This method is only available to service account clients that have been delegated domain-wide authority.
             verify(userId: string, sendAsEmail: string): void;
@@ -95,142 +95,142 @@ declare namespace GoogleAppsScript {
         }
         export interface DraftsCollection {
           // Creates a new draft with the DRAFT label.
-          create(resource: Schema.Draft, userId: string): Gmail_v1.Schema.Draft;
+          create(resource: Schema.Draft, userId: string): Gmail.Schema.Draft;
           // Creates a new draft with the DRAFT label.
-          create(resource: Schema.Draft, userId: string, mediaData: any): Gmail_v1.Schema.Draft;
+          create(resource: Schema.Draft, userId: string, mediaData: any): Gmail.Schema.Draft;
           // Gets the specified draft.
-          get(userId: string, id: string): Gmail_v1.Schema.Draft;
+          get(userId: string, id: string): Gmail.Schema.Draft;
           // Gets the specified draft.
-          get(userId: string, id: string, optionalArgs: object): Gmail_v1.Schema.Draft;
+          get(userId: string, id: string, optionalArgs: object): Gmail.Schema.Draft;
           // Lists the drafts in the user's mailbox.
-          list(userId: string): Gmail_v1.Schema.ListDraftsResponse;
+          list(userId: string): Gmail.Schema.ListDraftsResponse;
           // Lists the drafts in the user's mailbox.
-          list(userId: string, optionalArgs: object): Gmail_v1.Schema.ListDraftsResponse;
+          list(userId: string, optionalArgs: object): Gmail.Schema.ListDraftsResponse;
           // Immediately and permanently deletes the specified draft. Does not simply trash it.
           remove(userId: string, id: string): void;
           // Sends the specified, existing draft to the recipients in the To, Cc, and Bcc headers.
-          send(resource: Schema.Draft, userId: string): Gmail_v1.Schema.Message;
+          send(resource: Schema.Draft, userId: string): Gmail.Schema.Message;
           // Sends the specified, existing draft to the recipients in the To, Cc, and Bcc headers.
-          send(resource: Schema.Draft, userId: string, mediaData: any): Gmail_v1.Schema.Message;
+          send(resource: Schema.Draft, userId: string, mediaData: any): Gmail.Schema.Message;
           // Replaces a draft's content.
-          update(resource: Schema.Draft, userId: string, id: string): Gmail_v1.Schema.Draft;
+          update(resource: Schema.Draft, userId: string, id: string): Gmail.Schema.Draft;
           // Replaces a draft's content.
-          update(resource: Schema.Draft, userId: string, id: string, mediaData: any): Gmail_v1.Schema.Draft;
+          update(resource: Schema.Draft, userId: string, id: string, mediaData: any): Gmail.Schema.Draft;
         }
         export interface HistoryCollection {
           // Lists the history of all changes to the given mailbox. History results are returned in chronological order (increasing historyId).
-          list(userId: string): Gmail_v1.Schema.ListHistoryResponse;
+          list(userId: string): Gmail.Schema.ListHistoryResponse;
           // Lists the history of all changes to the given mailbox. History results are returned in chronological order (increasing historyId).
-          list(userId: string, optionalArgs: object): Gmail_v1.Schema.ListHistoryResponse;
+          list(userId: string, optionalArgs: object): Gmail.Schema.ListHistoryResponse;
         }
         export interface LabelsCollection {
           // Creates a new label.
-          create(resource: Schema.Label, userId: string): Gmail_v1.Schema.Label;
+          create(resource: Schema.Label, userId: string): Gmail.Schema.Label;
           // Gets the specified label.
-          get(userId: string, id: string): Gmail_v1.Schema.Label;
+          get(userId: string, id: string): Gmail.Schema.Label;
           // Lists all labels in the user's mailbox.
-          list(userId: string): Gmail_v1.Schema.ListLabelsResponse;
+          list(userId: string): Gmail.Schema.ListLabelsResponse;
           // Updates the specified label. This method supports patch semantics.
-          patch(resource: Schema.Label, userId: string, id: string): Gmail_v1.Schema.Label;
+          patch(resource: Schema.Label, userId: string, id: string): Gmail.Schema.Label;
           // Immediately and permanently deletes the specified label and removes it from any messages and threads that it is applied to.
           remove(userId: string, id: string): void;
           // Updates the specified label.
-          update(resource: Schema.Label, userId: string, id: string): Gmail_v1.Schema.Label;
+          update(resource: Schema.Label, userId: string, id: string): Gmail.Schema.Label;
         }
         export interface MessagesCollection {
-          Attachments?: Gmail_v1.Collection.Users.Messages.AttachmentsCollection;
+          Attachments?: Gmail.Collection.Users.Messages.AttachmentsCollection;
           // Deletes many messages by message ID. Provides no guarantees that messages were not already deleted or even existed at all.
           batchDelete(resource: Schema.BatchDeleteMessagesRequest, userId: string): void;
           // Modifies the labels on the specified messages.
           batchModify(resource: Schema.BatchModifyMessagesRequest, userId: string): void;
           // Gets the specified message.
-          get(userId: string, id: string): Gmail_v1.Schema.Message;
+          get(userId: string, id: string): Gmail.Schema.Message;
           // Gets the specified message.
-          get(userId: string, id: string, optionalArgs: object): Gmail_v1.Schema.Message;
+          get(userId: string, id: string, optionalArgs: object): Gmail.Schema.Message;
           // Imports a message into only this user's mailbox, with standard email delivery scanning and classification similar to receiving via SMTP. Does not send a message.
-          import(resource: Schema.Message, userId: string): Gmail_v1.Schema.Message;
+          import(resource: Schema.Message, userId: string): Gmail.Schema.Message;
           // Imports a message into only this user's mailbox, with standard email delivery scanning and classification similar to receiving via SMTP. Does not send a message.
-          import(resource: Schema.Message, userId: string, mediaData: any): Gmail_v1.Schema.Message;
+          import(resource: Schema.Message, userId: string, mediaData: any): Gmail.Schema.Message;
           // Imports a message into only this user's mailbox, with standard email delivery scanning and classification similar to receiving via SMTP. Does not send a message.
-          import(resource: Schema.Message, userId: string, mediaData: any, optionalArgs: object): Gmail_v1.Schema.Message;
+          import(resource: Schema.Message, userId: string, mediaData: any, optionalArgs: object): Gmail.Schema.Message;
           // Directly inserts a message into only this user's mailbox similar to IMAP APPEND, bypassing most scanning and classification. Does not send a message.
-          insert(resource: Schema.Message, userId: string): Gmail_v1.Schema.Message;
+          insert(resource: Schema.Message, userId: string): Gmail.Schema.Message;
           // Directly inserts a message into only this user's mailbox similar to IMAP APPEND, bypassing most scanning and classification. Does not send a message.
-          insert(resource: Schema.Message, userId: string, mediaData: any): Gmail_v1.Schema.Message;
+          insert(resource: Schema.Message, userId: string, mediaData: any): Gmail.Schema.Message;
           // Directly inserts a message into only this user's mailbox similar to IMAP APPEND, bypassing most scanning and classification. Does not send a message.
-          insert(resource: Schema.Message, userId: string, mediaData: any, optionalArgs: object): Gmail_v1.Schema.Message;
+          insert(resource: Schema.Message, userId: string, mediaData: any, optionalArgs: object): Gmail.Schema.Message;
           // Lists the messages in the user's mailbox.
-          list(userId: string): Gmail_v1.Schema.ListMessagesResponse;
+          list(userId: string): Gmail.Schema.ListMessagesResponse;
           // Lists the messages in the user's mailbox.
-          list(userId: string, optionalArgs: object): Gmail_v1.Schema.ListMessagesResponse;
+          list(userId: string, optionalArgs: object): Gmail.Schema.ListMessagesResponse;
           // Modifies the labels on the specified message.
-          modify(resource: Schema.ModifyMessageRequest, userId: string, id: string): Gmail_v1.Schema.Message;
+          modify(resource: Schema.ModifyMessageRequest, userId: string, id: string): Gmail.Schema.Message;
           // Immediately and permanently deletes the specified message. This operation cannot be undone. Prefer messages.trash instead.
           remove(userId: string, id: string): void;
           // Sends the specified message to the recipients in the To, Cc, and Bcc headers.
-          send(resource: Schema.Message, userId: string): Gmail_v1.Schema.Message;
+          send(resource: Schema.Message, userId: string): Gmail.Schema.Message;
           // Sends the specified message to the recipients in the To, Cc, and Bcc headers.
-          send(resource: Schema.Message, userId: string, mediaData: any): Gmail_v1.Schema.Message;
+          send(resource: Schema.Message, userId: string, mediaData: any): Gmail.Schema.Message;
           // Moves the specified message to the trash.
-          trash(userId: string, id: string): Gmail_v1.Schema.Message;
+          trash(userId: string, id: string): Gmail.Schema.Message;
           // Removes the specified message from the trash.
-          untrash(userId: string, id: string): Gmail_v1.Schema.Message;
+          untrash(userId: string, id: string): Gmail.Schema.Message;
         }
         export interface SettingsCollection {
-          Delegates?: Gmail_v1.Collection.Users.Settings.DelegatesCollection;
-          Filters?: Gmail_v1.Collection.Users.Settings.FiltersCollection;
-          ForwardingAddresses?: Gmail_v1.Collection.Users.Settings.ForwardingAddressesCollection;
-          SendAs?: Gmail_v1.Collection.Users.Settings.SendAsCollection;
+          Delegates?: Gmail.Collection.Users.Settings.DelegatesCollection;
+          Filters?: Gmail.Collection.Users.Settings.FiltersCollection;
+          ForwardingAddresses?: Gmail.Collection.Users.Settings.ForwardingAddressesCollection;
+          SendAs?: Gmail.Collection.Users.Settings.SendAsCollection;
           // Gets the auto-forwarding setting for the specified account.
-          getAutoForwarding(userId: string): Gmail_v1.Schema.AutoForwarding;
+          getAutoForwarding(userId: string): Gmail.Schema.AutoForwarding;
           // Gets IMAP settings.
-          getImap(userId: string): Gmail_v1.Schema.ImapSettings;
+          getImap(userId: string): Gmail.Schema.ImapSettings;
           // Gets POP settings.
-          getPop(userId: string): Gmail_v1.Schema.PopSettings;
+          getPop(userId: string): Gmail.Schema.PopSettings;
           // Gets vacation responder settings.
-          getVacation(userId: string): Gmail_v1.Schema.VacationSettings;
+          getVacation(userId: string): Gmail.Schema.VacationSettings;
           // Updates the auto-forwarding setting for the specified account. A verified forwarding address must be specified when auto-forwarding is enabled.
           // This method is only available to service account clients that have been delegated domain-wide authority.
-          updateAutoForwarding(resource: Schema.AutoForwarding, userId: string): Gmail_v1.Schema.AutoForwarding;
+          updateAutoForwarding(resource: Schema.AutoForwarding, userId: string): Gmail.Schema.AutoForwarding;
           // Updates IMAP settings.
-          updateImap(resource: Schema.ImapSettings, userId: string): Gmail_v1.Schema.ImapSettings;
+          updateImap(resource: Schema.ImapSettings, userId: string): Gmail.Schema.ImapSettings;
           // Updates POP settings.
-          updatePop(resource: Schema.PopSettings, userId: string): Gmail_v1.Schema.PopSettings;
+          updatePop(resource: Schema.PopSettings, userId: string): Gmail.Schema.PopSettings;
           // Updates vacation responder settings.
-          updateVacation(resource: Schema.VacationSettings, userId: string): Gmail_v1.Schema.VacationSettings;
+          updateVacation(resource: Schema.VacationSettings, userId: string): Gmail.Schema.VacationSettings;
         }
         export interface ThreadsCollection {
           // Gets the specified thread.
-          get(userId: string, id: string): Gmail_v1.Schema.Thread;
+          get(userId: string, id: string): Gmail.Schema.Thread;
           // Gets the specified thread.
-          get(userId: string, id: string, optionalArgs: object): Gmail_v1.Schema.Thread;
+          get(userId: string, id: string, optionalArgs: object): Gmail.Schema.Thread;
           // Lists the threads in the user's mailbox.
-          list(userId: string): Gmail_v1.Schema.ListThreadsResponse;
+          list(userId: string): Gmail.Schema.ListThreadsResponse;
           // Lists the threads in the user's mailbox.
-          list(userId: string, optionalArgs: object): Gmail_v1.Schema.ListThreadsResponse;
+          list(userId: string, optionalArgs: object): Gmail.Schema.ListThreadsResponse;
           // Modifies the labels applied to the thread. This applies to all messages in the thread.
-          modify(resource: Schema.ModifyThreadRequest, userId: string, id: string): Gmail_v1.Schema.Thread;
+          modify(resource: Schema.ModifyThreadRequest, userId: string, id: string): Gmail.Schema.Thread;
           // Immediately and permanently deletes the specified thread. This operation cannot be undone. Prefer threads.trash instead.
           remove(userId: string, id: string): void;
           // Moves the specified thread to the trash.
-          trash(userId: string, id: string): Gmail_v1.Schema.Thread;
+          trash(userId: string, id: string): Gmail.Schema.Thread;
           // Removes the specified thread from the trash.
-          untrash(userId: string, id: string): Gmail_v1.Schema.Thread;
+          untrash(userId: string, id: string): Gmail.Schema.Thread;
         }
       }
       export interface UsersCollection {
-        Drafts?: Gmail_v1.Collection.Users.DraftsCollection;
-        History?: Gmail_v1.Collection.Users.HistoryCollection;
-        Labels?: Gmail_v1.Collection.Users.LabelsCollection;
-        Messages?: Gmail_v1.Collection.Users.MessagesCollection;
-        Settings?: Gmail_v1.Collection.Users.SettingsCollection;
-        Threads?: Gmail_v1.Collection.Users.ThreadsCollection;
+        Drafts?: Gmail.Collection.Users.DraftsCollection;
+        History?: Gmail.Collection.Users.HistoryCollection;
+        Labels?: Gmail.Collection.Users.LabelsCollection;
+        Messages?: Gmail.Collection.Users.MessagesCollection;
+        Settings?: Gmail.Collection.Users.SettingsCollection;
+        Threads?: Gmail.Collection.Users.ThreadsCollection;
         // Gets the current user's Gmail profile.
-        getProfile(userId: string): Gmail_v1.Schema.Profile;
+        getProfile(userId: string): Gmail.Schema.Profile;
         // Stop receiving push notifications for the given user mailbox.
         stop(userId: string): void;
         // Set up or update a push notification watch on the given user mailbox.
-        watch(resource: Schema.WatchRequest, userId: string): Gmail_v1.Schema.WatchResponse;
+        watch(resource: Schema.WatchRequest, userId: string): Gmail.Schema.WatchResponse;
       }
     }
     namespace Schema {
@@ -253,11 +253,11 @@ declare namespace GoogleAppsScript {
       }
       export interface Draft {
         id?: string;
-        message?: Gmail_v1.Schema.Message;
+        message?: Gmail.Schema.Message;
       }
       export interface Filter {
-        action?: Gmail_v1.Schema.FilterAction;
-        criteria?: Gmail_v1.Schema.FilterCriteria;
+        action?: Gmail.Schema.FilterAction;
+        criteria?: Gmail.Schema.FilterCriteria;
         id?: string;
       }
       export interface FilterAction {
@@ -282,25 +282,25 @@ declare namespace GoogleAppsScript {
       }
       export interface History {
         id?: string;
-        labelsAdded?: Gmail_v1.Schema.HistoryLabelAdded[];
-        labelsRemoved?: Gmail_v1.Schema.HistoryLabelRemoved[];
-        messages?: Gmail_v1.Schema.Message[];
-        messagesAdded?: Gmail_v1.Schema.HistoryMessageAdded[];
-        messagesDeleted?: Gmail_v1.Schema.HistoryMessageDeleted[];
+        labelsAdded?: Gmail.Schema.HistoryLabelAdded[];
+        labelsRemoved?: Gmail.Schema.HistoryLabelRemoved[];
+        messages?: Gmail.Schema.Message[];
+        messagesAdded?: Gmail.Schema.HistoryMessageAdded[];
+        messagesDeleted?: Gmail.Schema.HistoryMessageDeleted[];
       }
       export interface HistoryLabelAdded {
         labelIds?: string[];
-        message?: Gmail_v1.Schema.Message;
+        message?: Gmail.Schema.Message;
       }
       export interface HistoryLabelRemoved {
         labelIds?: string[];
-        message?: Gmail_v1.Schema.Message;
+        message?: Gmail.Schema.Message;
       }
       export interface HistoryMessageAdded {
-        message?: Gmail_v1.Schema.Message;
+        message?: Gmail.Schema.Message;
       }
       export interface HistoryMessageDeleted {
-        message?: Gmail_v1.Schema.Message;
+        message?: Gmail.Schema.Message;
       }
       export interface ImapSettings {
         autoExpunge?: boolean;
@@ -309,7 +309,7 @@ declare namespace GoogleAppsScript {
         maxFolderSize?: number;
       }
       export interface Label {
-        color?: Gmail_v1.Schema.LabelColor;
+        color?: Gmail.Schema.LabelColor;
         id?: string;
         labelListVisibility?: string;
         messageListVisibility?: string;
@@ -325,61 +325,61 @@ declare namespace GoogleAppsScript {
         textColor?: string;
       }
       export interface ListDelegatesResponse {
-        delegates?: Gmail_v1.Schema.Delegate[];
+        delegates?: Gmail.Schema.Delegate[];
       }
       export interface ListDraftsResponse {
-        drafts?: Gmail_v1.Schema.Draft[];
+        drafts?: Gmail.Schema.Draft[];
         nextPageToken?: string;
         resultSizeEstimate?: number;
       }
       export interface ListFiltersResponse {
-        filter?: Gmail_v1.Schema.Filter[];
+        filter?: Gmail.Schema.Filter[];
       }
       export interface ListForwardingAddressesResponse {
-        forwardingAddresses?: Gmail_v1.Schema.ForwardingAddress[];
+        forwardingAddresses?: Gmail.Schema.ForwardingAddress[];
       }
       export interface ListHistoryResponse {
-        history?: Gmail_v1.Schema.History[];
+        history?: Gmail.Schema.History[];
         historyId?: string;
         nextPageToken?: string;
       }
       export interface ListLabelsResponse {
-        labels?: Gmail_v1.Schema.Label[];
+        labels?: Gmail.Schema.Label[];
       }
       export interface ListMessagesResponse {
-        messages?: Gmail_v1.Schema.Message[];
+        messages?: Gmail.Schema.Message[];
         nextPageToken?: string;
         resultSizeEstimate?: number;
       }
       export interface ListSendAsResponse {
-        sendAs?: Gmail_v1.Schema.SendAs[];
+        sendAs?: Gmail.Schema.SendAs[];
       }
       export interface ListSmimeInfoResponse {
-        smimeInfo?: Gmail_v1.Schema.SmimeInfo[];
+        smimeInfo?: Gmail.Schema.SmimeInfo[];
       }
       export interface ListThreadsResponse {
         nextPageToken?: string;
         resultSizeEstimate?: number;
-        threads?: Gmail_v1.Schema.Thread[];
+        threads?: Gmail.Schema.Thread[];
       }
       export interface Message {
         historyId?: string;
         id?: string;
         internalDate?: string;
         labelIds?: string[];
-        payload?: Gmail_v1.Schema.MessagePart;
+        payload?: Gmail.Schema.MessagePart;
         raw?: string;
         sizeEstimate?: number;
         snippet?: string;
         threadId?: string;
       }
       export interface MessagePart {
-        body?: Gmail_v1.Schema.MessagePartBody;
+        body?: Gmail.Schema.MessagePartBody;
         filename?: string;
-        headers?: Gmail_v1.Schema.MessagePartHeader[];
+        headers?: Gmail.Schema.MessagePartHeader[];
         mimeType?: string;
         partId?: string;
-        parts?: Gmail_v1.Schema.MessagePart[];
+        parts?: Gmail.Schema.MessagePart[];
       }
       export interface MessagePartBody {
         attachmentId?: string;
@@ -415,7 +415,7 @@ declare namespace GoogleAppsScript {
         replyToAddress?: string;
         sendAsEmail?: string;
         signature?: string;
-        smtpMsa?: Gmail_v1.Schema.SmtpMsa;
+        smtpMsa?: Gmail.Schema.SmtpMsa;
         treatAsAlias?: boolean;
         verificationStatus?: string;
       }
@@ -438,7 +438,7 @@ declare namespace GoogleAppsScript {
       export interface Thread {
         historyId?: string;
         id?: string;
-        messages?: Gmail_v1.Schema.Message[];
+        messages?: Gmail.Schema.Message[];
         snippet?: string;
       }
       export interface VacationSettings {
@@ -462,57 +462,57 @@ declare namespace GoogleAppsScript {
       }
     }
   }
-  export interface Gmail_v1 {
-    Users?: Gmail_v1.Collection.UsersCollection;
+  export interface Gmail {
+    Users?: Gmail.Collection.UsersCollection;
     // Create a new instance of AutoForwarding
-    newAutoForwarding(): Gmail_v1.Schema.AutoForwarding;
+    newAutoForwarding(): Gmail.Schema.AutoForwarding;
     // Create a new instance of BatchDeleteMessagesRequest
-    newBatchDeleteMessagesRequest(): Gmail_v1.Schema.BatchDeleteMessagesRequest;
+    newBatchDeleteMessagesRequest(): Gmail.Schema.BatchDeleteMessagesRequest;
     // Create a new instance of BatchModifyMessagesRequest
-    newBatchModifyMessagesRequest(): Gmail_v1.Schema.BatchModifyMessagesRequest;
+    newBatchModifyMessagesRequest(): Gmail.Schema.BatchModifyMessagesRequest;
     // Create a new instance of Delegate
-    newDelegate(): Gmail_v1.Schema.Delegate;
+    newDelegate(): Gmail.Schema.Delegate;
     // Create a new instance of Draft
-    newDraft(): Gmail_v1.Schema.Draft;
+    newDraft(): Gmail.Schema.Draft;
     // Create a new instance of Filter
-    newFilter(): Gmail_v1.Schema.Filter;
+    newFilter(): Gmail.Schema.Filter;
     // Create a new instance of FilterAction
-    newFilterAction(): Gmail_v1.Schema.FilterAction;
+    newFilterAction(): Gmail.Schema.FilterAction;
     // Create a new instance of FilterCriteria
-    newFilterCriteria(): Gmail_v1.Schema.FilterCriteria;
+    newFilterCriteria(): Gmail.Schema.FilterCriteria;
     // Create a new instance of ForwardingAddress
-    newForwardingAddress(): Gmail_v1.Schema.ForwardingAddress;
+    newForwardingAddress(): Gmail.Schema.ForwardingAddress;
     // Create a new instance of ImapSettings
-    newImapSettings(): Gmail_v1.Schema.ImapSettings;
+    newImapSettings(): Gmail.Schema.ImapSettings;
     // Create a new instance of Label
-    newLabel(): Gmail_v1.Schema.Label;
+    newLabel(): Gmail.Schema.Label;
     // Create a new instance of LabelColor
-    newLabelColor(): Gmail_v1.Schema.LabelColor;
+    newLabelColor(): Gmail.Schema.LabelColor;
     // Create a new instance of Message
-    newMessage(): Gmail_v1.Schema.Message;
+    newMessage(): Gmail.Schema.Message;
     // Create a new instance of MessagePart
-    newMessagePart(): Gmail_v1.Schema.MessagePart;
+    newMessagePart(): Gmail.Schema.MessagePart;
     // Create a new instance of MessagePartBody
-    newMessagePartBody(): Gmail_v1.Schema.MessagePartBody;
+    newMessagePartBody(): Gmail.Schema.MessagePartBody;
     // Create a new instance of MessagePartHeader
-    newMessagePartHeader(): Gmail_v1.Schema.MessagePartHeader;
+    newMessagePartHeader(): Gmail.Schema.MessagePartHeader;
     // Create a new instance of ModifyMessageRequest
-    newModifyMessageRequest(): Gmail_v1.Schema.ModifyMessageRequest;
+    newModifyMessageRequest(): Gmail.Schema.ModifyMessageRequest;
     // Create a new instance of ModifyThreadRequest
-    newModifyThreadRequest(): Gmail_v1.Schema.ModifyThreadRequest;
+    newModifyThreadRequest(): Gmail.Schema.ModifyThreadRequest;
     // Create a new instance of PopSettings
-    newPopSettings(): Gmail_v1.Schema.PopSettings;
+    newPopSettings(): Gmail.Schema.PopSettings;
     // Create a new instance of SendAs
-    newSendAs(): Gmail_v1.Schema.SendAs;
+    newSendAs(): Gmail.Schema.SendAs;
     // Create a new instance of SmimeInfo
-    newSmimeInfo(): Gmail_v1.Schema.SmimeInfo;
+    newSmimeInfo(): Gmail.Schema.SmimeInfo;
     // Create a new instance of SmtpMsa
-    newSmtpMsa(): Gmail_v1.Schema.SmtpMsa;
+    newSmtpMsa(): Gmail.Schema.SmtpMsa;
     // Create a new instance of VacationSettings
-    newVacationSettings(): Gmail_v1.Schema.VacationSettings;
+    newVacationSettings(): Gmail.Schema.VacationSettings;
     // Create a new instance of WatchRequest
-    newWatchRequest(): Gmail_v1.Schema.WatchRequest;
+    newWatchRequest(): Gmail.Schema.WatchRequest;
   }
 }
 
-declare var Gmail_v1: GoogleAppsScript.Gmail_v1;
+declare var Gmail: GoogleAppsScript.Gmail;

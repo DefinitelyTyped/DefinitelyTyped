@@ -8,7 +8,6 @@
 //                 Patricio Zavolinsky <https://github.com/pzavolinsky>
 //                 Digiguru <https://github.com/digiguru>
 //                 Eric Anderson <https://github.com/ericanderson>
-//                 Tanguy Krotoff <https://github.com/tkrotoff>
 //                 Dovydas Navickas <https://github.com/DovydasNavickas>
 //                 Stéphane Goetz <https://github.com/onigoetz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -2392,63 +2391,8 @@ declare namespace React {
         [propertyName: string]: any;
     }
 
-    interface HTMLAttributes<T> extends DOMAttributes<T> {
-        // React-specific Attributes
-        defaultChecked?: boolean;
-        defaultValue?: string | string[];
-        suppressContentEditableWarning?: boolean;
-
-        // Standard HTML Attributes
-        accessKey?: string;
-        className?: string;
-        contentEditable?: boolean;
-        contextMenu?: string;
-        dir?: string;
-        draggable?: boolean;
-        hidden?: boolean;
-        id?: string;
-        lang?: string;
-        slot?: string;
-        spellCheck?: boolean;
-        style?: CSSProperties;
-        tabIndex?: number;
-        title?: string;
-
-        // Unknown
-        inputMode?: string;
-        is?: string;
-        radioGroup?: string; // <command>, <menuitem>
-
-        // WAI-ARIA
-        role?: string;
-
-        // RDFa Attributes
-        about?: string;
-        datatype?: string;
-        inlist?: any;
-        prefix?: string;
-        property?: string;
-        resource?: string;
-        typeof?: string;
-        vocab?: string;
-
-        // Non-standard Attributes
-        autoCapitalize?: string;
-        autoCorrect?: string;
-        autoSave?: string;
-        color?: string;
-        itemProp?: string;
-        itemScope?: boolean;
-        itemType?: string;
-        itemID?: string;
-        itemRef?: string;
-        results?: number;
-        security?: string;
-        unselectable?: boolean;
-    }
-
     // All the WAI-ARIA 1.1 attributes from https://www.w3.org/TR/wai-aria-1.1/
-    interface HTMLAttributes<T> extends DOMAttributes<T> {
+    interface AriaAttributes {
         /** Identifies the currently active element when DOM focus is on a composite widget, textbox, group, or application. */
         'aria-activedescendant'?: string;
         /** Indicates whether assistive technologies will present all, or only parts of, the changed region based on the change notifications defined by the aria-relevant attribute. */
@@ -2635,6 +2579,61 @@ declare namespace React {
         'aria-valuetext'?: string;
     }
 
+    interface HTMLAttributes<T> extends AriaAttributes, DOMAttributes<T> {
+        // React-specific Attributes
+        defaultChecked?: boolean;
+        defaultValue?: string | string[];
+        suppressContentEditableWarning?: boolean;
+
+        // Standard HTML Attributes
+        accessKey?: string;
+        className?: string;
+        contentEditable?: boolean;
+        contextMenu?: string;
+        dir?: string;
+        draggable?: boolean;
+        hidden?: boolean;
+        id?: string;
+        lang?: string;
+        slot?: string;
+        spellCheck?: boolean;
+        style?: CSSProperties;
+        tabIndex?: number;
+        title?: string;
+
+        // Unknown
+        inputMode?: string;
+        is?: string;
+        radioGroup?: string; // <command>, <menuitem>
+
+        // WAI-ARIA
+        role?: string;
+
+        // RDFa Attributes
+        about?: string;
+        datatype?: string;
+        inlist?: any;
+        prefix?: string;
+        property?: string;
+        resource?: string;
+        typeof?: string;
+        vocab?: string;
+
+        // Non-standard Attributes
+        autoCapitalize?: string;
+        autoCorrect?: string;
+        autoSave?: string;
+        color?: string;
+        itemProp?: string;
+        itemScope?: boolean;
+        itemType?: string;
+        itemID?: string;
+        itemRef?: string;
+        results?: number;
+        security?: string;
+        unselectable?: boolean;
+    }
+
     interface AllHTMLAttributes<T> extends HTMLAttributes<T> {
         // Standard HTML Attributes
         accept?: string;
@@ -2803,6 +2802,10 @@ declare namespace React {
 
     interface ColgroupHTMLAttributes<T> extends HTMLAttributes<T> {
         span?: number;
+    }
+
+    interface DataHTMLAttributes<T> extends HTMLAttributes<T> {
+        value?: string | string[] | number;
     }
 
     interface DetailsHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -3133,7 +3136,7 @@ declare namespace React {
     //   - "number | string"
     //   - "string"
     //   - union of string literals
-    interface SVGAttributes<T> extends DOMAttributes<T> {
+    interface SVGAttributes<T> extends AriaAttributes, DOMAttributes<T> {
         // Attributes which also defined in HTMLAttributes
         // See comment in SVGDOMPropertyConfig.js
         className?: string;
@@ -3426,7 +3429,7 @@ declare namespace React {
         code: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
         col: DetailedHTMLFactory<ColHTMLAttributes<HTMLTableColElement>, HTMLTableColElement>;
         colgroup: DetailedHTMLFactory<ColgroupHTMLAttributes<HTMLTableColElement>, HTMLTableColElement>;
-        data: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        data: DetailedHTMLFactory<DataHTMLAttributes<HTMLDataElement>, HTMLDataElement>;
         datalist: DetailedHTMLFactory<HTMLAttributes<HTMLDataListElement>, HTMLDataListElement>;
         dd: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
         del: DetailedHTMLFactory<DelHTMLAttributes<HTMLElement>, HTMLElement>;
@@ -3502,6 +3505,7 @@ declare namespace React {
         summary: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
         sup: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
         table: DetailedHTMLFactory<TableHTMLAttributes<HTMLTableElement>, HTMLTableElement>;
+        template: DetailedHTMLFactory<HTMLAttributes<HTMLTemplateElement>, HTMLTemplateElement>;
         tbody: DetailedHTMLFactory<HTMLAttributes<HTMLTableSectionElement>, HTMLTableSectionElement>;
         td: DetailedHTMLFactory<TdHTMLAttributes<HTMLTableDataCellElement>, HTMLTableDataCellElement>;
         textarea: DetailedHTMLFactory<TextareaHTMLAttributes<HTMLTextAreaElement>, HTMLTextAreaElement>;
@@ -3657,7 +3661,7 @@ declare global {
             code: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
             col: React.DetailedHTMLProps<React.ColHTMLAttributes<HTMLTableColElement>, HTMLTableColElement>;
             colgroup: React.DetailedHTMLProps<React.ColgroupHTMLAttributes<HTMLTableColElement>, HTMLTableColElement>;
-            data: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            data: React.DetailedHTMLProps<React.DataHTMLAttributes<HTMLDataElement>, HTMLDataElement>;
             datalist: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDataListElement>, HTMLDataListElement>;
             dd: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
             del: React.DetailedHTMLProps<React.DelHTMLAttributes<HTMLElement>, HTMLElement>;
@@ -3734,6 +3738,7 @@ declare global {
             summary: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
             sup: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
             table: React.DetailedHTMLProps<React.TableHTMLAttributes<HTMLTableElement>, HTMLTableElement>;
+            template: React.DetailedHTMLFactory<React.HTMLAttributes<HTMLTemplateElement>, HTMLTemplateElement>;
             tbody: React.DetailedHTMLProps<React.HTMLAttributes<HTMLTableSectionElement>, HTMLTableSectionElement>;
             td: React.DetailedHTMLProps<React.TdHTMLAttributes<HTMLTableDataCellElement>, HTMLTableDataCellElement>;
             textarea: React.DetailedHTMLProps<React.TextareaHTMLAttributes<HTMLTextAreaElement>, HTMLTextAreaElement>;

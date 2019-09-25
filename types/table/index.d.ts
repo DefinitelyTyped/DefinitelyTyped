@@ -8,10 +8,11 @@ export type BorderType = 'honeywell' | 'norc' | 'ramac' | 'void';
 
 export interface ColumnConfig {
     alignment?: 'left' | 'center' | 'right';
-    width?: number;
-    truncate?: number;
     paddingLeft?: number;
     paddingRight?: number;
+    truncate?: number;
+    width?: number;
+    wrapWord?: boolean;
 }
 
 export interface JoinStruct {
@@ -43,6 +44,7 @@ export interface TableUserConfig {
     border?: JoinStruct;
     columnDefault?: ColumnConfig;
     columnCount?: number;
+    singleLine?: boolean;
 }
 
 export function table(data: any[], userConfig?: TableUserConfig): string;

@@ -172,7 +172,7 @@ var data: any;
 pusher = new Pusher(applicationKey, options);
 
 options = {
-    encrypted: true, // true/false
+    forceTLS: true, // true/false
     auth: {
         params: { // {key: value} pairs
             param1: 'value1',
@@ -203,7 +203,7 @@ pusher = new Pusher('app_key', {
 
 pusher = new Pusher('app_key', { cluster: 'eu' });
 
-pusher = new Pusher('app_key', { encrypted: true });
+pusher = new Pusher('app_key', { forceTLS: true });
 
 pusher = new Pusher('app_key');
 pusher.connection.bind('error', function(err: any) {

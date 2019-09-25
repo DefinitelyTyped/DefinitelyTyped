@@ -13,6 +13,11 @@ const id = new Git.Oid();
 const ref = new Git.Reference();
 const tree = new Git.Tree();
 
+tree.walk().start();
+tree.getEntry("/").then(entry => {
+    // Use entry
+});
+
 // AnnotatedCommit Tests
 
 Git.AnnotatedCommit.fromFetchhead(repo, "branch_name", "remote_url", id).then((annotatedCommit) => {

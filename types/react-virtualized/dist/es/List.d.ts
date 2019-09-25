@@ -1,12 +1,8 @@
-import { PureComponent, Validator, Requireable } from "react";
-import {
-    Grid,
-    GridCoreProps,
-    GridCellProps,
-    OverscanIndicesGetter
-} from "./Grid";
-import { Index, IndexRange, Alignment } from "../../index";
-import { CellMeasurerCache, CellPosition } from "./CellMeasurer";
+import { PureComponent, Validator, Requireable } from 'react';
+import { Grid, GridCoreProps, GridCellProps, OverscanIndicesGetter } from './Grid';
+import { Index, IndexRange, Alignment } from '../../index';
+import { CellMeasurerCache, CellPosition } from './CellMeasurer';
+import { OnScrollParams } from './ScrollSync';
 
 export type ListRowProps = Pick<GridCellProps, Exclude<keyof GridCellProps, 'rowIndex'>> & {
     index: GridCellProps['rowIndex'];
@@ -35,14 +31,12 @@ export type ListProps = GridCoreProps & {
      * Callback invoked with information about the slice of rows that were just rendered.
      * ({ startIndex, stopIndex }): void
      */
-    onRowsRendered?: (
-        info: {
-            overscanStartIndex: number;
-            overscanStopIndex: number;
-            startIndex: number;
-            stopIndex: number;
-        }
-    ) => void;
+    onRowsRendered?: (info: {
+        overscanStartIndex: number;
+        overscanStopIndex: number;
+        startIndex: number;
+        stopIndex: number;
+    }) => void;
     /**
      * Number of rows to render above/below the visible bounds of the list.
      * These rows can help for smoother scrolling on touch devices.
@@ -53,9 +47,7 @@ export type ListProps = GridCoreProps & {
      * This callback can be used to sync scrolling between lists, tables, or grids.
      * ({ clientHeight, scrollHeight, scrollTop }): void
      */
-    onScroll?: (
-        info: { clientHeight: number; scrollHeight: number; scrollTop: number }
-    ) => void;
+    onScroll?: (params: OnScrollParams) => void;
     /** See Grid#overscanIndicesGetter */
     overscanIndicesGetter?: OverscanIndicesGetter;
     /**
@@ -97,7 +89,7 @@ export class List extends PureComponent<ListProps> {
         onRowsRendered: () => void;
         overscanIndicesGetter: OverscanIndicesGetter;
         overscanRowCount: 10;
-        scrollToAlignment: "auto";
+        scrollToAlignment: 'auto';
         scrollToIndex: -1;
         style: {};
     };
@@ -110,10 +102,7 @@ export class List extends PureComponent<ListProps> {
     getOffsetForRow(params: { alignment?: Alignment; index?: number }): number;
 
     /** CellMeasurer compatibility */
-    invalidateCellSizeAfterRender({
-        columnIndex,
-        rowIndex
-    }: CellPosition): void;
+    invalidateCellSizeAfterRender({ columnIndex, rowIndex }: CellPosition): void;
 
     /** See Grid#measureAllCells */
     measureAllRows(): void;

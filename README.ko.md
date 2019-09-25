@@ -85,7 +85,7 @@ NPM 의 "foo" 패키지에 대응되는 자료형 패키지는 "@types/foo" 입�
 
 * `cd types/my-package-to-edit` 명령을 실행합니다.
 * 자료형(Typing) 파일들을 수정합니다. 테스트를 추가하는 것도 잊지마세요!
-  만약 브레이킹 체인지(Breaking change)를 만드셨다면, [메이저 버전(major version)](#i-want-to-update-a-package-to-a-new-major-version)을 꼭 올려주세요.
+  만약 브레이킹 체인지(Breaking change)를 만드셨다면, [메이저 버전(major version)](#패키지를-새-메이저-버전major-version에-맞게-갱신하고-싶어요)을 꼭 올려주세요.
 * 패키지 머릿주석의 "Definitions by" 부분에 여러분의 이름을 추가하실 수도 있습니다.
   - 이름을 추가하시면 다른 사람들이 그 패키지에 대한 풀 리퀘스트(Pull request)나 이슈(Issue)를 만들 때 여러분에게 알람이 갑니다.
   - `// Definitions by: Alice <https://github.com/alice>, Bob <https://github.com/bob>` 와 같이 여러분의 이름을 줄의 맨 마지막에 추가할 수 있습니다.

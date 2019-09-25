@@ -6,8 +6,9 @@
 //                 GP <https://github.com/paambaati>
 //                 Alex Ferrando <https://github.com/alferpal>
 //                 Oleksandr Sidko <https://github.com/mortiy>
+//                 Harris Lummis <https://github.com/lummish>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.7
 
 /// <reference types="node"/>
 
@@ -15,6 +16,7 @@ import stream = require('stream');
 import http = require('http');
 import EventEmitter = require('events');
 import SonicBoom = require('sonic-boom');
+import * as pinoStdSerializers from 'pino-std-serializers';
 
 export = P;
 
@@ -39,6 +41,11 @@ declare namespace P {
      */
     const LOG_VERSION: number;
     const levels: LevelMapping;
+
+    type SerializedError = pinoStdSerializers.SerializedError;
+    type SerializedResponse = pinoStdSerializers.SerializedResponse;
+    type SerializedRequest = pinoStdSerializers.SerializedRequest;
+
     /**
      * Provides functions for serializing objects common to many projects.
      */
@@ -46,26 +53,63 @@ declare namespace P {
         /**
          * Generates a JSONifiable object from the HTTP `request` object passed to the `createServer` callback of Node's HTTP server.
          */
-        req(req: http.IncomingMessage): {
-            method: string;
-            url: string;
-            headers: http.IncomingHttpHeaders;
-            remoteAddress: string;
-            remotePort: number;
-        };
+        req: typeof pinoStdSerializers.req;
         /**
          * Generates a JSONifiable object from the HTTP `response` object passed to the `createServer` callback of Node's HTTP server.
          */
-        res(res: http.ServerResponse): { statusCode: number; header: string; };
+        res: typeof pinoStdSerializers.res;
         /**
          * Serializes an Error object.
          */
-        err(err: Error): {
-            type: string;
-            message: string;
-            stack: string;
-            [key: string]: any;
-        };
+        err: typeof pinoStdSerializers.err;
+        /**
+         * Returns an object:
+         * ```
+         * {
+         *   req: {}
+         * }
+         * ```
+         * where req is the request as serialized by the standard request serializer.
+         * @param req The request to serialize
+         * @return An object
+         */
+        mapHttpRequest: typeof pinoStdSerializers.mapHttpRequest;
+        /**
+         * Returns an object:
+         * ```
+         * {
+         *   res: {}
+         * }
+         * ```
+         * where res is the response as serialized by the standard response serializer.
+         * @param res The response to serialize.
+         * @return An object.
+         */
+        mapHttpResponse: typeof pinoStdSerializers.mapHttpResponse;
+        /**
+         * A utility method for wrapping the default error serializer. Allows custom serializers to work with the
+         * already serialized object.
+         * @param customSerializer The custom error serializer. Accepts a single parameter: the newly serialized
+         * error object. Returns the new (or updated) error object.
+         * @return A new error serializer.
+         */
+        wrapErrorSerializer: typeof pinoStdSerializers.wrapErrorSerializer;
+        /**
+         * A utility method for wrapping the default request serializer. Allows custom serializers to work with the
+         * already serialized object.
+         * @param customSerializer The custom request serializer. Accepts a single parameter: the newly serialized
+         * request object. Returns the new (or updated) request object.
+         * @return A new error serializer.
+         */
+        wrapRequestSerializer: typeof pinoStdSerializers.wrapRequestSerializer;
+        /**
+         * A utility method for wrapping the default response serializer. Allows custom serializers to work with the
+         * already serialized object.
+         * @param customSerializer The custom response serializer. Accepts a single parameter: the newly serialized
+         * response object. Returns the new (or updated) response object.
+         * @return A new error serializer.
+         */
+        wrapResponseSerializer: typeof pinoStdSerializers.wrapResponseSerializer;
     };
     /**
      * Provides functions for generating the timestamp property in the log output. You can set the `timestamp` option during
@@ -260,6 +304,10 @@ declare namespace P {
          */
         messageKey?: string;
         /**
+         * The key in the JSON object to use for timestamp display. Default: "time".
+         */
+        timestampKey?: string;
+        /**
          * If set to true, will add color information to the formatted output message. Default: `false`.
          */
         colorize?: boolean;
@@ -280,6 +328,10 @@ declare namespace P {
          * Specify a search pattern according to {@link http://jmespath.org|jmespath}
          */
         search?: string;
+        /**
+         * Ignore one or several keys. Example: "time,hostname"
+         */
+        ignore?: string;
     }
 
     type Level = 'fatal' | 'error' | 'warn' | 'info' | 'debug' | 'trace';
@@ -345,16 +397,6 @@ declare namespace P {
          */
         levelVal: number;
 
-        /**
-         * Defines a new level on the logger instance. Returns `true` on success and `false` if there was a conflict (level name or number already exists).
-         * When using this method, the current level of the logger instance does not change. You must adjust the level with the `level` property after
-         * adding your custom level.
-         *
-         * @param name: defines the method name of the new level
-         * @param lvl: value for the level, e.g. `35` is between `info` and `warn`
-         * @returns whether level was correctly created or not
-         */
-        addLevel(name: string, lvl: number): boolean;
         /**
          * Registers a listener function that is triggered when the level is changed.
          * Note: When browserified, this functionality will only be available if the `events` module has been required elsewhere

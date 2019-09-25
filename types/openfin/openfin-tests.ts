@@ -893,6 +893,25 @@ function test_window() {
     });
 }
 
+function test_external_window() {
+    // wrapSync
+    const externalWin = fin.ExternalWindow.wrapSync({uuid: 'uuid', name: 'name'});
+
+    // getCurrent
+    fin.System.getFocusedExternalWindow();
+
+    // getAllExternalWindows
+    fin.System.getAllExternalWindows().then(exWins => exWins.forEach(exWin => console.log(exWin.uuid)));
+    // addEventListener
+    externalWin.addListener('some-event', event => console.log(event.message));
+
+    // removeEventListener
+    externalWin.removeListener('some-event', () => {});
+
+    // getInfo
+    externalWin.getInfo().then(console.log);
+}
+
 function test_frame() {
     // wrap
     const frame = fin.desktop.Frame.wrap('uuid', 'name');

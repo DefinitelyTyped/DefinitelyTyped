@@ -27,7 +27,7 @@ export namespace graphlib {
         inEdges(inNodeName: string, outNodeName?: string): Edge[]|undefined;
         outEdges(outNodeName: string, inNodeName?: string): Edge[]|undefined;
         removeEdge(outNodeName: string, inNodeName: string): Graph;
-        setDefaultEdgeLabel(callback: string|((edge: Edge) => string|Label)): Graph;
+        setDefaultEdgeLabel(callback: string|((v: string, w: string, name?: string) => string|Label)): Graph;
         setEdge(params: Edge, value?: string|{[key: string]: any}): Graph;
         setEdge(sourceId: string, targetId: string, value?: string|Label, name?: string): Graph;
 

@@ -1,11 +1,9 @@
-
 import Diff2Html = require('diff2html');
 
 let d2h = Diff2Html.Diff2Html;
 
 class Diff2HtmlOptionsImpl implements Diff2Html.Options {
-    constructor (public inputFormat: string) {
-    }
+    constructor(public inputFormat: 'diff' | 'json') {}
 }
 
 let strInput =

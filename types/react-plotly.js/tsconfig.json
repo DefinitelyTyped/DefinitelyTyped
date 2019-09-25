@@ -23,6 +23,7 @@
     },
     "files": [
         "index.d.ts",
+        "factory.d.ts",
         "react-plotly.js-tests.tsx"
     ]
 }

@@ -66,12 +66,13 @@ const FixedSizeListTestOptionalProps: React.SFC<{ testBool: boolean }> = ({
         itemCount={0}
         width={0}
         className=""
-        direction={testBool ? "vertical" : "horizontal"}
+        direction={testBool ? "rtl" : "ltr"}
         initialScrollOffset={0}
         innerRef={anyRef}
         innerElementType="div"
         itemData={{ foo: "bar" }}
         itemKey={index => "foo" + index.toString()}
+        layout={testBool ? "vertical" : "horizontal"}
         onItemsRendered={({
             overscanStartIndex,
             overscanStopIndex,
@@ -112,12 +113,13 @@ const VariableSizeListTestOptionalProps: React.SFC<{ testBool: boolean }> = ({
         itemCount={0}
         width={0}
         className=""
-        direction={testBool ? "vertical" : "horizontal"}
+        direction={testBool ? "rtl" : "ltr"}
         initialScrollOffset={0}
         innerRef={anyRef}
         innerElementType="div"
         itemData={{ foo: "bar" }}
         itemKey={index => "foo" + index.toString()}
+        layout={testBool ? "vertical" : "horizontal"}
         onItemsRendered={({
             overscanStartIndex,
             overscanStopIndex,
@@ -150,7 +152,9 @@ const VariableSizeListTestOptionalProps: React.SFC<{ testBool: boolean }> = ({
     </VariableSizeList>
 );
 
-const VariableSizeGridTestOptionalProps: React.SFC = () => (
+const VariableSizeGridTestOptionalProps: React.SFC<{ testBool: boolean }> = ({
+    testBool
+}) => (
     <VariableSizeGrid
         columnCount={0}
         columnWidth={index => 0}
@@ -159,6 +163,7 @@ const VariableSizeGridTestOptionalProps: React.SFC = () => (
         height={0}
         width={0}
         className=""
+        direction={testBool ? "ltr" : "rtl"}
         estimatedColumnWidth={0}
         estimatedRowHeight={0}
         initialScrollLeft={0}
@@ -188,8 +193,8 @@ const VariableSizeGridTestOptionalProps: React.SFC = () => (
         }) => undefined}
         outerRef={anyRef}
         outerElementType="div"
-        overscanColumnsCount={5}
-        overscanRowsCount={5}
+        overscanColumnCount={5}
+        overscanRowCount={5}
         ref="ref"
         style={{ color: "red" }}
         useIsScrolling={true}

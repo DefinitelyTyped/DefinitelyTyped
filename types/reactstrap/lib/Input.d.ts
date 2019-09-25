@@ -28,7 +28,8 @@ export type InputType =
   | 'time'
   | 'color';
 
-export type InputProps<T = {}> = React.InputHTMLAttributes<HTMLInputElement> & {
+export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+  [key: string]: any;
   type?: InputType;
   bsSize?: 'lg' | 'sm';
   state?: string;
@@ -40,7 +41,7 @@ export type InputProps<T = {}> = React.InputHTMLAttributes<HTMLInputElement> & {
   addon?: boolean;
   className?: string;
   cssModule?: CSSModule;
-} & T;
+}
 
-declare class Input<T> extends React.Component<InputProps<T>> {}
+declare class Input<T> extends React.Component<InputProps> {}
 export default Input;

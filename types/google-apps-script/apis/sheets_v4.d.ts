@@ -5,25 +5,25 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace GoogleAppsScript {
-  namespace Sheets_v4 {
+  namespace Sheets {
     namespace Collection {
       namespace Spreadsheets {
         export interface DeveloperMetadataCollection {
           // Returns the developer metadata with the specified ID.
           // The caller must specify the spreadsheet ID and the developer metadata's
           // unique metadataId.
-          get(spreadsheetId: string, metadataId: number): Sheets_v4.Schema.DeveloperMetadata;
+          get(spreadsheetId: string, metadataId: number): Sheets.Schema.DeveloperMetadata;
           // Returns all developer metadata matching the specified DataFilter.
           // If the provided DataFilter represents a DeveloperMetadataLookup object,
           // this will return all DeveloperMetadata entries selected by it. If the
           // DataFilter represents a location in a spreadsheet, this will return all
           // developer metadata associated with locations intersecting that region.
-          search(resource: Schema.SearchDeveloperMetadataRequest, spreadsheetId: string): Sheets_v4.Schema.SearchDeveloperMetadataResponse;
+          search(resource: Schema.SearchDeveloperMetadataRequest, spreadsheetId: string): Sheets.Schema.SearchDeveloperMetadataResponse;
         }
         export interface SheetsCollection {
           // Copies a single sheet from a spreadsheet to another spreadsheet.
           // Returns the properties of the newly created sheet.
-          copyTo(resource: Schema.CopySheetToAnotherSpreadsheetRequest, spreadsheetId: string, sheetId: number): Sheets_v4.Schema.SheetProperties;
+          copyTo(resource: Schema.CopySheetToAnotherSpreadsheetRequest, spreadsheetId: string, sheetId: number): Sheets.Schema.SheetProperties;
         }
         export interface ValuesCollection {
           // Appends values to a spreadsheet. The input range is used to search for
@@ -39,7 +39,7 @@ declare namespace GoogleAppsScript {
           // controls how the input data will be added to the sheet (column-wise or
           // row-wise), it does not influence what cell the data starts being written
           // to.
-          append(resource: Schema.ValueRange, spreadsheetId: string, range: string): Sheets_v4.Schema.AppendValuesResponse;
+          append(resource: Schema.ValueRange, spreadsheetId: string, range: string): Sheets.Schema.AppendValuesResponse;
           // Appends values to a spreadsheet. The input range is used to search for
           // existing data and find a "table" within that range. Values will be
           // appended to the next row of the table, starting with the first column of
@@ -53,64 +53,64 @@ declare namespace GoogleAppsScript {
           // controls how the input data will be added to the sheet (column-wise or
           // row-wise), it does not influence what cell the data starts being written
           // to.
-          append(resource: Schema.ValueRange, spreadsheetId: string, range: string, optionalArgs: object): Sheets_v4.Schema.AppendValuesResponse;
+          append(resource: Schema.ValueRange, spreadsheetId: string, range: string, optionalArgs: object): Sheets.Schema.AppendValuesResponse;
           // Clears one or more ranges of values from a spreadsheet.
           // The caller must specify the spreadsheet ID and one or more ranges.
           // Only values are cleared -- all other properties of the cell (such as
           // formatting, data validation, etc..) are kept.
-          batchClear(resource: Schema.BatchClearValuesRequest, spreadsheetId: string): Sheets_v4.Schema.BatchClearValuesResponse;
+          batchClear(resource: Schema.BatchClearValuesRequest, spreadsheetId: string): Sheets.Schema.BatchClearValuesResponse;
           // Clears one or more ranges of values from a spreadsheet.
           // The caller must specify the spreadsheet ID and one or more
           // DataFilters. Ranges matching any of the specified data
           // filters will be cleared.  Only values are cleared -- all other properties
           // of the cell (such as formatting, data validation, etc..) are kept.
-          batchClearByDataFilter(resource: Schema.BatchClearValuesByDataFilterRequest, spreadsheetId: string): Sheets_v4.Schema.BatchClearValuesByDataFilterResponse;
+          batchClearByDataFilter(resource: Schema.BatchClearValuesByDataFilterRequest, spreadsheetId: string): Sheets.Schema.BatchClearValuesByDataFilterResponse;
           // Returns one or more ranges of values from a spreadsheet.
           // The caller must specify the spreadsheet ID and one or more ranges.
-          batchGet(spreadsheetId: string): Sheets_v4.Schema.BatchGetValuesResponse;
+          batchGet(spreadsheetId: string): Sheets.Schema.BatchGetValuesResponse;
           // Returns one or more ranges of values from a spreadsheet.
           // The caller must specify the spreadsheet ID and one or more ranges.
-          batchGet(spreadsheetId: string, optionalArgs: object): Sheets_v4.Schema.BatchGetValuesResponse;
+          batchGet(spreadsheetId: string, optionalArgs: object): Sheets.Schema.BatchGetValuesResponse;
           // Returns one or more ranges of values that match the specified data filters.
           // The caller must specify the spreadsheet ID and one or more
           // DataFilters.  Ranges that match any of the data filters in
           // the request will be returned.
-          batchGetByDataFilter(resource: Schema.BatchGetValuesByDataFilterRequest, spreadsheetId: string): Sheets_v4.Schema.BatchGetValuesByDataFilterResponse;
+          batchGetByDataFilter(resource: Schema.BatchGetValuesByDataFilterRequest, spreadsheetId: string): Sheets.Schema.BatchGetValuesByDataFilterResponse;
           // Sets values in one or more ranges of a spreadsheet.
           // The caller must specify the spreadsheet ID,
           // a valueInputOption, and one or more
           // ValueRanges.
-          batchUpdate(resource: Schema.BatchUpdateValuesRequest, spreadsheetId: string): Sheets_v4.Schema.BatchUpdateValuesResponse;
+          batchUpdate(resource: Schema.BatchUpdateValuesRequest, spreadsheetId: string): Sheets.Schema.BatchUpdateValuesResponse;
           // Sets values in one or more ranges of a spreadsheet.
           // The caller must specify the spreadsheet ID,
           // a valueInputOption, and one or more
           // DataFilterValueRanges.
-          batchUpdateByDataFilter(resource: Schema.BatchUpdateValuesByDataFilterRequest, spreadsheetId: string): Sheets_v4.Schema.BatchUpdateValuesByDataFilterResponse;
+          batchUpdateByDataFilter(resource: Schema.BatchUpdateValuesByDataFilterRequest, spreadsheetId: string): Sheets.Schema.BatchUpdateValuesByDataFilterResponse;
           // Clears values from a spreadsheet.
           // The caller must specify the spreadsheet ID and range.
           // Only values are cleared -- all other properties of the cell (such as
           // formatting, data validation, etc..) are kept.
-          clear(resource: any, /* Schema.ClearValuesRequest */ spreadsheetId: string, range: string): Sheets_v4.Schema.ClearValuesResponse;
+          clear(resource: any, /* Schema.ClearValuesRequest */ spreadsheetId: string, range: string): Sheets.Schema.ClearValuesResponse;
           // Returns a range of values from a spreadsheet.
           // The caller must specify the spreadsheet ID and a range.
-          get(spreadsheetId: string, range: string): Sheets_v4.Schema.ValueRange;
+          get(spreadsheetId: string, range: string): Sheets.Schema.ValueRange;
           // Returns a range of values from a spreadsheet.
           // The caller must specify the spreadsheet ID and a range.
-          get(spreadsheetId: string, range: string, optionalArgs: object): Sheets_v4.Schema.ValueRange;
+          get(spreadsheetId: string, range: string, optionalArgs: object): Sheets.Schema.ValueRange;
           // Sets values in a range of a spreadsheet.
           // The caller must specify the spreadsheet ID, range, and
           // a valueInputOption.
-          update(resource: Schema.ValueRange, spreadsheetId: string, range: string): Sheets_v4.Schema.UpdateValuesResponse;
+          update(resource: Schema.ValueRange, spreadsheetId: string, range: string): Sheets.Schema.UpdateValuesResponse;
           // Sets values in a range of a spreadsheet.
           // The caller must specify the spreadsheet ID, range, and
           // a valueInputOption.
-          update(resource: Schema.ValueRange, spreadsheetId: string, range: string, optionalArgs: object): Sheets_v4.Schema.UpdateValuesResponse;
+          update(resource: Schema.ValueRange, spreadsheetId: string, range: string, optionalArgs: object): Sheets.Schema.UpdateValuesResponse;
         }
       }
       export interface SpreadsheetsCollection {
-        DeveloperMetadata?: Sheets_v4.Collection.Spreadsheets.DeveloperMetadataCollection;
-        Sheets?: Sheets_v4.Collection.Spreadsheets.SheetsCollection;
-        Values?: Sheets_v4.Collection.Spreadsheets.ValuesCollection;
+        DeveloperMetadata?: Sheets.Collection.Spreadsheets.DeveloperMetadataCollection;
+        Sheets?: Sheets.Collection.Spreadsheets.SheetsCollection;
+        Values?: Sheets.Collection.Spreadsheets.ValuesCollection;
         // Applies one or more updates to the spreadsheet.
         // Each request is validated before
         // being applied. If any request is not valid then the entire request will
@@ -127,9 +127,9 @@ declare namespace GoogleAppsScript {
         // applied together atomically. Your changes may be altered with respect to
         // collaborator changes. If there are no collaborators, the spreadsheet
         // should reflect your changes.
-        batchUpdate(resource: Schema.BatchUpdateSpreadsheetRequest, spreadsheetId: string): Sheets_v4.Schema.BatchUpdateSpreadsheetResponse;
+        batchUpdate(resource: Schema.BatchUpdateSpreadsheetRequest, spreadsheetId: string): Sheets.Schema.BatchUpdateSpreadsheetResponse;
         // Creates a spreadsheet, returning the newly created spreadsheet.
-        create(resource: Schema.Spreadsheet): Sheets_v4.Schema.Spreadsheet;
+        create(resource: Schema.Spreadsheet): Sheets.Schema.Spreadsheet;
         // Returns the spreadsheet at the given ID.
         // The caller must specify the spreadsheet ID.
         // By default, data within grids will not be returned.
@@ -146,7 +146,7 @@ declare namespace GoogleAppsScript {
         // Multiple ranges can be specified.  Limiting the range will
         // return only the portions of the spreadsheet that intersect the requested
         // ranges. Ranges are specified using A1 notation.
-        get(spreadsheetId: string): Sheets_v4.Schema.Spreadsheet;
+        get(spreadsheetId: string): Sheets.Schema.Spreadsheet;
         // Returns the spreadsheet at the given ID.
         // The caller must specify the spreadsheet ID.
         // By default, data within grids will not be returned.
@@ -163,7 +163,7 @@ declare namespace GoogleAppsScript {
         // Multiple ranges can be specified.  Limiting the range will
         // return only the portions of the spreadsheet that intersect the requested
         // ranges. Ranges are specified using A1 notation.
-        get(spreadsheetId: string, optionalArgs: object): Sheets_v4.Schema.Spreadsheet;
+        get(spreadsheetId: string, optionalArgs: object): Sheets.Schema.Spreadsheet;
         // Returns the spreadsheet at the given ID.
         // The caller must specify the spreadsheet ID.
         // This method differs from GetSpreadsheet in that it allows selecting
@@ -181,59 +181,59 @@ declare namespace GoogleAppsScript {
         // parameter is ignored
         // For large spreadsheets, it is recommended to retrieve only the specific
         // fields of the spreadsheet that you want.
-        getByDataFilter(resource: Schema.GetSpreadsheetByDataFilterRequest, spreadsheetId: string): Sheets_v4.Schema.Spreadsheet;
+        getByDataFilter(resource: Schema.GetSpreadsheetByDataFilterRequest, spreadsheetId: string): Sheets.Schema.Spreadsheet;
       }
     }
     namespace Schema {
       export interface AddBandingRequest {
-        bandedRange?: Sheets_v4.Schema.BandedRange;
+        bandedRange?: Sheets.Schema.BandedRange;
       }
       export interface AddBandingResponse {
-        bandedRange?: Sheets_v4.Schema.BandedRange;
+        bandedRange?: Sheets.Schema.BandedRange;
       }
       export interface AddChartRequest {
-        chart?: Sheets_v4.Schema.EmbeddedChart;
+        chart?: Sheets.Schema.EmbeddedChart;
       }
       export interface AddChartResponse {
-        chart?: Sheets_v4.Schema.EmbeddedChart;
+        chart?: Sheets.Schema.EmbeddedChart;
       }
       export interface AddConditionalFormatRuleRequest {
         index?: number;
-        rule?: Sheets_v4.Schema.ConditionalFormatRule;
+        rule?: Sheets.Schema.ConditionalFormatRule;
       }
       export interface AddDimensionGroupRequest {
-        range?: Sheets_v4.Schema.DimensionRange;
+        range?: Sheets.Schema.DimensionRange;
       }
       export interface AddDimensionGroupResponse {
-        dimensionGroups?: Sheets_v4.Schema.DimensionGroup[];
+        dimensionGroups?: Sheets.Schema.DimensionGroup[];
       }
       export interface AddFilterViewRequest {
-        filter?: Sheets_v4.Schema.FilterView;
+        filter?: Sheets.Schema.FilterView;
       }
       export interface AddFilterViewResponse {
-        filter?: Sheets_v4.Schema.FilterView;
+        filter?: Sheets.Schema.FilterView;
       }
       export interface AddNamedRangeRequest {
-        namedRange?: Sheets_v4.Schema.NamedRange;
+        namedRange?: Sheets.Schema.NamedRange;
       }
       export interface AddNamedRangeResponse {
-        namedRange?: Sheets_v4.Schema.NamedRange;
+        namedRange?: Sheets.Schema.NamedRange;
       }
       export interface AddProtectedRangeRequest {
-        protectedRange?: Sheets_v4.Schema.ProtectedRange;
+        protectedRange?: Sheets.Schema.ProtectedRange;
       }
       export interface AddProtectedRangeResponse {
-        protectedRange?: Sheets_v4.Schema.ProtectedRange;
+        protectedRange?: Sheets.Schema.ProtectedRange;
       }
       export interface AddSheetRequest {
-        properties?: Sheets_v4.Schema.SheetProperties;
+        properties?: Sheets.Schema.SheetProperties;
       }
       export interface AddSheetResponse {
-        properties?: Sheets_v4.Schema.SheetProperties;
+        properties?: Sheets.Schema.SheetProperties;
       }
       export interface AppendCellsRequest {
         fields?: string;
-        rows?: Sheets_v4.Schema.RowData[];
+        rows?: Sheets.Schema.RowData[];
         sheetId?: number;
       }
       export interface AppendDimensionRequest {
@@ -244,65 +244,65 @@ declare namespace GoogleAppsScript {
       export interface AppendValuesResponse {
         spreadsheetId?: string;
         tableRange?: string;
-        updates?: Sheets_v4.Schema.UpdateValuesResponse;
+        updates?: Sheets.Schema.UpdateValuesResponse;
       }
       export interface AutoFillRequest {
-        range?: Sheets_v4.Schema.GridRange;
-        sourceAndDestination?: Sheets_v4.Schema.SourceAndDestination;
+        range?: Sheets.Schema.GridRange;
+        sourceAndDestination?: Sheets.Schema.SourceAndDestination;
         useAlternateSeries?: boolean;
       }
       export interface AutoResizeDimensionsRequest {
-        dimensions?: Sheets_v4.Schema.DimensionRange;
+        dimensions?: Sheets.Schema.DimensionRange;
       }
       export interface BandedRange {
         bandedRangeId?: number;
-        columnProperties?: Sheets_v4.Schema.BandingProperties;
-        range?: Sheets_v4.Schema.GridRange;
-        rowProperties?: Sheets_v4.Schema.BandingProperties;
+        columnProperties?: Sheets.Schema.BandingProperties;
+        range?: Sheets.Schema.GridRange;
+        rowProperties?: Sheets.Schema.BandingProperties;
       }
       export interface BandingProperties {
-        firstBandColor?: Sheets_v4.Schema.Color;
-        footerColor?: Sheets_v4.Schema.Color;
-        headerColor?: Sheets_v4.Schema.Color;
-        secondBandColor?: Sheets_v4.Schema.Color;
+        firstBandColor?: Sheets.Schema.Color;
+        footerColor?: Sheets.Schema.Color;
+        headerColor?: Sheets.Schema.Color;
+        secondBandColor?: Sheets.Schema.Color;
       }
       export interface BasicChartAxis {
-        format?: Sheets_v4.Schema.TextFormat;
+        format?: Sheets.Schema.TextFormat;
         position?: string;
         title?: string;
-        titleTextPosition?: Sheets_v4.Schema.TextPosition;
+        titleTextPosition?: Sheets.Schema.TextPosition;
       }
       export interface BasicChartDomain {
-        domain?: Sheets_v4.Schema.ChartData;
+        domain?: Sheets.Schema.ChartData;
         reversed?: boolean;
       }
       export interface BasicChartSeries {
-        color?: Sheets_v4.Schema.Color;
-        lineStyle?: Sheets_v4.Schema.LineStyle;
-        series?: Sheets_v4.Schema.ChartData;
+        color?: Sheets.Schema.Color;
+        lineStyle?: Sheets.Schema.LineStyle;
+        series?: Sheets.Schema.ChartData;
         targetAxis?: string;
         type?: string;
       }
       export interface BasicChartSpec {
-        axis?: Sheets_v4.Schema.BasicChartAxis[];
+        axis?: Sheets.Schema.BasicChartAxis[];
         chartType?: string;
         compareMode?: string;
-        domains?: Sheets_v4.Schema.BasicChartDomain[];
+        domains?: Sheets.Schema.BasicChartDomain[];
         headerCount?: number;
         interpolateNulls?: boolean;
         legendPosition?: string;
         lineSmoothing?: boolean;
-        series?: Sheets_v4.Schema.BasicChartSeries[];
+        series?: Sheets.Schema.BasicChartSeries[];
         stackedType?: string;
         threeDimensional?: boolean;
       }
       export interface BasicFilter {
         criteria?: object;
-        range?: Sheets_v4.Schema.GridRange;
-        sortSpecs?: Sheets_v4.Schema.SortSpec[];
+        range?: Sheets.Schema.GridRange;
+        sortSpecs?: Sheets.Schema.SortSpec[];
       }
       export interface BatchClearValuesByDataFilterRequest {
-        dataFilters?: Sheets_v4.Schema.DataFilter[];
+        dataFilters?: Sheets.Schema.DataFilter[];
       }
       export interface BatchClearValuesByDataFilterResponse {
         clearedRanges?: string[];
@@ -316,39 +316,39 @@ declare namespace GoogleAppsScript {
         spreadsheetId?: string;
       }
       export interface BatchGetValuesByDataFilterRequest {
-        dataFilters?: Sheets_v4.Schema.DataFilter[];
+        dataFilters?: Sheets.Schema.DataFilter[];
         dateTimeRenderOption?: string;
         majorDimension?: string;
         valueRenderOption?: string;
       }
       export interface BatchGetValuesByDataFilterResponse {
         spreadsheetId?: string;
-        valueRanges?: Sheets_v4.Schema.MatchedValueRange[];
+        valueRanges?: Sheets.Schema.MatchedValueRange[];
       }
       export interface BatchGetValuesResponse {
         spreadsheetId?: string;
-        valueRanges?: Sheets_v4.Schema.ValueRange[];
+        valueRanges?: Sheets.Schema.ValueRange[];
       }
       export interface BatchUpdateSpreadsheetRequest {
         includeSpreadsheetInResponse?: boolean;
-        requests?: Sheets_v4.Schema.Request[];
+        requests?: Sheets.Schema.Request[];
         responseIncludeGridData?: boolean;
         responseRanges?: string[];
       }
       export interface BatchUpdateSpreadsheetResponse {
-        replies?: Sheets_v4.Schema.Response[];
+        replies?: Sheets.Schema.Response[];
         spreadsheetId?: string;
-        updatedSpreadsheet?: Sheets_v4.Schema.Spreadsheet;
+        updatedSpreadsheet?: Sheets.Schema.Spreadsheet;
       }
       export interface BatchUpdateValuesByDataFilterRequest {
-        data?: Sheets_v4.Schema.DataFilterValueRange[];
+        data?: Sheets.Schema.DataFilterValueRange[];
         includeValuesInResponse?: boolean;
         responseDateTimeRenderOption?: string;
         responseValueRenderOption?: string;
         valueInputOption?: string;
       }
       export interface BatchUpdateValuesByDataFilterResponse {
-        responses?: Sheets_v4.Schema.UpdateValuesByDataFilterResponse[];
+        responses?: Sheets.Schema.UpdateValuesByDataFilterResponse[];
         spreadsheetId?: string;
         totalUpdatedCells?: number;
         totalUpdatedColumns?: number;
@@ -356,14 +356,14 @@ declare namespace GoogleAppsScript {
         totalUpdatedSheets?: number;
       }
       export interface BatchUpdateValuesRequest {
-        data?: Sheets_v4.Schema.ValueRange[];
+        data?: Sheets.Schema.ValueRange[];
         includeValuesInResponse?: boolean;
         responseDateTimeRenderOption?: string;
         responseValueRenderOption?: string;
         valueInputOption?: string;
       }
       export interface BatchUpdateValuesResponse {
-        responses?: Sheets_v4.Schema.UpdateValuesResponse[];
+        responses?: Sheets.Schema.UpdateValuesResponse[];
         spreadsheetId?: string;
         totalUpdatedCells?: number;
         totalUpdatedColumns?: number;
@@ -372,104 +372,104 @@ declare namespace GoogleAppsScript {
       }
       export interface BooleanCondition {
         type?: string;
-        values?: Sheets_v4.Schema.ConditionValue[];
+        values?: Sheets.Schema.ConditionValue[];
       }
       export interface BooleanRule {
-        condition?: Sheets_v4.Schema.BooleanCondition;
-        format?: Sheets_v4.Schema.CellFormat;
+        condition?: Sheets.Schema.BooleanCondition;
+        format?: Sheets.Schema.CellFormat;
       }
       export interface Border {
-        color?: Sheets_v4.Schema.Color;
+        color?: Sheets.Schema.Color;
         style?: string;
         width?: number;
       }
       export interface Borders {
-        bottom?: Sheets_v4.Schema.Border;
-        left?: Sheets_v4.Schema.Border;
-        right?: Sheets_v4.Schema.Border;
-        top?: Sheets_v4.Schema.Border;
+        bottom?: Sheets.Schema.Border;
+        left?: Sheets.Schema.Border;
+        right?: Sheets.Schema.Border;
+        top?: Sheets.Schema.Border;
       }
       export interface BubbleChartSpec {
-        bubbleBorderColor?: Sheets_v4.Schema.Color;
-        bubbleLabels?: Sheets_v4.Schema.ChartData;
+        bubbleBorderColor?: Sheets.Schema.Color;
+        bubbleLabels?: Sheets.Schema.ChartData;
         bubbleMaxRadiusSize?: number;
         bubbleMinRadiusSize?: number;
-        bubbleOpacity?: Number;
-        bubbleSizes?: Sheets_v4.Schema.ChartData;
-        bubbleTextStyle?: Sheets_v4.Schema.TextFormat;
-        domain?: Sheets_v4.Schema.ChartData;
-        groupIds?: Sheets_v4.Schema.ChartData;
+        bubbleOpacity?: number;
+        bubbleSizes?: Sheets.Schema.ChartData;
+        bubbleTextStyle?: Sheets.Schema.TextFormat;
+        domain?: Sheets.Schema.ChartData;
+        groupIds?: Sheets.Schema.ChartData;
         legendPosition?: string;
-        series?: Sheets_v4.Schema.ChartData;
+        series?: Sheets.Schema.ChartData;
       }
       export interface CandlestickChartSpec {
-        data?: Sheets_v4.Schema.CandlestickData[];
-        domain?: Sheets_v4.Schema.CandlestickDomain;
+        data?: Sheets.Schema.CandlestickData[];
+        domain?: Sheets.Schema.CandlestickDomain;
       }
       export interface CandlestickData {
-        closeSeries?: Sheets_v4.Schema.CandlestickSeries;
-        highSeries?: Sheets_v4.Schema.CandlestickSeries;
-        lowSeries?: Sheets_v4.Schema.CandlestickSeries;
-        openSeries?: Sheets_v4.Schema.CandlestickSeries;
+        closeSeries?: Sheets.Schema.CandlestickSeries;
+        highSeries?: Sheets.Schema.CandlestickSeries;
+        lowSeries?: Sheets.Schema.CandlestickSeries;
+        openSeries?: Sheets.Schema.CandlestickSeries;
       }
       export interface CandlestickDomain {
-        data?: Sheets_v4.Schema.ChartData;
+        data?: Sheets.Schema.ChartData;
         reversed?: boolean;
       }
       export interface CandlestickSeries {
-        data?: Sheets_v4.Schema.ChartData;
+        data?: Sheets.Schema.ChartData;
       }
       export interface CellData {
-        dataValidation?: Sheets_v4.Schema.DataValidationRule;
-        effectiveFormat?: Sheets_v4.Schema.CellFormat;
-        effectiveValue?: Sheets_v4.Schema.ExtendedValue;
+        dataValidation?: Sheets.Schema.DataValidationRule;
+        effectiveFormat?: Sheets.Schema.CellFormat;
+        effectiveValue?: Sheets.Schema.ExtendedValue;
         formattedValue?: string;
         hyperlink?: string;
         note?: string;
-        pivotTable?: Sheets_v4.Schema.PivotTable;
-        textFormatRuns?: Sheets_v4.Schema.TextFormatRun[];
-        userEnteredFormat?: Sheets_v4.Schema.CellFormat;
-        userEnteredValue?: Sheets_v4.Schema.ExtendedValue;
+        pivotTable?: Sheets.Schema.PivotTable;
+        textFormatRuns?: Sheets.Schema.TextFormatRun[];
+        userEnteredFormat?: Sheets.Schema.CellFormat;
+        userEnteredValue?: Sheets.Schema.ExtendedValue;
       }
       export interface CellFormat {
-        backgroundColor?: Sheets_v4.Schema.Color;
-        borders?: Sheets_v4.Schema.Borders;
+        backgroundColor?: Sheets.Schema.Color;
+        borders?: Sheets.Schema.Borders;
         horizontalAlignment?: string;
         hyperlinkDisplayType?: string;
-        numberFormat?: Sheets_v4.Schema.NumberFormat;
-        padding?: Sheets_v4.Schema.Padding;
+        numberFormat?: Sheets.Schema.NumberFormat;
+        padding?: Sheets.Schema.Padding;
         textDirection?: string;
-        textFormat?: Sheets_v4.Schema.TextFormat;
-        textRotation?: Sheets_v4.Schema.TextRotation;
+        textFormat?: Sheets.Schema.TextFormat;
+        textRotation?: Sheets.Schema.TextRotation;
         verticalAlignment?: string;
         wrapStrategy?: string;
       }
       export interface ChartData {
-        sourceRange?: Sheets_v4.Schema.ChartSourceRange;
+        sourceRange?: Sheets.Schema.ChartSourceRange;
       }
       export interface ChartSourceRange {
-        sources?: Sheets_v4.Schema.GridRange[];
+        sources?: Sheets.Schema.GridRange[];
       }
       export interface ChartSpec {
         altText?: string;
-        backgroundColor?: Sheets_v4.Schema.Color;
-        basicChart?: Sheets_v4.Schema.BasicChartSpec;
-        bubbleChart?: Sheets_v4.Schema.BubbleChartSpec;
-        candlestickChart?: Sheets_v4.Schema.CandlestickChartSpec;
+        backgroundColor?: Sheets.Schema.Color;
+        basicChart?: Sheets.Schema.BasicChartSpec;
+        bubbleChart?: Sheets.Schema.BubbleChartSpec;
+        candlestickChart?: Sheets.Schema.CandlestickChartSpec;
         fontName?: string;
         hiddenDimensionStrategy?: string;
-        histogramChart?: Sheets_v4.Schema.HistogramChartSpec;
+        histogramChart?: Sheets.Schema.HistogramChartSpec;
         maximized?: boolean;
-        orgChart?: Sheets_v4.Schema.OrgChartSpec;
-        pieChart?: Sheets_v4.Schema.PieChartSpec;
+        orgChart?: Sheets.Schema.OrgChartSpec;
+        pieChart?: Sheets.Schema.PieChartSpec;
         subtitle?: string;
-        subtitleTextFormat?: Sheets_v4.Schema.TextFormat;
-        subtitleTextPosition?: Sheets_v4.Schema.TextPosition;
+        subtitleTextFormat?: Sheets.Schema.TextFormat;
+        subtitleTextPosition?: Sheets.Schema.TextPosition;
         title?: string;
-        titleTextFormat?: Sheets_v4.Schema.TextFormat;
-        titleTextPosition?: Sheets_v4.Schema.TextPosition;
-        treemapChart?: Sheets_v4.Schema.TreemapChartSpec;
-        waterfallChart?: Sheets_v4.Schema.WaterfallChartSpec;
+        titleTextFormat?: Sheets.Schema.TextFormat;
+        titleTextPosition?: Sheets.Schema.TextPosition;
+        treemapChart?: Sheets.Schema.TreemapChartSpec;
+        waterfallChart?: Sheets.Schema.WaterfallChartSpec;
       }
       export interface ClearBasicFilterRequest {
         sheetId?: number;
@@ -479,52 +479,52 @@ declare namespace GoogleAppsScript {
         spreadsheetId?: string;
       }
       export interface Color {
-        alpha?: Number;
-        blue?: Number;
-        green?: Number;
-        red?: Number;
+        alpha?: number;
+        blue?: number;
+        green?: number;
+        red?: number;
       }
       export interface ConditionValue {
         relativeDate?: string;
         userEnteredValue?: string;
       }
       export interface ConditionalFormatRule {
-        booleanRule?: Sheets_v4.Schema.BooleanRule;
-        gradientRule?: Sheets_v4.Schema.GradientRule;
-        ranges?: Sheets_v4.Schema.GridRange[];
+        booleanRule?: Sheets.Schema.BooleanRule;
+        gradientRule?: Sheets.Schema.GradientRule;
+        ranges?: Sheets.Schema.GridRange[];
       }
       export interface CopyPasteRequest {
-        destination?: Sheets_v4.Schema.GridRange;
+        destination?: Sheets.Schema.GridRange;
         pasteOrientation?: string;
         pasteType?: string;
-        source?: Sheets_v4.Schema.GridRange;
+        source?: Sheets.Schema.GridRange;
       }
       export interface CopySheetToAnotherSpreadsheetRequest {
         destinationSpreadsheetId?: string;
       }
       export interface CreateDeveloperMetadataRequest {
-        developerMetadata?: Sheets_v4.Schema.DeveloperMetadata;
+        developerMetadata?: Sheets.Schema.DeveloperMetadata;
       }
       export interface CreateDeveloperMetadataResponse {
-        developerMetadata?: Sheets_v4.Schema.DeveloperMetadata;
+        developerMetadata?: Sheets.Schema.DeveloperMetadata;
       }
       export interface CutPasteRequest {
-        destination?: Sheets_v4.Schema.GridCoordinate;
+        destination?: Sheets.Schema.GridCoordinate;
         pasteType?: string;
-        source?: Sheets_v4.Schema.GridRange;
+        source?: Sheets.Schema.GridRange;
       }
       export interface DataFilter {
         a1Range?: string;
-        developerMetadataLookup?: Sheets_v4.Schema.DeveloperMetadataLookup;
-        gridRange?: Sheets_v4.Schema.GridRange;
+        developerMetadataLookup?: Sheets.Schema.DeveloperMetadataLookup;
+        gridRange?: Sheets.Schema.GridRange;
       }
       export interface DataFilterValueRange {
-        dataFilter?: Sheets_v4.Schema.DataFilter;
+        dataFilter?: Sheets.Schema.DataFilter;
         majorDimension?: string;
-        values?: Object[][];
+        values?: any[][];
       }
       export interface DataValidationRule {
-        condition?: Sheets_v4.Schema.BooleanCondition;
+        condition?: Sheets.Schema.BooleanCondition;
         inputMessage?: string;
         showCustomUi?: boolean;
         strict?: boolean;
@@ -540,22 +540,22 @@ declare namespace GoogleAppsScript {
         sheetId?: number;
       }
       export interface DeleteConditionalFormatRuleResponse {
-        rule?: Sheets_v4.Schema.ConditionalFormatRule;
+        rule?: Sheets.Schema.ConditionalFormatRule;
       }
       export interface DeleteDeveloperMetadataRequest {
-        dataFilter?: Sheets_v4.Schema.DataFilter;
+        dataFilter?: Sheets.Schema.DataFilter;
       }
       export interface DeleteDeveloperMetadataResponse {
-        deletedDeveloperMetadata?: Sheets_v4.Schema.DeveloperMetadata[];
+        deletedDeveloperMetadata?: Sheets.Schema.DeveloperMetadata[];
       }
       export interface DeleteDimensionGroupRequest {
-        range?: Sheets_v4.Schema.DimensionRange;
+        range?: Sheets.Schema.DimensionRange;
       }
       export interface DeleteDimensionGroupResponse {
-        dimensionGroups?: Sheets_v4.Schema.DimensionGroup[];
+        dimensionGroups?: Sheets.Schema.DimensionGroup[];
       }
       export interface DeleteDimensionRequest {
-        range?: Sheets_v4.Schema.DimensionRange;
+        range?: Sheets.Schema.DimensionRange;
       }
       export interface DeleteEmbeddedObjectRequest {
         objectId?: number;
@@ -570,21 +570,21 @@ declare namespace GoogleAppsScript {
         protectedRangeId?: number;
       }
       export interface DeleteRangeRequest {
-        range?: Sheets_v4.Schema.GridRange;
+        range?: Sheets.Schema.GridRange;
         shiftDimension?: string;
       }
       export interface DeleteSheetRequest {
         sheetId?: number;
       }
       export interface DeveloperMetadata {
-        location?: Sheets_v4.Schema.DeveloperMetadataLocation;
+        location?: Sheets.Schema.DeveloperMetadataLocation;
         metadataId?: number;
         metadataKey?: string;
         metadataValue?: string;
         visibility?: string;
       }
       export interface DeveloperMetadataLocation {
-        dimensionRange?: Sheets_v4.Schema.DimensionRange;
+        dimensionRange?: Sheets.Schema.DimensionRange;
         locationType?: string;
         sheetId?: number;
         spreadsheet?: boolean;
@@ -594,17 +594,17 @@ declare namespace GoogleAppsScript {
         locationType?: string;
         metadataId?: number;
         metadataKey?: string;
-        metadataLocation?: Sheets_v4.Schema.DeveloperMetadataLocation;
+        metadataLocation?: Sheets.Schema.DeveloperMetadataLocation;
         metadataValue?: string;
         visibility?: string;
       }
       export interface DimensionGroup {
         collapsed?: boolean;
         depth?: number;
-        range?: Sheets_v4.Schema.DimensionRange;
+        range?: Sheets.Schema.DimensionRange;
       }
       export interface DimensionProperties {
-        developerMetadata?: Sheets_v4.Schema.DeveloperMetadata[];
+        developerMetadata?: Sheets.Schema.DeveloperMetadata[];
         hiddenByFilter?: boolean;
         hiddenByUser?: boolean;
         pixelSize?: number;
@@ -619,7 +619,7 @@ declare namespace GoogleAppsScript {
         filterId?: number;
       }
       export interface DuplicateFilterViewResponse {
-        filter?: Sheets_v4.Schema.FilterView;
+        filter?: Sheets.Schema.FilterView;
       }
       export interface DuplicateSheetRequest {
         insertSheetIndex?: number;
@@ -628,7 +628,7 @@ declare namespace GoogleAppsScript {
         sourceSheetId?: number;
       }
       export interface DuplicateSheetResponse {
-        properties?: Sheets_v4.Schema.SheetProperties;
+        properties?: Sheets.Schema.SheetProperties;
       }
       export interface Editors {
         domainUsersCanEdit?: boolean;
@@ -637,12 +637,12 @@ declare namespace GoogleAppsScript {
       }
       export interface EmbeddedChart {
         chartId?: number;
-        position?: Sheets_v4.Schema.EmbeddedObjectPosition;
-        spec?: Sheets_v4.Schema.ChartSpec;
+        position?: Sheets.Schema.EmbeddedObjectPosition;
+        spec?: Sheets.Schema.ChartSpec;
       }
       export interface EmbeddedObjectPosition {
         newSheet?: boolean;
-        overlayPosition?: Sheets_v4.Schema.OverlayPosition;
+        overlayPosition?: Sheets.Schema.OverlayPosition;
         sheetId?: number;
       }
       export interface ErrorValue {
@@ -651,21 +651,21 @@ declare namespace GoogleAppsScript {
       }
       export interface ExtendedValue {
         boolValue?: boolean;
-        errorValue?: Sheets_v4.Schema.ErrorValue;
+        errorValue?: Sheets.Schema.ErrorValue;
         formulaValue?: string;
-        numberValue?: Number;
+        numberValue?: number;
         stringValue?: string;
       }
       export interface FilterCriteria {
-        condition?: Sheets_v4.Schema.BooleanCondition;
+        condition?: Sheets.Schema.BooleanCondition;
         hiddenValues?: string[];
       }
       export interface FilterView {
         criteria?: object;
         filterViewId?: number;
         namedRangeId?: string;
-        range?: Sheets_v4.Schema.GridRange;
-        sortSpecs?: Sheets_v4.Schema.SortSpec[];
+        range?: Sheets.Schema.GridRange;
+        sortSpecs?: Sheets.Schema.SortSpec[];
         title?: string;
       }
       export interface FindReplaceRequest {
@@ -674,7 +674,7 @@ declare namespace GoogleAppsScript {
         includeFormulas?: boolean;
         matchCase?: boolean;
         matchEntireCell?: boolean;
-        range?: Sheets_v4.Schema.GridRange;
+        range?: Sheets.Schema.GridRange;
         replacement?: string;
         searchByRegex?: boolean;
         sheetId?: number;
@@ -687,13 +687,13 @@ declare namespace GoogleAppsScript {
         valuesChanged?: number;
       }
       export interface GetSpreadsheetByDataFilterRequest {
-        dataFilters?: Sheets_v4.Schema.DataFilter[];
+        dataFilters?: Sheets.Schema.DataFilter[];
         includeGridData?: boolean;
       }
       export interface GradientRule {
-        maxpoint?: Sheets_v4.Schema.InterpolationPoint;
-        midpoint?: Sheets_v4.Schema.InterpolationPoint;
-        minpoint?: Sheets_v4.Schema.InterpolationPoint;
+        maxpoint?: Sheets.Schema.InterpolationPoint;
+        midpoint?: Sheets.Schema.InterpolationPoint;
+        minpoint?: Sheets.Schema.InterpolationPoint;
       }
       export interface GridCoordinate {
         columnIndex?: number;
@@ -701,9 +701,9 @@ declare namespace GoogleAppsScript {
         sheetId?: number;
       }
       export interface GridData {
-        columnMetadata?: Sheets_v4.Schema.DimensionProperties[];
-        rowData?: Sheets_v4.Schema.RowData[];
-        rowMetadata?: Sheets_v4.Schema.DimensionProperties[];
+        columnMetadata?: Sheets.Schema.DimensionProperties[];
+        rowData?: Sheets.Schema.RowData[];
+        rowMetadata?: Sheets.Schema.DimensionProperties[];
         startColumn?: number;
         startRow?: number;
       }
@@ -724,36 +724,36 @@ declare namespace GoogleAppsScript {
         startRowIndex?: number;
       }
       export interface HistogramChartSpec {
-        bucketSize?: Number;
+        bucketSize?: number;
         legendPosition?: string;
-        outlierPercentile?: Number;
-        series?: Sheets_v4.Schema.HistogramSeries[];
+        outlierPercentile?: number;
+        series?: Sheets.Schema.HistogramSeries[];
         showItemDividers?: boolean;
       }
       export interface HistogramRule {
-        end?: Number;
-        interval?: Number;
-        start?: Number;
+        end?: number;
+        interval?: number;
+        start?: number;
       }
       export interface HistogramSeries {
-        barColor?: Sheets_v4.Schema.Color;
-        data?: Sheets_v4.Schema.ChartData;
+        barColor?: Sheets.Schema.Color;
+        data?: Sheets.Schema.ChartData;
       }
       export interface InsertDimensionRequest {
         inheritFromBefore?: boolean;
-        range?: Sheets_v4.Schema.DimensionRange;
+        range?: Sheets.Schema.DimensionRange;
       }
       export interface InsertRangeRequest {
-        range?: Sheets_v4.Schema.GridRange;
+        range?: Sheets.Schema.GridRange;
         shiftDimension?: string;
       }
       export interface InterpolationPoint {
-        color?: Sheets_v4.Schema.Color;
+        color?: Sheets.Schema.Color;
         type?: string;
         value?: string;
       }
       export interface IterativeCalculationSettings {
-        convergenceThreshold?: Number;
+        convergenceThreshold?: number;
         maxIterations?: number;
       }
       export interface LineStyle {
@@ -761,47 +761,47 @@ declare namespace GoogleAppsScript {
         width?: number;
       }
       export interface ManualRule {
-        groups?: Sheets_v4.Schema.ManualRuleGroup[];
+        groups?: Sheets.Schema.ManualRuleGroup[];
       }
       export interface ManualRuleGroup {
-        groupName?: Sheets_v4.Schema.ExtendedValue;
-        items?: Sheets_v4.Schema.ExtendedValue[];
+        groupName?: Sheets.Schema.ExtendedValue;
+        items?: Sheets.Schema.ExtendedValue[];
       }
       export interface MatchedDeveloperMetadata {
-        dataFilters?: Sheets_v4.Schema.DataFilter[];
-        developerMetadata?: Sheets_v4.Schema.DeveloperMetadata;
+        dataFilters?: Sheets.Schema.DataFilter[];
+        developerMetadata?: Sheets.Schema.DeveloperMetadata;
       }
       export interface MatchedValueRange {
-        dataFilters?: Sheets_v4.Schema.DataFilter[];
-        valueRange?: Sheets_v4.Schema.ValueRange;
+        dataFilters?: Sheets.Schema.DataFilter[];
+        valueRange?: Sheets.Schema.ValueRange;
       }
       export interface MergeCellsRequest {
         mergeType?: string;
-        range?: Sheets_v4.Schema.GridRange;
+        range?: Sheets.Schema.GridRange;
       }
       export interface MoveDimensionRequest {
         destinationIndex?: number;
-        source?: Sheets_v4.Schema.DimensionRange;
+        source?: Sheets.Schema.DimensionRange;
       }
       export interface NamedRange {
         name?: string;
         namedRangeId?: string;
-        range?: Sheets_v4.Schema.GridRange;
+        range?: Sheets.Schema.GridRange;
       }
       export interface NumberFormat {
         pattern?: string;
         type?: string;
       }
       export interface OrgChartSpec {
-        labels?: Sheets_v4.Schema.ChartData;
-        nodeColor?: Sheets_v4.Schema.Color;
+        labels?: Sheets.Schema.ChartData;
+        nodeColor?: Sheets.Schema.Color;
         nodeSize?: string;
-        parentLabels?: Sheets_v4.Schema.ChartData;
-        selectedNodeColor?: Sheets_v4.Schema.Color;
-        tooltips?: Sheets_v4.Schema.ChartData;
+        parentLabels?: Sheets.Schema.ChartData;
+        selectedNodeColor?: Sheets.Schema.Color;
+        tooltips?: Sheets.Schema.ChartData;
       }
       export interface OverlayPosition {
-        anchorCell?: Sheets_v4.Schema.GridCoordinate;
+        anchorCell?: Sheets.Schema.GridCoordinate;
         heightPixels?: number;
         offsetXPixels?: number;
         offsetYPixels?: number;
@@ -814,52 +814,52 @@ declare namespace GoogleAppsScript {
         top?: number;
       }
       export interface PasteDataRequest {
-        coordinate?: Sheets_v4.Schema.GridCoordinate;
+        coordinate?: Sheets.Schema.GridCoordinate;
         data?: string;
         delimiter?: string;
         html?: boolean;
         type?: string;
       }
       export interface PieChartSpec {
-        domain?: Sheets_v4.Schema.ChartData;
+        domain?: Sheets.Schema.ChartData;
         legendPosition?: string;
-        pieHole?: Number;
-        series?: Sheets_v4.Schema.ChartData;
+        pieHole?: number;
+        series?: Sheets.Schema.ChartData;
         threeDimensional?: boolean;
       }
       export interface PivotFilterCriteria {
         visibleValues?: string[];
       }
       export interface PivotGroup {
-        groupRule?: Sheets_v4.Schema.PivotGroupRule;
+        groupRule?: Sheets.Schema.PivotGroupRule;
         label?: string;
         repeatHeadings?: boolean;
         showTotals?: boolean;
         sortOrder?: string;
         sourceColumnOffset?: number;
-        valueBucket?: Sheets_v4.Schema.PivotGroupSortValueBucket;
-        valueMetadata?: Sheets_v4.Schema.PivotGroupValueMetadata[];
+        valueBucket?: Sheets.Schema.PivotGroupSortValueBucket;
+        valueMetadata?: Sheets.Schema.PivotGroupValueMetadata[];
       }
       export interface PivotGroupRule {
-        dateTimeRule?: Sheets_v4.Schema.DateTimeRule;
-        histogramRule?: Sheets_v4.Schema.HistogramRule;
-        manualRule?: Sheets_v4.Schema.ManualRule;
+        dateTimeRule?: Sheets.Schema.DateTimeRule;
+        histogramRule?: Sheets.Schema.HistogramRule;
+        manualRule?: Sheets.Schema.ManualRule;
       }
       export interface PivotGroupSortValueBucket {
-        buckets?: Sheets_v4.Schema.ExtendedValue[];
+        buckets?: Sheets.Schema.ExtendedValue[];
         valuesIndex?: number;
       }
       export interface PivotGroupValueMetadata {
         collapsed?: boolean;
-        value?: Sheets_v4.Schema.ExtendedValue;
+        value?: Sheets.Schema.ExtendedValue;
       }
       export interface PivotTable {
-        columns?: Sheets_v4.Schema.PivotGroup[];
+        columns?: Sheets.Schema.PivotGroup[];
         criteria?: object;
-        rows?: Sheets_v4.Schema.PivotGroup[];
-        source?: Sheets_v4.Schema.GridRange;
+        rows?: Sheets.Schema.PivotGroup[];
+        source?: Sheets.Schema.GridRange;
         valueLayout?: string;
-        values?: Sheets_v4.Schema.PivotValue[];
+        values?: Sheets.Schema.PivotValue[];
       }
       export interface PivotValue {
         calculatedDisplayType?: string;
@@ -870,142 +870,142 @@ declare namespace GoogleAppsScript {
       }
       export interface ProtectedRange {
         description?: string;
-        editors?: Sheets_v4.Schema.Editors;
+        editors?: Sheets.Schema.Editors;
         namedRangeId?: string;
         protectedRangeId?: number;
-        range?: Sheets_v4.Schema.GridRange;
+        range?: Sheets.Schema.GridRange;
         requestingUserCanEdit?: boolean;
-        unprotectedRanges?: Sheets_v4.Schema.GridRange[];
+        unprotectedRanges?: Sheets.Schema.GridRange[];
         warningOnly?: boolean;
       }
       export interface RandomizeRangeRequest {
-        range?: Sheets_v4.Schema.GridRange;
+        range?: Sheets.Schema.GridRange;
       }
       export interface RepeatCellRequest {
-        cell?: Sheets_v4.Schema.CellData;
+        cell?: Sheets.Schema.CellData;
         fields?: string;
-        range?: Sheets_v4.Schema.GridRange;
+        range?: Sheets.Schema.GridRange;
       }
       export interface Request {
-        addBanding?: Sheets_v4.Schema.AddBandingRequest;
-        addChart?: Sheets_v4.Schema.AddChartRequest;
-        addConditionalFormatRule?: Sheets_v4.Schema.AddConditionalFormatRuleRequest;
-        addDimensionGroup?: Sheets_v4.Schema.AddDimensionGroupRequest;
-        addFilterView?: Sheets_v4.Schema.AddFilterViewRequest;
-        addNamedRange?: Sheets_v4.Schema.AddNamedRangeRequest;
-        addProtectedRange?: Sheets_v4.Schema.AddProtectedRangeRequest;
-        addSheet?: Sheets_v4.Schema.AddSheetRequest;
-        appendCells?: Sheets_v4.Schema.AppendCellsRequest;
-        appendDimension?: Sheets_v4.Schema.AppendDimensionRequest;
-        autoFill?: Sheets_v4.Schema.AutoFillRequest;
-        autoResizeDimensions?: Sheets_v4.Schema.AutoResizeDimensionsRequest;
-        clearBasicFilter?: Sheets_v4.Schema.ClearBasicFilterRequest;
-        copyPaste?: Sheets_v4.Schema.CopyPasteRequest;
-        createDeveloperMetadata?: Sheets_v4.Schema.CreateDeveloperMetadataRequest;
-        cutPaste?: Sheets_v4.Schema.CutPasteRequest;
-        deleteBanding?: Sheets_v4.Schema.DeleteBandingRequest;
-        deleteConditionalFormatRule?: Sheets_v4.Schema.DeleteConditionalFormatRuleRequest;
-        deleteDeveloperMetadata?: Sheets_v4.Schema.DeleteDeveloperMetadataRequest;
-        deleteDimension?: Sheets_v4.Schema.DeleteDimensionRequest;
-        deleteDimensionGroup?: Sheets_v4.Schema.DeleteDimensionGroupRequest;
-        deleteEmbeddedObject?: Sheets_v4.Schema.DeleteEmbeddedObjectRequest;
-        deleteFilterView?: Sheets_v4.Schema.DeleteFilterViewRequest;
-        deleteNamedRange?: Sheets_v4.Schema.DeleteNamedRangeRequest;
-        deleteProtectedRange?: Sheets_v4.Schema.DeleteProtectedRangeRequest;
-        deleteRange?: Sheets_v4.Schema.DeleteRangeRequest;
-        deleteSheet?: Sheets_v4.Schema.DeleteSheetRequest;
-        duplicateFilterView?: Sheets_v4.Schema.DuplicateFilterViewRequest;
-        duplicateSheet?: Sheets_v4.Schema.DuplicateSheetRequest;
-        findReplace?: Sheets_v4.Schema.FindReplaceRequest;
-        insertDimension?: Sheets_v4.Schema.InsertDimensionRequest;
-        insertRange?: Sheets_v4.Schema.InsertRangeRequest;
-        mergeCells?: Sheets_v4.Schema.MergeCellsRequest;
-        moveDimension?: Sheets_v4.Schema.MoveDimensionRequest;
-        pasteData?: Sheets_v4.Schema.PasteDataRequest;
-        randomizeRange?: Sheets_v4.Schema.RandomizeRangeRequest;
-        repeatCell?: Sheets_v4.Schema.RepeatCellRequest;
-        setBasicFilter?: Sheets_v4.Schema.SetBasicFilterRequest;
-        setDataValidation?: Sheets_v4.Schema.SetDataValidationRequest;
-        sortRange?: Sheets_v4.Schema.SortRangeRequest;
-        textToColumns?: Sheets_v4.Schema.TextToColumnsRequest;
-        unmergeCells?: Sheets_v4.Schema.UnmergeCellsRequest;
-        updateBanding?: Sheets_v4.Schema.UpdateBandingRequest;
-        updateBorders?: Sheets_v4.Schema.UpdateBordersRequest;
-        updateCells?: Sheets_v4.Schema.UpdateCellsRequest;
-        updateChartSpec?: Sheets_v4.Schema.UpdateChartSpecRequest;
-        updateConditionalFormatRule?: Sheets_v4.Schema.UpdateConditionalFormatRuleRequest;
-        updateDeveloperMetadata?: Sheets_v4.Schema.UpdateDeveloperMetadataRequest;
-        updateDimensionGroup?: Sheets_v4.Schema.UpdateDimensionGroupRequest;
-        updateDimensionProperties?: Sheets_v4.Schema.UpdateDimensionPropertiesRequest;
-        updateEmbeddedObjectPosition?: Sheets_v4.Schema.UpdateEmbeddedObjectPositionRequest;
-        updateFilterView?: Sheets_v4.Schema.UpdateFilterViewRequest;
-        updateNamedRange?: Sheets_v4.Schema.UpdateNamedRangeRequest;
-        updateProtectedRange?: Sheets_v4.Schema.UpdateProtectedRangeRequest;
-        updateSheetProperties?: Sheets_v4.Schema.UpdateSheetPropertiesRequest;
-        updateSpreadsheetProperties?: Sheets_v4.Schema.UpdateSpreadsheetPropertiesRequest;
+        addBanding?: Sheets.Schema.AddBandingRequest;
+        addChart?: Sheets.Schema.AddChartRequest;
+        addConditionalFormatRule?: Sheets.Schema.AddConditionalFormatRuleRequest;
+        addDimensionGroup?: Sheets.Schema.AddDimensionGroupRequest;
+        addFilterView?: Sheets.Schema.AddFilterViewRequest;
+        addNamedRange?: Sheets.Schema.AddNamedRangeRequest;
+        addProtectedRange?: Sheets.Schema.AddProtectedRangeRequest;
+        addSheet?: Sheets.Schema.AddSheetRequest;
+        appendCells?: Sheets.Schema.AppendCellsRequest;
+        appendDimension?: Sheets.Schema.AppendDimensionRequest;
+        autoFill?: Sheets.Schema.AutoFillRequest;
+        autoResizeDimensions?: Sheets.Schema.AutoResizeDimensionsRequest;
+        clearBasicFilter?: Sheets.Schema.ClearBasicFilterRequest;
+        copyPaste?: Sheets.Schema.CopyPasteRequest;
+        createDeveloperMetadata?: Sheets.Schema.CreateDeveloperMetadataRequest;
+        cutPaste?: Sheets.Schema.CutPasteRequest;
+        deleteBanding?: Sheets.Schema.DeleteBandingRequest;
+        deleteConditionalFormatRule?: Sheets.Schema.DeleteConditionalFormatRuleRequest;
+        deleteDeveloperMetadata?: Sheets.Schema.DeleteDeveloperMetadataRequest;
+        deleteDimension?: Sheets.Schema.DeleteDimensionRequest;
+        deleteDimensionGroup?: Sheets.Schema.DeleteDimensionGroupRequest;
+        deleteEmbeddedObject?: Sheets.Schema.DeleteEmbeddedObjectRequest;
+        deleteFilterView?: Sheets.Schema.DeleteFilterViewRequest;
+        deleteNamedRange?: Sheets.Schema.DeleteNamedRangeRequest;
+        deleteProtectedRange?: Sheets.Schema.DeleteProtectedRangeRequest;
+        deleteRange?: Sheets.Schema.DeleteRangeRequest;
+        deleteSheet?: Sheets.Schema.DeleteSheetRequest;
+        duplicateFilterView?: Sheets.Schema.DuplicateFilterViewRequest;
+        duplicateSheet?: Sheets.Schema.DuplicateSheetRequest;
+        findReplace?: Sheets.Schema.FindReplaceRequest;
+        insertDimension?: Sheets.Schema.InsertDimensionRequest;
+        insertRange?: Sheets.Schema.InsertRangeRequest;
+        mergeCells?: Sheets.Schema.MergeCellsRequest;
+        moveDimension?: Sheets.Schema.MoveDimensionRequest;
+        pasteData?: Sheets.Schema.PasteDataRequest;
+        randomizeRange?: Sheets.Schema.RandomizeRangeRequest;
+        repeatCell?: Sheets.Schema.RepeatCellRequest;
+        setBasicFilter?: Sheets.Schema.SetBasicFilterRequest;
+        setDataValidation?: Sheets.Schema.SetDataValidationRequest;
+        sortRange?: Sheets.Schema.SortRangeRequest;
+        textToColumns?: Sheets.Schema.TextToColumnsRequest;
+        unmergeCells?: Sheets.Schema.UnmergeCellsRequest;
+        updateBanding?: Sheets.Schema.UpdateBandingRequest;
+        updateBorders?: Sheets.Schema.UpdateBordersRequest;
+        updateCells?: Sheets.Schema.UpdateCellsRequest;
+        updateChartSpec?: Sheets.Schema.UpdateChartSpecRequest;
+        updateConditionalFormatRule?: Sheets.Schema.UpdateConditionalFormatRuleRequest;
+        updateDeveloperMetadata?: Sheets.Schema.UpdateDeveloperMetadataRequest;
+        updateDimensionGroup?: Sheets.Schema.UpdateDimensionGroupRequest;
+        updateDimensionProperties?: Sheets.Schema.UpdateDimensionPropertiesRequest;
+        updateEmbeddedObjectPosition?: Sheets.Schema.UpdateEmbeddedObjectPositionRequest;
+        updateFilterView?: Sheets.Schema.UpdateFilterViewRequest;
+        updateNamedRange?: Sheets.Schema.UpdateNamedRangeRequest;
+        updateProtectedRange?: Sheets.Schema.UpdateProtectedRangeRequest;
+        updateSheetProperties?: Sheets.Schema.UpdateSheetPropertiesRequest;
+        updateSpreadsheetProperties?: Sheets.Schema.UpdateSpreadsheetPropertiesRequest;
       }
       export interface Response {
-        addBanding?: Sheets_v4.Schema.AddBandingResponse;
-        addChart?: Sheets_v4.Schema.AddChartResponse;
-        addDimensionGroup?: Sheets_v4.Schema.AddDimensionGroupResponse;
-        addFilterView?: Sheets_v4.Schema.AddFilterViewResponse;
-        addNamedRange?: Sheets_v4.Schema.AddNamedRangeResponse;
-        addProtectedRange?: Sheets_v4.Schema.AddProtectedRangeResponse;
-        addSheet?: Sheets_v4.Schema.AddSheetResponse;
-        createDeveloperMetadata?: Sheets_v4.Schema.CreateDeveloperMetadataResponse;
-        deleteConditionalFormatRule?: Sheets_v4.Schema.DeleteConditionalFormatRuleResponse;
-        deleteDeveloperMetadata?: Sheets_v4.Schema.DeleteDeveloperMetadataResponse;
-        deleteDimensionGroup?: Sheets_v4.Schema.DeleteDimensionGroupResponse;
-        duplicateFilterView?: Sheets_v4.Schema.DuplicateFilterViewResponse;
-        duplicateSheet?: Sheets_v4.Schema.DuplicateSheetResponse;
-        findReplace?: Sheets_v4.Schema.FindReplaceResponse;
-        updateConditionalFormatRule?: Sheets_v4.Schema.UpdateConditionalFormatRuleResponse;
-        updateDeveloperMetadata?: Sheets_v4.Schema.UpdateDeveloperMetadataResponse;
-        updateEmbeddedObjectPosition?: Sheets_v4.Schema.UpdateEmbeddedObjectPositionResponse;
+        addBanding?: Sheets.Schema.AddBandingResponse;
+        addChart?: Sheets.Schema.AddChartResponse;
+        addDimensionGroup?: Sheets.Schema.AddDimensionGroupResponse;
+        addFilterView?: Sheets.Schema.AddFilterViewResponse;
+        addNamedRange?: Sheets.Schema.AddNamedRangeResponse;
+        addProtectedRange?: Sheets.Schema.AddProtectedRangeResponse;
+        addSheet?: Sheets.Schema.AddSheetResponse;
+        createDeveloperMetadata?: Sheets.Schema.CreateDeveloperMetadataResponse;
+        deleteConditionalFormatRule?: Sheets.Schema.DeleteConditionalFormatRuleResponse;
+        deleteDeveloperMetadata?: Sheets.Schema.DeleteDeveloperMetadataResponse;
+        deleteDimensionGroup?: Sheets.Schema.DeleteDimensionGroupResponse;
+        duplicateFilterView?: Sheets.Schema.DuplicateFilterViewResponse;
+        duplicateSheet?: Sheets.Schema.DuplicateSheetResponse;
+        findReplace?: Sheets.Schema.FindReplaceResponse;
+        updateConditionalFormatRule?: Sheets.Schema.UpdateConditionalFormatRuleResponse;
+        updateDeveloperMetadata?: Sheets.Schema.UpdateDeveloperMetadataResponse;
+        updateEmbeddedObjectPosition?: Sheets.Schema.UpdateEmbeddedObjectPositionResponse;
       }
       export interface RowData {
-        values?: Sheets_v4.Schema.CellData[];
+        values?: Sheets.Schema.CellData[];
       }
       export interface SearchDeveloperMetadataRequest {
-        dataFilters?: Sheets_v4.Schema.DataFilter[];
+        dataFilters?: Sheets.Schema.DataFilter[];
       }
       export interface SearchDeveloperMetadataResponse {
-        matchedDeveloperMetadata?: Sheets_v4.Schema.MatchedDeveloperMetadata[];
+        matchedDeveloperMetadata?: Sheets.Schema.MatchedDeveloperMetadata[];
       }
       export interface SetBasicFilterRequest {
-        filter?: Sheets_v4.Schema.BasicFilter;
+        filter?: Sheets.Schema.BasicFilter;
       }
       export interface SetDataValidationRequest {
-        range?: Sheets_v4.Schema.GridRange;
-        rule?: Sheets_v4.Schema.DataValidationRule;
+        range?: Sheets.Schema.GridRange;
+        rule?: Sheets.Schema.DataValidationRule;
       }
       export interface Sheet {
-        bandedRanges?: Sheets_v4.Schema.BandedRange[];
-        basicFilter?: Sheets_v4.Schema.BasicFilter;
-        charts?: Sheets_v4.Schema.EmbeddedChart[];
-        columnGroups?: Sheets_v4.Schema.DimensionGroup[];
-        conditionalFormats?: Sheets_v4.Schema.ConditionalFormatRule[];
-        data?: Sheets_v4.Schema.GridData[];
-        developerMetadata?: Sheets_v4.Schema.DeveloperMetadata[];
-        filterViews?: Sheets_v4.Schema.FilterView[];
-        merges?: Sheets_v4.Schema.GridRange[];
-        properties?: Sheets_v4.Schema.SheetProperties;
-        protectedRanges?: Sheets_v4.Schema.ProtectedRange[];
-        rowGroups?: Sheets_v4.Schema.DimensionGroup[];
+        bandedRanges?: Sheets.Schema.BandedRange[];
+        basicFilter?: Sheets.Schema.BasicFilter;
+        charts?: Sheets.Schema.EmbeddedChart[];
+        columnGroups?: Sheets.Schema.DimensionGroup[];
+        conditionalFormats?: Sheets.Schema.ConditionalFormatRule[];
+        data?: Sheets.Schema.GridData[];
+        developerMetadata?: Sheets.Schema.DeveloperMetadata[];
+        filterViews?: Sheets.Schema.FilterView[];
+        merges?: Sheets.Schema.GridRange[];
+        properties?: Sheets.Schema.SheetProperties;
+        protectedRanges?: Sheets.Schema.ProtectedRange[];
+        rowGroups?: Sheets.Schema.DimensionGroup[];
       }
       export interface SheetProperties {
-        gridProperties?: Sheets_v4.Schema.GridProperties;
+        gridProperties?: Sheets.Schema.GridProperties;
         hidden?: boolean;
         index?: number;
         rightToLeft?: boolean;
         sheetId?: number;
         sheetType?: string;
-        tabColor?: Sheets_v4.Schema.Color;
+        tabColor?: Sheets.Schema.Color;
         title?: string;
       }
       export interface SortRangeRequest {
-        range?: Sheets_v4.Schema.GridRange;
-        sortSpecs?: Sheets_v4.Schema.SortSpec[];
+        range?: Sheets.Schema.GridRange;
+        sortSpecs?: Sheets.Schema.SortSpec[];
       }
       export interface SortSpec {
         dimensionIndex?: number;
@@ -1014,20 +1014,20 @@ declare namespace GoogleAppsScript {
       export interface SourceAndDestination {
         dimension?: string;
         fillLength?: number;
-        source?: Sheets_v4.Schema.GridRange;
+        source?: Sheets.Schema.GridRange;
       }
       export interface Spreadsheet {
-        developerMetadata?: Sheets_v4.Schema.DeveloperMetadata[];
-        namedRanges?: Sheets_v4.Schema.NamedRange[];
-        properties?: Sheets_v4.Schema.SpreadsheetProperties;
-        sheets?: Sheets_v4.Schema.Sheet[];
+        developerMetadata?: Sheets.Schema.DeveloperMetadata[];
+        namedRanges?: Sheets.Schema.NamedRange[];
+        properties?: Sheets.Schema.SpreadsheetProperties;
+        sheets?: Sheets.Schema.Sheet[];
         spreadsheetId?: string;
         spreadsheetUrl?: string;
       }
       export interface SpreadsheetProperties {
         autoRecalc?: string;
-        defaultFormat?: Sheets_v4.Schema.CellFormat;
-        iterativeCalculationSettings?: Sheets_v4.Schema.IterativeCalculationSettings;
+        defaultFormat?: Sheets.Schema.CellFormat;
+        iterativeCalculationSettings?: Sheets.Schema.IterativeCalculationSettings;
         locale?: string;
         timeZone?: string;
         title?: string;
@@ -1036,13 +1036,13 @@ declare namespace GoogleAppsScript {
         bold?: boolean;
         fontFamily?: string;
         fontSize?: number;
-        foregroundColor?: Sheets_v4.Schema.Color;
+        foregroundColor?: Sheets.Schema.Color;
         italic?: boolean;
         strikethrough?: boolean;
         underline?: boolean;
       }
       export interface TextFormatRun {
-        format?: Sheets_v4.Schema.TextFormat;
+        format?: Sheets.Schema.TextFormat;
         startIndex?: number;
       }
       export interface TextPosition {
@@ -1055,116 +1055,116 @@ declare namespace GoogleAppsScript {
       export interface TextToColumnsRequest {
         delimiter?: string;
         delimiterType?: string;
-        source?: Sheets_v4.Schema.GridRange;
+        source?: Sheets.Schema.GridRange;
       }
       export interface TreemapChartColorScale {
-        maxValueColor?: Sheets_v4.Schema.Color;
-        midValueColor?: Sheets_v4.Schema.Color;
-        minValueColor?: Sheets_v4.Schema.Color;
-        noDataColor?: Sheets_v4.Schema.Color;
+        maxValueColor?: Sheets.Schema.Color;
+        midValueColor?: Sheets.Schema.Color;
+        minValueColor?: Sheets.Schema.Color;
+        noDataColor?: Sheets.Schema.Color;
       }
       export interface TreemapChartSpec {
-        colorData?: Sheets_v4.Schema.ChartData;
-        colorScale?: Sheets_v4.Schema.TreemapChartColorScale;
-        headerColor?: Sheets_v4.Schema.Color;
+        colorData?: Sheets.Schema.ChartData;
+        colorScale?: Sheets.Schema.TreemapChartColorScale;
+        headerColor?: Sheets.Schema.Color;
         hideTooltips?: boolean;
         hintedLevels?: number;
-        labels?: Sheets_v4.Schema.ChartData;
+        labels?: Sheets.Schema.ChartData;
         levels?: number;
-        maxValue?: Number;
-        minValue?: Number;
-        parentLabels?: Sheets_v4.Schema.ChartData;
-        sizeData?: Sheets_v4.Schema.ChartData;
-        textFormat?: Sheets_v4.Schema.TextFormat;
+        maxValue?: number;
+        minValue?: number;
+        parentLabels?: Sheets.Schema.ChartData;
+        sizeData?: Sheets.Schema.ChartData;
+        textFormat?: Sheets.Schema.TextFormat;
       }
       export interface UnmergeCellsRequest {
-        range?: Sheets_v4.Schema.GridRange;
+        range?: Sheets.Schema.GridRange;
       }
       export interface UpdateBandingRequest {
-        bandedRange?: Sheets_v4.Schema.BandedRange;
+        bandedRange?: Sheets.Schema.BandedRange;
         fields?: string;
       }
       export interface UpdateBordersRequest {
-        bottom?: Sheets_v4.Schema.Border;
-        innerHorizontal?: Sheets_v4.Schema.Border;
-        innerVertical?: Sheets_v4.Schema.Border;
-        left?: Sheets_v4.Schema.Border;
-        range?: Sheets_v4.Schema.GridRange;
-        right?: Sheets_v4.Schema.Border;
-        top?: Sheets_v4.Schema.Border;
+        bottom?: Sheets.Schema.Border;
+        innerHorizontal?: Sheets.Schema.Border;
+        innerVertical?: Sheets.Schema.Border;
+        left?: Sheets.Schema.Border;
+        range?: Sheets.Schema.GridRange;
+        right?: Sheets.Schema.Border;
+        top?: Sheets.Schema.Border;
       }
       export interface UpdateCellsRequest {
         fields?: string;
-        range?: Sheets_v4.Schema.GridRange;
-        rows?: Sheets_v4.Schema.RowData[];
-        start?: Sheets_v4.Schema.GridCoordinate;
+        range?: Sheets.Schema.GridRange;
+        rows?: Sheets.Schema.RowData[];
+        start?: Sheets.Schema.GridCoordinate;
       }
       export interface UpdateChartSpecRequest {
         chartId?: number;
-        spec?: Sheets_v4.Schema.ChartSpec;
+        spec?: Sheets.Schema.ChartSpec;
       }
       export interface UpdateConditionalFormatRuleRequest {
         index?: number;
         newIndex?: number;
-        rule?: Sheets_v4.Schema.ConditionalFormatRule;
+        rule?: Sheets.Schema.ConditionalFormatRule;
         sheetId?: number;
       }
       export interface UpdateConditionalFormatRuleResponse {
         newIndex?: number;
-        newRule?: Sheets_v4.Schema.ConditionalFormatRule;
+        newRule?: Sheets.Schema.ConditionalFormatRule;
         oldIndex?: number;
-        oldRule?: Sheets_v4.Schema.ConditionalFormatRule;
+        oldRule?: Sheets.Schema.ConditionalFormatRule;
       }
       export interface UpdateDeveloperMetadataRequest {
-        dataFilters?: Sheets_v4.Schema.DataFilter[];
-        developerMetadata?: Sheets_v4.Schema.DeveloperMetadata;
+        dataFilters?: Sheets.Schema.DataFilter[];
+        developerMetadata?: Sheets.Schema.DeveloperMetadata;
         fields?: string;
       }
       export interface UpdateDeveloperMetadataResponse {
-        developerMetadata?: Sheets_v4.Schema.DeveloperMetadata[];
+        developerMetadata?: Sheets.Schema.DeveloperMetadata[];
       }
       export interface UpdateDimensionGroupRequest {
-        dimensionGroup?: Sheets_v4.Schema.DimensionGroup;
+        dimensionGroup?: Sheets.Schema.DimensionGroup;
         fields?: string;
       }
       export interface UpdateDimensionPropertiesRequest {
         fields?: string;
-        properties?: Sheets_v4.Schema.DimensionProperties;
-        range?: Sheets_v4.Schema.DimensionRange;
+        properties?: Sheets.Schema.DimensionProperties;
+        range?: Sheets.Schema.DimensionRange;
       }
       export interface UpdateEmbeddedObjectPositionRequest {
         fields?: string;
-        newPosition?: Sheets_v4.Schema.EmbeddedObjectPosition;
+        newPosition?: Sheets.Schema.EmbeddedObjectPosition;
         objectId?: number;
       }
       export interface UpdateEmbeddedObjectPositionResponse {
-        position?: Sheets_v4.Schema.EmbeddedObjectPosition;
+        position?: Sheets.Schema.EmbeddedObjectPosition;
       }
       export interface UpdateFilterViewRequest {
         fields?: string;
-        filter?: Sheets_v4.Schema.FilterView;
+        filter?: Sheets.Schema.FilterView;
       }
       export interface UpdateNamedRangeRequest {
         fields?: string;
-        namedRange?: Sheets_v4.Schema.NamedRange;
+        namedRange?: Sheets.Schema.NamedRange;
       }
       export interface UpdateProtectedRangeRequest {
         fields?: string;
-        protectedRange?: Sheets_v4.Schema.ProtectedRange;
+        protectedRange?: Sheets.Schema.ProtectedRange;
       }
       export interface UpdateSheetPropertiesRequest {
         fields?: string;
-        properties?: Sheets_v4.Schema.SheetProperties;
+        properties?: Sheets.Schema.SheetProperties;
       }
       export interface UpdateSpreadsheetPropertiesRequest {
         fields?: string;
-        properties?: Sheets_v4.Schema.SpreadsheetProperties;
+        properties?: Sheets.Schema.SpreadsheetProperties;
       }
       export interface UpdateValuesByDataFilterResponse {
-        dataFilter?: Sheets_v4.Schema.DataFilter;
+        dataFilter?: Sheets.Schema.DataFilter;
         updatedCells?: number;
         updatedColumns?: number;
-        updatedData?: Sheets_v4.Schema.ValueRange;
+        updatedData?: Sheets.Schema.ValueRange;
         updatedRange?: string;
         updatedRows?: number;
       }
@@ -1172,17 +1172,17 @@ declare namespace GoogleAppsScript {
         spreadsheetId?: string;
         updatedCells?: number;
         updatedColumns?: number;
-        updatedData?: Sheets_v4.Schema.ValueRange;
+        updatedData?: Sheets.Schema.ValueRange;
         updatedRange?: string;
         updatedRows?: number;
       }
       export interface ValueRange {
         majorDimension?: string;
         range?: string;
-        values?: Object[][];
+        values?: any[][];
       }
       export interface WaterfallChartColumnStyle {
-        color?: Sheets_v4.Schema.Color;
+        color?: Sheets.Schema.Color;
         label?: string;
       }
       export interface WaterfallChartCustomSubtotal {
@@ -1191,334 +1191,334 @@ declare namespace GoogleAppsScript {
         subtotalIndex?: number;
       }
       export interface WaterfallChartDomain {
-        data?: Sheets_v4.Schema.ChartData;
+        data?: Sheets.Schema.ChartData;
         reversed?: boolean;
       }
       export interface WaterfallChartSeries {
-        customSubtotals?: Sheets_v4.Schema.WaterfallChartCustomSubtotal[];
-        data?: Sheets_v4.Schema.ChartData;
+        customSubtotals?: Sheets.Schema.WaterfallChartCustomSubtotal[];
+        data?: Sheets.Schema.ChartData;
         hideTrailingSubtotal?: boolean;
-        negativeColumnsStyle?: Sheets_v4.Schema.WaterfallChartColumnStyle;
-        positiveColumnsStyle?: Sheets_v4.Schema.WaterfallChartColumnStyle;
-        subtotalColumnsStyle?: Sheets_v4.Schema.WaterfallChartColumnStyle;
+        negativeColumnsStyle?: Sheets.Schema.WaterfallChartColumnStyle;
+        positiveColumnsStyle?: Sheets.Schema.WaterfallChartColumnStyle;
+        subtotalColumnsStyle?: Sheets.Schema.WaterfallChartColumnStyle;
       }
       export interface WaterfallChartSpec {
-        connectorLineStyle?: Sheets_v4.Schema.LineStyle;
-        domain?: Sheets_v4.Schema.WaterfallChartDomain;
+        connectorLineStyle?: Sheets.Schema.LineStyle;
+        domain?: Sheets.Schema.WaterfallChartDomain;
         firstValueIsTotal?: boolean;
         hideConnectorLines?: boolean;
-        series?: Sheets_v4.Schema.WaterfallChartSeries[];
+        series?: Sheets.Schema.WaterfallChartSeries[];
         stackedType?: string;
       }
     }
   }
-  export interface Sheets_v4 {
-    Spreadsheets?: Sheets_v4.Collection.SpreadsheetsCollection;
+  export interface Sheets {
+    Spreadsheets?: Sheets.Collection.SpreadsheetsCollection;
     // Create a new instance of AddBandingRequest
-    newAddBandingRequest(): Sheets_v4.Schema.AddBandingRequest;
+    newAddBandingRequest(): Sheets.Schema.AddBandingRequest;
     // Create a new instance of AddChartRequest
-    newAddChartRequest(): Sheets_v4.Schema.AddChartRequest;
+    newAddChartRequest(): Sheets.Schema.AddChartRequest;
     // Create a new instance of AddConditionalFormatRuleRequest
-    newAddConditionalFormatRuleRequest(): Sheets_v4.Schema.AddConditionalFormatRuleRequest;
+    newAddConditionalFormatRuleRequest(): Sheets.Schema.AddConditionalFormatRuleRequest;
     // Create a new instance of AddDimensionGroupRequest
-    newAddDimensionGroupRequest(): Sheets_v4.Schema.AddDimensionGroupRequest;
+    newAddDimensionGroupRequest(): Sheets.Schema.AddDimensionGroupRequest;
     // Create a new instance of AddFilterViewRequest
-    newAddFilterViewRequest(): Sheets_v4.Schema.AddFilterViewRequest;
+    newAddFilterViewRequest(): Sheets.Schema.AddFilterViewRequest;
     // Create a new instance of AddNamedRangeRequest
-    newAddNamedRangeRequest(): Sheets_v4.Schema.AddNamedRangeRequest;
+    newAddNamedRangeRequest(): Sheets.Schema.AddNamedRangeRequest;
     // Create a new instance of AddProtectedRangeRequest
-    newAddProtectedRangeRequest(): Sheets_v4.Schema.AddProtectedRangeRequest;
+    newAddProtectedRangeRequest(): Sheets.Schema.AddProtectedRangeRequest;
     // Create a new instance of AddSheetRequest
-    newAddSheetRequest(): Sheets_v4.Schema.AddSheetRequest;
+    newAddSheetRequest(): Sheets.Schema.AddSheetRequest;
     // Create a new instance of AppendCellsRequest
-    newAppendCellsRequest(): Sheets_v4.Schema.AppendCellsRequest;
+    newAppendCellsRequest(): Sheets.Schema.AppendCellsRequest;
     // Create a new instance of AppendDimensionRequest
-    newAppendDimensionRequest(): Sheets_v4.Schema.AppendDimensionRequest;
+    newAppendDimensionRequest(): Sheets.Schema.AppendDimensionRequest;
     // Create a new instance of AutoFillRequest
-    newAutoFillRequest(): Sheets_v4.Schema.AutoFillRequest;
+    newAutoFillRequest(): Sheets.Schema.AutoFillRequest;
     // Create a new instance of AutoResizeDimensionsRequest
-    newAutoResizeDimensionsRequest(): Sheets_v4.Schema.AutoResizeDimensionsRequest;
+    newAutoResizeDimensionsRequest(): Sheets.Schema.AutoResizeDimensionsRequest;
     // Create a new instance of BandedRange
-    newBandedRange(): Sheets_v4.Schema.BandedRange;
+    newBandedRange(): Sheets.Schema.BandedRange;
     // Create a new instance of BandingProperties
-    newBandingProperties(): Sheets_v4.Schema.BandingProperties;
+    newBandingProperties(): Sheets.Schema.BandingProperties;
     // Create a new instance of BasicChartAxis
-    newBasicChartAxis(): Sheets_v4.Schema.BasicChartAxis;
+    newBasicChartAxis(): Sheets.Schema.BasicChartAxis;
     // Create a new instance of BasicChartDomain
-    newBasicChartDomain(): Sheets_v4.Schema.BasicChartDomain;
+    newBasicChartDomain(): Sheets.Schema.BasicChartDomain;
     // Create a new instance of BasicChartSeries
-    newBasicChartSeries(): Sheets_v4.Schema.BasicChartSeries;
+    newBasicChartSeries(): Sheets.Schema.BasicChartSeries;
     // Create a new instance of BasicChartSpec
-    newBasicChartSpec(): Sheets_v4.Schema.BasicChartSpec;
+    newBasicChartSpec(): Sheets.Schema.BasicChartSpec;
     // Create a new instance of BasicFilter
-    newBasicFilter(): Sheets_v4.Schema.BasicFilter;
+    newBasicFilter(): Sheets.Schema.BasicFilter;
     // Create a new instance of BatchClearValuesByDataFilterRequest
-    newBatchClearValuesByDataFilterRequest(): Sheets_v4.Schema.BatchClearValuesByDataFilterRequest;
+    newBatchClearValuesByDataFilterRequest(): Sheets.Schema.BatchClearValuesByDataFilterRequest;
     // Create a new instance of BatchClearValuesRequest
-    newBatchClearValuesRequest(): Sheets_v4.Schema.BatchClearValuesRequest;
+    newBatchClearValuesRequest(): Sheets.Schema.BatchClearValuesRequest;
     // Create a new instance of BatchGetValuesByDataFilterRequest
-    newBatchGetValuesByDataFilterRequest(): Sheets_v4.Schema.BatchGetValuesByDataFilterRequest;
+    newBatchGetValuesByDataFilterRequest(): Sheets.Schema.BatchGetValuesByDataFilterRequest;
     // Create a new instance of BatchUpdateSpreadsheetRequest
-    newBatchUpdateSpreadsheetRequest(): Sheets_v4.Schema.BatchUpdateSpreadsheetRequest;
+    newBatchUpdateSpreadsheetRequest(): Sheets.Schema.BatchUpdateSpreadsheetRequest;
     // Create a new instance of BatchUpdateValuesByDataFilterRequest
-    newBatchUpdateValuesByDataFilterRequest(): Sheets_v4.Schema.BatchUpdateValuesByDataFilterRequest;
+    newBatchUpdateValuesByDataFilterRequest(): Sheets.Schema.BatchUpdateValuesByDataFilterRequest;
     // Create a new instance of BatchUpdateValuesRequest
-    newBatchUpdateValuesRequest(): Sheets_v4.Schema.BatchUpdateValuesRequest;
+    newBatchUpdateValuesRequest(): Sheets.Schema.BatchUpdateValuesRequest;
     // Create a new instance of BooleanCondition
-    newBooleanCondition(): Sheets_v4.Schema.BooleanCondition;
+    newBooleanCondition(): Sheets.Schema.BooleanCondition;
     // Create a new instance of BooleanRule
-    newBooleanRule(): Sheets_v4.Schema.BooleanRule;
+    newBooleanRule(): Sheets.Schema.BooleanRule;
     // Create a new instance of Border
-    newBorder(): Sheets_v4.Schema.Border;
+    newBorder(): Sheets.Schema.Border;
     // Create a new instance of Borders
-    newBorders(): Sheets_v4.Schema.Borders;
+    newBorders(): Sheets.Schema.Borders;
     // Create a new instance of BubbleChartSpec
-    newBubbleChartSpec(): Sheets_v4.Schema.BubbleChartSpec;
+    newBubbleChartSpec(): Sheets.Schema.BubbleChartSpec;
     // Create a new instance of CandlestickChartSpec
-    newCandlestickChartSpec(): Sheets_v4.Schema.CandlestickChartSpec;
+    newCandlestickChartSpec(): Sheets.Schema.CandlestickChartSpec;
     // Create a new instance of CandlestickData
-    newCandlestickData(): Sheets_v4.Schema.CandlestickData;
+    newCandlestickData(): Sheets.Schema.CandlestickData;
     // Create a new instance of CandlestickDomain
-    newCandlestickDomain(): Sheets_v4.Schema.CandlestickDomain;
+    newCandlestickDomain(): Sheets.Schema.CandlestickDomain;
     // Create a new instance of CandlestickSeries
-    newCandlestickSeries(): Sheets_v4.Schema.CandlestickSeries;
+    newCandlestickSeries(): Sheets.Schema.CandlestickSeries;
     // Create a new instance of CellData
-    newCellData(): Sheets_v4.Schema.CellData;
+    newCellData(): Sheets.Schema.CellData;
     // Create a new instance of CellFormat
-    newCellFormat(): Sheets_v4.Schema.CellFormat;
+    newCellFormat(): Sheets.Schema.CellFormat;
     // Create a new instance of ChartData
-    newChartData(): Sheets_v4.Schema.ChartData;
+    newChartData(): Sheets.Schema.ChartData;
     // Create a new instance of ChartSourceRange
-    newChartSourceRange(): Sheets_v4.Schema.ChartSourceRange;
+    newChartSourceRange(): Sheets.Schema.ChartSourceRange;
     // Create a new instance of ChartSpec
-    newChartSpec(): Sheets_v4.Schema.ChartSpec;
+    newChartSpec(): Sheets.Schema.ChartSpec;
     // Create a new instance of ClearBasicFilterRequest
-    newClearBasicFilterRequest(): Sheets_v4.Schema.ClearBasicFilterRequest;
+    newClearBasicFilterRequest(): Sheets.Schema.ClearBasicFilterRequest;
     // Create a new instance of ClearValuesRequest
     newClearValuesRequest(): any; // Schema.ClearValuesRequest;
     // Create a new instance of Color
-    newColor(): Sheets_v4.Schema.Color;
+    newColor(): Sheets.Schema.Color;
     // Create a new instance of ConditionValue
-    newConditionValue(): Sheets_v4.Schema.ConditionValue;
+    newConditionValue(): Sheets.Schema.ConditionValue;
     // Create a new instance of ConditionalFormatRule
-    newConditionalFormatRule(): Sheets_v4.Schema.ConditionalFormatRule;
+    newConditionalFormatRule(): Sheets.Schema.ConditionalFormatRule;
     // Create a new instance of CopyPasteRequest
-    newCopyPasteRequest(): Sheets_v4.Schema.CopyPasteRequest;
+    newCopyPasteRequest(): Sheets.Schema.CopyPasteRequest;
     // Create a new instance of CopySheetToAnotherSpreadsheetRequest
-    newCopySheetToAnotherSpreadsheetRequest(): Sheets_v4.Schema.CopySheetToAnotherSpreadsheetRequest;
+    newCopySheetToAnotherSpreadsheetRequest(): Sheets.Schema.CopySheetToAnotherSpreadsheetRequest;
     // Create a new instance of CreateDeveloperMetadataRequest
-    newCreateDeveloperMetadataRequest(): Sheets_v4.Schema.CreateDeveloperMetadataRequest;
+    newCreateDeveloperMetadataRequest(): Sheets.Schema.CreateDeveloperMetadataRequest;
     // Create a new instance of CutPasteRequest
-    newCutPasteRequest(): Sheets_v4.Schema.CutPasteRequest;
+    newCutPasteRequest(): Sheets.Schema.CutPasteRequest;
     // Create a new instance of DataFilter
-    newDataFilter(): Sheets_v4.Schema.DataFilter;
+    newDataFilter(): Sheets.Schema.DataFilter;
     // Create a new instance of DataFilterValueRange
-    newDataFilterValueRange(): Sheets_v4.Schema.DataFilterValueRange;
+    newDataFilterValueRange(): Sheets.Schema.DataFilterValueRange;
     // Create a new instance of DataValidationRule
-    newDataValidationRule(): Sheets_v4.Schema.DataValidationRule;
+    newDataValidationRule(): Sheets.Schema.DataValidationRule;
     // Create a new instance of DateTimeRule
-    newDateTimeRule(): Sheets_v4.Schema.DateTimeRule;
+    newDateTimeRule(): Sheets.Schema.DateTimeRule;
     // Create a new instance of DeleteBandingRequest
-    newDeleteBandingRequest(): Sheets_v4.Schema.DeleteBandingRequest;
+    newDeleteBandingRequest(): Sheets.Schema.DeleteBandingRequest;
     // Create a new instance of DeleteConditionalFormatRuleRequest
-    newDeleteConditionalFormatRuleRequest(): Sheets_v4.Schema.DeleteConditionalFormatRuleRequest;
+    newDeleteConditionalFormatRuleRequest(): Sheets.Schema.DeleteConditionalFormatRuleRequest;
     // Create a new instance of DeleteDeveloperMetadataRequest
-    newDeleteDeveloperMetadataRequest(): Sheets_v4.Schema.DeleteDeveloperMetadataRequest;
+    newDeleteDeveloperMetadataRequest(): Sheets.Schema.DeleteDeveloperMetadataRequest;
     // Create a new instance of DeleteDimensionGroupRequest
-    newDeleteDimensionGroupRequest(): Sheets_v4.Schema.DeleteDimensionGroupRequest;
+    newDeleteDimensionGroupRequest(): Sheets.Schema.DeleteDimensionGroupRequest;
     // Create a new instance of DeleteDimensionRequest
-    newDeleteDimensionRequest(): Sheets_v4.Schema.DeleteDimensionRequest;
+    newDeleteDimensionRequest(): Sheets.Schema.DeleteDimensionRequest;
     // Create a new instance of DeleteEmbeddedObjectRequest
-    newDeleteEmbeddedObjectRequest(): Sheets_v4.Schema.DeleteEmbeddedObjectRequest;
+    newDeleteEmbeddedObjectRequest(): Sheets.Schema.DeleteEmbeddedObjectRequest;
     // Create a new instance of DeleteFilterViewRequest
-    newDeleteFilterViewRequest(): Sheets_v4.Schema.DeleteFilterViewRequest;
+    newDeleteFilterViewRequest(): Sheets.Schema.DeleteFilterViewRequest;
     // Create a new instance of DeleteNamedRangeRequest
-    newDeleteNamedRangeRequest(): Sheets_v4.Schema.DeleteNamedRangeRequest;
+    newDeleteNamedRangeRequest(): Sheets.Schema.DeleteNamedRangeRequest;
     // Create a new instance of DeleteProtectedRangeRequest
-    newDeleteProtectedRangeRequest(): Sheets_v4.Schema.DeleteProtectedRangeRequest;
+    newDeleteProtectedRangeRequest(): Sheets.Schema.DeleteProtectedRangeRequest;
     // Create a new instance of DeleteRangeRequest
-    newDeleteRangeRequest(): Sheets_v4.Schema.DeleteRangeRequest;
+    newDeleteRangeRequest(): Sheets.Schema.DeleteRangeRequest;
     // Create a new instance of DeleteSheetRequest
-    newDeleteSheetRequest(): Sheets_v4.Schema.DeleteSheetRequest;
+    newDeleteSheetRequest(): Sheets.Schema.DeleteSheetRequest;
     // Create a new instance of DeveloperMetadata
-    newDeveloperMetadata(): Sheets_v4.Schema.DeveloperMetadata;
+    newDeveloperMetadata(): Sheets.Schema.DeveloperMetadata;
     // Create a new instance of DeveloperMetadataLocation
-    newDeveloperMetadataLocation(): Sheets_v4.Schema.DeveloperMetadataLocation;
+    newDeveloperMetadataLocation(): Sheets.Schema.DeveloperMetadataLocation;
     // Create a new instance of DeveloperMetadataLookup
-    newDeveloperMetadataLookup(): Sheets_v4.Schema.DeveloperMetadataLookup;
+    newDeveloperMetadataLookup(): Sheets.Schema.DeveloperMetadataLookup;
     // Create a new instance of DimensionGroup
-    newDimensionGroup(): Sheets_v4.Schema.DimensionGroup;
+    newDimensionGroup(): Sheets.Schema.DimensionGroup;
     // Create a new instance of DimensionProperties
-    newDimensionProperties(): Sheets_v4.Schema.DimensionProperties;
+    newDimensionProperties(): Sheets.Schema.DimensionProperties;
     // Create a new instance of DimensionRange
-    newDimensionRange(): Sheets_v4.Schema.DimensionRange;
+    newDimensionRange(): Sheets.Schema.DimensionRange;
     // Create a new instance of DuplicateFilterViewRequest
-    newDuplicateFilterViewRequest(): Sheets_v4.Schema.DuplicateFilterViewRequest;
+    newDuplicateFilterViewRequest(): Sheets.Schema.DuplicateFilterViewRequest;
     // Create a new instance of DuplicateSheetRequest
-    newDuplicateSheetRequest(): Sheets_v4.Schema.DuplicateSheetRequest;
+    newDuplicateSheetRequest(): Sheets.Schema.DuplicateSheetRequest;
     // Create a new instance of Editors
-    newEditors(): Sheets_v4.Schema.Editors;
+    newEditors(): Sheets.Schema.Editors;
     // Create a new instance of EmbeddedChart
-    newEmbeddedChart(): Sheets_v4.Schema.EmbeddedChart;
+    newEmbeddedChart(): Sheets.Schema.EmbeddedChart;
     // Create a new instance of EmbeddedObjectPosition
-    newEmbeddedObjectPosition(): Sheets_v4.Schema.EmbeddedObjectPosition;
+    newEmbeddedObjectPosition(): Sheets.Schema.EmbeddedObjectPosition;
     // Create a new instance of ErrorValue
-    newErrorValue(): Sheets_v4.Schema.ErrorValue;
+    newErrorValue(): Sheets.Schema.ErrorValue;
     // Create a new instance of ExtendedValue
-    newExtendedValue(): Sheets_v4.Schema.ExtendedValue;
+    newExtendedValue(): Sheets.Schema.ExtendedValue;
     // Create a new instance of FilterView
-    newFilterView(): Sheets_v4.Schema.FilterView;
+    newFilterView(): Sheets.Schema.FilterView;
     // Create a new instance of FindReplaceRequest
-    newFindReplaceRequest(): Sheets_v4.Schema.FindReplaceRequest;
+    newFindReplaceRequest(): Sheets.Schema.FindReplaceRequest;
     // Create a new instance of GetSpreadsheetByDataFilterRequest
-    newGetSpreadsheetByDataFilterRequest(): Sheets_v4.Schema.GetSpreadsheetByDataFilterRequest;
+    newGetSpreadsheetByDataFilterRequest(): Sheets.Schema.GetSpreadsheetByDataFilterRequest;
     // Create a new instance of GradientRule
-    newGradientRule(): Sheets_v4.Schema.GradientRule;
+    newGradientRule(): Sheets.Schema.GradientRule;
     // Create a new instance of GridCoordinate
-    newGridCoordinate(): Sheets_v4.Schema.GridCoordinate;
+    newGridCoordinate(): Sheets.Schema.GridCoordinate;
     // Create a new instance of GridData
-    newGridData(): Sheets_v4.Schema.GridData;
+    newGridData(): Sheets.Schema.GridData;
     // Create a new instance of GridProperties
-    newGridProperties(): Sheets_v4.Schema.GridProperties;
+    newGridProperties(): Sheets.Schema.GridProperties;
     // Create a new instance of GridRange
-    newGridRange(): Sheets_v4.Schema.GridRange;
+    newGridRange(): Sheets.Schema.GridRange;
     // Create a new instance of HistogramChartSpec
-    newHistogramChartSpec(): Sheets_v4.Schema.HistogramChartSpec;
+    newHistogramChartSpec(): Sheets.Schema.HistogramChartSpec;
     // Create a new instance of HistogramRule
-    newHistogramRule(): Sheets_v4.Schema.HistogramRule;
+    newHistogramRule(): Sheets.Schema.HistogramRule;
     // Create a new instance of HistogramSeries
-    newHistogramSeries(): Sheets_v4.Schema.HistogramSeries;
+    newHistogramSeries(): Sheets.Schema.HistogramSeries;
     // Create a new instance of InsertDimensionRequest
-    newInsertDimensionRequest(): Sheets_v4.Schema.InsertDimensionRequest;
+    newInsertDimensionRequest(): Sheets.Schema.InsertDimensionRequest;
     // Create a new instance of InsertRangeRequest
-    newInsertRangeRequest(): Sheets_v4.Schema.InsertRangeRequest;
+    newInsertRangeRequest(): Sheets.Schema.InsertRangeRequest;
     // Create a new instance of InterpolationPoint
-    newInterpolationPoint(): Sheets_v4.Schema.InterpolationPoint;
+    newInterpolationPoint(): Sheets.Schema.InterpolationPoint;
     // Create a new instance of IterativeCalculationSettings
-    newIterativeCalculationSettings(): Sheets_v4.Schema.IterativeCalculationSettings;
+    newIterativeCalculationSettings(): Sheets.Schema.IterativeCalculationSettings;
     // Create a new instance of LineStyle
-    newLineStyle(): Sheets_v4.Schema.LineStyle;
+    newLineStyle(): Sheets.Schema.LineStyle;
     // Create a new instance of ManualRule
-    newManualRule(): Sheets_v4.Schema.ManualRule;
+    newManualRule(): Sheets.Schema.ManualRule;
     // Create a new instance of ManualRuleGroup
-    newManualRuleGroup(): Sheets_v4.Schema.ManualRuleGroup;
+    newManualRuleGroup(): Sheets.Schema.ManualRuleGroup;
     // Create a new instance of MergeCellsRequest
-    newMergeCellsRequest(): Sheets_v4.Schema.MergeCellsRequest;
+    newMergeCellsRequest(): Sheets.Schema.MergeCellsRequest;
     // Create a new instance of MoveDimensionRequest
-    newMoveDimensionRequest(): Sheets_v4.Schema.MoveDimensionRequest;
+    newMoveDimensionRequest(): Sheets.Schema.MoveDimensionRequest;
     // Create a new instance of NamedRange
-    newNamedRange(): Sheets_v4.Schema.NamedRange;
+    newNamedRange(): Sheets.Schema.NamedRange;
     // Create a new instance of NumberFormat
-    newNumberFormat(): Sheets_v4.Schema.NumberFormat;
+    newNumberFormat(): Sheets.Schema.NumberFormat;
     // Create a new instance of OrgChartSpec
-    newOrgChartSpec(): Sheets_v4.Schema.OrgChartSpec;
+    newOrgChartSpec(): Sheets.Schema.OrgChartSpec;
     // Create a new instance of OverlayPosition
-    newOverlayPosition(): Sheets_v4.Schema.OverlayPosition;
+    newOverlayPosition(): Sheets.Schema.OverlayPosition;
     // Create a new instance of Padding
-    newPadding(): Sheets_v4.Schema.Padding;
+    newPadding(): Sheets.Schema.Padding;
     // Create a new instance of PasteDataRequest
-    newPasteDataRequest(): Sheets_v4.Schema.PasteDataRequest;
+    newPasteDataRequest(): Sheets.Schema.PasteDataRequest;
     // Create a new instance of PieChartSpec
-    newPieChartSpec(): Sheets_v4.Schema.PieChartSpec;
+    newPieChartSpec(): Sheets.Schema.PieChartSpec;
     // Create a new instance of PivotGroup
-    newPivotGroup(): Sheets_v4.Schema.PivotGroup;
+    newPivotGroup(): Sheets.Schema.PivotGroup;
     // Create a new instance of PivotGroupRule
-    newPivotGroupRule(): Sheets_v4.Schema.PivotGroupRule;
+    newPivotGroupRule(): Sheets.Schema.PivotGroupRule;
     // Create a new instance of PivotGroupSortValueBucket
-    newPivotGroupSortValueBucket(): Sheets_v4.Schema.PivotGroupSortValueBucket;
+    newPivotGroupSortValueBucket(): Sheets.Schema.PivotGroupSortValueBucket;
     // Create a new instance of PivotGroupValueMetadata
-    newPivotGroupValueMetadata(): Sheets_v4.Schema.PivotGroupValueMetadata;
+    newPivotGroupValueMetadata(): Sheets.Schema.PivotGroupValueMetadata;
     // Create a new instance of PivotTable
-    newPivotTable(): Sheets_v4.Schema.PivotTable;
+    newPivotTable(): Sheets.Schema.PivotTable;
     // Create a new instance of PivotValue
-    newPivotValue(): Sheets_v4.Schema.PivotValue;
+    newPivotValue(): Sheets.Schema.PivotValue;
     // Create a new instance of ProtectedRange
-    newProtectedRange(): Sheets_v4.Schema.ProtectedRange;
+    newProtectedRange(): Sheets.Schema.ProtectedRange;
     // Create a new instance of RandomizeRangeRequest
-    newRandomizeRangeRequest(): Sheets_v4.Schema.RandomizeRangeRequest;
+    newRandomizeRangeRequest(): Sheets.Schema.RandomizeRangeRequest;
     // Create a new instance of RepeatCellRequest
-    newRepeatCellRequest(): Sheets_v4.Schema.RepeatCellRequest;
+    newRepeatCellRequest(): Sheets.Schema.RepeatCellRequest;
     // Create a new instance of Request
-    newRequest(): Sheets_v4.Schema.Request;
+    newRequest(): Sheets.Schema.Request;
     // Create a new instance of RowData
-    newRowData(): Sheets_v4.Schema.RowData;
+    newRowData(): Sheets.Schema.RowData;
     // Create a new instance of SearchDeveloperMetadataRequest
-    newSearchDeveloperMetadataRequest(): Sheets_v4.Schema.SearchDeveloperMetadataRequest;
+    newSearchDeveloperMetadataRequest(): Sheets.Schema.SearchDeveloperMetadataRequest;
     // Create a new instance of SetBasicFilterRequest
-    newSetBasicFilterRequest(): Sheets_v4.Schema.SetBasicFilterRequest;
+    newSetBasicFilterRequest(): Sheets.Schema.SetBasicFilterRequest;
     // Create a new instance of SetDataValidationRequest
-    newSetDataValidationRequest(): Sheets_v4.Schema.SetDataValidationRequest;
+    newSetDataValidationRequest(): Sheets.Schema.SetDataValidationRequest;
     // Create a new instance of Sheet
-    newSheet(): Sheets_v4.Schema.Sheet;
+    newSheet(): Sheets.Schema.Sheet;
     // Create a new instance of SheetProperties
-    newSheetProperties(): Sheets_v4.Schema.SheetProperties;
+    newSheetProperties(): Sheets.Schema.SheetProperties;
     // Create a new instance of SortRangeRequest
-    newSortRangeRequest(): Sheets_v4.Schema.SortRangeRequest;
+    newSortRangeRequest(): Sheets.Schema.SortRangeRequest;
     // Create a new instance of SortSpec
-    newSortSpec(): Sheets_v4.Schema.SortSpec;
+    newSortSpec(): Sheets.Schema.SortSpec;
     // Create a new instance of SourceAndDestination
-    newSourceAndDestination(): Sheets_v4.Schema.SourceAndDestination;
+    newSourceAndDestination(): Sheets.Schema.SourceAndDestination;
     // Create a new instance of Spreadsheet
-    newSpreadsheet(): Sheets_v4.Schema.Spreadsheet;
+    newSpreadsheet(): Sheets.Schema.Spreadsheet;
     // Create a new instance of SpreadsheetProperties
-    newSpreadsheetProperties(): Sheets_v4.Schema.SpreadsheetProperties;
+    newSpreadsheetProperties(): Sheets.Schema.SpreadsheetProperties;
     // Create a new instance of TextFormat
-    newTextFormat(): Sheets_v4.Schema.TextFormat;
+    newTextFormat(): Sheets.Schema.TextFormat;
     // Create a new instance of TextFormatRun
-    newTextFormatRun(): Sheets_v4.Schema.TextFormatRun;
+    newTextFormatRun(): Sheets.Schema.TextFormatRun;
     // Create a new instance of TextPosition
-    newTextPosition(): Sheets_v4.Schema.TextPosition;
+    newTextPosition(): Sheets.Schema.TextPosition;
     // Create a new instance of TextRotation
-    newTextRotation(): Sheets_v4.Schema.TextRotation;
+    newTextRotation(): Sheets.Schema.TextRotation;
     // Create a new instance of TextToColumnsRequest
-    newTextToColumnsRequest(): Sheets_v4.Schema.TextToColumnsRequest;
+    newTextToColumnsRequest(): Sheets.Schema.TextToColumnsRequest;
     // Create a new instance of TreemapChartColorScale
-    newTreemapChartColorScale(): Sheets_v4.Schema.TreemapChartColorScale;
+    newTreemapChartColorScale(): Sheets.Schema.TreemapChartColorScale;
     // Create a new instance of TreemapChartSpec
-    newTreemapChartSpec(): Sheets_v4.Schema.TreemapChartSpec;
+    newTreemapChartSpec(): Sheets.Schema.TreemapChartSpec;
     // Create a new instance of UnmergeCellsRequest
-    newUnmergeCellsRequest(): Sheets_v4.Schema.UnmergeCellsRequest;
+    newUnmergeCellsRequest(): Sheets.Schema.UnmergeCellsRequest;
     // Create a new instance of UpdateBandingRequest
-    newUpdateBandingRequest(): Sheets_v4.Schema.UpdateBandingRequest;
+    newUpdateBandingRequest(): Sheets.Schema.UpdateBandingRequest;
     // Create a new instance of UpdateBordersRequest
-    newUpdateBordersRequest(): Sheets_v4.Schema.UpdateBordersRequest;
+    newUpdateBordersRequest(): Sheets.Schema.UpdateBordersRequest;
     // Create a new instance of UpdateCellsRequest
-    newUpdateCellsRequest(): Sheets_v4.Schema.UpdateCellsRequest;
+    newUpdateCellsRequest(): Sheets.Schema.UpdateCellsRequest;
     // Create a new instance of UpdateChartSpecRequest
-    newUpdateChartSpecRequest(): Sheets_v4.Schema.UpdateChartSpecRequest;
+    newUpdateChartSpecRequest(): Sheets.Schema.UpdateChartSpecRequest;
     // Create a new instance of UpdateConditionalFormatRuleRequest
-    newUpdateConditionalFormatRuleRequest(): Sheets_v4.Schema.UpdateConditionalFormatRuleRequest;
+    newUpdateConditionalFormatRuleRequest(): Sheets.Schema.UpdateConditionalFormatRuleRequest;
     // Create a new instance of UpdateDeveloperMetadataRequest
-    newUpdateDeveloperMetadataRequest(): Sheets_v4.Schema.UpdateDeveloperMetadataRequest;
+    newUpdateDeveloperMetadataRequest(): Sheets.Schema.UpdateDeveloperMetadataRequest;
     // Create a new instance of UpdateDimensionGroupRequest
-    newUpdateDimensionGroupRequest(): Sheets_v4.Schema.UpdateDimensionGroupRequest;
+    newUpdateDimensionGroupRequest(): Sheets.Schema.UpdateDimensionGroupRequest;
     // Create a new instance of UpdateDimensionPropertiesRequest
-    newUpdateDimensionPropertiesRequest(): Sheets_v4.Schema.UpdateDimensionPropertiesRequest;
+    newUpdateDimensionPropertiesRequest(): Sheets.Schema.UpdateDimensionPropertiesRequest;
     // Create a new instance of UpdateEmbeddedObjectPositionRequest
-    newUpdateEmbeddedObjectPositionRequest(): Sheets_v4.Schema.UpdateEmbeddedObjectPositionRequest;
+    newUpdateEmbeddedObjectPositionRequest(): Sheets.Schema.UpdateEmbeddedObjectPositionRequest;
     // Create a new instance of UpdateFilterViewRequest
-    newUpdateFilterViewRequest(): Sheets_v4.Schema.UpdateFilterViewRequest;
+    newUpdateFilterViewRequest(): Sheets.Schema.UpdateFilterViewRequest;
     // Create a new instance of UpdateNamedRangeRequest
-    newUpdateNamedRangeRequest(): Sheets_v4.Schema.UpdateNamedRangeRequest;
+    newUpdateNamedRangeRequest(): Sheets.Schema.UpdateNamedRangeRequest;
     // Create a new instance of UpdateProtectedRangeRequest
-    newUpdateProtectedRangeRequest(): Sheets_v4.Schema.UpdateProtectedRangeRequest;
+    newUpdateProtectedRangeRequest(): Sheets.Schema.UpdateProtectedRangeRequest;
     // Create a new instance of UpdateSheetPropertiesRequest
-    newUpdateSheetPropertiesRequest(): Sheets_v4.Schema.UpdateSheetPropertiesRequest;
+    newUpdateSheetPropertiesRequest(): Sheets.Schema.UpdateSheetPropertiesRequest;
     // Create a new instance of UpdateSpreadsheetPropertiesRequest
-    newUpdateSpreadsheetPropertiesRequest(): Sheets_v4.Schema.UpdateSpreadsheetPropertiesRequest;
+    newUpdateSpreadsheetPropertiesRequest(): Sheets.Schema.UpdateSpreadsheetPropertiesRequest;
     // Create a new instance of ValueRange
-    newValueRange(): Sheets_v4.Schema.ValueRange;
+    newValueRange(): Sheets.Schema.ValueRange;
     // Create a new instance of WaterfallChartColumnStyle
-    newWaterfallChartColumnStyle(): Sheets_v4.Schema.WaterfallChartColumnStyle;
+    newWaterfallChartColumnStyle(): Sheets.Schema.WaterfallChartColumnStyle;
     // Create a new instance of WaterfallChartCustomSubtotal
-    newWaterfallChartCustomSubtotal(): Sheets_v4.Schema.WaterfallChartCustomSubtotal;
+    newWaterfallChartCustomSubtotal(): Sheets.Schema.WaterfallChartCustomSubtotal;
     // Create a new instance of WaterfallChartDomain
-    newWaterfallChartDomain(): Sheets_v4.Schema.WaterfallChartDomain;
+    newWaterfallChartDomain(): Sheets.Schema.WaterfallChartDomain;
     // Create a new instance of WaterfallChartSeries
-    newWaterfallChartSeries(): Sheets_v4.Schema.WaterfallChartSeries;
+    newWaterfallChartSeries(): Sheets.Schema.WaterfallChartSeries;
     // Create a new instance of WaterfallChartSpec
-    newWaterfallChartSpec(): Sheets_v4.Schema.WaterfallChartSpec;
+    newWaterfallChartSpec(): Sheets.Schema.WaterfallChartSpec;
   }
 }
 
-declare var Sheets_v4: GoogleAppsScript.Sheets_v4;
+declare var Sheets: GoogleAppsScript.Sheets;

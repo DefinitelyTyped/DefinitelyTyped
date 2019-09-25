@@ -5,8 +5,9 @@
 //                 David Broder-Rodgers <https://github.com/DavidBR-SW>
 //                 Michael Ledin <https://github.com/mxl>
 //                 HyunSeob Lee <https://github.com/hyunseob>
+//                 Pierre Tchuente <https://github.com/PierreTchuente>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 import * as express from 'express';
 
@@ -112,6 +113,8 @@ declare global {
                 size: number;
                 /** The folder to which the file has been saved (DiskStorage) */
                 destination: string;
+                /** The url where to get the uploaded file (aws S3 for example) */
+                location: string;
                 /** The name of the file within the destination (DiskStorage) */
                 filename: string;
                 /** Location of the uploaded file (DiskStorage) */

@@ -5,7 +5,7 @@ import { authorize, JwtSecretFuncCallback } from 'socketio-jwt';
 
 const app = http.createServer((req: any, rsp: any) => {
 	fs.readFile(__dirname + '/index.html',
-		(err: Error, data: any) => {
+		(err: Error | null, data: any) => {
 			if (err) {
 				rsp.writeHead(500);
 				return rsp.end('Error loading index.html');

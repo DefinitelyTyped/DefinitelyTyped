@@ -5,15 +5,15 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace GoogleAppsScript {
-  namespace Groupssettings_v1 {
+  namespace AdminGroupsSettings {
     namespace Collection {
       export interface GroupsCollection {
         // Gets one resource by id.
-        get(groupUniqueId: string): Groupssettings_v1.Schema.Groups;
+        get(groupUniqueId: string): AdminGroupsSettings.Schema.Groups;
         // Updates an existing resource. This method supports patch semantics.
-        patch(resource: Schema.Groups, groupUniqueId: string): Groupssettings_v1.Schema.Groups;
+        patch(resource: Schema.Groups, groupUniqueId: string): AdminGroupsSettings.Schema.Groups;
         // Updates an existing resource.
-        update(resource: Schema.Groups, groupUniqueId: string): Groupssettings_v1.Schema.Groups;
+        update(resource: Schema.Groups, groupUniqueId: string): AdminGroupsSettings.Schema.Groups;
       }
     }
     namespace Schema {
@@ -82,11 +82,11 @@ declare namespace GoogleAppsScript {
       }
     }
   }
-  export interface Groupssettings_v1 {
-    Groups?: Groupssettings_v1.Collection.GroupsCollection;
+  export interface AdminGroupsSettings {
+    Groups?: AdminGroupsSettings.Collection.GroupsCollection;
     // Create a new instance of Groups
-    newGroups(): Groupssettings_v1.Schema.Groups;
+    newGroups(): AdminGroupsSettings.Schema.Groups;
   }
 }
 
-declare var Groupssettings_v1: GoogleAppsScript.Groupssettings_v1;
+declare var AdminGroupsSettings: GoogleAppsScript.AdminGroupsSettings;

@@ -1,4 +1,4 @@
-// Type definitions for Sequelize 4.27.11
+// Type definitions for Sequelize 4.28.0
 // Project: http://sequelizejs.com, https://github.com/sequelize/sequelize
 // Definitions by: samuelneff <https://github.com/samuelneff>
 //                 Peter Harris <https://github.com/codeanimal>
@@ -16,8 +16,18 @@
 //                 Thomas Breleur <https://github.com/thomas-b>
 //                 Antoine Boisadam <https://github.com/Antoine38660>
 //                 Dima Smirnov <https://github.com/smff>
+//                 Duy Truong <https://github.com/truongkhanhduy95>
+//                 Emmanuel Gautier <https://github.com/emmanuelgautier>
+//                 Dan Rumney <https://github.com/dancrumb>
+//                 Kan Yueh Chen <https://github.com/lalayueh>
+//                 Rohit Sud <https://github.com/rohitsud>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.2
+
+// ***************************** IMPORTANT NOTE *****************************
+// These types are for the 4.x branch of Sequelize. As of Sequelize 5.0,
+// types are packaged directly within Sequelize itself. Please target the
+// Sequelize-provided types for any changes related to versions >= 5.0.
 
 // Based on original work by: samuelneff <https://github.com/samuelneff/sequelize-auto-ts/blob/master/lib/sequelize.d.ts>
 
@@ -27,6 +37,8 @@
 import * as _ from "lodash";
 import Promise = require("bluebird");
 import * as cls from "continuation-local-storage"
+
+type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
 
 declare namespace sequelize {
 
@@ -1266,6 +1278,7 @@ declare namespace sequelize {
         constraints?: boolean;
         foreignKeyConstraint?: boolean;
 
+        scope?: AssociationScope;
     }
 
     /**
@@ -3179,9 +3192,9 @@ declare namespace sequelize {
         $notLike: string | WherePGStatement;
         $notILike: string | WherePGStatement;
         $between: [number, number] | [Date, Date];
-        "..": [number, number];
+        "..": [number, number] | [string, string];
         $notBetween: [number, number];
-        "!..": [number, number];
+        "!..": [number, number] | [string, string];
         $overlap: [number, number] | [string, string];
         "&&": [number, number];
         $contains: any;
@@ -3930,9 +3943,18 @@ declare namespace sequelize {
          * Search for a single instance by its primary key. This applies LIMIT 1, so the listener will
          * always be called with a single instance.
          */
-        findById<TCustomAttributes>(identifier?: number | string | Buffer, options?: FindOptions<TAttributes & TCustomAttributes>): Promise<TInstance | null>;
-        findByPrimary<TCustomAttributes>(identifier?: number | string | Buffer, options?: FindOptions<TAttributes & TCustomAttributes>): Promise<TInstance | null>;
-        findByPk<TCustomAttributes>(identifier?: number | string | Buffer, options?: FindOptions<TAttributes & TCustomAttributes>): Promise<TInstance | null>;
+        findById<TCustomAttributes>(
+          identifier?: number | string | Buffer,
+          options?: Omit<FindOptions<TAttributes & TCustomAttributes>, 'where'>,
+        ): Promise<TInstance | null>;
+        findByPrimary<TCustomAttributes>(
+          identifier?: number | string | Buffer,
+          options?: Omit<FindOptions<TAttributes & TCustomAttributes>, 'where'>,
+        ): Promise<TInstance | null>;
+        findByPk<TCustomAttributes>(
+          identifier?: number | string | Buffer,
+          options?: Omit<FindOptions<TAttributes & TCustomAttributes>, 'where'>,
+        ): Promise<TInstance | null>;
 
         /**
          * Search for a single instance. This applies LIMIT 1, so the listener will always be called with a single
@@ -4331,6 +4353,7 @@ declare namespace sequelize {
         /**
          * Adds a new index to a table
          */
+        addIndex(tableName: string | Object, options: DefineIndexOptions & { fields: string[] }, rawTablename?: string): Promise<void>;
         addIndex(tableName: string | Object, attributes: string[], options?: DefineIndexOptions,
             rawTablename?: string): Promise<void>;
 
@@ -4345,9 +4368,9 @@ declare namespace sequelize {
         nameIndexes(indexes: string[], rawTablename: string): Promise<void>;
 
         /**
-         * Returns all foreign key constraints of a table
+         * Returns all foreign key constraints of each table in list
          */
-        getForeignKeysForTables(tableNames: string, options?: QueryInterfaceOptions): Promise<Object>;
+        getForeignKeysForTables(tableNames: string[], options?: QueryInterfaceOptions): Promise<Object>;
 
         /**
          * Removes an index of a table
@@ -4995,16 +5018,33 @@ declare namespace sequelize {
 
     }
 
+    type IndexType = 'UNIQUE' | 'FULLTEXT' | 'SPATIAL';
+
     interface DefineIndexOptions {
         /**
          * The index type
          */
-        indicesType?: 'UNIQUE' | 'FULLTEXT' | 'SPATIAL';
+        indicesType?: IndexType;
+
+        /**
+         * The index type
+         */
+        type?: IndexType;
 
         /**
          * The name of the index. Default is __
          */
         indexName?: string;
+
+        /**
+         * Create a unique index
+         */
+        unique?: boolean;
+
+        /**
+         * The name of the index. Default is Default is <table>_<attr1>_<attr2>
+         */
+        name?: string;
 
         /**
          * For FULLTEXT columns set your parser
@@ -5020,6 +5060,16 @@ declare namespace sequelize {
          * A function that receives the sql query, e.g. console.log
          */
         logging?: Function;
+
+        /**
+         * Create an unique index
+         */
+        using?: string;
+
+        /**
+         * Index operator
+         */
+        operator?: string;
 
         /**
          * A hash of attributes to limit your index(Filtered Indexes - MSSQL & PostgreSQL only)
@@ -5047,7 +5097,7 @@ declare namespace sequelize {
         /**
          * Index type. Only used by mysql. One of `UNIQUE`, `FULLTEXT` and `SPATIAL`
          */
-        index?: string;
+        type?: IndexType;
 
         /**
          * The method to create the index by (`USING` statement in SQL). BTREE and HASH are supported by mysql and

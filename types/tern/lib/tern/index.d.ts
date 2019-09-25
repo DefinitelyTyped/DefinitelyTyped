@@ -447,7 +447,7 @@ export interface Events {
      */
     typeAt(file: File, end: Position, expr: ESTree.Node, type: Type): Type | void;
     /** Run at the start of a completion query. May return a valid completion result to replace the default completion algorithm. */
-    completion(file: File, query: Query): CompletionsQueryResult | void;
+    completion(file: File, query: CompletionsQuery): CompletionsQueryResult | void;
 }
 
 export const version: string;

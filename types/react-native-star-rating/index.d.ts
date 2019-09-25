@@ -1,4 +1,4 @@
-// Type definitions for react-native-star-rating 1.0
+// Type definitions for react-native-star-rating 1.1
 // Project: https://github.com/djchie/react-native-star-rating
 // Definitions by: iRoachie <https://github.com/iRoachie>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -8,6 +8,11 @@ import * as React from 'react';
 import { ImageURISource, StyleProp, ViewStyle } from 'react-native';
 
 export interface StarRatingProps {
+    /**
+     * Number between 0 to 1 to determine the opacity of the button.
+     * Default is 0.2
+     */
+    activeOpacity?: number;
     /**
      * Style of the button containing the star.
      */

@@ -15,6 +15,7 @@ import {
   button,
   knob,
   radios,
+  optionsKnob as options,
 } from '@storybook/addon-knobs';
 
 enum SomeEnum {
@@ -35,7 +36,8 @@ stories.add('with all knobs', () => {
   const selectedColor = color('Color', 'black');
   const favoriteNumber = number('Favorite Number', 42);
   const comfortTemp = number('Comfort Temp', 72, { range: true, min: 60, max: 90, step: 1 });
-  const radioStation = radios('Favorite Radio Station', { 1100: "1100", 2200: "2200", 3300: "3300" });
+  const radioStation: string = radios('Favorite Radio Station', { 1100: "1100", 2200: "2200", 3300: "3300" });
+  const luckyNumber: number = radios('Lucky Number', { 3: 3, 7: 7, 23: 23 });
   const textDecoration = select('Decoration', {
     None: 'none',
     Underline: 'underline',
@@ -73,10 +75,11 @@ stories.add('with all knobs', () => {
 
   return (
     <div style={style}>
-      I'm {name} and I was born on "{dob}"
+      I'm {name} and I was born on "{new Date(dob)}"
       <p>My favorite number is {favoriteNumber}.</p>
       <p>My most comfortable room temperature is {comfortTemp} degrees Fahrenheit.</p>
       <p>My favorite radio station is: {radioStation}</p>
+      <p>My lucky number is {luckyNumber}.</p>
     </div>
   );
 });
@@ -105,6 +108,14 @@ const stringLiteralArray: StringLiteralType[] = ['Apple', 'Banana', 'Grapes'];
 // type of value returned from `select` must be `StringLiteralType`.
 const _: StringLiteralType = select('With string literal array', stringLiteralArray, stringLiteralArray[0]);
 
+type StringLiteralTypeUndefined = StringLiteralType | undefined;
+
+const _Undefined: StringLiteralTypeUndefined = select(
+  'With string literal array',
+  stringLiteralArray,
+  undefined,
+);
+
 const optionsObject = {
   Apple: { taste: 'sweet', color: 'red' },
   Lemon: { taste: 'sour', color: 'yellow' }
@@ -130,3 +141,19 @@ select<any>('label', { option: 'Option' }, null, groupId);
 files('label', 'image/*', []);
 date('label', new Date(), groupId);
 button('label', () => undefined, groupId);
+
+// optionsKnob
+type Tool = 'hammer' | 'saw' | 'drill';
+const visibleToolOptions: { [key: string]: Tool } = { hammer: 'hammer', saw: 'saw', drill: 'drill' };
+
+// test selecting one option
+const defaultVisibleTool = 'hammer';
+const singleSelection: Tool = options<Tool>('visibleTools', visibleToolOptions, defaultVisibleTool, {
+  display: 'check',
+});
+
+// test selecting multiple options
+const defaultVisibleTools: Tool[] = ['hammer'];
+const multiSelection: Tool[] = options<Tool>('visibleTools', visibleToolOptions, defaultVisibleTools, {
+  display: 'check',
+});

@@ -373,7 +373,7 @@ declare namespace chrome.cast {
          */
         sendMessage(
             namespace: string,
-            message: string,
+            message: string | object,
             successCallback: Function,
             errorCallback: (error: chrome.cast.Error) => void
         ): void

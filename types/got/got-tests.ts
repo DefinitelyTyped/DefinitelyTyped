@@ -21,35 +21,40 @@ got('todomvc.com')
 
 got('todomvc.com').cancel();
 
-got('todomvc.com', {json: true}).then((response) => {
+got('todomvc.com').then((response) => {
+    response.statusCode; // $ExpectType number
+    response.statusMessage; // $ExpectType string
+});
+
+got('todomvc.com', { json: true }).then((response) => {
     response.body; // $ExpectType any
 });
 
-got('todomvc.com', {json: true, body: {}}).then((response) => {
+got('todomvc.com', { json: true, body: {} }).then((response) => {
     response.body; // $ExpectType any
 });
 
-got('todomvc.com', {json: true, body: [{}]}).then((response) => {
+got('todomvc.com', { json: true, body: [{}] }).then((response) => {
     response.body; // $ExpectType any
 });
 
-got('todomvc.com', {json: true, form: true}).then((response) => {
+got('todomvc.com', { json: true, form: true }).then((response) => {
     response.body; // $ExpectType any
 });
 
-got('todomvc.com', {json: true, form: true, encoding: null}).then((response) => {
+got('todomvc.com', { json: true, form: true, encoding: null }).then((response) => {
     response.body; // $ExpectType any
 });
 
-got('todomvc.com', {json: true, form: true, encoding: null, hostname: 'todomvc'}).then((response) => {
+got('todomvc.com', { json: true, form: true, encoding: null, hostname: 'todomvc' }).then((response) => {
     response.body; // $ExpectType any
 });
 
-got('todomvc.com', {form: true}).then(response => str = response.body);
-got('todomvc.com', {form: true, body: {}}).then(response => str = response.body);
-got('todomvc.com', {form: true, body: [{}]}).then(response => str = response.body);
-got('todomvc.com', {form: true, body: [{}], encoding: null}).then(response => buf = response.body);
-got('todomvc.com', {form: true, body: [{}], encoding: 'utf8'}).then(response => str = response.body);
+got('todomvc.com', { form: true }).then(response => str = response.body);
+got('todomvc.com', { form: true, body: {} }).then(response => str = response.body);
+got('todomvc.com', { form: true, body: [{}] }).then(response => str = response.body);
+got('todomvc.com', { form: true, body: [{}], encoding: null }).then(response => buf = response.body);
+got('todomvc.com', { form: true, body: [{}], encoding: 'utf8' }).then(response => str = response.body);
 got('todomvc.com', {
     form: true,
     body: [{}],
@@ -68,21 +73,21 @@ got('todomvc.com', {
     body: [{}],
     encoding: 'utf8',
     hostname: 'todomvc',
-    timeout: {connect: 20, request: 20, socket: 20}
+    timeout: { connect: 20, request: 20, socket: 20 }
 }).then(response => str = response.body);
 // following must lead to type checking error: got('todomvc.com', {form: true, body: ''}).then(response => str = response.body);
 
-got('todomvc.com', {encoding: null, hostname: 'todomvc'}).then(response => buf = response.body);
-got('todomvc.com', {encoding: 'utf8', hostname: 'todomvc'}).then(response => str = response.body);
+got('todomvc.com', { encoding: null, hostname: 'todomvc' }).then(response => buf = response.body);
+got('todomvc.com', { encoding: 'utf8', hostname: 'todomvc' }).then(response => str = response.body);
 
-got('todomvc.com', {hostname: 'todomvc'}).then(response => str = response.body);
+got('todomvc.com', { hostname: 'todomvc' }).then(response => str = response.body);
 
-got.get('todomvc.com', {hostname: 'todomvc'}).then(response => str = response.body);
-got.post('todomvc.com', {hostname: 'todomvc'}).then(response => str = response.body);
-got.put('todomvc.com', {hostname: 'todomvc'}).then(response => str = response.body);
-got.patch('todomvc.com', {hostname: 'todomvc'}).then(response => str = response.body);
-got.head('todomvc.com', {hostname: 'todomvc'}).then(response => str = response.body);
-got.delete('todomvc.com', {hostname: 'todomvc'}).then(response => str = response.body);
+got.get('todomvc.com', { hostname: 'todomvc' }).then(response => str = response.body);
+got.post('todomvc.com', { hostname: 'todomvc' }).then(response => str = response.body);
+got.put('todomvc.com', { hostname: 'todomvc' }).then(response => str = response.body);
+got.patch('todomvc.com', { hostname: 'todomvc' }).then(response => str = response.body);
+got.head('todomvc.com', { hostname: 'todomvc' }).then(response => str = response.body);
+got.delete('todomvc.com', { hostname: 'todomvc' }).then(response => str = response.body);
 
 got.stream('todomvc.com').pipe(fs.createWriteStream('index.html'));
 
@@ -258,15 +263,55 @@ got(url.parse('http://todomvc.com'));
 got('https://todomvc.com', { rejectUnauthorized: false });
 
 got('/examples/angularjs', { baseUrl: 'http://todomvc.com' });
-got('http://todomvc.com', { headers: { foo: 'bar'} });
+got('http://todomvc.com', { headers: { foo: 'bar' } });
 got('http://todomvc.com', { cookieJar: new tough.CookieJar() });
+
+// Test extension
+got.extend({ method: 'POST' })('/example');
+got.extend({ method: 'POST' }).extend({ headers: {} }).stream('/example');
+
+// JSON options:
+// $ExpectType Promise<any>
+got.extend({ json: true })('/example').then(({ body }) => body);
+// $ExpectType Promise<any>
+got.extend({ json: true })('/example', { query: {} }).then(({ body }) => body);
+// $ExpectType Promise<any>
+got.extend({ baseUrl: 'https://localhost' }).extend({ json: true })('/example').then(({ body }) => body);
+// $ExpectType Promise<string>
+got.extend({})('/example').then(({ body }) => body);
+// Form options:
+// $ExpectType Promise<Buffer>
+got.extend({ form: true, encoding: null })('/example').then(({ body }) => body);
+// $ExpectType Promise<Buffer>
+got.extend({ form: true, encoding: null })('/example', { query: {} }).then(({ body }) => body);
+// $ExpectType Promise<Buffer>
+got.extend({ form: true, encoding: null, body: {} })('/example').then(({ body }) => body);
+// $ExpectType Promise<string>
+got.extend({ form: true, encoding: 'utf8' })('/example').then(({ body }) => body);
+// $ExpectType Promise<string>
+got.extend({ form: true, encoding: 'utf8' })('/example', { query: {} }).then(({ body }) => body);
+// $ExpectType Promise<string>
+got.extend({ form: true, encoding: 'utf8', body: {} })('/example').then(({ body }) => body);
+// Body options:
+// $ExpectType Promise<Buffer>
+got.extend({ encoding: null })('/example').then(({ body }) => body);
+// $ExpectType Promise<Buffer>
+got.extend({ encoding: null, body: '{}' })('/example').then(({ body }) => body);
+// $ExpectType Promise<Buffer>
+got.extend({ encoding: null, body: '{}' })('/example', { query: {} }).then(({ body }) => body);
+// $ExpectType Promise<string>
+got.extend({ encoding: 'utf8' })('/example').then(({ body }) => body);
+// $ExpectType Promise<string>
+got.extend({ encoding: 'utf8', body: '{}' })('/example').then(({ body }) => body);
+// $ExpectType Promise<string>
+got.extend({ encoding: 'utf8', body: '{}' })('/example', { query: {} }).then(({ body }) => body);
 
 // Test retry options.
 got('http://todomvc.com', { retry: 2 });
 got('http://todomvc.com', {
     retry: {
         retries: 2,
-        methods: ['GET'],
+        methods: ['GET', 'POST'],
         statusCodes: [408, 504],
         maxRetryAfter: 1,
         errorCodes: ['ETIMEDOUT']
@@ -284,7 +329,7 @@ got('http://todomvc.com', {
 got('http://todomvc.com', { throwHttpErrors: false });
 
 // Test timeout options.
-got('http://todomvc.com', {timeout: 1});
+got('http://todomvc.com', { timeout: 1 });
 got('http://todomvc.com', {
     timeout: {
         lookup: 1,
@@ -298,9 +343,18 @@ got('http://todomvc.com', {
 });
 
 // Test got.TimeoutError.
-got('http://todomvc.com', {timeout: 1}).catch((err) => err instanceof got.TimeoutError);
+got('http://todomvc.com', { timeout: 1 }).catch((err) => err instanceof got.TimeoutError);
 
 // Test hooks.
+got('example.com', {
+    hooks: {
+        init: [
+            options => {
+                options.baseUrl = 'https://google.com';
+            }
+        ]
+    }
+});
 got('example.com', {
     hooks: {
         beforeRequest: [
@@ -328,6 +382,15 @@ got('example.com', {
                 if (error instanceof got.HTTPError && error.statusCode === 413) { // Payload too large
                     options.body = 'new body';
                 }
+            }
+        ]
+    }
+});
+got('example.com', {
+    hooks: {
+        beforeError: [
+            error => {
+                return error;
             }
         ]
     }
@@ -376,6 +439,12 @@ got('example.com', {
                     await doSomethingAsync();
                 }
             ],
+            beforeError: [
+                async (error) => {
+                    await doSomethingAsync();
+                    return error;
+                }
+            ],
             afterResponse: [
                 async (response) => {
                     await doSomethingAsync();
@@ -385,3 +454,8 @@ got('example.com', {
         }
     });
 }
+
+// Test request option
+got('example.com', {
+    request: https.request
+});

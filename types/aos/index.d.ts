@@ -1,6 +1,6 @@
 // Type definitions for aos 3.0
 // Project: https://github.com/michalsnik/aos, https://michalsnik.github.io/aos
-// Definitions by: Rostislav Shermenyov <https://github.com/shermendev>
+// Definitions by: Rostislav Shermenyov <https://github.com/shermendev>, Matheus Grieger <https://github.com/matheusgrieger>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -83,6 +83,18 @@ declare namespace Aos {
          * If true, will add content of `data-aos` as classes on scroll
          */
         useClassNames?: boolean;
+        /**
+         * Disables automatic mutations' detections
+         */
+        disableMutationObserver?: boolean;
+        /**
+         * The delay on debounce used while resizing window
+         */
+        debounceDelay?: number;
+        /**
+         * The delay on throttle used while scrolling the page
+         */
+        throttleDelay?: number;
         // #endregion
 
         // #region Settings that can be overridden on per-element basis, by `data-aos-*` attributes

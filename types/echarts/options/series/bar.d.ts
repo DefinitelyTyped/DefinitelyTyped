@@ -922,7 +922,28 @@ declare namespace echarts {
                  * "auto"
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.itemStyle.color
                  */
-                color?: string;
+                color?: string | {
+                    type: 'linear',
+                    x: number,
+                    y: number,
+                    x2: number,
+                    y2: number,
+                    colorStops: {
+                        offset: number,
+                        color: string
+                    }[],
+                    global: boolean
+                } | {
+                    type: 'radial',
+                    x: number,
+                    y: number,
+                    r: number,
+                    colorStops: {
+                        offset: number,
+                        color: string
+                    }[],
+                    global: boolean
+                };
 
                 /**
                  * The bodrder color of bar.
@@ -6267,7 +6288,7 @@ declare namespace echarts {
                             };
                         };
                     };
-                };
+                }[];
 
                 /**
                  * Whether to enable animation.
