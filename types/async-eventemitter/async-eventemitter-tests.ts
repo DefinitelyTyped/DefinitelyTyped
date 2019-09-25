@@ -5,8 +5,14 @@ const ee = new AsyncEventEmitter<{
   // "sync-multiple": (a: string, b: number) => void,
   async: (data?: { a: string; b: boolean }) => Promise<any>;
   // "illegal-async": (data: string, data2: number) => Promise<any>,
-  'premature-resolve': (data: number, resolve?: (result: any) => void) => Promise<any>;
-  'premature-resolve-empty': (data: number, resolve?: () => void) => Promise<any>;
+  'premature-resolve': (
+    data: number,
+    resolve?: (result: any) => void,
+  ) => Promise<any>;
+  'premature-resolve-empty': (
+    data: number,
+    resolve?: () => void,
+  ) => Promise<any>;
   'is-empty': () => any;
 }>();
 
