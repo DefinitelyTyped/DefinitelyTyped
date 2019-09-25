@@ -1,20 +1,16 @@
 // Type definitions for rox-react-native 4.5
 // Project: https://rollout.io
 // Definitions by: ahanriat <https://github.com/ahanriat>
+//                 g-guirado <https://github.com/g-guirado>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
 /**
- * DISCLAIMER:
  *
- * Those type definition are based on the Javascript browser documentation
- * as well as using and reversing the React-Native SDK
+ * Official documentation for rox-react-native is available here:
+ * https://support.rollout.io/docs/reactnative
  *
- * Important note: Dedicated React-Native documentation as well as open source
- * SDK are supposed to come.
  */
-
-export {};
 
 export interface RoxContainer {
     [key: string]: Flag | Configuration | Variant;
@@ -23,7 +19,7 @@ export interface RoxContainer {
 /**
  * The register function should be called before the call to Rox.setup()
  *
- * https://support.rollout.io/docs/javascript-browser-api#section-register
+ * https://support.rollout.io/docs/reactnative#section-register
  */
 export function register(namespace: string, roxContainer: RoxContainer): void;
 
@@ -31,7 +27,7 @@ export function register(namespace: string, roxContainer: RoxContainer): void;
  * Initiate connection with Rox servers for the application identified by the application key.
  * The registered containers will be synced and Rox entities will get the appropriate values.
  *
- * https://support.rollout.io/docs/javascript-browser-api#section-setup
+ * https://support.rollout.io/docs/reactnative#section-setup
  */
 export function setup(
     apiKey: string,
@@ -40,15 +36,11 @@ export function setup(
 
 export interface RoxSetupOptions {
     version?: string;
-    // https://support.rollout.io/docs/javascript-browser-api#section-configurationfetchedhandler
+    // https://support.rollout.io/docs/reactnative#section-configurationfetchedhandler
     configurationFetchedHandler?(fetcherResult: RoxFetcherResult): void;
     debugLevel?: 'verbose';
-    // https://support.rollout.io/docs/javascript-browser-api#section-using-the-impressionhandler-option
-    impressionHandler?(
-        reporting: RoxReporting,
-        experiment: RoxExperiment,
-        context: unknown
-    ): void;
+    // https://support.rollout.io/docs/reactnative#section-using-the-impressionhandler-option
+    impressionHandler?(reporting: RoxReporting, experiment: RoxExperiment, context: unknown): void;
     platform?: string;
     freeze?: 'untilLaunch' | 'none';
 }
@@ -98,21 +90,21 @@ export function setCustomBooleanProperty(
  * Calling this function will unfreeze all flags, and using a flag will return it’s most updated value
  *
  * https://support.rollout.io/docs/flags-update-flow#section-flag-unfreeze
- * https://support.rollout.io/docs/javascript-browser-api#section-unfreeze
+ * https://support.rollout.io/docs/reactnative#section--unfreeze-
  */
 export function unfreeze(namespace?: string): void;
 
 /**
  * Pulls the latest configuration and flag values down from the Rollout servers
  *
- * https://support.rollout.io/docs/javascript-browser-api#section-fetch
+ * https://support.rollout.io/docs/reactnative#section-fetch
  */
 export function fetch(): Promise<unknown>;
 
 /**
  * Default is untilForeground
  *
- * https://support.rollout.io/docs/flags-update-flow#section-flag-freeze-level
+ * https://support.rollout.io/docs/reactnative#section--rox-freezeoptions-
  */
 export type RoxFlagFreezeLevel = 'none' | 'untilForeground' | 'untilLaunch';
 export interface RoxFlagOptions {
@@ -121,7 +113,7 @@ export interface RoxFlagOptions {
 
 /**
  * Creates a new Flag
- * https://support.rollout.io/docs/javascript-browser-api#section--rox-flag-
+ * https://support.rollout.io/docs/reactnative#section--rox-freezeoptions-
  */
 export class Flag {
     constructor(defaultValue: boolean, options?: RoxFlagOptions);
@@ -141,7 +133,7 @@ export class Flag {
 /**
  * Used to create and manage Rollout feature flags that determine different predefined values
  *
- * https://support.rollout.io/docs/javascript-browser-api#section--rox-variant-
+ * https://support.rollout.io/docs/reactnative#section--rox-variant-
  */
 export class Variant<T extends string = string> {
     constructor(defaultValue: T, options: T[], name?: string);
@@ -158,7 +150,7 @@ export class Variant<T extends string = string> {
     unfreeze(): void;
 }
 
-interface RoxNameDetails {
+export interface RoxNameDetails {
     name: string;
     namespace: string;
 }
@@ -167,7 +159,7 @@ interface RoxNameDetails {
  * manages a remote configuration setting with a value of type string, boolean, or number.
  * The constructor sets the default value for the remote configuration setting
  *
- * https://support.rollout.io/docs/javascript-browser-api#section--rox-configuration-
+ * https://support.rollout.io/docs/reactnative#section--rox-configuration-
  */
 export class Configuration<T extends string | boolean | number = string> {
     constructor(defaultValue: T);
@@ -191,39 +183,34 @@ export class Configuration<T extends string | boolean | number = string> {
  * right after you call Rox.setup. To clear the override from the cache you need to
  * call the Rox.overrides.clearOverride method
  *
- * https://support.rollout.io/docs/javascript-browser-api#section--rox-overrides-
+ * https://support.rollout.io/docs/reactnative#section--rox-overrides-
  */
-export interface RoxOverrides {
+export namespace overrides {
     /**
      * Sets an override value on a specific flag, this function accepts two parameters flag name (
      * full flag name including namespace) and desired value (from type String).
      * This function also saves the override value on the local device disk,
      * so it is "remembered" for the next the SDK is loaded to production.
      *
-     * https://support.rollout.io/docs/javascript-browser-api#section--rox-overrides-setoverride-
+     * https://support.rollout.io/docs/reactnative#section--rox-overrides-setoverride-
      *
      * Note that for boolean flag we still give the value as a string.
      */
-    setOverride(
-        nameSpacedFlagName: string,
-        value: string | 'false' | 'true'
-    ): void;
+    function setOverride(nameSpacedFlagName: string, value: string | 'false' | 'true'): void;
 
     /**
      * Clears the override value from the flag (and the disk).
      *
-     * https://support.rollout.io/docs/javascript-browser-api#section--rox-overrides-clearoverride-
+     * https://support.rollout.io/docs/reactnative#section--rox-overrides-clearoverride-
      */
-    clearOverride(nameSpacedFlagName: string): void;
+    function clearOverride(nameSpacedFlagName: string): void;
 
-    getOriginalValue(nameSpacedFlagName: string): string;
+    function getOriginalValue(nameSpacedFlagName: string): string;
 
     /**
      * full flag name including namespace
      *
-     * https://support.rollout.io/docs/javascript-browser-api#section--rox-overrides-hasoverride-
+     * https://support.rollout.io/docs/reactnative#section--rox-overrides-hasoverride-
      */
-    hasOverride(nameSpacedFlagName: string): boolean;
+    function hasOverride(nameSpacedFlagName: string): boolean;
 }
-
-export const overrides: RoxOverrides;
