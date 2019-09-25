@@ -5,6 +5,7 @@
 //                 Jared Szechy <https://github.com/szechyjs>
 //                 Radek Goláň jr. <https://github.com/golyalpha>
 //                 Emma Krantz <https://github.com/KeyboardSounds>
+//                 Wing Ho <https://github.com/soyarsauce>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -1605,6 +1606,13 @@ declare namespace Cesium {
         addInterval(interval: TimeInterval, dataComparer?: TimeInterval.DataComparer): void;
         removeInterval(interval: TimeInterval): void;
         intersect(other: TimeIntervalCollection, dataComparer?: TimeInterval.DataComparer, mergeCallback?: TimeInterval.MergeCallback): TimeIntervalCollection;
+    }
+
+    namespace TrustedServers {
+        function add(host: string, port: number): void;
+        function remove(host: string, port: number): void;
+        function contains(contains: string): boolean;
+        function clear(): void;
     }
 
     class VRTheWorldTerrainProvider extends TerrainProvider {
