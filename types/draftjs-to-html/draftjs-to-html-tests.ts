@@ -19,4 +19,3 @@ const editorContent = {
 
 // $ExpectType string
 draftToHtml(editorContent);
-
