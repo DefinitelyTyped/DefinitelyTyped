@@ -3,7 +3,9 @@ import { CSSModule } from '../index';
 
 export interface ToastHeaderProps extends React.HTMLAttributes<HTMLElement> {
     [key: string]: any;
-    tag?: React.ReactType;
+
+    tag?: string | React.ReactType;
+
     className?: string;
     cssModule?: CSSModule;
     wrapTag?: React.ReactType;

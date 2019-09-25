@@ -21,12 +21,14 @@ export interface UncontrolledDropdownProps extends React.HTMLAttributes<HTMLElem
 }
 
 export interface DropdownProps extends UncontrolledDropdownProps {
-  disabled?: boolean;
-  direction?: Direction;
-  group?: boolean;
-  size?: string;
-  tag?: React.ReactType;
-  addonType?: boolean | 'prepend' | 'append';
+    disabled?: boolean;
+    direction?: Direction;
+    group?: boolean;
+    size?: string;
+
+    tag?: string | React.ReactType;
+
+    addonType?: boolean | 'prepend' | 'append';
 }
 
 declare class Dropdown<T = {[key: string]: any}> extends React.Component<DropdownProps> {}
