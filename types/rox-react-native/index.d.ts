@@ -43,6 +43,8 @@ export interface RoxSetupOptions {
     impressionHandler?(reporting: RoxReporting, experiment: RoxExperiment, context: unknown): void;
     platform?: string;
     freeze?: FreezeOptions;
+    disableNetworkFetch?: boolean;
+    devModeSecret?: string;
 }
 
 export interface RoxFetcherResult {
@@ -84,6 +86,9 @@ export function setCustomBooleanProperty(
     name: string,
     value: boolean | (() => boolean)
 ): void;
+export function setDynamicCustomPropertyRule(
+    handler: (propName: string, context: unknown) => number | string | boolean
+  ): void;
 
 /**
  * Unfreeze the state of all flags in code
@@ -126,6 +131,9 @@ export class Flag {
     // The name of the Flag
     readonly name: string;
 
+    // Default value of the Flag
+    readonly defaultValue: boolean;
+
     // Returns true when the flag is enabled
     isEnabled(): boolean;
 
@@ -143,6 +151,9 @@ export class Variant<T extends string = string> {
 
     // The name of the Flag
     readonly name: string;
+
+    // Default value of the Variant
+    readonly defaultValue: BasicType<T>;
 
     // Returns the current value of the Variant, accounting for value overrides
     getValue(): BasicType<T>;
@@ -163,6 +174,9 @@ export class Configuration<T extends string | boolean | number = string> {
     // The name of the Configuration
     readonly name: string;
 
+    // Default value of the Configuration
+    readonly defaultValue: BasicType<T>;
+
     // Returns the current value of the Configuration, accounting for value overrides
     getValue(): BasicType<T>;
 
@@ -175,7 +189,6 @@ export class Configuration<T extends string | boolean | number = string> {
  * For example, if T is true, returned type shall be boolean, not true
  */
 export type BasicType<T> = T extends boolean ? boolean : T extends number ? number : T extends string ? string : never;
-
 
 /**
  * Override: Should only be used for development purposes (QA - Feature dev - e2e)
@@ -217,3 +230,22 @@ export namespace overrides {
      */
     function hasOverride(nameSpacedFlagName: string): boolean;
 }
+
+/**
+ * Dynamic API is an alternative to Rollout static API for defining flags on the
+ * different container objects and accessing them from that container object.
+ * https://support.rollout.io/docs/dynamic-api
+ */
+export namespace dynamicApi {
+    /**
+     * Getting boolean value of a flag
+     */
+    function isEnabled(nameSpacedFlagName: string, defaultValue: boolean, context?: unknown): boolean;
+
+    /**
+     * Getting string value of a Variant flag
+     */
+    function value(nameSpacedFlagName: string, defaultValue: string, context?: unknown): string;
+  }
+
+export const flags: ReadonlyArray<Flag>;
