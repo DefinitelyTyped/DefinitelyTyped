@@ -16,6 +16,11 @@ var config: sql.config = {
     },
     pool: {
         autostart: true
+    },
+    beforeConnect: conn => {
+        conn.on('debug', message => console.info(message));
+        conn.on('error', err => console.error(err));
+        conn.removeAllListeners();
     }
 }
 
@@ -162,7 +167,7 @@ function test_promise_returns() {
     connection.query<Entity>('SELECT 1 as value').then(res => { });
     connection.query`SELECT ${1}`.then((recordset) => { });
     connection.batch('create procedure #temporary as select * from table').then((recordset) => { });
-    connection.batch<Entity>('create procedure #temporary as select * from table;select 1 as value').then((recordset) => { });    
+    connection.batch<Entity>('create procedure #temporary as select * from table;select 1 as value').then((recordset) => { });
     connection.batch`create procedure #temporary as select ${1} from table`.then((recordset) => { });
     connection.batch<Entity>`create procedure #temporary as select ${1} from table`.then((recordset) => { });
 

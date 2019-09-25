@@ -16,6 +16,7 @@
 
 
 import events = require('events');
+import tds = require('tedious');
 export interface ISqlType {
     type: ISqlTypeFactory;
 }
@@ -138,7 +139,7 @@ export interface IResult<T> {
 }
 
 export interface IBulkResult {
-  rowsAffected: number;
+    rowsAffected: number;
 }
 
 export interface IProcedureResult<T> extends IResult<T> {
@@ -201,6 +202,11 @@ export interface config {
     parseJSON?: boolean;
     options?: IOptions;
     pool?: IPool;
+    /**
+     * Invoked before opening the connection. The parameter conn is the configured
+     * tedious Connection. It can be used for attaching event handlers.
+     */
+    beforeConnect?: (conn: tds.Connection) => void
 }
 
 export declare class ConnectionPool extends events.EventEmitter {
@@ -216,7 +222,7 @@ export declare class ConnectionPool extends events.EventEmitter {
     public query<Entity>(command: string, callback: (err?: Error, recordset?: IResult<Entity>) => void): void;
     public batch(batch: string): Promise<IResult<any>>;
     public batch(strings: TemplateStringsArray, ...interpolations: any[]): Promise<IResult<any>>;
-    public batch(batch: string, callback: (err?: Error, recordset?: IResult<any>) => void): void;    
+    public batch(batch: string, callback: (err?: Error, recordset?: IResult<any>) => void): void;
     public batch<Entity>(batch: string): Promise<IResult<Entity>>;
     public batch<Entity>(strings: TemplateStringsArray, ...interpolations: any[]): Promise<IResult<Entity>>;
     public connect(): Promise<ConnectionPool>;
@@ -319,7 +325,7 @@ export declare class Request extends events.EventEmitter {
     public query<Entity>(command: string, callback: (err?: Error, recordset?: IResult<Entity>) => void): void;
     public batch(batch: string): Promise<IResult<any>>;
     public batch(strings: TemplateStringsArray, ...interpolations: any[]): Promise<IResult<any>>;
-    public batch(batch: string, callback: (err?: Error, recordset?: IResult<any>) => void): void;    
+    public batch(batch: string, callback: (err?: Error, recordset?: IResult<any>) => void): void;
     public batch<Entity>(batch: string): Promise<IResult<Entity>>;
     public batch<Entity>(strings: TemplateStringsArray, ...interpolations: any[]): Promise<IResult<Entity>>;
     public batch<Entity>(batch: string, callback: (err?: any, recordset?: IResult<Entity>) => void): void;

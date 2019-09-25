@@ -14,6 +14,9 @@ const ref = new Git.Reference();
 const tree = new Git.Tree();
 
 tree.walk().start();
+tree.getEntry("/").then(entry => {
+    // Use entry
+});
 
 // AnnotatedCommit Tests
 

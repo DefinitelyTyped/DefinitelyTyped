@@ -39,4 +39,7 @@ declare module 'http' {
     interface IncomingMessage {
         log: Logger;
     }
+    interface ServerResponse {
+        err?: Error;
+    }
 }
