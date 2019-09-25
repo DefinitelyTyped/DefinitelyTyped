@@ -1,6 +1,7 @@
 {
 	"private": true,
 	"dependencies": {
-		"vue": ">=2.0.0"
+		"vue": ">=2.0.0",
+		"vue2-hammer": "^2.1.2"
 	}
 }
