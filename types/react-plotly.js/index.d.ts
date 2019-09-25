@@ -3,7 +3,7 @@
 // Definitions by: Jon Freedman <https://github.com/jonfreedman>
 //                 Mitchell Grice <https://github.com/gricey432>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.4
+// TypeScript Version: 2.8
 
 import * as Plotly from 'plotly.js';
 import * as React from 'react';
