@@ -389,19 +389,23 @@ linter.verify(SOURCE, { rules: { 'no-unused-vars': [2, { vars: 'all' }] } }, 'te
 linter.verify(SOURCE, { rules: { 'no-console': 1 } }, 'test.js');
 linter.verify(SOURCE, { rules: { 'no-console': 0 } }, 'test.js');
 linter.verify(SOURCE, { rules: { 'no-console': 'error' } }, 'test.js');
-linter.verify(SOURCE, {
-    rules: { 'no-console': 'error' },
-    overrides: [
-        {
-            extends: ['eslint-config-bad-guy'],
-            excludedFiles: ['*-test.js', '*.spec.js'],
-            files: ['*-test.js', '*.spec.js'],
-            rules: {
-                'no-unused-expressions': 'off'
-            }
-        }
-    ]
-}, 'test.js');
+linter.verify(
+    SOURCE,
+    {
+        rules: { 'no-console': 'error' },
+        overrides: [
+            {
+                extends: ['eslint-config-bad-guy'],
+                excludedFiles: ['*-test.js', '*.spec.js'],
+                files: ['*-test.js', '*.spec.js'],
+                rules: {
+                    'no-unused-expressions': 'off',
+                },
+            },
+        ],
+    },
+    'test.js',
+);
 linter.verify(SOURCE, { rules: { 'no-console': 'warn' } }, 'test.js');
 linter.verify(SOURCE, { rules: { 'no-console': 'off' } }, 'test.js');
 

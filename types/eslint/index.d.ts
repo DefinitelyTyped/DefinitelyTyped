@@ -385,7 +385,7 @@ export namespace Linter {
     }
     interface HasRules {
         rules?: {
-            [name: string]: RuleLevel | RuleLevelAndOptions
+            [name: string]: RuleLevel | RuleLevelAndOptions;
         };
     }
 
@@ -453,11 +453,13 @@ export namespace Linter {
         messages: LintMessage[];
     }
 
-    type ParserModule = {
-        parse(text: string, options?: any): AST.Program;
-    } | {
-        parseForESLint(text: string, options?: any): ESLintParseResult;
-    };
+    type ParserModule =
+        | {
+              parse(text: string, options?: any): AST.Program;
+          }
+        | {
+              parseForESLint(text: string, options?: any): ESLintParseResult;
+          };
 
     interface ESLintParseResult {
         ast: AST.Program;
