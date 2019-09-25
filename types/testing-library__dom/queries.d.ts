@@ -46,6 +46,36 @@ export type FindByText = (
     waitForElementOptions?: WaitForElementOptions,
 ) => Promise<HTMLElement>;
 
+export interface ByRoleOptions extends MatcherOptions {
+    /**
+     * If true includes elements in the query set that are usually excluded from
+     * the accessibility tree. `role="none"` or `role="presentation"` are included
+     * in either case.
+     * @default false
+     */
+    hidden?: boolean;
+}
+
+export type AllByRole = (container: HTMLElement, role: Matcher, options?: ByRoleOptions) => HTMLElement[];
+
+export type GetByRole = (container: HTMLElement, role: Matcher, options?: ByRoleOptions) => HTMLElement;
+
+export type QueryByRole = (container: HTMLElement, role: Matcher, options?: ByRoleOptions) => HTMLElement | null;
+
+export type FindByRole = (
+    container: HTMLElement,
+    role: Matcher,
+    options?: ByRoleOptions,
+    waitForElementOptions?: WaitForElementOptions,
+) => Promise<HTMLElement>;
+
+export type FindAllByRole = (
+    container: HTMLElement,
+    role: Matcher,
+    options?: ByRoleOptions,
+    waitForElementOptions?: WaitForElementOptions,
+) => Promise<HTMLElement[]>;
+
 export const getByLabelText: GetByText;
 export const getAllByLabelText: AllByText;
 export const queryByLabelText: QueryByText;
@@ -82,12 +112,12 @@ export const queryByDisplayValue: QueryByBoundAttribute;
 export const queryAllByDisplayValue: AllByBoundAttribute;
 export const findByDisplayValue: FindByBoundAttribute;
 export const findAllByDisplayValue: FindAllByBoundAttribute;
-export const getByRole: GetByBoundAttribute;
-export const getAllByRole: AllByBoundAttribute;
-export const queryByRole: QueryByBoundAttribute;
-export const queryAllByRole: AllByBoundAttribute;
-export const findByRole: FindByBoundAttribute;
-export const findAllByRole: FindAllByBoundAttribute;
+export const getByRole: GetByRole;
+export const getAllByRole: AllByRole;
+export const queryByRole: QueryByRole;
+export const queryAllByRole: AllByRole;
+export const findByRole: FindByRole;
+export const findAllByRole: FindAllByRole;
 export const getByTestId: GetByBoundAttribute;
 export const getAllByTestId: AllByBoundAttribute;
 export const queryByTestId: QueryByBoundAttribute;
