@@ -1,0 +1,12 @@
+// Type definitions for react-native-privacy-snapshot 1.0
+// Project: https://github.com/kayla-tech/react-native-privacy-snapshot#readme
+// Definitions by: Matthew Bajorek <https://github.com/mattbajorek>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+interface PrivacySnapshot {
+    enabled: (isEnabled: boolean) => void;
+}
+
+declare const PrivacySnapshot: PrivacySnapshot;
+
+export default PrivacySnapshot;
