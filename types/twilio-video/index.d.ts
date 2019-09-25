@@ -486,7 +486,7 @@ export interface ConnectOptions {
     maxVideoBitrate?: number | null;
     name?: string | null;
     networkQuality?: boolean | NetworkQualityConfiguration;
-    region?: 'au1' | 'br1' | 'ie1' | 'de1' | 'jp1' | 'sg1' | 'us1' | 'us2' | 'gll' | 'us1-ix' | 'us2-ix' | 'ie1-ix' | 'de1-ix' | 'sg1-ix';
+    region?: 'au1' | 'br1' | 'ie1' | 'de1' | 'jp1' | 'sg1' | 'us1' | 'us2' | 'gll';
     preferredAudioCodecs?: AudioCodec[];
     preferredVideoCodecs?: VideoCodec[] | VideoCodecSettings[];
     logLevel?: LogLevel | LogLevels;
