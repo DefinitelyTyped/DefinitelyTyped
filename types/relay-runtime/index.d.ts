@@ -516,29 +516,9 @@ export interface SelectorData {
     [key: string]: unknown;
 }
 
-// ./util/RelayRuntimeTypes
-export interface CacheConfig {
-    force?: boolean | null;
-    poll?: number | null;
-    liveConfigId?: string | null;
-    metadata?: { [key: string]: unknown };
-    transactionId?: string | null;
-}
-
-export type DataID = string;
-
-export interface Disposable {
-    dispose(): void;
-}
-
-export interface OperationType {
-    readonly variables: Variables;
-    readonly response: unknown;
-}
-
-export interface Variables {
-    [name: string]: any;
-}
+// ./lib/util/RelayRuntimeTypes
+import { Disposable, DataID, Variables, OperationType, CacheConfig } from './lib/util/RelayRuntimeTypes';
+export * from './lib/util/RelayRuntimeTypes';
 
 // Core API
 
