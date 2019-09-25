@@ -1,40 +1,44 @@
 // Type definitions for json-rules-engine 4.0
 // Project: https://github.com/cachecontrol/json-rules-engine
-// Definitions by: Scott Jones <https://github.com/me>
+// Definitions by: Scott Jones <https://github.com/scottdj92>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export type Event = {
+export interface Event {
     type: string;
     params: {
         message: string;
     };
 }
 
-export type Rule = {
+export interface Rule {
     fact: string;
     operator: string;
     value: number;
-};
+}
 
-type RuleEngine = {
+export interface RuleEngine {
     conditions: {
-        any: Array<{ all: Array<Rule> }>;
+        any: AnyRule[];
     };
     event: Event;
-};
+}
 
-type EngineResult<T> = {
-    events: Array<Event>;
+export interface AnyRule {
+    all: Rule[];
+}
+
+export interface EngineResult<T> {
+    events: Event[];
     almanac: Almanac<T>;
-};
+}
 
-type Almanac<U> = {
-    factMap: Map<string, U>;
-    factResultCache: Map<number, Promise<void>>;
+export interface Almanac<U> {
+    factMap: Map<string | "success-events", U>;
+    factResultCache: Map<number, Promise<U>>;
     allowUndefinedFacts: boolean;
-};
+}
 
-export namespace Engine {
-    function addRule(rules: RuleEngine): void;
-    function run<T>(facts: T): Promise<EngineResult<T>>;
+export class Engine {
+    addRule(rules: RuleEngine): void;
+    run<T>(facts: T): Promise<EngineResult<T>>;
 }
