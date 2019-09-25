@@ -4,6 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { SafeString } from '@ember/string/-private/handlebars';
+import { SafeString } from './-private/handlebars';
 export function htmlSafe(str: string): SafeString;
 export function isHTMLSafe(str: any): str is SafeString;

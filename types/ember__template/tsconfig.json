@@ -15,8 +15,6 @@
             "../"
         ],
         "paths": {
-            "@ember/string": ["ember__string"],
-            "@ember/string/*": ["ember__string/*"],
             "@ember/template": ["ember__template"],
             "@ember/template/*": ["ember__template/*"]
         },
@@ -25,6 +23,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
+        "-private/handlebars.d.ts",
         "index.d.ts",
         "ember__template-tests.ts"
     ]

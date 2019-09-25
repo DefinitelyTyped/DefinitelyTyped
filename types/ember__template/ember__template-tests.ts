@@ -1,4 +1,4 @@
-import { SafeString } from '@ember/string/-private/handlebars';
+import { SafeString } from '@ember/template/-private/handlebars';
 import { htmlSafe, isHTMLSafe } from '@ember/template';
 
 const handlebarsSafeString: SafeString = htmlSafe('lorem ipsum...');

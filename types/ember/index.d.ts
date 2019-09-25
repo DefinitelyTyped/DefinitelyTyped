@@ -49,7 +49,7 @@ import { TemplateFactory } from 'htmlbars-inline-precompile';
 import { Registry as ServiceRegistry } from '@ember/service';
 import { Registry as ControllerRegistry } from '@ember/controller';
 import * as EmberStringNs from '@ember/string';
-import * as EmberStringHandlebarsNs from '@ember/string/-private/handlebars';
+import * as EmberStringHandlebarsNs from '@ember/template/-private/handlebars';
 // tslint:disable-next-line:no-duplicate-imports
 import * as EmberServiceNs from '@ember/service';
 import * as EmberPolyfillsNs from '@ember/polyfills';
