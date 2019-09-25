@@ -123,6 +123,7 @@ declare module 'angular' {
             skipHide?: boolean;
             multiple?: boolean;
             fullscreen?: boolean; // default: false
+            title?: string;
         }
 
         interface IDialogService {
@@ -512,5 +513,16 @@ declare module 'angular' {
         }
 
         type IStickyService = (scope: IScope, element: JQuery, elementClone?: JQuery) => void;
+
+        interface IInteractionService {
+            getLastInteractionType(): string|null;
+            isUserInvoked(checkDelay?: number): boolean;
+        }
+
+        interface IUtilService {
+            // tslint:disable-next-line:ban-types debounce takes in a user provided function
+            debounce<T extends Function>(func: T, wait?: number, scope?: any, invokeApply?: boolean): T;
+            enableScrolling(): void;
+        }
     }
 }

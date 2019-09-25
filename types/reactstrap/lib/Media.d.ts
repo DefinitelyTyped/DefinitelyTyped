@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { CSSModule } from '../index';
 
-export type MediaProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
+export interface MediaProps extends React.HTMLAttributes<HTMLElement> {
+  [key: string]: any;
   body?: boolean;
   bottom?: boolean;
   className?: string;
@@ -17,7 +18,7 @@ export type MediaProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   src?: string;
   href?: string;
   alt?: string;
-} & T;
+}
 
-declare class Media<T = {[key: string]: any}> extends React.Component<MediaProps<T>> {}
+declare class Media<T = {[key: string]: any}> extends React.Component<MediaProps> {}
 export default Media;

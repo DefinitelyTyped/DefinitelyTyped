@@ -380,8 +380,8 @@ declare module "mongoose" {
     mapReduce<K, V>(options: MapReduceOption2<T, K, V>, callback?: (err: any, res: MapReduceResult<K, V>[]) => void): Promise<MapReduceResult<K, V>[]>;
     model<U extends Document>(name: string): Model<U>;
 
-    populate<U>(doc: U, options: Object, callback?: (err: any, res: U) => void): Promise<U>;
     populate<U>(doc: U[], options: Object, callback?: (err: any, res: U[]) => void): Promise<U[]>;
+    populate<U>(doc: U, options: Object, callback?: (err: any, res: U) => void): Promise<U>;
     update(cond: Object, update: Object, callback?: (err: any, affectedRows: number, raw: any) => void): Query<T>;
     update(cond: Object, update: Object, options: Object, callback?: (err: any, affectedRows: number, raw: any) => void): Query<T>;
     remove(cond: Object, callback?: (err: any) => void): Query<{}>;

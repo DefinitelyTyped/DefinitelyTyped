@@ -6,7 +6,7 @@
 
 declare class TaskQueue {
     constructor(options?: Options);
-    postTask(taskName: string, ...args: any[]): Task;
+    postTask(taskName: string, ...args: any[]): TaskQueue.Task;
     addModule(moduleURL: string): Promise<void>;
 }
 
@@ -14,18 +14,20 @@ interface Options {
     size?: number;
 }
 
-export interface Task<T = any> {
-    id: number;
-    state: State;
-    result: Promise<T>;
+declare namespace TaskQueue {
+    interface Task<T = any> {
+        id: number;
+        state: State;
+        result: Promise<T>;
+    }
+
+    type State =
+        | 'cancelled'
+        | 'completed'
+        | 'fulfilled'
+        | 'pending'
+        | 'scheduled';
 }
 
-export type State =
-    | 'cancelled'
-    | 'completed'
-    | 'fulfilled'
-    | 'pending'
-    | 'scheduled';
-
-export default TaskQueue;
+export = TaskQueue;
 export as namespace TaskQueue;

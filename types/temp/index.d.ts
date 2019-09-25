@@ -38,7 +38,7 @@ declare namespace temp {
 
   function path(affixes?: string | AffixOptions, defaultPrefix?: string): string;
 
-  function cleanup(callback?: (result: boolean | Stats) => void): void;
+  function cleanup(callback?: (err: any, result: Stats) => void): void;
 
   function cleanupSync(): boolean | Stats;
 

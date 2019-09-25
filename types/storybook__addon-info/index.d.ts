@@ -1,5 +1,5 @@
 // Type definitions for @storybook/addon-info 4.1
-// Project: https://github.com/storybooks/storybook, https://github.com/storybooks/storybook/tree/master/addons/info
+// Project: https://github.com/storybookjs/storybook, https://github.com/storybookjs/storybook/tree/master/addons/info
 // Definitions by: Mark Kornblum <https://github.com/mkornblum>
 //                 Mattias Wikstrom <https://github.com/fyrkant>
 //                 Kevin Lee <https://github.com/RunningCoderLee>
@@ -20,10 +20,10 @@ export interface Options {
   header?: boolean;
   inline?: boolean;
   source?: boolean;
-  propTables?: React.ComponentType[] | false;
-  propTablesExclude?: React.ComponentType[];
+  propTables?: Array<React.ComponentType<any>> | false;
+  propTablesExclude?: Array<React.ComponentType<any>>;
   styles?: object;
-  components?: { [key: string]: React.ComponentType };
+  components?: { [key: string]: React.ComponentType<any> };
   marksyConf?: object;
   maxPropsIntoLine?: number;
   maxPropObjectKeys?: number;

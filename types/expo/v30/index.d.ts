@@ -11,6 +11,7 @@
 //                 Tina Roh <https://github.com/tinaroh>
 //                 Nathan Phillip Brink <https://github.com/binki>
 //                 Martin Olsson <https://github.com/mo>
+//                 Mattias Sämskar <https://github.com/mattiassamskar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -1994,6 +1995,14 @@ export namespace Speech {
 
     /** Available on iOS only */
     function resume(): void;
+}
+
+/**
+ * SplashScreen
+ */
+export namespace SplashScreen {
+    function hide(): void;
+    function preventAutoHide(): void;
 }
 
 /**

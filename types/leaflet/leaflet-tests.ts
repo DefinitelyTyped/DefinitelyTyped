@@ -218,6 +218,8 @@ mapPixelBounds = map.getPixelWorldBounds(12);
 
 let tileLayerOptions: L.TileLayerOptions = {};
 tileLayerOptions = {
+	id: 'mapbox.streets',
+	accessToken: 'your.mapbox.access.token',
 	minZoom: 0,
 	maxZoom: 18,
 	maxNativeZoom: 2,
@@ -288,6 +290,23 @@ imageOverlay.setBounds(imageOverlayBounds);
 imageOverlay.setZIndex(1);
 imageOverlayBounds = imageOverlay.getBounds();
 html = imageOverlay.getElement();
+
+// SVGOverlay
+let svgOverlayOptions: L.ImageOverlayOptions;
+svgOverlayOptions = {
+	interactive: true,
+	opacity: 100
+};
+
+const svgOverlayBounds = latLngBounds;
+const svgElement = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+const svgString = '<svg viewBox="0 0 120 120" version="1.1" xmlns="http://www.w3.org/2000/svg"><circle cx="60" cy="60" r="50"/></svg>';
+
+let svgOverlay: L.SVGOverlay;
+svgOverlay = L.svgOverlay(svgString, svgOverlayBounds);
+svgOverlay = L.svgOverlay(svgElement, svgOverlayBounds, {
+	interactive: false
+});
 
 // videoOverlay
 let videoOverlayOptions: L.VideoOverlayOptions;
@@ -402,6 +421,7 @@ map = map
 	.panTo(latLngTuple, panOptions)
 	.panBy(point)
 	.panBy(pointTuple)
+	.panBy(pointTuple, { animate: false, duration: 1, easeLinearity: 1, noMoveStart: true })
 	.setMaxBounds(latLngBounds)
 	.setMaxBounds(latLngBoundsLiteral)
 	.setMinZoom(5)
@@ -481,7 +501,9 @@ class MyDivIcon extends L.DivIcon {
 	}
 }
 
-const divIcon = L.divIcon({ html: '' });
+const divIconHtmlAsString = L.divIcon({ html: '' });
+const divIconHtmlAsElement = L.divIcon({ html: htmlElement });
+const divIconHtmlAsFalse = L.divIcon({ html: false });
 let defaultIcon = new L.Icon.Default();
 defaultIcon = new L.Icon.Default({ imagePath: 'apath' });
 

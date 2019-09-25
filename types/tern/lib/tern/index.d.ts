@@ -1,12 +1,12 @@
 import * as ESTree from "estree";
-import { Scope, Type } from "../infer";
+import { Context, Scope, Type } from "../infer";
 
 export { };
 
 // #### Programming interface ####
 export type ConstructorOptions = CtorOptions & (SyncConstructorOptions | ASyncConstructorOptions);
 
-interface CtorOptions {
+export interface CtorOptions {
     /** The definition objects to load into the server’s environment. */
     defs?: Def[];
     /** The ECMAScript version to parse. Should be either 5 or 6. Default is 6. */
@@ -17,7 +17,7 @@ interface CtorOptions {
     plugins?: { [key: string]: object };
 }
 
-interface SyncConstructorOptions {
+export interface SyncConstructorOptions {
     /** Indicates whether `getFile` is asynchronous. Default is `false`. */
     async?: false;
     /**
@@ -29,7 +29,7 @@ interface SyncConstructorOptions {
     getFile?(filename: string): string;
 }
 
-interface ASyncConstructorOptions {
+export interface ASyncConstructorOptions {
     /** Indicates whether `getFile` is asynchronous. Default is `false`. */
     async: true;
     /**
@@ -48,6 +48,10 @@ interface TernConstructor {
 export const Server: TernConstructor;
 
 export interface Server {
+    readonly cx: Context;
+    readonly options: ConstructorOptions;
+    readonly files: File[];
+    readonly plugins: any;
     /**
      * Add a set of type definitions to the server. If `atFront` is true, they will be added before all other
      * existing definitions. Otherwise, they are added at the back.
@@ -93,10 +97,12 @@ export interface Server {
     request<Q extends Query, D extends Document>(
         doc: D & { query?: Q },
         callback: (
-            error: Error | undefined,
+            error: string | null,
             response: (D extends { query: undefined } ? {} : D extends { query: Query } ? QueryResult<Q> : {}) | undefined
         ) => void
     ): void;
+    reset(): void;
+    signal(event: keyof Events, file: File): void;
 }
 
 // #### JSON Protocol ####
@@ -156,6 +162,7 @@ export interface File {
     scope: Scope;
     ast: ESTree.Program;
     type?: "full" | "part" | "delete";
+    asLineChar?(nodePosition: number): Position;
 }
 
 export interface BaseQuery {
@@ -440,7 +447,7 @@ export interface Events {
      */
     typeAt(file: File, end: Position, expr: ESTree.Node, type: Type): Type | void;
     /** Run at the start of a completion query. May return a valid completion result to replace the default completion algorithm. */
-    completion(file: File, query: Query): CompletionsQueryResult | void;
+    completion(file: File, query: CompletionsQuery): CompletionsQueryResult | void;
 }
 
 export const version: string;

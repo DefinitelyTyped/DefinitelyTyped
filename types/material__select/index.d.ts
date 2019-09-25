@@ -26,7 +26,7 @@ import MDCSelectAdapter from './adapter';
 import { MDCFloatingLabel } from 'material__floating-label';
 import { MDCLineRipple } from 'material__line-ripple';
 
-export {MDCSelectAdapter, MDCSelectFoundation};
+export { MDCSelectAdapter, MDCSelectFoundation };
 
 export class MDCSelect extends MDCComponent<MDCSelectAdapter, MDCSelectFoundation> {
     static attachTo(root: Element): MDCSelect;

@@ -1,5 +1,5 @@
 import { dasherize, camelize, capitalize, classify, decamelize, htmlSafe, loc, underscore, w, isHTMLSafe } from '@ember/string';
-import { SafeString } from 'handlebars';
+import { SafeString } from '@ember/string/-private/handlebars';
 
 dasherize(); // $ExpectError
 dasherize('blue man group'); // $ExpectType string
@@ -37,7 +37,7 @@ const handlebarsSafeString: SafeString = htmlSafe('lorem ipsum...');
 htmlSafe('lorem ipsum...'); // $ExpectType SafeString
 const regularString: string = htmlSafe('lorem ipsum...'); // $ExpectError
 
-function isSafeTest(a: string|Handlebars.SafeString) {
+function isSafeTest(a: string | SafeString) {
   if (isHTMLSafe(a)) {
       a = a.toString();
   }

@@ -6,6 +6,9 @@
 //                 Jacob Froman <https://github.com/j-fro>
 //                 Deanna Veale <https://github.com/Deanna2>
 //                 Nick Maddren <https://github.com/nicholasmaddren>
+//                 Roman Nevolin <https://github.com/nulladdict>
+//                 Mojtaba Izadmehr <https://github.com/m-izadmehr>
+//                 Andrey Yankovsky <https://github.com/yankovsky>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -112,6 +115,12 @@ export interface CommonApiProps {
      * The style used for the active dots.
      */
     activeDotStyle?: React.CSSProperties;
+    /**
+     * Reverse the direction of the slider.
+     * From Left to Right To Right to Left
+     * @default false
+     */
+    reverse?: boolean;
 }
 
 export interface SliderProps extends CommonApiProps {
@@ -127,6 +136,10 @@ export interface SliderProps extends CommonApiProps {
      * onAfterChange will be triggered when ontouchend or onmouseup is triggered.
      */
     onAfterChange?(value: number): void;
+    /**
+     * Handle blur event on the control
+     */
+    onBlur?: React.FocusEventHandler;
     /**
      * Set initial value of slider.
      *  @default 0
@@ -204,6 +217,11 @@ export interface HandleProps extends CommonApiProps {
      * Styling option offset
      */
     offset: number;
+   /**
+    * Set the tabIndex of the slider handle.
+    * @default 0
+    */
+    tabIndex?: number;
 }
 
 export interface WithTooltipProps {

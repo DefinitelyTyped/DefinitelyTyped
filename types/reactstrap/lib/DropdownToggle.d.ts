@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { CSSModule } from '../index';
 
-export type DropdownToggleProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
+export interface DropdownToggleProps extends React.HTMLAttributes<HTMLElement> {
+  [key: string]: any;
   caret?: boolean;
   className?: string;
   cssModule?: CSSModule;
@@ -15,7 +16,7 @@ export type DropdownToggleProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   nav?: boolean;
   color?: string;
   size?: string;
-} & T;
+}
 
-declare class DropdownToggle<T> extends React.Component<DropdownToggleProps<T>> {}
+declare class DropdownToggle<T> extends React.Component<DropdownToggleProps> {}
 export default DropdownToggle;

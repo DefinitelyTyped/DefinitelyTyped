@@ -105,10 +105,8 @@ const greeting = i18n.__('Hello');
  * https://github.com/mashpie/i18n-node#example-usage-in-expressjs
  */
 // Configuration
-app.configure(() => {
-    // default: using 'accept-language' header to guess language settings
-    app.use(i18n.init);
-});
+// default: using 'accept-language' header to guess language settings
+app.use(i18n.init);
 
 app.get('/de', (_req: Express.Request, res: Express.Response) => {
     const greeting = res.__('Hello');

@@ -656,7 +656,7 @@ declare namespace NodeJS {
     type ExitListener = (code: number) => void;
     type RejectionHandledListener = (promise: Promise<any>) => void;
     type UncaughtExceptionListener = (error: Error) => void;
-    type UnhandledRejectionListener = (reason: any, promise: Promise<any>) => void;
+    type UnhandledRejectionListener = (reason: {} | null | undefined, promise: Promise<any>) => void;
     type WarningListener = (warning: Error) => void;
     type MessageListener = (message: any, sendHandle: any) => void;
     type SignalsListener = (signal: Signals) => void;
@@ -696,6 +696,10 @@ declare namespace NodeJS {
         destroy(error?: Error): void;
     }
 
+    interface HRTime {
+        (time?: [number, number]): [number, number];
+    }
+
     interface Process extends EventEmitter {
         stdout: WriteStream;
         stderr: WriteStream;
@@ -712,7 +716,7 @@ declare namespace NodeJS {
         emitWarning(warning: string | Error, name?: string, ctor?: Function): void;
         env: ProcessEnv;
         exit(code?: number): never;
-        exitCode: number;
+        exitCode?: number;
         getgid(): number;
         setgid(id: number | string): void;
         getuid(): number;
@@ -766,7 +770,7 @@ declare namespace NodeJS {
         release: ProcessRelease;
         umask(mask?: number): number;
         uptime(): number;
-        hrtime(time?: [number, number]): [number, number];
+        hrtime: HRTime;
         domain: Domain;
 
         // Worker
@@ -954,21 +958,22 @@ declare namespace NodeJS {
     }
 
     interface Timer {
-        ref(): void;
-        refresh(): void;
-        unref(): void;
+        ref(): this;
+        refresh(): this;
+        unref(): this;
     }
 
     class Immediate {
-        ref(): void;
-        unref(): void;
+        ref(): this;
+        refresh(): this;
+        unref(): this;
         _onImmediate: Function; // to distinguish it from the Timeout class
     }
 
     class Timeout implements Timer {
-        ref(): void;
-        refresh(): void;
-        unref(): void;
+        ref(): this;
+        refresh(): this;
+        unref(): this;
     }
 
     class Module {

@@ -20,6 +20,17 @@
     },
     "files": [
       "index.d.ts",
+      "clamp.d.ts",
+      "closest.d.ts",
+      "isMultiple.d.ts",
+      "len.d.ts",
+      "lerp.d.ts",
+      "mod.d.ts",
+      "order.d.ts",
+      "precision.d.ts",
+      "round.d.ts",
+      "scale.d.ts",
+      "within.d.ts",
       "mumath-tests.ts"
     ]
 }

@@ -135,6 +135,9 @@ function federatedSignIn() {
                     // ... any other providers you care about ...
 
                     default:
+                        fetch(
+                            'https://example.com/loginEndpoint',
+                            { credentials: credential, method: 'POST' });
                         break;
                 }
             } else {
@@ -161,7 +164,7 @@ function passwordPostSignInConfirmation() {
             const c = new PasswordCredential(formElem);
             fetch(formElem.action, { method: 'POST', credentials: c }).then(r => {
                 if (r.status === 200) {
-                    navigator.credentials!.store(c);
+                    navigator.credentials.store(c);
                 }
             });
         }
@@ -201,6 +204,12 @@ function additionalDataPost(credential: PasswordCredential, token: string) {
 
 function formEncodedPost(credential: PasswordCredential, token: string) {
     credential.additionalData = new URLSearchParams();
+    fetch(
+        'https://example.com/loginEndpoint',
+        { credentials: credential, method: 'POST' });
+}
+
+function federatedCredentialPost(credential: FederatedCredential) {
     fetch(
         'https://example.com/loginEndpoint',
         { credentials: credential, method: 'POST' });
@@ -287,29 +296,28 @@ function webauthnRegister() {
                 name: document.domain,
             },
             user: {
-                id: (new Uint8Array(1)).buffer,
+                id: new Uint8Array(1).buffer,
                 name: 'test user',
                 displayName: 'test user',
             },
             challenge,
-            pubKeyCredParams: [
-                { type: 'public-key', alg: -7 },
-            ],
+            pubKeyCredParams: [{ type: 'public-key', alg: -7 }],
             excludeCredentials: [
                 {
-                    id: (new Uint8Array(1)).buffer,
+                    id: new Uint8Array(1).buffer,
                     type: 'public-key',
-                    transports: ['ble', 'internal']
-                }
+                    transports: ['ble', 'internal'],
+                },
             ],
             timeout: 5000,
-            attestation: "direct",
+            attestation: 'direct',
             authenticatorSelection: {
-                requireUserVerification: "preferred",
+                userVerification: 'preferred',
+
                 requireResidentKey: false,
-                authenticatorAttachment: "platform"
+                authenticatorAttachment: 'platform',
             },
-        }
+        },
     });
 
     credPromise.then((cred) => {

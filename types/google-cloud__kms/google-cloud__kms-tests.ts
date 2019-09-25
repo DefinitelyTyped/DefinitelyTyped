@@ -67,20 +67,20 @@ async function exampleListCryptoKeys() {
 
 async function exampleEncrypt() {
     const formattedName = kmsClient.cryptoKeyPath('[PROJECT_ID]', '[LOCATION]', '[KEYRING_ID]', '[KEY_ID]');
-    const unencryptedText = new Buffer('Hello World');
+    const unencryptedText = Buffer.from('Hello World');
 
-    const [ asyncEncryptResult ] = await kmsClient.encrypt({ name: formattedName, plaintext: unencryptedText.toString('base64') });
+    const [ asyncEncryptResult ] = await kmsClient.encrypt({ name: formattedName, plaintext: unencryptedText });
     if (asyncEncryptResult != null) {
         console.log(`Encrypted: ${asyncEncryptResult.ciphertext.toString('base64')}`);
     }
 
-    kmsClient.encrypt({ name: formattedName, plaintext: unencryptedText.toString('base64') }, (err, [ callbackEncryptResult ]) => {
+    kmsClient.encrypt({ name: formattedName, plaintext: unencryptedText }, (err, [ callbackEncryptResult ]) => {
         if (callbackEncryptResult != null) {
             console.log(`Encrypted: ${callbackEncryptResult.ciphertext.toString('base64')}`);
         }
     });
 
-    kmsClient.encrypt({ name: formattedName, plaintext: unencryptedText.toString('base64') }, { timeout: 1000 }, (err, [ callbackWithOptionsEncryptResult ]) => {
+    kmsClient.encrypt({ name: formattedName, plaintext: unencryptedText }, { timeout: 1000 }, (err, [ callbackWithOptionsEncryptResult ]) => {
         if (callbackWithOptionsEncryptResult != null) {
             console.log(`Encrypted: ${callbackWithOptionsEncryptResult.ciphertext.toString('base64')}`);
         }
@@ -96,22 +96,22 @@ async function exampleDecrypt() {
     // const buffers = await file.download();
     // const buffer = buffers[ 0 ];
 
-    const buffer = new Buffer('[ENCRYPTED_SOURCE_BUFFER]');
+    const buffer = Buffer.from('[ENCRYPTED_SOURCE_BUFFER]');
     const formattedName = kmsClient.cryptoKeyPath('[PROJECT_ID]', '[LOCATION]', '[KEYRING_ID]', '[KEY_ID]');
-    const [ asyncDecryptResult ] = await kmsClient.decrypt({name: formattedName, ciphertext: buffer.toString('base64') });
+    const [ asyncDecryptResult ] = await kmsClient.decrypt({name: formattedName, ciphertext: buffer });
     if (asyncDecryptResult != null) {
-        console.log(`Decrypted: ${asyncDecryptResult.plaintext}`);
+        console.log(`Decrypted: ${asyncDecryptResult.plaintext.toString('utf8')}`);
     }
 
-    kmsClient.decrypt({ name: formattedName, ciphertext: buffer.toString('base64') }, (err, [ callbackDecryptResult ]) => {
+    kmsClient.decrypt({ name: formattedName, ciphertext: buffer }, (err, [ callbackDecryptResult ]) => {
         if (callbackDecryptResult != null) {
-            console.log(`Decrypted: ${callbackDecryptResult.plaintext}`);
+            console.log(`Decrypted: ${callbackDecryptResult.plaintext.toString('utf8')}`);
         }
     });
 
-    kmsClient.decrypt({ name: formattedName, ciphertext: buffer.toString('base64') }, (err, [ callbackWithOptionsDecryptResult ]) => {
+    kmsClient.decrypt({ name: formattedName, ciphertext: buffer }, (err, [ callbackWithOptionsDecryptResult ]) => {
         if (callbackWithOptionsDecryptResult != null) {
-            console.log(`Decrypted: ${callbackWithOptionsDecryptResult.plaintext}`);
+            console.log(`Decrypted: ${callbackWithOptionsDecryptResult.plaintext.toString('utf8')}`);
         }
     });
 }

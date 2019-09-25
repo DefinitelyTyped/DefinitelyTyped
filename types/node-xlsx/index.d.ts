@@ -10,7 +10,7 @@
  * @param options options is for xlsx
  * @returns worksheets data, like: { name: 'worksheets', data: [[1,2,3],['1', '2','word']] }
  */
-export declare function parse(
+export function parse(
     mixed: string | ArrayBuffer,
     options?: {}
 ): Array<{
@@ -24,7 +24,7 @@ export declare function parse(
  * @param options spannig multiple rows A1:A4
  * @returns returns a buffer of worksheets
  */
-export declare function build(
+export function build(
     worksheets: Array<{ name: string; data: any[][] }>,
     options?: {}
 ): ArrayBuffer;

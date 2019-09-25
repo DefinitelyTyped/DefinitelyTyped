@@ -7,6 +7,7 @@
 //                 Maxime Billemaz <https://github.com/MBillemaz>
 //                 Georg Steinmetz <https://github.com/georg94>
 //                 Troy Zarger <https://github.com/tzarger>
+//                 Siya Mzam  <https://github.com/vegtelenseg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 

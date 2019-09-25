@@ -29,6 +29,7 @@ export interface StrategyOption extends passport.AuthenticateOptions {
     scopeSeparator?: string;
     customHeaders?: OutgoingHttpHeaders;
     userProfileURL?: string;
+    userEmailURL?: string;
 }
 
 export type OAuth2StrategyOptionsWithoutRequiredURLs = Pick<
@@ -50,6 +51,7 @@ export interface _StrategyOptionsBase extends OAuth2StrategyOptionsWithoutRequir
     scopeSeparator?: string;
     customHeaders?: OutgoingHttpHeaders;
     userProfileURL?: string;
+    userEmailURL?: string;
 }
 
 export interface StrategyOptions extends _StrategyOptionsBase {

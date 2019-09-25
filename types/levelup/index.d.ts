@@ -8,7 +8,7 @@
 /// <reference types="node" />
 
 import { EventEmitter } from 'events';
-import { AbstractLevelDOWN, AbstractIteratorOptions, AbstractBatch, ErrorCallback, AbstractOptions, ErrorValueCallback, AbstractGetOptions } from 'abstract-leveldown';
+import { AbstractLevelDOWN, AbstractIteratorOptions, AbstractBatch, ErrorCallback, AbstractOptions, ErrorValueCallback, AbstractGetOptions, AbstractIterator } from 'abstract-leveldown';
 
 type LevelUpPut<K, V, O> =
     ((key: K, value: V, callback: ErrorCallback) => void) &
@@ -45,7 +45,7 @@ type InferDBDel<DB> =
     LevelUpDel<K, O> :
     LevelUpDel<any, AbstractOptions>;
 
-export interface LevelUp<DB = AbstractLevelDOWN> extends EventEmitter {
+export interface LevelUp<DB = AbstractLevelDOWN, Iterator = AbstractIterator<any, any>> extends EventEmitter {
     open(): Promise<void>;
     open(callback?: ErrorCallback): void;
     close(): Promise<void>;
@@ -60,6 +60,7 @@ export interface LevelUp<DB = AbstractLevelDOWN> extends EventEmitter {
     batch(array: AbstractBatch[], callback: (err?: any) => any): void;
 
     batch(): LevelUpChain;
+    iterator(options?: AbstractIteratorOptions): Iterator;
 
     isOpen(): boolean;
     isClosed(): boolean;

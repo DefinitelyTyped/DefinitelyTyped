@@ -1,6 +1,7 @@
 import Document, {
     DocumentProps,
     Enhancer,
+    Html,
     Head,
     Main,
     NextScript,
@@ -8,6 +9,7 @@ import Document, {
     PageProps
 } from "next/document";
 import * as React from "react";
+import { DefaultQuery } from "next-server/router";
 
 interface WithUrlProps {
     url: string;
@@ -21,7 +23,7 @@ class MyDocumentDefault extends Document {
 
     render() {
         return (
-            <html>
+            <Html>
                 <Head>
                     <style>{`body { margin: 0 } /* custom! */`}</style>
                 </Head>
@@ -29,7 +31,7 @@ class MyDocumentDefault extends Document {
                     <Main />
                     <NextScript />
                 </body>
-            </html>
+            </Html>
         );
     }
 }
@@ -131,3 +133,28 @@ const explicitTypesRenderResponseOne = renderPage<PageProps, {}>(App => props =>
 const explicitTypesRenderResponseTwo = renderPage<PageInitialProps, ProcessedInitialProps>(
     App => ({ foo, bar }) => <App fooLength={foo.length} bar={!!bar} />
 );
+
+class MyDocumentWithCustomContext extends Document<{ example: string; url: string }> {
+    static async getInitialProps(ctx: NextDocumentContext<DefaultQuery, { customField: 'custom value' }>) {
+        const initialProps = await Document.getInitialProps(ctx);
+        const example = ctx.req ? ctx.req.customField : undefined;
+        const url = ctx.req ? ctx.req.url : undefined;
+        return { ...initialProps, example, url };
+    }
+
+    render() {
+        return (
+            <Html>
+                <Head>
+                    <style>{`body { margin: 0 } /* custom! */`}</style>
+                </Head>
+                <body className="custom_class">
+                    <h1>{this.props.example}</h1>
+                    <h2>{this.props.url}</h2>
+                    <Main />
+                    <NextScript />
+                </body>
+            </Html>
+        );
+    }
+}

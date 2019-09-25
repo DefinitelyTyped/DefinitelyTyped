@@ -53,6 +53,17 @@ function runChainExample() {
 
 runChainExample();
 
+function runMemoryChainExample() {
+    console.log(`createDb chain - in-memory database`);
+    db = new sqlite3.Database(
+        ':memory:',
+        sqlite3. OPEN_CREATE | sqlite3.OPEN_READWRITE | sqlite3.OPEN_SHAREDCACHE,
+        createTable);
+    db.configure("busyTimeout", 1000);
+}
+
+runMemoryChainExample();
+
 db.serialize(() => {
   db.run("CREATE TABLE lorem (info TEXT)");
 

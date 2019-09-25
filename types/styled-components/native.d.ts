@@ -2,24 +2,28 @@ import * as ReactNative from 'react-native';
 import * as React from 'react';
 
 export {
-  DefaultTheme,
   css,
+  DefaultTheme,
   isStyledComponent,
-  ThemeProps,
-  ThemeProvider,
   ThemeConsumer,
   ThemeContext,
+  ThemeProps,
+  ThemeProvider,
   withTheme,
 } from './index';
 
 import {
   AnyStyledComponent,
+  DefaultTheme,
+  isStyledComponent,
+  StyledComponentInnerAttrs,
   StyledComponentInnerComponent,
   StyledComponentInnerOtherProps,
-  StyledComponentInnerAttrs,
+  ThemedCssFunction,
   ThemedStyledFunction,
   ThemedStyledInterface,
-  DefaultTheme
+  ThemeProviderComponent,
+  WithThemeFnInterface
 } from './index';
 
 type AnyIfEmpty<T extends object> = keyof T extends never ? any : T;
@@ -83,10 +87,6 @@ export interface ReactNativeStyledInterface<T extends object> extends ReactNativ
   >;
   ListView: ReactNativeThemedStyledFunction<
     typeof ReactNative.ListView,
-    T
-  >;
-  MapView: ReactNativeThemedStyledFunction<
-    typeof ReactNative.MapView,
     T
   >;
   Modal: ReactNativeThemedStyledFunction<
@@ -205,10 +205,23 @@ export interface ReactNativeStyledInterface<T extends object> extends ReactNativ
     typeof ReactNative.ViewPagerAndroid,
     T
   >;
-  WebView: ReactNativeThemedStyledFunction<
-    typeof ReactNative.WebView,
-    T
-  >;
+}
+
+export interface ReactNativeThemedStyledComponentsModule<
+  T extends object,
+  U extends object = T
+> {
+  default: ReactNativeStyledInterface<T>;
+
+  css: ThemedCssFunction<T>;
+
+  withTheme: WithThemeFnInterface<T>;
+  ThemeProvider: ThemeProviderComponent<T, U>;
+  ThemeConsumer: React.Consumer<T>;
+  ThemeContext: React.Context<T>;
+
+  // This could be made to assert `target is StyledComponent<any, T>` instead, but that feels not type safe
+  isStyledComponent: typeof isStyledComponent;
 }
 
 declare const styled: ReactNativeStyledInterface<DefaultTheme>;

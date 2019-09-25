@@ -4,6 +4,7 @@
         // All are TODOs
         "array-type": false,
         "dt-header": false,
+        "npm-naming": false,
         "ban-types": false,
         "callable-types": false,
         "no-empty-interface": false,

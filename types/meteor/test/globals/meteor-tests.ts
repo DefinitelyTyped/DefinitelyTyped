@@ -234,7 +234,13 @@ Items.insert({ list: groceriesId, name: "Persimmons" });
 /**
  * From Collections, collection.update section
  */
-var Players = new Mongo.Collection('Players');
+
+interface Players {
+  score: number
+  badges: string[]
+}
+
+var Players: Mongo.Collection<Players> = new Mongo.Collection('Players');
 
 Template['adminDashboard'].events({
     'click .givePoints': function () {
@@ -249,6 +255,17 @@ Meteor.methods({
     declareWinners: function () {
         Players.update({ score: { $gt: 10 } },
             { $addToSet: { badges: "Winner" } },
+            { multi: true });
+    }
+});
+
+/**
+ * Also from Collections, collection.update section
+ */
+Meteor.methods({
+    declareWinners: function () {
+        Players.update({ score: { $gt: 10 } },
+            { $addToSet: { badges: {$each: ["Winner", "Super"]} } },
             { multi: true });
     }
 });
@@ -380,7 +397,7 @@ Comments.find({ $and: [
     { $or: [{ tags: "tag-1" }, { tags: "tag-2" }] }
 ]});
 
-Comments.find({ $query: {inlineLinks: { $exists: true, $type: "array" } } });
+Comments.find({ $query: { inlineLinks: { $exists: true, $type: "array" } } });
 Comments.find({ inlineLinks: { $elemMatch: {
     objectType: InlineObjectType.Image,
     objectUrl: { $regex: "https://(www\.?)youtube\.com" }
@@ -739,6 +756,43 @@ var handle = Accounts.validateLoginAttempt(function (attemptInfoObject: Accounts
 });
 handle.stop();
 
+if (Meteor.isServer) {
+    Accounts.registerLoginHandler('impersonate', (options: { targetUserId: string }) => {
+        const currentUser = Meteor.userId();
+        if (!currentUser) {
+            return { error: 'No user was logged in' };
+        }
+
+        const isSuperUser = (userId: string) => true;
+
+        if (!isSuperUser(currentUser)) {
+            const errMsg = `User ${currentUser} tried to impersonate but is not allowed`;
+            return { error: errMsg };
+        }
+        // By returning an object with userId, the session will now be logged in as that user
+        return { userId: options.targetUserId };
+    });
+}
+
+if (Meteor.isClient) {
+    Accounts.callLoginMethod({
+        methodName: 'impersonate',
+        methodArguments: [{ targetUserId: 'abc123' }],
+        userCallback: (...args: any[]) => {
+            const error = args[0];
+            if (!error) {
+                console.error(error);
+            }
+        },
+    });
+}
+
+if (Meteor.isServer) {
+    const check = Accounts._checkPassword(Meteor.users.findOne({}), 'abc123');
+    if (check.error) {
+        console.error('incorrect password');
+    }
+}
 
 // Covers https://github.com/meteor-typings/meteor/issues/8
 const publicSetting = Meteor.settings.public['somePublicSetting'];
@@ -783,3 +837,10 @@ const collectionWithoutConnection = new Mongo.Collection<MonkeyDAO>("monkey", {
 });
 
 }  // End of namespace
+
+// absoluteUrl
+Meteor.absoluteUrl('/sub', {rootUrl: 'http://wonderful.com'});
+Meteor.absoluteUrl.defaultOptions = {
+  rootUrl: 'http://123.com',
+  secure: false
+};

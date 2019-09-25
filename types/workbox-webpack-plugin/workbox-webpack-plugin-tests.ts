@@ -32,7 +32,7 @@ import { GenerateSW, InjectManifest } from 'workbox-webpack-plugin';
       // Match any same-origin request that contains 'api'.
       urlPattern: /api/,
       // Apply a network-first strategy.
-      handler: 'networkFirst',
+      handler: 'NetworkFirst',
       options: {
         // Fall back to the cache after 10 seconds.
         networkTimeoutSeconds: 10,
@@ -75,7 +75,7 @@ import { GenerateSW, InjectManifest } from 'workbox-webpack-plugin';
       // To match cross-origin requests, use a RegExp that matches
       // the start of the origin:
       urlPattern: new RegExp('^https://cors\.example\.com/'),
-      handler: 'staleWhileRevalidate',
+      handler: 'StaleWhileRevalidate',
       options: {
         cacheableResponse: {
           statuses: [0, 200]

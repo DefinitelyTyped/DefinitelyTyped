@@ -8,10 +8,14 @@ declare let num: number;
 declare let error: Error;
 declare let bool: boolean;
 declare let boolOrUndefined: boolean | undefined;
+declare let boolOrNumOrStr: boolean | number | string;
 declare let numOrUndefined: number | undefined;
 declare let apiGwEvtReqCtx: AWSLambda.APIGatewayEventRequestContext;
 declare let apiGwEvtReqCtxOpt: AWSLambda.APIGatewayEventRequestContext | null | undefined;
 declare let apiGwEvt: AWSLambda.APIGatewayEvent;
+declare let albEvtReqCtx: AWSLambda.ALBEventRequestContext;
+declare let albEvt: AWSLambda.ALBEvent;
+declare let albRes: AWSLambda.ALBResult;
 declare let customAuthorizerEvt: AWSLambda.CustomAuthorizerEvent;
 declare let clientCtx: AWSLambda.ClientContext;
 declare let clientCtxOrUndefined: AWSLambda.ClientContext | undefined;
@@ -124,6 +128,27 @@ str = apiGwEvt.multiValueQueryStringParameters!["example"][0];
 str = apiGwEvt.stageVariables!["example"];
 apiGwEvtReqCtx = apiGwEvt.requestContext;
 str = apiGwEvt.resource;
+
+/* Application Load Balancer Event Request Context */
+str = albEvtReqCtx.elb.targetGroupArn;
+
+/* Application Load Balancer Event */
+str = albEvt.httpMethod;
+str = albEvt.path;
+str = albEvt.queryStringParameters!["example"];
+str = albEvt.headers!["example"];
+str = albEvt.multiValueQueryStringParameters!["example"][0];
+str = albEvt.multiValueHeaders!["example"][0];
+strOrNull = albEvt.body;
+bool = albEvt.isBase64Encoded;
+
+/* Application Load Balancer Result */
+num = albRes.statusCode;
+str = albRes.statusDescription;
+boolOrNumOrStr = albRes.headers!["example"];
+boolOrNumOrStr = albRes.multiValueHeaders!["example"][0];
+str = albRes.body;
+bool = albRes.isBase64Encoded;
 
 /* API Gateway CustomAuthorizer Event */
 str = customAuthorizerEvt.type;
@@ -388,6 +413,7 @@ authResponse = {
 // CognitoUserPoolEvent
 num = cognitoUserPoolEvent.version;
 cognitoUserPoolEvent.triggerSource === "PreSignUp_SignUp";
+cognitoUserPoolEvent.triggerSource === "PreSignUp_ExternalProvider";
 cognitoUserPoolEvent.triggerSource === "PostConfirmation_ConfirmSignUp";
 cognitoUserPoolEvent.triggerSource === "PreAuthentication_Authentication";
 cognitoUserPoolEvent.triggerSource === "PostAuthentication_Authentication";
@@ -418,6 +444,7 @@ str = cognitoUserPoolEvent.callerContext.clientId;
 str = cognitoUserPoolEvent.request.userAttributes["email"];
 str = cognitoUserPoolEvent.request.validationData!["k1"];
 strOrUndefined = cognitoUserPoolEvent.request.codeParameter;
+strOrUndefined = cognitoUserPoolEvent.request.linkParameter;
 strOrUndefined = cognitoUserPoolEvent.request.usernameParameter;
 boolOrUndefined = cognitoUserPoolEvent.request.newDeviceUsed;
 cognitoUserPoolEvent.request.session![0].challengeName === "CUSTOM_CHALLENGE";
@@ -451,6 +478,31 @@ cognitoUserPoolEvent.response.desiredDeliveryMediums === ["EMAIL"];
 cognitoUserPoolEvent.response.desiredDeliveryMediums === ["SMS"];
 cognitoUserPoolEvent.response.desiredDeliveryMediums === ["SMS", "EMAIL"];
 boolOrUndefined = cognitoUserPoolEvent.response.forceAliasCreation;
+// From AWS examples
+cognitoUserPoolEvent.response = {
+    claimsOverrideDetails: {
+        claimsToAddOrOverride: {
+            attribute_key2: "attribute_value2",
+            attribute_key: "attribute_value"
+        },
+        claimsToSuppress: ["email"]
+    }
+};
+cognitoUserPoolEvent.response = {
+    claimsOverrideDetails: {
+        claimsToAddOrOverride: {
+            attribute_key2: "attribute_value2",
+            attribute_key: "attribute_value"
+        },
+        claimsToSuppress: ["email"],
+        groupOverrideDetails: {
+            groupsToOverride: ["group-A", "group-B", "group-C"],
+            iamRolesToOverride: ["arn:aws:iam::XXXXXXXXXXXX:role/sns_callerA", "arn:aws:iam::XXXXXXXXX:role/sns_callerB", "arn:aws:iam::XXXXXXXXXX:role/sns_callerC"],
+            preferredRole: "arn:aws:iam::XXXXXXXXXXX:role/sns_caller"
+        }
+    }
+};
+cognitoUserPoolEvent.response.claimsOverrideDetails!.groupOverrideDetails = null;
 
 // CloudFormation Custom Resource
 switch (cloudformationCustomResourceEvent.RequestType) {
@@ -478,6 +530,7 @@ strOrUndefined = cloudformationCustomResourceResponse.Reason;
 str = cloudformationCustomResourceResponse.RequestId;
 str = cloudformationCustomResourceResponse.StackId;
 str = cloudformationCustomResourceResponse.Status;
+boolOrUndefined = cloudformationCustomResourceResponse.NoEcho;
 
 /* ScheduledEvent */
 str = scheduledEvent.account;
@@ -519,7 +572,7 @@ str = cloudwatchLogsDecodedData.logEvents[0].extractedFields!["example"];
 
 /* ClientContext */
 clientContextClient = clientCtx.client;
-anyObj = clientCtx.custom;
+anyObj = clientCtx.Custom;
 clientContextEnv = clientCtx.env;
 
 /* ClientContextEnv */
@@ -879,6 +932,33 @@ const inferredHandler: AWSLambda.S3Handler = (event, context, cb) => {
 // Test using default Callback type still works.
 const defaultCallbackHandler: AWSLambda.APIGatewayProxyHandler = (event: AWSLambda.APIGatewayEvent, context: AWSLambda.Context, cb: AWSLambda.Callback) => { };
 
+const albSyncHandler: AWSLambda.ALBHandler = (
+    event: AWSLambda.ALBEvent,
+    context: AWSLambda.Context,
+    cb: AWSLambda.ALBCallback,
+) => {
+    cb(null, {
+        statusCode: 200,
+        statusDescription: '200 OK',
+        headers: { },
+        body: '',
+        isBase64Encoded: false,
+    });
+};
+const albAsyncHandler: AWSLambda.ALBHandler = async (
+    event: AWSLambda.ALBEvent,
+    context: AWSLambda.Context,
+    cb: AWSLambda.ALBCallback,
+) => {
+    return {
+        statusCode: 200,
+        statusDescription: '200 OK',
+        headers: { },
+        body: '',
+        isBase64Encoded: false,
+    };
+};
+
 // Specific types
 let s3Handler: AWSLambda.S3Handler = (event: AWSLambda.S3Event, context: AWSLambda.Context, cb: AWSLambda.Callback<void>) => {};
 // Test old name
@@ -967,6 +1047,11 @@ const cloudFrontRequestHandler: AWSLambda.CloudFrontRequestHandler = (event: AWS
 
 const cloudFrontResponseHandler: AWSLambda.CloudFrontResponseHandler = (event: AWSLambda.CloudFrontResponseEvent, context: AWSLambda.Context, cb: AWSLambda.CloudFrontResponseCallback) => { };
 
+const cloudFrontHeaders: AWSLambda.CloudFrontHeaders = {
+    'content-type': [{ value: 'text/plain' }],
+    'x-foo-bar': [{ key: 'X-Foo-Bar', value: 'example' }]
+};
+
 const customAuthorizerHandler: AWSLambda.CustomAuthorizerHandler = (event: AWSLambda.CustomAuthorizerEvent, context: AWSLambda.Context, cb: AWSLambda.CustomAuthorizerCallback) => { };
 
 interface CustomEvent { eventString: string; eventBool: boolean; }
@@ -1003,7 +1088,15 @@ const SQSEvent: AWSLambda.SQSEvent = {
                 SenderId: "594035263019",
                 ApproximateFirstReceiveTimestamp: "1529104986230"
             },
-            messageAttributes: {},
+            messageAttributes: {
+                testAttr: {
+                    stringValue: "100",
+                    binaryValue: "base64Str",
+                    stringListValues: [],
+                    binaryListValues: [],
+                    dataType: "Number"
+                }
+            },
             md5OfBody: "9bb58f26192e4ba00f01e2e7b136bbd8",
             eventSource: "aws:sqs",
             eventSourceARN: "arn:aws:sqs:us-west-2:594035263019:NOTFIFOQUEUE",
@@ -1039,6 +1132,10 @@ const SQSMessageNode8AsyncHandler: AWSLambda.SQSHandler = async (
     event;
     str = event.Records[0].messageId;
     anyObj = event.Records[0].body;
+    strOrUndefined = event.Records[0].messageAttributes.testAttr.stringValue;
+    strOrUndefined = event.Records[0].messageAttributes.testAttr.binaryValue;
+    str = event.Records[0].messageAttributes.testAttr.dataType;
+
     // $ExpectType Context
     context;
     str = context.functionName;
@@ -1176,4 +1273,60 @@ const lexEventHandler: AWSLambda.LexHandler = async (
     context;
     str = context.functionName;
     return lexResult;
+};
+
+/**
+ * S3 Batch Operations event
+ * https://docs.aws.amazon.com/AmazonS3/latest/dev/batch-ops-invoke-lambda.html
+ */
+const S3BatchEvent: AWSLambda.S3BatchEvent = {
+  invocationSchemaVersion: '1.0',
+  invocationId: 'foo_invocation_id',
+  job: { id: 'foo_job_id' },
+  tasks: [
+    {
+      taskId: '11111',
+      s3Key: 'example.json',
+      s3BucketArn: 'arn:aws:s3:::foo-bucket',
+      s3VersionId: null,
+    },
+    {
+      taskId: '11111',
+      s3Key: 'example.json',
+      s3BucketArn: 'arn:aws:s3:::foo-bucket',
+      s3VersionId: 'asdf',
+    },
+  ],
+};
+
+const S3BatchResult: AWSLambda.S3BatchResult = {
+    invocationSchemaVersion: '1.0',
+    treatMissingKeysAs: 'PermanentFailure',
+    invocationId: 'foo_invocation_id',
+    results: [{
+        taskId: '11111',
+        resultCode: 'Succeeded',
+        resultString: 'foo',
+    }, {
+        taskId: '22222',
+        resultCode: 'TemporaryFailure',
+        resultString: 'Error: failure',
+    }, {
+        taskId: '33333',
+        resultCode: 'PermanentFailure',
+        resultString: 'Error: failure',
+    }],
+};
+
+const S3BatchHandler: AWSLambda.S3BatchHandler = async (
+    event: AWSLambda.S3BatchEvent,
+    context: AWSLambda.Context,
+) => {
+    // $ExpectType S3BatchEvent
+    event;
+
+    // $ExpectType Context
+    context;
+    str = context.functionName;
+    return S3BatchResult;
 };

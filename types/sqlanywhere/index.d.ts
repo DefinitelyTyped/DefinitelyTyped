@@ -42,7 +42,3 @@ export interface Statement {
     getMoreResults(): any[];
     drop(cb: (err: Error | undefined) => void): void;
 }
-declare const _default: {
-    createConnection: typeof createConnection;
-};
-export default _default;

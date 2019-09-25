@@ -7,6 +7,7 @@
 //                 Sebastiaan de Rooij <https://github.com/Hikariii>
 //                 Ted Bicknell <https://github.com/tedbcsgpro>
 //                 Daniel Waxweiler <https://github.com/dwaxweiler>
+//                 PikachuEXE <https://github.com/PikachuEXE>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -97,7 +98,7 @@ declare namespace Dropzone {
 
 		accept?(file: DropzoneFile, done: (error?: string | Error) => void): void;
 		chunksUploaded?(file: DropzoneFile, done: (error?: string | Error) => void): void; 
-		init?(): void;
+		init?(this : Dropzone): void;
 		forceFallback?: boolean;
 		fallback?(): void;
 		resize?(file: DropzoneFile, width?: number, height?: number, resizeMethod?: string): DropzoneResizeInfo;
@@ -141,6 +142,8 @@ declare namespace Dropzone {
 		maxfilesexceeded?(file: DropzoneFile): void;
 		maxfilesreached?(files: DropzoneFile[]): void;
 		queuecomplete?(): void;
+
+		transformFile?(file: DropzoneFile, done: (file: string | Blob) => void): void;
 
 		previewTemplate?: string;
 	}

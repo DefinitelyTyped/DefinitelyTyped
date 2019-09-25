@@ -1,6 +1,8 @@
-// Type definitions for detox 9.0
+// Type definitions for detox 12.8
 // Project: https://github.com/wix/detox
-// Definitions by: Tareq El-Masri <https://github.com/TareqElMasri>, Steve Chun <https://github.com/stevechun>
+// Definitions by: Tareq El-Masri <https://github.com/TareqElMasri>
+//                 Steve Chun <https://github.com/stevechun>
+//                 Hammad Jutt <https://github.com/hammadj>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare global {
@@ -42,6 +44,16 @@ declare global {
              */
             cleanup(): Promise<void>;
         }
+
+        // Detox exports all methods from detox global and all of the global constants.
+        interface DetoxExport extends Detox {
+            device: Device;
+            element: Element;
+            waitFor: WaitFor;
+            expect: Expect<Expect<any>>;
+            by: Matchers;
+        }
+
         interface Device {
             /**
              * Launch the app
@@ -331,6 +343,16 @@ declare global {
              */
             clearText(): Promise<Actions<R>>;
             /**
+             * Taps the backspace key on the built-in keyboard.
+             * @example await element(by.id('textField')).tapBackspaceKey();
+             */
+            tapBackspaceKey(): Promise<Actions<R>>;
+            /**
+             * Taps the return key on the built-in keyboard.
+             * @example await element(by.id('textField')).tapReturnKey();
+             */
+            tapReturnKey(): Promise<Actions<R>>;
+            /**
              *
              * @param pixels
              * @param direction
@@ -338,7 +360,12 @@ declare global {
              * await element(by.id('scrollView')).scroll(100, 'down');
              * await element(by.id('scrollView')).scroll(100, 'up');
              */
-            scroll(pixels: number, direction: Direction): Promise<Actions<R>>;
+            scroll(
+                pixels: number,
+                direction: Direction,
+                startPositionX?: number,
+                startPositionY?: number,
+            ): Promise<Actions<R>>;
             /**
              * Scroll to edge.
              * @param edge
@@ -391,7 +418,48 @@ declare global {
              * By default await detox.init(config); will launch the installed app. If you wish to control when your app is launched, add {launchApp: false} param to your init.
              */
             launchApp?: boolean;
+            /**
+             * By default await detox.init(config); will uninstall and install the app. If you wish to reuse the existing app for a faster run, add {reuse: true} param to your init.
+             */
+            reuse?: boolean;
         }
+
+        /**
+         *  Source for string definitions is https://github.com/wix/AppleSimulatorUtils
+         */
+        interface  DevicePermissions {
+            location?: LocationPermission;
+            notifications?: NotificationsPermission;
+            calendar?: CalendarPermission;
+            camera?: CameraPermission;
+            contacts?: ContactsPermission;
+            health?: HealthPermission;
+            homekit?: HomekitPermission;
+            medialibrary?: MediaLibraryPermission;
+            microphone?: MicrophonePermission;
+            motion?: MotionPermission;
+            photos?: PhotosPermission;
+            reminders?: RemindersPermission;
+            siri?: SiriPermission;
+            speech?: SpeechPermission;
+        }
+
+        type LocationPermission = "always" | "inuse" | "never" | "unset";
+        type PermissionState = "YES" | "NO" | "unset";
+        type CameraPermission = PermissionState;
+        type ContactsPermission = PermissionState;
+        type CalendarPermission = PermissionState;
+        type HealthPermission = PermissionState;
+        type HomekitPermission = PermissionState;
+        type MediaLibraryPermission = PermissionState;
+        type MicrophonePermission = PermissionState;
+        type MotionPermission = PermissionState;
+        type PhotosPermission = PermissionState;
+        type RemindersPermission = PermissionState;
+        type SiriPermission = PermissionState;
+        type SpeechPermission = PermissionState;
+        type NotificationsPermission = PermissionState;
+
         interface DeviceLanchAppConfig {
             /**
              * Restart the app
@@ -402,7 +470,7 @@ declare global {
              * Set runtime permissions
              * Grant or deny runtime permissions for your application.
              */
-            permissions?: any;
+            permissions?: DevicePermissions;
             /**
              * Launch from URL
              * Mock opening the app from URL to test your app's deep link handling mechanism.
@@ -434,10 +502,6 @@ declare global {
     }
 }
 
-export { by, detox, device, element, waitFor };
+declare const detoxExport: Detox.DetoxExport;
 
-// Not exporting the global `expect` from the top of the file here
-// because `expect` conflicts with the global `expect` of jest and
-// therefore exporting it doesn't work. The global `expect` is kept
-// for backwards compatibility though.
-export const expect: Detox.Expect<Detox.Expect<any>>;
+export = detoxExport;

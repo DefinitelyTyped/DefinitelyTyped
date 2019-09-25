@@ -69,9 +69,9 @@ export type mapperFunction = (keyChain: KeyChain, method: string, clientIds: num
 export class SCExchange extends AbstractDataClient {
     constructor(privateClientCluster: ClientCluster, publicClientCluster: ClientCluster, ioClusterClient: Client);
 
-    send(data: any, mapIndex: number | string | string[] | null, callback?: (err?: Error) => void): void;
+    send(data: any, mapIndex: number | string | string[] | null, callback?: AsyncResultArrayCallback<any>): void;
 
-    publish(channelName: string, data: any, callback: (err?: Error) => void): void;
+    publish(channelName: string, data: any, callback?: (err?: Error) => void): void;
 
     subscribe(channelName: string): SCChannel;
     unsubscribe(channelName: string): void;
@@ -146,12 +146,12 @@ export class Client extends EventEmitter {
     on(event: "ready", listener: () => void): this;
     on(event: "message", listener: (packet: MessagePacket) => void): this;
 
-    destroy(callback: AsyncResultArrayCallback<SCExchange>): void;
+    destroy(callback?: AsyncResultArrayCallback<SCExchange>): void;
 
-    subscribe(channel: string, callback: (err?: Error) => void): void;
-    unsubscribe(channel: string, callback: () => void): void;
-    unsubscribeAll(callback: () => void): void;
-    isSubscribed(channel: string, includePending: boolean): boolean;
+    subscribe(channel: string, callback?: (err?: Error) => void): void;
+    unsubscribe(channel: string, callback?: () => void): void;
+    unsubscribeAll(callback?: AsyncResultArrayCallback<any>): void;
+    isSubscribed(channel: string, includePending?: boolean): boolean;
 
     subscribeSocket(socket: SCServerSocket, channel: string, callback?: (err?: Error) => void): void;
     unsubscribeSocket(socket: SCServerSocket, channel: string, callback?: () => void): void;

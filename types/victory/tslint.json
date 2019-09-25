@@ -9,6 +9,7 @@
         "no-declare-current-package": false,
         "no-empty-interface": false,
         "no-single-declare-module": false,
-        "strict-export-declare-modifiers": false
+        "strict-export-declare-modifiers": false,
+        "no-unnecessary-generics": false
     }
 }

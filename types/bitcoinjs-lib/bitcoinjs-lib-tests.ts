@@ -20,6 +20,10 @@ keyPair3.toWIF();
 bitcoin.payments.p2pkh({ pubkey: keyPair3.publicKey });
 const network = keyPair3.network;
 
+const keyPair4 = bitcoin.ECPair.makeRandom({network: bitcoin.networks.regtest, rng});
+keyPair4.toWIF();
+bitcoin.payments.p2pkh({ pubkey: keyPair4.publicKey });
+
 // Test TransactionBuilder and Transaction
 const txb = new bitcoin.TransactionBuilder();
 txb.addInput('aa94ab02c182214f090e99a0d57021caffd0f195a81c24602b1028b130b63e31', 0);

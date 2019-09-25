@@ -1,6 +1,8 @@
 // Type definitions for twilio-video 2.0
 // Project: https://twilio.com/video, https://twilio.com
-// Definitions by: MindDoc <https://github.com/minddocdev>, Darío Blanco <https://github.com/darioblanco>
+// Definitions by: MindDoc <https://github.com/minddocdev>
+//                 Darío Blanco <https://github.com/darioblanco>
+//                 katashin <https://github.com/ktsn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -103,11 +105,11 @@ export class LocalParticipant extends Participant {
         mediaStreamTrack: MediaStreamTrack, options?: LocalTrackOptions,
     ): Promise<LocalTrackPublication>;
     publishTracks(
-        tracks: LocalTrack[] | MediaStreamTrack[],
+        tracks: Array<LocalTrack | MediaStreamTrack>,
     ): Promise<LocalTrackPublication[]>;
     setParameters(encodingParameters?: EncodingParameters | null): LocalParticipant;
-    unpublishTrack(track: LocalTrack): LocalTrackPublication;
-    unpublishTracks(tracks: LocalTrack): LocalTrackPublication[];
+    unpublishTrack(track: LocalTrack | MediaStreamTrack): LocalTrackPublication;
+    unpublishTracks(tracks: Array<LocalTrack | MediaStreamTrack>): LocalTrackPublication[];
 }
 export class LocalTrackPublication extends TrackPublication {
     isTrackEnabled: boolean;
@@ -469,6 +471,7 @@ export type AudioTrackPublication = LocalAudioTrackPublication | RemoteAudioTrac
 export interface ConnectOptions {
     abortOnIceServersTimeout?: boolean;
     audio?: boolean | CreateLocalTrackOptions;
+    dominantSpeaker?: boolean;
     iceServers?: RTCIceServer[];
     iceServersTimeout?: number;
     iceTransportPolicy?: RTCIceTransportPolicy;
@@ -476,6 +479,7 @@ export interface ConnectOptions {
     maxAudioBitRate?: number | null;
     maxVideoBitRate?: number | null;
     name?: string | null;
+    networkQuality?: boolean | NetworkQualityConfiguration;
     preferredAudioCodecs?: AudioCodec[];
     preferredVideoCodecs?: VideoCodec[] | VideoCodecSettings[];
     logLevel?: LogLevel | LogLevels;
@@ -516,6 +520,11 @@ export interface LogLevels {
     webrtc: LogLevel;
 }
 export type NetworkQualityLevel = number;
+export type NetworkQualityVerbosity = 0 | 1 | 2 | 3;
+export interface NetworkQualityConfiguration {
+    local?: NetworkQualityVerbosity;
+    remote?: NetworkQualityVerbosity;
+}
 export type RemoteTrack = RemoteAudioTrack | RemoteVideoTrack | RemoteDataTrack;
 export interface RemoteTrackPublicationOptions {
     logLevel: LogLevel | LogLevels;

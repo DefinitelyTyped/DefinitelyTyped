@@ -45,7 +45,7 @@ interface Console {
     /**
      * The `console.groupCollapsed()` function is an alias for {@link console.group()}.
      */
-    groupCollapsed(): void;
+    groupCollapsed(...label: any[]): void;
     /**
      * Decreases indentation of subsequent lines by two spaces.
      */
@@ -154,6 +154,10 @@ interface String {
     trimRight(): string;
 }
 
+interface ImportMeta {
+    url: string;
+}
+
 /*-----------------------------------------------*
  *                                               *
  *                   GLOBAL                      *
@@ -233,18 +237,189 @@ declare var module: NodeModule;
 declare var exports: any;
 
 // Buffer class
-type BufferEncoding = "ascii" | "utf8" | "utf16le" | "ucs2" | "base64" | "latin1" | "binary" | "hex";
-interface Buffer extends Uint8Array {
+type BufferEncoding = "ascii" | "utf8" | "utf-8" | "utf16le" | "ucs2" | "ucs-2" | "base64" | "latin1" | "binary" | "hex";
+
+interface Buffer {
     constructor: typeof Buffer;
-    write(string: string, encoding?: string): number;
-    write(string: string, offset: number, encoding?: string): number;
-    write(string: string, offset: number, length: number, encoding?: string): number;
+}
+
+/**
+ * Raw data is stored in instances of the Buffer class.
+ * A Buffer is similar to an array of integers but corresponds to a raw memory allocation outside the V8 heap.  A Buffer cannot be resized.
+ * Valid string encodings: 'ascii'|'utf8'|'utf16le'|'ucs2'(alias of 'utf16le')|'base64'|'binary'(deprecated)|'hex'
+ */
+declare class Buffer extends Uint8Array {
+    /**
+     * Allocates a new buffer containing the given {str}.
+     *
+     * @param str String to store in buffer.
+     * @param encoding encoding to use, optional.  Default is 'utf8'
+     * @deprecated since v10.0.0 - Use `Buffer.from(string[, encoding])` instead.
+     */
+    constructor(str: string, encoding?: BufferEncoding);
+    /**
+     * Allocates a new buffer of {size} octets.
+     *
+     * @param size count of octets to allocate.
+     * @deprecated since v10.0.0 - Use `Buffer.alloc()` instead (also see `Buffer.allocUnsafe()`).
+     */
+    constructor(size: number);
+    /**
+     * Allocates a new buffer containing the given {array} of octets.
+     *
+     * @param array The octets to store.
+     * @deprecated since v10.0.0 - Use `Buffer.from(array)` instead.
+     */
+    constructor(array: Uint8Array);
+    /**
+     * Produces a Buffer backed by the same allocated memory as
+     * the given {ArrayBuffer}/{SharedArrayBuffer}.
+     *
+     *
+     * @param arrayBuffer The ArrayBuffer with which to share memory.
+     * @deprecated since v10.0.0 - Use `Buffer.from(arrayBuffer[, byteOffset[, length]])` instead.
+     */
+    constructor(arrayBuffer: ArrayBuffer | SharedArrayBuffer);
+    /**
+     * Allocates a new buffer containing the given {array} of octets.
+     *
+     * @param array The octets to store.
+     * @deprecated since v10.0.0 - Use `Buffer.from(array)` instead.
+     */
+    constructor(array: any[]);
+    /**
+     * Copies the passed {buffer} data onto a new {Buffer} instance.
+     *
+     * @param buffer The buffer to copy.
+     * @deprecated since v10.0.0 - Use `Buffer.from(buffer)` instead.
+     */
+    constructor(buffer: Buffer);
+    /**
+     * When passed a reference to the .buffer property of a TypedArray instance,
+     * the newly created Buffer will share the same allocated memory as the TypedArray.
+     * The optional {byteOffset} and {length} arguments specify a memory range
+     * within the {arrayBuffer} that will be shared by the Buffer.
+     *
+     * @param arrayBuffer The .buffer property of any TypedArray or a new ArrayBuffer()
+     */
+    static from(arrayBuffer: ArrayBuffer | SharedArrayBuffer, byteOffset?: number, length?: number): Buffer;
+    /**
+     * Creates a new Buffer using the passed {data}
+     * @param data data to create a new Buffer
+     */
+    static from(data: number[]): Buffer;
+    static from(data: Uint8Array): Buffer;
+    /**
+     * Creates a new Buffer containing the given JavaScript string {str}.
+     * If provided, the {encoding} parameter identifies the character encoding.
+     * If not provided, {encoding} defaults to 'utf8'.
+     */
+    static from(str: string, encoding?: BufferEncoding): Buffer;
+    /**
+     * Creates a new Buffer using the passed {data}
+     * @param values to create a new Buffer
+     */
+    static of(...items: number[]): Buffer;
+    /**
+     * Returns true if {obj} is a Buffer
+     *
+     * @param obj object to test.
+     */
+    static isBuffer(obj: any): obj is Buffer;
+    /**
+     * Returns true if {encoding} is a valid encoding argument.
+     * Valid string encodings in Node 0.12: 'ascii'|'utf8'|'utf16le'|'ucs2'(alias of 'utf16le')|'base64'|'binary'(deprecated)|'hex'
+     *
+     * @param encoding string to test.
+     */
+    static isEncoding(encoding: string): encoding is BufferEncoding;
+    /**
+     * Gives the actual byte length of a string. encoding defaults to 'utf8'.
+     * This is not the same as String.prototype.length since that returns the number of characters in a string.
+     *
+     * @param string string to test.
+     * @param encoding encoding used to evaluate (defaults to 'utf8')
+     */
+    static byteLength(
+        string: string | NodeJS.TypedArray | DataView | ArrayBuffer | SharedArrayBuffer,
+        encoding?: BufferEncoding
+    ): number;
+    /**
+     * Returns a buffer which is the result of concatenating all the buffers in the list together.
+     *
+     * If the list has no items, or if the totalLength is 0, then it returns a zero-length buffer.
+     * If the list has exactly one item, then the first item of the list is returned.
+     * If the list has more than one item, then a new Buffer is created.
+     *
+     * @param list An array of Buffer objects to concatenate
+     * @param totalLength Total length of the buffers when concatenated.
+     *   If totalLength is not provided, it is read from the buffers in the list. However, this adds an additional loop to the function, so it is faster to provide the length explicitly.
+     */
+    static concat(list: Uint8Array[], totalLength?: number): Buffer;
+    /**
+     * The same as buf1.compare(buf2).
+     */
+    static compare(buf1: Uint8Array, buf2: Uint8Array): number;
+    /**
+     * Allocates a new buffer of {size} octets.
+     *
+     * @param size count of octets to allocate.
+     * @param fill if specified, buffer will be initialized by calling buf.fill(fill).
+     *    If parameter is omitted, buffer will be filled with zeros.
+     * @param encoding encoding used for call to buf.fill while initalizing
+     */
+    static alloc(size: number, fill?: string | Buffer | number, encoding?: BufferEncoding): Buffer;
+    /**
+     * Allocates a new buffer of {size} octets, leaving memory not initialized, so the contents
+     * of the newly created Buffer are unknown and may contain sensitive data.
+     *
+     * @param size count of octets to allocate
+     */
+    static allocUnsafe(size: number): Buffer;
+    /**
+     * Allocates a new non-pooled buffer of {size} octets, leaving memory not initialized, so the contents
+     * of the newly created Buffer are unknown and may contain sensitive data.
+     *
+     * @param size count of octets to allocate
+     */
+    static allocUnsafeSlow(size: number): Buffer;
+    /**
+     * This is the number of bytes used to determine the size of pre-allocated, internal Buffer instances used for pooling. This value may be modified.
+     */
+    static poolSize: number;
+
+    write(string: string, encoding?: BufferEncoding): number;
+    write(string: string, offset: number, encoding?: BufferEncoding): number;
+    write(string: string, offset: number, length: number, encoding?: BufferEncoding): number;
     toString(encoding?: string, start?: number, end?: number): string;
-    toJSON(): { type: 'Buffer', data: number[] };
+    toJSON(): { type: 'Buffer'; data: number[] };
     equals(otherBuffer: Uint8Array): boolean;
-    compare(otherBuffer: Uint8Array, targetStart?: number, targetEnd?: number, sourceStart?: number, sourceEnd?: number): number;
+    compare(
+        otherBuffer: Uint8Array,
+        targetStart?: number,
+        targetEnd?: number,
+        sourceStart?: number,
+        sourceEnd?: number
+    ): number;
     copy(targetBuffer: Uint8Array, targetStart?: number, sourceStart?: number, sourceEnd?: number): number;
-    slice(start?: number, end?: number): Buffer;
+    /**
+     * Returns a new `Buffer` that references **the same memory as the original**, but offset and cropped by the start and end indices.
+     *
+     * This method is incompatible with `Uint8Array#slice()`, which returns a copy of the original memory.
+     *
+     * @param begin Where the new `Buffer` will start. Default: `0`.
+     * @param end Where the new `Buffer` will end (not inclusive). Default: `buf.length`.
+     */
+    slice(begin?: number, end?: number): Buffer;
+    /**
+     * Returns a new `Buffer` that references **the same memory as the original**, but offset and cropped by the start and end indices.
+     *
+     * This method is compatible with `Uint8Array#subarray()`.
+     *
+     * @param begin Where the new `Buffer` will start. Default: `0`.
+     * @param end Where the new `Buffer` will end (not inclusive). Default: `buf.length`.
+     */
+    subarray(begin?: number, end?: number): Buffer;
     writeUIntLE(value: number, offset: number, byteLength: number): number;
     writeUIntBE(value: number, offset: number, byteLength: number): number;
     writeIntLE(value: number, offset: number, byteLength: number): number;
@@ -267,6 +442,7 @@ interface Buffer extends Uint8Array {
     readFloatBE(offset: number): number;
     readDoubleLE(offset: number): number;
     readDoubleBE(offset: number): number;
+    reverse(): this;
     swap16(): Buffer;
     swap32(): Buffer;
     swap64(): Buffer;
@@ -284,158 +460,16 @@ interface Buffer extends Uint8Array {
     writeFloatBE(value: number, offset: number): number;
     writeDoubleLE(value: number, offset: number): number;
     writeDoubleBE(value: number, offset: number): number;
-    fill(value: any, offset?: number, end?: number): this;
-    indexOf(value: string | number | Uint8Array, byteOffset?: number, encoding?: string): number;
-    lastIndexOf(value: string | number | Uint8Array, byteOffset?: number, encoding?: string): number;
+
+    fill(value: string | Uint8Array | number, offset?: number, end?: number, encoding?: BufferEncoding): this;
+
+    indexOf(value: string | number | Uint8Array, byteOffset?: number, encoding?: BufferEncoding): number;
+    lastIndexOf(value: string | number | Uint8Array, byteOffset?: number, encoding?: BufferEncoding): number;
     entries(): IterableIterator<[number, number]>;
-    includes(value: string | number | Buffer, byteOffset?: number, encoding?: string): boolean;
+    includes(value: string | number | Buffer, byteOffset?: number, encoding?: BufferEncoding): boolean;
     keys(): IterableIterator<number>;
     values(): IterableIterator<number>;
 }
-
-/**
- * Raw data is stored in instances of the Buffer class.
- * A Buffer is similar to an array of integers but corresponds to a raw memory allocation outside the V8 heap.  A Buffer cannot be resized.
- * Valid string encodings: 'ascii'|'utf8'|'utf16le'|'ucs2'(alias of 'utf16le')|'base64'|'binary'(deprecated)|'hex'
- */
-declare const Buffer: {
-    /**
-     * Allocates a new buffer containing the given {str}.
-     *
-     * @param str String to store in buffer.
-     * @param encoding encoding to use, optional.  Default is 'utf8'
-     * @deprecated since v10.0.0 - Use `Buffer.from(string[, encoding])` instead.
-     */
-    new(str: string, encoding?: string): Buffer;
-    /**
-     * Allocates a new buffer of {size} octets.
-     *
-     * @param size count of octets to allocate.
-     * @deprecated since v10.0.0 - Use `Buffer.alloc()` instead (also see `Buffer.allocUnsafe()`).
-     */
-    new(size: number): Buffer;
-    /**
-     * Allocates a new buffer containing the given {array} of octets.
-     *
-     * @param array The octets to store.
-     * @deprecated since v10.0.0 - Use `Buffer.from(array)` instead.
-     */
-    new(array: Uint8Array): Buffer;
-    /**
-     * Produces a Buffer backed by the same allocated memory as
-     * the given {ArrayBuffer}/{SharedArrayBuffer}.
-     *
-     *
-     * @param arrayBuffer The ArrayBuffer with which to share memory.
-     * @deprecated since v10.0.0 - Use `Buffer.from(arrayBuffer[, byteOffset[, length]])` instead.
-     */
-    new(arrayBuffer: ArrayBuffer | SharedArrayBuffer): Buffer;
-    /**
-     * Allocates a new buffer containing the given {array} of octets.
-     *
-     * @param array The octets to store.
-     * @deprecated since v10.0.0 - Use `Buffer.from(array)` instead.
-     */
-    new(array: any[]): Buffer;
-    /**
-     * Copies the passed {buffer} data onto a new {Buffer} instance.
-     *
-     * @param buffer The buffer to copy.
-     * @deprecated since v10.0.0 - Use `Buffer.from(buffer)` instead.
-     */
-    new(buffer: Buffer): Buffer;
-    prototype: Buffer;
-    /**
-     * When passed a reference to the .buffer property of a TypedArray instance,
-     * the newly created Buffer will share the same allocated memory as the TypedArray.
-     * The optional {byteOffset} and {length} arguments specify a memory range
-     * within the {arrayBuffer} that will be shared by the Buffer.
-     *
-     * @param arrayBuffer The .buffer property of any TypedArray or a new ArrayBuffer()
-     */
-    from(arrayBuffer: ArrayBuffer | SharedArrayBuffer, byteOffset?: number, length?: number): Buffer;
-    /**
-     * Creates a new Buffer using the passed {data}
-     * @param data data to create a new Buffer
-     */
-    from(data: any[]): Buffer;
-    from(data: Uint8Array): Buffer;
-    /**
-     * Creates a new Buffer containing the given JavaScript string {str}.
-     * If provided, the {encoding} parameter identifies the character encoding.
-     * If not provided, {encoding} defaults to 'utf8'.
-     */
-    from(str: string, encoding?: string): Buffer;
-    /**
-     * Creates a new Buffer using the passed {data}
-     * @param values to create a new Buffer
-     */
-    of(...items: number[]): Buffer;
-    /**
-     * Returns true if {obj} is a Buffer
-     *
-     * @param obj object to test.
-     */
-    isBuffer(obj: any): obj is Buffer;
-    /**
-     * Returns true if {encoding} is a valid encoding argument.
-     * Valid string encodings in Node 0.12: 'ascii'|'utf8'|'utf16le'|'ucs2'(alias of 'utf16le')|'base64'|'binary'(deprecated)|'hex'
-     *
-     * @param encoding string to test.
-     */
-    isEncoding(encoding: string): boolean | undefined;
-    /**
-     * Gives the actual byte length of a string. encoding defaults to 'utf8'.
-     * This is not the same as String.prototype.length since that returns the number of characters in a string.
-     *
-     * @param string string to test.
-     * @param encoding encoding used to evaluate (defaults to 'utf8')
-     */
-    byteLength(string: string | NodeJS.TypedArray | DataView | ArrayBuffer | SharedArrayBuffer, encoding?: string): number;
-    /**
-     * Returns a buffer which is the result of concatenating all the buffers in the list together.
-     *
-     * If the list has no items, or if the totalLength is 0, then it returns a zero-length buffer.
-     * If the list has exactly one item, then the first item of the list is returned.
-     * If the list has more than one item, then a new Buffer is created.
-     *
-     * @param list An array of Buffer objects to concatenate
-     * @param totalLength Total length of the buffers when concatenated.
-     *   If totalLength is not provided, it is read from the buffers in the list. However, this adds an additional loop to the function, so it is faster to provide the length explicitly.
-     */
-    concat(list: Uint8Array[], totalLength?: number): Buffer;
-    /**
-     * The same as buf1.compare(buf2).
-     */
-    compare(buf1: Uint8Array, buf2: Uint8Array): number;
-    /**
-     * Allocates a new buffer of {size} octets.
-     *
-     * @param size count of octets to allocate.
-     * @param fill if specified, buffer will be initialized by calling buf.fill(fill).
-     *    If parameter is omitted, buffer will be filled with zeros.
-     * @param encoding encoding used for call to buf.fill while initalizing
-     */
-    alloc(size: number, fill?: string | Buffer | number, encoding?: string): Buffer;
-    /**
-     * Allocates a new buffer of {size} octets, leaving memory not initialized, so the contents
-     * of the newly created Buffer are unknown and may contain sensitive data.
-     *
-     * @param size count of octets to allocate
-     */
-    allocUnsafe(size: number): Buffer;
-    /**
-     * Allocates a new non-pooled buffer of {size} octets, leaving memory not initialized, so the contents
-     * of the newly created Buffer are unknown and may contain sensitive data.
-     *
-     * @param size count of octets to allocate
-     */
-    allocUnsafeSlow(size: number): Buffer;
-    /**
-     * This is the number of bytes used to determine the size of pre-allocated, internal Buffer instances used for pooling. This value may be modified.
-     */
-    poolSize: number;
-};
 
 /*----------------------------------------------*
 *                                               *
@@ -463,7 +497,17 @@ declare namespace NodeJS {
         showProxy?: boolean;
         maxArrayLength?: number | null;
         breakLength?: number;
-        compact?: boolean;
+        /**
+         * Setting this to `false` causes each object key
+         * to be displayed on a new line. It will also add new lines to text that is
+         * longer than `breakLength`. If set to a number, the most `n` inner elements
+         * are united on a single line as long as all properties fit into
+         * `breakLength`. Short array elements are also grouped together. Note that no
+         * text will be reduced below 16 characters, no matter the `breakLength` size.
+         * For more information, see the example below.
+         * @default `true`
+         */
+        compact?: boolean | number;
         sorted?: boolean | ((a: string, b: string) => number);
     }
 
@@ -591,20 +635,18 @@ declare namespace NodeJS {
         isPaused(): boolean;
         pipe<T extends WritableStream>(destination: T, options?: { end?: boolean; }): T;
         unpipe(destination?: WritableStream): this;
-        unshift(chunk: string): void;
-        unshift(chunk: Buffer): void;
+        unshift(chunk: string | Uint8Array, encoding?: BufferEncoding): void;
         wrap(oldStream: ReadableStream): this;
         [Symbol.asyncIterator](): AsyncIterableIterator<string | Buffer>;
     }
 
     interface WritableStream extends EventEmitter {
         writable: boolean;
-        write(buffer: Buffer | string, cb?: Function): boolean;
-        write(str: string, encoding?: string, cb?: Function): boolean;
-        end(cb?: Function): void;
-        end(buffer: Buffer, cb?: Function): void;
-        end(str: string, cb?: Function): void;
-        end(str: string, encoding?: string, cb?: Function): void;
+        write(buffer: Uint8Array | string, cb?: (err?: Error | null) => void): boolean;
+        write(str: string, encoding?: string, cb?: (err?: Error | null) => void): boolean;
+        end(cb?: () => void): void;
+        end(data: string | Uint8Array, cb?: () => void): void;
+        end(str: string, encoding?: string, cb?: () => void): void;
     }
 
     interface ReadWriteStream extends ReadableStream, WritableStream { }
@@ -612,11 +654,11 @@ declare namespace NodeJS {
     interface Events extends EventEmitter { }
 
     interface Domain extends Events {
-        run(fn: Function): void;
-        add(emitter: Events): void;
-        remove(emitter: Events): void;
-        bind(cb: (err: Error, data: any) => any): any;
-        intercept(cb: (data: any) => any): any;
+        run<T>(fn: (...args: any[]) => T, ...args: any[]): T;
+        add(emitter: EventEmitter | Timer): void;
+        remove(emitter: EventEmitter | Timer): void;
+        bind<T extends Function>(cb: T): T;
+        intercept<T extends Function>(cb: T): T;
 
         addListener(event: string, listener: (...args: any[]) => void): this;
         on(event: string, listener: (...args: any[]) => void): this;
@@ -679,7 +721,7 @@ declare namespace NodeJS {
     type ExitListener = (code: number) => void;
     type RejectionHandledListener = (promise: Promise<any>) => void;
     type UncaughtExceptionListener = (error: Error) => void;
-    type UnhandledRejectionListener = (reason: any, promise: Promise<any>) => void;
+    type UnhandledRejectionListener = (reason: {} | null | undefined, promise: Promise<any>) => void;
     type WarningListener = (warning: Error) => void;
     type MessageListener = (message: any, sendHandle: any) => void;
     type SignalsListener = (signal: Signals) => void;
@@ -696,13 +738,14 @@ declare namespace NodeJS {
     }
 
     interface WriteStream extends Socket {
+        readonly writableFinished: boolean;
         readonly writableHighWaterMark: number;
         readonly writableLength: number;
         columns?: number;
         rows?: number;
-        _write(chunk: any, encoding: string, callback: Function): void;
-        _destroy(err: Error | null, callback: Function): void;
-        _final(callback: Function): void;
+        _write(chunk: any, encoding: string, callback: (err?: null | Error) => void): void;
+        _destroy(err: Error | null, callback: (err?: null | Error) => void): void;
+        _final(callback: (err?: null | Error) => void): void;
         setDefaultEncoding(encoding: string): this;
         cork(): void;
         uncork(): void;
@@ -714,9 +757,97 @@ declare namespace NodeJS {
         isRaw?: boolean;
         setRawMode?(mode: boolean): void;
         _read(size: number): void;
-        _destroy(err: Error | null, callback: Function): void;
+        _destroy(err: Error | null, callback: (err?: null | Error) => void): void;
         push(chunk: any, encoding?: string): boolean;
         destroy(error?: Error): void;
+    }
+
+    interface HRTime {
+        (time?: [number, number]): [number, number];
+    }
+
+    interface ProcessReport {
+        /**
+         * Directory where the report is written.
+         * working directory of the Node.js process.
+         * @default '' indicating that reports are written to the current
+         */
+        directory: string;
+
+        /**
+         * Filename where the report is written.
+         * The default value is the empty string.
+         * @default '' the output filename will be comprised of a timestamp,
+         * PID, and sequence number.
+         */
+        filename: string;
+
+        /**
+         * Returns a JSON-formatted diagnostic report for the running process.
+         * The report's JavaScript stack trace is taken from err, if present.
+         */
+        getReport(err?: Error): string;
+
+        /**
+         * If true, a diagnostic report is generated on fatal errors,
+         * such as out of memory errors or failed C++ assertions.
+         * @default false
+         */
+        reportOnFatalError: boolean;
+
+        /**
+         * If true, a diagnostic report is generated when the process
+         * receives the signal specified by process.report.signal.
+         * @defaul false
+         */
+        reportOnSignal: boolean;
+
+        /**
+         * If true, a diagnostic report is generated on uncaught exception.
+         * @default false
+         */
+        reportOnUncaughtException: boolean;
+
+        /**
+         * The signal used to trigger the creation of a diagnostic report.
+         * @default 'SIGUSR2'
+         */
+        signal: Signals;
+
+        /**
+         * Writes a diagnostic report to a file. If filename is not provided, the default filename
+         * includes the date, time, PID, and a sequence number.
+         * The report's JavaScript stack trace is taken from err, if present.
+         *
+         * @param fileName Name of the file where the report is written.
+         * This should be a relative path, that will be appended to the directory specified in
+         * `process.report.directory`, or the current working directory of the Node.js process,
+         * if unspecified.
+         * @param error A custom error used for reporting the JavaScript stack.
+         * @return Filename of the generated report.
+         */
+        writeReport(fileName?: string): string;
+        writeReport(error?: Error): string;
+        writeReport(fileName?: string, err?: Error): string;
+    }
+
+    interface ResourceUsage {
+        fsRead: number;
+        fsWrite: number;
+        involuntaryContextSwitches: number;
+        ipcReceived: number;
+        ipcSent: number;
+        majorPageFault: number;
+        maxRSS: number;
+        minorPageFault: number;
+        sharedMemorySize: number;
+        signalsCount: number;
+        swappedOut: number;
+        systemCPUTime: number;
+        unsharedDataSize: number;
+        unsharedStackSize: number;
+        userCPUTime: number;
+        voluntaryContextSwitches: number;
     }
 
     interface Process extends EventEmitter {
@@ -741,7 +872,7 @@ declare namespace NodeJS {
         emitWarning(warning: string | Error, name?: string, ctor?: Function): void;
         env: ProcessEnv;
         exit(code?: number): never;
-        exitCode: number;
+        exitCode?: number;
         getgid(): number;
         setgid(id: number | string): void;
         getuid(): number;
@@ -793,16 +924,26 @@ declare namespace NodeJS {
         cpuUsage(previousValue?: CpuUsage): CpuUsage;
         nextTick(callback: Function, ...args: any[]): void;
         release: ProcessRelease;
+        features: {
+            inspector: boolean;
+            debug: boolean;
+            uv: boolean;
+            ipv6: boolean;
+            tls_alpn: boolean;
+            tls_sni: boolean;
+            tls_ocsp: boolean;
+            tls: boolean;
+        };
         /**
          * Can only be set if not in worker thread.
          */
         umask(mask?: number): number;
         uptime(): number;
-        hrtime(time?: [number, number]): [number, number];
+        hrtime: HRTime;
         domain: Domain;
 
         // Worker
-        send?(message: any, sendHandle?: any): void;
+        send?(message: any, sendHandle?: any, options?: { swallowErrors?: boolean}, callback?: (error: Error | null) => void): boolean;
         disconnect(): void;
         connected: boolean;
 
@@ -812,6 +953,13 @@ declare namespace NodeJS {
          * environment variable.
          */
         allowedNodeEnvironmentFlags: ReadonlySet<string>;
+
+        /**
+         * Only available with `--experimental-report`
+         */
+        report?: ProcessReport;
+
+        resourceUsage(): ResourceUsage;
 
         /**
          * EventEmitter
@@ -986,22 +1134,26 @@ declare namespace NodeJS {
         v8debug?: any;
     }
 
+    // compatibility with older typings
     interface Timer {
-        ref(): void;
-        refresh(): void;
-        unref(): void;
+        hasRef(): boolean;
+        ref(): this;
+        refresh(): this;
+        unref(): this;
     }
 
     class Immediate {
-        ref(): void;
-        unref(): void;
+        hasRef(): boolean;
+        ref(): this;
+        unref(): this;
         _onImmediate: Function; // to distinguish it from the Timeout class
     }
 
     class Timeout implements Timer {
-        ref(): void;
-        refresh(): void;
-        unref(): void;
+        hasRef(): boolean;
+        ref(): this;
+        refresh(): this;
+        unref(): this;
     }
 
     class Module {
