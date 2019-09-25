@@ -6,7 +6,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
-declare namespace createHash {
+export declare namespace createHash {
     type Algorithm =
         | 'md5'
         | 'rmd160'
@@ -29,6 +29,4 @@ declare namespace createHash {
     }
 }
 
-declare function createHash(algo: createHash.Algorithm): createHash.HashAlgorithm;
-
-export = createHash;
+export declare function createHash(algo: createHash.Algorithm): createHash.HashAlgorithm;
