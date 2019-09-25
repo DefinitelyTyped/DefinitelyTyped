@@ -13,7 +13,6 @@ export function shallowWithIntl<C extends Component, P = C['props'], S = C['stat
     node: ReactElement<P>,
     options?: ShallowRendererProps,
 ): ShallowWrapper<P, S, C>; // tslint:disable-line no-unnecessary-generics
-// tslint:disable-next-line no-unnecessary-generics
 export function shallowWithIntl<P>(node: ReactElement<P>, options?: ShallowRendererProps): ShallowWrapper<P, any>;
 // tslint:disable-next-line no-unnecessary-generics
 export function shallowWithIntl<P, S>(node: ReactElement<P>, options?: ShallowRendererProps): ShallowWrapper<P, S>;
@@ -24,7 +23,6 @@ export function mountWithIntl<C extends Component, P = C['props'], S = C['state'
     node: ReactElement<P>,
     options?: MountRendererProps,
 ): ReactWrapper<P, S, C>; // tslint:disable-line no-unnecessary-generics
-// tslint:disable-next-line no-unnecessary-generics
 export function mountWithIntl<P>(node: ReactElement<P>, options?: MountRendererProps): ReactWrapper<P, any>;
 // tslint:disable-next-line no-unnecessary-generics
 export function mountWithIntl<P, S>(node: ReactElement<P>, options?: MountRendererProps): ReactWrapper<P, S>;
