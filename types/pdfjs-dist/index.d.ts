@@ -6,6 +6,14 @@
 
 /// <reference lib="dom"/>
 
+declare const version: string;
+
+declare const GlobalWorkerOptions: GlobalWorkerOptions;
+
+interface GlobalWorkerOptions {
+  workerSrc: string;
+}
+
 interface PDFPromise<T> {
     isResolved(): boolean;
     isRejected(): boolean;

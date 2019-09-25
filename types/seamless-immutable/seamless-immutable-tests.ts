@@ -124,6 +124,14 @@ interface NonDeepMutableExtendedUser {
     // map. Call the mutable array's 'map' with the same function to ensure compatability. Make sure the output array is immutable.
     interface FirstName { firstNameOnly: string; }
     array.asMutable().map((value: User) => ({ firstNameOnly: value.firstName }));
+    array
+      .asMutable()
+      .map((value: User, index) => ({ firstNameOnly: value.firstName, index }));
+    array.asMutable().map((value: User, index, allUsers: User[]) => ({
+      firstNameOnly: value.firstName,
+      index,
+      allUsers,
+    }));
     const map: Immutable.Immutable<FirstName[]> = array.map((value: User) => ({ firstNameOnly: value.firstName }));
     map.asMutable();
 

@@ -1,4 +1,5 @@
 import {
+    ConcreteRequest,
     Environment,
     Network,
     RecordSource,
@@ -8,6 +9,8 @@ import {
     commitLocalUpdate,
     QueryResponseCache,
     ROOT_ID,
+    RelayNetworkLoggerTransaction,
+    createRelayNetworkLogger,
 } from 'relay-runtime';
 
 const source = new RecordSource();
@@ -30,8 +33,10 @@ function fetchQuery(operation: any, variables: { [key: string]: string }, cacheC
     });
 }
 
+const RelayNetworkLogger = createRelayNetworkLogger(RelayNetworkLoggerTransaction);
+
 // Create a network layer from the fetch function
-const network = Network.create(fetchQuery);
+const network = Network.create(RelayNetworkLogger.wrapFetch(fetchQuery));
 
 // Create a cache for storing query responses
 const cache = new QueryResponseCache({ size: 250, ttl: 60000 });
@@ -75,3 +80,80 @@ commitLocalUpdate(environment, store => {
     const root = store.get(ROOT_ID)!;
     root.setValue('foo', 'localKey');
 });
+
+// ~~~~~~~~~~~~~~~~~~~~~
+// ConcreteRequest
+// ~~~~~~~~~~~~~~~~~~~~~
+
+/*
+# client schema
+extend type Query {
+  foo: Boolean!
+}
+*/
+
+/*
+// component
+graphql`
+  query FooQuery {
+    __typename
+    foo
+  }
+`;
+*/
+
+/*
+query FooQuery {
+  __typename
+}
+*/
+
+/* tslint:disable:only-arrow-functions no-var-keyword prefer-const */
+const node: ConcreteRequest = (function() {
+    var v0 = [
+        {
+            kind: 'ScalarField',
+            alias: null,
+            name: '__typename',
+            args: null,
+            storageKey: null,
+        },
+        {
+            kind: 'ClientExtension',
+            selections: [
+                {
+                    kind: 'ScalarField',
+                    alias: null,
+                    name: 'foo',
+                    args: null,
+                    storageKey: null,
+                },
+            ],
+        },
+    ];
+    return {
+        kind: 'Request',
+        fragment: {
+            kind: 'Fragment',
+            name: 'FooQuery',
+            type: 'Query',
+            metadata: null,
+            argumentDefinitions: [],
+            selections: v0 /*: any*/,
+        },
+        operation: {
+            kind: 'Operation',
+            name: 'FooQuery',
+            argumentDefinitions: [],
+            selections: v0 /*: any*/,
+        },
+        params: {
+            operationKind: 'query',
+            name: 'FooQuery',
+            id: null,
+            text: 'query FooQuery {\n  __typename\n}\n',
+            metadata: {},
+        },
+    };
+})();
+/* tslint:enable:only-arrow-functions no-var-keyword prefer-const */

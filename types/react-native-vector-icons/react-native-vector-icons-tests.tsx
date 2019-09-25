@@ -7,6 +7,7 @@ import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import FontAwesome5ProIcon from 'react-native-vector-icons/FontAwesome5Pro';
 import Ionicon from 'react-native-vector-icons/Ionicons';
+import Fontisto from 'react-native-vector-icons/Fontisto';
 
 const glyphMap = {
   custom: 58918
@@ -34,6 +35,7 @@ class Example extends React.Component {
         <FontAwesome5Icon size={10} name="handshake" />
         <FontAwesome5Icon size={10} name="handshake" solid />
         <FontAwesome5ProIcon size={10} name="parachute-box" light />
+        <Fontisto size={10} name="fontisto" />
 
         {/* Icon button  */}
         <FontAwesomeIcon.Button

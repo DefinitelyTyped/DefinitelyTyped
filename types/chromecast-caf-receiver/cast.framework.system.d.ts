@@ -1,4 +1,4 @@
-import { EventType } from './cast.framework.events';
+import * as events from './cast.framework.events';
 
 export as namespace system;
 export enum EventType {
