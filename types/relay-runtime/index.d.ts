@@ -134,7 +134,7 @@ export interface MutationConfig<TOperation extends OperationType> {
 // ./lib/network/RelayNetworkLoggerTransaction
 export { RelayNetworkLoggerTransaction } from './lib/network/RelayNetworkLoggerTransaction';
 
-// ./network/RelayNetworkTypes
+// ./lib/network/RelayNetworkTypes
 import {
     GraphQLResponse,
     Network,
@@ -155,33 +155,9 @@ export {
     UploadableMap,
 } from './lib/network/RelayNetworkTypes';
 
-// ./network/RelayObservable
-export type ObservableFromValue<T> = Subscribable<T> | Promise<T> | T;
-
-export interface Observer<T> {
-    readonly start?: (subscription: Subscription) => void;
-    readonly next?: (value: T) => void;
-    readonly error?: (error: Error) => void;
-    readonly complete?: () => void;
-    readonly unsubscribe?: (subscription: Subscription) => void;
-}
-
-export interface Subscribable<T> {
-    subscribe(observer: Observer<T> | Sink<T>): Subscription;
-}
-
-interface Sink<T> {
-    next(value: T): void;
-    error(error: Error, isUncaughtThrownError?: boolean): void;
-    complete(): void;
-    readonly closed: boolean;
-}
-type Source<T> = (sink: Sink<T>) => void | Subscription | (() => unknown);
-
-export interface Subscription {
-    unsubscribe(): void;
-    readonly closed: boolean;
-}
+// ./lib/network/RelayObservable
+import { RelayObservable } from './lib/network/RelayObservable';
+export { RelayObservable as Observable, ObservableFromValue } from './lib/network/RelayObservable';
 
 // ./lib/network/createRelayNetworkLogger
 export { createRelayNetworkLogger } from './lib/network/createRelayNetworkLogger';
@@ -622,43 +598,6 @@ declare const RelayNetwork: {
     create(fetchFn: FetchFunction, subscribeFn?: SubscribeFunction): Network;
 };
 export { RelayNetwork as Network };
-
-// ./network/RelayObservable
-declare class RelayObservable<T> implements Subscribable<T> {
-    // Use RelayObservable.create(source);
-    private constructor(source: never);
-
-    static create<V>(source: Source<V>): RelayObservable<V>;
-
-    static onUnhandledError(callback: (error: Error, isUncaughtThrownError: boolean) => void): void;
-
-    static from<V>(obj: ObservableFromValue<V>): RelayObservable<V>;
-
-    static fromLegacy<V>(
-        callback: (observer: LegacyObserver<V>) => Disposable | RelayObservable<V>,
-    ): RelayObservable<V>;
-
-    catch<U>(fn: (error: Error) => RelayObservable<U>): RelayObservable<T | U>;
-
-    do(observer: Observer<T>): RelayObservable<T>;
-
-    finally(fn: () => unknown): RelayObservable<T>;
-
-    ifEmpty<U>(alternate: RelayObservable<U>): RelayObservable<T | U>;
-
-    subscribe(observer: Observer<T> | Sink<T>): Subscription;
-
-    subscribeLegacy(legacyObserver: LegacyObserver<T>): Disposable;
-
-    map<U>(fn: (value: T) => U): RelayObservable<U>;
-
-    mergeMap<U>(fn: (value: T) => ObservableFromValue<U>): RelayObservable<U>;
-
-    poll(pollInterval: number): RelayObservable<T>;
-
-    toPromise(): Promise<T | undefined>;
-}
-export { RelayObservable as Observable };
 
 // ./networks/RelayQueryResponseCache
 declare class RelayQueryResponseCache {
