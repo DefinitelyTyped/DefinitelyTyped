@@ -1,4 +1,4 @@
-// Type definitions for rox-react-native 4.5
+// Type definitions for rox-react-native 4.8
 // Project: https://rollout.io
 // Definitions by: ahanriat <https://github.com/ahanriat>
 //                 g-guirado <https://github.com/g-guirado>
@@ -42,7 +42,7 @@ export interface RoxSetupOptions {
     // https://support.rollout.io/docs/reactnative#section-using-the-impressionhandler-option
     impressionHandler?(reporting: RoxReporting, experiment: RoxExperiment, context: unknown): void;
     platform?: string;
-    freeze?: 'untilLaunch' | 'none';
+    freeze?: FreezeOptions;
 }
 
 export interface RoxFetcherResult {
@@ -106,9 +106,14 @@ export function fetch(): Promise<unknown>;
  *
  * https://support.rollout.io/docs/reactnative#section--rox-freezeoptions-
  */
-export type RoxFlagFreezeLevel = 'none' | 'untilForeground' | 'untilLaunch';
+export enum FreezeOptions {
+    freezeOptionUntilLaunch = 1,
+    freezeOptionUntilForeground = 2,
+    freezeOptionNone = 3,
+}
+
 export interface RoxFlagOptions {
-    freeze?: RoxFlagFreezeLevel;
+    freeze?: FreezeOptions;
 }
 
 /**
