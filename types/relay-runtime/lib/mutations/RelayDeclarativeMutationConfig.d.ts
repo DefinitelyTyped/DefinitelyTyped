@@ -1,0 +1,60 @@
+import { Variables } from '../util/RelayRuntimeTypes';
+import { ConcreteRequest } from '../util/RelayConcreteNode';
+
+import { SelectorStoreUpdater } from '../../index';
+
+export type MutationType = 'RANGE_ADD' | 'RANGE_DELETE' | 'NODE_DELETE';
+
+export type RangeOperation = 'append' | 'prepend';
+export type RangeBehaviorsFunction = (connectionArgs: { [name: string]: unknown }) => RangeOperation;
+export interface RangeBehaviorsObject {
+    [key: string]: RangeOperation;
+}
+export type RangeBehaviors = RangeBehaviorsFunction | RangeBehaviorsObject;
+
+export interface RangeAddConfig {
+    type: 'RANGE_ADD';
+    parentName?: string;
+    parentID?: string;
+    connectionInfo?: ReadonlyArray<{
+        key: string;
+        filters?: Variables;
+        rangeBehavior: string;
+    }>;
+    connectionName?: string;
+    edgeName: string;
+    rangeBehaviors?: RangeBehaviors;
+}
+
+export interface RangeDeleteConfig {
+    type: 'RANGE_DELETE';
+    parentName?: string;
+    parentID?: string;
+    connectionKeys?: ReadonlyArray<{
+        key: string;
+        filters?: Variables;
+    }>;
+    connectionName?: string;
+    deletedIDFieldName: string | ReadonlyArray<string>;
+    pathToConnection: ReadonlyArray<string>;
+}
+
+export interface NodeDeleteConfig {
+    type: 'NODE_DELETE';
+    parentName?: string;
+    parentID?: string;
+    connectionName?: string;
+    deletedIDFieldName: string;
+}
+
+export type DeclarativeMutationConfig = RangeAddConfig | RangeDeleteConfig | NodeDeleteConfig;
+
+export function convert(
+    configs: DeclarativeMutationConfig[],
+    request: ConcreteRequest,
+    optimisticUpdater?: SelectorStoreUpdater,
+    updater?: SelectorStoreUpdater,
+): {
+    optimisticUpdater: SelectorStoreUpdater;
+    updater: SelectorStoreUpdater;
+};
