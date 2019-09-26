@@ -431,33 +431,8 @@ export { RelayQueryResponseCache as QueryResponseCache } from './lib/network/Rel
 // ./lib/store/RelayRecordSource
 export { RelayRecordSource as RecordSource } from './lib/store/RelayRecordSource';
 
-// ./store/RelayModernStore
-declare class RelayModernStore implements Store {
-    constructor(source: MutableRecordSource, gcScheduler?: Scheduler, operationLoader?: OperationLoader | null);
-    getSource(): RecordSource;
-    check(selector: NormalizationSelector): boolean;
-    retain(selector: NormalizationSelector): Disposable;
-    lookup(selector: ReaderSelector, owner?: OperationDescriptor): Snapshot;
-    notify(): ReadonlyArray<RequestDescriptor>;
-    publish(source: RecordSource): void;
-    subscribe(snapshot: Snapshot, callback: (snapshot: Snapshot) => void): Disposable;
-    holdGC(): Disposable;
-    lookupConnection_UNSTABLE<TEdge, TState>(
-        connectionReference: ConnectionReference<TEdge>,
-        resolver: ConnectionResolver<TEdge, TState>,
-    ): ConnectionSnapshot<TEdge, TState>;
-
-    subscribeConnection_UNSTABLE<TEdge, TState>(
-        snapshot: ConnectionSnapshot<TEdge, TState>,
-        resolver: ConnectionResolver<TEdge, TState>,
-        callback: (state: TState) => void,
-    ): Disposable;
-    publishConnectionEvents_UNSTABLE(events: ConnectionInternalEvent[], final: boolean): void;
-    getConnectionEvents_UNSTABLE(connectionID: ConnectionID): ReadonlyArray<ConnectionInternalEvent>;
-    snapshot(): void;
-    restore(): void;
-}
-export { RelayModernStore as Store };
+// ./lib/store/RelayModernStore
+export { RelayModernStore as Store } from './lib/store/RelayModernStore';
 
 // ./store/RelayModernSelector via ./store/RelayCore
 export function areEqualSelectors(thisSelector: OwnedReaderSelector, thatSelector: OwnedReaderSelector): boolean;
