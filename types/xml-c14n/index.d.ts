@@ -1,4 +1,4 @@
-// Type definitions for xml-c14n 0.0.6
+// Type definitions for xml-c14n 0.0
 // Project: https://github.com/deoxxa/xml-c14n
 // Definitions by: Konstantin Yuriev <https://github.com/gallowsmaker>
 //                 Max Boguslavskiy <https://github.com/maxbogus>
