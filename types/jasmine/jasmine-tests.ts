@@ -1286,6 +1286,15 @@ describe("createSpyObj", function() {
         expect(spyObj.method2.and.identity()).toEqual('BaseName.method2');
     });
 
+    it("should allow you to provide properties with values to jasmine.createSpyObj()", function() {
+        const value = 'test';
+        const spyObj = jasmine.createSpyObj('BaseName', ['method1'], {'property1': value});
+
+        expect(spyObj).toEqual({ method: jasmine.any(Function) });
+        expect(spyObj.method1.and.identity).toEqual('BaseName.method1');
+        expect(spyObj.property1).toBe(value);
+    });
+
     it("should allow you to omit the baseName and takes only an object", function() {
         const spyObj = jasmine.createSpyObj({method1: 42, method2: 'special sauce'});
 
@@ -1304,7 +1313,7 @@ describe("createSpyObj", function() {
         expect(spyObj.method2.and.identity()).toEqual('unknown.method2');
     });
 
-    it("should throw if you pass an empty array argument", function() {
+    it("should throw if you pass an empty methods argument", function() {
         expect(function() {
             jasmine.createSpyObj('BaseName', []);
         }).toThrow("createSpyObj requires a non-empty array or object of method names to create spies for");
