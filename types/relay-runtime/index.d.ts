@@ -258,8 +258,8 @@ export { RelayModernStore as Store } from './lib/store/RelayModernStore';
 // ./lib/store/RelayModernSelector
 export * from './lib/store/RelayModernSelector';
 
-// ./store/RelayModernOperationDescriptor via ./store/RelayCore
-export function createOperationDescriptor(request: ConcreteRequest, variables: Variables): OperationDescriptor;
+// ./lib/store/RelayModernOperationDescriptor
+export * from './lib/store/RelayModernOperationDescriptor';
 
 // ./store/RelayCore
 export function createFragmentSpecResolver(
