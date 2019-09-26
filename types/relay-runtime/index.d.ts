@@ -250,9 +250,8 @@ export * from './lib/store/createFragmentSpecResolver';
 export * from './lib/store/RelayStoreUtils';
 
 // Extensions
-// ./handlers/RelayDefaultHandlerProvider
-declare function RelayDefaultHandlerProvider(handle: string): Handler;
-export { RelayDefaultHandlerProvider as DefaultHandlerProvider };
+// ./lib/handlers/RelayDefaultHandlerProvider
+export * from './lib/handlers/RelayDefaultHandlerProvider';
 
 // ./handlers/viewer/RelayViewerHandler
 interface RelayViewerHandler {
