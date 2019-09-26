@@ -100,7 +100,7 @@ declare class AsyncEventEmitter<
 }
 
 declare namespace AsyncEventEmitter {
-    type AsyncListener<T, R> = (data?: T, callback?: (result?: R) => void) => Promise<R> | void;
+  type AsyncListener<T, R> = ((data: T, callback: (result?: R) => void) => Promise<R>) | ((data: T, callback: (result?: R) => void) => void);
     interface EventMap {
         [event: string]: AsyncListener<any, any>;
     }
