@@ -128,25 +128,6 @@ import {
 export * from './lib/store/RelayStoreTypes';
 export { Environment as IEnvironment } from './lib/store/RelayStoreTypes';
 
-export type FragmentReference = never & { __tag: 'FragmentReference' };
-
-export interface FragmentPointer {
-    __id: DataID;
-    __fragments: { [fragmentName: string]: Variables };
-    __fragmentOwner: OperationDescriptor | null;
-}
-
-export interface MatchPointer {
-    __id: DataID;
-    __fragments: { [fragmentName: string]: Variables };
-    __fragmentPropName: string;
-    __module: unknown;
-}
-
-export type SelectorStoreUpdater<TData = unknown> = (store: RecordSourceSelectorProxy, data: TData) => void;
-
-export type StoreUpdater = (store: RecordSourceProxy) => void;
-
 // ./lib/subscription/requestSubscription
 export * from './lib/subscription/requestSubscription';
 
@@ -211,11 +192,11 @@ export * from './lib/query/fetchQuery';
 // ./lib/store/isRelayModernEnvironment
 export * from './lib/store/isRelayModernEnvironment';
 
-// Utilities
+// ./lib/util/RelayProfiler
 export { RelayProfiler } from './lib/util/RelayProfiler';
 
-// Internal API
-export function deepFreeze<T extends object>(value: T): T;
+// ./lib/util/deepFreeze
+export * from './lib/util/deepFreeze';
 
 // ./lib/util/RelayFeatureFlags
 export { RelayFeatureFlags } from './lib/util/RelayFeatureFlags';
