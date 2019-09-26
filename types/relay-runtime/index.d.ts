@@ -11,9 +11,13 @@ export { ConnectionMetadata } from './lib/handlers/connection/RelayConnectionHan
 export { EdgeRecord, PageInfo } from './lib/handlers/connection/RelayConnectionInterface';
 export {
     DeclarativeMutationConfig,
-    MutationType,
+    MutationTypes,
     RangeBehaviors,
-    RangeOperation,
+    RangeOperations,
+} from './lib/mutations/RelayDeclarativeMutationConfig';
+export {
+    MutationTypes as MutationType,
+    RangeOperations as RangeOperation,
 } from './lib/mutations/RelayDeclarativeMutationConfig';
 export { OptimisticMutationConfig } from './lib/mutations/applyOptimisticMutation';
 export { MutationConfig, MutationParameters } from './lib/mutations/commitMutation';
@@ -32,7 +36,15 @@ export {
 } from './lib/network/RelayNetworkTypes';
 export { ObservableFromValue, Observer, Subscribable, Subscription } from './lib/network/RelayObservable';
 export { GraphiQLPrinter, NetworkLogger } from './lib/network/createRelayNetworkLogger';
-export { GraphQLTaggedNode } from './lib/query/RelayModernGraphQLTag';
+export {
+    GraphQLTaggedNode,
+    graphql,
+    getFragment,
+    getInlineDataFragment,
+    getPaginationFragment,
+    getRefetchableFragment,
+    getRequest,
+} from './lib/query/RelayModernGraphQLTag';
 export {
     ConnectionEvent,
     ConnectionID,

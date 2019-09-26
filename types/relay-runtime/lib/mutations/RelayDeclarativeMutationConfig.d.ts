@@ -2,12 +2,12 @@ import { Variables } from '../util/RelayRuntimeTypes';
 import { ConcreteRequest } from '../util/RelayConcreteNode';
 import { SelectorStoreUpdater } from '../store/RelayStoreTypes';
 
-export type MutationType = 'RANGE_ADD' | 'RANGE_DELETE' | 'NODE_DELETE';
+export type MutationTypes = 'RANGE_ADD' | 'RANGE_DELETE' | 'NODE_DELETE';
 
-export type RangeOperation = 'append' | 'prepend';
-export type RangeBehaviorsFunction = (connectionArgs: { [name: string]: unknown }) => RangeOperation;
+export type RangeOperations = 'append' | 'prepend';
+export type RangeBehaviorsFunction = (connectionArgs: { [name: string]: unknown }) => RangeOperations;
 export interface RangeBehaviorsObject {
-    [key: string]: RangeOperation;
+    [key: string]: RangeOperations;
 }
 export type RangeBehaviors = RangeBehaviorsFunction | RangeBehaviorsObject;
 
