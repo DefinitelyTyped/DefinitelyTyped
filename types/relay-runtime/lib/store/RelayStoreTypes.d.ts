@@ -570,7 +570,7 @@ export interface UpdatedRecords {
  * A function that updates a store (via a proxy) given the results of a "handle"
  * field payload.
  */
-export interface Handler {
+export class Handler {
     update: (store: RecordSourceProxy, fieldPayload: HandleFieldPayload) => void;
 }
 

@@ -173,6 +173,7 @@ export { requestSubscription } from './lib/subscription/requestSubscription';
 export { RelayProfiler } from './lib/util/RelayProfiler';
 
 // INTERNAL-ONLY
+export { RelayConcreteNode } from './lib/util/RelayConcreteNode';
 export { RelayFeatureFlags } from './lib/util/RelayFeatureFlags';
 export { RelayNetworkLoggerTransaction } from './lib/network/RelayNetworkLoggerTransaction';
 export { createRelayNetworkLogger } from './lib/network/createRelayNetworkLogger';
