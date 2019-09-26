@@ -67,3 +67,21 @@ customDOMPurify.sanitize(dirty);
 const customWindow = {} as Window;
 const customDOMPurifyWithCustomWindow = createDOMPurify(customWindow);
 customDOMPurifyWithCustomWindow.sanitize(dirty);
+
+//test the 'DOMPurifyI' type is publicly accessible.
+function registerDomPurifyInstance(domPurify: DOMPurify.DOMPurifyI) {}
+
+//test the 'config' type is publicly accessible.
+const config: DOMPurify.Config = {};
+
+//test the 'HookName' type is publicly accessible.
+const hookName: DOMPurify.HookName = "beforeSanitizeElements";
+
+//test the 'HookEvent' type is publicly accessible.
+dompurify.addHook(hookName, (currentNode: Element, event: DOMPurify.HookEvent) => {});
+
+//test the 'SanitizeElementHookEvent' type is publicly accessible.
+dompurify.addHook("uponSanitizeElement", (currentNode: Element, event: DOMPurify.SanitizeElementHookEvent) => {});
+
+//test the 'SanitizeAttributeHookEvent' type is publicly accessible.
+dompurify.addHook("uponSanitizeAttribute", (currentNode: Element, event: DOMPurify.SanitizeAttributeHookEvent) => {});
