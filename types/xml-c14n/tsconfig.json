@@ -6,6 +6,7 @@
             "dom"
         ],
         "esModuleInterop": true,
+        "noImplicitAny": false,
         "baseUrl": "../",
         "typeRoots": [
             "../"
