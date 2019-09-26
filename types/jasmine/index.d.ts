@@ -1,4 +1,4 @@
-// Type definitions for Jasmine 3.4
+// Type definitions for Jasmine 3.5
 // Project: http://jasmine.github.io
 // Definitions by: Boris Yankov <https://github.com/borisyankov>
 //                 Theodore Brown <https://github.com/theodorejb>
@@ -14,6 +14,7 @@
 //                 Moshe Kolodny <https://github.com/kolodny>
 //                 Stephen Farrar <https://github.com/stephenfarrar>
 //                 Mochamad Arfin <https://github.com/ndunks>
+//                 Spacemonaut <https://github.com/spacemonaut>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 // For ddescribe / iit use : https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/karma-jasmine/karma-jasmine.d.ts
@@ -229,8 +230,8 @@ declare namespace jasmine {
     function objectContaining<T>(sample: Partial<T>): ObjectContaining<T>;
     function createSpy(name?: string, originalFn?: Function): Spy;
 
-    function createSpyObj(baseName: string, methodNames: SpyObjMethodNames): any;
-    function createSpyObj<T>(baseName: string, methodNames: SpyObjMethodNames<T>): SpyObj<T>;
+    function createSpyObj(baseName: string, methodNames: SpyObjMethodNames, propertyNames?: SpyObjMethodNames): any;
+    function createSpyObj<T>(baseName: string, methodNames: SpyObjMethodNames<T>, propertyNames?: SpyObjMethodNames<T>): SpyObj<T>;
 
     function createSpyObj(methodNames: SpyObjMethodNames): any;
     function createSpyObj<T>(methodNames: SpyObjMethodNames): SpyObj<T>;
