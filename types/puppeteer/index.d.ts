@@ -1,10 +1,11 @@
-// Type definitions for puppeteer 1.19
+// Type definitions for puppeteer 1.20
 // Project: https://github.com/GoogleChrome/puppeteer#readme
 // Definitions by: Marvin Hagemeister <https://github.com/marvinhagemeister>
 //                 Christopher Deutsch <https://github.com/cdeutsch>
 //                 Konstantin Simon Maria Möllers <https://github.com/ksm2>
 //                 Simon Schick <https://github.com/SimonSchick>
 //                 Serban Ghita <https://github.com/SerbanGhita>
+//                 Jason Kaczmarsky <https://github.com/JasonKaz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
