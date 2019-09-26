@@ -13,7 +13,7 @@ export interface ConnectionMetadata {
     count: string | null | undefined;
 }
 
-export class RelayDefaultHandlerProvider {
+export const RelayDefaultHandlerProvider: {
     buildConnectionEdge(
         store: RecordSourceProxy,
         connection: RecordProxy,
@@ -31,4 +31,4 @@ export class RelayDefaultHandlerProvider {
     insertEdgeBefore(record: RecordProxy, newEdge: RecordProxy, cursor?: string | null): void;
 
     update(store: RecordSourceProxy, payload: HandleFieldPayload): void;
-}
+};
