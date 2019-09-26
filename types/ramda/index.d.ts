@@ -1857,7 +1857,7 @@ declare namespace R {
                                                         ? {} extends M          // nothing merged bcs no `as const`
                                                           ? T.UnionOf<T>        // so we output the default types
                                                           : A.Compute<M> & {}   // otherwise, we can compute `M`
-                                                        : never
+                                                        : never;
 
         /**
          * Creates a new object with the own properties of the first object merged with the own properties of the second object.
