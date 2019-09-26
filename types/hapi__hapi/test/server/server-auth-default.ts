@@ -34,6 +34,10 @@ server.route({
     method: 'GET',
     path: '/',
     handler(request, h) {
+        if (!request.auth.credentials) {
+            return 'not authed';
+        }
+
         return request.auth.credentials.user || 'not authed';
     }
 });
