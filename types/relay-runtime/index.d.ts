@@ -130,7 +130,8 @@ export { CacheConfig, DataID, Disposable, OperationType, Variables } from './lib
 export { RelayModernEnvironment as Environment } from './lib/store/RelayModernEnvironment';
 export { RelayNetwork as Network } from './lib/network/RelayNetwork';
 export { RelayObservable as Observable } from './lib/network/RelayObservable';
-export { RelayQueryResponseCache as QueryResponseCache } from './lib/network/RelayQueryResponseCache';
+import QueryResponseCache from './lib/network/RelayQueryResponseCache';
+export { QueryResponseCache };
 export { RelayRecordSource as RecordSource } from './lib/store/RelayRecordSource';
 export { RelayModernRecord as Record } from './lib/store/RelayModernRecord';
 export { RelayModernStore as Store } from './lib/store/RelayModernStore';
