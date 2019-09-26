@@ -3,14 +3,11 @@ import { CSSModule } from '../index';
 
 export interface ModalHeaderProps extends React.HTMLAttributes<HTMLElement> {
     [key: string]: any;
-
     tag?: string | React.ReactType;
-
     className?: string;
     cssModule?: CSSModule;
     wrapTag?: React.ReactType;
-
-    toggle?: React.KeyboardEventHandler<any> | React.MouseEventHandler<any>;
+    toggle?: React.MouseEventHandler<any>;
 }
 
 declare class ModalHeader<T = {[key: string]: any}> extends React.Component<ModalHeaderProps> {}

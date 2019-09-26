@@ -10,9 +10,6 @@ export type Direction =
 export interface UncontrolledDropdownProps extends React.HTMLAttributes<HTMLElement> {
     [key: string]: any;
     isOpen?: boolean;
-
-    toggle?: React.KeyboardEventHandler<any> | React.MouseEventHandler<any>;
-
     className?: string;
     cssModule?: CSSModule;
     nav?: boolean;
@@ -25,9 +22,7 @@ export interface DropdownProps extends UncontrolledDropdownProps {
     direction?: Direction;
     group?: boolean;
     size?: string;
-
     tag?: string | React.ReactType;
-
     addonType?: boolean | 'prepend' | 'append';
 }
 

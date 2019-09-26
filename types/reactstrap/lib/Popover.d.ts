@@ -5,9 +5,7 @@ import { CSSModule } from '../index';
 export interface PopoverProps extends React.HTMLAttributes<HTMLElement> {
     [key: string]: any;
     isOpen?: boolean;
-
-    toggle?: React.KeyboardEventHandler<any> | React.MouseEventHandler<any>;
-
+    toggle?: React.MouseEventHandler<any> | (() => void);
     target: string | HTMLElement;
     container?: string | HTMLElement;
     boundariesElement?: Popper.Boundary | Element;

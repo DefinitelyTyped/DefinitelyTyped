@@ -3,15 +3,11 @@ import { CSSModule } from '../index';
 
 export interface ToastHeaderProps extends React.HTMLAttributes<HTMLElement> {
     [key: string]: any;
-
     tag?: string | React.ReactType;
-
     className?: string;
     cssModule?: CSSModule;
     wrapTag?: React.ReactType;
-
-    toggle?: React.KeyboardEventHandler<any> | React.MouseEventHandler<any>;
-
+    toggle?: React.MouseEventHandler<any>;
     icon?: string | React.ReactNode;
     close?: React.ReactNode;
     charCode?: string | number;
