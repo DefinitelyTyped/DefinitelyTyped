@@ -253,13 +253,8 @@ export * from './lib/store/RelayStoreUtils';
 // ./lib/handlers/RelayDefaultHandlerProvider
 export * from './lib/handlers/RelayDefaultHandlerProvider';
 
-// ./handlers/viewer/RelayViewerHandler
-interface RelayViewerHandler {
-    readonly VIEWER_ID: DataID;
-    readonly VIEWER_TYPE: 'Viewer';
-}
-declare const RelayViewerHandler: RelayViewerHandler;
-export { RelayViewerHandler as ViewerHandler };
+// ./lib/handlers/RelayDefaultMissingFieldHandlers
+export * from './lib/handlers/RelayDefaultMissingFieldHandlers';
 
 // Helpers (can be implemented via the above API)
 

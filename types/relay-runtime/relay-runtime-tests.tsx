@@ -5,7 +5,6 @@ import {
     RecordSource,
     Store,
     ConnectionHandler,
-    ViewerHandler,
     commitLocalUpdate,
     QueryResponseCache,
     ROOT_ID,
