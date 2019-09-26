@@ -496,9 +496,9 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
     _.flattenDeep([[1, 2, 3]]); // $ExpectType number[]
     _.flattenDeep([1, [2, [3, [4, 5]]]]); // $ExpectType number[]
     _.flattenDeep({0: 1, 1: [2, [3, [4, 5]]], length: 2}); // $ExpectType number[]
-    
+
     _.flattenDeep(['x']); // $ExpectType string[]
-    _.flattenDeep(['x',['y']]); // $ExpectType string[]
+    _.flattenDeep(['x', ['y']]); // $ExpectType string[]
 
     _.flattenDeep<number>([1, 2, 3]); // $ExpectType number[]
     _.flattenDeep<number>([[1, 2, 3]]); // $ExpectType number[]
