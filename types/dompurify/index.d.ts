@@ -1,7 +1,9 @@
-// Type definitions for DOM Purify
+// Type definitions for DOM Purify 2.0.1
 // Project: https://github.com/cure53/DOMPurify
 // Definitions by: Dave Taylor <http://davetayls.me>, Samira Bazuzi <https://github.com/bazuzi>, FlowCrypt <https://github.com/FlowCrypt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
+/// <reference types="trusted-types"/>
 
 export as namespace DOMPurify;
 export = DOMPurify;
@@ -16,6 +18,7 @@ interface createDOMPurifyI extends DOMPurify.DOMPurifyI {
 declare namespace DOMPurify {
     interface DOMPurifyI {
         sanitize(source: string | Node): string;
+        sanitize(source: string | Node, config: Config & { RETURN_TRUSTED_TYPE: true, }): TrustedHTML;
         sanitize(source: string | Node, config: Config & { RETURN_DOM_FRAGMENT?: false, RETURN_DOM?: false, }): string;
         sanitize(source: string | Node, config: Config & { RETURN_DOM_FRAGMENT: true, }): DocumentFragment;
         sanitize(source: string | Node, config: Config & { RETURN_DOM: true, }): HTMLElement;
@@ -51,6 +54,7 @@ declare namespace DOMPurify {
         RETURN_DOM?: boolean;
         RETURN_DOM_FRAGMENT?: boolean;
         RETURN_DOM_IMPORT?: boolean;
+        RETURN_TRUSTED_TYPE?: boolean;
         SAFE_FOR_JQUERY?: boolean;
         SANITIZE_DOM?: boolean;
         WHOLE_DOCUMENT?: boolean;

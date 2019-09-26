@@ -1,3 +1,4 @@
+/// <reference types="trusted-types"/>
 import dompurify = require('dompurify');
 
 dompurify.sanitize('<script>alert("hi")</script>');
@@ -8,6 +9,7 @@ let dirty = '<script>alert("hi")</script><p>Totally safe<p><p onerror="blowUp()"
 let str: string;
 let elem: HTMLElement;
 let frag: DocumentFragment;
+let trustedHtml: TrustedHTML;
 
 // allow only <b>
 str = dompurify.sanitize(dirty, { ALLOWED_TAGS: ['b'] });
@@ -46,6 +48,9 @@ frag = dompurify.sanitize(dirty, { RETURN_DOM_FRAGMENT: true, RETURN_DOM: true }
 // RETURN_DOM_IMPORT must be set if you would like to append
 // the returned node to the current document
 frag = dompurify.sanitize(dirty, { RETURN_DOM_FRAGMENT: true, RETURN_DOM_IMPORT: true });
+
+// return a TrustHTML type instead of a HTML string 
+trustedHtml = dompurify.sanitize(dirty, { RETURN_TRUSTED_TYPE: true });
 
 // return entire document including <html> tags (default is false)
 str = dompurify.sanitize(dirty, { WHOLE_DOCUMENT: true });
