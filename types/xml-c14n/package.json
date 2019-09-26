@@ -2,5 +2,8 @@
     "private": true,
     "dependencies": {
         "xml-c14n": "0.0.6"
+    },
+    "scripts": {
+        "test": "node ../../node_modules/types-publisher/bin/tester/test.js --run-from-definitely-typed"
     }
 }
