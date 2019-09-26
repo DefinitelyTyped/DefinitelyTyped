@@ -1,0 +1,8 @@
+{
+  "private": true,
+  "dependencies": {
+    "@types/history": "*",
+    "@types/react": "*",
+    "@types/react-router": "^5.1.0"
+  }
+}
