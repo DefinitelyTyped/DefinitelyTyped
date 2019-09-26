@@ -14,9 +14,11 @@ interface TestObject {
     foo: string;
 }
 
-const isTestObject = (x: any): x is TestObject => x && typeof x.foo === 'string'
+const isTestObject = (x: any): x is TestObject => x && typeof x.foo === 'string';
 
 const testObject = { foo: "bar" };
+
+const unexpectedFormatErrorString = 'Decoded object is an unexpected format';
 
 /**
  * jwt.sign
@@ -61,7 +63,7 @@ jwt.sign(testObject, cert, { algorithm: "RS256" }, (
 // verify a token symmetric
 jwt.verify(token, "shhhhh", (err, decoded) => {
     if (!isTestObject(decoded))
-        throw new Error('Decoded object is un unexpected format')
+        throw new Error(unexpectedFormatErrorString);
 
     console.log(decoded.foo); // bar
 });
@@ -69,7 +71,7 @@ jwt.verify(token, "shhhhh", (err, decoded) => {
 // use external time for verifying
 jwt.verify(token, 'shhhhh', { clockTimestamp: 1 }, (err, decoded) => {
     if (!isTestObject(decoded))
-        throw new Error('Decoded object is un unexpected format')
+        throw new Error(unexpectedFormatErrorString);
 
     console.log(decoded.foo); // bar
 });
@@ -84,7 +86,7 @@ jwt.verify(token, "wrong-secret", (err, decoded) => {
 cert = fs.readFileSync("public.pem"); // get public key
 jwt.verify(token, cert, (err, decoded) => {
     if (!isTestObject(decoded))
-        throw new Error('Decoded object is un unexpected format')
+        throw new Error(unexpectedFormatErrorString);
 
     console.log(decoded.foo); // bar
 });
@@ -98,7 +100,7 @@ function getKey(header: jwt.JwtHeader, callback: jwt.SigningKeyCallback) {
 
 jwt.verify(token, getKey, (err, decoded) => {
     if (!isTestObject(decoded))
-        throw new Error('Decoded object is un unexpected format')
+        throw new Error(unexpectedFormatErrorString);
 
     console.log(decoded.foo); // bar
 });
