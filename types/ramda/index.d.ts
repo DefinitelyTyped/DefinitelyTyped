@@ -1871,8 +1871,8 @@ declare namespace R {
          * and both values are objects, the two values will be recursively merged
          * otherwise the value from the second object will be used.
          */
-        mergeDeepRight<A extends object, B extends object>(a: A, b: B): O.MergeUp<B, A>;
-        mergeDeepRight<A extends object>(a: A): <B extends object>(b: B) => O.MergeUp<B, A>;
+        mergeDeepRight<O1 extends object, O2 extends object>(o1: O1, o2: O2): O.MergeUp<O2, O1, 'deep'>;
+        mergeDeepRight<O1 extends object>(a: O1): <O2 extends object>(o2: O2) => O.MergeUp<O2, O1, 'deep'>;
 
         /**
          * Creates a new object with the own properties of the two provided objects. If a key exists in both objects:
