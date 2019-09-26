@@ -21,4 +21,4 @@ declare class UnusedFilesWebpackPlugin extends Plugin {
     constructor(options: Options);
 }
 
-export = UnusedFilesWebpackPlugin
+export = UnusedFilesWebpackPlugin;
