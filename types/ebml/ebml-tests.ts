@@ -2,7 +2,7 @@ import { Decoder, Encoder, StateAndTagData, Tag } from 'ebml';
 
 // based on "should emit correct tag events for simple data" test
 const decoder = new Decoder();
-decoder.on('data', ([state, tagData]) => {
+decoder.on('data', ([state, tagData]: StateAndTagData) => {
     console.log(state === 'tag');
     console.log(tagData.tag === 0x4286);
     console.log(tagData.tagStr === '4286');
