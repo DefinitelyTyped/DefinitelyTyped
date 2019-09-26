@@ -89,7 +89,7 @@ export type VerifyErrors =
     | TokenExpiredError;
 export type VerifyCallback = (
     err: VerifyErrors,
-    decoded: object | string,
+    decoded: unknown,
 ) => void;
 
 export type SignCallback = (
@@ -163,7 +163,7 @@ export function verify(
     token: string,
     secretOrPublicKey: string | Buffer,
     options?: VerifyOptions,
-): object | string;
+): unknown;
 
 /**
  * Asynchronously verify given token using a secret or a public key to get a decoded token
