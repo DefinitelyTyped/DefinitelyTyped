@@ -38,6 +38,7 @@ export class Ingest {
 
 export class IngestJson {
     constructor(token: string, options?: IngestOptions);
+    send(report: SignalReport): void;
 }
 
 export const CONSTANTS: {
