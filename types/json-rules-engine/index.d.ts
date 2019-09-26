@@ -78,6 +78,7 @@ export class Rule {
         | 'equal'
         | 'notEqual'
         | 'lessThan'
+        | 'lessthnInclusive'
         | 'greaterThan'
         | 'greaterThanInclusive'
         | 'in'
