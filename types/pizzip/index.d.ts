@@ -14,7 +14,7 @@ declare class PizZip {
      * If the browser supports them, PizZip can take advantage of some "new" features : ArrayBuffer, Blob, Uint8Array.
      * To know if PizZip can use them, you can check the PizZip.support object.
      */
-     static support: {
+    static support: {
         /**
          * true if PizZip can read and generate ArrayBuffer, false otherwise.
          */
@@ -36,12 +36,12 @@ declare class PizZip {
     /**
      * the ZipObjects inside the zip with the name as key.
      */
-     files: { [key: string]: PizZip.ZipObject };
+    files: { [key: string]: PizZip.ZipObject };
 
     /**
      * the comment of the zip file.
      */
-     comment: string;
+    comment: string;
 
     constructor();
 
@@ -121,7 +121,11 @@ declare class PizZip {
      * see https://github.com/open-xml-templating/pizzip/blob/master/documentation/api_pizzip/support.md
      * @param options the options to generate the zip file
      */
-    generate(options: PizZip.GenerateOptions): PizZip.ZipObject;
+    generate(options?: PizZip.GenerateOptions & { type?: 'string' | 'base64' }): string;
+    generate(options: PizZip.GenerateOptions & { type: 'blob' }): Blob;
+    generate(options: PizZip.GenerateOptions & { type: 'nodebuffer' }): Buffer;
+    generate(options: PizZip.GenerateOptions & { type: 'arraybuffer' }): ArrayBuffer;
+    generate(options: PizZip.GenerateOptions & { type: 'uint8array' }): Uint8Array;
 
     /**
      * Delete a file or folder (recursively).
@@ -351,7 +355,7 @@ declare namespace PizZip {
          *
          * @default "base64"
          */
-        type: 'base64' | 'string' | 'uint8array' | 'arraybuffer' | 'blob' | 'nodebuffer';
+        type?: 'base64' | 'string' | 'uint8array' | 'arraybuffer' | 'blob' | 'nodebuffer';
         /**
          * The comment to use for the zip file.
          */

@@ -30,6 +30,7 @@
 //                 Boris Figovsky <https://github.com/borfig>
 //                 Simon Driscoll <https://github.com/dinodeSimon>
 //                 Anton Kenikh <https://github.com/anthony-kenikh>
+//                 Chathu Vishwajith <https://github.com/iamchathu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -2276,6 +2277,10 @@ declare module "mongoose" {
       multipleCastError?: boolean;
     /** Field selection. Equivalent to .select(fields).findOneAndUpdate() */
     fields?: any | string;
+    /** If true, delete any properties whose value is undefined when casting an update. In other words, 
+    if this is set, Mongoose will delete baz from the update in Model.updateOne({}, { foo: 'bar', baz: undefined }) 
+    before sending the update to the server.**/
+    omitUndefined?: boolean;                       
   }
 
   interface QueryUpdateOptions extends ModelUpdateOptions {

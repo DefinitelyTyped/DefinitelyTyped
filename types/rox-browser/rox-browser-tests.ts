@@ -30,19 +30,35 @@ Rox.dynamicApi.value('ui.textColor', 'red');
 Rox.flags[0].defaultValue;
 Rox.flags[0].name;
 
+flags.superFlag.isEnabled();
+flags.superFlag.isEnabled({ user: 'John' });
+
 configurations.superConfiguration.defaultValue;
 configurations.superConfiguration.name;
+configurations.superConfiguration.getValue();
+configurations.superConfiguration.getValue({ user: 'John' });
 
 variants.superVariant.defaultValue;
 variants.superVariant.name;
+variants.superVariant.getValue();
+variants.superVariant.getValue({ user: 'John' });
 
 Rox.unfreeze();
 flags.superFlag.unfreeze();
 
 function linkTargetGroupAttributes() {
   Rox.setCustomStringProperty('id', 'someId');
+  Rox.setCustomStringProperty('id', () => 'someId');
+  Rox.setCustomStringProperty('id', (context: any): string => context.id);
+
   Rox.setCustomBooleanProperty('thisIsATest', true);
+  Rox.setCustomBooleanProperty('thisIsATest', () => true);
+  Rox.setCustomBooleanProperty('thisIsATest', (context: any): boolean => context.value);
+
   Rox.setCustomNumberProperty('aNumberProperty', 17);
+  Rox.setCustomNumberProperty('aNumberProperty', () => 17);
+  Rox.setCustomNumberProperty('aNumberProperty', (context: any): number => context.value);
+
   Rox.setDynamicCustomPropertyRule((propName: string, _context: unknown) => {
     return propName === 'myPropName';
   });

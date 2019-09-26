@@ -14,5 +14,5 @@ import * as R from 'ramda';
 
 () => {
   R.equals(R.unnest([1, [2], [[3]]]), [1, 2, [3]]); // => true
-  R.equals(R.unnest<number>([[1, 2], [3, 4], [5, 6]]), [1, 2, 3, 4, 5, 6]); // => true
+  R.equals(R.unnest([[1, 2], [3, 4], [5, 6]]), [1, 2, 3, 4, 5, 6]); // => true
 };

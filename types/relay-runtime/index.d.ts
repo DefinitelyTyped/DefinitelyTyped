@@ -3,6 +3,7 @@
 // Definitions by: Matt Martin <https://github.com/voxmatt>
 //                 Eloy Durán <https://github.com/alloy>
 //                 Cameron Knight <https://github.com/ckknight>
+//                 Renan Machado <https://github.com/renanmav>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -130,11 +131,8 @@ export interface MutationConfig<TOperation extends OperationType> {
     updater?: SelectorStoreUpdater<TOperation['response']> | null;
 }
 
-// ./network/RelayNetworkLoggerTransaction
-export interface RelayNetworkLog {
-    label: string;
-    values: ReadonlyArray<unknown>;
-}
+// ./lib/network/RelayNetworkLoggerTransaction
+export { RelayNetworkLoggerTransaction } from './lib/network/RelayNetworkLoggerTransaction';
 
 // ./network/RelayNetworkTypes
 export type ExecuteFunction = (
@@ -231,8 +229,8 @@ export interface Subscription {
     readonly closed: boolean;
 }
 
-// ./network/createRelayNetworkLogger
-export type GraphiQLPrinter = (request: RequestParameters, variables: Variables) => string;
+// ./lib/network/createRelayNetworkLogger
+export { createRelayNetworkLogger } from './lib/network/createRelayNetworkLogger';
 
 // ./query/RelayModernGraphQLTag
 export type GraphQLTaggedNode =
