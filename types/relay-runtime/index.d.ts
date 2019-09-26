@@ -102,39 +102,26 @@ export type GraphQLTaggedNode =
 import { RecordState } from './lib/store/RelayRecordState';
 export * from './lib/store/RelayRecordState';
 
-// ./store/RelayStoreTypes
-interface Environment
-    extends CEnvironment<
-        Environment,
-        ReaderFragment,
-        GraphQLTaggedNode,
-        ReaderSelectableNode,
-        NormalizationSelectableNode,
-        ConcreteRequest,
-        GraphQLResponse,
-        OwnedReaderSelector
-    > {
-    applyUpdate(optimisticUpdate: OptimisticUpdate): Disposable;
-
-    commitUpdate(updater: StoreUpdater): void;
-
-    commitPayload(operationDescriptor: OperationDescriptor, payload: PayloadData): void;
-
-    getStore(): Store;
-
-    lookup(selector: ReaderSelector, owner?: OperationDescriptor): CSnapshot<ReaderSelectableNode, OperationDescriptor>;
-
-    executeMutation(data: {
-        operation: OperationDescriptor;
-        optimisticUpdater?: SelectorStoreUpdater | null;
-        optimisticResponse?: object | null;
-        updater?: SelectorStoreUpdater | null;
-        uploadables?: UploadableMap | null;
-    }): RelayObservable<GraphQLResponse>;
-}
-export { Environment as IEnvironment };
-
-export type FragmentMap = CFragmentMap<ReaderFragment>;
+// ./lib/store/RelayStoreTypes
+import {
+    Environment,
+    HandleFieldPayload,
+    Store,
+    OperationDescriptor,
+    SingularReaderSelector,
+    Snapshot,
+    Logger,
+    RecordSource,
+    RequestDescriptor,
+    FragmentMap,
+    Scheduler,
+    MutableRecordSource,
+    Record,
+    RecordMap,
+    MissingFieldHandler,
+} from './lib/store/RelayStoreTypes';
+export * from './lib/store/RelayStoreTypes';
+export { Environment as IEnvironment } from './lib/store/RelayStoreTypes';
 
 export type FragmentReference = never & { __tag: 'FragmentReference' };
 
@@ -144,14 +131,6 @@ export interface FragmentPointer {
     __fragmentOwner: OperationDescriptor | null;
 }
 
-export interface HandleFieldPayload {
-    readonly args: Variables;
-    readonly dataID: DataID;
-    readonly fieldKey: string;
-    readonly handle: string;
-    readonly handleKey: string;
-}
-
 export interface MatchPointer {
     __id: DataID;
     __fragments: { [fragmentName: string]: Variables };
@@ -159,48 +138,11 @@ export interface MatchPointer {
     __module: unknown;
 }
 
-export type MissingFieldHandler =
-    | {
-          kind: 'scalar';
-          handle: (
-              field: NormalizationScalarField,
-              record: Record<string, unknown> | null | undefined,
-              args: Variables,
-              store: ReadonlyRecordSourceProxy,
-          ) => unknown;
-      }
-    | {
-          kind: 'linked';
-          handle: (
-              field: NormalizationLinkedField,
-              record: Record<string, unknown> | null | undefined,
-              args: Variables,
-              store: ReadonlyRecordSourceProxy,
-          ) => DataID | null | undefined;
-      }
-    | {
-          kind: 'pluralLinked';
-          handle: (
-              field: NormalizationLinkedField,
-              record: Record<string, unknown> | null | undefined,
-              args: Variables,
-              store: ReadonlyRecordSourceProxy,
-          ) => ReadonlyArray<DataID | null | undefined> | null | undefined;
-      };
-
-export const RelayDefaultMissingFieldHandlers: ReadonlyArray<MissingFieldHandler>;
-
 export interface OperationLoader {
     get(reference: unknown): NormalizationSplitOperation | null | undefined;
 
     load(reference: unknown): Promise<NormalizationSplitOperation | null | undefined>;
 }
-
-export type OperationDescriptor = COperationDescriptor<
-    ReaderSelectableNode,
-    NormalizationSelectableNode,
-    ConcreteRequest
->;
 
 export type OptimisticUpdate =
     | {
@@ -265,8 +207,6 @@ export type NormalizationSelector = CNormalizationSelector<NormalizationSelectab
 
 export type SelectorStoreUpdater<TData = unknown> = (store: RecordSourceSelectorProxy, data: TData) => void;
 
-export type Snapshot = CSnapshot<ReaderSelectableNode, OperationDescriptor>;
-
 export type StoreUpdater = (store: RecordSourceProxy) => void;
 
 interface ReadonlyRecordSourceProxy {
@@ -284,40 +224,6 @@ export interface ReadonlyRecordProxy {
     getType(): string;
     getValue(name: string, args?: Variables | null): unknown;
 }
-
-interface RecordSource {
-    get(dataID: DataID): Record<string, unknown> | null | undefined;
-    getRecordIDs(): ReadonlyArray<DataID>;
-    getStatus(dataID: DataID): RecordState;
-    has(dataID: DataID): boolean;
-    load(
-        dataID: DataID,
-        callback: (error: Error | null | undefined, record: Record<string, unknown> | null | undefined) => void,
-    ): void;
-    size(): number;
-    toJSON(): Record<string, unknown>;
-}
-export { RecordSource as IRecordSource };
-
-interface Store {
-    getSource(): RecordSource;
-    check(selector: NormalizationSelector): boolean;
-    lookup(selector: ReaderSelector, owner?: OperationDescriptor): Snapshot;
-    notify(): void;
-    publish(source: RecordSource): void;
-    retain(selector: NormalizationSelector): Disposable;
-    subscribe(snapshot: Snapshot, callback: (snapshot: Snapshot) => void): Disposable;
-    holdGC(): Disposable;
-}
-
-export interface MutableRecordSource extends RecordSource {
-    clear(): void;
-    delete(dataID: DataID): void;
-    remove(dataID: DataID): void;
-    set(dataID: DataID, record: Record<string, unknown>): void;
-}
-
-type Scheduler = (callback: () => void) => void;
 
 // ./subscription/requestRelaySubscription
 export interface GraphQLSubscriptionConfig<TSubscriptionPayload> {
@@ -436,10 +342,6 @@ export interface Props {
     [key: string]: unknown;
 }
 
-interface RecordMap {
-    // theoretically, this should be `[dataID: DataID]`, but `DataID` is a string.
-    [dataID: string]: Record<string, unknown> | undefined;
-}
 export interface SelectorData {
     [key: string]: unknown;
 }
@@ -475,7 +377,9 @@ declare class RelayModernEnvironment implements Environment {
     check(readSelector: NormalizationSelector): boolean;
     commitPayload(operationDescriptor: OperationDescriptor, payload: PayloadData): void;
     commitUpdate(updater: StoreUpdater): void;
-    lookup(readSelector: ReaderSelector, owner?: OperationDescriptor): Snapshot;
+    lookup(readSelector: SingularReaderSelector): Snapshot;
+    getLogger(config: LoggerTransactionConfig): Logger;
+    getOperationTracker(): RelayOperationTracker;
     subscribe(snapshot: Snapshot, callback: (snapshot: Snapshot) => void): Disposable;
     retain(selector: NormalizationSelector): Disposable;
     execute(data: {
@@ -496,6 +400,13 @@ declare class RelayModernEnvironment implements Environment {
         updater?: SelectorStoreUpdater | null;
         uploadables?: UploadableMap | null;
     }): RelayObservable<GraphQLResponse>;
+    executeWithSource({
+        operation,
+        source,
+    }: {
+        operation: OperationDescriptor;
+        source: RelayObservable<GraphQLResponse>;
+    }): RelayObservable<GraphQLResponse>;
 }
 export { RelayModernEnvironment as Environment };
 
@@ -503,6 +414,15 @@ type HandlerProvider = (name: string) => Handler | null | undefined;
 
 // ./lib/network/RelayNetwork
 import { RelayNetwork } from './lib/network/RelayNetwork';
+import { LoggerTransactionConfig } from './lib/network/RelayNetworkLoggerTransaction';
+import { RelayOperationTracker } from './lib/store/RelayOperationTracker';
+import {
+    ConnectionReference,
+    ConnectionResolver,
+    ConnectionSnapshot,
+    ConnectionID,
+    ConnectionInternalEvent,
+} from './lib/store/RelayConnection';
 export { RelayNetwork as Network };
 
 // ./lib/network/RelayQueryResponseCache
@@ -513,19 +433,15 @@ declare class RelayInMemoryRecordSource implements MutableRecordSource {
     constructor(records?: RecordMap);
     clear(): void;
     delete(dataID: DataID): void;
-    get(dataID: DataID): Record<string, unknown> | null | undefined;
-    getRecordIDs(): ReadonlyArray<DataID>;
+    get(dataID: DataID): Record;
+    getRecordIDs(): string[];
     getStatus(dataID: DataID): RecordState;
     has(dataID: DataID): boolean;
-    load(
-        dataID: DataID,
-
-        callback: (error: Error | null | undefined, record: Record<string, unknown> | null | undefined) => void,
-    ): void;
+    load(dataID: DataID, callback: (error: Error | null | undefined, record: Record | null | undefined) => void): void;
     remove(dataID: DataID): void;
-    set(dataID: DataID, record: Record<string, unknown>): void;
+    set(dataID: DataID, record: Record): void;
     size(): number;
-    toJSON(): Record<string, unknown>;
+    toJSON(): Record;
 }
 export { RelayInMemoryRecordSource as RecordSource };
 
@@ -536,10 +452,24 @@ declare class RelayModernStore implements Store {
     check(selector: NormalizationSelector): boolean;
     retain(selector: NormalizationSelector): Disposable;
     lookup(selector: ReaderSelector, owner?: OperationDescriptor): Snapshot;
-    notify(): void;
+    notify(): ReadonlyArray<RequestDescriptor>;
     publish(source: RecordSource): void;
     subscribe(snapshot: Snapshot, callback: (snapshot: Snapshot) => void): Disposable;
     holdGC(): Disposable;
+    lookupConnection_UNSTABLE<TEdge, TState>(
+        connectionReference: ConnectionReference<TEdge>,
+        resolver: ConnectionResolver<TEdge, TState>,
+    ): ConnectionSnapshot<TEdge, TState>;
+
+    subscribeConnection_UNSTABLE<TEdge, TState>(
+        snapshot: ConnectionSnapshot<TEdge, TState>,
+        resolver: ConnectionResolver<TEdge, TState>,
+        callback: (state: TState) => void,
+    ): Disposable;
+    publishConnectionEvents_UNSTABLE(events: ConnectionInternalEvent[], final: boolean): void;
+    getConnectionEvents_UNSTABLE(connectionID: ConnectionID): ReadonlyArray<ConnectionInternalEvent>;
+    snapshot(): void;
+    restore(): void;
 }
 export { RelayModernStore as Store };
 
