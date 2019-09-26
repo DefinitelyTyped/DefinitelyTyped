@@ -3526,14 +3526,8 @@ fp.now(); // $ExpectType number
     memoizedFn.cache = new WeakMap();
     memoizedFn.cache = new Map();
 
-    {
-        type MemoizedResultFn = (a1: string, a2: number) => boolean;
-        let beforeMemoize: MemoizedResultFn & {otherKey: number};
-        let result: MemoizedResultFn;
-
-        beforeMemoize = _.assign(memoizeFn, {otherKey: 1});
-        result = _.memoize(beforeMemoize);
-    }
+    const beforeMemoize = _.assign((a1: string, a2: number): boolean => true, {otherKey: 1}); // $ExpectType ((a1: string, a2: number) => boolean) & { otherKey: number; }
+    const afterMemoize = _.memoize(beforeMemoize); // $ExpectType ((a1: string, a2: number) => boolean) & MemoizedFunction
 }
 
 // _.overArgs
