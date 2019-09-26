@@ -281,22 +281,8 @@ export function getRefetchableFragment(taggedNode: GraphQLTaggedNode): ReaderRef
 export function getRequest(taggedNode: GraphQLTaggedNode): ConcreteRequest;
 export function graphql(strings: ReadonlyArray<string>): GraphQLTaggedNode;
 
-// ./store/RelayStoreUtils
-export function getStorageKey(
-    field: NormalizationField | NormalizationHandle | ReaderField,
-    variables: Variables,
-): string;
-export function getModuleComponentKey(documentName: string): string;
-export function getModuleOperationKey(documentName: string): string;
-
-export const FRAGMENTS_KEY: string;
-export const FRAGMENT_OWNER_KEY: string;
-export const ID_KEY: string;
-export const REF_KEY: string;
-export const REFS_KEY: string;
-export const ROOT_ID: string;
-export const ROOT_TYPE: string;
-export const TYPENAME_KEY: string;
+// ./lib/store/RelayStoreUtils
+export * from './lib/store/RelayStoreUtils';
 
 // Extensions
 // ./handlers/RelayDefaultHandlerProvider
