@@ -1,5 +1,5 @@
-import { Component } from './component';
-import { Service } from './service';
+import Component = require('./component');
+import Service = require('./service');
 
 declare class Info {
     total: number;
@@ -19,4 +19,4 @@ interface SauronInstance {
 
 declare function instance(componentMap: SauronComponentMap, id?: string): SauronInstance;
 
-export { instance };
+export = instance;

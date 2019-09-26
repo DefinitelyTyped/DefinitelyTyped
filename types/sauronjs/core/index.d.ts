@@ -1,5 +1,8 @@
+import CacheFactory = require('./cache');
+import Component = require('./component');
+import instance = require('./sauron');
+import Service = require('./service');
+
 export { next, attachSubject } from './broadcast';
-export { cache } from './cache';
-export { Component } from './component';
-export { instance } from './sauron';
-export { Service } from './service';
+
+export { CacheFactory as cache, Component, instance, Service };

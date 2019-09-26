@@ -21,4 +21,4 @@ declare class Component {
     attr(key: string, value: string): void;
 }
 
-export { Component };
+export = Component;

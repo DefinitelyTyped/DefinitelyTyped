@@ -14,4 +14,4 @@ declare const CacheFactory: {
   (): void;
 };
 
-export { CacheFactory as cache };
+export = CacheFactory;
