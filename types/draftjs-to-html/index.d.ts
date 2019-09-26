@@ -6,14 +6,16 @@
 
 import { RawDraftContentState } from 'draft-js';
 
-export interface HashtagConfig {
+interface HashtagConfig {
     trigger?: string;
     separator?: string;
 }
 
-export default function draftToHtml(
+declare function draftToHtml(
     editorContent: RawDraftContentState,
     hashtagConfig?: HashtagConfig,
     directional?: boolean,
     customEntityTransform?: (...args: any[]) => any,
 ): string;
+
+export = draftToHtml;
