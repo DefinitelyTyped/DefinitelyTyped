@@ -1,4 +1,4 @@
-// Type definitions for Tabris.js 4.0
+// Type definitions for table 4.0
 // Project: https://github.com/gajus/table
 // Definitions by: Evan Shortiss <https://github.com/evanshortiss>
 //                 mrmlnc <https://github.com/mrmlnc>
@@ -8,10 +8,11 @@ export type BorderType = 'honeywell' | 'norc' | 'ramac' | 'void';
 
 export interface ColumnConfig {
     alignment?: 'left' | 'center' | 'right';
-    width?: number;
-    truncate?: number;
     paddingLeft?: number;
     paddingRight?: number;
+    truncate?: number;
+    width?: number;
+    wrapWord?: boolean;
 }
 
 export interface JoinStruct {
@@ -43,6 +44,7 @@ export interface TableUserConfig {
     border?: JoinStruct;
     columnDefault?: ColumnConfig;
     columnCount?: number;
+    singleLine?: boolean;
 }
 
 export function table(data: any[], userConfig?: TableUserConfig): string;

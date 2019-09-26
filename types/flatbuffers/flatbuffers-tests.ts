@@ -14,7 +14,7 @@ enum Any {
 }
 
 class Monster2 {
-  bb: flatbuffers.ByteBuffer= null;
+  bb: flatbuffers.ByteBuffer = null;
 
   bb_pos = 0;
 
@@ -86,10 +86,31 @@ class Test {
     builder.writeInt16(a);
     return builder.offset();
   }
+
+  static testClear(builder: flatbuffers.Builder, a: number, b: number) {
+    const offsets: number[] = [];
+    const iterations = 100;
+    for (let i = 0; i < iterations; i++) {
+      const offset = Test.createTest(builder, a, b);
+      offsets.push(offset);
+      builder.clear();
+    }
+
+    let lastOffsetValue = offsets[0];
+    let sameValue = true;
+    for (let i = 1; i < offsets.length; i++) {
+      if (lastOffsetValue !== offsets[i]) {
+        sameValue = false;
+        return sameValue;
+      }
+      lastOffsetValue = offsets[i];
+    }
+    return sameValue;
+  }
 }
 
 class TestSimpleTableWithEnum {
-  bb: flatbuffers.ByteBuffer= null;
+  bb: flatbuffers.ByteBuffer = null;
 
   bb_pos = 0;
 
@@ -134,7 +155,7 @@ class TestSimpleTableWithEnum {
 }
 
 class Vec3 {
-  bb: flatbuffers.ByteBuffer= null;
+  bb: flatbuffers.ByteBuffer = null;
 
   bb_pos = 0;
 
@@ -242,7 +263,7 @@ class Vec3 {
 }
 
 class Stat {
-  bb: flatbuffers.ByteBuffer= null;
+  bb: flatbuffers.ByteBuffer = null;
 
   bb_pos = 0;
 
@@ -305,7 +326,7 @@ class Stat {
 }
 
 class Monster {
-  bb: flatbuffers.ByteBuffer= null;
+  bb: flatbuffers.ByteBuffer = null;
 
   bb_pos = 0;
 

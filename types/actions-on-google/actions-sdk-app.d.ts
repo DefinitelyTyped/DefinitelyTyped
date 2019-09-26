@@ -224,18 +224,24 @@ export class ActionsSdkApp extends AssistantApp {
     getSelectedOption(): string;
 
     /**
-     * Asks to collect user's input; all user's queries need to be sent to
-     * the app.
-     * {@link https://developers.google.com/actions/policies/general-policies#user_experience|The guidelines when prompting the user for a response must be followed at all times}.
+     * Asks to collect user's input; all user's queries need to be sent to the app.
+     * {@link https://developers.google.com/actions/policies/general-policies#user_experience|
+     *     The guidelines when prompting the user for a response must be followed at all times}.
      *
      * @example
      * const app = new ActionsSdkApp({request: request, response: response});
      *
+     * const noInputs = [
+     *   `I didn't hear a number`,
+     *   `If you're still there, what's the number?`,
+     *   'What is the number?'
+     * ];
+     *
      * function mainIntent (app) {
-     *   const inputPrompt = app.buildInputPrompt(true, '<speak>Hi! <break time="1"/> ' +
-     *         'I can read out an ordinal like ' +
-     *         '<say-as interpret-as="ordinal">123</say-as>. Say a number.</speak>',
-     *         ['I didn\'t hear a number', 'If you\'re still there, what\'s the number?', 'What is the number?']);
+     *   const ssml = '<speak>Hi! <break time="1"/> ' +
+     *     'I can read out an ordinal like ' +
+     *     '<say-as interpret-as="ordinal">123</say-as>. Say a number.</speak>';
+     *   const inputPrompt = app.buildInputPrompt(true, ssml, noInputs);
      *   app.ask(inputPrompt);
      * }
      *
@@ -243,9 +249,9 @@ export class ActionsSdkApp extends AssistantApp {
      *   if (app.getRawInput() === 'bye') {
      *     app.tell('Goodbye!');
      *   } else {
-     *     const inputPrompt = app.buildInputPrompt(true, '<speak>You said, <say-as interpret-as="ordinal">' +
-     *       app.getRawInput() + '</say-as></speak>',
-     *         ['I didn\'t hear a number', 'If you\'re still there, what\'s the number?', 'What is the number?']);
+     *     const ssml = '<speak>You said, <say-as interpret-as="ordinal">' +
+     *       app.getRawInput() + '</say-as></speak>';
+     *     const inputPrompt = app.buildInputPrompt(true, ssml, noInputs);
      *     app.ask(inputPrompt);
      *   }
      * }
@@ -272,7 +278,7 @@ export class ActionsSdkApp extends AssistantApp {
      * const app = new ActionsSdkApp({request, response});
      *
      * function welcomeIntent (app) {
-     *   app.askWithlist('Which of these looks good?',
+     *   app.askWithList('Which of these looks good?',
      *     app.buildList('List title')
      *      .addItems([
      *        app.buildOptionItem(SELECTION_KEY_ONE,
@@ -356,11 +362,17 @@ export class ActionsSdkApp extends AssistantApp {
      * @example
      * const app = new ActionsSdkApp({request: request, response: response});
      *
+     * const noInputs = [
+     *   `I didn't hear a number`,
+     *   `If you're still there, what's the number?`,
+     *   'What is the number?'
+     * ];
+     *
      * function mainIntent (app) {
-     *   const inputPrompt = app.buildInputPrompt(true, '<speak>Hi! <break time="1"/> ' +
-     *         'I can read out an ordinal like ' +
-     *         '<say-as interpret-as="ordinal">123</say-as>. Say a number.</speak>',
-     *         ['I didn\'t hear a number', 'If you\'re still there, what\'s the number?', 'What is the number?']);
+     *   const ssml = '<speak>Hi! <break time="1"/> ' +
+     *     'I can read out an ordinal like ' +
+     *     '<say-as interpret-as="ordinal">123</say-as>. Say a number.</speak>';
+     *   const inputPrompt = app.buildInputPrompt(true, ssml, noInputs);
      *   app.ask(inputPrompt);
      * }
      *
@@ -368,9 +380,9 @@ export class ActionsSdkApp extends AssistantApp {
      *   if (app.getRawInput() === 'bye') {
      *     app.tell('Goodbye!');
      *   } else {
-     *     const inputPrompt = app.buildInputPrompt(true, '<speak>You said, <say-as interpret-as="ordinal">' +
-     *       app.getRawInput() + '</say-as></speak>',
-     *         ['I didn\'t hear a number', 'If you\'re still there, what\'s the number?', 'What is the number?']);
+     *     const ssml = '<speak>You said, <say-as interpret-as="ordinal">' +
+     *       app.getRawInput() + '</say-as></speak>';
+     *     const inputPrompt = app.buildInputPrompt(true, ssml, noInputs);
      *     app.ask(inputPrompt);
      *   }
      * }
@@ -390,7 +402,7 @@ export class ActionsSdkApp extends AssistantApp {
 
     /**
      * Builds the {@link https://developers.google.com/actions/reference/conversation#InputPrompt|InputPrompt object}
-     * from initial prompt and no-input prompts.
+     *     from initial prompt and no-input prompts.
      *
      * The App needs one initial prompt to start the conversation. If there is no user response,
      * the App re-opens the mic and renders the no-input prompts three times

@@ -10,7 +10,7 @@ namespace demo.toast {
 		msg:string;
 
 		static $inject:Array<string> = ["$cordovaToast"];
-		constructor(private $cordovaToast:ngCordova.IToastService) {
+		constructor(private readonly $cordovaToast:ngCordova.IToastService) {
 
 		}
 

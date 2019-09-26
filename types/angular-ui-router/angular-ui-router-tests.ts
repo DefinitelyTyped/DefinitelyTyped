@@ -33,7 +33,7 @@ myApp.config((
   $urlMatcherFactory.type("fullType", {
     decode: (val) => parseInt(val, 10),
     encode: (val) => val && val.toString(),
-    equals: (a, b) => this.is(a) && a === b,
+    equals: function (a, b) { return this.is(a) && a === b },
     is: (val) => angular.isNumber(val) && isFinite(val) && val % 1 === 0,
     pattern: /\d+/
   });
@@ -137,10 +137,10 @@ class UrlLocatorTestService implements IUrlLocatorTestService {
     static $inject = ["$http", "$rootScope", "$urlRouter", "$state"];
 
     constructor(
-        private $http: ng.IHttpService,
-        private $rootScope: ng.IRootScopeService,
-        private $urlRouter: ng.ui.IUrlRouterService,
-        private $state: ng.ui.IStateService
+        private readonly $http: ng.IHttpService,
+        private readonly $rootScope: ng.IRootScopeService,
+        private readonly $urlRouter: ng.ui.IUrlRouterService,
+        private readonly $state: ng.ui.IStateService
     ) {
         $rootScope.$on("$locationChangeSuccess", (event: ng.IAngularEvent) => this.onLocationChangeSuccess(event));
         $rootScope.$on('$stateNotFound', (event: ng.IAngularEvent, unfoundState: ng.ui.IUnfoundState, fromState: ng.ui.IState, fromParams: {}) =>

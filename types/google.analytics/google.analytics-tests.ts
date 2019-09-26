@@ -33,6 +33,13 @@ describe('UniversalAnalytics', () => {
         ga('send', 'timing', {timingCategory: 'category', timingVar: 'lookup', timingValue: 123, timingLabel: 'label'});
         ga('trackerName.send', 'event', 'load');
 
+        ga('require', 'somePlugin');
+        ga('require', 'somePlugin', 'option');
+        ga('require', 'somePlugin', { some: 'options' });
+        ga('provide', 'somePlugin', () => {});
+        ga('provide', 'somePlugin', tracker => {});
+        ga('provide', 'somePlugin', (tracker, options) => {});
+
         ga.create('UA-65432-1', 'auto');
         ga.create('UA-65432-1', {some: 'config'});
         ga.create('UA-65432-1', 'auto', {some: 'config'});
@@ -98,6 +105,9 @@ describe("tester Google Analytics Code  _gaq object", () => {
         _gaq.push(['_setAccount', 'UA-XXXXXXX-YY']);
         _gaq.push(['_gat._anonymizeIp']);
         _gaq.push(['_trackPageview']);
+
+        // more details: https://developers.google.com/analytics/devguides/collection/gajs/methods/gaJSApiEventTracking#_trackevent
+        _gaq.push(['_trackEvent', 'category', 'action_name', undefined, undefined, true]);
 
         _gaq.push(() => {
                 const tracker = _gat._getTrackerByName('UA-65432-1');

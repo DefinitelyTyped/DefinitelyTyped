@@ -1,5 +1,5 @@
-// Type definitions for Sequelize 4.0.0
-// Project: http://sequelizejs.com
+// Type definitions for Sequelize 4.28.0
+// Project: http://sequelizejs.com, https://github.com/sequelize/sequelize
 // Definitions by: samuelneff <https://github.com/samuelneff>
 //                 Peter Harris <https://github.com/codeanimal>
 //                 Ivan Drinchev <https://github.com/drinchev>
@@ -8,8 +8,26 @@
 //                 Sebastien Bramille <https://github.com/oktapodia>
 //                 Nick Mueller <https://github.com/morpheusxaut>
 //                 Philippe D'Alva <https://github.com/TitaneBoy>
+//                 Carven Zhang <https://github.com/zjy01>
+//                 Nikola Vidic <https://github.com/nidzov>
+//                 Florian Oellerich <https://github.com/Raigen>
+//                 Todd Bealmear <https://github.com/todd>
+//                 Nick Schultz <https://github.com/nrschultz>
+//                 Thomas Breleur <https://github.com/thomas-b>
+//                 Antoine Boisadam <https://github.com/Antoine38660>
+//                 Dima Smirnov <https://github.com/smff>
+//                 Duy Truong <https://github.com/truongkhanhduy95>
+//                 Emmanuel Gautier <https://github.com/emmanuelgautier>
+//                 Dan Rumney <https://github.com/dancrumb>
+//                 Kan Yueh Chen <https://github.com/lalayueh>
+//                 Rohit Sud <https://github.com/rohitsud>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.2
+
+// ***************************** IMPORTANT NOTE *****************************
+// These types are for the 4.x branch of Sequelize. As of Sequelize 5.0,
+// types are packaged directly within Sequelize itself. Please target the
+// Sequelize-provided types for any changes related to versions >= 5.0.
 
 // Based on original work by: samuelneff <https://github.com/samuelneff/sequelize-auto-ts/blob/master/lib/sequelize.d.ts>
 
@@ -17,8 +35,10 @@
 
 
 import * as _ from "lodash";
-import * as Promise from "bluebird";
+import Promise = require("bluebird");
 import * as cls from "continuation-local-storage"
+
+type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
 
 declare namespace sequelize {
 
@@ -132,7 +152,7 @@ declare namespace sequelize {
      * @see http://docs.sequelizejs.com/en/latest/api/associations/belongs-to/
      * @see Instance
      */
-    interface BelongsToCreateAssociationMixin<TAttributes> {
+    interface BelongsToCreateAssociationMixin<TAttributes, TInstance> {
         /**
          * Create a new instance of the associated model and associate it with this.
          * @param values The values used to create the association.
@@ -141,7 +161,7 @@ declare namespace sequelize {
         (
             values?: TAttributes,
             options?: BelongsToCreateAssociationMixinOptions | CreateOptions | BelongsToSetAssociationMixinOptions
-        ): Promise<void>;
+        ): Promise<TInstance>;
     }
 
     /**
@@ -273,6 +293,11 @@ declare namespace sequelize {
          * Apply a scope on the related model, or remove its default scope by passing false.
          */
         scope?: string | boolean;
+
+        /**
+         * Load further nested related models
+         */
+        include?: IncludeOptions;
     }
 
     /**
@@ -1195,7 +1220,7 @@ declare namespace sequelize {
          *  Attribute name for the relation
          */
         name?: string;
-
+        unique?: boolean | string;
     }
 
     /**
@@ -1253,6 +1278,7 @@ declare namespace sequelize {
         constraints?: boolean;
         foreignKeyConstraint?: boolean;
 
+        scope?: AssociationScope;
     }
 
     /**
@@ -1331,8 +1357,8 @@ declare namespace sequelize {
          */
         keyType?: DataTypeAbstract;
         /**
-         * A string to represent the name of the field to use as the key for an 1 to many association in the source table. 
-         * 
+         * A string to represent the name of the field to use as the key for an 1 to many association in the source table.
+         *
          * @see http://docs.sequelizejs.com/class/lib/model.js~Model.html#static-method-hasMany
          * @see https://github.com/sequelize/sequelize/blob/b4fd46426db9cdbb97074bea121203d565e4195d/lib/associations/has-many.js#L81
          */
@@ -1372,6 +1398,10 @@ declare namespace sequelize {
          */
         timestamps?: boolean;
 
+        /**
+         * Belongs-To-Many creates a unique key when primary key is not present on through model. This unique key name can be overridden using uniqueKey option.
+         */
+        uniqueKey?: string;
     }
 
     /**
@@ -1513,8 +1543,9 @@ declare namespace sequelize {
          *
          * @param target The model that will be associated with hasOne relationship
          * @param options Options for the association
+         * @return return type of association
          */
-        hasOne(target: Model<any, any>, options?: AssociationOptionsHasOne): void;
+        hasOne(target: Model<any, any>, options?: AssociationOptionsHasOne): IncludeAssociation;
 
         /**
          * Creates an association between this (the source) and the provided target. The foreign key is added on the
@@ -1524,8 +1555,9 @@ declare namespace sequelize {
          *
          * @param target The model that will be associated with hasOne relationship
          * @param options Options for the association
+         * @return return type of association
          */
-        belongsTo(target: Model<any, any>, options?: AssociationOptionsBelongsTo): void;
+        belongsTo(target: Model<any, any>, options?: AssociationOptionsBelongsTo): IncludeAssociation;
 
         /**
          * Create an association that is either 1:m or n:m.
@@ -1578,8 +1610,9 @@ declare namespace sequelize {
          *
          * @param target The model that will be associated with hasOne relationship
          * @param options Options for the association
+         * @return return type of association
          */
-        hasMany(target: Model<any, any>, options?: AssociationOptionsHasMany): void;
+        hasMany(target: Model<any, any>, options?: AssociationOptionsHasMany): IncludeAssociation;
 
         /**
          * Create an N:M association with a join table
@@ -1627,9 +1660,10 @@ declare namespace sequelize {
          *
          * @param target The model that will be associated with hasOne relationship
          * @param options Options for the association
+         * @return return type of association
          *
          */
-        belongsToMany(target: Model<any, any>, options: AssociationOptionsBelongsToMany): void;
+        belongsToMany(target: Model<any, any>, options: AssociationOptionsBelongsToMany): IncludeAssociation;
 
     }
 
@@ -1699,6 +1733,34 @@ declare namespace sequelize {
          */
         (options?: { length: number }): DataTypeInteger;
         (length: number): DataTypeInteger;
+
+    }
+
+    interface DataTypeTinyInt extends DataTypeAbstractNumber<DataTypeTinyInt> {
+
+        /**
+         * Length of the number field.
+         */
+        (options?: { length: number }): DataTypeTinyInt;
+        (length: number): DataTypeTinyInt;
+
+    }
+    interface DataTypeSmallInt extends DataTypeAbstractNumber<DataTypeSmallInt> {
+
+        /**
+         * Length of the number field.
+         */
+        (options?: { length: number }): DataTypeSmallInt;
+        (length: number): DataTypeSmallInt;
+
+    }
+    interface DataTypeMediumInt extends DataTypeAbstractNumber<DataTypeMediumInt> {
+
+        /**
+         * Length of the number field.
+         */
+        (options?: { length: number }): DataTypeMediumInt;
+        (length: number): DataTypeMediumInt;
 
     }
 
@@ -1800,11 +1862,15 @@ declare namespace sequelize {
 
     }
 
-    interface DataTypeUUID extends DataTypeAbstract { }
+    interface DataTypeAbstractUUID<T> extends DataTypeAbstract {
+        (): T;
+    }
 
-    interface DataTypeUUIDv1 extends DataTypeAbstract { }
+    interface DataTypeUUID extends DataTypeAbstractUUID<DataTypeUUID> { }
 
-    interface DataTypeUUIDv4 extends DataTypeAbstract { }
+    interface DataTypeUUIDv1 extends DataTypeAbstractUUID<DataTypeUUIDv1> { }
+
+    interface DataTypeUUIDv4 extends DataTypeAbstractUUID<DataTypeUUIDv4> { }
 
     interface DataTypeVirtual extends DataTypeAbstract {
 
@@ -1858,8 +1924,8 @@ declare namespace sequelize {
      *
      * ```js
      * sequelize.define('model', {
- *   column: DataTypes.INTEGER
- * })
+     *   column: DataTypes.INTEGER
+     * })
      * ```
      * When defining a model you can just as easily pass a string as type, but often using the types defined here
      * is
@@ -1879,12 +1945,12 @@ declare namespace sequelize {
      *
      * ```js
      * sequelize.define('model', {
- *   uuid: {
- *     type: DataTypes.UUID,
- *     defaultValue: DataTypes.UUIDV1,
- *     primaryKey: true
- *   }
- * })
+     *   uuid: {
+     *     type: DataTypes.UUID,
+     *     defaultValue: DataTypes.UUIDV1,
+     *     primaryKey: true
+     *   }
+     * })
      * ```
      */
     interface DataTypes {
@@ -1893,6 +1959,9 @@ declare namespace sequelize {
         CHAR: DataTypeChar;
         TEXT: DataTypeText;
         NUMBER: DataTypeNumber;
+        TINYINT: DataTypeTinyInt;
+        SMALLINT: DataTypeSmallInt;
+        MEDIUMINT: DataTypeMediumInt;
         INTEGER: DataTypeInteger;
         BIGINT: DataTypeBigInt;
         FLOAT: DataTypeFloat;
@@ -2249,8 +2318,8 @@ declare namespace sequelize {
      * interfaces.
      *
      * beforeValidate, afterValidate, beforeBulkCreate, beforeBulkDestroy, beforeBulkUpdate, beforeCreate,
-     * beforeDestroy, beforeUpdate, afterCreate, afterDestroy, afterUpdate, afterBulkCreate, afterBulkDestroy and
-     * afterBulkUpdate.
+     * beforeDestroy, beforeSave, beforeUpdate, afterCreate, afterDestroy, afterSave, afterUpdate, afterBulkCreate,
+     * afterBulkDestroy and afterBulkUpdate.
      */
     interface HooksDefineOptions<TInstance> {
 
@@ -2264,6 +2333,8 @@ declare namespace sequelize {
         afterDelete?: (instance: TInstance, options: Object, fn?: Function) => any;
         beforeUpdate?: (instance: TInstance, options: Object, fn?: Function) => any;
         afterUpdate?: (instance: TInstance, options: Object, fn?: Function) => any;
+        beforeSave?: (instance: TInstance, options: Object, fn?: Function) => any;
+        afterSave?: (instance: TInstance, options: Object, fn?: Function) => any;
         beforeBulkCreate?: (instances: TInstance[], options: Object, fn?: Function) => any;
         afterBulkCreate?: (instances: TInstance[], options: Object, fn?: Function) => any;
         beforeBulkDestroy?: (options: Object, fn?: Function) => any;
@@ -2724,6 +2795,7 @@ declare namespace sequelize {
          * Defaults to false
          */
         silent?: boolean;
+        hooks?: boolean;
 
     }
 
@@ -2775,12 +2847,15 @@ declare namespace sequelize {
         /**
          * Get the value of the underlying data value
          */
-        getDataValue(key: string): any;
+        getDataValue(key: keyof TAttributes): any;
 
         /**
          * Update the underlying data value
          */
-        setDataValue(key: string, value: any): void;
+        setDataValue<K extends keyof TAttributes>(
+            key: K,
+            value: TAttributes[K]
+        ): void;
 
         /**
          * If no key is given, returns all values of the instance, also invoking virtual getters.
@@ -2790,7 +2865,7 @@ declare namespace sequelize {
          *
          * @param options.plain If set to true, included instances will be returned as plain objects
          */
-        get(key: string, options?: { plain?: boolean, clone?: boolean }): any;
+        get(key: keyof TAttributes, options?: { plain?: boolean, clone?: boolean }): any;
         get(options?: { plain?: boolean, clone?: boolean }): TAttributes;
 
         /**
@@ -2817,9 +2892,17 @@ declare namespace sequelize {
          * @param options.raw If set to true, field and virtual setters will be ignored
          * @param options.reset Clear all previously set data values
          */
-        set(key: string, value: any, options?: InstanceSetOptions): this;
+        set<K extends keyof TAttributes>(
+            key: K,
+            value: TAttributes[K],
+            options?: InstanceSetOptions
+        ): this;
         set(keys: Object, options?: InstanceSetOptions): this;
-        setAttributes(key: string, value: any, options?: InstanceSetOptions): this;
+        setAttributes<K extends keyof TAttributes>(
+            key: K,
+            value: TAttributes[K],
+            options?: InstanceSetOptions
+        ): this;
         setAttributes(keys: Object, options?: InstanceSetOptions): this;
 
         /**
@@ -2830,13 +2913,16 @@ declare namespace sequelize {
          *
          * If changed is called without an argument and no keys have changed, it will return `false`.
          */
-        changed(key: string): boolean;
+        changed(key: keyof TAttributes): boolean;
         changed(): boolean | string[];
 
         /**
-         * Returns the previous value for key from `_previousDataValues`.
+         * If previous is called with a string, it will return the previous value for the key from `_previousDataValues`.
+         *
+         * If previous is called without an argument, it will return an object containing the previous keys and values that have changed.
          */
-        previous(key: string): any;
+        previous(key: keyof TAttributes): any;
+        previous(): object;
 
         /**
          * Validate this instance, and if the validation passes, persist it to the database.
@@ -2868,9 +2954,17 @@ declare namespace sequelize {
         /**
          * This is the same as calling `set` and then calling `save`.
          */
-        update(key: string, value: any, options?: InstanceUpdateOptions): Promise<this>;
+        update<K extends keyof TAttributes>(
+            key: K,
+            value: TAttributes[K],
+            options?: InstanceUpdateOptions
+        ): Promise<this>;
         update(keys: Object, options?: InstanceUpdateOptions): Promise<this>;
-        updateAttributes(key: string, value: any, options?: InstanceUpdateOptions): Promise<this>;
+        updateAttributes<K extends keyof TAttributes>(
+            key: K,
+            value: TAttributes[K],
+            options?: InstanceUpdateOptions
+        ): Promise<this>;
         updateAttributes(keys: Object, options?: InstanceUpdateOptions): Promise<this>;
 
         /**
@@ -2904,7 +2998,7 @@ declare namespace sequelize {
          *               If an array is provided, the same is true for each column.
          *               If and object is provided, each column is incremented by the value given.
          */
-        increment(fields: string | string[] | Object,
+        increment(fields: Partial<TAttributes> | Array<keyof TAttributes> | keyof TAttributes,
             options?: InstanceIncrementDecrementOptions): Promise<this>;
 
         /**
@@ -2927,7 +3021,7 @@ declare namespace sequelize {
          *               If an array is provided, the same is true for each column.
          *               If and object is provided, each column is decremented by the value given
          */
-        decrement(fields: string | string[] | Object,
+        decrement(fields: Partial<TAttributes> | Array<keyof TAttributes> | keyof TAttributes,
             options?: InstanceIncrementDecrementOptions): Promise<this>;
 
         /**
@@ -3097,11 +3191,11 @@ declare namespace sequelize {
         $ilike: string | WherePGStatement;
         $notLike: string | WherePGStatement;
         $notILike: string | WherePGStatement;
-        $between: [number, number];
-        "..": [number, number];
+        $between: [number, number] | [Date, Date];
+        "..": [number, number] | [string, string];
         $notBetween: [number, number];
-        "!..": [number, number];
-        $overlap: [number, number];
+        "!..": [number, number] | [string, string];
+        $overlap: [number, number] | [string, string];
         "&&": [number, number];
         $contains: any;
         "@>": any;
@@ -3115,8 +3209,9 @@ declare namespace sequelize {
      * We did put Object in the end, because there where query might be a JSON Blob. It cripples a bit the
      * typesafety, but there is no way to pass the tests if we just remove it.
      */
+    type Primitives = string | number | boolean | Buffer;
     type WhereOptions<T> = {
-        [P in keyof T]?: string | number | boolean | WhereLogic | WhereOptions<T[P]> | col | and | or | WhereGeometryOptions | Array<string | number> | null;
+        [P in keyof T]?: Primitives | Array<Primitives> | WhereLogic | (T[P] extends Primitives ? null : WhereOptions<T[P]>) | col | and | or | WhereGeometryOptions | WhereNested | where | null;
     };
 
     /**
@@ -3169,9 +3264,10 @@ declare namespace sequelize {
         as?: string;
 
         /**
-         * The association you want to eagerly load. (This can be used instead of providing a model/as pair)
+         * The association you want to eagerly load. (This can be used instead of providing a model/as pair).
+         * You can also use the association alias.
          */
-        association?: IncludeAssociation;
+        association?: IncludeAssociation | string;
 
         /**
          * Where clauses to apply to the child models. Note that this converts the eager load to an inner join,
@@ -3207,12 +3303,27 @@ declare namespace sequelize {
         paranoid?: boolean;
 
         all?: boolean | string;
+
+        /**
+         * if true, it will also eager load the relations of the child models, recursively.
+         */
+        nested?: boolean;
+
+        /**
+         * If true, runs a separate query to fetch the associated instances, only supported for hasMany associations
+         */
+        separate?: boolean;
     }
 
     /**
      * Shortcut for types used in FindOptions.attributes
      */
     type FindOptionsAttributesArray = Array<string | literal | [string, string] | fn | [fn, string] | cast | [cast, string] | [literal, string]>;
+
+    /**
+     * Shortcut for order type in FindOptions.attributes
+     */
+    type FindOptionsOrderArray = Array<string | number | Model<any, any> | { model: Model<any, any>, as?: string } | fn>;
 
     /**
      * Options that are passed to any model creating a SELECT query
@@ -3254,7 +3365,7 @@ declare namespace sequelize {
          * first element is the column / function to order by, the second is the direction. For example:
          * `order: [['name', 'DESC']]`. In this way the column will be escaped, but the direction will not.
          */
-        order?: string | col | literal | Array<string | number | Model<any, any> | { model: Model<any, any>, as?: string }> | Array<string | col | literal | Array<string | number | Model<any, any> | { model: Model<any, any>, as?: string }>>;
+        order?: string | col | literal | FindOptionsOrderArray | fn | Array<string | col | literal | FindOptionsOrderArray | fn>;
 
         /**
          * Limit the results
@@ -3289,7 +3400,6 @@ declare namespace sequelize {
          */
         group?: string | string[] | Object;
 
-
         /**
          * Apply DISTINCT(col) for FindAndCount(all)
          */
@@ -3304,6 +3414,13 @@ declare namespace sequelize {
          * Throw EmptyResultError if a record is not found
          */
         rejectOnEmpty?: boolean;
+
+       /**
+         * Force the query to use the write pool
+         *
+         * Defaults to false
+         */
+        useMaster?: boolean;
     }
 
     type AnyFindOptions = FindOptions<any>;
@@ -3322,6 +3439,11 @@ declare namespace sequelize {
          * Include options. See `find` for details
          */
         include?: Array<Model<any, any> | IncludeOptions>;
+
+        /**
+         * Apply column on which COUNT() should be applied
+         */
+        col?: string;
 
         /**
          * Apply COUNT(DISTINCT(col))
@@ -3378,7 +3500,7 @@ declare namespace sequelize {
     /**
      * Options for Model.findOrInitialize method
      */
-    interface FindOrInitializeOptions<TAttributes> extends AnyFindOptions {
+    interface FindOrInitializeOptions<TAttributes> extends FindOptions<TAttributes> {
 
         /**
          * Default values to use if building a new instance
@@ -3402,7 +3524,7 @@ declare namespace sequelize {
     /**
  * Options for Model.upsert method
      */
-    interface UpsertOptions extends FieldsOptions, LoggingOptions, SearchPathOptions {
+    interface UpsertOptions extends FieldsOptions, LoggingOptions, SearchPathOptions, ReturningOptions {
     }
 
     /**
@@ -3568,12 +3690,12 @@ declare namespace sequelize {
         limit?: number;
 
         /**
-             * Transaction to run query under
+         * Transaction to run query under
          */
         transaction?: Transaction;
 
         /**
-        * If true, the updatedAt timestamp will not be updated.
+         * If true, the updatedAt timestamp will not be updated.
          */
         silent?: boolean;
     }
@@ -3613,16 +3735,28 @@ declare namespace sequelize {
     }
 
     /**
+     * Models contains Model instances associated to their name
+     */
+    interface Models {
+        [index: string]: Model<any, any>;
+    }
+
+    /**
      * A Model represents a table in the database. Sometimes you might also see it referred to as model, or simply
      * as factory. This class should _not_ be instantiated directly, it is created using `sequelize.define`, and
      * already created models can be loaded using `sequelize.import`
      */
-    interface Model<TInstance, TAttributes> extends Hooks<TInstance>, Associations {
+    interface Model<TInstance, TAttributes, TCreationAttributes = TAttributes> extends Hooks<TInstance>, Associations {
 
         /**
          * The Instance class
          */
         Instance(): TInstance;
+
+        /**
+         * The singular name of the model
+         */
+        name: string;
 
         /**
          * Remove attribute from model definition
@@ -3680,64 +3814,64 @@ declare namespace sequelize {
         addScope(name: string, scope: AnyFindOptions | Function, options?: AddScopeOptions): void;
 
         /**
-             * Add a new scope to the model. This is especially useful for adding scopes with includes, when the model you want to include is not available at the time this model is defined.
-             *
-             * By default this will throw an error if a scope with that name already exists. Pass `override: true` in the options object to silence this error.
-             *
-             * @param {String}          name The name of the scope. Use `defaultScope` to override the default scope
-             * @param {Object|Function} scope
-             * @param {Object}          [options]
-             * @param {Boolean}         [options.override=false]
-             */
+         * Add a new scope to the model. This is especially useful for adding scopes with includes, when the model you want to include is not available at the time this model is defined.
+         *
+         * By default this will throw an error if a scope with that name already exists. Pass `override: true` in the options object to silence this error.
+         *
+         * @param {String}          name The name of the scope. Use `defaultScope` to override the default scope
+         * @param {Object|Function} scope
+         * @param {Object}          [options]
+         * @param {Boolean}         [options.override=false]
+         */
         addScope(name: string, scope: AnyFindOptions | Function, options?: AddScopeOptions): void;
 
         /**
- * Apply a scope created in `define` to the model. First let's look at how to create scopes:
- * ```js
- * var Model = sequelize.define('model', attributes, {
- *   defaultScope: {
- *     where: {
- *       username: 'dan'
- *     },
- *     limit: 12
- *   },
- *   scopes: {
- *     isALie: {
- *       where: {
- *         stuff: 'cake'
- *       }
- *     },
- *     complexFunction: function(email, accessLevel) {
- *       return {
- *         where: {
- *           email: {
- *             $like: email
- *           },
- *           accesss_level {
- *             $gte: accessLevel
- *           }
- *         }
- *       }
- *     }
- *   }
- * })
- * ```
- * Now, since you defined a default scope, every time you do Model.find, the default scope is appended to
- * your query. Here's a couple of examples:
- * ```js
- * Model.findAll() // WHERE username = 'dan'
- * Model.findAll({ where: { age: { gt: 12 } } }) // WHERE age > 12 AND username = 'dan'
- * ```
- *
- * To invoke scope functions you can do:
- * ```js
- * Model.scope({ method: ['complexFunction' 'dan@sequelize.com', 42]}).findAll()
- * // WHERE email like 'dan@sequelize.com%' AND access_level >= 42
- * ```
- *
- * @return Model A reference to the model, with the scope(s) applied. Calling scope again on the returned
- *     model will clear the previous scope.
- */
+         * Apply a scope created in `define` to the model. First let's look at how to create scopes:
+         * ```js
+         * var Model = sequelize.define('model', attributes, {
+         *   defaultScope: {
+         *     where: {
+         *       username: 'dan'
+         *     },
+         *     limit: 12
+         *   },
+         *   scopes: {
+         *     isALie: {
+         *       where: {
+         *         stuff: 'cake'
+         *       }
+         *     },
+         *     complexFunction: function(email, accessLevel) {
+         *       return {
+         *         where: {
+         *           email: {
+         *             $like: email
+         *           },
+         *           accesss_level {
+         *             $gte: accessLevel
+         *           }
+         *         }
+         *       }
+         *     }
+         *   }
+         * })
+         * ```
+         * Now, since you defined a default scope, every time you do Model.find, the default scope is appended to
+         * your query. Here's a couple of examples:
+         * ```js
+         * Model.findAll() // WHERE username = 'dan'
+         * Model.findAll({ where: { age: { gt: 12 } } }) // WHERE age > 12 AND username = 'dan'
+         * ```
+         *
+         * To invoke scope functions you can do:
+         * ```js
+         * Model.scope({ method: ['complexFunction' 'dan@sequelize.com', 42]}).findAll()
+         * // WHERE email like 'dan@sequelize.com%' AND access_level >= 42
+         * ```
+         *
+         * @return Model A reference to the model, with the scope(s) applied. Calling scope again on the returned
+         *     model will clear the previous scope.
+         */
         scope(options?: string | ScopeOptions | AnyWhereOptions | Array<string | ScopeOptions | AnyWhereOptions>): this;
 
         /**
@@ -3809,8 +3943,18 @@ declare namespace sequelize {
          * Search for a single instance by its primary key. This applies LIMIT 1, so the listener will
          * always be called with a single instance.
          */
-        findById<TCustomAttributes>(identifier?: number | string, options?: FindOptions<TAttributes & TCustomAttributes>): Promise<TInstance | null>;
-        findByPrimary<TCustomAttributes>(identifier?: number | string, options?: FindOptions<TAttributes & TCustomAttributes>): Promise<TInstance | null>;
+        findById<TCustomAttributes>(
+          identifier?: number | string | Buffer,
+          options?: Omit<FindOptions<TAttributes & TCustomAttributes>, 'where'>,
+        ): Promise<TInstance | null>;
+        findByPrimary<TCustomAttributes>(
+          identifier?: number | string | Buffer,
+          options?: Omit<FindOptions<TAttributes & TCustomAttributes>, 'where'>,
+        ): Promise<TInstance | null>;
+        findByPk<TCustomAttributes>(
+          identifier?: number | string | Buffer,
+          options?: Omit<FindOptions<TAttributes & TCustomAttributes>, 'where'>,
+        ): Promise<TInstance | null>;
 
         /**
          * Search for a single instance. This applies LIMIT 1, so the listener will always be called with a single
@@ -3903,7 +4047,7 @@ declare namespace sequelize {
         /**
          * Builds a new model instance and calls save on it.
          */
-        create(values?: TAttributes, options?: CreateOptions): Promise<TInstance>;
+        create(values?: TCreationAttributes, options?: CreateOptions): Promise<TInstance>;
 
         /**
          * Find a row that matches the query, or build (but don't save) the row if none is found.
@@ -3926,32 +4070,34 @@ declare namespace sequelize {
         findOrCreate(options: FindOrInitializeOptions<TAttributes>): Promise<[TInstance, boolean]>;
 
         /**
-             * A more performant findOrCreate that will not work under a transaction (at least not in postgres)
-             * Will execute a find call, if empty then attempt to create, if unique constraint then attempt to find again
-             */
+         * A more performant findOrCreate that will not work under a transaction (at least not in postgres)
+         * Will execute a find call, if empty then attempt to create, if unique constraint then attempt to find again
+         */
         findCreateFind<TCustomAttributes>(options: FindCreateFindOptions<TAttributes & TCustomAttributes>): Promise<[TInstance, boolean]>;
 
         /**
- * Insert or update a single row. An update will be executed if a row which matches the supplied values on
- * either the primary key or a unique key is found. Note that the unique index must be defined in your
- * sequelize model and not just in the table. Otherwise you may experience a unique constraint violation,
- * because sequelize fails to identify the row that should be updated.
- *
- * **Implementation details:**
- *
- * * MySQL - Implemented as a single query `INSERT values ON DUPLICATE KEY UPDATE values`
- * * PostgreSQL - Implemented as a temporary function with exception handling: INSERT EXCEPTION WHEN
- *   unique_constraint UPDATE
- * * SQLite - Implemented as two queries `INSERT; UPDATE`. This means that the update is executed
- * regardless
- *   of whether the row already existed or not
- *
- * **Note** that SQLite returns undefined for created, no matter if the row was created or updated. This is
- * because SQLite always runs INSERT OR IGNORE + UPDATE, in a single query, so there is no way to know
- * whether the row was inserted or not.
- */
-        upsert(values: TAttributes, options?: UpsertOptions): Promise<boolean>;
-        insertOrUpdate(values: TAttributes, options?: UpsertOptions): Promise<boolean>;
+         * Insert or update a single row. An update will be executed if a row which matches the supplied values on
+         * either the primary key or a unique key is found. Note that the unique index must be defined in your
+         * sequelize model and not just in the table. Otherwise you may experience a unique constraint violation,
+         * because sequelize fails to identify the row that should be updated.
+         *
+         * **Implementation details:**
+         *
+         * * MySQL - Implemented as a single query `INSERT values ON DUPLICATE KEY UPDATE values`
+         * * PostgreSQL - Implemented as a temporary function with exception handling: INSERT EXCEPTION WHEN
+         *   unique_constraint UPDATE
+         * * SQLite - Implemented as two queries `INSERT; UPDATE`. This means that the update is executed
+         * regardless
+         *   of whether the row already existed or not
+         *
+         * **Note** that SQLite returns undefined for created, no matter if the row was created or updated. This is
+         * because SQLite always runs INSERT OR IGNORE + UPDATE, in a single query, so there is no way to know
+         * whether the row was inserted or not.
+         */
+        upsert(values: TAttributes, options?: UpsertOptions & { returning?: false | undefined }): Promise<boolean>;
+        upsert(values: TAttributes, options?: UpsertOptions & { returning: true }): Promise<[TInstance, boolean]>;
+        insertOrUpdate(values: TAttributes, options?: UpsertOptions & { returning: false | undefined }): Promise<boolean>;
+        insertOrUpdate(values: TAttributes, options?: UpsertOptions & { returning: true }): Promise<[TInstance, boolean]>;
 
         /**
          * Create and insert multiple instances in bulk.
@@ -3988,7 +4134,7 @@ declare namespace sequelize {
          * elements. The first element is always the number of affected rows, while the second element is the actual
          * affected rows (only supported in postgres with `options.returning` true.)
          */
-        update(values: TAttributes, options: UpdateOptions): Promise<[number, TInstance[]]>;
+        update(values: Partial<TAttributes>, options?: UpdateOptions): Promise<[number, TInstance[]]>;
 
         /**
          * Run a describe query on the table. The result will be return to the listener as a hash of attributes and
@@ -4000,6 +4146,22 @@ declare namespace sequelize {
          * Unscope the model
          */
         unscoped(): this;
+
+        /**
+         * Set associations with other models
+         *
+         * Not part of the sequelize API, used as convention to associate models after creation. e.g.:
+         * ```js
+         * Object.keys(models).forEach(modelName => {
+         *   if (models[modelName].associate) {
+         *     models[modelName].associate(models);
+         *   }
+         * });
+         * ```
+         *
+         * @param models
+         */
+        associate?(models: Models): void;
 
     }
 
@@ -4020,6 +4182,11 @@ declare namespace sequelize {
          * A function that gets executed while running the query to log the sql.
          */
         logging?: boolean | Function;
+
+        /**
+         * An optional transaction to perform this query in
+         */
+        transaction?: Transaction;
 
     }
 
@@ -4160,13 +4327,14 @@ declare namespace sequelize {
         /**
          * Adds a new column to a table
          */
-        addColumn(table: string, key: string, attribute: DefineAttributeColumnOptions | DataTypeAbstract,
+        addColumn(tableName: string | { tableName?: string, schema?: string }, key: string, attribute: DefineAttributeColumnOptions | DataTypeAbstract,
             options?: QueryInterfaceOptions): Promise<void>;
 
         /**
          * Removes a column from a table
          */
-        removeColumn(table: string, attribute: string, options?: QueryInterfaceOptions): Promise<void>;
+        removeColumn(tableName: string | { tableName?: string, schema?: string }, attribute: string,
+            options?: QueryInterfaceOptions): Promise<void>;
 
         /**
          * Changes a column
@@ -4185,6 +4353,7 @@ declare namespace sequelize {
         /**
          * Adds a new index to a table
          */
+        addIndex(tableName: string | Object, options: DefineIndexOptions & { fields: string[] }, rawTablename?: string): Promise<void>;
         addIndex(tableName: string | Object, attributes: string[], options?: DefineIndexOptions,
             rawTablename?: string): Promise<void>;
 
@@ -4199,9 +4368,9 @@ declare namespace sequelize {
         nameIndexes(indexes: string[], rawTablename: string): Promise<void>;
 
         /**
-         * Returns all foreign key constraints of a table
+         * Returns all foreign key constraints of each table in list
          */
-        getForeignKeysForTables(tableNames: string, options?: QueryInterfaceOptions): Promise<Object>;
+        getForeignKeysForTables(tableNames: string[], options?: QueryInterfaceOptions): Promise<Object>;
 
         /**
          * Removes an index of a table
@@ -4234,7 +4403,7 @@ declare namespace sequelize {
         /**
          * Inserts multiple records at once
          */
-        bulkInsert(tableName: string, records: Object[], options?: QueryOptions,
+        bulkInsert(tableName: string | { tableName: string, schema: string }, records: Object[], options?: QueryOptions,
             attributes?: string[] | string): Promise<Object>;
 
         /**
@@ -4556,6 +4725,20 @@ declare namespace sequelize {
     }
 
     /**
+     * Interface for Attributes provided for a column
+     *
+     * @see Sequelize.define
+     */
+    type DefineModelAttributes<T> = {
+
+        /**
+         * The description of a database column for model
+         */
+        [P in keyof T]: string | DataTypeAbstract | DefineAttributeColumnOptions;
+
+    }
+
+    /**
      * Interface for query options
      *
      * @see Options
@@ -4603,10 +4786,10 @@ declare namespace sequelize {
         bind?: Object | string[];
 
         /**
- * Force the query to use the write pool, regardless of the query type.
- *
- * Defaults to false
- */
+         * Force the query to use the write pool, regardless of the query type.
+         *
+         * Defaults to false
+         */
         useMaster?: boolean;
 
         /**
@@ -4835,16 +5018,33 @@ declare namespace sequelize {
 
     }
 
+    type IndexType = 'UNIQUE' | 'FULLTEXT' | 'SPATIAL';
+
     interface DefineIndexOptions {
         /**
          * The index type
          */
-        indicesType?: 'UNIQUE' | 'FULLTEXT' | 'SPATIAL';
+        indicesType?: IndexType;
+
+        /**
+         * The index type
+         */
+        type?: IndexType;
 
         /**
          * The name of the index. Default is __
          */
         indexName?: string;
+
+        /**
+         * Create a unique index
+         */
+        unique?: boolean;
+
+        /**
+         * The name of the index. Default is Default is <table>_<attr1>_<attr2>
+         */
+        name?: string;
 
         /**
          * For FULLTEXT columns set your parser
@@ -4862,9 +5062,24 @@ declare namespace sequelize {
         logging?: Function;
 
         /**
+         * Create an unique index
+         */
+        using?: string;
+
+        /**
+         * Index operator
+         */
+        operator?: string;
+
+        /**
          * A hash of attributes to limit your index(Filtered Indexes - MSSQL & PostgreSQL only)
          */
         where?: AnyWhereOptions;
+
+        /**
+         * Pass CONCURRENT so other operations run while the index is created - PostgresSQL only. Default is false
+         */
+        concurrently?: boolean;
     }
 
     /**
@@ -4882,7 +5097,7 @@ declare namespace sequelize {
         /**
          * Index type. Only used by mysql. One of `UNIQUE`, `FULLTEXT` and `SPATIAL`
          */
-        index?: string;
+        type?: IndexType;
 
         /**
          * The method to create the index by (`USING` statement in SQL). BTREE and HASH are supported by mysql and
@@ -5103,7 +5318,16 @@ declare namespace sequelize {
          */
         classMethods?: Object;
 
+        /**
+         * Change the database schema. PG only feature, but also works with other dialects.
+         */
         schema?: string;
+
+
+        /**
+         * Change the database schema delimiter. Defaults to "." on PG but for other dialects can be also changed to "_".
+         */
+        schemaDelimiter?: string;
 
         /**
          * You can also change the database engine, e.g. to MyISAM. InnoDB is the default.
@@ -5120,6 +5344,11 @@ declare namespace sequelize {
         collate?: string;
 
         /**
+         * Specify the ROW_FORMAT for use with the MySQL InnoDB engine.
+         */
+        rowFormat?: string;
+
+        /**
          * Set the initial AUTO_INCREMENT value for the table in MySQL.
          */
         initialAutoIncrement?: string;
@@ -5127,9 +5356,10 @@ declare namespace sequelize {
         /**
          * An object of hook function that are called before and after certain lifecycle events.
          * The possible hooks are: beforeValidate, afterValidate, beforeBulkCreate, beforeBulkDestroy,
-         * beforeBulkUpdate, beforeCreate, beforeDestroy, beforeUpdate, afterCreate, afterDestroy, afterUpdate,
-         * afterBulkCreate, afterBulkDestory and afterBulkUpdate. See Hooks for more information about hook
-         * functions and their signatures. Each property can either be a function, or an array of functions.
+         * beforeBulkUpdate, beforeCreate, beforeDestroy, beforeSave, beforeUpdate, afterCreate, afterDestroy,
+         * afterSave, afterUpdate, afterBulkCreate, afterBulkDestory and afterBulkUpdate.
+         * See Hooks for more information about hook functions and their signatures. Each property can either
+         * be a function, or an array of functions.
          */
         hooks?: HooksDefineOptions<TInstance>;
 
@@ -5146,6 +5376,11 @@ declare namespace sequelize {
          * Set to true or a string with the attribute name you want to use to enable.
          */
         version?: boolean | string;
+
+        /**
+         * Throws an error when no records found
+         */
+        rejectOnError?: boolean | Error;
     }
 
     /**
@@ -5249,7 +5484,7 @@ declare namespace sequelize {
             username?: string;
             password?: string;
             database?: string;
-        };
+        }[];
 
         write?: {
             host?: string;
@@ -5271,7 +5506,7 @@ declare namespace sequelize {
         /**
          * Only retry a query if the error matches one of these strings.
          */
-        match?: string[];
+        match?: (string|RegExp|Error)[];
 
         /**
          * How many times a failing query is automatically retried. Set to 0 to disable retrying on SQL_BUSY error.
@@ -5550,6 +5785,13 @@ declare namespace sequelize {
          * Pass object to limit set of aliased operators or false to disable completely.
          */
         operatorsAliases?: boolean | OperatorsAliases;
+
+        /**
+         * Set to `true` to enable connecting over SSL.
+         *
+         * Defaults to undefined
+         */
+        ssl?: boolean;
     }
 
     /**
@@ -5756,6 +5998,15 @@ declare namespace sequelize {
         cls: any;
         useCLS(namespace:cls.Namespace): Sequelize;
 
+        /**
+         * Default export for `import Sequelize from 'sequelize';` kind of imports
+         */
+        default: SequelizeStatic;
+
+        /**
+         * Export sequelize static on the instance for `import Sequelize from 'sequelize';` kind of imports
+         */
+        Sequelize: SequelizeStatic;
     }
 
     interface QueryOptionsTransactionRequired { }
@@ -5854,8 +6105,8 @@ declare namespace sequelize {
          * @param options    These options are merged with the default define options provided to the Sequelize
          *                   constructor
          */
-        define<TInstance, TAttributes>(modelName: string, attributes: DefineAttributes,
-            options?: DefineOptions<TInstance>): Model<TInstance, TAttributes>;
+        define<TInstance, TAttributes, TCreationAttributes = TAttributes>(modelName: string, attributes: DefineModelAttributes<TCreationAttributes>,
+            options?: DefineOptions<TInstance>): Model<TInstance, TAttributes, TCreationAttributes>;
 
         /**
          * Fetch a Model which is already defined
@@ -6059,9 +6310,9 @@ declare namespace sequelize {
          * @param options Transaction Options
          * @param autoCallback Callback for the transaction
          */
-        transaction(options: TransactionOptions,
-            autoCallback: (t: Transaction) => PromiseLike<any>): Promise<any>;
-        transaction(autoCallback: (t: Transaction) => PromiseLike<any>): Promise<any>;
+        transaction<T>(options: TransactionOptions,
+            autoCallback: (t: Transaction) => PromiseLike<T>): Promise<T>;
+        transaction<T>(autoCallback: (t: Transaction) => PromiseLike<T>): Promise<T>;
         transaction(options?: TransactionOptions): Promise<Transaction>;
 
         /**
@@ -6071,13 +6322,17 @@ declare namespace sequelize {
          * Normally this is done on process exit, so you only need to call this method if you are creating multiple
          * instances, and want to garbage collect some of them.
          */
-        close(): void;
+        close(): Promise<void>;
 
         /**
          * Returns the database version
          */
         databaseVersion(): Promise<string>;
 
+        /**
+         * Get the fn for random based on the dialect
+         */
+        random(): fn;
     }
 
     //
@@ -6332,6 +6587,16 @@ declare namespace sequelize {
          * A function that gets executed while running the query to log the sql.
          */
         logging?: Function;
+
+        /**
+         * Specify the parent transaction so that this transaction is nested or a save point within the parent
+         */
+        transaction?: Transaction;
+
+        /**
+         * Sets the constraints to be deferred or immediately checked.
+         */
+        deferrable?: Deferrable[keyof Deferrable];
 
     }
 

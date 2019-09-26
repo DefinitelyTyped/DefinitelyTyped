@@ -1,9 +1,9 @@
-// Type definitions for http-proxy-middleware 0.17
+// Type definitions for http-proxy-middleware 0.19
 // Project: https://github.com/chimurai/http-proxy-middleware
 // Definitions by: Zebulon McCorkle <https://github.com/zebMcCorkle>
 //                 BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 /// <reference types="node" />
 
@@ -12,12 +12,13 @@ import * as net from "net";
 import * as tls from "tls";
 import * as connect from "connect";
 import * as httpProxy from "http-proxy";
+import { Readable } from 'stream';
 
 declare function proxy(config: proxy.Config): proxy.Proxy;
-declare function proxy(contextOrUri: string | string[] | proxy.Filter, config: proxy.Config): proxy.Proxy;
+declare function proxy(contextOrUri: string | string[] | proxy.Filter, config?: proxy.Config): proxy.Proxy;
 
 declare namespace proxy {
-  type Filter = (pathanme: string, req: http.IncomingMessage) => boolean;
+  type Filter = (pathname: string, req: http.IncomingMessage) => boolean;
   type Logger = (...args: any[]) => void;
   interface LogProvider {
     log: Logger;
@@ -52,13 +53,19 @@ declare namespace proxy {
     ignorePath?: boolean;
     localAddress?: string;
     changeOrigin?: boolean;
+    preserveHeaderKeyCase?: boolean;
     auth?: string;
     hostRewrite?: string;
     autoRewrite?: boolean;
     protocolRewrite?: string;
     cookieDomainRewrite?: false | string | { [domain: string]: string };
+    cookiePathRewrite?: false | string | { [path: string]: string };
     headers?: { [header: string]: string };
     proxyTimeout?: number;
+    timeout?: number;
+    followRedirects?: boolean;
+    selfHandleResponse?: boolean;
+    buffer?: Readable;
     /**
      * @deprecated
      */

@@ -1,44 +1,53 @@
 import * as React from 'react';
-import {
-  Text
-} from 'react-native';
-import ScrollableTabView from 'react-native-scrollable-tab-view';
+import { Text, TextStyle, View, ViewStyle } from 'react-native';
+import ScrollableTabView, { ScrollableTabBar, TabProps, DefaultTabBar } from 'react-native-scrollable-tab-view';
 
-interface MyTextProperties extends React.Props<MyText> {
-  tabLabel: string;
-
-  text: string;
-}
-class MyText extends React.Component<MyTextProperties> {
-  constructor(props: MyTextProperties) {
-    super(props);
-  }
-
-  render(): JSX.Element {
-    return(
-      <Text>this.props.text</Text>
-    );
-  }
+interface MyTextProps {
+    style?: TextStyle;
 }
 
-class ScrollableTabViewDemo extends React.Component {
-  constructor(props: ScrollableTabViewDemo) {
-    super(props);
-  }
+const MyText: React.SFC<TabProps<MyTextProps>> = (props) => (
+    <Text style={props.style}>{props.children}</Text>
+);
 
-  render(): JSX.Element {
-    return (
-      <ScrollableTabView>
-        <MyText tabLabel='t1' text='t1'></MyText>
-        <MyText tabLabel='t2' text='t2'></MyText>
-        <MyText tabLabel='t3' text='t3'></MyText>
-      </ScrollableTabView>
-    );
-  }
-
-  componentWillMount?(): void {
-  }
-
-  componentWillUnmount?(): void {
-  }
+interface MyViewProps {
+    style?: ViewStyle;
 }
+
+class MyView extends React.Component<TabProps<MyViewProps>> {
+    render() {
+        return (
+            <View style={this.props.style}>{this.props.children}</View>
+        );
+    }
+}
+
+const TabView1 = () => (
+    <ScrollableTabView
+        style={{ marginTop: 20, }}
+        initialPage={0}
+        renderTabBar={() => <ScrollableTabBar />}
+    >
+        <MyText tabLabel='Tab #1'>My</MyText>
+        <MyText tabLabel='Tab #2 word word'>favorite</MyText>
+        <MyText tabLabel='Tab #3 word word word'>project</MyText>
+        <MyView tabLabel='Tab #4 word word word word'><Text>favorite</Text></MyView>
+        <MyView tabLabel='Tab #5'><Text>project</Text></MyView>
+    </ScrollableTabView>
+);
+
+const DefaultTabBarView2 = () => (
+    <ScrollableTabView
+        style={{ marginTop: 20, }}
+        initialPage={0}
+        renderTabBar={() => <DefaultTabBar style={{
+            height: 35, paddingTop: 5, backgroundColor: '#FFFFFF', borderWidth: 1
+        }}/>}
+    >
+        <MyText tabLabel='Tab #1'>My</MyText>
+        <MyText tabLabel='Tab #2 word word'>favorite</MyText>
+        <MyText tabLabel='Tab #3 word word word'>project</MyText>
+        <MyView tabLabel='Tab #4 word word word word'><Text>favorite</Text></MyView>
+        <MyView tabLabel='Tab #5'><Text>project</Text></MyView>
+    </ScrollableTabView>
+);

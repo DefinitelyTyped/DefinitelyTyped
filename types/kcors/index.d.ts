@@ -2,7 +2,7 @@
 // Project: https://github.com/koajs/cors
 // Definitions by: Xavier Stouder <https://github.com/Xstoudi>, Izayoi Ko <https://github.com/izayoiko>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 
 import * as Koa from "koa";
 
@@ -11,7 +11,7 @@ export = cors;
 
 declare namespace cors {
     interface Options {
-        origin?: ((req: Koa.Request) => string) | string;
+        origin?: ((ctx: Koa.Context) => string) | string;
         allowMethods?: string[] | string;
         exposeHeaders?: string[] | string;
         allowHeaders?: string[] | string;

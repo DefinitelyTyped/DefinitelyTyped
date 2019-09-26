@@ -19,6 +19,7 @@ resultObj = Factory.build('some');
 Factory.define('coach')
   .option('buildPlayer', false)
   .sequence('id')
+  .sequence('name', (i: number) => `Coach${i}`)
   .attr('players', ['id', 'buildPlayer'], function(id: any, buildPlayer: boolean) {
     if (buildPlayer) {
       return [Factory.build('player', {coach_id: id})];
@@ -47,10 +48,12 @@ const personFactory = Factory.define<Person>('Person').attr('firstName', 'John')
 // Building does not require the first (attributes) and second (options) arguments
 personFactory.build();
 personFactory.buildList(3);
+personFactory.attributes();
 
 // Building with attributes does not require the second (options) argument
 personFactory.build({ firstName: "John" });
 personFactory.buildList(3, { firstName: "John" });
+personFactory.attributes({ firstName: "John" });
 
 // It will automatically type up to five dependencies
 personFactory.attr('fullName', ['firstName'], firstName => firstName);
@@ -66,6 +69,21 @@ personFactory.attr('secretCode', ['firstName', 'lastName', 'age', 'age', 'firstN
 const person = Factory.build<Person>('Person');
 let aString = '';
 aString = person.firstName;
+
+// Unregistered factories
+const unregisteredPersonFactory = new Factory<Person>();
+
+unregisteredPersonFactory.attr('firstName', 'John').sequence('id');
+
+// Sequence with dependencies
+unregisteredPersonFactory.sequence('lastName', ['age'], (i: number, age: number) => `Doe ${i} ${age}`)
+
+// Unregistered extended factories
+
+const unregisteredExtendedPersonFactory = new Factory().extend(unregisteredPersonFactory)
+
+unregisteredExtendedPersonFactory.attr('firstName', 'John2')
+unregisteredExtendedPersonFactory.sequence('lastName', ['age'], (i: number) => `Doe2 ${i}`)
 
 class CustomClass {
   type: string;

@@ -846,9 +846,11 @@ declare namespace Xrm {
 
         /**
          * Re-evaluates the ribbon's configured EnableRules.
+         * @param refreshAll Indicates whether all the ribbon command bars on the current page are refreshed. If you specify false only the page-level ribbon command bar is refreshed.
+         * If you do not specifiy this parameter, by default false is passed.
          * @remarks This method does not work with Microsoft Dynamics CRM for tablets.
          */
-        refreshRibbon(): void;
+        refreshRibbon(refreshAll?: boolean): void;
 
         /**
          * The business process flow API, used to interact with the business process flow control in a form.
@@ -970,7 +972,7 @@ declare namespace Xrm {
          * Opens a lookup control to select one or more items.
          * @param lookupOptions Defines the options for opening the lookup dialog
          */
-        lookupObjects(lookupOptions: LookupOptions): Async.PromiseLike<LookupValue>;
+        lookupObjects(lookupOptions: LookupOptions): Async.PromiseLike<LookupValue[]>;
 
         /**
          * Refreshes the parent grid containing the specified record.
@@ -1121,13 +1123,13 @@ declare namespace Xrm {
          * @deprecated Use {@link Xrm.WebApi.retrieveRecord} instead.
          * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
          */
-        retrieveRecord(entityType: string, id: string, options: string): Async.PromiseLike<Async.OfflineOperationSuccessCallbackObject>;
+        retrieveRecord(entityType: string, id: string, options?: string): Async.PromiseLike<Async.OfflineOperationSuccessCallbackObject>;
 
         /**
          * Retrieves a collection of entity records in mobile clients while working in the offline mode.
          *
          * @param entityType The logical name of the entity.
-         * @param options (Optional) The logical name of the enti
+         * @param options (Optional) The logical name of the entity
          * @param maxPageSize (Optional) A positive number to indicates the number of entity records to be returned per page.
          * * If you do not specify this parameter, the default value is passed as 5000.
          * * If the number of records being retrieved is more than maxPageSize, an @odata.nextLink property
@@ -1144,7 +1146,7 @@ declare namespace Xrm {
          * @deprecated Use {@link Xrm.WebApi.retrieveMultipleRecords} instead.
          * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
          */
-        retrieveMultipleRecords(entityType: string, options: string, maxPageSize: number): Async.PromiseLike<Array<{ [key: string]: any }>>;
+        retrieveMultipleRecords(entityType: string, options?: string, maxPageSize?: number): Async.PromiseLike<Array<{ [key: string]: any }>>;
 
         /**
          * Updates an entity record in mobile clients while working in the offline mode.
@@ -1299,19 +1301,24 @@ declare namespace Xrm {
         type IterativeDelegate<T> = (item: T, index?: number) => void;
 
         /**
-         * Interface for an item collection.
-         * @param T Generic type parameter.
+         * Defines collections that are index-able by string
+         * @param Generic type parameter.
          */
         interface Dictionary<T> {
             [key: string]: T;
-            [index: number]: T;
         }
+
+        /**
+         * Defines item collections that are index-able by string
+         * @param Generic type parameter.
+         */
+        type StringIndexableItemCollection<T> = Dictionary<T> & ItemCollection<T>;
 
         /**
          * Collections are structures to provide access to data that represent an array, but without the ability to modify the data in the array.
          * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/collections External Link: Collections (Client API reference)}
          */
-        type ItemCollection<T> = Dictionary<T> & {
+        interface ItemCollection<T> {
             /**
              * Applies an operation to all items in this collection.
              * @param delegate An iterative delegate function
@@ -1367,7 +1374,7 @@ declare namespace Xrm {
              * @returns The length.
              */
             getLength(): number;
-        };
+        }
     }
 
     /**
@@ -2095,7 +2102,7 @@ declare namespace Xrm {
              * * optionset
              * * string
              */
-            getAttributeType(): string;
+            getAttributeType(): AttributeType;
 
             /**
              * Gets the attribute format.
@@ -2900,7 +2907,7 @@ declare namespace Xrm {
              * Removes the handler from the "pre search" event of the Lookup control.
              * @param handler The handler.
              */
-            removePreSearch(handler: () => void): void;
+            removePreSearch(handler: Events.ContextSensitiveHandler): void;
 
             /**
              * Sets the Lookup's default view.
@@ -3266,6 +3273,12 @@ declare namespace Xrm {
          */
         interface Tab extends UiStandardElement, UiFocusable {
             /**
+             * Adds a function to be called when the TabStateChange event occurs.
+             * @param handler The function to be executed on the TabStateChange event.
+             */
+            addTabStateChange(handler: Events.ContextSensitiveHandler): void;
+
+            /**
              * Gets display state of the tab.
              * @returns The display state, as either "expanded" or "collapsed"
              */
@@ -3282,6 +3295,12 @@ declare namespace Xrm {
              * @returns The parent.
              */
             getParent(): Ui;
+
+            /**
+             * Removes a function to be called when the TabStateChange event occurs.
+             * @param handler The function to be removed from the TabStateChange event.
+             */
+            removeTabStateChange(handler: Events.ContextSensitiveHandler): void;
 
             /**
              * Sets display state of the tab.
@@ -3488,6 +3507,13 @@ declare namespace Xrm {
         getEntityName(): string;
 
         /**
+         * Gets a lookup value that references the record.
+         * @returns A lookup value that references the record.
+         * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/formcontext-data-entity/getentityreference External Link: getEntityReference API Documentation}
+         */
+        getEntityReference(): LookupValue;
+
+        /**
          * Gets the record's unique identifier.
          * @returns The identifier, in Guid format.
          * @example Example: "{825CB223-A651-DF11-AA8B-00155DBA3804}".
@@ -3508,6 +3534,12 @@ declare namespace Xrm {
         getPrimaryAttributeValue(): string;
 
         /**
+         * Gets a boolean value indicating whether all of the entity data is valid.
+         * @returns true if all of the entity data is valid; false otherwise.
+         */
+        isValid(): boolean;
+
+        /**
          * Removes the handler from the "on save" event.
          * @param handler The handler.
          */
@@ -3515,8 +3547,6 @@ declare namespace Xrm {
 
         /**
          * Saves the record.
-         * @deprecated Deprecated in v9.
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
          * @remarks  When using quick create forms in the web application the saveandnew option is not
          *           applied. It will always work as if saveandclose were used. Quick create forms in
          *           Microsoft Dynamics CRM for tablets will apply the saveandnew behavior.
@@ -3525,11 +3555,9 @@ declare namespace Xrm {
 
         /**
          * Saves the record with the given save mode.
-         * @deprecated Deprecated in v9.
-         * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
-         * @param saveMode (Optional) the save mode to save, as either "saveandclose" or "saveandnew".
+         * @param saveMode (Optional) the save mode to save, as either "saveandclose" or "saveandnew".  If no parameter is included in the method, the record will simply be saved.
          */
-        save(saveMode: EntitySaveMode): void;
+        save(saveMode?: EntitySaveMode): void;
 
         /**
          * The collection of attributes for the record.
@@ -3678,14 +3706,14 @@ declare namespace Xrm {
              * Returns all process instances for the entity record that the calling user has access to.
              * @param callbackFunction (Optional) a function to call when the operation is complete.
              */
-            getProcessInstances(callbackFunction: GetProcessInstancesDelegate): void;
+            getProcessInstances(callbackFunction?: GetProcessInstancesDelegate): void;
 
             /**
              * Sets a process instance as the active instance
              * @param processInstanceId The Id of the process instance to make the active instance.
              * @param callbackFunction (Optional) a function to call when the operation is complete.
              */
-            setActiveProcessInstance(processInstanceId: string, callbackFunction: SetProcessInstanceDelegate): void;
+            setActiveProcessInstance(processInstanceId: string, callbackFunction?: SetProcessInstanceDelegate): void;
 
             /**
              * Returns a Stage object representing the active stage.
@@ -3823,7 +3851,7 @@ declare namespace Xrm {
              * @param status The new status for the process
              * @param callbackFunction (Optional) a function to call when the operation is complete.
              */
-            setStatus(status: ProcessStatus, callbackFunction: ProcessSetStatusDelegate): void;
+            setStatus(status: ProcessStatus, callbackFunction?: ProcessSetStatusDelegate): void;
         }
 
         /**
@@ -4184,6 +4212,13 @@ declare namespace Xrm {
             confirmed: boolean;
         }
 
+        interface OpenFormResult {
+            /**
+             * Identifies the record displayed or created
+             */
+            savedEntityReference: LookupValue[];
+        }
+
         /**
          * Details to show in the Error dialog
          */
@@ -4340,31 +4375,30 @@ declare namespace Xrm {
          * @param alertStrings The strings to be used in the alert dialog.
          * @param alertOptions The height and width options for alert dialog
          */
-        openAlertDialog(alertStrings: Navigation.AlertStrings, alertOptions: Navigation.DialogSizeOptions): Async.PromiseLike<any>;
+        openAlertDialog(alertStrings: Navigation.AlertStrings, alertOptions?: Navigation.DialogSizeOptions): Async.PromiseLike<any>;
 
         /**
          * Displays a confirmation dialog box containing a message and two buttons.
          * @param confirmStrings The strings to be used in the confirm dialog.
          * @param confirmOptions The height and width options for alert dialog
          */
-        openConfirmDialog(confirmStrings: Navigation.ConfirmStrings, confirmOptions: Navigation.DialogSizeOptions): Async.PromiseLike<Navigation.ConfirmResult>;
+        openConfirmDialog(confirmStrings: Navigation.ConfirmStrings, confirmOptions?: Navigation.DialogSizeOptions): Async.PromiseLike<Navigation.ConfirmResult>;
 
         /**
          * Displays an error dialog.
-         * @param confirmStrings The strings to be used in the confirm dialog.
-         * @param confirmOptions The height and width options for alert dialog
+         * @param errorOptions An object to specify the options for error dialog.
          */
-        openConfirmDialog(errorOptions: Navigation.ErrorDialogOptions): Async.PromiseLike<any>;
+        openErrorDialog(errorOptions: Navigation.ErrorDialogOptions): Async.PromiseLike<any>;
 
         /**
          * Opens a file.
          */
-        openFile(file: Navigation.FileDetails, openFileOptions: XrmEnum.OpenFileOptions): void;
+        openFile(file: Navigation.FileDetails, openFileOptions?: XrmEnum.OpenFileOptions): void;
 
         /**
          * Opens an entity form or a quick create form.
          */
-        openForm(entityFormOptions: Navigation.EntityFormOptions, formParameters: Utility.OpenParameters): Async.PromiseLike<any>;
+        openForm(entityFormOptions: Navigation.EntityFormOptions, formParameters?: Utility.OpenParameters): Async.PromiseLike<Navigation.OpenFormResult>;
 
         /**
          * Opens a URL, including file URLs.
@@ -4394,7 +4428,7 @@ declare namespace Xrm {
             /**
              * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/collections External Link: Collections (Client API reference)}
              */
-            Attributes: Collection.ItemCollection<AttributeMetadata>;
+            Attributes: Collection.StringIndexableItemCollection<AttributeMetadata>;
             AutoRouteToOwnerQueue: boolean;
             CanEnableSyncToExternalSearchIndex: boolean;
             CanBeInManyToMany: boolean;
@@ -4457,7 +4491,7 @@ declare namespace Xrm {
             /**
              * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/collections External Link: Collections (Client API reference)}
              */
-            LocalizedLabels: Collection.ItemCollection<LocalizedLabel>;
+            LocalizedLabels: LocalizedLabel[];
             UserLocalizedLabel: LocalizedLabel;
         }
 
@@ -4477,7 +4511,7 @@ declare namespace Xrm {
             /**
              * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/collections External Link: Collections (Client API reference)}
              */
-            options: Collection.ItemCollection<string>;
+            options: string[];
             logicalName: string;
             displayName: string;
             attributeType: XrmEnum.AttributeTypeCode;
@@ -4485,7 +4519,7 @@ declare namespace Xrm {
             /**
              * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/collections External Link: Collections (Client API reference)}
              */
-            optionSet: Collection.ItemCollection<OptionMetadata>;
+            optionSet: OptionMetadata[];
         }
 
         /**
@@ -4612,7 +4646,7 @@ declare namespace Xrm {
          * Invokes the device camera to capture an image.
          * @returns On success, returns Base64 encoded file
          */
-        captureImage(imageOptions: Device.CaptureImageOptions): Async.PromiseLike<Device.CaptureFileResponse>;
+        captureImage(imageOptions?: Device.CaptureImageOptions): Async.PromiseLike<Device.CaptureFileResponse>;
 
         /**
          * Invokes the device camera to capture video.
@@ -4636,7 +4670,7 @@ declare namespace Xrm {
          * Opens a dialog box to select files from your computer (web client) or mobile device (mobile clients).
          * @returns On success, returns an array of files
          */
-        pickFile(pickFileOptions: Device.PickFileOptions): Async.PromiseLike<Device.CaptureFileResponse[]>;
+        pickFile(pickFileOptions?: Device.PickFileOptions): Async.PromiseLike<Device.CaptureFileResponse[]>;
     }
 
     /**
@@ -4742,7 +4776,7 @@ declare namespace Xrm {
          * @returns On success, returns a promise object containing the attributes specified earlier in the description of the successCallback parameter.
          * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/xrm-webapi/createrecord External Link: createRecord (Client API reference)}
          */
-        createRecord(entityLogicalName: string, record: any): Async.PromiseLike<string>;
+        createRecord(entityLogicalName: string, record: any): Async.PromiseLike<CreateResponse>;
 
         /**
          * Deletes an entity record.
@@ -4772,7 +4806,7 @@ declare namespace Xrm {
          * @returns On success, returns a promise containing a JSON object with the retrieved attributes and their values.
          * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/xrm-webapi/retrieverecord External Link: retrieveRecord (Client API reference)}
          */
-        retrieveRecord(entityLogicalName: string, id: string, options: string): Async.PromiseLike<any>;
+        retrieveRecord(entityLogicalName: string, id: string, options?: string): Async.PromiseLike<any>;
 
         /**
          * Retrieves a collection of entity records.
@@ -4801,6 +4835,14 @@ declare namespace Xrm {
          * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/xrm-webapi/updaterecord External Link: updateRecord (Client API reference)}
          */
         updateRecord(entityLogicalName: string, id: string, data: any): Async.PromiseLike<any>;
+    }
+
+    /**
+     * Interface for the WebAPI CreateRecord request response
+     */
+    interface CreateResponse {
+        entityType: string;
+        id: string;
     }
 
     /**
@@ -5056,7 +5098,7 @@ declare namespace XrmEnum {
     const enum FormNotificationLevel {
         Error = "ERROR",
         Info = "INFO",
-        Warning = "Warning"
+        Warning = "WARNING"
     }
 
     /**
@@ -5151,6 +5193,7 @@ declare namespace XrmEnum {
         Lookup = "lookup",
         Memo = "memo",
         Money = "money",
+        MultiOptionSet = "multioptionset",
         OptionSet = "optionset",
         String = "string"
     }
@@ -5164,6 +5207,7 @@ declare namespace XrmEnum {
         IFrame = "iframe",
         Lookup = "lookup",
         OptionSet = "optionset",
+        MultiSelectOptionSet = "multiselectoptionset",
         SubGrid = "subgrid",
         WebResource = "webresource",
         Notes = "notes",
@@ -5230,12 +5274,12 @@ declare namespace XrmEnum {
     }
 
     /**
-     * Constant Enum: Posible file types for Xrm.Device.pickFile options
+     * Constant Enum: Possible file types for Xrm.Device.pickFile options
      * @see {@link Xrm.Device.PickFileTypes}
      */
     const enum DevicePickFileType {
         Audio = "audio",
-        Video = "vidoe",
+        Video = "video",
         Image = "image"
     }
 }

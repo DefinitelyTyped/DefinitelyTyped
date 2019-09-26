@@ -1,6 +1,6 @@
 import { ActionsSdkApp, ActionsSdkAppOptions, DialogflowApp, DialogflowAppOptions, AssistantApp,
     Responses, Transactions } from 'actions-on-google';
-import * as express from 'express';
+import express = require('express');
 
 function testActionsSdk(request: express.Request, response: express.Response) {
     const app = new ActionsSdkApp({request, response});

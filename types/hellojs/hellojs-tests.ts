@@ -1,14 +1,11 @@
-import * as hello from 'hellojs';
-
-// Test code copied from Azure AD B2C sample app at
-// https://github.com/Azure-Samples/active-directory-b2c-javascript-hellojs-singlepageapp/tree/cd5982f09a7bff0a72b7b4e44c4b5190b09e20fa
 hello.init({
     serviceName: {
         name: 'Test',
         oauth: {
             version: 2,
             auth: '',
-            grant: ''
+            grant: '',
+            response_type: 'id_token token'
         },
         refresh: true,
         scope_delim: ' ',

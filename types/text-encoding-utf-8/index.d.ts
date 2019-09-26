@@ -3,7 +3,7 @@
 // Definitions by: Paul Taylor <https://github.com/trxcllnt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare namespace TextEncoding {
+export namespace TextEncoding {
     interface TextDecoderOptions {
         fatal?: boolean;
         ignoreBOM?: boolean;
@@ -49,8 +49,10 @@ declare namespace TextEncoding {
     }
 }
 
-declare var TextDecoder: TextEncoding.TextDecoderStatic;
+export const TextDecoder: TextEncoding.TextDecoderStatic;
 
-declare var TextEncoder: TextEncoding.TextEncoderStatic;
+export const TextEncoder: TextEncoding.TextEncoderStatic;
 
-declare var TextEncoding: TextEncoding.TextEncodingStatic;
+export const TextEncoding: TextEncoding.TextEncodingStatic;
+
+export as namespace TextEncoding;

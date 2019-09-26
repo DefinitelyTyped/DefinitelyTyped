@@ -1,37 +1,20 @@
-/// <reference types='react' />
-
+import * as React from 'react';
+import * as Popper from 'popper.js';
 import { CSSModule } from '../index';
 
-export type Placement
-  = 'auto'
-  | 'auto-start'
-  | 'auto-end'
-  | 'top'
-  | 'top-start'
-  | 'top-end'
-  | 'right'
-  | 'right-start'
-  | 'right-end'
-  | 'bottom'
-  | 'bottom-start'
-  | 'bottom-end'
-  | 'left'
-  | 'left-start'
-  | 'left-end';
-
-export interface UncontrolledProps extends React.HTMLAttributes<HTMLElement> {
+export interface UncontrolledTooltipProps extends React.HTMLAttributes<HTMLElement> {
+  [key: string]: any;
   target: string | HTMLElement;
   container?: string | HTMLElement;
   delay?: number | {show: number, hide: number};
   className?: string;
   innerClassName?: string;
   autohide?: boolean;
-  placement?: Placement;
-  modifiers?: object;
+  placement?: Popper.Placement;
+  modifiers?: Popper.Modifiers;
   cssModule?: CSSModule;
-}
-export interface UncontrolledTooltipProps extends UncontrolledProps {
-  /* intentionally blank */
+  fade?: boolean;
+  flip?: boolean;
 }
 
 export interface TooltipProps extends UncontrolledTooltipProps {
@@ -39,5 +22,5 @@ export interface TooltipProps extends UncontrolledTooltipProps {
   isOpen?: boolean;
 }
 
-declare const Tooltip: React.StatelessComponent<TooltipProps>;
+declare class Tooltip<T> extends React.Component<TooltipProps> {}
 export default Tooltip;

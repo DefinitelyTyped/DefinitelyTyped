@@ -96,6 +96,7 @@ export interface ConnectionOptions {
   authMechanism?: string;
   vhost?: string;
   noDelay?: boolean;
+  heartbeat?: number;
   ssl?: {
     enabled: boolean;
     keyFile?: string;

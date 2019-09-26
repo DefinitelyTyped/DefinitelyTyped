@@ -2,9 +2,9 @@
 // Project: https://github.com/survivejs/webpack-merge
 // Definitions by: Simon Hartcher <https://github.com/deevus>, Matt Traynham <https://github.com/mtraynham>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
-import webpack = require('webpack');
+import { Configuration } from 'webpack';
 
 export = webpackMerge;
 
@@ -18,18 +18,22 @@ declare namespace webpackMerge {
         customizeArray?: CustomizeArrayFunction | UniqueFunction;
         customizeObject?: CustomizeObjectFunction;
     }
-    type ConfigurationMergeFunction = (...configs: webpack.Configuration[]) => webpack.Configuration;
+    interface MultipleConfiguration {
+        [name: string]: Configuration;
+    }
+    type ConfigurationMergeFunction = (...configs: Configuration[]) => Configuration;
+    type MultipleConfigurationMergeFunction = (...configs: MultipleConfiguration[]) => Configuration[];
     type ConfigurationMergeConfigFunction = (customizeOptions: CustomizeOptions) => ConfigurationMergeFunction;
     type MergeFunction = ConfigurationMergeFunction | ConfigurationMergeConfigFunction;
     type MergeStrategy = 'prepend' | 'append' | 'replace';
 
     interface WebpackMerge {
-        (...configs: webpack.Configuration[]): webpack.Configuration;
+        (...configs: Configuration[]): Configuration;
         (customizeOptions: CustomizeOptions): ConfigurationMergeFunction;
         unique: UniqueFunction;
         smart: ConfigurationMergeFunction;
-        multiple: ConfigurationMergeFunction;
-        strategy(options: {[field: string]: MergeStrategy}): ConfigurationMergeFunction;
-        smartStrategy(options: {[key: string]: MergeStrategy}): ConfigurationMergeFunction;
+        multiple: MultipleConfigurationMergeFunction;
+        strategy(options: { [field: string]: MergeStrategy }): ConfigurationMergeFunction;
+        smartStrategy(options: { [key: string]: MergeStrategy }): ConfigurationMergeFunction;
     }
 }

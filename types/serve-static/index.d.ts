@@ -3,7 +3,7 @@
 // Definitions by: Uros Smolnik <https://github.com/urossmolnik>
 //                 Linus Unnebäck <https://github.com/LinusU>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 /* =================== USAGE ===================
 
@@ -27,6 +27,12 @@ declare function serveStatic(root: string, options?: serveStatic.ServeStaticOpti
 declare namespace serveStatic {
     var mime: typeof m;
     interface ServeStaticOptions {
+        /**
+         * Enable or disable setting Cache-Control response header, defaults to true. 
+         * Disabling this will ignore the immutable and maxAge options.
+         */
+        cacheControl?: boolean;
+
         /**
          * Set how "dotfiles" are treated when encountered. A dotfile is a file or directory that begins with a dot (".").
          * Note this check is done on the path itself without checking if the path actually exists on the disk.

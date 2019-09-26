@@ -23,6 +23,25 @@ ffmpeg('/path/to/file.avi')
     .preset('divx')
     .size('640x480');
 
+// get arguments
+ffmpeg('/path/to/file.avi')
+
+    ._getArguments();
+
+// ComplexFilter
+ffmpeg('/path/to/file.avi')
+
+    .output('outputfile.mp4')
+    .complexFilter([
+      { inputs: '0:v', filter: 'scale', options: { w: 1920, h: 1080, interl: 1 }, outputs: [] },
+      { inputs: '0:a', filter: 'amerge', options: { inputs: 2 }, outputs: 'am'},
+      '[am]aresample=48000:async=1[are]',
+      { inputs: 'are', filter: 'channelsplit' , options: { channel_layout: 'stereo'}, outputs: [] }
+    ], [])
+    .audioCodec('libfaac')
+    .videoCodec('libx264')
+    .size('320x200');
+
 // Use the run() method to run commands with multiple outputs
 ffmpeg('/path/to/file.avi')
     .output('outputfile.mp4')
@@ -53,4 +72,28 @@ command.save('/path/to/output-original-size.mp4');
 
 ffmpeg.ffprobe('/path/to/file.avi', (err, metadata) => {
     console.dir(metadata);
+});
+
+ffmpeg.setFfmpegPath('path/to/ffmpeg');
+ffmpeg.setFfprobePath('path/to/ffprobe');
+ffmpeg.setFfmpegPath('path/to/ffmpeg');
+
+ffmpeg.getAvailableFormats((err, formats) => {
+  console.log('Available formats:');
+  console.dir(formats);
+});
+
+ffmpeg.getAvailableCodecs((err, codecs) => {
+  console.log('Available codecs:');
+  console.dir(codecs);
+});
+
+ffmpeg.getAvailableEncoders((err, encoders) => {
+  console.log('Available encoders:');
+  console.dir(encoders);
+});
+
+ffmpeg.getAvailableFilters((err, filters) => {
+  console.log("Available filters:");
+  console.dir(filters);
 });

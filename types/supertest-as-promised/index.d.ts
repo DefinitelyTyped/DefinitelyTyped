@@ -2,7 +2,7 @@
 // Project: https://github.com/WhoopInc/supertest-as-promised
 // Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.2
 
 import * as supertest from "supertest";
 import * as superagent from "superagent";
@@ -18,9 +18,11 @@ declare namespace supertestAsPromised {
     interface Response extends supertest.Response {
     }
 
+    type CallbackHandler = (err: any, res: Response) => void;
     interface Test extends supertest.Test, superagent.Request {
         toPromise(): PromiseBluebird<Response>;
         timeout(): Promise<Response> & this;
+        end(callback?: CallbackHandler): this;
     }
 
     function agent(app?: any): SuperTest<Test>;

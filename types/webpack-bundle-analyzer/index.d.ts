@@ -1,11 +1,15 @@
-// Type definitions for webpack-bundle-analyzer 2.9
-// Project: https://github.com/th0r/webpack-bundle-analyzer
-// Definitions by: Michael Strobel <https://github.com/kryops>
+// Type definitions for webpack-bundle-analyzer 2.13
+// Project: https://github.com/webpack-contrib/webpack-bundle-analyzer
+// Definitions by: Michael Strobel <https://github.com/kryops>, Vladimir Grenaderov <https://github.com/VladimirGrenaderov>, Max Boguslavskiy <https://github.com/maxbogus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
-import * as webpack from 'webpack';
+import { Plugin, Compiler, Stats } from 'webpack';
 
 export namespace BundleAnalyzerPlugin {
+    type ExcludeAssetsPatternFn = (assetName: string) => boolean;
+    type ExcludeAssetsPattern = string | RegExp | ExcludeAssetsPatternFn;
+
     interface Options {
         /**
          * Can be "server", "static" or "disabled".
@@ -26,7 +30,7 @@ export namespace BundleAnalyzerPlugin {
          * Port that will be used in `server` mode to start HTTP server.
          * Defaults to 8888
          */
-        analyzerPort?: number;
+        analyzerPort?: number | 'auto';
 
         /**
          * Path to bundle report file that will be generated in "static" mode.
@@ -65,7 +69,17 @@ export namespace BundleAnalyzerPlugin {
          * Options for stats.toJson() method.
          * For example you can exclude sources of your modules from stats file with "source: false" option.
          */
-        statsOptions?: null | webpack.Stats.ToJsonOptionsObject;
+        statsOptions?: null | Stats.ToJsonOptionsObject;
+
+        /**
+         * Default: `null`.
+         * Patterns that will be used to match against asset names to exclude them from the report.
+         * If pattern is a string it will be converted to RegExp via `new RegExp(str)`.
+         * If pattern is a function it should have the following signature `(assetName: string) => boolean`
+         * and should return true to exclude matching asset.
+         * If multiple patterns are provided asset should match at least one of them to be excluded.
+         */
+        excludeAssets?: null | ExcludeAssetsPattern | ExcludeAssetsPattern[];
 
         /**
          * Log level. Can be "info", "warn", "error" or "silent".
@@ -75,6 +89,8 @@ export namespace BundleAnalyzerPlugin {
     }
 }
 
-export class BundleAnalyzerPlugin extends webpack.Plugin {
+export class BundleAnalyzerPlugin extends Plugin {
     constructor(options?: BundleAnalyzerPlugin.Options);
+
+    apply(compiler: Compiler): void;
 }

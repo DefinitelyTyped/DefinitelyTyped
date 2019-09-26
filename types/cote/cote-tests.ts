@@ -35,6 +35,7 @@ class Readme {
         });
 
         const req = {
+            __subset: 'subset',
             type: 'randomRequest',
             payload: {
                 val: Math.floor(Math.random() * 10)
@@ -52,7 +53,8 @@ class Readme {
             name: 'Random Responder',
             namespace: 'rnd',
             key: 'a certain key',
-            respondsTo: ['randomRequest']
+            respondsTo: ['randomRequest'],
+            subset: 'subset'
         });
 
         interface RandomRequest {
@@ -80,10 +82,10 @@ class Readme {
             payload: { val: number };
         }
 
-        randomResponder.on('randomRequest', (req: RandomRequest, callback: (answer: number) => void) => {
+        randomResponder.on('randomRequest', (req: RandomRequest, callback: (error: any, answer?: number) => void) => {
             const answer = Math.floor(Math.random() * 10);
             console.log('request', req.payload.val, 'answering with', answer);
-            callback(answer);
+            callback(null, answer);
         });
     }
 

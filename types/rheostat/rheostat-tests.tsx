@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Rheostat, { Orientation, Algorithm, PublicState } from 'rheostat';
 
-type Element = React.ReactElement<any>;
+type Element = React.ReactElement;
 
 function Basic(props: {}): Element {
   return <Rheostat />;

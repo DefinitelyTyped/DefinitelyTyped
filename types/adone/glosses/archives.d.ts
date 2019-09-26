@@ -448,7 +448,7 @@ declare namespace adone {
                         isCompressed(): boolean;
                     }
 
-                    interface ZipFile<StringType> extends event.EventEmitter {
+                    interface ZipFile<StringType> extends event.Emitter {
                         /**
                          * true until close() is called; then it's false
                          */

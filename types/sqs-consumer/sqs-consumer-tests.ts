@@ -17,7 +17,8 @@ const app2 = Consumer.create({
     region: "us-west-1",
     batchSize: 15,
     visibilityTimeout: 50,
-    waitTimeSeconds: 50
+    waitTimeSeconds: 50,
+    terminateVisibilityTimeout: true
 });
 
 // Test message handler.

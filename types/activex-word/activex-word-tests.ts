@@ -1,5 +1,7 @@
+/// <reference types="windows-script-host" />
+
 // tslint:disable-next-line no-unnecessary-generics
-const collectionToArray = <T>(col: any): T[] => {
+const collectionToArray = <T>(col: {Item(index: any): T}): T[] => {
     const results: T[] = [];
     const enumerator = new Enumerator<T>(col);
     enumerator.moveFirst();
@@ -233,7 +235,7 @@ const activeDoc = app.ActiveDocument;
 
 // looping through a collection -- https://msdn.microsoft.com/en-us/vba/word-vba/articles/looping-through-a-collection
 (() => {
-    collectionToArray<Word.Document>(app.Documents)
+    collectionToArray(app.Documents)
         .forEach(openDocument => WScript.Echo(openDocument.Name));
 
     const strMarks = collectionToArray<Word.Bookmark>(activeDoc.Bookmarks)

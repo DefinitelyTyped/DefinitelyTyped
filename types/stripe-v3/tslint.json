@@ -3,6 +3,8 @@
 	"rules": {
 		// TODOs
 		"dt-header": false,
+        "npm-naming": false,
+        "no-angle-bracket-type-assertion": false,
 		"no-any-union": false
 	}
 }

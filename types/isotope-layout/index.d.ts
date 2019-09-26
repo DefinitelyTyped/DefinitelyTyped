@@ -1,12 +1,15 @@
 // Type definitions for isotope 3.0
-// Project: http://isotope.metafizzy.co/
+// Project: https://isotope.metafizzy.co
 // Definitions by: Anže Videnič <https://github.com/avidenic>
+//                 Mălin Brândușe <https://github.com/malinushj>
+//                 SPWizard01 <https://github.com/SPWizard01>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-/// <reference types="jquery"/>
+export as namespace Isotope
+export = Isotope;
 
-declare namespace IsotopeLibrary {
+declare namespace Isotope {
     type LayoutModes = 'masonry' | 'fitRows' | 'cellsByRow' | 'vertical' | 'packery' | 'masonryHorizontal' | 'fitColumns' | 'cellsByColumn' | 'horiz';
     type Elements = HTMLElement[] | HTMLElement | JQuery | NodeList;
 
@@ -28,7 +31,7 @@ declare namespace IsotopeLibrary {
          * If set to a string, that value is used as a selector.
          * If filter is set to a function, that function checks each item and returns true or false if the item should be shown or hidden.
          */
-        filter?: string | (() => boolean);
+        filter?: string | ((itemElement: HTMLElement) => boolean);
         /**
          * Items are arranged into rows. Rows progress vertically. Similar to what you would expect from a layout that uses CSS floats. fitRows works well for items that have the same height.
          */
@@ -98,7 +101,7 @@ declare namespace IsotopeLibrary {
         /**
          * Sorts items according to which property of getSortData. The value of sortBy needs to match a key name in getSortData.
          */
-        sortBy?: string;
+        sortBy?: string | string[];
         /**
          * Staggers item transitions, so items transition incrementally after one another. Set as a CSS time format, '0.03s', or as a number in milliseconds, 30.
          */
@@ -121,96 +124,6 @@ declare namespace IsotopeLibrary {
          * The styles applied to reveal items when filtering.
          */
         visibleStyle?: Style;
-    }
-
-    interface Isotope {
-        /**
-         * Adds item elements to the Isotope instance. addItems does not lay out items like appended, prepended, or insert.
-         * @param elements Element, jQuery Object, NodeList, or Array of Elements
-         */
-        addItems(elements: Elements): void;
-        /**
-         * Adds and lays out newly appended item elements to the end of the layout.
-         * @param elements Element, jQuery Object, NodeList, or Array of Elements
-         */
-        appended(elements: Elements): void;
-        /**
-         * Filters, sorts, and lays out items. arrange is the principle method of Isotope. It is the default method with jQuery .isotope(). Pass in options to apply filtering and sorting.
-         * @param options All options are optional, but itemSelector is recommended. Layout modes have their own separate options.
-         */
-        arrange(options: IsotopeOptions): void;
-        /**
-         * Removes the Isotope functionality completely. destroy will return the element back to its pre-initialized state.
-         */
-        destroy(): void;
-        /**
-         * Returns an array of filtered item elements in current sorted order.
-         */
-        getFilteredItemElements(): Element[];
-        /**
-         * Returns an array of all item elements in the Isotope instance.
-         */
-        getItemElements(): Element[];
-        /**
-         * Hide items.
-         * @param elements Element, jQuery Object, NodeList, or Array of Elements
-         */
-        hideItemElements(elements: Elements): void;
-        /**
-         * Appends elements into container element, adds elements as items, and arranges items with filtering and sorting.
-         * @param elements Element, jQuery Object, NodeList, or Array of Elements
-         */
-        insert(elements: Elements): void;
-        /**
-         * Lays out all item elements. layout is useful when an item has changed size, and all items need to be laid out again. layout does not apply filtering or sorting.
-         */
-        layout(): void;
-        /**
-         * Lays out specified items.
-         * @param elements Array of Isotope.Items
-         * @param isStill Disables transitions
-         */
-        layoutItems(elements: HTMLElement[], isStill: boolean): void;
-        /**
-         * Adds and lays out newly prepended item elements at the beginning of layout.
-         * @param elements Element, jQuery Object, NodeList, or Array of Elements
-         */
-        prepended(elements: Elements): void;
-        /**
-         * Recollects all item elements.
-         * For frameworks like Angular and React, reloadItems may be useful to apply changes to the DOM to Isotope.
-         */
-        reloadItems(): void;
-        /**
-         * Removes elements from the Isotope instance and DOM.
-         * @param elements Element, jQuery Object, NodeList, or Array of Elements
-         */
-        remove(elements: Elements): void;
-        /**
-         * Reveals hidden items.
-         * @param elements Element, jQuery Object, NodeList, or Array of Elements
-         */
-        revealItemElements(elements: Elements): void;
-        /**
-         * Shuffles items in a random order.
-         */
-        shuffle(): void;
-        /**
-         * Stamps elements in the layout. Isotope will lay out item elements around stamped elements.
-         * Stamping is only supported by some layout modes: masonry, packery and masonryhorizontal.
-         * @param elements Element, jQuery Object, NodeList, or Array of Elements
-         */
-        stamp(elements: Elements): void;
-        /**
-         * Un-stamps elements in the layout, so that Isotope will no longer layout item elements around them.
-         * @param elements Element, jQuery Object, NodeList, or Array of Elements
-         */
-        unstamp(elements: Elements): void;
-        /**
-         * Updates sort data
-         * @param elements Element, jQuery Object, NodeList, or Array of Elements
-         */
-        updateSortData(elements: Elements): void;
     }
 
     interface Sorter {
@@ -266,107 +179,201 @@ declare namespace IsotopeLibrary {
     }
 }
 
-interface Isotope extends IsotopeLibrary.Isotope { }
-
-declare var Isotope: {
-    prototype: IsotopeLibrary.Isotope;
-    new (selector: string): IsotopeLibrary.Isotope;
+interface Isotope {
     /**
-     * Get the Isotope instance via its element. Isotope.data() is useful for getting the Isotope instance in JavaScript, after it has been initalized in HTML.
+     * Adds item elements to the Isotope instance. addItems does not lay out items like appended, prepended, or insert.
+     * @param elements Element, jQuery Object, NodeList, or Array of Elements
      */
-    data(element: HTMLElement | string): IsotopeLibrary.Isotope;
-};
-
-interface JQuery {
+    addItems(elements: Isotope.Elements): void;
     /**
-     * Get the Isotope instance from a jQuery object. Isotope instances are useful to access Isotope properties.
+     * Adds and lays out newly appended item elements to the end of the layout.
+     * @param elements Element, jQuery Object, NodeList, or Array of Elements
      */
-    data(methodName: 'isotope'): IsotopeLibrary.Isotope;
+    appended(elements: Isotope.Elements): void;
+    /**
+     * Filters, sorts, and lays out items. arrange is the principle method of Isotope. It is the default method with jQuery .isotope(). Pass in options to apply filtering and sorting.
+     * @param options All options are optional, but itemSelector is recommended. Layout modes have their own separate options.
+     */
+    arrange(options: Isotope.IsotopeOptions): void;
+    /**
+     * Removes the Isotope functionality completely. destroy will return the element back to its pre-initialized state.
+     */
+    destroy(): void;
+    /**
+     * Returns an array of filtered item elements in current sorted order.
+     */
+    getFilteredItemElements(): Element[];
+    /**
+     * Returns an array of all item elements in the Isotope instance.
+     */
+    getItemElements(): Element[];
+    /**
+     * Hide items.
+     * @param elements Element, jQuery Object, NodeList, or Array of Elements
+     */
+    hideItemElements(elements: Isotope.Elements): void;
+    /**
+     * Appends elements into container element, adds elements as items, and arranges items with filtering and sorting.
+     * @param elements Element, jQuery Object, NodeList, or Array of Elements
+     */
+    insert(elements: Isotope.Elements): void;
+    /**
+     * Lays out all item elements. layout is useful when an item has changed size, and all items need to be laid out again. layout does not apply filtering or sorting.
+     */
+    layout(): void;
     /**
      * Lays out specified items.
      * @param elements Array of Isotope.Items
      * @param isStill Disables transitions
      */
-    isotope(methodName: 'layoutItems', elements: HTMLElement[], isStill: boolean): JQuery;
-    /**
-     * Adds item elements to the Isotope instance. addItems does not lay out items like appended, prepended, or insert.
-     * @param elements Element, jQuery Object, NodeList, or Array of Elements
-     */
-    isotope(methodName: 'addItems', elements: IsotopeLibrary.Elements): JQuery;
-    /**
-     * Adds and lays out newly appended item elements to the end of the layout.
-     * @param elements Element, jQuery Object, NodeList, or Array of Elements
-     */
-    isotope(methodName: 'appended', elements: IsotopeLibrary.Elements): JQuery;
-    /**
-     * Hide items.
-     * @param elements Element, jQuery Object, NodeList, or Array of Elements
-     */
-    isotope(methodName: 'hideItemElements', elements: IsotopeLibrary.Elements): JQuery;
-    /**
-     * Appends elements into container element, adds elements as items, and arranges items with filtering and sorting.
-     * @param elements Element, jQuery Object, NodeList, or Array of Elements
-     */
-    isotope(methodName: 'insert', elements: IsotopeLibrary.Elements): JQuery;
+    layoutItems(elements: HTMLElement[], isStill: boolean): void;
     /**
      * Adds and lays out newly prepended item elements at the beginning of layout.
      * @param elements Element, jQuery Object, NodeList, or Array of Elements
      */
-    isotope(methodName: 'prepended', elements: IsotopeLibrary.Elements): JQuery;
+    prepended(elements: Isotope.Elements): void;
+    /**
+     * Recollects all item elements.
+     * For frameworks like Angular and React, reloadItems may be useful to apply changes to the DOM to Isotope.
+     */
+    reloadItems(): void;
     /**
      * Removes elements from the Isotope instance and DOM.
      * @param elements Element, jQuery Object, NodeList, or Array of Elements
      */
-    isotope(methodName: 'remove', elements: IsotopeLibrary.Elements): JQuery;
+    remove(elements: Isotope.Elements): void;
     /**
      * Reveals hidden items.
      * @param elements Element, jQuery Object, NodeList, or Array of Elements
      */
-    isotope(methodName: 'revealItemElements', elements: IsotopeLibrary.Elements): JQuery;
+    revealItemElements(elements: Isotope.Elements): void;
+    /**
+     * Shuffles items in a random order.
+     */
+    shuffle(): void;
     /**
      * Stamps elements in the layout. Isotope will lay out item elements around stamped elements.
      * Stamping is only supported by some layout modes: masonry, packery and masonryhorizontal.
      * @param elements Element, jQuery Object, NodeList, or Array of Elements
      */
-    isotope(methodName: 'stamp', elements: IsotopeLibrary.Elements): JQuery;
+    stamp(elements: Isotope.Elements): void;
     /**
      * Un-stamps elements in the layout, so that Isotope will no longer layout item elements around them.
      * @param elements Element, jQuery Object, NodeList, or Array of Elements
      */
-    isotope(methodName: 'unstamp', elements: IsotopeLibrary.Elements): JQuery;
+    unstamp(elements: Isotope.Elements): void;
     /**
      * Updates sort data
      * @param elements Element, jQuery Object, NodeList, or Array of Elements
      */
-    isotope(methodName: 'updateSortData', elements: IsotopeLibrary.Elements): JQuery;
+    updateSortData(elements: Isotope.Elements): void;
+}
+
+declare const Isotope: {
+    prototype: Isotope,
+    new (elementOrSelector: HTMLElement | string, options: Isotope.IsotopeOptions): Isotope;
     /**
-     * Removes the Isotope functionality completely. destroy will return the element back to its pre-initialized state.
+     * Get the Isotope instance via its element. Isotope.data() is useful for getting the Isotope instance in JavaScript, after it has been initalized in HTML.
      */
-    isotope(methodName: 'destroy'): void;
-    /**
-     * Returns an array of filtered item elements in current sorted order.
-     */
-    isotope(methodName: 'getFilteredItemElements'): Element[];
-    /**
-     * Returns an array of all item elements in the Isotope instance.
-     */
-    isotope(methodName: 'getItemElements'): Element[];
-    /**
-     * Lays out all item elements. layout is useful when an item has changed size, and all items need to be laid out again. layout does not apply filtering or sorting.
-     */
-    isotope(methodName: 'layout'): JQuery;
-    /**
-     * Recollects all item elements.
-     * For frameworks like Angular and React, reloadItems may be useful to apply changes to the DOM to Isotope.
-     */
-    isotope(methodName: 'reloadItems'): JQuery;
-    /**
-     * Shuffles items in a random order.
-     */
-    isotope(methodName: 'shuffle'): JQuery;
-    /**
-     * Filters, sorts, and lays out items. Pass in options to apply filtering and sorting.
-     * @param options All options are optional, but itemSelector is recommended. Layout modes have their own separate options.
-     */
-    isotope(options: IsotopeLibrary.IsotopeOptions): JQuery;
+    data(element: HTMLElement | string): Isotope;
+};
+
+declare global {
+    interface JQuery {
+        /**
+         * Get the Isotope instance from a jQuery object. Isotope instances are useful to access Isotope properties.
+         */
+        data(methodName: 'isotope'): Isotope;
+        /**
+         * Filters, sorts, and lays out items.
+         */
+        isotope(): JQuery;
+        /**
+         * Lays out specified items.
+         * @param elements Array of Isotope.Items
+         * @param isStill Disables transitions
+         */
+        isotope(methodName: 'layoutItems', elements: HTMLElement[], isStill: boolean): JQuery;
+        /**
+         * Adds item elements to the Isotope instance. addItems does not lay out items like appended, prepended, or insert.
+         * @param elements Element, jQuery Object, NodeList, or Array of Elements
+         */
+        isotope(methodName: 'addItems', elements: Isotope.Elements): JQuery;
+        /**
+         * Adds and lays out newly appended item elements to the end of the layout.
+         * @param elements Element, jQuery Object, NodeList, or Array of Elements
+         */
+        isotope(methodName: 'appended', elements: Isotope.Elements): JQuery;
+        /**
+         * Hide items.
+         * @param elements Element, jQuery Object, NodeList, or Array of Elements
+         */
+        isotope(methodName: 'hideItemElements', elements: Isotope.Elements): JQuery;
+        /**
+         * Appends elements into container element, adds elements as items, and arranges items with filtering and sorting.
+         * @param elements Element, jQuery Object, NodeList, or Array of Elements
+         */
+        isotope(methodName: 'insert', elements: Isotope.Elements): JQuery;
+        /**
+         * Adds and lays out newly prepended item elements at the beginning of layout.
+         * @param elements Element, jQuery Object, NodeList, or Array of Elements
+         */
+        isotope(methodName: 'prepended', elements: Isotope.Elements): JQuery;
+        /**
+         * Removes elements from the Isotope instance and DOM.
+         * @param elements Element, jQuery Object, NodeList, or Array of Elements
+         */
+        isotope(methodName: 'remove', elements: Isotope.Elements): JQuery;
+        /**
+         * Reveals hidden items.
+         * @param elements Element, jQuery Object, NodeList, or Array of Elements
+         */
+        isotope(methodName: 'revealItemElements', elements: Isotope.Elements): JQuery;
+        /**
+         * Stamps elements in the layout. Isotope will lay out item elements around stamped elements.
+         * Stamping is only supported by some layout modes: masonry, packery and masonryhorizontal.
+         * @param elements Element, jQuery Object, NodeList, or Array of Elements
+         */
+        isotope(methodName: 'stamp', elements: Isotope.Elements): JQuery;
+        /**
+         * Un-stamps elements in the layout, so that Isotope will no longer layout item elements around them.
+         * @param elements Element, jQuery Object, NodeList, or Array of Elements
+         */
+        isotope(methodName: 'unstamp', elements: Isotope.Elements): JQuery;
+        /**
+         * Updates sort data
+         * @param elements Element, jQuery Object, NodeList, or Array of Elements
+         */
+        isotope(methodName: 'updateSortData', elements: Isotope.Elements): JQuery;
+        /**
+         * Removes the Isotope functionality completely. destroy will return the element back to its pre-initialized state.
+         */
+        isotope(methodName: 'destroy'): void;
+        /**
+         * Returns an array of filtered item elements in current sorted order.
+         */
+        isotope(methodName: 'getFilteredItemElements'): Element[];
+        /**
+         * Returns an array of all item elements in the Isotope instance.
+         */
+        isotope(methodName: 'getItemElements'): Element[];
+        /**
+         * Lays out all item elements. layout is useful when an item has changed size, and all items need to be laid out again. layout does not apply filtering or sorting.
+         */
+        isotope(methodName: 'layout'): JQuery;
+        /**
+         * Recollects all item elements.
+         * For frameworks like Angular and React, reloadItems may be useful to apply changes to the DOM to Isotope.
+         */
+        isotope(methodName: 'reloadItems'): JQuery;
+        /**
+         * Shuffles items in a random order.
+         */
+        isotope(methodName: 'shuffle'): JQuery;
+        /**
+         * Filters, sorts, and lays out items. Pass in options to apply filtering and sorting.
+         * @param options All options are optional, but itemSelector is recommended. Layout modes have their own separate options.
+         */
+        isotope(options: Isotope.IsotopeOptions): JQuery;
+    }
 }

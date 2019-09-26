@@ -1,6 +1,14 @@
 {
     "private": true,
     "dependencies": {
-        "parse5": "^3.0.2"
+        "parse5": "^4.0.0"
+    },
+    "types": "index",
+    "typesVersions": {
+        ">=3.1.0-0": {
+            "*": [
+                "ts3.1/*"
+            ]
+        }
     }
 }

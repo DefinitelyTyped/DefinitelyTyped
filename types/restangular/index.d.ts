@@ -69,6 +69,8 @@ declare namespace restangular {
     setSelfLinkAbsoluteUrl(value: boolean): IProvider;
     setParentless(value: any): IProvider;
     setPlainByDefault(isPlain: boolean): IProvider;
+    extendModel(route: string, extender: (model: IElement) => any): IProvider;
+    extendCollection(route: string, extender: (collection: ICollection) => any): IProvider;
   }
 
   interface ICustom {
@@ -94,17 +96,6 @@ declare namespace restangular {
     restangularizeCollection(parent: any, element: any, route: string): ICollection;
     service(route: string, parent?: any): IScopedService;
     stripRestangular(element: any): any;
-    extendModel(route: string, extender: (model: IElement) => any): void;
-    extendCollection(route: string, extender: (collection: ICollection) => any): void;
-  }
-
-  interface IScopedService extends IService {
-    one(id: number): IElement;
-    one(id: string): IElement;
-    post(elementToPost: any, queryParams?: any, headers?: any): IPromise<any>;
-    post<T>(elementToPost: T, queryParams?: any, headers?: any): IPromise<T>;
-    getList(queryParams?: any, headers?: any): ICollectionPromise<any>;
-    getList<T>(queryParams?: any, headers?: any): ICollectionPromise<T>;
   }
 
   interface IScopedService extends IService {
@@ -137,7 +128,7 @@ declare namespace restangular {
     getRestangularUrl(): string;
     getRequestedUrl(): string;
     route?: string;
-    id?: string;
+    id?: number | string;
     reqParams?: any;
   }
 

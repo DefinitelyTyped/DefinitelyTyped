@@ -1,5 +1,6 @@
-
 /// <reference types="jquery" />
+
+import jDataView = require('.');
 
 interface TARMetaData {
 	name: string;

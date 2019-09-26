@@ -1,0 +1,36 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "strictFunctionTypes": true
+    },
+    "files": [
+        "non-secure/index.d.ts",
+        "non-secure/generate.d.ts",
+        "async/format.d.ts",
+        "async/generate.d.ts",
+        "async/index-browser.d.ts",
+        "async/index.d.ts",
+        "async/random-browser.d.ts",
+        "async/random.d.ts",
+        "format.d.ts",
+        "generate.d.ts",
+        "index.d.ts",
+        "nanoid-tests.ts",
+        "random-browser.d.ts",
+        "random.d.ts",
+        "url.d.ts"
+    ]
+}

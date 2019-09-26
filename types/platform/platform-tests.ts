@@ -16,7 +16,8 @@ var tests: TestContainer = {
         prerelease: null,
         product: null,
         ua: "Mozilla/5.0 (Linux; U; Android 4.0.3; zh-cn; HTC Sensation XE with Beats Audio Build/IML74K) AppleWebKit/535.7 (KHTML, like Gecko) CrMo/16.0.912.77 Mobile Safari/535.7",
-        version: "16.0.912.77"
+        version: "16.0.912.77",
+        parse: function () {throw new Error()}
     },
     'WebKit Nightly 528.4 (like Safari 4.x) on Mac OS X 10.4.11': {
         description: "WebKit Nightly 528.4 (like Safari 4.x) on Mac OS X 10.4.11",
@@ -31,7 +32,8 @@ var tests: TestContainer = {
         prerelease: "alpha",
         product: null,
         ua: "Mozilla/5.0 (Macintosh; U; PPC Mac OS X 10_4_11; tr) AppleWebKit/528.4+ (KHTML, like Gecko) Version/4.0dp1 Safari/526.11.2",
-        version: "528.4"
+        version: "528.4",
+        parse: function () {throw new Error()}
     }
 };
 

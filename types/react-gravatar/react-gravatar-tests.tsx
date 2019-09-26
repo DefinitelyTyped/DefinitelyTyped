@@ -1,5 +1,5 @@
 import * as React from "react";
-import * as Gravatar from "react-gravatar";
+import Gravatar = require("react-gravatar");
 
 class GravatarEmailTest extends React.Component {
 	render() {

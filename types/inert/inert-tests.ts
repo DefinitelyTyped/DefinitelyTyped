@@ -1,130 +1,105 @@
-// Copied from: https://github.com/hapijs/inert#examples
+import {
+    Server,
+    Lifecycle,
+} from 'hapi';
 
-import Path = require('path');
-import Hapi = require('hapi');
-import Inert = require('inert');
+import * as path from 'path';
+import * as inert from 'inert';
 
-const server = new Hapi.Server({
-    connections: {
-        routes: {
-            files: {
-                relativeTo: Path.join(__dirname, 'public')
+const server = new Server({
+    port: 3000,
+    routes: {
+        files: {
+            relativeTo: path.join(__dirname, 'public')
+        }
+    }
+});
+
+const provision = async () => {
+    await server.register(inert);
+
+    await server.register({
+        plugin: inert,
+        options: { etagsCacheMaxSize: 400 },
+    });
+
+    await server.register({
+        plugin: inert,
+        once: true,
+    });
+
+    server.route({
+        method: 'GET',
+        path: '/{param*}',
+        handler: {
+            directory: {
+                path: '.',
+                redirectToSlash: true,
+                index: true
             }
         }
-    }
-});
-server.connection({ port: 3000 });
+    });
 
-server.register(Inert, () => {});
-
-// added in addition to code from docs
-const options: Inert.OptionalRegistrationOptions = {etagsCacheMaxSize: 400};
-server.register({
-    register: Inert,
-    options,
-}, (err) => {});
-
-// added in addition to code from docs
-server.register({
-    register: Inert,
-    once: true,
-}, (err) => {});
-
-server.route({
-    method: 'GET',
-    path: '/{param*}',
-    handler: {
-        directory: {
-            path: '.',
-            redirectToSlash: true,
-            index: true
+    // https://github.com/hapijs/inert#serving-a-single-file
+    server.route({
+        method: 'GET',
+        path: '/{path*}',
+        handler: {
+            file: 'page.html'
         }
-    }
-});
+    });
 
-server.start((err) => {
+    // https://github.com/hapijs/inert#customized-file-response
+    server.route({
+        method: 'GET',
+        path: '/file',
+        handler(request, reply) {
+            let path = 'plain.txt';
+            if (request.headers['x-magic'] === 'sekret') {
+                path = 'awesome.png';
+            }
 
-    if (err) {
-        throw err;
-    }
+            return reply.file(path).vary('x-magic');
+        }
+    });
 
-    console.log('Server running at:', server.info!.uri);
-});
-
-// https://github.com/hapijs/inert#serving-a-single-file
-
-server.route({
-    method: 'GET',
-    path: '/{path*}',
-    handler: {
-        file: 'page.html'
-    }
-});
-
-// https://github.com/hapijs/inert#customized-file-response
-
-server.route({
-    method: 'GET',
-    path: '/file',
-    handler: function (request, reply) {
-
-        let path = 'plain.txt';
-        if (request.headers['x-magic'] === 'sekret') {
-            path = 'awesome.png';
+    const handler: Lifecycle.Method = (request, h) => {
+        const response = request.response;
+        if (response instanceof Error && response.output.statusCode === 404) {
+            return h.file('404.html').code(404);
         }
 
-        return reply.file(path).vary('x-magic');
-    }
-});
+        return h.continue;
+    };
 
-const handler: Hapi.ServerExtRequestHandler = function (request, reply) {
+    server.ext('onPostHandler', handler);
 
-    const response = request.response!;
-    if (response.isBoom &&
-        response.output!.statusCode === 404) {
+    const file: inert.FileHandlerRouteObject = {
+        path: '',
+        confine: true,
+    };
 
-        return reply.file('404.html').code(404);
-    }
+    const directory: inert.DirectoryHandlerRouteObject = {
+        path: '',
+        listing: true
+    };
 
-    return reply.continue();
-}
-
-server.ext('onPostHandler', handler);
-
-// additional code added in addition to doc example code
-
-var file: Inert.FileHandlerRouteObject = {
-    path: '',
-    confine: true,
-};
-var directory: Inert.DirectoryHandlerRouteObject = {
-    path: '',
-    listing: true
-};
-
-file = {
-    path: '',
-    confine: true,
-};
-
-server.route({
-    path: '',
-    method: 'GET',
-    handler: {
-        file,
-        directory: {
-            path: function(){
-                if(Math.random() > 0.5) {
-                    return '';
-                }
-                else if(Math.random() > 0) {
-                    return [''];
-                }
-                return new Error('');
+    server.route({
+        path: '',
+        method: 'GET',
+        handler: {
+            file,
+            directory: {
+                path() {
+                    if (Math.random() > 0.5) {
+                        return '';
+                    } else if (Math.random() > 0) {
+                        return [''];
+                    }
+                    return new Error('');
+                },
             },
-            BAD_listing: true,  // TODO change typings to make this error
         },
-    },
-    config: { files: { relativeTo: __dirname } }
-})
-
+        options: { files: { relativeTo: __dirname } }
+    });
+};

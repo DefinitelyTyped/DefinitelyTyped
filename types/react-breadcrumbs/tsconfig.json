@@ -10,14 +10,6 @@
         "strictNullChecks": false,
         "strictFunctionTypes": true,
         "baseUrl": "../",
-        "paths": {
-            "history": [
-                "history/v2"
-            ],
-            "react-router": [
-                "react-router/v2"
-            ]
-        },
         "typeRoots": [
             "../"
         ],

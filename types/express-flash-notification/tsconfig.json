@@ -5,9 +5,9 @@
             "es6"
         ],
         "noImplicitAny": true,
-		"noImplicitThis": true,
+        "noImplicitThis": true,
         "strictNullChecks": true,
-		"strictFunctionTypes": true,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"

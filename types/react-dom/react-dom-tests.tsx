@@ -7,7 +7,7 @@ import * as ReactTestUtils from 'react-dom/test-utils';
 declare function describe(desc: string, f: () => void): void;
 declare function it(desc: string, f: () => void): void;
 
-class TestComponent extends React.Component { }
+class TestComponent extends React.Component<{x: string}> { }
 
 describe('ReactDOM', () => {
     it('render', () => {
@@ -30,6 +30,8 @@ describe('ReactDOM', () => {
         const rootElement = document.createElement('div');
         ReactDOM.render(React.createElement('div'), rootElement);
         ReactDOM.findDOMNode(rootElement);
+        ReactDOM.findDOMNode(null);
+        ReactDOM.findDOMNode(undefined);
     });
 
     it('createPortal', () => {
@@ -42,8 +44,58 @@ describe('ReactDOM', () => {
             }
         }
 
-        ReactDOM.createPortal(React.createElement('div'), portalTarget);
+        ReactDOM.createPortal(<div />, document.createElement('div'));
+        ReactDOM.createPortal(<div />, document.createElement('div'), null);
+        ReactDOM.createPortal(<div />, document.createElement('div'), 'key');
+
+        ReactDOM.createPortal(React.createElement('div'), document.createElement('div'));
+        ReactDOM.createPortal(React.createElement('div'), document.createElement('div'), null);
+        ReactDOM.createPortal(React.createElement('div'), document.createElement('div'), 'key');
+
         ReactDOM.render(<ClassComponent />, rootElement);
+    });
+
+    it('unstable_createRoot', () => {
+      const container = document.body;
+      const root = ReactDOM.unstable_createRoot(container);
+      root
+        .render(<div>initial render</div>, () => {
+          console.log('callback');
+        })
+        .then(() => {
+          console.log('onCommit');
+          const batch = root.createBatch();
+
+          batch.render(<div>Batch 1</div>).then(() => {
+            console.log('committed first batch');
+          });
+          batch.render(<div>Batch 2</div>).then(() => {
+            console.log('committed second batch');
+          });
+
+          batch.then(() => {
+            console.log('batch completed');
+            batch.commit();
+          });
+        });
+    });
+
+    it('unstable_createSyncRoot', () => {
+      const container = document.body;
+      const root = ReactDOM.unstable_createSyncRoot(container, {
+        hydrate: true,
+      });
+      root
+        .render(<div>initial render</div>, () => {
+          console.log('callback');
+        })
+        .then(() => {
+          console.log('onCommit');
+          // $ExpectError
+          const batch = root.createBatch();
+
+          root.unmount(() => console.log('unmounted'));
+        });
     });
 });
 
@@ -169,6 +221,24 @@ describe('React dom test utils', () => {
             const component = React.createElement(TestComponent);
             const shallowRenderer = ReactTestUtils.createRenderer();
             shallowRenderer.getRenderOutput();
+        });
+    });
+
+    describe('act', () => {
+        it('accepts a sync callback that is void', () => {
+            ReactTestUtils.act(() => {});
+        });
+        it('accepts an async callback that is void', async () => {
+            await ReactTestUtils.act(async () => {});
+        });
+        it('rejects a callback that returns null', () => {
+            // $ExpectError
+            ReactTestUtils.act(() => null);
+        });
+        it('returns a Promise-like that errors out on use', () => {
+            const result = ReactTestUtils.act(() => {});
+            // $ExpectError
+            Promise.resolve(result);
         });
     });
 });

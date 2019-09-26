@@ -19,7 +19,7 @@ class ComponentThatUsesContext extends React.Component<Props> {
     router: PropTypes.object.isRequired
   };
   context: RouterChildContext<Params>;
-  private onClick = () => {
+  private readonly onClick = () => {
     const {
       history,
       route: {

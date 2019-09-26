@@ -2,10 +2,17 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
 // Import React Table
-import ReactTable, { Column } from "react-table";
-import "react-table/react-table.css";
+import ReactTable, { Column, FinalState, Instance } from "react-table";
 
-const columns: Column[] = [
+interface Data {
+  firstName: string;
+  lastName: string;
+  age: number;
+  visits: number;
+  progress: number;
+}
+
+const columns: Array<Column<Data>> = [
   {
     Header: "Name",
     columns: [
@@ -16,7 +23,11 @@ const columns: Column[] = [
   {
     Header: "Info",
     columns: [
-      { Header: "Age", accessor: "age" },
+      {
+        Header: "Age",
+        accessor: (data: Data) => data.age,
+        Cell: props => <span className='number'>{props.value}</span>
+      },
       { Header: "Status", accessor: "status" }
     ]
   },
@@ -29,7 +40,7 @@ const columns: Column[] = [
 ];
 
 const Component = (props: {}) => {
-  const data = [
+  const data: Data[] = [
     { firstName: "plastic", lastName: "leather", age: 1, visits: 87, progress: 53 },
     { firstName: "eggs", lastName: "quartz", age: 13, visits: 78, progress: 82 },
     { firstName: "wash", lastName: "wrench", age: 29, visits: 75, progress: 49 },
@@ -93,6 +104,7 @@ const Component = (props: {}) => {
         PadRowComponent={() => <span>&nbsp;</span>}
         page={undefined}
         pageSize={undefined}
+        pages={undefined}
         sorted={[]}
         filtered={[]}
         resized={[]}
@@ -106,7 +118,7 @@ const Component = (props: {}) => {
         indexKey='_index'
         groupedByPivotKey='_groupedByPivot'
         className=''
-        onFetchData={() => null}
+        onFetchData={(state, instance) => null}
         style={{}}
         column={{
           Cell: undefined,
@@ -148,7 +160,37 @@ const Component = (props: {}) => {
         pageText='Page'
         ofText='of'
         rowsText='rows'
-      />
+        onSortedChange={(newSorted, column, additive) => {
+          if (newSorted) {
+            console.log(newSorted);
+          }
+        }}
+      >
+        {(
+          state: FinalState<Data>,
+          makeTable: () => React.ReactChild,
+          instance: Instance<Data>
+        ) => {
+          return (
+            <div
+              style={{
+                background: "#ffcf00",
+                borderRadius: "5px",
+                overflow: "hidden",
+                padding: "5px"
+              }}
+            >
+              <pre>
+                <code>
+                  state.allVisibleColumns ==={" "}
+                  {JSON.stringify(state.allVisibleColumns, null, 4)}
+                </code>
+              </pre>
+              {makeTable()}
+            </div>
+          );
+        }}
+      </ReactTable>
       <br />
     </div>
   );

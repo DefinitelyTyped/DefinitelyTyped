@@ -28,6 +28,7 @@ const showOptions : Auth0LockShowOptions = {
   allowSignUp: true,
   allowForgotPassword: false,
   auth: {
+    autoParseHash: true,
     params: { state: "foo" },
     redirect: true,
     redirectUrl: "some url",
@@ -39,7 +40,10 @@ const showOptions : Auth0LockShowOptions = {
     type: "error",
     text: "an error has occurred"
   },
-  rememberLastLogin: false
+  rememberLastLogin: false,
+  languageDictionary: {
+    title: "test"
+  }
 };
 
 lock.show(showOptions);
@@ -87,6 +91,7 @@ const themeOptions : Auth0LockConstructorOptions = {
         icon: 'http://baz.com/icon.png'
       }
     },
+    hideMainScreenTitle: false,
     labeledSubmitButton: false,
     logo: "https://example.com/assets/logo.png",
     primaryColor: "green"
@@ -107,6 +112,7 @@ new Auth0Lock(CLIENT_ID, DOMAIN, themeOptions);
 
 const authOptions : Auth0LockConstructorOptions = {
   auth: {
+   autoParseHash: true,
    params: { state: "foo" },
    redirect: true,
    redirectUrl: "some url",
@@ -117,16 +123,37 @@ const authOptions : Auth0LockConstructorOptions = {
 
 new Auth0Lock(CLIENT_ID, DOMAIN, authOptions);
 
+// test "other" properties
+
+const otherOptions : Auth0LockConstructorOptions = {
+  clientBaseUrl: "http://www.example.com",
+  configurationBaseUrl: "https://cdn.auth0.com",
+  languageBaseUrl: "http://www.example.com",
+  hashCleanup: false,
+  leeway: 30,
+  _enableImpersonation: true,
+  _enableIdPInitiatedLogin: false,
+  defaultADUsernameFromEmailPrefix: false
+};
+
+new Auth0Lock(CLIENT_ID, DOMAIN, otherOptions);
+
 // test multi-variant example
 
 const multiVariantOptions : Auth0LockConstructorOptions = {
   container: "myContainer",
   closable: false,
+  language: "en",
   languageDictionary: {
     signUpTerms: "I agree to the <a href='/terms' target='_new'>terms of service</a> ...",
     title: "My Company",
   },
-  autofocus: false
+  autoclose: true,
+  autofocus: false,
+  allowAutocomplete: false,
+  scrollGlobalMessagesIntoView: false,
+  allowShowPassword: true,
+  allowPasswordAutocomplete: false,
 };
 
 new Auth0Lock(CLIENT_ID, DOMAIN, multiVariantOptions);
@@ -204,6 +231,19 @@ const selectFieldOptionsWithCallbacks : Auth0LockConstructorOptions = {
 
 new Auth0Lock(CLIENT_ID, DOMAIN, selectFieldOptionsWithCallbacks);
 
+// test checkbox-field additional sign up field
+
+const checkboxFieldOptions : Auth0LockConstructorOptions = {
+    additionalSignUpFields: [{
+      type: "checkbox",
+      name: "remember",
+      placeholder: "Remember Me",
+      prefill: "false"
+    }]
+  };
+
+  new Auth0Lock(CLIENT_ID, DOMAIN, checkboxFieldOptions);
+
 // test Avatar options
 
 const avatarOptions : Auth0LockConstructorOptions = {
@@ -231,6 +271,7 @@ new Auth0Lock(CLIENT_ID, DOMAIN, avatarOptions);
 
 const authResult : AuthResult = {
     accessToken: 'fake_access_token',
+    expiresIn: 7200,
     idToken: 'fake_id_token',
     idTokenPayload: {
       aud: "EaQzyHt1Dy57l-r5iHcMeT-lh1fFZntg",
@@ -240,5 +281,6 @@ const authResult : AuthResult = {
       sub: "auth0|aksjfkladsf"
     },
     refreshToken: undefined,
-    state: "923jf092j3.FFSDJFDSKLDF"
+    state: "923jf092j3.FFSDJFDSKLDF",
+    tokenType: 'Bearer'
 };

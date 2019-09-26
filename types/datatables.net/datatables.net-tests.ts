@@ -225,7 +225,7 @@ let config: DataTables.Settings = {
         ],
         // Data
         ajax: "url",
-        data: {},
+        data: [],
         // Features
         autoWidth: true,
         deferRender: true,
@@ -533,6 +533,9 @@ $('#example').on('click', 'tbody td', () => {
 
 cells.every(() => { });
 cells.every((cellRowIdx, cellColIdx, tableLoop, cellLoop) => { });
+cells.every(function(cellRowIdx, cellColIdx, tableLoop, cellLoop) {
+    const cell: DataTables.CellMethods = this;
+});
 
 let cell = dt.cell(":contains('Not shipped')");
 cell = dt.cell(() => { });
@@ -575,7 +578,7 @@ $('#example tbody').on('click', 'td', () => {
 
 const cell_invalidate_1 = cell.invalidate();
 const cell_invalidate_2 = cell.invalidate("data");
-$('#example tbody').on('click', 'td', () => {
+$('#example tbody').on('click', 'td', function()  {
     this.innerHTML = (parseInt(this.innerHTML, 10) + 1).toString();
     dt.cell(this).invalidate().draw();
 });
@@ -612,7 +615,7 @@ dt.columns('.select-filter').eq(0).each((colIdx: any) => {
     // Create the select list and search operation
     const select = $('<select />')
         .appendTo(
-        dt.column(colIdx).footer()
+            dt.column(colIdx).footer()
         )
         .on('change', () => {
             dt
@@ -653,8 +656,8 @@ $('#listData').html(
 const columns_dataSrc = columns.dataSrc();
 // alert('Data source: ' + dt.columns([0, 1]).dataSrc().join(' '));
 
-const columns_footer = columns.footer();
-const columns_header = columns.header();
+const columns_footer: HTMLElement = columns.footer();
+const columns_header: HTMLElement = columns.header();
 let columns_indexes = columns.indexes();
 columns_indexes = columns.indexes("visibile");
 const columns_nodes = columns.nodes();
@@ -671,7 +674,7 @@ columns_search_set = columns.search("string", true);
 columns_search_set = columns.search("string", true, false);
 columns_search_set = columns.search("string", true, false, true);
 
-const columns_visible_get = columns.visible();
+const columns_visible_get: boolean = columns.visible();
 let columns_visible_set = columns.visible(false);
 columns_visible_set = columns.visible(false, true);
 // Hide a column
@@ -687,8 +690,8 @@ column = dt.column("selector", modifier);
 dt.column(0).visible(false);
 
 $('#example tbody').on('click', 'td', () => {
-    const visIdx = $(this).index();
-    const dataIdx = dt.column.index('fromVisible', visIdx);
+    const visIdx: number = $(this).index();
+    const dataIdx: number = dt.column.index('fromVisible', visIdx);
     alert('Column data index:');
 });
 
@@ -696,7 +699,7 @@ const column_cache = column.cache("order");
 // Create the select list and search operation
 const select = $('<select />')
     .appendTo(
-    dt.column(0).footer()
+        dt.column(0).footer()
     )
     .on('change', () => {
         dt
@@ -732,7 +735,7 @@ $('#example').on('click', 'tbody td', () => {
     alert('Data source: ' + dt.column(idx).dataSrc());
 });
 
-const column_footer = column.footer();
+const column_footer: HTMLElement = column.footer();
 const column_p = dt.column(0);
 // $(column.footer()).html(
 //    column_p
@@ -742,15 +745,15 @@ const column_p = dt.column(0);
 //    })
 //    );
 
-const column_header = column.header();
+const column_header: HTMLElement = column.header();
 $('#example tbody').on('click', 'td', function() {
     const idx = dt.cell(this).index().column;
-    const title = dt.column(idx).header();
+    const title: HTMLElement = dt.column(idx).header();
 
     alert('Column title clicked on: ' + $(title).html());
 });
 
-let column_index = column.index();
+let column_index: number = column.index();
 column_index = column.index("visibile");
 dt.column(0).visible(false);
 
@@ -759,18 +762,16 @@ alert(idx); // will show 0
 
 dt.column('0:visible').order('asc');
 
-const column_nodes = column.nodes();
-dt.column(-1)
-    .nodes();
-// .to$()      // Convert to a jQuery object
-// .addClass('ready');
+const column_nodes: DataTables.Api = column.nodes();
+column_nodes.to$()      // Convert to a jQuery object
+            .addClass('ready');
 
 const column_search_get = column.search();
 let column_search_set = column.search("string");
 column_search_set = column.search("string", true);
 column_search_set = column.search("string", true, false);
 column_search_set = column.search("string", true, false, true);
-$('#column3_search').on('keyup', () => {
+$('#column3_search').on('keyup', function() {
     dt
         .columns(3)
         .search((this as HTMLInputElement).value)
@@ -781,7 +782,7 @@ dt.columns('.select-filter').eq(0).each((colIdx: any) => {
     // Create the select list and search operation
     const select = $('<select />')
         .appendTo(
-        dt.column(colIdx).footer()
+            dt.column(colIdx).footer()
         )
         .on('change', function() {
             dt
@@ -815,6 +816,9 @@ dt.columns.adjust().draw(false); // adjust column sizing and redraw
 
 dt.columns().every(() => { });
 dt.columns().every((colIdx, tableLoop, colLoop) => { });
+dt.columns().every(function(colIdx, tableLoop, colLoop) {
+    const col: DataTables.ColumnMethods = this;
+});
 
 $('#example').on('column-visibility.dt', (e: object, settings: DataTables.Settings, column: number, state: boolean, recalc: boolean | undefined) => {
     const widthRecalced = (recalc || recalc === undefined);
@@ -864,6 +868,9 @@ const rows_12 = dt.rows("selector").nodes();
 const rows_13 = dt.rows.add([{}, {}]);
 dt.rows().every(() => { });
 dt.rows().every((rowIdx, tableLoop, rowLoop) => { });
+dt.rows().every(function(rowIdx, tableLoop, rowLoop) {
+    const row: DataTables.RowMethods = this;
+});
 const rows_14: DataTables.Api = dt.rows("selector").ids();
 const rows_15: DataTables.Api = dt.rows("selector").ids(false);
 
@@ -993,6 +1000,9 @@ const static_6 = new $.fn.dataTable.Api("selector");
 
 const version: boolean = $.fn.dataTable.versionCheck("1.10.0");
 const isDataTable: boolean = $.fn.dataTable.isDataTable("selector");
+const isDataTable_3: boolean = $.fn.dataTable.isDataTable(dt.row("selector").node());
+const isDataTable_2: boolean = $.fn.dataTable.isDataTable($("selector"));
+const isDataTable_4: boolean = $.fn.dataTable.isDataTable($("selector").dataTable().api());
 const escapeRegex: string = $.fn.dataTable.util.escapeRegex("");
 
 const throttle_1 = $.fn.dataTable.util.throttle((data) => {
@@ -1061,3 +1071,92 @@ const util_1: boolean = dt.any();
 const util_2: number = dt.count();
 
 //#endregion "Methods-Util"
+
+//#region "ExtSettings"
+
+const ext_classes_settings: DataTables.ExtClassesSettings = {
+};
+const ext_classes_settings_full: DataTables.ExtClassesSettings = {
+    sFilter: "",
+    sFilterInput: "",
+    sFooterTH: "",
+    sHeaderTH: "",
+    sInfo: "",
+    sJUIFooter: "",
+    sJUIHeader: "",
+    sLength: "",
+    sLengthSelect: "",
+    sNoFooter: "",
+    sPageButton: "",
+    sPageButtonActive: "",
+    sPageButtonDisabled: "",
+    sPaging: "",
+    sProcessing: "",
+    sRowEmpty: "",
+    sScrollBody: "",
+    sScrollFoot: "",
+    sScrollFootInner: "",
+    sScrollHead: "",
+    sScrollHeadInner: "",
+    sScrollWrapper: "",
+    sSortable: "",
+    sSortableAsc: "",
+    sSortableDesc: "",
+    sSortableNone: "",
+    sSortAsc: "",
+    sSortColumn: "",
+    sSortDesc: "",
+    sSortIcon: "",
+    sSortJUI: "",
+    sSortJUIAsc: "",
+    sSortJUIAscAllowed: "",
+    sSortJUIDesc: "",
+    sSortJUIDescAllowed: "",
+    sSortJUIWrapper: "",
+    sStripeEven: "",
+    sStripeOdd: "",
+    sTable: "",
+    sWrapper: ""
+};
+
+const ext_type_settings: DataTables.ExtTypeSettings = {
+    detect: [],
+    search: {},
+    order: {}
+};
+ext_type_settings.detect.push((d: string, s: DataTables.Settings) => {
+    return null;
+});
+ext_type_settings.detect.push((d: string, s: DataTables.Settings) => {
+    return "";
+});
+
+const ext_settings: DataTables.ExtSettings = {
+    aTypes: [],
+    afnFiltering: [],
+    afnSortData: {},
+    aoFeatures: [],
+    builder: "",
+    classes: ext_classes_settings,
+    errMode: "",
+    feature: [],
+    fnVersionCheck: (version: string) => "",
+    iApiIndex: 0,
+    internal: {},
+    legacy: {},
+    oApi: {},
+    oJUIClasses: {},
+    oPagination: {},
+    oSort: {},
+    oStdClasses: ext_classes_settings,
+    ofnSearch: {},
+    order: {},
+    pager: {},
+    renderer: {},
+    sVersion: "",
+    search: [],
+    selector: {},
+    type: ext_type_settings
+};
+
+ //#endregion "ExtSettings"

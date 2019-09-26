@@ -1,4 +1,4 @@
-import * as express from 'express';
+import express = require('express');
 import { RequestHandler, Request, Response, NextFunction } from 'express-serve-static-core';
 import fileUpload = require('express-fileupload');
 
@@ -9,7 +9,7 @@ const app: express.Express = express();
 app.use(fileUpload({debug: true}));
 
 function isUploadedFile(file: UploadedFile | UploadedFile[]): file is UploadedFile {
-    return typeof file === 'object' && (<UploadedFile> file).name !== undefined;
+    return typeof file === 'object' && (file as UploadedFile).name !== undefined;
 }
 
 const uploadHandler: RequestHandler = (req: Request, res: Response, next: NextFunction) => {

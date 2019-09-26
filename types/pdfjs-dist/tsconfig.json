@@ -19,6 +19,7 @@
     },
     "files": [
         "index.d.ts",
-        "pdfjs-dist-tests.ts"
+        "pdfjs-dist-tests.ts",
+        "webpack/index.d.ts"
     ]
 }

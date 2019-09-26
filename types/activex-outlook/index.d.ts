@@ -1,9 +1,10 @@
-// Type definitions for Microsoft Outlook 14.0 Object Library - Outlook 14.0
+// Type definitions for non-npm package Microsoft Outlook 14.0 Object Library - Outlook 14.0
 // Project: https://msdn.microsoft.com/en-us/vba/vba-outlook
 // Definitions by: Zev Spitz <https://github.com/zspitz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
+/// <reference types="activex-interop" />
 /// <reference types="activex-stdole" />
 /// <reference types="activex-office" />
 
@@ -5855,7 +5856,6 @@ interface ActiveXObject {
     on(obj: Outlook.TaskRequestDeclineItem, event: 'AfterWrite' | 'BeforeRead' | 'Read' | 'Unload', handler: (this: Outlook.TaskRequestDeclineItem, parameter: {}) => void): void;
     on(obj: Outlook.TaskRequestItem, event: 'AfterWrite' | 'BeforeRead' | 'Read' | 'Unload', handler: (this: Outlook.TaskRequestItem, parameter: {}) => void): void;
     on(obj: Outlook.TaskRequestUpdateItem, event: 'AfterWrite' | 'BeforeRead' | 'Read' | 'Unload', handler: (this: Outlook.TaskRequestUpdateItem, parameter: {}) => void): void;
-    new<K extends keyof ActiveXObjectNameMap = any>(progid: K): ActiveXObjectNameMap[K];
 }
 
 interface ActiveXObjectNameMap {
@@ -5885,8 +5885,4 @@ interface EnumeratorConstructor {
     new(col: Outlook.ItemProperties): Enumerator<Outlook.ItemProperty>;
     new(col: Outlook.Reminders): Enumerator<Outlook.Reminder>;
     new(col: Outlook.Views): Enumerator<Outlook.View>;
-}
-
-interface SafeArray<T = any> {
-    _brand: SafeArray<T>;
 }

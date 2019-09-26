@@ -1,5 +1,5 @@
-import PushStream from 'zen-push';
-import * as Observable from 'zen-observable';
+import PushStream = require('zen-push');
+import Observable = require('zen-observable');
 
 function assert(val: boolean) {
     if (!val) {

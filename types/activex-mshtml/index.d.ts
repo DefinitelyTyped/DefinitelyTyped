@@ -1,8 +1,8 @@
-// Type definitions for Microsoft HTML Object Library - MSHTML 4.0
+// Type definitions for non-npm package Microsoft HTML Object Library - MSHTML 4.0
 // Project: https://msdn.microsoft.com/en-us/library/aa741317(v=vs.85).aspx
 // Definitions by: Zev Spitz <https://github.com/zspitz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 declare namespace MSHTML {
     const enum _BEHAVIOR_EVENT {
@@ -2885,11 +2885,10 @@ declare namespace MSHTML {
         update(): void;
     }
 
-    class BlockFormats {
-        private 'MSHTML.BlockFormats_typekey': BlockFormats;
-        private constructor();
+    interface BlockFormats {
         readonly Count: number;
         item(pvarIndex: any): string;
+        (pvarIndex: any): string;
     }
 
     class CanvasGradient {
@@ -2975,7 +2974,7 @@ declare namespace MSHTML {
         private 'MSHTML.CClientCaps_typekey': CClientCaps;
         private constructor();
 
-        /** @param string [bStrVer=''] */
+        /** @param bStrVer [bStrVer=''] */
         addComponentRequest(bstrName: string, bstrURL: string, bStrVer?: string): void;
         readonly availHeight: number;
         readonly availWidth: number;
@@ -2991,7 +2990,7 @@ declare namespace MSHTML {
         getComponentVersion(bstrName: string, bstrURL: string): string;
         readonly height: number;
 
-        /** @param string [bStrVer=''] */
+        /** @param bStrVer [bStrVer=''] */
         isComponentInstalled(bstrName: string, bstrURL: string, bStrVer?: string): boolean;
         readonly javaEnabled: boolean;
         readonly onLine: boolean;
@@ -3016,7 +3015,7 @@ declare namespace MSHTML {
         cancelBubble: boolean;
         clientX: number;
         clientY: number;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         readonly contentOverflow: boolean;
         ctrlKey: boolean;
         ctrlLeft: boolean;
@@ -3025,7 +3024,7 @@ declare namespace MSHTML {
         readonly dataTransfer: IHTMLDataTransfer;
         fromElement: IHTMLElement;
 
-        /** @param number [lFlags=0] */
+        /** @param lFlags [lFlags=0] */
         getAttribute(strAttributeName: string, lFlags?: number): any;
         keyCode: number;
         readonly nextPage: string;
@@ -3037,14 +3036,14 @@ declare namespace MSHTML {
         reason: number;
         recordset: any;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         removeAttribute(strAttributeName: string, lFlags?: number): boolean;
         repeat: boolean;
         returnValue: any;
         screenX: number;
         screenY: number;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         setAttribute(strAttributeName: string, AttributeValue: any, lFlags?: number): void;
         shiftKey: boolean;
         shiftLeft: boolean;
@@ -3083,10 +3082,10 @@ declare namespace MSHTML {
     class CPlugins {
         private 'MSHTML.CPlugins_typekey': CPlugins;
         private constructor();
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         readonly length: number;
 
-        /** @param boolean [reload=false] */
+        /** @param reload [reload=false] */
         refresh(reload?: boolean): void;
     }
 
@@ -3230,13 +3229,12 @@ declare namespace MSHTML {
         readonly type: string;
     }
 
-    class DOMChildrenCollection {
-        private 'MSHTML.DOMChildrenCollection_typekey': DOMChildrenCollection;
-        private constructor();
-        readonly 'constructor': any;
+    interface DOMChildrenCollection {
+        readonly ['constructor']: any;
         ie9_item(index: number): any;
         item(index: number): any;
         readonly length: number;
+        (index: number): any;
     }
 
     class DOMCloseEvent {
@@ -3348,7 +3346,7 @@ declare namespace MSHTML {
         readonly publicId: any;
         removeChild(oldChild: IHTMLDOMNode): IHTMLDOMNode;
 
-        /** @param boolean [fDeep=false] */
+        /** @param fDeep [fDeep=false] */
         removeNode(fDeep?: boolean): IHTMLDOMNode;
         replaceChild(newChild: IHTMLDOMNode, oldChild: IHTMLDOMNode): IHTMLDOMNode;
         replaceNode(replacement: IHTMLDOMNode): IHTMLDOMNode;
@@ -3376,14 +3374,9 @@ declare namespace MSHTML {
         readonly eventPhase: number;
         readonly fromElement: IHTMLElement;
         getModifierState(keyArg: string): boolean;
-        initDragEvent(
-            eventType: string, canBubble: boolean, cancelable: boolean, viewArg: IHTMLWindow2, detailArg: number, screenXArg: number, screenYArg: number,
-            clientXArg: number, clientYArg: number, ctrlKeyArg: boolean, altKeyArg: boolean, shiftKeyArg: boolean, metaKeyArg: boolean, buttonArg: number,
-            relatedTargetArg: IEventTarget, dataTransferArg: IHTMLDataTransfer): void;
+        initDragEvent(eventType: string, canBubble: boolean, cancelable: boolean, viewArg: IHTMLWindow2, detailArg: number, screenXArg: number, screenYArg: number, clientXArg: number, clientYArg: number, ctrlKeyArg: boolean, altKeyArg: boolean, shiftKeyArg: boolean, metaKeyArg: boolean, buttonArg: number, relatedTargetArg: IEventTarget, dataTransferArg: IHTMLDataTransfer): void;
         initEvent(eventType: string, canBubble: boolean, cancelable: boolean): void;
-        initMouseEvent(
-            eventType: string, canBubble: boolean, cancelable: boolean, viewArg: IHTMLWindow2, detailArg: number, screenXArg: number, screenYArg: number,
-            clientXArg: number, clientYArg: number, ctrlKeyArg: boolean, altKeyArg: boolean, shiftKeyArg: boolean, metaKeyArg: boolean, buttonArg: number, relatedTargetArg: IEventTarget): void;
+        initMouseEvent(eventType: string, canBubble: boolean, cancelable: boolean, viewArg: IHTMLWindow2, detailArg: number, screenXArg: number, screenYArg: number, clientXArg: number, clientYArg: number, ctrlKeyArg: boolean, altKeyArg: boolean, shiftKeyArg: boolean, metaKeyArg: boolean, buttonArg: number, relatedTargetArg: IEventTarget): void;
         initUIEvent(eventType: string, canBubble: boolean, cancelable: boolean, view: IHTMLWindow2, detail: number): void;
         readonly isTrusted: boolean;
         readonly layerX: number;
@@ -3479,8 +3472,7 @@ declare namespace MSHTML {
         getModifierState(keyArg: string): boolean;
         readonly ie9_char: any;
         initEvent(eventType: string, canBubble: boolean, cancelable: boolean): void;
-        initKeyboardEvent(
-            eventType: string, canBubble: boolean, cancelable: boolean, viewArg: IHTMLWindow2, keyArg: string, locationArg: number, modifiersListArg: string, repeat: boolean, locale: string): void;
+        initKeyboardEvent(eventType: string, canBubble: boolean, cancelable: boolean, viewArg: IHTMLWindow2, keyArg: string, locationArg: number, modifiersListArg: string, repeat: boolean, locale: string): void;
         initUIEvent(eventType: string, canBubble: boolean, cancelable: boolean, view: IHTMLWindow2, detail: number): void;
         readonly isTrusted: boolean;
         readonly key: string;
@@ -3544,9 +3536,7 @@ declare namespace MSHTML {
         readonly fromElement: IHTMLElement;
         getModifierState(keyArg: string): boolean;
         initEvent(eventType: string, canBubble: boolean, cancelable: boolean): void;
-        initMouseEvent(
-            eventType: string, canBubble: boolean, cancelable: boolean, viewArg: IHTMLWindow2, detailArg: number, screenXArg: number, screenYArg: number,
-            clientXArg: number, clientYArg: number, ctrlKeyArg: boolean, altKeyArg: boolean, shiftKeyArg: boolean, metaKeyArg: boolean, buttonArg: number, relatedTargetArg: IEventTarget): void;
+        initMouseEvent(eventType: string, canBubble: boolean, cancelable: boolean, viewArg: IHTMLWindow2, detailArg: number, screenXArg: number, screenYArg: number, clientXArg: number, clientYArg: number, ctrlKeyArg: boolean, altKeyArg: boolean, shiftKeyArg: boolean, metaKeyArg: boolean, buttonArg: number, relatedTargetArg: IEventTarget): void;
         initUIEvent(eventType: string, canBubble: boolean, cancelable: boolean, view: IHTMLWindow2, detail: number): void;
         readonly isTrusted: boolean;
         readonly layerX: number;
@@ -3593,12 +3583,8 @@ declare namespace MSHTML {
         readonly fromElement: IHTMLElement;
         getModifierState(keyArg: string): boolean;
         initEvent(eventType: string, canBubble: boolean, cancelable: boolean): void;
-        initMouseEvent(
-            eventType: string, canBubble: boolean, cancelable: boolean, viewArg: IHTMLWindow2, detailArg: number, screenXArg: number, screenYArg: number,
-            clientXArg: number, clientYArg: number, ctrlKeyArg: boolean, altKeyArg: boolean, shiftKeyArg: boolean, metaKeyArg: boolean, buttonArg: number, relatedTargetArg: IEventTarget): void;
-        initMouseWheelEvent(
-            eventType: string, canBubble: boolean, cancelable: boolean, viewArg: IHTMLWindow2, detailArg: number, screenXArg: number, screenYArg: number,
-            clientXArg: number, clientYArg: number, buttonArg: number, relatedTargetArg: IEventTarget, modifiersListArg: string, wheelDeltaArg: number): void;
+        initMouseEvent(eventType: string, canBubble: boolean, cancelable: boolean, viewArg: IHTMLWindow2, detailArg: number, screenXArg: number, screenYArg: number, clientXArg: number, clientYArg: number, ctrlKeyArg: boolean, altKeyArg: boolean, shiftKeyArg: boolean, metaKeyArg: boolean, buttonArg: number, relatedTargetArg: IEventTarget): void;
+        initMouseWheelEvent(eventType: string, canBubble: boolean, cancelable: boolean, viewArg: IHTMLWindow2, detailArg: number, screenXArg: number, screenYArg: number, clientXArg: number, clientYArg: number, buttonArg: number, relatedTargetArg: IEventTarget, modifiersListArg: string, wheelDeltaArg: number): void;
         initUIEvent(eventType: string, canBubble: boolean, cancelable: boolean, view: IHTMLWindow2, detail: number): void;
         readonly isTrusted: boolean;
         readonly layerX: number;
@@ -3711,8 +3697,7 @@ declare namespace MSHTML {
         readonly defaultPrevented: boolean;
         readonly eventPhase: number;
         initEvent(eventType: string, canBubble: boolean, cancelable: boolean): void;
-        initMutationEvent(
-            eventType: string, canBubble: boolean, cancelable: boolean, relatedNodeArg: any, prevValueArg: string, newValueArg: string, attrNameArg: string, attrChangeArg: number): void;
+        initMutationEvent(eventType: string, canBubble: boolean, cancelable: boolean, relatedNodeArg: any, prevValueArg: string, newValueArg: string, attrNameArg: string, attrChangeArg: number): void;
         readonly isTrusted: boolean;
         readonly newValue: string;
         preventDefault(): void;
@@ -3732,10 +3717,9 @@ declare namespace MSHTML {
         parseFromString(xmlSource: string, mimeType: string): IHTMLDocument2;
     }
 
-    class DOMParserFactory {
-        private 'MSHTML.DOMParserFactory_typekey': DOMParserFactory;
-        private constructor();
+    interface DOMParserFactory {
         create(): IDOMParser;
+        (): IDOMParser;
     }
 
     class DOMProcessingInstruction {
@@ -3773,7 +3757,7 @@ declare namespace MSHTML {
         readonly previousSibling: IHTMLDOMNode;
         removeChild(oldChild: IHTMLDOMNode): IHTMLDOMNode;
 
-        /** @param boolean [fDeep=false] */
+        /** @param fDeep [fDeep=false] */
         removeNode(fDeep?: boolean): IHTMLDOMNode;
         replaceChild(newChild: IHTMLDOMNode, oldChild: IHTMLDOMNode): IHTMLDOMNode;
         replaceNode(replacement: IHTMLDOMNode): IHTMLDOMNode;
@@ -3838,8 +3822,7 @@ declare namespace MSHTML {
         readonly defaultPrevented: boolean;
         readonly eventPhase: number;
         initEvent(eventType: string, canBubble: boolean, cancelable: boolean): void;
-        initStorageEvent(
-            eventType: string, canBubble: boolean, cancelable: boolean, keyArg: string, oldValueArg: string, newValueArg: string, urlArg: string, storageAreaArg: IHTMLStorage): void;
+        initStorageEvent(eventType: string, canBubble: boolean, cancelable: boolean, keyArg: string, oldValueArg: string, newValueArg: string, urlArg: string, storageAreaArg: IHTMLStorage): void;
         readonly isTrusted: boolean;
         readonly key: string;
         readonly newValue: string;
@@ -3928,14 +3911,9 @@ declare namespace MSHTML {
         readonly fromElement: IHTMLElement;
         getModifierState(keyArg: string): boolean;
         initEvent(eventType: string, canBubble: boolean, cancelable: boolean): void;
-        initMouseEvent(
-            eventType: string, canBubble: boolean, cancelable: boolean, viewArg: IHTMLWindow2, detailArg: number, screenXArg: number, screenYArg: number,
-            clientXArg: number, clientYArg: number, ctrlKeyArg: boolean, altKeyArg: boolean, shiftKeyArg: boolean, metaKeyArg: boolean, buttonArg: number, relatedTargetArg: IEventTarget): void;
+        initMouseEvent(eventType: string, canBubble: boolean, cancelable: boolean, viewArg: IHTMLWindow2, detailArg: number, screenXArg: number, screenYArg: number, clientXArg: number, clientYArg: number, ctrlKeyArg: boolean, altKeyArg: boolean, shiftKeyArg: boolean, metaKeyArg: boolean, buttonArg: number, relatedTargetArg: IEventTarget): void;
         initUIEvent(eventType: string, canBubble: boolean, cancelable: boolean, view: IHTMLWindow2, detail: number): void;
-        initWheelEvent(
-            eventType: string, canBubble: boolean, cancelable: boolean, viewArg: IHTMLWindow2, detailArg: number, screenXArg: number, screenYArg: number,
-            clientXArg: number, clientYArg: number, buttonArg: number, relatedTargetArg: IEventTarget, modifiersListArg: string, deltaX: number, deltaY: number,
-            deltaZ: number, deltaMode: number): void;
+        initWheelEvent(eventType: string, canBubble: boolean, cancelable: boolean, viewArg: IHTMLWindow2, detailArg: number, screenXArg: number, screenYArg: number, clientXArg: number, clientYArg: number, buttonArg: number, relatedTargetArg: IEventTarget, modifiersListArg: string, deltaX: number, deltaY: number, deltaZ: number, deltaMode: number): void;
         readonly isTrusted: boolean;
         readonly layerX: number;
         readonly layerY: number;
@@ -3967,25 +3945,22 @@ declare namespace MSHTML {
         private constructor();
     }
 
-    class FontNames {
-        private 'MSHTML.FontNames_typekey': FontNames;
-        private constructor();
+    interface FontNames {
         readonly Count: number;
         item(pvarIndex: any): string;
+        (pvarIndex: any): string;
     }
 
-    class FramesCollection {
-        private 'MSHTML.FramesCollection_typekey': FramesCollection;
-        private constructor();
+    interface FramesCollection {
         item(pvarIndex: any): any;
         readonly length: number;
+        (pvarIndex: any): any;
     }
 
-    class HTCAttachBehavior {
-        private 'MSHTML.HTCAttachBehavior_typekey': HTCAttachBehavior;
-        private constructor();
+    interface HTCAttachBehavior {
         detachEvent(): void;
         FireEvent(evt: any): void;
+        (evt: any): void;
     }
 
     class HTCDefaultDispatch {
@@ -4077,7 +4052,7 @@ declare namespace MSHTML {
         cloneNode(fDeep: boolean): IHTMLDOMNode;
         compareDocumentPosition(otherNode: IHTMLDOMNode): number;
         componentFromPoint(x: number, y: number): string;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         contains(pChild: IHTMLElement): boolean;
         contentEditable: string;
         coords: string;
@@ -4098,7 +4073,7 @@ declare namespace MSHTML {
         focus(): void;
         getAdjacentText(where: string): string;
 
-        /** @param number [lFlags=0] */
+        /** @param lFlags [lFlags=0] */
         getAttribute(strAttributeName: string, lFlags?: number): any;
         getAttributeNode(bstrName: string): IHTMLDOMAttribute;
         getAttributeNodeNS(pvarNS: any, bstrName: string): IHTMLDOMAttribute2;
@@ -4317,7 +4292,7 @@ declare namespace MSHTML {
         rel: string;
         releaseCapture(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         removeAttribute(strAttributeName: string, lFlags?: number): boolean;
         removeAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         removeAttributeNS(pvarNS: any, strAttributeName: string): void;
@@ -4326,7 +4301,7 @@ declare namespace MSHTML {
         removeExpression(propname: string): boolean;
         removeFilter(pUnk: any): void;
 
-        /** @param boolean [fDeep=false] */
+        /** @param fDeep [fDeep=false] */
         removeNode(fDeep?: boolean): IHTMLDOMNode;
         replaceAdjacentText(where: string, newText: string): string;
         replaceChild(newChild: IHTMLDOMNode, oldChild: IHTMLDOMNode): IHTMLDOMNode;
@@ -4343,16 +4318,16 @@ declare namespace MSHTML {
         search: string;
         setActive(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         setAttribute(strAttributeName: string, AttributeValue: any, lFlags?: number): void;
         setAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         setAttributeNodeNS(pattr: IHTMLDOMAttribute2): IHTMLDOMAttribute2;
         setAttributeNS(pvarNS: any, strAttributeName: string, pvarAttributeValue: any): void;
 
-        /** @param boolean [containerCapture=true] */
+        /** @param containerCapture [containerCapture=true] */
         setCapture(containerCapture?: boolean): void;
 
-        /** @param string [language=''] */
+        /** @param language [language=''] */
         setExpression(propname: string, expression: string, language?: string): void;
         shape: string;
         readonly sourceIndex: number;
@@ -4450,7 +4425,7 @@ declare namespace MSHTML {
         readonly clientWidth: number;
         cloneNode(fDeep: boolean): IHTMLDOMNode;
         componentFromPoint(x: number, y: number): string;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         contains(pChild: IHTMLElement): boolean;
         contentEditable: string;
         coords: string;
@@ -4468,7 +4443,7 @@ declare namespace MSHTML {
         focus(): void;
         getAdjacentText(where: string): string;
 
-        /** @param number [lFlags=0] */
+        /** @param lFlags [lFlags=0] */
         getAttribute(strAttributeName: string, lFlags?: number): any;
         getAttributeNode(bstrName: string): IHTMLDOMAttribute;
         getAttributeNodeNS(pvarNS: any, bstrName: string): IHTMLDOMAttribute2;
@@ -4666,7 +4641,7 @@ declare namespace MSHTML {
         readonly recordNumber: any;
         releaseCapture(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         removeAttribute(strAttributeName: string, lFlags?: number): boolean;
         removeAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         removeAttributeNS(pvarNS: any, strAttributeName: string): void;
@@ -4675,7 +4650,7 @@ declare namespace MSHTML {
         removeExpression(propname: string): boolean;
         removeFilter(pUnk: any): void;
 
-        /** @param boolean [fDeep=false] */
+        /** @param fDeep [fDeep=false] */
         removeNode(fDeep?: boolean): IHTMLDOMNode;
         replaceAdjacentText(where: string, newText: string): string;
         replaceChild(newChild: IHTMLDOMNode, oldChild: IHTMLDOMNode): IHTMLDOMNode;
@@ -4691,16 +4666,16 @@ declare namespace MSHTML {
         search: string;
         setActive(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         setAttribute(strAttributeName: string, AttributeValue: any, lFlags?: number): void;
         setAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         setAttributeNodeNS(pattr: IHTMLDOMAttribute2): IHTMLDOMAttribute2;
         setAttributeNS(pvarNS: any, strAttributeName: string, pvarAttributeValue: any): void;
 
-        /** @param boolean [containerCapture=true] */
+        /** @param containerCapture [containerCapture=true] */
         setCapture(containerCapture?: boolean): void;
 
-        /** @param string [language=''] */
+        /** @param language [language=''] */
         setExpression(propname: string, expression: string, language?: string): void;
         shape: string;
         readonly sourceIndex: number;
@@ -4718,11 +4693,9 @@ declare namespace MSHTML {
         xmsAcceleratorKey: string;
     }
 
-    class HTMLAreasCollection {
-        private 'MSHTML.HTMLAreasCollection_typekey': HTMLAreasCollection;
-        private constructor();
+    interface HTMLAreasCollection {
         add(element: IHTMLElement, before?: any): void;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         ie8_item(index: number): IHTMLElement2;
         readonly ie8_length: number;
         ie8_namedItem(name: string): IHTMLElement2;
@@ -4730,16 +4703,15 @@ declare namespace MSHTML {
         length: number;
         namedItem(name: string): any;
 
-        /** @param number [index=-1] */
+        /** @param index [index=-1] */
         remove(index?: number): void;
         tags(tagName: any): any;
         urns(urn: any): any;
+        (name?: any, index?: any): any;
     }
 
-    class HTMLAttributeCollection {
-        private 'MSHTML.HTMLAttributeCollection_typekey': HTMLAttributeCollection;
-        private constructor();
-        readonly 'constructor': any;
+    interface HTMLAttributeCollection {
+        readonly ['constructor']: any;
         getNamedItem(bstrName: string): IHTMLDOMAttribute;
         getNamedItemNS(pvarNS: any, bstrName: string): IHTMLDOMAttribute2;
         ie8_getNamedItem(bstrName: string): IHTMLDOMAttribute;
@@ -4758,6 +4730,7 @@ declare namespace MSHTML {
         removeNamedItemNS(pvarNS: any, bstrName: string): IHTMLDOMAttribute2;
         setNamedItem(ppNode: IHTMLDOMAttribute): IHTMLDOMAttribute;
         setNamedItemNS(pNodeIn: IHTMLDOMAttribute2): IHTMLDOMAttribute2;
+        (name?: any): any;
     }
 
     class HTMLAudioElement {
@@ -4818,7 +4791,7 @@ declare namespace MSHTML {
         cloneNode(fDeep: boolean): IHTMLDOMNode;
         compareDocumentPosition(otherNode: IHTMLDOMNode): number;
         componentFromPoint(x: number, y: number): string;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         contains(pChild: IHTMLElement): boolean;
         contentEditable: string;
         controls: boolean;
@@ -4848,7 +4821,7 @@ declare namespace MSHTML {
         focus(): void;
         getAdjacentText(where: string): string;
 
-        /** @param number [lFlags=0] */
+        /** @param lFlags [lFlags=0] */
         getAttribute(strAttributeName: string, lFlags?: number): any;
         getAttributeNode(bstrName: string): IHTMLDOMAttribute;
         getAttributeNodeNS(pvarNS: any, bstrName: string): IHTMLDOMAttribute2;
@@ -5065,7 +5038,7 @@ declare namespace MSHTML {
         readonly recordNumber: any;
         releaseCapture(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         removeAttribute(strAttributeName: string, lFlags?: number): boolean;
         removeAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         removeAttributeNS(pvarNS: any, strAttributeName: string): void;
@@ -5074,7 +5047,7 @@ declare namespace MSHTML {
         removeExpression(propname: string): boolean;
         removeFilter(pUnk: any): void;
 
-        /** @param boolean [fDeep=false] */
+        /** @param fDeep [fDeep=false] */
         removeNode(fDeep?: boolean): IHTMLDOMNode;
         replaceAdjacentText(where: string, newText: string): string;
         replaceChild(newChild: IHTMLDOMNode, oldChild: IHTMLDOMNode): IHTMLDOMNode;
@@ -5091,16 +5064,16 @@ declare namespace MSHTML {
         readonly seeking: boolean;
         setActive(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         setAttribute(strAttributeName: string, AttributeValue: any, lFlags?: number): void;
         setAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         setAttributeNodeNS(pattr: IHTMLDOMAttribute2): IHTMLDOMAttribute2;
         setAttributeNS(pvarNS: any, strAttributeName: string, pvarAttributeValue: any): void;
 
-        /** @param boolean [containerCapture=true] */
+        /** @param containerCapture [containerCapture=true] */
         setCapture(containerCapture?: boolean): void;
 
-        /** @param string [language=''] */
+        /** @param language [language=''] */
         setExpression(propname: string, expression: string, language?: string): void;
         readonly sourceIndex: number;
         spellcheck: any;
@@ -5120,10 +5093,9 @@ declare namespace MSHTML {
         xmsAcceleratorKey: string;
     }
 
-    class HTMLAudioElementFactory {
-        private 'MSHTML.HTMLAudioElementFactory_typekey': HTMLAudioElementFactory;
-        private constructor();
+    interface HTMLAudioElementFactory {
         create(src?: any): IHTMLAudioElement;
+        (src?: any): IHTMLAudioElement;
     }
 
     class HTMLBaseElement {
@@ -5179,7 +5151,7 @@ declare namespace MSHTML {
         readonly clientWidth: number;
         cloneNode(fDeep: boolean): IHTMLDOMNode;
         componentFromPoint(x: number, y: number): string;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         contains(pChild: IHTMLElement): boolean;
         contentEditable: string;
         createControlRange(): any;
@@ -5196,7 +5168,7 @@ declare namespace MSHTML {
         focus(): void;
         getAdjacentText(where: string): string;
 
-        /** @param number [lFlags=0] */
+        /** @param lFlags [lFlags=0] */
         getAttribute(strAttributeName: string, lFlags?: number): any;
         getAttributeNode(bstrName: string): IHTMLDOMAttribute;
         getAttributeNodeNS(pvarNS: any, bstrName: string): IHTMLDOMAttribute2;
@@ -5385,7 +5357,7 @@ declare namespace MSHTML {
         readonly recordNumber: any;
         releaseCapture(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         removeAttribute(strAttributeName: string, lFlags?: number): boolean;
         removeAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         removeAttributeNS(pvarNS: any, strAttributeName: string): void;
@@ -5394,7 +5366,7 @@ declare namespace MSHTML {
         removeExpression(propname: string): boolean;
         removeFilter(pUnk: any): void;
 
-        /** @param boolean [fDeep=false] */
+        /** @param fDeep [fDeep=false] */
         removeNode(fDeep?: boolean): IHTMLDOMNode;
         replaceAdjacentText(where: string, newText: string): string;
         replaceChild(newChild: IHTMLDOMNode, oldChild: IHTMLDOMNode): IHTMLDOMNode;
@@ -5409,16 +5381,16 @@ declare namespace MSHTML {
         readonly scrollWidth: number;
         setActive(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         setAttribute(strAttributeName: string, AttributeValue: any, lFlags?: number): void;
         setAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         setAttributeNodeNS(pattr: IHTMLDOMAttribute2): IHTMLDOMAttribute2;
         setAttributeNS(pvarNS: any, strAttributeName: string, pvarAttributeValue: any): void;
 
-        /** @param boolean [containerCapture=true] */
+        /** @param containerCapture [containerCapture=true] */
         setCapture(containerCapture?: boolean): void;
 
-        /** @param string [language=''] */
+        /** @param language [language=''] */
         setExpression(propname: string, expression: string, language?: string): void;
         readonly sourceIndex: number;
         spellcheck: any;
@@ -5489,7 +5461,7 @@ declare namespace MSHTML {
         cloneNode(fDeep: boolean): IHTMLDOMNode;
         color: any;
         componentFromPoint(x: number, y: number): string;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         contains(pChild: IHTMLElement): boolean;
         contentEditable: string;
         createControlRange(): any;
@@ -5507,7 +5479,7 @@ declare namespace MSHTML {
         focus(): void;
         getAdjacentText(where: string): string;
 
-        /** @param number [lFlags=0] */
+        /** @param lFlags [lFlags=0] */
         getAttribute(strAttributeName: string, lFlags?: number): any;
         getAttributeNode(bstrName: string): IHTMLDOMAttribute;
         getAttributeNodeNS(pvarNS: any, bstrName: string): IHTMLDOMAttribute2;
@@ -5694,7 +5666,7 @@ declare namespace MSHTML {
         readonly recordNumber: any;
         releaseCapture(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         removeAttribute(strAttributeName: string, lFlags?: number): boolean;
         removeAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         removeAttributeNS(pvarNS: any, strAttributeName: string): void;
@@ -5703,7 +5675,7 @@ declare namespace MSHTML {
         removeExpression(propname: string): boolean;
         removeFilter(pUnk: any): void;
 
-        /** @param boolean [fDeep=false] */
+        /** @param fDeep [fDeep=false] */
         removeNode(fDeep?: boolean): IHTMLDOMNode;
         replaceAdjacentText(where: string, newText: string): string;
         replaceChild(newChild: IHTMLDOMNode, oldChild: IHTMLDOMNode): IHTMLDOMNode;
@@ -5718,16 +5690,16 @@ declare namespace MSHTML {
         readonly scrollWidth: number;
         setActive(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         setAttribute(strAttributeName: string, AttributeValue: any, lFlags?: number): void;
         setAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         setAttributeNodeNS(pattr: IHTMLDOMAttribute2): IHTMLDOMAttribute2;
         setAttributeNS(pvarNS: any, strAttributeName: string, pvarAttributeValue: any): void;
 
-        /** @param boolean [containerCapture=true] */
+        /** @param containerCapture [containerCapture=true] */
         setCapture(containerCapture?: boolean): void;
 
-        /** @param string [language=''] */
+        /** @param language [language=''] */
         setExpression(propname: string, expression: string, language?: string): void;
         size: number;
         readonly sourceIndex: number;
@@ -5798,7 +5770,7 @@ declare namespace MSHTML {
         readonly clientWidth: number;
         cloneNode(fDeep: boolean): IHTMLDOMNode;
         componentFromPoint(x: number, y: number): string;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         contains(pChild: IHTMLElement): boolean;
         contentEditable: string;
         createControlRange(): any;
@@ -5815,7 +5787,7 @@ declare namespace MSHTML {
         focus(): void;
         getAdjacentText(where: string): string;
 
-        /** @param number [lFlags=0] */
+        /** @param lFlags [lFlags=0] */
         getAttribute(strAttributeName: string, lFlags?: number): any;
         getAttributeNode(bstrName: string): IHTMLDOMAttribute;
         getAttributeNodeNS(pvarNS: any, bstrName: string): IHTMLDOMAttribute2;
@@ -6003,7 +5975,7 @@ declare namespace MSHTML {
         readonly recordNumber: any;
         releaseCapture(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         removeAttribute(strAttributeName: string, lFlags?: number): boolean;
         removeAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         removeAttributeNS(pvarNS: any, strAttributeName: string): void;
@@ -6012,7 +5984,7 @@ declare namespace MSHTML {
         removeExpression(propname: string): boolean;
         removeFilter(pUnk: any): void;
 
-        /** @param boolean [fDeep=false] */
+        /** @param fDeep [fDeep=false] */
         removeNode(fDeep?: boolean): IHTMLDOMNode;
         replaceAdjacentText(where: string, newText: string): string;
         replaceChild(newChild: IHTMLDOMNode, oldChild: IHTMLDOMNode): IHTMLDOMNode;
@@ -6027,16 +5999,16 @@ declare namespace MSHTML {
         readonly scrollWidth: number;
         setActive(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         setAttribute(strAttributeName: string, AttributeValue: any, lFlags?: number): void;
         setAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         setAttributeNodeNS(pattr: IHTMLDOMAttribute2): IHTMLDOMAttribute2;
         setAttributeNS(pvarNS: any, strAttributeName: string, pvarAttributeValue: any): void;
 
-        /** @param boolean [containerCapture=true] */
+        /** @param containerCapture [containerCapture=true] */
         setCapture(containerCapture?: boolean): void;
 
-        /** @param string [language=''] */
+        /** @param language [language=''] */
         setExpression(propname: string, expression: string, language?: string): void;
         readonly sourceIndex: number;
         spellcheck: any;
@@ -6109,7 +6081,7 @@ declare namespace MSHTML {
         readonly clientWidth: number;
         cloneNode(fDeep: boolean): IHTMLDOMNode;
         componentFromPoint(x: number, y: number): string;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         contains(pChild: IHTMLElement): boolean;
         contentEditable: string;
         createControlRange(): any;
@@ -6126,7 +6098,7 @@ declare namespace MSHTML {
         focus(): void;
         getAdjacentText(where: string): string;
 
-        /** @param number [lFlags=0] */
+        /** @param lFlags [lFlags=0] */
         getAttribute(strAttributeName: string, lFlags?: number): any;
         getAttributeNode(bstrName: string): IHTMLDOMAttribute;
         getAttributeNodeNS(pvarNS: any, bstrName: string): IHTMLDOMAttribute2;
@@ -6314,7 +6286,7 @@ declare namespace MSHTML {
         readonly recordNumber: any;
         releaseCapture(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         removeAttribute(strAttributeName: string, lFlags?: number): boolean;
         removeAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         removeAttributeNS(pvarNS: any, strAttributeName: string): void;
@@ -6323,7 +6295,7 @@ declare namespace MSHTML {
         removeExpression(propname: string): boolean;
         removeFilter(pUnk: any): void;
 
-        /** @param boolean [fDeep=false] */
+        /** @param fDeep [fDeep=false] */
         removeNode(fDeep?: boolean): IHTMLDOMNode;
         replaceAdjacentText(where: string, newText: string): string;
         replaceChild(newChild: IHTMLDOMNode, oldChild: IHTMLDOMNode): IHTMLDOMNode;
@@ -6338,16 +6310,16 @@ declare namespace MSHTML {
         readonly scrollWidth: number;
         setActive(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         setAttribute(strAttributeName: string, AttributeValue: any, lFlags?: number): void;
         setAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         setAttributeNodeNS(pattr: IHTMLDOMAttribute2): IHTMLDOMAttribute2;
         setAttributeNS(pvarNS: any, strAttributeName: string, pvarAttributeValue: any): void;
 
-        /** @param boolean [containerCapture=true] */
+        /** @param containerCapture [containerCapture=true] */
         setCapture(containerCapture?: boolean): void;
 
-        /** @param string [language=''] */
+        /** @param language [language=''] */
         setExpression(propname: string, expression: string, language?: string): void;
         readonly sourceIndex: number;
         spellcheck: any;
@@ -6422,7 +6394,7 @@ declare namespace MSHTML {
         readonly clientWidth: number;
         cloneNode(fDeep: boolean): IHTMLDOMNode;
         componentFromPoint(x: number, y: number): string;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         contains(pChild: IHTMLElement): boolean;
         contentEditable: string;
         createControlRange(): any;
@@ -6440,7 +6412,7 @@ declare namespace MSHTML {
         focus(): void;
         getAdjacentText(where: string): string;
 
-        /** @param number [lFlags=0] */
+        /** @param lFlags [lFlags=0] */
         getAttribute(strAttributeName: string, lFlags?: number): any;
         getAttributeNode(bstrName: string): IHTMLDOMAttribute;
         getAttributeNodeNS(pvarNS: any, bstrName: string): IHTMLDOMAttribute2;
@@ -6641,7 +6613,7 @@ declare namespace MSHTML {
         readonly recordNumber: any;
         releaseCapture(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         removeAttribute(strAttributeName: string, lFlags?: number): boolean;
         removeAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         removeAttributeNS(pvarNS: any, strAttributeName: string): void;
@@ -6650,7 +6622,7 @@ declare namespace MSHTML {
         removeExpression(propname: string): boolean;
         removeFilter(pUnk: any): void;
 
-        /** @param boolean [fDeep=false] */
+        /** @param fDeep [fDeep=false] */
         removeNode(fDeep?: boolean): IHTMLDOMNode;
         replaceAdjacentText(where: string, newText: string): string;
         replaceChild(newChild: IHTMLDOMNode, oldChild: IHTMLDOMNode): IHTMLDOMNode;
@@ -6667,16 +6639,16 @@ declare namespace MSHTML {
         readonly scrollWidth: number;
         setActive(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         setAttribute(strAttributeName: string, AttributeValue: any, lFlags?: number): void;
         setAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         setAttributeNodeNS(pattr: IHTMLDOMAttribute2): IHTMLDOMAttribute2;
         setAttributeNS(pvarNS: any, strAttributeName: string, pvarAttributeValue: any): void;
 
-        /** @param boolean [containerCapture=true] */
+        /** @param containerCapture [containerCapture=true] */
         setCapture(containerCapture?: boolean): void;
 
-        /** @param string [language=''] */
+        /** @param language [language=''] */
         setExpression(propname: string, expression: string, language?: string): void;
         readonly sourceIndex: number;
         spellcheck: any;
@@ -6749,7 +6721,7 @@ declare namespace MSHTML {
         readonly clientWidth: number;
         cloneNode(fDeep: boolean): IHTMLDOMNode;
         componentFromPoint(x: number, y: number): string;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         contains(pChild: IHTMLElement): boolean;
         contentEditable: string;
         createControlRange(): any;
@@ -6766,7 +6738,7 @@ declare namespace MSHTML {
         focus(): void;
         getAdjacentText(where: string): string;
 
-        /** @param number [lFlags=0] */
+        /** @param lFlags [lFlags=0] */
         getAttribute(strAttributeName: string, lFlags?: number): any;
         getAttributeNode(bstrName: string): IHTMLDOMAttribute;
         getAttributeNodeNS(pvarNS: any, bstrName: string): IHTMLDOMAttribute2;
@@ -6953,7 +6925,7 @@ declare namespace MSHTML {
         readonly recordNumber: any;
         releaseCapture(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         removeAttribute(strAttributeName: string, lFlags?: number): boolean;
         removeAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         removeAttributeNS(pvarNS: any, strAttributeName: string): void;
@@ -6962,7 +6934,7 @@ declare namespace MSHTML {
         removeExpression(propname: string): boolean;
         removeFilter(pUnk: any): void;
 
-        /** @param boolean [fDeep=false] */
+        /** @param fDeep [fDeep=false] */
         removeNode(fDeep?: boolean): IHTMLDOMNode;
         replaceAdjacentText(where: string, newText: string): string;
         replaceChild(newChild: IHTMLDOMNode, oldChild: IHTMLDOMNode): IHTMLDOMNode;
@@ -6977,16 +6949,16 @@ declare namespace MSHTML {
         readonly scrollWidth: number;
         setActive(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         setAttribute(strAttributeName: string, AttributeValue: any, lFlags?: number): void;
         setAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         setAttributeNodeNS(pattr: IHTMLDOMAttribute2): IHTMLDOMAttribute2;
         setAttributeNS(pvarNS: any, strAttributeName: string, pvarAttributeValue: any): void;
 
-        /** @param boolean [containerCapture=true] */
+        /** @param containerCapture [containerCapture=true] */
         setCapture(containerCapture?: boolean): void;
 
-        /** @param string [language=''] */
+        /** @param language [language=''] */
         setExpression(propname: string, expression: string, language?: string): void;
         readonly sourceIndex: number;
         spellcheck: any;
@@ -7056,7 +7028,7 @@ declare namespace MSHTML {
         cloneNode(fDeep: boolean): IHTMLDOMNode;
         compareDocumentPosition(otherNode: IHTMLDOMNode): number;
         componentFromPoint(x: number, y: number): string;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         contains(pChild: IHTMLElement): boolean;
         contentEditable: string;
         createControlRange(): any;
@@ -7078,7 +7050,7 @@ declare namespace MSHTML {
         readonly form: IHTMLFormElement;
         getAdjacentText(where: string): string;
 
-        /** @param number [lFlags=0] */
+        /** @param lFlags [lFlags=0] */
         getAttribute(strAttributeName: string, lFlags?: number): any;
         getAttributeNode(bstrName: string): IHTMLDOMAttribute;
         getAttributeNodeNS(pvarNS: any, bstrName: string): IHTMLDOMAttribute2;
@@ -7282,7 +7254,7 @@ declare namespace MSHTML {
         readonly recordNumber: any;
         releaseCapture(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         removeAttribute(strAttributeName: string, lFlags?: number): boolean;
         removeAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         removeAttributeNS(pvarNS: any, strAttributeName: string): void;
@@ -7291,7 +7263,7 @@ declare namespace MSHTML {
         removeExpression(propname: string): boolean;
         removeFilter(pUnk: any): void;
 
-        /** @param boolean [fDeep=false] */
+        /** @param fDeep [fDeep=false] */
         removeNode(fDeep?: boolean): IHTMLDOMNode;
         replaceAdjacentText(where: string, newText: string): string;
         replaceChild(newChild: IHTMLDOMNode, oldChild: IHTMLDOMNode): IHTMLDOMNode;
@@ -7306,16 +7278,16 @@ declare namespace MSHTML {
         readonly scrollWidth: number;
         setActive(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         setAttribute(strAttributeName: string, AttributeValue: any, lFlags?: number): void;
         setAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         setAttributeNodeNS(pattr: IHTMLDOMAttribute2): IHTMLDOMAttribute2;
         setAttributeNS(pvarNS: any, strAttributeName: string, pvarAttributeValue: any): void;
 
-        /** @param boolean [containerCapture=true] */
+        /** @param containerCapture [containerCapture=true] */
         setCapture(containerCapture?: boolean): void;
 
-        /** @param string [language=''] */
+        /** @param language [language=''] */
         setExpression(propname: string, expression: string, language?: string): void;
         readonly sourceIndex: number;
         spellcheck: any;
@@ -7388,7 +7360,7 @@ declare namespace MSHTML {
         readonly clientWidth: number;
         cloneNode(fDeep: boolean): IHTMLDOMNode;
         componentFromPoint(x: number, y: number): string;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         contains(pChild: IHTMLElement): boolean;
         contentEditable: string;
         createControlRange(): any;
@@ -7405,7 +7377,7 @@ declare namespace MSHTML {
         focus(): void;
         getAdjacentText(where: string): string;
 
-        /** @param number [lFlags=0] */
+        /** @param lFlags [lFlags=0] */
         getAttribute(strAttributeName: string, lFlags?: number): any;
         getAttributeNode(bstrName: string): IHTMLDOMAttribute;
         getAttributeNodeNS(pvarNS: any, bstrName: string): IHTMLDOMAttribute2;
@@ -7594,7 +7566,7 @@ declare namespace MSHTML {
         readonly recordNumber: any;
         releaseCapture(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         removeAttribute(strAttributeName: string, lFlags?: number): boolean;
         removeAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         removeAttributeNS(pvarNS: any, strAttributeName: string): void;
@@ -7603,7 +7575,7 @@ declare namespace MSHTML {
         removeExpression(propname: string): boolean;
         removeFilter(pUnk: any): void;
 
-        /** @param boolean [fDeep=false] */
+        /** @param fDeep [fDeep=false] */
         removeNode(fDeep?: boolean): IHTMLDOMNode;
         replaceAdjacentText(where: string, newText: string): string;
         replaceChild(newChild: IHTMLDOMNode, oldChild: IHTMLDOMNode): IHTMLDOMNode;
@@ -7618,16 +7590,16 @@ declare namespace MSHTML {
         readonly scrollWidth: number;
         setActive(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         setAttribute(strAttributeName: string, AttributeValue: any, lFlags?: number): void;
         setAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         setAttributeNodeNS(pattr: IHTMLDOMAttribute2): IHTMLDOMAttribute2;
         setAttributeNS(pvarNS: any, strAttributeName: string, pvarAttributeValue: any): void;
 
-        /** @param boolean [containerCapture=true] */
+        /** @param containerCapture [containerCapture=true] */
         setCapture(containerCapture?: boolean): void;
 
-        /** @param string [language=''] */
+        /** @param language [language=''] */
         setExpression(propname: string, expression: string, language?: string): void;
         readonly sourceIndex: number;
         spellcheck: any;
@@ -7700,7 +7672,7 @@ declare namespace MSHTML {
         readonly clientWidth: number;
         cloneNode(fDeep: boolean): IHTMLDOMNode;
         componentFromPoint(x: number, y: number): string;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         contains(pChild: IHTMLElement): boolean;
         contentEditable: string;
         createControlRange(): any;
@@ -7719,7 +7691,7 @@ declare namespace MSHTML {
         focus(): void;
         getAdjacentText(where: string): string;
 
-        /** @param number [lFlags=0] */
+        /** @param lFlags [lFlags=0] */
         getAttribute(strAttributeName: string, lFlags?: number): any;
         getAttributeNode(bstrName: string): IHTMLDOMAttribute;
         getAttributeNodeNS(pvarNS: any, bstrName: string): IHTMLDOMAttribute2;
@@ -7912,7 +7884,7 @@ declare namespace MSHTML {
         readonly recordNumber: any;
         releaseCapture(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         removeAttribute(strAttributeName: string, lFlags?: number): boolean;
         removeAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         removeAttributeNS(pvarNS: any, strAttributeName: string): void;
@@ -7921,7 +7893,7 @@ declare namespace MSHTML {
         removeExpression(propname: string): boolean;
         removeFilter(pUnk: any): void;
 
-        /** @param boolean [fDeep=false] */
+        /** @param fDeep [fDeep=false] */
         removeNode(fDeep?: boolean): IHTMLDOMNode;
         replaceAdjacentText(where: string, newText: string): string;
         replaceChild(newChild: IHTMLDOMNode, oldChild: IHTMLDOMNode): IHTMLDOMNode;
@@ -7937,16 +7909,16 @@ declare namespace MSHTML {
         readonly scrollWidth: number;
         setActive(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         setAttribute(strAttributeName: string, AttributeValue: any, lFlags?: number): void;
         setAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         setAttributeNodeNS(pattr: IHTMLDOMAttribute2): IHTMLDOMAttribute2;
         setAttributeNS(pvarNS: any, strAttributeName: string, pvarAttributeValue: any): void;
 
-        /** @param boolean [containerCapture=true] */
+        /** @param containerCapture [containerCapture=true] */
         setCapture(containerCapture?: boolean): void;
 
-        /** @param string [language=''] */
+        /** @param language [language=''] */
         setExpression(propname: string, expression: string, language?: string): void;
         readonly sourceIndex: number;
         spellcheck: any;
@@ -7992,10 +7964,10 @@ declare namespace MSHTML {
         readonly cssRules: IHTMLStyleSheetRulesCollection;
         cssText: string;
 
-        /** @param number [lIndex=-1] */
+        /** @param lIndex [lIndex=-1] */
         deleteRule(lIndex?: number): void;
 
-        /** @param number [lIndex=-1] */
+        /** @param lIndex [lIndex=-1] */
         insertRule(bstrRule: string, lIndex?: number): number;
         media: any;
         readonly parentRule: IHTMLCSSRule;
@@ -8023,9 +7995,7 @@ declare namespace MSHTML {
         readonly type: number;
     }
 
-    class HTMLCSSStyleDeclaration {
-        private 'MSHTML.HTMLCSSStyleDeclaration_typekey': HTMLCSSStyleDeclaration;
-        private constructor();
+    interface HTMLCSSStyleDeclaration {
         accelerator: string;
         alignContent: string;
         alignItems: string;
@@ -8306,7 +8276,7 @@ declare namespace MSHTML {
         scrollbarShadowColor: any;
         scrollbarTrackColor: any;
 
-        /** @param any [pvarPropertyPriority=''] */
+        /** @param pvarPropertyPriority [pvarPropertyPriority=''] */
         setProperty(bstrPropertyName: string, pvarPropertyValue: any, pvarPropertyPriority?: any): void;
         stopColor: any;
         stopOpacity: any;
@@ -8400,11 +8370,10 @@ declare namespace MSHTML {
         writingMode: string;
         zIndex: any;
         zoom: any;
+        (index: number): string;
     }
 
-    class HTMLCurrentStyle {
-        private 'MSHTML.HTMLCurrentStyle_typekey': HTMLCurrentStyle;
-        private constructor();
+    interface HTMLCurrentStyle {
         readonly accelerator: string;
         alignContent: string;
         alignItems: string;
@@ -8473,7 +8442,7 @@ declare namespace MSHTML {
         columns: string;
         columnSpan: string;
         columnWidth: any;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         readonly cursor: string;
         readonly direction: string;
         readonly display: string;
@@ -8496,7 +8465,7 @@ declare namespace MSHTML {
         readonly fontVariant: string;
         readonly fontWeight: any;
 
-        /** @param number [lFlags=0] */
+        /** @param lFlags [lFlags=0] */
         getAttribute(strAttributeName: string, lFlags?: number): any;
         getPropertyPriority(bstrPropertyName: string): string;
         getPropertyValue(bstrPropertyName: string): string;
@@ -8642,7 +8611,7 @@ declare namespace MSHTML {
         readonly scrollbarShadowColor: any;
         readonly scrollbarTrackColor: any;
 
-        /** @param any [pvarPropertyPriority=''] */
+        /** @param pvarPropertyPriority [pvarPropertyPriority=''] */
         setProperty(bstrPropertyName: string, pvarPropertyValue: any, pvarPropertyPriority?: any): void;
         readonly styleFloat: string;
         readonly tableLayout: string;
@@ -8725,6 +8694,7 @@ declare namespace MSHTML {
         readonly writingMode: string;
         readonly zIndex: any;
         readonly zoom: any;
+        (index: number): string;
     }
 
     class HTMLDDElement {
@@ -8780,7 +8750,7 @@ declare namespace MSHTML {
         readonly clientWidth: number;
         cloneNode(fDeep: boolean): IHTMLDOMNode;
         componentFromPoint(x: number, y: number): string;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         contains(pChild: IHTMLElement): boolean;
         contentEditable: string;
         createControlRange(): any;
@@ -8797,7 +8767,7 @@ declare namespace MSHTML {
         focus(): void;
         getAdjacentText(where: string): string;
 
-        /** @param number [lFlags=0] */
+        /** @param lFlags [lFlags=0] */
         getAttribute(strAttributeName: string, lFlags?: number): any;
         getAttributeNode(bstrName: string): IHTMLDOMAttribute;
         getAttributeNodeNS(pvarNS: any, bstrName: string): IHTMLDOMAttribute2;
@@ -8985,7 +8955,7 @@ declare namespace MSHTML {
         readonly recordNumber: any;
         releaseCapture(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         removeAttribute(strAttributeName: string, lFlags?: number): boolean;
         removeAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         removeAttributeNS(pvarNS: any, strAttributeName: string): void;
@@ -8994,7 +8964,7 @@ declare namespace MSHTML {
         removeExpression(propname: string): boolean;
         removeFilter(pUnk: any): void;
 
-        /** @param boolean [fDeep=false] */
+        /** @param fDeep [fDeep=false] */
         removeNode(fDeep?: boolean): IHTMLDOMNode;
         replaceAdjacentText(where: string, newText: string): string;
         replaceChild(newChild: IHTMLDOMNode, oldChild: IHTMLDOMNode): IHTMLDOMNode;
@@ -9009,16 +8979,16 @@ declare namespace MSHTML {
         readonly scrollWidth: number;
         setActive(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         setAttribute(strAttributeName: string, AttributeValue: any, lFlags?: number): void;
         setAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         setAttributeNodeNS(pattr: IHTMLDOMAttribute2): IHTMLDOMAttribute2;
         setAttributeNS(pvarNS: any, strAttributeName: string, pvarAttributeValue: any): void;
 
-        /** @param boolean [containerCapture=true] */
+        /** @param containerCapture [containerCapture=true] */
         setCapture(containerCapture?: boolean): void;
 
-        /** @param string [language=''] */
+        /** @param language [language=''] */
         setExpression(propname: string, expression: string, language?: string): void;
         readonly sourceIndex: number;
         spellcheck: any;
@@ -9038,7 +9008,7 @@ declare namespace MSHTML {
         private 'MSHTML.HTMLDefaults_typekey': HTMLDefaults;
         private constructor();
         canHaveHTML: boolean;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         contentEditable: string;
         frozen: boolean;
         isMultiLine: boolean;
@@ -9120,7 +9090,7 @@ declare namespace MSHTML {
         cloneNode(fDeep: boolean): IHTMLDOMNode;
         compareDocumentPosition(otherNode: IHTMLDOMNode): number;
         componentFromPoint(x: number, y: number): string;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         contains(pChild: IHTMLElement): boolean;
         contentEditable: string;
         createControlRange(): any;
@@ -9140,7 +9110,7 @@ declare namespace MSHTML {
         focus(): void;
         getAdjacentText(where: string): string;
 
-        /** @param number [lFlags=0] */
+        /** @param lFlags [lFlags=0] */
         getAttribute(strAttributeName: string, lFlags?: number): any;
         getAttributeNode(bstrName: string): IHTMLDOMAttribute;
         getAttributeNodeNS(pvarNS: any, bstrName: string): IHTMLDOMAttribute2;
@@ -9343,7 +9313,7 @@ declare namespace MSHTML {
         readonly recordNumber: any;
         releaseCapture(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         removeAttribute(strAttributeName: string, lFlags?: number): boolean;
         removeAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         removeAttributeNS(pvarNS: any, strAttributeName: string): void;
@@ -9352,7 +9322,7 @@ declare namespace MSHTML {
         removeExpression(propname: string): boolean;
         removeFilter(pUnk: any): void;
 
-        /** @param boolean [fDeep=false] */
+        /** @param fDeep [fDeep=false] */
         removeNode(fDeep?: boolean): IHTMLDOMNode;
         replaceAdjacentText(where: string, newText: string): string;
         replaceChild(newChild: IHTMLDOMNode, oldChild: IHTMLDOMNode): IHTMLDOMNode;
@@ -9367,16 +9337,16 @@ declare namespace MSHTML {
         readonly scrollWidth: number;
         setActive(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         setAttribute(strAttributeName: string, AttributeValue: any, lFlags?: number): void;
         setAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         setAttributeNodeNS(pattr: IHTMLDOMAttribute2): IHTMLDOMAttribute2;
         setAttributeNS(pvarNS: any, strAttributeName: string, pvarAttributeValue: any): void;
 
-        /** @param boolean [containerCapture=true] */
+        /** @param containerCapture [containerCapture=true] */
         setCapture(containerCapture?: boolean): void;
 
-        /** @param string [language=''] */
+        /** @param language [language=''] */
         setExpression(propname: string, expression: string, language?: string): void;
         readonly sourceIndex: number;
         spellcheck: any;
@@ -9448,7 +9418,7 @@ declare namespace MSHTML {
         cloneNode(fDeep: boolean): IHTMLDOMNode;
         compareDocumentPosition(otherNode: IHTMLDOMNode): number;
         componentFromPoint(x: number, y: number): string;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         contains(pChild: IHTMLElement): boolean;
         contentEditable: string;
         createControlRange(): any;
@@ -9468,7 +9438,7 @@ declare namespace MSHTML {
         focus(): void;
         getAdjacentText(where: string): string;
 
-        /** @param number [lFlags=0] */
+        /** @param lFlags [lFlags=0] */
         getAttribute(strAttributeName: string, lFlags?: number): any;
         getAttributeNode(bstrName: string): IHTMLDOMAttribute;
         getAttributeNodeNS(pvarNS: any, bstrName: string): IHTMLDOMAttribute2;
@@ -9670,7 +9640,7 @@ declare namespace MSHTML {
         readonly recordNumber: any;
         releaseCapture(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         removeAttribute(strAttributeName: string, lFlags?: number): boolean;
         removeAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         removeAttributeNS(pvarNS: any, strAttributeName: string): void;
@@ -9679,7 +9649,7 @@ declare namespace MSHTML {
         removeExpression(propname: string): boolean;
         removeFilter(pUnk: any): void;
 
-        /** @param boolean [fDeep=false] */
+        /** @param fDeep [fDeep=false] */
         removeNode(fDeep?: boolean): IHTMLDOMNode;
         replaceAdjacentText(where: string, newText: string): string;
         replaceChild(newChild: IHTMLDOMNode, oldChild: IHTMLDOMNode): IHTMLDOMNode;
@@ -9694,16 +9664,16 @@ declare namespace MSHTML {
         readonly scrollWidth: number;
         setActive(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         setAttribute(strAttributeName: string, AttributeValue: any, lFlags?: number): void;
         setAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         setAttributeNodeNS(pattr: IHTMLDOMAttribute2): IHTMLDOMAttribute2;
         setAttributeNS(pvarNS: any, strAttributeName: string, pvarAttributeValue: any): void;
 
-        /** @param boolean [containerCapture=true] */
+        /** @param containerCapture [containerCapture=true] */
         setCapture(containerCapture?: boolean): void;
 
-        /** @param string [language=''] */
+        /** @param language [language=''] */
         setExpression(propname: string, expression: string, language?: string): void;
         readonly sourceIndex: number;
         spellcheck: any;
@@ -9783,7 +9753,7 @@ declare namespace MSHTML {
         cloneNode(fDeep: boolean): IHTMLDOMNode;
         compact: boolean;
         componentFromPoint(x: number, y: number): string;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         contains(pChild: IHTMLElement): boolean;
         contentEditable: string;
         createControlRange(): any;
@@ -9800,7 +9770,7 @@ declare namespace MSHTML {
         focus(): void;
         getAdjacentText(where: string): string;
 
-        /** @param number [lFlags=0] */
+        /** @param lFlags [lFlags=0] */
         getAttribute(strAttributeName: string, lFlags?: number): any;
         getAttributeNode(bstrName: string): IHTMLDOMAttribute;
         getAttributeNodeNS(pvarNS: any, bstrName: string): IHTMLDOMAttribute2;
@@ -9987,7 +9957,7 @@ declare namespace MSHTML {
         readonly recordNumber: any;
         releaseCapture(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         removeAttribute(strAttributeName: string, lFlags?: number): boolean;
         removeAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         removeAttributeNS(pvarNS: any, strAttributeName: string): void;
@@ -9996,7 +9966,7 @@ declare namespace MSHTML {
         removeExpression(propname: string): boolean;
         removeFilter(pUnk: any): void;
 
-        /** @param boolean [fDeep=false] */
+        /** @param fDeep [fDeep=false] */
         removeNode(fDeep?: boolean): IHTMLDOMNode;
         replaceAdjacentText(where: string, newText: string): string;
         replaceChild(newChild: IHTMLDOMNode, oldChild: IHTMLDOMNode): IHTMLDOMNode;
@@ -10011,16 +9981,16 @@ declare namespace MSHTML {
         readonly scrollWidth: number;
         setActive(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         setAttribute(strAttributeName: string, AttributeValue: any, lFlags?: number): void;
         setAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         setAttributeNodeNS(pattr: IHTMLDOMAttribute2): IHTMLDOMAttribute2;
         setAttributeNS(pvarNS: any, strAttributeName: string, pvarAttributeValue: any): void;
 
-        /** @param boolean [containerCapture=true] */
+        /** @param containerCapture [containerCapture=true] */
         setCapture(containerCapture?: boolean): void;
 
-        /** @param string [language=''] */
+        /** @param language [language=''] */
         setExpression(propname: string, expression: string, language?: string): void;
         readonly sourceIndex: number;
         spellcheck: any;
@@ -10060,7 +10030,7 @@ declare namespace MSHTML {
         compareDocumentPosition(otherNode: IHTMLDOMNode): number;
         readonly compatible: IHTMLDocumentCompatibleInfoCollection;
         readonly compatMode: string;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         cookie: string;
         createAttribute(bstrAttrName: string): IHTMLDOMAttribute;
         createAttributeNS(pvarNS: any, bstrAttrName: string): IHTMLDOMAttribute;
@@ -10078,8 +10048,8 @@ declare namespace MSHTML {
         createRenderStyle(v: string): IHTMLRenderStyle;
 
         /**
-         * @param string [bstrHref='']
-         * @param number [lIndex=-1]
+         * @param bstrHref [bstrHref='']
+         * @param lIndex [lIndex=-1]
          */
         createStyleSheet(bstrHref?: string, lIndex?: number): IHTMLStyleSheet;
         createTextNode(text: string): IHTMLDOMNode;
@@ -10099,7 +10069,7 @@ declare namespace MSHTML {
         elementsFromRect(left: number, top: number, width: number, height: number): IHTMLDOMChildrenCollection;
         readonly embeds: IHTMLElementCollection;
 
-        /** @param boolean [showUI=false] */
+        /** @param showUI [showUI=false] */
         execCommand(cmdID: string, showUI?: boolean, value?: any): boolean;
         execCommandShowHelp(cmdID: string): boolean;
         expando: boolean;
@@ -10257,7 +10227,7 @@ declare namespace MSHTML {
         onvolumechange: any;
         onwaiting: any;
 
-        /** @param string [url='text/html'] */
+        /** @param url [url='text/html'] */
         open(url?: string, name?: any, features?: any, replace?: any): any;
         readonly ownerDocument: any;
         readonly parentNode: IHTMLDOMNode;
@@ -10276,14 +10246,14 @@ declare namespace MSHTML {
         querySelectorAll(v: string): IHTMLDOMChildrenCollection;
         readonly readyState: string;
 
-        /** @param boolean [fForce=false] */
+        /** @param fForce [fForce=false] */
         recalc(fForce?: boolean): void;
         readonly referrer: string;
         releaseCapture(): void;
         removeChild(oldChild: IHTMLDOMNode): IHTMLDOMNode;
         removeEventListener(type: string, listener: any, useCapture: boolean): void;
 
-        /** @param boolean [fDeep=false] */
+        /** @param fDeep [fDeep=false] */
         removeNode(fDeep?: boolean): IHTMLDOMNode;
         replaceChild(newChild: IHTMLDOMNode, oldChild: IHTMLDOMNode): IHTMLDOMNode;
         replaceNode(replacement: IHTMLDOMNode): IHTMLDOMNode;
@@ -10312,13 +10282,13 @@ declare namespace MSHTML {
     class HTMLDocumentCompatibleInfo {
         private 'MSHTML.HTMLDocumentCompatibleInfo_typekey': HTMLDocumentCompatibleInfo;
         private constructor();
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
     }
 
     class HTMLDocumentCompatibleInfoCollection {
         private 'MSHTML.HTMLDocumentCompatibleInfoCollection_typekey': HTMLDocumentCompatibleInfoCollection;
         private constructor();
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
     }
 
     class HTMLDOMAttribute {
@@ -10329,7 +10299,7 @@ declare namespace MSHTML {
         readonly childNodes: any;
         cloneNode(fDeep: boolean): IHTMLDOMAttribute;
         compareDocumentPosition(otherNode: IHTMLDOMNode): number;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         readonly expando: boolean;
         readonly firstChild: IHTMLDOMNode;
         hasAttributes(): boolean;
@@ -10381,7 +10351,7 @@ declare namespace MSHTML {
     class HTMLDOMImplementation {
         private 'MSHTML.HTMLDOMImplementation_typekey': HTMLDOMImplementation;
         private constructor();
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         createDocument(pvarNS: any, pvarTagName: any, pDocumentType: IDOMDocumentType): IHTMLDocument7;
         createDocumentType(bstrQualifiedName: string, pvarPublicId: any, pvarSystemId: any): IDOMDocumentType;
         createHTMLDocument(bstrTitle: string): IHTMLDocument7;
@@ -10430,7 +10400,7 @@ declare namespace MSHTML {
         readonly childNodes: any;
         cloneNode(fDeep: boolean): IHTMLDOMNode;
         compareDocumentPosition(otherNode: IHTMLDOMNode): number;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         data: string;
         deleteData(offset: number, Count: number): void;
         dispatchEvent(evt: IDOMEvent): boolean;
@@ -10470,7 +10440,7 @@ declare namespace MSHTML {
         removeChild(oldChild: IHTMLDOMNode): IHTMLDOMNode;
         removeEventListener(type: string, listener: any, useCapture: boolean): void;
 
-        /** @param boolean [fDeep=false] */
+        /** @param fDeep [fDeep=false] */
         removeNode(fDeep?: boolean): IHTMLDOMNode;
         replaceChild(newChild: IHTMLDOMNode, oldChild: IHTMLDOMNode): IHTMLDOMNode;
         replaceData(offset: number, Count: number, bstrstring: string): void;
@@ -10484,10 +10454,9 @@ declare namespace MSHTML {
         readonly wholeText: string;
     }
 
-    class HTMLDOMXmlSerializerFactory {
-        private 'MSHTML.HTMLDOMXmlSerializerFactory_typekey': HTMLDOMXmlSerializerFactory;
-        private constructor();
+    interface HTMLDOMXmlSerializerFactory {
         create(): IDOMXmlSerializer;
+        (): IDOMXmlSerializer;
     }
 
     class HTMLDTElement {
@@ -10543,7 +10512,7 @@ declare namespace MSHTML {
         readonly clientWidth: number;
         cloneNode(fDeep: boolean): IHTMLDOMNode;
         componentFromPoint(x: number, y: number): string;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         contains(pChild: IHTMLElement): boolean;
         contentEditable: string;
         createControlRange(): any;
@@ -10560,7 +10529,7 @@ declare namespace MSHTML {
         focus(): void;
         getAdjacentText(where: string): string;
 
-        /** @param number [lFlags=0] */
+        /** @param lFlags [lFlags=0] */
         getAttribute(strAttributeName: string, lFlags?: number): any;
         getAttributeNode(bstrName: string): IHTMLDOMAttribute;
         getAttributeNodeNS(pvarNS: any, bstrName: string): IHTMLDOMAttribute2;
@@ -10748,7 +10717,7 @@ declare namespace MSHTML {
         readonly recordNumber: any;
         releaseCapture(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         removeAttribute(strAttributeName: string, lFlags?: number): boolean;
         removeAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         removeAttributeNS(pvarNS: any, strAttributeName: string): void;
@@ -10757,7 +10726,7 @@ declare namespace MSHTML {
         removeExpression(propname: string): boolean;
         removeFilter(pUnk: any): void;
 
-        /** @param boolean [fDeep=false] */
+        /** @param fDeep [fDeep=false] */
         removeNode(fDeep?: boolean): IHTMLDOMNode;
         replaceAdjacentText(where: string, newText: string): string;
         replaceChild(newChild: IHTMLDOMNode, oldChild: IHTMLDOMNode): IHTMLDOMNode;
@@ -10772,16 +10741,16 @@ declare namespace MSHTML {
         readonly scrollWidth: number;
         setActive(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         setAttribute(strAttributeName: string, AttributeValue: any, lFlags?: number): void;
         setAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         setAttributeNodeNS(pattr: IHTMLDOMAttribute2): IHTMLDOMAttribute2;
         setAttributeNS(pvarNS: any, strAttributeName: string, pvarAttributeValue: any): void;
 
-        /** @param boolean [containerCapture=true] */
+        /** @param containerCapture [containerCapture=true] */
         setCapture(containerCapture?: boolean): void;
 
-        /** @param string [language=''] */
+        /** @param language [language=''] */
         setExpression(propname: string, expression: string, language?: string): void;
         readonly sourceIndex: number;
         spellcheck: any;
@@ -10797,10 +10766,8 @@ declare namespace MSHTML {
         xmsAcceleratorKey: string;
     }
 
-    class HTMLElementCollection {
-        private 'MSHTML.HTMLElementCollection_typekey': HTMLElementCollection;
-        private constructor();
-        readonly 'constructor': any;
+    interface HTMLElementCollection {
+        readonly ['constructor']: any;
         ie8_item(index: number): IHTMLElement2;
         readonly ie8_length: number;
         ie8_namedItem(name: string): IHTMLElement2;
@@ -10810,6 +10777,7 @@ declare namespace MSHTML {
         tags(tagName: any): any;
         toString(): string;
         urns(urn: any): any;
+        (name?: any, index?: any): any;
     }
 
     class HTMLEmbed {
@@ -10865,7 +10833,7 @@ declare namespace MSHTML {
         readonly clientWidth: number;
         cloneNode(fDeep: boolean): IHTMLDOMNode;
         componentFromPoint(x: number, y: number): string;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         contains(pChild: IHTMLElement): boolean;
         contentEditable: string;
         createControlRange(): any;
@@ -10882,7 +10850,7 @@ declare namespace MSHTML {
         focus(): void;
         getAdjacentText(where: string): string;
 
-        /** @param number [lFlags=0] */
+        /** @param lFlags [lFlags=0] */
         getAttribute(strAttributeName: string, lFlags?: number): any;
         getAttributeNode(bstrName: string): IHTMLDOMAttribute;
         getAttributeNodeNS(pvarNS: any, bstrName: string): IHTMLDOMAttribute2;
@@ -11077,7 +11045,7 @@ declare namespace MSHTML {
         readonly recordNumber: any;
         releaseCapture(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         removeAttribute(strAttributeName: string, lFlags?: number): boolean;
         removeAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         removeAttributeNS(pvarNS: any, strAttributeName: string): void;
@@ -11086,7 +11054,7 @@ declare namespace MSHTML {
         removeExpression(propname: string): boolean;
         removeFilter(pUnk: any): void;
 
-        /** @param boolean [fDeep=false] */
+        /** @param fDeep [fDeep=false] */
         removeNode(fDeep?: boolean): IHTMLDOMNode;
         replaceAdjacentText(where: string, newText: string): string;
         replaceChild(newChild: IHTMLDOMNode, oldChild: IHTMLDOMNode): IHTMLDOMNode;
@@ -11101,16 +11069,16 @@ declare namespace MSHTML {
         readonly scrollWidth: number;
         setActive(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         setAttribute(strAttributeName: string, AttributeValue: any, lFlags?: number): void;
         setAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         setAttributeNodeNS(pattr: IHTMLDOMAttribute2): IHTMLDOMAttribute2;
         setAttributeNS(pvarNS: any, strAttributeName: string, pvarAttributeValue: any): void;
 
-        /** @param boolean [containerCapture=true] */
+        /** @param containerCapture [containerCapture=true] */
         setCapture(containerCapture?: boolean): void;
 
-        /** @param string [language=''] */
+        /** @param language [language=''] */
         setExpression(propname: string, expression: string, language?: string): void;
         readonly sourceIndex: number;
         spellcheck: any;
@@ -11183,7 +11151,7 @@ declare namespace MSHTML {
         readonly clientWidth: number;
         cloneNode(fDeep: boolean): IHTMLDOMNode;
         componentFromPoint(x: number, y: number): string;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         contains(pChild: IHTMLElement): boolean;
         contentEditable: string;
         createControlRange(): any;
@@ -11201,7 +11169,7 @@ declare namespace MSHTML {
         readonly form: IHTMLFormElement;
         getAdjacentText(where: string): string;
 
-        /** @param number [lFlags=0] */
+        /** @param lFlags [lFlags=0] */
         getAttribute(strAttributeName: string, lFlags?: number): any;
         getAttributeNode(bstrName: string): IHTMLDOMAttribute;
         getAttributeNodeNS(pvarNS: any, bstrName: string): IHTMLDOMAttribute2;
@@ -11388,7 +11356,7 @@ declare namespace MSHTML {
         readonly recordNumber: any;
         releaseCapture(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         removeAttribute(strAttributeName: string, lFlags?: number): boolean;
         removeAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         removeAttributeNS(pvarNS: any, strAttributeName: string): void;
@@ -11397,7 +11365,7 @@ declare namespace MSHTML {
         removeExpression(propname: string): boolean;
         removeFilter(pUnk: any): void;
 
-        /** @param boolean [fDeep=false] */
+        /** @param fDeep [fDeep=false] */
         removeNode(fDeep?: boolean): IHTMLDOMNode;
         replaceAdjacentText(where: string, newText: string): string;
         replaceChild(newChild: IHTMLDOMNode, oldChild: IHTMLDOMNode): IHTMLDOMNode;
@@ -11412,16 +11380,16 @@ declare namespace MSHTML {
         readonly scrollWidth: number;
         setActive(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         setAttribute(strAttributeName: string, AttributeValue: any, lFlags?: number): void;
         setAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         setAttributeNodeNS(pattr: IHTMLDOMAttribute2): IHTMLDOMAttribute2;
         setAttributeNS(pvarNS: any, strAttributeName: string, pvarAttributeValue: any): void;
 
-        /** @param boolean [containerCapture=true] */
+        /** @param containerCapture [containerCapture=true] */
         setCapture(containerCapture?: boolean): void;
 
-        /** @param string [language=''] */
+        /** @param language [language=''] */
         setExpression(propname: string, expression: string, language?: string): void;
         readonly sourceIndex: number;
         spellcheck: any;
@@ -11491,7 +11459,7 @@ declare namespace MSHTML {
         cloneNode(fDeep: boolean): IHTMLDOMNode;
         color: any;
         componentFromPoint(x: number, y: number): string;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         contains(pChild: IHTMLElement): boolean;
         contentEditable: string;
         createControlRange(): any;
@@ -11509,7 +11477,7 @@ declare namespace MSHTML {
         focus(): void;
         getAdjacentText(where: string): string;
 
-        /** @param number [lFlags=0] */
+        /** @param lFlags [lFlags=0] */
         getAttribute(strAttributeName: string, lFlags?: number): any;
         getAttributeNode(bstrName: string): IHTMLDOMAttribute;
         getAttributeNodeNS(pvarNS: any, bstrName: string): IHTMLDOMAttribute2;
@@ -11696,7 +11664,7 @@ declare namespace MSHTML {
         readonly recordNumber: any;
         releaseCapture(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         removeAttribute(strAttributeName: string, lFlags?: number): boolean;
         removeAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         removeAttributeNS(pvarNS: any, strAttributeName: string): void;
@@ -11705,7 +11673,7 @@ declare namespace MSHTML {
         removeExpression(propname: string): boolean;
         removeFilter(pUnk: any): void;
 
-        /** @param boolean [fDeep=false] */
+        /** @param fDeep [fDeep=false] */
         removeNode(fDeep?: boolean): IHTMLDOMNode;
         replaceAdjacentText(where: string, newText: string): string;
         replaceChild(newChild: IHTMLDOMNode, oldChild: IHTMLDOMNode): IHTMLDOMNode;
@@ -11720,16 +11688,16 @@ declare namespace MSHTML {
         readonly scrollWidth: number;
         setActive(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         setAttribute(strAttributeName: string, AttributeValue: any, lFlags?: number): void;
         setAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         setAttributeNodeNS(pattr: IHTMLDOMAttribute2): IHTMLDOMAttribute2;
         setAttributeNS(pvarNS: any, strAttributeName: string, pvarAttributeValue: any): void;
 
-        /** @param boolean [containerCapture=true] */
+        /** @param containerCapture [containerCapture=true] */
         setCapture(containerCapture?: boolean): void;
 
-        /** @param string [language=''] */
+        /** @param language [language=''] */
         setExpression(propname: string, expression: string, language?: string): void;
         size: any;
         readonly sourceIndex: number;
@@ -11746,9 +11714,7 @@ declare namespace MSHTML {
         xmsAcceleratorKey: string;
     }
 
-    class HTMLFormElement {
-        private 'MSHTML.HTMLFormElement_typekey': HTMLFormElement;
-        private constructor();
+    interface HTMLFormElement {
         acceptCharset: string;
         accessKey: string;
         action: string;
@@ -11759,14 +11725,14 @@ declare namespace MSHTML {
         appendItemSeparator(): void;
 
         /**
-         * @param string [name='']
-         * @param string [filename='']
+         * @param name [name='']
+         * @param filename [filename='']
          */
         appendNameFilePair(name?: string, filename?: string): void;
 
         /**
-         * @param string [name='']
-         * @param string [value='']
+         * @param name [name='']
+         * @param value [value='']
          */
         appendNameValuePair(name?: string, value?: string): void;
         applyElement(apply: IHTMLElement, where: string): IHTMLElement;
@@ -11814,7 +11780,7 @@ declare namespace MSHTML {
         readonly clientWidth: number;
         cloneNode(fDeep: boolean): IHTMLDOMNode;
         componentFromPoint(x: number, y: number): string;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         contains(pChild: IHTMLElement): boolean;
         contentEditable: string;
         createControlRange(): any;
@@ -11833,7 +11799,7 @@ declare namespace MSHTML {
         focus(): void;
         getAdjacentText(where: string): string;
 
-        /** @param number [lFlags=0] */
+        /** @param lFlags [lFlags=0] */
         getAttribute(strAttributeName: string, lFlags?: number): any;
         getAttributeNode(bstrName: string): IHTMLDOMAttribute;
         getAttributeNodeNS(pvarNS: any, bstrName: string): IHTMLDOMAttribute2;
@@ -12026,7 +11992,7 @@ declare namespace MSHTML {
         readonly recordNumber: any;
         releaseCapture(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         removeAttribute(strAttributeName: string, lFlags?: number): boolean;
         removeAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         removeAttributeNS(pvarNS: any, strAttributeName: string): void;
@@ -12035,7 +12001,7 @@ declare namespace MSHTML {
         removeExpression(propname: string): boolean;
         removeFilter(pUnk: any): void;
 
-        /** @param boolean [fDeep=false] */
+        /** @param fDeep [fDeep=false] */
         removeNode(fDeep?: boolean): IHTMLDOMNode;
         replaceAdjacentText(where: string, newText: string): string;
         replaceChild(newChild: IHTMLDOMNode, oldChild: IHTMLDOMNode): IHTMLDOMNode;
@@ -12051,16 +12017,16 @@ declare namespace MSHTML {
         readonly scrollWidth: number;
         setActive(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         setAttribute(strAttributeName: string, AttributeValue: any, lFlags?: number): void;
         setAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         setAttributeNodeNS(pattr: IHTMLDOMAttribute2): IHTMLDOMAttribute2;
         setAttributeNS(pvarNS: any, strAttributeName: string, pvarAttributeValue: any): void;
 
-        /** @param boolean [containerCapture=true] */
+        /** @param containerCapture [containerCapture=true] */
         setCapture(containerCapture?: boolean): void;
 
-        /** @param string [language=''] */
+        /** @param language [language=''] */
         setExpression(propname: string, expression: string, language?: string): void;
         readonly sourceIndex: number;
         spellcheck: any;
@@ -12078,6 +12044,7 @@ declare namespace MSHTML {
         readonly uniqueNumber: number;
         urns(urn: any): any;
         xmsAcceleratorKey: string;
+        (name?: any, index?: any): any;
     }
 
     class HTMLFrameBase {
@@ -12135,7 +12102,7 @@ declare namespace MSHTML {
         readonly clientWidth: number;
         cloneNode(fDeep: boolean): IHTMLDOMNode;
         componentFromPoint(x: number, y: number): string;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         contains(pChild: IHTMLElement): boolean;
         contentEditable: string;
         readonly contentWindow: IHTMLWindow2;
@@ -12155,7 +12122,7 @@ declare namespace MSHTML {
         frameSpacing: any;
         getAdjacentText(where: string): string;
 
-        /** @param number [lFlags=0] */
+        /** @param lFlags [lFlags=0] */
         getAttribute(strAttributeName: string, lFlags?: number): any;
         getAttributeNode(bstrName: string): IHTMLDOMAttribute;
         getAttributeNodeNS(pvarNS: any, bstrName: string): IHTMLDOMAttribute2;
@@ -12347,7 +12314,7 @@ declare namespace MSHTML {
         readonly recordNumber: any;
         releaseCapture(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         removeAttribute(strAttributeName: string, lFlags?: number): boolean;
         removeAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         removeAttributeNS(pvarNS: any, strAttributeName: string): void;
@@ -12356,7 +12323,7 @@ declare namespace MSHTML {
         removeExpression(propname: string): boolean;
         removeFilter(pUnk: any): void;
 
-        /** @param boolean [fDeep=false] */
+        /** @param fDeep [fDeep=false] */
         removeNode(fDeep?: boolean): IHTMLDOMNode;
         replaceAdjacentText(where: string, newText: string): string;
         replaceChild(newChild: IHTMLDOMNode, oldChild: IHTMLDOMNode): IHTMLDOMNode;
@@ -12372,16 +12339,16 @@ declare namespace MSHTML {
         readonly scrollWidth: number;
         setActive(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         setAttribute(strAttributeName: string, AttributeValue: any, lFlags?: number): void;
         setAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         setAttributeNodeNS(pattr: IHTMLDOMAttribute2): IHTMLDOMAttribute2;
         setAttributeNS(pvarNS: any, strAttributeName: string, pvarAttributeValue: any): void;
 
-        /** @param boolean [containerCapture=true] */
+        /** @param containerCapture [containerCapture=true] */
         setCapture(containerCapture?: boolean): void;
 
-        /** @param string [language=''] */
+        /** @param language [language=''] */
         setExpression(propname: string, expression: string, language?: string): void;
         readonly sourceIndex: number;
         spellcheck: any;
@@ -12455,7 +12422,7 @@ declare namespace MSHTML {
         cloneNode(fDeep: boolean): IHTMLDOMNode;
         compareDocumentPosition(otherNode: IHTMLDOMNode): number;
         componentFromPoint(x: number, y: number): string;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         contains(pChild: IHTMLElement): boolean;
         readonly contentDocument: any;
         contentEditable: string;
@@ -12479,7 +12446,7 @@ declare namespace MSHTML {
         frameSpacing: any;
         getAdjacentText(where: string): string;
 
-        /** @param number [lFlags=0] */
+        /** @param lFlags [lFlags=0] */
         getAttribute(strAttributeName: string, lFlags?: number): any;
         getAttributeNode(bstrName: string): IHTMLDOMAttribute;
         getAttributeNodeNS(pvarNS: any, bstrName: string): IHTMLDOMAttribute2;
@@ -12691,7 +12658,7 @@ declare namespace MSHTML {
         readonly recordNumber: any;
         releaseCapture(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         removeAttribute(strAttributeName: string, lFlags?: number): boolean;
         removeAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         removeAttributeNS(pvarNS: any, strAttributeName: string): void;
@@ -12700,7 +12667,7 @@ declare namespace MSHTML {
         removeExpression(propname: string): boolean;
         removeFilter(pUnk: any): void;
 
-        /** @param boolean [fDeep=false] */
+        /** @param fDeep [fDeep=false] */
         removeNode(fDeep?: boolean): IHTMLDOMNode;
         replaceAdjacentText(where: string, newText: string): string;
         replaceChild(newChild: IHTMLDOMNode, oldChild: IHTMLDOMNode): IHTMLDOMNode;
@@ -12716,16 +12683,16 @@ declare namespace MSHTML {
         readonly scrollWidth: number;
         setActive(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         setAttribute(strAttributeName: string, AttributeValue: any, lFlags?: number): void;
         setAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         setAttributeNodeNS(pattr: IHTMLDOMAttribute2): IHTMLDOMAttribute2;
         setAttributeNS(pvarNS: any, strAttributeName: string, pvarAttributeValue: any): void;
 
-        /** @param boolean [containerCapture=true] */
+        /** @param containerCapture [containerCapture=true] */
         setCapture(containerCapture?: boolean): void;
 
-        /** @param string [language=''] */
+        /** @param language [language=''] */
         setExpression(propname: string, expression: string, language?: string): void;
         readonly sourceIndex: number;
         spellcheck: any;
@@ -12800,7 +12767,7 @@ declare namespace MSHTML {
         cloneNode(fDeep: boolean): IHTMLDOMNode;
         cols: string;
         componentFromPoint(x: number, y: number): string;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         contains(pChild: IHTMLElement): boolean;
         contentEditable: string;
         createControlRange(): any;
@@ -12819,7 +12786,7 @@ declare namespace MSHTML {
         frameSpacing: any;
         getAdjacentText(where: string): string;
 
-        /** @param number [lFlags=0] */
+        /** @param lFlags [lFlags=0] */
         getAttribute(strAttributeName: string, lFlags?: number): any;
         getAttributeNode(bstrName: string): IHTMLDOMAttribute;
         getAttributeNodeNS(pvarNS: any, bstrName: string): IHTMLDOMAttribute2;
@@ -13016,7 +12983,7 @@ declare namespace MSHTML {
         readonly recordNumber: any;
         releaseCapture(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         removeAttribute(strAttributeName: string, lFlags?: number): boolean;
         removeAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         removeAttributeNS(pvarNS: any, strAttributeName: string): void;
@@ -13025,7 +12992,7 @@ declare namespace MSHTML {
         removeExpression(propname: string): boolean;
         removeFilter(pUnk: any): void;
 
-        /** @param boolean [fDeep=false] */
+        /** @param fDeep [fDeep=false] */
         removeNode(fDeep?: boolean): IHTMLDOMNode;
         replaceAdjacentText(where: string, newText: string): string;
         replaceChild(newChild: IHTMLDOMNode, oldChild: IHTMLDOMNode): IHTMLDOMNode;
@@ -13041,16 +13008,16 @@ declare namespace MSHTML {
         readonly scrollWidth: number;
         setActive(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         setAttribute(strAttributeName: string, AttributeValue: any, lFlags?: number): void;
         setAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         setAttributeNodeNS(pattr: IHTMLDOMAttribute2): IHTMLDOMAttribute2;
         setAttributeNS(pvarNS: any, strAttributeName: string, pvarAttributeValue: any): void;
 
-        /** @param boolean [containerCapture=true] */
+        /** @param containerCapture [containerCapture=true] */
         setCapture(containerCapture?: boolean): void;
 
-        /** @param string [language=''] */
+        /** @param language [language=''] */
         setExpression(propname: string, expression: string, language?: string): void;
         readonly sourceIndex: number;
         spellcheck: any;
@@ -13119,7 +13086,7 @@ declare namespace MSHTML {
         readonly clientWidth: number;
         cloneNode(fDeep: boolean): IHTMLDOMNode;
         componentFromPoint(x: number, y: number): string;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         contains(pChild: IHTMLElement): boolean;
         contentEditable: string;
         createControlRange(): any;
@@ -13136,7 +13103,7 @@ declare namespace MSHTML {
         focus(): void;
         getAdjacentText(where: string): string;
 
-        /** @param number [lFlags=0] */
+        /** @param lFlags [lFlags=0] */
         getAttribute(strAttributeName: string, lFlags?: number): any;
         getAttributeNode(bstrName: string): IHTMLDOMAttribute;
         getAttributeNodeNS(pvarNS: any, bstrName: string): IHTMLDOMAttribute2;
@@ -13325,7 +13292,7 @@ declare namespace MSHTML {
         readonly recordset: any;
         releaseCapture(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         removeAttribute(strAttributeName: string, lFlags?: number): boolean;
         removeAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         removeAttributeNS(pvarNS: any, strAttributeName: string): void;
@@ -13334,7 +13301,7 @@ declare namespace MSHTML {
         removeExpression(propname: string): boolean;
         removeFilter(pUnk: any): void;
 
-        /** @param boolean [fDeep=false] */
+        /** @param fDeep [fDeep=false] */
         removeNode(fDeep?: boolean): IHTMLDOMNode;
         replaceAdjacentText(where: string, newText: string): string;
         replaceChild(newChild: IHTMLDOMNode, oldChild: IHTMLDOMNode): IHTMLDOMNode;
@@ -13349,16 +13316,16 @@ declare namespace MSHTML {
         readonly scrollWidth: number;
         setActive(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         setAttribute(strAttributeName: string, AttributeValue: any, lFlags?: number): void;
         setAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         setAttributeNodeNS(pattr: IHTMLDOMAttribute2): IHTMLDOMAttribute2;
         setAttributeNS(pvarNS: any, strAttributeName: string, pvarAttributeValue: any): void;
 
-        /** @param boolean [containerCapture=true] */
+        /** @param containerCapture [containerCapture=true] */
         setCapture(containerCapture?: boolean): void;
 
-        /** @param string [language=''] */
+        /** @param language [language=''] */
         setExpression(propname: string, expression: string, language?: string): void;
         readonly sourceIndex: number;
         spellcheck: any;
@@ -13427,7 +13394,7 @@ declare namespace MSHTML {
         readonly clientWidth: number;
         cloneNode(fDeep: boolean): IHTMLDOMNode;
         componentFromPoint(x: number, y: number): string;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         contains(pChild: IHTMLElement): boolean;
         contentEditable: string;
         createControlRange(): any;
@@ -13444,7 +13411,7 @@ declare namespace MSHTML {
         focus(): void;
         getAdjacentText(where: string): string;
 
-        /** @param number [lFlags=0] */
+        /** @param lFlags [lFlags=0] */
         getAttribute(strAttributeName: string, lFlags?: number): any;
         getAttributeNode(bstrName: string): IHTMLDOMAttribute;
         getAttributeNodeNS(pvarNS: any, bstrName: string): IHTMLDOMAttribute2;
@@ -13633,7 +13600,7 @@ declare namespace MSHTML {
         readonly recordNumber: any;
         releaseCapture(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         removeAttribute(strAttributeName: string, lFlags?: number): boolean;
         removeAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         removeAttributeNS(pvarNS: any, strAttributeName: string): void;
@@ -13642,7 +13609,7 @@ declare namespace MSHTML {
         removeExpression(propname: string): boolean;
         removeFilter(pUnk: any): void;
 
-        /** @param boolean [fDeep=false] */
+        /** @param fDeep [fDeep=false] */
         removeNode(fDeep?: boolean): IHTMLDOMNode;
         replaceAdjacentText(where: string, newText: string): string;
         replaceChild(newChild: IHTMLDOMNode, oldChild: IHTMLDOMNode): IHTMLDOMNode;
@@ -13657,16 +13624,16 @@ declare namespace MSHTML {
         readonly scrollWidth: number;
         setActive(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         setAttribute(strAttributeName: string, AttributeValue: any, lFlags?: number): void;
         setAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         setAttributeNodeNS(pattr: IHTMLDOMAttribute2): IHTMLDOMAttribute2;
         setAttributeNS(pvarNS: any, strAttributeName: string, pvarAttributeValue: any): void;
 
-        /** @param boolean [containerCapture=true] */
+        /** @param containerCapture [containerCapture=true] */
         setCapture(containerCapture?: boolean): void;
 
-        /** @param string [language=''] */
+        /** @param language [language=''] */
         setExpression(propname: string, expression: string, language?: string): void;
         readonly sourceIndex: number;
         spellcheck: any;
@@ -13737,7 +13704,7 @@ declare namespace MSHTML {
         readonly clientWidth: number;
         cloneNode(fDeep: boolean): IHTMLDOMNode;
         componentFromPoint(x: number, y: number): string;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         contains(pChild: IHTMLElement): boolean;
         contentEditable: string;
         createControlRange(): any;
@@ -13754,7 +13721,7 @@ declare namespace MSHTML {
         focus(): void;
         getAdjacentText(where: string): string;
 
-        /** @param number [lFlags=0] */
+        /** @param lFlags [lFlags=0] */
         getAttribute(strAttributeName: string, lFlags?: number): any;
         getAttributeNode(bstrName: string): IHTMLDOMAttribute;
         getAttributeNodeNS(pvarNS: any, bstrName: string): IHTMLDOMAttribute2;
@@ -13941,7 +13908,7 @@ declare namespace MSHTML {
         readonly recordNumber: any;
         releaseCapture(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         removeAttribute(strAttributeName: string, lFlags?: number): boolean;
         removeAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         removeAttributeNS(pvarNS: any, strAttributeName: string): void;
@@ -13950,7 +13917,7 @@ declare namespace MSHTML {
         removeExpression(propname: string): boolean;
         removeFilter(pUnk: any): void;
 
-        /** @param boolean [fDeep=false] */
+        /** @param fDeep [fDeep=false] */
         removeNode(fDeep?: boolean): IHTMLDOMNode;
         replaceAdjacentText(where: string, newText: string): string;
         replaceChild(newChild: IHTMLDOMNode, oldChild: IHTMLDOMNode): IHTMLDOMNode;
@@ -13965,16 +13932,16 @@ declare namespace MSHTML {
         readonly scrollWidth: number;
         setActive(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         setAttribute(strAttributeName: string, AttributeValue: any, lFlags?: number): void;
         setAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         setAttributeNodeNS(pattr: IHTMLDOMAttribute2): IHTMLDOMAttribute2;
         setAttributeNS(pvarNS: any, strAttributeName: string, pvarAttributeValue: any): void;
 
-        /** @param boolean [containerCapture=true] */
+        /** @param containerCapture [containerCapture=true] */
         setCapture(containerCapture?: boolean): void;
 
-        /** @param string [language=''] */
+        /** @param language [language=''] */
         setExpression(propname: string, expression: string, language?: string): void;
         readonly sourceIndex: number;
         spellcheck: any;
@@ -13994,7 +13961,7 @@ declare namespace MSHTML {
         private 'MSHTML.HTMLHistory_typekey': HTMLHistory;
         private constructor();
         back(pvargdistance?: any): void;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         forward(pvargdistance?: any): void;
         go(pvargdistance?: any): void;
         readonly length: number;
@@ -14055,7 +14022,7 @@ declare namespace MSHTML {
         cloneNode(fDeep: boolean): IHTMLDOMNode;
         color: any;
         componentFromPoint(x: number, y: number): string;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         contains(pChild: IHTMLElement): boolean;
         contentEditable: string;
         createControlRange(): any;
@@ -14072,7 +14039,7 @@ declare namespace MSHTML {
         focus(): void;
         getAdjacentText(where: string): string;
 
-        /** @param number [lFlags=0] */
+        /** @param lFlags [lFlags=0] */
         getAttribute(strAttributeName: string, lFlags?: number): any;
         getAttributeNode(bstrName: string): IHTMLDOMAttribute;
         getAttributeNodeNS(pvarNS: any, bstrName: string): IHTMLDOMAttribute2;
@@ -14260,7 +14227,7 @@ declare namespace MSHTML {
         readonly recordNumber: any;
         releaseCapture(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         removeAttribute(strAttributeName: string, lFlags?: number): boolean;
         removeAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         removeAttributeNS(pvarNS: any, strAttributeName: string): void;
@@ -14269,7 +14236,7 @@ declare namespace MSHTML {
         removeExpression(propname: string): boolean;
         removeFilter(pUnk: any): void;
 
-        /** @param boolean [fDeep=false] */
+        /** @param fDeep [fDeep=false] */
         removeNode(fDeep?: boolean): IHTMLDOMNode;
         replaceAdjacentText(where: string, newText: string): string;
         replaceChild(newChild: IHTMLDOMNode, oldChild: IHTMLDOMNode): IHTMLDOMNode;
@@ -14284,16 +14251,16 @@ declare namespace MSHTML {
         readonly scrollWidth: number;
         setActive(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         setAttribute(strAttributeName: string, AttributeValue: any, lFlags?: number): void;
         setAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         setAttributeNodeNS(pattr: IHTMLDOMAttribute2): IHTMLDOMAttribute2;
         setAttributeNS(pvarNS: any, strAttributeName: string, pvarAttributeValue: any): void;
 
-        /** @param boolean [containerCapture=true] */
+        /** @param containerCapture [containerCapture=true] */
         setCapture(containerCapture?: boolean): void;
 
-        /** @param string [language=''] */
+        /** @param language [language=''] */
         setExpression(propname: string, expression: string, language?: string): void;
         size: any;
         readonly sourceIndex: number;
@@ -14364,7 +14331,7 @@ declare namespace MSHTML {
         readonly clientWidth: number;
         cloneNode(fDeep: boolean): IHTMLDOMNode;
         componentFromPoint(x: number, y: number): string;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         contains(pChild: IHTMLElement): boolean;
         contentEditable: string;
         createControlRange(): any;
@@ -14381,7 +14348,7 @@ declare namespace MSHTML {
         focus(): void;
         getAdjacentText(where: string): string;
 
-        /** @param number [lFlags=0] */
+        /** @param lFlags [lFlags=0] */
         getAttribute(strAttributeName: string, lFlags?: number): any;
         getAttributeNode(bstrName: string): IHTMLDOMAttribute;
         getAttributeNodeNS(pvarNS: any, bstrName: string): IHTMLDOMAttribute2;
@@ -14568,7 +14535,7 @@ declare namespace MSHTML {
         readonly recordNumber: any;
         releaseCapture(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         removeAttribute(strAttributeName: string, lFlags?: number): boolean;
         removeAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         removeAttributeNS(pvarNS: any, strAttributeName: string): void;
@@ -14577,7 +14544,7 @@ declare namespace MSHTML {
         removeExpression(propname: string): boolean;
         removeFilter(pUnk: any): void;
 
-        /** @param boolean [fDeep=false] */
+        /** @param fDeep [fDeep=false] */
         removeNode(fDeep?: boolean): IHTMLDOMNode;
         replaceAdjacentText(where: string, newText: string): string;
         replaceChild(newChild: IHTMLDOMNode, oldChild: IHTMLDOMNode): IHTMLDOMNode;
@@ -14592,16 +14559,16 @@ declare namespace MSHTML {
         readonly scrollWidth: number;
         setActive(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         setAttribute(strAttributeName: string, AttributeValue: any, lFlags?: number): void;
         setAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         setAttributeNodeNS(pattr: IHTMLDOMAttribute2): IHTMLDOMAttribute2;
         setAttributeNS(pvarNS: any, strAttributeName: string, pvarAttributeValue: any): void;
 
-        /** @param boolean [containerCapture=true] */
+        /** @param containerCapture [containerCapture=true] */
         setCapture(containerCapture?: boolean): void;
 
-        /** @param string [language=''] */
+        /** @param language [language=''] */
         setExpression(propname: string, expression: string, language?: string): void;
         readonly sourceIndex: number;
         spellcheck: any;
@@ -14675,7 +14642,7 @@ declare namespace MSHTML {
         cloneNode(fDeep: boolean): IHTMLDOMNode;
         compareDocumentPosition(otherNode: IHTMLDOMNode): number;
         componentFromPoint(x: number, y: number): string;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         contains(pChild: IHTMLElement): boolean;
         readonly contentDocument: any;
         contentEditable: string;
@@ -14699,7 +14666,7 @@ declare namespace MSHTML {
         frameSpacing: any;
         getAdjacentText(where: string): string;
 
-        /** @param number [lFlags=0] */
+        /** @param lFlags [lFlags=0] */
         getAttribute(strAttributeName: string, lFlags?: number): any;
         getAttributeNode(bstrName: string): IHTMLDOMAttribute;
         getAttributeNodeNS(pvarNS: any, bstrName: string): IHTMLDOMAttribute2;
@@ -14912,7 +14879,7 @@ declare namespace MSHTML {
         readonly recordNumber: any;
         releaseCapture(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         removeAttribute(strAttributeName: string, lFlags?: number): boolean;
         removeAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         removeAttributeNS(pvarNS: any, strAttributeName: string): void;
@@ -14921,7 +14888,7 @@ declare namespace MSHTML {
         removeExpression(propname: string): boolean;
         removeFilter(pUnk: any): void;
 
-        /** @param boolean [fDeep=false] */
+        /** @param fDeep [fDeep=false] */
         removeNode(fDeep?: boolean): IHTMLDOMNode;
         replaceAdjacentText(where: string, newText: string): string;
         replaceChild(newChild: IHTMLDOMNode, oldChild: IHTMLDOMNode): IHTMLDOMNode;
@@ -14937,16 +14904,16 @@ declare namespace MSHTML {
         readonly scrollWidth: number;
         setActive(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         setAttribute(strAttributeName: string, AttributeValue: any, lFlags?: number): void;
         setAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         setAttributeNodeNS(pattr: IHTMLDOMAttribute2): IHTMLDOMAttribute2;
         setAttributeNS(pvarNS: any, strAttributeName: string, pvarAttributeValue: any): void;
 
-        /** @param boolean [containerCapture=true] */
+        /** @param containerCapture [containerCapture=true] */
         setCapture(containerCapture?: boolean): void;
 
-        /** @param string [language=''] */
+        /** @param language [language=''] */
         setExpression(propname: string, expression: string, language?: string): void;
         readonly sourceIndex: number;
         spellcheck: any;
@@ -14966,10 +14933,9 @@ declare namespace MSHTML {
         xmsAcceleratorKey: string;
     }
 
-    class HTMLImageElementFactory {
-        private 'MSHTML.HTMLImageElementFactory_typekey': HTMLImageElementFactory;
-        private constructor();
+    interface HTMLImageElementFactory {
         create(width?: any, height?: any): IHTMLImgElement;
+        (width?: any, height?: any): IHTMLImgElement;
     }
 
     class HTMLImg {
@@ -15030,7 +14996,7 @@ declare namespace MSHTML {
         compareDocumentPosition(otherNode: IHTMLDOMNode): number;
         readonly complete: boolean;
         componentFromPoint(x: number, y: number): string;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         contains(pChild: IHTMLElement): boolean;
         contentEditable: string;
         createControlRange(): any;
@@ -15055,7 +15021,7 @@ declare namespace MSHTML {
         focus(): void;
         getAdjacentText(where: string): string;
 
-        /** @param number [lFlags=0] */
+        /** @param lFlags [lFlags=0] */
         getAttribute(strAttributeName: string, lFlags?: number): any;
         getAttributeNode(bstrName: string): IHTMLDOMAttribute;
         getAttributeNodeNS(pvarNS: any, bstrName: string): IHTMLDOMAttribute2;
@@ -15276,7 +15242,7 @@ declare namespace MSHTML {
         readonly recordNumber: any;
         releaseCapture(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         removeAttribute(strAttributeName: string, lFlags?: number): boolean;
         removeAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         removeAttributeNS(pvarNS: any, strAttributeName: string): void;
@@ -15285,7 +15251,7 @@ declare namespace MSHTML {
         removeExpression(propname: string): boolean;
         removeFilter(pUnk: any): void;
 
-        /** @param boolean [fDeep=false] */
+        /** @param fDeep [fDeep=false] */
         removeNode(fDeep?: boolean): IHTMLDOMNode;
         replaceAdjacentText(where: string, newText: string): string;
         replaceChild(newChild: IHTMLDOMNode, oldChild: IHTMLDOMNode): IHTMLDOMNode;
@@ -15300,16 +15266,16 @@ declare namespace MSHTML {
         readonly scrollWidth: number;
         setActive(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         setAttribute(strAttributeName: string, AttributeValue: any, lFlags?: number): void;
         setAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         setAttributeNodeNS(pattr: IHTMLDOMAttribute2): IHTMLDOMAttribute2;
         setAttributeNS(pvarNS: any, strAttributeName: string, pvarAttributeValue: any): void;
 
-        /** @param boolean [containerCapture=true] */
+        /** @param containerCapture [containerCapture=true] */
         setCapture(containerCapture?: boolean): void;
 
-        /** @param string [language=''] */
+        /** @param language [language=''] */
         setExpression(propname: string, expression: string, language?: string): void;
         readonly sourceIndex: number;
         spellcheck: any;
@@ -15354,7 +15320,7 @@ declare namespace MSHTML {
         focus(): void;
         readonly form: IHTMLFormElement;
 
-        /** @param number [lFlags=0] */
+        /** @param lFlags [lFlags=0] */
         getAttribute(strAttributeName: string, lFlags?: number): any;
         id: string;
         innerHTML: string;
@@ -15401,12 +15367,12 @@ declare namespace MSHTML {
         readonly parentTextEdit: IHTMLElement;
         readonly recordNumber: any;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         removeAttribute(strAttributeName: string, lFlags?: number): boolean;
         removeFilter(pUnk: any): void;
         scrollIntoView(varargStart?: any): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         setAttribute(strAttributeName: string, AttributeValue: any, lFlags?: number): void;
         readonly sourceIndex: number;
         status: any;
@@ -15479,7 +15445,7 @@ declare namespace MSHTML {
         compareDocumentPosition(otherNode: IHTMLDOMNode): number;
         readonly complete: boolean;
         componentFromPoint(x: number, y: number): string;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         contains(pChild: IHTMLElement): boolean;
         contentEditable: string;
         createControlRange(): any;
@@ -15504,7 +15470,7 @@ declare namespace MSHTML {
         readonly form: IHTMLFormElement;
         getAdjacentText(where: string): string;
 
-        /** @param number [lFlags=0] */
+        /** @param lFlags [lFlags=0] */
         getAttribute(strAttributeName: string, lFlags?: number): any;
         getAttributeNode(bstrName: string): IHTMLDOMAttribute;
         getAttributeNodeNS(pvarNS: any, bstrName: string): IHTMLDOMAttribute2;
@@ -15720,7 +15686,7 @@ declare namespace MSHTML {
         readonly recordNumber: any;
         releaseCapture(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         removeAttribute(strAttributeName: string, lFlags?: number): boolean;
         removeAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         removeAttributeNS(pvarNS: any, strAttributeName: string): void;
@@ -15729,7 +15695,7 @@ declare namespace MSHTML {
         removeExpression(propname: string): boolean;
         removeFilter(pUnk: any): void;
 
-        /** @param boolean [fDeep=false] */
+        /** @param fDeep [fDeep=false] */
         removeNode(fDeep?: boolean): IHTMLDOMNode;
         replaceAdjacentText(where: string, newText: string): string;
         replaceChild(newChild: IHTMLDOMNode, oldChild: IHTMLDOMNode): IHTMLDOMNode;
@@ -15747,16 +15713,16 @@ declare namespace MSHTML {
         selectionStart: number;
         setActive(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         setAttribute(strAttributeName: string, AttributeValue: any, lFlags?: number): void;
         setAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         setAttributeNodeNS(pattr: IHTMLDOMAttribute2): IHTMLDOMAttribute2;
         setAttributeNS(pvarNS: any, strAttributeName: string, pvarAttributeValue: any): void;
 
-        /** @param boolean [containerCapture=true] */
+        /** @param containerCapture [containerCapture=true] */
         setCapture(containerCapture?: boolean): void;
 
-        /** @param string [language=''] */
+        /** @param language [language=''] */
         setExpression(propname: string, expression: string, language?: string): void;
         setSelectionRange(start: number, end: number): void;
         size: number;
@@ -15767,10 +15733,10 @@ declare namespace MSHTML {
         status: boolean;
         step: string;
 
-        /** @param number [n=1] */
+        /** @param n [n=1] */
         stepDown(n?: number): void;
 
-        /** @param number [n=1] */
+        /** @param n [n=1] */
         stepUp(n?: number): void;
         readonly style: IHTMLStyle;
         swapNode(otherNode: IHTMLDOMNode): IHTMLDOMNode;
@@ -15813,7 +15779,7 @@ declare namespace MSHTML {
         focus(): void;
         readonly form: IHTMLFormElement;
 
-        /** @param number [lFlags=0] */
+        /** @param lFlags [lFlags=0] */
         getAttribute(strAttributeName: string, lFlags?: number): any;
         id: string;
         innerHTML: string;
@@ -15863,13 +15829,13 @@ declare namespace MSHTML {
         readonly parentTextEdit: IHTMLElement;
         readonly recordNumber: any;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         removeAttribute(strAttributeName: string, lFlags?: number): boolean;
         removeFilter(pUnk: any): void;
         scrollIntoView(varargStart?: any): void;
         select(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         setAttribute(strAttributeName: string, AttributeValue: any, lFlags?: number): void;
         size: number;
         readonly sourceIndex: number;
@@ -15908,7 +15874,7 @@ declare namespace MSHTML {
         readonly filters: IHTMLFiltersCollection;
         focus(): void;
 
-        /** @param number [lFlags=0] */
+        /** @param lFlags [lFlags=0] */
         getAttribute(strAttributeName: string, lFlags?: number): any;
         height: number;
         hspace: number;
@@ -15963,12 +15929,12 @@ declare namespace MSHTML {
         readonly readyState: string;
         readonly recordNumber: any;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         removeAttribute(strAttributeName: string, lFlags?: number): boolean;
         removeFilter(pUnk: any): void;
         scrollIntoView(varargStart?: any): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         setAttribute(strAttributeName: string, AttributeValue: any, lFlags?: number): void;
         readonly sourceIndex: number;
         src: string;
@@ -16010,7 +15976,7 @@ declare namespace MSHTML {
         focus(): void;
         readonly form: IHTMLFormElement;
 
-        /** @param number [lFlags=0] */
+        /** @param lFlags [lFlags=0] */
         getAttribute(strAttributeName: string, lFlags?: number): any;
         id: string;
         innerHTML: string;
@@ -16061,13 +16027,13 @@ declare namespace MSHTML {
         readOnly: boolean;
         readonly recordNumber: any;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         removeAttribute(strAttributeName: string, lFlags?: number): boolean;
         removeFilter(pUnk: any): void;
         scrollIntoView(varargStart?: any): void;
         select(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         setAttribute(strAttributeName: string, AttributeValue: any, lFlags?: number): void;
         size: number;
         readonly sourceIndex: number;
@@ -16135,7 +16101,7 @@ declare namespace MSHTML {
         readonly clientWidth: number;
         cloneNode(fDeep: boolean): IHTMLDOMNode;
         componentFromPoint(x: number, y: number): string;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         contains(pChild: IHTMLElement): boolean;
         contentEditable: string;
         createControlRange(): any;
@@ -16153,7 +16119,7 @@ declare namespace MSHTML {
         readonly form: IHTMLFormElement;
         getAdjacentText(where: string): string;
 
-        /** @param number [lFlags=0] */
+        /** @param lFlags [lFlags=0] */
         getAttribute(strAttributeName: string, lFlags?: number): any;
         getAttributeNode(bstrName: string): IHTMLDOMAttribute;
         getAttributeNodeNS(pvarNS: any, bstrName: string): IHTMLDOMAttribute2;
@@ -16341,7 +16307,7 @@ declare namespace MSHTML {
         readonly recordNumber: any;
         releaseCapture(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         removeAttribute(strAttributeName: string, lFlags?: number): boolean;
         removeAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         removeAttributeNS(pvarNS: any, strAttributeName: string): void;
@@ -16350,7 +16316,7 @@ declare namespace MSHTML {
         removeExpression(propname: string): boolean;
         removeFilter(pUnk: any): void;
 
-        /** @param boolean [fDeep=false] */
+        /** @param fDeep [fDeep=false] */
         removeNode(fDeep?: boolean): IHTMLDOMNode;
         replaceAdjacentText(where: string, newText: string): string;
         replaceChild(newChild: IHTMLDOMNode, oldChild: IHTMLDOMNode): IHTMLDOMNode;
@@ -16365,16 +16331,16 @@ declare namespace MSHTML {
         readonly scrollWidth: number;
         setActive(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         setAttribute(strAttributeName: string, AttributeValue: any, lFlags?: number): void;
         setAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         setAttributeNodeNS(pattr: IHTMLDOMAttribute2): IHTMLDOMAttribute2;
         setAttributeNS(pvarNS: any, strAttributeName: string, pvarAttributeValue: any): void;
 
-        /** @param boolean [containerCapture=true] */
+        /** @param containerCapture [containerCapture=true] */
         setCapture(containerCapture?: boolean): void;
 
-        /** @param string [language=''] */
+        /** @param language [language=''] */
         setExpression(propname: string, expression: string, language?: string): void;
         readonly sourceIndex: number;
         spellcheck: any;
@@ -16444,7 +16410,7 @@ declare namespace MSHTML {
         cloneNode(fDeep: boolean): IHTMLDOMNode;
         compareDocumentPosition(otherNode: IHTMLDOMNode): number;
         componentFromPoint(x: number, y: number): string;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         contains(pChild: IHTMLElement): boolean;
         contentEditable: string;
         createControlRange(): any;
@@ -16465,7 +16431,7 @@ declare namespace MSHTML {
         readonly form: IHTMLFormElement;
         getAdjacentText(where: string): string;
 
-        /** @param number [lFlags=0] */
+        /** @param lFlags [lFlags=0] */
         getAttribute(strAttributeName: string, lFlags?: number): any;
         getAttributeNode(bstrName: string): IHTMLDOMAttribute;
         getAttributeNodeNS(pvarNS: any, bstrName: string): IHTMLDOMAttribute2;
@@ -16668,7 +16634,7 @@ declare namespace MSHTML {
         readonly recordNumber: any;
         releaseCapture(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         removeAttribute(strAttributeName: string, lFlags?: number): boolean;
         removeAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         removeAttributeNS(pvarNS: any, strAttributeName: string): void;
@@ -16677,7 +16643,7 @@ declare namespace MSHTML {
         removeExpression(propname: string): boolean;
         removeFilter(pUnk: any): void;
 
-        /** @param boolean [fDeep=false] */
+        /** @param fDeep [fDeep=false] */
         removeNode(fDeep?: boolean): IHTMLDOMNode;
         replaceAdjacentText(where: string, newText: string): string;
         replaceChild(newChild: IHTMLDOMNode, oldChild: IHTMLDOMNode): IHTMLDOMNode;
@@ -16692,16 +16658,16 @@ declare namespace MSHTML {
         readonly scrollWidth: number;
         setActive(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         setAttribute(strAttributeName: string, AttributeValue: any, lFlags?: number): void;
         setAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         setAttributeNodeNS(pattr: IHTMLDOMAttribute2): IHTMLDOMAttribute2;
         setAttributeNS(pvarNS: any, strAttributeName: string, pvarAttributeValue: any): void;
 
-        /** @param boolean [containerCapture=true] */
+        /** @param containerCapture [containerCapture=true] */
         setCapture(containerCapture?: boolean): void;
 
-        /** @param string [language=''] */
+        /** @param language [language=''] */
         setExpression(propname: string, expression: string, language?: string): void;
         readonly sourceIndex: number;
         spellcheck: any;
@@ -16773,7 +16739,7 @@ declare namespace MSHTML {
         cloneNode(fDeep: boolean): IHTMLDOMNode;
         compareDocumentPosition(otherNode: IHTMLDOMNode): number;
         componentFromPoint(x: number, y: number): string;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         contains(pChild: IHTMLElement): boolean;
         contentEditable: string;
         createControlRange(): any;
@@ -16794,7 +16760,7 @@ declare namespace MSHTML {
         readonly form: IHTMLFormElement;
         getAdjacentText(where: string): string;
 
-        /** @param number [lFlags=0] */
+        /** @param lFlags [lFlags=0] */
         getAttribute(strAttributeName: string, lFlags?: number): any;
         getAttributeNode(bstrName: string): IHTMLDOMAttribute;
         getAttributeNodeNS(pvarNS: any, bstrName: string): IHTMLDOMAttribute2;
@@ -16996,7 +16962,7 @@ declare namespace MSHTML {
         readonly recordNumber: any;
         releaseCapture(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         removeAttribute(strAttributeName: string, lFlags?: number): boolean;
         removeAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         removeAttributeNS(pvarNS: any, strAttributeName: string): void;
@@ -17005,7 +16971,7 @@ declare namespace MSHTML {
         removeExpression(propname: string): boolean;
         removeFilter(pUnk: any): void;
 
-        /** @param boolean [fDeep=false] */
+        /** @param fDeep [fDeep=false] */
         removeNode(fDeep?: boolean): IHTMLDOMNode;
         replaceAdjacentText(where: string, newText: string): string;
         replaceChild(newChild: IHTMLDOMNode, oldChild: IHTMLDOMNode): IHTMLDOMNode;
@@ -17020,16 +16986,16 @@ declare namespace MSHTML {
         readonly scrollWidth: number;
         setActive(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         setAttribute(strAttributeName: string, AttributeValue: any, lFlags?: number): void;
         setAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         setAttributeNodeNS(pattr: IHTMLDOMAttribute2): IHTMLDOMAttribute2;
         setAttributeNS(pvarNS: any, strAttributeName: string, pvarAttributeValue: any): void;
 
-        /** @param boolean [containerCapture=true] */
+        /** @param containerCapture [containerCapture=true] */
         setCapture(containerCapture?: boolean): void;
 
-        /** @param string [language=''] */
+        /** @param language [language=''] */
         setExpression(propname: string, expression: string, language?: string): void;
         readonly sourceIndex: number;
         spellcheck: any;
@@ -17099,7 +17065,7 @@ declare namespace MSHTML {
         readonly clientWidth: number;
         cloneNode(fDeep: boolean): IHTMLDOMNode;
         componentFromPoint(x: number, y: number): string;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         contains(pChild: IHTMLElement): boolean;
         contentEditable: string;
         createControlRange(): any;
@@ -17116,7 +17082,7 @@ declare namespace MSHTML {
         focus(): void;
         getAdjacentText(where: string): string;
 
-        /** @param number [lFlags=0] */
+        /** @param lFlags [lFlags=0] */
         getAttribute(strAttributeName: string, lFlags?: number): any;
         getAttributeNode(bstrName: string): IHTMLDOMAttribute;
         getAttributeNodeNS(pvarNS: any, bstrName: string): IHTMLDOMAttribute2;
@@ -17303,7 +17269,7 @@ declare namespace MSHTML {
         readonly recordNumber: any;
         releaseCapture(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         removeAttribute(strAttributeName: string, lFlags?: number): boolean;
         removeAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         removeAttributeNS(pvarNS: any, strAttributeName: string): void;
@@ -17312,7 +17278,7 @@ declare namespace MSHTML {
         removeExpression(propname: string): boolean;
         removeFilter(pUnk: any): void;
 
-        /** @param boolean [fDeep=false] */
+        /** @param fDeep [fDeep=false] */
         removeNode(fDeep?: boolean): IHTMLDOMNode;
         replaceAdjacentText(where: string, newText: string): string;
         replaceChild(newChild: IHTMLDOMNode, oldChild: IHTMLDOMNode): IHTMLDOMNode;
@@ -17327,16 +17293,16 @@ declare namespace MSHTML {
         readonly scrollWidth: number;
         setActive(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         setAttribute(strAttributeName: string, AttributeValue: any, lFlags?: number): void;
         setAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         setAttributeNodeNS(pattr: IHTMLDOMAttribute2): IHTMLDOMAttribute2;
         setAttributeNS(pvarNS: any, strAttributeName: string, pvarAttributeValue: any): void;
 
-        /** @param boolean [containerCapture=true] */
+        /** @param containerCapture [containerCapture=true] */
         setCapture(containerCapture?: boolean): void;
 
-        /** @param string [language=''] */
+        /** @param language [language=''] */
         setExpression(propname: string, expression: string, language?: string): void;
         readonly sourceIndex: number;
         spellcheck: any;
@@ -17408,7 +17374,7 @@ declare namespace MSHTML {
         readonly clientWidth: number;
         cloneNode(fDeep: boolean): IHTMLDOMNode;
         componentFromPoint(x: number, y: number): string;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         contains(pChild: IHTMLElement): boolean;
         contentEditable: string;
         createControlRange(): any;
@@ -17425,7 +17391,7 @@ declare namespace MSHTML {
         focus(): void;
         getAdjacentText(where: string): string;
 
-        /** @param number [lFlags=0] */
+        /** @param lFlags [lFlags=0] */
         getAttribute(strAttributeName: string, lFlags?: number): any;
         getAttributeNode(bstrName: string): IHTMLDOMAttribute;
         getAttributeNodeNS(pvarNS: any, bstrName: string): IHTMLDOMAttribute2;
@@ -17617,7 +17583,7 @@ declare namespace MSHTML {
         rel: string;
         releaseCapture(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         removeAttribute(strAttributeName: string, lFlags?: number): boolean;
         removeAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         removeAttributeNS(pvarNS: any, strAttributeName: string): void;
@@ -17626,7 +17592,7 @@ declare namespace MSHTML {
         removeExpression(propname: string): boolean;
         removeFilter(pUnk: any): void;
 
-        /** @param boolean [fDeep=false] */
+        /** @param fDeep [fDeep=false] */
         removeNode(fDeep?: boolean): IHTMLDOMNode;
         replaceAdjacentText(where: string, newText: string): string;
         replaceChild(newChild: IHTMLDOMNode, oldChild: IHTMLDOMNode): IHTMLDOMNode;
@@ -17642,16 +17608,16 @@ declare namespace MSHTML {
         readonly scrollWidth: number;
         setActive(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         setAttribute(strAttributeName: string, AttributeValue: any, lFlags?: number): void;
         setAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         setAttributeNodeNS(pattr: IHTMLDOMAttribute2): IHTMLDOMAttribute2;
         setAttributeNS(pvarNS: any, strAttributeName: string, pvarAttributeValue: any): void;
 
-        /** @param boolean [containerCapture=true] */
+        /** @param containerCapture [containerCapture=true] */
         setCapture(containerCapture?: boolean): void;
 
-        /** @param string [language=''] */
+        /** @param language [language=''] */
         setExpression(propname: string, expression: string, language?: string): void;
         readonly sheet: IHTMLStyleSheet;
         readonly sourceIndex: number;
@@ -17725,7 +17691,7 @@ declare namespace MSHTML {
         cloneNode(fDeep: boolean): IHTMLDOMNode;
         compact: boolean;
         componentFromPoint(x: number, y: number): string;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         contains(pChild: IHTMLElement): boolean;
         contentEditable: string;
         createControlRange(): any;
@@ -17742,7 +17708,7 @@ declare namespace MSHTML {
         focus(): void;
         getAdjacentText(where: string): string;
 
-        /** @param number [lFlags=0] */
+        /** @param lFlags [lFlags=0] */
         getAttribute(strAttributeName: string, lFlags?: number): any;
         getAttributeNode(bstrName: string): IHTMLDOMAttribute;
         getAttributeNodeNS(pvarNS: any, bstrName: string): IHTMLDOMAttribute2;
@@ -17929,7 +17895,7 @@ declare namespace MSHTML {
         readonly recordNumber: any;
         releaseCapture(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         removeAttribute(strAttributeName: string, lFlags?: number): boolean;
         removeAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         removeAttributeNS(pvarNS: any, strAttributeName: string): void;
@@ -17938,7 +17904,7 @@ declare namespace MSHTML {
         removeExpression(propname: string): boolean;
         removeFilter(pUnk: any): void;
 
-        /** @param boolean [fDeep=false] */
+        /** @param fDeep [fDeep=false] */
         removeNode(fDeep?: boolean): IHTMLDOMNode;
         replaceAdjacentText(where: string, newText: string): string;
         replaceChild(newChild: IHTMLDOMNode, oldChild: IHTMLDOMNode): IHTMLDOMNode;
@@ -17953,16 +17919,16 @@ declare namespace MSHTML {
         readonly scrollWidth: number;
         setActive(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         setAttribute(strAttributeName: string, AttributeValue: any, lFlags?: number): void;
         setAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         setAttributeNodeNS(pattr: IHTMLDOMAttribute2): IHTMLDOMAttribute2;
         setAttributeNS(pvarNS: any, strAttributeName: string, pvarAttributeValue: any): void;
 
-        /** @param boolean [containerCapture=true] */
+        /** @param containerCapture [containerCapture=true] */
         setCapture(containerCapture?: boolean): void;
 
-        /** @param string [language=''] */
+        /** @param language [language=''] */
         setExpression(propname: string, expression: string, language?: string): void;
         readonly sourceIndex: number;
         spellcheck: any;
@@ -17982,7 +17948,7 @@ declare namespace MSHTML {
         private 'MSHTML.HTMLLocation_typekey': HTMLLocation;
         private constructor();
         assign(bstr: string): void;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         hash: string;
         host: string;
         hostname: string;
@@ -17991,7 +17957,7 @@ declare namespace MSHTML {
         port: string;
         protocol: string;
 
-        /** @param boolean [flag=false] */
+        /** @param flag [flag=false] */
         reload(flag?: boolean): void;
         replace(bstr: string): void;
         search: string;
@@ -18052,7 +18018,7 @@ declare namespace MSHTML {
         readonly clientWidth: number;
         cloneNode(fDeep: boolean): IHTMLDOMNode;
         componentFromPoint(x: number, y: number): string;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         contains(pChild: IHTMLElement): boolean;
         contentEditable: string;
         createControlRange(): any;
@@ -18069,7 +18035,7 @@ declare namespace MSHTML {
         focus(): void;
         getAdjacentText(where: string): string;
 
-        /** @param number [lFlags=0] */
+        /** @param lFlags [lFlags=0] */
         getAttribute(strAttributeName: string, lFlags?: number): any;
         getAttributeNode(bstrName: string): IHTMLDOMAttribute;
         getAttributeNodeNS(pvarNS: any, bstrName: string): IHTMLDOMAttribute2;
@@ -18257,7 +18223,7 @@ declare namespace MSHTML {
         readonly recordNumber: any;
         releaseCapture(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         removeAttribute(strAttributeName: string, lFlags?: number): boolean;
         removeAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         removeAttributeNS(pvarNS: any, strAttributeName: string): void;
@@ -18266,7 +18232,7 @@ declare namespace MSHTML {
         removeExpression(propname: string): boolean;
         removeFilter(pUnk: any): void;
 
-        /** @param boolean [fDeep=false] */
+        /** @param fDeep [fDeep=false] */
         removeNode(fDeep?: boolean): IHTMLDOMNode;
         replaceAdjacentText(where: string, newText: string): string;
         replaceChild(newChild: IHTMLDOMNode, oldChild: IHTMLDOMNode): IHTMLDOMNode;
@@ -18281,16 +18247,16 @@ declare namespace MSHTML {
         readonly scrollWidth: number;
         setActive(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         setAttribute(strAttributeName: string, AttributeValue: any, lFlags?: number): void;
         setAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         setAttributeNodeNS(pattr: IHTMLDOMAttribute2): IHTMLDOMAttribute2;
         setAttributeNS(pvarNS: any, strAttributeName: string, pvarAttributeValue: any): void;
 
-        /** @param boolean [containerCapture=true] */
+        /** @param containerCapture [containerCapture=true] */
         setCapture(containerCapture?: boolean): void;
 
-        /** @param string [language=''] */
+        /** @param language [language=''] */
         setExpression(propname: string, expression: string, language?: string): void;
         readonly sourceIndex: number;
         spellcheck: any;
@@ -18362,7 +18328,7 @@ declare namespace MSHTML {
         cloneNode(fDeep: boolean): IHTMLDOMNode;
         compareDocumentPosition(otherNode: IHTMLDOMNode): number;
         componentFromPoint(x: number, y: number): string;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         contains(pChild: IHTMLElement): boolean;
         contentEditable: string;
         createControlRange(): any;
@@ -18383,7 +18349,7 @@ declare namespace MSHTML {
         focus(): void;
         getAdjacentText(where: string): string;
 
-        /** @param number [lFlags=0] */
+        /** @param lFlags [lFlags=0] */
         getAttribute(strAttributeName: string, lFlags?: number): any;
         getAttributeNode(bstrName: string): IHTMLDOMAttribute;
         getAttributeNodeNS(pvarNS: any, bstrName: string): IHTMLDOMAttribute2;
@@ -18591,7 +18557,7 @@ declare namespace MSHTML {
         readonly recordNumber: any;
         releaseCapture(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         removeAttribute(strAttributeName: string, lFlags?: number): boolean;
         removeAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         removeAttributeNS(pvarNS: any, strAttributeName: string): void;
@@ -18600,7 +18566,7 @@ declare namespace MSHTML {
         removeExpression(propname: string): boolean;
         removeFilter(pUnk: any): void;
 
-        /** @param boolean [fDeep=false] */
+        /** @param fDeep [fDeep=false] */
         removeNode(fDeep?: boolean): IHTMLDOMNode;
         replaceAdjacentText(where: string, newText: string): string;
         replaceChild(newChild: IHTMLDOMNode, oldChild: IHTMLDOMNode): IHTMLDOMNode;
@@ -18617,16 +18583,16 @@ declare namespace MSHTML {
         readonly scrollWidth: number;
         setActive(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         setAttribute(strAttributeName: string, AttributeValue: any, lFlags?: number): void;
         setAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         setAttributeNodeNS(pattr: IHTMLDOMAttribute2): IHTMLDOMAttribute2;
         setAttributeNS(pvarNS: any, strAttributeName: string, pvarAttributeValue: any): void;
 
-        /** @param boolean [containerCapture=true] */
+        /** @param containerCapture [containerCapture=true] */
         setCapture(containerCapture?: boolean): void;
 
-        /** @param string [language=''] */
+        /** @param language [language=''] */
         setExpression(propname: string, expression: string, language?: string): void;
         readonly sourceIndex: number;
         spellcheck: any;
@@ -18706,7 +18672,7 @@ declare namespace MSHTML {
         cloneNode(fDeep: boolean): IHTMLDOMNode;
         compareDocumentPosition(otherNode: IHTMLDOMNode): number;
         componentFromPoint(x: number, y: number): string;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         contains(pChild: IHTMLElement): boolean;
         contentEditable: string;
         controls: boolean;
@@ -18736,7 +18702,7 @@ declare namespace MSHTML {
         focus(): void;
         getAdjacentText(where: string): string;
 
-        /** @param number [lFlags=0] */
+        /** @param lFlags [lFlags=0] */
         getAttribute(strAttributeName: string, lFlags?: number): any;
         getAttributeNode(bstrName: string): IHTMLDOMAttribute;
         getAttributeNodeNS(pvarNS: any, bstrName: string): IHTMLDOMAttribute2;
@@ -18953,7 +18919,7 @@ declare namespace MSHTML {
         readonly recordNumber: any;
         releaseCapture(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         removeAttribute(strAttributeName: string, lFlags?: number): boolean;
         removeAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         removeAttributeNS(pvarNS: any, strAttributeName: string): void;
@@ -18962,7 +18928,7 @@ declare namespace MSHTML {
         removeExpression(propname: string): boolean;
         removeFilter(pUnk: any): void;
 
-        /** @param boolean [fDeep=false] */
+        /** @param fDeep [fDeep=false] */
         removeNode(fDeep?: boolean): IHTMLDOMNode;
         replaceAdjacentText(where: string, newText: string): string;
         replaceChild(newChild: IHTMLDOMNode, oldChild: IHTMLDOMNode): IHTMLDOMNode;
@@ -18979,16 +18945,16 @@ declare namespace MSHTML {
         readonly seeking: boolean;
         setActive(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         setAttribute(strAttributeName: string, AttributeValue: any, lFlags?: number): void;
         setAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         setAttributeNodeNS(pattr: IHTMLDOMAttribute2): IHTMLDOMAttribute2;
         setAttributeNS(pvarNS: any, strAttributeName: string, pvarAttributeValue: any): void;
 
-        /** @param boolean [containerCapture=true] */
+        /** @param containerCapture [containerCapture=true] */
         setCapture(containerCapture?: boolean): void;
 
-        /** @param string [language=''] */
+        /** @param language [language=''] */
         setExpression(propname: string, expression: string, language?: string): void;
         readonly sourceIndex: number;
         spellcheck: any;
@@ -19068,7 +19034,7 @@ declare namespace MSHTML {
         readonly clientWidth: number;
         cloneNode(fDeep: boolean): IHTMLDOMNode;
         componentFromPoint(x: number, y: number): string;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         contains(pChild: IHTMLElement): boolean;
         content: string;
         contentEditable: string;
@@ -19086,7 +19052,7 @@ declare namespace MSHTML {
         focus(): void;
         getAdjacentText(where: string): string;
 
-        /** @param number [lFlags=0] */
+        /** @param lFlags [lFlags=0] */
         getAttribute(strAttributeName: string, lFlags?: number): any;
         getAttributeNode(bstrName: string): IHTMLDOMAttribute;
         getAttributeNodeNS(pvarNS: any, bstrName: string): IHTMLDOMAttribute2;
@@ -19276,7 +19242,7 @@ declare namespace MSHTML {
         readonly recordNumber: any;
         releaseCapture(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         removeAttribute(strAttributeName: string, lFlags?: number): boolean;
         removeAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         removeAttributeNS(pvarNS: any, strAttributeName: string): void;
@@ -19285,7 +19251,7 @@ declare namespace MSHTML {
         removeExpression(propname: string): boolean;
         removeFilter(pUnk: any): void;
 
-        /** @param boolean [fDeep=false] */
+        /** @param fDeep [fDeep=false] */
         removeNode(fDeep?: boolean): IHTMLDOMNode;
         replaceAdjacentText(where: string, newText: string): string;
         replaceChild(newChild: IHTMLDOMNode, oldChild: IHTMLDOMNode): IHTMLDOMNode;
@@ -19301,16 +19267,16 @@ declare namespace MSHTML {
         readonly scrollWidth: number;
         setActive(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         setAttribute(strAttributeName: string, AttributeValue: any, lFlags?: number): void;
         setAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         setAttributeNodeNS(pattr: IHTMLDOMAttribute2): IHTMLDOMAttribute2;
         setAttributeNS(pvarNS: any, strAttributeName: string, pvarAttributeValue: any): void;
 
-        /** @param boolean [containerCapture=true] */
+        /** @param containerCapture [containerCapture=true] */
         setCapture(containerCapture?: boolean): void;
 
-        /** @param string [language=''] */
+        /** @param language [language=''] */
         setExpression(propname: string, expression: string, language?: string): void;
         readonly sourceIndex: number;
         spellcheck: any;
@@ -19356,7 +19322,7 @@ declare namespace MSHTML {
         private 'MSHTML.HTMLNamespace_typekey': HTMLNamespace;
         private constructor();
         attachEvent(event: string, pdisp: any): boolean;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         detachEvent(event: string, pdisp: any): void;
         doImport(bstrImplementationUrl: string): void;
         readonly name: string;
@@ -19366,13 +19332,12 @@ declare namespace MSHTML {
         readonly urn: string;
     }
 
-    class HTMLNamespaceCollection {
-        private 'MSHTML.HTMLNamespaceCollection_typekey': HTMLNamespaceCollection;
-        private constructor();
+    interface HTMLNamespaceCollection {
         add(bstrNamespace: string, bstrUrn: string, implementationUrl?: any): any;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         item(index: any): any;
         readonly length: number;
+        (index: any): any;
     }
 
     class HTMLNavigator {
@@ -19384,7 +19349,7 @@ declare namespace MSHTML {
         readonly appVersion: string;
         readonly browserLanguage: string;
         readonly connectionSpeed: number;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         readonly cookieEnabled: boolean;
         readonly cpuClass: string;
         readonly geolocation: IWebGeolocation;
@@ -19456,7 +19421,7 @@ declare namespace MSHTML {
         readonly clientWidth: number;
         cloneNode(fDeep: boolean): IHTMLDOMNode;
         componentFromPoint(x: number, y: number): string;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         contains(pChild: IHTMLElement): boolean;
         contentEditable: string;
         createControlRange(): any;
@@ -19473,7 +19438,7 @@ declare namespace MSHTML {
         focus(): void;
         getAdjacentText(where: string): string;
 
-        /** @param number [lFlags=0] */
+        /** @param lFlags [lFlags=0] */
         getAttribute(strAttributeName: string, lFlags?: number): any;
         getAttributeNode(bstrName: string): IHTMLDOMAttribute;
         getAttributeNodeNS(pvarNS: any, bstrName: string): IHTMLDOMAttribute2;
@@ -19661,7 +19626,7 @@ declare namespace MSHTML {
         readonly recordNumber: any;
         releaseCapture(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         removeAttribute(strAttributeName: string, lFlags?: number): boolean;
         removeAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         removeAttributeNS(pvarNS: any, strAttributeName: string): void;
@@ -19670,7 +19635,7 @@ declare namespace MSHTML {
         removeExpression(propname: string): boolean;
         removeFilter(pUnk: any): void;
 
-        /** @param boolean [fDeep=false] */
+        /** @param fDeep [fDeep=false] */
         removeNode(fDeep?: boolean): IHTMLDOMNode;
         replaceAdjacentText(where: string, newText: string): string;
         replaceChild(newChild: IHTMLDOMNode, oldChild: IHTMLDOMNode): IHTMLDOMNode;
@@ -19685,16 +19650,16 @@ declare namespace MSHTML {
         readonly scrollWidth: number;
         setActive(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         setAttribute(strAttributeName: string, AttributeValue: any, lFlags?: number): void;
         setAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         setAttributeNodeNS(pattr: IHTMLDOMAttribute2): IHTMLDOMAttribute2;
         setAttributeNS(pvarNS: any, strAttributeName: string, pvarAttributeValue: any): void;
 
-        /** @param boolean [containerCapture=true] */
+        /** @param containerCapture [containerCapture=true] */
         setCapture(containerCapture?: boolean): void;
 
-        /** @param string [language=''] */
+        /** @param language [language=''] */
         setExpression(propname: string, expression: string, language?: string): void;
         readonly sourceIndex: number;
         spellcheck: any;
@@ -19763,7 +19728,7 @@ declare namespace MSHTML {
         readonly clientWidth: number;
         cloneNode(fDeep: boolean): IHTMLDOMNode;
         componentFromPoint(x: number, y: number): string;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         contains(pChild: IHTMLElement): boolean;
         contentEditable: string;
         createControlRange(): any;
@@ -19780,7 +19745,7 @@ declare namespace MSHTML {
         focus(): void;
         getAdjacentText(where: string): string;
 
-        /** @param number [lFlags=0] */
+        /** @param lFlags [lFlags=0] */
         getAttribute(strAttributeName: string, lFlags?: number): any;
         getAttributeNode(bstrName: string): IHTMLDOMAttribute;
         getAttributeNodeNS(pvarNS: any, bstrName: string): IHTMLDOMAttribute2;
@@ -19967,7 +19932,7 @@ declare namespace MSHTML {
         readonly recordNumber: any;
         releaseCapture(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         removeAttribute(strAttributeName: string, lFlags?: number): boolean;
         removeAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         removeAttributeNS(pvarNS: any, strAttributeName: string): void;
@@ -19976,7 +19941,7 @@ declare namespace MSHTML {
         removeExpression(propname: string): boolean;
         removeFilter(pUnk: any): void;
 
-        /** @param boolean [fDeep=false] */
+        /** @param fDeep [fDeep=false] */
         removeNode(fDeep?: boolean): IHTMLDOMNode;
         replaceAdjacentText(where: string, newText: string): string;
         replaceChild(newChild: IHTMLDOMNode, oldChild: IHTMLDOMNode): IHTMLDOMNode;
@@ -19991,16 +19956,16 @@ declare namespace MSHTML {
         readonly scrollWidth: number;
         setActive(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         setAttribute(strAttributeName: string, AttributeValue: any, lFlags?: number): void;
         setAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         setAttributeNodeNS(pattr: IHTMLDOMAttribute2): IHTMLDOMAttribute2;
         setAttributeNS(pvarNS: any, strAttributeName: string, pvarAttributeValue: any): void;
 
-        /** @param boolean [containerCapture=true] */
+        /** @param containerCapture [containerCapture=true] */
         setCapture(containerCapture?: boolean): void;
 
-        /** @param string [language=''] */
+        /** @param language [language=''] */
         setExpression(propname: string, expression: string, language?: string): void;
         readonly sourceIndex: number;
         spellcheck: any;
@@ -20080,7 +20045,7 @@ declare namespace MSHTML {
         codeType: string;
         compareDocumentPosition(otherNode: IHTMLDOMNode): number;
         componentFromPoint(x: number, y: number): string;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         contains(pChild: IHTMLElement): boolean;
         readonly contentDocument: any;
         contentEditable: string;
@@ -20104,7 +20069,7 @@ declare namespace MSHTML {
         readonly form: IHTMLFormElement;
         getAdjacentText(where: string): string;
 
-        /** @param number [lFlags=0] */
+        /** @param lFlags [lFlags=0] */
         getAttribute(strAttributeName: string, lFlags?: number): any;
         getAttributeNode(bstrName: string): IHTMLDOMAttribute;
         getAttributeNodeNS(pvarNS: any, bstrName: string): IHTMLDOMAttribute2;
@@ -20316,7 +20281,7 @@ declare namespace MSHTML {
         recordset: any;
         releaseCapture(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         removeAttribute(strAttributeName: string, lFlags?: number): boolean;
         removeAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         removeAttributeNS(pvarNS: any, strAttributeName: string): void;
@@ -20325,7 +20290,7 @@ declare namespace MSHTML {
         removeExpression(propname: string): boolean;
         removeFilter(pUnk: any): void;
 
-        /** @param boolean [fDeep=false] */
+        /** @param fDeep [fDeep=false] */
         removeNode(fDeep?: boolean): IHTMLDOMNode;
         replaceAdjacentText(where: string, newText: string): string;
         replaceChild(newChild: IHTMLDOMNode, oldChild: IHTMLDOMNode): IHTMLDOMNode;
@@ -20340,16 +20305,16 @@ declare namespace MSHTML {
         readonly scrollWidth: number;
         setActive(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         setAttribute(strAttributeName: string, AttributeValue: any, lFlags?: number): void;
         setAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         setAttributeNodeNS(pattr: IHTMLDOMAttribute2): IHTMLDOMAttribute2;
         setAttributeNS(pvarNS: any, strAttributeName: string, pvarAttributeValue: any): void;
 
-        /** @param boolean [containerCapture=true] */
+        /** @param containerCapture [containerCapture=true] */
         setCapture(containerCapture?: boolean): void;
 
-        /** @param string [language=''] */
+        /** @param language [language=''] */
         setExpression(propname: string, expression: string, language?: string): void;
         readonly sourceIndex: number;
         spellcheck: any;
@@ -20425,7 +20390,7 @@ declare namespace MSHTML {
         cloneNode(fDeep: boolean): IHTMLDOMNode;
         compact: boolean;
         componentFromPoint(x: number, y: number): string;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         contains(pChild: IHTMLElement): boolean;
         contentEditable: string;
         createControlRange(): any;
@@ -20442,7 +20407,7 @@ declare namespace MSHTML {
         focus(): void;
         getAdjacentText(where: string): string;
 
-        /** @param number [lFlags=0] */
+        /** @param lFlags [lFlags=0] */
         getAttribute(strAttributeName: string, lFlags?: number): any;
         getAttributeNode(bstrName: string): IHTMLDOMAttribute;
         getAttributeNodeNS(pvarNS: any, bstrName: string): IHTMLDOMAttribute2;
@@ -20629,7 +20594,7 @@ declare namespace MSHTML {
         readonly recordNumber: any;
         releaseCapture(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         removeAttribute(strAttributeName: string, lFlags?: number): boolean;
         removeAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         removeAttributeNS(pvarNS: any, strAttributeName: string): void;
@@ -20638,7 +20603,7 @@ declare namespace MSHTML {
         removeExpression(propname: string): boolean;
         removeFilter(pUnk: any): void;
 
-        /** @param boolean [fDeep=false] */
+        /** @param fDeep [fDeep=false] */
         removeNode(fDeep?: boolean): IHTMLDOMNode;
         replaceAdjacentText(where: string, newText: string): string;
         replaceChild(newChild: IHTMLDOMNode, oldChild: IHTMLDOMNode): IHTMLDOMNode;
@@ -20653,16 +20618,16 @@ declare namespace MSHTML {
         readonly scrollWidth: number;
         setActive(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         setAttribute(strAttributeName: string, AttributeValue: any, lFlags?: number): void;
         setAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         setAttributeNodeNS(pattr: IHTMLDOMAttribute2): IHTMLDOMAttribute2;
         setAttributeNS(pvarNS: any, strAttributeName: string, pvarAttributeValue: any): void;
 
-        /** @param boolean [containerCapture=true] */
+        /** @param containerCapture [containerCapture=true] */
         setCapture(containerCapture?: boolean): void;
 
-        /** @param string [language=''] */
+        /** @param language [language=''] */
         setExpression(propname: string, expression: string, language?: string): void;
         readonly sourceIndex: number;
         spellcheck: any;
@@ -20706,7 +20671,7 @@ declare namespace MSHTML {
         focus(): void;
         readonly form: IHTMLFormElement;
 
-        /** @param number [lFlags=0] */
+        /** @param lFlags [lFlags=0] */
         getAttribute(strAttributeName: string, lFlags?: number): any;
         id: string;
         indeterminate: boolean;
@@ -20755,12 +20720,12 @@ declare namespace MSHTML {
         readonly parentTextEdit: IHTMLElement;
         readonly recordNumber: any;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         removeAttribute(strAttributeName: string, lFlags?: number): boolean;
         removeFilter(pUnk: any): void;
         scrollIntoView(varargStart?: any): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         setAttribute(strAttributeName: string, AttributeValue: any, lFlags?: number): void;
         readonly sourceIndex: number;
         status: boolean;
@@ -20827,7 +20792,7 @@ declare namespace MSHTML {
         cloneNode(fDeep: boolean): IHTMLDOMNode;
         compareDocumentPosition(otherNode: IHTMLDOMNode): number;
         componentFromPoint(x: number, y: number): string;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         contains(pChild: IHTMLElement): boolean;
         contentEditable: string;
         createControlRange(): any;
@@ -20849,7 +20814,7 @@ declare namespace MSHTML {
         readonly form: IHTMLFormElement;
         getAdjacentText(where: string): string;
 
-        /** @param number [lFlags=0] */
+        /** @param lFlags [lFlags=0] */
         getAttribute(strAttributeName: string, lFlags?: number): any;
         getAttributeNode(bstrName: string): IHTMLDOMAttribute;
         getAttributeNodeNS(pvarNS: any, bstrName: string): IHTMLDOMAttribute2;
@@ -21054,7 +21019,7 @@ declare namespace MSHTML {
         readonly recordNumber: any;
         releaseCapture(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         removeAttribute(strAttributeName: string, lFlags?: number): boolean;
         removeAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         removeAttributeNS(pvarNS: any, strAttributeName: string): void;
@@ -21063,7 +21028,7 @@ declare namespace MSHTML {
         removeExpression(propname: string): boolean;
         removeFilter(pUnk: any): void;
 
-        /** @param boolean [fDeep=false] */
+        /** @param fDeep [fDeep=false] */
         removeNode(fDeep?: boolean): IHTMLDOMNode;
         replaceAdjacentText(where: string, newText: string): string;
         replaceChild(newChild: IHTMLDOMNode, oldChild: IHTMLDOMNode): IHTMLDOMNode;
@@ -21079,16 +21044,16 @@ declare namespace MSHTML {
         selected: boolean;
         setActive(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         setAttribute(strAttributeName: string, AttributeValue: any, lFlags?: number): void;
         setAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         setAttributeNodeNS(pattr: IHTMLDOMAttribute2): IHTMLDOMAttribute2;
         setAttributeNS(pvarNS: any, strAttributeName: string, pvarAttributeValue: any): void;
 
-        /** @param boolean [containerCapture=true] */
+        /** @param containerCapture [containerCapture=true] */
         setCapture(containerCapture?: boolean): void;
 
-        /** @param string [language=''] */
+        /** @param language [language=''] */
         setExpression(propname: string, expression: string, language?: string): void;
         readonly sourceIndex: number;
         spellcheck: any;
@@ -21107,10 +21072,9 @@ declare namespace MSHTML {
         xmsAcceleratorKey: string;
     }
 
-    class HTMLOptionElementFactory {
-        private 'MSHTML.HTMLOptionElementFactory_typekey': HTMLOptionElementFactory;
-        private constructor();
+    interface HTMLOptionElementFactory {
         create(text?: any, value?: any, defaultSelected?: any, selected?: any): IHTMLOptionElement;
+        (text?: any, value?: any, defaultSelected?: any, selected?: any): IHTMLOptionElement;
     }
 
     class HTMLParaElement {
@@ -21168,7 +21132,7 @@ declare namespace MSHTML {
         readonly clientWidth: number;
         cloneNode(fDeep: boolean): IHTMLDOMNode;
         componentFromPoint(x: number, y: number): string;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         contains(pChild: IHTMLElement): boolean;
         contentEditable: string;
         createControlRange(): any;
@@ -21185,7 +21149,7 @@ declare namespace MSHTML {
         focus(): void;
         getAdjacentText(where: string): string;
 
-        /** @param number [lFlags=0] */
+        /** @param lFlags [lFlags=0] */
         getAttribute(strAttributeName: string, lFlags?: number): any;
         getAttributeNode(bstrName: string): IHTMLDOMAttribute;
         getAttributeNodeNS(pvarNS: any, bstrName: string): IHTMLDOMAttribute2;
@@ -21372,7 +21336,7 @@ declare namespace MSHTML {
         readonly recordNumber: any;
         releaseCapture(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         removeAttribute(strAttributeName: string, lFlags?: number): boolean;
         removeAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         removeAttributeNS(pvarNS: any, strAttributeName: string): void;
@@ -21381,7 +21345,7 @@ declare namespace MSHTML {
         removeExpression(propname: string): boolean;
         removeFilter(pUnk: any): void;
 
-        /** @param boolean [fDeep=false] */
+        /** @param fDeep [fDeep=false] */
         removeNode(fDeep?: boolean): IHTMLDOMNode;
         replaceAdjacentText(where: string, newText: string): string;
         replaceChild(newChild: IHTMLDOMNode, oldChild: IHTMLDOMNode): IHTMLDOMNode;
@@ -21396,16 +21360,16 @@ declare namespace MSHTML {
         readonly scrollWidth: number;
         setActive(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         setAttribute(strAttributeName: string, AttributeValue: any, lFlags?: number): void;
         setAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         setAttributeNodeNS(pattr: IHTMLDOMAttribute2): IHTMLDOMAttribute2;
         setAttributeNS(pvarNS: any, strAttributeName: string, pvarAttributeValue: any): void;
 
-        /** @param boolean [containerCapture=true] */
+        /** @param containerCapture [containerCapture=true] */
         setCapture(containerCapture?: boolean): void;
 
-        /** @param string [language=''] */
+        /** @param language [language=''] */
         setExpression(propname: string, expression: string, language?: string): void;
         readonly sourceIndex: number;
         spellcheck: any;
@@ -21474,7 +21438,7 @@ declare namespace MSHTML {
         readonly clientWidth: number;
         cloneNode(fDeep: boolean): IHTMLDOMNode;
         componentFromPoint(x: number, y: number): string;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         contains(pChild: IHTMLElement): boolean;
         contentEditable: string;
         createControlRange(): any;
@@ -21491,7 +21455,7 @@ declare namespace MSHTML {
         focus(): void;
         getAdjacentText(where: string): string;
 
-        /** @param number [lFlags=0] */
+        /** @param lFlags [lFlags=0] */
         getAttribute(strAttributeName: string, lFlags?: number): any;
         getAttributeNode(bstrName: string): IHTMLDOMAttribute;
         getAttributeNodeNS(pvarNS: any, bstrName: string): IHTMLDOMAttribute2;
@@ -21680,7 +21644,7 @@ declare namespace MSHTML {
         readonly recordNumber: any;
         releaseCapture(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         removeAttribute(strAttributeName: string, lFlags?: number): boolean;
         removeAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         removeAttributeNS(pvarNS: any, strAttributeName: string): void;
@@ -21689,7 +21653,7 @@ declare namespace MSHTML {
         removeExpression(propname: string): boolean;
         removeFilter(pUnk: any): void;
 
-        /** @param boolean [fDeep=false] */
+        /** @param fDeep [fDeep=false] */
         removeNode(fDeep?: boolean): IHTMLDOMNode;
         replaceAdjacentText(where: string, newText: string): string;
         replaceChild(newChild: IHTMLDOMNode, oldChild: IHTMLDOMNode): IHTMLDOMNode;
@@ -21704,16 +21668,16 @@ declare namespace MSHTML {
         readonly scrollWidth: number;
         setActive(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         setAttribute(strAttributeName: string, AttributeValue: any, lFlags?: number): void;
         setAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         setAttributeNodeNS(pattr: IHTMLDOMAttribute2): IHTMLDOMAttribute2;
         setAttributeNS(pvarNS: any, strAttributeName: string, pvarAttributeValue: any): void;
 
-        /** @param boolean [containerCapture=true] */
+        /** @param containerCapture [containerCapture=true] */
         setCapture(containerCapture?: boolean): void;
 
-        /** @param string [language=''] */
+        /** @param language [language=''] */
         setExpression(propname: string, expression: string, language?: string): void;
         readonly sourceIndex: number;
         spellcheck: any;
@@ -21832,7 +21796,7 @@ declare namespace MSHTML {
         readonly clientWidth: number;
         cloneNode(fDeep: boolean): IHTMLDOMNode;
         componentFromPoint(x: number, y: number): string;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         contains(pChild: IHTMLElement): boolean;
         contentEditable: string;
         createControlRange(): any;
@@ -21850,7 +21814,7 @@ declare namespace MSHTML {
         focus(): void;
         getAdjacentText(where: string): string;
 
-        /** @param number [lFlags=0] */
+        /** @param lFlags [lFlags=0] */
         getAttribute(strAttributeName: string, lFlags?: number): any;
         getAttributeNode(bstrName: string): IHTMLDOMAttribute;
         getAttributeNodeNS(pvarNS: any, bstrName: string): IHTMLDOMAttribute2;
@@ -22038,7 +22002,7 @@ declare namespace MSHTML {
         readonly recordNumber: any;
         releaseCapture(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         removeAttribute(strAttributeName: string, lFlags?: number): boolean;
         removeAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         removeAttributeNS(pvarNS: any, strAttributeName: string): void;
@@ -22047,7 +22011,7 @@ declare namespace MSHTML {
         removeExpression(propname: string): boolean;
         removeFilter(pUnk: any): void;
 
-        /** @param boolean [fDeep=false] */
+        /** @param fDeep [fDeep=false] */
         removeNode(fDeep?: boolean): IHTMLDOMNode;
         replaceAdjacentText(where: string, newText: string): string;
         replaceChild(newChild: IHTMLDOMNode, oldChild: IHTMLDOMNode): IHTMLDOMNode;
@@ -22062,16 +22026,16 @@ declare namespace MSHTML {
         readonly scrollWidth: number;
         setActive(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         setAttribute(strAttributeName: string, AttributeValue: any, lFlags?: number): void;
         setAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         setAttributeNodeNS(pattr: IHTMLDOMAttribute2): IHTMLDOMAttribute2;
         setAttributeNS(pvarNS: any, strAttributeName: string, pvarAttributeValue: any): void;
 
-        /** @param boolean [containerCapture=true] */
+        /** @param containerCapture [containerCapture=true] */
         setCapture(containerCapture?: boolean): void;
 
-        /** @param string [language=''] */
+        /** @param language [language=''] */
         setExpression(propname: string, expression: string, language?: string): void;
         readonly sourceIndex: number;
         spellcheck: any;
@@ -22090,7 +22054,7 @@ declare namespace MSHTML {
     class HTMLPopup {
         private 'MSHTML.HTMLPopup_typekey': HTMLPopup;
         private constructor();
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         readonly document: IHTMLDocument;
         Hide(): void;
         readonly isOpen: boolean;
@@ -22151,7 +22115,7 @@ declare namespace MSHTML {
         cloneNode(fDeep: boolean): IHTMLDOMNode;
         compareDocumentPosition(otherNode: IHTMLDOMNode): number;
         componentFromPoint(x: number, y: number): string;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         contains(pChild: IHTMLElement): boolean;
         contentEditable: string;
         createControlRange(): any;
@@ -22172,7 +22136,7 @@ declare namespace MSHTML {
         readonly form: IHTMLFormElement;
         getAdjacentText(where: string): string;
 
-        /** @param number [lFlags=0] */
+        /** @param lFlags [lFlags=0] */
         getAttribute(strAttributeName: string, lFlags?: number): any;
         getAttributeNode(bstrName: string): IHTMLDOMAttribute;
         getAttributeNodeNS(pvarNS: any, bstrName: string): IHTMLDOMAttribute2;
@@ -22376,7 +22340,7 @@ declare namespace MSHTML {
         readonly recordNumber: any;
         releaseCapture(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         removeAttribute(strAttributeName: string, lFlags?: number): boolean;
         removeAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         removeAttributeNS(pvarNS: any, strAttributeName: string): void;
@@ -22385,7 +22349,7 @@ declare namespace MSHTML {
         removeExpression(propname: string): boolean;
         removeFilter(pUnk: any): void;
 
-        /** @param boolean [fDeep=false] */
+        /** @param fDeep [fDeep=false] */
         removeNode(fDeep?: boolean): IHTMLDOMNode;
         replaceAdjacentText(where: string, newText: string): string;
         replaceChild(newChild: IHTMLDOMNode, oldChild: IHTMLDOMNode): IHTMLDOMNode;
@@ -22400,16 +22364,16 @@ declare namespace MSHTML {
         readonly scrollWidth: number;
         setActive(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         setAttribute(strAttributeName: string, AttributeValue: any, lFlags?: number): void;
         setAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         setAttributeNodeNS(pattr: IHTMLDOMAttribute2): IHTMLDOMAttribute2;
         setAttributeNS(pvarNS: any, strAttributeName: string, pvarAttributeValue: any): void;
 
-        /** @param boolean [containerCapture=true] */
+        /** @param containerCapture [containerCapture=true] */
         setCapture(containerCapture?: boolean): void;
 
-        /** @param string [language=''] */
+        /** @param language [language=''] */
         setExpression(propname: string, expression: string, language?: string): void;
         readonly sourceIndex: number;
         spellcheck: any;
@@ -22496,7 +22460,7 @@ declare namespace MSHTML {
         cols: number;
         compareDocumentPosition(otherNode: IHTMLDOMNode): number;
         componentFromPoint(x: number, y: number): string;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         contains(pChild: IHTMLElement): boolean;
         contentEditable: string;
         createControlRange(): any;
@@ -22519,7 +22483,7 @@ declare namespace MSHTML {
         readonly form: IHTMLFormElement;
         getAdjacentText(where: string): string;
 
-        /** @param number [lFlags=0] */
+        /** @param lFlags [lFlags=0] */
         getAttribute(strAttributeName: string, lFlags?: number): any;
         getAttributeNode(bstrName: string): IHTMLDOMAttribute;
         getAttributeNodeNS(pvarNS: any, bstrName: string): IHTMLDOMAttribute2;
@@ -22723,7 +22687,7 @@ declare namespace MSHTML {
         readonly recordNumber: any;
         releaseCapture(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         removeAttribute(strAttributeName: string, lFlags?: number): boolean;
         removeAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         removeAttributeNS(pvarNS: any, strAttributeName: string): void;
@@ -22732,7 +22696,7 @@ declare namespace MSHTML {
         removeExpression(propname: string): boolean;
         removeFilter(pUnk: any): void;
 
-        /** @param boolean [fDeep=false] */
+        /** @param fDeep [fDeep=false] */
         removeNode(fDeep?: boolean): IHTMLDOMNode;
         replaceAdjacentText(where: string, newText: string): string;
         replaceChild(newChild: IHTMLDOMNode, oldChild: IHTMLDOMNode): IHTMLDOMNode;
@@ -22749,16 +22713,16 @@ declare namespace MSHTML {
         select(): void;
         setActive(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         setAttribute(strAttributeName: string, AttributeValue: any, lFlags?: number): void;
         setAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         setAttributeNodeNS(pattr: IHTMLDOMAttribute2): IHTMLDOMAttribute2;
         setAttributeNS(pvarNS: any, strAttributeName: string, pvarAttributeValue: any): void;
 
-        /** @param boolean [containerCapture=true] */
+        /** @param containerCapture [containerCapture=true] */
         setCapture(containerCapture?: boolean): void;
 
-        /** @param string [language=''] */
+        /** @param language [language=''] */
         setExpression(propname: string, expression: string, language?: string): void;
         readonly sourceIndex: number;
         spellcheck: any;
@@ -22779,9 +22743,7 @@ declare namespace MSHTML {
         xmsAcceleratorKey: string;
     }
 
-    class HTMLRuleStyle {
-        private 'MSHTML.HTMLRuleStyle_typekey': HTMLRuleStyle;
-        private constructor();
+    interface HTMLRuleStyle {
         accelerator: string;
         alignContent: string;
         alignItems: string;
@@ -22853,7 +22815,7 @@ declare namespace MSHTML {
         columns: string;
         columnSpan: string;
         columnWidth: any;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         content: string;
         counterIncrement: string;
         counterReset: string;
@@ -22881,7 +22843,7 @@ declare namespace MSHTML {
         fontVariant: string;
         fontWeight: string;
 
-        /** @param number [lFlags=0] */
+        /** @param lFlags [lFlags=0] */
         getAttribute(strAttributeName: string, lFlags?: number): any;
         getPropertyPriority(bstrPropertyName: string): string;
         getPropertyValue(bstrPropertyName: string): string;
@@ -23021,7 +22983,7 @@ declare namespace MSHTML {
         posRight: number;
         quotes: string;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         removeAttribute(strAttributeName: string, lFlags?: number): boolean;
         removeProperty(bstrPropertyName: string): string;
         right: any;
@@ -23037,10 +22999,10 @@ declare namespace MSHTML {
         scrollbarShadowColor: any;
         scrollbarTrackColor: any;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         setAttribute(strAttributeName: string, AttributeValue: any, lFlags?: number): void;
 
-        /** @param any [pvarPropertyPriority=''] */
+        /** @param pvarPropertyPriority [pvarPropertyPriority=''] */
         setProperty(bstrPropertyName: string, pvarPropertyValue: any, pvarPropertyPriority?: any): void;
         styleFloat: string;
         tableLayout: string;
@@ -23128,6 +23090,7 @@ declare namespace MSHTML {
         writingMode: string;
         zIndex: any;
         zoom: any;
+        (index: number): string;
     }
 
     class HTMLScreen {
@@ -23137,7 +23100,7 @@ declare namespace MSHTML {
         readonly availWidth: number;
         bufferDepth: number;
         readonly colorDepth: number;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         readonly deviceXDPI: number;
         readonly deviceYDPI: number;
         readonly fontSmoothingEnabled: boolean;
@@ -23205,7 +23168,7 @@ declare namespace MSHTML {
         readonly clientWidth: number;
         cloneNode(fDeep: boolean): IHTMLDOMNode;
         componentFromPoint(x: number, y: number): string;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         contains(pChild: IHTMLElement): boolean;
         contentEditable: string;
         createControlRange(): any;
@@ -23224,7 +23187,7 @@ declare namespace MSHTML {
         focus(): void;
         getAdjacentText(where: string): string;
 
-        /** @param number [lFlags=0] */
+        /** @param lFlags [lFlags=0] */
         getAttribute(strAttributeName: string, lFlags?: number): any;
         getAttributeNode(bstrName: string): IHTMLDOMAttribute;
         getAttributeNodeNS(pvarNS: any, bstrName: string): IHTMLDOMAttribute2;
@@ -23413,7 +23376,7 @@ declare namespace MSHTML {
         readonly recordNumber: any;
         releaseCapture(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         removeAttribute(strAttributeName: string, lFlags?: number): boolean;
         removeAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         removeAttributeNS(pvarNS: any, strAttributeName: string): void;
@@ -23422,7 +23385,7 @@ declare namespace MSHTML {
         removeExpression(propname: string): boolean;
         removeFilter(pUnk: any): void;
 
-        /** @param boolean [fDeep=false] */
+        /** @param fDeep [fDeep=false] */
         removeNode(fDeep?: boolean): IHTMLDOMNode;
         replaceAdjacentText(where: string, newText: string): string;
         replaceChild(newChild: IHTMLDOMNode, oldChild: IHTMLDOMNode): IHTMLDOMNode;
@@ -23437,16 +23400,16 @@ declare namespace MSHTML {
         readonly scrollWidth: number;
         setActive(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         setAttribute(strAttributeName: string, AttributeValue: any, lFlags?: number): void;
         setAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         setAttributeNodeNS(pattr: IHTMLDOMAttribute2): IHTMLDOMAttribute2;
         setAttributeNS(pvarNS: any, strAttributeName: string, pvarAttributeValue: any): void;
 
-        /** @param boolean [containerCapture=true] */
+        /** @param containerCapture [containerCapture=true] */
         setCapture(containerCapture?: boolean): void;
 
-        /** @param string [language=''] */
+        /** @param language [language=''] */
         setExpression(propname: string, expression: string, language?: string): void;
         readonly sourceIndex: number;
         spellcheck: any;
@@ -23466,9 +23429,7 @@ declare namespace MSHTML {
         xmsAcceleratorKey: string;
     }
 
-    class HTMLSelectElement {
-        private 'MSHTML.HTMLSelectElement_typekey': HTMLSelectElement;
-        private constructor();
+    interface HTMLSelectElement {
         accessKey: string;
         add(element: IHTMLElement, before?: any): void;
         addBehavior(bstrURL: string, pvarFactory?: any): number;
@@ -23521,7 +23482,7 @@ declare namespace MSHTML {
         cloneNode(fDeep: boolean): IHTMLDOMNode;
         compareDocumentPosition(otherNode: IHTMLDOMNode): number;
         componentFromPoint(x: number, y: number): string;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         contains(pChild: IHTMLElement): boolean;
         contentEditable: string;
         createControlRange(): any;
@@ -23542,7 +23503,7 @@ declare namespace MSHTML {
         readonly form: IHTMLFormElement;
         getAdjacentText(where: string): string;
 
-        /** @param number [lFlags=0] */
+        /** @param lFlags [lFlags=0] */
         getAttribute(strAttributeName: string, lFlags?: number): any;
         getAttributeNode(bstrName: string): IHTMLDOMAttribute;
         getAttributeNodeNS(pvarNS: any, bstrName: string): IHTMLDOMAttribute2;
@@ -23753,10 +23714,10 @@ declare namespace MSHTML {
         readonly recordNumber: any;
         releaseCapture(): void;
 
-        /** @param number [index=-1] */
+        /** @param index [index=-1] */
         remove(index?: number): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         removeAttribute(strAttributeName: string, lFlags?: number): boolean;
         removeAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         removeAttributeNS(pvarNS: any, strAttributeName: string): void;
@@ -23765,7 +23726,7 @@ declare namespace MSHTML {
         removeExpression(propname: string): boolean;
         removeFilter(pUnk: any): void;
 
-        /** @param boolean [fDeep=false] */
+        /** @param fDeep [fDeep=false] */
         removeNode(fDeep?: boolean): IHTMLDOMNode;
         replaceAdjacentText(where: string, newText: string): string;
         replaceChild(newChild: IHTMLDOMNode, oldChild: IHTMLDOMNode): IHTMLDOMNode;
@@ -23781,16 +23742,16 @@ declare namespace MSHTML {
         selectedIndex: number;
         setActive(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         setAttribute(strAttributeName: string, AttributeValue: any, lFlags?: number): void;
         setAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         setAttributeNodeNS(pattr: IHTMLDOMAttribute2): IHTMLDOMAttribute2;
         setAttributeNS(pvarNS: any, strAttributeName: string, pvarAttributeValue: any): void;
 
-        /** @param boolean [containerCapture=true] */
+        /** @param containerCapture [containerCapture=true] */
         setCapture(containerCapture?: boolean): void;
 
-        /** @param string [language=''] */
+        /** @param language [language=''] */
         setExpression(propname: string, expression: string, language?: string): void;
         size: number;
         readonly sourceIndex: number;
@@ -23810,6 +23771,7 @@ declare namespace MSHTML {
         urns(urn: any): any;
         value: string;
         xmsAcceleratorKey: string;
+        (name?: any, index?: any): any;
     }
 
     class HTMLSemanticElement {
@@ -23865,7 +23827,7 @@ declare namespace MSHTML {
         readonly clientWidth: number;
         cloneNode(fDeep: boolean): IHTMLDOMNode;
         componentFromPoint(x: number, y: number): string;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         contains(pChild: IHTMLElement): boolean;
         contentEditable: string;
         createControlRange(): any;
@@ -23882,7 +23844,7 @@ declare namespace MSHTML {
         focus(): void;
         getAdjacentText(where: string): string;
 
-        /** @param number [lFlags=0] */
+        /** @param lFlags [lFlags=0] */
         getAttribute(strAttributeName: string, lFlags?: number): any;
         getAttributeNode(bstrName: string): IHTMLDOMAttribute;
         getAttributeNodeNS(pvarNS: any, bstrName: string): IHTMLDOMAttribute2;
@@ -24069,7 +24031,7 @@ declare namespace MSHTML {
         readonly recordNumber: any;
         releaseCapture(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         removeAttribute(strAttributeName: string, lFlags?: number): boolean;
         removeAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         removeAttributeNS(pvarNS: any, strAttributeName: string): void;
@@ -24078,7 +24040,7 @@ declare namespace MSHTML {
         removeExpression(propname: string): boolean;
         removeFilter(pUnk: any): void;
 
-        /** @param boolean [fDeep=false] */
+        /** @param fDeep [fDeep=false] */
         removeNode(fDeep?: boolean): IHTMLDOMNode;
         replaceAdjacentText(where: string, newText: string): string;
         replaceChild(newChild: IHTMLDOMNode, oldChild: IHTMLDOMNode): IHTMLDOMNode;
@@ -24093,16 +24055,16 @@ declare namespace MSHTML {
         readonly scrollWidth: number;
         setActive(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         setAttribute(strAttributeName: string, AttributeValue: any, lFlags?: number): void;
         setAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         setAttributeNodeNS(pattr: IHTMLDOMAttribute2): IHTMLDOMAttribute2;
         setAttributeNS(pvarNS: any, strAttributeName: string, pvarAttributeValue: any): void;
 
-        /** @param boolean [containerCapture=true] */
+        /** @param containerCapture [containerCapture=true] */
         setCapture(containerCapture?: boolean): void;
 
-        /** @param string [language=''] */
+        /** @param language [language=''] */
         setExpression(propname: string, expression: string, language?: string): void;
         readonly sourceIndex: number;
         spellcheck: any;
@@ -24172,7 +24134,7 @@ declare namespace MSHTML {
         cloneNode(fDeep: boolean): IHTMLDOMNode;
         compareDocumentPosition(otherNode: IHTMLDOMNode): number;
         componentFromPoint(x: number, y: number): string;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         contains(pChild: IHTMLElement): boolean;
         contentEditable: string;
         createControlRange(): any;
@@ -24192,7 +24154,7 @@ declare namespace MSHTML {
         focus(): void;
         getAdjacentText(where: string): string;
 
-        /** @param number [lFlags=0] */
+        /** @param lFlags [lFlags=0] */
         getAttribute(strAttributeName: string, lFlags?: number): any;
         getAttributeNode(bstrName: string): IHTMLDOMAttribute;
         getAttributeNodeNS(pvarNS: any, bstrName: string): IHTMLDOMAttribute2;
@@ -24395,7 +24357,7 @@ declare namespace MSHTML {
         readonly recordNumber: any;
         releaseCapture(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         removeAttribute(strAttributeName: string, lFlags?: number): boolean;
         removeAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         removeAttributeNS(pvarNS: any, strAttributeName: string): void;
@@ -24404,7 +24366,7 @@ declare namespace MSHTML {
         removeExpression(propname: string): boolean;
         removeFilter(pUnk: any): void;
 
-        /** @param boolean [fDeep=false] */
+        /** @param fDeep [fDeep=false] */
         removeNode(fDeep?: boolean): IHTMLDOMNode;
         replaceAdjacentText(where: string, newText: string): string;
         replaceChild(newChild: IHTMLDOMNode, oldChild: IHTMLDOMNode): IHTMLDOMNode;
@@ -24419,16 +24381,16 @@ declare namespace MSHTML {
         readonly scrollWidth: number;
         setActive(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         setAttribute(strAttributeName: string, AttributeValue: any, lFlags?: number): void;
         setAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         setAttributeNodeNS(pattr: IHTMLDOMAttribute2): IHTMLDOMAttribute2;
         setAttributeNS(pvarNS: any, strAttributeName: string, pvarAttributeValue: any): void;
 
-        /** @param boolean [containerCapture=true] */
+        /** @param containerCapture [containerCapture=true] */
         setCapture(containerCapture?: boolean): void;
 
-        /** @param string [language=''] */
+        /** @param language [language=''] */
         setExpression(propname: string, expression: string, language?: string): void;
         readonly sourceIndex: number;
         spellcheck: any;
@@ -24501,7 +24463,7 @@ declare namespace MSHTML {
         cloneNode(fDeep: boolean): IHTMLDOMNode;
         compareDocumentPosition(otherNode: IHTMLDOMNode): number;
         componentFromPoint(x: number, y: number): string;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         contains(pChild: IHTMLElement): boolean;
         contentEditable: string;
         createControlRange(): any;
@@ -24521,7 +24483,7 @@ declare namespace MSHTML {
         focus(): void;
         getAdjacentText(where: string): string;
 
-        /** @param number [lFlags=0] */
+        /** @param lFlags [lFlags=0] */
         getAttribute(strAttributeName: string, lFlags?: number): any;
         getAttributeNode(bstrName: string): IHTMLDOMAttribute;
         getAttributeNodeNS(pvarNS: any, bstrName: string): IHTMLDOMAttribute2;
@@ -24723,7 +24685,7 @@ declare namespace MSHTML {
         readonly recordNumber: any;
         releaseCapture(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         removeAttribute(strAttributeName: string, lFlags?: number): boolean;
         removeAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         removeAttributeNS(pvarNS: any, strAttributeName: string): void;
@@ -24732,7 +24694,7 @@ declare namespace MSHTML {
         removeExpression(propname: string): boolean;
         removeFilter(pUnk: any): void;
 
-        /** @param boolean [fDeep=false] */
+        /** @param fDeep [fDeep=false] */
         removeNode(fDeep?: boolean): IHTMLDOMNode;
         replaceAdjacentText(where: string, newText: string): string;
         replaceChild(newChild: IHTMLDOMNode, oldChild: IHTMLDOMNode): IHTMLDOMNode;
@@ -24747,16 +24709,16 @@ declare namespace MSHTML {
         readonly scrollWidth: number;
         setActive(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         setAttribute(strAttributeName: string, AttributeValue: any, lFlags?: number): void;
         setAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         setAttributeNodeNS(pattr: IHTMLDOMAttribute2): IHTMLDOMAttribute2;
         setAttributeNS(pvarNS: any, strAttributeName: string, pvarAttributeValue: any): void;
 
-        /** @param boolean [containerCapture=true] */
+        /** @param containerCapture [containerCapture=true] */
         setCapture(containerCapture?: boolean): void;
 
-        /** @param string [language=''] */
+        /** @param language [language=''] */
         setExpression(propname: string, expression: string, language?: string): void;
         readonly sourceIndex: number;
         spellcheck: any;
@@ -24828,7 +24790,7 @@ declare namespace MSHTML {
         cloneNode(fDeep: boolean): IHTMLDOMNode;
         compareDocumentPosition(otherNode: IHTMLDOMNode): number;
         componentFromPoint(x: number, y: number): string;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         contains(pChild: IHTMLElement): boolean;
         contentEditable: string;
         createControlRange(): any;
@@ -24848,7 +24810,7 @@ declare namespace MSHTML {
         focus(): void;
         getAdjacentText(where: string): string;
 
-        /** @param number [lFlags=0] */
+        /** @param lFlags [lFlags=0] */
         getAttribute(strAttributeName: string, lFlags?: number): any;
         getAttributeNode(bstrName: string): IHTMLDOMAttribute;
         getAttributeNodeNS(pvarNS: any, bstrName: string): IHTMLDOMAttribute2;
@@ -25050,7 +25012,7 @@ declare namespace MSHTML {
         readonly recordNumber: any;
         releaseCapture(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         removeAttribute(strAttributeName: string, lFlags?: number): boolean;
         removeAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         removeAttributeNS(pvarNS: any, strAttributeName: string): void;
@@ -25059,7 +25021,7 @@ declare namespace MSHTML {
         removeExpression(propname: string): boolean;
         removeFilter(pUnk: any): void;
 
-        /** @param boolean [fDeep=false] */
+        /** @param fDeep [fDeep=false] */
         removeNode(fDeep?: boolean): IHTMLDOMNode;
         replaceAdjacentText(where: string, newText: string): string;
         replaceChild(newChild: IHTMLDOMNode, oldChild: IHTMLDOMNode): IHTMLDOMNode;
@@ -25074,16 +25036,16 @@ declare namespace MSHTML {
         readonly scrollWidth: number;
         setActive(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         setAttribute(strAttributeName: string, AttributeValue: any, lFlags?: number): void;
         setAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         setAttributeNodeNS(pattr: IHTMLDOMAttribute2): IHTMLDOMAttribute2;
         setAttributeNS(pvarNS: any, strAttributeName: string, pvarAttributeValue: any): void;
 
-        /** @param boolean [containerCapture=true] */
+        /** @param containerCapture [containerCapture=true] */
         setCapture(containerCapture?: boolean): void;
 
-        /** @param string [language=''] */
+        /** @param language [language=''] */
         setExpression(propname: string, expression: string, language?: string): void;
         readonly sourceIndex: number;
         spellcheck: any;
@@ -25104,7 +25066,7 @@ declare namespace MSHTML {
         private 'MSHTML.HTMLStorage_typekey': HTMLStorage;
         private constructor();
         clear(): void;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         getItem(bstrKey: string): any;
         ie9_setItem(bstrKey: string, bstrValue: string): void;
         key(lIndex: number): string;
@@ -25114,9 +25076,7 @@ declare namespace MSHTML {
         setItem(bstrKey: string, bstrValue: string): void;
     }
 
-    class HTMLStyle {
-        private 'MSHTML.HTMLStyle_typekey': HTMLStyle;
-        private constructor();
+    interface HTMLStyle {
         accelerator: string;
         alignContent: string;
         alignItems: string;
@@ -25188,7 +25148,7 @@ declare namespace MSHTML {
         columns: string;
         columnSpan: string;
         columnWidth: any;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         content: string;
         counterIncrement: string;
         counterReset: string;
@@ -25216,7 +25176,7 @@ declare namespace MSHTML {
         fontVariant: string;
         fontWeight: string;
 
-        /** @param number [lFlags=0] */
+        /** @param lFlags [lFlags=0] */
         getAttribute(strAttributeName: string, lFlags?: number): any;
         getExpression(propname: string): any;
         getPropertyPriority(bstrPropertyName: string): string;
@@ -25365,7 +25325,7 @@ declare namespace MSHTML {
         posWidth: number;
         quotes: string;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         removeAttribute(strAttributeName: string, lFlags?: number): boolean;
         removeExpression(propname: string): boolean;
         removeProperty(bstrPropertyName: string): string;
@@ -25382,13 +25342,13 @@ declare namespace MSHTML {
         scrollbarShadowColor: any;
         scrollbarTrackColor: any;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         setAttribute(strAttributeName: string, AttributeValue: any, lFlags?: number): void;
 
-        /** @param string [language=''] */
+        /** @param language [language=''] */
         setExpression(propname: string, expression: string, language?: string): void;
 
-        /** @param any [pvarPropertyPriority=''] */
+        /** @param pvarPropertyPriority [pvarPropertyPriority=''] */
         setProperty(bstrPropertyName: string, pvarPropertyValue: any, pvarPropertyPriority?: any): void;
         styleFloat: string;
         tableLayout: string;
@@ -25477,6 +25437,7 @@ declare namespace MSHTML {
         writingMode: string;
         zIndex: any;
         zoom: any;
+        (index: number): string;
     }
 
     class HTMLStyleElement {
@@ -25532,7 +25493,7 @@ declare namespace MSHTML {
         readonly clientWidth: number;
         cloneNode(fDeep: boolean): IHTMLDOMNode;
         componentFromPoint(x: number, y: number): string;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         contains(pChild: IHTMLElement): boolean;
         contentEditable: string;
         createControlRange(): any;
@@ -25549,7 +25510,7 @@ declare namespace MSHTML {
         focus(): void;
         getAdjacentText(where: string): string;
 
-        /** @param number [lFlags=0] */
+        /** @param lFlags [lFlags=0] */
         getAttribute(strAttributeName: string, lFlags?: number): any;
         getAttributeNode(bstrName: string): IHTMLDOMAttribute;
         getAttributeNodeNS(pvarNS: any, bstrName: string): IHTMLDOMAttribute2;
@@ -25737,7 +25698,7 @@ declare namespace MSHTML {
         readonly recordNumber: any;
         releaseCapture(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         removeAttribute(strAttributeName: string, lFlags?: number): boolean;
         removeAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         removeAttributeNS(pvarNS: any, strAttributeName: string): void;
@@ -25746,7 +25707,7 @@ declare namespace MSHTML {
         removeExpression(propname: string): boolean;
         removeFilter(pUnk: any): void;
 
-        /** @param boolean [fDeep=false] */
+        /** @param fDeep [fDeep=false] */
         removeNode(fDeep?: boolean): IHTMLDOMNode;
         replaceAdjacentText(where: string, newText: string): string;
         replaceChild(newChild: IHTMLDOMNode, oldChild: IHTMLDOMNode): IHTMLDOMNode;
@@ -25761,16 +25722,16 @@ declare namespace MSHTML {
         readonly scrollWidth: number;
         setActive(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         setAttribute(strAttributeName: string, AttributeValue: any, lFlags?: number): void;
         setAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         setAttributeNodeNS(pattr: IHTMLDOMAttribute2): IHTMLDOMAttribute2;
         setAttributeNS(pvarNS: any, strAttributeName: string, pvarAttributeValue: any): void;
 
-        /** @param boolean [containerCapture=true] */
+        /** @param containerCapture [containerCapture=true] */
         setCapture(containerCapture?: boolean): void;
 
-        /** @param string [language=''] */
+        /** @param language [language=''] */
         setExpression(propname: string, expression: string, language?: string): void;
         readonly sheet: IHTMLStyleSheet;
         readonly sourceIndex: number;
@@ -25811,19 +25772,19 @@ declare namespace MSHTML {
         private 'MSHTML.HTMLStyleSheet_typekey': HTMLStyleSheet;
         private constructor();
 
-        /** @param number [lIndex=-1] */
+        /** @param lIndex [lIndex=-1] */
         addImport(bstrURL: string, lIndex?: number): number;
 
-        /** @param number [lIndex=-1] */
+        /** @param lIndex [lIndex=-1] */
         addPageRule(bstrSelector: string, bstrStyle: string, lIndex?: number): number;
 
-        /** @param number [lIndex=-1] */
+        /** @param lIndex [lIndex=-1] */
         addRule(bstrSelector: string, bstrStyle: string, lIndex?: number): number;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         readonly cssRules: IHTMLStyleSheetRulesCollection;
         cssText: string;
 
-        /** @param number [lIndex=-1] */
+        /** @param lIndex [lIndex=-1] */
         deleteRule(lIndex?: number): void;
         disabled: boolean;
         href: string;
@@ -25835,7 +25796,7 @@ declare namespace MSHTML {
         readonly ie9_type: string;
         readonly imports: IHTMLStyleSheetsCollection;
 
-        /** @param number [lIndex=-1] */
+        /** @param lIndex [lIndex=-1] */
         insertRule(bstrRule: string, lIndex?: number): number;
         readonly isAlternate: boolean;
         readonly isPrefAlternate: boolean;
@@ -25856,7 +25817,7 @@ declare namespace MSHTML {
     class HTMLStyleSheetPage {
         private 'MSHTML.HTMLStyleSheetPage_typekey': HTMLStyleSheetPage;
         private constructor();
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         cssText: string;
         readonly parentRule: IHTMLCSSRule;
         readonly parentStyleSheet: IHTMLStyleSheet;
@@ -25867,18 +25828,17 @@ declare namespace MSHTML {
         readonly type: number;
     }
 
-    class HTMLStyleSheetPagesCollection {
-        private 'MSHTML.HTMLStyleSheetPagesCollection_typekey': HTMLStyleSheetPagesCollection;
-        private constructor();
-        readonly 'constructor': any;
+    interface HTMLStyleSheetPagesCollection {
+        readonly ['constructor']: any;
         item(index: number): IHTMLStyleSheetPage;
         readonly length: number;
+        (index: number): IHTMLStyleSheetPage;
     }
 
     class HTMLStyleSheetRule {
         private 'MSHTML.HTMLStyleSheetRule_typekey': HTMLStyleSheetRule;
         private constructor();
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         cssText: string;
         ie9_selectorText: string;
         msGetSpecificity(index: number): number;
@@ -25890,33 +25850,30 @@ declare namespace MSHTML {
         readonly type: number;
     }
 
-    class HTMLStyleSheetRulesAppliedCollection {
-        private 'MSHTML.HTMLStyleSheetRulesAppliedCollection_typekey': HTMLStyleSheetRulesAppliedCollection;
-        private constructor();
+    interface HTMLStyleSheetRulesAppliedCollection {
         item(index: number): IHTMLStyleSheetRule;
         readonly length: number;
         propertyAppliedBy(name: string): IHTMLStyleSheetRule;
         propertyAppliedTrace(name: string, index: number): IHTMLStyleSheetRule;
         propertyAppliedTraceLength(name: string): number;
+        (index: number): IHTMLStyleSheetRule;
     }
 
-    class HTMLStyleSheetRulesCollection {
-        private 'MSHTML.HTMLStyleSheetRulesCollection_typekey': HTMLStyleSheetRulesCollection;
-        private constructor();
-        readonly 'constructor': any;
+    interface HTMLStyleSheetRulesCollection {
+        readonly ['constructor']: any;
         ie9_item(index: number): IHTMLCSSRule;
         readonly ie9_length: number;
         item(index: number): IHTMLStyleSheetRule;
         readonly length: number;
+        (index: number): IHTMLStyleSheetRule;
     }
 
-    class HTMLStyleSheetsCollection {
-        private 'MSHTML.HTMLStyleSheetsCollection_typekey': HTMLStyleSheetsCollection;
-        private constructor();
-        readonly 'constructor': any;
+    interface HTMLStyleSheetsCollection {
+        readonly ['constructor']: any;
         ie9_item(index: number): any;
         item(pvarIndex: any): any;
         readonly length: number;
+        (pvarIndex: any): any;
     }
 
     class HTMLTable {
@@ -25985,7 +25942,7 @@ declare namespace MSHTML {
         cols: number;
         compareDocumentPosition(otherNode: IHTMLDOMNode): number;
         componentFromPoint(x: number, y: number): string;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         contains(pChild: IHTMLElement): boolean;
         contentEditable: string;
         createCaption(): IHTMLTableCaption;
@@ -26000,7 +25957,7 @@ declare namespace MSHTML {
         dataSrc: string;
         deleteCaption(): void;
 
-        /** @param number [index=-1] */
+        /** @param index [index=-1] */
         deleteRow(index?: number): void;
         deleteTFoot(): void;
         deleteTHead(): void;
@@ -26018,7 +25975,7 @@ declare namespace MSHTML {
         frame: string;
         getAdjacentText(where: string): string;
 
-        /** @param number [lFlags=0] */
+        /** @param lFlags [lFlags=0] */
         getAttribute(strAttributeName: string, lFlags?: number): any;
         getAttributeNode(bstrName: string): IHTMLDOMAttribute;
         getAttributeNodeNS(pvarNS: any, bstrName: string): IHTMLDOMAttribute2;
@@ -26046,7 +26003,7 @@ declare namespace MSHTML {
         ie9_appendChild(newChild: IHTMLDOMNode): IHTMLDOMNode;
         ie9_caption: IHTMLTableCaption;
 
-        /** @param number [index=-1] */
+        /** @param index [index=-1] */
         ie9_deleteRow(index?: number): void;
         ie9_getAttribute(strAttributeName: string): any;
         ie9_getAttributeNode(strAttributeName: string): IHTMLDOMAttribute2;
@@ -26054,7 +26011,7 @@ declare namespace MSHTML {
         ie9_hasAttributes(): boolean;
         ie9_insertBefore(newChild: IHTMLDOMNode, refChild?: any): IHTMLDOMNode;
 
-        /** @param number [index=-1] */
+        /** @param index [index=-1] */
         ie9_insertRow(index?: number): any;
         readonly ie9_nodeName: string;
         ie9_removeAttribute(strAttributeName: string): void;
@@ -26073,7 +26030,7 @@ declare namespace MSHTML {
         insertAdjacentText(where: string, text: string): void;
         insertBefore(newChild: IHTMLDOMNode, refChild?: any): IHTMLDOMNode;
 
-        /** @param number [index=-1] */
+        /** @param index [index=-1] */
         insertRow(index?: number): any;
         readonly isContentEditable: boolean;
         isDefaultNamespace(pvarNamespace: any): boolean;
@@ -26093,8 +26050,8 @@ declare namespace MSHTML {
         mergeAttributes(mergeThis: IHTMLElement, pvarFlags?: any): void;
 
         /**
-         * @param number [indexFrom=-1]
-         * @param number [indexTo=-1]
+         * @param indexFrom [indexFrom=-1]
+         * @param indexTo [indexTo=-1]
          */
         moveRow(indexFrom?: number, indexTo?: number): any;
         msMatchesSelector(v: string): boolean;
@@ -26243,7 +26200,7 @@ declare namespace MSHTML {
         refresh(): void;
         releaseCapture(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         removeAttribute(strAttributeName: string, lFlags?: number): boolean;
         removeAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         removeAttributeNS(pvarNS: any, strAttributeName: string): void;
@@ -26252,7 +26209,7 @@ declare namespace MSHTML {
         removeExpression(propname: string): boolean;
         removeFilter(pUnk: any): void;
 
-        /** @param boolean [fDeep=false] */
+        /** @param fDeep [fDeep=false] */
         removeNode(fDeep?: boolean): IHTMLDOMNode;
         replaceAdjacentText(where: string, newText: string): string;
         replaceChild(newChild: IHTMLDOMNode, oldChild: IHTMLDOMNode): IHTMLDOMNode;
@@ -26269,16 +26226,16 @@ declare namespace MSHTML {
         readonly scrollWidth: number;
         setActive(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         setAttribute(strAttributeName: string, AttributeValue: any, lFlags?: number): void;
         setAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         setAttributeNodeNS(pattr: IHTMLDOMAttribute2): IHTMLDOMAttribute2;
         setAttributeNS(pvarNS: any, strAttributeName: string, pvarAttributeValue: any): void;
 
-        /** @param boolean [containerCapture=true] */
+        /** @param containerCapture [containerCapture=true] */
         setCapture(containerCapture?: boolean): void;
 
-        /** @param string [language=''] */
+        /** @param language [language=''] */
         setExpression(propname: string, expression: string, language?: string): void;
         readonly sourceIndex: number;
         spellcheck: any;
@@ -26354,7 +26311,7 @@ declare namespace MSHTML {
         readonly clientWidth: number;
         cloneNode(fDeep: boolean): IHTMLDOMNode;
         componentFromPoint(x: number, y: number): string;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         contains(pChild: IHTMLElement): boolean;
         contentEditable: string;
         createControlRange(): any;
@@ -26371,7 +26328,7 @@ declare namespace MSHTML {
         focus(): void;
         getAdjacentText(where: string): string;
 
-        /** @param number [lFlags=0] */
+        /** @param lFlags [lFlags=0] */
         getAttribute(strAttributeName: string, lFlags?: number): any;
         getAttributeNode(bstrName: string): IHTMLDOMAttribute;
         getAttributeNodeNS(pvarNS: any, bstrName: string): IHTMLDOMAttribute2;
@@ -26558,7 +26515,7 @@ declare namespace MSHTML {
         readonly recordNumber: any;
         releaseCapture(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         removeAttribute(strAttributeName: string, lFlags?: number): boolean;
         removeAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         removeAttributeNS(pvarNS: any, strAttributeName: string): void;
@@ -26567,7 +26524,7 @@ declare namespace MSHTML {
         removeExpression(propname: string): boolean;
         removeFilter(pUnk: any): void;
 
-        /** @param boolean [fDeep=false] */
+        /** @param fDeep [fDeep=false] */
         removeNode(fDeep?: boolean): IHTMLDOMNode;
         replaceAdjacentText(where: string, newText: string): string;
         replaceChild(newChild: IHTMLDOMNode, oldChild: IHTMLDOMNode): IHTMLDOMNode;
@@ -26582,16 +26539,16 @@ declare namespace MSHTML {
         readonly scrollWidth: number;
         setActive(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         setAttribute(strAttributeName: string, AttributeValue: any, lFlags?: number): void;
         setAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         setAttributeNodeNS(pattr: IHTMLDOMAttribute2): IHTMLDOMAttribute2;
         setAttributeNS(pvarNS: any, strAttributeName: string, pvarAttributeValue: any): void;
 
-        /** @param boolean [containerCapture=true] */
+        /** @param containerCapture [containerCapture=true] */
         setCapture(containerCapture?: boolean): void;
 
-        /** @param string [language=''] */
+        /** @param language [language=''] */
         setExpression(propname: string, expression: string, language?: string): void;
         readonly sourceIndex: number;
         spellcheck: any;
@@ -26673,7 +26630,7 @@ declare namespace MSHTML {
         cloneNode(fDeep: boolean): IHTMLDOMNode;
         colSpan: number;
         componentFromPoint(x: number, y: number): string;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         contains(pChild: IHTMLElement): boolean;
         contentEditable: string;
         createControlRange(): any;
@@ -26690,7 +26647,7 @@ declare namespace MSHTML {
         focus(): void;
         getAdjacentText(where: string): string;
 
-        /** @param number [lFlags=0] */
+        /** @param lFlags [lFlags=0] */
         getAttribute(strAttributeName: string, lFlags?: number): any;
         getAttributeNode(bstrName: string): IHTMLDOMAttribute;
         getAttributeNodeNS(pvarNS: any, bstrName: string): IHTMLDOMAttribute2;
@@ -26882,7 +26839,7 @@ declare namespace MSHTML {
         readonly recordNumber: any;
         releaseCapture(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         removeAttribute(strAttributeName: string, lFlags?: number): boolean;
         removeAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         removeAttributeNS(pvarNS: any, strAttributeName: string): void;
@@ -26891,7 +26848,7 @@ declare namespace MSHTML {
         removeExpression(propname: string): boolean;
         removeFilter(pUnk: any): void;
 
-        /** @param boolean [fDeep=false] */
+        /** @param fDeep [fDeep=false] */
         removeNode(fDeep?: boolean): IHTMLDOMNode;
         replaceAdjacentText(where: string, newText: string): string;
         replaceChild(newChild: IHTMLDOMNode, oldChild: IHTMLDOMNode): IHTMLDOMNode;
@@ -26908,16 +26865,16 @@ declare namespace MSHTML {
         readonly scrollWidth: number;
         setActive(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         setAttribute(strAttributeName: string, AttributeValue: any, lFlags?: number): void;
         setAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         setAttributeNodeNS(pattr: IHTMLDOMAttribute2): IHTMLDOMAttribute2;
         setAttributeNS(pvarNS: any, strAttributeName: string, pvarAttributeValue: any): void;
 
-        /** @param boolean [containerCapture=true] */
+        /** @param containerCapture [containerCapture=true] */
         setCapture(containerCapture?: boolean): void;
 
-        /** @param string [language=''] */
+        /** @param language [language=''] */
         setExpression(propname: string, expression: string, language?: string): void;
         readonly sourceIndex: number;
         spellcheck: any;
@@ -26991,7 +26948,7 @@ declare namespace MSHTML {
         readonly clientWidth: number;
         cloneNode(fDeep: boolean): IHTMLDOMNode;
         componentFromPoint(x: number, y: number): string;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         contains(pChild: IHTMLElement): boolean;
         contentEditable: string;
         createControlRange(): any;
@@ -27008,7 +26965,7 @@ declare namespace MSHTML {
         focus(): void;
         getAdjacentText(where: string): string;
 
-        /** @param number [lFlags=0] */
+        /** @param lFlags [lFlags=0] */
         getAttribute(strAttributeName: string, lFlags?: number): any;
         getAttributeNode(bstrName: string): IHTMLDOMAttribute;
         getAttributeNodeNS(pvarNS: any, bstrName: string): IHTMLDOMAttribute2;
@@ -27197,7 +27154,7 @@ declare namespace MSHTML {
         readonly recordNumber: any;
         releaseCapture(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         removeAttribute(strAttributeName: string, lFlags?: number): boolean;
         removeAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         removeAttributeNS(pvarNS: any, strAttributeName: string): void;
@@ -27206,7 +27163,7 @@ declare namespace MSHTML {
         removeExpression(propname: string): boolean;
         removeFilter(pUnk: any): void;
 
-        /** @param boolean [fDeep=false] */
+        /** @param fDeep [fDeep=false] */
         removeNode(fDeep?: boolean): IHTMLDOMNode;
         replaceAdjacentText(where: string, newText: string): string;
         replaceChild(newChild: IHTMLDOMNode, oldChild: IHTMLDOMNode): IHTMLDOMNode;
@@ -27221,16 +27178,16 @@ declare namespace MSHTML {
         readonly scrollWidth: number;
         setActive(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         setAttribute(strAttributeName: string, AttributeValue: any, lFlags?: number): void;
         setAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         setAttributeNodeNS(pattr: IHTMLDOMAttribute2): IHTMLDOMAttribute2;
         setAttributeNS(pvarNS: any, strAttributeName: string, pvarAttributeValue: any): void;
 
-        /** @param boolean [containerCapture=true] */
+        /** @param containerCapture [containerCapture=true] */
         setCapture(containerCapture?: boolean): void;
 
-        /** @param string [language=''] */
+        /** @param language [language=''] */
         setExpression(propname: string, expression: string, language?: string): void;
         readonly sourceIndex: number;
         span: number;
@@ -27310,13 +27267,13 @@ declare namespace MSHTML {
         readonly clientWidth: number;
         cloneNode(fDeep: boolean): IHTMLDOMNode;
         componentFromPoint(x: number, y: number): string;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         contains(pChild: IHTMLElement): boolean;
         contentEditable: string;
         createControlRange(): any;
         readonly currentStyle: IHTMLCurrentStyle;
 
-        /** @param number [index=-1] */
+        /** @param index [index=-1] */
         deleteCell(index?: number): void;
         detachEvent(event: string, pdisp: any): void;
         dir: string;
@@ -27330,7 +27287,7 @@ declare namespace MSHTML {
         focus(): void;
         getAdjacentText(where: string): string;
 
-        /** @param number [lFlags=0] */
+        /** @param lFlags [lFlags=0] */
         getAttribute(strAttributeName: string, lFlags?: number): any;
         getAttributeNode(bstrName: string): IHTMLDOMAttribute;
         getAttributeNodeNS(pvarNS: any, bstrName: string): IHTMLDOMAttribute2;
@@ -27358,14 +27315,14 @@ declare namespace MSHTML {
         ie9_ch: string;
         ie9_chOff: string;
 
-        /** @param number [index=-1] */
+        /** @param index [index=-1] */
         ie9_deleteCell(index?: number): void;
         ie9_getAttribute(strAttributeName: string): any;
         ie9_getAttributeNode(strAttributeName: string): IHTMLDOMAttribute2;
         ie9_hasAttribute(name: string): boolean;
         ie9_hasAttributes(): boolean;
 
-        /** @param number [index=-1] */
+        /** @param index [index=-1] */
         ie9_insertCell(index?: number): any;
         readonly ie9_nodeName: string;
         ie9_removeAttribute(strAttributeName: string): void;
@@ -27380,7 +27337,7 @@ declare namespace MSHTML {
         insertAdjacentText(where: string, text: string): void;
         insertBefore(newChild: IHTMLDOMNode, refChild?: any): IHTMLDOMNode;
 
-        /** @param number [index=-1] */
+        /** @param index [index=-1] */
         insertCell(index?: number): any;
         readonly isContentEditable: boolean;
         readonly isDisabled: boolean;
@@ -27529,7 +27486,7 @@ declare namespace MSHTML {
         readonly recordNumber: any;
         releaseCapture(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         removeAttribute(strAttributeName: string, lFlags?: number): boolean;
         removeAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         removeAttributeNS(pvarNS: any, strAttributeName: string): void;
@@ -27538,7 +27495,7 @@ declare namespace MSHTML {
         removeExpression(propname: string): boolean;
         removeFilter(pUnk: any): void;
 
-        /** @param boolean [fDeep=false] */
+        /** @param fDeep [fDeep=false] */
         removeNode(fDeep?: boolean): IHTMLDOMNode;
         replaceAdjacentText(where: string, newText: string): string;
         replaceChild(newChild: IHTMLDOMNode, oldChild: IHTMLDOMNode): IHTMLDOMNode;
@@ -27555,16 +27512,16 @@ declare namespace MSHTML {
         readonly sectionRowIndex: number;
         setActive(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         setAttribute(strAttributeName: string, AttributeValue: any, lFlags?: number): void;
         setAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         setAttributeNodeNS(pattr: IHTMLDOMAttribute2): IHTMLDOMAttribute2;
         setAttributeNS(pvarNS: any, strAttributeName: string, pvarAttributeValue: any): void;
 
-        /** @param boolean [containerCapture=true] */
+        /** @param containerCapture [containerCapture=true] */
         setCapture(containerCapture?: boolean): void;
 
-        /** @param string [language=''] */
+        /** @param language [language=''] */
         setExpression(propname: string, expression: string, language?: string): void;
         readonly sourceIndex: number;
         spellcheck: any;
@@ -27638,13 +27595,13 @@ declare namespace MSHTML {
         readonly clientWidth: number;
         cloneNode(fDeep: boolean): IHTMLDOMNode;
         componentFromPoint(x: number, y: number): string;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         contains(pChild: IHTMLElement): boolean;
         contentEditable: string;
         createControlRange(): any;
         readonly currentStyle: IHTMLCurrentStyle;
 
-        /** @param number [index=-1] */
+        /** @param index [index=-1] */
         deleteRow(index?: number): void;
         detachEvent(event: string, pdisp: any): void;
         dir: string;
@@ -27658,7 +27615,7 @@ declare namespace MSHTML {
         focus(): void;
         getAdjacentText(where: string): string;
 
-        /** @param number [lFlags=0] */
+        /** @param lFlags [lFlags=0] */
         getAttribute(strAttributeName: string, lFlags?: number): any;
         getAttributeNode(bstrName: string): IHTMLDOMAttribute;
         getAttributeNodeNS(pvarNS: any, bstrName: string): IHTMLDOMAttribute2;
@@ -27685,14 +27642,14 @@ declare namespace MSHTML {
         ie9_ch: string;
         ie9_chOff: string;
 
-        /** @param number [index=-1] */
+        /** @param index [index=-1] */
         ie9_deleteRow(index?: number): void;
         ie9_getAttribute(strAttributeName: string): any;
         ie9_getAttributeNode(strAttributeName: string): IHTMLDOMAttribute2;
         ie9_hasAttribute(name: string): boolean;
         ie9_hasAttributes(): boolean;
 
-        /** @param number [index=-1] */
+        /** @param index [index=-1] */
         ie9_insertRow(index?: number): any;
         readonly ie9_nodeName: string;
         ie9_removeAttribute(strAttributeName: string): void;
@@ -27707,7 +27664,7 @@ declare namespace MSHTML {
         insertAdjacentText(where: string, text: string): void;
         insertBefore(newChild: IHTMLDOMNode, refChild?: any): IHTMLDOMNode;
 
-        /** @param number [index=-1] */
+        /** @param index [index=-1] */
         insertRow(index?: number): any;
         readonly isContentEditable: boolean;
         readonly isDisabled: boolean;
@@ -27719,8 +27676,8 @@ declare namespace MSHTML {
         mergeAttributes(mergeThis: IHTMLElement, pvarFlags?: any): void;
 
         /**
-         * @param number [indexFrom=-1]
-         * @param number [indexTo=-1]
+         * @param indexFrom [indexFrom=-1]
+         * @param indexTo [indexTo=-1]
          */
         moveRow(indexFrom?: number, indexTo?: number): any;
         msMatchesSelector(v: string): boolean;
@@ -27862,7 +27819,7 @@ declare namespace MSHTML {
         readonly recordNumber: any;
         releaseCapture(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         removeAttribute(strAttributeName: string, lFlags?: number): boolean;
         removeAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         removeAttributeNS(pvarNS: any, strAttributeName: string): void;
@@ -27871,7 +27828,7 @@ declare namespace MSHTML {
         removeExpression(propname: string): boolean;
         removeFilter(pUnk: any): void;
 
-        /** @param boolean [fDeep=false] */
+        /** @param fDeep [fDeep=false] */
         removeNode(fDeep?: boolean): IHTMLDOMNode;
         replaceAdjacentText(where: string, newText: string): string;
         replaceChild(newChild: IHTMLDOMNode, oldChild: IHTMLDOMNode): IHTMLDOMNode;
@@ -27887,16 +27844,16 @@ declare namespace MSHTML {
         readonly scrollWidth: number;
         setActive(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         setAttribute(strAttributeName: string, AttributeValue: any, lFlags?: number): void;
         setAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         setAttributeNodeNS(pattr: IHTMLDOMAttribute2): IHTMLDOMAttribute2;
         setAttributeNS(pvarNS: any, strAttributeName: string, pvarAttributeValue: any): void;
 
-        /** @param boolean [containerCapture=true] */
+        /** @param containerCapture [containerCapture=true] */
         setCapture(containerCapture?: boolean): void;
 
-        /** @param string [language=''] */
+        /** @param language [language=''] */
         setExpression(propname: string, expression: string, language?: string): void;
         readonly sourceIndex: number;
         spellcheck: any;
@@ -27968,7 +27925,7 @@ declare namespace MSHTML {
         cols: number;
         compareDocumentPosition(otherNode: IHTMLDOMNode): number;
         componentFromPoint(x: number, y: number): string;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         contains(pChild: IHTMLElement): boolean;
         contentEditable: string;
         createControlRange(): any;
@@ -27991,7 +27948,7 @@ declare namespace MSHTML {
         readonly form: IHTMLFormElement;
         getAdjacentText(where: string): string;
 
-        /** @param number [lFlags=0] */
+        /** @param lFlags [lFlags=0] */
         getAttribute(strAttributeName: string, lFlags?: number): any;
         getAttributeNode(bstrName: string): IHTMLDOMAttribute;
         getAttributeNodeNS(pvarNS: any, bstrName: string): IHTMLDOMAttribute2;
@@ -28195,7 +28152,7 @@ declare namespace MSHTML {
         readonly recordNumber: any;
         releaseCapture(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         removeAttribute(strAttributeName: string, lFlags?: number): boolean;
         removeAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         removeAttributeNS(pvarNS: any, strAttributeName: string): void;
@@ -28204,7 +28161,7 @@ declare namespace MSHTML {
         removeExpression(propname: string): boolean;
         removeFilter(pUnk: any): void;
 
-        /** @param boolean [fDeep=false] */
+        /** @param fDeep [fDeep=false] */
         removeNode(fDeep?: boolean): IHTMLDOMNode;
         replaceAdjacentText(where: string, newText: string): string;
         replaceChild(newChild: IHTMLDOMNode, oldChild: IHTMLDOMNode): IHTMLDOMNode;
@@ -28223,16 +28180,16 @@ declare namespace MSHTML {
         selectionStart: number;
         setActive(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         setAttribute(strAttributeName: string, AttributeValue: any, lFlags?: number): void;
         setAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         setAttributeNodeNS(pattr: IHTMLDOMAttribute2): IHTMLDOMAttribute2;
         setAttributeNS(pvarNS: any, strAttributeName: string, pvarAttributeValue: any): void;
 
-        /** @param boolean [containerCapture=true] */
+        /** @param containerCapture [containerCapture=true] */
         setCapture(containerCapture?: boolean): void;
 
-        /** @param string [language=''] */
+        /** @param language [language=''] */
         setExpression(propname: string, expression: string, language?: string): void;
         setSelectionRange(start: number, end: number): void;
         readonly sourceIndex: number;
@@ -28307,7 +28264,7 @@ declare namespace MSHTML {
         readonly clientWidth: number;
         cloneNode(fDeep: boolean): IHTMLDOMNode;
         componentFromPoint(x: number, y: number): string;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         contains(pChild: IHTMLElement): boolean;
         contentEditable: string;
         createControlRange(): any;
@@ -28324,7 +28281,7 @@ declare namespace MSHTML {
         focus(): void;
         getAdjacentText(where: string): string;
 
-        /** @param number [lFlags=0] */
+        /** @param lFlags [lFlags=0] */
         getAttribute(strAttributeName: string, lFlags?: number): any;
         getAttributeNode(bstrName: string): IHTMLDOMAttribute;
         getAttributeNodeNS(pvarNS: any, bstrName: string): IHTMLDOMAttribute2;
@@ -28511,7 +28468,7 @@ declare namespace MSHTML {
         readonly recordNumber: any;
         releaseCapture(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         removeAttribute(strAttributeName: string, lFlags?: number): boolean;
         removeAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         removeAttributeNS(pvarNS: any, strAttributeName: string): void;
@@ -28520,7 +28477,7 @@ declare namespace MSHTML {
         removeExpression(propname: string): boolean;
         removeFilter(pUnk: any): void;
 
-        /** @param boolean [fDeep=false] */
+        /** @param fDeep [fDeep=false] */
         removeNode(fDeep?: boolean): IHTMLDOMNode;
         replaceAdjacentText(where: string, newText: string): string;
         replaceChild(newChild: IHTMLDOMNode, oldChild: IHTMLDOMNode): IHTMLDOMNode;
@@ -28535,16 +28492,16 @@ declare namespace MSHTML {
         readonly scrollWidth: number;
         setActive(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         setAttribute(strAttributeName: string, AttributeValue: any, lFlags?: number): void;
         setAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         setAttributeNodeNS(pattr: IHTMLDOMAttribute2): IHTMLDOMAttribute2;
         setAttributeNS(pvarNS: any, strAttributeName: string, pvarAttributeValue: any): void;
 
-        /** @param boolean [containerCapture=true] */
+        /** @param containerCapture [containerCapture=true] */
         setCapture(containerCapture?: boolean): void;
 
-        /** @param string [language=''] */
+        /** @param language [language=''] */
         setExpression(propname: string, expression: string, language?: string): void;
         readonly sourceIndex: number;
         spellcheck: any;
@@ -28623,7 +28580,7 @@ declare namespace MSHTML {
         readonly clientWidth: number;
         cloneNode(fDeep: boolean): IHTMLDOMNode;
         componentFromPoint(x: number, y: number): string;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         contains(pChild: IHTMLElement): boolean;
         contentEditable: string;
         createControlRange(): any;
@@ -28640,7 +28597,7 @@ declare namespace MSHTML {
         focus(): void;
         getAdjacentText(where: string): string;
 
-        /** @param number [lFlags=0] */
+        /** @param lFlags [lFlags=0] */
         getAttribute(strAttributeName: string, lFlags?: number): any;
         getAttributeNode(bstrName: string): IHTMLDOMAttribute;
         getAttributeNodeNS(pvarNS: any, bstrName: string): IHTMLDOMAttribute2;
@@ -28827,7 +28784,7 @@ declare namespace MSHTML {
         readonly recordNumber: any;
         releaseCapture(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         removeAttribute(strAttributeName: string, lFlags?: number): boolean;
         removeAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         removeAttributeNS(pvarNS: any, strAttributeName: string): void;
@@ -28836,7 +28793,7 @@ declare namespace MSHTML {
         removeExpression(propname: string): boolean;
         removeFilter(pUnk: any): void;
 
-        /** @param boolean [fDeep=false] */
+        /** @param fDeep [fDeep=false] */
         removeNode(fDeep?: boolean): IHTMLDOMNode;
         replaceAdjacentText(where: string, newText: string): string;
         replaceChild(newChild: IHTMLDOMNode, oldChild: IHTMLDOMNode): IHTMLDOMNode;
@@ -28851,16 +28808,16 @@ declare namespace MSHTML {
         readonly scrollWidth: number;
         setActive(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         setAttribute(strAttributeName: string, AttributeValue: any, lFlags?: number): void;
         setAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         setAttributeNodeNS(pattr: IHTMLDOMAttribute2): IHTMLDOMAttribute2;
         setAttributeNS(pvarNS: any, strAttributeName: string, pvarAttributeValue: any): void;
 
-        /** @param boolean [containerCapture=true] */
+        /** @param containerCapture [containerCapture=true] */
         setCapture(containerCapture?: boolean): void;
 
-        /** @param string [language=''] */
+        /** @param language [language=''] */
         setExpression(propname: string, expression: string, language?: string): void;
         readonly sourceIndex: number;
         spellcheck: any;
@@ -28931,7 +28888,7 @@ declare namespace MSHTML {
         cloneNode(fDeep: boolean): IHTMLDOMNode;
         compact: boolean;
         componentFromPoint(x: number, y: number): string;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         contains(pChild: IHTMLElement): boolean;
         contentEditable: string;
         createControlRange(): any;
@@ -28948,7 +28905,7 @@ declare namespace MSHTML {
         focus(): void;
         getAdjacentText(where: string): string;
 
-        /** @param number [lFlags=0] */
+        /** @param lFlags [lFlags=0] */
         getAttribute(strAttributeName: string, lFlags?: number): any;
         getAttributeNode(bstrName: string): IHTMLDOMAttribute;
         getAttributeNodeNS(pvarNS: any, bstrName: string): IHTMLDOMAttribute2;
@@ -29135,7 +29092,7 @@ declare namespace MSHTML {
         readonly recordNumber: any;
         releaseCapture(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         removeAttribute(strAttributeName: string, lFlags?: number): boolean;
         removeAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         removeAttributeNS(pvarNS: any, strAttributeName: string): void;
@@ -29144,7 +29101,7 @@ declare namespace MSHTML {
         removeExpression(propname: string): boolean;
         removeFilter(pUnk: any): void;
 
-        /** @param boolean [fDeep=false] */
+        /** @param fDeep [fDeep=false] */
         removeNode(fDeep?: boolean): IHTMLDOMNode;
         replaceAdjacentText(where: string, newText: string): string;
         replaceChild(newChild: IHTMLDOMNode, oldChild: IHTMLDOMNode): IHTMLDOMNode;
@@ -29159,16 +29116,16 @@ declare namespace MSHTML {
         readonly scrollWidth: number;
         setActive(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         setAttribute(strAttributeName: string, AttributeValue: any, lFlags?: number): void;
         setAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         setAttributeNodeNS(pattr: IHTMLDOMAttribute2): IHTMLDOMAttribute2;
         setAttributeNS(pvarNS: any, strAttributeName: string, pvarAttributeValue: any): void;
 
-        /** @param boolean [containerCapture=true] */
+        /** @param containerCapture [containerCapture=true] */
         setCapture(containerCapture?: boolean): void;
 
-        /** @param string [language=''] */
+        /** @param language [language=''] */
         setExpression(propname: string, expression: string, language?: string): void;
         readonly sourceIndex: number;
         spellcheck: any;
@@ -29238,7 +29195,7 @@ declare namespace MSHTML {
         readonly clientWidth: number;
         cloneNode(fDeep: boolean): IHTMLDOMNode;
         componentFromPoint(x: number, y: number): string;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         contains(pChild: IHTMLElement): boolean;
         contentEditable: string;
         createControlRange(): any;
@@ -29255,7 +29212,7 @@ declare namespace MSHTML {
         focus(): void;
         getAdjacentText(where: string): string;
 
-        /** @param number [lFlags=0] */
+        /** @param lFlags [lFlags=0] */
         getAttribute(strAttributeName: string, lFlags?: number): any;
         getAttributeNode(bstrName: string): IHTMLDOMAttribute;
         getAttributeNodeNS(pvarNS: any, bstrName: string): IHTMLDOMAttribute2;
@@ -29442,7 +29399,7 @@ declare namespace MSHTML {
         readonly recordNumber: any;
         releaseCapture(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         removeAttribute(strAttributeName: string, lFlags?: number): boolean;
         removeAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         removeAttributeNS(pvarNS: any, strAttributeName: string): void;
@@ -29451,7 +29408,7 @@ declare namespace MSHTML {
         removeExpression(propname: string): boolean;
         removeFilter(pUnk: any): void;
 
-        /** @param boolean [fDeep=false] */
+        /** @param fDeep [fDeep=false] */
         removeNode(fDeep?: boolean): IHTMLDOMNode;
         replaceAdjacentText(where: string, newText: string): string;
         replaceChild(newChild: IHTMLDOMNode, oldChild: IHTMLDOMNode): IHTMLDOMNode;
@@ -29466,16 +29423,16 @@ declare namespace MSHTML {
         readonly scrollWidth: number;
         setActive(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         setAttribute(strAttributeName: string, AttributeValue: any, lFlags?: number): void;
         setAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         setAttributeNodeNS(pattr: IHTMLDOMAttribute2): IHTMLDOMAttribute2;
         setAttributeNS(pvarNS: any, strAttributeName: string, pvarAttributeValue: any): void;
 
-        /** @param boolean [containerCapture=true] */
+        /** @param containerCapture [containerCapture=true] */
         setCapture(containerCapture?: boolean): void;
 
-        /** @param string [language=''] */
+        /** @param language [language=''] */
         setExpression(propname: string, expression: string, language?: string): void;
         readonly sourceIndex: number;
         spellcheck: any;
@@ -29491,12 +29448,11 @@ declare namespace MSHTML {
         xmsAcceleratorKey: string;
     }
 
-    class HTMLUrnCollection {
-        private 'MSHTML.HTMLUrnCollection_typekey': HTMLUrnCollection;
-        private constructor();
-        readonly 'constructor': any;
+    interface HTMLUrnCollection {
+        readonly ['constructor']: any;
         item(index: number): string;
         readonly length: number;
+        (index: number): string;
     }
 
     class HTMLVideoElement {
@@ -29557,7 +29513,7 @@ declare namespace MSHTML {
         cloneNode(fDeep: boolean): IHTMLDOMNode;
         compareDocumentPosition(otherNode: IHTMLDOMNode): number;
         componentFromPoint(x: number, y: number): string;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         contains(pChild: IHTMLElement): boolean;
         contentEditable: string;
         controls: boolean;
@@ -29587,7 +29543,7 @@ declare namespace MSHTML {
         focus(): void;
         getAdjacentText(where: string): string;
 
-        /** @param number [lFlags=0] */
+        /** @param lFlags [lFlags=0] */
         getAttribute(strAttributeName: string, lFlags?: number): any;
         getAttributeNode(bstrName: string): IHTMLDOMAttribute;
         getAttributeNodeNS(pvarNS: any, bstrName: string): IHTMLDOMAttribute2;
@@ -29806,7 +29762,7 @@ declare namespace MSHTML {
         readonly recordNumber: any;
         releaseCapture(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         removeAttribute(strAttributeName: string, lFlags?: number): boolean;
         removeAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         removeAttributeNS(pvarNS: any, strAttributeName: string): void;
@@ -29815,7 +29771,7 @@ declare namespace MSHTML {
         removeExpression(propname: string): boolean;
         removeFilter(pUnk: any): void;
 
-        /** @param boolean [fDeep=false] */
+        /** @param fDeep [fDeep=false] */
         removeNode(fDeep?: boolean): IHTMLDOMNode;
         replaceAdjacentText(where: string, newText: string): string;
         replaceChild(newChild: IHTMLDOMNode, oldChild: IHTMLDOMNode): IHTMLDOMNode;
@@ -29832,16 +29788,16 @@ declare namespace MSHTML {
         readonly seeking: boolean;
         setActive(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         setAttribute(strAttributeName: string, AttributeValue: any, lFlags?: number): void;
         setAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         setAttributeNodeNS(pattr: IHTMLDOMAttribute2): IHTMLDOMAttribute2;
         setAttributeNS(pvarNS: any, strAttributeName: string, pvarAttributeValue: any): void;
 
-        /** @param boolean [containerCapture=true] */
+        /** @param containerCapture [containerCapture=true] */
         setCapture(containerCapture?: boolean): void;
 
-        /** @param string [language=''] */
+        /** @param language [language=''] */
         setExpression(propname: string, expression: string, language?: string): void;
         readonly sourceIndex: number;
         spellcheck: any;
@@ -29864,9 +29820,7 @@ declare namespace MSHTML {
         xmsAcceleratorKey: string;
     }
 
-    class HTMLW3CComputedStyle {
-        private 'MSHTML.HTMLW3CComputedStyle_typekey': HTMLW3CComputedStyle;
-        private constructor();
+    interface HTMLW3CComputedStyle {
         accelerator: string;
         alignContent: string;
         alignItems: string;
@@ -30145,7 +30099,7 @@ declare namespace MSHTML {
         scrollbarShadowColor: any;
         scrollbarTrackColor: any;
 
-        /** @param any [pvarPropertyPriority=''] */
+        /** @param pvarPropertyPriority [pvarPropertyPriority=''] */
         setProperty(bstrPropertyName: string, pvarPropertyValue: any, pvarPropertyPriority?: any): void;
         stopColor: any;
         stopOpacity: any;
@@ -30239,14 +30193,13 @@ declare namespace MSHTML {
         writingMode: string;
         zIndex: any;
         zoom: any;
+        (index: number): string;
     }
 
-    class HTMLWindow2 {
-        private 'MSHTML.HTMLWindow2_typekey': HTMLWindow2;
-        private constructor();
+    interface HTMLWindow2 {
         addEventListener(type: string, listener: any, useCapture: boolean): void;
 
-        /** @param string [message=''] */
+        /** @param message [message=''] */
         alert(message?: string): void;
         readonly applicationCache: applicationCache;
         attachEvent(event: string, pdisp: any): boolean;
@@ -30258,9 +30211,9 @@ declare namespace MSHTML {
         close(): void;
         readonly closed: boolean;
 
-        /** @param string [message=''] */
+        /** @param message [message=''] */
         confirm(message?: string): boolean;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         createPopup(varArgIn?: any): any;
         defaultStatus: string;
         detachEvent(event: string, pdisp: any): void;
@@ -30268,14 +30221,14 @@ declare namespace MSHTML {
         readonly document: IHTMLDocument2;
         readonly event: IHTMLEventObj;
 
-        /** @param string [language='JScript'] */
+        /** @param language [language='JScript'] */
         execScript(code: string, language?: string): any;
         readonly external: any;
         focus(): void;
         readonly frameElement: IHTMLFrameBase;
         readonly frames: FramesCollection;
 
-        /** @param string [bstrPseudoElt=''] */
+        /** @param bstrPseudoElt [bstrPseudoElt=''] */
         getComputedStyle(varArgIn: IHTMLDOMNode, bstrPseudoElt?: string): IHTMLCSSStyleDeclaration;
         getSelection(): IHTMLSelection;
         readonly history: IOmHistory;
@@ -30376,10 +30329,10 @@ declare namespace MSHTML {
         onwaiting: any;
 
         /**
-         * @param string [url='']
-         * @param string [name='']
-         * @param string [features='']
-         * @param boolean [replace=false]
+         * @param url [url='']
+         * @param name [name='']
+         * @param features [features='']
+         * @param replace [replace=false]
          */
         open(url?: string, name?: string, features?: string, replace?: boolean): IHTMLWindow2;
         opener: any;
@@ -30393,8 +30346,8 @@ declare namespace MSHTML {
         print(): void;
 
         /**
-         * @param string [message='']
-         * @param string [defstr='undefined']
+         * @param message [message='']
+         * @param defstr [defstr='undefined']
          */
         prompt(message?: string, defstr?: string): any;
         removeEventListener(type: string, listener: any, useCapture: boolean): void;
@@ -30413,11 +30366,11 @@ declare namespace MSHTML {
         setInterval(expression: any, msec: number, language?: any): number;
         setTimeout(expression: any, msec: number, language?: any): number;
 
-        /** @param string [features=''] */
+        /** @param features [features=''] */
         showHelp(helpURL: string, helpArg: any, features?: string): void;
         showModalDialog(dialog: string, varArgIn?: any, varOptions?: any): any;
 
-        /** @param string [url=''] */
+        /** @param url [url=''] */
         showModelessDialog(url?: string, varArgIn?: any, options?: any): IHTMLWindow2;
         status: string;
         readonly styleMedia: IHTMLStyleMedia;
@@ -30425,14 +30378,13 @@ declare namespace MSHTML {
         toStaticHTML(bstrHTML: string): string;
         toString(): string;
         readonly window: IHTMLWindow2;
+        (pvarIndex: any): any;
     }
 
-    class HTMLWindowProxy {
-        private 'MSHTML.HTMLWindowProxy_typekey': HTMLWindowProxy;
-        private constructor();
+    interface HTMLWindowProxy {
         addEventListener(type: string, listener: any, useCapture: boolean): void;
 
-        /** @param string [message=''] */
+        /** @param message [message=''] */
         alert(message?: string): void;
         readonly applicationCache: applicationCache;
         attachEvent(event: string, pdisp: any): boolean;
@@ -30444,9 +30396,9 @@ declare namespace MSHTML {
         close(): void;
         readonly closed: boolean;
 
-        /** @param string [message=''] */
+        /** @param message [message=''] */
         confirm(message?: string): boolean;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         createPopup(varArgIn?: any): any;
         defaultStatus: string;
         detachEvent(event: string, pdisp: any): void;
@@ -30454,14 +30406,14 @@ declare namespace MSHTML {
         readonly document: IHTMLDocument2;
         readonly event: IHTMLEventObj;
 
-        /** @param string [language='JScript'] */
+        /** @param language [language='JScript'] */
         execScript(code: string, language?: string): any;
         readonly external: any;
         focus(): void;
         readonly frameElement: IHTMLFrameBase;
         readonly frames: FramesCollection;
 
-        /** @param string [bstrPseudoElt=''] */
+        /** @param bstrPseudoElt [bstrPseudoElt=''] */
         getComputedStyle(varArgIn: IHTMLDOMNode, bstrPseudoElt?: string): IHTMLCSSStyleDeclaration;
         getSelection(): IHTMLSelection;
         readonly history: IOmHistory;
@@ -30562,10 +30514,10 @@ declare namespace MSHTML {
         onwaiting: any;
 
         /**
-         * @param string [url='']
-         * @param string [name='']
-         * @param string [features='']
-         * @param boolean [replace=false]
+         * @param url [url='']
+         * @param name [name='']
+         * @param features [features='']
+         * @param replace [replace=false]
          */
         open(url?: string, name?: string, features?: string, replace?: boolean): IHTMLWindow2;
         opener: any;
@@ -30579,8 +30531,8 @@ declare namespace MSHTML {
         print(): void;
 
         /**
-         * @param string [message='']
-         * @param string [defstr='undefined']
+         * @param message [message='']
+         * @param defstr [defstr='undefined']
          */
         prompt(message?: string, defstr?: string): any;
         removeEventListener(type: string, listener: any, useCapture: boolean): void;
@@ -30599,11 +30551,11 @@ declare namespace MSHTML {
         setInterval(expression: any, msec: number, language?: any): number;
         setTimeout(expression: any, msec: number, language?: any): number;
 
-        /** @param string [features=''] */
+        /** @param features [features=''] */
         showHelp(helpURL: string, helpArg: any, features?: string): void;
         showModalDialog(dialog: string, varArgIn?: any, varOptions?: any): any;
 
-        /** @param string [url=''] */
+        /** @param url [url=''] */
         showModelessDialog(url?: string, varArgIn?: any, options?: any): IHTMLWindow2;
         status: string;
         readonly styleMedia: IHTMLStyleMedia;
@@ -30611,6 +30563,7 @@ declare namespace MSHTML {
         toStaticHTML(bstrHTML: string): string;
         toString(): string;
         readonly window: IHTMLWindow2;
+        (pvarIndex: any): any;
     }
 
     class HTMLWndOptionElement {
@@ -30667,7 +30620,7 @@ declare namespace MSHTML {
         cloneNode(fDeep: boolean): IHTMLDOMNode;
         compareDocumentPosition(otherNode: IHTMLDOMNode): number;
         componentFromPoint(x: number, y: number): string;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         contains(pChild: IHTMLElement): boolean;
         contentEditable: string;
         createControlRange(): any;
@@ -30689,7 +30642,7 @@ declare namespace MSHTML {
         readonly form: IHTMLFormElement;
         getAdjacentText(where: string): string;
 
-        /** @param number [lFlags=0] */
+        /** @param lFlags [lFlags=0] */
         getAttribute(strAttributeName: string, lFlags?: number): any;
         getAttributeNode(bstrName: string): IHTMLDOMAttribute;
         getAttributeNodeNS(pvarNS: any, bstrName: string): IHTMLDOMAttribute2;
@@ -30893,7 +30846,7 @@ declare namespace MSHTML {
         readonly recordNumber: any;
         releaseCapture(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         removeAttribute(strAttributeName: string, lFlags?: number): boolean;
         removeAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         removeAttributeNS(pvarNS: any, strAttributeName: string): void;
@@ -30902,7 +30855,7 @@ declare namespace MSHTML {
         removeExpression(propname: string): boolean;
         removeFilter(pUnk: any): void;
 
-        /** @param boolean [fDeep=false] */
+        /** @param fDeep [fDeep=false] */
         removeNode(fDeep?: boolean): IHTMLDOMNode;
         replaceAdjacentText(where: string, newText: string): string;
         replaceChild(newChild: IHTMLDOMNode, oldChild: IHTMLDOMNode): IHTMLDOMNode;
@@ -30918,16 +30871,16 @@ declare namespace MSHTML {
         selected: boolean;
         setActive(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         setAttribute(strAttributeName: string, AttributeValue: any, lFlags?: number): void;
         setAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         setAttributeNodeNS(pattr: IHTMLDOMAttribute2): IHTMLDOMAttribute2;
         setAttributeNS(pvarNS: any, strAttributeName: string, pvarAttributeValue: any): void;
 
-        /** @param boolean [containerCapture=true] */
+        /** @param containerCapture [containerCapture=true] */
         setCapture(containerCapture?: boolean): void;
 
-        /** @param string [language=''] */
+        /** @param language [language=''] */
         setExpression(propname: string, expression: string, language?: string): void;
         readonly sourceIndex: number;
         spellcheck: any;
@@ -30946,9 +30899,7 @@ declare namespace MSHTML {
         xmsAcceleratorKey: string;
     }
 
-    class HTMLWndSelectElement {
-        private 'MSHTML.HTMLWndSelectElement_typekey': HTMLWndSelectElement;
-        private constructor();
+    interface HTMLWndSelectElement {
         accessKey: string;
         add(element: IHTMLElement, before?: any): void;
         addBehavior(bstrURL: string, pvarFactory?: any): number;
@@ -31001,7 +30952,7 @@ declare namespace MSHTML {
         cloneNode(fDeep: boolean): IHTMLDOMNode;
         compareDocumentPosition(otherNode: IHTMLDOMNode): number;
         componentFromPoint(x: number, y: number): string;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         contains(pChild: IHTMLElement): boolean;
         contentEditable: string;
         createControlRange(): any;
@@ -31022,7 +30973,7 @@ declare namespace MSHTML {
         readonly form: IHTMLFormElement;
         getAdjacentText(where: string): string;
 
-        /** @param number [lFlags=0] */
+        /** @param lFlags [lFlags=0] */
         getAttribute(strAttributeName: string, lFlags?: number): any;
         getAttributeNode(bstrName: string): IHTMLDOMAttribute;
         getAttributeNodeNS(pvarNS: any, bstrName: string): IHTMLDOMAttribute2;
@@ -31230,10 +31181,10 @@ declare namespace MSHTML {
         readonly recordNumber: any;
         releaseCapture(): void;
 
-        /** @param number [index=-1] */
+        /** @param index [index=-1] */
         remove(index?: number): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         removeAttribute(strAttributeName: string, lFlags?: number): boolean;
         removeAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         removeAttributeNS(pvarNS: any, strAttributeName: string): void;
@@ -31242,7 +31193,7 @@ declare namespace MSHTML {
         removeExpression(propname: string): boolean;
         removeFilter(pUnk: any): void;
 
-        /** @param boolean [fDeep=false] */
+        /** @param fDeep [fDeep=false] */
         removeNode(fDeep?: boolean): IHTMLDOMNode;
         replaceAdjacentText(where: string, newText: string): string;
         replaceChild(newChild: IHTMLDOMNode, oldChild: IHTMLDOMNode): IHTMLDOMNode;
@@ -31258,16 +31209,16 @@ declare namespace MSHTML {
         selectedIndex: number;
         setActive(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         setAttribute(strAttributeName: string, AttributeValue: any, lFlags?: number): void;
         setAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         setAttributeNodeNS(pattr: IHTMLDOMAttribute2): IHTMLDOMAttribute2;
         setAttributeNS(pvarNS: any, strAttributeName: string, pvarAttributeValue: any): void;
 
-        /** @param boolean [containerCapture=true] */
+        /** @param containerCapture [containerCapture=true] */
         setCapture(containerCapture?: boolean): void;
 
-        /** @param string [language=''] */
+        /** @param language [language=''] */
         setExpression(propname: string, expression: string, language?: string): void;
         size: number;
         readonly sourceIndex: number;
@@ -31287,6 +31238,7 @@ declare namespace MSHTML {
         urns(urn: any): any;
         value: string;
         xmsAcceleratorKey: string;
+        (name?: any, index?: any): any;
     }
 
     class HTMLXMLHttpRequest {
@@ -31294,7 +31246,7 @@ declare namespace MSHTML {
         private constructor();
         abort(): void;
         addEventListener(type: string, listener: any, useCapture: boolean): void;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         dispatchEvent(evt: IDOMEvent): boolean;
         getAllResponseHeaders(): string;
         getResponseHeader(bstrHeader: string): string;
@@ -31313,10 +31265,9 @@ declare namespace MSHTML {
         timeout: number;
     }
 
-    class HTMLXMLHttpRequestFactory {
-        private 'MSHTML.HTMLXMLHttpRequestFactory_typekey': HTMLXMLHttpRequestFactory;
-        private constructor();
+    interface HTMLXMLHttpRequestFactory {
         create(): IHTMLXMLHttpRequest;
+        (): IHTMLXMLHttpRequest;
     }
 
     class ICanvasGradient {
@@ -31485,16 +31436,16 @@ declare namespace MSHTML {
         removeEventListener(type: string, listener: any, useCapture: boolean): void;
     }
 
-    class IHTMLAreasCollection {
-        private 'MSHTML.IHTMLAreasCollection_typekey': IHTMLAreasCollection;
-        private constructor();
+    // tslint:disable-next-line:interface-name
+    interface IHTMLAreasCollection {
         add(element: IHTMLElement, before?: any): void;
         item(name?: any, index?: any): any;
         length: number;
 
-        /** @param number [index=-1] */
+        /** @param index [index=-1] */
         remove(index?: number): void;
         tags(tagName: any): any;
+        (name?: any, index?: any): any;
     }
 
     class IHTMLAttributeCollection3 {
@@ -31512,11 +31463,11 @@ declare namespace MSHTML {
         private constructor();
     }
 
-    class IHTMLBookmarkCollection {
-        private 'MSHTML.IHTMLBookmarkCollection_typekey': IHTMLBookmarkCollection;
-        private constructor();
+    // tslint:disable-next-line:interface-name
+    interface IHTMLBookmarkCollection {
         item(index: number): any;
         readonly length: number;
+        (index: number): any;
     }
 
     class IHTMLCanvasElement {
@@ -31537,9 +31488,8 @@ declare namespace MSHTML {
         readonly type: number;
     }
 
-    class IHTMLCSSStyleDeclaration {
-        private 'MSHTML.IHTMLCSSStyleDeclaration_typekey': IHTMLCSSStyleDeclaration;
-        private constructor();
+    // tslint:disable-next-line:interface-name
+    interface IHTMLCSSStyleDeclaration {
         accelerator: string;
         alignmentBaseline: string;
         background: string;
@@ -31693,7 +31643,7 @@ declare namespace MSHTML {
         scrollbarShadowColor: any;
         scrollbarTrackColor: any;
 
-        /** @param any [pvarPropertyPriority=''] */
+        /** @param pvarPropertyPriority [pvarPropertyPriority=''] */
         setProperty(bstrPropertyName: string, pvarPropertyValue: any, pvarPropertyPriority?: any): void;
         stopColor: any;
         stopOpacity: any;
@@ -31733,6 +31683,7 @@ declare namespace MSHTML {
         writingMode: string;
         zIndex: any;
         zoom: any;
+        (index: number): string;
     }
 
     class IHTMLCurrentStyle {
@@ -31779,7 +31730,7 @@ declare namespace MSHTML {
         readonly fontVariant: string;
         readonly fontWeight: any;
 
-        /** @param number [lFlags=0] */
+        /** @param lFlags [lFlags=0] */
         getAttribute(strAttributeName: string, lFlags?: number): any;
         readonly height: any;
         readonly imeMode: string;
@@ -31866,8 +31817,8 @@ declare namespace MSHTML {
         createElement(eTag: string): IHTMLElement;
 
         /**
-         * @param string [bstrHref='']
-         * @param number [lIndex=-1]
+         * @param bstrHref [bstrHref='']
+         * @param lIndex [lIndex=-1]
          */
         createStyleSheet(bstrHref?: string, lIndex?: number): IHTMLStyleSheet;
         defaultCharset: string;
@@ -31876,7 +31827,7 @@ declare namespace MSHTML {
         elementFromPoint(x: number, y: number): IHTMLElement;
         readonly embeds: IHTMLElementCollection;
 
-        /** @param boolean [showUI=false] */
+        /** @param showUI [showUI=false] */
         execCommand(cmdID: string, showUI?: boolean, value?: any): boolean;
         execCommandShowHelp(cmdID: string): boolean;
         expando: boolean;
@@ -31914,7 +31865,7 @@ declare namespace MSHTML {
         onrowexit: any;
         onselectstart: any;
 
-        /** @param string [url='text/html'] */
+        /** @param url [url='text/html'] */
         open(url?: string, name?: any, features?: any, replace?: any): any;
         readonly parentWindow: IHTMLWindow2;
         readonly plugins: IHTMLElementCollection;
@@ -32014,11 +31965,11 @@ declare namespace MSHTML {
         readonly version: string;
     }
 
-    class IHTMLDocumentCompatibleInfoCollection {
-        private 'MSHTML.IHTMLDocumentCompatibleInfoCollection_typekey': IHTMLDocumentCompatibleInfoCollection;
-        private constructor();
+    // tslint:disable-next-line:interface-name
+    interface IHTMLDocumentCompatibleInfoCollection {
         item(index: number): IHTMLDocumentCompatibleInfo;
         readonly length: number;
+        (index: number): IHTMLDocumentCompatibleInfo;
     }
 
     class IHTMLDOMAttribute {
@@ -32052,11 +32003,11 @@ declare namespace MSHTML {
         value: string;
     }
 
-    class IHTMLDOMChildrenCollection {
-        private 'MSHTML.IHTMLDOMChildrenCollection_typekey': IHTMLDOMChildrenCollection;
-        private constructor();
+    // tslint:disable-next-line:interface-name
+    interface IHTMLDOMChildrenCollection {
         item(index: number): any;
         readonly length: number;
+        (index: number): any;
     }
 
     class IHTMLDOMImplementation {
@@ -32084,7 +32035,7 @@ declare namespace MSHTML {
         readonly previousSibling: IHTMLDOMNode;
         removeChild(oldChild: IHTMLDOMNode): IHTMLDOMNode;
 
-        /** @param boolean [fDeep=false] */
+        /** @param fDeep [fDeep=false] */
         removeNode(fDeep?: boolean): IHTMLDOMNode;
         replaceChild(newChild: IHTMLDOMNode, oldChild: IHTMLDOMNode): IHTMLDOMNode;
         replaceNode(replacement: IHTMLDOMNode): IHTMLDOMNode;
@@ -32153,7 +32104,7 @@ declare namespace MSHTML {
         readonly document: any;
         readonly filters: IHTMLFiltersCollection;
 
-        /** @param number [lFlags=0] */
+        /** @param lFlags [lFlags=0] */
         getAttribute(strAttributeName: string, lFlags?: number): any;
         id: string;
         innerHTML: string;
@@ -32196,11 +32147,11 @@ declare namespace MSHTML {
         readonly parentTextEdit: IHTMLElement;
         readonly recordNumber: any;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         removeAttribute(strAttributeName: string, lFlags?: number): boolean;
         scrollIntoView(varargStart?: any): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         setAttribute(strAttributeName: string, AttributeValue: any, lFlags?: number): void;
         readonly sourceIndex: number;
         readonly style: IHTMLStyle;
@@ -32276,22 +32227,22 @@ declare namespace MSHTML {
         scrollTop: number;
         readonly scrollWidth: number;
 
-        /** @param boolean [containerCapture=true] */
+        /** @param containerCapture [containerCapture=true] */
         setCapture(containerCapture?: boolean): void;
 
-        /** @param string [language=''] */
+        /** @param language [language=''] */
         setExpression(propname: string, expression: string, language?: string): void;
         tabIndex: number;
         tagUrn: string;
     }
 
-    class IHTMLElementCollection {
-        private 'MSHTML.IHTMLElementCollection_typekey': IHTMLElementCollection;
-        private constructor();
-        item(name?: string | number, index?: number): any;
+    // tslint:disable-next-line:interface-name
+    interface IHTMLElementCollection {
+        item(name?: any, index?: any): any;
         length: number;
         tags(tagName: any): any;
         toString(): string;
+        (name?: any, index?: any): any;
     }
 
     class IHTMLEventObj {
@@ -32321,16 +32272,15 @@ declare namespace MSHTML {
         readonly y: number;
     }
 
-    class IHTMLFiltersCollection {
-        private 'MSHTML.IHTMLFiltersCollection_typekey': IHTMLFiltersCollection;
-        private constructor();
+    // tslint:disable-next-line:interface-name
+    interface IHTMLFiltersCollection {
         item(pvarIndex: any): any;
         readonly length: number;
+        (pvarIndex: any): any;
     }
 
-    class IHTMLFormElement {
-        private 'MSHTML.IHTMLFormElement_typekey': IHTMLFormElement;
-        private constructor();
+    // tslint:disable-next-line:interface-name
+    interface IHTMLFormElement {
         action: string;
         dir: string;
         readonly elements: any;
@@ -32345,6 +32295,7 @@ declare namespace MSHTML {
         submit(): void;
         tags(tagName: any): any;
         target: string;
+        (name?: any, index?: any): any;
     }
 
     class IHTMLFrameBase {
@@ -32407,7 +32358,7 @@ declare namespace MSHTML {
         port: string;
         protocol: string;
 
-        /** @param boolean [flag=false] */
+        /** @param flag [flag=false] */
         reload(flag?: boolean): void;
         replace(bstr: string): void;
         search: string;
@@ -32480,7 +32431,7 @@ declare namespace MSHTML {
         private constructor();
         readonly length: number;
 
-        /** @param boolean [reload=false] */
+        /** @param reload [reload=false] */
         refresh(reload?: boolean): void;
     }
 
@@ -32493,11 +32444,11 @@ declare namespace MSHTML {
         top: number;
     }
 
-    class IHTMLRectCollection {
-        private 'MSHTML.IHTMLRectCollection_typekey': IHTMLRectCollection;
-        private constructor();
+    // tslint:disable-next-line:interface-name
+    interface IHTMLRectCollection {
         item(pvarIndex: any): any;
         readonly length: number;
+        (pvarIndex: any): any;
     }
 
     class IHTMLRenderStyle {
@@ -32559,7 +32510,7 @@ declare namespace MSHTML {
         fontVariant: string;
         fontWeight: string;
 
-        /** @param number [lFlags=0] */
+        /** @param lFlags [lFlags=0] */
         getAttribute(strAttributeName: string, lFlags?: number): any;
         height: any;
         left: any;
@@ -32584,10 +32535,10 @@ declare namespace MSHTML {
         pageBreakBefore: string;
         readonly position: string;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         removeAttribute(strAttributeName: string, lFlags?: number): boolean;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         setAttribute(strAttributeName: string, AttributeValue: any, lFlags?: number): void;
         styleFloat: string;
         textAlign: string;
@@ -32708,7 +32659,7 @@ declare namespace MSHTML {
         fontVariant: string;
         fontWeight: string;
 
-        /** @param number [lFlags=0] */
+        /** @param lFlags [lFlags=0] */
         getAttribute(strAttributeName: string, lFlags?: number): any;
         height: any;
         left: any;
@@ -32741,10 +32692,10 @@ declare namespace MSHTML {
         posTop: number;
         posWidth: number;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         removeAttribute(strAttributeName: string, lFlags?: number): boolean;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         setAttribute(strAttributeName: string, AttributeValue: any, lFlags?: number): void;
         styleFloat: string;
         textAlign: string;
@@ -32777,10 +32728,10 @@ declare namespace MSHTML {
         private 'MSHTML.IHTMLStyleSheet_typekey': IHTMLStyleSheet;
         private constructor();
 
-        /** @param number [lIndex=-1] */
+        /** @param lIndex [lIndex=-1] */
         addImport(bstrURL: string, lIndex?: number): number;
 
-        /** @param number [lIndex=-1] */
+        /** @param lIndex [lIndex=-1] */
         addRule(bstrSelector: string, bstrStyle: string, lIndex?: number): number;
         cssText: string;
         disabled: boolean;
@@ -32805,11 +32756,11 @@ declare namespace MSHTML {
         readonly selector: string;
     }
 
-    class IHTMLStyleSheetPagesCollection {
-        private 'MSHTML.IHTMLStyleSheetPagesCollection_typekey': IHTMLStyleSheetPagesCollection;
-        private constructor();
+    // tslint:disable-next-line:interface-name
+    interface IHTMLStyleSheetPagesCollection {
         item(index: number): IHTMLStyleSheetPage;
         readonly length: number;
+        (index: number): IHTMLStyleSheetPage;
     }
 
     class IHTMLStyleSheetRule {
@@ -32820,28 +32771,28 @@ declare namespace MSHTML {
         readonly style: IHTMLRuleStyle;
     }
 
-    class IHTMLStyleSheetRulesAppliedCollection {
-        private 'MSHTML.IHTMLStyleSheetRulesAppliedCollection_typekey': IHTMLStyleSheetRulesAppliedCollection;
-        private constructor();
+    // tslint:disable-next-line:interface-name
+    interface IHTMLStyleSheetRulesAppliedCollection {
         item(index: number): IHTMLStyleSheetRule;
         readonly length: number;
         propertyAppliedBy(name: string): IHTMLStyleSheetRule;
         propertyAppliedTrace(name: string, index: number): IHTMLStyleSheetRule;
         propertyAppliedTraceLength(name: string): number;
+        (index: number): IHTMLStyleSheetRule;
     }
 
-    class IHTMLStyleSheetRulesCollection {
-        private 'MSHTML.IHTMLStyleSheetRulesCollection_typekey': IHTMLStyleSheetRulesCollection;
-        private constructor();
+    // tslint:disable-next-line:interface-name
+    interface IHTMLStyleSheetRulesCollection {
         item(index: number): IHTMLStyleSheetRule;
         readonly length: number;
+        (index: number): IHTMLStyleSheetRule;
     }
 
-    class IHTMLStyleSheetsCollection {
-        private 'MSHTML.IHTMLStyleSheetsCollection_typekey': IHTMLStyleSheetsCollection;
-        private constructor();
+    // tslint:disable-next-line:interface-name
+    interface IHTMLStyleSheetsCollection {
         item(pvarIndex: any): any;
         readonly length: number;
+        (pvarIndex: any): any;
     }
 
     class IHTMLTableCaption {
@@ -32857,10 +32808,10 @@ declare namespace MSHTML {
         align: string;
         bgColor: any;
 
-        /** @param number [index=-1] */
+        /** @param index [index=-1] */
         deleteRow(index?: number): void;
 
-        /** @param number [index=-1] */
+        /** @param index [index=-1] */
         insertRow(index?: number): any;
         readonly rows: IHTMLElementCollection;
         vAlign: string;
@@ -32878,19 +32829,19 @@ declare namespace MSHTML {
         private 'MSHTML.IHTMLTxtRange_typekey': IHTMLTxtRange;
         private constructor();
 
-        /** @param boolean [start=true] */
+        /** @param start [start=true] */
         collapse(start?: boolean): void;
         compareEndPoints(how: string, sourceRange: IHTMLTxtRange): number;
         duplicate(): IHTMLTxtRange;
 
-        /** @param boolean [showUI=false] */
+        /** @param showUI [showUI=false] */
         execCommand(cmdID: string, showUI?: boolean, value?: any): boolean;
         execCommandShowHelp(cmdID: string): boolean;
         expand(Unit: string): boolean;
 
         /**
-         * @param number [Count=1073741823]
-         * @param number [flags=0]
+         * @param Count [Count=1073741823]
+         * @param flags [flags=0]
          */
         findText(String: string, Count?: number, flags?: number): boolean;
         getBookmark(): string;
@@ -32898,13 +32849,13 @@ declare namespace MSHTML {
         inRange(range: IHTMLTxtRange): boolean;
         isEqual(range: IHTMLTxtRange): boolean;
 
-        /** @param number [Count=1] */
+        /** @param Count [Count=1] */
         move(Unit: string, Count?: number): number;
 
-        /** @param number [Count=1] */
+        /** @param Count [Count=1] */
         moveEnd(Unit: string, Count?: number): number;
 
-        /** @param number [Count=1] */
+        /** @param Count [Count=1] */
         moveStart(Unit: string, Count?: number): number;
         moveToBookmark(Bookmark: string): boolean;
         moveToElementText(element: IHTMLElement): void;
@@ -32918,18 +32869,16 @@ declare namespace MSHTML {
         queryCommandText(cmdID: string): string;
         queryCommandValue(cmdID: string): any;
 
-        /** @param boolean [fStart=true] */
+        /** @param fStart [fStart=true] */
         scrollIntoView(fStart?: boolean): void;
         select(): void;
         setEndPoint(how: string, sourceRange: IHTMLTxtRange): void;
         text: string;
     }
 
-    class IHTMLWindow2 {
-        private 'MSHTML.IHTMLWindow2_typekey': IHTMLWindow2;
-        private constructor();
-
-        /** @param string [message=''] */
+    // tslint:disable-next-line:interface-name
+    interface IHTMLWindow2 {
+        /** @param message [message=''] */
         alert(message?: string): void;
         blur(): void;
         clearInterval(timerID: number): void;
@@ -32938,13 +32887,13 @@ declare namespace MSHTML {
         close(): void;
         readonly closed: boolean;
 
-        /** @param string [message=''] */
+        /** @param message [message=''] */
         confirm(message?: string): boolean;
         defaultStatus: string;
         readonly document: IHTMLDocument2;
         readonly event: IHTMLEventObj;
 
-        /** @param string [language='JScript'] */
+        /** @param language [language='JScript'] */
         execScript(code: string, language?: string): any;
         readonly external: any;
         focus(): void;
@@ -32971,10 +32920,10 @@ declare namespace MSHTML {
         onunload: any;
 
         /**
-         * @param string [url='']
-         * @param string [name='']
-         * @param string [features='']
-         * @param boolean [replace=false]
+         * @param url [url='']
+         * @param name [name='']
+         * @param features [features='']
+         * @param replace [replace=false]
          */
         open(url?: string, name?: string, features?: string, replace?: boolean): IHTMLWindow2;
         opener: any;
@@ -32982,8 +32931,8 @@ declare namespace MSHTML {
         readonly parent: IHTMLWindow2;
 
         /**
-         * @param string [message='']
-         * @param string [defstr='undefined']
+         * @param message [message='']
+         * @param defstr [defstr='undefined']
          */
         prompt(message?: string, defstr?: string): any;
         resizeBy(x: number, y: number): void;
@@ -32996,13 +32945,14 @@ declare namespace MSHTML {
         setInterval(expression: string, msec: number, language?: any): number;
         setTimeout(expression: string, msec: number, language?: any): number;
 
-        /** @param string [features=''] */
+        /** @param features [features=''] */
         showHelp(helpURL: string, helpArg: any, features?: string): void;
         showModalDialog(dialog: string, varArgIn?: any, varOptions?: any): any;
         status: string;
         readonly top: IHTMLWindow2;
         toString(): string;
         readonly window: IHTMLWindow2;
+        (pvarIndex: any): any;
     }
 
     class IHTMLXDomainRequest {
@@ -33380,7 +33330,7 @@ declare namespace MSHTML {
         compareDocumentPosition(otherNode: IHTMLDOMNode): number;
         readonly compatible: IHTMLDocumentCompatibleInfoCollection;
         readonly compatMode: string;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         cookie: string;
         createAttribute(bstrAttrName: string): IHTMLDOMAttribute;
         createAttributeNS(pvarNS: any, bstrAttrName: string): IHTMLDOMAttribute;
@@ -33398,8 +33348,8 @@ declare namespace MSHTML {
         createRenderStyle(v: string): IHTMLRenderStyle;
 
         /**
-         * @param string [bstrHref='']
-         * @param number [lIndex=-1]
+         * @param bstrHref [bstrHref='']
+         * @param lIndex [lIndex=-1]
          */
         createStyleSheet(bstrHref?: string, lIndex?: number): IHTMLStyleSheet;
         createTextNode(text: string): IHTMLDOMNode;
@@ -33419,7 +33369,7 @@ declare namespace MSHTML {
         elementsFromRect(left: number, top: number, width: number, height: number): IHTMLDOMChildrenCollection;
         readonly embeds: IHTMLElementCollection;
 
-        /** @param boolean [showUI=false] */
+        /** @param showUI [showUI=false] */
         execCommand(cmdID: string, showUI?: boolean, value?: any): boolean;
         execCommandShowHelp(cmdID: string): boolean;
         expando: boolean;
@@ -33577,7 +33527,7 @@ declare namespace MSHTML {
         onvolumechange: any;
         onwaiting: any;
 
-        /** @param string [url='text/html'] */
+        /** @param url [url='text/html'] */
         open(url?: string, name?: any, features?: any, replace?: any): any;
         readonly ownerDocument: any;
         readonly parentNode: IHTMLDOMNode;
@@ -33596,14 +33546,14 @@ declare namespace MSHTML {
         querySelectorAll(v: string): IHTMLDOMChildrenCollection;
         readonly readyState: string;
 
-        /** @param boolean [fForce=false] */
+        /** @param fForce [fForce=false] */
         recalc(fForce?: boolean): void;
         readonly referrer: string;
         releaseCapture(): void;
         removeChild(oldChild: IHTMLDOMNode): IHTMLDOMNode;
         removeEventListener(type: string, listener: any, useCapture: boolean): void;
 
-        /** @param boolean [fDeep=false] */
+        /** @param fDeep [fDeep=false] */
         removeNode(fDeep?: boolean): IHTMLDOMNode;
         replaceChild(newChild: IHTMLDOMNode, oldChild: IHTMLDOMNode): IHTMLDOMNode;
         replaceNode(replacement: IHTMLDOMNode): IHTMLDOMNode;
@@ -33629,9 +33579,7 @@ declare namespace MSHTML {
         xmlVersion: string;
     }
 
-    class OldHTMLFormElement {
-        private 'MSHTML.OldHTMLFormElement_typekey': OldHTMLFormElement;
-        private constructor();
+    interface OldHTMLFormElement {
         acceptCharset: string;
         accessKey: string;
         action: string;
@@ -33642,14 +33590,14 @@ declare namespace MSHTML {
         appendItemSeparator(): void;
 
         /**
-         * @param string [name='']
-         * @param string [filename='']
+         * @param name [name='']
+         * @param filename [filename='']
          */
         appendNameFilePair(name?: string, filename?: string): void;
 
         /**
-         * @param string [name='']
-         * @param string [value='']
+         * @param name [name='']
+         * @param value [value='']
          */
         appendNameValuePair(name?: string, value?: string): void;
         applyElement(apply: IHTMLElement, where: string): IHTMLElement;
@@ -33697,7 +33645,7 @@ declare namespace MSHTML {
         readonly clientWidth: number;
         cloneNode(fDeep: boolean): IHTMLDOMNode;
         componentFromPoint(x: number, y: number): string;
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
         contains(pChild: IHTMLElement): boolean;
         contentEditable: string;
         createControlRange(): any;
@@ -33716,7 +33664,7 @@ declare namespace MSHTML {
         focus(): void;
         getAdjacentText(where: string): string;
 
-        /** @param number [lFlags=0] */
+        /** @param lFlags [lFlags=0] */
         getAttribute(strAttributeName: string, lFlags?: number): any;
         getAttributeNode(bstrName: string): IHTMLDOMAttribute;
         getAttributeNodeNS(pvarNS: any, bstrName: string): IHTMLDOMAttribute2;
@@ -33909,7 +33857,7 @@ declare namespace MSHTML {
         readonly recordNumber: any;
         releaseCapture(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         removeAttribute(strAttributeName: string, lFlags?: number): boolean;
         removeAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         removeAttributeNS(pvarNS: any, strAttributeName: string): void;
@@ -33918,7 +33866,7 @@ declare namespace MSHTML {
         removeExpression(propname: string): boolean;
         removeFilter(pUnk: any): void;
 
-        /** @param boolean [fDeep=false] */
+        /** @param fDeep [fDeep=false] */
         removeNode(fDeep?: boolean): IHTMLDOMNode;
         replaceAdjacentText(where: string, newText: string): string;
         replaceChild(newChild: IHTMLDOMNode, oldChild: IHTMLDOMNode): IHTMLDOMNode;
@@ -33934,16 +33882,16 @@ declare namespace MSHTML {
         readonly scrollWidth: number;
         setActive(): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         setAttribute(strAttributeName: string, AttributeValue: any, lFlags?: number): void;
         setAttributeNode(pattr: IHTMLDOMAttribute): IHTMLDOMAttribute;
         setAttributeNodeNS(pattr: IHTMLDOMAttribute2): IHTMLDOMAttribute2;
         setAttributeNS(pvarNS: any, strAttributeName: string, pvarAttributeValue: any): void;
 
-        /** @param boolean [containerCapture=true] */
+        /** @param containerCapture [containerCapture=true] */
         setCapture(containerCapture?: boolean): void;
 
-        /** @param string [language=''] */
+        /** @param language [language=''] */
         setExpression(propname: string, expression: string, language?: string): void;
         readonly sourceIndex: number;
         spellcheck: any;
@@ -33961,6 +33909,7 @@ declare namespace MSHTML {
         readonly uniqueNumber: number;
         urns(urn: any): any;
         xmsAcceleratorKey: string;
+        (name?: any, index?: any): any;
     }
 
     class RangeException {
@@ -33981,9 +33930,7 @@ declare namespace MSHTML {
         propertyIsInline(name: string): boolean;
     }
 
-    class RulesAppliedCollection {
-        private 'MSHTML.RulesAppliedCollection_typekey': RulesAppliedCollection;
-        private constructor();
+    interface RulesAppliedCollection {
         readonly element: IHTMLElement;
         item(index: number): IRulesApplied;
         readonly length: number;
@@ -33992,6 +33939,7 @@ declare namespace MSHTML {
         propertyInheritedFrom(name: string): IRulesApplied;
         propertyInheritedTrace(name: string, index: number): IRulesApplied;
         propertyInheritedTraceLength(name: string): number;
+        (index: number): IRulesApplied;
     }
 
     class Scriptlet {
@@ -34005,12 +33953,11 @@ declare namespace MSHTML {
         url: string;
     }
 
-    class StaticNodeList {
-        private 'MSHTML.StaticNodeList_typekey': StaticNodeList;
-        private constructor();
-        readonly 'constructor': any;
+    interface StaticNodeList {
+        readonly ['constructor']: any;
         item(index: number): any;
         readonly length: number;
+        (index: number): any;
     }
 
     class SVGAElement {
@@ -34230,7 +34177,7 @@ declare namespace MSHTML {
         readonly filters: IHTMLFiltersCollection;
         focusable: SVGAnimatedEnumeration;
 
-        /** @param number [lFlags=0] */
+        /** @param lFlags [lFlags=0] */
         getAttribute(strAttributeName: string, lFlags?: number): any;
         id: string;
         innerHTML: string;
@@ -34274,11 +34221,11 @@ declare namespace MSHTML {
         readonly parentTextEdit: IHTMLElement;
         readonly recordNumber: any;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         removeAttribute(strAttributeName: string, lFlags?: number): boolean;
         scrollIntoView(varargStart?: any): void;
 
-        /** @param number [lFlags=1] */
+        /** @param lFlags [lFlags=1] */
         setAttribute(strAttributeName: string, AttributeValue: any, lFlags?: number): void;
         readonly sourceIndex: number;
         readonly style: IHTMLStyle;
@@ -35484,13 +35431,12 @@ declare namespace MSHTML {
     class XDomainRequest {
         private 'MSHTML.XDomainRequest_typekey': XDomainRequest;
         private constructor();
-        readonly 'constructor': any;
+        readonly ['constructor']: any;
     }
 
-    class XDomainRequestFactory {
-        private 'MSHTML.XDomainRequestFactory_typekey': XDomainRequestFactory;
-        private constructor();
+    interface XDomainRequestFactory {
         create(): IHTMLXDomainRequest;
+        (): IHTMLXDomainRequest;
     }
 
     class XMLHttpRequestEventTarget {
@@ -35510,991 +35456,124 @@ declare namespace MSHTML {
 
 interface ActiveXObject {
     on(obj: MSHTML.HTMLNamespace, event: 'onreadystatechange', argNames: ['pEvtObj'], handler: (this: MSHTML.HTMLNamespace, parameter: {readonly pEvtObj: MSHTML.IHTMLEventObj}) => void): void;
-    on(
-        obj: MSHTML.HTMLWindow2, event: 'onerror', argNames: ['description', 'url', 'line'], handler: (
-            this: MSHTML.HTMLWindow2, parameter: {readonly description: string, readonly url: string, readonly line: number}) => void): void;
-    on(
-        obj: MSHTML.HTMLWindowProxy, event: 'onerror', argNames: ['description', 'url', 'line'], handler: (
-            this: MSHTML.HTMLWindowProxy, parameter: {readonly description: string, readonly url: string, readonly line: number}) => void): void;
+    on(obj: MSHTML.HTMLWindow2, event: 'onerror', argNames: ['description', 'url', 'line'], handler: (this: MSHTML.HTMLWindow2, parameter: {readonly description: string, readonly url: string, readonly line: number}) => void): void;
+    on(obj: MSHTML.HTMLWindowProxy, event: 'onerror', argNames: ['description', 'url', 'line'], handler: (this: MSHTML.HTMLWindowProxy, parameter: {readonly description: string, readonly url: string, readonly line: number}) => void): void;
     on(obj: MSHTML.Scriptlet, event: 'onscriptletevent', argNames: ['name', 'eventData'], handler: (this: MSHTML.Scriptlet, parameter: {readonly name: string, readonly eventData: any}) => void): void;
-    on(
-        obj: MSHTML.HTMLAnchorElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' |
-        'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' |
-        'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' |
-        'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' |
-        'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart',
-        handler: (this: MSHTML.HTMLAnchorElement, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.HTMLAreaElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' |
-        'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' |
-        'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' |
-        'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' |
-        'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart',
-        handler: (this: MSHTML.HTMLAreaElement, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.HTMLAudioElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' |
-        'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' |
-        'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' |
-        'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' |
-        'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart',
-        handler: (this: MSHTML.HTMLAudioElement, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.HTMLBaseElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' |
-        'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' |
-        'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' |
-        'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' |
-        'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart',
-        handler: (this: MSHTML.HTMLBaseElement, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.HTMLBaseFontElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' |
-        'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' |
-        'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' |
-        'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' |
-        'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart',
-        handler: (this: MSHTML.HTMLBaseFontElement, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.HTMLBGsound, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' |
-        'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' |
-        'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' |
-        'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' |
-        'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' |
-        'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' |
-        'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart',
-        handler: (this: MSHTML.HTMLBGsound, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.HTMLBlockElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' |
-        'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' |
-        'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' |
-        'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' |
-        'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart',
-        handler: (this: MSHTML.HTMLBlockElement, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.HTMLBody, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' |
-        'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' |
-        'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' |
-        'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' |
-        'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' |
-        'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselect' | 'onselectstart',
-        handler: (this: MSHTML.HTMLBody, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.HTMLBRElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' |
-        'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' |
-        'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' |
-        'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' |
-        'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart',
-        handler: (this: MSHTML.HTMLBRElement, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.HTMLButtonElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' |
-        'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' |
-        'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' |
-        'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' |
-        'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart',
-        handler: (this: MSHTML.HTMLButtonElement, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.HTMLCanvasElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' |
-        'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' |
-        'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' |
-        'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' |
-        'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart',
-        handler: (this: MSHTML.HTMLCanvasElement, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.HTMLCommentElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' |
-        'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' |
-        'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' |
-        'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' |
-        'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart',
-        handler: (this: MSHTML.HTMLCommentElement, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.HTMLDDElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' |
-        'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' |
-        'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' |
-        'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' |
-        'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart',
-        handler: (this: MSHTML.HTMLDDElement, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.HTMLDivElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' |
-        'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' |
-        'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' |
-        'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' |
-        'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart',
-        handler: (this: MSHTML.HTMLDivElement, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.HTMLDivPosition, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' |
-        'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' |
-        'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' |
-        'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' |
-        'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselect' | 'onselectstart',
-        handler: (this: MSHTML.HTMLDivPosition, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.HTMLDListElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' |
-        'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' |
-        'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' |
-        'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' |
-        'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart',
-        handler: (this: MSHTML.HTMLDListElement, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.HTMLDocument, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforeupdate' |
-        'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' |
-        'ondragstart' | 'onerrorupdate' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onmousedown' | 'onmousemove' | 'onmouseout' |
-        'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onpropertychange' | 'onreadystatechange' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' |
-        'onselectionchange' | 'onselectstart' | 'onstop',
-        handler: (this: MSHTML.HTMLDocument, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.HTMLDTElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' |
-        'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' |
-        'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' |
-        'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' |
-        'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart',
-        handler: (this: MSHTML.HTMLDTElement, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.HTMLEmbed, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' |
-        'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' |
-        'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' |
-        'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' |
-        'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' |
-        'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' |
-        'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart',
-        handler: (this: MSHTML.HTMLEmbed, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.HTMLFieldSetElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' |
-        'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' |
-        'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' |
-        'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' |
-        'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselect' | 'onselectstart',
-        handler: (this: MSHTML.HTMLFieldSetElement, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.HTMLFontElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' |
-        'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' |
-        'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' |
-        'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' |
-        'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart',
-        handler: (this: MSHTML.HTMLFontElement, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.HTMLFormElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' |
-        'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' |
-        'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' |
-        'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onreset' | 'onresize' |
-        'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart' | 'onsubmit',
-        handler: (this: MSHTML.HTMLFormElement, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.HTMLFrameBase, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' |
-        'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' |
-        'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' |
-        'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' |
-        'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart',
-        handler: (this: MSHTML.HTMLFrameBase, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.HTMLFrameElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' |
-        'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' |
-        'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' |
-        'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' |
-        'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart',
-        handler: (this: MSHTML.HTMLFrameElement, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.HTMLFrameSetSite, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' |
-        'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' |
-        'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' |
-        'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' |
-        'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart',
-        handler: (this: MSHTML.HTMLFrameSetSite, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.HTMLGenericElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' |
-        'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' |
-        'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' |
-        'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' |
-        'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart',
-        handler: (this: MSHTML.HTMLGenericElement, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.HTMLHeadElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' |
-        'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' |
-        'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' |
-        'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' |
-        'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart',
-        handler: (this: MSHTML.HTMLHeadElement, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.HTMLHeaderElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' |
-        'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' |
-        'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' |
-        'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' |
-        'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart',
-        handler: (this: MSHTML.HTMLHeaderElement, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.HTMLHRElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' |
-        'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' |
-        'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' |
-        'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' |
-        'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart',
-        handler: (this: MSHTML.HTMLHRElement, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.HTMLHtmlElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' |
-        'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' |
-        'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' |
-        'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' |
-        'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart',
-        handler: (this: MSHTML.HTMLHtmlElement, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.HTMLIFrame, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' |
-        'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' |
-        'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' |
-        'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' |
-        'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' |
-        'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' |
-        'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart',
-        handler: (this: MSHTML.HTMLIFrame, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.HTMLImg, event: 'onabort' | 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' |
-        'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerror' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' |
-        'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onload' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' |
-        'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' |
-        'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart',
-        handler: (this: MSHTML.HTMLImg, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.HTMLInputButtonElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' |
-        'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' |
-        'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' |
-        'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' |
-        'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart',
-        handler: (this: MSHTML.HTMLInputButtonElement, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.HTMLInputElement, event: 'onabort' | 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' |
-        'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerror' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' |
-        'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onload' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' |
-        'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' |
-        'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselect' | 'onselectstart',
-        handler: (this: MSHTML.HTMLInputElement, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.HTMLInputFileElement, event: 'onabort' | 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' |
-        'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerror' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' |
-        'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onload' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' |
-        'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' |
-        'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselect' | 'onselectstart',
-        handler: (this: MSHTML.HTMLInputFileElement, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.htmlInputImage, event: 'onabort' | 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' |
-        'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerror' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' |
-        'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onload' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' |
-        'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' |
-        'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart',
-        handler: (this: MSHTML.htmlInputImage, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.HTMLInputTextElement, event: 'onabort' | 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' |
-        'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerror' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' |
-        'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onload' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' |
-        'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' |
-        'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselect' | 'onselectstart',
-        handler: (this: MSHTML.HTMLInputTextElement, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.HTMLIsIndexElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' |
-        'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' |
-        'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' |
-        'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' |
-        'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart',
-        handler: (this: MSHTML.HTMLIsIndexElement, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.HTMLLabelElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' |
-        'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' |
-        'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' |
-        'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' |
-        'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart',
-        handler: (this: MSHTML.HTMLLabelElement, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.HTMLLegendElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' |
-        'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' |
-        'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' |
-        'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' |
-        'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselect' | 'onselectstart',
-        handler: (this: MSHTML.HTMLLegendElement, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.HTMLLIElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' |
-        'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' |
-        'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' |
-        'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' |
-        'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart',
-        handler: (this: MSHTML.HTMLLIElement, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.HTMLLinkElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' |
-        'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerror' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' |
-        'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onload' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' |
-        'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' |
-        'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart',
-        handler: (this: MSHTML.HTMLLinkElement, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.HTMLListElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' |
-        'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' |
-        'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' |
-        'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' |
-        'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart',
-        handler: (this: MSHTML.HTMLListElement, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.HTMLMapElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' |
-        'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' |
-        'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' |
-        'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' |
-        'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart',
-        handler: (this: MSHTML.HTMLMapElement, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.HTMLMarqueeElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'onbounce' | 'oncellchange' | 'onchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' |
-        'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' |
-        'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfinish' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' |
-        'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' |
-        'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' |
-        'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselect' | 'onselectstart' |
-        'onstart',
-        handler: (this: MSHTML.HTMLMarqueeElement, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.HTMLMediaElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' |
-        'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' |
-        'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' |
-        'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' |
-        'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart',
-        handler: (this: MSHTML.HTMLMediaElement, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.HTMLMetaElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' |
-        'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' |
-        'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' |
-        'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' |
-        'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart',
-        handler: (this: MSHTML.HTMLMetaElement, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.HTMLNextIdElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' |
-        'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' |
-        'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' |
-        'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' |
-        'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart',
-        handler: (this: MSHTML.HTMLNextIdElement, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.HTMLNoShowElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' |
-        'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' |
-        'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' |
-        'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' |
-        'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart',
-        handler: (this: MSHTML.HTMLNoShowElement, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.HTMLObjectElement, event: 'onafterupdate' | 'onbeforeupdate' | 'oncellchange' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' |
-        'onerror' | 'onerrorupdate' | 'onreadystatechange' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted',
-        handler: (this: MSHTML.HTMLObjectElement, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.HTMLOListElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' |
-        'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' |
-        'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' |
-        'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' |
-        'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart',
-        handler: (this: MSHTML.HTMLOListElement, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.HTMLOptionButtonElement, event: 'onabort' | 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' |
-        'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onchange' | 'onclick' | 'oncontextmenu' |
-        'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' |
-        'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerror' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' |
-        'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onload' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' |
-        'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' |
-        'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselect' |
-        'onselectstart',
-        handler: (this: MSHTML.HTMLOptionButtonElement, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.HTMLOptionElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' |
-        'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' |
-        'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' |
-        'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' |
-        'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart',
-        handler: (this: MSHTML.HTMLOptionElement, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.HTMLParaElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' |
-        'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' |
-        'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' |
-        'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' |
-        'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart',
-        handler: (this: MSHTML.HTMLParaElement, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.HTMLParamElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' |
-        'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' |
-        'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' |
-        'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' |
-        'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart',
-        handler: (this: MSHTML.HTMLParamElement, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.HTMLPhraseElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' |
-        'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' |
-        'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' |
-        'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' |
-        'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart',
-        handler: (this: MSHTML.HTMLPhraseElement, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.HTMLProgressElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' |
-        'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' |
-        'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' |
-        'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' |
-        'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart',
-        handler: (this: MSHTML.HTMLProgressElement, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.HTMLRichtextElement, event: 'onabort' | 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' |
-        'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerror' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' |
-        'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onload' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' |
-        'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' |
-        'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselect' | 'onselectstart',
-        handler: (this: MSHTML.HTMLRichtextElement, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.HTMLScriptElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' |
-        'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerror' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' |
-        'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' |
-        'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' |
-        'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart',
-        handler: (this: MSHTML.HTMLScriptElement, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.HTMLSelectElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' |
-        'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' |
-        'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' |
-        'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' |
-        'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart',
-        handler: (this: MSHTML.HTMLSelectElement, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.HTMLSemanticElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' |
-        'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' |
-        'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' |
-        'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' |
-        'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart',
-        handler: (this: MSHTML.HTMLSemanticElement, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.HTMLSourceElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' |
-        'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' |
-        'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' |
-        'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' |
-        'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart',
-        handler: (this: MSHTML.HTMLSourceElement, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.HTMLSpanElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' |
-        'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' |
-        'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' |
-        'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' |
-        'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart',
-        handler: (this: MSHTML.HTMLSpanElement, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.HTMLSpanFlow, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' |
-        'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' |
-        'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' |
-        'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' |
-        'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselect' | 'onselectstart', handler: (
-            this: MSHTML.HTMLSpanFlow, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.HTMLStyleElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' |
-        'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerror' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' |
-        'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onload' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' |
-        'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' |
-        'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart',
-        handler: (this: MSHTML.HTMLStyleElement, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.HTMLTable, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' |
-        'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' |
-        'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' |
-        'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' |
-        'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' |
-        'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' |
-        'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart',
-        handler: (this: MSHTML.HTMLTable, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.HTMLTableCaption, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' |
-        'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' |
-        'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' |
-        'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' |
-        'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselect' | 'onselectstart',
-        handler: (this: MSHTML.HTMLTableCaption, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.HTMLTableCell, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' |
-        'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' |
-        'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' |
-        'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' |
-        'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselect' | 'onselectstart', handler: (
-            this: MSHTML.HTMLTableCell, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.HTMLTableCol, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' |
-        'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' |
-        'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' |
-        'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' |
-        'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart',
-        handler: (this: MSHTML.HTMLTableCol, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.HTMLTableRow, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' |
-        'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' |
-        'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' |
-        'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' |
-        'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart',
-        handler: (this: MSHTML.HTMLTableRow, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.HTMLTableSection, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' |
-        'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' |
-        'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' |
-        'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' |
-        'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart',
-        handler: (this: MSHTML.HTMLTableSection, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.HTMLTextAreaElement, event: 'onabort' | 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' |
-        'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerror' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' |
-        'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onload' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' |
-        'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' |
-        'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselect' | 'onselectstart',
-        handler: (this: MSHTML.HTMLTextAreaElement, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.HTMLTextElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' |
-        'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' |
-        'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' |
-        'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' |
-        'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart',
-        handler: (this: MSHTML.HTMLTextElement, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.HTMLTitleElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' |
-        'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' |
-        'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' |
-        'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' |
-        'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart',
-        handler: (this: MSHTML.HTMLTitleElement, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.HTMLUListElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' |
-        'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' |
-        'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' |
-        'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' |
-        'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart',
-        handler: (this: MSHTML.HTMLUListElement, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.HTMLUnknownElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' |
-        'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' |
-        'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' |
-        'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' |
-        'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart',
-        handler: (this: MSHTML.HTMLUnknownElement, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.HTMLVideoElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' |
-        'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' |
-        'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' |
-        'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' |
-        'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart',
-        handler: (this: MSHTML.HTMLVideoElement, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.HTMLWindow2, event: 'onafterprint' | 'onbeforeprint' | 'onbeforeunload' | 'onblur' | 'onfocus' | 'onhelp' | 'onload' | 'onresize' | 'onscroll' |
-        'onunload',
-        handler: (this: MSHTML.HTMLWindow2, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.HTMLWindowProxy, event: 'onafterprint' | 'onbeforeprint' | 'onbeforeunload' | 'onblur' | 'onfocus' | 'onhelp' | 'onload' | 'onresize' | 'onscroll' |
-        'onunload',
-        handler: (this: MSHTML.HTMLWindowProxy, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.HTMLWndOptionElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' |
-        'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' |
-        'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' |
-        'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' |
-        'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart',
-        handler: (this: MSHTML.HTMLWndOptionElement, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.HTMLWndSelectElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' |
-        'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' |
-        'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' |
-        'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' |
-        'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart',
-        handler: (this: MSHTML.HTMLWndSelectElement, parameter: {}) => void): void;
+    on(obj: MSHTML.HTMLAnchorElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart', handler: (this: MSHTML.HTMLAnchorElement, parameter: {}) => void): void;
+    on(obj: MSHTML.HTMLAreaElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart', handler: (this: MSHTML.HTMLAreaElement, parameter: {}) => void): void;
+    on(obj: MSHTML.HTMLAudioElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart', handler: (this: MSHTML.HTMLAudioElement, parameter: {}) => void): void;
+    on(obj: MSHTML.HTMLBaseElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart', handler: (this: MSHTML.HTMLBaseElement, parameter: {}) => void): void;
+    on(obj: MSHTML.HTMLBaseFontElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart', handler: (this: MSHTML.HTMLBaseFontElement, parameter: {}) => void): void;
+    on(obj: MSHTML.HTMLBGsound, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart', handler: (this: MSHTML.HTMLBGsound, parameter: {}) => void): void;
+    on(obj: MSHTML.HTMLBlockElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart', handler: (this: MSHTML.HTMLBlockElement, parameter: {}) => void): void;
+    on(obj: MSHTML.HTMLBody, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselect' | 'onselectstart', handler: (this: MSHTML.HTMLBody, parameter: {}) => void): void;
+    on(obj: MSHTML.HTMLBRElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart', handler: (this: MSHTML.HTMLBRElement, parameter: {}) => void): void;
+    on(obj: MSHTML.HTMLButtonElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart', handler: (this: MSHTML.HTMLButtonElement, parameter: {}) => void): void;
+    on(obj: MSHTML.HTMLCanvasElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart', handler: (this: MSHTML.HTMLCanvasElement, parameter: {}) => void): void;
+    on(obj: MSHTML.HTMLCommentElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart', handler: (this: MSHTML.HTMLCommentElement, parameter: {}) => void): void;
+    on(obj: MSHTML.HTMLDDElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart', handler: (this: MSHTML.HTMLDDElement, parameter: {}) => void): void;
+    on(obj: MSHTML.HTMLDivElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart', handler: (this: MSHTML.HTMLDivElement, parameter: {}) => void): void;
+    on(obj: MSHTML.HTMLDivPosition, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselect' | 'onselectstart', handler: (this: MSHTML.HTMLDivPosition, parameter: {}) => void): void;
+    on(obj: MSHTML.HTMLDListElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart', handler: (this: MSHTML.HTMLDListElement, parameter: {}) => void): void;
+    on(obj: MSHTML.HTMLDocument, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforeupdate' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondragstart' | 'onerrorupdate' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onmousedown' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onpropertychange' | 'onreadystatechange' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onselectionchange' | 'onselectstart' | 'onstop', handler: (this: MSHTML.HTMLDocument, parameter: {}) => void): void;
+    on(obj: MSHTML.HTMLDTElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart', handler: (this: MSHTML.HTMLDTElement, parameter: {}) => void): void;
+    on(obj: MSHTML.HTMLEmbed, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart', handler: (this: MSHTML.HTMLEmbed, parameter: {}) => void): void;
+    on(obj: MSHTML.HTMLFieldSetElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselect' | 'onselectstart', handler: (this: MSHTML.HTMLFieldSetElement, parameter: {}) => void): void;
+    on(obj: MSHTML.HTMLFontElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart', handler: (this: MSHTML.HTMLFontElement, parameter: {}) => void): void;
+    on(obj: MSHTML.HTMLFormElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onreset' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart' | 'onsubmit', handler: (this: MSHTML.HTMLFormElement, parameter: {}) => void): void;
+    on(obj: MSHTML.HTMLFrameBase, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart', handler: (this: MSHTML.HTMLFrameBase, parameter: {}) => void): void;
+    on(obj: MSHTML.HTMLFrameElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart', handler: (this: MSHTML.HTMLFrameElement, parameter: {}) => void): void;
+    on(obj: MSHTML.HTMLFrameSetSite, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart', handler: (this: MSHTML.HTMLFrameSetSite, parameter: {}) => void): void;
+    on(obj: MSHTML.HTMLGenericElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart', handler: (this: MSHTML.HTMLGenericElement, parameter: {}) => void): void;
+    on(obj: MSHTML.HTMLHeadElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart', handler: (this: MSHTML.HTMLHeadElement, parameter: {}) => void): void;
+    on(obj: MSHTML.HTMLHeaderElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart', handler: (this: MSHTML.HTMLHeaderElement, parameter: {}) => void): void;
+    on(obj: MSHTML.HTMLHRElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart', handler: (this: MSHTML.HTMLHRElement, parameter: {}) => void): void;
+    on(obj: MSHTML.HTMLHtmlElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart', handler: (this: MSHTML.HTMLHtmlElement, parameter: {}) => void): void;
+    on(obj: MSHTML.HTMLIFrame, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart', handler: (this: MSHTML.HTMLIFrame, parameter: {}) => void): void;
+    on(obj: MSHTML.HTMLImg, event: 'onabort' | 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerror' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onload' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart', handler: (this: MSHTML.HTMLImg, parameter: {}) => void): void;
+    on(obj: MSHTML.HTMLInputButtonElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart', handler: (this: MSHTML.HTMLInputButtonElement, parameter: {}) => void): void;
+    on(obj: MSHTML.HTMLInputElement, event: 'onabort' | 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerror' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onload' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselect' | 'onselectstart', handler: (this: MSHTML.HTMLInputElement, parameter: {}) => void): void;
+    on(obj: MSHTML.HTMLInputFileElement, event: 'onabort' | 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerror' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onload' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselect' | 'onselectstart', handler: (this: MSHTML.HTMLInputFileElement, parameter: {}) => void): void;
+    on(obj: MSHTML.htmlInputImage, event: 'onabort' | 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerror' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onload' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart', handler: (this: MSHTML.htmlInputImage, parameter: {}) => void): void;
+    on(obj: MSHTML.HTMLInputTextElement, event: 'onabort' | 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerror' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onload' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselect' | 'onselectstart', handler: (this: MSHTML.HTMLInputTextElement, parameter: {}) => void): void;
+    on(obj: MSHTML.HTMLIsIndexElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart', handler: (this: MSHTML.HTMLIsIndexElement, parameter: {}) => void): void;
+    on(obj: MSHTML.HTMLLabelElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart', handler: (this: MSHTML.HTMLLabelElement, parameter: {}) => void): void;
+    on(obj: MSHTML.HTMLLegendElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselect' | 'onselectstart', handler: (this: MSHTML.HTMLLegendElement, parameter: {}) => void): void;
+    on(obj: MSHTML.HTMLLIElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart', handler: (this: MSHTML.HTMLLIElement, parameter: {}) => void): void;
+    on(obj: MSHTML.HTMLLinkElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerror' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onload' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart', handler: (this: MSHTML.HTMLLinkElement, parameter: {}) => void): void;
+    on(obj: MSHTML.HTMLListElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart', handler: (this: MSHTML.HTMLListElement, parameter: {}) => void): void;
+    on(obj: MSHTML.HTMLMapElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart', handler: (this: MSHTML.HTMLMapElement, parameter: {}) => void): void;
+    on(obj: MSHTML.HTMLMarqueeElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'onbounce' | 'oncellchange' | 'onchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfinish' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselect' | 'onselectstart' | 'onstart', handler: (this: MSHTML.HTMLMarqueeElement, parameter: {}) => void): void;
+    on(obj: MSHTML.HTMLMediaElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart', handler: (this: MSHTML.HTMLMediaElement, parameter: {}) => void): void;
+    on(obj: MSHTML.HTMLMetaElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart', handler: (this: MSHTML.HTMLMetaElement, parameter: {}) => void): void;
+    on(obj: MSHTML.HTMLNextIdElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart', handler: (this: MSHTML.HTMLNextIdElement, parameter: {}) => void): void;
+    on(obj: MSHTML.HTMLNoShowElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart', handler: (this: MSHTML.HTMLNoShowElement, parameter: {}) => void): void;
+    on(obj: MSHTML.HTMLObjectElement, event: 'onafterupdate' | 'onbeforeupdate' | 'oncellchange' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'onerror' | 'onerrorupdate' | 'onreadystatechange' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted', handler: (this: MSHTML.HTMLObjectElement, parameter: {}) => void): void;
+    on(obj: MSHTML.HTMLOListElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart', handler: (this: MSHTML.HTMLOListElement, parameter: {}) => void): void;
+    on(obj: MSHTML.HTMLOptionButtonElement, event: 'onabort' | 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerror' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onload' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselect' | 'onselectstart', handler: (this: MSHTML.HTMLOptionButtonElement, parameter: {}) => void): void;
+    on(obj: MSHTML.HTMLOptionElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart', handler: (this: MSHTML.HTMLOptionElement, parameter: {}) => void): void;
+    on(obj: MSHTML.HTMLParaElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart', handler: (this: MSHTML.HTMLParaElement, parameter: {}) => void): void;
+    on(obj: MSHTML.HTMLParamElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart', handler: (this: MSHTML.HTMLParamElement, parameter: {}) => void): void;
+    on(obj: MSHTML.HTMLPhraseElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart', handler: (this: MSHTML.HTMLPhraseElement, parameter: {}) => void): void;
+    on(obj: MSHTML.HTMLProgressElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart', handler: (this: MSHTML.HTMLProgressElement, parameter: {}) => void): void;
+    on(obj: MSHTML.HTMLRichtextElement, event: 'onabort' | 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerror' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onload' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselect' | 'onselectstart', handler: (this: MSHTML.HTMLRichtextElement, parameter: {}) => void): void;
+    on(obj: MSHTML.HTMLScriptElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerror' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart', handler: (this: MSHTML.HTMLScriptElement, parameter: {}) => void): void;
+    on(obj: MSHTML.HTMLSelectElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart', handler: (this: MSHTML.HTMLSelectElement, parameter: {}) => void): void;
+    on(obj: MSHTML.HTMLSemanticElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart', handler: (this: MSHTML.HTMLSemanticElement, parameter: {}) => void): void;
+    on(obj: MSHTML.HTMLSourceElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart', handler: (this: MSHTML.HTMLSourceElement, parameter: {}) => void): void;
+    on(obj: MSHTML.HTMLSpanElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart', handler: (this: MSHTML.HTMLSpanElement, parameter: {}) => void): void;
+    on(obj: MSHTML.HTMLSpanFlow, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselect' | 'onselectstart', handler: (this: MSHTML.HTMLSpanFlow, parameter: {}) => void): void;
+    on(obj: MSHTML.HTMLStyleElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerror' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onload' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart', handler: (this: MSHTML.HTMLStyleElement, parameter: {}) => void): void;
+    on(obj: MSHTML.HTMLTable, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart', handler: (this: MSHTML.HTMLTable, parameter: {}) => void): void;
+    on(obj: MSHTML.HTMLTableCaption, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselect' | 'onselectstart', handler: (this: MSHTML.HTMLTableCaption, parameter: {}) => void): void;
+    on(obj: MSHTML.HTMLTableCell, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselect' | 'onselectstart', handler: (this: MSHTML.HTMLTableCell, parameter: {}) => void): void;
+    on(obj: MSHTML.HTMLTableCol, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart', handler: (this: MSHTML.HTMLTableCol, parameter: {}) => void): void;
+    on(obj: MSHTML.HTMLTableRow, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart', handler: (this: MSHTML.HTMLTableRow, parameter: {}) => void): void;
+    on(obj: MSHTML.HTMLTableSection, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart', handler: (this: MSHTML.HTMLTableSection, parameter: {}) => void): void;
+    on(obj: MSHTML.HTMLTextAreaElement, event: 'onabort' | 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerror' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onload' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselect' | 'onselectstart', handler: (this: MSHTML.HTMLTextAreaElement, parameter: {}) => void): void;
+    on(obj: MSHTML.HTMLTextElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart', handler: (this: MSHTML.HTMLTextElement, parameter: {}) => void): void;
+    on(obj: MSHTML.HTMLTitleElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart', handler: (this: MSHTML.HTMLTitleElement, parameter: {}) => void): void;
+    on(obj: MSHTML.HTMLUListElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart', handler: (this: MSHTML.HTMLUListElement, parameter: {}) => void): void;
+    on(obj: MSHTML.HTMLUnknownElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart', handler: (this: MSHTML.HTMLUnknownElement, parameter: {}) => void): void;
+    on(obj: MSHTML.HTMLVideoElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart', handler: (this: MSHTML.HTMLVideoElement, parameter: {}) => void): void;
+    on(obj: MSHTML.HTMLWindow2, event: 'onafterprint' | 'onbeforeprint' | 'onbeforeunload' | 'onblur' | 'onfocus' | 'onhelp' | 'onload' | 'onresize' | 'onscroll' | 'onunload', handler: (this: MSHTML.HTMLWindow2, parameter: {}) => void): void;
+    on(obj: MSHTML.HTMLWindowProxy, event: 'onafterprint' | 'onbeforeprint' | 'onbeforeunload' | 'onblur' | 'onfocus' | 'onhelp' | 'onload' | 'onresize' | 'onscroll' | 'onunload', handler: (this: MSHTML.HTMLWindowProxy, parameter: {}) => void): void;
+    on(obj: MSHTML.HTMLWndOptionElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart', handler: (this: MSHTML.HTMLWndOptionElement, parameter: {}) => void): void;
+    on(obj: MSHTML.HTMLWndSelectElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart', handler: (this: MSHTML.HTMLWndSelectElement, parameter: {}) => void): void;
     on(obj: MSHTML.HTMLXMLHttpRequest, event: 'onreadystatechange' | 'ontimeout', handler: (this: MSHTML.HTMLXMLHttpRequest, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.OldHTMLDocument, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforeupdate' |
-        'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' |
-        'ondragstart' | 'onerrorupdate' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onmousedown' | 'onmousemove' | 'onmouseout' |
-        'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onpropertychange' | 'onreadystatechange' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' |
-        'onselectionchange' | 'onselectstart' | 'onstop',
-        handler: (this: MSHTML.OldHTMLDocument, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.OldHTMLFormElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' |
-        'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' |
-        'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' |
-        'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onreset' | 'onresize' |
-        'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart' | 'onsubmit',
-        handler: (this: MSHTML.OldHTMLFormElement, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.Scriptlet, event: 'onclick' | 'ondblclick' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onmousedown' | 'onmousemove' | 'onmouseup' |
-        'onreadystatechange',
-        handler: (this: MSHTML.Scriptlet, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.SVGAElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' |
-        'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' |
-        'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' |
-        'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' |
-        'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' |
-        'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' |
-        'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart',
-        handler: (this: MSHTML.SVGAElement, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.SVGCircleElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' |
-        'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' |
-        'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' |
-        'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' |
-        'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart',
-        handler: (this: MSHTML.SVGCircleElement, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.SVGClipPathElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' |
-        'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' |
-        'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' |
-        'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' |
-        'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart',
-        handler: (this: MSHTML.SVGClipPathElement, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.SVGDefsElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' |
-        'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' |
-        'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' |
-        'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' |
-        'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart',
-        handler: (this: MSHTML.SVGDefsElement, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.SVGElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' |
-        'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' |
-        'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' |
-        'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' |
-        'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' |
-        'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' |
-        'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart',
-        handler: (this: MSHTML.SVGElement, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.SVGEllipseElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' |
-        'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' |
-        'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' |
-        'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' |
-        'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart',
-        handler: (this: MSHTML.SVGEllipseElement, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.SVGGElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' |
-        'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' |
-        'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' |
-        'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' |
-        'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' |
-        'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' |
-        'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart',
-        handler: (this: MSHTML.SVGGElement, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.SVGGradientElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' |
-        'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' |
-        'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' |
-        'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' |
-        'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart',
-        handler: (this: MSHTML.SVGGradientElement, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.SVGImageElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' |
-        'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' |
-        'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' |
-        'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' |
-        'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart',
-        handler: (this: MSHTML.SVGImageElement, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.SVGLineElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' |
-        'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' |
-        'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' |
-        'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' |
-        'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart',
-        handler: (this: MSHTML.SVGLineElement, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.SVGMarkerElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' |
-        'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' |
-        'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' |
-        'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' |
-        'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart',
-        handler: (this: MSHTML.SVGMarkerElement, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.SVGMaskElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' |
-        'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' |
-        'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' |
-        'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' |
-        'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart',
-        handler: (this: MSHTML.SVGMaskElement, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.SVGPathElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' |
-        'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' |
-        'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' |
-        'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' |
-        'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart',
-        handler: (this: MSHTML.SVGPathElement, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.SVGPatternElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' |
-        'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' |
-        'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' |
-        'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' |
-        'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart',
-        handler: (this: MSHTML.SVGPatternElement, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.SVGPolygonElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' |
-        'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' |
-        'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' |
-        'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' |
-        'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart',
-        handler: (this: MSHTML.SVGPolygonElement, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.SVGPolylineElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' |
-        'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' |
-        'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' |
-        'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' |
-        'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart',
-        handler: (this: MSHTML.SVGPolylineElement, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.SVGRectElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' |
-        'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' |
-        'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' |
-        'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' |
-        'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart',
-        handler: (this: MSHTML.SVGRectElement, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.SVGScriptElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' |
-        'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' |
-        'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' |
-        'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' |
-        'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart',
-        handler: (this: MSHTML.SVGScriptElement, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.SVGStopElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' |
-        'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' |
-        'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' |
-        'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' |
-        'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart',
-        handler: (this: MSHTML.SVGStopElement, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.SVGSVGElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' |
-        'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' |
-        'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' |
-        'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' |
-        'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart',
-        handler: (this: MSHTML.SVGSVGElement, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.SVGSymbolElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' |
-        'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' |
-        'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' |
-        'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' |
-        'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart',
-        handler: (this: MSHTML.SVGSymbolElement, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.SVGTextElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' |
-        'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' |
-        'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' |
-        'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' |
-        'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart',
-        handler: (this: MSHTML.SVGTextElement, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.SVGTextPathElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' |
-        'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' |
-        'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' |
-        'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' |
-        'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart',
-        handler: (this: MSHTML.SVGTextPathElement, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.SVGTSpanElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' |
-        'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' |
-        'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' |
-        'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' |
-        'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart',
-        handler: (this: MSHTML.SVGTSpanElement, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.SVGUseElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' |
-        'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' |
-        'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' |
-        'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' |
-        'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart',
-        handler: (this: MSHTML.SVGUseElement, parameter: {}) => void): void;
-    on(
-        obj: MSHTML.SVGViewElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' |
-        'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' |
-        'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' |
-        'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' |
-        'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' |
-        'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' |
-        'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart',
-        handler: (this: MSHTML.SVGViewElement, parameter: {}) => void): void;
-    new<K extends keyof ActiveXObjectNameMap = any>(progid: K): ActiveXObjectNameMap[K];
+    on(obj: MSHTML.OldHTMLDocument, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforeupdate' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondragstart' | 'onerrorupdate' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onmousedown' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onpropertychange' | 'onreadystatechange' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onselectionchange' | 'onselectstart' | 'onstop', handler: (this: MSHTML.OldHTMLDocument, parameter: {}) => void): void;
+    on(obj: MSHTML.OldHTMLFormElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onreset' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart' | 'onsubmit', handler: (this: MSHTML.OldHTMLFormElement, parameter: {}) => void): void;
+    on(obj: MSHTML.Scriptlet, event: 'onclick' | 'ondblclick' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onmousedown' | 'onmousemove' | 'onmouseup' | 'onreadystatechange', handler: (this: MSHTML.Scriptlet, parameter: {}) => void): void;
+    on(obj: MSHTML.SVGAElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart', handler: (this: MSHTML.SVGAElement, parameter: {}) => void): void;
+    on(obj: MSHTML.SVGCircleElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart', handler: (this: MSHTML.SVGCircleElement, parameter: {}) => void): void;
+    on(obj: MSHTML.SVGClipPathElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart', handler: (this: MSHTML.SVGClipPathElement, parameter: {}) => void): void;
+    on(obj: MSHTML.SVGDefsElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart', handler: (this: MSHTML.SVGDefsElement, parameter: {}) => void): void;
+    on(obj: MSHTML.SVGElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart', handler: (this: MSHTML.SVGElement, parameter: {}) => void): void;
+    on(obj: MSHTML.SVGEllipseElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart', handler: (this: MSHTML.SVGEllipseElement, parameter: {}) => void): void;
+    on(obj: MSHTML.SVGGElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart', handler: (this: MSHTML.SVGGElement, parameter: {}) => void): void;
+    on(obj: MSHTML.SVGGradientElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart', handler: (this: MSHTML.SVGGradientElement, parameter: {}) => void): void;
+    on(obj: MSHTML.SVGImageElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart', handler: (this: MSHTML.SVGImageElement, parameter: {}) => void): void;
+    on(obj: MSHTML.SVGLineElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart', handler: (this: MSHTML.SVGLineElement, parameter: {}) => void): void;
+    on(obj: MSHTML.SVGMarkerElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart', handler: (this: MSHTML.SVGMarkerElement, parameter: {}) => void): void;
+    on(obj: MSHTML.SVGMaskElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart', handler: (this: MSHTML.SVGMaskElement, parameter: {}) => void): void;
+    on(obj: MSHTML.SVGPathElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart', handler: (this: MSHTML.SVGPathElement, parameter: {}) => void): void;
+    on(obj: MSHTML.SVGPatternElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart', handler: (this: MSHTML.SVGPatternElement, parameter: {}) => void): void;
+    on(obj: MSHTML.SVGPolygonElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart', handler: (this: MSHTML.SVGPolygonElement, parameter: {}) => void): void;
+    on(obj: MSHTML.SVGPolylineElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart', handler: (this: MSHTML.SVGPolylineElement, parameter: {}) => void): void;
+    on(obj: MSHTML.SVGRectElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart', handler: (this: MSHTML.SVGRectElement, parameter: {}) => void): void;
+    on(obj: MSHTML.SVGScriptElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart', handler: (this: MSHTML.SVGScriptElement, parameter: {}) => void): void;
+    on(obj: MSHTML.SVGStopElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart', handler: (this: MSHTML.SVGStopElement, parameter: {}) => void): void;
+    on(obj: MSHTML.SVGSVGElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart', handler: (this: MSHTML.SVGSVGElement, parameter: {}) => void): void;
+    on(obj: MSHTML.SVGSymbolElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart', handler: (this: MSHTML.SVGSymbolElement, parameter: {}) => void): void;
+    on(obj: MSHTML.SVGTextElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart', handler: (this: MSHTML.SVGTextElement, parameter: {}) => void): void;
+    on(obj: MSHTML.SVGTextPathElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart', handler: (this: MSHTML.SVGTextPathElement, parameter: {}) => void): void;
+    on(obj: MSHTML.SVGTSpanElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart', handler: (this: MSHTML.SVGTSpanElement, parameter: {}) => void): void;
+    on(obj: MSHTML.SVGUseElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart', handler: (this: MSHTML.SVGUseElement, parameter: {}) => void): void;
+    on(obj: MSHTML.SVGViewElement, event: 'onactivate' | 'onafterupdate' | 'onbeforeactivate' | 'onbeforecopy' | 'onbeforecut' | 'onbeforedeactivate' | 'onbeforeeditfocus' | 'onbeforepaste' | 'onbeforeupdate' | 'onblur' | 'oncellchange' | 'onclick' | 'oncontextmenu' | 'oncontrolselect' | 'oncopy' | 'oncut' | 'ondataavailable' | 'ondatasetchanged' | 'ondatasetcomplete' | 'ondblclick' | 'ondeactivate' | 'ondrag' | 'ondragend' | 'ondragenter' | 'ondragleave' | 'ondragover' | 'ondragstart' | 'ondrop' | 'onerrorupdate' | 'onfilterchange' | 'onfocus' | 'onfocusin' | 'onfocusout' | 'onhelp' | 'onkeydown' | 'onkeypress' | 'onkeyup' | 'onlayoutcomplete' | 'onlosecapture' | 'onmousedown' | 'onmouseenter' | 'onmouseleave' | 'onmousemove' | 'onmouseout' | 'onmouseover' | 'onmouseup' | 'onmousewheel' | 'onmove' | 'onmoveend' | 'onmovestart' | 'onpage' | 'onpaste' | 'onpropertychange' | 'onreadystatechange' | 'onresize' | 'onresizeend' | 'onresizestart' | 'onrowenter' | 'onrowexit' | 'onrowsdelete' | 'onrowsinserted' | 'onscroll' | 'onselectstart', handler: (this: MSHTML.SVGViewElement, parameter: {}) => void): void;
 }
 
 interface ActiveXObjectNameMap {
     htmlfile: MSHTML.HTMLDocument;
     'ScriptBridge.ScriptBridge': MSHTML.Scriptlet;
     'TemplatePrinter.TemplatePrinter': MSHTML.CTemplatePrinter;
-}
-
-interface SafeArray<T = any> {
-    _brand: SafeArray<T>;
 }

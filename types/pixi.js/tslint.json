@@ -4,6 +4,7 @@
         // TODOs
         "ban-types": false,
         "dt-header": false,
+        "npm-naming": false,
         "interface-name": false,
         "no-any-union": false,
         "no-declare-current-package": false,
@@ -17,6 +18,7 @@
         "no-unnecessary-qualifier": false,
         "one-line": false,
         "prefer-conditional-expression": false,
+        "prefer-readonly": false,
         "unified-signatures": false,
 
         "class-name": true,

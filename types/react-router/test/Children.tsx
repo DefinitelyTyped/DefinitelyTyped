@@ -20,3 +20,9 @@ function RouteWithElementJsxChildren() {
         {<div>Hello!</div>}
     </Route>;
 }
+
+function RouteWithFunctionChildrenUsingNullableMatch() {
+    return <Route path="/">
+        {({ match }) => match !== null ? <div>Matched path: {match.path}</div> : <div>No match!</div>}
+    </Route>;
+}

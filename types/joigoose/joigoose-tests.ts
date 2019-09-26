@@ -1,4 +1,4 @@
-import * as Joigoose from "joigoose";
+import Joigoose = require("joigoose");
 import * as Mongoose from "mongoose";
 import * as Joi from "joi";
 

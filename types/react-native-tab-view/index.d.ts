@@ -1,14 +1,18 @@
-// Type definitions for react-native-tab-view 0.0
+// Type definitions for react-native-tab-view 1.0
 // Project: https://github.com/react-native-community/react-native-tab-view
 // Definitions by: Kalle Ott <https://github.com/kaoDev>
+//                 Kyle Roach <https://github.com/iRoachie>
+//                 Tim Wang <https://github.com/timwangdev>
+//                 Gerardo Pacheco <https://github.com/geriux>
+//                 Kazuyuki Takahashi <https://github.com/kazyk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
-import { PureComponent, ReactNode } from 'react'
+// TypeScript Version: 2.8
+import { PureComponent, ReactNode, ComponentType } from 'react'
 import {
   Animated,
   StyleProp,
   ViewStyle,
+  TextStyle,
   EasingFunction
 } from 'react-native'
 
@@ -39,7 +43,7 @@ export type SceneRendererProps<T extends RouteBase = RouteBase> = {
   }
   navigationState: NavigationState<T>
   position: Animated.Value
-  jumpToIndex: (index: number) => void
+  jumpTo: (key: string) => void
   getLastPosition: () => number
   subscribe: (
     event: SubscriptionName,
@@ -75,26 +79,23 @@ export type PagerProps = {
   children?: ReactNode
 }
 
-export type TabViewAnimatedProps<
+export type TabViewProps<
   T extends RouteBase = RouteBase
 > = PagerProps & {
   navigationState: NavigationState<T>
+  tabBarPosition?: 'bottom' | 'top'
   onIndexChange: (index: number) => void
   onPositionChange?: (props: { value: number }) => void
   initialLayout?: Layout
   canJumpToTab?: (route: T) => boolean
   renderPager?: (props: SceneRendererProps<T> & PagerProps) => ReactNode
   renderScene: (props: SceneRendererProps<T> & Scene<T>) => ReactNode
-  renderHeader?: (props: SceneRendererProps<T>) => ReactNode
-  renderFooter?: (props: SceneRendererProps<T>) => ReactNode
+  renderTabBar?: (props: SceneRendererProps<T>) => ReactNode
   lazy?: boolean
   style?: StyleProp<ViewStyle>
 }
 
-export class TabViewAnimated<T extends Route = Route> extends PureComponent<
-  TabViewAnimatedProps<T>,
-  any
-> {}
+export class TabView<T extends Route = Route> extends PureComponent<TabViewProps<T>> {}
 
 export type GestureEvent = {
   nativeEvent: {
@@ -125,7 +126,7 @@ export type GestureState = {
 
 export type GestureHandler = (event: GestureEvent, state: GestureState) => void
 
-export type TabViewPagerPanProps<
+export type PagerPanProps<
   T extends RouteBase = RouteBase
 > = SceneRendererProps<T> & {
   configureTransition?: TransitionConfigurator
@@ -144,10 +145,7 @@ export type DefaultTransitionSpec = {
   friction: 35
 }
 
-export class TabViewPagerPan<T extends Route = Route> extends PureComponent<
-  TabViewPagerPanProps<T>,
-  void
-> {
+export class PagerPan<T extends Route = Route> extends PureComponent<PagerPanProps<T>> {
   static defaultProps: {
     configureTransition: () => DefaultTransitionSpec
     initialLayout: {
@@ -168,7 +166,7 @@ export type ScrollEvent = {
   }
 }
 
-export type TabViewPagerScrollProps<
+export type PagerScrollProps<
   T extends RouteBase = RouteBase
 > = SceneRendererProps<T> & {
   animationEnabled?: boolean
@@ -176,10 +174,7 @@ export type TabViewPagerScrollProps<
   children?: ReactNode
 }
 
-export class TabViewPagerScroll<T extends Route = Route> extends PureComponent<
-  TabViewPagerScrollProps<T>,
-  any
-> {}
+export class PagerScroll<T extends Route = Route> extends PureComponent<PagerScrollProps<T>> {}
 
 export type PageScrollEvent = {
   nativeEvent: {
@@ -190,7 +185,7 @@ export type PageScrollEvent = {
 
 export type PageScrollState = 'dragging' | 'settling' | 'idle'
 
-export type TabViewPagerAndroidProps<
+export type PagerAndroidProps<
   T extends RouteBase = RouteBase
 > = SceneRendererProps<T> & {
   animationEnabled?: boolean
@@ -198,10 +193,7 @@ export type TabViewPagerAndroidProps<
   children?: ReactNode
 }
 
-export class TabViewPagerAndroid<T extends Route = Route> extends PureComponent<
-  TabViewPagerAndroidProps<T>,
-  void
-> {}
+export class PagerAndroid<T extends Route = Route> extends PureComponent<PagerAndroidProps<T>> {}
 
 export type IndicatorProps<
   T extends RouteBase = RouteBase
@@ -212,26 +204,31 @@ export type IndicatorProps<
 export type TabBarProps<T extends RouteBase = RouteBase> = SceneRendererProps<
   T
 > & {
-  scrollEnabled?: boolean
+  getLabelText?: (scene: Scene<T>) => string | undefined | null
+  getAccessible?: (scene: Scene<T>) => boolean
+  getAccessibilityLabel?: (scene: Scene<T>) => string | undefined | null
+  getTestID?: (scene: Scene<T>) => string | undefined | null
+  renderIcon?: (scene: Scene<T>) => ReactNode
+  renderLabel?: (scene: Scene<T>) => ReactNode
+  renderIndicator?: (props: IndicatorProps<T>) => ReactNode
+  renderBadge?: (scene: Scene<T>) => ReactNode
+  onTabPress?: (scene: Scene<T>) => void
+  onTabLongPress?: (scene: Scene<T>) => void
+  activeColor?: string
+  inactiveColor?: string
   pressColor?: string
   pressOpacity?: number
-  getLabelText?: (scene: Scene<T>) => string | undefined | null
-  renderLabel?: (scene: Scene<T>) => ReactNode
-  renderIcon?: (scene: Scene<T>) => ReactNode
-  renderBadge?: (scene: Scene<T>) => ReactNode
-  renderIndicator?: (props: IndicatorProps<T>) => ReactNode
-  onTabPress?: (scene: Scene<T>) => void
+  scrollEnabled?: boolean
+  bounces?: boolean
+  useNativeDriver?: boolean;
   tabStyle?: StyleProp<ViewStyle>
   indicatorStyle?: StyleProp<ViewStyle>
-  labelStyle?: StyleProp<ViewStyle>
+  labelStyle?: StyleProp<TextStyle>
   style?: StyleProp<ViewStyle>
 }
 
-export class TabBar<T extends Route = Route> extends PureComponent<
-  TabBarProps<T>,
-  any
-> {}
+export class TabBar<T extends Route = Route> extends PureComponent<TabBarProps<T>> {}
 
 export function SceneMap(scenes: {
-  [key: string]: (props: any) => ReactNode
+  [key: string]: ComponentType<any>
 }): (props: { route: Route }) => ReactNode

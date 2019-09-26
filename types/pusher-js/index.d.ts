@@ -1,36 +1,44 @@
-// Type definitions for pusher-js 3.0.0
+// Type definitions for pusher-js 4.2
 // Project: https://github.com/pusher/pusher-js
 // Definitions by: Qubo <https://github.com/tkqubo>
+//                 Lance Ivy <https://github.com/cainlevy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-
 
 declare namespace pusher {
     interface PusherStatic {
+        logToConsole: boolean;
+        log: (msg: string) => void;
+        instances: Pusher[];
+        isReady: boolean;
         new (apiKey: string, config?: Config): Pusher;
     }
 
-    interface Pusher {
+    interface Pusher extends EventsDispatcher {
+        channel(name: string): Channel;
+        allChannels(): Channel[];
+        connect(): void;
+        disconnect(): void;
         subscribe(name: string): Channel;
         subscribeAll(): void;
         unsubscribe(name: string): void;
-        channel(name: string): Channel;
-        allChannels(): Channel[];
-        bind(eventName: string, callback: Function): Pusher;
-        bind_all(callback: Function): Pusher;
-        disconnect(): void;
+        isEncrypted(): boolean;
         key: string;
-        config: Config; //TODO: add GlobalConfig typings
-        channels: any; //TODO: Type this
+        config: Config; // TODO: add GlobalConfig typings
+        channels: any; // TODO: Type this
         global_emitter: EventsDispatcher;
         sessionID: number;
-        timeline: any; //TODO: Type this
+        timeline: any; // TODO: Type this
         connection: ConnectionManager;
     }
 
     interface Config {
         /**
          * Forces the connection to use encrypted transports.
+         */
+        forceTLS?: boolean;
+        /**
+         * Forces the connection to use encrypted transports.
+         * @deprecated
          */
         encrypted?: boolean;
 
@@ -43,7 +51,7 @@ declare namespace pusher {
          * Defines how the authentication endpoint, defined using authEndpoint, will be called.
          * There are two options available: ajax and jsonp.
          */
-        authTransport?: string;
+        authTransport?: 'ajax' | 'jsonp';
 
         /**
          * Allows passing additional data to authorizers. Supports query string params and headers (AJAX only).
@@ -51,15 +59,19 @@ declare namespace pusher {
          */
         auth?: AuthConfig;
 
+        /**
+         * If you need custom authorization behavior you can provide your own authorizer function as follows:
+         */
+        authorizer?: Authorizer;
 
         /**
          * Allows connecting to a different datacenter by setting up correct hostnames and ports for the connection.
          */
         cluster?: string;
 
-
         /**
-         * Disables stats collection, so that connection metrics are not submitted to Pusher’s servers.
+         * Disables stats collection, so that connection metrics are not submitted to Pusher’s servers. These stats
+         * are used for internal monitoring only and they do not affect the account stats.
          */
         disableStats?: boolean;
 
@@ -69,8 +81,7 @@ declare namespace pusher {
          * Available transports: ws, wss, xhr_streaming, xhr_polling, sockjs.
          * Additional transports may be added in the future and without adding them to this list, they will be disabled.
          */
-        enabledTransports?: string[];
-
+        enabledTransports?: Transport[];
 
         /**
          * Specified which transports must not be used by Pusher to establish a connection.
@@ -78,7 +89,7 @@ declare namespace pusher {
          * Available transports: ws, wss, xhr_streaming, xhr_polling, sockjs.
          * Additional transports may be added in the future and without adding them to this list, they will be enabled.
          */
-        disabledTransports?: string[];
+        disabledTransports?: Transport[];
 
         /**
          * Ignores null origin checks for HTTP fallbacks. Use with care, it should be disabled only if necessary (i.e. PhoneGap).
@@ -99,6 +110,7 @@ declare namespace pusher {
         pongTimeout?: number;
 
         wsHost?: string;
+        wsPath?: string;
         wsPort?: number;
         wssPort?: number;
         httpHost?: string;
@@ -106,20 +118,34 @@ declare namespace pusher {
         httpsPort?: number;
     }
 
+    type Transport = 'ws' | 'wss' | 'xhr_streaming' | 'xhr_polling' | 'sockjs';
+
     interface AuthConfig {
         params?: { [key: string]: any };
         headers?: { [key: string]: any };
     }
 
-    interface GenericEventsDispatcher<Self extends EventsDispatcher> extends EventsDispatcher {
-        bind(eventName: string, callback: Function, context?: any): Self;
-        bind_all(callback: Function): Self;
-        unbind(eventName?: string, callback?: Function, context?: any): Self;
-        unbind_all(eventName?: string, callback?: Function): Self;
-        emit(eventName: string, data?: any): Self;
+    interface AuthInfo {
+        auth: string;
+        channel_data?: string;
     }
 
-    interface Channel extends GenericEventsDispatcher<Channel> {
+    type Authorizer = (channel: Channel, options: Config) => {
+        authorize: (socketId: string, callback: (errored: boolean, authInfo?: AuthInfo) => void) => void;
+    };
+
+    type EventCallback = (context: any, data: any) => void;
+
+    interface EventsDispatcher {
+        bind(eventName: string, callback: EventCallback, context?: any): this;
+        bind_global(callback: EventCallback): this;
+        unbind(eventName?: string | null, callback?: EventCallback | null, context?: any): this;
+        unbind_global(callback?: EventCallback): this;
+        unbind_all(): this;
+        emit(eventName: string, data?: any): this;
+    }
+
+    interface Channel extends EventsDispatcher {
         /** Triggers an event */
         trigger(eventName: string, data?: any): boolean;
         pusher: Pusher;
@@ -127,28 +153,18 @@ declare namespace pusher {
         subscribed: boolean;
         /**
          * Authenticates the connection as a member of the channel.
-         * @param  {String} socketId
-         * @param  {Function} callback
          */
         authorize(socketId: string, callback: (data: any) => void): void;
     }
 
-    interface EventsDispatcher {
-        bind(eventName: string, callback: Function, context?: any): EventsDispatcher;
-        bind_all(callback: Function): EventsDispatcher;
-        unbind(eventName?: string, callback?: Function, context?: any): EventsDispatcher;
-        unbind_all(eventName?: string, callback?: Function): EventsDispatcher;
-        emit(eventName: string, data?: any): EventsDispatcher;
-    }
-
-    interface ConnectionManager extends GenericEventsDispatcher<ConnectionManager> {
+    interface ConnectionManager extends EventsDispatcher {
         key: string;
-        options: any; //TODO: Timeline.js
+        options: any; // TODO: Timeline.js
         state: string;
         socket_id: string;
-        connection: any; //TODO: Type this
+        connection: any; // TODO: Type this
         encrypted: boolean;
-        timeline: any; //TODO: Type this
+        timeline: any; // TODO: Type this
         connectionCallbacks: {
             message: (message: string) => void;
             ping: () => void;
@@ -167,7 +183,7 @@ declare namespace pusher {
             refused: () => void;
             backoff: () => void;
             retry: () => void;
-            connected: (handshake: any) => void; //TODO: Type this
+            connected: (handshake: any) => void; // TODO: Type this
         };
         /**
          * Establishes a connection to Pusher.
@@ -178,15 +194,10 @@ declare namespace pusher {
         connect(): void;
         /**
          * Sends raw data.
-         * @param {String} data
          */
         send(data: string): boolean;
-        /** Sends an event.
-         *
-         * @param {String} name
-         * @param {String} data
-         * @param {String} [channel]
-         * @returns {Boolean} whether message was sent or not
+        /**
+         * Sends an event.
          */
         send_event(name: string, data: string, channel: string): boolean;
         /** Closes the connection. */
@@ -203,25 +214,20 @@ declare namespace pusher {
          * Returns member's info for given id.
          *
          * Resulting object containts two fields - id and info.
-         *
-         * @param {Number} id
-         * @return {Object} member's info or null
          */
-        get(id: number): T;
+        get(id: string): null | T;
         /**
          * Calls back for each member in unspecified order.
-         *
-         * @param  {Function} callback
          */
-        each(callback: (member: any) => void): void;
-        members: { [id: number]: UserInfo<T> };
+        each(callback: (member: Member<T>) => void): void;
+        members: { [id: string]: Member<T> };
         count: number;
-        myID: number;
-        me: UserInfo<T>;
+        myID: string;
+        me: Member<T>;
     }
 
-    interface UserInfo<T> {
-        id: number;
+    interface Member<T> {
+        id: string;
         info: T;
     }
 }

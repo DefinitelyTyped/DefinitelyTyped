@@ -12,6 +12,7 @@
             true,
             250
         ],
+        "no-const-enum": false,
         "no-unnecessary-type-assertion": false,
         "quotemark": [
             true,

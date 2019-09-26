@@ -1,26 +1,30 @@
-import * as React from "react";
-import { Environment, Network, RecordSource, Store, ConnectionHandler } from "relay-runtime";
+// tslint:disable:interface-over-type-literal
+// tslint:disable:use-default-type-parameter
 
-////////////////////////////
-//  RELAY MODERN TESTS
-///////////////////////////
+import * as React from 'react';
+import { Environment, Network, RecordSource, Store, ConnectionHandler } from 'relay-runtime';
+
 import {
-    graphql,
-    commitMutation,
-    createFragmentContainer,
-    createPaginationContainer,
-    createRefetchContainer,
-    requestSubscription,
-    QueryRenderer,
-    RelayRefetchProp,
-    RelayPaginationProp
-} from "react-relay";
+  commitMutation,
+  createFragmentContainer,
+  createPaginationContainer,
+  createRefetchContainer,
+  FragmentOrRegularProp,
+  graphql,
+  QueryRenderer,
+  ReactRelayContext,
+  readInlineData,
+  RelayPaginationProp,
+  RelayProp,
+  RelayRefetchProp,
+  requestSubscription,
+} from 'react-relay';
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // Modern Environment
 // ~~~~~~~~~~~~~~~~~~~~~
 function fetchQuery(operation: any, variables: any, cacheConfig: {}) {
-    return fetch("/graphql");
+    return fetch('/graphql').then(response => response.json());
 }
 const network = Network.create(fetchQuery);
 const source = new RecordSource();
@@ -30,18 +34,36 @@ const modernEnvironment = new Environment({ network, store });
 // ~~~~~~~~~~~~~~~~~~~~~
 // Modern QueryRenderer
 // ~~~~~~~~~~~~~~~~~~~~~
-const MyQueryRenderer = (props: { name: string }) => (
-    <QueryRenderer
+
+// Artifact produced by relay-compiler-language-typescript
+type MyQueryVariables = {
+    pageID: string;
+};
+type MyQueryResponse = {
+    name: string;
+};
+type MyQuery = {
+    variables: MyQueryVariables;
+    response: MyQueryResponse;
+};
+
+const MyQueryRenderer = (props: { name: string; show: boolean }) => (
+    <QueryRenderer<MyQuery>
         environment={modernEnvironment}
-        query={graphql`
-            query ExampleQuery($pageID: ID!) {
-                page(id: $pageID) {
-                    name
-                }
-            }
-        `}
+        query={
+            props.show
+                ? graphql`
+                      query ExampleQuery($pageID: ID!) {
+                          page(id: $pageID) {
+                              name
+                          }
+                      }
+                  `
+                : null
+        }
+        fetchPolicy="store-and-network"
         variables={{
-            pageID: "110798995619330",
+            pageID: '110798995619330',
         }}
         render={({ error, props }) => {
             if (error) {
@@ -54,168 +76,433 @@ const MyQueryRenderer = (props: { name: string }) => (
     />
 );
 
-// ~~~~~~~~~~~~~~~~~~~~~
-// Modern FragmentContainer
-// ~~~~~~~~~~~~~~~~~~~~~
-const MyFragmentContainer = createFragmentContainer(
-    class TodoListView extends React.Component {
-        render() {
-            return <div />;
-        }
-    },
-    {
-        item: graphql`
-            fragment TodoItem_item on Todo {
-                text
-                isComplete
+const MyEmptyQueryRenderer = () => (
+    <QueryRenderer
+        environment={modernEnvironment}
+        // NOTE: let's intentionally leave out `query`
+        query={undefined}
+        variables={{}}
+        render={({ error, props }) => {
+            if (error) {
+                return <div>{error.message}</div>;
+            } else if (props) {
+                throw new Error('This code path should never be hit');
             }
-        `,
-    }
+            return <div>Loading</div>;
+        }}
+    />
 );
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // Modern RefetchContainer
 // ~~~~~~~~~~~~~~~~~~~~~
-interface StoryInterface {
-    id: string;
-}
-interface FeedStoriesProps {
-    relay: RelayRefetchProp;
-    feed: {
-        stories: { edges: Array<{ node: StoryInterface }> };
-    };
-}
-class Story extends React.Component<{ story: StoryInterface }> {}
-class FeedStories extends React.Component<FeedStoriesProps> {
-    render() {
+
+type StoryLike = (storyID: string) => void;
+
+// Artifact produced by relay-compiler-language-typescript
+declare const _Story_story$ref: unique symbol;
+type Story_story$ref = typeof _Story_story$ref;
+type Story_story = {
+    readonly id: string;
+    readonly text: string;
+    readonly isPublished: boolean;
+    readonly ' $refType': Story_story$ref;
+};
+
+const Story = (() => {
+    interface Props {
+        relay: RelayRefetchProp;
+        story: Story_story;
+        onLike: StoryLike;
+        ignoreMe?: {};
+    }
+
+    interface State {
+        isLoading: boolean;
+    }
+
+    class Story extends React.Component<Props> {
+        state = {
+            isLoading: false,
+        };
+
+        componentDidMount() {
+            setInterval(this.handleRefresh.bind(this), 1000);
+        }
+
+        handleRefresh() {
+            this.setState({ isLoading: true });
+            this.props.relay.refetch(
+                { id: this.props.story.id },
+                {},
+                error => {
+                    this.setState({ isLoading: false });
+                },
+                { force: true }
+            );
+        }
+
+        render() {
+            return (
+                <div>
+                    {this.props.story.isPublished ? '' : 'Draft: '}
+                    {this.props.story.text}
+                    {this.state.isLoading && <span>♺</span>}
+                    <button onClick={() => this.props.onLike(this.props.story.id)}>LIKE</button>
+                </div>
+            );
+        }
+    }
+
+    const StoryRefetchContainer = createRefetchContainer(
+        Story,
+        {
+            story: graphql`
+                fragment Story_story on Todo {
+                    id
+                    text
+                    isPublished
+                }
+            `,
+        },
+        graphql`
+            query StoryRefetchQuery($id: ID!) {
+                story(id: $id) {
+                    ...Story_story
+                }
+            }
+        `
+    );
+
+    function requiresTheRightProps() {
+        const onLike = (id: string) => console.log(`Liked story #${id}`);
+        const story: { ' $fragmentRefs': Story_story$ref } = {} as any;
+        <StoryRefetchContainer story={story} onLike={onLike} />;
+    }
+
+    function requiresTheCorrectFragmentRef() {
+        const onLike = (id: string) => console.log(`Liked story #${id}`);
+        const feed: { ' $fragmentRefs': FeedStories_feed$ref } = {} as any;
+        // $ExpectError
+        <StoryRefetchContainer story={feed} onLike={onLike} />;
+    }
+
+    function doesNotRequireRelayPropToBeProvidedByParent() {
+        const onLike = (id: string) => console.log(`Liked story #${id}`);
+        const story: { ' $fragmentRefs': Story_story$ref } = {} as any;
+        const relayProp: RelayRefetchProp = {} as any;
+        // $ExpectError
+        <StoryRefetchContainer story={story} onLike={onLike} relay={relayProp} />;
+    }
+
+    function requiresTheRelayPropInPropsInterface() {
+        // FIXME: This should throw a type error, but doesn't
+        // const FunctionComponent: React.FC<{}> = () => null;
+        // // $ExpectError
+        // createRefetchContainer(FunctionComponent, { story: graphql`` }, graphql``);
+
+        class ClassComponent extends React.Component<{}> {}
+        // $ExpectError
+        createRefetchContainer(ClassComponent, { story: graphql`` }, graphql``);
+    }
+
+    function requiresTheCorrectRelayPropTypeInPropsInterface() {
+        class ClassComponent1 extends React.Component<{ relay: RelayProp }> {}
+        // $ExpectError
+        createRefetchContainer(ClassComponent1, { story: graphql`` }, graphql``);
+
+        class ClassComponent2 extends React.Component<{ relay: RelayPaginationProp }> {}
+        // $ExpectError
+        createRefetchContainer(ClassComponent2, { story: graphql`` }, graphql``);
+
+        class ClassComponent3 extends React.Component<{ relay: undefined }> {}
+        // $ExpectError
+        createRefetchContainer(ClassComponent3, { story: graphql`` }, graphql``);
+    }
+
+    function canTakeComponentRef() {
+        const onLike = (id: string) => console.log(`Liked story #${id}`);
+        const story: { ' $fragmentRefs': Story_story$ref } = {} as any;
+        <StoryRefetchContainer story={story} onLike={onLike} componentRef={ref => console.log(ref)} />;
+    }
+
+    return StoryRefetchContainer;
+})();
+
+// ~~~~~~~~~~~~~~~~~~~~~
+// Modern FragmentContainer
+// ~~~~~~~~~~~~~~~~~~~~~
+
+// Artifact produced by relay-compiler-language-typescript
+declare const _FeedStories_feed$ref: unique symbol;
+type FeedStories_feed$ref = typeof _FeedStories_feed$ref;
+declare const _FeedStory_edges$ref: unique symbol;
+type FeedStory_edges$ref = typeof _FeedStory_edges$ref;
+type FeedStories_feed = {
+    readonly edges: ReadonlyArray<{
+        readonly node: {
+            readonly id: string;
+            readonly ' $fragmentRefs': Story_story$ref & FeedStories_feed$ref;
+        };
+        readonly ' $fragmentRefs': FeedStory_edges$ref;
+    }>;
+    readonly ' $refType': FeedStories_feed$ref;
+};
+type FeedStory_edges = ReadonlyArray<{
+    readonly publishedAt: string;
+    readonly ' $refType': FeedStory_edges$ref;
+}>;
+
+const Feed = (() => {
+    interface Props {
+        relay: RelayProp;
+        feed: FeedStories_feed;
+        onStoryLike: StoryLike;
+        ignoreMe?: {};
+    }
+
+    const FeedStoryEdges: React.FC<{ edges: FeedStory_edges; relay: RelayProp }> = ({ edges }) => (
+        <div>{edges.map(({ publishedAt }) => publishedAt).join(', ')}</div>
+    );
+
+    const FeedStoryEdgesFragmentContainer = createFragmentContainer(FeedStoryEdges, {
+        edges: graphql`
+            fragment FeedStory_edges on FeedStoryEdge @relay(plural: true) {
+                publishedAt
+            }
+        `,
+    });
+
+    const FeedStories: React.FC<Props> = ({ feed, onStoryLike, relay }) => {
+        // TODO: Getting env here for no good reason other than needing to test it works.
+        //       If you have a good relavant example, please update!
+        relay.environment;
+        const stories = feed.edges.map(edge => {
+            return <Story story={edge.node} key={edge.node.id} onLike={onStoryLike} />;
+        });
         return (
             <div>
-                {this.props.feed.stories.edges.map(edge => <Story story={edge.node} key={edge.node.id} />)}
-                <button onClick={() => this._loadMore} title="Load More" />
+                {stories}
+                <span>{<FeedStoryEdgesFragmentContainer edges={feed.edges} />}</span>
             </div>
         );
-    }
+    };
 
-    _loadMore() {
-        // Increments the number of stories being rendered by 10.
-        const refetchVariables = (fragmentVariables: { count: number }) => ({
-            count: fragmentVariables.count + 10,
-        });
-        this.props.relay.refetch(refetchVariables);
-    }
-}
-
-const FeedRefetchContainer = createRefetchContainer(
-    FeedStories,
-    {
-        feed: graphql.experimental`
-            fragment FeedStories_feed on Feed @argumentDefinitions(count: { type: "Int", defaultValue: 10 }) {
-                stories(first: $count) {
-                    edges {
-                        node {
-                            id
-                            ...Story_story
-                        }
+    const FeedFragmentContainer = createFragmentContainer(FeedStories, {
+        feed: graphql`
+            fragment FeedStories_feed on Feed {
+                edges {
+                    node {
+                        id
+                        ...Story_story
                     }
+                    ...FeedStoryEdges_feed
                 }
             }
         `,
-    },
-    graphql.experimental`
-        query FeedStoriesRefetchQuery($count: Int) {
-            feed {
-                ...FeedStories_feed @arguments(count: $count)
-            }
-        }
-    `
-);
+    });
+
+    function requiresTheRightProps() {
+        const onStoryLike = (id: string) => console.log(`Liked story #${id}`);
+        const feed: { ' $fragmentRefs': FeedStories_feed$ref } = {} as any;
+        <FeedFragmentContainer feed={feed} onStoryLike={onStoryLike} />;
+    }
+
+    function requiresTheCorrectFragmentRef() {
+        const onStoryLike = (id: string) => console.log(`Liked story #${id}`);
+        const story: { ' $fragmentRefs': Story_story$ref } = {} as any;
+        // $ExpectError
+        <FeedFragmentContainer feed={story} onStoryLike={onStoryLike} />;
+    }
+
+    function doesNotRequireRelayPropToBeProvidedByParent() {
+        const onStoryLike = (id: string) => console.log(`Liked story #${id}`);
+        const feed: { ' $fragmentRefs': FeedStories_feed$ref } = {} as any;
+        const relayProp: RelayProp = {} as any;
+        // $ExpectError
+        <FeedFragmentContainer feed={feed} onStoryLike={onStoryLike} relay={relayProp} />;
+    }
+
+    function doesNotRequireTheRelayPropInPropsInterface() {
+        const FunctionComponent: React.FC<{}> = () => null;
+        createFragmentContainer(FunctionComponent, {});
+
+        class ClassComponent extends React.Component<{}> {}
+        createFragmentContainer(ClassComponent, {});
+    }
+
+    function requiresTheCorrectRelayPropTypeInPropsInterface() {
+        class ClassComponent1 extends React.Component<{ relay: RelayRefetchProp }> {}
+        // $ExpectError
+        createFragmentContainer(ClassComponent1, {});
+
+        class ClassComponent2 extends React.Component<{ relay: RelayPaginationProp }> {}
+        // $ExpectError
+        createFragmentContainer(ClassComponent2, {});
+    }
+
+    function canTakeComponentRef() {
+        const onStoryLike = (id: string) => console.log(`Liked story #${id}`);
+        const feed: { ' $fragmentRefs': FeedStories_feed$ref } = {} as any;
+        <FeedFragmentContainer feed={feed} onStoryLike={onStoryLike} componentRef={ref => console.log(ref)} />;
+    }
+
+    return FeedFragmentContainer;
+})();
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // Modern PaginationContainer
 // ~~~~~~~~~~~~~~~~~~~~~
-interface FeedProps {
-    user: { feed: { edges: Array<{ node: StoryInterface }> } };
-    relay: RelayPaginationProp;
-}
-class Feed extends React.Component<FeedProps> {
-    render() {
-        return (
-            <div>
-                {this.props.user.feed.edges.map(edge => <Story story={edge.node} key={edge.node.id} />)}
-                <button onClick={() => this._loadMore()} title="Load More" />
-            </div>
-        );
+
+// Artifact produced by relay-compiler-language-typescript
+declare const _UserFeed_user$ref: unique symbol;
+type UserFeed_user$ref = typeof _UserFeed_user$ref;
+type UserFeed_user = {
+    readonly feed: {
+        readonly pageInfo: {
+            readonly endCursor?: string | null;
+            readonly hasNextPage: boolean;
+        };
+        readonly ' $fragmentRefs': FeedStories_feed$ref;
+    };
+    readonly ' $refType': UserFeed_user$ref;
+};
+() => {
+    interface Props {
+        relay: RelayPaginationProp;
+        loadMoreTitle: string;
+        user: UserFeed_user;
+        ignoreMe?: {};
     }
 
-    _loadMore() {
-        if (!this.props.relay.hasMore() || this.props.relay.isLoading()) {
-            return;
+    class UserFeed extends React.Component<Props> {
+        render() {
+            const onStoryLike = (id: string) => console.log(`Liked story #${id}`);
+            return (
+                <div>
+                    <Feed feed={this.props.user.feed} onStoryLike={onStoryLike} />
+                    <button onClick={() => this._loadMore()} title={this.props.loadMoreTitle} />
+                </div>
+            );
         }
 
-        this.props.relay.loadMore(
-            10, // Fetch the next 10 feed items
-            e => {
-                console.log(e);
+        _loadMore() {
+            if (!this.props.relay.hasMore() || this.props.relay.isLoading()) {
+                return;
             }
-        );
-    }
-}
 
-const FeedPaginationContainer = createPaginationContainer(
-    Feed,
-    {
-        user: graphql`
-            fragment Feed_user on User {
-                feed(
-                    first: $count
-                    after: $cursor
-                    orderby: $orderBy # other variables
-                ) @connection(key: "Feed_feed") {
-                    edges {
-                        node {
-                            id
-                            ...Story_story
+            this.props.relay.loadMore(
+                10, // Fetch the next 10 feed items
+                e => {
+                    console.log(e);
+                }
+            );
+        }
+    }
+
+    const UserFeedPaginationContainer = createPaginationContainer(
+        UserFeed,
+        {
+            user: graphql`
+                fragment UserFeed_user on User {
+                    feed(
+                        first: $count
+                        after: $cursor
+                        orderby: $orderBy # other variables
+                    ) @connection(key: "Feed_feed") {
+                        ...FeedStories_feed
+                        pageInfo {
+                            endCursor
+                            hasNextPage
                         }
                     }
                 }
-            }
-        `,
-    },
-    {
-        direction: "forward",
-        getConnectionFromProps(props) {
-            return props.user && props.user.feed;
+            `,
         },
-        getFragmentVariables(prevVars, totalCount) {
-            return {
-                ...prevVars,
-                count: totalCount,
-            };
-        },
-        getVariables(props, { count, cursor }, fragmentVariables) {
-            return {
-                count,
-                cursor,
-                // in most cases, for variables other than connection filters like
-                // `first`, `after`, etc. you may want to use the previous values.
-                orderBy: fragmentVariables.orderBy,
-            };
-        },
-        query: graphql`
-            query FeedPaginationQuery($count: Int!, $cursor: String, $orderby: String!) {
-                user {
-                    # You could reference the fragment defined previously.
-                    ...Feed_user
+        {
+            direction: 'forward',
+            getConnectionFromProps(props) {
+                return props.user && props.user.feed;
+            },
+            getFragmentVariables(prevVars, totalCount) {
+                return {
+                    ...prevVars,
+                    count: totalCount,
+                };
+            },
+            getVariables(props, { count, cursor }, fragmentVariables) {
+                return {
+                    count,
+                    cursor,
+                    // in most cases, for variables other than connection filters like
+                    // `first`, `after`, etc. you may want to use the previous values.
+                    orderBy: fragmentVariables.orderBy,
+                };
+            },
+            query: graphql`
+                query FeedPaginationQuery($count: Int!, $cursor: String, $orderby: String!) {
+                    user {
+                        # You could reference the fragment defined previously.
+                        ...Feed_user
+                    }
                 }
-            }
-        `,
+            `,
+        }
+    );
+
+    function requiresTheRightProps() {
+        const user: { ' $fragmentRefs': UserFeed_user$ref } = {} as any;
+        <UserFeedPaginationContainer loadMoreTitle="Load More" user={user} />;
     }
-);
+
+    function requiresTheCorrectFragmentRef() {
+        const story: { ' $fragmentRefs': Story_story$ref } = {} as any;
+        // $ExpectError
+        <UserFeedPaginationContainer loadMoreTitle="Load More" user={story} />;
+    }
+
+    function doesNotRequireRelayPropToBeProvidedByParent() {
+        const user: { ' $fragmentRefs': UserFeed_user$ref } = {} as any;
+        const relayProp: RelayPaginationProp = {} as any;
+        // $ExpectError
+        <UserFeedPaginationContainer loadMoreTitle="Load More" user={user} relay={relayProp} />;
+    }
+
+    function requiresTheRelayPropInPropsInterface() {
+        // FIXME: This should throw a type error, but doesn't
+        // const FunctionComponent: React.FC<{}> = () => null;
+        // // $ExpectError
+        // createPaginationContainer(FunctionComponent, {}, {} as any);
+
+        class ClassComponent extends React.Component<{}> {}
+        // $ExpectError
+        createPaginationContainer(ClassComponent, {}, {} as any);
+    }
+
+    function requiresTheCorrectRelayPropTypeInPropsInterface() {
+        class ClassComponent1 extends React.Component<{ relay: RelayProp }> {}
+        // $ExpectError
+        createPaginationContainer(ClassComponent1, {}, {} as any);
+
+        class ClassComponent2 extends React.Component<{ relay: RelayRefetchProp }> {}
+        // $ExpectError
+        createPaginationContainer(ClassComponent2, {}, {} as any);
+
+        class ClassComponent3 extends React.Component<{ relay: undefined }> {}
+        // $ExpectError
+        createPaginationContainer(ClassComponent3, {}, {} as any);
+    }
+
+    function canTakeComponentRef() {
+        const user: { ' $fragmentRefs': UserFeed_user$ref } = {} as any;
+        <UserFeedPaginationContainer loadMoreTitle="Load More" user={user} componentRef={ref => console.log(ref)} />;
+    }
+};
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // Modern Mutations
 // ~~~~~~~~~~~~~~~~~~~~~
-const mutation = graphql`
+export const mutation = graphql`
     mutation MarkReadNotificationMutation($input: MarkReadNotificationData!) {
         markReadNotification(data: $input) {
             notification {
@@ -225,69 +512,110 @@ const mutation = graphql`
     }
 `;
 
-const optimisticResponse = {
+export const optimisticResponse = {
     markReadNotification: {
         notification: {
-            seenState: "SEEN",
+            seenState: 'SEEN' as 'SEEN',
         },
     },
 };
 
-const configs = [
+export const configs = [
     {
-        type: "NODE_DELETE" as "NODE_DELETE",
-        deletedIDFieldName: "destroyedShipId",
+        type: 'NODE_DELETE' as 'NODE_DELETE',
+        deletedIDFieldName: 'destroyedShipId',
     },
     {
-        type: "RANGE_ADD" as "RANGE_ADD",
-        parentID: "shipId",
+        type: 'RANGE_ADD' as 'RANGE_ADD',
+        parentID: 'shipId',
         connectionInfo: [
             {
-                key: "AddShip_ships",
-                rangeBehavior: "append",
+                key: 'AddShip_ships',
+                rangeBehavior: 'append',
             },
         ],
-        edgeName: "newShipEdge",
+        edgeName: 'newShipEdge',
     },
     {
-        type: "RANGE_DELETE" as "RANGE_DELETE",
-        parentID: "todoId",
+        type: 'RANGE_DELETE' as 'RANGE_DELETE',
+        parentID: 'todoId',
         connectionKeys: [
             {
-                key: "RemoveTags_tags",
-                rangeBehavior: "append",
+                key: 'RemoveTags_tags',
+                rangeBehavior: 'append',
             },
         ],
-        pathToConnection: ["todo", "tags"],
-        deletedIDFieldName: "removedTagId",
+        pathToConnection: ['todo', 'tags'],
+        deletedIDFieldName: 'removedTagId',
     },
 ];
 
 function markNotificationAsRead(source: string, storyID: string) {
-    const variables = {
-        input: {
-            source,
-            storyID,
-        },
+    // Artifact produced by relay-compiler-language-typescript
+    type MyMutationVariables = {
+        readonly input: {
+            readonly source: string;
+            readonly storyID: string;
+        };
+    };
+    type MyMutationResponse = {
+        readonly markReadNotification: {
+            readonly notification: {
+                readonly seenState: 'SEEN' | 'UNSEEN';
+            };
+        };
+    };
+    type MyMutation = {
+        readonly variables: MyMutationVariables;
+        readonly response: MyMutationResponse;
     };
 
-    commitMutation(modernEnvironment, {
+    commitMutation<MyMutation>(modernEnvironment, {
         configs,
         mutation,
         optimisticResponse,
-        variables,
+        variables: {
+            input: {
+                source,
+                storyID,
+            },
+        },
         onCompleted: (response, errors) => {
-            console.log("Response received from server.");
+            if (errors) {
+                console.log(`Errors received from server: ${errors.map(error => error.message).join(', ')}`);
+            } else {
+                console.log(`Response received from server: ${response.markReadNotification.notification.seenState}`);
+            }
         },
         onError: err => console.error(err),
         updater: (store, data) => {
-            const field = store.get(storyID);
-            if (field) {
-                field.setValue(data.story, "story");
+            const story = store.get(storyID);
+            if (story) {
+                story.setValue(data.markReadNotification.notification.seenState, 'seenState');
             }
-        }
+        },
     });
 }
+
+// ~~~~~~~~~~~~~~~~~~~~~
+// readInlineData
+// ~~~~~~~~~~~~~~~~~~~~~
+
+const storyFragment = graphql`
+    fragment Story_story on Todo {
+        id
+        text
+        isPublished
+    }
+`;
+
+function functionWithInline(
+    storyRef: FragmentOrRegularProp<Story_story>,
+): Story_story {
+    return readInlineData<Story_story>(storyFragment, storyRef);
+}
+
+functionWithInline({ ' $fragmentRefs': _Story_story$ref });
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // Modern Subscriptions
@@ -302,7 +630,7 @@ const subscription = graphql`
     }
 `;
 const variables = {
-    storyID: "123",
+    storyID: '123',
 };
 requestSubscription(
     modernEnvironment, // see Environment docs
@@ -315,157 +643,25 @@ requestSubscription(
         // example of a custom updater
         updater: store => {
             // Get the notification
-            const rootField = store.getRootField("markReadNotification");
-            const notification = !!rootField && rootField.getLinkedRecord("notification");
+            const rootField = store.getRootField('markReadNotification');
+            const notification = !!rootField ? rootField.getLinkedRecord('notification') : null;
             // Add it to a connection
-            const viewer = store.getRoot().getLinkedRecord("viewer");
-            const notifications = ConnectionHandler.getConnection(viewer, "notifications");
-            const edge = ConnectionHandler.createEdge(store, notifications, notification, "<TypeOfNotificationsEdge>");
-            ConnectionHandler.insertEdgeAfter(notifications, edge);
+            const viewer = store.getRoot().getLinkedRecord('viewer');
+            const notifications = ConnectionHandler.getConnection(viewer!, 'notifications');
+            const edge = ConnectionHandler.createEdge(
+                store,
+                notifications!,
+                notification!,
+                '<TypeOfNotificationsEdge>'
+            );
+            ConnectionHandler.insertEdgeAfter(notifications!, edge);
         },
     }
 );
 
-////////////////////////////
-//  RELAY COMPAT TESTS
-///////////////////////////
-import {
-    QueryRenderer as CompatQueryRenderer,
-    createFragmentContainer as createFragmentContainerCompat,
-    commitMutation as commitMutationCompat,
-    CompatEnvironment,
-    RelayPaginationProp as RelayPaginationPropCompat,
-} from "react-relay/compat";
+// ~~~~~~~~~~~~~~~~~~~~~
+// Context
+// ~~~~~~~~~~~~~~~~~~~~~
 
-// testting compat mutation with classic environment
-function markNotificationAsReadCompat(environment: CompatEnvironment, source: string, storyID: string) {
-    const variables = {
-        input: {
-            source,
-            storyID,
-        },
-    };
-
-    commitMutationCompat(environment, {
-        configs,
-        mutation,
-        optimisticResponse,
-        variables,
-        onCompleted: (response, errors) => {
-            console.log("Response received from server.");
-        },
-        onError: err => console.error(err),
-        updater: (store, data) => {
-            const field = store.get(storyID);
-            if (field) {
-                field.setValue(data.story, "story");
-            }
-        }
-    });
-}
-
-interface CompatProps {
-    relay: RelayPaginationPropCompat;
-}
-
-export class CompatComponent extends React.Component<CompatProps> {
-    markNotificationAsRead(source: string, storyID: string) {
-        markNotificationAsReadCompat(this.props.relay.environment, source, storyID);
-    }
-
-    render() {
-        return (<div/>);
-    }
-}
-
-const CompatContainer = createFragmentContainerCompat(CompatComponent, {});
-
-////////////////////////////
-//  RELAY-CLASSIC TESTS
-///////////////////////////
-import * as Relay from "react-relay/classic";
-
-interface Props {
-    text: string;
-    userId: string;
-}
-
-export default class AddTweetMutation extends Relay.Mutation<Props, {}> {
-    getMutation() {
-        return Relay.QL`mutation{addTweet}`;
-    }
-
-    getFatQuery() {
-        return Relay.QL`
-            fragment on AddTweetPayload {
-                tweetEdge
-                user
-            }
-        `;
-    }
-
-    getConfigs() {
-        return [
-            {
-                type: "RANGE_ADD",
-                parentName: "user",
-                parentID: this.props.userId,
-                connectionName: "tweets",
-                edgeName: "tweetEdge",
-                rangeBehaviors: {
-                    "": "append",
-                },
-            },
-        ];
-    }
-
-    getVariables() {
-        return this.props;
-    }
-}
-
-interface ArtworkProps {
-    artwork: {
-        title: string;
-    };
-    relay: Relay.RelayProp;
-}
-
-class Artwork extends React.Component<ArtworkProps> {
-    render() {
-        return <a href={`/artworks/${this.props.relay.variables.artworkID}`}>{this.props.artwork.title}</a>;
-    }
-}
-
-const ArtworkContainer = Relay.createContainer(Artwork, {
-    fragments: {
-        artwork: () => Relay.QL`
-            fragment on Artwork {
-                title
-                ${ CompatContainer.getFragment('whatever') }
-            }
-        `,
-    },
-});
-
-class StubbedArtwork extends React.Component {
-    render() {
-        const props = {
-            artwork: { title: "CHAMPAGNE FORMICA FLAG" },
-            relay: {
-                route: {
-                    name: "champagne",
-                },
-                variables: {
-                    artworkID: "champagne-formica-flag",
-                },
-                setVariables: () => {},
-                forceFetch: () => {},
-                hasOptimisticUpdate: () => false,
-                getPendingTransactions: (): any => undefined,
-                commitUpdate: () => {},
-            },
-        };
-        return <ArtworkContainer {...props} />;
-    }
-}
+ReactRelayContext.Consumer.prototype;
+ReactRelayContext.Provider.prototype;

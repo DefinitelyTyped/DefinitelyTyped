@@ -1,5 +1,5 @@
-// Type definitions for node-email-templates 3.1
-// Project: https://github.com/niftylettuce/node-email-templates
+// Type definitions for node-email-templates 6.0
+// Project: https://github.com/niftylettuce/email-templates
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
 //                 Matus Gura <https://github.com/gurisko>
 //                 Jacob Copeland <https://github.com/blankstar85>
@@ -13,7 +13,7 @@ interface EmailConfig {
     /**
      * The nodemailer Transport created via nodemailer.createTransport
      */
-    transport: any;
+    transport?: any;
     /**
      * The email template directory and engine information
      */
@@ -33,11 +33,20 @@ interface EmailConfig {
     /**
      * Pass a custom render function if necessary
      */
-    render?: { view: string, locals: any };
+    render?: (view: string, locals: any) => Promise<any>;
+    /**
+     * force text-only rendering of template (disregards template folder)
+     */
+    textOnly?: boolean;
     /**
      * <Https://github.com/werk85/node-html-to-text>
      */
     htmlToText?: any;
+    /**
+     * You can pass an option to prefix subject lines with a string
+     * env === 'production' ? false : `[${env.toUpperCase()}] `; // <--- HERE
+     */
+    subjectPrefix?: any;
     /**
      * <https://github.com/Automattic/juice>
      */

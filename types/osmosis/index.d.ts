@@ -1,9 +1,10 @@
-// Type definitions for osmosis 1.0
+// Type definitions for osmosis 1.1
 // Project: https://github.com/rchipka/node-osmosis
 // Definitions by: Juraj Kočan <https://github.com/jurajkocan>
+//                 Evan Shortiss <https://github.com/evanshortiss>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export interface Osmosis {
+interface Osmosis {
     /**
      * define domain where osmosis is parsing data from
      */
@@ -54,7 +55,34 @@ export interface Osmosis {
      * passing string to your function
      * result data, osmosis finished
      */
-    data(callback: (param: string) => any): Osmosis;
+    data(callback: (param: any) => any): Osmosis;
+
+    /**
+     * Set configuration options for the **preceeding** command on down the chain.
+     */
+    config(option: string | { [key: string]: any }, value?: any): Osmosis;
+
+    /**
+     * Set a cookie. Short for `.config({ cookies: ... })`. Note: Setting a cookie to `null` will delete the cookie.
+     */
+    cookie(name: string, value: string | null): Osmosis;
+
+    /**
+     * Set an HTTP header. Short for `.config({ headers: ... })`
+     */
+    header(name: string, value: string): Osmosis;
+
+    /**
+     * Set multiple HTTP headers. Short for `.config({ headers: ... })`.
+     */
+    headers(headers: { [key: string]: string }): Osmosis;
+
+    /**
+     * Call a callback when the Osmosis instance has completely finished.
+     */
+    done(callback: () => any): Osmosis;
 }
 
-export const osmosis: Osmosis;
+declare const osmosis: Osmosis;
+
+export = osmosis;

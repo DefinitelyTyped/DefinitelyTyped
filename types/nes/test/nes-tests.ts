@@ -1,20 +1,18 @@
-import Hapi = require('hapi');
+import { Request, ResponseToolkit, Server } from 'hapi';
 import Nes = require('nes');
 
-var server: Hapi.Server = new Hapi.Server();
+const server = new Server();
 
 server.register(Nes).then(() => {
     // No longer need to cast to Nes.Server as Hapi.Server has been modified directly.
     // let wsServer: Nes.Server = server as Nes.Server;
-    let wsServer: Hapi.Server = server;
+    let wsServer = server;
     wsServer.subscription('/item/{id}');
-    wsServer.route( {
+    wsServer.route({
         method: 'GET',
         path: '/test',
-        config: {
-            handler: (request, h) => {
-                return {test: 'passes ' + request.socket.id};
-            }
+        handler: (request: Request, h: ResponseToolkit) => {
+            return {test: 'passes ' + request.socket.id};
         }
     });
     wsServer.start().then(() => {

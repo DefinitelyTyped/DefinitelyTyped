@@ -13,6 +13,18 @@ function test_simple_two_page_document() {
     doc.save('Test.pdf');
 }
 
+function test_add_pages_with_different_format() {
+    var doc = new jsPDF();
+    doc.text(20, 20, 'Hello world!');
+    doc.addPage('a5', 'l');
+    doc.text(20, 20, 'Do you like that?');
+    doc.addPage('c6');
+    doc.text(20, 20, 'Do you like that?');
+    doc.addPage([595.28, 841.89]);
+    doc.text(20, 20, 'Do you like that?');
+    doc.save('Test.pdf');
+}
+
 function test_landscape() {
     var doc = new jsPDF('landscape');
     doc.text(20, 20, 'Hello landscape world!');
@@ -107,6 +119,15 @@ function test_font_metrics_based_line_sizing_split() {
         }
     }
     pdf.save('Test.pdf');
+}
+
+function test_simple_custom_size_document() {
+    var doc = new jsPDF('l', 'px', [500, 200]);
+    doc.text(20, 20, 'Hello world!');
+    doc.text(20, 30, 'This is client-side Javascript, pumping out a PDF.');
+    doc.addPage();
+    doc.text(20, 20, 'Do you like that?');
+    doc.save('Test.pdf');
 }
 
 function test_from_html() {

@@ -5,6 +5,7 @@ import * as assert from 'assert';
     const Gpio = pigpio.Gpio;
 
     pigpio.configureClock(1, pigpio.CLOCK_PWM);
+    pigpio.configureSocketPort(23456);
 
     const led = new Gpio(18, {
         mode: Gpio.OUTPUT,
@@ -877,4 +878,47 @@ import * as assert from 'assert';
         led.digitalWrite(0);
         clearInterval(iv);
     }, 2000);
+})();
+
+(function tickAndTickDiff(): void {
+    const startTick: number = pigpio.getTick();
+    setTimeout(() => {
+        const endTick: number = pigpio.getTick();
+        const diff: number = pigpio.tickDiff(startTick, endTick);
+        assert.ok(diff > 0, 'expected tick count to increase across a timer call');
+    }, 50);
+})();
+
+(function gpio_glitch_filter(): void {
+    const Gpio = pigpio.Gpio;
+    const input = new Gpio(7, {
+        mode: Gpio.INPUT,
+        pullUpDown: Gpio.PUD_OFF,
+        alert: true
+    });
+    const output = new Gpio(8, {
+      mode: Gpio.OUTPUT
+    });
+    let count = 0;
+
+    output.digitalWrite(0);
+    input.glitchFilter(50);
+    input.on('alert', (level, tick) => {
+        if (level === 1) {
+            count++;
+            console.log('  rising edge, count=' + count);
+        }
+    });
+
+    output.trigger(30, 1); // alert function should not be executed (blocked by glitchFilter)
+
+    setTimeout(() => {
+        output.trigger(70, 1); // alert function should be executed
+    }, 500);
+
+    setTimeout(() => {
+        assert.strictEqual(count, 1, 'expected 1 alert function call instead of ' + count);
+        console.log("  success...");
+        process.exit(0);
+    }, 1000);
 })();

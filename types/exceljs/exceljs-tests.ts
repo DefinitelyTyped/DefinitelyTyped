@@ -1,7 +1,6 @@
 import * as Excel from 'exceljs';
 import * as stream from 'stream';
 import * as fs from 'fs';
-import * as Bluebird from 'bluebird';
 
 // most examples taken and adapted from README.md
 
@@ -464,4 +463,4 @@ worksheet.commit();
 
 workbook.commit().then(() => null);
 
-Excel.config.setValue('promise', Bluebird);
+Excel.config.setValue('promise', Promise);

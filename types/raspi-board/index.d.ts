@@ -1,4 +1,4 @@
-// Type definitions for raspi-board 5.0
+// Type definitions for raspi-board 5.2
 // Project: https://github.com/nebrius/raspi-board
 // Definitions by: Bryan Hughes <https://github.com/nebrius>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -13,6 +13,7 @@ export const VERSION_1_MODEL_ZERO = "rpi1_zero";
 export const VERSION_1_MODEL_ZERO_W = "rpi1_zerow";
 export const VERSION_2_MODEL_B = "rpi2_b";
 export const VERSION_3_MODEL_B = "rpi3_b";
+export const VERSION_3_MODEL_B_PLUS = "rpi3_bplus";
 export const VERSION_UNKNOWN = "unknown";
 export interface PinInfo {
     pins: string[];

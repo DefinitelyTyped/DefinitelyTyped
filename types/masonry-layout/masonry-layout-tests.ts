@@ -42,6 +42,7 @@ function testExtendedOptions() {
         },
         transitionDuration: '0.4s',
         resize: true,
-        initLayout: true
+        initLayout: true,
+        horizontalOrder: true
     });
 }

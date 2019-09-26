@@ -6,17 +6,17 @@
 // TypeScript Version: 2.3
 
 import {
-    Context,
+    ParameterizedContext,
 } from "koa";
 
 import {
     Stats,
 } from "fs";
 
-declare function send(ctx: Context, path: string, opts?: send.SendOptions): Promise<string>;
+declare function send(ctx: ParameterizedContext, path: string, opts?: send.SendOptions): Promise<string>;
 
 declare namespace send {
-    type SetHeaders = (res: Context["res"], path: string, stats: Stats) => any;
+    type SetHeaders = (res: ParameterizedContext["res"], path: string, stats: Stats) => any;
 
     interface SendOptions {
         /** Browser cache max-age in milliseconds. (defaults to 0) */
@@ -29,7 +29,7 @@ declare namespace send {
         /** Root directory to restrict file access. (defaults to '') */
         root?: string;
         /** Name of the index file to serve automatically when visiting the root location. (defaults to none) */
-        index?: string;
+        index?: string | false;
         /** Try to serve the gzipped version of a file automatically when gzip is supported by a client and if the requested file with .gz extension exists. (defaults to true). */
         gzip?: boolean;
         /** Try to serve the brotli version of a file automatically when brotli is supported by a client and if the requested file with .br extension exists. (defaults to true). */

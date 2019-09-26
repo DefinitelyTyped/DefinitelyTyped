@@ -3,19 +3,20 @@
 // Definitions by: Peter Snider <https://github.com/psnider>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped/emitter-component
 
+// TypeScript Version: 2.2
 
 interface Emitter {
     on(event: string, listener: Function): Emitter;
     once(event: string, listener: Function): Emitter;
     off(event?: string, listener?: Function): Emitter;
-    emit(event: string, ...args: any[]): boolean;
+    emit(event: string, ...args: any[]): Emitter;
     listeners(event: string): Function[];
     hasListeners(event: string): boolean;
 }
 
-declare const constructor: {
-    (obj?: any): Emitter;
-    new (obj?: any): Emitter;
+declare const Emitter: {
+    (obj?: object): Emitter;
+    new (obj?: object): Emitter;
 };
 
-export = constructor;
+export = Emitter;

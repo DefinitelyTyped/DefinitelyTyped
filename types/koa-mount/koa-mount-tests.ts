@@ -1,18 +1,15 @@
-
-
-
-import * as Koa from "koa";
-import * as mount from "koa-mount";
+import Koa = require("koa");
+import mount = require("koa-mount");
 
 const a = new Koa();
 
-a.use((next) => {
+a.use(function(next) {
     this.body = "Hello";
-})
+});
 
 const b = new Koa();
 
-b.use((next) => {
+b.use(function(next) {
     this.body = "World";
 });
 
@@ -23,4 +20,3 @@ app.use(mount("/world", b));
 
 app.listen(3000);
 console.log("listening on port 3000");
-

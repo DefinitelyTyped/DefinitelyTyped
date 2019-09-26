@@ -1,365 +1,529 @@
-// Type definitions for luxon 0.2
+// Type definitions for luxon 1.15
 // Project: https://github.com/moment/luxon#readme
 // Definitions by: Colby DeHart <https://github.com/colbydehart>
+//                 Hyeonseok Yang <https://github.com/FourwingsY>
+//                 Jonathan Siebern <https://github.com/jsiebern>
+//                 Matt R. Wilson <https://github.com/mastermatt>
+//                 Pietro Vismara <https://github.com/pietrovismara>
+//                 Janeene Beeforth <https://github.com/dawnmist>
+//                 Jason Yu <https://github.com/ycmjason>
+//                 Miklos Danka <https://github.com/mdanka>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
-declare module 'luxon' {
-    namespace luxon {
-        type DateTimeFormat = any;
-        type ZoneOptions = {
-            keepCalendarTime?: boolean;
-        };
+export type DateTimeFormatOptions = Intl.DateTimeFormatOptions;
 
-        type ToFormatOptions = {
-            round: boolean;
-        };
-
-        type ISOTimeOptions = {
-            suppressMilliseconds?: boolean;
-            supressSeconds?: boolean;
-        };
-
-        type DateTimeOptions = {
-            zone?: string | Zone;
-            setZone?: boolean;
-            locale?: string;
-            outputCalendar?: string;
-            numberingSystem?: string;
-        };
-
-        type DateTimeJSOptions = {
-            zone?: string | Zone;
-        };
-
-        type DateObjectUnits = {
-            year?: number;
-            day?: number;
-            ordinal?: number;
-            weekYear?: number;
-            weekNumber?: number;
-            weekday?: number;
-            hour?: number;
-            minute?: number;
-            second?: number;
-            millisecond?: number;
-        };
-
-        type DateObject = DateObjectUnits & {
-            zone?: string | Zone;
-            locale?: string;
-            outputCalendar?: string;
-            numberingSystem?: string;
-        };
-
-        type DiffOptions = {
-            conversionAccuracy?: string;
-        };
-
-        class DateTime {
-            static DATETIME_FULL: DateTimeFormat;
-            static DATETIME_FULL_WITH_SECONDS: DateTimeFormat;
-            static DATEIME_HUGE: DateTimeFormat;
-            static DATEIME_HUGE_WITH_SECONDS: DateTimeFormat;
-            static DATETIME_MED: DateTimeFormat;
-            static DATETIME_MED_WITH_SECONDS: DateTimeFormat;
-            static DATETIME_SHORT: DateTimeFormat;
-            static DATETIME_SHORT_WITH_SECONDS: DateTimeFormat;
-            static DATE_FULL: DateTimeFormat;
-            static DATE_HUGE: DateTimeFormat;
-            static DATE_MED: DateTimeFormat;
-            static DATE_SHORT: DateTimeFormat;
-            static TIME_24_SIMPLE: DateTimeFormat;
-            static TIME_24_WITH_LONG_OFFSET: DateTimeFormat;
-            static TIME_24_WITH_SECONDS: DateTimeFormat;
-            static TIME_24_WITH_SHORT_OFFSET: DateTimeFormat;
-            static TIME_SIMPLE: DateTimeFormat;
-            static TIME_WITH_LONG_OFFSET: DateTimeFormat;
-            static TIME_WITH_SECONDS: DateTimeFormat;
-            static TIME_WITH_SHORT_OFFSET: DateTimeFormat;
-            static fromHTTP(text: string, options?: DateTimeOptions): DateTime;
-            static fromISO(text: string, options?: DateTimeOptions): DateTime;
-            static fromJSDate(
-                date: Date,
-                options?: DateTimeJSOptions
-            ): DateTime;
-            static fromMillis(ms: number, options?: DateTimeOptions): DateTime;
-            static fromObject(obj: DateObject): DateTime;
-            static fromRFC2822(
-                text: string,
-                options?: DateTimeOptions
-            ): DateTime;
-            static fromString(
-                text: string,
-                format: string,
-                options?: DateTimeOptions
-            ): DateTime;
-            static fromStringExplain(
-                text: string,
-                format: string,
-                options?: DateTimeOptions
-            ): Object;
-            static invalid(reason: any): DateTime;
-            static local(
-                year?: number,
-                month?: number,
-                day?: number,
-                hour?: number,
-                minute?: number,
-                second?: number,
-                millisecond?: number
-            ): DateTime;
-            static max(...dateTimes: DateTime[]): DateTime | undefined;
-            static min(...dateTimes: DateTime[]): DateTime;
-            static utc(
-                year?: number,
-                month?: number,
-                day?: number,
-                hour?: number,
-                minute?: number,
-                second?: number,
-                millisecond?: number
-            ): DateTime;
-            day: number;
-            daysInMonth: number;
-            daysInYear: number;
-            hour: number;
-            invalidReason: string;
-            isInDST: boolean;
-            isOffsetFixed: boolean;
-            isValid: boolean;
-            locale: string;
-            millisecond: number;
-            minute: number;
-            month: number;
-            monthLong: string;
-            monthShort: string;
-            numberingSystem: string;
-            offset: number;
-            offsetNameLong: string;
-            offsetNameShort: string;
-            ordinal: number | DateTime;
-            outputCalendar: string;
-            second: number;
-            weekNumber: number;
-            weekYear: number;
-            weekday: string;
-            weekdayLong: string;
-            weekdayShort: string;
-            year: number;
-            zoneName: string;
-            diff(
-                other: DateTime,
-                unit?: string | string[],
-                options?: DiffOptions
-            ): Duration;
-            diffNow(unit?: string | string[], options?: DiffOptions): Duration;
-            endOf(unit: string): DateTime;
-            equals(other: DateTime): boolean;
-            get(unit: string): number;
-            hasSame(other: DateTime, unit: string): boolean;
-            minus(duration: Duration): DateTime;
-            minus(milliseconds: number): DateTime;
-            minus(durationObject: DurationObject): DateTime;
-            plus(duration: Duration | number | Object): DateTime;
-            reconfigure(properties: Object): DateTime;
-            resolvedLocaleOptions(options?: Object): Object;
-            set(values: DateObjectUnits): DateTime;
-            setLocale(locale: any): DateTime;
-            setZone(zone: string | Zone, options?: ZoneOptions): DateTime;
-            startOf(unit: string): DateTime;
-            toFormat(format: string, options?: ToFormatOptions): string;
-            toHTTP(): string;
-            toISO(options?: Object): string;
-            toISODate(): string;
-            toISOTime(options?: ISOTimeOptions): string;
-            toISOWeekDate(): string;
-            toJSDate(): Date;
-            toJSON(): string;
-            toLocal(): DateTime;
-            toLocaleParts(options?: Object): any[];
-            toLocaleString(options?: DateTimeFormat): string;
-            toObject(options?: { includeConfig?: boolean }): DateObject;
-            toRFC2822(): string;
-            toString(): string;
-            toUTC(offset?: number, options?: ZoneOptions): DateTime;
-            until(other: DateTime): Duration;
-            valueOf(): number;
-        }
-
-        type DurationOptions = {
-            locale?: string;
-            numberingSystem?: string;
-            conversionAccuracy?: string;
-        };
-
-        type DurationObject = {
-            years?: number;
-            months?: number;
-            weeks?: number;
-            days?: number;
-            hours?: number;
-            minutes?: number;
-            seconds?: number;
-            milliseconds?: number;
-        };
-
-        class Duration {
-            static fromISO(text: string, options?: DurationOptions): Duration;
-            static fromMillis(
-                count: number,
-                options?: DurationOptions
-            ): Duration;
-            static fromObject(
-                Object: DurationObject & DurationOptions
-            ): Duration;
-            static invalid(reason?: string): Duration;
-            days: number;
-            hours: number;
-            invalidReason: string;
-            isValid: boolean;
-            locale: string;
-            milliseconds: number;
-            minutes: number;
-            months: number;
-            numberingSystem: string;
-            seconds: number;
-            weeks: number;
-            years: number;
-            as(unit: string): number;
-            equals(other: Duration): boolean;
-            get(unit: string): number;
-            minus(duration: Duration | number | Object): Duration;
-            negate(): Duration;
-            normalize(): Duration;
-            plus(duration: Duration | number | Object): Duration;
-            reconfigure(objectPattern: DurationOptions): Duration;
-            set(values: DurationObject): Duration;
-            shiftTo(...units: string[]): Duration;
-            toFormat(format: string, options?: ToFormatOptions): string;
-            toISO(): string;
-            toJSON(): string;
-            toObject(options?: {
-                includeConfig?: boolean;
-            }): DurationObject & DurationOptions;
-            toString(): string;
-        }
-
-        type EraLength = 'short' | 'long';
-        type UnitLength = EraLength & 'numeric' | '2-digit' | 'narrow';
-        type UnitOptions = InfoOptions & {
-            numberingSystem?: string;
-            outputCalendar?: string;
-        };
-
-        type InfoOptions = {
-            locale?: string;
-        };
-
-        type Features = {
-            intl: boolean;
-            intlTokens: boolean;
-            timezones: boolean;
-        };
-
-        type Info = {
-            eras(length?: EraLength, options?: InfoOptions): string[];
-            features(): Features;
-            hasDST(zone: string | Zone): boolean;
-            meridiems(options?: InfoOptions): string[];
-            months(length?: UnitLength, options?: UnitOptions): string[];
-            monthsFormat(length?: UnitLength, options?: UnitOptions): string[];
-            weeksdays(length?: UnitLength, options?: UnitOptions): string[];
-            weekdaysFormat(
-                length?: UnitLength,
-                options?: UnitOptions
-            ): string[];
-        };
-
-        type IntervalObject = {
-            start: DateTime;
-            end: DateTime;
-        };
-
-        class Interval {
-            static after(
-                start: DateTime | DateObject | Date,
-                duration: Duration | number | DurationObject
-            ): Interval;
-            static before(
-                end: DateTime | DateObject | Date,
-                duration: Duration | number | DurationObject
-            ): Interval;
-            static fromDateTimes(
-                start: DateTime | DateObject | Date,
-                end: DateTime | DateObject | Date
-            ): Interval;
-            static fromISO(string: string, options?: DateTimeOptions): Interval;
-            static invalid(reason?: string): Interval;
-            static merge(intervals: Interval[]): [Interval];
-            static xor(intervals: Interval[]): [Interval];
-            end: DateTime;
-            invalidReason: string;
-            isValid: boolean;
-            start: DateTime;
-            abutsEnd(other: Interval): boolean;
-            abutsStart(other: Interval): boolean;
-            contains(dateTime: DateTime): boolean;
-            count(unit?: string): number;
-            difference(...intervals: Interval[]): Interval;
-            divideEqually(numberOfParts?: number): Interval[];
-            engulfs(other: Interval): boolean;
-            equals(other: Interval): boolean;
-            hasSame(unit: string): boolean;
-            intersection(other: Interval): Interval;
-            isAfter(dateTime: DateTime): boolean;
-            isBefore(dateTime: DateTime): boolean;
-            isEmpty(): boolean;
-            length(unit?: string): number;
-            overlaps(other: Interval): boolean;
-            set(values: IntervalObject): Interval;
-            splitAt(...dateTimes: DateTime[]): Interval[];
-            splitBy(duration: Duration | DurationObject | number): Interval[];
-            toDuration(
-                unit: string | string[],
-                options?: DiffOptions
-            ): Duration;
-            toFormat(
-                dateFormat: string,
-                options?: {
-                    seperator?: string;
-                }
-            ): string;
-            toISO(options?: Object): string;
-            toString(): string;
-            union(other: Interval): Interval;
-        }
-
-        type Settings = {
-            defaultLocale: string;
-            defaultNumberingSystem: string;
-            defaultOutputCalendar: string;
-            defaultZone: Zone;
-            defaultZoneName: string;
-            now: Function;
-            throwOnInvalid: boolean;
-            resetCache(): void;
-        };
-
-        type ZoneOffsetOptions = {
-            format?: 'short' | 'long';
-            localeCode?: string;
-        };
-
-        class Zone {
-            static offsetName(ts: number, options?: ZoneOffsetOptions): string;
-            static isValid: boolean;
-            static name: string;
-            static type: string;
-            static universal: boolean;
-            equals(other: Zone): boolean;
-            static offset(ts: number): number;
-        }
-    }
-
-    export = luxon;
+export interface ZoneOptions {
+    keepLocalTime?: boolean;
+    /**
+     * @deprecated since 0.2.12. Use keepLocalTime instead
+     */
+    keepCalendarTime?: boolean;
 }
+
+export type ToRelativeUnit =
+    | 'years'
+    | 'quarters'
+    | 'months'
+    | 'weeks'
+    | 'days'
+    | 'hours'
+    | 'minutes'
+    | 'seconds';
+
+export interface ToRelativeOptions {
+    /** The DateTime to use as the basis to which this time is compared. Defaults to now. */
+    base?: DateTime;
+    locale?: string;
+    style?: StringUnitLength;
+    /** If omitted, the method will pick the unit. */
+    unit?: ToRelativeUnit;
+    /** Defaults to `true`. */
+    round?: boolean;
+    /**
+     * Padding in milliseconds. This allows you to round up the result if it fits inside the threshold.
+     * Don't use in combination with {round: false} because the decimal output will include the padding.
+     * Defaults to 0.
+     */
+    padding?: number;
+    /** The Intl system may choose not to honor this */
+    numberingSystem?: NumberingSystem;
+}
+
+export interface ToRelativeCalendarOptions {
+    /** The DateTime to use as the basis to which this time is compared. Defaults to now. */
+    base?: DateTime;
+    locale?: string;
+    /** If omitted, the method will pick the unit. */
+    unit?: ToRelativeUnit;
+    /** The Intl system may choose not to honor this. */
+    numberingSystem?: NumberingSystem;
+}
+
+export interface ToSQLOptions {
+    includeOffset?: boolean;
+    includeZone?: boolean;
+}
+
+export interface ToISOTimeOptions {
+    suppressMilliseconds?: boolean;
+    suppressSeconds?: boolean;
+    includeOffset?: boolean;
+}
+
+// alias for backwards compatibility
+export type ISOTimeOptions = ToISOTimeOptions;
+
+export interface LocaleOptions {
+    locale?: string;
+    outputCalendar?: CalendarSystem;
+    numberingSystem?: NumberingSystem;
+}
+
+export interface DateTimeOptions extends LocaleOptions {
+    zone?: string | Zone;
+    setZone?: boolean;
+}
+
+export interface DateTimeJSOptions extends LocaleOptions {
+    zone?: string | Zone;
+}
+
+export interface DateObjectUnits {
+    year?: number;
+    month?: number;
+    day?: number;
+    ordinal?: number;
+    weekYear?: number;
+    weekNumber?: number;
+    weekday?: number;
+    hour?: number;
+    minute?: number;
+    second?: number;
+    millisecond?: number;
+}
+
+export interface DateObject extends DateObjectUnits, LocaleOptions {
+    zone?: string | Zone;
+}
+
+export type ConversionAccuracy = 'casual' | 'longterm';
+
+export interface DiffOptions {
+    conversionAccuracy?: ConversionAccuracy;
+}
+
+export interface ExplainedFormat {
+    input: string;
+    tokens: Array<{ literal: boolean; val: string }>;
+    regex?: RegExp;
+    rawMatches?: RegExpMatchArray | null;
+    matches?: { [k: string]: any };
+    result?: { [k: string]: any } | null;
+    zone?: Zone | null;
+    invalidReason?: string;
+}
+
+export class DateTime {
+    static readonly DATETIME_FULL: DateTimeFormatOptions;
+    static readonly DATETIME_FULL_WITH_SECONDS: DateTimeFormatOptions;
+    static readonly DATETIME_HUGE: DateTimeFormatOptions;
+    static readonly DATETIME_HUGE_WITH_SECONDS: DateTimeFormatOptions;
+    static readonly DATETIME_MED: DateTimeFormatOptions;
+    static readonly DATETIME_MED_WITH_SECONDS: DateTimeFormatOptions;
+    static readonly DATETIME_SHORT: DateTimeFormatOptions;
+    static readonly DATETIME_SHORT_WITH_SECONDS: DateTimeFormatOptions;
+    static readonly DATE_FULL: DateTimeFormatOptions;
+    static readonly DATE_HUGE: DateTimeFormatOptions;
+    static readonly DATE_MED: DateTimeFormatOptions;
+    static readonly DATE_SHORT: DateTimeFormatOptions;
+    static readonly TIME_24_SIMPLE: DateTimeFormatOptions;
+    static readonly TIME_24_WITH_LONG_OFFSET: DateTimeFormatOptions;
+    static readonly TIME_24_WITH_SECONDS: DateTimeFormatOptions;
+    static readonly TIME_24_WITH_SHORT_OFFSET: DateTimeFormatOptions;
+    static readonly TIME_SIMPLE: DateTimeFormatOptions;
+    static readonly TIME_WITH_LONG_OFFSET: DateTimeFormatOptions;
+    static readonly TIME_WITH_SECONDS: DateTimeFormatOptions;
+    static readonly TIME_WITH_SHORT_OFFSET: DateTimeFormatOptions;
+    static fromHTTP(text: string, options?: DateTimeOptions): DateTime;
+    static fromISO(text: string, options?: DateTimeOptions): DateTime;
+    static fromJSDate(date: Date, options?: DateTimeJSOptions): DateTime;
+    static fromMillis(ms: number, options?: DateTimeOptions): DateTime;
+    static fromObject(obj: DateObject): DateTime;
+    static fromRFC2822(text: string, options?: DateTimeOptions): DateTime;
+    static fromSeconds(seconds: number, options?: DateTimeOptions): DateTime;
+    static fromSQL(text: string, options?: DateTimeOptions): DateTime;
+    static fromFormat(text: string, format: string, opts?: DateTimeOptions): DateTime;
+    static fromFormatExplain(text: string, format: string, opts?: DateTimeOptions): ExplainedFormat;
+    /**
+     * @deprecated since 0.3.0. Use fromFormat instead
+     */
+    static fromString(text: string, format: string, options?: DateTimeOptions): DateTime;
+    /**
+     * @deprecated 0.3.0. Use fromFormatExplain instead
+     */
+    static fromStringExplain(
+        text: string,
+        format: string,
+        options?: DateTimeOptions,
+    ): ExplainedFormat;
+    static invalid(reason: any): DateTime;
+    static isDateTime(o: any): o is DateTime;
+    static local(
+        year?: number,
+        month?: number,
+        day?: number,
+        hour?: number,
+        minute?: number,
+        second?: number,
+        millisecond?: number,
+    ): DateTime;
+    static max(): undefined;
+    static max(...dateTimes: DateTime[]): DateTime;
+    static min(): undefined;
+    static min(...dateTimes: DateTime[]): DateTime;
+    static utc(
+        year?: number,
+        month?: number,
+        day?: number,
+        hour?: number,
+        minute?: number,
+        second?: number,
+        millisecond?: number,
+    ): DateTime;
+    day: number;
+    daysInMonth: number;
+    daysInYear: number;
+    hour: number;
+    invalidReason: string | null;
+    invalidExplanation: string | null;
+    isInDST: boolean;
+    isInLeapYear: boolean;
+    isOffsetFixed: boolean;
+    isValid: boolean;
+    locale: string;
+    millisecond: number;
+    minute: number;
+    month: number;
+    monthLong: string;
+    monthShort: string;
+    numberingSystem: string;
+    offset: number;
+    offsetNameLong: string;
+    offsetNameShort: string;
+    ordinal: number;
+    outputCalendar: string;
+    quarter: number;
+    second: number;
+    weekNumber: number;
+    weekYear: number;
+    weekday: number;
+    weekdayLong: string;
+    weekdayShort: string;
+    weeksInWeekYear: number;
+    year: number;
+    zoneName: string;
+    zone: Zone;
+    diff(other: DateTime, unit?: DurationUnit | DurationUnit[], options?: DiffOptions): Duration;
+    diffNow(unit?: DurationUnit | DurationUnit[], options?: DiffOptions): Duration;
+    endOf(unit: DurationUnit): DateTime;
+    equals(other: DateTime): boolean;
+    get(unit: keyof DateTime): number;
+    hasSame(other: DateTime, unit: DurationUnit): boolean;
+    minus(duration: Duration | number | DurationObject): DateTime;
+    plus(duration: Duration | number | DurationObject): DateTime;
+    reconfigure(properties: LocaleOptions): DateTime;
+    resolvedLocaleOpts(options?: DateTimeFormatOptions): Intl.ResolvedDateTimeFormatOptions;
+    set(values: DateObjectUnits): DateTime;
+    setLocale(locale: string): DateTime;
+    setZone(zone: string | Zone, options?: ZoneOptions): DateTime;
+    startOf(unit: DurationUnit): DateTime;
+    toBSON(): Date;
+    toFormat(format: string, options?: DateTimeFormatOptions): string;
+    toHTTP(): string;
+    toISO(options?: ToISOTimeOptions): string;
+    toISODate(): string;
+    toISOTime(options?: ToISOTimeOptions): string;
+    toISOWeekDate(): string;
+    toJSDate(): Date;
+    toJSON(): string;
+    toLocal(): DateTime;
+    toLocaleParts(options?: LocaleOptions & DateTimeFormatOptions): any[];
+    toLocaleString(options?: LocaleOptions & DateTimeFormatOptions): string;
+    toMillis(): number;
+    toObject(options?: { includeConfig?: boolean }): DateObject;
+    toRelative(options?: ToRelativeOptions): string | null;
+    toRelativeCalendar(options?: ToRelativeCalendarOptions): string | null;
+    toRFC2822(): string;
+    toSeconds(): number;
+    toSQL(options?: ToSQLOptions): string;
+    toSQLDate(): string;
+    toSQLTime(options?: ToSQLOptions): string;
+    toString(): string;
+    toUTC(offset?: number, options?: ZoneOptions): DateTime;
+    until(other: DateTime): Interval;
+    valueOf(): number;
+}
+
+export interface DurationOptions {
+    locale?: string;
+    numberingSystem?: NumberingSystem;
+    conversionAccuracy?: ConversionAccuracy;
+}
+
+export interface DurationObjectUnits {
+    year?: number;
+    years?: number;
+    quarter?: number;
+    quarters?: number;
+    month?: number;
+    months?: number;
+    week?: number;
+    weeks?: number;
+    day?: number;
+    days?: number;
+    hour?: number;
+    hours?: number;
+    minute?: number;
+    minutes?: number;
+    second?: number;
+    seconds?: number;
+    millisecond?: number;
+    milliseconds?: number;
+}
+
+export interface DurationObject extends DurationObjectUnits, DurationOptions {}
+
+export type DurationUnit = keyof DurationObjectUnits;
+
+export interface DurationToFormatOptions extends DateTimeFormatOptions {
+    floor?: boolean;
+    round?: boolean;
+}
+
+export class Duration {
+    static fromISO(text: string, options?: DurationOptions): Duration;
+    static fromMillis(count: number, options?: DurationOptions): Duration;
+    static fromObject(Object: DurationObject): Duration;
+    static invalid(reason?: string): Duration;
+    static isDuration(o: any): o is Duration;
+    days: number;
+    hours: number;
+    invalidReason: string | null;
+    invalidExplanation: string | null;
+    isValid: boolean;
+    locale: string;
+    milliseconds: number;
+    minutes: number;
+    months: number;
+    numberingSystem: string;
+    quarters: number;
+    seconds: number;
+    weeks: number;
+    years: number;
+    as(unit: DurationUnit): number;
+    equals(other: Duration): boolean;
+    get(unit: DurationUnit): number;
+    minus(duration: Duration | number | DurationObject): Duration;
+    negate(): Duration;
+    normalize(): Duration;
+    plus(duration: Duration | number | DurationObject): Duration;
+    reconfigure(objectPattern: DurationOptions): Duration;
+    set(values: DurationObjectUnits): Duration;
+    shiftTo(...units: DurationUnit[]): Duration;
+    toFormat(format: string, options?: DurationToFormatOptions): string;
+    toISO(): string;
+    toJSON(): string;
+    toObject(options?: { includeConfig?: boolean }): DurationObject;
+    toString(): string;
+    valueOf(): number;
+}
+
+// @deprecated
+export type EraLength = StringUnitLength;
+
+export type NumberingSystem =
+    | 'arab'
+    | 'arabext'
+    | 'bali'
+    | 'beng'
+    | 'deva'
+    | 'fullwide'
+    | 'gujr'
+    | 'guru'
+    | 'hanidec'
+    | 'khmr'
+    | 'knda'
+    | 'laoo'
+    | 'latn'
+    | 'limb'
+    | 'mlym'
+    | 'mong'
+    | 'mymr'
+    | 'orya'
+    | 'tamldec'
+    | 'telu'
+    | 'thai'
+    | 'tibt';
+
+export type CalendarSystem =
+    | 'buddhist'
+    | 'chinese'
+    | 'coptic'
+    | 'ethioaa'
+    | 'ethiopic'
+    | 'gregory'
+    | 'hebrew'
+    | 'indian'
+    | 'islamic'
+    | 'islamicc'
+    | 'iso8601'
+    | 'japanese'
+    | 'persian'
+    | 'roc';
+
+export type HourCycle = 'h11' | 'h12' | 'h23' | 'h24';
+
+export type StringUnitLength = 'narrow' | 'short' | 'long';
+export type NumberUnitLength = 'numeric' | '2-digit';
+export type UnitLength = StringUnitLength | NumberUnitLength;
+
+export interface InfoOptions {
+    locale?: string;
+}
+
+export interface InfoUnitOptions extends InfoOptions {
+    numberingSystem?: NumberingSystem;
+}
+
+// @deprecated
+export type UnitOptions = InfoUnitOptions;
+
+export interface InfoCalendarOptions extends InfoUnitOptions {
+    outputCalendar?: CalendarSystem;
+}
+
+export interface Features {
+    intl: boolean;
+    intlTokens: boolean;
+    zones: boolean;
+}
+
+export namespace Info {
+    function eras(length?: StringUnitLength, options?: InfoOptions): string[];
+    function features(): Features;
+    function hasDST(zone: string | Zone): boolean;
+    function isValidIANAZone(zone: string): boolean;
+    function normalizeZone(input?: number | string | Zone): Zone;
+    function meridiems(options?: InfoOptions): string[];
+    function months(length?: UnitLength, options?: InfoCalendarOptions): string[];
+    function monthsFormat(length?: UnitLength, options?: InfoCalendarOptions): string[];
+    function weekdays(length?: StringUnitLength, options?: InfoUnitOptions): string[];
+    function weekdaysFormat(length?: StringUnitLength, options?: InfoUnitOptions): string[];
+}
+
+export interface IntervalObject {
+    start?: DateTime;
+    end?: DateTime;
+}
+
+export class Interval {
+    static after(
+        start: DateTime | DateObject | Date,
+        duration: Duration | number | DurationObject,
+    ): Interval;
+    static before(
+        end: DateTime | DateObject | Date,
+        duration: Duration | number | DurationObject,
+    ): Interval;
+    static fromDateTimes(
+        start: DateTime | DateObject | Date,
+        end: DateTime | DateObject | Date,
+    ): Interval;
+    static fromISO(string: string, options?: DateTimeOptions): Interval;
+    static invalid(reason?: string): Interval;
+    static isInterval(o: any): o is Interval;
+    static merge(intervals: Interval[]): Interval[];
+    static xor(intervals: Interval[]): Interval[];
+    end: DateTime;
+    invalidReason: string | null;
+    invalidExplanation: string | null;
+    isValid: boolean;
+    start: DateTime;
+    abutsEnd(other: Interval): boolean;
+    abutsStart(other: Interval): boolean;
+    contains(dateTime: DateTime): boolean;
+    count(unit?: DurationUnit): number;
+    difference(...intervals: Interval[]): Interval[];
+    divideEqually(numberOfParts?: number): Interval[];
+    engulfs(other: Interval): boolean;
+    equals(other: Interval): boolean;
+    hasSame(unit: DurationUnit): boolean;
+    intersection(other: Interval): Interval | null;
+    isAfter(dateTime: DateTime): boolean;
+    isBefore(dateTime: DateTime): boolean;
+    isEmpty(): boolean;
+    length(unit?: DurationUnit): number;
+    overlaps(other: Interval): boolean;
+    set(values: IntervalObject): Interval;
+    splitAt(...dateTimes: DateTime[]): Interval[];
+    splitBy(duration: Duration | DurationObject | number): Interval[];
+    toDuration(unit?: DurationUnit | DurationUnit[], options?: DiffOptions): Duration;
+    toFormat(
+        dateFormat: string,
+        options?: {
+            separator?: string;
+        },
+    ): string;
+    toISO(options?: ToISOTimeOptions): string;
+    toString(): string;
+    union(other: Interval): Interval;
+    mapEndpoints(cb: (d: DateTime) => DateTime): Interval;
+}
+
+export namespace Settings {
+    let defaultLocale: string;
+    let defaultNumberingSystem: string;
+    let defaultOutputCalendar: string;
+    const defaultZone: Zone;
+    let defaultZoneName: string;
+    let throwOnInvalid: boolean;
+    function now(): number;
+    function resetCaches(): void;
+}
+
+export interface ZoneOffsetOptions {
+    format?: 'short' | 'long';
+    locale?: string;
+}
+
+export type ZoneOffsetFormat = 'narrow' | 'short' | 'techie';
+
+export class Zone {
+    offsetName(ts: number, options: ZoneOffsetOptions): string;
+    formatOffset(ts: number, format: ZoneOffsetFormat): string;
+    isValid: boolean;
+    name: string;
+    type: string;
+    universal: boolean;
+    equals(other: Zone): boolean;
+    offset(ts: number): number;
+}
+
+export class IANAZone extends Zone {
+    constructor(ianaString: string);
+    static create(name: string): IANAZone;
+    static isValidSpecifier(s: string): boolean;
+    static isValidZone(zone: string): boolean;
+    static resetCache(): void;
+}
+
+export class FixedOffsetZone extends Zone {
+    static utcInstance: string;
+    static instance(offset: number): FixedOffsetZone;
+    static parseSpecifier(s: string): FixedOffsetZone;
+}
+
+export class InvalidZone extends Zone { }
+
+export class LocalZone extends Zone { }

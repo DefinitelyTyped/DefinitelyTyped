@@ -1,38 +1,30 @@
-/// <reference types='react' />
-
+import * as React from 'react';
+import * as Popper from 'popper.js';
 import { CSSModule } from '../index';
 
-export type Placement
-  = 'auto'
-  | 'auto-start'
-  | 'auto-end'
-  | 'top'
-  | 'top-start'
-  | 'top-end'
-  | 'right'
-  | 'right-start'
-  | 'right-end'
-  | 'bottom'
-  | 'bottom-start'
-  | 'bottom-end'
-  | 'left'
-  | 'left-start'
-  | 'left-end';
-
 export interface PopoverProps extends React.HTMLAttributes<HTMLElement> {
+  [key: string]: any;
   isOpen?: boolean;
   toggle?: () => void;
   target: string | HTMLElement;
   container?: string | HTMLElement;
+  boundariesElement?: Popper.Boundary | Element;
   className?: string;
-  placement?: Placement;
+  placement?: Popper.Placement;
   innerClassName?: string;
   disabled?: boolean;
+  hideArrow?: boolean;
   placementPrefix?: string;
   delay?: number | {show: number, hide: number};
-  modifiers?: object;
+  modifiers?: Popper.Modifiers;
   cssModule?: CSSModule;
+  fade?: boolean;
+  flip?: boolean;
 }
 
-declare const Popover: React.StatelessComponent<PopoverProps>;
+export interface UncontrolledPopoverProps extends PopoverProps {
+    defaultOpen?: boolean;
+}
+
+declare class Popover<T> extends React.Component<PopoverProps> {}
 export default Popover;

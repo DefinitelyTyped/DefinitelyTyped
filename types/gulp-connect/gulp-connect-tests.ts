@@ -89,7 +89,7 @@ gulp.task('connect', () => {
 // The following tests are custom tests to validate the more complicated APIs
 
 // Validate gulp-connect typings allow express apps to be passed in as middleware
-import * as express from "express";
+import express = require("express");
 
 gulp.task('connect', () => {
     const middleware = [
@@ -100,7 +100,8 @@ gulp.task('connect', () => {
         root: [__dirname],
         port: 8081,
         livereload: true,
-        middleware: (connect, opt) => middleware
+        middleware: (connect, opt) => middleware,
+        silent: true
     });
 });
 

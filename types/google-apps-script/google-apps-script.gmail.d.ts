@@ -1,7 +1,6 @@
-// Type definitions for Google Apps Script 2017-05-12
+// Type definitions for Google Apps Script 2019-09-11
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
-//                 dhayab <https://github.com/dhayab/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="google-apps-script.types.d.ts" />
@@ -14,7 +13,7 @@ declare namespace GoogleAppsScript {
      */
     export interface GmailApp {
       createDraft(recipient: string, subject: string, body: string): GmailDraft;
-      createDraft(recipient: string, subject: string, body: string, options: GmailDraftOptions): GmailDraft;
+      createDraft(recipient: string, subject: string, body: string, options: GmailAdvancedOptions): GmailDraft;
       createLabel(name: string): GmailLabel;
       deleteLabel(label: GmailLabel): GmailApp;
       getAliases(): string[];
@@ -72,7 +71,7 @@ declare namespace GoogleAppsScript {
       search(query: string): GmailThread[];
       search(query: string, start: Integer, max: Integer): GmailThread[];
       sendEmail(recipient: string, subject: string, body: string): GmailApp;
-      sendEmail(recipient: string, subject: string, body: string, options: Object): GmailApp;
+      sendEmail(recipient: string, subject: string, body: string, options: GmailAdvancedOptions): GmailApp;
       setCurrentMessageAccessToken(accessToken: string): void;
       starMessage(message: GmailMessage): GmailApp;
       starMessages(messages: GmailMessage[]): GmailApp;
@@ -81,23 +80,21 @@ declare namespace GoogleAppsScript {
     }
 
     /**
-     * An attachment from Gmail. This is a regular
-     *  Blob except that it has an extra
-     *  getSize() method that is faster than calling getBytes().length and does
-     *  not count against the Gmail read quota.
+     * An attachment from Gmail. This is a regular Blob except that it has an extra getSize() method that is faster than calling
+     * getBytes().length and does not count against the Gmail read quota.
      *
-     *      // Logs information about any attachments in the first 100 inbox threads.
-     *      var threads = GmailApp.getInboxThreads(0, 100);
-     *      var msgs = GmailApp.getMessagesForThreads(threads);
-     *      for (var i = 0 ; i < msgs.length; i++) {
-     *        for (var j = 0; j < msgs[i].length; j++) {
-     *          var attachments = msgs[i][j].getAttachments();
-     *          for (var k = 0; k < attachments.length; k++) {
-     *            Logger.log('Message "%s" contains the attachment "%s" (%s bytes)',
-     *                       msgs[i][j].getSubject(), attachments[k].getName(), attachments[k].getSize());
-     *          }
-     *        }
-     *      }
+     *     // Logs information about any attachments in the first 100 inbox threads.
+     *     var threads = GmailApp.getInboxThreads(0, 100);
+     *     var msgs = GmailApp.getMessagesForThreads(threads);
+     *     for (var i = 0 ; i < msgs.length; i++) {
+     *       for (var j = 0; j < msgs[i].length; j++) {
+     *         var attachments = msgs[i][j].getAttachments();
+     *         for (var k = 0; k < attachments.length; k++) {
+     *           Logger.log('Message "%s" contains the attachment "%s" (%s bytes)',
+     *                      msgs[i][j].getSubject(), attachments[k].getName(), attachments[k].getSize());
+     *         }
+     *       }
+     *     }
      */
     export interface GmailAttachment {
       copyBlob(): Base.Blob;
@@ -106,6 +103,7 @@ declare namespace GoogleAppsScript {
       getContentType(): string;
       getDataAsString(): string;
       getDataAsString(charset: string): string;
+      getHash(): string;
       getName(): string;
       getSize(): Integer;
       isGoogleType(): boolean;
@@ -115,9 +113,13 @@ declare namespace GoogleAppsScript {
       setDataFromString(string: string): Base.Blob;
       setDataFromString(string: string, charset: string): Base.Blob;
       setName(name: string): Base.Blob;
+      /** @deprecated DO NOT USE */
       getAllBlobs(): Base.Blob[];
     }
 
+    /**
+     * A user-created draft message in a user's Gmail account.
+     */
     export interface GmailDraft {
       /**
        * Deletes this draft message.
@@ -146,10 +148,13 @@ declare namespace GoogleAppsScript {
       /**
        * Replaces the contents of this draft message using optional arguments.
        */
-      update(recipient: string, subject: string, body: string, options: GmailDraftOptions): GmailDraft;
+      update(recipient: string, subject: string, body: string, options: GmailAdvancedOptions): GmailDraft;
     }
 
-    export type GmailDraftOptions = {
+    /**
+     * Options for a Gmail draft.
+     */
+    export type GmailAdvancedOptions = {
       /**
        * An array of files to send with the email.
        */
@@ -183,6 +188,25 @@ declare namespace GoogleAppsScript {
        */
       replyTo?: string;
     }
+    /** alias to GmailAdvancedOptions */
+    export type GmailDraftOptions = GmailAdvancedOptions;
+
+    /**
+     * Options for a Gmail Attachments.
+     */
+    export type GmailAttachmentOptions = {
+      /**
+       * If the returned array of Blob attachments should include inline images.
+       */
+      includeInlineImages?: boolean;
+      /**
+       *  If the returned array of Blob attachments should include regular (non-inline) attachments.
+       */
+      includeAttachments?: boolean;
+      /**
+       * A comma-separated list of email addresses to BCC.
+       */
+    }
 
     /**
      * A user-created label in a user's Gmail account.
@@ -204,17 +228,19 @@ declare namespace GoogleAppsScript {
      */
     export interface GmailMessage {
       createDraftReply(body: string): GmailDraft;
-      createDraftReply(body: string, options: GmailDraftOptions): GmailDraft;
+      createDraftReply(body: string, options: GmailAdvancedOptions): GmailDraft;
       createDraftReplyAll(body: string): GmailDraft;
-      createDraftReplyAll(body: string, options: GmailDraftOptions): GmailDraft;
+      createDraftReplyAll(body: string, options: GmailAdvancedOptions): GmailDraft;
       forward(recipient: string): GmailMessage;
-      forward(recipient: string, options: Object): GmailMessage;
+      forward(recipient: string, options: GmailAdvancedOptions): GmailMessage;
       getAttachments(): GmailAttachment[];
+      getAttachments(options: GmailAttachmentOptions): GmailAttachment[];
       getBcc(): string;
       getBody(): string;
       getCc(): string;
       getDate(): Date;
       getFrom(): string;
+      getHeader(name: string): string;
       getId(): string;
       getPlainBody(): string;
       getRawContent(): string;
@@ -225,6 +251,7 @@ declare namespace GoogleAppsScript {
       isDraft(): boolean;
       isInChats(): boolean;
       isInInbox(): boolean;
+      isInPriorityInbox(): boolean;
       isInTrash(): boolean;
       isStarred(): boolean;
       isUnread(): boolean;
@@ -233,9 +260,9 @@ declare namespace GoogleAppsScript {
       moveToTrash(): GmailMessage;
       refresh(): GmailMessage;
       reply(body: string): GmailMessage;
-      reply(body: string, options: Object): GmailMessage;
+      reply(body: string, options: GmailAdvancedOptions): GmailMessage;
       replyAll(body: string): GmailMessage;
-      replyAll(body: string, options: Object): GmailMessage;
+      replyAll(body: string, options: GmailAdvancedOptions): GmailMessage;
       star(): GmailMessage;
       unstar(): GmailMessage;
     }
@@ -246,9 +273,9 @@ declare namespace GoogleAppsScript {
     export interface GmailThread {
       addLabel(label: GmailLabel): GmailThread;
       createDraftReply(body: string): GmailDraft;
-      createDraftReply(body: string, options: GmailDraftOptions): GmailDraft;
+      createDraftReply(body: string, options: GmailAdvancedOptions): GmailDraft;
       createDraftReplyAll(body: string): GmailDraft;
-      createDraftReplyAll(body: string, options: GmailDraftOptions): GmailDraft;
+      createDraftReplyAll(body: string, options: GmailAdvancedOptions): GmailDraft;
       getFirstMessageSubject(): string;
       getId(): string;
       getLabels(): GmailLabel[];
@@ -260,6 +287,7 @@ declare namespace GoogleAppsScript {
       isImportant(): boolean;
       isInChats(): boolean;
       isInInbox(): boolean;
+      isInPriorityInbox(): boolean;
       isInSpam(): boolean;
       isInTrash(): boolean;
       isUnread(): boolean;
@@ -274,11 +302,10 @@ declare namespace GoogleAppsScript {
       refresh(): GmailThread;
       removeLabel(label: GmailLabel): GmailThread;
       reply(body: string): GmailThread;
-      reply(body: string, options: Object): GmailThread;
+      reply(body: string, options: GmailAdvancedOptions): GmailThread;
       replyAll(body: string): GmailThread;
-      replyAll(body: string, options: Object): GmailThread;
+      replyAll(body: string, options: GmailAdvancedOptions): GmailThread;
     }
-
   }
 }
 

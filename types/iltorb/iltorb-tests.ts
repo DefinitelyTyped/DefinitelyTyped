@@ -20,6 +20,14 @@ br.compress(Buffer.from('foo', 'utf8'), onCompress);
 
 br.compress(Buffer.from('foo', 'utf8'), opts, onCompress);
 
+br
+    .compress(Buffer.from('foobar'))
+    .then(compressedData => {
+        br.decompress(compressedData).then(data => {
+            console.log(data.equals(Buffer.from('foobar')));
+        });
+    });
+
 const stream = br.compressStream();
 stream.flush();
 

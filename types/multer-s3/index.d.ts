@@ -2,8 +2,9 @@
 // Project: https://github.com/badunk/multer-s3
 // Definitions by: KIM Jaesuck a.k.a. gim tcaesvk <https://github.com/tcaesvk>
 //                 Gal Talmor <https://github.com/galtalmor>
+//                 Matt Terski <https://github.com/terski>
 // Definitions: https://github.com/DefinitelyType/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 import * as AWS from "aws-sdk";
 import { StorageEngine } from "multer";
@@ -16,6 +17,7 @@ interface Options {
     contentType?(req: Express.Request, file: Express.Multer.File, callback: (error: any, mime?: string, stream?: NodeJS.ReadableStream) => void): void;
     metadata?(req: Express.Request, file: Express.Multer.File, callback: (error: any, metadata?: any) => void): void;
     cacheControl?: ((req: Express.Request, file: Express.Multer.File, callback: (error: any, cacheControl?: string) => void) => void) | string;
+    serverSideEncryption?: ((req: Express.Request, file: Express.Multer.File, callback: (error: any, serverSideEncryption?: string) => void) => void) | string;
 }
 
 declare global {

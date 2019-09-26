@@ -1,230 +1,783 @@
-$("#e9").select2();
-$("#e2").select2({
-    placeholder: "Select a State",
+// =====================================================
+// Configuration -- Global defaults
+// =====================================================
+// See: https://select2.org/configuration/defaults
+
+$.fn.select2.defaults.set("theme", "classic");
+$.fn.select2.defaults.set("ajax--cache", false);
+$.fn.select2.defaults.reset();
+
+// =====================================================
+// Appearance
+// =====================================================
+// See: https://select2.org/appearance
+
+$(".js-example-responsive").select2({
+    width: "resolve"
+});
+
+$(".js-example-theme-single").select2({
+    theme: "classic"
+});
+
+// =====================================================
+// Data sources -- The Select2 data format
+// =====================================================
+// See: https://select2.org/data-sources/formats
+
+let dataFormat: Select2.DataFormat[];
+let groupedDataFormat: Select2.GroupedDataFormat[];
+
+dataFormat = [
+    {id: 1, text: "Option 1"},
+    {id: 2, text: "Option 2"},
+];
+
+dataFormat = [
+    {id: 1, text: "Option 1"},
+    {id: 2, text: "Option 2", selected: true},
+    {id: 3, text: "Option 3", disabled: true},
+];
+
+groupedDataFormat = [
+    {
+        text: "Group 1",
+        children : [
+            {id: 1, text: "Option 1.1"},
+            {id: 2, text: "Option 1.2"},
+        ]
+    },
+    {
+        text: "Group 2",
+        children : [
+            {id: 3, text: "Option 2.1"},
+            {id: 4, text: "Option 2.2"},
+        ]
+    }
+];
+
+// =====================================================
+// Data sources -- Ajax (remote data)
+// =====================================================
+// See: https://select2.org/data-sources/ajax
+
+// Request parameters
+
+$("#mySelect2").select2({
+    ajax: {
+        url: "https://api.github.com/orgs/select2/repos",
+        data: (params) => {
+            return {
+                search: params.term,
+                type: "public"
+            };
+        }
+    }
+});
+
+// Transforming response data
+
+interface ServerResult {
+    items: Select2.DataFormat[];
+}
+
+$("#mySelect2").select2({
+    ajax: {
+        url: "/example/api",
+        processResults: (data: ServerResult) => {
+            return {
+                results: data.items
+            };
+        }
+    }
+});
+
+// Pagination
+
+$("#mySelect2").select2({
+    ajax: {
+        url: "https://api.github.com/search/repositories",
+        data: (params) => {
+            return {
+                search: params.term,
+                page: params.page || 1
+            };
+        }
+    }
+});
+
+interface ServerPaginatedResult {
+    results: Select2.DataFormat[];
+    count_filtered: number;
+}
+
+$("#mySelect2").select2({
+    ajax: {
+        url: "/example/api",
+        processResults: (data: ServerPaginatedResult, params) => {
+            params.page = params.page || 1;
+            return {
+                results: data.results,
+                pagination: {
+                    more: (params.page * 10) < data.count_filtered
+                }
+            };
+        }
+    }
+});
+
+// Rate-limiting requests
+
+$("#mySelect2").select2({
+    ajax: {
+        delay: 250
+    }
+});
+
+// Dynamic URLs
+
+$("#mySelect2").select2({
+    ajax: {
+        url: (params) => {
+            return "/some/url/" + params.term;
+        }
+    }
+});
+
+// Alternative transport methods
+
+declare let AjaxSettings2RequestInit: (s: JQueryAjaxSettings) => RequestInit;
+
+$("#mySelect2").select2({
+    ajax: {
+        transport: (params: JQueryAjaxSettings, success?: (data: any) => undefined, failure?: () => undefined) => {
+            const p = AjaxSettings2RequestInit(params);
+            fetch(params.url!, p)
+                .then(success)
+                .catch(failure);
+        }
+    }
+});
+
+// Additional examples
+
+interface GithubApiResult {
+    total_count: number;
+    incomplete_results: boolean;
+    items: GithubRepositories[];
+}
+
+interface GithubRepositories {
+    id: string;
+    name: string;
+    full_name: string;
+    owner: {
+        avatar_url: string
+        gravatar_id: string
+    };
+    description?: string;
+    stargazers_count: number;
+    watchers_count: number;
+    forks_count: number;
+
+    loading: undefined;
+}
+
+$(".js-example-data-ajax").select2<GithubRepositories, GithubApiResult>({
+    ajax: {
+        url: "https://api.github.com/search/repositories",
+        dataType: "json",
+        delay: 250,
+        data: (params: Select2.QueryOptions) => {
+            return {
+                q: params.term,
+                page: params.page
+            };
+        },
+        processResults: (data: GithubApiResult, params: Select2.QueryOptions) => {
+            params.page = params.page || 1;
+
+            return {
+                results: data.items,
+                pagination: {
+                    more: (params.page * data.items.length) < data.total_count
+                }
+            };
+        },
+        cache: true
+    },
+    placeholder: "Search for a repository",
+    escapeMarkup: (markup: string) => markup,
+    minimumInputLength: 1,
+    templateResult: formatRepo,
+    templateSelection: formatRepoSelection
+});
+
+function formatRepo(obj: Select2.LoadingData | GithubRepositories) {
+    if (obj.loading) {
+        return obj.text;
+    }
+
+    const repo = obj as GithubRepositories;
+
+    let markup = '<div class="select2-result-repository clearfix">' +
+        `<div class="select2-result-repository__avatar"><img src="${repo.owner.avatar_url}"></div>` +
+        '<div class="select2-result-repository__meta">' +
+        `<div class="select2-result-repository__title"> ${repo.full_name} </div>`;
+
+    if (repo.description) {
+        markup += `<div class="select2-result-repository__description">${repo.description}</div>`;
+    }
+
+    markup += '<div class="select2-result-repository__statistics">' +
+        `<div class="select2-result-repository__forks"><i class="fa fa-flash"></i> ${repo.forks_count} Forks</div>` +
+        `<div class="select2-result-repository__stargazers"><i class="fa fa-star"></i> ${repo.stargazers_count} Stars</div>` +
+        `<div class="select2-result-repository__watchers"><i class="fa fa-eye"></i> ${repo.watchers_count} Watchers</div>` +
+        "</div>" +
+        "</div></div>";
+
+    return markup;
+}
+
+function formatRepoSelection(repo: Select2.IdTextPair | Select2.LoadingData | GithubRepositories) {
+    return (repo as GithubRepositories).full_name ||
+        (repo as Select2.IdTextPair | Select2.LoadingData).text;
+}
+
+// =====================================================
+// Data sources -- Ajax (remote data)
+// =====================================================
+// See: https://select2.org/data-sources/ajax
+
+$(".js-example-data-array").select2({
+    data: dataFormat
+});
+
+$(".js-example-data-array").select2({
+    data: groupedDataFormat
+});
+
+// =====================================================
+// Dropdown
+// =====================================================
+// See: https://select2.org/dropdown
+
+// Templating
+
+function formatState(state: Select2.LoadingData | Select2.OptionData) {
+    const opt = state as Select2.OptionData;
+    if (!opt.id) {
+        return (state as Select2.LoadingData).text;
+    }
+    const baseUrl = "/user/pages/images/flags";
+    const $state = $(
+        `<span><img src="${baseUrl}/${opt.element.value.toLowerCase()}.png" class="img-flag"> ${opt.text}</span>`
+    );
+    return $state;
+}
+
+$(".js-example-templating").select2({
+    templateResult: formatState
+});
+
+// Automatic selection
+
+$("#mySelect2").select2({
+    selectOnClose: true
+});
+
+// Forcing the dropdown to remain open after selection
+
+$("#mySelect2").select2({
+    closeOnSelect: false
+});
+
+// Dropdown placement
+
+$("#mySelect2").select2({
+    dropdownParent: $("#myModal")
+});
+
+// =====================================================
+// Selections
+// =====================================================
+// See: https://select2.org/selections
+
+// Limiting the number of selections
+
+$(".js-example-basic-multiple-limit").select2({
+    maximumSelectionLength: 2
+});
+
+// Clearable selections
+
+$("select").select2({
+    placeholder: "This is my placeholder",
     allowClear: true
 });
-$("#e2_2").select2({
-    placeholder: "Select a State"
-});
-$("#e2_3").select2({
-    placeholder: { id: "1", text: "Select options" }
-});
-$("#e3").select2({
-    minimumInputLength: 2
-});
-function format(state) {
-    if (!state.id) return state.text;
-    return "<img class='flag' src='images/flags/" + state.id.toLowerCase() + ".png'/>" + state.text;
-}
-$("#e4").select2({
-    formatResult: format,
-    formatSelection: format
-});
-$("#e5").select2({
-    minimumInputLength: 1,
-    query: function (query) {
-        var data = { results: [] }, i, j, s;
-        for (i = 1; i < 5; i++) {
-            s = "";
-            for (j = 0; j < i; j++) { s = s + query.term; }
-            data.results.push({ id: query.term + i, text: s });
-        }
-    }
+
+// =====================================================
+// Dynamic option creation
+// =====================================================
+// See: https://select2.org/tagging
+
+$(".js-example-tags").select2({
+    tags: true
 });
 
-$("#e19").select2({ maximumSelectionLength: 3 });
-$("#e10").select2({
-    data: [{ id: 0, text: 'enhancement' }, { id: 1, text: 'bug' }, { id: 2, text: 'duplicate' }, { id: 3, text: 'invalid' }, { id: 4, text: 'wontfix' }]
-});
+// Automatic tokenization into tags
 
-var data = [{ id: 0, tag: 'enhancement' }, { id: 1, tag: 'bug' }, { id: 2, tag: 'duplicate' }, { id: 3, tag: 'invalid' }, { id: 4, tag: 'wontfix' }];
-
-$("#e10_2").select2({
-    data: { results: data, text: 'tag' },
-    formatSelection: format,
-    formatResult: format
-});
-
-$("#e10_3").select2({
-    data: { results: data, text: function (item) { console.log('called with', item); return item.tag; } },
-    formatSelection: format,
-    formatResult: format
-});
-var movieFormatResult, movieFormatSelection;
-$("#e6").select2({
-    placeholder: "Search for a movie",
-    minimumInputLength: 1,
-    ajax: {
-        url: "http://api.rottentomatoes.com/api/public/v1.0/movies.json",
-        dataType: 'jsonp',
-        cache: false,
-        data: function (params, page) {
-            return {
-                q: params.term,
-                page_limit: 10,
-                apikey: "ju6z9mjyajq2djue3gbvv26t"
-            };
-        },
-        results: function (data, page) {
-            return { results: data.movies };
-        }
-    },
-    formatResult: movieFormatResult,
-    formatSelection: movieFormatSelection,
-    dropdownCssClass: "bigdrop"
-});
-$("#e6").select2({
-    placeholder: "Search for a movie",
-    minimumInputLength: 1,
-    ajax: {
-        url: () => { return "http://api.rottentomatoes.com/api/public/v1.0/movies.json"; },
-        dataType: 'jsonp',
-        data: function (params, page) {
-            return {
-                q: params.term,
-                page_limit: 10,
-                apikey: "ju6z9mjyajq2djue3gbvv26t"
-            };
-        },
-        results: function (data, page) {
-            return { results: data.movies };
-        }
-    },
-    formatResult: movieFormatResult,
-    formatSelection: movieFormatSelection,
-    dropdownCssClass: "bigdrop"
-});
-$("#e6").select2({
-    placeholder: "Search for a movie",
-    minimumInputLength: 1,
-    ajax: {
-        url: "http://api.rottentomatoes.com/api/public/v1.0/movies.json",
-        type: 'GET',
-        dataType: 'jsonp',
-        cache: false,
-        data: function (params, page) {
-            return {
-                q: params.term,
-                page_limit: 10,
-                apikey: "ju6z9mjyajq2djue3gbvv26t"
-            };
-        },
-        results: function (data, page) {
-            return { results: data.movies };
-        }
-    },
-    formatResult: movieFormatResult,
-    formatSelection: movieFormatSelection,
-    dropdownCssClass: "bigdrop"
-});
-$("#e7").select2({
-    placeholder: "Search for a movie",
-    minimumInputLength: 3,
-    ajax: {
-        url: "http://api.rottentomatoes.com/api/public/v1.0/movies.json",
-        dataType: 'jsonp',
-        delay: 100,
-        data: function (params, page) {
-            return {
-                q: params.term,
-                page_limit: 10,
-                page: page,
-                apikey: "ju6z9mjyajq2djue3gbvv26t"
-            };
-        },
-        results: function (data, page) {
-            var more = (page * 10) < data.total;
-            return { results: data.movies, more: more };
-        }
-    },
-    formatResult: movieFormatResult,
-    formatSelection: movieFormatSelection,
-    dropdownCssClass: "bigdrop"
-});
-
-function sort(elements) {
-    return elements.sort();
-}
-$("#e20").select2({
-    sorter: sort
-});
-
-$("#e8").select2();
-$("#e8_get").click(function () { alert("Selected value is: " + $("#e8").select2("val")); });
-$("#e8_set").click(function () { $("#e8").select2("val", "CA"); });
-$("#e8_cl").click(function () { $("#e8").select2("val", ""); });
-$("#e8_get2").click(function () { alert("Selected data is: " + JSON.stringify($("#e8").select2("data"))); });
-$("#e8_set2").click(function () { $("#e8").select2("data", { id: "CA", text: "California" }); });
-$("#e8_open").click(function () { $("#e8").select2("open"); });
-$("#e8_close").click(function () { $("#e8").select2("close"); });
-$("#e8_2").select2();
-$("#e8_2_get").click(function () { alert("Selected value is: " + $("#e8_2").select2("val")); });
-$("#e8_2_set").click(function () { $("#e8_2").select2("val", ["CA", "MA"]); });
-$("#e8_2_get2").click(function () { alert("Selected value is: " + JSON.stringify($("#e8_2").select2("data"))); });
-$("#e8_2_set2").click(function () { $("#e8_2").select2("data", [{ id: "CA", text: "California" }, { id: "MA", text: "Massachusetts" }]); });
-$("#e8_2_cl").click(function () { $("#e8_2").select2("val", ""); });
-$("#e8_2_open").click(function () { $("#e8_2").select2("open"); });
-$("#e8_2_close").click(function () { $("#e8_2").select2("close"); });
-$("#e11").select2({
-    placeholder: "Select report type",
-    allowClear: true,
-    data: [{ id: 0, text: 'story' }, { id: 1, text: 'bug' }, { id: 2, text: 'task' }]
-});
-$("#e11_2").select2({
-    createSearchChoice: function (term, data) { if ($(data).filter(function () { return this.textContent.localeCompare(term) === 0; }).length === 0) { return { id: term, text: term }; } },
-    multiple: true,
-    data: [{ id: 0, text: 'story' }, { id: 1, text: 'bug' }, { id: 2, text: 'task' }]
-});
-function log(e) {
-    var item = $("<li>" + e + "</li>");
-    $("#events_11").append(item);
-    item.animate({ opacity: 1 }, 10000, 'linear', function () { item.animate({ opacity: 0 }, 2000, 'linear', function () { item.remove(); }); });
-}
-$("#e11")
-    // TS 0.9.5: correct overload not resolved https://typescript.codeplex.com/discussions/472172
-    .on("change", function (e: Select2JQueryEventObject) { log(JSON.stringify({ val: e.val, added: e.added, removed: e.removed })); })
-    .on("open", function () { log("open"); });
-$("#e11_2")
-    .on("change", function (e: Select2JQueryEventObject) { log(JSON.stringify({ val: e.val, added: e.added, removed: e.removed })); })
-    .on("open", function () { log("open"); });
-$("#e12").select2({ tags: ["red", "green", "blue"] });
-$("#e20").select2({
-    tags: ["red", "green", "blue"],
+$(".js-example-tokenizer").select2({
+    tags: true,
     tokenSeparators: [",", " "]
 });
-$("#e13").select2();
-$("#e13_ca").click(function () { $("#e13").val("CA").trigger("change"); });
-$("#e13_ak_co").click(function () { $("#e13").val(["AK", "CO"]).trigger("change"); });
-$("#e14").val(["AL", "AZ"]).select2();
-$("#e14_init").click(function () { $("#e14").select2(); });
-$("#e14_destroy").click(function () { $("#e14").select2("destroy"); });
-$("#e15").select2({ tags: ["red", "green", "blue", "orange", "white", "black", "purple", "cyan", "teal"] });
-$("#e15").on("change", function () { $("#e15_val").html($("#e15").val() as string); });
 
-$("#e16").select2();
-$("#e16_2").select2();
-$("#e16_enable").click(function () { $("#e16,#e16_2").select2("enable"); });
-$("#e16_disable").click(function () { $("#e16,#e16_2").select2("disable"); });
-$("#e17").select2({
-    matcher: function (term, text) { return text.toUpperCase().indexOf(term.toUpperCase()) == 0; }
-});
-$("#e17_2").select2({
-    matcher: function (term, text, opt) {
-        return text.toUpperCase().indexOf(term.toUpperCase()) >= 0
-            || opt.attr("alt").toUpperCase().indexOf(term.toUpperCase()) >= 0;
+// Customizing tag creation
+
+$("select").select2({
+    tags: true,
+    createTag: (params) => {
+        const term = params.term.trim();
+
+        if (term === "") {
+            return null;
+        }
+
+        return {
+            id: term,
+            text: term,
+            newTag: true, // not for select2 use
+        };
     }
 });
-$("#e18,#e18_2").select2();
-alert("Selected value is: " + $("#e8").select2("val")); $("#e8").select2("val", { id: "CA", text: "Califoria" });
 
-$("#e8").select2("val");
-$("#e8").select2("val", "CA");
-$("#e8").select2("data");
-$("#e8").select2("data", { id: "CA", text: "Califoria" });
-$("#e8").select2("destroy");
-$("#e8").select2("open");
-$("#e8").select2("enable", false);
-$("#e8").select2("readonly", false);
-$("#e8").select2('container');
-$("#e8").select2('onSortStart');
-$("#e8").select2('onSortEnd');
+$("select").select2({
+    tags: true,
+    createTag: (params) => {
+        if (params.term.indexOf("@") === -1) {
+            return null;
+        }
+
+        return {
+            id: params.term,
+            text: params.term
+        };
+    }
+});
+
+// Customizing tag placement in the dropdown
+
+$("select").select2({
+    tags: true,
+    insertTag: (data, tag) => {
+        data.push(tag);
+    }
+});
+
+// =====================================================
+// Placeholders
+// =====================================================
+// See: https://select2.org/placeholders
+
+// Single select placeholders
+
+$(".js-example-placeholder-single").select2({
+    placeholder: "Select a state",
+    allowClear: true
+});
+
+// Multi-select placeholders
+
+$(".js-example-placeholder-multiple").select2({
+    placeholder: "Select a state"
+});
+
+// Default selection placeholders
+
+$("select").select2({
+    placeholder: {
+        id: "-1",
+        text: "Select an option"
+    }
+});
+
+// Customizing placeholder appearance
+
+$("select").select2({
+    templateSelection: (data: Select2.IdTextPair | Select2.LoadingData | Select2.OptionData) => {
+        if (data.id === "") {
+            return "Custom styled placeholder text";
+        }
+        return data.text;
+    }
+});
+
+// =====================================================
+// Search
+// =====================================================
+// See: https://select2.org/searching
+
+// Customizing how results are matched
+
+$(".js-example-matcher").select2({
+    matcher: (params, data) => {
+        if (params.term.trim() === "") {
+            return data;
+        }
+
+        if (typeof data.text === "undefined") {
+            return null;
+        }
+
+        if (data.text.indexOf(params.term) > -1) {
+            const modifiedData = {...data};
+            modifiedData.text += " (matched)";
+            return modifiedData;
+        }
+
+        return null;
+    }
+});
+
+// Matching grouped options
+
+function matchStart(params: Select2.SearchOptions, data: Select2.OptGroupData | Select2.OptionData) {
+    if (params.term.trim() === "") {
+        return data;
+    }
+
+    if (typeof data.children === "undefined") {
+        return null;
+    }
+
+    const filteredChildren: Select2.OptionData[] = [];
+    data.children.forEach((child, idx) => {
+        if (child.text.toUpperCase().indexOf(params.term.toUpperCase()) === 0) {
+            filteredChildren.push(child);
+        }
+    });
+
+    if (filteredChildren.length) {
+        const modifiedData = {...data};
+        modifiedData.children = filteredChildren;
+
+        return modifiedData;
+    }
+
+    return null;
+}
+
+$(".js-example-matcher-start").select2({
+    matcher: matchStart
+});
+
+// Minimum search term length
+
+$("select").select2({
+    minimumInputLength: 3
+});
+
+// Maximum search term length
+
+$("select").select2({
+    maximumInputLength: 20
+});
+
+// Limiting display of the search box to large result sets
+
+$("select").select2({
+    minimumResultsForSearch: 20
+});
+
+// Hiding the search box
+
+$("#js-example-basic-hide-search").select2({
+    minimumResultsForSearch: Infinity
+});
+
+$("#js-example-basic-hide-search-multi").select2();
+$("#js-example-basic-hide-search-multi").on("select2:opening select2:closing", function(event) {
+    const $searchfield = $(this).parent().find(".select2-search__field");
+    $searchfield.prop("disabled", true);
+});
+
+// =====================================================
+// Programmatic control -- Add, select, or clear items
+// =====================================================
+// See: https://select2.org/programmatic-control/add-select-clear-items
+
+// Preselecting options in an remotely-sourced (AJAX) Select2
+
+interface StudentAjaxResult {
+    id: string;
+    text: string;
+    full_name: string;
+}
+
+const studentSelect = $("#mySelect2");
+$.ajax({
+    type: "GET",
+    url: "/api/students/s/123"
+}).then((res: StudentAjaxResult) => {
+    const option = new Option(res.full_name, res.id, true, true);
+    studentSelect.append(option).trigger("change");
+
+    studentSelect.trigger({
+        type: "select2:select",
+        params: {
+            data: res
+        }
+    });
+});
+
+// =====================================================
+// Programmatic control -- Retrieving selections
+// =====================================================
+// See: https://select2.org/programmatic-control/retrieving-selections
+
+// Using the data method
+
+$("#mySelect2").select2("data");
+
+// Using a jQuery selector
+
+// TODO
+// $("#mySelect2").select2<GithubRepositories>({
+//     templateSelection: (data) => {
+//         $(data.element).attr("data-custom-attribute", (data as GithubRepositories).owner.gravatar_id);
+//         return data.text;
+//     }
+// });
+
+// =====================================================
+// Programmatic control -- Methods
+// =====================================================
+// See: https://select2.org/programmatic-control/methods
+
+// Opening the dropdown
+
+$("#mySelect2").select2("open");
+
+// Closing the dropdown
+
+$("#mySelect2").select2("close");
+
+// Destroying the Select2 control
+
+$("#mySelect2").select2("destroy");
+
+// Event unbinding
+
+$("#example").select2();
+
+$("#example").on("select2:select", (e) => {
+    console.log("select event");
+});
+
+$("#example").select2("destroy");
+
+$("#example").off("select2:select");
+
+// Examples
+
+const $example = $(".js-example-programmatic").select2();
+const $exampleMulti = $(".js-example-programmatic-multi").select2();
+
+$(".js-programmatic-set-val").on("click", () => {
+    $example.val("CA").trigger("change");
+});
+
+$(".js-programmatic-open").on("click", () => {
+    $example.select2("open");
+});
+
+$(".js-programmatic-close").on("click", () => {
+    $example.select2("close");
+});
+
+$(".js-programmatic-init").on("click", () => {
+    $example.select2();
+});
+
+$(".js-programmatic-destroy").on("click", () => {
+    $example.select2("destroy");
+});
+
+$(".js-programmatic-multi-set-val").on("click", () => {
+    $exampleMulti.val(["CA", "AL"]).trigger("change");
+});
+
+$(".js-programmatic-multi-clear").on("click", () => {
+    $exampleMulti.val([]).trigger("change");
+});
+
+// =====================================================
+// Programmatic control -- Events
+// =====================================================
+// See: https://select2.org/programmatic-control/events
+
+// Listening for events
+
+$("#mySelect2").on("select2:select", (e) => {
+    // Do something
+});
+
+// Event data
+
+$("#mySelect2").on("select2:select", (e) => {
+    const data = e.params.data;
+    console.log(data);
+});
+
+// Triggering events
+
+const triggerData = {
+    id: "1",
+    text: "Tyto alba",
+    genus: "Tyto",
+    species: "alba"
+};
+
+$("#mySelect2").trigger({
+    type: "select2:select",
+    params: {
+        data: triggerData
+    }
+});
+
+// Examples
+
+const $eventLog = $(".js-event-log");
+const $eventSelect = $(".js-example-events");
+
+$eventSelect.select2();
+
+$eventSelect.on("select2:open", (e) => { log("select2:open", e); });
+$eventSelect.on("select2:close", (e) => { log("select2:close", e); });
+$eventSelect.on("select2:select", (e) => { log("select2:select", e); });
+$eventSelect.on("select2:unselect", (e) => { log("select2:unselect", e); });
+$eventSelect.on("change", (e) => { log("change"); });
+
+function log(name: string, evt?: Select2.Event<HTMLElement, {} | Select2.IngParams | Select2.DataParams>) {
+    let args = "{}";
+    if (evt) {
+        args = JSON.stringify(evt.params, (key, value) => {
+            if (value && value.nodeName) return "[DOM node]";
+            if (value instanceof $.Event) return "[$.Event]";
+            return value;
+        });
+    }
+    const $e = $(`<li>${name} -> ${args}</li>`);
+    $eventLog.append($e);
+    $e.animate({ opacity: 1 }, 10000, "linear", () => {
+        $e.animate({ opacity: 0 }, 2000, "linear", () => {
+            $e.remove();
+        });
+    });
+}
+
+// =====================================================
+// Internationalization
+// =====================================================
+// See: https://select2.org/i18n
+
+// Language files
+
+$(".js-example-language").select2({
+    language: "es"
+});
+
+// Translation objects
+
+const fr: Select2.Translation = {
+    errorLoading: () => {
+        return "Les résultats ne peuvent pas être chargés.";
+    },
+    inputTooLong: (args) => {
+        const overChars = args.input.length - args.maximum;
+        return `Supprimez ${overChars} caractère${overChars > 1 ? "s" : ""}`;
+    },
+    inputTooShort: (args) => {
+        const remainingChars = args.minimum - args.input.length;
+        return `Saisissez au moins ${remainingChars} caractère${remainingChars > 1 ? "s" : ""}`;
+    },
+    loadingMore: () => {
+        return "Chargement de résultats supplémentaires…";
+    },
+    maximumSelected: (args) => {
+        return `Vous pouvez seulement sélectionner ${args.maximum}` +
+            ` élément${args.maximum > 1 ? "s" : ""}`;
+    },
+    noResults: () => {
+        return "Aucun résultat trouvé";
+    },
+    searching: () => {
+        return "Recherche en cours…";
+    }
+};
+
+$(".js-example-language").select2({
+    language: {
+        inputTooShort: () => "You must enter more characters..."
+    }
+});
+
+// RTL support
+
+$(".js-example-rtl").select2({
+    dir: "rtl"
+});
+
+// =====================================================
+// Advanced Features and Developer Guide
+// =====================================================
+// See: https://select2.org/advanced
+
+$.fn.select2.amd.require(
+    ["select2/utils", "select2/selection/single", "select2/selection/placeholder"],
+    (Utils: any, SingleSelection: any, Placeholder: any) => {
+        const CustomSelectionAdapter = Utils.Decorate(SingleSelection, Placeholder);
+    }
+);
+
+// TODO (Adapters)
+
+// =====================================================
+// Others
+// =====================================================
+// Code not from the official documentation
+
+$().data("select2").$container.on("keyup", "input", console.log);
+
+$(".js-multiple").select2({
+    multiple: false,
+});
+
+$(".js-states").select2({
+    sorter: (data) => {
+        return data.sort((a, b) => a.text > b.text ? 1 : 0);
+    }
+});
+
+$("#mySelect2").select2({
+    theme: "bootstrap",
+}).on("select2:closing", function() {
+    $(this).val("Bye");
+}).on("select2:close", function() {
+    $(this).trigger("change");
+});
+
+const selectedData: Select2.OptionData[] = $("#mySelect2").select2("data");
+// TODO
+// const selectedRepo: GithubRepositories[] = $(".js-example-data-ajax").select2("data") as GithubRepositories[];
+
+// jQuery Generic
+
+declare let select: HTMLSelectElement;
+const $select: JQuery<HTMLSelectElement> = $(select);
+
+select = $select.select2().get(0);
+select = $select.select2({tags: true}).get(0);
+select = $select.select2("open").get(0);
+select = $select.select2("close").get(0);
+select = $select.select2("destroy").get(0);

@@ -20,7 +20,7 @@ interface BaseFieldArrayProps {
      *
      * Required but made optional so interface can be used on decorated components.
      */
-    component?: ComponentConstructor<any>,
+    component?: ComponentConstructor<any>;
 
     /**
      * Allows you to to provide a field-level validation rule. The function will be given the
@@ -52,7 +52,6 @@ interface BaseFieldArrayProps {
  * Declare FieldArray as this interface to specify the generics.
  */
 export interface GenericFieldArray<T, FieldCustomProps> extends Component<BaseFieldArrayProps & FieldCustomProps> {
-
     /**
      * The name prop that you passed in.
      */
@@ -75,7 +74,6 @@ export interface GenericFieldArray<T, FieldCustomProps> extends Component<BaseFi
  * The FieldArray Instance API.
  */
 export class FieldArray extends Component<any> implements GenericFieldArray<any, any> {
-
     /**
      * The name prop that you passed in.
      */

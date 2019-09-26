@@ -22,14 +22,15 @@ interface Cookies {
      * Cookie header in the request. If such a cookie exists,
      * its value is returned. Otherwise, nothing is returned.
      */
-    get(name: string, opts?: Cookies.GetOption): string;
+    get(name: string, opts?: Cookies.GetOption): string | undefined;
 
     /**
      * This sets the given cookie in the response and returns
      * the current context to allow chaining.If the value is omitted,
      * an outbound header with an expired date is used to delete the cookie.
      */
-    set(name: string, value?: string, opts?: Cookies.SetOption): this;
+    set(name: string, value: string, opts?: Cookies.SetOption): this;
+    set(name: string, opts?: Cookies.SetOption): this;
 }
 
 declare namespace Cookies {

@@ -2,6 +2,10 @@ import * as React from 'react';
 
 import {
     Accelerometer,
+    AdMobAppEvent,
+    AdMobBanner,
+    AdMobInterstitial,
+    AdMobRewarded,
     Amplitude,
     Asset,
     AuthSession,
@@ -16,7 +20,8 @@ import {
     Facebook,
     FacebookAds,
     FileSystem,
-	ImagePicker
+    ImagePicker,
+    PublisherBanner
 } from 'expo';
 
 Accelerometer.addListener((obj) => {
@@ -26,6 +31,35 @@ Accelerometer.addListener((obj) => {
 });
 Accelerometer.removeAllListeners();
 Accelerometer.setUpdateInterval(1000);
+
+() => (
+    <AdMobBanner
+        bannerSize="leaderboard"
+        adUnitID="ca-app-pub-3940256099942544/6300978111"
+        testDeviceID="EMULATOR"
+        didFailToReceiveAdWithError={(error: string) => console.log(error)}
+        style={{ flex: 1 }}
+    />
+);
+
+() => (
+    <PublisherBanner
+        bannerSize="leaderboard"
+        adUnitID="ca-app-pub-3940256099942544/6300978111"
+        testDeviceID="EMULATOR"
+        didFailToReceiveAdWithError={(error: string) => console.log(error)}
+        admobDispatchAppEvent={(event: AdMobAppEvent) => console.log(event)}
+        style={{ flex: 1 }}
+    />
+);
+
+AdMobInterstitial.setAdUnitID('ca-app-pub-3940256099942544/1033173712'); // Test ID, Replace with your-admob-unit-id
+AdMobInterstitial.setTestDeviceID('EMULATOR');
+AdMobInterstitial.requestAd(() => AdMobInterstitial.showAd());
+
+AdMobRewarded.setAdUnitID('ca-app-pub-3940256099942544/1033173712'); // Test ID, Replace with your-admob-unit-id
+AdMobRewarded.setTestDeviceID('EMULATOR');
+AdMobRewarded.requestAd(() => AdMobRewarded.showAd());
 
 Amplitude.initialize('key');
 Amplitude.setUserId('userId');
@@ -106,10 +140,7 @@ async () => {
         onError={(error) => console.log(error)} />
 );
 () => (
-    <AppLoading
-        startAsync={null}
-        onFinish={null}
-        onError={null} />
+    <AppLoading />
 );
 
 const barcodeReadCallback = () => {};
@@ -159,12 +190,7 @@ async () => {
 };
 
 async () => {
-    const result = await Facebook.logInWithReadPermissionsAsync('appId');
-
-    if (result.type === 'success') {
-        result.expires;
-        result.token;
-    }
+    const { type, expires, token } = await Facebook.logInWithReadPermissionsAsync("appId");
 };
 
 () => (

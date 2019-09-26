@@ -1,14 +1,15 @@
-// Type definitions for react-facebook-login 3.6
+// Type definitions for react-facebook-login 4.1
 // Project: https://github.com/keppelen/react-facebook-login
 // Definitions by: Alexandre Paré <https://github.com/apare>, Jan Karres <https://github.com/jankarres>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import * as React from "react";
 
-interface ReactFacebookLoginProps {
+export interface ReactFacebookLoginProps {
     appId: string;
     callback(userInfo: ReactFacebookLoginInfo): void;
+    onFailure?(response: ReactFacebookFailureResponse): void;
 
     autoLoad?: boolean;
     buttonStyle?: React.CSSProperties;
@@ -17,10 +18,10 @@ interface ReactFacebookLoginProps {
     cssClass?: string;
     disableMobileRedirect?: boolean;
     fields?: string;
-    icon?: string | React.ReactNode;
+    icon?: React.ReactNode;
     isDisabled?: boolean;
     language?: string;
-    onClick?(): void;
+    onClick?(event: React.MouseEvent<HTMLDivElement>): void;
     reAuthenticate?: boolean;
     redirectUri?: string;
     scope?: string;
@@ -31,18 +32,29 @@ interface ReactFacebookLoginProps {
     xfbml?: boolean;
     isMobile?: boolean;
     tag?: Node | React.Component<any>;
+    returnScopes?: boolean;
+    state?: string;
+    authType?: string;
+    responseType?: string;
+}
+
+export interface ReactFacebookFailureResponse {
+    status?: string;
 }
 
 export interface ReactFacebookLoginInfo {
     id: string;
-    name: string;
+    accessToken: string;
+    name?: string;
+    email?: string;
 }
 
-interface ReactFacebookLoginState {
+export interface ReactFacebookLoginState {
     isSdkLoaded?: boolean;
     isProcessing?: boolean;
 }
 
-declare class ReactFacebookLogin extends React.Component<ReactFacebookLoginProps, ReactFacebookLoginState> { }
-
-export default ReactFacebookLogin;
+export default class ReactFacebookLogin extends React.Component<
+    ReactFacebookLoginProps,
+    ReactFacebookLoginState
+> {}

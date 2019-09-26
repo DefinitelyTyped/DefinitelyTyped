@@ -5,7 +5,10 @@ nunjucks.configure({ autoescape: false });
 let rendered = nunjucks.render("./noexists.html");
 
 nunjucks.render('foo.html', { username: 'James' });
-nunjucks.render('async.html', (err: any, res: string) => {});
+nunjucks.render(
+  'async.html',
+  (err: nunjucks.lib.TemplateError | null, res: string | null) => {},
+);
 
 const ctx = { items: ["Hello", "this", "is", "for", "testing"] };
 const src = "{% for item in items %}{{item}}{% endfor %}";
@@ -52,3 +55,5 @@ class MyLoader extends nunjucks.Loader implements nunjucks.ILoader {
 }
 
 env = new nunjucks.Environment(new MyLoader());
+
+new nunjucks.runtime.SafeString("an unsafe string");

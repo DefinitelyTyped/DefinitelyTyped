@@ -1,6 +1,9 @@
-// Type definitions for keytar 4.0.2
+// Type definitions for keytar 4.4.1
 // Project: http://atom.github.io/node-keytar/
-// Definitions by: Milan Burda <https://github.com/miniak>, Brendan Forster <https://github.com/shiftkey>, Hari Juturu <https://github.com/juturu>
+// Definitions by: Milan Burda <https://github.com/miniak>
+//                 Brendan Forster <https://github.com/shiftkey>
+//                 Hari Juturu <https://github.com/juturu>
+//                 Queenie Ma <https://github.com/queeniema>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
@@ -15,7 +18,7 @@
 export declare function getPassword(service: string, account: string): Promise<string | null>;
 
 /**
- * Add the password for the service and account to the keychain.
+ * Save the password for the service and account to the keychain. Adds a new entry if necessary, or updates an existing entry if one exists.
  *
  * @param service The string service name.
  * @param account The string account name.
@@ -36,7 +39,16 @@ export declare function setPassword(service: string, account: string, password: 
 export declare function deletePassword(service: string, account: string): Promise<boolean>;
 
 /**
- * Find a password for the service in the keychain.
+ * Find all accounts and password for the service in the keychain.
+ *
+ * @param service The string service name.
+ *
+ * @returns A promise for the credentials array.
+ */
+export declare function findCredentials(service: string): Promise<Array<{ account: string, password: string }>>;
+
+/**
+ * Find a password for the service in the keychain. This is ideal for scenarios where an account is not required.
  *
  * @param service The string service name.
  *

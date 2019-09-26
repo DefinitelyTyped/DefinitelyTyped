@@ -1,5 +1,5 @@
 // Type definitions for node-schedule 1.2
-// Project: https://github.com/tejasmanohar/node-schedule/
+// Project: https://github.com/node-schedule/node-schedule
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>, Florian Plattner <https://github.com/flowpl>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -8,7 +8,7 @@
 import { EventEmitter } from 'events';
 
 /** The callback executed by a Job */
-export type JobCallback = () => void;
+export type JobCallback = (fireDate: Date) => void;
 
 /** Scheduler jobs. */
 export class Job extends EventEmitter {
@@ -171,7 +171,7 @@ export class Invocation {
  * @param rule     scheduling info
  * @param callback callback to be executed on each invocation
  */
-export function scheduleJob(name: string, rule: RecurrenceRule | RecurrenceSpecDateRange | RecurrenceSpecObjLit | Date | string, callback: JobCallback): Job;
+export function scheduleJob(name: string, rule: RecurrenceRule | RecurrenceSpecDateRange | RecurrenceSpecObjLit | Date | string | number, callback: JobCallback): Job;
 
 /**
  * Create a schedule job.
@@ -179,7 +179,7 @@ export function scheduleJob(name: string, rule: RecurrenceRule | RecurrenceSpecD
  * @param rule     scheduling info
  * @param callback callback to be executed on each invocation
  */
-export function scheduleJob(rule: RecurrenceRule | RecurrenceSpecDateRange | RecurrenceSpecObjLit | Date | string, callback: JobCallback): Job;
+export function scheduleJob(rule: RecurrenceRule | RecurrenceSpecDateRange | RecurrenceSpecObjLit | Date | string | number, callback: JobCallback): Job;
 
 /**
  * Changes the timing of a Job, canceling all pending invocations.

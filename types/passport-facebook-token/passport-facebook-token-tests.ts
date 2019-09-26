@@ -1,6 +1,6 @@
 import * as express from 'express';
 import * as passport from 'passport';
-import * as PassportFacebookToken from 'passport-facebook-token';
+import PassportFacebookToken = require('passport-facebook-token');
 
 const User = {
     findOrCreate(id: string, provider: string, callback: (err: any, user: any) => void): void {

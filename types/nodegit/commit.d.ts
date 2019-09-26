@@ -9,6 +9,10 @@ import { Tree } from './tree';
 import { TreeEntry } from './tree-entry';
 import { Diff } from './diff';
 
+export interface HistoryEventEmitter extends EventEmitter {
+    start(): void;
+}
+
 export class Commit {
     static create(repo: Repository, updateRef: string, author: Signature, committer: Signature, messageEncoding: string, message: string, tree: Tree, parentCount: number, parents: any[]): Oid;
     static createV(id: Oid, repo: Repository, updateRef: string, author: Signature, committer: Signature, messageEncoding: string, message: string, tree: Tree, parentCount: number): number;
@@ -21,7 +25,7 @@ export class Commit {
     static lookupPrefix(repo: Repository, id: Oid, len: number): Promise<Commit>;
     static createWithSignature(repo: Repository, commitContent: string, signature: string, signatureField: string): Promise<Oid>;
 
-    amend(updateRef: string, author: Signature, committer: Signature, messageEncoding: string, message: string, tree: Tree): Oid;
+    amend(updateRef: string, author: Signature, committer: Signature, messageEncoding: string, message: string, tree: Tree | Oid): Promise<Oid>;
     author(): Signature;
     committer(): Signature;
 
@@ -75,11 +79,11 @@ export class Commit {
     /**
      * Walk the history from this commit backwards.
      * An EventEmitter is returned that will emit a "commit" event for each commit in the history, and one "end"
-     * event when the walk is completed. Don't forget to call start() on the returned event.
+     * event when the walk is completed. Don't forget to call start() on the returned EventEmitter.
      *
      *
      */
-    history(): EventEmitter;
+    history(): HistoryEventEmitter;
     /**
      * Retrieve the commit's parents as commit objects.
      *

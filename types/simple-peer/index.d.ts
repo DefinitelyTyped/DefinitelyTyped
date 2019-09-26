@@ -40,6 +40,7 @@ declare namespace SimplePeer {
     type SimplePeerData = string | Buffer | TypedArray | ArrayBuffer | Blob;
 
     interface SignalData {
+        type?: "offer" | "pranswer" | "answer" | "rollback";
         sdp?: any;
         candidate?: any;
     }
@@ -61,6 +62,9 @@ declare namespace SimplePeer {
         // methods which are not documented
         readonly bufferSize: number;
         address(): { port: string, family: string, address: string, };
+
+        // used for debug logging
+        _debug(message?: any, ...optionalParams: any[]): void;
     }
 }
 

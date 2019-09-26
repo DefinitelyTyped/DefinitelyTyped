@@ -13,6 +13,25 @@ app.use(jwt({
     userProperty: 'auth'
 }));
 
+app.use(jwt({
+    secret: (req: express.Request,
+        payload: any,
+        done: (err: any, secret: string) => void) => {
+        done(null, 'shhhhhhared-secret');
+    },
+    userProperty: 'auth'
+}));
+
+app.use(jwt({
+    secret: (req: express.Request,
+        header: any,
+        payload: any,
+        done: (err: any, secret: string) => void) => {
+        done(null, 'shhhhhhared-secret');
+    },
+    userProperty: 'auth'
+}));
+
 var jwtCheck = jwt({
     secret: 'shhhhhhared-secret'
 });
@@ -26,6 +45,6 @@ app.use(function (err: any, req: express.Request, res: express.Response, next: e
             res.end();
         }
     } else {
-        next(err);
+        next(new jwt.UnauthorizedError('invalid_token', new Error('error-message')));
     }
 });

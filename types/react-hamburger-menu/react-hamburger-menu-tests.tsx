@@ -19,7 +19,7 @@ export class ReactHamburgerMenuTest extends React.PureComponent<{}, State> {
         return <HamburgerMenu {...props}/>;
     }
 
-    private menuClicked = (): void => this.setState({isOpen: !this.state.isOpen});
+    private readonly menuClicked = (): void => this.setState({isOpen: !this.state.isOpen});
 }
 
 interface State {

@@ -1,15 +1,23 @@
-// Type definitions for parse 2.4
-// Project: https://parse.com/
+// Type definitions for parse 2.2.9
+// Project: https://parseplatform.org/
 // Definitions by:  Ullisen Media Group <http://ullisenmedia.com>
 //                  David Poetzsch-Heffter <https://github.com/dpoetzsch>
 //                  Cedric Kemp <https://github.com/jaeggerr>
 //                  Flavio Negrão <https://github.com/flavionegrao>
+//                  Wes Grimes <https://github.com/wesleygrimes>
+//                  Otherwise SAS <https://github.com/owsas>
+//                  Andrew Goldis <https://github.com/agoldis>
+//                  Alexandre Hétu Rivard <https://github.com/AlexandreHetu>
+//                  Diamond Lewis <https://github.com/dplewis>
+//                  Jong Eun Lee <https://github.com/yomybaby>
+//                  Julien Quere <https://github.com/jlnquere>
+//                  Yago Tomé <https://github.com/yagotome>
+//                  Thibault MOCELLIN <https://github.com/tybi>
+//                  Raschid JF Rafaelly <https://github.com/RaschidJFR>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
-/// <reference types="jquery" />
-/// <reference types="underscore" />
 
 declare namespace Parse {
 
@@ -20,6 +28,15 @@ declare namespace Parse {
     let liveQueryServerURL: string;
     let VERSION: string;
 
+    interface BatchSizeOption {
+        batchSize?: number;
+    }
+
+    interface CascadeSaveOption {
+        /** If `false`, nested objects will not be saved (default is `true`). */
+        cascadeSave?: boolean;
+    }
+
     interface SuccessOption {
         success?: Function;
     }
@@ -28,7 +45,30 @@ declare namespace Parse {
         error?: Function;
     }
 
+    interface FullOptions {
+        success?: Function;
+        error?: Function;
+        useMasterKey?: boolean;
+        sessionToken?: string;
+        installationId?: string;
+        progress?: Function;
+    }
+
+    interface RequestOptions {
+        useMasterKey?: boolean;
+        sessionToken?: string;
+        installationId?: string;
+        batchSize?: number;
+        include?: string | string[];
+        progress?: Function;
+    }
+
     interface SuccessFailureOptions extends SuccessOption, ErrorOption {
+    }
+
+    interface SignUpOptions {
+        useMasterKey?: boolean;
+        installationId?: string;
     }
 
     interface SessionTokenOption {
@@ -60,51 +100,6 @@ declare namespace Parse {
         silent?: boolean;
     }
 
-    /**
-     * A Promise is returned by async methods as a hook to provide callbacks to be
-     * called when the async task is fulfilled.
-     *
-     * <p>Typical usage would be like:<pre>
-     *    query.find().then(function(results) {
-     *      results[0].set("foo", "bar");
-     *      return results[0].saveAsync();
-     *    }).then(function(result) {
-     *      console.log("Updated " + result.id);
-     *    });
-     * </pre></p>
-     *
-     * @see Parse.Promise.prototype.then
-     * @class
-     */
-
-    interface IPromise<T> {
-
-        then<U>(resolvedCallback: (...values: T[]) => IPromise<U>, rejectedCallback?: (reason: any) => IPromise<U>): IPromise<U>;
-        then<U>(resolvedCallback: (...values: T[]) => U, rejectedCallback?: (reason: any) => IPromise<U>): IPromise<U>;
-        then<U>(resolvedCallback: (...values: T[]) => U, rejectedCallback?: (reason: any) => U): IPromise<U>;
-    }
-
-    class Promise<T> implements IPromise<T> {
-
-        static as<U>(resolvedValue: U): Promise<U>;
-        static error(error: any): Promise<any>;
-        static is(possiblePromise: any): Boolean;
-        static when(promises: IPromise<any>[]): Promise<any>;
-        static when(...promises: IPromise<any>[]): Promise<any>;
-
-        always(callback: Function): Promise<T>;
-        done(callback: Function): Promise<T>;
-        fail(callback: Function): Promise<T>;
-        reject(error: any): void;
-        resolve(result: any): void;
-        then<U>(resolvedCallback: (...values: T[]) => IPromise<U>,
-                rejectedCallback?: (reason: any) => IPromise<U>): IPromise<U>;
-        then<U>(resolvedCallback: (...values: T[]) => U,
-                rejectedCallback?: (reason: any) => IPromise<U>): IPromise<U>;
-        then<U>(resolvedCallback: (...values: T[]) => U,
-                rejectedCallback?: (reason: any) => U): IPromise<U>;
-    }
-
     interface Pointer {
         __type: string;
         className: string;
@@ -113,6 +108,10 @@ declare namespace Parse {
 
     interface IBaseObject {
         toJSON(): any;
+    }
+
+    interface AuthData {
+        [key: string]: any
     }
 
     class BaseObject implements IBaseObject {
@@ -243,38 +242,6 @@ declare namespace Parse {
     }
 
     /**
-     * History serves as a global router (per frame) to handle hashchange
-     * events or pushState, match the appropriate route, and trigger
-     * callbacks. You shouldn't ever have to create one of these yourself
-     * — you should use the reference to <code>Parse.history</code>
-     * that will be created for you automatically if you make use of
-     * Routers with routes.
-     * @class
-     *
-     * <p>A fork of Backbone.History, provided for your convenience.  If you
-     * use this class, you must also include jQuery, or another library
-     * that provides a jQuery-compatible $ function.  For more information,
-     * see the <a href="http://documentcloud.github.com/backbone/#History">
-     * Backbone documentation</a>.</p>
-     * <p><strong><em>Available in the client SDK only.</em></strong></p>
-     */
-    class History {
-
-        handlers: any[];
-        interval: number;
-        fragment: string;
-
-        checkUrl(e?: any): void;
-        getFragment(fragment?: string, forcePushState?: boolean): string;
-        getHash(windowOverride: Window): string;
-        loadUrl(fragmentOverride: any): boolean;
-        navigate(fragment: string, options?: any): any;
-        route(route: any, callback: Function): void;
-        start(options: any): boolean;
-        stop(): void;
-    }
-
-    /**
      * A class that is used to access all of the children of a many-to-many relationship.
      * Each instance of Parse.Relation is associated with a particular parent object and key.
      */
@@ -287,13 +254,13 @@ declare namespace Parse {
         constructor(parent?: S, key?: string);
 
         //Adds a Parse.Object or an array of Parse.Objects to the relation.
-        add(object: T): void;
+        add(object: T | Array<T>): void;
 
         // Returns a Parse.Query that is limited to objects in this relation.
         query(): Query<T>;
 
         // Removes a Parse.Object or an array of Parse.Objects from this relation.
-        remove(object: T): void;
+        remove(object: T | Array<T>): void;
     }
 
     /**
@@ -314,14 +281,12 @@ declare namespace Parse {
      * </pre></p>
      *
      * @param {Object} attributes The initial set of data to store in the object.
-     * @param {Object} options A set of Backbone-like options for creating the
-     *     object.  The only option currently supported is "collection".
+     * @param {Object} options The options for this object instance.
      * @see Parse.Object.extend
      *
      * @class
      *
-     * <p>The fundamental unit of Parse data, which implements the Backbone Model
-     * interface.</p>
+     * Creates a new model with defined attributes.
      */
     class Object extends BaseObject {
 
@@ -336,19 +301,26 @@ declare namespace Parse {
         constructor(className?: string, options?: any);
         constructor(attributes?: string[], options?: any);
 
-        static extend(className: string, protoProps?: any, classProps?: any): any;
-        static fromJSON(json: any, override: boolean): any;
-
+        static createWithoutData<T extends Object>(id: string): T;
+        static destroyAll<T extends Object>(list: T[], options?: Object.DestroyAllOptions): Promise<T[]>;
+        static extend(className: string | { className: string }, protoProps?: any, classProps?: any): any;
         static fetchAll<T extends Object>(list: T[], options: Object.FetchAllOptions): Promise<T[]>;
         static fetchAllIfNeeded<T extends Object>(list: T[], options: Object.FetchAllOptions): Promise<T[]>;
-        static destroyAll<T>(list: T[], options?: Object.DestroyAllOptions): Promise<T[]>;
-        static saveAll<T extends Object>(list: T[], options?: Object.SaveAllOptions): Promise<T[]>;
+        static fetchAllWithInclude<T extends Object>(list: T[], keys: string | Array<string | Array<string>>, options: RequestOptions): Promise<T[]>;
+        static fromJSON<T extends Object>(json: any, override?: boolean): T;
+        static pinAll(objects: Object[]): Promise<void>;
+        static pinAllWithName(name: string, objects: Object[]): Promise<void>;
         static registerSubclass<T extends Object>(className: string, clazz: new (options?: any) => T): void;
-        static createWithoutData<T extends Object>(id: string): T;
+        static saveAll<T extends Object>(list: T[], options?: Object.SaveAllOptions): Promise<T[]>;
+        static unPinAll(objects: Object[]): Promise<void>;
+        static unPinAllObjects(): Promise<void>;
+        static unPinAllObjectsWithName(name: string): Promise<void>;
+        static unPinAllWithName(name: string, objects: Object[]): Promise<void>;
 
-        initialize(): void;
-        add(attr: string, item: any): this;
-        addUnique(attr: string, item: any): any;
+        add(attr: string, item: any): this | false;
+        addAll(attr: string, items: any[]): this | false;
+        addAllUnique(attr: string, items: any[]): this | false;
+        addUnique(attr: string, item: any): this | false;
         change(options: any): this;
         changedAttributes(diff: any): boolean;
         clear(options: any): any;
@@ -356,26 +328,40 @@ declare namespace Parse {
         destroy(options?: Object.DestroyOptions): Promise<this>;
         dirty(attr?: string): boolean;
         dirtyKeys(): string[];
+        equals(other: any): boolean;
         escape(attr: string): string;
         existed(): boolean;
         fetch(options?: Object.FetchOptions): Promise<this>;
+        fetchFromLocalDatastore(): Promise<this> | void;
+        fetchWithInclude(keys: string | Array<string | Array<string>>, options?: RequestOptions): Promise<this>;
         get(attr: string): any | undefined;
         getACL(): ACL | undefined;
         has(attr: string): boolean;
         hasChanged(attr: string): boolean;
         increment(attr: string, amount?: number): any;
+        initialize(): void;
         isNew(): boolean;
+        isPinned(): Promise<boolean>;
         isValid(): boolean;
         op(attr: string): any;
+        pin(): Promise<void>;
+        pinWithName(name: string): Promise<void>;
         previous(attr: string): any;
         previousAttributes(): any;
         relation(attr: string): Relation<this, Object>;
-        remove(attr: string, item: any): any;
+        remove(attr: string, item: any): this | false;
+        removeAll(attr: string, items: any): this | false;
+        revert(): void;
+        revert(...keys: string[]): void;
         save(attrs?: { [key: string]: any } | null, options?: Object.SaveOptions): Promise<this>;
         save(key: string, value: any, options?: Object.SaveOptions): Promise<this>;
-        set(key: string, value: any, options?: Object.SetOptions): boolean;
-        setACL(acl: ACL, options?: SuccessFailureOptions): boolean;
+        save(attrs: object, options?: Object.SaveOptions): Promise<this>;
+        set(key: string, value: any, options?: Object.SetOptions): this | false;
+        set(attrs: object, options?: Object.SetOptions): this | false;
+        setACL(acl: ACL, options?: SuccessFailureOptions): this | false;
         toPointer(): Pointer;
+        unPin(): Promise<void>;
+        unPinWithName(name: string): Promise<void>;
         unset(attr: string, options?: any): any;
         validate(attrs: any, options?: SuccessFailureOptions): boolean;
     }
@@ -383,21 +369,26 @@ declare namespace Parse {
     namespace Object {
         interface DestroyOptions extends SuccessFailureOptions, WaitOption, ScopeOptions { }
 
-        interface DestroyAllOptions extends SuccessFailureOptions, ScopeOptions { }
+        interface DestroyAllOptions extends BatchSizeOption, ScopeOptions { }
 
         interface FetchAllOptions extends SuccessFailureOptions, ScopeOptions { }
 
         interface FetchOptions extends SuccessFailureOptions, ScopeOptions { }
 
-        interface SaveOptions extends SuccessFailureOptions, SilentOption, ScopeOptions, WaitOption { }
+        interface SaveOptions extends CascadeSaveOption, SuccessFailureOptions, SilentOption, ScopeOptions, WaitOption { }
 
-        interface SaveAllOptions extends SuccessFailureOptions, ScopeOptions { }
+        interface SaveAllOptions extends BatchSizeOption, ScopeOptions { }
 
         interface SetOptions extends ErrorOption, SilentOption {
             promise?: any;
         }
     }
 
+    class Polygon extends BaseObject {
+        constructor(arg1: GeoPoint[] | number[][]);
+        containsPoint(point: GeoPoint): boolean;
+        equals(other: Polygon | any): boolean;
+    }
     /**
      * Every Parse application installed on a device registered for
      * push notifications has an associated Installation object.
@@ -418,120 +409,6 @@ declare namespace Parse {
         appIdentifier: string;
 
     }
-
-    /**
-     * Creates a new instance with the given models and options.  Typically, you
-     * will not call this method directly, but will instead make a subclass using
-     * <code>Parse.Collection.extend</code>.
-     *
-     * @param {Array} models An array of instances of <code>Parse.Object</code>.
-     *
-     * @param {Object} options An optional object with Backbone-style options.
-     * Valid options are:<ul>
-     *   <li>model: The Parse.Object subclass that this collection contains.
-     *   <li>query: An instance of Parse.Query to use when fetching items.
-     *   <li>comparator: A string property name or function to sort by.
-     * </ul>
-     *
-     * @see Parse.Collection.extend
-     *
-     * @class
-     *
-     * <p>Provides a standard collection class for our sets of models, ordered
-     * or unordered.  For more information, see the
-     * <a href="http://documentcloud.github.com/backbone/#Collection">Backbone
-     * documentation</a>.</p>
-     */
-    class Collection<T> extends Events implements IBaseObject {
-
-        model: Object;
-        models: Object[];
-        query: Query<Object>;
-        comparator: (object: Object) => any;
-
-        constructor(models?: Object[], options?: Collection.Options);
-        static extend(instanceProps: any, classProps: any): any;
-
-        initialize(): void;
-        add(models: any[], options?: Collection.AddOptions): Collection<T>;
-        at(index: number): Object;
-        chain(): _._Chain<Collection<T>>;
-        fetch(options?: Collection.FetchOptions): Promise<T>;
-        create(model: Object, options?: Collection.CreateOptions): Object;
-        get(id: string): Object;
-        getByCid(cid: any): any;
-        pluck(attr: string): any[];
-        remove(model: any, options?: Collection.RemoveOptions): Collection<T>;
-        remove(models: any[], options?: Collection.RemoveOptions): Collection<T>;
-        reset(models: any[], options?: Collection.ResetOptions): Collection<T>;
-        sort(options?: Collection.SortOptions): Collection<T>;
-        toJSON(): any;
-    }
-
-    namespace Collection {
-        interface Options {
-            model?: Object;
-            query?: Query<Object>;
-            comparator?: string;
-        }
-
-        interface AddOptions extends SilentOption {
-            /**
-             * The index at which to add the models.
-             */
-            at?: number;
-        }
-
-        interface CreateOptions extends SuccessFailureOptions, WaitOption, SilentOption, ScopeOptions {
-        }
-
-        interface FetchOptions extends SuccessFailureOptions, SilentOption, ScopeOptions { }
-
-        interface RemoveOptions extends SilentOption { }
-
-        interface ResetOptions extends SilentOption { }
-
-        interface SortOptions extends SilentOption { }
-    }
-
-    /**
-     * @class
-     *
-     * <p>Parse.Events is a fork of Backbone's Events module, provided for your
-     * convenience.</p>
-     *
-     * <p>A module that can be mixed in to any object in order to provide
-     * it with custom events. You may bind callback functions to an event
-     * with `on`, or remove these functions with `off`.
-     * Triggering an event fires all callbacks in the order that `on` was
-     * called.
-     *
-     * <pre>
-     *     var object = {};
-     *     _.extend(object, Parse.Events);
-     *     object.on('expand', function(){ alert('expanded'); });
-     *     object.trigger('expand');</pre></p>
-     *
-     * <p>For more information, see the
-     * <a href="http://documentcloud.github.com/backbone/#Events">Backbone
-     * documentation</a>.</p>
-     */
-    class Events {
-
-        static off(events: string[], callback?: Function, context?: any): Events;
-        static on(events: string[], callback?: Function, context?: any): Events;
-        static trigger(events: string[]): Events;
-        static bind(): Events;
-        static unbind(): Events;
-
-        on(eventName: string, callback?: Function, context?: any): Events;
-        off(eventName?: string | null, callback?: Function | null, context?: any): Events;
-        trigger(eventName: string, ...args: any[]): Events;
-        bind(eventName: string, callback: Function, context?: any): Events;
-        unbind(eventName?: string, callback?: Function, context?: any): Events;
-
-    }
-
     /**
      * Creates a new parse Parse.Query for the given Parse.Object subclass.
      * @param objectClass -
@@ -596,6 +473,9 @@ declare namespace Parse {
         constructor(objectClass: string);
         constructor(objectClass: new (...args: any[]) => T);
 
+        static and<U extends Object>(...args: Query<U>[]): Query<U>;
+        static fromJSON<U extends Object>(className: string, json: any): Query<U>;
+        static nor<U extends Object>(...args: Query<U>[]): Query<U>;
         static or<U extends Object>(...var_args: Query<U>[]): Query<U>;
 
         addAscending(key: string): Query<T>;
@@ -604,27 +484,35 @@ declare namespace Parse {
         addDescending(key: string[]): Query<T>;
         ascending(key: string): Query<T>;
         ascending(key: string[]): Query<T>;
-        collection(items?: Object[], options?: Collection.Options): Collection<Object>;
+        aggregate<V = any>(pipeline: Query.AggregationOptions | Query.AggregationOptions[]): Promise<V>;
+        containedBy(key: string, values: any[]): Query<T>;
         containedIn(key: string, values: any[]): Query<T>;
         contains(key: string, substring: string): Query<T>;
         containsAll(key: string, values: any[]): Query<T>;
+        containsAllStartingWith(key: string, values: any[]): Query<T>;
         count(options?: Query.CountOptions): Promise<number>;
         descending(key: string): Query<T>;
         descending(key: string[]): Query<T>;
         doesNotExist(key: string): Query<T>;
         doesNotMatchKeyInQuery<U extends Object>(key: string, queryKey: string, query: Query<U>): Query<T>;
         doesNotMatchQuery<U extends Object>(key: string, query: Query<U>): Query<T>;
+        distinct<V = any>(key: string): Promise<V>;
         each(callback: Function, options?: Query.EachOptions): Promise<void>;
         endsWith(key: string, suffix: string): Query<T>;
         equalTo(key: string, value: any): Query<T>;
         exists(key: string): Query<T>;
         find(options?: Query.FindOptions): Promise<T[]>;
         first(options?: Query.FirstOptions): Promise<T | undefined>;
+        fromLocalDatastore(): void;
+        fromPin(): void;
+        fromPinWithName(name: string): void;
+        fullText(key: string, value: string, options?: Query.FullTextOptions): Query<T>;
         get(objectId: string, options?: Query.GetOptions): Promise<T>;
         greaterThan(key: string, value: any): Query<T>;
         greaterThanOrEqualTo(key: string, value: any): Query<T>;
         include(key: string): Query<T>;
         include(keys: string[]): Query<T>;
+        includeAll(): Query<T>;
         lessThan(key: string, value: any): Query<T>;
         lessThanOrEqualTo(key: string, value: any): Query<T>;
         limit(n: number): Query<T>;
@@ -634,12 +522,17 @@ declare namespace Parse {
         near(key: string, point: GeoPoint): Query<T>;
         notContainedIn(key: string, values: any[]): Query<T>;
         notEqualTo(key: string, value: any): Query<T>;
+        polygonContains(key: string, point: GeoPoint): Query<T>;
         select(...keys: string[]): Query<T>;
         skip(n: number): Query<T>;
+        sortByTextScore(): this;
         startsWith(key: string, prefix: string): Query<T>;
+        subscribe(): LiveQuerySubscription;
+        withJSON(json: any): this;
         withinGeoBox(key: string, southwest: GeoPoint, northeast: GeoPoint): Query<T>;
         withinKilometers(key: string, point: GeoPoint, maxDistance: number): Query<T>;
         withinMiles(key: string, point: GeoPoint, maxDistance: number): Query<T>;
+        withinPolygon(key: string, points: GeoPoint[]): Query<T>;
         withinRadians(key: string, point: GeoPoint, maxDistance: number): Query<T>;
     }
 
@@ -649,6 +542,106 @@ declare namespace Parse {
         interface FindOptions extends SuccessFailureOptions, ScopeOptions { }
         interface FirstOptions extends SuccessFailureOptions, ScopeOptions { }
         interface GetOptions extends SuccessFailureOptions, ScopeOptions { }
+
+        // According to http://docs.parseplatform.org/rest/guide/#aggregate-queries
+        interface AggregationOptions {
+            group?: { objectId?: string, [key: string]: any };
+            match?: { [key: string]: any };
+            project?: { [key: string]: any };
+            limit?: number;
+            skip?: number;
+            // Sort documentation https://docs.mongodb.com/v3.2/reference/operator/aggregation/sort/#pipe._S_sort
+            sort?: { [key: string]: 1 | -1 };
+        }
+
+        // According to https://parseplatform.org/Parse-SDK-JS/api/2.1.0/Parse.Query.html#fullText
+        interface FullTextOptions {
+            language?: string;
+            caseSensitive?: boolean;
+            diacriticSensitive?: boolean;
+        }
+    }
+
+    /**
+     * Represents a LiveQuery Subscription.
+     *
+     * @see https://docs.parseplatform.org/js/guide/#live-queries
+     * @see NodeJS.EventEmitter
+     *
+     * Events list
+     * ---
+     * `open` - when you call `query.subscribe()`, we send a subscribe request to
+     * the LiveQuery server, when we get the confirmation from the LiveQuery server,
+     * this event will be emitted. When the client loses WebSocket connection to the
+     * LiveQuery server, we will try to auto reconnect the LiveQuery server. If we
+     * reconnect the LiveQuery server and successfully resubscribe the ParseQuery,
+     * you'll also get this event.
+     *
+```
+subscription.on('open', () => {});
+```
+     * ---
+     * `create` - when a new ParseObject is created and it fulfills the ParseQuery you subscribe,
+     * you'll get this event. The object is the ParseObject which is created.
+     *
+```
+subscription.on('create', (object: Parse.Object) => {});
+```
+     * ---
+     * `update` event - when an existing ParseObject which fulfills the ParseQuery you subscribe
+     * is updated (The ParseObject fulfills the ParseQuery before and after changes),
+     * you'll get this event. The object is the ParseObject which is updated.
+     * Its content is the latest value of the ParseObject.
+     *
+```
+subscription.on('update', (object: Parse.Object) => {});
+```
+     * ---
+     * `enter` event - when an existing ParseObject's old value doesn't fulfill the ParseQuery
+     * but its new value fulfills the ParseQuery, you'll get this event. The object is the
+     * ParseObject which enters the ParseQuery. Its content is the latest value of the ParseObject.
+     *
+```
+subscription.on('enter', (object: Parse.Object) => {});
+```
+     * ---
+     * `update` event - when an existing ParseObject's old value fulfills the ParseQuery but its new value
+     * doesn't fulfill the ParseQuery, you'll get this event. The object is the ParseObject
+     * which leaves the ParseQuery. Its content is the latest value of the ParseObject.
+     *
+```
+subscription.on('leave', (object: Parse.Object) => {});
+```
+     * ---
+     * `delete` event - when an existing ParseObject which fulfills the ParseQuery is deleted, you'll
+     * get this event. The object is the ParseObject which is deleted.
+     *
+```
+subscription.on('delete', (object: Parse.Object) => {});
+```
+     * ---
+     * `close` event - when the client loses the WebSocket connection to the LiveQuery
+     * server and we stop receiving events, you'll get this event.
+     *
+```
+subscription.on('close', () => {});
+```
+     */
+    class LiveQuerySubscription extends NodeJS.EventEmitter {
+        /**
+         * Creates an instance of LiveQuerySubscription.
+         *
+         * @param {string} id
+         * @param {string} query
+         * @param {string} [sessionToken]
+         */
+        constructor(id: string, query: string, sessionToken?: string);
+
+        /**
+         * Closes the subscription.
+         *
+         */
+        unsubscribe(): void;
     }
 
     /**
@@ -677,6 +670,7 @@ declare namespace Parse {
     class Config extends Object {
         static get(options?: SuccessFailureOptions): Promise<Config>;
         static current(): Config;
+        static save(attr: any): Promise<Config>;
 
         get(attr: string): any;
         escape(attr: string): any;
@@ -690,44 +684,6 @@ declare namespace Parse {
     }
 
     /**
-     * Routers map faux-URLs to actions, and fire events when routes are
-     * matched. Creating a new one sets its `routes` hash, if not set statically.
-     * @class
-     *
-     * <p>A fork of Backbone.Router, provided for your convenience.
-     * For more information, see the
-     * <a href="http://documentcloud.github.com/backbone/#Router">Backbone
-     * documentation</a>.</p>
-     * <p><strong><em>Available in the client SDK only.</em></strong></p>
-     */
-    class Router extends Events {
-
-        routes: Router.RouteMap;
-
-        constructor(options?: Router.Options);
-        static extend(instanceProps: any, classProps: any): any;
-
-        initialize(): void;
-        navigate(fragment: string, options?: Router.NavigateOptions): Router;
-        navigate(fragment: string, trigger?: boolean): Router;
-        route(route: string, name: string, callback: Function): Router;
-    }
-
-    namespace Router {
-        interface Options {
-            routes: RouteMap;
-        }
-
-        interface RouteMap {
-            [url: string]: string;
-        }
-
-        interface NavigateOptions {
-            trigger?: boolean;
-        }
-    }
-
-    /**
      * @class
      *
      * <p>A Parse.User object is a local representation of a user persisted to the
@@ -737,17 +693,19 @@ declare namespace Parse {
      * uniqueness.</p>
      */
     class User extends Object {
-
+        static allowCustomUserClass(isAllowed: boolean): void;
+        static become(sessionToken: string, options?: UseMasterKeyOption): Promise<User>;
         static current(): User | undefined;
-        static signUp(username: string, password: string, attrs: any, options?: SuccessFailureOptions): Promise<User>;
+        static currentAsync(): Promise<User | null>;
+        static signUp(username: string, password: string, attrs: any, options?: SignUpOptions): Promise<User>;
         static logIn(username: string, password: string, options?: SuccessFailureOptions): Promise<User>;
         static logOut(): Promise<User>;
-        static allowCustomUserClass(isAllowed: boolean): void;
-        static become(sessionToken: string, options?: SuccessFailureOptions): Promise<User>;
         static requestPasswordReset(email: string, options?: SuccessFailureOptions): Promise<User>;
         static extend(protoProps?: any, classProps?: any): any;
+        static hydrate(userJSON: any): Promise<User>;
+        static enableUnsafeCurrentUser(): void;
 
-        signUp(attrs: any, options?: SuccessFailureOptions): Promise<this>;
+        signUp(attrs?: any, options?: SignUpOptions): Promise<this>;
         logIn(options?: SuccessFailureOptions): Promise<this>;
         authenticated(): boolean;
         isCurrent(): boolean;
@@ -760,62 +718,11 @@ declare namespace Parse {
 
         setPassword(password: string, options?: SuccessFailureOptions): boolean;
         getSessionToken(): string;
+
+        linkWith(user: User, authData: AuthData, options: FullOptions): Promise<User>;
+        _linkWith(provider: any, options: { authData?: AuthData }, saveOpts?: FullOptions): Promise<User>;
     }
 
-    /**
-     * Creating a Parse.View creates its initial element outside of the DOM,
-     * if an existing element is not provided...
-     * @class
-     *
-     * <p>A fork of Backbone.View, provided for your convenience.  If you use this
-     * class, you must also include jQuery, or another library that provides a
-     * jQuery-compatible $ function.  For more information, see the
-     * <a href="http://documentcloud.github.com/backbone/#View">Backbone
-     * documentation</a>.</p>
-     * <p><strong><em>Available in the client SDK only.</em></strong></p>
-     */
-    class View<T> extends Events {
-
-        model: any;
-        collection: any;
-        id: string;
-        cid: string;
-        className: string;
-        tagName: string;
-        el: any;
-        $el: JQuery;
-        attributes: any;
-
-        constructor(options?: View.Options);
-
-        static extend(properties: any, classProperties?: any): any;
-
-        $(selector?: string): JQuery;
-        setElement(element: HTMLElement, delegate?: boolean): View<T>;
-        setElement(element: JQuery, delegate?: boolean): View<T>;
-        render(): View<T>;
-        remove(): View<T>;
-        make(tagName: any, attributes?: View.Attribute[], content?: any): any;
-        delegateEvents(events?: any): any;
-        undelegateEvents(): any;
-
-    }
-
-    namespace View {
-        interface Options {
-            model?: any;
-            collection?: any;
-            el?: any;
-            id?: string;
-            className?: string;
-            tagName?: string;
-            attributes?: Attribute[];
-        }
-
-        interface Attribute {
-            [attributeName: string]: string | number | boolean;
-        }
-    }
 
     namespace Analytics {
 
@@ -865,12 +772,7 @@ declare namespace Parse {
 
         interface JobRequest {
             params: any;
-        }
-
-        interface JobStatus {
-            error?: (response: any) => void;
-            message?: (response: any) => void;
-            success?: (response: any) => void;
+            message: (response: any) => void;
         }
 
         interface FunctionRequest {
@@ -878,11 +780,6 @@ declare namespace Parse {
             master?: boolean;
             params?: any;
             user?: User;
-        }
-
-        interface FunctionResponse {
-            success: (response: any) => void;
-            error: (response: any) => void;
         }
 
         interface Cookie {
@@ -895,37 +792,75 @@ declare namespace Parse {
             installationId?: String;
             master?: boolean;
             user?: User;
+            ip: string;
+            headers: any;
+            triggerName: string;
+            log: any;
             object: Object;
+            original?: Parse.Object;
         }
 
-        interface BeforeFindTriggerRequest extends TriggerRequest {
-            query?: Query
-            count?: boolean
+        interface AfterSaveRequest extends TriggerRequest {
+            context: object;
         }
-
-        interface AfterSaveRequest extends TriggerRequest { }
         interface AfterDeleteRequest extends TriggerRequest { }
         interface BeforeDeleteRequest extends TriggerRequest { }
-        interface BeforeDeleteResponse extends FunctionResponse { }
-        interface BeforeSaveRequest extends TriggerRequest { }
-        interface BeforeFindRequest extends BeforeFindTriggerRequest { }
-        interface BeforeSaveResponse extends FunctionResponse {
-            success: () => void;
-        }
-        interface BeforeFindRequest extends TriggerRequest {
-            query: Query;
+        interface BeforeSaveRequest extends TriggerRequest {
+            context: object;
         }
 
-        function afterDelete(arg1: any, func?: (request: AfterDeleteRequest) => void): void;
-        function afterSave(arg1: any, func?: (request: AfterSaveRequest) => void): void;
-        function beforeDelete(arg1: any, func?: (request: BeforeDeleteRequest, response: BeforeDeleteResponse) => void): void;
-        function beforeSave(arg1: any, func?: (request: BeforeSaveRequest, response: BeforeSaveResponse) => void): void;
-        function beforeFind(arg1: any, func?: (request: BeforeFindRequest, response: BeforeFindRequest) => void): void;
-        function define(name: string, func?: (request: FunctionRequest, response: FunctionResponse) => void): void;
+        // Read preference describes how MongoDB driver route read operations to the members of a replica set.
+        enum ReadPreferenceOption {
+            Primary = 'PRIMARY',
+            PrimaryPreferred = 'PRIMARY_PREFERRED',
+            Secondary = 'SECONDARY',
+            SecondaryPreferred = 'SECONDARY_PREFERRED',
+            Nearest = 'NEAREST'
+        }
+
+        interface BeforeFindRequest extends TriggerRequest {
+            query: Query
+            count: boolean
+            isGet: boolean
+            readPreference?: ReadPreferenceOption
+        }
+
+        interface AfterFindRequest extends TriggerRequest {
+            objects: Object[]
+        }
+
+        function afterDelete(arg1: any, func?: (request: AfterDeleteRequest) => Promise<void> | void): void;
+        function afterSave(arg1: any, func?: (request: AfterSaveRequest) => Promise<void> | void): void;
+        function beforeDelete(arg1: any, func?: (request: BeforeDeleteRequest) => Promise<void> | void): void;
+        function beforeSave(arg1: any, func?: (request: BeforeSaveRequest) => Promise<void> | void): void;
+        function beforeFind(arg1: any, func?: (request: BeforeFindRequest) => Promise<void> | void): void;
+        function beforeFind(arg1: any, func?: (request: BeforeFindRequest) => Promise<Query> | Query): void;
+        function afterFind(arg1: any, func?: (request: AfterFindRequest) => Promise<any> | any): void;
+        function define(name: string, func?: (request: FunctionRequest) => Promise<any> | any): void;
+        /**
+         * Gets data for the current set of cloud jobs.
+         * @returns A promise that will be resolved with the result of the function.
+         */
+        function getJobsData(): Promise<Object>;
+        /**
+         * Gets job status by Id
+         * @param jobStatusId The Id of Job Status.
+         * @returns Status of Job.
+         */
+        function getJobStatus(jobStatusId: string): Promise<Object>;
         function httpRequest(options: HTTPOptions): Promise<HttpResponse>;
-        function job(name: string, func?: (request: JobRequest, status: JobStatus) => void): HttpResponse;
+        function job(name: string, func?: (request: JobRequest) => Promise<void> | void): HttpResponse;
         function run(name: string, data?: any, options?: RunOptions): Promise<any>;
+        /**
+          * Starts a given cloud job, which will process asynchronously.
+          * @param jobName The function name.
+          * @param data The parameters to send to the cloud function.
+          * @returns A promise that will be resolved with the jobStatusId of the job.
+          */
+        function startJob(jobName: string, data: any): Promise<string>;
         function useMasterKey(): void;
+
+
 
         interface RunOptions extends SuccessFailureOptions, ScopeOptions { }
 
@@ -1104,6 +1039,8 @@ declare namespace Parse {
             badge?: string;
             sound?: string;
             title?: string;
+            notification?: any;
+            content_available?: any;
         }
 
         interface SendOptions extends UseMasterKeyOption {
@@ -1121,6 +1058,29 @@ declare namespace Parse {
      */
     function initialize(applicationId: string, javaScriptKey?: string, masterKey?: string): void;
 
+    /**
+     * Additionally on React-Native / Expo environments, add AsyncStorage from 'react-native' package
+     * @param AsyncStorage AsyncStorage from 'react-native' package
+     */
+    function setAsyncStorage(AsyncStorage: any): void;
+
+    /**
+     * Gets all contents from Local Datastore.
+     */
+    function dumpLocalDatastore(): Promise<{ [key: string]: any }>;
+
+    /**
+     * Enable pinning in your application.
+     * This must be called before your application can use pinning.
+     */
+    function enableLocalDatastore(): void;
+
+    /**
+     * Flag that indicates whether Local Datastore is enabled.
+     */
+    function isLocalDatastoreEnabled(): boolean;
+
+    function setLocalDatastoreController(controller: any): void;
 }
 
 declare module "parse/node" {
@@ -1128,6 +1088,11 @@ declare module "parse/node" {
 }
 
 declare module "parse" {
+    import * as parse from "parse/node";
+    export = parse
+}
+
+declare module "parse/react-native" {
     import * as parse from "parse/node";
     export = parse
 }

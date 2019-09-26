@@ -1,7 +1,11 @@
-/// <reference types="mocha" />
 
 declare function equal<T>(a: T, b: T): void;
 declare function deepEqual<T>(a: T, b: T): void;
+
+// Stub mocha functions
+const {describe, it, before, after, beforeEach, afterEach} = null as any as {
+  [s: string]: ((s: string, cb: (done: any) => void) => void) & ((cb: (done: any) => void) => void) & {only: any, skip: any};
+};
 
 import * as createError from 'create-error';
 

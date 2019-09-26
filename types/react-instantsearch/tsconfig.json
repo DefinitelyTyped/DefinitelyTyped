@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "jsx": "react",
+    "lib": ["es6", "dom"],
+    "module": "commonjs",
+    "noEmit": true,
+    "baseUrl": "../",
+    "typeRoots": [
+        "../"
+    ],
+    "types": [],
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true
+  },
+  "files": [
+      "index.d.ts",
+      "connectors.d.ts",
+      "dom.d.ts",
+      "native.d.ts",
+      "server.d.ts",
+      "react-instantsearch-tests.tsx"
+  ]
+}

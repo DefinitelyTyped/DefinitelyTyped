@@ -1,6 +1,5 @@
 import * as L from 'leaflet';
-import 'proj4leaflet';
-
+import * as proj4leaflet from "proj4leaflet";
 import * as proj4 from 'proj4';
 
 import LatLngBoundsExpression = L.LatLngBoundsExpression;
@@ -43,12 +42,13 @@ const crs3 = new L.Proj.CRS('EPSG:3006',
 // geoJson
 proj4.defs("urn:ogc:def:crs:EPSG::26915", "+proj=utm +zone=15 +ellps=GRS80 +datum=NAD83 +units=m +no_defs");
 
-const geojson = {
+const geojson: proj4leaflet.Proj4GeoJSONFeature = {
   type: "Feature",
   geometry: {
     type: "Point",
     coordinates: [481650, 4980105]
   },
+  properties: {},
   crs: {
     type: "name",
     properties: {

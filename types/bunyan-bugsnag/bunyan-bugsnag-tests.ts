@@ -1,4 +1,4 @@
-import * as bunyanBugsnag from 'bunyan-bugsnag';
+import bunyanBugsnag = require('bunyan-bugsnag');
 import * as bunyan from 'bunyan';
 
 const stream1 = bunyanBugsnag();

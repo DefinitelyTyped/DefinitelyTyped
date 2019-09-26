@@ -8,6 +8,10 @@
 
 import * as angular from 'angular';
 
+export type ILocalStorageServiceProvider = angular.local.storage.ILocalStorageServiceProvider;
+export type ILocalStorageService = angular.local.storage.ILocalStorageService;
+export type ICookie = angular.local.storage.ICookie;
+
 declare module 'angular' {
     export namespace local.storage {
         interface ILocalStorageServiceProvider extends angular.IServiceProvider {
@@ -125,13 +129,17 @@ declare module 'angular' {
              * Returns: value from local storage
              */
             keys(storageType?: StorageType): string[];
-            /**
-             * Remove an item from local storage by key.
+          /**
+             * Remove a list of items from the local storage by their given keys.
+             * The last item in the variable argument list can optionally be the StorageType.
+             * Which specifies whether to remove from the session storage or the local storage.
+             * If the last argument is not a valid storage type it is considered to be a key, 
+             * and localStorage is used by default .
              * If local storage is not supported, use cookies instead.
              * Returns: Boolean
              * @param key
              */
-            remove(key: string): boolean;
+            remove(...args: string[]): boolean;
             /**
              * Remove all data for this app from local storage.
              * If local storage is not supported, use cookies instead.

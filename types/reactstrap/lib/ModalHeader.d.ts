@@ -1,6 +1,8 @@
+import * as React from 'react';
 import { CSSModule } from '../index';
 
-export interface ModalHeaderProps {
+export interface ModalHeaderProps extends React.HTMLAttributes<HTMLElement> {
+  [key: string]: any;
   tag?: React.ReactType;
   className?: string;
   cssModule?: CSSModule;
@@ -8,5 +10,5 @@ export interface ModalHeaderProps {
   toggle?: () => void;
 }
 
-declare const ModalHeader: React.StatelessComponent<ModalHeaderProps>;
+declare class ModalHeader<T = {[key: string]: any}> extends React.Component<ModalHeaderProps> {}
 export default ModalHeader;

@@ -1,8 +1,8 @@
 // via: http://visionmedia.github.io/superagent/
 
-import * as request from 'superagent';
+import request = require('superagent');
 import * as fs from 'fs';
-import * as assert from 'assert';
+import assert = require('assert');
 import { Agent } from 'https';
 
 // Examples taken from https://github.com/visionmedia/superagent/blob/gh-pages/docs/index.md
@@ -163,6 +163,12 @@ request.get('/user')
 request.get('/user')
     .accept('png');
 
+// Setting max response size
+request
+    .get('/search')
+    .maxResponseSize(1000)
+    .end(callback);
+
 // Query strings
 request
     .post('/')
@@ -181,6 +187,7 @@ request('/search')
     const contentLength = res.header['content-length'];
     const contentType: string = res.type;
     const charset: string = res.charset;
+    const redirects: string[] = res.redirects;
   });
 
 // Custom parsers

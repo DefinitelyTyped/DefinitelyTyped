@@ -1,5 +1,5 @@
-import * as express from "express";
-import * as expressSanitized from "express-sanitized";
+import express = require("express");
+import expressSanitized = require("express-sanitized");
 
 const RoutingServer: express.Express = express();
 

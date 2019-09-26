@@ -1,4 +1,4 @@
-import * as Cache from 'stale-lru-cache';
+import Cache = require('stale-lru-cache');
 
 const cache = new Cache<string, string>({
     maxSize: 100,

@@ -17,3 +17,9 @@ PullToRefresh.init({
   mainElement: "body",
   onRefresh: () => Promise.resolve(),
 });
+
+PullToRefresh.destroyAll();
+
+PullToRefresh.setPassiveMode(true);
+
+PullToRefresh.setPassiveMode(false);

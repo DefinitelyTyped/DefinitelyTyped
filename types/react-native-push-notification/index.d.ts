@@ -1,6 +1,8 @@
 // Type definitions for react-native-push-notification 3.0
 // Project: https://github.com/zo0r/react-native-push-notification#readme
 // Definitions by: Paito Anderson <https://github.com/PaitoAnderson>
+//                 Tom Sawkins <https://github.com/tomSawkins>
+//                 Andrew Li <https://github.com/Li357>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -13,22 +15,27 @@ export interface PushNotificationPermissions {
 export interface PushNotification {
     foreground: boolean;
     userInteraction: boolean;
-    message: string|object;
+    message: string | object;
     data: object;
     badge: number;
     alert: object;
     sound: string;
+    finish: (fetchResult: string) => void;
 }
 
-export class PushNotificationOptions {
-    onRegister?: (token: { os: string, token: string }) => void;
+export interface PushNotificationOptions {
+    onRegister?: (token: { os: string; token: string }) => void;
     onNotification?: (notification: PushNotification) => void;
     senderID?: string;
+    permissions?: PushNotificationPermissions;
     popInitialNotification?: boolean;
     requestPermissions?: boolean;
 }
 
-export type RepeatType = 'week' | 'day' | 'hour' | 'minute' | 'time';
+export type PriorityType = "max" | "high" | "low" | "min" | "default";
+export type RepeatType = "week" | "day" | "hour" | "minute" | "time";
+export type VisibilityType = "private" | "public" | "secret";
+export type ImportanceType = "default" | "max" | "high" | "low" | "min" | "none" | "unspecified";
 
 export class PushNotificationObject {
     /* Android only properties */
@@ -45,6 +52,9 @@ export class PushNotificationObject {
     tag?: string;
     group?: string;
     ongoing?: boolean;
+    priority?: PriorityType;
+    visibility?: VisibilityType;
+    importance?: ImportanceType;
 
     /* iOS only properties */
     alertAction?: any;
@@ -62,7 +72,7 @@ export class PushNotificationObject {
 }
 
 export class PushNotificationScheduleObject extends PushNotificationObject {
-    Date: Date;
+    date: Date;
 }
 
 export interface PushNotification {
@@ -70,16 +80,22 @@ export interface PushNotification {
     unregister(): void;
     localNotification(details: PushNotificationObject): void;
     localNotificationSchedule(details: PushNotificationScheduleObject): void;
-    requestPermissions(): void;
+    requestPermissions(
+        permissions?: Array<"alert" | "badge" | "sound">
+    ): Promise<PushNotificationPermissions>;
     presentLocalNotification(details: PushNotificationObject): void;
     scheduleLocalNotification(details: PushNotificationScheduleObject): void;
     cancelLocalNotifications(details: object): void;
     cancelAllLocalNotifications(): void;
     setApplicationIconBadgeNumber(badgeCount: number): void;
     getApplicationIconBadgeNumber(callback: (badgeCount: number) => void): void;
-    popInitialNotification(): Promise<PushNotification>;
+    popInitialNotification(
+        callback: (notification: PushNotification | null) => void
+    ): void;
     abandonPermissions(): void;
-    checkPermissions(callback: (permissions: PushNotificationPermissions) => void): void;
+    checkPermissions(
+        callback: (permissions: PushNotificationPermissions) => void
+    ): void;
     registerNotificationActions(actions: string[]): void;
     clearAllNotifications(): void;
 }

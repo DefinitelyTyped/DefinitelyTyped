@@ -4,7 +4,6 @@
         "lib": [
             "es6"
         ],
-        "jsx": "react",
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
@@ -19,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "redux-saga-routines-tests.tsx"
+        "redux-saga-routines-tests.ts"
     ]
 }

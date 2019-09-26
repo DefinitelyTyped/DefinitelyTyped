@@ -1,4 +1,4 @@
-// Type definitions for nouislider v9.0.0
+// Type definitions for nouislider v9.0.1
 // Project: https://github.com/leongersen/noUiSlider
 // Definitions by: Patrick Davies <https://github.com/bleuarg>, Guust Nieuwenhuis <https://github.com/lagaffe>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -11,7 +11,7 @@ declare namespace noUiSlider {
 	/**
      * To create a slider, call noUiSlider.create() with an element and your options.
      */
-	function create(target: HTMLElement, options: Options): void;
+	function create(target: HTMLElement, options: Options): noUiSlider.noUiSlider;
 
 	interface Options {
 		/**
@@ -179,7 +179,7 @@ declare namespace noUiSlider {
          * To get the current slider value. For one-handle sliders, calling .get() will return the value.
          * For two-handle sliders, an array[value, value] will be returned.
          */
-		get(): number | number[];
+		get(): string | string[];
 		/**
          * noUiSlider will keep your values within the slider range, which saves you a bunch of validation.
          * If you have configured the slider to use one handle, you can change the current value by passing

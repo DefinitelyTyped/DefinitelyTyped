@@ -1,4 +1,4 @@
-// Type definitions for Leaflet.markercluster 1.0
+// Type definitions for Leaflet.markercluster 1.4
 // Project: https://github.com/Leaflet/Leaflet.markercluster
 // Definitions by: Robert Imig <https://github.com/rimig>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -7,7 +7,7 @@
 import * as L from 'leaflet';
 
 declare module 'leaflet' {
-    interface MarkerCluster extends Marker {
+    class MarkerCluster extends Marker {
         /*
         * Recursively retrieve all child markers of this cluster.
         */
@@ -115,9 +115,15 @@ declare module 'leaflet' {
         * Time delay (in ms) between consecutive periods of processing for addLayers. Default to 50ms.
         */
         chunkDelay?: number;
+
+        /*
+        * Time interval (in ms) during which addLayers works before pausing to let the rest of the page process.
+        * In particular, this prevents the page from freezing while adding a lot of markers. Defaults to 200ms.
+        */
+        chunkInterval?: number;
     }
 
-    interface MarkerClusterGroup extends FeatureGroup {
+    class MarkerClusterGroup extends FeatureGroup {
         /*
         * Bulk methods for adding and removing markers and should be favoured over the
         * single versions when doing bulk addition/removal of markers.

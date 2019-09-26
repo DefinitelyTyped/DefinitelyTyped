@@ -1,23 +1,33 @@
 // Type definitions for kafka-node 2.0
 // Project: https://github.com/SOHU-Co/kafka-node/
-// Definitions by: Daniel Imrie-Situnayake <https://github.com/dansitu>, Bill <https://github.com/bkim54>, Michael Haan <https://github.com/sfrooster>, Amiram Korach <https://github.com/amiram>
+// Definitions by: Daniel Imrie-Situnayake <https://github.com/dansitu>
+//                 Bill <https://github.com/bkim54>
+//                 Michael Haan <https://github.com/sfrooster>
+//                 Amiram Korach <https://github.com/amiram>
+//                 Insanehong <https://github.com/insanehong>
+//                 Roger <https://github.com/rstpv>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+/// <reference types="node" />
 
 // # Classes
 export class Client {
     constructor(connectionString: string, clientId?: string, options?: ZKOptions, noBatchOptions?: AckBatchOptions, sslOptions?: any);
     close(cb?: () => void): void;
+    loadMetadataForTopics(topics: string[], cb: (error: TopicsNotExistError | any, data: any) => any): void;
     topicExists(topics: string[], cb: (error?: TopicsNotExistError | any) => any): void;
     refreshMetadata(topics: string[], cb?: (error?: any) => any): void;
     sendOffsetCommitV2Request(group: string, generationId: number, memberId: string, commits: OffsetCommitRequest[], cb: (error: any, data: any) => any): void;
+    // Note: socket_error is currently KafkaClient only, and zkReconnect is currently Client only.
+    on(eventName: "brokersChanged" | "close" | "connect" | "ready" | "reconnect" | "zkReconnect", cb: () => any): this;
+    on(eventName: "error" | "socket_error", cb: (error: any) => any): this;
 }
 
 export class KafkaClient extends Client {
     constructor(options?: KafkaClientOptions);
-    on(eventName: "ready", cb: () => any): this;
-    on(eventName: "reconnect", cb: () => void): this;
-    on(eventName: "error", cb: (error: any) => any): this;
     connect(): void;
+    getListGroups(cb: (error: any, data: any) => any): void;
+    describeGroups(consumerGroups: any, cb: (error: any, data: any) => any): void;
 }
 
 export class Producer {
@@ -56,7 +66,7 @@ export class HighLevelConsumer {
     client: Client;
     on(eventName: "message", cb: (message: Message) => any): void;
     on(eventName: "error" | "offsetOutOfRange", cb: (error: any) => any): void;
-    on(eventName: "rebalancing" | "rebalanced", cb: () => any): void;
+    on(eventName: "rebalancing" | "rebalanced" | "connect", cb: () => any): void;
     addTopics(topics: string[] | Topic[], cb?: (error: any, added: string[] | Topic[]) => any): void;
     removeTopics(topics: string | string[], cb: (error: any, removed: number) => any): void;
     commit(cb: (error: any, data: any) => any): void;
@@ -88,24 +98,53 @@ export class Offset {
 }
 
 export class KeyedMessage {
-    constructor(key: string, message: string);
+    constructor(key: string, value: string | Buffer);
 }
 
+export class Admin {
+    constructor(kafkaClient: KafkaClient);
+    listGroups(cb: (error: any, data: any) => any): void;
+    describeGroups(
+        consumerGroups: any,
+        cb: (error: any, data: any) => any,
+    ): void;
+    listTopics(cb: (error: any, data: any) => any): void;
+    createTopics(
+        topics: TopicConfigData[],
+        cb: (error: any, data: any) => any,
+    ): void;
+    describeConfigs(
+        payload: { resources: Resource[]; includeSynonyms: boolean },
+        cb: (error: any, data: any) => any,
+    ): void;
+}
+export interface Resource {
+    resourceType: string;
+    resourceName: string;
+    configNames: string[];
+}
+
+export interface TopicConfigData {
+    topic: string;
+    partitions?: number;
+    replicationFactor?: number;
+    configEntry?: Array<{ name: string; value: string }>;
+}
 // # Interfaces
 
 export interface Message {
-  topic: string;
-  value: string;
-  offset?: number;
-  partition?: number;
-  highWaterOffset?: number;
-  key?: number;
+    topic: string;
+    value: string | Buffer;
+    offset?: number;
+    partition?: number;
+    highWaterOffset?: number;
+    key?: string;
 }
 
 export interface ProducerOptions {
-  requireAcks?: number;
-  ackTimeoutMs?: number;
-  partitionerType?: number;
+    requireAcks?: number;
+    ackTimeoutMs?: number;
+    partitionerType?: number;
 }
 
 export interface KafkaClientOptions {
@@ -158,10 +197,10 @@ export interface ConsumerOptions {
 }
 
 export interface HighLevelConsumerOptions extends ConsumerOptions {
-  id?: string;
-  maxNumSegments?: number;
-  maxTickMessages?: number;
-  rebalanceRetry?: RetryOptions;
+    id?: string;
+    maxNumSegments?: number;
+    maxTickMessages?: number;
+    rebalanceRetry?: RetryOptions;
 }
 
 export interface CustomPartitionAssignmentProtocol {

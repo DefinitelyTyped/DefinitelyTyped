@@ -1,5 +1,5 @@
 import * as m from 'mithril';
-import { Component, FactoryComponent, Vnode } from 'mithril';
+import { Component, ClosureComponent, FactoryComponent } from 'mithril';
 
 ///////////////////////////////////////////////////////////
 // 0.
@@ -50,6 +50,13 @@ const comp2: FactoryComponent<Comp2Attrs> = vnode => ({ // vnode is inferred
 	}
 });
 
+// 2a. Test ClosureComponent type alias
+const comp2a: ClosureComponent<Comp2Attrs> = vnode => ({ // vnode is inferred
+	view({attrs: {title, description}}) { // Comp2Attrs type is inferred
+		return [m('h2', title), m('p', description)];
+	}
+});
+
 ///////////////////////////////////////////////////////////
 // 3.
 // Declares attrs type inline.
@@ -57,6 +64,31 @@ const comp2: FactoryComponent<Comp2Attrs> = vnode => ({ // vnode is inferred
 // lifecycle method.
 //
 const comp3: FactoryComponent<{pageHead: string}> = () => ({
+	oncreate({dom}) {
+		// Can do stuff with dom
+	},
+	view({attrs}) {
+		return m('.page',
+			m('h1', attrs.pageHead),
+			m(comp2,
+				{
+					// attrs is type checked - nice!
+					title: "A Title",
+					description: "Some descriptive text.",
+					onremove(vnode) {
+						console.log("comp2 was removed");
+					},
+				}
+			),
+			// Test other hyperscript parameter variations
+			m(comp1, m(comp1)),
+			m('br')
+		);
+	}
+});
+
+// 3.a Test ClosureComponent type alias
+const comp3a: ClosureComponent<{pageHead: string}> = () => ({
 	oncreate({dom}) {
 		// Can do stuff with dom
 	},
@@ -152,7 +184,9 @@ m.route(document.body, '/', {
 	'/comp0': comp0,
 	'/comp1': comp1,
 	'/comp2': comp2,
+	'/comp2a': comp2a,
 	'/comp3': comp3,
+	'/comp3a': comp3a,
 	'/comp4': comp4,
 	'/comp5': comp5
 });

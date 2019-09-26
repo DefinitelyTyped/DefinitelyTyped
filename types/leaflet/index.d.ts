@@ -1,7 +1,11 @@
-// Type definitions for Leaflet.js 1.2
+// Type definitions for Leaflet.js 1.5
 // Project: https://github.com/Leaflet/Leaflet
 // Definitions by: Alejandro Sánchez <https://github.com/alejo90>
 //                 Arne Schubert <https://github.com/atd-schubert>
+//                 Michael Auer <https://github.com/mcauer>
+//                 Roni Karilkar <https://github.com/ronikar>
+//                 Sandra Frischmuth <https://github.com/sanfrisc>
+//                 Vladimir Dashukevich <https://github.com/life777>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -10,26 +14,25 @@ export as namespace L;
 import * as geojson from 'geojson';
 
 export class Class {
-    static extend(props: any): any/* how to return constructor of self extended type ? */;
-    static include(props: any): any /* how to return self extended type ? */;
-    static mergeOptions(props: any): any /* how to return self extended type ? */;
-    static addInitHook(initHookFn: () => void): any/* how to return self extended type ? */;
+    static extend(props: any): {new(...args: any[]): any} & typeof Class;
+    static include(props: any): any & typeof Class;
+    static mergeOptions(props: any): any & typeof Class;
+
+    static addInitHook(initHookFn: () => void): any & typeof Class;
+    static addInitHook(methodName: string, ...args: any[]): any & typeof Class;
 }
 
 export class Transformation {
     constructor(a: number, b: number, c: number, d: number);
-
     transform(point: Point, scale?: number): Point;
-
     untransform(point: Point, scale?: number): Point;
 }
 
 export namespace LineUtil {
     function simplify(points: Point[], tolerance: number): Point[];
-
     function pointToSegmentDistance(p: Point, p1: Point, p2: Point): number;
-
     function closestPointOnSegment(p: Point, p1: Point, p2: Point): Point;
+    function isFlat(latlngs: LatLngExpression[]): boolean;
 }
 
 export namespace PolyUtil {
@@ -185,6 +188,10 @@ export class Point {
     y: number;
 }
 
+export interface Coords extends Point {
+    z: number;
+}
+
 export type PointExpression = Point | PointTuple;
 
 export function point(x: number, y: number, round?: boolean): Point;
@@ -319,7 +326,7 @@ export abstract class Evented extends Class {
      * Note that if you passed a custom context to on, you must pass the same context
      * to off in order to remove the listener.
      */
-    removeEventListener(type: string, fn: LeafletEventHandlerFn, context?: any): this;
+    removeEventListener(type: string, fn?: LeafletEventHandlerFn, context?: any): this;
 
     /**
      * Alias for off(...)
@@ -388,6 +395,7 @@ export interface LayerOptions {
 
 export interface InteractiveLayerOptions extends LayerOptions {
     interactive?: boolean;
+    bubblingMouseEvents?: boolean;
 }
 
 export class Layer extends Evented {
@@ -423,6 +431,8 @@ export class Layer extends Evented {
     getEvents?(): {[name: string]: (event: LeafletEvent) => void};
     getAttribution?(): string | null;
     beforeAdd?(map: Map): this;
+
+    protected _map: Map;
 }
 
 export interface GridLayerOptions {
@@ -442,6 +452,19 @@ export interface GridLayerOptions {
     keepBuffer?: number;
 }
 
+export type DoneCallback = (error?: Error, tile?: HTMLElement) => void;
+
+export interface InternalTiles {
+    [key: string]: {
+        active?: boolean,
+        coords: Coords,
+        current: boolean,
+        el: HTMLElement,
+        loaded?: Date,
+        retain?: boolean,
+    };
+}
+
 export class GridLayer extends Layer {
     constructor(options?: GridLayerOptions);
     bringToFront(): this;
@@ -452,11 +475,19 @@ export class GridLayer extends Layer {
     isLoading(): boolean;
     redraw(): this;
     getTileSize(): Point;
+
+    protected createTile(coords: Coords, done: DoneCallback): HTMLElement;
+    protected _tileCoordsToKey(coords: Coords): string;
+
+    protected _tiles: InternalTiles;
+    protected _tileZoom?: number;
 }
 
 export function gridLayer(options?: GridLayerOptions): GridLayer;
 
 export interface TileLayerOptions extends GridLayerOptions {
+    id?: string;
+    accessToken?: string;
     minZoom?: number;
     maxZoom?: number;
     maxNativeZoom?: number;
@@ -467,13 +498,20 @@ export interface TileLayerOptions extends GridLayerOptions {
     tms?: boolean;
     zoomReverse?: boolean;
     detectRetina?: boolean;
-    crossOrigin?: boolean;
-    [name: string]: any;
+    crossOrigin?: CrossOrigin;
+    // [name: string]: any;
+    // You are able add additional properties, but it makes this interface unchackable.
+    // See: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/15313
+    // Example:
+    // tileLayer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png?{foo}&{bar}&{abc}', {foo: 'bar', bar: (data: any) => 'foo', abc: () => ''});
 }
 
 export class TileLayer extends GridLayer {
     constructor(urlTemplate: string, options?: TileLayerOptions);
     setUrl(url: string, noRedraw?: boolean): this;
+
+    protected _abortLoading(): void;
+    protected _getZoomForUrl(): number;
 
     options: TileLayerOptions;
 }
@@ -516,12 +554,17 @@ export namespace tileLayer {
     function wms(baseUrl: string, options?: WMSOptions): TileLayer.WMS;
 }
 
-export interface ImageOverlayOptions extends LayerOptions {
+export type CrossOrigin = boolean | string;
+
+export interface ImageOverlayOptions extends InteractiveLayerOptions {
     opacity?: number;
     alt?: string;
     interactive?: boolean;
     attribution?: string;
-    crossOrigin?: boolean;
+    crossOrigin?: CrossOrigin;
+    errorOverlayUrl?: string;
+    zIndex?: number;
+    className?: string;
 }
 
 export class ImageOverlay extends Layer {
@@ -534,6 +577,9 @@ export class ImageOverlay extends Layer {
     /** Update the bounds that this ImageOverlay covers */
     setBounds(bounds: LatLngBounds): this;
 
+    /** Changes the zIndex of the image overlay */
+    setZIndex(value: number): this;
+
     /** Get the bounds that this ImageOverlay covers */
     getBounds(): LatLngBounds;
 
@@ -544,6 +590,60 @@ export class ImageOverlay extends Layer {
 }
 
 export function imageOverlay(imageUrl: string, bounds: LatLngBoundsExpression, options?: ImageOverlayOptions): ImageOverlay;
+
+export class SVGOverlay extends Layer { /** SVGOverlay doesn't extend ImageOverlay because SVGOverlay.getElement returns SVGElement */
+    constructor(svgImage: string | SVGElement, bounds: LatLngBoundsExpression, options?: ImageOverlayOptions);
+    setOpacity(opacity: number): this;
+    bringToFront(): this;
+    bringToBack(): this;
+    setUrl(url: string): this;
+
+    /** Update the bounds that this SVGOverlay covers */
+    setBounds(bounds: LatLngBounds): this;
+
+    /** Changes the zIndex of the image overlay */
+    setZIndex(value: number): this;
+
+    /** Get the bounds that this SVGOverlay covers */
+    getBounds(): LatLngBounds;
+
+    /** Get the img element that represents the SVGOverlay on the map */
+    getElement(): SVGElement | undefined;
+
+    options: ImageOverlayOptions;
+}
+
+export function svgOverlay(svgImage: string | SVGElement, bounds: LatLngBoundsExpression, options?: ImageOverlayOptions): SVGOverlay;
+
+export interface VideoOverlayOptions extends ImageOverlayOptions {
+    /** Whether the video starts playing automatically when loaded. */
+    autoplay?: boolean;
+    /** Whether the video will loop back to the beginning when played. */
+    loop?: boolean;
+    /** Whether the video will save aspect ratio after the projection. */
+    keepAspectRatio?: boolean;
+}
+
+export class VideoOverlay extends Layer { /** VideoOverlay doesn't extend ImageOverlay because VideoOverlay.getElement returns HTMLImageElement */
+    constructor(video: string | string[] | HTMLVideoElement, bounds: LatLngBoundsExpression, options?: VideoOverlayOptions);
+    setOpacity(opacity: number): this;
+    bringToFront(): this;
+    bringToBack(): this;
+    setUrl(url: string): this;
+
+    /** Update the bounds that this VideoOverlay covers */
+    setBounds(bounds: LatLngBounds): this;
+
+    /** Get the bounds that this VideoOverlay covers */
+    getBounds(): LatLngBounds;
+
+    /** Get the video element that represents the VideoOverlay on the map */
+    getElement(): HTMLVideoElement | undefined;
+
+    options: VideoOverlayOptions;
+}
+
+export function videoOverlay(video: string | string[] | HTMLVideoElement, bounds: LatLngBoundsExpression, options?: VideoOverlayOptions): VideoOverlay;
 
 export type LineCapShape = 'butt' | 'round' | 'square' | 'inherit';
 
@@ -558,7 +658,7 @@ export interface PathOptions extends InteractiveLayerOptions {
     opacity?: number;
     lineCap?: LineCapShape;
     lineJoin?: LineJoinShape;
-    dashArray?: string;
+    dashArray?: string | number[];
     dashOffset?: string;
     fill?: boolean;
     fillColor?: string;
@@ -584,10 +684,10 @@ export interface PolylineOptions extends PathOptions {
 }
 
 export class Polyline<T extends geojson.GeometryObject = geojson.LineString | geojson.MultiLineString, P = any> extends Path {
-    constructor(latlngs: LatLngExpression[], options?: PolylineOptions);
+    constructor(latlngs: LatLngExpression[] | LatLngExpression[][], options?: PolylineOptions);
     toGeoJSON(): geojson.Feature<T, P>;
-    getLatLngs(): LatLng[];
-    setLatLngs(latlngs: LatLngExpression[]): this;
+    getLatLngs(): LatLng[] | LatLng[][] | LatLng[][][];
+    setLatLngs(latlngs: LatLngExpression[] | LatLngExpression[][] | LatLngExpression[][][]): this;
     isEmpty(): boolean;
     getCenter(): LatLng;
     getBounds(): LatLngBounds;
@@ -597,13 +697,13 @@ export class Polyline<T extends geojson.GeometryObject = geojson.LineString | ge
     options: PolylineOptions;
 }
 
-export function polyline(latlngs: LatLngExpression[], options?: PolylineOptions): Polyline;
+export function polyline(latlngs: LatLngExpression[] | LatLngExpression[][], options?: PolylineOptions): Polyline;
 
 export class Polygon<P = any> extends Polyline<geojson.Polygon | geojson.MultiPolygon, P> {
-    constructor(latlngs: LatLngExpression[] | LatLngExpression[][], options?: PolylineOptions);
+    constructor(latlngs: LatLngExpression[] | LatLngExpression[][] | LatLngExpression[][][], options?: PolylineOptions);
 }
 
-export function polygon(latlngs: LatLngExpression[] | LatLngExpression[][], options?: PolylineOptions): Polygon;
+export function polygon(latlngs: LatLngExpression[] | LatLngExpression[][] | LatLngExpression[][][], options?: PolylineOptions): Polygon;
 
 export class Rectangle<P = any> extends Polygon<P> {
     constructor(latLngBounds: LatLngBoundsExpression, options?: PolylineOptions);
@@ -787,7 +887,7 @@ export interface GeoJSONOptions<P = any> extends LayerOptions {
     pointToLayer?(geoJsonPoint: geojson.Feature<geojson.Point, P>, latlng: LatLng): Layer; // should import GeoJSON typings
 
     /**
-     * A Function defining the Path options for styling GeoJSON lines and polygons,
+     * PathOptions or a Function defining the Path options for styling GeoJSON lines and polygons,
      * called internally when data is added.
      *
      * The default value is to not override any defaults:
@@ -798,7 +898,7 @@ export interface GeoJSONOptions<P = any> extends LayerOptions {
      * }
      * ```
      */
-    style?: StyleFunction<P>;
+    style?: PathOptions | StyleFunction<P>;
 
     /**
      * A Function that will be called once for each created Feature, after it
@@ -889,6 +989,12 @@ export class GeoJSON<P = any> extends FeatureGroup<P> {
      */
     resetStyle(layer: Layer): Layer;
 
+    /**
+     * Same as FeatureGroup's setStyle method, but style-functions are also
+     * allowed here to set the style according to the feature.
+     */
+    setStyle(style: PathOptions | StyleFunction<P>): this;
+
     options: GeoJSONOptions<P>;
 }
 
@@ -967,6 +1073,7 @@ export interface ControlOptions {
 }
 
 export class Control extends Class {
+    static extend<T extends object>(props: T): {new(...args: any[]): T} & typeof Control;
     constructor(options?: ControlOptions);
     getPosition(): ControlPosition;
     setPosition(position: ControlPosition): this;
@@ -1056,24 +1163,8 @@ export interface DivOverlayOptions {
     pane?: string;
 }
 
-export interface PopupOptions extends DivOverlayOptions {
-    maxWidth?: number;
-    minWidth?: number;
-    maxHeight?: number;
-    autoPan?: boolean;
-    autoPanPaddingTopLeft?: PointExpression;
-    autoPanPaddingBottomRight?: PointExpression;
-    autoPanPadding?: PointExpression;
-    keepInView?: boolean;
-    closeButton?: boolean;
-    autoClose?: boolean;
-    closeOnClick?: boolean;
-}
-
-export type Content = string | HTMLElement;
-
-export class Popup extends Layer {
-    constructor(options?: PopupOptions, source?: Layer);
+export abstract class DivOverlay extends Layer {
+    constructor(options?: DivOverlayOptions, source?: Layer);
     getLatLng(): LatLng | undefined;
     setLatLng(latlng: LatLngExpression): this;
     getContent(): Content | ((source: Layer) => Content) | undefined;
@@ -1083,6 +1174,29 @@ export class Popup extends Layer {
     isOpen(): boolean;
     bringToFront(): this;
     bringToBack(): this;
+
+    options: DivOverlayOptions;
+}
+
+export interface PopupOptions extends DivOverlayOptions {
+    maxWidth?: number;
+    minWidth?: number;
+    maxHeight?: number;
+    keepInView?: boolean;
+    closeButton?: boolean;
+    autoPan?: boolean;
+    autoPanPaddingTopLeft?: PointExpression;
+    autoPanPaddingBottomRight?: PointExpression;
+    autoPanPadding?: PointExpression;
+    autoClose?: boolean;
+    closeOnClick?: boolean;
+    closeOnEscapeKey?: boolean;
+}
+
+export type Content = string | HTMLElement;
+
+export class Popup extends DivOverlay {
+    constructor(options?: PopupOptions, source?: Layer);
     openOn(map: Map): this;
 
     options: PopupOptions;
@@ -1102,18 +1216,9 @@ export interface TooltipOptions extends DivOverlayOptions {
     opacity?: number;
 }
 
-export class Tooltip extends Layer {
+export class Tooltip extends DivOverlay {
     constructor(options?: TooltipOptions, source?: Layer);
     setOpacity(val: number): void;
-    getLatLng(): LatLng | undefined;
-    setLatLng(latlng: LatLngExpression): this;
-    getContent(): Content | undefined;
-    setContent(htmlContent: ((source: Layer) => Content) | Content): this;
-    getElement(): HTMLElement | undefined;
-    update(): void;
-    isOpen(): boolean;
-    bringToFront(): this;
-    bringToBack(): this;
 
     options: TooltipOptions;
 }
@@ -1139,6 +1244,12 @@ export interface FitBoundsOptions extends ZoomOptions, PanOptions {
     paddingBottomRight?: PointExpression;
     padding?: PointExpression;
     maxZoom?: number;
+}
+
+export interface PanInsideOptions {
+    paddingTopLeft?: PointExpression;
+    paddingBottomRight?: PointExpression;
+    padding?: PointExpression;
 }
 
 export interface LocateOptions {
@@ -1311,10 +1422,11 @@ export class Map extends Evented {
     fitBounds(bounds: LatLngBoundsExpression, options?: FitBoundsOptions): this;
     fitWorld(options?: FitBoundsOptions): this;
     panTo(latlng: LatLngExpression, options?: PanOptions): this;
-    panBy(offset: PointExpression): this;
+    panBy(offset: PointExpression, options?: PanOptions): this;
     setMaxBounds(bounds: LatLngBoundsExpression): this;
     setMinZoom(zoom: number): this;
     setMaxZoom(zoom: number): this;
+    panInside(latLng: LatLngExpression, options?: PanInsideOptions): this;
     panInsideBounds(bounds: LatLngBoundsExpression, options?: PanOptions): this;
     /**
      * Boolean for animate or advanced ZoomPanOptions
@@ -1325,7 +1437,7 @@ export class Map extends Evented {
     flyToBounds(bounds: LatLngBoundsExpression, options?: FitBoundsOptions): this;
 
     // Other methods
-    addHandler(name: string, HandlerClass: () => Handler): this; // HandlerClass is actually a constructor function, is this the right way?
+    addHandler(name: string, HandlerClass: typeof Handler): this; // Alternatively, HandlerClass: new(map: Map) => Handler
     remove(): this;
     createPane(name: string, container?: HTMLElement): HTMLElement;
     /**
@@ -1378,6 +1490,7 @@ export class Map extends Evented {
     scrollWheelZoom: Handler;
     tap?: Handler;
     touchZoom: Handler;
+    zoomControl: Control.Zoom;
 
     options: MapOptions;
 }
@@ -1427,7 +1540,7 @@ export namespace Icon {
 export function icon(options: IconOptions): Icon;
 
 export interface DivIconOptions extends BaseIconOptions {
-    html?: string | false;
+    html?: string | HTMLElement | false;
     bgPos?: PointExpression;
     iconSize?: PointExpression;
     iconAnchor?: PointExpression;
@@ -1443,15 +1556,30 @@ export function divIcon(options?: DivIconOptions): DivIcon;
 
 export interface MarkerOptions extends InteractiveLayerOptions {
     icon?: Icon | DivIcon;
-    clickable?: boolean;
+    /** Whether the marker is draggable with mouse/touch or not. */
     draggable?: boolean;
+    /** Whether the marker can be tabbed to with a keyboard and clicked by pressing enter. */
     keyboard?: boolean;
+    /** Text for the browser tooltip that appear on marker hover (no tooltip by default). */
     title?: string;
+    /** Text for the `alt` attribute of the icon image (useful for accessibility). */
     alt?: string;
+    /** Option for putting the marker on top of all others (or below). */
     zIndexOffset?: number;
+    /** The opacity of the marker. */
     opacity?: number;
+    /** If `true`, the marker will get on top of others when you hover the mouse over it. */
     riseOnHover?: boolean;
+    /** The z-index offset used for the `riseOnHover` feature. */
     riseOffset?: number;
+    /** `Map pane` where the markers shadow will be added. */
+    shadowPane?: string;
+    /** Whether to pan the map when dragging this marker near its edge or not. */
+    autoPan?: boolean;
+    /** Distance (in pixels to the left/right and to the top/bottom) of the map edge to start panning the map. */
+    autoPanPadding?: PointExpression;
+    /** Number of pixels the map should pan by. */
+    autoPanSpeed?: number;
 }
 
 export class Marker<P = any> extends Layer {
@@ -1460,6 +1588,7 @@ export class Marker<P = any> extends Layer {
     getLatLng(): LatLng;
     setLatLng(latlng: LatLngExpression): this;
     setZIndexOffset(offset: number): this;
+    getIcon(): Icon | DivIcon;
     setIcon(icon: Icon | DivIcon): this;
     setOpacity(opacity: number): this;
     getElement(): HTMLElement | undefined;
@@ -1473,38 +1602,45 @@ export class Marker<P = any> extends Layer {
 export function marker(latlng: LatLngExpression, options?: MarkerOptions): Marker;
 
 export namespace Browser {
+    // sorting according to https://leafletjs.com/reference-1.5.0.html#browser
     const ie: boolean;
     const ielt9: boolean;
     const edge: boolean;
     const webkit: boolean;
-    const gecko: boolean;
     const android: boolean;
     const android23: boolean;
+    const androidStock: boolean;
+    const opera: boolean;
     const chrome: boolean;
+    const gecko: boolean;
     const safari: boolean;
+    const opera12: boolean;
     const win: boolean;
     const ie3d: boolean;
     const webkit3d: boolean;
     const gecko3d: boolean;
-    const opera12: boolean;
     const any3d: boolean;
     const mobile: boolean;
     const mobileWebkit: boolean;
     const mobileWebkit3d: boolean;
-    const mobileOpera: boolean;
-    const mobileGecko: boolean;
-    const touch: boolean;
     const msPointer: boolean;
     const pointer: boolean;
+    const touch: boolean;
+    const mobileOpera: boolean;
+    const mobileGecko: boolean;
     const retina: boolean;
     const canvas: boolean;
-    const vml: boolean;
     const svg: boolean;
+    const vml: boolean;
 }
 
 export namespace Util {
-    function extend(dest: any, src?: any): any;
-    function create(proto: any, properties?: any): any;
+    function extend<D extends object, S1 extends object = {}>(dest: D, src?: S1): D & S1;
+    function extend<D extends object, S1 extends object, S2 extends object>(dest: D, src1: S1, src2: S2): D & S1 & S2;
+    function extend<D extends object, S1 extends object, S2 extends object, S3 extends object>(dest: D, src1: S1, src2: S2, src3: S3): D & S1 & S2 & S3;
+    function extend(dest: any, ...src: any[]): any;
+
+    function create(proto: object | null, properties?: PropertyDescriptorMap): any;
     function bind(fn: () => void, ...obj: any[]): () => void;
     function stamp(obj: any): number;
     function throttle(fn: () => void, time: number, context: any): () => void;
@@ -1518,7 +1654,7 @@ export namespace Util {
     function template(str: string, data: any): string;
     function isArray(obj: any): boolean;
     function indexOf(array: any[], el: any): number;
-    function requestAnimFrame(fn: () => void, context?: any, immediate?: boolean): number;
+    function requestAnimFrame(fn: (timestamp: number) => void, context?: any, immediate?: boolean): number;
     function cancelAnimFrame(id: number): void;
 
     let lastId: number;

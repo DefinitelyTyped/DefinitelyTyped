@@ -1,6 +1,8 @@
 {
     "private": true,
     "dependencies": {
-        "redux": "^3.6.0"
+        "@types/hoist-non-react-statics": "^3.3.0",
+        "hoist-non-react-statics": "^3.3.0",
+        "redux": "^4.0.0"
     }
 }

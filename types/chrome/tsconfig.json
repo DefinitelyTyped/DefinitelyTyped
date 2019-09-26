@@ -19,11 +19,7 @@
     },
     "files": [
         "index.d.ts",
-        "chrome-app.d.ts",
-        "chrome-cast.d.ts",
-        "chrome-webview.d.ts",
-        "test/index.ts",
-        "test/chrome-app.ts",
-        "test/chrome-webview.ts"
+        "chrome-cast/index.d.ts",
+        "test/index.ts"
     ]
 }

@@ -51,7 +51,7 @@ declare namespace twilio {
     toPayload(): GrantPayload;
   }
 
-  export interface RequestCallback { (err: any, data: any, response: Http.ClientResponse): void; }
+  export interface RequestCallback { (err: any, data: any, response: Http.IncomingMessage): void; }
 
   export interface RestMethod {
     (callback: RequestCallback): Q.Promise<any>;

@@ -5,10 +5,6 @@
 //                 matthias jobst <https://github.com/MatthiasJobst>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// this makes only sense together with d3 and crossfilter so you need the d3.d.ts and crossfilter.d.ts files
-
-///<reference types="crossfilter" />
-
 import * as d3 from "d3";
 
 export = dc;
@@ -176,6 +172,7 @@ declare namespace dc {
         legend: IGetSet<Legend, T>;
         options(optionsObject: any): T;
         renderlet(fn: (chart: T) => any): T;
+        useViewBoxResizing: IGetSet<boolean, T>;
 
         on(event: "renderlet", fn: (chart: T, filter: any) => any): T;
         on(event: "pretransition", fn: (chart: T, filter: any) => any): T;
@@ -417,6 +414,16 @@ declare namespace dc {
         tickFormat: IGetSet<Accessor<number, string>, BoxPlot>;
     }
 
+    // https://github.com/dc-js/dc.js/blob/master/src/select-menu.js
+    export interface SelectMenu extends BaseMixin<SelectMenu> {
+        order: IGetSet<(a: any, b: any) => number, SelectMenu>;
+        promptText: IGetSet<string, SelectMenu>;
+        filterDisplayed: IGetSet<(a: {value: any, key: any}, index: number) => boolean, SelectMenu>;
+        multiple: IGetSet<boolean, SelectMenu>;
+        promptValue: IGetSet<any, SelectMenu>;
+        numberVisible: IGetSet<number, SelectMenu>;
+    }
+
     export interface ChartRegistry {
         has(chart: BaseMixin<any>): boolean;
         register(chart: BaseMixin<any>, group?: string): void;
@@ -472,5 +479,6 @@ declare namespace dc {
         numberDisplay(parent: string, chartGroup?: string): NumberDisplayWidget;
         heatMap(parent: string, chartGroup?: string): HeatMap;
         boxPlot(parent: string, chartGroup?: string): BoxPlot;
+        selectMenu(parent: string, chartGroup?: string): SelectMenu;
     }
 }

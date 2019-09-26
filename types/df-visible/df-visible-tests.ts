@@ -31,3 +31,6 @@ $('#element').visible(true, false, 'horizontal');
 
 // Check only vertical
 $('#element').visible(true, false, 'vertical');
+
+// Check container
+$('#element').visible(true, false, 'horizontal', $('body'))

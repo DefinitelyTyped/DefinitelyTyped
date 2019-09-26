@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2017-05-12
+// Type definitions for Google Apps Script 2019-09-11
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -13,22 +13,25 @@ declare namespace GoogleAppsScript {
      */
     export interface Calendar {
       createAllDayEvent(title: string, date: Date): CalendarEvent;
-      createAllDayEvent(title: string, date: Date, options: Object): CalendarEvent;
+      createAllDayEvent(title: string, startDate: Date, endDate: Date): CalendarEvent;
+      createAllDayEvent(title: string, startDate: Date, endDate: Date, options: { [key: string]: any }): CalendarEvent;
+      createAllDayEvent(title: string, date: Date, options: { [key: string]: any }): CalendarEvent;
       createAllDayEventSeries(title: string, startDate: Date, recurrence: EventRecurrence): CalendarEventSeries;
-      createAllDayEventSeries(title: string, startDate: Date, recurrence: EventRecurrence, options: Object): CalendarEventSeries;
+      createAllDayEventSeries(title: string, startDate: Date, recurrence: EventRecurrence, options: { [key: string]: any }): CalendarEventSeries;
       createEvent(title: string, startTime: Date, endTime: Date): CalendarEvent;
-      createEvent(title: string, startTime: Date, endTime: Date, options: Object): CalendarEvent;
+      createEvent(title: string, startTime: Date, endTime: Date, options: { [key: string]: any }): CalendarEvent;
       createEventFromDescription(description: string): CalendarEvent;
       createEventSeries(title: string, startTime: Date, endTime: Date, recurrence: EventRecurrence): CalendarEventSeries;
-      createEventSeries(title: string, startTime: Date, endTime: Date, recurrence: EventRecurrence, options: Object): CalendarEventSeries;
+      createEventSeries(title: string, startTime: Date, endTime: Date, recurrence: EventRecurrence, options: { [key: string]: any }): CalendarEventSeries;
       deleteCalendar(): void;
       getColor(): string;
       getDescription(): string;
+      getEventById(iCalId: string): CalendarEvent;
       getEventSeriesById(iCalId: string): CalendarEventSeries;
       getEvents(startTime: Date, endTime: Date): CalendarEvent[];
-      getEvents(startTime: Date, endTime: Date, options: Object): CalendarEvent[];
+      getEvents(startTime: Date, endTime: Date, options: { [key: string]: any }): CalendarEvent[];
       getEventsForDay(date: Date): CalendarEvent[];
-      getEventsForDay(date: Date, options: Object): CalendarEvent[];
+      getEventsForDay(date: Date, options: { [key: string]: any }): CalendarEvent[];
       getId(): string;
       getName(): string;
       getTimeZone(): string;
@@ -46,9 +49,9 @@ declare namespace GoogleAppsScript {
     }
 
     /**
-     * Allows a script to read and update the user's Google Calendar. This class provides direct
-     *  access to the user's default calendar, as well as the ability to retrieve additional calendars
-     *  that the user owns or is subscribed to.
+     * Allows a script to read and update the user's Google Calendar. This class provides direct access
+     * to the user's default calendar, as well as the ability to retrieve additional calendars that the
+     * user owns or is subscribed to.
      */
     export interface CalendarApp {
       Color: typeof Color;
@@ -58,16 +61,18 @@ declare namespace GoogleAppsScript {
       Visibility: typeof Visibility;
       Weekday: typeof Base.Weekday;
       createAllDayEvent(title: string, date: Date): CalendarEvent;
-      createAllDayEvent(title: string, date: Date, options: Object): CalendarEvent;
+      createAllDayEvent(title: string, startDate: Date, endDate: Date): CalendarEvent;
+      createAllDayEvent(title: string, startDate: Date, endDate: Date, options: { [key: string]: any }): CalendarEvent;
+      createAllDayEvent(title: string, date: Date, options: { [key: string]: any }): CalendarEvent;
       createAllDayEventSeries(title: string, startDate: Date, recurrence: EventRecurrence): CalendarEventSeries;
-      createAllDayEventSeries(title: string, startDate: Date, recurrence: EventRecurrence, options: Object): CalendarEventSeries;
+      createAllDayEventSeries(title: string, startDate: Date, recurrence: EventRecurrence, options: { [key: string]: any }): CalendarEventSeries;
       createCalendar(name: string): Calendar;
-      createCalendar(name: string, options: Object): Calendar;
+      createCalendar(name: string, options: { [key: string]: any }): Calendar;
       createEvent(title: string, startTime: Date, endTime: Date): CalendarEvent;
-      createEvent(title: string, startTime: Date, endTime: Date, options: Object): CalendarEvent;
+      createEvent(title: string, startTime: Date, endTime: Date, options: { [key: string]: any }): CalendarEvent;
       createEventFromDescription(description: string): CalendarEvent;
       createEventSeries(title: string, startTime: Date, endTime: Date, recurrence: EventRecurrence): CalendarEventSeries;
-      createEventSeries(title: string, startTime: Date, endTime: Date, recurrence: EventRecurrence, options: Object): CalendarEventSeries;
+      createEventSeries(title: string, startTime: Date, endTime: Date, recurrence: EventRecurrence, options: { [key: string]: any }): CalendarEventSeries;
       getAllCalendars(): Calendar[];
       getAllOwnedCalendars(): Calendar[];
       getCalendarById(id: string): Calendar;
@@ -75,11 +80,12 @@ declare namespace GoogleAppsScript {
       getColor(): string;
       getDefaultCalendar(): Calendar;
       getDescription(): string;
+      getEventById(iCalId: string): CalendarEvent;
       getEventSeriesById(iCalId: string): CalendarEventSeries;
       getEvents(startTime: Date, endTime: Date): CalendarEvent[];
-      getEvents(startTime: Date, endTime: Date, options: Object): CalendarEvent[];
+      getEvents(startTime: Date, endTime: Date, options: { [key: string]: any }): CalendarEvent[];
       getEventsForDay(date: Date): CalendarEvent[];
-      getEventsForDay(date: Date, options: Object): CalendarEvent[];
+      getEventsForDay(date: Date, options: { [key: string]: any }): CalendarEvent[];
       getId(): string;
       getName(): string;
       getOwnedCalendarById(id: string): Calendar;
@@ -97,7 +103,7 @@ declare namespace GoogleAppsScript {
       setSelected(selected: boolean): Calendar;
       setTimeZone(timeZone: string): Calendar;
       subscribeToCalendar(id: string): Calendar;
-      subscribeToCalendar(id: string, options: Object): Calendar;
+      subscribeToCalendar(id: string, options: { [key: string]: any }): Calendar;
     }
 
     /**
@@ -145,6 +151,7 @@ declare namespace GoogleAppsScript {
       removeGuest(email: string): CalendarEvent;
       resetRemindersToDefault(): CalendarEvent;
       setAllDayDate(date: Date): CalendarEvent;
+      setAllDayDates(startDate: Date, endDate: Date): CalendarEvent;
       setAnyoneCanAddSelf(anyoneCanAddSelf: boolean): CalendarEvent;
       setColor(color: string): CalendarEvent;
       setDescription(description: string): CalendarEvent;
@@ -229,6 +236,7 @@ declare namespace GoogleAppsScript {
       getEmail(): string;
       getGuestStatus(): GuestStatus;
       getName(): string;
+      /** @deprecated DO NOT USE */
       getStatus(): string;
     }
 
@@ -257,10 +265,10 @@ declare namespace GoogleAppsScript {
     /**
      * Represents a recurrence rule for an event series.
      *
-     * Note that this class also behaves like the EventRecurrence that it belongs
-     *  to, allowing you to chain rule creation together like so:
+     * Note that this class also behaves like the EventRecurrence that it belongs to,
+     * allowing you to chain rule creation together like so:
      *
-     *      recurrence.addDailyRule().times(3).interval(2).addWeeklyExclusion().times(2);
+     *     recurrence.addDailyRule().times(3).interval(2).addWeeklyExclusion().times(2);
      *
      * times(times)
      * interval(interval)

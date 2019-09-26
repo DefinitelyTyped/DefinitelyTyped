@@ -1,5 +1,5 @@
-import * as Koa from 'koa';
-import * as send from 'koa-send';
+import Koa = require('koa');
+import send = require('koa-send');
 
 const app = new Koa();
 

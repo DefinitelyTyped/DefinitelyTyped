@@ -12,6 +12,7 @@ export interface StrategyOptions {
   callbackURL: string;
   passReqToCallback?: true;
   scope?: string[];
+  proxy?: boolean;
 }
 
 export interface StrategyOptionsWithRequest {

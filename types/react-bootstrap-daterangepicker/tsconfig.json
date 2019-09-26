@@ -20,7 +20,6 @@
     },
     "files": [
         "index.d.ts",
-        "react-bootstrap-daterangepicker-tests.ts",
         "react-bootstrap-daterangepicker-tests.tsx"
     ]
 }

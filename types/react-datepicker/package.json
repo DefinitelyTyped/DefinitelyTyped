@@ -1,6 +1,7 @@
 {
     "private": true,
     "dependencies": {
-        "moment": ">=2.14.0"
+        "popper.js": "^1.14.1",
+        "date-fns": "^2.0.1"
     }
 }

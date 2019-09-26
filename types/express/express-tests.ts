@@ -1,4 +1,6 @@
-import * as express from 'express';
+import express = require('express');
+import * as http from 'http';
+import { RequestRanges, ParamsArray } from 'express-serve-static-core';
 
 namespace express_tests {
     const app = express();
@@ -104,6 +106,9 @@ namespace express_tests {
             req.headers.existingHeader as string;
             req.headers.nonExistingHeader as any as undefined;
 
+            // Since 4.14.0 req.range() has options
+            req.range(2, { combine: true });
+
             res.send(req.query['token']);
         });
 
@@ -113,6 +118,27 @@ namespace express_tests {
     }, (req, res, next) => {
         res.render('regular');
     });
+
+    // Params defaults to dictionary
+    router.get('/:foo', req => {
+        req.params.foo; // $ExpectType string
+        req.params[0]; // $ExpectType string
+    });
+
+    // Params can used as an array
+    router.get<ParamsArray>('/*', req => {
+        req.params[0]; // $ExpectType string
+        req.params.length; // $ExpectType number
+    });
+
+    // Params can be a custom type that conforms to constraint
+    router.get<{ foo: string }>('/:foo', req => {
+        req.params.foo; // $ExpectType string
+        req.params.bar; // $ExpectError
+    });
+
+    // Params cannot be a custom type that does not conform to constraint
+    router.get<{ foo: number }>('/:foo', () => {}); // $ExpectError
 
     app.use((req, res, next) => {
         // hacky trick, router is just a handler
@@ -128,6 +154,22 @@ namespace express_tests {
 
     app.use(router);
 
+    // Test req.res, req.next, res.req should exists after middleware.init
+    app.use((req, res) => {
+        req.res;
+        req.next;
+        res.req;
+    });
+
+    // Test mounting sub-apps
+    app.use('/sub-app', express());
+
+    // Test on mount event
+    app.on('mount', (parent) => true);
+
+    // Test mountpath
+    const mountPath: string|string[] = app.mountpath;
+
     app.listen(3000);
 
     const next: express.NextFunction = () => { };
@@ -138,7 +180,6 @@ namespace express_tests {
  * Test with other modules *
  *                         *
  ***************************/
-import * as http from 'http';
 
 namespace node_tests {
     {

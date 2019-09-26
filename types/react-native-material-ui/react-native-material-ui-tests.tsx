@@ -3,7 +3,7 @@ import { View, Text } from 'react-native';
 import {
     ActionButton,
     Avatar,
-    ThemeProvider,
+    ThemeContext,
     COLOR,
     Badge,
     Button,
@@ -11,7 +11,10 @@ import {
     Checkbox,
     Dialog,
     DialogDefaultActions,
-    BottomNavigation
+    BottomNavigation,
+    Toolbar,
+    IconToggle,
+    getTheme
 } from 'react-native-material-ui';
 
 const theme = {
@@ -23,9 +26,9 @@ const theme = {
 };
 
 const Example = () =>
-    <ThemeProvider uiTheme={theme}>
-        <View>
-            <ActionButton />
+    <ThemeContext.Provider value={getTheme(theme)}>
+        <View testID="viewTestID">
+            <ActionButton style={{ positionContainer: { marginBottom: 3 }}} />
             <ActionButton icon="done" />
 
             <Avatar text="A" />
@@ -36,15 +39,18 @@ const Example = () =>
 
             <Badge />
 
-            <Button text="I'm a button" />
+            <IconToggle testID="iconToggleTestID" name="anIconToggle" />
+            <Button testID="buttonTestID" text="I'm a button" />
 
             <Card>
-                <Text>Hello world!</Text>
+                <ThemeContext.Consumer>
+                    {theme => <Text>Hello world!</Text> }
+                </ThemeContext.Consumer>
             </Card>
 
             <Checkbox label="Select me" value="chicken" onCheck={a => console.log(a)}/>
         </View>
-    </ThemeProvider>;
+    </ThemeContext.Provider>;
 
 const DialogExample = () =>
     <Dialog>
@@ -67,18 +73,15 @@ const DialogExample = () =>
     </Dialog>;
 
 class BottomNavigationExample extends React.Component<null, {active: string}> {
-    constructor() {
-        super(null);
-
-        this.state = {
-            active: 'today'
-        };
-    }
+    state = {
+        active: 'today'
+    };
 
     render() {
         return (
-            <BottomNavigation active={this.state.active} hidden={false} >
+            <BottomNavigation active={this.state.active} hidden={false}>
                 <BottomNavigation.Action
+                    testID="bottomNavActionTestID"
                     key="today"
                     icon="today"
                     label="Today"
@@ -110,6 +113,30 @@ class BottomNavigationExample extends React.Component<null, {active: string}> {
                     onPress={() => this.setState({ active: 'settings' })}
                 />
             </BottomNavigation>
+        );
+    }
+}
+
+class ToolbarExample extends React.Component<{}, {search: string}> {
+    state = {
+        search: ''
+    };
+
+    handleResults(search: string) {
+        this.setState({ search });
+    }
+
+    render() {
+        return (
+            <Toolbar
+                centerElement="Collections"
+                searchable={{
+                    autoFocus: true,
+                    placeholder: 'Search',
+                    onChangeText: (text: string) => this.handleResults(text),
+                    onSearchCloseRequested: () => this.handleResults(''),
+                }}
+            />
         );
     }
 }

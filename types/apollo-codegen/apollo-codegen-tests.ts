@@ -14,7 +14,7 @@ async function main() {
         "POST"
     );
 
-    generate(["input.ts"], "schema.json", "types.ts", "typescript", "gql", {
+    generate(["input.ts"], "schema.json", "types.ts", "", "typescript", "gql", "", {
         passthroughCustomScalars: false,
         customScalarsPrefix: "S",
         addTypename: false,

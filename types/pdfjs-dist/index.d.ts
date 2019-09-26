@@ -1,79 +1,62 @@
-// Type definitions for PDF.js v0.1.0
+// Type definitions for PDF.js v2.1
 // Project: https://github.com/mozilla/pdf.js
-// Definitions by: Josh Baldwin <https://github.com/jbaldwin>
+// Definitions by: Josh Baldwin <https://github.com/jbaldwin>, Dmitrii Sorin <https://github.com/1999>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.0
 
-/*
-Copyright (c) 2013 Josh Baldwin https://github.com/jbaldwin/pdf.d.ts
+/// <reference lib="dom"/>
 
-Permission is hereby granted, free of charge, to any person
-obtaining a copy of this software and associated documentation
-files (the "Software"), to deal in the Software without
-restriction, including without limitation the rights to use,
-copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the
-Software is furnished to do so, subject to the following conditions:
+declare const version: string;
 
-The above copyright notice and this permission notice shall be
-included in all copies or substantial portions of the Software.
+declare const GlobalWorkerOptions: GlobalWorkerOptions;
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
-OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
-HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-OTHER DEALINGS IN THE SOFTWARE.
-*/
-declare module "pdfjs-dist" {
-  export = PDF;
+interface GlobalWorkerOptions {
+  workerSrc: string;
 }
 
-declare namespace PDF {
-  interface PDFPromise<T> {
+interface PDFPromise<T> {
     isResolved(): boolean;
     isRejected(): boolean;
     resolve(value: T): void;
     reject(reason: string): void;
     then<U>(onResolve: (promise: T) => U, onReject?: (reason: string) => void): PDFPromise<U>;
-  }
+}
 
-  interface PDFTreeNode {
+interface PDFTreeNode {
     title: string;
     bold: boolean;
     italic: boolean;
     color: number[]; // [r,g,b]
     dest: any;
     items: PDFTreeNode[];
-  }
+}
 
-  interface PDFInfo {
+interface PDFInfo {
     PDFFormatVersion: string;
     IsAcroFormPresent: boolean;
     IsXFAPresent: boolean;
     [key: string]: any;	// return type is string, typescript chokes
-  }
+}
 
-  interface PDFMetadata {
+interface PDFMetadata {
     parse(): void;
     get(name: string): string;
     has(name: string): boolean;
-  }
+}
 
-  interface PDFSource {
+interface PDFSource {
     url?: string;
     data?: Uint8Array;
     httpHeaders?: any;
     password?: string;
-  }
+}
 
-  interface PDFProgressData {
+interface PDFProgressData {
     loaded: number;
     total: number;
-  }
+}
 
-  interface PDFDocumentProxy {
+interface PDFDocumentProxy {
 
     /**
      * Total number of pages the PDF contains.
@@ -137,44 +120,49 @@ declare namespace PDF {
      *
      **/
     destroy(): void;
-  }
+}
 
-  interface PDFRef {
+interface PDFRef {
     num: number;
     gen: any; // todo
-  }
+}
 
-  interface PDFPageViewportOptions {
+interface PDFPageViewportOptions {
     viewBox: any;
     scale: number;
     rotation: number;
     offsetX: number;
     offsetY: number;
     dontFlip: boolean;
-  }
+}
 
-  interface PDFPageViewport {
+interface PDFPageViewport {
     width: number;
     height: number;
-    fontScale: number;
+    scale: number;
     transforms: number[];
 
     clone(options: PDFPageViewportOptions): PDFPageViewport;
     convertToViewportPoint(x: number, y: number): number[]; // [x, y]
     convertToViewportRectangle(rect: number[]): number[]; // [x1, y1, x2, y2]
     convertToPdfPoint(x: number, y: number): number[]; // [x, y]
-  }
+}
 
-  interface PDFAnnotationData {
+interface ViewportParameters {
+    scale: number; // The desired scale of the viewport.
+    rotation?: number; // (optional) The desired rotation, in degrees, of the viewport. If omitted it defaults to the page rotation.
+    dontFlip?: boolean; // (optional) If true, the y-axis will not be flipped. The default value is `false`.
+}
+interface PDFAnnotationData {
     subtype: string;
     rect: number[]; // [x1, y1, x2, y2]
     annotationFlags: any; // todo
     color: number[]; // [r,g,b]
     borderWidth: number;
     hasAppearance: boolean;
-  }
+}
 
-  interface PDFAnnotations {
+interface PDFAnnotations {
     getData(): PDFAnnotationData;
     hasHtml(): boolean; // always false
     getHtmlElement(commonOjbs: any): HTMLElement; // throw new NotImplementedException()
@@ -183,45 +171,45 @@ declare namespace PDF {
     loadResources(keys: any): PDFPromise<any>;
     getOperatorList(evaluator: any): PDFPromise<any>;
     // ... todo
-  }
+}
 
-  interface PDFRenderTextLayer {
+interface PDFRenderTextLayer {
     beginLayout(): void;
     endLayout(): void;
     appendText(): void;
-  }
+}
 
-  interface PDFRenderImageLayer {
+interface PDFRenderImageLayer {
     beginLayout(): void;
     endLayout(): void;
     appendImage(): void;
-  }
+}
 
-  interface PDFRenderParams {
+interface PDFRenderParams {
     canvasContext: CanvasRenderingContext2D;
     viewport?: PDFPageViewport;
     textLayer?: PDFRenderTextLayer;
     imageLayer?: PDFRenderImageLayer;
     continueCallback?: (_continue: () => void) => void;
-  }
+}
 
-  interface PDFViewerParams {
+interface PDFViewerParams {
     container: HTMLElement;
     viewer?: HTMLElement;
-  }
+}
 
-  /**
-   * RenderTask is basically a promise but adds a cancel function to termiate it.
-   **/
-  interface PDFRenderTask extends PDFPromise<PDFPageProxy> {
+/**
+ * RenderTask is basically a promise but adds a cancel function to termiate it.
+ **/
+interface PDFRenderTask extends PDFLoadingTask<PDFPageProxy> {
 
     /**
      * Cancel the rendering task.  If the task is currently rendering it will not be cancelled until graphics pauses with a timeout.  The promise that this object extends will resolve when cancelled.
      **/
     cancel(): void;
-  }
+}
 
-  interface PDFPageProxy {
+interface PDFPageProxy {
 
     /**
      * Page number of the page.  First page is 1.
@@ -244,11 +232,10 @@ declare namespace PDF {
     view: number[];
 
     /**
-     * @param scale The desired scale of the viewport.
-     * @param rotate Degrees to rotate the viewport.  If omitted this defaults to the page rotation.
+     * @param params viewport options
      * @return
      **/
-    getViewport(scale: number, rotate?: number): PDFPageViewport;
+    getViewport(params: ViewportParameters): PDFPageViewport;
 
     /**
      * A promise that is resolved with an array of the annotation objects.
@@ -276,35 +263,35 @@ declare namespace PDF {
      * Destroyes resources allocated by the page.
      **/
     destroy(): void;
-  }
+}
 
-  interface TextContentItem {
+interface TextContentItem {
     str: string;
     transform: number[]; // [0..5]   4=x, 5=y
     width: number;
     height: number;
     dir: string; // Left-to-right (ltr), etc
     fontName: string; // A lookup into the styles map of the owning TextContent
-  }
+}
 
-  interface TextContent {
+interface TextContent {
     items: TextContentItem[];
     styles: any;
-  }
+}
 
-  /**
-   * A PDF document and page is built of many objects.  E.g. there are objects for fonts, images, rendering code and such.  These objects might get processed inside of a worker.  The `PDFObjects` implements some basic functions to manage these objects.
-   **/
-  interface PDFObjects {
+/**
+ * A PDF document and page is built of many objects.  E.g. there are objects for fonts, images, rendering code and such.  These objects might get processed inside of a worker.  The `PDFObjects` implements some basic functions to manage these objects.
+ **/
+interface PDFObjects {
     get(objId: number, callback?: any): any;
     resolve(objId: number, data: any): any;
     isResolved(objId: number): boolean;
     hasData(objId: number): boolean;
     getData(objId: number): any;
     clear(): void;
-  }
+}
 
-  interface PDFJSUtilStatic {
+interface PDFJSUtilStatic {
     /**
      * Normalize rectangle so that (x1,y1) < (x2,y2)
      * @param {number[]} rect - the rectangle with [x1,y1,x2,y2]
@@ -314,10 +301,11 @@ declare namespace PDF {
      * top-left, this means (TL,BR) ordering.
      **/
     normalizeRect(rect:number[]): number[];
-  }
+}
 
-  interface PDFJSStatic {
+export const PDFJS: PDFJSStatic;
 
+interface PDFJSStatic {
     /**
      * The maximum allowed image size in total pixels e.g. width * height.  Images above this value will not be drawn.  Use -1 for no limit.
      **/
@@ -407,7 +395,7 @@ declare namespace PDF {
      * in browsers which support the fullscreen API.
      */
     disableFullscreen: boolean;
-      
+
     /**
      * Disable the text layer of PDF when used PDF.js renders a canvas instead of div elements
      *
@@ -446,40 +434,6 @@ declare namespace PDF {
      */
     isEvalSupported: boolean;
 
-    Util: PDFJSUtilStatic;
-
-    /**
-     * This is the main entry point for loading a PDF and interacting with it.
-     * NOTE: If a URL is used to fetch the PDF data a standard XMLHttpRequest(XHR)
-     * is used, which means it must follow the same origin rules that any XHR does
-     * e.g. No corss domain requests without CORS.
-     * @param source
-     * @param pdfDataRangeTransport Used if you want to manually server range requests for data in the PDF.  @ee viewer.js for an example of pdfDataRangeTransport's interface.
-     * @param passwordCallback Used to request a password if wrong or no password was provided.  The callback receives two parameters: function that needs to be called with new password and the reason.
-     * @param progressCallback Progress callback.
-     * @return A promise that is resolved with PDFDocumentProxy object.
-     **/
-    getDocument(
-        source: string,
-        pdfDataRangeTransport?: any,
-        passwordCallback?: (fn: (password: string) => void, reason: string) => string,
-        progressCallback?: (progressData: PDFProgressData) => void)
-        : PDFPromise<PDFDocumentProxy>;
-
-    getDocument(
-        source: Uint8Array,
-        pdfDataRangeTransport?: any,
-        passwordCallback?: (fn: (password: string) => void, reason: string) => string,
-        progressCallback?: (progressData: PDFProgressData) => void)
-        : PDFPromise<PDFDocumentProxy>;
-
-    getDocument(
-        source: PDFSource,
-        pdfDataRangeTransport?: any,
-        passwordCallback?: (fn: (password: string) => void, reason: string) => string,
-        progressCallback?: (progressData: PDFProgressData) => void)
-        : PDFPromise<PDFDocumentProxy>;
-
     PDFViewer(params: PDFViewerParams): void;
     /**
     * yet another viewer, this will render only one page at the time, reducing rendering time
@@ -487,5 +441,42 @@ declare namespace PDF {
     * @params {PDFViewerParams}
     */
     PDFSinglePageViewer(params: PDFViewerParams): void;
-  }
 }
+
+interface PDFLoadingTask<T> {
+    promise: PDFPromise<T>;
+}
+
+declare const Util: PDFJSUtilStatic;
+
+/**
+ * This is the main entry point for loading a PDF and interacting with it.
+ * NOTE: If a URL is used to fetch the PDF data a standard XMLHttpRequest(XHR)
+ * is used, which means it must follow the same origin rules that any XHR does
+ * e.g. No corss domain requests without CORS.
+ * @param source
+ * @param pdfDataRangeTransport Used if you want to manually server range requests for data in the PDF.  @ee viewer.js for an example of pdfDataRangeTransport's interface.
+ * @param passwordCallback Used to request a password if wrong or no password was provided.  The callback receives two parameters: function that needs to be called with new password and the reason.
+ * @param progressCallback Progress callback.
+ * @return A promise that is resolved with PDFDocumentProxy object.
+ **/
+declare function getDocument(
+    source: string,
+    pdfDataRangeTransport?: any,
+    passwordCallback?: (fn: (password: string) => void, reason: string) => string,
+    progressCallback?: (progressData: PDFProgressData) => void
+): PDFLoadingTask<PDFDocumentProxy>;
+
+declare function getDocument(
+    source: Uint8Array,
+    pdfDataRangeTransport?: any,
+    passwordCallback?: (fn: (password: string) => void, reason: string) => string,
+    progressCallback?: (progressData: PDFProgressData) => void
+): PDFLoadingTask<PDFDocumentProxy>;
+
+declare function getDocument(
+    source: PDFSource,
+    pdfDataRangeTransport?: any,
+    passwordCallback?: (fn: (password: string) => void, reason: string) => string,
+    progressCallback?: (progressData: PDFProgressData) => void
+): PDFLoadingTask<PDFDocumentProxy>;

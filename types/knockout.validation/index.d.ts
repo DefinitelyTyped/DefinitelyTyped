@@ -6,6 +6,8 @@
 
 /// <reference types="knockout" />
 
+type KnockoutValidationMessageFunction = (params: any, observable: any) => string;
+
 interface KnockoutValidationGroupingOptions {
     /**
      * indicates whether to walk the ViewModel (or object)
@@ -96,6 +98,11 @@ interface KnockoutValidationConfiguration {
      * that ko observable's are bound to
      */
     writeInputAttributes?: boolean;
+    /**
+     * Supply the HTML5 input types validation will be
+     * added to. Defaults to ["email", "number", "date"]
+     */
+    html5InputTypes?: string[];
 }
 
 interface KnockoutValidationUtils {
@@ -126,7 +133,7 @@ interface KnockoutValidationAsyncCallback {
 
 interface KnockoutValidationRuleBase
 {
-    message: string;
+    message: string | KnockoutValidationMessageFunction;
 }
 
 interface KnockoutValidationRuleDefinition extends KnockoutValidationRuleBase {
@@ -166,7 +173,7 @@ interface KnockoutValidationRuleDefinitions {
 interface KnockoutValidationRule {
     rule: string;
     params: any;
-    message?: string;
+    message?: string | KnockoutValidationMessageFunction;
     condition?: () => boolean;
 }
 

@@ -1,5 +1,5 @@
 // Type definitions for memcached 2.2
-// Project: https://github.com/3rd-Eden/memcached
+// Project: https://github.com/3rd-Eden/memcached, https://github.com/3rd-eden/node-memcached
 // Definitions by: KentarouTakeda <https://github.com/KentarouTakeda>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
@@ -280,5 +280,9 @@ declare namespace Memcached {
          * 5000, the idle timeout for the connections.
          */
         idle ?: number;
+        /**
+         * '', sentinel to prepend to all memcache keys for namespacing the entries.
+         */
+        namespace ?: string;
     }
 }
