@@ -254,23 +254,6 @@ export * from './lib/store/RelayModernOperationDescriptor';
 // ./lib/store/createFragmentSpecResolver
 export * from './lib/store/createFragmentSpecResolver';
 
-// ./query/RelayModernGraphQLTag
-export function getFragment(taggedNode: GraphQLTaggedNode): ReaderFragment;
-export function getFragmentOwner(
-    fragmentNode: ReaderFragment,
-    fragmentRef: FragmentPointer | ReadonlyArray<FragmentPointer | null | undefined> | null | undefined,
-): OperationDescriptor | null;
-export function getFragmentOwners(
-    fragmentNodes: { [key: string]: ReaderFragment },
-    fragmentRefs: {
-        [key: string]: FragmentPointer | ReadonlyArray<FragmentPointer | null | undefined> | null | undefined;
-    },
-): { [key: string]: OperationDescriptor | null };
-export function getPaginationFragment(taggedNode: GraphQLTaggedNode): ReaderPaginationFragment | null;
-export function getRefetchableFragment(taggedNode: GraphQLTaggedNode): ReaderRefetchableFragment | null;
-export function getRequest(taggedNode: GraphQLTaggedNode): ConcreteRequest;
-export function graphql(strings: ReadonlyArray<string>): GraphQLTaggedNode;
-
 // ./lib/store/RelayStoreUtils
 export * from './lib/store/RelayStoreUtils';
 
@@ -292,14 +275,8 @@ export { RelayViewerHandler as ViewerHandler };
 // ./lib/mutations/commitLocalUpdate
 export * from './lib/mutations/commitLocalUpdate';
 
-// ./query/fetchRelayModernQuery
-declare function fetchRelayModernQuery<T extends OperationType>(
-    environment: RelayModernEnvironment,
-    taggedNode: GraphQLTaggedNode,
-    variables: T['variables'],
-    cacheConfig?: CacheConfig | null,
-): Promise<T['response']>;
-export { fetchRelayModernQuery as fetchQuery };
+// ./lib/query/fetchQuery
+export * from './lib/query/fetchQuery';
 
 // ./lib/store/isRelayModernEnvironment
 export * from './lib/store/isRelayModernEnvironment';
