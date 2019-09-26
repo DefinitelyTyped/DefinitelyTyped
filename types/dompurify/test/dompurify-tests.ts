@@ -1,4 +1,3 @@
-/// <reference types="trusted-types"/>
 import dompurify = require('dompurify');
 
 dompurify.sanitize('<script>alert("hi")</script>');
