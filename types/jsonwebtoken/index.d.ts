@@ -8,7 +8,7 @@
 //                 Kjell Dießel <https://github.com/kettil>,
 //                 Robert Gajda <https://github.com/RunAge>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 3.0
 
 /// <reference types="node" />
 
