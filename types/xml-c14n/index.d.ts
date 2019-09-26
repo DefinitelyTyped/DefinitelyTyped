@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
-declare module xml_c14n {
+declare namespace xml_c14n {
     type canonicaliseCb = (err: any, data: string) => void;
 
     interface Options {
@@ -26,4 +26,6 @@ declare module xml_c14n {
     }
 }
 
-export default function c14n(): xml_c14n.CanonizationFactory;
+declare function c14n(): xml_c14n.CanonizationFactory;
+
+export = c14n;
