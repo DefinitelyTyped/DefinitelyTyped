@@ -6,7 +6,8 @@
 //                 Veli-Pekka Kestilä <https://github.com/vpk>,
 //                 Daniel Parker <https://github.com/rlgod>,
 //                 Kjell Dießel <https://github.com/kettil>,
-//                 Robert Gajda <https://github.com/RunAge>
+//                 Robert Gajda <https://github.com/RunAge>,
+//                 Lautaro Dragan <https://github.com/lautarodragan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
