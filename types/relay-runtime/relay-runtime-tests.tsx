@@ -77,7 +77,7 @@ store.publish(source);
 // ~~~~~~~~~~~~~~~~~~~~~
 
 commitLocalUpdate(environment, store => {
-    const root = store.get(ROOT_ID)!;
+    const root = store.get(ROOT_ID);
     root.setValue('foo', 'localKey');
 });
 

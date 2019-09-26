@@ -4,7 +4,7 @@ import {
     RecordProxy,
     Variables,
     HandleFieldPayload,
-    ReadonlyRecordProxy,
+    ReadOnlyRecordProxy,
 } from '../../../index';
 
 export interface ConnectionMetadata {
@@ -30,7 +30,7 @@ export function createEdge(
 export function deleteNode(record: RecordProxy, nodeID: DataID): void;
 
 export function getConnection(
-    record: ReadonlyRecordProxy,
+    record: ReadOnlyRecordProxy,
     key: string,
     filters?: Variables | null,
 ): RecordProxy | null | undefined;

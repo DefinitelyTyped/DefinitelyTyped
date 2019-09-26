@@ -119,6 +119,15 @@ import {
     Record,
     RecordMap,
     MissingFieldHandler,
+    NormalizationSelector,
+    RelayContext,
+    Props,
+    FragmentSpecResolver,
+    OperationLoader,
+    OptimisticUpdate,
+    RecordSourceProxy,
+    RecordSourceSelectorProxy,
+    ReadOnlyRecordProxy,
 } from './lib/store/RelayStoreTypes';
 export * from './lib/store/RelayStoreTypes';
 export { Environment as IEnvironment } from './lib/store/RelayStoreTypes';
@@ -138,91 +147,13 @@ export interface MatchPointer {
     __module: unknown;
 }
 
-export interface OperationLoader {
-    get(reference: unknown): NormalizationSplitOperation | null | undefined;
-
-    load(reference: unknown): Promise<NormalizationSplitOperation | null | undefined>;
-}
-
-export type OptimisticUpdate =
-    | {
-          storeUpdater: StoreUpdater;
-      }
-    | {
-          selectorStoreUpdater: SelectorStoreUpdater | null | undefined;
-          operation: OperationDescriptor;
-          response: object | null | undefined;
-      }
-    | {
-          source: RecordSource;
-          fieldPayloads?: ReadonlyArray<HandleFieldPayload> | null;
-      };
-
-export interface OwnedReaderSelector {
-    owner: OperationDescriptor | null;
-    selector: ReaderSelector;
-}
-
-export interface RecordProxy {
-    copyFieldsFrom(source: RecordProxy): void;
-    getDataID(): DataID;
-    getLinkedRecord(name: string, args?: Variables | null): RecordProxy | null | undefined;
-    getLinkedRecords(
-        name: string,
-        args?: Variables | null,
-    ): ReadonlyArray<RecordProxy | null | undefined> | null | undefined;
-    getOrCreateLinkedRecord(name: string, typeName: string, args?: Variables | null): RecordProxy;
-    getType(): string;
-    getValue(name: string, args?: Variables | null): unknown;
-    setLinkedRecord(record: RecordProxy, name: string, args?: Variables | null): RecordProxy;
-    setLinkedRecords(
-        records: Array<RecordProxy | null | undefined>,
-        name: string,
-        args?: Variables | null,
-    ): RecordProxy;
-    setValue(value: unknown, name: string, args?: Variables | null): RecordProxy;
-}
-
-export interface RecordSourceProxy {
-    create(dataID: DataID, typeName: string): RecordProxy;
-    delete(dataID: DataID): void;
-    get(dataID: DataID): RecordProxy | null | undefined;
-    getRoot(): RecordProxy;
-}
-
-export interface RecordSourceSelectorProxy {
-    create(dataID: DataID, typeName: string): RecordProxy;
-    delete(dataID: DataID): void;
-    get(dataID: DataID): RecordProxy | null | undefined;
-    getRoot(): RecordProxy;
-    getRootField(fieldName: string): RecordProxy | null | undefined;
-    getPluralRootField(fieldName: string): ReadonlyArray<RecordProxy | null | undefined> | null | undefined;
-}
-
-export type RelayContext = CRelayContext<Environment>;
-
-export type ReaderSelector = CReaderSelector<ReaderSelectableNode>;
-
-export type NormalizationSelector = CNormalizationSelector<NormalizationSelectableNode>;
-
 export type SelectorStoreUpdater<TData = unknown> = (store: RecordSourceSelectorProxy, data: TData) => void;
 
 export type StoreUpdater = (store: RecordSourceProxy) => void;
 
 interface ReadonlyRecordSourceProxy {
-    get(dataID: DataID): ReadonlyRecordProxy | null | undefined;
-    getRoot(): ReadonlyRecordProxy;
-}
-
-export interface ReadonlyRecordProxy {
-    getDataID(): DataID;
-    getLinkedRecord(name: string, args?: Variables | null): RecordProxy | null | undefined;
-    getLinkedRecords(
-        name: string,
-        args?: Variables | null,
-    ): ReadonlyArray<RecordProxy | null | undefined> | null | undefined;
-    getType(): string;
-    getValue(name: string, args?: Variables | null): unknown;
+    get(dataID: DataID): ReadOnlyRecordProxy | null | undefined;
+    getRoot(): ReadOnlyRecordProxy;
 }
 
 // ./subscription/requestRelaySubscription
@@ -234,116 +165,6 @@ export interface GraphQLSubscriptionConfig<TSubscriptionPayload> {
     onError?: (error: Error) => void;
     onNext?: (response: TSubscriptionPayload | null | undefined) => void;
     updater?: SelectorStoreUpdater;
-}
-
-// ./util/RelayCombinedEnvironmentTypes
-export interface CEnvironment<
-    TEnvironment,
-    TFragment,
-    TGraphQLTaggedNode,
-    TReaderNode,
-    TNormalizationNode,
-    TRequest,
-    TPayload,
-    TReaderSelector
-> {
-    check(selector: CNormalizationSelector<TNormalizationNode>): boolean;
-
-    lookup(
-        selector: CReaderSelector<TReaderNode>,
-    ): CSnapshot<TReaderNode, COperationDescriptor<TReaderNode, TNormalizationNode, TRequest>>;
-
-    subscribe(
-        snapshot: CSnapshot<TReaderNode, COperationDescriptor<TReaderNode, TNormalizationNode, TRequest>>,
-        callback: (
-            snapshot: CSnapshot<TReaderNode, COperationDescriptor<TReaderNode, TNormalizationNode, TRequest>>,
-        ) => void,
-    ): Disposable;
-
-    retain(selector: CNormalizationSelector<TNormalizationNode>): Disposable;
-
-    execute(config: {
-        operation: COperationDescriptor<TReaderNode, TNormalizationNode, TRequest>;
-        cacheConfig?: CacheConfig | null;
-        updater?: SelectorStoreUpdater | null;
-    }): RelayObservable<TPayload>;
-}
-
-export interface CFragmentMap<TFragment> {
-    [key: string]: TFragment;
-}
-
-export interface CNormalizationSelector<TNormalizationNode> {
-    dataID: DataID;
-    node: TNormalizationNode;
-    variables: Variables;
-}
-
-export interface COperationDescriptor<TReaderNode, TNormalizationNode, TRequest> {
-    fragment: CReaderSelector<TReaderNode>;
-    node: TRequest;
-    root: CNormalizationSelector<TNormalizationNode>;
-    variables: Variables;
-}
-
-export interface CReaderSelector<TReaderNode> {
-    dataID: DataID;
-    node: TReaderNode;
-    variables: Variables;
-}
-
-export interface CRelayContext<TEnvironment> {
-    environment: TEnvironment;
-    variables: Variables;
-}
-
-export interface CSnapshot<TReaderNode, TOwner> extends CReaderSelector<TReaderNode> {
-    data: SelectorData | null | undefined;
-    seenRecords: RecordMap;
-    isMissingData: boolean;
-    owner: TOwner | null;
-}
-
-export interface FragmentSpecResolver {
-    /**
-     * Stop watching for changes to the results of the fragments.
-     */
-    dispose(): void;
-
-    /**
-     * Get the current results.
-     */
-    resolve(): FragmentSpecResults;
-
-    /**
-     * Update the resolver with new inputs. Call `resolve()` to get the updated
-     * results.
-     */
-    setProps(props: Props): void;
-
-    /**
-     * Override the variables used to read the results of the fragments. Call
-     * `resolve()` to get the updated results.
-     */
-    setVariables(variables: Variables, request?: ConcreteRequest): void;
-
-    /**
-     * Subscribe to resolver updates.
-     * Overrides existing callback (if one has been specified).
-     */
-    setCallback(callback: () => void): void;
-}
-
-export interface FragmentSpecResults {
-    [key: string]: unknown;
-}
-
-export interface Props {
-    [key: string]: unknown;
-}
-
-export interface SelectorData {
-    [key: string]: unknown;
 }
 
 // ./lib/util/RelayRuntimeTypes
@@ -434,39 +255,8 @@ export { RelayRecordSource as RecordSource } from './lib/store/RelayRecordSource
 // ./lib/store/RelayModernStore
 export { RelayModernStore as Store } from './lib/store/RelayModernStore';
 
-// ./store/RelayModernSelector via ./store/RelayCore
-export function areEqualSelectors(thisSelector: OwnedReaderSelector, thatSelector: OwnedReaderSelector): boolean;
-
-export function getDataIDsFromObject(
-    fragments: { [key: string]: ReaderFragment },
-    object: { [key: string]: unknown },
-): { [key: string]: DataID | ReadonlyArray<DataID> | null | undefined };
-
-export function getSelector(
-    operationVariables: Variables,
-    fragment: ReaderFragment,
-    item: unknown,
-): OwnedReaderSelector | null | undefined;
-
-export function getSelectorList(
-    operationVariables: Variables,
-    fragment: ReaderFragment,
-    items: ReadonlyArray<unknown>,
-): ReadonlyArray<OwnedReaderSelector> | null | undefined;
-
-export function getSelectorsFromObject(
-    operationVariables: Variables,
-    fragments: { [key: string]: ReaderFragment },
-    object: { [key: string]: unknown },
-): {
-    [key: string]: OwnedReaderSelector | ReadonlyArray<OwnedReaderSelector> | null | undefined;
-};
-
-export function getVariablesFromObject(
-    operationVariables: Variables,
-    fragments: { [key: string]: ReaderFragment },
-    object: { [key: string]: unknown },
-): Variables;
+// ./lib/store/RelayModernSelector
+export * from './lib/store/RelayModernSelector';
 
 // ./store/RelayModernOperationDescriptor via ./store/RelayCore
 export function createOperationDescriptor(request: ConcreteRequest, variables: Variables): OperationDescriptor;
