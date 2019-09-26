@@ -73,8 +73,8 @@ const opts: fetch.Options = {
 
 fetch('/'); // $ExpectType Promise<Response>
 fetch('/', opts); // $ExpectType Promise<Response>
-fetch.json('/'); // $ExpectType Record<string, unknown>
-fetch.json('/', opts); // $ExpectType Record<string, unknown>
+fetch.json('/'); // $ExpectType Promise<Record<string, unknown>>
+fetch.json('/', opts); // $ExpectType Promise<Record<string, unknown>>
 fetch.json.stream('/-/user/zkat/package', '$*'); // $ExpectType ReadWriteStream
 fetch.json.stream('/-/user/zkat/package', '$*', opts); // $ExpectType ReadWriteStream
 fetch.pickRegistry('npm-registry-fetch@latest'); // $ExpectType string
