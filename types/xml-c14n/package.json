@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "dependencies": {
+        "xml-c14n": "0.0.6"
+    }
+}
