@@ -7,6 +7,9 @@
         ],
         "esModuleInterop": true,
         "noImplicitAny": false,
+        "noImplicitThis": false,
+        "strictNullChecks": false,
+        "strictFunctionTypes": false,
         "baseUrl": "../",
         "typeRoots": [
             "../"
