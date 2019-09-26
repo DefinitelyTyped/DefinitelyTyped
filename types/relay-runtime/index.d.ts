@@ -261,14 +261,8 @@ export * from './lib/store/RelayModernSelector';
 // ./lib/store/RelayModernOperationDescriptor
 export * from './lib/store/RelayModernOperationDescriptor';
 
-// ./store/RelayCore
-export function createFragmentSpecResolver(
-    context: RelayContext,
-    containerName: string,
-    fragments: FragmentMap,
-    props: Props,
-    callback?: () => void,
-): FragmentSpecResolver;
+// ./lib/store/createFragmentSpecResolver
+export * from './lib/store/createFragmentSpecResolver';
 
 // ./query/RelayModernGraphQLTag
 export function getFragment(taggedNode: GraphQLTaggedNode): ReaderFragment;
