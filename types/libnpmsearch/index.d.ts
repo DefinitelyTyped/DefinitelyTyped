@@ -28,9 +28,18 @@ declare namespace search {
         date?: Date;
     }
 
+    interface Score {
+        final: number;
+        detail: {
+            quality: number;
+            popularity: number;
+            maintenance: number;
+        };
+    }
+
     interface DetailedResult {
         package: Result;
-        score: number;
+        score: Score;
         searchScore: number;
     }
 
