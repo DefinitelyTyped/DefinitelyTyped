@@ -2,6 +2,18 @@ import * as treeify from 'treeify';
 
 function log(s: string): void {}
 
+treeify.asTree([0, { foo: 'bar' }, 2], true);
+// ├─ 0: 0
+// ├─ 1
+// │  └─ foo: bar
+// └─ 2: 2
+
+treeify.asTree([0, { foo: 'bar' }, 2]);
+// ├─ 0
+// ├─ 1
+// │  └─ foo
+// └─ 2
+
 treeify.asTree(
     {
         apples: 'gala', //      ├─ apples: gala
