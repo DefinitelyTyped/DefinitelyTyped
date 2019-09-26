@@ -3,7 +3,7 @@
 // Definitions by: Konstantin Yuriev <https://github.com/gallowsmaker>
 //                 Max Boguslavskiy <https://github.com/maxbogus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.7
 
 declare namespace xml_c14n {
     type canonicaliseCb = (err: any, data: string) => void;
@@ -28,4 +28,4 @@ declare namespace xml_c14n {
 
 declare function c14n(): xml_c14n.CanonizationFactory;
 
-export = c14n;
+export default c14n;
