@@ -613,24 +613,6 @@ export function getStorageKey(
 export function getModuleComponentKey(documentName: string): string;
 export function getModuleOperationKey(documentName: string): string;
 
-// Declarative mutation API
-// ./mutations/RelayDeclarativeMutationConfig
-export const MutationTypes: {
-    RANGE_ADD: 'RANGE_ADD';
-    RANGE_DELETE: 'RANGE_DELETE';
-    NODE_DELETE: 'NODE_DELETE';
-    FIELDS_CHANGE: 'FIELDS_CHANGE';
-    REQUIRED_CHILDREN: 'REQUIRED_CHILDREN';
-};
-
-export const RangeOperations: {
-    APPEND: 'append';
-    IGNORE: 'ignore';
-    PREPEND: 'prepend';
-    REFETCH: 'refetch'; // legacy only
-    REMOVE: 'remove'; // legacy only
-};
-
 export const FRAGMENTS_KEY: string;
 export const FRAGMENT_OWNER_KEY: string;
 export const ID_KEY: string;
@@ -655,23 +637,8 @@ export { RelayViewerHandler as ViewerHandler };
 
 // Helpers (can be implemented via the above API)
 
-// ./mutations/applyRelayModernOptimisticMutation
-declare function applyRelayModernOptimisticMutation(
-    environment: Environment,
-    config: OptimisticMutationConfig,
-): Disposable;
-export { applyRelayModernOptimisticMutation as applyOptimisticMutation };
-
 // ./mutations/commitLocalUpdate
-export function commitLocalUpdate(environment: Environment, updater: StoreUpdater): void;
-
-// ./mutations/commitRelayModernMutation
-declare function commitRelayModernMutation<TOperation extends OperationType = OperationType>(
-    environment: Environment,
-    // tslint:disable-next-line no-unnecessary-generics
-    config: MutationConfig<TOperation>,
-): Disposable;
-export { commitRelayModernMutation as commitMutation };
+export * from './lib/mutations/commitLocalUpdate';
 
 // ./query/fetchRelayModernQuery
 declare function fetchRelayModernQuery<T extends OperationType>(
