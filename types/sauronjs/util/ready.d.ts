@@ -1,1 +1,2 @@
-export function ready(fn: () => void): void;
+declare function ready(fn: () => void): void;
+export = ready;

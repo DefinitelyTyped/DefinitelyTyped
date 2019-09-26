@@ -1,2 +1,4 @@
-export { insert } from './insert';
-export { ready } from './ready';
+import insert = require('./insert');
+import ready = require('./ready');
+
+export { insert, ready };

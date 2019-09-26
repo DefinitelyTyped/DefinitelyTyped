@@ -1,1 +1,2 @@
-export function insert(params: HTMLElement): void;
+declare function insert(params: HTMLElement): void;
+export = insert;

@@ -7,13 +7,10 @@
 import * as util from './util';
 export { cache, Component, instance, next, Service } from './core';
 
-interface SauronDOM {
-    update(): void;
+export namespace events {
+    namespace dom {
+        function update(): void;
+    }
 }
 
-interface SauronEvents {
-    dom: SauronDOM;
-}
-
-declare const events: SauronEvents;
-export { events, util };
+export { util };
