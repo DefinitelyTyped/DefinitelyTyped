@@ -637,7 +637,7 @@ export { RelayViewerHandler as ViewerHandler };
 
 // Helpers (can be implemented via the above API)
 
-// ./mutations/commitLocalUpdate
+// ./lib/mutations/commitLocalUpdate
 export * from './lib/mutations/commitLocalUpdate';
 
 // ./query/fetchRelayModernQuery
@@ -649,8 +649,8 @@ declare function fetchRelayModernQuery<T extends OperationType>(
 ): Promise<T['response']>;
 export { fetchRelayModernQuery as fetchQuery };
 
-// ./store/isRelayModernEnvironment
-export function isRelayModernEnvironment(environment: any): environment is RelayModernEnvironment;
+// ./lib/store/isRelayModernEnvironment
+export * from './lib/store/isRelayModernEnvironment';
 
 // ./subscription/requestRelaySubscription
 declare function requestRelaySubscription(environment: Environment, config: GraphQLSubscriptionConfig<{}>): Disposable;
