@@ -1291,7 +1291,7 @@ describe("createSpyObj", function() {
         const spyObj = jasmine.createSpyObj('BaseName', ['method1'], {'property1': value});
 
         expect(spyObj).toEqual({ method: jasmine.any(Function) });
-        expect(spyObj.method1.and.identity).toEqual('BaseName.method1');
+        expect(spyObj.method1.and.identity()).toEqual('BaseName.method1');
         expect(spyObj.property1).toBe(value);
     });
 
