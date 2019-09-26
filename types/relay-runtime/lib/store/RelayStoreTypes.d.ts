@@ -667,7 +667,7 @@ export type StoreUpdater = (store: RecordSourceProxy) => void;
  * order to easily access the root fields of a query/mutation as well as a
  * second argument of the response object of the mutation.
  */
-export type SelectorStoreUpdater = (store: RecordSourceSelectorProxy, data: unknown) => void;
+export type SelectorStoreUpdater<T = {}> = (store: RecordSourceSelectorProxy, data: T) => void;
 
 /**
  * A set of configs that can be used to apply an optimistic update into the

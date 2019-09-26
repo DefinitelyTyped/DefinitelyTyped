@@ -1,7 +1,7 @@
 import { DeclarativeMutationConfig } from './RelayDeclarativeMutationConfig';
-
-import { GraphQLTaggedNode, Variables, SelectorStoreUpdater, Environment } from '../../index';
-import { Disposable } from '../util/RelayRuntimeTypes';
+import { Disposable, Variables } from '../util/RelayRuntimeTypes';
+import { GraphQLTaggedNode } from '../query/RelayModernGraphQLTag';
+import { SelectorStoreUpdater, Environment } from '../store/RelayStoreTypes';
 
 export interface OptimisticMutationConfig {
     configs?: ReadonlyArray<DeclarativeMutationConfig> | null;

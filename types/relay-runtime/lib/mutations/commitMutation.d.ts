@@ -1,13 +1,8 @@
-import {
-    GraphQLTaggedNode,
-    UploadableMap,
-    Variables,
-    DeclarativeMutationConfig,
-    SelectorStoreUpdater,
-    Environment,
-} from '../../index';
-import { PayloadError } from '../network/RelayNetworkTypes';
-import { Disposable } from '../util/RelayRuntimeTypes';
+import { PayloadError, UploadableMap } from '../network/RelayNetworkTypes';
+import { Disposable, Variables } from '../util/RelayRuntimeTypes';
+import { DeclarativeMutationConfig } from './RelayDeclarativeMutationConfig';
+import { GraphQLTaggedNode } from '../query/RelayModernGraphQLTag';
+import { SelectorStoreUpdater, Environment } from '../store/RelayStoreTypes';
 
 export interface MutationParameters {
     readonly variables: Variables;

@@ -1,5 +1,5 @@
-import { Variables } from '../../index';
 import { GraphQLResponse } from '../network/RelayNetworkTypes';
+import { Variables } from '../util/RelayRuntimeTypes';
 
 export class RelayQueryResponseCache {
     constructor(config: { size: number; ttl: number });

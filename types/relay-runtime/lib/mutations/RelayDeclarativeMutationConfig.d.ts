@@ -1,7 +1,6 @@
 import { Variables } from '../util/RelayRuntimeTypes';
 import { ConcreteRequest } from '../util/RelayConcreteNode';
-
-import { SelectorStoreUpdater } from '../../index';
+import { SelectorStoreUpdater } from '../store/RelayStoreTypes';
 
 export type MutationType = 'RANGE_ADD' | 'RANGE_DELETE' | 'NODE_DELETE';
 

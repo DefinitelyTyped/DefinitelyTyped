@@ -1,11 +1,10 @@
+import { DataID, Variables } from '../../../lib/util/RelayRuntimeTypes';
 import {
-    DataID,
     RecordSourceProxy,
     RecordProxy,
-    Variables,
-    HandleFieldPayload,
     ReadOnlyRecordProxy,
-} from '../../../index';
+    HandleFieldPayload,
+} from '../../../lib/store/RelayStoreTypes';
 
 export interface ConnectionMetadata {
     path: ReadonlyArray<string> | null | undefined;

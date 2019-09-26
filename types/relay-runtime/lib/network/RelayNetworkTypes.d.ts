@@ -1,5 +1,6 @@
 import { RequestParameters } from '../util/RelayConcreteNode';
-import { Variables, CacheConfig, Observable as RelayObservable, ObservableFromValue, Disposable } from '../../index';
+import { Variables, CacheConfig, Disposable } from '../util/RelayRuntimeTypes';
+import { ObservableFromValue, RelayObservable } from './RelayObservable';
 
 /**
  * An interface for fetching the data for one or more (possibly interdependent)
