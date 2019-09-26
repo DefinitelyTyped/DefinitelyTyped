@@ -13,7 +13,7 @@ export type GraphQLTaggedNode = ReaderFragment | ConcreteRequest | (() => Reader
  * Runtime function to correspond to the `graphql` tagged template function.
  * All calls to this function should be transformed by the plugin.
  */
-export function graphql(strings: string[]): GraphQLTaggedNode;
+export function graphql(strings: unknown): GraphQLTaggedNode;
 
 export function getNode(taggedNode: unknown): unknown;
 
