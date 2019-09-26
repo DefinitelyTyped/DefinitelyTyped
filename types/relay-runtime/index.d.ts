@@ -146,16 +146,8 @@ export type SelectorStoreUpdater<TData = unknown> = (store: RecordSourceSelector
 
 export type StoreUpdater = (store: RecordSourceProxy) => void;
 
-// ./subscription/requestRelaySubscription
-export interface GraphQLSubscriptionConfig<TSubscriptionPayload> {
-    configs?: ReadonlyArray<DeclarativeMutationConfig>;
-    subscription: GraphQLTaggedNode;
-    variables: Variables;
-    onCompleted?: () => void;
-    onError?: (error: Error) => void;
-    onNext?: (response: TSubscriptionPayload | null | undefined) => void;
-    updater?: SelectorStoreUpdater;
-}
+// ./lib/subscription/requestSubscription
+export * from './lib/subscription/requestSubscription';
 
 // ./lib/util/RelayRuntimeTypes
 import { Disposable, DataID, Variables, OperationType, CacheConfig } from './lib/util/RelayRuntimeTypes';
@@ -280,10 +272,6 @@ export * from './lib/query/fetchQuery';
 
 // ./lib/store/isRelayModernEnvironment
 export * from './lib/store/isRelayModernEnvironment';
-
-// ./subscription/requestRelaySubscription
-declare function requestRelaySubscription(environment: Environment, config: GraphQLSubscriptionConfig<{}>): Disposable;
-export { requestRelaySubscription as requestSubscription };
 
 // Utilities
 interface Handler {
