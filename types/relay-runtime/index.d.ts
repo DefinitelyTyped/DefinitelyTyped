@@ -89,14 +89,9 @@ export { RelayObservable as Observable, ObservableFromValue } from './lib/networ
 // ./lib/network/createRelayNetworkLogger
 export { createRelayNetworkLogger } from './lib/network/createRelayNetworkLogger';
 
-// ./query/RelayModernGraphQLTag
-export type GraphQLTaggedNode =
-    | ReaderFragment
-    | ConcreteRequest
-    | (() => ReaderFragment | ConcreteRequest)
-    | {
-          modern: () => ReaderFragment | ConcreteRequest;
-      };
+// ./lib/query/RelayModernGraphQLTag
+import { GraphQLTaggedNode } from './lib/query/RelayModernGraphQLTag';
+export * from './lib/query/RelayModernGraphQLTag';
 
 // ./lib/store/RelayRecordState
 import { RecordState } from './lib/store/RelayRecordState';
@@ -150,11 +145,6 @@ export interface MatchPointer {
 export type SelectorStoreUpdater<TData = unknown> = (store: RecordSourceSelectorProxy, data: TData) => void;
 
 export type StoreUpdater = (store: RecordSourceProxy) => void;
-
-interface ReadonlyRecordSourceProxy {
-    get(dataID: DataID): ReadOnlyRecordProxy | null | undefined;
-    getRoot(): ReadOnlyRecordProxy;
-}
 
 // ./subscription/requestRelaySubscription
 export interface GraphQLSubscriptionConfig<TSubscriptionPayload> {
