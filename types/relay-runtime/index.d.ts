@@ -428,22 +428,8 @@ export { RelayNetwork as Network };
 // ./lib/network/RelayQueryResponseCache
 export { RelayQueryResponseCache as QueryResponseCache } from './lib/network/RelayQueryResponseCache';
 
-// ./store/RelayInMemoryRecordSource
-declare class RelayInMemoryRecordSource implements MutableRecordSource {
-    constructor(records?: RecordMap);
-    clear(): void;
-    delete(dataID: DataID): void;
-    get(dataID: DataID): Record;
-    getRecordIDs(): string[];
-    getStatus(dataID: DataID): RecordState;
-    has(dataID: DataID): boolean;
-    load(dataID: DataID, callback: (error: Error | null | undefined, record: Record | null | undefined) => void): void;
-    remove(dataID: DataID): void;
-    set(dataID: DataID, record: Record): void;
-    size(): number;
-    toJSON(): Record;
-}
-export { RelayInMemoryRecordSource as RecordSource };
+// ./lib/store/RelayRecordSource
+export { RelayRecordSource as RecordSource } from './lib/store/RelayRecordSource';
 
 // ./store/RelayModernStore
 declare class RelayModernStore implements Store {
