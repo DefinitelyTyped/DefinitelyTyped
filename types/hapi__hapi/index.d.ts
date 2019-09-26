@@ -184,7 +184,7 @@ export interface AppCredentials {
 /**
  * User-extensible type for request.auth credentials.
  */
-export interface AuthCredentials {
+export interface AuthCredentials extends Record<string, any> {
     /**
      * The application scopes to be granted.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsauthaccessscope)
@@ -217,9 +217,9 @@ export type AuthMode = 'required' | 'optional' | 'try';
  */
 export interface RequestAuth {
     /** an artifact object received from the authentication strategy and used in authentication-related actions. */
-    artifacts: object;
+    artifacts: Record<string, any> | null;
     /** the credential object received during the authentication process. The presence of an object does not mean successful authentication. */
-    credentials: AuthCredentials;
+    credentials: AuthCredentials | null;
     /** the authentication error is failed and mode set to 'try'. */
     error: Error;
     /** true if the request has been successfully authenticated, otherwise false. */
