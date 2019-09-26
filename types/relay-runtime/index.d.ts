@@ -123,6 +123,7 @@ import {
     RecordSourceProxy,
     RecordSourceSelectorProxy,
     ReadOnlyRecordProxy,
+    Handler,
 } from './lib/store/RelayStoreTypes';
 export * from './lib/store/RelayStoreTypes';
 export { Environment as IEnvironment } from './lib/store/RelayStoreTypes';
@@ -211,20 +212,7 @@ export * from './lib/query/fetchQuery';
 export * from './lib/store/isRelayModernEnvironment';
 
 // Utilities
-interface Handler {
-    update: (store: RecordSourceProxy, fieldPayload: HandleFieldPayload) => void;
-}
-type ProfileHandler = (name: string, state?: any) => (error?: Error) => void;
-export interface RelayProfiler {
-    instrumentMethods(object: object, names: { [key: string]: string }): void;
-    instrument<T extends (...args: any[]) => any>(name: string, originalFunction: T): T;
-    attachAggregateHandler(name: string, handler: Handler): void;
-    detachAggregateHandler(name: string, handler: Handler): void;
-    profile(name: string, state?: any): { stop: (error?: Error) => void };
-    attachProfileHandler(name: string, handler: ProfileHandler): void;
-    detachProfileHandler(name: string, handler: ProfileHandler): void;
-}
-export const RelayProfiler: RelayProfiler;
+export { RelayProfiler } from './lib/util/RelayProfiler';
 
 // Internal API
 export function deepFreeze<T extends object>(value: T): T;
