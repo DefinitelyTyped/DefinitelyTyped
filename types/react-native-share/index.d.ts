@@ -30,6 +30,7 @@ export interface Options {
     message?: string;
     title?: string;
     subject?: string;
+    filename?: string;
     excludedActivityTypes?: string;
     failOnCancel?: boolean;
     showAppsToView?: boolean;
