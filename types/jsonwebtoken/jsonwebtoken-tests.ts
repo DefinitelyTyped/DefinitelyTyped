@@ -14,6 +14,8 @@ interface TestObject {
     foo: string;
 }
 
+const isTestObject = (x: any): x is TestObject => x && typeof x.foo === 'string'
+
 const testObject = { foo: "bar" };
 
 /**
@@ -58,16 +60,18 @@ jwt.sign(testObject, cert, { algorithm: "RS256" }, (
  */
 // verify a token symmetric
 jwt.verify(token, "shhhhh", (err, decoded) => {
-    const result = decoded as TestObject;
+    if (!isTestObject(decoded))
+        throw new Error('Decoded object is un unexpected format')
 
-    console.log(result.foo); // bar
+    console.log(decoded.foo); // bar
 });
 
 // use external time for verifying
 jwt.verify(token, 'shhhhh', { clockTimestamp: 1 }, (err, decoded) => {
-    const result = decoded as TestObject;
+    if (!isTestObject(decoded))
+        throw new Error('Decoded object is un unexpected format')
 
-    console.log(result.foo); // bar
+    console.log(decoded.foo); // bar
 });
 
 // invalid token
@@ -79,9 +83,10 @@ jwt.verify(token, "wrong-secret", (err, decoded) => {
 // verify a token asymmetric
 cert = fs.readFileSync("public.pem"); // get public key
 jwt.verify(token, cert, (err, decoded) => {
-    const result = decoded as TestObject;
+    if (!isTestObject(decoded))
+        throw new Error('Decoded object is un unexpected format')
 
-    console.log(result.foo); // bar
+    console.log(decoded.foo); // bar
 });
 
 // verify a token assymetric with async key fetch function
@@ -92,9 +97,10 @@ function getKey(header: jwt.JwtHeader, callback: jwt.SigningKeyCallback) {
 }
 
 jwt.verify(token, getKey, (err, decoded) => {
-    const result = decoded as TestObject;
+    if (!isTestObject(decoded))
+        throw new Error('Decoded object is un unexpected format')
 
-    console.log(result.foo); // bar
+    console.log(decoded.foo); // bar
 });
 
 // verify audience
