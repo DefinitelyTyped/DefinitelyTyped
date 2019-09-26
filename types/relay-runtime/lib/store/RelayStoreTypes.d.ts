@@ -21,6 +21,8 @@ import { PayloadData, Network, UploadableMap, PayloadError } from '../network/Re
 import { RelayObservable } from '../network/RelayObservable';
 import { RelayOperationTracker } from './RelayOperationTracker';
 
+export type OperationTracker = RelayOperationTracker;
+
 /*
  * An individual cached graph object.
  */

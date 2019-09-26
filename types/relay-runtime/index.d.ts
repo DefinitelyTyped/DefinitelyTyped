@@ -155,65 +155,8 @@ export * from './lib/util/RelayRuntimeTypes';
 
 // Core API
 
-// ./RelayModernEnvironment
-interface EnvironmentConfig {
-    readonly configName?: string;
-    readonly handlerProvider?: HandlerProvider;
-    readonly operationLoader?: OperationLoader;
-    readonly network: Network;
-    readonly store: Store;
-    readonly missingFieldHandlers?: ReadonlyArray<MissingFieldHandler>;
-}
-declare class RelayModernEnvironment implements Environment {
-    readonly configName: string | null | undefined;
-    constructor(config: EnvironmentConfig);
-    getStore(): Store;
-    getNetwork(): Network;
-    applyUpdate(optimisticUpdate: OptimisticUpdate): Disposable;
-    revertUpdate(update: OptimisticUpdate): void;
-    replaceUpdate(update: OptimisticUpdate, newUpdate: OptimisticUpdate): void;
-    applyMutation(data: {
-        operation: OperationDescriptor;
-        optimisticUpdater?: SelectorStoreUpdater | null;
-        optimisticResponse?: object;
-    }): Disposable;
-    check(readSelector: NormalizationSelector): boolean;
-    commitPayload(operationDescriptor: OperationDescriptor, payload: PayloadData): void;
-    commitUpdate(updater: StoreUpdater): void;
-    lookup(readSelector: SingularReaderSelector): Snapshot;
-    getLogger(config: LoggerTransactionConfig): Logger;
-    getOperationTracker(): RelayOperationTracker;
-    subscribe(snapshot: Snapshot, callback: (snapshot: Snapshot) => void): Disposable;
-    retain(selector: NormalizationSelector): Disposable;
-    execute(data: {
-        operation: OperationDescriptor;
-        cacheConfig?: CacheConfig | null;
-        updater?: SelectorStoreUpdater | null;
-    }): RelayObservable<GraphQLResponse>;
-    executeMutation({
-        operation,
-        optimisticResponse,
-        optimisticUpdater,
-        updater,
-        uploadables,
-    }: {
-        operation: OperationDescriptor;
-        optimisticUpdater?: SelectorStoreUpdater | null;
-        optimisticResponse?: object | null;
-        updater?: SelectorStoreUpdater | null;
-        uploadables?: UploadableMap | null;
-    }): RelayObservable<GraphQLResponse>;
-    executeWithSource({
-        operation,
-        source,
-    }: {
-        operation: OperationDescriptor;
-        source: RelayObservable<GraphQLResponse>;
-    }): RelayObservable<GraphQLResponse>;
-}
-export { RelayModernEnvironment as Environment };
-
-type HandlerProvider = (name: string) => Handler | null | undefined;
+// ./lib/store/RelayModernEnvironment
+export { RelayModernEnvironment as Environment } from './lib/store/RelayModernEnvironment';
 
 // ./lib/network/RelayNetwork
 import { RelayNetwork } from './lib/network/RelayNetwork';
