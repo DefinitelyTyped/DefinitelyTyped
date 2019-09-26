@@ -21,6 +21,7 @@ import { PayloadData, Network, UploadableMap, PayloadError } from '../network/Re
 import { RelayObservable } from '../network/RelayObservable';
 import { RelayOperationTracker } from './RelayOperationTracker';
 
+export type FragmentReference = unknown;
 export type OperationTracker = RelayOperationTracker;
 
 /*

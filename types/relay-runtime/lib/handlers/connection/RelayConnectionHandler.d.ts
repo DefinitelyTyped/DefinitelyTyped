@@ -13,29 +13,22 @@ export interface ConnectionMetadata {
     count: string | null | undefined;
 }
 
-export function buildConnectionEdge(
-    store: RecordSourceProxy,
-    connection: RecordProxy,
-    edge: RecordProxy | null | undefined,
-): RecordProxy | null | undefined;
+export class RelayDefaultHandlerProvider {
+    buildConnectionEdge(
+        store: RecordSourceProxy,
+        connection: RecordProxy,
+        edge: RecordProxy | null | undefined,
+    ): RecordProxy | null | undefined;
 
-export function createEdge(
-    store: RecordSourceProxy,
-    record: RecordProxy,
-    node: RecordProxy,
-    edgeType: string,
-): RecordProxy;
+    createEdge(store: RecordSourceProxy, record: RecordProxy, node: RecordProxy, edgeType: string): RecordProxy;
 
-export function deleteNode(record: RecordProxy, nodeID: DataID): void;
+    deleteNode(record: RecordProxy, nodeID: DataID): void;
 
-export function getConnection(
-    record: ReadOnlyRecordProxy,
-    key: string,
-    filters?: Variables | null,
-): RecordProxy | null | undefined;
+    getConnection(record: ReadOnlyRecordProxy, key: string, filters?: Variables | null): RecordProxy | null | undefined;
 
-export function insertEdgeAfter(record: RecordProxy, newEdge: RecordProxy, cursor?: string | null): void;
+    insertEdgeAfter(record: RecordProxy, newEdge: RecordProxy, cursor?: string | null): void;
 
-export function insertEdgeBefore(record: RecordProxy, newEdge: RecordProxy, cursor?: string | null): void;
+    insertEdgeBefore(record: RecordProxy, newEdge: RecordProxy, cursor?: string | null): void;
 
-export function update(store: RecordSourceProxy, payload: HandleFieldPayload): void;
+    update(store: RecordSourceProxy, payload: HandleFieldPayload): void;
+}

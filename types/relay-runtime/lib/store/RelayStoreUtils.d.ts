@@ -64,6 +64,9 @@ export function formatStorageKey(name: string, argValues: Arguments): string;
  */
 export function getStableVariableValue(name: string, variables: Variables): unknown;
 
+export function getModuleComponentKey(documentName: string): string;
+export function getModuleOperationKey(documentName: string): string;
+
 export const FRAGMENTS_KEY: string;
 export const FRAGMENT_OWNER_KEY: string;
 export const FRAGMENT_PROP_NAME_KEY: string;

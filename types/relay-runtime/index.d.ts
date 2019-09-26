@@ -7,196 +7,173 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
-export { ConcreteRequest, GeneratedNode, RequestParameters } from './lib/util/RelayConcreteNode';
 export { ConnectionMetadata } from './lib/handlers/connection/RelayConnectionHandler';
 export { EdgeRecord, PageInfo } from './lib/handlers/connection/RelayConnectionInterface';
 export {
+    DeclarativeMutationConfig,
+    MutationType,
+    RangeBehaviors,
+    RangeOperation,
+} from './lib/mutations/RelayDeclarativeMutationConfig';
+export { OptimisticMutationConfig } from './lib/mutations/applyOptimisticMutation';
+export { MutationConfig, MutationParameters } from './lib/mutations/commitMutation';
+export { RelayNetworkLog, LoggerTransactionConfig } from './lib/network/RelayNetworkLoggerTransaction';
+export {
+    ExecuteFunction,
+    FetchFunction,
+    GraphQLResponse,
+    LogRequestInfoFunction,
+    Network as INetwork,
+    PayloadData,
+    PayloadError,
+    SubscribeFunction,
+    Uploadable,
+    UploadableMap,
+} from './lib/network/RelayNetworkTypes';
+export { ObservableFromValue, Observer, Subscribable, Subscription } from './lib/network/RelayObservable';
+export { GraphiQLPrinter, NetworkLogger } from './lib/network/createRelayNetworkLogger';
+export { GraphQLTaggedNode } from './lib/query/RelayModernGraphQLTag';
+export {
+    ConnectionEvent,
+    ConnectionID,
+    ConnectionReference,
+    ConnectionReferenceObject,
+    ConnectionResolver,
+    ConnectionSnapshot,
+} from './lib/store/RelayConnection';
+export { TaskScheduler } from './lib/store/RelayModernQueryExecutor';
+export { RecordState } from './lib/store/RelayRecordState';
+export {
+    Environment as IEnvironment,
+    FragmentMap,
+    FragmentPointer,
+    FragmentReference,
+    FragmentSpecResolver,
+    HandleFieldPayload,
+    LogEvent,
+    LogFunction,
+    Logger,
+    LoggerProvider,
+    MissingFieldHandler,
+    ModuleImportPointer,
+    NormalizationSelector,
+    OperationDescriptor,
+    OperationLoader,
+    OperationTracker,
+    OptimisticResponseConfig,
+    OptimisticUpdate,
+    OptimisticUpdateFunction,
+    PluralReaderSelector,
+    Props,
+    PublishQueue,
+    ReaderSelector,
+    ReadOnlyRecordProxy,
+    RecordProxy,
+    RecordSourceProxy,
+    RecordSourceSelectorProxy,
+    RelayContext,
+    RequestDescriptor,
+    SelectorData,
+    SelectorStoreUpdater,
+    SingularReaderSelector,
+    Snapshot,
+    StoreUpdater,
+} from './lib/store/RelayStoreTypes';
+export { GraphQLSubscriptionConfig } from './lib/subscription/requestSubscription';
+export {
+    NormalizationArgument,
+    NormalizationDefer,
+    NormalizationConnection,
+    NormalizationField,
+    NormalizationLinkedField,
+    NormalizationLinkedHandle,
+    NormalizationLocalArgumentDefinition,
+    NormalizationModuleImport,
+    NormalizationScalarField,
+    NormalizationSelection,
+    NormalizationSplitOperation,
+    NormalizationStream,
+} from './lib/util/NormalizationNode';
+export { NormalizationOperation } from './lib/util/NormalizationNode';
+export {
     ReaderArgument,
     ReaderArgumentDefinition,
+    ReaderConnection,
     ReaderField,
     ReaderFragment,
     ReaderInlineDataFragment,
+    ReaderInlineDataFragmentSpread,
     ReaderLinkedField,
+    ReaderModuleImport,
     ReaderPaginationMetadata,
     ReaderRefetchableFragment,
     ReaderRefetchMetadata,
     ReaderScalarField,
     ReaderSelection,
 } from './lib/util/ReaderNode';
-
-import RelayConcreteNode, { RequestParameters, ConcreteRequest } from './lib/util/RelayConcreteNode';
-import * as ConnectionHandler from './lib/handlers/connection/RelayConnectionHandler';
-import ConnectionInterface from './lib/handlers/connection/RelayConnectionInterface';
-
-export { ConnectionHandler, ConnectionInterface, RelayConcreteNode };
-
-import {
-    ReaderFragment,
-    ReaderSelectableNode,
-    ReaderPaginationFragment,
-    ReaderRefetchableFragment,
-    ReaderField,
-} from './lib/util/ReaderNode';
-import {
-    NormalizationSelectableNode,
-    NormalizationScalarField,
-    NormalizationLinkedField,
-    NormalizationSplitOperation,
-    NormalizationField,
-    NormalizationHandle,
-} from './lib/util/NormalizationNode';
-
-// ./lib/mutations/RelayDeclarativeMutationConfig
-import { DeclarativeMutationConfig } from './lib/mutations/RelayDeclarativeMutationConfig';
-export * from './lib/mutations/RelayDeclarativeMutationConfig';
-
-// ./lib/mutations/applyRelayModernOptimisticMutation
-import { OptimisticMutationConfig } from './lib/mutations/applyOptimisticMutation';
-export * from './lib/mutations/applyOptimisticMutation';
-
-// ./lib/mutations/commitMutation
-import { MutationConfig } from './lib/mutations/commitMutation';
-export * from './lib/mutations/commitMutation';
-
-// ./lib/network/RelayNetworkLoggerTransaction
-export { RelayNetworkLoggerTransaction } from './lib/network/RelayNetworkLoggerTransaction';
-
-// ./lib/network/RelayNetworkTypes
-import {
-    GraphQLResponse,
-    Network,
-    FetchFunction,
-    PayloadData,
-    PayloadError,
-    UploadableMap,
-    LegacyObserver,
-    SubscribeFunction,
-} from './lib/network/RelayNetworkTypes';
-export {
-    ExecuteFunction,
-    SubscribeFunction,
-    GraphQLResponse,
-    FetchFunction,
-    Network as INetwork,
-    Uploadable,
-    UploadableMap,
-} from './lib/network/RelayNetworkTypes';
-
-// ./lib/network/RelayObservable
-import { RelayObservable } from './lib/network/RelayObservable';
-export { RelayObservable as Observable, ObservableFromValue } from './lib/network/RelayObservable';
-
-// ./lib/network/createRelayNetworkLogger
-export { createRelayNetworkLogger } from './lib/network/createRelayNetworkLogger';
-
-// ./lib/query/RelayModernGraphQLTag
-import { GraphQLTaggedNode } from './lib/query/RelayModernGraphQLTag';
-export * from './lib/query/RelayModernGraphQLTag';
-
-// ./lib/store/RelayRecordState
-import { RecordState } from './lib/store/RelayRecordState';
-export * from './lib/store/RelayRecordState';
-
-// ./lib/store/RelayStoreTypes
-import {
-    Environment,
-    HandleFieldPayload,
-    Store,
-    OperationDescriptor,
-    SingularReaderSelector,
-    Snapshot,
-    Logger,
-    RecordSource,
-    RequestDescriptor,
-    FragmentMap,
-    Scheduler,
-    MutableRecordSource,
-    Record,
-    RecordMap,
-    MissingFieldHandler,
-    NormalizationSelector,
-    RelayContext,
-    Props,
-    FragmentSpecResolver,
-    OperationLoader,
-    OptimisticUpdate,
-    RecordSourceProxy,
-    RecordSourceSelectorProxy,
-    ReadOnlyRecordProxy,
-    Handler,
-} from './lib/store/RelayStoreTypes';
-export * from './lib/store/RelayStoreTypes';
-export { Environment as IEnvironment } from './lib/store/RelayStoreTypes';
-
-// ./lib/subscription/requestSubscription
-export * from './lib/subscription/requestSubscription';
-
-// ./lib/util/RelayRuntimeTypes
-import { Disposable, DataID, Variables, OperationType, CacheConfig } from './lib/util/RelayRuntimeTypes';
-export * from './lib/util/RelayRuntimeTypes';
+export { ConcreteRequest, GeneratedNode, RequestParameters } from './lib/util/RelayConcreteNode';
+export { CacheConfig, DataID, Disposable, OperationType, Variables } from './lib/util/RelayRuntimeTypes';
 
 // Core API
-
-// ./lib/store/RelayModernEnvironment
 export { RelayModernEnvironment as Environment } from './lib/store/RelayModernEnvironment';
-
-// ./lib/network/RelayNetwork
-import { RelayNetwork } from './lib/network/RelayNetwork';
-import { LoggerTransactionConfig } from './lib/network/RelayNetworkLoggerTransaction';
-import { RelayOperationTracker } from './lib/store/RelayOperationTracker';
-import {
-    ConnectionReference,
-    ConnectionResolver,
-    ConnectionSnapshot,
-    ConnectionID,
-    ConnectionInternalEvent,
-} from './lib/store/RelayConnection';
-export { RelayNetwork as Network };
-
-// ./lib/network/RelayQueryResponseCache
+export { RelayNetwork as Network } from './lib/network/RelayNetwork';
+export { RelayObservable as Observable } from './lib/network/RelayObservable';
 export { RelayQueryResponseCache as QueryResponseCache } from './lib/network/RelayQueryResponseCache';
-
-// ./lib/store/RelayRecordSource
 export { RelayRecordSource as RecordSource } from './lib/store/RelayRecordSource';
-
-// ./lib/store/RelayModernStore
+export { RelayModernRecord as Record } from './lib/store/RelayModernRecord';
 export { RelayModernStore as Store } from './lib/store/RelayModernStore';
 
-// ./lib/store/RelayModernSelector
-export * from './lib/store/RelayModernSelector';
-
-// ./lib/store/RelayModernOperationDescriptor
-export * from './lib/store/RelayModernOperationDescriptor';
-
-// ./lib/store/createFragmentSpecResolver
-export * from './lib/store/createFragmentSpecResolver';
-
-// ./lib/store/RelayStoreUtils
-export * from './lib/store/RelayStoreUtils';
+export {
+    areEqualSelectors,
+    createNormalizationSelector,
+    createReaderSelector,
+    getDataIDsFromFragment,
+    getDataIDsFromObject,
+    getPluralSelector,
+    getSelector,
+    getSelectorsFromObject,
+    getSingularSelector,
+    getVariablesFromObject,
+    getVariablesFromFragment,
+    getVariablesFromPluralFragment,
+    getVariablesFromSingularFragment,
+} from './lib/store/RelayModernSelector';
+export { createOperationDescriptor, createRequestDescriptor } from './lib/store/RelayModernOperationDescriptor';
+export {
+    getStorageKey,
+    getModuleComponentKey,
+    getModuleOperationKey,
+    FRAGMENTS_KEY,
+    FRAGMENT_OWNER_KEY,
+    ID_KEY,
+    REF_KEY,
+    REFS_KEY,
+    ROOT_ID,
+    ROOT_TYPE,
+    TYPENAME_KEY,
+} from './lib/store/RelayStoreUtils';
+export { createFragmentSpecResolver } from './lib/store/createFragmentSpecResolver';
 
 // Extensions
-// ./lib/handlers/RelayDefaultHandlerProvider
-export * from './lib/handlers/RelayDefaultHandlerProvider';
-
-// ./lib/handlers/RelayDefaultMissingFieldHandlers
-export * from './lib/handlers/RelayDefaultMissingFieldHandlers';
+export { RelayDefaultHandlerProvider as DefaultHandlerProvider } from './lib/handlers/RelayDefaultHandlerProvider';
+export {
+    missingViewerFieldHandler as DefaultMissingFieldHandlers,
+} from './lib/handlers/RelayDefaultMissingFieldHandlers';
+export { RelayDefaultHandlerProvider as ConnectionHandler } from './lib/handlers/connection/RelayConnectionHandler';
 
 // Helpers (can be implemented via the above API)
+export { applyOptimisticMutation } from './lib/mutations/applyOptimisticMutation';
+export { commitLocalUpdate } from './lib/mutations/commitLocalUpdate';
+export { commitMutation } from './lib/mutations/commitMutation';
+export { fetchQuery } from './lib/query/fetchQuery';
+export { isRelayModernEnvironment } from './lib/store/isRelayModernEnvironment';
+export { requestSubscription } from './lib/subscription/requestSubscription';
 
-// ./lib/mutations/commitLocalUpdate
-export * from './lib/mutations/commitLocalUpdate';
-
-// ./lib/query/fetchQuery
-export * from './lib/query/fetchQuery';
-
-// ./lib/store/isRelayModernEnvironment
-export * from './lib/store/isRelayModernEnvironment';
-
-// ./lib/util/RelayProfiler
+// Utilities
 export { RelayProfiler } from './lib/util/RelayProfiler';
 
-// ./lib/util/deepFreeze
-export * from './lib/util/deepFreeze';
-
-// ./lib/util/RelayFeatureFlags
+// INTERNAL-ONLY
 export { RelayFeatureFlags } from './lib/util/RelayFeatureFlags';
+export { RelayNetworkLoggerTransaction } from './lib/network/RelayNetworkLoggerTransaction';
+export { createRelayNetworkLogger } from './lib/network/createRelayNetworkLogger';
+export { deepFreeze } from './lib/util/deepFreeze';
