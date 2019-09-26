@@ -28,4 +28,4 @@ declare namespace xml_c14n {
 
 declare function c14n(): xml_c14n.CanonizationFactory;
 
-export default c14n;
+export = c14n;
