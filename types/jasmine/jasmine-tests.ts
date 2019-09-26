@@ -1288,7 +1288,7 @@ describe("createSpyObj", function() {
 
     it("should allow you to provide properties with values to jasmine.createSpyObj()", function() {
         const value = 'test';
-        const spyObj = jasmine.createSpyObj('BaseName', ['method1'], {'property1': value});
+        const spyObj = jasmine.createSpyObj('BaseName', ['method1'], {property1: value});
 
         expect(spyObj).toEqual({ method: jasmine.any(Function) });
         expect(spyObj.method1.and.identity()).toEqual('BaseName.method1');
