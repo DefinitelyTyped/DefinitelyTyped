@@ -1,11 +1,11 @@
-// Type definitions for signalfx 7.0.1
+// Type definitions for signalfx 7.0
 // Project: https://github.com/signalfx/signalfx-nodejs
 // Definitions by: Vladimir Grenaderov <https://github.com/VladimirGrenaderov>
 //                 Max Boguslavskiy <https://github.com/maxbogus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-interface IngestOptions {
+export interface IngestOptions {
     enableAmazonUniqueId?: boolean;
     dimensions?: object;
     ingestEndpoint?: string;
@@ -15,19 +15,19 @@ interface IngestOptions {
     proxy?: string;
 }
 
-interface SignalMetric {
+export interface SignalMetric {
     metric: string;
     value: number;
     timestamp?: number;
 }
 
-interface SignalReport {
+export interface SignalReport {
     cumulative_counters?: SignalMetric[];
     gauges?: SignalMetric[];
     counters?: SignalMetric[];
 }
 
-interface SignalClient {
+export interface SignalClient {
     send(report: SignalReport): void;
 }
 
