@@ -98,8 +98,9 @@ export type GraphQLTaggedNode =
           modern: () => ReaderFragment | ConcreteRequest;
       };
 
-// ./store/RelayRecordState
-export type RecordState = 'EXISTENT' | 'NONEXISTENT' | 'UNKNOWN';
+// ./lib/store/RelayRecordState
+import { RecordState } from './lib/store/RelayRecordState';
+export * from './lib/store/RelayRecordState';
 
 // ./store/RelayStoreTypes
 interface Environment
