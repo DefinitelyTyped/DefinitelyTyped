@@ -12,7 +12,7 @@ declare module '@hapi/hapi' {
 
 const req: Request = {} as any;
 const scope: string[] | undefined = req.auth.credentials ? req.auth.credentials.scope : undefined;
-const user = req.auth.credentials ? req.auth.credentials.user! : {};
+const user = req.auth.credentials ? req.auth.credentials.user! : { a: '' };
 console.log(user.a);
-const app = req.auth.credentials ? req.auth.credentials.app! : {};
+const app = req.auth.credentials ? req.auth.credentials.app! : { b: '' };
 console.log(app.b);
