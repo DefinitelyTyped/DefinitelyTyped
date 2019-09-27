@@ -49,7 +49,7 @@ import { TemplateFactory } from 'htmlbars-inline-precompile';
 import { Registry as ServiceRegistry } from '@ember/service';
 import { Registry as ControllerRegistry } from '@ember/controller';
 import * as EmberStringNs from '@ember/string';
-import * as EmberStringHandlebarsNs from '@ember/template/-private/handlebars';
+import * as EmberTemplateHandlebarsNs from '@ember/template/-private/handlebars';
 // tslint:disable-next-line:no-duplicate-imports
 import * as EmberServiceNs from '@ember/service';
 import * as EmberPolyfillsNs from '@ember/polyfills';
@@ -427,7 +427,7 @@ export namespace Ember {
         function K(): any;
         function createFrame(objec: any): any;
         function Exception(message: string): void;
-        class SafeString extends EmberStringHandlebarsNs.SafeString {}
+        class SafeString extends EmberTemplateHandlebarsNs.SafeString {}
         function parse(string: string): any;
         function print(ast: any): void;
         const logger: typeof Logger;
