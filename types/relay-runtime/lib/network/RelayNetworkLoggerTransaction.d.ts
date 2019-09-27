@@ -1,5 +1,6 @@
 import { RequestParameters } from '../util/RelayConcreteNode';
-import { Variables, CacheConfig, UploadableMap, GraphQLResponse } from '../../index';
+import { Variables, CacheConfig } from '../util/RelayRuntimeTypes';
+import { UploadableMap, GraphQLResponse } from './RelayNetworkTypes';
 
 export interface RelayNetworkLog {
     label: string;

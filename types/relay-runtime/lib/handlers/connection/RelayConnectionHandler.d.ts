@@ -1,11 +1,10 @@
+import { DataID, Variables } from '../../../lib/util/RelayRuntimeTypes';
 import {
-    DataID,
     RecordSourceProxy,
     RecordProxy,
-    Variables,
+    ReadOnlyRecordProxy,
     HandleFieldPayload,
-    ReadonlyRecordProxy,
-} from '../../../index';
+} from '../../../lib/store/RelayStoreTypes';
 
 export interface ConnectionMetadata {
     path: ReadonlyArray<string> | null | undefined;
@@ -30,7 +29,7 @@ export function createEdge(
 export function deleteNode(record: RecordProxy, nodeID: DataID): void;
 
 export function getConnection(
-    record: ReadonlyRecordProxy,
+    record: ReadOnlyRecordProxy,
     key: string,
     filters?: Variables | null,
 ): RecordProxy | null | undefined;
