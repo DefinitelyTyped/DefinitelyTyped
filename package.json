@@ -28,10 +28,7 @@
         "prettier": "^1.17.1",
         "types-publisher": "github:Microsoft/types-publisher#production"
     },
-    "dependencies": {
-        "rollup": "^1.21.4",
-        "rollup-plugin-visualizer": "^2.6.0"
-    },
+    "dependencies": {},
     "husky": {
         "hooks": {
             "pre-commit": "precise-commits"
