@@ -1,4 +1,4 @@
-// Type definitions for Victory 31.0
+// Type definitions for Victory 33.0
 // Project: https://github.com/FormidableLabs/victory, https://formidable.com/open-source/victory
 // Definitions by: Alexey Svetliakov <https://github.com/asvetliakov>
 //                 snerks <https://github.com/snerks>
@@ -9,6 +9,7 @@
 //                 Esteban Ibarra <https://github.com/ibarrae>
 //                 Dominic Lee <https://github.com/dominictwlee>
 //                 Dave Vedder <https://github.com/veddermatic>
+//                 Alec Flett <https://github.com/alecf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -161,6 +162,10 @@ declare module 'victory' {
          * @default "0.71em"
          */
         capHeight?: StringOrNumberOrCallback;
+        /**
+         * The className prop specifies a class name that will be applied to the rendered text element.
+         */
+        className?: string;
         /**
          * Victory components can pass a datum prop to their label component. This can be used to calculate functional styles, and determine child text
          */
@@ -623,42 +628,112 @@ declare module 'victory' {
 
     export class VictoryZoomContainer extends React.Component<VictoryZoomContainerProps, any> {}
 
+    type ThemeBaseProps = {
+        width: number;
+        height: number;
+        colorScale: string[];
+        padding?: number;
+    };
+
     // Note: Many SVG attributes are missed in CSSProperties interface
     export interface VictoryThemeDefinition {
-        area?: VictoryStyleInterface;
+        area?: {
+            style?: {
+                data?: VictoryStyleInterface;
+                labels?: VictoryStyleInterface;
+            };
+        } & ThemeBaseProps;
         axis?: {
-            axis: React.CSSProperties;
-            axisLabel: React.CSSProperties;
-            grid: React.CSSProperties;
-            ticks: React.CSSProperties;
-            tickLabels: React.CSSProperties;
-        };
-        bar?: VictoryStyleInterface;
-        candlestick?: VictoryStyleInterface & {
-            props: {
-                width: number;
-                height: number;
-                candleColors: {
-                    positive: string;
-                    negative: string;
-                };
+            style?: {
+                axis?: React.CSSProperties;
+                axisLabel?: React.CSSProperties;
+                grid?: React.CSSProperties;
+                ticks?: React.CSSProperties;
+                tickLabels?: React.CSSProperties;
             };
-        };
-        line?: VictoryStyleInterface;
+        } & ThemeBaseProps;
+        bar?: {
+            style?: {
+                data?: React.CSSProperties;
+                labels?: React.CSSProperties;
+            };
+        } & ThemeBaseProps;
+        boxplot?: {
+            style?: {
+                max?: React.CSSProperties;
+                maxLabels?: React.CSSProperties;
+                median?: React.CSSProperties;
+                medianLabels?: React.CSSProperties;
+                min?: React.CSSProperties;
+                minLabels?: React.CSSProperties;
+                q1?: React.CSSProperties;
+                q1Labels?: React.CSSProperties;
+                q3?: React.CSSProperties;
+                q3Labels?: React.CSSProperties;
+            };
+            boxWidth?: number;
+        } & ThemeBaseProps;
+        candlestick?: {
+            style?: {
+                data?: React.CSSProperties;
+                labels?: React.CSSProperties;
+            };
+            candleColors?: {
+                positive?: string;
+                negative?: string;
+            };
+        } & ThemeBaseProps;
+        chart?: ThemeBaseProps;
+        errorbar?: {
+            borderWidth?: number;
+            style?: {
+                data?: React.CSSProperties;
+                labels?: React.CSSProperties;
+            };
+        } & ThemeBaseProps;
+        group?: ThemeBaseProps;
+        legend?: {
+            gutter?: number;
+            orientation?: 'vertical' | 'horizontal';
+            titleOrientation?: OrientationTypes;
+            style?: {
+                data?: React.CSSProperties;
+                labels?: React.CSSProperties;
+                title?: React.CSSProperties;
+            };
+        } & ThemeBaseProps;
+        line?: {
+            style?: {
+                data?: React.CSSProperties;
+                labels?: React.CSSProperties;
+            };
+        } & ThemeBaseProps;
         pie?: {
-            props: {
-                width: number;
-                height: number;
-                colorScale: string[];
+            style?: {
+                data?: React.CSSProperties;
+                labels?: React.CSSProperties;
             };
-            style: VictoryStyleInterface;
+        } & ThemeBaseProps;
+        scatter?: {
+            style?: {
+                data?: React.CSSProperties;
+                labels?: React.CSSProperties;
+            };
+        } & ThemeBaseProps;
+        stack?: ThemeBaseProps;
+        tooltip?: {
+            style?: React.CSSProperties;
+            flyoutStyle?: React.CSSProperties;
+            cornerRadius?: number;
+            pointerLength?: number;
         };
-        scatter?: VictoryStyleInterface;
-        props?: {
-            width: number;
-            height: number;
-            colorScale: string[];
-        };
+        voronoi?: {
+            style?: {
+                data?: React.CSSProperties;
+                labels?: React.CSSProperties;
+                flyout?: React.CSSProperties;
+            };
+        } & ThemeBaseProps;
     }
 
     interface VictoryThemeInterface {

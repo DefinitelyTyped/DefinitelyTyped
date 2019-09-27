@@ -12,6 +12,7 @@
 //                 Peter Esenwa <https://github.com/PeterEsenwa>
 //                 Samuel Bodin <https://github.com/bodinsamuel>
 //                 Richard Scotten <https://github.com/rscotten>
+//                 Chris Moyer <https://github.com/kopertio>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -998,8 +999,10 @@ declare namespace algoliasearch {
   }
   /**
    * Describes the options used when generating new api keys
+   * 
+   * @see https://www.algolia.com/doc/api-reference/api-methods/generate-secured-api-key/
    */
-  interface SecuredApiOptions {
+  interface SecuredApiOptions extends QueryParameters {
     /**
      * Filter the query with numeric, facet or/and tag filters
      * default: ""
@@ -1012,7 +1015,7 @@ declare namespace algoliasearch {
     /**
      * Restricts the key to a list of index names allowed for the secured API key
      */
-    restrictIndices?: string;
+    restrictIndices?: string | string[];
     /**
      * Allows you to restrict a single user to performing a maximum of N API calls per hour
      */

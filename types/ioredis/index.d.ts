@@ -107,6 +107,8 @@ declare namespace IORedis {
 
         del(...keys: KeyType[]): Promise<number>;
 
+        unlink(...keys: KeyType[]): Promise<number>;
+
         exists(...keys: KeyType[]): Promise<number>;
         exists(key: KeyType, callback: (err: Error, res: number) => void): void;
 

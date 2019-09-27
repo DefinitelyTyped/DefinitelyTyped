@@ -1163,6 +1163,21 @@ export interface DivOverlayOptions {
     pane?: string;
 }
 
+export abstract class DivOverlay extends Layer {
+    constructor(options?: DivOverlayOptions, source?: Layer);
+    getLatLng(): LatLng | undefined;
+    setLatLng(latlng: LatLngExpression): this;
+    getContent(): Content | ((source: Layer) => Content) | undefined;
+    setContent(htmlContent: ((source: Layer) => Content) | Content): this;
+    getElement(): HTMLElement | undefined;
+    update(): void;
+    isOpen(): boolean;
+    bringToFront(): this;
+    bringToBack(): this;
+
+    options: DivOverlayOptions;
+}
+
 export interface PopupOptions extends DivOverlayOptions {
     maxWidth?: number;
     minWidth?: number;
@@ -1180,17 +1195,8 @@ export interface PopupOptions extends DivOverlayOptions {
 
 export type Content = string | HTMLElement;
 
-export class Popup extends Layer {
+export class Popup extends DivOverlay {
     constructor(options?: PopupOptions, source?: Layer);
-    getLatLng(): LatLng | undefined;
-    setLatLng(latlng: LatLngExpression): this;
-    getContent(): Content | ((source: Layer) => Content) | undefined;
-    setContent(htmlContent: ((source: Layer) => Content) | Content): this;
-    getElement(): HTMLElement | undefined;
-    update(): void;
-    isOpen(): boolean;
-    bringToFront(): this;
-    bringToBack(): this;
     openOn(map: Map): this;
 
     options: PopupOptions;
@@ -1210,18 +1216,9 @@ export interface TooltipOptions extends DivOverlayOptions {
     opacity?: number;
 }
 
-export class Tooltip extends Layer {
+export class Tooltip extends DivOverlay {
     constructor(options?: TooltipOptions, source?: Layer);
     setOpacity(val: number): void;
-    getLatLng(): LatLng | undefined;
-    setLatLng(latlng: LatLngExpression): this;
-    getContent(): Content | undefined;
-    setContent(htmlContent: ((source: Layer) => Content) | Content): this;
-    getElement(): HTMLElement | undefined;
-    update(): void;
-    isOpen(): boolean;
-    bringToFront(): this;
-    bringToBack(): this;
 
     options: TooltipOptions;
 }

@@ -5,6 +5,7 @@ const decoration = new view.Decoration();
 
 const res1_1 = new view.EditorView({} as any, {} as any);
 const res1_2: { pos: number, inside: number } = res1_1.posAtCoords({ left: 0, top: 0})!;
+const res1_3: boolean = res1_1.editable;
 
 const res2_1: view.EditorProps = {} as any;
 const res2_2: state.Selection = res2_1.createSelectionBetween!({} as any, {} as any, {} as any)!;
