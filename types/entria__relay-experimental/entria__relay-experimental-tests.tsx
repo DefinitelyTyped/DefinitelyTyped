@@ -85,6 +85,8 @@ function TodoList() {
                 }
             }
         `,
+        null,
+        { fetchPolicy: 'store-only' },
     );
 
     return (
