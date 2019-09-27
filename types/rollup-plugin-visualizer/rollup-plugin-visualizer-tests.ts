@@ -1,7 +1,7 @@
-import visualizer from 'rollup-plugin-visualizer';
+import visualizer, { PluginVisualizerOptions } from 'rollup-plugin-visualizer';
 
 visualizer(); // $ExpectType Plugin
-const fullOptions = {
+const fullOptions: PluginVisualizerOptions = {
     filename: 'filename',
     title: 'title',
     sourcemap: true,

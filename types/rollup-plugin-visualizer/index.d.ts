@@ -8,7 +8,7 @@
 /// <reference types="node" />
 import { Plugin } from 'rollup';
 
-interface PluginVisualizerOptions {
+export interface PluginVisualizerOptions {
     filename?: string;
     title?: string;
     sourcemap?: boolean;
@@ -17,6 +17,4 @@ interface PluginVisualizerOptions {
     bundlesRelative?: boolean;
 }
 
-declare function visualizer(options?: PluginVisualizerOptions): Plugin;
-
-export = visualizer;
+export default function visualizer(options?: PluginVisualizerOptions): Plugin;
