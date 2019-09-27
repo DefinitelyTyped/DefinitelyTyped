@@ -1,7 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "@types/react": "*", 
-        "@types/relay-runtime": ">=6.0.3",
-    }
-}
