@@ -52,7 +52,7 @@ class Master extends Component {
 		router: routerShape
 	};
 
-	context: MasterContext;
+        context = {} as MasterContext;
 
 	navigate() {
 		const router = this.context.router;

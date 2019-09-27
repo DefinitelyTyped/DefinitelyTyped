@@ -232,8 +232,8 @@ class Welcome extends React.Component<ElementProps<View> & { color: string }> {
         color: ColorPropType,
     };
 
-    refs: {
-        [key: string]: any;
+    refs = {} as {
+        [key: string]: React.ReactInstance;
         rootView: View;
         customView: CustomView;
     };

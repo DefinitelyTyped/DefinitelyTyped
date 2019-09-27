@@ -143,7 +143,7 @@ class ModernComponent extends React.Component<Props, State, Snapshot>
         someOtherValue: PropTypes.string.isRequired
     };
 
-    context: Context;
+    context: Context = {};
 
     getChildContext() {
         return {
