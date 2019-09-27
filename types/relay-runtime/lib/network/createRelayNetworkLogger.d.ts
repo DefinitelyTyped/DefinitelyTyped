@@ -1,6 +1,7 @@
 import { RelayNetworkLoggerTransaction } from './RelayNetworkLoggerTransaction';
 import { RequestParameters } from '../util/RelayConcreteNode';
-import { Variables, FetchFunction, SubscribeFunction } from '../../index';
+import { Variables } from '../util/RelayRuntimeTypes';
+import { FetchFunction, SubscribeFunction } from './RelayNetworkTypes';
 
 export type GraphiQLPrinter = (request: RequestParameters, variables: Variables) => string;
 export interface NetworkLogger {

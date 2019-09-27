@@ -162,3 +162,25 @@ export interface ReaderPaginationFragment extends ReaderFragment {
         };
     };
 }
+
+export interface ReaderConnection {
+    readonly kind: string;
+    readonly label: string;
+    readonly name: string;
+    readonly args: ReadonlyArray<ReaderArgument>;
+    readonly edges: ReaderLinkedField;
+    readonly pageInfo: ReaderLinkedField;
+}
+
+export interface ReaderInlineDataFragmentSpread {
+    readonly kind: string;
+    readonly name: string;
+    readonly selections: ReadonlyArray<ReaderSelection>;
+}
+
+export interface ReaderModuleImport {
+    readonly kind: string;
+    readonly documentName: string;
+    readonly fragmentPropName: string;
+    readonly fragmentName: string;
+}
