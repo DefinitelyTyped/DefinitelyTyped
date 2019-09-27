@@ -10,6 +10,7 @@ import {
     ROOT_ID,
     RelayNetworkLoggerTransaction,
     createRelayNetworkLogger,
+    RecordSourceSelectorProxy,
 } from 'relay-runtime';
 
 const source = new RecordSource();
@@ -63,6 +64,16 @@ function handlerProvider(handle: any) {
         //     return ViewerHandler;
     }
     throw new Error(`handlerProvider: No handler provided for ${handle}`);
+}
+
+function storeUpdater(store: RecordSourceSelectorProxy) {
+    const mutationPayload = store.getRootField('sendConversationMessage');
+    const newMessageEdge = mutationPayload.getLinkedRecord('messageEdge');
+    const conversationStore = store.get('a-conversation-id');
+    const connection = ConnectionHandler.getConnection(conversationStore, 'Messages_messages');
+    if (connection) {
+        ConnectionHandler.insertEdgeBefore(connection, newMessageEdge);
+    }
 }
 
 // ~~~~~~~~~~~~~~~~~~~~~

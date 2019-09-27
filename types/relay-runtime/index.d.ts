@@ -172,7 +172,8 @@ export { RelayDefaultHandlerProvider as DefaultHandlerProvider } from './lib/han
 export {
     missingViewerFieldHandler as DefaultMissingFieldHandlers,
 } from './lib/handlers/RelayDefaultMissingFieldHandlers';
-export { RelayDefaultHandlerProvider as ConnectionHandler } from './lib/handlers/connection/RelayConnectionHandler';
+import * as ConnectionHandler from './lib/handlers/connection/RelayConnectionHandler';
+export { ConnectionHandler };
 
 // Helpers (can be implemented via the above API)
 export { applyOptimisticMutation } from './lib/mutations/applyOptimisticMutation';
