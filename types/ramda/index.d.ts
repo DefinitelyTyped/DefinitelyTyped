@@ -1853,8 +1853,11 @@ declare namespace R {
         /**
          * Merges a list of objects together into one object.
          */
-        mergeAll<T>(list: readonly T[]): T;
-        mergeAll(list: readonly any[]): any;
+        mergeAll<T extends readonly object[]>(list: T): O.AssignUp<{}, T> extends infer M
+                                                        ? {} extends M          // nothing merged bcs no `as const`
+                                                          ? T.UnionOf<T>        // so we output the default types
+                                                          : A.Compute<M> & {}   // otherwise, we can compute `M`
+                                                        : never;
 
         /**
          * Creates a new object with the own properties of the first object merged with the own properties of the second object.
@@ -1862,8 +1865,8 @@ declare namespace R {
          * and both values are objects, the two values will be recursively merged
          * otherwise the value from the first object will be used.
          */
-        mergeDeepLeft<T1 extends object, T2 extends object>(a: T1, b: T2): O.MergeUp<T1, T2, 'deep'>;
-        mergeDeepLeft<T1 extends object>(a: T1): <T2 extends object>(b: T2) => O.MergeUp<T1, T2, 'deep'>;
+        mergeDeepLeft<O1 extends object, O2 extends object>(o1: O1, o2: O2): O.MergeUp<O1, O2, 'deep'>;
+        mergeDeepLeft<O1 extends object>(o1: O1): <O2 extends object>(o2: O2) => O.MergeUp<O1, O2, 'deep'>;
 
         /**
          * Creates a new object with the own properties of the first object merged with the own properties of the second object.
@@ -1871,8 +1874,8 @@ declare namespace R {
          * and both values are objects, the two values will be recursively merged
          * otherwise the value from the second object will be used.
          */
-        mergeDeepRight<A extends object, B extends object>(a: A, b: B): O.MergeUp<B, A>;
-        mergeDeepRight<A extends object>(a: A): <B extends object>(b: B) => O.MergeUp<B, A>;
+        mergeDeepRight<O1 extends object, O2 extends object>(o1: O1, o2: O2): O.MergeUp<O2, O1, 'deep'>;
+        mergeDeepRight<O1 extends object>(a: O1): <O2 extends object>(o2: O2) => O.MergeUp<O2, O1, 'deep'>;
 
         /**
          * Creates a new object with the own properties of the two provided objects. If a key exists in both objects:
