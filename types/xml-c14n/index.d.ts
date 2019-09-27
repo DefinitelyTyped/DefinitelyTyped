@@ -26,6 +26,6 @@ declare namespace xml_c14n {
     }
 }
 
-declare function c14n(): xml_c14n.CanonizationFactory;
+declare function xml_c14n(): xml_c14n.CanonizationFactory;
 
-export = c14n;
+export = xml_c14n;
