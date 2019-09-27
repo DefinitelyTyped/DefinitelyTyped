@@ -1,12 +1,12 @@
 import { sizeSnapshot } from 'rollup-plugin-size-snapshot';
 
- // $ExpectType Plugin
+// $ExpectType Plugin
 sizeSnapshot();
 
- // $ExpectType Plugin
+// $ExpectType Plugin
 sizeSnapshot({});
 
- // $ExpectType Plugin
+// $ExpectType Plugin
 sizeSnapshot({
     snapshotPath: 'node_modules/**',
     matchSnapshot: true,
