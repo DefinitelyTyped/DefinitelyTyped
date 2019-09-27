@@ -23,4 +23,4 @@ export default function useStore<S, A>(
     inititalState: S,
     actions: object,
     initializers?: InitializerFunction<S, A>,
-): () => [S, A];
+): <NS, NA>(stateFunc?: (state: S) => NS, actionsFunc?: (state: A) => NA) => [NS, NA];
