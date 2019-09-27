@@ -7,7 +7,7 @@ const fullOptions = {
     sourcemap: true,
     open: true,
     template: '',
-    bundlesRelative: true
+    bundlesRelative: true,
 };
 visualizer({});
 visualizer(fullOptions);
