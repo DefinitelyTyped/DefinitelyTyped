@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { fetchQuery, RelayEnvironmentProvider } from 'entria__relay-experimental';
+import { fetchQuery, RelayEnvironmentProvider, useRelayEnvironment } from 'entria__relay-experimental';
 import { Environment, RecordSource, Store, Network, graphql } from 'relay-runtime';
 
 const source = new RecordSource();
@@ -46,7 +46,13 @@ dispose.unsubscribe();
 function Providers() {
     return (
         <RelayEnvironmentProvider environment={environment}>
-            <p>test</p>
+            <RelayComponent />
         </RelayEnvironmentProvider>
     );
+}
+
+function RelayComponent() {
+    const { execute } = useRelayEnvironment();
+
+    return <p>Relay rocks</p>;
 }
