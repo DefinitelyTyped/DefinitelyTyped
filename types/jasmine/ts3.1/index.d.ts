@@ -252,8 +252,8 @@ declare namespace jasmine {
     function createSpyObj(baseName: string, methodNames: SpyObjMethodNames, propertyNames?: SpyObjMethodNames): any;
     function createSpyObj<T>(baseName: string, methodNames: SpyObjMethodNames<T>, propertyNames?: SpyObjMethodNames<T>): SpyObj<T>;
 
-    function createSpyObj(methodNames: SpyObjMethodNames): any;
-    function createSpyObj<T>(methodNames: SpyObjMethodNames<T>): SpyObj<T>;
+    function createSpyObj(methodNames: SpyObjMethodNames, propertyNames?: SpyObjMethodNames): any;
+    function createSpyObj<T>(methodNames: SpyObjMethodNames<T>, propertyNames?: SpyObjMethodNames<T>): SpyObj<T>;
 
     function pp(value: any): string;
 
