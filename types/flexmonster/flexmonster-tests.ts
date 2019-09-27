@@ -6,6 +6,10 @@ new Flexmonster({
     global: {},
     height: '550px',
     width: '100%',
-    report: {},
+    report: {
+        dataSource: {
+            data: []
+        }
+    },
     toolbar: true
 });
