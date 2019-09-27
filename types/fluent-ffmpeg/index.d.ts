@@ -163,19 +163,19 @@ declare namespace Ffmpeg {
         timed_thumbnails?: number;
     }
 
-    interface FfprobeFormat{
+    interface FfprobeFormat {
         [key: string]: any;
-        filename?: string,
-        nb_streams?:number;
-        nb_programs?:number;
+        filename?: string;
+        nb_streams?: number;
+        nb_programs?: number;
         format_name?: string;
         format_long_name?: string;
-        start_time?:number;
-        duration?:number;
-        size?:number;
-        bit_rate?:number;
-        probe_score?:number;
-        tags?: Record<string, string>;
+        start_time?: number;
+        duration?: number;
+        size?: number;
+        bit_rate?: number;
+        probe_score?: number;
+        tags?: any[];
     }
 
     interface ScreenshotsConfig {
