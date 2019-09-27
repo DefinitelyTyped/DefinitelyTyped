@@ -7,7 +7,7 @@
 
 import { Plugin } from 'webpack';
 
-interface Options {
+export interface Options {
     patterns?: string[];
     failOnUnused: boolean;
     globOptions?: {
@@ -17,8 +17,6 @@ interface Options {
     cwd?: string;
 }
 
-declare class UnusedFilesWebpackPlugin extends Plugin {
+export class UnusedFilesWebpackPlugin extends Plugin {
     constructor(options: Options);
 }
-
-export = UnusedFilesWebpackPlugin;
