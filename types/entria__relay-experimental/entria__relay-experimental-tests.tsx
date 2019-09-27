@@ -1,7 +1,8 @@
 import React from 'react';
 
-import { fetchQuery, RelayEnvironmentProvider, useRelayEnvironment } from 'entria__relay-experimental';
-import { Environment, RecordSource, Store, Network, graphql } from 'relay-runtime';
+import { fetchQuery, RelayEnvironmentProvider, useRelayEnvironment, useQuery } from 'entria__relay-experimental';
+import { Environment, RecordSource, Store, Network } from 'relay-runtime';
+import { graphql } from 'react-relay';
 
 const source = new RecordSource();
 const store = new Store(source);
@@ -54,5 +55,51 @@ function Providers() {
 function RelayComponent() {
     const { execute } = useRelayEnvironment();
 
-    return <p>Relay rocks</p>;
+    return (
+        <React.Suspense fallback={<div>Loading...</div>}>
+            <TodoList />
+        </React.Suspense>
+    );
+}
+
+interface Todo {
+    id: string;
+}
+
+interface Data {
+    variables: {};
+    response: {
+        todos: Todo[];
+    };
+}
+
+function TodoList() {
+    const data = useQuery<Data>(
+        graphql`
+            query TodoListQuery {
+                viewer {
+                    todos {
+                        id
+                        ...TodoItemFragment
+                    }
+                }
+            }
+        `,
+    );
+
+    return (
+        <>
+            {data.todos.map(todo => (
+                <TodoItem todo={todo} />
+            ))}
+        </>
+    );
+}
+
+interface TodoItemProps {
+    todo: Todo;
+}
+
+function TodoItem({ todo }: TodoItemProps) {
+    return <div>{todo.id}</div>;
 }

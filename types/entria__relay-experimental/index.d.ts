@@ -7,3 +7,7 @@
 export { fetchQuery } from './lib/fetchQuery';
 export { RelayEnvironmentProvider } from './lib/RelayEnvironmentProvider';
 export { useRelayEnvironment } from './lib/useRelayEnvironment';
+
+export { FetchPolicy } from './lib/QueryResource';
+
+export { useQuery } from './lib/useQuery';
