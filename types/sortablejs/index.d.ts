@@ -27,7 +27,16 @@ declare class Sortable {
      * @param options Sortable options object.
      */
     static create(element: HTMLElement, options: Sortable.Options): Sortable;
-
+    
+    /**
+     * Mounts a plugin to the `Sortable`
+     * @param plugins One or more of the sortable plugins. 
+     */
+    // todo:
+    // + tests
+    // + declarations for the plugins. Plugins should extend a `Sortable.Plugin` class.
+    static mount(...plugins: any[]): void;
+    
     /**
      * Options getter/setter
      * @param name a Sortable.Options property.
@@ -138,6 +147,15 @@ declare namespace Sortable {
          */
         delay?: number;
         /**
+         * Only delay if user is using touch
+         */
+        delayOnTouchOnly?: boolean;
+        /**
+         * Direction of Sortable
+         * (will be detected automatically if not given)
+         */
+        direction?: 'horizontal' | 'vertical';
+        /**
          * Disables the sortable if set to true.
          */
         disabled?: boolean;
@@ -152,6 +170,38 @@ declare namespace Sortable {
         dragoverBubble?: boolean;
         dropBubble?: boolean;
         /**
+         * distance mouse must be from empty sortable
+         * to insert drag element into it
+         */
+        emptyInsertThreshold?: number;
+
+        /**
+         * Easing for animation. Defaults to null.
+         *
+         * See https://easings.net/ for examples.
+         *
+         * For other possible values, see
+         * https://www.w3schools.com/cssref/css3_pr_animation-timing-function.asp
+         *
+         * @example
+         *
+         * // CSS functions
+         * | 'steps(int, start | end)'
+         * | 'cubic-bezier(n, n, n, n)'
+         *
+         * // CSS values
+         * | 'linear'
+         * | 'ease'
+         * | 'ease-in'
+         * | 'ease-out'
+         * | 'ease-in-out'
+         * | 'step-start'
+         * | 'step-end'
+         * | 'initial'
+         * | 'inherit'
+         */
+        easing?: string;
+        /**
          * Class name for the cloned DOM Element when using forceFallback
          */
         fallbackClass?: string;
@@ -163,11 +213,13 @@ declare namespace Sortable {
          * Specify in pixels how far the mouse should move before it's considered as a drag.
          */
         fallbackTolerance?: number;
-        fallbackOffset?: { x: number, y: number };
+        fallbackOffset?: { x: number; y: number };
         /**
          * Selectors that do not lead to dragging (String or Function)
          */
-        filter?: string | ((this: Sortable, event: Event | TouchEvent, target: HTMLElement, sortable: Sortable) => boolean);
+        filter?:
+            | string
+            | ((this: Sortable, event: Event | TouchEvent, target: HTMLElement, sortable: Sortable) => boolean);
         /**
          * ignore the HTML5 DnD behaviour and force the fallback to kick in
          */
@@ -187,14 +239,28 @@ declare namespace Sortable {
         handle?: string;
         ignore?: string;
         /**
+         * Will always use inverted swap zone if set to true
+         */
+        invertSwap?: boolean;
+        /**
+         * Threshold of the inverted swap zone
+         * (will be set to `swapThreshold` value by default)
+         */
+        invertedSwapThreshold?: number;
+        /**
          * Call `event.preventDefault()` when triggered `filter`
          */
         preventOnFilter?: boolean;
+        /**
+         * Remove the clone element when it is not showing,
+         * rather than just hiding it
+         */
+        removeCloneOnHide?: true;
         scroll?: boolean;
         /**
          * if you have custom scrollbar scrollFn may be used for autoscrolling
          */
-        scrollFn?: ((this: Sortable, offsetX: number, offsetY: number, event: MouseEvent) => void);
+        scrollFn?: (this: Sortable, offsetX: number, offsetY: number, event: MouseEvent) => void;
         /**
          * px, how near the mouse must be to an edge to start scrolling.
          */
@@ -211,6 +277,16 @@ declare namespace Sortable {
             get: (sortable: Sortable) => string[];
             set: (sortable: Sortable) => void;
         };
+        /**
+         * Threshold of the swap zone.
+         * Defaults to `1`
+         */
+        swapThreshold?: number;
+        /**
+         * How many *pixels* the point should move before cancelling a delayed drag event
+         */
+        touchStartThreshold?: number;
+
         setData?: (dataTransfer: DataTransfer, draggedElement: HTMLElement) => void;
         /**
          * Element dragging started
@@ -255,7 +331,7 @@ declare namespace Sortable {
         /**
          * Event when you move an item in the list or between lists
          */
-        onMove?: (event: MoveEvent) => boolean;
+        onMove: (evt: MoveEvent, originalEvent: Event) => void;
     }
 
     interface Utils {
@@ -302,7 +378,11 @@ declare namespace Sortable {
          * @param tagName A tag name.
          * @param iterator An iterator.
          */
-        find(context: HTMLElement, tagName: string, iterator?: (value: HTMLElement, index: number) => void): NodeListOf<HTMLElement>;
+        find(
+            context: HTMLElement,
+            tagName: string,
+            iterator?: (value: HTMLElement, index: number) => void,
+        ): NodeListOf<HTMLElement>;
 
         /**
          * Check the current matched set of elements against a selector.
