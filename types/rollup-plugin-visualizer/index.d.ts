@@ -6,7 +6,7 @@
 // TypeScript Version: 2.3
 
 /// <reference types="node" />
-import { Plugin } from 'rollup';
+// import { Plugin } from 'rollup';
 
 export interface PluginVisualizerOptions {
     filename?: string;
@@ -17,4 +17,4 @@ export interface PluginVisualizerOptions {
     bundlesRelative?: boolean;
 }
 
-export default function visualizer(options?: PluginVisualizerOptions): Plugin;
+export default function visualizer(options?: PluginVisualizerOptions): any;
