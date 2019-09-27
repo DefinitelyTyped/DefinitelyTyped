@@ -3,10 +3,10 @@
 // Definitions by: Nikolai Tsapkin <https://github.com/>
 //                 Max Boguslavskiy <https://github.com/maxbogus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.0
 
 /// <reference types="node" />
-// import { Plugin } from 'rollup';
+import { Plugin } from 'rollup';
 
 export interface PluginVisualizerOptions {
     filename?: string;
@@ -17,4 +17,4 @@ export interface PluginVisualizerOptions {
     bundlesRelative?: boolean;
 }
 
-export default function visualizer(options?: PluginVisualizerOptions): any;
+export default function visualizer(options?: PluginVisualizerOptions): Plugin;
