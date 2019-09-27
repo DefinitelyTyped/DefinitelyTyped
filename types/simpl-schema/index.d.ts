@@ -122,6 +122,7 @@ interface SimpleSchemaStatic {
   addValidator(validator: () => boolean): any;
   pick(...fields: string[]): SimpleSchemaStatic;
   omit(...fields: string[]): SimpleSchemaStatic;
+  oneOf(...types: Array<(SchemaDefinition | BooleanConstructor | StringConstructor | NumberConstructor | DateConstructor | ArrayConstructor)>): SimpleSchemaStatic;
   clean(doc: any, options?: CleanOption): any;
   schema(key: string): SchemaDefinition;
   schema(): SchemaDefinition[];

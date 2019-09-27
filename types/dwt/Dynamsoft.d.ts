@@ -3812,6 +3812,14 @@ interface WebTwain {
      */
     UnregisterEvent(name: string, evt: object): boolean;
 
+	TagImages(aryImageIndices: number[], tagName: string): boolean;
+	
+    SetDefaultTag(tagName: string): boolean;
+	
+    ClearImageTags(sImageIndex: number): boolean;
+	
+    FilterImagesByTag(tagName: string): boolean;
+	
     /*ignored
     checkErrorString
     first

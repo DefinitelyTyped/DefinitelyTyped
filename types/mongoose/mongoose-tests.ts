@@ -28,7 +28,8 @@ const connection2: Promise<mongoose.Mongoose> = mongoose.connect(connectUri, {
   useNewUrlParser: true,
   useFindAndModify: true,
   useCreateIndex: true,
-  autoIndex: true
+  autoIndex: true,
+  autoCreate: true,
 });
 const connection3 = mongoose.connect(connectUri, function (error) {
   error.stack;
@@ -777,8 +778,11 @@ MyModel.bulkWrite([{foo:'bar'}]).then(r => {
   console.log(r.deletedCount);
 });
 MyModel.bulkWrite([], (err, res) => {
-  console.log(res.modifiedCount)
-})
+  console.log(res.modifiedCount);
+});
+MyModel.bulkWrite([], { ordered: false }, (err, res) => {
+  console.log(res.modifiedCount);
+});
 doc.populate('path');
 doc.populate({path: 'hello'});
 doc.populate('path', cb)

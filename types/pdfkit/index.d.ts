@@ -3,6 +3,7 @@
 // Definitions by: Eric Hillah <https://github.com/erichillah>
 //                 Erik Berreßem <https://github.com/she11sh0cked>
 //                 Jeroen Vervaeke <https://github.com/jeroenvervaeke/>
+//                 Thales Agapito <https://github.com/thalesagapito/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -141,14 +142,15 @@ declare namespace PDFKit.Mixins {
         underline?: boolean;
         /** whether to strike out the text */
         strike?: boolean;
-        /**whether the text segment will be followed immediately by another segment. Useful for changing styling in the middle of a paragraph. */
+        /** whether the text segment will be followed immediately by another segment. Useful for changing styling in the middle of a paragraph. */
         continued?: boolean;
-
+        /** whether to slant the text (angle in degrees or true) */
+        oblique?: boolean | number;
         /** the alignment of the text (center, justify, left, right) */
         //TODO check this
         align?: 'center' | 'justify' | 'left' | 'right' | string;
         /** the vertical alignment of the text with respect to its insertion point */
-        baseline?: number | "svg-middle" | "middle" | "svg-central" | "bottom" | "ideographic" | "alphabetic" | "mathematical" | "hanging" | "top"
+        baseline?: number | 'svg-middle' | 'middle' | 'svg-central' | 'bottom' | 'ideographic' | 'alphabetic' | 'mathematical' | 'hanging' | 'top';
     }
 
     interface PDFText<TDocument> {

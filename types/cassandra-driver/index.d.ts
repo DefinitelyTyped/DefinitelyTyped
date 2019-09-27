@@ -167,7 +167,7 @@ export namespace policies {
 export namespace types {
   let BigDecimal: BigDecimalStatic;
   let Duration: DurationStatic;
-  let Long: _Long;
+  let Long: typeof _Long;
   let InetAddress: InetAddressStatic;
   let Integer: IntegerStatic;
   let LocalDate: LocalDateStatic;

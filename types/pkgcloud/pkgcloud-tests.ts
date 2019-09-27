@@ -37,6 +37,15 @@ pkgcloud.storage.createClient({
 	password: 'password'
 });
 
+// Rackspace
+pkgcloud.storage.createClient({
+	provider: 'rackspace',
+	username: 'username',
+	apiKey: 'apiKey',
+	region: 'DFW',
+	useInternal: false
+});
+
 // Upload a File
 {
 	const client = pkgcloud.storage.createClient({

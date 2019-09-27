@@ -430,15 +430,6 @@ function mapDispatchToProps(dispatch: Dispatch) {
     };
 }
 
-connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(Counter);
-
-@connect(mapStateToProps)
-class CounterContainer extends React.Component<any, any> {
-}
-
 // Ensure connect's first two arguments can be replaced by wrapper functions
 interface CounterStateProps {
     value: number;
@@ -621,10 +612,10 @@ const WrappedTestComponent = connect()(TestComponent);
 
 // return value of the connect()(TestComponent) is assignable to a ComponentClass<TestProp>
 // ie: DispatchProp has been removed through decoration
-const ADecoratedTestComponent: React.ComponentClass<TestProp> = WrappedTestComponent;
+const ADecoratedTestComponent: React.NamedExoticComponent<TestProp> = WrappedTestComponent;
 <WrappedTestComponent property1={42} />;
 
-const ATestComponent: React.ComponentClass<TestProp> = TestComponent;  // $ExpectError
+const ATestComponent: React.NamedExoticComponent<TestProp> = TestComponent;  // $ExpectError
 
 // stateless functions
 interface HelloMessageProps {
@@ -764,7 +755,7 @@ function TestMergedPropsInference() {
         return { dispatch: 'string' };
     }
 
-    const ConnectedWithOwnAndState: React.ComponentClass<OwnProps> = connect<StateProps, void, OwnProps, MergedProps>(
+    const ConnectedWithOwnAndState: React.NamedExoticComponent<OwnProps> = connect<StateProps, void, OwnProps, MergedProps>(
         mapStateToProps,
         undefined,
         (stateProps: StateProps) => ({
@@ -772,7 +763,7 @@ function TestMergedPropsInference() {
         }),
     )(MergedPropsComponent);
 
-    const ConnectedWithOwnAndDispatch: React.ComponentClass<OwnProps> = connect<void, DispatchProps, OwnProps, MergedProps>(
+    const ConnectedWithOwnAndDispatch: React.NamedExoticComponent<OwnProps> = connect<void, DispatchProps, OwnProps, MergedProps>(
         undefined,
         mapDispatchToProps,
         (stateProps: undefined, dispatchProps: DispatchProps) => ({
@@ -780,7 +771,7 @@ function TestMergedPropsInference() {
         }),
     )(MergedPropsComponent);
 
-    const ConnectedWithOwn: React.ComponentClass<OwnProps> = connect<void, void, OwnProps, MergedProps>(
+    const ConnectedWithOwn: React.NamedExoticComponent<OwnProps> = connect<void, void, OwnProps, MergedProps>(
         undefined,
         undefined,
         () => ({
@@ -1449,4 +1440,16 @@ function testConnectedPropsWithStateAndActions() {
     type ReduxProps = ConnectedProps<typeof connector>;
 
     const ConnectedComponent = connect(Component);
+}
+
+function testConnectReturnType() {
+    const TestComponent: React.FC = () => null;
+
+    const Test = connect()(TestComponent);
+
+    const myHoc1 = <P, >(C: React.ComponentClass<P>): React.ComponentType<P> => C;
+    myHoc1(Test); // $ExpectError
+
+    const myHoc2 = <P, >(C: React.FC<P>): React.ComponentType<P> => C;
+    myHoc2(Test);
 }

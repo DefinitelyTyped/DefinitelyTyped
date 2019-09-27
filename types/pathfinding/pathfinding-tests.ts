@@ -7,6 +7,7 @@ var matrix = [
 ];
 var grid = new PF.Grid(matrix);
 var gridBackup = grid.clone();
+var node = grid.getNodeAt(0, 0);
 
 var finder = new PF.AStarFinder();
 
