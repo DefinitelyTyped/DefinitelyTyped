@@ -83,9 +83,8 @@ interface Fiber {
      * Note that if the fiber does not handle the exception it will continue to
      * bubble up and throwInto() will throw the exception right back at you.
      */
-    throwInto(exception: Error): void
+    throwInto(exception: Error): void;
 }
 
 declare const Fiber: FiberConstructor;
 export = Fiber;
-

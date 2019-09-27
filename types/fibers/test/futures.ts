@@ -23,6 +23,7 @@ const futureSleepTest = () => {
     future.wait();
   };
 
+  // tslint:disable-next-line:only-arrow-functions
   const calcTimerDelta = function(ms: number) {
     const start = new Date();
     sleep(ms);
@@ -56,4 +57,3 @@ const futureWrapTest = () => {
     console.log(`The result is: ${c.wait()}`);
   }).detach();
 };
-
