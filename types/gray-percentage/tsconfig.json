@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "re2-tests.ts"
+        "gray-percentage-tests.ts"
     ]
 }
