@@ -6,19 +6,18 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": true,
         "strictFunctionTypes": true,
+        "strictNullChecks": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "jsx": "preserve"
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "use-combined-reducers-test.ts"
+        "use-combined-reducers-tests.ts"
     ]
 }

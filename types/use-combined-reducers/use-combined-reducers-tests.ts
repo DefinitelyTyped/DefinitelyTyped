@@ -1,6 +1,6 @@
 import useCombinedReducers from 'use-combined-reducers';
 
-useCombinedReducers<{ a: number, b: any }, () => {}>({
+useCombinedReducers<{ a: number; b: any }, () => {}>({
     a: ['', () => { }],
     b: ['', () => { }],
 });
