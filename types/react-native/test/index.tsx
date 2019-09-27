@@ -232,6 +232,7 @@ class Welcome extends React.Component<ElementProps<View> & { color: string }> {
         color: ColorPropType,
     };
 
+    // tslint:disable-next-line:no-object-literal-type-assertion
     refs = {} as {
         [key: string]: React.ReactInstance;
         rootView: View;

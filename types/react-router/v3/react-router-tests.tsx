@@ -52,6 +52,7 @@ class Master extends Component {
 		router: routerShape
 	};
 
+        // tslint:disable-next-line:no-object-literal-type-assertion
         context = {} as MasterContext;
 
 	navigate() {
