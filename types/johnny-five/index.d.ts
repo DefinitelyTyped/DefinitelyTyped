@@ -653,6 +653,12 @@ export interface PinState {
 export declare class Pin {
     constructor(option: number | string | PinOption);
 
+    static INPUT = 0;
+    static OUTPUT = 1;
+    static ANALOG = 2;
+    static PWM = 3;
+    static SERVO = 4;
+    
     id: number | string;
     pin: number | string;
     type: "digital" | "analog";
