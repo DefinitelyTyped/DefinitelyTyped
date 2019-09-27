@@ -284,7 +284,7 @@ class LegacyContextAnnotated extends React.Component {
 
 class NewContext extends React.Component {
     static contextType = ContextWithRenderProps;
-    context: React.ContextType<typeof ContextWithRenderProps> = ""
+    context: React.ContextType<typeof ContextWithRenderProps> = "";
 
     render() {
         // $ExpectType string
