@@ -135,7 +135,7 @@ interface MediaTrackCapabilities {
     //sampleRate: number | W3C.LongRange;
     //sampleSize: number | W3C.LongRange;
     //echoCancellation: boolean[];
-    latency: number | W3C.DoubleRange;
+    latency?: W3C.DoubleRange;
     //deviceId: string;
     //groupId: string;
 }
@@ -150,7 +150,7 @@ interface MediaTrackSettings {
     //sampleRate: number;
     //sampleSize: number;
     //echoCancellation: boolean;
-    latency: number;
+    latency?: number;
     //deviceId: string;
     //groupId: string;
 }
@@ -179,7 +179,7 @@ interface Navigator {
 
     msGetUserMedia: NavigatorGetUserMedia;
 
-    mediaDevices: MediaDevices;
+    readonly mediaDevices: MediaDevices;
 }
 
 interface MediaDevices {

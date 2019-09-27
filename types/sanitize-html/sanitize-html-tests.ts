@@ -23,6 +23,8 @@ let options: sanitize.IOptions = {
       return img;
     }
   },
+  textFilter: text => text,
+  allowIframeRelativeUrls: false,
   exclusiveFilter: function(frame: sanitize.IFrame) {
     return frame.tag === 'a' && !frame.text.trim();
   },

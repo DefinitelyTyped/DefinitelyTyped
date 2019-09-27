@@ -1,10 +1,12 @@
-// Type definitions for Paper.js v0.11.5
+// Type definitions for Paper.js v0.11.8
 // Project: http://paperjs.org/
 // Definitions by:  Clark Stevenson <https://github.com/clark-stevenson>,
 //                  Jon Lucas <https://github.com/Xakaloz>,
 //                  Sebastian Lopez <https://github.com/sebaswebdev>
 //                  Ryan Friedman <https://github.com/rfried>
+//                  Mikhaylov Anton <https://github.com/anion155>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 type NativeMouseEvent = MouseEvent;
 
@@ -14,6 +16,68 @@ type NativeMouseEvent = MouseEvent;
 declare module paper {
 
     /**
+     * Base class for all library classes.
+     */
+    class Base {
+        /**
+         * Checks if two values or objects are equals to each other, by using their
+         * equals() methods if available, and also comparing elements of arrays and
+         * properties of objects.
+         */
+        static equals(obj1: any, obj2: any): boolean;
+
+        /**
+         * Imports (deserializes) the stored JSON data into the target, if the
+         * classes match. If they do not match, a newly created object is returned
+         * instead.
+         */
+        static importJSON(json: object | any[] | string, target?: any): any;
+        static importJSON<T extends Base>(json: T, target?: T): T;
+
+        /**
+         * Exports (serializes) object to a JSON data object or string.
+         *
+         *
+         * @param options [optional] - the serialization options
+         * @option [options.asString=true] - whether the JSON is returned as a Object or a String.
+         * @option [options.precision=5] - the amount of fractional digits in numbers used in JSON data.
+         * @return the exported JSON data
+         */
+        static exportJSON(obj: any, options?: { asString?: true; precision?: number; }): string;
+        static exportJSON(obj: any, options: { asString: false; precision?: number; }): object | any[];
+
+        /**
+         * Imports (deserializes) the stored JSON data into the object, if the
+         * classes match. If they do not match, a newly created object is returned
+         * instead.
+         */
+        importJSON(json: string): void;
+        importJSON<T extends Base>(json: T): T;
+
+        /**
+         * Exports (serializes) this object to a JSON data object or string.
+         *
+         *
+         * @param options [optional] - the serialization options
+         * @option [options.asString=true] - whether the JSON is returned as a Object or a String.
+         * @option [options.precision=5] - the amount of fractional digits in numbers used in JSON data.
+         * @return the exported JSON data
+         */
+        exportJSON(options?: { asString?: true; precision?: number; }): string;
+        exportJSON(options: { asString: false; precision?: number; }): object | any[];
+
+        /**
+         * Renders base objects to strings in object literal notation.
+         */
+        toString(): string;
+
+        /**
+         * Same as `exportJSON({ asString: false })`.
+         */
+        toJSON(): object | any[];
+    }
+
+    /**
      * The version of Paper.js, as a string.
      */
     export var version: string;
@@ -21,13 +85,7 @@ declare module paper {
     /**
     * Gives access to paper's configurable settings.
     */
-    export var settings: {
-
-        applyMatrix: boolean;
-        handleSize: number;
-        hitTolerance: number;
-
-    };
+    export var settings: Settings;
 
     /**
      * The currently active project.
@@ -78,8 +136,7 @@ declare module paper {
      * Such a coordinate transformation can be represented by a 3 row by 3 column matrix with an implied last row of [ 0 0 1 ]. This matrix transforms source coordinates (x,y) into destination coordinates (x',y') by considering them to be a column vector and multiplying the coordinate vector by the matrix according to the following process:
      * This class is optimized for speed and minimizes calculations based on its knowledge of the underlying matrix (as opposed to say simply performing matrix multiplication).
      */
-    export class Matrix {
-
+    export class Matrix extends Base {
         /**
          * Creates a 2D affine transform.
          * @param a - the a property of the transform
@@ -195,11 +252,6 @@ declare module paper {
          * @param matrix - the matrix to compare this matrix to
          */
         equals(matrix: Matrix): boolean;
-
-        /**
-         * returns a string representation of this transform
-         */
-        toString(): string;
 
         /**
          * Resets the matrix by setting its values to the ones of the identity matrix that results in no transformation.
@@ -366,7 +418,7 @@ declare module paper {
          * Attempts to decompose the affine transformation described by this matrix into scaling, rotation and shearing, and returns an object with these properties if it succeeded, null otherwise.
          */
         decompose(): any;
-        
+
         /**
          * Inverts the matrix, causing it to perform the opposite transformation. If the matrix is not invertible (in which case isSingular() returns true), null is returned.
          */
@@ -387,7 +439,7 @@ declare module paper {
     /**
      * The Point object represents a point in the two dimensional space of the Paper.js project. It is also used to represent two dimensional vector objects.
      */
-    export class Point {
+    export class Point extends Base {
 
         /**
          * Returns a new point object with the smallest x and y of the supplied points.
@@ -519,11 +571,6 @@ declare module paper {
          * Returns a copy of the point.
          */
         clone(): Point;
-
-        /**
-         * a string representation of the point
-         */
-        toString(): string;
 
         /**
          * Returns the smaller angle between two vectors. The angle is unsigned, no information about rotational direction is given.
@@ -698,7 +745,7 @@ declare module paper {
     /**
      * A Rectangle specifies an area that is enclosed by it's top-left point (x, y), its width, and its height. It should not be confused with a rectangular path, it is not an item.
      */
-    export class Rectangle {
+    export class Rectangle extends Base {
 
         /**
          * Creates a Rectangle object.
@@ -889,11 +936,6 @@ declare module paper {
         equals(rect: Rectangle): boolean;
 
         /**
-         * a string representation of this rectangle
-         */
-        toString(): string;
-
-        /**
          * Returns true if the rectangle is empty, false otherwise
          */
         isEmpty(): boolean;
@@ -968,7 +1010,7 @@ declare module paper {
     /**
      * The Size object is used to describe the size or dimensions of something, through its width and height properties.
      */
-    export class Size {
+    export class Size extends Base {
 
         /**
          * Returns a new size object with the smallest width and height of the supplied sizes.
@@ -1041,11 +1083,6 @@ declare module paper {
         clone(): Size;
 
         /**
-         * a string representation of the size
-         */
-        toString(): string;
-
-        /**
          * Checks if this size has both the width and height set to 0.
          */
         isZero(): boolean;
@@ -1115,6 +1152,37 @@ declare module paper {
         modulo(size: number[]): Size;
         modulo(size: number): Size;
 
+        /**
+         * Sets the size with the given width and height values.
+         * @param width - the width
+         * @param height - the height
+         */
+        set(width: number, height: number): Size;
+
+        /**
+         * Sets the size using the numbers in the given array as dimensions.
+         * @param array - an array of numbers
+         */
+        set(array: number[]): Size;
+
+        /**
+         * Sets the size using the properties in the given object.
+         * @param object - the object literal containing properies (width:10, height:10 etc)
+         */
+        set(object: any): Size;
+
+        /**
+         * Sets the size using the coordinates of the given Size object.
+         * @param size - the size to duplicate from
+         */
+        set(size: Size): Size;
+
+        /**
+         * Sets the size using the point.x and point.y values of the given Point object.
+         * @param point - the point from which to create a size
+         */
+        set(point: Point): Size;
+
     }
     export interface IFrameEvent {
 
@@ -1140,7 +1208,7 @@ declare module paper {
      * Paper classes can only be accessed through PaperScope objects. Thus in PaperScript they are global, while in JavaScript, they are available on the global paper object. For JavaScript you can use paperScope.install(scope) to install the Paper classes and objects on the global scope. Note that when working with more than one scope, this still works for classes, but not for objects like paperScope.project, since they are not updated in the injected scope if scopes are switched.
      * The global paper object is simply a reference to the currently active PaperScope.
      */
-    export class PaperScope {
+    export class PaperScope extends Base {
 
         /**
          * The version of Paper.js, as a string.
@@ -1150,13 +1218,7 @@ declare module paper {
         /**
         * Gives access to paper's configurable settings.
         */
-        settings: {
-
-            applyMatrix: boolean;
-            handleSize: number;
-            hitTolerance: number;
-
-        };
+        settings: Settings;
 
         /**
          * The currently active project.
@@ -1217,6 +1279,37 @@ declare module paper {
          */
         static get(id: string): PaperScope;
 
+        /**
+         * All the classes for paper can be constructed via the PaperScope instance, so
+         * that they are associated with that scope
+         */
+        Matrix: typeof Matrix;
+        Point: typeof Point;
+        Rectangle: typeof Rectangle;
+        Size: typeof Size;
+        PaperScope: typeof PaperScope;
+        Item: typeof Item;
+        Group: typeof Group;
+        Layer: typeof Layer;
+        Shape: typeof Shape;
+        Raster: typeof Raster;
+        PlacedSymbol: typeof PlacedSymbol;
+        PathItem: typeof PathItem;
+        Path: typeof Path;
+        CompoundPath: typeof CompoundPath;
+        Segment: typeof Segment;
+        Curve: typeof Curve;
+        CurveLocation: typeof CurveLocation;
+        Project: typeof Project;
+        Symbol: typeof Symbol;
+        Style: typeof Style;
+        Color: typeof Color;
+        Gradient: typeof Gradient;
+        GradientStop: typeof GradientStop;
+        View: typeof View;
+        Tool: typeof Tool;
+        TextItem: typeof TextItem;
+        PointText: typeof PointText;
     }
     export interface IHitTestOptions{
 
@@ -1226,9 +1319,9 @@ declare module paper {
         tolerance?: number;
 
         /**
-         * only hit-test again a certain item class and its sub-classes: Group, Layer, Path, CompoundPath, Shape, Raster, PlacedSymbol, PointText, etc.
+         * only hit-test against a certain item class and its sub-classes: Group, Layer, Path, CompoundPath, Shape, Raster, PlacedSymbol, PointText, etc.
          */
-        class?: string;
+        class?: new(...args: any[]) => Item;
 
         /**
          * a match function to be called for each found hit result: Return true to return the result, false to keep searching
@@ -1289,12 +1382,12 @@ declare module paper {
          * only hit selected items.
          */
         selected?: boolean;
-        
+
     }
     /**
      * The Item type allows you to access and modify the items in Paper.js projects. Its functionality is inherited by different project item types such as Path, CompoundPath, Group, Layer and Raster. They each add a layer of functionality that is unique to their type, but share the underlying properties and functions that they inherit from Item.
      */
-    export class Item {
+    export class Item extends Base {
 
         /**
          * The tangential vector to the #curve at the given location.
@@ -1331,7 +1424,14 @@ declare module paper {
         /**
          * The path style of the item.
          */
-        style: Style;
+        style: Partial<Style>;
+        getStyle(): Style;
+        setStyle(value: Partial<Style>): void;
+
+        /**
+         * Specifies whether the item is locked. When set to true, item interactions with the mouse are disabled.
+         */
+        locked: boolean;
 
         /**
          * Specifies whether the item is visible. When set to false, the item won't be drawn.
@@ -1353,7 +1453,7 @@ declare module paper {
          * Specifies whether the item is selected. This will also return true for Group items if they are partially selected, e.g. groups containing selected or partially selected paths.
          * Paper.js draws the visual outlines of selected items on top of your project. This can be useful for debugging, as it allows you to see the construction of paths, position of path curves, individual segment points and bounding boxes of symbol and raster items.
          */
-        selected: boolean;        
+        selected: boolean;
 
         /**
          * Specifies whether the item and all children are selected.
@@ -1486,7 +1586,9 @@ declare module paper {
         /**
          * The color of the stroke.
          */
-        strokeColor: Color | string;
+        strokeColor: Color | string | null;
+        getStrokeColor(): Color;
+        setStrokeColor(value: Color | string | null): void;
 
         /**
          * The width of the stroke.
@@ -1534,7 +1636,9 @@ declare module paper {
         /**
          * The fill color of the item.
          */
-        fillColor: Color | string;
+        fillColor: Color | string | null;
+        getFillColor(): Color;
+        setFillColor(value: Color | string | null): void;
 
         /**
          * The fill-rule with which the shape gets filled. Please note that only modern browsers support fill-rules other than 'nonzero'.
@@ -1546,7 +1650,9 @@ declare module paper {
         /**
          * The shadow color.
          */
-        shadowColor: Color | string;
+        shadowColor: Color | string | null;
+        getShadowColor(): Color;
+        setShadowColor(value: Color | string | null): void;
 
         /**
          * The shadow’s blur radius.
@@ -1558,12 +1664,14 @@ declare module paper {
          * The shadow’s offset.
          * Default - 0
          */
-        shadowOffset: number;
+        shadowOffset: number | number[] | {x: number, y: number} | Point;
 
         /**
          * The color the item is highlighted with when selected. If the item does not specify its own color, the color defined by its layer is used instead.
          */
         selectedColor: Color | string;
+        getSelectedColor(): Color;
+        setSelectedColor(value: Color | string): void;
 
         /**
          * Item level handler function to be called on each frame of an animation.
@@ -1597,7 +1705,7 @@ declare module paper {
         onClick: (event: MouseEvent) => void | boolean;
 
         /**
-         * The function to be called when the mouse double clicks on the item. The function receives a MouseEvent object which contains information about the mouse event.         * 
+         * The function to be called when the mouse double clicks on the item. The function receives a MouseEvent object which contains information about the mouse event.         *
          * Note that such mouse events bubble up the scene graph hierarchy and will reach the view, unless they are stopped with event.stopPropagation() or by returning false from the handler.
          */
         onDoubleClick: (event: MouseEvent) => void | boolean;
@@ -1691,7 +1799,7 @@ declare module paper {
          * @param options.guides - hit-test items that have Item#guide set to true.
          * @param options.selected - only hit selected items.
          */
-        hitTest(point: Point, options?: IHitTestOptions): HitResult;
+        hitTest(point: Point, options?: IHitTestOptions): HitResult | null;
 
         /**
          * Performs a hit-test on the item and its children (if it is a Group or Layer) at the location of the specified point, returning all found hits.
@@ -1749,20 +1857,6 @@ declare module paper {
         getItem(match: any): Item;
 
         /**
-         * Exports (serializes) the project with all its layers and child items to a JSON data string.
-         * @param options [optional] - default {asString: true, precision: 5}
-         * @param options.asString - whether the JSON is returned as a Object or a String.
-         * @param options.precision - the amount of fractional digits in numbers used in JSON data.
-         */
-        exportJSON(options?: { asString?: boolean; precision?: number; }): string;
-
-        /**
-         * Imports (deserializes) the stored JSON data into the project.
-         * Note that the project is not cleared first. You can call project.clear() to do so.
-         */
-        importJSON(json: string): void;
-
-        /**
          * Exports the project with all its layers and child items as an SVG DOM, all contained in one top level SVG group node.
          * @param options [optional] the export options, default: { asString: false, precision: 5, matchShapes: false, bounds: 'view', matrix: paper.view.matrix, embedImages: true  }
          * @param options.asString - whether a SVG node or a String is to be returned.
@@ -1785,7 +1879,7 @@ declare module paper {
          * @param options.insert: Boolean — whether the imported items should be added to the item that importSVG() is called on.
          * @param options.applyMatrix  Boolean — whether the imported items should have their transformation matrices applied to their contents or not.
          */
-        importSVG(svg: SVGElement | string, options?: { expandShapes?: boolean; onLoad?: (item: Item, svg: string) => void; onError?: (message: string, status: number) => void; insert?: true; applyMatrix?: Matrix; }): Item;
+        importSVG(svg: SVGElement | string, options?: { expandShapes?: boolean; onLoad?: (item: Item, svg: string) => void; onError?: (message: string, status: number) => void; insert?: boolean; applyMatrix?: Matrix; }): Item;
 
          /**
          * Converts the provided SVG content into Paper.js items and adds them to the active layer of this project.
@@ -1794,7 +1888,7 @@ declare module paper {
          * @param onLoad [optional] - the callback function to call once the SVG content is loaded from the given URL receiving two arguments: the converted item and the original svg data as a string. Only required when loading from external resources.
          */
         importSVG(svg: SVGElement | string, onLoad?: (item: Item, svg: string) => void): Item;
-        
+
         /**
          * Adds the specified item as a child of this item at the end of the its children list. You can use this function for groups, compound paths and layers.
          * @param item - the item to add as a child
@@ -1874,13 +1968,13 @@ declare module paper {
          * @param owner - the item or project to add the item to
          */
         addTo(owner: Project | Layer | Group | CompoundPath): Item;
-        
+
         /**
          * Clones the item and adds it to the specified owner, which can be either a Item or a Project.
          * @param owner - the item or project to copy the item to
          */
         copyTo(owner: Project | Layer | Group | CompoundPath): Item;
-        
+
         /**
          * If this is a group, layer or compound-path with only one child-item, the child-item is moved outside and the parent is erased. Otherwise, the item itself is returned unmodified.
          * @param options [optional]
@@ -2537,7 +2631,7 @@ declare module paper {
     /**
      * A HitResult object contains information about the results of a hit test. It is returned by item.hitTest(point) and project.hitTest(point).
      */
-    export class HitResult {
+    export class HitResult extends Base {
 
         /**
          * Describes the type of the hit result. For example, if you hit a segment point, the type would be 'segment'.
@@ -2609,7 +2703,7 @@ declare module paper {
          * Specifies whether the path as a whole is oriented clock-wise, by looking at the path’s area. Note that self-intersecting paths and sub-paths of different orientation can result in areas that cancel each other out.
          */
         clockwise: boolean;
-        
+
         /**
          * The path's geometry, formatted as SVG style path data.
          */
@@ -2636,7 +2730,7 @@ declare module paper {
          * @param path - the path to intersect with
          * @param options [optional] - the boolean operation options. default { insert: true, trace: true }
          * @param options.insert - whether the resulting item should be inserted back into the scene graph, above both paths involved in the operation.
-         * @param options.trace - whether the tracing method is used, treating both paths as areas when determining which parts of the paths are to be kept in the result, or whether the first path is only to be split at intersections, keeping the parts of the curves that intersect with the area of the second path. 
+         * @param options.trace - whether the tracing method is used, treating both paths as areas when determining which parts of the paths are to be kept in the result, or whether the first path is only to be split at intersections, keeping the parts of the curves that intersect with the area of the second path.
          */
         intersect(path: PathItem, options?: { insert?: boolean; trace?: boolean; }): PathItem;
 
@@ -2645,7 +2739,7 @@ declare module paper {
          * @param path - the path to subtract
          * @param options [optional] - the boolean operation options. default { insert: true, trace: true }
          * @param options.insert - whether the resulting item should be inserted back into the scene graph, above both paths involved in the operation.
-         * @param options.trace - whether the tracing method is used, treating both paths as areas when determining which parts of the paths are to be kept in the result, or whether the first path is only to be split at intersections, keeping the parts of the curves that intersect with the area of the second path. 
+         * @param options.trace - whether the tracing method is used, treating both paths as areas when determining which parts of the paths are to be kept in the result, or whether the first path is only to be split at intersections, keeping the parts of the curves that intersect with the area of the second path.
          */
         subtract(path: PathItem, options?: { insert?: boolean; trace?: boolean; }): PathItem;
 
@@ -2763,7 +2857,7 @@ declare module paper {
          * @param point - the end point of the line
          */
         lineTo(point: Point): void;
-        
+
         /**
          * Draws an arc from the position of the last segment point in the path that goes through the specified through point, to the specified to point by adding one or more segments to the path.
          * @param through - the point where the arc should pass through
@@ -3003,20 +3097,20 @@ declare module paper {
          * Clears the path’s handles by setting their coordinates to zero, turning the path into a polygon (or a polyline if it isn’t closed).
          */
         clearHandles(): void;
-        
+
         /**
          * Divides the path on the curve at the given location into two curves, by inserting a new segment at the given location.
          * @param location - the curve location at which to divide the existing curve by inserting a new segment
          * @returns the newly inserted segment if the location is valid, {code null} otherwise
          */
-        divideAt(location: CurveLocation): Path;
+        divideAt(location: CurveLocation): Segment;
 
         /**
          * Divides the path on the curve at the given offset into two curves, by inserting a new segment at the given location.
          * @param offset - the offset at which to divide the existing curve by inserting a new segment
          * @returns the newly inserted segment if the location is valid, {code null} otherwise
          */
-        divideAt(offset: number): Path;
+        divideAt(offset: number): Segment;
 
         /**
          * Splits the path at the given offset. After splitting, the path will be open. If the path was open already, splitting will result in two paths.
@@ -3220,8 +3314,8 @@ declare module paper {
              * @param object - an object literal containing properties describing the path's attributes
              */
             constructor(object: any);
-            
-            
+
+
             /**
              * Clones the item within the same project and places the copy above the item.
              * @param options [optional] - default: { insert: true, deep: true }
@@ -3245,7 +3339,7 @@ declare module paper {
              * @param object - an object literal containing properties describing the path's attributes
              */
             constructor(object: any);
-            
+
             /**
              * Clones the item within the same project and places the copy above the item.
              * @param options [optional] - default: { insert: true, deep: true }
@@ -3269,7 +3363,7 @@ declare module paper {
              * @param object - an object literal containing properties describing the path's attributes
              */
             constructor(object: any);
-            
+
             /**
              * Clones the item within the same project and places the copy above the item.
              * @param options [optional] - default: { insert: true, deep: true }
@@ -3294,7 +3388,7 @@ declare module paper {
              * @param object - an object literal containing properties describing the path's attributes
              */
             constructor(object: any);
-            
+
             /**
              * Clones the item within the same project and places the copy above the item.
              * @param options [optional] - default: { insert: true, deep: true }
@@ -3321,7 +3415,7 @@ declare module paper {
          * @param pathData - the SVG path-data that describes the geometry of this path.
          */
         constructor(pathData: string);
-        
+
         /**
          * Specifies whether the path is closed. If it is closed, Paper.js connects the first and last segments.
          */
@@ -3368,7 +3462,7 @@ declare module paper {
          * Read only.
          */
         readonly length: number;
-        
+
         /**
          * Clones the item within the same project and places the copy above the item.
          * @param options [optional] - default: { insert: true, deep: true }
@@ -3381,7 +3475,7 @@ declare module paper {
      * The Segment object represents the points of a path through which its Curve objects pass. The segments of a path can be accessed through its path.segments array.
      * Each segment consists of an anchor point (segment.point) and optionaly an incoming and an outgoing handle (segment.handleIn and segment.handleOut), describing the tangents of the two Curve objects that are connected by this segment.
      */
-    export class Segment {
+    export class Segment extends Base {
 
         /**
          * Creates a new Segment object.
@@ -3521,11 +3615,6 @@ declare module paper {
         clone(): Segment;
 
         /**
-         * A string representation of the segment
-         */
-        toString(): string;
-
-        /**
          * Transform the segment by the specified matrix.
          * @param matrix - the matrix to transform the segment by
          */
@@ -3544,7 +3633,7 @@ declare module paper {
      * The Curve object represents the parts of a path that are connected by two following Segment objects. The curves of a path can be accessed through its path.curves array.
      * While a segment describe the anchor point and its incoming and outgoing handles, a Curve object describes the curve passing between two such segments. Curves and segments represent two different ways of looking at the same thing, but focusing on different aspects. Curves for example offer many convenient ways to work with parts of the path, finding lengths, positions or tangents at given offsets.
      */
-    export class Curve {
+    export class Curve extends Base {
 
         /**
          * Creates a new curve object.
@@ -3670,11 +3759,6 @@ declare module paper {
         clone(): Curve;
 
         /**
-         * Returns a string representation of the curve
-         */
-        toString(): string;
-
-        /**
          * Determines the type of cubic Bézier curve via discriminant classification, as well as the curve-time parameters of the associated points of inflection, loops, cusps, etc.
          * Returns  the curve classification information as an object
          *      type - the type of Bézier curve, possible values are: ‘line’, ‘quadratic’, ‘serpentine’, ‘cusp’, ‘loop’, ‘arch’
@@ -3751,7 +3835,7 @@ declare module paper {
          * Returns a reversed version of the curve, without modifying the curve itself.
          */
         reversed(): Curve;
-        
+
         /**
          * Clears the curve’s handles by setting their coordinates to zero, turning the curve into a straight line.
          */
@@ -3912,7 +3996,7 @@ declare module paper {
      * CurveLocation objects describe a location on Curve objects, as defined by the curve parameter, a value between 0 (beginning of the curve) and 1 (end of the curve). If the curve is part of a Path item, its index inside the path.curves array is also provided.
      * The class is in use in many places, such as path.getLocationAt(offset, isParameter), path.getLocationOf(point), Path#getNearestLocation(point),{@linkPathItem#getIntersections(path), etc.
      */
-    export class CurveLocation {
+    export class CurveLocation extends Base {
 
         /**
          * Creates a new CurveLocation object.
@@ -4014,11 +4098,6 @@ declare module paper {
         equals(location: CurveLocation): boolean;
 
         /**
-         * Returns a string representation of the curve location
-         */
-        toString(): string;
-
-        /**
          * Checks if the location is an intersection with another curve and is merely touching the other curve, as opposed to crossing it.
          */
         isTouching(): boolean;
@@ -4040,7 +4119,7 @@ declare module paper {
      * The currently active project can be accessed through the paperScope.project variable.
      * An array of all open projects is accessible through the paperScope.projects variable.
      */
-    export class Project {
+    export class Project extends Base {
 
         /**
          * Creates a Paper.js project containing one empty Layer, referenced by project.activeLayer.
@@ -4057,7 +4136,9 @@ declare module paper {
         /**
          * The currently active path style. All selected items and newly created items will be styled with this style.
          */
-        currentStyle: Style;
+        currentStyle: Partial<Style>;
+        getCurrentStyle(): Style;
+        setCurrentStyle(value: Partial<Style>): void;
 
         /**
          * The index of the project in the paperScope.projects list.
@@ -4147,7 +4228,7 @@ declare module paper {
          * @param options.guides - hit-test items that have Item#guide set to true.
          * @param options.selected - only hit selected items.
          */
-        hitTest(point: Point, options?: IHitTestOptions): HitResult;
+        hitTest(point: Point, options?: IHitTestOptions): HitResult | null;
 
         /**
          * Performs a hit-test on the item and its children (if it is a Group or Layer) at the location of the specified point, returning all found hits.
@@ -4189,20 +4270,6 @@ declare module paper {
         getItem(match: any): Item;
 
         /**
-         * Exports (serializes) the project with all its layers and child items to a JSON data string.
-         * @param options [optional] - default {asString: true, precision: 5}
-         * @param options.asString - whether the JSON is returned as a Object or a String.
-         * @param options.precision - the amount of fractional digits in numbers used in JSON data.
-         */
-        exportJSON(options?: { asString?: boolean; precision?: number }): string;
-
-        /**
-         * Imports (deserializes) the stored JSON data into the project.
-         * Note that the project is not cleared first. You can call project.clear() to do so.
-         */
-        importJSON(json: string): void;
-
-        /**
          * Exports the project with all its layers and child items as an SVG DOM, all contained in one top level SVG group node.
          * @param options [optional] the export options, default: { asString: false, precision: 5, matchShapes: false, bounds: 'view', matrix: paper.view.matrix, embedImages: true  }
          * @param options.asString - whether a SVG node or a String is to be returned.
@@ -4225,7 +4292,7 @@ declare module paper {
          * @param options.insert: Boolean — whether the imported items should be added to the item that importSVG() is called on.
          * @param options.applyMatrix  Boolean — whether the imported items should have their transformation matrices applied to their contents or not.
          */
-        importSVG(svg: SVGElement | string, options?: { expandShapes?: boolean; onLoad?: (item: Item, svg: string) => void; onError?: (message: string, status: number) => void; insert?: true; applyMatrix?: Matrix; }): Item;
+        importSVG(svg: SVGElement | string, options?: { expandShapes?: boolean; onLoad?: (item: Item, svg: string) => void; onError?: (message: string, status: number) => void; insert?: boolean; applyMatrix?: Matrix; }): Item;
 
          /**
          * Converts the provided SVG content into Paper.js items and adds them to the active layer of this project.
@@ -4234,12 +4301,12 @@ declare module paper {
          * @param onLoad [optional] - the callback function to call once the SVG content is loaded from the given URL receiving two arguments: the converted item and the original svg data as a string. Only required when loading from external resources.
          */
         importSVG(svg: SVGElement | string, onLoad?: (item: Item, svg: string) => void): Item;
-        
+
     }
     /**
      * Symbols allow you to place multiple instances of an item in your project. This can save memory, since all instances of a symbol simply refer to the original item and it can speed up moving around complex objects, since internal properties such as segment lists and gradient positions don't need to be updated with every transformation.
      */
-    export class Symbol {
+    export class Symbol extends Base {
 
         /**
          * Creates a Symbol item.
@@ -4282,127 +4349,135 @@ declare module paper {
      * All properties of Style are also reflected directly in Item, i.e.: item.fillColor.
      * To set multiple style properties in one go, you can pass an object to item.style. This is a convenient way to define a style once and apply it to a series of items:
      */
-    export class Style {
+    export class Style extends Base {
 
         /**
          * The view that this style belongs to.
          * Read only.
          */
-        readonly view?: View;
+        readonly view: View;
 
         /**
          * The color of the stroke.
          */
-        strokeColor?: Color | string;
+        strokeColor: Color | string | null;
+        getStrokeColor(): Color;
+        setStrokeColor(value: Color | string | null): void;
 
         /**
          * The width of the stroke.
          * Default: 1
          */
-        strokeWidth?: number;
+        strokeWidth: number;
 
         /**
          * The shape to be used at the beginning and end of open Path items, when they have a stroke.
          * Values: 'round', 'square', 'butt'
          * Default: 'butt'
          */
-        strokeCap?: string;
+        strokeCap: string;
 
         /**
          * The shape to be used at the segments and corners of Path items when they have a stroke.
          * Values: 'miter', 'round', 'bevel'
          * Default: 'miter'
          */
-        strokeJoin?: string;
+        strokeJoin: string;
 
         /**
          * Specifies whether the stroke is to be drawn taking the current affine transformation into account (the default behavior), or whether it should appear as a non-scaling stroke.
          * Default: true
          */
-        strokeScaling?: boolean;
+        strokeScaling: boolean;
 
         /**
          * The dash offset of the stroke.
          * Default: 0
          */
-        dashOffset?: number;
+        dashOffset: number;
 
         /**
          * Specifies an array containing the dash and gap lengths of the stroke.
          * Default: []
          */
-        dashArray?: number[];
+        dashArray: number[];
 
         /**
          * The miter limit of the stroke. When two line segments meet at a sharp angle and miter joins have been specified for strokeJoin, it is possible for the miter to extend far beyond the strokeWidth of the path. The miterLimit imposes a limit on the ratio of the miter length to the strokeWidth.
          * Default: 10
          */
-        miterLimit?: number;
+        miterLimit: number;
 
         /**
          * The fill color.
          */
-        fillColor?: Color | string;
+        fillColor: Color | string | null;
+        getFillColor(): Color;
+        setFillColor(value: Color | string | null): void;
 
         /**
          * The fill-rule with which the shape gets filled. Please note that only modern browsers support fill-rules other than 'nonzero'.
          * Values: 'nonzero', 'evenodd'
          * Default: 'nonzero'
          */
-        fillRule?: string;
+        fillRule: string;
 
         /**
          * The shadow color.
          */
-        shadowColor?: Color | string;
+        shadowColor: Color | string | null;
+        getShadowColor(): Color;
+        setShadowColor(value: Color | string | null): void;
 
         /**
          * The shadow's blur radius.
          * Default: 0
          */
-        shadowBlur?: number;
+        shadowBlur: number;
 
         /**
          * The shadow's offset.
          * Default: 0
          */
-        shadowOffset?: Point;
+        shadowOffset: number | number[] | {x: number, y: number} | Point;
 
         /**
          * The color the item is highlighted with when selected. If the item does not specify its own color, the color defined by its layer is used instead.
          */
-        selectedColor?: Color | string;
+        selectedColor: Color | string | null;
+        getSelectedColor(): Color;
+        setSelectedColor(value: Color | string | null): void;
 
         /**
          * The font-family to be used in text content.
          * Default: 'sans-serif'
          */
-        fontFamily?: string;
+        fontFamily: string;
 
         /**
          * The font-weight to be used in text content.
          * Default: 'normal'
          */
-        fontWeight?: string | number;
+        fontWeight: string | number;
 
         /**
          * The font size of text content, as {@Number} in pixels, or as {@String} with optional units 'px', 'pt' and 'em'.
          * Default: 10
          */
-        fontSize?: string | number;
+        fontSize: string | number;
 
         /**
          * The text leading of text content.
          * Default: fontSize * 1.2
          */
-        leading?: number | string;
+        leading: number | string;
 
         /**
          * The justification of text paragraphs.
          * Values: 'left', 'right', 'center'
          * Default: 'left'
          */
-        justification?: string;
+        justification: string;
 
     }
     export interface IHSBColor {
@@ -4466,7 +4541,7 @@ declare module paper {
     /**
      * All properties and functions that expect color values in the form of instances of Color objects, also accept named colors and hex values as strings which are then converted to instances of Color internally.
      */
-    export class Color {
+    export class Color extends Base {
 
         /**
          * Creates a RGB Color object.
@@ -4644,11 +4719,6 @@ declare module paper {
         clone(): Color;
 
         /**
-         * a string representation of the color
-         */
-        toString(): string;
-
-        /**
          * Returns the color as a CSS string.
          * @param hex - whether to return the color in hexadecial representation or as a CSS RGB / RGBA string.
          */
@@ -4671,7 +4741,7 @@ declare module paper {
          * @param color - the color to add
          */
         add(color: Color): Color;
-        
+
         /**
          * Returns the subtraction of the supplied value to both coordinates of the color as a new color. The object itself is not modified!
          * @param number - the number to subtract
@@ -4683,7 +4753,7 @@ declare module paper {
          * @param color - the color to subtract
          */
         subtract(color: Color): Color;
-        
+
         /**
          * Returns the multiplication of the supplied value to both coordinates of the color as a new color. The object itself is not modified!
          * @param number - the number to multiply
@@ -4712,7 +4782,7 @@ declare module paper {
     /**
      * The Gradient object.
      */
-    export class Gradient {
+    export class Gradient extends Base {
 
         /**
          * Creates a Gradient object.
@@ -4720,7 +4790,7 @@ declare module paper {
          * @param radial [optional] - Whether the gradient is radial or linear
          */
         constructor(stops?:GradientStop[] | string[] | (string|number)[][], radial?:boolean);
-        
+
         /**
          * Creates a Gradient object.
          * @param object [optional] - an object literal containing the properties to be set on the group.
@@ -4752,7 +4822,7 @@ declare module paper {
     /**
      * The GradientStop object.
      */
-    export class GradientStop {
+    export class GradientStop extends Base {
 
         /**
          * Creates a GradientStop object.
@@ -4760,7 +4830,7 @@ declare module paper {
          * @param rampPoint [optional] - the position of the stop on the gradient ramp as a value between 0 and 1, default: 0
          */
         constructor(color?: Color | string, rampPoint?: number);
-        
+
         /**
          * Creates a new GradientStop object.
          * @param object [optional] - an object literal containing the properties to be set on the group.
@@ -4787,7 +4857,9 @@ declare module paper {
         /**
          * The color of the gradient stop.
          */
-        color: Color;
+        color: Color | string;
+        getColor(): Color;
+        setColor(value: Color | string): void;
 
         /**
          * Returns a copy of the gradient-stop
@@ -4798,7 +4870,7 @@ declare module paper {
     /**
      * The View object wraps an HTML element and handles drawing and user interaction through mouse and keyboard for it. It offer means to scroll the view, find the currently visible bounds in project coordinates, or the center, both useful for constructing artwork that should appear centered on screen.
      */
-    export class View {
+    export class View extends Base {
 
         /**
          * Controls whether the view is automatically updated in the next animation frame on changes, or whether you prefer to manually call update() or requestUpdate() after changes. Note that this is true by default, except for Node.js, where manual updates make more sense.
@@ -4860,7 +4932,7 @@ declare module paper {
         /**
          * The current scale factor of the view, as described by its matrix.
          */
-        scaling: number;
+        scaling: Point;
 
         /**
          * The view’s transformation matrix, defining the view onto the project’s contents (position, zoom level, rotation, etc).
@@ -5074,7 +5146,7 @@ declare module paper {
          * Detach an event handler from the view.
          * @param type - the event type: ‘frame’, ‘resize’, ‘mousedown’, ‘mouseup’, ‘mousedrag’, ‘click’, ‘doubleclick’, ‘mousemove’, ‘mouseenter’, ‘mouseleave’
          * @param callback - The function to be detached
-         */       
+         */
         off(type: string, callback: (event: IFrameEvent) => void | boolean): Item;
 
         /**
@@ -5106,7 +5178,7 @@ declare module paper {
      * The Tool object refers to a script that the user can interact with by using the mouse and keyboard and can be accessed through the global tool variable. All its properties are also available in the paper scope.
      * The global tool variable only exists in scripts that contain mouse handler functions (onMouseMove, onMouseDown, onMouseDrag, onMouseUp) or a keyboard handler function (onKeyDown, onKeyUp).
      */
-    export class Tool {
+    export class Tool extends Base {
 
         /**
          * The minimum distance the mouse has to drag before firing the onMouseDrag event, since the last onMouseDrag event.
@@ -5207,7 +5279,7 @@ declare module paper {
         responds(type: string): boolean;
 
     }
-    export class Event {
+    export class Event extends Base {
 
         /**
          * The time at which the event was created, in milliseconds since the epoch.
@@ -5284,16 +5356,11 @@ declare module paper {
          */
         item: Item;
 
-        /**
-         * a string representation of the tool event
-         */
-        toString(): string;
-
     }
     export class Key {
 
         /**
-         * 
+         *
          * The current state of the keyboard modifiers.
          *   modifiers.shift - true if the shift key is pressed, false otherwise.
          *   modifiers.control - true if the control key is pressed, false otherwise.
@@ -5333,11 +5400,6 @@ declare module paper {
          * The key that caused this key event.
          */
         key: string;
-
-        /**
-         * a string representation of the key event
-         */
-        toString(): string;
 
     }
     /**
@@ -5462,6 +5524,25 @@ declare module paper {
          */
         type: 'mousedown' | 'mouseup' | 'mousedrag' | 'click' | 'doubleclick' | 'mousemove' | 'mouseenter' | 'mouseleave';
 
+    }
+
+    export interface Settings {
+        /**
+         * controls whether newly created items are automatically inserted into the scene graph, by adding them to project.activeLayer — default: true
+         */
+        insertItems: boolean;
+        /**
+         * controls what value newly created items have their item.applyMatrix property set to (Note that not all items can set this to false) — default: true
+         */
+        applyMatrix: boolean;
+        /**
+         * the size of the curve handles when drawing selections — default: 4
+         */
+        handleSize: number;
+        /*
+         * the default tolerance for hit- tests, when no value is specified — default: 0
+         */
+        hitTolerance: number;
     }
 }
 

@@ -7,7 +7,7 @@
 import { Middleware, Context } from "koa";
 import { RedisClient } from "redis";
 
-declare function ratelimit(options?: KoaRatelimit.MiddlewareOptions): Middleware;
+declare function KoaRatelimit(options?: KoaRatelimit.MiddlewareOptions): Middleware;
 
 declare namespace KoaRatelimit {
     interface HeaderNameOptions {
@@ -76,4 +76,4 @@ declare namespace KoaRatelimit {
     }
 }
 
-export = ratelimit;
+export = KoaRatelimit;

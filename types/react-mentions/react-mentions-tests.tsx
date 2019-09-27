@@ -11,19 +11,32 @@ interface TestProps {
 }
 
 export const TestSimple: React.SFC<TestProps> = (props) => {
+    const inputEl = React.createRef<HTMLTextAreaElement>();
+
+    function handleClick() {
+        if (inputEl.current) {
+            inputEl.current.focus();
+        }
+    }
+
     return (
-        <MentionsInput
-            value={props.value}
-            onChange={props.onChange}
-            placeholder={"Mention people using '@'"}
-            displayTransform={login => `@${login}`}
-        >
-        <Mention
-            trigger="@"
-            data={props.data}
-            onAdd={props.onAdd}
-        />
-        </MentionsInput>
+        <>
+            <MentionsInput
+                value={props.value}
+                onChange={props.onChange}
+                placeholder={"Mention people using '@'"}
+                inputRef={inputEl}
+            >
+                <Mention
+                    trigger="@"
+                    displayTransform={login => `@${login}`}
+                    data={props.data}
+                    onAdd={props.onAdd}
+                />
+            </MentionsInput>
+
+            <button onClick={handleClick}>Focus</button>
+        </>
     );
 };
 
@@ -32,12 +45,11 @@ export const TestMultipleTrigger: React.SFC<TestProps> = (props) => {
         <MentionsInput
             value={props.value}
             onChange={props.onChange}
-            markup="@[__display__](__type__:__id__)"
             placeholder={"Mention people using '@'"}
         >
             <Mention
-                type="user"
                 trigger="@"
+                markup="@[__display__](__type__:__id__)"
                 data={props.data}
                 renderSuggestion={(suggestion: SuggestionDataItem, search: string, highlightedDisplay: React.ReactNode, index: number, focused: boolean) => (
                     <div className={`user ${focused ? 'focused' : ''}`}>
@@ -48,8 +60,8 @@ export const TestMultipleTrigger: React.SFC<TestProps> = (props) => {
             />
 
             <Mention
-                type="email"
                 trigger={props.regex}
+                markup="@[__display__](__type__:__id__)"
                 data={search => [{ id: search, display: search }]}
                 onAdd={props.onAdd}
             />

@@ -1,6 +1,6 @@
-// Type definitions for Jest 23.3
-// Project: http://facebook.github.io/jest/
-// Definitions by: Asana <https://asana.com>
+// Type definitions for Jest 24.0
+// Project: https://jestjs.io/
+// Definitions by: Asana (https://asana.com)
 //                 Ivo Stratev <https://github.com/NoHomey>
 //                 jwbay <https://github.com/jwbay>
 //                 Alexey Svetliakov <https://github.com/asvetliakov>
@@ -16,8 +16,17 @@
 //                 Andrew Makarov <https://github.com/r3nya>
 //                 Martin Hochel <https://github.com/hotell>
 //                 Sebastian Sebald <https://github.com/sebald>
+//                 Andy <https://github.com/andys8>
+//                 Antoine Brault <https://github.com/antoinebrault>
+//                 Jeroen Claassens <https://github.com/favna>
+//                 Gregor Stamać <https://github.com/gstamac>
+//                 ExE Boss <https://github.com/ExE-Boss>
+//                 Alex Bolenok <https://github.com/quassnoi>
+//                 Mario Beltrán Alarcón <https://github.com/Belco90>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.0
+
+/// <reference types="jest-diff" />
 
 declare var beforeAll: jest.Lifecycle;
 declare var beforeEach: jest.Lifecycle;
@@ -38,11 +47,15 @@ interface NodeRequire {
     /**
      * Returns the actual module instead of a mock, bypassing all checks on
      * whether the module should receive a mock implementation or not.
+     *
+     * @deprecated Use `jest.requireActual` instead.
      */
     requireActual(moduleName: string): any;
     /**
      * Returns a mock module instead of the actual module, bypassing all checks
      * on whether the module should be required normally or not.
+     *
+     * @deprecated Use `jest.requireMock`instead.
      */
     requireMock(moduleName: string): any;
 }
@@ -66,8 +79,8 @@ declare namespace jest {
      */
     function clearAllMocks(): typeof jest;
     /**
-     * Clears the mock.calls and mock.instances properties of all mocks.
-     * Equivalent to calling .mockClear() on every mocked function.
+     * Resets the state of all mocks.
+     * Equivalent to calling .mockReset() on every mocked function.
      */
     function resetAllMocks(): typeof jest;
     /**
@@ -85,6 +98,10 @@ declare namespace jest {
      */
     function clearAllTimers(): typeof jest;
     /**
+     * Returns the number of fake timers still left to run.
+     */
+    function getTimerCount(): number;
+    /**
      * Indicates that the module system should never return a mocked version
      * of the specified module, including all of the specificied module's dependencies.
      */
@@ -96,7 +113,7 @@ declare namespace jest {
     /**
      * Mocks a module with an auto-mocked version when it is being required.
      */
-    function doMock(moduleName: string, factory?: any, options?: MockOptions): typeof jest;
+    function doMock(moduleName: string, factory?: () => unknown, options?: MockOptions): typeof jest;
     /**
      * Indicates that the module system should never return a mocked version
      * of the specified module from require() (e.g. that it should always return the real module).
@@ -109,11 +126,11 @@ declare namespace jest {
     /**
      * Creates a mock function. Optionally takes a mock implementation.
      */
-    function fn<T extends {}>(implementation: (...args: any[]) => T): Mock<T>;
+    function fn(): Mock;
     /**
      * Creates a mock function. Optionally takes a mock implementation.
      */
-    function fn<T>(implementation?: (...args: any[]) => any): Mock<T>;
+    function fn<T, Y extends any[]>(implementation?: (...args: Y) => T): Mock<T, Y>;
     /**
      * Use the automatic mocking system to generate a mocked version of the given module.
      */
@@ -121,11 +138,21 @@ declare namespace jest {
     /**
      * Returns whether the given function is a mock function.
      */
-    function isMockFunction(fn: any): fn is Mock<any>;
+    function isMockFunction(fn: any): fn is Mock;
     /**
      * Mocks a module with an auto-mocked version when it is being required.
      */
-    function mock(moduleName: string, factory?: any, options?: MockOptions): typeof jest;
+    function mock(moduleName: string, factory?: () => unknown, options?: MockOptions): typeof jest;
+    /**
+     * Returns the actual module instead of a mock, bypassing all checks on
+     * whether the module should receive a mock implementation or not.
+     */
+    function requireActual(moduleName: string): any;
+    /**
+     * Returns a mock module instead of the actual module, bypassing all checks
+     * on whether the module should be required normally or not.
+     */
+    function requireMock(moduleName: string): any;
     /**
      * Resets the module registry - the cache of all required modules. This is
      * useful to isolate modules where local state might conflict between tests.
@@ -136,6 +163,16 @@ declare namespace jest {
      * useful to isolate modules where local state might conflict between tests.
      */
     function resetModules(): typeof jest;
+    /**
+     * Creates a sandbox registry for the modules that are loaded inside the callback function..
+     * This is useful to isolate specific modules for every test so that local module state doesn't conflict between tests.
+     */
+    function isolateModules(fn: () => void): typeof jest;
+    /**
+     * Runs failed tests n-times until they pass or until the max number of retries is exhausted.
+     * This only works with jest-circus!
+     */
+    function retryTimes(numRetries: number): typeof jest;
     /**
      * Exhausts tasks queued by setImmediate().
      */
@@ -167,6 +204,12 @@ declare namespace jest {
      */
     function advanceTimersByTime(msToRun: number): typeof jest;
     /**
+     * Advances all timers by the needed milliseconds so that only the next
+     * timeouts/intervals will run. Optionally, you can provide steps, so it
+     * will run steps amount of next timeouts/intervals.
+     */
+    function advanceTimersToNextTimer(step?: number): void;
+    /**
      * Explicitly supplies the mock object that the module system should return
      * for the specified module.
      */
@@ -197,7 +240,22 @@ declare namespace jest {
      *   spy.mockRestore();
      * });
      */
-    function spyOn<T extends {}, M extends keyof T>(object: T, method: M, accessType?: 'get' | 'set'): SpyInstance<T[M]>;
+    function spyOn<T extends {}, M extends NonFunctionPropertyNames<Required<T>>>(
+        object: T,
+        method: M,
+        accessType: 'get'
+    ): SpyInstance<Required<T>[M], []>;
+    function spyOn<T extends {}, M extends NonFunctionPropertyNames<Required<T>>>(
+        object: T,
+        method: M,
+        accessType: 'set'
+    ): SpyInstance<void, [Required<T>[M]]>;
+    function spyOn<T extends {}, M extends FunctionPropertyNames<Required<T>>>(
+        object: T,
+        method: M
+    ): Required<T>[M] extends (...args: any[]) => any
+        ? SpyInstance<ReturnType<Required<T>[M]>, ArgsType<Required<T>[M]>>
+        : never;
     /**
      * Indicates that the module system should never return a mocked version of
      * the specified module from require() (e.g. that it should always return the real module).
@@ -217,6 +275,14 @@ declare namespace jest {
     }
 
     type EmptyFunction = () => void;
+    type ArgsType<T> = T extends (...args: infer A) => any ? A : never;
+    type RejectedValue<T> = T extends PromiseLike<any> ? any : never;
+    type ResolvedValue<T> = T extends PromiseLike<infer U> ? U | T : never;
+    // see https://github.com/Microsoft/TypeScript/issues/25215
+    type NonFunctionPropertyNames<T> = { [K in keyof T]: T[K] extends (...args: any[]) => any ? never : K }[keyof T] &
+        string;
+    type FunctionPropertyNames<T> = { [K in keyof T]: T[K] extends (...args: any[]) => any ? K : never }[keyof T] &
+        string;
 
     interface DoneCallback {
         (...args: any[]): any;
@@ -232,10 +298,19 @@ declare namespace jest {
     }
 
     interface Each {
-        (cases: any[]): (name: string, fn: (...args: any[]) => any) => void;
+        // Exclusively arrays.
+        <T extends any[]>(cases: ReadonlyArray<T>): (name: string, fn: (...args: T) => any, timeout?: number) => void;
+        // Not arrays.
+        <T>(cases: ReadonlyArray<T>): (name: string, fn: (...args: T[]) => any, timeout?: number) => void;
+        (cases: ReadonlyArray<ReadonlyArray<any>>): (
+            name: string,
+            fn: (...args: any[]) => any,
+            timeout?: number
+        ) => void;
         (strings: TemplateStringsArray, ...placeholders: any[]): (
             name: string,
-            fn: (arg: any) => any
+            fn: (arg: any) => any,
+            timeout?: number
         ) => void;
     }
 
@@ -250,7 +325,7 @@ declare namespace jest {
          * @param fn The function for your test
          * @param timeout The timeout for an async function test
          */
-        (name: string, fn: ProvidesCallback, timeout?: number): void;
+        (name: string, fn?: ProvidesCallback, timeout?: number): void;
         /**
          * Only runs this test in the current file.
          */
@@ -259,6 +334,10 @@ declare namespace jest {
          * Skips running this test in the current file.
          */
         skip: It;
+        /**
+         * Sketch out which tests to write in the future.
+         */
+        todo: It;
         /**
          * Experimental and should be avoided.
          */
@@ -322,6 +401,7 @@ declare namespace jest {
         utils: {
             readonly EXPECTED_COLOR: (text: string) => string;
             readonly RECEIVED_COLOR: (text: string) => string;
+            diff: typeof import('jest-diff');
             ensureActualIsNumber(actual: any, matcherName?: string): void;
             ensureExpectedIsNumber(actual: any, matcherName?: string): void;
             ensureNoExpected(actual: any, matcherName?: string): void;
@@ -330,7 +410,12 @@ declare namespace jest {
              * get the type of a value with handling of edge cases like `typeof []` and `typeof null`
              */
             getType(value: any): string;
-            matcherHint(matcherName: string, received?: string, expected?: string, options?: { secondArgument?: string, isDirectExpectCall?: boolean }): string;
+            matcherHint(
+                matcherName: string,
+                received?: string,
+                expected?: string,
+                options?: { secondArgument?: string; isDirectExpectCall?: boolean }
+            ): string;
             pluralize(word: string, count: number): string;
             printExpected(value: any): string;
             printReceived(value: any): string;
@@ -344,7 +429,18 @@ declare namespace jest {
     }
 
     interface ExpectExtendMap {
-        [key: string]: (this: MatcherUtils, received: any, ...actual: any[]) => { message(): string | (() => string), pass: boolean } | Promise<{ message(): string, pass: boolean }>;
+        [key: string]: CustomMatcher;
+    }
+
+    type CustomMatcher = (
+        this: MatcherUtils,
+        received: any,
+        ...actual: any[]
+    ) => CustomMatcherResult | Promise<CustomMatcherResult>;
+
+    interface CustomMatcherResult {
+        pass: boolean;
+        message: string | (() => string);
     }
 
     interface SnapshotSerializerOptions {
@@ -381,8 +477,44 @@ declare namespace jest {
         value: SnapshotSerializerColor;
     }
     interface SnapshotSerializerPlugin {
-        print(val: any, serialize: ((val: any) => string), indent: ((str: string) => string), opts: SnapshotSerializerOptions, colors: SnapshotSerializerColors): string;
+        print(
+            val: any,
+            serialize: (val: any) => string,
+            indent: (str: string) => string,
+            opts: SnapshotSerializerOptions,
+            colors: SnapshotSerializerColors
+        ): string;
         test(val: any): boolean;
+    }
+
+    interface InverseAsymmetricMatchers {
+        /**
+         * `expect.not.arrayContaining(array)` matches a received array which
+         * does not contain all of the elements in the expected array. That is,
+         * the expected array is not a subset of the received array. It is the
+         * inverse of `expect.arrayContaining`.
+         */
+        arrayContaining(arr: any[]): any;
+        /**
+         * `expect.not.objectContaining(object)` matches any received object
+         * that does not recursively match the expected properties. That is, the
+         * expected object is not a subset of the received object. Therefore,
+         * it matches a received object which contains properties that are not
+         * in the expected object. It is the inverse of `expect.objectContaining`.
+         */
+        objectContaining(obj: {}): any;
+        /**
+         * `expect.not.stringMatching(string | regexp)` matches the received
+         * string that does not match the expected regexp. It is the inverse of
+         * `expect.stringMatching`.
+         */
+        stringMatching(str: string | RegExp): any;
+        /**
+         * `expect.not.stringContaining(string)` matches the received string
+         * that does not contain the exact expected string. It is the inverse of
+         * `expect.stringContaining`.
+         */
+        stringContaining(str: string): any;
     }
 
     /**
@@ -467,6 +599,8 @@ declare namespace jest {
          * Matches any received string that contains the exact expected string
          */
         stringContaining(str: string): any;
+
+        not: InverseAsymmetricMatchers;
     }
 
     interface Matchers<R> {
@@ -659,13 +793,30 @@ declare namespace jest {
         toMatch(expected: string | RegExp): R;
         /**
          * Used to check that a JavaScript object matches a subset of the properties of an object
+         *
+         * Optionally, you can provide an object to use as Generic type for the expected value.
+         * This ensures that the matching object matches the structure of the provided object-like type.
+         *
+         * @example
+         *
+         * type House = {
+         *   bath: boolean;
+         *   bedrooms: number;
+         *   kitchen: {
+         *     amenities: string[];
+         *     area: number;
+         *     wallColor: string;
+         *   }
+         * };
+         *
+         * expect(desiredHouse).toMatchObject<House>(...standardHouse, kitchen: {area: 20}) // wherein standardHouse is some base object of type House
          */
-        toMatchObject(expected: {} | any[]): R;
+        toMatchObject<E extends {} | any[]>(expected: E): R;
         /**
          * This ensures that a value matches the most recent snapshot with property matchers.
          * Check out [the Snapshot Testing guide](http://facebook.github.io/jest/docs/snapshot-testing.html) for more information.
          */
-        toMatchSnapshot<T extends {[P in keyof R]: any}>(propertyMatchers: Partial<T>, snapshotName?: string): R;
+        toMatchSnapshot<T extends { [P in keyof R]: any }>(propertyMatchers: Partial<T>, snapshotName?: string): R;
         /**
          * This ensures that a value matches the most recent snapshot.
          * Check out [the Snapshot Testing guide](http://facebook.github.io/jest/docs/snapshot-testing.html) for more information.
@@ -676,7 +827,7 @@ declare namespace jest {
          * Instead of writing the snapshot value to a .snap file, it will be written into the source code automatically.
          * Check out [the Snapshot Testing guide](http://facebook.github.io/jest/docs/snapshot-testing.html) for more information.
          */
-        toMatchInlineSnapshot<T extends {[P in keyof R]: any}>(propertyMatchers: Partial<T>, snapshot?: string): R;
+        toMatchInlineSnapshot<T extends { [P in keyof R]: any }>(propertyMatchers: Partial<T>, snapshot?: string): R;
         /**
          * This ensures that a value matches the most recent snapshot with property matchers.
          * Instead of writing the snapshot value to a .snap file, it will be written into the source code automatically.
@@ -722,33 +873,72 @@ declare namespace jest {
         new (...args: any[]): any;
     }
 
-    interface Mock<T = {}> extends Function, MockInstance<T> {
-        new (...args: any[]): T;
-        (...args: any[]): any;
+    interface Mock<T = any, Y extends any[] = any> extends Function, MockInstance<T, Y> {
+        new (...args: Y): T;
+        (...args: Y): T;
     }
 
-    interface SpyInstance<T = {}> extends MockInstance<T> {}
+    interface SpyInstance<T = any, Y extends any[] = any> extends MockInstance<T, Y> {}
 
     /**
-     * Wrap module with mock definitions
+     * Wrap a function with mock definitions
+     *
+     * @example
+     *
+     *  import { myFunction } from "./library";
+     *  jest.mock("./library");
+     *
+     *  const mockMyFunction = myFunction as jest.MockedFunction<typeof myFunction>;
+     *  expect(mockMyFunction.mock.calls[0][0]).toBe(42);
+     */
+    type MockedFunction<T extends (...args: any[]) => any> = MockInstance<ReturnType<T>, ArgsType<T>> & T;
+
+    /**
+     * Wrap a class with mock definitions
+     *
+     * @example
+     *
+     *  import { MyClass } from "./libary";
+     *  jest.mock("./library");
+     *
+     *  const mockedMyClass = MyClass as jest.MockedClass<MyClass>;
+     *
+     *  expect(mockedMyClass.mock.calls[0][0]).toBe(42); // Constructor calls
+     *  expect(mockedMyClass.prototype.myMethod.mock.calls[0][0]).toBe(42); // Method calls
+     */
+
+    type MockedClass<T extends Constructable> = MockInstance<
+        InstanceType<T>,
+        T extends new (...args: infer P) => any ? P : never
+    > & {
+        prototype: T extends { prototype: any } ? Mocked<T['prototype']> : never;
+    } & T;
+
+    /**
+     * Wrap an object or a module with mock definitions
      *
      * @example
      *
      *  jest.mock("../api");
-     *  import { Api } from "../api";
+     *  import * as api from "../api";
      *
-     *  const myApi: jest.Mocked<Api> = new Api() as any;
-     *  myApi.myApiMethod.mockImplementation(() => "test");
+     *  const mockApi = api as jest.Mocked<typeof api>;
+     *  api.MyApi.prototype.myApiMethod.mockImplementation(() => "test");
      */
     type Mocked<T> = {
-        [P in keyof T]: T[P] & MockInstance<T[P]>;
-    } & T;
+        [P in keyof T]: T[P] extends (...args: any[]) => any
+            ? MockInstance<ReturnType<T[P]>, ArgsType<T[P]>>
+            : T[P] extends Constructable
+            ? MockedClass<T[P]>
+            : T[P]
+    } &
+        T;
 
-    interface MockInstance<T> {
+    interface MockInstance<T, Y extends any[]> {
         /** Returns the mock name string set by calling `mockFn.mockName(value)`. */
         getMockName(): string;
         /** Provides access to the mock's metadata */
-        mock: MockContext<T>;
+        mock: MockContext<T, Y>;
         /**
          * Resets all information stored in the mockFn.mock.calls and mockFn.mock.instances arrays.
          *
@@ -788,7 +978,7 @@ declare namespace jest {
          *
          * Note: `jest.fn(implementation)` is a shorthand for `jest.fn().mockImplementation(implementation)`.
          */
-        mockImplementation(fn?: (...args: any[]) => any): Mock<T>;
+        mockImplementation(fn?: (...args: Y) => T): this;
         /**
          * Accepts a function that will be used as an implementation of the mock for one call to the mocked function.
          * Can be chained so that multiple function calls produce different results.
@@ -804,9 +994,9 @@ declare namespace jest {
          *
          * myMockFn((err, val) => console.log(val)); // false
          */
-        mockImplementationOnce(fn: (...args: any[]) => any): Mock<T>;
+        mockImplementationOnce(fn: (...args: Y) => T): this;
         /** Sets the name of the mock`. */
-        mockName(name: string): Mock<T>;
+        mockName(name: string): this;
         /**
          * Just a simple sugar function for:
          *
@@ -816,7 +1006,7 @@ declare namespace jest {
          *     return this;
          *   });
          */
-        mockReturnThis(): Mock<T>;
+        mockReturnThis(): this;
         /**
          * Accepts a value that will be returned whenever the mock function is called.
          *
@@ -828,7 +1018,7 @@ declare namespace jest {
          * mock.mockReturnValue(43);
          * mock(); // 43
          */
-        mockReturnValue(value: any): Mock<T>;
+        mockReturnValue(value: T): this;
         /**
          * Accepts a value that will be returned for one call to the mock function. Can be chained so that
          * successive calls to the mock function return different values. When there are no more
@@ -845,11 +1035,11 @@ declare namespace jest {
          * console.log(myMockFn(), myMockFn(), myMockFn(), myMockFn());
          *
          */
-        mockReturnValueOnce(value: any): Mock<T>;
+        mockReturnValueOnce(value: T): this;
         /**
          * Simple sugar function for: `jest.fn().mockImplementation(() => Promise.resolve(value));`
          */
-        mockResolvedValue(value: any): Mock<T>;
+        mockResolvedValue(value: ResolvedValue<T>): this;
         /**
          * Simple sugar function for: `jest.fn().mockImplementationOnce(() => Promise.resolve(value));`
          *
@@ -869,7 +1059,7 @@ declare namespace jest {
          * });
          *
          */
-        mockResolvedValueOnce(value: any): Mock<T>;
+        mockResolvedValueOnce(value: ResolvedValue<T>): this;
         /**
          * Simple sugar function for: `jest.fn().mockImplementation(() => Promise.reject(value));`
          *
@@ -881,7 +1071,7 @@ declare namespace jest {
          *   await asyncMock(); // throws "Async error"
          * });
          */
-        mockRejectedValue(value: any): Mock<T>;
+        mockRejectedValue(value: RejectedValue<T>): this;
 
         /**
          * Simple sugar function for: `jest.fn().mockImplementationOnce(() => Promise.reject(value));`
@@ -899,32 +1089,41 @@ declare namespace jest {
          * });
          *
          */
-        mockRejectedValueOnce(value: any): Mock<T>;
+        mockRejectedValueOnce(value: RejectedValue<T>): this;
     }
 
     /**
-     * Represents the result of a single call to a mock function.
+     * Represents the result of a single call to a mock function with a return value.
      */
-    interface MockResult {
-        /**
-         * True if the function threw.
-         * False if the function returned.
-         */
-        isThrow: boolean;
-        /**
-         * The value that was either thrown or returned by the function.
-         */
+    interface MockResultReturn<T> {
+        type: 'return';
+        value: T;
+    }
+    /**
+     * Represents the result of a single incomplete call to a mock function.
+     */
+    interface MockResultIncomplete {
+        type: 'incomplete';
+        value: undefined;
+    }
+    /**
+     * Represents the result of a single call to a mock function with a thrown error.
+     */
+    interface MockResultThrow {
+        type: 'throw';
         value: any;
     }
 
-    interface MockContext<T> {
-        calls: any[][];
+    type MockResult<T> = MockResultReturn<T> | MockResultThrow | MockResultIncomplete;
+
+    interface MockContext<T, Y extends any[]> {
+        calls: Y[];
         instances: T[];
         invocationCallOrder: number[];
         /**
          * List of results of calls to the mock function.
          */
-        results: MockResult[];
+        results: Array<MockResult<T>>;
     }
 }
 
@@ -941,7 +1140,7 @@ declare function pending(reason?: string): void;
 /**
  * Fails a test when called within one.
  */
-declare function fail(error?: any): void;
+declare function fail(error?: any): never;
 declare namespace jasmine {
     let DEFAULT_TIMEOUT_INTERVAL: number;
     function clock(): Clock;
@@ -991,7 +1190,7 @@ declare namespace jasmine {
         identity: string;
         and: SpyAnd;
         calls: Calls;
-        mostRecentCall: { args: any[]; };
+        mostRecentCall: { args: any[] };
         argsForCall: any[];
         wasCalled: boolean;
     }
@@ -1180,7 +1379,7 @@ declare namespace jest {
         coverageDirectory: Maybe<string>;
         coveragePathIgnorePatterns: string[];
         coverageReporters: string[];
-        coverageThreshold: Maybe<{global: {[key: string]: number}}>;
+        coverageThreshold: Maybe<{ global: { [key: string]: number } }>;
         errorOnDeprecated: boolean;
         expand: boolean;
         filter: Maybe<Path>;
@@ -1193,7 +1392,7 @@ declare namespace jest {
         detectOpenHandles: boolean;
         moduleDirectories: string[];
         moduleFileExtensions: string[];
-        moduleNameMapper: {[key: string]: string};
+        moduleNameMapper: { [key: string]: string };
         modulePathIgnorePatterns: string[];
         noStackTrace: boolean;
         notify: boolean;
@@ -1223,7 +1422,7 @@ declare namespace jest {
         testRunner: Maybe<string>;
         testURL: string;
         timers: 'real' | 'fake';
-        transform: Maybe<{[key: string]: string}>;
+        transform: Maybe<{ [key: string]: string }>;
         transformIgnorePatterns: Glob[];
         watchPathIgnorePatterns: string[];
         useStderr: boolean;
@@ -1243,11 +1442,11 @@ declare namespace jest {
         changedSince?: string;
         collectCoverage?: boolean;
         collectCoverageFrom?: Glob[];
-        collectCoverageOnlyFrom?: {[key: string]: boolean};
+        collectCoverageOnlyFrom?: { [key: string]: boolean };
         coverageDirectory?: string;
         coveragePathIgnorePatterns?: string[];
         coverageReporters?: string[];
-        coverageThreshold?: {global: {[key: string]: number}};
+        coverageThreshold?: { global: { [key: string]: number } };
         detectLeaks?: boolean;
         detectOpenHandles?: boolean;
         displayName?: string;
@@ -1269,7 +1468,7 @@ declare namespace jest {
         moduleDirectories?: string[];
         moduleFileExtensions?: string[];
         moduleLoader?: Path;
-        moduleNameMapper?: {[key: string]: string};
+        moduleNameMapper?: { [key: string]: string };
         modulePathIgnorePatterns?: string[];
         modulePaths?: string[];
         name?: string;
@@ -1293,6 +1492,7 @@ declare namespace jest {
         runTestsByPath?: boolean;
         scriptPreprocessor?: string;
         setupFiles?: Path[];
+        setupFilesAfterEnv?: Path[];
         setupTestFrameworkScriptFile?: Path;
         silent?: boolean;
         skipFilter?: boolean;
@@ -1312,7 +1512,7 @@ declare namespace jest {
         testRunner?: string;
         testURL?: string;
         timers?: 'real' | 'fake';
-        transform?: {[key: string]: string};
+        transform?: { [key: string]: string };
         transformIgnorePatterns?: Glob[];
         watchPathIgnorePatterns?: string[];
         unmockedModulePathPatterns?: string[];
@@ -1329,10 +1529,10 @@ declare namespace jest {
         bail: boolean;
         collectCoverage: boolean;
         collectCoverageFrom: Glob[];
-        collectCoverageOnlyFrom: Maybe<{[key: string]: boolean}>;
+        collectCoverageOnlyFrom: Maybe<{ [key: string]: boolean }>;
         coverageDirectory: string;
         coverageReporters: string[];
-        coverageThreshold: {global: {[key: string]: number}};
+        coverageThreshold: { global: { [key: string]: number } };
         expand: boolean;
         forceExit: boolean;
         logHeapUsage: boolean;
@@ -1423,11 +1623,13 @@ declare namespace jest {
 
     interface FakeTimers {
         clearAllTimers(): void;
+        getTimerCount(): number;
         runAllImmediates(): void;
         runAllTicks(): void;
         runAllTimers(): void;
         runTimersToTime(msToRun: number): void;
         advanceTimersByTime(msToRun: number): void;
+        advanceTimersToNextTimer(steps?: number): void;
         runOnlyPendingTimers(): void;
         runWithRealTimers(callback: any): void;
         useFakeTimers(): void;
@@ -1461,13 +1663,13 @@ declare namespace jest {
 
     interface RawFileCoverage {
         path: string;
-        s: {[statementId: number]: number};
-        b: {[branchId: number]: number};
-        f: {[functionId: number]: number};
-        l: {[lineId: number]: number};
-        fnMap: {[functionId: number]: any};
-        statementMap: {[statementId: number]: any};
-        branchMap: {[branchId: number]: any};
+        s: { [statementId: number]: number };
+        b: { [branchId: number]: number };
+        f: { [functionId: number]: number };
+        l: { [lineId: number]: number };
+        fnMap: { [functionId: number]: any };
+        statementMap: { [statementId: number]: any };
+        branchMap: { [branchId: number]: any };
         inputSourceMap?: object;
     }
 
@@ -1541,6 +1743,7 @@ declare namespace jest {
         numPendingTests: number;
         numPendingTestSuites: number;
         numRuntimeErrorTestSuites: number;
+        numTodoTests: number;
         numTotalTests: number;
         numTotalTestSuites: number;
         snapshot: SnapshotSummary;
@@ -1559,19 +1762,19 @@ declare namespace jest {
         numPassingTests: number;
         numPendingTests: number;
         perfStats: {
-            end: Milliseconds,
-            start: Milliseconds,
+            end: Milliseconds;
+            start: Milliseconds;
         };
         skipped: boolean;
         snapshot: {
-            added: number,
-            fileDeleted: boolean,
-            matched: number,
-            unchecked: number,
-            unmatched: number,
-            updated: number,
+            added: number;
+            fileDeleted: boolean;
+            matched: number;
+            unchecked: number;
+            unmatched: number;
+            updated: number;
         };
-        sourceMaps: {[sourcePath: string]: string};
+        sourceMaps: { [sourcePath: string]: string };
         testExecError?: SerializableError;
         testFilePath: string;
         testResults: AssertionResult[];
@@ -1615,7 +1818,7 @@ declare namespace jest {
         config: ProjectConfig,
         environment: Environment,
         runtime: Runtime,
-        testPath: string,
+        testPath: string
     ) => Promise<TestResult>;
 
     // Transform
@@ -1633,18 +1836,13 @@ declare namespace jest {
         canInstrument?: boolean;
         createTransformer?(options: any): Transformer;
 
-        getCacheKey?(
-            fileData: string,
-            filePath: Path,
-            configStr: string,
-            options: TransformOptions,
-        ): string;
+        getCacheKey?(fileData: string, filePath: Path, configStr: string, options: TransformOptions): string;
 
         process(
             sourceText: string,
             sourcePath: Path,
             config: ProjectConfig,
-            options?: TransformOptions,
+            options?: TransformOptions
         ): string | TransformedSource;
     }
 }

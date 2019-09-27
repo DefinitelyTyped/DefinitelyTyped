@@ -17,12 +17,24 @@ const credentials: oauth2lib.ModuleOptions = {
 
 const oauth2 = oauth2lib.create(credentials);
 
+// Test custom `idParamName`
+{
+    const oauth2 = oauth2lib.create({ client: { id: 'x', secret: 'x', idParamName: 'foobar' }, auth: { tokenHost: 'x' } });
+    oauth2.authorizationCode.authorizeURL({ foobar: 'x' });
+}
+
 // #Authorization Code flow
 (async () => {
     // Authorization oauth2 URI
     const authorizationUri = oauth2.authorizationCode.authorizeURL({
         redirect_uri: 'http://localhost:3000/callback',
         scope: '<scope>',
+        state: '<state>'
+    });
+
+    oauth2.authorizationCode.authorizeURL({
+        redirect_uri: 'http://localhost:3000/callback',
+        scope: ['<scope1>', '<scope2>'],
         state: '<state>'
     });
 

@@ -3,6 +3,7 @@
 // Definitions by: Andrew Schurman <https://github.com/arcticwaters>
 //                 Tomasz Łaziuk <https://github.com/tlaziuk>
 //                 Sebastian Silbermann <https://github.com/eps1lon>
+//                 Kannan Goundan <https://github.com/cakoose>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -79,13 +80,24 @@ export interface ArgumentGroupOptions {
     description?: string;
 }
 
+export abstract class Action {
+    protected dest: string;
+    constructor(options: ActionConstructorOptions);
+    abstract call(parser: ArgumentParser, namespace: Namespace, values: string | string[], optionString: string | null): void;
+}
+
+// Passed to the Action constructor.  Subclasses are just expected to relay this to
+// the super() constructor, so using an "opaque type" pattern is probably fine.
+// Someone may want to fill this out in the future.
+export type ActionConstructorOptions = number & {_: 'ActionConstructorOptions'};
+
 export class HelpFormatter { }
 export class ArgumentDefaultsHelpFormatter { }
 export class RawDescriptionHelpFormatter { }
 export class RawTextHelpFormatter { }
 
 export interface ArgumentOptions {
-    action?: string;
+    action?: string | { new(options: ActionConstructorOptions): Action };
     optionStrings?: string[];
     dest?: string;
     nargs?: string | number;

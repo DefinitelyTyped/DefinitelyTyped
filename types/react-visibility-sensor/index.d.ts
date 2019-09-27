@@ -1,6 +1,7 @@
-// Type definitions for react-visibility-sensor 3.11
+// Type definitions for react-visibility-sensor 5.0
 // Project: https://github.com/joshwnj/react-visibility-sensor#readme
 // Definitions by: Rasmus Bergström <https://github.com/JRasmusBm>
+//                 Gabriel Cangussu <https://github.com/gcangussu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -15,8 +16,15 @@ interface Shape {
   right?: number;
 }
 
+interface ChildFunctionArg {
+  isVisible: boolean | null;
+  visibilityRect: Shape;
+}
+
+type ChildFunction = (arg: ChildFunctionArg) => React.ReactNode;
+
 interface Props {
-  onChange: (isVisible: boolean, visibilityRect?: Shape) => void;
+  onChange?: (isVisible: boolean) => void;
   active?: boolean;
   partialVisibility?: boolean;
   offset?: Shape;
@@ -29,10 +37,9 @@ interface Props {
   resizeCheck?: boolean;
   resizeDelay?: number;
   resizeThrottle?: number;
+  containment?: HTMLElement;
   delayedCall?: boolean;
-  children?: (
-    args: { isVisible: boolean; visibilityRect?: Shape }
-  ) => React.ReactNode;
+  children?: React.ReactElement | ChildFunction;
 }
 
 declare const ReactVisibilitySensor: React.StatelessComponent<Props>;

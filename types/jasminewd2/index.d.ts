@@ -3,9 +3,9 @@
 // Definitions by: Sammy Jelin <https://github.com/sjelin>
 //                 George Kalpakas <https://github.com/gkalpak>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
-/// <reference types="jasmine" />
+/// <reference types="jasmine/v2" />
 
 declare function it(expectation: string, assertion?: (done: DoneFn) => Promise<void>, timeout?: number): void;
 declare function fit(expectation: string, assertion?: (done: DoneFn) => Promise<void>, timeout?: number): void;

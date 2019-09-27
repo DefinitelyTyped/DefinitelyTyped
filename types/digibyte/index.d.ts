@@ -1,7 +1,8 @@
 // Type definitions for digibyte 0.14
-// Project: https://github.com/digibyte/digibyte-lib
+// Project: https://github.com/digicontributer/digibyte-js
 // Definitions by: Lautaro Dragan <https://github.com/lautarodragan>
 //                 Adam Wolfe <https://github.com/werewolfe>
+//                 Ryan Aunur Rassyid <https://github.com/nyancodeid>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // TypeScript Version: 2.2
@@ -280,6 +281,9 @@ export class Address {
     readonly type: string;
 
     constructor(data: Buffer | Uint8Array | string | object, network?: Networks.Network, type?: string);
+
+    static isValid(input: string, network?: Networks.Network, payToPublicKeyHash?: string | Buffer): boolean;
+    static getValidationError(input: string, network?: Networks.Network, payToPublicKeyHash?: string | Buffer): Error;
 }
 
 export class Unit {

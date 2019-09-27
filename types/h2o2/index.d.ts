@@ -1,16 +1,33 @@
-// Type definitions for h2o2 5.4
-// Project: https://github.com/hapijs/catbox
-// Definitions by: Jason Swearingen <https://github.com/jasonswearingen>, AJP <https://github.com/AJamesPhillips>
+// Type definitions for h2o2 8.1
+// Project: https://github.com/hapijs/h2o2
+// Definitions by: Jason Swearingen <https://github.com/jasonswearingen>, AJP <https://github.com/AJamesPhillips>, Garth Kidd <https://github.com/garthk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 
-import http = require("http");
-import * as hapi from 'hapi';
-import * as Boom from 'boom';
+import http = require('http');
+import Boom = require('boom');
 
-declare namespace H2o2 {
+import {
+    Plugin,
+    Request,
+    ResponseObject,
+    ResponseToolkit,
+    Lifecycle,
+    RouteOptions,
+} from 'hapi';
+
+declare namespace h2o2 {
+    /** `mapURI` return value */
+    export interface ProxyTarget {
+        /** The URI to request */
+        uri: string;
+
+        /** The headers with which to request `uri` */
+        headers?: { [key: string]: string };
+    }
+
     /** Proxy handler options */
     export interface ProxyHandlerOptions {
         /** host - upstream service host to proxy requests to. It will have the same path as the client request. */
@@ -35,29 +52,26 @@ declare namespace H2o2 {
         redirects?: number | false;
         /** timeout - number of milliseconds before aborting the upstream request. Defaults to 180000 (3 minutes). */
         timeout?: number;
-        /** mapUri - a function used to map the request URI to the proxied URI. Cannot be used together with host, port, protocol, or uri. The function signature is function (request, callback) where:
+        /** mapUri - a function used to map the request URI to the target `uri` and optional `headers` with which to make that request. Cannot be used together with `host`, `port`, `protocol`, or `uri`.
          * @param request - is the incoming request object.
-         * @param callback - is function (err, uri, headers) where:
-         *      @param err - internal error condition. TODO: check this is of type BoomError or just Error.
-         *      @param uri - the absolute proxy URI.
-         *      @param headers - optional object where each key is an HTTP request header and the value is the header content.
         */
-        mapUri?: (request: hapi.Request, callback: (err: null | Boom.BoomError, uri: string, headers?: { [key: string]: string }) => void) => void;
+        mapUri?: (this: ProxyHandlerOptions, request: Request) => Promise<ProxyTarget>;
         /**
-         * onResponse - a custom function for processing the response from the upstream service before sending to the client. Useful for custom error handling of responses from the proxied endpoint or other payload manipulation. Function signature is function (err, res, request, reply, settings, ttl) where:
+         * onResponse - a custom function for processing the response from the upstream service before sending to the client. Useful for custom error handling of responses from the proxied endpoint or other payload manipulation.
          * @param err - internal or upstream error returned from attempting to contact the upstream proxy.  TODO: check this is of type BoomError or just Error.
          * @param res - the node response object received from the upstream service. res is a readable stream (use the wreck module read method to easily convert it to a Buffer or string).
          * @param request - is the incoming request object.
-         * @param reply - the reply interface function.
+         * @param h - Hapi's response toolkit.
          * @param settings - the proxy handler configuration.
          * @param ttl - the upstream TTL in milliseconds if proxy.ttl it set to 'upstream' and the upstream response included a valid 'Cache-Control' header with 'max-age'.
          */
-        onResponse?: (err: null | Boom.BoomError,
+        onResponse?: (this: RouteOptions,
+            err: null | Boom,
             res: http.IncomingMessage,
-            req: hapi.Request,
-            reply: hapi.ReplyWithContinue, // TODO, check it has continue
+            req: Request,
+            h: ResponseToolkit,
             settings: ProxyHandlerOptions,
-            ttl: number) => void;
+            ttl: number) => Lifecycle.ReturnValue;
         /** ttl - if set to 'upstream', applies the upstream response caching policy to the response using the response.ttl() method (or passed as an argument to the onResponse method if provided). */
         ttl?: 'upstream';
         /** agent - a node http(s) agent to be used for connections to upstream server. @see {@link https://nodejs.org/api/http.html#http_class_http_agent} */
@@ -68,24 +82,21 @@ declare namespace H2o2 {
 }
 
 declare module 'hapi' {
-    /**
-     * As one of the handlers for hapi, it is used through the route configuration object.
-     * [see docs](https://github.com/hapijs/h2o2#usage)
-     */
-    interface RouteHandlerPlugins {
-        proxy?: H2o2.ProxyHandlerOptions;
+    interface HandlerDecorations {
+        /**
+         * Proxies the request to an upstream endpoint.
+         */
+        proxy?: h2o2.ProxyHandlerOptions;
     }
 
-    interface Base_Reply {
+    interface ResponseToolkit {
         /**
-         * Proxies the request to an upstream endpoint
-         * @param options  an object including the same keys and restrictions defined by the [route proxy handler options](https://github.com/hapijs/h2o2#options).
-         * [see docs](https://github.com/hapijs/h2o2#replyproxyoptions)
+         * Proxies the request to an upstream endpoint. `async`, so you'll need to `await` the `ResponseObject` to work on it before returning it.
          */
-        proxy(options: H2o2.ProxyHandlerOptions): void;
+        proxy(options: h2o2.ProxyHandlerOptions): Promise<ResponseObject>;
     }
 }
 
-declare var H2o2: hapi.PluginFunction<{}>;
+declare const h2o2: Plugin<{}>;
 
-export = H2o2;
+export = h2o2;

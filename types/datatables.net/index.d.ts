@@ -1,5 +1,5 @@
 // Type definitions for JQuery DataTables 1.10
-// Project: http://www.datatables.net
+// Project: https://datatables.net
 // Definitions by: Kiarash Ghiaseddin <https://github.com/Silver-Connection>
 //                 Omid Rad <https://github.com/omidkrad>
 //                 Armin Sander <https://github.com/pragmatrix>
@@ -704,12 +704,12 @@ declare namespace DataTables {
         /**
          * Get the footer th / td cell for the selected column.
          */
-        footer(): any;
+        footer(): HTMLElement;
 
         /**
          * Get the header th / td cell for a column.
          */
-        header(): Node;
+        header(): HTMLElement;
 
         /**
          * Order the table, in the direction specified, by the column selected by the column()DT selector.
@@ -766,12 +766,12 @@ declare namespace DataTables {
          *
          * @param t Specify if you want to get the column data index (default) or the visible index (visible).
          */
-        index(t?: string): Api;
+        index(t?: string): number;
 
         /**
          * Obtain the th / td nodes for the selected column
          */
-        nodes(): Api[];
+        nodes(): Api;
     }
 
     interface ColumnsMethodsModel {
@@ -1148,10 +1148,6 @@ declare namespace DataTables {
          * Default Settings
          */
         ext: ExtSettings;
-    }
-
-    interface ObjectColumnRender {
-        display(d?: number | string | object): string | object;
     }
 
     interface ObjectOrderFixed {
@@ -1602,7 +1598,7 @@ declare namespace DataTables {
         /**
          * Class to assign to each cell in the column. Since: 1.10
          */
-        data?: number | string | ObjectColumnData | FunctionColumnData;
+        data?: number | string | ObjectColumnData | FunctionColumnData | null;
 
         /**
          * Set default, static, content for a column. Since: 1.10
@@ -1686,14 +1682,22 @@ declare namespace DataTables {
     }
 
     interface ObjectColumnData {
-        _: string;
-        filter?: string;
-        display?: string;
-        type?: string;
-        sort?: string;
+        _: string | number | FunctionColumnData;
+        filter?: string | number | FunctionColumnData;
+        display?: string | number | FunctionColumnData;
+        type?: string | number | FunctionColumnData;
+        sort?: string | number | FunctionColumnData;
     }
 
     type FunctionColumnRender = (data: any, type: any, row: any, meta: CellMetaSettings) => any;
+
+    interface ObjectColumnRender {
+        _?: string | number | FunctionColumnRender;
+        filter?: string | number | FunctionColumnRender;
+        display?: string | number | FunctionColumnRender;
+        type?: string | number | FunctionColumnRender;
+        sort?: string | number | FunctionColumnRender;
+    }
 
     interface CellMetaSettings {
         row: number;

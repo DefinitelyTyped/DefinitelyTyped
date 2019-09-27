@@ -20,9 +20,9 @@ export type PlistValue =
   string | number | boolean |
   Date | Buffer | PlistObject | PlistArray;
 export interface PlistObject {
-  [x: string]: PlistValue;
+  readonly [x: string]: PlistValue;
 }
-export interface PlistArray extends Array<PlistValue> { }
+export interface PlistArray extends ReadonlyArray<PlistValue> { }
 
 // PlistBuildOptions
 // The instance of this type is passed to 'xmlbuilder' module as it is.

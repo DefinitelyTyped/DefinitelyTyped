@@ -2,7 +2,7 @@
 // Project: https://github.com/devconcept/multer-gridfs-storage
 // Definitions by: devconcept <https://github.com/devconcept>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import { EventEmitter } from 'events';
 import { Express } from 'express';
@@ -58,7 +58,7 @@ declare namespace MulterGridfsStorage {
     }
 
     interface DbStorageOptions extends MulterGfsOptions {
-        db: Mongoose | Connection | Db | Promise<Mongoose | Connection | Db>;
+        db: Mongoose | Connection | Db | MongoClient | Promise<Mongoose | Connection | Db | MongoClient>;
     }
 
     interface FileConfig {

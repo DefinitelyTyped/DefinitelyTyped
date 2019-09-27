@@ -17,7 +17,7 @@ class Client implements IClient {
     public clientSecret: string;
 
     static findOne(client: IClient, callback: (err: any, client: Client) => void): void {
-        callback(null, new this);
+        callback(null, new Client);
     }
 }
 //#endregion

@@ -47,6 +47,10 @@ export interface DataProviderOperationEventDetail<K, D> {
     keys: Set<K>;
     metadata?: Array<ItemMetadata<K>>;
 }
+export interface FetchAttribute {
+    attributes?: Array<string | FetchAttribute>;
+    name: string;
+}
 export interface FetchByKeysCapability<D> {
     implementation: 'iteration' | 'lookup';
 }
@@ -56,6 +60,7 @@ export namespace FetchByKeysMixin {
     }): any;
 }
 export interface FetchByKeysParameters<K> {
+    attributes?: Array<string | FetchAttribute>;
     keys: Set<K>;
 }
 export interface FetchByKeysResults<K, D> {
@@ -71,6 +76,7 @@ export namespace FetchByOffsetMixin {
     }): any;
 }
 export interface FetchByOffsetParameters<D> extends FetchListParameters<D> {
+    attributes?: Array<string | FetchAttribute>;
     offset: number;
 }
 export interface FetchByOffsetResults<K, D> {
@@ -79,6 +85,7 @@ export interface FetchByOffsetResults<K, D> {
     results: Array<Item<K, D>>;
 }
 export interface FetchListParameters<D> {
+    attributes?: Array<string | FetchAttribute>;
     filterCriterion?: FilterOperator<D>;
     size: number;
     sortCriteria?: Array<SortCriterion<D>>;

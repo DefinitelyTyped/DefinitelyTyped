@@ -1,5 +1,5 @@
 import { Mix, MethodNames } from 'core-object/-private/utils';
-import CoreObject, { ExtendOptions, ExtendThisType } from 'core-object';
+import CoreObject = require('core-object');
 
 //////////// Mix ////////////
 
@@ -24,14 +24,14 @@ names3; // $ExpectType "a"
 
 //////////// ExtendOptions ////////////
 
-const extendOptions1: ExtendOptions<{}> = { a: 1, b: 'hi' };
-const extendOptions2: ExtendOptions<{ a: number }> = { b: 'hi' };
-const extendOptions3: ExtendOptions<{ a: number }> = { a: 5 };
-const extendOptions4: ExtendOptions<{ a: number }> = { a: 'hi' }; // $ExpectError
+const extendOptions1: CoreObject.ExtendOptions<{}> = { a: 1, b: 'hi' };
+const extendOptions2: CoreObject.ExtendOptions<{ a: number }> = { b: 'hi' };
+const extendOptions3: CoreObject.ExtendOptions<{ a: number }> = { a: 5 };
+const extendOptions4: CoreObject.ExtendOptions<{ a: number }> = { a: 'hi' }; // $ExpectError
 
 //////////// ExtendThisType ////////////
 
-declare function extendThisType1<T>(options: T & ExtendThisType<{ prop: string; method: () => number }, T>): void;
+declare function extendThisType1<T>(options: T & CoreObject.ExtendThisType<{ prop: string; method: () => number }, T>): void;
 extendThisType1({
     otherMethod() {
         this.prop; // $ExpectType string

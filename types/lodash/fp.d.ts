@@ -616,20 +616,15 @@ declare namespace _ {
         <T>(iteratee: (value: T) => any): LodashForEach1x1<T>;
         <T>(iteratee: lodash.__, collection: ReadonlyArray<T>): LodashForEach1x2<T>;
         <T>(iteratee: (value: T) => any, collection: ReadonlyArray<T>): T[];
-        (iteratee: (value: string) => any): LodashForEach2x1;
-        (iteratee: lodash.__, collection: string): LodashForEach2x2;
-        (iteratee: (value: string) => any, collection: string): string;
-        <T>(iteratee: lodash.__, collection: lodash.List<T>): LodashForEach3x2<T>;
+        <T>(iteratee: lodash.__, collection: lodash.List<T>): LodashForEach2x2<T>;
         <T>(iteratee: (value: T) => any, collection: lodash.List<T>): lodash.List<T>;
-        <T extends object>(iteratee: lodash.__, collection: T): LodashForEach4x2<T>;
+        <T extends object>(iteratee: lodash.__, collection: T): LodashForEach3x2<T>;
         <T extends object>(iteratee: (value: T[keyof T]) => any, collection: T): T;
-        <T, TArray extends T[] | null | undefined>(iteratee: lodash.__, collection: TArray & (T[] | null | undefined)): LodashForEach5x2<T, TArray>;
+        <T, TArray extends T[] | null | undefined>(iteratee: lodash.__, collection: TArray & (T[] | null | undefined)): LodashForEach4x2<T, TArray>;
         <T, TArray extends T[] | null | undefined>(iteratee: (value: T) => any, collection: TArray & (T[] | null | undefined)): TArray;
-        <TString extends string | null | undefined>(iteratee: lodash.__, collection: TString): LodashForEach6x2<TString>;
-        <TString extends string | null | undefined>(iteratee: (value: string) => any, collection: TString): TString;
-        <T, TList extends lodash.List<T> | null | undefined>(iteratee: lodash.__, collection: TList & (lodash.List<T> | null | undefined)): LodashForEach7x2<T, TList>;
+        <T, TList extends lodash.List<T> | null | undefined>(iteratee: lodash.__, collection: TList & (lodash.List<T> | null | undefined)): LodashForEach5x2<T, TList>;
         <T, TList extends lodash.List<T> | null | undefined>(iteratee: (value: T) => any, collection: TList & (lodash.List<T> | null | undefined)): TList;
-        <T extends object>(iteratee: lodash.__, collection: T | null | undefined): LodashForEach8x2<T>;
+        <T extends object>(iteratee: lodash.__, collection: T | null | undefined): LodashForEach6x2<T>;
         <T extends object>(iteratee: (value: T[keyof T]) => any, collection: T | null | undefined): T | null | undefined;
     }
     interface LodashForEach1x1<T> {
@@ -641,35 +636,24 @@ declare namespace _ {
         <T1 extends object>(collection: T1 | null | undefined): T1 | null | undefined;
     }
     type LodashForEach1x2<T> = (iteratee: (value: T) => any) => T[];
-    interface LodashForEach2x1 {
-        (collection: string): string;
-        <TString extends string | null | undefined>(collection: TString): TString;
-    }
-    type LodashForEach2x2 = (iteratee: (value: string) => any) => string;
-    type LodashForEach3x2<T> = (iteratee: (value: T) => any) => lodash.List<T>;
-    type LodashForEach4x2<T> = (iteratee: (value: T[keyof T]) => any) => T;
-    type LodashForEach5x2<T, TArray> = (iteratee: (value: T) => any) => TArray;
-    type LodashForEach6x2<TString> = (iteratee: (value: string) => any) => TString;
-    type LodashForEach7x2<T, TList> = (iteratee: (value: T) => any) => TList;
-    type LodashForEach8x2<T> = (iteratee: (value: T[keyof T]) => any) => T | null | undefined;
+    type LodashForEach2x2<T> = (iteratee: (value: T) => any) => lodash.List<T>;
+    type LodashForEach3x2<T> = (iteratee: (value: T[keyof T]) => any) => T;
+    type LodashForEach4x2<T, TArray> = (iteratee: (value: T) => any) => TArray;
+    type LodashForEach5x2<T, TList> = (iteratee: (value: T) => any) => TList;
+    type LodashForEach6x2<T> = (iteratee: (value: T[keyof T]) => any) => T | null | undefined;
     interface LodashForEachRight {
         <T>(iteratee: (value: T) => any): LodashForEachRight1x1<T>;
         <T>(iteratee: lodash.__, collection: ReadonlyArray<T>): LodashForEachRight1x2<T>;
         <T>(iteratee: (value: T) => any, collection: ReadonlyArray<T>): T[];
-        (iteratee: (value: string) => any): LodashForEachRight2x1;
-        (iteratee: lodash.__, collection: string): LodashForEachRight2x2;
-        (iteratee: (value: string) => any, collection: string): string;
-        <T>(iteratee: lodash.__, collection: lodash.List<T>): LodashForEachRight3x2<T>;
+        <T>(iteratee: lodash.__, collection: lodash.List<T>): LodashForEachRight2x2<T>;
         <T>(iteratee: (value: T) => any, collection: lodash.List<T>): lodash.List<T>;
-        <T extends object>(iteratee: lodash.__, collection: T): LodashForEachRight4x2<T>;
+        <T extends object>(iteratee: lodash.__, collection: T): LodashForEachRight3x2<T>;
         <T extends object>(iteratee: (value: T[keyof T]) => any, collection: T): T;
-        <T, TArray extends T[] | null | undefined>(iteratee: lodash.__, collection: TArray & (T[] | null | undefined)): LodashForEachRight5x2<T, TArray>;
+        <T, TArray extends T[] | null | undefined>(iteratee: lodash.__, collection: TArray & (T[] | null | undefined)): LodashForEachRight4x2<T, TArray>;
         <T, TArray extends T[] | null | undefined>(iteratee: (value: T) => any, collection: TArray & (T[] | null | undefined)): TArray;
-        <TString extends string | null | undefined>(iteratee: lodash.__, collection: TString): LodashForEachRight6x2<TString>;
-        <TString extends string | null | undefined>(iteratee: (value: string) => any, collection: TString): TString;
-        <T, TList extends lodash.List<T> | null | undefined>(iteratee: lodash.__, collection: TList & (lodash.List<T> | null | undefined)): LodashForEachRight7x2<T, TList>;
+        <T, TList extends lodash.List<T> | null | undefined>(iteratee: lodash.__, collection: TList & (lodash.List<T> | null | undefined)): LodashForEachRight5x2<T, TList>;
         <T, TList extends lodash.List<T> | null | undefined>(iteratee: (value: T) => any, collection: TList & (lodash.List<T> | null | undefined)): TList;
-        <T extends object>(iteratee: lodash.__, collection: T | null | undefined): LodashForEachRight8x2<T>;
+        <T extends object>(iteratee: lodash.__, collection: T | null | undefined): LodashForEachRight6x2<T>;
         <T extends object>(iteratee: (value: T[keyof T]) => any, collection: T | null | undefined): T | null | undefined;
     }
     interface LodashForEachRight1x1<T> {
@@ -681,17 +665,11 @@ declare namespace _ {
         <T1 extends object>(collection: T1 | null | undefined): T1 | null | undefined;
     }
     type LodashForEachRight1x2<T> = (iteratee: (value: T) => any) => T[];
-    interface LodashForEachRight2x1 {
-        (collection: string): string;
-        <TString extends string | null | undefined>(collection: TString): TString;
-    }
-    type LodashForEachRight2x2 = (iteratee: (value: string) => any) => string;
-    type LodashForEachRight3x2<T> = (iteratee: (value: T) => any) => lodash.List<T>;
-    type LodashForEachRight4x2<T> = (iteratee: (value: T[keyof T]) => any) => T;
-    type LodashForEachRight5x2<T, TArray> = (iteratee: (value: T) => any) => TArray;
-    type LodashForEachRight6x2<TString> = (iteratee: (value: string) => any) => TString;
-    type LodashForEachRight7x2<T, TList> = (iteratee: (value: T) => any) => TList;
-    type LodashForEachRight8x2<T> = (iteratee: (value: T[keyof T]) => any) => T | null | undefined;
+    type LodashForEachRight2x2<T> = (iteratee: (value: T) => any) => lodash.List<T>;
+    type LodashForEachRight3x2<T> = (iteratee: (value: T[keyof T]) => any) => T;
+    type LodashForEachRight4x2<T, TArray> = (iteratee: (value: T) => any) => TArray;
+    type LodashForEachRight5x2<T, TList> = (iteratee: (value: T) => any) => TList;
+    type LodashForEachRight6x2<T> = (iteratee: (value: T[keyof T]) => any) => T | null | undefined;
     interface LodashEndsWith {
         (target: string): LodashEndsWith1x1;
         (target: lodash.__, string: string): LodashEndsWith1x2;
@@ -917,29 +895,24 @@ declare namespace _ {
     type LodashFill2x13<T, U> = (end: number) => lodash.List<T | U>;
     type LodashFill2x14<T, U> = (start: number) => lodash.List<T | U>;
     interface LodashFilter {
-        (predicate: (value: string) => boolean): LodashFilter1x1;
-        (predicate: lodash.__, collection: string | null | undefined): LodashFilter1x2;
-        (predicate: (value: string) => boolean, collection: string | null | undefined): string[];
-        <T, S extends T>(predicate: lodash.ValueIteratorTypeGuard<T, S>): LodashFilter2x1<T, S>;
-        <T>(predicate: lodash.__, collection: lodash.List<T> | null | undefined): LodashFilter2x2<T>;
+        <T, S extends T>(predicate: lodash.ValueIteratorTypeGuard<T, S>): LodashFilter1x1<T, S>;
+        <T>(predicate: lodash.__, collection: lodash.List<T> | null | undefined): LodashFilter1x2<T>;
         <T, S extends T>(predicate: lodash.ValueIteratorTypeGuard<T, S>, collection: lodash.List<T> | null | undefined): S[];
-        <T>(predicate: lodash.ValueIterateeCustom<T, boolean>): LodashFilter3x1<T>;
+        <T>(predicate: lodash.ValueIterateeCustom<T, boolean>): LodashFilter2x1<T>;
         <T>(predicate: lodash.ValueIterateeCustom<T, boolean>, collection: lodash.List<T> | null | undefined): T[];
-        <T extends object, S extends T[keyof T]>(predicate: lodash.ValueIteratorTypeGuard<T[keyof T], S>): LodashFilter4x1<T, S>;
-        <T extends object>(predicate: lodash.__, collection: T | null | undefined): LodashFilter4x2<T>;
+        <T extends object, S extends T[keyof T]>(predicate: lodash.ValueIteratorTypeGuard<T[keyof T], S>): LodashFilter3x1<T, S>;
+        <T extends object>(predicate: lodash.__, collection: T | null | undefined): LodashFilter3x2<T>;
         <T extends object, S extends T[keyof T]>(predicate: lodash.ValueIteratorTypeGuard<T[keyof T], S>, collection: T | null | undefined): S[];
         <T extends object>(predicate: lodash.ValueIterateeCustom<T[keyof T], boolean>, collection: T | null | undefined): Array<T[keyof T]>;
     }
-    type LodashFilter1x1 = (collection: string | null | undefined) => string[];
-    type LodashFilter1x2 = (predicate: (value: string) => boolean) => string[];
-    type LodashFilter2x1<T, S> = (collection: lodash.List<T> | null | undefined) => S[];
-    interface LodashFilter2x2<T> {
+    type LodashFilter1x1<T, S> = (collection: lodash.List<T> | null | undefined) => S[];
+    interface LodashFilter1x2<T> {
         <S extends T>(predicate: lodash.ValueIteratorTypeGuard<T, S>): S[];
         (predicate: lodash.ValueIterateeCustom<T, boolean>): T[];
     }
-    type LodashFilter3x1<T> = (collection: lodash.List<T> | object | null | undefined) => T[];
-    type LodashFilter4x1<T, S> = (collection: T | null | undefined) => S[];
-    interface LodashFilter4x2<T> {
+    type LodashFilter2x1<T> = (collection: lodash.List<T> | object | null | undefined) => T[];
+    type LodashFilter3x1<T, S> = (collection: T | null | undefined) => S[];
+    interface LodashFilter3x2<T> {
         <S extends T[keyof T]>(predicate: lodash.ValueIteratorTypeGuard<T[keyof T], S>): S[];
         (predicate: lodash.ValueIterateeCustom<T[keyof T], boolean>): Array<T[keyof T]>;
     }
@@ -1485,15 +1458,21 @@ declare namespace _ {
         <TObject extends object, TKey extends keyof TObject>(path: TKey | [TKey], object: TObject): TObject[TKey];
         <TObject extends object>(path: lodash.__, object: TObject | null | undefined): LodashGet2x2<TObject>;
         <TObject extends object, TKey extends keyof TObject>(path: TKey | [TKey], object: TObject | null | undefined): TObject[TKey] | undefined;
-        (path: number): LodashGet3x1;
-        <T>(path: lodash.__, object: lodash.NumericDictionary<T>): LodashGet3x2<T>;
+        <TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1]>(path: [TKey1, TKey2]): LodashGet3x1<TObject, TKey1, TKey2>;
+        <TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1]>(path: [TKey1, TKey2], object: TObject | null | undefined): TObject[TKey1][TKey2] | undefined;
+        <TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2]>(path: [TKey1, TKey2, TKey3]): LodashGet4x1<TObject, TKey1, TKey2, TKey3>;
+        <TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2]>(path: [TKey1, TKey2, TKey3], object: TObject | null | undefined): TObject[TKey1][TKey2][TKey3] | undefined;
+        <TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TKey4 extends keyof TObject[TKey1][TKey2][TKey3]>(path: [TKey1, TKey2, TKey3, TKey4]): LodashGet5x1<TObject, TKey1, TKey2, TKey3, TKey4>;
+        <TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TKey4 extends keyof TObject[TKey1][TKey2][TKey3]>(path: [TKey1, TKey2, TKey3, TKey4], object: TObject | null | undefined): TObject[TKey1][TKey2][TKey3][TKey4] | undefined;
+        (path: number): LodashGet6x1;
+        <T>(path: lodash.__, object: lodash.NumericDictionary<T>): LodashGet6x2<T>;
         <T>(path: number, object: lodash.NumericDictionary<T>): T;
-        <T>(path: lodash.__, object: lodash.NumericDictionary<T> | null | undefined): LodashGet4x2<T>;
+        <T>(path: lodash.__, object: lodash.NumericDictionary<T> | null | undefined): LodashGet7x2<T>;
         <T>(path: number, object: lodash.NumericDictionary<T> | null | undefined): T | undefined;
-        (path: lodash.PropertyPath): LodashGet5x1;
-        (path: lodash.__, object: null | undefined): LodashGet5x2;
+        (path: lodash.PropertyPath): LodashGet8x1;
+        (path: lodash.__, object: null | undefined): LodashGet8x2;
         (path: lodash.PropertyPath, object: null | undefined): undefined;
-        (path: lodash.__, object: any): LodashGet6x2;
+        (path: lodash.__, object: any): LodashGet9x2;
         (path: lodash.PropertyPath, object: any): any;
     }
     interface LodashGet1x1<TObject, TKey extends keyof TObject> {
@@ -1501,19 +1480,27 @@ declare namespace _ {
         (object: TObject | null | undefined): TObject[TKey] | undefined;
     }
     type LodashGet1x2<TObject> = <TKey extends keyof TObject>(path: TKey | [TKey]) => TObject[TKey];
-    type LodashGet2x2<TObject> = <TKey extends keyof TObject>(path: TKey | [TKey]) => TObject[TKey] | undefined;
-    interface LodashGet3x1 {
+    interface LodashGet2x2<TObject> {
+        <TKey extends keyof TObject>(path: TKey | [TKey]): TObject[TKey] | undefined;
+        <TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1]>(path: [TKey1, TKey2]): TObject[TKey1][TKey2] | undefined;
+        <TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2]>(path: [TKey1, TKey2, TKey3]): TObject[TKey1][TKey2][TKey3] | undefined;
+        <TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TKey4 extends keyof TObject[TKey1][TKey2][TKey3]>(path: [TKey1, TKey2, TKey3, TKey4]): TObject[TKey1][TKey2][TKey3][TKey4] | undefined;
+    }
+    type LodashGet3x1<TObject, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1]> = (object: TObject | null | undefined) => TObject[TKey1][TKey2] | undefined;
+    type LodashGet4x1<TObject, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2]> = (object: TObject | null | undefined) => TObject[TKey1][TKey2][TKey3] | undefined;
+    type LodashGet5x1<TObject, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TKey4 extends keyof TObject[TKey1][TKey2][TKey3]> = (object: TObject | null | undefined) => TObject[TKey1][TKey2][TKey3][TKey4] | undefined;
+    interface LodashGet6x1 {
         <T>(object: lodash.NumericDictionary<T>): T;
         <T>(object: lodash.NumericDictionary<T> | null | undefined): T | undefined;
     }
-    type LodashGet3x2<T> = (path: number) => T;
-    type LodashGet4x2<T> = (path: number) => T | undefined;
-    interface LodashGet5x1 {
+    type LodashGet6x2<T> = (path: number) => T;
+    type LodashGet7x2<T> = (path: number) => T | undefined;
+    interface LodashGet8x1 {
         (object: null | undefined): undefined;
         (object: any): any;
     }
-    type LodashGet5x2 = (path: lodash.PropertyPath) => undefined;
-    type LodashGet6x2 = (path: lodash.PropertyPath) => any;
+    type LodashGet8x2 = (path: lodash.PropertyPath) => undefined;
+    type LodashGet9x2 = (path: lodash.PropertyPath) => any;
     interface LodashGetOr {
         <TDefault>(defaultValue: TDefault): LodashGetOr1x1<TDefault>;
         <TObject extends object, TKey extends keyof TObject>(defaultValue: lodash.__, path: TKey | [TKey]): LodashGetOr1x2<TObject, TKey>;
@@ -1521,92 +1508,142 @@ declare namespace _ {
         <TObject extends object>(defaultValue: lodash.__, path: lodash.__, object: TObject | null | undefined): LodashGetOr1x4<TObject>;
         <TObject extends object, TDefault>(defaultValue: TDefault, path: lodash.__, object: TObject | null | undefined): LodashGetOr1x5<TObject, TDefault>;
         <TObject extends object, TKey extends keyof TObject>(defaultValue: lodash.__, path: TKey | [TKey], object: TObject | null | undefined): LodashGetOr1x6<TObject, TKey>;
-        <TObject extends object, TKey extends keyof TObject, TDefault>(defaultValue: TDefault, path: TKey | [TKey], object: TObject | null | undefined): TObject[TKey] | TDefault;
-        (defaultValue: lodash.__, path: number): LodashGetOr2x2;
-        <TDefault>(defaultValue: TDefault, path: number): LodashGetOr2x3<TDefault>;
-        <T>(defaultValue: lodash.__, path: lodash.__, object: lodash.NumericDictionary<T> | null | undefined): LodashGetOr2x4<T>;
-        <T, TDefault>(defaultValue: TDefault, path: lodash.__, object: lodash.NumericDictionary<T> | null | undefined): LodashGetOr2x5<T, TDefault>;
-        <T>(defaultValue: lodash.__, path: number, object: lodash.NumericDictionary<T> | null | undefined): LodashGetOr2x6<T>;
+        <TObject extends object, TKey extends keyof TObject, TDefault>(defaultValue: TDefault, path: TKey | [TKey], object: TObject | null | undefined): Exclude<TObject[TKey], undefined> | TDefault;
+        <TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1]>(defaultValue: lodash.__, path: [TKey1, TKey2]): LodashGetOr2x2<TObject, TKey1, TKey2>;
+        <TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TDefault>(defaultValue: TDefault, path: [TKey1, TKey2]): LodashGetOr2x3<TObject, TKey1, TKey2, TDefault>;
+        <TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1]>(defaultValue: lodash.__, path: [TKey1, TKey2], object: TObject | null | undefined): LodashGetOr2x6<TObject, TKey1, TKey2>;
+        <TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TDefault>(defaultValue: TDefault, path: [TKey1, TKey2], object: TObject | null | undefined): Exclude<TObject[TKey1][TKey2], undefined> | TDefault;
+        <TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2]>(defaultValue: lodash.__, path: [TKey1, TKey2, TKey3]): LodashGetOr3x2<TObject, TKey1, TKey2, TKey3>;
+        <TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TDefault>(defaultValue: TDefault, path: [TKey1, TKey2, TKey3]): LodashGetOr3x3<TObject, TKey1, TKey2, TKey3, TDefault>;
+        <TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2]>(defaultValue: lodash.__, path: [TKey1, TKey2, TKey3], object: TObject | null | undefined): LodashGetOr3x6<TObject, TKey1, TKey2, TKey3>;
+        <TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TDefault>(defaultValue: TDefault, path: [TKey1, TKey2, TKey3], object: TObject | null | undefined): Exclude<TObject[TKey1][TKey2][TKey3], undefined> | TDefault;
+        <TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TKey4 extends keyof TObject[TKey1][TKey2][TKey3]>(defaultValue: lodash.__, path: [TKey1, TKey2, TKey3, TKey4]): LodashGetOr4x2<TObject, TKey1, TKey2, TKey3, TKey4>;
+        <TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TKey4 extends keyof TObject[TKey1][TKey2][TKey3], TDefault>(defaultValue: TDefault, path: [TKey1, TKey2, TKey3, TKey4]): LodashGetOr4x3<TObject, TKey1, TKey2, TKey3, TKey4, TDefault>;
+        <TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TKey4 extends keyof TObject[TKey1][TKey2][TKey3]>(defaultValue: lodash.__, path: [TKey1, TKey2, TKey3, TKey4], object: TObject | null | undefined): LodashGetOr4x6<TObject, TKey1, TKey2, TKey3, TKey4>;
+        <TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TKey4 extends keyof TObject[TKey1][TKey2][TKey3], TDefault>(defaultValue: TDefault, path: [TKey1, TKey2, TKey3, TKey4], object: TObject | null | undefined): Exclude<TObject[TKey1][TKey2][TKey3][TKey4], undefined> | TDefault;
+        (defaultValue: lodash.__, path: number): LodashGetOr5x2;
+        <TDefault>(defaultValue: TDefault, path: number): LodashGetOr5x3<TDefault>;
+        <T>(defaultValue: lodash.__, path: lodash.__, object: lodash.NumericDictionary<T> | null | undefined): LodashGetOr5x4<T>;
+        <T, TDefault>(defaultValue: TDefault, path: lodash.__, object: lodash.NumericDictionary<T> | null | undefined): LodashGetOr5x5<T, TDefault>;
+        <T>(defaultValue: lodash.__, path: number, object: lodash.NumericDictionary<T> | null | undefined): LodashGetOr5x6<T>;
         <T, TDefault>(defaultValue: TDefault, path: number, object: lodash.NumericDictionary<T> | null | undefined): T | TDefault;
-        (defaultValue: lodash.__, path: lodash.PropertyPath): LodashGetOr3x2;
-        <TDefault>(defaultValue: TDefault, path: lodash.PropertyPath): LodashGetOr3x3<TDefault>;
-        (defaultValue: lodash.__, path: lodash.__, object: null | undefined): LodashGetOr3x4;
-        <TDefault>(defaultValue: TDefault, path: lodash.__, object: null | undefined): LodashGetOr3x5<TDefault>;
-        (defaultValue: lodash.__, path: lodash.PropertyPath, object: null | undefined): LodashGetOr3x6;
+        (defaultValue: lodash.__, path: lodash.PropertyPath): LodashGetOr6x2;
+        <TDefault>(defaultValue: TDefault, path: lodash.PropertyPath): LodashGetOr6x3<TDefault>;
+        (defaultValue: lodash.__, path: lodash.__, object: null | undefined): LodashGetOr6x4;
+        <TDefault>(defaultValue: TDefault, path: lodash.__, object: null | undefined): LodashGetOr6x5<TDefault>;
+        (defaultValue: lodash.__, path: lodash.PropertyPath, object: null | undefined): LodashGetOr6x6;
         <TDefault>(defaultValue: TDefault, path: lodash.PropertyPath, object: null | undefined): TDefault;
-        (defaultValue: any): LodashGetOr4x1;
-        (defaultValue: any, path: lodash.PropertyPath): LodashGetOr4x3;
-        (defaultValue: lodash.__, path: lodash.__, object: any): LodashGetOr4x4;
-        (defaultValue: any, path: lodash.__, object: any): LodashGetOr4x5;
-        (defaultValue: lodash.__, path: lodash.PropertyPath, object: any): LodashGetOr4x6;
+        (defaultValue: any): LodashGetOr7x1;
+        (defaultValue: any, path: lodash.PropertyPath): LodashGetOr7x3;
+        (defaultValue: lodash.__, path: lodash.__, object: any): LodashGetOr7x4;
+        (defaultValue: any, path: lodash.__, object: any): LodashGetOr7x5;
+        (defaultValue: lodash.__, path: lodash.PropertyPath, object: any): LodashGetOr7x6;
         (defaultValue: any, path: lodash.PropertyPath, object: any): any;
     }
     interface LodashGetOr1x1<TDefault> {
         <TObject extends object, TKey extends keyof TObject>(path: TKey | [TKey]): LodashGetOr1x3<TObject, TKey, TDefault>;
         <TObject extends object>(path: lodash.__, object: TObject | null | undefined): LodashGetOr1x5<TObject, TDefault>;
-        <TObject extends object, TKey extends keyof TObject>(path: TKey | [TKey], object: TObject | null | undefined): TObject[TKey] | TDefault;
-        (path: number): LodashGetOr2x3<TDefault>;
-        <T>(path: lodash.__, object: lodash.NumericDictionary<T> | null | undefined): LodashGetOr2x5<T, TDefault>;
+        <TObject extends object, TKey extends keyof TObject>(path: TKey | [TKey], object: TObject | null | undefined): Exclude<TObject[TKey], undefined> | TDefault;
+        <TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1]>(path: [TKey1, TKey2]): LodashGetOr2x3<TObject, TKey1, TKey2, TDefault>;
+        <TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1]>(path: [TKey1, TKey2], object: TObject | null | undefined): Exclude<TObject[TKey1][TKey2], undefined> | TDefault;
+        <TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2]>(path: [TKey1, TKey2, TKey3]): LodashGetOr3x3<TObject, TKey1, TKey2, TKey3, TDefault>;
+        <TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2]>(path: [TKey1, TKey2, TKey3], object: TObject | null | undefined): Exclude<TObject[TKey1][TKey2][TKey3], undefined> | TDefault;
+        <TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TKey4 extends keyof TObject[TKey1][TKey2][TKey3]>(path: [TKey1, TKey2, TKey3, TKey4]): LodashGetOr4x3<TObject, TKey1, TKey2, TKey3, TKey4, TDefault>;
+        <TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TKey4 extends keyof TObject[TKey1][TKey2][TKey3]>(path: [TKey1, TKey2, TKey3, TKey4], object: TObject | null | undefined): Exclude<TObject[TKey1][TKey2][TKey3][TKey4], undefined> | TDefault;
+        (path: number): LodashGetOr5x3<TDefault>;
+        <T>(path: lodash.__, object: lodash.NumericDictionary<T> | null | undefined): LodashGetOr5x5<T, TDefault>;
         <T>(path: number, object: lodash.NumericDictionary<T> | null | undefined): T | TDefault;
-        (path: lodash.PropertyPath): LodashGetOr3x3<TDefault>;
-        (path: lodash.__, object: null | undefined): LodashGetOr3x5<TDefault>;
+        (path: lodash.PropertyPath): LodashGetOr6x3<TDefault>;
+        (path: lodash.__, object: null | undefined): LodashGetOr6x5<TDefault>;
         (path: lodash.PropertyPath, object: null | undefined): TDefault;
     }
     interface LodashGetOr1x2<TObject, TKey extends keyof TObject> {
         <TDefault>(defaultValue: TDefault): LodashGetOr1x3<TObject, TKey, TDefault>;
         (defaultValue: lodash.__, object: TObject | null | undefined): LodashGetOr1x6<TObject, TKey>;
-        <TDefault>(defaultValue: TDefault, object: TObject | null | undefined): TObject[TKey] | TDefault;
+        <TDefault>(defaultValue: TDefault, object: TObject | null | undefined): Exclude<TObject[TKey], undefined> | TDefault;
     }
-    type LodashGetOr1x3<TObject, TKey extends keyof TObject, TDefault> = (object: TObject | null | undefined) => TObject[TKey] | TDefault;
+    type LodashGetOr1x3<TObject, TKey extends keyof TObject, TDefault> = (object: TObject | null | undefined) => Exclude<TObject[TKey], undefined> | TDefault;
     interface LodashGetOr1x4<TObject> {
         <TDefault>(defaultValue: TDefault): LodashGetOr1x5<TObject, TDefault>;
         <TKey extends keyof TObject>(defaultValue: lodash.__, path: TKey | [TKey]): LodashGetOr1x6<TObject, TKey>;
-        <TKey extends keyof TObject, TDefault>(defaultValue: TDefault, path: TKey | [TKey]): TObject[TKey] | TDefault;
+        <TKey extends keyof TObject, TDefault>(defaultValue: TDefault, path: TKey | [TKey]): Exclude<TObject[TKey], undefined> | TDefault;
+        <TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1]>(defaultValue: lodash.__, path: [TKey1, TKey2]): LodashGetOr2x6<TObject, TKey1, TKey2>;
+        <TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TDefault>(defaultValue: TDefault, path: [TKey1, TKey2]): Exclude<TObject[TKey1][TKey2], undefined> | TDefault;
+        <TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2]>(defaultValue: lodash.__, path: [TKey1, TKey2, TKey3]): LodashGetOr3x6<TObject, TKey1, TKey2, TKey3>;
+        <TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TDefault>(defaultValue: TDefault, path: [TKey1, TKey2, TKey3]): Exclude<TObject[TKey1][TKey2][TKey3], undefined> | TDefault;
+        <TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TKey4 extends keyof TObject[TKey1][TKey2][TKey3]>(defaultValue: lodash.__, path: [TKey1, TKey2, TKey3, TKey4]): LodashGetOr4x6<TObject, TKey1, TKey2, TKey3, TKey4>;
+        <TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TKey4 extends keyof TObject[TKey1][TKey2][TKey3], TDefault>(defaultValue: TDefault, path: [TKey1, TKey2, TKey3, TKey4]): Exclude<TObject[TKey1][TKey2][TKey3][TKey4], undefined> | TDefault;
     }
-    type LodashGetOr1x5<TObject, TDefault> = <TKey extends keyof TObject>(path: TKey | [TKey]) => TObject[TKey] | TDefault;
-    type LodashGetOr1x6<TObject, TKey extends keyof TObject> = <TDefault>(defaultValue: TDefault) => TObject[TKey] | TDefault;
-    interface LodashGetOr2x2 {
-        <TDefault>(defaultValue: TDefault): LodashGetOr2x3<TDefault>;
-        <T>(defaultValue: lodash.__, object: lodash.NumericDictionary<T> | null | undefined): LodashGetOr2x6<T>;
+    interface LodashGetOr1x5<TObject, TDefault> {
+        <TKey extends keyof TObject>(path: TKey | [TKey]): Exclude<TObject[TKey], undefined> | TDefault;
+        <TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1]>(path: [TKey1, TKey2]): Exclude<TObject[TKey1][TKey2], undefined> | TDefault;
+        <TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2]>(path: [TKey1, TKey2, TKey3]): Exclude<TObject[TKey1][TKey2][TKey3], undefined> | TDefault;
+        <TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TKey4 extends keyof TObject[TKey1][TKey2][TKey3]>(path: [TKey1, TKey2, TKey3, TKey4]): Exclude<TObject[TKey1][TKey2][TKey3][TKey4], undefined> | TDefault;
+    }
+    type LodashGetOr1x6<TObject, TKey extends keyof TObject> = <TDefault>(defaultValue: TDefault) => Exclude<TObject[TKey], undefined> | TDefault;
+    interface LodashGetOr2x2<TObject, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1]> {
+        <TDefault>(defaultValue: TDefault): LodashGetOr2x3<TObject, TKey1, TKey2, TDefault>;
+        (defaultValue: lodash.__, object: TObject | null | undefined): LodashGetOr2x6<TObject, TKey1, TKey2>;
+        <TDefault>(defaultValue: TDefault, object: TObject | null | undefined): Exclude<TObject[TKey1][TKey2], undefined> | TDefault;
+    }
+    type LodashGetOr2x3<TObject, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TDefault> = (object: TObject | null | undefined) => Exclude<TObject[TKey1][TKey2], undefined> | TDefault;
+    type LodashGetOr2x6<TObject, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1]> = <TDefault>(defaultValue: TDefault) => Exclude<TObject[TKey1][TKey2], undefined> | TDefault;
+    interface LodashGetOr3x2<TObject, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2]> {
+        <TDefault>(defaultValue: TDefault): LodashGetOr3x3<TObject, TKey1, TKey2, TKey3, TDefault>;
+        (defaultValue: lodash.__, object: TObject | null | undefined): LodashGetOr3x6<TObject, TKey1, TKey2, TKey3>;
+        <TDefault>(defaultValue: TDefault, object: TObject | null | undefined): Exclude<TObject[TKey1][TKey2][TKey3], undefined> | TDefault;
+    }
+    type LodashGetOr3x3<TObject, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TDefault> = (object: TObject | null | undefined) => Exclude<TObject[TKey1][TKey2][TKey3], undefined> | TDefault;
+    type LodashGetOr3x6<TObject, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2]> = <TDefault>(defaultValue: TDefault) => Exclude<TObject[TKey1][TKey2][TKey3], undefined> | TDefault;
+    interface LodashGetOr4x2<TObject, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TKey4 extends keyof TObject[TKey1][TKey2][TKey3]> {
+        <TDefault>(defaultValue: TDefault): LodashGetOr4x3<TObject, TKey1, TKey2, TKey3, TKey4, TDefault>;
+        (defaultValue: lodash.__, object: TObject | null | undefined): LodashGetOr4x6<TObject, TKey1, TKey2, TKey3, TKey4>;
+        <TDefault>(defaultValue: TDefault, object: TObject | null | undefined): Exclude<TObject[TKey1][TKey2][TKey3][TKey4], undefined> | TDefault;
+    }
+    type LodashGetOr4x3<TObject, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TKey4 extends keyof TObject[TKey1][TKey2][TKey3], TDefault> = (object: TObject | null | undefined) => Exclude<TObject[TKey1][TKey2][TKey3][TKey4], undefined> | TDefault;
+    type LodashGetOr4x6<TObject, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TKey4 extends keyof TObject[TKey1][TKey2][TKey3]> = <TDefault>(defaultValue: TDefault) => Exclude<TObject[TKey1][TKey2][TKey3][TKey4], undefined> | TDefault;
+    interface LodashGetOr5x2 {
+        <TDefault>(defaultValue: TDefault): LodashGetOr5x3<TDefault>;
+        <T>(defaultValue: lodash.__, object: lodash.NumericDictionary<T> | null | undefined): LodashGetOr5x6<T>;
         <T, TDefault>(defaultValue: TDefault, object: lodash.NumericDictionary<T> | null | undefined): T | TDefault;
     }
-    type LodashGetOr2x3<TDefault> = <T>(object: lodash.NumericDictionary<T> | null | undefined) => T | TDefault;
-    interface LodashGetOr2x4<T> {
-        <TDefault>(defaultValue: TDefault): LodashGetOr2x5<T, TDefault>;
-        (defaultValue: lodash.__, path: number): LodashGetOr2x6<T>;
+    type LodashGetOr5x3<TDefault> = <T>(object: lodash.NumericDictionary<T> | null | undefined) => T | TDefault;
+    interface LodashGetOr5x4<T> {
+        <TDefault>(defaultValue: TDefault): LodashGetOr5x5<T, TDefault>;
+        (defaultValue: lodash.__, path: number): LodashGetOr5x6<T>;
         <TDefault>(defaultValue: TDefault, path: number): T | TDefault;
     }
-    type LodashGetOr2x5<T, TDefault> = (path: number) => T | TDefault;
-    type LodashGetOr2x6<T> = <TDefault>(defaultValue: TDefault) => T | TDefault;
-    interface LodashGetOr3x2 {
-        <TDefault>(defaultValue: TDefault): LodashGetOr3x3<TDefault>;
-        (defaultValue: lodash.__, object: null | undefined): LodashGetOr3x6;
+    type LodashGetOr5x5<T, TDefault> = (path: number) => T | TDefault;
+    type LodashGetOr5x6<T> = <TDefault>(defaultValue: TDefault) => T | TDefault;
+    interface LodashGetOr6x2 {
+        <TDefault>(defaultValue: TDefault): LodashGetOr6x3<TDefault>;
+        (defaultValue: lodash.__, object: null | undefined): LodashGetOr6x6;
         <TDefault>(defaultValue: TDefault, object: null | undefined): TDefault;
-        (defaultValue: any): LodashGetOr4x3;
-        (defaultValue: lodash.__, object: any): LodashGetOr4x6;
+        (defaultValue: any): LodashGetOr7x3;
+        (defaultValue: lodash.__, object: any): LodashGetOr7x6;
         (defaultValue: any, object: any): any;
     }
-    type LodashGetOr3x3<TDefault> = (object: null | undefined) => TDefault;
-    interface LodashGetOr3x4 {
-        <TDefault>(defaultValue: TDefault): LodashGetOr3x5<TDefault>;
-        (defaultValue: lodash.__, path: lodash.PropertyPath): LodashGetOr3x6;
+    type LodashGetOr6x3<TDefault> = (object: null | undefined) => TDefault;
+    interface LodashGetOr6x4 {
+        <TDefault>(defaultValue: TDefault): LodashGetOr6x5<TDefault>;
+        (defaultValue: lodash.__, path: lodash.PropertyPath): LodashGetOr6x6;
         <TDefault>(defaultValue: TDefault, path: lodash.PropertyPath): TDefault;
     }
-    type LodashGetOr3x5<TDefault> = (path: lodash.PropertyPath) => TDefault;
-    type LodashGetOr3x6 = <TDefault>(defaultValue: TDefault) => TDefault;
-    interface LodashGetOr4x1 {
-        (path: lodash.PropertyPath): LodashGetOr4x3;
-        (path: lodash.__, object: any): LodashGetOr4x5;
+    type LodashGetOr6x5<TDefault> = (path: lodash.PropertyPath) => TDefault;
+    type LodashGetOr6x6 = <TDefault>(defaultValue: TDefault) => TDefault;
+    interface LodashGetOr7x1 {
+        (path: lodash.PropertyPath): LodashGetOr7x3;
+        (path: lodash.__, object: any): LodashGetOr7x5;
         (path: lodash.PropertyPath, object: any): any;
     }
-    type LodashGetOr4x3 = (object: any) => any;
-    interface LodashGetOr4x4 {
-        (defaultValue: any): LodashGetOr4x5;
-        (defaultValue: lodash.__, path: lodash.PropertyPath): LodashGetOr4x6;
+    type LodashGetOr7x3 = (object: any) => any;
+    interface LodashGetOr7x4 {
+        (defaultValue: any): LodashGetOr7x5;
+        (defaultValue: lodash.__, path: lodash.PropertyPath): LodashGetOr7x6;
         (defaultValue: any, path: lodash.PropertyPath): any;
     }
-    type LodashGetOr4x5 = (path: lodash.PropertyPath) => any;
-    type LodashGetOr4x6 = (defaultValue: any) => any;
+    type LodashGetOr7x5 = (path: lodash.PropertyPath) => any;
+    type LodashGetOr7x6 = (defaultValue: any) => any;
     interface LodashGroupBy {
         <T>(iteratee: lodash.ValueIteratee<T>): LodashGroupBy1x1<T>;
         <T>(iteratee: lodash.__, collection: lodash.List<T> | null | undefined): LodashGroupBy1x2<T>;
@@ -2011,7 +2048,7 @@ declare namespace _ {
     type LodashIsNil = (value: any) => value is null | undefined;
     type LodashIsNull = (value: any) => value is null;
     type LodashIsNumber = (value: any) => value is number;
-    type LodashIsObject = (value: any) => boolean;
+    type LodashIsObject = (value: any) => value is object;
     type LodashIsObjectLike = (value: any) => boolean;
     type LodashIsPlainObject = (value: any) => boolean;
     type LodashIsRegExp = (value: any) => value is RegExp;
@@ -2131,45 +2168,40 @@ declare namespace _ {
     type LodashMapKeys2x1 = <T extends object>(object: T | null | undefined) => lodash.Dictionary<T[keyof T]>;
     type LodashMapKeys2x2<T> = (iteratee: lodash.ValueIteratee<string>) => lodash.Dictionary<T[keyof T]>;
     interface LodashMapValues {
-        <TResult>(callback: (value: string) => TResult): LodashMapValues1x1<TResult>;
-        (callback: lodash.__, obj: string | null | undefined): LodashMapValues1x2;
-        <TResult>(callback: (value: string) => TResult, obj: string | null | undefined): lodash.NumericDictionary<TResult>;
-        <T, TResult>(callback: (value: T) => TResult): LodashMapValues2x1<T, TResult>;
-        <T>(callbackOrIterateeOrIterateeOrIteratee: lodash.__, obj: lodash.Dictionary<T> | lodash.NumericDictionary<T> | null | undefined): LodashMapValues2x2<T>;
+        <T, TResult>(callback: (value: T) => TResult): LodashMapValues1x1<T, TResult>;
+        <T>(callbackOrIterateeOrIterateeOrIteratee: lodash.__, obj: lodash.Dictionary<T> | lodash.NumericDictionary<T> | null | undefined): LodashMapValues1x2<T>;
         <T, TResult>(callback: (value: T) => TResult, obj: lodash.Dictionary<T> | lodash.NumericDictionary<T> | null | undefined): lodash.Dictionary<TResult>;
-        <T extends object, TResult>(callback: (value: T[keyof T]) => TResult): LodashMapValues3x1<T, TResult>;
-        <T extends object>(callbackOrIterateeOrIteratee: lodash.__, obj: T | null | undefined): LodashMapValues3x2<T>;
+        <T extends object, TResult>(callback: (value: T[keyof T]) => TResult): LodashMapValues2x1<T, TResult>;
+        <T extends object>(callbackOrIterateeOrIteratee: lodash.__, obj: T | null | undefined): LodashMapValues2x2<T>;
         <T extends object, TResult>(callback: (value: T[keyof T]) => TResult, obj: T | null | undefined): { [P in keyof T]: TResult };
-        (iteratee: object): LodashMapValues4x1;
+        (iteratee: object): LodashMapValues3x1;
         <T>(iteratee: object, obj: lodash.Dictionary<T> | lodash.NumericDictionary<T> | null | undefined): lodash.Dictionary<boolean>;
         <T extends object>(iteratee: object, obj: T | null | undefined): { [P in keyof T]: boolean };
-        <T, TKey extends keyof T>(iteratee: TKey): LodashMapValues6x1<T, TKey>;
+        <T, TKey extends keyof T>(iteratee: TKey): LodashMapValues5x1<T, TKey>;
         <T, TKey extends keyof T>(iteratee: TKey, obj: lodash.Dictionary<T> | lodash.NumericDictionary<T> | null | undefined): lodash.Dictionary<T[TKey]>;
-        (iteratee: string): LodashMapValues7x1;
+        (iteratee: string): LodashMapValues6x1;
         <T>(iteratee: string, obj: lodash.Dictionary<T> | lodash.NumericDictionary<T> | null | undefined): lodash.Dictionary<any>;
         <T extends object>(iteratee: string, obj: T | null | undefined): { [P in keyof T]: any };
     }
-    type LodashMapValues1x1<TResult> = (obj: string | null | undefined) => lodash.NumericDictionary<TResult>;
-    type LodashMapValues1x2 = <TResult>(callback: (value: string) => TResult) => lodash.NumericDictionary<TResult>;
-    type LodashMapValues2x1<T, TResult> = (obj: lodash.Dictionary<T> | lodash.NumericDictionary<T> | null | undefined) => lodash.Dictionary<TResult>;
-    interface LodashMapValues2x2<T> {
+    type LodashMapValues1x1<T, TResult> = (obj: lodash.Dictionary<T> | lodash.NumericDictionary<T> | null | undefined) => lodash.Dictionary<TResult>;
+    interface LodashMapValues1x2<T> {
         <TResult>(callback: (value: T) => TResult): lodash.Dictionary<TResult>;
         (iteratee: object): lodash.Dictionary<boolean>;
         <TKey extends keyof T>(iteratee: TKey): lodash.Dictionary<T[TKey]>;
         (iteratee: string): lodash.Dictionary<any>;
     }
-    type LodashMapValues3x1<T, TResult> = (obj: T | null | undefined) => { [P in keyof T]: TResult };
-    interface LodashMapValues3x2<T> {
+    type LodashMapValues2x1<T, TResult> = (obj: T | null | undefined) => { [P in keyof T]: TResult };
+    interface LodashMapValues2x2<T> {
         <TResult>(callback: (value: T[keyof T]) => TResult): { [P in keyof T]: TResult };
         (iteratee: object): { [P in keyof T]: boolean };
         (iteratee: string): { [P in keyof T]: any };
     }
-    interface LodashMapValues4x1 {
+    interface LodashMapValues3x1 {
         <T>(obj: lodash.Dictionary<T> | lodash.NumericDictionary<T> | null | undefined): lodash.Dictionary<boolean>;
         <T extends object>(obj: T | null | undefined): { [P in keyof T]: boolean };
     }
-    type LodashMapValues6x1<T, TKey extends keyof T> = (obj: lodash.Dictionary<T> | lodash.NumericDictionary<T> | null | undefined) => lodash.Dictionary<T[TKey]>;
-    interface LodashMapValues7x1 {
+    type LodashMapValues5x1<T, TKey extends keyof T> = (obj: lodash.Dictionary<T> | lodash.NumericDictionary<T> | null | undefined) => lodash.Dictionary<T[TKey]>;
+    interface LodashMapValues6x1 {
         <T>(obj: lodash.Dictionary<T> | lodash.NumericDictionary<T> | null | undefined): lodash.Dictionary<any>;
         <T extends object>(obj: T | null | undefined): { [P in keyof T]: any };
     }
@@ -2737,30 +2769,42 @@ declare namespace _ {
     type LodashPartialRight27x1 = (args: ReadonlyArray<any>) => (...args: any[]) => any;
     type LodashPartialRight27x2 = (func: (...args: any[]) => any) => (...args: any[]) => any;
     interface LodashPartition {
-        <T>(callback: lodash.ValueIteratee<T>): LodashPartition1x1<T>;
+        <T, U extends T>(callback: lodash.ValueIteratorTypeGuard<T, U>): LodashPartition1x1<T, U>;
         <T>(callback: lodash.__, collection: lodash.List<T> | null | undefined): LodashPartition1x2<T>;
+        <T, U extends T>(callback: lodash.ValueIteratorTypeGuard<T, U>, collection: lodash.List<T> | null | undefined): [U[], Array<Exclude<T, U>>];
+        <T>(callback: lodash.ValueIteratee<T>): LodashPartition2x1<T>;
         <T>(callback: lodash.ValueIteratee<T>, collection: lodash.List<T> | null | undefined): [T[], T[]];
-        <T extends object>(callback: lodash.__, collection: T | null | undefined): LodashPartition2x2<T>;
+        <T extends object>(callback: lodash.__, collection: T | null | undefined): LodashPartition3x2<T>;
         <T extends object>(callback: lodash.ValueIteratee<T[keyof T]>, collection: T | null | undefined): [Array<T[keyof T]>, Array<T[keyof T]>];
     }
-    type LodashPartition1x1<T> = (collection: lodash.List<T> | object | null | undefined) => [T[], T[]];
-    type LodashPartition1x2<T> = (callback: lodash.ValueIteratee<T>) => [T[], T[]];
-    type LodashPartition2x2<T> = (callback: lodash.ValueIteratee<T[keyof T]>) => [Array<T[keyof T]>, Array<T[keyof T]>];
+    type LodashPartition1x1<T, U> = (collection: lodash.List<T> | null | undefined) => [U[], Array<Exclude<T, U>>];
+    interface LodashPartition1x2<T> {
+        <U extends T>(callback: lodash.ValueIteratorTypeGuard<T, U>): [U[], Array<Exclude<T, U>>];
+        (callback: lodash.ValueIteratee<T>): [T[], T[]];
+    }
+    type LodashPartition2x1<T> = (collection: lodash.List<T> | object | null | undefined) => [T[], T[]];
+    type LodashPartition3x2<T> = (callback: lodash.ValueIteratee<T[keyof T]>) => [Array<T[keyof T]>, Array<T[keyof T]>];
     interface LodashPath {
         <TObject extends object, TKey extends keyof TObject>(path: TKey | [TKey]): LodashPath1x1<TObject, TKey>;
         <TObject extends object>(path: lodash.__, object: TObject): LodashPath1x2<TObject>;
         <TObject extends object, TKey extends keyof TObject>(path: TKey | [TKey], object: TObject): TObject[TKey];
         <TObject extends object>(path: lodash.__, object: TObject | null | undefined): LodashPath2x2<TObject>;
         <TObject extends object, TKey extends keyof TObject>(path: TKey | [TKey], object: TObject | null | undefined): TObject[TKey] | undefined;
-        (path: number): LodashPath3x1;
-        <T>(path: lodash.__, object: lodash.NumericDictionary<T>): LodashPath3x2<T>;
+        <TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1]>(path: [TKey1, TKey2]): LodashPath3x1<TObject, TKey1, TKey2>;
+        <TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1]>(path: [TKey1, TKey2], object: TObject | null | undefined): TObject[TKey1][TKey2] | undefined;
+        <TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2]>(path: [TKey1, TKey2, TKey3]): LodashPath4x1<TObject, TKey1, TKey2, TKey3>;
+        <TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2]>(path: [TKey1, TKey2, TKey3], object: TObject | null | undefined): TObject[TKey1][TKey2][TKey3] | undefined;
+        <TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TKey4 extends keyof TObject[TKey1][TKey2][TKey3]>(path: [TKey1, TKey2, TKey3, TKey4]): LodashPath5x1<TObject, TKey1, TKey2, TKey3, TKey4>;
+        <TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TKey4 extends keyof TObject[TKey1][TKey2][TKey3]>(path: [TKey1, TKey2, TKey3, TKey4], object: TObject | null | undefined): TObject[TKey1][TKey2][TKey3][TKey4] | undefined;
+        (path: number): LodashPath6x1;
+        <T>(path: lodash.__, object: lodash.NumericDictionary<T>): LodashPath6x2<T>;
         <T>(path: number, object: lodash.NumericDictionary<T>): T;
-        <T>(path: lodash.__, object: lodash.NumericDictionary<T> | null | undefined): LodashPath4x2<T>;
+        <T>(path: lodash.__, object: lodash.NumericDictionary<T> | null | undefined): LodashPath7x2<T>;
         <T>(path: number, object: lodash.NumericDictionary<T> | null | undefined): T | undefined;
-        (path: lodash.PropertyPath): LodashPath5x1;
-        (path: lodash.__, object: null | undefined): LodashPath5x2;
+        (path: lodash.PropertyPath): LodashPath8x1;
+        (path: lodash.__, object: null | undefined): LodashPath8x2;
         (path: lodash.PropertyPath, object: null | undefined): undefined;
-        (path: lodash.__, object: any): LodashPath6x2;
+        (path: lodash.__, object: any): LodashPath9x2;
         (path: lodash.PropertyPath, object: any): any;
     }
     interface LodashPath1x1<TObject, TKey extends keyof TObject> {
@@ -2768,19 +2812,27 @@ declare namespace _ {
         (object: TObject | null | undefined): TObject[TKey] | undefined;
     }
     type LodashPath1x2<TObject> = <TKey extends keyof TObject>(path: TKey | [TKey]) => TObject[TKey];
-    type LodashPath2x2<TObject> = <TKey extends keyof TObject>(path: TKey | [TKey]) => TObject[TKey] | undefined;
-    interface LodashPath3x1 {
+    interface LodashPath2x2<TObject> {
+        <TKey extends keyof TObject>(path: TKey | [TKey]): TObject[TKey] | undefined;
+        <TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1]>(path: [TKey1, TKey2]): TObject[TKey1][TKey2] | undefined;
+        <TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2]>(path: [TKey1, TKey2, TKey3]): TObject[TKey1][TKey2][TKey3] | undefined;
+        <TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TKey4 extends keyof TObject[TKey1][TKey2][TKey3]>(path: [TKey1, TKey2, TKey3, TKey4]): TObject[TKey1][TKey2][TKey3][TKey4] | undefined;
+    }
+    type LodashPath3x1<TObject, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1]> = (object: TObject | null | undefined) => TObject[TKey1][TKey2] | undefined;
+    type LodashPath4x1<TObject, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2]> = (object: TObject | null | undefined) => TObject[TKey1][TKey2][TKey3] | undefined;
+    type LodashPath5x1<TObject, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TKey4 extends keyof TObject[TKey1][TKey2][TKey3]> = (object: TObject | null | undefined) => TObject[TKey1][TKey2][TKey3][TKey4] | undefined;
+    interface LodashPath6x1 {
         <T>(object: lodash.NumericDictionary<T>): T;
         <T>(object: lodash.NumericDictionary<T> | null | undefined): T | undefined;
     }
-    type LodashPath3x2<T> = (path: number) => T;
-    type LodashPath4x2<T> = (path: number) => T | undefined;
-    interface LodashPath5x1 {
+    type LodashPath6x2<T> = (path: number) => T;
+    type LodashPath7x2<T> = (path: number) => T | undefined;
+    interface LodashPath8x1 {
         (object: null | undefined): undefined;
         (object: any): any;
     }
-    type LodashPath5x2 = (path: lodash.PropertyPath) => undefined;
-    type LodashPath6x2 = (path: lodash.PropertyPath) => any;
+    type LodashPath8x2 = (path: lodash.PropertyPath) => undefined;
+    type LodashPath9x2 = (path: lodash.PropertyPath) => any;
     interface LodashPathOr {
         <TDefault>(defaultValue: TDefault): LodashPathOr1x1<TDefault>;
         <TObject extends object, TKey extends keyof TObject>(defaultValue: lodash.__, path: TKey | [TKey]): LodashPathOr1x2<TObject, TKey>;
@@ -2788,92 +2840,142 @@ declare namespace _ {
         <TObject extends object>(defaultValue: lodash.__, path: lodash.__, object: TObject | null | undefined): LodashPathOr1x4<TObject>;
         <TObject extends object, TDefault>(defaultValue: TDefault, path: lodash.__, object: TObject | null | undefined): LodashPathOr1x5<TObject, TDefault>;
         <TObject extends object, TKey extends keyof TObject>(defaultValue: lodash.__, path: TKey | [TKey], object: TObject | null | undefined): LodashPathOr1x6<TObject, TKey>;
-        <TObject extends object, TKey extends keyof TObject, TDefault>(defaultValue: TDefault, path: TKey | [TKey], object: TObject | null | undefined): TObject[TKey] | TDefault;
-        (defaultValue: lodash.__, path: number): LodashPathOr2x2;
-        <TDefault>(defaultValue: TDefault, path: number): LodashPathOr2x3<TDefault>;
-        <T>(defaultValue: lodash.__, path: lodash.__, object: lodash.NumericDictionary<T> | null | undefined): LodashPathOr2x4<T>;
-        <T, TDefault>(defaultValue: TDefault, path: lodash.__, object: lodash.NumericDictionary<T> | null | undefined): LodashPathOr2x5<T, TDefault>;
-        <T>(defaultValue: lodash.__, path: number, object: lodash.NumericDictionary<T> | null | undefined): LodashPathOr2x6<T>;
+        <TObject extends object, TKey extends keyof TObject, TDefault>(defaultValue: TDefault, path: TKey | [TKey], object: TObject | null | undefined): Exclude<TObject[TKey], undefined> | TDefault;
+        <TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1]>(defaultValue: lodash.__, path: [TKey1, TKey2]): LodashPathOr2x2<TObject, TKey1, TKey2>;
+        <TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TDefault>(defaultValue: TDefault, path: [TKey1, TKey2]): LodashPathOr2x3<TObject, TKey1, TKey2, TDefault>;
+        <TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1]>(defaultValue: lodash.__, path: [TKey1, TKey2], object: TObject | null | undefined): LodashPathOr2x6<TObject, TKey1, TKey2>;
+        <TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TDefault>(defaultValue: TDefault, path: [TKey1, TKey2], object: TObject | null | undefined): Exclude<TObject[TKey1][TKey2], undefined> | TDefault;
+        <TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2]>(defaultValue: lodash.__, path: [TKey1, TKey2, TKey3]): LodashPathOr3x2<TObject, TKey1, TKey2, TKey3>;
+        <TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TDefault>(defaultValue: TDefault, path: [TKey1, TKey2, TKey3]): LodashPathOr3x3<TObject, TKey1, TKey2, TKey3, TDefault>;
+        <TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2]>(defaultValue: lodash.__, path: [TKey1, TKey2, TKey3], object: TObject | null | undefined): LodashPathOr3x6<TObject, TKey1, TKey2, TKey3>;
+        <TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TDefault>(defaultValue: TDefault, path: [TKey1, TKey2, TKey3], object: TObject | null | undefined): Exclude<TObject[TKey1][TKey2][TKey3], undefined> | TDefault;
+        <TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TKey4 extends keyof TObject[TKey1][TKey2][TKey3]>(defaultValue: lodash.__, path: [TKey1, TKey2, TKey3, TKey4]): LodashPathOr4x2<TObject, TKey1, TKey2, TKey3, TKey4>;
+        <TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TKey4 extends keyof TObject[TKey1][TKey2][TKey3], TDefault>(defaultValue: TDefault, path: [TKey1, TKey2, TKey3, TKey4]): LodashPathOr4x3<TObject, TKey1, TKey2, TKey3, TKey4, TDefault>;
+        <TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TKey4 extends keyof TObject[TKey1][TKey2][TKey3]>(defaultValue: lodash.__, path: [TKey1, TKey2, TKey3, TKey4], object: TObject | null | undefined): LodashPathOr4x6<TObject, TKey1, TKey2, TKey3, TKey4>;
+        <TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TKey4 extends keyof TObject[TKey1][TKey2][TKey3], TDefault>(defaultValue: TDefault, path: [TKey1, TKey2, TKey3, TKey4], object: TObject | null | undefined): Exclude<TObject[TKey1][TKey2][TKey3][TKey4], undefined> | TDefault;
+        (defaultValue: lodash.__, path: number): LodashPathOr5x2;
+        <TDefault>(defaultValue: TDefault, path: number): LodashPathOr5x3<TDefault>;
+        <T>(defaultValue: lodash.__, path: lodash.__, object: lodash.NumericDictionary<T> | null | undefined): LodashPathOr5x4<T>;
+        <T, TDefault>(defaultValue: TDefault, path: lodash.__, object: lodash.NumericDictionary<T> | null | undefined): LodashPathOr5x5<T, TDefault>;
+        <T>(defaultValue: lodash.__, path: number, object: lodash.NumericDictionary<T> | null | undefined): LodashPathOr5x6<T>;
         <T, TDefault>(defaultValue: TDefault, path: number, object: lodash.NumericDictionary<T> | null | undefined): T | TDefault;
-        (defaultValue: lodash.__, path: lodash.PropertyPath): LodashPathOr3x2;
-        <TDefault>(defaultValue: TDefault, path: lodash.PropertyPath): LodashPathOr3x3<TDefault>;
-        (defaultValue: lodash.__, path: lodash.__, object: null | undefined): LodashPathOr3x4;
-        <TDefault>(defaultValue: TDefault, path: lodash.__, object: null | undefined): LodashPathOr3x5<TDefault>;
-        (defaultValue: lodash.__, path: lodash.PropertyPath, object: null | undefined): LodashPathOr3x6;
+        (defaultValue: lodash.__, path: lodash.PropertyPath): LodashPathOr6x2;
+        <TDefault>(defaultValue: TDefault, path: lodash.PropertyPath): LodashPathOr6x3<TDefault>;
+        (defaultValue: lodash.__, path: lodash.__, object: null | undefined): LodashPathOr6x4;
+        <TDefault>(defaultValue: TDefault, path: lodash.__, object: null | undefined): LodashPathOr6x5<TDefault>;
+        (defaultValue: lodash.__, path: lodash.PropertyPath, object: null | undefined): LodashPathOr6x6;
         <TDefault>(defaultValue: TDefault, path: lodash.PropertyPath, object: null | undefined): TDefault;
-        (defaultValue: any): LodashPathOr4x1;
-        (defaultValue: any, path: lodash.PropertyPath): LodashPathOr4x3;
-        (defaultValue: lodash.__, path: lodash.__, object: any): LodashPathOr4x4;
-        (defaultValue: any, path: lodash.__, object: any): LodashPathOr4x5;
-        (defaultValue: lodash.__, path: lodash.PropertyPath, object: any): LodashPathOr4x6;
+        (defaultValue: any): LodashPathOr7x1;
+        (defaultValue: any, path: lodash.PropertyPath): LodashPathOr7x3;
+        (defaultValue: lodash.__, path: lodash.__, object: any): LodashPathOr7x4;
+        (defaultValue: any, path: lodash.__, object: any): LodashPathOr7x5;
+        (defaultValue: lodash.__, path: lodash.PropertyPath, object: any): LodashPathOr7x6;
         (defaultValue: any, path: lodash.PropertyPath, object: any): any;
     }
     interface LodashPathOr1x1<TDefault> {
         <TObject extends object, TKey extends keyof TObject>(path: TKey | [TKey]): LodashPathOr1x3<TObject, TKey, TDefault>;
         <TObject extends object>(path: lodash.__, object: TObject | null | undefined): LodashPathOr1x5<TObject, TDefault>;
-        <TObject extends object, TKey extends keyof TObject>(path: TKey | [TKey], object: TObject | null | undefined): TObject[TKey] | TDefault;
-        (path: number): LodashPathOr2x3<TDefault>;
-        <T>(path: lodash.__, object: lodash.NumericDictionary<T> | null | undefined): LodashPathOr2x5<T, TDefault>;
+        <TObject extends object, TKey extends keyof TObject>(path: TKey | [TKey], object: TObject | null | undefined): Exclude<TObject[TKey], undefined> | TDefault;
+        <TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1]>(path: [TKey1, TKey2]): LodashPathOr2x3<TObject, TKey1, TKey2, TDefault>;
+        <TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1]>(path: [TKey1, TKey2], object: TObject | null | undefined): Exclude<TObject[TKey1][TKey2], undefined> | TDefault;
+        <TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2]>(path: [TKey1, TKey2, TKey3]): LodashPathOr3x3<TObject, TKey1, TKey2, TKey3, TDefault>;
+        <TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2]>(path: [TKey1, TKey2, TKey3], object: TObject | null | undefined): Exclude<TObject[TKey1][TKey2][TKey3], undefined> | TDefault;
+        <TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TKey4 extends keyof TObject[TKey1][TKey2][TKey3]>(path: [TKey1, TKey2, TKey3, TKey4]): LodashPathOr4x3<TObject, TKey1, TKey2, TKey3, TKey4, TDefault>;
+        <TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TKey4 extends keyof TObject[TKey1][TKey2][TKey3]>(path: [TKey1, TKey2, TKey3, TKey4], object: TObject | null | undefined): Exclude<TObject[TKey1][TKey2][TKey3][TKey4], undefined> | TDefault;
+        (path: number): LodashPathOr5x3<TDefault>;
+        <T>(path: lodash.__, object: lodash.NumericDictionary<T> | null | undefined): LodashPathOr5x5<T, TDefault>;
         <T>(path: number, object: lodash.NumericDictionary<T> | null | undefined): T | TDefault;
-        (path: lodash.PropertyPath): LodashPathOr3x3<TDefault>;
-        (path: lodash.__, object: null | undefined): LodashPathOr3x5<TDefault>;
+        (path: lodash.PropertyPath): LodashPathOr6x3<TDefault>;
+        (path: lodash.__, object: null | undefined): LodashPathOr6x5<TDefault>;
         (path: lodash.PropertyPath, object: null | undefined): TDefault;
     }
     interface LodashPathOr1x2<TObject, TKey extends keyof TObject> {
         <TDefault>(defaultValue: TDefault): LodashPathOr1x3<TObject, TKey, TDefault>;
         (defaultValue: lodash.__, object: TObject | null | undefined): LodashPathOr1x6<TObject, TKey>;
-        <TDefault>(defaultValue: TDefault, object: TObject | null | undefined): TObject[TKey] | TDefault;
+        <TDefault>(defaultValue: TDefault, object: TObject | null | undefined): Exclude<TObject[TKey], undefined> | TDefault;
     }
-    type LodashPathOr1x3<TObject, TKey extends keyof TObject, TDefault> = (object: TObject | null | undefined) => TObject[TKey] | TDefault;
+    type LodashPathOr1x3<TObject, TKey extends keyof TObject, TDefault> = (object: TObject | null | undefined) => Exclude<TObject[TKey], undefined> | TDefault;
     interface LodashPathOr1x4<TObject> {
         <TDefault>(defaultValue: TDefault): LodashPathOr1x5<TObject, TDefault>;
         <TKey extends keyof TObject>(defaultValue: lodash.__, path: TKey | [TKey]): LodashPathOr1x6<TObject, TKey>;
-        <TKey extends keyof TObject, TDefault>(defaultValue: TDefault, path: TKey | [TKey]): TObject[TKey] | TDefault;
+        <TKey extends keyof TObject, TDefault>(defaultValue: TDefault, path: TKey | [TKey]): Exclude<TObject[TKey], undefined> | TDefault;
+        <TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1]>(defaultValue: lodash.__, path: [TKey1, TKey2]): LodashPathOr2x6<TObject, TKey1, TKey2>;
+        <TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TDefault>(defaultValue: TDefault, path: [TKey1, TKey2]): Exclude<TObject[TKey1][TKey2], undefined> | TDefault;
+        <TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2]>(defaultValue: lodash.__, path: [TKey1, TKey2, TKey3]): LodashPathOr3x6<TObject, TKey1, TKey2, TKey3>;
+        <TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TDefault>(defaultValue: TDefault, path: [TKey1, TKey2, TKey3]): Exclude<TObject[TKey1][TKey2][TKey3], undefined> | TDefault;
+        <TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TKey4 extends keyof TObject[TKey1][TKey2][TKey3]>(defaultValue: lodash.__, path: [TKey1, TKey2, TKey3, TKey4]): LodashPathOr4x6<TObject, TKey1, TKey2, TKey3, TKey4>;
+        <TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TKey4 extends keyof TObject[TKey1][TKey2][TKey3], TDefault>(defaultValue: TDefault, path: [TKey1, TKey2, TKey3, TKey4]): Exclude<TObject[TKey1][TKey2][TKey3][TKey4], undefined> | TDefault;
     }
-    type LodashPathOr1x5<TObject, TDefault> = <TKey extends keyof TObject>(path: TKey | [TKey]) => TObject[TKey] | TDefault;
-    type LodashPathOr1x6<TObject, TKey extends keyof TObject> = <TDefault>(defaultValue: TDefault) => TObject[TKey] | TDefault;
-    interface LodashPathOr2x2 {
-        <TDefault>(defaultValue: TDefault): LodashPathOr2x3<TDefault>;
-        <T>(defaultValue: lodash.__, object: lodash.NumericDictionary<T> | null | undefined): LodashPathOr2x6<T>;
+    interface LodashPathOr1x5<TObject, TDefault> {
+        <TKey extends keyof TObject>(path: TKey | [TKey]): Exclude<TObject[TKey], undefined> | TDefault;
+        <TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1]>(path: [TKey1, TKey2]): Exclude<TObject[TKey1][TKey2], undefined> | TDefault;
+        <TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2]>(path: [TKey1, TKey2, TKey3]): Exclude<TObject[TKey1][TKey2][TKey3], undefined> | TDefault;
+        <TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TKey4 extends keyof TObject[TKey1][TKey2][TKey3]>(path: [TKey1, TKey2, TKey3, TKey4]): Exclude<TObject[TKey1][TKey2][TKey3][TKey4], undefined> | TDefault;
+    }
+    type LodashPathOr1x6<TObject, TKey extends keyof TObject> = <TDefault>(defaultValue: TDefault) => Exclude<TObject[TKey], undefined> | TDefault;
+    interface LodashPathOr2x2<TObject, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1]> {
+        <TDefault>(defaultValue: TDefault): LodashPathOr2x3<TObject, TKey1, TKey2, TDefault>;
+        (defaultValue: lodash.__, object: TObject | null | undefined): LodashPathOr2x6<TObject, TKey1, TKey2>;
+        <TDefault>(defaultValue: TDefault, object: TObject | null | undefined): Exclude<TObject[TKey1][TKey2], undefined> | TDefault;
+    }
+    type LodashPathOr2x3<TObject, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TDefault> = (object: TObject | null | undefined) => Exclude<TObject[TKey1][TKey2], undefined> | TDefault;
+    type LodashPathOr2x6<TObject, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1]> = <TDefault>(defaultValue: TDefault) => Exclude<TObject[TKey1][TKey2], undefined> | TDefault;
+    interface LodashPathOr3x2<TObject, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2]> {
+        <TDefault>(defaultValue: TDefault): LodashPathOr3x3<TObject, TKey1, TKey2, TKey3, TDefault>;
+        (defaultValue: lodash.__, object: TObject | null | undefined): LodashPathOr3x6<TObject, TKey1, TKey2, TKey3>;
+        <TDefault>(defaultValue: TDefault, object: TObject | null | undefined): Exclude<TObject[TKey1][TKey2][TKey3], undefined> | TDefault;
+    }
+    type LodashPathOr3x3<TObject, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TDefault> = (object: TObject | null | undefined) => Exclude<TObject[TKey1][TKey2][TKey3], undefined> | TDefault;
+    type LodashPathOr3x6<TObject, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2]> = <TDefault>(defaultValue: TDefault) => Exclude<TObject[TKey1][TKey2][TKey3], undefined> | TDefault;
+    interface LodashPathOr4x2<TObject, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TKey4 extends keyof TObject[TKey1][TKey2][TKey3]> {
+        <TDefault>(defaultValue: TDefault): LodashPathOr4x3<TObject, TKey1, TKey2, TKey3, TKey4, TDefault>;
+        (defaultValue: lodash.__, object: TObject | null | undefined): LodashPathOr4x6<TObject, TKey1, TKey2, TKey3, TKey4>;
+        <TDefault>(defaultValue: TDefault, object: TObject | null | undefined): Exclude<TObject[TKey1][TKey2][TKey3][TKey4], undefined> | TDefault;
+    }
+    type LodashPathOr4x3<TObject, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TKey4 extends keyof TObject[TKey1][TKey2][TKey3], TDefault> = (object: TObject | null | undefined) => Exclude<TObject[TKey1][TKey2][TKey3][TKey4], undefined> | TDefault;
+    type LodashPathOr4x6<TObject, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TKey4 extends keyof TObject[TKey1][TKey2][TKey3]> = <TDefault>(defaultValue: TDefault) => Exclude<TObject[TKey1][TKey2][TKey3][TKey4], undefined> | TDefault;
+    interface LodashPathOr5x2 {
+        <TDefault>(defaultValue: TDefault): LodashPathOr5x3<TDefault>;
+        <T>(defaultValue: lodash.__, object: lodash.NumericDictionary<T> | null | undefined): LodashPathOr5x6<T>;
         <T, TDefault>(defaultValue: TDefault, object: lodash.NumericDictionary<T> | null | undefined): T | TDefault;
     }
-    type LodashPathOr2x3<TDefault> = <T>(object: lodash.NumericDictionary<T> | null | undefined) => T | TDefault;
-    interface LodashPathOr2x4<T> {
-        <TDefault>(defaultValue: TDefault): LodashPathOr2x5<T, TDefault>;
-        (defaultValue: lodash.__, path: number): LodashPathOr2x6<T>;
+    type LodashPathOr5x3<TDefault> = <T>(object: lodash.NumericDictionary<T> | null | undefined) => T | TDefault;
+    interface LodashPathOr5x4<T> {
+        <TDefault>(defaultValue: TDefault): LodashPathOr5x5<T, TDefault>;
+        (defaultValue: lodash.__, path: number): LodashPathOr5x6<T>;
         <TDefault>(defaultValue: TDefault, path: number): T | TDefault;
     }
-    type LodashPathOr2x5<T, TDefault> = (path: number) => T | TDefault;
-    type LodashPathOr2x6<T> = <TDefault>(defaultValue: TDefault) => T | TDefault;
-    interface LodashPathOr3x2 {
-        <TDefault>(defaultValue: TDefault): LodashPathOr3x3<TDefault>;
-        (defaultValue: lodash.__, object: null | undefined): LodashPathOr3x6;
+    type LodashPathOr5x5<T, TDefault> = (path: number) => T | TDefault;
+    type LodashPathOr5x6<T> = <TDefault>(defaultValue: TDefault) => T | TDefault;
+    interface LodashPathOr6x2 {
+        <TDefault>(defaultValue: TDefault): LodashPathOr6x3<TDefault>;
+        (defaultValue: lodash.__, object: null | undefined): LodashPathOr6x6;
         <TDefault>(defaultValue: TDefault, object: null | undefined): TDefault;
-        (defaultValue: any): LodashPathOr4x3;
-        (defaultValue: lodash.__, object: any): LodashPathOr4x6;
+        (defaultValue: any): LodashPathOr7x3;
+        (defaultValue: lodash.__, object: any): LodashPathOr7x6;
         (defaultValue: any, object: any): any;
     }
-    type LodashPathOr3x3<TDefault> = (object: null | undefined) => TDefault;
-    interface LodashPathOr3x4 {
-        <TDefault>(defaultValue: TDefault): LodashPathOr3x5<TDefault>;
-        (defaultValue: lodash.__, path: lodash.PropertyPath): LodashPathOr3x6;
+    type LodashPathOr6x3<TDefault> = (object: null | undefined) => TDefault;
+    interface LodashPathOr6x4 {
+        <TDefault>(defaultValue: TDefault): LodashPathOr6x5<TDefault>;
+        (defaultValue: lodash.__, path: lodash.PropertyPath): LodashPathOr6x6;
         <TDefault>(defaultValue: TDefault, path: lodash.PropertyPath): TDefault;
     }
-    type LodashPathOr3x5<TDefault> = (path: lodash.PropertyPath) => TDefault;
-    type LodashPathOr3x6 = <TDefault>(defaultValue: TDefault) => TDefault;
-    interface LodashPathOr4x1 {
-        (path: lodash.PropertyPath): LodashPathOr4x3;
-        (path: lodash.__, object: any): LodashPathOr4x5;
+    type LodashPathOr6x5<TDefault> = (path: lodash.PropertyPath) => TDefault;
+    type LodashPathOr6x6 = <TDefault>(defaultValue: TDefault) => TDefault;
+    interface LodashPathOr7x1 {
+        (path: lodash.PropertyPath): LodashPathOr7x3;
+        (path: lodash.__, object: any): LodashPathOr7x5;
         (path: lodash.PropertyPath, object: any): any;
     }
-    type LodashPathOr4x3 = (object: any) => any;
-    interface LodashPathOr4x4 {
-        (defaultValue: any): LodashPathOr4x5;
-        (defaultValue: lodash.__, path: lodash.PropertyPath): LodashPathOr4x6;
+    type LodashPathOr7x3 = (object: any) => any;
+    interface LodashPathOr7x4 {
+        (defaultValue: any): LodashPathOr7x5;
+        (defaultValue: lodash.__, path: lodash.PropertyPath): LodashPathOr7x6;
         (defaultValue: any, path: lodash.PropertyPath): any;
     }
-    type LodashPathOr4x5 = (path: lodash.PropertyPath) => any;
-    type LodashPathOr4x6 = (defaultValue: any) => any;
+    type LodashPathOr7x5 = (path: lodash.PropertyPath) => any;
+    type LodashPathOr7x6 = (defaultValue: any) => any;
     interface LodashPick {
         <T extends object, U extends keyof T>(props: lodash.Many<U>): LodashPick1x1<T, U>;
         <T extends object>(props: lodash.__, object: T): LodashPick1x2<T>;
@@ -2922,15 +3024,21 @@ declare namespace _ {
         <TObject extends object, TKey extends keyof TObject>(path: TKey | [TKey], object: TObject): TObject[TKey];
         <TObject extends object>(path: lodash.__, object: TObject | null | undefined): LodashProp2x2<TObject>;
         <TObject extends object, TKey extends keyof TObject>(path: TKey | [TKey], object: TObject | null | undefined): TObject[TKey] | undefined;
-        (path: number): LodashProp3x1;
-        <T>(path: lodash.__, object: lodash.NumericDictionary<T>): LodashProp3x2<T>;
+        <TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1]>(path: [TKey1, TKey2]): LodashProp3x1<TObject, TKey1, TKey2>;
+        <TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1]>(path: [TKey1, TKey2], object: TObject | null | undefined): TObject[TKey1][TKey2] | undefined;
+        <TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2]>(path: [TKey1, TKey2, TKey3]): LodashProp4x1<TObject, TKey1, TKey2, TKey3>;
+        <TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2]>(path: [TKey1, TKey2, TKey3], object: TObject | null | undefined): TObject[TKey1][TKey2][TKey3] | undefined;
+        <TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TKey4 extends keyof TObject[TKey1][TKey2][TKey3]>(path: [TKey1, TKey2, TKey3, TKey4]): LodashProp5x1<TObject, TKey1, TKey2, TKey3, TKey4>;
+        <TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TKey4 extends keyof TObject[TKey1][TKey2][TKey3]>(path: [TKey1, TKey2, TKey3, TKey4], object: TObject | null | undefined): TObject[TKey1][TKey2][TKey3][TKey4] | undefined;
+        (path: number): LodashProp6x1;
+        <T>(path: lodash.__, object: lodash.NumericDictionary<T>): LodashProp6x2<T>;
         <T>(path: number, object: lodash.NumericDictionary<T>): T;
-        <T>(path: lodash.__, object: lodash.NumericDictionary<T> | null | undefined): LodashProp4x2<T>;
+        <T>(path: lodash.__, object: lodash.NumericDictionary<T> | null | undefined): LodashProp7x2<T>;
         <T>(path: number, object: lodash.NumericDictionary<T> | null | undefined): T | undefined;
-        (path: lodash.PropertyPath): LodashProp5x1;
-        (path: lodash.__, object: null | undefined): LodashProp5x2;
+        (path: lodash.PropertyPath): LodashProp8x1;
+        (path: lodash.__, object: null | undefined): LodashProp8x2;
         (path: lodash.PropertyPath, object: null | undefined): undefined;
-        (path: lodash.__, object: any): LodashProp6x2;
+        (path: lodash.__, object: any): LodashProp9x2;
         (path: lodash.PropertyPath, object: any): any;
     }
     interface LodashProp1x1<TObject, TKey extends keyof TObject> {
@@ -2938,34 +3046,48 @@ declare namespace _ {
         (object: TObject | null | undefined): TObject[TKey] | undefined;
     }
     type LodashProp1x2<TObject> = <TKey extends keyof TObject>(path: TKey | [TKey]) => TObject[TKey];
-    type LodashProp2x2<TObject> = <TKey extends keyof TObject>(path: TKey | [TKey]) => TObject[TKey] | undefined;
-    interface LodashProp3x1 {
+    interface LodashProp2x2<TObject> {
+        <TKey extends keyof TObject>(path: TKey | [TKey]): TObject[TKey] | undefined;
+        <TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1]>(path: [TKey1, TKey2]): TObject[TKey1][TKey2] | undefined;
+        <TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2]>(path: [TKey1, TKey2, TKey3]): TObject[TKey1][TKey2][TKey3] | undefined;
+        <TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TKey4 extends keyof TObject[TKey1][TKey2][TKey3]>(path: [TKey1, TKey2, TKey3, TKey4]): TObject[TKey1][TKey2][TKey3][TKey4] | undefined;
+    }
+    type LodashProp3x1<TObject, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1]> = (object: TObject | null | undefined) => TObject[TKey1][TKey2] | undefined;
+    type LodashProp4x1<TObject, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2]> = (object: TObject | null | undefined) => TObject[TKey1][TKey2][TKey3] | undefined;
+    type LodashProp5x1<TObject, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TKey4 extends keyof TObject[TKey1][TKey2][TKey3]> = (object: TObject | null | undefined) => TObject[TKey1][TKey2][TKey3][TKey4] | undefined;
+    interface LodashProp6x1 {
         <T>(object: lodash.NumericDictionary<T>): T;
         <T>(object: lodash.NumericDictionary<T> | null | undefined): T | undefined;
     }
-    type LodashProp3x2<T> = (path: number) => T;
-    type LodashProp4x2<T> = (path: number) => T | undefined;
-    interface LodashProp5x1 {
+    type LodashProp6x2<T> = (path: number) => T;
+    type LodashProp7x2<T> = (path: number) => T | undefined;
+    interface LodashProp8x1 {
         (object: null | undefined): undefined;
         (object: any): any;
     }
-    type LodashProp5x2 = (path: lodash.PropertyPath) => undefined;
-    type LodashProp6x2 = (path: lodash.PropertyPath) => any;
+    type LodashProp8x2 = (path: lodash.PropertyPath) => undefined;
+    type LodashProp9x2 = (path: lodash.PropertyPath) => any;
     interface LodashProperty {
         <TObject extends object, TKey extends keyof TObject>(path: TKey | [TKey]): LodashProperty1x1<TObject, TKey>;
         <TObject extends object>(path: lodash.__, object: TObject): LodashProperty1x2<TObject>;
         <TObject extends object, TKey extends keyof TObject>(path: TKey | [TKey], object: TObject): TObject[TKey];
         <TObject extends object>(path: lodash.__, object: TObject | null | undefined): LodashProperty2x2<TObject>;
         <TObject extends object, TKey extends keyof TObject>(path: TKey | [TKey], object: TObject | null | undefined): TObject[TKey] | undefined;
-        (path: number): LodashProperty3x1;
-        <T>(path: lodash.__, object: lodash.NumericDictionary<T>): LodashProperty3x2<T>;
+        <TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1]>(path: [TKey1, TKey2]): LodashProperty3x1<TObject, TKey1, TKey2>;
+        <TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1]>(path: [TKey1, TKey2], object: TObject | null | undefined): TObject[TKey1][TKey2] | undefined;
+        <TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2]>(path: [TKey1, TKey2, TKey3]): LodashProperty4x1<TObject, TKey1, TKey2, TKey3>;
+        <TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2]>(path: [TKey1, TKey2, TKey3], object: TObject | null | undefined): TObject[TKey1][TKey2][TKey3] | undefined;
+        <TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TKey4 extends keyof TObject[TKey1][TKey2][TKey3]>(path: [TKey1, TKey2, TKey3, TKey4]): LodashProperty5x1<TObject, TKey1, TKey2, TKey3, TKey4>;
+        <TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TKey4 extends keyof TObject[TKey1][TKey2][TKey3]>(path: [TKey1, TKey2, TKey3, TKey4], object: TObject | null | undefined): TObject[TKey1][TKey2][TKey3][TKey4] | undefined;
+        (path: number): LodashProperty6x1;
+        <T>(path: lodash.__, object: lodash.NumericDictionary<T>): LodashProperty6x2<T>;
         <T>(path: number, object: lodash.NumericDictionary<T>): T;
-        <T>(path: lodash.__, object: lodash.NumericDictionary<T> | null | undefined): LodashProperty4x2<T>;
+        <T>(path: lodash.__, object: lodash.NumericDictionary<T> | null | undefined): LodashProperty7x2<T>;
         <T>(path: number, object: lodash.NumericDictionary<T> | null | undefined): T | undefined;
-        (path: lodash.PropertyPath): LodashProperty5x1;
-        (path: lodash.__, object: null | undefined): LodashProperty5x2;
+        (path: lodash.PropertyPath): LodashProperty8x1;
+        (path: lodash.__, object: null | undefined): LodashProperty8x2;
         (path: lodash.PropertyPath, object: null | undefined): undefined;
-        (path: lodash.__, object: any): LodashProperty6x2;
+        (path: lodash.__, object: any): LodashProperty9x2;
         (path: lodash.PropertyPath, object: any): any;
     }
     interface LodashProperty1x1<TObject, TKey extends keyof TObject> {
@@ -2973,34 +3095,48 @@ declare namespace _ {
         (object: TObject | null | undefined): TObject[TKey] | undefined;
     }
     type LodashProperty1x2<TObject> = <TKey extends keyof TObject>(path: TKey | [TKey]) => TObject[TKey];
-    type LodashProperty2x2<TObject> = <TKey extends keyof TObject>(path: TKey | [TKey]) => TObject[TKey] | undefined;
-    interface LodashProperty3x1 {
+    interface LodashProperty2x2<TObject> {
+        <TKey extends keyof TObject>(path: TKey | [TKey]): TObject[TKey] | undefined;
+        <TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1]>(path: [TKey1, TKey2]): TObject[TKey1][TKey2] | undefined;
+        <TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2]>(path: [TKey1, TKey2, TKey3]): TObject[TKey1][TKey2][TKey3] | undefined;
+        <TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TKey4 extends keyof TObject[TKey1][TKey2][TKey3]>(path: [TKey1, TKey2, TKey3, TKey4]): TObject[TKey1][TKey2][TKey3][TKey4] | undefined;
+    }
+    type LodashProperty3x1<TObject, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1]> = (object: TObject | null | undefined) => TObject[TKey1][TKey2] | undefined;
+    type LodashProperty4x1<TObject, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2]> = (object: TObject | null | undefined) => TObject[TKey1][TKey2][TKey3] | undefined;
+    type LodashProperty5x1<TObject, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TKey4 extends keyof TObject[TKey1][TKey2][TKey3]> = (object: TObject | null | undefined) => TObject[TKey1][TKey2][TKey3][TKey4] | undefined;
+    interface LodashProperty6x1 {
         <T>(object: lodash.NumericDictionary<T>): T;
         <T>(object: lodash.NumericDictionary<T> | null | undefined): T | undefined;
     }
-    type LodashProperty3x2<T> = (path: number) => T;
-    type LodashProperty4x2<T> = (path: number) => T | undefined;
-    interface LodashProperty5x1 {
+    type LodashProperty6x2<T> = (path: number) => T;
+    type LodashProperty7x2<T> = (path: number) => T | undefined;
+    interface LodashProperty8x1 {
         (object: null | undefined): undefined;
         (object: any): any;
     }
-    type LodashProperty5x2 = (path: lodash.PropertyPath) => undefined;
-    type LodashProperty6x2 = (path: lodash.PropertyPath) => any;
+    type LodashProperty8x2 = (path: lodash.PropertyPath) => undefined;
+    type LodashProperty9x2 = (path: lodash.PropertyPath) => any;
     interface LodashPropertyOf {
         <TObject extends object, TKey extends keyof TObject>(path: TKey | [TKey]): LodashPropertyOf1x1<TObject, TKey>;
         <TObject extends object>(path: lodash.__, object: TObject): LodashPropertyOf1x2<TObject>;
         <TObject extends object, TKey extends keyof TObject>(path: TKey | [TKey], object: TObject): TObject[TKey];
         <TObject extends object>(path: lodash.__, object: TObject | null | undefined): LodashPropertyOf2x2<TObject>;
         <TObject extends object, TKey extends keyof TObject>(path: TKey | [TKey], object: TObject | null | undefined): TObject[TKey] | undefined;
-        (path: number): LodashPropertyOf3x1;
-        <T>(path: lodash.__, object: lodash.NumericDictionary<T>): LodashPropertyOf3x2<T>;
+        <TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1]>(path: [TKey1, TKey2]): LodashPropertyOf3x1<TObject, TKey1, TKey2>;
+        <TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1]>(path: [TKey1, TKey2], object: TObject | null | undefined): TObject[TKey1][TKey2] | undefined;
+        <TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2]>(path: [TKey1, TKey2, TKey3]): LodashPropertyOf4x1<TObject, TKey1, TKey2, TKey3>;
+        <TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2]>(path: [TKey1, TKey2, TKey3], object: TObject | null | undefined): TObject[TKey1][TKey2][TKey3] | undefined;
+        <TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TKey4 extends keyof TObject[TKey1][TKey2][TKey3]>(path: [TKey1, TKey2, TKey3, TKey4]): LodashPropertyOf5x1<TObject, TKey1, TKey2, TKey3, TKey4>;
+        <TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TKey4 extends keyof TObject[TKey1][TKey2][TKey3]>(path: [TKey1, TKey2, TKey3, TKey4], object: TObject | null | undefined): TObject[TKey1][TKey2][TKey3][TKey4] | undefined;
+        (path: number): LodashPropertyOf6x1;
+        <T>(path: lodash.__, object: lodash.NumericDictionary<T>): LodashPropertyOf6x2<T>;
         <T>(path: number, object: lodash.NumericDictionary<T>): T;
-        <T>(path: lodash.__, object: lodash.NumericDictionary<T> | null | undefined): LodashPropertyOf4x2<T>;
+        <T>(path: lodash.__, object: lodash.NumericDictionary<T> | null | undefined): LodashPropertyOf7x2<T>;
         <T>(path: number, object: lodash.NumericDictionary<T> | null | undefined): T | undefined;
-        (path: lodash.PropertyPath): LodashPropertyOf5x1;
-        (path: lodash.__, object: null | undefined): LodashPropertyOf5x2;
+        (path: lodash.PropertyPath): LodashPropertyOf8x1;
+        (path: lodash.__, object: null | undefined): LodashPropertyOf8x2;
         (path: lodash.PropertyPath, object: null | undefined): undefined;
-        (path: lodash.__, object: any): LodashPropertyOf6x2;
+        (path: lodash.__, object: any): LodashPropertyOf9x2;
         (path: lodash.PropertyPath, object: any): any;
     }
     interface LodashPropertyOf1x1<TObject, TKey extends keyof TObject> {
@@ -3008,19 +3144,27 @@ declare namespace _ {
         (object: TObject | null | undefined): TObject[TKey] | undefined;
     }
     type LodashPropertyOf1x2<TObject> = <TKey extends keyof TObject>(path: TKey | [TKey]) => TObject[TKey];
-    type LodashPropertyOf2x2<TObject> = <TKey extends keyof TObject>(path: TKey | [TKey]) => TObject[TKey] | undefined;
-    interface LodashPropertyOf3x1 {
+    interface LodashPropertyOf2x2<TObject> {
+        <TKey extends keyof TObject>(path: TKey | [TKey]): TObject[TKey] | undefined;
+        <TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1]>(path: [TKey1, TKey2]): TObject[TKey1][TKey2] | undefined;
+        <TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2]>(path: [TKey1, TKey2, TKey3]): TObject[TKey1][TKey2][TKey3] | undefined;
+        <TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TKey4 extends keyof TObject[TKey1][TKey2][TKey3]>(path: [TKey1, TKey2, TKey3, TKey4]): TObject[TKey1][TKey2][TKey3][TKey4] | undefined;
+    }
+    type LodashPropertyOf3x1<TObject, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1]> = (object: TObject | null | undefined) => TObject[TKey1][TKey2] | undefined;
+    type LodashPropertyOf4x1<TObject, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2]> = (object: TObject | null | undefined) => TObject[TKey1][TKey2][TKey3] | undefined;
+    type LodashPropertyOf5x1<TObject, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TKey4 extends keyof TObject[TKey1][TKey2][TKey3]> = (object: TObject | null | undefined) => TObject[TKey1][TKey2][TKey3][TKey4] | undefined;
+    interface LodashPropertyOf6x1 {
         <T>(object: lodash.NumericDictionary<T>): T;
         <T>(object: lodash.NumericDictionary<T> | null | undefined): T | undefined;
     }
-    type LodashPropertyOf3x2<T> = (path: number) => T;
-    type LodashPropertyOf4x2<T> = (path: number) => T | undefined;
-    interface LodashPropertyOf5x1 {
+    type LodashPropertyOf6x2<T> = (path: number) => T;
+    type LodashPropertyOf7x2<T> = (path: number) => T | undefined;
+    interface LodashPropertyOf8x1 {
         (object: null | undefined): undefined;
         (object: any): any;
     }
-    type LodashPropertyOf5x2 = (path: lodash.PropertyPath) => undefined;
-    type LodashPropertyOf6x2 = (path: lodash.PropertyPath) => any;
+    type LodashPropertyOf8x2 = (path: lodash.PropertyPath) => undefined;
+    type LodashPropertyOf9x2 = (path: lodash.PropertyPath) => any;
     interface LodashPropOr {
         <TDefault>(defaultValue: TDefault): LodashPropOr1x1<TDefault>;
         <TObject extends object, TKey extends keyof TObject>(defaultValue: lodash.__, path: TKey | [TKey]): LodashPropOr1x2<TObject, TKey>;
@@ -3028,92 +3172,142 @@ declare namespace _ {
         <TObject extends object>(defaultValue: lodash.__, path: lodash.__, object: TObject | null | undefined): LodashPropOr1x4<TObject>;
         <TObject extends object, TDefault>(defaultValue: TDefault, path: lodash.__, object: TObject | null | undefined): LodashPropOr1x5<TObject, TDefault>;
         <TObject extends object, TKey extends keyof TObject>(defaultValue: lodash.__, path: TKey | [TKey], object: TObject | null | undefined): LodashPropOr1x6<TObject, TKey>;
-        <TObject extends object, TKey extends keyof TObject, TDefault>(defaultValue: TDefault, path: TKey | [TKey], object: TObject | null | undefined): TObject[TKey] | TDefault;
-        (defaultValue: lodash.__, path: number): LodashPropOr2x2;
-        <TDefault>(defaultValue: TDefault, path: number): LodashPropOr2x3<TDefault>;
-        <T>(defaultValue: lodash.__, path: lodash.__, object: lodash.NumericDictionary<T> | null | undefined): LodashPropOr2x4<T>;
-        <T, TDefault>(defaultValue: TDefault, path: lodash.__, object: lodash.NumericDictionary<T> | null | undefined): LodashPropOr2x5<T, TDefault>;
-        <T>(defaultValue: lodash.__, path: number, object: lodash.NumericDictionary<T> | null | undefined): LodashPropOr2x6<T>;
+        <TObject extends object, TKey extends keyof TObject, TDefault>(defaultValue: TDefault, path: TKey | [TKey], object: TObject | null | undefined): Exclude<TObject[TKey], undefined> | TDefault;
+        <TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1]>(defaultValue: lodash.__, path: [TKey1, TKey2]): LodashPropOr2x2<TObject, TKey1, TKey2>;
+        <TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TDefault>(defaultValue: TDefault, path: [TKey1, TKey2]): LodashPropOr2x3<TObject, TKey1, TKey2, TDefault>;
+        <TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1]>(defaultValue: lodash.__, path: [TKey1, TKey2], object: TObject | null | undefined): LodashPropOr2x6<TObject, TKey1, TKey2>;
+        <TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TDefault>(defaultValue: TDefault, path: [TKey1, TKey2], object: TObject | null | undefined): Exclude<TObject[TKey1][TKey2], undefined> | TDefault;
+        <TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2]>(defaultValue: lodash.__, path: [TKey1, TKey2, TKey3]): LodashPropOr3x2<TObject, TKey1, TKey2, TKey3>;
+        <TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TDefault>(defaultValue: TDefault, path: [TKey1, TKey2, TKey3]): LodashPropOr3x3<TObject, TKey1, TKey2, TKey3, TDefault>;
+        <TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2]>(defaultValue: lodash.__, path: [TKey1, TKey2, TKey3], object: TObject | null | undefined): LodashPropOr3x6<TObject, TKey1, TKey2, TKey3>;
+        <TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TDefault>(defaultValue: TDefault, path: [TKey1, TKey2, TKey3], object: TObject | null | undefined): Exclude<TObject[TKey1][TKey2][TKey3], undefined> | TDefault;
+        <TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TKey4 extends keyof TObject[TKey1][TKey2][TKey3]>(defaultValue: lodash.__, path: [TKey1, TKey2, TKey3, TKey4]): LodashPropOr4x2<TObject, TKey1, TKey2, TKey3, TKey4>;
+        <TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TKey4 extends keyof TObject[TKey1][TKey2][TKey3], TDefault>(defaultValue: TDefault, path: [TKey1, TKey2, TKey3, TKey4]): LodashPropOr4x3<TObject, TKey1, TKey2, TKey3, TKey4, TDefault>;
+        <TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TKey4 extends keyof TObject[TKey1][TKey2][TKey3]>(defaultValue: lodash.__, path: [TKey1, TKey2, TKey3, TKey4], object: TObject | null | undefined): LodashPropOr4x6<TObject, TKey1, TKey2, TKey3, TKey4>;
+        <TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TKey4 extends keyof TObject[TKey1][TKey2][TKey3], TDefault>(defaultValue: TDefault, path: [TKey1, TKey2, TKey3, TKey4], object: TObject | null | undefined): Exclude<TObject[TKey1][TKey2][TKey3][TKey4], undefined> | TDefault;
+        (defaultValue: lodash.__, path: number): LodashPropOr5x2;
+        <TDefault>(defaultValue: TDefault, path: number): LodashPropOr5x3<TDefault>;
+        <T>(defaultValue: lodash.__, path: lodash.__, object: lodash.NumericDictionary<T> | null | undefined): LodashPropOr5x4<T>;
+        <T, TDefault>(defaultValue: TDefault, path: lodash.__, object: lodash.NumericDictionary<T> | null | undefined): LodashPropOr5x5<T, TDefault>;
+        <T>(defaultValue: lodash.__, path: number, object: lodash.NumericDictionary<T> | null | undefined): LodashPropOr5x6<T>;
         <T, TDefault>(defaultValue: TDefault, path: number, object: lodash.NumericDictionary<T> | null | undefined): T | TDefault;
-        (defaultValue: lodash.__, path: lodash.PropertyPath): LodashPropOr3x2;
-        <TDefault>(defaultValue: TDefault, path: lodash.PropertyPath): LodashPropOr3x3<TDefault>;
-        (defaultValue: lodash.__, path: lodash.__, object: null | undefined): LodashPropOr3x4;
-        <TDefault>(defaultValue: TDefault, path: lodash.__, object: null | undefined): LodashPropOr3x5<TDefault>;
-        (defaultValue: lodash.__, path: lodash.PropertyPath, object: null | undefined): LodashPropOr3x6;
+        (defaultValue: lodash.__, path: lodash.PropertyPath): LodashPropOr6x2;
+        <TDefault>(defaultValue: TDefault, path: lodash.PropertyPath): LodashPropOr6x3<TDefault>;
+        (defaultValue: lodash.__, path: lodash.__, object: null | undefined): LodashPropOr6x4;
+        <TDefault>(defaultValue: TDefault, path: lodash.__, object: null | undefined): LodashPropOr6x5<TDefault>;
+        (defaultValue: lodash.__, path: lodash.PropertyPath, object: null | undefined): LodashPropOr6x6;
         <TDefault>(defaultValue: TDefault, path: lodash.PropertyPath, object: null | undefined): TDefault;
-        (defaultValue: any): LodashPropOr4x1;
-        (defaultValue: any, path: lodash.PropertyPath): LodashPropOr4x3;
-        (defaultValue: lodash.__, path: lodash.__, object: any): LodashPropOr4x4;
-        (defaultValue: any, path: lodash.__, object: any): LodashPropOr4x5;
-        (defaultValue: lodash.__, path: lodash.PropertyPath, object: any): LodashPropOr4x6;
+        (defaultValue: any): LodashPropOr7x1;
+        (defaultValue: any, path: lodash.PropertyPath): LodashPropOr7x3;
+        (defaultValue: lodash.__, path: lodash.__, object: any): LodashPropOr7x4;
+        (defaultValue: any, path: lodash.__, object: any): LodashPropOr7x5;
+        (defaultValue: lodash.__, path: lodash.PropertyPath, object: any): LodashPropOr7x6;
         (defaultValue: any, path: lodash.PropertyPath, object: any): any;
     }
     interface LodashPropOr1x1<TDefault> {
         <TObject extends object, TKey extends keyof TObject>(path: TKey | [TKey]): LodashPropOr1x3<TObject, TKey, TDefault>;
         <TObject extends object>(path: lodash.__, object: TObject | null | undefined): LodashPropOr1x5<TObject, TDefault>;
-        <TObject extends object, TKey extends keyof TObject>(path: TKey | [TKey], object: TObject | null | undefined): TObject[TKey] | TDefault;
-        (path: number): LodashPropOr2x3<TDefault>;
-        <T>(path: lodash.__, object: lodash.NumericDictionary<T> | null | undefined): LodashPropOr2x5<T, TDefault>;
+        <TObject extends object, TKey extends keyof TObject>(path: TKey | [TKey], object: TObject | null | undefined): Exclude<TObject[TKey], undefined> | TDefault;
+        <TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1]>(path: [TKey1, TKey2]): LodashPropOr2x3<TObject, TKey1, TKey2, TDefault>;
+        <TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1]>(path: [TKey1, TKey2], object: TObject | null | undefined): Exclude<TObject[TKey1][TKey2], undefined> | TDefault;
+        <TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2]>(path: [TKey1, TKey2, TKey3]): LodashPropOr3x3<TObject, TKey1, TKey2, TKey3, TDefault>;
+        <TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2]>(path: [TKey1, TKey2, TKey3], object: TObject | null | undefined): Exclude<TObject[TKey1][TKey2][TKey3], undefined> | TDefault;
+        <TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TKey4 extends keyof TObject[TKey1][TKey2][TKey3]>(path: [TKey1, TKey2, TKey3, TKey4]): LodashPropOr4x3<TObject, TKey1, TKey2, TKey3, TKey4, TDefault>;
+        <TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TKey4 extends keyof TObject[TKey1][TKey2][TKey3]>(path: [TKey1, TKey2, TKey3, TKey4], object: TObject | null | undefined): Exclude<TObject[TKey1][TKey2][TKey3][TKey4], undefined> | TDefault;
+        (path: number): LodashPropOr5x3<TDefault>;
+        <T>(path: lodash.__, object: lodash.NumericDictionary<T> | null | undefined): LodashPropOr5x5<T, TDefault>;
         <T>(path: number, object: lodash.NumericDictionary<T> | null | undefined): T | TDefault;
-        (path: lodash.PropertyPath): LodashPropOr3x3<TDefault>;
-        (path: lodash.__, object: null | undefined): LodashPropOr3x5<TDefault>;
+        (path: lodash.PropertyPath): LodashPropOr6x3<TDefault>;
+        (path: lodash.__, object: null | undefined): LodashPropOr6x5<TDefault>;
         (path: lodash.PropertyPath, object: null | undefined): TDefault;
     }
     interface LodashPropOr1x2<TObject, TKey extends keyof TObject> {
         <TDefault>(defaultValue: TDefault): LodashPropOr1x3<TObject, TKey, TDefault>;
         (defaultValue: lodash.__, object: TObject | null | undefined): LodashPropOr1x6<TObject, TKey>;
-        <TDefault>(defaultValue: TDefault, object: TObject | null | undefined): TObject[TKey] | TDefault;
+        <TDefault>(defaultValue: TDefault, object: TObject | null | undefined): Exclude<TObject[TKey], undefined> | TDefault;
     }
-    type LodashPropOr1x3<TObject, TKey extends keyof TObject, TDefault> = (object: TObject | null | undefined) => TObject[TKey] | TDefault;
+    type LodashPropOr1x3<TObject, TKey extends keyof TObject, TDefault> = (object: TObject | null | undefined) => Exclude<TObject[TKey], undefined> | TDefault;
     interface LodashPropOr1x4<TObject> {
         <TDefault>(defaultValue: TDefault): LodashPropOr1x5<TObject, TDefault>;
         <TKey extends keyof TObject>(defaultValue: lodash.__, path: TKey | [TKey]): LodashPropOr1x6<TObject, TKey>;
-        <TKey extends keyof TObject, TDefault>(defaultValue: TDefault, path: TKey | [TKey]): TObject[TKey] | TDefault;
+        <TKey extends keyof TObject, TDefault>(defaultValue: TDefault, path: TKey | [TKey]): Exclude<TObject[TKey], undefined> | TDefault;
+        <TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1]>(defaultValue: lodash.__, path: [TKey1, TKey2]): LodashPropOr2x6<TObject, TKey1, TKey2>;
+        <TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TDefault>(defaultValue: TDefault, path: [TKey1, TKey2]): Exclude<TObject[TKey1][TKey2], undefined> | TDefault;
+        <TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2]>(defaultValue: lodash.__, path: [TKey1, TKey2, TKey3]): LodashPropOr3x6<TObject, TKey1, TKey2, TKey3>;
+        <TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TDefault>(defaultValue: TDefault, path: [TKey1, TKey2, TKey3]): Exclude<TObject[TKey1][TKey2][TKey3], undefined> | TDefault;
+        <TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TKey4 extends keyof TObject[TKey1][TKey2][TKey3]>(defaultValue: lodash.__, path: [TKey1, TKey2, TKey3, TKey4]): LodashPropOr4x6<TObject, TKey1, TKey2, TKey3, TKey4>;
+        <TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TKey4 extends keyof TObject[TKey1][TKey2][TKey3], TDefault>(defaultValue: TDefault, path: [TKey1, TKey2, TKey3, TKey4]): Exclude<TObject[TKey1][TKey2][TKey3][TKey4], undefined> | TDefault;
     }
-    type LodashPropOr1x5<TObject, TDefault> = <TKey extends keyof TObject>(path: TKey | [TKey]) => TObject[TKey] | TDefault;
-    type LodashPropOr1x6<TObject, TKey extends keyof TObject> = <TDefault>(defaultValue: TDefault) => TObject[TKey] | TDefault;
-    interface LodashPropOr2x2 {
-        <TDefault>(defaultValue: TDefault): LodashPropOr2x3<TDefault>;
-        <T>(defaultValue: lodash.__, object: lodash.NumericDictionary<T> | null | undefined): LodashPropOr2x6<T>;
+    interface LodashPropOr1x5<TObject, TDefault> {
+        <TKey extends keyof TObject>(path: TKey | [TKey]): Exclude<TObject[TKey], undefined> | TDefault;
+        <TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1]>(path: [TKey1, TKey2]): Exclude<TObject[TKey1][TKey2], undefined> | TDefault;
+        <TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2]>(path: [TKey1, TKey2, TKey3]): Exclude<TObject[TKey1][TKey2][TKey3], undefined> | TDefault;
+        <TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TKey4 extends keyof TObject[TKey1][TKey2][TKey3]>(path: [TKey1, TKey2, TKey3, TKey4]): Exclude<TObject[TKey1][TKey2][TKey3][TKey4], undefined> | TDefault;
+    }
+    type LodashPropOr1x6<TObject, TKey extends keyof TObject> = <TDefault>(defaultValue: TDefault) => Exclude<TObject[TKey], undefined> | TDefault;
+    interface LodashPropOr2x2<TObject, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1]> {
+        <TDefault>(defaultValue: TDefault): LodashPropOr2x3<TObject, TKey1, TKey2, TDefault>;
+        (defaultValue: lodash.__, object: TObject | null | undefined): LodashPropOr2x6<TObject, TKey1, TKey2>;
+        <TDefault>(defaultValue: TDefault, object: TObject | null | undefined): Exclude<TObject[TKey1][TKey2], undefined> | TDefault;
+    }
+    type LodashPropOr2x3<TObject, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TDefault> = (object: TObject | null | undefined) => Exclude<TObject[TKey1][TKey2], undefined> | TDefault;
+    type LodashPropOr2x6<TObject, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1]> = <TDefault>(defaultValue: TDefault) => Exclude<TObject[TKey1][TKey2], undefined> | TDefault;
+    interface LodashPropOr3x2<TObject, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2]> {
+        <TDefault>(defaultValue: TDefault): LodashPropOr3x3<TObject, TKey1, TKey2, TKey3, TDefault>;
+        (defaultValue: lodash.__, object: TObject | null | undefined): LodashPropOr3x6<TObject, TKey1, TKey2, TKey3>;
+        <TDefault>(defaultValue: TDefault, object: TObject | null | undefined): Exclude<TObject[TKey1][TKey2][TKey3], undefined> | TDefault;
+    }
+    type LodashPropOr3x3<TObject, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TDefault> = (object: TObject | null | undefined) => Exclude<TObject[TKey1][TKey2][TKey3], undefined> | TDefault;
+    type LodashPropOr3x6<TObject, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2]> = <TDefault>(defaultValue: TDefault) => Exclude<TObject[TKey1][TKey2][TKey3], undefined> | TDefault;
+    interface LodashPropOr4x2<TObject, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TKey4 extends keyof TObject[TKey1][TKey2][TKey3]> {
+        <TDefault>(defaultValue: TDefault): LodashPropOr4x3<TObject, TKey1, TKey2, TKey3, TKey4, TDefault>;
+        (defaultValue: lodash.__, object: TObject | null | undefined): LodashPropOr4x6<TObject, TKey1, TKey2, TKey3, TKey4>;
+        <TDefault>(defaultValue: TDefault, object: TObject | null | undefined): Exclude<TObject[TKey1][TKey2][TKey3][TKey4], undefined> | TDefault;
+    }
+    type LodashPropOr4x3<TObject, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TKey4 extends keyof TObject[TKey1][TKey2][TKey3], TDefault> = (object: TObject | null | undefined) => Exclude<TObject[TKey1][TKey2][TKey3][TKey4], undefined> | TDefault;
+    type LodashPropOr4x6<TObject, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TKey4 extends keyof TObject[TKey1][TKey2][TKey3]> = <TDefault>(defaultValue: TDefault) => Exclude<TObject[TKey1][TKey2][TKey3][TKey4], undefined> | TDefault;
+    interface LodashPropOr5x2 {
+        <TDefault>(defaultValue: TDefault): LodashPropOr5x3<TDefault>;
+        <T>(defaultValue: lodash.__, object: lodash.NumericDictionary<T> | null | undefined): LodashPropOr5x6<T>;
         <T, TDefault>(defaultValue: TDefault, object: lodash.NumericDictionary<T> | null | undefined): T | TDefault;
     }
-    type LodashPropOr2x3<TDefault> = <T>(object: lodash.NumericDictionary<T> | null | undefined) => T | TDefault;
-    interface LodashPropOr2x4<T> {
-        <TDefault>(defaultValue: TDefault): LodashPropOr2x5<T, TDefault>;
-        (defaultValue: lodash.__, path: number): LodashPropOr2x6<T>;
+    type LodashPropOr5x3<TDefault> = <T>(object: lodash.NumericDictionary<T> | null | undefined) => T | TDefault;
+    interface LodashPropOr5x4<T> {
+        <TDefault>(defaultValue: TDefault): LodashPropOr5x5<T, TDefault>;
+        (defaultValue: lodash.__, path: number): LodashPropOr5x6<T>;
         <TDefault>(defaultValue: TDefault, path: number): T | TDefault;
     }
-    type LodashPropOr2x5<T, TDefault> = (path: number) => T | TDefault;
-    type LodashPropOr2x6<T> = <TDefault>(defaultValue: TDefault) => T | TDefault;
-    interface LodashPropOr3x2 {
-        <TDefault>(defaultValue: TDefault): LodashPropOr3x3<TDefault>;
-        (defaultValue: lodash.__, object: null | undefined): LodashPropOr3x6;
+    type LodashPropOr5x5<T, TDefault> = (path: number) => T | TDefault;
+    type LodashPropOr5x6<T> = <TDefault>(defaultValue: TDefault) => T | TDefault;
+    interface LodashPropOr6x2 {
+        <TDefault>(defaultValue: TDefault): LodashPropOr6x3<TDefault>;
+        (defaultValue: lodash.__, object: null | undefined): LodashPropOr6x6;
         <TDefault>(defaultValue: TDefault, object: null | undefined): TDefault;
-        (defaultValue: any): LodashPropOr4x3;
-        (defaultValue: lodash.__, object: any): LodashPropOr4x6;
+        (defaultValue: any): LodashPropOr7x3;
+        (defaultValue: lodash.__, object: any): LodashPropOr7x6;
         (defaultValue: any, object: any): any;
     }
-    type LodashPropOr3x3<TDefault> = (object: null | undefined) => TDefault;
-    interface LodashPropOr3x4 {
-        <TDefault>(defaultValue: TDefault): LodashPropOr3x5<TDefault>;
-        (defaultValue: lodash.__, path: lodash.PropertyPath): LodashPropOr3x6;
+    type LodashPropOr6x3<TDefault> = (object: null | undefined) => TDefault;
+    interface LodashPropOr6x4 {
+        <TDefault>(defaultValue: TDefault): LodashPropOr6x5<TDefault>;
+        (defaultValue: lodash.__, path: lodash.PropertyPath): LodashPropOr6x6;
         <TDefault>(defaultValue: TDefault, path: lodash.PropertyPath): TDefault;
     }
-    type LodashPropOr3x5<TDefault> = (path: lodash.PropertyPath) => TDefault;
-    type LodashPropOr3x6 = <TDefault>(defaultValue: TDefault) => TDefault;
-    interface LodashPropOr4x1 {
-        (path: lodash.PropertyPath): LodashPropOr4x3;
-        (path: lodash.__, object: any): LodashPropOr4x5;
+    type LodashPropOr6x5<TDefault> = (path: lodash.PropertyPath) => TDefault;
+    type LodashPropOr6x6 = <TDefault>(defaultValue: TDefault) => TDefault;
+    interface LodashPropOr7x1 {
+        (path: lodash.PropertyPath): LodashPropOr7x3;
+        (path: lodash.__, object: any): LodashPropOr7x5;
         (path: lodash.PropertyPath, object: any): any;
     }
-    type LodashPropOr4x3 = (object: any) => any;
-    interface LodashPropOr4x4 {
-        (defaultValue: any): LodashPropOr4x5;
-        (defaultValue: lodash.__, path: lodash.PropertyPath): LodashPropOr4x6;
+    type LodashPropOr7x3 = (object: any) => any;
+    interface LodashPropOr7x4 {
+        (defaultValue: any): LodashPropOr7x5;
+        (defaultValue: lodash.__, path: lodash.PropertyPath): LodashPropOr7x6;
         (defaultValue: any, path: lodash.PropertyPath): any;
     }
-    type LodashPropOr4x5 = (path: lodash.PropertyPath) => any;
-    type LodashPropOr4x6 = (defaultValue: any) => any;
+    type LodashPropOr7x5 = (path: lodash.PropertyPath) => any;
+    type LodashPropOr7x6 = (defaultValue: any) => any;
     interface LodashPull {
         <T>(values: T): LodashPull1x1<T>;
         <T>(values: lodash.__, array: ReadonlyArray<T>): LodashPull1x2<T>;
@@ -3536,20 +3730,15 @@ declare namespace _ {
     type LodashReduceRight3x5<TResult> = (accumulator: TResult) => TResult;
     type LodashReduceRight3x6<T, TResult> = (callback: lodash.MemoIteratorCappedRight<T[keyof T], TResult>) => TResult;
     interface LodashReject {
-        (predicate: (value: string) => boolean): LodashReject1x1;
-        (predicate: lodash.__, collection: string | null | undefined): LodashReject1x2;
-        (predicate: (value: string) => boolean, collection: string | null | undefined): string[];
-        <T>(predicate: lodash.ValueIterateeCustom<T, boolean>): LodashReject2x1<T>;
-        <T>(predicate: lodash.__, collection: lodash.List<T> | null | undefined): LodashReject2x2<T>;
+        <T>(predicate: lodash.ValueIterateeCustom<T, boolean>): LodashReject1x1<T>;
+        <T>(predicate: lodash.__, collection: lodash.List<T> | null | undefined): LodashReject1x2<T>;
         <T>(predicate: lodash.ValueIterateeCustom<T, boolean>, collection: lodash.List<T> | null | undefined): T[];
-        <T extends object>(predicate: lodash.__, collection: T | null | undefined): LodashReject3x2<T>;
+        <T extends object>(predicate: lodash.__, collection: T | null | undefined): LodashReject2x2<T>;
         <T extends object>(predicate: lodash.ValueIterateeCustom<T[keyof T], boolean>, collection: T | null | undefined): Array<T[keyof T]>;
     }
-    type LodashReject1x1 = (collection: string | null | undefined) => string[];
-    type LodashReject1x2 = (predicate: (value: string) => boolean) => string[];
-    type LodashReject2x1<T> = (collection: lodash.List<T> | object | null | undefined) => T[];
-    type LodashReject2x2<T> = (predicate: lodash.ValueIterateeCustom<T, boolean>) => T[];
-    type LodashReject3x2<T> = (predicate: lodash.ValueIterateeCustom<T[keyof T], boolean>) => Array<T[keyof T]>;
+    type LodashReject1x1<T> = (collection: lodash.List<T> | object | null | undefined) => T[];
+    type LodashReject1x2<T> = (predicate: lodash.ValueIterateeCustom<T, boolean>) => T[];
+    type LodashReject2x2<T> = (predicate: lodash.ValueIterateeCustom<T[keyof T], boolean>) => Array<T[keyof T]>;
     interface LodashRemove {
         <T>(predicate: lodash.ValueIteratee<T>): LodashRemove1x1<T>;
         <T>(predicate: lodash.__, array: lodash.List<T>): LodashRemove1x2<T>;

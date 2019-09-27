@@ -58,7 +58,7 @@ declare namespace ReactCountUp {
             start(): void;
         }): void;
         style?: React.CSSProperties;
-        children?(data: RenderProps): React.ReactElement<any>;
+        children?(data: RenderProps): React.ReactElement;
     }
 }
 

@@ -1,4 +1,4 @@
-// Type definitions for @ember/debug 3.0
+// Type definitions for non-npm package @ember/debug 3.0
 // Project: https://emberjs.com/api/ember/3.4/modules/@ember%2Fdebug
 // Definitions by: Mike North <https://github.com/mike-north>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

@@ -1,6 +1,8 @@
-// Type definitions for facebook-instant-games 6.2
+// Type definitions for non-npm package facebook-instant-games 6.3
 // Project: https://developers.facebook.com/docs/games/instant-games
-// Definitions by: Menushka Weeratunga <https://github.com/menushka>, Øyvind Johansen Amundrud <https://github.com/oyvindjam>
+// Definitions by: Menushka Weeratunga <https://github.com/menushka>,
+//                 Øyvind Johansen Amundrud <https://github.com/oyvindjam>,
+//                 Liana Pigeot <https://github.com/nialna>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
@@ -215,6 +217,7 @@ declare namespace FBInstant {
      * The tag must only include letters, numbers, and underscores and be 100 characters or less in length.
      * @param switchContextWhenMatched Optional extra parameter that specifies whether the player should be immediately switched to the new context when a match is found.
      * By default this will be false which will mean the player needs explicitly press play after being matched to switch to the new context.
+     * @param offlineMatch Optional extra parameter that specifies whether to start a match asynchronously. By default this will be false which means the game will start a match synchronously.
      * @returns A promise that resolves when the player has been added to a group thread and switched into the thread's context.
      * @throws INVALID_PARAM
      * @throws NETWORK_FAILURE
@@ -223,7 +226,7 @@ declare namespace FBInstant {
      * @throws CLIENT_UNSUPPORTED_OPERATION
      * @throws INVALID_OPERATION
      */
-    function matchPlayerAsync(matchTag?: string, switchContextWhenMatched?: boolean): Promise<void>;
+    function matchPlayerAsync(matchTag?: string, switchContextWhenMatched?: boolean, offlineMatch?: boolean): Promise<void>;
 
     /**
      * Checks if the current player is eligible for the matchPlayerAsync API.
@@ -245,6 +248,16 @@ declare namespace FBInstant {
      * @throws INVALID_PARAM
      */
     function getLeaderboardAsync(name: string): Promise<Leaderboard>;
+
+    /**
+     * Posts the player's best score for the session to Facebook.
+     * This API should be called whenever the player achieves their best score in a session, preferably at the end of an activity
+     * Scores posted using this API should be consistent & comparable across game sessions.
+     *
+     * @param score An integer value representing the player's best score in a session.
+     * @returns void
+     */
+    function postSessionScore(score: number): void;
 
     interface Player {
         /**

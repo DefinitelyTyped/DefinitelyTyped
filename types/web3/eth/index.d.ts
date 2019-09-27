@@ -47,24 +47,24 @@ export default interface Eth {
     subscribe(
         type: "logs",
         options?: Logs,
-        callback?: Callback<Subscribe<Log>>
+        callback?: Callback<Log>
     ): Promise<Subscribe<Log>>;
     subscribe(
         type: "syncing",
-        callback?: Callback<Subscribe<any>>
+        callback?: Callback<any>
     ): Promise<Subscribe<any>>;
     subscribe(
         type: "newBlockHeaders",
-        callback?: Callback<Subscribe<BlockHeader>>
+        callback?: Callback<BlockHeader>
     ): Promise<Subscribe<BlockHeader>>;
     subscribe(
         type: "pendingTransactions",
-        callback?: Callback<Subscribe<Transaction>>
+        callback?: Callback<Transaction>
     ): Promise<Subscribe<Transaction>>;
     subscribe(
         type: "pendingTransactions" | "newBlockHeaders" | "syncing" | "logs",
         options?: Logs,
-        callback?: Callback<Subscribe<any>>
+        callback?: Callback<any>
     ): Promise<Subscribe<any>>;
 
     unsubscribe(callBack: Callback<boolean>): void | boolean;
@@ -87,9 +87,13 @@ export default interface Eth {
     getAccounts(cb?: Callback<string[]>): Promise<string[]>;
     getBalance(
         address: string,
-        defaultBlock?: BlockType,
-        cb?: Callback<number>
-    ): Promise<number>;
+        defaultBlock?: BlockType
+    ): Promise<string>;
+    getBalance(
+        address: string,
+        defaultBlock: BlockType,
+        cb: Callback<string>
+    ): void;
     getBlock(
         number: BlockType,
         returnTransactionObjects?: boolean,
@@ -118,7 +122,7 @@ export default interface Eth {
             fromBlock?: BlockType;
             toBlock?: BlockType;
             address?: string;
-            topics?: Array<string | string[]>;
+            topics?: Array<string | string[] | null>;
         },
         cb?: Callback<Log[]>
     ): Promise<Log[]>;

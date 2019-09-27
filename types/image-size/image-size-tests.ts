@@ -4,11 +4,11 @@ import sizeOf = require("image-size");
 
 // Synchronous
 const dimensions = sizeOf("images/funny-cats.png");
-console.log(dimensions.width, dimensions.height);
+console.log(dimensions.width, dimensions.height, dimensions.orientation);
 
 // Asynchronous
 sizeOf("images/funny-cats.png", (err, dimensions) => {
-  console.log(dimensions.width, dimensions.height);
+  console.log(dimensions.width, dimensions.height, dimensions.orientation);
 });
 
 // From URL

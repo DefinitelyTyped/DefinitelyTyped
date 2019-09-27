@@ -1,5 +1,4 @@
 import * as ReduxAction from 'redux-action';
-import * as ReduxThunk from 'redux-thunk';
 import * as Redux from 'redux';
 
 interface Payload {
@@ -11,7 +10,7 @@ const dispatch: Redux.Dispatch<any> = (...args: any[]): any => { };
 
 const actionCreator0 = ReduxAction.createAction<Payload>('get items');
 
-dispatch(actionCreator0(1))
+actionCreator0(1)(dispatch, () => { })
   .then(action => {
     const type: string = action.type;
     const payload: Payload = action.payload;
@@ -19,7 +18,7 @@ dispatch(actionCreator0(1))
 
 const actionCreator1 = ReduxAction.createAction<Payload>();
 
-dispatch(actionCreator1(1))
+actionCreator1(1)(dispatch, () => { })
   .then(action => {
     const type: string = action.type;
     const payload: Payload = action.payload;
@@ -27,7 +26,7 @@ dispatch(actionCreator1(1))
 
 const actionCreator2 = ReduxAction.createAction('get items', (name: string) => name);
 
-dispatch(actionCreator2(1))
+actionCreator2(1)(dispatch, () => { })
   .then(action => {
     const type: string = action.type;
     const payload: string = action.payload;
@@ -35,7 +34,7 @@ dispatch(actionCreator2(1))
 
 const actionCreator3 = ReduxAction.createAction('get items', (name: string) => Promise.resolve(name));
 
-dispatch(actionCreator3(1))
+actionCreator3(1)(dispatch, () => { })
   .then(action => {
     const type: string = action.type;
     const payload: string = action.payload;
@@ -43,7 +42,7 @@ dispatch(actionCreator3(1))
 
 const actionCreator4 = ReduxAction.createAction((name: string) => name);
 
-dispatch(actionCreator4(1))
+actionCreator4(1)(dispatch, () => { })
   .then(action => {
     const type: string = action.type;
     const payload: string = action.payload;
@@ -51,7 +50,7 @@ dispatch(actionCreator4(1))
 
 const actionCreator5 = ReduxAction.createAction<number, string>((name: string) => 1);
 
-dispatch(actionCreator5('items'))
+actionCreator5('items')(dispatch, () => { })
   .then(action => {
     const type: string = action.type;
     const payload: number = action.payload;
@@ -59,7 +58,7 @@ dispatch(actionCreator5('items'))
 
 const actionCreator6 = ReduxAction.createAction<number, string, boolean>((name: string) => 1);
 
-dispatch(actionCreator6('items', false))
+actionCreator6('items', false)(dispatch, () => { })
   .then(action => {
     const type: string = action.type;
     const payload: number = action.payload;
@@ -80,4 +79,4 @@ const reducer = ReduxAction.createReducer<State>({ name: 'name' }, {
   }
 });
 
-const combinedReducer: Redux.Reducer<State> = Redux.combineReducers<State>({ reducer });
+const combinedReducer: Redux.Reducer<{ reducer: State }> = Redux.combineReducers<{ reducer: State }>({ reducer });

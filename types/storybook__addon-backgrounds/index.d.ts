@@ -1,6 +1,7 @@
-// Type definitions for @storybook/addon-backgrounds 3.2
-// Project: https://github.com/storybooks/storybook
+// Type definitions for @storybook/addon-backgrounds 4.1
+// Project: https://github.com/storybookjs/storybook, https://github.com/storybookjs/storybook/tree/master/addons/backgrounds
 // Definitions by: HyunSeob <https://github.com/hyunseob>
+//                 An Dohyung <https://github.com/adhrinae>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -11,7 +12,9 @@ export interface Background {
     value: string;
     default?: boolean;
 }
+export function withBackgrounds(backgrounds: Background[]): StoryDecorator;
 
+// [DEPRECATED] Use `withBackgrounds` function instead.
 declare function backgrounds(backgrounds: Background[]): StoryDecorator;
 
 export default backgrounds;

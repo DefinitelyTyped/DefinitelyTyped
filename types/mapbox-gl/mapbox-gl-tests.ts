@@ -7,6 +7,10 @@ import mapboxgl = require('.');
  */
 mapboxgl.accessToken = 'foo';
 
+/**
+ * Set Base API URL
+ */
+mapboxgl.baseApiUrl = 'https://example.com';
 
 /**
  * Display a Map
@@ -27,13 +31,39 @@ let map = new mapboxgl.Map({
 	boxZoom: true,
 	dragRotate: false,
 	dragPan: true,
+	antialias: true,
 });
 
+/**
+ * Initialize map with bounds
+ */
+expectType<mapboxgl.MapboxOptions>({
+	container: 'map',
+	bounds: new mapboxgl.LngLatBounds([-100, -90, 100, 90]),
+	fitBoundsOptions: {
+		padding: 0,
+		offset: new mapboxgl.Point(0, 0),
+		linear: true,
+		maxZoom: 22,
+		easing: time => time
+	}
+});
+expectType<mapboxgl.MapboxOptions>({
+	container: 'map',
+	bounds: [[-100, -90], [100, 90]],
+	fitBoundsOptions: {
+		offset: [0, 0]
+	}
+});
+expectType<mapboxgl.MapboxOptions>({
+	container: 'map',
+	bounds: [-100, -90, 100, 90]
+});
 
 /**
  * Create and style marker clusters
  */
-map.on('load', function(){
+map.on('load', function() {
 
 	// Add a new source from our GeoJSON data and set the
 	// 'cluster' option to true.
@@ -50,11 +80,12 @@ map.on('load', function(){
 		"type": "symbol",
 		"source": "data",
 		"layout": {
-			"icon-image": "marker-15"
+			"icon-image": "marker-15",
+			"text-field": ['get', 'property']
 		}
 	});
 
-        var layers: [number, string][] = [
+	var layers: [number, string][] = [
 		[150, '#f28cb1'],
 		[20, '#f1f075'],
 		[0, '#51bbd6']
@@ -92,9 +123,9 @@ map.on('load', function(){
 		}
 	});
 
-/**
- * Add a GeoJSON line
- */
+    /**
+    * Add a GeoJSON line
+    */
 	map.addSource("route", {
 		"type": "geojson",
 		"data": {
@@ -139,8 +170,44 @@ map.on('load', function(){
 		},
 		"paint": {
 			"line-color": "#888",
-			"line-width": 8
+			"line-width": 8,
+            "line-dasharray": [
+                "step",
+                [
+                    "zoom"
+                ],
+                [
+                    "literal",
+                    [
+                        1,
+                        0
+                    ]
+                ],
+                15,
+                [
+                    "literal",
+                    [
+                        1.75,
+                        1
+                    ]
+                ]
+            ]
 		}
+	});
+
+	// Add a custom layer
+	map.addLayer({
+		id: 'custom',
+		type: 'custom',
+		renderingMode: '3d',
+		onRemove: function(map, gl) {
+			map;  // $ExpectType Map
+			gl;  // $ExpectType WebGLRenderingContext
+		},
+		render: function(gl, matrix) {
+			gl;  // $ExpectType WebGLRenderingContext
+			matrix;  // $ExpectType number[]
+		},
 	});
 });
 
@@ -191,6 +258,23 @@ var imageSourceObj = new mapboxgl.ImageSource({
 map.addSource('some id', imageSourceObj); // add
 map.removeSource('some id');  // remove
 
+imageSourceObj.updateImage({
+	url: '/foo.png',
+	coordinates: [
+		[-76.54335737228394, 39.18579907229748],
+		[-76.52803659439087, 39.1838364847587],
+		[-76.5295386314392, 39.17683392507606],
+		[-76.54520273208618, 39.17876344106642]
+	]
+});
+
+imageSourceObj.setCoordinates([
+	[-76.54335737228394, 39.18579907229748],
+	[-76.52803659439087, 39.1838364847587],
+	[-76.5295386314392, 39.17683392507606],
+	[-76.54520273208618, 39.17876344106642]
+]);
+
 /**
  * Video Source
  */
@@ -216,22 +300,50 @@ map.addSource('radar', {
 	type: 'raster',
 	tiles: ['https://nowcoast.noaa.gov/arcgis/services/nowcoast/radar_meteo_imagery_nexrad_time/MapServer/WmsServer?bbox={bbox-epsg-3857}&service=WMS&request=GetMap&version=1.3.0&layers=1&styles=&format=image/png&transparent=true&height=256&width=256&crs=EPSG:3857'],
 	tileSize: 256
-})
+});
 
 map.addLayer({
 	id: 'radar',
 	type: 'raster',
 	source: 'radar',
 	paint: {}
-})
+});
+
+/**
+ * Manipulate feature state
+ */
+let featureIdentifier = {
+	id: 1337,
+	source: 'source-id',
+	sourceLayer: 'liam-was-here'
+};
+expectType<mapboxgl.FeatureIdentifier>(featureIdentifier);
+map.setFeatureState(featureIdentifier, { someState: true, someOtherState: 123 });
+map.getFeatureState(featureIdentifier);
+map.removeFeatureState(featureIdentifier, 'someState');
+map.removeFeatureState(featureIdentifier);
 
 /**
  * Popup
  */
-var popup = new mapboxgl.Popup({closeOnClick: false, closeButton: true, anchor: 'top-right', offset: {'top': [0,0], 'bottom': [25,-50]}, className: 'custom-class' })
+const popupOptions = {
+	closeOnClick: false,
+	closeButton: true,
+	anchor: 'top-right' as mapboxgl.Anchor,
+	offset: {
+		'top': [0,0] as [number, number],
+		'bottom': [25,-50] as [number, number]
+	},
+	className: 'custom-class',
+	maxWidth: '400px'
+};
+expectType<mapboxgl.PopupOptions>(popupOptions);
+const popup = new mapboxgl.Popup(popupOptions)
 	.setLngLat([-50, 50])
 	.setHTML('<h1>Hello World!</h1>')
+	.setMaxWidth('none')
 	.addTo(map);
+popup.getMaxWidth();
 
 /**
  * Add an image
@@ -308,7 +420,75 @@ var mapStyle = {
 			"layout": {
 				"text-transform": "uppercase",
 				"text-field": "{name_en}",
-				"text-font": ["DIN Offc Pro Bold", "Arial Unicode MS Bold"],
+                "text-font": [
+                    "step",
+                    [
+                        "zoom"
+                    ],
+                    [
+                        "literal",
+                        [
+                            "DIN Offc Pro Regular",
+                            "Arial Unicode MS Regular"
+                        ]
+                    ],
+                    8,
+                    [
+                        "step",
+                        [
+                            "get",
+                            "symbolrank"
+                        ],
+                        [
+                            "literal",
+                            [
+                                "DIN Offc Pro Medium",
+                                "Arial Unicode MS Regular"
+                            ]
+                        ],
+                        11,
+                        [
+                            "literal",
+                            [
+                                "DIN Offc Pro Regular",
+                                "Arial Unicode MS Regular"
+                            ]
+                        ]
+                    ]
+                ],
+                "text-justify": [
+                    "step",
+                    [
+                        "zoom"
+                    ],
+                    [
+                        "match",
+                        [
+                            "get",
+                            "text_anchor"
+                        ],
+                        [
+                            "bottom",
+                            "top"
+                        ],
+                        "center",
+                        [
+                            "left",
+                            "bottom-left",
+                            "top-left"
+                        ],
+                        "left",
+                        [
+                            "right",
+                            "bottom-right",
+                            "top-right"
+                        ],
+                        "right",
+                        "center"
+                    ],
+                    8,
+                    "center"
+                ],
 				"text-letter-spacing": 0.15,
 				"text-max-width": 7,
 				"text-size": {"stops": [[4, 10], [6, 14]]}
@@ -394,18 +574,27 @@ marker.remove();
 /*
  * LngLatBounds
  */
-let bool:boolean
-let bounds = new mapboxgl.LngLatBounds()
-bool = bounds.isEmpty()
+let bool:boolean;
+let bounds = new mapboxgl.LngLatBounds();
+bool = bounds.isEmpty();
 /*
  * AttributionControl
  */
 let attributionControl = new mapboxgl.AttributionControl({ compact: false, customAttribution: '© YourCo' });
 attributionControl.on('click', () => {});
 
+/*
+ * FullscreenControl
+ */
+new mapboxgl.FullscreenControl();
+new mapboxgl.FullscreenControl(null);
+new mapboxgl.FullscreenControl({});
+new mapboxgl.FullscreenControl({container: document.querySelector('body')});
+
 declare var lnglat: mapboxgl.LngLat;
 declare var lnglatlike: mapboxgl.LngLatLike;
 declare var lnglatboundslike: mapboxgl.LngLatBoundsLike;
+declare var mercatorcoordinate: mapboxgl.MercatorCoordinate;
 declare var pointlike: mapboxgl.PointLike;
 
 function expectType<T>(value: T) { /* let the compiler handle things */ }
@@ -417,6 +606,7 @@ function expectType<T>(value: T) { /* let the compiler handle things */ }
 expectType<mapboxgl.LngLatLike>(new mapboxgl.LngLat(0, 0));
 expectType<mapboxgl.LngLatLike>([0, 0]);
 expectType<mapboxgl.LngLatLike>({ lng: 0, lat: 0 });
+expectType<mapboxgl.LngLatLike>({ lon: 0, lat: 0 });
 
 /*
  * LngLat
@@ -459,15 +649,26 @@ new mapboxgl.Point(0, 0);
 expectType<mapboxgl.Point>(mapboxgl.Point.convert(pointlike));
 
 /*
+ * MercatorCoordinate
+ */
+
+new mapboxgl.MercatorCoordinate(0, 0);
+new mapboxgl.MercatorCoordinate(0, 0, 0);
+expectType<number>(mercatorcoordinate.toAltitude());
+expectType<mapboxgl.LngLat>(mercatorcoordinate.toLngLat());
+expectType<mapboxgl.MercatorCoordinate>(mapboxgl.MercatorCoordinate.fromLngLat(lnglatlike));
+expectType<mapboxgl.MercatorCoordinate>(mapboxgl.MercatorCoordinate.fromLngLat(lnglatlike, 0));
+
+/*
  * TransformRequestFunction
  */
 
 expectType<mapboxgl.TransformRequestFunction>((url: string) => ({ url }));
 expectType<mapboxgl.TransformRequestFunction>((url: string, resourceType: mapboxgl.ResourceType) => ({
-	 url,
-	 credentials: 'same-origin',
-	 headers: { 'Accept-Encoding': 'compress' },
-	 method: 'POST',
+	url,
+	credentials: 'same-origin',
+	headers: { 'Accept-Encoding': 'compress' },
+	method: 'POST',
 	collectResourceTiming: true,
  }));
 
@@ -494,14 +695,16 @@ let cameraForBoundsOpts: mapboxgl.CameraForBoundsOptions = {
 	maxZoom: 10,
 	padding,
 	...cameraOpts,
-}
+};
 
-expectType<mapboxgl.CameraOptions | undefined>(map.cameraForBounds(lnglatboundslike));
-expectType<mapboxgl.CameraOptions | undefined>(map.cameraForBounds(lnglatboundslike, cameraForBoundsOpts));
+expectType<mapboxgl.CameraForBoundsResult | undefined>(map.cameraForBounds(lnglatboundslike));
+expectType<mapboxgl.CameraForBoundsResult | undefined>(map.cameraForBounds(lnglatboundslike, cameraForBoundsOpts));
 
 expectType<mapboxgl.Map>(map.fitScreenCoordinates([0, 0], pointlike, 1));
 expectType<mapboxgl.Map>(map.fitScreenCoordinates([0, 0], pointlike, 1, cameraOpts));
 expectType<mapboxgl.Map>(map.fitScreenCoordinates([0, 0], pointlike, 1, cameraOpts, { key: 'value' }));
+
+expectType<void>(map.triggerRepaint());
 
 /*
  * Map Events
@@ -787,3 +990,21 @@ expectType<mapboxgl.Map>(map.on('touchcancel', 'text', (ev) => {
 	expectType<mapboxgl.MapLayerTouchEvent>(ev);
 	expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
 }));
+
+/*
+ * Expression
+ */
+expectType<mapboxgl.Expression>(['id']);
+expectType<mapboxgl.Expression>(['get', 'property']);
+expectType<mapboxgl.Expression>([
+	'format',
+	['concat', ['get', 'name'], '\n'], {},
+	['concat', ['get', 'area'], 'foobar', { 'font-scale': 0.8 }]
+]);
+expectType<mapboxgl.Expression>(['coalesce', ['get', 'property'], ['get', 'property']]);
+
+/*
+ *	ScrollZoomHandler
+ */
+expectType<void>(new mapboxgl.Map().scrollZoom.setZoomRate(1));
+expectType<void>(new mapboxgl.Map().scrollZoom.setWheelZoomRate(1));

@@ -1862,6 +1862,7 @@ function test_ui() {
     $("aDialog").keypress(function (e) {
         return (e.keyCode == $.ui.keyCode.ENTER);
     });
+    $(".selector").jQuery.ui.selectmenu({ disabled: true });
 }
 
 function test_widget() {

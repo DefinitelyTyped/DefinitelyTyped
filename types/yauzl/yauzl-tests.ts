@@ -26,3 +26,5 @@ yauzl.open('path/to/file.zip', {lazyEntries: true}, (err, zipfile) => {
         });
     }
 });
+
+yauzl.open('options.zip', {strictFileNames: true}, () => {});

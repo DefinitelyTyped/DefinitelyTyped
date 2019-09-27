@@ -1,5 +1,5 @@
 // Type definitions for jsdom 12.2
-// Project: https://github.com/tmpvar/jsdom#readme
+// Project: https://github.com/jsdom/jsdom
 // Definitions by: Leonard Thieu <https://github.com/leonard-thieu>
 //                 Johan Palmfjord <https://github.com/palmfjord>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -41,7 +41,7 @@ export class JSDOM {
      * Behind the scenes, a jsdom Window is indeed a VM context.
      * To get access to this ability, use the runVMScript() method.
      */
-    runVMScript(script: Script): void;
+    runVMScript(script: Script): any;
 
     reconfigure(settings: ReconfigureSettings): void;
 }
@@ -68,6 +68,14 @@ export interface Options {
     resources?: 'usable' | ResourceLoader;
     virtualConsole?: VirtualConsole;
     cookieJar?: CookieJar;
+    /**
+     * jsdom does not have the capability to render visual content, and will act like a headless browser by default.
+     * It provides hints to web pages through APIs such as document.hidden that their content is not visible.
+     *
+     * When the pretendToBeVisual option is set to true, jsdom will pretend that it is rendering and displaying
+     * content.
+     */
+    pretendToBeVisual?: boolean;
     beforeParse?(window: DOMWindow): void;
 }
 
@@ -102,14 +110,6 @@ export type ConstructorOptions = Options & {
      * Values that are not "text/html" or an XML mime type will throw. It defaults to "text/html".
      */
     contentType?: string;
-    /**
-     * jsdom does not have the capability to render visual content, and will act like a headless browser by default.
-     * It provides hints to web pages through APIs such as document.hidden that their content is not visible.
-     *
-     * When the pretendToBeVisual option is set to true, jsdom will pretend that it is rendering and displaying
-     * content.
-     */
-    pretendToBeVisual?: boolean
     /**
      * The maximum size in code units for the separate storage areas used by localStorage and sessionStorage.
      * Attempts to store data larger than this limit will cause a DOMException to be thrown. By default, it is set

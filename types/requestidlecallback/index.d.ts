@@ -1,6 +1,6 @@
 // Type definitions for requestidlecallback 0.1
-// Project: https://w3c.github.io/requestidlecallback/
-// Definitions by: 贺师俊 <https://github.com/hax>
+// Project: https://w3c.github.io/requestidlecallback/, https://github.com/afarkas/requestidlecallback
+// Definitions by: 贺师俊 <https://github.com/hax>, Vladimir Grenaderov <https://github.com/VladimirGrenaderov>, Max Boguslavskiy <https://github.com/maxbogus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export function requestIdleCallback(callback: IdleRequestCallback, options?: IdleRequestOptions): IdleCallbackHandle;
@@ -18,4 +18,9 @@ export interface IdleDeadline {
 
 export interface IdleRequestOptions {
 	timeout: number;
+}
+
+export interface Window {
+  requestIdleCallback(callback: IdleRequestCallback, options?: IdleRequestOptions): IdleCallbackHandle;
+  cancelIdleCallback(handle: number): void;
 }

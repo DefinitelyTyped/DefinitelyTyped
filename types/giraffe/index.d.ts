@@ -1,8 +1,9 @@
 // Type definitions for Giraffe
 // Project: https://github.com/barc/backbone.giraffe
 // Definitions by: Matt McCray <https://github.com/darthapo>
+//                 Julian Gonggrijp <https://github.com/jgonggrijp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference types="backbone" />
 /// <reference types="jquery" />
@@ -145,7 +146,13 @@ declare namespace Giraffe {
 
   namespace Contrib {
 
-    class Controller extends Backbone.Events implements GiraffeObject {
+    class Controller extends Backbone.EventsMixin implements GiraffeObject, Backbone.Events {
+      /**
+       * Faulty overgeneralization of Backbone.Events.on, for historical
+       * reasons.
+       */
+      on(eventName: any, callback?: any, context?: any)
+
       app: App;
     }
 

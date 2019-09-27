@@ -485,3 +485,82 @@ new Chartist.Candle('.ct-chart', {
         }
     }
 });
+
+
+// Create a simple bar chart and line chart with two dimensional arrays
+new Chartist.Bar('.ct-chart', {
+    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+    series: [
+        [
+            {value: 1},
+            {value: 2},
+            {value: 3},
+            {value: 4},
+            {value: 5},
+            {value: 6},
+            {value: 7}
+        ],
+        [
+            {value: 7},
+            {value: 6},
+            {value: 5},
+            {value: 4},
+            {value: 3},
+            {value: 2},
+            {value: 1}
+        ]
+    ]
+}, {})
+
+new Chartist.Line('.ct-chart', {
+    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+    series: [
+        [
+            {value: 1},
+            {value: 2},
+            {value: 3},
+            {value: 4},
+            {value: 5},
+            {value: 6},
+            {value: 7}
+        ],
+        [
+            {value: 7},
+            {value: 6},
+            {value: 5},
+            {value: 4},
+            {value: 3},
+            {value: 2},
+            {value: 1}
+        ]
+    ]
+}, {})
+
+new Chartist.Line('.ct-chart', {
+    labels: [new Date(143134652600), new Date(143384652600)],
+    series: [
+        {
+          name: 'remaining',
+          data: [
+            { x: new Date(143134652600), y: 53 },
+            { x: new Date(143334652600), y: 40 },
+            { x: new Date(143354652600), y: 45 },
+            { x: new Date(143356652600), y: 41 },
+            { x: new Date(143366652600), y: 40 },
+            { x: new Date(143368652600), y: 38 },
+            { x: new Date(143378652600), y: 34 },
+            { x: new Date(143568652600), y: 32 },
+            { x: new Date(143569652600), y: 18 },
+            { x: new Date(143579652600), y: 11 }
+          ]
+        }, {
+          name: 'stories',
+          data: [
+            { x: new Date(143134652600), y: 53 },
+            { x: new Date(143334652600), y: 30 },
+            { x: new Date(143384652600), y: 30 },
+            { x: new Date(143568652600), y: 10 }
+          ]
+        }
+      ]
+}, {})

@@ -2,7 +2,7 @@
 // Project: https://github.com/lonord/koa2-session-redis
 // Definitions by: Dima Mukhin <https://github.com/DimaMukhin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import * as Redis from 'redis';
 import * as session from 'koa-session';

@@ -1,10 +1,11 @@
-// Type definitions for Cytoscape.js 3.2
+// Type definitions for Cytoscape.js 3.8
 // Project: http://js.cytoscape.org/
 // Definitions by:  Fabian Schmidt and Fred Eisele <https://github.com/phreed>
 //                  Shenghan Gao <https://github.com/wy193777>
 //                  Yuri Pereira Constante <https://github.com/ypconstante>
 //                  Jan-Niclas Struewer <https://github.com/janniclas>
 //                  Cerberuser <https://github.com/cerberuser>
+//                  Andrej Kirejeŭ <https://github.com/gsbelarus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 //
 // Translation from Objects in help to Typescript interface.
@@ -81,7 +82,7 @@ declare namespace cytoscape {
         /**
          * Scratchpad data (usually temp or nonserialisable data)
          */
-        scatch?: Scratchpad;
+        scratch?: Scratchpad;
         /**
          * The model position of the node (optional on init, mandatory after)
          */
@@ -133,6 +134,8 @@ declare namespace cytoscape {
     }
 
     interface EdgeDataDefinition extends ElementDataDefinition {
+        id?: string;
+
         /**
          * the source node id (edge comes from this node)
          */
@@ -141,6 +144,8 @@ declare namespace cytoscape {
          * the target node id (edge goes to this node)
          */
         target: string;
+
+        [key: string]: any;
     }
 
     interface NodeDefinition extends ElementDefinition {
@@ -148,7 +153,9 @@ declare namespace cytoscape {
     }
 
     interface NodeDataDefinition extends ElementDataDefinition {
+        id?: string;
         parent?: string;
+        [key: string]: any;
     }
 
     interface CytoscapeOptions {
@@ -459,10 +466,37 @@ declare namespace cytoscape {
         endBatch(): void;
 
         /**
+         * Attaches the instance to the specified container for visualisation.
+         * http://js.cytoscape.org/#cy.mount
+         *
+         * If the core instance is headless prior to calling cy.mount(), then
+         * the instance will no longer be headless and the visualisation will
+         * be shown in the specified container. If the core instance is
+         * non-headless prior to calling cy.mount(), then the visualisation
+         * is swapped from the prior container to the specified container.
+         */
+        mount(element: Element): void;
+
+        /**
+         * Remove the instance from its current container.
+         * http://js.cytoscape.org/#cy.unmount
+         *
+         * This function sets the instance to be headless after unmounting from
+         * the current container.
+         */
+        unmount(): void;
+
+        /**
          * A convenience function to explicitly destroy the Core.
          * http://js.cytoscape.org/#cy.destroy
          */
         destroy(): void;
+
+        /**
+         * Get whether the instance of Cytoscape.js has been destroyed or not.
+         * https://js.cytoscape.org/#cy.destroyed
+         */
+        destroyed(): boolean;
     }
 
     /**
@@ -1140,6 +1174,7 @@ declare namespace cytoscape {
         extends
         CollectionGraphManipulation, CollectionEvents,
         CollectionData, CollectionPosition,
+        CollectionTraversing,
         CollectionLayout,
         CollectionSelection, CollectionStyle, CollectionAnimation,
         CollectionComparision, CollectionIteration<TIn, TOut>,
@@ -2070,11 +2105,11 @@ declare namespace cytoscape {
     }
     interface ElementAnimateOptionPos extends ElementAnimateOptionsBase {
         /** A position to which the elements will be animated. */
-        position: Position;
+        position?: Position;
     }
     interface ElementAnimateOptionRen extends ElementAnimateOptionsBase {
         /** A rendered position to which the elements will be animated. */
-        renderedPosition: Position;
+        renderedPosition?: Position;
     }
     interface CollectionAnimation {
         /**
@@ -2089,14 +2124,14 @@ declare namespace cytoscape {
          * @param complete A function to call when the delay is complete.
          * http://js.cytoscape.org/#eles.delay
          */
-        delay(duration: number, complete: () => void): this;
+        delay(duration: number, complete?: () => void): this;
         /**
          * Stop all animations that are currently running.
          * @param clearQueue A boolean, indicating whether the queue of animations should be emptied.
          * @param jumpToEnd A boolean, indicating whether the currently-running animations should jump to their ends rather than just stopping midway.
          * http://js.cytoscape.org/#eles.stop
          */
-        stop(clearQueue: boolean, jumpToEnd: boolean): this;
+        stop(clearQueue?: boolean, jumpToEnd?: boolean): this;
         /**
          * Remove all queued animations for the elements.
          * http://js.cytoscape.org/#eles.clearQueue
@@ -2825,12 +2860,8 @@ declare namespace cytoscape {
      * i - The index indicating this node is the ith visited node.
      * depth - How many edge hops away this node is from the root nodes.
      */
-    type SearchVisitFunction = (v: NodeCollection,  e: EdgeCollection, u: NodeCollection, i: number, depth: number) => boolean | void;
-    interface SearchFirstOptions {
-        /**
-         * The root nodes (selector or collection) to start the search from.
-         */
-        roots: Selector | CollectionArgument;
+    type SearchVisitFunction = (v: NodeSingular,  e: EdgeSingular, u: NodeSingular, i: number, depth: number) => boolean | void;
+    interface SearchFirstOptionsBase {
         /**
          * A handler function that is called when a node is visited in the search.
          */
@@ -2840,6 +2871,19 @@ declare namespace cytoscape {
          */
         directed?: boolean;
     }
+    interface SearchFirstOptions1 extends SearchFirstOptionsBase {
+        /**
+         * The root nodes (selector or collection) to start the search from.
+         */
+        root: Selector | CollectionArgument;
+    }
+    interface SearchFirstOptions2 extends SearchFirstOptionsBase {
+        /**
+         * The root nodes (selector or collection) to start the search from.
+         */
+        roots: Selector | CollectionArgument;
+    }
+    type SearchFirstOptions = SearchFirstOptions1 | SearchFirstOptions2;
     interface SearchFirstResult {
         /**
          * The path of the search.
@@ -3169,13 +3213,17 @@ declare namespace cytoscape {
          * Perform a breadth-first search within the elements in the collection.
          * @param options
          * http://js.cytoscape.org/#eles.breadthFirstSearch
+         * @alias bfs
          */
         breadthFirstSearch(options: SearchFirstOptions): SearchFirstResult;
+        bfs(options: SearchFirstOptions): SearchFirstResult;
         /**
          * Perform a depth-first search within the elements in the collection.
          * http://js.cytoscape.org/#eles.depthFirstSearch
+         * @alias dfs
          */
         depthFirstSearch(options: SearchFirstOptions): SearchFirstResult;
+        dfs(options: SearchFirstOptions): SearchFirstResult;
 
         /**
          * Perform Dijkstra's algorithm on the elements in the collection.
@@ -3195,13 +3243,13 @@ declare namespace cytoscape {
          * This finds the shortest path between all pairs of nodes.
          * http://js.cytoscape.org/#eles.floydWarshall
          */
-        aStar(options: SearchFloydWarshallOptions): SearchFloydWarshallResult;
+        floydWarshall(options: SearchFloydWarshallOptions): SearchFloydWarshallResult;
         /**
          * Perform the Bellman-Ford search algorithm on the elements in the collection.
          * This finds the shortest path from the starting node to all other nodes in the collection.
          * http://js.cytoscape.org/#eles.bellmanFord
          */
-        bellmanFort(options: SearchBellmanFordOptions): SearchBellmanFordResult;
+        bellmanFord(options: SearchBellmanFordOptions): SearchBellmanFordResult;
         /**
          * Perform Kruskal's algorithm on the elements in the collection,
          * returning the minimum spanning tree, assuming undirected edges.
@@ -3438,20 +3486,24 @@ declare namespace cytoscape {
         /**
          * http://js.cytoscape.org/#style/node-body
          */
-        interface Node extends Partial<Overlay>, PaddingNode {
+        interface Node extends Partial<Overlay>, PaddingNode, Partial<Labels> {
             "label"?: string;
+            /**
+             * The CSS content field
+             */
+            "content"?: string;
             /**
              * The width of the node’s body.
              * This property can take on the special value label
              * so the width is automatically based on the node’s label.
              */
-            "width"?: number | "label";
+            "width"?: number | string;
             /**
              * The height of the node’s body.
              * This property can take on the special value label
              * so the height is automatically based on the node’s label.
              */
-            "height"?: number | "label";
+            "height"?: number | string;
             /**
              * The shape of the node’s body.
              */
@@ -3624,7 +3676,7 @@ declare namespace cytoscape {
             /**
              * The width of an edge’s line.
              */
-            "width"?: number | "label";
+            "width"?: number | string;
             /**
              * The curving method used to separate two or more edges between two nodes;
              * may be
@@ -3636,7 +3688,7 @@ declare namespace cytoscape {
              * Smaller node shapes, like triangle, will not be as aesthetically pleasing.
              * Also note that edge arrows are unsupported for haystack edges.
              */
-            "curve-style"?: "haystack" | "bezier" | "unbundled" | "segments";
+            "curve-style"?: "haystack" | "straight" | "bezier" | "unbundled-bezier" | "segments" | "taxi";
             /**
              * The colour of the edge’s line.
              */
@@ -3761,8 +3813,7 @@ declare namespace cytoscape {
              */
             "edge-distances": "intersection" | "segment-weights" | "node-position";
         }
-        type ArrowShape = "tee" | "triangle" | "triangle-tee" | "triangle-backcurve" | "square" | "circle" | "diamond" | "none";
-
+        type ArrowShape = "tee" | "vee" | "triangle" | "triangle-tee" | "triangle-cross" | "triangle-backcurve" | "square" | "circle" | "diamond" | "chevron" | "none";
         type ArrowFill = "filled" | "hollow";
 
         /**
@@ -3907,7 +3958,7 @@ declare namespace cytoscape {
              *  * "none" for no wrapping (including manual newlines ) or
              *  * "wrap" for manual and/ or autowrapping.
              */
-            "text-wrap": "none" | "wrap";
+            "text-wrap": "none" | "wrap" | "ellipsis";
             /**
              * The maximum width for wrapped text,
              * applied when "text-wrap" is set to wrap.
@@ -4048,7 +4099,7 @@ declare namespace cytoscape {
             /**
              * The shape to use for the label background.
              */
-            "text-background-shape": "ractangle" | "roundrectangle";
+            "text-background-shape": "rectangle" | "roundrectangle";
 
             /**
              * Border:

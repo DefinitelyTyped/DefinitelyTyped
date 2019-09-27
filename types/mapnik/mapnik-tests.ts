@@ -14,7 +14,7 @@ map.load('./test/stylesheet.xml', function xx(err: Error, map: mapnik.Map) {
     if (err) throw err;
     im.encode('png', function xxxx(err: Error, buffer: Buffer) {
       if (err) throw err;
-      fs.writeFile('map.png', buffer, function xxxxx(err: Error) {
+      fs.writeFile('map.png', buffer, function xxxxx(err: Error | null) {
         if (err) throw err;
         console.log('saved map image to map.png');
       });

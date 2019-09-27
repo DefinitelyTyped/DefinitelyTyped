@@ -44,14 +44,17 @@ const wrappedResult: number = wrappedFn(42);
 
 newrelic.startWebTransaction('/some/url/path', () => {
     const transaction = newrelic.getTransaction();
-    Promise.all([]);
     setTimeout(() => {
         // do some work
         transaction.end();
     }, 100);
 });
 
+newrelic.startWebTransaction('/some/url/path', Promise.resolve(7)); // $ExpectType Promise<number>
+
 newrelic.startBackgroundTransaction('Red October', (foo) => foo); // $ExpectType any
+newrelic.startBackgroundTransaction('Red October', () => 7); // $ExpectType number
+newrelic.startBackgroundTransaction('Red October', Promise.resolve(7)); // $ExpectType Promise<number>
 newrelic.startBackgroundTransaction('Red October', 'Subs', () => {
     const transaction = newrelic.getTransaction();
     setTimeout(() => {
@@ -104,3 +107,5 @@ newrelic.shutdown({ collectPendingData: true, timeout: 3000 }, (err) => {
 newrelic.shutdown((err) => {
     const error: Error | undefined = err;
 });
+
+newrelic.setLambdaHandler(() => void 0); // $ExpectType undefined

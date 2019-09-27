@@ -1,5 +1,5 @@
 // Type definitions for Material Components Web 0.35
-// Project: https://material.io/components/
+// Project: https://material.io/components/, https://github.com/material-components/material-components-web
 // Definitions by: Brent Douglas <https://github.com/BrentDouglas>, Collin Kostichuk <https://github.com/ckosti>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
@@ -25,7 +25,7 @@ import MDCComponent from 'material__base/component';
 import MDCSliderFoundation from './foundation';
 import MDCSliderAdapter from './adapter';
 
-export {MDCSliderAdapter, MDCSliderFoundation};
+export { MDCSliderAdapter, MDCSliderFoundation };
 
 export class MDCSlider extends MDCComponent<MDCSliderAdapter, MDCSliderFoundation> {
     static attachTo(root: Element): MDCSlider;

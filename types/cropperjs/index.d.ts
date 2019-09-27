@@ -1,5 +1,5 @@
 // Type definitions for cropperjs 1.1
-// Project: https://github.com/fengyuanchen/cropperjs
+// Project: https://github.com/fengyuanchen/cropperjs, https://fengyuanchen.github.io/cropperjs
 // Definitions by: Stepan Mikhaylyuk <https://github.com/stepancar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
@@ -426,8 +426,9 @@ declare class cropperjs {
     /**
      * Replace the image's src and rebuild the cropper.
      * @param url A new image url
+     * @param hasSameSize If the new image has the same size with the old one, then it will not rebuilt the cropper and only update the urls of all related images. (Default: false)
      */
-    replace(url: string): void;
+    replace(url: string, hasSameSize?: boolean): void;
 
     /**
      * Enable (unfreeze) the cropper.

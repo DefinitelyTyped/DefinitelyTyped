@@ -1,6 +1,12 @@
-// Type definitions for react-color 2.13
-// Project: https://github.com/casesandberg/react-color/
-// Definitions by: Karol Janyst <https://github.com/LKay>, Marks Polakovs <https://github.com/markspolakovs>, Matthieu Montaudouin <https://github.com/mntdn>
+// Type definitions for react-color 3.0
+// Project: https://github.com/casesandberg/react-color/, http://casesandberg.github.io/react-color
+// Definitions by:  Karol Janyst <https://github.com/LKay>,
+//                  Marks Polakovs <https://github.com/markspolakovs>,
+//                  Matthieu Montaudouin <https://github.com/mntdn>,
+//                  Nokogiri <https://github.com/nkgrnkgr>,
+//                  0815Strohhut <https://github.com/0815Strohhut>,
+//                  Daniel Fürst <https://github.com/dnlfrst>,
+//                  Erick Tamayo <https://github.com/ericktamayo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -51,7 +57,10 @@ export { default as CompactPicker, CompactPickerProps } from "./lib/components/c
 export { default as GithubPicker, GithubPickerProps } from "./lib/components/github/Github";
 export { default as HuePicker, HuePickerProps } from "./lib/components/hue/Hue";
 export { default as MaterialPicker, MaterialPickerProps } from "./lib/components/material/Material";
-export { default as PhotoshopPicker, PhotoshopPickerProps } from "./lib/components/photoshop/Photoshop";
+export {
+    default as PhotoshopPicker,
+    PhotoshopPickerProps
+} from "./lib/components/photoshop/Photoshop";
 export { default as SketchPicker, SketchPickerProps } from "./lib/components/sketch/Sketch";
 export { default as SliderPicker, SliderPickerProps } from "./lib/components/slider/Slider";
 export { default as SwatchesPicker, SwatchesPickerProps } from "./lib/components/swatches/Swatches";

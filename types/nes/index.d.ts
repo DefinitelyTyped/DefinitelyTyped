@@ -3,7 +3,7 @@
 // Definitions by: Ivo Stratev <https://github.com/NoHomey>
 //                 Rodrigo Saboya <https://github.com/saboya>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.8
 
 /* + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + +
  +                                                                           +

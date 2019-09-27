@@ -2,8 +2,12 @@ import Ember from 'ember';
 
 // $
 Ember.$; // $ExpectType JQueryStatic
+
+const top = (<T>(x?: T): T => x!)();
+type Top = typeof top;
+declare function expectTypeNativeArrayTop(x: Ember.NativeArray<Top>): void;
 // A
-Ember.A(); // $ExpectType NativeArray<{}>
+expectTypeNativeArrayTop(Ember.A());
 Ember.A([1, 2]); // $ExpectType NativeArray<number>
 // addListener
 Ember.addListener({ a: 'foo' }, 'a', {}, () => {});

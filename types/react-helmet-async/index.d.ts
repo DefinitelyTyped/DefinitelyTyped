@@ -6,8 +6,9 @@
 
 import * as React from 'react';
 
-import Helmet, { HelmetData } from 'react-helmet';
-export default Helmet;
+import { Helmet, HelmetData } from 'react-helmet';
+
+export { Helmet, HelmetData };
 
 export interface PopulatedContext {
     helmet: HelmetData;

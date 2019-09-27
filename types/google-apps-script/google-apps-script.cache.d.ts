@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2018-07-11
+// Type definitions for Google Apps Script 2019-09-11
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -28,12 +28,12 @@ declare namespace GoogleAppsScript {
      *     }
      */
     export interface Cache {
-      get(key: string): string;
-      getAll(keys: string[]): Object;
+      get(key: string): string | null;
+      getAll(keys: string[]): { [key: string]: any };
       put(key: string, value: string): void;
       put(key: string, value: string, expirationInSeconds: Integer): void;
-      putAll(values: Object): void;
-      putAll(values: Object, expirationInSeconds: Integer): void;
+      putAll(values: { [key: string]: any }): void;
+      putAll(values: { [key: string]: any }, expirationInSeconds: Integer): void;
       remove(key: string): void;
       removeAll(keys: string[]): void;
     }
@@ -44,11 +44,14 @@ declare namespace GoogleAppsScript {
      * This class lets you get a specific cache instance. Public caches are for things that are not
      * dependent on which user is accessing your script. Private caches are for things which are
      * user-specific, like settings or recent activity.
+     *
+     * The data you write to the cache is not guaranteed to persist until its expiration time. You
+     * must be prepared to get back null from all reads.
      */
     export interface CacheService {
-      getDocumentCache(): Cache;
-      getScriptCache(): Cache;
-      getUserCache(): Cache;
+      getDocumentCache(): Cache | null;
+      getScriptCache(): Cache | null;
+      getUserCache(): Cache | null;
     }
 
   }

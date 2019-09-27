@@ -17,6 +17,7 @@ const CustomComponent = () => {
                 preserveAspectRatio="xMinYMin meet"
                 uniquekey="reactcontentloader"
                 className="my-class"
+                ariaLabel="loading..."
             >
                 {/* Pure SVG */}
                 <rect x="0" y="0" rx="5" ry="5" width="70" height="70" />

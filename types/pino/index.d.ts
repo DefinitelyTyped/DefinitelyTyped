@@ -1,17 +1,22 @@
-// Type definitions for pino 5.6
-// Project: https://github.com/pinojs/pino.git
+// Type definitions for pino 5.8
+// Project: https://github.com/pinojs/pino.git, http://getpino.io
 // Definitions by: Peter Snider <https://github.com/psnider>
 //                 BendingBender <https://github.com/BendingBender>
 //                 Christian Rackerseder <https://github.com/screendriver>
 //                 GP <https://github.com/paambaati>
+//                 Alex Ferrando <https://github.com/alferpal>
+//                 Oleksandr Sidko <https://github.com/mortiy>
+//                 Harris Lummis <https://github.com/lummish>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.7
 
 /// <reference types="node"/>
 
-import * as stream from 'stream';
-import * as http from 'http';
-import { EventEmitter } from 'events';
+import stream = require('stream');
+import http = require('http');
+import EventEmitter = require('events');
+import SonicBoom = require('sonic-boom');
+import * as pinoStdSerializers from 'pino-std-serializers';
 
 export = P;
 
@@ -20,7 +25,7 @@ export = P;
  * relative protocol is enabled. Default: process.stdout
  * @returns a new logger instance.
  */
-declare function P(optionsOrStream?: P.LoggerOptions | stream.Writable | stream.Duplex | stream.Transform | NodeJS.WritableStream): P.Logger;
+declare function P(optionsOrStream?: P.LoggerOptions | P.DestinationStream): P.Logger;
 
 /**
  * @param [options]: an options object
@@ -28,7 +33,7 @@ declare function P(optionsOrStream?: P.LoggerOptions | stream.Writable | stream.
  * relative protocol is enabled. Default: process.stdout
  * @returns a new logger instance.
  */
-declare function P(options: P.LoggerOptions, stream: stream.Writable | stream.Duplex | stream.Transform | NodeJS.WritableStream): P.Logger;
+declare function P(options: P.LoggerOptions, stream: P.DestinationStream): P.Logger;
 
 declare namespace P {
     /**
@@ -36,6 +41,11 @@ declare namespace P {
      */
     const LOG_VERSION: number;
     const levels: LevelMapping;
+
+    type SerializedError = pinoStdSerializers.SerializedError;
+    type SerializedResponse = pinoStdSerializers.SerializedResponse;
+    type SerializedRequest = pinoStdSerializers.SerializedRequest;
+
     /**
      * Provides functions for serializing objects common to many projects.
      */
@@ -43,26 +53,63 @@ declare namespace P {
         /**
          * Generates a JSONifiable object from the HTTP `request` object passed to the `createServer` callback of Node's HTTP server.
          */
-        req(req: http.IncomingMessage): {
-            method: string;
-            url: string;
-            headers: http.IncomingHttpHeaders;
-            remoteAddress: string;
-            remotePort: number;
-        };
+        req: typeof pinoStdSerializers.req;
         /**
          * Generates a JSONifiable object from the HTTP `response` object passed to the `createServer` callback of Node's HTTP server.
          */
-        res(res: http.ServerResponse): { statusCode: number; header: string; };
+        res: typeof pinoStdSerializers.res;
         /**
          * Serializes an Error object.
          */
-        err(err: Error): {
-            type: string;
-            message: string;
-            stack: string;
-            [key: string]: any;
-        };
+        err: typeof pinoStdSerializers.err;
+        /**
+         * Returns an object:
+         * ```
+         * {
+         *   req: {}
+         * }
+         * ```
+         * where req is the request as serialized by the standard request serializer.
+         * @param req The request to serialize
+         * @return An object
+         */
+        mapHttpRequest: typeof pinoStdSerializers.mapHttpRequest;
+        /**
+         * Returns an object:
+         * ```
+         * {
+         *   res: {}
+         * }
+         * ```
+         * where res is the response as serialized by the standard response serializer.
+         * @param res The response to serialize.
+         * @return An object.
+         */
+        mapHttpResponse: typeof pinoStdSerializers.mapHttpResponse;
+        /**
+         * A utility method for wrapping the default error serializer. Allows custom serializers to work with the
+         * already serialized object.
+         * @param customSerializer The custom error serializer. Accepts a single parameter: the newly serialized
+         * error object. Returns the new (or updated) error object.
+         * @return A new error serializer.
+         */
+        wrapErrorSerializer: typeof pinoStdSerializers.wrapErrorSerializer;
+        /**
+         * A utility method for wrapping the default request serializer. Allows custom serializers to work with the
+         * already serialized object.
+         * @param customSerializer The custom request serializer. Accepts a single parameter: the newly serialized
+         * request object. Returns the new (or updated) request object.
+         * @return A new error serializer.
+         */
+        wrapRequestSerializer: typeof pinoStdSerializers.wrapRequestSerializer;
+        /**
+         * A utility method for wrapping the default response serializer. Allows custom serializers to work with the
+         * already serialized object.
+         * @param customSerializer The custom response serializer. Accepts a single parameter: the newly serialized
+         * response object. Returns the new (or updated) response object.
+         * @return A new error serializer.
+         */
+        wrapResponseSerializer: typeof pinoStdSerializers.wrapResponseSerializer;
     };
     /**
      * Provides functions for generating the timestamp property in the log output. You can set the `timestamp` option during
@@ -76,23 +123,42 @@ declare namespace P {
          */
         epochTime: TimeFn;
         /**
-         * Returns an ISO formatted string like `,"time":"2017-04-29T004749.354Z"`. It is highly recommended that you avoid this function.
-         * It incurs a significant performance penalty.
-         */
-        slowTime: TimeFn;
-        /**
          * Returns an empty string. This function is used when the `timestamp` option is set to `false`.
          */
         nullTime: TimeFn;
     };
 
     /**
-     * Provides access to the CLI log prettifier as an API.
-     * This can also be enabled via the constructor by setting the `prettyPrint` option to either `true` or a configuration object described in this section.
-     * @param [options]: an options object
-     * @returns A transform stream to be used as input for the constructor.
+     * Create a Pino Destination instance: a stream-like object with significantly more throughput (over 30%) than a standard Node.js stream.
+     * @param [fileDescriptor]: File path or numerical file descriptor, by default 1
+     * @returns A Sonic-Boom  stream to be used as destination for the pino function
      */
-    function pretty(options?: PrettyOptions): stream.Transform;
+    function destination(fileDescriptor?: string | number): SonicBoom;
+
+    /**
+     * Create an extreme mode destination. This yields an additional 60% performance boost.
+     * There are trade-offs that should be understood before usage.
+     * @param [fileDescriptor]: File path or numerical file descriptor, by default 1
+     * @returns A Sonic-Boom  stream to be used as destination for the pino function
+     */
+    function extreme(fileDescriptor?: string | number): SonicBoom;
+
+    /**
+     * The pino.final method can be used to create an exit listener function.
+     * This listener function can be supplied to process exit events.
+     * The exit listener function will cal the handler with
+     * @param [logger]: pino logger that serves as reference for the final logger
+     * @param [handler]: Function that will be called by the handler returned from this function
+     * @returns Exit listener function that can be supplied to process exit events and will call the supplied handler function
+     */
+    function final(logger: Logger, handler: (error: Error, finalLogger: Logger, ...args: any[]) => void): (error: Error | null, ...args: any[]) => void;
+
+    /**
+     * The pino.final method can be used to acquire a final logger instance that synchronously flushes on every write.
+     * @param [logger]: pino logger that serves as reference for the final logger
+     * @returns Final, synchronous logger
+     */
+    function final(logger: Logger): Logger;
 
     interface LevelMapping {
         /**
@@ -105,6 +171,7 @@ declare namespace P {
         labels: { [level: number]: string; };
     }
     type TimeFn = () => string;
+    type DestinationStream = stream.Writable | stream.Duplex | stream.Transform | NodeJS.WritableStream | SonicBoom;
 
     interface LoggerOptions {
         /**
@@ -129,19 +196,6 @@ declare namespace P {
          */
         timestamp?: TimeFn | false;
         /**
-         * @deprecated
-         * This option is scheduled to be removed in Pino 5.0.0. Use `timestamp: pino.stdTimeFunctions.slowTime` instead.
-         * Outputs ISO time stamps ('2016-03-09T15:18:53.889Z') instead of Epoch time stamps (1457536759176).
-         * WARNING: This option carries a 25% performance drop, we recommend using default Epoch timestamps and transforming logs after if required.
-         * The pino -t command will do this for you (see CLI). Default: `false`.
-         */
-        slowtime?: boolean;
-        /**
-         * Enables extreme mode, yields an additional 60% performance (from 250ms down to 100ms per 10000 ops).
-         * There are trade-off's should be understood before usage. See Extreme mode explained. Default: `false`.
-         */
-        extreme?: boolean;
-        /**
          * One of the supported levels or `silent` to disable logging. Any other value defines a custom level and
          * requires supplying a level value via `levelVal`. Default: 'info'.
          */
@@ -165,6 +219,20 @@ declare namespace P {
          * Warning: this option may not be supported by downstream transports.
          */
         useOnlyCustomLevels?: boolean;
+
+        /**
+         * As an array, the redact option specifies paths that should have their values redacted from any log output.
+         *
+         * Each path must be a string using a syntax which corresponds to JavaScript dot and bracket notation.
+         *
+         * If an object is supplied, three options can be specified:
+         *
+         *      paths (String[]): Required. An array of paths
+         *      censor (String): Optional. A value to overwrite key which are to be redacted. Default: '[Redacted]'
+         *      remove (Boolean): Optional. Instead of censoring the value, remove both the key and the value. Default: false
+         */
+        redact?: string[] | redactOptions;
+
         /**
          * When defining a custom log level via level, set to an integer value to define the new level. Default: `undefined`.
          */
@@ -221,13 +289,12 @@ declare namespace P {
 
     interface PrettyOptions {
         /**
-         * If set to true, it will only covert the unix timestamp to ISO 8601 date format, and reserialize the JSON (equivalent to pino -t).
+         * Translate the epoch time value into a human readable date and time string.
+         * This flag also can set the format string to apply when translating the date to human readable format.
+         * The default format is yyyy-mm-dd HH:MM:ss.l o in UTC.
+         * For a list of available pattern letters see the {@link https://www.npmjs.com/package/dateformat|dateformat documentation}.
          */
-        timeTransOnly?: boolean;
-        /**
-         * A custom function to format the line, is passed the JSON object as an argument and should return a string value.
-         */
-        formatter?(log: LogDescriptor): string;
+        translateTime?: boolean | string;
         /**
          * If set to true, it will print the name of the log level as the first field in the log line. Default: `false`.
          */
@@ -237,9 +304,34 @@ declare namespace P {
          */
         messageKey?: string;
         /**
+         * The key in the JSON object to use for timestamp display. Default: "time".
+         */
+        timestampKey?: string;
+        /**
          * If set to true, will add color information to the formatted output message. Default: `false`.
          */
-        forceColor?: boolean;
+        colorize?: boolean;
+        /**
+         * Appends carriage return and line feed, instead of just a line feed, to the formatted log line.
+         */
+        crlf?: boolean;
+        /**
+         * Define the log keys that are associated with error like objects. Default: ["err", "error"]
+         */
+        errorLikeObjectKeys?: string[];
+        /**
+         *  When formatting an error object, display this list of properties.
+         *  The list should be a comma separated list of properties. Default: ''
+         */
+        errorProps?: string;
+        /**
+         * Specify a search pattern according to {@link http://jmespath.org|jmespath}
+         */
+        search?: string;
+        /**
+         * Ignore one or several keys. Example: "time,hostname"
+         */
+        ignore?: string;
     }
 
     type Level = 'fatal' | 'error' | 'warn' | 'info' | 'debug' | 'trace';
@@ -305,16 +397,6 @@ declare namespace P {
          */
         levelVal: number;
 
-        /**
-         * Defines a new level on the logger instance. Returns `true` on success and `false` if there was a conflict (level name or number already exists).
-         * When using this method, the current level of the logger instance does not change. You must adjust the level with the `level` property after
-         * adding your custom level.
-         *
-         * @param name: defines the method name of the new level
-         * @param lvl: value for the level, e.g. `35` is between `info` and `warn`
-         * @returns whether level was correctly created or not
-         */
-        addLevel(name: string, lvl: number): boolean;
         /**
          * Registers a listener function that is triggered when the level is changed.
          * Note: When browserified, this functionality will only be available if the `events` module has been required elsewhere
@@ -404,6 +486,11 @@ declare namespace P {
          * Flushes the content of the buffer in extreme mode. It has no effect if extreme mode is not enabled.
          */
         flush(): void;
+
+        /**
+         * A utility method for determining if a given log level will write to the destination.
+         */
+        isLevelEnabled(level: LevelWithSilent | string): boolean;
     }
 
     type LevelChangeEventListener = (lvl: LevelWithSilent | string, val: number, prevLvl: LevelWithSilent | string, prevVal: number) => void;
@@ -411,5 +498,11 @@ declare namespace P {
     interface LogFn {
         (msg: string, ...args: any[]): void;
         (obj: object, msg?: string, ...args: any[]): void;
+    }
+
+    interface redactOptions {
+        paths: string[];
+        censor?: string;
+        remove?: boolean;
     }
 }

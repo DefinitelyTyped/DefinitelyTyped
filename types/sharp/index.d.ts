@@ -1,8 +1,9 @@
-// Type definitions for sharp 0.21
+// Type definitions for sharp 0.22
 // Project: https://github.com/lovell/sharp
 // Definitions by: François Nguyen <https://github.com/lith-light-g>
 //                 Wooseop Kim <https://github.com/wooseopkim>
 //                 Bradley Odell <https://github.com/BTOdell>
+//                 Jamie Woodbury <https://github.com/JamieWoodbury>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -98,6 +99,7 @@ declare namespace sharp {
     const gravity: GravityEnum;
     const strategy: StrategyEnum;
     const kernel: KernelEnum;
+    const fit: FitEnum;
     const bool: BoolEnum;
 
     interface Sharp extends Duplex {
@@ -108,6 +110,12 @@ declare namespace sharp {
          * @returns A sharp instance that can be used to chain operations
          */
         removeAlpha(): Sharp;
+
+        /**
+         * Ensure alpha channel, if missing. The added alpha channel will be fully opaque. This is a no-op if the image already has an alpha channel.
+         * @returns A sharp instance that can be used to chain operations
+         */
+        ensureAlpha(): Sharp;
 
         /**
          * Extract a single channel from a multi-channel image.
@@ -130,7 +138,7 @@ declare namespace sharp {
          * @throws {Error} Invalid parameters
          * @returns A sharp instance that can be used to chain operations
          */
-        joinChannel(images: string | Buffer | ArrayLike<string|Buffer>, options?: SharpOptions): Sharp;
+        joinChannel(images: string | Buffer | ArrayLike<string | Buffer>, options?: SharpOptions): Sharp;
 
         /**
          * Perform a bitwise boolean operation on all input image channels (bands) to produce a single channel output image.
@@ -193,18 +201,15 @@ declare namespace sharp {
         //#region Composite functions
 
         /**
-         * Overlay (composite) an image over the processed (resized, extracted etc.) image.
+         * Composite image(s) over the processed (resized, extracted etc.) image.
          *
-         * The overlay image must be the same size or smaller than the processed image.
-         * If both top and left options are provided, they take precedence over gravity.
-         *
-         * If the overlay image contains an alpha channel then composition with premultiplication will occur.
-         * @param image Buffer containing image data or String containing the path to an image file.
-         * @param options overlay options
+         * The images to composite must be the same size or smaller than the processed image.
+         * If both `top` and `left` options are provided, they take precedence over `gravity`.
+         * @param images - Ordered list of images to composite
          * @throws {Error} Invalid parameters
          * @returns A sharp instance that can be used to chain operations
          */
-        overlayWith(image: string | Buffer, options?: OverlayOptions): Sharp;
+        composite(images: Array<{ input: string | Buffer } & OverlayOptions>): Sharp;
 
         //#endregion
 
@@ -404,7 +409,22 @@ declare namespace sharp {
          * @throws {Error} Invalid parameters
          * @returns A sharp instance that can be used to chain operations
          */
-        linear(a?: number, b?: number): Sharp;
+        linear(a?: number | null, b?: number): Sharp;
+
+        /**
+         * Recomb the image with the specified matrix.
+         * @param inputMatrix 3x3 Recombination matrix
+         * @throws {Error} Invalid parameters
+         * @returns A sharp instance that can be used to chain operations
+         */
+        recomb(inputMatrix: Matrix3x3): Sharp;
+
+        /**
+         * Transforms the image using brightness, saturation and hue rotation.
+         * @param options describes the modulation
+         * @returns A sharp instance that can be used to chain operations
+         */
+        modulate(options?: { brightness?: number, saturation?: number, hue?: number }): Sharp;
 
         //#endregion
 
@@ -562,7 +582,7 @@ declare namespace sharp {
          * @throws {Error} Invalid parameters
          * @returns A sharp instance that can be used to chain operations
          */
-        resize(width?: number|null, height?: number|null, options?: ResizeOptions): Sharp;
+        resize(width?: number | null, height?: number | null, options?: ResizeOptions): Sharp;
 
         /**
          * Extends/pads the edges of the image with the provided background colour.
@@ -599,14 +619,17 @@ declare namespace sharp {
 
     interface SharpOptions {
         /**
-         * By default apply a "best effort" to decode images, even if the data is corrupt or invalid.
-         * Set this flag to true if you'd rather halt processing and raise an error when loading invalid images.
-         * (optional, default false)
+         * By default halt processing and raise an error when loading invalid images.
+         * Set this flag to false if you'd rather apply a "best effort" to decode images,
+         * even if the data is corrupt or invalid. (optional, default true)
+         * (optional, default true)
          */
         failOnError?: boolean;
         /** Number representing the DPI for vector images. (optional, default 72) */
         density?: number;
-        /** Page number to extract for multi-page input (GIF, TIFF). (optional, default 0) */
+        /** Number of pages to extract for multi-page input (GIF, TIFF, PDF), use -1 for all pages */
+        pages?: number;
+        /** Page number to start extracting from for multi-page input (GIF, TIFF, PDF), zero based. (optional, default 0) */
         page?: number;
         /** Describes raw pixel input image data. See raw() for pixel ordering. */
         raw?: Raw;
@@ -780,6 +803,16 @@ declare namespace sharp {
         adaptiveFiltering?: boolean;
         /** Force PNG output, otherwise attempt to use input format (optional, default  true) */
         force?: boolean;
+        /** use the lowest number of colours needed to achieve given quality, requires libimagequant (optional, default `100`) */
+        quality?: number;
+        /** Quantise to a palette-based image with alpha transparency support, requires libimagequant (optional, default false) */
+        palette?: boolean;
+        /** Maximum number of palette entries, requires libimagequant (optional, default 256) */
+        colours?: number;
+        /** Alternative Spelling of "colours". Maximum number of palette entries, requires libimagequant (optional, default 256) */
+        colors?: number;
+        /**  Level of Floyd-Steinberg error diffusion, requires libimagequant (optional, default 1.0) */
+        dither?: number;
     }
 
     interface RotateOptions {
@@ -864,6 +897,8 @@ declare namespace sharp {
     }
 
     interface OverlayOptions {
+        /** how to blend this image with the image below. (optional, default `'over'`) */
+        blend?: Blend;
         /** gravity at which to place the overlay. (optional, default 'centre') */
         gravity?: Gravity;
         /** the pixel offset from the top edge. */
@@ -928,6 +963,7 @@ declare namespace sharp {
     interface KernelEnum {
         nearest: "nearest";
         cubic: "cubic";
+        mitchell: "mitchell";
         lanczos2: "lanczos2";
         lanczos3: "lanczos3";
     }
@@ -945,6 +981,9 @@ declare namespace sharp {
         cmyk: string;
         srgb: string;
     }
+
+    type Blend = 'clear' | 'source' | 'over' | 'in' | 'out' | 'atop' | 'dest' | 'dest-over' | 'dest-in' | 'dest-out' | 'dest-atop'  | 'xor' | 'add' | 'saturate' | 'multiply' | 'screen' | 'overlay'
+                 | 'darken' | 'lighten' | 'colour-dodge' | 'colour-dodge' | 'colour-burn' | 'colour-burn' | 'hard-light' | 'soft-light' | 'difference' | 'exclusion';
 
     type Gravity = number | string;
 
@@ -989,6 +1028,12 @@ declare namespace sharp {
         files: { current: number; max: number; };
         items: { current: number; max: number; };
     }
+
+    type Matrix3x3 = [
+        [number, number, number],
+        [number, number, number],
+        [number, number, number]
+    ];
 }
 
 export = sharp;

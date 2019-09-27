@@ -10,6 +10,7 @@ import AttachmentCardClickEvent = InboxSDK.Conversations.AttachmentCardClickEven
 import MessageViewLinkDescriptor = InboxSDK.Conversations.MessageViewLinkDescriptor;
 import SectionDescriptor = InboxSDK.Router.SectionDescriptor;
 import NavItemDescriptor = InboxSDK.NavMenu.NavItemDescriptor;
+import MessageButtonDescriptor = InboxSDK.ButterBar.MessageButtonDescriptor;
 
 InboxSDK.load(1, '1234').then((_sdk: InboxSDK.InboxSDKInstance) => {
   _sdk.ButterBar.hideGmailMessage();
@@ -27,9 +28,22 @@ InboxSDK.loadScript('https://google.com', {}).then(() => console.log('done'));
 InboxSDK.loadScript('https://google.com', {nowrap: true}).then(() => console.log('done'));
 
 InboxSDK.load(1, '1234').then((sdk: InboxSDK.InboxSDKInstance) => {
+  const buttons: MessageButtonDescriptor[] = [
+    {
+      onClick: event => {
+      },
+      title: 'ok'
+    },
+    {
+      onClick: event => {
+      },
+      title: 'cancel'
+    },
+  ];
+
   sdk.ButterBar.showMessage({
     text: 'text',
-  });
+  }).destroy();
 
   sdk.ButterBar.showMessage({
     text: 'text',
@@ -38,14 +52,15 @@ InboxSDK.load(1, '1234').then((sdk: InboxSDK.InboxSDKInstance) => {
     persistent: true,
     priority: 1,
     time: 1,
-    messageKey: '1'
-  });
+    messageKey: '1',
+    buttons
+  }).destroy();
 
   const el: HTMLElement = new HTMLElement();
 
   sdk.ButterBar.showMessage({
     el,
-  });
+  }).destroy();
 
   sdk.ButterBar.showMessage({
     el,
@@ -54,12 +69,13 @@ InboxSDK.load(1, '1234').then((sdk: InboxSDK.InboxSDKInstance) => {
     persistent: true,
     priority: 1,
     time: 1,
-    messageKey: '1'
-  });
+    messageKey: '1',
+    buttons
+  }).destroy();
 
   sdk.ButterBar.showMessage({
     html: '<p></p>',
-  });
+  }).destroy();
 
   sdk.ButterBar.showMessage({
     html: '<p></p>',
@@ -68,18 +84,60 @@ InboxSDK.load(1, '1234').then((sdk: InboxSDK.InboxSDKInstance) => {
     persistent: true,
     priority: 1,
     time: 1,
-    messageKey: '1'
-  });
+    messageKey: '1',
+    buttons
+  }).destroy();
 
-  sdk.ButterBar.showLoading();
+  sdk.ButterBar.showLoading({
+    text: 'text',
+  }).destroy();
+
+  sdk.ButterBar.showLoading({
+    text: 'text',
+    className: 'c',
+    hideOnViewChanged: true,
+    persistent: true,
+    priority: 1,
+    messageKey: '1'
+  }).destroy();
+
+  sdk.ButterBar.showLoading({
+    el,
+  }).destroy();
+
+  sdk.ButterBar.showLoading({
+    el,
+    className: 'c',
+    hideOnViewChanged: true,
+    persistent: true,
+    priority: 1,
+    messageKey: '1'
+  }).destroy();
+
+  sdk.ButterBar.showLoading({
+    html: '<p></p>',
+  }).destroy();
+
+  sdk.ButterBar.showLoading({
+    html: '<p></p>',
+    className: 'c',
+    hideOnViewChanged: true,
+    persistent: true,
+    priority: 1,
+    messageKey: '1'
+  }).destroy();
 
   sdk.ButterBar.showError({
     text: 'error'
-  });
+  }).destroy();
 
   sdk.ButterBar.showSaving({
     text: 'saving'
-  });
+  }).resolve();
+
+  sdk.ButterBar.showSaving({
+    text: 'saving'
+  }).reject();
 
   sdk.ButterBar.hideMessage('key');
   sdk.ButterBar.hideGmailMessage();
@@ -114,6 +172,10 @@ InboxSDK.load(1, '1234').then((sdk: InboxSDK.InboxSDKInstance) => {
       }
     });
 
+    composeView.addComposeNotice({
+      orderHint: 1
+    });
+
     const statusBarView = composeView.addStatusBar({});
     statusBarView.setHeight(1);
 
@@ -128,6 +190,7 @@ InboxSDK.load(1, '1234').then((sdk: InboxSDK.InboxSDKInstance) => {
     composeView.send({sendAndArchive: true});
 
     const element: HTMLElement = composeView.getBodyElement();
+    const element1: HTMLElement = composeView.getMetadataFormElement();
     const msgId: string = composeView.getInitialMessageID();
     const threadId: string = composeView.getThreadID();
     composeView.getDraftID().then(draftId => {
@@ -156,6 +219,7 @@ InboxSDK.load(1, '1234').then((sdk: InboxSDK.InboxSDKInstance) => {
     const el4: HTMLElement = composeView.insertLinkIntoBodyAtCursor('text', 'http://url.com');
 
     const inline: boolean = composeView.isInlineReplyForm();
+    const forward: boolean = composeView.isForward();
     const fullScreen: boolean = composeView.isFullscreen();
     const minimized: boolean = composeView.isMinimized();
     composeView.setFullscreen(true);
@@ -256,6 +320,10 @@ InboxSDK.load(1, '1234').then((sdk: InboxSDK.InboxSDKInstance) => {
       console.log();
     });
 
+    composeView.on('responseTypeChanged', event => {
+      const isForward: boolean = event.isForward;
+    });
+
     const destroyed: boolean = composeView.destroyed;
   });
 
@@ -267,6 +335,11 @@ InboxSDK.load(1, '1234').then((sdk: InboxSDK.InboxSDKInstance) => {
     threadRowView.addLabel({
       title: 'title',
       iconUrl: 'http://url.com'
+    });
+
+    threadRowView.addLabel({
+      title: 'title',
+      iconHtml: '<div></div>'
     });
 
     threadRowView.addLabel({
@@ -319,7 +392,10 @@ InboxSDK.load(1, '1234').then((sdk: InboxSDK.InboxSDKInstance) => {
       }
     });
 
-    threadRowView.addAttachmentIcon({});
+    threadRowView.addAttachmentIcon({
+      iconHtml: '<div></div>'
+    });
+
     threadRowView.addAttachmentIcon({
       tooltip: 'tooltip',
       iconClass: 'big',
@@ -363,7 +439,12 @@ InboxSDK.load(1, '1234').then((sdk: InboxSDK.InboxSDKInstance) => {
     const destroyed: boolean = threadRowView.destroyed;
   });
 
+  const threadRowViews: ThreadRowView[] = sdk.Lists.getSelectedThreadRowViews();
+
   unregister();
+
+  const unregister2 = sdk.Lists.registerThreadRowViewSelectionHandler(() => {});
+  unregister2();
 });
 
 InboxSDK.load(1, '1234').then((sdk: InboxSDK.InboxSDKInstance) => {
@@ -371,12 +452,17 @@ InboxSDK.load(1, '1234').then((sdk: InboxSDK.InboxSDKInstance) => {
     const noticeBar: SimpleElementView = threadView.addNoticeBar();
     noticeBar.destroy();
 
+    const label: SimpleElementView = threadView.addLabel();
+    label.destroy();
+
     const contentPanel: ContentPanelView = threadView.addSidebarContentPanel({
       el: new HTMLElement(),
       title: 'title',
       iconUrl: 'http://url.com',
     });
 
+    const isActive: boolean = contentPanel.isActive();
+    contentPanel.open();
     contentPanel.remove();
     const destroyed: boolean = contentPanel.destroyed;
     contentPanel.on('destroy', () => console.log());
@@ -501,6 +587,13 @@ InboxSDK.load(1, '1234').then((sdk: InboxSDK.InboxSDKInstance) => {
       tooltip: 'tooltip'
     });
 
+    messageView.addAttachmentIcon({
+      iconHtml: 'http://url.com',
+      onClick: () => {
+      },
+      tooltip: document.createElement('div')
+    });
+
     const eq = messageView.getViewState() === 'HIDDEN';
 
     messageView.on('viewStateChange', event => {
@@ -571,6 +664,7 @@ InboxSDK.load(1, '1234').then((sdk: InboxSDK.InboxSDKInstance) => {
 InboxSDK.load(1, '1234').then((sdk: InboxSDK.InboxSDKInstance) => {
   sdk.Router.createLink('1234', {p1: 1, 0: 1}).toLowerCase();
   sdk.Router.goto('1234', {p1: 1, 0: 1});
+  sdk.Router.goto(sdk.Router.NativeRouteIDs.ALL_MAIL, {p1: 1, 0: 1});
 
   const unregister1 = sdk.Router.handleCustomRoute('1234', customRouteView => {
     customRouteView.getParams();
@@ -591,7 +685,7 @@ InboxSDK.load(1, '1234').then((sdk: InboxSDK.InboxSDKInstance) => {
 
   unregister2();
 
-  const unregister3 = sdk.Router.handleListRoute('ALL_MAIL', listRouteView => {
+  const unregister3 = sdk.Router.handleListRoute(sdk.Router.NativeListRouteIDs.DRAFTS, listRouteView => {
     const sectionDescriptor: SectionDescriptor = {
       contentElement: new HTMLElement(),
       footerLinkText: 'text',
@@ -607,14 +701,22 @@ InboxSDK.load(1, '1234').then((sdk: InboxSDK.InboxSDKInstance) => {
         iconClass: 'big',
         iconUrl: 'http://url.com',
         isRead: 'true',
-        labels: [{
-          iconClass: 'big',
-          iconBackgroundColor: 'red',
-          foregroundColor: 'green',
-          backgroundColor: 'blue',
-          iconUrl: 'http://url.com',
-          title: 'title'
-        }],
+        labels: [
+          {
+            iconClass: 'big',
+            iconBackgroundColor: 'red',
+            foregroundColor: 'green',
+            backgroundColor: 'blue',
+            iconUrl: 'http://url.com',
+            title: 'title'
+          }, {
+            iconBackgroundColor: 'red',
+            foregroundColor: 'green',
+            backgroundColor: 'blue',
+            iconHtml: '<div></div>',
+            title: 'title'
+          },
+        ],
         onClick: () => {
         },
         routeID: '1234',
@@ -669,13 +771,32 @@ InboxSDK.load(1, '1234').then((sdk: InboxSDK.InboxSDKInstance) => {
     orderHint: 1,
     routeID: '1234',
     routeParams: {p: 1},
-    type: 'MANAGE'
+    type: 'LINK'
+  };
+
+  const navItemDescriptor1: NavItemDescriptor = {
+    accessory: {
+      type: 'CREATE',
+      onClick: () => {
+      }
+    },
+    backgroundColor: 'red',
+    expanderForegroundColor: 'green',
+    iconElement: document.createElement('div'),
+    name: 'name',
+    onClick: event => event.preventDefault(),
+    orderHint: 1,
+    routeID: '1234',
+    routeParams: {p: 1},
+    type: 'NAVIGATION'
   };
 
   const navItem = sdk.NavMenu.addNavItem(navItemDescriptor);
+  const navItem2 = sdk.NavMenu.addNavItem(navItemDescriptor1);
   const navItem1 = navItem.addNavItem(navItemDescriptor);
   navItem.remove();
   navItem1.remove();
+  navItem2.remove();
 
   const isCollapsed: boolean = navItem.isCollapsed();
   navItem.setCollapsed(true);
@@ -751,28 +872,43 @@ InboxSDK.load(1, '1234').then((sdk: InboxSDK.InboxSDKInstance) => {
   });
   drawerView.on('closing', () => {
   });
+  drawerView.on('preautoclose', event => {
+    event.cancel();
+  });
 });
 
 InboxSDK.load(1, '1234').then((sdk: InboxSDK.InboxSDKInstance) => {
-  const searchResults = [{
-    iconUrl: 'http://url.com',
-    onClick: () => {
+  const searchResults = [
+    {
+      iconUrl: 'http://url.com',
+      onClick: () => {
+      },
+      description: 'desc',
+      externalURL: 'http://url.com',
+      name: 'name',
+      routeName: 'name',
+      routeParams: ['a', 'b']
     },
-    description: 'desc',
-    externalURL: 'http://url.com',
-    name: 'name',
-    routeName: 'name',
-    routeParams: ['a', 'b']
-  }, {
-    iconUrl: 'http://url.com',
-    onClick: () => {
+    {
+      iconUrl: 'http://url.com',
+      onClick: () => {
+      },
+      descriptionHTML: 'desc',
+      externalURL: 'http://url.com',
+      nameHTML: 'name',
+      routeName: 'name',
+      routeParams: ['a', 'b']
     },
-    descriptionHTML: 'desc',
-    externalURL: 'http://url.com',
-    nameHTML: 'name',
-    routeName: 'name',
-    routeParams: ['a', 'b']
-  }];
+    {
+      iconHTML: '<div></div>',
+      onClick: () => {
+      },
+      descriptionHTML: 'desc',
+      externalURL: 'http://url.com',
+      nameHTML: 'name',
+      routeName: 'name',
+      routeParams: ['a', 'b']
+    }];
 
   sdk.Search.registerSearchSuggestionsProvider(query => searchResults);
   sdk.Search.registerSearchSuggestionsProvider(query => Promise.resolve(searchResults));

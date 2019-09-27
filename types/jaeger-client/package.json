@@ -1,0 +1,7 @@
+{
+    "private": true,
+    "dependencies": {
+        "opentracing": "~0.14.3",
+        "prom-client": "~11.3.0"
+    }
+}

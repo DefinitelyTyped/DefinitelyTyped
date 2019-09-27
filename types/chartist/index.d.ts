@@ -1,6 +1,6 @@
 // Type definitions for Chartist v0.9.81
 // Project: https://github.com/gionkunz/chartist-js
-// Definitions by: Matt Gibbs <https://github.com/mtgibbs>, Simon Pfeifer <https://github.com/psimonski>, Cassey Lottman <https://github.com/clottman>, Anastasiia Antonova <https://github.com/affilnost>, Sunny Juneja <https://github.com/sunnyrjuneja>
+// Definitions by: Matt Gibbs <https://github.com/mtgibbs>, Simon Pfeifer <https://github.com/psimonski>, Anastasiia Antonova <https://github.com/affilnost>, Sunny Juneja <https://github.com/sunnyrjuneja>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace Chartist {
@@ -93,13 +93,13 @@ declare namespace Chartist {
     // TODO: come in and tidy this up and make it fit better
     interface IChartistData {
         labels?: Array<string> | Array<number> | Array<Date>;
-        series: Array<IChartistSeriesData> | Array<Array<IChartistData>> | Array<number> | Array<Array<number>>;
+        series: Array<IChartistSeriesData> | Array<Array<IChartistSeriesData>> | Array<Array<IChartistData>> | Array<number> | Array<Array<number>>;
     }
 
     interface IChartistSeriesData {
         name?: string;
         value?: number;
-        data?: Array<number>;
+        data?: Array<number> | Array<{ x: number | Date, y: number }>;
         className?: string;
         meta?: any;
     }

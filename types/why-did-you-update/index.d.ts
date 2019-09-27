@@ -7,9 +7,25 @@
 /// <reference types="react" />
 
 declare module "why-did-you-update" {
+    interface Diffs {
+        name: string;
+        prev: any;
+        next: any;
+        type: any;
+    }
+    
 	interface Options {
 		include?: RegExp;
 		exclude?: RegExp;
+        groupByComment?: boolean;
+        collapseComponentGroups?: boolean;
+        notifier?: (
+            groupByComponent: boolean,
+            collapseComponentGroups: boolean,
+            displayName: string,
+            diffs: Diffs[]
+        ) => void;
 	}
+    
 	export function whyDidYouUpdate(react: typeof React, options?: Options): void;
 }

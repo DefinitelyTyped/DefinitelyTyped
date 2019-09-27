@@ -1,6 +1,9 @@
 // Type definitions for d3JS d3-zoom module 1.7
-// Project: https://github.com/d3/d3-zoom/
-// Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
+// Project: https://github.com/d3/d3-zoom/, https://d3js.org/d3-zoom
+// Definitions by: Tom Wanzek <https://github.com/tomwanzek>
+//                 Alex Ford <https://github.com/gustavderdrache>
+//                 Boris Yankov <https://github.com/borisyankov>
+//                 denisname <https://github.com/denisname>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -26,12 +29,12 @@ export type ZoomedElementBaseType = Element;
  * that  can be passed into zoomTransform methods rescaleX and rescaleY
  */
 export interface ZoomScale {
-    domain(): number[];
-    domain(domain: number[]): this;
+    domain(): number[] | Date[];
+    domain(domain: Array<Date | number>): this;
     range(): number[];
     range(range: number[]): this;
     copy(): ZoomScale;
-    invert(value: number): number;
+    invert(value: number): number | Date;
 }
 
 // --------------------------------------------------------------------------

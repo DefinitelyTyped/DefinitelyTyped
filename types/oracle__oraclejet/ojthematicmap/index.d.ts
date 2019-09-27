@@ -78,7 +78,6 @@ export interface ojThematicMap<K1, K2, K3, D1, D2, D3> extends dvtBaseComponent<
     touchResponse: 'touchStart' | 'auto';
     zooming: 'auto' | 'none';
     translations: {
-        areasRegion?: string;
         componentName?: string;
         labelAndValue?: string;
         labelClearSelection?: string;
@@ -86,8 +85,6 @@ export interface ojThematicMap<K1, K2, K3, D1, D2, D3> extends dvtBaseComponent<
         labelDataVisualization?: string;
         labelInvalidData?: string;
         labelNoData?: string;
-        linksRegion?: string;
-        markersRegion?: string;
         stateCollapsed?: string;
         stateDrillable?: string;
         stateExpanded?: string;
@@ -249,7 +246,6 @@ export interface ojThematicMapSettableProperties<K1, K2, K3, D1, D2, D3> extends
     touchResponse: 'touchStart' | 'auto';
     zooming: 'auto' | 'none';
     translations: {
-        areasRegion?: string;
         componentName?: string;
         labelAndValue?: string;
         labelClearSelection?: string;
@@ -257,8 +253,6 @@ export interface ojThematicMapSettableProperties<K1, K2, K3, D1, D2, D3> extends
         labelDataVisualization?: string;
         labelInvalidData?: string;
         labelNoData?: string;
-        linksRegion?: string;
-        markersRegion?: string;
         stateCollapsed?: string;
         stateDrillable?: string;
         stateExpanded?: string;

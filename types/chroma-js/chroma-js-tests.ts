@@ -6,6 +6,11 @@ function test_chroma() {
     chroma('#ff3399');
     chroma('F39');
     chroma.hex("#fff");
+    chroma.valid(0);
+    chroma.valid('');
+    chroma.valid({});
+    chroma.valid(null);
+    chroma.valid(undefined);
 
     chroma(0xff3399);
     chroma(0xff, 0x33, 0x99);
@@ -49,7 +54,7 @@ function test_chroma() {
 
 function test_color() {
     chroma('red').alpha(0.5);
-    chroma('rgba(255,0,0,0.35)').alpha();
+    chroma('rgba(255,0,0,0.35)').alpha() === 0.35;
     chroma('hotpink').darken();
     chroma('hotpink').darken(2);
     chroma('hotpink').brighten();
@@ -110,6 +115,9 @@ function test_color() {
     chroma('teal').alpha(0.5).css();
     chroma('teal').css('hsl');
     chroma('orange').rgb();
+    chroma('orange').rgb(true);
+    chroma('orange').rgba();
+    chroma('orange').rgba(true);
 
     chroma('#000000').num();
     chroma('#0000ff').num();
@@ -134,7 +142,7 @@ function test_scale() {
     chroma.scale(['yellow', '008ae5']);
     chroma.scale(['yellow', 'navy']);
     chroma.scale(['yellow', 'navy']).mode('lab');
-    chroma.scale(['yellow', 'navy']).mode('lab');
+    chroma.scale(['yellow', 'navy']).mode('lrgb');
     chroma.scale(['yellow', 'navy']).mode('hsl');
     chroma.scale(['yellow', 'navy']).mode('lch');
     chroma.scale('YlGnBu');

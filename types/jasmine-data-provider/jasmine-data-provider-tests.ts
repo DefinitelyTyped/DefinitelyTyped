@@ -46,3 +46,40 @@ describe('My fantastic test', () => {
         });
     });
 });
+
+// undocumented behaviour
+
+describe(`Ugh, I don't know if this one works`, () => {
+    using([[6, 3, 9], [8, 1, 10]], (a, b, expected) => {
+        it('should calc with operator +', () => {
+            const result = calculator.calc(a, b, '+');
+
+            expect(result).toEqual(expected);
+        });
+    });
+});
+
+// TypeScript-specific tests
+
+describe('My awesome test with declared types!', () => {
+    interface TestType {
+        value: number;
+        expected: number;
+    }
+
+    using<TestType>([{ value: 2, expected: 4 }], (data) => {
+        it('should calc with operator ^2', () => {
+            const result = calculator.calc(data.value, '^2');
+
+            expect(result).toEqual(data.expected);
+        });
+    });
+
+    using<TestType>({ desc: { value: 2, expected: 4 } }, (data, description) => {
+        it(description, () => {
+            const result = calculator.calc(data.value, '^2');
+
+            expect(result).toEqual(data.expected);
+        });
+    });
+});

@@ -103,6 +103,7 @@ expect("abcd").to.have.length(4);
 
 expect(5).to.equal(5);
 expect({ a: 1 }).to.equal({ a: 1 });
+expect([1, 2, 3]).to.equal([1, 2, 3]);
 
 expect(Object.create(null)).to.equal({}, { prototype: false });
 

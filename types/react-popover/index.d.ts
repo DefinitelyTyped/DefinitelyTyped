@@ -32,7 +32,7 @@ declare namespace Popover {
         tipSize?: number;
         className?: string;
         style?: React.CSSProperties;
-        target?: React.ReactElement<any>;
+        target?: React.ReactElement;
         appendTarget?: Element;
     }
 }

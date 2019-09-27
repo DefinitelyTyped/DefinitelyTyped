@@ -88,6 +88,7 @@ declare module 'angular' {
             withCredentials?: boolean;
             responseType?: string;
             interceptor?: IResourceInterceptor;
+            hasBody?: boolean;
         }
 
         // Allow specify more resource methods

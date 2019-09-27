@@ -28,6 +28,7 @@ declare namespace scrollReveal {
         distance ? : string;
         duration ? : number;
         delay ? : number;
+        interval ? : number;
         rotate ? : ScrollRevealRotateObject;
         opacity ? : number;
         scale ? : number;

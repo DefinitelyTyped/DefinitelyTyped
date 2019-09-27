@@ -1,9 +1,13 @@
-// Type definitions for react-mentions 2.3
+// Type definitions for react-mentions 3.0
 // Project: https://github.com/signavio/react-mentions
 // Definitions by: Scott Willeke <https://github.com/activescott>
+//                 Eugene Fedorenko <https://github.com/efedorenko>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 import * as React from "react";
+
+type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
+export {};
 
 /**
  * MentionsInput is the main component rendering the textarea control. It takes one or multiple Mention components as its children.
@@ -18,7 +22,7 @@ export const Mention: React.SFC<MentionProps>;
 /**
  * The properties for the @see MentionsInput component.
  */
-export interface MentionsInputProps {
+export interface MentionsInputProps extends Omit<React.TextareaHTMLAttributes<HTMLTextAreaElement>, 'onChange' | 'onBlur' | 'onKeyDown' | 'onSelect'> {
     /**
      * If set to `true` a regular text input element will be rendered
      * instead of a textarea
@@ -28,9 +32,7 @@ export interface MentionsInputProps {
      * If set to `true` spaces will not interrupt matching suggestions
      */
     allowSpaceInQuery?: boolean;
-    markup?: string;
     value?: string;
-    displayTransform?: DisplayTransformFunc;
     onChange?: OnChangeHandlerFunc;
     placeholder?: string;
     onBlur?: (event: React.FocusEvent<HTMLInputElement> | React.FocusEvent<HTMLTextAreaElement>, clickedSuggestion: boolean) => void;
@@ -38,15 +40,19 @@ export interface MentionsInputProps {
     onKeyDown?: (event: React.KeyboardEvent<HTMLTextAreaElement> | React.KeyboardEvent<HTMLInputElement>) => void;
     children: React.ReactElement<MentionProps> | Array<React.ReactElement<MentionProps>>;
     className?: string;
+    classNames?: any;
     style?: any;
-    regex?: RegExp;
     suggestionsPortalHost?: Element;
+    inputRef?: React.RefObject<HTMLTextAreaElement> | React.RefObject<HTMLInputElement>;
 }
 
 /**
  * Exposes the type for use with the @see MentionsInputComponent.wrappedInstance which is added by react-mentions' use of substyle (https://github.com/jfschwarz/substyle).
  */
 export interface MentionsInputComponentUnrwapped extends React.Component<MentionsInputProps> {
+    /**
+     * @deprecated since version 2.4.0. Please use @see MentionsInputProps.inputRef
+     */
     inputRef?: HTMLInputElement | HTMLTextAreaElement;
 }
 
@@ -68,15 +74,17 @@ export interface MentionsInputClass extends React.ComponentClass<MentionsInputPr
  * Props definition for a mention subelement.
  */
 export interface MentionProps {
-    type?: string;
     onAdd?: (id: string | number, display: string) => void;
     renderSuggestion?: (suggestion: SuggestionDataItem, search: string, highlightedDisplay: React.ReactNode, index: number, focused: boolean) => React.ReactNode;
     className?: string;
+    markup?: string;
+    displayTransform?: DisplayTransformFunc;
     trigger: string | RegExp;
     isLoading?: boolean;
     data: SuggestionDataItem[] | DataFunc;
     style?: any;
     appendSpaceOnAdd?: boolean;
+    regex?: RegExp;
 }
 
 /**
@@ -99,7 +107,7 @@ export interface SuggestionDataItem {
 /**
  * Defines the function signature for implementing @see MentionsInputProps.displayTransform
  */
-export type DisplayTransformFunc = (id: string, display: string, type: string) => string;
+export type DisplayTransformFunc = (id: string, display: string) => string;
 
 /**
  * Defines the function signature for implementing @see MentionsInputProps.onChange

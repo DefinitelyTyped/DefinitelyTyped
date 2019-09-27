@@ -557,8 +557,8 @@ function testDesializerManager() {
     }
 
     function isStorableClass(o: object): o is StorableClass {
-        if (typeof o === "object" && (<StorableClass> o).name &&
-            (<StorableClass> o).name === "test") {
+        if (typeof o === "object" && (o as StorableClass).name &&
+            (o as StorableClass).name === "test") {
             return true;
         } else {
             return false;

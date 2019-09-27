@@ -2,6 +2,7 @@
 // Project: https://github.com/marcodejongh/chai-webdriverio
 // Definitions by: Nikolai Orekhov <https://github.com/sherlock1982>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.0
 
 /// <reference types="webdriverio" />
 /// <reference types="chai" />
@@ -19,6 +20,6 @@ declare namespace Chai {
 }
 
 declare module 'chai-webdriverio' {
-    function chaiWebdriverIO(client: WebdriverIO.Client<void>, options?: any): (chai: any, utils: any) => void;
+    function chaiWebdriverIO(client: WebdriverIO.Client<void>, options?: any): Chai.ChaiPlugin;
     export = chaiWebdriverIO;
 }

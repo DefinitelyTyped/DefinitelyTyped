@@ -1,4 +1,4 @@
-import { JSDOM, VirtualConsole, CookieJar, FromUrlOptions, FromFileOptions, DOMWindow, ResourceLoader, FetchOptions } from 'jsdom';
+import { JSDOM, VirtualConsole, CookieJar, FromUrlOptions, FromFileOptions, DOMWindow, ResourceLoader, FetchOptions, ConstructorOptions } from 'jsdom';
 import { CookieJar as ToughCookieJar, MemoryCookieStore } from 'tough-cookie';
 import { Script } from 'vm';
 
@@ -56,8 +56,9 @@ function test_cookieJar() {
     const store = {} as MemoryCookieStore;
     const options = {} as ToughCookieJar.Options;
 
-    const cookieJar = new CookieJar(store, options);
-    const dom = new JSDOM(``, { cookieJar });
+    const cookieJar: CookieJar = new CookieJar(store, options);
+    const constructorOptions: ConstructorOptions = { cookieJar };
+    const dom = new JSDOM(``, constructorOptions);
 }
 
 function test_beforeParse() {
@@ -82,6 +83,7 @@ function test_serialize() {
     dom.serialize() === '<!DOCTYPE html><html><head></head><body>hello</body></html>';
 
     // Contrast with:
+    // tslint:disable-next-line no-unnecessary-type-assertion
     dom.window.document.documentElement!.outerHTML === '<html><head></head><body>hello</body></html>';
 }
 
@@ -119,7 +121,7 @@ function test_runVMScript() {
     dom.runVMScript(s);
     dom.runVMScript(s);
 
-    (<any> dom.window).ran === 3;
+    (dom.window as any).ran === 3;
 }
 
 function test_reconfigure() {
@@ -142,6 +144,12 @@ function test_fromURL() {
     JSDOM.fromURL('https://example.com/', options).then(dom => {
         console.log(dom.serialize());
     });
+
+    function pretendToBeVisual() {
+        JSDOM.fromURL("https://github.com", {
+            pretendToBeVisual: true
+        });
+    }
 }
 
 function test_fromFile() {

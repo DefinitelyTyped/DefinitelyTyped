@@ -1,5 +1,5 @@
 // Type definitions for HistoryKana 1.0
-// Project: https://github.com/terrierscript/historykana
+// Project: https://github.com/terrierscript/historykana, https://github.com/inuscript/historykana
 // Definitions by: shiratsuki <https://github.com/h-shiratsuki>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3

@@ -2,7 +2,7 @@
 // Project: https://github.com/fivdi/i2c-bus
 // Definitions by: Jason Heard <https://github.com/101100>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 /// <reference types="node" />
 

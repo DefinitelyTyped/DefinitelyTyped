@@ -1,6 +1,6 @@
-// Type definitions for Material Components Web 0.35
-// Project: https://material.io/components/
-// Definitions by: Brent Douglas <https://github.com/BrentDouglas>, Collin Kostichuk <https://github.com/ckosti>
+// Type definitions for Material Components Web 0.43
+// Project: https://material.io/components/, https://github.com/material-components/material-components-web
+// Definitions by: Brent Douglas <https://github.com/BrentDouglas>, Collin Kostichuk <https://github.com/ckosti>, Arthur Groupp <https://github.com/agroupp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -25,6 +25,7 @@ import * as base from 'material__base';
 import * as checkbox from 'material__checkbox';
 import * as chips from 'material__chips';
 import * as dialog from 'material__dialog';
+import * as dom from 'material__dom';
 import * as drawer from 'material__drawer';
 import * as floatingLabel from 'material__floating-label';
 import * as formField from 'material__form-field';
@@ -32,6 +33,7 @@ import * as gridList from 'material__grid-list';
 import * as iconToggle from 'material__icon-toggle';
 import * as linearProgress from 'material__linear-progress';
 import * as lineRipple from 'material__line-ripple';
+import * as list from 'material__list';
 import * as menu from 'material__menu';
 import * as notchedOutline from 'material__notched-outline';
 import * as radio from 'material__radio';

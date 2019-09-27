@@ -8,7 +8,17 @@ checker.init(
         production: true,
         customPath: {
             licenseText: ""
-        }
+        },
+        json: false,
+        csv: false,
+        csvComponentPrefix: "prefixColumn",
+        out: "/write/to/specific/file",
+        failOn: "impermissible;licenses",
+        onlyAllow: "permissible;licenses",
+        packages: "packages;to;check",
+        excludePackages: "packages;to;exclude",
+        excludePrivatePackages: false,
+        direct: false
     },
     (err: Error, json: checker.ModuleInfos): void => {
         if (err) {

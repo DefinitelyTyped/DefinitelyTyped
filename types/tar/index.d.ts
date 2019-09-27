@@ -6,20 +6,22 @@
 
 /// <reference types="node" />
 
-import stream = require("stream");
-import events = require("events");
-import zlib = require("zlib");
+import stream = require('stream');
+import events = require('events');
+import zlib = require('zlib');
+import MiniPass = require('minipass');
 
 // #region Interfaces
 
 export interface HeaderProperties {
-    path?: string;
+    path: string;
     mode?: number;
     noProprietary?: boolean;
     uid?: number;
     gid?: number;
     size?: number;
     mtime?: number;
+    type?: string;
     uname?: string;
     gname?: string;
     devmaj?: number;
@@ -234,6 +236,24 @@ export interface FileStat extends stream.Readable, Fields {
     size: number;
 }
 
+export interface ReadEntry extends MiniPass, HeaderProperties {
+    /** The extended metadata object provided to the constructor. */
+    extended: any;
+    /** The global extended metadata object provided to the constructor. */
+    globalExtended: any;
+    /** The number of bytes remaining to be written into the stream. */
+    remain: number;
+    /** The number of 512-byte blocks remaining to be written into the stream. */
+    blockRemain: number;
+    /** Whether this entry should be ignored. */
+    ignore: boolean;
+    /**
+     * True if this represents metadata about the next entry, false if it
+     * represents a filesystem object.
+     */
+    meta: boolean;
+}
+
 export interface CreateOptions {
     /**
      * A function that will get called with (message, data)
@@ -317,11 +337,16 @@ export interface CreateOptions {
     h?: boolean;
 
     /**
-     * uppress pax extended headers. Note that this means that long paths and
+     * Suppress pax extended headers. Note that this means that long paths and
      * linkpaths will be truncated, and large or negative numeric values
      * may be interpreted incorrectly.
      */
     noPax?: boolean;
+
+    /**
+     * A path portion to prefix onto the entries in the archive.
+     */
+    prefix?: string;
 }
 
 export interface ExtractOptions {
@@ -440,7 +465,43 @@ export interface ExtractOptions {
      * group id, regardless of the gid field in the archive. Cannot be used
      * along with preserveOwner. Requires also setting a uid option
      */
-    gui?: number;
+    gid?: number;
+
+    /**
+     * Set to true to omit writing mtime value for extracted entries.
+     * [Alias: m, no-mtime]
+     */
+    noMtime?: boolean;
+    m?: boolean;
+    'no-mtime'?: boolean;
+
+    /**
+     * Provide a function that takes an entry object, and returns a stream,
+     * or any falsey value. If a stream is provided, then that stream's data
+     * will be written instead of the contents of the archive entry. If a
+     * falsey value is provided, then the entry is written to disk as normal.
+     * (To exclude items from extraction, use the filter option described above.)
+     */
+    transform?(entry: ReadEntry): NodeJS.WritableStream | undefined | false | null;
+
+    /**
+     * A function that gets called with (entry) for each entry that passes the
+     * filter.
+     */
+    onentry?(entry: ReadEntry): void;
+
+    // The following options are mostly internal, but can be modified in some
+    // advanced use cases, such as re-using caches between runs.
+
+    /**
+     * The maximum buffer size for fs.read() operations (in bytes). Defaults to 16 MB.
+     */
+    maxReadSize?: number;
+
+    /**
+     * The maximum size of meta entries that is supported. Defaults to 1 MB.
+     */
+    maxMetaEntrySize?: number;
 }
 
 export interface ListOptions {

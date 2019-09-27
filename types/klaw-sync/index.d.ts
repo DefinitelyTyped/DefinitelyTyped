@@ -1,4 +1,4 @@
-// Type definitions for klaw-sync 5.0
+// Type definitions for klaw-sync 6.0
 // Project: https://github.com/manidlou/node-klaw-sync
 // Definitions by: Brendan Forster <https://github.com/shiftkey>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -53,6 +53,17 @@ declare namespace klawSync {
          * @since v2.0.0
          */
         filter?: Filter
+
+        /**
+         * @description traverse all subdirectories, regardless of `filter` option.
+         *
+         * When set to true, traverseAll produces similar behavior to the default
+         * behavior prior to `v4.0.0`. The current default of `traverseAll: false`
+         * is equivalent to the old `noRecurseOnFailedFilter: true`).
+         *
+         * @since v6.0.0
+         */
+        traverseAll?: boolean
     }
 }
 

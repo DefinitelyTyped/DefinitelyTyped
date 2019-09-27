@@ -91,3 +91,16 @@ CodeMirror.registerHelper("lint", "javascript", {});
 
 myCodeMirror.isReadOnly();
 myCodeMirror.execCommand('selectAll');
+
+let htmlElement1 = document.createElement('div');
+let htmlElement2 = document.createElement('div');
+let widget1 = myCodeMirror.addLineWidget(1, htmlElement1, {});
+let widget2 = doc.addLineWidget(1, htmlElement2, {});
+widget1.clear();
+widget2.clear();
+htmlElement1.remove();
+htmlElement2.remove();
+
+CodeMirror.commands.newlineAndIndent(myCodeMirror);
+
+let stringStream = new CodeMirror.StringStream("var myEditor;");

@@ -12,7 +12,6 @@
 // TypeScript Version: 2.4
 
 /// <reference types="jquery" />
-/// <reference types="handlebars" />
 
 declare module 'ember' {
     // Capitalization is intentional: this makes it much easier to re-export RSVP on
@@ -272,6 +271,12 @@ declare module 'ember' {
     **/
     interface TargetActionSupport {
         triggerAction(opts: TriggerActionOptions): boolean;
+    }
+
+    interface DeprecationOptions {
+        id: string;
+        until: string;
+        url?: string;
     }
 
     export namespace Ember {
@@ -1895,20 +1900,26 @@ declare module 'ember' {
             paramsFor(name: string): {};
 
             /**
-             * Refresh the model on this route and any child routes, firing the
-             * `beforeModel`, `model`, and `afterModel` hooks in a similar fashion
-             * to how routes are entered when transitioning in from other route.
-             * The current route params (e.g. `article_id`) will be passed in
-             * to the respective model hooks, and if a different model is returned,
-             * `setupController` and associated route hooks will re-fire as well.
-             * An example usage of this method is re-querying the server for the
-             * latest information using the same parameters as when the route
-             * was first entered.
-             * Note that this will cause `model` hooks to fire even on routes
-             * that were provided a model object when the route was initially
-             * entered.
+             * A hook you can implement to optionally redirect to another route.
+             *
+             * If you call `this.transitionTo` from inside of this hook, this route
+             * will not be entered in favor of the other hook.
+             *
+             * `redirect` and `afterModel` behave very similarly and are
+             * called almost at the same time, but they have an important
+             * distinction in the case that, from one of these hooks, a
+             * redirect into a child route of this route occurs: redirects
+             * from `afterModel` essentially invalidate the current attempt
+             * to enter this route, and will result in this route's `beforeModel`,
+             * `model`, and `afterModel` hooks being fired again within
+             * the new, redirecting transition. Redirects that occur within
+             * the `redirect` hook, on the other hand, will _not_ cause
+             * these hooks to be fired again the second time around; in
+             * other words, by the time the `redirect` hook has been called,
+             * both the resolved model and attempted entry into this route
+             * are considered to be fully validated.
              */
-            redirect(): Transition;
+            redirect(model: {}, transition: Transition): void;
 
             /**
              * Refresh the model on this route and any child routes, firing the
@@ -2409,6 +2420,7 @@ declare module 'ember' {
             function print(ast: any): void;
             const logger: typeof Ember.Logger;
             function log(level: string, str: string): void;
+            function registerHelper(name: string, helper: any): void;
         }
         namespace String {
             function camelize(str: string): string;
@@ -2568,14 +2580,14 @@ declare module 'ember' {
              */
             deprecatingAlias(
                 dependentKey: string,
-                options: { id: string; until: string }
+                options: DeprecationOptions
             ): ComputedProperty<any>;
             /**
              * @deprecated Missing deprecation options: https://emberjs.com/deprecations/v2.x/#toc_ember-debug-function-options
              */
             deprecatingAlias(
                 dependentKey: string,
-                options?: { id?: string; until?: string }
+                options?: Partial<DeprecationOptions>
             ): ComputedProperty<any>;
             /**
              * A computed property that returns the sum of the values
@@ -2971,7 +2983,7 @@ declare module 'ember' {
         function deprecate(
             message: string,
             test: boolean,
-            options: { id: string; until: string }
+            options: DeprecationOptions
         ): any;
         /**
          * @deprecated Missing deprecation options: https://emberjs.com/deprecations/v2.x/#toc_ember-debug-function-options
@@ -2979,7 +2991,7 @@ declare module 'ember' {
         function deprecate(
             message: string,
             test: boolean,
-            options?: { id?: string; until?: string }
+            options?: Partial<DeprecationOptions>
         ): any;
         /**
          * Define an assertion that will throw an exception if the condition is not met.
@@ -3006,7 +3018,7 @@ declare module 'ember' {
          */
         function deprecateFunc<Func extends ((...args: any[]) => any)>(
             message: string,
-            options: { id: string; until: string },
+            options: DeprecationOptions,
             func: Func
         ): Func;
         /**
@@ -3125,7 +3137,7 @@ declare module 'ember' {
         function isPresent(obj: any): boolean;
         /**
          * Merge the contents of two objects together into the first object.
-         * @deprecated Use Object.assign
+         * @deprecated Use Ember.assign
          */
         function merge<T, U>(original: T, updates: U): T & U;
         /**
@@ -3278,7 +3290,6 @@ declare module 'ember' {
         function typeOf(item: any): string;
         /**
          * Copy properties from a source object to a target object.
-         * @deprecated Use Object.assign
          */
         function assign<T, U>(target: T, source: U): T & U;
         function assign<T, U, V>(target: T, source1: U, source2: V): T & U & V;

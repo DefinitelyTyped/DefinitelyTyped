@@ -1,6 +1,9 @@
 // Type definitions for twilio-video 2.0
-// Project: https://twilio.com/video
-// Definitions by: MindDoc <https://github.com/minddocdev>, Darío Blanco <https://github.com/darioblanco>
+// Project: https://twilio.com/video, https://twilio.com
+// Definitions by: MindDoc <https://github.com/minddocdev>
+//                 Darío Blanco <https://github.com/darioblanco>
+//                 katashin <https://github.com/ktsn>
+//                 Benjamin Santalucia <https://github.com/ben8p>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -103,11 +106,11 @@ export class LocalParticipant extends Participant {
         mediaStreamTrack: MediaStreamTrack, options?: LocalTrackOptions,
     ): Promise<LocalTrackPublication>;
     publishTracks(
-        tracks: LocalTrack[] | MediaStreamTrack[],
+        tracks: Array<LocalTrack | MediaStreamTrack>,
     ): Promise<LocalTrackPublication[]>;
     setParameters(encodingParameters?: EncodingParameters | null): LocalParticipant;
-    unpublishTrack(track: LocalTrack): LocalTrackPublication;
-    unpublishTracks(tracks: LocalTrack): LocalTrackPublication[];
+    unpublishTrack(track: LocalTrack | MediaStreamTrack): LocalTrackPublication;
+    unpublishTracks(tracks: Array<LocalTrack | MediaStreamTrack>): LocalTrackPublication[];
 }
 export class LocalTrackPublication extends TrackPublication {
     isTrackEnabled: boolean;
@@ -377,6 +380,7 @@ export class StatsReport {
 }
 export namespace Track {
     type Kind = 'audio' | 'video' | 'data';
+    type Priority = 'low' | 'standard' | 'high';
     type ID = string;
     type SID = string;
 }
@@ -404,7 +408,7 @@ export class TrackNameTooLongError extends TwilioError {
     code: 53302;
     message: 'Track name is too long';
 }
-export class TrackPublication {
+export class TrackPublication extends EventEmitter {
     trackName: string;
     trackSid: Track.SID;
 }
@@ -469,19 +473,43 @@ export type AudioTrackPublication = LocalAudioTrackPublication | RemoteAudioTrac
 export interface ConnectOptions {
     abortOnIceServersTimeout?: boolean;
     audio?: boolean | CreateLocalTrackOptions;
+    automaticSubscription?: boolean;
+    bandwidthProfile?: BandwidthProfileOptions;
+    dominantSpeaker?: boolean;
+    dscpTagging?: boolean;
+    enableDscp?: boolean;
     iceServers?: RTCIceServer[];
     iceServersTimeout?: number;
     iceTransportPolicy?: RTCIceTransportPolicy;
     insights?: boolean;
-    maxAudioBitRate?: number | null;
-    maxVideoBitRate?: number | null;
+    maxAudioBitrate?: number | null;
+    maxVideoBitrate?: number | null;
     name?: string | null;
+    networkQuality?: boolean | NetworkQualityConfiguration;
+    region?: 'au1' | 'br1' | 'ie1' | 'de1' | 'jp1' | 'sg1' | 'us1' | 'us2' | 'gll';
     preferredAudioCodecs?: AudioCodec[];
     preferredVideoCodecs?: VideoCodec[] | VideoCodecSettings[];
     logLevel?: LogLevel | LogLevels;
     tracks?: LocalTrack[] | MediaStreamTrack[];
     video?: boolean | CreateLocalTrackOptions;
 }
+export interface BandwidthProfileOptions {
+    video?: VideoBandwidthProfileOptions;
+}
+export interface VideoBandwidthProfileOptions {
+    dominantSpeakerPriority?: Track.Priority;
+    maxSubscriptionBitrate?: number;
+    maxTracks?: number;
+    mode?: BandwidthProfileMode;
+    renderDimensions?: VideoRenderDimensions;
+}
+export interface VideoRenderDimensions {
+    high?: VideoTrack.Dimensions;
+    low?: VideoTrack.Dimensions;
+    standard?: VideoTrack.Dimensions;
+}
+
+export type BandwidthProfileMode = 'grid' | 'collaboration' | 'presentation';
 export interface CreateLocalTrackOptions extends MediaTrackConstraints {
     // In API reference logLevel is not optional, but in the Twilio examples it is
     logLevel?: LogLevel | LogLevels;
@@ -516,6 +544,11 @@ export interface LogLevels {
     webrtc: LogLevel;
 }
 export type NetworkQualityLevel = number;
+export type NetworkQualityVerbosity = 0 | 1 | 2 | 3;
+export interface NetworkQualityConfiguration {
+    local?: NetworkQualityVerbosity;
+    remote?: NetworkQualityVerbosity;
+}
 export type RemoteTrack = RemoteAudioTrack | RemoteVideoTrack | RemoteDataTrack;
 export interface RemoteTrackPublicationOptions {
     logLevel: LogLevel | LogLevels;

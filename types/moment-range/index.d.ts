@@ -1,9 +1,10 @@
 // Type definitions for Moment-range.js 3.1
-// Project: https://github.com/gf3/moment-range
+// Project: https://github.com/rotaready/moment-range
 // Definitions by: Bart van den Burg <https://github.com/Burgov>
 //                 Wilgert Velinga <https://github.com/wilgert>
 //                 Juan Francisco Adame <https://github.com/franjuan>
 //                 MartynasZilinskas <https://github.com/MartynasZilinskas>
+//                 Che Coxshall <https://github.com/chemass>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import moment = require('moment');
@@ -57,6 +58,7 @@ export class DateRange {
 export interface MomentRangeMethods {
     range(range: string | Date[] | moment.Moment[]): DateRange;
     range(start: Date | moment.Moment, end: Date | moment.Moment): DateRange;
+    isRange(range: any): range is DateRange;
     within(range: DateRange): boolean;
 }
 

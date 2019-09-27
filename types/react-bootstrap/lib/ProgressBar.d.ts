@@ -7,6 +7,7 @@ declare namespace ProgressBar {
         active?: boolean;
         bsSize?: Sizes;
         bsStyle?: string;
+        bsClass?: string;
         interpolatedClass?: any; // TODO: Add more specific type
         max?: number;
         min?: number;
