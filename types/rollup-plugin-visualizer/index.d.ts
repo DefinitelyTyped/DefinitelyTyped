@@ -1,7 +1,6 @@
 // Type definitions for rollup-plugin-visualizer 2.6
 // Project: https://www.npmjs.com/package/rollup-plugin-visualizer
-// Definitions by: Nikolai Tsapkin <https://github.com/>
-//                 Max Boguslavskiy <https://github.com/maxbogus>
+// Definitions by: Max Boguslavskiy <https://github.com/maxbogus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
