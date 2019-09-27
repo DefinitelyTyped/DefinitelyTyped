@@ -2848,7 +2848,7 @@
             "libraryName": "re2",
             "typingsPackageName": "re2",
             "sourceRepoURL": "https://github.com/uhop/node-re2",
-            "asOfVersion": "1.10.2"
+            "asOfVersion": "1.10.3"
         },
         {
             "libraryName": "react-chartjs-2",
