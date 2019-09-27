@@ -1,0 +1,7 @@
+{
+    "private": true,
+    "dependencies": {
+        "rollup": "^0.63.4",
+        "rollup-plugin-size-snapshot": "^0.10.0"
+    }
+}
