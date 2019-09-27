@@ -81,5 +81,5 @@ export function fetchQuery<TQuery extends OperationType>(
     environment: IEnvironment,
     query: GraphQLTaggedNode,
     variables: TQuery['variables'],
-    options: { networkCacheConfig?: CacheConfig },
+    options?: { networkCacheConfig?: CacheConfig },
 ): Observable<TQuery['response']>;
