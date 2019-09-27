@@ -1,5 +1,5 @@
 import * as webpack from 'webpack';
-import { UnusedFilesWebpackPlugin} from 'unused-files-webpack-plugin';
+import { UnusedFilesWebpackPlugin } from 'unused-files-webpack-plugin';
 
 const ignoredFiles = [''];
 const config: webpack.Configuration = {
