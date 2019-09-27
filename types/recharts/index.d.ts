@@ -1,4 +1,4 @@
-// Type definitions for Recharts 1.1
+// Type definitions for Recharts 1.7
 // Project: http://recharts.org/, https://github.com/recharts/recharts
 // Definitions by: Raphael Mueller <https://github.com/rapmue>
 //                 Roy Xue <https://github.com/royxue>
@@ -14,6 +14,7 @@
 //                 Leon Ng <https://github.com/iflp>
 //                 Dave Vedder <https://github.com/veddermatic>
 //                 Konstantin Azizov <https://github.com/g07cha>
+//                 Gonzalo Nicolas D'Elia <https://github.com/gndelia>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -192,6 +193,7 @@ export interface AreaProps extends EventAttributes, Partial<PresentationAttribut
     baseLine?: number | any[];
     isRange?: boolean;
     points?: Point[];
+    id?: string;
 }
 
 export class Area extends React.Component<AreaProps> { }
@@ -233,6 +235,7 @@ export interface BarProps extends EventAttributes, Partial<PresentationAttribute
     background?: boolean | React.ReactElement | ContentRenderer<any> | object;
     // see label section at http://recharts.org/#/en-US/api/Bar
     label?: boolean | Label | LabelProps | React.SFC<LabelProps> | React.ReactElement<LabelProps> | ContentRenderer<any>;
+    id?: string;
 }
 
 export class Bar extends React.Component<BarProps> { }
@@ -260,6 +263,8 @@ export interface BrushProps {
     children?: React.ReactNode;
     onChange?: RechartsFunction;
     updateId?: string | number;
+    gap?: number;
+    leaveTimeOut?: number;
 }
 
 export class Brush extends React.Component<BrushProps> { }
@@ -434,6 +439,7 @@ export interface LineProps extends EventAttributes, Partial<PresentationAttribut
     dataKey: DataKey; // As the source code states, dataKey will replace valueKey in 1.1.0 and it'll be required (it's already required in current implementation).
     label?: boolean | object | React.ReactElement | ContentRenderer<any>;
     points?: Point[];
+    id?: string;
 }
 
 export class Line extends React.Component<LineProps> { }
@@ -771,6 +777,7 @@ export interface ScatterProps extends EventAttributes, Partial<PresentationAttri
     hide?: boolean;
     data?: ReadonlyArray<object>;
     name?: string | number;
+    id?: string;
 }
 
 export class Scatter extends React.Component<ScatterProps> { }
