@@ -2,6 +2,7 @@
 // Project: https://github.com/RubaXa/Sortable
 // Definitions by: Maw-Fox <https://github.com/Maw-Fox>
 //                 Maarten Staa <https://github.com/maartenstaa>
+//                 Wayne Van Son <https://github.com/waynevanson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -27,16 +28,16 @@ declare class Sortable {
      * @param options Sortable options object.
      */
     static create(element: HTMLElement, options: Sortable.Options): Sortable;
-    
+
     /**
      * Mounts a plugin to the `Sortable`
-     * @param plugins One or more of the sortable plugins. 
+     * @param plugins One or more of the sortable plugins.
      */
     // todo:
     // + tests
     // + declarations for the plugins. Plugins should extend a `Sortable.Plugin` class.
     static mount(...plugins: any[]): void;
-    
+
     /**
      * Options getter/setter
      * @param name a Sortable.Options property.
@@ -331,7 +332,7 @@ declare namespace Sortable {
         /**
          * Event when you move an item in the list or between lists
          */
-        onMove: (evt: MoveEvent, originalEvent: Event) => void;
+        onMove?: (evt: MoveEvent, originalEvent: Event) => void;
     }
 
     interface Utils {
