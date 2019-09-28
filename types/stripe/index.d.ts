@@ -39,6 +39,28 @@
 
 import { Agent } from 'http';
 
+interface RequestEvent {
+  api_version: string;
+  account?: string;
+  idempotency_key?: string;
+  method: string;
+  path: string;
+  request_start_time: number;
+}
+
+interface ResponseEvent {
+  api_version: string;
+  account?: string;
+  idempotency_key?: string;
+  method: string;
+  path: string;
+  status: number;
+  request_id: string;
+  elapsed: number;
+  request_start_time: number;
+  request_end_time: number;
+}
+
 declare class Stripe {
   DEFAULT_HOST: string;
   DEFAULT_PORT: string;
@@ -126,6 +148,13 @@ declare class Stripe {
   getMaxNetworkRetries(): number;
   getTelemetryEnabled(): boolean;
   getClientUserAgent(response: (userAgent: string) => void): void;
+
+  on(event: 'request', handler: (event: RequestEvent) => void): void;
+  on(event: 'response', handler: (event: ResponseEvent) => void): void;
+  once(event: 'request', handler: (event: RequestEvent) => void): void;
+  once(event: 'response', handler: (event: ResponseEvent) => void): void;
+  off(event: 'request', handler: (event: RequestEvent) => void): void;
+  off(event: 'response', handler: (event: ResponseEvent) => void): void;
 }
 export = Stripe;
 
