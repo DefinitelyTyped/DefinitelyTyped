@@ -17,10 +17,11 @@ import {
 } from '../utils';
 import { borderRadius, colors, spacing } from '../theme';
 import {
-    InnerRef,
-    MenuPlacement,
-    MenuPosition,
-    CommonProps, OptionTypeBase,
+  InnerRef,
+  MenuPlacement,
+  MenuPosition,
+  CommonProps,
+  OptionTypeBase,
 } from '../types';
 
 // ==============================

@@ -1,9 +1,10 @@
 import * as React from 'react';
 import {
-    ClassNamesState,
-    InputActionMeta,
-    OptionsType, OptionTypeBase,
-    ValueType,
+  ClassNamesState,
+  InputActionMeta,
+  OptionsType,
+  OptionTypeBase,
+  ValueType,
 } from './types';
 
 // ==============================

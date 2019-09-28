@@ -26,18 +26,19 @@ import {
 import { StylesConfig } from './styles';
 import { ThemeConfig } from './theme';
 import {
-    ActionMeta,
-    ActionTypes,
-    FocusDirection,
-    FocusEventHandler,
-    GroupType,
-    InputActionMeta,
-    KeyboardEventHandler,
-    MenuPlacement,
-    MenuPosition,
-    OptionsType,
-    ValueType,
-    GroupedOptionsType, OptionTypeBase,
+  ActionMeta,
+  ActionTypes,
+  FocusDirection,
+  FocusEventHandler,
+  GroupType,
+  InputActionMeta,
+  KeyboardEventHandler,
+  MenuPlacement,
+  MenuPosition,
+  OptionsType,
+  ValueType,
+  GroupedOptionsType,
+  OptionTypeBase,
 } from './types';
 
 export type MouseOrTouchEvent =
