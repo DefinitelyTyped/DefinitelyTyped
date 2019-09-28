@@ -8,6 +8,9 @@
         "strictNullChecks": true,
         "baseUrl": "../",
         "typeRoots": ["../"],
+        "paths": {
+            "@entria/relay-experimental": ["entria__relay-experimental"]
+        },
         "types": [],
         "noEmit": true,
         "jsx": "react",

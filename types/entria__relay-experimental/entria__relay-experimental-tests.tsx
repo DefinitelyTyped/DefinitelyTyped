@@ -6,6 +6,7 @@ import {
     useRelayEnvironment,
     useQuery,
     useFragment,
+    useRefetchableFragment,
 } from 'entria__relay-experimental';
 import { Environment, RecordSource, Store, Network } from 'relay-runtime';
 import { graphql } from 'react-relay';
@@ -99,7 +100,10 @@ function TodoList() {
     return (
         <>
             {data.todos.map(todo => (
-                <TodoItem todo={todo} />
+                <>
+                    <TodoItem todo={todo} />
+                    <TodoItemRefetchable todo={todo} />
+                </>
             ))}
         </>
     );
@@ -121,4 +125,27 @@ function TodoItem(props: TodoItemProps) {
     );
 
     return <div>{todo.id}</div>;
+}
+
+function TodoItemRefetchable(props: TodoItemProps) {
+    const [todo, refetch] = useRefetchableFragment(
+        graphql`
+            fragment TodoItemFragment on Todo @refetchable(queryName: "TodoItemFragmentRefetchQuery") {
+                text
+                isComplete
+            }
+        `,
+        props.todo,
+    );
+
+    refetch(
+        { id: 'id:2' },
+        {
+            onComplete: error => {
+                console.info('teste');
+            },
+        },
+    );
+
+    return <div>todo.name</div>;
 }
