@@ -7,6 +7,7 @@ import {
     useQuery,
     useFragment,
     useRefetchableFragment,
+    usePaginationFragment,
 } from 'entria__relay-experimental';
 import { Environment, RecordSource, Store, Network } from 'relay-runtime';
 import { graphql } from 'react-relay';
@@ -148,4 +149,73 @@ function TodoItemRefetchable(props: TodoItemProps) {
     );
 
     return <div>todo.name</div>;
+}
+
+interface User {
+    id: string;
+    name: string;
+    todos: Todo[];
+}
+interface UserData {
+    variables: {};
+    response: {
+        node: User;
+    };
+}
+
+function User() {
+    const { node } = useQuery<UserData>(
+        graphql`
+            query UserQuery($id: ID!, $last: Int, $first: Int, $after: ID, $before: ID) {
+                node(id: $id) {
+                    ...UserFragment
+                }
+            }
+        `,
+        {
+            id: '1',
+            first: 1,
+            last: null,
+            before: null,
+            after: 'cursor:1',
+        },
+    );
+
+    return <UserTodos user={node} />;
+}
+
+interface UserTodosProps {
+    user: User;
+}
+
+function UserTodos(props: UserTodosProps) {
+    const {
+        data,
+        hasNext,
+        hasPrevious,
+        isLoadingNext,
+        isLoadingPrevious,
+        loadNext,
+        loadPrevious,
+        refetch,
+    } = usePaginationFragment(
+        graphql`
+            fragment UserFragment on User @refetchable(queryName: "UserFragmentPaginationQuery") {
+                id
+                name
+                todos(first: $first, last: $last, after: $after, before: $before)
+                    @connection(key: "UserFragment_todos") {
+                    edges {
+                        node {
+                            id
+                            ...TodoFragment
+                        }
+                    }
+                }
+            }
+        `,
+        props.user,
+    );
+
+    return <div>{data.name}</div>;
 }

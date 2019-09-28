@@ -7,9 +7,13 @@
 export { fetchQuery } from './lib/fetchQuery';
 export { RelayEnvironmentProvider } from './lib/RelayEnvironmentProvider';
 export { useRelayEnvironment } from './lib/useRelayEnvironment';
+export { Direction, LoadMoreFn } from './lib/useLoadMoreFunction';
+export { RefetchFn, Options as RefetchOptions } from './lib/useRefetchableFragmentNode';
 
 export { FetchPolicy } from './lib/QueryResource';
 
 export { useQuery } from './lib/useQuery';
 export { useFragment } from './lib/useFragment';
 export { useRefetchableFragment } from './lib/useRefetchableFragment';
+export { useLegacyPaginationFragment as usePaginationFragment } from './lib/useLegacyPaginationFragment';
+export { useLegacyPaginationFragment } from './lib/useLegacyPaginationFragment';
