@@ -2975,6 +2975,7 @@ declare namespace Xrm {
              *
              * @param handler The event handler.
              */
+
             addOnLoad(handler: Events.ContextSensitiveHandler): void;
 
             /**
