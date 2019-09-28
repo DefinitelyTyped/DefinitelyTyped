@@ -1930,6 +1930,7 @@ declare namespace React {
         srcSet?: string;
         useMap?: string;
         width?: number | string;
+        loading?: "lazy" | "auto" | "eager";
     }
 
     interface InsHTMLAttributes<T> extends HTMLAttributes<T> {
