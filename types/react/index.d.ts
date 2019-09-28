@@ -1629,7 +1629,7 @@ declare namespace React {
     interface HTMLAttributes<T> extends AriaAttributes, DOMAttributes<T> {
         // React-specific Attributes
         defaultChecked?: boolean;
-        defaultValue?: string | string[];
+        defaultValue?: string | number | string[];
         suppressContentEditableWarning?: boolean;
         suppressHydrationWarning?: boolean;
 
