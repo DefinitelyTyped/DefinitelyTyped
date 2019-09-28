@@ -26,25 +26,25 @@ import {
 import { StylesConfig } from './styles';
 import { ThemeConfig } from './theme';
 import {
-  ActionMeta,
-  ActionTypes,
-  FocusDirection,
-  FocusEventHandler,
-  GroupType,
-  InputActionMeta,
-  KeyboardEventHandler,
-  MenuPlacement,
-  MenuPosition,
-  OptionsType,
-  ValueType,
-  GroupedOptionsType,
+    ActionMeta,
+    ActionTypes,
+    FocusDirection,
+    FocusEventHandler,
+    GroupType,
+    InputActionMeta,
+    KeyboardEventHandler,
+    MenuPlacement,
+    MenuPosition,
+    OptionsType,
+    ValueType,
+    GroupedOptionsType, OptionTypeBase,
 } from './types';
 
 export type MouseOrTouchEvent =
   | React.MouseEvent<HTMLElement>
   | React.TouchEvent<HTMLElement>;
 export type FormatOptionLabelContext = 'menu' | 'value';
-export interface FormatOptionLabelMeta<OptionType> {
+export interface FormatOptionLabelMeta<OptionType extends OptionTypeBase> {
   context: FormatOptionLabelContext;
   inputValue: string;
   selectValue: ValueType<OptionType>;
@@ -52,7 +52,7 @@ export interface FormatOptionLabelMeta<OptionType> {
 
 export type SelectComponentsProps = { [key in string]: any };
 
-export interface Props<OptionType extends { [key in string]: any } = { label: string; value: string }> extends SelectComponentsProps {
+export interface Props<OptionType extends OptionTypeBase = { label: string; value: string }> extends SelectComponentsProps {
   /* Aria label (for assistive tech) */
   'aria-label'?: string;
   /* HTML ID of an element that should be used as the label (for assistive tech) */
@@ -210,12 +210,12 @@ export interface Props<OptionType extends { [key in string]: any } = { label: st
 
 export const defaultProps: Props<any>;
 
-export interface MenuOptions<OptionType> {
+export interface MenuOptions<OptionType extends OptionTypeBase> {
   render: OptionType[];
   focusable: OptionType[];
 }
 
-export interface State<OptionType> {
+export interface State<OptionType extends OptionTypeBase> {
   ariaLiveSelection: string;
   ariaLiveContext: string;
   inputIsHidden: boolean;
@@ -229,7 +229,7 @@ export interface State<OptionType> {
 
 export type ElRef = React.Ref<any>;
 
-export default class Select<OptionType> extends React.Component<Props<OptionType>, State<OptionType>> {
+export default class Select<OptionType extends OptionTypeBase> extends React.Component<Props<OptionType>, State<OptionType>> {
   static defaultProps: Props<any>;
 
   // Misc. Instance Properties
