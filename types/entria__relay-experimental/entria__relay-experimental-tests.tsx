@@ -1,6 +1,12 @@
 import React from 'react';
 
-import { fetchQuery, RelayEnvironmentProvider, useRelayEnvironment, useQuery } from 'entria__relay-experimental';
+import {
+    fetchQuery,
+    RelayEnvironmentProvider,
+    useRelayEnvironment,
+    useQuery,
+    useFragment,
+} from 'entria__relay-experimental';
 import { Environment, RecordSource, Store, Network } from 'relay-runtime';
 import { graphql } from 'react-relay';
 
@@ -64,6 +70,7 @@ function RelayComponent() {
 
 interface Todo {
     id: string;
+    name: string;
 }
 
 interface Data {
@@ -102,6 +109,16 @@ interface TodoItemProps {
     todo: Todo;
 }
 
-function TodoItem({ todo }: TodoItemProps) {
+function TodoItem(props: TodoItemProps) {
+    const todo = useFragment<Todo>(
+        graphql`
+            fragment TodoItemFragment on Todo {
+                id
+                name
+            }
+        `,
+        props.todo,
+    );
+
     return <div>{todo.id}</div>;
 }

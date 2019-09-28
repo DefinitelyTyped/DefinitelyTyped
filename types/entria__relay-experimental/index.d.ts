@@ -11,3 +11,4 @@ export { useRelayEnvironment } from './lib/useRelayEnvironment';
 export { FetchPolicy } from './lib/QueryResource';
 
 export { useQuery } from './lib/useQuery';
+export { useFragment } from './lib/useFragment';
