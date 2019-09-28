@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Props as SelectProps } from './Select';
 
 export interface OptionTypeBase {
-    [key: string]: any;
+  [key: string]: any;
 }
 
 export type OptionsType<OptionType extends OptionTypeBase> = ReadonlyArray<OptionType>;
