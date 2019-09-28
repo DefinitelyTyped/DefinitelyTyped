@@ -9,8 +9,8 @@ WorkboxSW.precaching.precacheAndRoute(/foo/);
 
 WorkboxSW.precaching.precacheAndRoute(["some-resource.js"], {directoryIndex: "/"}); // $ExpectType void
 
-new WorkboxSW.backgroundSync.Queue("queue-name", { // $ExpectType Queue
-  onSync: ({ queue }) => {
-    queue; // $ExpectType Queue
-  }
+new WorkboxSW.backgroundSync.Queue('queue-name', {
+    onSync: ({ queue }) => {
+        queue; // $ExpectType Queue
+    },
 });
