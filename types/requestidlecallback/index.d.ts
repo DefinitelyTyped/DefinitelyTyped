@@ -1,10 +1,10 @@
-// Type definitions for requestidlecallback 0.1
+// Type definitions for requestidlecallback 0.3
 // Project: https://w3c.github.io/requestidlecallback/, https://github.com/afarkas/requestidlecallback
-// Definitions by: 贺师俊 <https://github.com/hax>, Vladimir Grenaderov <https://github.com/VladimirGrenaderov>, Max Boguslavskiy <https://github.com/maxbogus>
+// Definitions by: 贺师俊 <https://github.com/hax>, Vladimir Grenaderov <https://github.com/VladimirGrenaderov>, Max Boguslavskiy <https://github.com/maxbogus>, Teramoto Daiki <https://github.com/teramotodaiki>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export function requestIdleCallback(callback: IdleRequestCallback, options?: IdleRequestOptions): IdleCallbackHandle;
-export function cancelIdleCallback(handle: IdleCallbackHandle): void;
+export function request(callback: IdleRequestCallback, options?: IdleRequestOptions): IdleCallbackHandle;
+export function cancel(handle: IdleCallbackHandle): void;
 
 export type DOMHighResTimeStamp = number;
 export type IdleCallbackHandle = number;
