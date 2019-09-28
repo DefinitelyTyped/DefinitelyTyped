@@ -627,7 +627,7 @@ declare namespace Sys {
 
         //#region Constructors
 
-        constructor(): void;
+        new(): void;
 
         //#endregion
 
