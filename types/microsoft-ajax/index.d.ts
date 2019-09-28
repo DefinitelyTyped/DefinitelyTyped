@@ -2506,7 +2506,7 @@ declare namespace Sys {
         */
         class ProfileService {
 
-            new(): ProfileService;
+            constructor();
 
             //#region Fields
 
