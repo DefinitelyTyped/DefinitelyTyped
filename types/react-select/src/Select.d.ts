@@ -50,9 +50,7 @@ export interface FormatOptionLabelMeta<OptionType> {
   selectValue: ValueType<OptionType>;
 }
 
-export type SelectComponentsProps = { [key in string]: any };
-
-export interface Props<OptionType = { label: string; value: string }> extends SelectComponentsProps {
+export interface Props<OptionType extends { [key in string]: any } = { label: string; value: string }> {
   /* Aria label (for assistive tech) */
   'aria-label'?: string;
   /* HTML ID of an element that should be used as the label (for assistive tech) */
