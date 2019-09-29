@@ -1,4 +1,4 @@
-// Type definitions for react-datepicker 2.8
+// Type definitions for react-datepicker 2.9
 // Project: https://github.com/Hacker0x01/react-datepicker
 // Definitions by: Rajab Shakirov <https://github.com/radziksh>,
 //                 Andrey Balokha <https://github.com/andrewBalekha>,
@@ -6,7 +6,6 @@
 //                 Platon Pronko <https://github.com/Rogach>
 //                 Roy Xue <https://github.com/royxue>
 //                 Koala Human <https://github.com/KoalaHuman>
-//                 Sean Kelley <https://github.com/seansfkelley>
 //                 Justin Grant <https://github.com/justingrant>
 //                 Jake Boone <https://github.com/jakeboone02>
 //                 Roman Nuritdinov <https://github.com/Ky6uk>
@@ -51,7 +50,7 @@ export interface ReactDatePickerProps {
 	filterDate?(date: Date): boolean;
 	fixedHeight?: boolean;
 	forceShowMonthNavigation?: boolean;
-	formatWeekDay?(date: Date): string;
+	formatWeekDay?(formattedDate: string): string;
 	formatWeekNumber?(date: Date): string | number;
 	highlightDates?: Array<HighlightDates|Date>;
 	id?: string;

@@ -58,7 +58,6 @@ export interface EObject {
     isTypeOf: (type: string | EObject) => any;
     isKindOf: (type: string | EObject) => any;
     eResource: () => Resource;
-    eContent: () => EObject[];
     eURI: () => string;
     fragment: () => string;
     eClass: EClass;
@@ -118,23 +117,23 @@ export interface Resource extends EObject {
     clear: () => EList;
     each: (iterator: (value: any, key: any, list: EList) => void, context?: any) => void;
     save: (callback: () => void, options: any) => void;
-    parse: (data: EObject, loader: () => void) => any;
+    parse: (data: EObject, loader?: () => void) => any;
     remove: () => void;
     rev: string;
     load: (res: any) => void;
     to: () => any;
 }
 export interface EPackage extends EObject {
+    Registry: EPackageRegistry;
+}
+export interface EPackageRegistry extends EObject {
     getEPackage: (nsURI: string) => EPackage;
     register: (ePackage: EPackage) => void;
     ePackages: () => EPackage[];
     elements: (type: EObject) => EObject[];
     Registry: EPackageRegistry;
 }
-export interface EPackageRegistry extends EObject {
-    register: (ePackage: EPackage) => void;
-    ePackages: () => EPackage[];
-}
+
 export interface ResourceSet extends EObject {
     create: (uri: any) => Resource;
     getEObject: (uri: string) => EObject;

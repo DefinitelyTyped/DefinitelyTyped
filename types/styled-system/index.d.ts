@@ -46,7 +46,7 @@ export interface LowLevelStyleFunctionArguments<N, S> {
 
 export function style<N = string | number, S = Scale>(
     // tslint:disable-next-line no-unnecessary-generics
-    args: LowLevelStyleFunctionArguments<N, S>
+    args: LowLevelStyleFunctionArguments<N, S>,
 ): {
     [cssProp: string]: string;
 };
@@ -90,6 +90,8 @@ export interface VariantArgs {
     prop?: string;
     /** theme key for variant definitions */
     scale?: string;
+    /** inline theme aware variants definitions  */
+    variants?: object;
 }
 
 export function variant(props: VariantArgs): (...args: any[]) => any;
@@ -846,7 +848,8 @@ export interface LayoutProps
         MaxHeightProps,
         DisplayProps,
         VerticalAlignProps,
-        SizeProps {}
+        SizeProps,
+        OverflowProps {}
 
 export const layout: styleFn;
 

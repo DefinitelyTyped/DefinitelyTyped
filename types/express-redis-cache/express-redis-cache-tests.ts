@@ -28,7 +28,7 @@ app.get('/user/:userid',
     // middleware to define cache name
     (req, res, next) => {
         // set cache name
-        res.express_redis_cache_name = 'user-' + (Array.isArray(req.params) ? {} : req.params).userid;
+        res.express_redis_cache_name = 'user-' + req.params.userid;
         next();
     },
     // cache middleware

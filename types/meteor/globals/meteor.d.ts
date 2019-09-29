@@ -1,3 +1,4 @@
+declare type global_Error = Error;
 declare module Meteor {
     /** Global props **/
     var isClient: boolean;

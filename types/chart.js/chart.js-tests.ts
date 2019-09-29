@@ -1,11 +1,11 @@
-import { Chart, ChartData, Point } from 'chart.js';
+import { BorderWidth, Chart, ChartData, Point, ChartColor } from 'chart.js';
 
 // alternative:
 // import chartjs = require('chart.js');
 // => chartjs.Chart
 
 const plugin = {
-    afterDraw: (chartInstance: Chart, easing: Chart.Easing, options?: any) => {},
+    afterDraw: (chartInstance: Chart, easing: Chart.Easing, options?: any) => { },
 };
 
 const ctx = new CanvasRenderingContext2D();
@@ -14,7 +14,7 @@ const chart: Chart = new Chart(ctx, {
     type: 'bar',
     plugins: [plugin, plugin],
     data: {
-        labels: ['group 1'],
+        labels: ['group 1', 'group 2'],
         datasets: [
             {
                 backgroundColor: '#000000',
@@ -24,6 +24,12 @@ const chart: Chart = new Chart(ctx, {
                 label: 'test',
                 data: [1, null, 3],
             },
+            {
+                backgroundColor: '#ff0000',
+                borderWidth: { top: 1, right: 1, bottom: 0, left: 1 },
+                label: 'test',
+                data: [1, 3, 5],
+            }
         ],
     },
     options: {
@@ -40,7 +46,7 @@ const chart: Chart = new Chart(ctx, {
             filter: data => Number(data.yLabel) > 0,
             intersect: true,
             mode: 'index',
-            itemSort: (a, b) => Math.random() - 0.5,
+            itemSort: (a, b, data) => Math.random() - 0.5,
             position: 'average',
             caretPadding: 2,
             displayColors: true,
@@ -180,3 +186,30 @@ if (radialChart.aspectRatio !== null) {
     console.log(radialChart.aspectRatio * 2);
 }
 console.log(radialChart.options === radialChart.config.options);
+
+const chartWithScriptedOptions = new Chart(new CanvasRenderingContext2D(), {
+    type: "bar",
+    data: {
+        labels: ["a", "b", "c", "d", "e"],
+        datasets: [{
+            label: "test",
+            data: [1, 3, 5, 4, 2],
+            backgroundColor: ({ dataset, dataIndex }): ChartColor => {
+                if (dataset === undefined || dataset.data === undefined || dataIndex === undefined) {
+                    return "black";
+                }
+                const value = dataset.data[dataIndex];
+                if (typeof value !== "number") {
+                    return "black";
+                }
+                return value > 3 ? "red" : "green";
+            },
+            borderWidth: ({ dataset, dataIndex }): BorderWidth => {
+                if (dataset === undefined || dataset.data === undefined || dataIndex === undefined) {
+                    return 1;
+                }
+                return { top: 1, right: 1, bottom: 0, left: 1 };
+            }
+        }],
+    }
+});

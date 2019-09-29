@@ -1,5 +1,14 @@
 import * as React from 'react';
-import { DataTable, DataTableHeader, DataTableRow } from 'carbon-components-react';
+import {
+    DataTable,
+    DataTableHeader,
+    DataTableRow,
+    Table,
+    TableBatchActions,
+    TableHeader,
+    TableRow,
+} from 'carbon-components-react';
+import Link from 'carbon-components-react/lib/components/UIShell/Link';
 
 interface Row1 extends DataTableRow {
     rowProp: string;
@@ -69,22 +78,90 @@ const t2 = (
             props.selectRow('qwerty');
             props.sortBy('zxcv');
 
+            props.rows.forEach((denormalizedRow) => {
+                denormalizedRow.cells.forEach((cell) => {
+                    let cellId = cell.id;
+                    let cellHeaderKey = cell.info.header;
+                });
+            });
+
             return <div />;
         }}
     />
 );
 
 // No types explicitly set on DataTable props
-const row = { id: '2', someRandomRowProp: 'test' };
+const rowData1 = { id: '2', someRandomRowProp: 'test' };
 const t3 = (
     <DataTable
         headers={[{ key: '1', header: 'Test', someRandomHeaderProp: 'test' }]}
-        rows={[row]}
+        rows={[rowData1]}
         render={data => {
-            let rowProps = data.getRowProps({ row, extra1: 'qwerty', ...row });
+            let rowProps = data.getRowProps({ row: rowData1, extra1: 'qwerty', ...rowData1 });
             let a = rowProps.extra1;
             let b = rowProps.someRandomRowProp;
             return <div />;
         }}
     />
+);
+
+const headerData1 = { key: '1', header: 'Test', someRandomHeaderProp: 'test' };
+const t4 = (
+    <DataTable
+        headers={[headerData1]}
+        rows={[rowData1]}
+        render={data => {
+            let table = (<Table {...data.getTableProps()}>Content</Table>);
+            let header = (
+                <TableHeader {...data.getHeaderProps({ header: headerData1, randomAttr: "asdf" })}>
+                    {headerData1.header}
+                </TableHeader>
+            );
+            let header2 = (
+                <TableHeader {...data.getHeaderProps<ExtraStuff>({ header: headerData1, extra1: "test" })}>
+                    {headerData1.header}
+                </TableHeader>
+            );
+            let rowProps = data.getRowProps({ row: rowData1, extra1: 'qwerty', ...rowData1 });
+            let row = (
+                <TableRow {...rowProps}>
+                    Content
+                </TableRow>
+            );
+            let batchActions = (
+                <TableBatchActions {...data.getBatchActionProps({ spellCheck: true, randomAttr: "Asdf" })}>
+                    Content
+                </TableBatchActions>
+            );
+            let a = rowProps.extra1;
+            let b = rowProps.someRandomRowProp;
+            return <div />;
+        }}
+    />
+);
+
+// UIShell - Link
+interface TestCompProps {
+    someProp: number,
+}
+
+class TestComp1 extends React.Component<TestCompProps> {
+    render() {
+        return (<div/>);
+    }
+}
+
+const TestComp2 = (props: TestCompProps) => (<div/>);
+
+const uisLinkT1 = (
+    <Link href="#test">Test</Link>
+);
+const uisLinkT2 = (
+    <Link<React.ImgHTMLAttributes<HTMLElement>> element="img" src="src"/>
+);
+const uisLinkT3 = (
+    <Link<TestCompProps> element={TestComp1} someProp={2}>ASDF</Link>
+);
+const uisLinkT4 = (
+    <Link<TestCompProps> element={TestComp2} someProp={2}>ASDF</Link>
 );

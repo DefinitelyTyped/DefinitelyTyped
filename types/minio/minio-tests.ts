@@ -86,8 +86,37 @@ minio.presignedUrl('GET', 'testBucket', 'hello.jpg', 84600, { prefix: 'data', 'm
 
 minio.presignedGetObject('testBucket', 'hello.jpg', (error: Error|null, url: string) => { console.log(error, url); });
 minio.presignedGetObject('testBucket', 'hello.jpg', 84600, (error: Error|null, url: string) => { console.log(error, url); });
+minio.presignedGetObject(
+  'testBucket',
+  'hello.jpg',
+  84600,
+  { 'content-disposition': 'attachment; filename="image.png"' },
+  (error: Error | null, url: string) => {
+    console.log(error, url);
+  },
+);
+minio.presignedGetObject(
+  'testBucket',
+  'hello.jpg',
+  84600,
+  { 'content-disposition': 'attachment; filename="image.png"' },
+  new Date(),
+  (error: Error | null, url: string) => {
+    console.log(error, url);
+  },
+);
 minio.presignedGetObject('testBucket', 'hello.jpg');
 minio.presignedGetObject('testBucket', 'hello.jpg', 84600);
+minio.presignedGetObject('testBucket', 'hello.jpg', 84600, {
+  'content-disposition': 'attachment; filename="image.png"',
+});
+minio.presignedGetObject(
+  'testBucket',
+  'hello.jpg',
+  84600,
+  { 'content-disposition': 'attachment; filename="image.png"' },
+  new Date(),
+);
 
 minio.presignedPutObject('testBucket', 'hello.jpg', (error: Error|null, url: string) => { console.log(error, url); });
 minio.presignedPutObject('testBucket', 'hello.jpg', 84600, (error: Error|null, url: string) => { console.log(error, url); });

@@ -1,4 +1,4 @@
-// Type definitions for MongoDB 3.2
+// Type definitions for MongoDB 3.3
 // Project: https://github.com/mongodb/node-mongodb-native
 //          https://github.com/mongodb/node-mongodb-native/tree/3.1
 // Definitions by: Federico Caselli <https://github.com/CaselIT>
@@ -44,7 +44,7 @@ export function connect(uri: string, options?: MongoClientOptions): Promise<Mong
 export function connect(uri: string, callback: MongoCallback<MongoClient>): void;
 export function connect(uri: string, options: MongoClientOptions, callback: MongoCallback<MongoClient>): void;
 
-export { Binary, DBRef, Decimal128, Double, Long, MaxKey, MinKey, ObjectID, ObjectId, Timestamp } from 'bson';
+export { Binary, DBRef, Decimal128, Double, Int32, Long, MaxKey, MinKey, ObjectID, ObjectId, Timestamp } from 'bson';
 
 // Class documentation : http://mongodb.github.io/node-mongodb-native/3.1/api/MongoClient.html
 export class MongoClient extends EventEmitter {
@@ -143,7 +143,7 @@ export interface ClientSession extends EventEmitter {
      * @param fn Function to execute with the new session.
      * @param options Optional settings for the transaction
      */
-    withTransaction<T>(fn: WithTransactionCallback<T>, options?: TransactionOptions): Promise<T>;
+    withTransaction<T>(fn: WithTransactionCallback<T>, options?: TransactionOptions): Promise<void>;
 }
 
 // http://mongodb.github.io/node-mongodb-native/3.1/api/global.html#ReadConcern
@@ -621,9 +621,8 @@ export class Db extends EventEmitter {
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Db.html#admin */
     admin(): Admin;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Db.html#collection */
-    collection<TSchema = Default>(name: string): Collection<TSchema>;
-    collection<TSchema = Default>(name: string, callback: MongoCallback<Collection<TSchema>>): Collection<TSchema>;
-    collection<TSchema = Default>(name: string, options: DbCollectionOptions, callback: MongoCallback<Collection<TSchema>>): Collection<TSchema>;
+    collection<TSchema = Default>(name: string, callback?: MongoCallback<Collection<TSchema>>): Collection<TSchema>;
+    collection<TSchema = Default>(name: string, options: DbCollectionOptions, callback?: MongoCallback<Collection<TSchema>>): Collection<TSchema>;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Db.html#collections */
     collections(): Promise<Array<Collection<Default>>>;
     collections(callback: MongoCallback<Array<Collection<Default>>>): void;
@@ -2152,6 +2151,7 @@ export interface ChangeStreamOptions {
     batchSize?: number;
     collation?: CollationDocument;
     readPreference?: ReadPreference;
+    startAfter?: object;
 }
 
 type GridFSBucketWriteStreamId = string | number | object | ObjectID;

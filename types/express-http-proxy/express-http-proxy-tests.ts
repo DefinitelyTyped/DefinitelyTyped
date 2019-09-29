@@ -95,7 +95,7 @@ proxy("www.google.com", {
 
 const proxyOptions: proxy.ProxyOptions = {};
 
-app.use("/proxy/:port", proxy(req => "localhost:" + (Array.isArray(req.params) ? {} : req.params).port));
+app.use("/proxy/:port", proxy(req => "localhost:" + req.params.port));
 
 proxy("www.google.com", {
     filter: (req, res) => {

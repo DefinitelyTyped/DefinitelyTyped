@@ -1,6 +1,6 @@
 // Type definitions for libra-core 1.0
 // Project: https://github.com/perfectmak/libra-core#readme
-// Definitions by: mavis.tan <https://github.com/mmsqe>
+// Definitions by: mavis.tan <https://github.com/mmsqe>, morgansliman <https://github.com/morgansliman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -367,11 +367,12 @@ export namespace LibraTransaction {
 }
 
 export interface LibraTransactionResponse {
-    signedTransaction: LibraSignedTransaction;
-    validatorId: Uint8Array;
-    acStatus?: LibraAdmissionControlStatus | number;
-    mempoolStatus?: LibraMempoolTransactionStatus | number;
-    vmStatus?: LibraVMStatusError;
+  signedTransaction: LibraSignedTransaction;
+  validatorId: Uint8Array;
+  acStatus?: LibraAdmissionControlStatus | number;
+  mempoolStatus?: LibraMempoolTransactionStatus | number;
+  vmStatus?: LibraVMStatusError;
+  awaitConfirmation(client: LibraClient): Promise<void>;
 }
 
 export function LibraTransactionResponse(

@@ -43,8 +43,10 @@ export namespace curve {
 
             constructor(curve: base, type: string);
 
-            encode(enc: "hex" | "array", compact: boolean): string | Buffer;
-            encodeCompressed(enc: "hex" | "array"): BN;
+            encode(enc: "hex", compact: boolean): string;
+            encode(enc: "array" | undefined, compact: boolean): number[];
+            encodeCompressed(enc: "hex"): string;
+            encodeCompressed(enc?: "array"): number[];
             validate(): boolean;
             precompute(power: number): BasePoint;
             dblp(k: number): BasePoint;
@@ -181,11 +183,11 @@ export class ec {
 
     keyPair(options: ec.KeyPairOptions): ec.KeyPair;
     keyFromPrivate(
-        priv: Uint8Array | Buffer | string | ec.KeyPair,
+        priv: Uint8Array | Buffer | string | number[] | ec.KeyPair,
         enc?: string
     ): ec.KeyPair;
     keyFromPublic(
-        pub: Uint8Array | Buffer | string | { x: string; y: string } | ec.KeyPair,
+        pub: Uint8Array | Buffer | string | number[] | { x: string; y: string } | ec.KeyPair,
         enc?: string
     ): ec.KeyPair;
     genKeyPair(options?: ec.GenKeyPairOptions): ec.KeyPair;

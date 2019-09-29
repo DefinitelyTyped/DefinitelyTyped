@@ -1,5 +1,6 @@
 import express = require('express');
-import { RequestRanges, ParamsDictionary } from 'express-serve-static-core';
+import * as http from 'http';
+import { RequestRanges, ParamsArray } from 'express-serve-static-core';
 
 namespace express_tests {
     const app = express();
@@ -112,12 +113,32 @@ namespace express_tests {
         });
 
     router.get('/user/:id', (req, res, next) => {
-        const paramsDictionary: ParamsDictionary = Array.isArray(req.params) ? {} : req.params;
-        if (Number(paramsDictionary.id) === 0) next('route');
+        if (Number(req.params.id) === 0) next('route');
         else next();
     }, (req, res, next) => {
         res.render('regular');
     });
+
+    // Params defaults to dictionary
+    router.get('/:foo', req => {
+        req.params.foo; // $ExpectType string
+        req.params[0]; // $ExpectType string
+    });
+
+    // Params can used as an array
+    router.get<ParamsArray>('/*', req => {
+        req.params[0]; // $ExpectType string
+        req.params.length; // $ExpectType number
+    });
+
+    // Params can be a custom type that conforms to constraint
+    router.get<{ foo: string }>('/:foo', req => {
+        req.params.foo; // $ExpectType string
+        req.params.bar; // $ExpectError
+    });
+
+    // Params cannot be a custom type that does not conform to constraint
+    router.get<{ foo: number }>('/:foo', () => {}); // $ExpectError
 
     app.use((req, res, next) => {
         // hacky trick, router is just a handler
@@ -159,7 +180,6 @@ namespace express_tests {
  * Test with other modules *
  *                         *
  ***************************/
-import * as http from 'http';
 
 namespace node_tests {
     {

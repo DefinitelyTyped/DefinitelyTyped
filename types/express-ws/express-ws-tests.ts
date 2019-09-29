@@ -60,7 +60,7 @@ router.ws(
     '/:id',
     (ws, req, next) => { next(); },
     (ws, req, next) => {
-        ws.send((Array.isArray(req.params) ? {} : req.params).id);
+        ws.send(req.params.id);
 
         ws.on('close', (code, reason) => {
             console.log('code:', code);
