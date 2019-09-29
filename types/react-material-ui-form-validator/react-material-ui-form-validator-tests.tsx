@@ -6,7 +6,9 @@ import {
 } from 'react-material-ui-form-validator';
 
 class Test extends React.Component {
-    onSubmitted = (event: React.FormEventHandler) => {};
+    onSubmitted = (event: React.FormEvent) => {
+        alert(event.target);
+    }
     onError = (errors: any[]) => {};
     onValidate = (isValid: boolean) => {};
 
