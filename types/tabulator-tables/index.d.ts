@@ -1,4 +1,4 @@
-// Type definitions for tabulator-tables 4.4.3
+// Type definitions for tabulator-tables 4.4
 // Project: http://tabulator.info
 // Definitions by: Josh Harris <https://github.com/jojoshua>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
