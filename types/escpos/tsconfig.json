@@ -17,7 +17,6 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "commands.d.ts",
         "index.d.ts",
         "escpos-tests.ts"
     ]

@@ -1,4 +1,4 @@
-import { Constants as _, USB, Serial, Network, Console, Image, Printer, Screen, Server, Printer2 } from 'escpos';
+import { command, USB, Serial, Network, Console, Image, Printer, Screen, Server, Printer2 } from 'escpos';
 
 const usb  = new USB();
 const serial = new Serial(0, { baudRate: 9600, autoOpen: false });
@@ -7,7 +7,7 @@ const consl  = new Console();
 
 const image = new Image([]);
 
-Image.load('https://github.githubassets.com/images/modules/open_graph/github-logo.png', _.MIME_TYPE.PNG, (pixels: any) => {
+Image.load('https://github.githubassets.com/images/modules/open_graph/github-logo.png', 'image/png', (pixels: any) => {
     console.log(pixels);
 });
 
@@ -19,20 +19,20 @@ const screen = new Screen(serial, 'GB18030');
 
 usb.open((error: any) => {
     printer
-        .align(_.TXT_ALIGN.LEFT)
-        .barcode('1234567', _.BARCODE_TYPE.EAN8)
+        .align("LT")
+        .barcode('1234567', 'EAN8')
         .beep(1, 10)
         .cashdraw(2)
         .close()
         .color(0)
-        .control(_.FEED_CONTROL_TYPE.LF)
+        .control('LF')
         .cut()
         .encode('GB18030')
         .feed()
         .flush()
         .font('A')
         .hardware('INIT')
-        .image(image, _.BITMAP_FORMAT_TYPE.D24)
+        .image(image, 'D24')
         .lineSpace()
         .marginBottom(5)
         .marginLeft(5)
@@ -41,7 +41,7 @@ usb.open((error: any) => {
         .print('The quick brown fox jumps over the lazy dog')
         .println('The quick brown fox jumps over the lazy dog')
         .pureText('The quick brown fox jumps over the lazy dog', 'GB18030')
-        .qrcode('123456789', 3, _.QRCODE_LEVEL.L, 6)
+        .qrcode('123456789', 3, 'L', 6)
         .qrimage('https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/escpos', {
             type: 'png',
             mode: 'dhdw',
@@ -49,7 +49,7 @@ usb.open((error: any) => {
         .raster(image, 'dhdw')
         .size(1, 1)
         .spacing(0)
-        .style(_.TXT_STYLE.TXT_BOLD_ITALIC_UNDERL)
+        .style('BIU')
         .text('The quick brown fox jumps over the lazy dog', 'GB18030');
 });
 
