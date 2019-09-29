@@ -1,7 +1,8 @@
-// Type definitions for redlock 3.0
+// Type definitions for redlock 4.0
 // Project: https://github.com/mike-marcacci/node-redlock
 // Definitions by: Ilya Mochalov <https://github.com/chrootsu>
 //                 BendingBender <https://github.com/BendingBender>
+//                 Doug Ayers <https://github.com/douglascayers>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.2
 
@@ -18,23 +19,29 @@ declare namespace Redlock {
         resource: string;
         value: string | null;
         expiration: number;
-        constructor(redlock: Redlock, resource: string, value: string | null, expiration: number);
+        attempts: number;
+        constructor(redlock: Redlock, resource: string, value: string | null, expiration: number, attempts: number);
         unlock(callback?: Callback<void>): Promise<void>;
         extend(ttl: number, callback?: Callback<Lock>): Promise<Lock>;
     }
+
+    type LockScriptFunction = (origScript: string) => string;
+    type UnlockScriptFunction = LockScriptFunction;
+    type ExtendScriptFunction = LockScriptFunction;
 
     interface Options {
         driftFactor?: number;
         retryCount?: number;
         retryDelay?: number;
         retryJitter?: number;
-        lockScript?(origLockScript: string): string;
-        unlockScript?(origUnlockScript: string): string;
-        extendScript?(origExtendScript: string): string;
+        lockScript?: LockScriptFunction | string;
+        unlockScript?: UnlockScriptFunction | string;
+        extendScript?: ExtendScriptFunction | string;
     }
 
     class LockError extends Error {
         readonly name: 'LockError';
+        attempts: number;
         constructor(message?: string);
     }
 
@@ -54,6 +61,8 @@ declare class Redlock extends EventEmitter {
     servers: Redlock.CompatibleRedisClient[];
 
     constructor(clients: Redlock.CompatibleRedisClient[], options?: Redlock.Options);
+
+    quit(callback?: Redlock.Callback<void>): Promise<void>;
 
     acquire(resource: string | string[], ttl: number, callback?: Redlock.Callback<Redlock.Lock>): Promise<Redlock.Lock>;
     lock(resource: string | string[], ttl: number, callback?: Redlock.Callback<Redlock.Lock>): Promise<Redlock.Lock>;
