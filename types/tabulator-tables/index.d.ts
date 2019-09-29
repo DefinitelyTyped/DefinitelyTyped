@@ -1,4 +1,4 @@
-// Type definitions for tabulator-tables 4.4
+// Type definitions for tabulator-tables 4.4.3
 // Project: http://tabulator.info
 // Definitions by: Josh Harris <https://github.com/jojoshua>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -1175,7 +1175,7 @@ You can pass an optional additional property with sorter, sorterParams that shou
         | ((
               cell: CellComponent,
               onRendered: EmptyCallback,
-              success: ValueVoidCallback,
+              success: ValueBooleanCallback,
               cancel: ValueVoidCallback,
               editorParams: {},
           ) => HTMLElement | false);
