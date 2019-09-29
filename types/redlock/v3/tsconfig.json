@@ -12,6 +12,11 @@
         "typeRoots": [
             "../../"
         ],
+        "paths": {
+            "redlock": [
+                "redlock/v3"
+            ]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
