@@ -349,7 +349,7 @@ declare namespace AdazzleReactDataGrid {
         /**
          * A custom read-only formatter for this column. An image formatter is available in "react-data-grid/addons".
          */
-        formatter?: (param:FormatterParam) => React.ReactElement | React.ComponentClass<any> | React.StatelessComponent<any>
+        formatter?: (param:FormatterParams) => React.ReactElement | React.ComponentClass<any> | React.StatelessComponent<any>
         /**
          * A custom formatter for this column's header.
          */
@@ -384,7 +384,7 @@ declare namespace AdazzleReactDataGrid {
         RIGHT = 'right',
         NONE = 'none'
     }
-    interface FormatterParam{
+    interface FormatterParams{
         dependentValues: any,
         value: any,
         isScrolling: boolean,
