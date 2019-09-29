@@ -1548,7 +1548,7 @@ declare namespace mapboxgl {
         'line-offset-transition'?: Transition;
         'line-blur'?: number | StyleFunction | Expression;
         'line-blur-transition'?: Transition;
-        'line-dasharray'?: number[];
+        'line-dasharray'?: number[] | Expression;
         'line-dasharray-transition'?: Transition;
         'line-pattern'?: string | Expression;
         'line-pattern-transition'?: Transition;
@@ -1579,12 +1579,12 @@ declare namespace mapboxgl {
         'text-pitch-alignment'?: 'map' | 'viewport' | 'auto';
         'text-rotation-alignment'?: 'map' | 'viewport' | 'auto';
         'text-field'?: string | StyleFunction | Expression;
-        'text-font'?: string | string[];
+        'text-font'?: string | string[] | Expression;
         'text-size'?: number | StyleFunction | Expression;
         'text-max-width'?: number | Expression;
         'text-line-height'?: number | Expression;
         'text-letter-spacing'?: number | Expression;
-        'text-justify'?: 'left' | 'center' | 'right';
+        'text-justify'?: 'left' | 'center' | 'right' | Expression;
         'text-anchor'?: Anchor | StyleFunction | Expression;
         'text-max-angle'?: number | Expression;
         'text-rotate'?: number | StyleFunction | Expression;

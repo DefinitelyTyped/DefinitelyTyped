@@ -16,7 +16,7 @@ Also see the [definitelytyped.org](http://definitelytyped.org) website, although
         * [Create a new package](#create-a-new-package)
         * [Common mistakes](#common-mistakes)
         * [Removing a package](#removing-a-package)
-        * [Linter](#lint)
+        * [Linter](#linter)
         * [Verifying](#verifying)
 * [FAQ](#faq)
 

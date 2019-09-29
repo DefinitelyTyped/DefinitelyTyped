@@ -1,4 +1,4 @@
-// Type definitions for prosemirror-view 1.9
+// Type definitions for prosemirror-view 1.11
 // Project: https://github.com/ProseMirror/prosemirror-view
 // Definitions by: Bradley Ayers <https://github.com/bradleyayers>
 //                 David Hahn <https://github.com/davidka>
@@ -115,6 +115,7 @@ export class Decoration {
        * Determines how the right side of the decoration is mapped.
        */
       inclusiveEnd?: boolean | null
+      [key: string]: any;
     }
   ): Decoration;
   /**
@@ -234,6 +235,10 @@ export class EditorView<S extends Schema = any> {
    * should not directly interfere with its content.)
    */
   dom: Element;
+  /**
+   * Indicates whether the editor is currently [editable](#view.EditorProps.editable).
+   */
+   editable: boolean;
   /**
    * When editor content is being dragged, this object contains
    * information about the dragged slice and whether it is being
@@ -546,7 +551,7 @@ export interface EditorProps<S extends Schema = any> {
     [name: string]: (
       node: ProsemirrorNode<S>,
       view: EditorView<S>,
-      getPos: () => number,
+      getPos: (() => number) | boolean,
       decorations: Decoration[]
     ) => NodeView<S>;
   } | null;
@@ -683,11 +688,17 @@ export interface NodeView<S extends Schema = any> {
   /**
    * Called when a DOM
    * [mutation](https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver)
-   * happens within the view. Return false if the editor should
+   * or a selection change happens within the view. When the change is
+   * a selection change, the record will have a `type` property of
+   * `"selection"` (which doesn't occur for native mutation records).
+   * Return false if the editor should re-read the selection or
    * re-parse the range around the mutation, true if it can safely be
    * ignored.
    */
-  ignoreMutation?: ((p: MutationRecord) => boolean) | null;
+  ignoreMutation?: ((p: MutationRecord | {
+    type: 'selection';
+    target: Element;
+  }) => boolean) | null;
   /**
    * Called when the node view is removed from the editor or the whole
    * editor is destroyed.

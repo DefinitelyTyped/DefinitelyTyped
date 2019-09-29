@@ -3,7 +3,7 @@
 // Definitions by:  Andrew Luca <https://github.com/iamandrewluca>
 //                  Craig S <https://github.com/Mrman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 import {
     Middleware,
@@ -46,7 +46,7 @@ export class RequestError extends Error {
     constructor(message: string);
 }
 
-export class ApiError<T extends object = any> extends Error {
+export class ApiError<T = any> extends Error {
     name: 'ApiError';
     status: number;
     statusText: string;
@@ -75,22 +75,38 @@ export interface RSAARequestTypeDescriptor<State = any, Payload = any, Meta = an
 export interface RSAASuccessTypeDescriptor<State = any, Payload = any, Meta = any> {
     type: string | symbol;
     payload?: ((action: RSAAAction, state: State, res: Response) => Payload) | Payload;
-    meta?: ((action: RSAAAction, state: State, res: any) => Meta) | Meta;
+    meta?: ((action: RSAAAction, state: State, res: Response) => Meta) | Meta;
 }
 
 export interface RSAAFailureTypeDescriptor<State = any, Payload = any, Meta = any> {
     type: string | symbol;
     payload?: ((action: RSAAAction, state: State, res: Response) => Payload) | Payload;
-    meta?: ((action: RSAAAction, state: State, res: any) => Meta) | Meta;
+    meta?: ((action: RSAAAction, state: State, res: Response) => Meta) | Meta;
 }
+
+export type RSAARequestType<State = any, Payload = any, Meta = any> =
+    | string
+    | symbol
+    | RSAARequestTypeDescriptor<State, Payload, Meta>;
+
+export type RSAASuccessType<State = any, Payload = any, Meta = any> =
+    | string
+    | symbol
+    | RSAASuccessTypeDescriptor<State, Payload, Meta>;
+
+export type RSAAFailureType<State = any, Payload = any, Meta = any> =
+    | string
+    | symbol
+    | RSAAFailureTypeDescriptor<State, Payload, Meta>;
 
 export interface RSAACall<State = any, Payload = any, Meta = any> {
     endpoint: TypeOrResolver<State, string>;
-    method: string;
+    // `redux-api-middleware` strictly allows only this methods
+    method: 'GET' | 'HEAD' | 'POST' | 'PUT' | 'PATCH' | 'DELETE' | 'OPTIONS';
     types: [
-        string | symbol | RSAARequestTypeDescriptor<State, Payload, Meta>,
-        string | symbol | RSAASuccessTypeDescriptor<State, Payload, Meta>,
-        string | symbol | RSAAFailureTypeDescriptor<State, Payload, Meta>
+        RSAARequestType<State, Payload, Meta>,
+        RSAASuccessType<State, Payload, Meta>,
+        RSAAFailureType<State, Payload, Meta>
     ];
     body?: TypeOrResolver<State, BodyInit | null>;
     headers?: TypeOrResolver<State, HeadersInit>;
@@ -106,6 +122,33 @@ export interface RSAAAction<State = any, Payload = any, Meta = any> {
 }
 
 /**
+ * `Promise<RSAARequestAction>` is not returned from dispatch like other actions
+ * Is only dispatched through redux
+ */
+export interface RSAARequestAction<Payload = any, Meta = any> {
+    type: string | symbol;
+    payload?: Payload | InvalidRSAA;
+    meta?: Meta;
+    error?: true;
+}
+
+export interface RSAASuccessAction<Payload = any, Meta = any> {
+    type: string | symbol;
+    payload: Payload | InternalError;
+    meta?: Meta;
+    error?: true;
+}
+
+export interface RSAAFailureAction<Payload = any, Meta = any> {
+    type: string | symbol;
+    payload: InternalError | RequestError | ApiError<Payload>;
+    meta?: Meta;
+    error: true;
+}
+
+export type RSAAActions = RSAARequestAction | RSAASuccessAction | RSAAFailureAction;
+
+/**
  * Redux behaviour changed by middleware, so overloads here
  */
 declare module 'redux' {
@@ -114,8 +157,11 @@ declare module 'redux' {
      * Useful for react-redux or any other library which could use this type.
      */
     interface Dispatch {
-        (action: RSAAAction): Promise<any>;
+        (action: RSAAAction): Promise<RSAASuccessAction>;
+        (action: RSAAAction): Promise<RSAAFailureAction>;
+        // `Promise<undefined> is returned in case of RSAA validation errors or user bails out
+        (action: RSAAAction): Promise<undefined>;
     }
 }
 
-export {};
+export { };

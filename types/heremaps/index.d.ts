@@ -4550,13 +4550,13 @@ declare namespace H {
              * @param opt_buttons {number=} - Indicates which pointer device buttons are being pressed, expressed as a bitmask. Uses the same values, as "buttons" in Pointer Events spec.
              */
             constructor(viewportX: number, viewportY: number, id: number, type: string, opt_button?: H.mapevents.Pointer.Button, opt_buttons?: H.math.BitMask);
-            static viewportX: number;
-            static viewportY: number;
-            static target: (H.map.Object | H.Map);
-            static id: number;
-            static type: string;
-            static dragTarget: (H.map.Object | H.Map);
-            static button: H.mapevents.Pointer.Button;
+            viewportX: number;
+            viewportY: number;
+            target: (H.map.Object | H.Map);
+            id: number;
+            type: string;
+            dragTarget: (H.map.Object | H.Map);
+            button: H.mapevents.Pointer.Button;
         }
 
         namespace Pointer {

@@ -117,13 +117,14 @@ export interface MUIDataTableColumnOptions {
     empty?: boolean;
     filter?: boolean;
     filterList?: string[];
-    filterOptions?: string[];
+    filterOptions?: MUIDataTableFilterOptions;
     hint?: string;
     print?: boolean;
     searchable?: boolean;
     setCellProps?: (cellValue: string, rowIndex: number, columnIndex: number) => object;
     sort?: boolean;
     sortDirection?: 'asc' | 'desc';
+    viewColumns?: boolean;
 }
 
 export interface MUIDataTableOptions {
@@ -193,6 +194,7 @@ export interface MUIDataTableOptions {
     rowsExpanded?: any[];
     rowsSelected?: any[];
     search?: boolean;
+    searchPlaceholder?: string;
     searchText?: string;
     selectableRows?: SelectableRows;
     selectableRowsOnClick?: boolean;

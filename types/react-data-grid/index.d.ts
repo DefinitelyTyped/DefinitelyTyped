@@ -384,12 +384,14 @@ declare namespace AdazzleReactDataGrid {
         RIGHT = 'right',
         NONE = 'none'
     }
+
     interface FormatterParams{
         dependentValues: any,
         value: any,
         isScrolling: boolean,
         row: any
     }
+
     interface ScrollState {
         height: number;
         scrollTop: number;
