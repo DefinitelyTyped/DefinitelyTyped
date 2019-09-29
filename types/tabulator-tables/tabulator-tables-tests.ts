@@ -522,6 +522,6 @@ options.invalidOptionWarnings = false;
 
 colDef.editor = (cell, onRendered, success, cancel, editorParams) => {
     const editor = document.createElement('input');
-    let successful: boolean = success('test');
+    const successful: boolean = success('test');
     return editor;
 };
