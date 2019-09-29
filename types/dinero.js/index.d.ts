@@ -20,7 +20,7 @@ declare namespace DineroFactory {
     let globalRoundingMode: RoundingMode;
     let globalFormatRoundingMode: string;
     let globalExchangeRatesApi: ExchangeRatesApiOptions;
-    function normalizePrecision(objects: readonly Dinero[]): Dinero[];
+    function normalizePrecision(objects: ReadonlyArray<Dinero>): Dinero[];
 
     interface Options {
         amount?: number;
@@ -40,7 +40,7 @@ declare namespace DineroFactory {
         multiply(multiplier: number, roundingMode?: RoundingMode): Dinero;
         divide(divisor: number, roundingMode?: RoundingMode): Dinero;
         percentage(percentage: number): Dinero;
-        allocate(ratios: readonly number[]): Dinero[];
+        allocate(ratios: ReadonlyArray<number>): Dinero[];
         convert(currency: string, options?: ExchangeRatesApiOptions): Promise<Dinero>;
         equalsTo(comparator: Dinero): boolean;
         lessThan(comparator: Dinero): boolean;
