@@ -602,6 +602,7 @@ declare namespace Chart {
         maxBarThickness?: number;
         minBarLength?: number;
         scaleLabel?: ScaleTitleOptions;
+        labels?: string[];
         time?: TimeScale;
         offset?: boolean;
         beforeUpdate?(scale?: any): void;
