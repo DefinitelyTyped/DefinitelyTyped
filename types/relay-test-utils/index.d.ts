@@ -11,3 +11,5 @@ export { createMockEnvironment } from './lib/RelayModernMockEnvironment';
 
 import * as MockPayloadGenerator from './lib/RelayMockPayloadGenerator';
 export { MockPayloadGenerator };
+
+export { unwrapContainer } from './lib/unwrapContainer';
