@@ -1,6 +1,6 @@
 {
     "private": true,
     "dependencies": {
-        "dnd-core": "^4.0.5"
+        "dnd-core": "^9.3.1"
     }
 }
