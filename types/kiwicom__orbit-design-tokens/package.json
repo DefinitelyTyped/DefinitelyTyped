@@ -1,0 +1,6 @@
+{
+  "private": true,
+  "dependencies": {
+    "@kiwicom/orbit-design-tokens": "^0.6.6"
+  }
+}
