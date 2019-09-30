@@ -500,7 +500,7 @@ interface Obj {
     R.none(Number.isNaN, [1, 2, 3]); // => true
     R.none(Number.isNaN, [1, 2, 3, NaN]); // => false
     R.none(Number.isNaN)([1, 2, 3, NaN]); // => false
-};;
+};
 
 () => {
 >>>>>>> ramda#2883: Remove references to R.isNaN
