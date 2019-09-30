@@ -198,7 +198,7 @@ declare namespace echarts {
             /**
              * Legend text style.
              */
-            textStyle?: TextStyle;
+            textStyle?: object;
             /**
              * Tooltip configuration for legend tooltip, which is similar to tooltip.
              *
