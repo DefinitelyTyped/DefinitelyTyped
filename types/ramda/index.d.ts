@@ -1,6 +1,7 @@
 // Type definitions for ramda 0.26
 // Project: https://github.com/donnut/typescript-ramda, https://ramdajs.com
-// Definitions by: Erwin Poeze <https://github.com/donnut>
+// Definitions by: Scott O'Malley <https://github.com/TheHandsomeCoder>
+//                 Erwin Poeze <https://github.com/donnut>
 //                 Matt DeKrey <https://github.com/mdekrey>
 //                 Matt Dziuban <https://github.com/mrdziuban>
 //                 Stephen King <https://github.com/sbking>
@@ -130,7 +131,6 @@
 /// <reference path="./es/isArrayLike.d.ts" />
 /// <reference path="./es/is.d.ts" />
 /// <reference path="./es/isEmpty.d.ts" />
-/// <reference path="./es/isNaN.d.ts" />
 /// <reference path="./es/isNil.d.ts" />
 /// <reference path="./es/join.d.ts" />
 /// <reference path="./es/juxt.d.ts" />
@@ -386,7 +386,6 @@
 /// <reference path="./src/isArrayLike.d.ts" />
 /// <reference path="./src/is.d.ts" />
 /// <reference path="./src/isEmpty.d.ts" />
-/// <reference path="./src/isNaN.d.ts" />
 /// <reference path="./src/isNil.d.ts" />
 /// <reference path="./src/join.d.ts" />
 /// <reference path="./src/juxt.d.ts" />
@@ -1638,11 +1637,6 @@ declare namespace R {
          * Reports whether the list has zero elements.
          */
         isEmpty(value: any): boolean;
-
-        /**
-         * Returns true if the input value is NaN.
-         */
-        isNaN(x: any): boolean;
 
         /**
          * Checks if the input value is null or undefined.
