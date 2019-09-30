@@ -1,15 +1,17 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "lib": ["es6"],
+        "lib": ["es6", "dom"],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictFunctionTypes": true,
         "strictNullChecks": true,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": ["../"],
         "types": [],
         "noEmit": true,
+        "jsx": "react",
+        "experimentalDecorators": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": ["index.d.ts", "relay-test-utils-tests.ts"]

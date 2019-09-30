@@ -2,3 +2,7 @@
 // Project: https://relay.dev
 // Definitions by: Renan Machado <https://github.com/renanmav>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.3
+
+import * as MockEnvironment from './lib/RelayModernMockEnvironment';
+export { MockEnvironment };
