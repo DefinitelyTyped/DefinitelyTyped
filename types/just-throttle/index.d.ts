@@ -1,5 +1,5 @@
 // Type definitions for just-throttle 1.1
-// Project: https://github.com/angus-c/just#readme
+// Project: https://github.com/angus-c/just/tree/master/packages/function-throttle
 // Definitions by: Dominik Rowicki <https://github.com/papermana>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
