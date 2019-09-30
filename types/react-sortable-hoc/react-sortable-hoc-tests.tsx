@@ -32,7 +32,7 @@ const SortableList = ReactSortableHOC.SortableContainer((props: SortableListProp
     return <ul>{items}</ul>;
 });
 
-const SortableHandle = ReactSortableHOC.SortableHandle(() => null); // $ExpectType React.ComponentClass<unknown, any>
+const SortableHandle = ReactSortableHOC.SortableHandle(() => null); // $ExpectType ComponentClass<unknown, any>
 
 class SortableComponent extends React.Component<{}, SortableComponentState> {
     private readonly _onSortEnd: ReactSortableHOC.SortEndHandler;
