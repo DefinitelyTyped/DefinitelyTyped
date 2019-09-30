@@ -30,7 +30,7 @@ nameof.toArray(testInstance.prop1, testInstance.prop2); // $ExpectType string[]
 nameof.toArray<TestClass>(t => [t.prop1]); // $ExpectType string[]
 
 // nameof.interpolate tests
-nameof.interpolate(""); // $ExpectType string
+nameof.interpolate("" as string); // $ExpectType string
 
 // reference type test
 const myObj = { test: "" };
