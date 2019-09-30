@@ -13,13 +13,15 @@ interface SortableListProps {
 
 type SortableComponentState = SortableListProps;
 
+const SortHandle = ReactSortableHOC.SortableHandle(() => null);
+
 class Item extends React.Component<SortableItemProps> {
     constructor(props: SortableItemProps) {
         super(props);
     }
 
     render(): JSX.Element {
-        return <li>{this.props.value}</li>;
+        return <li><SortHandle />{this.props.value}</li>;
     }
 }
 
@@ -31,8 +33,6 @@ const SortableList = ReactSortableHOC.SortableContainer((props: SortableListProp
     });
     return <ul>{items}</ul>;
 });
-
-const SortableHandle = ReactSortableHOC.SortableHandle(() => null);
 
 class SortableComponent extends React.Component<{}, SortableComponentState> {
     private readonly _onSortEnd: ReactSortableHOC.SortEndHandler;
