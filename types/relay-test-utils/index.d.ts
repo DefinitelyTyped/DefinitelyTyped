@@ -6,3 +6,8 @@
 
 import * as MockEnvironment from './lib/RelayModernMockEnvironment';
 export { MockEnvironment };
+
+export { createMockEnvironment } from './lib/RelayModernMockEnvironment';
+
+import * as MockPayloadGenerator from './lib/RelayMockPayloadGenerator';
+export { MockPayloadGenerator };

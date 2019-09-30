@@ -35,7 +35,7 @@ interface MockFunctions {
     findOperation: (findFn: (operation: OperationDescriptor) => boolean) => OperationDescriptor;
     getMostRecentOperation: () => OperationDescriptor;
     resolveMostRecentOperation: (
-        payload: GraphQLResponse | ((operation: OperationDescriptor) => GraphQLResponse),
+        payload: GraphQLResponse | ((operation: OperationDescriptor) => GraphQLResponse | void),
     ) => void;
     rejectMostRecentOperation: (error: Error | ((operation: OperationDescriptor) => Error)) => void;
     queueOperationResolver: (resolver: OperationMockResolver) => void;
