@@ -479,23 +479,23 @@ declare module "../index" {
          * @param sources The source objects.
          * @return The destination object.
          */
-        defaults<TObject, TSource>(object: TObject, source: TSource): TSource & TObject;
+        defaults<TObject, TSource>(object: TObject, source: TSource): NonNullable<TSource & TObject>;
         /**
          * @see _.defaults
          */
-        defaults<TObject, TSource1, TSource2>(object: TObject, source1: TSource1, source2: TSource2): TSource2 & TSource1 & TObject;
+        defaults<TObject, TSource1, TSource2>(object: TObject, source1: TSource1, source2: TSource2): NonNullable<TSource2 & TSource1 & TObject>;
         /**
          * @see _.defaults
          */
-        defaults<TObject, TSource1, TSource2, TSource3>(object: TObject, source1: TSource1, source2: TSource2, source3: TSource3): TSource3 & TSource2 & TSource1 & TObject;
+        defaults<TObject, TSource1, TSource2, TSource3>(object: TObject, source1: TSource1, source2: TSource2, source3: TSource3): NonNullable<TSource3 & TSource2 & TSource1 & TObject>;
         /**
          * @see _.defaults
          */
-        defaults<TObject, TSource1, TSource2, TSource3, TSource4>(object: TObject, source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4): TSource4 & TSource3 & TSource2 & TSource1 & TObject;
+        defaults<TObject, TSource1, TSource2, TSource3, TSource4>(object: TObject, source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4): NonNullable<TSource4 & TSource3 & TSource2 & TSource1 & TObject>;
         /**
          * @see _.defaults
          */
-        defaults<TObject>(object: TObject): TObject;
+        defaults<TObject>(object: TObject): NonNullable<TObject>;
         /**
          * @see _.defaults
          */
@@ -505,23 +505,23 @@ declare module "../index" {
         /**
          * @see _.defaults
          */
-        defaults<TSource>(source: TSource): Object<TSource & T>;
+        defaults<TSource>(source: TSource): Object<NonNullable<TSource & T>>;
         /**
          * @see _.defaults
          */
-        defaults<TSource1, TSource2>(source1: TSource1, source2: TSource2): Object<TSource2 & TSource1 & T>;
+        defaults<TSource1, TSource2>(source1: TSource1, source2: TSource2): Object<NonNullable<TSource2 & TSource1 & T>>;
         /**
          * @see _.defaults
          */
-        defaults<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3): Object<TSource3 & TSource2 & TSource1 & T>;
+        defaults<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3): Object<NonNullable<TSource3 & TSource2 & TSource1 & T>>;
         /**
          * @see _.defaults
          */
-        defaults<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4): Object<TSource4 & TSource3 & TSource2 & TSource1 & T>;
+        defaults<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4): Object<NonNullable<TSource4 & TSource3 & TSource2 & TSource1 & T>>;
         /**
          * @see _.defaults
          */
-        defaults(): Object<T>;
+        defaults(): Object<NonNullable<T>>;
         /**
          * @see _.defaults
          */
@@ -531,23 +531,23 @@ declare module "../index" {
         /**
          * @see _.defaults
          */
-        defaults<TSource>(source: TSource): ObjectChain<TSource & T>;
+        defaults<TSource>(source: TSource): ObjectChain<NonNullable<TSource & T>>;
         /**
          * @see _.defaults
          */
-        defaults<TSource1, TSource2>(source1: TSource1, source2: TSource2): ObjectChain<TSource2 & TSource1 & T>;
+        defaults<TSource1, TSource2>(source1: TSource1, source2: TSource2): ObjectChain<NonNullable<TSource2 & TSource1 & T>>;
         /**
          * @see _.defaults
          */
-        defaults<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3): ObjectChain<TSource3 & TSource2 & TSource1 & T>;
+        defaults<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3): ObjectChain<NonNullable<TSource3 & TSource2 & TSource1 & T>>;
         /**
          * @see _.defaults
          */
-        defaults<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4): ObjectChain<TSource4 & TSource3 & TSource2 & TSource1 & T>;
+        defaults<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4): ObjectChain<NonNullable<TSource4 & TSource3 & TSource2 & TSource1 & T>>;
         /**
          * @see _.defaults
          */
-        defaults(): ObjectChain<T>;
+        defaults(): ObjectChain<NonNullable<T>>;
         /**
          * @see _.defaults
          */

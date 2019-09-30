@@ -55,7 +55,7 @@ export interface IconButtonProps extends IconProps, TouchableHighlightProps, Tou
    *
    * @default {marginRight: 10}
    */
-  iconStyle?: ViewStyle;
+  iconStyle?: TextStyle;
 
   /**
    * Style prop inherited from TextProps and TouchableWithoutFeedbackProperties
