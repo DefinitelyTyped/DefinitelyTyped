@@ -3991,12 +3991,6 @@
             "asOfVersion": "11.0.1"
         },
         {
-            "libraryName": "@xmpp/jid",
-            "typingsPackageName": "xmpp__jid",
-            "sourceRepoURL": "github.com/node-xmpp/node-xmpp/",
-            "asOfVersion": "1.2.1"
-        },
-        {
             "libraryName": "xterm.js",
             "typingsPackageName": "xterm",
             "sourceRepoURL": "https://github.com/sourcelair/xterm.js/",
