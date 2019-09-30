@@ -2,6 +2,7 @@
 // Project: https://github.com/cssinjs/normalize-jss
 // Definitions by: Max Boguslavskiy <https://github.com/maxbogus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.7
 
 export = normalize_jss;
 
@@ -162,4 +163,3 @@ declare const normalize_jss: {
         };
     };
 };
-
