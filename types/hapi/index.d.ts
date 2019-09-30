@@ -3358,6 +3358,10 @@ export type DecorationMethod<T> = (this: T, ...args: any[]) => any;
 export interface PluginProperties {
 }
 
+/* tslint:disable-next-line:no-empty-interface */
+export interface ServerMethods extends Util.Dictionary<ServerMethod> {
+}
+
 export type DecorateName = string | symbol;
 
 /**
@@ -3508,7 +3512,7 @@ export class Server {
      * server method name is an object property.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-servermethods
      */
-    readonly methods: Util.Dictionary<ServerMethod>;
+    readonly methods: ServerMethods;
 
     /**
      * Provides access to the server MIME database used for setting content-type information. The object must not be
