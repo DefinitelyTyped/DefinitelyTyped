@@ -2,7 +2,7 @@
 // Project: https://github.com/cssinjs/normalize-jss
 // Definitions by: Max Boguslavskiy <https://github.com/maxbogus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7
+// TypeScript Version: 3.4
 
 export = normalize_jss;
 
@@ -93,12 +93,12 @@ declare const normalize_jss: {
         };
         fieldset: {
             border: string;
-            margin: (number[])[];
-            padding: (string[])[];
+            margin: number[][];
+            padding: string[][];
         };
         h1: {
             fontSize: string;
-            margin: (string[])[];
+            margin: string[][];
         };
         hr: {
             boxSizing: string;
