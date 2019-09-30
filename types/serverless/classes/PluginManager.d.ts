@@ -7,7 +7,7 @@ declare class PluginManager {
     setCliOptions(options: Serverless.Options): void;
     setCliCommands(commands: {}): void;
 
-    addPlugin(plugin: Plugin): void;
+    addPlugin(plugin: Plugin.PluginStatic): void;
     loadAllPlugins(servicePlugins: {}): void;
     loadPlugins(plugins: {}): void;
     loadCorePlugins(): void;

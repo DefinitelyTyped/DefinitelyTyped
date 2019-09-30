@@ -19,12 +19,13 @@ declare namespace Plugin {
             };
         };
     }
+
+    interface PluginStatic {
+        new (serverless: Serverless, options: Serverless.Options): Plugin;
+    }
 }
 
 interface Plugin {
-    // Typical constructor signature:
-    // constructor(serverless: Serverless, options: Serverless.Options)
-
     hooks: Plugin.Hooks;
     commands?: Plugin.Commands;
 }

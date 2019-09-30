@@ -1,5 +1,6 @@
 import Serverless from 'serverless';
 import Plugin from 'serverless/classes/Plugin';
+import PluginManager from 'serverless/classes/PluginManager';
 
 const options: Serverless.Options = {
     noDeploy: false,
@@ -34,3 +35,14 @@ class CustomPlugin implements Plugin {
         };
     }
 }
+
+// Test a plugin with missing 'hooks' property
+class BadPlugin implements Plugin { // $ExpectError
+    hoooks: Plugin.Hooks; // emulate a bad 'hooks' definition with a typo
+    constructor(badArg: number) {}
+}
+
+const manager = new PluginManager(serverless);
+manager.addPlugin(CustomPlugin);
+// Test adding a plugin with an incorrect constructor
+manager.addPlugin(BadPlugin); // $ExpectError
