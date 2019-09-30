@@ -3,6 +3,7 @@
 // Definitions by: Robert Imig <https://github.com/rimig>
 //                 Fabio Berta <https://github.com/fnberta>
 //                 Sander Siim <https://github.com/sandersiim>
+//                 Otto Urpelainen <https://github.com/oturpe>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -88,7 +89,7 @@ export interface PositionInput {
     pos: [number, number];
 }
 
-export type ViewportChangeHandler = (viewState: ViewState) => void;
+export type ViewportChangeHandler = (viewState: ViewportProps) => void;
 
 export interface MapControllerOptions {
     onViewportChange?: ViewportChangeHandler;
@@ -209,7 +210,7 @@ export class LinearInterpolator extends TransitionInterpolator {
 export class FlyToInterpolator extends TransitionInterpolator {}
 
 export interface ViewStateChangeInfo {
-    viewState: ViewState;
+    viewState: ViewportProps;
 }
 
 export type ViewStateChangeHandler = (info: ViewStateChangeInfo) => void;
