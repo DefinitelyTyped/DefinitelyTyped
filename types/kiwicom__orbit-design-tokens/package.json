@@ -1,0 +1,7 @@
+{
+  "private": true,
+  "dependencies": {
+    "@types/kiwicom__orbit-design-tokens": "file:./",
+    "@kiwicom/orbit-design-tokens": "^0.6.6"
+  }
+}
