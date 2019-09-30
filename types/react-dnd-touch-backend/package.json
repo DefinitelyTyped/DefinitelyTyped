@@ -1,6 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "dnd-core": "^9.3.1"
-    }
-}
