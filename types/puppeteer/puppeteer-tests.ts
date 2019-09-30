@@ -666,3 +666,23 @@ puppeteer.launch().then(async browser => {
   const isMultiple: boolean = fileChooser.isMultiple();
   await fileChooser.accept(['/foo/bar']);
 });
+
+// .evaluate and .evaluateHandle on ElementHandle and JSHandle, and elementHandle.select
+(async () => {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+
+  const elementHandle = (await page.$('.something')) as puppeteer.ElementHandle<HTMLDivElement>;
+  elementHandle.evaluate(element => {
+    element; // $ExpectType HTMLDivElement
+  });
+  elementHandle.evaluateHandle(element => {
+    element; // $ExpectType HTMLDivElement
+  });
+
+  const jsHandle = await page.evaluateHandle(() => 'something');
+  jsHandle.evaluate(obj => {});
+  jsHandle.evaluateHandle(handle => {});
+
+  const selected: string[] = await elementHandle.select('a', 'b', 'c');
+})();

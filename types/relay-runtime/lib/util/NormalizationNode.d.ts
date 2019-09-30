@@ -94,6 +94,29 @@ export interface NormalizationVariable {
     readonly variableName: string;
 }
 
+export interface NormalizationConnection {
+    kind: string;
+    label: string;
+    name: string;
+    args: ReadonlyArray<NormalizationArgument>;
+    edges: NormalizationLinkedField;
+    pageInfo: NormalizationLinkedField;
+}
+
+export interface NormalizationLocalArgumentDefinition {
+    kind: string;
+    name: string;
+    type: string;
+    defaultValue: any;
+}
+
+export interface NormalizationModuleImport {
+    kind: string;
+    documentName: string;
+    fragmentPropName: string;
+    fragmentName: string;
+}
+
 export interface NormalizationLocalArgument {
     readonly kind: string; // 'LocalArgument';
     readonly name: string;

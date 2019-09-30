@@ -6,6 +6,7 @@
 //                 Simon Schick <https://github.com/SimonSchick>
 //                 Serban Ghita <https://github.com/SerbanGhita>
 //                 Jason Kaczmarsky <https://github.com/JasonKaz>
+//                 Dave Cardwell <https://github.com/davecardwell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -221,7 +222,7 @@ export interface Evalable {
   ): Promise<WrapElementHandle<R>>;
 }
 
-export interface JSEvalable {
+export interface JSEvalable<A = any> {
     /**
      * Evaluates a function in the browser context.
      * If the function, passed to the frame.evaluate, returns a Promise, then frame.evaluate would wait for the promise to resolve and return its value.
@@ -229,7 +230,7 @@ export interface JSEvalable {
      * @param fn Function to be evaluated in browser context
      * @param args Arguments to pass to `fn`
      */
-    evaluate<T extends EvaluateFn>(
+    evaluate<T extends EvaluateFn<A>>(
       pageFunction: T,
       ...args: SerializableOrJSHandle[],
     ): Promise<EvaluateFnReturnType<T>>;
@@ -241,7 +242,7 @@ export interface JSEvalable {
      * @param args Arguments to pass to `fn`
      */
     evaluateHandle(
-      pageFunction: (...args: any[]) => any,
+      pageFunction: (arg1: A, ...args: any[]) => any,
       ...args: SerializableOrJSHandle[],
     ): Promise<JSHandle>;
   }
@@ -517,7 +518,7 @@ export interface EmulateOptions {
   userAgent?: string;
 }
 
-export type EvaluateFn = string | ((...args: any[]) => any);
+export type EvaluateFn<T = any> = string | ((arg1: T, ...args: any[]) => any);
 export type EvaluateFnReturnType<T extends EvaluateFn> = T extends ((...args: any[]) => infer R) ? R : any;
 
 export type LoadEvent =
@@ -760,7 +761,7 @@ export interface Worker extends JSEvalable {
 /**
  * Represents an in-page DOM element. ElementHandles can be created with the page.$ method.
  */
-export interface ElementHandle<E extends Element = Element> extends JSHandle, Evalable {
+export interface ElementHandle<E extends Element = Element> extends JSHandle<E>, Evalable {
   /**
    * The method runs element.querySelector within the page.
    * If no element matches the selector, the return value resolve to null.
@@ -830,6 +831,14 @@ export interface ElementHandle<E extends Element = Element> extends JSHandle, Ev
   screenshot(options?: BinaryScreenShotOptions): Promise<Buffer>;
   screenshot(options?: ScreenshotOptions): Promise<string | Buffer>;
   /**
+   * Triggers a change and input event once all the provided options have been selected. If there's no <select> element
+   * matching selector, the method throws an error.
+   * @param values Values of options to select. If the <select> has the multiple attribute, all values are considered, otherwise only the first one is taken into account.
+   * @returns An array of option values that have been successfully selected.
+   * @since 1.12.0
+   */
+  select(...values: string[]): Promise<string[]>;
+  /**
    * This method scrolls element into view if needed, and then uses touchscreen.tap to tap in the center of the element.
    * If the element is detached from DOM, the method throws an error.
    */
@@ -854,7 +863,7 @@ export interface ExecutionContext extends JSEvalable {
 }
 
 /** JSHandle represents an in-page JavaScript object. */
-export interface JSHandle {
+export interface JSHandle<T = any> extends JSEvalable<T> {
   /**
    * Returns a ElementHandle
    */

@@ -1283,10 +1283,10 @@ declare namespace webpack {
 
         interface ChunkGroup {
             assets: string[];
-            chunks: number[];
+            chunks: Array<number | string>;
             children: Record<string, {
                 assets: string[];
-                chunks: number[];
+                chunks: Array<number | string>;
                 name: string;
             }>;
             childAssets: Record<string, string[]>;
@@ -1349,7 +1349,7 @@ declare namespace webpack {
             assets?: string[];
             built: boolean;
             cacheable: boolean;
-            chunks: number[];
+            chunks: Array<number | string>;
             depth?: number;
             errors: number;
             failed: boolean;
@@ -1380,11 +1380,12 @@ declare namespace webpack {
             usedExports?: boolean;
             warnings: number;
         }
+
         interface ToJsonOutput {
             _showErrors: boolean;
             _showWarnings: boolean;
             assets?: Array<{
-                chunks: number[];
+                chunks: Array<number | string>;
                 chunkNames: string[];
                 emitted: boolean;
                 isOverSizeLimit?: boolean;
@@ -1393,7 +1394,7 @@ declare namespace webpack {
             }>;
             assetsByChunkName?: Record<string, Record<string, string[]>>;
             builtAt?: number;
-            children?: ToJsonOptions[] & { name?: string };
+            children?: Array<ToJsonOutput & { name?: string }>;
             chunks?: Array<{
                 children: number[];
                 childrenByOrder: Record<string, number[]>;
@@ -1401,7 +1402,7 @@ declare namespace webpack {
                 files: string[];
                 filteredModules?: boolean;
                 hash: string | undefined;
-                id: number;
+                id: number | string;
                 initial: boolean;
                 modules?: FnModules[];
                 names: string[];
