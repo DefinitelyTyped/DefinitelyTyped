@@ -3,22 +3,22 @@
 // Definitions by: Mike North <https://github.com/mike-north>
 //                 Chris Arnesen <https://github.com/carnesen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.1
 
 export function asTree(
-    obj: object,
+    obj: any,
     showValues?: boolean,
     hideFunctions?: boolean
-): string;
+): string | undefined;
 
 export function asLines(
-    obj: object,
+    obj: any,
     showValues: boolean,
     lineCallback: (line: string) => void
-): string;
+): string | undefined;
 export function asLines(
-    obj: object,
+    obj: any,
     showValues: boolean,
     hideFunctions: boolean,
     lineCallback: (line: string) => void
-): string;
+): string | undefined;

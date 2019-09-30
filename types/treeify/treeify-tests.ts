@@ -1,23 +1,29 @@
-import * as treeify from 'treeify';
+import { asTree, asLines } from 'treeify';
 
 function log(s: string): void {}
 
-// $ExpectType string
-treeify.asTree([0, { foo: 'bar' }, 2], true);
+// $ExpectType string | undefined
+asTree(null);
+
+// $ExpectType string | undefined
+asTree(undefined);
+
+// $ExpectType string | undefined
+asTree([0, { foo: 'bar' }, 2], true);
 // ├─ 0: 0
 // ├─ 1
 // │  └─ foo: bar
 // └─ 2: 2
 
-// $ExpectType string
-treeify.asTree([0, { foo: 'bar' }, 2]);
+// $ExpectType string | undefined
+asTree([0, { foo: 'bar' }, 2]);
 // ├─ 0
 // ├─ 1
 // │  └─ foo
 // └─ 2
 
-// $ExpectType string
-treeify.asTree(
+// $ExpectType string | undefined
+asTree(
     {
         apples: 'gala', //      ├─ apples: gala
         oranges: 'mandarin' //  └─ oranges: mandarin
@@ -26,8 +32,8 @@ treeify.asTree(
     true
 );
 
-// $ExpectType string
-treeify.asLines(
+// $ExpectType string | undefined
+asLines(
     {
         apples: 'gala', //                       ├─ apples: gala
         oranges: 'mandarin', //                  ├─ oranges: mandarin
@@ -40,8 +46,8 @@ treeify.asLines(
     log
 );
 
-// $ExpectType string
-treeify.asLines(
+// $ExpectType string | undefined
+asLines(
     {
         apples: 'gala', //      ├─ apples: gala
         oranges: 'mandarin' //  └─ oranges: mandarin
