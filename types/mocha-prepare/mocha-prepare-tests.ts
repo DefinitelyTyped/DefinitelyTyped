@@ -8,3 +8,7 @@ prepare(
         done();
     },
 );
+
+prepare(done => {
+    done();
+});
