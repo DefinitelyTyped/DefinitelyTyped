@@ -1,7 +1,6 @@
 // Type definitions for redux-form 8.1
 // Project: https://github.com/erikras/redux-form, https://redux-form.com
-// Definitions by: Carson Full <https://github.com/carsonf>
-//                 Daniel Lytkin <https://github.com/aikoven>
+// Definitions by: Daniel Lytkin <https://github.com/aikoven>
 //                 Karol Janyst <https://github.com/LKay>
 //                 Luka Zakrajsek <https://github.com/bancek>
 //                 Alex Young <https://github.com/alsiola>
