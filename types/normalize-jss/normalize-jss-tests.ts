@@ -1,4 +1,3 @@
-import { jss } from 'react-jss';
 import normalize from 'normalize-jss';
 
-jss.createStyleSheet(normalize);
+const test = normalize['@global'].a;
