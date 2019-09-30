@@ -828,7 +828,7 @@ declare namespace jasmine {
 
         and: SpyAnd<Fn>;
         calls: Calls<Fn>;
-        withArgs(...args: Parameters<Fn>): Spy<Fn>;
+        withArgs(...args: MatchableArgs<Fn>): Spy<Fn>;
     }
 
     type SpyObj<T> = T & {

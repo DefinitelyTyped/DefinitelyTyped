@@ -997,7 +997,8 @@ describe("jasmine.objectContaining", () => {
 
     describe("when used with a spy", () => {
         it("is useful for comparing arguments", () => {
-            const callback = jasmine.createSpy<(arg: { bar: string }) => void>('callback');
+            const callback = jasmine.createSpy<(arg: { bar: string }) => number>('callback');
+            callback.withArgs(jasmine.objectContaining({ bar: "foo" })).and.returnValue(42);
 
             callback({
                 bar: "baz"
@@ -1039,7 +1040,8 @@ describe("jasmine.arrayContaining", () => {
 
     describe("when used with a spy", () => {
         it("is useful when comparing arguments", () => {
-            const callback = jasmine.createSpy<(numbers: number[]) => void>('callback');
+            const callback = jasmine.createSpy<(numbers: number[]) => number>('callback');
+            callback.withArgs(jasmine.arrayContaining([1, 2])).and.returnValue(42);
 
             callback([1, 2, 3, 4]);
 
@@ -1066,7 +1068,8 @@ describe("jasmine.arrayWithExactContents", () => {
 
     describe("when used with a spy", () => {
         it("is useful when comparing arguments", () => {
-            const callback = jasmine.createSpy<(arg: number[]) => void>('callback');
+            const callback = jasmine.createSpy<(arg: number[]) => number>('callback');
+            callback.withArgs(jasmine.arrayWithExactContents([1, 2])).and.returnValue(42);
 
             callback([1, 2, 3, 4]);
 
