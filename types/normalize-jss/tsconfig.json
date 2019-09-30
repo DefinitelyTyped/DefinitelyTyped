@@ -8,6 +8,7 @@
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
+        "esModuleInterop": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
@@ -18,6 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "normalize-package-data-tests.ts"
+        "normalize-jss-tests.ts"
     ]
 }
