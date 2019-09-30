@@ -15,6 +15,7 @@ guid = chance.guid({ version: 4 });
 guid = chance.guid({ version: 5 });
 
 const strArr: string[] = chance.n(chance.string, 42);
+const strArr2: string[] = chance.n((a) => a.value, 42, { value: 'test' });
 
 const uniqInts: number[] = chance.unique(chance.integer, 99);
 
