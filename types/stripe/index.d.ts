@@ -2113,6 +2113,11 @@ declare namespace Stripe {
                 payment_method_types?: string[];
 
                 /**
+                 * The ID of the SetupIntent for Checkout Sessions in setup mode.
+                 */
+                setup_intent?: string | null;
+
+                /**
                  * ID of subscription if one was created [Expandable]
                  */
                 subscription?: string | subscriptions.ISubscription;
