@@ -7,7 +7,7 @@ import {
 
 class Test extends React.Component {
     onSubmitted = (event: React.FormEvent) => {
-        alert(event.target);
+        event.preventDefault(); // Actually preventDefault() is called by ValidatorForm
     }
     onError = (errors: any[]) => {};
     onValidate = (isValid: boolean) => {};
