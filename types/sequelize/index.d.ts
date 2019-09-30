@@ -3943,14 +3943,6 @@ declare namespace sequelize {
          * Search for a single instance by its primary key. This applies LIMIT 1, so the listener will
          * always be called with a single instance.
          */
-        findById<TCustomAttributes>(
-          identifier?: number | string | Buffer,
-          options?: Omit<FindOptions<TAttributes & TCustomAttributes>, 'where'>,
-        ): Promise<TInstance | null>;
-        findByPrimary<TCustomAttributes>(
-          identifier?: number | string | Buffer,
-          options?: Omit<FindOptions<TAttributes & TCustomAttributes>, 'where'>,
-        ): Promise<TInstance | null>;
         findByPk<TCustomAttributes>(
           identifier?: number | string | Buffer,
           options?: Omit<FindOptions<TAttributes & TCustomAttributes>, 'where'>,
