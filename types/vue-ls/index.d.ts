@@ -17,10 +17,22 @@ declare module 'vue/types/vue' {
     }
 }
 
-declare class WebStorage {
+export enum Types {
+    Session = 'session',
+    Local = 'local',
+    Memory = 'memory',
+}
+
+export interface Options {
+    namespace?: string;
+    name?: string;
+    storage?: Types;
+}
+
+export class WebStorage {
     length: number;
 
-    constructor(storage: StorageTypes);
+    constructor(storage: Types);
     get(name: string, def?: any): any;
     set(name: string, value: any, expire?: number): void;
     key(index: number): string | null;
@@ -28,23 +40,9 @@ declare class WebStorage {
     clear(): void;
     on(name: string, callback: () => void): void;
     off(name: string, callback: () => void): void;
-    setOptions(options?: StorageOptions): void;
+    setOptions(options?: Options): void;
 }
 
-export interface StorageOptions {
-    namespace?: string;
-    name?: string;
-    storage?: StorageTypes;
-}
-
-export enum StorageTypes {
-    Session = 'session',
-    Local = 'local',
-    Memory = 'memory',
-}
-
-declare const _default: {
-    install: PluginFunction<StorageOptions>;
+export const VueStorage: {
+    install: PluginFunction<Options>;
 };
-
-export default _default;
