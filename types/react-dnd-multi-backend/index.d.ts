@@ -54,6 +54,10 @@ export interface BackendDeclaration {
      */
     backend: BackendFactory;
     /**
+     * Parameters to the backend
+     */
+    options?: object;
+    /**
      * Flag to indicate that this backend needs to have a custom preview generated. This is mainly
      * used for backends such as the react-dnd-touch-backend, where there is no default preview
      * available.
