@@ -10,7 +10,10 @@
         "typeRoots": ["../"],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@kiwicom/orbit-design-tokens": ["kiwicom__orbit-design-tokens"]
+        }
     },
     "files": ["index.d.ts", "kiwicom__orbit-design-tokens-tests.ts"]
 }

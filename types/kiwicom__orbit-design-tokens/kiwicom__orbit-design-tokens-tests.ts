@@ -24,6 +24,7 @@ const foundation = {
     },
 };
 
+// $ExpectType Tokens
 const foundationTheme = getTokens(foundation);
 
 const palette = {
@@ -39,4 +40,5 @@ const palette = {
     productDarker: '#5b0000',
 };
 
+// $ExpectType Tokens
 const paletteTheme = fromPlainObject(palette);
