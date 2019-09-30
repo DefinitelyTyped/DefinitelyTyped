@@ -694,7 +694,7 @@ declare class w3cwebsocket {
     onclose: () => void;
     onmessage: (message: any) => void;
 
-    constructor(url: string, protocols?: string | string[], origin?: string, headers?: any[], requestOptions?: object, clientConfig?: IClientConfig);
+    constructor(url: string, protocols?: string | string[], origin?: string, headers?: http.OutgoingHttpHeaders, requestOptions?: object, clientConfig?: IClientConfig);
 
     send(data: Buffer): void;
     send(data: IStringified): void;
