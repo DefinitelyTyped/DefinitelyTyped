@@ -415,7 +415,10 @@ declare namespace React {
          *
          * ```ts
          * static contextType = MyContext
+         * // For TS pre-3.7:
          * context!: React.ContextType<typeof MyContext>
+         * // For TS 3.7 and above:
+         * declare context: React.ContextType<typeof MyContext>
          * ```
          *
          * @deprecated if used without a type annotation, or without static contextType
