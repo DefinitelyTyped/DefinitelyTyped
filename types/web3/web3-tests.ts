@@ -4,6 +4,7 @@ import { TransactionReceipt, Log } from "web3/types";
 import PromiEvent from "web3/promiEvent";
 import { NEW_ABI_STANDARD, OLD_ABI_STANDARD } from "web3/test/abi-tests";
 import { Provider, JsonRPCResponse } from "web3/providers";
+import { TxSignature } from "web3/eth/accounts";
 
 const contractAddress = "0xde0B295669a9FD93d5F28D9Ec85E40f4cb697BAe";
 
@@ -112,7 +113,7 @@ const testTx = {
     gas: 2000000
 };
 
-web3.eth.accounts.signTransaction(testTx, "").then(txSig => {
+web3.eth.accounts.signTransaction(testTx, "").then((txSig: TxSignature) => {
     txSig.messageHash = "0x1234";
     txSig.rawTransaction = "0x5678";
 
@@ -130,7 +131,7 @@ const encryptedKeystore = web3.eth.accounts.encrypt("0x1234", "5678");
 encryptedKeystore.crypto.cipher = "aes-128-ctr";
 
 const msgSignature: string = account.sign("0x1234").signature;
-account.signTransaction(testTx).then(txSig => {
+account.signTransaction(testTx).then((txSig: TxSignature) => {
     const txSignature: string = txSig.rawTransaction;
 });
 
@@ -174,7 +175,7 @@ const weiBn: BigNumber = web3.utils.toWei(web3.utils.toBN("1"));
 // $ExpectError
 const weiNumber = web3.utils.toWei(100);
 
-const rndHex: string = Web3.utils.randomHex(10);
+const rndHex: string = web3.utils.randomHex(10);
 const sha3: string = web3.utils.soliditySha3(0, 1, "abc");
 const fromWei1: string = web3.utils.fromWei(new BigNumber(1));
 const fromWei2: string = web3.utils.fromWei(new BigNumber(1), "gwei");
