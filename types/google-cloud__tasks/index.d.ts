@@ -193,7 +193,7 @@ export type EnhancedPick<
   T,
   Req extends keyof T,
   Opt extends keyof T
-> = Required<Pick<T, Req>> & Partial<Pick<T, Req>>;
+> = Required<Pick<T, Req>> & Partial<Pick<T, Opt>>;
 
 export type ProjectIdCallback = (
   err?: Error | null,
