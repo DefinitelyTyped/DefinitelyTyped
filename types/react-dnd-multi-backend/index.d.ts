@@ -1,4 +1,4 @@
-// Type definitions for react-dnd-multi-backend 3.0
+// Type definitions for react-dnd-multi-backend 4.0
 // Project: https://github.com/LouisBrunner/react-dnd-multi-backend, https://louisbrunner.github.io/dnd-multi-backend/packages/react-dnd-multi-backend
 // Definitions by: Janeene Beeforth <https://github.com/dawnmist>
 //                 Adam Haglund <https://github.com/beeequeue>
@@ -53,6 +53,10 @@ export interface BackendDeclaration {
      * Backend - e.g. the one provided by react-dnd-html5-backend.
      */
     backend: BackendFactory;
+    /**
+     * Parameters to the backend
+     */
+    options?: object;
     /**
      * Flag to indicate that this backend needs to have a custom preview generated. This is mainly
      * used for backends such as the react-dnd-touch-backend, where there is no default preview
