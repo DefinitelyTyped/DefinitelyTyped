@@ -138,7 +138,7 @@ const Story = (() => {
                 error => {
                     this.setState({ isLoading: false });
                 },
-                { force: true }
+                { force: true },
             );
         }
 
@@ -171,7 +171,7 @@ const Story = (() => {
                     ...Story_story
                 }
             }
-        `
+        `,
     );
 
     function requiresTheRightProps() {
@@ -395,7 +395,7 @@ type UserFeed_user = {
                 10, // Fetch the next 10 feed items
                 e => {
                     console.log(e);
-                }
+                },
             );
         }
     }
@@ -447,7 +447,7 @@ type UserFeed_user = {
                     }
                 }
             `,
-        }
+        },
     );
 
     function requiresTheRightProps() {
@@ -650,11 +650,11 @@ requestSubscription(
                 store,
                 notifications!,
                 notification!,
-                '<TypeOfNotificationsEdge>'
+                '<TypeOfNotificationsEdge>',
             );
             ConnectionHandler.insertEdgeAfter(notifications!, edge);
         },
-    }
+    },
 );
 
 // ~~~~~~~~~~~~~~~~~~~~~
