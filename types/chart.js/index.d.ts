@@ -151,6 +151,7 @@ declare namespace Chart {
         text?: string;
         fillStyle?: string;
         hidden?: boolean;
+        index?: number;
         lineCap?: 'butt' | 'round' | 'square';
         lineDash?: number[];
         lineDashOffset?: number;
@@ -161,7 +162,7 @@ declare namespace Chart {
     }
 
     interface ChartLegendLabelItem extends ChartLegendItem {
-        datasetIndex: number;
+        datasetIndex?: number;
     }
 
     interface ChartTooltipItem {
