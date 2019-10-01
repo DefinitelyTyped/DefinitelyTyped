@@ -16,7 +16,7 @@ Promise
         lyricist.search('any_song'),
         lyricist.song(1, { fetchLyrics: true, textFormat: LyricistTextFormat.PLAIN }),
         lyricist.songsByArtist(1, { page: 1, perPage: 10, sort: 'asc' }),
-    ])
+    ] as const)
     .then((results) => {
         const album: Album = results[0];
         const artist: Artist = results[1];
