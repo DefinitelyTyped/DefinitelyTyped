@@ -1118,7 +1118,7 @@ declare namespace React {
         which: number;
     }
 
-    interface MouseEvent<T = Element, E = NativeMouseEvent> extends SyntheticEvent<T, E> {
+    interface MouseEvent<T = Element, E = NativeMouseEvent> extends UIEvent<T, E> {
         altKey: boolean;
         button: number;
         buttons: number;
@@ -1154,7 +1154,7 @@ declare namespace React {
         touches: TouchList;
     }
 
-    interface UIEvent<T = Element> extends SyntheticEvent<T, NativeUIEvent> {
+    interface UIEvent<T = Element, E = NativeUIEvent> extends SyntheticEvent<T, E> {
         detail: number;
         view: AbstractView;
     }
