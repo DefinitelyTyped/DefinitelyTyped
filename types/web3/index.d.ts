@@ -29,7 +29,7 @@ import { BatchRequest, Net, Personal } from "./eth/types";
 import Utils from "./utils";
 import Eth from "./eth/index";
 
-declare class Web3 {
+export declare class Web3 {
     static providers: Providers;
     static givenProvider: Provider;
     static modules: {
@@ -54,4 +54,3 @@ declare class Web3 {
     utils: Utils;
 }
 
-export = Web3;
