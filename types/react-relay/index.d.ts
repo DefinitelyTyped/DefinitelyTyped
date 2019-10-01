@@ -36,7 +36,7 @@ export interface RelayRefetchProp {
         refetchVariables: Variables | ((fragmentVariables: Variables) => Variables),
         renderVariables?: Variables | null,
         observerOrCallback?: ObserverOrCallback | null,
-        options?: RefetchOptions
+        options?: RefetchOptions,
     ) => Disposable;
     hasMore: undefined; // ensures no RelayPaginationProp is used with a refetch container
 }
@@ -54,12 +54,12 @@ export interface RelayPaginationProp {
     readonly loadMore: (
         pageSize: number,
         observerOrCallback?: ObserverOrCallback | null,
-        options?: RefetchOptions | null
+        options?: RefetchOptions | null,
     ) => Disposable | null | undefined;
     readonly refetchConnection: (
         totalCount: number,
         observerOrCallback?: ObserverOrCallback | null,
-        refetchVariables?: Variables | null
+        refetchVariables?: Variables | null,
     ) => Disposable | null | undefined;
     refetch: undefined; // ensures no RelayRefetchProp is used with a pagination container
 }
