@@ -2,6 +2,7 @@
 // Project: https://github.com/Kozea/formol
 // Definitions by: today- <https://github.com/today->
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 import * as React from "react";
 
