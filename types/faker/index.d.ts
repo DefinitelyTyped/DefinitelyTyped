@@ -201,8 +201,8 @@ declare namespace Faker {
 
 		random: {
 			number(max?: number): number;
-			number(options: { min?: number, max?: number, precision?: number }): number;
-			float(precision: number): number;
+			number(options?: { min?: number, max?: number, precision?: number }): number;
+			float(precision?: number): number;
 			float(options?: { min?: number, max?: number, precision?: number }): number;
 			arrayElement(): string;
 			arrayElement<T>(array: T[]): T;
