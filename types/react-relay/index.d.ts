@@ -86,6 +86,7 @@ export {
     DeclarativeMutationConfig,
     Disposable,
     Environment,
+    FragmentRef,
     GraphQLTaggedNode,
     MutationType,
     NormalizationSelector,
@@ -102,6 +103,7 @@ export {
     commitMutation,
     fetchQuery,
     graphql,
+    readInlineData,
     requestSubscription,
 } from 'relay-runtime';
 
@@ -123,17 +125,13 @@ export { ReactRelayQueryRenderer as QueryRenderer };
 
 export const ReactRelayContext: React.Context<RelayContext | null>;
 
-interface GeneratedNodeMap {
-    [key: string]: GraphQLTaggedNode;
-}
-
 export type ContainerProps<Props> = MappedFragmentProps<Pick<Props, Exclude<keyof Props, 'relay'>>>;
 
 export type Container<Props> = React.ComponentType<ContainerProps<Props> & { componentRef?: (ref: any) => void }>;
 
 export function createFragmentContainer<Props>(
     Component: React.ComponentType<Props & { relay?: RelayProp }>,
-    fragmentSpec: GraphQLTaggedNode | GeneratedNodeMap
+    fragmentSpec: Record<string, GraphQLTaggedNode>,
 ): Container<Props>;
 
 interface ConnectionData {
@@ -141,21 +139,14 @@ interface ConnectionData {
     pageInfo?: Partial<PageInfo> | null;
 }
 
-export function readInlineData<T extends _RefType<any>>(
-    fragment: GraphQLTaggedNode,
-    ref: FragmentOrRegularProp<T>,
-): T;
-
-type FragmentVariablesGetter = (prevVars: Variables, totalCount: number) => Variables;
-
 export interface ConnectionConfig<Props = object> {
     direction?: 'backward' | 'forward';
     getConnectionFromProps?: (props: Props) => ConnectionData | null | undefined;
-    getFragmentVariables?: FragmentVariablesGetter;
+    getFragmentVariables?: (prevVars: Variables, totalCount: number) => Variables;
     getVariables: (
         props: Props,
         paginationInfo: { count: number; cursor?: string | null },
-        fragmentVariables: Variables
+        fragmentVariables: Variables,
     ) => Variables;
     query: GraphQLTaggedNode;
 }
@@ -166,8 +157,8 @@ export function createPaginationContainer<Props>(
             relay: RelayPaginationProp;
         }
     >,
-    fragmentSpec: GraphQLTaggedNode | GeneratedNodeMap,
-    connectionConfig: ConnectionConfig<Props>
+    fragmentSpec: Record<string, GraphQLTaggedNode>,
+    connectionConfig: ConnectionConfig<Props>,
 ): Container<Props>;
 
 export function createRefetchContainer<Props>(
@@ -176,6 +167,6 @@ export function createRefetchContainer<Props>(
             relay: RelayRefetchProp;
         }
     >,
-    fragmentSpec: GraphQLTaggedNode | GeneratedNodeMap,
-    taggedNode: GraphQLTaggedNode
+    fragmentSpec: Record<string, GraphQLTaggedNode>,
+    refetchQuery: GraphQLTaggedNode,
 ): Container<Props>;

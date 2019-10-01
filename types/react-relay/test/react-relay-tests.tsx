@@ -5,19 +5,19 @@ import * as React from 'react';
 import { Environment, Network, RecordSource, Store, ConnectionHandler } from 'relay-runtime';
 
 import {
-  commitMutation,
-  createFragmentContainer,
-  createPaginationContainer,
-  createRefetchContainer,
-  FragmentOrRegularProp,
-  graphql,
-  QueryRenderer,
-  ReactRelayContext,
-  readInlineData,
-  RelayPaginationProp,
-  RelayProp,
-  RelayRefetchProp,
-  requestSubscription,
+    commitMutation,
+    createFragmentContainer,
+    createPaginationContainer,
+    createRefetchContainer,
+    FragmentRef,
+    graphql,
+    QueryRenderer,
+    ReactRelayContext,
+    readInlineData,
+    RelayPaginationProp,
+    RelayProp,
+    RelayRefetchProp,
+    requestSubscription,
 } from 'react-relay';
 
 // ~~~~~~~~~~~~~~~~~~~~~
@@ -609,9 +609,7 @@ const storyFragment = graphql`
     }
 `;
 
-function functionWithInline(
-    storyRef: FragmentOrRegularProp<Story_story>,
-): Story_story {
+function functionWithInline(storyRef: FragmentRef<Story_story>): Story_story {
     return readInlineData<Story_story>(storyFragment, storyRef);
 }
 

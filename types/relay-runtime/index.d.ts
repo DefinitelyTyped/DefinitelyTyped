@@ -166,6 +166,7 @@ export {
     TYPENAME_KEY,
 } from './lib/store/RelayStoreUtils';
 export { createFragmentSpecResolver } from './lib/store/createFragmentSpecResolver';
+export { FragmentRef, readInlineData } from './lib/store/readInlineData';
 
 // Extensions
 export { RelayDefaultHandlerProvider as DefaultHandlerProvider } from './lib/handlers/RelayDefaultHandlerProvider';
