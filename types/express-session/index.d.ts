@@ -95,7 +95,7 @@ declare namespace session {
     get: (sid: string, callback: (err: any, session?: Express.SessionData | null) => void) => void;
     set: (sid: string, session: Express.SessionData, callback?: (err?: any) => void) => void;
     destroy: (sid: string, callback?: (err?: any) => void) => void;
-    all: (callback: (err: any, obj?: { [sid: string]: Express.SessionData; } | null) => void) => void;
+    all: (callback: (err: any, obj?: Express.SessionData[] | null) => void) => void;
     length: (callback: (err: any, length?: number | null) => void) => void;
     clear: (callback?: (err?: any) => void) => void;
     touch: (sid: string, session: Express.SessionData, callback?: (err?: any) => void) => void;
