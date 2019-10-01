@@ -2,6 +2,7 @@
 import websocket = require('websocket');
 import http = require('http');
 import os = require('os');
+import net = require('net');
 
 /*
 function serverTest() {
@@ -162,39 +163,43 @@ function clientTest2() {
     var ipArray = getLocalIpArray();
 
     var client = new websocket.client();
-    client.on("connect", (conn) => {
+    client.on('connect', conn => {
         console.log(`on connect`);
-        conn.on("frame", (frame) => {
+        conn.on('frame', frame => {
             console.log(`on frame - ${frame.binaryPayload.toString()}`);
         });
-        conn.on("message", (data) => {
+        conn.on('message', data => {
             console.log(`on message - ${data.utf8Data}`);
         });
     });
-    client.on("connectFailed", (err) => {
+    client.on('connectFailed', err => {
         console.log(`on failed: ${err}`);
     });
     client.connect(`ws://${ipArray[0]}:8888`, undefined, undefined, undefined, {
-        localAddress: ipArray[0]
+        localAddress: ipArray[0],
     });
-
 }
 
 function clientTest3() {
     let ipArray = getLocalIpArray();
 
-    let client = new websocket.w3cwebsocket(`${ipArray[0]}:8888`, null, null, {'foo': 'bar', 'set-cookie': ['foo=bar', 'bar=baz']});
+    let client = new websocket.w3cwebsocket(`${ipArray[0]}:8888`, null, null, {
+        foo: 'bar',
+        'set-cookie': ['foo=bar', 'bar=baz'],
+    });
     client.onopen = () => {
         console.log('opened');
-    }
+    };
 
-    client.onmessage = (msg) => {
-        console.log(msg);
-    }
+    client.onmessage = event => {
+        console.log('message');
+        console.log(event);
+    };
 
-    client.onclose = () => {
+    client.onclose = event => {
         console.log('closed');
-    }
+        console.log(event);
+    };
 }
 
 function testClientAbortApi() {
