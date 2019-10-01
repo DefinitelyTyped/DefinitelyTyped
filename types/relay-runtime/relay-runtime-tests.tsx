@@ -68,11 +68,11 @@ function handlerProvider(handle: any) {
 
 function storeUpdater(store: RecordSourceSelectorProxy) {
     const mutationPayload = store.getRootField('sendConversationMessage');
-    const newMessageEdge = mutationPayload.getLinkedRecord('messageEdge');
+    const newMessageEdge = mutationPayload!.getLinkedRecord('messageEdge');
     const conversationStore = store.get('a-conversation-id');
-    const connection = ConnectionHandler.getConnection(conversationStore, 'Messages_messages');
+    const connection = ConnectionHandler.getConnection(conversationStore!, 'Messages_messages');
     if (connection) {
-        ConnectionHandler.insertEdgeBefore(connection, newMessageEdge);
+        ConnectionHandler.insertEdgeBefore(connection, newMessageEdge!);
     }
 }
 
@@ -88,7 +88,7 @@ store.publish(source);
 
 commitLocalUpdate(environment, store => {
     const root = store.get(ROOT_ID);
-    root.setValue('foo', 'localKey');
+    root!.setValue('foo', 'localKey');
 });
 
 // ~~~~~~~~~~~~~~~~~~~~~

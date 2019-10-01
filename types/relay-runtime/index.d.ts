@@ -62,8 +62,6 @@ export {
     FragmentReference,
     FragmentSpecResolver,
     HandleFieldPayload,
-    LogEvent,
-    LogFunction,
     Logger,
     LoggerProvider,
     MissingFieldHandler,
