@@ -16,14 +16,14 @@ Promise
         lyricist.search('any_song'),
         lyricist.song(1, { fetchLyrics: true, textFormat: LyricistTextFormat.PLAIN }),
         lyricist.songsByArtist(1, { page: 1, perPage: 10, sort: 'asc' }),
-    ] as const)
+    ])
     .then((results) => {
         const album: Album = results[0];
         const artist: Artist = results[1];
         const artistByName: Artist = results[2];
         const searchResult: SearchResult[] = results[3];
         const song: Song = results[4];
-        const songsByArtist: SongByArtist[] = results[5];
+        const songsByArtist: SongByArtist[] = results[5] as SongByArtist[];
 
         console.log('album', album.name);
         console.log('artist', artist.name);
