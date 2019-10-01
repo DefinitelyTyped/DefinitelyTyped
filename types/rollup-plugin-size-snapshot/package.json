@@ -1,6 +1,6 @@
 {
     "private": true,
     "dependencies": {
-        "dnd-core": "^4.0.5"
+        "rollup": "^0.63.4"
     }
 }
