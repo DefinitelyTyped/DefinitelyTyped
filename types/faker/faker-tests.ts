@@ -66,13 +66,13 @@ resultDate = faker.date.soon();
 resultDate = faker.date.soon(30);
 resultStr = faker.date.month();
 resultStr = faker.date.month({
-    abbr: true,
-    context: true,
+  abbr: true,
+  context: true,
 });
 resultStr = faker.date.weekday();
 resultStr = faker.date.weekday({
-    abbr: true,
-    context: true,
+  abbr: true,
+  context: true,
 });
 
 resultStr = faker.finance.account();
@@ -194,16 +194,16 @@ resultStr = faker.phone.phoneFormats();
 resultNum = faker.random.number();
 resultNum = faker.random.number(0);
 resultNum = faker.random.number({
-    min: 0,
-    max: 0,
-    precision: 0,
+  min: 0,
+  max: 0,
+  precision: 0,
 });
 resultNum = faker.random.float();
 resultNum = faker.random.number(0.001);
 resultNum = faker.random.number({
-    min: 0,
-    max: 0,
-    precision: 0.001,
+  min: 0,
+  max: 0,
+  precision: 0.001,
 });
 resultStr = faker.random.arrayElement();
 resultStr = faker.random.arrayElement(['foo', 'bar', 'quux']);
