@@ -53,4 +53,3 @@ export declare class Web3 {
     setProvider(provider: Provider): void;
     utils: Utils;
 }
-
