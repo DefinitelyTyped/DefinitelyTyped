@@ -10,7 +10,7 @@
 import * as net from "net";
 
 export type FEED_CONTROL_TYPE = 'LF' | 'GLF' | 'FF' | 'CR' | 'HT' | 'VT';
-export type BITMAP_FORMAT_TYPE = 'S8'  | 'D8' | 'S24' | 'D24';
+export type BITMAP_FORMAT_TYPE = 'S8' | 'D8' | 'S24' | 'D24';
 export type QRCODE_LEVEL = 'L' | 'M' | 'Q' | 'H';
 
 /**
@@ -22,6 +22,7 @@ export type TXT_STYLE = 'NORMAL' | 'B' | 'I' | 'U' | 'U2' | 'BI' | 'BIU' | 'BIU2
 
 export type MIME_TYPE = 'image/png' | 'image/jpg' | 'image/jpeg' | 'image/gif' | 'image/bmp';
 export type BARCODE_TYPE = 'UPC_A' | 'UPC_E' | 'EAN13' | 'EAN8' | 'CODE39' | 'ITF' | 'NW7' | 'CODE93' | 'CODE128';
+
 /**
  * `LT` = Left
  * `CT` = Center
@@ -250,8 +251,8 @@ export namespace command {
     const BEEP: '\x1b\x42'; // Printer Buzzer pre hex
 
     const COLOR: {
-        0: '\x1b\x72\x00', // black
-        1: '\x1b\x72\x01' // red
+        0: '\x1b\x72\x00'; // black
+        1: '\x1b\x72\x01'; // red
     };
 
     const SCREEN: {
@@ -280,54 +281,49 @@ export namespace command {
 }
 
 export interface Adapter {
-    open(callback?: Function): Adapter;
+    open(...args: any[]): Adapter;
 
-    close(callback?: Function, options?: any): Adapter;
-
-    write(data: any, callback: Function): Adapter;
+    write(data: Buffer, callback: (error?: any) => void): Adapter;
 }
 
 export class USB implements Adapter {
     constructor(vid?: string, pid?: string);
 
-    static findPrinter(): USB[];
+    static findPrinter(): USB[] | false;
 
     static getDevice(vid?: string, pid?: string): Promise<USB>;
 
-    open(callback?: Function): USB;
+    open(callback?: (error: any, device?: USB) => void): USB;
 
-    close(callback?: Function): USB;
+    close(callback?: (error?: any) => void): USB;
 
-    write(data: Buffer, callback: Function): USB;
+    write(data: Buffer, callback: (error?: any) => void): USB;
 }
 
 export class Serial implements Adapter {
     constructor(port: number, options?: { baudRate: number; autoOpen: boolean });
 
-    open(callback?: Function): Serial;
+    open(callback?: (error?: any) => void): Serial;
 
-    close(callback?: Function, timeout?: number): Serial;
+    close(callback?: (error: any, device: Serial) => void, timeout?: number): Serial;
 
-    write(data: Buffer, callback: Function): Serial;
+    write(data: Buffer, callback: (error?: any) => void): Serial;
 }
 
 export class Network implements Adapter {
-    constructor(address: string, port: number);
+    constructor(address: string, port?: number);
 
-    open(callback?: Function): Network;
+    open(callback?: (error: any, device: Network) => void): Network;
 
-    close(callback?: Function): Network;
+    close(callback?: (error: any, device: Network) => void): Network;
 
-    write(data: Buffer, callback: Function): Network;
+    write(data: Buffer, callback: (error?: any) => void): Network;
 }
 
 export class Console implements Adapter {
-    constructor(handler?: (data: any[][]) => any);
+    constructor(handler?: (data: any[][]) => void);
 
-    open(callback?: Function): Console;
-
-    /** @deprecated */
-    close(callback?: Function, options?: any): Console;
+    open(callback?: (error?: any) => void): Console;
 
     write(data: Buffer): Console;
 }
@@ -335,8 +331,8 @@ export class Console implements Adapter {
 export class Image {
     constructor(pixels: any);
 
-    static load(url: string, callback?: Function): void;
-    static load(url: string, type: MIME_TYPE, callback?: Function): void;
+    static load(url: string, callback?: (result: Image | Error) => void): void;
+    static load(url: string, type: MIME_TYPE, callback?: (result: Image | Error) => void): void;
 
     size(): { width: number; height: number; colors: number };
 
@@ -355,7 +351,7 @@ export class Image {
 }
 
 export class Printer {
-    constructor(adapter: Adapter, options?: {  encoding: string  });
+    constructor(adapter: Adapter, options?: {  encoding?: string  });
 
     static create(device: Adapter): Promise<Printer>;
 
@@ -373,38 +369,96 @@ export class Printer {
 
     marginRight(size: number): Printer;
 
+    /**
+     * Print raw
+     */
     print(content: any): Printer;
 
+    /**
+     * Print raw with EOL
+     */
     println(content: any): Printer;
 
     newLine(): Printer;
 
+    /**
+     * Print text with EOL
+     */
     text(content: string, encoding?: string): Printer;
 
+    /**
+     * Draw a horizontal line with EOL
+     *
+     * Example:
+     * `-------` 48x
+     */
     drawLine(): Printer;
 
+    /**
+     * Print list of string with EOL
+     */
     table(data: string[], encoding?: string): Printer;
 
-    tableCustom(data: string[], encoding?: string): Printer;
+    tableCustom(
+        data: {
+            text: string,
+            width: number,
+            align: 'LEFT' | 'CENTER' | 'RIGHT'
+        } | {
+            text: string,
+            cols: number,
+            align: 'LEFT' | 'CENTER' | 'RIGHT'
+        },
+        encoding?: string
+    ): Printer;
 
+    /**
+     * Print text
+     */
     pureText(content: string, encoding?: string): Printer;
 
+    /**
+     * Set default encoding
+     * @default `GB18030` (Chinese)
+     */
     encode(encoding: string): Printer;
 
+    /**
+     * Print blank lines
+     */
     feed(n?: number): Printer;
 
+    /**
+     * Carrier feed and tabs.
+     */
     control(ctrl: FEED_CONTROL_TYPE): Printer;
 
     align(align: TXT_ALIGN): Printer;
 
-    font(family: string): Printer;
+    /**
+     * @default 'A'
+     */
+    font(family: 'A' | 'B'): Printer;
 
     style(type: TXT_STYLE): Printer;
 
-    size(width: number, height: number): Printer;
+    /**
+     * Set text size
+     *
+     * 1 is for regular size, and 2 is twice the standard size.
+     *
+     * @default `1`
+     */
+    size(width: 1 | 2, height: 1 | 2): Printer;
 
+    /**
+     * Set character spacing
+     */
     spacing(n?: number): Printer;
 
+    /**
+     * Set line spacing
+     */
     lineSpace(n?: number): Printer;
 
     hardware(hw: string): Printer;
@@ -412,16 +466,29 @@ export class Printer {
     barcode(
         code: string,
         type: BARCODE_TYPE,
-        options?: { width: number; height: number; position: number; font: any; includeParity: boolean }
+        options?: {
+            width: number;
+            height: number;
+            /**
+             * OFF, ABOVE, BELOW, BOTH
+             *
+             * @default BELOW
+             */
+            position: 'OFF' | 'ABV' | 'BLW' | 'BTH';
+            font: 'A' | 'B';
+            includeParity: boolean
+        },
     ): Printer;
 
     qrcode(
         code: string,
-        version: number, level: QRCODE_LEVEL, size: number
+        version: number,
+        level: QRCODE_LEVEL,
+        size: number
     ): Printer;
 
-    qrimage(content: string, callback?: Function): Printer;
-    qrimage(content: string, options?: { type: string; mode: string }, callback?: Function): Printer;
+    qrimage(content: string, callback?: (error: Error | null, printer?: Printer) => void): Printer;
+    qrimage(content: string, options?: { type: string; mode: string }, callback?: (error: Error | null, printer?: Printer) => void): Printer;
 
     image(image: Image, density: BITMAP_FORMAT_TYPE): Printer;
 
@@ -429,62 +496,109 @@ export class Printer {
 
     /**
      * Send pulse to kick the cash drawer
+     *
+     * @default 2
      */
     cashdraw(pin?: number): Printer;
 
-    beep(n: number, t: number): Printer;
+    /**
+     * Printer Buzzer (Beep sound)
+     */
+    beep(numberOfBuzzer: number, time: number): Printer;
 
-    flush(callback?: Function): Printer;
+    /**
+     * Send data to hardware and flush buffer
+     */
+    flush(callback?: (error?: any) => void): Printer;
 
+    /**
+     * Cut paper.
+     *
+     * *** Cut will flush buffer to printer ***
+     *
+     * @param part If true, PAPER_PART_CUT, else PAPER_FULL_CUT
+     * @param feed
+     */
     cut(part?: boolean, feed?: number): Printer;
 
-    close(callback?: Function, options?: any): Printer;
+    close(callback?: (error?: any) => void, options?: any): Printer;
 
+    /**
+     * Select between two print color modes, if your printer supports it
+     * @param color - 0 for primary color (black) 1 for secondary color (red)
+     */
     color(color: 0 | 1): Printer;
 }
 
 export class Screen {
-    constructor(adapter: Adapter, encoding: string);
+    constructor(adapter: Adapter, options?: {  encoding?: string  });
 
     static create(device: Adapter): Promise<Screen>;
 
-    clear(callback?: Function): Screen;
+    clear(callback?: (error?: any) => void): Screen;
 
-    clearLine(callback?: Function): Screen;
+    clearLine(callback?: (error?: any) => void): Screen;
 
-    moveUp(callback?: Function): Screen;
+    moveUp(callback?: (error?: any) => void): Screen;
 
-    moveLeft(callback?: Function): Screen;
+    moveLeft(callback?: (error?: any) => void): Screen;
 
-    moveRight(callback?: Function): Screen;
+    moveRight(callback?: (error?: any) => void): Screen;
 
-    moveDown(callback?: Function): Screen;
+    moveDown(callback?: (error?: any) => void): Screen;
 
-    moveHome(callback?: Function): Screen;
+    moveHome(callback?: (error?: any) => void): Screen;
 
-    moveMaxRight(callback?: Function): Screen;
+    moveMaxRight(callback?: (error?: any) => void): Screen;
 
-    moveMaxLeft(callback?: Function): Screen;
+    moveMaxLeft(callback?: (error?: any) => void): Screen;
 
-    moveBottom(callback?: Function): Screen;
+    moveBottom(callback?: (error?: any) => void): Screen;
 
+    /**
+     * Moves the cursor.
+     */
     move(n: number, m: number): Screen;
 
-    overwrite(callback?: Function): Screen;
+    /**
+     * Selects overwrite mode as the screen display mode.
+     */
+    overwrite(callback?: (error?: any) => void): Screen;
 
-    verticalScroll(callback?: Function): Screen;
+    /**
+     * Selects vertical scroll mode as the screen display mode.
+     */
+    verticalScroll(callback?: (error?: any) => void): Screen;
 
-    horizontalScroll(callback?: Function): Screen;
+    /**
+     * Selects horizontal scroll mode as the display screen mode.
+     */
+    horizontalScroll(callback?: (error?: any) => void): Screen;
 
+    /**
+     * Turn cursor display mode on/off.
+     */
     cursor(display: boolean): Screen;
 
+    /**
+     * Sets display screen blank interval.
+     */
     blink(step: number): Screen;
 
-    timer(h: number, m: number): Screen;
+    /**
+     * Sets the counter time and displays it in the bottom right of the screen.
+     */
+    timer(hour: number, minute: number): Screen;
 
+    /**
+     * Displays the time counter at the right side of the bottom line.
+     */
     displayTimer(): Screen;
 
-    brightness(level: number): Screen;
+    /**
+     * Sets the brightness of the fluorescent character display tube.
+     */
+    brightness(level: 1 | 2 | 3 | 4): Screen;
 
     /**
      * Selects or cancels reverse display of the characters received after this command
@@ -496,10 +610,13 @@ export class Screen {
      */
     DTR(n: boolean): Screen;
 
+    /**
+     * Print raw
+     */
     print(content: string): Screen;
 
     /**
-     * [function Print encoded alpha-numeric text with End Of Line]
+     * Print text
      */
     text(content: string, encoding: string): Screen;
 
@@ -508,9 +625,9 @@ export class Screen {
     /**
      * Send data to hardware and flush buffer
      */
-    flush(callback?: Function): Screen;
+    flush(callback?: (error?: any) => void): Screen;
 
-    close(callback?: Function, options?: any): Screen;
+    close(callback?: (error?: any) => void, options?: any): Screen;
 }
 
 export class Server extends net.Server {

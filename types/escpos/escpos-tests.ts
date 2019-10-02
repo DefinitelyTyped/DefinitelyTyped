@@ -15,7 +15,7 @@ let printer = new Printer(usb, { encoding: 'GB18030' });
 printer = new Printer(serial, { encoding: 'GB18030' });
 printer = new Printer(network, { encoding: 'GB18030' });
 printer = new Printer(consl, { encoding: 'GB18030' });
-const screen = new Screen(serial, 'GB18030');
+const screen = new Screen(serial, { encoding: 'GB18030' });
 
 usb.open((error: any) => {
     printer
