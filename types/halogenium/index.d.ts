@@ -2,82 +2,77 @@
 // Project: https://github.com/kirillDanshin/halogenium#readme
 // Definitions by: Weslley Nascimento Rocha <https://github.com/WeslleyNasRocha>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.6
+// TypeScript Version: 2.8
 
-import * as React from "react";
+import * as React from 'react';
 
-export type VerticalAlign = "baseline" | "length" | "sub" | "super" | "top" | "text-top" | "middle" | "bottom" | "text-bottom" | "initial" | "inherit";
+export type VerticalAlign =
+    | 'baseline'
+    | 'length'
+    | 'sub'
+    | 'super'
+    | 'top'
+    | 'text-top'
+    | 'middle'
+    | 'bottom'
+    | 'text-bottom'
+    | 'initial'
+    | 'inherit';
 
 export interface HalogenCommonProps {
-  loading?: boolean;
-  color?: string;
-  id?: string;
-  className?: string;
-  verticalAlign?: VerticalAlign;
+    loading?: boolean;
+    color?: string;
+    id?: string;
+    className?: string;
+    verticalAlign?: VerticalAlign;
 }
 
 export interface SizeLoaderProps extends HalogenCommonProps {
-  size?: string;
+    size?: string;
 }
 
 export interface MarginLoaderProps<T> extends HalogenCommonProps {
-  margin?: T;
-  size?: T;
+    margin?: T;
+    size?: T;
 }
 
 export interface RadiusLoaderProps extends MarginLoaderProps<string> {
-  height?: string;
-  width?: string;
-  radius?: string;
+    height?: string;
+    width?: string;
+    radius?: string;
 }
 
 /**
  * React components
  */
-export type PulseLoader = React.Component<MarginLoaderProps<string>>;
-export const PulseLoader: React.ComponentClass<MarginLoaderProps<string>>;
+export class PulseLoader extends React.Component<MarginLoaderProps<string>> {}
 
-export type RotateLoader = React.Component<MarginLoaderProps<string>>;
-export const RotateLoader: React.ComponentClass<MarginLoaderProps<string>>;
+export class RotateLoader extends React.Component<MarginLoaderProps<string>> {}
 
-export type BeatLoader = React.Component<MarginLoaderProps<string>>;
-export const BeatLoader: React.ComponentClass<MarginLoaderProps<string>>;
+export class BeatLoader extends React.Component<MarginLoaderProps<string>> {}
 
-export type RiseLoader = React.Component<MarginLoaderProps<string>>;
-export const RiseLoader: React.ComponentClass<MarginLoaderProps<string>>;
+export class RiseLoader extends React.Component<MarginLoaderProps<string>> {}
 
-export type SyncLoader = React.Component<MarginLoaderProps<string>>;
-export const SyncLoader: React.ComponentClass<MarginLoaderProps<string>>;
+export class SyncLoader extends React.Component<MarginLoaderProps<string>> {}
 
-export type GridLoader = React.Component<MarginLoaderProps<string>>;
-export const GridLoader: React.ComponentClass<MarginLoaderProps<string>>;
+export class GridLoader extends React.Component<MarginLoaderProps<string>> {}
 
-export type ClipLoader = React.Component<SizeLoaderProps>;
-export const ClipLoader: React.ComponentClass<SizeLoaderProps>;
+export class ClipLoader extends React.Component<SizeLoaderProps> {}
 
-export type SquareLoader = React.Component<SizeLoaderProps>;
-export const SquareLoader: React.ComponentClass<SizeLoaderProps>;
+export class SquareLoader extends React.Component<SizeLoaderProps> {}
 
-export type DotLoader = React.Component<SizeLoaderProps>;
-export const DotLoader: React.ComponentClass<SizeLoaderProps>;
+export class DotLoader extends React.Component<SizeLoaderProps> {}
 
-export type PacmanLoader = React.Component<MarginLoaderProps<number>>;
-export const PacmanLoader: React.ComponentClass<MarginLoaderProps<number>>;
+export class PacmanLoader extends React.Component<MarginLoaderProps<number>> {}
 
-export type MoonLoader = React.Component<SizeLoaderProps>;
-export const MoonLoader: React.ComponentClass<SizeLoaderProps>;
+export class MoonLoader extends React.Component<SizeLoaderProps> {}
 
-export type RingLoader = React.Component<SizeLoaderProps>;
-export const RingLoader: React.ComponentClass<SizeLoaderProps>;
+export class RingLoader extends React.Component<SizeLoaderProps> {}
 
-export type BounceLoader = React.Component<SizeLoaderProps>;
-export const BounceLoader: React.ComponentClass<SizeLoaderProps>;
+export class BounceLoader extends React.Component<SizeLoaderProps> {}
 
-export type SkewLoader = React.Component<SizeLoaderProps>;
-export const SkewLoader: React.ComponentClass<SizeLoaderProps>;
+export class SkewLoader extends React.Component<SizeLoaderProps> {}
 
-export type FadeLoader = React.Component<RadiusLoaderProps>;
-export const FadeLoader: React.ComponentClass<RadiusLoaderProps>;
+export class FadeLoader extends React.Component<RadiusLoaderProps> {}
 
-export type ScaleLoader = React.Component<RadiusLoaderProps>;
-export const ScaleLoader: React.ComponentClass<RadiusLoaderProps>;
+export class ScaleLoader extends React.Component<RadiusLoaderProps> {}
