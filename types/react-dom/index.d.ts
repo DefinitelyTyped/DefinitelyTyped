@@ -1,4 +1,4 @@
-// Type definitions for React (react-dom) 16.9
+// Type definitions for React (react-dom) 16.10
 // Project: http://facebook.github.io/react/
 // Definitions by: Asana <https://asana.com>
 //                 AssureSign <http://www.assuresign.com>
@@ -112,13 +112,13 @@ export interface SyncRoot {
     unmount(callback?: () => void): void;
 }
 
-export function unstable_createSyncRoot(container: Element, options?: RootOptions): SyncRoot;
+export function unstable_createSyncRoot(container: HTMLElement, options?: RootOptions): SyncRoot;
 
 export interface Root extends SyncRoot {
   createBatch(): Batch;
 }
 
 export function unstable_createRoot(
-    container: Element,
+    container: HTMLElement,
     options?: RootOptions
 ): Root;
