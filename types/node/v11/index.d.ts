@@ -38,6 +38,7 @@
 //                 Jordi Oliveras Rovira <https://github.com/j-oliveras>
 //                 Thanik Bhongbhibhat <https://github.com/bhongy>
 //                 Ivan Sieder <https://github.com/ivansieder>
+//                 Minh Son Nguyen <https://github.com/nguymin4>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // NOTE: These definitions support NodeJS and TypeScript 3.2.

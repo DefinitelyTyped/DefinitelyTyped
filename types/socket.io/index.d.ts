@@ -6,6 +6,7 @@
 //                 KentarouTakeda <https://github.com/KentarouTakeda>
 //                 Alexey Snigirev <https://github.com/gigi>
 //                 Ezinwa Okpoechi <https://github.com/BrainMaestro>
+//                 Marek Urbanowicz <https://github.com/murbanowicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference types="node" />
@@ -662,6 +663,12 @@ declare namespace SocketIO {
 		 * @return This Socket
 		 */
 		compress( compress: boolean ): Socket;
+
+        /**
+         * Emits the error
+         * @param err Error message=
+         */
+        error(err: any): void;
 	}
 
 	interface Handshake {

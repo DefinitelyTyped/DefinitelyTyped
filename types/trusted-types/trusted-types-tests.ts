@@ -3,6 +3,9 @@ import TT from 'trusted-types';
 // $ExpectType TrustedTypePolicyFactory
 TT;
 
+// $ExpectError
+trustedTypes;
+
 const rules = {
     createHTML: (s: string) => s,
     createScript: (s: string) => s,
@@ -48,3 +51,13 @@ window.trustedTypes.isScript(html);
 window.trustedTypes.isScriptURL(html);
 // $ExpectType boolean
 window.trustedTypes.isURL(html);
+
+// test that types are globaly available
+const trustedHTML: TrustedHTML = null as any;
+const trustedScript: TrustedScript = null as any;
+
+// $ExpectError
+trustedHTML = trustedScript;
+
+// $ExpectError
+new TrustedHTML();

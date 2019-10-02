@@ -3725,7 +3725,6 @@ const Example113 = (props: any) => {
   };
 
 class Example114 extends React.Component<any, any> {
-    state: any;
     private element: HTMLElement;
 
     refFn(r: HTMLElement | null) {

@@ -5,10 +5,12 @@ import {
     RecordSource,
     Store,
     ConnectionHandler,
-    ViewerHandler,
     commitLocalUpdate,
     QueryResponseCache,
     ROOT_ID,
+    RelayNetworkLoggerTransaction,
+    createRelayNetworkLogger,
+    RecordSourceSelectorProxy,
 } from 'relay-runtime';
 
 const source = new RecordSource();
@@ -31,8 +33,10 @@ function fetchQuery(operation: any, variables: { [key: string]: string }, cacheC
     });
 }
 
+const RelayNetworkLogger = createRelayNetworkLogger(RelayNetworkLoggerTransaction);
+
 // Create a network layer from the fetch function
-const network = Network.create(fetchQuery);
+const network = Network.create(RelayNetworkLogger.wrapFetch(fetchQuery));
 
 // Create a cache for storing query responses
 const cache = new QueryResponseCache({ size: 250, ttl: 60000 });
@@ -62,6 +66,16 @@ function handlerProvider(handle: any) {
     throw new Error(`handlerProvider: No handler provided for ${handle}`);
 }
 
+function storeUpdater(store: RecordSourceSelectorProxy) {
+    const mutationPayload = store.getRootField('sendConversationMessage');
+    const newMessageEdge = mutationPayload.getLinkedRecord('messageEdge');
+    const conversationStore = store.get('a-conversation-id');
+    const connection = ConnectionHandler.getConnection(conversationStore, 'Messages_messages');
+    if (connection) {
+        ConnectionHandler.insertEdgeBefore(connection, newMessageEdge);
+    }
+}
+
 // ~~~~~~~~~~~~~~~~~~~~~
 // Source
 // ~~~~~~~~~~~~~~~~~~~~~
@@ -73,7 +87,7 @@ store.publish(source);
 // ~~~~~~~~~~~~~~~~~~~~~
 
 commitLocalUpdate(environment, store => {
-    const root = store.get(ROOT_ID)!;
+    const root = store.get(ROOT_ID);
     root.setValue('foo', 'localKey');
 });
 
