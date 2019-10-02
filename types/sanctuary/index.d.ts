@@ -101,7 +101,9 @@ interface Category<A> extends Semigroupoid<A, A> {}
 interface Semigroup<A> {}
 interface Monoid<A> extends Semigroup<A> {}
 interface Functor<A> {}
-interface Bifunctor<A, C> extends Functor<C> {}
+interface Bifunctor<A, C> extends Functor<C> {
+  'fantasy-land/bimap'<B>(p: Fn<A, B>): <D>(q: Fn<C, D>) => (r: Bifunctor<A, C>) => Bifunctor<B, D>;
+}
 interface Profunctor<B, C> extends Functor<C> {}
 interface Apply<A> extends Functor<A> {}
 interface Applicative<A> extends Apply<A> {}
@@ -171,7 +173,7 @@ declare namespace Sanctuary {
     };
     flip(tk: TK): (tk: TK) => TK;
     bimap<A, B>(p: Fn<A, B>): <C, D>(q: Fn<C, D>) => (r: Bifunctor<A, C>) => Bifunctor<B, D>;
-    mapLeft(tk: TK): (tk: TK) => TK;
+    mapLeft<LA, LB>(p: Fn<LA, LB>): <R>(q: Bifunctor<LA, R>) => Bifunctor<LB, R>;
     promap<A, B>(p: Fn<A, B>): <C, D>(q: Fn<C, D>) => {
       (r: Fn<B, C>): Fn<A, D>;
       (r: Profunctor<B, C>): Profunctor<A, D>;
