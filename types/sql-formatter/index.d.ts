@@ -6,7 +6,7 @@
 export as namespace sqlFormatter;
 
 declare namespace sqlFormatter {
-    export function format(
+    function format(
         query: string,
         cfg?: { language?: string; indent?: string; params?: { [x: string]: string } | string[] },
     ): string;
