@@ -161,38 +161,43 @@ export class Openload {
 
     constructor(config: OpenloadConfig);
 
+    // TypeScript Version: 3.6
     get config(): OpenloadConfig;
+
+    // TypeScript Version: 3.6
     set config(object: OpenloadConfig);
+
+    // TypeScript Version: 3.6
     get locationPrefix(): string;
 
-    public getAccountInfo(): Promise<AccountInfo>;
+    getAccountInfo(): Promise<AccountInfo>;
 
-    public getDownloadTicket(file: string): Promise<DownloadTicket>;
+    getDownloadTicket(file: string): Promise<DownloadTicket>;
 
-    public getDownloadLink(obj: DownloadLinkParam): Promise<DownloadLink>;
+    getDownloadLink(obj: DownloadLinkParam): Promise<DownloadLink>;
 
-    public getDownload(file: string): Promise<DownloadLink>;
+    getDownload(file: string): Promise<DownloadLink>;
 
-    public getFileInfo(file: string): Promise<FileInfo>;
+    getFileInfo(file: string): Promise<FileInfo>;
 
-    public deleteFile(file: string | string[]): Promise<[boolean]>;
+    deleteFile(file: string | string[]): Promise<[boolean]>;
 
-    public listFolder(folder: string): Promise<ListFolder>;
+    listFolder(folder: string): Promise<ListFolder>;
 
-    public getFolder(folder: string): Promise<ListFolder>;
+    getFolder(folder: string): Promise<ListFolder>;
 
-    public remoteUpload(obj: RemoteUploadParam): Promise<RemoteUpload>;
+    remoteUpload(obj: RemoteUploadParam): Promise<RemoteUpload>;
 
-    public remoteUploadStatus(obj: RemoteUploadStatusParam): Promise<RemoteUploadStatus>;
+    remoteUploadStatus(obj: RemoteUploadStatusParam): Promise<RemoteUploadStatus>;
 
-    public upload(obj: UploadParam, cb: (progress: UploadProgress) => void): Promise<Upload>;
+    upload(obj: UploadParam, cb: (progress: UploadProgress) => void): Promise<Upload>;
 
-    public getSplashImage(file: string): Promise<string>;
+    getSplashImage(file: string): Promise<string>;
 }
 
 /**
  * Exports a Singleton of the Openload class by default
- * @param config {OpenloadConfig} The base config containing the user credentials
- * @returns {Openload} An Openload singleton
+ * @param config The base config containing the user credentials
+ * @returns An Openload singleton
  */
-export default function openload(config: OpenloadConfig): Openload;
+export default function(config: OpenloadConfig): Openload;
