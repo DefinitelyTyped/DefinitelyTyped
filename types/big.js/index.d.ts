@@ -349,6 +349,4 @@ declare global {
             RoundUp = 3,
         }
     }
-
-    const Big: BigJs.BigConstructor;
 }
