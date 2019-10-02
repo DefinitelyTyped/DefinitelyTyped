@@ -64,7 +64,9 @@ declare module "tty" {
     }
 
     global {
-        type WriteStream = import('tty').WriteStream;
-        type ReadStream = import('tty').ReadStream;
+        namespace NodeJS {
+            type WriteStream = import('tty').WriteStream;
+            type ReadStream = import('tty').ReadStream;
+        }
     }
 }
