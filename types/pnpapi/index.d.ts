@@ -11,50 +11,51 @@ declare namespace NodeJS {
     }
 }
 
+// tslint:disable-next-line:no-declare-current-package
 declare module 'pnpapi' {
-    export interface PhysicalPackageLocator {
+    interface PhysicalPackageLocator {
         name: string;
         reference: string;
     }
 
-    export interface TopLevelPackageLocator {
+    interface TopLevelPackageLocator {
       name: null;
       reference: null;
     }
 
-    export type PackageLocator =
+    type PackageLocator =
       | PhysicalPackageLocator
       | TopLevelPackageLocator;
 
-    export interface PackageInformation {
+    interface PackageInformation {
         packageLocation: string;
         packageDependencies: Map<string, null | string | [string, string]>;
         linkType: 'HARD' | 'SOFT';
     }
 
-    export const VERSIONS: { std: number; [key: string]: number };
+    const VERSIONS: { std: number; [key: string]: number };
 
-    export const topLevel: { name: null; reference: null };
+    const topLevel: { name: null; reference: null };
 
-    export function getDependencyTreeRoots(): PackageLocator[];
+    function getDependencyTreeRoots(): PackageLocator[];
 
-    export function getPackageInformation(locator: PackageLocator): PackageInformation;
+    function getPackageInformation(locator: PackageLocator): PackageInformation;
 
-    export function findPackageLocator(location: string): PackageLocator | null;
+    function findPackageLocator(location: string): PackageLocator | null;
 
-    export function resolveToUnqualified(
+    function resolveToUnqualified(
         request: string,
         issuer: string | null,
         opts?: { considerBuiltins?: boolean },
     ): string | null;
 
-    export function resolveUnqualified(unqualified: string, opts?: { extensions?: string[] }): string;
+    function resolveUnqualified(unqualified: string, opts?: { extensions?: string[] }): string;
 
-    export function resolveRequest(
+    function resolveRequest(
       request: string,
       issuer: string | null,
       opts?: { considerBuiltins?: boolean; extensions?: string[] },
     ): string | null;
 
-    export function setup(): void;
+    function setup(): void;
 }
