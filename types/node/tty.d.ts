@@ -62,11 +62,4 @@ declare module "tty" {
         rows: number;
         isTTY: boolean;
     }
-
-    global {
-        namespace NodeJS {
-            type WriteStream = import('tty').WriteStream;
-            type ReadStream = import('tty').ReadStream;
-        }
-    }
 }
