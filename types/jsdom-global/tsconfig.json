@@ -12,9 +12,6 @@
         "typeRoots": [
             "../"
         ],
-        "paths": {
-            "jsdom": ["jsdom/v2"]
-        },
         "esModuleInterop": true,
         "types": [],
         "noEmit": true,
