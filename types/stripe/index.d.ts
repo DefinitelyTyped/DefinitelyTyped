@@ -3463,6 +3463,12 @@ declare namespace Stripe {
             charge: string | charges.ICharge | null;
 
             /**
+             * @deprecated Whether or not the invoice is still trying to collect payment. An invoice is closed if it's either paid or
+             * it has been marked closed. A closed invoice will no longer attempt to collect payment.
+             */
+            closed?: boolean;
+
+            /**
              * Either charge_automatically, or send_invoice. When charging automatically, Stripe will attempt to pay
              * this invoice using the default source attached to the customer. When sending an invoice, Stripe will
              * email this invoice to the customer with payment instructions.
@@ -3529,6 +3535,11 @@ declare namespace Stripe {
             customer_tax_ids: customerTaxIds.ITaxIdCreationOptions[];
 
             /**
+             * @deprecated Time at which the object was created. Measured in seconds since the Unix epoch.
+             */
+            date?: number;
+
+            /**
              * ID of the default payment method for the invoice. It must belong to the customer associated with the invoice.
              * If not set, defaults to the subscription’s default payment method, if any, or to the default payment method in
              * the customer’s invoice settings.
@@ -3571,6 +3582,13 @@ declare namespace Stripe {
              * Footer displayed on the invoice.
              */
             footer: string;
+
+            /**
+             * @deprecated Whether or not the invoice has been forgiven. Forgiving an invoice instructs us to update the subscription
+             * status as if the invoice were succcessfully paid. Once an invoice has been forgiven, it cannot be unforgiven
+             * or reopened
+             */
+            forgiven?: boolean;
 
             /**
              * The URL for the hosted invoice page, which allows customers to view and pay an
@@ -5969,7 +5987,7 @@ declare namespace Stripe {
              /**
               * String representing the object’s type. Objects of the same type share the same value.
               */
-             object: "tax_rate";
+             object: 'tax_rate';
 
              /**
               * Defaults to true. When set to false, this tax rate cannot be applied to objects in the API, but will still be applied to subscriptions and invoices that already have it set.
