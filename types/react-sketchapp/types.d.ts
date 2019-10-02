@@ -38,7 +38,7 @@ export interface SketchDocumentData {
     layerStyles: () => void;
     layerTextStyles: () => SketchSharedStyleContainer;
     layerSymbols: () => void;
-    removePageAtIndex: () => void;
+    removePageAtIndex: (index: number) => void;
     addBlankPage: () => SketchPage;
     currentPage: () => SketchPage;
     setCurrentPage: (page: SketchPage) => void;
