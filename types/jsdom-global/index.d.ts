@@ -13,7 +13,7 @@ declare function jsdom_global(html?: string | Buffer, options?: jsdom_global.Jsd
 
 declare namespace jsdom_global {
     interface JsdomOptions {
-        contentType: string;
+        contentType?: string;
         url?: string;
         referrer?: string;
         includeNodeLocations?: boolean;
@@ -21,7 +21,7 @@ declare namespace jsdom_global {
         virtualConsole?: VirtualConsole;
         resources?: string;
         runScripts?: string;
-        beforeParse?: () => void;
+        beforeParse?(): void;
         pretendToBeVisual?: boolean;
         storageQuota?: number;
     }
