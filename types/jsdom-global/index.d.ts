@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
-import { CookieJar, VirtualConsole} from 'jsdom';
+import { CookieJar, VirtualConsole } from 'jsdom';
 
 export = jsdomGlobal;
 
