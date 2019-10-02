@@ -300,7 +300,7 @@ declare namespace echarts {
             /**
              * The text style of tooltip's floating layer.
              */
-            textStyle?: {};
+            textStyle?: BaseTextStyle;
 
             /**
              * Extra CSS style for floating layer.

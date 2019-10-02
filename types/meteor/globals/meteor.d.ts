@@ -112,7 +112,7 @@ declare module Meteor {
 
     function wrapAsync(func: Function, context?: Object): any;
 
-    function bindEnvironment(func: Function): any;
+    function bindEnvironment<TFunc extends Function>(func: TFunc): TFunc;
     /** utils **/
 
     /** Pub/Sub **/

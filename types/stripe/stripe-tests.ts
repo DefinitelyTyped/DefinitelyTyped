@@ -1015,13 +1015,6 @@ stripe.accounts
 stripe.accounts
     .create({
         type: 'custom',
-    })
-    .then(customer => {
-        // asynchronously called
-    });
-stripe.accounts
-    .create({
-        type: 'custom',
         business_type: 'individual',
         individual: {
             first_name: 'John',
