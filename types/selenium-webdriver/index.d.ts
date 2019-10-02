@@ -6,6 +6,7 @@
 //   Simon Gellis <https://github.com/SupernaviX>,
 //   Ben Dixon <https://github.com/bendxn>,
 //   Ziyu <https://github.com/oddui>
+//   Johann Wolf <https://github.com/beta-vulgaris>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -14,7 +15,8 @@ import * as edge from './edge';
 import * as firefox from './firefox';
 import * as ie from './ie';
 import { By, ByHash } from './lib/by';
-import { Command, ICommandName, Name } from './lib/command';
+import * as command from './lib/command';
+import * as http from './http';
 import { Actions, Button, Key, Origin } from './lib/input';
 import { promise } from './lib/promise';
 import * as until from './lib/until';
@@ -1067,7 +1069,7 @@ export class Builder {
    * @return {?string} The URL of the proxy server to use for the WebDriver's
    *    HTTP connections, or `null` if not set.
    */
-  getWebDriverProxy(): string;
+  getWebDriverProxy(): string|null;
 
   /**
    * Sets the default action to take with an unexpected alert before returning
@@ -1076,7 +1078,7 @@ export class Builder {
    *     'dismiss', or 'ignore'. Defaults to 'dismiss'.
    * @return {!Builder} A self reference.
    */
-  setAlertBehavior(behavior: string): Builder;
+  setAlertBehavior(behavior?: string): Builder;
 
   /**
    * Sets Chrome-specific options for drivers created by this builder. Any
@@ -1090,6 +1092,21 @@ export class Builder {
   setChromeOptions(options: chrome.Options): Builder;
 
   /**
+   * @return {chrome.Options} the Chrome specific options currently configured
+   *     for this builder.
+   */
+  getChromeOptions(): chrome.Options;
+
+  /**
+   * Sets the service builder to use for managing the chromedriver child process
+   * when creating new Chrome sessions.
+   *
+   * @param {chrome.ServiceBuilder} service the service to use.
+   * @return {!Builder} A self reference.
+   */
+  setChromeService(service: chrome.ServiceBuilder): Builder;
+
+  /**
    * Set {@linkplain edge.Options options} specific to Microsoft's Edge browser
    * for drivers created by this builder. Any proxy settings defined on the
    * given options will take precedence over those set through
@@ -1099,6 +1116,15 @@ export class Builder {
    * @return {!Builder} A self reference.
    */
   setEdgeOptions(options: edge.Options): Builder;
+
+  /**
+   * Sets the {@link edge.ServiceBuilder} to use to manage the
+   * MicrosoftEdgeDriver child process when creating sessions locally.
+   *
+   * @param {edge.ServiceBuilder} service the service to use.
+   * @return {!Builder} a self reference.
+   */
+  setEdgeService(service: edge.ServiceBuilder): Builder;
 
   /**
    * Sets Firefox-specific options for drivers created by this builder. Any
@@ -1112,6 +1138,21 @@ export class Builder {
   setFirefoxOptions(options: firefox.Options): Builder;
 
   /**
+   * @return {firefox.Options} the Firefox specific options currently configured
+   *     for this instance.
+   */
+  getFirefoxOptions(): firefox.Options;
+
+  /**
+   * Sets the {@link firefox.ServiceBuilder} to use to manage the geckodriver
+   * child process when creating Firefox sessions locally.
+   *
+   * @param {firefox.ServiceBuilder} service the service to use.
+   * @return {!Builder} a self reference.
+   */
+  setFirefoxService(service: firefox.ServiceBuilder): Builder;
+
+  /**
    * Set Internet Explorer specific {@linkplain ie.Options options} for drivers
    * created by this builder. Any proxy settings defined on the given options
    * will take precedence over those set through {@link #setProxy}.
@@ -1120,6 +1161,15 @@ export class Builder {
    * @return {!Builder} A self reference.
    */
   setIeOptions(options: ie.Options): Builder;
+
+  /**
+   * Sets the {@link ie.ServiceBuilder} to use to manage the geckodriver
+   * child process when creating IE sessions locally.
+   *
+   * @param {ie.ServiceBuilder} service the service to use.
+   * @return {!Builder} a self reference.
+   */
+  setIeService(service: ie.ServiceBuilder): Builder;
 
   /**
    * Sets the logging preferences for the created session. Preferences may be
@@ -1147,7 +1197,13 @@ export class Builder {
    * @param {!safari.Options} options The Safari options to use.
    * @return {!Builder} A self reference.
    */
-  setSafari(options: safari.Options): Builder;
+  setSafariOptions(options: safari.Options): Builder;
+
+  /**
+   * @return {safari.Options} the Safari specific options currently configured
+   *     for this instance.
+   */
+  getSafariOptions(): safari.Options;
 
   /**
    * Sets the http agent to use for each request.
@@ -1158,6 +1214,11 @@ export class Builder {
    * @return {!Builder} A self reference.
    */
   usingHttpAgent(agent: any): Builder;
+
+  /**
+   * @return {http.Agent} The http agent used for each request
+   */
+  getHttpAgent(): any|null;
 
   /**
    * Sets the URL of a remote WebDriver server to use. Once a remote URL has
@@ -1370,7 +1431,7 @@ export class Capabilities {
    *     'dismiss', or 'ignore'. Defaults to 'dismiss'.
    * @return {!Capabilities} A self reference.
    */
-  setAlertBehavior(behavior: string): Capabilities;
+  setAlertBehavior(behavior?: string): Capabilities;
 
   /**
    * @param {string} key The capability to return.
@@ -1453,24 +1514,6 @@ export class Capabilities {
   static htmlunitwithjs(): Capabilities;
 
   // endregion
-}
-
-/**
- * Handles the execution of WebDriver {@link Command commands}.
- * @interface
- */
-export class Executor {
-  /**
-   * Executes the given {@code command}. If there is an error executing the
-   * command, the provided callback will be invoked with the offending error.
-   * Otherwise, the callback will be invoked with a null Error and non-null
-   * response object.
-   *
-   * @param {!Command} command The command to execute.
-   * @return {!Promise<?>} A promise that will be fulfilled with
-   *     the command result.
-   */
-  execute(command: Command): Promise<any>;
 }
 
 /**
@@ -2072,7 +2115,7 @@ export class WebDriver {
    * @param {!command.Executor} executor The executor to use when sending
    *     commands to the browser.
    */
-  constructor(session: Session|Promise<Session>, executor: Executor);
+  constructor(session: Session|Promise<Session>, executor: http.Executor);
 
   // endregion
 
@@ -2153,7 +2196,7 @@ export class WebDriver {
    *     with the command result.
    * @template T
    */
-  execute<T>(command: Command, description?: string): Promise<T>;
+  execute<T>(command: command.Command, description?: string): Promise<T>;
 
   /**
    * Sets the {@linkplain input.FileDetector file detector} that should be
@@ -2162,7 +2205,7 @@ export class WebDriver {
    */
   setFileDetector(detector: FileDetector): void;
 
-  getExecutor(): Executor;
+  getExecutor(): command.Executor;
 
   /**
    * @return {!Promise.<!Session>} A promise for this

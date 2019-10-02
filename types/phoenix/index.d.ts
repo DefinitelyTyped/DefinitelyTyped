@@ -31,23 +31,26 @@ export class Channel {
   onMessage(event: string, payload: any, ref: any): any;
 
   on(event: string, callback: (response?: any) => void): number;
-  off(event: string): void;
+  off(event: string, ref?: number): void;
 
   push(event: string, payload: object, timeout?: number): Push;
 }
 
+export type BinaryType = 'arraybuffer' | 'blob';
 export type ConnectionState = 'connecting' | 'open' | 'closing' | 'closed';
 
 export interface SocketConnectOption {
+  binaryType: BinaryType;
   params: object | (() => object);
   transport: string;
   timeout: number;
   heartbeatIntervalMs: number;
-  reconnectAfterMs: number;
   longpollerTimeout: number;
   encode: (payload: object, callback: (encoded: any) => void) => void;
   decode: (payload: string, callback: (decoded: any) => void) => void;
   logger: (kind: string, message: string, data: any) => void;
+  reconnectAfterMs: (tries: number) => number;
+  rejoinAfterMs: (tries: number) => number;
 }
 
 export class Socket {

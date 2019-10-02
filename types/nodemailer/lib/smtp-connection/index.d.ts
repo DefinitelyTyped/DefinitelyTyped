@@ -22,17 +22,23 @@ declare namespace SMTPConnection {
 
     type OAuth2 = XOAuth2.Options;
 
+    interface AuthenticationTypeCustom extends Credentials {
+        /** indicates the authetication type, defaults to ‘login’, other option is ‘oauth2’ or ‘custom’ */
+        type: 'custom' | 'Custom' | 'CUSTOM';
+        method: string;
+    }
+
     interface AuthenticationTypeLogin extends Credentials {
-        /** indicates the authetication type, defaults to ‘login’, other option is ‘oauth2’ */
+        /** indicates the authetication type, defaults to ‘login’, other option is ‘oauth2’ or ‘custom’ */
         type?: 'login' | 'Login' | 'LOGIN';
     }
 
     interface AuthenticationTypeOAuth2 extends OAuth2 {
-        /** indicates the authetication type, defaults to ‘login’, other option is ‘oauth2’ */
+        /** indicates the authetication type, defaults to ‘login’, other option is ‘oauth2’ or ‘custom’ */
         type?: 'oauth2' | 'OAuth2' | 'OAUTH2';
     }
 
-    type AuthenticationType = AuthenticationTypeLogin | AuthenticationTypeOAuth2;
+    type AuthenticationType = AuthenticationTypeCustom | AuthenticationTypeLogin | AuthenticationTypeOAuth2;
 
     interface AuthenticationCredentials {
         /** normal authentication object */
@@ -42,6 +48,30 @@ declare namespace SMTPConnection {
     interface AuthenticationOAuth2 {
         /**  if set then forces smtp-connection to use XOAuth2 for authentication */
         oauth2: OAuth2;
+    }
+
+    interface CustomAuthenticationResponse {
+        command: string;
+        response: string;
+        status: number;
+        text: string;
+        code?: number;
+    }
+
+    interface CustomAuthenticationContext {
+        auth: AuthenticationCredentials;
+        authMethod: string;
+        extensions: string[];
+        authMethods: string[];
+        maxAllowedSize: number | false;
+        sendCommand(cmd: string): Promise<CustomAuthenticationResponse>;
+        sendCommand(cmd: string, done: (err: Error | null, data: CustomAuthenticationResponse) => void): void;
+        resolve(): unknown;
+        reject(err: Error | string): unknown;
+    }
+
+    interface CustomAuthenticationHandlers {
+        [method: string]: (ctx: CustomAuthenticationContext) => Promise<boolean> | unknown;
     }
 
     type DSNOption = 'NEVER' | 'SUCCESS' | 'FAILURE' | 'DELAY';
@@ -137,6 +167,7 @@ declare namespace SMTPConnection {
         socket?: net.Socket;
         /** connected socket to use instead of creating and connecting a new one. If secure option is true, then socket is upgraded from plaintext to ciphertext */
         connection?: net.Socket;
+        customAuth?: CustomAuthenticationHandlers;
     }
 }
 

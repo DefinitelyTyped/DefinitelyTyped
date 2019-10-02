@@ -16,10 +16,15 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "jsx": "react",
-        "strictFunctionTypes": true
+        "strictFunctionTypes": true,
+        "allowSyntheticDefaultImports": true
     },
     "files": [
         "index.d.ts",
+        "preact.d.ts",
+        "use-location.d.ts",
+        "static-location.d.ts",
+        "matcher.d.ts",
         "wouter-tests.tsx"
     ]
 }

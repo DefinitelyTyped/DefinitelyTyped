@@ -57,6 +57,10 @@ interface dwtEnv {
     UseDefaultInstallUI: boolean;
     initQueue: any[];
     inited: boolean;
+
+    IfAddMD5InUploadHeader: boolean;
+    IfConfineMaskWithinTheViewer: boolean;
+    CustomizableDisplayInfo: any;
 }
 
 interface DynamsoftLib {
@@ -3200,6 +3204,24 @@ interface WebTwain {
     HTTPUploadThroughPutEx(HTTPServer: string, sImageIndex: number, RemoteFileName: string, lImageType: EnumDWT_ImageType, optionalAsyncSuccessFunc?: () => void, optionalAsyncFailureFunc?: (errorCode: number, errorString: string) => void): boolean;
 
     /**
+     * Converts the image ID of an image to its index.
+     * [Version] Added in v15.0
+     * @method WebTwain#ImageIDToIndex
+     * @param {number} sImageID specifies the imageID.
+     * @return {number}
+     */
+    ImageIDToIndex(sImageID: number): number;
+
+    /**
+     * Converts the index of an image to its image ID.
+     * [Version] Added in v15.0
+     * @method WebTwain#IndexToImageID
+     * @param {number} sImageIndex specifies the index.
+     * @return {number}
+     */
+    IndexToImageID(sImageIndex: number): number;
+
+    /**
      * [Deprecated.] Detects whether an image is blank.
      * @method WebTwain#IsBlankImage
      * @param {number} sImageIndex specifies the index of image in buffer. The index is 0-based.
@@ -3740,9 +3762,13 @@ interface WebTwain {
     /**
      * Shows the GUI of Image Editor.
      * @method WebTwain#ShowImageEditor
+     * @param {string} elEditorDIV Specifies a DIV by its ID to put the editor in
+     * @param {number} width Specifies the width of the DIV
+     * @param {number} height Specifies the height of the DIV
+     * @param {boolean} bHideToolBar Specifies whether to show the toolbar or not 
      * @return {boolean}
      */
-    ShowImageEditor(): boolean;
+    ShowImageEditor(elEditorDIV?: string, width?: number, height?: number, bHideToolBar?: boolean): boolean;
 
     /**
      * [Deprecated.] Shows the GUI of Image Editor with custom settings.
@@ -3759,6 +3785,14 @@ interface WebTwain {
     /*ingored    
     SourceNameItems
     */
+    
+    /**
+     * Shows the GUI of Image Editor.
+     * @method WebTwain#startScan
+     * @return {Promise}
+     * @param {any} scanSetup Specifies how images are scanned and outputed
+     */
+    startScan(scanSetup: any): Promise<any>;
 
     /**
      * Switchs two images of specified indices in buffer.
@@ -3778,6 +3812,14 @@ interface WebTwain {
      */
     UnregisterEvent(name: string, evt: object): boolean;
 
+	TagImages(aryImageIndices: number[], tagName: string): boolean;
+	
+    SetDefaultTag(tagName: string): boolean;
+	
+    ClearImageTags(sImageIndex: number): boolean;
+	
+    FilterImagesByTag(tagName: string): boolean;
+	
     /*ignored
     checkErrorString
     first

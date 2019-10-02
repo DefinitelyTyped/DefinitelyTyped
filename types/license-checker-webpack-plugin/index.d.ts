@@ -19,6 +19,12 @@ declare namespace LicenseCheckerWebpackPlugin {
         licenseText: string;
     }
 
+    interface OutputWriterArgs {
+        dependencies: Dependency[];
+    }
+
+    type OutputWriter = (args: OutputWriterArgs) => string;
+
     interface Options {
         /**
          * Regular expression that matches the file paths of dependencies to check.
@@ -59,7 +65,7 @@ declare namespace LicenseCheckerWebpackPlugin {
          * Path to a `.ejs` template, or function that will generate the contents
          * of the third-party notices file.
          */
-        outputWriter: string | ((dependencies: Dependency[]) => string);
+        outputWriter: string | OutputWriter;
 
         /**
          * Name of the third-party notices file with all licensing information.

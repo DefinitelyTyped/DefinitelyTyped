@@ -8,9 +8,13 @@
 //                 A penguin <https://github.com/sirMerr>
 //                 Johan Davidsson <https://github.com/johandavidson>
 //                 Jianrong Yu <https://github.com/YuJianrong>
+//                 GP <https://github.com/paambaati>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
-import {Options} from "htmlparser2";
+///<reference types="htmlparser2"/>
+
+import { Options } from "htmlparser2";
 
 export = sanitize;
 
@@ -25,9 +29,10 @@ declare namespace sanitize {
 
   type Transformer = (tagName: string, attribs: Attributes) => Tag;
 
+  type AllowedAttribute = string | { name: string; multiple?: boolean; values: string[] };
 
   interface IDefaults {
-    allowedAttributes: { [index: string]: string[] };
+    allowedAttributes: { [index: string]: AllowedAttribute[] };
     allowedSchemes: string[];
     allowedSchemesByTag: { [index: string]: string[] };
     allowedTags: string[];
@@ -44,7 +49,7 @@ declare namespace sanitize {
 
 
   interface IOptions {
-    allowedAttributes?: { [index: string]: string[] } | boolean;
+    allowedAttributes?: { [index: string]: AllowedAttribute[] } | boolean;
     allowedStyles?:  { [index: string]: { [index: string]: RegExp[] } };
     allowedClasses?: { [index: string]: string[] } | boolean;
     allowedIframeHostnames?: string[];

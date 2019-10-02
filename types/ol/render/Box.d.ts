@@ -1,7 +1,8 @@
-import Disposable from 'ol/Disposable';
-import Polygon from 'ol/geom/Polygon';
-import { Pixel } from 'ol/pixel';
-import PluggableMap from 'ol/PluggableMap';
+import Disposable from '../Disposable';
+import Polygon from '../geom/Polygon';
+import { Pixel } from '../pixel';
+import PluggableMap from '../PluggableMap';
+
 export default class RenderBox extends Disposable {
     constructor(className: string);
     createOrUpdateGeometry(): void;

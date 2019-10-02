@@ -29,7 +29,7 @@ declare namespace WebpackDevServer {
 
     type ProxyConfigArrayItem = {
         path?: string | string[];
-        context?: string | string[] | httpProxyMiddleware.Filter
+        context?: string | string[] | httpProxyMiddleware.Filter;
     } & httpProxyMiddleware.Config;
 
     type ProxyConfigArray = ProxyConfigArrayItem[];
@@ -105,10 +105,12 @@ declare namespace WebpackDevServer {
         /** Specify a page to navigate to when opening the browser. */
         openPage?: string;
         /** Shows a full-screen overlay in the browser when there are compiler errors or warnings. Disabled by default. */
-        overlay?: boolean | {
-            warnings?: boolean;
-            errors?: boolean;
-        };
+        overlay?:
+            | boolean
+            | {
+                  warnings?: boolean;
+                  errors?: boolean;
+              };
         /** When used via the CLI, a path to an SSL .pfx file. If used in options, it should be the bytestream of the .pfx file. */
         pfx?: string;
         /** The passphrase to a SSL PFX file. */
@@ -165,10 +167,7 @@ declare module 'webpack' {
 }
 
 declare class WebpackDevServer {
-    constructor(
-        webpack: webpack.Compiler | webpack.MultiCompiler,
-        config: WebpackDevServer.Configuration
-    );
+    constructor(webpack: webpack.Compiler | webpack.MultiCompiler, config?: WebpackDevServer.Configuration);
 
     static addDevServerEntrypoints(
         webpackOptions: webpack.Configuration | webpack.Configuration[],

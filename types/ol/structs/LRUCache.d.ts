@@ -1,23 +1,24 @@
-import { EventsKey } from 'ol/events';
-import Event from 'ol/events/Event';
-import Target from 'ol/events/Target';
+import { EventsKey } from '../events';
+import Event from '../events/Event';
+import Target from '../events/Target';
+
 export interface Entry {
     key_: string;
-    newer: { [key: string]: any };
-    older: { [key: string]: any };
+    newer: any;
+    older: any;
     value_: any;
 }
 export default class LRUCache<T> extends Target {
     constructor(opt_highWaterMark?: number);
-    peekFirstKey(): string;
     canExpireCache(): boolean;
+    clear(): void;
     containsKey(key: string): boolean;
-    forEach<S>(f: (<T>(this: S, param1: T, param2: string, param3: LRUCache<T>) => void), opt_this?: S): void;
+    forEach<S>(f: (this: S, p0: T, p1: string, p2: LRUCache<T>) => any, opt_this?: S): void;
     get(key: string): T;
     getCount(): number;
     getKeys(): string[];
     getValues(): T[];
-    clear(): void;
+    peekFirstKey(): string;
     peekLast(): T;
     peekLastKey(): string;
     pop(): T;
@@ -26,9 +27,9 @@ export default class LRUCache<T> extends Target {
     replace(key: string, value: T): void;
     set(key: string, value: T): void;
     setSize(size: number): void;
-    on(type: string | string[], listener: ((param0: any) => void)): EventsKey | EventsKey[];
-    once(type: string | string[], listener: ((param0: any) => void)): EventsKey | EventsKey[];
-    un(type: string | string[], listener: ((param0: any) => void)): void;
+    on(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
+    once(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
+    un(type: string | string[], listener: (p0: any) => void): void;
     on(type: 'change', listener: (evt: Event) => void): EventsKey;
     once(type: 'change', listener: (evt: Event) => void): EventsKey;
     un(type: 'change', listener: (evt: Event) => void): void;

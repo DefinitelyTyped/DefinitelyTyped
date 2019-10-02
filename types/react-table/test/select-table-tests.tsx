@@ -34,6 +34,7 @@ const selectTableAdditionalProps: SelectTableAdditionalProps = {
     keyField: 'id',
     selectAll: true,
     selectType: 'checkbox',
+    selectWidth: 50,
     toggleAll: () => null,
     toggleSelection: () => null,
     SelectInputComponent: SelectInput,

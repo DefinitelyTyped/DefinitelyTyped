@@ -1,23 +1,31 @@
-import Control from 'ol/control/Control';
-import { CoordinateFormat } from 'ol/coordinate';
-import { EventsKey } from 'ol/events';
-import Event from 'ol/events/Event';
-import MapEvent from 'ol/MapEvent';
-import { ObjectEvent } from 'ol/Object';
-import { ProjectionLike } from 'ol/proj';
-import Projection from 'ol/proj/Projection';
-export function render(mapEvent: MapEvent): void;
+import { CoordinateFormat } from '../coordinate';
+import { EventsKey } from '../events';
+import Event from '../events/Event';
+import MapEvent from '../MapEvent';
+import { ObjectEvent } from '../Object';
+import { ProjectionLike } from '../proj';
+import Projection from '../proj/Projection';
+import Control from './Control';
+
+export interface Options {
+    className?: string;
+    coordinateFormat?: CoordinateFormat;
+    projection?: ProjectionLike;
+    render?: (p0: MapEvent) => void;
+    target?: HTMLElement | string;
+    undefinedHTML?: string;
+}
 export default class MousePosition extends Control {
     constructor(opt_options?: Options);
     protected handleMouseMove(event: Event): void;
     protected handleMouseOut(event: Event): void;
-    getCoordinateFormat(): CoordinateFormat;
-    getProjection(): Projection;
+    getCoordinateFormat(): CoordinateFormat | undefined;
+    getProjection(): Projection | undefined;
     setCoordinateFormat(format: CoordinateFormat): void;
     setProjection(projection: ProjectionLike): void;
-    on(type: string | string[], listener: ((param0: any) => void)): EventsKey | EventsKey[];
-    once(type: string | string[], listener: ((param0: any) => void)): EventsKey | EventsKey[];
-    un(type: string | string[], listener: ((param0: any) => void)): void;
+    on(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
+    once(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
+    un(type: string | string[], listener: (p0: any) => void): void;
     on(type: 'change', listener: (evt: Event) => void): EventsKey;
     once(type: 'change', listener: (evt: Event) => void): EventsKey;
     un(type: 'change', listener: (evt: Event) => void): void;
@@ -31,11 +39,4 @@ export default class MousePosition extends Control {
     once(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
     un(type: 'propertychange', listener: (evt: ObjectEvent) => void): void;
 }
-export interface Options {
-    className?: string;
-    coordinateFormat?: CoordinateFormat;
-    projection?: ProjectionLike;
-    render?: ((param0: MapEvent) => void);
-    target?: HTMLElement | string;
-    undefinedHTML?: string;
-}
+export function render(mapEvent: MapEvent): void;

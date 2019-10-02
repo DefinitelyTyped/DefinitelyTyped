@@ -54,7 +54,8 @@ export interface DeserializerOptions {
         | "underscore_case"
         | "snake_case"
         | "camelCase"
-        | "CamelCase";
+        | "CamelCase"
+        | KeyForAttribute;
     pluralizeType?: boolean;
     typeAsAttribute?: boolean;
     transform?: Transform;

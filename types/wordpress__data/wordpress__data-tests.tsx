@@ -1,5 +1,4 @@
 import * as data from '@wordpress/data';
-import { NamedFormatConfiguration } from '@wordpress/rich-text';
 
 data.select('core/block-editor').isTyping<boolean>();
 data.dispatch('core/block-editor').resetBlocks('');
@@ -39,18 +38,21 @@ const HookComponent = () => {
 //
 // `dispatch` overload tests
 //
-data.dispatch('core/rich-text').addFormatTypes({
-    className: null,
-    edit: () => null,
-    name: 'my/foo',
-    tagName: 'a',
-    title: 'foo',
-});
-data.dispatch('core/rich-text').removeFormatTypes('my/foo');
-data.dispatch('core/rich-text').removeFormatTypes(['my/foo', 'my/bar']);
 
-//
-// `select` overload tests
-//
-data.select('core/rich-text').getFormatTypes(); // $ExpectType NamedFormatConfiguration[]
-data.select('core/rich-text').getFormatTypeForBareElement('a'); // $ExpectType NamedFormatConfiguration | undefined
+// $ExpectType Record<string, <T = void>(...args: readonly any[]) => T>
+data.dispatch('foo/bar');
+
+// $ExpectType void
+data.dispatch('foo/bar').foobar();
+
+// $ExpectType number
+data.dispatch('foo/bar').foobar<number>();
+
+// $ExpectType Record<string, <T = unknown>(...args: readonly any[]) => T>
+data.select('foo/bar');
+
+// $ExpectType unknown
+data.select('foo/bar').getFoo();
+
+// $ExpectType string
+data.select('foo/bar').getFoo<string>();

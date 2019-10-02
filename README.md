@@ -16,7 +16,8 @@ Also see the [definitelytyped.org](http://definitelytyped.org) website, although
         * [Create a new package](#create-a-new-package)
         * [Common mistakes](#common-mistakes)
         * [Removing a package](#removing-a-package)
-        * [Lint](#lint)
+        * [Linter](#linter)
+        * [Verifying](#verifying)
 * [FAQ](#faq)
 
 ## Current status
@@ -94,7 +95,7 @@ Add to your `tsconfig.json`:
 
 (You can also use `src/types`.)
 Create `types/foo/index.d.ts` containing declarations for the module "foo".
-You should now be able import from `"foo"` in your code and it will route to the new type definition.
+You should now be able to import from `"foo"` in your code and it will route to the new type definition.
 Then build *and* run the code to make sure your type definition actually corresponds to what happens at runtime.
 Once you've tested your definitions with real code, make a [PR](#make-a-pull-request)
 then follow the instructions to [edit an existing package](#edit-an-existing-package) or
@@ -159,7 +160,7 @@ For a good example package, see [base64-js](https://github.com/DefinitelyTyped/D
 #### Common mistakes
 
 * First, follow advice from the [handbook](http://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html).
-* Formatting: Either use all tabs, or always use 4 spaces.
+* Formatting: Use 4 spaces. For new code, this is enforced by Prettier.
 * `function sum(nums: number[]): number`: Use `ReadonlyArray` if a function does not write to its parameters.
 * `interface Foo { new(): Foo; }`:
     This defines a type of objects that are new-able. You probably want `declare class Foo { constructor(); }`.
@@ -205,7 +206,7 @@ When you add a `package.json` to dependents of `foo`, you will also need to open
 
 If a package was never on Definitely Typed, it does not need to be added to `notNeededPackages.json`.
 
-#### Lint
+#### Linter
 
 All new packages must be linted. To lint a package, add a `tslint.json` to that package containing
 ```js
@@ -240,8 +241,11 @@ f("one");
 
 For more details, see [dtslint](https://github.com/Microsoft/dtslint#write-tests) readme.
 
-Test by running `npm run lint package-name` where `package-name` is the name of your package.
-This script uses [dtslint](https://github.com/Microsoft/dtslint).
+## Verifying
+
+Test your changes by running `npm run lint package-name` where `package-name` is the name of your package.
+
+This script uses [dtslint](https://github.com/Microsoft/dtslint) to run the TypeScript compiler against your dts files.
 
 
 ## FAQ
@@ -265,10 +269,16 @@ If the module you're referencing is an ambient module (uses `declare module`, or
 
 #### I notice some packages having a `package.json` here.
 
-Usually you won't need this. When publishing a package we will normally automatically create a `package.json` for it.
-A `package.json` may be included for the sake of specifying dependencies. Here's an [example](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/pikaday/package.json).
-We do not allow other fields, such as `"description"`, to be defined manually.
-Also, if you need to reference an older version of typings, you must do that by adding `"dependencies": { "@types/foo": "x.y.z" }` to the package.json.
+Usually you won't need this.
+Definitely Typed's package publisher creates a `package.json` for packages with no dependencies outside Definitely Typed.
+A `package.json` may be included to specify dependencies that are not other `@types` packages.
+[Pikaday is a good example.](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/pikaday/package.json)
+Even if you write your own `package.json`, you can only specify dependencies; other fields such as `"description"` are not allowed.
+You also need to add the dependency to [the list of allowed packages](https://github.com/microsoft/types-publisher/blob/master/dependenciesWhitelist.txt).
+This list is updated by a human, which gives us the chance to make sure that `@types` packages don't depend on malicious packages.
+
+In the rare case that an `@types` package is deleted and removed in favor of types shipped by the source package AND you need to depend on the old, removed `@types` package, you can add a dependency on an `@types` package.
+Be sure to explain this when adding to the list of allowed packages so that the human maintainer knows what is happening.
 
 #### Some packages have no `tslint.json`, and some `tsconfig.json` are missing `"noImplicitAny": true`, `"noImplicitThis": true`, or `"strictNullChecks": true`.
 

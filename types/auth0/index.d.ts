@@ -1,9 +1,11 @@
-// Type definitions for auth0 2.9.3
+// Type definitions for auth0 2.9.4
 // Project: https://github.com/auth0/node-auth0
 // Definitions by: Seth Westphal <https://github.com/westy92>
 //                 Ian Howe <https://github.com/ianhowe76>
 //                 Alex Bjørlig <https://github.com/dauledk>
 //                 Dan Rumney <https://github.com/dancrumb>
+//                 Peter <https://github.com/pwrnrd>
+//                 Anthony Messerschmidt <https://github.com/CatGuardian>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -47,6 +49,10 @@ export interface UserData<A = AppMetadata, U=UserMetadata> {
   username?: string;
   email_verified?: boolean;
   verify_email?: boolean;
+  user_id?: string;
+  blocked?: boolean;
+  nickname?: string;
+  picture?: string;
   password?: string;
   phone_number?: string;
   phone_verified?: boolean;
@@ -174,6 +180,13 @@ export interface PermissionPage extends Page {
     permissions: Permission[];
 }
 
+export type Grant =
+  | 'authorization_code'
+  | 'client_credentials'
+  | 'implicit'
+  | 'password'
+  | 'refresh_token';
+
 export interface Client {
   /**
    * The name of the client.
@@ -216,12 +229,26 @@ export interface Client {
   client_aliases?: string[];
   allowed_clients?: string[];
   allowed_logout_urls?: string[];
-  jwt_configuration?: any;
+  jwt_configuration?: {
+    // The amount of time (in seconds) that the token will be valid after being issued
+    lifetime_in_seconds?: number;
+    scopes?: {};
+    // The algorithm used to sign the JsonWebToken
+    alg?: 'HS256' | 'RS256';
+  };
+  /** 
+   * A set of grant types that the client is authorized to use
+   */
+  grant_types?: Grant[];
   /**
    * Client signing keys.
    */
   signing_keys?: string[];
-  encryption_key?: any;
+  encryption_key?: {
+    pub?: string;
+    cert?: string;
+    subject?: string;
+  };
   sso?: boolean;
   /**
    * `true` to disable Single Sign On, `false` otherwise (default: `false`)
@@ -289,6 +316,14 @@ export interface ResourceServer {
    * A friendly name for the resource server.
    */
   name?: string;
+  /**
+   * Enables the enforcement of the authorization policies.
+   */
+  enforce_policies?: boolean;
+  /**
+   * The dialect for the access token.
+   */
+  token_dialect?: 'access_token' | 'access_token_authz';
 }
 
 export interface CreateResourceServer extends ResourceServer {
@@ -401,14 +436,15 @@ export interface User<A=AppMetadata, U=UserMetadata> {
   created_at?: string;
   updated_at?: string;
   identities?: Identity[];
-  app_metadata: A;
-  user_metadata: U;
+  app_metadata?: A;
+  user_metadata?: U;
   picture?: string;
   name?: string;
   nickname?: string;
   multifactor?: string[];
   last_ip?: string;
   last_login?: string;
+  last_password_reset?: string;
   logins_count?: number;
   blocked?: boolean;
   given_name?: string;
@@ -652,12 +688,14 @@ export interface ExportUserField {
 }
 
 export interface PasswordChangeTicketParams {
-  result_url?: string;
-  user_id?: string;
-  new_password?: string;
-  connection_id?: string;
-  email?: string;
-  ttl_sec?: number;
+    result_url?: string;
+    user_id?: string;
+    new_password?: string;
+    connection_id?: string;
+    email?: string;
+    ttl_sec?: number;
+    mark_email_as_verified?: boolean;
+    includeEmailInRedirect?: boolean;
 }
 
 export interface PasswordChangeTicketResponse {
@@ -979,6 +1017,17 @@ export class ManagementClient<A=AppMetadata, U=UserMetadata> {
 
   blacklistToken(token: Token): Promise<any>;
   blacklistToken(token: Token, cb: (err: Error, data: any) => void): void;
+
+
+  // Templates
+  createEmailTemplate(data: Data): Promise<any>;
+  createEmailTemplate(data: Data, cb?: (err: Error) => void): void;
+
+  getEmailTemplate(data: Data): Promise<any>;
+  getEmailTemplate(data: Data, cb?: (err: Error, data: any) => void): void;
+
+  updateEmailTemplate(params: {}, data: Data): Promise<any>;
+  updateEmailTemplate(params: {}, data: Data, cb?: (err: Error, data: any) => void): void;
 
 
   // Providers

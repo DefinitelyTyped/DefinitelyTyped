@@ -1,4 +1,4 @@
-// Type definitions for React 16.8
+// Type definitions for React 16.9
 // Project: http://facebook.github.io/react/
 // Definitions by: Asana <https://asana.com>
 //                 AssureSign <http://www.assuresign.com>
@@ -9,7 +9,6 @@
 //                 Digiguru <https://github.com/digiguru>
 //                 Eric Anderson <https://github.com/ericanderson>
 //                 Dovydas Navickas <https://github.com/DovydasNavickas>
-//                 Stéphane Goetz <https://github.com/onigoetz>
 //                 Josh Rutherford <https://github.com/theruther4d>
 //                 Guilherme Hübner <https://github.com/guilhermehubner>
 //                 Ferdy Budhidharma <https://github.com/ferdaber>
@@ -21,7 +20,6 @@
 //                 Saransh Kataria <https://github.com/saranshkataria>
 //                 Kanitkorn Sujautra <https://github.com/lukyth>
 //                 Sebastian Silbermann <https://github.com/eps1lon>
-//                 Chris Sauve <https://github.com/lemonmade>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -350,13 +348,6 @@ declare namespace React {
 
         /** A fallback react tree to show when a Suspense child (like React.lazy) suspends */
         fallback: NonNullable<ReactNode>|null;
-
-        // I tried looking at the code but I have no idea what it does.
-        // https://github.com/facebook/react/issues/13206#issuecomment-432489986
-        /**
-         * Not implemented yet, requires unstable_ConcurrentMode
-         */
-        // maxDuration?: number;
     }
     /**
      * This feature is not yet available for server-side rendering.
@@ -383,7 +374,7 @@ declare namespace React {
         onRender: ProfilerOnRenderCallback;
     }
 
-    const unstable_Profiler: ExoticComponent<ProfilerProps>;
+    const Profiler: ExoticComponent<ProfilerProps>;
 
     //
     // Component API
@@ -424,7 +415,10 @@ declare namespace React {
          *
          * ```ts
          * static contextType = MyContext
+         * // For TS pre-3.7:
          * context!: React.ContextType<typeof MyContext>
+         * // For TS 3.7 and above:
+         * declare context: React.ContextType<typeof MyContext>
          * ```
          *
          * @deprecated if used without a type annotation, or without static contextType
@@ -448,7 +442,7 @@ declare namespace React {
             callback?: () => void
         ): void;
 
-        forceUpdate(callBack?: () => void): void;
+        forceUpdate(callback?: () => void): void;
         render(): ReactNode;
 
         // React.Props<T> is now deprecated, which means that the `children`
@@ -734,6 +728,7 @@ declare namespace React {
     // but can be given its own specific name
     interface ForwardRefExoticComponent<P> extends NamedExoticComponent<P> {
         defaultProps?: Partial<P>;
+        propTypes?: WeakValidationMap<P>;
     }
 
     function forwardRef<T, P = {}>(Component: RefForwardingComponent<T, P>): ForwardRefExoticComponent<PropsWithoutRef<P> & RefAttributes<T>>;
@@ -805,9 +800,7 @@ declare namespace React {
     // based on the code in https://github.com/facebook/react/pull/13968
 
     // Unlike the class component setState, the updates are not allowed to be partial
-    type SetStateAction<S> = S extends ((...args: any[]) => any) ?
-        (prevState: S) => S :
-        (S | ((prevState: S) => S));
+    type SetStateAction<S> = S | ((prevState: S) => S);
     // this technically does accept a second argument, but it's already under a deprecation warning
     // and it's not even released so probably better to not define it.
     type Dispatch<A> = (value: A) => void;
@@ -1808,6 +1801,7 @@ declare namespace React {
         href?: string;
         hrefLang?: string;
         media?: string;
+        ping?: string;
         rel?: string;
         target?: string;
         type?: string;
@@ -1864,6 +1858,10 @@ declare namespace React {
 
     interface ColgroupHTMLAttributes<T> extends HTMLAttributes<T> {
         span?: number;
+    }
+
+    interface DataHTMLAttributes<T> extends HTMLAttributes<T> {
+        value?: string | string[] | number;
     }
 
     interface DetailsHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -2170,6 +2168,7 @@ declare namespace React {
         headers?: string;
         rowSpan?: number;
         scope?: string;
+        valign?: "top" | "middle" | "bottom" | "baseline";
     }
 
     interface ThHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -2197,6 +2196,7 @@ declare namespace React {
         playsInline?: boolean;
         poster?: string;
         width?: number | string;
+        disablePictureInPicture?: boolean;
     }
 
     // this list is "complete" in that it contains every SVG attribute
@@ -2520,7 +2520,7 @@ declare namespace React {
         code: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
         col: DetailedHTMLFactory<ColHTMLAttributes<HTMLTableColElement>, HTMLTableColElement>;
         colgroup: DetailedHTMLFactory<ColgroupHTMLAttributes<HTMLTableColElement>, HTMLTableColElement>;
-        data: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        data: DetailedHTMLFactory<DataHTMLAttributes<HTMLDataElement>, HTMLDataElement>;
         datalist: DetailedHTMLFactory<HTMLAttributes<HTMLDataListElement>, HTMLDataListElement>;
         dd: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
         del: DetailedHTMLFactory<DelHTMLAttributes<HTMLElement>, HTMLElement>;
@@ -2852,7 +2852,7 @@ declare global {
             code: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
             col: React.DetailedHTMLProps<React.ColHTMLAttributes<HTMLTableColElement>, HTMLTableColElement>;
             colgroup: React.DetailedHTMLProps<React.ColgroupHTMLAttributes<HTMLTableColElement>, HTMLTableColElement>;
-            data: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            data: React.DetailedHTMLProps<React.DataHTMLAttributes<HTMLDataElement>, HTMLDataElement>;
             datalist: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDataListElement>, HTMLDataListElement>;
             dd: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
             del: React.DetailedHTMLProps<React.DelHTMLAttributes<HTMLElement>, HTMLElement>;

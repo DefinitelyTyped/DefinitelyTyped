@@ -1,4 +1,4 @@
-// Type definitions for dwt 14.3
+// Type definitions for dwt 15.2
 // Project: https://www.dynamsoft.com/products/webtwain_overview.aspx
 // Definitions by: Xiao Ling <https://github.com/yushulx>
 //                 Josh Hall <https://github.com/jbh>
@@ -23,7 +23,7 @@
 *
 * Copyright 2019, Dynamsoft Corporation
 * Author: Dynamsoft Support Team
-* Version: 14.3.1
+* Version: 15.2
 */
 
 declare const Dynamsoft: DynamsoftStatic;

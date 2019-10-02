@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
 
-import { ComponentType, Consumer, Provider, useContext } from 'react';
+import { ComponentType, Consumer, Provider, useContext } from '@wordpress/element';
 import { AnyAction as Action, combineReducers, Reducer } from 'redux';
 
 /**
@@ -16,18 +16,12 @@ export { Action, combineReducers };
 // Core functionality
 //
 export type SelectorMap = Record<string, <T = unknown>(...args: readonly any[]) => T>;
-export type DispatcherMap = Record<string, <T = unknown>(...args: readonly any[]) => T>;
+export type DispatcherMap = Record<string, <T = void>(...args: readonly any[]) => T>;
 export type Subscriber = (callback: () => void) => void;
 
-export const subscribe: Subscriber;
-
-// Dispatch overloads
-export function dispatch(key: 'core/rich-text'): typeof import('./stores/rich-text/actions');
 export function dispatch(key: string): DispatcherMap;
-
-// Select overloads
-export function select(key: 'core/rich-text'): typeof import('./stores/rich-text/selectors');
 export function select(key: string): SelectorMap;
+export const subscribe: Subscriber;
 
 //
 // Stores

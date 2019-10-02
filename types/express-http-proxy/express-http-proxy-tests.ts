@@ -128,3 +128,17 @@ proxy("httpbin.org", {
 proxy("httpbin.org", {
     timeout: 2000
 });
+
+proxy("www.google.com", {
+    proxyReqBodyDecorator(bodyContent, srcReq) {
+        return bodyContent;
+    }
+});
+
+proxy("www.google.com", {
+    proxyReqBodyDecorator(bodyContent, srcReq) {
+        return new Promise((resolve, reject) => {
+            resolve(bodyContent);
+        });
+    },
+});

@@ -479,23 +479,23 @@ declare module "../index" {
          * @param sources The source objects.
          * @return The destination object.
          */
-        defaults<TObject, TSource>(object: TObject, source: TSource): TSource & TObject;
+        defaults<TObject, TSource>(object: TObject, source: TSource): NonNullable<TSource & TObject>;
         /**
          * @see _.defaults
          */
-        defaults<TObject, TSource1, TSource2>(object: TObject, source1: TSource1, source2: TSource2): TSource2 & TSource1 & TObject;
+        defaults<TObject, TSource1, TSource2>(object: TObject, source1: TSource1, source2: TSource2): NonNullable<TSource2 & TSource1 & TObject>;
         /**
          * @see _.defaults
          */
-        defaults<TObject, TSource1, TSource2, TSource3>(object: TObject, source1: TSource1, source2: TSource2, source3: TSource3): TSource3 & TSource2 & TSource1 & TObject;
+        defaults<TObject, TSource1, TSource2, TSource3>(object: TObject, source1: TSource1, source2: TSource2, source3: TSource3): NonNullable<TSource3 & TSource2 & TSource1 & TObject>;
         /**
          * @see _.defaults
          */
-        defaults<TObject, TSource1, TSource2, TSource3, TSource4>(object: TObject, source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4): TSource4 & TSource3 & TSource2 & TSource1 & TObject;
+        defaults<TObject, TSource1, TSource2, TSource3, TSource4>(object: TObject, source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4): NonNullable<TSource4 & TSource3 & TSource2 & TSource1 & TObject>;
         /**
          * @see _.defaults
          */
-        defaults<TObject>(object: TObject): TObject;
+        defaults<TObject>(object: TObject): NonNullable<TObject>;
         /**
          * @see _.defaults
          */
@@ -505,23 +505,23 @@ declare module "../index" {
         /**
          * @see _.defaults
          */
-        defaults<TSource>(source: TSource): Object<TSource & T>;
+        defaults<TSource>(source: TSource): Object<NonNullable<TSource & T>>;
         /**
          * @see _.defaults
          */
-        defaults<TSource1, TSource2>(source1: TSource1, source2: TSource2): Object<TSource2 & TSource1 & T>;
+        defaults<TSource1, TSource2>(source1: TSource1, source2: TSource2): Object<NonNullable<TSource2 & TSource1 & T>>;
         /**
          * @see _.defaults
          */
-        defaults<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3): Object<TSource3 & TSource2 & TSource1 & T>;
+        defaults<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3): Object<NonNullable<TSource3 & TSource2 & TSource1 & T>>;
         /**
          * @see _.defaults
          */
-        defaults<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4): Object<TSource4 & TSource3 & TSource2 & TSource1 & T>;
+        defaults<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4): Object<NonNullable<TSource4 & TSource3 & TSource2 & TSource1 & T>>;
         /**
          * @see _.defaults
          */
-        defaults(): Object<T>;
+        defaults(): Object<NonNullable<T>>;
         /**
          * @see _.defaults
          */
@@ -531,23 +531,23 @@ declare module "../index" {
         /**
          * @see _.defaults
          */
-        defaults<TSource>(source: TSource): ObjectChain<TSource & T>;
+        defaults<TSource>(source: TSource): ObjectChain<NonNullable<TSource & T>>;
         /**
          * @see _.defaults
          */
-        defaults<TSource1, TSource2>(source1: TSource1, source2: TSource2): ObjectChain<TSource2 & TSource1 & T>;
+        defaults<TSource1, TSource2>(source1: TSource1, source2: TSource2): ObjectChain<NonNullable<TSource2 & TSource1 & T>>;
         /**
          * @see _.defaults
          */
-        defaults<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3): ObjectChain<TSource3 & TSource2 & TSource1 & T>;
+        defaults<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3): ObjectChain<NonNullable<TSource3 & TSource2 & TSource1 & T>>;
         /**
          * @see _.defaults
          */
-        defaults<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4): ObjectChain<TSource4 & TSource3 & TSource2 & TSource1 & T>;
+        defaults<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4): ObjectChain<NonNullable<TSource4 & TSource3 & TSource2 & TSource1 & T>>;
         /**
          * @see _.defaults
          */
-        defaults(): ObjectChain<T>;
+        defaults(): ObjectChain<NonNullable<T>>;
         /**
          * @see _.defaults
          */
@@ -1041,6 +1041,42 @@ declare module "../index" {
         /**
          * @see _.get
          */
+        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1]>(object: TObject, path: [TKey1, TKey2]): TObject[TKey1][TKey2];
+        /**
+         * @see _.get
+         */
+        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1]>(object: TObject | null | undefined, path: [TKey1, TKey2]): TObject[TKey1][TKey2] | undefined;
+        /**
+         * @see _.get
+         */
+        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TDefault>(object: TObject | null | undefined, path: [TKey1, TKey2], defaultValue: TDefault): Exclude<TObject[TKey1][TKey2], undefined> | TDefault;
+        /**
+         * @see _.get
+         */
+        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2]>(object: TObject, path: [TKey1, TKey2, TKey3]): TObject[TKey1][TKey2][TKey3];
+        /**
+         * @see _.get
+         */
+        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2]>(object: TObject | null | undefined, path: [TKey1, TKey2, TKey3]): TObject[TKey1][TKey2][TKey3] | undefined;
+        /**
+         * @see _.get
+         */
+        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TDefault>(object: TObject | null | undefined, path: [TKey1, TKey2, TKey3], defaultValue: TDefault): Exclude<TObject[TKey1][TKey2][TKey3], undefined> | TDefault;
+        /**
+         * @see _.get
+         */
+        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TKey4 extends keyof TObject[TKey1][TKey2][TKey3]>(object: TObject, path: [TKey1, TKey2, TKey3, TKey4]): TObject[TKey1][TKey2][TKey3][TKey4];
+        /**
+         * @see _.get
+         */
+        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TKey4 extends keyof TObject[TKey1][TKey2][TKey3]>(object: TObject | null | undefined, path: [TKey1, TKey2, TKey3, TKey4]): TObject[TKey1][TKey2][TKey3][TKey4] | undefined;
+        /**
+         * @see _.get
+         */
+        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TKey4 extends keyof TObject[TKey1][TKey2][TKey3], TDefault>(object: TObject | null | undefined, path: [TKey1, TKey2, TKey3, TKey4], defaultValue: TDefault): Exclude<TObject[TKey1][TKey2][TKey3][TKey4], undefined> | TDefault;
+        /**
+         * @see _.get
+         */
         get<T>(object: NumericDictionary<T>, path: number): T;
         /**
          * @see _.get
@@ -1082,6 +1118,30 @@ declare module "../index" {
          * @see _.get
          */
         get<TKey extends keyof T, TDefault>(path: TKey | [TKey], defaultValue: TDefault): Exclude<T[TKey], undefined> | TDefault;
+        /**
+         * @see _.get
+         */
+        get<TKey1 extends keyof T, TKey2 extends keyof T[TKey1]>(path: [TKey1, TKey2]): T[TKey1][TKey2];
+        /**
+         * @see _.get
+         */
+        get<TKey1 extends keyof T, TKey2 extends keyof T[TKey1], TDefault>(path: [TKey1, TKey2], defaultValue: TDefault): Exclude<T[TKey1][TKey2], undefined> | TDefault;
+        /**
+         * @see _.get
+         */
+        get<TKey1 extends keyof T, TKey2 extends keyof T[TKey1], TKey3 extends keyof T[TKey1][TKey2]>(path: [TKey1, TKey2, TKey3]): T[TKey1][TKey2][TKey3];
+        /**
+         * @see _.get
+         */
+        get<TKey1 extends keyof T, TKey2 extends keyof T[TKey1], TKey3 extends keyof T[TKey1][TKey2], TDefault>(path: [TKey1, TKey2, TKey3], defaultValue: TDefault): Exclude<T[TKey1][TKey2][TKey3], undefined> | TDefault;
+        /**
+         * @see _.get
+         */
+        get<TKey1 extends keyof T, TKey2 extends keyof T[TKey1], TKey3 extends keyof T[TKey1][TKey2], TKey4 extends keyof T[TKey1][TKey2][TKey3]>(path: [TKey1, TKey2, TKey3, TKey4]): T[TKey1][TKey2][TKey3][TKey4];
+        /**
+         * @see _.get
+         */
+        get<TKey1 extends keyof T, TKey2 extends keyof T[TKey1], TKey3 extends keyof T[TKey1][TKey2], TKey4 extends keyof T[TKey1][TKey2][TKey3], TDefault>(path: [TKey1, TKey2, TKey3, TKey4], defaultValue: TDefault): Exclude<T[TKey1][TKey2][TKey3][TKey4], undefined> | TDefault;
         /**
          * @see _.get
          */
@@ -1130,6 +1190,42 @@ declare module "../index" {
          * @see _.get
          */
         get<TKey extends keyof T, TDefault>(path: TKey | [TKey], defaultValue: TDefault): ExpChain<Exclude<T[TKey], undefined> | TDefault>;
+        /**
+         * @see _.get
+         */
+        get<TKey1 extends keyof T, TKey2 extends keyof T[TKey1]>(path: [TKey1, TKey2]): ExpChain<T[TKey1][TKey2]>;
+        /**
+         * @see _.get
+         */
+        get<TKey1 extends keyof T, TKey2 extends keyof T[TKey1]>(path: [TKey1, TKey2], defaultValue: never[]): T[TKey1][TKey2] extends any[] ? ExpChain<Exclude<T[TKey1][TKey2], undefined>> : ExpChain<Exclude<T[TKey1][TKey2], undefined> | never[]>;
+        /**
+         * @see _.get
+         */
+        get<TKey1 extends keyof T, TKey2 extends keyof T[TKey1], TDefault>(path: [TKey1, TKey2], defaultValue: TDefault): ExpChain<Exclude<T[TKey1][TKey2], undefined> | TDefault>;
+        /**
+         * @see _.get
+         */
+        get<TKey1 extends keyof T, TKey2 extends keyof T[TKey1], TKey3 extends keyof T[TKey1][TKey2]>(path: [TKey1, TKey2, TKey3]): ExpChain<T[TKey1][TKey2][TKey3]>;
+        /**
+         * @see _.get
+         */
+        get<TKey1 extends keyof T, TKey2 extends keyof T[TKey1], TKey3 extends keyof T[TKey1][TKey2]>(path: [TKey1, TKey2, TKey3], defaultValue: never[]): T[TKey1][TKey2][TKey3] extends any[] ? ExpChain<Exclude<T[TKey1][TKey2][TKey3], undefined>> : ExpChain<Exclude<T[TKey1][TKey2][TKey3], undefined> | never[]>;
+        /**
+         * @see _.get
+         */
+        get<TKey1 extends keyof T, TKey2 extends keyof T[TKey1], TKey3 extends keyof T[TKey1][TKey2], TDefault>(path: [TKey1, TKey2, TKey3], defaultValue: TDefault): ExpChain<Exclude<T[TKey1][TKey2][TKey3], undefined> | TDefault>;
+        /**
+         * @see _.get
+         */
+        get<TKey1 extends keyof T, TKey2 extends keyof T[TKey1], TKey3 extends keyof T[TKey1][TKey2], TKey4 extends keyof T[TKey1][TKey2][TKey3]>(path: [TKey1, TKey2, TKey3, TKey4]): ExpChain<T[TKey1][TKey2][TKey3][TKey4]>;
+        /**
+         * @see _.get
+         */
+        get<TKey1 extends keyof T, TKey2 extends keyof T[TKey1], TKey3 extends keyof T[TKey1][TKey2], TKey4 extends keyof T[TKey1][TKey2][TKey3]>(path: [TKey1, TKey2, TKey3, TKey4], defaultValue: never[]): T[TKey1][TKey2][TKey3][TKey4] extends any[] ? ExpChain<Exclude<T[TKey1][TKey2][TKey3][TKey4], undefined>> : ExpChain<Exclude<T[TKey1][TKey2][TKey3][TKey4], undefined> | never[]>;
+        /**
+         * @see _.get
+         */
+        get<TKey1 extends keyof T, TKey2 extends keyof T[TKey1], TKey3 extends keyof T[TKey1][TKey2], TKey4 extends keyof T[TKey1][TKey2][TKey3], TDefault>(path: [TKey1, TKey2, TKey3, TKey4], defaultValue: TDefault): ExpChain<Exclude<T[TKey1][TKey2][TKey3][TKey4], undefined> | TDefault>;
         /**
          * @see _.get
          */

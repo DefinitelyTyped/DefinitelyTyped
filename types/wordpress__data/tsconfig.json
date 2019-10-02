@@ -14,14 +14,11 @@
         "forceConsistentCasingInFileNames": true,
         "paths": {
             "@wordpress/element": ["wordpress__element"],
-            "@wordpress/data": ["wordpress__data"],
-            "@wordpress/rich-text": ["wordpress__rich-text"]
+            "@wordpress/data": ["wordpress__data"]
         }
     },
     "files": [
         "index.d.ts",
-        "stores/rich-text/actions.d.ts",
-        "stores/rich-text/selectors.d.ts",
         "wordpress__data-tests.tsx"
     ]
 }

@@ -1,4 +1,5 @@
-import XMLFeature from 'ol/format/XMLFeature';
+import XMLFeature from './XMLFeature';
+
 export interface Options {
     layers?: string[];
 }

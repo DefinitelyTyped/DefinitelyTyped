@@ -2,6 +2,7 @@
 // Project: https://github.com/jaredhanson/passport-google-oauth2
 // Definitions by: Yasunori Ohoka <https://github.com/yasupeke>
 //                 Eduard Zintz <https://github.com/ezintz>
+//                 Tan Nguyen <https://github.com/ngtan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -36,7 +37,12 @@ export interface StrategyOptionsWithRequest extends _StrategyOptionsBase {
 
 export interface Profile extends passport.Profile {
     profileUrl: string;
+
+    _raw: string;
+    _json: any;
 }
+
+export type VerifyCallback = (err?: string | Error, user?: any, info?: any) => void;
 
 export class Strategy extends oauth2.Strategy {
     constructor(
@@ -45,7 +51,7 @@ export class Strategy extends oauth2.Strategy {
             accessToken: string,
             refreshToken: string,
             profile: Profile,
-            done: oauth2.VerifyCallback
+            done: VerifyCallback
         ) => void
     );
     constructor(
@@ -55,7 +61,7 @@ export class Strategy extends oauth2.Strategy {
             accessToken: string,
             refreshToken: string,
             profile: Profile,
-            done: oauth2.VerifyCallback
+            done: VerifyCallback
         ) => void
     );
 }

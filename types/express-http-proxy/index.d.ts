@@ -7,7 +7,7 @@
 //                  John L. Singleton <https://github.com/jsinglet>
 //                  Lindsay Wardell <https://github.com/lindsaykwardell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 import { RequestHandler, Request, Response, NextFunction } from "express";
 import { RequestOptions, IncomingHttpHeaders, OutgoingHttpHeaders } from "http";
@@ -43,11 +43,12 @@ declare namespace proxy {
             userReq: Request,
             userRes: Response
         ) => Buffer | string | Promise<Buffer | string>;
+        filter?: (req: Request, res: Response) => boolean;
+        skipToNextHandlerFilter?: (proxyRes: Response) => boolean;
+        proxyReqBodyDecorator?: (bodyContent: any, srcReq: Request) => any;
         preserveHostHdr?: boolean;
         parseReqBody?: boolean;
-        filter?: (req: Request, res: Response) => boolean;
         memoizeHost?: boolean;
-        skipToNextHandlerFilter?: (proxyRes: Response) => boolean;
         https?: boolean;
         reqAsBuffer?: boolean;
         reqBodyEncoding?: string | null;

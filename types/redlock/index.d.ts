@@ -55,8 +55,8 @@ declare class Redlock extends EventEmitter {
 
     constructor(clients: Redlock.CompatibleRedisClient[], options?: Redlock.Options);
 
-    acquire(resource: string, ttl: number, callback?: Redlock.Callback<Redlock.Lock>): Promise<Redlock.Lock>;
-    lock(resource: string, ttl: number, callback?: Redlock.Callback<Redlock.Lock>): Promise<Redlock.Lock>;
+    acquire(resource: string | string[], ttl: number, callback?: Redlock.Callback<Redlock.Lock>): Promise<Redlock.Lock>;
+    lock(resource: string | string[], ttl: number, callback?: Redlock.Callback<Redlock.Lock>): Promise<Redlock.Lock>;
 
     disposer(resource: string, ttl: number, errorHandler?: Redlock.Callback<void>): Promise.Disposer<Redlock.Lock>;
 

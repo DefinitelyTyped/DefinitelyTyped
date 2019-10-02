@@ -627,21 +627,35 @@ import Module = require("module");
 
 {
     {
-        const immediateId = timers.setImmediate(() => { console.log("immediate"); });
-        timers.clearImmediate(immediateId);
+        const immediate = timers
+            .setImmediate(() => {
+                console.log('immediate');
+            })
+            .unref()
+            .ref();
+        const b: boolean = immediate.hasRef();
+        timers.clearImmediate(immediate);
     }
     {
-        const counter = 0;
-        const timeout = timers.setInterval(() => { console.log("interval"); }, 20);
-        timeout.unref();
-        timeout.ref();
+        const timeout = timers
+            .setInterval(() => {
+                console.log('interval');
+            }, 20)
+            .unref()
+            .ref()
+            .refresh();
+        const b: boolean = timeout.hasRef();
         timers.clearInterval(timeout);
     }
     {
-        const counter = 0;
-        const timeout = timers.setTimeout(() => { console.log("timeout"); }, 20);
-        timeout.unref();
-        timeout.ref();
+        const timeout = timers
+            .setTimeout(() => {
+                console.log('timeout');
+            }, 20)
+            .unref()
+            .ref()
+            .refresh();
+        const b: boolean = timeout.hasRef();
         timers.clearTimeout(timeout);
     }
     async function testPromisify() {

@@ -1,11 +1,12 @@
-import Event from 'ol/events/Event';
-import PluggableMap, { FrameState } from 'ol/PluggableMap';
-import EventType from 'ol/render/EventType';
-import MapRenderer from 'ol/renderer/Map';
-import { Size } from 'ol/size';
-import PriorityQueue from 'ol/structs/PriorityQueue';
-import Tile from 'ol/Tile';
-import WebGLContext from 'ol/webgl/Context';
+import Event from '../../events/Event';
+import PluggableMap, { FrameState } from '../../PluggableMap';
+import EventType from '../../render/EventType';
+import { Size } from '../../size';
+import PriorityQueue from '../../structs/PriorityQueue';
+import Tile from '../../Tile';
+import WebGLContext from '../../webgl/Context';
+import MapRenderer from '../Map';
+
 export interface TextureCacheEntry {
     magFilter: number;
     minFilter: number;

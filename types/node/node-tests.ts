@@ -4,9 +4,7 @@ import * as url from "url";
 import * as util from "util";
 import * as http from "http";
 import * as https from "https";
-import * as vm from "vm";
 import * as console2 from "console";
-import * as string_decoder from "string_decoder";
 import * as timers from "timers";
 import * as dns from "dns";
 import * as async_hooks from "async_hooks";
@@ -547,101 +545,41 @@ import Module = require("module");
     }
 }
 
-////////////////////////////////////////////////////
-/// string_decoder tests : https://nodejs.org/api/string_decoder.html
-////////////////////////////////////////////////////
-
-{
-    const StringDecoder = string_decoder.StringDecoder;
-    const buffer = new Buffer('test');
-    const decoder1 = new StringDecoder();
-    const decoder2 = new StringDecoder('utf8');
-    const part1: string = decoder1.write(new Buffer('test'));
-    const end1: string = decoder1.end();
-    const part2: string = decoder2.write(new Buffer('test'));
-    const end2: string = decoder1.end(new Buffer('test'));
-}
-
-////////////////////////////////////////////////////
-/// vm tests : https://nodejs.org/api/vm.html
-////////////////////////////////////////////////////
-
-{
-    {
-        const sandbox = {
-            animal: 'cat',
-            count: 2
-        };
-
-        const context = vm.createContext(sandbox);
-        console.log(vm.isContext(context));
-        const script = new vm.Script('count += 1; name = "kitty"');
-
-        for (let i = 0; i < 10; ++i) {
-            script.runInContext(context);
-        }
-
-        console.log(util.inspect(sandbox));
-
-        vm.runInNewContext('count += 1; name = "kitty"', sandbox);
-        console.log(util.inspect(sandbox));
-    }
-
-    {
-        const sandboxes = [{}, {}, {}];
-
-        const script = new vm.Script('globalVar = "set"');
-
-        sandboxes.forEach((sandbox) => {
-            script.runInNewContext(sandbox);
-            script.runInThisContext();
-        });
-
-        console.log(util.inspect(sandboxes));
-
-        const localVar = 'initial value';
-        vm.runInThisContext('localVar = "vm";');
-
-        console.log(localVar);
-    }
-
-    {
-        vm.runInThisContext('console.log("hello world"', './my-file.js');
-    }
-
-    {
-        const fn: Function = vm.compileFunction('console.log("test")', [], {
-            parsingContext: vm.createContext(),
-            contextExtensions: [{
-                a: 1,
-            }],
-            produceCachedData: false,
-            cachedData: Buffer.from('nope'),
-        });
-    }
-}
-
 /////////////////////////////////////////////////////
 /// Timers tests : https://nodejs.org/api/timers.html
 /////////////////////////////////////////////////////
 
 {
     {
-        const immediateId = timers.setImmediate(() => { console.log("immediate"); });
-        timers.clearImmediate(immediateId);
+        const immediate = timers
+            .setImmediate(() => {
+                console.log('immediate');
+            })
+            .unref()
+            .ref();
+        const b: boolean = immediate.hasRef();
+        timers.clearImmediate(immediate);
     }
     {
-        const counter = 0;
-        const timeout = timers.setInterval(() => { console.log("interval"); }, 20);
-        timeout.unref();
-        timeout.ref();
+        const timeout = timers
+            .setInterval(() => {
+                console.log('interval');
+            }, 20)
+            .unref()
+            .ref()
+            .refresh();
+        const b: boolean = timeout.hasRef();
         timers.clearInterval(timeout);
     }
     {
-        const counter = 0;
-        const timeout = timers.setTimeout(() => { console.log("timeout"); }, 20);
-        timeout.unref();
-        timeout.ref();
+        const timeout = timers
+            .setTimeout(() => {
+                console.log('timeout');
+            }, 20)
+            .unref()
+            .ref()
+            .refresh();
+        const b: boolean = timeout.hasRef();
         timers.clearTimeout(timeout);
     }
     async function testPromisify() {
@@ -1030,7 +968,6 @@ import * as constants from 'constants';
     num = constants.DH_CHECK_P_NOT_PRIME;
     num = constants.DH_UNABLE_TO_CHECK_GENERATOR;
     num = constants.DH_NOT_SUITABLE_GENERATOR;
-    num = constants.NPN_ENABLED;
     num = constants.ALPN_ENABLED;
     num = constants.RSA_PKCS1_PADDING;
     num = constants.RSA_SSLV23_PADDING;
@@ -1177,6 +1114,18 @@ import moduleModule = require('module');
     paths = m1.paths;
 
     moduleModule.createRequireFromPath('./test')('test');
+}
+
+/////////////////////////////////////////////////////////
+/// stream tests : https://nodejs.org/api/stream.html ///
+/////////////////////////////////////////////////////////
+
+{
+    const writeStream = fs.createWriteStream('./index.d.ts');
+    const _wom = writeStream.writableObjectMode; // $ExpectType boolean
+
+    const readStream = fs.createReadStream('./index.d.ts');
+    const _rom = readStream.readableObjectMode; // $ExpectType boolean
 }
 
 ////////////////////////////////////////////////////

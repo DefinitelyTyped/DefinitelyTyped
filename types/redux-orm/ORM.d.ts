@@ -10,7 +10,7 @@ import Session, { OrmSession } from './Session';
  * - ORM branch state type
  */
 export type IndexedModelClasses<
-    T extends { [k in keyof T]: typeof AnyModel },
+    T extends { [k in keyof T]: typeof AnyModel } = {},
     K extends keyof T = Extract<keyof T, T[keyof T]['modelName']>
 > = { [k in K]: T[K] };
 
@@ -88,7 +88,7 @@ export class ORM<I extends IndexedModelClasses<any>, ModelNames extends keyof I 
      *
      * @return a new {@link Session} instance
      */
-    session(state: OrmState<I>): OrmSession<I>;
+    session(state?: OrmState<I>): OrmSession<I>;
 
     /**
      * Begins an mutable database session.

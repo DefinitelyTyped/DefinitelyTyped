@@ -444,6 +444,7 @@ str = cognitoUserPoolEvent.callerContext.clientId;
 str = cognitoUserPoolEvent.request.userAttributes["email"];
 str = cognitoUserPoolEvent.request.validationData!["k1"];
 strOrUndefined = cognitoUserPoolEvent.request.codeParameter;
+strOrUndefined = cognitoUserPoolEvent.request.linkParameter;
 strOrUndefined = cognitoUserPoolEvent.request.usernameParameter;
 boolOrUndefined = cognitoUserPoolEvent.request.newDeviceUsed;
 cognitoUserPoolEvent.request.session![0].challengeName === "CUSTOM_CHALLENGE";
@@ -477,6 +478,31 @@ cognitoUserPoolEvent.response.desiredDeliveryMediums === ["EMAIL"];
 cognitoUserPoolEvent.response.desiredDeliveryMediums === ["SMS"];
 cognitoUserPoolEvent.response.desiredDeliveryMediums === ["SMS", "EMAIL"];
 boolOrUndefined = cognitoUserPoolEvent.response.forceAliasCreation;
+// From AWS examples
+cognitoUserPoolEvent.response = {
+    claimsOverrideDetails: {
+        claimsToAddOrOverride: {
+            attribute_key2: "attribute_value2",
+            attribute_key: "attribute_value"
+        },
+        claimsToSuppress: ["email"]
+    }
+};
+cognitoUserPoolEvent.response = {
+    claimsOverrideDetails: {
+        claimsToAddOrOverride: {
+            attribute_key2: "attribute_value2",
+            attribute_key: "attribute_value"
+        },
+        claimsToSuppress: ["email"],
+        groupOverrideDetails: {
+            groupsToOverride: ["group-A", "group-B", "group-C"],
+            iamRolesToOverride: ["arn:aws:iam::XXXXXXXXXXXX:role/sns_callerA", "arn:aws:iam::XXXXXXXXX:role/sns_callerB", "arn:aws:iam::XXXXXXXXXX:role/sns_callerC"],
+            preferredRole: "arn:aws:iam::XXXXXXXXXXX:role/sns_caller"
+        }
+    }
+};
+cognitoUserPoolEvent.response.claimsOverrideDetails!.groupOverrideDetails = null;
 
 // CloudFormation Custom Resource
 switch (cloudformationCustomResourceEvent.RequestType) {
@@ -504,6 +530,7 @@ strOrUndefined = cloudformationCustomResourceResponse.Reason;
 str = cloudformationCustomResourceResponse.RequestId;
 str = cloudformationCustomResourceResponse.StackId;
 str = cloudformationCustomResourceResponse.Status;
+boolOrUndefined = cloudformationCustomResourceResponse.NoEcho;
 
 /* ScheduledEvent */
 str = scheduledEvent.account;
@@ -1246,4 +1273,60 @@ const lexEventHandler: AWSLambda.LexHandler = async (
     context;
     str = context.functionName;
     return lexResult;
+};
+
+/**
+ * S3 Batch Operations event
+ * https://docs.aws.amazon.com/AmazonS3/latest/dev/batch-ops-invoke-lambda.html
+ */
+const S3BatchEvent: AWSLambda.S3BatchEvent = {
+  invocationSchemaVersion: '1.0',
+  invocationId: 'foo_invocation_id',
+  job: { id: 'foo_job_id' },
+  tasks: [
+    {
+      taskId: '11111',
+      s3Key: 'example.json',
+      s3BucketArn: 'arn:aws:s3:::foo-bucket',
+      s3VersionId: null,
+    },
+    {
+      taskId: '11111',
+      s3Key: 'example.json',
+      s3BucketArn: 'arn:aws:s3:::foo-bucket',
+      s3VersionId: 'asdf',
+    },
+  ],
+};
+
+const S3BatchResult: AWSLambda.S3BatchResult = {
+    invocationSchemaVersion: '1.0',
+    treatMissingKeysAs: 'PermanentFailure',
+    invocationId: 'foo_invocation_id',
+    results: [{
+        taskId: '11111',
+        resultCode: 'Succeeded',
+        resultString: 'foo',
+    }, {
+        taskId: '22222',
+        resultCode: 'TemporaryFailure',
+        resultString: 'Error: failure',
+    }, {
+        taskId: '33333',
+        resultCode: 'PermanentFailure',
+        resultString: 'Error: failure',
+    }],
+};
+
+const S3BatchHandler: AWSLambda.S3BatchHandler = async (
+    event: AWSLambda.S3BatchEvent,
+    context: AWSLambda.Context,
+) => {
+    // $ExpectType S3BatchEvent
+    event;
+
+    // $ExpectType Context
+    context;
+    str = context.functionName;
+    return S3BatchResult;
 };

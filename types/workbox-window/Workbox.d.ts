@@ -34,10 +34,10 @@ interface WorkboxWaitingEvent extends WorkboxUpdatableEvent {
 
 interface WokerboxEventMap {
     message: WorkboxMessageEvent;
-    installed: WorkboxEvent;
+    installed: WorkboxUpdatableEvent;
     waiting: WorkboxWaitingEvent;
     controlling: WorkboxEvent;
-    activated: WorkboxEvent;
+    activated: WorkboxUpdatableEvent;
     redundant: WorkboxEvent;
     externalinstalled: WorkboxExtendableEvent;
     externalwaiting: WorkboxExtendableEvent;
@@ -106,7 +106,7 @@ declare class Workbox extends EventTargetShim {
      * returned by `messageSW()`. If no response is set, the promise will never
      * resolve.
      */
-    messageSW(): Promise<object>;
+    messageSW(data: any): Promise<object>;
 
     addEventListener<K extends keyof WokerboxEventMap>(type: K, listener: (this: Workbox, ev: WokerboxEventMap[K]) => void): void;
     removeEventListener<K extends keyof WokerboxEventMap>(type: K, listener: (this: Workbox, ev: WokerboxEventMap[K]) => void): void;

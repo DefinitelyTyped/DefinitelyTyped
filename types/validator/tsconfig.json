@@ -47,6 +47,7 @@
         "lib/isISIN.d.ts",
         "lib/isISO8601.d.ts",
         "lib/isISO31661Alpha2.d.ts",
+        "lib/isISO31661Alpha3.d.ts",
         "lib/isISRC.d.ts",
         "lib/isIn.d.ts",
         "lib/isInt.d.ts",

@@ -1,16 +1,17 @@
-import { EventsKey } from 'ol/events';
-import Event from 'ol/events/Event';
-import { Extent } from 'ol/extent';
-import VectorLayer from 'ol/layer/Vector';
-import VectorTileRenderType from 'ol/layer/VectorTileRenderType';
-import LayerType from 'ol/LayerType';
-import { ObjectEvent } from 'ol/Object';
-import PluggableMap from 'ol/PluggableMap';
-import { OrderFunction } from 'ol/render';
-import RenderEvent from 'ol/render/Event';
-import VectorSource from 'ol/source/Vector';
-import VectorTile from 'ol/source/VectorTile';
-import { StyleLike } from 'ol/style/Style';
+import { EventsKey } from '../events';
+import Event from '../events/Event';
+import { Extent } from '../extent';
+import LayerType from '../LayerType';
+import { ObjectEvent } from '../Object';
+import PluggableMap from '../PluggableMap';
+import { OrderFunction } from '../render';
+import RenderEvent from '../render/Event';
+import VectorSource from '../source/Vector';
+import VectorTile from '../source/VectorTile';
+import { StyleLike } from '../style/Style';
+import VectorLayer from './Vector';
+import VectorTileRenderType from './VectorTileRenderType';
+
 export interface Options {
     opacity?: number;
     visible?: boolean;
@@ -39,9 +40,9 @@ export default class VectorTileLayer extends VectorLayer {
     getUseInterimTilesOnError(): boolean;
     setPreload(preload: number): void;
     setUseInterimTilesOnError(useInterimTilesOnError: boolean): void;
-    on(type: string | string[], listener: ((param0: any) => void)): EventsKey | EventsKey[];
-    once(type: string | string[], listener: ((param0: any) => void)): EventsKey | EventsKey[];
-    un(type: string | string[], listener: ((param0: any) => void)): void;
+    on(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
+    once(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
+    un(type: string | string[], listener: (p0: any) => void): void;
     on(type: 'change', listener: (evt: Event) => void): EventsKey;
     once(type: 'change', listener: (evt: Event) => void): EventsKey;
     un(type: 'change', listener: (evt: Event) => void): void;

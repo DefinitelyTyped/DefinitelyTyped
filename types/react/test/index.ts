@@ -22,7 +22,7 @@ interface Console {
     log(...args: any[]): void;
 }
 
-interface Props extends React.Attributes {
+interface Props {
     hello: string;
     world?: string | null;
     foo: number;
@@ -132,8 +132,7 @@ class ModernComponent extends React.Component<Props, State, Snapshot>
     static propTypes: React.ValidationMap<Props> = {
         hello: PropTypes.string.isRequired,
         world: PropTypes.string,
-        foo: PropTypes.number.isRequired,
-        key: PropTypes.oneOfType([PropTypes.number, PropTypes.string]) as PropTypes.Validator<string | number | undefined>
+        foo: PropTypes.number.isRequired
     };
 
     static contextTypes: React.ValidationMap<Context> = {
@@ -144,7 +143,7 @@ class ModernComponent extends React.Component<Props, State, Snapshot>
         someOtherValue: PropTypes.string.isRequired
     };
 
-    context: Context;
+    context: Context = {};
 
     getChildContext() {
         return {
@@ -402,6 +401,15 @@ DOM.input({ ref: node => inputNodeRef = node as HTMLInputElement });
 const ForwardingRefComponent = React.forwardRef((props: {}, ref: React.Ref<RefComponent>) => {
     return React.createElement(RefComponent, { ref });
 });
+
+interface AttributeProps extends React.Attributes {
+    hello: string;
+    world?: string | null;
+    foo: number;
+}
+
+const ForwardingRefComponentPropTypes: React.WeakValidationMap<AttributeProps> = {};
+ForwardingRefComponent.propTypes = ForwardingRefComponentPropTypes;
 
 function RefCarryingComponent() {
     const ref: React.RefObject<RefComponent> = React.createRef();

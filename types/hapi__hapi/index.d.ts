@@ -401,7 +401,7 @@ export interface Request extends Podium {
      * Application-specific state. Provides a safe place to store application data without potential conflicts with the framework. Should not be used by plugins which should use plugins[name].
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-requestapp)
      */
-    app: ApplicationState;
+    app: RequestApplicationState;
 
     /**
      * Authentication information:
@@ -671,7 +671,7 @@ export interface ResponseObject extends Podium {
      * Application-specific state. Provides a safe place to store application data without potential conflicts with the framework. Should not be used by plugins which should use plugins[name].
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-responseapp)
      */
-    app: ApplicationState;
+    app: ResponseApplicationState;
 
     /**
      * Access: read only and the public podium interface.
@@ -2703,7 +2703,7 @@ export interface ServerInjectOptions extends Shot.RequestOptions {
     /**
      * sets the initial value of request.app, defaults to {}.
      */
-    app?: ApplicationState;
+    app?: RequestApplicationState;
     /**
      * sets the initial value of request.plugins, defaults to {}.
      */
@@ -3405,7 +3405,7 @@ export class Server {
      * Initialized with an empty object.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverapp)
      */
-    app: ApplicationState;
+    app: ServerApplicationState;
 
     /**
      * Server Auth: properties and methods
@@ -3969,10 +3969,24 @@ export class Server {
  + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + */
 
 /**
- *  User-extensible type for application specific state.
+ *  User-extensible type for application specific state (`server.app`).
  */
  /* tslint:disable-next-line:no-empty-interface */
-export interface ApplicationState {
+export interface ServerApplicationState {
+}
+
+/**
+ *  User-extensible type for application specific state on requests (`request.app`).
+ */
+ /* tslint:disable-next-line:no-empty-interface */
+ export interface RequestApplicationState {
+}
+
+/**
+ *  User-extensible type for application specific state on responses (`response.app`).
+ */
+ /* tslint:disable-next-line:no-empty-interface */
+ export interface ResponseApplicationState {
 }
 
 export type PeekListener = (chunk: string, encoding: string) => void;

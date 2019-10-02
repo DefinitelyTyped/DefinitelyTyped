@@ -197,7 +197,7 @@ export interface ReactourProps {
      * Show/Hide _Helper_ Navigation buttons
      * @default true
      */
-    showButton?: boolean;
+    showButtons?: boolean;
 
     /**
      * Show/Hide _Helper_ Close button

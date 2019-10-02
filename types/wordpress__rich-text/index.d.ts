@@ -5,6 +5,12 @@
 // TypeScript Version: 3.5
 
 import { ComponentType } from '@wordpress/element';
+import { dispatch, select } from '@wordpress/data';
+
+declare module '@wordpress/data' {
+    function dispatch(key: 'core/rich-text'): typeof import('./store/actions');
+    function select(key: 'core/rich-text'): typeof import('./store/selectors');
+}
 
 export interface FormatProps {
     value: Value;
