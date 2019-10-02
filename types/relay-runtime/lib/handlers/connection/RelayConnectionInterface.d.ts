@@ -1,4 +1,4 @@
-import { DataID } from '../../../index';
+import { DataID } from '../../../lib/util/RelayRuntimeTypes';
 
 export interface EdgeRecord extends Record<string, unknown> {
     cursor: unknown;

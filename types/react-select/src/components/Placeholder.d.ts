@@ -1,9 +1,9 @@
 import { ComponentType, ReactNode } from 'react';
 
 import { colors, spacing } from '../theme';
-import { CommonProps } from '../types';
+import { CommonProps, OptionTypeBase } from '../types';
 
-export type PlaceholderProps<OptionType> = CommonProps<OptionType> & {
+export type PlaceholderProps<OptionType extends OptionTypeBase> = CommonProps<OptionType> & {
   /** The children to be rendered. */
   children: ReactNode,
   /** props passed to the wrapping element for the group. */

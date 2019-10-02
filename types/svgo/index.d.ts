@@ -1,9 +1,10 @@
-// Type definitions for svgo 1.2
+// Type definitions for svgo 1.3
 // Project: https://github.com/svg/svgo
 // Definitions by: Bradley Ayers <https://github.com/bradleyayers>
 //                 Gilad Gray <https://github.com/giladgray>
 //                 Aankhen <https://github.com/Aankhen>
 //                 Jan Karres <https://github.com/jankarres>
+//                 Gavin Gregory <https://github.com/gavingregory>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -201,7 +202,11 @@ interface SvgInfo {
 
 interface OptimizedSvg {
     data: string;
-    info: object;
+    info: {
+        width: string;
+        height: string;
+    };
+    path?: string;
 }
 
 declare class SVGO {
