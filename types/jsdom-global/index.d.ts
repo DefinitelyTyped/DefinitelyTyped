@@ -3,7 +3,7 @@
 // Definitions by: Vladimir Grenaderov <https://github.com/VladimirGrenaderov>,
 //                 Max Boguslavskiy <https://github.com/maxbogus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
+// TypeScript Version: 3.1
 
 import { CookieJar, VirtualConsole} from 'jsdom';
 

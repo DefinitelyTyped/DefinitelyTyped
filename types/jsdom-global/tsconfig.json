@@ -13,7 +13,7 @@
             "../"
         ],
         "paths": {
-            "jsdom": ["jsdom/v15"]
+            "jsdom": ["jsdom/ts3.1"]
         },
         "esModuleInterop": true,
         "types": [],
