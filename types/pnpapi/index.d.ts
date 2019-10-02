@@ -1,4 +1,4 @@
-// Type definitions for pnpapi 0.0
+// Type definitions for pnpapi 3.0
 // Project: https://yarnpkg.github.io/berry/advanced/pnpapi
 // Definitions by: Maël Nison <https://github.com/arcanis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
