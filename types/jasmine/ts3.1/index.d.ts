@@ -617,9 +617,6 @@ declare namespace jasmine {
     type MatchableArgs<Fn> = Fn extends (...args: infer P) => any ? { [K in keyof P]: P[K] | AsymmetricMatcher<any> } : never;
 
     interface FunctionMatchers<Fn extends Func> extends Matchers<any> {
-        toHaveBeenCalled(): boolean;
-        toHaveBeenCalledBefore(expected: Func): boolean;
-        toHaveBeenCalledTimes(expected: number): boolean;
         toHaveBeenCalledWith(...params: MatchableArgs<Fn>): boolean;
 
         /**

@@ -2887,6 +2887,12 @@
             "asOfVersion": "3.0.2"
         },
         {
+            "libraryName": "react-dnd-touch-backend",
+            "typingsPackageName": "react-dnd-touch-backend",
+            "sourceRepoURL": "https://github.com/react-dnd/react-dnd",
+            "asOfVersion": "0.5.0"
+        },
+        {
             "libraryName": "react-dropzone",
             "typingsPackageName": "react-dropzone",
             "sourceRepoURL": "https://github.com/react-dropzone/react-dropzone",
@@ -3983,12 +3989,6 @@
             "typingsPackageName": "xmlbuilder",
             "sourceRepoURL": "https://github.com/oozcitak/xmlbuilder-js",
             "asOfVersion": "11.0.1"
-        },
-        {
-            "libraryName": "@xmpp/jid",
-            "typingsPackageName": "xmpp__jid",
-            "sourceRepoURL": "github.com/node-xmpp/node-xmpp/",
-            "asOfVersion": "1.2.1"
         },
         {
             "libraryName": "xterm.js",

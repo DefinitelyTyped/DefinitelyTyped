@@ -3,7 +3,7 @@ import * as express from 'express';
 import { BasicCard, BrowseCarousel, BrowseItem, Carousel, ImageDisplays, List, MediaObject,
          MediaResponse, MediaValues, OptionItem, RichResponse, SimpleResponse } from './response-builder';
 import { ActionPaymentTransactionConfig, Cart, GooglePaymentTransactionConfig, LineItem,
-         Location, Order, OrderUpdate, TransactionDecision, TransactionValues } from './transactions';
+         Order, OrderUpdate, TransactionDecision, TransactionValues } from './transactions';
 
 //
 // Note: These enums are exported due to limitations with Typescript and this

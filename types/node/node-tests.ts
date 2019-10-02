@@ -1116,6 +1116,18 @@ import moduleModule = require('module');
     moduleModule.createRequireFromPath('./test')('test');
 }
 
+/////////////////////////////////////////////////////////
+/// stream tests : https://nodejs.org/api/stream.html ///
+/////////////////////////////////////////////////////////
+
+{
+    const writeStream = fs.createWriteStream('./index.d.ts');
+    const _wom = writeStream.writableObjectMode; // $ExpectType boolean
+
+    const readStream = fs.createReadStream('./index.d.ts');
+    const _rom = readStream.readableObjectMode; // $ExpectType boolean
+}
+
 ////////////////////////////////////////////////////
 /// Node.js ESNEXT Support
 ////////////////////////////////////////////////////
