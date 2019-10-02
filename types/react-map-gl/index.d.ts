@@ -95,8 +95,10 @@ export interface PositionInput {
 
 export type ViewportChangeHandler = (viewState: ViewportProps) => void;
 
+export type ContextViewportChangeHandler = (viewState: ViewportProps, interactionState: ExtraState, oldViewState: ViewportProps) => void;
+
 export interface MapControllerOptions {
-    onViewportChange?: ViewportChangeHandler;
+    onViewportChange?: ContextViewportChangeHandler;
     onStateChange?: (state: MapState) => void;
     eventManager?: any;
     isInteractive: boolean;
@@ -217,15 +219,23 @@ export interface ViewStateChangeInfo {
     viewState: ViewportProps;
 }
 
+export interface ContextViewStateChangeInfo {
+    viewState: ViewportProps;
+    interactionState: ExtraState;
+    newViewState: ViewportProps;
+}
+
 export type ViewStateChangeHandler = (info: ViewStateChangeInfo) => void;
+
+export type ContextViewStateChangeHandler = (info: ContextViewStateChangeInfo) => void;
 
 export interface InteractiveMapProps extends StaticMapProps {
     maxZoom?: number;
     minZoom?: number;
     maxPitch?: number;
     minPitch?: number;
-    onViewStateChange?: ViewStateChangeHandler;
-    onViewportChange?: ViewportChangeHandler;
+    onViewStateChange?: ContextViewStateChangeHandler;
+    onViewportChange?: ContextViewportChangeHandler;
     onInteractionStateChange?: (state: ExtraState) => void;
     transitionDuration?: number;
     transitionInterpolator?: TransitionInterpolator;
@@ -277,8 +287,8 @@ export interface MapContextProps {
     viewport?: WebMercatorViewport;
     map?: MapboxGL.Map;
     mapContainer: HTMLElement | null;
-    onViewStateChange?: ViewStateChangeHandler;
-    onViewportChange?: ViewportChangeHandler;
+    onViewStateChange?: ContextViewStateChangeHandler;
+    onViewportChange?: ContextViewportChangeHandler;
     isDragging: boolean;
     eventManager?: EventManager;
 }
