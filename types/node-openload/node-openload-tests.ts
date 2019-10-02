@@ -1,4 +1,4 @@
-import openload, { UploadProgress } from 'node-openload';
+import { openload, UploadProgress } from 'node-openload';
 
 const config = {
     api_key: 'test-1234',

@@ -200,4 +200,4 @@ export class Openload {
  * @param config The base config containing the user credentials
  * @returns An Openload singleton
  */
-export default function(config: OpenloadConfig): Openload;
+export function openload(config: OpenloadConfig): Openload;
