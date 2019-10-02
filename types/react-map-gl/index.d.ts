@@ -81,8 +81,12 @@ export class StaticMap extends React.PureComponent<StaticMapProps> {
 }
 
 export interface ExtraState {
-    isDragging: boolean;
-    isHovering: boolean;
+    inTransition?: boolean;
+    isDragging?: boolean;
+    isHovering?: boolean;
+    isPanning?: boolean;
+    isRotating?: boolean;
+    isZooming?: boolean;
 }
 
 export interface PositionInput {
