@@ -24,7 +24,7 @@ declare module "pdfmake/build/pdfmake" {
         vfs?: any
     ): TCreatedPdf;
 
-    enum PageSize {
+    const enum PageSize {
         A0_x_4 = "4A0",
         A0_x_2 = "2A0",
         AO = "A0",
@@ -75,7 +75,7 @@ declare module "pdfmake/build/pdfmake" {
         TABLOID = "TABLOID"
     }
 
-    enum PageOrientation {
+    const enum PageOrientation {
         PORTRAIT = "PORTRAIT",
         LANDSCAPE = "LANDSCAPE"
     }
