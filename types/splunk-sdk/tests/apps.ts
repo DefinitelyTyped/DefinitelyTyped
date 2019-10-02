@@ -14,7 +14,7 @@ export function test(service: splunk.Service) {
             app => {
                 app.author(); // $ExpectType string
                 app.path(); // $ExpectType string
-                app.setupInfo((err, info, search) => {}); // TODO Type this callback
+                app.setupInfo((err, info, search) => {});
             },
         );
     });
