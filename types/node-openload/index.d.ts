@@ -3,196 +3,199 @@
 // Definitions by: Sascha Zarhuber <https://github.com/saschazar21>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/**
- * The model for the base config object needed for the Openload constructor
- */
-export interface OpenloadConfig {
-    /* the api_key, available directly from the WebUI after successful login */
-    api_key: string;
-    /* the api_login, a string available from the WebUI, NOT the user's e-mail */
-    api_login: string;
-    /* the api_version to target, needed for forming the URL, by default 1 */
-    api_version?: number;
-}
+declare namespace Openload {
+    /**
+     * The model for the base config object needed for the Openload constructor
+     */
+    interface OpenloadConfig {
+        /* the api_key, available directly from the WebUI after successful login */
+        api_key: string;
+        /* the api_login, a string available from the WebUI, NOT the user's e-mail */
+        api_login: string;
+        /* the api_version to target, needed for forming the URL, by default 1 */
+        api_version?: number;
+    }
 
-/**
- * The account info response
- */
-export interface AccountInfo {
-    extid: string;
-    email: string;
-    signup_at: string;
-    storage_left: number;
-    storage_used: string;
-    traffic: {
-        left: number;
-        used_24h: number;
-    };
-    balance: number;
-}
+    /**
+     * The account info response
+     */
+    interface AccountInfo {
+        extid: string;
+        email: string;
+        signup_at: string;
+        storage_left: number;
+        storage_used: string;
+        traffic: {
+            left: number;
+            used_24h: number;
+        };
+        balance: number;
+    }
 
-export interface DownloadTicket {
-    ticket: string;
-    captcha_url: string;
-    captcha_w: number;
-    captcha_h: number;
-    wait_time: number;
-    valid_until: string;
-}
+    interface DownloadTicket {
+        ticket: string;
+        captcha_url: string;
+        captcha_w: number;
+        captcha_h: number;
+        wait_time: number;
+        valid_until: string;
+    }
 
-export interface DownloadLink {
-    name: string;
-    size: number;
-    sha1: string;
-    content_type: string;
-    upload_at: string;
-    url: string;
-    token: string;
-}
-
-export interface DownloadLinkParam {
-    file: string;
-    ticket: string;
-    captcha_response: string;
-}
-
-export interface FileInfo {
-    [key: string]: {
-        id: string;
-        status: number;
+    interface DownloadLink {
         name: string;
         size: number;
         sha1: string;
         content_type: string;
-    };
-}
+        upload_at: string;
+        url: string;
+        token: string;
+    }
 
-export interface Upload {
-    url: string;
-    valid_until: string;
-}
+    interface DownloadLinkParam {
+        file: string;
+        ticket: string;
+        captcha_response: string;
+    }
 
-export interface UploadParam {
-    file: string | ArrayBuffer;
-    folder?: string;
-    filename?: string;
-    contentType?: string;
-}
-
-export interface RemoteUpload {
-    id: string;
-    folderid: string;
-}
-
-export interface RemoteUploadParam {
-    url: string;
-    folder?: string;
-    headers?: string;
-}
-
-export interface RemoteUploadStatus {
-    [key: number]: {
-        id: number;
-        remoteurl: string;
-        status: string;
-        bytes_loaded: string;
-        bytes_total: string;
-        folderid: string;
-        added: string;
-        last_update: string;
-        extid: string | boolean;
-        url: string | boolean;
-    };
-}
-
-export interface RemoteUploadStatusParam {
-    limit?: number;
-    id?: string;
-}
-
-export interface ListFolder {
-    folders: [
-        {
+    interface FileInfo {
+        [key: string]: {
             id: string;
+            status: number;
             name: string;
-        },
-    ];
-    files: [
-        {
-            name: string;
+            size: number;
             sha1: string;
-            folderid: string;
-            upload_at: string;
-            status: string;
-            size: string;
             content_type: string;
-            download_count: string;
-            cstatus: string;
-            link: string;
-            linkextid: string;
-        },
-    ];
-}
+        };
+    }
 
-export interface RunningFileConverts {
-    name: string;
-    id: string;
-    status: string;
-    last_update: string;
-    progress: number;
-    retries: string;
-    link: string;
-    linkextid: string;
-}
+    interface Upload {
+        url: string;
+        valid_until: string;
+    }
 
-export interface UploadProgress {
-    percent: number;
-    transferred: number;
-    total: number;
-}
+    interface UploadParam {
+        file: string | ArrayBuffer;
+        folder?: string;
+        filename?: string;
+        contentType?: string;
+    }
 
-/**
- * The Openload base class, contains all the supported endpoints as member functions
- */
-export class Openload {
-    private _version: number;
-    private _locationPrefix: string;
-    private _config: OpenloadConfig;
+    interface RemoteUpload {
+        id: string;
+        folderid: string;
+    }
 
-    constructor(config: OpenloadConfig);
+    interface RemoteUploadParam {
+        url: string;
+        folder?: string;
+        headers?: string;
+    }
 
-    // TypeScript Version: 3.6
-    get config(): OpenloadConfig;
+    interface RemoteUploadStatus {
+        [key: number]: {
+            id: number;
+            remoteurl: string;
+            status: string;
+            bytes_loaded: string;
+            bytes_total: string;
+            folderid: string;
+            added: string;
+            last_update: string;
+            extid: string | boolean;
+            url: string | boolean;
+        };
+    }
 
-    // TypeScript Version: 3.6
-    set config(object: OpenloadConfig);
+    interface RemoteUploadStatusParam {
+        limit?: number;
+        id?: string;
+    }
 
-    // TypeScript Version: 3.6
-    get locationPrefix(): string;
+    interface ListFolder {
+        folders: [
+            {
+                id: string;
+                name: string;
+            },
+        ];
+        files: [
+            {
+                name: string;
+                sha1: string;
+                folderid: string;
+                upload_at: string;
+                status: string;
+                size: string;
+                content_type: string;
+                download_count: string;
+                cstatus: string;
+                link: string;
+                linkextid: string;
+            },
+        ];
+    }
 
-    getAccountInfo(): Promise<AccountInfo>;
+    interface RunningFileConverts {
+        name: string;
+        id: string;
+        status: string;
+        last_update: string;
+        progress: number;
+        retries: string;
+        link: string;
+        linkextid: string;
+    }
 
-    getDownloadTicket(file: string): Promise<DownloadTicket>;
+    interface UploadProgress {
+        percent: number;
+        transferred: number;
+        total: number;
+    }
 
-    getDownloadLink(obj: DownloadLinkParam): Promise<DownloadLink>;
+    /**
+     * The Openload base class, contains all the supported endpoints as member functions
+     */
+    class Openload {
+        private _version: number;
+        private _locationPrefix: string;
+        private _config: OpenloadConfig;
 
-    getDownload(file: string): Promise<DownloadLink>;
+        constructor(config: OpenloadConfig);
 
-    getFileInfo(file: string): Promise<FileInfo>;
+        // TypeScript Version: 3.6
+        get config(): OpenloadConfig;
 
-    deleteFile(file: string | string[]): Promise<[boolean]>;
+        // TypeScript Version: 3.6
+        set config(object: OpenloadConfig);
 
-    listFolder(folder: string): Promise<ListFolder>;
+        // TypeScript Version: 3.6
+        get locationPrefix(): string;
 
-    getFolder(folder: string): Promise<ListFolder>;
+        getAccountInfo(): Promise<AccountInfo>;
 
-    remoteUpload(obj: RemoteUploadParam): Promise<RemoteUpload>;
+        getDownloadTicket(file: string): Promise<DownloadTicket>;
 
-    remoteUploadStatus(obj: RemoteUploadStatusParam): Promise<RemoteUploadStatus>;
+        getDownloadLink(obj: DownloadLinkParam): Promise<DownloadLink>;
 
-    upload(obj: UploadParam, cb: (progress: UploadProgress) => void): Promise<Upload>;
+        getDownload(file: string): Promise<DownloadLink>;
 
-    getSplashImage(file: string): Promise<string>;
+        getFileInfo(file: string): Promise<FileInfo>;
+
+        deleteFile(file: string | string[]): Promise<[boolean]>;
+
+        listFolder(folder: string): Promise<ListFolder>;
+
+        getFolder(folder: string): Promise<ListFolder>;
+
+        remoteUpload(obj: RemoteUploadParam): Promise<RemoteUpload>;
+
+        remoteUploadStatus(obj: RemoteUploadStatusParam): Promise<RemoteUploadStatus>;
+
+        upload(obj: UploadParam, cb: (progress: UploadProgress) => void): Promise<Upload>;
+
+        getSplashImage(file: string): Promise<string>;
+    }
+    export function openload(config: OpenloadConfig): Openload;
 }
 
 /**
@@ -200,4 +203,4 @@ export class Openload {
  * @param config The base config containing the user credentials
  * @returns An Openload singleton
  */
-export function openload(config: OpenloadConfig): Openload;
+export = Openload;
