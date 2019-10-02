@@ -12,6 +12,9 @@
         "typeRoots": [
             "../"
         ],
+        "paths": {
+            "jsdom": ["jsdom"]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
