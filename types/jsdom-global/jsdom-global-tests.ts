@@ -1,4 +1,4 @@
-import { CookieJar, VirtualConsole } from 'jsdom';
+import * as jsdom from 'jsdom';
 import jsdomGlobal from 'jsdom-global';
 
 jsdomGlobal();
@@ -11,8 +11,8 @@ jsdomGlobal('hello', {
     url: '1',
     referrer: '1',
     includeNodeLocations: true,
-    cookieJar: new CookieJar,
-    virtualConsole: new VirtualConsole,
+    cookieJar: new jsdom.CookieJar(),
+    virtualConsole: new jsdom.VirtualConsole(),
     resources: '1',
     runScripts: '1',
     beforeParse: () => {},

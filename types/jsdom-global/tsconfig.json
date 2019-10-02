@@ -13,7 +13,7 @@
             "../"
         ],
         "paths": {
-            "jsdom": ["jsdom/v2"]
+            "jsdom": ["jsdom"]
         },
         "esModuleInterop": true,
         "types": [],
