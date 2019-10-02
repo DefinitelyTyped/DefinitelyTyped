@@ -6,7 +6,7 @@
 /**
  * The model for the base config object needed for the Openload constructor
  */
-interface IOpenloadConfig {
+export interface OpenloadConfig {
     /* the api_key, available directly from the WebUI after successful login */
     api_key: string;
     /* the api_login, a string available from the WebUI, NOT the user's e-mail */
@@ -18,7 +18,7 @@ interface IOpenloadConfig {
 /**
  * The account info response
  */
-interface IAccountInfo {
+export interface AccountInfo {
     extid: string;
     email: string;
     signup_at: string;
@@ -31,7 +31,7 @@ interface IAccountInfo {
     balance: number;
 }
 
-interface IDownloadTicket {
+export interface DownloadTicket {
     ticket: string;
     captcha_url: string;
     captcha_w: number;
@@ -40,7 +40,7 @@ interface IDownloadTicket {
     valid_until: string;
 }
 
-interface IDownloadLink {
+export interface DownloadLink {
     name: string;
     size: number;
     sha1: string;
@@ -50,13 +50,13 @@ interface IDownloadLink {
     token: string;
 }
 
-interface IDownloadLinkParam {
+export interface DownloadLinkParam {
     file: string;
     ticket: string;
     captcha_response: string;
 }
 
-interface IFileInfo {
+export interface FileInfo {
     [key: string]: {
         id: string;
         status: number;
@@ -67,30 +67,30 @@ interface IFileInfo {
     };
 }
 
-interface IUpload {
+export interface Upload {
     url: string;
     valid_until: string;
 }
 
-interface IUploadParam {
+export interface UploadParam {
     file: string | ArrayBuffer;
     folder?: string;
     filename?: string;
     contentType?: string;
 }
 
-interface IRemoteUpload {
+export interface RemoteUpload {
     id: string;
     folderid: string;
 }
 
-interface IRemoteUploadParam {
+export interface RemoteUploadParam {
     url: string;
     folder?: string;
     headers?: string;
 }
 
-interface IRemoteUploadStatus {
+export interface RemoteUploadStatus {
     [key: number]: {
         id: number;
         remoteurl: string;
@@ -105,12 +105,12 @@ interface IRemoteUploadStatus {
     };
 }
 
-interface IRemoteUploadStatusParam {
+export interface RemoteUploadStatusParam {
     limit?: number;
     id?: string;
 }
 
-interface IListFolder {
+export interface ListFolder {
     folders: [
         {
             id: string;
@@ -134,7 +134,7 @@ interface IListFolder {
     ];
 }
 
-interface IRunningFileConverts {
+export interface RunningFileConverts {
     name: string;
     id: string;
     status: string;
@@ -145,7 +145,7 @@ interface IRunningFileConverts {
     linkextid: string;
 }
 
-interface IUploadProgress {
+export interface UploadProgress {
     percent: number;
     transferred: number;
     total: number;
@@ -154,38 +154,38 @@ interface IUploadProgress {
 /**
  * The Openload base class, contains all the supported endpoints as member functions
  */
-declare class Openload {
+export class Openload {
     private _version: number;
     private _locationPrefix: string;
-    private _config: IOpenloadConfig;
+    private _config: OpenloadConfig;
 
-    constructor(config: IOpenloadConfig);
+    constructor(config: OpenloadConfig);
 
-    get config(): IOpenloadConfig;
-    set config(object: IOpenloadConfig);
+    get config(): OpenloadConfig;
+    set config(object: OpenloadConfig);
     get locationPrefix(): string;
 
-    public getAccountInfo(): Promise<IAccountInfo>;
+    public getAccountInfo(): Promise<AccountInfo>;
 
-    public getDownloadTicket(file: string): Promise<IDownloadTicket>;
+    public getDownloadTicket(file: string): Promise<DownloadTicket>;
 
-    public getDownloadLink(obj: IDownloadLinkParam): Promise<IDownloadLink>;
+    public getDownloadLink(obj: DownloadLinkParam): Promise<DownloadLink>;
 
-    public getDownload(file: string): Promise<IDownloadLink>;
+    public getDownload(file: string): Promise<DownloadLink>;
 
-    public getFileInfo(file: string): Promise<IFileInfo>;
+    public getFileInfo(file: string): Promise<FileInfo>;
 
     public deleteFile(file: string | string[]): Promise<[boolean]>;
 
-    public listFolder(folder: string): Promise<IListFolder>;
+    public listFolder(folder: string): Promise<ListFolder>;
 
-    public getFolder(folder: string): Promise<IListFolder>;
+    public getFolder(folder: string): Promise<ListFolder>;
 
-    public remoteUpload(obj: IRemoteUploadParam): Promise<IRemoteUpload>;
+    public remoteUpload(obj: RemoteUploadParam): Promise<RemoteUpload>;
 
-    public remoteUploadStatus(obj: IRemoteUploadStatusParam): Promise<IRemoteUploadStatus>;
+    public remoteUploadStatus(obj: RemoteUploadStatusParam): Promise<RemoteUploadStatus>;
 
-    public upload(obj: IUploadParam, cb: (progress: IUploadProgress) => void): Promise<IUpload>;
+    public upload(obj: UploadParam, cb: (progress: UploadProgress) => void): Promise<Upload>;
 
     public getSplashImage(file: string): Promise<string>;
 }
@@ -195,4 +195,4 @@ declare class Openload {
  * @param config {OpenloadConfig} The base config containing the user credentials
  * @returns {Openload} An Openload singleton
  */
-export default function openload(config: IOpenloadConfig): Openload;
+export default function openload(config: OpenloadConfig): Openload;

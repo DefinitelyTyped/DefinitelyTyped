@@ -1,4 +1,4 @@
-import openload, { IUploadProgress } from 'node-openload';
+import openload, { UploadProgress } from 'node-openload';
 
 const config = {
     api_key: 'test-1234',
@@ -50,7 +50,7 @@ ol.remoteUpload({ url: 'https://someurl.com/to/image.jpg' })
     })
     .then(result => Object.numberKeys(result).map(key => result[key].remoteurl));
 
-const cb = (progress: IUploadProgress) => progress.percent;
+const cb = (progress: UploadProgress) => progress.percent;
 ol.upload({ file: './file.txt/' }, cb).then(result => result.url);
 
 ol.getSplashImage('testfile-id').then(imgUrl => imgUrl);
