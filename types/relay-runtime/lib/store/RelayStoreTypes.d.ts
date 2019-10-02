@@ -8,7 +8,7 @@ import {
     NormalizationScalarField,
     NormalizationLinkedField,
 } from '../util/NormalizationNode';
-import { Environment, RecordState, GraphQLResponse, StoreUpdater, SelectorStoreUpdater } from '../..';
+import { RecordState, GraphQLResponse } from '../..';
 import {
     ConnectionReference,
     ConnectionResolver,

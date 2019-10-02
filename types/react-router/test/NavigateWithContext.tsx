@@ -18,7 +18,8 @@ class ComponentThatUsesContext extends React.Component<Props> {
   static contextTypes = {
     router: PropTypes.object.isRequired
   };
-  context: RouterChildContext<Params>;
+  // tslint:disable-next-line:no-object-literal-type-assertion
+  context = {} as RouterChildContext<Params>;
   private readonly onClick = () => {
     const {
       history,

@@ -1175,7 +1175,7 @@ You can pass an optional additional property with sorter, sorterParams that shou
         | ((
               cell: CellComponent,
               onRendered: EmptyCallback,
-              success: ValueVoidCallback,
+              success: ValueBooleanCallback,
               cancel: ValueVoidCallback,
               editorParams: {},
           ) => HTMLElement | false);

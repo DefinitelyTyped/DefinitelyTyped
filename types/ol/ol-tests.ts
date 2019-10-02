@@ -300,7 +300,6 @@ interface CustomControlOptions extends ControlOptions {
 }
 
 class CustomControl extends Control {
-    element: HTMLElement;
     name: string;
     mapViewport?: HTMLElement;
     private readonly _boundListener: (e: Event) => void;

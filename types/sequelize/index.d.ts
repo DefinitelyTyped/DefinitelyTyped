@@ -4110,7 +4110,7 @@ declare namespace sequelize {
          *
          * @param records List of objects (key/value pairs) to create instances from
          */
-        bulkCreate(records: TAttributes[], options?: BulkCreateOptions): Promise<TInstance[]>;
+        bulkCreate(records: TCreationAttributes[], options?: BulkCreateOptions): Promise<TInstance[]>;
 
         /**
          * Truncate all instances of the model. This is a convenient method for Model.destroy({ truncate: true }).

@@ -36,88 +36,95 @@
 
 /// <reference types="node" />
 
+import { Agent } from 'http';
+
 declare class Stripe {
-    DEFAULT_HOST: string;
-    DEFAULT_PORT: string;
-    DEFAULT_BASE_PATH: string;
-    DEFAULT_API_VERSION: string;
-    DEFAULT_TIMEOUT: number;
-    PACKAGE_VERSION: string;
-    USER_AGENT: {
-        bindings_version: string;
-        lang: string;
-        lang_version: string;
-        platform: string;
-        publisher: string;
-        uname: string;
-    };
-    USER_AGENT_SERIALIZED: string;
+  DEFAULT_HOST: string;
+  DEFAULT_PORT: string;
+  DEFAULT_BASE_PATH: string;
+  DEFAULT_API_VERSION: string;
+  DEFAULT_TIMEOUT: number;
+  PACKAGE_VERSION: string;
+  USER_AGENT: {
+    bindings_version: string;
+    lang: string;
+    lang_version: string;
+    platform: string;
+    publisher: string;
+    uname: string;
+  };
+  USER_AGENT_SERIALIZED: string;
 
-    resources: typeof Stripe.resources;
-    StripeResource: typeof Stripe.StripeResource;
+  resources: typeof Stripe.resources;
+  StripeResource: typeof Stripe.StripeResource;
 
-    constructor(apiKey: string, version?: string);
+  constructor(apiKey: string, version?: string);
 
-    accounts: Stripe.resources.Accounts;
-    balance: Stripe.resources.Balance;
-    balanceTransactions: Stripe.resources.BalanceTransaction;
-    charges: Stripe.resources.Charges;
-    checkout: Stripe.resources.Checkout;
-    coupons: Stripe.resources.Coupons;
-    creditNotes: Stripe.resources.CreditNotes;
-    customers: Stripe.resources.Customers;
-    disputes: Stripe.resources.Disputes;
-    events: Stripe.resources.Events;
-    invoices: Stripe.resources.Invoices;
-    invoiceItems: Stripe.resources.InvoiceItems;
-    paymentIntents: Stripe.resources.PaymentIntents;
-    paymentMethods: Stripe.resources.PaymentMethods;
-    payouts: Stripe.resources.Payouts;
-    plans: Stripe.resources.Plans;
-    /**
-     * @deprecated
-     */
-    recipientCards: Stripe.resources.RecipientCards;
-    /**
-     * @deprecated
-     */
-    recipients: Stripe.resources.Recipients;
-    subscriptions: Stripe.resources.Subscriptions;
-    subscriptionItems: Stripe.resources.SubscriptionItems;
-    tokens: Stripe.resources.Tokens;
-    transfers: Stripe.resources.Transfers;
-    applicationFees: Stripe.resources.ApplicationFees;
-    fileUploads: Stripe.resources.FileUploads;
-    bitcoinReceivers: Stripe.resources.BitcoinReceivers;
-    refunds: Stripe.resources.Refunds;
-    countrySpecs: Stripe.resources.CountrySpecs;
-    orders: Stripe.resources.Orders;
-    products: Stripe.resources.Products;
-    setupIntents: Stripe.resources.SetupIntents;
-    skus: Stripe.resources.SKUs;
-    webhooks: Stripe.resources.WebHooks;
-    ephemeralKeys: Stripe.resources.EphemeralKeys;
-    usageRecords: Stripe.resources.UsageRecords;
-    usageRecordSummaries: Stripe.resources.UsageRecordSummaries;
-    sources: Stripe.resources.Sources;
+  accounts: Stripe.resources.Accounts;
+  balance: Stripe.resources.Balance;
+  balanceTransactions: Stripe.resources.BalanceTransaction;
+  charges: Stripe.resources.Charges;
+  checkout: Stripe.resources.Checkout;
+  coupons: Stripe.resources.Coupons;
+  creditNotes: Stripe.resources.CreditNotes;
+  customers: Stripe.resources.Customers;
+  disputes: Stripe.resources.Disputes;
+  events: Stripe.resources.Events;
+  invoices: Stripe.resources.Invoices;
+  invoiceItems: Stripe.resources.InvoiceItems;
+  paymentIntents: Stripe.resources.PaymentIntents;
+  paymentMethods: Stripe.resources.PaymentMethods;
+  payouts: Stripe.resources.Payouts;
+  plans: Stripe.resources.Plans;
+  /**
+   * @deprecated
+   */
+  recipientCards: Stripe.resources.RecipientCards;
+  /**
+   * @deprecated
+   */
+  recipients: Stripe.resources.Recipients;
+  subscriptions: Stripe.resources.Subscriptions;
+  subscriptionItems: Stripe.resources.SubscriptionItems;
+  tokens: Stripe.resources.Tokens;
+  transfers: Stripe.resources.Transfers;
+  applicationFees: Stripe.resources.ApplicationFees;
+  fileUploads: Stripe.resources.FileUploads;
+  bitcoinReceivers: Stripe.resources.BitcoinReceivers;
+  refunds: Stripe.resources.Refunds;
+  countrySpecs: Stripe.resources.CountrySpecs;
+  orders: Stripe.resources.Orders;
+  products: Stripe.resources.Products;
+  setupIntents: Stripe.resources.SetupIntents;
+  skus: Stripe.resources.SKUs;
+  webhooks: Stripe.resources.WebHooks;
+  ephemeralKeys: Stripe.resources.EphemeralKeys;
+  usageRecords: Stripe.resources.UsageRecords;
+  usageRecordSummaries: Stripe.resources.UsageRecordSummaries;
+  sources: Stripe.resources.Sources;
 
-    setHost(host: string): void;
-    setHost(host: string, port: string | number): void;
-    setHost(host: string, port: string | number, protocol: string): void;
+  setHost(host: string): void;
+  setHost(host: string, port: string | number): void;
+  setHost(host: string, port: string | number, protocol: string): void;
 
-    setProtocol(protocol: string): void;
-    setPort(port: string | number): void;
-    setApiVersion(version?: string): void;
-    setApiKey(key?: string): void;
-    setAppInfo(info?: { partner_id?: string; name: string; url?: string; version?: string }): void;
-    setTimeout(timeout?: number): void;
-    setMaxNetworkRetries(maxNetworkRetries: number): void;
-    setTelemetryEnabled(enabled: boolean): void;
-    setHttpAgent(agent: string): void;
-    getConstant(c: string): any;
-    getMaxNetworkRetries(): number;
-    getTelemetryEnabled(): boolean;
-    getClientUserAgent(response: (userAgent: string) => void): void;
+  setProtocol(protocol: string): void;
+  setPort(port: string | number): void;
+  setApiVersion(version?: string): void;
+  setApiKey(key?: string): void;
+  setAppInfo(info?: {
+    partner_id?: string;
+    name: string;
+    url?: string;
+    version?: string;
+  }): void;
+  setTimeout(timeout?: number): void;
+  setMaxNetworkRetries(maxNetworkRetries: number): void;
+  setTelemetryEnabled(enabled: boolean): void;
+  setHttpAgent(agent: Agent): void;
+  getConstant(c: string): any;
+  getMaxNetworkRetries(): number;
+  getTelemetryEnabled(): boolean;
+  getClientUserAgent(response: (userAgent: string) => void): void;
 }
 export = Stripe;
 
@@ -216,6 +223,11 @@ declare namespace Stripe {
              * attached to this account
              */
             external_accounts?: IList<IExternalAccount>;
+
+            /**
+             * Information about the requirements for the account, including what information needs to be collected, and by when.
+             */
+            requirements?: IAccountRequirements;
         }
 
         interface IAccountCreationOptions extends IAccountUpdateOptions {
@@ -260,6 +272,39 @@ declare namespace Stripe {
              * This field is null unless business_type is set to individual.
              */
             individual?: IIndividualCreateUpdateOptions;
+        }
+
+        interface IAccountRequirements {
+            /**
+             * The date the fields in currently_due must be collected by to keep payouts enabled for the account.
+             * These fields might block payouts sooner if the next threshold is reached before these fields are collected.
+             */
+            current_deadline: number | null;
+
+            /**
+             * The fields that need to be collected to keep the account enabled. If not collected by the current_deadline, these fields appear in past_due as well, and the account is disabled.
+             */
+            currently_due?: string[];
+
+            /**
+             * If the account is disabled, this string describes why the account can’t create charges or receive payouts. Can be requirements.past_due, requirements.pending_verification, rejected.fraud, rejected.terms_of_service, rejected.listed, rejected.other, listed, under_review, or other.
+             */
+            disabled_reason?: string | null;
+
+            /**
+             * The fields that need to be collected assuming all volume thresholds are reached. As they become required, these fields appear in currently_due as well, and the current_deadline is set.
+             */
+            eventually_due?: string[];
+
+            /**
+             * The fields that weren’t collected by the current_deadline. These fields need to be collected to re-enable the account.
+             */
+            past_due?: string[];
+
+            /**
+             * Fields that may become required depending on the results of verification or review. An empty array unless an asynchronous verification is pending. If verification fails, the fields in this array become required and move to currently_due or past_due.
+             */
+            pending_verification?: string[];
         }
 
         interface IAccountShared {
@@ -2111,6 +2156,11 @@ declare namespace Stripe {
                  * Array of accepted payment methods
                  */
                 payment_method_types?: string[];
+
+                /**
+                 * The ID of the SetupIntent for Checkout Sessions in setup mode.
+                 */
+                setup_intent?: string | null;
 
                 /**
                  * ID of subscription if one was created [Expandable]

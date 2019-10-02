@@ -647,7 +647,7 @@ requestSubscription(
             const notification = !!rootField ? rootField.getLinkedRecord('notification') : null;
             // Add it to a connection
             const viewer = store.getRoot().getLinkedRecord('viewer');
-            const notifications = ConnectionHandler.getConnection(viewer!, 'notifications');
+            const notifications = ConnectionHandler.getConnection(viewer, 'notifications');
             const edge = ConnectionHandler.createEdge(
                 store,
                 notifications!,
