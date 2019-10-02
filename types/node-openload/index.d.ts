@@ -165,104 +165,29 @@ declare class Openload {
     set config(object: IOpenloadConfig);
     get locationPrefix(): string;
 
-    public getAccountInfo(): Promise<{
-        status: number;
-        msg: string;
-        result: IAccountInfo;
-    }>;
+    public getAccountInfo(): Promise<IAccountInfo>;
 
-    public getDownloadTicket(
-        file: string,
-    ): Promise<{
-        status: number;
-        msg: string;
-        result: IDownloadTicket;
-    }>;
+    public getDownloadTicket(file: string): Promise<IDownloadTicket>;
 
-    public getDownloadLink(
-        obj: IDownloadLinkParam,
-    ): Promise<{
-        status: number;
-        msg: string;
-        result: IDownloadLink;
-    }>;
+    public getDownloadLink(obj: IDownloadLinkParam): Promise<IDownloadLink>;
 
-    public getDownload(
-        file: string,
-    ): Promise<{
-        status: number;
-        msg: string;
-        result: IDownloadTicket;
-    }>;
+    public getDownload(file: string): Promise<IDownloadLink>;
 
-    public getFileInfo(
-        file: string,
-    ): Promise<{
-        status: number;
-        msg: string;
-        result: IFileInfo;
-    }>;
+    public getFileInfo(file: string): Promise<IFileInfo>;
 
-    public deleteFile(
-        file: string | string[],
-    ): Promise<
-        [
-            {
-                status: number;
-                msg: string;
-                result: boolean;
-            },
-        ]
-    >;
+    public deleteFile(file: string | string[]): Promise<[boolean]>;
 
-    public listFolder(
-        folder: string,
-    ): Promise<{
-        status: number;
-        msg: string;
-        result: IListFolder;
-    }>;
+    public listFolder(folder: string): Promise<IListFolder>;
 
-    public getFolder(
-        folder: string,
-    ): Promise<{
-        status: number;
-        msg: string;
-        result: IListFolder;
-    }>;
+    public getFolder(folder: string): Promise<IListFolder>;
 
-    public remoteUpload(
-        obj: IRemoteUploadParam,
-    ): Promise<{
-        status: number;
-        msg: string;
-        result: IRemoteUpload;
-    }>;
+    public remoteUpload(obj: IRemoteUploadParam): Promise<IRemoteUpload>;
 
-    public remoteUploadStatus(
-        obj: IRemoteUploadStatusParam,
-    ): Promise<{
-        status: number;
-        msg: string;
-        result: IRemoteUploadStatus;
-    }>;
+    public remoteUploadStatus(obj: IRemoteUploadStatusParam): Promise<IRemoteUploadStatus>;
 
-    public upload(
-        obj: IUploadParam,
-        cb: (progress: IUploadProgress) => void,
-    ): Promise<{
-        status: number;
-        msg: string;
-        result: IUpload;
-    }>;
+    public upload(obj: IUploadParam, cb: (progress: IUploadProgress) => void): Promise<IUpload>;
 
-    public getSplashImage(
-        file: string,
-    ): Promise<{
-        status: number;
-        msg: string;
-        result: string;
-    }>;
+    public getSplashImage(file: string): Promise<string>;
 }
 
 /**
