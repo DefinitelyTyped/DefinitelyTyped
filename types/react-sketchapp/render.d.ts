@@ -1,6 +1,5 @@
 import * as React from 'react';
-
-import { SketchLayer, WrappedSketchLayer } from './src/types';
+import { SketchLayer, WrappedSketchLayer } from './types';
 
 export function renderToJSON(element: JSX.Element): object;
 

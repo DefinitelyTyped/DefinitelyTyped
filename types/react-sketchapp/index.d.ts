@@ -7,7 +7,7 @@
 // TypeScript Version: 2.8
 
 import * as React from 'react';
-import { Color, ResizeConstraints, SketchContext, SketchShadow } from './src/types';
+import { Color, ResizeConstraints, SketchContext, SketchShadow } from './types';
 
 declare global {
     const context: SketchContext;
