@@ -1,8 +1,3 @@
-// Useful things
-export type Dictionary<T> = {
-    [key: string]: T;
-};
-
 // Sketchy things
 export type SketchLayer = any;
 
@@ -15,27 +10,27 @@ export interface MSArray<T> {
     length: number;
 }
 
-type NSString = any;
+export type NSString = any;
 
 export interface SketchPage {
     name: () => NSString;
     setName: (name: string) => void;
-    layers: () => Array<SketchLayer>;
+    layers: () => SketchLayer[];
 }
 
 export type SketchStyle = any;
 
 export interface SketchSharedStyleContainer {
-    setObjects: (objects: Array<SketchStyle>) => void;
+    setObjects: (objects: SketchStyle[]) => void;
     addSharedStyleWithName_firstInstance: (name: string, ins: SketchStyle) => any;
 }
 
-type MSGradient = any;
-type MSColor = any;
+export type MSGradient = any;
+export type MSColor = any;
 
-interface SketchAssetCollection {
-    colors: () => Array<MSColor>;
-    gradients: () => Array<MSGradient>;
+export interface SketchAssetCollection {
+    colors: () => MSColor[];
+    gradients: () => MSGradient[];
 }
 
 export interface SketchDocumentData {
@@ -43,7 +38,7 @@ export interface SketchDocumentData {
     layerStyles: () => void;
     layerTextStyles: () => SketchSharedStyleContainer;
     layerSymbols: () => void;
-    removePageAtIndex: Function;
+    removePageAtIndex: () => void;
     addBlankPage: () => SketchPage;
     currentPage: () => SketchPage;
     setCurrentPage: (page: SketchPage) => void;
@@ -191,7 +186,7 @@ export interface TextNode {
     textStyles: TextStyle;
 }
 
-export type TextNodes = Array<TextNode>;
+export type TextNodes = TextNode[];
 
 export interface TreeNode {
     type: string;
@@ -199,7 +194,7 @@ export interface TreeNode {
     textStyle: TextStyle;
     layout: LayoutInfo;
     props: any;
-    children?: Array<TreeNode>;
+    children?: TreeNode[];
 }
 
 export type LayerCreator = (
@@ -228,4 +223,4 @@ export interface SketchShadow {
     shadowInner: boolean;
 }
 
-export type SketchShadows = Array<SketchShadow>;
+export type SketchShadows = SketchShadow[];

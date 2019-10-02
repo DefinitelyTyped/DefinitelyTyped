@@ -268,5 +268,8 @@ export const Platform: {
     select: (obj: any) => any;
 };
 
+// render functions from render.d.ts
+export { render, renderToJSON } from './render';
+
 // Svg, similar to https://github.com/react-native-community/react-native-svg
 export { default as Svg, SvgProps } from './lib/components/Svg';
