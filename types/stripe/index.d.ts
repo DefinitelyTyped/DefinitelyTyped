@@ -6977,20 +6977,22 @@ declare namespace Stripe {
     }
 
     namespace tokens {
-        interface IToken extends ICardToken, IBankAccountToken {}
+        type IToken = ICardToken | IBankAccountToken
 
         interface ICardToken extends ITokenBase {
+            type: "card";
             /**
              * Hash describing the card used to make the charge
              */
-            card?: cards.ICardHash;
+            card: cards.ICardHash;
         }
 
         interface IBankAccountToken extends ITokenBase {
+            type: "bank_account";
             /**
              * Hash describing the bank account
              */
-            bank_account?: bankAccounts.IBankAccountHash;
+            bank_account: bankAccounts.IBankAccountHash;
         }
 
         interface ITokenBase extends IResourceObject {
