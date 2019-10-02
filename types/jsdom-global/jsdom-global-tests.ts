@@ -1,4 +1,5 @@
-import { CookieJar, VirtualConsole } from '../jsdom';
+import { CookieJar, VirtualConsole } from 'jsdom';
+import jsdomGlobal from 'jsdom-global';
 
 jsdomGlobal();
 jsdomGlobal('hello', undefined);

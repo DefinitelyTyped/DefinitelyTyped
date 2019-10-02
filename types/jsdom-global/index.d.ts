@@ -7,11 +7,11 @@
 
 import { CookieJar, VirtualConsole} from 'jsdom';
 
-export = jsdom_global;
+export = jsdomGlobal;
 
-declare function jsdom_global(html?: string | Buffer, options?: jsdom_global.JsdomOptions): () => void;
+declare function jsdomGlobal(html?: string | Buffer, options?: jsdomGlobal.JsdomOptions): () => void;
 
-declare namespace jsdom_global {
+declare namespace jsdomGlobal {
     interface JsdomOptions {
         contentType?: string;
         url?: string;
