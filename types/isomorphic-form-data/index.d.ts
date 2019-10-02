@@ -5,6 +5,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
-import FormData = require('form-data')
+import FormData = require('form-data');
 
 export = FormData;
