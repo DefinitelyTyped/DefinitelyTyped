@@ -13,7 +13,7 @@ export function test(service: splunk.Service) {
         ) => {
           job.cancel(() => {
             // CANCELED!
-          }); // TODO Type this callback
+          });
         });
       });
     },

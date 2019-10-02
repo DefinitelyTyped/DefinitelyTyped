@@ -11,11 +11,12 @@ declare module 'splunk-sdk' {
 
     type Results = { [key: string]: any };
 
-    // TODO Splunk seems to intermix network and JS errors (figure out how to separate them)
     class SplunkError extends Error {
         status?: number;
         data?: any;
     }
+    
+    // Splunk intermixes network and JS errors
     type Error = SplunkError;
 
     type Namespace = Partial<{
@@ -27,15 +28,15 @@ declare module 'splunk-sdk' {
 
     type ClassDef<U> = { init: (...params: any[]) => void; [key: string]: any };
 
-    // TODO Basic definition of Splunk's class polyfill.
-    // Splunk utilizes a class polyfill it is compatible with ES6 classes.
+    // A Basic definition of Splunk's class polyfill.
+    // Splunk utilizes a class polyfill but it is compatible with ES6 classes.
     class Class {
         static extend<S, Class, T extends ClassDef<S>>(def: T): Class & { new (...params: any[]): Class & T };
 
         _super(...params: any[]): void;
     }
 
-    // TODO Should this be an enum?
+    // Functionally this is an enum of strings.
     export module Paths {
         const apps: string;
         const capabilities: string;
@@ -1660,7 +1661,6 @@ declare module 'splunk-sdk' {
 
     type ContextParams = ServiceParams & { timeout?: number };
 
-    // TODO is `search` mandatory?
     type SearchParams = Partial<
         { search: string } & {
             auto_cancel: number;
@@ -2574,8 +2574,8 @@ declare module 'splunk-sdk' {
              *
              * @param {Function} callback A function to call when the object is deleted: `(err)`.
              *
-             * (at)Protected
-             * TODO Are callbacks optional?
+             * 
+             * 
              */
             remove(callback?: (err: Error | null) => void): void;
 
@@ -2584,8 +2584,7 @@ declare module 'splunk-sdk' {
              *
              * @param {Object} props The properties to update the object with.
              * @param {Function} callback A function to call when the object is updated: `(err, entity)`.
-             *
-             * (at)Protected
+             * 
              */
             update(props: any, callback: (err: Error | null, entity: K) => void): void;
 
@@ -2594,7 +2593,6 @@ declare module 'splunk-sdk' {
              *
              * @param {Function} callback A function to call when the object is disabled: `(err, entity)`.
              *
-             * (at)Protected
              */
             disable(callback: (err: Error | null, entity: K) => void): void;
 
@@ -2603,7 +2601,7 @@ declare module 'splunk-sdk' {
              *
              * @param {Function} callback A function to call when the object is enabled: `(err, entity)`.
              *
-             * (at)Protected
+             * 
              */
             enable(callback: (err: Error | null, entity: K) => void): void;
 
@@ -2611,8 +2609,7 @@ declare module 'splunk-sdk' {
              * Reloads the entity on the server.
              *
              * @param {Function} callback A function to call when the object is reloaded: `(err, entity)`.
-             *
-             * (at)Protected
+             * 
              */
             reload(callback: (err: Error | null, entity: K) => void): void;
         }
@@ -2742,7 +2739,6 @@ declare module 'splunk-sdk' {
              * @param {Function} callback The function to call when the request is complete: `(err, response)`.
              * @returns {Array} An array of `K` objects.
              */
-            // TODO Fixed by tweaking root callback.
             create(params: L, callback: (err: Error | null, response: K) => void): void;
 
             /**
@@ -2753,8 +2749,7 @@ declare module 'splunk-sdk' {
              *      var apps = apps();
              *      var jobs = apps.list();
              */
-            // TODO: Fix original JSDoc
-            // listed argument: callback: (...params: any[]) => any
+            // JSDoc (incorrect) listed argument: callback: (...params: any[]) => any
             list(): K[];
         }
 
