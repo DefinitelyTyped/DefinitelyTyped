@@ -1,1 +1,8 @@
-{ "extends": "dtslint/dt.json" }
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "no-single-declare-module": false,
+        "no-declare-current-package": false,
+        "npm-naming": false
+    }
+}

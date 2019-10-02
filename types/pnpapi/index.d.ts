@@ -11,7 +11,6 @@ declare namespace NodeJS {
     }
 }
 
-// tslint:disable-next-line:no-declare-current-package
 declare module 'pnpapi' {
     interface PhysicalPackageLocator {
         name: string;
