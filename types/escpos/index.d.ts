@@ -9,27 +9,27 @@
 
 import * as net from "net";
 
-type FEED_CONTROL_TYPE = 'LF' | 'GLF' | 'FF' | 'CR' | 'HT' | 'VT';
-type BITMAP_FORMAT_TYPE = 'S8'  | 'D8' | 'S24' | 'D24';
-type QRCODE_LEVEL = 'L' | 'M' | 'Q' | 'H';
+export type FEED_CONTROL_TYPE = 'LF' | 'GLF' | 'FF' | 'CR' | 'HT' | 'VT';
+export type BITMAP_FORMAT_TYPE = 'S8'  | 'D8' | 'S24' | 'D24';
+export type QRCODE_LEVEL = 'L' | 'M' | 'Q' | 'H';
 
 /**
  * `B` = Bold
  * `I` = Italic
  * `U` = Underline
  */
-type TXT_STYLE = 'NORMAL' | 'B' | 'I' | 'U' | 'U2' | 'BI' | 'BIU' | 'BIU2' | 'BU' | 'BU2' | 'IU' | 'IU2';
+export type TXT_STYLE = 'NORMAL' | 'B' | 'I' | 'U' | 'U2' | 'BI' | 'BIU' | 'BIU2' | 'BU' | 'BU2' | 'IU' | 'IU2';
 
-type MIME_TYPE = 'image/png' | 'image/jpg' | 'image/jpeg' | 'image/gif' | 'image/bmp';
-type BARCODE_TYPE = 'UPC_A' | 'UPC_E' | 'EAN13' | 'EAN8' | 'CODE39' | 'ITF' | 'NW7' | 'CODE93' | 'CODE128';
+export type MIME_TYPE = 'image/png' | 'image/jpg' | 'image/jpeg' | 'image/gif' | 'image/bmp';
+export type BARCODE_TYPE = 'UPC_A' | 'UPC_E' | 'EAN13' | 'EAN8' | 'CODE39' | 'ITF' | 'NW7' | 'CODE93' | 'CODE128';
 /**
  * `LT` = Left
  * `CT` = Center
  * `RT` = Right
  */
-type TXT_ALIGN = 'LT' | 'CT' | 'RT';
+export type TXT_ALIGN = 'LT' | 'CT' | 'RT';
 
-declare namespace command {
+export namespace command {
     const LF: '\x0a';
     const FS: '\x1c';
     const FF: '\x0c';
@@ -278,7 +278,6 @@ declare namespace command {
         US_v: '\x1f\x76'; // Sets the DTR signal in the host interface to the MARK or SPACE state
     };
 }
-
 
 export interface Adapter {
     open(callback?: Function): Adapter;
