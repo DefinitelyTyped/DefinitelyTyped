@@ -1,6 +1,7 @@
 // Type definitions for i18n-js 3.0
 // Project: https://github.com/fnando/i18n-js
 // Definitions by: Yuya Tanaka <https://github.com/ypresto>
+//                 Ely Alvarado <https://github.com/elyalvarado>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -46,6 +47,7 @@ declare namespace I18n {
     }
     function translate(scope: Scope, options?: TranslateOptions): string;
     function t(scope: Scope, options?: TranslateOptions): string;
+    function getFullScope(scope: Scope, options?: TranslateOptions): string;
 
     function localize(scope: "currency" | "number" | "percentage", value: number, options?: InterpolateOptions): string;
     function localize(scope: Scope, value: string | number | Date, options?: InterpolateOptions): string;
