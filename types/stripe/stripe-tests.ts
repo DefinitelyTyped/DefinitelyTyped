@@ -977,6 +977,18 @@ stripe.customers.listTaxIds('cus_FhdWgak8aeNfht', (err, taxIds) => {
 //#region Tokens tests
 // ##################################################################################
 
+stripe.tokens.retrieve('tok_17F2JBFuhr4V1legrq97JrFE').then(token => {
+    if (token.type === 'card') {
+        token.card;
+    }
+});
+
+stripe.tokens.retrieve('tok_17F2JBFuhr4V1legrq97JrFE').then(token => {
+    if (token.type === 'bank_account') {
+        token.bank_account;
+    }
+});
+
 //#endregion
 
 //#region Transfers tests
