@@ -80,10 +80,15 @@ declare enum ErrorCode {
 
 declare namespace Parse {
 
-    // Helper types for extracting an extended generic type from an
+    // Helper types for extracting an extended generic types from an
     // (Parse.)Object or Array.
-    type Unarray<T> = T extends Array<infer U> ? U : T;
-    type Unobject<X> = X extends Object<infer U> ? U extends object ? U : any : X;
+    // The default fall-back to types which can't be Unarray'ed or Unobject'ed
+    // is 'never', although this can be changed via 'K'.
+    type Unarray<T, K = never> = T extends Array<infer U> ? U : K;
+    type Unobject<X, K = never> = X extends Object<infer U> ? U extends K ? any : U : K;
+
+    // Returns all keys from T with a (default) fallback to 'any'
+    type UnpackKeys<T, K = any> = T extends never ? K : keyof T extends never ? K : keyof T;
 
     let applicationId: string;
     let javaScriptKey: string | undefined;
@@ -382,52 +387,52 @@ declare namespace Parse {
         static unPinAllObjectsWithName(name: string): Promise<void>;
         static unPinAllWithName(name: string, objects: Object[]): Promise<void>;
 
-        add<P extends keyof K>(attr: P, item: Unarray<K[P]>): this | boolean;
-        addAll<P extends keyof K>(attr: P, items: K[P]): this | boolean;
-        addAllUnique<P extends keyof K>(attr: P, items: K[P]): this | boolean;
-        addUnique<P extends keyof K>(attr: P, item: Unarray<K[P]>): this | boolean;
+        add<P extends UnpackKeys<K>>(attr: P, item: Unarray<K[P], K[P]>): this | boolean;
+        addAll<P extends UnpackKeys<K>>(attr: P, items: K[P]): this | boolean;
+        addAllUnique<P extends UnpackKeys<K>>(attr: P, items: K[P]): this | boolean;
+        addUnique<P extends UnpackKeys<K>>(attr: P, item: Unarray<K[P], K[P]>): this | boolean;
         change(options: any): this;
         changedAttributes(diff: any): boolean;
         clear(options: any): any;
         clone(): this;
         destroy(options?: Object.DestroyOptions): Promise<this>;
-        dirty<P extends keyof K>(attr?: P): boolean;
+        dirty<P extends UnpackKeys<K>>(attr?: P): boolean;
         dirtyKeys(): string[];
         equals(other: any): boolean;
-        escape<P extends keyof K>(attr: P): string;
+        escape<P extends UnpackKeys<K>>(attr: P): string;
         existed(): boolean;
         fetch(options?: Object.FetchOptions): Promise<this>;
         fetchFromLocalDatastore(): Promise<this> | void;
-        fetchWithInclude<P extends keyof K>(keys: P | Array<P | Array<P>>, options?: RequestOptions): Promise<this>;
-        get<P extends keyof K>(attr: P): K[P];
+        fetchWithInclude<P extends UnpackKeys<K>>(keys: P | Array<P | Array<P>>, options?: RequestOptions): Promise<this>;
+        get<P extends UnpackKeys<K>>(attr: P): K[P];
         getACL(): ACL | undefined;
-        has<P extends keyof K>(attr: P): boolean;
-        hasChanged<P extends keyof K>(attr: P): boolean;
-        increment<P extends keyof K>(attr: P, amount?: number): any;
+        has<P extends UnpackKeys<K>>(attr: P): boolean;
+        hasChanged<P extends UnpackKeys<K>>(attr: P): boolean;
+        increment<P extends UnpackKeys<K>>(attr: P, amount?: number): any;
         initialize(): void;
         isNew(): boolean;
         isPinned(): Promise<boolean>;
         isValid(): boolean;
-        op<P extends keyof K>(attr: P): any;
+        op<P extends UnpackKeys<K>>(attr: P): any;
         pin(): Promise<void>;
         pinWithName(name: string): Promise<void>;
-        previous<P extends keyof K>(attr: P): any;
+        previous<P extends UnpackKeys<K>>(attr: P): any;
         previousAttributes(): any;
-        relation<P extends keyof K>(attr: P): Relation<this, Object>;
-        remove<P extends keyof K>(attr: P, item: Unarray<K[P]>): this | boolean;
-        removeAll<P extends keyof K>(attr: P, items: K[P]): this | boolean;
+        relation<P extends UnpackKeys<K>>(attr: P): Relation<this, Object>;
+        remove<P extends UnpackKeys<K>>(attr: P, item: Unarray<K[P], K[P]>): this | boolean;
+        removeAll<P extends UnpackKeys<K>>(attr: P, items: K[P]): this | boolean;
         revert(): void;
-        revert<P extends keyof K>(...keys: P[]): void;
+        revert<P extends UnpackKeys<K>>(...keys: P[]): void;
         save(attrs?: Partial<K> | null, options?: Object.SaveOptions): Promise<this>;
-        save<P extends keyof K>(key: P, value: K[P], options?: Object.SaveOptions): Promise<this>;
+        save<P extends UnpackKeys<K>>(key: P, value: K[P], options?: Object.SaveOptions): Promise<this>;
         save(attrs: Partial<K>, options?: Object.SaveOptions): Promise<this>;
-        set<P extends keyof K>(key: P, value: K[P] | Parse.Object<K[P]>, options?: Object.SetOptions): this | false;
+        set<P extends UnpackKeys<K>>(key: P, value: K[P], options?: Object.SetOptions): this | false;
         set(attrs: Partial<K>, options?: Object.SetOptions): this | false;
         setACL(acl: ACL, options?: SuccessFailureOptions): this | false;
         toPointer(): Pointer;
         unPin(): Promise<void>;
         unPinWithName(name: string): Promise<void>;
-        unset<P extends keyof K>(attr: P, options?: any): any;
+        unset<P extends UnpackKeys<K>>(attr: P, options?: any): any;
         validate(attrs: Partial<K>, options?: SuccessFailureOptions): boolean;
     }
 
@@ -543,62 +548,62 @@ declare namespace Parse {
         static nor<U extends Object>(...args: Query<U>[]): Query<U>;
         static or<U extends Object>(...var_args: Query<U>[]): Query<U>;
 
-        addAscending<P extends keyof K>(key: P): Query<T>;
-        addAscending<P extends keyof K>(key: P[]): Query<T>;
-        addDescending<P extends keyof K>(key: P): Query<T>;
-        addDescending<P extends keyof K>(key: P[]): Query<T>;
-        ascending<P extends keyof K>(key: P): Query<T>;
-        ascending<P extends keyof K>(key: P[]): Query<T>;
+        addAscending<P extends UnpackKeys<K>>(key: P): Query<T>;
+        addAscending<P extends UnpackKeys<K>>(key: P[]): Query<T>;
+        addDescending<P extends UnpackKeys<K>>(key: P): Query<T>;
+        addDescending<P extends UnpackKeys<K>>(key: P[]): Query<T>;
+        ascending<P extends UnpackKeys<K>>(key: P): Query<T>;
+        ascending<P extends UnpackKeys<K>>(key: P[]): Query<T>;
         aggregate<V = any>(pipeline: Query.AggregationOptions | Query.AggregationOptions[]): Promise<V>;
-        containedBy<P extends keyof K>(key: P, values: K[P][]): Query<T>;
-        containedIn<P extends keyof K>(key: P, values: K[P][]): Query<T>;
-        contains<P extends keyof K>(key: P, substring: string): Query<T>;
-        containsAll<P extends keyof K>(key: P, values: Unarray<K[P]>[]): Query<T>;
-        containsAllStartingWith<P extends keyof K>(key: P, values: Unarray<K[P]>[]): Query<T>;
+        containedBy<P extends UnpackKeys<K>>(key: P, values: K[P][]): Query<T>;
+        containedIn<P extends UnpackKeys<K>>(key: P, values: K[P][]): Query<T>;
+        contains<P extends UnpackKeys<K>>(key: P, substring: string): Query<T>;
+        containsAll<P extends UnpackKeys<K>>(key: P, values: Unarray<K[P], K[P]>[]): Query<T>;
+        containsAllStartingWith<P extends UnpackKeys<K>>(key: P, values: Unarray<K[P], K[P]>[]): Query<T>;
         count(options?: Query.CountOptions): Promise<number>;
-        descending<P extends keyof K>(key: P): Query<T>;
-        descending<P extends keyof K>(key: P[]): Query<T>;
-        doesNotExist<P extends keyof K>(key: P): Query<T>;
-        doesNotMatchKeyInQuery<O extends Object, P extends keyof K, Q extends keyof Unobject<O>>(key: P, queryKey: Q, query: Query<O>): Query<T>;
-        doesNotMatchQuery<U extends Object, P extends keyof K>(key: P, query: Query<U>): Query<T>;
-        distinct<P extends keyof K>(key: P): Promise<Array<K[P]>>;
+        descending<P extends UnpackKeys<K>>(key: P): Query<T>;
+        descending<P extends UnpackKeys<K>>(key: P[]): Query<T>;
+        doesNotExist<P extends UnpackKeys<K>>(key: P): Query<T>;
+        doesNotMatchKeyInQuery<O extends Object, P extends UnpackKeys<K>, Q extends keyof Unobject<O>>(key: P, queryKey: Q, query: Query<O>): Query<T>;
+        doesNotMatchQuery<U extends Object, P extends UnpackKeys<K>>(key: P, query: Query<U>): Query<T>;
+        distinct<P extends UnpackKeys<K>>(key: P): Promise<Array<K[P]>>;
         each(callback: Function, options?: Query.EachOptions): Promise<void>;
-        endsWith<P extends keyof K>(key: P, suffix: string): Query<T>;
-        equalTo<P extends keyof K>(key: P, value: Unarray<K[P]>): Query<T>;
-        exists<P extends keyof K>(key: P): Query<T>;
+        endsWith<P extends UnpackKeys<K>>(key: P, suffix: string): Query<T>;
+        equalTo<P extends UnpackKeys<K>>(key: P, value: Unarray<K[P], K[P]>): Query<T>;
+        exists<P extends UnpackKeys<K>>(key: P): Query<T>;
         find(options?: Query.FindOptions): Promise<T[]>;
         first(options?: Query.FirstOptions): Promise<T | undefined>;
         fromLocalDatastore(): void;
         fromPin(): void;
         fromPinWithName(name: string): void;
-        fullText<P extends keyof K>(key: P, value: string, options?: Query.FullTextOptions): Query<T>;
+        fullText<P extends UnpackKeys<K>>(key: P, value: string, options?: Query.FullTextOptions): Query<T>;
         get(objectId: string, options?: Query.GetOptions): Promise<T>;
-        greaterThan<P extends keyof K>(key: P, value: K[P]): Query<T>;
-        greaterThanOrEqualTo<P extends keyof K>(key: P, value: K[P]): Query<T>;
-        include<P extends keyof K>(key: P): Query<T>;
+        greaterThan<P extends UnpackKeys<K>>(key: P, value: K[P]): Query<T>;
+        greaterThanOrEqualTo<P extends UnpackKeys<K>>(key: P, value: K[P]): Query<T>;
+        include<P extends UnpackKeys<K>>(key: P): Query<T>;
         include(keys: string[]): Query<T>;
         includeAll(): Query<T>;
-        lessThan<P extends keyof K>(key: P, value: K[P]): Query<T>;
-        lessThanOrEqualTo<P extends keyof K>(key: P, value: K[P]): Query<T>;
+        lessThan<P extends UnpackKeys<K>>(key: P, value: K[P]): Query<T>;
+        lessThanOrEqualTo<P extends UnpackKeys<K>>(key: P, value: K[P]): Query<T>;
         limit(n: number): Query<T>;
-        matches<P extends keyof K>(key: P, regex: RegExp, modifiers: any): Query<T>;
-        matchesKeyInQuery<O extends Object, P extends keyof K, Q extends keyof Unobject<O>>(key: P, queryKey: Q, query: Query<O>): Query<T>;
-        matchesQuery<U extends Object, P extends keyof K>(key: P, query: Query<U>): Query<T>;
-        near<P extends keyof K>(key: P, point: GeoPoint): Query<T>;
-        notContainedIn<P extends keyof K>(key: P, values: any[]): Query<T>;
-        notEqualTo<P extends keyof K>(key: P, value: K[P]): Query<T>;
-        polygonContains<P extends keyof K>(key: P, point: GeoPoint): Query<T>;
-        select<P extends keyof K>(...keys: P[]): Query<T>;
+        matches<P extends UnpackKeys<K>>(key: P, regex: RegExp, modifiers: any): Query<T>;
+        matchesKeyInQuery<O extends Object, P extends UnpackKeys<K>, Q extends keyof Unobject<O>>(key: P, queryKey: Q, query: Query<O>): Query<T>;
+        matchesQuery<U extends Object, P extends UnpackKeys<K>>(key: P, query: Query<U>): Query<T>;
+        near<P extends UnpackKeys<K>>(key: P, point: GeoPoint): Query<T>;
+        notContainedIn<P extends UnpackKeys<K>>(key: P, values: any[]): Query<T>;
+        notEqualTo<P extends UnpackKeys<K>>(key: P, value: K[P]): Query<T>;
+        polygonContains<P extends UnpackKeys<K>>(key: P, point: GeoPoint): Query<T>;
+        select<P extends UnpackKeys<K>>(...keys: P[]): Query<T>;
         skip(n: number): Query<T>;
         sortByTextScore(): this;
-        startsWith<P extends keyof K>(key: P, prefix: string): Query<T>;
+        startsWith<P extends UnpackKeys<K>>(key: P, prefix: string): Query<T>;
         subscribe(): LiveQuerySubscription;
         withJSON(json: any): this;
-        withinGeoBox<P extends keyof K>(key: P, southwest: GeoPoint, northeast: GeoPoint): Query<T>;
-        withinKilometers<P extends keyof K>(key: P, point: GeoPoint, maxDistance: number): Query<T>;
-        withinMiles<P extends keyof K>(key: P, point: GeoPoint, maxDistance: number): Query<T>;
-        withinPolygon<P extends keyof K>(key: P, points: GeoPoint[]): Query<T>;
-        withinRadians<P extends keyof K>(key: P, point: GeoPoint, maxDistance: number): Query<T>;
+        withinGeoBox<P extends UnpackKeys<K>>(key: P, southwest: GeoPoint, northeast: GeoPoint): Query<T>;
+        withinKilometers<P extends UnpackKeys<K>>(key: P, point: GeoPoint, maxDistance: number): Query<T>;
+        withinMiles<P extends UnpackKeys<K>>(key: P, point: GeoPoint, maxDistance: number): Query<T>;
+        withinPolygon<P extends UnpackKeys<K>>(key: P, points: GeoPoint[]): Query<T>;
+        withinRadians<P extends UnpackKeys<K>>(key: P, point: GeoPoint, maxDistance: number): Query<T>;
     }
 
     namespace Query {
@@ -737,8 +742,8 @@ subscription.on('close', () => {});
         static current(): Config;
         static save(attr: any): Promise<Config>;
 
-        get<P extends keyof K>(attr: P): K[P];
-        escape<P extends keyof K>(attr: P): string;
+        get<P extends UnpackKeys<K>>(attr: P): K[P];
+        escape<P extends UnpackKeys<K>>(attr: P): string;
     }
 
     type SessionProps<T> = T & {

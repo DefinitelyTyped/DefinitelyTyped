@@ -456,21 +456,21 @@ function test_cloud_functions() {
     Parse.Cloud.beforeSave('MyCustomClass', async (request: Parse.Cloud.BeforeSaveRequest) => {
 
         if (request.object.isNew()) {
-            if (!request.object.has('immutable')) throw new Error('Field immutable is required')
+            if (!request.object.has('immutable')) throw new Error('Field immutable is required');
         } else {
-                   const original = request.original;
-                   if (original == null) {
-                       // When the object is not new, request.original must be defined
-                       throw new Parse.Error(
-                           CUSTOM_ERROR_INVALID_CONDITION,
-                           'Original must me defined for an existing object',
-                       );
-                   }
+            const original = request.original;
+            if (original == null) {
+                // When the object is not new, request.original must be defined
+                throw new Parse.Error(
+                    CUSTOM_ERROR_INVALID_CONDITION,
+                    'Original must me defined for an existing object',
+                );
+            }
 
-                   if (original.get('immutable') !== request.object.get('immutable')) {
-                       throw new Parse.Error(CUSTOM_ERROR_IMMUTABLE_FIELD, 'This field cannot be changed');
-                   }
-               }
+            if (original.get('immutable') !== request.object.get('immutable')) {
+                throw new Parse.Error(CUSTOM_ERROR_IMMUTABLE_FIELD, 'This field cannot be changed');
+            }
+        }
 
         if (!request.context) {
             throw new Error('Request context should be defined')
@@ -661,12 +661,27 @@ async function test_local_datastore() {
     Parse.setLocalDatastoreController({});
 }
 
-function test_query_object() {
-    const q = new Parse.Query(Parse.Object);
-    q.equalTo('b', 'c');
+function test_inference() {
+    const typedModel = new GameScore();
+    typedModel.set('playerName', 'string');
+
+    const defaultObj = new Parse.Object('Game');
+    defaultObj.set('something', 'string');
+
+    const typedQuery = new Parse.Query(GameScore);
+    typedQuery.equalTo('wins', 13);
+
+    const defaultQuery = new Parse.Query('Game');
+    defaultQuery.equalTo('something', 'string');
+
+    const flatObject = new Parse.Object();
+    flatObject.set('something', 'new');
+
+    const flatQuery = new Parse.Query(Parse.Object);
+    flatQuery.equalTo('randomstuff', 23);
 }
 
-class Session extends Parse.Session<{ something: string }> {}
+class Session extends Parse.Session<{ something: string }> { }
 
 function test_session() {
     const s = new Session();
