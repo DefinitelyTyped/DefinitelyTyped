@@ -1,4 +1,4 @@
-// Type definitions for google-map-react 1.1.5
+// Type definitions for google-map-react 1.1
 // Project: https://github.com/google-map-react/google-map-react
 // Definitions by: Honza Brecka <https://github.com/honzabrecka>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
