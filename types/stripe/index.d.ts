@@ -3474,7 +3474,7 @@ declare namespace Stripe {
              * customer. When sending an invoice, Stripe will email this invoice to the customer
              * with payment instructions.
              *
-             * This field has been renamed to collection_method and will be removed in a future API version.
+             * @deprecated This field has been renamed to collection_method and will be removed in a future API version.
              */
             billing: 'charge_automatically' | 'send_invoice';
 
@@ -3834,13 +3834,17 @@ declare namespace Stripe {
             auto_advance?: boolean;
 
             /**
+             *@deprecated Use collection_method instead
+             */
+             billing?: 'charge_automatically' | 'send_invoice';
+
+                /**
              * Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe
              * will attempt to pay this invoice using the default source attached to the customer.
              * When sending an invoice, Stripe will email this invoice to the customer with payment
              * instructions. Defaults to charge_automatically.
-             *
              */
-             collection_method?: 'charge_automatically' | 'send_invoice';
+            collection_method?: 'charge_automatically' | 'send_invoice';
 
             /**
              * A list of up to 4 custom fields to be displayed on the invoice.
