@@ -36,19 +36,19 @@ const modernEnvironment = new Environment({ network, store });
 // ~~~~~~~~~~~~~~~~~~~~~
 
 // Artifact produced by relay-compiler-language-typescript
-type MyQueryRendererVariables = {
+type MyQueryVariables = {
     pageID: string;
 };
-type MyQueryRendererResponse = {
+type MyQueryResponse = {
     name: string;
 };
-type MyQueryRenderer = {
-    variables: MyQueryRendererVariables;
-    response: MyQueryRendererResponse;
+type MyQuery = {
+    variables: MyQueryVariables;
+    response: MyQueryResponse;
 };
 
 const MyQueryRenderer = (props: { name: string; show: boolean }) => (
-    <QueryRenderer<MyQueryRenderer>
+    <QueryRenderer<MyQuery>
         environment={modernEnvironment}
         query={
             props.show
@@ -61,6 +61,7 @@ const MyQueryRenderer = (props: { name: string; show: boolean }) => (
                   `
                 : null
         }
+        fetchPolicy="store-and-network"
         variables={{
             pageID: '110798995619330',
         }}
@@ -646,7 +647,7 @@ requestSubscription(
             const notification = !!rootField ? rootField.getLinkedRecord('notification') : null;
             // Add it to a connection
             const viewer = store.getRoot().getLinkedRecord('viewer');
-            const notifications = ConnectionHandler.getConnection(viewer!, 'notifications');
+            const notifications = ConnectionHandler.getConnection(viewer, 'notifications');
             const edge = ConnectionHandler.createEdge(
                 store,
                 notifications!,

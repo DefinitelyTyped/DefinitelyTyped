@@ -1,6 +1,6 @@
 import { queries } from '@testing-library/dom';
 
-const { getByText, queryByText, findByText, getAllByText, queryAllByText, findAllByText } = queries;
+const { getByText, queryByText, findByText, getAllByText, queryAllByText, findAllByText, queryByRole } = queries;
 
 async function testQueries() {
     const element = document.createElement('div');
@@ -10,4 +10,12 @@ async function testQueries() {
     getAllByText(element, 'bar');
     queryAllByText(element, 'bar');
     await findAllByText(element, 'bar');
+}
+
+function testByRole() {
+    const element = document.createElement('button');
+    element.setAttribute('aria-hidden', 'true');
+
+    console.assert(queryByRole(element, 'button') === null);
+    console.assert(queryByRole(element, 'button', { hidden: true }) !== null);
 }

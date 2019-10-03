@@ -1,4 +1,4 @@
-// Type definitions for react-relay 5.0
+// Type definitions for react-relay 6.0
 // Project: https://github.com/facebook/relay, https://facebook.github.io/relay
 // Definitions by: Johannes Schickling <https://github.com/graphcool>
 //                 Matt Martin <https://github.com/voxmatt>
@@ -105,10 +105,11 @@ export {
     requestSubscription,
 } from 'relay-runtime';
 
-export type DataFrom = 'NETWORK_ONLY' | 'STORE_THEN_NETWORK';
+export type FetchPolicy = 'store-and-network' | 'network-only';
+
 declare class ReactRelayQueryRenderer<TOperation extends OperationType> extends React.Component<{
     cacheConfig?: CacheConfig | null;
-    dataFrom?: DataFrom;
+    fetchPolicy?: FetchPolicy;
     environment: Environment;
     query: GraphQLTaggedNode | null | undefined;
     render: (renderProps: {

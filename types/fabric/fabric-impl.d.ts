@@ -2259,23 +2259,23 @@ interface Image extends Object, IImageOptions { }
 export class Image {
 	/**
 	 * Constructor
-	 * @param element Image element
+	 * @param element Image or Video element
 	 * @param [options] Options object
 	 */
-	constructor(element?: string | HTMLImageElement, options?: IImageOptions);
+	constructor(element?: string | HTMLImageElement | HTMLVideoElement, options?: IImageOptions);
 	/**
-	 * Returns image element which this instance if based on
-	 * @return Image element
+	 * Returns image or video element which this instance is based on
+	 * @return Image or Video element
 	 */
-	getElement(): HTMLImageElement;
+	getElement(): HTMLImageElement | HTMLVideoElement;
 	/**
-	 * Sets image element for this instance to a specified one.
+	 * Sets image or video element for this instance to a specified one.
 	 * If filters defined they are applied to new image.
 	 * You might need to call `canvas.renderAll` and `object.setCoords` after replacing, to render new image and update controls area.
 	 * @param element image element
 	 * @param [options] Options object
 	 */
-	setElement(element: HTMLImageElement, options?: IImageOptions): Image;
+	setElement(element: HTMLImageElement | HTMLVideoElement, options?: IImageOptions): Image;
 	/**
 	 * Delete a single texture if in webgl mode
 	 */

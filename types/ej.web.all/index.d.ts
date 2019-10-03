@@ -1,4 +1,4 @@
-// Type definitions for non-npm package ej.web.all 17.2
+// Type definitions for non-npm package ej.web.all 17.3
 // Project: http://help.syncfusion.com/js/typescript
 // Definitions by: Syncfusion <https://github.com/syncfusion>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -8,7 +8,7 @@
 
 /*!
 *  filename: ej.web.all.d.ts
-*  version : 17.2.0.46
+*  version : 17.3.0.9-beta
 *  Copyright Syncfusion Inc. 2001 - 2019. All rights reserved.
 *  Use of this code is subject to the terms of our license.
 *  A copy of the current license can be obtained at any time by e-mailing
@@ -37663,7 +37663,7 @@ declare namespace ej {
             /** Specifies the print option of the report.
              * @Default {ej.ReportViewer.PrintOptions.Default}
              */
-            printOptions?: ej.ReportViewer.PrintOptions|string;
+            printOption?: ej.ReportViewer.PrintOptions|string;
 
             /** Specifies the processing mode of the report.
              * @Default {ej.ReportViewer.ProcessingMode.Remote}
@@ -38247,6 +38247,16 @@ declare namespace ej {
              * @Default {auto}
              */
             popupWidth?: string;
+
+            /** Specifies the width of the parameter item. By default, the item width value is set as &quot;185px&quot;.
+             * @Default {185px}
+             */
+            itemWidth?: string;
+
+            /** Specifies the width of the parameter label. By default, the parameter label width value is set as &quot;110px&quot;.
+             * @Default {110px}
+             */
+            labelWidth?: string;
         }
 
         enum ExportOptions {
@@ -38254,8 +38264,8 @@ declare namespace ej {
             ///Specifies the All property in ExportOptions to get all available options.
             All,
 
-            ///Specifies the PDF property in ExportOptions to get PDF option.
-            PDF,
+            ///Specifies the Pdf property in ExportOptions to get Pdf option.
+            Pdf,
 
             ///Specifies the Word property in ExportOptions to get Word option.
             Word,
@@ -38263,8 +38273,17 @@ declare namespace ej {
             ///Specifies the Excel property in ExportOptions to get Excel option.
             Excel,
 
-            ///Specifies the HTML property in ExportOptions to get HTML option.
-            HTML
+            ///Specifies the Html property in ExportOptions to get Html option.
+            Html,
+
+            ///Specifies the PPT property in ExportOptions to get PPT option.
+            PPT,
+
+            ///Specifies the CSV property in ExportOptions to get CSV option.
+            CSV,
+
+            ///Specifies the customItems property in ExportOptions to get customItems option.
+            CustomItems
         }
 
 
@@ -49665,6 +49684,11 @@ declare namespace ej {
              */
             locale?: string;
 
+            /** Shows or hides the create, edit, and delete options in data source and dataset panels.
+             * @Default {ej.ReportDesigner.Permission.All}
+             */
+            permissionSettings?: PermissionSettings;
+
             /** Gets or sets the list of custom data extension items.
              * @Default {[]}
              */
@@ -49679,6 +49703,11 @@ declare namespace ej {
              * @Default {null}
              */
             reportPath?: string;
+
+            /** Gets or sets the report type.
+             * @Default {ej.ReportDesigner.ReportType.RDL}
+             */
+            reportType?: string;
 
             /** Gets or sets the reports server URL.
              * @Default {null}
@@ -49872,6 +49901,14 @@ declare namespace ej {
             showConfigurePane?: boolean;
         }
 
+        export interface PermissionSettings {
+
+            /** Shows or hides the create, edit and delete options in data source pane with the help of ej.ReportDesigner.Permission enum.
+             * @Default {ej.ReportDesigner.Permission.All}
+             */
+            dataSource?: ej.ReportDesigner.Permission|string;
+        }
+
         export interface ReportDataExtension {
 
             /** Gets or sets the name of the datasource type.
@@ -49945,6 +49982,22 @@ declare namespace ej {
              */
             templateId?: string;
         }
+
+        enum Permission {
+
+            ///Shows or hides create option in data source pane.
+            Create,
+
+            ///Shows or hides the edit option in data source pane.
+            Edit,
+
+            ///Shows or hides the delete option in data source pane.
+            Delete,
+
+            ///Shows all the options in data source pane.
+            All
+        }
+
 
         enum ToolbarItems {
 

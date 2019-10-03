@@ -47,6 +47,14 @@ declare namespace jasmine {
     not: ArrayLikeMatchers<T>;
   }
 
+  // Add definition to be compatible with latest jasmine v3 types.
+  // Even though library is not compatible with jasmine v3, there is no suitable way to configure that now here.
+  // See for more detail: https://github.com/microsoft/dtslint/issues/253
+  interface FunctionMatchers<Fn extends (...args: any[]) => any> extends Matchers<any> {
+    toHaveBeenCalledWith(...params: any[]): boolean;
+    toHaveBeenCalledWith(...params: any[]): Promise<void>;
+  }
+
   function addMatchers(matchers: AsyncCustomMatcherFactories): void;
 
   interface Env {

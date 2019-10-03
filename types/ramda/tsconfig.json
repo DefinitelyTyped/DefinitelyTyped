@@ -112,6 +112,26 @@
         "test/is-tests.ts",
         "test/isArrayLike-tests.ts",
         "test/isEmpty-tests.ts",
-        "test/isNaN-tests.ts"
+        "test/isNaN-tests.ts",
+        "test/join-tests.ts",
+        "test/juxt-tests.ts",
+        "test/keys-tests.ts",
+        "test/keysIn-tests.ts",
+        "test/last-tests.ts",
+        "test/lastIndexOf-tests.ts",
+        "test/length-tests.ts",
+        "test/lens-tests.ts",
+        "test/lensIndex-tests.ts",
+        "test/lensProp-tests.ts",
+        "test/lt-tests.ts",
+        "test/lte-tests.ts",
+        "test/map-tests.ts",
+        "test/mapAccum-tests.ts",
+        "test/mapAccumRight-tests.ts",
+        "test/mapObjIndexed-tests.ts",
+        "test/mathMod-tests.ts",
+        "test/max-tests.ts",
+        "test/maxBy-tests.ts",
+        "test/mean-tests.ts"
     ]
 }

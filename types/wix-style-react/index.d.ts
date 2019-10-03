@@ -6,3 +6,5 @@
 
 export { default as Button, ButtonProps } from './Button';
 export { default as Text, TextProps } from './Text';
+export { default as WixComponent, WixComponentProps } from './BaseComponents';
+export { default as Loader, LoaderProps } from './Loader';

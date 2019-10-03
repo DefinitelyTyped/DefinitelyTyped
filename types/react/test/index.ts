@@ -143,7 +143,7 @@ class ModernComponent extends React.Component<Props, State, Snapshot>
         someOtherValue: PropTypes.string.isRequired
     };
 
-    context: Context;
+    context: Context = {};
 
     getChildContext() {
         return {
@@ -402,7 +402,13 @@ const ForwardingRefComponent = React.forwardRef((props: {}, ref: React.Ref<RefCo
     return React.createElement(RefComponent, { ref });
 });
 
-const ForwardingRefComponentPropTypes: React.WeakValidationMap<Props> = {};
+interface AttributeProps extends React.Attributes {
+    hello: string;
+    world?: string | null;
+    foo: number;
+}
+
+const ForwardingRefComponentPropTypes: React.WeakValidationMap<AttributeProps> = {};
 ForwardingRefComponent.propTypes = ForwardingRefComponentPropTypes;
 
 function RefCarryingComponent() {

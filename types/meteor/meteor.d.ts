@@ -1,5 +1,9 @@
-type global_Error = Error;
+import { Mongo } from 'meteor/mongo';
+import { EJSONable, EJSONableProperty } from 'meteor/ejson';
+import { Blaze } from 'meteor/blaze';
+import { DDP } from 'meteor/ddp';
 declare module "meteor/meteor" {
+    type global_Error = Error;
     module Meteor {
         /** Global props **/
         var isClient: boolean;
@@ -113,7 +117,7 @@ declare module "meteor/meteor" {
 
         function wrapAsync(func: Function, context?: Object): any;
 
-        function bindEnvironment(func: Function): any;
+        function bindEnvironment<TFunc extends Function>(func: TFunc): TFunc;
         /** utils **/
 
         /** Pub/Sub **/
