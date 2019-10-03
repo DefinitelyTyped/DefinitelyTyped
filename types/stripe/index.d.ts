@@ -31,6 +31,7 @@
 //                 Chris Zieba <https://github.com/ChrisZieba>
 //                 Jeffery Grajkowski <https://github.com/pushplay>
 //                 Claus Stilborg <https://github.com/stilborg>
+//                 Jorgen Vik <https://github.com/jvik>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -3472,6 +3473,8 @@ declare namespace Stripe {
              * Stripe will attempt to pay this invoice using the default source attached to the
              * customer. When sending an invoice, Stripe will email this invoice to the customer
              * with payment instructions.
+             * 
+             * This field has been renamed to collection_method and will be removed in a future API version.
              */
             billing: 'charge_automatically' | 'send_invoice';
 
@@ -3835,8 +3838,9 @@ declare namespace Stripe {
              * will attempt to pay this invoice using the default source attached to the customer.
              * When sending an invoice, Stripe will email this invoice to the customer with payment
              * instructions. Defaults to charge_automatically.
+             * 
              */
-            billing?: 'charge_automatically' | 'send_invoice';
+             collection_method?: 'charge_automatically' | 'send_invoice';
 
             /**
              * A list of up to 4 custom fields to be displayed on the invoice.
