@@ -1,14 +1,14 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
-import { FluentBundle } from '@fluent/bundle';
+import { FluentBundle, FluentResource } from '@fluent/bundle';
 import ftl from '@fluent/dedent';
 import { GetString, LocalizationProvider, Localized, ReactLocalization, withLocalization } from '@fluent/react';
 import { isReactLocalization } from '@fluent/react/localization';
 
 // ReactLocalization examples:
 const bundle = new FluentBundle('en-US');
-bundle.addMessages(ftl`some-message = Hello`);
+bundle.addResource(new FluentResource(ftl`some-message = Hello`));
 const localization = new ReactLocalization([bundle]);
 const helloMessage = localization.getString('some-message');
 const props = {
@@ -27,7 +27,7 @@ const Test = () => (
 function* generateBundles(currentLocales: string[]) {
     for (const locale of currentLocales) {
         const bundle = new FluentBundle(locale);
-        bundle.addMessages(ftl`some-message = Hello`);
+        bundle.addResource(new FluentResource(ftl`some-message = Hello`));
         yield bundle;
     }
 }
