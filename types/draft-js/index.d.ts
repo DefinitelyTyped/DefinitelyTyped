@@ -935,7 +935,7 @@ declare namespace Draft {
                 static getCurrentBlockType(editorState: EditorState): string;
                 static getDataObjectForLinkURL(uri: URI): Object;
 
-                static handleKeyCommand(editorState: EditorState, command: DraftEditorCommand): EditorState;
+                static handleKeyCommand(editorState: EditorState, command: DraftEditorCommand): EditorState | null;
                 static handleKeyCommand(editorState: EditorState, command: string): null;
 
                 static insertSoftNewline(editorState: EditorState): EditorState;
