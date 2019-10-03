@@ -3,8 +3,8 @@
 // Definitions by: Sandor Turanszky <https://github.com/sandorTuranszky>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped // TypeScript Version: 3.1
 
-import { Request, Response } from "express";
-import { SinonStub, SinonSpy } from "sinon";
+import { Request, Response } from 'express';
+import { SinonStub, SinonSpy } from 'sinon';
 
 declare namespace mockReqRes {
 	interface Dictionary<T> {
