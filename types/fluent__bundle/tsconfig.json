@@ -1,0 +1,44 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "jsx": "preserve",
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@fluent/bundle": [
+                "fluent__bundle"
+            ],
+            "@fluent/bundle/scope": [
+                "fluent__bundle/scope"
+            ],
+            "@fluent/bundle/types": [
+                "fluent__bundle/types"
+            ],
+            "@fluent/dedent": [
+                "fluent__dedent"
+            ]
+        }
+    },
+    "files": [
+        "bundle.d.ts",
+        "error.d.ts",
+        "fluent__bundle-tests.ts",
+        "index.d.ts",
+        "resource.d.ts",
+        "scope.d.ts",
+        "types.d.ts"
+    ]
+}

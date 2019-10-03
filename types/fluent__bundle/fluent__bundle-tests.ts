@@ -1,0 +1,39 @@
+import { FluentBundle, FluentDateTime, FluentError, FluentNumber, FluentResource } from '@fluent/bundle';
+import Scope from '@fluent/bundle/scope';
+import { FluentNone } from '@fluent/bundle/types';
+import ftl from '@fluent/dedent';
+
+// FluentBundle examples:
+const bundle = new FluentBundle(['en-US']);
+
+// FluentResource examples:
+const resource = new FluentResource(ftl`test=Some other message`);
+bundle.addResource(resource, { allowOverrides: true });
+const msg = bundle.getMessage('test');
+if (msg && msg.value) {
+    const formatted = bundle.formatPattern(msg.value);
+}
+
+// Fluent type examples:
+const num = new FluentNumber(6);
+const err = new FluentError('argh');
+const dt = new FluentDateTime(new Date(2000, 0, 1));
+const none = new FluentNone();
+
+// Scope examples:
+const scope = new Scope(bundle, [], {}, false, new WeakSet());
+const test = `${num.toString(scope)} ${dt.toString(scope)}`;
+
+interface IntlOpts {
+    flurble: number;
+}
+
+class IntlTest {
+    constructor(locales: string[], opts: IntlOpts) {}
+    flarble() {
+        return 'aha';
+    }
+}
+
+const intlTest = scope.memoizeIntlObject(IntlTest, { flurble: 42 });
+const aha = intlTest.flarble();
