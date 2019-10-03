@@ -1,6 +1,6 @@
 import React from 'react';
 import { MockEnvironment, MockPayloadGenerator, unwrapContainer } from 'relay-test-utils';
-import { createFragmentContainer, graphql } from 'react-relay';
+import { createFragmentContainer, graphql, QueryRenderer } from 'react-relay';
 
 const environment = MockEnvironment.createMockEnvironment();
 
@@ -17,3 +17,20 @@ const TestFragment = createFragmentContainer(Test, {
 });
 
 unwrapContainer(TestFragment);
+
+function TestQueryRenderer() {
+    return (
+        <QueryRenderer<any>
+            environment={environment}
+            query={graphql``}
+            render={({ error, props }) => {
+                if (error) return <div>{error}</div>;
+
+                if (props) return <TestFragment {...props} />;
+
+                return <div>Loading</div>;
+            }}
+            variables={{}}
+        />
+    );
+}

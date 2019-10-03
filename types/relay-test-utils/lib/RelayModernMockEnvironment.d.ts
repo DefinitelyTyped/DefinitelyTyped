@@ -1,6 +1,5 @@
 import { HandlerProvider } from 'relay-runtime/lib/handlers/RelayDefaultHandlerProvider';
 import { Sink } from 'relay-runtime/lib/network/RelayObservable';
-import { MissingFieldHandler } from 'relay-runtime/lib/store/RelayStoreTypes';
 import {
     CacheConfig,
     ConcreteRequest,
@@ -11,6 +10,8 @@ import {
     OperationTracker,
     RequestParameters,
     Variables,
+    OptimisticUpdate,
+    MissingFieldHandler,
 } from 'relay-runtime';
 
 type OperationMockResolver = (operation: OperationDescriptor) => GraphQLResponse | Error | null;
@@ -46,7 +47,11 @@ interface MockEnvironment {
     mockClear: () => void;
 }
 
-interface RelayMockEnvironment extends MockEnvironment, IEnvironment {}
+interface RelayMockEnvironment extends MockEnvironment, IEnvironment {
+    configName: string | null | undefined;
+    revertUpdate(update: OptimisticUpdate): void;
+    replaceUpdate(update: OptimisticUpdate, newUpdate: OptimisticUpdate): void;
+}
 
 /**
  * Creates an instance of the `Environment` interface defined in
