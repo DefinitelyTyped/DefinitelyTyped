@@ -1,4 +1,5 @@
 // Type definitions for dinero.js 1.6
+
 // Project: https://sarahdayan.github.io/dinero.js
 // Definitions by: BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -56,6 +57,7 @@ declare namespace DineroFactory {
         toUnit(): number;
         toRoundedUnit(digits: number, roundingMode?: RoundingMode): number;
         toObject(): DineroObject;
+        toJson(): DineroObject;
     }
 
     type RoundingMode =
