@@ -478,8 +478,6 @@ interface Obj {
 };
 
 () => {
-<<<<<<< HEAD
-=======
     const sampleList = ['a', 'b', 'c', 'd', 'e', 'f'];
 
     R.move<string>(0, 2, sampleList); // => ['b', 'c', 'a', 'd', 'e', 'f']
@@ -499,11 +497,10 @@ interface Obj {
 () => {
     R.none(Number.isNaN, [1, 2, 3]); // => true
     R.none(Number.isNaN, [1, 2, 3, NaN]); // => false
-    R.none(Number.isNaN)([1, 2, 3, NaN]); // => false
+    R.none(Number.isNaN, [1, 2, 3, NaN]); // => false
 };
 
 () => {
->>>>>>> ramda#2883: Remove references to R.isNaN
     const list = ["foo", "bar", "baz", "quux"];
     R.nth(1, list); // => 'bar'
     R.nth(-1, list); // => 'quux'
