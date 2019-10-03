@@ -12,6 +12,17 @@ Dinero.globalExchangeRatesApi = {
     propertyPath: "data.rates.{{to}}",
     roundingMode: "HALF_UP",
 };
+Dinero.globalExchangeRatesApi = {
+    endpoint: new Promise((resolve) => resolve({
+        data: {
+            rates: {
+                USD: 1.337
+            }
+        }
+    })),
+    propertyPath: "data.rates.{{to}}",
+    roundingMode: "HALF_UP",
+};
 
 Dinero();
 Dinero({ amount: 1 });
