@@ -668,9 +668,9 @@ subscription.on('close', () => {});
     }
 
     class Config extends Object {
-        static get(options?: SuccessFailureOptions): Promise<Config>;
+        static get(options?: UseMasterKeyOption): Promise<Config>;
         static current(): Config;
-        static save(attr: any): Promise<Config>;
+        static save(attr: any, options?: { [attr: string]: boolean }): Promise<Config>;
 
         get(attr: string): any;
         escape(attr: string): any;

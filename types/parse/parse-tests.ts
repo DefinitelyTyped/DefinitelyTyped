@@ -15,7 +15,8 @@ class Game extends Parse.Object {
 }
 
 function test_config() {
-    Parse.Config.save({ foo: 'bar' });
+    Parse.Config.save({ foo: 'bar' }, { foo: true });
+    Parse.Config.get({ useMasterKey: true });
 }
 
 function test_object() {
