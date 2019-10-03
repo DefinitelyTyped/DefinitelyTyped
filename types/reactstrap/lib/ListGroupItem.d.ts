@@ -3,9 +3,7 @@ import { CSSModule } from '../index';
 
 export interface ListGroupItemProps extends React.HTMLAttributes<HTMLElement> {
     [key: string]: any;
-
     tag?: string | React.ReactType;
-
     active?: boolean;
     disabled?: boolean;
     color?: string;
@@ -13,7 +11,6 @@ export interface ListGroupItemProps extends React.HTMLAttributes<HTMLElement> {
     className?: string;
     cssModule?: CSSModule;
     href?: string;
-
     onClick?: React.MouseEventHandler<any>;
 }
 

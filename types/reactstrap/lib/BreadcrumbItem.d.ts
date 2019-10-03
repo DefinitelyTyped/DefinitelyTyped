@@ -3,7 +3,6 @@ import { CSSModule } from '../index';
 
 export interface BreadcrumbItemProps extends React.HTMLAttributes<HTMLElement> {
     tag?: string | React.ReactType;
-
     active?: boolean;
     className?: string;
     cssModule?: CSSModule;

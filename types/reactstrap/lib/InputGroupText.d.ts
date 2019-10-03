@@ -3,9 +3,7 @@ import { CSSModule } from '../index';
 
 export interface InputGroupTextProps extends React.HTMLAttributes<HTMLElement> {
     [key: string]: any;
-
     tag?: string | React.ReactType;
-
     cssModule?: CSSModule;
 }
 

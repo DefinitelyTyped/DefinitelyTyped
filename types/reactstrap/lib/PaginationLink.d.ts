@@ -10,7 +10,6 @@ export interface PaginationLinkProps extends React.HTMLProps<HTMLAnchorElement> 
     previous?: boolean;
     first?: boolean;
     last?: boolean;
-
     tag?: string | React.ReactType;
 }
 

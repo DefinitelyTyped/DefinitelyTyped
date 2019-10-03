@@ -3,9 +3,7 @@ import { CSSModule } from '../index';
 
 export interface JumbotronProps extends React.HTMLAttributes<HTMLElement> {
     [key: string]: any;
-
     tag?: string | React.ReactType;
-
     fluid?: boolean;
     className?: string;
     cssModule?: CSSModule;

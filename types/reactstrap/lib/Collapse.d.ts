@@ -6,9 +6,7 @@ export interface CollapseProps extends React.HTMLProps<HTMLElement> {
     isOpen?: boolean;
     classNames?: string;
     cssModule?: CSSModule;
-
     tag?: string | React.ReactType;
-
     navbar?: boolean;
     delay?: {
         show: number;
@@ -23,17 +21,10 @@ export interface CollapseProps extends React.HTMLProps<HTMLElement> {
     onExited?: () => void;
 }
 
-export interface UncontrolledCollapseProps extends React.HTMLProps<HTMLElement> {
-    [key: string]: any;
-    isOpen?: boolean;
-    className?: string;
-    cssModule?: CSSModule;
-
-    tag?: string | React.ReactType;
-
-    navbar?: boolean;
-
-    toggle?: React.KeyboardEventHandler<any> | React.MouseEventHandler<any>;
+export interface UncontrolledCollapseProps extends CollapseProps {
+    defaultOpen?: boolean;
+    toggler: string;
+    toggleEvents?: string[];
 }
 
 declare class Collapse<T = {[key: string]: any}> extends React.Component<CollapseProps> {}

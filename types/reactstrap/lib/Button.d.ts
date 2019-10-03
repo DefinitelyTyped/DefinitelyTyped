@@ -8,16 +8,12 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
     block?: boolean;
     color?: string;
     disabled?: boolean;
-
     tag?: string | React.ReactType;
-
     innerRef?: React.Ref<HTMLButtonElement>;
-
     onClick?: React.MouseEventHandler<any>;
     size?: any;
     id?: string;
     style?: React.CSSProperties;
-
     cssModule?: CSSModule;
 }
 

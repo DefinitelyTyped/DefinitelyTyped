@@ -3,9 +3,7 @@ import { CSSModule } from '../index';
 
 export interface SpinnerProps extends React.HTMLProps<HTMLElement> {
     [key: string]: any;
-
     tag?: string | React.ReactType;
-
     type?: string;
     size?: any;
     color?: string;

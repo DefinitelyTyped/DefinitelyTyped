@@ -5,9 +5,7 @@ export interface TagProps extends React.HTMLAttributes<HTMLElement> {
     [key: string]: any;
     color?: string;
     pill?: boolean;
-
     tag?: string | React.ReactType;
-
     className?: string;
     cssModule?: CSSModule;
 }

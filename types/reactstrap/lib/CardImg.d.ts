@@ -3,9 +3,7 @@ import { CSSModule } from '../index';
 
 export interface CardImgProps extends React.HTMLAttributes<HTMLElement> {
     [key: string]: any;
-
     tag?: string | React.ReactType;
-
     top?: boolean;
     bottom?: boolean;
     className?: string;

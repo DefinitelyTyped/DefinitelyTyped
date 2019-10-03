@@ -3,9 +3,7 @@ import { CSSModule } from '../index';
 
 export interface NavItemProps extends React.HTMLAttributes<HTMLElement> {
     [key: string]: any;
-
     tag?: string | React.ReactType;
-
     active?: boolean;
     className?: string;
     cssModule?: CSSModule;

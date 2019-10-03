@@ -14,9 +14,7 @@ export type ColumnProps
 
 export interface ColProps extends React.HTMLProps<HTMLDivElement> {
     [key: string]: any;
-
     tag?: string | React.ReactType;
-
     xs?: ColumnProps;
     sm?: ColumnProps;
     md?: ColumnProps;

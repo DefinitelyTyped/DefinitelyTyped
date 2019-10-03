@@ -12,9 +12,7 @@ export interface DropdownToggleProps extends React.HTMLAttributes<HTMLElement> {
     'data-toggle'?: string;
     'aria-haspopup'?: boolean;
     split?: boolean;
-
     tag?: string | React.ReactType;
-
     nav?: boolean;
     color?: string;
     size?: string;

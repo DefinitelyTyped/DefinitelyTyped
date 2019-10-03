@@ -3,9 +3,7 @@ import { CSSModule } from '../index';
 
 export interface NavbarBrandProps extends React.HTMLProps<HTMLAnchorElement> {
     [key: string]: any;
-
     tag?: string | React.ReactType;
-
     className?: string;
     cssModule?: CSSModule;
 }

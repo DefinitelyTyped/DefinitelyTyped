@@ -3,9 +3,7 @@ import { CSSModule } from '../index';
 
 export interface NavLinkProps extends React.HTMLProps<HTMLAnchorElement> {
     [key: string]: any;
-
     tag?: string | React.ReactType;
-
     innerRef?: React.Ref<HTMLAnchorElement>;
     disabled?: boolean;
     active?: boolean;

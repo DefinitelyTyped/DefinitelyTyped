@@ -11,9 +11,7 @@ export interface NavProps extends React.HTMLProps<HTMLUListElement> {
     fill?: boolean;
     navbar?: boolean;
     card?: boolean;
-
     tag?: string | React.ReactType;
-
     className?: string;
     cssModule?: CSSModule;
 }

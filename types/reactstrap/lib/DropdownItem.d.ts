@@ -7,9 +7,7 @@ export interface DropdownItemProps extends React.HTMLAttributes<HTMLElement> {
     divider?: boolean;
     tag?: string | React.ReactType;
     header?: boolean;
-
     onClick?: React.MouseEventHandler<any>;
-
     className?: string;
     cssModule?: CSSModule;
     href?: string;

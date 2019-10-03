@@ -3,9 +3,7 @@ import { CSSModule } from '../index';
 
 export interface ButtonToolbarProps extends React.HTMLAttributes<HTMLElement> {
     [key: string]: any;
-
     tag?: string | React.ReactType;
-
     'aria-label'?: string;
     className?: string;
     cssModule?: CSSModule;

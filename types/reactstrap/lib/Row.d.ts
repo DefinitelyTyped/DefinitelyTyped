@@ -7,9 +7,7 @@ export interface RowProps extends Omit<React.HTMLProps<HTMLElement>, 'form'> {
     [key: string]: any;
     className?: string;
     cssModule?: CSSModule;
-
     tag?: string | React.ReactType;
-
     noGutters?: boolean;
     form?: boolean;
 }

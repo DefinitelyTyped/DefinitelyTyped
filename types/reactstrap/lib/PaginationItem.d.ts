@@ -7,7 +7,6 @@ export interface PaginationItemProps extends React.HTMLAttributes<HTMLElement> {
     cssModule?: CSSModule;
     active?: boolean;
     disabled?: boolean;
-
     tag?: string | React.ReactType;
 }
 

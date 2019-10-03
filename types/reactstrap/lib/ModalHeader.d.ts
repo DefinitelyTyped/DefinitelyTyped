@@ -6,7 +6,7 @@ export interface ModalHeaderProps extends React.HTMLAttributes<HTMLElement> {
     tag?: string | React.ReactType;
     className?: string;
     cssModule?: CSSModule;
-    wrapTag?: React.ReactType;
+    wrapTag?: string | React.ReactType;
     toggle?: React.MouseEventHandler<any>;
 }
 

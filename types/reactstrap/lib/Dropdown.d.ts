@@ -7,24 +7,29 @@ export type Direction =
   | "left"
   | "right";
 
-export interface UncontrolledDropdownProps extends React.HTMLAttributes<HTMLElement> {
-    [key: string]: any;
-    isOpen?: boolean;
-    className?: string;
-    cssModule?: CSSModule;
-    nav?: boolean;
-    inNavbar?: boolean;
-    setActiveFromChild?: boolean;
+export interface DropdownProps extends React.HTMLAttributes<HTMLElement> {
+  [key: string]: any;
+  disabled?: boolean;
+  direction?: Direction;
+  group?: boolean;
+  isOpen?: boolean;
+  nav?: boolean;
+  active?: boolean;
+  addonType?: boolean | 'prepend' | 'append';
+  size?: string;
+  tag?: string | React.ReactType;
+  toggle?: React.KeyboardEventHandler<any> | React.MouseEventHandler<any>;
+  children?: React.ReactNode;
+  className?: string;
+  cssModule?: CSSModule;
+  inNavbar?: boolean;
+  setActiveFromChild?: boolean;
 }
 
-export interface DropdownProps extends UncontrolledDropdownProps {
-    disabled?: boolean;
-    direction?: Direction;
-    group?: boolean;
-    size?: string;
-    tag?: string | React.ReactType;
-    addonType?: boolean | 'prepend' | 'append';
+export interface UncontrolledDropdownProps extends DropdownProps {
+  defaultOpen?: boolean;
 }
 
 declare class Dropdown<T = {[key: string]: any}> extends React.Component<DropdownProps> {}
+
 export default Dropdown;
