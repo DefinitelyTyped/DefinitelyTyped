@@ -4,6 +4,7 @@
 //                 BendingBender <https://github.com/BendingBender>
 //                 Antoine Lépée <https://github.com/alepee>
 //                 Yuto Doi <https://github.com/yutod>
+//                 Nicolas Reynis <https://github.com/nreynis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -32,6 +33,18 @@ declare namespace Cookies {
          * secure protocol (https). Defaults to false.
          */
         secure?: boolean;
+
+        /**
+         * Define the first party cookie policy.
+         * @see: https://tools.ietf.org/html/draft-west-first-party-cookies-07
+         */
+        samesite?: 'Strict' | 'Lax';
+
+        /**
+         * An attribute which will be serialized, conformably to RFC 6265
+         * section 5.2.
+         */
+        [property: string]: any;
     }
 
     interface CookiesStatic<T extends object = object> {
