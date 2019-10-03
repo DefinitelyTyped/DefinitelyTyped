@@ -46,7 +46,7 @@ export interface LowLevelStyleFunctionArguments<N, S> {
 
 export function style<N = string | number, S = Scale>(
     // tslint:disable-next-line no-unnecessary-generics
-    args: LowLevelStyleFunctionArguments<N, S>
+    args: LowLevelStyleFunctionArguments<N, S>,
 ): {
     [cssProp: string]: string;
 };
@@ -848,7 +848,8 @@ export interface LayoutProps
         MaxHeightProps,
         DisplayProps,
         VerticalAlignProps,
-        SizeProps {}
+        SizeProps,
+        OverflowProps {}
 
 export const layout: styleFn;
 
