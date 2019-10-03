@@ -1,4 +1,4 @@
-interface ThemedStyleSheet {
+declare const ThemedStyleSheet: {
   registerTheme: (theme: any) => void;
   registerInterface: (registerInterface: any) => void;
   create: (makeFromTheme: any, createWithDirection: any) => any;
