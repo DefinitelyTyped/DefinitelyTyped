@@ -6,6 +6,12 @@ TT;
 // $ExpectError
 trustedTypes;
 
+// $ExpectType TrustedTypePolicyFactory | undefined
+window.trustedTypes;
+
+// $ExpectType TrustedTypePolicyFactory | undefined
+window.TrustedTypes;
+
 const rules = {
     createHTML: (s: string) => s,
     createScript: (s: string) => s,
@@ -14,10 +20,10 @@ const rules = {
 };
 
 // $ExpectType string[]
-window.trustedTypes.getPolicyNames();
-window.trustedTypes.createPolicy('default', rules, true);
+TT.getPolicyNames();
+TT.createPolicy('default', rules, true);
 
-const policy = window.trustedTypes.createPolicy('test', rules);
+const policy = TT.createPolicy('test', rules);
 
 // $ExpectType string
 policy.name;
@@ -30,7 +36,7 @@ policy.createScriptURL('');
 // $ExpectType TrustedURL
 policy.createURL('');
 
-const htmlOnlyPolicy = window.trustedTypes.createPolicy('htmlOnly', {
+const htmlOnlyPolicy = TT.createPolicy('htmlOnly', {
     createHTML: (html: string) => {
         return html;
     },
@@ -44,16 +50,16 @@ const html = htmlOnlyPolicy.createHTML('');
 htmlOnlyPolicy.createScript('');
 
 // $ExpectType boolean
-window.trustedTypes.isHTML(html);
+TT.isHTML(html);
 // $ExpectType boolean
-window.trustedTypes.isScript(html);
+TT.isScript(html);
 // $ExpectType boolean
-window.trustedTypes.isScriptURL(html);
+TT.isScriptURL(html);
 // $ExpectType boolean
-window.trustedTypes.isURL(html);
+TT.isURL(html);
 
-// test that types are globaly available
-const trustedHTML: TrustedHTML = null as any;
+// Ensure the types are globaly available
+let trustedHTML: TrustedHTML = null as any;
 const trustedScript: TrustedScript = null as any;
 
 // $ExpectError

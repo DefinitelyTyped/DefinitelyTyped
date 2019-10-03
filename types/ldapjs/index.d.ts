@@ -396,6 +396,15 @@ export class ApproximateFilter extends Filter {
 	constructor(options: { attribute: string, value: string })
 }
 
+export class ExtensibleFilter extends Filter {
+    constructor(options: {
+        rule?: string;
+        matchType?: string;
+        value: string;
+        dnAttributes?: boolean;
+    })
+}
+
 export interface AttributeJson {
     type: string;
     vals: string[];
