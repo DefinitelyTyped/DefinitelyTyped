@@ -1460,11 +1460,11 @@ export type QuerySelector<T> = {
     $eq?: T;
     $gt?: T;
     $gte?: T;
-    $in?: Array<T>;
+    $in?: T[];
     $lt?: T;
     $lte?: T;
     $ne?: T;
-    $nin?: Array<T>;
+    $nin?: T[];
     // Logical
     $not?: T extends string ? (QuerySelector<T> | RegExp) : QuerySelector<T>;
     // Element
@@ -2210,8 +2210,8 @@ export class Cursor<T = Default> extends Readable {
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#stream */
     stream(options?: { transform?: (document: T) => any }): Cursor<T>;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#toArray */
-    toArray(): Promise<Array<T>>;
-    toArray(callback: MongoCallback<Array<T>>): void;
+    toArray(): Promise<T[]>;
+    toArray(callback: MongoCallback<T[]>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#unshift */
     unshift(stream: Buffer | string): void;
 }
@@ -2284,8 +2284,8 @@ export class AggregationCursor<T = Default> extends Readable {
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/AggregationCursor.html#sort */
     sort(document: object): AggregationCursor<T>;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/AggregationCursor.html#toArray */
-    toArray(): Promise<Array<T>>;
-    toArray(callback: MongoCallback<Array<T>>): void;
+    toArray(): Promise<T[]>;
+    toArray(callback: MongoCallback<T[]>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/AggregationCursor.html#unshift */
     unshift(stream: Buffer | string): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/AggregationCursor.html#unwind */
