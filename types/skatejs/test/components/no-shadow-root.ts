@@ -59,7 +59,7 @@ class Mo extends MComponent<Props, State> {
 }
 
 class Mo2 extends MComponent2 {
-  props: Props;
+  props: Props = { greet: "hi" };
   foo() {
     this.props.greet;
   }

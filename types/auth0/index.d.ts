@@ -1,9 +1,11 @@
-// Type definitions for auth0 2.9.3
+// Type definitions for auth0 2.9.4
 // Project: https://github.com/auth0/node-auth0
 // Definitions by: Seth Westphal <https://github.com/westy92>
 //                 Ian Howe <https://github.com/ianhowe76>
 //                 Alex Bjørlig <https://github.com/dauledk>
 //                 Dan Rumney <https://github.com/dancrumb>
+//                 Peter <https://github.com/pwrnrd>
+//                 Anthony Messerschmidt <https://github.com/CatGuardian>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -47,6 +49,10 @@ export interface UserData<A = AppMetadata, U=UserMetadata> {
   username?: string;
   email_verified?: boolean;
   verify_email?: boolean;
+  user_id?: string;
+  blocked?: boolean;
+  nickname?: string;
+  picture?: string;
   password?: string;
   phone_number?: string;
   phone_verified?: boolean;
@@ -310,6 +316,14 @@ export interface ResourceServer {
    * A friendly name for the resource server.
    */
   name?: string;
+  /**
+   * Enables the enforcement of the authorization policies.
+   */
+  enforce_policies?: boolean;
+  /**
+   * The dialect for the access token.
+   */
+  token_dialect?: 'access_token' | 'access_token_authz';
 }
 
 export interface CreateResourceServer extends ResourceServer {
@@ -430,6 +444,7 @@ export interface User<A=AppMetadata, U=UserMetadata> {
   multifactor?: string[];
   last_ip?: string;
   last_login?: string;
+  last_password_reset?: string;
   logins_count?: number;
   blocked?: boolean;
   given_name?: string;
@@ -673,12 +688,14 @@ export interface ExportUserField {
 }
 
 export interface PasswordChangeTicketParams {
-  result_url?: string;
-  user_id?: string;
-  new_password?: string;
-  connection_id?: string;
-  email?: string;
-  ttl_sec?: number;
+    result_url?: string;
+    user_id?: string;
+    new_password?: string;
+    connection_id?: string;
+    email?: string;
+    ttl_sec?: number;
+    mark_email_as_verified?: boolean;
+    includeEmailInRedirect?: boolean;
 }
 
 export interface PasswordChangeTicketResponse {
@@ -1000,6 +1017,17 @@ export class ManagementClient<A=AppMetadata, U=UserMetadata> {
 
   blacklistToken(token: Token): Promise<any>;
   blacklistToken(token: Token, cb: (err: Error, data: any) => void): void;
+
+
+  // Templates
+  createEmailTemplate(data: Data): Promise<any>;
+  createEmailTemplate(data: Data, cb?: (err: Error) => void): void;
+
+  getEmailTemplate(data: Data): Promise<any>;
+  getEmailTemplate(data: Data, cb?: (err: Error, data: any) => void): void;
+
+  updateEmailTemplate(params: {}, data: Data): Promise<any>;
+  updateEmailTemplate(params: {}, data: Data, cb?: (err: Error, data: any) => void): void;
 
 
   // Providers

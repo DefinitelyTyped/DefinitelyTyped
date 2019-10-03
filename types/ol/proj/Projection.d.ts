@@ -11,7 +11,7 @@ export interface Options {
     global?: boolean;
     metersPerUnit?: number;
     worldExtent?: Extent;
-    getPointResolution?: ((p0: number, p1: Coordinate) => number);
+    getPointResolution?: (p0: number, p1: Coordinate) => number;
 }
 export default class Projection {
     constructor(options: Options);
@@ -20,14 +20,14 @@ export default class Projection {
     getCode(): string;
     getDefaultTileGrid(): TileGrid;
     getExtent(): Extent;
-    getMetersPerUnit(): number;
-    getPointResolutionFunc(): ((p0: number, p1: Coordinate) => number);
+    getMetersPerUnit(): number | undefined;
+    getPointResolutionFunc(): (p0: number, p1: Coordinate) => number | undefined;
     getUnits(): Units;
     getWorldExtent(): Extent;
     isGlobal(): boolean;
     setDefaultTileGrid(tileGrid: TileGrid): void;
     setExtent(extent: Extent): void;
-    setGetPointResolution(func: ((p0: number, p1: Coordinate) => number)): void;
+    setGetPointResolution(func: (p0: number, p1: Coordinate) => number): void;
     setGlobal(global: boolean): void;
     setWorldExtent(worldExtent: Extent): void;
 }

@@ -29,6 +29,7 @@
 //                 Roberto Zen <https://github.com/skyzenr>
 //                 Grzegorz Redlicki <https://github.com/redlickigrzegorz>
 //                 Juan Carbonel <https://github.com/juancarbonel>
+//                 Peter McIntyre <https://github.com/pwmcintyre>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -40,6 +41,7 @@ export interface APIGatewayEventRequestContext {
     connectedAt?: number;
     connectionId?: string;
     domainName?: string;
+    domainPrefix?: string;
     eventType?: string;
     extendedRequestId?: string;
     httpMethod: string;
@@ -252,6 +254,47 @@ export interface S3Event {
 export type S3CreateEvent = S3Event; // old name
 
 /**
+ * S3 Batch Operations event
+ * https://docs.aws.amazon.com/AmazonS3/latest/dev/batch-ops-invoke-lambda.html
+ */
+
+export interface S3BatchEvent {
+    invocationSchemaVersion: string;
+    invocationId: string;
+    job: S3BatchEventJob;
+    tasks: S3BatchEventTask[];
+}
+
+export interface S3BatchEventJob {
+    id: string;
+}
+
+export interface S3BatchEventTask {
+    taskId: string;
+    s3Key: string;
+    s3VersionId: string | null;
+    s3BucketArn: string;
+}
+
+export interface S3BatchResult {
+    invocationSchemaVersion: string;
+    treatMissingKeysAs: S3BatchResultResultCode;
+    invocationId: string;
+    results: S3BatchResultResult[];
+}
+
+export type S3BatchResultResultCode =
+    | 'Succeeded'
+    | 'TemporaryFailure'
+    | 'PermanentFailure';
+
+export interface S3BatchResultResult {
+    taskId: string;
+    resultCode: S3BatchResultResultCode;
+    resultString: string;
+}
+
+/**
  * Cognito User Pool event
  * http://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html
  */
@@ -308,6 +351,8 @@ export interface CognitoUserPoolTriggerEvent {
     };
     response: {
         autoConfirmUser?: boolean;
+        autoVerifyPhone?: boolean;
+        autoVerifyEmail?: boolean;
         smsMessage?: string;
         emailMessage?: string;
         emailSubject?: string;
@@ -380,6 +425,7 @@ export interface CloudFormationCustomResourceResponseCommon {
     Data?: {
         [Key: string]: any;
     };
+    NoEcho?: boolean;
 }
 
 export interface CloudFormationCustomResourceSuccessResponse extends CloudFormationCustomResourceResponseCommon {
@@ -639,7 +685,7 @@ export interface CodePipelineEvent {
  * https://docs.aws.amazon.com/codepipeline/latest/userguide/detect-state-changes-cloudwatch-events.html
  *
  * The above CodePipelineEvent is when a lambda is invoked by a CodePipeline.
- * These events are when you subsribe to CodePipeline events in CloudWatch.
+ * These events are when you subscribe to CodePipeline events in CloudWatch.
  *
  * Their documentation says that detail.version is a string, but it is actually an integer
  */
@@ -1122,5 +1168,8 @@ export type FirehoseTransformationHandler = Handler<FirehoseTransformationEvent,
 
 export type CustomAuthorizerHandler = Handler<CustomAuthorizerEvent, CustomAuthorizerResult>;
 export type CustomAuthorizerCallback = Callback<CustomAuthorizerResult>;
+
+export type S3BatchHandler = Handler<S3BatchEvent, S3BatchResult>;
+export type S3BatchCallback = Callback<S3BatchResult>;
 
 export as namespace AWSLambda;

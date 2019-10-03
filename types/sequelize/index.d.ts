@@ -20,6 +20,7 @@
 //                 Emmanuel Gautier <https://github.com/emmanuelgautier>
 //                 Dan Rumney <https://github.com/dancrumb>
 //                 Kan Yueh Chen <https://github.com/lalayueh>
+//                 Rohit Sud <https://github.com/rohitsud>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.2
 
@@ -4109,7 +4110,7 @@ declare namespace sequelize {
          *
          * @param records List of objects (key/value pairs) to create instances from
          */
-        bulkCreate(records: TAttributes[], options?: BulkCreateOptions): Promise<TInstance[]>;
+        bulkCreate(records: TCreationAttributes[], options?: BulkCreateOptions): Promise<TInstance[]>;
 
         /**
          * Truncate all instances of the model. This is a convenient method for Model.destroy({ truncate: true }).
@@ -5096,7 +5097,7 @@ declare namespace sequelize {
         /**
          * Index type. Only used by mysql. One of `UNIQUE`, `FULLTEXT` and `SPATIAL`
          */
-        index?: string;
+        type?: IndexType;
 
         /**
          * The method to create the index by (`USING` statement in SQL). BTREE and HASH are supported by mysql and

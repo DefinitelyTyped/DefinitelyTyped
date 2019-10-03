@@ -708,6 +708,194 @@ function oauth2_privision_cb_test() {
     transporter.sendMail(options);
 }
 
+// Set up XOAuth2 authentication
+
+function oauth2_xoauth2_test() {
+    const xoauth2 = new XOAuth2({
+        user: 'test@example.com',
+        clientId: '{Client ID}',
+        clientSecret: '{Client Secret}',
+        refreshToken: 'saladus',
+        accessUrl: 'http://localhost:8993/',
+        accessToken: 'abc',
+        timeout: 3600
+    });
+    const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            type: 'OAUTH2',
+            user: 'user@example.com',
+            oauth2: xoauth2,
+            method: 'XOAUTH2'
+        }
+    });
+}
+
+// Set up custom authentication
+
+async function custom_auth_async_test() {
+    const account = await nodemailer.createTestAccount();
+
+    const transporter = nodemailer.createTransport(
+        {
+            host: account.smtp.host,
+            port: account.smtp.port,
+            secure: account.smtp.secure,
+            auth: {
+                type: 'custom',
+
+                user: account.user,
+                pass: account.pass,
+
+                method: 'x-login'
+            },
+            logger: false,
+            debug: false,
+
+            customAuth: {
+                // can create multiple handlers
+                'x-login': async (ctx) => {
+                    // This custom method implements AUTH LOGIN even though Nodemailer supports it natively.
+                    // AUTH LOGIN mechanism includes multiple steps, so it's great for a demo nevertheless
+
+                    console.log('Performing custom authentication for %s', ctx.auth.credentials.user);
+                    console.log('Supported extensions: %s', ctx.extensions.join(', '));
+                    console.log('Supported auth methods: %s', ctx.authMethods.join(', '));
+
+                    if (!ctx.authMethods.includes('LOGIN')) {
+                        console.log('Server does not support AUTH LOGIN');
+                        throw new Error('Can not log in');
+                    }
+                    console.log('AUTH LOGIN is supported, proceeding with login...');
+
+                    let cmd;
+
+                    cmd = await ctx.sendCommand('AUTH LOGIN');
+                    if (cmd.status !== 334) {
+                        // expecting '334 VXNlcm5hbWU6'
+                        throw new Error('Invalid login sequence while waiting for "334 VXNlcm5hbWU6"');
+                    }
+
+                    console.log('Sending username: %s', ctx.auth.credentials.user);
+                    cmd = await ctx.sendCommand(Buffer.from(ctx.auth.credentials.user, 'utf-8').toString('base64'));
+                    if (cmd.status !== 334) {
+                        // expecting '334 UGFzc3dvcmQ6'
+                        throw new Error('Invalid login sequence while waiting for "334 UGFzc3dvcmQ6"');
+                    }
+
+                    console.log('Sending password: %s', '*'.repeat(ctx.auth.credentials.pass.length));
+                    cmd = await ctx.sendCommand(Buffer.from(ctx.auth.credentials.pass, 'utf-8').toString('base64'));
+                    if (cmd.status < 200 || cmd.status >= 300) {
+                        // expecting a 235 response, just in case allow everything in 2xx range
+                        throw new Error('User failed to authenticate');
+                    }
+
+                    console.log('User authenticated! (%s)', cmd.response);
+
+                    // all checks passed
+                    return true;
+                }
+            }
+        },
+        {
+            // default message fields
+
+            // sender info
+            from: 'Pangalink <no-reply@pangalink.net>',
+            headers: {
+                'X-Laziness-level': '1000' // just an example header, no need to use this
+            }
+        }
+    );
+}
+
+async function custom_auth_cb_test() {
+    const account = await nodemailer.createTestAccount();
+
+    const transporter = nodemailer.createTransport(
+        {
+            host: account.smtp.host,
+            port: account.smtp.port,
+            secure: account.smtp.secure,
+            auth: {
+                type: 'custom',
+
+                user: account.user,
+                pass: account.pass,
+
+                method: 'x-login'
+            },
+            logger: false,
+            debug: false,
+
+            customAuth: {
+                // can create multiple handlers
+                'x-login': ctx => {
+                    // This custom method implements AUTH LOGIN even though Nodemailer supports it natively.
+                    // AUTH LOGIN mechanism includes multiple steps, so it's great for a demo nevertheless
+
+                    console.log('Performing custom authentication for %s', ctx.auth.credentials.user);
+                    console.log('Supported extensions: %s', ctx.extensions.join(', '));
+                    console.log('Supported auth methods: %s', ctx.authMethods.join(', '));
+
+                    if (!ctx.authMethods.includes('LOGIN')) {
+                        console.log('Server does not support AUTH LOGIN');
+                        return ctx.reject(new Error('Can not log in'));
+                    }
+                    console.log('AUTH LOGIN is supported, proceeding with login...');
+
+                    ctx.sendCommand('AUTH LOGIN', (err, cmd) => {
+                        if (err) {
+                            return ctx.reject(err);
+                        }
+
+                        if (cmd.status !== 334) {
+                            // expecting '334 VXNlcm5hbWU6'
+                            return ctx.reject('Invalid login sequence while waiting for "334 VXNlcm5hbWU6"');
+                        }
+
+                        console.log('Sending username: %s', ctx.auth.credentials.user);
+                        ctx.sendCommand(Buffer.from(ctx.auth.credentials.user, 'utf-8').toString('base64'), (err, cmd) => {
+                            if (err) {
+                                return ctx.reject(err);
+                            }
+                            if (cmd.status !== 334) {
+                                // expecting '334 UGFzc3dvcmQ6'
+                                return ctx.reject('Invalid login sequence while waiting for "334 UGFzc3dvcmQ6"');
+                            }
+
+                            console.log('Sending password: %s', '*'.repeat(ctx.auth.credentials.pass.length));
+                            ctx.sendCommand(Buffer.from(ctx.auth.credentials.pass, 'utf-8').toString('base64'), (err, cmd) => {
+                                if (err) {
+                                    return ctx.reject(err);
+                                }
+                                if (cmd.status < 200 || cmd.status >= 300) {
+                                    // expecting a 235 response, just in case allow everything in 2xx range
+                                    return ctx.reject('User failed to authenticate');
+                                }
+
+                                console.log('User authenticated! (%s)', cmd.response);
+
+                                // all checks passed
+                                return ctx.resolve();
+                            });
+                        });
+                    });
+                }
+            }
+        },
+        {
+            // default message fields
+
+            // sender info
+            from: 'Pangalink <no-reply@pangalink.net>',
+            headers: {
+                'X-Laziness-level': '1000' // just an example header, no need to use this
+            }
+        }
+    );
+}
+
 // 5. Sendmail transport
 
 // Send a message using specific binary
@@ -1418,4 +1606,35 @@ function well_known_test() {
     if (options) {
         console.log(options.host, options.port, options.secure);
     }
+}
+
+// xoauth2
+
+function xoauth2_test() {
+    const xoauth2 = new XOAuth2({
+        user: 'test@example.com',
+        clientId: '{Client ID}',
+        clientSecret: '{Client Secret}',
+        refreshToken: 'saladus',
+        accessUrl: 'http://localhost:8993/',
+        accessToken: 'abc',
+        timeout: 3600
+    });
+    xoauth2.getToken(false, (err, accessToken) => {
+        if (err) throw err;
+        const token: string = xoauth2.buildXOAuth2Token(accessToken);
+    });
+}
+
+function xoauth2_sign_payload_test() {
+    const xoauth2 = new XOAuth2({
+        user: 'test@example.com',
+        serviceClient: '{Client ID}',
+        accessUrl: 'http://localhost:8497/',
+        timeout: 3600,
+        privateKey: '-----BEGIN RSA PRIVATE KEY-----\n...'
+    });
+    xoauth2.jwtSignRS256({
+        some: 'payload'
+    });
 }

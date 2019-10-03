@@ -402,19 +402,25 @@ interface PublicKeyCredentialRequestOptions {
 }
 
 /**
+ * @see {@link https://w3c.github.io/webauthn/#dictdef-publickeycredentialentity}
+ */
+interface PublicKeyCredentialEntity {
+    icon?: string;
+    name: string;
+}
+
+/**
  * @see {@link https://w3c.github.io/webauthn/#dictdef-publickeycredentialrpentity}
  */
-interface PublicKeyCredentialRpEntity {
+interface PublicKeyCredentialRpEntity extends PublicKeyCredentialEntity {
     id?: string;
-    name: string;
 }
 
 /**
  * @see {@link https://w3c.github.io/webauthn/#dictdef-publickeycredentialuserentity}
  */
-interface PublicKeyCredentialUserEntity {
+interface PublicKeyCredentialUserEntity extends PublicKeyCredentialEntity {
     id: BufferSource;
-    name: string;
     displayName: string;
 }
 

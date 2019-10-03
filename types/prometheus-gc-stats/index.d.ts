@@ -3,7 +3,13 @@
 // Definitions by: Daniel Byrne <https://github.com/danwbyrne>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+declare namespace prometheusGcStats {
+    interface Config {
+        prefix?: string;
+    }
+}
+
 // register is typeof require('prom-client').Registry which has its own .d.ts
-declare function gcStats(register: any): () => void;
+declare function gcStats(register: any, config?: prometheusGcStats.Config): () => void;
 
 export = gcStats;

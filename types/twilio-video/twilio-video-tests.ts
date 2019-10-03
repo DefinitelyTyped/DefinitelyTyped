@@ -13,7 +13,27 @@ async function initRoom() {
     video: false,
     audio: false,
     dominantSpeaker: true,
-    networkQuality: true
+    networkQuality: true,
+    region: 'au1',
+    maxAudioBitrate: 500,
+    maxVideoBitrate: 200,
+    bandwidthProfile: {
+        video: {
+            dominantSpeakerPriority: 'high',
+            renderDimensions: {
+                low: {
+                    height: 500,
+                    width: null
+                }
+            }
+        }
+    }
+  });
+  await Video.connect('$TOKEN', {
+    networkQuality: {
+      local: 3,
+      remote: 1
+    }
   });
   // Create local video track from default input
   localVideoTrack = await Video.createLocalVideoTrack({ name: 'camera' });

@@ -84,6 +84,7 @@ declare module "vm" {
         runInContext(contextifiedSandbox: Context, options?: RunningScriptOptions): any;
         runInNewContext(sandbox?: Context, options?: RunningScriptOptions): any;
         runInThisContext(options?: RunningScriptOptions): any;
+        createCachedData(): Buffer;
     }
     function createContext(sandbox?: Context, options?: CreateContextOptions): Context;
     function isContext(sandbox: Context): boolean;

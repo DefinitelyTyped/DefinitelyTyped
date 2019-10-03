@@ -1,0 +1,6 @@
+{
+  "private": true,
+  "dependencies": {
+      "lit-element": "^2.2.0"
+  }
+}

@@ -75,7 +75,7 @@ stories.add('with all knobs', () => {
 
   return (
     <div style={style}>
-      I'm {name} and I was born on "{dob}"
+      I'm {name} and I was born on "{new Date(dob)}"
       <p>My favorite number is {favoriteNumber}.</p>
       <p>My most comfortable room temperature is {comfortTemp} degrees Fahrenheit.</p>
       <p>My favorite radio station is: {radioStation}</p>
@@ -107,6 +107,14 @@ const stringLiteralArray: StringLiteralType[] = ['Apple', 'Banana', 'Grapes'];
 
 // type of value returned from `select` must be `StringLiteralType`.
 const _: StringLiteralType = select('With string literal array', stringLiteralArray, stringLiteralArray[0]);
+
+type StringLiteralTypeUndefined = StringLiteralType | undefined;
+
+const _Undefined: StringLiteralTypeUndefined = select(
+  'With string literal array',
+  stringLiteralArray,
+  undefined,
+);
 
 const optionsObject = {
   Apple: { taste: 'sweet', color: 'red' },

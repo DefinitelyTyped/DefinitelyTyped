@@ -174,8 +174,8 @@ export interface Props {
 }
 
 export function slideTo(index: number): void;
-export function slidePrev(index: number): void;
-export function slideNext(index: number): void;
+export function slidePrev(): void;
+export function slideNext(): void;
 
 export default class ReactAliceCarousel extends React.PureComponent<Props> {
   slideTo(index: number): void;

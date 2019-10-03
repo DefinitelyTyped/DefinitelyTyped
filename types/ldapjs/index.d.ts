@@ -349,7 +349,9 @@ export class NoSuchAttributeError {
 export class ProtocolError {
 	constructor(error?: string);
 }
-
+export class OperationsError {
+	constructor(error?: string);
+}
 
 declare class Filter {
 	matches(obj: any): boolean;
@@ -392,6 +394,15 @@ export class NotFilter extends Filter {
 
 export class ApproximateFilter extends Filter {
 	constructor(options: { attribute: string, value: string })
+}
+
+export class ExtensibleFilter extends Filter {
+    constructor(options: {
+        rule?: string;
+        matchType?: string;
+        value: string;
+        dnAttributes?: boolean;
+    })
 }
 
 export interface AttributeJson {

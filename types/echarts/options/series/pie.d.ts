@@ -143,6 +143,13 @@ declare namespace echarts {
             minAngle?: number;
 
             /**
+             * If a sector is less than this angle (0 ~ 360), label and labelLine will not be displayed.
+             *
+             * @see https://echarts.apache.org/en/option.html#series-pie.minShowLabelAngle
+             */
+            minShowLabelAngle?: number;
+
+            /**
              * Whether to show as Nightingale chart, which distinguishs data
              * through radius. There are 2 optional modes:
              *

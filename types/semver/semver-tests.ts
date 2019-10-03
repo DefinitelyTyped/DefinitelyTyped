@@ -38,6 +38,7 @@ strn = semver.inc(str, "patch", loose);
 strn = semver.inc(str, "prepatch", loose);
 strn = semver.inc(str, "prerelease", loose);
 strn = semver.inc(str, "prerelease", loose, "alpha");
+strn = semver.inc(str, 'prerelease', 'beta');
 num = semver.major(str, loose);
 num = semver.minor(str, loose);
 num = semver.patch(str, loose);

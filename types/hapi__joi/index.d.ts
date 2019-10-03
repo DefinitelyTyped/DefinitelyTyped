@@ -18,6 +18,7 @@
 //                 Alejandro Fernandez Haro <https://github.com/afharo>
 //                 Silas Rech <https://github.com/lenovouser>
 //                 Anand Chowdhary <https://github.com/AnandChowdhary>
+//                 Miro Yovchev <https://github.com/myovchev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -119,7 +120,7 @@ export interface EmailOptions {
          * - A `Set` or array of the forbidden TLDs. Cannot be used together with a custom `allow` list.
          */
         deny?: Set<string> | string[];
-    };
+    } | false;
     /**
      * Number of segments required for the domain. Be careful since some domains, such as `io`, directly allow email.
      *
@@ -281,11 +282,11 @@ export interface ValidationError extends Error, JoiObject {
 }
 
 export interface ValidationErrorItem {
-    message: string;
-    type: string;
-    path: string[];
-    options?: ValidationOptions;
-    context?: Context;
+  message: string;
+  type: string;
+  path: Array<string | number>;
+  options?: ValidationOptions;
+  context?: Context;
 }
 
 export type ValidationErrorFunction = (errors: ValidationErrorItem[]) => string | ValidationErrorItem | ValidationErrorItem[] | Error;

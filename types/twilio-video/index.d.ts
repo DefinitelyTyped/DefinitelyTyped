@@ -3,6 +3,7 @@
 // Definitions by: MindDoc <https://github.com/minddocdev>
 //                 Darío Blanco <https://github.com/darioblanco>
 //                 katashin <https://github.com/ktsn>
+//                 Benjamin Santalucia <https://github.com/ben8p>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -379,6 +380,7 @@ export class StatsReport {
 }
 export namespace Track {
     type Kind = 'audio' | 'video' | 'data';
+    type Priority = 'low' | 'standard' | 'high';
     type ID = string;
     type SID = string;
 }
@@ -471,21 +473,43 @@ export type AudioTrackPublication = LocalAudioTrackPublication | RemoteAudioTrac
 export interface ConnectOptions {
     abortOnIceServersTimeout?: boolean;
     audio?: boolean | CreateLocalTrackOptions;
+    automaticSubscription?: boolean;
+    bandwidthProfile?: BandwidthProfileOptions;
     dominantSpeaker?: boolean;
+    dscpTagging?: boolean;
+    enableDscp?: boolean;
     iceServers?: RTCIceServer[];
     iceServersTimeout?: number;
     iceTransportPolicy?: RTCIceTransportPolicy;
     insights?: boolean;
-    maxAudioBitRate?: number | null;
-    maxVideoBitRate?: number | null;
+    maxAudioBitrate?: number | null;
+    maxVideoBitrate?: number | null;
     name?: string | null;
-    networkQuality?: boolean;
+    networkQuality?: boolean | NetworkQualityConfiguration;
+    region?: 'au1' | 'br1' | 'ie1' | 'de1' | 'jp1' | 'sg1' | 'us1' | 'us2' | 'gll';
     preferredAudioCodecs?: AudioCodec[];
     preferredVideoCodecs?: VideoCodec[] | VideoCodecSettings[];
     logLevel?: LogLevel | LogLevels;
     tracks?: LocalTrack[] | MediaStreamTrack[];
     video?: boolean | CreateLocalTrackOptions;
 }
+export interface BandwidthProfileOptions {
+    video?: VideoBandwidthProfileOptions;
+}
+export interface VideoBandwidthProfileOptions {
+    dominantSpeakerPriority?: Track.Priority;
+    maxSubscriptionBitrate?: number;
+    maxTracks?: number;
+    mode?: BandwidthProfileMode;
+    renderDimensions?: VideoRenderDimensions;
+}
+export interface VideoRenderDimensions {
+    high?: VideoTrack.Dimensions;
+    low?: VideoTrack.Dimensions;
+    standard?: VideoTrack.Dimensions;
+}
+
+export type BandwidthProfileMode = 'grid' | 'collaboration' | 'presentation';
 export interface CreateLocalTrackOptions extends MediaTrackConstraints {
     // In API reference logLevel is not optional, but in the Twilio examples it is
     logLevel?: LogLevel | LogLevels;
@@ -520,6 +544,11 @@ export interface LogLevels {
     webrtc: LogLevel;
 }
 export type NetworkQualityLevel = number;
+export type NetworkQualityVerbosity = 0 | 1 | 2 | 3;
+export interface NetworkQualityConfiguration {
+    local?: NetworkQualityVerbosity;
+    remote?: NetworkQualityVerbosity;
+}
 export type RemoteTrack = RemoteAudioTrack | RemoteVideoTrack | RemoteDataTrack;
 export interface RemoteTrackPublicationOptions {
     logLevel: LogLevel | LogLevels;

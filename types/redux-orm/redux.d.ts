@@ -78,4 +78,10 @@ export function createSelector<S, I, R1, R>(
     ormSelector: ORMSelector<I, [R1], R>
 ): Selector<S, R>;
 
+export function createSelector<S, I, R>(
+    orm: ORM<I>,
+    ormStateSelector: Selector<S, OrmState<I>>,
+    ormSelector: ORMSelector<I, [], R>
+): Selector<S, R>;
+
 export function createSelector<I, R>(orm: ORM<I>, ormSelector: ORMSelector<I, [], R>): Selector<OrmState<I>, R>;

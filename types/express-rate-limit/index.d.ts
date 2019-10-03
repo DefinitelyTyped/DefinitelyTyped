@@ -4,7 +4,7 @@
 //                 makepost <https://github.com/makepost>
 //                 Jeremy Forsythe <https://github.com/jdforsythe>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 import express = require("express");
 
@@ -99,7 +99,13 @@ declare namespace RateLimit {
          */
         windowMs?: number;
     }
+    interface Instance extends express.RequestHandler {
+        resetKey(key: string): void;
+    }
 }
 
-declare var RateLimit: new (options: RateLimit.Options) => express.RequestHandler;
+declare var RateLimit: {
+    new (options: RateLimit.Options): RateLimit.Instance;
+    (options: RateLimit.Options): RateLimit.Instance;
+};
 export = RateLimit;

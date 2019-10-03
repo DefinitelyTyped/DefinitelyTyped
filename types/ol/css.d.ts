@@ -4,4 +4,4 @@ export const CLASS_HIDDEN: string;
 export const CLASS_SELECTABLE: string;
 export const CLASS_UNSELECTABLE: string;
 export const CLASS_UNSUPPORTED: string;
-export const getFontFamilies: ((p0: string) => string[]);
+export function getFontFamilies(font: string): string[];

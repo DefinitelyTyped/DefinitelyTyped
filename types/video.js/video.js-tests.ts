@@ -68,6 +68,8 @@ videojs("example_video_1").ready(function() {
 	testComponents(this);
 
 	testPlugin(this, {});
+
+	testAugmentation(this);
 });
 
 function testEvents(player: videojs.Player) {
@@ -114,4 +116,8 @@ function testPlugin(player: videojs.Player, options: {}) {
 		});
 	});
 	(player as any).uloztoExample(options);
+}
+
+function testAugmentation(player: videojs.Player) {
+    player.somePluginDefinedInAugmentation();
 }

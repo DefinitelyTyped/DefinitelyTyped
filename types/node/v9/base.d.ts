@@ -629,7 +629,7 @@ declare namespace NodeJS {
     type ExitListener = (code: number) => void;
     type RejectionHandledListener = (promise: Promise<any>) => void;
     type UncaughtExceptionListener = (error: Error) => void;
-    type UnhandledRejectionListener = (reason: any, promise: Promise<any>) => void;
+    type UnhandledRejectionListener = (reason: {} | null | undefined, promise: Promise<any>) => void;
     type WarningListener = (warning: Error) => void;
     type MessageListener = (message: any, sendHandle: any) => void;
     type SignalsListener = (signal: Signals) => void;
@@ -684,7 +684,7 @@ declare namespace NodeJS {
         emitWarning(warning: string | Error, name?: string, ctor?: Function): void;
         env: ProcessEnv;
         exit(code?: number): never;
-        exitCode: number;
+        exitCode?: number;
         getgid(): number;
         setgid(id: number | string): void;
         getuid(): number;
@@ -5025,6 +5025,7 @@ declare module "fs" {
         mode?: number;
         autoClose?: boolean;
         start?: number;
+        highWaterMark?: number;
     }): WriteStream;
 
     /**
@@ -7212,7 +7213,7 @@ declare module "http2" {
         prependOnceListener(event: "aborted", listener: (hadError: boolean, code: number) => void): this;
     }
 
-    export class Http2ServerResponse extends events.EventEmitter {
+    export class Http2ServerResponse extends stream.Stream {
         private constructor();
         addTrailers(trailers: OutgoingHttpHeaders): void;
         connection: net.Socket | tls.TLSSocket;

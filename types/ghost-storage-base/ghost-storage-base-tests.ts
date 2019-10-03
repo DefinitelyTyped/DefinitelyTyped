@@ -1,4 +1,4 @@
-import { StorageBase, Image, ReadOptions } from 'ghost-storage-base';
+import StorageBase, { Image, ReadOptions } from 'ghost-storage-base';
 import { Request, Response, NextFunction } from 'express';
 
 class MyCustomAdapter extends StorageBase {

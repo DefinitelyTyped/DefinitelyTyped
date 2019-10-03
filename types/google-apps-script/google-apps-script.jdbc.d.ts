@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2019-04-26
+// Type definitions for Google Apps Script 2019-09-11
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -8,16 +8,48 @@
 
 declare namespace GoogleAppsScript {
   export module JDBC {
+    /** JdbcAdvancedParameters */
+    export type CloudSqlAdvancedParameters = {
+      /** connection timeout in seconds */
+      connectTimeoutSeconds?: Integer;
+      /** the database to connect to */
+      database?: string;
+      /** the name of a Google SQL Service instance */
+      instance?: string;
+      /** the user's password */
+      password?: string;
+      /** query timeout in seconds */
+      queryTimeoutSeconds?: Integer;
+      /** the username to pass to the database */
+      user?: string;
+    }
+    /** JdbcAdvancedParameters */
+    export type ConnectionAdvancedParameters = {
+      /** the database to connect to */
+      databaseName?: string;
+      /** the user's password */
+      password?: string;
+      /** whether or not the connection should comply with JDBC rules when converting time zones. The default is false. */
+      useJDBCCompliantTimeZoneShift?: boolean;
+      /** the username to pass to the database */
+      user?: string;
+      /** the server's SSL certificate */
+      _serverSslCertificate?: string;
+      /** the client's SSL certificate */
+      _clientSslCertificate?: string;
+      /** the client's SSL key */
+      _clientSslKey?: string;
+    }
     /**
      * The JDBC service allows scripts to connect to Google Cloud SQL, MySQL,
      * Microsoft SQL Server, and Oracle databases. For more information, see the guide to JDBC.
      */
     export interface Jdbc {
       getCloudSqlConnection(url: string): JdbcConnection;
-      getCloudSqlConnection(url: string, info: any): JdbcConnection;
+      getCloudSqlConnection(url: string, info: CloudSqlAdvancedParameters): JdbcConnection;
       getCloudSqlConnection(url: string, userName: string, password: string): JdbcConnection;
       getConnection(url: string): JdbcConnection;
-      getConnection(url: string, info: any): JdbcConnection;
+      getConnection(url: string, info: ConnectionAdvancedParameters): JdbcConnection;
       getConnection(url: string, userName: string, password: string): JdbcConnection;
       newDate(milliseconds: Integer): JdbcDate;
       newTime(milliseconds: Integer): JdbcTime;

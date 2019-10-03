@@ -207,6 +207,12 @@ declare module '@hapi/hapi' {
          * @see {@link https://github.com/hapijs/vision/blob/master/API.md#serverrendertemplate-context-options-callback}
          */
         render: vision.RenderMethod;
+        /**
+         * Returns the closest views manager to your realm (either on your realm or inherited from an ancestor realm)
+         *
+         * @see {@link https://github.com/hapijs/vision/blob/master/API.md#servergetviewsmanager}
+         */
+        getViewsManager(): vision.ViewManager;
     }
 }
 
@@ -222,6 +228,12 @@ declare module '@hapi/hapi' {
          * @see {@link https://github.com/hapijs/vision/blob/master/API.md#requestrendertemplate-context-options-callback}
          */
         render: vision.RenderMethod;
+        /**
+         * Returns the closest views manager to your realm (either on your realm or inherited from an ancestor realm)
+         *
+         * @see {@link https://github.com/hapijs/vision/blob/master/API.md#requestgetviewsmanager}
+         */
+        getViewsManager(): vision.ViewManager;
     }
 }
 
@@ -238,6 +250,12 @@ declare module '@hapi/hapi' {
          * @see {@link https://github.com/hapijs/vision/blob/master/API.md#replyviewtemplate-context-options}
          */
         view(templatePath: string, context?: any, options?: vision.ViewHandlerOrReplyOptions): ResponseObject;
+        /**
+         * Returns the closest views manager to your realm (either on your realm or inherited from an ancestor realm)
+         *
+         * @see {@link https://github.com/hapijs/vision/blob/master/API.md#hgetviewsmanager}
+         */
+        getViewsManager(): vision.ViewManager;
     }
 }
 
