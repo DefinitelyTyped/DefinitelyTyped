@@ -1,11 +1,10 @@
-
 // Type definitions for mock-req-res 1.1
 // Project: https://github.com/davesag/mock-req-res#readme
 // Definitions by: Sandor Turanszky <https://github.com/sandorTuranszky>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped // TypeScript Version: 3.1
 
-import express = require('express');
-import sinon = require('sinon');
+import { Request, Response } from "express";
+import { SinonStub, SinonSpy } from "sinon";
 
 declare namespace mockReqRes {
 	interface Dictionary<T> {
@@ -16,35 +15,43 @@ declare namespace mockReqRes {
 
 	type ResponsePayload = Dictionary<any>;
 
-	interface RequestOutput extends express.Request {
-		get: sinon.SinonStub;
+	interface RequestOutput extends Request {
+		get: SinonStub;
 	}
 
-	interface ResponseOutput extends express.Response {
-		cookie: sinon.SinonSpy;
-		clearCookie: sinon.SinonSpy;
-		download: sinon.SinonSpy;
-		format: sinon.SinonSpy;
-		getHeader: sinon.SinonSpy;
-		json: sinon.SinonSpy;
-		jsonp: sinon.SinonSpy;
-		send: sinon.SinonSpy;
-		sendFile: sinon.SinonSpy;
-		sendStatus: sinon.SinonSpy;
-		setHeader: sinon.SinonSpy;
-		redirect: sinon.SinonSpy;
-		render: sinon.SinonSpy;
-		end: sinon.SinonSpy;
-		set: sinon.SinonSpy;
-		type: sinon.SinonSpy;
-		get: sinon.SinonStub;
-		status: sinon.SinonStub;
-		vary: sinon.SinonStub;
+	interface ResponseOutput extends Response {
+		cookie: SinonSpy;
+		clearCookie: SinonSpy;
+		download: SinonSpy;
+		format: SinonSpy;
+		getHeader: SinonSpy;
+		json: SinonSpy;
+		jsonp: SinonSpy;
+		send: SinonSpy;
+		sendFile: SinonSpy;
+		sendStatus: SinonSpy;
+		setHeader: SinonSpy;
+		redirect: SinonSpy;
+		render: SinonSpy;
+		end: SinonSpy;
+		set: SinonSpy;
+		type: SinonSpy;
+		get: SinonStub;
+		status: SinonStub;
+		vary: SinonStub;
 	}
 
 	function mockRequest(options?: RequestPayload): RequestOutput;
 
 	function mockResponse(options?: ResponsePayload): ResponseOutput;
+
+	interface Mock {
+		mockRequest(options?: RequestPayload): RequestOutput;
+
+		mockResponse(options?: ResponsePayload): ResponseOutput;
+	  }
 }
+
+declare function mockReqRes(): mockReqRes.Mock;
 
 export = mockReqRes;
