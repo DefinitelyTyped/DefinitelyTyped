@@ -9,6 +9,6 @@ declare const ThemedStyleSheet: {
   resolveLTR: () => any;
   resolveRTL: () => any;
   flush: () => void;
-}
+};
 
 export default ThemedStyleSheet;
