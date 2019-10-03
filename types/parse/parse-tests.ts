@@ -171,6 +171,31 @@ async function test_query_promise() {
     }
 }
 
+function test_live_query() {
+    const subscription = new Parse.Query('Test').subscribe();
+    subscription.on('close', (object) => {
+        (object instanceof Parse.Object) == true;
+    });
+    subscription.on('create', (object) => {
+        (object instanceof Parse.Object) == true;
+    });
+    subscription.on('delete', (object) => {
+        (object instanceof Parse.Object) == true;
+    });
+    subscription.on('enter', (object) => {
+        (object instanceof Parse.Object) == true;
+    });
+    subscription.on('leave', (object) => {
+        (object instanceof Parse.Object) == true;
+    });
+    subscription.on('open', (object) => {
+        (object instanceof Parse.Object) == true;
+    });
+    subscription.on('update', (object) => {
+        (object instanceof Parse.Object) == true;
+    });
+}
+
 
 
 function return_a_generic_query(): Parse.Query<Game> {

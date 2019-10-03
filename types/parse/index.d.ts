@@ -637,6 +637,8 @@ subscription.on('close', () => {});
          */
         constructor(id: string, query: string, sessionToken?: string);
 
+        on(event: 'open' | 'create' | 'update' | 'enter' | 'leave' | 'delete' | 'close', listener: (object: Object) => void): this;
+
         /**
          * Closes the subscription.
          *
