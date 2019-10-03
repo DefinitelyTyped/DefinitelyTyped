@@ -112,13 +112,13 @@ export interface SyncRoot {
     unmount(callback?: () => void): void;
 }
 
-export function unstable_createSyncRoot(container: HTMLElement, options?: RootOptions): SyncRoot;
+export function unstable_createSyncRoot(container: Element | null, options?: RootOptions): SyncRoot;
 
 export interface Root extends SyncRoot {
   createBatch(): Batch;
 }
 
 export function unstable_createRoot(
-    container: HTMLElement,
+    container: Element | null,
     options?: RootOptions
 ): Root;
