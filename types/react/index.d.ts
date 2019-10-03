@@ -1231,6 +1231,7 @@ declare namespace React {
     type DetailedHTMLProps<E extends HTMLAttributes<T>, T> = ClassAttributes<T> & E;
 
     interface SVGProps<T> extends SVGAttributes<T>, ClassAttributes<T> {
+        title?: string;
     }
 
     interface DOMAttributes<T> {
