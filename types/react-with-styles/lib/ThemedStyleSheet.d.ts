@@ -11,4 +11,5 @@ declare const ThemedStyleSheet: {
   flush: () => void;
 };
 
+export type ThemedStyleSheet = typeof ThemedStyleSheet;
 export default ThemedStyleSheet;
