@@ -16,16 +16,15 @@
         ],
         "paths": {
             "@ember/template": ["ember__template"],
-            "@ember/template/*": ["ember__template/*"],
-            "@ember/string": ["ember__string"],
-            "@ember/string/*": ["ember__string/*"]
+            "@ember/template/*": ["ember__template/*"]
         },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
+        "-private/handlebars.d.ts",
         "index.d.ts",
-        "ember__string-tests.ts"
+        "ember__template-tests.ts"
     ]
 }
