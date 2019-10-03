@@ -31,11 +31,24 @@ server.use(middleware);
 // existing logger
 
 const logger = pino();
-const optionsWithLogger = { logger };
+const optionsWithLogger: expressPinoLogger.Options = { logger };
 middleware = expressPinoLogger(optionsWithLogger);
 server.use(middleware);
 
 server.use((req, res, next) => {
     req.log.info('');
+    next();
+});
+
+// additional options
+const optionsWithGenReqId: expressPinoLogger.Options = {
+    logger,
+    genReqId: (req) => 'foo',
+};
+middleware = expressPinoLogger(optionsWithGenReqId);
+server.use(middleware);
+
+server.use((req, res, next) => {
+    req.log.info('%s', req.id);
     next();
 });
