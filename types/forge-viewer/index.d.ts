@@ -779,7 +779,9 @@ declare namespace Autodesk {
             leaveLiveReview(): void;
             setModelUnits(modelUnits: any): void;
             worldToClient(pt: THREE.Vector3): THREE.Vector3;
-            clientToWorld(clientX: number, clientY: number, ignoreTransparent: boolean): object;
+            clientToWorld(clientX: number, clientY: number, ignoreTransparent: boolean):
+              | null
+              | (Partial<Private.HitTestResult> & { point: THREE.Vector3, model: Model });
             modelHasTopology(): boolean;
             setSelectionColor(col: THREE.Color, selectionType: number): void;
             set2dSelectionColor(col: THREE.Color, opacity: number): void;
