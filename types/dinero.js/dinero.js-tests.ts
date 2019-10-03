@@ -8,20 +8,24 @@ Dinero.globalExchangeRatesApi = {
     },
 };
 Dinero.globalExchangeRatesApi = {
-    endpoint: "https://yourexchangerates.api/latest?base={{from}}",
-    propertyPath: "data.rates.{{to}}",
-    roundingMode: "HALF_UP",
+    endpoint: 'https://yourexchangerates.api/latest?base={{from}}',
+    propertyPath: 'data.rates.{{to}}',
+
+    roundingMode: 'HALF_UP',
 };
 Dinero.globalExchangeRatesApi = {
-    endpoint: new Promise((resolve) => resolve({
-        data: {
-            rates: {
-                USD: 1.337
-            }
-        }
-    })),
-    propertyPath: "data.rates.{{to}}",
-    roundingMode: "HALF_UP",
+    endpoint: new Promise(resolve =>
+        resolve({
+            data: {
+                rates: {
+                    USD: 1.337,
+                },
+            },
+        }),
+    ),
+    propertyPath: 'data.rates.{{to}}',
+
+    roundingMode: 'HALF_UP',
 };
 
 Dinero();
@@ -76,6 +80,7 @@ number = dinero.toUnit();
 number = dinero.toRoundedUnit(1);
 number = dinero.toRoundedUnit(1, "HALF_EVEN");
 dineroObject = dinero.toObject();
+dineroObject = dinero.toJson();
 dineroArr = Dinero.normalizePrecision([
     Dinero({ amount: 100, precision: 2 }),
     Dinero({ amount: 1000, precision: 3 }),
