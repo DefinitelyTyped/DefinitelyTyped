@@ -2001,6 +2001,7 @@ declare namespace React {
         crossOrigin?: string;
         href?: string;
         hrefLang?: string;
+        importance?: string;             
         integrity?: string;
         media?: string;
         rel?: string;
