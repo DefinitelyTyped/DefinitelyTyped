@@ -101,7 +101,6 @@ function test_object() {
 }
 
 function test_query() {
-
     const gameScore = new GameScore();
 
     const query = new Parse.Query(GameScore);
@@ -263,12 +262,20 @@ function test_relation() {
     new Parse.User().relation("games").remove([game1, game2])
 }
 
+interface UserModel {
+    firstname?: string;
+    lastname?: string;
+    dob?: string;
+}
+
+class User extends Parse.User<UserModel> { }
+
 function test_user() {
-    const user = new Parse.User();
+    const user = new User();
     user.set("username", "my name");
     user.set("password", "my pass");
     user.set("email", "email@example.com");
-    user.signUp(null, { useMasterKey: true });
+    user.signUp(undefined, { useMasterKey: true });
 }
 
 async function test_user_currentAsync() {
@@ -281,7 +288,6 @@ async function test_user_currentAsync() {
 }
 
 function test_user_acl_roles() {
-
     const user = new Parse.User();
     user.set("username", "my name");
     user.set("password", "my pass");
@@ -488,16 +494,15 @@ function test_cloud_functions() {
 class PlaceObject extends Parse.Object { }
 
 function test_geo_points() {
-
     const point = new Parse.GeoPoint({ latitude: 40.0, longitude: -30.0 });
 
-    const userObject = Parse.User.current()!;
+    const userObject = Parse.User.current<{ location: Parse.GeoPoint }>()!;
 
     // User's location
     const userGeoPoint = userObject.get("location");
 
     // Create a query for places
-    const query = new Parse.Query(Parse.User);
+    const query = new Parse.Query<Parse.User<{ location: Parse.GeoPoint }>>(Parse.User);
     // Interested in locations near user.
     query.near("location", userGeoPoint);
     // Limit what could be a lot of points.
@@ -622,4 +627,16 @@ async function test_local_datastore() {
     query.fromLocalDatastore();
 
     Parse.setLocalDatastoreController({});
+}
+
+function test_query_object() {
+    const q = new Parse.Query(Parse.Object);
+    q.equalTo('b', 'c');
+}
+
+class Session extends Parse.Session<{ something: string }> {}
+
+function test_session() {
+    const s = new Session();
+    const i = s.get('installationId');
 }

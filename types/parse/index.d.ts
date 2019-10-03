@@ -24,7 +24,7 @@ declare namespace Parse {
     // Helper types for extracting an extended generic type from an
     // (Parse.)Object or Array.
     type Unarray<T> = T extends Array<infer U> ? U : T;
-    type Unobject<X> = X extends Object<infer U> ? U : X;
+    type Unobject<X> = X extends Object<infer U> ? U extends object ? U : any : X;
 
     let applicationId: string;
     let javaScriptKey: string | undefined;
@@ -676,12 +676,33 @@ subscription.on('close', () => {});
         escape<P extends keyof K>(attr: P): string;
     }
 
-    class Session extends Object {
-        static current(): Promise<Session>;
+    type SessionProps<T> = T & {
+        sessionToken: string;
+        user: Pointer;
+        createdWith: {
+            action: 'login' | 'signup' | 'create' | 'upgrade',
+            authProvider: 'password' | 'anonymous' | 'facebook' | 'twitter'
+        },
+        restricted: boolean;
+        expiresAt: Date;
+        installationId: string;
+    };
+
+    class Session<T = any, K = SessionProps<T>> extends Object<K> {
+        static current<T = any>(): Promise<Session<T>>;
 
         getSessionToken(): string;
         isCurrentSessionRevocable(): boolean;
     }
+
+    /**
+     * Interface with default Parse.User properties
+     */
+    type UserProps<T> = T & {
+        email: string;
+        username: string;
+        password: string;
+    };
 
     /**
      * @class
@@ -692,20 +713,20 @@ subscription.on('close', () => {});
      * user specific methods, like authentication, signing up, and validation of
      * uniqueness.</p>
      */
-    class User extends Object {
+    class User<T = any, K = UserProps<T>> extends Object<K> {
         static allowCustomUserClass(isAllowed: boolean): void;
-        static become(sessionToken: string, options?: UseMasterKeyOption): Promise<User>;
-        static current(): User | undefined;
-        static currentAsync(): Promise<User | null>;
-        static signUp(username: string, password: string, attrs: any, options?: SignUpOptions): Promise<User>;
-        static logIn(username: string, password: string, options?: SuccessFailureOptions): Promise<User>;
-        static logOut(): Promise<User>;
-        static requestPasswordReset(email: string, options?: SuccessFailureOptions): Promise<User>;
+        static become<T = any>(sessionToken: string, options?: UseMasterKeyOption): Promise<User<T>>;
+        static current<T = any>(): User<T> | undefined;
+        static currentAsync<T = any>(): Promise<User<T> | null>;
+        static signUp<T = any>(username: string, password: string, attrs: Partial<T>, options?: SignUpOptions): Promise<User<T>>;
+        static logIn<T = any>(username: string, password: string, options?: SuccessFailureOptions): Promise<User<T>>;
+        static logOut<T = any>(): Promise<User<T>>;
+        static requestPasswordReset<T = any>(email: string, options?: SuccessFailureOptions): Promise<User<T>>;
         static extend(protoProps?: any, classProps?: any): any;
-        static hydrate(userJSON: any): Promise<User>;
+        static hydrate<T = any>(userJSON: Partial<UserProps<T>>): Promise<User<T>>;
         static enableUnsafeCurrentUser(): void;
 
-        signUp(attrs?: any, options?: SignUpOptions): Promise<this>;
+        signUp(attrs?: K, options?: SignUpOptions): Promise<this>;
         logIn(options?: SuccessFailureOptions): Promise<this>;
         authenticated(): boolean;
         isCurrent(): boolean;
@@ -1061,6 +1082,7 @@ subscription.on('close', () => {});
     function isLocalDatastoreEnabled(): boolean;
 
     function setLocalDatastoreController(controller: any): void;
+
 }
 
 declare module "parse/node" {
