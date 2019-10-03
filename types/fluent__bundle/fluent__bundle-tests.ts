@@ -1,7 +1,7 @@
-import { FluentBundle, FluentDateTime, FluentError, FluentNumber, FluentResource } from "@fluent/bundle";
-import Scope from "@fluent/bundle/scope";
-import { FluentNone } from "@fluent/bundle/types";
-import ftl from "@fluent/dedent";
+import { FluentBundle, FluentDateTime, FluentError, FluentNumber, FluentResource } from '@fluent/bundle';
+import Scope from '@fluent/bundle/scope';
+import { FluentNone } from '@fluent/bundle/types';
+import ftl from '@fluent/dedent';
 
 // FluentBundle examples:
 const bundle = new FluentBundle(['en-US']);
