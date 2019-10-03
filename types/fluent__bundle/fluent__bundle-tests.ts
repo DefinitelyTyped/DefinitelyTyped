@@ -1,7 +1,7 @@
-import { FluentBundle, FluentDateTime, FluentError, FluentNumber, FluentResource } from '@fluent/bundle';
-import Scope from '@fluent/bundle/scope';
-import { FluentNone } from '@fluent/bundle/types';
-import ftl from '@fluent/dedent';
+import { FluentBundle, FluentDateTime, FluentError, FluentNumber, FluentResource } from "@fluent/bundle";
+import Scope from "@fluent/bundle/scope";
+import { FluentNone } from "@fluent/bundle/types";
+import ftl from "@fluent/dedent";
 
 // FluentBundle examples:
 const bundle = new FluentBundle(['en-US']);
@@ -18,7 +18,6 @@ if (msg && msg.value) {
 const num = new FluentNumber(6);
 const err = new FluentError('argh');
 const dt = new FluentDateTime(new Date(2000, 0, 1));
-const none = new FluentNone();
 
 // Scope examples:
 const scope = new Scope(bundle, [], {}, false, new WeakSet());

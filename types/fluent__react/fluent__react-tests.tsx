@@ -5,10 +5,6 @@ import { FluentBundle } from '@fluent/bundle';
 import ftl from '@fluent/dedent';
 import { GetString, LocalizationProvider, Localized, ReactLocalization, withLocalization } from '@fluent/react';
 import { isReactLocalization } from '@fluent/react/localization';
-import createParseMarkup from '@fluent/react/markup';
-
-// parseMarkup examples:
-const markupParser = createParseMarkup();
 
 // ReactLocalization examples:
 const bundle = new FluentBundle('en-US');
