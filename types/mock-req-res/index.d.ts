@@ -1,7 +1,8 @@
 // Type definitions for mock-req-res 1.1
 // Project: https://github.com/davesag/mock-req-res#readme
 // Definitions by: Sandor Turanszky <https://github.com/sandorTuranszky>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped // TypeScript Version: 3.6
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 import { Request, Response } from 'express';
 import { SinonStub, SinonSpy } from 'sinon';
