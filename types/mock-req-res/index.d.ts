@@ -4,9 +4,6 @@
 // Definitions by: Sandor Turanszky <https://github.com/sandorTuranszky>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="express" />
-/// <reference types="sinon" />
-
 import { Request, Response } from "express";
 import { SinonStub, SinonSpy } from "sinon";
 
