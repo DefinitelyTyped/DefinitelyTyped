@@ -4,8 +4,8 @@
 // Definitions by: Sandor Turanszky <https://github.com/sandorTuranszky>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Request, Response } from "express";
-import { SinonStub, SinonSpy } from "sinon";
+import express = require('express');
+import sinon = require('sinon');
 
 declare namespace mockReqRes {
 	interface Dictionary<T> {
@@ -16,30 +16,30 @@ declare namespace mockReqRes {
 
 	type ResponsePayload = Dictionary<any>;
 
-	interface RequestOutput extends Request {
-		get: SinonStub;
+	interface RequestOutput extends express.Request {
+		get: sinon.SinonStub;
 	}
 
-	interface ResponseOutput extends Response {
-		cookie: SinonSpy;
-		clearCookie: SinonSpy;
-		download: SinonSpy;
-		format: SinonSpy;
-		getHeader: SinonSpy;
-		json: SinonSpy;
-		jsonp: SinonSpy;
-		send: SinonSpy;
-		sendFile: SinonSpy;
-		sendStatus: SinonSpy;
-		setHeader: SinonSpy;
-		redirect: SinonSpy;
-		render: SinonSpy;
-		end: SinonSpy;
-		set: SinonSpy;
-		type: SinonSpy;
-		get: SinonStub;
-		status: SinonStub;
-		vary: SinonStub;
+	interface ResponseOutput extends express.Response {
+		cookie: sinon.SinonSpy;
+		clearCookie: sinon.SinonSpy;
+		download: sinon.SinonSpy;
+		format: sinon.SinonSpy;
+		getHeader: sinon.SinonSpy;
+		json: sinon.SinonSpy;
+		jsonp: sinon.SinonSpy;
+		send: sinon.SinonSpy;
+		sendFile: sinon.SinonSpy;
+		sendStatus: sinon.SinonSpy;
+		setHeader: sinon.SinonSpy;
+		redirect: sinon.SinonSpy;
+		render: sinon.SinonSpy;
+		end: sinon.SinonSpy;
+		set: sinon.SinonSpy;
+		type: sinon.SinonSpy;
+		get: sinon.SinonStub;
+		status: sinon.SinonStub;
+		vary: sinon.SinonStub;
 	}
 
 	function mockRequest(options?: RequestPayload): RequestOutput;

@@ -1,7 +1,7 @@
-import { RequestHandler, Request, Response } from "express";
+import express = require('express');
 import { mockRequest, mockResponse } from "mock-req-res";
 
-const handler: RequestHandler = (req: Request, res: Response) => {
+const handler: express.RequestHandler = (req: express.Request, res: express.Response) => {
 	return res
 		.status(200)
 		.json(
@@ -17,8 +17,8 @@ handler(req, res, next); // OK
 
 // Argument of type '{}' is not assignable to parameter of type 'Request<Dictionary<string>>'. 
 // Type '{}' is missing the following properties from type 'Request<Dictionary<string>>': get, header, accepts, acceptsCharsets, and 72 more.t
-handler({}, res, next); // Error
+// handler({}, res, next); // Error
 
 // Argument of type '{}' is not assignable to parameter of type 'Response'. 
 // Type '{}' is missing the following properties from type 'Response': status, sendStatus, links, send, and 74 more.
-handler(req, {}, next); // Error
+// handler(req, {}, next); // Error
