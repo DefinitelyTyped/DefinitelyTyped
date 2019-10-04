@@ -1,1 +1,1 @@
-collection.defaultCompare<number>(1, 2);
+collections.defaultCompare<number>(1, 2);
