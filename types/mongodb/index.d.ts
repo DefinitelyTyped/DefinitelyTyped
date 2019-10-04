@@ -25,6 +25,7 @@
 //                 Jarom Loveridge <https://github.com/jloveridge>
 //                 Luis Pais <https://github.com/ranguna>
 //                 Hossein Saniei <https://github.com/HosseinAgha>
+//                 Alberto Silva <https://github.com/albertossilva>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -1095,25 +1096,55 @@ export interface Collection<TSchema = Default> {
     watch(pipeline?: object[], options?: ChangeStreamOptions & { startAtOperationTime?: Timestamp, session?: ClientSession }): ChangeStream;
 }
 
-
 /** https://docs.mongodb.com/manual/reference/operator/update */
+export type SortValues = -1 | 1;
+export enum SortEnum {
+    ASCENDING = 1,
+    DESCENDING = -1,
+}
+
+type PartialArray<T> = {
+    [P in keyof T]?: Array<T[P]>;
+};
+
+type PartialOfType<T, VT = any> = {
+    [P in keyof T]?: VT;
+};
+
+export type AddToSetOperators<T> = {
+    [P in keyof T]?: {
+        $each?: Array<T[P]>;
+    };
+};
+
+export type PushOperators<T> = {
+    [P in keyof T]?: {
+        $each?: Array<T[P]>;
+        $position?: number;
+        $slice?: number;
+        $sort?: SortEnum | SortValues | Record<string, SortEnum | SortValues>;
+    };
+};
+
 export type UpdateQuery<T> = {
-    $inc?: { [P in keyof T]?: number } | { [key: string]: number };
-    $min?: { [P in keyof T]?: number } | { [key: string]: number };
-    $max?: { [P in keyof T]?: number } | { [key: string]: number };
-    $mul?: { [P in keyof T]?: number } | { [key: string]: number };
+    $inc?: PartialOfType<T, number> | { [key: string]: number };
+    $min?: PartialOfType<T, number> | { [key: string]: number };
+    $max?: PartialOfType<T, number> | { [key: string]: number };
+    $mul?: PartialOfType<T, number> | { [key: string]: number };
     $set?: Partial<T> | { [key: string]: any };
     $setOnInsert?: Partial<T> | { [key: string]: any };
-    $unset?: { [P in keyof T]?: '' } | { [key: string]: '' };
+    $unset?: PartialOfType<T, ''> | { [key: string]: '' };
     $rename?: { [key: string]: keyof T } | { [key: string]: string };
-    $currentDate?: { [P in keyof T]?: (true | { $type: 'date' | 'timestamp' }) } | { [key: string]: (true | { $type: 'date' | 'timestamp' }) };
-    $addToSet?: { [P in keyof T]?: any } | { [key: string]: any };
-    $pop?: { [P in keyof T]?: -1 | 1 } | { [key: string]: -1 | 1 };
-    $pull?: { [P in keyof T]?: any } | { [key: string]: any };
-    $push?: Partial<T> | { [key: string]: any };
+    $currentDate?:
+        | PartialOfType<T, true | { $type: 'date' | 'timestamp' }>
+        | { [key: string]: true | { $type: 'date' | 'timestamp' } };
+    $addToSet?: Partial<T> | AddToSetOperators<T> | { [key: string]: any };
+    $pop?: PartialOfType<T, SortValues | SortEnum> | { [key: string]: SortValues | SortEnum };
+    $pull?: PartialOfType<T> | { [key: string]: any };
+    $push?: Partial<T> | PushOperators<T> | { [key: string]: any };
     $pushAll?: Partial<T> | { [key: string]: any[] };
-    $each?: Partial<T> | { [key: string]: any[] };
-    $bit?: { [P in keyof T]?: any } | { [key: string]: any };
+    $pullAll?: PartialArray<T> | { [key: string]: any[] };
+    $bit?: PartialOfType<T> | { [key: string]: any };
 };
 
 /** https://docs.mongodb.com/manual/reference/operator/query/type/#available-types */
