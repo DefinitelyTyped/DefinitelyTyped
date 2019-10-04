@@ -1,11 +1,15 @@
-// Type definitions for DomBehind
+// Type definitions for DomBehind v1.1.72
 // Project: https://github.com/s-ueno/DomBehind
 // Definitions by: uEN <https://github.com/s-ueno>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 
+
+
 // TypeScript Version: 2.3
+
+
 
 
 
@@ -1684,7 +1688,11 @@ declare namespace DomBehind.Web {
 
 
 
+
+
 }
+
+
 
 
 
