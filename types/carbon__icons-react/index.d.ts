@@ -1,4 +1,4 @@
-// Type definitions for @carbon/icons-react
+// Type definitions for @carbon/icons-react 10.6
 // Project: https://github.com/carbon-design-system/carbon
 // Definitions by: Eric Liu <https://github.com/metonym>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -8,11 +8,11 @@ import * as React from 'react';
 
 export as namespace CarbonIconsReact;
 
-interface CarbonIconProps extends Omit<React.SVGProps<any>, 'tabIndex'> {
+export interface CarbonIconProps extends Omit<React.SVGProps<any>, 'tabIndex'> {
     tabIndex?: string;
 }
 
-type CarbonIconType = (props: CarbonIconProps) => React.FunctionComponentElement<CarbonIconProps>;
+export type CarbonIconType = (props: CarbonIconProps) => React.FunctionComponentElement<CarbonIconProps>;
 
 export const Accessibility16: CarbonIconType;
 export const Accessibility20: CarbonIconType;
