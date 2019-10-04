@@ -1,3 +1,10 @@
+// Type definitions for DomBehind
+// Project: https://github.com/s-ueno/DomBehind
+// Definitions by: uEN <https://github.com/s-ueno>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+/// <reference types="jquery"/>
+
 declare module collections {
     interface ICompareFunction<T> {
         (a: T, b: T): number;
