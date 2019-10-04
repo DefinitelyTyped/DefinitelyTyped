@@ -1733,7 +1733,6 @@ declare module "vm" {
         columnOffset?: number;
         displayErrors?: boolean;
         timeout?: number;
-        breakOnSigint?: boolean;
     }
     export class Script {
         constructor(code: string, options?: ScriptOptions);
