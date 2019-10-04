@@ -14,6 +14,5 @@ declare function readInlineData<T extends _RefType<any>>(
     fragment: GraphQLTaggedNode,
     ref: FragmentRef<T> | null | undefined,
 ): T | null | undefined;
-declare function readInlineData(fragment: GraphQLTaggedNode, ref: null | undefined): null | undefined;
 
 export { FragmentRef, readInlineData };
