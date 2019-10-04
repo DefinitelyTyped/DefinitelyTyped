@@ -5,7 +5,7 @@
 //                 Eli Young <https://github.com/elyscape>
 //                 Suntharesan Mohan <https://github.com/vanthiyathevan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 declare namespace convict {
     // Taken from https://github.com/Microsoft/TypeScript/issues/12215#issuecomment-307871458
@@ -82,7 +82,7 @@ declare namespace convict {
 
     interface InternalSchema<T> {
         properties: {
-            [K in keyof T]: T[K] extends object ? InternalSchema<T[K]> : { default: T[K] }
+            [K in keyof T]: T[K] extends object ? InternalSchema<T[K]> : { default: T[K] };
         };
     }
 
@@ -91,68 +91,59 @@ declare namespace convict {
          * @returns the current value of the name property. name can use dot
          * notation to reference nested values
          */
-        get<K extends keyof T | string | null | undefined = undefined>(name?: K):
-            K extends null | undefined ? T :
-            K extends keyof T ? T[K] :
-            any;
+        get<K extends keyof T | string | null | undefined = undefined>(
+            name?: K,
+        ): K extends null | undefined ? T : K extends keyof T ? T[K] : any;
         get<K extends keyof T, K2 extends keyof T[K]>(name: string): T[K][K2];
         get<K extends keyof T, K2 extends keyof T[K], K3 extends keyof T[K][K2]>(name: K): T[K][K2][K3];
-        get<
-            K extends keyof T,
-            K2 extends keyof T[K],
-            K3 extends keyof T[K][K2],
-            K4 extends keyof T[K][K2][K3]
-            >(name: string): T[K][K2][K3][K4];
+        get<K extends keyof T, K2 extends keyof T[K], K3 extends keyof T[K][K2], K4 extends keyof T[K][K2][K3]>(
+            name: string,
+        ): T[K][K2][K3][K4];
         /**
          * @returns the default value of the name property. name can use dot
          * notation to reference nested values
          */
-        default<K extends keyof T | string | null | undefined = undefined>(name?: K):
-            K extends keyof T ? T[K] :
-            K extends null | undefined ? T :
-            any;
+        default<K extends keyof T | string | null | undefined = undefined>(
+            name?: K,
+        ): K extends keyof T ? T[K] : K extends null | undefined ? T : any;
         default<K extends keyof T>(name?: K): T[K];
         default<K extends keyof T, K2 extends keyof T[K]>(name: string): T[K][K2];
         default<K extends keyof T, K2 extends keyof T[K], K3 extends keyof T[K][K2]>(name: K): T[K][K2][K3];
-        default<
-            K extends keyof T,
-            K2 extends keyof T[K],
-            K3 extends keyof T[K][K2],
-            K4 extends keyof T[K][K2][K3]
-            >(name: string): T[K][K2][K3][K4];
+        default<K extends keyof T, K2 extends keyof T[K], K3 extends keyof T[K][K2], K4 extends keyof T[K][K2][K3]>(
+            name: string,
+        ): T[K][K2][K3][K4];
         /**
          * @returns true if the property name is defined, or false otherwise
          */
         has<K extends keyof T | string = string>(name: K): boolean;
         has<K extends keyof T, K2 extends keyof T[K]>(name: string): boolean;
         has<K extends keyof T, K2 extends keyof T[K], K3 extends keyof T[K][K2]>(name: K): boolean;
-        has<
-            K extends keyof T,
-            K2 extends keyof T[K],
-            K3 extends keyof T[K][K2],
-            K4 extends keyof T[K][K2][K3]
-            >(name: string): boolean;
+        has<K extends keyof T, K2 extends keyof T[K], K3 extends keyof T[K][K2], K4 extends keyof T[K][K2][K3]>(
+            name: string,
+        ): boolean;
         /**
          * Sets the value of name to value. name can use dot notation to reference
          * nested values, e.g. "database.port". If objects in the chain don't yet
          * exist, they will be initialized to empty objects
          */
         set<K extends keyof T | string>(name: K, value: K extends keyof T ? T[K] : any): Config<T>;
-        set<
-            K extends keyof T,
-            K2 extends keyof T[K] | string
-            >(name: K, value: K2 extends keyof T[K] ? T[K][K2] : any): Config<T>;
-        set<
-            K extends keyof T,
-            K2 extends keyof T[K],
-            K3 extends keyof T[K][K2] | string
-            >(name: K, value: K3 extends keyof T[K][K2] ? T[K][K2][K3] : any): Config<T>;
+        set<K extends keyof T, K2 extends keyof T[K] | string>(
+            name: K,
+            value: K2 extends keyof T[K] ? T[K][K2] : any,
+        ): Config<T>;
+        set<K extends keyof T, K2 extends keyof T[K], K3 extends keyof T[K][K2] | string>(
+            name: K,
+            value: K3 extends keyof T[K][K2] ? T[K][K2][K3] : any,
+        ): Config<T>;
         set<
             K extends keyof T,
             K2 extends keyof T[K],
             K3 extends keyof T[K][K2],
             K4 extends keyof T[K][K2][K3] | string
-            >(name: K, value: K4 extends keyof T[K][K2][K3] ? T[K][K2][K3][K4] : any): Config<T>;
+        >(
+            name: K,
+            value: K4 extends keyof T[K][K2][K3] ? T[K][K2][K3][K4] : any,
+        ): Config<T>;
         /**
          * Loads and merges a JavaScript object into config
          */

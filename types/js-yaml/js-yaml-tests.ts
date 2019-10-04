@@ -6,27 +6,27 @@ import SchemaDefinition = yaml.SchemaDefinition;
 
 const bool = true;
 const num = 0;
-const str = "";
+const str = '';
 const obj: object = {};
-const map: { [x: string]: any; } = {};
+const map: { [x: string]: any } = {};
 const array: any[] = [];
 const fn: (...args: any[]) => any = () => {};
 const type = new yaml.Type(str);
 
 const schemaDefinition: SchemaDefinition = {
-	implicit: array,
-	explicit: array,
-	include: array
+    implicit: array,
+    explicit: array,
+    include: array,
 };
 const typeConstructorOptions: TypeConstructorOptions = {
-	kind: "scalar",
-	resolve: fn,
-	construct: fn,
-	instanceOf: obj,
-	predicate: (obj) => false,
-	represent: fn,
-	defaultStyle: str,
-	styleAliases: map
+    kind: 'scalar',
+    resolve: fn,
+    construct: fn,
+    instanceOf: obj,
+    predicate: obj => false,
+    represent: fn,
+    defaultStyle: str,
+    styleAliases: map,
 };
 
 const schema: yaml.Schema = new yaml.Schema(schemaDefinition);
@@ -55,40 +55,42 @@ yaml.SAFE_SCHEMA;
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
 loadOpts = {
-	filename: str
+    filename: str,
 };
 loadOpts = {
-	onWarning(e) { e.stack; }
+    onWarning(e) {
+        e.stack;
+    },
 };
 loadOpts = {
-	json: bool
+    json: bool,
 };
 loadOpts = {
-	schema: yaml.DEFAULT_SAFE_SCHEMA
+    schema: yaml.DEFAULT_SAFE_SCHEMA,
 };
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
 dumpOpts = {
-	indent: num
+    indent: num,
 };
 dumpOpts = {
-	noArrayIndent: bool
+    noArrayIndent: bool,
 };
 dumpOpts = {
-	skipInvalid: bool
+    skipInvalid: bool,
 };
 dumpOpts = {
-	flowLevel: num
+    flowLevel: num,
 };
 dumpOpts = {
-	styles: obj
+    styles: obj,
 };
 dumpOpts = {
-	schema: value
+    schema: value,
 };
 dumpOpts = {
-	schema: yaml.DEFAULT_FULL_SCHEMA
+    schema: yaml.DEFAULT_FULL_SCHEMA,
 };
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
@@ -115,44 +117,52 @@ type.styleAliases;
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
-// $ExpectType any
+// $ExpectType Record<string | number, unknown>
 yaml.safeLoad(str);
-// $ExpectType any
+// $ExpectType Record<string | number, unknown>
 yaml.safeLoad(str, loadOpts);
 
-// $ExpectType any
+// $ExpectType Record<string | number, unknown>
 yaml.load(str);
-// $ExpectType any
+// $ExpectType Record<string | number, unknown>
 yaml.load(str, loadOpts);
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
-// $ExpectType any[]
+// $ExpectType Record<string | number, unknown>[]
 yaml.safeLoadAll(str);
 
-// $ExpectType undefined
-yaml.safeLoadAll(str, (doc) => {
-	value = doc;
+// $ExpectType void
+yaml.safeLoadAll(str, doc => {
+    value = doc;
 });
-// $ExpectType undefined
-yaml.safeLoadAll(str, (doc) => {
-	value = doc;
-}, loadOpts);
-// $ExpectType any[]
+// $ExpectType void
+yaml.safeLoadAll(
+    str,
+    doc => {
+        value = doc;
+    },
+    loadOpts,
+);
+// $ExpectType Record<string | number, unknown>[]
 value = yaml.safeLoadAll(str, undefined, loadOpts);
 
-// $ExpectType any[]
+// $ExpectType Record<string | number, unknown>[]
 value = yaml.loadAll(str);
 
-// $ExpectType undefined
-yaml.loadAll(str, (doc) => {
-	value = doc;
+// $ExpectType void
+yaml.loadAll(str, doc => {
+    value = doc;
 });
-// $ExpectType undefined
-yaml.loadAll(str, (doc) => {
-	value = doc;
-}, loadOpts);
-// $ExpectType any[]
+// $ExpectType void
+yaml.loadAll(
+    str,
+    doc => {
+        value = doc;
+    },
+    loadOpts,
+);
+// $ExpectType Record<string | number, unknown>[]
 value = yaml.loadAll(str, undefined, loadOpts);
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
