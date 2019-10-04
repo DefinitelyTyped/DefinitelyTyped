@@ -1,6 +1,3 @@
-function DI() {}
-
-
-
-
-
+function DI() {
+    return true;
+}
