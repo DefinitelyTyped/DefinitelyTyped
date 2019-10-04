@@ -35,10 +35,11 @@ declare namespace Cookies {
         secure?: boolean;
 
         /**
-         * Define the first party cookie policy.
-         * @see: https://tools.ietf.org/html/draft-west-first-party-cookies-07
+         * Asserts that a cookie must not be sent with cross-origin requests,
+         * providing some protection against cross-site request forgery
+         * attacks (CSRF)
          */
-        samesite?: 'Strict' | 'Lax';
+        sameSite?: 'Strict' | 'Lax' | 'None';
 
         /**
          * An attribute which will be serialized, conformably to RFC 6265
