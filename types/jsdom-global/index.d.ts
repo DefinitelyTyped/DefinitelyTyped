@@ -5,8 +5,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
-/// <reference lib="dom" />
-
 import { ConstructorOptions } from 'jsdom';
 
 export = jsdomGlobal;
