@@ -14,14 +14,6 @@ interface GlobalWorkerOptions {
   workerSrc: string;
 }
 
-interface PDFPromise<T> {
-    isResolved(): boolean;
-    isRejected(): boolean;
-    resolve(value: T): void;
-    reject(reason: string): void;
-    then<U>(onResolve: (promise: T) => U, onReject?: (reason: string) => void): PDFPromise<U>;
-}
-
 interface PDFTreeNode {
     title: string;
     bold: boolean;
@@ -448,8 +440,8 @@ interface PDFAnnotations {
     getHtmlElement(commonOjbs: any): HTMLElement; // throw new NotImplementedException()
     getEmptyContainer(tagName: string, rect: number[]): HTMLElement; // deprecated
     isViewable(): boolean;
-    loadResources(keys: any): PDFPromise<any>;
-    getOperatorList(evaluator: any): PDFPromise<any>;
+    loadResources(keys: any): Promise<any>;
+    getOperatorList(evaluator: any): Promise<any>;
     // ... todo
 }
 
@@ -755,7 +747,7 @@ interface PDFJSStatic {
 }
 
 interface PDFLoadingTask<T> {
-    promise: PDFPromise<T>;
+    promise: Promise<T>;
 }
 
 declare const Util: PDFJSUtilStatic;
