@@ -62,10 +62,10 @@ declare class PDFDataRangeTransport {
     addProgressiveDoneListener(listener: PDFDataRangeTransportListener): void
     onDataRange(begin: number, chunk: unknown): void
     onDataProgress(loaded: number, total: number): void
-    onDataProgressiveRead(chunk: unknown): void    
+    onDataProgressiveRead(chunk: unknown): void
     onDataProgressiveDone(): void
-    transportReady() : void    
-    requestDataRange(begin: number, end: number): void    
+    transportReady() : void
+    requestDataRange(begin: number, end: number): void
     abort(): void
 }
 
@@ -77,11 +77,11 @@ interface PDFWorkerParameters {
 
 declare class PDFWorker {
     constructor(params?: PDFWorkerParameters)
-    readonly promise: Promise<unknown>    
+    readonly promise: Promise<unknown>
     readonly port: any |null
     readonly messageHandler: unknown | null
     destroy(): void
-    static fromPort(params?: PDFWorkerParameters): PDFWorker  
+    static fromPort(params?: PDFWorkerParameters): PDFWorker
     static getWorkerSrc(): string
 }
 declare enum  CMapCompressionType {
@@ -105,7 +105,7 @@ interface PDFSource {
      * Binary PDF data. Use typed arrays
      * (Uint8Array) to improve the memory usage. If PDF data is BASE64-encoded,
      * use atob() to convert it to a binary string first.
-     */    
+     */
     data?: Uint8Array | BufferSource | string;
     /**
      * Basic authentication headers.
@@ -115,7 +115,7 @@ interface PDFSource {
     };
     /**
      * For decrypting password-protected PDFs.
-     */    
+     */
     password?: string;
     /**
     * Indicates whether or not cross-site
@@ -145,7 +145,7 @@ interface PDFSource {
      * the loading and parsing of the PDF data.
      */
     worker?: PDFWorker;
-    /** 
+    /**
      * Controls the logging level; the
      * constants from {VerbosityLevel} should be used.
      */
@@ -169,7 +169,7 @@ interface PDFSource {
     nativeImageDecoderSupport?: "decode"|"display"|"none"
     /**
      * The URL where the predefined
-     * Adobe CMaps are located. Include trailing slash. */    
+     * Adobe CMaps are located. Include trailing slash. */
     cMapUrl?: string
     /**
      * Specifies if the Adobe CMaps are
@@ -180,46 +180,46 @@ interface PDFSource {
      * used when reading built-in CMap files. Providing a custom factory is useful
      * for environments without `XMLHttpRequest` support, such as e.g. Node.js.
      * The default value is {DOMCMapReaderFactory}.
-     */    
+     */
     CMapReaderFactory?: any
     /**
      * Reject certain promises, e.g.
      * `getOperatorList`, `getTextContent`, and `RenderTask`, when the associated
      * PDF data cannot be successfully parsed, instead of attempting to recover
      * whatever possible of the data. The default value is `false`.
-     */    
+     */
     stopAtErrors?: boolean
     /**
      * The maximum allowed image size
      * in total pixels, i.e. width * height. Images above this value will not be
      * rendered. Use -1 for no limit, which is also the default value.
-     */    
+     */
     maxImageSize?: number
     /**
      * Determines if we can eval
      * strings as JS. Primarily used to improve performance of font rendering,
      * and when parsing PDF functions. The default value is `true`.
-     */    
+     */
     isEvalSupported?: boolean
     /**
      * By default fonts are
      *   converted to OpenType fonts and loaded via font face rules. If disabled,
      *   fonts will be rendered using a built-in font renderer that constructs the
      *   glyphs with primitive path commands. The default value is `false`.
-     */    
+     */
     disableFontFace?: boolean
     /**
      * Disable range request loading
      *   of PDF files. When enabled, and if the server supports partial content
      *   requests, then the PDF will be fetched in chunks.
      *   The default value is `false`.
-     */    
+     */
     disableRange?: boolean
     /**
      * Disable streaming of PDF file
      *   data. By default PDF.js attempts to load PDFs in chunks.
      *   The default value is `false`.
-     */    
+     */
     disableStream?: boolean
     /**
      * Disable pre-fetching of PDF
@@ -228,18 +228,18 @@ interface PDFSource {
      *   The default value is `false`.
      *   NOTE: It is also necessary to disable streaming, see above,
      *         in order for disabling of pre-fetching to work correctly.
-     */    
+     */
     disableAutoFetch?: boolean
     /**
      * Disable the use of
      *   `URL.createObjectURL`, for compatibility with older browsers.
      *   The default value is `false`.
-     */    
+     */
     disableCreateObjectURL?: boolean
     /**
      * Enables special hooks for debugging
      * PDF.js (see `web/debugger.js`). The default value is `false`.
-     */    
+     */
     pdfBug?: boolean
 }
 
@@ -248,6 +248,15 @@ interface PDFProgressData {
     total: number;
 }
 
+interface PDFDocumentStats {
+    streamTypes: object; // Used stream types in the document (an item is set to true if specific stream ID was used in the document).
+    fontTypes: object; // Used font types in the document (an item is set to true if specific font ID was used in the document).
+}
+
+/**
+ * Proxy to a PDFDocument in the worker thread. Also, contains commonly used
+ * properties that can be read synchronously.
+ */
 interface PDFDocumentProxy {
 
     /**
@@ -261,57 +270,127 @@ interface PDFDocumentProxy {
     fingerprint: string;
 
     /**
-     * True if embedded document fonts are in use.  Will be set during rendering of the pages.
-     **/
-    embeddedFontsUsed(): boolean;
-
-    /**
      * @param number The page number to get.  The first page is 1.
      * @return A promise that is resolved with a PDFPageProxy.
      **/
-    getPage(number: number): PDFPromise<PDFPageProxy>;
+    getPage(number: number): Promise<PDFPageProxy>;
+
+    /**
+     * @param ref The page reference. Must have the `num` and `gen` properties.
+     * @return A promise that is resolved with the page index that is associated with the reference.
+     */
+    getPageIndex(ref: {num: number, gen: number}): Promise<number>;
 
     /**
      * TODO: return type of Promise<???>
      *  A promise that is resolved with a lookup table for mapping named destinations to reference numbers.
      **/
-    getDestinations(): PDFPromise<any[]>;
+    getDestinations(): Promise<any[]>;
+
+    /**
+     * TODO: return type of Promise<???>
+     * @param id The named destination to get.
+     * @return A promise that is resolved with all information of the given named destination.
+     */
+    getDestination(id: string): Promise<any>;
+
+    /**
+     * TODO: return type of Promise<???>
+     * @return A promise that is resolved with an Array containing the page labels that
+     *   correspond to the page indexes, or `null` when no page labels are present in the PDF file.
+     */
+    getPageLabels(): Promise<any[] | null>;
+
+    /**
+     * @return A promise that is resolved with a string containing the page layout name.
+     */
+    getPageLayout(): Promise<string>;
+
+    /**
+     * @return A promise that is resolved with a string containing the page mode name.
+     */
+    getPageMode(): Promise<string>;
+
+    /**
+     * @return A promise that is resolved with an object containing the viewer preferences.
+     */
+    getViewerPreferences(): Promise<object>;
+
+    /**
+     * TODO: return type of Promise<???>
+     * @return A promise that is resolved with an Array containing the
+     *   destination, or `null` when no open action is present in the PDF file.
+     */
+    getOpenActionDestination(): Promise<any[] | null>;
+
+    /**
+     * TODO: return type of ???
+     * @return A promise that is resolved with a lookup table for mapping named attachments to their content.
+     */
+    getAttachments(): any;
 
     /**
      *  A promise that is resolved with an array of all the JavaScript strings in the name tree.
      **/
-    getJavaScript(): PDFPromise<string[]>;
+    getJavaScript(): Promise<string[]>;
 
     /**
      *  A promise that is resolved with an array that is a tree outline (if it has one) of the PDF.  @see PDFTreeNode
      **/
-    getOutline(): PDFPromise<PDFTreeNode[]>;
+    getOutline(): Promise<PDFTreeNode[]>;
+
+    /**
+     * TODO: return type of Promise<???>
+     * @return A promise that is resolved with an Array that contains
+     *   the permission flags for the PDF document, or `null` when
+     *   no permissions are present in the PDF file.
+     */
+    getPermissions(): Promise<any[] | null>;
 
     /**
      * A promise that is resolved with the info and metadata of the PDF.
      **/
-    getMetadata(): PDFPromise<{ info: PDFInfo; metadata: PDFMetadata }>;
-
-    /**
-     * Is the PDF encrypted?
-     **/
-    isEncrypted(): PDFPromise<boolean>;
+    getMetadata(): Promise<{ info: PDFInfo; metadata: PDFMetadata }>;
 
     /**
      * A promise that is resolved with Uint8Array that has the raw PDF data.
      **/
-    getData(): PDFPromise<Uint8Array>;
+    getData(): Promise<Uint8Array>;
 
     /**
-     * TODO: return type of Promise<???>
-     * A promise that is resolved when the document's data is loaded.
-     **/
-    dataLoaded(): PDFPromise<any[]>;
+     * @return A promise that is resolved when the document's data
+     *   is loaded. It is resolved with an object that contains the `length`
+     *   property that indicates size of the PDF data in bytes.
+     */
+    getDownloadInfo(): Promise<{length: number}>;
 
     /**
-     *
-     **/
+     * @return A promise this is resolved with current statistics about
+     *   document structures (@see PDFDocumentStats).
+     */
+    getStats(): Promise<PDFDocumentStats>
+
+    /**
+     * Cleans up resources allocated by the document, e.g. created `@font-face`.
+     */
+    cleanup(): void;
+
+    /**
+     * Destroys the current document instance and terminates the worker.
+     */
     destroy(): void;
+
+    /**
+     * A subset of the current DocumentInitParameters,
+     * which are either needed in the viewer and/or whose default values
+     * may be affected by the `apiCompatibilityParams`.
+     */
+    loadingParams: object;
+
+    /**
+     * The loadingTask for the current document.
+     */
+    loadingTask: PDFLoadingTask<PDFDocumentProxy>;
 }
 
 interface PDFRef {
@@ -345,6 +424,15 @@ interface ViewportParameters {
     rotation?: number; // (optional) The desired rotation, in degrees, of the viewport. If omitted it defaults to the page rotation.
     dontFlip?: boolean; // (optional) If true, the y-axis will not be flipped. The default value is `false`.
 }
+
+/**
+ * Page getTextContent parameters.
+ */
+interface GetTextContentParameters {
+    normalizeWhitespace: boolean; // Replaces all occurrences of whitespace with standard spaces (0x20). The default value is `false`.
+    disabledCombineTextItems: boolean; // Do not attempt to combine same line TextItem's. The default value is `false`.
+}
+
 interface PDFAnnotationData {
     subtype: string;
     rect: number[]; // [x1, y1, x2, y2]
@@ -401,7 +489,25 @@ interface PDFRenderTask extends PDFLoadingTask<PDFPageProxy> {
     cancel(): void;
 }
 
+/**
+ * PDF page operator list.
+ */
+interface PDFOperatorList {
+    fnArray: any[]; // Array containing the operator functions.  TODO: Type of Array<???>
+    argsArray: any[]; // Array containing the arguments of the functions.
+}
+
+/**
+ * Proxy to a PDFPage in the worker thread.
+ */
 interface PDFPageProxy {
+    pageIndex: number;
+    commonObjs: PDFObjects;
+    objs: PDFObjects;
+    cleanupAfterRender: boolean;
+    pendingCleanup: boolean;
+    intentStates: object;
+    destroyed: boolean;
 
     /**
      * Page number of the page.  First page is 1.
@@ -432,7 +538,7 @@ interface PDFPageProxy {
     /**
      * A promise that is resolved with an array of the annotation objects.
      **/
-    getAnnotations(): PDFPromise<PDFAnnotations>;
+    getAnnotations(): Promise<PDFAnnotations>;
 
     /**
      * Begins the process of rendering a page to the desired context.
@@ -442,19 +548,32 @@ interface PDFPageProxy {
     render(params: PDFRenderParams): PDFRenderTask;
 
     /**
+     * @return A promise resolved with an PDFOperatorList object that represents page's operator list.
+     */
+    getOperationList(): Promise<PDFOperatorList>;
+
+    /**
+     * @param params getTextContent parameters.
+     * @return ReadableStream to read textContent chunks.
+     */
+    streamTextContent(params?: GetTextContentParameters): ReadableStream;
+
+    /**
+     * @param params getTextContent parameters.
      * A promise that is resolved with the string that is the text content frm the page.
      **/
-    getTextContent(): PDFPromise<TextContent>;
+    getTextContent(params?: GetTextContentParameters): Promise<TextContent>;
 
     /**
-     * marked as future feature
-     **/
-    //getOperationList(): PDFPromise<>;
+     * Destroys page object.
+     */
+    _destroy(): void;
 
     /**
-     * Destroyes resources allocated by the page.
-     **/
-    destroy(): void;
+     * Cleans up resources allocated by the page.
+     * @param resetStats Reset page stats, if enabled. The default value is `false`.
+     */
+    cleanup: (resetStats?: boolean) => void;
 }
 
 interface TextContentItem {
