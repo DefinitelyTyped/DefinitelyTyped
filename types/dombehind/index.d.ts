@@ -1,4 +1,4 @@
-// Type definitions for DomBehind v1.1.72
+// Type definitions for DomBehind v1.1
 // Project: https://github.com/s-ueno/DomBehind
 // Definitions by: uEN <https://github.com/s-ueno>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -1681,7 +1681,11 @@ declare namespace DomBehind.Web {
 
 
 
+
+
 }
+
+
 
 
 
