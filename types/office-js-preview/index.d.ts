@@ -9167,7 +9167,7 @@ declare namespace Office {
          *
          * You can subsequently use the identifier with the removeAttachmentAsync method to remove the attachment in the same session.
          * 
-         * **Note**: You need to strip out the data prefix then send the rest of the base64 string to the API.
+         * **Note**: If you're using a data URL API (e.g., readAsDataURL), you need to strip out the data URL prefix then send the rest of the string to this API.
          * For example, if the full string is represented by `data:image/svg+xml;base64,<rest of base64 string>`, remove `data:image/svg+xml;base64,`.
          *
          * [Api set: Mailbox Preview]
@@ -9206,7 +9206,7 @@ declare namespace Office {
          *
          * You can subsequently use the identifier with the removeAttachmentAsync method to remove the attachment in the same session.
          * 
-         * **Note**: You need to strip out the data prefix then send the rest of the base64 string to the API.
+         * **Note**: If you're using a data URL API (e.g., readAsDataURL), you need to strip out the data URL prefix then send the rest of the string to this API.
          * For example, if the full string is represented by `data:image/svg+xml;base64,<rest of base64 string>`, remove `data:image/svg+xml;base64,`.
          *
          * [Api set: Mailbox Preview]
@@ -12446,7 +12446,7 @@ declare namespace Office {
          *
          * You can subsequently use the identifier with the removeAttachmentAsync method to remove the attachment in the same session.
          * 
-         * **Note**: You need to strip out the data prefix then send the rest of the base64 string to the API.
+         * **Note**: If you're using a data URL API (e.g., readAsDataURL), you need to strip out the data URL prefix then send the rest of the string to this API.
          * For example, if the full string is represented by `data:image/svg+xml;base64,<rest of base64 string>`, remove `data:image/svg+xml;base64,`.
          *
          * [Api set: Mailbox Preview]
@@ -12485,7 +12485,7 @@ declare namespace Office {
          *
          * You can subsequently use the identifier with the removeAttachmentAsync method to remove the attachment in the same session.
          * 
-         * **Note**: You need to strip out the data prefix then send the rest of the base64 string to the API.
+         * **Note**: If you're using a data URL API (e.g., readAsDataURL), you need to strip out the data URL prefix then send the rest of the string to this API.
          * For example, if the full string is represented by `data:image/svg+xml;base64,<rest of base64 string>`, remove `data:image/svg+xml;base64,`.
          *
          * [Api set: Mailbox Preview]
@@ -14639,7 +14639,7 @@ declare namespace Office {
          *
          * You can subsequently use the identifier with the removeAttachmentAsync method to remove the attachment in the same session.
          * 
-         * **Note**: You need to strip out the data prefix then send the rest of the base64 string to the API.
+         * **Note**: If you're using a data URL API (e.g., readAsDataURL), you need to strip out the data URL prefix then send the rest of the string to this API.
          * For example, if the full string is represented by `data:image/svg+xml;base64,<rest of base64 string>`, remove `data:image/svg+xml;base64,`.
          *
          * [Api set: Mailbox Preview]
@@ -14678,7 +14678,7 @@ declare namespace Office {
          *
          * You can subsequently use the identifier with the removeAttachmentAsync method to remove the attachment in the same session.
          * 
-         * **Note**: You need to strip out the data prefix then send the rest of the base64 string to the API.
+         * **Note**: If you're using a data URL API (e.g., readAsDataURL), you need to strip out the data URL prefix then send the rest of the string to this API.
          * For example, if the full string is represented by `data:image/svg+xml;base64,<rest of base64 string>`, remove `data:image/svg+xml;base64,`.
          *
          * [Api set: Mailbox Preview]
