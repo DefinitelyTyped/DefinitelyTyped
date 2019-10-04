@@ -8,13 +8,13 @@ jsdomGlobal(undefined, {
 });
 jsdomGlobal('hello', {
     contentType: '1',
-    url: '1',
-    referrer: '1',
+    url: 'https://localhost/',
+    referrer: 'https://localhost/',
     includeNodeLocations: true,
     cookieJar: new jsdom.CookieJar(),
     virtualConsole: new jsdom.VirtualConsole(),
-    resources: '1',
-    runScripts: '1',
+    resources: 'usable',
+    runScripts: 'dangerously',
     beforeParse: () => {},
     pretendToBeVisual: true,
     storageQuota: 1,
