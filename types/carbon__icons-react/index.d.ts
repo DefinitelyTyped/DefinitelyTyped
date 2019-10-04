@@ -1,5 +1,5 @@
 // Type definitions for @carbon/icons-react 10.6
-// Project: https://github.com/carbon-design-system/carbon
+// Project: https://github.com/carbon-design-system/carbon/tree/master/packages/icons-react
 // Definitions by: Eric Liu <https://github.com/metonym>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
