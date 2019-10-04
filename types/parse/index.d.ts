@@ -198,10 +198,15 @@ declare namespace Parse {
      */
     class File {
 
-        constructor(name: string, data: any, type?: string);
+        constructor(name: string, data: number[], type?: string);
+        constructor(name: string, data: { base64: string }, type?: string);
+        constructor(name: string, data: Blob, type?: string);
+        constructor(name: string, data: File, type?: string);
+        constructor(name: string, data: { uri: string }, type?: string);
         name(): string;
-        url(): string;
+        url(options?: { forceSecure: boolean }): string;
         save(options?: SuccessFailureOptions): Promise<File>;
+        toJSON(): { __type: string, name: string, url: string };
 
     }
 

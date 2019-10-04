@@ -210,11 +210,12 @@ function test_file() {
 
     const base64 = "V29ya2luZyBhdCBQYXJzZSBpcyBncmVhdCE=";
     let file = new Parse.File("myfile.txt", { base64: base64 });
+    file = new Parse.File('nana', { uri: 'http://example.com/image.jps' });
 
     const bytes = [0xBE, 0xEF, 0xCA, 0xFE];
     file = new Parse.File("myfile.txt", bytes);
 
-    file = new Parse.File("myfile.zzz", {}, "image/png");
+    file = new Parse.File("myfile.zzz", new File([], 'foo.txt'), "image/png");
 
     const src = file.url();
 
