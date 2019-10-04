@@ -171,8 +171,8 @@ async function test_query_promise() {
     }
 }
 
-function test_live_query() {
-    const subscription = new Parse.Query('Test').subscribe();
+async function test_live_query() {
+    const subscription = await new Parse.Query('Test').subscribe();
     subscription.on('close', (object) => {
         (object instanceof Parse.Object) == true;
     });
@@ -574,12 +574,12 @@ function test_batch_operations() {
     Parse.Object.fetchAllIfNeeded(games, { sessionToken: '' })
 }
 
-function test_query_subscribe() {
+async function test_query_subscribe() {
     // create new query from Game object type
     const query = new Parse.Query(Game);
 
     // create subscription to Game object
-    const subscription = query.subscribe();
+    const subscription = await query.subscribe();
 
     // listen for new Game objects created on Parse server
     subscription.on('create', (game: any) => {

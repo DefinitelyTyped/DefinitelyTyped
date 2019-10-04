@@ -527,7 +527,7 @@ declare namespace Parse {
         skip(n: number): Query<T>;
         sortByTextScore(): this;
         startsWith(key: string, prefix: string): Query<T>;
-        subscribe(): LiveQuerySubscription;
+        subscribe(): Promise<LiveQuerySubscription>;
         withJSON(json: any): this;
         withinGeoBox(key: string, southwest: GeoPoint, northeast: GeoPoint): Query<T>;
         withinKilometers(key: string, point: GeoPoint, maxDistance: number): Query<T>;
