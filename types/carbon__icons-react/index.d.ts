@@ -2,6 +2,7 @@
 // Project: https://github.com/carbon-design-system/carbon
 // Definitions by: Eric Liu <https://github.com/metonym>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.5
 
 import * as React from 'react';
 
