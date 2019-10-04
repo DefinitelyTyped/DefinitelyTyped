@@ -581,4 +581,4 @@ declare class RedBN extends BN {
     redPow(b: BN): RedBN;
 }
 
-export = BN;
+export default BN;
