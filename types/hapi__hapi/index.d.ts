@@ -511,7 +511,7 @@ export interface Request extends Podium {
      * override with a different response.
      * In case of an aborted request the status code will be set to `disconnectStatusCode`.
      */
-    response: ResponseObject | Boom;
+    response: ResponseObject | Boom.Boom;
 
     /**
      * Same as pre but represented as the response object created by the pre method.
@@ -4047,7 +4047,7 @@ export namespace Lifecycle {
     type ReturnValueTypes =
         (null | string | number | boolean) |
         (Buffer) |
-        (Error | Boom) |
+        (Error | Boom.Boom) |
         (stream.Stream) |
         (object | object[]) |
         symbol |
