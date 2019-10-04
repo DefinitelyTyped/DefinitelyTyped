@@ -2851,6 +2851,12 @@
             "asOfVersion": "2.3.0"
         },
         {
+            "libraryName": "re2",
+            "typingsPackageName": "re2",
+            "sourceRepoURL": "https://github.com/uhop/node-re2",
+            "asOfVersion": "1.10.3"
+        },
+        {
             "libraryName": "react-chartjs-2",
             "typingsPackageName": "react-chartjs-2",
             "sourceRepoURL": "https://github.com/gor181/react-chartjs-2",
@@ -2879,6 +2885,12 @@
             "typingsPackageName": "react-dnd-test-backend",
             "sourceRepoURL": "https://github.com/react-dnd/react-dnd",
             "asOfVersion": "3.0.2"
+        },
+        {
+            "libraryName": "react-dnd-touch-backend",
+            "typingsPackageName": "react-dnd-touch-backend",
+            "sourceRepoURL": "https://github.com/react-dnd/react-dnd",
+            "asOfVersion": "0.5.0"
         },
         {
             "libraryName": "react-dropzone",
@@ -3895,6 +3907,12 @@
             "asOfVersion": "5.2.0"
         },
         {
+            "libraryName": "typescript",
+            "typingsPackageName": "whatwg-streams",
+            "sourceRepoURL": "https://streams.spec.whatwg.org",
+            "asOfVersion": "3.2.1"
+        },
+        {
             "libraryName": "winston",
             "typingsPackageName": "winston",
             "sourceRepoURL": "https://github.com/winstonjs/winston.git",
@@ -3977,12 +3995,6 @@
             "typingsPackageName": "xmlbuilder",
             "sourceRepoURL": "https://github.com/oozcitak/xmlbuilder-js",
             "asOfVersion": "11.0.1"
-        },
-        {
-            "libraryName": "@xmpp/jid",
-            "typingsPackageName": "xmpp__jid",
-            "sourceRepoURL": "github.com/node-xmpp/node-xmpp/",
-            "asOfVersion": "1.2.1"
         },
         {
             "libraryName": "xterm.js",

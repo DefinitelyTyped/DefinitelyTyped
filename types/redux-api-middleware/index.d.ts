@@ -2,16 +2,11 @@
 // Project: https://github.com/agraboso/redux-api-middleware
 // Definitions by:  Andrew Luca <https://github.com/iamandrewluca>
 //                  Craig S <https://github.com/Mrman>
+//                  Arturs Vonda <https://github.com/artursvonda>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
-import {
-    Middleware,
-    MiddlewareAPI,
-    Dispatch,
-    AnyAction,
-    applyMiddleware
-} from 'redux';
+import { Dispatch, Middleware, MiddlewareAPI } from 'redux';
 
 type TypeOrResolver<Arg, Type> = Type | ((arg: Arg) => Type);
 
@@ -121,32 +116,36 @@ export interface RSAAAction<State = any, Payload = any, Meta = any> {
     [RSAA]: RSAACall<State, Payload, Meta>;
 }
 
+type ValidAction<Payload = never, Meta = never> =
+    { type: string | symbol; error?: false }
+    // The `[Payload] extends [never]` is required to check if generic type is never.
+    // Can't do it with just `Payload extends never`.
+    & ([Payload] extends [never] ? {} : { payload: Payload })
+    & ([Meta] extends [never] ? {} : { meta: Meta });
+
+interface InvalidAction<Payload> {
+    type: string | symbol;
+    payload: Payload;
+    error: true;
+}
+
 /**
  * `Promise<RSAARequestAction>` is not returned from dispatch like other actions
  * Is only dispatched through redux
  */
-export interface RSAARequestAction<Payload = any, Meta = any> {
-    type: string | symbol;
-    payload?: Payload | InvalidRSAA;
-    meta?: Meta;
-    error?: true;
-}
+export type RSAARequestAction<Payload = never, Meta = never> = ValidAction<Payload, Meta> | InvalidAction<InvalidRSAA>;
 
-export interface RSAASuccessAction<Payload = any, Meta = any> {
-    type: string | symbol;
-    payload: Payload | InternalError;
-    meta?: Meta;
-    error?: true;
-}
+// @deprecated Use RSAAResultAction
+export type RSAASuccessAction<Payload = any, Meta = any> = RSAAResultAction<Payload, Meta>;
 
-export interface RSAAFailureAction<Payload = any, Meta = any> {
-    type: string | symbol;
-    payload: InternalError | RequestError | ApiError<Payload>;
-    meta?: Meta;
-    error: true;
-}
+// @deprecated Use RSAAResultAction
+export type RSAAFailureAction<Payload = any, Meta = any> = RSAAResultAction<Payload, Meta>;
 
-export type RSAAActions = RSAARequestAction | RSAASuccessAction | RSAAFailureAction;
+export type RSAAResultAction<Payload = never, Meta = never> =
+    | ValidAction<Payload, Meta>
+    | InvalidAction<InternalError | RequestError | ApiError<Payload>>;
+
+export type RSAAActions = RSAARequestAction | RSAAResultAction;
 
 /**
  * Redux behaviour changed by middleware, so overloads here
@@ -157,8 +156,7 @@ declare module 'redux' {
      * Useful for react-redux or any other library which could use this type.
      */
     interface Dispatch {
-        (action: RSAAAction): Promise<RSAASuccessAction>;
-        (action: RSAAAction): Promise<RSAAFailureAction>;
+        <Payload, Meta>(action: RSAAAction<any, Payload, Meta>): Promise<RSAAResultAction<Payload, Meta>>;
         // `Promise<undefined> is returned in case of RSAA validation errors or user bails out
         (action: RSAAAction): Promise<undefined>;
     }

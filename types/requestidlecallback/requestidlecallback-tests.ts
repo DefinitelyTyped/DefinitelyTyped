@@ -1,8 +1,8 @@
 import {
-  requestIdleCallback,
-  cancelIdleCallback,
-  IdleRequestOptions,
-  IdleCallbackHandle,
+    request as requestIdleCallback,
+    cancel as cancelIdleCallback,
+    IdleRequestOptions,
+    IdleCallbackHandle,
 } from 'requestidlecallback';
 
 // Test requestIdleCallback with default param
