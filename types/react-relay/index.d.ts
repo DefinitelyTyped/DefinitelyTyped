@@ -21,6 +21,8 @@ import {
     RelayContext,
     PageInfo,
     OperationType,
+    _FragmentRefs,
+    _RefType,
 } from 'relay-runtime';
 
 // ./ReactRelayTypes
@@ -64,13 +66,6 @@ export interface RelayPaginationProp {
     refetch: undefined; // ensures no RelayRefetchProp is used with a pagination container
 }
 
-export interface _RefType<T> {
-    ' $refType': T;
-}
-export interface _FragmentRefs<T> {
-    ' $fragmentRefs': T;
-}
-
 export type FragmentOrRegularProp<T> = T extends _RefType<infer U>
     ? _FragmentRefs<U>
     : T extends ReadonlyArray<_RefType<infer U>>
@@ -105,6 +100,8 @@ export {
     graphql,
     readInlineData,
     requestSubscription,
+    _FragmentRefs,
+    _RefType,
 } from 'relay-runtime';
 
 export type FetchPolicy = 'store-and-network' | 'network-only';
