@@ -38,8 +38,6 @@ import {
     GridProps,
     shadow,
     ShadowProps,
-    overflow,
-    OverflowProps,
 } from 'styled-system';
 
 // tslint:disable-next-line:strict-export-declare-modifiers
@@ -61,8 +59,7 @@ interface BoxProps
         ShadowProps,
         TypographyProps,
         ColorStyleProps,
-        ColorProps,
-        OverflowProps {
+        ColorProps {
     boxStyle?: string;
 }
 
@@ -81,7 +78,6 @@ const boxStyles = compose(
     shadow,
     colorStyle,
     boxStyle,
-    overflow,
 );
 
 const Box: React.ComponentType<BoxProps> = styled(boxStyles);
@@ -99,7 +95,7 @@ interface ButtonProps extends SpaceProps, ButtonStyleProps, ColorProps {}
 const testButtonStyles = compose(
     buttonStyle,
     space,
-    styles.textColor
+    styles.textColor,
 );
 const TestButton: React.ComponentType<ButtonProps> = styled(testButtonStyles);
 
@@ -108,8 +104,8 @@ interface SpacerProps extends MarginProps, PaddingProps {}
 const Spacer: React.ComponentType<SpacerProps> = styled(
     compose(
         margin,
-        padding
-    )
+        padding,
+    ),
 );
 
 const test = () => (
@@ -328,12 +324,11 @@ const test = () => (
         <Box alignSelf="center" />
         <Box alignSelf={['center']} />
         <Box alignSelf={{ sm: 'center' }} />
-
         <Box border="1px solid" />
         <Box border={{ sm: '1px solid' }} />
         <Box borderWidth={15} />
         <Box borderWidth="10px" />
-        <Box borderWidth={{ sm: 15}} />
+        <Box borderWidth={{ sm: 15 }} />
         <Box borderColor="blue" />
         <Box borderColor={{ sm: 'blue' }} />
         <Box borderRadius={4} />
@@ -344,27 +339,22 @@ const test = () => (
         <Box borderTopRightRadius={{ sm: 5, md: '10px' }} />
         <Box borderBottomLeftRadius="250px 100px" />
         <Box borderBottomRightRadius="50%" />
-
         <Box borderTop="1px solid" />
         <Box borderTopStyle="dashed" />
         <Box borderTopWidth="10rem" />
         <Box borderTopColor="transparent" />
-
         <Box borderRight="1px solid" />
         <Box borderRightStyle={{ sm: 'none' }} />
         <Box borderRightWidth={{ sm: 5, md: 10 }} />
         <Box borderRightColor={{ sm: 'blue', md: 'green' }} />
-
         <Box borderBottom="1px solid" />
         <Box borderBottomStyle="solid" />
         <Box borderBottomWidth={3} />
         <Box borderBottomColor="#09c" />
-
         <Box borderLeft="1px solid" />
         <Box borderLeftStyle="inset" />
         <Box borderLeftWidth="10px" />
         <Box borderLeftColor="rgba(0,0,0,0.25)" />
-
         // position (responsive)
         <Box position="absolute" />
         <Box position={['absolute']} />

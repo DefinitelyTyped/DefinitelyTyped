@@ -1,4 +1,4 @@
-// Type definitions for React Router 5.0
+// Type definitions for React Router 5.1
 // Project: https://github.com/ReactTraining/react-router
 // Definitions by: Sergey Buturlakin <https://github.com/sergey-buturlakin>
 //                 Yuichi Murata <https://github.com/mrk21>
@@ -148,3 +148,13 @@ export function withRouter<P extends RouteComponentProps<any>, C extends React.C
 ): React.ComponentClass<Omit<P, keyof RouteComponentProps<any>> & WithRouterProps<C>> & WithRouterStatics<C>;
 
 export const __RouterContext: React.Context<RouteComponentProps>;
+
+export function useHistory<HistoryLocationState = H.LocationState>(): H.History<HistoryLocationState>;
+
+export function useLocation<S = H.LocationState>(): H.Location<S>;
+
+export function useParams<Params extends { [K in keyof Params]?: string } = {}>(): { [p in keyof Params]: string };
+
+export function useRouteMatch<Params extends { [K in keyof Params]?: string } = {}>(
+    path?: string | RouteProps,
+): match<Params> | null;

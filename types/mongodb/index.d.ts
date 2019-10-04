@@ -26,13 +26,13 @@
 //                 Luis Pais <https://github.com/ranguna>
 //                 Hossein Saniei <https://github.com/HosseinAgha>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 // Documentation: https://mongodb.github.io/node-mongodb-native/3.1/api/
 
 /// <reference types="node" />
 
-import { Binary, ObjectID, Timestamp } from 'bson';
+import { Binary, ObjectId, Timestamp } from 'bson';
 import { EventEmitter } from 'events';
 import { Readable, Writable } from "stream";
 import { checkServerIdentity } from "tls";
@@ -44,7 +44,7 @@ export function connect(uri: string, options?: MongoClientOptions): Promise<Mong
 export function connect(uri: string, callback: MongoCallback<MongoClient>): void;
 export function connect(uri: string, options: MongoClientOptions, callback: MongoCallback<MongoClient>): void;
 
-export { Binary, DBRef, Decimal128, Double, Long, MaxKey, MinKey, ObjectID, ObjectId, Timestamp } from 'bson';
+export { Binary, DBRef, Decimal128, Double, Int32, Long, MaxKey, MinKey, ObjectID, ObjectId, Timestamp } from 'bson';
 
 // Class documentation : http://mongodb.github.io/node-mongodb-native/3.1/api/MongoClient.html
 export class MongoClient extends EventEmitter {
@@ -621,9 +621,8 @@ export class Db extends EventEmitter {
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Db.html#admin */
     admin(): Admin;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Db.html#collection */
-    collection<TSchema = Default>(name: string): Collection<TSchema>;
-    collection<TSchema = Default>(name: string, callback: MongoCallback<Collection<TSchema>>): Collection<TSchema>;
-    collection<TSchema = Default>(name: string, options: DbCollectionOptions, callback: MongoCallback<Collection<TSchema>>): Collection<TSchema>;
+    collection<TSchema = Default>(name: string, callback?: MongoCallback<Collection<TSchema>>): Collection<TSchema>;
+    collection<TSchema = Default>(name: string, options: DbCollectionOptions, callback?: MongoCallback<Collection<TSchema>>): Collection<TSchema>;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Db.html#collections */
     collections(): Promise<Array<Collection<Default>>>;
     collections(callback: MongoCallback<Array<Collection<Default>>>): void;
@@ -858,6 +857,16 @@ export interface FSyncOptions extends CommonOptions {
 
 type OptionalId<TSchema> = Omit<TSchema, '_id'> & { _id?: any };
 
+type ExtractIdType<TSchema> =
+    TSchema extends { _id: infer U } // user has defined a type for _id
+    ? {} extends U ? Exclude<U, {}> :
+      unknown extends U ? ObjectId : U
+    : ObjectId; // user has not defined _id on schema
+
+// this adds _id as a required property
+type WithId<TSchema> =
+    Omit<TSchema, '_id'> & { _id: ExtractIdType<TSchema> };
+
 /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html */
 export interface Collection<TSchema = Default> {
     /**
@@ -1006,19 +1015,19 @@ export interface Collection<TSchema = Default> {
     initializeUnorderedBulkOp(options?: CommonOptions): UnorderedBulkOperation;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#insertOne */
     /** @deprecated Use insertOne, insertMany or bulkWrite */
-    insert(docs: OptionalId<TSchema>, callback: MongoCallback<InsertOneWriteOpResult>): void;
+    insert(docs: OptionalId<TSchema>, callback: MongoCallback<InsertWriteOpResult<WithId<TSchema>>>): void;
     /** @deprecated Use insertOne, insertMany or bulkWrite */
-    insert(docs: OptionalId<TSchema>, options?: CollectionInsertOneOptions): Promise<InsertOneWriteOpResult>;
+    insert(docs: OptionalId<TSchema>, options?: CollectionInsertOneOptions): Promise<InsertWriteOpResult<WithId<TSchema>>>;
     /** @deprecated Use insertOne, insertMany or bulkWrite */
-    insert(docs: OptionalId<TSchema>, options: CollectionInsertOneOptions, callback: MongoCallback<InsertOneWriteOpResult>): void;
+    insert(docs: OptionalId<TSchema>, options: CollectionInsertOneOptions, callback: MongoCallback<InsertWriteOpResult<WithId<TSchema>>>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#insertMany */
-    insertMany(docs: Array<OptionalId<TSchema>>, callback: MongoCallback<InsertWriteOpResult>): void;
-    insertMany(docs: Array<OptionalId<TSchema>>, options?: CollectionInsertManyOptions): Promise<InsertWriteOpResult>;
-    insertMany(docs: Array<OptionalId<TSchema>>, options: CollectionInsertManyOptions, callback: MongoCallback<InsertWriteOpResult>): void;
+    insertMany(docs: Array<OptionalId<TSchema>>, callback: MongoCallback<InsertWriteOpResult<WithId<TSchema>>>): void;
+    insertMany(docs: Array<OptionalId<TSchema>>, options?: CollectionInsertManyOptions): Promise<InsertWriteOpResult<WithId<TSchema>>>;
+    insertMany(docs: Array<OptionalId<TSchema>>, options: CollectionInsertManyOptions, callback: MongoCallback<InsertWriteOpResult<WithId<TSchema>>>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#insertOne */
-    insertOne(docs: OptionalId<TSchema>, callback: MongoCallback<InsertOneWriteOpResult>): void;
-    insertOne(docs: OptionalId<TSchema>, options?: CollectionInsertOneOptions): Promise<InsertOneWriteOpResult>;
-    insertOne(docs: OptionalId<TSchema>, options: CollectionInsertOneOptions, callback: MongoCallback<InsertOneWriteOpResult>): void;
+    insertOne(docs: OptionalId<TSchema>, callback: MongoCallback<InsertOneWriteOpResult<WithId<TSchema>>>): void;
+    insertOne(docs: OptionalId<TSchema>, options?: CollectionInsertOneOptions): Promise<InsertOneWriteOpResult<WithId<TSchema>>>;
+    insertOne(docs: OptionalId<TSchema>, options: CollectionInsertOneOptions, callback: MongoCallback<InsertOneWriteOpResult<WithId<TSchema>>>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#isCapped */
     isCapped(options?: { session: ClientSession }): Promise<any>;
     isCapped(callback: MongoCallback<any>): void;
@@ -1731,10 +1740,10 @@ export interface FindOneOptions {
 }
 
 /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#~insertWriteOpResult */
-export interface InsertWriteOpResult {
+export interface InsertWriteOpResult<TSchema extends Record<string, any>> {
     insertedCount: number;
-    ops: any[];
-    insertedIds: { [key: number]: ObjectID };
+    ops: TSchema[];
+    insertedIds: { [key: number]: TSchema['_id'] };
     connection: any;
     result: { ok: number, n: number };
 }
@@ -1752,10 +1761,10 @@ export interface CollectionInsertOneOptions extends CommonOptions {
 }
 
 /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#~insertOneWriteOpResult */
-export interface InsertOneWriteOpResult {
+export interface InsertOneWriteOpResult<TSchema extends Record<string, any>> {
     insertedCount: number;
-    ops: any[];
-    insertedId: ObjectID;
+    ops: TSchema[];
+    insertedId: TSchema['_id'];
     connection: any;
     result: { ok: number, n: number };
 }
@@ -1793,7 +1802,7 @@ export interface UpdateWriteOpResult {
     matchedCount: number;
     modifiedCount: number;
     upsertedCount: number;
-    upsertedId: { _id: ObjectID };
+    upsertedId: { _id: ObjectId };
 }
 
 /** https://github.com/mongodb/node-mongodb-native/blob/2.2/lib/collection.js#L957 */
@@ -2038,13 +2047,13 @@ export class CommandCursor extends Readable {
 export class GridFSBucket {
     constructor(db: Db, options?: GridFSBucketOptions);
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/GridFSBucket.html#delete */
-    delete(id: ObjectID, callback?: GridFSBucketErrorCallback): void;
+    delete(id: ObjectId, callback?: GridFSBucketErrorCallback): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/GridFSBucket.html#drop */
     drop(callback?: GridFSBucketErrorCallback): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/GridFSBucket.html#find */
     find(filter?: object, options?: GridFSBucketFindOptions): Cursor<any>;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/GridFSBucket.html#openDownloadStream */
-    openDownloadStream(id: ObjectID, options?: { start: number, end: number }): GridFSBucketReadStream;
+    openDownloadStream(id: ObjectId, options?: { start: number, end: number }): GridFSBucketReadStream;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/GridFSBucket.html#openDownloadStreamByName */
     openDownloadStreamByName(filename: string, options?: { revision: number, start: number, end: number }): GridFSBucketReadStream;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/GridFSBucket.html#openUploadStream */
@@ -2052,7 +2061,7 @@ export class GridFSBucket {
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/GridFSBucket.html#openUploadStreamWithId */
     openUploadStreamWithId(id: GridFSBucketWriteStreamId, filename: string, options?: GridFSBucketOpenUploadStreamOptions): GridFSBucketWriteStream;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/GridFSBucket.html#rename */
-    rename(id: ObjectID, filename: string, callback?: GridFSBucketErrorCallback): void;
+    rename(id: ObjectId, filename: string, callback?: GridFSBucketErrorCallback): void;
 }
 
 /** http://mongodb.github.io/node-mongodb-native/3.1/api/GridFSBucket.html */
@@ -2088,7 +2097,7 @@ export interface GridFSBucketOpenUploadStreamOptions {
 
 /** https://mongodb.github.io/node-mongodb-native/3.1/api/GridFSBucketReadStream.html */
 export class GridFSBucketReadStream extends Readable {
-    id: ObjectID;
+    id: ObjectId;
     constructor(chunks: Collection<any>, files: Collection<any>, readPreference: object, filter: object, options?: GridFSBucketReadStreamOptions);
 }
 
@@ -2155,7 +2164,7 @@ export interface ChangeStreamOptions {
     startAfter?: object;
 }
 
-type GridFSBucketWriteStreamId = string | number | object | ObjectID;
+type GridFSBucketWriteStreamId = string | number | object | ObjectId;
 
 export interface LoggerOptions {
     /**

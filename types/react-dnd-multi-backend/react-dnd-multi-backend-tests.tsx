@@ -9,7 +9,7 @@ const context = {};
 /**
  * Most common use case - using the default HTML5 with Touch as a fallback.
  */
-const multiDndComponent = createDragDropManager(MultiBackend(HTML5ToTouch), context);
+const multiDndComponent = createDragDropManager(MultiBackend(HTML5ToTouch), context, {});
 
 /**
  * Creating a custom list of backends, including creating a touch transition.
@@ -17,18 +17,19 @@ const multiDndComponent = createDragDropManager(MultiBackend(HTML5ToTouch), cont
 const CustomBackends: Backends = {
     backends: [
     {
-        backend: TouchBackend({ enableMouseEvents: false }),
+        backend: TouchBackend,
+        options: { enableMouseEvents: false },
         preview: true,
         transition: createTransition('touchstart', (event: TouchEvent) => {
             return event.touches != null;
         })
     },
     {
-        backend: TouchBackend({}),
+        backend: TouchBackend,
         transition: TouchTransition
     }]
 };
-const multiCustomBackendsComponent = createDragDropManager(MultiBackend(CustomBackends), context);
+const multiCustomBackendsComponent = createDragDropManager(MultiBackend(CustomBackends), context, {});
 
 /**
  * Testing the Preview component.

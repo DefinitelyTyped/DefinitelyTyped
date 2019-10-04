@@ -44,6 +44,7 @@ export interface PoolConfig extends ClientConfig {
     min?: number;
     connectionTimeoutMillis?: number;
     idleTimeoutMillis?: number;
+    log?: (...messages: any[]) => void;
 
     application_name?: string;
     Promise?: PromiseConstructorLike;

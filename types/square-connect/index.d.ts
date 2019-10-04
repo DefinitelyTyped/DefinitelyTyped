@@ -10152,7 +10152,7 @@ export class ApplePayApi {
      * their platform. To learn more about Apple Pay on Web see the Apple Pay section in
      * the [Embedding the Square Payment Form](/payment-form/add-digital-wallets/apple-pay) guide.
      */
-    registerDomain(params: RegisterDomainRequest): Promise<RegisterDomainResponse>;
+    registerDomain(...args: Array<any>): Promise<RegisterDomainResponse>;
 }
 
 export class CatalogApi {
@@ -10164,13 +10164,13 @@ export class CatalogApi {
      * @note ListCatalog does not return deleted catalog items. To retrieve deleted catalog items, use SearchCatalogObjects
      * and set `include_deleted_objects` to `true`.
      */
-    batchDeleteCatalogObjects(params: BatchDeleteCatalogObjectsRequest): Promise<BatchDeleteCatalogObjectsResponse>;
+    batchDeleteCatalogObjects(...args: Array<any>): Promise<BatchDeleteCatalogObjectsResponse>;
     /**
      * Returns a set of objects based on the provided ID. Each [CatalogItem](#type-catalogitem) returned in the set includes all of
      * its child information including: all of its [CatalogItemVariation](#type-catalogitemvariation) objects, references to its
      * [CatalogModifierList](#type-catalogmodifierlist) objects, and the ids of any [CatalogTax](#type-catalogtax) objects that apply to it.
      */
-    batchRetrieveCatalogObjects(body: BatchRetrieveCatalogObjectsRequest): Promise<BatchRetrieveCatalogObjectsResponse>;
+    batchRetrieveCatalogObjects(...args: Array<any>): Promise<BatchRetrieveCatalogObjectsResponse>;
     /**
      * Creates or updates up to 10,000 target objects based on the provided list of objects. The target objects are grouped into
      * batches and each batch is inserted/updated in an all-or-nothing manner. If an object within a batch is malformed in some way,
@@ -10178,53 +10178,53 @@ export class CatalogApi {
      * the same request may still succeed. Each batch may contain up to 1,000 objects, and batches will be processed in order as long
      * as the total object count for the request (items, variations, modifier lists, discounts, and taxes) is no more than 10,000.
      */
-    batchUpsertCatalogObjects(body: BatchUpsertCatalogObjectsRequest): Promise<BatchUpsertCatalogObjectsResponse>;
+    batchUpsertCatalogObjects(...args: Array<any>): Promise<BatchUpsertCatalogObjectsResponse>;
     /**
      * Returns information about the Square Catalog API, such as batch size limits for `BatchUpsertCatalogObjects`.
      */
-    catalogInfo(params: CatalogInfoRequest): Promise<CatalogInfoResponse>;
+    catalogInfo(...args: Array<any>): Promise<CatalogInfoResponse>;
     /**
      * Deletes a single [CatalogObject](#type-catalogobject) based on the provided ID and returns the set of successfully deleted
      * IDs in the response. Deletion is a cascading event such that all children of the targeted object are also deleted.
      * For example, deleting a [CatalogItem](#type-catalogitem) will also delete all of its
      * [CatalogItemVariation](#type-catalogitemvariation) children.
      */
-    deleteCatalogObject(params: DeleteCatalogObjectRequest): Promise<DeleteCatalogObjectResponse>;
+    deleteCatalogObject(...args: Array<any>): Promise<DeleteCatalogObjectResponse>;
     /**
      * Returns a list of [CatalogObject](#type-catalogobject)s that includes all objects of a set of desired types
      * (for example, all [CatalogItem](#type-catalogitem) and [CatalogTax](#type-catalogtax) objects) in the catalog.
      * The types parameter is specified as a comma-separated list of valid [CatalogObject](#type-catalogobject)
      * types: `ITEM`, `ITEM_VARIATION`, `MODIFIER`, `MODIFIER_LIST`, `CATEGORY`, `DISCOUNT`, `TAX`.
      */
-    listCatalog(params: ListCatalogRequest): Promise<ListCatalogResponse>;
+    listCatalog(...args: Array<any>): Promise<ListCatalogResponse>;
     /**
      * Returns a single [CatalogItem](#type-catalogitem) as a [CatalogObject](#type-catalogobject) based on the provided ID.
      * The returned object includes all of the relevant [CatalogItem](#type-catalogitem) information including:
      * [CatalogItemVariation](#type-catalogitemvariation) children, references to its [CatalogModifierList](#type-catalogmodifierlist)
      * objects, and the ids of any [CatalogTax](#type-catalogtax) objects that apply to it.
      */
-    retrieveCatalogObject(params: RetrieveCatalogObjectRequest): Promise<RetrieveCatalogObjectResponse>;
+    retrieveCatalogObject(...args: Array<any>): Promise<RetrieveCatalogObjectResponse>;
     /**
      * Queries the targeted catalog using a variety of query types: [CatalogQuerySortedAttribute](#type-catalogquerysortedattribute),
      * [CatalogQueryExact](#type-catalogqueryexact), [CatalogQueryRange](#type-catalogqueryrange),
      * [CatalogQueryText](#type-catalogquerytext), [CatalogQueryItemsForTax](#type-catalogqueryitemsfortax),
      * and [CatalogQueryItemsForModifierList](#type-catalogqueryitemsformodifierlist).
      */
-    searchCatalogObjects(params: SearchCatalogObjectsRequest): Promise<SearchCatalogObjectsResponse>;
+    searchCatalogObjects(...args: Array<any>): Promise<SearchCatalogObjectsResponse>;
     /**
      * Updates the [CatalogModifierList](#type-catalogmodifierlist) objects that apply to the targeted
      * [CatalogItem](#type-catalogitem) without having to perform an upsert on the entire item.
      */
-    updateItemModifierLists(params: UpdateItemModifierListsRequest): Promise<UpdateItemModifierListsResponse>;
+    updateItemModifierLists(...args: Array<any>): Promise<UpdateItemModifierListsResponse>;
     /**
      * Updates the [CatalogTax](#type-catalogtax) objects that apply to the targeted [CatalogItem](#type-catalogitem)
      * without having to perform an upsert on the entire item.
      */
-    updateItemTaxes(params: UpdateItemTaxesRequest): Promise<UpdateItemTaxesResponse>;
+    updateItemTaxes(...args: Array<any>): Promise<UpdateItemTaxesResponse>;
     /**
      * Creates or updates the target [CatalogObject](#type-catalogobject).
      */
-    upsertCatalogObject(params: UpsertCatalogObjectRequest): Promise<UpsertCatalogObjectResponse>;
+    upsertCatalogObject(...args: Array<any>): Promise<UpsertCatalogObjectResponse>;
 }
 
 export class CheckoutApi {
@@ -10232,7 +10232,7 @@ export class CheckoutApi {
      * Links a `checkoutId` to a `checkout_page_url` that customers will be directed to in order to provide their payment
      * information using a payment processing workflow hosted on connect.squareup.com.
      */
-    createCheckout(params: CreateCheckoutRequest): Promise<CreateCheckoutResponse>;
+    createCheckout(locationId: string, body: CreateCheckoutRequest): Promise<CreateCheckoutResponse>;
 }
 
 export class CustomersApi {
@@ -10240,37 +10240,37 @@ export class CustomersApi {
      * Creates a new customer for a business, which can have associated cards on file. You must provide at least one of the
      * following values in your request to this endpoint: `given_name`. `family_name`, `company_name`, `email_address`,`phone_number`.
      */
-    createCustomer(params: CreateCustomerRequest): Promise<CreateCustomerResponse>;
+    createCustomer(body: CreateCustomerRequest): Promise<CreateCustomerResponse>;
     /**
      * Adds a card on file to an existing customer. As with charges, calls to `CreateCustomerCard` are idempotent.
      * Multiple calls with the same card nonce return the same card record that was created with the provided nonce during the
      * _first_ call. Cards on file are automatically updated on a monthly basis to confirm they are still valid and can be charged.
      */
-    createCustomerCard(params: CreateCustomerCardRequest): Promise<CreateCustomerCardResponse>;
+    createCustomerCard(customerId: string, body: CreateCustomerCardRequest): Promise<CreateCustomerCardResponse>;
     /**
      * Deletes a customer from a business, along with any linked cards on file.
      * When two profiles are merged into a single profile, that profile is assigned a new `customer_id`.
      * You must use the new `customer_id` to delete merged profiles.
      */
-    deleteCustomer(params: DeleteCustomerRequest): Promise<DeleteCustomerResponse>;
+    deleteCustomer(...args: Array<any>): Promise<DeleteCustomerResponse>;
     /**
      * Removes a card on file from a customer.
      */
-    deleteCustomerCard(params: DeleteCustomerCardRequest): Promise<DeleteCustomerCardResponse>;
+    deleteCustomerCard(customerId: string, cardId: string): Promise<DeleteCustomerCardResponse>;
     /**
      * Lists a business's customers.
      */
-    listCustomers(params: ListCustomersRequest): Promise<ListCustomersResponse>;
+    listCustomers(...args: Array<any>): Promise<ListCustomersResponse>;
     /**
      * Returns details for a single customer.
      */
-    retrieveCustomer(params: RetrieveCustomerRequest): Promise<RetrieveCustomerResponse>;
+    retrieveCustomer(customerId: string): Promise<RetrieveCustomerResponse>;
     /**
      * Searches the customer profiles associated with a Square account.
      * Calling SearchCustomers without an explicit query parameter returns all customer profiles ordered alphabetically based
      * on `given_name` and `family_name`.
      */
-    searchCustomers(params: SearchCustomersRequest): Promise<SearchCustomersResponse>;
+    searchCustomers(...args: Array<any>): Promise<SearchCustomersResponse>;
     /**
      * Updates the details of an existing customer. When two profiles are merged into a single profile, that profile is assigned
      * a new `customer_id`. You must use the new `customer_id` to update merged profiles.
@@ -10278,7 +10278,7 @@ export class CustomersApi {
      * existing card on file with the [DeleteCustomerCard](#endpoint-customers-deletecustomercard) endpoint, then create a
      * new one with the [CreateCustomerCard](#endpoint-customers-createcustomercard) endpoint.
      */
-    updateCustomer(params: UpdateCustomerRequest): Promise<UpdateCustomerResponse>;
+    updateCustomer(...args: Array<any>): Promise<UpdateCustomerResponse>;
 }
 
 export class EmployeesApi {
@@ -10298,13 +10298,13 @@ export class InventoryApi {
      * On success: returns the current calculated counts for all objects referenced in the request.
      * On failure: returns a list of related errors.
      */
-    batchChangeInventory(params: BatchChangeInventoryRequest): Promise<BatchChangeInventoryResponse>;
+    batchChangeInventory(...args: Array<any>): Promise<BatchChangeInventoryResponse>;
     /**
      * Returns historical physical counts and adjustments based on the provided filter criteria.
      * Results are paginated and sorted in ascending order according their `occurred_at` timestamp (oldest first).
      * BatchRetrieveInventoryChanges is a catch-all query endpoint for queries that cannot be handled by other, simpler endpoints.
      */
-    batchRetrieveInventoryChanges(params: BatchRetrieveInventoryChangesRequest): Promise<BatchRetrieveInventoryChangesResponse>;
+    batchRetrieveInventoryChanges(...args: Array<any>): Promise<BatchRetrieveInventoryChangesResponse>;
     /**
      * Returns current counts for the provided [CatalogObject](#type-catalogobject)s at the requested [Location](#type-location)s.
      * Results are paginated and sorted in descending order according to their `calculated_at` timestamp (newest first).
@@ -10312,7 +10312,7 @@ export class InventoryApi {
      * the most recent change) are returned. This allows clients to perform a "sync" operation, for example in response to
      * receiving a Webhook notification.
      */
-    batchRetrieveInventoryCounts(params: BatchRetrieveInventoryCountsRequest): Promise<BatchRetrieveInventoryCountsResponse>;
+    batchRetrieveInventoryCounts(...args: Array<any>): Promise<BatchRetrieveInventoryCountsResponse>;
     /**
      * Returns the [InventoryAdjustment](#type-inventoryadjustment) object with the provided `adjustment_id`.
      */
@@ -10336,14 +10336,99 @@ export class InventoryApi {
     retrieveInventoryPhysicalCount(...args: Array<any>): Promise<RetrieveInventoryPhysicalCountResponse>;
 }
 
-// @todo describe methods
-export class LaborApi {}
+export class LaborApi {
+    /**
+     * Creates a new `BreakType`. A `BreakType` is a template for creating `Break` objects.
+     * You must provide the following values in your request to this endpoint:
+     * - `location_id` - `break_name` - `expected_duration` - `is_paid`
+     * You can only have 3 `BreakType` instances per location. If you attempt to add a 4th `BreakType` for a location,
+     * an `INVALID_REQUEST_ERROR` "Exceeded limit of 3 breaks per location." is returned.
+     */
+    createBreakType(...args: Array<any>): Promise<CreateBreakTypeResponse>;
+    /**
+     * Creates a new `Shift`. A `Shift` represents a complete work day for a single employee.
+     * You must provide the following values in your request to this endpoint:
+     * - `location_id` - `employee_id` - `start_at`
+     * An attempt to create a new `Shift` can result in a `BAD_REQUEST` error when: - The `status` of the new `Shift`
+     * is `OPEN` and the employee has another shift with an `OPEN` status. - The `start_at` date is in the future - the
+     * `start_at` or `end_at` overlaps another shift for the same employee - If `Break`s are set in the request, a break
+     * `start_at` must not be before the `Shift.start_at`. A break `end_at` must not be after the `Shift.end_at`.
+     */
+    createShift(...args: Array<any>): Promise<CreateShiftResponse>;
+    /**
+     * Deletes an existing `BreakType`. A `BreakType` can be deleted even if it is referenced from a `Shift`.
+     */
+    deleteBreakType(...args: Array<any>): Promise<DeleteBreakTypeResponse>;
+    /**
+     * Deletes a `Shift`.
+     */
+    deleteShift(...args: Array<any>): Promise<DeleteShiftResponse>;
+    /**
+     * Returns a single `BreakType` specified by id.
+     */
+    getBreakType(...args: Array<any>): Promise<GetBreakTypeResponse>;
+    /**
+     * Returns a single `EmployeeWage` specified by id.
+     */
+    getEmployeeWage(...args: Array<any>): Promise<GetEmployeeWageResponse>;
+    /**
+     * Returns a single `Shift` specified by id.
+     */
+    getShift(...args: Array<any>): Promise<GetShiftResponse>;
+    /**
+     * Returns a paginated list of `BreakType` instances for a business.
+     */
+    listBreakTypes(...args: Array<any>): Promise<ListBreakTypesResponse>;
+    /**
+     * Returns a paginated list of `EmployeeWage` instances for a business.
+     */
+    listEmployeeWages(...args: Array<any>): Promise<ListEmployeeWagesResponse>;
+    /**
+     * Returns a list of `WorkweekConfig` instances for a business.
+     */
+    listWorkweekConfigs(...args: Array<any>): Promise<ListWorkweekConfigsResponse>;
+    /**
+     * Returns a paginated list of `Shift` records for a business.
+     * The list to be returned can be filtered by: - Location IDs **and** - employee IDs **and** - shift
+     * status (`OPEN`, `CLOSED`) **and** - shift start **and** - shift end **and** - work day details.
+     * The list can be sorted by: - `start_at` - `end_at` - `created_at` - `updated_at`.
+     */
+    searchShifts(...args: Array<any>): Promise<SearchShiftsResponse>;
+    /**
+     * Updates an existing `BreakType`.
+     */
+    updateBreakType(...args: Array<any>): Promise<UpdateBreakTypeResponse>;
+    /**
+     * Updates an existing `Shift`. When adding a `Break` to a `Shift`, any earlier `Breaks` in the `Shift` have
+     * the `end_at` property set to a valid RFC-3339 datetime string. When closing a `Shift`, all `Break` instances
+     * in the shift must be complete with `end_at` set on each `Break`.
+     */
+    updateShift(...args: Array<any>): Promise<UpdateShiftResponse>;
+    /**
+     * Updates a `WorkweekConfig`.
+     */
+    updateWorkweekConfig(...args: Array<any>): Promise<UpdateWorkweekConfigResponse>;
+}
 
-// @todo describe methods
-export class LocationsApi {}
+export class LocationsApi {
+    /**
+     * Provides the details for all of a business's locations.
+     * Most other Connect API endpoints have a required `location_id` path parameter. The `id` field of the
+     * [`Location`](#type-location) objects returned by this endpoint correspond to that `location_id` parameter.
+     */
+    listLocations(): Promise<ListLocationsResponse>;
+}
 
-// @todo describe methods
-export class MobileAuthorizationApi {}
+export class MobileAuthorizationApi {
+    /**
+     * Generates code to authorize a mobile application to connect to a Square card reader Authorization codes are
+     * one-time-use and expire __60 minutes__ after being issued.
+     * @note The `Authorization` header you provide to this endpoint must have the following format:
+     * `Authorization: Bearer ACCESS_TOKEN` Replace `ACCESS_TOKEN` with a [valid production authorization credential]
+     * @link https://docs.connect.squareup.com/get-started#step-4-understand-the-different-application-credentials
+     */
+    createMobileAuthorizationCode(body: CreateMobileAuthorizationCodeRequest): Promise<CreateMobileAuthorizationCodeResponse>;
+}
 
 export class OAuthApi {
     /**

@@ -166,7 +166,7 @@ declare namespace LazyJS {
       sortBy(sortFn: NumberCallback<T>, descending?: boolean): Sequence<T>;
       sortBy(sortFn: string, descending?: boolean): Sequence<T>;
       sortedIndex(value: T): number;
-      sum(valueFn?: NumberCallback<T>): T;
+      sum(valueFn?: NumberCallback<T>): number;
       takeWhile(predicateFn: TestCallback<T, string | number>): Sequence<T>;
       toArray(): T[];
       toObject(): any;

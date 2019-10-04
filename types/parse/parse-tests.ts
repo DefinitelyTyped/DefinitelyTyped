@@ -77,6 +77,16 @@ function test_object() {
 
 }
 
+function test_errors() {
+  try {
+    throw new Parse.Error(Parse.Error.INTERNAL_SERVER_ERROR, 'sdfds');
+  } catch (error) {
+    if (error.code !== 1) {
+      console.error('Error code did not match expected number.');
+    }
+  }
+}
+
 function test_query() {
 
     const gameScore = new GameScore();

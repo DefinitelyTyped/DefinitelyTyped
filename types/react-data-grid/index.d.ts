@@ -46,7 +46,10 @@ declare namespace AdazzleReactDataGrid {
          * The columns to render.
          */
         columns?: Array<Column<T>>
-
+        /**
+         * Called when the grid is scrolled
+         */
+        onScroll?:(scrollState:ScrollState) => void
         /**
          * Invoked when the user changes the value of a single cell.
          * Should update that cell's value.
@@ -374,6 +377,30 @@ declare namespace AdazzleReactDataGrid {
          */
         draggable?: boolean;
     }
+    enum SCROLL_DIRECTION {
+        UP = 'upwards',
+        DOWN = 'downwards',
+        LEFT = 'left',
+        RIGHT = 'right',
+        NONE = 'none'
+    }
+
+    interface ScrollState {
+        height: number;
+        scrollTop: number;
+        scrollLeft: number;
+        rowVisibleStartIdx: number;
+        rowVisibleEndIdx: number;
+        rowOverscanStartIdx: number;
+        rowOverscanEndIdx: number;
+        colVisibleStartIdx: number;
+        colVisibleEndIdx: number;
+        colOverscanStartIdx: number;
+        colOverscanEndIdx: number;
+        scrollDirection: SCROLL_DIRECTION;
+        lastFrozenColumnIndex: number;
+        isScrolling: boolean;
+    }
 
     interface ColumnEventCallback {
         /**
@@ -383,7 +410,7 @@ declare namespace AdazzleReactDataGrid {
          */
         (ev: React.SyntheticEvent<any>, args: {rowIdx: number, idx: number, name: string}): void
     }
-
+    
     /**
      * Information about a row update. Generic event type returns untyped row, use parameterized type with the row type as the parameter
      * @default T = any
