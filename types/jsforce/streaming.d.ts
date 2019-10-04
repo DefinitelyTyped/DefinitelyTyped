@@ -20,4 +20,14 @@ export class Streaming extends EventEmitter {
     subscribe(name: string, listener: StreamingMessage): any; // Faye Subscription
     topic(namne: string): Topic;
     unsubscribe(name: string, listener: StreamingMessage): Streaming;
+    createClient(extensions?: Array<any>): any // Faye Client
+}
+
+export namespace StreamingExtension {
+    export class Replay {
+        constructor(channel: string, replayId: number)
+    }
+    export class AuthFailure {
+               constructor(failureCallback: () => any);
+           }
 }
