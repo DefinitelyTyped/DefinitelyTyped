@@ -26,7 +26,7 @@
 //                 Luis Pais <https://github.com/ranguna>
 //                 Hossein Saniei <https://github.com/HosseinAgha>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 // Documentation: https://mongodb.github.io/node-mongodb-native/3.1/api/
 
@@ -859,10 +859,11 @@ type OptionalId<TSchema> = Omit<TSchema, '_id'> & { _id?: any };
 
 type ExtractIdType<TSchema> =
     TSchema extends { _id: infer U } // user has defined a type for _id
-    ? ({} extends U ? Exclude<U, {}> : U) // Exclude is used here to fix typescript 2 bug when TSchema is "any"
+    ? {} extends U ? Exclude<U, {}> :
+      unknown extends U ? ObjectId : U
     : ObjectId; // user has not defined _id on schema
 
-// this adds _id as required property
+// this adds _id as a required property
 type WithId<TSchema> =
     Omit<TSchema, '_id'> & { _id: ExtractIdType<TSchema> };
 

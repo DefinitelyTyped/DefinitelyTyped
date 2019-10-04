@@ -32,6 +32,7 @@
 //                 Jeffery Grajkowski <https://github.com/pushplay>
 //                 Claus Stilborg <https://github.com/stilborg>
 //                 Jorgen Vik <https://github.com/jvik>
+//                 Richard Ward <https://github.com/richardwardza>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -3411,6 +3412,16 @@ declare namespace Stripe {
             object: 'invoice';
 
             /**
+             * The country of the business associated with this invoice, most often the business creating the invoice.
+             */
+            account_country: string;
+
+            /**
+             * The public name of the business associated with this invoice, most often the business creating the invoice.
+             */
+            account_name: string;
+
+            /**
              * Final amount due at this time for this invoice. If the invoice's total is smaller than the minimum charge
              * amount, for example, or if there is account credit that can be applied to the invoice, the amount_due may
              * be 0. If there is a positive starting_balance for the invoice (the customer owes money), the amount_due
@@ -3505,10 +3516,10 @@ declare namespace Stripe {
             charge: string | charges.ICharge | null;
 
             /**
-             * Whether or not the invoice is still trying to collect payment. An invoice is closed if it's either paid or
+             * @deprecated Whether or not the invoice is still trying to collect payment. An invoice is closed if it's either paid or
              * it has been marked closed. A closed invoice will no longer attempt to collect payment.
              */
-            closed: boolean;
+            closed?: boolean;
 
             /**
              * Either charge_automatically, or send_invoice. When charging automatically, Stripe will attempt to pay
@@ -3535,6 +3546,12 @@ declare namespace Stripe {
             customer: string | customers.ICustomer;
 
             /**
+             * The customer’s address. Until the invoice is finalized, this field will equal customer.address.
+             * Once the invoice is finalized, this field will no longer be updated.
+             */
+            customer_address: IAddress | null;
+
+            /**
              * The customer’s email. Until the invoice is finalized, this field will equal customer.email.
              * Once the invoice is finalized, this field will no longer be updated.
              */
@@ -3553,9 +3570,34 @@ declare namespace Stripe {
             customer_phone: string;
 
             /**
-             * Time at which the object was created. Measured in seconds since the Unix epoch.
+             * The customer’s shipping information. Until the invoice is finalized, this field will equal customer.shipping.
+             * Once the invoice is finalized, this field will no longer be updated.
              */
-            date: number;
+            customer_shipping: IShippingInformation;
+
+            /**
+             * The customer’s tax exempt status. Until the invoice is finalized, this field will equal customer.tax_exempt.
+             * Once the invoice is finalized, this field will no longer be updated.
+             */
+            customer_tax_exempt: string;
+
+            /**
+             * The customer’s tax IDs. Until the invoice is finalized, this field will contain the same tax IDs as customer.tax_ids.
+             * Once the invoice is finalized, this field will no longer be updated.
+             */
+            customer_tax_ids: customerTaxIds.ITaxIdCreationOptions[];
+
+            /**
+             * @deprecated Time at which the object was created. Measured in seconds since the Unix epoch.
+             */
+            date?: number;
+
+            /**
+             * ID of the default payment method for the invoice. It must belong to the customer associated with the invoice.
+             * If not set, defaults to the subscription’s default payment method, if any, or to the default payment method in
+             * the customer’s invoice settings.
+             */
+            default_payment_method: string;
 
             /**
              * ID of the default payment source for the invoice. It must belong to the customer
@@ -3563,6 +3605,11 @@ declare namespace Stripe {
              * the subscription’s default source, if any, or to the customer’s default source.
              */
             default_source: string;
+
+            /**
+             * The tax rates applied to this invoice, if any.
+             */
+            default_tax_rates: taxRates.ITaxRate[];
 
             /**
              * An arbitrary string attached to the object. Often useful for displaying to users.
@@ -3585,16 +3632,16 @@ declare namespace Stripe {
             ending_balance: number | null;
 
             /**
-             * Whether or not the invoice has been forgiven. Forgiving an invoice instructs us to update the subscription
-             * status as if the invoice were succcessfully paid. Once an invoice has been forgiven, it cannot be unforgiven
-             * or reopened
-             */
-            forgiven: boolean;
-
-            /**
              * Footer displayed on the invoice.
              */
             footer: string;
+
+            /**
+             * @deprecated Whether or not the invoice has been forgiven. Forgiving an invoice instructs us to update the subscription
+             * status as if the invoice were succcessfully paid. Once an invoice has been forgiven, it cannot be unforgiven
+             * or reopened
+             */
+            forgiven?: boolean;
 
             /**
              * The URL for the hosted invoice page, which allows customers to view and pay an
@@ -3732,6 +3779,26 @@ declare namespace Stripe {
              * Total after discount
              */
             total: number;
+
+            /**
+             * The aggregate amounts calculated per tax rate for all line items.
+             */
+            total_tax_amounts: {
+              /**
+               * The amount, in pence, of the tax.
+               */
+              amount: number;
+
+              /**
+               * Whether this tax amount is inclusive or exclusive.
+               */
+              inclusive: boolean;
+
+              /**
+               * The tax rate that was applied to get this tax amount.
+               */
+              tax_rate: string;
+            };
 
             /**
              * The time at which webhooks for this invoice were successfully delivered (if the invoice had no webhooks to
@@ -5970,6 +6037,62 @@ declare namespace Stripe {
         }
     }
 
+    namespace taxRates {
+        /**
+         * Tax rates can be applied to invoices and subscriptions to collect tax.
+         */
+        interface ITaxRate extends IResourceObject {
+             /**
+              * String representing the object’s type. Objects of the same type share the same value.
+              */
+             object: 'tax_rate';
+
+             /**
+              * Defaults to true. When set to false, this tax rate cannot be applied to objects in the API, but will still be applied to subscriptions and invoices that already have it set.
+              */
+             active: boolean;
+
+             /**
+              * Time at which the object was created. Measured in seconds since the Unix epoch.
+              */
+             created: number;
+
+             /**
+              * An arbitrary string attached to the tax rate for your internal use only. It will not be visible to your customers.
+              */
+             description: string;
+
+             /**
+              * The display name of the tax rates as it will appear to your customer on their receipt email, PDF, and the hosted invoice page.
+              */
+             display_name: string;
+
+             /**
+              * This specifies if the tax rate is inclusive or exclusive.
+              */
+             inclusive: boolean;
+
+             /**
+              * The jurisdiction for the tax rate.
+              */
+             jurisdiction: string;
+
+             /**
+              * Has the value true if the object exists in live mode or the value false if the object exists in test mode.
+              */
+             livemode: boolean;
+
+             /**
+              * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+              */
+             metadata: IMetadata;
+
+             /**
+              * This represents the tax rate percent out of 100.
+              */
+             percentage: number | null;
+          }
+    }
     namespace paymentMethods {
         interface WalletAddress {
             /** City/District/Suburb/Town/Village. */
