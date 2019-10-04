@@ -9162,9 +9162,13 @@ declare namespace Office {
         /**
          * Adds a file to a message or appointment as an attachment.
          *
-         * The addFileAttachmentFromBase64Async method uploads the file from the base64 encoding and attaches it to the item in the compose form. This method returns the attachment identifier in the asyncResult.value object.
+         * The addFileAttachmentFromBase64Async method uploads the file from the base64 encoding and attaches it to the item in the compose form.
+         * This method returns the attachment identifier in the asyncResult.value object.
          *
          * You can subsequently use the identifier with the removeAttachmentAsync method to remove the attachment in the same session.
+         * 
+         * **Note**: You need to strip out the data prefix then send the rest of the base64 string to the API.
+         * For example, if the full string is represented by `data:image/svg+xml;base64,<rest of base64 string>`, remove `data:image/svg+xml;base64,`.
          *
          * [Api set: Mailbox Preview]
          *
@@ -9200,6 +9204,9 @@ declare namespace Office {
          * The addFileAttachmentFromBase64Async method uploads the file from the base64 encoding and attaches it to the item in the compose form. This method returns the attachment identifier in the asyncResult.value object.
          *
          * You can subsequently use the identifier with the removeAttachmentAsync method to remove the attachment in the same session.
+         * 
+         * **Note**: You need to strip out the data prefix then send the rest of the base64 string to the API.
+         * For example, if the full string is represented by `data:image/svg+xml;base64,<rest of base64 string>`, remove `data:image/svg+xml;base64,`.
          *
          * [Api set: Mailbox Preview]
          *
@@ -12436,6 +12443,9 @@ declare namespace Office {
          * The addFileAttachmentFromBase64Async method uploads the file from the base64 encoding and attaches it to the item in the compose form. This method returns the attachment identifier in the asyncResult.value object.
          *
          * You can subsequently use the identifier with the removeAttachmentAsync method to remove the attachment in the same session.
+         * 
+         * **Note**: You need to strip out the data prefix then send the rest of the base64 string to the API.
+         * For example, if the full string is represented by `data:image/svg+xml;base64,<rest of base64 string>`, remove `data:image/svg+xml;base64,`.
          *
          * [Api set: Mailbox Preview]
          *
@@ -12471,6 +12481,9 @@ declare namespace Office {
          * The addFileAttachmentFromBase64Async method uploads the file from the base64 encoding and attaches it to the item in the compose form. This method returns the attachment identifier in the asyncResult.value object.
          *
          * You can subsequently use the identifier with the removeAttachmentAsync method to remove the attachment in the same session.
+         * 
+         * **Note**: You need to strip out the data prefix then send the rest of the base64 string to the API.
+         * For example, if the full string is represented by `data:image/svg+xml;base64,<rest of base64 string>`, remove `data:image/svg+xml;base64,`.
          *
          * [Api set: Mailbox Preview]
          *
@@ -14621,6 +14634,9 @@ declare namespace Office {
          * The addFileAttachmentFromBase64Async method uploads the file from the base64 encoding and attaches it to the item in the compose form. This method returns the attachment identifier in the asyncResult.value object.
          *
          * You can subsequently use the identifier with the removeAttachmentAsync method to remove the attachment in the same session.
+         * 
+         * **Note**: You need to strip out the data prefix then send the rest of the base64 string to the API.
+         * For example, if the full string is represented by `data:image/svg+xml;base64,<rest of base64 string>`, remove `data:image/svg+xml;base64,`.
          *
          * [Api set: Mailbox Preview]
          *
@@ -14656,6 +14672,9 @@ declare namespace Office {
          * The addFileAttachmentFromBase64Async method uploads the file from the base64 encoding and attaches it to the item in the compose form. This method returns the attachment identifier in the asyncResult.value object.
          *
          * You can subsequently use the identifier with the removeAttachmentAsync method to remove the attachment in the same session.
+         * 
+         * **Note**: You need to strip out the data prefix then send the rest of the base64 string to the API.
+         * For example, if the full string is represented by `data:image/svg+xml;base64,<rest of base64 string>`, remove `data:image/svg+xml;base64,`.
          *
          * [Api set: Mailbox Preview]
          *
