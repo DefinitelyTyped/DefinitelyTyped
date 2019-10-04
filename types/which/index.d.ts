@@ -14,9 +14,9 @@ declare function which(cmd: string, options: which.AsyncOptions, cb: (err: Error
 /** Finds the first instance of a specified executable in the PATH environment variable */
 declare function which(cmd: string, cb: (err: Error | null, path: string | undefined) => void): void;
 /** Finds the first instance of a specified executable in the PATH environment variable */
-declare function which(cmd: string, options: which.AsyncOptions & which.OptionsAll): Promise<string[]>
+declare function which(cmd: string, options: which.AsyncOptions & which.OptionsAll): Promise<string[]>;
 /** Finds the first instance of a specified executable in the PATH environment variable */
-declare function which(cmd: string, options?: which.AsyncOptions & which.OptionsFirst): Promise<string>
+declare function which(cmd: string, options?: which.AsyncOptions & which.OptionsFirst): Promise<string>;
 declare namespace which {
     /** Finds all instances of a specified executable in the PATH environment variable */
     function sync(cmd: string, options: which.Options & which.OptionsAll & which.OptionsNoThrow): Array<string> | null;
