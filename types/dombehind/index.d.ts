@@ -2,9 +2,11 @@
 // Project: https://github.com/s-ueno/DomBehind
 // Definitions by: uEN <https://github.com/s-ueno>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
 // TypeScript Version: 2.3
 
-/// <reference types="jquery"/>
+
+
 
 declare module collections {
     interface ICompareFunction<T> {
@@ -1674,7 +1676,11 @@ declare namespace DomBehind.Web {
 
 
 
+
+
 }
+
+
 
 
 
