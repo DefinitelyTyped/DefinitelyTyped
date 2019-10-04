@@ -1,4 +1,3 @@
-function DI(){
+function DI() {}
 
-}
 

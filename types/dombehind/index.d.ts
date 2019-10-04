@@ -5,6 +5,7 @@
 
 /// <reference types="jquery"/>
 
+
 declare module collections {
     interface ICompareFunction<T> {
         (a: T, b: T): number;
@@ -1670,4 +1671,6 @@ declare namespace DomBehind.Web {
         ExecuteAjax(request?: TRequest, option?: JQueryAjaxSettings): JQueryPromise<TResponse>;
         protected readonly DefaultPostSetting: JQueryAjaxSettings;
     }
+
 }
+
