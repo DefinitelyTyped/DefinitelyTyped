@@ -17193,12 +17193,18 @@ declare namespace Office {
          * Use with targetMailbox to construct REST operation's URL.
          * 
          * Example usage: `targetRestUrl + "/{api_version}/users/" + targetMailbox + "/{REST_operation}"`
+         * 
+         * **Note**: This property name is being transitioned from `restUrl` to `targetRestUrl`.
+         * For Outlook on the web, use `targetRestUrl`. For Windows and Mac, use `restUrl`.
          */
         targetRestUrl: string;
         /**
          * The target/owner's mailbox. Use with targetRestUrl to construct REST operation's URL.
          * 
          * Example usage: `targetRestUrl + "/{api_version}/users/" + targetMailbox + "/{REST_operation}"`
+         * 
+         * **Note**: The URL property name is being transitioned from `restUrl` to `targetRestUrl`.
+         * For Outlook on the web, use `targetRestUrl`. For Windows and Mac, use `restUrl`.
          */
         targetMailbox: string;
         /**
