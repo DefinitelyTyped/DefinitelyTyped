@@ -8,9 +8,14 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
+        "paths": {
+            "rbush": [
+                "rbush/v2"
+            ]
+        },
         "typeRoots": [
-            "../"
+            "../../"
         ],
         "types": [],
         "noEmit": true,
