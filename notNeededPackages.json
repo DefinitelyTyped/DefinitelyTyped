@@ -4669,6 +4669,12 @@
             "asOfVersion": "5.2.1"
         },
         {
+            "libraryName": "@storybook/react",
+            "typingsPackageName": "storybook__react",
+            "sourceRepoURL": "https://github.com/storybooks/storybook",
+            "asOfVersion": "5.2.0"
+        },
+        {
             "libraryName": "@storybook/react-native",
             "typingsPackageName": "storybook__react-native",
             "sourceRepoURL": "https://github.com/storybooks/storybook",
