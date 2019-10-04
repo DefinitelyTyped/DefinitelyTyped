@@ -1,4 +1,12 @@
-import { runInDebug, warn, debug, assert, registerWarnHandler, registerDeprecationHandler } from "@ember/debug";
+import {
+    runInDebug,
+    warn,
+    debug,
+    assert,
+    registerWarnHandler,
+    registerDeprecationHandler,
+    deprecate,
+} from '@ember/debug';
 
 /**
  * @ember/debug tests
@@ -43,3 +51,14 @@ registerDeprecationHandler((message, { id, until }, next) => { // $ExpectType vo
     until; // $ExpectType string
     next; // $ExpectType () => void
 });
+
+deprecate(); // $ExpectError
+deprecate('missing test and options'); // $ExpectError
+deprecate('missing options', true); // $ExpectError
+deprecate('missing options', false); // $ExpectError
+deprecate('missing options body', true, {}); // $ExpectError
+deprecate('missing options id', true, { until: 'v4.0.0' }); // $ExpectError
+deprecate('missing options until', true, { id: 'some.deprecation' }); // $ExpectError
+deprecate('a valid deprecation without url', true, { id: 'some.deprecation', until: 'v4.0.0' }); // $ExpectType void
+deprecate('incorrect options url', true, { id: 'some.deprecation', until: 'v4.0.0', url: 123 }); // $ExpectError
+deprecate('a valid deprecation with url', true, { id: 'some.deprecation', until: 'v4.0.0', url: 'https://example.com/ember-deprecations-yo' }); // $ExpectType void

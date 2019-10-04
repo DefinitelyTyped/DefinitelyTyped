@@ -19,14 +19,15 @@ declare namespace Plugin {
             };
         };
     }
+
+    interface PluginStatic {
+        new (serverless: Serverless, options: Serverless.Options): Plugin;
+    }
 }
 
-declare abstract class Plugin {
+interface Plugin {
     hooks: Plugin.Hooks;
-
     commands?: Plugin.Commands;
-
-    constructor(serverless: Serverless, options: Serverless.Options);
 }
 
 export = Plugin;

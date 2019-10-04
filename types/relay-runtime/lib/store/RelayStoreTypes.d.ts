@@ -8,7 +8,6 @@ import {
     NormalizationScalarField,
     NormalizationLinkedField,
 } from '../util/NormalizationNode';
-import { RecordState, GraphQLResponse } from '../..';
 import {
     ConnectionReference,
     ConnectionResolver,
@@ -17,9 +16,10 @@ import {
     ConnectionID,
 } from './RelayConnection';
 import { LoggerTransactionConfig } from '../network/RelayNetworkLoggerTransaction';
-import { PayloadData, Network, UploadableMap, PayloadError } from '../network/RelayNetworkTypes';
+import { PayloadData, Network, UploadableMap, PayloadError, GraphQLResponse } from '../network/RelayNetworkTypes';
 import { RelayObservable } from '../network/RelayObservable';
 import { RelayOperationTracker } from './RelayOperationTracker';
+import { RecordState } from './RelayRecordState';
 
 export type FragmentReference = unknown;
 export type OperationTracker = RelayOperationTracker;

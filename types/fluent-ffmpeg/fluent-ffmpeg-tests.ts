@@ -97,3 +97,8 @@ ffmpeg.getAvailableFilters((err, filters) => {
   console.log("Available filters:");
   console.dir(filters);
 });
+
+ffmpeg.ffprobe('/path/to/file.mp4', (err, data) => {
+    console.log(data.format.filename);
+    console.log(data.streams[0].bit_rate);
+});

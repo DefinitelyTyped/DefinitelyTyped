@@ -2975,7 +2975,7 @@ declare namespace Xrm {
              *
              * @param handler The event handler.
              */
-            addOnLoad(handler: () => void): void;
+            addOnLoad(handler: Events.ContextSensitiveHandler): void;
 
             /**
              * This method returns context information about the GridControl.

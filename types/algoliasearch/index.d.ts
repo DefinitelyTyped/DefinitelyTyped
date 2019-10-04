@@ -924,15 +924,15 @@ declare namespace algoliasearch {
     /**
      * Condition of the rule
      */
-    condition: {
+    condition?: {
       /**
        * Query pattern
        */
-      pattern: string;
+      pattern?: string;
       /**
        * Whether the pattern must match the beginning or the end of the query string, or both, or none.
        */
-      anchoring: 'is' | 'startsWith' | 'endsWith' | 'contains';
+      anchoring?: 'is' | 'startsWith' | 'endsWith' | 'contains';
       /**
        * Rule context (format: [A-Za-z0-9_-]+).
        * When specified, the rule is contextual and applies only when the same context is specified

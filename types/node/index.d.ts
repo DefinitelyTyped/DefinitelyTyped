@@ -21,7 +21,6 @@
 //                 Klaus Meinhardt <https://github.com/ajafff>
 //                 Lishude <https://github.com/islishude>
 //                 Mariusz Wiktorczyk <https://github.com/mwiktorczyk>
-//                 Matthieu Sieben <https://github.com/matthieusieben>
 //                 Mohsen Azimi <https://github.com/mohsen1>
 //                 Nicolas Even <https://github.com/n-e>
 //                 Nicolas Voigt <https://github.com/octo-sniffle>

@@ -32,7 +32,7 @@
 //                 Anton Kenikh <https://github.com/anthony-kenikh>
 //                 Chathu Vishwajith <https://github.com/iamchathu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 /// <reference types="mongodb" />
 /// <reference types="node" />
@@ -339,8 +339,8 @@ declare module "mongoose" {
     };
     autoIndex?: boolean;
 
-    /** Before Mongoose builds indexes, it calls Model.createCollection() 
-     * to create the underlying collection in MongoDB if autoCreate 
+    /** Before Mongoose builds indexes, it calls Model.createCollection()
+     * to create the underlying collection in MongoDB if autoCreate
      * is set to true.(default: false) */
     autoCreate?: boolean;
 
@@ -2277,10 +2277,10 @@ declare module "mongoose" {
       multipleCastError?: boolean;
     /** Field selection. Equivalent to .select(fields).findOneAndUpdate() */
     fields?: any | string;
-    /** If true, delete any properties whose value is undefined when casting an update. In other words, 
-    if this is set, Mongoose will delete baz from the update in Model.updateOne({}, { foo: 'bar', baz: undefined }) 
+    /** If true, delete any properties whose value is undefined when casting an update. In other words,
+    if this is set, Mongoose will delete baz from the update in Model.updateOne({}, { foo: 'bar', baz: undefined })
     before sending the update to the server.**/
-    omitUndefined?: boolean;                       
+    omitUndefined?: boolean;
   }
 
   interface QueryUpdateOptions extends ModelUpdateOptions {

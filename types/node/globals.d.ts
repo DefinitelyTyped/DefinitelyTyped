@@ -737,31 +737,6 @@ declare namespace NodeJS {
         [key: string]: string | undefined;
     }
 
-    interface WriteStream extends Socket {
-        readonly writableFinished: boolean;
-        readonly writableHighWaterMark: number;
-        readonly writableLength: number;
-        columns?: number;
-        rows?: number;
-        _write(chunk: any, encoding: string, callback: (err?: null | Error) => void): void;
-        _destroy(err: Error | null, callback: (err?: null | Error) => void): void;
-        _final(callback: (err?: null | Error) => void): void;
-        setDefaultEncoding(encoding: string): this;
-        cork(): void;
-        uncork(): void;
-        destroy(error?: Error): void;
-    }
-    interface ReadStream extends Socket {
-        readonly readableHighWaterMark: number;
-        readonly readableLength: number;
-        isRaw?: boolean;
-        setRawMode?(mode: boolean): void;
-        _read(size: number): void;
-        _destroy(err: Error | null, callback: (err?: null | Error) => void): void;
-        push(chunk: any, encoding?: string): boolean;
-        destroy(error?: Error): void;
-    }
-
     interface HRTime {
         (time?: [number, number]): [number, number];
     }
