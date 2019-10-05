@@ -4,16 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
-/*~ If this module is a UMD module that exposes a global variable 'myLib' when
- *~ loaded outside a module loader environment, declare that global here.
- *~ Otherwise, delete this declaration.
- */
-// export as namespace myLib;
-
-/*~ If this module has methods, declare them as functions like so.
- */
-
-/*~ You can declare types that are available via importing the module */
 export interface DeviceProperties {
     readonly BROWSER: string;
     readonly BROWSER_VERSION: string;
@@ -379,67 +369,3 @@ export interface AppBoy {
 }
 
 export default AppBoy;
-
-/*~ You can declare properties of the module using const, let, or var */
-
-/*~ If there are types, properties, or methods inside dotted names
- *~ of the module, declare them inside a 'namespace'.
- */
-// export namespace subProp {
-    /*~ For example, given this definition, someone could write:
-     *~   import { subProp } from 'yourModule';
-     *~   subProp.foo();
-     *~ or
-     *~   import * as yourMod from 'yourModule';
-     *~   yourMod.subProp.foo();
-     */
-    // function foo(): void;
-// }
-
-// interface AppBoy {
-//     DeviceProperties: DeviceProperties;
-//     changeUser(userId: string): void;
-//     destroy(): void;
-//     getCachedContentCards<T>(): ContentCards<T>;
-//     getCachedFeed(): Feed;
-//     getDeviceId(callback: (deviceId: string) => void): void;
-//     getUser(): User;
-//     initialize(apiKey: string, options?: Partial<Options>): boolean;
-//     isPushBlocked(): boolean;
-//     isPushGranted(yesCallback: () => void, noCallback: () => void): void; // DEPRECATED; use isPushPermissionGranted instead.
-//     isPushPermissionGranted(): boolean;
-//     isPushSupported(): boolean;
-//     logCardClick(card: Card, forContentCards?: boolean): boolean;
-//     logCardDismissal(card: Card): boolean
-//     logCardImpressions(contentCards: Card[], forContentCards?: boolean): boolean;
-//     logContentCardsDisplayed(): void;
-//     logCustomEvent<T = {}>(eventName: string, eventProperties?: T): boolean;
-//     logFeedDisplayed(): void;
-//     logInAppMessageButtonClick(button: Button, inAppMessage: InAppMessage): boolean;
-//     logInAppMessageClick(inAppMessage: InAppMessage): boolean;
-//     logInAppMessageHtmlClick(inAppMessage: HtmlMessage, buttonId?: string, url?: string): boolean;
-//     logInAppMessageImpression(inAppMessage: InAppMessage|ControlMessage): boolean;
-//     logPurchase<T = {}>(productId: string, price: number, currencyCode?: string, quantity?: number, purchaseProperties?: T): boolean;
-//     openSession(): void;
-//     registerAppboyPushMessages(successCallback?: (endpoint: string, publicKey: string, userAuth: string) => void, deniedCallback: (isTemporary: boolean) => void): void;
-//     removeAllSubscriptions(): void;
-//     removeSubscription(subscriptionGuid: string): void;
-//     requestContentCardsRefresh(): void;
-//     requestFeedRefresh(): void;
-//     requestImmediateDataFlush(): void;
-//     resumeWebTracking(): void;
-//     setLogger(loggerFunction: (message?: string) => void): void;
-//     stopWebTracking(): void;
-//     subscribeToContentCardsUpdates<T>(subscriber: (contentCards: ContentCards<T>) => void): string;
-//     subscribeToFeedUpdates<T>(subscriber: (feed: Feed<T>) => void): string;
-//     subscribeToInAppMessage(callback: (inAppMesssage: InAppMessage|ControlMessage) => void): string;
-//     subscribeToNewInAppMessages(subscriber: (inAppMessages: Array<InAppMessage|ControlMessage>) => Array<InAppMessage|ControlMessage>): string; // DEPRECATED; use subscribeToInAppMessage instead.
-//     toggleAppboyLogging(): void;
-//     trackLocation(): void;
-//     unregisterAppboyPushMessages(successCallback?: () => void, errorCallback?: () => void): void;
-//     wipeData(): void;
-// }
-
-//   declare const appboy: AppBoy;
-
-//   export default appboy;
