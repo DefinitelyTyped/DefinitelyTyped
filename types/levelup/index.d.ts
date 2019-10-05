@@ -88,23 +88,23 @@ export interface LevelUp<DB = AbstractLevelDOWN, Iterator = AbstractIterator<any
 }
 
 interface LevelUpConstructor {
-    <DB extends AbstractLevelDOWN = AbstractLevelDOWN>(
+    <DB extends AbstractLevelDOWN = AbstractLevelDOWN, Iterator = AbstractIterator<any, any>>(
         db: DB,
         options: any,
-        cb?: ErrorCallback): LevelUp<DB>;
+        cb?: ErrorCallback): LevelUp<DB, Iterator>;
 
-    <DB extends AbstractLevelDOWN = AbstractLevelDOWN>(
+    <DB extends AbstractLevelDOWN = AbstractLevelDOWN, Iterator = AbstractIterator<any, any>>(
         db: DB,
-        cb?: ErrorCallback): LevelUp<DB>;
+        cb?: ErrorCallback): LevelUp<DB, Iterator>;
 
-    new <DB extends AbstractLevelDOWN = AbstractLevelDOWN>(
+    new <DB extends AbstractLevelDOWN = AbstractLevelDOWN, Iterator = AbstractIterator<any, any>>(
         db: DB,
         options: any,
-        cb?: ErrorCallback): LevelUp<DB>;
+        cb?: ErrorCallback): LevelUp<DB, Iterator>;
 
-    new <DB extends AbstractLevelDOWN = AbstractLevelDOWN>(
+    new <DB extends AbstractLevelDOWN = AbstractLevelDOWN, Iterator = AbstractIterator<any, any>>(
         db: DB,
-        cb?: ErrorCallback): LevelUp<DB>;
+        cb?: ErrorCallback): LevelUp<DB, Iterator>;
 
     errors: /*typeof levelerrors*/ any; // ? level-errors is not in DT
 }
