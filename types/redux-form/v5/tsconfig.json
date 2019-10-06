@@ -16,7 +16,7 @@
         "types": [],
         "paths": {
             "redux-form": [
-                "redux-form/v4"
+                "redux-form/v5"
             ]
         },
         "noEmit": true,
