@@ -21,7 +21,7 @@ export interface SparqlClientOptions extends SparqlHttpOptions {
 export interface QueryRequestInit extends SparqlHttpOptions, RequestInit {}
 
 export interface SelectBindings {
-    results: { bindings: Array<Record<string, Term>> };
+    results: { bindings: ReadonlyArray<Record<string, Term>> };
 }
 
 export interface AskResult {
