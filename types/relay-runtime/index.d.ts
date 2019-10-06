@@ -62,8 +62,6 @@ export {
     FragmentReference,
     FragmentSpecResolver,
     HandleFieldPayload,
-    LogEvent,
-    LogFunction,
     Logger,
     LoggerProvider,
     MissingFieldHandler,
@@ -166,6 +164,7 @@ export {
     TYPENAME_KEY,
 } from './lib/store/RelayStoreUtils';
 export { createFragmentSpecResolver } from './lib/store/createFragmentSpecResolver';
+export { readInlineData } from './lib/store/readInlineData';
 
 // Extensions
 export { RelayDefaultHandlerProvider as DefaultHandlerProvider } from './lib/handlers/RelayDefaultHandlerProvider';
@@ -192,3 +191,14 @@ export { RelayFeatureFlags } from './lib/util/RelayFeatureFlags';
 export { RelayNetworkLoggerTransaction } from './lib/network/RelayNetworkLoggerTransaction';
 export { createRelayNetworkLogger } from './lib/network/createRelayNetworkLogger';
 export { deepFreeze } from './lib/util/deepFreeze';
+
+// These match the output of relay-compiler-language-typescript.
+export interface _RefType<T> {
+    ' $refType': T;
+}
+export interface _FragmentRefs<T> {
+    ' $fragmentRefs': T;
+}
+
+// This is a utility type for converting from a data type to a fragment reference that will resolve to that data type.
+export type FragmentRef<T> = T extends _RefType<infer U> ? _FragmentRefs<U> : never;

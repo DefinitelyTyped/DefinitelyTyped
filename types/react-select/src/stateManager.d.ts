@@ -1,15 +1,15 @@
 import { Component, ComponentType, Ref as ElementRef } from 'react';
 
 import SelectBase, { Props as SelectProps } from './Select';
-import { ActionMeta, InputActionMeta, ValueType } from './types';
+import { ActionMeta, InputActionMeta, OptionTypeBase, ValueType } from './types';
 
-export interface DefaultProps<OptionType> {
+export interface DefaultProps<OptionType extends OptionTypeBase> {
   defaultInputValue: string;
   defaultMenuIsOpen: boolean;
   defaultValue: ValueType<OptionType>;
 }
 
-export interface Props<OptionType> {
+export interface Props<OptionType extends OptionTypeBase> {
   defaultInputValue?: string;
   defaultMenuIsOpen?: boolean;
   defaultValue?: ValueType<OptionType>;
@@ -29,7 +29,7 @@ type StateProps<T extends SelectProps<any>> = Pick<T, Exclude<keyof T,
   | 'onMenuOpen'
 >>;
 
-interface State<OptionType> {
+interface State<OptionType extends OptionTypeBase> {
   inputValue: string;
   menuIsOpen: boolean;
   value: ValueType<OptionType>;
@@ -38,7 +38,7 @@ interface State<OptionType> {
 type GetOptionType<T> = T extends SelectBase<infer OT> ? OT : never;
 
 export class StateManager<
-  OptionType = { label: string; value: string },
+  OptionType extends OptionTypeBase = { label: string; value: string },
   T extends SelectBase<OptionType> = SelectBase<OptionType>
 > extends Component<StateProps<SelectProps<OptionType>> & Props<OptionType> & SelectProps<OptionType>, State<OptionType>> {
   static defaultProps: DefaultProps<any>;

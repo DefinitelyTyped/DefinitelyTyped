@@ -15,23 +15,23 @@ declare global {
     }
 
     class TrustedHTML {
-        private constructor(); // to prevent instantiting with 'new'.
-        private _brand: true; // To prevent structural typing.
+        private constructor(); // To prevent instantiting with 'new'.
+        private brand: true; // To prevent structural typing.
     }
 
     class TrustedScript {
-        private constructor(); // to prevent instantiting with 'new'.
-        private _brand: true; // To prevent structural typing.
+        private constructor(); // To prevent instantiting with 'new'.
+        private brand: true; // To prevent structural typing.
     }
 
     class TrustedScriptURL {
-        private constructor(); // to prevent instantiting with 'new'.
-        private _brand: true; // To prevent structural typing.
+        private constructor(); // To prevent instantiting with 'new'.
+        private brand: true; // To prevent structural typing.
     }
 
     class TrustedURL {
-        private constructor(); // to prevent instantiting with 'new'.
-        private _brand: true; // To prevent structural typing.
+        private constructor(); // To prevent instantiting with 'new'.
+        private brand: true; // To prevent structural typing.
     }
 
     interface TrustedTypePolicy {
@@ -47,7 +47,7 @@ declare global {
             name: string,
             policyOptions: Pick<TrustedTypePolicyOptions, Keys>,
             expose?: boolean,
-            ): Pick<TrustedTypePolicy, 'name'|Keys>;
+        ): Pick<TrustedTypePolicy, 'name' | Keys>;
         getPolicyNames(): string[];
         isHTML(value: any): value is TrustedHTML;
         isScript(value: any): value is TrustedScript;
@@ -60,7 +60,13 @@ declare global {
     }
 
     interface Window {
-        trustedTypes: TrustedTypePolicyFactory;
+        // NOTE: This is needed while the implementation in Chrome still relies
+        // on the old uppercase name, either of the values below could be
+        // undefined.
+        // See https://github.com/w3c/webappsec-trusted-types/issues/177
+        trustedTypes?: TrustedTypePolicyFactory;
+        /** @deprecated Prefer the lowercase version. */
+        TrustedTypes?: TrustedTypePolicyFactory;
         TrustedHTML: TrustedHTML;
         TrustedScript: TrustedScript;
         TrustedScriptURL: TrustedScriptURL;
@@ -70,7 +76,8 @@ declare global {
     }
 }
 
-// this is not available in global scope. It's only used for the export.
+// This is not available in global scope. It's only used for the export. This is
+// necessary to be able to use these types from nodejs (for SSR).
 declare const trustedTypes: TrustedTypePolicyFactory;
 
 export default trustedTypes;
