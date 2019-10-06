@@ -1171,7 +1171,7 @@ export type OnlyFieldsOfType<TSchema, FieldType = any, AssignableType = FieldTyp
 
 export type MatchKeysAndValues<TSchema> = ReadonlyPartial<TSchema> & DotAndArrayNotation<any>;
 
-type Unpacked<Type> = Type extends (infer Element)[] ? Element : Type;
+type Unpacked<Type> = Type extends Array<infer Element> ? Element : Type;
 
 export type SortValues = -1 | 1;
 
@@ -1187,30 +1187,30 @@ export type ArrayOperator<Type> = {
 };
 
 export type SetFields<TSchema> = ({
-    readonly [key in KeysOfAType<TSchema, Array<any>>]?: Unpacked<TSchema[key]> | AddToSetOperators<TSchema[key]>;
+    readonly [key in KeysOfAType<TSchema, any[]>]?: Unpacked<TSchema[key]> | AddToSetOperators<TSchema[key]>;
 } &
-    NotAcceptedFields<TSchema, Array<any>>) & {
+    NotAcceptedFields<TSchema, any[]>) & {
     readonly [key: string]: AddToSetOperators<any> | any;
 };
 
 export type PushOperator<TSchema> = ({
-    readonly [key in KeysOfAType<TSchema, Array<any>>]?: Unpacked<TSchema[key]> | ArrayOperator<TSchema[key]>;
+    readonly [key in KeysOfAType<TSchema, any[]>]?: Unpacked<TSchema[key]> | ArrayOperator<TSchema[key]>;
 } &
-    NotAcceptedFields<TSchema, Array<any>>) & {
+    NotAcceptedFields<TSchema, any[]>) & {
     readonly [key: string]: ArrayOperator<any> | any;
 };
 
 export type PullOperator<TSchema> = ({
-    readonly [key in KeysOfAType<TSchema, Array<any>>]?: Unpacked<TSchema[key]> | QuerySelector<Unpacked<TSchema[key]>>;
+    readonly [key in KeysOfAType<TSchema, any[]>]?: Unpacked<TSchema[key]> | QuerySelector<Unpacked<TSchema[key]>>;
 } &
-    NotAcceptedFields<TSchema, Array<any>>) & {
+    NotAcceptedFields<TSchema, any[]>) & {
     readonly [key: string]: QuerySelector<any> | any;
 };
 
 export type PullAllOperator<TSchema> = ({
-    readonly [key in KeysOfAType<TSchema, Array<any>>]?: TSchema[key];
+    readonly [key in KeysOfAType<TSchema, any[]>]?: TSchema[key];
 } &
-    NotAcceptedFields<TSchema, Array<any>>) & {
+    NotAcceptedFields<TSchema, any[]>) & {
     readonly [key: string]: any[];
 };
 
@@ -1229,7 +1229,7 @@ export type UpdateQuery<TSchema> = {
 
     /** https://docs.mongodb.com/manual/reference/operator/update-array/ */
     $addToSet?: SetFields<TSchema>;
-    $pop?: OnlyFieldsOfType<TSchema, Array<any>, 1 | -1>;
+    $pop?: OnlyFieldsOfType<TSchema, any[], 1 | -1>;
     $pull?: PullOperator<TSchema>;
     $push?: PushOperator<TSchema>;
     $pullAll?: PullAllOperator<TSchema>;
