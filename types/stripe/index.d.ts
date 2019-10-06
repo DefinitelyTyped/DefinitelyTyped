@@ -573,7 +573,7 @@ declare namespace Stripe {
             /**
              * The set of capabilities you want to unlock for this account (US only).
              */
-            requested_capabilities?: string[]
+            requested_capabilities?: string[];
 
             /**
              * Details on who accepted the Stripe terms of service, and when they
