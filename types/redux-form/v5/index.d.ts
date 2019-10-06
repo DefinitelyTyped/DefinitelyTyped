@@ -279,7 +279,7 @@ export interface ReduxFormProps<T> {
     untouchAll?(): void;
 }
 
-class ElementClass extends React.Component<any> {}
+declare class ElementClass extends React.Component<any> {}
 
 type ClassDecorator = <T extends typeof ElementClass>(component: T) => T;
 
