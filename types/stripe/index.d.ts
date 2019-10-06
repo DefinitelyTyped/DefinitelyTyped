@@ -113,7 +113,7 @@ declare class Stripe {
   tokens: Stripe.resources.Tokens;
   transfers: Stripe.resources.Transfers;
   applicationFees: Stripe.resources.ApplicationFees;
-  fileUploads: Stripe.resources.FileUploads;
+  files: Stripe.resources.Files;
   bitcoinReceivers: Stripe.resources.BitcoinReceivers;
   refunds: Stripe.resources.Refunds;
   countrySpecs: Stripe.resources.CountrySpecs;
@@ -499,13 +499,13 @@ declare namespace Stripe {
                  */
                 branding?: {
                     /**
-                     * (ID of a file upload) An icon for the account. Must be square and at
+                     * (ID of a file) An icon for the account. Must be square and at
                      * least 128px x 128px.
                      */
                     icon?: string;
 
                     /**
-                     * (ID of a file upload) A logo for the account that will be used in
+                     * (ID of a file) A logo for the account that will be used in
                      * Checkout instead of the icon and without the account’s name next to it
                      * if provided. Must be at least 128px x 128px. This can be unset by
                      * updating the value to null and then saving.
@@ -1003,13 +1003,13 @@ declare namespace Stripe {
                  */
                 document?: {
                     /**
-                     * The back of an ID returned by a file upload with a purpose value of identity_document.
+                     * The back of an ID returned by a file with a purpose value of identity_document.
                      * This can be unset by updating the value to null and then saving.
                      */
                     back?: string;
 
                     /**
-                     * The front of an ID returned by a file upload with a purpose value of identity_document.
+                     * The front of an ID returned by a file with a purpose value of identity_document.
                      * This can be unset by updating the value to null and then saving.
                      */
                     front?: string;
@@ -3190,7 +3190,7 @@ declare namespace Stripe {
             billing_address?: string;
 
             /**
-             * (ID of a file upload) Your subscription cancellation policy, as shown to the customer. [Expandable]
+             * (ID of a file) Your subscription cancellation policy, as shown to the customer. [Expandable]
              */
             cancellation_policy?: string;
 
@@ -3205,7 +3205,7 @@ declare namespace Stripe {
             cancellation_rebuttal?: string;
 
             /**
-             * (ID of a file upload) Any communication with the customer that you feel is relevant to your case (for
+             * (ID of a file) Any communication with the customer that you feel is relevant to your case (for
              * example emails proving that they received the product or service, or demonstrating their use of or
              * satisfaction with the product or service).
              */
@@ -3227,12 +3227,12 @@ declare namespace Stripe {
             customer_purchase_ip?: string;
 
             /**
-             * (ID of a file upload) A relevant document or contract showing the customer's signature. [Expandable]
+             * (ID of a file) A relevant document or contract showing the customer's signature. [Expandable]
              */
             customer_signature?: string;
 
             /**
-             * (ID of a file upload) Documentation for the prior charge that can uniquely identify the charge,
+             * (ID of a file) Documentation for the prior charge that can uniquely identify the charge,
              * such as a receipt, shipping label, work order, etc. This document should be paired with a similar
              * document from the disputed payment that proves the two payments are separate. [Expandable]
              */
@@ -3254,12 +3254,12 @@ declare namespace Stripe {
             product_description?: string;
 
             /**
-             * (ID of a file upload) Any receipt or message sent to the customer notifying them of the charge. [Expandable]
+             * (ID of a file) Any receipt or message sent to the customer notifying them of the charge. [Expandable]
              */
             receipt?: string;
 
             /**
-             * (ID of a file upload) Your refund policy, as shown to the customer. [Expandable]
+             * (ID of a file) Your refund policy, as shown to the customer. [Expandable]
              */
             refund_policy?: string;
 
@@ -3279,7 +3279,7 @@ declare namespace Stripe {
             service_date?: string;
 
             /**
-             * (ID of a file upload) Documentation showing proof that a service was provided to the customer. This could
+             * (ID of a file) Documentation showing proof that a service was provided to the customer. This could
              * include a copy of a signed contract, work order, or other form of written agreement.
              */
             service_documentation?: string;
@@ -3301,7 +3301,7 @@ declare namespace Stripe {
             shipping_date?: string;
 
             /**
-             * (ID of a file upload) Documentation showing proof that a product was shipped to the customer at the same address
+             * (ID of a file) Documentation showing proof that a product was shipped to the customer at the same address
              * the customer provided to you. This could include a copy of the shipment receipt, shipping label, etc, and should
              * show the full shipping address of the customer, if possible. [Expandable]
              */
@@ -3314,7 +3314,7 @@ declare namespace Stripe {
             shipping_tracking_number?: string;
 
             /**
-             * (ID of a file upload) Any additional evidence or statements. [Expandable]
+             * (ID of a file) Any additional evidence or statements. [Expandable]
              */
             uncategorized_file?: string;
 
@@ -3410,12 +3410,12 @@ declare namespace Stripe {
         }
     }
 
-    namespace fileUploads {
+    namespace files {
         interface IFileUpdate extends IResourceObject {
             /**
-             * Value is "file_upload"
+             * Value is "file"
              */
-            object: 'file_upload';
+            object: 'file';
 
             created: number;
 
@@ -3427,7 +3427,7 @@ declare namespace Stripe {
             purpose: IPurpose;
 
             /**
-             * The size in bytes of the file upload object.
+             * The size in bytes of the file object.
              */
             size: number;
 
@@ -3446,7 +3446,7 @@ declare namespace Stripe {
             url: string;
         }
 
-        interface IFileUploadCreationOptions extends IDataOptions {
+        interface IFileCreationOptions extends IDataOptions {
             purpose: IPurpose;
             file: {
                 data: string | Buffer;
@@ -3455,7 +3455,7 @@ declare namespace Stripe {
             };
         }
 
-        interface IFileUploadListOptions extends IListOptionsCreated {
+        interface IFileListOptions extends IListOptionsCreated {
             /**
              * The file purpose to filter queries by. If none is provided, files will not be
              * filtered by purpose.
@@ -11685,7 +11685,7 @@ declare namespace Stripe {
             list(response?: IResponseFn<IList<events.IEvent>>): IListPromise<events.IEvent>;
         }
 
-        class FileUploads extends StripeResource {
+        class Files extends StripeResource {
             /**
              * To upload a file to Stripe, you’ll need to send a request of type multipart/form-data.
              * The request should contain the file you would like to upload, as well as the parameters for creating a file.
@@ -11693,55 +11693,55 @@ declare namespace Stripe {
              * All of Stripe’s officially supported API libraries should have support for sending multipart/form-data.
              */
             create(
-                data: fileUploads.IFileUploadCreationOptions,
+                data: files.IFileCreationOptions,
                 options: HeaderOptions,
-                response?: IResponseFn<fileUploads.IFileUpdate>,
-            ): Promise<fileUploads.IFileUpdate>;
+                response?: IResponseFn<files.IFileUpdate>,
+            ): Promise<files.IFileUpdate>;
             create(
-                data: fileUploads.IFileUploadCreationOptions,
-                response?: IResponseFn<fileUploads.IFileUpdate>,
-            ): Promise<fileUploads.IFileUpdate>;
+                data: files.IFileCreationOptions,
+                response?: IResponseFn<files.IFileUpdate>,
+            ): Promise<files.IFileUpdate>;
 
             /**
              * Retrieves the details of an existing file object.
-             * Supply the unique file upload ID from a file creation request, and Stripe will return the corresponding transfer information.
+             * Supply the unique file ID from a file creation request, and Stripe will return the corresponding transfer information.
              */
             retrieve(
                 id: string,
                 data: IDataOptions,
                 options: HeaderOptions,
-                response?: IResponseFn<fileUploads.IFileUpdate>,
-            ): Promise<fileUploads.IFileUpdate>;
+                response?: IResponseFn<files.IFileUpdate>,
+            ): Promise<files.IFileUpdate>;
             retrieve(
                 id: string,
                 data: IDataOptions,
-                response?: IResponseFn<fileUploads.IFileUpdate>,
-            ): Promise<fileUploads.IFileUpdate>;
+                response?: IResponseFn<files.IFileUpdate>,
+            ): Promise<files.IFileUpdate>;
             retrieve(
                 id: string,
                 options: HeaderOptions,
-                response?: IResponseFn<fileUploads.IFileUpdate>,
-            ): Promise<fileUploads.IFileUpdate>;
-            retrieve(id: string, response?: IResponseFn<fileUploads.IFileUpdate>): Promise<fileUploads.IFileUpdate>;
+                response?: IResponseFn<files.IFileUpdate>,
+            ): Promise<files.IFileUpdate>;
+            retrieve(id: string, response?: IResponseFn<files.IFileUpdate>): Promise<files.IFileUpdate>;
 
             /**
              * Returns a list of the files that you have uploaded to Stripe.
-             * The file uploads are returned sorted by creation date, with the most recently created file uploads appearing first.
+             * The files are returned sorted by creation date, with the most recently created files appearing first.
              */
             list(
-                data: fileUploads.IFileUploadListOptions,
+                data: files.IFileListOptions,
                 options: HeaderOptions,
-                response?: IResponseFn<IList<fileUploads.IFileUpdate>>,
-            ): IListPromise<fileUploads.IFileUpdate>;
+                response?: IResponseFn<IList<files.IFileUpdate>>,
+            ): IListPromise<files.IFileUpdate>;
             list(
-                data: fileUploads.IFileUploadListOptions,
-                response?: IResponseFn<IList<fileUploads.IFileUpdate>>,
-            ): IListPromise<fileUploads.IFileUpdate>;
+                data: files.IFileListOptions,
+                response?: IResponseFn<IList<files.IFileUpdate>>,
+            ): IListPromise<files.IFileUpdate>;
             list(
                 options: HeaderOptions,
-                response?: IResponseFn<IList<fileUploads.IFileUpdate>>,
-            ): IListPromise<fileUploads.IFileUpdate>;
-            list(response?: IResponseFn<IList<fileUploads.IFileUpdate>>): IListPromise<fileUploads.IFileUpdate>;
+                response?: IResponseFn<IList<files.IFileUpdate>>,
+            ): IListPromise<files.IFileUpdate>;
+            list(response?: IResponseFn<IList<files.IFileUpdate>>): IListPromise<files.IFileUpdate>;
         }
 
         class Invoices extends StripeResource {
