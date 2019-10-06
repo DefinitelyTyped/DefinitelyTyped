@@ -73,6 +73,12 @@
             "asOfVersion": "4.0.0"
         },
         {
+            "libraryName": "ansi-regex",
+            "typingsPackageName": "ansi-regex",
+            "sourceRepoURL": "https://github.com/chalk/ansi-regex",
+            "asOfVersion": "5.0.0"
+        },
+        {
             "libraryName": "antd",
             "typingsPackageName": "antd",
             "sourceRepoURL": "https://github.com/ant-design/ant-design",
