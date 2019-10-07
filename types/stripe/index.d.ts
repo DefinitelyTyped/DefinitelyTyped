@@ -3773,7 +3773,7 @@ declare namespace Stripe {
             /**
              * The subscription that this invoice was prepared for, if any.
              */
-            subscription: string | subscriptions.ISubscription;
+            subscription: string | subscriptions.ISubscription | null;
 
             /**
              * Only set for upcoming invoices that preview prorations. The time used to calculate prorations.
@@ -4450,7 +4450,7 @@ declare namespace Stripe {
 
             amount: number;
             currency: string;
-            customer: string;
+            customer: string | customers.ICustomer;
             date: number;
             description: string;
 
