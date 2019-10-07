@@ -3,6 +3,7 @@
 // Definitions by: Vladimir Grenaderov <https://github.com/VladimirGrenaderov>,
 //                 Max Boguslavskiy <https://github.com/maxbogus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.7
 
 /// <reference types="node" />
 
