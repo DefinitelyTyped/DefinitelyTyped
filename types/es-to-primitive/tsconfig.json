@@ -17,6 +17,9 @@
 		"forceConsistentCasingInFileNames": true
 	},
 	"files": [
+		"es5.d.ts",
+		"es6.d.ts",
+		"es2015.d.ts",
 		"index.d.ts",
 		"es-to-primitive-tests.ts"
 	]
