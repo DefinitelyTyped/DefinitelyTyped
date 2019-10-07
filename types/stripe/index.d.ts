@@ -40,93 +40,101 @@
 import { Agent } from 'http';
 
 declare class Stripe {
-  DEFAULT_HOST: string;
-  DEFAULT_PORT: string;
-  DEFAULT_BASE_PATH: string;
-  DEFAULT_API_VERSION: string;
-  DEFAULT_TIMEOUT: number;
-  PACKAGE_VERSION: string;
-  USER_AGENT: {
-    bindings_version: string;
-    lang: string;
-    lang_version: string;
-    platform: string;
-    publisher: string;
-    uname: string;
-  };
-  USER_AGENT_SERIALIZED: string;
+    DEFAULT_HOST: string;
+    DEFAULT_PORT: string;
+    DEFAULT_BASE_PATH: string;
+    DEFAULT_API_VERSION: string;
+    DEFAULT_TIMEOUT: number;
+    PACKAGE_VERSION: string;
+    USER_AGENT: {
+        bindings_version: string;
+        lang: string;
+        lang_version: string;
+        platform: string;
+        publisher: string;
+        uname: string;
+    };
+    USER_AGENT_SERIALIZED: string;
 
-  resources: typeof Stripe.resources;
-  StripeResource: typeof Stripe.StripeResource;
+    resources: typeof Stripe.resources;
+    StripeResource: typeof Stripe.StripeResource;
 
-  constructor(apiKey: string, version?: string);
+    constructor(apiKey: string, version?: string);
 
-  accounts: Stripe.resources.Accounts;
-  balance: Stripe.resources.Balance;
-  balanceTransactions: Stripe.resources.BalanceTransaction;
-  charges: Stripe.resources.Charges;
-  checkout: Stripe.resources.Checkout;
-  coupons: Stripe.resources.Coupons;
-  creditNotes: Stripe.resources.CreditNotes;
-  customers: Stripe.resources.Customers;
-  disputes: Stripe.resources.Disputes;
-  events: Stripe.resources.Events;
-  invoices: Stripe.resources.Invoices;
-  invoiceItems: Stripe.resources.InvoiceItems;
-  paymentIntents: Stripe.resources.PaymentIntents;
-  paymentMethods: Stripe.resources.PaymentMethods;
-  payouts: Stripe.resources.Payouts;
-  plans: Stripe.resources.Plans;
-  /**
-   * @deprecated
-   */
-  recipientCards: Stripe.resources.RecipientCards;
-  /**
-   * @deprecated
-   */
-  recipients: Stripe.resources.Recipients;
-  subscriptions: Stripe.resources.Subscriptions;
-  subscriptionItems: Stripe.resources.SubscriptionItems;
-  tokens: Stripe.resources.Tokens;
-  transfers: Stripe.resources.Transfers;
-  applicationFees: Stripe.resources.ApplicationFees;
-  fileUploads: Stripe.resources.FileUploads;
-  bitcoinReceivers: Stripe.resources.BitcoinReceivers;
-  refunds: Stripe.resources.Refunds;
-  countrySpecs: Stripe.resources.CountrySpecs;
-  orders: Stripe.resources.Orders;
-  products: Stripe.resources.Products;
-  setupIntents: Stripe.resources.SetupIntents;
-  skus: Stripe.resources.SKUs;
-  webhooks: Stripe.resources.WebHooks;
-  ephemeralKeys: Stripe.resources.EphemeralKeys;
-  usageRecords: Stripe.resources.UsageRecords;
-  usageRecordSummaries: Stripe.resources.UsageRecordSummaries;
-  sources: Stripe.resources.Sources;
+    accounts: Stripe.resources.Accounts;
+    balance: Stripe.resources.Balance;
+    balanceTransactions: Stripe.resources.BalanceTransaction;
+    charges: Stripe.resources.Charges;
+    checkout: Stripe.resources.Checkout;
+    coupons: Stripe.resources.Coupons;
+    creditNotes: Stripe.resources.CreditNotes;
+    customers: Stripe.resources.Customers;
+    disputes: Stripe.resources.Disputes;
+    events: Stripe.resources.Events;
+    invoices: Stripe.resources.Invoices;
+    invoiceItems: Stripe.resources.InvoiceItems;
+    paymentIntents: Stripe.resources.PaymentIntents;
+    paymentMethods: Stripe.resources.PaymentMethods;
+    payouts: Stripe.resources.Payouts;
+    plans: Stripe.resources.Plans;
+    /**
+     * @deprecated
+     */
+    recipientCards: Stripe.resources.RecipientCards;
+    /**
+     * @deprecated
+     */
+    recipients: Stripe.resources.Recipients;
+    subscriptions: Stripe.resources.Subscriptions;
+    subscriptionItems: Stripe.resources.SubscriptionItems;
+    tokens: Stripe.resources.Tokens;
+    transfers: Stripe.resources.Transfers;
+    applicationFees: Stripe.resources.ApplicationFees;
+    fileUploads: Stripe.resources.FileUploads;
+    bitcoinReceivers: Stripe.resources.BitcoinReceivers;
+    refunds: Stripe.resources.Refunds;
+    countrySpecs: Stripe.resources.CountrySpecs;
+    orders: Stripe.resources.Orders;
+    products: Stripe.resources.Products;
+    setupIntents: Stripe.resources.SetupIntents;
+    skus: Stripe.resources.SKUs;
+    webhooks: Stripe.resources.WebHooks;
+    ephemeralKeys: Stripe.resources.EphemeralKeys;
+    usageRecords: Stripe.resources.UsageRecords;
+    usageRecordSummaries: Stripe.resources.UsageRecordSummaries;
+    sources: Stripe.resources.Sources;
 
-  setHost(host: string): void;
-  setHost(host: string, port: string | number): void;
-  setHost(host: string, port: string | number, protocol: string): void;
+    setHost(host: string): void;
+    setHost(host: string, port: string | number): void;
+    setHost(host: string, port: string | number, protocol: string): void;
 
-  setProtocol(protocol: string): void;
-  setPort(port: string | number): void;
-  setApiVersion(version?: string): void;
-  setApiKey(key?: string): void;
-  setAppInfo(info?: {
-    partner_id?: string;
-    name: string;
-    url?: string;
-    version?: string;
-  }): void;
-  setTimeout(timeout?: number): void;
-  setMaxNetworkRetries(maxNetworkRetries: number): void;
-  setTelemetryEnabled(enabled: boolean): void;
-  setHttpAgent(agent: Agent): void;
-  getConstant(c: string): any;
-  getMaxNetworkRetries(): number;
-  getTelemetryEnabled(): boolean;
-  getClientUserAgent(response: (userAgent: string) => void): void;
+    setProtocol(protocol: string): void;
+
+    setPort(port: string | number): void;
+
+    setApiVersion(version?: string): void;
+
+    setApiKey(key?: string): void;
+
+    setAppInfo(info?: { partner_id?: string; name: string; url?: string; version?: string }): void;
+
+    setTimeout(timeout?: number): void;
+
+    setMaxNetworkRetries(maxNetworkRetries: number): void;
+
+    setTelemetryEnabled(enabled: boolean): void;
+
+    setHttpAgent(agent: Agent): void;
+
+    getConstant(c: string): any;
+
+    getMaxNetworkRetries(): number;
+
+    getTelemetryEnabled(): boolean;
+
+    getClientUserAgent(response: (userAgent: string) => void): void;
 }
+
 export = Stripe;
 
 declare namespace Stripe {
@@ -1072,7 +1080,8 @@ declare namespace Stripe {
             metadata: IMetadata;
         }
 
-        interface IApplicationFeeRefunds extends IList<IApplicationFeeRefund>, resources.ApplicationFeeRefunds {}
+        interface IApplicationFeeRefunds extends IList<IApplicationFeeRefund>, resources.ApplicationFeeRefunds {
+        }
 
         interface IApplicationFeeRefundCreationOptions extends IDataOptionsWithMetadata {
             /**
@@ -1744,7 +1753,8 @@ declare namespace Stripe {
             seller_message: string;
         }
 
-        interface IChargeRefunds extends IList<refunds.IRefund>, resources.ChargeRefunds {}
+        interface IChargeRefunds extends IList<refunds.IRefund>, resources.ChargeRefunds {
+        }
 
         type IPaymentMethodDetails =
             | IAchCreditTransferPaymentMethodDetails
@@ -2190,6 +2200,7 @@ declare namespace Stripe {
                  */
                 quantity?: number;
             }
+
             interface ICheckOutCreationSubscriptionData {
                 /**
                  * A list of items, each with an attached plan, that the customer is subscribing to. Use this parameter for subscriptions. To create one-time payments, use line_items.
@@ -2217,6 +2228,7 @@ declare namespace Stripe {
                  */
                 trial_period_days?: number;
             }
+
             interface ICheckoutCreationOptions {
                 /**
                  * The URL to return the customer to if they cancel payment
@@ -2610,7 +2622,8 @@ declare namespace Stripe {
             tax_info_verification?: any;
         }
 
-        interface ICustomerSubscriptions extends IList<subscriptions.ISubscription>, resources.CustomerSubscriptions {}
+        interface ICustomerSubscriptions extends IList<subscriptions.ISubscription>, resources.CustomerSubscriptions {
+        }
 
         interface ICustomerCreationOptions extends IDataOptionsWithMetadata {
             /**
@@ -3781,20 +3794,20 @@ declare namespace Stripe {
              * The aggregate amounts calculated per tax rate for all line items.
              */
             total_tax_amounts: {
-              /**
-               * The amount, in pence, of the tax.
-               */
-              amount: number;
+                /**
+                 * The amount, in pence, of the tax.
+                 */
+                amount: number;
 
-              /**
-               * Whether this tax amount is inclusive or exclusive.
-               */
-              inclusive: boolean;
+                /**
+                 * Whether this tax amount is inclusive or exclusive.
+                 */
+                inclusive: boolean;
 
-              /**
-               * The tax rate that was applied to get this tax amount.
-               */
-              tax_rate: string;
+                /**
+                 * The tax rate that was applied to get this tax amount.
+                 */
+                tax_rate: string;
             };
 
             /**
@@ -5938,56 +5951,56 @@ declare namespace Stripe {
          * Tax rates can be applied to invoices and subscriptions to collect tax.
          */
         interface ITaxRate extends IResourceObject {
-             /**
-              * String representing the object’s type. Objects of the same type share the same value.
-              */
-             object: 'tax_rate';
+            /**
+             * String representing the object’s type. Objects of the same type share the same value.
+             */
+            object: 'tax_rate';
 
-             /**
-              * Defaults to true. When set to false, this tax rate cannot be applied to objects in the API, but will still be applied to subscriptions and invoices that already have it set.
-              */
-             active: boolean;
+            /**
+             * Defaults to true. When set to false, this tax rate cannot be applied to objects in the API, but will still be applied to subscriptions and invoices that already have it set.
+             */
+            active: boolean;
 
-             /**
-              * Time at which the object was created. Measured in seconds since the Unix epoch.
-              */
-             created: number;
+            /**
+             * Time at which the object was created. Measured in seconds since the Unix epoch.
+             */
+            created: number;
 
-             /**
-              * An arbitrary string attached to the tax rate for your internal use only. It will not be visible to your customers.
-              */
-             description: string;
+            /**
+             * An arbitrary string attached to the tax rate for your internal use only. It will not be visible to your customers.
+             */
+            description: string;
 
-             /**
-              * The display name of the tax rates as it will appear to your customer on their receipt email, PDF, and the hosted invoice page.
-              */
-             display_name: string;
+            /**
+             * The display name of the tax rates as it will appear to your customer on their receipt email, PDF, and the hosted invoice page.
+             */
+            display_name: string;
 
-             /**
-              * This specifies if the tax rate is inclusive or exclusive.
-              */
-             inclusive: boolean;
+            /**
+             * This specifies if the tax rate is inclusive or exclusive.
+             */
+            inclusive: boolean;
 
-             /**
-              * The jurisdiction for the tax rate.
-              */
-             jurisdiction: string;
+            /**
+             * The jurisdiction for the tax rate.
+             */
+            jurisdiction: string;
 
-             /**
-              * Has the value true if the object exists in live mode or the value false if the object exists in test mode.
-              */
-             livemode: boolean;
+            /**
+             * Has the value true if the object exists in live mode or the value false if the object exists in test mode.
+             */
+            livemode: boolean;
 
-             /**
-              * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
-              */
-             metadata: IMetadata;
+            /**
+             * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+             */
+            metadata: IMetadata;
 
-             /**
-              * This represents the tax rate percent out of 100.
-              */
-             percentage: number | null;
-          }
+            /**
+             * This represents the tax rate percent out of 100.
+             */
+            percentage: number | null;
+        }
     }
     namespace paymentMethods {
         interface WalletAddress {
@@ -6057,6 +6070,7 @@ declare namespace Stripe {
             type: 'google_pay';
             google_pay: {};
         }
+
         interface SamsungPayWallet extends TokenizedWallet {
             type: 'samsung_pay';
             samsung_pay: {};
@@ -6200,14 +6214,14 @@ declare namespace Stripe {
              */
             card?:
                 | {
-                      exp_month: number;
-                      exp_year: number;
-                      number: string;
-                      cvc?: string;
-                  }
+                exp_month: number;
+                exp_year: number;
+                number: string;
+                cvc?: string;
+            }
                 | {
-                      token: string;
-                  };
+                token: string;
+            };
 
             /** Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata?: IMetadata;
@@ -6783,11 +6797,13 @@ declare namespace Stripe {
         type ProductType = 'service' | 'good';
     }
 
-    namespace recipientCards {}
+    namespace recipientCards {
+    }
 
     namespace recipients {
         // tslint:disable-next-line:no-empty-interface
-        interface IRecipient extends IResourceObject {}
+        interface IRecipient extends IResourceObject {
+        }
     }
 
     namespace skus {
@@ -7011,7 +7027,8 @@ declare namespace Stripe {
     }
 
     namespace tokens {
-        interface IToken extends ICardToken, IBankAccountToken {}
+        interface IToken extends ICardToken, IBankAccountToken {
+        }
 
         interface ICardToken extends ITokenBase {
             /**
@@ -7207,7 +7224,8 @@ declare namespace Stripe {
             type: 'card' | 'bank_account' | 'stripe_account';
         }
 
-        interface ITransferReversals extends IList<transferReversals.IReversal>, resources.TransferReversals {}
+        interface ITransferReversals extends IList<transferReversals.IReversal>, resources.TransferReversals {
+        }
 
         interface ITransferCreationOptions extends IDataOptionsWithMetadata {
             /**
@@ -7814,6 +7832,7 @@ declare namespace Stripe {
             | 'invoice_too_large'
             | 'invoice_too_small'
             | 'unspent_receiver_credit';
+
         interface ICustomerBalanceTransaction extends IResourceObject {
             /**
              * Value is "customer_balance_transaction"
@@ -7928,6 +7947,7 @@ declare namespace Stripe {
             | 'canceled'
             | 'unpaid';
         type SubscriptionBilling = 'charge_automatically' | 'send_invoice';
+
         /**
          * Subscriptions allow you to charge a customer's card on a recurring basis. A subscription ties a customer to
          * a particular plan you've created: https://stripe.com/docs/api#create_plan
@@ -8997,6 +9017,7 @@ declare namespace Stripe {
 
     interface IListPromise<T> extends Promise<IList<T>>, AsyncIterableIterator<T> {
         autoPagingEach(handler: (item: T) => Promise<void>): void;
+
         autoPagingToArray(opts: { limit: number }): Promise<T[]>;
     }
 
@@ -9687,6 +9708,7 @@ declare namespace Stripe {
                 data: checkouts.sessions.ICheckoutCreationOptions,
                 response?: IResponseFn<checkouts.sessions.ICheckoutSession>,
             ): Promise<checkouts.sessions.ICheckoutSession>;
+
             retrieve(
                 data: string,
                 options: HeaderOptions,
@@ -9931,6 +9953,7 @@ declare namespace Stripe {
             ): IListPromise<refunds.IRefund>;
 
             markAsSafe(chargeId: string, response?: IResponseFn<charges.ICharge>): Promise<charges.ICharge>;
+
             markAsFraudulent(chargeId: string, response?: IResponseFn<charges.ICharge>): Promise<charges.ICharge>;
         }
 
@@ -11262,6 +11285,7 @@ declare namespace Stripe {
                 response?: IResponseFn<subscriptions.ISubscription>,
             ): Promise<subscriptions.ISubscription>;
         }
+
         class CustomerSubscriptions extends SubscriptionsBase {
             /**
              * Creates a new subscription on an existing customer.
@@ -12255,6 +12279,7 @@ declare namespace Stripe {
                 data: paymentMethods.IPaymentMethodCreationOptions,
                 response?: IResponseFn<paymentMethods.IPaymentMethod>,
             ): Promise<paymentMethods.IPaymentMethod>;
+
             retrieve(
                 paymentMethodId: string,
                 options: HeaderOptions,
@@ -12264,6 +12289,7 @@ declare namespace Stripe {
                 paymentMethodId: string,
                 response?: IResponseFn<paymentMethods.IPaymentMethod>,
             ): Promise<paymentMethods.IPaymentMethod>;
+
             update(
                 paymentMethodId: string,
                 data: paymentMethods.IPaymentMethodUpdateOptions,
@@ -12275,6 +12301,7 @@ declare namespace Stripe {
                 data: paymentMethods.IPaymentMethodUpdateOptions,
                 response?: IResponseFn<paymentMethods.IPaymentMethod>,
             ): Promise<paymentMethods.IPaymentMethod>;
+
             list<T extends paymentMethods.IPaymentMethodType>(
                 data: paymentMethods.IPaymentMethodListOptions<T>,
                 options: HeaderOptions,
@@ -12284,6 +12311,7 @@ declare namespace Stripe {
                 data: paymentMethods.IPaymentMethodListOptions<T>,
                 response?: IResponseFn<IList<paymentMethods.IPaymentMethod>>,
             ): IListPromise<Extract<paymentMethods.IPaymentMethod, { type: T }>>;
+
             attach(
                 paymentMethodId: string,
                 data: paymentMethods.IPaymentMethodAttachOptions,
@@ -12295,6 +12323,7 @@ declare namespace Stripe {
                 data: paymentMethods.IPaymentMethodAttachOptions,
                 response?: IResponseFn<paymentMethods.IPaymentMethod>,
             ): Promise<paymentMethods.IPaymentMethod>;
+
             detach(
                 paymentMethodId: string,
                 options: HeaderOptions,
@@ -12482,18 +12511,22 @@ declare namespace Stripe {
              * @deprecated
              */
             create(): void;
+
             /**
              * @deprecated
              */
             list(): void;
+
             /**
              * @deprecated
              */
             update(id: string): void;
+
             /**
              * @deprecated
              */
             retrieve(id: string): void;
+
             // options: IDataOptions
             /**
              * @deprecated
@@ -12509,18 +12542,22 @@ declare namespace Stripe {
              * @deprecated
              */
             create(): void;
+
             /**
              * @deprecated
              */
             list(): void;
+
             /**
              * @deprecated
              */
             update(id: string): void;
+
             /**
              * @deprecated
              */
             retrieve(id: string): void;
+
             // options: IDataOptions
             /**
              * @deprecated
@@ -13397,26 +13434,26 @@ declare namespace Stripe {
     type IDateFilter =
         | string
         | {
-              /**
-               * Return values where the created field is after this timestamp.
-               */
-              gt?: string;
+        /**
+         * Return values where the created field is after this timestamp.
+         */
+        gt?: string;
 
-              /**
-               * Return values where the created field is after or equal to this timestamp.
-               */
-              gte?: string;
+        /**
+         * Return values where the created field is after or equal to this timestamp.
+         */
+        gte?: string;
 
-              /**
-               * Return values where the created field is before this timestamp.
-               */
-              lt?: string;
+        /**
+         * Return values where the created field is before this timestamp.
+         */
+        lt?: string;
 
-              /**
-               * Return values where the created field is before or equal to this timestamp.
-               */
-              lte?: string;
-          };
+        /**
+         * Return values where the created field is before or equal to this timestamp.
+         */
+        lte?: string;
+    };
 
     /**
      * A set of key/value pairs that you can attach to an object. It can be useful for storing
@@ -13696,12 +13733,15 @@ declare namespace Stripe {
         class _Error extends Error {
             readonly message: string;
         }
-        namespace _Error {}
+
+        namespace _Error {
+        }
 
         type RawType = 'card_error' | 'invalid_request_error' | 'api_error' | 'idempotency_error';
 
         abstract class StripeError extends _Error implements IStripeError {
             static populate(type: RawType): StripeError;
+
             readonly rawType: RawType;
             readonly code?: string;
             readonly raw: any;
@@ -13714,30 +13754,39 @@ declare namespace Stripe {
             readonly params?: string;
             readonly type: string;
         }
+
         class StripeCardError extends StripeError {
             readonly type: 'StripeCardError';
         }
+
         class StripeInvalidRequestError extends StripeError {
             readonly type: 'StripeInvalidRequestError';
         }
+
         class StripeAPIError extends StripeError {
             readonly type: 'StripeAPIError';
         }
+
         class StripeAuthenticationError extends StripeError {
             readonly type: 'StripeAuthenticationError';
         }
+
         class StripePermissionError extends StripeError {
             readonly type: 'StripePermissionError';
         }
+
         class StripeRateLimitError extends StripeError {
             readonly type: 'StripeRateLimitError';
         }
+
         class StripeConnectionError extends StripeError {
             readonly type: 'StripeConnectionError';
         }
+
         class StripeSignatureVerificationError extends StripeError {
             readonly type: 'StripeSignatureVerificationError';
         }
+
         class StripeIdempotencyError extends StripeError {
             readonly type: 'StripeIdempotencyError';
         }
