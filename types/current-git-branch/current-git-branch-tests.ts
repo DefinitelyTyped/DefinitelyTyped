@@ -1,7 +1,12 @@
-import getBranchName from 'current-git-branch';
+import getBranchName, {CurrentGitBranchOptions} from 'current-git-branch';
 
+// test data
+const emptyOptions: CurrentGitBranchOptions = {};
+const filledOptions: CurrentGitBranchOptions = {altPath: '', branchOptions: ''};
+
+// tests
 getBranchName();
-getBranchName({altPath: '', branchOptions: ''});
-getBranchName({});
+getBranchName(emptyOptions);
+getBranchName(filledOptions);
 getBranchName('');
 getBranchName(['']);
