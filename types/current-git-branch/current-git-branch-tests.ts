@@ -1,4 +1,4 @@
-import getBranchName, {CurrentGitBranchOptions} from 'current-git-branch';
+import getBranchName, { CurrentGitBranchOptions } from 'current-git-branch';
 
 // test data
 const emptyOptions: CurrentGitBranchOptions = {};
