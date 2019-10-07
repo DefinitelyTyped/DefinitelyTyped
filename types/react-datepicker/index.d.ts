@@ -11,6 +11,7 @@
 //                 Roman Nuritdinov <https://github.com/Ky6uk>
 //                 Avi Klaiman <https://github.com/aviklai>
 //                 Naoki Sekiguchi <https://github.com/seckie>
+//                 tu4mo <https://github.com/tu4mo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -67,6 +68,7 @@ export interface ReactDatePickerProps {
     monthsShown?: number;
     name?: string;
     nextMonthButtonLabel?: string;
+    nextYearButtonLabel?: string;
     onBlur?(event: React.FocusEvent<HTMLInputElement>): void;
     onChange(date: Date | null, event: React.SyntheticEvent<any> | undefined): void;
     onChangeRaw?(event: React.FocusEvent<HTMLInputElement>): void;
@@ -94,6 +96,7 @@ export interface ReactDatePickerProps {
     popperProps?: {};
     preventOpenOnFocus?: boolean;
     previousMonthButtonLabel?: string;
+    previousYearButtonLabel?: string;
     readOnly?: boolean;
     renderCustomHeader?(params: {
         date: Date;
@@ -116,6 +119,7 @@ export interface ReactDatePickerProps {
     showMonthDropdown?: boolean;
     showMonthYearDropdown?: boolean;
     showMonthYearPicker?: boolean;
+    showPopperArrow?: boolean;
     showTimeSelect?: boolean;
     showTimeSelectOnly?: boolean;
     showWeekNumbers?: boolean;
@@ -134,6 +138,7 @@ export interface ReactDatePickerProps {
     value?: string;
     weekLabel?: string;
     withPortal?: boolean;
+    wrapperClassName?: string;
     yearDropdownItemNumber?: number;
     timeInputLabel?: string;
     showTimeInput?: boolean;

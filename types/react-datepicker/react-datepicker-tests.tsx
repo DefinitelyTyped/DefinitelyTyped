@@ -46,6 +46,7 @@ const defaultLocale = getDefaultLocale();
     monthsShown={1}
     name=""
     nextMonthButtonLabel=""
+    nextYearButtonLabel=""
     onBlur={event => null}
     onChange={(date: Date | null) => {}}
     onChangeRaw={event => null}
@@ -73,6 +74,7 @@ const defaultLocale = getDefaultLocale();
     popperProps={{}}
     preventOpenOnFocus
     previousMonthButtonLabel=""
+    previousYearButtonLabel=""
     readOnly
     ref={handleRef}
     renderCustomHeader={({
@@ -96,6 +98,7 @@ const defaultLocale = getDefaultLocale();
     showMonthDropdown
     showMonthYearDropdown
     showMonthYearPicker
+    showPopperArrow
     showTimeSelect
     showTimeSelectOnly
     showWeekNumbers
@@ -113,6 +116,7 @@ const defaultLocale = getDefaultLocale();
     value=""
     weekLabel=""
     withPortal
+    wrapperClassName=""
     yearDropdownItemNumber={1}
     timeInputLabel=""
     inlineFocusSelectedMonth={false}
