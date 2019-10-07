@@ -3907,6 +3907,12 @@
             "asOfVersion": "5.2.0"
         },
         {
+            "libraryName": "typescript",
+            "typingsPackageName": "whatwg-streams",
+            "sourceRepoURL": "https://streams.spec.whatwg.org",
+            "asOfVersion": "3.2.1"
+        },
+        {
             "libraryName": "winston",
             "typingsPackageName": "winston",
             "sourceRepoURL": "https://github.com/winstonjs/winston.git",
