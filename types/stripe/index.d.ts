@@ -5111,7 +5111,7 @@ declare namespace Stripe {
             transfer_data?: IPaymentIntentDataTransferDataOptions;
         }
 
-        type PaymentIntentCancellationReason = 'duplicate' | 'fraudulent' | 'requested_by_customer' | 'failed_invoice';
+        type PaymentIntentCancellationReason = 'duplicate' | 'fraudulent' | 'requested_by_customer' | 'abandoned';
 
         type PaymentIntentFutureUsageType = 'on_session' | 'off_session';
 
@@ -5224,18 +5224,7 @@ declare namespace Stripe {
             /**
              * Payment-method-specific configuration for this PaymentIntent.
              */
-            payment_method_options?: {
-                /**
-                 * Configuration for any card payments attempted on this PaymentIntent.
-                 */
-                card?: {
-                    /**
-                     * We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and other requirements. However, if you wish to request 3D Secure based on
-                     * logic from your own fraud engine, provide this option. Permitted values include: automatic, any, or challenge_only. If not provided, defaults to automatic.
-                     */
-                    request_three_d_secure?: 'automatic' | 'challenge_only' | 'any';
-                };
-            };
+            payment_method_options?: IPaymentMethodOptions;
 
             /**
              * The list of payment method types (e.g. card) that this PaymentIntent is allowed to use.
@@ -5321,48 +5310,22 @@ declare namespace Stripe {
         /** Payment methods supported by Payment Intents. This is a subsetset of all Payment Method types. See https://stripe.com/docs/api/payment_methods/create#create_payment_method-type */
         type PaymentIntentPaymentMethodType = 'card' | 'card_present';
 
-        interface IPaymentIntentCreationOptions {
+        interface IPaymentMethodCardOptions {
             /**
-             * Amount intended to be collected by this PaymentIntent (in cents).
+             * We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and other requirements. However, if you wish to request 3D Secure based on
+             * logic from your own fraud engine, provide this option. Permitted values include: automatic, any, or challenge_only. If not provided, defaults to automatic.
              */
-            amount: number;
+            request_three_d_secure?: 'automatic' | 'challenge_only' | 'any';
+        }
 
+        interface IPaymentMethodOptions {
             /**
-             * Three-letter ISO currency code, in lowercase. Must be a supported currency.
+             * Configuration for any card payments attempted on this PaymentIntent.
              */
-            currency: string;
+            card?: IPaymentMethodCardOptions;
+        }
 
-            /**
-             * The ID of the payment method used to pay
-             */
-            payment_method?: string;
-
-            /**
-             * The list of payment method types that this PaymentIntent is allowed to use. If this is not provided, defaults to ["card"].
-             */
-            payment_method_types?: PaymentIntentPaymentMethodType[];
-
-            /**
-             * Payment-method-specific configuration for this PaymentIntent.
-             */
-            payment_method_options?: {
-                /**
-                 * Configuration for any card payments attempted on this PaymentIntent.
-                 */
-                card?: {
-                    /**
-                     * We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and other requirements. However, if you wish to request 3D Secure based on
-                     * logic from your own fraud engine, provide this option. Permitted values include: automatic, any, or challenge_only. If not provided, defaults to automatic.
-                     */
-                    request_three_d_secure?: 'automatic' | 'challenge_only' | 'any';
-                };
-            };
-
-            /**
-             * The amount of the application fee in cents (if any) that will be applied to the payment and transferred to the application owner’s Stripe account. To use an application fee, the request must be made on behalf of another account, using the `Stripe-Account` header or an OAuth key.
-             */
-            application_fee_amount?: number;
-
+        interface IPaymentIntentCreationOptions extends IPaymentIntentUpdateOptions {
             /**
              * Capture method of this PaymentIntent.
              */
@@ -5379,32 +5342,14 @@ declare namespace Stripe {
             confirmation_method?: 'automatic' | 'manual';
 
             /**
-             * ID of the customer this PaymentIntent is for if one exists.
-             */
-            customer?: string;
-
-            /**
-             * An arbitrary string attached to the object. Often useful for displaying to users. This can be unset by updating the value to null and then saving.
-             */
-            description?: string | null;
-
-            /**
-             * A set of key/value pairs that you can attach to an object. It can be
-             * useful for storing additional information about the object in a structured
-             * format. You can unset an individual key by setting its value to null and
-             * then saving. To clear all keys, set metadata to null, then save.
-             */
-            metadata?: IOptionsMetadata;
-
-            /**
              * The Stripe account ID for which these funds are intended.
              */
             on_behalf_of?: string;
 
             /**
-             * Email address that the receipt for the resulting payment will be sent to.
+             * Payment-method-specific configuration for this PaymentIntent.
              */
-            receipt_email?: string;
+            payment_method_options?: IPaymentMethodOptions;
 
             /**
              * The URL to redirect your customer back to after they authenticate or cancel their payment on the payment method’s app or site. If you’d prefer to redirect to a mobile application, you can alternatively supply an application URI scheme. This param can only be used if `confirm=true`.
@@ -5412,34 +5357,9 @@ declare namespace Stripe {
             return_url?: string;
 
             /**
-             * Set to `true` to save this PaymentIntent’s payment method to the associated Customer, if the payment method is not already attached. This parameter only applies to the payment method passed in the same request or the current payment method attached to the PaymentIntent and must be specified again if a new payment method is added.
-             */
-            save_payment_method?: boolean;
-
-            /*
-             * Indicates that you intend to make future payments with this PaymentIntent’s payment method.
-             */
-            setup_future_usage?: PaymentIntentFutureUsageType;
-
-            /**
              * Shipping information for this PaymentIntent.
              */
             shipping?: IShippingInformation;
-
-            /**
-             * Extra information about a PaymentIntent. This will appear on your customer’s statement when this PaymentIntent succeeds in creating a charge.
-             */
-            statement_descriptor?: string;
-
-            /**
-             * The parameters used to automatically create a Transfer when the payment succeeds.
-             */
-            transfer_data?: IPaymentIntentTransferData;
-
-            /**
-             * A string that identifies the resulting payment as part of a group.
-             */
-            transfer_group?: string;
         }
 
         interface IPaymentIntentUpdateOptions {
@@ -5496,7 +5416,7 @@ declare namespace Stripe {
              */
             save_payment_method?: boolean;
 
-            /*
+            /**
              * Indicates that you intend to make future payments with this PaymentIntent’s payment method.
              */
             setup_future_usage?: PaymentIntentFutureUsageType;
@@ -5512,9 +5432,9 @@ declare namespace Stripe {
             statement_descriptor?: string;
 
             /**
-             * ID of the Source object to attach to this PaymentIntent.
+             * Provides information about a card payment that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that’s set on the account to form the complete statement descriptor.
              */
-            source?: string;
+            statement_descriptor_suffix?: string;
 
             /**
              * A string that identifies the resulting payment as part of a group.
@@ -5541,18 +5461,7 @@ declare namespace Stripe {
             /**
              * Payment-method-specific configuration for this PaymentIntent.
              */
-            payment_method_options?: {
-                /**
-                 * Configuration for any card payments attempted on this PaymentIntent.
-                 */
-                card?: {
-                    /**
-                     * We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and other requirements. However, if you wish to request 3D Secure based on
-                     * logic from your own fraud engine, provide this option. Permitted values include: automatic, any, or challenge_only. If not provided, defaults to automatic.
-                     */
-                    request_three_d_secure?: 'automatic' | 'challenge_only' | 'any';
-                };
-            };
+            payment_method_options?: IPaymentMethodOptions;
 
             /**
              * The list of payment method types that this PaymentIntent is allowed to use.
@@ -5583,11 +5492,6 @@ declare namespace Stripe {
              * Shipping information for this PaymentIntent.
              */
             shipping?: IShippingInformation | null;
-
-            /**
-             * ID of the source used in this PaymentIntent.
-             */
-            source?: string;
         }
 
         interface IPaymentIntentRetrieveOptions {
