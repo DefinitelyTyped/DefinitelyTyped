@@ -366,6 +366,7 @@ declare namespace TelegramBot {
         pinned_message?: Message;
         invoice?: Invoice;
         successful_payment?: SuccessfulPayment;
+        reply_markup?: InlineKeyboardMarkup;
     }
 
     interface MessageEntity {
