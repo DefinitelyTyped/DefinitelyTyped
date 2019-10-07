@@ -6980,7 +6980,11 @@ declare namespace Stripe {
         type IToken = ICardToken | IBankAccountToken;
 
         interface ICardToken extends ITokenBase {
+            /**
+             * Type of the token
+             */
             type: 'card';
+            
             /**
              * Hash describing the card used to make the charge
              */
@@ -6988,7 +6992,11 @@ declare namespace Stripe {
         }
 
         interface IBankAccountToken extends ITokenBase {
+            /**
+             * Type of the token
+             */
             type: 'bank_account';
+            
             /**
              * Hash describing the bank account
              */
