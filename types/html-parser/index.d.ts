@@ -5,10 +5,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
-type Callback = (arg: any) => any;
-type Token = '>' | '/>' | '?>';
+export type Callback = (arg: any) => any;
+export type Token = '>' | '/>' | '?>';
 
-interface CallbacksOption {
+export interface CallbacksOption {
     // * @param {Function} [callbacks.attribute] Takes the name of the attribute and its value
     //  * @param {Function} [callbacks.openElement] Takes the tag name of the element
     //  * @param {Function} [callbacks.closeOpenedElement] Takes the tag name of the element, the token used to
@@ -31,12 +31,12 @@ interface CallbacksOption {
     text?(value: string): void;
 }
 
-interface RegExpOptions {
+export interface RegExpOptions {
     name?: RegExp;
     attribute?: RegExp;
 }
 
-interface RemovalCallback {
+export interface RemovalCallback {
     // * @param {Function|Array} [removalCallbacks.attributes] Callback or array of specific attributes to strip
     //  * @param {Function|Array} [removalCallbacks.elements] Callback or array of specific elements to strip
     //  * @param {Function|Boolean} [removalCallbacks.comments] Callback or boolean indicating to strip comments
