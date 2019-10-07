@@ -35,8 +35,8 @@
 
 import { Binary, ObjectId, Timestamp } from 'bson';
 import { EventEmitter } from 'events';
-import { Readable, Writable } from "stream";
-import { checkServerIdentity } from "tls";
+import { Readable, Writable } from 'stream';
+import { checkServerIdentity } from 'tls';
 
 // This line can be removed after minimum required TypeScript Version is above 3.5
 type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
