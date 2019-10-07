@@ -9,7 +9,7 @@ declare namespace HtmlParser {
     type Callback = (arg: any) => any;
     type Token = '>' | '/>' | '?>';
 
-    export interface CallbacksOption {
+    interface CallbacksOption {
         // * @param {Function} [callbacks.attribute] Takes the name of the attribute and its value
         //  * @param {Function} [callbacks.openElement] Takes the tag name of the element
         //  * @param {Function} [callbacks.closeOpenedElement] Takes the tag name of the element, the token used to
@@ -32,12 +32,12 @@ declare namespace HtmlParser {
         text?(value: string): void;
     }
 
-    export interface RegExpOptions {
+    interface RegExpOptions {
         name?: RegExp;
         attribute?: RegExp;
     }
 
-    export interface RemovalCallback {
+    interface RemovalCallback {
         // * @param {Function|Array} [removalCallbacks.attributes] Callback or array of specific attributes to strip
         //  * @param {Function|Array} [removalCallbacks.elements] Callback or array of specific elements to strip
         //  * @param {Function|Boolean} [removalCallbacks.comments] Callback or boolean indicating to strip comments
@@ -48,11 +48,11 @@ declare namespace HtmlParser {
         docTypes: Callback | boolean;
     }
 
-    export function parse(htmlString: string, callbacks?: HtmlParser.CallbacksOption, regex?: HtmlParser.RegExpOptions): void;
+    function parse(htmlString: string, callbacks?: CallbacksOption, regex?: RegExpOptions): void;
 
-    export function parseFile(fileName: string, encoding: string | undefined, callbacks: HtmlParser.CallbacksOption, callback: HtmlParser.Callback): void;
+    function parseFile(fileName: string, encoding: string | undefined, callbacks: CallbacksOption, callback: Callback): void;
 
-    export function sanitize(htmlString: string, removalCallbacks?: HtmlParser.RemovalCallback): string;
+    function sanitize(htmlString: string, removalCallbacks?: RemovalCallback): string;
 }
 
 export = HtmlParser;
