@@ -139,7 +139,7 @@ declare namespace Flexmonster {
         sortingMethod(hierarchyName: string, compareFunction: (a: string, b: string) => number): void;
         sortValues(axisName: string, type: string, tuple: number[], measure: MeasureObject): void;
         toolbar: Toolbar;
-        updateData(object: DataSource | object[]): void;
+        updateData(object: DataSource | object[], options?: {ignoreScroll?: boolean, ignoreSorting?: boolean, partial?: boolean}): void;
         version: string;
         fusioncharts?: {
             getData(options: { type: string; slice?: Slice; prepareDataFunction?: (rawData: any) => any },
