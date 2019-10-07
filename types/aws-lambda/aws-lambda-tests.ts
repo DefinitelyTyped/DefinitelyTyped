@@ -1330,3 +1330,48 @@ const S3BatchHandler: AWSLambda.S3BatchHandler = async (
     str = context.functionName;
     return S3BatchResult;
 };
+
+declare let lambdaAtEdgeEvent: AWSLambda.LambdaAtEdgeEvent;
+lambdaAtEdgeEvent = {
+    body: 'body',
+    cognitoPoolClaims: {
+        sub: 'sub',
+    },
+    enhancedAuthContext: {
+        key1: 'value1',
+        key2: 'value2',
+    },
+    headers: {
+        'X-Header-Name': 'header value',
+    },
+    identity: {
+        accessKey: 'accessKey',
+        accountId: 'accountId',
+        caller: 'caller',
+        cognitoAuthenticationProvider: 'cognitoAuthenticationProvider',
+        cognitoAuthenticationType: 'cognitoAuthenticationType',
+        cognitoIdentityId: 'cognitoIgentityId',
+        cognitoIdentityPoolId: 'cognitoIdentityPoolId',
+        principalOrgId: 'principalOrgId',
+        sourceIp: '1.1.1.1',
+        user: 'user',
+        userAgent: 'userAgent',
+        userArn: 'userArn',
+    },
+    method: 'GET',
+    path: {
+        key1: 'value1',
+        key2: 'value2',
+    },
+    principalId: 'principalId',
+    query: {
+        key1: 'value1',
+        key2: 'value2',
+    },
+    requestPath: 'requestPath',
+    stage: 'stage',
+    stageVariables: {
+        key1: 'value1',
+        key2: 'value2',
+    }
+};

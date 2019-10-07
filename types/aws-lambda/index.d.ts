@@ -30,6 +30,7 @@
 //                 Grzegorz Redlicki <https://github.com/redlickigrzegorz>
 //                 Juan Carbonel <https://github.com/juancarbonel>
 //                 Peter McIntyre <https://github.com/pwmcintyre>
+//                 Jack Scotson <https://github.com/scotsoo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -1071,6 +1072,44 @@ export type LexDialogAction = LexDialogActionClose | LexDialogActionElicitIntent
 export interface LexResult {
     sessionAttributes?: { [key: string]: string };
     dialogAction: LexDialogAction;
+}
+
+export interface LambdaAtEdgeEvent {
+    body: string;
+    method: "GET" | "HEAD" | "OPTIONS" | "PUT" | "PATCH" | "POST" | "DELETE";
+    principalId: string;
+    stage: string;
+    cognitoPoolClaims: {
+        sub: string;
+    };
+    enhancedAuthContext: any;
+    headers: {
+        [key: string]: string;
+    };
+    query: {
+        [key: string]: string;
+    };
+    path: {
+        [key: string]: string;
+    };
+    identity: {
+        "cognitoIdentityPoolId": string;
+        "accountId": string;
+        "cognitoIdentityId": string;
+        "caller": string;
+        "sourceIp": string;
+        "principalOrgId": string;
+        "accessKey": string;
+        "cognitoAuthenticationType": string;
+        "cognitoAuthenticationProvider": string;
+        "userArn": string;
+        "userAgent": string;
+        "user": string;
+    };
+    stageVariables: {
+        [key: string]: string;
+    };
+    requestPath: string;
 }
 
 /**
