@@ -3478,7 +3478,6 @@ declare namespace Stripe {
         }
 
         interface IPaymentIntentCreationOptions extends IPaymentIntentUpdateOptions {
-
             /**
              * Capture method of this PaymentIntent.
              */
