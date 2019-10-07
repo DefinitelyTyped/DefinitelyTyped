@@ -92,7 +92,7 @@ declare namespace Bookshelf {
 		static collection<T extends Model<any>>(models?: T[], options?: CollectionOptions<T>): Collection<T>;
 		static count(column?: string, options?: SyncOptions): BlueBird<number | string>;
 		/** @deprecated use Typescript classes */
-		static extend<T extends Model<any>>(prototypeProperties?: any, classProperties?: any): Function; // should return a type
+		static extend<T extends Model<any>>(prototypeProperties?: any, classProperties?: any): T;
 		static fetchAll<T extends Model<any>>(): BlueBird<Collection<T>>;
 		/** @deprecated should use `new` objects instead. */
 		static forge<T>(attributes?: any, options?: ModelOptions): T;
