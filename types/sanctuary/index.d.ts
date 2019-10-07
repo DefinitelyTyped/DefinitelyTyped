@@ -8,7 +8,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { TR, TIS, TR2, TIS2 } from "./TR";
+import { TR, TIS, TR2, TIS2 } from './TR';
 
 export type TK = any;  // temporary type used in unfinished type definitions
 
@@ -29,16 +29,6 @@ export type Fn5_<A, B, C, D, E, F> = (a: A, b: B, c: C, d: D, e: E) => F;
 export type Predicate<A> = (a: A) => boolean;
 
 export interface StrMap<A> { [k: string]: A; }
-
-export interface Pair<A, B> extends IOrd<Pair<A, B>> {
-  constructor: PairTypeRep;
-}
-
-export interface PairTypeRep {
-  constructor: {
-    '@@type': 'sanctuary-pair/Pair@1';
-  };
-}
 
 export type ValidNumber = number;
 export type FiniteNumber = number;
@@ -96,11 +86,17 @@ export interface Functor<A> { }
 export interface Bifunctor<A, C> extends Functor<C> {
   'fantasy-land/bimap'<B>(p: Fn<A, B>): <D>(q: Fn<C, D>) => (r: Bifunctor<A, C>) => Bifunctor<B, D>;
 }
+export interface Bifunctor2<F extends TIS2> extends Functor<F> {
+  'fantasy-land/bimap'<LA, RA, LB, RB>(
+    f: Fn<LA, LB>,
+    g: Fn<RA, RB>,
+  ): TR2<F, LB, RB>;
+}
 export interface Profunctor<B, C> extends Functor<C> { }
 export interface Apply<A> extends Functor<A> { }
 export interface Applicative<A> extends Apply<A> { }
 export interface Applicative1<F extends TIS> extends Apply<F> {
-  readonly 'fantasy-land/of': <A>(a: A) => TR<F extends TIS ? TIS : never, A>;
+  readonly 'fantasy-land/of': <A>(a: A) => TR<F, A>;
 }
 export interface Applicative2<F extends TIS2> extends Apply<F> {
   readonly 'fantasy-land/of': <R>(value: R) => TR2<F, any, R>;
@@ -134,7 +130,7 @@ export interface MatchObj {
 // Maybe
 declare module './TR' {
   interface TItoTR<A> {
-    'sanctuary-maybe/Maybe@2': Maybe<A>;
+    'sanctuary-maybe/Maybe@1': Maybe<A>;
   }
 }
 
@@ -149,7 +145,7 @@ export interface Just<A> {
 
 export type Maybe<A> = Nothing | Just<A>;
 
-export type MaybeTI = 'sanctuary-maybe/Maybe@2';
+export type MaybeTI = 'sanctuary-maybe/Maybe@1';
 
 export interface MaybeTypeRep extends Applicative1<MaybeTI> {
   <A>(value: A): Maybe<A>;
@@ -165,13 +161,32 @@ declare module './TR' {
 
 export type EitherTI = 'sanctuary-either/Either@1';
 
-export interface EitherTypeRep extends Applicative2<EitherTI> {
+export interface EitherTypeRep extends Applicative2<EitherTI>, Bifunctor2<EitherTI> {
   <R>(value: R): Either<any, R>;
   '@@type': EitherTI;
 }
 
-export interface Either<A, B> extends IOrd<Either<A, B>> {
+export interface Either<A, B> extends IOrd<Either<A, B>>, Bifunctor2<EitherTI> {
   constructor: EitherTypeRep;
+}
+
+// Pair
+declare module './TR' {
+  interface TItoTR2<L, R> {
+    'sanctuary-pair/Pair@1': Pair<L, R>;
+  }
+}
+
+export type PairTI = 'sanctuary-pair/Pair@1';
+
+export interface PairTypeRep {
+  constructor: {
+    '@@type': 'sanctuary-pair/Pair@1';
+  };
+}
+
+export interface Pair<A, B> extends IOrd<Pair<A, B>>, Bifunctor2<PairTI> {
+  constructor: PairTypeRep;
 }
 
 //  Classify
@@ -195,7 +210,7 @@ export function clamp(a: boolean): (b: boolean) => (c: boolean) => boolean;
 export function clamp(a: number): (b: number) => (c: number) => number;
 export function clamp(a: string): (b: string) => (c: string) => string;
 export function clamp<A extends Ord<any>>(a: A): (b: A) => (c: A) => A;
-export function id<A>(p: TypeRep): Fn<A, A> | Category<any>;
+export function id(p: TypeRep): <A>(a: A) => A | Category<any>;
 export function concat<A>(x: Semigroup<A>): (y: Semigroup<A>) => Semigroup<A>;
 export function concat<A>(x: ReadonlyArray<A>): (y: ReadonlyArray<A>) => Array<A>;
 export function concat<A>(x: StrMap<A>): (y: StrMap<A>) => StrMap<A>;
@@ -212,6 +227,7 @@ export function map<A, B>(p: Fn<A, B>): {
 };
 export function flip(tk: TK): (tk: TK) => TK;
 export function bimap<A, B>(p: Fn<A, B>): <C, D>(q: Fn<C, D>) => (r: Bifunctor<A, C>) => Bifunctor<B, D>;
+export function bimap<LA, LB>(p: Fn<LA, LB>): <RA, RB>(q: Fn<RA, RB>) => (r: TR2<any, LA, RA>) => TR2<any, LB, RB>;
 export function mapLeft<LA, LB>(p: Fn<LA, LB>): <R>(q: Bifunctor<LA, R>) => Bifunctor<LB, R>;
 export function promap<A, B>(p: Fn<A, B>): <C, D>(q: Fn<C, D>) => {
   (r: Fn<B, C>): Fn<A, D>;
@@ -233,8 +249,12 @@ export function lift3<A, B, C, D>(f: Fn3<A, B, C, D>): {
 };
 export function apFirst<A>(x: Apply<A>): (y: Apply<any>) => Apply<A>;
 export function apSecond(x: Apply<any>): <B>(y: Apply<B>) => Apply<B>;
-export function of<A extends Applicative1<any>>(typeRep: A): A['fantasy-land/of'];
-export function of<A extends Applicative2<any>>(typeRep: A): A['fantasy-land/of'];
+export function of<A extends Applicative1<any>>(
+  typeRep: A,
+): A['fantasy-land/of'];
+export function of<A extends Applicative2<any>>(
+  typeRep: A,
+): A['fantasy-land/of'];
 export function of(typeRep: ArrayConstructor): typeof Array.of;
 export function of(typeRep: FunctionConstructor): <B>(x: B) => Fn<any, B>;
 export function of<A>(typeRep: TypeRep): (x: A) => Fn<any, A>;

@@ -1,6 +1,6 @@
 /// <reference types="node"/>
 import * as assert from "assert";
-import { create, env, Maybe } from "sanctuary";
+import { create, env, Maybe, Just, Nothing } from "sanctuary";
 
 const checkTypes = process.env["NODE_ENV"] !== "production";
 const S = create({ checkTypes, env });
@@ -20,3 +20,8 @@ S.of(S.Either)(4); // $ExpectType Either<any, number>
   const r = S.of(S.Maybe)(4); // $ExpectType Maybe<number>
   return r;
 })();
+
+S.id(Function)(42); // Category<any>
+
+S.bimap(S.toUpper)(Math.sqrt)(S.Left('foo')); // Either<string, number>
+S.bimap(S.toUpper)(Math.sqrt)(S.Pair('foo')(64)); // Pair<string, number>

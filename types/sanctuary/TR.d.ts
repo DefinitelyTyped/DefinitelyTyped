@@ -1,5 +1,5 @@
 // TI = Type Identifier
-// TK = Type Representative
+// TR = Type Representative
 export interface TItoTR<A> { }
 export interface TItoTR2<L, R> { }
 
