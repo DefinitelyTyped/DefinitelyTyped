@@ -116,6 +116,7 @@ declare namespace ForceGraph {
         linkDirectionalParticleSpeed(speed?: number | string | LinkAccessorFn<number>): ForceGraphInstance & (number | string | LinkAccessorFn<number>);
         linkDirectionalParticleWidth(width?: number | string | LinkAccessorFn<number>): ForceGraphInstance & (number | string | LinkAccessorFn<number>);
         linkDirectionalParticleColor(color?: string | LinkAccessorFn<string>): ForceGraphInstance & (string | LinkAccessorFn<string>);
+        emitParticle(link: GraphLinkObject): ForceGraphInstance & (string | LinkAccessorFn<string>);
 
         // Render control
         pauseAnimation(): ForceGraphInstance;
@@ -131,6 +132,7 @@ declare namespace ForceGraph {
         d3AlphaDecay(decay?: number): ForceGraphInstance & number;
         d3VelocityDecay(decay?: number): ForceGraphInstance & number;
         d3Force(force: 'link' | 'charge' | 'center' | string, forceFn?: ForceFn): ForceGraphInstance & ForceFn;
+        d3ReheatSimulation(): ForceGraphInstance;
         warmupTicks(ticks?: number): ForceGraphInstance & number;
         cooldownTicks(ticks?: number): ForceGraphInstance & number;
         cooldownTime(milliseconds?: number): ForceGraphInstance & number;
