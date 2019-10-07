@@ -3457,10 +3457,94 @@
             "asOfVersion": "5.1.1"
         },
         {
+            "libraryName": "@storybook/addon-actions",
+            "typingsPackageName": "storybook__addon-actions",
+            "sourceRepoURL": "https://github.com/storybooks/storybook",
+            "asOfVersion": "5.2.0"
+        },
+        {
+            "libraryName": "@storybook/addon-backgrounds",
+            "typingsPackageName": "storybook__addon-backgrounds",
+            "sourceRepoURL": "https://github.com/storybooks/storybook",
+            "asOfVersion": "5.2.0"
+        },
+        {
+            "libraryName": "@storybook/addon-centered",
+            "typingsPackageName": "storybook__addon-centered",
+            "sourceRepoURL": "https://github.com/storybooks/storybook",
+            "asOfVersion": "5.2.0"
+        },
+        {
+            "libraryName": "@storybook/addon-jest",
+            "typingsPackageName": "storybook__addon-jest",
+            "sourceRepoURL": "https://github.com/storybooks/storybook",
+            "asOfVersion": "5.2.0"
+        },
+        {
+            "libraryName": "@storybook/addon-knobs",
+            "typingsPackageName": "storybook__addon-knobs",
+            "sourceRepoURL": "https://github.com/storybooks/storybook",
+            "asOfVersion": "5.2.0"
+        },
+        {
+            "libraryName": "@storybook/addon-links",
+            "typingsPackageName": "storybook__addon-links",
+            "sourceRepoURL": "https://github.com/storybooks/storybook",
+            "asOfVersion": "5.2.0"
+        },
+        {
             "libraryName": "@storybook/addon-notes",
             "typingsPackageName": "storybook__addon-notes",
             "sourceRepoURL": "https://github.com/storybooks/storybook",
             "asOfVersion": "5.0.0"
+        },
+        {
+            "libraryName": "@storybook/addon-options",
+            "typingsPackageName": "storybook__addon-options",
+            "sourceRepoURL": "https://github.com/storybooks/storybook",
+            "asOfVersion": "5.2.0"
+        },
+        {
+            "libraryName": "@storybook/addon-viewport",
+            "typingsPackageName": "storybook__addon-viewport",
+            "sourceRepoURL": "https://github.com/storybooks/storybook",
+            "asOfVersion": "5.2.0"
+        },
+        {
+            "libraryName": "@storybook/addons",
+            "typingsPackageName": "storybook__addons",
+            "sourceRepoURL": "https://github.com/storybooks/storybook",
+            "asOfVersion": "5.2.0"
+        },
+        {
+            "libraryName": "@storybook/channels",
+            "typingsPackageName": "storybook__channels",
+            "sourceRepoURL": "https://github.com/storybooks/storybook",
+            "asOfVersion": "5.2.0"
+        },
+        {
+            "libraryName": "@storybook/html",
+            "typingsPackageName": "storybook__html",
+            "sourceRepoURL": "https://github.com/storybooks/storybook",
+            "asOfVersion": "5.2.0"
+        },
+        {
+            "libraryName": "@storybook/preact",
+            "typingsPackageName": "storybook__preact",
+            "sourceRepoURL": "https://github.com/storybooks/storybook",
+            "asOfVersion": "5.2.1"
+        },
+        {
+            "libraryName": "@storybook/react-native",
+            "typingsPackageName": "storybook__react-native",
+            "sourceRepoURL": "https://github.com/storybooks/storybook",
+            "asOfVersion": "5.2.0"
+        },
+        {
+            "libraryName": "@storybook/vue",
+            "typingsPackageName": "storybook__vue",
+            "sourceRepoURL": "https://github.com/storybooks/storybook",
+            "asOfVersion": "5.2.0"
         },
         {
             "libraryName": "stream-mock",
