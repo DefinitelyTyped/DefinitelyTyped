@@ -24,7 +24,7 @@
 import tls = require('tls');
 import { Readable } from 'stream';
 
-interface RedisStatic {
+export interface RedisStatic {
     new(port?: number, host?: string, options?: IORedis.RedisOptions): IORedis.Redis;
     new(host?: string, options?: IORedis.RedisOptions): IORedis.Redis;
     new(options?: IORedis.RedisOptions): IORedis.Redis;
