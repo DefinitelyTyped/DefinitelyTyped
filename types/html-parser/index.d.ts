@@ -28,7 +28,7 @@ declare namespace HtmlParser {
         comment?(comment: string): void;
         docType?(doctype: string): void;
         cdata?(cdata: string): void;
-        xmlProlog?() : void;
+        xmlProlog?(): void;
         text?(value: string): void;
     }
 
