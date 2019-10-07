@@ -7,5 +7,8 @@ const testGraph: Array<[string, string | undefined]> = [
     ['string4', undefined],
 ];
 
+// Note that the manually specified type parameter is required for typescript
+// 2.3 compat
+
 // $ExpectType string[]
-toposort(testGraph);
+toposort<string>(testGraph); // tslint:disable-line: use-default-type-parameter

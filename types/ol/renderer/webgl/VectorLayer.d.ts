@@ -13,13 +13,7 @@ export default class WebGLVectorLayerRenderer extends WebGLLayerRenderer {
     constructor(mapRenderer: WebGLMapRenderer, vectorLayer: VectorLayer);
     create(mapRenderer: MapRenderer, layer: Layer): WebGLVectorLayerRenderer;
     handles(layer: Layer): boolean;
-    renderFeature(
-        feature: Feature,
-        resolution: number,
-        pixelRatio: number,
-        styles: Style | Style[],
-        replayGroup: WebGLReplayGroup
-    ): boolean;
+    renderFeature(feature: Feature, resolution: number, pixelRatio: number, styles: Style | Style[], replayGroup: WebGLReplayGroup): boolean;
     on(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
     un(type: string | string[], listener: (p0: any) => void): void;

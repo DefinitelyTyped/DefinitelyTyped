@@ -25,10 +25,7 @@ export default class VectorContext {
     drawGeometry(geometry: Geometry): void;
     drawGeometryCollection(geometryCollectionGeometry: GeometryCollection, feature: Feature): void;
     drawLineString(lineStringGeometry: LineString | RenderFeature, feature: Feature | RenderFeature): void;
-    drawMultiLineString(
-        multiLineStringGeometry: MultiLineString | RenderFeature,
-        feature: Feature | RenderFeature
-    ): void;
+    drawMultiLineString(multiLineStringGeometry: MultiLineString | RenderFeature, feature: Feature | RenderFeature): void;
     drawMultiPoint(multiPointGeometry: MultiPoint | RenderFeature, feature: Feature | RenderFeature): void;
     drawMultiPolygon(multiPolygonGeometry: MultiPolygon, feature: Feature | RenderFeature): void;
     drawPoint(pointGeometry: Point | RenderFeature, feature: Feature | RenderFeature): void;

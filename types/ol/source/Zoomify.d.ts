@@ -27,15 +27,7 @@ export interface Options {
     tileSize?: number;
 }
 export class CustomTile extends ImageTile {
-    constructor(
-        tileGrid: TileGrid,
-        tileCoord: TileCoord,
-        state: TileState,
-        src: string,
-        crossOrigin: string,
-        tileLoadFunction: LoadFunction,
-        opt_options?: Options_1
-    );
+    constructor(tileGrid: TileGrid, tileCoord: TileCoord, state: TileState, src: string, crossOrigin: string, tileLoadFunction: LoadFunction, opt_options?: Options_1);
 }
 export default class Zoomify extends TileImage {
     constructor(opt_options?: Options);

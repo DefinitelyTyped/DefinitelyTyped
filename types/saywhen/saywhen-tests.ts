@@ -18,5 +18,5 @@ type Top = typeof top;
 declare function expectMatcherProxyTop(x: (arg: Top) => boolean): void;
 
 expectMatcherProxyTop(when.captor());
-when.captor(jasmine.any(Number));	// $ExpectType MatcherProxy<Any>
+when.captor(jasmine.any(Number));	// $ExpectType MatcherProxy<AsymmetricMatcher<any>>
 when.noConflict();	// $ExpectType void

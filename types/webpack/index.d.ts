@@ -1,4 +1,4 @@
-// Type definitions for webpack 4.32
+// Type definitions for webpack 4.39
 // Project: https://github.com/webpack/webpack
 // Definitions by: Qubo <https://github.com/tkqubo>
 //                 Benjamin Lim <https://github.com/bumbleblym>
@@ -22,12 +22,23 @@
 
 /// <reference types="node" />
 
-import { Tapable, HookMap,
-         SyncBailHook, SyncHook, SyncLoopHook, SyncWaterfallHook,
-         AsyncParallelBailHook, AsyncParallelHook, AsyncSeriesBailHook, AsyncSeriesHook, AsyncSeriesWaterfallHook } from 'tapable';
+import {
+  Tapable,
+  HookMap,
+  SyncBailHook,
+  SyncHook,
+  SyncLoopHook,
+  SyncWaterfallHook,
+  AsyncParallelBailHook,
+  AsyncParallelHook,
+  AsyncSeriesBailHook,
+  AsyncSeriesHook,
+  AsyncSeriesWaterfallHook,
+} from 'tapable';
 import * as UglifyJS from 'uglify-js';
 import * as anymatch from 'anymatch';
 import { RawSourceMap } from 'source-map';
+import { ConcatSource } from 'webpack-sources';
 
 export = webpack;
 
@@ -173,7 +184,7 @@ declare namespace webpack {
         /** The filename of the Hot Update Main File. It is inside the output.path directory. */
         hotUpdateMainFilename?: string;
         /** If set, export the bundle as library. output.library is the name. */
-        library?: string | string[];
+        library?: string | string[] | {[key: string]: string};
         /**
          * Which format to export the library:
          * - "var" - Export by setting a variable: var Library = xxx (default)
@@ -212,8 +223,9 @@ declare namespace webpack {
         /** An expression which is used to address the global object/scope in runtime code. */
         globalObject?: string;
         /**
-         * Tells webpack to use the future version of asset emitting logic, which allows freeing memory of assets after emitting. It could break plugins which
-         * assume that assets are still readable after they were emitted.
+         * Use the future version of asset emitting logic, which allows freeing memory of assets after emitting.
+         * It could break plugins which assume that assets are still readable after they were emitted.
+         * @deprecated - will be removed in webpack v5.0.0 and this behaviour will become the new default.
          */
         futureEmitAssets?: boolean;
     }
@@ -920,7 +932,14 @@ declare namespace webpack {
             dependencies: boolean;
         }
 
-        class MainTemplate extends Tapable {}
+        class MainTemplate extends Tapable {
+          hooks: {
+            jsonpScript?: SyncWaterfallHook<string, Chunk, string>;
+            requireExtensions: SyncWaterfallHook<string, Chunk, string>;
+          };
+          outputOptions: Output;
+          requireFn: string;
+        }
         class ChunkTemplate extends Tapable {}
         class HotUpdateChunkTemplate extends Tapable {}
         class RuntimeTemplate {}
@@ -1264,20 +1283,73 @@ declare namespace webpack {
 
         interface ChunkGroup {
             assets: string[];
-            chunks: number[];
+            chunks: Array<number | string>;
             children: Record<string, {
                 assets: string[];
-                chunks: number[];
+                chunks: Array<number | string>;
                 name: string;
             }>;
             childAssets: Record<string, string[]>;
             isOverSizeLimit?: boolean;
         }
+
+        type ReasonType
+            = 'amd define'
+            | 'amd require array'
+            | 'amd require context'
+            | 'amd require'
+            | 'cjs require context'
+            | 'cjs require'
+            | 'context element'
+            | 'delegated exports'
+            | 'delegated source'
+            | 'dll entry'
+            | 'accepted harmony modules'
+            | 'harmony accept'
+            | 'harmony export expression'
+            | 'harmony export header'
+            | 'harmony export imported specifier'
+            | 'harmony export specifier'
+            | 'harmony import specifier'
+            | 'harmony side effect evaluation'
+            | 'harmony init'
+            | 'import() context development'
+            | 'import() context production'
+            | 'import() eager'
+            | 'import() weak'
+            | 'import()'
+            | 'json exports'
+            | 'loader'
+            | 'module.hot.accept'
+            | 'module.hot.decline'
+            | 'multi entry'
+            | 'null'
+            | 'prefetch'
+            | 'require.context'
+            | 'require.ensure'
+            | 'require.ensure item'
+            | 'require.include'
+            | 'require.resolve'
+            | 'single entry'
+            | 'wasm export import'
+            | 'wasm import';
+
+        interface Reason {
+            moduleId: number | string | null;
+            moduleIdentifier: string | null;
+            module: string | null;
+            moduleName: string | null;
+            type: ReasonType;
+            explanation?: string;
+            userRequest: string;
+            loc: string;
+        }
+
         interface FnModules {
             assets?: string[];
             built: boolean;
             cacheable: boolean;
-            chunks: number[];
+            chunks: Array<number | string>;
             depth?: number;
             errors: number;
             failed: boolean;
@@ -1302,26 +1374,18 @@ declare namespace webpack {
             prefetched: boolean;
             profile: any; // TODO
             providedExports?: any; // TODO
-            reasons: {
-                explanation: string | undefined;
-                loc?: string;
-                module: string | null;
-                moduleId: number | string | null;
-                moduleIdentifier: string | null;
-                moduleName: string |  null;
-                type: any; // TODO
-                userRequest: any; // TODO
-            };
+            reasons: Reason[];
             size: number;
             source?: string;
             usedExports?: boolean;
             warnings: number;
         }
+
         interface ToJsonOutput {
             _showErrors: boolean;
             _showWarnings: boolean;
             assets?: Array<{
-                chunks: number[];
+                chunks: Array<number | string>;
                 chunkNames: string[];
                 emitted: boolean;
                 isOverSizeLimit?: boolean;
@@ -1330,7 +1394,7 @@ declare namespace webpack {
             }>;
             assetsByChunkName?: Record<string, Record<string, string[]>>;
             builtAt?: number;
-            children?: ToJsonOptions[] & { name?: string };
+            children?: Array<ToJsonOutput & { name?: string }>;
             chunks?: Array<{
                 children: number[];
                 childrenByOrder: Record<string, number[]>;
@@ -1338,7 +1402,7 @@ declare namespace webpack {
                 files: string[];
                 filteredModules?: boolean;
                 hash: string | undefined;
-                id: number;
+                id: number | string;
                 initial: boolean;
                 modules?: FnModules[];
                 names: string[];
@@ -1954,6 +2018,38 @@ declare namespace webpack {
             /** Flag if HMR is enabled */
             hot: boolean;
         }
+    }
+
+    namespace Template {
+        function getFunctionContent(fn: (...args: any[]) => any): string;
+
+        function toIdentifier(str: string): string;
+
+        function toComment(str: string): string;
+
+        function toNormalComment(str: string): string;
+
+        function toPath(str: string): string;
+
+        function numberToIdentifer(n: number): string;
+
+        function indent(s: string | string[]): string;
+
+        function prefix(s: string | string[], prefix: string): string;
+
+        function asString(str: string | string[]): string;
+
+        function getModulesArrayBounds(modules: ReadonlyArray<{
+            id: string | number;
+        }>): [number, number] | false;
+
+        function renderChunkModules(
+            chunk: compilation.Chunk,
+            filterFn: (module: compilation.Module, num: number) => boolean,
+            moduleTemplate: compilation.ModuleTemplate,
+            dependencyTemplates: any,
+            prefix?: string,
+        ): ConcatSource;
     }
 
     /** @deprecated */

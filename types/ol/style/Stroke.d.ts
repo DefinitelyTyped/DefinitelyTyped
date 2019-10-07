@@ -15,12 +15,12 @@ export default class Stroke {
     clone(): Stroke;
     getChecksum(): string;
     getColor(): Color | ColorLike;
-    getLineCap(): string;
+    getLineCap(): string | undefined;
     getLineDash(): number[];
-    getLineDashOffset(): number;
-    getLineJoin(): string;
-    getMiterLimit(): number;
-    getWidth(): number;
+    getLineDashOffset(): number | undefined;
+    getLineJoin(): string | undefined;
+    getMiterLimit(): number | undefined;
+    getWidth(): number | undefined;
     setColor(color: Color | ColorLike): void;
     setLineCap(lineCap: string | undefined): void;
     setLineDash(lineDash: number[]): void;

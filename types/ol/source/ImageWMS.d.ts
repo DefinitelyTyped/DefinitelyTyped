@@ -22,10 +22,10 @@ export interface Options {
 }
 export default class ImageWMS extends ImageSource {
     constructor(opt_options?: Options);
-    getGetFeatureInfoUrl(coordinate: Coordinate, resolution: number, projection: ProjectionLike, params: any): string;
+    getGetFeatureInfoUrl(coordinate: Coordinate, resolution: number, projection: ProjectionLike, params: any): string | undefined;
     getImageLoadFunction(): LoadFunction;
     getParams(): any;
-    getUrl(): string;
+    getUrl(): string | undefined;
     setImageLoadFunction(imageLoadFunction: LoadFunction): void;
     setUrl(url: string | undefined): void;
     updateParams(params: any): void;

@@ -7,7 +7,7 @@ export type LoadFunction = (p0: Tile, p1: string) => void;
 export interface Options {
     transition?: number;
 }
-export type UrlFunction = (p0: TileCoord, p1: number, p2: Projection) => string;
+export type UrlFunction = (p0: TileCoord, p1: number, p2: Projection) => string | undefined;
 export default class Tile extends Target {
     constructor(tileCoord: TileCoord, state: TileState, opt_options?: Options);
     protected state: TileState;

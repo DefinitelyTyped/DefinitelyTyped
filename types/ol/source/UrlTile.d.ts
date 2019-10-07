@@ -33,7 +33,7 @@ export default class UrlTile extends TileSource {
     protected handleTileChange(event: Event): void;
     getTileLoadFunction(): LoadFunction;
     getTileUrlFunction(): UrlFunction;
-    getUrls(): string[];
+    getUrls(): string[] | null;
     setTileLoadFunction(tileLoadFunction: LoadFunction): void;
     setTileUrlFunction(tileUrlFunction: UrlFunction, key?: string): void;
     setUrl(url: string): void;

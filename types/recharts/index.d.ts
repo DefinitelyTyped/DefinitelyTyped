@@ -846,6 +846,7 @@ export interface TooltipProps extends Animatable {
     offset?: number;
     itemStyle?: object;
     labelStyle?: object;
+    contentStyle?: object;
     wrapperStyle?: object;
     cursor?: boolean | object | React.ReactElement | React.StatelessComponent<any>;
     coordinate?: Coordinate;

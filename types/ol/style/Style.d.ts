@@ -9,7 +9,7 @@ import ImageStyle from './Image';
 import Stroke from './Stroke';
 import Text from './Text';
 
-export type GeometryFunction = (p0: FeatureLike) => Geometry | RenderFeature;
+export type GeometryFunction = (p0: FeatureLike) => Geometry | RenderFeature | undefined;
 export interface Options {
     geometry?: string | Geometry | GeometryFunction;
     fill?: Fill;
@@ -29,14 +29,14 @@ export default class Style {
     getGeometry(): string | Geometry | GeometryFunction;
     getGeometryFunction(): GeometryFunction;
     getImage(): ImageStyle;
-    getRenderer(): RenderFunction;
+    getRenderer(): RenderFunction | null;
     getStroke(): Stroke;
     getText(): Text;
-    getZIndex(): number;
+    getZIndex(): number | undefined;
     setFill(fill: Fill): void;
     setGeometry(geometry: string | Geometry | GeometryFunction): void;
     setImage(image: ImageStyle): void;
-    setRenderer(renderer: RenderFunction | undefined): void;
+    setRenderer(renderer: RenderFunction | null): void;
     setStroke(stroke: Stroke): void;
     setText(text: Text): void;
     setZIndex(zIndex: number | undefined): void;

@@ -218,6 +218,8 @@ mapPixelBounds = map.getPixelWorldBounds(12);
 
 let tileLayerOptions: L.TileLayerOptions = {};
 tileLayerOptions = {
+	id: 'mapbox.streets',
+	accessToken: 'your.mapbox.access.token',
 	minZoom: 0,
 	maxZoom: 18,
 	maxNativeZoom: 2,
@@ -697,7 +699,6 @@ const AsyncCanvasLayer = L.GridLayer.extend({
 });
 
 export class ExtendedTileLayer extends L.TileLayer {
-	options: L.TileLayerOptions;
 	createTile(coords: L.Coords, done: L.DoneCallback) {
 		const newCoords: L.Coords = (new L.Point(coords.x, coords.y) as L.Coords);
 		newCoords.z = coords.z;

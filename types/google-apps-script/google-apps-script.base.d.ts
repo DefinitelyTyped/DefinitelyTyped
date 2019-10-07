@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2019-02-27
+// Type definitions for Google Apps Script 2019-09-11
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -25,6 +25,7 @@ declare namespace GoogleAppsScript {
       setDataFromString(string: string): Blob;
       setDataFromString(string: string, charset: string): Blob;
       setName(name: string): Blob;
+      /** @deprecated DO NOT USE */
       getAllBlobs(): Blob[];
     }
 
@@ -223,7 +224,9 @@ declare namespace GoogleAppsScript {
       getEffectiveUser(): User;
       getScriptTimeZone(): string;
       getTemporaryActiveUserKey(): string;
+      /** @deprecated DO NOT USE */
       getTimeZone(): string;
+      /** @deprecated DO NOT USE */
       getUser(): User;
     }
 
@@ -257,10 +260,11 @@ declare namespace GoogleAppsScript {
       prompt(prompt: string): PromptResponse;
       prompt(prompt: string, buttons: ButtonSet): PromptResponse;
       prompt(title: string, prompt: string, buttons: ButtonSet): PromptResponse;
-      showModalDialog(userInterface: object, title: string): void;
-      showModelessDialog(userInterface: object, title: string): void;
-      showSidebar(userInterface: object): void;
-      showDialog(userInterface: object): void;
+      showModalDialog(userInterface: HTML.HtmlOutput, title: string): void;
+      showModelessDialog(userInterface: HTML.HtmlOutput, title: string): void;
+      showSidebar(userInterface: HTML.HtmlOutput): void;
+      /** @deprecated DO NOT USE */
+      showDialog(userInterface: HTML.HtmlOutput): void;
     }
 
     /**
@@ -268,6 +272,7 @@ declare namespace GoogleAppsScript {
      */
     export interface User {
       getEmail(): string;
+      /** @deprecated DO NOT USE */
       getUserLoginId(): string;
     }
 
@@ -307,19 +312,19 @@ declare namespace GoogleAppsScript {
      */
     export interface console {
       error(): void;
-      error(formatOrObject: object, ...values: object[]): void;
+      error(formatOrObject: object | string, ...values: any[]): void;
       info(): void;
-      info(formatOrObject: object, ...values: object[]): void;
+      info(formatOrObject: object | string, ...values: any[]): void;
       log(): void;
-      log(formatOrObject: object, ...values: object[]): void;
+      log(formatOrObject: object | string, ...values: any[]): void;
       time(label: string): void;
       timeEnd(label: string): void;
       warn(): void;
-      warn(formatOrObject: object, ...values: object[]): void;
+      warn(formatOrObject: object | string, ...values: any[]): void;
     }
-    /** 
+    /**
      * Apps Script has a non-standard Date Class
-     * 
+     *
      * @see https://github.com/microsoft/TypeScript/blob/master/lib/lib.es5.d.ts
      * Enables basic storage and retrieval of dates and times.
      */
@@ -389,7 +394,6 @@ declare namespace GoogleAppsScript {
        * @param ms A numeric value equal to the millisecond value.
        */
       setUTCMilliseconds(ms: number): number;
-
       /**
        * Sets the seconds value in the Date object using local time.
        * @param sec A numeric value equal to the seconds value.
@@ -483,20 +487,20 @@ declare namespace GoogleAppsScript {
       (): string;
       readonly prototype: Date;
       /**
-        * Parses a string containing a date, and returns the number of milliseconds between that date and midnight, January 1, 1970.
-        * @param s A date string
-        */
+       * Parses a string containing a date, and returns the number of milliseconds between that date and midnight, January 1, 1970.
+       * @param s A date string
+       */
       parse(s: string): number;
       /**
-        * Returns the number of milliseconds between midnight, January 1, 1970 Universal Coordinated Time (UTC) (or GMT) and the specified date.
-        * @param year The full year designation is required for cross-century date accuracy. If year is between 0 and 99 is used, then year is assumed to be 1900 + year.
-        * @param month The month as an number between 0 and 11 (January to December).
-        * @param date The date as an number between 1 and 31.
-        * @param hours Must be supplied if minutes is supplied. An number from 0 to 23 (midnight to 11pm) that specifies the hour.
-        * @param minutes Must be supplied if seconds is supplied. An number from 0 to 59 that specifies the minutes.
-        * @param seconds Must be supplied if milliseconds is supplied. An number from 0 to 59 that specifies the seconds.
-        * @param ms An number from 0 to 999 that specifies the milliseconds.
-        */
+       * Returns the number of milliseconds between midnight, January 1, 1970 Universal Coordinated Time (UTC) (or GMT) and the specified date.
+       * @param year The full year designation is required for cross-century date accuracy. If year is between 0 and 99 is used, then year is assumed to be 1900 + year.
+       * @param month The month as an number between 0 and 11 (January to December).
+       * @param date The date as an number between 1 and 31.
+       * @param hours Must be supplied if minutes is supplied. An number from 0 to 23 (midnight to 11pm) that specifies the hour.
+       * @param minutes Must be supplied if seconds is supplied. An number from 0 to 59 that specifies the minutes.
+       * @param seconds Must be supplied if milliseconds is supplied. An number from 0 to 59 that specifies the seconds.
+       * @param ms An number from 0 to 999 that specifies the milliseconds.
+       */
       UTC(year: number, month: number, date?: number, hours?: number, minutes?: number, seconds?: number, ms?: number): number;
       now(): number;
     }

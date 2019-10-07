@@ -3,14 +3,11 @@
 // Definitions by: CodeDaraW <https://github.com/CodeDaraW>
 //                 Nathan Hardy <https://github.com/nhardy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 import Document from './dist/Document';
 import Page from './dist/Page';
 import Outline from './dist/Outline';
+import pdfjs from './dist/pdfjs-dist';
 
-export {
-    Document,
-    Page,
-    Outline
-};
+export { pdfjs, Document, Page, Outline };

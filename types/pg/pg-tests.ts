@@ -46,6 +46,16 @@ client.query('SELECT $1::text as name', ['brianc'], (err, res) => {
   client.end();
 });
 
+interface Person {
+  name: string;
+}
+
+client.query<Person, [string]>('SELECT $1::text as name', ['brianc'], (err, res) => {
+  if (err) throw err;
+  console.log(res.rows[0].name);
+  client.end();
+});
+
 const query = {
   name: 'get-name',
   text: 'SELECT $1::text',
@@ -127,6 +137,9 @@ const pool = new Pool({
   idleTimeoutMillis: 30000,
   connectionTimeoutMillis: 2000,
   keepAlive: false,
+  log: (...args) => {
+    console.log.apply(console, args);
+  },
 });
 console.log(pool.totalCount);
 pool.connect((err, client, done) => {

@@ -1,32 +1,6 @@
-import css, { Theme, TypographyProps, BorderProps, StyleProps } from '@styled-system/css';
+import css, { Theme } from '@styled-system/css';
 
-const typography: TypographyProps = {
-    fontFamily: 'sans-serif',
-    fontSize: [1, 2, 3],
-};
-
-const border: BorderProps = {
-    border: [1, 5],
-};
-
-const spacing: StyleProps = {
-    m: 'normal',
-    p: 5,
-
-    top: 0,
-    right: 1,
-    bottom: 4,
-    left: 6,
-
-    gridGap: 'gutter',
-    gridColumnGap: 'gutter',
-    gridRowGap: 'gutter',
-    gap: 'gutter',
-    columnGap: 'gutter',
-    rowGap: 0,
-};
-
-const theme: Theme = {
+const theme = {
     colors: {
         primary: 'tomato',
         secondary: 'cyan',
@@ -43,15 +17,7 @@ const theme: Theme = {
     },
 };
 
-export const themeWithBreakpoints: Theme = {
-    breakpoints: {
-        small: '500em',
-        medium: '1000em',
-        large: '1500em',
-    },
-};
-
-export const themeWithVariants: Theme<'buttons' | 'text'> = {
+export const themeWithVariants: Theme = {
     breakpoints: [500, 1000, 1500],
     colors: {
         primary: 'tomato',
@@ -90,22 +56,33 @@ export const themeWithVariants: Theme<'buttons' | 'text'> = {
     },
 };
 
+// returns a function
 css();
 
+// returns an object
 css()();
 
+// returns styles
 css({
     fontSize: 32,
     color: 'blue',
     borderRadius: 4,
-});
+})();
 
+// returns system props styles
 css({
     fontSize: [32, 48],
     color: 'blue',
     borderRadius: 4,
-});
+})({ theme });
 
+// omits null values in responsive styles
+css({
+    color: 'primary',
+    fontSize: [2, null, 4],
+})({ theme });
+
+// returns nested system props styles
 css({
     fontSize: 32,
     color: 'blue',
@@ -115,10 +92,20 @@ css({
     },
 });
 
+// returns nested responsive styles
+css({
+    color: 'primary',
+    h1: {
+        py: [3, 4],
+    },
+})({ theme });
+
+// handles function as argument
 css(() => ({
     color: 'hotpink',
 }));
 
+// handles all core styled system props
 const style = css({
     m: 0,
     mb: 2,
@@ -134,24 +121,27 @@ const style = css({
     letterSpacing: '0.1em',
     boxShadow: 1,
 });
-
 style({ theme });
 
+// handles numbers, string, arrays
 css({
     zIndex: 5,
     width: [500, 1000],
     height: '50vh',
 });
 
+// handles variants
 css({
     variant: 'text.title',
 });
 
+// handles using string values
 css({
     fontWeight: 'regular',
     bg: 'secondary',
 });
 
+// handles multiple pseudo selectors
 css({
     bg: 'primary',
 
@@ -164,4 +154,84 @@ css({
         bg: 'white',
         cursor: 'auto',
     },
+});
+
+// works with functional arguments
+css((t: typeof theme) => ({
+    color: t.colors.primary,
+}))(theme);
+
+type TestTheme = typeof theme;
+// supports functional values
+css({
+    color: (t: TestTheme) => t.colors.primary,
+})(theme);
+
+// supports functional selectors
+css({
+    header: (t: TestTheme) => ({
+        color: t.colors.primary,
+    }),
+})(theme);
+
+// returns variants from theme
+css({
+    variant: 'buttons.primary',
+})(theme);
+
+// returns nested variants
+css({
+    variant: 'buttons.primary',
+    header: {
+        variant: 'buttons.primary',
+        h1: {
+            variant: 'buttons.primary',
+        },
+    },
+})(theme);
+
+// handles variants with responsive values
+css({
+    variant: 'text.caps',
+})(theme);
+
+// handles responsive variants
+css({
+    variant: 'text.title',
+})(theme);
+
+// handles negative margins from scale
+css({
+    mt: -3,
+    mx: -4,
+})(theme);
+
+// handles negative top, left, bottom, and right from scale
+css({
+    top: -1,
+    right: -4,
+    bottom: -3,
+    left: -2,
+})(theme);
+
+// skip breakpoints
+css({
+    width: ['100%', null, '50%'],
+})(theme);
+
+// padding shorthand does not collide with nested p selector
+css({
+    p: {
+        fontSize: 32,
+        color: 'tomato',
+        p: 2,
+    },
+    padding: 32,
+})(theme);
+
+// ignores array values longer than breakpoints
+css({
+    width: [32, 64, 128, 256, 512],
+})({
+    breakpoints: ['32em', '40em'],
 });

@@ -82,7 +82,7 @@ declare namespace cytoscape {
         /**
          * Scratchpad data (usually temp or nonserialisable data)
          */
-        scatch?: Scratchpad;
+        scratch?: Scratchpad;
         /**
          * The model position of the node (optional on init, mandatory after)
          */
@@ -491,6 +491,12 @@ declare namespace cytoscape {
          * http://js.cytoscape.org/#cy.destroy
          */
         destroy(): void;
+
+        /**
+         * Get whether the instance of Cytoscape.js has been destroyed or not.
+         * https://js.cytoscape.org/#cy.destroyed
+         */
+        destroyed(): boolean;
     }
 
     /**

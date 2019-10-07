@@ -15,13 +15,7 @@ export default class CanvasVectorLayerRenderer extends CanvasLayerRenderer {
     handles(layer: Layer): boolean;
     compose(context: CanvasRenderingContext2D, frameState: FrameState, layerState: State): void;
     handleFontsChanged_(event: Event): void;
-    renderFeature(
-        feature: Feature,
-        resolution: number,
-        pixelRatio: number,
-        styles: Style | Style[],
-        replayGroup: CanvasReplayGroup
-    ): boolean;
+    renderFeature(feature: Feature, resolution: number, pixelRatio: number, styles: Style | Style[], replayGroup: CanvasReplayGroup): boolean;
     on(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
     un(type: string | string[], listener: (p0: any) => void): void;

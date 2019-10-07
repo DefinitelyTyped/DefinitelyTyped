@@ -846,9 +846,11 @@ declare namespace Xrm {
 
         /**
          * Re-evaluates the ribbon's configured EnableRules.
+         * @param refreshAll Indicates whether all the ribbon command bars on the current page are refreshed. If you specify false only the page-level ribbon command bar is refreshed.
+         * If you do not specifiy this parameter, by default false is passed.
          * @remarks This method does not work with Microsoft Dynamics CRM for tablets.
          */
-        refreshRibbon(): void;
+        refreshRibbon(refreshAll?: boolean): void;
 
         /**
          * The business process flow API, used to interact with the business process flow control in a form.
@@ -2973,7 +2975,7 @@ declare namespace Xrm {
              *
              * @param handler The event handler.
              */
-            addOnLoad(handler: () => void): void;
+            addOnLoad(handler: Events.ContextSensitiveHandler): void;
 
             /**
              * This method returns context information about the GridControl.

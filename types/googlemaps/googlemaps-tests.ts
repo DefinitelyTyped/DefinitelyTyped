@@ -8,12 +8,12 @@ let mapOptions: google.maps.MapOptions = {
     draggable: true,
     fullscreenControl: true,
     fullscreenControlOptions: {
-        position: google.maps.ControlPosition.RIGHT_TOP
+        position: google.maps.ControlPosition.RIGHT_TOP,
     },
     gestureHandling: 'cooperative',
     restriction: {
         latLngBounds: { east: 180, west: -180, north: 85, south: -85 },
-        strictBounds: true
+        strictBounds: true,
     },
     scrollwheel: true,
     styles: [
@@ -22,21 +22,21 @@ let mapOptions: google.maps.MapOptions = {
             featureType: 'water',
             stylers: [
                 {
-                    color: '#00bdbd'
-                }
-            ]
+                    color: '#00bdbd',
+                },
+            ],
         },
         {
             elementType: 'geometry',
             featureType: 'landscape.man_made',
             stylers: [
                 {
-                    color: '#f7f1df'
-                }
-            ]
-        }
+                    color: '#f7f1df',
+                },
+            ],
+        },
     ],
-    zoom: 4
+    zoom: 4,
 };
 
 /***** Create map *****/
@@ -48,9 +48,9 @@ map.fitBounds(
         north: 10,
         east: 10,
         west: 10,
-        south: 10
+        south: 10,
     },
-    50
+    50,
 );
 
 map.fitBounds(
@@ -58,14 +58,14 @@ map.fitBounds(
         east: 10,
         north: 10,
         south: 10,
-        west: 10
+        west: 10,
     },
     {
         bottom: 100,
         left: 150,
         right: 150,
-        top: 50
-    }
+        top: 50,
+    },
 );
 
 /***** Pan map to bounds *****/
@@ -73,7 +73,7 @@ map.panToBounds({
     north: 10,
     east: 10,
     west: 10,
-    south: 10
+    south: 10,
 });
 
 map.panToBounds(
@@ -81,9 +81,9 @@ map.panToBounds(
         north: 10,
         east: 10,
         west: 10,
-        south: 10
+        south: 10,
     },
-    50
+    50,
 );
 
 map.panToBounds(
@@ -91,14 +91,14 @@ map.panToBounds(
         east: 10,
         north: 10,
         south: 10,
-        west: 10
+        west: 10,
     },
     {
         bottom: 100,
         left: 150,
         right: 150,
-        top: 50
-    }
+        top: 50,
+    },
 );
 
 map.getProjection(); // $ExpectType Projection | null
@@ -119,7 +119,7 @@ data.add(feature);
 data.add({
     geometry: latLng,
     id: 'Test feature',
-    properties: {}
+    properties: {},
 });
 
 let isIn: boolean = map.data.contains(feature);
@@ -146,7 +146,7 @@ data.setStyle({
     strokeWeight: 1,
     title: 'string',
     visible: true,
-    zIndex: 1
+    zIndex: 1,
 });
 
 data.overrideStyle(feature, { visible: true });
@@ -154,7 +154,7 @@ data.revertStyle(feature);
 
 data.addGeoJson({
     type: 'Feature',
-    geometry: { type: 'Point', coordinates: [59.32709, 18.103701] }
+    geometry: { type: 'Point', coordinates: [59.32709, 18.103701] },
 });
 data.addGeoJson(
     {
@@ -172,14 +172,14 @@ data.addGeoJson(
                             [121.06, -21.69],
                             [119.66, -22.22],
                             [119.0, -23.4],
-                            [123.61, -22.14]
-                        ]
-                    ]
-                }
-            }
-        ]
+                            [123.61, -22.14],
+                        ],
+                    ],
+                },
+            },
+        ],
     },
-    { idPropertyName: 'Test feature' }
+    { idPropertyName: 'Test feature' },
 );
 
 data.loadGeoJson('http://magicGeoJsonSource.com');
@@ -197,39 +197,39 @@ data.toGeoJson(feature => {});
 let dataMouseEvent: google.maps.Data.MouseEvent = {
     feature,
     latLng,
-    stop: (): void => {}
+    stop: (): void => {},
 };
 
 let addFeatureEvent: google.maps.Data.AddFeatureEvent = {
-    feature
+    feature,
 };
 
 let removeFeatureEvent: google.maps.Data.RemoveFeatureEvent = {
-    feature
+    feature,
 };
 
 let setGeometryEvent: google.maps.Data.SetGeometryEvent = {
     feature,
     newGeometry: geometry,
-    oldGeometry: geometry
+    oldGeometry: geometry,
 };
 
 let setPropertyEvent: google.maps.Data.SetPropertyEvent = {
     feature,
     name: 'test',
     newValue: {},
-    oldValue: {}
+    oldValue: {},
 };
 
 let removePropertyEvent: google.maps.Data.RemovePropertyEvent = {
     feature,
     name: 'test',
-    oldValue: {}
+    oldValue: {},
 };
 
 let lineString = new google.maps.Data.LineString([
     { lat: 52.201203, lng: -1.72437 },
-    { lat: 52.201203, lng: -2.72437 }
+    { lat: 52.201203, lng: -2.72437 },
 ]);
 lineString.forEachLatLng(latLng => console.log(`${latLng.lat} ${latLng.lng}`));
 
@@ -246,31 +246,31 @@ let icon: google.maps.Icon = {
     origin: new google.maps.Point(0, 0),
     scaledSize: new google.maps.Size(32, 32),
     size: new google.maps.Size(32, 32),
-    url: 'dummy'
+    url: 'dummy',
 };
 
 /***** MapTypeStyle *****/
 
 let mapTypeStyle1: google.maps.MapTypeStyle = {
-    featureType: 'all'
+    featureType: 'all',
 };
 
 let mapTypeStyle2: google.maps.MapTypeStyle = {
     featureType: 'administrative.country',
     elementType: 'all',
-    stylers: []
+    stylers: [],
 };
 
 let mapTypeStyle3: google.maps.MapTypeStyle = {
     featureType: 'landscape.natural',
     elementType: 'geometry',
-    stylers: []
+    stylers: [],
 };
 
 let mapTypeStyle4: google.maps.MapTypeStyle = {
     featureType: 'poi.school',
     elementType: 'labels',
-    stylers: []
+    stylers: [],
 };
 
 /***** MARKERS *****/
@@ -301,7 +301,7 @@ const markerWithAllOptions = new google.maps.Marker({
     position: { lat: 0, lng: 0 },
     title: 'test',
     visible: true,
-    zIndex: 0
+    zIndex: 0,
 });
 
 // Marker methods
@@ -349,7 +349,7 @@ marker.setIcon({
     origin: new google.maps.Point(0, 0),
     scaledSize: new google.maps.Size(10, 10),
     size: new google.maps.Size(10, 10),
-    url: 'test'
+    url: 'test',
 });
 marker.setIcon({ url: 'test' });
 marker.setIcon({
@@ -362,7 +362,7 @@ marker.setIcon({
     scale: 1,
     strokeColor: 'black',
     strokeOpacity: 0,
-    strokeWeight: 0
+    strokeWeight: 0,
 });
 marker.setIcon({}); // $ExpectError
 marker.setIcon('test');
@@ -373,7 +373,7 @@ marker.setLabel({
     color: 'test',
     fontFamily: 'test',
     fontSize: 'test',
-    fontWeight: 'test'
+    fontWeight: 'test',
 });
 marker.setLabel({ text: 'test' });
 marker.setLabel({}); // $ExpectError
@@ -402,7 +402,7 @@ marker.setOptions({
     position: { lat: 0, lng: 0 },
     title: '',
     visible: true,
-    zIndex: 0
+    zIndex: 0,
 });
 marker.setOptions({});
 
@@ -558,8 +558,8 @@ let rectangle = new google.maps.Rectangle({
         north: 33.685,
         south: 33.671,
         east: -116.234,
-        west: -116.251
-    }
+        west: -116.251,
+    },
 });
 
 /***** Circles *****/
@@ -571,7 +571,7 @@ let circle1 = new google.maps.Circle({
     strokeColor: '#FF0000',
     fillOpacity: 0.35,
     strokeOpacity: 0.5,
-    strokeWeight: 1
+    strokeWeight: 1,
 });
 
 // circleOptions with LatLngLiteral center
@@ -582,7 +582,7 @@ let circle2 = new google.maps.Circle({
     strokeColor: '#FF0000',
     fillOpacity: 0.35,
     strokeOpacity: 0.5,
-    strokeWeight: 1
+    strokeWeight: 1,
 });
 
 /***** StreetViewPanorama *****/
@@ -595,7 +595,7 @@ let panoramaOptions: google.maps.StreetViewPanoramaOptions = {
     linksControl: true,
     visible: true,
     motionTracking: true,
-    motionTrackingControl: true
+    motionTrackingControl: true,
 };
 let panorama = new google.maps.StreetViewPanorama(document.createElement('div'), panoramaOptions);
 
@@ -604,35 +604,36 @@ let panoramaEvent = panorama.addListener('pano_changed', () => {});
 
 /***** StreetViewService *****/
 let street_view_service = new google.maps.StreetViewService();
-street_view_service.getPanorama({
-    location: new google.maps.LatLng(37.782551, -122.445368),
-    radius: 50
-}, (data, status) => {
-    if (status === google.maps.StreetViewStatus.OK) {
-        const location_pano = (data == null || data.location == null) ? null : data.location.pano;
-        if (location_pano == null) {
-            // Not good
-            return;
-        }
+street_view_service.getPanorama(
+    {
+        location: new google.maps.LatLng(37.782551, -122.445368),
+        radius: 50,
+    },
+    (data, status) => {
+        if (status === google.maps.StreetViewStatus.OK) {
+            const location_pano = data == null || data.location == null ? null : data.location.pano;
+            if (location_pano == null) {
+                // Not good
+                return;
+            }
 
-        const new_panorama = new google.maps.StreetViewPanorama(document.createElement('div'), panoramaOptions);
-        new_panorama.setPano(location_pano);
-        new_panorama.setPov({
-            heading:  0,
-            pitch:    0
-        });
-    }
-});
+            const new_panorama = new google.maps.StreetViewPanorama(document.createElement('div'), panoramaOptions);
+            new_panorama.setPano(location_pano);
+            new_panorama.setPov({
+                heading: 0,
+                pitch: 0,
+            });
+        }
+    },
+);
 
 /***** MVCArray *****/
 
 // MVCArray should be generic
 let mvcArrayStr = new google.maps.MVCArray<string>(['a', 'b', 'c']);
-mvcArrayStr.forEach(
-    (elem: string, i: number): void => {
-        elem.toUpperCase();
-    }
-);
+mvcArrayStr.forEach((elem: string, i: number): void => {
+    elem.toUpperCase();
+});
 mvcArrayStr.getArray()[0].toUpperCase();
 mvcArrayStr.getAt(0).toUpperCase();
 mvcArrayStr.insertAt(2, 'x');
@@ -647,9 +648,9 @@ let heatmap = new google.maps.visualization.HeatmapLayer({
     data: [
         new google.maps.LatLng(37.782551, -122.445368),
         new google.maps.LatLng(37.782745, -122.444586),
-        new google.maps.LatLng({ lat: 37.782842, lng: -122.443688 })
+        new google.maps.LatLng({ lat: 37.782842, lng: -122.443688 }),
     ],
-    map
+    map,
 });
 
 // setData Should Accept MVCArray<LatLng>
@@ -657,8 +658,8 @@ heatmap.setData(
     new google.maps.MVCArray<google.maps.LatLng>([
         new google.maps.LatLng(37.782551, -122.445368),
         new google.maps.LatLng(37.782745, -122.444586),
-        new google.maps.LatLng({ lat: 37.782842, lng: -122.443688 })
-    ])
+        new google.maps.LatLng({ lat: 37.782842, lng: -122.443688 }),
+    ]),
 );
 
 // setData Should Accept MVCArray<WeightedLocation>
@@ -666,21 +667,21 @@ heatmap.setData(
     new google.maps.MVCArray<google.maps.visualization.WeightedLocation>([
         { weight: 1, location: new google.maps.LatLng(37.782551, -122.445368) },
         { weight: 2, location: new google.maps.LatLng(37.782745, -122.444586) },
-        { weight: 3, location: new google.maps.LatLng({ lat: 37.782842, lng: -122.443688 }) }
-    ])
+        { weight: 3, location: new google.maps.LatLng({ lat: 37.782842, lng: -122.443688 }) },
+    ]),
 );
 
 // setData Should Accept LatLng[]
 heatmap.setData([
     new google.maps.LatLng(37.782551, -122.445368),
     new google.maps.LatLng(37.782745, -122.444586),
-    new google.maps.LatLng({ lat: 37.782842, lng: -122.443688 })
+    new google.maps.LatLng({ lat: 37.782842, lng: -122.443688 }),
 ]);
 
 // setData Should Accept WeightedLocation[]
 heatmap.setData([
     { weight: 1, location: new google.maps.LatLng(37.782551, -122.445368) },
-    { weight: 2, location: new google.maps.LatLng({ lat: 37.782745, lng: -122.444586 }) }
+    { weight: 2, location: new google.maps.LatLng({ lat: 37.782745, lng: -122.444586 }) },
 ]);
 
 // setOptions should required data and accepted any HeatmapLayerOptions
@@ -688,11 +689,11 @@ heatmap.setOptions({
     data: [
         new google.maps.LatLng(37.782551, -122.445368),
         new google.maps.LatLng(37.782745, -122.444586),
-        new google.maps.LatLng({ lat: 37.782842, lng: -122.443688 })
+        new google.maps.LatLng({ lat: 37.782842, lng: -122.443688 }),
     ],
     dissipating: true,
     map,
-    opacity: 8
+    opacity: 8,
 });
 
 /***** google.maps.places.PlacesService *****/
@@ -702,7 +703,7 @@ service.getDetails(
     {
         placeId: '-a1',
         fields: ['name'],
-        sessionToken: new google.maps.places.AutocompleteSessionToken()
+        sessionToken: new google.maps.places.AutocompleteSessionToken(),
     },
     (result, status) => {
         if (status === google.maps.places.PlacesServiceStatus.NOT_FOUND) {
@@ -710,13 +711,13 @@ service.getDetails(
         }
 
         result.name; // $ExpectType string
-    }
+    },
 );
 
 service.findPlaceFromQuery(
     {
         query: 'Big Ben London',
-        fields: ['name']
+        fields: ['name'],
     },
     (results, status) => {
         if (status === google.maps.places.PlacesServiceStatus.ERROR) {
@@ -724,13 +725,13 @@ service.findPlaceFromQuery(
         }
 
         results[0].name; // $ExpectType string
-    }
+    },
 );
 
 service.findPlaceFromPhoneNumber(
     {
         phoneNumber: '123456',
-        fields: ['name']
+        fields: ['name'],
     },
     (results, status) => {
         if (status === google.maps.places.PlacesServiceStatus.ERROR) {
@@ -738,7 +739,7 @@ service.findPlaceFromPhoneNumber(
         }
 
         results[0].name; // $ExpectType string
-    }
+    },
 );
 
 /***** google.maps.places.Autocomplete *****/
@@ -754,7 +755,7 @@ const imageMapType = new google.maps.ImageMapType({
     minZoom: 10,
     name: 'name',
     opacity: 0.5,
-    tileSize: new google.maps.Size(256, 256)
+    tileSize: new google.maps.Size(256, 256),
 });
 imageMapType.alt; // $ExpectType string
 imageMapType.maxZoom; // $ExpectType number
@@ -769,7 +770,7 @@ const styledMapType = new google.maps.StyledMapType([], {
     alt: 'alt',
     maxZoom: 20,
     minZoom: 10,
-    name: 'name'
+    name: 'name',
 });
 styledMapType.alt; // $ExpectType string
 styledMapType.maxZoom; // $ExpectType number
@@ -781,14 +782,42 @@ styledMapType.tileSize; // $ExpectType Size
 
 const directionsWaypointEmpty: google.maps.DirectionsWaypoint = {};
 const directionsWaypointLocationString: google.maps.DirectionsWaypoint = {
-    location: ''
+    location: '',
 };
 const directionsWaypointLocationLatLng: google.maps.DirectionsWaypoint = {
-    location: new google.maps.LatLng(0, 0)
+    location: new google.maps.LatLng(0, 0),
 };
 const directionsWaypointLocationPlace: google.maps.DirectionsWaypoint = {
-    location: { query: '' }
+    location: { query: '' },
 };
 const directionsWaypointStopover: google.maps.DirectionsWaypoint = {
-    stopover: true
+    stopover: true,
 };
+
+/***** google.maps.DirectionsService *****/
+let directionsService = new google.maps.DirectionsService();
+
+directionsService.route({
+    avoidFerries: true,
+    avoidHighways: true,
+    avoidTolls: true,
+    destination: 'destination',
+    origin: 'origin',
+    provideRouteAlternatives: true,
+    transitOptions: {
+        arrivalTime: new Date(),
+        departureTime: new Date(),
+        modes: [
+            google.maps.TransitMode.BUS,
+            google.maps.TransitMode.RAIL
+        ],
+        routingPreference: google.maps.TransitRoutePreference.FEWER_TRANSFERS
+    },
+    travelMode: google.maps.TravelMode.TRANSIT,
+    unitSystem: google.maps.UnitSystem.IMPERIAL
+}, (result: google.maps.DirectionsResult, status: google.maps.DirectionsStatus) => {
+    const routes = result.routes; // $ExpectType DirectionsRoute[]
+    const legs = routes[0].legs; // $ExpectType DirectionsLeg[]
+    const steps = legs[0].steps; // $ExpectType DirectionsStep[]
+    steps[0].steps; // $ExpectType BaseDirectionsStep[]
+});

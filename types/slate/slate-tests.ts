@@ -477,11 +477,10 @@ editor
     properties: {},
     newProperties: {},
     data: Data.create({})
-});
-
-editor.withoutMerging(() => { /* noop */ });
-editor.withoutNormalizing(() => { /* noop */ });
-editor.withoutSaving(() => { /* noop */ });
+})
+.withoutMerging(() => { /* noop */ })
+.withoutNormalizing(() => { /* noop */ })
+.withoutSaving(() => { /* noop */ });
 
 KeyUtils.setGenerator(() => "Test");
 KeyUtils.create();

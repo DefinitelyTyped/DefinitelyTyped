@@ -5,6 +5,7 @@
 //                 Alex Bjørlig <https://github.com/dauledk>
 //                 Dan Rumney <https://github.com/dancrumb>
 //                 Peter <https://github.com/pwrnrd>
+//                 Anthony Messerschmidt <https://github.com/CatGuardian>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -443,6 +444,7 @@ export interface User<A=AppMetadata, U=UserMetadata> {
   multifactor?: string[];
   last_ip?: string;
   last_login?: string;
+  last_password_reset?: string;
   logins_count?: number;
   blocked?: boolean;
   given_name?: string;
@@ -1015,6 +1017,17 @@ export class ManagementClient<A=AppMetadata, U=UserMetadata> {
 
   blacklistToken(token: Token): Promise<any>;
   blacklistToken(token: Token, cb: (err: Error, data: any) => void): void;
+
+
+  // Templates
+  createEmailTemplate(data: Data): Promise<any>;
+  createEmailTemplate(data: Data, cb?: (err: Error) => void): void;
+
+  getEmailTemplate(data: Data): Promise<any>;
+  getEmailTemplate(data: Data, cb?: (err: Error, data: any) => void): void;
+
+  updateEmailTemplate(params: {}, data: Data): Promise<any>;
+  updateEmailTemplate(params: {}, data: Data, cb?: (err: Error, data: any) => void): void;
 
 
   // Providers

@@ -4,7 +4,6 @@ import * as url from "url";
 import * as util from "util";
 import * as http from "http";
 import * as https from "https";
-import * as vm from "vm";
 import * as console2 from "console";
 import * as timers from "timers";
 import * as dns from "dns";
@@ -1115,6 +1114,25 @@ import moduleModule = require('module');
     paths = m1.paths;
 
     moduleModule.createRequireFromPath('./test')('test');
+}
+
+/////////////////////////////////////////////////////////
+/// stream tests : https://nodejs.org/api/stream.html ///
+/////////////////////////////////////////////////////////
+import stream = require('stream');
+import tty = require('tty');
+
+{
+    const writeStream = fs.createWriteStream('./index.d.ts');
+    const _wom = writeStream.writableObjectMode; // $ExpectType boolean
+
+    const readStream = fs.createReadStream('./index.d.ts');
+    const _rom = readStream.readableObjectMode; // $ExpectType boolean
+
+    const x: stream.Readable = process.stdin;
+    const stdin: tty.ReadStream = process.stdin;
+    const stdout: tty.WriteStream = process.stdout;
+    const stderr: tty.WriteStream = process.stderr;
 }
 
 ////////////////////////////////////////////////////

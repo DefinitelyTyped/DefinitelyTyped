@@ -31,6 +31,7 @@ let map = new mapboxgl.Map({
 	boxZoom: true,
 	dragRotate: false,
 	dragPan: true,
+	antialias: true,
 });
 
 /**
@@ -169,8 +170,44 @@ map.on('load', function() {
 		},
 		"paint": {
 			"line-color": "#888",
-			"line-width": 8
+			"line-width": 8,
+            "line-dasharray": [
+                "step",
+                [
+                    "zoom"
+                ],
+                [
+                    "literal",
+                    [
+                        1,
+                        0
+                    ]
+                ],
+                15,
+                [
+                    "literal",
+                    [
+                        1.75,
+                        1
+                    ]
+                ]
+            ]
 		}
+	});
+
+	// Add a custom layer
+	map.addLayer({
+		id: 'custom',
+		type: 'custom',
+		renderingMode: '3d',
+		onRemove: function(map, gl) {
+			map;  // $ExpectType Map
+			gl;  // $ExpectType WebGLRenderingContext
+		},
+		render: function(gl, matrix) {
+			gl;  // $ExpectType WebGLRenderingContext
+			matrix;  // $ExpectType number[]
+		},
 	});
 });
 
@@ -383,7 +420,75 @@ var mapStyle = {
 			"layout": {
 				"text-transform": "uppercase",
 				"text-field": "{name_en}",
-				"text-font": ["DIN Offc Pro Bold", "Arial Unicode MS Bold"],
+                "text-font": [
+                    "step",
+                    [
+                        "zoom"
+                    ],
+                    [
+                        "literal",
+                        [
+                            "DIN Offc Pro Regular",
+                            "Arial Unicode MS Regular"
+                        ]
+                    ],
+                    8,
+                    [
+                        "step",
+                        [
+                            "get",
+                            "symbolrank"
+                        ],
+                        [
+                            "literal",
+                            [
+                                "DIN Offc Pro Medium",
+                                "Arial Unicode MS Regular"
+                            ]
+                        ],
+                        11,
+                        [
+                            "literal",
+                            [
+                                "DIN Offc Pro Regular",
+                                "Arial Unicode MS Regular"
+                            ]
+                        ]
+                    ]
+                ],
+                "text-justify": [
+                    "step",
+                    [
+                        "zoom"
+                    ],
+                    [
+                        "match",
+                        [
+                            "get",
+                            "text_anchor"
+                        ],
+                        [
+                            "bottom",
+                            "top"
+                        ],
+                        "center",
+                        [
+                            "left",
+                            "bottom-left",
+                            "top-left"
+                        ],
+                        "left",
+                        [
+                            "right",
+                            "bottom-right",
+                            "top-right"
+                        ],
+                        "right",
+                        "center"
+                    ],
+                    8,
+                    "center"
+                ],
 				"text-letter-spacing": 0.15,
 				"text-max-width": 7,
 				"text-size": {"stops": [[4, 10], [6, 14]]}

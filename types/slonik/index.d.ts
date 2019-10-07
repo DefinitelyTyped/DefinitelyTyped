@@ -1,4 +1,4 @@
-// Type definitions for slonik 18.2
+// Type definitions for slonik 19.0
 // Project: https://github.com/gajus/slonik#readme
 // Definitions by: Sebastian Sebald <https://github.com/sebald>
 //                 Misha Kaletsky <https://github.com/mmkal>
@@ -26,19 +26,25 @@ export type LogicalBooleanOperatorType = 'AND' | 'OR';
 // EXPRESSIONS AND TOKENS
 // ----------------------------------------------------------------------
 
+export type SerializableValueType =
+    | string
+    | number
+    | boolean
+    | null
+    | object
+    | SerializableValueObject
+    | SerializableValueArray;
+
+export interface SerializableValueObject {
+  [x: string]: SerializableValueType;
+}
+
+export interface SerializableValueArray
+  extends ReadonlyArray<SerializableValueType> {}
+
 export interface IdentifierTokenType {
     names: ReadonlyArray<string>;
     type: typeof SlonikSymbol.IdentifierTokenSymbol;
-}
-
-export type IdentifierListMemberType = string[] | {
-    alias: string
-    identifier: string[]
-};
-
-export interface IdentifierListTokenType {
-    identifiers: IdentifierListMemberType[];
-    type: typeof SlonikSymbol.IdentifierListTokenSymbol;
 }
 
 export type SqlSqlTokenType<T> = TaggedTemplateLiteralInvocationType<T>;
@@ -49,25 +55,15 @@ export interface RawSqlTokenType {
     values: PrimitiveValueExpressionType[];
 }
 
-export interface ValueListSqlTokenType {
-    values: PrimitiveValueExpressionType[];
-    type: typeof SlonikSymbol.ValueListTokenSymbol;
-}
-
 export interface ArraySqlTokenType {
     memberType: string;
     type: typeof SlonikSymbol.ArrayTokenSymbol;
     values: PrimitiveValueExpressionType[];
 }
 
-export interface TupleSqlTokenType {
-    values: PrimitiveValueExpressionType[];
-    type: typeof SlonikSymbol.TupleTokenSymbol;
-}
-
-export interface TupleListSqlTokenType {
-    tuples: PrimitiveValueExpressionType[];
-    type: typeof SlonikSymbol.TupleListTokenSymbol;
+export interface JsonSqlTokenType {
+    value: SerializableValueType;
+    type: typeof SlonikSymbol.JsonTokenSymbol;
 }
 
 export interface UnnestSqlTokenType {
@@ -76,39 +72,15 @@ export interface UnnestSqlTokenType {
     type: typeof SlonikSymbol.UnnestTokenSymbol;
 }
 
-export interface ComparisonPredicateTokenType {
-    leftOperand: ValueExpressionType;
-    operator: ComparisonOperatorType;
-    rightOperand: ValueExpressionType;
-    type: typeof SlonikSymbol.ComparisonPredicateTokenSymbol;
-}
-
-export interface BooleanExpressionTokenType {
-    members: ValueExpressionType[];
-    operator: LogicalBooleanOperatorType;
-    type: typeof SlonikSymbol.ComparisonPredicateTokenSymbol;
-}
-
-export interface AssignmentListTokenType {
-    namedAssignment: NamedAssignmentType;
-    type: typeof SlonikSymbol.ComparisonPredicateTokenSymbol;
-}
-
 export type PrimitiveValueExpressionType = string | number | boolean | null;
 
 export type SqlTokenType =
     ArraySqlTokenType |
-    AssignmentListTokenType |
     IdentifierTokenType |
-    IdentifierListTokenType |
+    JsonSqlTokenType |
     RawSqlTokenType |
     SqlSqlTokenType<any> |
-    TupleListSqlTokenType |
-    TupleSqlTokenType |
-    UnnestSqlTokenType |
-    ValueListSqlTokenType |
-    ComparisonPredicateTokenType |
-    BooleanExpressionTokenType;
+    UnnestSqlTokenType;
 
 export type ValueExpressionType =
     SqlTokenType |
@@ -307,34 +279,16 @@ export interface SqlTaggedTemplateType {
         values: PrimitiveValueExpressionType[],
         memberType: string
     ) => ArraySqlTokenType;
-    assignmentList: (
-        namedAssignmentValueBindings: NamedAssignmentType
-    ) => AssignmentListTokenType;
-    booleanExpression: (
-        members: ValueExpressionType[],
-        operator: LogicalBooleanOperatorType
-    ) => BooleanExpressionTokenType;
-    comparisonPredicate: (
-        leftOperand: ValueExpressionType,
-        operator: ComparisonOperatorType,
-        rightOperand: ValueExpressionType
-    ) => ComparisonPredicateTokenType;
     identifier: (
         names: string[]
     ) => IdentifierTokenType;
-    identifierList: (
-        identifiers: IdentifierListMemberType[]
-    ) => IdentifierListTokenType;
+    json: (
+        value: SerializableValueType
+    ) => JsonSqlTokenType;
     raw: (
         rawSql: string,
         values?: PrimitiveValueExpressionType[]
     ) => RawSqlTokenType;
-    tuple: (
-        values: ValueExpressionType[]
-    ) => TupleSqlTokenType;
-    tupleList: (
-        tuples: ValueExpressionType[][]
-    ) => TupleListSqlTokenType;
     unnest: (
         // Value might be PrimitiveValueExpressionType[],
         // or it can be infinitely nested array, e.g.
@@ -342,9 +296,6 @@ export interface SqlTaggedTemplateType {
         tuples: any[][],
         columnTypes: string[]
     ) => UnnestSqlTokenType;
-    valueList: (
-        values: ValueExpressionType[]
-    ) => ValueListSqlTokenType;
 }
 
 export interface SqlFragmentType {
@@ -406,10 +357,15 @@ export interface InterceptorType {
         queryContext: QueryContextType,
         query: QueryType
     ) => MaybePromiseType<QueryResultType<QueryResultRowType> | undefined>;
+    queryExecutionError?: (
+        queryContext: QueryContextType,
+        query: QueryType,
+        error: SlonikError
+    ) => MaybePromiseType<void>;
     transformQuery?: (
         queryContext: QueryContextType,
         query: QueryType
-    ) => MaybePromiseType<QueryType>;
+    ) => QueryType;
     transformRow?: (
         queryContext: QueryContextType,
         query: QueryType,
