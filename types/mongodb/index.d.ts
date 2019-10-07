@@ -1081,53 +1081,53 @@ export interface Collection<TSchema = Default> {
     /** @deprecated use updateOne, updateMany or bulkWrite */
     update(
         filter: FilterQuery<TSchema>,
-        update: UpdateQuery<TSchema> | TSchema,
+        update: UpdateQuery<TSchema> | Partial<TSchema>,
         callback: MongoCallback<WriteOpResult>,
     ): void;
     /** @deprecated use updateOne, updateMany or bulkWrite */
     update(
         filter: FilterQuery<TSchema>,
-        update: UpdateQuery<TSchema> | TSchema,
+        update: UpdateQuery<TSchema> | Partial<TSchema>,
         options?: UpdateOneOptions & { multi?: boolean },
     ): Promise<WriteOpResult>;
     /** @deprecated use updateOne, updateMany or bulkWrite */
     update(
         filter: FilterQuery<TSchema>,
-        update: UpdateQuery<TSchema> | TSchema,
+        update: UpdateQuery<TSchema> | Partial<TSchema>,
         options: UpdateOneOptions & { multi?: boolean },
         callback: MongoCallback<WriteOpResult>,
     ): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#updateMany */
     updateMany(
         filter: FilterQuery<TSchema>,
-        update: UpdateQuery<TSchema> | TSchema,
+        update: UpdateQuery<TSchema> | Partial<TSchema>,
         callback: MongoCallback<UpdateWriteOpResult>,
     ): void;
     updateMany(
         filter: FilterQuery<TSchema>,
-        update: UpdateQuery<TSchema> | TSchema,
+        update: UpdateQuery<TSchema> | Partial<TSchema>,
         options?: UpdateManyOptions,
     ): Promise<UpdateWriteOpResult>;
     updateMany(
         filter: FilterQuery<TSchema>,
-        update: UpdateQuery<TSchema> | TSchema,
+        update: UpdateQuery<TSchema> | Partial<TSchema>,
         options: UpdateManyOptions,
         callback: MongoCallback<UpdateWriteOpResult>,
     ): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#updateOne */
     updateOne(
         filter: FilterQuery<TSchema>,
-        update: UpdateQuery<TSchema> | TSchema,
+        update: UpdateQuery<TSchema> | Partial<TSchema>,
         callback: MongoCallback<UpdateWriteOpResult>,
     ): void;
     updateOne(
         filter: FilterQuery<TSchema>,
-        update: UpdateQuery<TSchema> | TSchema,
+        update: UpdateQuery<TSchema> | Partial<TSchema>,
         options?: UpdateOneOptions,
     ): Promise<UpdateWriteOpResult>;
     updateOne(
         filter: FilterQuery<TSchema>,
-        update: UpdateQuery<TSchema> | TSchema,
+        update: UpdateQuery<TSchema> | Partial<TSchema>,
         options: UpdateOneOptions,
         callback: MongoCallback<UpdateWriteOpResult>,
     ): void;
