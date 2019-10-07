@@ -269,9 +269,9 @@ stripe.customers.create({
     let metadata: Stripe.IOptionsMetadata;
     const num = 123;
     metadata["test"] = str;
-    metadata["test"] = num;
+    metadata["testNum"] = num;
     metadata["test"] === str;
-    metadata["test"] === num;
+    metadata["testNum"] === num;
     metadata.testStr = str;
     metadata.testNum = num;
     metadata.test1 === str;

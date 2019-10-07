@@ -3335,9 +3335,9 @@ declare namespace Stripe {
             client_secret: string;
 
             /**
-             * Confirmation method of this PaymentIntent.
+             * Confirmation method of this PaymentIntent. One of automatic (default) or manual.
              */
-            confirmation_method: 'secret' | 'publishable';
+            confirmation_method: 'automatic' | 'manual';
 
             /**
              * Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -3383,7 +3383,7 @@ declare namespace Stripe {
             /**
              * The list of payment method types (e.g. card) that this PaymentIntent is allowed to use.
              */
-            payment_method_types: string[];
+            payment_method_types?: string[];
 
             /**
              * Email address that the receipt for the resulting payment will be sent to.
@@ -3421,8 +3421,8 @@ declare namespace Stripe {
                 | 'requires_payment_method'
                 | 'requires_action'
                 | 'processing'
-                | 'requires_authorization'
                 | 'requires_capture'
+                | 'requires_confirmation'
                 | 'canceled'
                 | 'succeeded';
 
@@ -3464,28 +3464,20 @@ declare namespace Stripe {
             use_stripe_sdk: any;
         }
 
-        type PaymentIntentCancelationReason = 'duplicate' | 'fraudulent' | 'requested_by_customer' | 'failed_invoice';
+        type PaymentIntentCancelationReason = 'duplicate' | 'fraudulent' | 'requested_by_customer' | 'abandoned';
 
-        interface IPaymentIntentCreationOptions {
+        interface IPaymentMethodCardOptions {
             /**
-             * Amount intended to be collected by this PaymentIntent (in cents).
+             * Triggering 3D Secure manually is for advanced users integrating Stripe with their own fraud engine. Default is (automatic)
              */
-            amount: number;
+            request_three_d_secure?: 'any' | 'automatic';
+        }
 
-            /**
-             * Three-letter ISO currency code, in lowercase. Must be a supported currency.
-             */
-            currency: string;
+        interface IPaymentMethodOptions {
+            card?: IPaymentMethodCardOptions;
+        }
 
-            /**
-             * The list of payment method types (e.g. card) that this PaymentIntent is allowed to use.
-             */
-            payment_method_types: string[];
-
-            /**
-             * The amount of the application fee in cents (if any) that will be applied to the payment and transferred to the application owner’s Stripe account. To use an application fee, the request must be made on behalf of another account, using the `Stripe-Account` header or an OAuth key.
-             */
-            application_fee_amount?: number;
+        interface IPaymentIntentCreationOptions extends IPaymentIntentUpdateOptions {
 
             /**
              * Capture method of this PaymentIntent.
@@ -3498,22 +3490,14 @@ declare namespace Stripe {
             confirm?: boolean;
 
             /**
-             * ID of the customer this PaymentIntent is for if one exists.
+             * Confirmation method of this PaymentIntent.
              */
-            customer?: string;
+            confirmation_method?: 'automatic' | 'manual';
 
             /**
-             * An arbitrary string attached to the object. Often useful for displaying to users. This can be unset by updating the value to null and then saving.
+             * This parameter is intended for scenarios where you collect card details and charge them later.
              */
-            description?: string | null;
-
-            /**
-             * A set of key/value pairs that you can attach to an object. It can be
-             * useful for storing additional information about the object in a structured
-             * format. You can unset an individual key by setting its value to null and
-             * then saving. To clear all keys, set metadata to null, then save.
-             */
-            metadata?: IOptionsMetadata;
+            off_session?: boolean;
 
             /**
              * The Stripe account ID for which these funds are intended.
@@ -3521,44 +3505,14 @@ declare namespace Stripe {
             on_behalf_of?: string;
 
             /**
-             * Email address that the receipt for the resulting payment will be sent to.
+             * Payment-method-specific configuration for this PaymentIntent.
              */
-            receipt_email?: string;
+            payment_method_options?: IPaymentMethodOptions;
 
             /**
              * The URL to redirect your customer back to after they authenticate or cancel their payment on the payment method’s app or site. If you’d prefer to redirect to a mobile application, you can alternatively supply an application URI scheme. This param can only be used if `confirm=true`.
              */
             return_url?: string;
-
-            /**
-             * Set to `true` to save this PaymentIntent’s payment method to the associated Customer, if the payment method is not already attached. This parameter only applies to the payment method passed in the same request or the current payment method attached to the PaymentIntent and must be specified again if a new payment method is added.
-             */
-            save_payment_method?: boolean;
-
-            /**
-             * Shipping information for this PaymentIntent.
-             */
-            shipping?: IShippingInformation;
-
-            /**
-             * ID of the Source object to attach to this PaymentIntent.
-             */
-            source?: string;
-
-            /**
-             * Extra information about a PaymentIntent. This will appear on your customer’s statement when this PaymentIntent succeeds in creating a charge.
-             */
-            statement_descriptor?: string;
-
-            /**
-             * The parameters used to automatically create a Transfer when the payment succeeds.
-             */
-            transfer_data?: IPaymentIntentTransferData;
-
-            /**
-             * A string that identifies the resulting payment as part of a group.
-             */
-            transfer_group?: string;
         }
 
         interface IPaymentIntentUpdateOptions {
@@ -3596,6 +3550,18 @@ declare namespace Stripe {
             metadata?: IOptionsMetadata;
 
             /**
+             * ID of the payment method (a PaymentMethod, Card, BankAccount, or saved Source object) to attach to this PaymentIntent.
+             */
+
+            payment_method?: string;
+
+            /**
+             * The list of payment method types that this PaymentIntent is allowed to use
+             */
+
+            payment_method_types?: string[];
+
+            /**
              * Email address that the receipt for the resulting payment will be sent to.
              */
             receipt_email?: string;
@@ -3606,14 +3572,29 @@ declare namespace Stripe {
             save_payment_method?: boolean;
 
             /**
+             * Indicates that you intend to make future payments with this PaymentIntent’s payment method.
+             */
+            setup_future_usage?: 'on_session' | 'off_session';
+
+            /**
              * Shipping information for this PaymentIntent.
              */
             shipping?: IShippingInformation;
 
             /**
-             * ID of the Source object to attach to this PaymentIntent.
+             * Extra information about a PaymentIntent. This will appear on your customer’s statement when this PaymentIntent succeeds in creating a charge.
              */
-            source?: string;
+            statement_descriptor?: string;
+
+            /**
+             * Provides information about a card payment that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that’s set on the account to form the complete statement descriptor.
+             */
+            statement_descriptor_suffix?: string;
+
+            /**
+             * The parameters used to automatically create a Transfer when the payment succeeds.
+             */
+            transfer_data?: IPaymentIntentTransferData;
 
             /**
              * A string that identifies the resulting payment as part of a group.
@@ -3622,10 +3603,28 @@ declare namespace Stripe {
         }
 
         interface IPaymentIntentConfirmOptions {
+           /**
+            * Set to true to indicate that the customer is not in your checkout flow during this payment attempt, and therefore is unable to authenticate.
+            */
+            off_session: boolean;
+
             /**
-             * The client secret of this PaymentIntent. Used for client-side retrieval using a publishable key. Please refer to dynamic authentication guide on how client_secret should be handled. Required if using Publishable Key!
+             * ID of the payment method (a PaymentMethod, Card, BankAccount, or saved Source object) to attach to this PaymentIntent.
              */
-            client_secret?: string;
+
+            payment_method?: string;
+
+            /**
+             * Payment-method-specific configuration for this PaymentIntent.
+             */
+
+            payment_method_options?: IPaymentMethodOptions;
+
+            /**
+             * The list of payment method types that this PaymentIntent is allowed to use
+             */
+
+            payment_method_types?: string[];
 
             /**
              * Email address that the receipt for the resulting payment will be sent to.
@@ -3643,14 +3642,15 @@ declare namespace Stripe {
             save_payment_method?: boolean;
 
             /**
+             * Indicates that you intend to make future payments with this PaymentIntent’s payment method.
+             */
+
+            setup_future_usage?: 'on_session' | 'off_session';
+
+            /**
              * Shipping information for this PaymentIntent.
              */
             shipping?: IShippingInformation | null;
-
-            /**
-             * ID of the source used in this PaymentIntent.
-             */
-            source?: string;
         }
 
         interface IPaymentIntentRetrieveOptions {
@@ -3664,6 +3664,11 @@ declare namespace Stripe {
 
         interface IPaymentIntentCaptureOptions {
             /**
+             * ID of the PaymentIntent to update.
+             */
+            intent: string;
+
+            /**
              * The amount to capture (in cents) from the PaymentIntent, which must be less than or equal to the original amount. Any additional amount will be automatically refunded. Defaults to the full `amount_capturable` if not provided.
              */
             amount_to_capture?: number;
@@ -3672,6 +3677,21 @@ declare namespace Stripe {
              * The amount of the application fee (if any) that will be applied to the payment and transferred to the application owner’s Stripe account. To use an application fee, the request must be made on behalf of another account, using the `Stripe-Account` header or an OAuth key.
              */
             application_fee_amount?: number;
+
+            /**
+             * Extra information about a PaymentIntent. This will appear on your customer’s statement when this PaymentIntent succeeds in creating a charge.
+             */
+            statement_descriptor?: string;
+
+            /**
+             * Provides information about a card payment that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that’s set on the account to form the complete statement descriptor.
+             */
+            statement_descriptor_suffix?: string;
+
+            /**
+             * The parameters used to automatically create a Transfer when the payment succeeds.
+             */
+            transfer_data?: IPaymentIntentTransferData;
         }
 
         interface IPaymentIntentListOptions extends IListOptionsCreated {
