@@ -54,6 +54,13 @@ declare namespace NodeCache {
         set<T>(key: Key, value: T, cb?: Callback<boolean>): boolean;
 
         /**
+         * set multiple cached keys at once and change the stats
+         *
+         * @param keyValueSet  an array of object which includes key,value and ttl
+         */
+        mset<T>(keyValueSet: Array<ValueSetItem<T>>): boolean;
+
+        /**
          * remove keys
          * @param keys cache key to delete or a array of cache keys
          * @param cb Callback function
@@ -123,6 +130,15 @@ declare namespace NodeCache {
         vsize: number;
     }
 
+    interface ValueSetItem<T> {
+        // key
+        key: Key;
+        // value
+        val: T;
+        // ttl
+        ttl?: number;
+    }
+
     interface WrappedValue<T> {
         // ttl
         t: number;
@@ -139,6 +155,7 @@ import Data = NodeCache.Data;
 import Options = NodeCache.Options;
 import Stats = NodeCache.Stats;
 import Callback = NodeCache.Callback;
+import ValueSetItem = NodeCache.ValueSetItem;
 
 declare class NodeCache extends events.EventEmitter implements NodeCache.NodeCache {
     /** container for cached data */
@@ -180,6 +197,13 @@ declare class NodeCache extends events.EventEmitter implements NodeCache.NodeCac
     set<T>(key: Key, value: T, ttl: number | string, cb?: Callback<boolean>): boolean;
 
     set<T>(key: Key, value: T, cb?: Callback<boolean>): boolean;
+
+    /**
+     * set multiple cached keys at once and change the stats
+     *
+     * @param keyValueSet  an array of object which includes key,value and ttl
+     */
+    mset<T>(keyValueSet: Array<ValueSetItem<T>>): boolean;
 
     /**
      * remove keys

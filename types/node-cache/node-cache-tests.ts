@@ -3,6 +3,7 @@ import NodeCache = require('node-cache');
 import Options = NodeCache.Options;
 import Stats = NodeCache.Stats;
 import Callback = NodeCache.Callback;
+import ValueSetItem = NodeCache.ValueSetItem;
 
 interface TypeSample {
 	a: number;
@@ -81,6 +82,13 @@ interface TypeSample {
 	let cache: NodeCache;
 	let result: Stats;
 	result = cache.getStats();
+}
+
+{
+    let cache: NodeCache;
+    let valueSetItems: Array<ValueSetItem<TypeSample>>;
+    let result: boolean;
+    result = cache.mset<TypeSample>(valueSetItems);
 }
 
 /* tslint-:disable void-return no-void-expression
