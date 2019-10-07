@@ -89,8 +89,6 @@ function test() {
     assertType<boolean>(streamD.allowHalfOpen);
     assertType<boolean>(streamD.readable);
     assertType<boolean>(streamD.writable);
-    assertType<boolean>(streamD.readableObjectMode);
-    assertType<boolean>(streamD.writableObjectMode);
     streamD.pipe(streamW);
 
     rs.addListener("read", (...args: any[]) => console.log(args));

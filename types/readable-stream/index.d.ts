@@ -4,12 +4,12 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-/// <reference types="node" />
+/// <reference types="node/v10" />
 
 import * as events from "events";
 import * as stream from "stream";
 import * as SafeBuffer from "safe-buffer";
-import { StringDecoder } from "string_decoder";
+import { NodeStringDecoder } from "string_decoder";
 
 declare class _Readable extends stream.Readable {
     // static ReadableState: _Readable.ReadableState;
@@ -61,18 +61,12 @@ declare namespace _Readable {
     };
 
     class Duplex extends Writable implements /*extends*/_Readable, stream.Duplex {
-        /**
-         * This is a dummy function required to retain type compatibility to node.
-         * @deprecated DO NOT USE
-         */
-        static from(source: any): any;
         allowHalfOpen: boolean;
         destroyed: boolean;
         // Readable
         readable: boolean;
         readonly readableHighWaterMark: number;
         readonly readableLength: number;
-        readonly readableObjectMode: boolean;
         _readableState: ReadableState;
 
         _read(size?: number): void;
@@ -135,7 +129,7 @@ declare namespace _Readable {
         awaitDrain: number;
         defaultEncoding: string;
         readingMore: boolean;
-        decoder: StringDecoder | null;
+        decoder: NodeStringDecoder | null;
         encoding: string | null;
 
         // new (options: ReadableStateOptions, stream: _Readable): ReadableState;
