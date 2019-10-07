@@ -1,8 +1,8 @@
 declare module DDP {
     interface DDPStatic {
         subscribe(name: string, ...rest: any[]): Meteor.SubscriptionHandle;
-        call(method: string, ...parameters: any[]): void;
-        apply(method: string, ...parameters: any[]): void;
+        call(method: string, ...parameters: any[]): any;
+        apply(method: string, ...parameters: any[]): any;
         methods(IMeteorMethodsDictionary: any): any;
         status(): DDPStatus;
         reconnect(): void;
@@ -27,7 +27,7 @@ declare module DDP {
 
 declare module DDPCommon {
     interface MethodInvocation {
-        new (options: {}): MethodInvocation;
+        new(options: {}): MethodInvocation;
 
         unblock(): void;
 

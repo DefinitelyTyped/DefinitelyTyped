@@ -121,6 +121,8 @@ class CompleteTest extends React.Component<{}, TestState> {
             onImageError: this.onImageError,
             className: 'my-cropper',
             locked: false,
+            ruleOfThirds: false,
+            circularCrop: false,
         });
     }
 }

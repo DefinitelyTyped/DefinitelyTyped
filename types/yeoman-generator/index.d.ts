@@ -17,7 +17,7 @@ import { Observable } from 'rxjs';
 type Callback = (err: any) => void;
 
 declare namespace Generator {
-    type Question<A extends Answers = Answers> = inquirer.Question<A> & {
+    type Question<T extends Answers = Answers> = inquirer.DistinctQuestion<T> & {
         /**
          * whether to store the user's previous answer
          */

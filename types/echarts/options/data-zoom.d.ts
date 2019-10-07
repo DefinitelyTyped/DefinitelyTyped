@@ -38,6 +38,7 @@ declare namespace echarts {
                 yAxisIndex?: number | number[];
                 radiusAxisIndex?: number | number[];
                 angleAxisIndex?: number | number[];
+                singleAxisIndex?: number | number[];
                 filterMode?: 'filter' | 'weakFilter' | 'empty' | 'none';
                 start?: number;
                 end?: number;
@@ -76,11 +77,12 @@ declare namespace echarts {
                 showDetail?: boolean;
                 showDataShadow?: string;
                 realtime?: boolean;
-                textStyle?: object;
+                textStyle?: BaseTextStyle;
                 xAxisIndex?: number | number[];
                 yAxisIndex?: number | number[];
                 radiusAxisIndex?: number | number[];
                 angleAxisIndex?: number | number[];
+                singleAxisIndex?: number | number[];
                 filterMode?: 'filter' | 'weakFilter' | 'empty' | 'none';
                 start?: number;
                 end?: number;

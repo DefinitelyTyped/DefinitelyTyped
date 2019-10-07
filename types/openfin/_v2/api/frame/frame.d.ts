@@ -45,7 +45,24 @@ export default class _FrameModule extends Base {
     getCurrentSync(): _Frame;
 }
 /**
- * @classdesc Represents a way to interact with `iframes`. Facilitates discovery of current context
+ * @classdesc
+ * An iframe represents an embedded HTML page within a parent HTML page. Because this embedded page
+ * has its own DOM and global JS context (which may or may not be linked to that of the parent depending
+ * on if it is considered out of the root domain or not), it represents a unique endpoint as an OpenFin
+ * connection. Iframes may be generated dynamically, or be present on initial page load and each non-CORS
+ * iframe has the OpenFin API injected by default. It is possible to opt into cross-origin iframes having
+ * the API by setting api.iframe.crossOriginInjection to true in a window's options. To block all iframes
+ * from getting the API injected you can set api.frame.sameOriginInjection
+ * to false <a href="Window.html#~options" target="_blank">(see Window~options)</a>.
+ *
+ * To be able to directly address this context for eventing and messaging purposes, it needs a
+ * unique uuid name pairing. For OpenFin applications and windows this is provided via a configuration
+ * object in the form of a manifest URL or options object, but there is no configuration object for iframes.
+ * Just as a call to window.open outside of our Window API returns a new window with a random GUID assigned
+ * for the name, each iframe that has the API injected will be assigned a GUID as its name, the UUID will be
+ * the same as the parent window's.
+ *
+ * The fin.Frame namespace represents a way to interact with `iframes` and facilitates the discovery of current context
  * (iframe or main window) as well as the ability to listen for <a href="tutorial-Frame.EventEmitter.html">frame-specific events</a>.
  * @class
  * @alias Frame

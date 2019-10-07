@@ -11,7 +11,7 @@ export interface Snapshot {
     id: string;
     v: number;
     type: string | null;
-    data: JSONObject | undefined;
+    data?: any;
     m: SnapshotMeta | null;
 }
 
@@ -19,7 +19,7 @@ export interface SnapshotMeta {
     ctime: number;
     mtime: number;
     // Users can use server middleware to add additional metadata to snapshots.
-    [key: string]: JSONValue;
+    [key: string]: any;
 }
 
 export interface AddNumOp { p: Path; na: number; }
@@ -109,5 +109,5 @@ export interface ClientRequest {
     /** Short name of the request's action */
     a: RequestAction;
 
-    [propertyName: string]: JSONValue;
+    [propertyName: string]: any;
 }

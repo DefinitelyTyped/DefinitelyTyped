@@ -2,7 +2,7 @@ import { _Window } from '../window/window';
 import { AnchorType, Bounds } from '../../shapes';
 import { Base, EmitterBase } from '../base';
 import { ExternalWindowEvents } from '../events/externalWindow';
-import { Identity } from '../../identity';
+import { Identity, ExternalWindowIdentity } from '../../identity';
 import Transport from '../../transport/transport';
 /**
  * @lends ExternalWindow
@@ -10,28 +10,16 @@ import Transport from '../../transport/transport';
 export default class ExternalWindowModule extends Base {
     /**
      * Asynchronously returns an external window object that represents
-     * an existing external window.
+     * an existing external window.<br>
+     * Note: This method is restricted by default and must be enabled via
+     * <a href="https://developers.openfin.co/docs/api-security">API security settings</a>.
      * @param { Identity } identity
      * @return {Promise.<ExternalWindow>}
      * @static
      * @experimental
-     * @tutorial Window.wrap
+     * @tutorial ExternalWindow.wrap
      */
-    wrap(identity: Identity): Promise<ExternalWindow>;
-    /**
-     * Synchronously returns an external window object that represents an
-     * existing external window.
-     * This method is intended for debugging / experimentation only and should not be
-     * used in production. It will not handle errors gracefully in cases such as an attempt
-     * to wrap a non-existent window.
-     * Use `ExternalWindow.wrap` instead.
-     * @param { Identity } identity
-     * @return {ExternalWindow}
-     * @static
-     * @experimental
-     * @tutorial Window.wrapSync
-     */
-    wrapSync(identity: Identity): ExternalWindow;
+    wrap(identity: ExternalWindowIdentity): Promise<ExternalWindow>;
 }
 /**
  * @classdesc An ExternalWindow is an OpenFin object representing a window that belongs to a non-openfin application.<br>
@@ -40,8 +28,8 @@ export default class ExternalWindowModule extends Base {
  * External Windows are useful for grouping, moving and resizing non-openfin applications
  * as well as listening to events that are dispatched by these applications.<br>
  * They are also compatible with OpenFin's Layouts service to facilitate
- * a complete positional control over all running applications.<br>
- * External Windows has the ability to listen for <a href="tutorial-ExternalWindow.EventEmitter.html"> external window specific events</a>.
+ * complete positional control over all running applications.<br>
+ * External Windows has the ability to listen for <a href="tutorial-ExternalWindow.EventEmitter.html"> external window-specific events</a>.
  * @class
  * @alias ExternalWindow
  * @hideconstructor
@@ -63,22 +51,6 @@ export declare class ExternalWindow extends EmitterBase<ExternalWindowEvents> {
      * @tutorial Window.close
     */
     close(): Promise<void>;
-    /**
-     * Prevents a user from changing an external window's size/position
-     * when using the window's frame.
-     * @return {Promise.<void>}
-     * @experimental
-     * @tutorial Window.disableUserMovement
-     */
-    disableUserMovement(): Promise<void>;
-    /**
-     * Re-enables user changes to an external window's size/position
-     * when using the window's frame.
-     * @return {Promise.<void>}
-     * @experimental
-     * @tutorial Window.enableUserMovement
-     */
-    enableUserMovement(): Promise<void>;
     /**
      * Flashes the external window’s frame and taskbar icon until stopFlashing is called.
      * @return {Promise.<void>}
@@ -147,7 +119,7 @@ export declare class ExternalWindow extends EmitterBase<ExternalWindowEvents> {
      */
     isShowing(): Promise<boolean>;
     /**
-     * Joins the same window group as the specified window.
+     * Joins the same window group as the specified window. Currently unsupported (method will nack).
      * @param { _Window | ExternalWindow } target The window whose group is to be joined
      * @return {Promise.<void>}
      * @experimental

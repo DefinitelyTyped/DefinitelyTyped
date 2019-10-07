@@ -135,9 +135,9 @@ declare var Response: {
 };
 
 type HeadersInit_ = Headers | string[][] | { [key: string]: string };
-type RequestCredentials_ = "omit" | "same-origin" | "include";
-type RequestMode_ = "navigate" | "same-origin" | "no-cors" | "cors";
-type ResponseType_ = "basic" | "cors" | "default" | "error" | "opaque" | "opaqueredirect";
+type RequestCredentials_ = 'omit' | 'same-origin' | 'include';
+type RequestMode_ = 'navigate' | 'same-origin' | 'no-cors' | 'cors';
+type ResponseType_ = 'basic' | 'cors' | 'default' | 'error' | 'opaque' | 'opaqueredirect';
 
 //
 // XMLHttpRequest
@@ -182,12 +182,12 @@ interface XMLHttpRequest extends EventTarget, XMLHttpRequestEventTarget {
     readonly UNSENT: number;
     addEventListener<K extends keyof XMLHttpRequestEventMap>(
         type: K,
-        listener: (this: XMLHttpRequest, ev: XMLHttpRequestEventMap[K]) => any
+        listener: (this: XMLHttpRequest, ev: XMLHttpRequestEventMap[K]) => any,
     ): void;
     //  addEventListener(type: string, listener: EventListenerOrEventListenerObject): void;
     removeEventListener<K extends keyof XMLHttpRequestEventMap>(
         type: K,
-        listener: (this: XMLHttpRequest, ev: XMLHttpRequestEventMap[K]) => any
+        listener: (this: XMLHttpRequest, ev: XMLHttpRequestEventMap[K]) => any,
     ): void;
     //  removeEventListener(type: string, listener: EventListenerOrEventListenerObject): void;
 }
@@ -222,12 +222,12 @@ interface XMLHttpRequestEventTarget {
     ontimeout: ((this: XMLHttpRequest, ev: ProgressEvent) => any) | null;
     addEventListener<K extends keyof XMLHttpRequestEventTargetEventMap>(
         type: K,
-        listener: (this: XMLHttpRequestEventTarget, ev: XMLHttpRequestEventTargetEventMap[K]) => any
+        listener: (this: XMLHttpRequestEventTarget, ev: XMLHttpRequestEventTargetEventMap[K]) => any,
     ): void;
     //  addEventListener(type: string, listener: EventListenerOrEventListenerObject): void;
     removeEventListener<K extends keyof XMLHttpRequestEventTargetEventMap>(
         type: K,
-        listener: (this: XMLHttpRequestEventTarget, ev: XMLHttpRequestEventTargetEventMap[K]) => any
+        listener: (this: XMLHttpRequestEventTarget, ev: XMLHttpRequestEventTargetEventMap[K]) => any,
     ): void;
     //  removeEventListener(type: string, listener: EventListenerOrEventListenerObject): void;
 }
@@ -235,12 +235,12 @@ interface XMLHttpRequestEventTarget {
 interface XMLHttpRequestUpload extends EventTarget, XMLHttpRequestEventTarget {
     addEventListener<K extends keyof XMLHttpRequestEventTargetEventMap>(
         type: K,
-        listener: (this: XMLHttpRequestUpload, ev: XMLHttpRequestEventTargetEventMap[K]) => any
+        listener: (this: XMLHttpRequestUpload, ev: XMLHttpRequestEventTargetEventMap[K]) => any,
     ): void;
     //  addEventListener(type: string, listener: EventListenerOrEventListenerObject): void;
     removeEventListener<K extends keyof XMLHttpRequestEventTargetEventMap>(
         type: K,
-        listener: (this: XMLHttpRequestUpload, ev: XMLHttpRequestEventTargetEventMap[K]) => any
+        listener: (this: XMLHttpRequestUpload, ev: XMLHttpRequestEventTargetEventMap[K]) => any,
     ): void;
     //  removeEventListener(type: string, listener: EventListenerOrEventListenerObject): void;
 }
@@ -250,4 +250,25 @@ declare var XMLHttpRequestUpload: {
     new (): XMLHttpRequestUpload;
 };
 
-declare type XMLHttpRequestResponseType = "" | "arraybuffer" | "blob" | "document" | "json" | "text";
+declare type XMLHttpRequestResponseType = '' | 'arraybuffer' | 'blob' | 'document' | 'json' | 'text';
+
+/**
+ * Based on definitions of lib.dom and  lib.dom.iteralbe
+ */
+declare class URLSearchParams {
+    constructor(init?: string[][] | Record<string, string> | string | URLSearchParams);
+
+    append(name: string, value: string): void;
+    delete(name: string): void;
+    get(name: string): string | null;
+    getAll(name: string): string[];
+    has(name: string): boolean;
+    set(name: string, value: string): void;
+    sort(): void;
+    forEach(callbackfn: (value: string, key: string, parent: URLSearchParams) => void, thisArg?: any): void;
+    [Symbol.iterator](): IterableIterator<[string, string]>;
+
+    entries(): IterableIterator<[string, string]>;
+    keys(): IterableIterator<string>;
+    values(): IterableIterator<string>;
+}

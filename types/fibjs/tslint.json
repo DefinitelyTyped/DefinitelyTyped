@@ -1,7 +1,6 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        // All are TODOs
         "ban-types": false,
         "max-line-length": false,
         "no-consecutive-blank-lines": false,
@@ -14,6 +13,7 @@
         "semicolon": false,
         "strict-export-declare-modifiers": false,
         "trim-file": false,
-        "unified-signatures": false
+        "unified-signatures": false,
+        "npm-naming": false
     }
 }

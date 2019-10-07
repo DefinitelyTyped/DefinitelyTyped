@@ -1,4 +1,4 @@
-// Type definitions for non-npm package frida-gum 13.1
+// Type definitions for non-npm package frida-gum 14.2
 // Project: https://github.com/frida/frida
 // Definitions by: Ole André Vadla Ravnås <https://github.com/oleavr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -658,6 +658,18 @@ declare namespace Memory {
      * @param apply Function that applies the desired changes.
      */
     function patchCode(address: NativePointerValue, size: number | UInt64, apply: MemoryPatchApplyCallback): void;
+}
+
+interface MemoryRange {
+    /**
+     * Base address.
+     */
+    base: NativePointer;
+
+    /**
+     * Size in bytes.
+     */
+    size: number;
 }
 
 /**
@@ -1525,8 +1537,10 @@ interface UnixSystemFunctionResult {
 }
 
 declare class NativeCallback extends NativePointer {
-    constructor(func: AnyFunction, retType: NativeType, argTypes: NativeType[]);
+    constructor(func: NativeCallbackImplementation, retType: NativeType, argTypes: NativeType[]);
 }
+
+type NativeCallbackImplementation = (this: InvocationContext | undefined, ...params: any[]) => any;
 
 type NativeArgumentValue = NativePointerValue | UInt64 | Int64 | number | boolean | any[];
 
@@ -2266,8 +2280,14 @@ declare namespace Interceptor {
      * Intercepts calls to function/instruction at `target`. It is important
      * to specify a `InstructionProbeCallback` if `target` is not the first
      * instruction of a function.
+     *
+     * @param target Address of function/instruction to intercept.
+     * @param callbacksOrProbe Callbacks or instruction-level probe callback.
+     * @param data User data exposed to `NativeInvocationListenerCallbacks`
+     *             through the `GumInvocationContext *`.
      */
-    function attach(target: NativePointerValue, callbacksOrProbe: InvocationListenerCallbacks | InstructionProbeCallback): InvocationListener;
+    function attach(target: NativePointerValue, callbacksOrProbe: InvocationListenerCallbacks | InstructionProbeCallback,
+        data?: NativePointerValue): InvocationListener;
 
     /**
      * Detaches all previously attached listeners.
@@ -2276,8 +2296,17 @@ declare namespace Interceptor {
 
     /**
      * Replaces function at `target` with implementation at `replacement`.
+     *
+     * May be implemented using e.g. `NativeCallback` or `CModule`.
+     *
+     * @param target Address of function to replace.
+     * @param replacement Replacement implementation.
+     * @param data User data exposed to native replacement through the
+     *             `GumInvocationContext *`, obtained using
+     *             `gum_interceptor_get_current_invocation()`.
      */
-    function replace(target: NativePointerValue, replacement: NativePointerValue): void;
+    function replace(target: NativePointerValue, replacement: NativePointerValue,
+        data?: NativePointerValue): void;
 
     /**
      * Reverts the previously replaced function at `target`.
@@ -2295,9 +2324,38 @@ declare class InvocationListener {
 /**
  * Callbacks to invoke synchronously before and after a function call.
  */
-interface InvocationListenerCallbacks {
+type InvocationListenerCallbacks = ScriptInvocationListenerCallbacks | NativeInvocationListenerCallbacks;
+
+interface ScriptInvocationListenerCallbacks {
+    /**
+     * Called synchronously when a thread is about to enter the target function.
+     */
     onEnter?: (this: InvocationContext, args: InvocationArguments) => void;
+
+    /**
+     * Called synchronously when a thread is about to leave the target function.
+     */
     onLeave?: (this: InvocationContext, retval: InvocationReturnValue) => void;
+}
+
+interface NativeInvocationListenerCallbacks {
+    /**
+     * Called synchronously when a thread is about to enter the target function.
+     *
+     * Typically implemented using `CModule`.
+     *
+     * Signature: `void onEnter (GumInvocationContext * ic)`
+     */
+    onEnter?: NativePointer;
+
+    /**
+     * Called synchronously when a thread is about to leave the target function.
+     *
+     * Typically implemented using `CModule`.
+     *
+     * Signature: `void onLeave (GumInvocationContext * ic)`
+     */
+    onLeave?: NativePointer;
 }
 
 /**
@@ -2368,6 +2426,19 @@ interface UnixInvocationContext extends PortableInvocationContext {
  */
 declare namespace Stalker {
     /**
+     * Marks a memory range as excluded. This means Stalker will not follow
+     * execution when encountering a call to an instruction in such a range.
+     * You will thus be able to observe/modify the arguments going in, and
+     * the return value coming back, but won't see the instructions that
+     * happened between.
+     *
+     * Useful to improve performance and reduce noise.
+     *
+     * @param range Range to exclude.
+     */
+    function exclude(range: MemoryRange): void;
+
+    /**
      * Starts following the execution of a given thread.
      *
      * @param threadId Thread ID to start following the execution of, or the
@@ -2406,14 +2477,16 @@ declare namespace Stalker {
     function garbageCollect(): void;
 
     /**
-     * Calls `callback` synchronously when a `CALL` is made to `address`.
+     * Calls `callback` synchronously when a call is made to `address`.
      * Returns an id that can be passed to `removeCallProbe()` later.
      *
      * @param address Address of function to monitor stalked calls to.
      * @param callback Function to be called synchronously when a stalked
      *                 thread is about to call the function at `address`.
+     * @param data User data to be passed to `StalkerNativeCallProbeCallback`.
      */
-    function addCallProbe(address: NativePointerValue, callback: StalkerCallProbeCallback): StalkerCallProbeId;
+    function addCallProbe(address: NativePointerValue, callback: StalkerCallProbeCallback,
+        data?: NativePointerValue): StalkerCallProbeId;
 
     /**
      * Removes a call probe added by `addCallProbe()`.
@@ -2524,6 +2597,11 @@ interface StalkerOptions {
      * by the stalked thread.
      */
     transform?: StalkerTransformCallback;
+
+    /**
+     * User data to be passed to `StalkerNativeTransformCallback`.
+     */
+    data?: NativePointerValue;
 }
 
 interface StalkerParseOptions {
@@ -2544,7 +2622,19 @@ interface StalkerCallSummary {
     [target: string]: number;
 }
 
-type StalkerCallProbeCallback = (args: InvocationArguments) => void;
+type StalkerCallProbeCallback = StalkerScriptCallProbeCallback | StalkerNativeCallProbeCallback;
+
+/**
+ * Called synchronously when a call is made to the given address.
+ */
+type StalkerScriptCallProbeCallback = (args: InvocationArguments) => void;
+
+/**
+ * Called synchronously when a call is made to the given address.
+ *
+ * Signature: `void onCall (GumCallSite * site, gpointer user_data)`
+ */
+type StalkerNativeCallProbeCallback = NativePointer;
 
 type StalkerCallProbeId = number;
 
@@ -2576,24 +2666,41 @@ type StalkerBlockEventBare = [          NativePointer | string, NativePointer | 
 type StalkerCompileEventFull = [ "compile", NativePointer | string, NativePointer | string ];
 type StalkerCompileEventBare = [            NativePointer | string, NativePointer | string ];
 
-type StalkerTransformCallback = StalkerX86TransformCallback | StalkerArm64TransformCallback;
+type StalkerTransformCallback =
+    | StalkerX86TransformCallback
+    | StalkerArm64TransformCallback
+    | StalkerNativeTransformCallback
+    ;
 
 type StalkerX86TransformCallback = (iterator: StalkerX86Iterator) => void;
+
 type StalkerArm64TransformCallback = (iterator: StalkerArm64Iterator) => void;
+
+/**
+ * Signature: `void transform (GumStalkerIterator * iterator, GumStalkerWriter * output, gpointer user_data)`
+ */
+type StalkerNativeTransformCallback = NativePointer;
 
 declare abstract class StalkerX86Iterator extends X86Writer {
     next(): X86Instruction | null;
     keep(): void;
-    putCallout(callout: StalkerCallout): void;
+    putCallout(callout: StalkerCallout, data?: NativePointerValue): void;
 }
 
 declare abstract class StalkerArm64Iterator extends Arm64Writer {
     next(): Arm64Instruction | null;
     keep(): void;
-    putCallout(callout: StalkerCallout): void;
+    putCallout(callout: StalkerCallout, data?: NativePointerValue): void;
 }
 
-type StalkerCallout = (context: CpuContext) => void;
+type StalkerCallout = StalkerScriptCallout | StalkerNativeCallout;
+
+type StalkerScriptCallout = (context: CpuContext) => void;
+
+/**
+ * Signature: `void onAesEnc (GumCpuContext * cpu_context, gpointer user_data)`
+ */
+type StalkerNativeCallout = NativePointer;
 
 /**
  * Provides efficient API resolving using globs, allowing you to quickly
@@ -2667,24 +2774,24 @@ declare class DebugSymbol {
     address: NativePointer;
 
     /**
-     * Name of the symbol.
+     * Name of the symbol, or `null` if unknown.
      */
-    name: string;
+    name: string | null;
 
     /**
-     * Module name owning this symbol.
+     * Module name owning this symbol, or `null` if unknown.
      */
-    moduleName: string;
+    moduleName: string | null;
 
     /**
-     * File name owning this symbol.
+     * File name owning this symbol, or `null` if unknown.
      */
-    fileName: string;
+    fileName: string | null;
 
     /**
-     * Line number in `fileName`.
+     * Line number in `fileName`, or `null` if unknown.
      */
-    lineNumber: number;
+    lineNumber: number | null;
 
     /**
      * Looks up debug information for `address`.
@@ -2727,6 +2834,54 @@ declare class DebugSymbol {
      * Converts to a human-readable string.
      */
     toString(): string;
+}
+
+/**
+ * Compiles C source code to machine code, straight to memory.
+ *
+ * Useful for implementing hot callbacks, e.g. for `Interceptor` and `Stalker`,
+ * but also useful when needing to start new threads in order to call functions
+ * in a tight loop, e.g. for fuzzing purposes.
+ *
+ * Global functions are automatically exported as `NativePointer` properties
+ * named exactly like in the C source code. This means you can pass them to
+ * `Interceptor` and `Stalker`, or call them using `NativeFunction`.
+ *
+ * Symbols can also be plugged in at creation, e.g. memory allocated using
+ * `Memory.alloc()`, or `NativeCallback` for receiving callbacks from the C
+ * module.
+ *
+ * To perform initialization and cleanup, you may define functions with the
+ * following names and signatures:
+ *
+ *     `void init (void)`
+ *     `void finalize (void)`
+ *
+ * Note that all data is read-only, so writable globals should be declared
+ * `extern`, allocated using e.g. `Memory.alloc()`, and passed in as symbols
+ * through the constructor's second argument.
+ */
+declare class CModule {
+  /**
+   * Creates a new C module by compiling the provided C source code to machine
+   * code, straight to memory.
+   *
+   * @param source C source code to compile.
+   * @param symbols Symbols to expose to the C module. Declare them as `extern`.
+   */
+  constructor(source: string, symbols?: CSymbols);
+
+  /**
+   * Eagerly unmaps the module from memory. Useful for short-lived modules
+   * when waiting for a future garbage collection isn't desirable.
+   */
+  dispose(): void;
+
+  readonly [name: string]: any;
+}
+
+interface CSymbols {
+    [name: string]: NativePointerValue;
 }
 
 declare class Instruction {
@@ -3375,7 +3530,7 @@ declare namespace ObjC {
          *
          * You may replace it by assigning to this property. See `ObjC.implement()` for details.
          */
-        implementation: AnyFunction | NativePointer;
+        implementation: NativePointer;
 
         /**
          * Return type name.
@@ -3858,13 +4013,20 @@ declare namespace Java {
     function choose(className: string, callbacks: ChooseCallbacks): void;
 
     /**
+     * Duplicates a JavaScript wrapper for later use outside replacement method.
+     *
+     * @param handle An existing wrapper retrieved from `this` in replacement method.
+     */
+    function retain(obj: Wrapper): Wrapper;
+
+    /**
      * Creates a JavaScript wrapper given the existing instance at `handle` of
      * given class `klass` as returned from `Java.use()`.
      *
      * @param handle An existing wrapper or a JNI handle.
      * @param klass Class wrapper for type to cast to.
      */
-    function cast(handle: any, klass: Wrapper): Wrapper;
+    function cast(handle: Wrapper | NativePointerValue, klass: Wrapper): Wrapper;
 
     /**
      * Creates a Java array with elements of the specified `type`, from a
@@ -3981,6 +4143,11 @@ declare namespace Java {
         $className: string;
 
         /**
+         * Instance used for chaining up to super-class method implementations.
+         */
+        $super: Wrapper;
+
+        /**
          * Methods and fields.
          */
         [name: string]: any;
@@ -4025,9 +4192,11 @@ declare namespace Java {
         handle: NativePointer;
 
         /**
-         * Implementation. Assign to this property to replace it.
+         * Implementation. Assign a new implementation to this property to
+         * replace the original implementation. Assign `null` at a future point
+         * to revert back to the original implementation.
          */
-        implementation: (...params: any[]) => any;
+        implementation: MethodImplementation | null;
 
         /**
          * Method return type.
@@ -4044,6 +4213,8 @@ declare namespace Java {
          */
         canInvokeWith: (...args: any[]) => boolean;
     }
+
+    type MethodImplementation = (this: Wrapper, ...params: any[]) => any;
 
     interface Field {
         /**
@@ -4151,15 +4322,27 @@ declare namespace Java {
         name: string;
 
         /**
+         * Super-class. Omit to inherit from `java.lang.Object`.
+         */
+        superClass?: Wrapper;
+
+        /**
          * Interfaces implemented by this class.
          */
         implements?: Wrapper[];
 
         /**
-         * Methods to implement.
+         * Name and type of each field to expose.
+         */
+        fields?: {
+            [name: string]: string;
+        };
+
+        /**
+         * Methods to implement. Use the special name `$init` to define one or more constructors.
          */
         methods?: {
-            [name: string]: AnyFunction | MethodSpec | MethodSpec[];
+            [name: string]: MethodImplementation | MethodSpec | MethodSpec[];
         };
     }
 
@@ -4177,7 +4360,7 @@ declare namespace Java {
         /**
          * Implementation.
          */
-        implementation: AnyFunction;
+        implementation: MethodImplementation;
     }
 
     interface VM {

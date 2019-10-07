@@ -1,1 +1,1 @@
-export function readHref(node: Element): string;
+export function readHref(node: Element): string | undefined;

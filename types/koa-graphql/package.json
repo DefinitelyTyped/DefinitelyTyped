@@ -1,0 +1,7 @@
+{
+  "private": true,
+  "dependencies": {
+    "graphql": "^14.5.3",
+    "express-graphql": "^0.9.0"
+  }
+}

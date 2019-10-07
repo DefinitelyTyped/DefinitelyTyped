@@ -15,6 +15,8 @@
 //                 Christian D. <https://github.com/pc-jedi>
 //                 Silas Rech <https://github.com/lenovouser>
 //                 DoYoung Ha <https://github.com/hados99>
+//                 Borys Kupar <https://github.com/borys-kupar>
+//                 Remko Klein <https://github.com/remko79>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -405,15 +407,17 @@ declare namespace Bull {
 
     /**
      * A boolean which, if true, removes the job when it successfully completes.
-     * Default behavior is to keep the job in the completed set.
+     * When a number, it specifies the amount of jobs to keep.
+     * Default behavior is to keep the job in the failed set.
      */
     removeOnComplete?: boolean | number;
 
     /**
-     * A boolean which, if true, removes the job when it fails after all attempts
+     * A boolean which, if true, removes the job when it fails after all attempts.
+     * When a number, it specifies the amount of jobs to keep.
      * Default behavior is to keep the job in the completed set.
      */
-    removeOnFail?: boolean;
+    removeOnFail?: boolean | number;
 
     /**
      * Limits the amount of stack trace lines that will be recorded in the stacktrace.
@@ -436,6 +440,7 @@ declare namespace Bull {
     endDate?: number;
     tz?: string;
     cron: string;
+    every: number;
     next: number;
   }
 
@@ -475,9 +480,9 @@ declare namespace Bull {
      * If the promise is rejected, the error will be passed as a second argument to the "failed" event.
      * If it is resolved, its value will be the "completed" event's second argument.
      */
-    process(callback: ProcessCallbackFunction<T>): void;
-    process(callback: ProcessPromiseFunction<T>): void;
-    process(callback: string): void;
+    process(callback: ProcessCallbackFunction<T>): Promise<void>;
+    process(callback: ProcessPromiseFunction<T>): Promise<void>;
+    process(callback: string): Promise<void>;
 
     /**
      * Defines a processing function for the jobs placed into a given Queue.
@@ -498,9 +503,9 @@ declare namespace Bull {
      *
      * @param concurrency Bull will then call your handler in parallel respecting this maximum value.
      */
-    process(concurrency: number, callback: ProcessCallbackFunction<T>): void;
-    process(concurrency: number, callback: ProcessPromiseFunction<T>): void;
-    process(concurrency: number, callback: string): void;
+    process(concurrency: number, callback: ProcessCallbackFunction<T>): Promise<void>;
+    process(concurrency: number, callback: ProcessPromiseFunction<T>): Promise<void>;
+    process(concurrency: number, callback: string): Promise<void>;
 
     /**
      * Defines a processing function for the jobs placed into a given Queue.
@@ -521,9 +526,9 @@ declare namespace Bull {
      *
      * @param name Bull will only call the handler if the job name matches
      */
-    process(name: string, callback: ProcessCallbackFunction<T>): void;
-    process(name: string, callback: ProcessPromiseFunction<T>): void;
-    process(name: string, callback: string): void;
+    process(name: string, callback: ProcessCallbackFunction<T>): Promise<void>;
+    process(name: string, callback: ProcessPromiseFunction<T>): Promise<void>;
+    process(name: string, callback: string): Promise<void>;
 
     /**
      * Defines a processing function for the jobs placed into a given Queue.
@@ -545,9 +550,9 @@ declare namespace Bull {
      * @param name Bull will only call the handler if the job name matches
      * @param concurrency Bull will then call your handler in parallel respecting this maximum value.
      */
-    process(name: string, concurrency: number, callback: ProcessCallbackFunction<T>): void;
-    process(name: string, concurrency: number, callback: ProcessPromiseFunction<T>): void;
-    process(name: string, concurrency: number, callback: string): void;
+    process(name: string, concurrency: number, callback: ProcessCallbackFunction<T>): Promise<void>;
+    process(name: string, concurrency: number, callback: ProcessPromiseFunction<T>): Promise<void>;
+    process(name: string, concurrency: number, callback: string): Promise<void>;
 
     /* tslint:enable:unified-signatures */
 

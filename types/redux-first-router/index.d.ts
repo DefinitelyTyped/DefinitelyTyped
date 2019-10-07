@@ -8,8 +8,9 @@
 //                 surgeboris <https://github.com/surgeboris>
 //                 geirsagberg <https://github.com/geirsagberg>
 //                 Harry Hedger <https://github.com/hedgerh>
+//                 Adam Rich <https://github.com/adam1658>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.8
 
 import {
     Dispatch,
@@ -298,7 +299,7 @@ export interface Options<TKeys = {}, TState = any> {
 }
 
 export interface Query {
-    [key: string]: string;
+    [key: string]: string | undefined;
 }
 
 export interface Params {

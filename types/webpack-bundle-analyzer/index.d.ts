@@ -1,6 +1,6 @@
 // Type definitions for webpack-bundle-analyzer 2.13
 // Project: https://github.com/webpack-contrib/webpack-bundle-analyzer
-// Definitions by: Michael Strobel <https://github.com/kryops>
+// Definitions by: Michael Strobel <https://github.com/kryops>, Vladimir Grenaderov <https://github.com/VladimirGrenaderov>, Max Boguslavskiy <https://github.com/maxbogus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -30,7 +30,7 @@ export namespace BundleAnalyzerPlugin {
          * Port that will be used in `server` mode to start HTTP server.
          * Defaults to 8888
          */
-        analyzerPort?: number;
+        analyzerPort?: number | 'auto';
 
         /**
          * Path to bundle report file that will be generated in "static" mode.

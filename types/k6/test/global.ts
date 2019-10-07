@@ -40,4 +40,4 @@ __ITER; // $ExpectType number
 
 // environment
 __ENV = 5; // $ExpectError
-__ENV; // $ExpectType object
+__ENV; // $ExpectType { [name: string]: string; }
