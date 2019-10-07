@@ -56,8 +56,8 @@ declare namespace ReCaptchaV2 {
   type Size = "normal" | "compact" | "invisible";
   type Badge = "bottomright" | "bottomleft" | "inline";
 
-  interface Action{
-     /**
+  interface Action {
+    /**
      * the name of the action. Actions may only contain alphanumeric characters and slashes, and must not be user-specific.
      */
     action: string;
