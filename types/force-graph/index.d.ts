@@ -1,6 +1,7 @@
-// Type definitions for force-graph 1.15
+// Type definitions for force-graph 1.21
 // Project: https://github.com/vasturiano/force-graph
 // Definitions by: Peter Kimberley <https://github.com/p-kimberley>
+//                 Noah Santschi-Cooney <https://github.com/Strum355>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare function ForceGraph(): ForceGraph.ForceGraphInstance;
