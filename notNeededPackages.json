@@ -841,6 +841,12 @@
             "asOfVersion": "0.11.0"
         },
         {
+            "libraryName": "electron-winstaller",
+            "typingsPackageName": "electron-winstaller",
+            "sourceRepoURL": "https://github.com/electron/windows-installer",
+            "asOfVersion": "4.0.0"
+        },
+        {
             "libraryName": "elegant-spinner",
             "typingsPackageName": "elegant-spinner",
             "sourceRepoURL": "https://github.com/sindresorhus/elegant-spinner",
