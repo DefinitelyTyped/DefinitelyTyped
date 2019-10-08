@@ -280,29 +280,6 @@ declare namespace TelegramBot {
     }
 
     /// TELEGRAM TYPES ///
-    interface PollOption {
-        text: string;
-        voter_count: number;
-    }
-
-    interface Poll {
-        id: string;
-        question: string;
-        options: PollOption[];
-        is_closed: boolean;
-    }
-
-    interface ChatPermissions {
-        can_send_messages?: boolean;
-        can_send_media_messages?: boolean;
-        can_send_polls?: boolean;
-        can_send_other_messages?: boolean;
-        can_add_web_page_previews?: boolean;
-        can_change_info?: boolean;
-        can_invite_users?: boolean;
-        can_pin_messages?: boolean;
-    }
-
     interface Update {
         update_id: number;
         message?: Message;
@@ -496,6 +473,18 @@ declare namespace TelegramBot {
         foursquare_type?: string;
     }
 
+    interface PollOption {
+        text: string;
+        voter_count: number;
+    }
+
+    interface Poll {
+        id: string;
+        question: string;
+        options: PollOption[];
+        is_closed: boolean;
+    }
+
     interface UserProfilePhotos {
         total_count: number;
         photos: PhotoSize[][];
@@ -544,7 +533,7 @@ declare namespace TelegramBot {
         bot_username?: string;
         request_write_acces?: boolean;
     }
-    
+
     interface CallbackQuery {
         id: string;
         from: User;
@@ -582,6 +571,17 @@ declare namespace TelegramBot {
         can_send_media_messages?: boolean;
         can_send_other_messages?: boolean;
         can_add_web_page_previews?: boolean;
+    }
+
+    interface ChatPermissions {
+        can_send_messages?: boolean;
+        can_send_media_messages?: boolean;
+        can_send_polls?: boolean;
+        can_send_other_messages?: boolean;
+        can_add_web_page_previews?: boolean;
+        can_change_info?: boolean;
+        can_invite_users?: boolean;
+        can_pin_messages?: boolean;
     }
 
     interface Sticker {
