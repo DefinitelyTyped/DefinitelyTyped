@@ -16,9 +16,6 @@
         "paths": {
             "@storybook/addon-info": [
                 "storybook__addon-info"
-            ],
-            "@storybook/react": [
-                "storybook__react"
             ]
         },
         "types": [],
