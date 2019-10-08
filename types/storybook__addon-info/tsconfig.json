@@ -1,29 +1,25 @@
 {
-    "compilerOptions": {
-        "module": "commonjs",
-        "lib": [
-            "es6"
-        ],
-        "noImplicitAny": true,
-        "noImplicitThis": true,
-        "strictNullChecks": true,
-        "strictFunctionTypes": true,
-        "baseUrl": "../",
-        "jsx": "react",
-        "typeRoots": [
-            "../"
-        ],
-        "paths": {
-            "@storybook/addon-info": [
-                "storybook__addon-info"
-            ]
-        },
-        "types": [],
-        "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+  "compilerOptions": {
+    "module": "commonjs",
+    "lib": ["es6"],
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "baseUrl": "../",
+    "jsx": "react",
+    "typeRoots": ["../"],
+    "paths": {
+      "@storybook/addon-info": [
+        "storybook__addon-info"
+      ]
     },
-    "files": [
-        "index.d.ts",
-        "storybook__addon-info-tests.tsx"
-    ]
+    "noEmit": true,
+    "forceConsistentCasingInFileNames": true,
+    "esModuleInterop": true
+  },
+  "files": [
+    "index.d.ts",
+    "storybook__addon-info-tests.tsx"
+  ]
 }
