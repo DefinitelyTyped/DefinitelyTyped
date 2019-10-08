@@ -2,10 +2,12 @@
 // Project: https://github.com/tuchk4/storybook-readme
 // Definitions by: Taeheon Kim  <https://github.com/lonyele>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.1
+
+import { ComponentType, ReactNode } from 'react';
 
 // Shared Types
-export type Renderable = React.ComponentType | JSX.Element;
+export type Renderable = ComponentType | JSX.Element;
 export type RenderFunction = () => Renderable | Renderable[];
 export type Readme = string | string[];
 
@@ -25,10 +27,10 @@ export function addHeader(md: string): void;
 export interface ConfigureReadmeConfig {
   header?: string;
   footer?: string;
-  StoryPreview?: (props: { children: React.ReactNode }) => React.ReactNode;
-  DocPreview?: (props: { children: React.ReactNode }) => React.ReactNode;
-  HeaderPreview?: (props: { children: React.ReactNode }) => React.ReactNode;
-  FooterPreview?: (props: { children: React.ReactNode }) => React.ReactNode;
+  StoryPreview?: (props: { children: ReactNode }) => ReactNode;
+  DocPreview?: (props: { children: ReactNode }) => ReactNode;
+  HeaderPreview?: (props: { children: ReactNode }) => ReactNode;
+  FooterPreview?: (props: { children: ReactNode }) => ReactNode;
 }
 
 export function configureReadme(config: ConfigureReadmeConfig): void;

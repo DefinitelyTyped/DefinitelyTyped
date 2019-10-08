@@ -5,9 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
-import * as React from 'react';
 import { StoryObject } from '@storybook/react';
-import { Page, NavigationOptions, ScreenshotOptions } from "puppeteer";
 
 export type Test = (options: {
     story: StoryObject;
