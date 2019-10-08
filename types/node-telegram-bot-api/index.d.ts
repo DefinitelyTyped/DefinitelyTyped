@@ -327,8 +327,8 @@ declare namespace TelegramBot {
         can_set_sticker_set?: boolean;
         sticker_set_name?: string;
         /**
-        * @deprecated since version Telegram Bot API 4.4 - July 29, 2019
-        */
+         * @deprecated since version Telegram Bot API 4.4 - July 29, 2019
+         */
         all_members_are_administrators?: boolean;
     }
 
@@ -519,7 +519,7 @@ declare namespace TelegramBot {
     interface InlineKeyboardButton {
         text: string;
         url?: string;
-        login_url: LoginUrl;
+        login_url?: LoginUrl;
         callback_data?: string;
         switch_inline_query?: string;
         switch_inline_query_current_chat?: string;
