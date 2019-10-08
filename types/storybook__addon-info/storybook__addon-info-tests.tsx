@@ -1,5 +1,3 @@
-/// <reference types="storybook__react" />
-
 import * as React from 'react';
 import { addDecorator, storiesOf } from '@storybook/react';
 import { setDefaults, withInfo } from '@storybook/addon-info';
