@@ -1,0 +1,35 @@
+{
+	"compilerOptions": {
+		"module": "commonjs",
+		"lib": ["esnext"],
+		"noImplicitAny": true,
+		"noImplicitThis": true,
+		"strictFunctionTypes": true,
+		"strictNullChecks": true,
+		"baseUrl": "../",
+		"typeRoots": ["../"],
+		"types": [],
+		"noEmit": true,
+		"forceConsistentCasingInFileNames": true
+	},
+	"files": [
+		"es5.d.ts",
+		"es6.d.ts",
+		"es7.d.ts",
+		"es2015.d.ts",
+		"es2016.d.ts",
+		"es2017.d.ts",
+		"es2018.d.ts",
+		"es2019.d.ts",
+		"GetIntrinsic.d.ts",
+		"index.d.ts",
+		"test/es5.test.ts",
+		"test/es2015.test.ts",
+		"test/es2016.test.ts",
+		"test/es2017.test.ts",
+		"test/es2018.test.ts",
+		"test/es2019.test.ts",
+		"test/GetIntrinsic.test.ts",
+		"test/index.test.ts"
+	]
+}
