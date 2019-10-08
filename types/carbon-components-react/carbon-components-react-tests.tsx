@@ -153,7 +153,6 @@ interface TestCompProps {
     someProp: number,
 }
 
-
 class TestComp1 extends React.Component<TestCompProps> {
     render() {
         return (<div/>);
