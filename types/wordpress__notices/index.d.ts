@@ -58,4 +58,9 @@ export interface Options {
      * @defaultValue `true`
      */
     speak: boolean;
+    /**
+     * The type of notice.
+     * @defaultValue `'default'`
+     */
+    type: 'default' | 'snackbar';
 }
