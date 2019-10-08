@@ -198,5 +198,4 @@ export interface Presence {
 	matchSecret?: string;
 	spectateSecret?: string;
 	joinSecret?: string;
-	instance?: number;
 }
