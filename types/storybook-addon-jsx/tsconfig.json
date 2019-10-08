@@ -11,9 +11,7 @@
         "strictFunctionTypes": true,
         "baseUrl": "../",
         "jsx": "react",
-        "typeRoots": [
-            "../"
-        ],
+        "typeRoots": ["../"],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
