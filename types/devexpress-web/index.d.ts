@@ -1,4 +1,4 @@
-// Type definitions for DevExpress ASP.NET 191.5
+// Type definitions for DevExpress ASP.NET 191.6
 // Project: https://devexpress.com/
 // Definitions by: DevExpress Inc. <https://devexpress.com/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -3045,6 +3045,102 @@ declare abstract class CommandWithBooleanStateBase extends CommandBase {
     abstract getState(): CommandState<boolean>;
 }
 /**
+ * A command to invoke the Bookmark dialog.
+ */
+declare class OpenInsertBookmarkDialogCommand extends CommandWithSimpleStateBase {
+    /**
+     * Executes the OpenInsertBookmarkDialogCommand command.
+     */
+    execute(): boolean;
+    /**
+     * Gets information about the command's state.
+     */
+    getState(): SimpleCommandState;
+}
+/**
+ * A command to insert a new bookmark that references the current selection.
+ */
+declare class InsertBookmarkCommand extends CommandWithSimpleStateBase {
+    /**
+     * Executes the InsertBookmarkCommand command with the specified parameters. true if the command has been successfully executed; false if the command execution has failed.
+     * @param name A string value specifying a name of the created bookmark.
+     * @param start An integer value specifying the start position of the bookmark's range.
+     * @param length An integer value specifying the length of the bookmark's range.
+     */
+    execute(name: string, start: number, length: number): boolean;
+    /**
+     * Gets information about the command's state.
+     */
+    getState(): SimpleCommandState;
+}
+/**
+ * A command to delete a specific bookmark.
+ */
+declare class DeleteBookmarkCommand extends CommandWithSimpleStateBase {
+    /**
+     * Executes the DeleteBookmarkCommand command with the specified parameter. true if the command has been successfully executed; false if the command execution has failed.
+     * @param name A string value specifying a name of the deleted bookmark.
+     */
+    execute(name: string): boolean;
+    /**
+     * Gets information about the command's state.
+     */
+    getState(): SimpleCommandState;
+}
+/**
+ * Gets a command to navigate to the specified bookmark in the document.
+ */
+declare class GoToBookmarkCommand extends CommandWithSimpleStateBase {
+    /**
+     * Executes the GoToBookmarkCommand command with the specified parameter. true if the command has been successfully executed; false if the command execution has failed.
+     * @param name A string value specifying the bookmark's name
+     */
+    execute(name: string): boolean;
+    /**
+     * Gets information about the command's state.
+     */
+    getState(): SimpleCommandState;
+}
+/**
+ * A command to paste the text from the clipboard over the selection.
+ */
+declare class PasteCommand extends CommandWithSimpleStateBase {
+    /**
+     * Executes the PasteCommand command.
+     */
+    execute(): boolean;
+    /**
+     * Gets information about the command's state.
+     */
+    getState(): SimpleCommandState;
+}
+/**
+ * A command to copy the selected text and place it to the clipboard.
+ */
+declare class CopyCommand extends CommandWithSimpleStateBase {
+    /**
+     * Executes the CopyCommand command.
+     */
+    execute(): boolean;
+    /**
+     * Gets information about the command's state.
+     */
+    getState(): SimpleCommandState;
+}
+/**
+ * A command to cut the selected text and place it to the clipboard.
+ */
+declare class CutCommand extends CommandWithSimpleStateBase {
+    /**
+     * Executes the CutCommand command.
+     */
+    execute(): boolean;
+    /**
+     * Gets information about the command's state.
+     */
+    getState(): SimpleCommandState;
+}
+/**
  * A command to insert an empty document field at the current position in the document.
  */
 declare class CreateFieldCommand extends CommandWithSimpleStateBase {
@@ -3486,6 +3582,200 @@ declare enum MailMergeExportRange {
      * Specifies that a specific range of data source records will be included into the exported merged document.
      */
     Range = 2
+}
+/**
+ * A command to create a new empty document.
+ */
+declare class FileNewCommand extends CommandWithSimpleStateBase {
+    /**
+     * Executes the FileNewCommand command.
+     */
+    execute(): boolean;
+    /**
+     * Gets information about the command's state.
+     */
+    getState(): SimpleCommandState;
+}
+/**
+ * A command to open the file, specifying its path.
+ */
+declare class FileOpenCommand {
+    /**
+     * Executes the FileOpenCommand command with the specified parameter. true if the command has been successfully executed; false if the command execution has failed.
+     * @param path A string value specifying path to the opening file.
+     */
+    execute(path: string): boolean;
+    /**
+     * Gets information about the command's state.
+     */
+    getState(): SimpleCommandState;
+}
+/**
+ * A command to invoke the File Open dialog allowing one to select and load a document file into RichEdit.
+ */
+declare class FileOpenDialogCommand extends CommandWithSimpleStateBase {
+    /**
+     * Executes the FileOpenDialogCommand command.
+     */
+    execute(): boolean;
+    /**
+     * Gets information about the command's state.
+     */
+    getState(): SimpleCommandState;
+}
+/**
+ * A command to save the document to a file.
+ */
+declare class FileSaveCommand extends CommandWithSimpleStateBase {
+    /**
+     * Executes the FileSaveCommand command.
+     */
+    execute(): boolean;
+    /**
+     * Gets information about the command's state.
+     */
+    getState(): SimpleCommandState;
+}
+/**
+ * A command to invoke the Save As dialog that prompts for a file name and saves the current document in a file with the specified path.
+ */
+declare class FileSaveAsCommand {
+    /**
+     * Executes the FileSaveAsCommand command with the specified parameter. true if the command has been successfully executed; false if the command execution has failed.
+     */
+    execute(path: string | RichEditFileInfo): boolean;
+    /**
+     * Gets information about the command's state.
+     */
+    getState(): SimpleCommandState;
+}
+/**
+ * A command to download the document file, specifying its extension.
+ */
+declare class FileDownloadCommand extends CommandWithSimpleStateBase {
+    /**
+     * Executes the FileDownloadCommand command with the specified parameter. true if the command has been successfully executed; false if the command execution has failed.
+     * @param fileExtension A string value specifying the extension of the downloading file.
+     */
+    execute(fileExtension: string | DocumentFormat): boolean;
+    /**
+     * Gets information about the command's state.
+     */
+    getState(): SimpleCommandState;
+}
+/**
+ * A command to open the file's Save As dialog.
+ */
+declare class FileSaveAsDialogCommand extends CommandWithSimpleStateBase {
+    /**
+     * Executes the FileSaveAsDialogCommand command.
+     */
+    execute(): boolean;
+    /**
+     * Gets information about the command's state.
+     */
+    getState(): SimpleCommandState;
+}
+/**
+ * A command to invoke a browser-specific Print dialog allowing one to print the current document.
+ */
+declare class FilePrintCommand extends CommandWithSimpleStateBase {
+    /**
+     * Executes the FilePrintCommand command.
+     */
+    execute(): boolean;
+    /**
+     * Gets information about the command's state.
+     */
+    getState(): SimpleCommandState;
+}
+/**
+ * A command to invoke the Search Panel allowing end-users to search text and navigate through search results.
+ */
+declare class OpenFindPanelCommand extends CommandWithSimpleStateBase {
+    /**
+     * Executes the OpenFindPanelCommand command.
+     */
+    execute(): boolean;
+    /**
+     * Gets information about the command's state.
+     */
+    getState(): SimpleCommandState;
+}
+/**
+ * A command to invoke the Find and Replace dialog.
+ */
+declare class OpenFindAndReplaceDialogCommand extends CommandWithSimpleStateBase {
+    /**
+     * Executes the OpenFindAndReplaceDialogCommand command.
+     */
+    execute(): boolean;
+    /**
+     * Gets information about the command's state.
+     */
+    getState(): SimpleCommandState;
+}
+/**
+ * A command to find all matches of the specified text in the document.
+ */
+declare class FindAllCommand extends CommandWithSimpleStateBase {
+    /**
+     * Executes the FindAllCommand command with the specified parameters. true if the command has been successfully executed; false if the command execution has failed.
+     * @param text A string value specifying text to find.
+     * @param matchCase true, to perform a case-sensitive search; otherwise, false.
+     * @param highlightResults true, to highlight the search results; otherwise, false.
+     * @param results An array of Interval objects containing the search results.
+     */
+    execute(text: string, matchCase: boolean, highlightResults: boolean, results?: Interval[]): boolean;
+    /**
+     * Gets information about the command's state.
+     */
+    getState(): SimpleCommandState;
+}
+/**
+ * A command to hide the search results.
+ */
+declare class HideFindResultsCommand extends CommandWithSimpleStateBase {
+    /**
+     * Executes the HideFindResultsCommand command.
+     */
+    execute(): boolean;
+    /**
+     * Gets information about the command's state.
+     */
+    getState(): SimpleCommandState;
+}
+/**
+ * A command to search for a specific text and replace all matches in the document with the specified string.
+ */
+declare class ReplaceAllCommand extends CommandWithSimpleStateBase {
+    /**
+     * Executes the ReplaceAllCommand command with the specified parameters. true if the command has been successfully executed; false if the command execution has failed.
+     * @param text A string value specifying a text to replace.
+     * @param replaceText A string value specifying the inserted text.
+     * @param matchCase true, to perform a case-sensitive search; otherwise, false.
+     */
+    execute(text: string, replaceText: string, matchCase: boolean): boolean;
+    /**
+     * Gets information about the command's state.
+     */
+    getState(): SimpleCommandState;
+}
+/**
+ * A command to search for a specific text and replace the next match in the document with the specified string.
+ */
+declare class ReplaceNextCommand extends CommandWithSimpleStateBase {
+    /**
+     * Executes the ReplaceNextCommand command with the specified parameters. true if the command has been successfully executed; false if the command execution has failed.
+     * @param text A string value specifying a text to replace.
+     * @param replaceText A string value specifying the inserted text.
+     * @param matchCase true, to perform a case-sensitive search; otherwise, false.
+     */
+    execute(text: string, replaceText: string, matchCase: boolean): boolean;
+    /**
+     * Gets information about the command's state.
+     */
+    getState(): SimpleCommandState;
 }
 /**
  * A command to invoke the Layout dialog.
@@ -4086,6 +4376,46 @@ declare enum FloatingObjectVerticalPositionAlignment {
     Outside = 5
 }
 /**
+ * A command to cancel changes caused by the previous command.
+ */
+declare class UndoCommand extends CommandWithSimpleStateBase {
+    /**
+     * Executes the UndoCommand command.
+     */
+    execute(): boolean;
+    /**
+     * Gets information about the command's state.
+     */
+    getState(): SimpleCommandState;
+}
+/**
+ * A command to reverse actions of the previous undo command.
+ */
+declare class RedoCommand extends CommandWithSimpleStateBase {
+    /**
+     * Executes the RedoCommand command.
+     */
+    execute(): boolean;
+    /**
+     * Gets information about the command's state.
+     */
+    getState(): SimpleCommandState;
+}
+/**
+ * A command to add an HTML formatted content in place of a selected range.
+ */
+declare class InsertHtmlCommand extends CommandWithSimpleStateBase {
+    /**
+     * Executes the InsertHtmlCommand command with the specified parameter. true if the command has been successfully executed; false if the command execution has failed.
+     * @param html A string that specifies the inserted HTML code.
+     */
+    execute(html: string): boolean;
+    /**
+     * Gets information about the command's state.
+     */
+    getState(): SimpleCommandState;
+}
+/**
  * A command to invoke the Hyperlink dialog.
  */
 declare class OpenInsertHyperlinkDialogCommand extends CommandWithSimpleStateBase {
@@ -4195,6 +4525,84 @@ declare class HyperlinkSettings {
      * @param text A hyperlink text.
      */
     constructor(url?: string, bookmark?: string, tooltip?: string, text?: string);
+}
+/**
+ * A command to insert a page break at the current position in the document.
+ */
+declare class InsertPageBreakCommand extends CommandWithSimpleStateBase {
+    /**
+     * Executes the InsertPageBreakCommand command.
+     */
+    execute(): boolean;
+    /**
+     * Gets information about the command's state.
+     */
+    getState(): SimpleCommandState;
+}
+/**
+ * A command to insert a column break at the current position in the document.
+ */
+declare class InsertColumnBreakCommand extends CommandWithSimpleStateBase {
+    /**
+     * Executes the InsertColumnBreakCommand command.
+     */
+    execute(): boolean;
+    /**
+     * Gets information about the command's state.
+     */
+    getState(): SimpleCommandState;
+}
+/**
+ * A command to insert a section break and start a new section on the next page.
+ */
+declare class InsertSectionBreakNextPageCommand extends CommandWithSimpleStateBase {
+    /**
+     * Executes the InsertSectionBreakNextPageCommand command.
+     */
+    execute(): boolean;
+    /**
+     * Gets information about the command's state.
+     */
+    getState(): SimpleCommandState;
+}
+/**
+ * A command to insert a section break and start a new section on the next even-numbered page.
+ */
+declare class InsertSectionBreakEvenPageCommand extends CommandWithSimpleStateBase {
+    /**
+     * Executes the InsertSectionBreakEvenPageCommand command.
+     */
+    execute(): boolean;
+    /**
+     * Gets information about the command's state.
+     */
+    getState(): SimpleCommandState;
+}
+/**
+ * A command to insert a section break and start a new section on the next odd-numbered page.
+ */
+declare class InsertSectionBreakOddPageCommand extends CommandWithSimpleStateBase {
+    /**
+     * Executes the InsertSectionBreakOddPageCommand command.
+     */
+    execute(): boolean;
+    /**
+     * Gets information about the command's state.
+     */
+    getState(): SimpleCommandState;
+}
+/**
+ * A command to insert the line break at the current position in the document.
+ */
+declare class InsertLineBreakCommand extends CommandWithSimpleStateBase {
+    /**
+     * Executes the InsertLineBreakCommand command.
+     */
+    execute(): boolean;
+    /**
+     * Gets information about the command's state.
+     */
+    getState(): SimpleCommandState;
 }
 /**
  * A command to increment the indent level of paragraphs in a selected range.
@@ -4935,13 +5343,11 @@ declare enum ListLevelFormat {
      */
     Decimal = 0,
     /**
-     * Specifies that the sequence shall consist of hiragana characters in the traditional a-i-u-e-o order.
-Currently not supported.
+     * Specifies that the sequence shall consist of hiragana characters in the traditional a-i-u-e-o order. Currently not supported.
      */
     AIUEOHiragana = 1,
     /**
-     * Specifies that the sequence shall consist of full-width hiragana characters in the traditional a-i-u-e-o order.
-Currently not supported.
+     * Specifies that the sequence shall consist of full-width hiragana characters in the traditional a-i-u-e-o order. Currently not supported.
      */
     AIUEOFullWidthHiragana = 2,
     /**
@@ -5740,6 +6146,67 @@ declare enum Orientation {
      * Worksheet page orientation is portrait.
      */
     Portrait = 1
+}
+/**
+ * A command to add an RTF formatted content in the selected position.
+ */
+declare class InsertRtfCommand extends CommandWithSimpleStateBase {
+    /**
+     * Executes the InsertRtfCommand command with the specified parameters. true if the command has been successfully executed; false if the command execution has failed.
+     * @param rtfText A string representing the RTF formatted content to insert.
+     * @param position A value specifying the position to insert in the specified sub-document.
+     * @param subDocumentId A value identifying the target sub-document.
+     * @param callback A callback function that passes the inserted content's Interval object and the bool parameter that displays whether the RTF formatted string is valid.
+     */
+    execute(rtfText: string, position: number, subDocumentId?: number, callback?: (interval: Interval, isRtfValid: boolean) => void): boolean;
+    /**
+     * Gets information about the command's state.
+     */
+    getState(): SimpleCommandState;
+}
+/**
+ * A command to receive a document's content in RTF format.
+ */
+declare class GetRtfCommand extends CommandWithSimpleStateBase {
+    /**
+     * Executes the GetRtfCommand command with the specified parameters. true if the command has been successfully executed; false if the command execution has failed.
+     * @param interval An object specifying the required interval in the specified sub-document.
+     * @param callback A function that passes the RTF formatted string as a parameter.
+     * @param subDocumentId A value identifying the target sub-document.
+     */
+    execute(interval: Interval, callback: (rtf: string) => void, subDocumentId?: number): boolean;
+    /**
+     * Gets information about the command's state.
+     */
+    getState(): SimpleCommandState;
+}
+/**
+ * A command to assign a shortcut to the specified client command.
+ */
+declare class AssignShortcutCommand extends CommandWithSimpleStateBase {
+    /**
+     * Executes the AssignShortcutCommand command with the specified parameters. true if the command has been successfully executed; false if the command execution has failed.
+     * @param keyCode A specifically generated code that uniquely identifies the combination of keys specified for a shortcut. This code is specified using the ASPxClientUtils.GetShortcutCode method.
+     * @param callback A callback function to execute when a shortcut is activated.
+     */
+    execute(keyCode: number, callback: () => void): boolean;
+    /**
+     * Gets information about the command's state.
+     */
+    getState(): SimpleCommandState;
+}
+/**
+ * A command to invoke the Spelling dialog window.
+ */
+declare class OpenSpellingDialogCommand extends CommandWithSimpleStateBase {
+    /**
+     * Executes the OpenSpellingDialogCommand command.
+     */
+    execute(): boolean;
+    /**
+     * Gets information about the command's state.
+     */
+    getState(): SimpleCommandState;
 }
 /**
  * A command to invoke the Insert Table dialog.
@@ -7954,507 +8421,6 @@ declare class InsertContentFromServerCommand extends CommandBase {
     getState(): SimpleCommandState;
 }
 /**
- * Contains members related to the document's layout functionality.
- */
-declare class RichEditLayout {
-    /**
-     * Returns bounds of the specified document model's position. The object that contains position bounds.
-     * @param position The position in a document model.
-     * @param endOfLine true to return bounds of a position at the end of a line; false to return bounds of a position at a new line start.
-     */
-    getPositionBounds(position: number, endOfLine?: boolean): Rectangle;
-}
-/**
- * Contains the size and coordinates of a rectangle.
- */
-declare class Rectangle {
-    /**
-     * Gets the x-coordinate of the upper-left corner of the rectangle.
-     */
-    x: number;
-    /**
-     * Gets the y-coordinate of the upper-left corner of the rectangle.
-     */
-    y: number;
-    /**
-     * Gets the rectangle's width.
-     */
-    width: number;
-    /**
-     * Gets the rectangle's height.
-     */
-    height: number;
-}
-/**
- * A command to invoke the Bookmark dialog.
- */
-declare class OpenInsertBookmarkDialogCommand extends CommandWithSimpleStateBase {
-    /**
-     * Executes the OpenInsertBookmarkDialogCommand command.
-     */
-    execute(): boolean;
-    /**
-     * Gets information about the command's state.
-     */
-    getState(): SimpleCommandState;
-}
-/**
- * A command to insert a new bookmark that references the current selection.
- */
-declare class InsertBookmarkCommand extends CommandWithSimpleStateBase {
-    /**
-     * Executes the InsertBookmarkCommand command with the specified parameters. true if the command has been successfully executed; false if the command execution has failed.
-     * @param name A string value specifying a name of the created bookmark.
-     * @param start An integer value specifying the start position of the bookmark's range.
-     * @param length An integer value specifying the length of the bookmark's range.
-     */
-    execute(name: string, start: number, length: number): boolean;
-    /**
-     * Gets information about the command's state.
-     */
-    getState(): SimpleCommandState;
-}
-/**
- * A command to delete a specific bookmark.
- */
-declare class DeleteBookmarkCommand extends CommandWithSimpleStateBase {
-    /**
-     * Executes the DeleteBookmarkCommand command with the specified parameter. true if the command has been successfully executed; false if the command execution has failed.
-     * @param name A string value specifying a name of the deleted bookmark.
-     */
-    execute(name: string): boolean;
-    /**
-     * Gets information about the command's state.
-     */
-    getState(): SimpleCommandState;
-}
-/**
- * Gets a command to navigate to the specified bookmark in the document.
- */
-declare class GoToBookmarkCommand extends CommandWithSimpleStateBase {
-    /**
-     * Executes the GoToBookmarkCommand command with the specified parameter. true if the command has been successfully executed; false if the command execution has failed.
-     * @param name A string value specifying the bookmark's name
-     */
-    execute(name: string): boolean;
-    /**
-     * Gets information about the command's state.
-     */
-    getState(): SimpleCommandState;
-}
-/**
- * A command to paste the text from the clipboard over the selection.
- */
-declare class PasteCommand extends CommandWithSimpleStateBase {
-    /**
-     * Executes the PasteCommand command.
-     */
-    execute(): boolean;
-    /**
-     * Gets information about the command's state.
-     */
-    getState(): SimpleCommandState;
-}
-/**
- * A command to copy the selected text and place it to the clipboard.
- */
-declare class CopyCommand extends CommandWithSimpleStateBase {
-    /**
-     * Executes the CopyCommand command.
-     */
-    execute(): boolean;
-    /**
-     * Gets information about the command's state.
-     */
-    getState(): SimpleCommandState;
-}
-/**
- * A command to cut the selected text and place it to the clipboard.
- */
-declare class CutCommand extends CommandWithSimpleStateBase {
-    /**
-     * Executes the CutCommand command.
-     */
-    execute(): boolean;
-    /**
-     * Gets information about the command's state.
-     */
-    getState(): SimpleCommandState;
-}
-/**
- * A command to create a new empty document.
- */
-declare class FileNewCommand extends CommandWithSimpleStateBase {
-    /**
-     * Executes the FileNewCommand command.
-     */
-    execute(): boolean;
-    /**
-     * Gets information about the command's state.
-     */
-    getState(): SimpleCommandState;
-}
-/**
- * A command to open the file, specifying its path.
- */
-declare class FileOpenCommand {
-    /**
-     * Executes the FileOpenCommand command with the specified parameter. true if the command has been successfully executed; false if the command execution has failed.
-     * @param path A string value specifying path to the opening file.
-     */
-    execute(path: string): boolean;
-    /**
-     * Gets information about the command's state.
-     */
-    getState(): SimpleCommandState;
-}
-/**
- * A command to invoke the File Open dialog allowing one to select and load a document file into RichEdit.
- */
-declare class FileOpenDialogCommand extends CommandWithSimpleStateBase {
-    /**
-     * Executes the FileOpenDialogCommand command.
-     */
-    execute(): boolean;
-    /**
-     * Gets information about the command's state.
-     */
-    getState(): SimpleCommandState;
-}
-/**
- * A command to save the document to a file.
- */
-declare class FileSaveCommand extends CommandWithSimpleStateBase {
-    /**
-     * Executes the FileSaveCommand command.
-     */
-    execute(): boolean;
-    /**
-     * Gets information about the command's state.
-     */
-    getState(): SimpleCommandState;
-}
-/**
- * A command to invoke the Save As dialog that prompts for a file name and saves the current document in a file with the specified path.
- */
-declare class FileSaveAsCommand {
-    /**
-     * Executes the FileSaveAsCommand command with the specified parameter. true if the command has been successfully executed; false if the command execution has failed.
-     */
-    execute(path: string | RichEditFileInfo): boolean;
-    /**
-     * Gets information about the command's state.
-     */
-    getState(): SimpleCommandState;
-}
-/**
- * A command to download the document file, specifying its extension.
- */
-declare class FileDownloadCommand extends CommandWithSimpleStateBase {
-    /**
-     * Executes the FileDownloadCommand command with the specified parameter. true if the command has been successfully executed; false if the command execution has failed.
-     * @param fileExtension A string value specifying the extension of the downloading file.
-     */
-    execute(fileExtension: string | DocumentFormat): boolean;
-    /**
-     * Gets information about the command's state.
-     */
-    getState(): SimpleCommandState;
-}
-/**
- * A command to open the file's Save As dialog.
- */
-declare class FileSaveAsDialogCommand extends CommandWithSimpleStateBase {
-    /**
-     * Executes the FileSaveAsDialogCommand command.
-     */
-    execute(): boolean;
-    /**
-     * Gets information about the command's state.
-     */
-    getState(): SimpleCommandState;
-}
-/**
- * A command to invoke a browser-specific Print dialog allowing one to print the current document.
- */
-declare class FilePrintCommand extends CommandWithSimpleStateBase {
-    /**
-     * Executes the FilePrintCommand command.
-     */
-    execute(): boolean;
-    /**
-     * Gets information about the command's state.
-     */
-    getState(): SimpleCommandState;
-}
-/**
- * A command to invoke the Search Panel allowing end-users to search text and navigate through search results.
- */
-declare class OpenFindPanelCommand extends CommandWithSimpleStateBase {
-    /**
-     * Executes the OpenFindPanelCommand command.
-     */
-    execute(): boolean;
-    /**
-     * Gets information about the command's state.
-     */
-    getState(): SimpleCommandState;
-}
-/**
- * A command to invoke the Find and Replace dialog.
- */
-declare class OpenFindAndReplaceDialogCommand extends CommandWithSimpleStateBase {
-    /**
-     * Executes the OpenFindAndReplaceDialogCommand command.
-     */
-    execute(): boolean;
-    /**
-     * Gets information about the command's state.
-     */
-    getState(): SimpleCommandState;
-}
-/**
- * A command to find all matches of the specified text in the document.
- */
-declare class FindAllCommand extends CommandWithSimpleStateBase {
-    /**
-     * Executes the FindAllCommand command with the specified parameters. true if the command has been successfully executed; false if the command execution has failed.
-     * @param text A string value specifying text to find.
-     * @param matchCase true, to perform a case-sensitive search; otherwise, false.
-     * @param highlightResults true, to highlight the search results; otherwise, false.
-     * @param results An array of Interval objects containing the search results.
-     */
-    execute(text: string, matchCase: boolean, highlightResults: boolean, results?: Interval[]): boolean;
-    /**
-     * Gets information about the command's state.
-     */
-    getState(): SimpleCommandState;
-}
-/**
- * A command to hide the search results.
- */
-declare class HideFindResultsCommand extends CommandWithSimpleStateBase {
-    /**
-     * Executes the HideFindResultsCommand command.
-     */
-    execute(): boolean;
-    /**
-     * Gets information about the command's state.
-     */
-    getState(): SimpleCommandState;
-}
-/**
- * A command to search for a specific text and replace all matches in the document with the specified string.
- */
-declare class ReplaceAllCommand extends CommandWithSimpleStateBase {
-    /**
-     * Executes the ReplaceAllCommand command with the specified parameters. true if the command has been successfully executed; false if the command execution has failed.
-     * @param text A string value specifying a text to replace.
-     * @param replaceText A string value specifying the inserted text.
-     * @param matchCase true, to perform a case-sensitive search; otherwise, false.
-     */
-    execute(text: string, replaceText: string, matchCase: boolean): boolean;
-    /**
-     * Gets information about the command's state.
-     */
-    getState(): SimpleCommandState;
-}
-/**
- * A command to search for a specific text and replace the next match in the document with the specified string.
- */
-declare class ReplaceNextCommand extends CommandWithSimpleStateBase {
-    /**
-     * Executes the ReplaceNextCommand command with the specified parameters. true if the command has been successfully executed; false if the command execution has failed.
-     * @param text A string value specifying a text to replace.
-     * @param replaceText A string value specifying the inserted text.
-     * @param matchCase true, to perform a case-sensitive search; otherwise, false.
-     */
-    execute(text: string, replaceText: string, matchCase: boolean): boolean;
-    /**
-     * Gets information about the command's state.
-     */
-    getState(): SimpleCommandState;
-}
-/**
- * A command to cancel changes caused by the previous command.
- */
-declare class UndoCommand extends CommandWithSimpleStateBase {
-    /**
-     * Executes the UndoCommand command.
-     */
-    execute(): boolean;
-    /**
-     * Gets information about the command's state.
-     */
-    getState(): SimpleCommandState;
-}
-/**
- * A command to reverse actions of the previous undo command.
- */
-declare class RedoCommand extends CommandWithSimpleStateBase {
-    /**
-     * Executes the RedoCommand command.
-     */
-    execute(): boolean;
-    /**
-     * Gets information about the command's state.
-     */
-    getState(): SimpleCommandState;
-}
-/**
- * A command to add an RTF formatted content in the selected position.
- */
-declare class InsertRtfCommand extends CommandWithSimpleStateBase {
-    /**
-     * Executes the InsertRtfCommand command with the specified parameters. true if the command has been successfully executed; false if the command execution has failed.
-     * @param rtfText A string representing the RTF formatted content to insert.
-     * @param position A value specifying the position to insert in the specified sub-document.
-     * @param subDocumentId A value identifying the target sub-document.
-     * @param callback A callback function that passes the inserted content's Interval object and the bool parameter that displays whether the RTF formatted string is valid.
-     */
-    execute(rtfText: string, position: number, subDocumentId?: number, callback?: (interval: Interval, isRtfValid: boolean) => void): boolean;
-    /**
-     * Gets information about the command's state.
-     */
-    getState(): SimpleCommandState;
-}
-/**
- * A command to receive a document's content in RTF format.
- */
-declare class GetRtfCommand extends CommandWithSimpleStateBase {
-    /**
-     * Executes the GetRtfCommand command with the specified parameters. true if the command has been successfully executed; false if the command execution has failed.
-     * @param interval An object specifying the required interval in the specified sub-document.
-     * @param callback A function that passes the RTF formatted string as a parameter.
-     * @param subDocumentId A value identifying the target sub-document.
-     */
-    execute(interval: Interval, callback: (rtf: string) => void, subDocumentId?: number): boolean;
-    /**
-     * Gets information about the command's state.
-     */
-    getState(): SimpleCommandState;
-}
-/**
- * A command to assign a shortcut to the specified client command.
- */
-declare class AssignShortcutCommand extends CommandWithSimpleStateBase {
-    /**
-     * Executes the AssignShortcutCommand command with the specified parameters. true if the command has been successfully executed; false if the command execution has failed.
-     * @param keyCode A specifically generated code that uniquely identifies the combination of keys specified for a shortcut. This code is specified using the ASPxClientUtils.GetShortcutCode method.
-     * @param callback A callback function to execute when a shortcut is activated.
-     */
-    execute(keyCode: number, callback: () => void): boolean;
-    /**
-     * Gets information about the command's state.
-     */
-    getState(): SimpleCommandState;
-}
-/**
- * A command to invoke the Spelling dialog window.
- */
-declare class OpenSpellingDialogCommand extends CommandWithSimpleStateBase {
-    /**
-     * Executes the OpenSpellingDialogCommand command.
-     */
-    execute(): boolean;
-    /**
-     * Gets information about the command's state.
-     */
-    getState(): SimpleCommandState;
-}
-/**
- * A command to insert a page break at the current position in the document.
- */
-declare class InsertPageBreakCommand extends CommandWithSimpleStateBase {
-    /**
-     * Executes the InsertPageBreakCommand command.
-     */
-    execute(): boolean;
-    /**
-     * Gets information about the command's state.
-     */
-    getState(): SimpleCommandState;
-}
-/**
- * A command to insert a column break at the current position in the document.
- */
-declare class InsertColumnBreakCommand extends CommandWithSimpleStateBase {
-    /**
-     * Executes the InsertColumnBreakCommand command.
-     */
-    execute(): boolean;
-    /**
-     * Gets information about the command's state.
-     */
-    getState(): SimpleCommandState;
-}
-/**
- * A command to insert a section break and start a new section on the next page.
- */
-declare class InsertSectionBreakNextPageCommand extends CommandWithSimpleStateBase {
-    /**
-     * Executes the InsertSectionBreakNextPageCommand command.
-     */
-    execute(): boolean;
-    /**
-     * Gets information about the command's state.
-     */
-    getState(): SimpleCommandState;
-}
-/**
- * A command to insert a section break and start a new section on the next even-numbered page.
- */
-declare class InsertSectionBreakEvenPageCommand extends CommandWithSimpleStateBase {
-    /**
-     * Executes the InsertSectionBreakEvenPageCommand command.
-     */
-    execute(): boolean;
-    /**
-     * Gets information about the command's state.
-     */
-    getState(): SimpleCommandState;
-}
-/**
- * A command to insert a section break and start a new section on the next odd-numbered page.
- */
-declare class InsertSectionBreakOddPageCommand extends CommandWithSimpleStateBase {
-    /**
-     * Executes the InsertSectionBreakOddPageCommand command.
-     */
-    execute(): boolean;
-    /**
-     * Gets information about the command's state.
-     */
-    getState(): SimpleCommandState;
-}
-/**
- * A command to insert the line break at the current position in the document.
- */
-declare class InsertLineBreakCommand extends CommandWithSimpleStateBase {
-    /**
-     * Executes the InsertLineBreakCommand command.
-     */
-    execute(): boolean;
-    /**
-     * Gets information about the command's state.
-     */
-    getState(): SimpleCommandState;
-}
-/**
- * A command to add an HTML formatted content in place of a selected range.
- */
-declare class InsertHtmlCommand extends CommandWithSimpleStateBase {
-    /**
-     * Executes the InsertHtmlCommand command with the specified parameter. true if the command has been successfully executed; false if the command execution has failed.
-     * @param html A string that specifies the inserted HTML code.
-     */
-    execute(html: string): boolean;
-    /**
-     * Gets information about the command's state.
-     */
-    getState(): SimpleCommandState;
-}
-/**
  * Contains a set of the available client commands.
  */
 declare class RichEditCommands {
@@ -9400,25 +9366,6 @@ declare class RichEditCommands {
     readonly getRtf: GetRtfCommand;
 }
 /**
- * Provides data for the ASPxClientRichEdit.ContentRemoved event.
- */
-declare class ASPxClientRichEditContentRemovedEventArgs extends ASPxClientEventArgs {
-    /**
-     * Gets the active sub-document's identifier.
-     */
-    subDocumentId: number;
-    /**
-     * Gets the text buffer interval related to the removed content.
-     */
-    interval: Interval;
-    /**
-     * Initializes a new instance of the ASPxClientRichEditContentRemovedEventArgs object. For internal use only.
-     * @param subDocumentId An identifier of a sub-document that contained the removed content.
-     * @param interval An interval object that relates to the removed content.
-     */
-    constructor(subDocumentId: number, interval: Interval);
-}
-/**
  * Provides data for the ASPxClientRichEdit.AutoCorrect event.
  */
 declare class ASPxClientRichEditAutoCorrectEventArgs extends ASPxClientEventArgs {
@@ -9441,25 +9388,6 @@ declare class ASPxClientRichEditAutoCorrectEventArgs extends ASPxClientEventArgs
      * @param handled true if the event is handled and no default processing is required; otherwise false.
      */
     constructor(text: any, interval: any, handled: any);
-}
-/**
- * Provides data for the ASPxClientRichEdit.ParagraphPropertiesChanged event.
- */
-declare class ASPxClientRichEditParagraphPropertiesChangedEventArgs extends ASPxClientEventArgs {
-    /**
-     * Gets the active sub-document's identifier.
-     */
-    subDocumentId: number;
-    /**
-     * Gets the changed paragraph's index.
-     */
-    paragraphIndex: number;
-    /**
-     * Initializes a new instance of the ASPxClientRichEditParagraphPropertiesChangedEventArgs object. For internal use only.
-     * @param subDocumentId An identifier of a sub-document containing the changed paragraph.
-     * @param paragraphIndex The changed paragraph's index.
-     */
-    constructor(subDocumentId: number, paragraphIndex: number);
 }
 /**
  * Provides data for the ASPxClientRichEdit.CharacterPropertiesChanged event.
@@ -9500,6 +9428,58 @@ declare class ASPxClientRichEditContentInsertedEventArgs extends ASPxClientEvent
     constructor(subDocumentId: number, interval: Interval);
 }
 /**
+ * Provides data for the ASPxClientRichEdit.ContentRemoved event.
+ */
+declare class ASPxClientRichEditContentRemovedEventArgs extends ASPxClientEventArgs {
+    /**
+     * Gets the active sub-document's identifier.
+     */
+    subDocumentId: number;
+    /**
+     * Gets the text buffer interval related to the removed content.
+     */
+    interval: Interval;
+    /**
+     * Initializes a new instance of the ASPxClientRichEditContentRemovedEventArgs object. For internal use only.
+     * @param subDocumentId An identifier of a sub-document that contained the removed content.
+     * @param interval An interval object that relates to the removed content.
+     */
+    constructor(subDocumentId: number, interval: Interval);
+}
+/**
+ * Provides data for the ASPxClientRichEdit.CustomCommandExecuted event.
+ */
+declare class ASPxClientRichEditCustomCommandExecutedEventArgs extends ASPxClientEventArgs {
+    /**
+     * Gets the name of the processed command.
+     */
+    commandName: string;
+    /**
+     * Gets an optional parameter that complements the processed command.
+     */
+    parameter: any;
+    /**
+     * Initializes a new instance of the ASPxClientRichEditCustomCommandExecutedEventArgs object. For internal use only.
+     * @param commandName A string value that specifies the name of the processed command.
+     * @param parameter An object that can contain command specific information needed for handling the command execution.
+     */
+    constructor(commandName: string, parameter: any);
+}
+/**
+ * Provides data for the ASPxClientRichEdit.DocumentFormatted event.
+ */
+declare class ASPxClientRichEditDocumentFormattedEventArgs extends ASPxClientEventArgs {
+    /**
+     * Gets the number of pages in the document.
+     */
+    pageCount: number;
+    /**
+     * Initializes a new instance of the ASPxClientRichEditDocumentFormattedEventArgs object. For internal use only.
+     * @param pageCount The number of pages in the document.
+     */
+    constructor(pageCount: number);
+}
+/**
  * Provides data for the ASPxClientRichEdit.HyperlinkClick event.
  */
 declare class ASPxClientRichEditHyperlinkClickEventArgs extends ASPxClientEventArgs {
@@ -9527,6 +9507,96 @@ declare class ASPxClientRichEditHyperlinkClickEventArgs extends ASPxClientEventA
      * @param hyperlinkType The document link type.
      */
     constructor(htmlEvent: any, handled: boolean, targetUri: string, hyperlinkType: ASPxClientOfficeDocumentLinkType);
+}
+/**
+ * Provides data for the ASPxClientRichEdit.KeyDown event.
+ */
+declare class ASPxClientRichEditKeyDownEventArgs extends ASPxClientEventArgs {
+    /**
+     * Gets or sets whether the event is handled manually, so no default processing is required.
+     */
+    handled: boolean;
+    /**
+     * Gets a DHTML event object that relates to the processed event.
+     */
+    htmlEvent: any;
+    /**
+     * Initializes a new instance of the ASPxClientRichEditKeyDownEventArgs object. For internal use only.
+     * @param htmlEvent A DHTML event object that relates to the processed event.
+     * @param handled true if the event is handled and no default processing is required; otherwise false.
+     */
+    constructor(htmlEvent: any, handled: boolean);
+}
+/**
+ * Provides data for the ASPxClientRichEdit.KeyUp event.
+ */
+declare class ASPxClientRichEditKeyUpEventArgs extends ASPxClientEventArgs {
+    /**
+     * Gets a DHTML event object that relates to the processed event.
+     */
+    htmlEvent: any;
+    /**
+     * Initializes a new instance of the ASPxClientRichEditKeyUpEventArgs object. For internal use only.
+     * @param htmlEvent A DHTML event object that relates to the processed event.
+     */
+    constructor(htmlEvent: any);
+}
+/**
+ * Provides data for the ASPxClientRichEdit.ParagraphPropertiesChanged event.
+ */
+declare class ASPxClientRichEditParagraphPropertiesChangedEventArgs extends ASPxClientEventArgs {
+    /**
+     * Gets the active sub-document's identifier.
+     */
+    subDocumentId: number;
+    /**
+     * Gets the changed paragraph's index.
+     */
+    paragraphIndex: number;
+    /**
+     * Initializes a new instance of the ASPxClientRichEditParagraphPropertiesChangedEventArgs object. For internal use only.
+     * @param subDocumentId An identifier of a sub-document containing the changed paragraph.
+     * @param paragraphIndex The changed paragraph's index.
+     */
+    constructor(subDocumentId: number, paragraphIndex: number);
+}
+/**
+ * Provides data for the ASPxClientRichEdit.PointerDown event.
+ */
+declare class ASPxClientRichEditPointerDownEventArgs extends ASPxClientEventArgs {
+    /**
+     * Gets or sets whether the event is handled manually, so no default processing is required.
+     */
+    handled: boolean;
+    /**
+     * Gets a DHTML event object that relates to the processed event.
+     */
+    htmlEvent: any;
+    /**
+     * Initializes a new instance of the ASPxClientRichEditPointerDownEventArgs object. For internal use only.
+     * @param htmlEvent A DHTML event object that relates to the processed event.
+     * @param handled true if the event is handled and no default processing is required; otherwise false.
+     */
+    constructor(htmlEvent: any, handled: boolean);
+}
+/**
+ * Provides data for the ASPxClientRichEdit.PointerUp event.
+ */
+declare class ASPxClientRichEditPointerUpEventArgs extends ASPxClientEventArgs {
+    /**
+     * Gets or sets whether the event is handled manually, so no default processing is required.
+     */
+    handled: boolean;
+    /**
+     * Gets a DHTML event object that relates to the processed event.
+     */
+    htmlEvent: any;
+    /**
+     * Initializes a new instance of the ASPxClientRichEditPointerUpEventArgs object. For internal use only.
+     * @param htmlEvent A DHTML event object that relates to the processed event.
+     * @param handled true if the event is handled and no default processing is required; otherwise false.
+     */
+    constructor(htmlEvent: any, handled: any);
 }
 /**
  * Represents an individual item of the Rich Edit's context menu.
@@ -9650,110 +9720,6 @@ declare class ASPxClientRichEditPopupMenuShowingEventArgs extends ASPxClientCanc
     constructor(menuItems: ASPxClientRichEditPopupMenuItemCollection);
 }
 /**
- * Provides data for the ASPxClientRichEdit.KeyUp event.
- */
-declare class ASPxClientRichEditKeyUpEventArgs extends ASPxClientEventArgs {
-    /**
-     * Gets a DHTML event object that relates to the processed event.
-     */
-    htmlEvent: any;
-    /**
-     * Initializes a new instance of the ASPxClientRichEditKeyUpEventArgs object. For internal use only.
-     * @param htmlEvent A DHTML event object that relates to the processed event.
-     */
-    constructor(htmlEvent: any);
-}
-/**
- * Provides data for the ASPxClientRichEdit.KeyDown event.
- */
-declare class ASPxClientRichEditKeyDownEventArgs extends ASPxClientEventArgs {
-    /**
-     * Gets or sets whether the event is handled manually, so no default processing is required.
-     */
-    handled: boolean;
-    /**
-     * Gets a DHTML event object that relates to the processed event.
-     */
-    htmlEvent: any;
-    /**
-     * Initializes a new instance of the ASPxClientRichEditKeyDownEventArgs object. For internal use only.
-     * @param htmlEvent A DHTML event object that relates to the processed event.
-     * @param handled true if the event is handled and no default processing is required; otherwise false.
-     */
-    constructor(htmlEvent: any, handled: boolean);
-}
-/**
- * Provides data for the ASPxClientRichEdit.PointerUp event.
- */
-declare class ASPxClientRichEditPointerUpEventArgs extends ASPxClientEventArgs {
-    /**
-     * Gets or sets whether the event is handled manually, so no default processing is required.
-     */
-    handled: boolean;
-    /**
-     * Gets a DHTML event object that relates to the processed event.
-     */
-    htmlEvent: any;
-    /**
-     * Initializes a new instance of the ASPxClientRichEditPointerUpEventArgs object. For internal use only.
-     * @param htmlEvent A DHTML event object that relates to the processed event.
-     * @param handled true if the event is handled and no default processing is required; otherwise false.
-     */
-    constructor(htmlEvent: any, handled: any);
-}
-/**
- * Provides data for the ASPxClientRichEdit.PointerDown event.
- */
-declare class ASPxClientRichEditPointerDownEventArgs extends ASPxClientEventArgs {
-    /**
-     * Gets or sets whether the event is handled manually, so no default processing is required.
-     */
-    handled: boolean;
-    /**
-     * Gets a DHTML event object that relates to the processed event.
-     */
-    htmlEvent: any;
-    /**
-     * Initializes a new instance of the ASPxClientRichEditPointerDownEventArgs object. For internal use only.
-     * @param htmlEvent A DHTML event object that relates to the processed event.
-     * @param handled true if the event is handled and no default processing is required; otherwise false.
-     */
-    constructor(htmlEvent: any, handled: boolean);
-}
-/**
- * Provides data for the ASPxClientRichEdit.CustomCommandExecuted event.
- */
-declare class ASPxClientRichEditCustomCommandExecutedEventArgs extends ASPxClientEventArgs {
-    /**
-     * Gets the name of the processed command.
-     */
-    commandName: string;
-    /**
-     * Gets an optional parameter that complements the processed command.
-     */
-    parameter: any;
-    /**
-     * Initializes a new instance of the ASPxClientRichEditCustomCommandExecutedEventArgs object. For internal use only.
-     * @param commandName A string value that specifies the name of the processed command.
-     * @param parameter An object that can contain command specific information needed for handling the command execution.
-     */
-    constructor(commandName: string, parameter: any);
-}
-/**
- * Provides data for the ASPxClientRichEdit.DocumentFormatted event.
- */
-declare class ASPxClientRichEditDocumentFormattedEventArgs extends ASPxClientEventArgs {
-    /**
-     * Gets the number of pages in the document.
-     */
-    pageCount: number;
-    /**
-     * Initializes a new instance of the ASPxClientRichEditDocumentFormattedEventArgs object. For internal use only.
-     * @param pageCount The number of pages in the document.
-     */
-    constructor(pageCount: number);
-}
-/**
  * A method that handles the ContentRemoved event.
  * @param source The event source.
  * @param e An object that contains event data.
@@ -9856,6 +9822,76 @@ interface ASPxClientRichEditCustomCommandExecutedEventHandler {
  */
 interface ASPxClientRichEditDocumentFormattedEventHandler {
     (source: ASPxClientRichEdit, e: ASPxClientRichEditDocumentFormattedEventArgs): any;
+}
+/**
+ * Contains members related to the document's layout functionality.
+ */
+declare class RichEditLayout {
+    /**
+     * Returns bounds of the specified document model's position. The object that contains position bounds.
+     * @param position The position in a document model.
+     * @param endOfLine true to return bounds of a position at the end of a line; false to return bounds of a position at a new line start.
+     */
+    getPositionBounds(position: number, endOfLine?: boolean): Rectangle;
+}
+/**
+ * Contains the size and coordinates of a rectangle.
+ */
+declare class Rectangle {
+    /**
+     * Gets the x-coordinate of the upper-left corner of the rectangle.
+     */
+    x: number;
+    /**
+     * Gets the y-coordinate of the upper-left corner of the rectangle.
+     */
+    y: number;
+    /**
+     * Gets the rectangle's width.
+     */
+    width: number;
+    /**
+     * Gets the rectangle's height.
+     */
+    height: number;
+}
+/**
+ * Defines custom loading panel members.
+ */
+interface ICustomLoadingPanel {
+    /**
+     * Specifies whether the panel is visible.
+     */
+    visible?: boolean;
+    /**
+     * Shows the loading panel.
+     */
+    show(): void;
+    /**
+     * Hides the loading panel.
+     */
+    hide(): void;
+}
+/**
+ * Contains settings related to the loading panel functionality.
+ */
+declare class LoadingPanel {
+    /**
+     * Specifies whether the loading panel is enabled in the control.
+     */
+    enabled: boolean;
+    /**
+     * Allows you to provide a custom loading panel.
+     */
+    customPanel: undefined | ICustomLoadingPanel;
+    /**
+     * Shows the loading panel.
+     */
+    show(): void;
+    /**
+     * Hides the loading panel.
+     */
+    hide(): void;
 }
 /**
  * Contains control requests' settings.
@@ -10042,6 +10078,10 @@ declare class ASPxClientRichEdit extends ASPxClientControl {
      */
     selection: RichEditSelection;
     /**
+     * Provides access to a document's layout functionality.
+     */
+    layout: RichEditLayout;
+    /**
      * Gets a unit converter.
      */
     unitConverter: RichEditUnitConverter;
@@ -10049,6 +10089,10 @@ declare class ASPxClientRichEdit extends ASPxClientControl {
      * Provides access to request settings.
      */
     requestSettings: RequestSettings;
+    /**
+     * Provides access to settings related to a loading panel functionality.
+     */
+    loadingPanel: LoadingPanel;
     /**
      * Enables you to switch the full-screen mode of the Rich Text Editor.
      * @param fullscreen true to activate full-screen mode; false to deactivate full-screen mode.
@@ -14556,13 +14600,12 @@ declare class ASPxClientControl extends ASPxClientControlBase {
      */
     GetHeight(): number;
     /**
-     * Specifies the control's width.
-     * @param width An integer value that specifies the control's width.
+     * Specifies the control's width in pixels.
+     * @param width An integer value that specifies the control's width, in pixels.
      */
     SetWidth(width: number): void;
     /**
-     * Specifies the control's height. 
-Note that this method is not in effect for some controls.
+     * Specifies the control's height.  Note that this method is not in effect for some controls.
      * @param height An integer value that specifies the control's height.
      */
     SetHeight(height: number): void;
@@ -14722,8 +14765,7 @@ declare class ASPxClientDataView extends ASPxClientControl {
  */
 interface ASPxClientDockingFilterPredicate { (item: any): boolean; }
 /**
- * A client-side equivalent of the ASPxDockManager
-object.
+ * A client-side equivalent of the ASPxDockManager object.
  */
 declare class ASPxClientDockManager extends ASPxClientControl {
     /**
@@ -15791,27 +15833,27 @@ interface ASPxClientParseDateEventHandler<Sender> { (source: Sender, e: ASPxClie
  */
 declare class ASPxClientDropDownEditBase extends ASPxClientButtonEditBase {
     /**
-     * Occurs on the client-side when the drop down window is opened by the dropdown button click.
+     * Occurs on the client-side when the <strong>drop down window</strong> is opened by the dropdown button click.
      */
     DropDown: ASPxClientEvent<ASPxClientEventHandler<ASPxClientDropDownEditBase>>;
     /**
-     * Occurs on the client side when the drop down window is closed.
+     * Occurs on the client side when the <strong>drop down window</strong> is closed.
      */
     CloseUp: ASPxClientEvent<ASPxClientEventHandler<ASPxClientDropDownEditBase>>;
     /**
-     * Occurs on the client side before the drop down window is closed and allows you to cancel the operation.
+     * Occurs on the client side before the <strong>drop down window</strong> is closed and allows you to cancel the operation.
      */
     QueryCloseUp: ASPxClientEvent<ASPxClientCancelEventHandler<ASPxClientDropDownEditBase>>;
     /**
-     * Modifies the size of the drop down window in accordance with its content.
+     * Modifies the size of the <strong>drop down window</strong> in accordance with its content.
      */
     AdjustDropDownWindow(): void;
     /**
-     * Invokes the editor's drop down window.
+     * Invokes the editor's <strong>drop down window</strong>.
      */
     ShowDropDown(): void;
     /**
-     * Closes the opened drop down window of the editor.
+     * Closes the opened <strong>drop down window</strong> of the editor.
      */
     HideDropDown(): void;
 }
@@ -16633,8 +16675,7 @@ declare class ASPxClientProgressBar extends ASPxClientEditBase {
  */
 declare class ASPxClientSpinEditBase extends ASPxClientButtonEditBase {
     /**
-     * This event is not in effect for the ASPxClientSpinEditBase. Use the ASPxClientEdit.ValueChanged event instead.
-Alternatively, use an editor type specific event, such as ASPxClientSpinEdit.NumberChanged for an ASPxClientSpinEdit or ASPxClientTimeEdit.DateChanged for an ASPxClientTimeEdit.
+     * This event is not in effect for the ASPxClientSpinEditBase. Use the ASPxClientEdit.ValueChanged event instead. Alternatively, use an editor type specific event, such as ASPxClientSpinEdit.NumberChanged for an ASPxClientSpinEdit or ASPxClientTimeEdit.DateChanged for an ASPxClientTimeEdit.
      */
     TextChanged: ASPxClientEvent<ASPxClientProcessingModeEventHandler<ASPxClientSpinEditBase>>;
 }
@@ -18136,69 +18177,47 @@ declare class ASPxClientFileManagerCommandConsts {
  */
 declare class ASPxClientFileManagerErrorConsts {
     /**
-     * The specified file is not found.
-
-Return Value: 0
+     * The specified file is not found. Return Value: 0
      */
     static readonly FileNotFound: number;
     /**
-     * The specified folder is not found.
-
-Return Value: 1
+     * The specified folder is not found. Return Value: 1
      */
     static readonly FolderNotFound: number;
     /**
-     * Access is denied.
-
-Return Value: 2
+     * Access is denied. Return Value: 2
      */
     static readonly AccessDenied: number;
     /**
-     * Unspecified IO error occurs.
-
-Return Value: 3
+     * Unspecified IO error occurs. Return Value: 3
      */
     static readonly UnspecifiedIO: number;
     /**
-     * Unspecified error occurs.
-
-Return Value: 4
+     * Unspecified error occurs. Return Value: 4
      */
     static readonly Unspecified: number;
     /**
-     * The file/folder name is empty.
-
-Return Value: 5
+     * The file/folder name is empty. Return Value: 5
      */
     static readonly EmptyName: number;
     /**
-     * The operation was canceled.
-
-Return Value: 6
+     * The operation was canceled. Return Value: 6
      */
     static readonly CanceledOperation: number;
     /**
-     * The specified name contains invalid characters.
-
-Return Value: 7
+     * The specified name contains invalid characters. Return Value: 7
      */
     static readonly InvalidSymbols: number;
     /**
-     * The specified file extension is not allowed.
-
-Return Value: 8
+     * The specified file extension is not allowed. Return Value: 8
      */
     static readonly WrongExtension: number;
     /**
-     * The file/folder is being used by another process.
-
-Return Value: 9
+     * The file/folder is being used by another process. Return Value: 9
      */
     static readonly UsedByAnotherProcess: number;
     /**
-     * The specified file/folder already exists.
-
-Return Value: 10
+     * The specified file/folder already exists. Return Value: 10
      */
     static readonly AlreadyExists: number;
 }
@@ -20367,6 +20386,7 @@ declare class ASPxClientGridView extends ASPxClientGridBase {
     UnselectRowsByKey(keys: any[] | any): void;
     /**
      * Deselects the specified row (if selected) within the grid.
+     * @param visibleIndices Visible indices of rows to unselect.
      */
     UnselectRows(visibleIndices?: number[] | number): void;
     /**
@@ -20595,8 +20615,8 @@ declare class ASPxClientGridView extends ASPxClientGridBase {
     GetSelectedKeysOnPage(): any[];
     /**
      * Sends a callback to the server and generates the server-side ASPxGridView.CustomDataCallback event.
-     * @param args A string value that is any information that needs to be sent to the server-side ASPxGridView.CustomDataCallback event.
-     * @param onCallback A ASPxClientGridViewValuesCallback object that is the JavaScript function which receives the information on the client side.
+     * @param args Information that you need to send to the ASPxGridView.CustomDataCallback server-side event.
+     * @param onCallback A JavaScript function that receives the information on the client side.
      */
     GetValuesOnCustomCallback(args: string, onCallback: ASPxClientGridViewValuesCallback): void;
     /**
@@ -21886,6 +21906,7 @@ declare class ASPxClientVerticalGrid extends ASPxClientGridBase {
      * @param value true, to expand the row; otherwise, false.
      */
     SetRowExpanded(row: ASPxClientVerticalGridRow | number | string, value: boolean): void;
+    SetFixedRowsTopOffset(offset: number): void;
     /**
      * Converts the specified object to the ASPxClientVerticalGrid type. The converted client object specified by the obj parameter.
      * @param obj The client object to be type cast.
@@ -23993,27 +24014,27 @@ declare class ASPxClientPopupControlBase extends ASPxClientControl {
      */
     GetContentUrl(): string;
     /**
-     * Returns the URL pointing to the image displayed within the window footer by default.
+     * Returns the URL pointing to the image displayed within the <strong>window footer</strong> by default.
      */
     GetFooterImageUrl(): string;
     /**
-     * Returns the URL where the web browser will navigate when the text or image is clicked within a window's footer.
+     * Returns the URL where the web browser will navigate when the text or image is clicked within a window's <strong>footer</strong>.
      */
     GetFooterNavigateUrl(): string;
     /**
-     * Returns the text displayed within a window's footer.
+     * Returns the text displayed within a window's <strong>footer</strong>.
      */
     GetFooterText(): string;
     /**
-     * Returns the URL pointing to the image displayed within the window header.
+     * Returns the URL pointing to the image displayed within the <strong>window header</strong>.
      */
     GetHeaderImageUrl(): string;
     /**
-     * Returns the URL where the web browser will navigate when the text or image is clicked within a window's header.
+     * Returns the URL where the web browser will navigate when the text or image is clicked within a window's <strong>header</strong>.
      */
     GetHeaderNavigateUrl(): string;
     /**
-     * Returns the text displayed within a window's header.
+     * Returns the text displayed within a window's <strong>header</strong>.
      */
     GetHeaderText(): string;
     /**
@@ -24057,27 +24078,27 @@ declare class ASPxClientPopupControlBase extends ASPxClientControl {
      */
     SetContentUrl(url: string): void;
     /**
-     * Specifies the URL which points to the image displayed within the window footer by default.
+     * Specifies the URL which points to the image displayed within the <strong>window footer</strong> by default.
      * @param value A string value that is the URL for the image displayed within the window footer.
      */
     SetFooterImageUrl(value: string): void;
     /**
-     * Specifies the URL where the web browser will navigate when the text or image is clicked within a window's footer.
+     * Specifies the URL where the web browser will navigate when the text or image is clicked within a window's <strong>footer</strong>.
      * @param value A string value which specifies the required navigation location.
      */
     SetFooterNavigateUrl(value: string): void;
     /**
-     * Specifies the text displayed within a window's footer.
+     * Specifies the text displayed within a window's <strong>footer</strong>.
      * @param value A string value that specifies a window's footer text.
      */
     SetFooterText(value: string): void;
     /**
-     * Specifies the URL which points to the image displayed within the window header.
+     * Specifies the URL which points to the image displayed within the <strong>window header</strong>.
      * @param value A string value that is the URL to the image displayed within the header.
      */
     SetHeaderImageUrl(value: string): void;
     /**
-     * Specifies the URL where the web browser will navigate when the text or image is clicked within a window's header.
+     * Specifies the URL where the web browser will navigate when the text or image is clicked within a window's <strong>header</strong>.
      * @param value A string value which specifies the required navigation location.
      */
     SetHeaderNavigateUrl(value: string): void;
@@ -24195,7 +24216,7 @@ declare class ASPxClientPopupControl extends ASPxClientPopupControlBase {
      */
     PerformWindowCallback(window: ASPxClientPopupWindow, parameter: string, onSuccess?: (arg: string) => void): void;
     /**
-     * Occurs when a popup window's close button is clicked.
+     * Occurs when a popup window's <strong>close button</strong> is clicked.
      */
     CloseButtonClick: ASPxClientEvent<ASPxClientPopupWindowEventHandler<ASPxClientPopupControl>>;
     /**
@@ -24205,12 +24226,12 @@ declare class ASPxClientPopupControl extends ASPxClientPopupControlBase {
      */
     SetSize(width: number, height: number): void;
     /**
-     * Gets the width of the specified popup window's content region. An integer value representing the width of the content region.
+     * Gets the width of the specified popup window's <strong>content region</strong>. An integer value representing the width of the content region.
      * @param window An ASPxClientPopupWindow object that specifies the required popup window.
      */
     GetWindowContentWidth(window: ASPxClientPopupWindow): number;
     /**
-     * Gets the height of the specified popup window's content region. An integer value representing the height of the content region.
+     * Gets the height of the specified popup window's <strong>content region</strong>. An integer value representing the height of the content region.
      * @param window An ASPxClientPopupWindow object that specifies the required popup window.
      */
     GetWindowContentHeight(window: ASPxClientPopupWindow): number;
@@ -24494,56 +24515,56 @@ declare class ASPxClientPopupWindow {
      */
     name: string;
     /**
-     * Returns the URL pointing to the image displayed within the window header.
+     * Returns the URL pointing to the image displayed within the <strong>window header</strong>.
      */
     GetHeaderImageUrl(): string;
     /**
-     * Specifies the URL which points to the image displayed within the window header.
+     * Specifies the URL which points to the image displayed within the <strong>window header</strong>.
      * @param value A string value that is the URL to the image displayed within the header.
      */
     SetHeaderImageUrl(value: string): void;
     /**
-     * Returns the URL pointing to the image displayed within the window footer.
+     * Returns the URL pointing to the image displayed within the <strong>window footer</strong>.
      */
     GetFooterImageUrl(): string;
     /**
-     * Specifies the URL which points to the image displayed within the window footer.
+     * Specifies the URL which points to the image displayed within the <strong>window footer</strong>.
      * @param value A string value that is the URL to the image displayed within the window footer.
      */
     SetFooterImageUrl(value: string): void;
     /**
-     * Returns the URL where the web browser will navigate when the text or image is clicked within the popup window's header.
+     * Returns the URL where the web browser will navigate when the text or image is clicked within the popup window's <strong>header</strong>.
      */
     GetHeaderNavigateUrl(): string;
     /**
-     * Returns the URL where the web browser will navigate when the text or image is clicked within the popup window's header.
+     * Returns the URL where the web browser will navigate when the text or image is clicked within the popup window's <strong>header</strong>.
      * @param value A string value which specifies the required navigation location.
      */
     SetHeaderNavigateUrl(value: string): void;
     /**
-     * Returns the URL where the web browser will navigate when the text or image is clicked within the popup window's footer.
+     * Returns the URL where the web browser will navigate when the text or image is clicked within the popup window's <strong>footer</strong>.
      */
     GetFooterNavigateUrl(): string;
     /**
-     * Specifies the URL where the web browser will navigate when the text or image is clicked within the popup window's footer.
+     * Specifies the URL where the web browser will navigate when the text or image is clicked within the popup window's <strong>footer</strong>.
      * @param value A string value which specifies the required navigation location.
      */
     SetFooterNavigateUrl(value: string): void;
     /**
-     * Returns the text displayed within the window's header.
+     * Returns the text displayed within the window's <strong>header</strong>.
      */
     GetHeaderText(): string;
     /**
-     * Specifies the text displayed within the window's header.
+     * Specifies the text displayed within the window's <strong>header</strong>.
      * @param value A string value that specifies the window's header text.
      */
     SetHeaderText(value: string): void;
     /**
-     * Returns the text displayed within the popup window's footer.
+     * Returns the text displayed within the popup window's <strong>footer</strong>.
      */
     GetFooterText(): string;
     /**
-     * Specifies the text displayed within the window's footer.
+     * Specifies the text displayed within the window's <strong>footer</strong>.
      * @param value A string value that specifies the window's footer text.
      */
     SetFooterText(value: string): void;
@@ -24699,7 +24720,7 @@ declare class ASPxClientPopupControlCloseReason {
      */
     static readonly API: string;
     /**
-     * An end-user clicks the close header button.
+     * An end-user clicks the close <strong>header button</strong>.
      */
     static readonly CloseButton: string;
     /**
@@ -26108,11 +26129,11 @@ declare class ASPxClientUploadControl extends ASPxClientControl {
      */
     TextChanged: ASPxClientEvent<ASPxClientUploadControlTextChangedEventHandler<ASPxClientUploadControl>>;
     /**
-     * Occurs on the client side when the progress bar indicator position is changed.
+     * Occurs on the client side when the <strong>progress bar indicator</strong> position is changed.
      */
     UploadingProgressChanged: ASPxClientEvent<ASPxClientUploadControlUploadingProgressChangedEventHandler<ASPxClientUploadControl>>;
     /**
-     * Occurs on the client side when the file input elements count is changed.
+     * Occurs on the client side when the <strong>file input elements</strong> count is changed.
      */
     FileInputCountChanged: ASPxClientEvent<ASPxClientEventHandler<ASPxClientUploadControl>>;
     /**
@@ -26120,11 +26141,11 @@ declare class ASPxClientUploadControl extends ASPxClientControl {
      */
     ValidationErrorOccurred: ASPxClientEvent<ASPxClientUploadControlValidationErrorOccurredEventHandler<ASPxClientUploadControl>>;
     /**
-     * Fires when the mouse enters a drop zone or an external drop zone element while dragging a file.
+     * Fires when the mouse enters a <strong>drop zone</strong> or an external drop zone element while dragging a file.
      */
     DropZoneEnter: ASPxClientEvent<ASPxClientUploadControlDropZoneEnterEventHandler<ASPxClientUploadControl>>;
     /**
-     * Fires when the mouse leaves a drop zone or an external drop zone element while dragging a file.
+     * Fires when the mouse leaves a <strong>drop zone</strong> or an external drop zone element while dragging a file.
      */
     DropZoneLeave: ASPxClientEvent<ASPxClientUploadControlDropZoneLeaveEventHandler<ASPxClientUploadControl>>;
     /**
@@ -26137,11 +26158,11 @@ declare class ASPxClientUploadControl extends ASPxClientControl {
      */
     UploadFile(): void;
     /**
-     * Adds a new file input element to the ASPxUploadControl.
+     * Adds a new <strong>file input</strong> element to the ASPxUploadControl.
      */
     AddFileInput(): void;
     /**
-     * Removes a file input element from the ASPxUploadControl.
+     * Removes a <strong>file input</strong> element from the ASPxUploadControl.
      * @param index An integer value that represents a file input element's index.
      */
     RemoveFileInput(index: number): void;
@@ -26151,8 +26172,8 @@ declare class ASPxClientUploadControl extends ASPxClientControl {
      */
     RemoveFileFromSelection(fileIndex: number | ASPxClientUploadControlFile): void;
     /**
-     * Returns files selected for uploading within the specified file input. An array of ASPxClientUploadControlFile objects that are files selected for uploading.
-     * @param inputIndex An integer value that specifies the index of a file input. Default value is "0".
+     * Returns files selected for uploading within the specified <strong>file input</strong>. An array of ASPxClientUploadControlFile objects that are files selected for uploading.
+     * @param inputIndex An integer value that specifies the index of a <strong>file input</strong>. Default value is "0".
      */
     GetSelectedFiles(inputIndex: number): ASPxClientUploadControlFile[];
     /**
@@ -26161,11 +26182,11 @@ declare class ASPxClientUploadControl extends ASPxClientControl {
      */
     GetText(index: number): string;
     /**
-     * Gets the number of file input elements contained within the ASPxUploadControl.
+     * Gets the number of <strong>file input elements</strong> contained within the ASPxUploadControl.
      */
     GetFileInputCount(): number;
     /**
-     * Specifies the count of the file input elements within the upload control.
+     * Specifies the count of the <strong>file input</strong> elements within the upload control.
      * @param count An integer value that specifies the file input elements count.
      */
     SetFileInputCount(count: number): void;
@@ -26191,21 +26212,21 @@ declare class ASPxClientUploadControl extends ASPxClientControl {
      */
     ClearText(): void;
     /**
-     * Sets the text to be displayed within the add button.
+     * Sets the text to be displayed within the <strong>add button</strong>.
      * @param text A string value specifying the text to be displayed within the button.
      */
     SetAddButtonText(text: string): void;
     /**
-     * Sets the text to be displayed within the upload button.
+     * Sets the text to be displayed within the <strong>upload button</strong>.
      * @param text A string value specifying the text to be displayed within the button.
      */
     SetUploadButtonText(text: string): void;
     /**
-     * Returns the add button's text.
+     * Returns the <strong>add button</strong>'s text.
      */
     GetAddButtonText(): string;
     /**
-     * Returns the text displayed within the upload button.
+     * Returns the text displayed within the <strong>upload button</strong>.
      */
     GetUploadButtonText(): string;
     /**
@@ -26258,7 +26279,7 @@ declare class ASPxClientUploadControlFileUploadCompleteEventArgs extends ASPxCli
      */
     constructor(inputIndex: number, isValid: boolean, errorText: string, callbackData: string);
     /**
-     * Gets the index of a file input element within the ASPxUploadControl.
+     * Gets the index of a <strong>file input element</strong> within the ASPxUploadControl.
      */
     inputIndex: number;
     /**
@@ -26313,7 +26334,7 @@ declare class ASPxClientUploadControlTextChangedEventArgs extends ASPxClientEven
      */
     constructor(inputIndex: number);
     /**
-     * Gets the index of a file input element within the ASPxUploadControl.
+     * Gets the index of a <strong>file input element</strong> within the ASPxUploadControl.
      */
     inputIndex: number;
 }
@@ -26448,27 +26469,19 @@ declare class ASPxClientUploadControlInvalidFileInfo {
  */
 declare class ASPxClientUploadControlValidationErrorTypeConsts {
     /**
-     * The allowed maximum file size is exceeded.
-
-Return Value: 1
+     * The allowed maximum file size is exceeded. Return Value: 1
      */
     static readonly MaxFileSizeExceeded: number;
     /**
-     * The file's extension is not allowed.
-
-Return Value: 2
+     * The file's extension is not allowed. Return Value: 2
      */
     static readonly NotAllowedFileExtension: number;
     /**
-     * The allowed maximum count of the files is exceeded.
-
-Return Value: 3
+     * The allowed maximum count of the files is exceeded. Return Value: 3
      */
     static readonly MaxFileCountExceeded: number;
     /**
-     * A file name contains invalid character.
-
-Return Value: 4
+     * A file name contains invalid character. Return Value: 4
      */
     static readonly FileNameContainsInvalidCharacter: number;
 }
@@ -26505,7 +26518,7 @@ declare class ASPxClientUploadControlDropZoneEnterEventArgs extends ASPxClientEv
      */
     constructor(dropZone: any);
     /**
-     * Gets a drop zone object related to the processed event.
+     * Gets a <strong>drop zone</strong> object related to the processed event.
      */
     dropZone: any;
 }
@@ -26525,7 +26538,7 @@ declare class ASPxClientUploadControlDropZoneLeaveEventArgs extends ASPxClientEv
      */
     constructor(dropZone: any);
     /**
-     * Gets a drop zone object related to the processed event.
+     * Gets a <strong>drop zone</strong> object related to the processed event.
      */
     dropZone: any;
 }
@@ -32267,61 +32280,61 @@ interface BootstrapClientChartBaseDoneEventHandler<Sender> { (source: Sender, e:
 /**
  * A method that will handle the BootstrapClientChartBase.LegendClick event.
  * @param source The event source.
- * @param e A BootstrapUIWidgetElementClickEventArgs object that contains event data.
+ * @param e An object that contains event data.
  */
 interface BootstrapClientChartBaseLegendClickEventHandler<Sender> { (source: Sender, e: any): void; }
 /**
  * A method that will handle the Invoke event.
  * @param source The event source.
- * @param e A BootstrapUIWidgetElementClickEventArgs object that contains event data.
+ * @param e An object that contains event data.
  */
 interface BootstrapClientCoordinateSystemChartArgumentAxisClickEventHandler<Sender> { (source: Sender, e: any): void; }
 /**
  * A method that will handle the BootstrapClientChartBase.PointClick event.
  * @param source The event source.
- * @param e A BootstrapUIWidgetElementClickEventArgs object that contains event data.
+ * @param e An object that contains event data.
  */
 interface BootstrapClientChartBasePointClickEventHandler<Sender> { (source: Sender, e: any): void; }
 /**
  * A method that will handle the BootstrapClientChartBase.PointHoverChanged event.
  * @param source The event source.
- * @param e A BootstrapUIWidgetElementActionEventArgs object that contains event data.
+ * @param e An object that contains event data.
  */
 interface BootstrapClientChartBasePointHoverChangedEventHandler<Sender> { (source: Sender, e: any): void; }
 /**
  * A method that will handle the BootstrapClientChartBase.PointSelectionChanged event.
  * @param source The event source.
- * @param e A BootstrapUIWidgetElementActionEventArgs object that contains event data.
+ * @param e An object that contains event data.
  */
 interface BootstrapClientChartBasePointSelectionChangedEventHandler<Sender> { (source: Sender, e: any): void; }
 /**
  * A method that will handle the BootstrapClientChartBase.TooltipHidden event.
  * @param source The event source.
- * @param e A BootstrapUIWidgetElementActionEventArgs object that contains event data.
+ * @param e An object that contains event data.
  */
 interface BootstrapClientChartBaseTooltipHiddenEventHandler<Sender> { (source: Sender, e: any): void; }
 /**
  * A method that will handle the BootstrapClientChartBase.TooltipShown event.
  * @param source The event source.
- * @param e A BootstrapUIWidgetElementActionEventArgs object that contains event data.
+ * @param e An object that contains event data.
  */
 interface BootstrapClientChartBaseTooltipShownEventHandler<Sender> { (source: Sender, e: any): void; }
 /**
  * A method that will handle the BootstrapClientChartBase.SeriesClick event.
  * @param source The event source.
- * @param e A BootstrapUIWidgetElementClickEventArgs object that contains event data.
+ * @param e An object that contains event data.
  */
 interface BootstrapClientCoordinateSystemChartSeriesClickEventHandler<Sender> { (source: Sender, e: any): void; }
 /**
  * A method that will handle the BootstrapClientChartBase.SeriesHoverChanged event.
  * @param source The event source.
- * @param e A BootstrapUIWidgetElementActionEventArgs object that contains event data.
+ * @param e An object that contains event data.
  */
 interface BootstrapClientCoordinateSystemChartSeriesHoverChangedEventHandler<Sender> { (source: Sender, e: any): void; }
 /**
  * A method that will handle the BootstrapClientChartBase.SeriesSelectionChanged event.
  * @param source The event source.
- * @param e A BootstrapUIWidgetElementActionEventArgs object that contains event data.
+ * @param e An object that contains event data.
  */
 interface BootstrapClientCoordinateSystemChartSeriesSelectionChangedEventHandler<Sender> { (source: Sender, e: any): void; }
 /**
@@ -32333,7 +32346,7 @@ interface BootstrapClientChartZoomStartEventHandler<Sender> { (source: Sender, e
 /**
  * A method that will handle the BootstrapClientChart.ZoomEnd event.
  * @param source The event source.
- * @param e A BootstrapClientChartZoomEndEventArgs object that contains event data.
+ * @param e An object that contains event data.
  */
 interface BootstrapClientChartZoomEndEventHandler<Sender> { (source: Sender, e: any): void; }
 /**
@@ -32357,7 +32370,7 @@ declare class BootstrapClientRangeSelector extends BootstrapUIWidgetBase {
 /**
  * A method that will handle the BootstrapClientRangeSelector.ValueChanged event.
  * @param source The event source.
- * @param e A BootstrapClientRangeSelectorValueChangedEventArgs object that contains event data.
+ * @param e An object that contains event data.
  */
 interface BootstrapClientRangeSelectorValueChangedEventHandler<Sender> { (source: Sender, e: any): void; }
 /**
@@ -32484,25 +32497,25 @@ declare class BootstrapUIWidgetEventArgsBase extends ASPxClientEventArgs {
 /**
  * A method that will handle the BootstrapUIWidgetBase.Exporting event.
  * @param source The event source.
- * @param e A BootstrapUIWidgetExportEventArgs object that contains event data.
+ * @param e An object that contains event data.
  */
 interface BootstrapUIWidgetExportingEventHandler<Sender> { (source: Sender, e: any): void; }
 /**
  * A method that will handle the BootstrapUIWidgetBase.FileSaving event.
  * @param source The event source.
- * @param e A BootstrapUIWidgetExportEventArgs object that contains event data.
+ * @param e An object that contains event data.
  */
 interface BootstrapUIWidgetFileSavingEventHandler<Sender> { (source: Sender, e: any): void; }
 /**
  * A method that will handle the BootstrapUIWidgetBase.OptionChanged event.
  * @param source The event source.
- * @param e A BootstrapUIWidgetOptionChangedEventArgs object that contains event data.
+ * @param e An object that contains event data.
  */
 interface BootstrapUIWidgetOptionChangedEventHandler<Sender> { (source: Sender, e: any): void; }
 /**
  * A method that will handle the BootstrapUIWidgetBase.IncidentOccurred event.
  * @param source The event source.
- * @param e A BootstrapUIWidgetErrorEventArgs object that contains event data.
+ * @param e An object that contains event data.
  */
 interface BootstrapUIWidgetErrorEventHandler<Sender> { (source: Sender, e: any): void; }
 /**
@@ -34895,16 +34908,16 @@ declare class ASPxClientCustomizeExportOptionsEventArgs extends ASPxClientEventA
      */
     constructor(options: any);
     /**
-     * Hides the entire <a href="https://devexpress.github.io/dotnet-eud/interface-elements-for-web/articles/document-viewer/html5-document-viewer/exporting/export-a-document.html">Export Options</a> panel from the Web Document Viewer.
+     * Hides the entire <a href="https://devexpress.github.io/dotnet-eud/interface-elements-for-web/articles/document-viewer/exporting/export-a-document.html">Export Options</a> panel from the Web Document Viewer.
      */
     HideExportOptionsPanel(): void;
     /**
-     * Hides the specified export format from the Export To drop-down list and the corresponding category from the <a href="https://devexpress.github.io/dotnet-eud/interface-elements-for-web/articles/document-viewer/html5-document-viewer/exporting/export-a-document.html">Export Options</a> panel.
+     * Hides the specified export format from the Export To drop-down list and the corresponding category from the <a href="https://devexpress.github.io/dotnet-eud/interface-elements-for-web/articles/document-viewer/exporting/export-a-document.html">Export Options</a> panel.
      * @param format An object that specifies the export format to hide.
      */
     HideFormat(format: any): void;
     /**
-     * Hides the specified options for the specified export format from the <a href="https://devexpress.github.io/dotnet-eud/interface-elements-for-web/articles/document-viewer/html5-document-viewer/exporting/export-a-document.html">Export Options</a> panel.
+     * Hides the specified options for the specified export format from the <a href="https://devexpress.github.io/dotnet-eud/interface-elements-for-web/articles/document-viewer/exporting/export-a-document.html">Export Options</a> panel.
      * @param format An object that specifies the export format whose options should be hidden.
      * @param properties An array of properties to hide.
      */
