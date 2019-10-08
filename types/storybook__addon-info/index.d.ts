@@ -33,7 +33,9 @@ export interface Options {
     propTables?: Array<ComponentType<any>> | false;
     propTablesExclude?: Array<ComponentType<any>>;
     styles?: object;
-    components?: { [key: string]: ComponentType<any> };
+    components?: {
+        [key: string]: ComponentType<any>
+    };
     /**
      * @deprecated "marksyConf" option has been renamed to "components"
      */
