@@ -9,9 +9,6 @@
         "baseUrl": "../",
         "jsx": "react",
         "typeRoots": ["../"],
-        "paths": {
-            "@storybook/react": ["storybook__react"]
-        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
