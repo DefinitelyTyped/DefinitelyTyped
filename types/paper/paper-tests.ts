@@ -13082,6 +13082,11 @@ function APIReferenceExamples() {
         }
 
     }
+    function Shape66() {
+        
+        let shape = paper.Shape.Circle(new paper.Point(80, 50), 30);
+        let path: paper.Path = shape.toPath();
+    }
     function Style0() {
 
         let path = new paper.Path.Circle(new paper.Point(80, 50), 30);
