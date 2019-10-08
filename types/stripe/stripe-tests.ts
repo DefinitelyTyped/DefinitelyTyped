@@ -995,6 +995,19 @@ stripe.customers.listTaxIds('cus_FhdWgak8aeNfht', (err, taxIds) => {
 //#region Transfers tests
 // ##################################################################################
 
+stripe.transfers.create(
+    { amount: 100, currency: 'USD', destination: 'acct_17wV8KBoqMA9o2xk', source_type: 'bank_account' },
+    (err, reversal) => {
+        // asynchronously called
+    },
+);
+
+stripe.transfers
+    .create({ amount: 100, currency: 'USD', destination: 'acct_17wV8KBoqMA9o2xk', source_type: 'bank_account' })
+    .then(reversal => {
+        // asynchronously called
+    });
+
 //#endregion
 
 //#region Transfers Reversals tests

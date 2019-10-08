@@ -7374,6 +7374,12 @@ declare namespace Stripe {
             source_transaction?: string;
 
             /**
+             * The source balance to use for this transfer. One of bank_account
+             * or card. For most users, this will default to card.
+             */
+            source_type?: SourceTypes;
+
+            /**
              * A string that identifies this transaction as part of a group.
              * See the Connect documentation for details.
              */
