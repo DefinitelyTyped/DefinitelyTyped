@@ -13,6 +13,7 @@
         "storybook__addon-storyshots"
       ]
     },
+    "types": [],
     "noEmit": true,
     "forceConsistentCasingInFileNames": true,
     "esModuleInterop": true

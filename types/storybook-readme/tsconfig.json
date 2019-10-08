@@ -9,6 +9,7 @@
     "baseUrl": "../",
     "jsx": "react",
     "typeRoots": ["../"],
+    "types": [],
     "noEmit": true,
     "forceConsistentCasingInFileNames": true,
     "esModuleInterop": true
