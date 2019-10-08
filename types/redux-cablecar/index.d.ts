@@ -18,7 +18,7 @@ export interface CableCar {
     changeChannel: (channel: string, options?: Options) => void;
     getChannel: () => string;
     getParams: () => object;
-    perform: (method: string, payload: any) => void;
+    perform: (method: string, payload?: any) => void;
     send: (action: string) => void;
 }
 
