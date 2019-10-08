@@ -530,6 +530,7 @@ declare namespace TelegramBot {
     interface InlineKeyboardButton {
         text: string;
         url?: string;
+        login_url: LoginUrl;
         callback_data?: string;
         switch_inline_query?: string;
         switch_inline_query_current_chat?: string;
@@ -537,6 +538,13 @@ declare namespace TelegramBot {
         pay?: boolean;
     }
 
+    interface LoginUrl {
+        url: string;
+        forward_text?: string;
+        bot_username?: string;
+        request_write_acces?: boolean;
+    }
+    
     interface CallbackQuery {
         id: string;
         from: User;
