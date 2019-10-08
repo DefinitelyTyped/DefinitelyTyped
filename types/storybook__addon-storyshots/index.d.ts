@@ -5,10 +5,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
-import { StoryObject } from '@storybook/react';
+import { IStorybookStory } from '@storybook/react';
 
 export type Test = (options: {
-    story: StoryObject;
+    story: IStorybookStory;
     context: StoryContext;
     renderShallowTree: RenderTree;
     renderTree: RenderTree;
@@ -16,9 +16,9 @@ export type Test = (options: {
 }) => undefined | void | Promise<void>;
 
 export type RenderTree = (
-    story: StoryObject,
+    story: IStorybookStory,
     context: StoryContext,
-    options?: SnapshotOptions
+    options?: SnapshotOptions,
 ) => undefined | void | Promise<void>;
 
 export interface SnapshotOptionsObject {
@@ -26,7 +26,7 @@ export interface SnapshotOptionsObject {
 }
 
 export interface SnapshotOptionsFn {
-    (story: StoryObject): SnapshotOptionsObject;
+    (story: IStorybookStory): SnapshotOptionsObject;
 }
 
 export type SnapshotOptions = SnapshotOptionsObject | SnapshotOptionsFn;
