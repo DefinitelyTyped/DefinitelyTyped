@@ -5,6 +5,7 @@
 //                 Giorgio Garasto <https://github.com/Dabolus>
 //                 Kallu609 <https://github.com/Kallu609>
 //                 XC-Zhang <https://github.com/XC-Zhang>
+//                 AdityaThebe <https://github.com/adityathebe>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
