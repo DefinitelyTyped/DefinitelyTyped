@@ -24,6 +24,6 @@
   },
   "files": [
     "index.d.ts",
-    "vue-clickaway.tests.ts"
+    "vue-clickaway-tests.ts"
   ]
 }
