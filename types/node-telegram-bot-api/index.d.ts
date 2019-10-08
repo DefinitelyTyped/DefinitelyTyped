@@ -427,6 +427,7 @@ declare namespace TelegramBot {
         performer?: string;
         title?: string;
         mime_type?: string;
+        thumb?: PhotoSize;
     }
 
     interface Document extends FileBase {
@@ -936,12 +937,13 @@ declare namespace TelegramBot {
         animation?: Animation;
     }
 
-    interface Animation {
-        file_id: string;
+    interface Animation extends FileBase {
+        width: number;
+        height: number;
+        duration: number;
         thumb?: PhotoSize;
         file_name?: string;
         mime_type?: string;
-        file_size?: number;
     }
 
     type CallbackGame = object;
