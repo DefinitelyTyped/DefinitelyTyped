@@ -2440,7 +2440,7 @@ declare module paper {
          * Creates a new path item with same geometry as this shape item, and inherits all settings from it, similar to item.clone().
          * @param insert - specifies whether the new path should be inserted into the scene graph. When set to true, it is inserted above the shape item — optional, default: true
          */
-        toPath(insert?: boolean): Shape;
+        toPath(insert?: boolean): Path;
 
     }
     /**
