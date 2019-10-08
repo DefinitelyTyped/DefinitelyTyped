@@ -280,6 +280,17 @@ declare namespace TelegramBot {
     }
 
     /// TELEGRAM TYPES ///
+    interface ChatPermissions {
+        can_send_messages?: boolean;
+        can_send_media_messages?: boolean;
+        can_send_polls?: boolean;
+        can_send_other_messages?: boolean;
+        can_add_web_page_previews?: boolean;
+        can_change_info?: boolean;
+        can_invite_users?: boolean;
+        can_pin_messages?: boolean;
+    }
+
     interface Update {
         update_id: number;
         message?: Message;
@@ -319,11 +330,17 @@ declare namespace TelegramBot {
         username?: string;
         first_name?: string;
         last_name?: string;
-        all_members_are_administrators?: boolean;
         photo?: ChatPhoto;
         description?: string;
         invite_link?: string;
         pinned_message?: Message;
+        permissions?: ChatPermissions;
+        can_set_sticker_set?: boolean;
+        sticker_set_name?: string;
+        /**
+        * @deprecated since version Telegram Bot API 4.4 - July 29, 2019
+        */
+        all_members_are_administrators?: boolean;
     }
 
     interface Message {
