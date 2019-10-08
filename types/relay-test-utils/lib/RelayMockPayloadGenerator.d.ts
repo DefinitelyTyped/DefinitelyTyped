@@ -22,6 +22,6 @@ export interface MockResolvers {
     [typeName: string]: MockResolver;
 }
 
-export function generate(operation: OperationDescriptor, mockResolvers?: MockResolvers): GraphQLResponse | void;
+export function generate(operation: OperationDescriptor, mockResolvers?: MockResolvers): GraphQLResponse;
 
 export {};

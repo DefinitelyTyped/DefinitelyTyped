@@ -1119,6 +1119,8 @@ import moduleModule = require('module');
 /////////////////////////////////////////////////////////
 /// stream tests : https://nodejs.org/api/stream.html ///
 /////////////////////////////////////////////////////////
+import stream = require('stream');
+import tty = require('tty');
 
 {
     const writeStream = fs.createWriteStream('./index.d.ts');
@@ -1126,6 +1128,11 @@ import moduleModule = require('module');
 
     const readStream = fs.createReadStream('./index.d.ts');
     const _rom = readStream.readableObjectMode; // $ExpectType boolean
+
+    const x: stream.Readable = process.stdin;
+    const stdin: tty.ReadStream = process.stdin;
+    const stdout: tty.WriteStream = process.stdout;
+    const stderr: tty.WriteStream = process.stderr;
 }
 
 ////////////////////////////////////////////////////

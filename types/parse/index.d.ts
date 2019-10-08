@@ -259,7 +259,7 @@ declare namespace Parse {
         constructor(name: string, data: any, type?: string);
         name(): string;
         url(): string;
-        save(options?: SuccessFailureOptions): Promise<File>;
+        save(options?: FullOptions): Promise<File>;
 
     }
 
