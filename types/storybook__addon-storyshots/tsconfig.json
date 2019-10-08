@@ -15,9 +15,6 @@
         "paths": {
             "@storybook/addon-storyshots": [
                 "storybook__addon-storyshots"
-            ],
-            "@storybook/react": [
-                "storybook__react"
             ]
         },
         "types": [],
