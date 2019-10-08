@@ -6,7 +6,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
-import { ComponentType, ReactElement, ReactPortal } from 'react';
+import { ComponentType, ReactElement } from 'react';
 import { DecoratorFunction, StoryFn, StoryContext, Parameters, StoryApi } from '@storybook/addons';
 
 export interface WrapStoryProps {
