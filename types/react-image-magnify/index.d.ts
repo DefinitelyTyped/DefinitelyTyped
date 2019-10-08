@@ -11,7 +11,7 @@ import * as React from 'react';
  */
 export default function ReactImageMagnify(props: ReactImageMagnifyProps & Readonly<{ children?: React.ReactNode }>): React.ReactElement;
 
-interface CommonImageType {
+export interface CommonImageType {
     src: string;
     srcSet?: string;
     sizes?: string;
@@ -19,7 +19,7 @@ interface CommonImageType {
     onError?: () => void;
 }
 
-interface SmallImageType extends CommonImageType {
+export interface SmallImageType extends CommonImageType {
     /**
      * Required if isFluidWidth is not set
      */
@@ -37,7 +37,7 @@ interface SmallImageType extends CommonImageType {
     isFluidWidth: boolean;
 }
 
-interface LargeImageType extends CommonImageType {
+export interface LargeImageType extends CommonImageType {
     width: number;
     height: number;
 
