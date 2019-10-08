@@ -17,7 +17,7 @@ declare module '@storybook/react' {
         displayName?: string | displayNameFunc;
     }
 
-    interface Story {
-        addWithJSX(kind: string, fn: () => ReactNode, options?: Options): Story;
+    interface StoryApi {
+        addWithJSX(kind: string, fn: () => ReactNode, options?: Options): StoryApi;
     }
 }
