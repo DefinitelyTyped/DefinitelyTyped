@@ -39,6 +39,12 @@ const test: React.SFC = () => (
         onPressFlag={() => {
             console.info('Flag pressed');
         }}
+        onPressCancel={() => {
+            console.info('Selection cancelled');
+        }}
+        onPressConfirm={() => {
+            console.info('Selection confirmed');
+        }}
         countriesList={[]}
     />
 );

@@ -107,6 +107,14 @@ export interface ReactNativePhoneInputProps<TextComponentType extends React.Comp
      * Custom countries list
      */
     countriesList?: ReadonlyArray<CountriesListItem>;
+    /**
+     * Function to be invoked when cancelling country picker selection
+     */
+    onPressCancel?: () => void;
+    /**
+     * Function to be invoked when confirming country picker selection
+     */
+    onPressConfirm?: () => void;
 }
 
 export default class ReactNativePhoneInput<TextComponentType extends React.ComponentType = typeof TextInput> extends React.Component<ReactNativePhoneInputProps<TextComponentType>> {
@@ -139,6 +147,10 @@ export default class ReactNativePhoneInput<TextComponentType extends React.Compo
    * Focus the phone input
    */
   focus: () => void;
+  /**
+   * Blur the phone input
+   */
+  blur: () => void;
   /**
    * Set phone input to specific country
    */
