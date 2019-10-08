@@ -25,10 +25,10 @@ import TableToolbarSearch from "./TableToolbarSearch";
 // region Row Types
 
 export interface DataTableRow<ID extends string = string> {
-    disabled?: boolean,
-    id: ID,
-    isExpanded?: boolean,
-    isSelected?: boolean,
+    disabled?: boolean;
+    id: ID;
+    isExpanded?: boolean;
+    isSelected?: boolean;
 }
 
 export interface SortRowData {
@@ -84,8 +84,8 @@ export interface DataTableCustomSelectionProps<R extends DataTableRow = DataTabl
 // region Header Types
 
 export interface DataTableHeader<K extends string = string> {
-    header: NonNullable<React.ReactNode>,
-    key: K,
+    header: NonNullable<React.ReactNode>;
+    key: K;
 }
 
 export interface DataTableCustomHeaderData<H extends DataTableHeader = DataTableHeader> {
@@ -95,11 +95,11 @@ export interface DataTableCustomHeaderData<H extends DataTableHeader = DataTable
 }
 
 export interface DataTableCustomHeaderProps<H extends { key: string } = DataTableHeader> {
-    isSortable?: boolean,
-    isSortHeader: boolean,
-    key: H["key"],
-    onClick(event: React.MouseEvent<HTMLElement>): void,
-    sortDirection: DataTableSortState,
+    isSortable?: boolean;
+    isSortHeader: boolean;
+    key: H['key'];
+    onClick(event: React.MouseEvent<HTMLElement>): void;
+    sortDirection: DataTableSortState;
 }
 
 // endregion Header Types
@@ -107,15 +107,15 @@ export interface DataTableCustomHeaderProps<H extends { key: string } = DataTabl
 // region Cell Types
 
 export interface DataTableCell<V = any, H extends DataTableHeader = DataTableHeader> {
-    errors?: any[] | null,
-    id: string,
+    errors?: any[] | null;
+    id: string;
     info: {
-        header: H["key"],
-    },
-    isEditable: boolean,
-    isEditing: boolean,
-    isValid: boolean,
-    value?: V,
+        header: H['key'];
+    };
+    isEditable: boolean;
+    isEditing: boolean;
+    isValid: boolean;
+    value?: V;
 }
 
 // endregion CellTypes

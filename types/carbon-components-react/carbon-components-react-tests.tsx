@@ -50,21 +50,24 @@ const t2 = (
             let bap2 = props.getBatchActionProps<ExtraStuff>({ extra1: 'extra' });
             let s = bap2.extra1;
 
-            let hp = props.getHeaderProps({ header: { key: 'h1', header: "testh1", headerProp: 3 }});
+            let hp = props.getHeaderProps({ header: { key: 'h1', header: 'testh1', headerProp: 3 } });
             let k: Header1Key = hp.key;
 
-            let hp2 = props.getHeaderProps<ExtraStuff>({ header: { key: 'h2', header: 'Test', headerProp: 3 }, extra1: 'asdf' });
+            let hp2 = props.getHeaderProps<ExtraStuff>({
+                header: { key: 'h2', header: 'Test', headerProp: 3 },
+                extra1: 'asdf',
+            });
             k = hp.key;
             let e = hp2.extra1;
 
-            let hp3 = props.getHeaderProps({ header: { key: 'h3', header: "testh1", headerProp: 5 }, someExtra: 2 });
+            let hp3 = props.getHeaderProps({ header: { key: 'h3', header: 'testh1', headerProp: 5 }, someExtra: 2 });
             let k3: Header1Key = hp.key;
             let someExtra = hp3.someExtra;
 
-            let rp = props.getRowProps({ row: { id: 'r1', rowProp: "asdf" }, extra1: "asdf" });
+            let rp = props.getRowProps({ row: { id: 'r1', rowProp: 'asdf' }, extra1: 'asdf' });
             let rk: string = rp.key;
 
-            let rp2 = props.getRowProps<ExtraStuff>({ row: { id: 'r1', rowProp: "edfg" }, extra1: 'asdf' });
+            let rp2 = props.getRowProps<ExtraStuff>({ row: { id: 'r1', rowProp: 'edfg' }, extra1: 'asdf' });
             rk = rp2.key;
             e = rp2.extra1;
 
