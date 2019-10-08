@@ -1,4 +1,4 @@
-// Type definitions for Selenium WebDriverJS 4.0
+// Type definitions for Selenium WebDriverJS 4.0.0-alpha.5
 // Project: https://github.com/SeleniumHQ/selenium
 // Definitions by: Bill Armstrong <https://github.com/BillArmstrong>,
 //   Yuki Kokubun <https://github.com/Kuniwak>,
