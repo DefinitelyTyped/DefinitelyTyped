@@ -193,10 +193,10 @@ export interface Presence {
 	smallImageKey?: string;
 	smallImageText?: string;
 	instance?: boolean;
-    partySize?: number;
-    partyMax?: number;
-    matchSecret?: string;
-    spectateSecret?: string;
-    joinSecret?: string;
-    instance?: number;
+	partySize?: number;
+	partyMax?: number;
+	matchSecret?: string;
+	spectateSecret?: string;
+	joinSecret?: string;
+	instance?: number;
 }
