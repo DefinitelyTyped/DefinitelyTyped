@@ -6,14 +6,14 @@
 
 import { ComponentType } from 'react';
 import { MemoryRouterProps } from 'react-router';
-import { Story, StoryDecorator } from '@storybook/react';
+import { DecoratorFunction, StoryApi } from '@storybook/react';
 
 export const StoryRouter: ComponentType<{
-    story: Story;
-    links: object;
-    routerProps: MemoryRouterProps;
+  story: StoryApi;
+  links: object;
+  routerProps: MemoryRouterProps;
 }>;
 
-declare function storyRouterDecorator(links?: object, routerProps?: MemoryRouterProps): StoryDecorator;
+declare function storyRouterDecorator(links?: object, routerProps?: MemoryRouterProps): DecoratorFunction;
 
 export default storyRouterDecorator;
