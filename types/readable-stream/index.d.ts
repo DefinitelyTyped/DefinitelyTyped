@@ -72,6 +72,7 @@ declare namespace _Readable {
         readable: boolean;
         readonly readableHighWaterMark: number;
         readonly readableLength: number;
+        readonly readableObjectMode: boolean;
         _readableState: ReadableState;
 
         _read(size?: number): void;

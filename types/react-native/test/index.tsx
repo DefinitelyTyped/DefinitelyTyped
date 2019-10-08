@@ -232,8 +232,9 @@ class Welcome extends React.Component<ElementProps<View> & { color: string }> {
         color: ColorPropType,
     };
 
-    refs: {
-        [key: string]: any;
+    // tslint:disable-next-line:no-object-literal-type-assertion
+    refs = {} as {
+        [key: string]: React.ReactInstance;
         rootView: View;
         customView: CustomView;
     };
@@ -523,6 +524,32 @@ class AlertTest extends React.Component {
         return <Button title="Press me" onPress={this.showAlert} />;
     }
 }
+
+Alert.prompt(
+    'Enter password',
+    'Enter your password to claim your $1.5B in lottery winnings',
+    text => {
+        console.log(text);
+    },
+    'secure-text',
+);
+
+Alert.prompt(
+    'Enter password',
+    'Enter your password to claim your $1.5B in lottery winnings',
+    [
+        {
+            text: 'Cancel',
+            onPress: () => console.log('Cancel Pressed'),
+            style: 'cancel',
+        },
+        {
+            text: 'OK',
+            onPress: password => console.log('OK Pressed, password: ' + password),
+        },
+    ],
+    'secure-text',
+);
 
 class MaskedViewTest extends React.Component {
     render() {

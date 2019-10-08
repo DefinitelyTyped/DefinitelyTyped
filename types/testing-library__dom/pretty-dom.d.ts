@@ -1,3 +1,3 @@
 import { OptionsReceived } from 'pretty-format';
 
-export function prettyDOM(element: HTMLElement, maxLength?: number, options?: OptionsReceived): string | false;
+export function prettyDOM(dom?: Element | HTMLDocument, maxLength?: number, options?: OptionsReceived): string | false;
