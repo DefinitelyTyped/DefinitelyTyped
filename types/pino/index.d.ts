@@ -171,7 +171,10 @@ declare namespace P {
         labels: { [level: number]: string; };
     }
     type TimeFn = () => string;
-    type DestinationStream = stream.Writable | stream.Duplex | stream.Transform | NodeJS.WritableStream | SonicBoom;
+
+    interface DestinationStream {
+        write(msg: string): void;
+    }
 
     interface LoggerOptions {
         /**

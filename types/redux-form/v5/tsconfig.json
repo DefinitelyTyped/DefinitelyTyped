@@ -7,19 +7,24 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": true,
+        "strictNullChecks": false,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
         "types": [],
+        "paths": {
+            "redux-form": [
+                "redux-form/v5"
+            ]
+        },
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "jsx": "react"
     },
     "files": [
         "index.d.ts",
-        "test/loadjs-tests.ts",
-        "test/loadjs-umd-tests.ts"
+        "redux-form-tests.tsx"
     ]
 }

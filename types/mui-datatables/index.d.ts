@@ -173,7 +173,7 @@ export interface MUIDataTableOptions {
         buildBody: (data: any) => string,
         columns: any,
         data: any
-    ) => string;
+    ) => BlobPart;
     onFilterChange?: (changedColumn: string, filterList: any[]) => void;
     onRowClick?: (rowData: string[], rowMeta: { dataIndex: number; rowIndex: number }) => void;
     onRowsDelete?: (rowsDeleted: any[]) => void;

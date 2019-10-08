@@ -1,6 +1,6 @@
 import { MediaMetadata } from 'chromecast-caf-receiver/cast.framework.messages';
 import { CastReceiverContext } from 'chromecast-caf-receiver/cast.framework';
-import { EventType } from 'chromecast-caf-receiver/cast.framework.events';
+import { DetailedErrorCode, EventType } from 'chromecast-caf-receiver/cast.framework.events';
 
 // The following test showcases how you can import individual types directly from the namespace:
 
@@ -133,3 +133,5 @@ cast.framework.CastReceiverContext.getInstance().addEventListener(
     [cast.framework.system.EventType.SENDER_CONNECTED, cast.framework.system.EventType.SENDER_DISCONNECTED],
     () => '¡hola!',
 );
+
+const loadingError = new cast.framework.events.ErrorEvent(DetailedErrorCode.LOAD_FAILED, "Loading failed!");

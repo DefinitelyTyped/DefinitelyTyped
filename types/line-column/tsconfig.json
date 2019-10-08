@@ -2,13 +2,12 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es6",
-            "dom"
+            "es6"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": true,
         "strictFunctionTypes": true,
+        "strictNullChecks": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
@@ -19,7 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "test/loadjs-tests.ts",
-        "test/loadjs-umd-tests.ts"
+        "line-column-tests.ts"
     ]
 }

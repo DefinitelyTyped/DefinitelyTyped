@@ -31,6 +31,7 @@
 //                 Chris Zieba <https://github.com/ChrisZieba>
 //                 Jeffery Grajkowski <https://github.com/pushplay>
 //                 Claus Stilborg <https://github.com/stilborg>
+//                 Jorgen Vik <https://github.com/jvik>
 //                 Richard Ward <https://github.com/richardwardza>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
@@ -39,100 +40,122 @@
 
 import { Agent } from 'http';
 
+interface RequestEvent {
+  api_version: string;
+  account?: string;
+  idempotency_key?: string;
+  method: string;
+  path: string;
+  request_start_time: number;
+}
+
+interface ResponseEvent {
+  api_version: string;
+  account?: string;
+  idempotency_key?: string;
+  method: string;
+  path: string;
+  status: number;
+  request_id: string;
+  elapsed: number;
+  request_start_time: number;
+  request_end_time: number;
+}
+
 declare class Stripe {
-    DEFAULT_HOST: string;
-    DEFAULT_PORT: string;
-    DEFAULT_BASE_PATH: string;
-    DEFAULT_API_VERSION: string;
-    DEFAULT_TIMEOUT: number;
-    PACKAGE_VERSION: string;
-    USER_AGENT: {
-        bindings_version: string;
-        lang: string;
-        lang_version: string;
-        platform: string;
-        publisher: string;
-        uname: string;
-    };
-    USER_AGENT_SERIALIZED: string;
+  DEFAULT_HOST: string;
+  DEFAULT_PORT: string;
+  DEFAULT_BASE_PATH: string;
+  DEFAULT_API_VERSION: string;
+  DEFAULT_TIMEOUT: number;
+  PACKAGE_VERSION: string;
+  USER_AGENT: {
+    bindings_version: string;
+    lang: string;
+    lang_version: string;
+    platform: string;
+    publisher: string;
+    uname: string;
+  };
+  USER_AGENT_SERIALIZED: string;
 
-    resources: typeof Stripe.resources;
-    StripeResource: typeof Stripe.StripeResource;
+  resources: typeof Stripe.resources;
+  StripeResource: typeof Stripe.StripeResource;
 
-    constructor(apiKey: string, version?: string);
+  constructor(apiKey: string, version?: string);
 
-    accounts: Stripe.resources.Accounts;
-    balance: Stripe.resources.Balance;
-    balanceTransactions: Stripe.resources.BalanceTransaction;
-    charges: Stripe.resources.Charges;
-    checkout: Stripe.resources.Checkout;
-    coupons: Stripe.resources.Coupons;
-    creditNotes: Stripe.resources.CreditNotes;
-    customers: Stripe.resources.Customers;
-    disputes: Stripe.resources.Disputes;
-    events: Stripe.resources.Events;
-    invoices: Stripe.resources.Invoices;
-    invoiceItems: Stripe.resources.InvoiceItems;
-    paymentIntents: Stripe.resources.PaymentIntents;
-    paymentMethods: Stripe.resources.PaymentMethods;
-    payouts: Stripe.resources.Payouts;
-    plans: Stripe.resources.Plans;
-    /**
-     * @deprecated
-     */
-    recipientCards: Stripe.resources.RecipientCards;
-    /**
-     * @deprecated
-     */
-    recipients: Stripe.resources.Recipients;
-    subscriptions: Stripe.resources.Subscriptions;
-    subscriptionItems: Stripe.resources.SubscriptionItems;
-    tokens: Stripe.resources.Tokens;
-    transfers: Stripe.resources.Transfers;
-    applicationFees: Stripe.resources.ApplicationFees;
-    fileUploads: Stripe.resources.FileUploads;
-    bitcoinReceivers: Stripe.resources.BitcoinReceivers;
-    refunds: Stripe.resources.Refunds;
-    countrySpecs: Stripe.resources.CountrySpecs;
-    orders: Stripe.resources.Orders;
-    products: Stripe.resources.Products;
-    setupIntents: Stripe.resources.SetupIntents;
-    skus: Stripe.resources.SKUs;
-    webhooks: Stripe.resources.WebHooks;
-    ephemeralKeys: Stripe.resources.EphemeralKeys;
-    usageRecords: Stripe.resources.UsageRecords;
-    usageRecordSummaries: Stripe.resources.UsageRecordSummaries;
-    sources: Stripe.resources.Sources;
+  accounts: Stripe.resources.Accounts;
+  balance: Stripe.resources.Balance;
+  balanceTransactions: Stripe.resources.BalanceTransaction;
+  charges: Stripe.resources.Charges;
+  checkout: Stripe.resources.Checkout;
+  coupons: Stripe.resources.Coupons;
+  creditNotes: Stripe.resources.CreditNotes;
+  customers: Stripe.resources.Customers;
+  disputes: Stripe.resources.Disputes;
+  events: Stripe.resources.Events;
+  invoices: Stripe.resources.Invoices;
+  invoiceItems: Stripe.resources.InvoiceItems;
+  paymentIntents: Stripe.resources.PaymentIntents;
+  paymentMethods: Stripe.resources.PaymentMethods;
+  payouts: Stripe.resources.Payouts;
+  plans: Stripe.resources.Plans;
+  /**
+   * @deprecated
+   */
+  recipientCards: Stripe.resources.RecipientCards;
+  /**
+   * @deprecated
+   */
+  recipients: Stripe.resources.Recipients;
+  subscriptions: Stripe.resources.Subscriptions;
+  subscriptionItems: Stripe.resources.SubscriptionItems;
+  tokens: Stripe.resources.Tokens;
+  transfers: Stripe.resources.Transfers;
+  applicationFees: Stripe.resources.ApplicationFees;
+  fileUploads: Stripe.resources.FileUploads;
+  bitcoinReceivers: Stripe.resources.BitcoinReceivers;
+  refunds: Stripe.resources.Refunds;
+  countrySpecs: Stripe.resources.CountrySpecs;
+  orders: Stripe.resources.Orders;
+  products: Stripe.resources.Products;
+  setupIntents: Stripe.resources.SetupIntents;
+  skus: Stripe.resources.SKUs;
+  webhooks: Stripe.resources.WebHooks;
+  ephemeralKeys: Stripe.resources.EphemeralKeys;
+  usageRecords: Stripe.resources.UsageRecords;
+  usageRecordSummaries: Stripe.resources.UsageRecordSummaries;
+  sources: Stripe.resources.Sources;
 
-    setHost(host: string): void;
-    setHost(host: string, port: string | number): void;
-    setHost(host: string, port: string | number, protocol: string): void;
+  setHost(host: string): void;
+  setHost(host: string, port: string | number): void;
+  setHost(host: string, port: string | number, protocol: string): void;
 
-    setProtocol(protocol: string): void;
+  setProtocol(protocol: string): void;
+  setPort(port: string | number): void;
+  setApiVersion(version?: string): void;
+  setApiKey(key?: string): void;
+  setAppInfo(info?: {
+    partner_id?: string;
+    name: string;
+    url?: string;
+    version?: string;
+  }): void;
+  setTimeout(timeout?: number): void;
+  setMaxNetworkRetries(maxNetworkRetries: number): void;
+  setTelemetryEnabled(enabled: boolean): void;
+  setHttpAgent(agent: Agent): void;
+  getConstant(c: string): any;
+  getMaxNetworkRetries(): number;
+  getTelemetryEnabled(): boolean;
+  getClientUserAgent(response: (userAgent: string) => void): void;
 
-    setPort(port: string | number): void;
-
-    setApiVersion(version?: string): void;
-
-    setApiKey(key?: string): void;
-
-    setAppInfo(info?: { partner_id?: string; name: string; url?: string; version?: string }): void;
-
-    setTimeout(timeout?: number): void;
-
-    setMaxNetworkRetries(maxNetworkRetries: number): void;
-
-    setTelemetryEnabled(enabled: boolean): void;
-
-    setHttpAgent(agent: Agent): void;
-
-    getConstant(c: string): any;
-
-    getMaxNetworkRetries(): number;
-
-    getTelemetryEnabled(): boolean;
-
-    getClientUserAgent(response: (userAgent: string) => void): void;
+  on(event: 'request', handler: (event: RequestEvent) => void): void;
+  on(event: 'response', handler: (event: ResponseEvent) => void): void;
+  once(event: 'request', handler: (event: RequestEvent) => void): void;
+  once(event: 'response', handler: (event: ResponseEvent) => void): void;
+  off(event: 'request', handler: (event: RequestEvent) => void): void;
+  off(event: 'response', handler: (event: ResponseEvent) => void): void;
 }
 
 export = Stripe;
@@ -3496,6 +3519,8 @@ declare namespace Stripe {
              * Stripe will attempt to pay this invoice using the default source attached to the
              * customer. When sending an invoice, Stripe will email this invoice to the customer
              * with payment instructions.
+             *
+             * @deprecated This field has been renamed to collection_method and will be removed in a future API version.
              */
             billing: 'charge_automatically' | 'send_invoice';
 
@@ -3754,7 +3779,7 @@ declare namespace Stripe {
             /**
              * The subscription that this invoice was prepared for, if any.
              */
-            subscription: string | subscriptions.ISubscription;
+            subscription: string | subscriptions.ISubscription | null;
 
             /**
              * Only set for upcoming invoices that preview prorations. The time used to calculate prorations.
@@ -3911,12 +3936,17 @@ declare namespace Stripe {
             auto_advance?: boolean;
 
             /**
+             * @deprecated Use collection_method instead
+             */
+            billing?: 'charge_automatically' | 'send_invoice';
+
+            /**
              * Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe
              * will attempt to pay this invoice using the default source attached to the customer.
              * When sending an invoice, Stripe will email this invoice to the customer with payment
              * instructions. Defaults to charge_automatically.
              */
-            billing?: 'charge_automatically' | 'send_invoice';
+            collection_method?: 'charge_automatically' | 'send_invoice';
 
             /**
              * A list of up to 4 custom fields to be displayed on the invoice.
@@ -4426,7 +4456,7 @@ declare namespace Stripe {
 
             amount: number;
             currency: string;
-            customer: string;
+            customer: string | customers.ICustomer;
             date: number;
             description: string;
 

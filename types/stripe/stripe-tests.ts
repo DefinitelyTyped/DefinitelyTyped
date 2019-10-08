@@ -20,6 +20,13 @@ stripe.setAppInfo({
 stripe.setTelemetryEnabled(true); // $ExpectType void
 stripe.getTelemetryEnabled(); // $ExpectType boolean
 
+stripe.on('request', event => {});
+stripe.on('response', event => {});
+stripe.once('request', event => {});
+stripe.once('response', event => {});
+stripe.off('request', event => {});
+stripe.off('response', event => {});
+
 // generic list tests
 // ##################################################################################
 stripe.balance.listTransactions().then(items => {

@@ -1,9 +1,9 @@
 {
     "compilerOptions": {
+        "esModuleInterop": true,
         "module": "commonjs",
         "lib": [
-            "es6",
-            "dom"
+            "es6"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
@@ -19,7 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "test/loadjs-tests.ts",
-        "test/loadjs-umd-tests.ts"
+        "bufferhelper-tests.ts"
     ]
 }
