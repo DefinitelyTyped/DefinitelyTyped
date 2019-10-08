@@ -112,6 +112,9 @@ function TestCapabilities() {
     capabilities = capabilities.setScrollBehavior(1);
     capabilities = capabilities.setAlertBehavior('accept');
     capabilities = capabilities.setAlertBehavior();
+    capabilities = capabilities.setBrowserName('myBrowserName');
+    capabilities = capabilities.setBrowserName(webdriver.Browser.ANDROID);
+    capabilities = capabilities.setBrowserVersion('10.3.4');
 
     anything = capabilities.toJSON();
 
