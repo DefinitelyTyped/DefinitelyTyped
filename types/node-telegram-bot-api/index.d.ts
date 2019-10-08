@@ -480,6 +480,7 @@ declare namespace TelegramBot {
         first_name: string;
         last_name?: string;
         user_id?: number;
+        vcard?: string;
     }
 
     interface Location {
@@ -492,6 +493,7 @@ declare namespace TelegramBot {
         title: string;
         address: string;
         foursquare_id?: string;
+        foursquare_type?: string;
     }
 
     interface UserProfilePhotos {
