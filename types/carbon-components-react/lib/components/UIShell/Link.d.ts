@@ -1,9 +1,9 @@
 import * as React from "react";
-import { ReactAnchorAttr, ShapeOf } from "../../../typings/shared";
+import { ReactAnchorAttr, ShapeOf, SideNavSharedProps } from '../../../typings/shared';
 
 type InnerElementProps<P> = Omit<P, "element">;
-export interface LinkPropsBase<P = ReactAnchorAttr> {
-    element?: string | React.JSXElementConstructor<InnerElementProps<P>>, // required but has default value
+export interface LinkPropsBase<P = ReactAnchorAttr> extends SideNavSharedProps {
+    element?: string | React.JSXElementConstructor<InnerElementProps<P>>; // required but has default value
 }
 
 export type LinkProps<P extends object = ReactAnchorAttr, IP = P> = ShapeOf<LinkPropsBase<IP>, P>;

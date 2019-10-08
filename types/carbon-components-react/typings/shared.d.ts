@@ -62,3 +62,11 @@ export interface ValidityProps {
     invalid?: boolean,
     invalidText?: string,
 }
+
+export interface SideNavSharedProps {
+    isSideNavExpanded?: boolean;
+}
+
+export interface SideNavSizingProps {
+    large?: boolean;
+}
