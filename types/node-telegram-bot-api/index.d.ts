@@ -280,6 +280,18 @@ declare namespace TelegramBot {
     }
 
     /// TELEGRAM TYPES ///
+    interface PollOption {
+        text: string;
+        voter_count: number;
+    }
+
+    interface Poll {
+        id: string;
+        question: string;
+        options: PollOption[];
+        is_closed: boolean;
+    }
+
     interface ChatPermissions {
         can_send_messages?: boolean;
         can_send_media_messages?: boolean;
@@ -352,14 +364,18 @@ declare namespace TelegramBot {
         forward_from_chat?: Chat;
         forward_from_message_id?: number;
         forward_signature?: string;
+        forward_sender_name?: string;
         forward_date?: number;
         reply_to_message?: Message;
         edit_date?: number;
+        media_group_id?: string;
         author_signature?: string;
         text?: string;
         entities?: MessageEntity[];
+        caption_entities?: MessageEntity[];
         audio?: Audio;
         document?: Document;
+        animation?: Animation;
         game?: Game;
         photo?: PhotoSize[];
         sticker?: Sticker;
@@ -370,6 +386,7 @@ declare namespace TelegramBot {
         contact?: Contact;
         location?: Location;
         venue?: Venue;
+        poll?: Poll;
         new_chat_members?: User[];
         left_chat_member?: User;
         new_chat_title?: string;
@@ -383,6 +400,7 @@ declare namespace TelegramBot {
         pinned_message?: Message;
         invoice?: Invoice;
         successful_payment?: SuccessfulPayment;
+        connected_website?: string;
         reply_markup?: InlineKeyboardMarkup;
     }
 
