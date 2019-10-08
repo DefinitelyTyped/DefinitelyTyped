@@ -22,7 +22,7 @@ export class Options extends webdriver.Capabilities {
      * @return {!Options} A self reference.
      * @throws {TypeError} if either the key or value has an invalid type.
      */
-    setPreference(key: string, value: string|number|boolean): Options;
+    setPreference(key: string, value: string | number | boolean): Options;
 
     /**
      * Add extensions that should be installed when starting Firefox.
@@ -59,7 +59,7 @@ export class Options extends webdriver.Capabilities {
      * @param {(string|!Binary)} binary The binary to use.
      * @return {!Options} A self reference.
      */
-    setBinary(binary: string|any): Options;
+    setBinary(binary: string | any): Options;
 
     /**
      * Sets the proxy to use.
@@ -82,7 +82,7 @@ export class Options extends webdriver.Capabilities {
      * Configures the geckodriver to start Firefox in headless mode.
      * @return {!Options} A self reference.
      */
-    headless(): Options
+    headless(): Options;
 }
 
 /**
@@ -95,14 +95,14 @@ export function findWires(): string;
  * @param {(string|!Binary)} binary .
  * @return {!remote.DriverService} .
  */
-export function createWiresService(binary: string|any): remote.DriverService;
+export function createWiresService(binary: string | any): remote.DriverService;
 
 /**
  * @param {(Profile|string)} profile The profile to prepare.
  * @param {number} port The port the FirefoxDriver should listen on.
  * @return {!Promise<string>} a promise for the path to the profile directory.
  */
-export function prepareProfile(profile: string|any, port: number): any;
+export function prepareProfile(profile: string | any, port: number): any;
 
 /**
  * A WebDriver client for Firefox.
@@ -131,8 +131,9 @@ export class Driver extends webdriver.WebDriver {
      * @return {!Driver} A new driver instance.
      */
     static createSession(
-        opt_config?: Options|webdriver.Capabilities,
-        opt_executor?: http.Executor|remote.DriverService): Driver;
+        opt_config?: Options | webdriver.Capabilities,
+        opt_executor?: http.Executor | remote.DriverService,
+    ): Driver;
 
     /**
      * This function is a no-op as file detectors are not supported by this
@@ -188,7 +189,7 @@ export class ServiceBuilder extends remote.DriverService.Builder {
      * @return {!ServiceBuilder} A self reference.
      */
     enableVerboseLogging(opt_trace?: boolean): this;
-    
+
     /**
      * Sets the path to the executable Firefox binary that the geckodriver should
      * use. If this method is not called, this builder will attempt to locate
@@ -198,5 +199,5 @@ export class ServiceBuilder extends remote.DriverService.Builder {
      * @return {!ServiceBuilder} A self reference.
      * @see Binary#locate()
      */
-    setFirefoxBinary(binary: string): this;   
+    setFirefoxBinary(binary: string): this;
 }
