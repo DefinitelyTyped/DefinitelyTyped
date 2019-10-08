@@ -2569,6 +2569,12 @@
             "asOfVersion": "6.1.0"
         },
         {
+            "libraryName": "paper",
+            "typingsPackageName": "paper",
+            "sourceRepoURL": "https://github.com/paperjs/paper.js",
+            "asOfVersion": "0.12.3"
+        },
+        {
             "libraryName": "param-case",
             "typingsPackageName": "param-case",
             "sourceRepoURL": "https://github.com/blakeembrey/param-case",
