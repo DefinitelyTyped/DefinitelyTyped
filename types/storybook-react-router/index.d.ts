@@ -9,9 +9,9 @@ import { MemoryRouterProps } from 'react-router';
 import { Story, StoryDecorator } from '@storybook/react';
 
 export const StoryRouter: ComponentType<{
-  story: Story;
-  links: object;
-  routerProps: MemoryRouterProps;
+    story: Story;
+    links: object;
+    routerProps: MemoryRouterProps;
 }>;
 
 declare function storyRouterDecorator(links?: object, routerProps?: MemoryRouterProps): StoryDecorator;
