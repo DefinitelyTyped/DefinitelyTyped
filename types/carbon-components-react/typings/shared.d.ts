@@ -10,6 +10,7 @@ export interface ReactLIAttr<T = HTMLLIElement> extends React.LiHTMLAttributes<T
 export type ReactCreateElementParam = Parameters<typeof React.createElement>[0];
 
 export type ShapeOf<B extends object, E extends object = { [key: string]: any }> = (E extends never ? {} : E) & B;
+export type Overwrite<T, U> = [T] extends [never] ? U : Omit<T, keyof U> & U;
 
 export type Direction = "bottom" | "left" | "right" | "top";
 export type ListBoxBaseItemType = object | string;
