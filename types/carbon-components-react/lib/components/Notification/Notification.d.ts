@@ -9,6 +9,10 @@ interface SharedProps {
     notificationType?: NotificationType,
 }
 
+interface ContrastProps {
+    lowContrast?: boolean,
+}
+
 export interface NotificationContentProps {
     caption: NonNullable<React.ReactNode>,
     subtitle: NonNullable<React.ReactNode>,
@@ -68,6 +72,7 @@ export declare class NotificationTextDetails extends React.Component<Notificatio
 type ExcludedToastDivAttributes = "role" | "title";
 interface ToastNotificationInheritedProps extends
     Omit<ReactDivAttr, ExcludedToastDivAttributes>,
+    ContrastProps,
     NotificationContentProps,
     NotificationBaseProps
 {
@@ -86,6 +91,7 @@ export declare class ToastNotification extends React.Component<ToastNotification
 interface InlineNotificationInheritedProps extends
     Omit<ReactDivAttr, "title">,
     Omit<NotificationContentProps, "caption">,
+    ContrastProps,
     NotificationBaseProps
 { }
 
