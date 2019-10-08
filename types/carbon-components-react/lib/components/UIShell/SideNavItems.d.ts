@@ -1,8 +1,8 @@
 import * as React from "react";
-import { ReactAttr, SideNavSharedProps } from '../../../typings/shared';
+import { ReactAttr, SideNavSharedProps } from "../../../typings/shared";
 
 interface InheritedProps extends SideNavSharedProps {
-    children: Array<NonNullable<React.ReactNode>>,
+    children: ReactAttr["children"],
     className?: ReactAttr["className"],
 }
 

@@ -2,7 +2,7 @@ import * as React from "react";
 import { ReactAttr, RenderIconProps, SideNavSharedProps, SideNavSizingProps } from '../../../typings/shared';
 
 interface InheritedProps extends RenderIconProps, SideNavSharedProps, SideNavSizingProps {
-    children?: Array<NonNullable<React.ReactNode>>,
+    children?: ReactAttr["children"],
     className?: ReactAttr["className"],
     title: NonNullable<ReactAttr["title"]>,
 }
