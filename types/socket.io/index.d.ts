@@ -1,4 +1,4 @@
-// Type definitions for socket.io 2.1.1
+// Type definitions for socket.io 2.1
 // Project: http://socket.io/
 // Definitions by: PROGRE <https://github.com/progre>
 //                 Damian Connolly <https://github.com/divillysausages>
