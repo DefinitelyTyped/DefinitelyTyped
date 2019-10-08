@@ -176,7 +176,31 @@ declare namespace Stripe {
             /**
              * Value is "account"
              */
-            object: string;
+            object: 'account';
+
+            /**
+             * A hash containing the set of capabilities that was requested for this
+             * account and their associatedstates. Keys are names of capabilities.
+             * You can see the full list here. Values may be active, inactive, or pending.
+             */
+            capabilities?: {
+                /**
+                 * The status of the card payments capability of the account, or whether
+                 * the account can directly process credit and debit card charges.
+                 */
+                card_payments?: 'active' | 'inactive' | 'pending';
+
+                /**
+                 * he status of the legacy payments capability of the account.
+                 */
+                legacy_payments?: 'active' | 'inactive' | 'pending';
+
+                /**
+                 * The status of the transfers capability of the account, or whether your
+                 * platform can transfer funds to the account.
+                 */
+                transfers?: 'active' | 'inactive' | 'pending';
+            };
 
             /**
              * Whether or not the account can create live charges
@@ -184,9 +208,20 @@ declare namespace Stripe {
             charges_enabled: boolean;
 
             /**
+             * Information about the company or business.
+             * This field is null unless business_type is set to company.
+             */
+            company?: ICompany;
+
+            /**
              * The country of the account
              */
             country: string;
+
+            /**
+             * Time at which the object was created. Measured in seconds since the Unix epoch.
+             */
+            created?: number;
 
             /**
              * Whether or not account details have been submitted yet. Standalone
@@ -201,6 +236,24 @@ declare namespace Stripe {
             display_name: string;
 
             /**
+             * External accounts (bank accounts and debit cards) currently
+             * attached to this account
+             */
+            external_accounts?: IList<IExternalAccount>;
+
+            /**
+             * Information about the person represented by the account.
+             * This field is null unless business_type is set to individual.
+             */
+            individual?: IIndividual;
+
+            /**
+             * Set of key-value pairs that you can attach to an object. This can be useful
+             * for storing additional information about the object in a structured format.
+             */
+            metadata?: IMetadata;
+
+            /**
              * Whether or not Stripe will send automatic transfers for this account. This
              * is only false when Stripe is waiting for additional information from the
              * account holder.
@@ -208,10 +261,22 @@ declare namespace Stripe {
             payouts_enabled: boolean;
 
             /**
+             * Information about the requirements for the account, including what information
+             * needs to be collected, and by when.
+             */
+            requirements?: IAccountRequirements;
+
+            /**
+             * The Stripe account type. Can be standard, express, or custom.
+             */
+            type: 'standard' | 'express' | 'custom';
+
+            /**
              * The state of the account’s information requests, including what
              * information is needed and by when it must be provided.
+             * @deprecated
              */
-            verification: {
+            verification?: {
                 /**
                  * A string describing the reason for this account being unable to charge
                  * and/or transfer, if that is the case. Possible values are "rejected.fraud",
@@ -236,29 +301,6 @@ declare namespace Stripe {
                  */
                 fields_needed: string[];
             };
-
-            /**
-             * Information about the company or business.
-             * This field is null unless business_type is set to company.
-             */
-            company?: ICompany;
-
-            /**
-             * Information about the person represented by the account.
-             * This field is null unless business_type is set to individual.
-             */
-            individual?: IIndividual;
-
-            /**
-             * External accounts (bank accounts and debit cards) currently
-             * attached to this account
-             */
-            external_accounts?: IList<IExternalAccount>;
-
-            /**
-             * Information about the requirements for the account, including what information needs to be collected, and by when.
-             */
-            requirements?: IAccountRequirements;
         }
 
         interface IAccountCreationOptions extends IAccountUpdateOptions {
@@ -283,14 +325,10 @@ declare namespace Stripe {
             email?: string;
 
             /**
-             * Whether you'd like to create a Custom or Standard account. Custom
-             * accounts have extra parameters available to them, and require that you,
-             * the platform, handle all communication with the account holder.
-             * Standard accounts are normal Stripe accounts: Stripe will email the
-             * account holder to setup a username and password, and handle all account
-             * management directly with them. Possible values are custom and standard.
+             * The type of Stripe account to create. Currently must be custom, as only Custom
+             * accounts may be created via the API.
              */
-            type: 'custom' | 'standard';
+            type: 'custom';
 
             /**
              * Information about the company or business.
@@ -437,18 +475,19 @@ declare namespace Stripe {
             email?: string;
 
             /**
-             * A set of key/value pairs that you can attach to an account object. It can be
-             * useful for storing additional information about the account in a structured
-             * format. This can be unset by updating the value to null and then saving.
-             */
-            metadata?: IMetadata;
-
-            /**
              * Internal-only description of the product being sold or service being
              * provided by this account. It’s used by Stripe for risk and underwriting
              * purposes.
              */
             product_description?: string;
+
+            /**
+             * The set of capabilities you want to unlock for this account (US only).
+             * Each capability will be inactive until you have provided its specific
+             * requirements and Stripe has verified them. An account may have some of
+             * its requested capabilities be active and some be inactive.
+             */
+            requested_capabilities?: string[];
 
             /**
              * Account options for customizing how the account functions within Stripe.
@@ -539,6 +578,18 @@ declare namespace Stripe {
                      * charge.
                      */
                     statement_descriptor?: string;
+
+                    /**
+                     * The Kana variation of the default text that appears on credit card statements
+                     * when a charge is made (Japan only)
+                     */
+                    statement_descriptor_kana?: string | null;
+
+                    /**
+                     * The Kanji variation of the default text that appears on credit card statements
+                     * when a charge is made (Japan only)
+                     */
+                    statement_descriptor_kanji?: string | null;
                 };
 
                 /**
@@ -625,7 +676,18 @@ declare namespace Stripe {
             };
         }
 
-        interface IAccountUpdateOptions extends IDataOptions, IAccountShared {
+        interface IAccountUpdateOptions extends IDataOptionsWithMetadata, IAccountShared {
+            /**
+             * An account token, used to securely provide details to the account.
+             */
+            account_token?: string;
+
+            /**
+             * Information about the company or business.
+             * This field is null unless business_type is set to company.
+             */
+            company?: ICompanyCreateUpdateOptions;
+
             /**
              * A card or bank account to attach to the account. You can provide either a
              * token, like the ones returned by Stripe.js, or a dictionary as documented in
@@ -682,17 +744,6 @@ declare namespace Stripe {
                  */
                 routing_number?: string;
             };
-
-            /**
-             * An account token, used to securely provide details to the account.
-             */
-            account_token?: string;
-
-            /**
-             * Information about the company or business.
-             * This field is null unless business_type is set to company.
-             */
-            company?: ICompanyCreateUpdateOptions;
 
             /**
              * Information about the person represented by the account.

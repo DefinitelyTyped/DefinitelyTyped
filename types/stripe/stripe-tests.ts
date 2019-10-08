@@ -1013,20 +1013,16 @@ stripe.transfers.createReversal('tr_17F2JBFuhr4V1legrq97JrFE').then(reversal => 
 //#region Accounts test
 // ##################################################################################
 
-stripe.accounts.create(
-    {
-        email: '',
-        type: 'standard',
-    },
-    (err, customer) => {
-        // asynchronously called
-    },
-);
 stripe.accounts
     .create({
         type: 'custom',
-    })
-    .then(customer => {
+        country: 'US',
+        email: 'bob@example.com',
+        requested_capabilities: [
+            'card_payments',
+            'transfers'
+        ]
+    }, (err, account) => {
         // asynchronously called
     });
 stripe.accounts
