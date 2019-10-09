@@ -20,6 +20,7 @@ export interface LazyLoadProps {
     placeholder?: ReactNode;
     unmountIfInvisible?: boolean;
     scrollContainer?: string | Element;
+    preventLoading?: boolean;
 }
 
 export default class LazyLoad extends Component<LazyLoadProps> {
