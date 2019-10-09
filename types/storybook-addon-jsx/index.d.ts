@@ -4,12 +4,12 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
-import '@storybook/react';
+import '@storybook/addons';
 import { ReactNode, ReactElement } from 'react';
 
 export type displayNameFunc = (element: ReactElement) => string;
 
-declare module '@storybook/react' {
+declare module '@storybook/addons' {
     interface Options {
         skip?: number;
         enableBeautify?: boolean;
@@ -17,7 +17,7 @@ declare module '@storybook/react' {
         displayName?: string | displayNameFunc;
     }
 
-    interface StoryApi {
-        addWithJSX(kind: string, fn: () => ReactNode, options?: Options): StoryApi;
+    interface StoryApi<StoryFnReturnType = unknown> {
+        addWithJSX: (kind: string, fn: () => ReactNode, options?: Options) => StoryApi<StoryFnReturnType>;
     }
 }
