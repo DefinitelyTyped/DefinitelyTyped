@@ -205,7 +205,7 @@ validatorError.stack;
  * section error/validation.js
  * https://mongoosejs.com/docs/api.html#mongooseerror_MongooseError.ValidationError
  */
-var doc = <mongoose.MongooseDocument> {};
+var doc = <mongoose.Document>{};
 var validationError: mongoose.Error.ValidationError = new mongoose.Error.ValidationError(doc);
 validationError.name;
 validationError.toString().toLowerCase();
@@ -706,11 +706,11 @@ mongoose.plugin<PluginOption>(AwesomeLoggerPlugin, {modelName: 'Executive', time
 
 /*
  * section document.js
- * http://mongoosejs.com/docs/api.html#document-js
+ * https://mongoosejs.com/docs/api/document.html
  */
-var doc = <mongoose.MongooseDocument> {};
+var doc = <mongoose.Document>{};
 doc.$isDefault('path').valueOf();
-const docDotDepopulate: mongoose.MongooseDocument = doc.depopulate('path');
+const docDotDepopulate: mongoose.Document = doc.depopulate('path');
 doc.equals(doc).valueOf();
 doc.execPopulate().then(function (arg) {
   arg.execPopulate();
@@ -902,8 +902,7 @@ var subDocArray = myEntity.sub.filter(sd => {
  * http://mongoosejs.com/docs/api.html#types-documentarray-js
  */
 // The constructor is private api, but we'll use it to test
-var documentArray: mongoose.Types.DocumentArray<mongoose.MongooseDocument> =
-  new mongoose.Types.DocumentArray();
+var documentArray: mongoose.Types.DocumentArray<mongoose.Document> = new mongoose.Types.DocumentArray();
 documentArray.create({}).errors;
 documentArray.id(new Buffer('hi'));
 documentArray.inspect();
@@ -946,8 +945,8 @@ mongoose.Types.Buffer.from([1, 2, 3]);
 var decimal128: mongoose.Types.Decimal128 = mongoose.Types.Decimal128.fromString('123.45678901234567');
 decimal128 = new mongoose.Types.Decimal128(new Buffer('12345'));
 /* practical examples */
-export interface ILargeValuesSchema extends mongoose.MongooseDocument {
-  sum: mongoose.Schema.Types.Decimal128;
+export interface ILargeValuesSchema extends mongoose.Document {
+    sum: mongoose.Schema.Types.Decimal128;
 }
 export var LargeValuesSchema = new mongoose.Schema({
   sum: {
@@ -965,8 +964,8 @@ objectId = new mongoose.Types.ObjectId(12345);
 objectId = mongoose.Types.ObjectId(12345);
 objectId.getTimestamp();
 /* practical examples */
-export interface IManagerSchema extends mongoose.MongooseDocument {
-  user: mongoose.Schema.Types.ObjectId;
+export interface IManagerSchema extends mongoose.Document {
+    user: mongoose.Schema.Types.ObjectId;
 }
 export var ManagerSchema = new mongoose.Schema({
   user: {
@@ -1006,7 +1005,7 @@ map.toObject({ flattenMaps: true }).key;
  * section query.js
  * http://mongoosejs.com/docs/api.html#query-js
  */
-var query = <mongoose.Query<mongoose.MongooseDocument[]>> {};
+var query = <mongoose.Query<mongoose.Document[]>>{};
 query.$where('').$where(cb);
 query.all(99).all('path', 99);
 query.and([{ color: 'green' }, { status: 'ok' }]).and([]);
@@ -1106,6 +1105,29 @@ query.find().where('age').lt(21);
 query.find().lt('age', 21);
 query.find().where('age').lte(21);
 query.find().lte('age', 21);
+query
+    .find()
+    .map(res => {
+        res.length;
+        res[0]._id;
+        return { b: 123 };
+    })
+    .map(res => {
+        res.b;
+        return { c: true };
+    })
+    .then(res => {
+        typeof res.c === 'boolean';
+    });
+query
+    .findOne()
+    .map(res => {
+        res.save();
+        return res;
+    })
+    .then(res => {
+        res._id;
+    });
 query.maxDistance('path', 21).maxDistance(21);
 query.maxTimeMS(1000);
 query.maxscan(100).maxScan(100);
