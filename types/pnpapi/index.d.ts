@@ -11,50 +11,61 @@ declare namespace NodeJS {
     }
 }
 
-declare module 'pnpapi' {
-    interface PhysicalPackageLocator {
-        name: string;
-        reference: string;
-    }
+interface PhysicalPackageLocator {
+    name: string;
+    reference: string;
+}
 
-    interface TopLevelPackageLocator {
-      name: null;
-      reference: null;
-    }
+interface TopLevelPackageLocator {
+    name: null;
+    reference: null;
+}
 
-    type PackageLocator =
-      | PhysicalPackageLocator
-      | TopLevelPackageLocator;
+type PackageLocator =
+    | PhysicalPackageLocator
+    | TopLevelPackageLocator;
 
-    interface PackageInformation {
-        packageLocation: string;
-        packageDependencies: Map<string, null | string | [string, string]>;
-        linkType: 'HARD' | 'SOFT';
-    }
+interface PackageInformation {
+    packageLocation: string;
+    packageDependencies: Map<string, null | string | [string, string]>;
+    linkType: 'HARD' | 'SOFT';
+}
 
-    const VERSIONS: { std: number; [key: string]: number };
+interface PnpApi {
+    VERSIONS: { std: number; [key: string]: number };
 
-    const topLevel: { name: null; reference: null };
+    topLevel: { name: null; reference: null };
 
-    function getDependencyTreeRoots(): PackageLocator[];
+    getDependencyTreeRoots(): PackageLocator[];
+    getPackageInformation(locator: PackageLocator): PackageInformation;
 
-    function getPackageInformation(locator: PackageLocator): PackageInformation;
+    findPackageLocator(location: string): PackageLocator | null;
 
-    function findPackageLocator(location: string): PackageLocator | null;
-
-    function resolveToUnqualified(
+    resolveToUnqualified(
         request: string,
         issuer: string | null,
         opts?: { considerBuiltins?: boolean },
     ): string | null;
 
-    function resolveUnqualified(unqualified: string, opts?: { extensions?: string[] }): string;
+    resolveUnqualified(unqualified: string, opts?: { extensions?: string[] }): string;
 
-    function resolveRequest(
-      request: string,
-      issuer: string | null,
-      opts?: { considerBuiltins?: boolean; extensions?: string[] },
+    resolveRequest(
+        request: string,
+        issuer: string | null,
+        opts?: { considerBuiltins?: boolean; extensions?: string[] },
     ): string | null;
-
-    function setup(): void;
 }
+
+type MakeApiOptions = {
+    allowDebug?: boolean,
+    compatibilityMode?: boolean,
+    fakeFs: FakeFS<PortablePath>,
+    pnpapiResolution: NativePath,
+};
+
+type MasterFunctions = {
+    setup(): void,
+    makeApi(opts: MakeApiOptions): PnpApi,
+};
+
+export = PnpApi & MasterFunctions;
