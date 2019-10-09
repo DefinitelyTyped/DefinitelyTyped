@@ -1,4 +1,4 @@
-// Type definitions for square-connect 2.20190814
+// Type definitions for square-connect 2.20190925
 // Project: https://docs.connect.squareup.com/
 // Definitions by: Dmitri Dimitrioglo <https://github.com/ddimitrioglo>
 //                 Richard Moot <https://github.com/mootrichard>
@@ -258,7 +258,11 @@ export enum CountryEnum {
     ZW = 'ZW',
 }
 
-export enum CurrencyEnum {
+/**
+ * Indicates the associated currency for an amount of money. Values correspond to [ISO
+ * 4217](https://wikipedia.org/wiki/ISO_4217).
+ */
+export enum Currency {
     UNKNOWN_CURRENCY = 'UNKNOWN_CURRENCY',
     AED = 'AED',
     AFN = 'AFN',
@@ -3028,12 +3032,6 @@ export class CreateShiftResponse {
 }
 
 /**
- * Indicates the associated currency for an amount of money. Values correspond to [ISO
- * 4217](https://wikipedia.org/wiki/ISO_4217).
- */
-export class Currency {}
-
-/**
  * Represents one of a business's customers, which can have one or more cards on file associated with it.
  */
 export class Customer {
@@ -4475,7 +4473,7 @@ export class Location {
      * For example, the currency for a location processing transactions in the United States is 'USD'.
      * See [Currency](#type-currency) for possible values.
      */
-    currency?: CurrencyEnum;
+    currency?: Currency | string;
     /**
      * The location's phone_number.
      */
@@ -4859,12 +4857,12 @@ export class Money {
      * For example, when `currency` is `USD`, `amount` is in cents. Monetary amounts can be positive or negative.
      * See the specific API documentation to determine the meaning of the sign in a particular case.
      */
-    amount?: number;
+    amount: number;
     /**
      * The type of currency, in __ISO 4217 format__. For example, the currency code for US dollars is `USD`.
      * See [Currency](#type-currency) for possible values. See [Currency](#type-currency) for possible values
      */
-    currency?: CurrencyEnum;
+    currency: Currency | string;
 }
 
 export class ObtainTokenRequest {
@@ -6266,7 +6264,7 @@ export class PaymentRefund {
      * - `REJECTED` - the refund was rejected
      * - `FAILED` - an error occurred
      */
-    status?: string;
+    status: 'PENDING' | 'COMPLETED' | 'REJECTED' | 'FAILED';
     /**
      * Location ID associated with the payment this refund is attached to.
      */
@@ -6368,7 +6366,7 @@ export class Refund {
      * The current status of the refund (`PENDING`, `APPROVED`, `REJECTED`, or `FAILED`).
      * See [RefundStatus](#type-refundstatus) for possible values.
      */
-    status: Refund.StatusEnum;
+    status: 'PENDING' | 'APPROVED' | 'REJECTED' | 'FAILED';
     /**
      * The amount of Square processing fee money refunded to the *merchant*.
      */
@@ -6378,15 +6376,6 @@ export class Refund {
      * For example, fees assessed on a refund of a purchase by a third party integration.
      */
     additional_recipients?: Array<AdditionalRecipient>;
-}
-
-export namespace Refund {
-    export enum StatusEnum {
-        PENDING = 'PENDING',
-        APPROVED = 'APPROVED',
-        REJECTED = 'REJECTED',
-        FAILED = 'FAILED',
-    }
 }
 
 /**
@@ -10137,14 +10126,64 @@ export class WorkweekConfig {
     updated_at?: string;
 }
 
-// @todo think how to declare properly
-export namespace ApiClient {
-    export const authentications: Record<string, any>;
-    export const instance: any;
-    export const basePath: any;
+/**
+ * Manages low level client-server communications, parameter marshalling, etc. There should not be any need for an
+ * application to use this class directly - the *Api and model classes provide the public API for the service. The
+ * contents of this file should be regarded as internal but are documented for completeness.
+ */
+export class ApiClient {
+    /**
+     * The base URL against which to resolve every API call's (relative) path.
+     */
+    basePath: string;
+
+    /**
+     * The authentication methods to be included for all API calls.
+     */
+    authentications: {
+        oauth2: {
+            type: string;
+            accessToken: string;
+        }
+        oauth2ClientSecret: {
+            type: string;
+            in: string;
+            name: string;
+        }
+    };
+
+    /**
+     * The default HTTP headers to be included for all API calls.
+     */
+    defaultHeaders: {[key: string]: string};
+
+    /**
+     *  The default HTTP timeout for all API calls.
+     */
+    timeout: number;
+
+    /**
+     * If set to false an additional timestamp parameter is added to all API GET calls to prevent browser caching.
+     */
+    cache: boolean;
+
+    /**
+     * If set to true, the client will save the cookies from each server response, and return them in the next request.
+     */
+    enableCookies: boolean;
+
+    /**
+     * The default API client implementation.
+     */
+    static instance: ApiClient;
 }
 
 export class ApplePayApi {
+    /**
+     * Constructs a new ApplePayApi.
+     * @param apiClient Optional API client implementation to use, default to ApiClient.instance if unspecified.
+     */
+    constructor(apiClient?: ApiClient);
     /**
      * Activates a domain for use with Web Apple Pay and Square.
      * A validation will be performed on this domain by Apple to ensure is it properly set up as an Apple Pay enabled domain.
@@ -10156,6 +10195,11 @@ export class ApplePayApi {
 }
 
 export class CatalogApi {
+    /**
+     * Constructs a new CatalogApi.
+     * @param apiClient Optional API client implementation to use, default to ApiClient.instance if unspecified.
+     */
+    constructor(apiClient?: ApiClient);
     /**
      * Returns a list of [CatalogObject](#type-catalogobject)s that includes all objects of a set of desired types
      * (for example, all [CatalogItem](#type-catalogitem) and [CatalogTax](#type-catalogtax) objects) in the catalog.
@@ -10229,6 +10273,11 @@ export class CatalogApi {
 
 export class CheckoutApi {
     /**
+     * Constructs a new CheckoutApi.
+     * @param apiClient Optional API client implementation to use, default to ApiClient.instance if unspecified.
+     */
+    constructor(apiClient?: ApiClient);
+    /**
      * Links a `checkoutId` to a `checkout_page_url` that customers will be directed to in order to provide their payment
      * information using a payment processing workflow hosted on connect.squareup.com.
      */
@@ -10236,6 +10285,11 @@ export class CheckoutApi {
 }
 
 export class CustomersApi {
+    /**
+     * Constructs a new CustomersApi.
+     * @param apiClient Optional API client implementation to use, default to ApiClient.instance if unspecified.
+     */
+    constructor(apiClient?: ApiClient);
     /**
      * Creates a new customer for a business, which can have associated cards on file. You must provide at least one of the
      * following values in your request to this endpoint: `given_name`. `family_name`, `company_name`, `email_address`,`phone_number`.
@@ -10283,6 +10337,11 @@ export class CustomersApi {
 
 export class EmployeesApi {
     /**
+     * Constructs a new EmployeesApi.
+     * @param apiClient Optional API client implementation to use, default to ApiClient.instance if unspecified.
+     */
+    constructor(apiClient?: ApiClient);
+    /**
      * Gets a list of `Employee` objects for a business.
      */
     listEmployees(params: ListEmployeesRequest): Promise<ListEmployeesResponse>;
@@ -10293,6 +10352,11 @@ export class EmployeesApi {
 }
 
 export class InventoryApi {
+    /**
+     * Constructs a new InventoryApi.
+     * @param apiClient Optional API client implementation to use, default to ApiClient.instance if unspecified.
+     */
+    constructor(apiClient?: ApiClient);
     /**
      * Applies adjustments and counts to the provided item quantities.
      * On success: returns the current calculated counts for all objects referenced in the request.
@@ -10337,6 +10401,11 @@ export class InventoryApi {
 }
 
 export class LaborApi {
+    /**
+     * Constructs a new LaborApi.
+     * @param apiClient Optional API client implementation to use, default to ApiClient.instance if unspecified.
+     */
+    constructor(apiClient?: ApiClient);
     /**
      * Creates a new `BreakType`. A `BreakType` is a template for creating `Break` objects.
      * You must provide the following values in your request to this endpoint:
@@ -10412,6 +10481,11 @@ export class LaborApi {
 
 export class LocationsApi {
     /**
+     * Constructs a new LocationsApi.
+     * @param apiClient Optional API client implementation to use, default to {@link module:ApiClient#instance} if unspecified.
+     */
+    constructor(apiClient?: ApiClient);
+    /**
      * Provides the details for all of a business's locations.
      * Most other Connect API endpoints have a required `location_id` path parameter. The `id` field of the
      * [`Location`](#type-location) objects returned by this endpoint correspond to that `location_id` parameter.
@@ -10420,6 +10494,11 @@ export class LocationsApi {
 }
 
 export class MobileAuthorizationApi {
+    /**
+     * Constructs a new MobileAuthorizationApi.
+     * @param apiClient Optional API client implementation to use, default to ApiClient.instance if unspecified.
+     */
+    constructor(apiClient?: ApiClient);
     /**
      * Generates code to authorize a mobile application to connect to a Square card reader Authorization codes are
      * one-time-use and expire __60 minutes__ after being issued.
@@ -10431,6 +10510,11 @@ export class MobileAuthorizationApi {
 }
 
 export class OAuthApi {
+    /**
+     * Constructs a new OAuthApi.
+     * @param apiClient Optional API client implementation to use, default to ApiClient.instance if unspecified.
+     */
+    constructor(apiClient?: ApiClient);
     /**
      * Returns an OAuth access token. The endpoint supports distinct methods of obtaining OAuth access tokens.
      * Applications specify a method by adding the `grant_type` parameter  in the request and also provide relevant information.
@@ -10464,6 +10548,11 @@ export class OAuthApi {
 }
 
 export class OrdersApi {
+    /**
+     * Constructs a new OrdersApi.
+     * @param apiClient Optional API client implementation to use, default to ApiClient.instance if unspecified.
+     */
+    constructor(apiClient?: ApiClient);
     /**
      * Retrieves a set of [Order](#type-order)s by their IDs.
      * If a given Order ID does not exist, the ID is ignored instead of generating an error.
@@ -10514,6 +10603,11 @@ export class OrdersApi {
 
 export class PaymentsApi {
     /**
+     * Constructs a new PaymentsApi.
+     * @param apiClient Optional API client implementation to use, default to ApiClient.instance if unspecified.
+     */
+    constructor(apiClient?: ApiClient);
+    /**
      * Cancels a payment. If you set `autocomplete` to false when creating a payment, you can cancel the payment using
      * this endpoint. For more information, see [Delayed Payments](/payments-api/take-payments#delayed-payments).
      */
@@ -10554,6 +10648,11 @@ export class PaymentsApi {
 
 export class RefundsApi {
     /**
+     * Constructs a new RefundsApi.
+     * @param apiClient Optional API client implementation to use, default to ApiClient.instance if unspecified.
+     */
+    constructor(apiClient?: ApiClient);
+    /**
      * Retrieves a specific `Refund` using the `refund_id`.
      */
     getPaymentRefund(refundId: string): Promise<GetPaymentRefundResponse>;
@@ -10572,6 +10671,12 @@ export class RefundsApi {
 export class ReportingApi {}
 
 export class TransactionsApi {
+    /**
+     * Constructs a new TransactionsApi.
+     * @param apiClient Optional API client implementation to use, default to ApiClient.instance if unspecified.
+     */
+    constructor(apiClient?: ApiClient);
+
     /**
      * Captures a transaction that was created with the [Charge](#endpoint-transactions-charge) endpoint with a `delay_capture` value of `true`.
      * See the [Delay Capture of Funds](/transactions-api/cookbook/delay-capture) recipe for more information.
