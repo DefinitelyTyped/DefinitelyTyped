@@ -57,16 +57,16 @@ interface PnpApi {
 }
 
 interface MakeApiOptions {
-    allowDebug?: boolean,
-    compatibilityMode?: boolean,
-    fakeFs: any,
-    pnpapiResolution: string,
-};
+    allowDebug?: boolean;
+    compatibilityMode?: boolean;
+    fakeFs: any;
+    pnpapiResolution: string;
+}
 
 interface MasterFunctions {
-    setup(): void,
-    makeApi(opts: MakeApiOptions): PnpApi,
-};
+    setup(): void;
+    makeApi(opts: MakeApiOptions): PnpApi;
+}
 
 declare const mainApi: PnpApi & MasterFunctions;
 export default mainApi;
