@@ -47,6 +47,6 @@ export function env(envName: string, configSetters: Block[]): Block;
 
 export function match(test: string | string[], configSetters: Block[]): Block;
 
-export function match(test: string | string[], options: MatchOptions, configSetters: Block[] ): Block;
+export function match(test: string | string[], options: MatchOptions, configSetters: Block[]): Block;
 
 export function when(condition: boolean, configSetters: Block[]): Block;

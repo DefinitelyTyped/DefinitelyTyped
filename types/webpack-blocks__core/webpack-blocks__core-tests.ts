@@ -1,5 +1,5 @@
 import { createConfig, group, env, match, when, Block, Context, MatchOptions, Util } from '@webpack-blocks/core';
-import { Configuration } from '../webpack';
+import { Configuration } from 'webpack';
 
 // test data
 const block = (config: Configuration): Block => {
