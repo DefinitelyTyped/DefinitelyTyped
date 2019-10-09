@@ -1082,15 +1082,23 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
 
     _.remove(list); // $ExpectType AbcObject[]
     _.remove(list, listIterator); // $ExpectType AbcObject[]
+    _.remove(list, ""); // $ExpectType AbcObject[]
+    _.remove(list, { a: 42 }); // $ExpectType AbcObject[]
 
     _(list).remove(); // $ExpectType Collection<AbcObject>
     _(list).remove(listIterator); // $ExpectType Collection<AbcObject>
+    _(list).remove(""); // $ExpectType Collection<AbcObject>
+    _(list).remove({ a: 42 }); // $ExpectType Collection<AbcObject>
 
     _.chain(list).remove(); // $ExpectType CollectionChain<AbcObject>
     _.chain(list).remove(listIterator); // $ExpectType CollectionChain<AbcObject>
+    _.chain(list).remove(""); // $ExpectType CollectionChain<AbcObject>
+    _.chain(list).remove({ a: 42 }); // $ExpectType CollectionChain<AbcObject>
 
     fp.remove(valueIterator, list); // $ExpectType AbcObject[]
     fp.remove(valueIterator)(list); // $ExpectType AbcObject[]
+    fp.remove("", list); // $ExpectType AbcObject[]
+    fp.remove({ a: 42 }, list); // $ExpectType AbcObject[]
 }
 
 // _.tail

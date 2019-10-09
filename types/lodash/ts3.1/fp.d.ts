@@ -3723,12 +3723,12 @@ declare namespace _ {
     type LodashReject1x2<T> = (predicate: lodash.ValueIterateeCustom<T, boolean>) => T[];
     type LodashReject2x2<T> = (predicate: lodash.ValueIterateeCustom<T[keyof T], boolean>) => Array<T[keyof T]>;
     interface LodashRemove {
-        <T>(predicate: (value: T) => lodash.NotVoid): LodashRemove1x1<T>;
+        <T>(predicate: lodash.ValueIteratee<T>): LodashRemove1x1<T>;
         <T>(predicate: lodash.__, array: lodash.List<T>): LodashRemove1x2<T>;
-        <T>(predicate: (value: T) => lodash.NotVoid, array: lodash.List<T>): T[];
+        <T>(predicate: lodash.ValueIteratee<T>, array: lodash.List<T>): T[];
     }
     type LodashRemove1x1<T> = (array: lodash.List<T>) => T[];
-    type LodashRemove1x2<T> = (predicate: (value: T) => lodash.NotVoid) => T[];
+    type LodashRemove1x2<T> = (predicate: lodash.ValueIteratee<T>) => T[];
     interface LodashRepeat {
         (n: number): LodashRepeat1x1;
         (n: lodash.__, string: string): LodashRepeat1x2;
