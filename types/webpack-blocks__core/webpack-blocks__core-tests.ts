@@ -1,4 +1,4 @@
-import { createConfig, group, env, match, when } from "@webpack-blocks/core";
+import { createConfig, group, env, match, when } from '@webpack-blocks/core';
 
 createConfig();
 group();
