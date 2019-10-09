@@ -1,7 +1,7 @@
 // Type definitions for @sentry/webpack-plugin 1.9
 // Project: https://github.com/getsentry/sentry-webpack-plugin
-// Definitions by: Peter Snider <https://github.com/psnider>
-//                 Kevyn Bruyere <https://github.com/kevynb>
+// Definitions by: Vladimir Grenaderov <https://github.com/VladimirGrenaderov>
+//                 Max Boguslavskiy <https://github.com/maxbogus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped/seneca
 // TypeScript Version: 2.3
 
