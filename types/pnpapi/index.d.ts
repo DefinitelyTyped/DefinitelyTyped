@@ -1,5 +1,5 @@
 // Type definitions for pnpapi 3.0
-// Project: https://yarnpkg.github.io/berry/advanced/pnpapi
+// Project: https://next.yarnpkg.com/advanced/pnpapi
 // Definitions by: Maël Nison <https://github.com/arcanis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
@@ -56,16 +56,17 @@ interface PnpApi {
     ): string | null;
 }
 
-type MakeApiOptions = {
+interface MakeApiOptions {
     allowDebug?: boolean,
     compatibilityMode?: boolean,
-    fakeFs: FakeFS<PortablePath>,
-    pnpapiResolution: NativePath,
+    fakeFs: any,
+    pnpapiResolution: string,
 };
 
-type MasterFunctions = {
+interface MasterFunctions {
     setup(): void,
     makeApi(opts: MakeApiOptions): PnpApi,
 };
 
-export = PnpApi & MasterFunctions;
+declare const mainApi: PnpApi & MasterFunctions;
+export default mainApi;
