@@ -5,15 +5,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
-import { getStorybook } from '@storybook/react';
-
-// Since IStorybookStory isn't exported from '@storybook/react', we have to create it ourselves.
-type GetElementType<T extends unknown[]> = T[number];
-type StorybookSection = GetElementType<ReturnType<typeof getStorybook>>;
-type StorybookStory = GetElementType<StorybookSection['stories']>;
+import { IStorybookStory } from '@storybook/react/dist/client/preview/types';
 
 export type Test = (options: {
-    story: StorybookStory;
+    story: IStorybookStory;
     context: StoryContext;
     renderShallowTree: RenderTree;
     renderTree: RenderTree;
@@ -21,7 +16,7 @@ export type Test = (options: {
 }) => undefined | void | Promise<void>;
 
 export type RenderTree = (
-    story: StorybookStory,
+    story: IStorybookStory,
     context: StoryContext,
     options?: SnapshotOptions,
 ) => undefined | void | Promise<void>;
@@ -31,7 +26,7 @@ export interface SnapshotOptionsObject {
 }
 
 export interface SnapshotOptionsFn {
-    (story: StorybookStory): SnapshotOptionsObject;
+    (story: IStorybookStory): SnapshotOptionsObject;
 }
 
 export type SnapshotOptions = SnapshotOptionsObject | SnapshotOptionsFn;
