@@ -13,8 +13,7 @@ const comment = (content: string) => {};
 const docType = (content: string) => {};
 const cdata = (content: string) => {};
 const xmlProlog = () => {};
-const text = (value: string) => {
-};
+const text = (value: string) => {};
 const emptyRegExpOptions: RegExpOptions = {};
 const filledRegExpOptions: RegExpOptions = {attribute: new RegExp(''), name: new RegExp('')};
 const emptyCallbackOptions: CallbacksOption = {};
