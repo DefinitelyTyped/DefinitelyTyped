@@ -6,14 +6,14 @@ const elements = (arg: string) => arg;
 const comments = (arg: boolean) => arg;
 const docTypes = (arg: boolean) => arg;
 const attribute = (name: string, value: string) => {};
-const openElement = (name: string) => {};
-const closeOpenedElement = (name: string, token: Token, isUnary: boolean) => {};
+const openElement = (tagName: string) => {};
+const closeOpenedElement = (tagName: string, token: Token, isUnary: boolean) => {};
 const closeElement = (name: string) => {};
-const comment = (name: string) => {};
-const docType = (name: string) => {};
-const cdata = (name: string) => {};
+const comment = (content: string) => {};
+const docType = (content: string) => {};
+const cdata = (content: string) => {};
 const xmlProlog = () => {};
-const text = (name: string) => {
+const text = (value: string) => {
 };
 const emptyRegExpOptions: RegExpOptions = {};
 const filledRegExpOptions: RegExpOptions = {attribute: new RegExp(''), name: new RegExp('')};
