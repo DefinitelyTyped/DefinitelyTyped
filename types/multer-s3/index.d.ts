@@ -8,11 +8,12 @@
 // TypeScript Version: 2.3
 
 import * as AWS from "aws-sdk";
-import { IncomingMessage } from 'http';
+import { IncomingMessage } from "http";
 import { StorageEngine } from "multer";
+import { StorageEngine as KoaStorageEngine } from "koa-multer";
 
 type MulterRequest = Express.Request | IncomingMessage;
-type MulterFile = Express.Multer.File | File;
+type MulterFile = Express.Multer.File;
 
 interface Options {
     s3: AWS.S3;
@@ -45,7 +46,7 @@ declare global {
 }
 
 interface S3Storage {
-    (options?: Options): StorageEngine;
+    (options?: Options): StorageEngine & KoaStorageEngine;
 
     AUTO_CONTENT_TYPE(
         req: MulterRequest,
