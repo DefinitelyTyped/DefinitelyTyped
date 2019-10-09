@@ -5,6 +5,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.7
 
+/// <reference types='node' />
+
 import { Plugin } from 'rollup';
 
 declare namespace svgrRollup {
