@@ -13900,7 +13900,6 @@ declare namespace Stripe {
             };
             readonly requestId: string;
             readonly detail?: any;
-            readonly: number;
             readonly params?: string;
             readonly type: string;
         }
