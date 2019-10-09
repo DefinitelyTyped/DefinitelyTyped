@@ -4,10 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
 
-import * as React from 'react';
-
-export as namespace CarbonIconsReact;
-
 export interface CarbonIconProps extends Omit<React.SVGProps<any>, 'tabIndex'> {
     tabIndex?: string;
 }
