@@ -24,5 +24,15 @@ ES2015.GetIterator({ [Symbol.iterator]: generable });
 // $ExpectType Generator<number, void, unknown>
 ES2015.GetIterator(null, generable);
 
+const iteratorYieldResult: IteratorYieldResult<number> = null!;
+const iteratorReturnResult: IteratorReturnResult<string> = null!;
+const iteratorResult = Math.random() < .5 ? iteratorYieldResult : iteratorReturnResult;
+const iteratorNeverAnyResult: IteratorResult<never> = null!;
+
+ES2015.IteratorValue(iteratorYieldResult); // $ExpectType number
+ES2015.IteratorValue(iteratorReturnResult); // $ExpectType string
+ES2015.IteratorValue(iteratorResult); // $ExpectType string | number
+ES2015.IteratorValue(iteratorNeverAnyResult); // $ExpectType any
+
 // Removed in ES2015:
 ES2015.CheckObjectCoercible; // $ExpectError
