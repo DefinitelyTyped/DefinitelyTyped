@@ -7,6 +7,7 @@
 //                 Jimi (Dimitris) Charalampidis <https://github.com/JimiC>
 //                 Steffen Viken Valvåg <https://github.com/steffenvv>
 //                 Emily Marigold Klassen <https://github.com/forivall>
+//                 ExE Boss <https://github.com/ExE-Boss>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -27,12 +28,16 @@
 import { DetailedArguments, Configuration } from 'yargs-parser';
 
 declare namespace yargs {
-    // The type parameter T is the expected shape of the parsed options.
-    // Arguments<T> is those options plus _ and $0, and an indexer falling
-    // back to unknown for unknown options.
-    //
-    // For the return type / argv property, we create a mapped type over
-    // Arguments<T> to simplify the inferred type signature in client code.
+    type BuilderCallback<T, R> = ((args: Argv<T>) => Argv<R>) | ((args: Argv<T>) => void);
+
+    /**
+     * The type parameter `T` is the expected shape of the parsed options.
+     * `Arguments<T>` is those options plus `_` and `$0`, and an indexer falling
+     * back to `unknown` for unknown options.
+     *
+     * For the return type / `argv` property, we create a mapped type over
+     * `Arguments<T>` to simplify the inferred type signature in client code.
+     */
     interface Argv<T = {}> {
         (): { [key in keyof Arguments<T>]: Arguments<T>[key] };
         (args: ReadonlyArray<string>, cwd?: string): Argv<T>;
@@ -130,12 +135,14 @@ declare namespace yargs {
          * Set `description` to false to create a hidden command. Hidden commands don't show up in the help output and aren't available for completion.
          * @param [builder] Object to give hints about the options that your command accepts.
          * Can also be a function. This function is executed with a yargs instance, and can be used to provide advanced command specific help.
+         *
+         * Note that when `void` is returned, the handler `argv` object type will not include command-specific arguments.
          * @param [handler] Function, which will be executed with the parsed `argv` object.
          */
-        command<U>(command: string | ReadonlyArray<string>, description: string, builder?: (args: Argv<T>) => Argv<U>, handler?: (args: Arguments<U>) => void): Argv<T>;
+        command<U = T>(command: string | ReadonlyArray<string>, description: string, builder?: BuilderCallback<T, U>, handler?: (args: Arguments<U>) => void): Argv<T>;
         command<O extends { [key: string]: Options }>(command: string | ReadonlyArray<string>, description: string, builder?: O, handler?: (args: Arguments<InferredOptionTypes<O>>) => void): Argv<T>;
         command<U>(command: string | ReadonlyArray<string>, description: string, module: CommandModule<T, U>): Argv<U>;
-        command<U>(command: string | ReadonlyArray<string>, showInHelp: false, builder?: (args: Argv<T>) => Argv<U>, handler?: (args: Arguments<U>) => void): Argv<T>;
+        command<U = T>(command: string | ReadonlyArray<string>, showInHelp: false, builder?: BuilderCallback<T, U>, handler?: (args: Arguments<U>) => void): Argv<T>;
         command<O extends { [key: string]: Options }>(command: string | ReadonlyArray<string>, showInHelp: false, builder?: O, handler?: (args: Arguments<InferredOptionTypes<O>>) => void): Argv<T>;
         command<U>(command: string | ReadonlyArray<string>, showInHelp: false, module: CommandModule<T, U>): Argv<U>;
         command<U>(module: CommandModule<T, U>): Argv<U>;

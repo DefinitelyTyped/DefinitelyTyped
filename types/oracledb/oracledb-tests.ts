@@ -143,7 +143,9 @@ const testResultSet = async (connection: oracledb.Connection): Promise<void> => 
             SELECT 2 FROM DUAL
             UNION
             SELECT 3 FROM DUAL`,
-        {},
+        {
+            test: undefined,
+        },
         {
             resultSet: true,
         },

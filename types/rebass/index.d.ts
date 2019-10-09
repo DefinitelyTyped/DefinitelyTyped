@@ -49,8 +49,7 @@ export interface SxProps {
 interface BoxKnownProps
     extends BaseProps,
         StyledSystem.SpaceProps,
-        StyledSystem.WidthProps,
-        StyledSystem.HeightProps,
+        StyledSystem.LayoutProps,
         StyledSystem.FontSizeProps,
         StyledSystem.ColorProps,
         StyledSystem.FlexProps,

@@ -73,6 +73,12 @@
             "asOfVersion": "4.0.0"
         },
         {
+            "libraryName": "ansi-regex",
+            "typingsPackageName": "ansi-regex",
+            "sourceRepoURL": "https://github.com/chalk/ansi-regex",
+            "asOfVersion": "5.0.0"
+        },
+        {
             "libraryName": "antd",
             "typingsPackageName": "antd",
             "sourceRepoURL": "https://github.com/ant-design/ant-design",
@@ -833,6 +839,12 @@
             "typingsPackageName": "electron-util",
             "sourceRepoURL": "https://github.com/sindresorhus/electron-util",
             "asOfVersion": "0.11.0"
+        },
+        {
+            "libraryName": "electron-winstaller",
+            "typingsPackageName": "electron-winstaller",
+            "sourceRepoURL": "https://github.com/electron/windows-installer",
+            "asOfVersion": "4.0.0"
         },
         {
             "libraryName": "elegant-spinner",
@@ -1795,6 +1807,12 @@
             "asOfVersion": "2.5.7"
         },
         {
+            "libraryName": "jsrender",
+            "typingsPackageName": "jsrender",
+            "sourceRepoURL": "https://github.com/BorisMoore/jsrender",
+            "asOfVersion": "1.0.5"
+        },
+        {
             "libraryName": "junk",
             "typingsPackageName": "junk",
             "sourceRepoURL": "https://github.com/sindresorhus/junk",
@@ -2173,6 +2191,12 @@
             "asOfVersion": "2.0.1"
         },
         {
+            "libraryName": "nock",
+            "typingsPackageName": "nock",
+            "sourceRepoURL": "https://github.com/nock/nock",
+            "asOfVersion": "11.1.0"
+        },
+        {
             "libraryName": "node-pg-migrate",
             "typingsPackageName": "node-pg-migrate",
             "sourceRepoURL": "https://github.com/theoephraim/node-pg-migrate#readme",
@@ -2267,6 +2291,12 @@
             "typingsPackageName": "open-editor",
             "sourceRepoURL": "https://github.com/sindresorhus/open-editor",
             "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "openid-client",
+            "typingsPackageName": "openid-client",
+            "sourceRepoURL": "https://github.com/panva/node-openid-client",
+            "asOfVersion": "3.7.0"
         },
         {
             "libraryName": "opn",
@@ -2539,6 +2569,12 @@
             "asOfVersion": "6.1.0"
         },
         {
+            "libraryName": "paper",
+            "typingsPackageName": "paper",
+            "sourceRepoURL": "https://github.com/paperjs/paper.js",
+            "asOfVersion": "0.12.3"
+        },
+        {
             "libraryName": "param-case",
             "typingsPackageName": "param-case",
             "sourceRepoURL": "https://github.com/blakeembrey/param-case",
@@ -2665,6 +2701,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "playcanvas",
+            "typingsPackageName": "playcanvas",
+            "sourceRepoURL": "https://github.com/playcanvas/engine",
+            "asOfVersion": "1.23.0"
+        },
+        {
             "libraryName": "plottable",
             "typingsPackageName": "plottable",
             "sourceRepoURL": "http://plottablejs.org/",
@@ -2711,6 +2753,12 @@
             "typingsPackageName": "pretty-bytes",
             "sourceRepoURL": "https://github.com/sindresorhus/pretty-bytes",
             "asOfVersion": "5.2.0"
+        },
+        {
+            "libraryName": "pretty-format",
+            "typingsPackageName": "pretty-format",
+            "sourceRepoURL": "https://github.com/facebook/jest/tree/master/packages/pretty-format",
+            "asOfVersion": "24.3.0"
         },
         {
             "libraryName": "pretty-ms",
@@ -2821,6 +2869,12 @@
             "asOfVersion": "2.3.0"
         },
         {
+            "libraryName": "re2",
+            "typingsPackageName": "re2",
+            "sourceRepoURL": "https://github.com/uhop/node-re2",
+            "asOfVersion": "1.10.3"
+        },
+        {
             "libraryName": "react-chartjs-2",
             "typingsPackageName": "react-chartjs-2",
             "sourceRepoURL": "https://github.com/gor181/react-chartjs-2",
@@ -2849,6 +2903,12 @@
             "typingsPackageName": "react-dnd-test-backend",
             "sourceRepoURL": "https://github.com/react-dnd/react-dnd",
             "asOfVersion": "3.0.2"
+        },
+        {
+            "libraryName": "react-dnd-touch-backend",
+            "typingsPackageName": "react-dnd-touch-backend",
+            "sourceRepoURL": "https://github.com/react-dnd/react-dnd",
+            "asOfVersion": "0.5.0"
         },
         {
             "libraryName": "react-dropzone",
@@ -2945,6 +3005,12 @@
             "typingsPackageName": "react-svg",
             "sourceRepoURL": "https://github.com/tanem/react-svg",
             "asOfVersion": "5.0.0"
+        },
+        {
+            "libraryName": "react-webcam",
+            "typingsPackageName": "react-webcam",
+            "sourceRepoURL": "https://github.com/mozmorris/react-webcam",
+            "asOfVersion": "3.0.0"
         },
         {
             "libraryName": "read-chunk",
@@ -3403,10 +3469,94 @@
             "asOfVersion": "5.1.1"
         },
         {
+            "libraryName": "@storybook/addon-actions",
+            "typingsPackageName": "storybook__addon-actions",
+            "sourceRepoURL": "https://github.com/storybooks/storybook",
+            "asOfVersion": "5.2.0"
+        },
+        {
+            "libraryName": "@storybook/addon-backgrounds",
+            "typingsPackageName": "storybook__addon-backgrounds",
+            "sourceRepoURL": "https://github.com/storybooks/storybook",
+            "asOfVersion": "5.2.0"
+        },
+        {
+            "libraryName": "@storybook/addon-centered",
+            "typingsPackageName": "storybook__addon-centered",
+            "sourceRepoURL": "https://github.com/storybooks/storybook",
+            "asOfVersion": "5.2.0"
+        },
+        {
+            "libraryName": "@storybook/addon-jest",
+            "typingsPackageName": "storybook__addon-jest",
+            "sourceRepoURL": "https://github.com/storybooks/storybook",
+            "asOfVersion": "5.2.0"
+        },
+        {
+            "libraryName": "@storybook/addon-knobs",
+            "typingsPackageName": "storybook__addon-knobs",
+            "sourceRepoURL": "https://github.com/storybooks/storybook",
+            "asOfVersion": "5.2.0"
+        },
+        {
+            "libraryName": "@storybook/addon-links",
+            "typingsPackageName": "storybook__addon-links",
+            "sourceRepoURL": "https://github.com/storybooks/storybook",
+            "asOfVersion": "5.2.0"
+        },
+        {
             "libraryName": "@storybook/addon-notes",
             "typingsPackageName": "storybook__addon-notes",
             "sourceRepoURL": "https://github.com/storybooks/storybook",
             "asOfVersion": "5.0.0"
+        },
+        {
+            "libraryName": "@storybook/addon-options",
+            "typingsPackageName": "storybook__addon-options",
+            "sourceRepoURL": "https://github.com/storybooks/storybook",
+            "asOfVersion": "5.2.0"
+        },
+        {
+            "libraryName": "@storybook/addon-viewport",
+            "typingsPackageName": "storybook__addon-viewport",
+            "sourceRepoURL": "https://github.com/storybooks/storybook",
+            "asOfVersion": "5.2.0"
+        },
+        {
+            "libraryName": "@storybook/addons",
+            "typingsPackageName": "storybook__addons",
+            "sourceRepoURL": "https://github.com/storybooks/storybook",
+            "asOfVersion": "5.2.0"
+        },
+        {
+            "libraryName": "@storybook/channels",
+            "typingsPackageName": "storybook__channels",
+            "sourceRepoURL": "https://github.com/storybooks/storybook",
+            "asOfVersion": "5.2.0"
+        },
+        {
+            "libraryName": "@storybook/html",
+            "typingsPackageName": "storybook__html",
+            "sourceRepoURL": "https://github.com/storybooks/storybook",
+            "asOfVersion": "5.2.0"
+        },
+        {
+            "libraryName": "@storybook/preact",
+            "typingsPackageName": "storybook__preact",
+            "sourceRepoURL": "https://github.com/storybooks/storybook",
+            "asOfVersion": "5.2.1"
+        },
+        {
+            "libraryName": "@storybook/react-native",
+            "typingsPackageName": "storybook__react-native",
+            "sourceRepoURL": "https://github.com/storybooks/storybook",
+            "asOfVersion": "5.2.0"
+        },
+        {
+            "libraryName": "@storybook/vue",
+            "typingsPackageName": "storybook__vue",
+            "sourceRepoURL": "https://github.com/storybooks/storybook",
+            "asOfVersion": "5.2.0"
         },
         {
             "libraryName": "stream-mock",
@@ -3709,6 +3859,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "unist-util-is",
+            "typingsPackageName": "unist-util-is",
+            "sourceRepoURL": "https://github.com/syntax-tree/unist-util-is",
+            "asOfVersion": "4.0.0"
+        },
+        {
             "libraryName": "Universal Router",
             "typingsPackageName": "universal-router",
             "sourceRepoURL": "https://github.com/kriasoft/universal-router",
@@ -3793,6 +3949,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "vue-scrollto",
+            "typingsPackageName": "vue-scrollto",
+            "sourceRepoURL": "https://github.com/rigor789/vue-scrollto",
+            "asOfVersion": "2.17.1"
+        },
+        {
             "libraryName": "typescript",
             "typingsPackageName": "w3c-permissions",
             "sourceRepoURL": "https://www.w3.org/TR/permissions/",
@@ -3845,6 +4007,12 @@
             "typingsPackageName": "webpack-chain",
             "sourceRepoURL": "https://github.com/neutrinojs/webpack-chain",
             "asOfVersion": "5.2.0"
+        },
+        {
+            "libraryName": "typescript",
+            "typingsPackageName": "whatwg-streams",
+            "sourceRepoURL": "https://streams.spec.whatwg.org",
+            "asOfVersion": "3.2.1"
         },
         {
             "libraryName": "winston",
@@ -3929,12 +4097,6 @@
             "typingsPackageName": "xmlbuilder",
             "sourceRepoURL": "https://github.com/oozcitak/xmlbuilder-js",
             "asOfVersion": "11.0.1"
-        },
-        {
-            "libraryName": "@xmpp/jid",
-            "typingsPackageName": "xmpp__jid",
-            "sourceRepoURL": "github.com/node-xmpp/node-xmpp/",
-            "asOfVersion": "1.2.1"
         },
         {
             "libraryName": "xterm.js",

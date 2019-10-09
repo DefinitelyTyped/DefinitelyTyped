@@ -4,7 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.3
 
-import { Readable, Writable } from 'stream';
 import { QuestionCollection } from 'inquirer';
 
 type WriteLevel = 'DEBUG' | 'INFO' | 'WARNING' | 'ERROR';
@@ -18,9 +17,9 @@ export = UI;
  */
 declare class UI {
     constructor(options?: {
-        inputStream?: Readable;
-        outputStream?: Writable;
-        errorStream?: Writable;
+        inputStream?: NodeJS.ReadableStream;
+        outputStream?: NodeJS.WritableStream;
+        errorStream?: NodeJS.WritableStream;
         writeLevel?: WriteLevel;
         ci?: boolean;
     });

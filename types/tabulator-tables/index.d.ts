@@ -1175,7 +1175,7 @@ You can pass an optional additional property with sorter, sorterParams that shou
         | ((
               cell: CellComponent,
               onRendered: EmptyCallback,
-              success: ValueVoidCallback,
+              success: ValueBooleanCallback,
               cancel: ValueVoidCallback,
               editorParams: {},
           ) => HTMLElement | false);
@@ -1604,7 +1604,7 @@ declare class Tabulator {
     The first argument is the copy selector, you can choose from any of the built in options or pass a function in to the argument, that must return the selected row components.
 
     If you leave this argument undefined, Tabulator will use the value of the clipboardCopySelector property, which has a default value of table */
-    copyToClipboard: (type: 'selection' | 'table') => void;
+    copyToClipboard: (type?: 'selected' | 'table' | 'active') => void;
 
     /** With history enabled you can use the undo function to automatically undo a user action, the more times you call the function, the further up the history log you go. */
     undo: () => boolean;

@@ -91,6 +91,7 @@ export class ReactAutosuggestBasicTest extends React.Component<any, any> {
                 placeholder: `Type 'c'`,
                 value,
                 onChange: (e, changeEvent) => this.onChange(e, changeEvent),
+                onBlur: (e) => { console.log(e.relatedTarget); }
             }}
             theme={theme}/>;
     }

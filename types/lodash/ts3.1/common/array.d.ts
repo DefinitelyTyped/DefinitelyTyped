@@ -488,7 +488,9 @@ declare module "../index" {
          */
         flatten(): T extends Many<infer U> ? CollectionChain<U> : CollectionChain<T>;
     }
-    type Flat<T> = (T extends List<any> ? never : T);
+
+    type Flat<T> = T extends string ? T : (T extends List<any> ? never : T);
+
     interface LoDashStatic {
         /**
          * Recursively flattens a nested array.
@@ -1113,19 +1115,19 @@ declare module "../index" {
          * @param predicate The function invoked per iteration.
          * @return Returns the new array of removed elements.
          */
-        remove<T>(array: List<T>, predicate?: ListIteratee<T>): T[];
+        remove<T>(array: List<T>, predicate?: ListIterator<T, NotVoid>): T[];
     }
     interface Collection<T> {
         /**
          * @see _.remove
          */
-        remove(predicate?: ListIteratee<T>): Collection<T>;
+        remove(predicate?: ListIterator<T, NotVoid>): Collection<T>;
     }
     interface CollectionChain<T> {
         /**
          * @see _.remove
          */
-        remove(predicate?: ListIteratee<T>): CollectionChain<T>;
+        remove(predicate?: ListIterator<T, NotVoid>): CollectionChain<T>;
     }
     interface LoDashStatic {
         /**

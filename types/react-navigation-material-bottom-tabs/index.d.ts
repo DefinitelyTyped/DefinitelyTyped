@@ -20,7 +20,7 @@ export interface TabConfig {
     initialRouteName?: string;
     order?: string[];
     paths?: NavigationPathsConfig;
-    backBehavior?: 'initialRoute' | 'none';
+    backBehavior?: 'initialRoute' | 'order' | 'history' | 'none';
 }
 
 export function createMaterialBottomTabNavigator(

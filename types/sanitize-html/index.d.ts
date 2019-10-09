@@ -29,9 +29,10 @@ declare namespace sanitize {
 
   type Transformer = (tagName: string, attribs: Attributes) => Tag;
 
+  type AllowedAttribute = string | { name: string; multiple?: boolean; values: string[] };
 
   interface IDefaults {
-    allowedAttributes: { [index: string]: string[] };
+    allowedAttributes: { [index: string]: AllowedAttribute[] };
     allowedSchemes: string[];
     allowedSchemesByTag: { [index: string]: string[] };
     allowedTags: string[];
@@ -48,7 +49,7 @@ declare namespace sanitize {
 
 
   interface IOptions {
-    allowedAttributes?: { [index: string]: string[] } | boolean;
+    allowedAttributes?: { [index: string]: AllowedAttribute[] } | boolean;
     allowedStyles?:  { [index: string]: { [index: string]: RegExp[] } };
     allowedClasses?: { [index: string]: string[] } | boolean;
     allowedIframeHostnames?: string[];

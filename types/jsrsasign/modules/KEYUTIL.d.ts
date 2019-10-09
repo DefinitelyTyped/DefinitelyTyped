@@ -392,7 +392,7 @@ declare namespace jsrsasign {
          * var ecKeypair = KEYUTIL.generateKeypair("EC", "secp256r1");
          *
          */
-        static generateKeypair(alg: 'RSA' | 'EC', keylenOrCurve: number): { prvKeyObj: RSAKey; pubKeyObj: RSAKey };
+        static generateKeypair(alg: 'RSA' | 'EC', keylenOrCurve: number | string): { prvKeyObj: RSAKey; pubKeyObj: RSAKey };
 
         /**
          * get PEM formatted private or public key file from a RSA/ECDSA/DSA key object

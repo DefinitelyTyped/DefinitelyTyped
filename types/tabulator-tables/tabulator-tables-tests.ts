@@ -3,7 +3,7 @@
 
 // constructor
 let table = new Tabulator('#test');
-table.copyToClipboard('selection');
+table.copyToClipboard('selected');
 table.searchRows('name', '<', 3);
 table.setFilter('name', '<=', 3);
 table.setFilter([
@@ -519,3 +519,9 @@ options.headerSortTristate = true;
 colDef.formatter = 'rowSelection';
 
 options.invalidOptionWarnings = false;
+
+colDef.editor = (cell, onRendered, success, cancel, editorParams) => {
+    const editor = document.createElement('input');
+    const successful: boolean = success('test');
+    return editor;
+};

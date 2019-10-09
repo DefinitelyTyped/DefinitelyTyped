@@ -1,8 +1,7 @@
-
-
-declare var $: any, window: any;
-declare var alert: (msg: string) => any;
-declare var console: {log: any};
+declare const $: any;
+declare const window: any;
+declare const alert: (msg: string) => any;
+declare const console: {log: any};
 
 _.each([1, 2, 3], (num) => alert(num.toString()));
 _.each({ one: 1, two: 2, three: 3 }, (value, key) => alert(value.toString()));
@@ -197,7 +196,6 @@ _.min(numbers);
 
 _.sortBy([1, 2, 3, 4, 5, 6], (num) => Math.sin(num));
 
-
 _([1.3, 2.1, 2.4]).groupBy((e) => Math.floor(e));
 _.groupBy([1.3, 2.1, 2.4], (num) => Math.floor(num).toString());
 _.groupBy(['one', 'two', 'three'], 'length');
@@ -268,8 +266,6 @@ _.filter([{ name: 'larry', relation: 'father' }, { name: 'moe', relation: 'uncle
 var uncleMoe: Family = { name: 'moe', relation: 'uncle' };
 isUncleMoe(uncleMoe);
 
-
-
 ///////////////////////////////////////////////////////////////////////////////////////
 
 _.first([5, 4, 3, 2, 1]);
@@ -307,7 +303,7 @@ _.range(0);
 
 ///////////////////////////////////////////////////////////////////////////////////////
 
-var func = function (greeting) { return greeting + ': ' + this.name };
+var func = function (greeting) { return `${greeting}: ${this.name}` };
 // need a second var otherwise typescript thinks func signature is the above func type,
 // instead of the newly returned _bind => func type.
 var func2 = _.bind(func, { name: 'moe' }, 'hi');
@@ -315,8 +311,8 @@ func2();
 
 var buttonView = {
 	label: 'underscore',
-	onClick: function () { alert('clicked: ' + this.label); },
-	onHover: function () { console.log('hovering: ' + this.label); }
+	onClick() { alert('clicked: ' + this.label); },
+	onHover() { console.log('hovering: ' + this.label); }
 };
 _.bindAll(buttonView);
 $('#underscore_button').bind('click', buttonView.onClick);
@@ -358,7 +354,7 @@ _.each(notes, (note) => note.asyncSave({ success: renderNotes }));
 
 var hello = function (name) { return "hello: " + name; };
 // can't use the same "hello" var otherwise typescript fails
-var hello2 = _.wrap(hello, (func) => { return "before, " + func("moe") + ", after"; });
+var hello2 = _.wrap(hello, (func) => { return `before, ${func("moe")} + after`; });
 hello2();
 
 var greet = function (name) { return "hi: " + name; };
@@ -398,7 +394,6 @@ _.chain({ name: 'moe', age: 50, userid: 'moe1' }).pick(['name', 'age']).value().
 _.chain({ name: 'moe', age: 50, userid: 'moe1' }).pick((value, key) => {
     return key === 'name' || key === 'age';
 }).value().age = 5;
-
 
 _.omit({ name: 'moe', age: 50, userid: 'moe1' }, 'name');
 _.omit({ name: 'moe', age: 50, userid: 'moe1' }, 'name', 'age');
@@ -474,7 +469,7 @@ _.isNaN(undefined);
 _.isNull(null);
 _.isNull(undefined);
 
-_.isUndefined((<any>window).missingVariable);
+_.isUndefined((window).missingVariable);
 
 //////////////////////////////////// User Defined Guard tests
 
@@ -523,7 +518,7 @@ _(3).times(function (n) { genie.grantWishNumber(n); });
 _.random(0, 100);
 
 _.mixin({
-	capitalize: function (string) {
+	capitalize(string) {
 		return string.charAt(0).toUpperCase() + string.substring(1).toLowerCase();
 	}
 });
@@ -533,13 +528,14 @@ _.uniqueId('contact_');
 
 _.escape('Curly, Larry & Moe');
 
-var object = { cheese: 'crumpets', stuff: function () { return 'nonsense'; } };
+var object = { cheese: 'crumpets', stuff() { return 'nonsense'; } };
 _.result(object, 'cheese');
 
 _.result(object, 'stuff');
 
 var compiled = _.template("hello: <%= name %>");
 compiled({ name: 'moe' });
+let source: string = compiled.source;
 var list2 = "<% _.each(people, function(name) { %> <li><%= name %></li> <% }); %>";
 _.template(list2)({ people: ['moe', 'curly', 'larry'] });
 var template = _.template("<b><%- value %></b>");
@@ -555,6 +551,8 @@ template2({ name: "Mustache" });
 _.template("Using 'with': <%= data.answer %>", oldTemplateSettings)({ variable: 'data' });
 
 _.template("Using 'with': <%= data.answer %>", { variable: 'data' })({ answer: 'no' });
+let template0 = _.template("I don't depend on any variables");
+template0();
 
 //////////////// Chain Tests
 function chain_tests() {
@@ -613,7 +611,8 @@ function chain_tests() {
         .values()
         .value()
 
-    const arr1: string[] = ['z', 'x', 'y'], query = 'z';
+    const arr1: string[] = ['z', 'x', 'y'];
+    const query = 'z';
     let arr2: string[] = ['a', 'b', 'c'];
     arr2 = _.chain(arr1)
         .union(arr2)
@@ -625,8 +624,8 @@ var obj: { [k: string] : number } = {
        'test' : 5,
        'another' : 8,
        'third' : 10
-    },
-    empty = {};
+    };
+let empty = {};
 
 _.chain(obj).map(function (value, key) {
     empty[key] = value;

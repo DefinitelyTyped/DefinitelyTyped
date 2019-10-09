@@ -4,25 +4,51 @@ import expressPinoLogger = require('express-pino-logger');
 
 const server = express();
 
-// no options
+// no arguments
 
 let middleware = expressPinoLogger();
 server.use(middleware);
 
-// pino own options
+// pino options only
 
 const pinoOptions: pino.LoggerOptions = {};
 middleware = expressPinoLogger(pinoOptions);
 server.use(middleware);
 
-// options with existing logger
+// pino destination only
+
+const pinoDestination: pino.DestinationStream = pino.destination('/log/path');
+middleware = expressPinoLogger(pinoDestination);
+server.use(middleware);
+
+// pino options and destination
+
+const pinoOpts: pino.LoggerOptions = {};
+const pinoDest: pino.DestinationStream = pino.destination('/log/path');
+middleware = expressPinoLogger(pinoOpts, pinoDest);
+server.use(middleware);
+
+// existing logger
 
 const logger = pino();
-const optionsWithLogger = { logger };
+const optionsWithLogger: expressPinoLogger.Options = { logger };
 middleware = expressPinoLogger(optionsWithLogger);
 server.use(middleware);
 
 server.use((req, res, next) => {
     req.log.info('');
+    next();
+});
+
+// additional options
+const optionsWithGenReqId: expressPinoLogger.Options = {
+    logger,
+    genReqId: (req) => 'foo',
+};
+middleware = expressPinoLogger(optionsWithGenReqId);
+server.use(middleware);
+
+server.use((req, res, next) => {
+    req.log.info('%s', req.id);
     next();
 });

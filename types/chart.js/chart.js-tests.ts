@@ -1,4 +1,4 @@
-import { Chart, ChartData, Point, ChartColor } from 'chart.js';
+import { BorderWidth, Chart, ChartData, Point, ChartColor } from 'chart.js';
 
 // alternative:
 // import chartjs = require('chart.js');
@@ -14,7 +14,7 @@ const chart: Chart = new Chart(ctx, {
     type: 'bar',
     plugins: [plugin, plugin],
     data: {
-        labels: ['group 1'],
+        labels: ['group 1', 'group 2'],
         datasets: [
             {
                 backgroundColor: '#000000',
@@ -24,6 +24,12 @@ const chart: Chart = new Chart(ctx, {
                 label: 'test',
                 data: [1, null, 3],
             },
+            {
+                backgroundColor: '#ff0000',
+                borderWidth: { top: 1, right: 1, bottom: 0, left: 1 },
+                label: 'test',
+                data: [1, 3, 5],
+            }
         ],
     },
     options: {
@@ -120,14 +126,42 @@ const tickOptions: Chart.LinearTickOptions = {
     beginAtZero: true,
 };
 const scaleOptions: Chart.RadialLinearScale = {
-    ticks: tickOptions,
-    lineArc: false,
-    display: false,
-    scaleLabel: {
-        display: false,
-        lineHeight: 1,
-        padding: 0,
+    animate: false,
+    position: 'chartArea',
+    angleLines: {
+        display: true,
+        color: 'rgba(0, 0, 0, 0.1)',
+        lineWidth: 1,
+        borderDash: [],
+        borderDashOffset: 0.0
     },
+    pointLabels: {
+        callback: () => 'pointLabels callback',
+        fontColor: '#666',
+        fontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+        fontSize: 10,
+        fontStyle: 'normal',
+        lineHeight: 1.2
+    },
+    ticks: tickOptions,
+    display: false,
+    gridLines: {
+        display: true,
+        circular: false,
+        color: 'rgba(0, 0, 0, 0.1)',
+        borderDash: [],
+        borderDashOffset: 0.0,
+        lineWidth: 1,
+        drawBorder: true,
+        drawOnChartArea: true,
+        drawTicks: true,
+        tickMarkLength: 10,
+        zeroLineWidth: 1,
+        zeroLineColor: 'rgba(0, 0, 0, 0.25)',
+        zeroLineBorderDash: [],
+        zeroLineBorderDashOffset: 0.0,
+        offsetGridLines: false
+    }
 };
 const radarChartOptions: Chart.RadialChartOptions = {
     legend: { display: false },
@@ -197,6 +231,12 @@ const chartWithScriptedOptions = new Chart(new CanvasRenderingContext2D(), {
                     return "black";
                 }
                 return value > 3 ? "red" : "green";
+            },
+            borderWidth: ({ dataset, dataIndex }): BorderWidth => {
+                if (dataset === undefined || dataset.data === undefined || dataIndex === undefined) {
+                    return 1;
+                }
+                return { top: 1, right: 1, bottom: 0, left: 1 };
             }
         }],
     }

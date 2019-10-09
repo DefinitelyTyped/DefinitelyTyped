@@ -16,6 +16,7 @@ export type EventType =
     | 'input'
     | 'invalid'
     | 'submit'
+    | 'reset'
     | 'click'
     | 'contextMenu'
     | 'dblClick'

@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "dependencies": {
+        "pretty-format": "^24.3.0"
+    }
+}
