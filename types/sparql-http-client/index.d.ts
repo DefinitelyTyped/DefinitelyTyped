@@ -5,7 +5,6 @@
 // TypeScript Version: 2.3
 
 import { Term } from 'rdf-js';
-import fetch, { Response, RequestInit } from 'node-fetch';
 import { URL } from 'url';
 
 export interface SparqlHttpOptions {
@@ -14,8 +13,8 @@ export interface SparqlHttpOptions {
 }
 
 export interface SparqlClientOptions extends SparqlHttpOptions {
-    fetch: typeof fetch;
-    URL: typeof URL;
+    fetch?: typeof fetch;
+    URL?: typeof URL;
 }
 
 export interface QueryRequestInit extends SparqlHttpOptions, RequestInit {}
@@ -32,8 +31,8 @@ export interface SelectResponse {
     json(): Promise<SelectBindings & AskResult>;
 }
 
-export class SparqlHttp<TResponse extends Response = Response> {
-    constructor(options?: SparqlHttpOptions);
+export default class SparqlHttp<TResponse extends Response = Response> {
+    constructor(options?: SparqlClientOptions);
     updateQuery(query: string, options?: QueryRequestInit): Promise<Response>;
     selectQuery(query: string, options?: QueryRequestInit): Promise<SelectResponse & TResponse>;
     constructQuery(query: string, options?: QueryRequestInit): Promise<TResponse>;

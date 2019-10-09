@@ -1,4 +1,4 @@
-import { SparqlHttp } from 'sparql-http-client';
+import SparqlHttp from 'sparql-http-client';
 
 const client = new SparqlHttp();
 
