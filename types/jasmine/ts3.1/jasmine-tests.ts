@@ -917,10 +917,10 @@ describe("jasmine.any", () => {
 });
 
 describe('custom asymmetry', function() {
-    const tester = {
-        asymmetricMatch: (actual: string) => {
+    const tester: jasmine.AsymmetricMatcher<string> = {
+        asymmetricMatch: (actual: string, customTesters) => {
             const secondValue = actual.split(',')[1];
-            return secondValue === 'bar';
+            return jasmine.matchersUtil.equals(secondValue, 'bar', customTesters);
         },
     };
 
