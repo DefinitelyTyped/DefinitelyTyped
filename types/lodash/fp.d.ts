@@ -468,16 +468,16 @@ declare namespace _ {
     interface LodashDefaults {
         <TSource>(source: TSource): LodashDefaults1x1<TSource>;
         <TObject>(source: lodash.__, object: TObject): LodashDefaults1x2<TObject>;
-        <TObject, TSource>(source: TSource, object: TObject): TSource & TObject;
+        <TObject, TSource>(source: TSource, object: TObject): NonNullable<TSource & TObject>;
     }
-    type LodashDefaults1x1<TSource> = <TObject>(object: TObject) => TSource & TObject;
-    type LodashDefaults1x2<TObject> = <TSource>(source: TSource) => TSource & TObject;
+    type LodashDefaults1x1<TSource> = <TObject>(object: TObject) => NonNullable<TSource & TObject>;
+    type LodashDefaults1x2<TObject> = <TSource>(source: TSource) => NonNullable<TSource & TObject>;
     interface LodashDefaultsAll {
-        <TObject, TSource>(object: [TObject, TSource]): TSource & TObject;
-        <TObject, TSource1, TSource2>(object: [TObject, TSource1, TSource2]): TSource2 & TSource1 & TObject;
-        <TObject, TSource1, TSource2, TSource3>(object: [TObject, TSource1, TSource2, TSource3]): TSource3 & TSource2 & TSource1 & TObject;
-        <TObject, TSource1, TSource2, TSource3, TSource4>(object: [TObject, TSource1, TSource2, TSource3, TSource4]): TSource4 & TSource3 & TSource2 & TSource1 & TObject;
-        <TObject>(object: [TObject]): TObject;
+        <TObject, TSource>(object: [TObject, TSource]): NonNullable<TSource & TObject>;
+        <TObject, TSource1, TSource2>(object: [TObject, TSource1, TSource2]): NonNullable<TSource2 & TSource1 & TObject>;
+        <TObject, TSource1, TSource2, TSource3>(object: [TObject, TSource1, TSource2, TSource3]): NonNullable<TSource3 & TSource2 & TSource1 & TObject>;
+        <TObject, TSource1, TSource2, TSource3, TSource4>(object: [TObject, TSource1, TSource2, TSource3, TSource4]): NonNullable<TSource4 & TSource3 & TSource2 & TSource1 & TObject>;
+        <TObject>(object: [TObject]): NonNullable<TObject>;
         (object: ReadonlyArray<any>): any;
     }
     interface LodashDefaultsDeep {
@@ -3740,12 +3740,12 @@ declare namespace _ {
     type LodashReject1x2<T> = (predicate: lodash.ValueIterateeCustom<T, boolean>) => T[];
     type LodashReject2x2<T> = (predicate: lodash.ValueIterateeCustom<T[keyof T], boolean>) => Array<T[keyof T]>;
     interface LodashRemove {
-        <T>(predicate: lodash.ValueIteratee<T>): LodashRemove1x1<T>;
+        <T>(predicate: (value: T) => lodash.NotVoid): LodashRemove1x1<T>;
         <T>(predicate: lodash.__, array: lodash.List<T>): LodashRemove1x2<T>;
-        <T>(predicate: lodash.ValueIteratee<T>, array: lodash.List<T>): T[];
+        <T>(predicate: (value: T) => lodash.NotVoid, array: lodash.List<T>): T[];
     }
     type LodashRemove1x1<T> = (array: lodash.List<T>) => T[];
-    type LodashRemove1x2<T> = (predicate: lodash.ValueIteratee<T>) => T[];
+    type LodashRemove1x2<T> = (predicate: (value: T) => lodash.NotVoid) => T[];
     interface LodashRepeat {
         (n: number): LodashRepeat1x1;
         (n: lodash.__, string: string): LodashRepeat1x2;

@@ -28,7 +28,7 @@ export type TickFormatterFunction = (value: any) => any;
 export type TickGeneratorFunction = (noTicksProps: object) => any[];
 export type LabelFormatter = (label: string | number) => React.ReactNode;
 export type TooltipFormatter = (value: string | number | Array<string | number>, name: string,
-                                entry: TooltipPayload, index: number) => React.ReactNode;
+    entry: TooltipPayload, index: number) => React.ReactNode;
 export type ItemSorter<T> = (a: T, b: T) => number;
 export type ContentRenderer<P> = (props: P) => React.ReactNode;
 export type DataKey = string | number | ((dataObject: any) => string | number | [number, number] | null);
@@ -41,7 +41,7 @@ export type ScaleType =
     'auto' | 'linear' | 'pow' | 'sqrt' | 'log' | 'identity' | 'time' | 'band' | 'point' |
     'ordinal' | 'quantile' | 'quantize' | 'utcTime' | 'sequential' | 'threshold';
 export type PositionType =
-    'top' | 'left' | 'right' | 'bottom' | 'inside' | 'outside'| 'insideLeft' | 'insideRight' |
+    'top' | 'left' | 'right' | 'bottom' | 'inside' | 'outside' | 'insideLeft' | 'insideRight' |
     'insideTop' | 'insideBottom' | 'insideTopLeft' | 'insideBottomLeft' | 'insideTopRight' |
     'insideBottomRight' | 'insideStart' | 'insideEnd' | 'end' | 'center';
 export type StackOffsetType = 'sign' | 'expand' | 'none' | 'wiggle' | 'silhouette';
@@ -148,7 +148,7 @@ export interface PresentationAttributes<X = number, Y = number> extends Pick<CSS
     fontSize: number | string;
     fontSizeAdjust: number | string;
     fontWeight: 'normal' | 'bold' | 'bolder' | 'lighter' |
-        100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900 | 'inherit';
+    100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900 | 'inherit';
     imageRendering: 'auto' | 'optimizeSpeed' | 'optimizeQuality' | 'inherit';
     kerning: number | string;
     opacity: number | string;
@@ -409,7 +409,7 @@ export interface LegendProps {
     onBBoxUpdate?: BBoxUpdateCallback;
 }
 
-export class Legend extends React.Component<LegendProps, BoxSize> {}
+export class Legend extends React.Component<LegendProps, BoxSize> { }
 
 export interface LineProps extends EventAttributes, Partial<PresentationAttributes>, Animatable {
     className?: string;
@@ -742,7 +742,7 @@ export interface ResponsiveContainerProps {
     className?: string | number;
 }
 
-export class ResponsiveContainer extends React.Component<ResponsiveContainerProps, ContainerSize> {}
+export class ResponsiveContainer extends React.Component<ResponsiveContainerProps, ContainerSize> { }
 
 export interface ScatterPoint {
     cx?: number;
@@ -859,7 +859,7 @@ export interface TooltipProps extends Animatable {
     useTranslate3d?: boolean;
 }
 
-export class Tooltip extends React.Component<TooltipProps, BoxSize> {}
+export class Tooltip extends React.Component<TooltipProps, BoxSize> { }
 
 export interface TreemapProps extends EventAttributes, Animatable {
     width?: number;
@@ -936,6 +936,12 @@ export interface XAxisProps extends EventAttributes {
     width?: number;
     // The height of axis, which need to be set by user
     height?: number;
+    // Rotation of tick labels
+    angle?: number;
+    // X offset of tick label
+    dx?: number;
+    // Y offset of tick label
+    dy?: number;
     mirror?: boolean;
     // The orientation of axis
     orientation?: 'top' | 'bottom';
@@ -991,6 +997,12 @@ export interface YAxisProps extends EventAttributes {
     ticks?: any[];
     // The count of ticks
     tickCount?: number;
+    // Rotation of tick labels
+    angle?: number;
+    // X offset of tick label
+    dx?: number;
+    // Y offset of tick label
+    dy?: number;
     // The formatter function of tick
     tickFormatter?: TickFormatterFunction;
     // The width of axis, which need to be set by user

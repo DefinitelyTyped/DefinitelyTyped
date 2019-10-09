@@ -28,7 +28,7 @@ declare namespace GoogleAppsScript {
      *     }
      */
     export interface Cache {
-      get(key: string): string;
+      get(key: string): string | null;
       getAll(keys: string[]): { [key: string]: any };
       put(key: string, value: string): void;
       put(key: string, value: string, expirationInSeconds: Integer): void;
@@ -49,9 +49,9 @@ declare namespace GoogleAppsScript {
      * must be prepared to get back null from all reads.
      */
     export interface CacheService {
-      getDocumentCache(): Cache;
-      getScriptCache(): Cache;
-      getUserCache(): Cache;
+      getDocumentCache(): Cache | null;
+      getScriptCache(): Cache | null;
+      getUserCache(): Cache | null;
     }
 
   }

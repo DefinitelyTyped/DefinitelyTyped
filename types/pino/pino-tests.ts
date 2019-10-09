@@ -26,6 +26,10 @@ const log2: pino.Logger = pino({
 });
 
 pino({
+    write(o) {},
+});
+
+pino({
     browser: {
         write(o) {
         }

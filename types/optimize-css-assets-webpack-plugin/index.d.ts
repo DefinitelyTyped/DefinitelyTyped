@@ -28,7 +28,7 @@ declare namespace OptimizeCssAssetsPlugin {
          * @default cssnano
          */
         cssProcessor?: {
-            proccess: (css: string, options?: object) => PromiseLike<any>;
+            process: (css: string, options?: object) => PromiseLike<any>;
         };
         /**
          * The options passed to the `cssProcessor`.

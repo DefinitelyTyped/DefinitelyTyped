@@ -35,6 +35,7 @@
         "test/examples-from-react-router-website/Sidebar.tsx",
         "test/examples-from-react-router-website/StaticRouter.tsx",
         "test/Children.tsx",
+        "test/hooks.tsx",
         "test/NavigateWithContext.tsx",
         "test/MemoryRouter.tsx",
         "test/Switch.tsx",

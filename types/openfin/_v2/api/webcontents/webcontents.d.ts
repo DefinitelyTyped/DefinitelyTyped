@@ -1,8 +1,8 @@
 import { EmitterBase } from '../base';
-import { BaseEventMap } from '../events/base';
 import { Identity } from '../../identity';
 import Transport from '../../transport/transport';
-export declare class WebContents<T extends BaseEventMap> extends EmitterBase<T> {
+import { WebContentsEventMapping } from '../events/webcontents';
+export declare class WebContents<T extends WebContentsEventMapping> extends EmitterBase<T> {
     entityType: string;
     constructor(wire: Transport, identity: Identity, entityType: string);
     executeJavaScript(code: string): Promise<void>;
@@ -12,4 +12,5 @@ export declare class WebContents<T extends BaseEventMap> extends EmitterBase<T> 
     navigateBack(): Promise<void>;
     navigateForward(): Promise<void>;
     stopNavigation(): Promise<void>;
+    reload(ignoreCache?: boolean): Promise<void>;
 }

@@ -166,13 +166,15 @@ declare namespace Chance {
         d100(): number;
         guid(options?: { version: 4 | 5 }): string;
         hash(opts?: Options): string;
-        n<T>(generator: () => T, count: number, opts?: Options): T[];
+        n<T>(generator: () => T, count: number): T[];
+        n<T, O extends Options>(generator: (options: O) => T, count: number, options: O): T[];
         normal(opts?: Options): number;
         radio(opts?: Options): string;
         rpg(dice: string): number[];
         rpg(dice: string, opts?: Options): number[] | number;
         tv(opts?: Options): string;
-        unique<T>(generator: () => T, count: number, opts?: Options): T[];
+        unique<T>(generator: () => T, count: number): T[];
+        unique<T, O extends Options>(generator: (options: O) => T, count: number, options: O): T[];
         weighted<T>(values: T[], weights: number[]): T;
 
         // "Hidden"

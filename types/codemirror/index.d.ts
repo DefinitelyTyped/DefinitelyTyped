@@ -220,6 +220,16 @@ declare namespace CodeMirror {
         /** Set the content of the current editor document. */
         setValue(content: string): void;
 
+        /** start is a an optional string indicating which end of the selection to return.
+        It may be "from", "to", "head" (the side of the selection that moves when you press shift+arrow),
+        or "anchor" (the fixed side of the selection).Omitting the argument is the same as passing "head". A {line, ch} object will be returned. **/
+        getCursor(start?: string): CodeMirror.Position;
+
+        /** Set the cursor position. You can either pass a single {line, ch} object, or the line and the character as two separate parameters.
+        Will replace all selections with a single, empty selection at the given position.
+        The supported options are the same as for setSelection */
+        setCursor(pos: CodeMirror.Position | number, ch?: number, options?: { bias?: number, origin?: string, scroll?: boolean }): void;
+
         /** Sets the gutter marker for the given gutter (identified by its CSS class, see the gutters option) to the given value.
         Value can be either null, to clear the marker, or a DOM element, to set it. The DOM element will be shown in the specified gutter next to the specified line. */
         setGutterMarker(line: any, gutterID: string, value: HTMLElement | null): CodeMirror.LineHandle;
@@ -577,8 +587,8 @@ declare namespace CodeMirror {
         replaceSelection(replacement: string, collapse?: string): void;
 
         /** start is a an optional string indicating which end of the selection to return.
-        It may be "start" , "end" , "head"(the side of the selection that moves when you press shift + arrow),
-        or "anchor"(the fixed side of the selection).Omitting the argument is the same as passing "head".A { line , ch } object will be returned. */
+        It may be "from", "to", "head" (the side of the selection that moves when you press shift+arrow),
+        or "anchor" (the fixed side of the selection).Omitting the argument is the same as passing "head". A {line, ch} object will be returned. **/
         getCursor(start?: string): CodeMirror.Position;
 
         /** Retrieves a list of all current selections. These will always be sorted, and never overlap (overlapping selections are merged).

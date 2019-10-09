@@ -10,7 +10,7 @@ import { TextFieldProps } from "material-ui";
 
 export interface ValidatorFormProps {
     className?: string;
-    onSubmit: (event: React.FormEventHandler) => void;
+    onSubmit: (event: React.FormEvent) => void;
     instantValidate?: boolean;
     onError?: (errors: any[]) => void;
     debounceTime?: number;

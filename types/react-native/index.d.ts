@@ -23,6 +23,8 @@
 //                 Mike Martin <https://github.com/mcmar>
 //                 Theo Henry de Villeneuve <https://github.com/theohdv>
 //                 Eli White <https://github.com/TheSavior>
+//                 Romain Faust <https://github.com/romain-faust>
+//                 Be Birchall <https://github.com/bebebebebe>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -2008,9 +2010,38 @@ export interface AccessibilityProps extends AccessibilityPropsAndroid, Accessibi
 }
 
 export type AccessibilityActionInfo = Readonly<{
-    name: string;
+    name: AccessibilityActionName;
     label?: string;
 }>;
+
+export type AccessibilityActionName =
+    /**
+     * Generated when a screen reader user double taps the component.
+     */
+    | 'activate'
+    /**
+     * Gererated when a screen reader user increments an adjustable component.
+     */
+    | 'increment'
+    /**
+     * Gererated when a screen reader user decrements an adjustable component.
+     */
+    | 'decrement'
+    /**
+     * Generated when a TalkBack user places accessibility focus on the component and double taps and holds one finger on the screen.
+     * @platform android
+     */
+    | 'longpress'
+    /**
+     * Generated when a VoiceOver user places focus on or inside the component and double taps with two fingers.
+     * @platform ios
+     * */
+    | 'magicTap'
+    /**
+     * Generated when a VoiceOver user places focus on or inside the component and performs a two finger scrub gesture (left, right, left).
+     * @platform ios
+     * */
+    | 'escape';
 
 export type AccessibilityActionEvent = NativeSyntheticEvent<
     Readonly<{
@@ -6666,7 +6697,7 @@ export interface AccessibilityInfoStatic {
  */
 export interface AlertButton {
     text?: string;
-    onPress?: () => void;
+    onPress?: (value?: string) => void;
     style?: 'default' | 'cancel' | 'destructive';
 }
 
@@ -6717,6 +6748,7 @@ interface AlertOptions {
  */
 export interface AlertStatic {
     alert: (title: string, message?: string, buttons?: AlertButton[], options?: AlertOptions) => void;
+    prompt: (title: string, message?: string, callbackOrButtons?: ((text: string) => void) | AlertButton[], type?: AlertType, defaultValue?: string, keyboardType?: string) => void;
 }
 
 export type AlertType = 'default' | 'plain-text' | 'secure-text' | 'login-password';
@@ -8212,6 +8244,10 @@ export namespace Animated {
 
     interface LoopAnimationConfig {
         iterations?: number; // default -1 for infinite
+        /**
+         * Defaults to `true`
+         */
+        resetBeforeIteration?: boolean;
     }
 
     /**

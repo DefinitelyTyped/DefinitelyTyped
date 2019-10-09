@@ -203,7 +203,12 @@ declare namespace uri {
         encode(str: string): string;
         encodeQuery(qry: string): string;
         encodeReserved(str: string): string;
-        expand(template: string, vals: object): URI;
+
+        /**
+         * @description Wrapper for `URITemplate#expand`. Only present after
+         *              importing `urijs/src/URITemplate` explicitly.
+         */
+        expand?: (template: string, vals: object) => URI;
 
         iso8859(): void;
 
