@@ -3,6 +3,7 @@
 // Definitions by: Nick <https://github.com/fobdy>
 //                 Max Boguslavskiy <https://github.com/maxbogus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.7'
 
 import { Plugin } from 'rollup';
 
