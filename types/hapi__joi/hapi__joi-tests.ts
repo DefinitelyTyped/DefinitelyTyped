@@ -961,13 +961,22 @@ schema = Joi.compile(schemaMap);
 
 Joi.assert(obj, schema);
 Joi.assert(obj, schema, str);
+Joi.assert(obj, schema, str, validOpts);
 Joi.assert(obj, schema, err);
+Joi.assert(obj, schema, err, validOpts);
+Joi.assert(obj, schema, validOpts);
 Joi.assert(obj, schemaLike);
 
-Joi.attempt(obj, schema);
-Joi.attempt(obj, schema, str);
-Joi.attempt(obj, schema, err);
-Joi.attempt(obj, schemaLike);
+{
+    let value = { username: 'example', password: 'example' };
+    value = Joi.attempt(obj, schema);
+    value = Joi.attempt(obj, schema, str);
+    value = Joi.attempt(obj, schema, str, validOpts);
+    value = Joi.attempt(obj, schema, err);
+    value = Joi.attempt(obj, schema, err, validOpts);
+    value = Joi.attempt(obj, schema, validOpts);
+    value = Joi.attempt(obj, schemaLike);
+}
 
 ref = Joi.ref(str, refOpts);
 ref = Joi.ref(str);
