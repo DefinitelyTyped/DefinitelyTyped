@@ -13902,6 +13902,14 @@ declare namespace Stripe {
             readonly detail?: any;
             readonly params?: string;
             readonly type: string;
+            readonly statusCode?: number;
+
+            readonly charge?: string;
+            readonly decline_code?: string;
+            readonly payment_intent?: paymentIntents.IPaymentIntent;
+            readonly payment_method?: paymentMethods.IPaymentMethod;
+            readonly setup_intent?: setupIntents.ISetupIntent;
+            readonly source?: sources.ISource;
         }
         class StripeCardError extends StripeError {
             readonly type: 'StripeCardError';

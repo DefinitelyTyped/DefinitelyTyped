@@ -2065,6 +2065,30 @@ stripe.charges
         if (err instanceof Stripe.errors.StripeCardError) {
             const type = err.type;
         }
+
+        if (err instanceof Stripe.errors.StripeError) {
+            if (err.charge) {
+                const charge: string = err.charge;
+            }
+            if (err.payment_intent) {
+                const payment_intent: Stripe.paymentIntents.IPaymentIntent = err.payment_intent;
+            }
+            if (err.payment_method) {
+                const payment_method: Stripe.paymentMethods.IPaymentMethod = err.payment_method;
+            }
+            if (err.setup_intent) {
+                const setup_intent: Stripe.setupIntents.ISetupIntent = err.setup_intent;
+            }
+            if (err.source) {
+                const source: Stripe.sources.ISource = err.source;
+            }
+            if (err.decline_code) {
+                const decline_code: string = err.decline_code;
+            }
+            if (err.statusCode) {
+                const statusCode: number = err.statusCode;
+            }
+        }
     });
 
 //#endregion Errors
