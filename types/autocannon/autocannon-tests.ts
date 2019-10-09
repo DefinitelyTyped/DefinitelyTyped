@@ -1,4 +1,4 @@
-import * as autocannon from 'autocannon';
+import autocannon = require('autocannon');
 
 autocannon({
     url: 'http://localhost:3000',
