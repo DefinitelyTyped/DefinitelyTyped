@@ -1962,7 +1962,7 @@ declare namespace Joi {
          * @param message - optional message string prefix added in front of the error message. may also be an Error object.
          */
         assert(value: any, schema: SchemaLike, options?: ValidationOptions): void;
-        assert(value: any, schema: SchemaLike, message?: string | Error, options?: ValidationOptions): void;
+        assert(value: any, schema: SchemaLike, message: string | Error, options?: ValidationOptions): void;
 
         /**
          * Validates a value against a schema, returns valid object, and throws if validation fails.
@@ -1972,7 +1972,7 @@ declare namespace Joi {
          * @param message - optional message string prefix added in front of the error message. may also be an Error object.
          */
         attempt(value: any, schema: SchemaLike, options?: ValidationOptions): any;
-        attempt(value: any, schema: SchemaLike, message?: string | Error, options?: ValidationOptions): any;
+        attempt(value: any, schema: SchemaLike, message: string | Error, options?: ValidationOptions): any;
 
         cache: CacheConfiguration;
 
