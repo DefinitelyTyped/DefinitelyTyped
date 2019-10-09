@@ -1,6 +1,8 @@
-// Type definitions for @reach/router 1.2
+// Type definitions for @reach/router 1.2.1
 // Project: https://github.com/reach/router
-// Definitions by: Kingdaro <https://github.com/kingdaro>, A.Mokhtar <https://github.com/xMokAx>
+// Definitions by: Kingdaro <https://github.com/kingdaro>,
+//                 A.Mokhtar <https://github.com/xMokAx>,
+//                 Awwit <https://github.com/awwit>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
