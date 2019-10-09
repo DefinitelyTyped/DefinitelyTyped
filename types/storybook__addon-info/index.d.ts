@@ -7,7 +7,7 @@
 // TypeScript Version: 3.1
 
 import { ComponentType, ReactElement } from 'react';
-import { DecoratorFunction, StoryFn } from '@storybook/react';
+import { DecoratorFn, StoryFn } from '@storybook/react';
 
 export interface WrapStoryProps {
     storyFn?: StoryFn;
@@ -45,7 +45,7 @@ export interface Options {
 
 // TODO: it would be better to use type inference for the parameters
 // type DecoratorParams = StoryDecorator extends (...a: infer A) => any ? A: never;
-export function withInfo(story: StoryFn, context: { kind: string; story: string }): ReturnType<DecoratorFunction>;
+export function withInfo(story: StoryFn, context: { kind: string; story: string }): ReturnType<DecoratorFn>;
 // Legacy, but supported
 export function withInfo(
     textOrOptions?: string | Options,
