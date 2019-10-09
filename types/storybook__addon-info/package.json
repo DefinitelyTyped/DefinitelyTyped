@@ -2,6 +2,6 @@
     "private": true,
     "dependencies": {
         "@storybook/addons": "^5.2.0",
-        "@storybook/react": "^5.2.0"
+        "@storybook/react": "^5.2.2"
     }
 }

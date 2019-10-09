@@ -48,7 +48,10 @@ export interface Options {
     excludedPropTypes?: string[];
 }
 
-export function withInfo<A = unknown>(story: StoryFn<A>, context: StoryContext): ReturnType<DecoratorFunction<A>>;
+export function withInfo<A = unknown>(
+    story: StoryFn<A>,
+    context: StoryContext
+): ReturnType<DecoratorFunction<A>>;
 
 // Legacy, but supported
 /**
