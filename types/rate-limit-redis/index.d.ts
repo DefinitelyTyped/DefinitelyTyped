@@ -2,6 +2,7 @@
 // Project: https://github.com/wyattjoh/rate-limit-redis#readme
 // Definitions by: Chris Suich <https://github.com/csuich2>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import { RedisClient } from 'redis';
 import { Store } from 'express-rate-limit';
