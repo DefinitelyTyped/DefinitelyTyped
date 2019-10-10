@@ -984,32 +984,33 @@ declare module "../index" {
         /**
          * @see _.fromPairs
          */
-        fromPairs(
-            this: LoDashImplicitWrapper<List<any[]> | null | undefined>
-        ): LoDashImplicitWrapper<Dictionary<any>>;
+        fromPairs<T>(
+            this: LoDashImplicitWrapper<List<[PropertyName, T]> | null | undefined>
+          ): LoDashImplicitWrapper<Dictionary<T>>;
 
         /**
          @see _.fromPairs
          */
-        fromPairs<T>(
-            this: LoDashImplicitWrapper<List<[PropertyName, T]> | null | undefined>
-          ): LoDashImplicitWrapper<Dictionary<T>>;
+        fromPairs(
+            this: LoDashImplicitWrapper<List<any[]> | null | undefined>
+        ): LoDashImplicitWrapper<Dictionary<any>>;
     }
 
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.fromPairs
          */
-        fromPairs(
-            this: LoDashExplicitWrapper<List<any[]> | null | undefined>
-        ): LoDashExplicitWrapper<Dictionary<any>>;
+        fromPairs<T>(
+            this: LoDashExplicitWrapper<List<[PropertyName, T]> | null | undefined>
+        ): LoDashExplicitWrapper<Dictionary<T>>;
+        
 
         /**
          @see _.fromPairs
          */
-        fromPairs<T>(
-            this: LoDashExplicitWrapper<List<[PropertyName, T]> | null | undefined>
-          ): LoDashExplicitWrapper<Dictionary<T>>;
+        fromPairs(
+            this: LoDashExplicitWrapper<List<any[]> | null | undefined>
+        ): LoDashExplicitWrapper<Dictionary<any>>;
     }
 
     // head
