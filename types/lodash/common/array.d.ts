@@ -985,8 +985,8 @@ declare module "../index" {
          * @see _.fromPairs
          */
         fromPairs<T>(
-            this: LoDashImplicitWrapper<List<[PropertyName, T]> | null | undefined>
-          ): LoDashImplicitWrapper<Dictionary<T>>;
+          this: LoDashImplicitWrapper<List<[PropertyName, T]> | null | undefined>
+        ): LoDashImplicitWrapper<Dictionary<T>>;
 
         /**
          @see _.fromPairs
@@ -1001,9 +1001,8 @@ declare module "../index" {
          * @see _.fromPairs
          */
         fromPairs<T>(
-            this: LoDashExplicitWrapper<List<[PropertyName, T]> | null | undefined>
+          this: LoDashExplicitWrapper<List<[PropertyName, T]> | null | undefined>
         ): LoDashExplicitWrapper<Dictionary<T>>;
-        
 
         /**
          @see _.fromPairs
