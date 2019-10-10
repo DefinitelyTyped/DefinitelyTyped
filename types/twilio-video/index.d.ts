@@ -175,16 +175,16 @@ export class NetworkQualityAudioStats extends NetworkQualityMediaStats { }
 export class NetworkQualityBandwidthStats {
     actual: number | null;
     available: number | null;
-    level: NetworkQualityLevel;
+    level: NetworkQualityLevel | null;
 }
 export class NetworkQualityFractionLostStats {
     fractionLost: number | null;
-    level: NetworkQualityLevel;
+    level: NetworkQualityLevel | null;
 }
 export class NetworkQualityLatencyStats {
     jitter: number | null;
     rtt: number | null;
-    level: NetworkQualityLevel;
+    level: NetworkQualityLevel | null;
 }
 export class NetworkQualityMediaStats {
     send: NetworkQualityLevel;
@@ -193,9 +193,9 @@ export class NetworkQualityMediaStats {
     recvStats: NetworkQualitySendOrRecvStats | null;
 }
 export class NetworkQualitySendOrRecvStats {
-    bandwidth: NetworkQualityBandwidthStats;
-    latency: NetworkQualityLatencyStats;
-    fractionLost: NetworkQualityFractionLostStats;
+    bandwidth: NetworkQualityBandwidthStats | null;
+    latency: NetworkQualityLatencyStats | null;
+    fractionLost: NetworkQualityFractionLostStats | null;
 }
 export class NetworkQualityStats {
     level: NetworkQualityLevel;
@@ -212,7 +212,7 @@ export class Participant extends EventEmitter {
     dataTracks: Map<Track.SID, DataTrackPublication>;
     identity: Participant.Identity;
     networkQualityLevel: NetworkQualityLevel | null;
-    networkQualityStats: NetworkQualityStats;
+    networkQualityStats: NetworkQualityStats | null;
     sid: Participant.SID;
     state: string;
     tracks: Map<Track.SID, TrackPublication>;
