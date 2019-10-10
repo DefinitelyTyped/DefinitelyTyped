@@ -92,7 +92,7 @@ export const Context: React.Context<Partial<MediaQueryAllQueryable>>;
 
 export function useMediaQuery(
     settings: Partial<MediaQueryAllQueryable & { query?: string }>,
-    device?: MediaQueryTypes,
+    device?: MediaQueryMatchers,
     callback?: (matches: boolean) => void
 ): boolean;
 
