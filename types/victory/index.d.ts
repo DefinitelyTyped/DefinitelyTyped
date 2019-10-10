@@ -201,6 +201,7 @@ declare module 'victory' {
          * @default 1
          */
         lineHeight?: StringOrNumberOrCallback;
+        direction?: 'rtl' | 'ltr' | 'inherit';
         /**
          * Victory components will pass an origin prop is to define the center point in svg coordinates for polar charts.
          * **This prop should not be set manually.**
@@ -318,6 +319,10 @@ declare module 'victory' {
          * @default ""
          */
         desc?: string;
+        /**
+         * The direction prop determines which text direction to apply to the rendered text element
+         * @default "inherit"
+         */
     }
 
     export class VictoryContainer extends React.Component<VictoryContainerProps, any> {}
@@ -889,6 +894,42 @@ declare module 'victory' {
      * VictoryTooltip renders text as well as a configurable Flyout container.
      */
     export class VictoryTooltip extends React.Component<VictoryTooltipProps, any> {}
+
+    interface PrimitiveCommonProps {
+        active?: boolean;
+        className?: string;
+        clipPath?: string;
+        data?: any[];
+        desc?: StringOrNumberOrCallback;
+        events?: object;
+        id?: number | string;
+        index?: number | string;
+        origin?: { x: number; y: number };
+        polar?: boolean;
+        role?: string;
+        scale?:
+            | ScalePropType
+            | D3Scale
+            | {
+                  x?: ScalePropType | D3Scale;
+                  y?: ScalePropType | D3Scale;
+              };
+        shapeRendering?: string;
+        style?: object;
+        tabIndex?: StringOrNumberOrCallback;
+        transform?: string;
+    }
+
+    export interface LineSegmentProps extends PrimitiveCommonProps {
+        datum?: any;
+        lineComponent?: React.ReactElement;
+        x1?: number;
+        x2?: number;
+        y1?: number;
+        y2?: number;
+    }
+
+    export class LineSegment extends React.Component<LineSegmentProps, any> {}
 
     /**
      * Animate object used in components

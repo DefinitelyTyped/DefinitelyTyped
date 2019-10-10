@@ -1,25 +1,26 @@
 import * as React from 'react';
 import {
-    VictoryAnimation,
-    VictoryLabel,
     AnimationStyle,
+    createContainer,
+    LineSegment,
+    VictoryAnimation,
     VictoryArea,
     VictoryAxis,
-    VictoryStack,
     VictoryBar,
-    VictoryLine,
+    VictoryBoxPlot,
+    VictoryBrushContainerProps,
     VictoryChart,
-    VictoryScatter,
+    VictoryGroup,
+    VictoryLabel,
+    VictoryLegend,
+    VictoryLine,
     VictoryPie,
+    VictoryScatter,
+    VictoryStack,
     VictoryStyleInterface,
     VictoryTheme,
     VictoryThemeDefinition,
-    VictoryLegend,
-    VictoryBoxPlot,
-    VictoryGroup,
-    createContainer,
     VictoryZoomContainerProps,
-    VictoryBrushContainerProps,
 } from 'victory';
 
 const commonData1 = [
@@ -57,6 +58,7 @@ test = (
         events={{
             onClick: () => {},
         }}
+        direction="rtl"
         text="test"
         transform="scale(1.2)"
         dx={10}
@@ -519,6 +521,10 @@ test = (
 );
 
 test = <VictoryScatter data={commonData2} size={() => 5} />;
+
+test = <LineSegment datum={[1, 2, 3]} lineComponent={<line></line>} x1={0} x2={100} y1={0} y2={100} />;
+
+test = <LineSegment datum={[1, 2, 3]} x1={0} x2={100} y1={0} y2={100} />;
 
 // VictoryPie test
 test = (
