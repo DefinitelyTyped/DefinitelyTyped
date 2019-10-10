@@ -5,13 +5,13 @@
 
 /// <reference types="node" />
 
-interface NewLevel {
+export interface NewLevel {
     afterLog?: () => void;
 }
-interface NewLevelBefore extends NewLevel {
+export interface NewLevelBefore extends NewLevel {
     before: string;
 }
-interface NewLevelAfter extends NewLevel {
+export interface NewLevelAfter extends NewLevel {
     after: string;
 }
 
