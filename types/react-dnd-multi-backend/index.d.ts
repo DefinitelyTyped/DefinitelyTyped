@@ -117,8 +117,9 @@ export const TouchTransition: Transition;
 export const HTML5DragTransition: Transition;
 
 /**
- * Primary construction function for react-dnd-multi-backend.
- * @param backends The list of backends in descending order of preference to use for drag and drop.
- * @returns A backend definition compatible with react-dnd.
+ * Primary BackendFactory for react-dnd-multi-backend.
+ * You must pass an object containing `backends[]` as options
+ * @returns A backend factory compatible with react-dnd.
  */
-export default function(backends: Backends): BackendFactory;
+export const MultiBackend: BackendFactory;
+export default MultiBackend;
