@@ -210,7 +210,7 @@ declare namespace sharp {
        * @throws {Error} Invalid parameters
        * @returns A sharp instance that can be used to chain operations
        */
-      composite(images: Array<OverlayOptions>): Sharp;
+      composite(images: OverlayOptions[]): Sharp;
 
       //#endregion
 
@@ -903,7 +903,7 @@ declare namespace sharp {
 
   interface OverlayOptions {
       /** Buffer containing image data, String containing the path to an image file, or Create object  */
-      input?: string | Buffer | {create: Create}
+      input?: string | Buffer | {create: Create};
       /** how to blend this image with the image below. (optional, default `'over'`) */
       blend?: Blend;
       /** gravity at which to place the overlay. (optional, default 'centre') */
