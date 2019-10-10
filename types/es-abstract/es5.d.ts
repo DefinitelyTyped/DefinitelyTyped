@@ -19,7 +19,8 @@ interface ES5 {
 	ToUint32(value: unknown): number;
 	ToUint16(value: unknown): number;
 	ToString(value: unknown): string;
-	ToObject(value: unknown): unknown;
+	ToObject<T>(value: T): T extends object ? T : T extends null | undefined ? never : object;
+	ToObject(value: unknown): object;
 	CheckObjectCoercible<T>(value: T, errorMessage?: string): T extends null | undefined ? never : T;
 
 	readonly IsCallable: typeof isCallable;
